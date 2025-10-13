@@ -2,7 +2,7 @@
 
 ## 🎯 QUICK START
 
-**New to cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md)
+**New to cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) Part I  
 **Need quick commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)  
 **Preparing for OSCP?** → Focus on Master Guide Parts II-V + [Advanced Part 2](advanced_techniques_part2.md)  
 **Professional pentester?** → Use all guides as reference
@@ -39,7 +39,8 @@
 
 ### 📋 INFORMATION
 
-**[README](README.md)** - Guide Information & Overview
+**[Guide Overview](GUIDE_OVERVIEW.md)** - Detailed breakdown of contents  
+**[README](README.md)** - Collection information
 
 ---
 
@@ -169,4 +170,3 @@ You now have **239KB of professional cybersecurity knowledge** from **13 expert 
 *Collection: 9 guides, 239KB, 9,609 lines of expert content*  
 *Use wisely. Use legally. Use ethically.*  
 *Good luck on your cybersecurity journey!*
-
