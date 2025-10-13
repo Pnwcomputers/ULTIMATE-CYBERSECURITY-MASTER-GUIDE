@@ -1,4 +1,4 @@
-# Ultimate Cybersecurity Master Guide - Contents Overview
+# Ultimate Cybersecurity Master Guide - Overview
 
 ## 📊 Guide Statistics
 - **Total Size:** 61KB
