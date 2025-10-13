@@ -123,7 +123,7 @@ Your complete navigation guide with quick paths for every purpose
 
 **📚 Your Knowledge Base**
 - **Python 101** (58KB) - [Python.org](https://www.python.org/) security programming guide
-- **Networks & Networking** (78KB!) - Complete TCP/IP, routing, protocols
+- **Networks & Networking** (78KB) - Complete TCP/IP, routing, protocols
 - **PowerShell 101** (13KB) - [Microsoft PowerShell](https://docs.microsoft.com/en-us/powershell/) for security
 - **Debian Linux** (20KB) - [Debian](https://www.debian.org/) commands & administration
 - **Arch Linux** - [Arch Linux](https://archlinux.org/) / [BlackArch](https://blackarch.org/) usage
