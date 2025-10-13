@@ -1,4 +1,4 @@
-# Advanced Cybersecurity Techniques - Part 1: Professional Supplement
+# Advanced Cybersecurity Techniques - Professional Supplement
 ## Enhanced Guide with Content from Leading Security Resources
 
 *Compiled from: Metasploit 2E, Black Hat Bash, Gray Hat Python, and additional professional resources*
@@ -1119,5 +1119,3 @@ curl https://s3.amazonaws.com/bucket-name/
 ---
 
 *This is Part 1 of the Advanced Techniques Supplement. Additional sections on IoT exploitation, hardware hacking, and advanced evasion techniques will follow.*
-
-
