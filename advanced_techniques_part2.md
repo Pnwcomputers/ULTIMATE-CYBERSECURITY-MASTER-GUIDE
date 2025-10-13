@@ -1269,5 +1269,3 @@ int main(int argc, char **argv) {
 ---
 
 *This concludes Part 2 of the Advanced Cybersecurity Techniques guide. Continue building your skills through practice and staying current with the latest attack techniques and defenses.*
-
-
