@@ -9,17 +9,14 @@
 
 ## 🎯 START HERE
 
-### **[START_HERE.md](START_HERE.md)** ⭐ **READ THIS FIRST!**
+### **[START HERE](START_HERE.md)** ⭐ **READ THIS FIRST!**
 Your complete navigation guide with quick paths for every purpose
-
-### **[FINAL_INCORPORATION_SUMMARY.md](FINAL_INCORPORATION_SUMMARY.md)** 📋 **WHAT'S INCLUDED**
-Detailed breakdown of ALL incorporated materials (books + Notion)
 
 ---
 
 ## 📚 PRIMARY MASTER GUIDES
 
-### 1. **[ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)** (61KB) 🔥
+### 1. **[Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** (61KB) 🔥
 **THE MAIN COMPREHENSIVE GUIDE**
 - Incorporates ALL 13 professional books
 - 2,474 lines of expert content
@@ -38,7 +35,7 @@ Detailed breakdown of ALL incorporated materials (books + Notion)
 10. ✅ PoC||GTFO Vol 1, 2, 3 - Advanced techniques
 11. ✅ Designing Electronics - Hardware fundamentals
 
-### 2. **[ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)** 🚀
+### 2. **[ENHANCED MASTER GUIDE](ENHANCED_MASTER_GUIDE.md)** 🚀
 **WITH YOUR PERSONAL KNOWLEDGE**
 - ALL books PLUS your Notion content
 - Your OPSEC procedures
@@ -49,20 +46,17 @@ Detailed breakdown of ALL incorporated materials (books + Notion)
 
 ## 📖 SUPPORTING GUIDES
 
-**[cybersecurity_cliff_notes.md](cybersecurity_cliff_notes.md)** (29KB)
+**[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)** (29KB)
 - Quick command reference
 
-**[cybersecurity_playbooks.md](cybersecurity_playbooks.md)** (37KB)
+**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)** (37KB)
 - Operational procedures
 
-**[advanced_techniques_supplement.md](advanced_techniques_supplement.md)** (35KB)
+**[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)** (35KB)
 - Advanced Metasploit, cloud, pivoting
 
-**[advanced_techniques_part2.md](advanced_techniques_part2.md)** (30KB)
+**[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)** (30KB)
 - Exploit development, buffer overflows
-
-**[GUIDE_OVERVIEW.md](GUIDE_OVERVIEW.md)** (12KB)
-- Detailed table of contents
 
 ---
 
