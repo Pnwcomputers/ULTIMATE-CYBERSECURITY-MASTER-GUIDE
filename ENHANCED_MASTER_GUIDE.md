@@ -12,9 +12,7 @@
 
 # TABLE OF CONTENTS - ENHANCED EDITION
 
-## NEW SECTIONS FROM YOUR NOTION BASE:
-
-### PART 0: OPERATIONAL SECURITY & SETUP
+### OPERATIONAL SECURITY & SETUP
 1. [OPSEC Fundamentals](#opsec-fundamentals)
 2. [Virtual Machine Setup](#virtual-machine-setup)
 3. [Hardware & Device Arsenal](#hardware--device-arsenal)
@@ -56,7 +54,7 @@
 
 ---
 
-# PART 0: OPERATIONAL SECURITY & SETUP
+# OPERATIONAL SECURITY & SETUP
 
 ## OPSEC Fundamentals
 
