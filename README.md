@@ -108,24 +108,6 @@ Your complete navigation guide with quick paths for every purpose
 
 ---
 
-## 🎯 QUICK PATHS BY PURPOSE
-
-**New to Cybersecurity?** → START_HERE.md → Master Guide Part I → Cliff Notes
-
-**Professional Pentester?** → Master Guide (reference) → Playbooks → Advanced Guides
-
-**Studying for OSCP?** → Parts II-V → Advanced Part 2 (Buffer Overflows!) → Playbooks
-
-**OSINT Investigator?** → OSINT section → 400+ resources → VM setup script
-
-**SOC Analyst?** → Part VI (Defense) → Blue Team Playbook → Detection Rules
-
-**Red Team?** → Part IV → Advanced Guides → Your offensive scripts
-
-**Hardware Hacker?** → Part V (IoT) → Your hardware docs → Firmware guides
-
----
-
 ## 📊 STATISTICS
 
 - **Files:** 11 comprehensive guides
