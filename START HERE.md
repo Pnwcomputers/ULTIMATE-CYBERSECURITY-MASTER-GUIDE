@@ -39,8 +39,7 @@
 
 ### 📋 INFORMATION
 
-**[Guide Overview](GUIDE_OVERVIEW.md)** - Detailed breakdown of contents  
-**[README](README.md)** - Collection information
+**[README](README.md)** - Guide Information & Overview
 
 ---
 
