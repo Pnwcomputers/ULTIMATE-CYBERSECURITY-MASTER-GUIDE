@@ -1333,5 +1333,3 @@ This comprehensive guide covers the essential topics in cybersecurity and penetr
 ---
 
 *Remember: With great power comes great responsibility. Always use these skills ethically and legally.*
-
-
