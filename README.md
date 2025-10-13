@@ -88,23 +88,46 @@ Your complete navigation guide with quick paths for every purpose
 - PowerShell utilities
 
 **🎯 Attack Case Studies**
-- Stuxnet, WannaCry, EternalBlue
-- SolarWinds, Carbanak, NotPetya
-- Snowden Revelations
-- Data breaches (10 studies)
+- [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) (Iranian nuclear facilities cyberweapon)
+- [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/wannacry-ransomware) (Global ransomware outbreak)
+- [EternalBlue](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) (NSA exploit leaked by Shadow Brokers)
+- [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) (Supply chain compromise)
+- [Carbanak](https://www.fireeye.com/blog/threat-research/2017/06/behind-the-carbanak-backdoor.html) (APT banking theft campaign)
+- [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) (Destructive malware disguised as ransomware)
+- [Edward Snowden Revelations](https://www.theguardian.com/world/edward-snowden) (NSA surveillance programs)
+- Major data breaches (10+ case studies analyzed)
 
 **🔧 Hardware Arsenal**
-- FlipperZero guide
-- WiFi Pineapple, Hak5 devices
-- RF tools, USB attacks
-- Proxmark3, HackRF
+- [FlipperZero](https://flipperzero.one/) - Multi-tool for pentesters & geeks
+- [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) by [Hak5](https://hak5.org/) - Wireless auditing platform
+- [Hak5 Devices](https://shop.hak5.org/):
+  - [Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky) - Keystroke injection tool
+  - [Bash Bunny](https://shop.hak5.org/products/bash-bunny) - USB attack platform
+  - [LAN Turtle](https://shop.hak5.org/products/lan-turtle) - Covert network implant
+  - [Packet Squirrel](https://shop.hak5.org/products/packet-squirrel) - Ethernet multi-tool
+  - [Shark Jack](https://shop.hak5.org/products/shark-jack) - Portable network attack tool
+- **RF Tools:**
+  - [Proxmark3](https://proxmark.com/) - RFID/NFC research tool
+  - [HackRF One](https://greatscottgadgets.com/hackrf/) by [Great Scott Gadgets](https://greatscottgadgets.com/) - Software Defined Radio
+  - [RTL-SDR](https://www.rtl-sdr.com/) - Budget SDR receiver
+  - [Ubertooth One](https://greatscottgadgets.com/ubertoothone/) - Bluetooth sniffing
+  - [YardStick One](https://greatscottgadgets.com/yardstickone/) - Sub-1 GHz wireless transceiver
+- **USB Attack Tools:**
+  - [O.MG Cable](https://shop.hak5.org/products/omg-cable) - Implanted USB cable
+  - USB Rubber Ducky (see above)
+  - [Bash Bunny](https://shop.hak5.org/products/bash-bunny) - Multi-protocol attack tool
+- **WiFi Adapters:**
+  - [Alfa AWUS036ACH](https://www.alfa.com.tw/) - High-power dual-band WiFi
+  - [Alfa AWUS036NHA](https://www.alfa.com.tw/) - Long-range 802.11n
+  - TP-Link TL-WN722N - Budget monitor mode adapter
 
 **📚 Your Knowledge Base**
-- Python 101 (58KB)
-- Networks & Networking (78KB!)
-- PowerShell 101 (13KB)
-- Debian/Arch Linux (20KB)
-- Windows AD (19KB)
+- **Python 101** (58KB) - [Python.org](https://www.python.org/) security programming guide
+- **Networks & Networking** (78KB!) - Complete TCP/IP, routing, protocols
+- **PowerShell 101** (13KB) - [Microsoft PowerShell](https://docs.microsoft.com/en-us/powershell/) for security
+- **Debian Linux** (20KB) - [Debian](https://www.debian.org/) commands & administration
+- **Arch Linux** - [Arch Linux](https://archlinux.org/) / [BlackArch](https://blackarch.org/) usage
+- **Windows AD** (19KB) - [Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/) security & exploitation
 
 ---
 
