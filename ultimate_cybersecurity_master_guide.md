@@ -2472,5 +2472,3 @@ See previous sections for comprehensive command references.
 **END OF ULTIMATE CYBERSECURITY MASTER GUIDE**
 
 *This comprehensive guide incorporates practical knowledge from 13+ professional cybersecurity books including Metasploit 2E, Penetration Testing, Black Hat Bash, Gray Hat Python, Automate the Boring Stuff, Cybersecurity for Small Networks, Microcontroller Exploits, Go H*ck Yourself, Steal This Computer Book 4.0, and the PoC||GTFO series.*
-
-
