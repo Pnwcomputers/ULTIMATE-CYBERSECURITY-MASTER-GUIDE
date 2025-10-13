@@ -16,7 +16,7 @@ Your complete navigation guide with quick paths for every purpose
 
 ## 📚 PRIMARY MASTER GUIDES
 
-### 1. **[Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** (61KB) 🔥
+### 1. **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** (61KB) 🔥
 **THE MAIN COMPREHENSIVE GUIDE**
 - Incorporates ALL 13 professional books
 - 2,474 lines of expert content
