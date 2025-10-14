@@ -1,7 +1,7 @@
 # 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE COLLECTION
 
 ## 📊 Complete Professional Knowledge Base
-### Compiled from 20+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
+### Compiled from 70+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
 
 ---
 
