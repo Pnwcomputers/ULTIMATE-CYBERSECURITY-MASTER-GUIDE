@@ -4,8 +4,8 @@
 
 **New to cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) Part I  
 **Need quick commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)  
-**Preparing for OSCP?** → Focus on Master Guide Parts II-V + [Advanced Part 2](advanced_techniques_part2.md)  
-**Professional pentester?** → Use all guides as reference
+**Preparing for OSCP?** → Focus on Master Guide Parts 1 & 2 + Advanced Part 1 & Cybersecurity Operational Playbooks
+**Professional pentester?** → Use All Guides As Reference
 
 ---
 
