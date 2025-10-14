@@ -1,7 +1,7 @@
 # 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE COLLECTION
 
 ## 📊 Complete Professional Knowledge Base
-### Compiled from 20+ Expert Books + 90+ Personal Docs + Custom Tools & Scripts
+### Compiled from 20+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
 
 ---
 
@@ -12,13 +12,17 @@ Your complete navigation guide with quick paths for every purpose
 
 ---
 
-## 📚 PRIMARY MASTER GUIDE
+## 📚 PRIMARY MASTER GUIDES
 
-### **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
+- ### Guide 1 **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
 **THE MAIN COMPREHENSIVE GUIDE**
-- Key Aspects & Details of Over 20+ Professional Cyber Security Books
-- Over 90+ PNW Computers' Internal Docs, Guides & KB Articles
-- 2,474 Lines of Expert Content
+- Key Aspects & Details From 20+ Professional Cyber Security Books
+- Complete Penetration Testing Lifecycle
+
+### Guide 2 **[ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md)** 🔥
+**ENHANCED GUIDE**
+- Key Aspects & Details From 20+ Professional Cyber Security Books
+- Over 90+ PNW Computers' Internal Documents, Guides & KB Articles
 - Complete Penetration Testing Lifecycle
 
 ---
