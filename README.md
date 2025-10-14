@@ -43,9 +43,9 @@ Your complete navigation guide with quick paths for every purpose
 
 ---
 
-## 🆕 YOUR PERSONAL ADDITIONS (From Notion)
+## 🆕 ADDITIONS (From Personal Notion KB)
 
-### Your Unique Content:
+### Personal & Unique Content:
 
 **🔴 OPSEC & Operations**
 - Your personal rules ("ALWAYS use 3rd party network!")
@@ -115,12 +115,6 @@ Your complete navigation guide with quick paths for every purpose
 ---
 
 ## 📊 STATISTICS
-
-- **Files:** 11 comprehensive guides
-- **Size:** 244KB (books) + 14MB (Notion)
-- **Lines:** 9,600+ expert content
-- **Books:** All 13 incorporated
-- **Notion Docs:** 90+ added
 - **Scripts:** 15+ ready-to-use
 - **Case Studies:** 10 incidents
 - **OSINT Tools:** 400+ organized
@@ -493,8 +487,8 @@ This compilation references published works under fair use for educational purpo
 
 ## 🎊 WHAT MAKES THIS SPECIAL
 
-1. **13 Professional Books** - Complete coverage from industry experts
-2. **Your Personal Knowledge** - 90+ operational documents
+1. **20+ Professional Books** - Complete coverage from industry experts
+2. **Personal Knowledge** - 90+ operational documents
 3. **Real-World Focus** - 10+ attack case studies analyzed
 4. **Operational Ready** - 5 team playbooks for immediate use
 5. **Automation First** - 15+ production-ready scripts
