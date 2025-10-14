@@ -902,8 +902,8 @@ This compilation references published works under fair use for educational purpo
 
 ## 🎊 WHAT MAKES THIS SPECIAL
 
-1. **20+ Professional Books** - Complete coverage from industry experts
-2. **Personal Knowledge** - 90+ operational documents
+1. **70+ Professional Books Used As Resources** - Complete coverage from industry experts
+2. **Personal Knowledge & Experience** - 90+ operational documents
 3. **Real-World Focus** - 10+ attack case studies analyzed
 4. **Operational Ready** - 5 team playbooks for immediate use
 5. **Automation First** - 15+ production-ready scripts
