@@ -16,12 +16,12 @@ Your complete navigation guide with quick paths for every purpose
 
 ### Guide 1: **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
 **THE MAIN COMPREHENSIVE GUIDE**
-- Key Aspects & Details From 20+ Professional Cyber Security Books
+- Key Aspects & Details From 70+ Professional Cyber Security Books
 - Complete Penetration Testing Lifecycle
 
 ### Guide 2: **[ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md)** 🔥
 **ENHANCED GUIDE**
-- Key Aspects & Details From 20+ Professional Cyber Security Books
+- Key Aspects & Details From 70+ Professional Cyber Security Books
 - Over 90+ PNW Computers' Internal Documents, Guides & KB Articles
 - Complete Penetration Testing Lifecycle
 
@@ -388,58 +388,474 @@ While we cannot list everyone, special recognition to pioneers who shaped the fi
 
 ### Book Credits (Full Citations)
 
-1. **Metasploit: The Penetration Tester's Guide, 2nd Edition**  
-   Authors: David Kennedy, Jim O'Gorman, Devon Kearns, Mati Aharoni  
-   Publisher: No Starch Press  
-   ISBN: 978-1-7185-0318-7
+This is the entire, final bibliography list formatted strictly in Markdown using the itemized list style you requested, making it easy to copy and paste into your GitHub README or documentation.
 
-2. **Penetration Testing: A Hands-On Introduction to Hacking**  
-   Author: Georgia Weidman  
-   Publisher: No Starch Press  
-   ISBN: 978-1-59327-564-8
+-----
 
-3. **Black Hat Bash**  
-   Author: Ryan Barnett  
-   Publisher: No Starch Press  
-   ISBN: 978-1-7185-0312-5
+## 📚 Complete Bibliography - Cybersecurity & Ethical Hacking Resources (77 Entries)
 
-4. **Gray Hat Python: Python Programming for Hackers and Reverse Engineers**  
-   Authors: Justin Seitz, Tim Arnold  
-   Publisher: No Starch Press  
-   ISBN: 978-1-59327-192-3
+### I. Foundational & General Hacking
 
-5. **Automate the Boring Stuff with Python, 3rd Edition**  
-   Author: Al Sweigart  
-   Publisher: No Starch Press  
-   ISBN: 978-1-7185-0270-8
+1.  **Hacking: The Art of Exploitation (2nd Edition)**
+    Author: Jon Erickson
+    Publisher: No Starch Press
+    Year: 2008
+    ISBN: 978-1593271442
+    
+3.  **The Basics of Hacking and Penetration Testing: Ethical Hacking and Penetration Testing Made Easy (2nd Edition)**
+    Author: Patrick Engebretson
+    Publisher: Syngress
+    Year: 2013
+    ISBN: 978-0124116443
+    
+4.  **Gray Hat Hacking: The Ethical Hacker's Handbook (5th Edition)**
+    Authors: Allen Harper, Ryan Linn, Stephen Sims, Michael Baucom, Daniel Fernandez, Branko Spasojevic
+    Publisher: McGraw-Hill Education
+    Year: 2018
+    ISBN: 978-1260108415
+    
+5.  **The Hacker's Underground Handbook: Learn What it Takes to Crack Even the Most Secure Systems**
+    Author: David Melnichuk
+    Publisher: Self-published (Learn-How-To-Hack.net)
+    Year: 2008
 
-6. **Cybersecurity for Small Networks**  
-   Author: Seth Enoka  
-   Publisher: No Starch Press  
-   ISBN: 978-1-7185-0066-7
+6.  **Hacking: Computer Hacking Beginners Guide How to Hack Wireless Network, Basic Security and Penetration Testing, Kali Linux, Your First Hack**
+    Author: Alan T. Norman
+    Publisher: Self-published
+    Note: Beginner-friendly introduction to computer hacking concepts.
+    
+7.  **The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography**
+    Author: Simon Singh
+    Publisher: Anchor Books
+    Year: 1999
+    ISBN: 978-0385495325
+    
+8.  **Steal This Computer Book 4.0: What They Won't Tell You About the Internet**
+    Author: Wallace Wang
+    Publisher: No Starch Press
+    Year: 2006
+    ISBN: 978-1593271053
+    
+9.  **Cybersecurity - Attack and Defense Strategies: Infrastructure security with Red Team and Blue Team tactics**
+    Authors: Yuri Diogenes, Erdal Ozkaya
+    Publisher: Packt Publishing
+    Year: 2018
+    ISBN: 978-1788837074
+    
+10.  **The NICE Cyber Security Framework: Cyber Security Intelligence and Analytics**
+    Author: Izzat Alsmadi
+    Publisher: Springer
+    Year: 2019
+    ISBN: 978-3030023591
+    
+11. **Ethical Hacking MindMap**
+    Author: [To be determined]
+    Publisher: Educational material
 
-7. **Microcontroller Exploits**  
-   Author: Travis Goodspeed  
-   Publications: PoC||GTFO series, conference talks
+12. **Introduction to Ethical Hacking**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Note: Foundational guide covering ethical hacking concepts, hacker types, and hacking phases.
 
-8. **Go H*ck Yourself: A Simple Introduction to Cyber Attacks and Defense**  
-   Author: Bryson Payne  
-   Publisher: No Starch Press  
-   ISBN: 978-1-7185-0177-0
+### II. Penetration Testing & Operations
 
-9. **Steal This Computer Book 4.0**  
-   Author: Wallace Wang  
-   Publisher: No Starch Press  
-   ISBN: 978-1-59327-105-3
+12. **Penetration Testing: A Hands-On Introduction to Hacking**
+    Author: Georgia Weidman
+    Publisher: No Starch Press
+    Year: 2014
+    ISBN: 978-1593275648
+    
+14. **The Hacker Playbook 3: Practical Guide To Penetration Testing (Red Team Edition)**
+    Author: Peter Kim
+    Publisher: Secure Planet LLC
+    Year: 2018
+    ISBN: 978-1980901754
+    
+15. **Advanced Penetration Testing: Hacking the World's Most Secure Networks**
+    Author: Wil Allsopp
+    Publisher: Wiley
+    Year: 2017
+    ISBN: 978-1119367680
+    
+16. **Google Hacking for Penetration Testers, Volume 2**
+    Authors: Johnny Long, Petko "pdp" D. Petkov, Roelof Temmingh, Jeff Stewart, Ryan Langley
+    Publisher: Syngress/Elsevier
+    Year: 2007
+    ISBN: 978-1597491761
+    
+17. **Real-World Bug Hunting: A Field Guide to Web Hacking**
+    Author: Peter Yaworski
+    Publisher: No Starch Press
+    Year: 2019
+    ISBN: 978-1593278618
+    
+18. **Quick Start Guide to Penetration Testing With NMAP, OpenVAS and Metasploit**
+    Author: Sagar Rahalkar
+    Publisher: Apress
+    Year: 2019
+    ISBN: 978-1484242698
+    
+19. **Offensive Security OSCP Exam with AD Preparation**
+    Author: Michael Mancao
+    Publisher: Educational material
+    Year: 2022
+    Note: Exam preparation guide for the OSCP with Active Directory focus.
+    
+20. **OSCP Like Vulns Machines**
+    Author: Joas Antonio
+    Publisher: Educational material
+    Note: List of machines for practice similar to those found on the OSCP exam.
+    
+21. **Pentest in Office365 and Security**
+    Author: Joas Antonio
+    Publisher: Educational material
+    Note: Guide to techniques and tools for performing penetration testing in Office 365 environments.
+    
+22. **Exploiting Misconfigurations (Content Security Policy Bypass)**
+    Author: Jamy Casteel
+    Publisher: GIAC (SANS Institute) Gold Paper
+    Year: 2021
+    Note: Research paper on bypassing Content Security Policy (CSP) misconfigurations.
 
-10. **PoC||GTFO (Proof of Concept or Get The Fuck Out) Volumes 1, 2, 3**  
-    Editors: Manul Laphroaig, Pastor Manul Laphroaig, et al.  
-    Publisher: No Starch Press  
-    Community-driven security research journal
+### III. Defense and Team Strategies (Red, Blue, Purple)
 
-11. **Designing Electronics**  
-    (Hardware fundamentals integrated throughout)
+22. **RTFM: Red Team Field Manual**
+    Author: Ben Clark
+    Publisher: CreateSpace Independent Publishing Platform
+    Year: 2014
+    ISBN: 978-1494295509
+    
+24. **Blue Team Field Manual (BTFM)**
+    Authors: Alan J White, Ben Clark
+    Publisher: CreateSpace Independent Publishing Platform
+    Year: 2017
+    ISBN: 978-1541216044
+    
+25. **Purple Team Field Manual (PTFM)**
+    Author: Tim Bryant
+    Publisher: Self-published
+    Year: 2020
+    
+26. **Jump-start Your SOC Analyst Career: A Roadmap to Cybersecurity Success**
+    Authors: Tyler Wall, Jarrett Rodrick
+    Publisher: Apress
+    Year: 2021
+    ISBN: 978-1484269039
 
+### IV. Operating Systems, Tools, and Frameworks
+
+26. **Kali Linux Revealed: Mastering the Penetration Testing Distribution**
+    Authors: Raphaël Hertzog, Jim O'Gorman, Mati Aharoni
+    Publisher: Offsec Press
+    Year: 2017
+    ISBN: 978-0-9976402-0-2
+    
+28. **Mastering Kali Linux for Advanced Penetration Testing**
+    Author: Robert W. Beggs
+    Publisher: Packt Publishing
+    Year: 2014
+    ISBN: 978-1782169735
+    
+29. **Linux Basics for Hackers: Getting Started with Networking, Scripting, and Security in Kali**
+    Author: OccupyTheWeb
+    Publisher: No Starch Press
+    Year: 2019
+    ISBN: 978-1593278557
+    
+30. **Metasploit: The Penetration Tester's Guide (2nd Edition)**
+    Authors: David Kennedy, Mati Aharoni, Devon Kearns, Jim O'Gorman, Daniel G. Graham
+    Publisher: No Starch Press
+    Year: 2023
+    ISBN: 978-1718501237
+    
+31. **Metasploit Penetration Testing Cookbook**
+    Author: Abhinav Singh
+    Publisher: Packt Publishing
+    Year: 2012
+    ISBN: 978-1849517409
+    
+32. **Nmap 6: Network Exploration and Security Auditing Cookbook**
+    Author: Paulino Calderón Pale
+    Publisher: Packt Publishing
+    Year: 2012
+    ISBN: 978-1849517447
+    
+33. **Reconnaissance: Nmap and NSE Practical Guide**
+    Author: INVETECK GLOBAL
+    Publisher: Educational material
+    Note: Practical guide to Nmap scanning techniques and Nmap Scripting Engine (NSE) usage.
+    
+34. **Hacking Android**
+    Authors: Srinivasa Rao Kotipalli, Mohammed A Imran
+    Publisher: Packt Publishing
+    Year: 2016
+    ISBN: 978-1785883149
+    
+35. **Developing Burp Suite Extensions: From Manual Testing to Security Automation**
+    Author: Luca Carettoni
+    Publisher: DOYENSEC (Conference Presentation)
+    Note: Guide to developing custom extensions for Burp Suite for security automation.
+    
+36. **LINUX FOR BEGINNERS: How to Master the Linux Operating System and Command Line from Scratch**
+    Author: Noah Herrmann
+    Publisher: Self-published
+    Year: 2021
+
+37. **How Linux Works: What Every Superuser Should Know (3rd Edition)**
+    Author: Brian Ward
+    Publisher: No Starch Press
+    Year: 2021
+    ISBN: 978-1718500254
+    
+38. **Linux Command Line and Shell Scripting Bible (3rd Edition)**
+    Authors: Richard Blum, Christine Bresnahan
+    Publisher: Wiley
+    Year: 2015
+    ISBN: 978-1118983843
+    
+39. **Shell Scripting: Expert Recipes for Linux, Bash, and More**
+    Author: Steve Parker
+    Publisher: Wrox
+
+40. **Ultimate Linux Projects**
+    Author: Future PLC (Linux Format)
+    Publisher: Future PLC
+    Year: 2022
+    Note: Collection of Linux projects and guides from the makers of Linux Format magazine.
+
+### V. Web and Network Security
+
+40. **The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws (2nd Edition)**
+    Authors: Dafydd Stuttard, Marcus Pinto
+    Publisher: Wiley
+    Year: 2011
+    ISBN: 978-1118026472
+    
+42. **Web Application Security For Dummies (Qualys Limited Edition)**
+    Author: Mike Shema
+    Publisher: Wiley
+    Year: 2011
+    ISBN: 978-1119994879
+    
+43. **Network Security Assessment: Know Your Network (3rd Edition)**
+    Author: Chris McNab
+    Publisher: O'Reilly Media
+    Year: 2016
+    ISBN: 978-1491910955
+    
+44. **The Shellcoder's Handbook: Discovering and Exploiting Security Holes (2nd Edition)**
+    Authors: Chris Anley, John Heasman, Felix Lindner, Gerardo Richarte
+    Publisher: Wiley
+    Year: 2007
+    ISBN: 978-0470080238
+    
+45. **Web Scraping with Python: Collecting More Data from the Modern Web (2nd Edition)**
+    Author: Ryan Mitchell
+    Publisher: O'Reilly Media
+
+46. **Static Application Security Testing (SAST) Scanners Cheat Sheet**
+    Author: WeHackPurple / @SheHacksPurple
+    Publisher: Educational material
+    Note: Cheat sheet listing various SAST tools and their uses.
+    
+47. **Session Hijacking**
+    Publisher: Educational material
+    Note: Technical guide on session hijacking concepts and attack methods.
+    
+48. **SQL Injection - Comprehensive Guide**
+    Publisher: Educational material
+    Note: Guide covering SQL Injection basics, examples, and defense strategies.
+    
+49. **LEARN SQL USING SQUID GAME**
+    Author: @codechips (Cody)
+    Publisher: Educational material
+    Note: Guide explaining SQL concepts using the popular *Squid Game* show for examples.
+
+### VI. Wireless and Mobile Hacking
+
+49. **WiFi Hacking for Beginners**
+    Author: James Wells
+    Publisher: Self-published
+    Note: Guide on setting up a lab, wireless modes, handshake cracking, and network security.
+    
+51. **Kali Linux Wireless Pentesting and Security for Beginners**
+    Author: Hardeep Singh
+    Publisher: https://www.google.com/search?q=rootsh3ll.com
+    Year: 2017
+    Note: Guide from beginner to WiFi pentesting using Kali Linux tools.
+    
+52. **WiFi: Hack Proof Your Wireless Network**
+    Authors: Christian Barnes, Tony Bautts, Donald Lloyd, Eric Ouellet, Jeffrey Posluns, David M. Zendzian
+    Publisher: Syngress
+
+53. **Hacking HLR, HSS and MME Core Network Elements (LTE Pwnage)**
+    Author: Philippe Langlois
+    Publisher: Black Hat USA 2014 Briefings
+    Year: 2014
+    Note: Conference presentation on security vulnerabilities in telecommunications core network elements.
+    
+54. **Hacking LTE Public Warning Systems**
+    Author: Weiguang Li
+    Publisher: HAXPO D1 (Conference Presentation)
+    Note: Presentation on exploiting vulnerabilities in the LTE Public Warning System.
+
+-----
+
+### VII. Reverse Engineering and Exploit Development
+
+54. **Practical Reverse Engineering: x86, x64, ARM, Windows® Kernel, Reversing Tools, and Obfuscation**
+    Authors: Bruce Dang, Alexandre Gazet, Elias Bachaalany
+    Publisher: Wiley
+    Year: 2014
+    ISBN: 978-1118787311
+    
+56. **Mastering Reverse Engineering: Re-engineer your ethical hacking skills**
+    Author: Reginald Wong
+    Publisher: Packt Publishing
+    Year: 2018
+    ISBN: 978-1788832918
+    
+57. **Reverse Engineering for Beginners**
+    Author: Dennis Yurichev
+    Publisher: Self-published (Creative Commons)
+    Year: 2016
+    Note: Comprehensive guide to reverse engineering.
+    
+58. **Reverse Engineering for Beginners (Lite Version)**
+    Author: Dennis Yurichev
+    Publisher: Self-published (Creative Commons)
+    Note: Introductory short version of the full guide.
+
+-----
+
+### VIII. Programming and Data Science for Security
+
+58. **Black Hat Python: Python Programming for Hackers and Pentesters**
+    Author: Justin Seitz
+    Publisher: No Starch Press
+    Year: 2014
+    ISBN: 978-1593275907
+    
+60. **Violent Python: A Cookbook for Hackers, Forensic Analysts, Penetration Testers and Security Engineers**
+    Author: TJ O'Connor
+    Publisher: Syngress
+    Year: 2012
+    ISBN: 978-1597499576
+    
+61. **Understanding Network Hacks: Attack and Defense with Python**
+    Author: Bastian Ballmann
+    Publisher: Springer
+    Year: 2015
+    ISBN: 978-3662444368
+    
+62. **Hacking with Python: The Ultimate Beginner's Guide**
+    Author: Steve Tale
+    Publisher: Self-published
+    Year: 2017
+
+63. **Perl Programming for Beginners: An Introduction to Learn Perl Programming with Tutorials and Hands-On Examples**
+    Author: Nathan Metzler
+    Publisher: Lightbulb Publishing
+    
+64. **Malware Data Science: Attack Detection and Attribution**
+    Authors: Joshua Saxe with Hillary Sanders
+    Publisher: No Starch Press
+    Year: 2018
+    ISBN: 978-1593278595
+    
+65. **Machine Learning Mastery With Python: Understand Your Data, Create Accurate Models and Work Projects End-To-End**
+    Author: Jason Brownlee
+    Publisher: Machine Learning Mastery
+    Year: 2016
+    
+66. **Deep Learning With Python: Develop Deep Learning Models on Theano and TensorFlow Using Keras**
+    Author: Jason Brownlee
+    Publisher: Machine Learning Mastery
+    Year: 2016
+    
+67. **Long Short-Term Memory Networks With Python: Develop Sequence Prediction Models With Deep Learning**
+    Author: Jason Brownlee
+    Publisher: Machine Learning Mastery
+    Year: 2017
+    
+68. **Machine Learning with Python for Everyone**
+    Author: Mark E. Fenner
+    Publisher: Addison-Wesley
+
+-----
+
+### IX. Social Engineering and Forensics
+
+68. **Social Engineering: The Science of Human Hacking**
+    Author: Christopher Hadnagy
+    Publisher: Wiley
+    Year: 2018
+    ISBN: 978-1119433385
+    
+70. **The Art of Invisibility: The World's Most Famous Hacker Teaches You How to Be Safe in the Age of Big Brother and Big Data**
+    Author: Kevin Mitnick
+    Publisher: Little, Brown and Company
+    Year: 2017
+    ISBN: 978-0316380492
+    
+71. **Digital Forensics Explained (2nd Edition)**
+    Author: Greg Gogolin
+    Publisher: CRC Press
+    Year: 2018
+    ISBN: 978-1138491029
+    
+72. **How to Hide Data in Audio Files (Steganography Tutorial)**
+    Author: Ismael Nelson S
+    Publisher: Educational material
+    Year: [To be determined]
+    Note: Tutorial on steganography techniques to hide data within audio files, referencing *Mr. Robot*.
+
+-----
+
+### X. Dark Web and Chinni Diwakar LAB Guides
+
+72. **Dark Web: Exploring and Data Mining the Dark Side of the Web**
+    Author: Hsinchun Chen
+    Publisher: Springer
+    Year: 2012
+    ISBN: 978-1461415565
+    
+74. **Inside the Dark Web: The Unseen Side of The internet**
+    Author: Arun Adhikari
+    Publisher: DARKNET
+    Year: [To be determined]
+    ISBN: *(N/A)*
+    
+75. **Footprinting and Reconnaissance LAB**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Year: [To be determined]
+    Note: Laboratory guide covering DNS enumeration, web reconnaissance, and information gathering.
+    
+76. **Sniffers LAB - Network Traffic Analysis and MITM Attacks**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Year: [To be determined]
+    Note: Laboratory guide on packet sniffing, ARP spoofing, DNS spoofing, and man-in-the-middle attacks.
+    
+77. **DOS LAB - Denial of Service Attack Techniques**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Year: [To be determined]
+    Note: Laboratory guide covering various DoS attack methods, including IPv6 floods and LOIC usage.
+    
+78. **Metasploit Framework Guide**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Year: [To be determined]
+    Note: Comprehensive guide to Metasploit Framework commands, modules, and usage.
+    
+79. **System Hacking LAB**
+    Author: Chinni Diwakar
+    Publisher: Self-published / Educational material
+    Year: [To be determined]
+    Note: Laboratory guide on system hacking techniques, including use of Metasploit modules.
+    
 ---
 
 ## 🎖️ Special Thanks
