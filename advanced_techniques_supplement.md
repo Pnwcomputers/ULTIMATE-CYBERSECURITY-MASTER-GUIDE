@@ -1,7 +1,7 @@
 # Advanced Cybersecurity Techniques - Professional Supplement
 ## Enhanced Guide with Content from Leading Security Resources
 
-*Compiled from: Metasploit 2E, Black Hat Bash, Gray Hat Python, and additional professional resources*
+*Compiled from: Metasploit 2E, Black Hat Bash, Gray Hat Python, and many other additional professional resources*
 
 ---
 
