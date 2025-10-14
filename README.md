@@ -48,7 +48,7 @@ Your complete navigation guide with quick paths for every purpose
 ### Personal & Unique Content:
 
 **🔴 OPSEC & Operations**
-- Your personal rules ("ALWAYS use 3rd party network!")
+- My own practices & personal rules ("ALWAYS use 3rd party network!")
 - VM setup procedures
 - Anonymity workflows
 
