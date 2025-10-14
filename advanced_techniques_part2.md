@@ -1,7 +1,7 @@
 # Advanced Cybersecurity Techniques - Part 2
 ## Exploit Development, Mobile Hacking & Advanced Techniques
 
-*Compiled from: Penetration Testing (Georgia Weidman), Metasploit 2E, and professional security resources*
+*Compiled from: Penetration Testing (Georgia Weidman), Metasploit 2E, and many other professional security resources*
 
 ---
 
