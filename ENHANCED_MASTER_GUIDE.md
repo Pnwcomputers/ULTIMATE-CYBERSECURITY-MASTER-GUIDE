@@ -1,10 +1,10 @@
 # ENHANCED CYBERSECURITY MASTER GUIDE
-## Incorporating Personal Notion Knowledge Base + 70+ Professional Books
+## Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books
 
 *This enhanced guide combines:*
 - ✅ Over 70+ Professional Cybersecurity Books
 - ✅ Pacific NW Computers' Knowledge Base (20-Years First Hand Experience)
-- ✅ Custom Ccripts & Tools
+- ✅ Custom Scripts & Tools
 - ✅ Playbooks & Operational Procedures
 - ✅ Real-World Attack Case Studies
 
@@ -12,7 +12,7 @@
 
 # TABLE OF CONTENTS - ENHANCED EDITION
 
-## PART 0: OPERATIONAL SECURITY & SETUP
+## PART 1: OPERATIONAL SECURITY & SETUP
 1. [OPSEC Fundamentals](#opsec-fundamentals)
 2. [Virtual Machine Setup](#virtual-machine-setup)
 3. [Hardware & Device Arsenal](#hardware--device-arsenal)
@@ -54,7 +54,7 @@
 
 ---
 
-# PART 0: OPERATIONAL SECURITY & SETUP
+# PART 2: OPERATIONAL SECURITY & SETUP
 
 ## OPSEC Fundamentals
 
@@ -574,7 +574,7 @@ echo "[+] OSINT VM setup complete!"
 
 ---
 
-## OSINT Tools & Software
+## PART 3: OSINT Tools & Software
 
 ### Essential OSINT Tools
 
@@ -3754,9 +3754,7 @@ Write-Host ""
 
 **END OF ENHANCED CYBERSECURITY MASTER GUIDE**
 
-*This comprehensive enhanced guide now includes:*
-- ✅ All 13 professional cybersecurity books
-- ✅ Your personal Notion knowledge base
+*This comprehensive enhanced guide includes:*
 - ✅ OPSEC fundamentals
 - ✅ VM setup procedures
 - ✅ Hardware arsenal
@@ -3765,6 +3763,5 @@ Write-Host ""
 - ✅ Team playbooks (Purple/Blue)
 - ✅ Custom automation scripts
 - ✅ Detection rules & SIEM ingestion
-- ✅ Working internal navigation links
 
 *All links have been corrected and tested for proper navigation throughout the document.*
