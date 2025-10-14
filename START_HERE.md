@@ -2,10 +2,10 @@
 
 ## 🎯 QUICK START
 
-**New to cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) 
-**Need quick commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)  
-**Preparing for OSCP?** → Focus on [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) & [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) + [Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md) & [Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)
-**Professional pentester?** → Use All Guides As Reference
+- **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md)
+- **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
+- **Preparing For OSCP?** → Focus on [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) & [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) + [Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md) & [Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)
+- **Professional Pentester?** → Use All Guides As Reference
 
 ---
 
