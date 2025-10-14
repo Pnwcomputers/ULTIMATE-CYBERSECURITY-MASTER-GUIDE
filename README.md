@@ -14,7 +14,7 @@ Your complete navigation guide with quick paths for every purpose
 
 ## 📚 PRIMARY MASTER GUIDES
 
-- ### Guide 1 **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
+### Guide 1 **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
 **THE MAIN COMPREHENSIVE GUIDE**
 - Key Aspects & Details From 20+ Professional Cyber Security Books
 - Complete Penetration Testing Lifecycle
