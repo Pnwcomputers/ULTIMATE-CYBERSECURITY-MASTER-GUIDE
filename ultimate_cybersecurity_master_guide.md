@@ -1,7 +1,7 @@
 # The Ultimate Cybersecurity Master Guide
 ## Complete Professional Resource Compilation
 
-*Compiled from 13+ professional cybersecurity books*
+*Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books*
 
 ---
 
