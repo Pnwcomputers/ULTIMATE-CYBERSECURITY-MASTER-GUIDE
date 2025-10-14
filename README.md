@@ -29,16 +29,16 @@ Your complete navigation guide with quick paths for every purpose
 
 ## 📖 SUPPORTING GUIDES
 
-**[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)** (29KB)
+**[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)**
 - Quick command reference
 
-**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)** (37KB)
+**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)**
 - Operational procedures
 
-**[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)** (35KB)
+**[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)**
 - Advanced Metasploit, cloud, pivoting
 
-**[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)** (30KB)
+**[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
 - Exploit development, buffer overflows
 
 ---
