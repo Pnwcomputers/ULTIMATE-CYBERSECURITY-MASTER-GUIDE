@@ -862,13 +862,13 @@ This is the entire, final bibliography list formatted strictly in Markdown using
 ### To the Open Source Community
 Thank you to the thousands of developers who contribute to open-source security tools, making cybersecurity knowledge accessible to everyone.
 
-### To No Starch Press
+### To [No Starch Press](https://nostarch.com/)
 For consistently publishing high-quality, practical security books that educate the next generation of security professionals.
 
-### To Offensive Security
+### To [Offensive Security](https://www.offsec.com/)
 For creating Kali Linux and the OSCP certification that sets the standard for practical penetration testing skills.
 
-### To MITRE & OWASP
+### To [MITRE](https://attack.mitre.org/) & [OWASP](https://owasp.org/)
 For creating frameworks and resources that organize and share security knowledge globally.
 
 ### To Security Researchers Worldwide
