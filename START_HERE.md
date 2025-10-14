@@ -11,53 +11,40 @@
 
 ## 📚 YOUR COMPLETE LIBRARY (9 GUIDES, 239KB, ALL 13 BOOKS)
 
-### 🏆 PRIMARY GUIDE
+### 🏆 PRIMARY GUIDES
 
-**[Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** ⭐ START HERE  
-- **Size**: 61KB (2,474 lines)
-- **Incorporates ALL 13 books**
-- **Complete** penetration testing methodology
-- **Everything**: Recon → Exploitation → IoT → Defense → Automation → Reporting
+### Guide 1: **[The Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** 🔥
+**THE MAIN COMPREHENSIVE GUIDE**
+- Key Aspects & Details From 70+ Professional Cyber Security Books
+- Complete Penetration Testing Lifecycle
+
+### Guide 2: **[ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md)** 🔥
+**ENHANCED GUIDE**
+- Key Aspects & Details From 70+ Professional Cyber Security Books
+- Over 90+ PNW Computers' Internal Documents, Guides & KB Articles
+- Complete Penetration Testing Lifecycle
 
 ### 📖 QUICK REFERENCE
 
-**[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)**  
-- 29KB - Fast command lookup
-- Essential techniques for daily use
+**[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)**
+- Quick Command Reference
+- Essential Techniques for Daily Use
 
-**[Cybersecurity Playbooks](cybersecurity_playbooks.md)**  
-- 37KB - Operational procedures
-- Incident response workflows
+**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)**
+- Operational Procedures
+- Incident Response Workflows
 
 ### 🚀 ADVANCED TECHNIQUES
 
-**[Advanced Techniques Supplement](advanced_techniques_supplement.md)**  
-- 35KB - Advanced Metasploit, Cloud, Pivoting
+**[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)**
+- Advanced Metasploit, Cloud, Pivoting
 
-**[Advanced Techniques Part 2](advanced_techniques_part2.md)**  
-- 30KB - Exploit Development, Mobile Hacking, Buffer Overflows
+**[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
+- Exploit development, Mobile Hacking, Buffer Overflows
 
 ### 📋 INFORMATION
 
 **[README](README.md)** - Collection information & Detailed breakdown of contents  
-
----
-
-## ✅ ALL 13 BOOKS INCORPORATED
-
-1. ✅ Metasploit: The Penetration Tester's Guide (2nd Edition)
-2. ✅ Penetration Testing by Georgia Weidman
-3. ✅ Black Hat Bash
-4. ✅ Gray Hat Python  
-5. ✅ Microcontroller Exploits
-6. ✅ Cybersecurity for Small Networks
-7. ✅ Automate the Boring Stuff with Python (3rd Edition)
-8. ✅ Go H*ck Yourself
-9. ✅ Steal This Computer Book 4.0
-10. ✅ PoC||GTFO Volume 1
-11. ✅ PoC||GTFO Volume 2
-12. ✅ PoC||GTFO Volume 3
-13. ✅ Designing Electronics
 
 ---
 
@@ -66,26 +53,25 @@
 ### 🌱 BEGINNER PATH
 1. Master Guide Part I (Foundations)
 2. Master Guide Part II (Reconnaissance)
-3. Cliff Notes (Practice commands)
-4. Master Guide Part III (Vulnerability Assessment)
+3. Cliff Notes (Practice Commands)
 
 ### 💼 PROFESSIONAL PATH
 1. Master Guide (Complete)
 2. Playbooks (Procedures)
 3. Advanced guides (Deep techniques)
-4. Use as daily reference
+4. Use as Daily Reference
 
 ### 🎓 OSCP CERTIFICATION PATH
-1. Master Guide Parts I-IV
+1. Master Guide Parts 1 & 2
 2. Advanced Part 2 (Buffer Overflows - CRITICAL!)
 3. Playbooks (Methodology)
 4. Practice on PWK labs
 
 ### 🔧 HARDWARE HACKER PATH
-1. Master Guide Part I
-2. Master Guide Part V (IoT & Hardware)
-3. Get hardware tools
-4. Practice firmware extraction
+1. Master Guide Part 1
+2. Master Guide Part 2
+3. Get Hardware Tools
+4. Practice Firmware Extraction, Programming, Reverse Engeneering, etc.
 
 ---
 
@@ -101,21 +87,6 @@
 ✅ Python and Bash automation  
 ✅ Professional report writing  
 ✅ Legal and ethical considerations  
-
----
-
-## ⚡ QUICK TOPIC LOOKUP
-
-**Want to learn...?**
-- **Nmap/Scanning** → Master Guide Part II
-- **Metasploit** → Master Guide Part IV + Advanced Supplement
-- **Web Hacking** → Master Guide Parts II-III
-- **Exploit Development** → Advanced Part 2
-- **Hardware Hacking** → Master Guide Part V
-- **Python Automation** → Master Guide Parts I & VIII
-- **Network Defense** → Master Guide Part VI
-- **Mobile Hacking** → Advanced Part 2
-- **Report Writing** → Master Guide Part IX
 
 ---
 
