@@ -859,7 +859,7 @@ This is the entire, final bibliography list formatted strictly in Markdown using
 
 ## 🎖️ Special Thanks
 
-### To the Open Source Community
+### To the [Open Source](https://opensource.com/) Community
 Thank you to the thousands of developers who contribute to open-source security tools, making cybersecurity knowledge accessible to everyone.
 
 ### To [No Starch Press](https://nostarch.com/)
