@@ -680,7 +680,6 @@ This is the entire, final bibliography list formatted strictly in Markdown using
     
 51. **Kali Linux Wireless Pentesting and Security for Beginners**
     Author: Hardeep Singh
-    Publisher: https://www.google.com/search?q=rootsh3ll.com
     Year: 2017
     Note: Guide from beginner to WiFi pentesting using Kali Linux tools.
     
