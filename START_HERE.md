@@ -51,25 +51,28 @@
 ## 🎯 CHOOSE YOUR PATH
 
 ### 🌱 BEGINNER PATH
-1. Master Guide Part I (Foundations)
-2. Master Guide Part II (Reconnaissance)
-3. Cliff Notes (Practice Commands)
+1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) (Foundations)
+2. [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) (Reconnaissance)
+3. [Cliff Notes](cybersecurity_cliff_notes.md) (Practice Commands)
 
 ### 💼 PROFESSIONAL PATH
-1. Master Guide (Complete)
-2. Playbooks (Procedures)
-3. Advanced guides (Deep techniques)
-4. Use as Daily Reference
+1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) (Foundations)
+2. [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) (Reconnaissance)
+3. [Cybersecurity Operational Playbooks](cybersecurity_playbooks.md) (Procedures)
+4. [Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)
+5. [Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)
+6. Use as Daily Reference
 
 ### 🎓 OSCP CERTIFICATION PATH
-1. Master Guide Parts 1 & 2
-2. Advanced Part 2 (Buffer Overflows - CRITICAL!)
-3. Playbooks (Methodology)
-4. Practice on PWK labs
+1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) (Foundations)
+2. [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) (Reconnaissance)
+3. [Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)(Buffer Overflows - CRITICAL!)
+3. [Cybersecurity Operational Playbooks](cybersecurity_playbooks.md) (Methodology)
+4. [Practice with PWK Labs](https://www.offsec.com/blog/pwk-labs-success/)
 
 ### 🔧 HARDWARE HACKER PATH
-1. Master Guide Part 1
-2. Master Guide Part 2
+1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) (Foundations)
+2. [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) (Reconnaissance)
 3. Get Hardware Tools
 4. Practice Firmware Extraction, Programming, Reverse Engeneering, etc.
 
@@ -101,14 +104,14 @@
 ### This Week:
 - Complete Master Guide Parts I-II
 - Practice commands from Cliff Notes
-- Join HackTheBox or TryHackMe
-- Setup home lab
+- Join [HackTheBox](https://hackthebox.com) or [TryHackMe](https://tryhackme.com/)
+- Setup Home Lab
 
 ### This Month:
 - Finish Master Guide
 - Complete 5 CTF machines
 - Read Advanced guides
-- Start certification study
+- Start Certification Study
 
 ---
 
@@ -124,8 +127,6 @@
 
 ## 💪 YOU'RE READY!
 
-You now have **239KB of professional cybersecurity knowledge** from **13 expert books**.
-
 **Everything you need to:**
 - Start your cybersecurity career
 - Pass major certifications (OSCP, CEH, GPEN)
@@ -137,6 +138,5 @@ You now have **239KB of professional cybersecurity knowledge** from **13 expert 
 
 ---
 
-*Collection: 9 guides, 239KB, 9,609 lines of expert content*  
 *Use wisely. Use legally. Use ethically.*  
 *Good luck on your cybersecurity journey!*
