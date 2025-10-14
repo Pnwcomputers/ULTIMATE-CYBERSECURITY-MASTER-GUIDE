@@ -2,11 +2,11 @@
 ## Incorporating Personal Notion Knowledge Base + 13 Professional Books
 
 *This enhanced guide combines:*
-- ✅ All 13 professional cybersecurity books
-- ✅ Your personal Notion knowledge base
-- ✅ Custom scripts and tools
-- ✅ Playbooks and operational procedures
-- ✅ Real-world attack case studies
+- ✅ Over 20 Professional Cybersecurity Books
+- ✅ Pacific NW Computers' Knowledge Base (20-Years First Hand Experience)
+- ✅ Custom Ccripts & Tools
+- ✅ Playbooks & Operational Procedures
+- ✅ Real-World Attack Case Studies
 
 ---
 
