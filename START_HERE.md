@@ -39,8 +39,7 @@
 
 ### 📋 INFORMATION
 
-**[Guide Overview](GUIDE_OVERVIEW.md)** - Detailed breakdown of contents  
-**[README](README.md)** - Collection information
+**[README](README.md)** - Collection information & Detailed breakdown of contents  
 
 ---
 
@@ -170,4 +169,3 @@ You now have **239KB of professional cybersecurity knowledge** from **13 expert 
 *Collection: 9 guides, 239KB, 9,609 lines of expert content*  
 *Use wisely. Use legally. Use ethically.*  
 *Good luck on your cybersecurity journey!*
-
