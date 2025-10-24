@@ -42,10 +42,10 @@ Your complete navigation guide with quick paths for every purpose
 - Exploit development, buffer overflows
 
 **[Action Plan: Network & Wifi Audit Playbook](NetworkAuditPlayBook.md)**
-- Exploit development, buffer overflows
+- Full playbook for completing a professional Network & Wifi Security Audit/PenTest
 
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
-- Exploit development, buffer overflows
+- Do-It-Yourself Cybersecurity & Pentesting Devices; mainly Single Board Computer based.
 
 ---
 
