@@ -45,7 +45,7 @@ Your complete navigation guide with quick paths for every purpose
 - Full playbook for completing a professional Network & Wifi Security Audit/PenTest
 
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
-- Do-It-Yourself Cybersecurity & Pentesting Devices; mainly Single Board Computer based.
+- Do-It-Yourself Cybersecurity & Pentesting Devices (mainly 'Single Board Computer' based)
 
 ---
 
