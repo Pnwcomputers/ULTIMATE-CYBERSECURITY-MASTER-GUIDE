@@ -41,6 +41,12 @@ Your complete navigation guide with quick paths for every purpose
 **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
 - Exploit development, buffer overflows
 
+**[Action Plan: Network & Wifi Audit Playbook](NetworkAuditPlayBook.md)**
+- Exploit development, buffer overflows
+
+**[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
+- Exploit development, buffer overflows
+
 ---
 
 ## 🆕 ADDITIONS (From Personal Notion KB)
