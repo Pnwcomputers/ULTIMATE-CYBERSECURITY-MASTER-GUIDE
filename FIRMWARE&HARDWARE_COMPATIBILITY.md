@@ -43,8 +43,7 @@
   - DOIT ESP32 DevKit
 - **Use Cases:** WiFi deauth, packet sniffing, evil twin attacks
 
-#### [ESP32-S2](https://en.wikipedia.org/wiki/ESP32](https://www.espressif.com/en/products/socs/esp32-s2)
-- **Chipset:** Single-core Xtensa LX7
+#### [ESP32 S2](https://www.espressif.com/en/products/socs/esp32-s2)
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** ❌ None
 - **Compatible Firmware:** Marauder, Bjorn, Deauther
