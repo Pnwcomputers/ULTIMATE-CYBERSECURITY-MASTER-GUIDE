@@ -32,7 +32,7 @@
 
 ### ESP32 Family
 
-#### ESP32 (Original)
+#### [ESP32 (Original)](https://en.wikipedia.org/wiki/ESP32)
 - **Chipset:** Dual-core Xtensa LX6
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** BT 4.2 BR/EDR & BLE
@@ -43,7 +43,7 @@
   - DOIT ESP32 DevKit
 - **Use Cases:** WiFi deauth, packet sniffing, evil twin attacks
 
-#### ESP32-S2
+#### [ESP32-S2]([https://en.wikipedia.org/wiki/ESP32](https://www.espressif.com/en/products/socs/esp32-s2))
 - **Chipset:** Single-core Xtensa LX7
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** ❌ None
@@ -54,7 +54,7 @@
 - **Use Cases:** WiFi-only operations, lower power consumption
 - **Note:** No Bluetooth limits functionality for some attacks
 
-#### ESP32-S3
+#### [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)
 - **Chipset:** Dual-core Xtensa LX7
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** BT 5.0 LE
@@ -66,7 +66,7 @@
 - **Use Cases:** Most advanced ESP32, best for complex operations
 - **Note:** Improved performance over original ESP32
 
-#### ESP32-C3
+#### [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3)
 - **Chipset:** Single-core RISC-V
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** BT 5.0 LE
@@ -77,7 +77,7 @@
 - **Use Cases:** Newer architecture, smaller footprint
 - **Note:** Some firmware may have limited support
 
-#### ESP8266
+#### [ESP8266](https://www.espressif.com/en/products/socs/esp8266)
 - **Chipset:** Single-core Xtensa L106
 - **WiFi:** 802.11 b/g/n
 - **Bluetooth:** ❌ None
@@ -93,7 +93,7 @@
 
 ### LilyGO Devices
 
-#### LilyGO TTGO T-Display (ESP32)
+#### [LilyGO TTGO T-Display (ESP32)](https://lilygo.cc/products/t-display?srsltid=AfmBOop1immLTuQ0fiTlq6z96bzBxwSPu4LXlo4IGu0U-YjuCdMmmAWg)
 - **Specifications:**
   - ESP32 chip
   - 1.14" TFT display (135x240)
@@ -104,7 +104,7 @@
 - **Popular Use:** Portable WiFi attacks with visual feedback
 - **Price Range:** ~$10-15
 
-#### LilyGO T-Display-S3
+#### [LilyGO T-Display-S3](https://lilygo.cc/products/t-display-s3?srsltid=AfmBOopvyeg18D0x7mmG2BEMPIczTk9WktU94wkUevkYZJHZDAiNncQ8)
 - **Specifications:**
   - ESP32-S3 chip
   - 1.9" TFT display (170x320)
@@ -115,7 +115,7 @@
 - **Popular Use:** Advanced portable operations
 - **Price Range:** ~$15-20
 
-#### LilyGO TTGO LoRa32
+#### [LilyGO TTGO LoRa32](https://lilygo.cc/products/lora3?srsltid=AfmBOopW3FsRCY-HULS-AGxePYBtQjLDAjV3AOfmCZ4zgS7sZYzI_Q6j)
 - **Specifications:**
   - ESP32 chip
   - SX1276/SX1278 LoRa module
@@ -129,7 +129,7 @@
 
 ### Raspberry Pi Devices
 
-#### Raspberry Pi 4 Model B
+#### [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
 - **Specifications:**
   - Quad-core ARM Cortex-A72 (1.5-1.8GHz)
   - 2GB/4GB/8GB RAM options
@@ -141,7 +141,7 @@
 - **Popular Use:** Pwnagotchi with web interface, network analysis
 - **Power:** Requires 5V/3A USB-C
 
-#### Raspberry Pi Zero (Original)
+#### [Raspberry Pi Zero (Original)](https://www.raspberrypi.com/products/raspberry-pi-zero/)
 - **Specifications:**
   - Single-core ARM1176JZF-S (1GHz)
   - 512MB RAM
@@ -156,7 +156,7 @@
 - **Price Range:** ~$5 (when available)
 - **Note:** Not recommended for wireless testing due to lack of built-in WiFi
 
-#### Raspberry Pi Zero W
+#### [Raspberry Pi Zero W](https://www.raspberrypi.com/products/raspberry-pi-zero-w/)
 - **Specifications:**
   - Single-core ARM1176JZF-S (1GHz)
   - 512MB RAM
@@ -168,7 +168,7 @@
 - **Power:** 5V/1A micro-USB
 - **Price Range:** ~$15 (when available)
 
-#### Raspberry Pi Zero 2 W
+#### [Raspberry Pi Zero 2 W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/)
 - **Specifications:**
   - Quad-core ARM Cortex-A53 (1GHz)
   - 512MB RAM
@@ -181,7 +181,7 @@
 - **Price Range:** ~$15-20
 - **Note:** P4wnP1 support is experimental/community builds
 
-#### Raspberry Pi 3 Model B/B+
+#### [Raspberry Pi 3 Model B/B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/)
 - **Specifications:**
   - Quad-core ARM Cortex-A53 (1.4GHz)
   - 1GB RAM
@@ -195,7 +195,7 @@
 
 ### Flipper Zero
 
-#### Flipper Zero
+#### [Flipper Zero](https://flipperzero.one/)
 - **Specifications:**
   - STM32WB55 (Cortex-M4 + Cortex-M0+)
   - Sub-GHz radio (300-928 MHz)
@@ -214,7 +214,7 @@
 - **Popular Use:** RFID/NFC testing, Sub-GHz analysis, IR remote
 - **Note:** Requires ESP32 WiFi board for WiFi testing
 
-#### Flipper Zero + WiFi Dev Board
+#### [Flipper Zero + WiFi Dev Board](https://shop.flipperzero.one/products/wifi-devboard?srsltid=AfmBOoodVfsOS-PxVsuAIlZTy2OBBL-GZVEaUKO8wfSDX0_cjwzY6pjR)
 - **Add-on Specs:**
   - ESP32-S2 chip
   - Connects via GPIO
@@ -231,7 +231,7 @@
 
 ### CC1101 Devices
 
-#### CC1101 Transceiver Module
+#### [CC1101 Transceiver Module](https://a.co/d/ciNGX0D)
 - **Specifications:**
   - Sub-GHz radio (300-928 MHz)
   - SPI interface
@@ -256,7 +256,7 @@
 
 ### nRF Devices
 
-#### nRF52840 Dongle
+#### [nRF52840 Dongle](https://a.co/d/iXVu5Ar)
 - **Specifications:**
   - ARM Cortex-M4F
   - Bluetooth 5.0 / BLE
@@ -274,7 +274,7 @@
 - **Note:** Not typically used with the WiFi-focused firmware listed above
 - **Price Range:** ~$10
 
-#### nRF52840 DK (Development Kit)
+#### [nRF52840 DK (Development Kit)](https://a.co/d/dYrAP4P)
 - **Specifications:**
   - Full development board
   - Multiple interfaces
@@ -286,7 +286,7 @@
 
 ### M5Stack Devices
 
-#### M5Stack Core2
+#### [M5Stack Core2](https://shop.m5stack.com/products/m5stack-core2-esp32-iot-development-kit?srsltid=AfmBOoqDf_EC8aMGxVZvQA0g_dOatdDrsKGuPYvC6T9j7FM1oG-f6gK_)
 - **Specifications:**
   - ESP32-D0WDQ6-V3
   - 2" TFT touchscreen (320x240)
@@ -299,7 +299,7 @@
 - **Popular Use:** WiFi attacks with professional interface
 - **Price Range:** ~$50-60
 
-#### M5Stick C
+#### [M5Stick C](https://shop.m5stack.com/products/stick-c?srsltid=AfmBOoqrwQL9_kMCObQ6FqllSwoZKnAj25_JwGTzf93LvkjaIFENoiCY&variant=43982750843137)
 - **Specifications:**
   - ESP32-PICO-D4
   - 0.96" TFT display (80x160)
@@ -315,7 +315,7 @@
 - **Price Range:** ~$12-15
 - **Note:** Smaller screen than C Plus, older model
 
-#### M5Stick C Plus
+#### [M5Stick C Plus](https://shop.m5stack.com/products/m5stickc-plus-esp32-pico-mini-iot-development-kit?srsltid=AfmBOorBrNiVTXGsSB_-_E3OSaLoIIMlxmgF4_68nUJIz4lkwRFVb-uj)
 - **Specifications:**
   - ESP32-PICO
   - 1.14" TFT display (135x240)
@@ -329,7 +329,7 @@
 - **Popular Use:** Pocket-sized WiFi testing
 - **Price Range:** ~$20-25
 
-#### M5Stick C Plus 2
+#### [M5Stick C Plus 2](https://shop.m5stack.com/products/m5stickc-plus2-esp32-mini-iot-development-kit?srsltid=AfmBOooBRwBJHMSxYmk2zpcb4cczzSWL4R4eQ_oIzQIXy_PhJiEGRYNG)
 - **Specifications:**
   - ESP32-PICO-V3-02
   - 1.14" TFT display (135x240)
@@ -347,7 +347,7 @@
 - **Price Range:** ~$18-25
 - **Note:** Newest version with significant battery improvement
 
-#### M5Stack Cardputer
+#### [M5Stack Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-kit-w-m5stamps3?srsltid=AfmBOorSX9HD917H33iyOuy3r_mU6J5wU1E0NmX9IUG95sl0SpLHlWLu)
 - **Specifications:**
   - ESP32-S3-FN8
   - 1.14" TFT display (240x135)
@@ -368,7 +368,7 @@
 
 ## Detailed Firmware Capabilities
 
-### WiFi Marauder
+### [WiFi Marauder](https://github.com/justcallmekoko/ESP32Marauder)
 **Primary Platform:** ESP32 family  
 **Developer:** justcallmekoko
 
@@ -399,7 +399,7 @@
 
 ---
 
-### Bruce
+### [Bruce Firmware](https://bruce.computer/)
 **Primary Platform:** ESP32/ESP32-S3  
 **Developer:** pr3y/Bruce
 
@@ -436,8 +436,8 @@
 
 ---
 
-### Nemo
-**Primary Platform:** ESP32/ESP32-S3 (M5Stack focus)  
+### [Nemo Firmware](https://github.com/n0xa/m5stick-nemo)
+**Primary Platform:** ESP32/ESP32-S3 (M5Stick focus)  
 **Developer:** n0xa
 
 **Capabilities:**
@@ -465,7 +465,7 @@
 
 ---
 
-### Pwnagotchi
+### [Pwnagotchi](https://pwnagotchi.org/)
 **Primary Platform:** Raspberry Pi Zero W/2W  
 **Developer:** evilsocket
 
@@ -501,7 +501,7 @@
 
 ---
 
-### Bjorn
+### [Bjorn](https://github.com/infinition/Bjorn)
 **Primary Platform:** ESP32, Raspberry Pi  
 **Developer:** Bjorn Project
 
@@ -529,7 +529,7 @@
 
 ---
 
-### P4wnP1 A.L.O.A (A Little Offensive Appliance)
+### [P4wnP1 A.L.O.A (A Little Offensive Appliance)](https://www.kali.org/docs/arm/raspberry-pi-zero-w-p4wnp1-aloa/)
 **Primary Platform:** Raspberry Pi Zero W (ONLY)  
 **Developer:** RoganDawes
 
@@ -563,7 +563,7 @@
 
 ---
 
-### Deauther V3
+### [Deauther V3](https://docs.spacehuhn.com/deauther/version3/)
 **Primary Platform:** ESP8266 (primary), ESP32  
 **Developer:** Spacehuhn
 
@@ -594,8 +594,8 @@
 
 ---
 
-### Evil-M5Core2
-**Primary Platform:** M5Stack Core2 (ONLY)  
+### [Evil-M5](https://github.com/7h30th3r0n3/Evil-M5Project)
+**Primary Platform:** M5Stack Devices (ONLY)  
 **Developer:** 7h30th3r0n3
 
 **Capabilities:**
@@ -623,7 +623,7 @@
 
 ---
 
-### FZ-Marauder (Flipper Zero Marauder)
+### [FZ-Marauder (Flipper Zero Marauder)](https://github.com/justcallmekoko/ESP32Marauder/wiki/flipper-zero)
 **Primary Platform:** Flipper Zero WiFi Dev Board  
 **Developer:** justcallmekoko (adapted for Flipper)
 
