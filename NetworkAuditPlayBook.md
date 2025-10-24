@@ -1,5 +1,5 @@
 # WIRELESS & NETWORK SECURITY AUDIT PLAYBOOK
-### Professional Penetration Testing Procedures
+## Professional Penetration Testing Procedures
 
 **Version 1.0**  
 **Last Updated: October 2025**
@@ -8,14 +8,14 @@
 
 ## TABLE OF CONTENTS
 
-1. [Pre-Engagement Checklist](#pre-engagement-checklist)
-2. [Wireless-Specific Testing Procedures](#wireless-specific-testing-procedures)
-3. [Internal Network Testing Procedures](#internal-network-testing-procedures)
-4. [External Perimeter Testing Procedures](#external-perimeter-testing-procedures)
-5. [Documentation Standards During Testing](#documentation-standards-during-testing)
-6. [Evidence Collection & Screenshot Requirements](#evidence-collection--screenshot-requirements)
-7. [Post-Testing Analysis & Reporting](#post-testing-analysis--reporting)
-8. [Tool Reference Guide](#tool-reference-guide)
+1. [Pre-Engagement Checklist](#section-1-pre-engagement-checklist)
+2. [Wireless-Specific Testing Procedures](#section-2-wireless-specific-testing-procedures)
+3. [Internal Network Testing Procedures](#section-3-internal-network-testing-procedures)
+4. [External Perimeter Testing Procedures](#section-4-external-perimeter-testing-procedures)
+5. [Documentation Standards During Testing](#section-5-documentation-standards-during-testing)
+6. [Evidence Collection & Screenshot Requirements](#section-6-evidence-collection--screenshot-requirements)
+7. [Post-Testing Analysis & Reporting](#section-7-post-testing-analysis--reporting)
+8. [Tool Reference Guide](#section-8-tool-reference-guide)
 
 ---
 
