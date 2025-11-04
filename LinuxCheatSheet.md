@@ -153,7 +153,7 @@ sudo apt-get install screen tmux
 
 ---
 
-## 12. Security and Ethical Considerations ⚠️
+## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
 - Get written permission before testing
