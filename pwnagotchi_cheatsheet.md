@@ -209,3 +209,9 @@ ui.fps = 1  # Lower refresh rate to save power
 ```
 
 ---
+*****
+
+## Additional Resources 📚
+
+**Documentation**
+- Pwnagotchi: https://pwnagotchi.ai/
