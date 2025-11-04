@@ -135,3 +135,4 @@ john --wordlist=wordlist.txt hash.txt
 
 **Documentation**
 - Aircrack-ng: https://www.aircrack-ng.org/documentation.html
+- Hashcat: https://hashcat.net/wiki/
