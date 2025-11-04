@@ -47,7 +47,7 @@ Your complete navigation guide with quick paths for every purpose
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
 - Do-It-Yourself Cybersecurity & Pentesting Devices (mainly 'Single Board Computer' based)
 
-**[Linux Command Cheat Sheet (Debian/Ubuntu)](LinuxCheatSheet.md)**
+**[Linux Command Cheat Sheet (Debian/Ubuntu/Kali/Parrot/Etc.)](LinuxCheatSheet.md)**
 - A cheat sheet/refrence sheet of some of the most used/most usefull Linux CLI commands.
   
 ---
