@@ -137,6 +137,8 @@ john --wordlist=wordlist.txt hash.txt
 - Aircrack-ng: https://www.aircrack-ng.org/documentation.html
 - Hashcat: https://hashcat.net/wiki/
 
+****
+
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
