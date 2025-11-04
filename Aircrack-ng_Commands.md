@@ -129,3 +129,9 @@ hashcat -m 2500 capture.hccapx wordlist.txt -r rules/best64.rule
 hccap2john capture.hccap > hash.txt
 john --wordlist=wordlist.txt hash.txt
 ```
+****
+
+## Additional Resources 📚
+
+**Documentation**
+- Aircrack-ng: https://www.aircrack-ng.org/documentation.html
