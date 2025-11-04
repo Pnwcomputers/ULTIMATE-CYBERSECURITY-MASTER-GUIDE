@@ -8,7 +8,7 @@ This document serves as a quick reference for common system administration, netw
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `sudo ssh-keygen -R 172.16.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Use this if the remote server key changes. |
+| `ssh-keygen -R 192.168.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Use this if the remote server key changes. |
 | `sudo chmod u+x my_script.sh` | **Allow Execution** | Adds the **e**xecute permission (`+x`) for the **u**ser (`u+`) who owns the file, making a script runnable. |
 | `sudo chmod 644` | **File Permissions** | Owner can read/write; Group/Others can only read (standard file permission). |
 | `sudo chmod 755` | **Script/Directory Permissions** | Owner can read/write/execute; Group/Others can read/execute (standard directory/script permission). |
@@ -168,20 +168,6 @@ sudo apt-get install screen tmux
 - Testing your own network security
 - Educational purposes with proper supervision
 - CTF (Capture The Flag) competitions
-
----
-
-## 13. Additional Resources 📚
-
-**Documentation**
-- Aircrack-ng: https://www.aircrack-ng.org/documentation.html
-- Pwnagotchi: https://pwnagotchi.ai/
-- Hashcat: https://hashcat.net/wiki/
-
-**Communities**
-- /r/AircrackNG
-- /r/pwnagotchi
-- /r/netsec
 
 ---
 
