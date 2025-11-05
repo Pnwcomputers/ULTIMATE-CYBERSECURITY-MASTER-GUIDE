@@ -114,9 +114,9 @@ hcxinfo -i capture.pcapng
 hcxhash -i capture.pcapng -o unique_hashes.txt -a 3
 ```
 
----
+*****
 
-## Security and Ethical Considerations ⚠️ (Marauder/HCX)
+## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
 
