@@ -284,33 +284,32 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ## Appendix A — Updated Menu Map (v1.8.9)
 
-Main Menu
-├── WiFi
-│   ├── Scan / Sniff
-│   │   ├── Scan APs (Select All supported)
-│   │   ├── Scan Stations (Select All supported)
-│   │   ├── PMKID / PCAP / Probes / Beacons
-│   │   └── ARP / SSH / Telnet scans
-│   ├── Attack 
-│   │   ├── Deauth (targeted/broadcast)
-│   │   ├── Beacon Spam (incl. Funny SSIDs)
-│   │   ├── Probe Flood
-│   │   └── Association Sleep Attack
-│   └── General
-│       ├── SoftAP on/off
-│       └── Join with saved creds
-├── Bluetooth
-│   ├── Scan (Classic/BLE)
-│   ├── Spam (SwiftPair / Sour Apple)
-│   └── AirTag Monitor (Last-Seen)
-├── GPS (if attached)
-│   ├── Data
-│   └── Add POI
-├── Settings / Device
-│   ├── Display / Wi-Fi / MAC settings
-│   └── Select .bin to flash
-└── Reboot
-
+* **Main Menu**
+    * **WiFi**
+        * **Scan / Sniff**
+            * Scan APs (Select All supported)
+            * Scan Stations (Select All supported)
+            * PMKID / PCAP / Probes / Beacons
+            * ARP / SSH / Telnet scans
+        * **Attack**
+            * Deauth (targeted/broadcast)
+            * Beacon Spam (incl. Funny SSIDs)
+            * Probe Flood
+            * Association Sleep Attack
+        * **General**
+            * SoftAP on/off
+            * Join with saved creds
+    * **Bluetooth**
+        * Scan (Classic/BLE)
+        * Spam (SwiftPair / Sour Apple)
+        * AirTag Monitor (Last-Seen)
+    * **GPS (if attached)**
+        * Data
+        * Add POI
+    * **Settings / Device**
+        * Display / Wi-Fi / MAC settings
+        * Select .bin to flash
+    * **Reboot**
 ---
 
 ## Conclusion
