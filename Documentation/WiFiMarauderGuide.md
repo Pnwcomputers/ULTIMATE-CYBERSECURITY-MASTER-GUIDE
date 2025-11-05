@@ -125,6 +125,9 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 > **Tip:** Keep antenna keep-out clear, add ESD on USB, and proper battery protection.
 
+## JustCallMeKoko Online Stores:
+- **[Main Online Store](https://justcallmekokollc.com/)**
+- **[Tindie Store](https://www.tindie.com/stores/justcallmekoko/)**
 ---
 
 ## Firmware Installation & Setup
@@ -281,21 +284,36 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ## Appendix A — Updated Menu Map (v1.8.9)
 
-Main Menu ├── WiFi │   ├── Scan / Sniff │   │   ├── Scan APs (Select All supported) │   │   ├── Scan Stations (Select All supported) │   │   ├── PMKID / PCAP / Probes / Beacons │   │   └── ARP / SSH / Telnet scans   ← 1.8.x │   ├── Attack │   │   ├── Deauth (targeted/broadcast) │   │   ├── Beacon Spam (incl. Funny SSIDs) │   │   ├── Probe Flood │   │   └── Association Sleep Attack   ← 1.8.x │   └── General │       ├── SoftAP on/off              ← 1.8.x │       └── Join with saved creds      ← 1.8.x ├── Bluetooth │   ├── Scan (Classic/BLE) │   ├── Spam (SwiftPair / Sour Apple) │   └── AirTag Monitor (Last-Seen)     ← NEW 1.8.9 ├── GPS (if attached) │   ├── Data │   └── Add POI                        ← 1.8.x ├── Settings / Device │   ├── Display / Wi-Fi / MAC settings │   └── Select .bin to flash           ← NEW 1.8.9 └── Reboot
+Main Menu
+├── WiFi
+│   ├── Scan / Sniff
+│   │   ├── Scan APs (Select All supported)
+│   │   ├── Scan Stations (Select All supported)
+│   │   ├── PMKID / PCAP / Probes / Beacons
+│   │   └── ARP / SSH / Telnet scans
+│   ├── Attack 
+│   │   ├── Deauth (targeted/broadcast)
+│   │   ├── Beacon Spam (incl. Funny SSIDs)
+│   │   ├── Probe Flood
+│   │   └── Association Sleep Attack
+│   └── General
+│       ├── SoftAP on/off
+│       └── Join with saved creds
+├── Bluetooth
+│   ├── Scan (Classic/BLE)
+│   ├── Spam (SwiftPair / Sour Apple)
+│   └── AirTag Monitor (Last-Seen)
+├── GPS (if attached)
+│   ├── Data
+│   └── Add POI
+├── Settings / Device
+│   ├── Display / Wi-Fi / MAC settings
+│   └── Select .bin to flash
+└── Reboot
 
 ---
 
 ## Conclusion
-
-The ESP32 Marauder remains a powerful, affordable, and constantly evolving platform for wireless security testing. Version **1.8.9** adds meaningful field capabilities—**AirTag Monitor** with **Last-Seen** and a smoother **self-update** flow—while the broader **1.8.x** series improved daily-driver utility with **SoftAP**, **association Sleep Attack**, **ARP/SSH/Telnet** scans, **GPS POIs**, and better selection tools.
-
-### Key Takeaways
-
-✅ **Accessibility:** low-cost hardware; broad feature set  
-✅ **Education:** hands-on protocol learning  
-✅ **Versatility:** WiFi + BLE + GPS  
-✅ **New in 1.8.9:** AirTag Monitor (Last-Seen) & on-device bin picker  
-✅ **Responsibility:** strict legal/ethical compliance
 
 ### Next Steps
 
