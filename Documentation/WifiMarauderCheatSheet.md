@@ -7,78 +7,99 @@ The Marauder handles the packet capture and attack functions directly via its me
 **1. Set Target Channel**
 ```text
 Menu: Settings/Device -> WiFi Settings -> Set Channel
-# Set this to match the target AP's channel for best results.
+```
+### Set this to match the target AP's channel for best results.
 
 **2. Scan for Networks (Reconnaissance)**
+```text
 Menu: WiFi -> Scan / Sniff -> Scan APs
-# Find BSSID (AP MAC) and Channel of the target network.
+```
+### Find BSSID (AP MAC) and Channel of the target network.
 
 **3. Capture Handshakes & PMKID (Saved to SD Card)**
+```text
 Menu: WiFi -> Scan / Sniff -> PMKID
-# Primary capture mode: Tries to grab PMKID (WPA3/WPA2) and 4-way EAPOL handshakes.
-# File is saved to SD card as YYYYMMDD_TIME.pcapng
+```
+### Primary capture mode: Tries to grab PMKID (WPA3/WPA2) and 4-way EAPOL handshakes.
+### File is saved to SD card as YYYYMMDD_TIME.pcapng
 
 **4. Deauth Attack (Force Handshake Capture)**
+```text
 Menu: WiFi -> Attack -> Deauth -> Deauth All Clients
-# Select the target AP (BSSID) from the list.
-# This forces clients to re-authenticate, which triggers a handshake capture (Step 3).
+```
+### Select the target AP (BSSID) from the list.
+### This forces clients to re-authenticate, which triggers a handshake capture (Step 3).
 
 ---
 
-### Advanced On-Device Techniques
+## Advanced On-Device Techniques
 
 **Beacon Spam / Reconnaissance**
+```text
 Menu: WiFi -> Attack -> Beacon Spam -> Enable/Disable
-# Broadcasts many fake APs (used for client probe request collection or DoS).
-# Use 'Funny SSIDs' mode for social engineering tests.
+```
+### Broadcasts many fake APs (used for client probe request collection or DoS).
+### Use 'Funny SSIDs' mode for social engineering tests.
 
 **AirTag/BLE Tracking Device Detection (Defensive)**
+```text
 Menu: Bluetooth -> AirTag Monitor
-# Scans for common BLE tracking patterns (AirTags) and reports 'Last-Seen' time.
+```
+### Scans for common BLE tracking patterns (AirTags) and reports 'Last-Seen' time.
 
 **Quick Network Triaging**
+```text
 Menu: WiFi -> Scan / Sniff -> ARP / SSH / Telnet scans
-# Quickly probe devices on a known local network to assess active services.
+```
+### Quickly probe devices on a known local network to assess active services.
 
 **GPS-Tagged Site Survey (Wardriving)**
+```text
 Menu: GPS -> Wardrive (Start/Stop)
 Menu: GPS -> Add POI
-# Logs all captured data with GPS coordinates to the SD card for mapping.
-# POI (Points of Interest) marks specific locations for later review.
+```
+### Logs all captured data with GPS coordinates to the SD card for mapping.
+### POI (Points of Interest) marks specific locations for later review.
 
 ---
 
-### Post-Capture Workflow (Requires Linux/Kali)
+## Post-Capture Workflow (Requires Linux/Kali)
 
 After capturing the `.pcapng` file on the Marauder's SD card, transfer it to a Linux machine to process it for cracking.
 
 **1. Convert Marauder PCAPNG to Hashcat Format**
-----BASH-START----
-# -m 16800 is the mode for WPA-PMKID/EAPOL (HCX format)
-# -o: output file, -E: create ESSID list for filtering
+```bash
+-m 16800 is the mode for WPA-PMKID/EAPOL (HCX format)
+-o: output file, -E: create ESSID list for filtering
 hcxpcaptool -o marauder_hash.16800 -E essid_list.txt /path/to/marauder/capture.pcapng
-----BASH-END----
+```
 
 **2. WPA/WPA2/WPA3 Cracking with Hashcat**
-----BASH-START----
-# Dictionary attack against the converted hash file
+### Dictionary attack against the converted hash file
+```bash
 hashcat -m 16800 marauder_hash.16800 /path/to/wordlist.txt
+```
 
-# Hybrid attack (Wordlist + 4 digits at the end)
+### Hybrid attack (Wordlist + 4 digits at the end)
+```bash
 hashcat -m 16800 marauder_hash.16800 wordlist.txt -a 6 ?d?d?d?d
+```
 
-# Resume a previous session
+### Resume a previous session
+```bash
 hashcat -m 16800 marauder_hash.16800 wordlist.txt --session=last_run --status
-----BASH-END----
+```
 
 **3. File Analysis & Cleaning**
-----BASH-START----
-# Show info on the captured file (ESSIDs, BSSIDs, packet counts)
+### Show info on the captured file (ESSIDs, BSSIDs, packet counts)
+```bash
 hcxinfo -i /path/to/marauder/capture.pcapng
+```
 
-# Merge multiple capture files before conversion
+### Merge multiple capture files before conversion
+```bash
 mergecap -w merged.pcapng capture-*.pcapng
-----BASH-END----
+```
 
 ---
 
@@ -96,3 +117,4 @@ mergecap -w merged.pcapng capture-*.pcapng
 * Security research in isolated lab environments.
 
 ---
+
