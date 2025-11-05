@@ -98,7 +98,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ### Official Marauder Hardware
 
-#### Option 1: Flipper Zero WiFi Dev Board ($50)
+#### Option 1: [Flipper Zero WiFi Dev Board ($50)](https://shop.flipperzero.one/products/wifi-devboard?srsltid=AfmBOoqSbrNP2vvB_iic8012Wiv8qv1YBJMWQ47SsQ9-UX2YRiK5BRB8)
 
 **Specifications**:
 - ESP32-S2 processor
@@ -111,7 +111,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 **Setup**: Plug into Flipper's GPIO header, flash Marauder firmware
 
-#### Option 2: ESP32 Marauder v6.1 ($80-120)
+#### Option 2: [ESP32 Marauder v6.1 ($80-120)](https://justcallmekokollc.com/products/esp32-marauder-v6)
 
 **Specifications**:
 - ESP32-WROOM-32 module
@@ -125,11 +125,10 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 **Best for**: Standalone portable operations
 
 **Where to buy**: 
-- Official: justcallmekoko's shop
-- Tindie marketplace
-- AliExpress (clones, verify authenticity)
+- Official: [justcallmekoko's shop](https://justcallmekokollc.com/)
+- [Tindie marketplace](https://www.tindie.com/stores/justcallmekoko/)
 
-#### Option 3: ESP32 Marauder Mini ($60-80)
+#### Option 3: [ESP32 Marauder Mini ($60-80)](https://justcallmekokollc.com/products/marauder-mini)
 
 **Specifications**:
 - ESP32-WROOM-32
@@ -216,9 +215,9 @@ ESP32 PCB antennas have ~2dBi gain and limited range (30-50m typical).
 #### External Antenna Upgrade
 
 **Required Materials**:
-- U.FL/IPEX connector
-- RG178 pigtail cable (6-12 inches)
-- 2.4GHz antenna (5-9dBi recommended)
+- [U.FL/IPEX Connector](https://a.co/d/06hbEJF)
+- [RG178 Pigtail Cable (6-12 inches)](https://a.co/d/1FIogSV)
+- [2.4GHz Antenna (5-9dBi recommended)](https://a.co/d/aHu3Oj4)
 - Soldering equipment
 
 **Modification Process**:
@@ -335,7 +334,7 @@ git checkout v0.13.10
 
 #### Method 1: Web Flasher (Easiest)
 
-1. **Navigate to**: https://esp.huhn.me/ or https://espwebtools.github.io/esp-web-flasher/
+1. **Navigate to**: [https://esp.huhn.me/ or https://espwebtools.github.io/esp-web-flasher/](https://esp.huhn.me/ or https://espwebtools.github.io/esp-web-flasher/)
 2. **Connect** ESP32 via USB
 3. **Select** serial port when prompted
 4. **Choose** firmware file
