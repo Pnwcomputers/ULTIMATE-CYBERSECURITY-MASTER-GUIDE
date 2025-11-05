@@ -137,23 +137,20 @@ john --wordlist=wordlist.txt hash.txt
 - Aircrack-ng: https://www.aircrack-ng.org/documentation.html
 - Hashcat: https://hashcat.net/wiki/
 
-****
+---
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
-- Get written permission before testing
-- Only test networks you own or have explicit authorization to test
-- Follow responsible disclosure practices
-- Comply with local laws and regulations
-- Use for educational purposes in controlled environments
+**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+
+* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
+* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Legal Compliance:** Strictly comply with all local laws and regulations.
 
 **Legal Use Cases:**
-- Penetration testing with client authorization
-- Security research in isolated lab environments
-- Testing your own network security
-- Educational purposes with proper supervision
-- CTF (Capture The Flag) competitions
+* Penetration testing with client authorization.
+* Testing your own home or lab network security.
+* Security research in isolated lab environments.
 
 ---
 
