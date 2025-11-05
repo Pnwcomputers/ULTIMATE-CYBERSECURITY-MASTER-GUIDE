@@ -2990,3 +2990,24 @@ Remember: The goal is to make wireless networks more secure by understanding the
 - Submit pull requests for improvements
 
 **Happy Ethical Hacking! 🔐📡**
+
+*****
+
+## Security and Ethical Considerations ⚠️
+
+**IMPORTANT**: These instructions and guides are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
+- Get written permission before testing devices or networks other than your own
+- Only test networks you own or have explicit authorization to test
+- Follow responsible disclosure practices
+- Comply with local laws and regulations
+- Use for educational purposes in controlled environments
+
+**Legal Use Cases:**
+- Penetration testing with client authorization
+- Security research in isolated lab environments
+- Testing your own network security
+- Educational purposes with proper supervision
+- CTF (Capture The Flag) competitions
+
+---
+
