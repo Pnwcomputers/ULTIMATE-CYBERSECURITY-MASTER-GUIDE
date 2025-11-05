@@ -113,3 +113,22 @@ hcxinfo -i capture.pcapng
 ```bash
 hcxhash -i capture.pcapng -o unique_hashes.txt -a 3
 ```
+
+---
+
+## Security and Ethical Considerations ⚠️ (Marauder/HCX)
+
+**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+
+* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
+* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Legal Compliance:** Strictly comply with all local laws and regulations.
+
+**Legal Use Cases:**
+* Penetration testing with client authorization.
+* Testing your own home or lab network security.
+* Security research in isolated lab environments.
+
+---
+
+
