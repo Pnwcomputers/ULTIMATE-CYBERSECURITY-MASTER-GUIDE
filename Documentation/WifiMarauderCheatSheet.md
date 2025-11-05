@@ -101,7 +101,7 @@ hcxinfo -i /path/to/marauder/capture.pcapng
 mergecap -w merged.pcapng capture-*.pcapng
 ```
 
----
+*****
 
 ## Security and Ethical Considerations ⚠️
 
