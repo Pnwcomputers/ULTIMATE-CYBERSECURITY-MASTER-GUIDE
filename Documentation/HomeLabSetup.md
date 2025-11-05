@@ -3242,3 +3242,23 @@ Your lab is now ready. **Time to hack responsibly!**
 - Help others build their labs
 
 **Happy Responsible PenTesting! 🚀🔐**
+
+*****
+
+## Security and Ethical Considerations ⚠️
+
+**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
+- Get written permission before testing
+- Only test networks you own or have explicit authorization to test
+- Follow responsible disclosure practices
+- Comply with local laws and regulations
+- Use for educational purposes in controlled environments
+
+**Legal Use Cases:**
+- Penetration testing with client authorization
+- Security research in isolated lab environments
+- Testing your own network security
+- Educational purposes with proper supervision
+- CTF (Capture The Flag) competitions
+
+---
