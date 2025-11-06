@@ -1,6 +1,6 @@
-# Mullvad VPN Security Guide
+# VPN Security Guide
 
-## Why Mullvad is Excellent
+## Why Mullvad is Excellent and our Top Choice for a VPN
 
 **Mullvad** is one of the best VPNs for privacy and security:
 
@@ -50,3 +50,4 @@ Since you already have Mullvad, you're in great shape. Here's how to maximize yo
 - Keep work and personal browsing separate (different browsers/profiles)
 - Use Mullvad's obfuscation if on restricted networks
 - Consider compartmentalizing with VMs if handling sensitive data
+- **ALWAYS use a 3rd Party Network* for OPs!**
