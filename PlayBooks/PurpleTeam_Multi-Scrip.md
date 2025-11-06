@@ -2,13 +2,13 @@
 
 ---
 
-## ✅ 1️⃣ Purpose
+## Purpose
 
 Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi-platform attack simulation & detection validation.
 
 ---
 
-## ✅ 2️⃣ Tools to Keep Ready
+## Tools to Keep Ready
 
 | Type | Tool | Example |
 |------|------|---------|
@@ -18,7 +18,7 @@ Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi
 
 ---
 
-## ✅ 3️⃣ Workflow (Recap)
+## Workflow (Recap)
 
 1️⃣ Pick TTP
 
@@ -34,7 +34,7 @@ Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi
 
 ---
 
-## ✅ 4️⃣ Example Playbook Entries
+## Example Playbook Entries
 
 Below are practical examples for each script type.
 
@@ -181,7 +181,7 @@ sock.close()
 
 ---
 
-## ✅ 5️⃣ Reporting Template
+## Reporting Template
 
 | Field | Example |
 |-------|---------|
@@ -195,7 +195,7 @@ sock.close()
 
 ---
 
-## ✅ 6️⃣ Version Control
+## Version Control
 
 Store:
 
@@ -208,35 +208,17 @@ Use `git` so you track edits & additions over time.
 
 ---
 
-## ✅ 7️⃣ Next Steps
+## Security and Ethical Considerations ⚠️
 
-✔️ Build on this base:
+**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
 
-- Add more TTPs (exfil, lateral movement)
-- Expand each with PowerShell & Batch where practical
-- Schedule routine runs via cron, Task Scheduler, or CI/CD pipelines
+* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
+* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Legal Compliance:** Strictly comply with all local laws and regulations.
 
----
-
-## ✅ 8️⃣ Import to Notion
-
-- Use **Toggle Lists** for each TTP
-- Create **Databases** for:
-  - Scripts
-  - Test results
-  - Detection rules
-  - Lessons learned
+**Legal Use Cases:**
+* Penetration testing with client authorization.
+* Testing your own home or lab network security.
+* Security research in isolated lab environments.
 
 ---
-
-## ✅ Want It Ready?
-
-👉 **I can:**
-
-✅ Package this as:
-
-- ✔️ **Notion export (.zip)**
-- ✔️ **GitHub starter repo**
-- ✔️ **Markdown docs with code files**
-
-Just say **"Bundle the full Purple Team Playbook now!"** — and I'll deliver the complete kit! 🚀🔐
