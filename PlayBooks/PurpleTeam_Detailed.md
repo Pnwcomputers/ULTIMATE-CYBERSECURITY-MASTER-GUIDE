@@ -1,6 +1,6 @@
 # Purple Team Playbook (Detailed)
 
-## ✅ 1️⃣ Purpose & Scope
+## Purpose & Scope
 
 ### Purpose:
 
@@ -12,7 +12,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 
 ---
 
-## ✅ 2️⃣ Key Tools & Frameworks
+## Key Tools & Frameworks
 
 | Category | Tool / Framework | Purpose |
 |----------|-----------------|---------|
@@ -26,7 +26,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 
 ---
 
-## ✅ 3️⃣ Process Workflow
+## Process Workflow
 
 ### 1. Planning & Scoping
 - Select TTPs mapped to your highest-risk ATT&CK techniques
@@ -65,7 +65,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 
 ---
 
-## ✅ 4️⃣ Example Playbook Entries
+## Example Playbook Entries
 
 ### 🔍 TTP: Obfuscated PowerShell (T1059.001)
 
@@ -89,7 +89,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 
 ---
 
-## ✅ 5️⃣ Advanced Enhancements
+## Advanced Enhancements
 
 ### Continuous Integration:
 - Integrate your Purple-Team tests into a CI pipeline (GitHub Actions, GitLab CI) to automatically spin up the lab, run scripts, and validate detections on every commit
@@ -105,7 +105,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 
 ---
 
-## ✅ 6️⃣ Collaboration & Governance
+## Collaboration & Governance
 
 ### Stakeholder Briefings:
 Monthly "Purple Team Sync" with SOC, IR, Engineering, and Risk teams to review metrics and roadmap
@@ -118,11 +118,26 @@ Maintain a shared Confluence/Git repo of scripts, detection rules, exercise logs
 
 ---
 
-## ✅ 7️⃣ Next Steps
+## Next Steps
 
 1. **Import to Notion / Confluence:** Structure as nested databases—TTP catalog, script library, rule backlog, AARs
 2. **Onboard New Tools:** Evaluate emerging platforms like MITRE Engage or AttackIQ for richer purple-team orchestration
 3. **Scale:** Roll out controlled exercises to production-adjacent environments, measure impact, and refine guardrails
+
+---
+
+## Security and Ethical Considerations ⚠️
+
+**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+
+* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
+* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Legal Compliance:** Strictly comply with all local laws and regulations.
+
+**Legal Use Cases:**
+* Penetration testing with client authorization.
+* Testing your own home or lab network security.
+* Security research in isolated lab environments.
 
 ---
 
