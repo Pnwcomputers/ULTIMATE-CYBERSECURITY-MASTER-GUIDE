@@ -118,14 +118,6 @@ Maintain a shared Confluence/Git repo of scripts, detection rules, exercise logs
 
 ---
 
-## Next Steps
-
-1. **Import to Notion / Confluence:** Structure as nested databases—TTP catalog, script library, rule backlog, AARs
-2. **Onboard New Tools:** Evaluate emerging platforms like MITRE Engage or AttackIQ for richer purple-team orchestration
-3. **Scale:** Roll out controlled exercises to production-adjacent environments, measure impact, and refine guardrails
-
----
-
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
