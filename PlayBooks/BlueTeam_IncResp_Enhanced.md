@@ -179,14 +179,6 @@ GET /logs-dns-*/_search
 
 ---
 
-## Next Steps:
-
-1. Replace sample contacts with your internal teams.
-2. Integrate into ServiceNow/Jira workflows with checklists and automations.
-3. Review and rehearse quarterly to ensure readiness.
-
----
-
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
