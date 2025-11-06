@@ -41,7 +41,7 @@ Your complete navigation guide with quick paths for every purpose
 **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
 - Exploit Development, Buffer Overflows
 
-**[Action Plan: Playbooks](/PlayBooks)**
+**[Action: Field Test Ready Playbooks](/PlayBooks)**
 - Full Playbooks for Completing Professional Network & Wifi Security Audits & PenTests
 
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
