@@ -42,7 +42,7 @@ Your complete navigation guide with quick paths for every purpose
 - Exploit Development, Buffer Overflows
 
 **[Action Plan: Playbooks](/PlayBooks)**
-- Full playbooks for Completing a Professional Network & Wifi Security Audits & PenTests
+- Full Playbooks for Completing Professional Network & Wifi Security Audits & PenTests
 
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
 - Do-It-Yourself Cybersecurity & Pentesting Devices (mainly 'Single Board Computer' based)
