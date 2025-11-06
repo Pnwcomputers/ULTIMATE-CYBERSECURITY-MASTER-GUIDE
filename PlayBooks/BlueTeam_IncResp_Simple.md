@@ -144,14 +144,6 @@ GET /_search
 
 ---
 
-## Next Steps:
-
-1. Replace placeholders with your tool names, contact lists, and policies.
-2. Integrate into your ticketing workflows (e.g., ServiceNow) and SOC runbooks.
-3. Review quarterly and after every incident to keep the playbook current.
-
----
-
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
