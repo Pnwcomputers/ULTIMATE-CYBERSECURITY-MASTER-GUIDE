@@ -36,13 +36,13 @@ Your complete navigation guide with quick paths for every purpose
 - Operational procedures
 
 **[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)**
-- Advanced Metasploit, cloud, pivoting
+- Advanced Metasploit, Cloud, Pivoting
 
 **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
-- Exploit development, buffer overflows
+- Exploit Development, Buffer Overflows
 
-**[Action Plan: Network & Wifi Audit Playbook](NetworkAuditPlayBook.md)**
-- Full playbook for completing a professional Network & Wifi Security Audit/PenTest
+**[Action Plan: Playbooks](/PlayBooks)**
+- Full playbooks for Completing a Professional Network & Wifi Security Audits & PenTests
 
 **[DIY PenTesting Hardware & Firmware Compatibility List](FIRMWARE&HARDWARE_COMPATIBILITY.md)**
 - Do-It-Yourself Cybersecurity & Pentesting Devices (mainly 'Single Board Computer' based)
