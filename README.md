@@ -32,7 +32,7 @@ Your complete navigation guide with quick paths for every purpose
 **[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)**
 - Quick command reference
 
-**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)**
+**[Cybersecurity Operational Playbooks](/PlayBooks/cybersecurity_playbooks.md)**
 - Operational procedures
 
 **[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)**
