@@ -6,7 +6,7 @@ This playbook is designed to be modular and expandable — so you can plug in ne
 
 ---
 
-## 📌 1️⃣ Purpose & Scope
+## Purpose & Scope
 
 ### Purpose:
 Integrate offensive and defensive techniques to continuously test, measure, and improve detection and response capabilities.
@@ -19,7 +19,7 @@ Integrate offensive and defensive techniques to continuously test, measure, and 
 
 ---
 
-## 📌 2️⃣ Roles
+## Roles
 
 | Role | Responsibility |
 |------|----------------|
@@ -29,7 +29,7 @@ Integrate offensive and defensive techniques to continuously test, measure, and 
 
 ---
 
-## 📌 3️⃣ Lab Environment
+## Lab Environment
 
 ### ✅ Components:
 
@@ -41,7 +41,7 @@ Integrate offensive and defensive techniques to continuously test, measure, and 
 
 ---
 
-## 📌 4️⃣ Common Tools
+## Common Tools
 
 | Category | Tool | Purpose |
 |----------|------|---------|
@@ -53,7 +53,7 @@ Integrate offensive and defensive techniques to continuously test, measure, and 
 
 ---
 
-## 📌 5️⃣ Execution Workflow
+## Execution Workflow
 
 ### 🗂️ Step 1 — Select TTP
 
@@ -109,7 +109,7 @@ Record:
 
 ---
 
-## 📌 6️⃣ Example Playbook Entries
+## Example Playbook Entries
 
 ### ✅ Playbook Entry — Brute Force Test
 
@@ -149,7 +149,7 @@ Record:
 
 ---
 
-## 📌 7️⃣ Reporting & Metrics
+## Reporting & Metrics
 
 | Metric | Goal |
 |--------|------|
@@ -160,7 +160,7 @@ Record:
 
 ---
 
-## 📌 8️⃣ Improvement & Backlog
+## Improvement & Backlog
 
 ### ✅ Maintain a Purple Team Backlog:
 
@@ -171,7 +171,7 @@ Record:
 
 ---
 
-## 📌 9️⃣ Automation Ideas
+## Automation Ideas
 
 ### ✅ Use:
 
@@ -187,7 +187,7 @@ Record:
 
 ---
 
-## 📌 🔑 Tips
+## 🔑 Tips
 
 ✅ Test in a safe, isolated lab  
 ✅ Always get written approvals for live network tests  
@@ -197,7 +197,7 @@ Record:
 
 ---
 
-## 📌 📎 Template: New Playbook Entry
+## 📎 Template: New Playbook Entry
 
 Use this for each new TTP test:
 
