@@ -46,15 +46,6 @@
     
     A business-oriented framework and lifecycle (“Attack-Detect-Defend” exercises) for operationalizing Purple Team functions within an organization. [github.com](https://github.com/DefensiveOrigins/AtomicPurpleTeam?utm_source=chatgpt.com)
 
----
-
-## Security and Ethical Considerations ⚠️
-
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
-
-* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
-* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
-* **Legal Compliance:** Strictly comply with all local laws and regulations.
 
 *****
 
