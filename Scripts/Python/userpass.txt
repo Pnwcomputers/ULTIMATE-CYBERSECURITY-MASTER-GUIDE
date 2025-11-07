@@ -1,0 +1,6 @@
+administrator:password
+anonymous:anon@email.com
+admin:12345
+root:secret
+guest:guest
+root:toor
