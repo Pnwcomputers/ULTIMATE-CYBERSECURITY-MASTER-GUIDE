@@ -8,6 +8,10 @@ Running a Large Language Model (LLM) completely offline gives you privacy, contr
 - **Ollama** - Simple, efficient local LLM runtime
 - **AnythingLLM** - User-friendly web interface for interacting with local models
 
+**[Offline AI LLM System - Blog Article](https://pnwcomputers.blogspot.com/2025/11/offline-llm-system.html)**
+  
+**[Offline AI LLM System TrueNAS Hosted - Blog Article](https://pnwcomputers.blogspot.com/2025/11/offline-llm-system-truenas-hosted.html)**
+
 By the end of this guide, you'll have a ChatGPT-like experience running entirely on your own hardware with no internet connection required.
 
 ## Why Choose This Stack?
