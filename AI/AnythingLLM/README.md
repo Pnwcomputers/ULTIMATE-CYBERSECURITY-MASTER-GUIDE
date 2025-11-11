@@ -2,7 +2,7 @@
 
 ## Overview
 
-This directory contains complete technical documentation for recreating all custom AgentFlows used in cybersecurity assessments and penetration testing. Each flow is documented with full configuration details, block specifications, and usage instructions.
+This directory contains complete technical documentation for creating custom AgentFlows used in cybersecurity assessments and penetration testing. Each flow is documented with full configuration details, block specifications, and usage instructions.
 
 ---
 
