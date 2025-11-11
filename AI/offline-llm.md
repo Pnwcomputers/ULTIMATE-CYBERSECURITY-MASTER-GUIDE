@@ -1,4 +1,4 @@
-# How to Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
+# Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
 
 ## Introduction
 
