@@ -10,32 +10,32 @@ This directory contains complete technical documentation for creating custom Age
 
 ### 🔍 OSINT & Reconnaissance Flows
 
-#### [CompanyOSINT](flow-CompanyOSINT.md)
+#### [CompanyOSINT](flow-company_osint.md)
 **Purpose:** Gathers public information about target companies  
 **Outputs:** Email formats, employees, tech stack, social media presence  
 **Use Cases:** Pre-engagement intelligence, company profiling  
 **Blocks:** 6 (3 web scraping, 3 LLM)
 
-#### [DomainRecon](flow-DomainRecon.md)
+#### [DomainRecon](flow-domain_recon.md)
 **Purpose:** Performs comprehensive domain reconnaissance  
 **Outputs:** Subdomains, DNS records, certificates, security posture  
 **Use Cases:** Attack surface mapping, asset discovery  
 **Blocks:** 6 (4 web scraping, 1 LLM, 1 complete)
 
-#### [EmailOSINT](flow-EmailOSINT.md)
+#### [EmailOSINT](flow-email_osint.md)
 **Purpose:** Investigates email addresses and usernames across platforms  
 **Outputs:** Breach history, social media accounts, security awareness assessment  
 **Use Cases:** Social engineering prep, breach verification  
 **Blocks:** 6 (1 API call, 1 web scraping, 3 LLM, 1 complete)  
 **Requirements:** HaveIBeenPwned API key
 
-#### [GitHubSecrets](flow-GitHubSecrets.md)
+#### [GitHubSecrets](flow-github_secrets.md)
 **Purpose:** Searches GitHub for exposed credentials and sensitive data  
 **Outputs:** Exposed secrets, API keys, risk assessment  
 **Use Cases:** Credential exposure detection, pre-engagement OSINT  
 **Blocks:** 5 (2 web scraping, 2 LLM, 1 complete)
 
-#### [BreachChecker](flow-BreachChecker.md)
+#### [BreachChecker](flow-breacher_check.md)
 **Purpose:** Checks domains/emails against known data breaches  
 **Outputs:** Breach history, exposed data types, risk analysis  
 **Use Cases:** Domain-wide breach assessment, credential exposure  
@@ -46,13 +46,13 @@ This directory contains complete technical documentation for creating custom Age
 
 ### 🎯 Scanning & Analysis Flows
 
-#### [NmapAnalyzer](flow-NmapAnalyzer.md)
+#### [NmapAnalyzer](flow-nmap_analyzer.md)
 **Purpose:** Analyzes Nmap scan results and provides recommendations  
 **Outputs:** Parsed findings table, prioritized risks, next steps  
 **Use Cases:** Port scan analysis, vulnerability prioritization  
 **Blocks:** 3 (2 LLM, 1 complete)
 
-#### [ThreatIntelCheck](flow-ThreatIntelCheck.md)
+#### [ThreatIntelCheck](flow-threat_intel.md)
 **Purpose:** Checks IP/domain reputation against threat intelligence  
 **Outputs:** Threat score, BLOCK/MONITOR/ALLOW recommendation  
 **Use Cases:** IP reputation checking, incident response  
@@ -63,13 +63,13 @@ This directory contains complete technical documentation for creating custom Age
 
 ### 🔐 Vulnerability Management Flows
 
-#### [CVELookup](flow-CVELookup.md)
+#### [CVELookup](flow-cve_lookup.md)
 **Purpose:** Retrieves CVE details and exploitability information  
 **Outputs:** CVSS analysis, exploitability assessment, remediation plan  
 **Use Cases:** CVE research, vulnerability analysis  
 **Blocks:** 4 (1 web scraping, 2 LLM, 1 complete)
 
-#### [VulnReportGenerator](flow-VulnReportGenerator.md)
+#### [VulnReportGenerator](flow-vulnreport_gen.md)
 **Purpose:** Creates professional vulnerability reports  
 **Outputs:** Executive summary, technical findings, remediation steps  
 **Use Cases:** Report writing, client deliverables  
