@@ -243,31 +243,31 @@ This mode is for **full home lab deployments**, learning, testing networks, SOC 
 # Recommended Tools
 
 ## Host Tools
-- Mullvad / IVPN  
-- VeraCrypt  
-- KeepassXC  
-- USB data blockers  
-- Wireshark (host mode passive only)
+- [Mullvad](https://mullvad.net/en) / [IVPN](https://www.ivpn.net/en/)
+- [VeraCrypt](https://veracrypt.jp/en/Home.html)
+- [KeepassXC](https://keepassxc.org/)
+- [USB Data Blockers](https://offgrid.co/products/usb-data-blocker)
+- [Wireshark (host mode passive only)](https://www.wireshark.org/faq)
 
 ## Offensive Tools
-- Kali Linux tools  
-- ParrotOS tools  
-- ProxyChains  
-- Evilginx / Responder / Impacket  
-- Sliver C2  
+- [Kali Linux tools](https://www.kali.org/tools/)
+- [ParrotOS tools](https://parrotsec.org/docs/tools/)
+- [ProxyChains  ](https://github.com/haad/proxychains)
+- [Evilginx](https://evilginx.com/) / [Responder](https://github.com/SpiderLabs/Responder) / [Impacket](https://github.com/fortra/impacket)  
+- [Sliver C2](https://github.com/BishopFox/sliver)
 
 ## Defensive Tools
-- Wazuh  
-- Zeek  
-- Suricata  
-- Sysmon  
-- ELK Stack  
+- [Wazuh](https://wazuh.com/)
+- [Zeek](https://zeek.org/)
+- [Suricata](https://suricata.io/)
+- [Sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+- [ELK Stack](https://www.elastic.co/elastic-stack)
 
 ## Malware Tools
-- REMnux  
-- Flare-VM  
-- Ghidra  
-- Cuckoo Sandbox  
+- [REMnux](https://remnux.org/)
+- [Flare-VM](https://github.com/mandiant/flare-vm)
+- [Ghidra](https://github.com/NationalSecurityAgency/ghidra)
+- [Cuckoo Sandbox](https://cuckoo.readthedocs.io/en/latest/)
 
 ---
 
