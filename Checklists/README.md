@@ -17,7 +17,7 @@
 ## 📋 Table of Contents
 
 - [Overview](#overview)
-- [Folder Contents](#folder-contents)
+- [Current Checklists](#current-checklists)
 - [Checklist Categories](#checklist-categories)
 - [How to Use These Checklists](#how-to-use-these-checklists)
 - [Security & Legal Disclaimer](#security--legal-disclaimer)
@@ -31,14 +31,14 @@
 This directory contains **comprehensive security checklists, assessment templates, and methodologies** for cybersecurity professionals conducting authorized security testing, audits, and compliance assessments.
 
 **What You'll Find Here:**
-- 📝 Penetration testing checklists for all phases
-- 🔍 Security audit templates for various environments
-- 🖥️ System hardening checklists (Windows, Linux, macOS)
-- 🌐 Network security assessment checklists
+- 📝 Penetration testing attack path checklists
+- 🔍 Security assessment methodologies
+- 🖥️ System hardening and configuration reviews
+- 🌐 Network and infrastructure security checklists
 - 📱 Application security testing guides
-- ☁️ Cloud security configuration reviews
-- 🏢 Compliance and regulatory checklists
-- 📊 Security assessment report templates
+- 🔐 Active Directory security assessments
+- ⚡ Privilege escalation methodologies
+- 📊 Security configuration baselines
 
 ### Purpose
 
@@ -47,177 +47,196 @@ These checklists serve as:
 - **Quality assurance** to ensure comprehensive testing coverage
 - **Documentation aids** for tracking assessment progress
 - **Training materials** for developing security assessment skills
-- **Compliance verification** for meeting regulatory requirements
+- **Attack path references** for penetration testing
 
 ---
 
-## 📂 Folder Contents
+## 📂 Current Checklists
 
-### Penetration Testing Checklists
+### Active Directory & Domain Security
 
-| File | Description | Status |
-|------|-------------|--------|
-| **External_Pentest_Checklist.md** | External network penetration testing methodology | 🔨 Coming Soon |
-| **Internal_Pentest_Checklist.md** | Internal network security assessment | 🔨 Coming Soon |
-| **Web_Application_Pentest_Checklist.md** | OWASP-based web app security testing | 🔨 Coming Soon |
-| **Mobile_Application_Pentest_Checklist.md** | iOS and Android security assessment | 🔨 Coming Soon |
-| **Wireless_Security_Audit_Checklist.md** | WiFi and wireless network testing | 🔨 Coming Soon |
-| **Social_Engineering_Assessment_Checklist.md** | Physical and digital social engineering | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[ActiveDirectory.md](./ActiveDirectory.md)** | Comprehensive Active Directory security assessment and attack vectors | AD Security |
+| **[Domain-Escalation.md](./Domain-Escalation.md)** | Domain privilege escalation techniques and paths | Escalation |
+| **[Domain-Persistence.md](./Domain-Persistence.md)** | Domain-level persistence mechanisms and detection | Persistence |
 
-### Infrastructure Security
+### Initial Access & Exploitation
 
-| File | Description | Status |
-|------|-------------|--------|
-| **Active_Directory_Security_Checklist.md** | AD security assessment and hardening | 🔨 Coming Soon |
-| **Cloud_Security_Checklist_AWS.md** | AWS security configuration review | 🔨 Coming Soon |
-| **Cloud_Security_Checklist_Azure.md** | Azure security configuration review | 🔨 Coming Soon |
-| **Cloud_Security_Checklist_GCP.md** | Google Cloud Platform security review | 🔨 Coming Soon |
-| **Network_Security_Assessment_Checklist.md** | Network infrastructure security | 🔨 Coming Soon |
-| **Firewall_Configuration_Checklist.md** | Firewall rule review and hardening | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Initial-Access.md](./Initial-Access.md)** | Initial access techniques and vectors (MITRE ATT&CK) | Entry Points |
+| **[Credential-Access.md](./Credential-Access.md)** | Credential dumping, theft, and access techniques | Credentials |
+| **[Environment-Breakout-Checklist.md](./Environment-Breakout-Checklist.md)** | Container and sandbox escape techniques | Breakout |
 
-### System Hardening
+### Privilege Escalation
 
-| File | Description | Status |
-|------|-------------|--------|
-| **Windows_Hardening_Checklist.md** | Windows OS security hardening | 🔨 Coming Soon |
-| **Linux_Hardening_Checklist.md** | Linux/Unix security hardening | 🔨 Coming Soon |
-| **MacOS_Hardening_Checklist.md** | macOS security configuration | 🔨 Coming Soon |
-| **Server_Hardening_Checklist.md** | General server security baseline | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Windows-Privilege-Escalation.md](./Windows-Privilege-Escalation.md)** | Windows privilege escalation vectors and techniques | Windows PrivEsc |
+| **[Linux-Privilege-Escalation.md](./Linux-Privilege-Escalation.md)** | Linux/Unix privilege escalation methodologies | Linux PrivEsc |
 
-### Application Security
+### Lateral Movement & Persistence
 
-| File | Description | Status |
-|------|-------------|--------|
-| **API_Security_Testing_Checklist.md** | REST/GraphQL API security testing | 🔨 Coming Soon |
-| **OWASP_Top_10_Checklist.md** | OWASP Top 10 vulnerability testing | 🔨 Coming Soon |
-| **Code_Review_Security_Checklist.md** | Secure code review methodology | 🔨 Coming Soon |
-| **Container_Security_Checklist.md** | Docker/Kubernetes security | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Lateral-Movement.md](./Lateral-Movement.md)** | Lateral movement techniques across networks | Movement |
+| **[Persistence.md](./Persistence.md)** | System-level persistence mechanisms | Persistence |
+| **[Command&Control.md](./Command&Control.md)** | Command and Control (C2) techniques and channels | C2 |
 
-### Compliance & Frameworks
+### Defense Evasion
 
-| File | Description | Status |
-|------|-------------|--------|
-| **PCI_DSS_Compliance_Checklist.md** | Payment Card Industry compliance | 🔨 Coming Soon |
-| **HIPAA_Security_Checklist.md** | Healthcare data security compliance | 🔨 Coming Soon |
-| **SOC2_Security_Controls_Checklist.md** | SOC 2 Type II controls verification | 🔨 Coming Soon |
-| **NIST_Cybersecurity_Framework_Checklist.md** | NIST CSF implementation guide | 🔨 Coming Soon |
-| **ISO_27001_Checklist.md** | ISO 27001 security controls | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Defense-Evasion.md](./Defense-Evasion.md)** | Defense evasion techniques and anti-forensics | Evasion |
+| **[AppLocker.md](./AppLocker.md)** | AppLocker bypass techniques and misconfigurations | Bypass |
 
-### Specialized Assessments
+### Application & Infrastructure Security
 
-| File | Description | Status |
-|------|-------------|--------|
-| **IoT_Security_Assessment_Checklist.md** | Internet of Things device testing | 🔨 Coming Soon |
-| **SCADA_ICS_Security_Checklist.md** | Industrial control systems security | 🔨 Coming Soon |
-| **Physical_Security_Assessment_Checklist.md** | Physical security controls review | 🔨 Coming Soon |
-| **Incident_Response_Readiness_Checklist.md** | IR preparedness assessment | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Android-Applications-Checklist.md](./Android-Applications-Checklist.md)** | Android application security assessment | Mobile Security |
+| **[VoIP Checklist.md](./VoIP Checklist.md)** | Voice over IP security testing and assessment | VoIP Security |
+| **[Microsoft Exchange.md](./Microsoft Exchange.md)** | Microsoft Exchange server security assessment | Exchange |
 
-### Report Templates
+### System Hardening & Configuration
 
-| File | Description | Status |
-|------|-------------|--------|
-| **Pentest_Report_Template.md** | Professional penetration test report | 🔨 Coming Soon |
-| **Executive_Summary_Template.md** | Non-technical executive summary | 🔨 Coming Soon |
-| **Vulnerability_Assessment_Report_Template.md** | Vulnerability scan report format | 🔨 Coming Soon |
-| **Security_Audit_Report_Template.md** | Comprehensive security audit report | 🔨 Coming Soon |
+| Checklist | Description | Focus Area |
+|-----------|-------------|------------|
+| **[Windows-Build-Review-Checklist.md](./Windows-Build-Review-Checklist.md)** | Windows system build and configuration review | Hardening |
 
 ---
 
 ## 🗂️ Checklist Categories
 
-### 1. Penetration Testing Checklists
+### 1. Active Directory & Domain Security
 
-**Purpose**: Systematic methodology for identifying security vulnerabilities through authorized exploitation attempts.
+**Purpose**: Comprehensive assessment of Active Directory environments and domain security controls.
 
-**Key Areas Covered**:
-- Reconnaissance and information gathering
-- Vulnerability identification and analysis
-- Exploitation and privilege escalation
-- Post-exploitation and persistence
-- Documentation and reporting
+**What's Covered**:
+- Domain enumeration techniques
+- Trust relationship exploitation
+- Kerberos attacks (Kerberoasting, AS-REP roasting)
+- Domain privilege escalation paths
+- Persistence mechanisms in AD
+- Golden/Silver ticket attacks
+- DCSync and replication attacks
 
 **Use Cases**:
-- External penetration tests
-- Internal network assessments
-- Web application security testing
-- Wireless security audits
-- Social engineering assessments
+- Internal penetration testing
+- Red team operations
+- Active Directory security assessments
+- Domain compromise simulation
+- Security hardening validation
 
 ---
 
-### 2. Security Audit Checklists
+### 2. Initial Access & Credential Theft
 
-**Purpose**: Comprehensive security posture assessment against best practices and standards.
+**Purpose**: Techniques for gaining initial foothold and obtaining credentials.
 
-**Key Areas Covered**:
+**What's Covered**:
+- Phishing and social engineering vectors
+- Exploit delivery mechanisms
+- Credential dumping (LSASS, SAM, LSA Secrets)
+- Pass-the-hash/ticket attacks
+- Kerberos delegation abuse
+- NTLM relay attacks
+
+**Use Cases**:
+- Initial access testing
+- Credential security assessment
+- Password policy evaluation
+- Authentication mechanism testing
+- User awareness training validation
+
+---
+
+### 3. Privilege Escalation
+
+**Purpose**: Systematic methodology for escalating privileges on Windows and Linux systems.
+
+**What's Covered**:
+- Kernel exploits
+- Service misconfigurations
+- Scheduled task abuse
+- DLL hijacking
+- Token manipulation
+- Sudo/SUID misconfigurations
+- Capabilities abuse
+
+**Use Cases**:
+- Local privilege escalation testing
+- System hardening validation
 - Configuration review
-- Access control verification
-- Logging and monitoring assessment
-- Patch management review
-- Security policy compliance
-
-**Use Cases**:
-- Annual security audits
-- Third-party vendor assessments
-- Merger and acquisition due diligence
-- Regulatory compliance verification
+- Exploit chain development
+- Security baseline verification
 
 ---
 
-### 3. System Hardening Checklists
+### 4. Lateral Movement & Persistence
 
-**Purpose**: Step-by-step guides for securing systems against common attack vectors.
+**Purpose**: Techniques for moving laterally across networks and maintaining access.
 
-**Key Areas Covered**:
-- Unnecessary service removal
-- Strong authentication implementation
-- Encryption configuration
-- Security update management
-- Least privilege enforcement
+**What's Covered**:
+- Remote execution methods (WMI, PSExec, WinRM)
+- Pass-the-hash lateral movement
+- RDP/VNC pivoting
+- Service installation
+- Registry persistence
+- Scheduled tasks
+- WMI event subscriptions
+- Startup folder abuse
 
 **Use Cases**:
-- New system deployment
-- Security baseline implementation
-- Post-compromise remediation
-- Proactive security improvements
+- Network segmentation testing
+- Detection capability assessment
+- Persistence mechanism identification
+- Post-exploitation operations
+- Blue team detection validation
 
 ---
 
-### 4. Compliance Checklists
+### 5. Defense Evasion
 
-**Purpose**: Verification of adherence to regulatory and industry security standards.
+**Purpose**: Techniques for evading security controls and anti-malware solutions.
 
-**Key Areas Covered**:
-- Control implementation verification
-- Documentation review
-- Policy and procedure assessment
-- Technical control validation
-- Gap analysis
+**What's Covered**:
+- AppLocker/WDAC bypass
+- AMSI bypass techniques
+- PowerShell logging evasion
+- AV/EDR evasion
+- Process injection
+- Code obfuscation
+- Living-off-the-land binaries (LOLBins)
 
 **Use Cases**:
-- PCI DSS compliance audits
-- HIPAA security assessments
-- SOC 2 readiness reviews
-- ISO 27001 certification preparation
+- Detection capability testing
+- Security control validation
+- Purple team exercises
+- EDR/AV efficacy assessment
+- Security monitoring gaps
 
 ---
 
-### 5. Application Security Checklists
+### 6. Application Security
 
-**Purpose**: Identification of security flaws in software applications and APIs.
+**Purpose**: Security assessment of mobile applications and specialized infrastructure.
 
-**Key Areas Covered**:
-- Input validation testing
-- Authentication and authorization flaws
-- Session management issues
-- API security vulnerabilities
-- Code quality and security
+**What's Covered**:
+- Android application vulnerabilities
+- VoIP security weaknesses
+- Microsoft Exchange misconfigurations
+- API security issues
+- Authentication/authorization flaws
+- Data storage security
 
 **Use Cases**:
-- Pre-production security testing
-- Continuous security validation
+- Mobile application security testing
+- VoIP infrastructure assessment
+- Exchange server security review
 - Third-party application assessment
-- DevSecOps integration
+- Compliance verification
 
 ---
 
@@ -228,85 +247,100 @@ These checklists serve as:
 ```
 1. Pre-Engagement
    └─> Select appropriate checklist(s) for engagement type
-   └─> Review scope and rules of engagement
+   └─> Review MITRE ATT&CK mapping
    └─> Obtain written authorization
-   └─> Prepare testing environment
+   └─> Prepare testing environment and tools
 
 2. During Assessment
-   └─> Follow checklist systematically
+   └─> Follow checklist systematically by phase
    └─> Document all findings with evidence
-   └─> Mark completed items and note exceptions
-   └─> Track time spent on each phase
+   └─> Use checklists to ensure coverage
+   └─> Track successful and unsuccessful techniques
+   └─> Note defense mechanisms encountered
 
 3. Post-Assessment
-   └─> Review checklist for completeness
-   └─> Compile findings into report
+   └─> Map findings to checklist items
+   └─> Identify attack paths and chains
    └─> Provide remediation recommendations
    └─> Archive checklist with engagement documentation
 
 4. Quality Assurance
-   └─> Have peer review against checklist
-   └─> Verify all items addressed
+   └─> Verify all applicable items tested
    └─> Ensure proper documentation
+   └─> Review for missed techniques
+```
+
+### For Red Team Operators
+
+```
+1. Planning Phase
+   └─> Select checklists aligned with objectives
+   └─> Map to adversary TTPs
+   └─> Plan attack paths using checklists
+   └─> Identify required tools and capabilities
+
+2. Execution Phase
+   └─> Use checklists as technique reference
+   └─> Adapt based on environment
+   └─> Document successful techniques
+   └─> Note detection and response
+
+3. Reporting Phase
+   └─> Map activities to MITRE ATT&CK
+   └─> Highlight successful attack paths
+   └─> Provide detection recommendations
+   └─> Suggest defensive improvements
+```
+
+### For Blue Team / Security Defenders
+
+```
+1. Understanding Threats
+   └─> Study attack techniques in checklists
+   └─> Map to MITRE ATT&CK framework
+   └─> Identify relevant threats to environment
+   └─> Prioritize high-risk techniques
+
+2. Detection Development
+   └─> Create detection rules for techniques
+   └─> Develop hunting queries
+   └─> Build correlation rules
+   └─> Test detection coverage
+
+3. Hardening & Mitigation
+   └─> Implement preventive controls
+   └─> Harden configurations per checklists
+   └─> Validate security baselines
+   └─> Test detection capabilities
+
+4. Purple Team Exercises
+   └─> Use checklists for controlled testing
+   └─> Validate detection and response
+   └─> Measure coverage and gaps
+   └─> Improve security posture iteratively
 ```
 
 ### For Security Auditors
 
 ```
-1. Planning Phase
-   └─> Identify applicable compliance frameworks
-   └─> Select relevant audit checklists
-   └─> Schedule interviews and reviews
-   └─> Request necessary documentation
+1. Audit Planning
+   └─> Select relevant security checklists
+   └─> Map to compliance requirements
+   └─> Schedule assessment activities
+   └─> Request necessary access
 
-2. Fieldwork Phase
+2. Assessment Execution
    └─> Conduct systematic review per checklist
-   └─> Document control implementations
-   └─> Note deficiencies and gaps
-   └─> Gather supporting evidence
+   └─> Verify security control implementation
+   └─> Document findings and evidence
+   └─> Test configuration effectiveness
 
-3. Reporting Phase
+3. Reporting
    └─> Compare findings against checklist
-   └─> Assess risk and impact
+   └─> Assess risk and severity
    └─> Provide actionable recommendations
    └─> Create audit report with checklist results
-
-4. Follow-up
-   └─> Track remediation progress
-   └─> Re-test critical findings
-   └─> Update checklist based on lessons learned
 ```
-
-### For System Administrators
-
-```
-1. Baseline Security
-   └─> Use hardening checklists for new systems
-   └─> Document baseline configuration
-   └─> Test functionality after hardening
-   └─> Create system documentation
-
-2. Ongoing Maintenance
-   └─> Periodic security reviews using checklists
-   └─> Verify configuration drift
-   └─> Apply security updates
-   └─> Monitor for anomalies
-
-3. Incident Response
-   └─> Post-incident hardening using checklists
-   └─> Verify security controls restoration
-   └─> Document lessons learned
-   └─> Update baselines as needed
-```
-
-### Customization Tips
-
-- **Adapt to Environment**: Modify checklists for your specific infrastructure
-- **Add Organization Policies**: Include internal security requirements
-- **Risk-Based Prioritization**: Focus on high-risk items first
-- **Tool Integration**: Reference specific tools your team uses
-- **Version Control**: Track checklist revisions and improvements
-- **Automation**: Script repetitive checklist items where possible
 
 ---
 
@@ -317,26 +351,26 @@ These checklists serve as:
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️
 
-These security checklists and methodologies are provided for:
+These security checklists contain attack techniques and methodologies for:
 
 ✅ AUTHORIZED USES:
-   • Penetration testing with written authorization
-   • Security assessments with client/employer permission
-   • Internal security audits within your organization
-   • Compliance verification for authorized frameworks
-   • System hardening on systems you own or manage
-   • Educational purposes in authorized lab environments
-   • Professional security research with proper scope
+   • Penetration testing with explicit written authorization
+   • Red team operations with organizational approval
+   • Security assessments with client permission
+   • Blue team training and detection development
+   • Purple team exercises in controlled environments
+   • Security research in isolated lab environments
+   • Educational purposes with proper supervision
    • CTF competitions and authorized challenges
 
 🚫 STRICTLY PROHIBITED:
    • Unauthorized penetration testing or "hacking"
-   • Testing systems without explicit written permission
+   • Attacking systems without explicit written permission
    • Exceeding authorized scope of engagement
-   • Testing in production without proper approvals
+   • Testing techniques on production systems without approval
+   • Using attack techniques for malicious purposes
    • Bypassing security controls without authorization
-   • Using findings to cause harm or disruption
-   • Sharing client data or sensitive findings publicly
+   • Causing harm, disruption, or data loss
    • Any illegal or unethical activities
 ```
 
@@ -346,223 +380,284 @@ These security checklists and methodologies are provided for:
 
 #### Written Authorization Requirements
 
-**ALWAYS obtain written authorization that includes:**
-- Specific systems and IP ranges in scope
-- Testing methodology and techniques allowed
-- Time windows for testing activities
-- Out-of-scope systems and restrictions
-- Emergency contact information
-- Data handling and confidentiality agreements
-- Liability and indemnification terms
-- Deliverables and reporting requirements
+**CRITICAL: ALWAYS obtain written authorization that explicitly includes:**
+- ✅ Specific systems, networks, and IP ranges in scope
+- ✅ Testing methodology and techniques approved
+- ✅ Time windows for testing activities
+- ✅ Out-of-scope systems and explicit restrictions
+- ✅ Emergency contact information and escalation
+- ✅ Data handling and confidentiality requirements
+- ✅ Liability, indemnification, and insurance terms
+- ✅ Deliverables, reporting requirements, and format
 
 #### Scope Boundaries
 
 ```
-✅ IN SCOPE (With Authorization):
+✅ IN SCOPE (With Explicit Authorization):
    • Systems explicitly listed in engagement letter
    • Networks defined in written agreement
-   • Applications specifically authorized for testing
-   • Test accounts created for the engagement
-   • Designated time windows
+   • Specific techniques approved by client
+   • Test accounts created for engagement
+   • Designated time windows only
 
 🚫 OUT OF SCOPE (Even If Discovered):
-   • Third-party systems or services
+   • Third-party systems or cloud services
    • Production systems not explicitly authorized
    • Personal devices of employees
    • Partner or vendor systems
-   • Anything not in writing
+   • Anything not explicitly in writing
+   • Techniques not approved (e.g., DoS, destructive)
 ```
 
 #### Rules of Engagement
 
-**Essential Guidelines:**
-1. **Stop if Unclear**: If scope is ambiguous, stop and get clarification
-2. **Report Critical Issues Immediately**: Don't wait for report if critical
-3. **No Denial of Service**: Unless explicitly authorized and planned
-4. **Data Handling**: Follow agreed-upon data classification rules
-5. **Communication Protocol**: Use established channels for updates
-6. **Social Engineering Limits**: Respect agreed-upon boundaries
-7. **Physical Access**: Only if specifically authorized
-8. **Time Windows**: Conduct testing only during approved times
+**Essential Guidelines for Attack Technique Testing:**
+
+1. **Stop Immediately if Uncertain**: If scope is ambiguous, STOP and get clarification
+2. **Report Critical Vulns Immediately**: Don't wait for final report if system is at risk
+3. **No Destructive Actions**: Unless explicitly authorized (ransomware, wipers, etc.)
+4. **No Denial of Service**: Unless specifically approved and planned
+5. **Data Protection**: Never exfiltrate, modify, or delete real production data
+6. **Communication Protocol**: Use established secure channels for updates
+7. **Social Engineering Limits**: Respect agreed boundaries (no physical threats, etc.)
+8. **Physical Access**: Only if specifically authorized in writing
+9. **Time Windows**: Test only during approved times
+10. **Document Everything**: Every command, technique, and finding
 
 ---
 
-### Professional Standards & Ethics
+### Attack Technique Legal Considerations
+
+#### Computer Fraud and Abuse Act (CFAA) - United States
+
+```
+⚠️ CRITICAL LEGAL WARNING:
+
+The Computer Fraud and Abuse Act (18 U.S.C. § 1030) criminalizes:
+   • Unauthorized access to protected computers
+   • Exceeding authorized access
+   • Damaging protected computers
+   • Trafficking in passwords
+   • Extortion involving computers
+
+PENALTIES:
+   • Up to 10 years imprisonment (first offense)
+   • Up to 20 years (repeat offense)
+   • Significant financial penalties
+   • Civil liability in addition to criminal charges
+
+CRITICAL: Authorization must be:
+   ✓ Explicit and in writing
+   ✓ From someone with authority to grant it
+   ✓ Specific about scope and techniques
+   ✓ Current and not expired
+```
+
+#### International Laws
+
+- **UK Computer Misuse Act 1990**: Unauthorized access is criminal offense
+- **EU Cybercrime Directives**: Harmonized computer crime laws across EU
+- **Canada Criminal Code Section 342.1**: Unauthorized computer use
+- **Australia Cybercrime Act 2001**: Computer-related offenses
+
+**Key Point**: These laws apply even when using the techniques in these checklists
+without proper authorization.
+
+---
+
+### Technique-Specific Warnings
+
+#### Credential Dumping & Theft
+
+```
+⚠️ WARNING: Credential Access Techniques
+
+LEGAL CONSIDERATIONS:
+   • Dumping credentials is unauthorized access
+   • Pass-the-hash attacks may violate CFAA
+   • Stealing credentials can be theft charges
+   • Use ONLY with explicit authorization
+
+REQUIRED AUTHORIZATION:
+   ✓ Explicit permission to access credentials
+   ✓ Approval for specific dumping techniques
+   ✓ Data handling and storage requirements
+   ✓ Credential disposal procedures
+
+PROHIBITED WITHOUT AUTHORIZATION:
+   🚫 Accessing others' accounts or credentials
+   🚫 Using stolen credentials on unauthorized systems
+   🚫 Exfiltrating credential databases
+   🚫 Selling or sharing stolen credentials
+```
+
+#### Privilege Escalation
+
+```
+⚠️ WARNING: Privilege Escalation Techniques
+
+LEGAL CONSIDERATIONS:
+   • Exceeding authorized access is a crime
+   • Gaining admin/root without permission is illegal
+   • Exploiting systems may constitute unauthorized access
+   • Even "just testing" without approval is illegal
+
+REQUIRED AUTHORIZATION:
+   ✓ Permission to attempt privilege escalation
+   ✓ Approval for exploit usage
+   ✓ Clear scope of accounts and systems
+   ✓ Rollback and restoration procedures
+
+PROHIBITED:
+   🚫 Escalating privileges without authorization
+   🚫 Using exploits on unauthorized systems
+   🚫 Leaving backdoors or persistence
+   🚫 Modifying system security settings
+```
+
+#### Defense Evasion & AV Bypass
+
+```
+⚠️ WARNING: Defense Evasion Techniques
+
+LEGAL CONSIDERATIONS:
+   • Disabling security controls may violate authorization
+   • AMSI/AppLocker bypass requires explicit approval
+   • AV/EDR evasion must be within scope
+   • Creating malware-like tools has legal risks
+
+REQUIRED AUTHORIZATION:
+   ✓ Explicit permission to test evasion techniques
+   ✓ Approval for security control bypass
+   ✓ Agreement on tools and methods
+   ✓ Restoration of security controls post-test
+
+PROHIBITED:
+   🚫 Disabling security on unauthorized systems
+   🚫 Distributing evasion tools publicly
+   🚫 Using evasion for malicious purposes
+   🚫 Leaving systems in insecure state
+```
+
+---
+
+### Professional Standards
 
 #### Code of Ethics for Security Testing
 
 **Core Principles:**
-1. **Integrity**: Act honestly and transparently with clients
-2. **Confidentiality**: Protect client information and findings
-3. **Competence**: Only perform work you're qualified to do
-4. **Objectivity**: Report findings accurately without bias
-5. **Professional Behavior**: Maintain industry standards
-6. **Legal Compliance**: Follow all applicable laws
+
+1. **Authorization**: Never test without explicit written permission
+2. **Integrity**: Act honestly and transparently with clients
+3. **Confidentiality**: Protect all client information and findings
+4. **Competence**: Only use techniques you fully understand
+5. **Responsibility**: Accept accountability for all actions
+6. **Legal Compliance**: Follow all applicable laws and regulations
+7. **Do No Harm**: Minimize risk and impact of testing
 
 #### Professional Responsibilities
 
 ```
 ✅ DO:
-   • Verify authorization before every engagement
-   • Document all activities and findings
-   • Report findings responsibly
-   • Protect client confidentiality
-   • Provide actionable recommendations
-   • Continue professional development
-   • Maintain proper insurance and licensing
+   • Obtain written authorization before every test
+   • Verify authorization is current and valid
+   • Document all activities and techniques used
+   • Report findings responsibly and promptly
+   • Protect client confidentiality at all times
+   • Restore systems to secure state after testing
+   • Maintain professional liability insurance
+   • Continue professional development and training
 
 🚫 DON'T:
-   • Overstate findings or create fear
-   • Share client information without permission
+   • Test without written authorization (ever)
    • Exceed authorized scope "just to see"
-   • Use findings for personal gain
-   • Disclose vulnerabilities publicly without permission
-   • Misrepresent your qualifications
-   • Guarantee specific results
+   • Use findings for personal gain or harm
+   • Share client vulnerabilities publicly
+   • Disclose techniques used without permission
+   • Leave systems in compromised state
+   • Misrepresent your qualifications or findings
+   • Guarantee results or claim infallibility
 ```
 
 ---
 
-### Applicable Laws & Regulations
+### Risk Considerations
 
-#### United States
+#### Technical Risks of Using These Checklists
 
-**Federal Laws:**
-- **Computer Fraud and Abuse Act (CFAA)**: Criminalizes unauthorized computer access
-- **Electronic Communications Privacy Act (ECPA)**: Protects electronic communications
-- **Stored Communications Act (SCA)**: Regulates access to stored electronic data
-- **Digital Millennium Copyright Act (DMCA)**: Anti-circumvention provisions
+**System Impact:**
+- Exploitation attempts may cause system instability
+- Privilege escalation can crash services
+- Credential dumping may trigger lockouts
+- Persistence mechanisms may conflict with production
+- Lateral movement may cause network disruption
 
-**Key Points:**
-- Authorization must be explicit and documented
-- Exceeding authorized access is a crime
-- Penalties include fines and imprisonment
-- Civil liability in addition to criminal penalties
+**Detection & Response:**
+- Security tools will detect and alert on techniques
+- EDR/AV may quarantine testing tools
+- SOC teams may respond to testing activities
+- Incident response may be triggered
+- Legal/compliance may be notified
 
-#### European Union
+**Data Risks:**
+- Accidental access to sensitive data
+- Credential theft may expose real passwords
+- Logs may contain PII or confidential information
+- Evidence must be properly secured
+- Data disposal must follow procedures
 
-**Regulations:**
-- **General Data Protection Regulation (GDPR)**: Data protection and privacy
-- **Network and Information Systems Directive (NIS)**: Critical infrastructure security
-- **Cybersecurity Act**: EU-wide cybersecurity certification
+#### Legal Risks
 
-**Implications:**
-- Testing on EU systems requires GDPR compliance
-- Data collection must have lawful basis
-- Breach notification requirements apply
-- Cross-border data transfer restrictions
+**Criminal Liability:**
+- Federal computer crime charges (CFAA)
+- State computer crime charges
+- Wire fraud or identity theft charges
+- Conspiracy or aiding/abetting charges
+- International prosecution under various laws
 
-#### Industry-Specific Regulations
+**Civil Liability:**
+- Damages from system disruption
+- Data breach liability
+- Privacy violations and lawsuits
+- Breach of contract (exceeding scope)
+- Loss of business or reputation
 
-- **PCI DSS**: Payment card industry security standards
-- **HIPAA**: Healthcare data protection (US)
-- **FERPA**: Educational records protection (US)
-- **GLBA**: Financial services privacy (US)
-- **SOX**: Corporate financial reporting (US)
-
----
-
-### Risk Management
-
-#### Potential Risks of Security Testing
-
-**Technical Risks:**
-- System instability or crashes
-- Data corruption or loss
-- Service disruption
-- Network congestion
-- Unintended access to sensitive data
-
-**Business Risks:**
-- Reputation damage if testing discovered
-- Loss of customer trust
-- Regulatory fines for compliance violations
-- Financial loss from downtime
-- Legal liability for damages
-
-**Personal Risks:**
-- Criminal charges for unauthorized access
-- Civil lawsuits and financial penalties
+**Professional Consequences:**
+- Loss of security certifications (OSCP, CEH, etc.)
 - Professional license revocation
-- Reputation damage
 - Employment termination
+- Industry blacklisting
+- Inability to work in cybersecurity
 
 #### Risk Mitigation Strategies
 
 ```
 ✅ Mitigation Measures:
-   • Comprehensive written agreements
-   • Professional liability insurance (E&O)
-   • Staged testing approach (non-prod first)
-   • Continuous client communication
-   • Backup and rollback procedures
-   • Emergency response procedures
-   • Thorough pre-engagement planning
-   • Peer review of methodology
+
+Authorization & Documentation:
+   • Comprehensive written authorization
+   • Clear scope and boundaries defined
+   • Regular authorization verification
+   • Detailed activity logging
+   • Evidence preservation procedures
+   • Client communication protocols
+
+Technical Controls:
+   • Test in non-production first
+   • Use snapshots and backups
+   • Implement rollback procedures
+   • Monitor testing impact
+   • Have emergency contacts ready
+   • Prepare incident response plan
+
+Professional Practices:
+   • Maintain $1M+ E&O insurance
+   • Consult legal counsel when uncertain
+   • Follow industry standards (PTES, OSSTMM)
+   • Participate in professional organizations
+   • Continuous education and training
+   • Peer review of methodologies
 ```
-
----
-
-### Compliance Framework Considerations
-
-#### PCI DSS Penetration Testing Requirements
-
-- Annual penetration testing required
-- Testing after significant infrastructure changes
-- Must cover network and application layers
-- Methodology must align with industry standards
-- Findings must be documented and remediated
-
-#### HIPAA Security Rule Testing
-
-- Regular security risk assessments required
-- Technical and non-technical evaluation
-- Documentation of safeguards
-- Ongoing monitoring and testing
-- Incident response testing
-
-#### SOC 2 Penetration Testing
-
-- Annual penetration testing common practice
-- Part of security control validation
-- Tests security principle implementation
-- Results included in SOC 2 report
-- Remediation tracking required
-
----
-
-### Documentation Requirements
-
-#### Engagement Documentation
-
-**Required Documents:**
-1. **Statement of Work (SOW)**: Scope, deliverables, timeline
-2. **Rules of Engagement (RoE)**: Technical boundaries and restrictions
-3. **Authorization Letter**: Explicit permission for testing
-4. **Non-Disclosure Agreement (NDA)**: Confidentiality protection
-5. **Insurance Certificate**: Professional liability coverage
-6. **Contact List**: Emergency contacts and escalation
-
-#### Testing Documentation
-
-**Maintain Records Of:**
-- All commands executed
-- Tools and scripts used
-- Findings with evidence (screenshots, logs)
-- Timestamps for all activities
-- Communication with client
-- Issues encountered and resolutions
-
-#### Reporting Documentation
-
-**Final Deliverables:**
-- Executive summary (non-technical)
-- Technical findings with severity ratings
-- Evidence and proof of concepts
-- Remediation recommendations with priority
-- Methodology and scope documentation
-- Compliance mapping (if applicable)
 
 ---
 
@@ -571,80 +666,101 @@ These security checklists and methodologies are provided for:
 #### If Something Goes Wrong
 
 ```
-🚨 Immediate Actions:
-1. STOP testing immediately
-2. Document what happened
+🚨 IMMEDIATE ACTIONS:
+
+1. STOP all testing immediately
+2. Document exactly what happened
 3. Notify client using emergency contact
-4. Preserve evidence and logs
-5. Assist with remediation if requested
-6. Document incident in final report
-7. Review and improve procedures
+4. Preserve all evidence and logs
+5. Assess system status and impact
+6. Assist with remediation if requested
+7. Document incident for final report
+8. Conduct post-incident review
+9. Update procedures to prevent recurrence
 ```
 
-#### Critical Finding Protocol
+#### Critical Finding or System Compromise
 
 ```
-🔴 For Critical Vulnerabilities:
-1. Document finding thoroughly
-2. Verify exploitability
-3. Assess immediate risk
-4. Notify client immediately (don't wait for report)
-5. Provide temporary mitigation if possible
-6. Assist with emergency response if requested
-7. Follow up on remediation
-```
+🔴 CRITICAL VULNERABILITY PROTOCOL:
 
----
-
-### Disclaimer of Liability
-
-```
-⚠️ LEGAL DISCLAIMER ⚠️
-
-The authors, contributors, and maintainers of these security checklists:
-
-• Provide this content "AS IS" without warranty of any kind
-• Assume NO liability for misuse or unauthorized use
-• Are NOT responsible for damages resulting from testing activities
-• Do NOT guarantee completeness or accuracy of checklists
-• Strongly advocate for authorized, ethical security testing only
-
-USERS ARE SOLELY RESPONSIBLE FOR:
-✓ Obtaining proper authorization before any testing
-✓ Ensuring compliance with all applicable laws and regulations
-✓ Understanding the scope and limitations of testing
-✓ Managing risks associated with security testing activities
-✓ Professional and ethical conduct during assessments
-✓ Consequences of their testing activities and findings
-✓ Maintaining appropriate professional liability insurance
-
-These checklists are educational resources and professional guides.
-Unauthorized use for illegal activities is strictly prohibited.
-
-WHEN IN DOUBT:
-• Don't proceed without explicit authorization
-• Consult with legal counsel
-• Contact client for clarification
-• Review professional standards and ethics guidelines
+1. Document finding thoroughly with evidence
+2. Assess immediate risk to organization
+3. Verify exploitability and impact
+4. Notify client IMMEDIATELY (don't wait for report)
+5. Provide temporary mitigation recommendations
+6. Offer emergency remediation assistance
+7. Follow up to ensure remediation
+8. Document in final report with timeline
 ```
 
 ---
 
-### Insurance & Liability Protection
+### Warranty Disclaimer
 
-#### Professional Liability Insurance
+```
+⚠️ DISCLAIMER OF WARRANTIES ⚠️
 
-**Recommended Coverage:**
-- **Errors & Omissions (E&O)**: Professional mistakes and oversights
-- **Cyber Liability**: Data breaches and privacy violations
-- **General Liability**: Physical damage and bodily injury
-- **Technology E&O**: Specific to IT and cybersecurity services
+These security checklists are provided "AS IS" without warranty of any kind,
+either expressed or implied, including but not limited to:
 
-**Typical Coverage Amounts:**
-- Minimum $1M per occurrence
-- $2M aggregate common for larger engagements
-- Higher limits for enterprise clients
-- Defense costs often additional to limits
+• Warranties of accuracy or completeness
+• Warranties of technique effectiveness
+• Warranties of safety or non-disruption
+• Warranties of legal compliance
+• Warranties of fitness for a particular purpose
+
+THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
+• Make no guarantees about checklist completeness
+• Are not responsible for damages from checklist use
+• Do not warrant techniques will work in all environments
+• Are not liable for legal consequences of misuse
+• May update content without notice
+• Disclaim all liability for unauthorized use
+
+USERS EXPLICITLY ACKNOWLEDGE:
+• They use these checklists at their own risk
+• They are responsible for obtaining authorization
+• They must comply with all applicable laws
+• They are liable for their testing activities
+• They understand legal implications of techniques
+• They accept all risks of using attack methodologies
+
+CRITICAL REMINDER:
+These are ATTACK TECHNIQUES that can cause:
+   - System disruption or damage
+   - Data loss or corruption
+   - Security control bypass
+   - Legal prosecution if misused
+   - Professional and personal consequences
+```
+
+---
+
+### Liability Limitations
+
+**The Authors, Contributors, and Maintainers are NOT liable for:**
+
+- Direct, indirect, incidental, or consequential damages
+- Criminal charges resulting from unauthorized use
+- Civil lawsuits from testing activities
+- System failures, crashes, or data loss
+- Security breaches or compromises
+- Network disruption or service outages
+- Privacy violations or regulatory fines
+- Professional license loss or termination
+- Employment termination
+- Legal fees or criminal defense costs
+- Any damages whatsoever arising from checklist use
+
+**Maximum Liability:**
+To the extent permitted by law, total liability shall not exceed the amount
+paid for these checklists (which is zero for free distribution).
+
+**User Assumption of Risk:**
+By using these attack technique checklists, users explicitly acknowledge and
+accept all risks, including criminal prosecution, civil liability, professional
+consequences, and any other damages that may result.
 
 ---
 
@@ -658,60 +774,34 @@ We welcome contributions from security professionals to improve and expand this 
 
 **To Submit a New Checklist:**
 1. Fork the repository
-2. Create checklist following the established format
-3. Include clear sections and actionable items
-4. Add appropriate legal and ethical warnings
-5. Test checklist in real-world scenarios
-6. Submit pull request with detailed description
+2. Create checklist following MITRE ATT&CK format where applicable
+3. Include clear sections for each technique
+4. Add tool recommendations and commands
+5. Include detection/mitigation guidance
+6. Add comprehensive legal warnings
+7. Test techniques in authorized environments
+8. Submit pull request with detailed description
 
 **Checklist Quality Standards:**
-- ✅ Clear, actionable items with checkboxes
-- ✅ Organized into logical sections
-- ✅ Includes tools and command examples
-- ✅ Notes on when items may not apply
-- ✅ Risk ratings or priority indicators
-- ✅ References to relevant standards/frameworks
-- ✅ Legal and authorization reminders
-- ✅ Proper attribution for sourced content
+- ✅ Clear, systematic technique organization
+- ✅ MITRE ATT&CK technique mapping
+- ✅ Tool and command examples
+- ✅ Detection and mitigation guidance
+- ✅ Risk ratings for each technique
+- ✅ Authorization reminders throughout
+- ✅ Proper attribution for sources
+- ✅ Legal warnings prominently displayed
 
 #### What We're Looking For
 
 **High Priority:**
-- Specialized assessment checklists (IoT, SCADA, blockchain)
-- Cloud platform security checklists
+- Cloud platform attack techniques (AWS, Azure, GCP)
+- Container security and Kubernetes attacks
 - API security testing methodologies
-- Container and Kubernetes security
-- Modern application frameworks (React, Angular, etc.)
-- DevSecOps integration checklists
-
-**Format Standards:**
-```markdown
-# [Assessment Type] Security Checklist
-
-## Overview
-Brief description of purpose and scope
-
-## Authorization Requirements
-⚠️ Legal requirements and warnings
-
-## Pre-Assessment
-[ ] Checklist items
-
-## Assessment Phase 1
-[ ] Item with description
-    - Sub-items or notes
-    - Tool suggestions
-    - Risk level
-
-## Findings Documentation
-How to document results
-
-## Reporting
-Report format and requirements
-
-## References
-Standards, tools, resources
-```
+- Modern authentication bypass techniques
+- EDR/XDR evasion techniques
+- Zero-trust architecture testing
+- DevSecOps security assessments
 
 ---
 
@@ -719,36 +809,28 @@ Standards, tools, resources
 
 ### Methodology Frameworks
 
+- **MITRE ATT&CK**: https://attack.mitre.org/
+- **PTES**: Penetration Testing Execution Standard
 - **OWASP Testing Guide**: https://owasp.org/www-project-web-security-testing-guide/
-- **PTES - Penetration Testing Execution Standard**: http://www.pentest-standard.org/
-- **NIST SP 800-115**: Technical Guide to Information Security Testing and Assessment
 - **OSSTMM**: Open Source Security Testing Methodology Manual
-- **MITRE ATT&CK**: Adversary tactics and techniques knowledge base
+- **NIST SP 800-115**: Technical Guide to Information Security Testing
 
-### Compliance Standards
+### Attack Technique Databases
 
-- **PCI DSS**: https://www.pcisecuritystandards.org/
-- **HIPAA Security Rule**: https://www.hhs.gov/hipaa/for-professionals/security/
-- **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework
-- **ISO/IEC 27001**: https://www.iso.org/isoiec-27001-information-security.html
-- **SOC 2**: https://www.aicpa.org/soc
+- **MITRE ATT&CK Enterprise**: https://attack.mitre.org/matrices/enterprise/
+- **LOLBAS Project**: Living Off The Land Binaries and Scripts
+- **GTFOBins**: Unix binaries for privilege escalation
+- **WADComs**: Windows/AD attack cheat sheets
+- **HackTricks**: Pentesting methodology and techniques
 
 ### Professional Certifications
 
 - **OSCP**: Offensive Security Certified Professional
-- **CEH**: Certified Ethical Hacker
+- **OSCE**: Offensive Security Certified Expert
+- **OSEP**: Offensive Security Experienced Penetration Tester
 - **GPEN**: GIAC Penetration Tester
-- **GWAPT**: GIAC Web Application Penetration Tester
-- **CISSP**: Certified Information Systems Security Professional
-- **CISA**: Certified Information Systems Auditor
-
-### Additional Checklist Resources
-
-- **OWASP Cheat Sheet Series**: https://cheatsheetseries.owasp.org/
-- **CIS Benchmarks**: https://www.cisecurity.org/cis-benchmarks/
-- **SANS Security Policy Templates**: https://www.sans.org/information-security-policy/
-- **HackerOne Hacker101**: https://www.hacker101.com/
-- **PortSwigger Web Security Academy**: https://portswigger.net/web-security
+- **GXPN**: GIAC Exploit Researcher and Advanced Penetration Tester
+- **CRTP**: Certified Red Team Professional
 
 ---
 
@@ -759,50 +841,53 @@ Standards, tools, resources
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
 - [🔍 OSINT Resources](../OSINT/README.md)
+- [📚 Documentation](../Documentation/README.md)
+- [🔒 OPSEC Guidelines](../OPSEC/README.md)
 
 ### External Resources
+- [MITRE ATT&CK](https://attack.mitre.org/)
 - [OWASP Foundation](https://owasp.org)
-- [NIST Computer Security Resource Center](https://csrc.nist.gov/)
-- [SANS Institute](https://www.sans.org/)
 - [Offensive Security](https://www.offensive-security.com/)
+- [SANS Institute](https://www.sans.org/)
 
 ---
 
 ## 📊 Repository Statistics
 
 ```
-📁 Total Checklists: Growing collection
-✅ Categories: Pentesting, Auditing, Hardening, Compliance
+📁 Current Checklists: 18 comprehensive checklists
+📖 Categories: AD Security, Initial Access, PrivEsc, Lateral Movement, Evasion, Applications
 🔄 Last Updated: November 2024
 👥 Maintained by: Pacific Northwest Computers (PNWC)
-📖 Status: Active Development
+📝 Status: Active & Growing
 ```
 
 ---
 
-## 🎓 Best Practices for Using Checklists
+## 🎓 Best Practices Summary
 
-### Do's ✅
+### Always Remember
 
-- **Always get authorization** before any testing or assessment
-- **Document everything** including date, time, and findings
-- **Follow scope strictly** - don't test systems not explicitly authorized
-- **Communicate regularly** with client throughout engagement
-- **Report critical findings immediately** - don't wait for final report
-- **Maintain confidentiality** of all client information and findings
-- **Stay current** - update checklists with new techniques and tools
-- **Peer review** - have colleagues review your methodology and findings
+**Legal Requirements:**
+- ✅ Written authorization is MANDATORY (no exceptions)
+- ✅ Clear scope and boundaries documented
+- ✅ Current, valid authorization verified
+- ✅ Professional liability insurance maintained
+- ✅ All activities documented with timestamps
 
-### Don'ts 🚫
+**Technical Safety:**
+- ✅ Test in non-production first when possible
+- ✅ Have rollback and restoration procedures
+- ✅ Monitor system impact during testing
+- ✅ Maintain emergency contacts and procedures
+- ✅ Document every technique and command used
 
-- **Don't assume authorization** - always verify in writing
-- **Don't exceed scope** even if you find interesting targets
-- **Don't cause service disruptions** without explicit authorization
-- **Don't share findings** with anyone not authorized by client
-- **Don't use production data** unless specifically authorized
-- **Don't skip documentation** thinking you'll remember later
-- **Don't proceed with uncertainties** - clarify before continuing
-- **Don't ignore professional ethics** for the sake of findings
+**Professional Ethics:**
+- ✅ Never exceed authorized scope
+- ✅ Report findings responsibly
+- ✅ Protect client confidentiality
+- ✅ Restore systems to secure state
+- ✅ Accept responsibility for all actions
 
 ---
 
@@ -810,51 +895,45 @@ Standards, tools, resources
 
 ### Questions or Issues?
 - Open an issue on GitHub
-- Check existing documentation first
-- Be specific about your use case and context
-- Include relevant details (environment, compliance needs, etc.)
+- Review documentation and warnings thoroughly first
+- Provide specific context about your situation
+- Include authorization status (never share client details)
+- Respect response times
 
-### Feature Requests
-- Suggest new checklist topics
-- Propose improvements to existing checklists
-- Request specific compliance framework coverage
-- Share ideas for automation and tooling
-
-### Professional Collaboration
-- Share lessons learned (anonymized)
-- Contribute industry-specific checklists
-- Participate in peer review
-- Help improve methodology and coverage
+### Suggest Improvements
+- Report inaccuracies or outdated techniques
+- Suggest additional attack techniques
+- Share detection/mitigation strategies
+- Contribute new checklists
+- Help improve documentation
 
 ---
 
 ## 🌟 Acknowledgments
 
-These checklists are built upon the knowledge and experience of:
+### Knowledge Sources
+- **MITRE Corporation** - ATT&CK Framework
+- **Offensive Security** - OSCP methodology
+- **SANS Institute** - GPEN methodology
+- **SpecterOps** - Active Directory research
+- **Security research community** - Technique disclosure
 
-### Standards Organizations
-- **OWASP Foundation** - Web application security standards
-- **NIST** - Federal information security guidelines
-- **CIS** - Security configuration benchmarks
-- **PCI Security Standards Council** - Payment card security
-- **SANS Institute** - Security training and research
+### Professional Community
+- Penetration testers sharing methodologies
+- Red team operators documenting TTPs
+- Blue team defenders providing detection logic
+- Security researchers discovering techniques
+- Open source tool developers
 
-### Industry Contributors
-- Professional penetration testers and security auditors
-- Compliance and regulatory experts
-- System hardening specialists
-- Security researchers and practitioners
-- Open source security community
-
-**Thank you for advancing the security profession through shared knowledge.**
+**Thank you for responsible security testing and ethical hacking.**
 
 ---
 
 <div align="center">
 
-**📖 Start Securing: Choose Your Checklist and Begin Assessment**
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
 
-*Use these checklists responsibly, ethically, and with proper authorization.*
+*Attack techniques are powerful - use them ethically and legally.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -862,7 +941,11 @@ These checklists are built upon the knowledge and experience of:
 
 ---
 
-⚠️ **Remember: Authorization is MANDATORY for all security testing activities** ⚠️
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
