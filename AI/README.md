@@ -1,4 +1,4 @@
-# 🤖 AI & Cybersecurity Resources
+# 🤖 AI Cybersecurity Resources
 
 <div align="center">
 
