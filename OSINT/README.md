@@ -443,6 +443,8 @@ This OSINT collection wouldn't exist without:
 
 </div>
 
+***
+
 ## Security, Legal, and Ethical Considerations ⚠️
 
 ### 🔴 CRITICAL: Legal and Ethical OSINT Use Only
