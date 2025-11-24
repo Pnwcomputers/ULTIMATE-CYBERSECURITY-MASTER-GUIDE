@@ -52,7 +52,7 @@ These resources are designed to:
 
 | File | Description |
 |------|-------------|
-| **offline-llm.md** | Framework for using ML to detect lateral movement |
+| [**offline-llm.md**](offline-llm.md) | Framework for using ML to detect lateral movement |
 | **AnythingLLM** | Generative AI configuration and agent flows for automating incident response, OSINT data collection, and various audits using your own AnythingLLM setup.
 
 ---
