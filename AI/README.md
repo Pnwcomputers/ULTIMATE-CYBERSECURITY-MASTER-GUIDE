@@ -52,9 +52,8 @@ These resources are designed to:
 
 | File | Description |
 |------|-------------|
-| *(List each file in the `AI/` folder here along with a brief description)* |
-| Example: **AI-UseCase-ThreatDetection.md** | Framework for using ML to detect lateral movement |
-| Example: **GenAI-SecurityAutomation.md** | Generative AI for automating incident response communications |
+| **offline-llm.md** | Framework for using ML to detect lateral movement |
+| **AnythingLLM** | Generative AI configuration and agent flows for automating incident response, OSINT data collection, and various audits using your own AnythingLLM setup.
 
 ---
 
