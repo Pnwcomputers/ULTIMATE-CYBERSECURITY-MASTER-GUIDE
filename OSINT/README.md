@@ -473,3 +473,251 @@ This OSINT collection wouldn't exist without:
 - Cross-border investigations may trigger multiple legal frameworks
 
 ### Terms of Service (ToS) Compliance
+```
+⚠️ Violating website Terms of Service can result in:
+- Legal action from the website operator
+- Account termination and IP bans
+- Civil lawsuits for damages
+- Potential CFAA violations in some cases
+```
+
+**Many websites explicitly prohibit:**
+- Automated scraping or data collection
+- Creating fake accounts or misrepresentation
+- Accessing data through unauthorized means
+- Commercial use of collected data
+
+**ALWAYS review and comply with ToS before collecting data from any platform.**
+
+---
+
+### ✅ Legal Use Cases for OSINT
+
+**Authorized and Legitimate Uses:**
+
+- ✅ **Cybersecurity Threat Intelligence**: Identifying threats to your organization
+- ✅ **Authorized Penetration Testing**: Reconnaissance phase with written authorization
+- ✅ **Incident Response**: Threat actor attribution and IOC correlation
+- ✅ **Corporate Due Diligence**: Business intelligence with proper authorization
+- ✅ **Law Enforcement Investigations**: With proper legal authority and warrants
+- ✅ **Missing Persons Cases**: Authorized search and rescue operations (e.g., Trace Labs)
+- ✅ **Investigative Journalism**: Public interest reporting within legal bounds
+- ✅ **Academic Research**: Ethical research with IRB approval
+- ✅ **Personal Security**: Monitoring your own digital footprint
+- ✅ **Background Checks**: With consent and for legitimate purposes
+- ✅ **Fraud Prevention**: Protecting your organization from fraud
+- ✅ **Competitive Intelligence**: Ethical business research from public sources
+- ✅ **Educational Purposes**: Learning in controlled, authorized environments
+- ✅ **CTF Competitions**: Authorized OSINT challenges (Trace Labs, etc.)
+
+---
+
+### 🚫 PROHIBITED Uses - Zero Tolerance
+
+**The following activities are ILLEGAL and UNETHICAL:**
+
+- 🚫 **Stalking or Harassment**: Using OSINT to follow, intimidate, or harass individuals
+- 🚫 **Doxxing**: Publishing private information with intent to harm
+- 🚫 **Identity Theft**: Using collected information to impersonate or defraud
+- 🚫 **Blackmail or Extortion**: Threatening to release information for gain
+- 🚫 **Unauthorized Private Investigation**: Operating without proper licensing
+- 🚫 **Invasion of Privacy**: Collecting information beyond legal scope
+- 🚫 **Corporate Espionage**: Using illegal methods for competitive advantage
+- 🚫 **Unauthorized Access**: Circumventing security or authentication
+- 🚫 **Social Engineering**: Pretexting or deception to obtain information
+- 🚫 **Child Endangerment**: Any activity that could harm minors
+- 🚫 **Discrimination**: Using OSINT for discriminatory purposes
+- 🚫 **Revenge or Retaliation**: Personal vendettas or grudges
+
+---
+
+### Ethical Guidelines for OSINT Practitioners
+
+#### Core Principles
+
+1. **Respect Privacy**: Collect only what is necessary for your legitimate purpose
+2. **Do No Harm**: Consider the potential consequences of your investigation
+3. **Transparency**: Understand who you're working for and why
+4. **Legal Compliance**: Follow all applicable laws and regulations
+5. **Professional Standards**: Maintain objectivity, accuracy, and integrity
+6. **Data Minimization**: Collect the minimum information needed
+7. **Proper Storage**: Protect collected data from unauthorized access
+8. **Responsible Disclosure**: Report security issues through proper channels
+
+#### Before Starting Any Investigation
+
+**Ask yourself:**
+- Do I have legal authority or authorization for this investigation?
+- What is my legitimate purpose for collecting this information?
+- Am I respecting individual privacy and dignity?
+- Could my actions cause harm to individuals or organizations?
+- Am I complying with all applicable laws and regulations?
+- Am I following ethical guidelines for my profession?
+- Would I be comfortable if my methods were made public?
+
+---
+
+### Operational Security (OPSEC) Requirements
+
+**Protect yourself and your investigation:**
+
+#### Network Security
+- ✅ **ALWAYS use VPN or Tor** for OSINT activities
+- ✅ Use dedicated networks separate from personal/corporate
+- ✅ Employ VM snapshots for clean investigative states
+- ✅ Rotate IP addresses and user agents regularly
+
+#### Identity Protection
+- ✅ Use burner accounts for social media reconnaissance
+- ✅ Never use personal accounts for investigations
+- ✅ Create detailed, believable sock puppet personas
+- ✅ Use separate email addresses for each persona
+- ✅ Use virtual phone numbers (never personal numbers)
+
+#### Data Security
+- ✅ Encrypt all collected investigation data
+- ✅ Use secure storage with access controls
+- ✅ Maintain proper chain of custody for evidence
+- ✅ Securely delete data when no longer needed
+- ✅ Follow data retention policies and regulations
+
+---
+
+### Documentation & Evidence Handling
+
+**Proper documentation is essential:**
+
+#### Required Practices
+- 📝 Screenshot everything with timestamps
+- 📝 Archive web pages (archive.is, Wayback Machine)
+- 📝 Record video for dynamic content
+- 📝 Log all commands and queries used
+- 📝 Document sources for all information
+- 📝 Calculate and verify file hashes
+- 📝 Maintain detailed investigation notes
+- 📝 Preserve metadata where relevant
+
+#### Chain of Custody
+- Maintain unbroken documentation of evidence handling
+- Use write-blockers for forensic data
+- Store multiple copies in different locations
+- Follow proper legal procedures for evidence preservation
+
+---
+
+### International Considerations
+
+**OSINT crosses borders - laws vary:**
+
+- 🌍 **Jurisdiction Matters**: Different countries have different privacy laws
+- 🌍 **Data Protection**: EU GDPR, UK DPA, Brazil LGPD, etc.
+- 🌍 **Cultural Sensitivity**: Respect cultural norms and expectations
+- 🌍 **Legal Authority**: Some techniques legal in one country may be illegal in another
+- 🌍 **Export Controls**: Some tools may be restricted for international use
+
+---
+
+### Red Lines - NEVER Cross These Boundaries
+```
+🔴 Automated actions that violate ToS
+🔴 Circumventing authentication or security measures
+🔴 Accessing protected or private information without authorization
+🔴 Social engineering, pretexting, or deception
+🔴 Creating accounts with false information (unless authorized)
+🔴 Distributed denial of service or system disruption
+🔴 Exploiting vulnerabilities without authorization
+🔴 Sharing collected intelligence for illegal purposes
+🔴 Conducting investigations for stalking or harassment
+🔴 Using OSINT to facilitate any illegal activity
+```
+
+---
+
+### Disclaimer & Liability
+```
+⚠️ IMPORTANT LEGAL NOTICE ⚠️
+
+The authors, contributors, and maintainers of this OSINT resource:
+
+- Provide this content "AS IS" without warranty of any kind
+- Assume NO liability for misuse of information or tools
+- Are NOT responsible for legal consequences of unauthorized activities
+- Do NOT endorse any illegal or unethical use of these techniques
+- Strongly advocate for legal, ethical, and authorized OSINT only
+
+USERS ARE SOLELY RESPONSIBLE FOR:
+✓ Ensuring their activities comply with all applicable laws
+✓ Obtaining proper authorization before conducting investigations
+✓ Understanding and following ethical guidelines
+✓ Respecting individual privacy and dignity
+✓ Consequences of their actions and investigations
+
+This content is for educational purposes and authorized security research only.
+Unauthorized or unethical use is strictly prohibited.
+
+WHEN IN DOUBT, CONSULT LEGAL COUNSEL.
+```
+
+---
+
+### Professional Licensing Requirements
+
+**Some jurisdictions require licensing for:**
+- Private investigation services
+- Security consulting
+- Background check services
+- Due diligence research
+
+**Check your local requirements before offering OSINT services commercially.**
+
+---
+
+### Reporting Concerns
+
+**If you discover:**
+- ❗ Criminal activity during OSINT investigations
+- ❗ Child endangerment or exploitation
+- ❗ Threats to public safety
+- ❗ Security vulnerabilities in critical systems
+
+**Take appropriate action:**
+1. Document findings securely
+2. Report to appropriate authorities (law enforcement, CERT, etc.)
+3. Follow responsible disclosure practices
+4. Consult with legal counsel if uncertain
+
+---
+
+### Zero Tolerance for Abuse
+
+This OSINT resource collection has **zero tolerance** for misuse. We strongly condemn:
+- Stalking, harassment, and doxxing
+- Privacy violations and unauthorized surveillance
+- Discrimination and hate crimes
+- Any illegal or unethical activities
+
+**Use OSINT for good. Protect people. Respect privacy. Follow the law.**
+
+---
+
+### Final Reminder
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  OSINT is a powerful capability that must be used           │
+│  responsibly and ethically.                                 │
+│                                                             │
+│  With great power comes great responsibility.              │
+│                                                             │
+│  Your actions can impact real people's lives.              │
+│                                                             │
+│  Always operate within legal and ethical boundaries.       │
+│                                                             │
+│  When in doubt - DON'T.                                    │
+│  Consult legal counsel and ethical guidelines.             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Last Updated**: November 2025  
+**Review this disclaimer regularly as laws and regulations evolve.**
