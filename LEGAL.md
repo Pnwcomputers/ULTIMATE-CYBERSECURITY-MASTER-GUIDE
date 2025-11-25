@@ -844,13 +844,13 @@ Penalties:
 • Asset forfeiture
 
 REQUIRED AUTHORIZATION:
-☐ Written authorization explicitly covering attack techniques
-☐ Specific systems authorized for exploitation attempts
-☐ Approval for credential access methods
-☐ Permission for privilege escalation testing
-☐ Authorization for lateral movement testing
-☐ Approval for persistence mechanism testing
-☐ Data exfiltration explicitly authorized (very rare)
+✅ Written authorization explicitly covering attack techniques
+✅ Specific systems authorized for exploitation attempts
+✅ Approval for credential access methods
+✅ Permission for privilege escalation testing
+✅ Authorization for lateral movement testing
+✅ Approval for persistence mechanism testing
+✅ Data exfiltration explicitly authorized (very rare)
 
 EXAMPLES OF FEDERAL CRIMES:
 ❌ Kerberoasting without authorization
@@ -899,12 +899,12 @@ PENALTIES:
 • State charges (additional imprisonment)
 
 AUTHORIZED TESTING REQUIRES:
-☐ Written authorization from network owner
-☐ Specific networks identified by SSID and BSSID
-☐ Authorization for specific testing methods
-☐ Time windows for testing
-☐ Coordination with IT staff
-☐ Verification that network is owned by authorizing party
+✅ Written authorization from network owner
+✅ Specific networks identified by SSID and BSSID
+✅ Authorization for specific testing methods
+✅ Time windows for testing
+✅ Coordination with IT staff
+✅ Verification that network is owned by authorizing party
 
 EXAMPLES:
 ❌ ILLEGAL: Testing your apartment complex WiFi without permission
@@ -1043,13 +1043,13 @@ Purple Team activities SIMULATE ATTACKS. Even though the purpose is
 defensive improvement, the techniques used are ACTUAL ATTACK METHODS.
 
 REQUIRED AUTHORIZATION:
-☐ Written approval from senior management
-☐ IT and security team coordination
-☐ Specific attack techniques approved
-☐ Clear scope and boundaries
-☐ Production system protections
-☐ Rollback procedures documented
-☐ Communication plan established
+✅ Written approval from senior management
+✅ IT and security team coordination
+✅ Specific attack techniques approved
+✅ Clear scope and boundaries
+✅ Production system protections
+✅ Rollback procedures documented
+✅ Communication plan established
 
 RISKS OF UNAUTHORIZED TESTING:
 ✗ Criminal charges under CFAA (even if "helping")
@@ -1668,15 +1668,15 @@ TOTAL POTENTIAL LIABILITY: $1,725,000-$2,300,000
 ```
 ✅ REQUIRED for Bug Bounty Participation:
 
-☐ Read and understand program scope completely
-☐ Only test in-scope assets
-☐ Follow program rules precisely
-☐ Respect testing restrictions (no DoS, no social engineering, etc.)
-☐ Report findings through proper channels
-☐ Don't access or exfiltrate more data than necessary to prove vulnerability
-☐ Don't publicly disclose before authorization
-☐ Stop testing if you discover sensitive data
-☐ Follow coordinated disclosure timeline
+✅ Read and understand program scope completely
+✅ Only test in-scope assets
+✅ Follow program rules precisely
+✅ Respect testing restrictions (no DoS, no social engineering, etc.)
+✅ Report findings through proper channels
+✅ Don't access or exfiltrate more data than necessary to prove vulnerability
+✅ Don't publicly disclose before authorization
+✅ Stop testing if you discover sensitive data
+✅ Follow coordinated disclosure timeline
 
 ❌ NEVER in Bug Bounties:
 ✗ Test out-of-scope assets (still a crime even if you find a vulnerability)
@@ -1933,11 +1933,11 @@ CRITICAL: Test ONLY in environments YOU control and own.
    • Physical network isolation (separate router)
 
    Configuration:
-   ☐ Disable bridged networking
-   ☐ Disable NAT networking (unless needed for downloads)
-   ☐ Use host-only adapters
-   ☐ Configure firewall rules blocking lab traffic
-   ☐ Test isolation before running exploits
+   ✅ Disable bridged networking
+   ✅ Disable NAT networking (unless needed for downloads)
+   ✅ Use host-only adapters
+   ✅ Configure firewall rules blocking lab traffic
+   ✅ Test isolation before running exploits
 
 3. VULNERABLE TARGETS:
    Free Intentionally Vulnerable Systems:
@@ -1962,28 +1962,28 @@ CRITICAL: Test ONLY in environments YOU control and own.
 
 5. SNAPSHOTS & BACKUPS:
    Essential Practice:
-   ☐ Take VM snapshot before testing
-   ☐ Keep clean baseline snapshots
-   ☐ Label snapshots with dates and purposes
-   ☐ Regularly backup VM files
-   ☐ Test restoration process
+   ✅ Take VM snapshot before testing
+   ✅ Keep clean baseline snapshots
+   ✅ Label snapshots with dates and purposes
+   ✅ Regularly backup VM files
+   ✅ Test restoration process
 
 6. DOCUMENTATION:
    Lab Journal:
-   ☐ Document all activities
-   ☐ Record commands used
-   ☐ Note results and observations
-   ☐ Track learning progress
-   ☐ Build personal knowledge base
+   ✅ Document all activities
+   ✅ Record commands used
+   ✅ Note results and observations
+   ✅ Track learning progress
+   ✅ Build personal knowledge base
 
 7. SAFETY CHECKS:
    Before Running ANY Exploit:
-   ☐ Verify target is YOUR VM
-   ☐ Confirm network isolation
-   ☐ Check no internet connectivity
-   ☐ Verify snapshot exists
-   ☐ Understand what script/exploit does
-   ☐ Know how to restore if something breaks
+   ✅ Verify target is YOUR VM
+   ✅ Confirm network isolation
+   ✅ Check no internet connectivity
+   ✅ Verify snapshot exists
+   ✅ Understand what script/exploit does
+   ✅ Know how to restore if something breaks
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -2000,95 +2000,95 @@ CRITICAL: Test ONLY in environments YOU control and own.
 ═══════════════════════════════════════════════════════════════
 
 PHASE 1: PRE-ENGAGEMENT
-☐ Receive engagement request
-☐ Conduct scoping call/meeting
-☐ Define objectives and success criteria
-☐ Draft Statement of Work (SOW)
-☐ Draft Rules of Engagement (RoE)
-☐ Obtain written authorization letter
-☐ Verify signatory has authority
-☐ Confirm insurance coverage (E&O, Cyber Liability)
-☐ Execute NDA and contracts
-☐ Define communication protocols
-☐ Identify emergency contacts
-☐ Schedule testing windows
-☐ Coordinate with IT/Security teams
-☐ Receive test accounts and credentials
-☐ Confirm payment terms
+✅ Receive engagement request
+✅ Conduct scoping call/meeting
+✅ Define objectives and success criteria
+✅ Draft Statement of Work (SOW)
+✅ Draft Rules of Engagement (RoE)
+✅ Obtain written authorization letter
+✅ Verify signatory has authority
+✅ Confirm insurance coverage (E&O, Cyber Liability)
+✅ Execute NDA and contracts
+✅ Define communication protocols
+✅ Identify emergency contacts
+✅ Schedule testing windows
+✅ Coordinate with IT/Security teams
+✅ Receive test accounts and credentials
+✅ Confirm payment terms
 
 PHASE 2: INTELLIGENCE GATHERING
-☐ Review provided documentation
-☐ Identify target systems and scope
-☐ Document out-of-scope systems
-☐ Review previous assessment reports (if available)
-☐ Research target technologies
-☐ Prepare testing tools
-☐ Test tools in lab environment first
-☐ Document reconnaissance methodology
+✅ Review provided documentation
+✅ Identify target systems and scope
+✅ Document out-of-scope systems
+✅ Review previous assessment reports (if available)
+✅ Research target technologies
+✅ Prepare testing tools
+✅ Test tools in lab environment first
+✅ Document reconnaissance methodology
 
 PHASE 3: THREAT MODELING
-☐ Identify potential attack vectors
-☐ Prioritize testing based on risk
-☐ Map to MITRE ATT&CK framework
-☐ Develop testing plan
-☐ Identify critical assets
-☐ Document threat scenarios
+✅ Identify potential attack vectors
+✅ Prioritize testing based on risk
+✅ Map to MITRE ATT&CK framework
+✅ Develop testing plan
+✅ Identify critical assets
+✅ Document threat scenarios
 
 PHASE 4: VULNERABILITY ANALYSIS
-☐ Conduct authorized scanning
-☐ Document all activities with timestamps
-☐ Analyze results
-☐ Validate findings manually
-☐ Rate severity using CVSS or similar
-☐ Document evidence (screenshots, logs)
+✅ Conduct authorized scanning
+✅ Document all activities with timestamps
+✅ Analyze results
+✅ Validate findings manually
+✅ Rate severity using CVSS or similar
+✅ Document evidence (screenshots, logs)
 
 PHASE 5: EXPLOITATION (If Authorized)
-☐ Verify authorization explicitly covers exploitation
-☐ Test exploits in lab first
-☐ Document pre-exploitation system state
-☐ Execute exploits carefully
-☐ Monitor system health
-☐ Document all exploitation attempts (successful and failed)
-☐ Capture evidence of successful exploitation
-☐ Stop immediately if unexpected behavior occurs
+✅ Verify authorization explicitly covers exploitation
+✅ Test exploits in lab first
+✅ Document pre-exploitation system state
+✅ Execute exploits carefully
+✅ Monitor system health
+✅ Document all exploitation attempts (successful and failed)
+✅ Capture evidence of successful exploitation
+✅ Stop immediately if unexpected behavior occurs
 
 PHASE 6: POST-EXPLOITATION (If Authorized)
-☐ Verify authorization for post-exploitation
-☐ Document access obtained
-☐ Assess impact and risk
-☐ Identify privilege escalation paths
-☐ Document lateral movement possibilities
-☐ Assess data access
-☐ DO NOT exfiltrate real sensitive data (unless explicitly authorized and necessary)
+✅ Verify authorization for post-exploitation
+✅ Document access obtained
+✅ Assess impact and risk
+✅ Identify privilege escalation paths
+✅ Document lateral movement possibilities
+✅ Assess data access
+✅ DO NOT exfiltrate real sensitive data (unless explicitly authorized and necessary)
 
 PHASE 7: REPORTING
-☐ Compile findings systematically
-☐ Rate all vulnerabilities by severity
-☐ Provide detailed remediation guidance
-☐ Include executive summary (non-technical)
-☐ Include technical details for IT team
-☐ Attach evidence (screenshots, logs)
-☐ Map findings to compliance frameworks (if applicable)
-☐ Deliver draft report for client review
-☐ Incorporate feedback
-☐ Deliver final report
+✅ Compile findings systematically
+✅ Rate all vulnerabilities by severity
+✅ Provide detailed remediation guidance
+✅ Include executive summary (non-technical)
+✅ Include technical details for IT team
+✅ Attach evidence (screenshots, logs)
+✅ Map findings to compliance frameworks (if applicable)
+✅ Deliver draft report for client review
+✅ Incorporate feedback
+✅ Deliver final report
 
 PHASE 8: REMEDIATION SUPPORT (If Contracted)
-☐ Answer client questions
-☐ Provide clarification on findings
-☐ Assist with remediation planning
-☐ Conduct re-testing (if contracted)
-☐ Verify fixes are effective
+✅ Answer client questions
+✅ Provide clarification on findings
+✅ Assist with remediation planning
+✅ Conduct re-testing (if contracted)
+✅ Verify fixes are effective
 
 PHASE 9: CLOSURE
-☐ Securely delete all client data
-☐ Remove test accounts
-☐ Clear tools and scripts of client info
-☐ Archive project documentation per policy
-☐ Conduct post-engagement review
-☐ Update methodologies based on lessons learned
-☐ Collect payment
-☐ Request testimonial/reference (if appropriate)
+✅ Securely delete all client data
+✅ Remove test accounts
+✅ Clear tools and scripts of client info
+✅ Archive project documentation per policy
+✅ Conduct post-engagement review
+✅ Update methodologies based on lessons learned
+✅ Collect payment
+✅ Request testimonial/reference (if appropriate)
 
 ═══════════════════════════════════════════════════════════════
 ```
