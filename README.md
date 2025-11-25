@@ -1,8 +1,8 @@
 # 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE COLLECTION
 
-## 📊 Complete Professional Knowledge Base
-### Compiled from 70+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
-
+# 📊 Complete Professional Knowledge Base
+## Compiled from 70+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
+### *Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repository*
 ---
 
 ## 🎯 START HERE
@@ -10,8 +10,6 @@
 ### **[START HERE](START_HERE.md)** ⭐ **READ THIS FIRST!**
 Your complete navigation guide with quick paths for every purpose
 
----
-### Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repository
 ---
 
 ## 📚 PRIMARY MASTER GUIDES
