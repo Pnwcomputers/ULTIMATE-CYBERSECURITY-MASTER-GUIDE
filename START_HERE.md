@@ -2,6 +2,7 @@
 
 ## 🎯 QUICK START
 
+- **Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repositorie's Contents**
 - **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md)
 - **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
 - **Preparing For OSCP?** → Focus on [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) & [ENHANCED CYBERSECURITY MASTER GUIDE](ENHANCED_MASTER_GUIDE.md) + [Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md) & [Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)
