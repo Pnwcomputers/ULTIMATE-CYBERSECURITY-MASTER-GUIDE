@@ -11,6 +11,8 @@
 Your complete navigation guide with quick paths for every purpose
 
 ---
+### Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repository
+---
 
 ## 📚 PRIMARY MASTER GUIDES
 
