@@ -2,6 +2,12 @@
 
 A comprehensive, menu-driven OSINT investigation toolkit designed for investigating scams, fraud, and cybercrime. Built for use on Tsurugi Linux and other OSINT-focused distributions.
 
+## 🆕 New Features (v2.1)
+
+- **🌐 Web Interface** - Browser-based UI using Flask (`python3 web_interface.py`)
+- **📝 Abuse Report Generator** - Draft emails for registrars, hosts, ISPs, social media, IC3
+- **🔗 Toolkit Integration** - Connect with existing scripts (scammer_audit.sh, email_audit.sh, phone_audit.sh)
+
 ## 🎯 Purpose
 
 This toolkit is designed for:
@@ -352,3 +358,133 @@ MIT License - See LICENSE file for details.
 - [Sherlock Project](https://github.com/sherlock-project) - Sherlock
 - [sundowndev](https://github.com/sundowndev) - PhoneInfoga
 - [nitefood](https://github.com/nitefood) - ASN tool
+
+## 🌐 Web Interface
+
+Launch the browser-based interface:
+
+```bash
+# From command line
+python3 web_interface.py
+
+# Or from the main menu
+./osint_investigator.sh
+# Select [W] Launch Web Interface
+```
+
+Then open http://localhost:5000 in your browser.
+
+**Features:**
+- Dashboard with case statistics
+- Create and manage cases
+- Quick investigation tools
+- Abuse report generation
+- API key configuration
+- Mobile-responsive design
+
+**Requirements:**
+- Python 3.8+
+- Flask (auto-installed if missing)
+
+## 📝 Abuse Report Generator
+
+Generate professional abuse reports ready to submit:
+
+```bash
+# Interactive mode
+./abuse_report_generator.sh
+
+# Generate all reports for a case
+./abuse_report_generator.sh /path/to/case
+
+# Configure reporter information
+./abuse_report_generator.sh --config
+```
+
+**Report Types:**
+| Type | Description | Recipients |
+|------|-------------|------------|
+| Domain Registrar | Malicious domain reports | GoDaddy, Namecheap, etc. |
+| Hosting Provider | Phishing/scam hosting | AWS, DigitalOcean, etc. |
+| Email Provider | Scam email accounts | Gmail, Outlook, ProtonMail |
+| ISP | Network abuse | Comcast, AT&T, etc. |
+| Social Media | Fake profiles | Facebook, Instagram, Twitter |
+| IC3 Worksheet | FBI complaint prep | ic3.gov |
+
+**Auto-Detection:**
+- Finds abuse contacts via WHOIS
+- Identifies registrars from domain lookup
+- Maps IPs to hosting providers via ASN
+
+## 🔗 Toolkit Integration
+
+Connect with your existing OSINT scripts:
+
+```bash
+# Auto-detect existing scripts
+./toolkit_integration.sh --detect
+
+# Configure paths manually
+./toolkit_integration.sh --config
+
+# Show integration status
+./toolkit_integration.sh --status
+```
+
+**Supported Scripts:**
+- `scammer_audit.sh` - Domain/IP investigation
+- `email_audit.sh` - Email address analysis
+- `phone_audit.sh` - Phone number lookup
+- `theHarvester` - Email/subdomain harvesting
+- `victim_osint_toolkit.sh` - Forensics tools
+
+**Integration from Main Menu:**
+1. Run `./osint_investigator.sh`
+2. Select `[6] Integrated Tools`
+3. Run individual tools or all at once
+
+## 📁 Complete File List
+
+```
+osint-playbook/
+├── osint_investigator.sh       # Main playbook (CLI menu)
+├── web_interface.py            # Flask web UI
+├── abuse_report_generator.sh   # Abuse report drafts
+├── toolkit_integration.sh      # Connect existing scripts
+├── install_dependencies.sh     # Dependency installer
+├── example_api_keys.conf       # API key template
+├── README.md                   # This file
+├── .gitignore                  # Git ignore rules
+└── docs/
+    └── INVESTIGATION_GUIDE.md  # Detailed procedures
+```
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone/extract the toolkit
+git clone https://github.com/Pnwcomputers/osint-playbook.git
+cd osint-playbook
+
+# 2. Install dependencies
+sudo ./install_dependencies.sh --full
+
+# 3. Configure APIs
+cp example_api_keys.conf ~/.config/osint-investigator/api_keys.conf
+nano ~/.config/osint-investigator/api_keys.conf
+
+# 4. Run CLI interface
+./osint_investigator.sh
+
+# OR run web interface
+python3 web_interface.py
+```
+
+## 🎯 Complete Investigation Workflow
+
+1. **Create Case** → Assign case ID, enter targets
+2. **Run Investigations** → Email, Phone, Domain, IP, Username modules
+3. **Integrate Tools** → Run scammer_audit, theHarvester, etc.
+4. **Generate Reports** → Final report, abuse reports, IC3 worksheet
+5. **Archive Evidence** → Screenshots, hashes, Wayback Machine
+6. **Submit Reports** → Use generated drafts to contact providers
