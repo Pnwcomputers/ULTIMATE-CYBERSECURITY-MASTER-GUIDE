@@ -1,4 +1,4 @@
-## 🛠️ Core OSINT Toolkit
+# 🛠️ Core OSINT Toolkit
 The playbook integrates the following industry-standard tools for deep reconnaissance:
 
 | Tool | Category | Primary Function |
@@ -16,14 +16,43 @@ The playbook integrates the following industry-standard tools for deep reconnais
 
 ---
 
-## 🔑 Configuration & APIs
+# 🔑 Configuration & APIs
 The framework leverages several high-authority databases. Ensure your API keys are configured in `${HOME}/.config/osint-investigator/api_keys.conf`:
 
-* **Shodan**: IoT and server infrastructure analysis.
-* **VirusTotal**: Malicious domain and file reputation.
-* **Have I Been Pwned**: Credential exposure tracking.
-* **AbuseIPDB**: IP reputation and fraud reporting.
-* **WhoisXML**: Historical WHOIS and domain ownership.
+## 1. PRIMARY INTELLIGENCE & THREAT RECON
+* **Shodan**: IoT and Device Search
+* **VirusTotal**: Malware and URL Intelligence
+* **Censys**: Host & Certificate Intelligence
+* **SecurityTrails**: DNS & Domain History
+* **ZoomEye**: Cyberspace Search Engine
+* **Criminal IP**: CTI & IP Scoring
+
+## 2. SCANNING & ASSET DISCOVERY
+* **FullHunt**: Attack Surface Mapping
+* **Netlas**: Internet Scanning Data
+* **ProjectDiscovery**: Nuclei & Cloud Automation
+
+## 3. EMAIL, BREACH & IDENTITY
+* **HaveIBeenPwned**: Data Breach Intelligence
+* **Hunter.io**: Professional Email Discovery
+* **EmailRep**: Email Reputation
+* **Intelligence X**: Deep Web & Archive Search
+* **LeakLookup**: Credential Breach Search
+
+## 4. DOMAIN & INFRASTRUCTURE
+* **WhoisXML API**: WHOIS Data & Domain Research
+* **DNSDumpster**: DNS Mapping
+* **URLScan.io**: Website Analysis
+
+## 5. PHONE & IDENTITY VERIFICATION
+* **Numverify**: Phone Validation
+* **Veriphone**: Global Phone Lookup
+* **AbstractAPI**: Identity & Location Validation
+
+## 6. BLOCKCHAIN & ABUSE TRACKING
+* **Etherscan**: Ethereum Explorer
+* **BlockCypher**: Multi-chain Crypto Data
+* **AbuseIPDB**: IP Reputation & Blacklist Reporting
 
 ---
 
