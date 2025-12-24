@@ -77,9 +77,9 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | Guide | Focus Area | Status |
 |-------|------------|--------|
 | **Social_Media_OSINT.md** | Social media investigation techniques | 🔨 Planned |
-| **Email_OSINT.md** | Email enumeration and analysis | 🔨 Planned |
-| **Domain_Recon.md** | Domain and infrastructure reconnaissance | 🔨 Planned |
-| **Dark_Web_OSINT.md** | Dark web investigation methods | 🔨 Planned |
+| **[Email_OSINT.md](./scripts/Email_OSINT.md)** | Email enumeration and analysis | ✅ Complete |
+| **[Domain_IP_Recon.md](./scripts/Domain_IP_Recon.md)** | Domain and infrastructure reconnaissance | ✅ Complete |
+| **[Phone_OSINT.md](./scripts/Phone_OSINT.md)** | Phone number investigation methods | ✅ Complete |
 | **Geolocation_OSINT.md** | Image analysis and geolocation | 🔨 Planned |
 | **People_Search.md** | Person investigation methodologies | 🔨 Planned |
 
