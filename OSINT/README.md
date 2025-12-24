@@ -67,10 +67,10 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[OSINT_GUIDE.md](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **OSINT_WORKFLOWS.md** | 🔄 Investigation workflows and procedures | 🔨 Coming Soon |
-| **OSINT_TOOLS_CATALOG.md** | 🛠️ Detailed tool catalog with installation guides | 🔨 Coming Soon |
-| **OSINT_CHEATSHEET.md** | ⚡ Quick reference commands and techniques | 🔨 Coming Soon |
+| **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
+| **[OSINT Playbook](OSINT/Playbook/README.md)** | 🔄 Investigation workflows and procedures | ✅ Complete |
+| **[OSINT Tools](OSINT/OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
+| **[OSINT Cheatsheet](OSINT/OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
 
 ### Specialized Guides
 
@@ -87,6 +87,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 | Directory | Contents | Status |
 |-----------|----------|--------|
+| **Playbook/** | Investigation workflows and procedures | ✅ Complete |
 | **scripts/** | Automation scripts for OSINT workflows | 🔨 Planned |
 | **vm-setup/** | VM configuration and tool installation scripts | 🔨 Planned |
 | **templates/** | Report templates and investigation forms | 🔨 Planned |
