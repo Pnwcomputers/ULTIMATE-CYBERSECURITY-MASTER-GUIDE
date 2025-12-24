@@ -88,7 +88,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | Directory | Contents | Status |
 |-----------|----------|--------|
 | **Playbook/** | Investigation workflows and procedures | ✅ Complete |
-| **scripts/** | Automation scripts for OSINT workflows | 🔨 Planned |
+| **scripts/** | Automation scripts for OSINT workflows | ✅ Complete |
 | **vm-setup/** | VM configuration and tool installation scripts | 🔨 Planned |
 | **templates/** | Report templates and investigation forms | 🔨 Planned |
 
