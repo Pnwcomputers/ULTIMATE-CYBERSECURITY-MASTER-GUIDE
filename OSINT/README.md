@@ -69,7 +69,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
 | **[OSINT Playbook](./Playbook/README.md)** | 🔄 Investigation workflows and procedures | ✅ Complete |
-| **[OSINT Tools](,/OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
+| **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
 
 ### Specialized Guides
