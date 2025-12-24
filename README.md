@@ -41,8 +41,8 @@ Your complete navigation guide with quick paths for every purpose
 **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
 - Exploit Development, Buffer Overflows
 
-**[Action: OSINT Guide, Tools & Techniques](/OSINT/OSINT_GUIDE.md)**
-- A comprehensive OSINT guide designed for finding and obtaining needed information for a target. For use on Tsurugi Linux and other OSINT-focused distributions.
+**[OSINT Guide, Tools & Techniques](/OSINT/OSINT_GUIDE.md)**
+- A comprehensive OSINT guide designed for finding and obtaining needed information for a target
 
 **[Action: Field Test Ready Playbooks](/PlayBooks)**
 - Full Playbooks for Completing Professional Network & Wifi Security Audits & PenTests
