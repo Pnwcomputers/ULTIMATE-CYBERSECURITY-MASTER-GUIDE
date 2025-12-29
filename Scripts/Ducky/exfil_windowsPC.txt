@@ -1,0 +1,178 @@
+REM =============================================
+REM Title: Windows Migration Information Exfil (with Combined Report)
+REM Author: Jon-Eric Pienkowski ~ Pacific NW Computers
+REM Version: 5.0 (Final)
+REM Copy, Paste & Compile Using Hak5 Payload Studio: https://payloadstudio.hak5.org/
+REM =============================================
+
+DELAY 2000
+GUI r
+DELAY 1000
+STRING powershell -NoProfile -ExecutionPolicy Bypass
+ENTER
+DELAY 2500
+
+REM Execute commands directly (no script block)
+STRING $ts = Get-Date -Format 'yyyyMMdd_HHmmss'; $l = "$env:USERPROFILE\Desktop\Migration_$env:COMPUTERNAME_$ts"; New-Item -ItemType Directory -Path $l -Force | Out-Null; $s = "$l\01_SYSTEM.txt"; "=== SYSTEM INFO ===" | Out-File $s; "Date: $(Get-Date)" | Out-File $s -Append; "PC: $env:COMPUTERNAME" | Out-File $s -Append; "User: $env:USERNAME" | Out-File $s -Append
+ENTER
+DELAY 2000
+
+STRING Get-ComputerInfo | Select WindowsProductName,WindowsVersion | FL | Out-File $s -Append
+ENTER
+DELAY 2000
+
+STRING Get-WmiObject Win32_ComputerSystem | Select Manufacturer,Model | FL | Out-File $s -Append
+ENTER
+DELAY 1500
+
+STRING Get-WmiObject Win32_Processor | Select Name,NumberOfCores | FL | Out-File $s -Append
+ENTER
+DELAY 1500
+
+STRING Get-WmiObject Win32_LogicalDisk -Filter "DriveType=3" | Select DeviceID,@{N='Size_GB';E={[math]::Round($_.Size/1GB,2)}},@{N='Free_GB';E={[math]::Round($_.FreeSpace/1GB,2)}} | FT -A | Out-File $s -Append
+ENTER
+DELAY 2000
+
+STRING @('Desktop','Documents','Downloads','Pictures','Music','Videos') | ForEach-Object {if(Test-Path "$env:USERPROFILE\$_"){$size = (Get-ChildItem "$env:USERPROFILE\$_" -Recurse -EA SilentlyContinue | Measure-Object Length -Sum).Sum / 1GB; "$_ - $([math]::Round($size,2)) GB" | Out-File $s -Append}}
+ENTER
+DELAY 5000
+
+STRING Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName,DisplayVersion,Publisher | Export-Csv "$l\02_SOFTWARE.csv" -NoTypeInformation
+ENTER
+DELAY 3000
+
+STRING Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName,DisplayVersion,Publisher | Export-Csv "$l\02_SOFTWARE.csv" -Append -NoTypeInformation
+ENTER
+DELAY 3000
+
+STRING $n = "$l\03_Network"; New-Item -ItemType Directory -Path $n -Force | Out-Null; ipconfig /all | Out-File "$n\ipconfig.txt"
+ENTER
+DELAY 2000
+
+STRING Get-NetAdapter | Select Name,Status,MacAddress | FT -A | Out-File "$n\adapters.txt"
+ENTER
+DELAY 2000
+
+STRING netsh wlan show profiles | Out-File "$n\wifi.txt"
+ENTER
+DELAY 1500
+
+STRING (netsh wlan show profiles) | Select-String 'All User Profile' | ForEach-Object {$profile = ($_ -split ':')[1].Trim(); "Profile - $profile" | Out-File "$n\wifi_passwords.txt" -Append; netsh wlan show profile name="$profile" key=clear | Out-File "$n\wifi_passwords.txt" -Append}
+ENTER
+DELAY 5000
+
+STRING route print | Out-File "$n\routes.txt"
+ENTER
+DELAY 1500
+
+STRING $b = "$l\04_BROWSERS.txt"; "=== BROWSER DATA ===" | Out-File $b; if(Test-Path "$env:LOCALAPPDATA\Google\Chrome\User Data"){"Chrome - $env:LOCALAPPDATA\Google\Chrome\User Data" | Out-File $b -Append}; if(Test-Path "$env:APPDATA\Mozilla\Firefox\Profiles"){"Firefox - $env:APPDATA\Mozilla\Firefox\Profiles" | Out-File $b -Append}; if(Test-Path "$env:LOCALAPPDATA\Microsoft\Edge\User Data"){"Edge - $env:LOCALAPPDATA\Microsoft\Edge\User Data" | Out-File $b -Append}
+ENTER
+DELAY 2000
+
+STRING $e = "$l\05_EMAIL.txt"; "=== OUTLOOK PST FILES ===" | Out-File $e
+ENTER
+DELAY 500
+
+STRING Get-ChildItem C:\ -Filter *.pst -Recurse -EA SilentlyContinue | Select FullName,@{N='Size_GB';E={[math]::Round($_.Length/1GB,2)}} | FT -A | Out-File $e -Append
+ENTER
+DELAY 7000
+
+STRING "=== OUTLOOK OST FILES ===" | Out-File $e -Append
+ENTER
+DELAY 500
+
+STRING Get-ChildItem C:\ -Filter *.ost -Recurse -EA SilentlyContinue | Select FullName,@{N='Size_GB';E={[math]::Round($_.Length/1GB,2)}} | FT -A | Out-File $e -Append
+ENTER
+DELAY 7000
+
+STRING Get-Printer | Select Name,DriverName,PortName | FL | Out-File "$l\06_PRINTERS.txt"
+ENTER
+DELAY 2000
+
+STRING Get-PSDrive -PSProvider FileSystem | Where-Object {$_.DisplayRoot} | Select Name,DisplayRoot | FT -A | Out-File "$l\07_DRIVES.txt"
+ENTER
+DELAY 2000
+
+STRING Get-CimInstance Win32_StartupCommand | Select Name,Command | FL | Out-File "$l\08_STARTUP.txt"
+ENTER
+DELAY 2000
+
+STRING "MIGRATION DATA - $env:COMPUTERNAME - $(Get-Date)" | Out-File "$l\00_README.txt"; "Collected: System, Software, Network, WiFi passwords, Browsers, Email, Printers, Drives" | Out-File "$l\00_README.txt" -Append; "Pacific NW Computers | jon@pnwcomputers.com | 360-624-7379" | Out-File "$l\00_README.txt" -Append
+ENTER
+DELAY 1000
+
+REM Create combined report
+STRING $combined = "$l\COMPLETE_REPORT.txt"; "=" * 80 | Out-File $combined; "COMPLETE MIGRATION REPORT" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append; "" | Out-File $combined -Append
+ENTER
+DELAY 500
+
+STRING if(Test-Path "$l\00_README.txt"){Get-Content "$l\00_README.txt" | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "SYSTEM INFORMATION" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path $s){Get-Content $s | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "NETWORK CONFIGURATION" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path "$n\ipconfig.txt"){Get-Content "$n\ipconfig.txt" | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING if(Test-Path "$n\wifi_passwords.txt"){Get-Content "$n\wifi_passwords.txt" | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "BROWSER DATA" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path $b){Get-Content $b | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "EMAIL DATA" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path $e){Get-Content $e | Out-File $combined -Append; "" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "PRINTERS" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path "$l\06_PRINTERS.txt"){Get-Content "$l\06_PRINTERS.txt" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "MAPPED DRIVES" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path "$l\07_DRIVES.txt"){Get-Content "$l\07_DRIVES.txt" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING "=" * 80 | Out-File $combined -Append; "STARTUP PROGRAMS" | Out-File $combined -Append; "=" * 80 | Out-File $combined -Append
+ENTER
+DELAY 300
+
+STRING if(Test-Path "$l\08_STARTUP.txt"){Get-Content "$l\08_STARTUP.txt" | Out-File $combined -Append}
+ENTER
+DELAY 500
+
+STRING Start-Process explorer $l
+ENTER
+DELAY 2000
+
+STRING exit
+ENTER
