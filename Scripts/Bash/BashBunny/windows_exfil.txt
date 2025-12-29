@@ -1,0 +1,301 @@
+#!/bin/bash
+#
+# Title:         Windows Migration Data Collection
+# Description:   Comprehensive system data for migration planning
+# Author:        Jon-Eric Pienkowski ~ Pacific NW Computers
+# Version:       1.0
+# Category:      Migration
+# Target:        Windows 10/11
+# Attackmodes:   HID, Storage
+#
+# LED Status:
+# - Magenta: Setup
+# - Yellow: Collecting data
+# - Cyan: Creating combined report
+# - Green: Complete
+# - Red: Error
+
+# ============================================
+# SETUP
+# ============================================
+
+LED SETUP
+
+# Configure attack mode
+ATTACKMODE HID STORAGE
+
+# Set loot directory
+LOOT_DIR=/root/udisk/loot/Migration_$(date +%Y%m%d_%H%M%S)
+mkdir -p $LOOT_DIR
+
+# Wait for target to recognize devices
+sleep 3
+
+LED ATTACK
+
+# ============================================
+# OPEN POWERSHELL
+# ============================================
+
+RUN WIN powershell -NoProfile -ExecutionPolicy Bypass
+Q DELAY 2500
+
+# ============================================
+# SETUP VARIABLES & DIRECTORIES
+# ============================================
+
+Q STRING \$ts = Get-Date -Format 'yyyyMMdd_HHmmss'
+Q ENTER
+Q DELAY 300
+
+Q STRING \$l = \$env:TEMP + '\MigData_' + \$env:COMPUTERNAME + '_' + \$ts
+Q ENTER
+Q DELAY 300
+
+Q STRING New-Item -ItemType Directory -Path \$l -Force \| Out-Null
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# SYSTEM INFORMATION
+# ============================================
+
+Q STRING \$s = "\$l\\01_SYSTEM.txt"
+Q ENTER
+Q DELAY 300
+
+Q STRING "=== SYSTEM INFO ===" \| Out-File \$s
+Q ENTER
+Q DELAY 300
+
+Q STRING "Date: \$(Get-Date)" \| Out-File \$s -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "PC: \$env:COMPUTERNAME" \| Out-File \$s -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING "User: \$env:USERNAME" \| Out-File \$s -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING Get-ComputerInfo \| Select WindowsProductName,WindowsVersion,OsArchitecture \| FL \| Out-File \$s -Append
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-WmiObject Win32_ComputerSystem \| Select Manufacturer,Model \| FL \| Out-File \$s -Append
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-WmiObject Win32_Processor \| Select Name,NumberOfCores,MaxClockSpeed \| FL \| Out-File \$s -Append
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-WmiObject Win32_LogicalDisk -Filter "DriveType=3" \| Select DeviceID,@{N='Size_GB'\;E={[math]::Round(\$_.Size/1GB,2)}},@{N='Free_GB'\;E={[math]::Round(\$_.FreeSpace/1GB,2)}} \| FT -A \| Out-File \$s -Append
+Q ENTER
+Q DELAY 2000
+
+# ============================================
+# USER DATA SIZES
+# ============================================
+
+Q STRING @('Desktop','Documents','Downloads','Pictures','Music','Videos') \| ForEach-Object {if(Test-Path "\$env:USERPROFILE\\\$_"){try{\$size = (Get-ChildItem "\$env:USERPROFILE\\\$_" -Recurse -EA SilentlyContinue \| Measure-Object Length -Sum).Sum / 1GB\; "\$_ - \$([math]::Round(\$size,2)) GB" \| Out-File \$s -Append}catch{"\$_ - Error" \| Out-File \$s -Append}}}
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# INSTALLED SOFTWARE
+# ============================================
+
+Q STRING Get-ItemProperty HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* \| Select DisplayName,DisplayVersion,Publisher \| Export-Csv "\$l\\02_SOFTWARE.csv" -NoTypeInformation
+Q ENTER
+Q DELAY 3000
+
+Q STRING Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* \| Select DisplayName,DisplayVersion,Publisher \| Export-Csv "\$l\\02_SOFTWARE.csv" -Append -NoTypeInformation
+Q ENTER
+Q DELAY 3000
+
+# ============================================
+# NETWORK CONFIGURATION
+# ============================================
+
+Q STRING \$n = "\$l\\03_Network"\; New-Item -ItemType Directory -Path \$n -Force \| Out-Null
+Q ENTER
+Q DELAY 500
+
+Q STRING ipconfig /all \| Out-File "\$n\\ipconfig.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-NetAdapter \| Select Name,Status,MacAddress,LinkSpeed \| FT -A \| Out-File "\$n\\adapters.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING netsh wlan show profiles \| Out-File "\$n\\wifi.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# WIFI PASSWORDS
+# ============================================
+
+Q STRING (netsh wlan show profiles) \| Select-String 'All User Profile' \| ForEach-Object {\$profile = (\$_ -split ':')[1].Trim()\; "Profile - \$profile" \| Out-File "\$n\\wifi_passwords.txt" -Append\; netsh wlan show profile name="\$profile" key=clear \| Out-File "\$n\\wifi_passwords.txt" -Append}
+Q ENTER
+Q DELAY 5000
+
+Q STRING route print \| Out-File "\$n\\routes.txt"
+Q ENTER
+Q DELAY 1500
+
+Q STRING Get-DnsClientServerAddress \| Out-File "\$n\\dns.txt"
+Q ENTER
+Q DELAY 1500
+
+# ============================================
+# BROWSER DATA LOCATIONS
+# ============================================
+
+Q STRING \$b = "\$l\\04_BROWSERS.txt"\; "=== BROWSER DATA ===" \| Out-File \$b
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path "\$env:LOCALAPPDATA\\Google\\Chrome\\User Data"){"Chrome - \$env:LOCALAPPDATA\\Google\\Chrome\\User Data" \| Out-File \$b -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING if(Test-Path "\$env:APPDATA\\Mozilla\\Firefox\\Profiles"){"Firefox - \$env:APPDATA\\Mozilla\\Firefox\\Profiles" \| Out-File \$b -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING if(Test-Path "\$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data"){"Edge - \$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data" \| Out-File \$b -Append}
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# EMAIL DATA LOCATIONS
+# ============================================
+
+Q STRING \$e = "\$l\\05_EMAIL.txt"\; "=== OUTLOOK PST FILES ===" \| Out-File \$e
+Q ENTER
+Q DELAY 500
+
+Q STRING Get-ChildItem C:\\ -Filter *.pst -Recurse -EA SilentlyContinue \| Select FullName,@{N='Size_GB'\;E={[math]::Round(\$_.Length/1GB,2)}},LastWriteTime \| FT -A \| Out-File \$e -Append
+Q ENTER
+Q DELAY 7000
+
+Q STRING "=== OUTLOOK OST FILES ===" \| Out-File \$e -Append
+Q ENTER
+Q DELAY 500
+
+Q STRING Get-ChildItem C:\\ -Filter *.ost -Recurse -EA SilentlyContinue \| Select FullName,@{N='Size_GB'\;E={[math]::Round(\$_.Length/1GB,2)}},LastWriteTime \| FT -A \| Out-File \$e -Append
+Q ENTER
+Q DELAY 7000
+
+# ============================================
+# PRINTERS & DRIVES
+# ============================================
+
+Q STRING Get-Printer \| Select Name,DriverName,PortName,Shared \| FL \| Out-File "\$l\\06_PRINTERS.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-PSDrive -PSProvider FileSystem \| Where-Object {\$_.DisplayRoot} \| Select Name,DisplayRoot \| FT -A \| Out-File "\$l\\07_DRIVES.txt"
+Q ENTER
+Q DELAY 2000
+
+Q STRING Get-CimInstance Win32_StartupCommand \| Select Name,Command,Location \| FL \| Out-File "\$l\\08_STARTUP.txt"
+Q ENTER
+Q DELAY 2000
+
+# ============================================
+# CREATE COMBINED REPORT
+# ============================================
+
+LED SPECIAL
+
+Q STRING \$combined = "\$l\\COMPLETE_REPORT.txt"\; "=" * 80 \| Out-File \$combined
+Q ENTER
+Q DELAY 500
+
+Q STRING "COMPLETE MIGRATION REPORT" \| Out-File \$combined -Append\; "=" * 80 \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 500
+
+Q STRING "Collection Date: \$(Get-Date)" \| Out-File \$combined -Append\; "Computer: \$env:COMPUTERNAME" \| Out-File \$combined -Append\; "User: \$env:USERNAME" \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 500
+
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "SYSTEM INFORMATION" \| Out-File \$combined -Append\; "=" * 80 \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path \$s){Get-Content \$s \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "NETWORK CONFIGURATION" \| Out-File \$combined -Append\; "=" * 80 \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path "\$n\\ipconfig.txt"){Get-Content "\$n\\ipconfig.txt" \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING if(Test-Path "\$n\\wifi_passwords.txt"){Get-Content "\$n\\wifi_passwords.txt" \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "BROWSER DATA" \| Out-File \$combined -Append\; "=" * 80 \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path \$b){Get-Content \$b \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "EMAIL DATA" \| Out-File \$combined -Append\; "=" * 80 \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 300
+
+Q STRING if(Test-Path \$e){Get-Content \$e \| Out-File \$combined -Append\; "" \| Out-File \$combined -Append}
+Q ENTER
+Q DELAY 500
+
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "Pacific NW Computers \| jon@pnwcomputers.com \| 360-624-7379" \| Out-File \$combined -Append
+Q ENTER
+Q DELAY 500
+
+# ============================================
+# COPY TO BASH BUNNY
+# ============================================
+
+LED ATTACK
+
+# Find Bash Bunny drive letter
+Q STRING \$bb = (Get-Volume \| Where-Object {(\$_.FileSystemLabel -like '*BASHBUNNY*') -or (\$_.FileSystemLabel -eq 'BB')} \| Select-Object -First 1).DriveLetter
+Q ENTER
+Q DELAY 1000
+
+Q STRING if(\$bb){Copy-Item -Path \$l -Destination "\$bb`:\\loot\\" -Recurse -Force}
+Q ENTER
+Q DELAY 5000
+
+# ============================================
+# CLEANUP & EXIT
+# ============================================
+
+Q STRING Remove-Item -Path \$l -Recurse -Force -EA SilentlyContinue
+Q ENTER
+Q DELAY 1000
+
+Q STRING exit
+Q ENTER
+Q DELAY 1000
+
+# ============================================
+# COMPLETION
+# ============================================
+
+LED FINISH
+sync
