@@ -52,7 +52,7 @@ These resources are designed to:
 
 | File | Description |
 |------|-------------|
-| [**offline-llm.md**](offline-llm.md) | Framework for using a custom AI/ML to detect lateral movement |
+| [**offline-llm.md**](offline-llm.md) | Create a Completely Offline LLM System |
 | **AnythingLLM** | Generative AI configuration and agent flows for automating incident response, OSINT data collection, and various audits using your own AnythingLLM setup.
 | [**ai_prompts.md**](ai_prompts.md) | A master resource and cheat sheet for high-performance AI prompting |
 
