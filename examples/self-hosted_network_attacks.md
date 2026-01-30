@@ -1,8 +1,88 @@
-# Self-Hosted Wireless Lab Security Assessment Playbook (Defensive / Authorized)
+# Comprehensive Wireless Lab Security Assessment: Red Team & Blue Team Playbooks
 
-This document is written for **authorized testing of your own lab network** (or a network where you have explicit permission). It focuses on **safe, defensive validation**: discovering what’s present, measuring exposure, and verifying that common *attack classes* are mitigated—without providing step-by-step offensive instructions.
+This document combines a **Red Team (Offensive)** "Plan of Attack" with a **Blue Team (Defensive)** "Security Assessment" guide. It is designed for authorized, self-hosted lab environments to practice both exploitation and hardening.
 
 ---
+
+# PART 1: RED TEAM PLAYBOOK (The "Plan of Attack")
+
+## Phase 1: Passive Reconnaissance (The "Silent" Phase)
+*Goal: Map the wireless landscape without transmitting packets that could trigger an IDS.*
+
+### 1. WiFi Mapping & Client Discovery
+* **Tool:** Raspberry Pi Zero 2 W (Kali Linux + USB/Ethernet Hat)
+* **Action:** Put the interface in Monitor Mode. Run `Kismet` or `Airodump-ng`. This is your "Ground Truth" device.
+* **Logging:** Configure Kismet to log to `.kismet` and `.pcap` files.
+    * *Command:* `kismet -c wlan1 --log-title lab_audit`
+
+### 2. Automated Handshake Hunting
+* **Tool:** Pwnagotchi (Pi Zero with e-ink)
+* **Action:** Run passively using reinforcement learning to maximize handshake captures.
+* **Logging:** Handshakes saved automatically to `/handshakes`.
+
+### 3. Presence Detection
+* **Tool:** T-Dongle S3 (ZeroTrace)
+* **Action:** "Wardriving" simulation to identify vendor presence (Apple, Samsung, etc.).
+
+---
+
+## Phase 2: Active Reconnaissance & Signal Analysis
+*Goal: Probe the environment to identify specific vulnerabilities.*
+
+### 1. Bluetooth/BLE Enumeration
+* **Tool:** M5Stick Pro 2 (Nemo) & GeeekPi nRF52840 Sniffer
+* **Action:**
+    * **Nemo:** Scan for BLE beacons.
+    * **nRF52840:** Sniff raw BLE packets into Wireshark.
+* **Logging:** Save `.pcap` files to analyze unencrypted BLE data exchange.
+
+### 2. Sub-GHz Signal Analysis
+* **Tool:** T-Embed CC1101 (Bruce/Ghost Firmware) & Yard Stick One
+* **Action:** Scan for 433MHz or 915MHz signals (security sensors, remotes).
+* **Logging:** Use `rfcat` with Yard Stick One to log raw radio data.
+
+---
+
+## Phase 3: Exploitation (The Attack)
+*Goal: Gain access to the network or devices.*
+
+### 1. The "Evil Twin" / Rogue AP
+* **Tool:** Hak5 WiFi Pineapple + Pineapple Pager
+* **Action:** Launch **PineAP**. Mimic known SSIDs to trick devices into connecting.
+* **Logging:** Enable `PineAP Log`. Use `tcpdump` to capture victim traffic.
+
+### 2. WPA/WPA2 Cracking
+* **Tool:** M5Stack Fire (Purple Hash Monster) & Bjorn
+* **Action:**
+    * **Purple Hash Monster:** Capture PMKID.
+    * **Bjorn:** Aggressive de-authentication to force 4-way handshakes.
+* **Logging:** Export `.pcap` or `.hccapx` files for Hashcat.
+
+### 3. Signal Replay (RF)
+* **Tool:** Evil Crow RF V2
+* **Action:** Capture and replay signals (e.g., smart plugs).
+* **Logging:** Screenshot signal graphs to analyze Rolling vs. Fixed codes.
+
+---
+
+## Phase 4: Physical Access & Persistence
+*Goal: Simulate physical intrusion.*
+
+### 1. The BadUSB Attack
+* **Tool:** Rubber Ducky or Bash Bunny
+* **Action:** "Ducky Script" execution (e.g., exfiltrate WiFi profiles).
+* **Logging:** Bash Bunny logs to `loot` folder.
+
+### 2. The "Implant"
+* **Tool:** Raspberry Pi Zero (P4wnP1 A.L.O.A.)
+* **Action:** Create hidden network interface over USB.
+* **Logging:** SSH session logging via `screen` or `tmux`.
+
+---
+
+# PART 2: BLUE TEAM PLAYBOOK (Defensive / Authorized Assessment)
+
+This section focuses on **safe, defensive validation**: discovering what’s present, measuring exposure, and verifying that common *attack classes* are mitigated.
 
 ## 0) Rules of Engagement (ROE) and Safety Guardrails
 
@@ -22,8 +102,8 @@ This document is written for **authorized testing of your own lab network** (or 
 - **Hak5 WiFi Pineapple:** commonly used to test **client/AP hardening against rogue AP / “evil twin” scenarios** (defensively: verify protections are in place).
 - **Pi Zero running P4wnP1 (USB gadget):** useful for *your own* endpoint hardening tests in controlled conditions.
 - **M5Stick / nRF52840 BLE sniffer:** suited for **Bluetooth Low Energy visibility and analysis** (sniffing in your environment).
-- **CC1101 radios (T-Embed):** **sub-GHz ISM** exploration (common bands like 315/433/868/915 MHz depending on region).  
-  *Note:* CC1101 is not an “802.15.1/SMBus” tool—**802.15.1 is Bluetooth**; **SMBus** is a wired bus based on I²C.
+- **CC1101 radios (T-Embed):** **sub-GHz ISM** exploration (common bands like 315/433/868/915 MHz depending on region).
+  * *Note:* CC1101 is not an “802.15.1/SMBus” tool—**802.15.1 is Bluetooth**; **SMBus** is a wired bus based on I²C.
 - **Rubber Ducky / Bash Bunny:** best treated as **endpoint security validation tools** (e.g., verifying USB policies, EDR response, least privilege), not “payload delivery platforms.”
 
 ---
@@ -143,7 +223,7 @@ Goal: understand what RF surfaces exist in your environment and how you’d defe
 
 ## 7) Phase 5 — Endpoint Security Validation (Safe, Controlled)
 
-Tools like USB gadget platforms and keystroke-injection devices can be used defensively to validate endpoint controls **without sharing offensive procedures**:
+Tools like USB gadget platforms and keystroke-injection devices can be used defensively to validate endpoint controls:
 
 ### What to validate
 - USB device control policies (block unknown HID/storage/network adapters).
@@ -191,14 +271,6 @@ Tools like USB gadget platforms and keystroke-injection devices can be used defe
 
 ---
 
-## 10) Notes on the Original Draft (Edits / Corrections)
-
-- References to “automating injection of malicious scripts/payloads,” “MITM exploitation,” and “WPA2 abuse” were removed because they move from defensive assessment into actionable offensive guidance.
-- CC1101 usage was corrected: it targets **sub-GHz ISM radio**, not “802.15.1/SMBus.”
-- BLE tooling is framed around **inventory + hardening validation**, not sniff/inject instructions.
-
----
-
 ## Appendix A — Suggested Output Files (Keep It Simple)
 
 - `network_map.md`
@@ -206,4 +278,14 @@ Tools like USB gadget platforms and keystroke-injection devices can be used defe
 - `wireless_controls_matrix.md`
 - `rf_inventory.md`
 - `findings_report.md`
-- `remediatio
+- `remediation_backlog.md`
+
+## Appendix B — Quick Wins Checklist
+
+- [ ] Update AP/router/switch firmware
+- [ ] Disable WPS everywhere
+- [ ] Enable PMF/802.11w where supported
+- [ ] Separate Guest/IoT/Management VLANs + enforce firewall rules
+- [ ] Lock down management interfaces (VLAN + ACL + MFA)
+- [ ] Centralize logs + ensure NTP time sync
+- [ ] Endpoint USB controls and script execution policies (where appropriate)
