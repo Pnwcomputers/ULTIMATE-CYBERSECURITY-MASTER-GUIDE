@@ -318,3 +318,112 @@ Use the following templates to document your findings as you execute the playboo
 | 10 | Management | 10.0.10.0/24 | 10.0.10.1 | Static | Critical Infra |
 | 20 | Home/Corp | 10.0.20.0/24 | 10.0.20.1 | .100 - .200 | Trusted Devices |
 | 30 | IoT | 10.0.30.0/24 | 10.0.30.1 | .10 - .250 | **No Internet Access** |
+```
+
+### 2. `asset_inventory.csv`
+*Purpose: A raw spreadsheet of discovered devices.*
+
+```csv
+MAC_Address,IP_Address,Hostname,Vendor,VLAN/SSID,Role,Notes
+00:11:22:33:44:55,192.168.1.50,Lab-Router,Ubiquiti,Mgmt,Gateway,Firmware v1.5.6 (Needs Update)
+AA:BB:CC:DD:EE:FF,10.0.20.15,My-iPhone,Apple,Home_Secure,Client,Private Address enabled
+12:34:56:78:90:AB,10.0.30.5,Unknown-Plug,Tuya/Generic,Home_IoT,IoT,Communicating with cn.tuya.com
+DE:AD:BE:EF:00:00,N/A,Kali-Pi-Zero,Raspberry Pi,Monitor,Auditor,My Recon Device
+CA:FE:BA:BE:00:00,172.16.42.1,WiFi-Pineapple,Hak5,Rogue_AP,Attacker,Management Interface
+00:00:00:00:00:00,N/A,Pwnagotchi,Raspberry Pi,Monitor,Attacker,Handshake Hunter
+```
+
+### 3. `wireless_controls_matrix.md`
+*Purpose: To audit the security settings of specific SSIDs.*
+
+```markdown
+# Wireless Controls Matrix
+**Assessment Date:** 2024-XX-XX
+
+## SSID Configuration Audit
+| SSID Name | Broadcast? | Auth Type | Encryption | PMF (802.11w) | WPS Status | Frequency | Verdict |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `Home_Secure` | Yes | WPA3-SAE | AES | Required | Disabled | 5GHz/6GHz | ✅ PASS |
+| `Home_IoT` | Yes | WPA2-PSK | AES/TKIP | Optional | **Enabled** | 2.4GHz | ❌ FAIL (WPS) |
+| `Guest_WiFi` | No | Open | OWE | Disabled | Disabled | 2.4/5GHz | ⚠️ WARN (Open) |
+
+## Rogue AP Resilience (Evil Twin Test)
+| Client Device | Auto-Join Enabled? | Connects to Pineapple? | Notes |
+| :--- | :--- | :--- | :--- |
+| iPhone 13 | Yes | No | Correctly identified cert mismatch |
+| Old IoT Camera | Yes | **Yes** | Device has no cert validation; captured creds |
+| Windows Laptop | No | No | GPO Prevents auto-connection to open networks |
+```
+
+### 4. `rf_inventory.md`
+*Purpose: To log findings from M5Stick (Nemo), CC1101, etc.*
+
+```markdown
+# RF & Sub-GHz Inventory
+**Tools Used:** M5Stick (Nemo), T-Embed (CC1101), Yard Stick One
+
+## Bluetooth LE (BLE) Findings
+| Device Name | MAC Address | RSSI | Services Exposed | Security Risk |
+| :--- | :--- | :--- | :--- | :--- |
+| `LivingRoom_TV` | Random | -60 | Remote Control, Audio | Low (Pairing req) |
+| `Smart_Tag_01` | Fixed | -45 | Location Beacon | Medium (Trackable) |
+| `N/A (Smart Lock)`| Fixed | -30 | **Unlock Service** | **Critical** (No bonding required!) |
+
+## Sub-GHz (433/915 MHz) Findings
+| Frequency | Modulation | Signal Type | Source | Replay Attack Possible? |
+| :--- | :--- | :--- | :--- | :--- |
+| 433.92 MHz | ASK/OOK | Remote | Garage Door | No (Rolling Code detected) |
+| 315.00 MHz | ASK | Sensor | Door Contact | **Yes** (Fixed code replay worked) |
+```
+
+### 5. `findings_report.md`
+*Purpose: To document specific vulnerabilities found.*
+
+```markdown
+# Technical Finding: [Title]
+
+**Severity:** [Critical/High/Medium/Low]
+**Affected Asset:** [Device Name/IP]
+**Tool Used:** [e.g., WiFi Pineapple, Bjorn]
+
+## Observation
+Describe what was observed. 
+*Example: The 'Home_IoT' network was observed broadcasting WPS support. The Reaver tool successfully recovered the pin in 14 minutes.*
+
+## Evidence
+* [Insert Screenshot or Log Snippet]
+* [Pcap file reference]
+
+## Impact
+Describe what an attacker could do.
+*Example: An attacker can bypass the WiFi password and gain entry to the IoT VLAN.*
+
+## Remediation
+* Disable WPS in the router settings.
+* If WPS cannot be disabled, upgrade firmware or replace the router.
+```
+
+### 6. `remediation_backlog.md`
+*Purpose: To track fixes.*
+
+```markdown
+# Remediation Backlog
+
+| ID | Finding | Priority | Owner | Status | Due Date |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 001 | WPS Enabled on IoT VLAN | High | Admin | To Do | 2024-02-01 |
+| 002 | Deprecated SSH Key on Pi | Medium | Admin | In Progress | 2024-02-05 |
+| 003 | Open Port 80 on Camera | High | Admin | **Fixed** | 2024-01-20 |
+```
+
+---
+
+# Appendix B — Quick Wins Checklist
+
+- [ ] Update AP/router/switch firmware
+- [ ] Disable WPS everywhere
+- [ ] Enable PMF/802.11w where supported
+- [ ] Separate Guest/IoT/Management VLANs + enforce firewall rules
+- [ ] Lock down management interfaces (VLAN + ACL + MFA)
+- [ ] Centralize logs + ensure NTP time sync
+- [ ] Endpoint USB controls and script execution policies (where appropriate)
