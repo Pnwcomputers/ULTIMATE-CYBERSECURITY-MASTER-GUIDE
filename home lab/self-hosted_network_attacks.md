@@ -2,6 +2,20 @@
 
 This document combines a **Red Team (Offensive)** "Plan of Attack" with a **Blue Team (Defensive)** "Security Assessment" guide. It is designed for authorized, self-hosted lab environments to practice both exploitation and hardening.
 
+## Executive Summary of Hardware Roles
+
+Before executing the playbooks, refer to this summary of your lab hardware and their specific audit functions.
+
+| Device | Role in Lab | Primary Log Output |
+| :--- | :--- | :--- |
+| **Kali Pi Zero 2 W** | The Observer (Monitoring) | Kismet logs & Full PCAP |
+| **WiFi Pineapple** | Man-in-the-Middle (MITM) | PineAP Logs & Client Traffic PCAP |
+| **Pwnagotchi/Bjorn** | Handshake Capture | .pcap / .hccapx (Hash files) |
+| **M5Stick (Nemo)** | BLE Recon/Spoofing | Screen display / SD Logs |
+| **T-Embed/Evil Crow** | Sub-GHz RF Replay | Signal Graphs / Raw RF data |
+| **Rubber Ducky** | Physical Payload Delivery | None (Blind attack) |
+| **Bash Bunny** | Physical Exfiltration | Loot folder (stolen data) |
+
 ---
 
 # PART 1: RED TEAM PLAYBOOK (The "Plan of Attack")
@@ -271,21 +285,36 @@ Tools like USB gadget platforms and keystroke-injection devices can be used defe
 
 ---
 
-## Appendix A — Suggested Output Files (Keep It Simple)
+# Appendix A — Operational Templates
 
-- `network_map.md`
-- `asset_inventory.csv`
-- `wireless_controls_matrix.md`
-- `rf_inventory.md`
-- `findings_report.md`
-- `remediation_backlog.md`
+Use the following templates to document your findings as you execute the playbooks.
 
-## Appendix B — Quick Wins Checklist
+### 1. `network_map.md`
+*Purpose: To visualize the target environment and where your tools sit within it.*
 
-- [ ] Update AP/router/switch firmware
-- [ ] Disable WPS everywhere
-- [ ] Enable PMF/802.11w where supported
-- [ ] Separate Guest/IoT/Management VLANs + enforce firewall rules
-- [ ] Lock down management interfaces (VLAN + ACL + MFA)
-- [ ] Centralize logs + ensure NTP time sync
-- [ ] Endpoint USB controls and script execution policies (where appropriate)
+```markdown
+# Network Map & Topology
+
+**Date:** 2024-XX-XX
+**Observer Device:** Kali Pi Zero 2 W (Monitor Mode)
+
+## High-Level Topology
+[ISP Modem] --> [Router/Firewall]
+      |
+      +--> [Managed Switch]
+            |
+            +--> VLAN 10 (Mgmt): [AP Admin], [NAS]
+            |
+            +--> VLAN 20 (Corp/Home): [PC], [Laptop], [Phones]
+            |
+            +--> VLAN 30 (IoT): [Smart Bulbs], [Cameras] (Isolated)
+            |
+            +--> [Attacker Tools]: [Kali Pi (Monitor)], [Pineapple (Rogue)]
+
+## Subnet Details
+| VLAN ID | Name | Subnet | Gateway | DHCP Range | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Native | 192.168.1.0/24 | 192.168.1.1 | None | Switch Mgmt only |
+| 10 | Management | 10.0.10.0/24 | 10.0.10.1 | Static | Critical Infra |
+| 20 | Home/Corp | 10.0.20.0/24 | 10.0.20.1 | .100 - .200 | Trusted Devices |
+| 30 | IoT | 10.0.30.0/24 | 10.0.30.1 | .10 - .250 | **No Internet Access** |
