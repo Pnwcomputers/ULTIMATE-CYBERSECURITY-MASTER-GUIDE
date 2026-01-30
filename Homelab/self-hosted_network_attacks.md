@@ -454,3 +454,19 @@ Describe what an attacker could do.
 - [ ] Lock down management interfaces (VLAN + ACL + MFA)
 - [ ] Centralize logs + ensure NTP time sync
 - [ ] Endpoint USB controls and script execution policies (where appropriate)
+
+---
+
+# Appendix C — Pro-Tips for Lab Stability
+
+### 1. Time Synchronization (Forensic Integrity)
+* **Problem:** Pi Zeros lack RTCs; logs may default to 1970, breaking timeline analysis.
+* **Fix:** Install **DS3231 RTC modules** on the Kali Pi and Pwnagotchi, OR ensure an NTP sync via phone tethering occurs immediately upon boot.
+
+### 2. Protecting the "AI" (Pwnagotchi)
+* **Problem:** Power cuts corrupt SD cards, destroying the Pwnagotchi's learned "Brain".
+* **Fix:** Regularly backup `/root/brain.nn` and `/root/handshakes/` to the Kali Pi or a laptop. Use a "Safe Shutdown" script/button if available.
+
+### 3. De-Confliction (Bjorn vs. Pineapple)
+* **Problem:** Bjorn may attack the Pineapple's Rogue AP if not scoped correctly, confusing your own logs.
+* **Fix:** Add the Pineapple's MAC address and "Evil Twin" SSIDs to Bjorn's `whitelist.txt` (or equivalent config) so your tools don't fight each other.
