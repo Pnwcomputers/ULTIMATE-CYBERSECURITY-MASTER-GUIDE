@@ -1,20 +1,47 @@
-# Comprehensive Wireless Lab Security Assessment: Red Team & Blue Team Playbooks
+# Comprehensive Wireless Lab Security Assessment: Master Playbook
 
-This document combines a **Red Team (Offensive)** "Plan of Attack" with a **Blue Team (Defensive)** "Security Assessment" guide. It is designed for authorized, self-hosted lab environments to practice both exploitation and hardening.
+This document combines a **Device Operational Guide**, **Red Team (Offensive) Plan**, and **Blue Team (Defensive) Assessment** for an authorized, self-hosted wireless lab.
 
-## Executive Summary of Hardware Roles
+---
 
-Before executing the playbooks, refer to this summary of your lab hardware and their specific audit functions.
+# PART 0: MASTER DEVICE INVENTORY & OPERATIONAL GUIDE
 
-| Device | Role in Lab | Primary Log Output |
+This section details every piece of hardware in your arsenal, its specific role, and general usage instructions.
+
+## 1. Monitoring & Reconnaissance Station
+| Device | Role | Use Instructions / Config |
 | :--- | :--- | :--- |
-| **Kali Pi Zero 2 W** | The Observer (Monitoring) | Kismet logs & Full PCAP |
-| **WiFi Pineapple** | Man-in-the-Middle (MITM) | PineAP Logs & Client Traffic PCAP |
-| **Pwnagotchi/Bjorn** | Handshake Capture | .pcap / .hccapx (Hash files) |
-| **M5Stick (Nemo)** | BLE Recon/Spoofing | Screen display / SD Logs |
-| **T-Embed/Evil Crow** | Sub-GHz RF Replay | Signal Graphs / Raw RF data |
-| **Rubber Ducky** | Physical Payload Delivery | None (Blind attack) |
-| **Bash Bunny** | Physical Exfiltration | Loot folder (stolen data) |
+| **Raspberry Pi Zero 2 W** <br>*(Kali Linux + USB/Eth Hat)* | **The "Mothership"**<br>Central monitoring, packet capture, and logging. | **Boot:** SSH in via Ethernet or OOB WiFi.<br>**Cmd:** `sudo airmon-ng start wlan0` (internal) or `wlan1` (external).<br>**Run:** `kismet -c wlan1` or `airodump-ng wlan1`. |
+| **2x Alfa AWUS036ACS** | **Long-Range Eyes**<br>High-gain packet capture linked to the Kali Pi or Laptop. | **Connect:** Plug into Pi Hat or Laptop.<br>**Driver:** `apt install realtek-rtl88xxau-dkms`.<br>**Mode:** Supports Monitor mode & Packet Injection (5GHz/2.4GHz). |
+| **T-Dongle S3** <br>*(ZeroTrace Firmware)* | **Wardriving / Presence**<br>Passive tracking of devices and vendors. | **Boot:** Plug into power bank.<br>**Usage:** Observe screen for "Found Devices" counts. Review logs on SD card later.<br>**Note:** Use with VK172 GPS for geolocation data. |
+| **USB VK172 GPS** | **Geolocation**<br>Adds GPS coordinates to packet captures. | **Connect:** Plug into Kali Pi or T-Dongle hub.<br>**Cmd:** `gpsd /dev/ttyACM0`. Verifies location for Kismet/ZeroTrace. |
+
+## 2. WiFi Attacks & Handshake Capture
+| Device | Role | Use Instructions / Config |
+| :--- | :--- | :--- |
+| **Hak5 WiFi Pineapple** | **Rogue AP / MITM**<br>The "Evil Twin" platform. | **Boot:** Power on.<br>**Access:** Web UI at `172.16.42.1:1471`.<br>**Action:** Module > PineAP > Enable. Use **Pineapple Pager** to vibrate on client connect. |
+| **Pineapple Pager** | **Physical Alerting**<br>Haptic feedback for Pineapple events. | **Setup:** Connects wirelessly to Pineapple.<br>**Use:** Clip to belt. Vibrates when a victim connects to your Rogue AP. |
+| **Pwnagotchi** <br>*(Pi Zero + E-ink)* | **AI Handshake Hunter**<br>Passive/Active learning capture. | **Boot:** Plug into battery. Watch screen.<br>**Status:** Face = Happy (Capturing).<br>**Retrieve:** Connect via USB (Data mode) to `/handshakes` folder. |
+| **Bjorn** <br>*(Pi Zero + E-ink)* | **Aggressive Scanner**<br>Network vulnerability scanner/deauther. | **Boot:** Plug into battery.<br>**Action:** Automatically scans/attacks based on `config.yaml`. <br>**Display:** Shows current target and capture status. |
+| **M5Stack Fire** <br>*(Purple Hash Monster)* | **PMKID Capture**<br>Captures RSN PMKIDs (WPA2). | **Boot:** Press Red button.<br>**Usage:** Device auto-scans 2.4G. Screen lists captured hashes.<br>**Log:** Hashes saved to SD card. |
+| **M5Stack Cardputer** <br>*(Evil-M5)* | **Portable Swiss Army Knife**<br>Deauth, Beacon Spam, Probing. | **Boot:** Power switch.<br>**Menu:** Select `WiFi` > `Scan` > Select Target > `Deauth`.<br>**Keyboard:** Use onboard keys to select menu options. |
+
+## 3. Bluetooth (BLE) & Sub-GHz RF
+| Device | Role | Use Instructions / Config |
+| :--- | :--- | :--- |
+| **M5Stick Pro 2** <br>*(Nemo Firmware)* | **Portable BLE/WiFi Scanner**<br>Handheld recon. | **Boot:** Side button.<br>**Menu:** Select `BLE` to see nearby beacons/tags. Select `WiFi` for deauth list.<br>**Note:** Great for checking "Apple Bleed" (spamming iOS popups). |
+| **GeeekPi nRF52840** | **Deep BLE Sniffing**<br>Raw packet analysis. | **Connect:** Plug into PC/Mac.<br>**Software:** Wireshark + Nordic Sniffer Plugin.<br>**Action:** Select "nRF Sniffer" interface in Wireshark to see raw BLE frames. |
+| **T-Embed CC1101 #1** <br>*(Bruce Firmware)* | **Multi-Protocol RF**<br>Sub-GHz & WiFi analysis. | **Boot:** Scroll wheel to select.<br>**Menu:** `SubGhz` > `Read`. Captures 433/915MHz signals. |
+| **T-Embed CC1101 #2** <br>*(Ghost ESP)* | **ESP-NOW / Beacon Spam**<br>WiFi frame manipulation. | **Boot:** Auto-runs Ghost.<br>**Use:** Generates "Ghost" SSIDs or tests ESP-NOW triggers. |
+| **EvilCrow v2** | **RF Replay Attack**<br>Sub-GHz signal recording. | **Access:** Web UI (WiFi AP).<br>**Action:** `Receive` > Press Button 1 to Record > `Transmit` > Press Button 2 to Replay. |
+| **YardStick One** | **RF Transceiver**<br>PC-based Radio analysis. | **Connect:** USB to Kali.<br>**Cmd:** `rfcat -r` (interactive python mode).<br>**Use:** Determining exact frequency and modulation of captured signals. |
+
+## 4. Physical & HID (Human Interface Device)
+| Device | Role | Use Instructions / Config |
+| :--- | :--- | :--- |
+| **Rubber Ducky** | **Keystroke Injection**<br>Fast payload delivery. | **Setup:** Encode `payload.txt` to `inject.bin`.<br>**Deploy:** Plug into victim USB. Waits for driver, types script.<br>**Lab Use:** Test if endpoints block new USB keyboards. |
+| **Bash Bunny** | **Advanced Exfiltration**<br>Emulates Ethernet/Serial/Storage. | **Switch:** Select Position 1 or 2 (Payloads).<br>**Deploy:** Plug in. LED indicates status (Green = Done).<br>**Loot:** Saved to `udisk/loot` folder. |
+| **Raspberry Pi Zero** <br>*(P4wnP1 A.L.O.A + OLED)* | **The "Implant"**<br>Persistent backdoor over USB. | **Connect:** MicroUSB (Data port) to target.<br>**OLED:** Shows IP address and current attack mode.<br>**Access:** Connect via WiFi to P4wnP1 AP, then SSH/Web UI to control. |
 
 ---
 
