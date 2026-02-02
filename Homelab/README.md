@@ -5,8 +5,17 @@ Welcome to the **Homelab** section of the **ULTIMATE-CYBERSECURITY-MASTER-GUIDE*
 ## 🎯 Purpose
 A homelab is the backbone of practical cybersecurity research. This section provides the resources needed to:
 * **Simulate Real-World Scenarios:** Deploy vulnerable machines and attack infrastructure safely.
+* **Standardize Workflows:** Develop and follow Standard Operating Procedures (SOPs) for repeatable success.
 * **Test Tools & Malware:** Analyze dangerous software without risking your production network.
 * **Master Infrastructure:** Gain hands-on experience with virtualization, networking, and active directory.
+
+## 📚 Guides & Standard Operating Procedures (SOPs)
+**This is a living library.** Over time, this section will be populated with detailed guides and SOPs covering essential tasks, including:
+
+* **Lab Maintenance:** Procedures for snapshots, rolling back VMs, and updating isolated networks.
+* **Provisioning:** Step-by-step guides for spinning up new Active Directory forests or C2 servers.
+* **Incident Response:** SOPs for log ingestion (ELK/Splunk) and artifact analysis within the lab.
+* **Hardware Prep:** Flashing firmware and configuring physical pentest tools (WiFi Pineapple, Proxmark3).
 
 ## 📂 Directory Contents
 
@@ -14,7 +23,6 @@ A homelab is the backbone of practical cybersecurity research. This section prov
 * **VM Setup Procedures:** Guides for configuring VMware, VirtualBox, or Proxmox.
 * **Attack Boxes:** Setup scripts for Kali Linux, Parrot OS, and Black Arch.
 * **Target Machines:** Resources for deploying Metasploitable, Windows AD ranges, and vulnerable web apps (DVWA/OWASP Juice Shop).
-* **OSINT Lab:** Specialized configurations for Open Source Intelligence gathering (anonymity/sock puppets).
 
 ### 📡 Hardware & RF
 * **SDR (Software Defined Radio):** Notes and guides for HackRF, RTL-SDR, and YardStick One.
