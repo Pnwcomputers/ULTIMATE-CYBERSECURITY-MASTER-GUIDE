@@ -12,10 +12,10 @@ A homelab is the backbone of practical cybersecurity research. This section prov
 ## 📚 Guides & Standard Operating Procedures (SOPs)
 **This is a living library.** Over time, this section will be populated with detailed guides and SOPs covering essential tasks, including:
 
-* **Lab Maintenance:** Procedures for snapshots, rolling back VMs, and updating isolated networks.
-* **Provisioning:** Step-by-step guides for spinning up new Active Directory forests or C2 servers.
+* **Lab Setup & Maintenance:** Procedures for architecting, deploying, and maintaining homelab environments.
+* **Provisioning:** Step-by-step guides for deployment workflows and automation playbooks.
 * **Incident Response:** SOPs for log ingestion (ELK/Splunk) and artifact analysis within the lab.
-* **Hardware Prep:** Flashing firmware and configuring physical pentest tools (WiFi Pineapple, Proxmark3).
+* **Hardware Prep:** Configuration of Single Board Computers (SBCs), OS installation, firmware flashing, and setup of physical pentest tools (e.g., WiFi Pineapple, Proxmark3).
 
 ## 📂 Directory Contents
 
@@ -34,9 +34,9 @@ A homelab is the backbone of practical cybersecurity research. This section prov
 * **Anonymity:** Tor routing, VPN chaining, and privacy-focused OS (Tails/Whonix) integration.
 
 ## 🚀 Getting Started
-1.  **Hardware Requirements:** Ensure you have a host machine with sufficient RAM (16GB+ recommended) and storage.
-2.  **Hypervisor:** Install a Type-1 (Proxmox/ESXi) or Type-2 (VMware Workstation/VirtualBox) hypervisor.
-3.  **Network Segregation:** **CRITICAL:** Always ensure your vulnerable lab machines are network-isolated (Host-Only or Internal Network adapters) to prevent accidental exposure to the internet.
+1. **Hardware Requirements:** Ensure you have a host machine with sufficient RAM (16GB+ recommended) and storage.
+2. **Hypervisor:** Install a Type-1 (Proxmox/ESXi) or Type-2 (VMware Workstation/VirtualBox) hypervisor.
+3. **Network Segregation:** **CRITICAL:** Always ensure your vulnerable lab machines are network-isolated (Host-Only or Internal Network adapters) to prevent accidental exposure to the internet.
 
 ## ⚠️ Disclaimer
 **Educational Use Only:**
@@ -44,5 +44,12 @@ The tools, scripts, and guides provided in this repository are for educational p
 * **DO NOT** use these tools on networks you do not own or have explicit permission to test.
 * **DO NOT** expose vulnerable VMs to the open internet.
 
+## Associated Links:
+- [Playbooks](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/PlayBooks)
+- [Scripts](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Scripts)
+- [Checklists](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Checklists)
+- [SBC Devices](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+
 ---
+
 *Part of the [Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)*
