@@ -45,10 +45,12 @@ The tools, scripts, and guides provided in this repository are for educational p
 * **DO NOT** expose vulnerable VMs to the open internet.
 
 ## Associated Links:
-- [Playbooks](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/PlayBooks)
-- [Scripts](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Scripts)
 - [Checklists](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Checklists)
+- [Documentation](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Documentation)
+- [PDF Resources](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/PDF)
+- [Playbooks](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/PlayBooks)
 - [SBC Devices](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+- [Scripts](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Scripts)
 
 ---
 
