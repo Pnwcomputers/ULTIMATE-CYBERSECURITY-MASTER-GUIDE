@@ -12,8 +12,8 @@ A homelab is the backbone of practical cybersecurity research. This section prov
 ## 📚 Guides & Standard Operating Procedures (SOPs)
 **This is a living library.** Over time, this section will be populated with detailed guides and SOPs covering essential tasks, including:
 
-* **Lab Setup & Maintenance:** Procedures for architecting, deploying, and maintaining homelab environments.
-* **Provisioning:** Step-by-step guides for deployment workflows and automation playbooks.
+* **[Lab Setup](Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab/HomeLab_Setup.md) & Maintenance:** Procedures for architecting, deploying, and maintaining homelab environments.
+* **Provisioning:** Step-by-step guides for deployment [workflows](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Homelab/workflows) and automation playbooks.
 * **Incident Response:** SOPs for log ingestion (ELK/Splunk) and artifact analysis within the lab.
 * **Hardware Prep:** Configuration of Single Board Computers (SBCs), OS installation, firmware flashing, and setup of physical pentest tools (e.g., WiFi Pineapple, Proxmark3).
 
