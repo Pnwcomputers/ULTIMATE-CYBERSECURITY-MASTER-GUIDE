@@ -12,15 +12,15 @@ This section focuses on **visibility and defense**. It provides the resources to
 ## 📂 Directory Contents
 
 ### 📊 Log Aggregation & SIEM
-* **[ELK Stack (Elastic):](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/SIEM/elk_stack.md)** Docker compose files and configs for Elasticsearch, Logstash, and Kibana.
-* **[Wazuh:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/SIEM/wazuh.md)** Deployment guides for the Wazuh manager and agent registration.
-* **[Splunk:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/SIEM/splunk.md)** Setup for Splunk Free/Enterprise trial and creating indexes.
-* **[Graylog:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/SIEM/graylog.md)** Configuration for lightweight log management.
+* **[ELK Stack (Elastic):](/Incident%20Response/SIEM/elk_stack.md)** Docker compose files and configs for Elasticsearch, Logstash, and Kibana.
+* **[Wazuh:](/Incident%20Response/SIEM/wazuh.md)** Deployment guides for the Wazuh manager and agent registration.
+* **[Splunk:](/Incident%20Response/SIEM/splunk.md)** Setup for Splunk Free/Enterprise trial and creating indexes.
+* **[Graylog:](/Incident%20Response/SIEM/graylog.md)** Configuration for lightweight log management.
 
 ### 👁️ Endpoint Visibility (EDR)
-* **Windows [(Sysmon)](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/Endpoint-Visibility/Windows/sysmon.md):** Installation scripts and configuration files (e.g., SwiftOnSecurity or Olaf Hartong configs) for granular event tracing.
-* **Linux [(Auditd/Syslog)](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/Endpoint-Visibility/Linux/auditd_syslog.md):** Hardening logging configurations for Linux servers.
-* **[Osquery](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/Endpoint-Visibility/Linux/osquery.md):** SQL-powered operating system instrumentation.
+* **Windows [(Sysmon)](/Incident%20Response/Endpoint-Visibility/Windows/sysmon.md):** Installation scripts and configuration files (e.g., SwiftOnSecurity or Olaf Hartong configs) for granular event tracing.
+* **Linux [(Auditd/Syslog)](/Incident%20Response/Endpoint-Visibility/Linux/auditd_syslog.md):** Hardening logging configurations for Linux servers.
+* **[Osquery](/Incident%20Response/Endpoint-Visibility/Linux/osquery.md):** SQL-powered operating system instrumentation.
 
 ### 🕸️ Network Monitoring (NSM)
 * **Zeek (Bro):** Scripts for analyzing network traffic logs.
@@ -30,18 +30,18 @@ This section focuses on **visibility and defense**. It provides the resources to
 ### 📘 IR Playbooks & SOPs
 Step-by-step guides for specific incident types:
 * **Malware Outbreak:** Isolation, identification, and eradication steps.
-* **[Phishing Analysis:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/PlayBooks/sop_phising_analysis.md)** Header analysis, attachment detonation, and URL scanning.
-* **[Unauthorized Access:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/PlayBooks/unauth_access.md)** Investigating brute force and impossible travel alerts.
+* **[Phishing Analysis:](/PlayBooks/sop_phising_analysis.md)** Header analysis, attachment detonation, and URL scanning.
+* **[Unauthorized Access:](/PlayBooks/unauth_access.md)** Investigating brute force and impossible travel alerts.
 
 ### 🔎 Digital Forensics
-* **[Memory Analysis](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Incident%20Response/Digital-Forensics/Memory):** Cheatsheets for using **Volatility** to analyze RAM dumps.
-* **[Disk Forensics](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Incident%20Response/Digital-Forensics/Disks):** Guides for **Autopsy** and **KAPE** (Kroll Artifact Parser and Extractor).
-* **[Live Response](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Incident%20Response/Digital-Forensics/Live%20Data/live_data_collection.md):** Scripts for gathering volatile data from a compromised host.
+* **[Memory Analysis](/Incident%20Response/Digital-Forensics/Memory):** Cheatsheets for using **Volatility** to analyze RAM dumps.
+* **[Disk Forensics](/Incident%20Response/Digital-Forensics/Disks):** Guides for **Autopsy** and **KAPE** (Kroll Artifact Parser and Extractor).
+* **[Live Response](/Incident%20Response/Digital-Forensics/Live%20Data/live_data_collection.md):** Scripts for gathering volatile data from a compromised host.
 
 ## 🚀 Getting Started
-1.  **Choose a [SIEM](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Incident%20Response/SIEM):** Start by deploying a central log server (recommend **Wazuh** or **ELK** for beginners) using the guides in the `SIEM/` folder.
-2.  **Deploy [Agents](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Incident%20Response/Endpoint-Visibility):** Install agents (Sysmon + Winlogbeat, or Wazuh Agent) on your **Homelab** VMs.
-3.  **[Generate Noise:](/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/PlayBooks)** Run an attack from your Kali box (from the Homelab branch) against a target VM.
+1.  **Choose a [SIEM](/Incident%20Response/SIEM):** Start by deploying a central log server (recommend **Wazuh** or **ELK** for beginners) using the guides in the `SIEM/` folder.
+2.  **Deploy [Agents](/Incident%20Response/Endpoint-Visibility):** Install agents (Sysmon + Winlogbeat, or Wazuh Agent) on your **Homelab** VMs.
+3.  **[Generate Noise:](/PlayBooks)** Run an attack from your Kali box (from the Homelab branch) against a target VM.
 4.  **Analyze:** Go to your SIEM dashboard and attempt to trace the attack chain.
 
 ## ⚠️ Disclaimer
