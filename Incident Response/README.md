@@ -32,6 +32,7 @@ Step-by-step guides for specific incident types:
 * **Malware Outbreak:** Isolation, identification, and eradication steps.
 * **[Phishing Analysis:](/PlayBooks/sop_phising_analysis.md)** Header analysis, attachment detonation, and URL scanning.
 * **[Unauthorized Access:](/PlayBooks/unauth_access.md)** Investigating brute force and impossible travel alerts.
+* **[Wireless Intrusion & Unauthorized Network Access:](/Incident%20Response/network_intrusion.md)** Investigating unauthorized access to local or private networks.
 
 ### 🔎 Digital Forensics
 * **[Memory Analysis](/Incident%20Response/Digital-Forensics/Memory):** Cheatsheets for using **Volatility** to analyze RAM dumps.
