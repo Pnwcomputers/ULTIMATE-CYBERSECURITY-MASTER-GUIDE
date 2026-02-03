@@ -7,7 +7,7 @@ This section focuses on **visibility and defense**. It provides the resources to
 * **[Centralize Logs:](/Incident%20Response/log_agg.md)** Ingest data from endpoints, servers, and network devices into a SIEM.
 * **[Detect Threats:](/Incident%20Response/SIEM)** Write SIGMA rules and alerts to catch malicious activity generated in the lab.
 * **[Analyze Artifacts:](/Incident%20Response/Digital-Forensics)** Perform forensics on memory (RAM) and disk images.
-* **[Standardized Response:](/PlayBooks)** Use Playbooks to handle incidents (e.g., Phishing, Ransomware) consistently.
+* **[Standardized Response:](/PlayBooks/BlueTeam_IncResp_Enhanced.md)** Use Playbooks to handle incidents (e.g., Phishing, Ransomware) consistently.
 
 ## 📂 Directory Contents
 
