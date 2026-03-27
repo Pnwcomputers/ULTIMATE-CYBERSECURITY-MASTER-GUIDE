@@ -1,5 +1,8 @@
 # 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE COLLECTION
 
+![Automation Level](https://img.shields.io/badge/Automation-Zero%20Touch-green)
+![Maintenance](https://img.shields.io/badge/Maintained-Yes-green)
+
 # 📊 Complete Professional Knowledge Base
 ## Compiled from 70+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
 ### *Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repository*
