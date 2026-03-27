@@ -1,1 +1,49 @@
+# --- Security & Privacy (CRITICAL) ---
+# Ignore local target lists or investigation notes
+targets.txt
+*.log
+local_notes.md
+*.pcap
+*.pcapng
 
+# Ignore sensitive credentials/configs
+# (e.g., if you use .env files for script keys)
+.env
+*.ovpn
+*.conf
+*.key
+*.pem
+secrets/
+config/local_config.*
+
+# --- Python / Scripting ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# --- Documentation / OS Clutter ---
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary / Backup files
+*.swp
+*.bak
+*~
+.vscode/
+.idea/
+
+# --- Tools / Scripts specific ---
+# If your changelog generator creates temp files
+DRAFT_CHANGELOG.md
+# (Uncomment above if you only want the final CHANGELOG.md tracked)
