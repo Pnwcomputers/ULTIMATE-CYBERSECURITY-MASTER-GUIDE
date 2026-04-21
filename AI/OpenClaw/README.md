@@ -60,7 +60,7 @@ This repository includes three guides. Start here, then refer to the others once
 - [OPNsense](https://opnsense.org/) or similar router
 - A [DuckDNS](https://www.duckdns.org/) (or other [DDNS](https://www.cloudflare.com/learning/dns/glossary/dynamic-dns/)) domain pointed at your public IP
 - [Ollama](https://ollama.com/) running somewhere on your network (optional, for local inference)
-- API keys for: Anthropic, Groq, Google Gemini (all have free tiers)
+- [API keys](https://www.ibm.com/think/topics/api-key) for: Anthropic, Groq, Google Gemini (all have free tiers)
 
 ---
 
