@@ -32,7 +32,7 @@ This repository includes three guides. Start here, then refer to the others once
 |------|-------------|
 | **README.md** *(this file)* | Full installation and configuration guide for TrueNAS SCALE |
 | **[use_cases.md](use_cases.md)** | Real-world example prompts organized by workflow — personal, IT support, blue team, red team, purple team, OSINT, and more |
-| **[agen_skill_config.md](agent_skill_config.md)** | Pre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance |
+| **[agent_skill_config.md](agent_skill_config.md)** | Pre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance |
 
 ---
 
