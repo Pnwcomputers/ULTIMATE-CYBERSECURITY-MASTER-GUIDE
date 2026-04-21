@@ -54,6 +54,9 @@ Your complete navigation guide with quick paths for every purpose
 
 **[Linux Command Cheat Sheet (Debian/Ubuntu/Kali/Parrot/Etc.)](/Documentation/LinuxCheatSheet.md)**
 - A cheat sheet/refrence sheet of some of the most used/most usefull Linux CLI commands.
+
+**[🤖 AI Cybersecurity Resources](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/AI/README.md)**
+- Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting, offline deployment, and AI-powered security workflows
   
 ---
 
