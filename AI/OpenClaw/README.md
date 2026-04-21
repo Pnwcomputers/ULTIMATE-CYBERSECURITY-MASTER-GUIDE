@@ -1,4 +1,20 @@
-# OpenClaw on TrueNAS SCALE — Complete Setup Guide
+# 🦞 OpenClaw on TrueNAS SCALE — Complete Setup Guide
+
+## 🤖 AI Resources
+
+<div align="center">
+
+**AI, Machine Learning, and Generative Intelligence resources applied to cybersecurity**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![AI Models](https://img.shields.io/badge/AI_Models-Checklists-purple?style=for-the-badge)]()
+[![ML Use Cases](https://img.shields.io/badge/ML_Use_Cases-Security-blue?style=for-the-badge)]()
+[![GenAI Security](https://img.shields.io/badge/GenAI-Cybersecurity-green?style=for-the-badge)]()
+
+</div>
+
+---
 
 ## What is OpenClaw?
 
