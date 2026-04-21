@@ -1,16 +1,15 @@
 # 🦞 OpenClaw on TrueNAS SCALE — Complete Setup Guide
 
-## 🤖 AI Resources
-
 <div align="center">
 
-**AI, Machine Learning, and Generative Intelligence resources applied to cybersecurity**
+**Self-hosted AI agent framework with multi-provider LLM routing, homelab integration, and cybersecurity workflows**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![AI Models](https://img.shields.io/badge/AI_Models-Checklists-purple?style=for-the-badge)]()
-[![ML Use Cases](https://img.shields.io/badge/ML_Use_Cases-Security-blue?style=for-the-badge)]()
-[![GenAI Security](https://img.shields.io/badge/GenAI-Cybersecurity-green?style=for-the-badge)]()
+[![OpenClaw](https://img.shields.io/badge/OpenClaw-2026.4.15-red?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)]()
+[![TrueNAS SCALE](https://img.shields.io/badge/TrueNAS-SCALE_25.04-blue?style=for-the-badge)]()
+[![Providers](https://img.shields.io/badge/AI_Providers-Anthropic_|_Gemini_|_Groq_|_Ollama-purple?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
 
 </div>
 
