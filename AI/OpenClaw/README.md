@@ -33,10 +33,6 @@ OpenClaw is a free, open-source AI agent framework that runs on your own hardwar
 - Integrate with your existing homelab infrastructure
 - Full control over models, tools, and data
 
-- Companion Documents
-This repository includes three guides. Start here, then refer to the others once setup is complete:
-FileDescriptionREADME.md (this file)Full installation and configuration guide for TrueNAS SCALEuse_cases.mdReal-world example prompts organized by workflow — personal, IT support, blue team, red team, purple team, OSINT, and moreagen_skill_config.mdPre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance
-
 ---
 
 ## Companion Documents
