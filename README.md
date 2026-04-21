@@ -32,19 +32,28 @@ Your complete navigation guide with quick paths for every purpose
 ## 📖 SUPPORTING GUIDES
 
 **[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)**
-- Quick command reference
+- Quick command references.
 
 **[Cybersecurity Operational Playbooks](/PlayBooks/cybersecurity_playbooks.md)**
-- Operational procedures
+- Operational procedures.
 
 **[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)**
-- Advanced Metasploit, Cloud, Pivoting
+- Advanced Metasploit, Cloud, Pivoting, etc.
 
 **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)**
-- Exploit Development, Buffer Overflows
+- Exploit Development, Buffer Overflows, etc.
 
 **[OSINT Guide, Tools & Techniques](/OSINT/OSINT_GUIDE.md)**
-- A comprehensive OSINT guide designed for finding and obtaining needed information for a target
+- A comprehensive OSINT guide designed for finding and obtaining needed information for a target.
+
+**[Operational Security](/OPSEC)**
+- Comprehensive operational security practices for cybersecurity professionals and security researchers.
+
+**[HomeLab Guides](/Homelab)**
+- Building, configuring, and maintaining a safe, isolated environment for practicing offensive and defensive cybersecurity techniques.
+
+**[Incident Response](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/tree/main/Incident%20Response)**
+- Blue Team operations: detecting threats, aggregating logs, analyzing artifacts, and standardizing response procedures.
 
 **[Action: Field Test Ready Playbooks](/PlayBooks)**
 - Full Playbooks for Completing Professional Network & Wifi Security Audits & PenTests
@@ -55,7 +64,10 @@ Your complete navigation guide with quick paths for every purpose
 **[Linux Command Cheat Sheet (Debian/Ubuntu/Kali/Parrot/Etc.)](/Documentation/LinuxCheatSheet.md)**
 - A cheat sheet/refrence sheet of some of the most used/most usefull Linux CLI commands.
 
-**[🤖 AI Cybersecurity Resources](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/AI/README.md)**
+**[Scripts](/Scripts)**
+- Collection of security automation scripts, exploitation tools, and utility programs.
+
+**[AI Cybersecurity Resources](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/AI/README.md)**
 - Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting, offline deployment, and AI-powered security workflows
   
 ---
