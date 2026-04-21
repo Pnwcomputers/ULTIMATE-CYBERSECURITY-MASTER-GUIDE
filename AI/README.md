@@ -251,9 +251,9 @@ Always comply with:
 ## 🔗 Quick Links
 
 - [🏠 Main Repository](../README.md)
-- [📑 PDF Library](../PDF/README.md)
-- [📋 Checklists](../Checklists/README.md)
-- [🔍 OSINT Resources](../OSINT/README.md)
+- [🔍 OSINT Resources](../OSINT/OSINT_GUIDE.md)
+- [📑 PDF Library](../PDF/)
+- [📋 Checklists](../Checklists/)
 
 ---
 
