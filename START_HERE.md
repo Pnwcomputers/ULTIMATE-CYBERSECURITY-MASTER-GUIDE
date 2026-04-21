@@ -25,6 +25,10 @@
 - Over 90+ PNW Computers' Internal Documents, Guides & KB Articles
 - Complete Penetration Testing Lifecycle
 
+### Guide 3: **AI-Powered Security** → Start with [AI Cybersecurity Resources](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/AI/README.md)
+
+---
+
 ### 📖 QUICK REFERENCE
 
 **[Cybersecurity Comprehensive Cliff Notes](cybersecurity_cliff_notes.md)**
