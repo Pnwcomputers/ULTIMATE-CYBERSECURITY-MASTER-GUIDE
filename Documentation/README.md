@@ -3,8 +3,6 @@ Comprehensive technical documentation, guides, and reference materials for cyber
 
 Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 
----
-
 [![Documentation](https://img.shields.io/badge/Documentation-Cybersecurity%20Base-blue?style=for-the-badge&logo=googledocs&logoColor=white)]()
 [![Knowledge Base](https://img.shields.io/badge/Category-Knowledge%20Base-green?style=for-the-badge&logo=gitbook&logoColor=white)]()
 [![Cybersecurity Ops](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge&logo=fortinet&logoColor=white)]()
