@@ -1,4 +1,19 @@
-# AnythingLLM AgentFlow Documentation
+# 🧠 AnythingLLM AgentFlow Documentation
+
+<div align="center">
+
+**Custom AgentFlow configurations for cybersecurity assessments, penetration testing, and security automation**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![AnythingLLM](https://img.shields.io/badge/AnythingLLM-AgentFlows-orange?style=for-the-badge)]()
+[![Use Case](https://img.shields.io/badge/Use_Case-Cybersecurity_|_Pentesting-red?style=for-the-badge)]()
+[![Flows](https://img.shields.io/badge/Flows-Documented-blue?style=for-the-badge)]()
+[![Self Hosted](https://img.shields.io/badge/Deployment-Self--Hosted-green?style=for-the-badge)]()
+
+</div>
+
+---
 
 ## Overview
 
