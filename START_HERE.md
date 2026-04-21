@@ -31,7 +31,7 @@
 - Quick Command Reference
 - Essential Techniques for Daily Use
 
-**[Cybersecurity Operational Playbooks](cybersecurity_playbooks.md)**
+**[Cybersecurity Operational Playbooks](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/PlayBooks/cybersecurity_playbooks.md)**
 - Operational Procedures
 - Incident Response Workflows
 
