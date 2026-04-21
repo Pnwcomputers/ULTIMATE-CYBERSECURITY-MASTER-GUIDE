@@ -50,11 +50,15 @@ These resources are designed to:
 
 ## 📂 Folder Contents
 
-| File | Description |
-|------|-------------|
-| [**offline-llm.md**](offline-llm.md) | Create a Completely Offline LLM System |
-| **AnythingLLM** | Generative AI configuration and agent flows for automating incident response, OSINT data collection, and various audits using your own AnythingLLM setup.
-| [**ai_prompts.md**](ai_prompts.md) | A master resource and cheat sheet for high-performance AI prompting |
+| File/Folder | Description |
+|-------------|-------------|
+| **[offline-llm.md](offline-llm.md)** | Create a completely offline LLM system — hardware selection, model deployment, air-gapped setup, and operational security for sensitive environments |
+| **[ai_prompts.md](ai_prompts.md)** | Master resource and cheat sheet for high-performance AI prompting — templates, patterns, and techniques for security and IT workflows |
+| **[AnythingLLM/](AnythingLLM/)** | Generative AI configuration and AgentFlows for automating incident response, OSINT data collection, and security audits using a self-hosted AnythingLLM instance |
+| **[OpenClaw/](OpenClaw/)** | Complete setup guide and configurations for deploying OpenClaw on TrueNAS SCALE — multi-provider LLM routing, homelab integration, and cybersecurity agent workflows |
+| └ [README.md](OpenClaw/README.md) | TrueNAS SCALE installation guide — ixVolume setup, provider config, NPMplus HTTPS proxy, device pairing, and troubleshooting |
+| └ [use_cases.md](OpenClaw/use_cases.md) | Real-world prompt examples for IT support, blue team, red team, purple team, OSINT, homelab, and business operations |
+| └ [agent_skill_config.md](OpenClaw/agent_skill_config.md) | Pre-built agent personas, skill configurations, cron jobs, and multi-agent workflow setups |
 
 ---
 
