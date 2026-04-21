@@ -18,6 +18,22 @@ OpenClaw is a free, open-source AI agent framework that runs on your own hardwar
 - Integrate with your existing homelab infrastructure
 - Full control over models, tools, and data
 
+- Companion Documents
+This repository includes three guides. Start here, then refer to the others once setup is complete:
+FileDescriptionREADME.md (this file)Full installation and configuration guide for TrueNAS SCALEuse_cases.mdReal-world example prompts organized by workflow — personal, IT support, blue team, red team, purple team, OSINT, and moreagen_skill_config.mdPre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance
+
+---
+
+## Companion Documents
+ 
+This repository includes three guides. Start here, then refer to the others once setup is complete:
+ 
+| File | Description |
+|------|-------------|
+| **README.md** *(this file)* | Full installation and configuration guide for TrueNAS SCALE |
+| **[use_cases.md](use_cases.md)** | Real-world example prompts organized by workflow — personal, IT support, blue team, red team, purple team, OSINT, and more |
+| **[agen_skill_config.md](agen_skill_config.md)** | Pre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance |
+
 ---
 
 ## Table of Contents
@@ -39,11 +55,11 @@ OpenClaw is a free, open-source AI agent framework that runs on your own hardwar
 
 ## Prerequisites
 
-- TrueNAS SCALE 25.04+
-- NPMplus installed and running (for HTTPS reverse proxy)
-- OPNsense or similar router
-- A DuckDNS (or other DDNS) domain pointed at your public IP
-- Ollama running somewhere on your network (optional, for local inference)
+- [TrueNAS SCALE](https://www.truenas.com/truenas-community-edition/) 25.04+
+- [NPMplus](https://github.com/ZoeyVid/NPMplus) installed and running (for HTTPS reverse proxy)
+- [OPNsense](https://opnsense.org/) or similar router
+- A [DuckDNS](https://www.duckdns.org/) (or other DDNS) domain pointed at your public IP
+- [Ollama](https://ollama.com/) running somewhere on your network (optional, for local inference)
 - API keys for: Anthropic, Groq, Google Gemini (all have free tiers)
 
 ---
