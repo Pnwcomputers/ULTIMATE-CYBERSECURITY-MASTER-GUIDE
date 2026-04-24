@@ -6,7 +6,7 @@
 
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-green)
 
-# 📊 Complete Professional Knowledge Base
+# 📊 Professional Cybersecurity Knowledge Base
 ## Compiled from 70+ Expert Books + 90+ PNWC Internal Docs + Customized Tools & Scripts
 ### *Abide by the [Legal Terms of Use/Disclaimer & Legal Ramifications](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/LEGAL.md) for the *Use* & *Misuse* of this Repository*
 ---
