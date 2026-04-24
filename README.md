@@ -1,5 +1,9 @@
 # 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE COLLECTION
 
+<p align="center">
+  <img src="assets/cybersecurityguide.png" alt="Complete Professional Knowledge Base for Blue Team, Red Team and Purple Team Cybersecurity Operations." width="600"/>
+</p>
+
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-green)
 
 # 📊 Complete Professional Knowledge Base
