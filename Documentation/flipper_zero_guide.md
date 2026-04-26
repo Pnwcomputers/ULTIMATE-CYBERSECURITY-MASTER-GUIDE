@@ -104,20 +104,22 @@ Key pins for common use:
 | **Momentum** | ★★★★☆ | Highest | ✅ | ✅ | Feature-rich builds |
 | **RogueMaster** | ★★★☆☆ | Highest | ✅ | ✅ | Max features, less stable |
 
-### Official Firmware
+## [Awesome Flipper Firmware Compariosn](https://awesome-flipper.com/firmware/)
+
+### [Official Firmware](https://github.com/flipperdevices/flipperzero-firmware)
 - **Source**: flipper.net / qFlipper auto-update
 - Stock feature set, regionally restricted Sub-GHz
 - Required for warranty claims
 - App Catalog access via lab.flipper.net
 
-### Unleashed Firmware
+### [Unleashed Firmware](https://github.com/DarkFlippers/unleashed-firmware)
 - **Source**: github.com/DarkFlippers/unleashed-firmware/releases
 - Removes Sub-GHz regional frequency restrictions
 - Adds extra protocols: CAME, Nice, Ansonic, etc.
 - Extra apps bundle in `*e.tgz` release variant
 - Compatible with official Flipper App Catalog
 
-### Momentum Firmware (Recommended)
+### [Momentum Firmware (Recommended)](https://momentum-fw.dev/)
 - **Source**: github.com/Next-Flip/Momentum-Firmware/releases
 - Fork of Xtreme firmware, actively maintained
 - Largest bundled app collection
@@ -125,7 +127,7 @@ Key pins for common use:
 - Extra apps in `*e.tgz` or resources package
 - Supports custom asset packs
 
-### RogueMaster
+### [RogueMaster](https://rogue-master.net/)
 - **Source**: github.com/RogueMaster/flipperzero-firmware-wPlugins
 - Maximum features and app count
 - Less stable, rolling releases
@@ -133,7 +135,7 @@ Key pins for common use:
 
 ### Installing Firmware
 
-**Via qFlipper (recommended):**
+**Via [qFlipper (recommended)](https://github.com/flipperdevices/qFlipper):**
 1. Connect Flipper via USB-C
 2. Open qFlipper → click "Install from file"
 3. Select the downloaded `.tgz` update package
