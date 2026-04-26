@@ -104,7 +104,7 @@ Key pins for common use:
 | **Momentum** | ★★★★☆ | Highest | ✅ | ✅ | Feature-rich builds |
 | **RogueMaster** | ★★★☆☆ | Highest | ✅ | ✅ | Max features, less stable |
 
-## [Awesome Flipper Firmware Compariosn](https://awesome-flipper.com/firmware/)
+## [Awesome Flipper Firmware Comparison Guide](https://awesome-flipper.com/firmware/)
 
 ### [Official Firmware](https://github.com/flipperdevices/flipperzero-firmware)
 - **Source**: flipper.net / qFlipper auto-update
