@@ -1,5 +1,4 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
-### Pacific Northwest Computers — PNWC Cybersecurity Master Guide
 ### *For authorized IT and penetration testing use only*
 
 ---
