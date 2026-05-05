@@ -1,6 +1,6 @@
 # Argus Recon Toolkit - Installation Guide
 
-This guide provides a streamlined path for installing and running the [The Argus Recon OSINT Toolkit](https://github.com/jasonxtn/argus) by [Jasonxtn](https://github.com/jasonxtn) on a modern Linux systems (Ubuntu/Debian) using Python 3.12+. Argus is a Python-based toolkit for Information Gathering & Reconnaissance
+This guide provides a streamlined path for installing and running the [The Argus Recon OSINT Toolkit](https://github.com/jasonxtn/argus) by [Jasonxtn](https://github.com/jasonxtn) on a modern Linux system (Ubuntu/Debian) using Python 3.12+. Argus is a Python-based toolkit for Information Gathering & Reconnaissance
 
 ## Prerequisites
 Ensure your system has the necessary build tools and Python development headers installed to prevent compilation errors.
