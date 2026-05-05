@@ -82,7 +82,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | **[Phone_OSINT.md](./scripts/Phone_OSINT.md)** | Phone number investigation methods | ✅ Complete |
 | **Geolocation_OSINT.md** | Image analysis and geolocation | 🔨 Planned |
 | **People_Search.md** | Person investigation methodologies | 🔨 Planned |
-| **[argus_osint.md(./argus_osint.md)** | ⚡ Quick reference for installing the Argus OSINT Python Utility | ✅ Complete |
+| **[argus_osint.md](./argus_osint.md)** | ⚡ Quick reference for installing the Argus OSINT Python Utility | ✅ Complete |
 
 ### Scripts & Automation
 
