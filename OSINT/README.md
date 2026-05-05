@@ -90,7 +90,6 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 |-----------|----------|--------|
 | **Playbook** | Investigation workflows and procedures | ✅ Complete |
 | **scripts** | Automation scripts for OSINT workflows | ✅ Complete |
-| **[Home Lab](/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/Homelab)** | VM configuration and tool installation scripts | 🔨 Planned |
 | **templates** | Report templates and investigation forms | 🔨 Planned |
 
 ### Case Studies
