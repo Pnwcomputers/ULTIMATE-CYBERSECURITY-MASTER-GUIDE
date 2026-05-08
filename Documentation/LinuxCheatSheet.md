@@ -1,6 +1,6 @@
 # Linux Command Cheat Sheet and Reference 🛠️
 
-This document serves as a quick reference for common system administration, networking, and security auditing commands on Debian/Ubuntu-based systems.
+This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ---
 
@@ -21,6 +21,8 @@ This document serves as a quick reference for common system administration, netw
 | :--- | :--- | :--- |
 | `sudo apt --fix-broken install` | **Fix Broken Dependencies** | Attempts to correct a system where packages have unmet dependencies. |
 | `sudo apt remove [package_name]` | **Remove Package** | Basic command to uninstall a specified package (requires a package name). |
+| `sudo apt autoremove -y` | **Remove Unused Packages** | Removes packages that were installed as dependencies but are no longer required. |
+| `sudo apt clean` | **Clean Package Cache** | Clears out the local repository of retrieved package files. |
 
 ---
 
@@ -30,6 +32,10 @@ This document serves as a quick reference for common system administration, netw
 | :--- | :--- | :--- |
 | `ls -la /usr/folder1/folder2/` | **Check Files/Folders** | **L**i**s**ts all (`-a`) files in the path with long format details (`-l`). |
 | `lsblk` | **List Disks** | Lists all block devices (drives and partitions) on the system. |
+| `lsusb` | **List USB Devices** | Lists USB devices connected to the system. |
+| `lspci` | **List PCI Devices** | Lists PCI buses and devices. |
+| `lshw` | **Hardware Info** | Lists detailed hardware configuration of the machine. |
+| `dmesg \| tail -50` | **Kernel Messages** | Shows the last 50 kernel ring buffer messages (great for USB/hardware issues). |
 | `free -h` | **Memory Usage** | Displays free, used, and total system memory and swap space in a **h**uman-readable format. |
 | `sudo iftop` | **Network Traffic (General)** | Displays network bandwidth usage on an interface in real-time. |
 | `sudo nethogs` | **Network Traffic (Per Process)** | Displays which process/program is using the most network bandwidth. |
@@ -44,6 +50,9 @@ This document serves as a quick reference for common system administration, netw
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
 | `sudo mount -t exfat /dev/sdXN /mnt/your_mount_point` | **Mount ExFAT Drive** | Mounts an ExFAT-formatted drive to the specified mount point. Replace `sdXN` with actual device (e.g., `sdb1`). |
+| `sudo umount /mnt/your_mount_point` | **Unmount Drive** | Safely unmounts the drive at the specified mount point. |
+| `lsblk -f` | **Filesystem Info** | Lists block devices with filesystem type, label, and UUID. |
+| `sudo blkid` | **Get Drive UUIDs** | Locates and prints block device attributes (used for `/etc/fstab` entries). |
 
 ---
 
@@ -58,13 +67,15 @@ This document serves as a quick reference for common system administration, netw
 | `sudo ip link set wlan1 down` | **Disable Interface** | Brings down the specified wireless interface. |
 | `sudo ip link set wlan1 name wlan1mon` | **Rename Interface** | Renames the wireless interface (useful for monitor mode setup). |
 | `airmon-ng` | **Monitor Mode** | Puts a wireless card into monitor mode for security auditing. |
-| `sudo arp-scan -l++` | **ARP Scan** | Scans the local network segment using ARP packets to discover active hosts. |
+| `sudo arp-scan -l` | **ARP Scan** | Scans the local network segment using ARP packets to discover active hosts. |
 
 **ARP Scan Usage Example:**
 ```bash
 cd /tmp/
-sudo arp-scan -l++
+sudo arp-scan -l
 ```
+
+> **Note:** Wireless monitor mode and packet injection require **bare-metal Linux** or a passed-through USB Wi-Fi adapter — they do **not** work natively in WSL (no kernel Wi-Fi stack access).
 
 ---
 
@@ -85,6 +96,8 @@ cd rtl8812au
 sudo make dkms_install
 ```
 
+> **WSL Note:** DKMS drivers do not install into the WSL kernel. For Wi-Fi adapter work, use bare-metal Linux or boot from a Kali/Parrot live USB.
+
 ---
 
 ## 7. System Services and Control
@@ -95,6 +108,7 @@ sudo make dkms_install
 | `sudo systemctl [command] [service]` | **Manage Services** | Standard format to control system services (e.g., start, stop, status, enable, disable). |
 | `sudo systemctl disable hciuart.service` | **Disable Bluetooth Console** | Stops the service managing serial communications for the onboard Bluetooth chip (common on Raspberry Pi). |
 | `sudo systemctl disable avahi-daemon.socket avahi-daemon.service` | **Disable Avahi** | Disables the Zeroconf/mDNS daemon used for local network discovery. |
+| `sudo journalctl -u [service] -f` | **Follow Service Logs** | Tail the systemd journal for a specific service in real-time. |
 
 ---
 
@@ -105,6 +119,7 @@ sudo make dkms_install
 | `sudo apt install -y usbmount` | **Auto-Mount USB** | Installs utility to automatically mount USB drives upon insertion. |
 | `sudo apt install -y samba samba-common-bin` | **Install Samba** | Installs the core components for Windows/Linux file sharing. |
 | `sudo tail -f /var/log/samba/log.smbd` | **Monitor Samba Log** | Displays the log file and follows it (`-f`) for real-time troubleshooting. |
+| `smbclient -L //hostname -U user` | **List Shares** | Lists available SMB shares on a remote host. |
 
 ---
 
@@ -122,11 +137,16 @@ sudo make dkms_install
 | :--- | :--- | :--- |
 | `sudo apt install stress-ng sysbench` | **Install Stress Tools** | Installs utilities to generate system load for testing stability. |
 | `stress-ng --cpu 4 --timeout 300s` | **CPU Stress Test** | Puts a high load on 4 CPU cores for 300 seconds (5 minutes). |
-| `watch -n 1 vcgencmd measure_temp` | **Monitor Temperature** | Runs the temperature command every 1 second (`-n 1`) to monitor heat output in real-time (Raspberry Pi). |
+| `watch -n 1 vcgencmd measure_temp` | **Monitor Temperature (Pi)** | Runs the temperature command every 1 second (`-n 1`) to monitor heat output in real-time (Raspberry Pi). |
+| `sensors` | **Monitor Temperature (x86)** | Reads on-board temp sensors via `lm-sensors` (run `sudo sensors-detect` first). |
 
 ---
 
-## 11. Fresh Install / Batch App Installation (One-Liner)
+## 11. Fresh Install — Bare-Metal / VM / Container Linux
+
+This section is for **standard Linux installs** — desktops, servers, VMs, LXC containers, Raspberry Pi, etc. — *not* WSL. For WSL, see Section 12.
+
+### 11.1 Base System Tools (One-Liner)
 
 This script installs a comprehensive suite of development, network, and security tools.
 
@@ -134,22 +154,349 @@ This script installs a comprehensive suite of development, network, and security
 sudo apt update && sudo apt upgrade -y && \
 sudo apt install -y \
 linux-cpupower screen tmux git git-lfs nano vim python3 python3-pip python3-venv \
-python3-requests python3-yaml python3-tk python3-psutil \
+python3-requests python3-yaml python3-tk python3-psutil pipx \
 wget curl jq unzip zip rsync tree expect build-essential pkg-config cmake \
 dnsutils net-tools arp-scan iftop iotop lm-sensors sysstat smartmontools \
 nmap mtr traceroute whois iperf3 tcpdump ncat netcat-traditional ethtool \
-aircrack-ng reaver hashcat hydra netdiscover wifite screen tmux\
+aircrack-ng reaver hashcat hydra netdiscover wifite \
 samba cifs-utils smbclient nfs-common sshfs rclone \
 vnstat glances fail2ban logrotate \
 ncdu htop btop lshw lsof parted \
 psmisc moreutils figlet lolcat screenfetch \
-avahi-daemon rsync
+avahi-daemon
 ```
 
 **Alternative minimal install for screen/tmux:**
 ```bash
 sudo apt-get install screen tmux
 ```
+
+### 11.2 Hardware Hacking & Programming Add-On (Bare-Metal)
+
+This adds USB serial tools, microcontroller flashers, SDR utilities, reverse engineering tools, logic analyzers, and Bluetooth hardware support. Bare-metal Linux has full access to USB devices, kernel modules, and Wi-Fi monitor mode — none of the WSL workarounds in Section 12 are needed.
+
+```bash
+sudo apt update && \
+sudo apt install -y \
+build-essential cmake ninja-build pkg-config autoconf automake libtool \
+clang gdb \
+ripgrep fd-find fzf bat eza zoxide direnv \
+tio minicom picocom usbutils pciutils setserial socat usbip \
+avrdude dfu-util stm32flash openocd flashrom \
+hackrf libhackrf-dev rtl-sdr librtlsdr-dev \
+gnuradio gr-osmosdr gqrx-sdr inspectrum multimon-ng \
+libfftw3-dev \
+binwalk radare2 squashfs-tools cpio cabextract \
+qemu-user-static binfmt-support \
+sigrok-cli pulseview wireshark tshark \
+ubertooth bluez bluez-tools \
+xxd p7zip-full \
+gh pandoc imagemagick ffmpeg
+```
+
+**Add yourself to device groups (one-time, then log out and back in):**
+```bash
+sudo usermod -aG plugdev,dialout,wireshark,tty,uucp $USER
+```
+
+### 11.3 Python Tools via pipx (Bare-Metal)
+
+These tools are not in apt or are too out-of-date there. Install in user space:
+
+```bash
+pipx ensurepath && \
+pipx install platformio && \
+pipx install esptool && \
+pipx install urh && \
+pipx install meshtastic && \
+pipx install rns && \
+pipx install nomadnet && \
+pipx install lxmf && \
+pipx install unblob && \
+pipx install rfcat && \
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### 11.4 Build-from-Source Tools (Bare-Metal)
+
+**`kalibrate-hackrf`** — clock calibration for HackRF (not packaged):
+```bash
+mkdir -p ~/tools && cd ~/tools
+git clone https://github.com/scateu/kalibrate-hackrf
+cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
+```
+
+**`arduino-cli`** — official installer:
+```bash
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+```
+
+**`Ghidra`** — manual download (needs JDK 17+):
+```bash
+sudo apt install -y openjdk-17-jdk
+# Download latest from: https://github.com/NationalSecurityAgency/ghidra/releases
+```
+
+---
+
+## 12. Fresh Install — WSL2 (Windows Subsystem for Linux)
+
+WSL2 has some critical differences from bare-metal Linux that affect hardware hacking workflows. This section covers the Windows-side prerequisites, WSL configuration changes, and the corrected install commands that account for what does and doesn't work under WSL.
+
+### 12.1 What's Different Under WSL
+
+| Capability | Bare-Metal Linux | WSL2 |
+| :--- | :--- | :--- |
+| USB device access | Native | Requires `usbipd-win` passthrough |
+| Wi-Fi monitor mode / injection | ✅ Works | ❌ Not supported |
+| Bluetooth (built-in) | ✅ Works | ❌ Use Ubertooth via usbipd |
+| `linux-cpupower` | ✅ Works | ❌ No CPU freq interface in WSL kernel |
+| DKMS Wi-Fi drivers (rtl8812au) | ✅ Works | ❌ WSL kernel is custom |
+| systemd | ✅ Default | ⚠️ Must enable in `/etc/wsl.conf` |
+| GUI apps (PulseView, Gqrx) | ✅ Native | ✅ Via WSLg (Win11/recent Win10) |
+| GPU passthrough (hashcat) | ✅ Native | ⚠️ Limited — use Windows-native hashcat |
+
+### 12.2 Windows-Side Prerequisites
+
+**Install `usbipd-win` from an admin PowerShell:**
+```powershell
+winget install --interactive --exact dorssel.usbipd-win
+```
+
+This is **non-negotiable** for hardware work. Without it, no Flipper, HackRF, RTL-SDR, Ubertooth, ESP board, FTDI adapter, or J-Link can be seen by WSL.
+
+**USB passthrough workflow (run in PowerShell as admin):**
+```powershell
+usbipd list
+usbipd bind --busid <BUSID>          # one-time per device
+usbipd attach --wsl --busid <BUSID>  # each time you want to use it
+usbipd detach --busid <BUSID>        # to release
+```
+
+### 12.3 Enable systemd in WSL
+
+systemd is required for `udev` rules to fire properly — without it, HackRF, Ubertooth, RTL-SDR, and most USB tools demand `sudo` for everything.
+
+```bash
+sudo tee /etc/wsl.conf > /dev/null <<'EOF'
+[boot]
+systemd=true
+
+[interop]
+appendWindowsPath=true
+EOF
+```
+
+Then from PowerShell: `wsl --shutdown`, and reopen your WSL terminal.
+
+### 12.4 Base System Tools for WSL (One-Liner)
+
+This is the bare-metal one-liner from Section 11.1, **adjusted for WSL**:
+- `linux-cpupower` removed (no kernel support)
+- `wifite` removed (no Wi-Fi monitor mode)
+
+```bash
+sudo apt update && sudo apt upgrade -y && \
+sudo apt install -y \
+screen tmux git git-lfs nano vim python3 python3-pip python3-venv \
+python3-requests python3-yaml python3-tk python3-psutil pipx \
+wget curl jq unzip zip rsync tree expect build-essential pkg-config cmake \
+dnsutils net-tools arp-scan iftop iotop sysstat smartmontools \
+nmap mtr traceroute whois iperf3 tcpdump ncat netcat-traditional ethtool \
+aircrack-ng reaver hashcat hydra netdiscover \
+samba cifs-utils smbclient nfs-common sshfs rclone \
+vnstat glances fail2ban logrotate \
+ncdu htop btop lshw lsof parted \
+psmisc moreutils figlet lolcat screenfetch
+```
+
+> **Note:** `aircrack-ng` and `hashcat` install fine and are useful for working with capture files (`.pcap`, `.hccapx`) — they just can't capture live traffic without a passed-through Wi-Fi adapter.
+
+### 12.5 Hardware Hacking & Programming Add-On (WSL)
+
+This is the bare-metal hardware add-on from Section 11.2, **adjusted for WSL**:
+- `usbip` replaced with `linux-tools-generic` (the userspace client now ships there)
+- `rfcat` and `kalibrate-hackrf` moved to pipx/source builds (not in apt)
+
+```bash
+sudo apt update && \
+sudo apt install -y \
+build-essential cmake ninja-build pkg-config autoconf automake libtool \
+clang gdb \
+ripgrep fd-find fzf bat eza zoxide direnv \
+tio minicom picocom usbutils pciutils setserial socat \
+avrdude dfu-util stm32flash openocd flashrom \
+hackrf libhackrf-dev rtl-sdr librtlsdr-dev \
+gnuradio gr-osmosdr gqrx-sdr inspectrum multimon-ng \
+libfftw3-dev \
+binwalk radare2 squashfs-tools cpio cabextract \
+qemu-user-static binfmt-support \
+sigrok-cli pulseview wireshark tshark \
+ubertooth bluez bluez-tools \
+xxd p7zip-full \
+gh pandoc imagemagick ffmpeg \
+linux-tools-generic hwdata
+```
+
+**Add yourself to device groups:**
+```bash
+sudo usermod -aG plugdev,dialout,wireshark,tty,uucp $USER
+```
+
+### 12.6 Register the WSL `usbip` Client
+
+The `usbip` binary lives in a kernel-version-specific path. Register it as an alternative:
+
+```bash
+sudo update-alternatives --install /usr/local/bin/usbip usbip \
+  $(ls /usr/lib/linux-tools/*/usbip | tail -n1) 20
+```
+
+> Most of the time you won't need this — `usbipd attach --wsl` from the Windows side handles the Linux end automatically. Only needed if attaching to a remote `usbipd` host manually.
+
+### 12.7 Python Tools via pipx (WSL)
+
+Same as bare-metal — these are user-space and work identically:
+
+```bash
+pipx ensurepath && \
+pipx install platformio && \
+pipx install esptool && \
+pipx install urh && \
+pipx install meshtastic && \
+pipx install rns && \
+pipx install nomadnet && \
+pipx install lxmf && \
+pipx install unblob && \
+pipx install rfcat && \
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### 12.8 Build-from-Source for WSL
+
+**`kalibrate-hackrf`** (not packaged):
+```bash
+mkdir -p ~/tools && cd ~/tools
+git clone https://github.com/scateu/kalibrate-hackrf
+cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
+```
+
+`arduino-cli` and `Ghidra` install identically to the bare-metal instructions in Section 11.4.
+
+---
+
+## 13. Hardware Hacking Toolkit Reference
+
+Quick descriptions of what each tool does, organized by category.
+
+### 13.1 Serial / USB Console
+
+| Tool | Purpose |
+| :--- | :--- |
+| `tio` | Modern serial terminal — autoconnect, logging, hex mode, dead simple. **Recommended default.** |
+| `minicom` | Classic serial terminal, menu-driven config. |
+| `picocom` | Lightweight terminal, scriptable. |
+| `screen` | Doubles as a serial terminal: `screen /dev/ttyUSB0 115200`. |
+| `socat` | Tunnel serial over network, create virtual serial pairs, bridge protocols. |
+| `usbutils` | Provides `lsusb` for enumerating USB devices. |
+| `setserial` | Configure serial port parameters (latency, baud rate aliases). |
+
+### 13.2 Microcontroller Flashing & Debugging
+
+| Tool | Purpose |
+| :--- | :--- |
+| `platformio` | All-in-one toolchain: ESP32, ESP8266, AVR, STM32, RP2040, nRF, etc. Integrates with VSCode. |
+| `arduino-cli` | Official Arduino CLI — sketches, libraries, board management. |
+| `esptool.py` | ESP32 / ESP8266 flashing, fuse reading, security operations. |
+| `avrdude` | AVR / ATmega / ATtiny flashing with USBasp, AVRISP, Arduino-as-ISP. |
+| `dfu-util` | USB DFU mode flashing (STM32, many bootloaders). |
+| `stm32flash` | STM32 UART/I2C bootloader flashing. |
+| `openocd` | JTAG / SWD debugging — works with ST-Link, J-Link, CMSIS-DAP, FT2232. |
+| `flashrom` | SPI flash chip read/write — BIOS dumps, router firmware extraction (CH341A, Bus Pirate, FT2232). |
+| `picotool` | RP2040 (Pico) inspection and flashing utility. |
+
+### 13.3 SDR / RF
+
+| Tool | Purpose |
+| :--- | :--- |
+| `hackrf` | HackRF One control — `hackrf_info`, `hackrf_transfer`, `hackrf_sweep`. |
+| `rtl-sdr` | RTL2832U-based dongles — `rtl_sdr`, `rtl_fm`, `rtl_433`, `rtl_tcp`. |
+| `gnuradio` | Visual signal processing flowgraphs (GNU Radio Companion). |
+| `gr-osmosdr` | GNU Radio source/sink for HackRF, RTL-SDR, BladeRF, etc. |
+| `gqrx-sdr` | GUI spectrum analyzer / receiver. Needs WSLg under WSL. |
+| `inspectrum` | Burst analysis and demodulation visualization. |
+| `urh` | Universal Radio Hacker — sub-GHz protocol reverse engineering, OOK/FSK decoding. |
+| `rfcat` | Yard Stick One / IM-Me control library. |
+| `multimon-ng` | Decode POCSAG, FLEX, AFSK, DTMF, AX.25 from audio streams. |
+| `kalibrate-hackrf` | GSM-based clock calibration for HackRF. |
+
+### 13.4 Reverse Engineering & Firmware
+
+| Tool | Purpose |
+| :--- | :--- |
+| `binwalk` | Firmware signature scanning and extraction. |
+| `unblob` | Modern firmware unpacker — generally faster and more accurate than binwalk. |
+| `radare2` | Reverse engineering framework — disassembly, debugging, patching. |
+| `cutter` | GUI for radare2/rizin (needs WSLg under WSL). |
+| `Ghidra` | NSA's reverse engineering suite with decompiler. Needs JDK 17+. |
+| `qemu-user-static` | Run foreign-architecture binaries directly (MIPS/ARM router firmware on x86). |
+| `squashfs-tools` | Mount and extract SquashFS filesystems (common in router firmware). |
+| `cpio` / `cabextract` | Extract initramfs and Microsoft cabinet archives. |
+
+### 13.5 Logic Analysis & Protocol Decoding
+
+| Tool | Purpose |
+| :--- | :--- |
+| `sigrok-cli` | CLI for logic analyzers — Saleae clones, FX2, DSLogic, etc. |
+| `pulseview` | GUI sigrok front-end with protocol decoders (I²C, SPI, UART, 1-Wire, CAN, etc.). |
+| `wireshark` / `tshark` | Network packet analysis. Also reads Ubertooth and SDR captures. |
+| `tcpdump` | CLI packet capture. |
+
+### 13.6 Bluetooth / RF Sniffing
+
+| Tool | Purpose |
+| :--- | :--- |
+| `ubertooth` | Ubertooth One BT classic / BLE sniffing (`ubertooth-rx`, `ubertooth-btle`). |
+| `bluez` / `bluez-tools` | Linux Bluetooth stack — `bluetoothctl`, `hcitool`, `gatttool`. |
+
+### 13.7 Mesh Networking (LoRa / Reticulum)
+
+| Tool | Purpose |
+| :--- | :--- |
+| `rns` | Reticulum Network Stack — `rnsd`, `rnsh`, `rnstatus`, `rnodeconf`. |
+| `nomadnet` | Reticulum chat / pages / files application. |
+| `lxmf` | Lightweight Extensible Messaging Format library. |
+| `meshtastic` | Meshtastic CLI — flash, configure, message LoRa nodes. |
+
+### 13.8 Quality-of-Life Shell Tools
+
+| Tool | Purpose |
+| :--- | :--- |
+| `ripgrep` (`rg`) | Fast recursive grep. |
+| `fd-find` (`fd`) | Fast user-friendly `find` replacement. |
+| `fzf` | Fuzzy finder — fuzzy history search, file picker, command palette. |
+| `bat` | `cat` with syntax highlighting and git integration. |
+| `eza` | Modern `ls` replacement (Ubuntu 24.04+; not in 22.04 main). |
+| `zoxide` | Smarter `cd` that learns from your habits. |
+| `direnv` | Per-directory environment variables. |
+| `gh` | GitHub CLI — issues, PRs, repo management. |
+| `pandoc` | Convert between markup formats (Markdown ↔ DOCX ↔ PDF ↔ HTML). |
+
+---
+
+## 14. WSL-Specific Daily Workflow Cheats
+
+| Task | Command |
+| :--- | :--- |
+| Shutdown WSL completely | `wsl --shutdown` (from PowerShell) |
+| List running distros | `wsl -l -v` (from PowerShell) |
+| Open Windows Explorer at current path | `explorer.exe .` |
+| Open VSCode at current path | `code .` |
+| Copy to Windows clipboard | `cat file.txt \| clip.exe` |
+| Paste from Windows clipboard | `powershell.exe Get-Clipboard` |
+| Access Windows files | `/mnt/c/Users/<user>/...` |
+| List USB devices ready to attach | `usbipd list` (from PowerShell) |
+| Attach USB to WSL | `usbipd attach --wsl --busid X-Y` (from PowerShell admin) |
 
 ---
 
@@ -171,4 +518,4 @@ sudo apt-get install screen tmux
 
 ---
 
-*Last Updated: 2025-11-03*
+*Last Updated: 2026-05-08*
