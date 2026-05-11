@@ -1,6 +1,6 @@
-# The M5Cardputer & Evil-M5Project: A Field Platform for Wireless Security Research
+# The M5Cardputer & Evil-M5Project
 
-> **Reader prerequisites.** This chapter assumes working familiarity with 802.11 frame types (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first — the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
+> **Reader prerequisites.** This part of the repository assumes working familiarity with [802.11 frame types](https://en.wikipedia.org/wiki/802.11_frame_types) (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first — the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
 
 ---
 
