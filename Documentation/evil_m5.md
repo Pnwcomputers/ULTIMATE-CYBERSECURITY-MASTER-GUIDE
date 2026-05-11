@@ -1,6 +1,6 @@
 # The M5Cardputer & Evil-M5Project
 
-> **Reader prerequisites.** This part of the repository assumes working familiarity with [802.11 frame types](https://en.wikipedia.org/wiki/802.11_frame_types) (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first — the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
+> **Reader prerequisites.** This part of the repository assumes working familiarity with [802.11 frame types](https://en.wikipedia.org/wiki/802.11_frame_types) (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first; the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
 
 ---
 
@@ -8,26 +8,26 @@
 
 The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3?srsltid=AfmBOooLBeALilkbpo5fB3QyYeC2gRQnEKWKzC7j-703hDyGrUdELIxj) is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
 
-Loaded with the **[Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project)** firmware by [7h30th3r0n3](https://github.com/7h30th3r0n3), that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that — only a few years ago — required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
+Loaded with the **[Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project)** firmware by [7h30th3r0n3](https://github.com/7h30th3r0n3), that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that; only a few years ago; required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
 
 For the practicing security professional, the Cardputer/Evil-M5 combination earns its place in the kit for three reasons:
 
 - **Demonstrative power.** A client board does not understand what an evil twin is until they watch their own phone connect to one in a conference room. The Cardputer's form factor and on-screen feedback make these attacks visceral in a way that a terminal window never will.
 - **Discreet site assessments.** A Cardputer on a lanyard is not a laptop. For authorized red-team work where physical-environment realism matters, the device disappears.
-- **Education and skills development.** The firmware exposes nearly every technique a junior pentester should be able to recognize on a capture file. Running these attacks against your own lab — and watching the corresponding frames in Wireshark — collapses weeks of theory into an afternoon of practice.
+- **Education and skills development.** The firmware exposes nearly every technique a junior pentester should be able to recognize on a capture file. Running these attacks against your own lab; and watching the corresponding frames in Wireshark; collapses weeks of theory into an afternoon of practice.
 
 Nothing in this chapter is novel as wireless attack theory. What is novel is the accessibility. That accessibility is the threat model your defensive controls now have to address.
 
 ---
 
-## 2. Legal and ethical framework — read before you flash
+## 2. Legal and ethical framework; read before you flash
 
 Wireless attacks of the kind this firmware performs are regulated in the United States primarily by:
 
-- **18 U.S.C. § 1030** — the Computer Fraud and Abuse Act (CFAA). Unauthorized access to a "protected computer" is a federal felony. Wi-Fi networks are protected computers.
-- **47 U.S.C. § 333** — willful interference with licensed radio communications, including deauthentication of nearby clients on networks you do not own and have not been authorized to test. The FCC has issued six-figure civil penalties for hotel and convention-center deauth use: Marriott was fined $600,000 in 2014 for blocking guest hotspots at the Gaylord Opryland with deauth frames; Smart City Holdings was fined $750,000 in 2015 for similar conduct at multiple convention centers; M.C. Dean received a $718,000 Notice of Apparent Liability for related activity. The FCC's January 2015 Enforcement Advisory explicitly states that Wi-Fi blocking via deauth is "patently unlawful."
-- **State analogues** — Washington's RCW chapter 9A.90 (the Washington Cybercrime Act) covers computer trespass in the first degree (9A.90.040, a Class C felony) and second degree (9A.90.050, a gross misdemeanor), plus electronic data service interference (9A.90.060, particularly relevant for deauth-style disruption). Oregon's ORS 164.377 (computer crime) parallels these and was used as recently as the 2024 *State v. Azar* decision in interpreting authorization. Neither requires a federal interstate-nexus element.
-- **Stored communications** — captured credentials, captured handshakes, and intercepted traffic are governed by the Wiretap Act and the Electronic Communications Privacy Act (ECPA).
+- **18 U.S.C. § 1030**; the Computer Fraud and Abuse Act (CFAA). Unauthorized access to a "protected computer" is a federal felony. Wi-Fi networks are protected computers.
+- **47 U.S.C. § 333**; willful interference with licensed radio communications, including deauthentication of nearby clients on networks you do not own and have not been authorized to test. The FCC has issued six-figure civil penalties for hotel and convention-center deauth use: Marriott was fined $600,000 in 2014 for blocking guest hotspots at the Gaylord Opryland with deauth frames; Smart City Holdings was fined $750,000 in 2015 for similar conduct at multiple convention centers; M.C. Dean received a $718,000 Notice of Apparent Liability for related activity. The FCC's January 2015 Enforcement Advisory explicitly states that Wi-Fi blocking via deauth is "patently unlawful."
+- **State analogues**; Washington's RCW chapter 9A.90 (the Washington Cybercrime Act) covers computer trespass in the first degree (9A.90.040, a Class C felony) and second degree (9A.90.050, a gross misdemeanor), plus electronic data service interference (9A.90.060, particularly relevant for deauth-style disruption). Oregon's ORS 164.377 (computer crime) parallels these and was used as recently as the 2024 *State v. Azar* decision in interpreting authorization. Neither requires a federal interstate-nexus element.
+- **Stored communications**; captured credentials, captured handshakes, and intercepted traffic are governed by the Wiretap Act and the Electronic Communications Privacy Act (ECPA).
 
 You may use this platform legally in three contexts:
 
@@ -37,7 +37,7 @@ You may use this platform legally in three contexts:
 
 You may **not** legally:
 
-- Deauthenticate clients of nearby networks "just to test" — even briefly, even with no data captured.
+- Deauthenticate clients of nearby networks "just to test"; even briefly, even with no data captured.
 - Stand up an evil twin in a public space (coffee shop, hotel lobby, conference venue) to "see who connects."
 - Capture WPA handshakes from networks you do not own.
 - Run KARMA or probe-response attacks in public, even passively.
@@ -54,7 +54,7 @@ A practical compliance checklist appears in Appendix C.
 
 ### 3.1 The M5Cardputer
 
-The M5Stack Cardputer is built around the M5StampS3 module — a removable core board carrying an ESP32-S3FN8 — slotted into a card-shaped enclosure with screen, keyboard, microSD, audio, and a detachable battery base. Relevant specifications from M5Stack's reference documentation:
+The M5Stack Cardputer is built around the M5StampS3 module; a removable core board carrying an ESP32-S3FN8; slotted into a card-shaped enclosure with screen, keyboard, microSD, audio, and a detachable battery base. Relevant specifications from M5Stack's reference documentation:
 
 | Component | Specification |
 |---|---|
@@ -74,7 +74,7 @@ The M5Stack Cardputer is built around the M5StampS3 module — a removable core 
 | IR | On-board IR emitter (~410 cm at 0°) |
 | Physical | 84.0 × 54.0 × 19.7 mm, 92.3 g |
 
-The "Adv" version (the current SKU at time of writing — M5Stack lists the original as end-of-life) keeps the same ESP32-S3FN8 core but adds an ES8311 audio codec, NS4150B amplifier, 3.5 mm headphone jack, BMI270 6-axis IMU, redesigned 3D antenna, a single 1750 mAh battery (replacing the 120 + 1400 mAh split), and a softer keypress (160 gf vs. 260 gf). Both variants run the Evil-M5 Cardputer firmware. Either is fine; the Adv has noticeably better RF reach thanks to the new antenna.
+The "Adv" version (the current SKU at time of writing; M5Stack lists the original as end-of-life) keeps the same ESP32-S3FN8 core but adds an ES8311 audio codec, NS4150B amplifier, 3.5 mm headphone jack, BMI270 6-axis IMU, redesigned 3D antenna, a single 1750 mAh battery (replacing the 120 + 1400 mAh split), and a softer keypress (160 gf vs. 260 gf). Both variants run the Evil-M5 Cardputer firmware. Either is fine; the Adv has noticeably better RF reach thanks to the new antenna.
 
 ### 3.2 Required accessories
 
@@ -86,15 +86,15 @@ The "Adv" version (the current SKU at time of writing — M5Stack lists the orig
 
 ### 3.3 The Evil-M5 family
 
-The firmware runs on several M5Stack devices, but feature parity is highest on the Cardputer. The author maintains separate builds for the M5Core2, M5Core3 (CoreS3), AtomS3, Fire, and Evil-Face, with progressively smaller feature sets as device capability declines. The M5StickC Plus 1.1, CYD1USB, and CYD2USB are listed as in-beta targets. The Cardputer build is the canonical target — the source file on the `main` branch is currently `Evil-Cardputer-v1-4-9.ino`, while the M5Burner-distributed build is tagged v1.5.1 (the project releases through M5Burner ahead of source commits). Any procedure in this chapter assumes the Cardputer build unless explicitly noted.
+The firmware runs on several M5Stack devices, but feature parity is highest on the Cardputer. The author maintains separate builds for the M5Core2, M5Core3 (CoreS3), AtomS3, Fire, and Evil-Face, with progressively smaller feature sets as device capability declines. The M5StickC Plus 1.1, CYD1USB, and CYD2USB are listed as in-beta targets. The Cardputer build is the canonical target; the source file on the `main` branch is currently `Evil-Cardputer-v1-4-9.ino`, while the M5Burner-distributed build is tagged v1.5.1 (the project releases through M5Burner ahead of source commits). Any procedure in this chapter assumes the Cardputer build unless explicitly noted.
 
 ---
 
 ## 4. The software, in brief
 
-Evil-M5Project began as a port of the author's earlier M5Core2-based "Evil-M5Core2" tool and has grown into a multi-device wireless security framework. It is open source under the MIT License and hosted at `https://github.com/7h30th3r0n3/Evil-M5Project`. Active development is rapid — expect new features and breaking SD-card layout changes every few months.
+Evil-M5Project began as a port of the author's earlier M5Core2-based "Evil-M5Core2" tool and has grown into a multi-device wireless security framework. It is open source under the MIT License and hosted at `https://github.com/7h30th3r0n3/Evil-M5Project`. Active development is rapid; expect new features and breaking SD-card layout changes every few months.
 
-The firmware's design philosophy is best understood as "Marauder + Pwnagotchi + Flipper Zero, fused into a single keyboard-driven menu." Where the Flipper hides functionality behind app silos and the Pwnagotchi runs a single autonomous loop, Evil-M5 exposes a flat menu of attacks and reconnaissance modes, each with consistent navigation and on-screen status feedback. The Cardputer's keyboard makes the navigation actually tolerable — every other M5Stack form factor relies on three buttons, which is fine for a demo and grueling for a real engagement.
+The firmware's design philosophy is best understood as "Marauder + Pwnagotchi + Flipper Zero, fused into a single keyboard-driven menu." Where the Flipper hides functionality behind app silos and the Pwnagotchi runs a single autonomous loop, Evil-M5 exposes a flat menu of attacks and reconnaissance modes, each with consistent navigation and on-screen status feedback. The Cardputer's keyboard makes the navigation actually tolerable; every other M5Stack form factor relies on three buttons, which is fine for a demo and grueling for a real engagement.
 
 ### 4.1 Feature inventory (Cardputer build)
 
@@ -155,7 +155,7 @@ The features fall into seven functional categories. The table below summarizes t
 - LLM chat stream (talk to a remote model from the device)
 - EvilChatMesh (mesh chat over Wi-Fi)
 
-This is not exhaustive. The firmware also includes a SIP toolkit, CCTV toolkit, file manager, file print, printer attack, BLE name flood, autodiscover abuse, and the WiFi Dead Drop covert-storage feature. Treat the chapter as a guided tour of the headline capabilities, not a comprehensive command reference — that reference is the project wiki, which you should bookmark.
+This is not exhaustive. The firmware also includes a SIP toolkit, CCTV toolkit, file manager, file print, printer attack, BLE name flood, autodiscover abuse, and the WiFi Dead Drop covert-storage feature. Treat the chapter as a guided tour of the headline capabilities, not a comprehensive command reference; that reference is the project wiki, which you should bookmark.
 
 ---
 
@@ -163,21 +163,21 @@ This is not exhaustive. The firmware also includes a SIP toolkit, CCTV toolkit, 
 
 There are two supported installation paths. Use M5Burner unless you have a specific reason to compile yourself.
 
-### 5.1 Path A — M5Burner (recommended)
+### 5.1 Path A; M5Burner (recommended)
 
 M5Burner is the official M5Stack firmware flashing tool. It hides the entire ESP-IDF toolchain behind a one-click flow and is the lowest-friction path to a working device.
 
 1. Connect the Cardputer to your workstation via USB-C. Wait for the OS to assign a COM/tty device. On Windows, this is usually `COM3` or higher; on Linux/macOS, look for `/dev/ttyUSB0`, `/dev/ttyACM0`, or `/dev/cu.usbmodem*`.
-2. Download M5Burner from the M5Stack download center: `https://docs.m5stack.com/en/download` — pick the "UIFLOW FIRMWARE BURNING TOOL" build for your OS.
+2. Download M5Burner from the M5Stack download center: `https://docs.m5stack.com/en/download`; pick the "UIFLOW FIRMWARE BURNING TOOL" build for your OS.
 3. Install and launch M5Burner.
 4. In the device list (left pane), navigate to **Cardputer**. In the search bar at the top of the firmware list, type `evil-`. The current Evil-Cardputer build appears in results.
 5. Click **Download** to fetch the firmware locally. Once the download completes, the button changes to **Burn**.
 6. Click **Burn**, select the correct serial port, leave baud at the default 1500000 (M5Burner handles this automatically), and confirm.
 7. When burning completes, **physically disconnect** the Cardputer, reseat the USB cable, and let the device boot. The Evil splash screen should appear within a few seconds.
 
-If the device boots to a blank screen or a "no SD" indicator, that is expected — Step 5.3 below populates the SD card.
+If the device boots to a blank screen or a "no SD" indicator, that is expected; Step 5.3 below populates the SD card.
 
-### 5.2 Path B — Compile from source
+### 5.2 Path B; Compile from source
 
 Compile from source when you want to:
 - Track unreleased features on the `main` branch
@@ -201,7 +201,7 @@ Procedure:
    - `M5GFX`
    - `M5Unified`
    - `TinyGPSPlus`
-   - `ESP8266Audio` (yes, the ESP8266-named library — it works on ESP32)
+   - `ESP8266Audio` (yes, the ESP8266-named library; it works on ESP32)
 6. Clone the repository:
    ```bash
    git clone https://github.com/7h30th3r0n3/Evil-M5Project.git
@@ -213,9 +213,9 @@ Procedure:
 10. Configure board settings under **Tools**:
     - **Board:** M5Cardputer
     - **USB CDC On Boot:** Enabled
-    - **Flash Size:** **8 MB (64 Mb)** — this is required, the default is wrong
-    - **Partition Scheme:** **8M with spiffs (3MB APP / 1.5MB SPIFFS)** — also required
-    - **PSRAM:** **Disabled** — the Cardputer's ESP32-S3FN8 ships without PSRAM hardware; enabling it in the IDE causes boot failures
+    - **Flash Size:** **8 MB (64 Mb)**; this is required, the default is wrong
+    - **Partition Scheme:** **8M with spiffs (3MB APP / 1.5MB SPIFFS)**; also required
+    - **PSRAM:** **Disabled**; the Cardputer's ESP32-S3FN8 ships without PSRAM hardware; enabling it in the IDE causes boot failures
     - **Upload Speed:** 921600
     - **Port:** the Cardputer's serial port
 11. Click **Upload**. First-time compile takes 5–10 minutes; incremental builds are faster.
@@ -242,7 +242,7 @@ The firmware is split between the on-flash binary and a data layout on the SD ca
      ├── theme.ini    # color theme (Cardputer only)
      └── …            # additional folders are created at runtime
    ```
-   Runtime modules create their own subdirectories the first time they write output — wardriving logs, EAPOL/handshake captures, captured portal credentials, and BadUSB payloads each land under `/evil/` in module-specific folders. Exact paths shift between firmware revisions; trust the device's own file manager and the wiki for authoritative locations.
+   Runtime modules create their own subdirectories the first time they write output; wardriving logs, EAPOL/handshake captures, captured portal credentials, and BadUSB payloads each land under `/evil/` in module-specific folders. Exact paths shift between firmware revisions; trust the device's own file manager and the wiki for authoritative locations.
 4. Customize `theme.ini` if you want non-default colors. Theming is currently Cardputer-only.
 5. Insert the SD card before powering the device.
 
@@ -254,13 +254,13 @@ Power on. You should see:
 2. The main menu after ~2 seconds.
 3. No "SD card missing" warning. If you see one, power off, reseat the SD card, and confirm it is FAT32 with an `evil/` folder at root.
 
-If you see only a black screen with the Cardputer power LED on, the firmware did not flash correctly — reflash.
+If you see only a black screen with the Cardputer power LED on, the firmware did not flash correctly; reflash.
 
 ---
 
 ## 6. UI orientation and navigation conventions
 
-The firmware uses a consistent set of keyboard conventions on the Cardputer. The hardware keyboard has no dedicated arrow keys — directional input uses the Fn layer documented by the M5Cardputer library. Internalize the mapping once and you can navigate any module:
+The firmware uses a consistent set of keyboard conventions on the Cardputer. The hardware keyboard has no dedicated arrow keys; directional input uses the Fn layer documented by the M5Cardputer library. Internalize the mapping once and you can navigate any module:
 
 | Key | Action |
 |---|---|
@@ -272,7 +272,7 @@ The firmware uses a consistent set of keyboard conventions on the Cardputer. The
 | `Ctrl` + `Backspace` | Force-quit certain attack loops |
 | Alphanumerics | Direct text entry at any input prompt (SSID, password, IPs) |
 
-The screen is small. A typical attack view shows a header (mode name), 4–6 lines of live status, and a footer with the active hotkey. Get used to reading dense single-line indicators — `ch6 -42dBm BSSID:aa:bb:cc:dd:ee:ff` is the kind of line you will be parsing constantly.
+The screen is small. A typical attack view shows a header (mode name), 4–6 lines of live status, and a footer with the active hotkey. Get used to reading dense single-line indicators; `ch6 -42dBm BSSID:aa:bb:cc:dd:ee:ff` is the kind of line you will be parsing constantly.
 
 ---
 
@@ -293,13 +293,13 @@ The following sections cover the most consequential modules. Each follows the sa
 
 ### 8.1 Wi-Fi network scan
 
-**Purpose.** Build a list of nearby 2.4 GHz APs with BSSID, channel, encryption, and RSSI. The list is the starting input for nearly every other attack — clone, deauth, evil-twin, handshake capture all consume an entry from the scan list.
+**Purpose.** Build a list of nearby 2.4 GHz APs with BSSID, channel, encryption, and RSSI. The list is the starting input for nearly every other attack; clone, deauth, evil-twin, handshake capture all consume an entry from the scan list.
 
 **Procedure.**
 1. From the main menu: `Wi-Fi → Scan WiFi`.
 2. The device performs a full-channel sweep (~5 seconds).
 3. Browse results with arrow keys. Each entry shows SSID, channel, RSSI, encryption type, and BSSID.
-4. `Enter` on an entry opens the per-network menu — clone, set as target, view details, etc.
+4. `Enter` on an entry opens the per-network menu; clone, set as target, view details, etc.
 
 **Verification.** From an adjacent laptop, run `sudo airodump-ng wlan0mon` and confirm the same APs appear with the same BSSIDs and channels. The Cardputer's results should match within a few dBm and identical BSSID/channel pairs.
 
@@ -320,15 +320,15 @@ The following sections cover the most consequential modules. Each follows the sa
 
 ### 8.3 Channel visualizer
 
-A spectrum-style overlay of 2.4 GHz channel utilization. Useful for picking a quiet channel to host an evil twin on (you want signal contrast with the legitimate AP, but you do not want a third-party AP camped on top of you). Also useful as a quick "is this corporate Wi-Fi properly planned" diagnostic — a deployment with five APs all on channel 6 advertises itself as poorly tuned.
+A spectrum-style overlay of 2.4 GHz channel utilization. Useful for picking a quiet channel to host an evil twin on (you want signal contrast with the legitimate AP, but you do not want a third-party AP camped on top of you). Also useful as a quick "is this corporate Wi-Fi properly planned" diagnostic; a deployment with five APs all on channel 6 advertises itself as poorly tuned.
 
 ### 8.4 Probe sniffing and KARMA family
 
-**Background.** When a Wi-Fi client is not associated with an AP, it broadcasts probe requests asking for any of its "preferred network list" (PNL). Many devices broadcast SSIDs of every network they have ever joined — home, airport, hotel, ex's apartment. Probe sniffing captures these. A KARMA attack stands up an AP that responds affirmatively to any probed SSID, tricking the client into auto-associating with what it believes is a known network.
+**Background.** When a Wi-Fi client is not associated with an AP, it broadcasts probe requests asking for any of its "preferred network list" (PNL). Many devices broadcast SSIDs of every network they have ever joined; home, airport, hotel, ex's apartment. Probe sniffing captures these. A KARMA attack stands up an AP that responds affirmatively to any probed SSID, tricking the client into auto-associating with what it believes is a known network.
 
 **Probe sniffing.**
 1. `Wi-Fi → Sniffing Probes`.
-2. The device displays a live-updating list of `SSID — MAC` pairs as they appear.
+2. The device displays a live-updating list of `SSID; MAC` pairs as they appear.
 3. Captures persist to SD on exit; the next module consumes them.
 
 **KARMA Attack.**
@@ -336,7 +336,7 @@ A spectrum-style overlay of 2.4 GHz channel utilization. Useful for picking a qu
 2. Clients in the area that have any open or matching network in their PNL begin associating.
 3. Once associated, the captive portal flow (Section 8.6) can run on top.
 
-**KARMA Spear** is a targeted variant — instead of responding to everything, the device responds only to a specific SSID you specify. Less noisy, more credible against a target who knows their devices remember "Starbucks WiFi" but is harder to fool with a generic catch-all.
+**KARMA Spear** is a targeted variant; instead of responding to everything, the device responds only to a specific SSID you specify. Less noisy, more credible against a target who knows their devices remember "Starbucks WiFi" but is harder to fool with a generic catch-all.
 
 **Defensive observation.** A defender running Kismet on the same channel will see beacons and probe responses from an AP that claims to be every SSID ever requested. This is unmistakable in any half-decent WIDS.
 
@@ -357,13 +357,13 @@ A spectrum-style overlay of 2.4 GHz channel utilization. Useful for picking a qu
 
 **Verification.** On a target STA you own, watch the Wi-Fi indicator. A deauth flood typically causes the device to disconnect and reconnect every 1–3 seconds. In Wireshark, filter `wlan.fc.type_subtype == 0x0c` to isolate deauth frames; expect a continuous flood.
 
-**Critical caveat.** Modern Wi-Fi (802.11w, Protected Management Frames / PMF) was specifically designed to defeat this attack. WPA3 mandates PMF; WPA2 supports it as optional. Against a properly configured corporate WPA2-Enterprise network with PMF required, the Cardputer's deauth has no effect. This is part of why the technique is detectable and increasingly mitigated — and part of why your defensive posture should include enforcing PMF.
+**Critical caveat.** Modern Wi-Fi (802.11w, Protected Management Frames / PMF) was specifically designed to defeat this attack. WPA3 mandates PMF; WPA2 supports it as optional. Against a properly configured corporate WPA2-Enterprise network with PMF required, the Cardputer's deauth has no effect. This is part of why the technique is detectable and increasingly mitigated; and part of why your defensive posture should include enforcing PMF.
 
 ### 8.6 Evil Twin (captive portal fake AP + deauth)
 
 This is the marquee feature and the one most likely to appear in your book's "what an attacker can do in 60 seconds" demonstrations.
 
-**Concept.** The device clones a chosen SSID, stands up a SoftAP impersonating it, runs a captive portal that mimics the legitimate network's login or some plausible system prompt ("Router firmware update — please re-enter your Wi-Fi password"), and concurrently deauths clients from the real AP so they roam onto the rogue. Submitted credentials are logged to SD.
+**Concept.** The device clones a chosen SSID, stands up a SoftAP impersonating it, runs a captive portal that mimics the legitimate network's login or some plausible system prompt ("Router firmware update; please re-enter your Wi-Fi password"), and concurrently deauths clients from the real AP so they roam onto the rogue. Submitted credentials are logged to SD.
 
 **Procedure.**
 1. Scan for nearby APs.
@@ -377,7 +377,7 @@ This is the marquee feature and the one most likely to appear in your book's "wh
 
 **What to demonstrate to a client.** Run this in your own lab against your own SSID. Watch a phone you own roam to the rogue. Submit a credential into the portal. Pull the SD card and show the client the file. The reaction is consistent: "wait, that's it?" Yes, that's it. That's the point.
 
-**Defensive measures.** Enterprise WPA2/WPA3 with proper EAP-TLS (mutual cert auth) breaks this technique cleanly — the client validates the server certificate before sending credentials. PSK networks are vulnerable; the mitigation is user training (never enter your Wi-Fi password into a web page) and PMF.
+**Defensive measures.** Enterprise WPA2/WPA3 with proper EAP-TLS (mutual cert auth) breaks this technique cleanly; the client validates the server certificate before sending credentials. PSK networks are vulnerable; the mitigation is user training (never enter your Wi-Fi password into a web page) and PMF.
 
 ### 8.7 Handshake Master
 
@@ -396,7 +396,7 @@ This is the marquee feature and the one most likely to appear in your book's "wh
 
 The on-device `Aircrack` module performs limited cracking against small wordlists; do not expect to crack a strong PSK on a 240 MHz Xtensa core. Use the device for capture, your workstation or GPU rig for cracking.
 
-**Check Handshakes** validates a captured pcap to confirm the four messages are present and complete. A common failure mode is capturing M1+M2 only — useless for cracking. Verify before walking away from the engagement.
+**Check Handshakes** validates a captured pcap to confirm the four messages are present and complete. A common failure mode is capturing M1+M2 only; useless for cracking. Verify before walking away from the engagement.
 
 ### 8.8 BadUSB
 
@@ -407,7 +407,7 @@ The on-device `Aircrack` module performs limited cracking against small wordlist
 2. `BadUSB → Select Payload → <your payload>`.
 3. Plug the Cardputer into the target. Confirm enumeration.
 4. `BadUSB → Run`. The payload executes at HID typing speed.
-5. The WebUI BadUSB editor lets you compose payloads from a browser without touching the SD card — useful for rapid iteration.
+5. The WebUI BadUSB editor lets you compose payloads from a browser without touching the SD card; useful for rapid iteration.
 
 **Defensive observation.** Endpoint detection that watches for sudden HID device attachment, especially combined with rapid keystroke entry from an unrecognized vendor ID, catches this trivially. The hardware-level mitigation is to require admin authorization for new HID devices (Windows USB Restrict policy, macOS USB Restricted Mode, Linux usbguard).
 
@@ -420,7 +420,7 @@ The on-device `Aircrack` module performs limited cracking against small wordlist
 2. Choose target channel (or all-channel hopping).
 3. The device displays per-second deauth and EAPOL counts and writes incidents to SD.
 
-Place the Cardputer near a network you want to monitor and you have a $35 deauth detector. Not a substitute for a real WIDS, but a useful sanity check during incident response and an excellent training aid — students can run the offensive deauth on one Cardputer and see the detection light up on another in real time.
+Place the Cardputer near a network you want to monitor and you have a $35 deauth detector. Not a substitute for a real WIDS, but a useful sanity check during incident response and an excellent training aid; students can run the offensive deauth on one Cardputer and see the detection light up on another in real time.
 
 ### 8.10 Wall of Flipper, Wall of AirTag, Skimmer Detector
 
@@ -440,7 +440,7 @@ If you are reading this section to decide whether to use it: confirm your ROE ex
 
 ---
 
-## 9. Playbook — laboratory exercises
+## 9. Playbook; laboratory exercises
 
 The following exercises are designed for a closed lab. Each one assumes:
 
@@ -452,7 +452,7 @@ The following exercises are designed for a closed lab. Each one assumes:
 
 Run them in order; each builds on the previous.
 
-### Exercise 1 — Passive recon
+### Exercise 1; Passive recon
 
 **Objective.** Build a baseline inventory of your lab RF environment using only passive techniques.
 
@@ -466,7 +466,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** Why might the Cardputer miss APs that the observer sees, and vice versa?
 
-### Exercise 2 — Probe sniffing and PNL inference
+### Exercise 2; Probe sniffing and PNL inference
 
 **Objective.** Capture probe requests from a known client device (your own phone) and infer its preferred network list.
 
@@ -479,7 +479,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** Modern iOS and Android randomize probe MAC addresses and reduce broadcast probing. How does your phone's behavior compare to the documented mitigations? What can a defender infer if they know a specific user's typical PNL (home, office, gym)?
 
-### Exercise 3 — Targeted deauth with verification
+### Exercise 3; Targeted deauth with verification
 
 **Objective.** Deauth a single client from your own AP and verify the effect on the wire.
 
@@ -495,9 +495,9 @@ Run them in order; each builds on the previous.
 - The target STA's Wi-Fi indicator shows disruption.
 - Frame timing matches the Cardputer's reported transmission rate.
 
-**Debrief.** Enable PMF on your AP (if it supports it — most modern routers do, though it is often off by default). Repeat the exercise. What changes?
+**Debrief.** Enable PMF on your AP (if it supports it; most modern routers do, though it is often off by default). Repeat the exercise. What changes?
 
-### Exercise 4 — Handshake capture and offline cracking
+### Exercise 4; Handshake capture and offline cracking
 
 **Objective.** Capture a complete WPA2 four-way handshake against your lab network and crack a known-weak PSK offline.
 
@@ -517,7 +517,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** Recompute with a 16-character random PSK. How long would brute-force take? Compute the difference using `hashcat -b -m 22000` to benchmark your hardware.
 
-### Exercise 5 — Evil Twin demonstration
+### Exercise 5; Evil Twin demonstration
 
 **Objective.** Mount an evil twin against your lab SSID, capture a credential submission from a device you own, and document what the experience looks like to the user.
 
@@ -533,7 +533,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** What signals did the device's OS provide that something was off? What would a non-technical user have noticed? How would you, in a client report, communicate this risk in a way that motivates remediation?
 
-### Exercise 6 — Detection from the blue side
+### Exercise 6; Detection from the blue side
 
 **Objective.** Detect the previous exercise from a detection-only posture.
 
@@ -546,7 +546,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** What is the smallest practical sensor footprint that would have detected this in a real corporate environment? What does it cost relative to the equipment that produced the attack?
 
-### Exercise 7 — BadUSB on a host you own
+### Exercise 7; BadUSB on a host you own
 
 **Objective.** Execute a benign Ducky payload on a host you own as a demonstration of HID-injection risk.
 
@@ -569,7 +569,7 @@ Run them in order; each builds on the previous.
 
 **Debrief.** Enable Windows' "USB Restrict" policy or macOS USB Restricted Mode. Repeat. What changes? What is the residual risk against an unlocked, unattended workstation?
 
-### Exercise 8 — Full kill chain on your lab
+### Exercise 8; Full kill chain on your lab
 
 **Objective.** Chain reconnaissance, evil twin, credential capture, and post-credential network access into a coherent narrative.
 
@@ -582,11 +582,11 @@ Run them in order; each builds on the previous.
 
 **Success criteria.** A narrative timeline that walks from "I was outside your office with nothing" to "I am authenticated on your internal network." That timeline is, more or less, the structure of your engagement deliverable.
 
-**Debrief.** Which controls — at any layer — would have broken the chain? Which of those controls are common in environments you have personally assessed? Which are not?
+**Debrief.** Which controls; at any layer; would have broken the chain? Which of those controls are common in environments you have personally assessed? Which are not?
 
 ---
 
-## 10. Blue team — defenses that actually work
+## 10. Blue team; defenses that actually work
 
 For each major attack class, the table below names the control that defeats it. This is the table that belongs in your book's defensive chapter and in any client deliverable.
 
@@ -622,13 +622,13 @@ The recurring theme: every control here is either free or already deployed in an
 
 **Bootloops on first launch after compile.** PSRAM is enabled. Disable it in the Tools menu and reflash.
 
-**Karma attack produces no associations.** Modern phones aggressively avoid this. Confirm with a test device whose probe list you control — older Android with broadcast probing enabled, or any IoT device with a hard-coded preferred network.
+**Karma attack produces no associations.** Modern phones aggressively avoid this. Confirm with a test device whose probe list you control; older Android with broadcast probing enabled, or any IoT device with a hard-coded preferred network.
 
 **Reverse TCP tunnel doesn't connect.** Listener address is unreachable (NAT, firewall, ISP block on the chosen port). Test connectivity with `nc` from a regular host first.
 
 ---
 
-## 12. Appendix A — Adjacent tools and where the Cardputer fits
+## 12. Appendix A; Adjacent tools and where the Cardputer fits
 
 | Tool | Strength | Weakness vs. Cardputer |
 |---|---|---|
@@ -639,9 +639,9 @@ The recurring theme: every control here is either free or already deployed in an
 | WiFi Coconut | All-channel concurrent capture | Single-purpose hardware, not portable for attacks |
 | Kali laptop + Alfa AWUS036ACH | Maximum capability | Maximum visibility; not a covert tool |
 
-The Cardputer is not the best at any single thing on this list. It is, currently, the most capable tool in the smallest, least conspicuous, lowest-cost form factor. That makes it the right choice for demos, training, and authorized red-team work where size and discretion matter — and the wrong choice for sustained Wi-Fi capture campaigns where you want a Coconut, or for sub-GHz work where you want a Flipper or HackRF.
+The Cardputer is not the best at any single thing on this list. It is, currently, the most capable tool in the smallest, least conspicuous, lowest-cost form factor. That makes it the right choice for demos, training, and authorized red-team work where size and discretion matter; and the wrong choice for sustained Wi-Fi capture campaigns where you want a Coconut, or for sub-GHz work where you want a Flipper or HackRF.
 
-## Appendix B — Useful key bindings (Cardputer build)
+## Appendix B; Useful key bindings (Cardputer build)
 
 | Context | Keys |
 |---|---|
@@ -652,7 +652,7 @@ The Cardputer is not the best at any single thing on this list. It is, currently
 | Caps lock toggle | `Fn` + `Shift` |
 | Brightness / volume | Settings menu (no hardware shortcut) |
 
-## Appendix C — Pre-flight compliance checklist
+## Appendix C; Pre-flight compliance checklist
 
 Before powering up the radio on any engagement, confirm:
 
@@ -667,7 +667,7 @@ Before powering up the radio on any engagement, confirm:
 
 If any line is unchecked, the radio stays off.
 
-## Appendix D — Further reading and project resources
+## Appendix D; Further reading and project resources
 
 - Project repository: `https://github.com/7h30th3r0n3/Evil-M5Project`
 - Project wiki (per-module documentation): `https://github.com/7h30th3r0n3/Evil-M5Project/wiki`
