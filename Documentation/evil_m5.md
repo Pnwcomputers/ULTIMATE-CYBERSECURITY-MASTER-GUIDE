@@ -6,9 +6,9 @@
 
 ## 1. Why this platform matters
 
-The Cardputer is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
+The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3?srsltid=AfmBOooLBeALilkbpo5fB3QyYeC2gRQnEKWKzC7j-703hDyGrUdELIxj) is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
 
-Loaded with the **Evil-M5Project** firmware by 7h30th3r0n3, that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that — only a few years ago — required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
+Loaded with the **[Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project)** firmware by [7h30th3r0n3](https://github.com/7h30th3r0n3), that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that — only a few years ago — required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
 
 For the practicing security professional, the Cardputer/Evil-M5 combination earns its place in the kit for three reasons:
 
