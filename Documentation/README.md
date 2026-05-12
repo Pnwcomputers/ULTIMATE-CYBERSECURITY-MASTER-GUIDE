@@ -39,13 +39,18 @@ This documentation serves as a reference material for security implementations, 
 
 ## 📂 Current Documentation
 
-### Wireless Security & WiFi Tools
+### Wireless Security, WiFi & Network Tools
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | `Aircrack-ng_Commands.md` | Complete Aircrack-ng command reference | Reference |
 | `WiFiMarauder_Guide.md` | Comprehensive guide for WiFi Marauder tool usage | Guide |
 | `WifiMarauder_CheatSheet.md` | Quick reference for WiFi Marauder commands | Cheat Sheet |
 | `pwnagotchi_cheatsheet.md` | Pwnagotchi setup and command reference | Cheat Sheet |
+| `bjorn_pi.md` |  | Scan, attack, and exfiltrates from any network Bjorn is plugged into | Guide |
+| `bruce_firmware.md` | Comprehensive guide for Bruce Firmware usage | Guide |
+| `evil_m5.md` | Guide for operations using the Evil-M5 Firmware | Guide |
+| `flipper_zero_guide.md` | Reference guide for analysis and operations using a Flipper Zero | Guide |
+| `wireshark.md` | Wireshark reference for network analysis and security operations | Guide |
 | `hcxtoolshashcat.md` | HCX tools and Hashcat for WiFi password cracking | Guide |
 
 ### Privacy & Anonymity
@@ -65,6 +70,7 @@ This documentation serves as a reference material for security implementations, 
 | `LinuxCheatSheet.md` | Essential Linux commands and system administration | Cheat Sheet |
 | `virtualmachines.md` | Virtual machine setup and management guide | Guide |
 | `HomeLab_Setup.md` | Complete home lab environment setup guide | Guide |
+| `blackarch.md` | General "Blackarch 101" guide | Guide |
 
 ### Security Assessment Resources
 | File | Description | Size/Type |
