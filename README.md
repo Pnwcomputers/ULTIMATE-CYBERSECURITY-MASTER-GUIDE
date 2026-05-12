@@ -73,6 +73,9 @@ Your complete navigation guide with quick paths for every purpose
 
 **[AI Cybersecurity Resources](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/AI/README.md)**
 - Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting, offline deployment, and AI-powered security workflows
+
+**[TryHackMe FREE Resources Repo](https://github.com/uttambodara/TryHackMeRoadmap)**
+- A curated list of 350+ free rooms organized from beginner to advanced, covering everything from Linux fundamentals to web hacking, forensics, and real CTF challenges. *Created by [Uttambodara](https://github.com/uttambodara)*
   
 ---
 
