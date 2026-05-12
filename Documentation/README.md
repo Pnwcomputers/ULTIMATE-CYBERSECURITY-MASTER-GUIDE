@@ -46,7 +46,7 @@ This documentation serves as a reference material for security implementations, 
 | `WiFiMarauder_Guide.md` | Comprehensive guide for WiFi Marauder tool usage | Guide |
 | `WifiMarauder_CheatSheet.md` | Quick reference for WiFi Marauder commands | Cheat Sheet |
 | `pwnagotchi_cheatsheet.md` | Pwnagotchi setup and command reference | Cheat Sheet |
-| `bjorn_pi.md` | Scan, attack, and exfiltrates from any network Bjorn is plugged into | Guide |
+| `bjorn_pi.md` | How-to scan, attack, and exfiltrates from a network that Bjorn is connected to | Guide |
 | `bruce_firmware.md` | Comprehensive guide for Bruce Firmware usage | Guide |
 | `evil_m5.md` | Guide for operations using the Evil-M5 Firmware | Guide |
 | `flipper_zero_guide.md` | Reference guide for analysis and operations using a Flipper Zero | Guide |
