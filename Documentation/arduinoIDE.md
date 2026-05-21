@@ -2,7 +2,7 @@
 
 Setting up the Arduino IDE to be a universal workstation for multiple microcontroller families (Arduino, ESP32, STM32, and others) is a great move. This guide provides the initial configuration to turn your Arduino IDE into a multi-platform powerhouse.
 
-## Step 1: Use Arduino IDE 2.x
+## Step 1: Use [Arduino IDE 2.x](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-downloading-and-installing/)
 
 If you haven't already, download the latest **Arduino IDE 2.x** (not the legacy 1.8.x version). Version 2 brings a modern code editor, auto-completion, faster compile times, and a much better board/library manager.
 
