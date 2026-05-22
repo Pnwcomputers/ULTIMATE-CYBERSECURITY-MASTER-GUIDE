@@ -17,20 +17,20 @@ Before adding extensions, optimize the core editor for a better developer experi
 
 Click the **Extensions** icon on the left sidebar (`Ctrl+Shift+X` / `Cmd+Shift+X`) and install these baseline tools:
 
-* **Prettier - Code formatter:** The gold standard for enforcing consistent code style across JavaScript, TypeScript, HTML, CSS, and Markdown. 
-* **Error Lens:** Highlights entire lines of code in red/yellow as you type if there is a syntax error, avoiding the need to hover over tiny squiggly lines.
-* **TODO Tree:** Scans your workspace for comments like `// TODO:` or `// FIXME:` and displays them in a neat sidebar list.
+* **[Prettier - Code formatter:](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)** The gold standard for enforcing consistent code style across JavaScript, TypeScript, HTML, CSS, and Markdown. 
+* **[Error Lens:](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)** Highlights entire lines of code in red/yellow as you type if there is a syntax error, avoiding the need to hover over tiny squiggly lines.
+* **[TODO Tree:](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)** Scans your workspace for comments like `// TODO:` or `// FIXME:` and displays them in a neat sidebar list.
 * **Language Packs:** Install specific language extensions based on your stack:
-  * *Python* (by Microsoft)
-  * *C/C++ Extension Pack* (by Microsoft)
-  * *ESLint* (for JavaScript/TypeScript)
+  * *[Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)* (by Microsoft)
+  * *[C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)* (by Microsoft)
+  * *[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)* (for JavaScript/TypeScript)
 
 ## Step 3: Seamless GitHub and Version Control Integration
 
 VS Code has excellent built-in Git support, but you can turn it into a complete GitHub workstation.
 
-1. **GitHub Pull Requests and Issues:** Install this official extension by GitHub. It allows you to review pull requests, comment on code, and manage issues directly within the editor without opening a browser.
-2. **GitLens — Git supercharged:** An absolute must-have. It adds inline "blame" annotations (showing who last modified a line and when), a visual commit graph, and advanced file history exploration.
+1. **[GitHub Pull Requests and Issues:](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions)** Install this official extension by GitHub. It allows you to review pull requests, comment on code, and manage issues directly within the editor without opening a browser.
+2. **[GitLens — Git supercharged:](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)** An absolute must-have. It adds inline "blame" annotations (showing who last modified a line and when), a visual commit graph, and advanced file history exploration.
 3. **Authentication:** * Click the Accounts icon (bottom left profile icon).
    * Select **Sign in with GitHub to use GitHub Pull Requests and Issues**.
    * Follow the browser prompts to authorize VS Code.
@@ -49,9 +49,10 @@ If your projects extend beyond software into microcontrollers (Arduino, ESP32, S
 
 AI coding tools are transforming development by generating boilerplate, writing tests, and explaining complex logic. Add one of these top-tier AI assistants to your environment:
 
-* **GitHub Copilot:** The industry standard. It acts as an advanced autocomplete, suggesting whole lines or entire functions as you type. *(Requires a paid subscription or GitHub Student Developer Pack).*
-* **Gemini Code Assist:** Google's enterprise-grade AI assistant, offering robust code generation, chat capabilities, and deep integration for broader workflows. 
-* **Cline (or Tabnine):** Excellent alternatives if you are looking for free-tier capabilities or different AI models to test within your workspace.
+* **[GitHub Copilot:](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** The industry standard. It acts as an advanced autocomplete, suggesting whole lines or entire functions as you type. *(Requires a paid subscription or GitHub Student Developer Pack).*
+* **[Gemini Code Assist:](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist)** Google's enterprise-grade AI assistant, offering robust code generation, chat capabilities, and deep integration for broader workflows.
+* **[Claude Code for VS Code:](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code)** Work with Claude directly in your codebase. Build, debug, and deploy from within your workspace.
+* **[Cline:](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev)** Excellent alternative if you are looking for free-tier capabilities or different AI models to test within your workspace. Cline can also be setup to handle complex software development tasks step-by-step.
 
 *Security Note:* Always verify the publisher of any extension, especially AI tools and remote execution environments. Stick to verified publishers to avoid malicious marketplace extensions.
 
