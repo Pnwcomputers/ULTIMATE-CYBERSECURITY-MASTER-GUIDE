@@ -63,7 +63,8 @@ This documentation serves as a reference material for security implementations, 
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | `python.md` | Python programming reference for security applications | Reference |
-| `arduinoIDE.md` | Arduino IDE general setup & configuration guide | Reference |
+| `arduinoIDE.md` | Arduino IDE general setup & configuration guide | Guide |
+| `vscode.md` | Visual Studio Code general setup & configuration guide | Guide |
 
 ### System Administration
 | File | Description | Size/Type |
