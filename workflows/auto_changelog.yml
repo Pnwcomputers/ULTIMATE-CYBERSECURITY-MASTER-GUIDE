@@ -1,0 +1,61 @@
+name: Auto-Generate CHANGELOG
+
+on:
+  push:
+    branches:
+      - main
+    # Only run when actual content files change — not when CHANGELOG itself is updated
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - '.github/**'
+
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    name: Generate and commit CHANGELOG.md
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Need full history so generate_changelog.py can read all commits
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install any deps generate_changelog.py needs
+          # Add to this list if the script requires packages
+          pip install gitpython 2>/dev/null || true
+
+      - name: Run generate_changelog.py
+        run: python generate_changelog.py
+
+      - name: Check if CHANGELOG.md was modified
+        id: changelog_check
+        run: |
+          if git diff --quiet CHANGELOG.md; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit updated CHANGELOG.md
+        if: steps.changelog_check.outputs.changed == 'true'
+        run: |
+          git config --local user.name  "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore: auto-update CHANGELOG.md [skip ci]"
+          git push
