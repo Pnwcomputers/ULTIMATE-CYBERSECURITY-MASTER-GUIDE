@@ -78,14 +78,14 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - Automated OSINT VM build scripts
 - Full investigation methodology (target profiling → pivot → report)
 
-### 📘 Team Playbooks
-- [Purple Team — Simple](PlayBooks/PurpleTeam_Simple.md)
-- [Purple Team — Detailed](PlayBooks/PurpleTeam_Detailed.md)
-- [Purple Team — Multi-Script](PlayBooks/PurpleTeam_Multi-Scrip.md)
-- [Blue Team — Incident Response Simple](PlayBooks/BlueTeam_IncResp_Simple.md)
-- [Blue Team — Incident Response Enhanced](PlayBooks/BlueTeam_IncResp_Enhanced.md)
-- Detection pipeline configuration
-- SIEM setup and triage procedures
+### 📘 Playbooks
+| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of all playbooks — network audits, WiFi assessments, IR, phishing, unauthorized access |
+| 🟣 [Purple Team Playbooks](PlayBooks/) | Simple, Detailed, and Multi-Script purple team exercises |
+| 🔵 [Blue Team Playbooks](PlayBooks/) | Incident response procedures — simple and enhanced versions |
+| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
+| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
+| 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
+| 📊 [SIEM Deployment Guides](Incident%20Response/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 
 ### 💻 Custom Scripts & Tools
 - **[`pnwc_install_tools.sh`](Scripts/pnwc_install_tools.sh)** — Cross-distro Linux installer for all tools in this guide (apt · pacman · dnf)
