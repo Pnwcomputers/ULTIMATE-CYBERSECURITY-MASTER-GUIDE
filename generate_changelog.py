@@ -4,6 +4,13 @@ Auto-Changelog Generator
 ------------------------
 Scans the last N commits from the git log and generates a 
 Markdown-formatted summary of changes, categorized by type.
+
+Usage:
+    python generate_changelog.py           # last 10 commits → DRAFT_CHANGELOG.md
+    python generate_changelog.py 25        # last 25 commits → DRAFT_CHANGELOG.md
+    python generate_changelog.py --all     # full history    → DRAFT_CHANGELOG.md
+    python generate_changelog.py --output CHANGELOG.md       # write directly to CHANGELOG.md
+    python generate_changelog.py 25 --output CHANGELOG.md   # combine both
 """
 
 import subprocess
@@ -33,16 +40,18 @@ def run_git_command(command):
         print(f"Error running git command: {e.output}")
         return ""
 
-def parse_commits(num_commits):
+def parse_commits(num_commits, scan_all=False):
     """Gets commit messages and categorizes them."""
-    # Get hash, subject, and date
-    log_output = run_git_command(f'git log -n {num_commits} --pretty=format:"%h|%s|%ad" --date=short')
+    if scan_all:
+        log_output = run_git_command('git log --pretty=format:"%h|%s|%ad" --date=short')
+    else:
+        log_output = run_git_command(f'git log -n {num_commits} --pretty=format:"%h|%s|%ad" --date=short')
     
     if not log_output:
         return {}, 0
 
     categorized = {k: [] for k in CATEGORIES.keys()}
-    categorized["⚡ Other Changes"] = [] # Fallback category
+    categorized["⚡ Other Changes"] = []  # Fallback category
     
     total_commits = 0
 
@@ -70,10 +79,12 @@ def parse_commits(num_commits):
 
     return categorized, total_commits
 
-def get_files_changed(num_commits):
+def get_files_changed(num_commits, scan_all=False):
     """Gets a list of files changed in the range."""
-    # git diff --name-status HEAD~N..HEAD
-    output = run_git_command(f"git diff --name-status HEAD~{num_commits}..HEAD")
+    if scan_all:
+        output = run_git_command("git log --name-status --pretty=format: | grep -E '^[MADR]'")
+    else:
+        output = run_git_command(f"git diff --name-status HEAD~{num_commits}..HEAD")
     
     stats = {
         "Modified": 0,
@@ -82,14 +93,18 @@ def get_files_changed(num_commits):
         "Renamed": 0
     }
     file_list = []
+    seen = set()
     
     for line in output.split('\n'):
         if not line: continue
         parts = line.split('\t')
-        status_code = parts[0][0] # M, A, D, R
+        if len(parts) < 2: continue
+        status_code = parts[0][0]  # M, A, D, R
         filename = parts[-1]
         
-        file_list.append(filename)
+        if filename not in seen:
+            file_list.append(filename)
+            seen.add(filename)
         
         if status_code == 'M': stats["Modified"] += 1
         elif status_code == 'A': stats["Added"] += 1
@@ -131,24 +146,47 @@ def generate_markdown(categorized, files, stats, commit_count):
     return md
 
 def main():
-    # Allow user to pass a number, e.g., python generate_changelog.py 5
-    if len(sys.argv) > 1 and sys.argv[1].isdigit():
-        num_commits = int(sys.argv[1])
-    else:
-        num_commits = DEFAULT_COMMITS_TO_SCAN
+    args = sys.argv[1:]
 
-    print(f"🔍 Scanning last {num_commits} commits...")
+    # Parse --output flag
+    output_file = OUTPUT_FILE
+    if "--output" in args:
+        idx = args.index("--output")
+        if idx + 1 < len(args):
+            output_file = args[idx + 1]
+            args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
+        else:
+            print("ERROR: --output requires a filename argument")
+            sys.exit(1)
+
+    # Parse --all flag
+    scan_all = "--all" in args
+    if scan_all:
+        args = [a for a in args if a != "--all"]
+
+    # Parse commit count (positional int arg)
+    num_commits = DEFAULT_COMMITS_TO_SCAN
+    for a in args:
+        if a.isdigit():
+            num_commits = int(a)
+            break
+
+    if scan_all:
+        print("🔍 Scanning full commit history…")
+    else:
+        print(f"🔍 Scanning last {num_commits} commits…")
     
-    categorized_commits, count = parse_commits(num_commits)
-    file_list, stats = get_files_changed(num_commits)
+    categorized_commits, count = parse_commits(num_commits, scan_all)
+    file_list, stats = get_files_changed(num_commits, scan_all)
     
     markdown_content = generate_markdown(categorized_commits, file_list, stats, count)
     
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(markdown_content)
         
-    print(f"✅ Draft changelog generated: {OUTPUT_FILE}")
-    print("   (Open this file, verify the details, and paste it into your main CHANGELOG.md)")
+    print(f"✅ Changelog generated: {output_file}")
+    if output_file == OUTPUT_FILE:
+        print("   (Review this draft, then paste into CHANGELOG.md)")
 
 if __name__ == "__main__":
     main()
