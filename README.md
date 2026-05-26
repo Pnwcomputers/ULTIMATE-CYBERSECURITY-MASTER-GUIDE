@@ -79,8 +79,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - Full investigation methodology (target profiling → pivot → report)
 
 ### 📘 Team Playbooks
-- Purple Team (simple + detailed versions)
-- Blue Team (generic + detailed versions)
+- [Purple Team — Simple](PlayBooks/PurpleTeam_Simple.md)
+- [Purple Team — Detailed](PlayBooks/PurpleTeam_Detailed.md)
+- [Purple Team — Multi-Script](PlayBooks/PurpleTeam_Multi-Scrip.md)
+- [Blue Team — Incident Response Simple](PlayBooks/BlueTeam_IncResp_Simple.md)
+- [Blue Team — Incident Response Enhanced](PlayBooks/BlueTeam_IncResp_Enhanced.md)
 - Detection pipeline configuration
 - SIEM setup and triage procedures
 
