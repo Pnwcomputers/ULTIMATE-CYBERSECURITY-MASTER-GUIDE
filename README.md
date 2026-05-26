@@ -51,7 +51,13 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 
 | Section | Description |
 |---|---|
-| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Field-ready playbooks for professional network & WiFi security audits and pentests |
+| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of all playbooks — network audits, WiFi assessments, IR, phishing, unauthorized access |
+| 🟣 [Purple Team Playbooks](PlayBooks/PurpleTeam_Simple.md) | Simple, Detailed, and Multi-Script purple team exercises |
+| 🔵 [Blue Team Playbooks](PlayBooks/BlueTeam_IncResp_Simple.md) | Incident response procedures — simple and enhanced versions |
+| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
+| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
+| 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
+| 📊 [SIEM Deployment Guides](Incident%20Response/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 | 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology — 400+ categorized tools, investigation workflows, automated VM setup |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices — anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
@@ -78,14 +84,22 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - Automated OSINT VM build scripts
 - Full investigation methodology (target profiling → pivot → report)
 
-### 📘 Playbooks
-| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of all playbooks — network audits, WiFi assessments, IR, phishing, unauthorized access |
-| 🟣 [Purple Team Playbooks](PlayBooks/) | Simple, Detailed, and Multi-Script purple team exercises |
-| 🔵 [Blue Team Playbooks](PlayBooks/) | Incident response procedures — simple and enhanced versions |
-| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
-| 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
-| 📊 [SIEM Deployment Guides](Incident%20Response/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
+### 📘 Team Playbooks
+**Purple Team**
+- [Purple Team — Simple](PlayBooks/PurpleTeam_Simple.md)
+- [Purple Team — Detailed](PlayBooks/PurpleTeam_Detailed.md)
+- [Purple Team — Multi-Script](PlayBooks/PurpleTeam_Multi-Scrip.md)
+
+**Blue Team**
+- [Blue Team — Incident Response Simple](PlayBooks/BlueTeam_IncResp_Simple.md)
+- [Blue Team — Incident Response Enhanced](PlayBooks/BlueTeam_IncResp_Enhanced.md)
+
+**Detection Pipeline & SIEM**
+- [ELK Stack (Elastic) SIEM Deployment](Incident%20Response/SIEM/elk_stack.md)
+- [Wazuh SIEM Deployment](Incident%20Response/SIEM/wazuh.md)
+- [Splunk SIEM Deployment](Incident%20Response/SIEM/splunk.md)
+- [Graylog SIEM Deployment](Incident%20Response/SIEM/graylog.md)
+- [Log Aggregation Guide](Incident%20Response/log_agg.md)
 
 ### 💻 Custom Scripts & Tools
 - **[`pnwc_install_tools.sh`](Scripts/pnwc_install_tools.sh)** — Cross-distro Linux installer for all tools in this guide (apt · pacman · dnf)
