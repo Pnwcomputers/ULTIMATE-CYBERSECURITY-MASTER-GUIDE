@@ -86,10 +86,12 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 💻 Custom Scripts & Tools
 - **[`pnwc_install_tools.sh`](Scripts/pnwc_install_tools.sh)** — Cross-distro Linux installer for all tools in this guide (apt · pacman · dnf)
-- Black Hat Bash lab build scripts
-- OSINT VM auto-installer
-- Python security toolkits (58KB)
-- PowerShell utilities for Windows environments
+- **[PowerShell](Scripts/PowerShell)** — 12 scripts: AD testing, SMB auth, brute force, port scanning, reverse shells, system enumeration
+- **[Python](Scripts/Python)** — 30+ scripts: network recon, credential analysis, Bluetooth, web, geolocation, exploitation tools
+- **[Bash](Scripts/Bash)** — System admin, recon, auditing, log analysis utilities (`Scripts/Bash/`)
+- **[C](Scripts/C)** — Low-level utilities: user enumeration, port scanning, system manipulation
+- **[SQL](Scripts/SQL)** — WordPress admin injection testing scripts
+- **[Go](Scripts/Go)** — (`Scripts/GO/`)
 
 ### 🎯 Attack Case Studies (10+ Analyzed)
 | Incident | Type |
