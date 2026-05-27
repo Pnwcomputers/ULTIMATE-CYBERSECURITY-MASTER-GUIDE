@@ -2,15 +2,14 @@
 """
 Auto-Changelog Generator
 ------------------------
-Scans the last N commits from the git log and generates a 
-Markdown-formatted summary of changes, categorized by type.
+Scans new commits since the last CHANGELOG.md entry and PREPENDS
+a new dated section to the top — never overwrites existing history.
 
 Usage:
-    python generate_changelog.py           # last 10 commits → DRAFT_CHANGELOG.md
-    python generate_changelog.py 25        # last 25 commits → DRAFT_CHANGELOG.md
-    python generate_changelog.py --all     # full history    → DRAFT_CHANGELOG.md
-    python generate_changelog.py --output CHANGELOG.md       # write directly to CHANGELOG.md
-    python generate_changelog.py 25 --output CHANGELOG.md   # combine both
+    python generate_changelog.py           # new commits since last entry → prepend to CHANGELOG.md
+    python generate_changelog.py 25        # last 25 commits (ignores existing CHANGELOG)
+    python generate_changelog.py --all     # full history (replaces file — use with caution)
+    python generate_changelog.py --dry-run # print to stdout, don't write anything
 """
 
 import subprocess
@@ -19,174 +18,204 @@ import re
 import sys
 
 # --- Configuration ---
-DEFAULT_COMMITS_TO_SCAN = 10  # Default number of commits to look back
-OUTPUT_FILE = "DRAFT_CHANGELOG.md"
+DEFAULT_COMMITS_TO_SCAN = 10
+OUTPUT_FILE = "CHANGELOG.md"
+DRAFT_FILE  = "DRAFT_CHANGELOG.md"
 
-# Keywords to categorize commits
 CATEGORIES = {
-    "✨ New Content": ["create", "add", "new", "init"],
-    "🐛 Fixes": ["fix", "repair", "resolve", "broken", "bug", "correct"],
+    "✨ New Content":         ["create", "add", "new", "init"],
+    "🐛 Fixes":               ["fix", "repair", "resolve", "broken", "bug", "correct"],
     "♻️ Updates & Refactors": ["update", "refactor", "move", "rename", "clean", "structure"],
-    "📚 Documentation": ["readme", "doc", "comment", "guide"],
-    "🗑️ Removals": ["remove", "delete", "prune"]
+    "📚 Documentation":       ["readme", "doc", "comment", "guide"],
+    "🗑️ Removals":            ["remove", "delete", "prune"],
 }
 
-def run_git_command(command):
-    """Runs a git command and returns the output string."""
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def run_git(command):
     try:
-        result = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.STDOUT)
-        return result.strip()
+        return subprocess.check_output(
+            command, shell=True, text=True, stderr=subprocess.STDOUT
+        ).strip()
     except subprocess.CalledProcessError as e:
-        print(f"Error running git command: {e.output}")
+        print(f"git error: {e.output.strip()}")
         return ""
 
-def parse_commits(num_commits, scan_all=False):
-    """Gets commit messages and categorizes them."""
+def get_last_logged_hash():
+    """
+    Reads existing CHANGELOG.md and returns the most recent commit hash
+    found in it (backtick format: `abc1234`), or None if not found.
+    """
+    try:
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+            content = f.read()
+        hashes = re.findall(r"`([0-9a-f]{7,8})`", content)
+        return hashes[0] if hashes else None
+    except FileNotFoundError:
+        return None
+
+def parse_commits(num_commits=None, since_hash=None, scan_all=False):
     if scan_all:
-        log_output = run_git_command('git log --pretty=format:"%h|%s|%ad" --date=short')
+        log_cmd = 'git log --pretty=format:"%h|%s|%ad" --date=short'
+    elif since_hash:
+        log_cmd = f'git log {since_hash}..HEAD --pretty=format:"%h|%s|%ad" --date=short'
     else:
-        log_output = run_git_command(f'git log -n {num_commits} --pretty=format:"%h|%s|%ad" --date=short')
-    
+        log_cmd = f'git log -n {num_commits} --pretty=format:"%h|%s|%ad" --date=short'
+
+    log_output = run_git(log_cmd)
+
     if not log_output:
         return {}, 0
 
-    categorized = {k: [] for k in CATEGORIES.keys()}
-    categorized["⚡ Other Changes"] = []  # Fallback category
-    
-    total_commits = 0
+    categorized = {k: [] for k in CATEGORIES}
+    categorized["⚡ Other Changes"] = []
+    total = 0
 
-    for line in log_output.split('\n'):
-        if not line: continue
-        total_commits += 1
-        parts = line.split('|')
-        if len(parts) < 3: continue
-        
+    for line in log_output.split("\n"):
+        if not line:
+            continue
+        parts = line.split("|")
+        if len(parts) < 3:
+            continue
         sha, msg, date = parts[0], parts[1], parts[2]
+        # Skip auto-generated changelog commits and merges
+        if "auto-update CHANGELOG" in msg or msg.startswith("Merge "):
+            continue
+        total += 1
         entry = f"- {msg} (`{sha}`)"
-        
-        # Categorize
         matched = False
         msg_lower = msg.lower()
-        
         for cat, keywords in CATEGORIES.items():
-            if any(keyword in msg_lower for keyword in keywords):
+            if any(kw in msg_lower for kw in keywords):
                 categorized[cat].append(entry)
                 matched = True
                 break
-        
         if not matched:
             categorized["⚡ Other Changes"].append(entry)
 
-    return categorized, total_commits
+    return categorized, total
 
-def get_files_changed(num_commits, scan_all=False):
-    """Gets a list of files changed in the range."""
+def get_files_changed(num_commits=None, since_hash=None, scan_all=False):
     if scan_all:
-        output = run_git_command("git log --name-status --pretty=format: | grep -E '^[MADR]'")
+        output = run_git("git log --name-status --pretty=format: | grep -E '^[MADR]'")
+    elif since_hash:
+        output = run_git(f"git diff --name-status {since_hash}..HEAD")
     else:
-        output = run_git_command(f"git diff --name-status HEAD~{num_commits}..HEAD")
-    
-    stats = {
-        "Modified": 0,
-        "Added": 0,
-        "Deleted": 0,
-        "Renamed": 0
-    }
+        output = run_git(f"git diff --name-status HEAD~{num_commits}..HEAD")
+
+    stats = {"Modified": 0, "Added": 0, "Deleted": 0, "Renamed": 0}
     file_list = []
     seen = set()
-    
-    for line in output.split('\n'):
-        if not line: continue
-        parts = line.split('\t')
-        if len(parts) < 2: continue
-        status_code = parts[0][0]  # M, A, D, R
+
+    for line in output.split("\n"):
+        if not line:
+            continue
+        parts = line.split("\t")
+        if len(parts) < 2:
+            continue
+        status_code = parts[0][0]
         filename = parts[-1]
-        
         if filename not in seen:
             file_list.append(filename)
             seen.add(filename)
-        
-        if status_code == 'M': stats["Modified"] += 1
-        elif status_code == 'A': stats["Added"] += 1
-        elif status_code == 'D': stats["Deleted"] += 1
-        elif status_code == 'R': stats["Renamed"] += 1
-        
+        if status_code == "M": stats["Modified"] += 1
+        elif status_code == "A": stats["Added"] += 1
+        elif status_code == "D": stats["Deleted"] += 1
+        elif status_code == "R": stats["Renamed"] += 1
+
     return file_list, stats
 
-def generate_markdown(categorized, files, stats, commit_count):
-    """Builds the Markdown string."""
+def generate_section(categorized, files, stats, commit_count):
+    """Generates a single dated changelog section (no file header)."""
     today = datetime.date.today().strftime("%B %d, %Y")
-    
     md = f"# 🔄 Change Log - {today}\n\n"
-    
     md += "## 📊 Quick Stats\n"
     md += f"- **Commits Analyzed**: {commit_count}\n"
     md += f"- **Files Modified**: {stats['Modified']}\n"
     md += f"- **New Files**: {stats['Added']}\n"
     md += f"- **Deleted Files**: {stats['Deleted']}\n\n"
-    
     md += "## 📝 Detailed Changes\n\n"
-    
     for category, items in categorized.items():
         if items:
             md += f"### {category}\n"
             for item in items:
                 md += f"{item}\n"
             md += "\n"
-            
     md += "## 📂 Files Touched\n"
-    if len(files) > 0:
+    if files:
         md += "<details>\n<summary>Click to view full file list</summary>\n\n"
         for f in files:
             md += f"- `{f}`\n"
-        md += "\n</details>"
+        md += "\n</details>\n"
     else:
-        md += "*No files changed.*"
-
+        md += "*No files changed.*\n"
     return md
+
+def prepend_to_changelog(new_section):
+    """Prepends new_section to existing CHANGELOG.md with a divider."""
+    try:
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+            existing = f.read()
+    except FileNotFoundError:
+        existing = ""
+
+    divider = "\n\n---\n\n"
+    combined = new_section + (divider + existing if existing else "")
+
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        f.write(combined)
+
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
     args = sys.argv[1:]
-
-    # Parse --output flag
-    output_file = OUTPUT_FILE
-    if "--output" in args:
-        idx = args.index("--output")
-        if idx + 1 < len(args):
-            output_file = args[idx + 1]
-            args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
-        else:
-            print("ERROR: --output requires a filename argument")
-            sys.exit(1)
-
-    # Parse --all flag
+    dry_run  = "--dry-run" in args
     scan_all = "--all" in args
-    if scan_all:
-        args = [a for a in args if a != "--all"]
+    args = [a for a in args if a not in ("--dry-run", "--all")]
 
-    # Parse commit count (positional int arg)
-    num_commits = DEFAULT_COMMITS_TO_SCAN
+    # Explicit commit count overrides smart detection
+    num_commits = None
     for a in args:
         if a.isdigit():
             num_commits = int(a)
             break
 
-    if scan_all:
+    # Smart mode: detect last logged hash from existing CHANGELOG
+    since_hash = None
+    if not scan_all and num_commits is None:
+        since_hash = get_last_logged_hash()
+        if since_hash:
+            print(f"🔍 Scanning commits since last entry ({since_hash})…")
+        else:
+            print(f"🔍 No existing CHANGELOG found — scanning last {DEFAULT_COMMITS_TO_SCAN} commits…")
+            num_commits = DEFAULT_COMMITS_TO_SCAN
+    elif scan_all:
         print("🔍 Scanning full commit history…")
     else:
         print(f"🔍 Scanning last {num_commits} commits…")
-    
-    categorized_commits, count = parse_commits(num_commits, scan_all)
-    file_list, stats = get_files_changed(num_commits, scan_all)
-    
-    markdown_content = generate_markdown(categorized_commits, file_list, stats, count)
-    
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(markdown_content)
-        
-    print(f"✅ Changelog generated: {output_file}")
-    if output_file == OUTPUT_FILE:
-        print("   (Review this draft, then paste into CHANGELOG.md)")
+
+    categorized, count = parse_commits(num_commits, since_hash, scan_all)
+    file_list, stats   = get_files_changed(num_commits, since_hash, scan_all)
+
+    if count == 0:
+        print("✅ No new commits since last changelog entry. Nothing to add.")
+        return
+
+    new_section = generate_section(categorized, file_list, stats, count)
+
+    if dry_run:
+        print("\n── DRY RUN ──\n")
+        print(new_section)
+        return
+
+    if scan_all:
+        # --all replaces the file entirely (explicit intent)
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            f.write(new_section)
+        print(f"✅ CHANGELOG.md replaced with full history ({count} commits)")
+    else:
+        prepend_to_changelog(new_section)
+        print(f"✅ Prepended {count} new commits to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()
