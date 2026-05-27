@@ -1,14 +1,67 @@
-# 🔄 Change Log - January 20, 2026
+# 🔄 Change Log - May 27, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 25
-- **Files Modified**: 4
-- **New Files**: 13
-- **Deleted Files**: 0
+- **Commits Analyzed**: 521
+- **Files Modified**: 224
+- **New Files**: 483
+- **Deleted Files**: 97
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Revise playbook descriptions and add team sections (`17c8a7e`)
+- Add workflow to auto-generate CHANGELOG.md (`3200911`)
+- Create content suggestion issue template (`d87aef1`)
+- Create bug report template for issue tracking (`3bb7b24`)
+- Add SECURITY.md for reporting security issues (`7b2b511`)
+- Create CONTRIBUTING.md for contribution guidelines (`4cc2515`)
+- Add PNWC Ultimate Cybersecurity Tool Installer script (`7646c6e`)
+- Update subdomains list with new entries (`f675770`)
+- Create vscode.md (`65fb019`)
+- Add Arduino IDE setup guide to README (`f178d25`)
+- Add Arduino IDE multi-platform setup guide (`080fa6a`)
+- Enhance reader prerequisites with additional resources (`8a6e53d`)
+- Create evil_m5.md (`8dc91c2`)
+- Update README with new directory links and formatting (`22738eb`)
+- Create argus-osint.md (`c22bb37`)
+- Add files via upload (`b3614dc`)
+- Create md (`5051e17`)
+- Add badges to README for documentation and categories (`fb04339`)
+- Create Wireshark Filters Reference Document (`a58a78b`)
+- Create wireshark.md (`1690bce`)
+- Update README with additional supporting guides (`537d8ab`)
+- Add AI-Powered Security guide to START_HERE.md (`924403c`)
+- Update README with AI resources and new additions section (`a00d2a9`)
+- Revise README with new AI frameworks and resources (`df4d64f`)
+- Revise README content and add new badges (`a887fb5`)
+- Create use_cases.md (`30ecfa7`)
+- Create README.md (`4c58901`)
+- Create .gitignore (`ef308cf`)
+- Add badges for automation and maintenance status (`a9b6d1f`)
+- Add guide for Wireless Intrusion & Unauthorized Access (`e22cd12`)
+- Add Unauthorized Access Investigation Playbook (`b5c9b35`)
+- Create disk forensics guide for Autopsy and KAPE (`40496fc`)
+- Create autopsy_kape.md (`2202eed`)
+- Create osquery.md (`b2ec6dc`)
+- Add auditd_syslog.md for endpoint visibility (`f9c5825`)
+- Create syslog.md (`3627fe9`)
+- Create auditd.md (`afa7103`)
+- Add Graylog SIEM Deployment Guide (`85b5357`)
+- Create splunk.md (`f19590b`)
+- Create elk_stack.md (`b047deb`)
+- Add Log Aggregation & Visibility Guide (`dfebacc`)
+- Create Volatility 3 Cheatsheet for memory analysis (`88527b0`)
+- Add SOP for Phishing Email Analysis (`3bd353f`)
+- Add Windows Sysmon configuration documentation (`eac5999`)
+- Add Wazuh setup guide to README (`476ed93`)
+- Add incident response guide for wireless intrusions (`739e3ad`)
+- Add README for Incident Response section (`9ad876e`)
+- Update README with additional resource links (`ae90cfa`)
+- Add README for Cybersecurity Homelab section (`fb0ce7a`)
+- Add Appendix C with lab stability pro-tips (`c3ecdbb`)
+- Add self-hosted wireless lab security assessment playbook (`327b0f5`)
+- Create CHANGELOG.md (`1cce1a7`)
+- Create DRAFT_CHANGELOG.md (`4f32cbf`)
 - Create generate_changelog.py (`bcada85`)
 - Create ai_prompts.md (`ecbe1e7`)
 - Create sys_prof.txt (`a311f9b`)
@@ -21,8 +74,233 @@
 - Create Phone_OSINT.md (`4a2e4dc`)
 - Create Domain_IP_Recon.md (`b834edb`)
 - Create Email_OSINT.md (`1773885`)
+- Create OSINT_CHEATSHEET.md (`6887648`)
+- Create OSINT_TOOLS_CATALOG.md (`f80d4e2`)
+- Create README.md (`32e0f4e`)
+- Create api_keys.conf (`e1fcdfc`)
+- Create install_dependencies.sh (`4076b2f`)
+- Create investigation_guide.md (`0e2ad4e`)
+- Create osint_investigator.sh (`7afb97e`)
+- Create blackarch.md with setup instructions (`92f575d`)
+- Create LEGAL.md (`ab90db9`)
+- Create README.md (`af0d95f`)
+- Create README.md (`86f971b`)
+- Create README.md (`a4c330b`)
+- Create README.md (`b69e892`)
+- Create README.md (`2ebcb89`)
+- Create README.md (`30f8377`)
+- Create README.md (`3152183`)
+- Create README.md (`ae2fa15`)
+- Create osint_guide.md (`c9cedc4`)
+- Create OPSEC_Setup.md (`a30f243`)
+- Create offline-llm.md (`26f1a57`)
+- Create README.md (`d3ce76a`)
+- Create flow-threat_intel.md (`766991d`)
+- Create flow-vulnreport_gen.md (`b8f5a0b`)
+- Create flow-cve_lookup.md (`b712ee8`)
+- Create flow-nmap_analyzer.md (`20fc6f1`)
+- Create flow-breacher_check.md (`b7ac2f6`)
+- Create flow-Github_secrets.md (`ee59171`)
+- Create flow-emailOSINT.md (`e3b024d`)
+- Create flow-DomainRecon.md (`52acba7`)
+- Create flow-CompanyOSINT.md (`0e44a87`)
+- Create anything_llm_agentflows,md (`b63f8f7`)
+- Add files via upload (`99f7aa8`)
+- Add files via upload (`72c981d`)
+- Add files via upload (`a6a47b8`)
+- Delete Scripts/wordpress_add_admin (`2fd134b`)
+- Add files via upload (`434005b`)
+- Add files via upload (`4f71601`)
+- Add files via upload (`42bccee`)
+- Create .gitirnore (`484cd8c`)
+- Add files via upload (`30d3d26`)
+- Create Active_Directory.md (`a58f059`)
+- Add files via upload (`67a8141`)
+- Add files via upload (`8556837`)
+- Add files via upload (`cb2498e`)
+- Add files via upload (`276a353`)
+- Create brute_http_basic.go (`039ab61`)
+- Add files via upload (`7cd8122`)
+- Add files via upload (`ecc8440`)
+- Add files via upload (`2e1d75e`)
+- Create subdomains.txt (`5200465`)
+- Add files via upload (`96897a3`)
+- Add files via upload (`3f7a984`)
+- Add files via upload (`947a1f3`)
+- Add files via upload (`db48d35`)
+- Create wordpress_add_admin.sql (`8e7ec77`)
+- Create add_wordpress_admin.sql (`3f6aafa`)
+- Add files via upload (`107bb3a`)
+- Add files via upload (`457a380`)
+- Rename Wordpress_Add_Admin to wordpress_add_admin (`3543b75`)
+- Rename IPAddressCheck.sh to ip_check.sh (`1c0a604`)
+- Create file_search.py (`5c31028`)
+- Create string_compare.sh (`3b64357`)
+- Create integer_compare.sh (`e419847`)
+- Create local_scope.sh (`e92dd29`)
+- Create while_loop.sh (`063b271`)
+- Create until_loop.sh (`a4d82fa`)
+- Create if_else.sh (`599469e`)
+- Create user_input.sh (`4430899`)
+- Create port_scanner.py (`7cdb041`)
+- Create simple_file_fuzzer.py (`b00ef4f`)
+- Create shellcode_inj.py (`e327166`)
+- Create dll_Inject.py (`c58de0f`)
+- Create web_shell_http_client.sh (`d774366`)
+- Create recursive_search_backup.sh (`0710b33`)
+- Create file_search.sh (`40cfdde`)
+- Create string_compare.sh (`06c7fa4`)
+- Create rev_shell.ps1 (`b1af36e`)
+- Create cred_hunt.ps1 (`4de521c`)
+- Create port_scanner.ps1 (`d89f37d`)
+- Create System_enum.ps1 (`0c0e415`)
+- Create OS_command_inj.sh (`70e96cb`)
+- Create http_status_code.sh (`4e0ea73`)
+- Create webshell_check.py (`e3a93d7`)
+- Create Web_Shell_Inj.py (`074f2eb`)
+- Create Bash_Scripting_Cheat-Sheet.md (`6637c7b`)
+- Create rev_shell_state_mon.sh (`f6559e5`)
+- Create port_hopper.sh (`7419d07`)
+- Create ssh_brute.sh (`5f40a31`)
+- Create Wordpress_Add_Admin (`8a7367f`)
+- Create curl_banner_grab,sh (`6416523`)
+- Create nuclei_web_scanner.sh (`5dfd57c`)
+- Create GITfinder (`e01158d`)
+- Create server_site_DIR_scan.sh (`fbdb633`)
+- Create robottxtfetch.sh (`c2df2ff`)
+- Create systemsleep.c (`e021830`)
+- Create binary_name_rotate.sh (`6de762f`)
+- Create profile_hook.sh (`a4d4aba`)
+- Create fake_sudo.sh (`3379836`)
+- Create local_user_brute.sh (`52f1f43`)
+- Create gtfobins_search.sh (`d275f04`)
+- Create gnupg_brute.sh (`4e00003`)
+- Create Get_User.c (`cc39399`)
+- Create check_root_user.sh (`eb36bfd`)
+- Create home_DIR_accesschk.sh (`fdb6e82`)
+- Create os_detect_local.sh (`d1647f2`)
+- Create nmap_OS_detect.sh (`443c198`)
+- Create nmap_to_profile.sh (`c84f43b`)
+- Create Banner_Grab.sh (`799ced2`)
+- Create Host_Notify.sh (`97fc8ae`)
+- Create PortandServiceScan.sh (`a1d5328`)
+- Create NetworkPortWatch.sh (`2d7b6e8`)
+- Create IPAddressCheck.sh (`fd3df26`)
+- Create MultiHost_Ping.sh (`3b3d522`)
+- Create Ping_w_Argument.sh (`6f568ac`)
+- Create python.md (`88bd8e6`)
+- Create cybersecurity_playbook.md (`4aa9af9`)
+- Create BlueTeam_IncResp_Enhanced (`5fa8fe4`)
+- Create BlueTeam_IncidentResponse.md (`3f67c0a`)
+- Create PurpleTeam_Playbook_Detailed.md (`7659e42`)
+- Create PurpleTeamPlaybook_Multi-Scripting (`7ca0b26`)
+- Create PurpleTeam_Simple.md (`ccc62cc`)
+- Create virtualmachines.md (`3ac2ebc`)
+- Create GitHubPlaybooks.md (`8eb8488`)
+- Create TOR.md (`74e5daa`)
+- Create VPN.md (`d7131ab`)
+- Create hcxtoolshashcat.md (`fc6f199`)
+- Create MarauderCheatSheet.md (`727d65f`)
+- Create WiFiMarauderGuide.md (`98f804f`)
+- Create HomeLab.md (`0656588`)
+- Add files via upload (`835d599`)
+- Create Aircrack-ng_Commands.md (`c2e2b8f`)
+- Create pwnagotchi_cheatsheet.md (`2fc237d`)
+- Create pwnagotchi_cheatsheet.md (`9afad76`)
+- Create Aircrack-ng_Commands.md (`376c272`)
+- Add Linux Command Cheat Sheet link to README (`11fee0e`)
+- Add Linux Command Cheat Sheet and Reference (`96c80a5`)
+- Add new resources for network audit and pen testing (`2e327a0`)
+- Create firmware and hardware compatibility chart (`6efcc17`)
+- Create NetworkAuditPlayBook.md (`bf205cf`)
+- Add files via upload (`4b2312e`)
+- Add files via upload (`7ada93d`)
+- Create ENHANCED CYBERSECURITY MASTER GUIDE.md (`c88ad6a`)
+- Add files via upload (`9dfd79f`)
+- Add files via upload (`20c9377`)
+- Create .gitignore (`385b0f2`)
+- Create The Ultimate Cybersecurity Master Guide.md (`ab59e5e`)
+- Create START HERE.md (`c61e351`)
+- Create Advanced Cybersecurity Techniques - Part 2.md (`7d6f7cc`)
+- Create Advanced Cybersecurity Techniques - Part 1.md (`70e1512`)
+- Create Cybersecurity Comprehensive Cliff Notes.md (`7abb857`)
+- Create Cybersecurity Operational Playbooks.md (`5417905`)
+- Initial commit (`29ba5d2`)
+
+### 🐛 Fixes
+- Rename ISSUE_TEMPLATE/bug_report.md to .github/ISSUE_TEMPLATE/bug_report.md (`be76b92`)
+- Fix bjorn_pi.md entry in README (`f2addf7`)
+- Fix punctuation and formatting in evil_m5.md (`c2074f0`)
+- Correct author name in Argus installation guide (`4371461`)
+- Fix link formatting in README.md (`8bf84ff`)
+- Fix link formatting for Argus OSINT utility (`99eea3e`)
+- Fix grammatical error in installation guide (`c98abfa`)
+- Fix link in Argus OSINT Toolkit installation guide (`99a6cee`)
+- Fix typo in firmware comparison section title (`af3f8a5`)
+- Fix links in AI/README.md (`3a8400d`)
+- Fix formatting for agent_skill_config.md link (`7f97874`)
+- Fix link to agen_skill_config.md in README (`c03a5ca`)
+- Fix links in README for Lab Setup and Provisioning (`13bdb9b`)
+- Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update auto_changelog.yml (`3330d63`)
+- Update auto_changelog.yml (`fb7e94a`)
+- Update auto_changelog.yml (`3d3bf17`)
+- Rename ISSUE_TEMPLATE/content_suggestion.md to .github/ISSUE_TEMPLATE/content_suggestion.md (`4944d8a`)
+- Rename workflows/auto_changelog.yml to .github/workflows/auto_changelog.yml (`b95884c`)
+- Update README.md (`0096b21`)
+- Update auto_changelog.yml (`2899060`)
+- Update README.md (`10b9015`)
+- Rename pnwc_install_tools.sh to Scripts/pnwc_install_tools.sh (`1c1ae1a`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`c01529e`)
+- Update subdomains.txt (`ac46bf2`)
+- Update file descriptions in README.md (`8b8d512`)
+- Update vscode.md (`f618058`)
+- Update Arduino IDE 2.x section with link (`6922b6e`)
+- Update README.md (`f8697e2`)
+- Update README.md (`860dd80`)
+- Update README.md (`70100ff`)
+- Update print statement from 'Hello' to 'Goodbye' (`572fe43`)
+- Update print statement from 'Hello' to 'Goodbye' (`6931013`)
+- Update title to include Linux penguin emoji (`03f965d`)
+- Update LinuxCheatSheet.md (`5d8eb0e`)
+- Remove Home Lab section from OSINT README (`bf5ca23`)
+- Update description for argus_osint.md in README (`cd54208`)
+- Rename argus-osint.md to argus_osint.md (`c0be314`)
+- Update flipper_zero_guide.md (`4e53f20`)
+- Update flipper_zero_guide.md (`afcfaa9`)
+- Update flipper_zero_guide.md (`5f974f9`)
+- Update flipper_zero_guide.md (`4defeb3`)
+- Update print statement from 'Hello' to 'Goodbye' (`ba8f9b4`)
+- Update project title to 'Professional Cybersecurity Knowledge Base' (`943b3d7`)
+- Clean up formatting in README.md (`9a1aea8`)
+- Update README.md (`722127e`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`75978e6`)
+- Update link for Cybersecurity Operational Playbooks (`a9bec38`)
+- Update START_HERE.md (`5a47714`)
+- Update README.md (`e7a9aaf`)
+- Update README to clarify API key information (`e4a7b16`)
+- Update README.md (`ca2ef91`)
+- Rename agen_skill_config.md to agent_skill_config.md (`9caa0d6`)
+- Update print statement from 'Hello' to 'Goodbye' (`ff82761`)
+- Update README.md (`272dcac`)
+- Update README.md (`e762ac5`)
+- Update .gitignore to include security and clutter ignores (`53340ab`)
+- Remove Automation badge from README (`ffe7b55`)
+- Update links in README for Incident Response (`56a7b39`)
+- Update README.md (`ca81d7e`)
+- Update links in Incident Response README (`863db54`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`25c8e60`)
+- Move volatility cheatsheet to Memory directory (`e4a8105`)
+- Rename Volatility-Cheatsheet.md to volatility_cheatsheet.md (`818c2fe`)
+- Rename Homelab/self-hosted_network_attacks.md to Homelab/workflows/self-hosted_network_attacks.md (`95900a1`)
+- Update README with improved guide details and links (`22a600a`)
+- Rename HomeLab_Setup.md to HomeLab_Setup.md (`4f49244`)
+- Revise document structure and update device inventory (`2cbde16`)
+- Rename self-hosted_network_attacks.md to self-hosted_network_attacks.md (`b3c6cf5`)
+- Update and rename self-hosted_network_attacks.md to self-hosted_network_attacks.md (`c3ac4d4`)
+- Update and rename self-hosted_SBC_attacks.md to self-hosted_network_attacks.md (`3a0fbce`)
 - Update description of offline-llm.md (`0f8d75c`)
 - Update descriptions in README.md for clarity (`20a9217`)
 - Update README.md (`42bfb30`)
@@ -33,34 +311,794 @@
 - Update README.md (`cdb2073`)
 - Update README.md (`50cc738`)
 - Update README.md (`1d81c73`)
+- Update README.md (`a5bdd55`)
+- Rename osint_guide.md to OSINT_GUIDE.md (`36b37b2`)
+- Update osint_investigator.sh (`9f2c4d1`)
+- Update osint_investigator.sh (`1299308`)
+- Update README.md (`77bdf9a`)
+- Update blackarch.md with network and package instructions (`2c62df4`)
+- Update blackarch.md (`84439b7`)
+- Update README.md (`56f1ff8`)
+- Update README.md (`c3ef8ef`)
+- Update START_HERE.md (`eaa905c`)
+- Update LEGAL.md (`1f18e47`)
+- Update README.md (`35af105`)
+- Update README.md (`01d1b6a`)
+- Update README.md (`4245879`)
+- Update README.md (`80edfa7`)
+- Update README.md (`ffd59e9`)
+- Update README.md (`5a19da7`)
+- Update README.md (`53465fc`)
+- Update OPSEC_guide.md (`e933017`)
+- Rename OPSEC_Setup.md to OPSEC_guide.md (`4409cd3`)
+- Update offline-llm.md (`1d3d4ef`)
+- Update offline-llm.md (`679ae9a`)
+- Update README.md (`503077c`)
+- Update README.md (`e46fdaa`)
+- Rename flow-Github_secrets.md to flow-github_secrets.md (`e0de238`)
+- Rename flow-CompanyOSINT.md to flow-company_osint.md (`6b1eff4`)
+- Rename flow-emailOSINT.md to flow-email_osint.md (`868efa3`)
+- Rename flow-DomainRecon.md to flow-domain_recon.md (`20751ea`)
+- Rename anything_llm_agentflows,md to anything_llm_agentflows.md (`c9220e6`)
+- Rename git_finder to git_finder.yaml (`b530e55`)
+- Rename GITfinder to git_finder (`16539e2`)
+- Rename Get_User.c to get_user.c (`823d4ad`)
+- Rename Banner_Grab.sh to banner_grab.sh (`17d3927`)
+- Rename Bash_Scripting_Cheat-Sheet.md to bash_scripting_cheat-sheet.md (`49e2bb7`)
+- Rename Host_Notify.sh to host_notify.sh (`8db9863`)
+- Rename MultiHost_Ping.sh to multi-host_ping.sh (`2b94250`)
+- Rename NetworkPortWatch.sh to network_port_watch.sh (`28cafd7`)
+- Rename OS_command_inj.sh to os_command_inj.sh (`8ab1529`)
+- Rename Ping_w_Argument.sh to ping_w_argument.sh (`9b999eb`)
+- Rename PortandServiceScan.sh to port_services_scan.sh (`b4eda13`)
+- Rename file_search.py to file_search.sh (`7ee2f1b`)
+- Rename Web_Shell_Inj.py to web_shell_inj.py (`fccb730`)
+- Rename System_enum.ps1 to system_enum.ps1 (`531c698`)
+- Update Bash_Scripting_Cheat-Sheet.md (`a8058b7`)
+- Rename Get_User.c to Get_User.c (`17ef788`)
+- Rename systemsleep.c to systemsleep.c (`d5e2cff`)
+- Rename python.md to Documentation/python.md (`d2e0d15`)
+- Update README.md (`f488a8b`)
+- Update README.md (`aa7cb17`)
+- Rename LinuxCheatSheet.md to Documentation/LinuxCheatSheet.md (`40653f1`)
+- Update README.md (`be6cc09`)
+- Update README.md (`60c1683`)
+- Update README.md (`3b147e0`)
+- Rename cybersecurity_playbook.md to cybersecurity_playbooks.md (`99dfb99`)
+- Rename NetworkAuditPlayBook.md to PlayBooks/NetworkAuditPlayBook.md (`ab34bf4`)
+- Update PurpleTeam_Detailed.md (`a14a9af`)
+- Update GitHubPlaybooks.md (`e6d07f5`)
+- Update BlueTeam_IncResp_Simple.md (`3eba958`)
+- Update BlueTeam_IncResp_Enhanced.md (`78c9706`)
+- Update PurpleTeam_Simple.md (`a47ae93`)
+- Update PurpleTeam_Multi-Scrip.md (`17d3874`)
+- Update PurpleTeam_Detailed.md (`177d9f3`)
+- Update GitHubPlaybooks.md (`8492fe1`)
+- Update BlueTeam_IncResp_Simple.md (`89412fa`)
+- Update BlueTeam_IncResp_Enhanced.md (`09f6403`)
+- Update PurpleTeam_Simple.md (`7063441`)
+- Rename BlueTeam_IncResp_Enhanced to BlueTeam_IncResp_Enhanced.md (`5cf9cf7`)
+- Rename BlueTeam_IncResp_Simple to BlueTeam_IncResp_Simple.md (`a78494f`)
+- Rename PurpleTeam_Multi-Scripting to PurpleTeam_Multi-Scrip.md (`356edd8`)
+- Rename BlueTeam_IncidentResponse.md to BlueTeam_IncResp_Simple (`b552db3`)
+- Rename GitHubPlaybooks.md to GitHubPlaybooks.md (`b9b6142`)
+- Rename PurpleTeamPlaybook_Multi-Scripting to PurpleTeam_Multi-Scripting (`7f4d636`)
+- Rename PurpleTeam_Playbook_Detailed.md to PurpleTeam_Detailed.md (`6e91fd5`)
+- Update virtualmachines.md (`6053e85`)
+- Update GitHubPlaybooks.md (`78e5691`)
+- Update VPN.md (`229a1d6`)
+- Rename HomeLabSetup.md to HomeLab_Setup.md (`273eb79`)
+- Rename WiFiMarauderGuide.md to WiFiMarauder_Guide.md (`cbc2419`)
+- Rename WifiMarauderCheatSheet.md to WifiMarauder_CheatSheet.md (`e52799b`)
+- Update HomeLabSetup.md (`591b11f`)
+- Update pwnagotchi_cheatsheet.md (`c3d26ce`)
+- Update hcxtoolshashcat.md (`cdca5a8`)
+- Update WifiMarauderCheatSheet.md (`107f308`)
+- Update WiFiMarauderGuide.md (`938635a`)
+- Update HomeLabSetup.md (`a874f9b`)
+- Update Aircrack-ng_Commands.md (`3f1dfab`)
+- Update WifiMarauderCheatSheet.md (`6969216`)
+- Update hcxtoolshashcat.md (`09c266c`)
+- Update and rename MarauderCheatSheet.md to WifiMarauderCheatSheet.md (`f521aa2`)
+- Update WiFiMarauderGuide.md (`deb882f`)
+- Update hcxtoolshashcat.md (`fdff36f`)
+- Rename hcxtoolshashcat.md. to hcxtoolshashcat.md (`e6a3423`)
+- Rename hcxtoolshashcat.md to Documentation/hcxtoolshashcat.md. (`652a7d5`)
+- Update WiFiMarauderGuide.md (`32ca3c7`)
+- Update WiFiMarauderGuide.md (`03603c5`)
+- Update WiFiMarauderGuide.md (`b2e46d6`)
+- Update WiFiMarauderGuide.md (`bbe0132`)
+- Update WiFiMarauderGuide.md (`fec4972`)
+- Update HomeLabSetup.md (`d962a0c`)
+- Update HomeLabSetup.md (`6b240df`)
+- Rename HomeLab.md to HomeLabSetup.md (`549796c`)
+- Update README.md (`2d607e6`)
+- Update Aircrack-ng_Commands.md (`e48826d`)
+- Update pwnagotchi_cheatsheet.md (`3f69b7d`)
+- Update Aircrack-ng_Commands.md (`c3c0560`)
+- Update LinuxCheatSheet.md (`551755c`)
+- Update LinuxCheatSheet.md (`d7ca2cb`)
+- Update README.md (`4aa7e84`)
+- Update README.md (`29e4088`)
+- Update README.md (`8b51e0b`)
+- Update Aircrack-ng_Commands.md (`9d8a6cd`)
+- Update pwnagotchi_cheatsheet.md (`8d88a2b`)
+- Update pwnagotchi_cheatsheet.md (`c002c1e`)
+- Update Aircrack-ng_Commands.md (`87ead3b`)
+- Update LinuxCheatSheet.md (`9e354ef`)
+- Update README.md (`1bd5426`)
+- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`d3001dc`)
+- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`8554eb9`)
+- Update hardware compatibility and firmware details (`f106dd6`)
+- Update section headers and table of contents (`edb2d15`)
+- Update README.md (`cf3f6ab`)
+- Update README.md (`f1ee9f6`)
+- Update START_HERE.md (`5ad4cb0`)
+- Update START_HERE.md (`69249f5`)
+- Update START_HERE.md (`bdd86ff`)
+- Update START_HERE.md (`26b2cbe`)
+- Update START_HERE.md (`c1c5841`)
+- Update START_HERE.md (`3515b6e`)
+- Update README.md (`77ec804`)
+- Update advanced_techniques_part2.md (`c8a698f`)
+- Update advanced_techniques_supplement.md (`350727f`)
+- Update ultimate_cybersecurity_master_guide.md (`c259933`)
+- Update README.md (`2024298`)
+- Update ENHANCED_MASTER_GUIDE.md (`6bad443`)
+- Update ENHANCED_MASTER_GUIDE.md (`815ae06`)
+- Update ENHANCED_MASTER_GUIDE.md (`3aba16a`)
+- Update README.md (`d2f1668`)
+- Update README.md (`5f001a2`)
+- Update README.md (`70c41f0`)
+- Update README.md (`63bfdeb`)
+- Update README.md (`8ab051d`)
+- Update README.md (`ee5f700`)
+- Update README.md (`2acd04e`)
+- Update README.md (`9bee6b8`)
+- Update README.md (`9b8fee6`)
+- Update ENHANCED_MASTER_GUIDE.md (`f2d4bb9`)
+- Update ENHANCED_MASTER_GUIDE.md (`72b3096`)
+- Update ENHANCED_MASTER_GUIDE.md (`aa477d8`)
+- Update ENHANCED_MASTER_GUIDE.md (`444bfed`)
+- Update ultimate_cybersecurity_master_guide.md (`ba77562`)
+- Update README.md (`211fbf6`)
+- Update README.md (`87c683a`)
+- Update README.md (`d4c11ee`)
+- Update README.md (`27272fc`)
+- Update README.md (`231e8ee`)
+- Rename ENHANCED CYBERSECURITY MASTER GUIDE.md to ENHANCED_MASTER_GUIDE.md (`771b3c9`)
+- Rename START HERE.md to START_HERE.md (`9d28827`)
+- Update README.md (`afb7ace`)
+- Update START HERE.md (`0b7efe7`)
+- Update advanced_techniques_part2.md (`1f4130e`)
+- Update cybersecurity_playbooks.md (`c8e4aff`)
+- Update cybersecurity_cliff_notes.md (`c96f973`)
+- Update START HERE.md (`f97474d`)
+- Update advanced_techniques_supplement.md (`dbd9c8f`)
+- Update ultimate_cybersecurity_master_guide.md (`c4921c7`)
+- Update START HERE.md (`1f22029`)
+- Update START HERE.md (`b950c8a`)
+- Rename Advanced Cybersecurity Techniques - Part 2.md to advanced_techniques_part2.md (`fed2164`)
+- Rename Advanced Cybersecurity Techniques - Part 1.md to advanced_techniques_supplement.md (`77dc178`)
+- Rename Cybersecurity Operational Playbooks.md to cybersecurity_playbooks.md (`eb0454d`)
+- Rename Cybersecurity Comprehensive Cliff Notes.md to cybersecurity_cliff_notes.md (`ea98b67`)
+- Rename ultimate_cybersecurity_master_guide.md.md to ultimate_cybersecurity_master_guide.md (`6c4d5bc`)
+- Rename The_Ultimate_Cybersecurity_Master_Guide.md to ultimate_cybersecurity_master_guide.md.md (`e8708cc`)
+- Rename The Ultimate Cybersecurity Master Guide.md to The_Ultimate_Cybersecurity_Master_Guide.md (`ca47ca5`)
+- Update README.md (`4270f6a`)
+- Update README.md (`9cdc395`)
+- Update README.md (`02e685b`)
+- Update README.md (`5cf4204`)
+- Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Revise playbooks section in README (`779a325`)
+- Enhance documentation with hyperlinks for references (`d4feb91`)
+- Enhance README with image and maintenance badge (`fb8df0d`)
+- Revise folder contents section in README.md (`794328c`)
+- Enhance README.md formatting and content clarity (`9fccfd6`)
+- Revise Companion Documents section in README (`733f839`)
+- Enhance README formatting and document descriptions (`eac9cb1`)
+- Enhance README with resource links (`8567e9a`)
+- Revise and expand Volatility 3 memory forensics guide (`e0f6ea0`)
+- Revise Windows Sysmon documentation for deployment guide (`31660f4`)
+- Revise Wazuh setup guide for Docker and agents (`9980edd`)
+- Expand README with SOPs and lab maintenance guides (`b38ddd7`)
+- Expand self-hosted network attacks documentation (`637b332`)
 - Revise AI prompts document for 2026 edition (`d24c509`)
+- Revise entries in README for clarity (`f727804`)
+
+### 🗑️ Removals
+- Delete DRAFT_CHANGELOG.md (`0419ea9`)
+- Delete Incident Response/Endpoint-Visibility/Linux/syslog.md (`71a9452`)
+- Delete Checklists/Active_Directory.md (`4f0b16c`)
+- Delete Scripts/Bash/admin-panel-finder.sh (`ac11329`)
+- Delete Scripts/GO/brute_http_basic.go (`38387d6`)
+- Delete Scripts/Bash/string_compare.sh (`8ad2180`)
+- Delete Scripts/Bash/file_search.sh (`91498ef`)
+- Delete cybersecurity_playbooks.md (`778b002`)
+- Delete SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf (`53f0176`)
+- Delete Ethical.Hacking.MindMap.pdf (`9160055`)
+- Delete Aircrack-ng_Commands.md (`6167d8c`)
+- Delete pwnagotchi_cheatsheet.md (`e227803`)
+- Delete Books/010SessionHijacking.pdf (`cd01e59`)
+- Delete Books/005Metasploit.Framework.pdf (`71dd6a1`)
+- Delete Books/001Introduction.To.Ethical.Hacking.pdf (`27ed806`)
+- Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Enhance changelog generator functionality (`96fcea6`)
+- Enhance Volatility 3 cheatsheet with detailed commands (`9d315ad`)
+- Merge pull request #7 from Pnwcomputers/Pnwcomputers-patch-1 (`1b90a59`)
 - Merge pull request #6 from Pnwcomputers/Pnwcomputers-patch-1 (`fc78cc5`)
 - Merge pull request #5 from Pnwcomputers/Pnwcomputers-patch-1 (`596eb64`)
+- Merge pull request #4 from Pnwcomputers/Pnwcomputers-patch-2 (`cf2240c`)
+- Merge pull request #3 from Pnwcomputers/Pnwcomputers-patch-2 (`5e1a219`)
+- Merge pull request #2 from Pnwcomputers/Pnwcomputers-patch-2 (`0c515ce`)
+- Merge pull request #1 from Pnwcomputers/Pnwcomputers-patch-1 (`351c406`)
+- Refine DIY PenTesting hardware description (`a66a1fe`)
+- Merge branch 'main' of https://github.com/Pnwcomputers/Cybersecurity-Operational-Playbooks (`665c8d7`)
+- removing books (`1d64fdb`)
+- PDF Books (`27e0360`)
 
 ## 📂 Files Touched
 <details>
 <summary>Click to view full file list</summary>
 
-- `AI/README.md`
-- `AI/ai_prompts.md`
-- `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
-- `OSINT/README.md`
-- `OSINT/scripts/Domain_IP_Recon.md`
-- `OSINT/scripts/Email_OSINT.md`
-- `OSINT/scripts/Phone_OSINT.md`
+- `.github/workflows/auto_changelog.yml`
+- `.github/ISSUE_TEMPLATE/content_suggestion.md`
+- `.github/ISSUE_TEMPLATE/bug_report.md`
 - `README.md`
-- `Scripts/Bash/BashBunny/README.md`
+- `generate_changelog.py`
+- `workflows/auto_changelog.yml`
+- `ISSUE_TEMPLATE/content_suggestion.md`
+- `ISSUE_TEMPLATE/bug_report.md`
+- `.github/SECURITY.md`
+- `.github/CONTRIBUTING.md`
+- `Scripts/pnwc_install_tools.sh`
+- `pnwc_install_tools.sh`
+- `Documentation/subdomains.txt`
+- `Documentation/README.md`
+- `Documentation/vscode.md`
+- `Documentation/arduinoIDE.md`
+- `Documentation/bjorn_pi.md`
+- `Documentation/bruce_firmware.md`
+- `Documentation/evil_m5.md`
+- `Documentation/LinuxCheatSheet.md`
+- `OSINT/argus_osint.md`
+- `OSINT/README.md`
+- `OSINT/argus-osint.md`
+- `Documentation/flipper_zero_guide.md`
+- `assets/cybersecurityguide.png`
+- `assets/md`
+- `DRAFT_CHANGELOG.md`
+- `Documentation/wireshark.md`
+- `START_HERE.md`
+- `AI/README.md`
+- `AI/AnythingLLM/README.md`
+- `AI/OpenClaw/README.md`
+- `AI/OpenClaw/agent_skill_config.md`
+- `AI/OpenClaw/agen_skill_config.md`
+- `AI/OpenClaw/use_cases.md`
+- `.gitignore`
+- `Incident Response/README.md`
+- `PlayBooks/unauth_access.md`
+- `Incident Response/Digital-Forensics/Live Data/live_data_collection.md`
+- `Incident Response/Digital-Forensics/Disks/autopsy_kape.md`
+- `Incident Response/Digital-Forensics/Memory/volatility_cheatsheet.md`
+- `Incident Response/Endpoint-Visibility/Linux/osquery.md`
+- `Incident Response/Endpoint-Visibility/Linux/auditd.md`
+- `Incident Response/Endpoint-Visibility/Linux/auditd_syslog.md`
+- `Incident Response/Endpoint-Visibility/Linux/syslog.md`
+- `Incident Response/SIEM/graylog.md`
+- `Incident Response/SIEM/splunk.md`
+- `Incident Response/SIEM/elk_stack.md`
+- `Incident Response/Digital-Forensics/Memory-Analysis/volatility_cheatsheet.md`
+- `Incident Response/log_agg.md`
+- `Incident Response/Endpoint-Visibility/Windows/sysmon-setup.md`
+- `Incident Response/Endpoint-Visibility/Windows/sysmon.md`
+- `Incident Response/SIEM/Wazuh/README.md`
+- `Incident Response/SIEM/wazuh.md`
+- `Incident Response/Digital-Forensics/Memory-Analysis/Volatility-Cheatsheet.md`
+- `PlayBooks/sop_phising_analysis.md`
+- `Incident Response/network_intrusion.md`
+- `Homelab/README.md`
+- `Homelab/workflows/self-hosted_network_attacks.md`
+- `Homelab/HomeLab_Setup.md`
+- `Homelab/self-hosted_network_attacks.md`
+- `home lab/self-hosted_network_attacks.md`
+- `examples/self-hosted_network_attacks.md`
+- `examples/self-hosted_SBC_attacks.md`
+- `CHANGELOG.md`
+- `AI/ai_prompts.md`
+- `Scripts/Bash/BashBunny/sys_prof.txt`
 - `Scripts/Bash/BashBunny/cred_harv.txt`
 - `Scripts/Bash/BashBunny/network_recon.txt`
-- `Scripts/Bash/BashBunny/sys_prof.txt`
 - `Scripts/Bash/BashBunny/windows_exfil.txt`
+- `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/Ducky/exfil_windowsPC.txt`
-- `generate_changelog.py`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/scripts/Phone_OSINT.md`
+- `OSINT/scripts/Domain_IP_Recon.md`
+- `OSINT/scripts/Email_OSINT.md`
+- `OSINT/OSINT_CHEATSHEET.md`
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/Playbook/osint_investigator.sh`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/api_keys.conf`
+- `OSINT/Playbook/install_dependencies.sh`
+- `OSINT/Playbook/investigation_guide.md`
+- `Documentation/blackarch.md`
+- `LEGAL.md`
+- `Scripts/README.md`
+- `PlayBooks/README.md`
+- `PDF/README.md`
+- `Checklists/README.md`
+- `OPSEC/README.md`
+- `OSINT/osint_guide.md`
+- `OPSEC/OPSEC_guide.md`
+- `OPSEC/OPSEC_Setup.md`
+- `AI/offline-llm.md`
+- `Checklists/Active_Directory.md`
+- `AI/AnythingLLM/flow-threat_intel.md`
+- `AI/AnythingLLM/flow-vulnreport_gen.md`
+- `AI/AnythingLLM/flow-cve_lookup.md`
+- `AI/AnythingLLM/flow-nmap_analyzer.md`
+- `AI/AnythingLLM/flow-github_secrets.md`
+- `AI/AnythingLLM/flow-company_osint.md`
+- `AI/AnythingLLM/flow-email_osint.md`
+- `AI/AnythingLLM/flow-breacher_check.md`
+- `AI/AnythingLLM/flow-domain_recon.md`
+- `AI/AnythingLLM/flow-Github_secrets.md`
+- `AI/AnythingLLM/flow-emailOSINT.md`
+- `AI/AnythingLLM/flow-DomainRecon.md`
+- `AI/AnythingLLM/flow-CompanyOSINT.md`
+- `AI/AnythingLLM/anything_llm_agentflows.md`
+- `AI/AnythingLLM/anything_llm_agentflows,md`
+- `Scripts/Bash/admin-panel-finder.sh`
+- `Scripts/Python/bindshell.py`
+- `Scripts/Python/virus_check.py`
+- `Scripts/Python/__init__.py`
+- `Scripts/Python/anon_browser.py`
+- `Scripts/Python/anon_google.py`
+- `Scripts/Python/blue_bug.py`
+- `Scripts/Python/bt_find.py`
+- `Scripts/Python/bt_scan.py`
+- `Scripts/Python/credit_sniff.py`
+- `Scripts/Python/dup.py`
+- `Scripts/Python/find_ddos.py`
+- `Scripts/Python/fire_catcher.py`
+- `Scripts/Python/ftp_sniff.py`
+- `Scripts/Python/geo_ip.py`
+- `Scripts/Python/geo_print.py`
+- `Scripts/Python/google_earth_pcap.py`
+- `Scripts/Python/google_json.py`
+- `Scripts/Python/google_jumbled.py`
+- `Scripts/Python/google_sniff.py`
+- `Scripts/Python/hotel_sniff.py`
+- `Scripts/Python/ids_foil.py`
+- `Scripts/Python/image_mirror.py`
+- `Scripts/Python/iphone_finder.py`
+- `Scripts/Python/kitten_test.py`
+- `Scripts/Python/link_parser.py`
+- `Scripts/Python/mitnick_attack.py`
+- `Scripts/Python/mlb-cities.txt`
+- `Scripts/Python/ninja_print.py`
+- `Scripts/Python/print_cookies.py`
+- `Scripts/Python/print_direction.py`
+- `Scripts/Python/proxy_test.py`
+- `Scripts/Python/rfcomm_scan.py`
+- `Scripts/Python/sdp_scan.py`
+- `Scripts/Python/send_mail.py`
+- `Scripts/Python/send_spam.py`
+- `Scripts/Python/sniff_hidden.py`
+- `Scripts/Python/sniff_probe.py`
+- `Scripts/Python/spoof_detect.py`
+- `Scripts/Python/test_domain_flux.py`
+- `Scripts/Python/test_fast_flux.py`
+- `Scripts/Python/test_sniff.py`
+- `Scripts/Python/twitter_class.py`
+- `Scripts/Python/twitter_geo.py`
+- `Scripts/Python/twitter_interests.py`
+- `Scripts/Python/twitter_recon.py`
+- `Scripts/Python/uav_sniff.py`
+- `Scripts/Python/useragent_test.py`
+- `Scripts/Python/view_page.py`
+- `Scripts/Python/conficker.py`
+- `Scripts/Python/discover_networks.py`
+- `Scripts/Python/dump_recyclebin.py`
+- `Scripts/Python/exif_fetch.py`
+- `Scripts/Python/firefox_parse.py`
+- `Scripts/Python/iphone_messages.py`
+- `Scripts/Python/nmap_scan.py`
+- `Scripts/Python/pass.txt`
+- `Scripts/Python/passwd_crack.py`
+- `Scripts/Python/passwords.txt`
+- `Scripts/Python/pdf_read.py`
+- `Scripts/Python/port_scan.py`
+- `Scripts/Python/skype_parse.py`
+- `Scripts/Python/ssh_botnet.py`
+- `Scripts/Python/ssh_brute.py`
+- `Scripts/Python/ssh_brutekey.py`
+- `Scripts/Python/ssh_command.py`
+- `Scripts/Python/ssh_pxssh_command.py`
+- `Scripts/Python/userpass.txt`
+- `Scripts/Python/vuln_banners.txt`
+- `Scripts/Python/vuln_scanner.py`
+- `Scripts/Python/zip_crack.py`
+- `Scripts/GO/brute_http_basic.go`
+- `Scripts/wordpress_add_admin`
+- `Scripts/Bash/anon.sh`
+- `Scripts/Bash/attack.sh`
+- `Scripts/Bash/scan.sh`
+- `Scripts/Bash/start-capture.sh`
+- `Scripts/Bash/start-mon.sh`
+- `Scripts/Bash/start-wlan.sh`
+- `Scripts/C/scanner.c`
+- `PDF/AD_Attacks_.pdf`
+- `PDF/AD_Post_Exploitation.pdf`
+- `PDF/Docker pen test.pdf`
+- `PDF/IDOR_Guide.pdf`
+- `PDF/Linux_Privilege_Escalation.pdf`
+- `PDF/Network_101_1738356173.pdf`
+- `PDF/Network_Essentials.pdf`
+- `PDF/OSCP_Cheat_Sheet.pdf`
+- `PDF/Pentest_Check_List.pdf`
+- `PDF/Pentest_Guide.pdf`
+- `PDF/ReactJs_Cheatsheet.pdf`
+- `PDF/SSH_Access_.pdf`
+- `PDF/Ssh pen testing .pdf`
+- `PDF/Web_Attacks_.pdf`
+- `PDF/Web_application_Firewall__.pdf`
+- `PDF/Wi_Fi_hacking__.pdf`
+- `PDF/Wireshark_Cheat_Sheet.pdf`
+- `PDF/zero-day-hunter.pdf`
+- `PDF/.gitirnore`
+- `Checklists/ActiveDirectory.md`
+- `Checklists/Android-Applications-Checklist.md`
+- `Checklists/AppLocker.md`
+- `Checklists/Command&Control.md`
+- `Checklists/Credential-Access.md`
+- `Checklists/Defense-Evasion.md`
+- `Checklists/Domain-Escalation.md`
+- `Checklists/Domain-Persistence.md`
+- `Checklists/Environment-Breakout-Checklist.md`
+- `Checklists/Initial-Access.md`
+- `Checklists/Lateral-Movement.md`
+- `Checklists/Linux-Privilege-Escalation.md`
+- `Checklists/Microsoft Exchange.md`
+- `Checklists/Persistence.md`
+- `Checklists/VoIP Checklist.md`
+- `Checklists/Windows-Build-Review-Checklist.md`
+- `Checklists/Windows-Privilege-Escalation.md`
+- `Scripts/PowerShell/adlogin.ps1`
+- `Scripts/PowerShell/localbrute-extra-mini.ps1`
+- `Scripts/PowerShell/localbrute.ps1`
+- `Scripts/PowerShell/port-scan-tcp-compat.ps1`
+- `Scripts/PowerShell/port-scan-tcp.ps1`
+- `Scripts/PowerShell/port-scan-udp.ps1`
+- `Scripts/PowerShell/smblogin-extra-mini.ps1`
+- `Scripts/PowerShell/smblogin.ps1`
+- `Scripts/GO/scan/do_proxy_chains.py`
+- `Scripts/GO/scan/do_ssh_proxy.py`
+- `Scripts/GO/scan/exploitable.go`
+- `Scripts/GO/scan/generate-transforms.sh`
+- `Scripts/GO/scan/gnmap2md.py`
+- `Scripts/GO/scan/lhf.py`
+- `Scripts/GO/scan/masscan_parse.py`
+- `Scripts/GO/scan/nmapscan.sh`
+- `Scripts/GO/scan/plugin.py`
+- `Scripts/GO/scan/ports`
+- `Scripts/GO/scan/scan.py`
+- `Scripts/GO/scan/socksscan.go`
+- `Scripts/GO/shells/bypass.c`
+- `Scripts/GO/shells/bypass.exe`
+- `Scripts/GO/shells/insert_encoder.go`
+- `Scripts/GO/shells/ishell.exe`
+- `Scripts/GO/shells/ishell.py`
+- `Scripts/GO/shells/shell.py`
+- `Scripts/GO/shells/stealth.go`
+- `Scripts/GO/webapp/bad.html`
+- `Scripts/GO/webapp/busta.sh`
+- `Scripts/GO/webapp/cfneo.rb`
+- `Scripts/GO/webapp/cfpwn.rb`
+- `Scripts/GO/webapp/dirb.py`
+- `Scripts/GO/webapp/discover.py`
+- `Scripts/GO/webapp/http_upload.py`
+- `Scripts/GO/webapp/proof.js`
+- `Scripts/GO/webapp/rails_find.py`
+- `Scripts/GO/webapp/rails_secret_token.py`
+- `Scripts/GO/webapp/rails_secret_tokens.txt`
+- `Scripts/GO/webapp/servers_to_burp.py`
+- `Scripts/GO/webapp/sweet32.go`
+- `Scripts/GO/webapp/web_discover.py`
+- `Scripts/Bash/bad_service.sh`
+- `Scripts/Bash/get_ssh_keys.sh`
+- `Scripts/Bash/nmapscan.sh`
+- `Scripts/GO/bruteforce/brute_http_basic.go`
+- `Scripts/GO/bruteforce/brute_http_basic.py`
+- `Scripts/GO/bruteforce/brute_http_form.cfg`
+- `Scripts/GO/bruteforce/brute_http_form.py`
+- `Scripts/GO/bruteforce/brute_http_ntlm.py`
+- `Scripts/GO/bruteforce/brute_ssh_keyboard.py`
+- `Scripts/GO/bruteforce/cassbrute.py`
+- `Scripts/GO/bruteforce/firewarebf.py`
+- `Scripts/GO/bruteforce/multi_ssh.py`
+- `Scripts/GO/bruteforce/sw_ike.py`
+- `Scripts/GO/cloud/s3browse.go`
+- `Scripts/GO/database/mysql_partial.go`
+- `Scripts/GO/database/mysql_search.py`
+- `Scripts/GO/enumeration/ad_self_service_miner.py`
+- `Scripts/GO/enumeration/censys_domain.go`
+- `Scripts/GO/enumeration/dnsbrute.py`
+- `Scripts/GO/enumeration/first_names.txt`
+- `Scripts/GO/enumeration/last_names.txt`
+- `Scripts/GO/enumeration/resolve.py`
+- `Scripts/GO/enumeration/resolve_mt.py`
+- `Scripts/GO/enumeration/smtp_enum.py`
+- `Scripts/GO/enumeration/texttable.py`
+- `Scripts/GO/enumeration/usernames.py`
+- `Scripts/GO/exploit/ssh_pwn.py`
+- `Scripts/GO/exploit/ssh_super_virus.py`
+- `Scripts/GO/exploit/t3.go`
+- `Scripts/GO/osint/certquery.go`
+- `Scripts/GO/osint/gravatar.py`
+- `Scripts/GO/osint/shodan_ip.py`
+- `Scripts/GO/passwords/ikehash.sh`
+- `Scripts/GO/passwords/iterhash.go`
+- `Scripts/GO/passwords/passfilter.py`
+- `Scripts/GO/passwords/type7.py`
+- `Scripts/GO/passwords/weak_passwords.py`
+- `Scripts/Bash/exit_codes.sh`
+- `Scripts/Bash/ping_with_arguments.sh`
+- `Scripts/Bash/case_ip_address_check.sh`
+- `Scripts/Bash/check_root_function.sh`
+- `Scripts/Bash/curl_banner_grab.sh`
+- `Scripts/Bash/host_monitor_notification.sh`
+- `Scripts/Bash/multi_host_ping.sh`
+- `Scripts/Bash/netcat_banner_grab.sh`
+- `Scripts/Bash/nmap_to_portfiles.sh`
+- `Scripts/Bash/os_detection.sh`
+- `Scripts/Bash/port_watchdog.sh`
+- `Scripts/YAML/git_finder.yaml`
+- `Scripts/Bash/curl_fetch_robots_txt.sh`
+- `Scripts/Bash/directory_indexing_scanner.sh`
+- `Scripts/Bash/exercise_solution.sh`
+- `Scripts/Bash/nuclei-notifier.sh`
+- `Scripts/Python/app.py`
+- `Scripts/Python/python-webshell-check.py`
+- `Scripts/C/getuser.c`
+- `Scripts/SQL/wordpress_add_admin.sql`
+- `Scripts/SQL/add_wordpress_admin.sql`
+- `Scripts/C/system_sleep.c`
+- `Scripts/Bash/admin-panel-sniffer.sh`
+- `Scripts/Bash/arp-spoofing-detect.sh`
+- `Scripts/Bash/fakemail.sh`
+- `Scripts/Bash/get-wifi-pass.sh`
+- `Scripts/Bash/hack-gmail.sh`
+- `Scripts/Bash/hulkscanner.sh`
+- `Scripts/Bash/keylogger.sh`
+- `Scripts/Bash/netdiscover.sh`
+- `Scripts/Bash/network-monitor.sh`
+- `Scripts/Bash/shodan-api.sh`
+- `Scripts/Bash/wpscan.sh`
+- `Scripts/Bash/xss-vulnerability-finder.sh`
+- `Scripts/GIT/git_finder`
+- `Scripts/C/get_user.c`
+- `Scripts/Bash/banner_grab.sh`
+- `Scripts/Bash/bash_scripting_cheat-sheet.md`
+- `Scripts/Bash/host_notify.sh`
+- `Scripts/Bash/ip_check.sh`
+- `Scripts/Bash/multi-host_ping.sh`
+- `Scripts/Bash/network_port_watch.sh`
+- `Scripts/Bash/os_command_inj.sh`
+- `Scripts/Bash/ping_w_argument.sh`
+- `Scripts/Bash/port_services_scan.sh`
+- `Scripts/Bash/string_compare.sh`
+- `Scripts/Bash/file_search.sh`
+- `Scripts/Bash/Examples/file_search.sh`
+- `Scripts/Bash/Examples/file_search.py`
+- `Scripts/Bash/Examples/string_compare.sh`
+- `Scripts/Bash/Examples/integer_compare.sh`
+- `Scripts/Bash/Examples/local_scope.sh`
+- `Scripts/Bash/Examples/while_loop.sh`
+- `Scripts/Bash/Examples/until_loop.sh`
+- `Scripts/Bash/Examples/if_else.sh`
+- `Scripts/Bash/Examples/user_input.sh`
+- `Scripts/Python/web_shell_inj.py`
+- `Scripts/PowerShell/system_enum.ps1`
+- `Scripts/Python/port_scanner.py`
+- `Scripts/Python/simple_file_fuzzer.py`
+- `Scripts/Python/shellcode_inj.py`
+- `Scripts/Python/dll_Inject.py`
+- `Scripts/Bash/web_shell_http_client.sh`
+- `Scripts/Bash/recursive_search_backup.sh`
+- `Scripts/PowerShell/rev_shell.ps1`
+- `Scripts/PowerShell/cred_hunt.ps1`
+- `Scripts/PowerShell/port_scanner.ps1`
+- `Scripts/PowerShell/System_enum.ps1`
+- `Scripts/Bash/OS_command_inj.sh`
+- `Scripts/Bash/http_status_code.sh`
+- `Scripts/Python/webshell_check.py`
+- `Scripts/Python/Web_Shell_Inj.py`
+- `Scripts/Bash/Bash_Scripting_Cheat-Sheet.md`
+- `Scripts/Bash/rev_shell_state_mon.sh`
+- `Scripts/Bash/port_hopper.sh`
+- `Scripts/Bash/ssh_brute.sh`
+- `Scripts/Wordpress_Add_Admin`
+- `Scripts/Bash/curl_banner_grab,sh`
+- `Scripts/Bash/nuclei_web_scanner.sh`
+- `Scripts/GIT/GITfinder`
+- `Scripts/Bash/server_site_DIR_scan.sh`
+- `Scripts/Bash/robottxtfetch.sh`
+- `Scripts/C/Get_User.c`
+- `Scripts/C/systemsleep.c`
+- `Scripts/Bash/systemsleep.c`
+- `Scripts/Bash/binary_name_rotate.sh`
+- `Scripts/Bash/profile_hook.sh`
+- `Scripts/Bash/fake_sudo.sh`
+- `Scripts/Bash/local_user_brute.sh`
+- `Scripts/Bash/gtfobins_search.sh`
+- `Scripts/Bash/gnupg_brute.sh`
+- `Scripts/Bash/Get_User.c`
+- `Scripts/Bash/check_root_user.sh`
+- `Scripts/Bash/home_DIR_accesschk.sh`
+- `Scripts/Bash/os_detect_local.sh`
+- `Scripts/Bash/nmap_OS_detect.sh`
+- `Scripts/Bash/nmap_to_profile.sh`
+- `Scripts/Bash/Banner_Grab.sh`
+- `Scripts/Bash/Host_Notify.sh`
+- `Scripts/Bash/PortandServiceScan.sh`
+- `Scripts/Bash/NetworkPortWatch.sh`
+- `Scripts/Bash/IPAddressCheck.sh`
+- `Scripts/Bash/MultiHost_Ping.sh`
+- `Scripts/Bash/Ping_w_Argument.sh`
+- `Documentation/python.md`
+- `python.md`
+- `cybersecurity_playbooks.md`
+- `PlayBooks/cybersecurity_playbooks.md`
+- `PlayBooks/cybersecurity_playbook.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `PlayBooks/PurpleTeam_Detailed.md`
+- `PlayBooks/GitHubPlaybooks.md`
+- `PlayBooks/BlueTeam_IncResp_Simple.md`
+- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
+- `PlayBooks/PurpleTeam_Simple.md`
+- `PlayBooks/PurpleTeam_Multi-Scrip.md`
+- `PlayBooks/BlueTeam_IncResp_Simple`
+- `PlayBooks/BlueTeam_IncResp_Enhanced`
+- `PlayBooks/BlueTeam_IncidentResponse.md`
+- `PlayBooks/PurpleTeam_Multi-Scripting`
+- `PlayBooks/PurpleTeam_Playbook_Detailed.md`
+- `PlayBooks/PurpleTeamPlaybook_Multi-Scripting`
+- `Documentation/virtualmachines.md`
+- `Documentation/GitHubPlaybooks.md`
+- `Documentation/VPN.md`
+- `Documentation/TOR.md`
+- `Documentation/HomeLab_Setup.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/WifiMarauder_CheatSheet.md`
+- `Documentation/HomeLabSetup.md`
+- `Documentation/pwnagotchi_cheatsheet.md`
+- `Documentation/hcxtoolshashcat.md`
+- `Documentation/WifiMarauderCheatSheet.md`
+- `Documentation/WiFiMarauderGuide.md`
+- `Documentation/Aircrack-ng_Commands.md`
+- `Documentation/hcxtoolshashcat.md.`
+- `hcxtoolshashcat.md`
+- `Documentation/MarauderCheatSheet.md`
+- `Documentation/HomeLab.md`
+- `LinuxCheatSheet.md`
+- `SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf`
+- `Ethical.Hacking.MindMap.pdf`
+- `Documentation/Ethical.Hacking.MindMap.pdf`
+- `Documentation/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf`
+- `Aircrack-ng_Commands.md`
+- `pwnagotchi_cheatsheet.md`
+- `FIRMWARE&HARDWARE_COMPATIBILITY.md`
+- `NetworkAuditPlayBook.md`
+- `advanced_techniques_part2.md`
+- `advanced_techniques_supplement.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `Books/.gitignore`
+- `Books/001Introduction.To.Ethical.Hacking.pdf`
+- `Books/002Foot.Printing.and.Reconnaissance.LAB.pdf`
+- `Books/005Metasploit.Framework.pdf`
+- `Books/005System.Hacking.LAB.pdf`
+- `Books/007Sniffers.LAB.pdf`
+- `Books/009DOS.LAB.pdf`
+- `Books/010SessionHijacking.pdf`
+- `Books/Automate3E.pdf`
+- `Books/BlackHatBash.pdf`
+- `Books/Cybersecurity_._Attack_and_Defense_Strategies_Infrastructure_security.pdf`
+- `Books/CybersecurityforSmallNetworks.pdf`
+- `Books/D1T2_Philippe_Langlois_Hacking_HLR_HSS_and_MME_Core_Network_Elements.pdf`
+- `Books/Dark_Web_Exploring_and_Data_Mining_the_Dark_Side_of_the_Web_@HackingCraze.pdf`
+- `Books/Deep_learning_with_python--develop_deep.pdf`
+- `Books/DesigningElectronics.pdf`
+- `Books/Developing.Burp.Suite.Extensions._.security.automation.pdf`
+- `Books/Digital.Forensics.Explained.2nd.Edition.pdf`
+- `Books/Ethical.Hacking.MindMap.pdf`
+- `Books/Exploiting.Misconfigurations.pdf`
+- `Books/GTFO.pdf`
+- `Books/GoH_ckYourself.pdf`
+- `Books/Google.Hacking.for.Penetration.Testers.Volume2.pdf`
+- `Books/GrayHatPython.pdf`
+- `Books/HAXPO.D1.-.Hacking.LTE.Public.Warning.Systems.-.Weiguang.Li.pdf`
+- `Books/Hacking.Android.pdf`
+- `Books/Hacking.with.Python_.The.Ultimate.Beginners.Guide.pdf`
+- `Books/Hacking_.Computer.Hacking.Beginners.Guide.PDFDrive.com.pdf`
+- `Books/Hide.Data.in.AUDfile.pdf`
+- `Books/How.Linux.Works.3rd.-.Early.access.pdf`
+- `Books/InsidetheDarkWeb.pdf`
+- `Books/Kali_Linux_Wireless_Pentesting_and_Security_for_Beginners_@VPPOfficial.pdf`
+- `Books/LINUX_FOR_BEGINNERS_How_to_Master_the_Linux_Operating_System_and.pdf`
+- `Books/Linux_Basics_for_Hackers_Getting_Started_with_Networking._Scripting.pdf`
+- `Books/Linux_Command_Line_and_Shell_Scripting_Bible_Richard_Blum._Christine.pdf`
+- `Books/ML_download.pdf`
+- `Books/Machine.Learning.with.Python.for.Everyone.pdf`
+- `Books/Mastering_Kali_Linux_for_Advanced_Penetration_Testing_Beggs._Robert.pdf`
+- `Books/Mastering_Reverse_Engineering_Re_engineer_your_ethical_hacking_skills.pdf`
+- `Books/Metasploit.Penetration.Testing.pdf`
+- `Books/Metasploit2E.pdf`
+- `Books/MicrocontrollerExploits.pdf`
+- `Books/Nmap.6_.Network.exploration.and.security.auditing.Cookbook.pdf`
+- `Books/OSCP.2.pdf`
+- `Books/OSCP.Like.Vulns.Machines.pdf`
+- `Books/POCGTFO3.pdf`
+- `Books/PenTest.in.Office365.and.Security.pdf`
+- `Books/PenetrationTesting.pdf`
+- `Books/Perl.Programming.for.Beginners.pdf`
+- `Books/PoC-GTFO2.pdf`
+- `Books/Practical_Social_Engineering_A_Primer_for_the_Ethical_Hacker_by.1.pdf`
+- `Books/Purple-Team-Field-Manual.pdf`
+- `Books/Purple.Team.Field.Manual.pdf`
+- `Books/Quick_Start_Guide_to_Penetration_Testing_With_NMAP._OpenVAS_and.pdf`
+- `Books/RE_for_beginners-en.pdf`
+- `Books/Real_World_Bug_Hunting_A_Field_Guide_to_Web_Hacking_by_Peter_Yaworski.pdf`
+- `Books/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf`
+- `Books/SQL.INJECTION.pdf`
+- `Books/SQL.squid.game.pdf`
+- `Books/STCB4.pdf`
+- `Books/ShellS.pdf`
+- `Books/SoC.Analyst.Career.pdf`
+- `Books/The.Hacker.Playbook.3.Practical.Guide.To.Penetration.Testing.pdf`
+- `Books/The_Basics_Of_Hacking_And_Penetration_Testing_Ethical_Hacking_And.pdf`
+- `Books/The_Code_Book__How_to_Make_It._Break.pdf`
+- `Books/The_NICE_Cyber_Security_Framework_Cyber_Security_Intelligence_and.pdf`
+- `Books/Ultimate_Linux_Projects_First_Edition_2022_etc_z_lib_org.pdf`
+- `Books/Understanding_Network_Hacks_Attack_and_Defense_with_Python_Bastian.pdf`
+- `Books/Web.Application.Security.For.Dummies.pdf`
+- `Books/Web_Scraping_with_Python_Collecting_More_Data_from_the_Modern_Web.pdf`
+- `Books/WiFi.HackProofYourWirelessNetwork.pdf`
+- `Books/WiFi_Hacking_for_Beginners_Learn.1.pdf`
+- `Books/long_short_term_memory_networks_with_python.pdf`
+- `Books/malwaredatascience.pdf`
+- `Books/practical-reverse-engineering.pdf`
+- `Books/recon.pdf`
+- `Books/the-underground-hacker-s-handbook.pdf`
+- `START HERE.md`
+- `ENHANCED CYBERSECURITY MASTER GUIDE.md`
+- `cybersecurity_cliff_notes.md`
+- `ultimate_cybersecurity_master_guide.md.md`
+- `The_Ultimate_Cybersecurity_Master_Guide.md`
+- `Deep_learning_with_python--develop_deep.pdf`
+- `001Introduction.To.Ethical.Hacking.pdf`
+- `002Foot.Printing.and.Reconnaissance.LAB.pdf`
+- `005Metasploit.Framework.pdf`
+- `005System.Hacking.LAB.pdf`
+- `007Sniffers.LAB.pdf`
+- `009DOS.LAB.pdf`
+- `010SessionHijacking.pdf`
+- `BlackHatBash.pdf`
+- `CybersecurityforSmallNetworks.pdf`
+- `D1T2_Philippe_Langlois_Hacking_HLR_HSS_and_MME_Core_Network_Elements.pdf`
+- `The Ultimate Cybersecurity Master Guide.md`
+- `Advanced Cybersecurity Techniques - Part 2.md`
+- `Advanced Cybersecurity Techniques - Part 1.md`
+- `Cybersecurity Comprehensive Cliff Notes.md`
+- `Cybersecurity Operational Playbooks.md`
 
 </details>
