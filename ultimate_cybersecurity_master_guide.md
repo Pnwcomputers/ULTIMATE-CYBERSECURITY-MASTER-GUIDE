@@ -36,10 +36,14 @@
 18. [Lateral Movement](#lateral-movement)
 19. [Persistence Mechanisms](#persistence-mechanisms)
 20. [Data Exfiltration](#data-exfiltration-via-dns)
+20b. [C2 Frameworks & Tradecraft](Tradecraft/c2-frameworks.md)
+20c. [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+20d. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
 21. [Covering Tracks](#covering-tracks)
 
 ### PART VI: ADVANCED TOPICS
 22. [Active Directory Attacks](#active-directory-attacks)
+22b. [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
 23. [Cloud Security & Exploitation](#cloud-security--exploitation)
 24. [Mobile Device Security](#mobile-device-security)
 25. [IoT & Hardware Hacking](#iot--hardware-hacking)
@@ -51,6 +55,7 @@
 29. [Intrusion Detection Systems](#intrusion-detection-with-snort)
 30. [Security Monitoring & SIEM](#security-monitoring-with-ossec)
 31. [Incident Response](#incident-response)
+31b. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
 
 ### PART VIII: SPECIALIZED SKILLS
 32. [Malware Analysis](#malware-types--detection)
@@ -67,6 +72,15 @@
 39. [Penetration Testing Methodology](#penetration-testing-methodology)
 40. [Report Writing](#report-writing)
 41. [Legal & Ethical Considerations](#legal--ethical-considerations)
+
+### PART XI: TRADECRAFT REFERENCE
+42. [Tradecraft Overview](Tradecraft/README.md)
+43. [C2 Frameworks](Tradecraft/c2-frameworks.md)
+44. [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+45. [Living Off the Land](Tradecraft/lolbins-lolbas.md)
+46. [OSINT & Threat Intelligence](Tradecraft/osint-threat-intel.md)
+47. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
+48. [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
 
 ---
 
@@ -622,6 +636,11 @@ sqlmap -u "http://target.com/page?id=1"
 sqlmap -u "http://target.com/page?id=1" --dbs
 sqlmap -u "http://target.com/page?id=1" -D database --tables
 ```
+---
+> 📁 **Deep Dive:** [OSINT & Threat Intelligence](Tradecraft/osint-threat-intel.md)
+> covers full OSINT methodology, Shodan/Censys/amass/Maltego/SpiderFoot,
+> breach data sources, MISP/OpenCTI threat intel platforms, IOC operationalization,
+> and Windows + Linux tool installs for every major OSINT tool.
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -784,6 +803,10 @@ winpeas.exe
 - Windows Remote Management (WinRM)
 - PsExec
 - WMI
+*See the full deep-dive reference below; each technique includes tools, commands, and Sysmon/KQL detection rules for both Windows and Linux.*
+> 📁 **Deep Dive:** [Active Directory Lateral Movement](Tradecraft/active-directory.md#lateral-movement)
+> Covers WMI, PsExec, DCOM, pass-the-hash, pass-the-ticket, and Overpass-the-Hash
+> with Sysmon/KQL detection for each technique.
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -814,6 +837,10 @@ schtasks /create /tn "Update" /tr "C:\backdoor.exe" /sc onlogon
 # WMI event subscription
 # Create malicious WMI filter and consumer
 ```
+---
+> 📁 **Deep Dive:** [LOLBins Persistence](Tradecraft/lolbins-lolbas.md#persistence-via-lolbins)
+> covers `schtasks`, registry Run keys, and WMI event subscription persistence
+> with Sigma detection rules and ASR hardening.
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -879,6 +906,10 @@ net user /domain
 # Enumerate domain groups
 net group /domain
 ```
+---
+> 📁 **Full Reference:** [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
+> covers BloodHound/SharpHound, Kerberoasting, AS-REP roasting, Golden/Silver/Diamond tickets,
+> DCSync, ACL abuse, GPO abuse, domain persistence, and the full hardening checklist.
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -1021,8 +1052,10 @@ snort -A console -q -c /etc/snort/snort.conf -i eth0
 # Check status
 /var/ossec/bin/ossec-control status
 ```
-
-[Return to Table of Contents](#master-table-of-contents)
+---
+> 📁 **Deep Dive:** [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
+> covers Zeek, Suricata, Wireshark, pktmon, Defender for Endpoint KQL, C2 beacon
+> detection scripts, DNS tunneling/DGA detection, and full NSM stack setup.
 
 ---
 
@@ -1052,6 +1085,12 @@ snort -A console -q -c /etc/snort/snort.conf -i eth0
 - **Spyware** - Activity monitoring
 - **Rootkit** - System-level hiding
 - **Keylogger** - Keystroke recording
+
+---
+> 📁 **Deep Dive:** [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+> covers FLARE VM, REMnux, Volatility 3, PE-sieve, Moneta, CyberChef, and Sysinternals
+> for Windows and Linux malware analysis, plus recognition patterns for all major
+> evasion techniques (AMSI bypass, ETW tampering, process injection, sleep obfuscation).
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -1222,6 +1261,88 @@ Overall Risk: [Critical/High/Medium/Low]
 5. Allow time to fix (90 days)
 6. Coordinate public disclosure
 
+[Return to Table of Contents](#master-table-of-contents)
+
+---
+
+# PART XI: TRADECRAFT REFERENCE
+ 
+## Overview
+ 
+Operational tradecraft reference covering C2 frameworks, evasion techniques, living-off-the-land,
+OSINT methodology, network detection, and Active Directory — structured for both red team and blue
+team practitioners. Each file covers offensive technique context alongside detection, hunting, and
+defensive hardening guidance.
+ 
+### Contents
+ 
+| File | Coverage | MITRE ATT&CK |
+|---|---|---|
+| [C2 Frameworks](Tradecraft/c2-frameworks.md) | Cobalt Strike, Sliver, Havoc, malleable C2, redirectors, JA3 detection | TA0011 |
+| [AV/EDR Evasion](Tradecraft/av-edr-evasion.md) | Static evasion, AMSI, ETW, API hooks, syscalls, injection, FLARE VM, REMnux, Volatility | TA0005 |
+| [LOLBins / LOLBAs](Tradecraft/lolbins-lolbas.md) | certutil, mshta, regsvr32, wmic, bitsadmin, comsvcs.dll, Sigma rules, ASR/WDAC | TA0002, TA0005, TA0008 |
+| [OSINT & Threat Intel](Tradecraft/osint-threat-intel.md) | Maltego, SpiderFoot, Shodan, amass, trufflehog, MISP, OpenCTI, IOC lifecycle | TA0043 |
+| [Network Detection](Tradecraft/network-detection.md) | Zeek, Suricata, Wireshark, pktmon, Defender for Endpoint KQL, beacon detection, DNS tunneling | TA0010, TA0011 |
+| [Active Directory](Tradecraft/active-directory.md) | BloodHound, Kerberoasting, Golden/Silver/Diamond tickets, DCSync, domain persistence, hardening | TA0006, TA0004, TA0008, TA0003 |
+ 
+### Analysis Environment Quick Reference
+ 
+**Windows (FLARE VM)**
+```powershell
+# Install FLARE VM on clean Windows 10/11 VM
+# https://github.com/mandiant/flare-vm
+Set-ExecutionPolicy Unrestricted -Force
+.\install.ps1
+# Installs: x64dbg, Ghidra, PE-bear, CFF Explorer, Procmon, Process Hacker,
+#           Regshot, FakeNet-NG, CyberChef, dnSpy, de4dot, Wireshark
+```
+ 
+**Linux (REMnux)**
+```bash
+# Install REMnux on Ubuntu
+wget https://REMnux.org/remnux-cli
+sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
+remnux install
+# Installs: Volatility 3, YARA, Ghidra, radare2/Cutter, oledump, pdf-parser,
+#           NetworkMiner, Wireshark, FakeNet-NG, inetsim
+```
+ 
+**Memory Forensics (Volatility 3)**
+```bash
+pip3 install volatility3
+ 
+python3 vol.py -f memory.dmp windows.pslist        # process list
+python3 vol.py -f memory.dmp windows.malfind       # injected code / hollowing
+python3 vol.py -f memory.dmp windows.netscan       # network connections
+python3 vol.py -f memory.dmp windows.hollowprocesses
+```
+ 
+**Key Detection Tools**
+```
+PE-sieve    — scan running processes for injection/hollowing (Windows)
+Moneta      — in-memory IOC scanner (Windows)
+Zeek        — protocol log generation from PCAP or live (Linux primary)
+Suricata    — IDS/IPS rules engine (Windows + Linux)
+pktmon      — built-in Windows packet capture (Win10 2004+)
+Sysmon      — extended Windows event telemetry
+Sigma       — cross-platform detection rule format
+CyberChef   — decode obfuscated payloads (browser / cross-platform)
+```
+ 
+### Purple Team Validation
+```powershell
+# Install Atomic Red Team
+Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+ 
+# Key test mappings to Tradecraft files:
+Invoke-AtomicTest T1562.001   # AMSI bypass          → av-edr-evasion.md
+Invoke-AtomicTest T1055       # Process injection     → av-edr-evasion.md
+Invoke-AtomicTest T1218       # LOLBin execution      → lolbins-lolbas.md
+Invoke-AtomicTest T1003.001   # LSASS dump           → active-directory.md
+Invoke-AtomicTest T1558.003   # Kerberoasting        → active-directory.md
+Invoke-AtomicTest T1071.004   # DNS C2               → network-detection.md
+```
+ 
 [Return to Table of Contents](#master-table-of-contents)
 
 ---
