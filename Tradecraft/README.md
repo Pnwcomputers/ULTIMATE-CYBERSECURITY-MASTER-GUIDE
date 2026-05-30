@@ -57,14 +57,10 @@ These references are structured for **dual-use** — each file covers both offen
 
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
----
-
-🔴 **THESE ARE OFFENSIVE SECURITY TOOLS** 🔴
+🔴 **THESE ARE OFFENSIVE & DEFFENSIVE SECURITY TACTICS** 🔴
 
 🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
 
 🔴 **UP TO 20 YEARS IMPRISONMENT** 🔴
-
-🔴 **WRITTEN AUTHORIZATION MANDATORY** 🔴
 
 ---
