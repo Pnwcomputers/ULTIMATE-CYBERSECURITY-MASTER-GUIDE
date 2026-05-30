@@ -1,6 +1,6 @@
 # OSINT (Open Source Intelligence) Basic/General Guide
 
-### [Click Here For The Advanced OSINT Guide](Tradecraft/osint-threat-intel.md) 
+### [Click Here For The Advanced OSINT Guide](/Tradecraft/osint-threat-intel.md) 
 
 ## Table of Contents
 1. [Introduction to OSINT](#introduction-to-osint)
