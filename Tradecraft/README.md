@@ -49,7 +49,7 @@ These references are structured for **dual-use** — each file covers both offen
 
 <div align="center">
 
-**⚠️ USE THESE SCRIPTS RESPONSIBLY AND LEGALLY ⚠️**
+**⚠️ USE THIS REPO RESPONSIBLY AND LEGALLY ⚠️**
 
 *With great power comes great responsibility - and great legal liability.*
 
