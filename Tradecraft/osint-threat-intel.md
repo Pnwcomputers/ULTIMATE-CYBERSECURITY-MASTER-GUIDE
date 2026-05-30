@@ -1,4 +1,4 @@
-# OSINT & Threat Intelligence — Deep Dive
+# OSINT & Threat Intelligence: A Deep Dive
 
 > **Scope:** Open-source intelligence methodology, tooling, and threat intelligence platforms. Covers passive recon, active enumeration, people/organization research, infrastructure mapping, and threat intel operationalization.
 
@@ -60,7 +60,7 @@ Before starting any OSINT collection:
 
 ## Passive Reconnaissance
 
-Passive recon involves no direct contact with the target — no packets sent to target systems.
+Passive recon involves no direct contact with the target; no packets sent to target systems.
 
 ### Google Dorking
 
@@ -159,7 +159,7 @@ whois -h whois.apnic.net <IP>    # APNIC (Asia-Pacific)
 
 ### Certificate Transparency
 
-CT logs record every issued TLS certificate — excellent for subdomain discovery:
+CT logs record every issued TLS certificate; excellent for subdomain discovery:
 
 ```bash
 # crt.sh
@@ -189,7 +189,7 @@ findomain -t target.com
 # Certificate transparency
 ctfr.py -d target.com
 
-# DNS brute force (active — makes DNS queries)
+# DNS brute force (activate; makes DNS queries)
 amass enum -brute -d target.com -w /opt/wordlists/subdomains-top1million.txt
 gobuster dns -d target.com -w /opt/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt
 
@@ -224,7 +224,7 @@ community.riskiq.com (PassiveTotal)
 
 ```bash
 # Find ASN from organization name
-# https://bgp.he.net — search by org name
+# https://bgp.he.net; search by org name
 
 # Get IP ranges for an ASN
 whois -h whois.radb.net -- '-i origin AS12345'
@@ -256,7 +256,7 @@ dig target.com TXT | grep -i "spf\|dmarc\|dkim"
 # DMARC
 dig _dmarc.target.com TXT
 
-# SPF analysis — identify authorized senders
+# SPF analysis; identify authorized senders
 # p=none  → monitoring only (no enforcement)
 # p=quarantine → quarantine failing mail
 # p=reject → reject failing mail (strongest)
@@ -290,13 +290,13 @@ nikto -h https://target.com -ssl
 # Wayback Machine
 curl "http://timetravel.mementoweb.org/api/json/20230101000000/https://target.com"
 
-# Waybackurls — extract all historical URLs
+# Waybackurls; extract all historical URLs
 waybackurls target.com | sort -u > wayback_urls.txt
 
 # Find old admin panels, exposed files, decommissioned services
 cat wayback_urls.txt | grep -i "admin\|login\|backup\|config\|\.env\|\.git"
 
-# gau — get all URLs from multiple sources
+# gau; get all URLs from multiple sources
 gau target.com | sort -u
 ```
 
@@ -306,11 +306,11 @@ gau target.com | sort -u
 # Search GitHub for target
 # https://github.com/search?q=target.com&type=code
 
-# Trufflehog — scan for secrets in git history
+# Trufflehog; scan for secrets in git history
 trufflehog git https://github.com/targetorg/repo
 trufflehog github --org=targetorg
 
-# Gitrob — find sensitive files in GitHub repos
+# Gitrob; find sensitive files in GitHub repos
 gitrob targetorg
 
 # Search for hardcoded credentials
@@ -343,9 +343,9 @@ Search: `site:linkedin.com/jobs OR site:indeed.com "target company" "engineer"`
 ```bash
 # SEC EDGAR (US public companies)
 # https://efts.sec.gov/LATEST/search-index?q="target+company"
-# 10-K (annual), 10-Q (quarterly), DEF 14A (proxy — exec names, salaries)
+# 10-K (annual), 10-Q (quarterly), DEF 14A (proxy; exec names, salaries)
 
-# OpenCorporates — global company data
+# OpenCorporates; global company data
 curl "https://api.opencorporates.com/v0.4/companies/search?q=Target+Corp"
 
 # LinkedIn company structure
@@ -353,7 +353,7 @@ curl "https://api.opencorporates.com/v0.4/companies/search?q=Target+Corp"
 # → Org chart via LinkedIn Sales Navigator
 # → Recent hires / departures (signals of change)
 
-# Crunchbase — funding, acquisitions, investors
+# Crunchbase; funding, acquisitions, investors
 https://www.crunchbase.com/organization/target-company
 
 # FOIA requests (US federal entities)
@@ -363,7 +363,7 @@ https://www.foiaonline.gov/
 ### Email Permutation & Verification
 
 ```bash
-# Hunter.io — find email format and addresses
+# Hunter.io; find email format and addresses
 curl "https://api.hunter.io/v2/domain-search?domain=target.com&api_key=KEY"
 
 # Email permutation
@@ -417,17 +417,17 @@ exiftool image.jpg | grep -i "GPS\|Location\|Latitude\|Longitude"
 
 ```bash
 # Instagram
-# Picuki.com — view without account
-# Imginn.com — view posts and stories
-# Osintgram — pip install osintgram
+# Picuki.com; view without account
+# Imginn.com; view posts and stories
+# Osintgram; pip install osintgram
 
 # Facebook
 # Facebook Advanced Search: facebook.com/search/
-# Sowsearch.info — search by phone, email
+# Sowsearch.info; search by phone, email
 
 # LinkedIn
 # Search without login: site:linkedin.com/in "John Smith" "Target Corp"
-# Proxycurl API — scrape LinkedIn profiles
+# Proxycurl API; scrape LinkedIn profiles
 ```
 
 ### Image Reverse Search & Geolocation
@@ -437,11 +437,11 @@ exiftool image.jpg | grep -i "GPS\|Location\|Latitude\|Longitude"
 # Google Images: images.google.com (drag/drop or URL)
 # Yandex Images: yandex.com/images (best for faces)
 # TinEye: tineye.com
-# PimEyes: pimeyes.com (face recognition — legal/ethical use only)
+# PimEyes: pimeyes.com (face recognition; legal/ethical use only)
 
 # Geolocation from imagery
-# SunCalc.org — determine time of day from shadows
-# PeakFinder — identify mountains
+# SunCalc.org; determine time of day from shadows
+# PeakFinder; identify mountains
 # GeoGuessr-style techniques: signs, foliage, architecture, road markings
 ```
 
@@ -462,7 +462,7 @@ curl -H 'Accept: application/json' \
   "https://api.dehashed.com/search?query=domain%3Atarget.com&size=100"
 
 # IntelX (intelligence X)
-# https://intelx.io/ — search pastes, dark web, file sharing
+# https://intelx.io/; search pastes, dark web, file sharing
 
 # Leak-Lookup
 # Flare.io (commercial)
@@ -473,10 +473,10 @@ curl -H 'Accept: application/json' \
 
 ```bash
 # Tor Browser for manual investigation
-# OnionSearch — search dark web indexes
+# OnionSearch; search dark web indexes
 python3 onionsearch.py "target company credentials"
 
-# Ahmia.fi — clearnet dark web search engine
+# Ahmia.fi; clearnet dark web search engine
 curl "https://ahmia.fi/search/?q=target+company"
 
 # Key forums/markets to monitor (for CTI purposes):
@@ -575,7 +575,7 @@ Collection → Validation → Enrichment → Scoring → Deployment → Expirati
 ### IOC Formats
 
 ```xml
-<!-- STIX 2.1 (JSON) — standard for IOC exchange -->
+<!-- STIX 2.1 (JSON); standard for IOC exchange -->
 {
   "type": "indicator",
   "id": "indicator--12345",
@@ -587,8 +587,8 @@ Collection → Validation → Enrichment → Scoring → Deployment → Expirati
 ```
 
 ```bash
-# TAXII — transport protocol for STIX feeds
-# cabby — TAXII client
+# TAXII; transport protocol for STIX feeds
+# cabby; TAXII client
 cabby discovery --host taxii.example.com --port 443 --use-https
 cabby collection-management --host taxii.example.com --port 443 --use-https
 ```
@@ -644,14 +644,14 @@ References:
 ```bash
 # Firefox hardening for OSINT
 # Extensions:
-#   uBlock Origin — ad/tracker blocking
-#   Canvas Blocker — prevent fingerprinting
-#   User-Agent Switcher — change browser fingerprint
+#   uBlock Origin; ad/tracker blocking
+#   Canvas Blocker; prevent fingerprinting
+#   User-Agent Switcher; change browser fingerprint
 #   Cookie AutoDelete
 #   Privacy Badger
 
-# Tor Browser — for anonymized browsing
-# Whonix — OS-level Tor routing
+# Tor Browser; for anonymized browsing
+# Whonix; OS-level Tor routing
 ```
 
 ### Operational Security Checklist
@@ -705,7 +705,7 @@ curl -s https://urlhaus.abuse.ch/downloads/hostfile/ | grep -v "^#" >> /etc/piho
 dnstwist --registered yourcompany.com
 
 # Certificate transparency monitoring
-# certstream.calidog.io — real-time CT log stream
+# certstream.calidog.io; real-time CT log stream
 python3 certstream_monitor.py --keyword yourcompany
 
 # Monitor paste sites for leaked data
@@ -721,9 +721,9 @@ Most OSINT tools are Linux-native but many run on Windows. This section clarifie
 
 ### Windows OSINT Environment
 
-**Buscador VM** (deprecated but concept lives on) — A dedicated OSINT Linux VM preconfigured with tools. The modern equivalent is building your own via a base Ubuntu VM + the tools below. On Windows, use WSL2 or a dedicated VM.
+**Buscador VM** (deprecated but concept lives on); A dedicated OSINT Linux VM preconfigured with tools. The modern equivalent is building your own via a base Ubuntu VM + the tools below. On Windows, use WSL2 or a dedicated VM.
 
-**OSINT on Windows — recommended setup:**
+**OSINT on Windows; recommended setup:**
 
 ```powershell
 # Install WSL2 for Linux tool access on Windows
@@ -753,7 +753,7 @@ go install github.com/tomnomnom/waybackurls@latest
 
 ### Maltego (Windows/Linux/macOS)
 
-Maltego is one of the few OSINT tools that runs better on Windows than Linux — it's a Java-based GUI platform for link analysis and relationship mapping.
+Maltego is one of the few OSINT tools that runs better on Windows than Linux; it's a Java-based GUI platform for link analysis and relationship mapping.
 
 ```
 # Download: https://www.maltego.com/downloads/
@@ -798,9 +798,9 @@ python3 -m spiderfoot -l 127.0.0.1:5001
 spiderfoot -s target.com -t INTERNET_NAME -o tab > results.txt
 
 # Key module categories:
-# Footprint   — passive recon (DNS, WHOIS, certificates, Shodan)
-# Investigate — active checks (port scan, crawl, brute force subdomains)
-# Passive     — no direct contact with target
+# Footprint  ; passive recon (DNS, WHOIS, certificates, Shodan)
+# Investigate; active checks (port scan, crawl, brute force subdomains)
+# Passive    ; no direct contact with target
 ```
 
 ### Recon-ng (Windows/Linux)
@@ -826,11 +826,11 @@ cd recon-ng && pip3 install -r REQUIREMENTS
 [recon-ng][default] > run                       # enumerate subdomains
 
 # Key modules:
-# recon/domains-hosts/brute_hosts       — subdomain brute force
-# recon/hosts-ports/shodan_ip           — Shodan port data
-# recon/domains-contacts/whois_pocs     — WHOIS contact extraction
-# recon/profiles-profiles/namechk       — username availability check
-# reporting/html                        — generate HTML report
+# recon/domains-hosts/brute_hosts      ; subdomain brute force
+# recon/hosts-ports/shodan_ip          ; Shodan port data
+# recon/domains-contacts/whois_pocs    ; WHOIS contact extraction
+# recon/profiles-profiles/namechk      ; username availability check
+# reporting/html                       ; generate HTML report
 ```
 
 ### theHarvester (Windows/Linux)
@@ -852,13 +852,13 @@ theHarvester -d target.com -b shodan -l 100    # requires Shodan API key
 theHarvester -d target.com -b all -f report    # output HTML + XML report
 
 # Key sources (-b):
-# google, bing, yahoo          — search engine results
-# linkedin                     — LinkedIn email/name harvest
-# twitter                      — Twitter account harvest
-# shodan                       — Shodan infrastructure data
-# certspotter, crtsh            — certificate transparency
-# dnsdumpster                  — DNS records
-# all                          — all sources (slow but thorough)
+# google, bing, yahoo         ; search engine results
+# linkedin                    ; LinkedIn email/name harvest
+# twitter                     ; Twitter account harvest
+# shodan                      ; Shodan infrastructure data
+# certspotter, crtsh           ; certificate transparency
+# dnsdumpster                 ; DNS records
+# all                         ; all sources (slow but thorough)
 ```
 
 ### Shodan CLI (Windows/Linux)
@@ -1000,11 +1000,11 @@ dnstwist --registered --format csv target.com > lookalikes.csv
 dnstwist --registered --format json target.com > lookalikes.json
 
 # Common permutation types found:
-# Homoglyph      — rn vs m, 0 vs o, 1 vs l
-# Bitsquatting   — single bit flip in ASCII
-# Transposition  — targe.tcom
-# Omission       — targt.com
-# Addition       — targets.com
+# Homoglyph     ; rn vs m, 0 vs o, 1 vs l
+# Bitsquatting  ; single bit flip in ASCII
+# Transposition ; targe.tcom
+# Omission      ; targt.com
+# Addition      ; targets.com
 ```
 
 ### h8mail (Windows/Linux)
@@ -1037,7 +1037,7 @@ h8mail -t target.com --output results.csv
 For a fully pre-configured Linux OSINT environment:
 
 ```bash
-# Kali Linux — includes most OSINT tools under information-gathering
+# Kali Linux; includes most OSINT tools under information-gathering
 sudo apt install kali-tools-information-gathering
 
 # Key tools installed:
@@ -1045,7 +1045,7 @@ sudo apt install kali-tools-information-gathering
 # dnsx, subfinder, gobuster, whatweb, nikto, nmap,
 # dmitry, fierce, dnsenum, dnsrecon, enum4linux
 
-# Trace Labs OSINT VM — specialized for investigations
+# Trace Labs OSINT VM; specialized for investigations
 # https://www.tracelabs.org/initiatives/osint-vm
 # Based on Kali, adds investigation-specific tools and workflows
 ```
@@ -1054,7 +1054,7 @@ sudo apt install kali-tools-information-gathering
 
 | Tool | Windows | Linux | Notes |
 |---|---|---|---|
-| **Maltego** | ✅ native installer | ✅ AppImage/deb | Best on Windows — Java GUI |
+| **Maltego** | ✅ native installer | ✅ AppImage/deb | Best on Windows; Java GUI |
 | **SpiderFoot** | ✅ `pip install` | ✅ `pip3 install` | Web UI on both |
 | **Recon-ng** | ✅ `pip install` | ✅ `apt install` | Console UI, Metasploit-like |
 | **theHarvester** | ✅ `pip install` | ✅ `apt install` | CLI, passive focused |
