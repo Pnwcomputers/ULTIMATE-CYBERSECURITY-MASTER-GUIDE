@@ -1,5 +1,3 @@
-<div align="center">
-
 # 🗡️ Tradecraft
 
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
