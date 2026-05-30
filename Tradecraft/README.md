@@ -13,6 +13,7 @@ Operational security tradecraft for red team, blue team, and purple team practit
 | [osint-threat-intel.md](osint-threat-intel.md) | OSINT methodology, passive recon, DNS/infra enumeration, people intelligence, threat intel platforms, and operationalization |
 | [network-detection.md](network-detection.md) | Packet capture, Zeek/Suricata analysis, C2 traffic detection, DNS tunneling, lateral movement, and network forensics |
 | [active-directory.md](active-directory.md) | AD enumeration, credential attacks, Kerberos abuse, privilege escalation paths, domain persistence, detection, and hardening |
+| [av-edr-evasion.md](av-edr-evasion.md) | How attackers evade antivirus and endpoint detection/response solutions |
 
 ---
 
@@ -20,9 +21,9 @@ Operational security tradecraft for red team, blue team, and purple team practit
 
 These references are structured for **dual-use** — each file covers both offensive technique context and the corresponding detection/defensive guidance. Sections are clearly labeled:
 
-- **Attack / technique sections** — understand how attacks work, what tools are used
+- **Attack / technique sections** — Understand how attacks work, what tools are used
 - **Detection & Hunting sections** — Sigma rules, KQL queries, event IDs, behavioral indicators
-- **Defensive sections** — hardening controls, configuration recommendations, monitoring priorities
+- **Defensive sections** — Hardening controls, configuration recommendations, monitoring priorities
 
 ---
 
