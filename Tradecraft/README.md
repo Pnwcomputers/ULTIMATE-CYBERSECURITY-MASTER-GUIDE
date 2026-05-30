@@ -1,10 +1,8 @@
-# Tradecraft Reference
+# 🗡️ Tradecraft
 
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
 
 <div align="center">
-
-# 🗡️ Tradecraft
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
