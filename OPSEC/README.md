@@ -24,6 +24,7 @@
 - [Security & Legal Considerations](#security--legal-considerations)
 - [Contributing](#contributing)
 - [Resources](#resources)
+- [Tradecraft](/Tradecraft/)
 
 ---
 
