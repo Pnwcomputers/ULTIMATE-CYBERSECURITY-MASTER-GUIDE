@@ -2,6 +2,24 @@
 
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
 
+<div align="center">
+
+# 🗡️ Tradecraft
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)]()
+[![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)]()
+[![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)]()
+[![YARA](https://img.shields.io/badge/YARA-Rules-orange?style=for-the-badge&logo=virustotal)]()
+[![Sigma](https://img.shields.io/badge/Sigma-Detection_Rules-purple?style=for-the-badge&logo=elastic)]()
+[![Windows](https://img.shields.io/badge/Windows-Tools-0078D6?style=for-the-badge&logo=windows)]()
+[![Linux](https://img.shields.io/badge/Linux-Tools-FCC624?style=for-the-badge&logo=linux&logoColor=black)]()
+
+</div>
+
+---
+
 ---
 
 ## Contents
@@ -44,10 +62,6 @@ These references are structured for **dual-use** — each file covers both offen
 - [`/hardware-hacking`](../hardware-hacking/) — Physical and embedded device attacks
 - [`/payloads`](../payloads/) — ESP32 and Raspberry Pi pentesting platforms
 - [`/tools`](../tools/) — Tool references and field guides
-
----
-
-## *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
 
