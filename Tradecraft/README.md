@@ -47,6 +47,10 @@ These references are structured for **dual-use** — each file covers both offen
 
 ---
 
+## *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+---
+
 <div align="center">
 
 **⚠️ USE THIS REPO RESPONSIBLY AND LEGALLY ⚠️**
