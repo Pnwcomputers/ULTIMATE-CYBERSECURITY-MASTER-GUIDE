@@ -2,6 +2,7 @@
 
 > **Scope:** Open-source intelligence methodology, tooling, and threat intelligence platforms. Covers passive recon, active enumeration, people/organization research, infrastructure mapping, and threat intel operationalization.
 
+### [Click Here For The Basic/General OSINT Guide](/OSINT/OSINT_GUIDE.md)
 ---
 
 ## Table of Contents
