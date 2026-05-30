@@ -47,4 +47,24 @@ These references are structured for **dual-use** — each file covers both offen
 
 ---
 
-> All content is for authorized security testing, research, and education. Use only against systems you own or have explicit written authorization to test.
+<div align="center">
+
+**⚠️ USE THESE SCRIPTS RESPONSIBLY AND LEGALLY ⚠️**
+
+*With great power comes great responsibility - and great legal liability.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+🔴 **THESE ARE OFFENSIVE SECURITY TOOLS** 🔴
+
+🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
+
+🔴 **UP TO 20 YEARS IMPRISONMENT** 🔴
+
+🔴 **WRITTEN AUTHORIZATION MANDATORY** 🔴
+
+---
