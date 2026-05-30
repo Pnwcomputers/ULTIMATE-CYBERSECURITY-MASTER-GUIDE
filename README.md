@@ -67,6 +67,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
 | 📚 [Documentation](Documentation/) | Supplemental technical documentation and cheat sheets |
+| 🕵️ [Tradecraft](Tradecraft/) | Security tradecraft for red team, blue team, and purple team practitioners |
 
 ---
 
