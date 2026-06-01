@@ -93,6 +93,8 @@ This Legal Disclaimer establishes the **legally binding terms and conditions** f
 - System exploitation and privilege escalation methods
 - Data exfiltration and reconnaissance utilities
 - Defense evasion and anti-forensics techniques
+- Hardware implant payloads (Bash Bunny, USB Rubber Ducky)
+- Adversarial tradecraft documentation (C2 frameworks, AV/EDR evasion, LOLBins)
 - Tools capable of causing significant harm if misused
 
 ### Legal Standing
@@ -116,7 +118,7 @@ This repository contains materials across multiple categories, each with specifi
 
 ### 1. OSINT (Open Source Intelligence)
 
-**Content:** 400+ tools, investigation methodologies, reconnaissance techniques, data collection frameworks
+**Content:** 400+ tools, investigation methodologies, reconnaissance techniques, data collection frameworks, domain/IP recon scripts, email OSINT guides, phone OSINT guides
 
 **Legal Risk Level:** 🟡 **MEDIUM to HIGH**
 
@@ -180,7 +182,7 @@ This repository contains materials across multiple categories, each with specifi
 
 ### 6. Security Playbooks
 
-**Content:** 8 operational playbooks for incident response, purple team operations, network auditing
+**Content:** 10+ operational playbooks for incident response, purple team operations, blue team operations, network auditing, phishing analysis
 
 **Legal Risk Level:** 🟡 **MEDIUM to HIGH**
 
@@ -192,19 +194,36 @@ This repository contains materials across multiple categories, each with specifi
 
 ### 7. Security Scripts
 
-**Content:** 50+ offensive security tools in Bash, C, PowerShell, Python, SQL, YAML
+**Content:** 60+ offensive security tools in Bash, C, PowerShell, Python, SQL, YAML, Go, and Ducky/BadUSB scripts
 
 **Legal Risk Level:** 🔴 **EXTREME**
 
 **Key Concerns:**
-- Credential harvesting tools (cred_hunt.ps1, cred_sniff.py)
+- Credential harvesting tools (cred_hunt.ps1, cred_sniff.py, cred_harv.txt)
 - Brute force attack utilities (localbrute.ps1)
 - Reverse shells and backdoors (rev_shell.ps1, rev_shell.py)
-- Network attack frameworks (network_attack.py)
-- Data exfiltration tools (dump_nmdbs.py)
+- Network attack frameworks (network_attack.py, network_recon.txt)
+- Data exfiltration tools (dump_nmdbs.py, exfil_windowsPC.txt, windows_exfil.txt)
+- System profiling payloads (sys_prof.txt)
+- USB implant payloads (Bash Bunny, USB Rubber Ducky scripts)
 - ICS/SCADA targeting (ics_find.py) - **TERRORISM CHARGES POSSIBLE**
 
 **This is the highest risk section of the repository.**
+
+### 8. Tradecraft
+
+**Content:** Offensive adversarial tradecraft documentation covering Active Directory attack chains, C2 framework selection and usage, AV/EDR evasion techniques, Living-off-the-Land binaries (LOLBins/LOLBAS), network detection evasion, and OSINT-driven threat intelligence operationalization
+
+**Legal Risk Level:** 🔴 **HIGH to EXTREME**
+
+**Key Concerns:**
+- Implementing AD attack chains without written authorization
+- Deploying or configuring C2 infrastructure against unauthorized targets
+- Using AV/EDR evasion techniques outside authorized engagements
+- Applying LOLBins/LOLBAS techniques for unauthorized access or persistence
+- Network evasion techniques used against systems you do not own
+
+**Important:** Tradecraft documentation describes techniques used by real threat actors. Understanding these techniques is essential for defenders — but **executing** them without authorization is a federal crime regardless of claimed intent.
 
 ---
 
@@ -364,7 +383,7 @@ PENALTY: Up to 5 years imprisonment (first offense)
 - Up to 30 years (if used for terrorism)
 
 **Relevant to:**
-- Credential theft and use
+- Credential theft and use (including Bash Bunny cred_harv.txt, cred_hunt.ps1)
 - Using stolen credentials for access
 - Creating false credentials
 
@@ -418,7 +437,8 @@ PENALTY: Up to 5 years imprisonment (first offense)
 
 **General Data Protection Regulation (GDPR)**
 - Protects personal data of EU residents
-- Fines: Up to €20 million or 4% of global annual revenue (whichever is greater)
+- **Tier 1 fines:** Up to €10 million or 2% of global annual revenue (whichever is greater) — for less serious infringements
+- **Tier 2 fines:** Up to €20 million or 4% of global annual revenue (whichever is greater) — for serious infringements including unauthorized data collection and processing
 - Criminal penalties vary by member state
 - Applies to data processed about EU residents regardless of processor location
 
@@ -582,6 +602,7 @@ PENALTY: Up to 5 years imprisonment (first offense)
    ☑ Attack techniques allowed or prohibited
    ☑ Social engineering scope (if applicable)
    ☑ Physical access permissions (if applicable)
+   ☑ Hardware implant usage (Bash Bunny, USB Rubber Ducky) explicitly authorized
    ☑ Denial of service authorization (rarely granted)
    ☑ Destructive testing authorization (very rare)
 
@@ -790,6 +811,17 @@ Just because information is publicly accessible does NOT mean:
 • You can use it to harm or harass
 • Terms of Service don't apply
 
+SPECIFIC OSINT CONTENT IN THIS REPOSITORY:
+
+The following OSINT resources carry specific legal risk if misused:
+• Domain_IP_Recon.md — Passive and active recon of domains/IPs
+• Email_OSINT.md — Email address investigation techniques
+• Phone_OSINT.md — Phone number investigation techniques
+• OSINT_TOOLS_CATALOG.md — 400+ categorized tools
+
+Phone and email OSINT in particular intersects heavily with
+anti-stalking laws and telecommunications privacy regulations.
+
 RELEVANT LAWS:
 • Computer Fraud and Abuse Act (accessing systems without authorization)
 • Anti-stalking laws (18 U.S.C. § 2261A)
@@ -804,7 +836,7 @@ PENALTIES:
 • Aggravated stalking: Up to 10 years
 • State stalking charges (additional)
 • Civil liability for privacy violations
-• GDPR fines: Up to €20 million or 4% of global revenue
+• GDPR Tier 2 fines: Up to €20 million or 4% of global revenue
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -935,6 +967,7 @@ CREDENTIAL HARVESTING (FEDERAL CRIMES):
 • credit_sniff.py - Credit card data capture
 • cred_sniff.py - General credential sniffing
 • ftp_sniff.py - FTP credential interception
+• cred_harv.txt - Bash Bunny credential harvester (USB implant)
 
 Laws Violated: CFAA, Identity Theft Act, Wire Fraud Act, ECPA
 Penalties: 5-15 years imprisonment PER OFFENSE
@@ -956,6 +989,7 @@ Penalties: 10-20 years imprisonment, enhanced for critical infrastructure
 
 NETWORK ATTACKS (FEDERAL CRIMES):
 • network_attack.py - Network attack framework
+• network_recon.txt - Bash Bunny network reconnaissance payload
 • bsodshell.py - Blue screen exploit
 • find_ddos.py - DDoS tools
 
@@ -964,11 +998,34 @@ Penalties: 10-20 years imprisonment, massive fines
 
 DATA EXFILTRATION (FEDERAL CRIMES):
 • dump_nmdbs.py - Database dumping
+• exfil_windowsPC.txt - USB Rubber Ducky Windows exfiltration payload
+• windows_exfil.txt - Bash Bunny Windows exfiltration payload
 • iphone_messages.py - Message extraction
 • print_cookies.py - Cookie theft
 
 Laws Violated: CFAA, Stored Communications Act, ECPA, privacy laws
 Penalties: 5-20 years imprisonment, GDPR fines
+
+SYSTEM PROFILING (FEDERAL CRIMES IF UNAUTHORIZED):
+• sys_prof.txt - Bash Bunny system profiling payload
+
+Laws Violated: CFAA (unauthorized access to obtain information)
+Penalties: Up to 5 years imprisonment
+
+USB IMPLANT PAYLOADS - BASH BUNNY & USB RUBBER DUCKY (FEDERAL CRIMES):
+• Scripts/Bash/BashBunny/ - Full payload library for Hak5 Bash Bunny
+• Scripts/Ducky/ - USB Rubber Ducky DuckyScript payloads
+
+ADDITIONAL WARNING: Physical deployment of USB implant tools against
+unauthorized systems may constitute unauthorized computer access AND
+potentially criminal trespass or breaking-and-entering charges if
+physical access was obtained unlawfully. These tools are ONLY legal
+in authorized red team engagements with EXPLICIT written permission
+for physical/hardware-based attack vectors.
+
+Laws Violated: CFAA, ECPA, state computer crime laws, potentially
+               state trespass and physical entry statutes
+Penalties: 5-20 years imprisonment, additional state charges
 
 CRITICAL INFRASTRUCTURE (TERRORISM CHARGES):
 • ics_find.py - Industrial Control System targeting
@@ -1026,6 +1083,49 @@ AUTHORIZED USE:
 ✅ Client website with written authorization
 ✅ Test environments you control
 ✅ CTF challenges and labs
+
+═══════════════════════════════════════════════════════════════
+```
+
+---
+
+### Tradecraft Documentation
+
+```
+═══════════════════════════════════════════════════════════════
+          TRADECRAFT DOCUMENTATION - AUTHORIZATION CRITICAL
+═══════════════════════════════════════════════════════════════
+
+The Tradecraft section documents adversarial techniques used by
+real-world threat actors. This content is provided for:
+• Defensive security education and threat modeling
+• Authorized red team and purple team operations
+• Security research in controlled environments
+
+CONTENT COVERED:
+• Active Directory attack chains (Kerberoasting, DCSync, ACL abuse)
+• C2 framework selection, deployment, and operational usage
+• AV/EDR evasion techniques (obfuscation, living-off-the-land)
+• LOLBins/LOLBAS — abusing legitimate Windows/Linux tools
+• Network detection evasion and traffic blending
+• OSINT-driven threat intelligence operationalization
+
+ILLEGAL ACTIVITIES:
+❌ Deploying C2 infrastructure against unauthorized targets
+❌ Using AV/EDR evasion to bypass defenses on unauthorized systems
+❌ Executing LOLBin techniques for unauthorized access or persistence
+❌ Applying network evasion to avoid detection during unauthorized access
+❌ Using tradecraft knowledge to conduct real-world attacks
+
+REQUIRED AUTHORIZATION:
+✅ Written authorization explicitly covering offensive tradecraft
+✅ C2 infrastructure deployment explicitly approved
+✅ Hardware/software implants explicitly in scope
+✅ Evasion techniques explicitly approved
+✅ Purple team exercise formally approved by senior management
+
+REMINDER: Understanding tradecraft is NOT the same as being authorized
+to use it. "I was learning" is not a legal defense.
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -1178,7 +1278,7 @@ ADDITIONAL ENHANCEMENTS:
 - Can total millions of dollars
 
 **Regulatory Fines:**
-- GDPR: Up to €20 million or 4% of global annual revenue
+- GDPR Tier 2: Up to €20 million or 4% of global annual revenue
 - HIPAA: Up to $1.5 million per violation type per year
 - PCI DSS: $5,000-$100,000+ per month
 - State privacy laws: Varies by state
@@ -1451,10 +1551,10 @@ TOTAL POTENTIAL LIABILITY: $1,725,000-$2,300,000
 - Transferring data outside EU without safeguards
 
 **Penalties:**
-- **Tier 1**: Up to €10 million or 2% of global annual revenue (whichever is higher)
-- **Tier 2**: Up to €20 million or 4% of global annual revenue (whichever is higher)
+- **Tier 1**: Up to €10 million or 2% of global annual revenue (whichever is higher) — less serious infringements
+- **Tier 2**: Up to €20 million or 4% of global annual revenue (whichever is higher) — serious infringements
 
-**Example**: A company with $1 billion revenue faces potential GDPR fine of **$40 million** for serious violations.
+**Example**: A company with $1 billion revenue faces potential GDPR Tier 2 fine of **$40 million** for serious violations.
 
 **Criminal Prosecution**: Many EU member states have criminalized GDPR violations with additional imprisonment penalties.
 
@@ -1777,6 +1877,7 @@ The following activities are FEDERAL CRIMES and STRICTLY PROHIBITED:
    ❌ Passing captured credentials to others
    ❌ Credential stuffing attacks
    ❌ Brute forcing authentication without permission
+   ❌ Deploying Bash Bunny or USB Rubber Ducky against unauthorized systems
 
 3. NETWORK ATTACKS:
    ❌ Scanning networks without permission
@@ -1797,7 +1898,7 @@ The following activities are FEDERAL CRIMES and STRICTLY PROHIBITED:
    ❌ Accessing databases without permission
    ❌ Downloading sensitive information
    ❌ Copying files or data without authorization
-   ❌ Exfiltrating information
+   ❌ Exfiltrating information via USB implants or scripts
 
 6. MALICIOUS ACTIVITIES:
    ❌ Installing malware, backdoors, or persistence mechanisms
@@ -1886,6 +1987,11 @@ These activities will result in:
    • Finding and reporting vulnerabilities without permission
    • Some companies prosecute despite good intentions
    • Always check for bug bounty program or security contact first
+
+❌ Plugging In a USB Implant "To See What It Does":
+   • Connecting a Bash Bunny or Rubber Ducky to a system you don't own
+   • Even if you don't intend harm, unauthorized execution is a crime
+   • "I just wanted to test it" is not a legal defense
 
 ❌ Accessing Your Own Accounts from Unusual Locations:
    • Using VPNs/Tor may violate Terms of Service
@@ -1977,13 +2083,14 @@ CRITICAL: Test ONLY in environments YOU control and own.
    ✅ Build personal knowledge base
 
 7. SAFETY CHECKS:
-   Before Running ANY Exploit:
-   ✅ Verify target is YOUR VM
+   Before Running ANY Exploit or Payload:
+   ✅ Verify target is YOUR VM or authorized system
    ✅ Confirm network isolation
-   ✅ Check no internet connectivity
+   ✅ Check no internet connectivity (for isolated tests)
    ✅ Verify snapshot exists
-   ✅ Understand what script/exploit does
+   ✅ Understand what script/exploit/payload does
    ✅ Know how to restore if something breaks
+   ✅ For USB payloads: confirm the target device is YOUR hardware
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -3054,7 +3161,8 @@ AGREE THAT:
                     ⚠️ FINAL CRITICAL WARNING ⚠️
 
 This repository contains ACTUAL penetration testing tools, exploitation
-frameworks, and attack methodologies.
+frameworks, attack methodologies, hardware implant payloads, and
+adversarial tradecraft documentation.
 
 Unauthorized use WILL result in:
 • Federal criminal charges under the Computer Fraud and Abuse Act
@@ -3076,8 +3184,29 @@ from this repository against ANY system you do not personally own.
 
 ═══════════════════════════════════════════════════════════════
 
-Last Updated: November 24, 2024
-Version: 1.0
+Last Updated: June 1, 2026
+Version: 1.1
+
+CHANGELOG:
+v1.1 (June 1, 2026)
+  - Added Section 8: Tradecraft — legal warnings for AD attack chains,
+    C2 frameworks, AV/EDR evasion, LOLBins, and network detection evasion
+  - Added Tradecraft Documentation content-specific warning block
+  - Added Bash Bunny and USB Rubber Ducky to Scripts legal warnings
+    with physical deployment/trespass advisory
+  - Added specific OSINT scripts (Domain_IP_Recon.md, Email_OSINT.md,
+    Phone_OSINT.md) to OSINT legal considerations section
+  - Updated Scripts section count to 60+ (was 50+)
+  - Updated Playbooks section count to 10+ (was 8)
+  - Clarified GDPR Tier 1 vs Tier 2 penalty structure throughout
+  - Added hardware implant authorization requirement to Authorization
+    Requirements checklist
+  - Added USB implant safety check to Safe Lab Environment section
+  - Added USB implant prohibition to Prohibited Activities section
+  - Fixed typo in header ("Repository's")
+
+v1.0 (November 24, 2024)
+  - Initial release
 
 ═══════════════════════════════════════════════════════════════
 ```
