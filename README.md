@@ -18,6 +18,8 @@
 > **Compiled from 70+ expert books · 90+ PNWC internal documents · custom tools & scripts**  
 > *Abide by the [Legal Terms of Use & Disclaimer](LEGAL.md) for the use and misuse of this repository.*
 
+> "Under pressure, you don't rise to the occasion; you fall to the level of your training."
+
 ---
 
 ## 🎯 START HERE
