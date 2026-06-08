@@ -500,6 +500,177 @@ Quick descriptions of what each tool does, organized by category.
 
 ---
 
+## 15. OSINT (Open Source Intelligence)
+
+[#15-osint-open-source-intelligence](#15-osint-open-source-intelligence)
+
+Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, and tool documentation see [`OSINT/OSINT_GUIDE.md`](../OSINT/OSINT_GUIDE.md) and [`OSINT/OSINT_CHEATSHEET.md`](../OSINT/OSINT_CHEATSHEET.md).
+
+> **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts — never your personal identity.
+
+---
+
+### 15.1 Phase 1 — Identity & Social Hunting
+
+[#151-phase-1--identity--social-hunting](#151-phase-1--identity--social-hunting)
+
+*Start when you have a username, real name, or email address.*
+
+| Tool             | Command                                  | Purpose                                            |
+| ---------------- | ---------------------------------------- | -------------------------------------------------- |
+| `sherlock`       | `sherlock <username>`                    | Username search across 400+ social platforms.      |
+| `maigret`        | `maigret <username>`                     | Advanced username enum with extra data extraction. |
+| `holehe`         | `holehe <email>`                         | Checks which services an email is registered on.   |
+| `h8mail`         | `h8mail -t <email>`                      | Breach hunting — finds passwords linked to email.  |
+| `theHarvester`   | `theHarvester -d <domain> -b google`     | Scrapes emails, names, subdomains from search engines. |
+
+---
+
+### 15.2 Phase 2 — Infrastructure & Domain Recon
+
+[#152-phase-2--infrastructure--domain-recon](#152-phase-2--infrastructure--domain-recon)
+
+*Start when you have a domain, IP, or URL.*
+
+| Tool          | Command                            | Purpose                                                   |
+| ------------- | ---------------------------------- | --------------------------------------------------------- |
+| `amass`       | `amass enum -d <domain>`           | Deep DNS enumeration and subdomain mapping.               |
+| `amass`       | `amass enum -passive -d <domain>`  | Passive-only mode (no active probing).                    |
+| `subfinder`   | `subfinder -d <domain>`            | Fast subdomain discovery from passive sources.            |
+| `photon`      | `python photon.py -u <url> -l 3`   | Crawls for endpoints, keys, emails, JS files.             |
+| `whatweb`     | `whatweb <target>`                 | Fingerprint web technologies and CMS.                     |
+| `whois`       | `whois <domain>`                   | Registrar, owner, nameserver lookup.                      |
+| `dig`         | `dig <domain> ANY`                 | DNS records — A, MX, NS, TXT, SOA.                        |
+| `shodan`      | `shodan host <IP>`                 | Open ports and running services on a target IP.           |
+
+**Google Dorking Quick Reference:**
+```bash
+site:target.com filetype:pdf
+site:target.com inurl:admin
+site:target.com intitle:"index of"
+"@target.com" site:pastebin.com
+site:*.target.com -www
+```
+
+---
+
+### 15.3 Phase 3 — Communication Intelligence
+
+[#153-phase-3--communication-intelligence](#153-phase-3--communication-intelligence)
+
+*Start when you have a phone number.*
+
+| Tool            | Command                           | Purpose                                      |
+| --------------- | --------------------------------- | -------------------------------------------- |
+| `phoneinfoga`   | `phoneinfoga scan -n +1XXXXXXXXXX` | Carrier lookup, number validation, OSINT.    |
+
+---
+
+### 15.4 Phase 4 — Analysis & Automation
+
+[#154-phase-4--analysis--automation](#154-phase-4--analysis--automation)
+
+*Automate collection and visualize relationships.*
+
+| Tool         | Command / Usage                  | Purpose                                                    |
+| ------------ | -------------------------------- | ---------------------------------------------------------- |
+| `spiderfoot` | `spiderfoot -s <target>`         | Runs 100+ automated modules against a single target.       |
+| `recon-ng`   | `recon-ng` (interactive)         | Framework with workspace management and module marketplace. |
+| Maltego      | GUI — drag-and-drop              | Visual link analysis and entity relationship mapping.      |
+
+**Recon-ng Quick Start:**
+```bash
+recon-ng
+[recon-ng][default] > workspaces create <case_name>
+[recon-ng][case_name] > marketplace install all
+[recon-ng][case_name] > modules search
+```
+
+---
+
+### 15.5 File & Metadata Analysis
+
+[#155-file--metadata-analysis](#155-file--metadata-analysis)
+
+| Command                                              | Purpose                                         |
+| ---------------------------------------------------- | ----------------------------------------------- |
+| `exiftool image.jpg`                                 | Extract EXIF metadata (GPS, timestamps, device). |
+| `exiftool -gpslatitude -gpslongitude image.jpg`      | Pull GPS coords only.                           |
+| `metagoofil -d <domain> -t pdf,doc -l 100 -o output` | Harvest metadata from public documents.         |
+| `grep -r "regex" ./raw_data/`                        | Search collected data for patterns.             |
+| `strings file.bin | grep -i "http"`                  | Pull URLs/strings from binary files.            |
+
+---
+
+### 15.6 OSINT Tool Installation (Quick Setup)
+
+[#156-osint-tool-installation-quick-setup](#156-osint-tool-installation-quick-setup)
+
+**pip/pipx installs:**
+```bash
+pipx install sherlock-project
+pipx install maigret
+pip3 install h8mail holehe
+```
+
+**Git-based installs:**
+```bash
+mkdir -p ~/osint-tools && cd ~/osint-tools
+
+git clone https://github.com/laramies/theHarvester && \
+  cd theHarvester && pip3 install -r requirements.txt && cd ..
+
+git clone https://github.com/smicallef/spiderfoot && \
+  cd spiderfoot && pip3 install -r requirements.txt && cd ..
+
+git clone https://github.com/s0md3v/Photon && \
+  cd Photon && pip3 install -r requirements.txt && cd ..
+```
+
+**Go-based installs:**
+```bash
+go install -v github.com/owasp-amass/amass/v3/...@master
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+```
+
+---
+
+### 15.7 OSINT Reference — Key Web Services
+
+[#157-osint-reference--key-web-services](#157-osint-reference--key-web-services)
+
+| Service                  | URL                          | Use Case                                  |
+| ------------------------ | ---------------------------- | ----------------------------------------- |
+| Shodan                   | https://shodan.io            | Internet-connected device search          |
+| Censys                   | https://censys.io            | Internet-wide scanning and certificate data|
+| Have I Been Pwned        | https://haveibeenpwned.com   | Email breach notification                 |
+| Hunter.io                | https://hunter.io            | Email finder and domain email patterns    |
+| GreyNoise                | https://greynoise.io         | Background noise / IP reputation          |
+| OSINT Framework          | https://osintframework.com   | Tool directory organized by target type   |
+| Wayback Machine          | https://archive.org          | Historical snapshots of web pages         |
+| Archive.today            | https://archive.is           | On-demand page archiving                  |
+| IntelX                   | https://intelx.io            | Breach data and dark web search           |
+| VirusTotal               | https://virustotal.com       | IOC enrichment — IPs, domains, hashes     |
+
+---
+
+### 15.8 OSINT OPSEC Checklist
+
+[#158-osint-opsec-checklist](#158-osint-opsec-checklist)
+
+```
+✅ Route all traffic through VPN or Tor before investigating
+✅ Use a dedicated OSINT VM (Tsurugi, Buscador, or DIY)
+✅ Never use personal accounts — create isolated sock puppet personas
+✅ Use burner email (ProtonMail/Tutanota) and virtual phone numbers
+✅ Screenshot and archive evidence as you go (archive.is, Wayback)
+✅ Log all commands, queries, and sources
+✅ Cross-reference findings from at least two independent sources
+✅ Respect ToS — unauthorized scraping can have legal consequences
+```
+
+---
+
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
