@@ -18,7 +18,7 @@ import threading
 import time
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-REPORT_DIR       = os.path.expanduser("~")
+REPORT_DIR       = os.getcwd()   # save reports next to wherever the script is invoked from
 BW_TOTAL_SIZE    = "10G"     # Total data for sysbench bandwidth test
 MEMTESTER_SIZE   = "1G"      # RAM to allocate — increase for thoroughness
 MEMTESTER_PASSES = 1         # 1 pass catches most faults; use 3-5 for full validation
