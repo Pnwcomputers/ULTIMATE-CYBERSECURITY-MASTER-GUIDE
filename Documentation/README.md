@@ -46,18 +46,18 @@ This documentation serves as a reference material for security implementations, 
 | `WiFiMarauder_Guide.md` | Comprehensive guide for WiFi Marauder tool usage | Guide |
 | `WifiMarauder_CheatSheet.md` | Quick reference for WiFi Marauder commands | Cheat Sheet |
 | `pwnagotchi_cheatsheet.md` | Pwnagotchi setup and command reference | Cheat Sheet |
-| `bjorn_pi.md` | How-to scan, attack, and exfiltrates from a network that Bjorn is connected to | Guide |
+| `bjorn_pi.md` | How-to scan, attack, and exfiltrate from a network that Bjorn is connected to | Guide |
 | `bruce_firmware.md` | Comprehensive guide for Bruce Firmware usage | Guide |
 | `evil_m5.md` | Guide for operations using the Evil-M5 Firmware | Guide |
 | `flipper_zero_guide.md` | Reference guide for analysis and operations using a Flipper Zero | Guide |
-| `wireshark.md` | Wireshark reference for network analysis and security operations | Guide |
+| `wireshark.md` | Wireshark filters and reference for network analysis and security operations | Guide |
 | `hcxtoolshashcat.md` | HCX tools and Hashcat for WiFi password cracking | Guide |
 
 ### Privacy & Anonymity
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
-| `TOR.md` | TOR network setup, configuration, and best practices | Guide |
-| `VPN.md` | VPN configuration and privacy protection guide | Guide |
+| `TOR.md` | Tor Browser and Tor daemon setup, proxychains integration, bridges, .onion services, and OPSEC | Guide |
+| `VPN.md` | Mullvad VPN deep-dive: kill switch, multi-hop, DNS leak prevention, CLI usage, and operational security workflows | Guide |
 
 ### Programming & Scripting
 | File | Description | Size/Type |
@@ -69,15 +69,14 @@ This documentation serves as a reference material for security implementations, 
 ### System Administration
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
-| `LinuxCheatSheet.md` | Essential Linux commands and system administration | Cheat Sheet |
+| `LinuxCheatSheet.md` | Essential Linux commands, system administration, hardware hacking toolkit, WSL2, SDR/RF, and OSINT tools | Cheat Sheet |
 | `virtualmachines.md` | Virtual machine setup and management guide | Guide |
-| `HomeLab_Setup.md` | Complete home lab environment setup guide | Guide |
 | `blackarch.md` | General "Blackarch 101" guide | Guide |
 
 ### Security Assessment Resources
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
-| `SAST.Scanners.pdf` | Static Application Security Testing scanners reference | PDF |
+| `SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf` | Static Application Security Testing scanners reference | PDF |
 | `Ethical.Hacking.MindMap.pdf` | Ethical hacking methodology and concepts mind map | PDF |
 | `subdomains.txt` | Subdomain wordlist for enumeration and discovery | Wordlist |
 
@@ -89,19 +88,28 @@ This documentation serves as a reference material for security implementations, 
 * **Aircrack-ng:** Packet capture, WEP/WPA cracking, and deauthentication attacks.
 * **WiFi Marauder:** ESP32-based beacon spam, sniffing, and reconnaissance.
 * **Pwnagotchi:** AI-powered handshake collection and plugin management.
+* **Wireshark:** Network packet capture, filter reference, and traffic analysis.
 * **HCX Tools & Hashcat:** Hash extraction and dictionary/brute-force attacks.
 
 ### 2. Privacy & Anonymity Tools
-* **TOR Network:** Installation, hidden services (.onion), and OPSEC.
-* **VPN Configuration:** Protocol selection, kill switch implementation, and DNS leak prevention.
+* **TOR Network:** Browser and daemon installation, proxychains integration, hidden services (.onion), bridges, and OPSEC.
+* **VPN Configuration:** Mullvad setup, protocol selection, kill switch implementation, multi-hop, and DNS leak prevention.
 
 ### 3. Programming Resources
 * **Python for Security:** Network operations, exploitation frameworks, and automation scripts.
 
 ### 4. System Administration
-* **Linux Fundamentals:** User permissions, process control, and network config.
+* **Linux Fundamentals:** User permissions, process control, network config, hardware hacking toolkit, WSL2, and OSINT tools.
 * **Virtualization:** Hypervisor setup and snapshot management for safe testing.
-* **Home Lab:** Architecture and monitoring for a practice environment.
+* **BlackArch:** Arch-based penetration testing distribution setup and tooling.
+
+---
+
+## 🗂️ Related Directories
+| Directory | Description |
+| :--- | :--- |
+| [`/Homelab/`](../Homelab/) | Homelab build guides, network architecture, and lab environment setup |
+| [`/OSINT/`](../OSINT/) | OSINT methodology, tools guide, and investigator cheat sheet |
 
 ---
 
@@ -158,16 +166,14 @@ We welcome contributions from security professionals and researchers.
 ---
 
 ## 📊 Repository Statistics
-* **Current Files:** 15 documents
-* **Last Updated:** November 2024
+* **Current Files:** 22 documents
+* **Last Updated:** June 2026
 * **Maintained by:** Pacific Northwest Computers (PNWC)
 * **Status:** Active & Growing
 
 ---
 
 ## 🔨 Future Documents (Coming Soon)
-* **Technical Guides:** Active Directory Security, Network Segmentation, Cloud Security.
-* **SOPs:** Incident Response, Vulnerability Management, Change Control.
 * **Architecture:** Zero Trust, DMZ Design, Security Architecture.
 * **References:** Port Numbers, Regex Patterns, HTTP Status Codes.
 
