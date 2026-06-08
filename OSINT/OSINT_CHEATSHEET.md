@@ -1,70 +1,148 @@
-# 🔍 OSINT Investigator Cheat Sheet
+# 🔍 Comprehensive OSINT Investigator Cheat Sheet
 
-A quick-reference guide for the tools and services integrated into the **OSINT Investigator Playbook v2.1**.
+A quick-reference guide for the tools, services, and commands integrated into the **OSINT Investigator Playbook**. 
 
 ---
 
 ## 🎯 Phase 1: Identity & Social Hunting
 *Used when you have a **Username**, **Real Name**, or **Email Address**.*
 
-| Tool | Command/Usage | Purpose |
-| :--- | :--- | :--- |
-| **Sherlock** | `sherlock <username>` | Finds accounts on 400+ social networks. |
-| **Holehe** | `holehe <email>` | Checks if an email is registered on sites (IG, Twitter, etc). |
-| **h8mail** | `h8mail -t <email>` | Finds passwords/breach data associated with an email. |
-| **theHarvester** | `theHarvester -d <domain> -b google` | Scrapes emails and names from public search engines. |
+### Tool Overview
+| Tool | Purpose |
+| :--- | :--- |
+| **Sherlock** | Finds accounts on 400+ social networks. |
+| **Maigret** | Advanced username OSINT (extracts profile data). |
+| **Blackbird** | Additional username coverage across platforms. |
+| **Holehe** | Checks if an email is registered on various sites (IG, Twitter, etc). |
+| **h8mail** | Finds passwords/breach data associated with an email. |
+| **theHarvester** | Scrapes emails and names from public search engines. |
+
+### Quick Commands
+```bash
+# --- Email Investigation ---
+theHarvester -d target.com -b all          # General email harvesting
+holehe target@example.com --only-used      # Email registration check
+h8mail -t target@example.com               # Breach hunting
+
+# --- Username Investigation ---
+sherlock username                          # Standard username search
+maigret username                           # Advanced username OSINT
+blackbird -u username                      # Additional coverage search
+```
 
 ---
 
 ## 🌐 Phase 2: Infrastructure & Domain Analysis
 *Used when you have a **Domain**, **IP Address**, or **URL**.*
 
-| Tool | Command/Usage | Purpose |
-| :--- | :--- | :--- |
-| **Amass** | `amass enum -d <domain>` | Deep DNS enumeration and sub-domain mapping. |
-| **Photon** | `photon -u <url>` | Crawls site for secret keys, files, and hidden URLs. |
-| **WhoisXML** | (API Integrated) | Retrieves ownership history and registrar info. |
-| **AbuseIPDB** | (API Integrated) | Checks if an IP is a known source of fraud or spam. |
-| **Shodan** | `shodan host <IP>` | Identifies open ports and running services on a server. |
+### Tool Overview
+| Tool | Purpose |
+| :--- | :--- |
+| **Amass** | Deep DNS enumeration and sub-domain mapping. |
+| **Subfinder** | Fast subdomain discovery. |
+| **Shodan** | Identifies open ports and running services on a server. |
+| **WhoisXML** | (API Integrated) Retrieves ownership history and registrar info. |
+| **AbuseIPDB**| (API Integrated) Checks if an IP is a known source of fraud/spam. |
+
+### Quick Commands
+```bash
+# --- Domain Reconnaissance ---
+amass enum -d target.com                   # Comprehensive subdomain enumeration
+subfinder -d target.com                    # Fast subdomain discovery
+subfinder -d target.com -silent | httpx -td -server -title -asn # Subfinder → httpx pipeline
+theHarvester -d target.com -b google       # Domain emails & subdomains via Google
+
+# Certificate transparency via crt.sh
+curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | sort -u
+
+# --- IP Investigation ---
+asn 1.2.3.4                                # ASN + abuse contact
+curl -s "https://ipinfo.io/1.2.3.4" | jq   # Geolocation lookup
+dig -x 1.2.3.4 +short                      # Reverse DNS lookup
+shodan host 1.2.3.4                        # Service and port identification
+```
 
 ---
 
-## 📱 Phase 3: Communication Intelligence
+## 🕷️ Phase 3: Web Crawling & Historical Analysis
+*Used for mapping web assets, finding hidden endpoints, and viewing past versions of sites.*
+
+### Tool Overview & Commands
+| Tool | Purpose | Command / Usage |
+| :--- | :--- | :--- |
+| **Photon** | Crawls site for secret keys, files, and URLs. | `python photon.py -u [https://target.com](https://target.com)` |
+| **waybackurls**| Historical URL discovery via Wayback Machine. | `echo target.com | waybackurls` |
+| **Wget** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ [https://target.com](https://target.com)` |
+
+---
+
+## 📱 Phase 4: Communication Intelligence
 *Used when you have a **Phone Number**.*
 
-| Tool | Command/Usage | Purpose |
+### Tool Overview & Commands
+| Tool | Purpose | Command / Usage |
 | :--- | :--- | :--- |
-| **PhoneInfoga** | `phoneinfoga scan -n <number>` | Checks carrier, location, and reputation. |
-| **Google Dorking** | `site:facebook.com "number"` | Manual lookup for linked social profiles. |
+| **PhoneInfoga** | Checks carrier, location, and reputation. | `phoneinfoga scan -n <number>` |
+| **Google Dorking**| Manual lookup for linked social profiles. | `site:facebook.com "number"` |
 
 ---
 
-## 📊 Phase 4: Analysis & Automation
+## 📊 Phase 5: Analysis & Automation
 *Used for **Visualizing** links and **Automating** the workflow.*
 
+### Tool Overview
 | Tool | Purpose |
 | :--- | :--- |
 | **SpiderFoot** | Runs 100+ modules automatically against a single target. |
 | **Recon-ng** | A framework to manage targets in a local database. |
 | **Maltego** | Drag-and-drop link analysis to see connections between entities. |
 
+### Quick Commands
+```bash
+# --- Recon-ng Framework ---
+recon-ng                                   # Launch framework
+workspaces create target                   # Create a new workspace
+marketplace install all                    # Install all modules
+modules search                             # Search available modules
+
+# --- SpiderFoot ---
+spiderfoot -s target.com                   # Auto OSINT execution against a target
+```
+
 ---
 
-## 📂 Investigator Playbook Commands
-*Shortcut keys and logic from `osint_investigator.sh`.*
+## 💾 Evidence Preservation & Playbook Operations
+*Crucial steps for ensuring findings are documented, hashed, and forensically sound.*
 
-* **Initialize Case:** Select `[1]` in the main menu to set up forensic directories.
-* **Log Location:** `${HOME}/.config/osint-investigator/logs/`
-* **API Config:** Edit `api_keys.conf` to enable Shodan, VT, and HIBP.
-* **Evidence Export:** Move all critical findings to `${CASE_DIR}/evidence/` for the final report.
+### Investigator Playbook Configuration
+*   **Initialize Case:** Select `[1]` in the main menu to set up forensic directories.
+*   **Log Location:** `${HOME}/.config/osint-investigator/logs/`
+*   **API Config:** Edit `api_keys.conf` to enable Shodan, VirusTotal (VT), and HIBP.
+*   **Evidence Export:** Move all critical findings to `${CASE_DIR}/evidence/` for the final report.
+
+### Preservation Commands
+```bash
+# Capture a self-contained HTML archive of a webpage
+monolith https://target.com -o evidence_$(date +%Y%m%d_%H%M%S).html
+
+# Capture a full-page screenshot
+cutycapt --url=https://target.com --out=screenshot.png
+
+# Force a target page to be archived in the Wayback Machine
+waybackpy --url "https://target.com" --save
+
+# Generate a Hash Manifest to prove file integrity
+sha256sum evidence_*.html screenshot_*.png > evidence_hashes.txt
+```
 
 ---
 
 ## 🛠️ Essential Linux Commands for OSINT
-* **DNS Lookup:** `dig <domain> ANY`
-* **Owner Lookup:** `whois <domain>`
-* **File Extraction:** `grep -r "regex" ./raw_data/`
-* **Metadata Check:** `exiftool image.jpg`
+Native utilities that are invaluable during an investigation:
+*   **DNS Lookup:** `dig <domain> ANY`
+*   **Owner Lookup:** `whois <domain>`
+*   **File Extraction:** `grep -r "regex" ./raw_data/`
+*   **Metadata Check:** `exiftool image.jpg`
 
 ---
-**Disclaimer:** Ensure all research is conducted via a VPN/Tor and follows legal guidelines for your jurisdiction.
+> **⚠️ Disclaimer:** Ensure all research is conducted securely (via a VPN/Tor) and strictly follows the legal guidelines and regulations for your jurisdiction.
