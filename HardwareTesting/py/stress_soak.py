@@ -141,11 +141,11 @@ def _fmt_s(seconds: int) -> str:
     """Format seconds as e.g. '3h 15m 42s'."""
     h, rem = divmod(int(seconds), 3600)
     m, s   = divmod(rem, 60)
-    parts  = []
-    if h: parts.append(f"{h}h")
-    if m: parts.append(f"{m}m")
-    parts.append(f"{s}s")
-    return " ".join(parts)
+    if h:
+        return f"{h}h {m:02d}m {s:02d}s"
+    if m:
+        return f"{m}m {s:02d}s"
+    return f"{s}s"
 
 
 def _progress(label: str, elapsed: int, total: int):
