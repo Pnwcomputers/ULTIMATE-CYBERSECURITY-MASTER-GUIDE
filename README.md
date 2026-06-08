@@ -433,4 +433,4 @@ Want to help the community?
 
 ---
 
-*Last Updated: May 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
+*Last Updated: June 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
