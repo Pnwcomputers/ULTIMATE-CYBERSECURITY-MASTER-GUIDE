@@ -20,7 +20,7 @@
 
 This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches. Each platform combination (OS + CPU architecture) gets its own reference document and any platform-specific tooling.
 
-The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possible; the same orchestration logic runs on any Linux system with the right CLI tools installed. The cheat sheets document the platform-specific package managers, driver stacks, and tooling that differ between distributions and architectures.
+The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possible — the same orchestration logic runs on any Linux system with the right CLI tools installed. The cheat sheets document the platform-specific package managers, driver stacks, and tooling that differ between distributions and architectures.
 
 ---
 
@@ -42,7 +42,7 @@ The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possib
 
 ---
 
-## Manjaro Linux (Intel CPU) ✅
+## Manjaro Linux — Intel ✅
 
 **Reference:** [`Manjaro_Intel_TestBench.md`](./Manjaro_Intel_TestBench.md)
 
@@ -60,31 +60,50 @@ Covers Z790 motherboards with 13th/14th Gen Core i9 processors running Manjaro (
 
 ---
 
-## Python Scripts [`py/`](./py/)
+## Python Scripts — [`py/`](./py/)
 
 Four Python scripts that orchestrate CLI tools, stream output live, and compile results into Markdown reports. Designed for Manjaro/Intel but largely portable to any Linux system with the appropriate tools installed.
 
 | Script | What it does | Sudo |
 | :--- | :--- | :---: |
-| `full_hw_suite.py` | Full sequential diagnostic; system info, CPU, RAM, storage, GPU | ✅ |
+| `full_hw_suite.py` | Full sequential diagnostic — system info, CPU, RAM, storage, GPU | ✅ |
 | `standalone_gpu_tester.py` | GPU benchmark with X11/Wayland auto-detection | ❌ |
 | `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing | ✅ |
-| `stress_soak.py` | Reliability burn-in; simultaneous load with continuous thermal logging and PASS/FAIL verdict | ✅ |
+| `stress_soak.py` | Reliability burn-in — simultaneous load with continuous thermal logging and PASS/FAIL verdict | ✅ |
 
 See [`py/README.md`](./py/README.md) for full installation instructions, usage, and per-script documentation.
 
 **Quick start:**
 
 ```bash
-# Install required tools (Manjaro/Arch)
-sudo pacman -S --needed stress-ng fio memtester sysbench inxi dmidecode \
-  smartmontools nvme-cli lm_sensors intel-gpu-tools
-pamac build glmark2
+# ── Core tools (all platforms) ─────────────────────────────────────
+sudo pacman -S --needed \
+  python stress-ng fio memtester sysbench \
+  inxi dmidecode hwinfo lshw pciutils usbutils \
+  smartmontools nvme-cli hdparm \
+  lm_sensors s-tui htop btop nvtop \
+  base-devel git curl wget
 
-# Run a full diagnostic
+# Detect motherboard sensors (run once after install)
+sudo sensors-detect --auto
+
+# ── Intel GPU / iGPU ───────────────────────────────────────────────
+sudo pacman -S --needed intel-gpu-tools
+
+# ── AMD GPU ────────────────────────────────────────────────────────
+sudo pacman -S --needed amdgpu_top radeontop
+
+# ── NVIDIA GPU ─────────────────────────────────────────────────────
+# nvidia-smi ships with the driver; install nvidia-utils if missing
+sudo pacman -S --needed nvidia-utils
+
+# ── AUR: glmark2 (GPU benchmark) + additional tools ────────────────
+pamac build glmark2 kdiskmark phoronix-test-suite
+
+# ── Run a full diagnostic ──────────────────────────────────────────
 sudo python3 py/full_hw_suite.py
 
-# Run a 4-hour reliability soak before returning hardware to a client
+# ── Run a 4-hour reliability soak before returning to a client ─────
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
 ```
 
