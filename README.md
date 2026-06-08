@@ -24,8 +24,11 @@
 
 ## 🎯 START HERE
 
-### ⭐ **[START_HERE.md](START_HERE.md) — READ THIS FIRST**
+### New to IT/Computers in General? - READ OUR ["IT MANUAL"](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
+
+### ⭐ **[START_HERE.md](START_HERE.md) — START HERE IF YOU ARE READY TO JUMP IN!**
 Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
+
 
 ---
 
