@@ -17,7 +17,7 @@ This document serves as a quick reference for common system administration, netw
 
 ---
 
-# Debian Linux OS Refrence:
+# Debian/General Linux Refrence Guide:
 
 [Debian](https://www.debian.org/) Linux maintains massive, heavily vetted official [repositories](https://github.com/InfoSecWarrior/Linux-Essentials/blob/main/Package-Management/Understanding-Repositories.md). If a piece of software isn't in the official repos (short for repositories), users typically add third-party repositories or PPAs [(Personal Package Archives)](https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/). Debian Linux uses [`apt`](https://linuxize.com/post/how-to-use-apt-command/) for it's package installation and management. For a graphical interface, users can also use the [Synaptic Package Manager](https://www.nongnu.org/synaptic/) to easily find and install applications on their system.
 
