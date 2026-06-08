@@ -81,13 +81,45 @@ Run these scripts on a fresh Manjaro installation to immediately provision the s
 This command installs core system utilities, sensors, terminal monitors, storage diagnostics, and basic stress utilities.
 
 ```bash
-sudo pacman -Syu --needed \
-base-devel git curl wget jq rsync tree tmux screen htop btop \
-inxi hwinfo dmidecode lshw pciutils usbutils \
-lm_sensors sysstat cpupower s-tui stress-ng sysbench \
-smartmontools nvme-cli hdparm fio kdiskmark \
-memtester intel-gpu-tools nvtop
+# ── Universal tools (run this on every test bench) ─────────────────
+sudo pacman -S --needed \
+  python stress-ng fio memtester sysbench \
+  inxi dmidecode hwinfo lshw pciutils usbutils \
+  smartmontools nvme-cli hdparm \
+  lm_sensors s-tui htop btop nvtop \
+  intel-gpu-tools amdgpu_top radeontop \
+  base-devel git curl wget
+
+# Detect motherboard sensors (run once after install)
+sudo sensors-detect --auto
 ```
+
+> **GPU tools — install the block that matches your hardware:**
+
+```bash
+# NVIDIA — nvidia-smi ships with the driver; install nvidia-utils if missing
+sudo pacman -S --needed nvidia-utils
+```
+
+```bash
+# AMD — amdgpu_top and radeontop already included in the universal block above
+# No additional steps required
+```
+
+```bash
+# ── AUR tools (all platforms) ──────────────────────────────────────
+pamac build glmark2 kdiskmark phoronix-test-suite
+```
+
+```bash
+# ── Run a full diagnostic ──────────────────────────────────────────
+sudo python3 py/full_hw_suite.py
+
+# ── Run a 4-hour reliability soak before returning to a client ─────
+sudo python3 py/stress_soak.py --mode standard --client "Client Name"
+```
+
+---
 
 ### 6.2 AUR Tools (pamac)
 
