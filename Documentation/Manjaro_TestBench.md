@@ -1,4 +1,3 @@
-```markdown
 # 🖥️ Manjaro Linux Hardware Testing & Benchmarking Cheat Sheet
 
 This document serves as a quick reference for hardware diagnostics, stress testing, and benchmarking on Manjaro (Arch-based) Linux. It is specifically tailored for modern Intel test benches (**Z790 motherboards and 13th/14th Gen Core i9 processors**) but applies broadly to any modern PC hardware testing environment.
