@@ -76,30 +76,37 @@ See [`py/README.md`](./py/README.md) for full installation instructions, usage, 
 **Quick start:**
 
 ```bash
-# ── Core tools (all platforms) ─────────────────────────────────────
+# ── Universal tools (run this on every test bench) ─────────────────
 sudo pacman -S --needed \
   python stress-ng fio memtester sysbench \
   inxi dmidecode hwinfo lshw pciutils usbutils \
   smartmontools nvme-cli hdparm \
   lm_sensors s-tui htop btop nvtop \
+  intel-gpu-tools amdgpu_top radeontop \
   base-devel git curl wget
 
 # Detect motherboard sensors (run once after install)
 sudo sensors-detect --auto
+```
 
-# ── Intel GPU / iGPU ───────────────────────────────────────────────
-sudo pacman -S --needed intel-gpu-tools
+> **GPU tools — install the block that matches your hardware:**
 
-# ── AMD GPU ────────────────────────────────────────────────────────
-sudo pacman -S --needed amdgpu_top radeontop
-
-# ── NVIDIA GPU ─────────────────────────────────────────────────────
-# nvidia-smi ships with the driver; install nvidia-utils if missing
+```bash
+# NVIDIA — nvidia-smi ships with the driver; install nvidia-utils if missing
 sudo pacman -S --needed nvidia-utils
+```
 
-# ── AUR: glmark2 (GPU benchmark) + additional tools ────────────────
+```bash
+# AMD — amdgpu_top and radeontop already included in the universal block above
+# No additional steps required
+```
+
+```bash
+# ── AUR tools (all platforms) ──────────────────────────────────────
 pamac build glmark2 kdiskmark phoronix-test-suite
+```
 
+```bash
 # ── Run a full diagnostic ──────────────────────────────────────────
 sudo python3 py/full_hw_suite.py
 
