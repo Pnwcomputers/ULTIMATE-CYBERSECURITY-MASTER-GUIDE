@@ -21,7 +21,7 @@ import threading
 import time
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-REPORT_DIR         = os.path.expanduser("~")
+REPORT_DIR         = os.getcwd()   # save reports next to wherever the script is invoked from
 
 # CPU / RAM
 SYSBENCH_THREADS   = 0         # 0 = auto-detect (nproc)
