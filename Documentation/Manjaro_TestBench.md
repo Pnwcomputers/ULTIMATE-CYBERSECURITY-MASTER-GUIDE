@@ -182,7 +182,384 @@ Modern AMD Radeon cards use the open-source `amdgpu` kernel driver, which integr
 
 ---
 
-## Test Bench Best Practices ⚠️
+## 10. Automated Hardware Testing & Reporting Scripts
+
+The following provides modular Python orchestration scripts designed for Manjaro Linux test benches. Instead of writing low-level hardware tests in pure Python, these scripts act as orchestrators—running robust CLI tools (`sysbench`, `inxi`, `hdparm`, `fio`, `glmark2`), capturing their output, and compiling the results into clean, client-facing Markdown reports.
+
+### 10.1 Prerequisites
+
+Ensure the necessary diagnostic tools are installed on your Manjaro system before running the scripts:
+
+```bash
+sudo pacman -Syu --needed python sysbench inxi hdparm
+```
+
+### 10.2 The Unified Hardware Test Suite (`full_hw_suite.py`)
+
+This script runs sequentially through your entire test bench suite, captures the outputs, and compiles them into a comprehensive report.
+
+> **Important Notes Before Running:**
+> * **Run with `sudo`:** Tools like `memtester` and `dmidecode` require root access.
+> * **Desktop Environment:** `glmark2` requires an active display (X11/Wayland). Run this from a terminal emulator inside your desktop GUI, not a headless SSH session.
+> * **Fio Target:** The script creates a temporary `testfile.fio` in the directory you run it from. Ensure you run the script from the drive you actually want to test!
+
+```python
+#!/usr/bin/env python3
+
+import subprocess
+import datetime
+import os
+import sys
+
+class UnifiedHardwareTester:
+    def __init__(self):
+        self.report_data = {
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "client_name": "",
+            "system": "",
+            "motherboard": "",
+            "cpu": "",
+            "ram_bw": "",
+            "ram_stab": "",
+            "storage": "",
+            "gpu": "",
+            "errors": []
+        }
+
+    def run_cmd(self, cmd, timeout=600):
+        """Helper to execute shell commands and capture standard output."""
+        print(f"[*] Running: {cmd}")
+        try:
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+            if result.returncode != 0 and "inxi" not in cmd:  # inxi sometimes exits non-zero safely
+                self.report_data["errors"].append(f"Command failed: {cmd}\nError: {result.stderr.strip()}")
+            return result.stdout.strip()
+        except subprocess.TimeoutExpired:
+            self.report_data["errors"].append(f"TIMEOUT ({timeout}s): {cmd}")
+            return "Test Timed Out."
+        except Exception as e:
+            self.report_data["errors"].append(f"EXEC ERROR: {cmd} -> {str(e)}")
+            return "Execution Error."
+
+    def test_system_and_mobo(self):
+        print("\n[+] Gathering System & Motherboard Info (inxi & dmidecode)...")
+        self.report_data["system"] = self.run_cmd("inxi -Fzx -c0")
+        
+        mobo_out = self.run_cmd("dmidecode -t baseboard")
+        # Filter for the most relevant motherboard lines
+        mobo_lines = [line.strip() for line in mobo_out.split('\n') if "Manufacturer" in line or "Product Name" in line or "Version" in line]
+        self.report_data["motherboard"] = "\n".join(mobo_lines) if mobo_lines else "Could not read motherboard DMI data."
+
+    def test_cpu(self):
+        print("\n[+] Running CPU Stress Test (sysbench)...")
+        out = self.run_cmd("sysbench cpu --cpu-max-prime=20000 --time=10 run")
+        parsed = [line.strip() for line in out.split('\n') if "events per second" in line or "total time:" in line or "total number of events:" in line]
+        self.report_data["cpu"] = "\n".join(parsed) if parsed else "CPU Test Failed."
+
+    def test_ram(self):
+        print("\n[+] Running RAM Bandwidth Test (sysbench)...")
+        bw_out = self.run_cmd("sysbench memory --memory-block-size=1M --memory-total-size=10G run")
+        parsed_bw = [line.strip() for line in bw_out.split('\n') if "transferred" in line or "Total operations" in line]
+        self.report_data["ram_bw"] = "\n".join(parsed_bw) if parsed_bw else "RAM Bandwidth Test Failed."
+
+        print("\n[+] Running RAM Stability Test (memtester - 1GB)...")
+        stab_out = self.run_cmd("memtester 1G 1")
+        lines = stab_out.split('\n')
+        summary = [line for line in lines if "ok" in line.lower() or "failed" in line.lower() or "Done" in line]
+        self.report_data["ram_stab"] = "\n".join(summary[-10:]) if summary else "RAM Stability Test Failed."
+
+    def test_storage(self):
+        print("\n[+] Running Storage IOPS Test (fio)...")
+        print("    (Note: Creating 1GB testfile.fio in current directory)")
+        fio_cmd = "fio --name=randrw-4k --ioengine=libaio --iodepth=64 --rw=randrw --bs=4k --direct=1 --size=1G --numjobs=4 --runtime=30 --group_reporting --filename=testfile.fio"
+        out = self.run_cmd(fio_cmd, timeout=120)
+        
+        # Parse FIO for just the vital IOPS and Bandwidth lines
+        parsed = [line.strip() for line in out.split('\n') if "IOPS=" in line or "bw=" in line]
+        self.report_data["storage"] = "\n".join(parsed) if parsed else "Storage Test Failed."
+        
+        # Cleanup
+        if os.path.exists("testfile.fio"):
+            os.remove("testfile.fio")
+
+    def test_gpu(self):
+        print("\n[+] Running GPU Benchmark (glmark2)...")
+        if not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
+            self.report_data["gpu"] = "SKIPPED: No graphical display detected. glmark2 requires a desktop session."
+            return
+
+        out = self.run_cmd("glmark2 -s 1920x1080", timeout=300)
+        score_lines = [line.strip() for line in out.split('\n') if "glmark2 Score" in line]
+        self.report_data["gpu"] = score_lines[0] if score_lines else "GPU Benchmark Failed."
+
+    def build_report(self):
+        print("\n[+] Compiling Client Report...")
+        self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
+        client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+
+        report = f"""# Master Hardware Diagnostic & Benchmark Report
+**Date:** {self.report_data['timestamp']}
+{client_str}
+---
+
+## 1. Core System & Motherboard
+```text
+[Motherboard DMI]
+{self.report_data['motherboard']}
+
+[System Specifications]
+{self.report_data['system']}
+```
+
+## 2. CPU Performance
+*Test: Sysbench Prime Number Calculation*
+```text
+{self.report_data['cpu']}
+```
+
+## 3. Memory (RAM) Health & Speed
+*Bandwidth Test: Sysbench 10GB Block Transfer*
+```text
+{self.report_data['ram_bw']}
+```
+*Stability Test: Memtester (1GB Sample, 1 Pass)*
+```text
+{self.report_data['ram_stab']}
+```
+
+## 4. Storage Performance
+*Test: Fio Random Read/Write (4K, 64 Queue Depth)*
+```text
+{self.report_data['storage']}
+```
+
+## 5. GPU 3D Rendering
+*Test: glmark2 (1920x1080)*
+```text
+{self.report_data['gpu']}
+```
+"""
+        if self.report_data["errors"]:
+            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            for err in self.report_data["errors"]:
+                report += f"- {err}\n"
+            report += "```\n"
+        else:
+            report += "\n**Status:** ✅ All tests completed without execution errors.\n"
+
+        filename = f"Full_Hardware_Report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        with open(filename, "w") as f:
+            f.write(report)
+        print(f"\n[SUCCESS] Master report saved to: {os.path.abspath(filename)}")
+
+if __name__ == "__main__":
+    if os.geteuid() != 0:
+        print("❌ CRITICAL: This script must be run with sudo! (Required for memtester and dmidecode)")
+        sys.exit(1)
+
+    tester = UnifiedHardwareTester()
+    tester.test_system_and_mobo()
+    tester.test_cpu()
+    tester.test_ram()
+    tester.test_storage()
+    tester.test_gpu()
+    tester.build_report()
+```
+
+### 10.3 Standalone GPU Tester (`standalone_gpu_tester.py`)
+
+> **Note:** Requires an active display (X11/Wayland) to run `glmark2`. Do not run headless.
+
+```python
+#!/usr/bin/env python3
+
+import subprocess
+import datetime
+import os
+import sys
+
+class StandaloneGPUTester:
+    def __init__(self):
+        self.report_data = {
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "client_name": "",
+            "gpu_hardware": "",
+            "benchmark": "",
+            "errors": []
+        }
+
+    def run_cmd(self, cmd, timeout=300):
+        print(f"[*] Running: {cmd}")
+        try:
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+            if result.returncode != 0 and "inxi" not in cmd:
+                self.report_data["errors"].append(f"Command failed: {cmd}\nError: {result.stderr.strip()}")
+            return result.stdout.strip()
+        except subprocess.TimeoutExpired:
+            self.report_data["errors"].append(f"TIMEOUT ({timeout}s): {cmd}")
+            return "Test Timed Out."
+        except Exception as e:
+            self.report_data["errors"].append(f"EXEC ERROR: {cmd} -> {str(e)}")
+            return "Execution Error."
+
+    def test_gpu(self):
+        print("\n[+] Identifying GPU Hardware (inxi)...")
+        self.report_data["gpu_hardware"] = self.run_cmd("inxi -G -c0")
+
+        print("\n[+] Running GPU Benchmark (glmark2)...")
+        if not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
+            self.report_data["benchmark"] = "SKIPPED: No graphical display detected. glmark2 requires a desktop session."
+            return
+
+        out = self.run_cmd("glmark2 -s 1920x1080", timeout=300)
+        score_lines = [line.strip() for line in out.split('\n') if "glmark2 Score" in line]
+        self.report_data["benchmark"] = score_lines[0] if score_lines else "GPU Benchmark Failed or could not parse score."
+
+    def build_report(self):
+        print("\n[+] Compiling GPU Report...")
+        self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
+        client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+
+        report = f"""# GPU Diagnostic & Benchmark Report
+**Date:** {self.report_data['timestamp']}
+{client_str}
+---
+
+## 1. Hardware & Driver Information
+```text
+{self.report_data['gpu_hardware']}
+```
+
+## 2. 3D Rendering Performance
+*Test: glmark2 (1920x1080)*
+```text
+{self.report_data['benchmark']}
+```
+"""
+        if self.report_data["errors"]:
+            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            for err in self.report_data["errors"]:
+                report += f"- {err}\n"
+            report += "```\n"
+        else:
+            report += "\n**Status:** ✅ All tests completed without execution errors.\n"
+
+        filename = f"GPU_Report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        with open(filename, "w") as f:
+            f.write(report)
+        print(f"\n[SUCCESS] GPU report saved to: {os.path.abspath(filename)}")
+
+if __name__ == "__main__":
+    tester = StandaloneGPUTester()
+    tester.test_gpu()
+    tester.build_report()
+```
+
+### 10.4 Standalone RAM Tester (`standalone_ram_tester.py`)
+
+> **Note:** Requires `sudo` to run `memtester` for memory allocation locking.
+
+```python
+#!/usr/bin/env python3
+
+import subprocess
+import datetime
+import os
+import sys
+
+class StandaloneRAMTester:
+    def __init__(self):
+        self.report_data = {
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "client_name": "",
+            "ram_hardware": "",
+            "ram_bw": "",
+            "ram_stab": "",
+            "errors": []
+        }
+
+    def run_cmd(self, cmd, timeout=600):
+        print(f"[*] Running: {cmd}")
+        try:
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+            if result.returncode != 0 and "inxi" not in cmd:
+                self.report_data["errors"].append(f"Command failed: {cmd}\nError: {result.stderr.strip()}")
+            return result.stdout.strip()
+        except subprocess.TimeoutExpired:
+            self.report_data["errors"].append(f"TIMEOUT ({timeout}s): {cmd}")
+            return "Test Timed Out."
+        except Exception as e:
+            self.report_data["errors"].append(f"EXEC ERROR: {cmd} -> {str(e)}")
+            return "Execution Error."
+
+    def test_ram(self):
+        print("\n[+] Gathering RAM Hardware Info (inxi)...")
+        self.report_data["ram_hardware"] = self.run_cmd("inxi -m -c0")
+
+        print("\n[+] Running RAM Bandwidth Test (sysbench)...")
+        bw_out = self.run_cmd("sysbench memory --memory-block-size=1M --memory-total-size=10G run")
+        parsed_bw = [line.strip() for line in bw_out.split('\n') if "transferred" in line or "Total operations" in line]
+        self.report_data["ram_bw"] = "\n".join(parsed_bw) if parsed_bw else "RAM Bandwidth Test Failed."
+
+        print("\n[+] Running RAM Stability Test (memtester - 1GB)...")
+        stab_out = self.run_cmd("memtester 1G 1")
+        lines = stab_out.split('\n')
+        summary = [line for line in lines if "ok" in line.lower() or "failed" in line.lower() or "Done" in line]
+        self.report_data["ram_stab"] = "\n".join(summary[-10:]) if summary else "RAM Stability Test Failed."
+
+    def build_report(self):
+        print("\n[+] Compiling RAM Report...")
+        self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
+        client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+
+        report = f"""# RAM Diagnostic & Benchmark Report
+**Date:** {self.report_data['timestamp']}
+{client_str}
+---
+
+## 1. Hardware Information
+```text
+{self.report_data['ram_hardware']}
+```
+
+## 2. Memory Bandwidth Performance
+*Test: Sysbench 10GB Block Transfer*
+```text
+{self.report_data['ram_bw']}
+```
+
+## 3. Hardware Stability 
+*Test: Memtester (1GB Sample, 1 Pass)*
+```text
+{self.report_data['ram_stab']}
+```
+"""
+        if self.report_data["errors"]:
+            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            for err in self.report_data["errors"]:
+                report += f"- {err}\n"
+            report += "```\n"
+        else:
+            report += "\n**Status:** ✅ All tests completed without execution errors.\n"
+
+        filename = f"RAM_Report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        with open(filename, "w") as f:
+            f.write(report)
+        print(f"\n[SUCCESS] RAM report saved to: {os.path.abspath(filename)}")
+
+if __name__ == "__main__":
+    if os.geteuid() != 0:
+        print("❌ CRITICAL: This script must be run with sudo! (Required for memtester)")
+        sys.exit(1)
+
+    tester = StandaloneRAMTester()
+    tester.test_ram()
+    tester.build_report()
+```
+
+---
+
+## 11. Test Bench Best Practices ⚠️
 
 * **BIOS Updates:** Z790 platforms and 13th/14th Gen Intel CPUs frequently receive BIOS updates affecting power limits (e.g., "Intel Baseline Profile"). Always flash the latest BIOS before establishing benchmark baselines.
 * **Kernel Versions:** Manjaro offers multiple kernels. Always test hardware on the latest stable kernel (e.g., `Linux 6.8+`) using Manjaro Settings Manager to ensure maximum compatibility with the newest Thread Directors and chipset drivers.
