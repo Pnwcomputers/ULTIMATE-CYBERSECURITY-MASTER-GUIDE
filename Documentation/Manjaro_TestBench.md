@@ -1,4 +1,4 @@
-# 🖥️ Manjaro Linux Hardware Testing & Benchmarking Cheat Sheet
+# 🖥️ Manjaro Linux Dedicated Hardware Testing & Benchmarking PC ~ Cheat Sheet
 
 This document serves as a quick reference for hardware diagnostics, stress testing, and benchmarking on Manjaro (Arch-based) Linux. It is specifically tailored for modern Intel test benches (**Z790 motherboards and 13th/14th Gen Core i9 processors**) but applies broadly to any modern PC hardware testing environment.
 
@@ -29,7 +29,7 @@ Manjaro is based on Arch Linux, meaning `apt` is replaced by `pacman` (standard 
 | `lscpu` | **CPU Architecture** | Shows CPU topology, core counts (P-Cores and E-Cores), threads, and cache sizes. |
 | `sudo lspci -vv` | **PCIe Devices** | Extremely detailed output of all PCIe devices, link speeds (e.g., PCIe 4.0/5.0), and active lanes. |
 | `journalctl -k -p err` | **Kernel Hardware Errors** | Filters the kernel ring buffer for hardware-level errors, critical for spotting faulty components. |
-| `dmesg \| grep -i throttle` | **Check Throttling** | Checks the kernel log for any CPU thermal throttling events during heavy workloads. |
+| `dmesg | grep -i throttle` | **Check Throttling** | Checks the kernel log for any CPU thermal throttling events during heavy workloads. |
 
 ---
 
@@ -74,7 +74,7 @@ With an i9 processor, monitoring thermals and power draw (PL1/PL2 limits) is cri
 
 ## 6. Fresh Install — Z790/i9 Test Bench Toolkit (One-Liner)
 
-Run these scripts on a fresh Manjaro installation to immediately provision the system with all necessary diagnostic, benchmarking, and monitoring tools. 
+Run these scripts on a fresh Manjaro installation to immediately provision the system with all necessary diagnostic, benchmarking, and monitoring tools.
 
 ### 6.1 Standard Repository Tools (pacman)
 
@@ -107,27 +107,32 @@ phoronix-test-suite
 
 **Detect Motherboard Sensors:**
 To ensure your Z790 motherboard sensors are properly read by `lm_sensors` and `s-tui`:
+
 ```bash
 sudo sensors-detect --auto
 ```
 
 **Enable microcode updates (Intel):**
 Ensures the i9 processor has the latest microcode patches (crucial for stability and security).
+
 ```bash
 sudo pacman -S intel-ucode
 ```
+
 *(Note: You may need to regenerate your GRUB/systemd-boot config depending on your bootloader to load the microcode).*
 
 ---
 
 ## 7. Storage Benchmarking with `fio`
 
-For deep analysis of NVMe drives on your test bench, `fio` (Flexible I/O Tester) is the enterprise standard. 
+For deep analysis of NVMe drives on your test bench, `fio` (Flexible I/O Tester) is the enterprise standard.
 
 **Random 4K Read/Write Test (Storage IOPS):**
+
 ```bash
 fio --name=randrw-4k --ioengine=libaio --iodepth=64 --rw=randrw --bs=4k --direct=1 --size=4G --numjobs=4 --runtime=60 --group_reporting --filename=testfile.fio
 ```
+
 > **Warning:** This command creates a 4GB `testfile.fio` in your current directory. Make sure you are in the mount point of the drive you actually want to test before running it!
 
 ---
@@ -296,6 +301,7 @@ class UnifiedHardwareTester:
         print("\n[+] Compiling Client Report...")
         self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
         client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+        cb = "```"
 
         report = f"""# Master Hardware Diagnostic & Benchmark Report
 **Date:** {self.report_data['timestamp']}
@@ -303,47 +309,47 @@ class UnifiedHardwareTester:
 ---
 
 ## 1. Core System & Motherboard
-```text
+{cb}text
 [Motherboard DMI]
 {self.report_data['motherboard']}
 
 [System Specifications]
 {self.report_data['system']}
-```
+{cb}
 
 ## 2. CPU Performance
 *Test: Sysbench Prime Number Calculation*
-```text
+{cb}text
 {self.report_data['cpu']}
-```
+{cb}
 
 ## 3. Memory (RAM) Health & Speed
 *Bandwidth Test: Sysbench 10GB Block Transfer*
-```text
+{cb}text
 {self.report_data['ram_bw']}
-```
+{cb}
 *Stability Test: Memtester (1GB Sample, 1 Pass)*
-```text
+{cb}text
 {self.report_data['ram_stab']}
-```
+{cb}
 
 ## 4. Storage Performance
 *Test: Fio Random Read/Write (4K, 64 Queue Depth)*
-```text
+{cb}text
 {self.report_data['storage']}
-```
+{cb}
 
 ## 5. GPU 3D Rendering
 *Test: glmark2 (1920x1080)*
-```text
+{cb}text
 {self.report_data['gpu']}
-```
+{cb}
 """
         if self.report_data["errors"]:
-            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            report += f"\n## ⚠️ Diagnostic Errors Log\n{cb}text\n"
             for err in self.report_data["errors"]:
                 report += f"- {err}\n"
-            report += "```\n"
+            report += f"{cb}\n"
         else:
             report += "\n**Status:** ✅ All tests completed without execution errors.\n"
 
@@ -419,6 +425,7 @@ class StandaloneGPUTester:
         print("\n[+] Compiling GPU Report...")
         self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
         client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+        cb = "```"
 
         report = f"""# GPU Diagnostic & Benchmark Report
 **Date:** {self.report_data['timestamp']}
@@ -426,21 +433,21 @@ class StandaloneGPUTester:
 ---
 
 ## 1. Hardware & Driver Information
-```text
+{cb}text
 {self.report_data['gpu_hardware']}
-```
+{cb}
 
 ## 2. 3D Rendering Performance
 *Test: glmark2 (1920x1080)*
-```text
+{cb}text
 {self.report_data['benchmark']}
-```
+{cb}
 """
         if self.report_data["errors"]:
-            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            report += f"\n## ⚠️ Diagnostic Errors Log\n{cb}text\n"
             for err in self.report_data["errors"]:
                 report += f"- {err}\n"
-            report += "```\n"
+            report += f"{cb}\n"
         else:
             report += "\n**Status:** ✅ All tests completed without execution errors.\n"
 
@@ -511,6 +518,7 @@ class StandaloneRAMTester:
         print("\n[+] Compiling RAM Report...")
         self.report_data["client_name"] = input("Enter Client Name (or press Enter to skip): ").strip()
         client_str = f"### Prepared For: {self.report_data['client_name']}\n" if self.report_data['client_name'] else ""
+        cb = "```"
 
         report = f"""# RAM Diagnostic & Benchmark Report
 **Date:** {self.report_data['timestamp']}
@@ -518,27 +526,27 @@ class StandaloneRAMTester:
 ---
 
 ## 1. Hardware Information
-```text
+{cb}text
 {self.report_data['ram_hardware']}
-```
+{cb}
 
 ## 2. Memory Bandwidth Performance
 *Test: Sysbench 10GB Block Transfer*
-```text
+{cb}text
 {self.report_data['ram_bw']}
-```
+{cb}
 
 ## 3. Hardware Stability 
 *Test: Memtester (1GB Sample, 1 Pass)*
-```text
+{cb}text
 {self.report_data['ram_stab']}
-```
+{cb}
 """
         if self.report_data["errors"]:
-            report += "\n## ⚠️ Diagnostic Errors Log\n```text\n"
+            report += f"\n## ⚠️ Diagnostic Errors Log\n{cb}text\n"
             for err in self.report_data["errors"]:
                 report += f"- {err}\n"
-            report += "```\n"
+            report += f"{cb}\n"
         else:
             report += "\n**Status:** ✅ All tests completed without execution errors.\n"
 
