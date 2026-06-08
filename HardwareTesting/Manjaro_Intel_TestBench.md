@@ -97,26 +97,13 @@ sudo sensors-detect --auto
 > **GPU tools — install the block that matches your hardware:**
 
 ```bash
-# NVIDIA — nvidia-smi ships with the driver; install nvidia-utils if missing
+# NVIDIA — nvidia-smi ships with the driver; nvidia-utils also included in the universal block above
 # No additional steps required
 ```
 
 ```bash
 # AMD — amdgpu_top and radeontop already included in the universal block above
 # No additional steps required
-```
-
-```bash
-# ── AUR tools (all platforms) ──────────────────────────────────────
-pamac build glmark2 kdiskmark phoronix-test-suite
-```
-
-```bash
-# ── Run a full diagnostic ──────────────────────────────────────────
-sudo python3 py/full_hw_suite.py
-
-# ── Run a 4-hour reliability soak before returning to a client ─────
-sudo python3 py/stress_soak.py --mode standard --client "Client Name"
 ```
 
 ---
