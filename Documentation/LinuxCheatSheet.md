@@ -706,4 +706,4 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 ---
 
-*Last Updated: 2026-05-08*
+*Last Updated: 06-08-2026*
