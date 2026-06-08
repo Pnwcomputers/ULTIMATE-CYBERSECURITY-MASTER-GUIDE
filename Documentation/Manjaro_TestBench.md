@@ -6,7 +6,7 @@ This document serves as a quick reference for hardware diagnostics, stress testi
 
 ## 1. Package Management (`pacman` and `pamac`)
 
-Manjaro is based on Arch Linux, meaning `apt` is replaced by `pacman` (standard repositories) and `pamac` (Manjaro's native package manager with Arch User Repository / AUR support).
+[Manjaro](https://manjaro.org/) Arch is based on [Arch](https://archlinux.org/) Linux, meaning [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
