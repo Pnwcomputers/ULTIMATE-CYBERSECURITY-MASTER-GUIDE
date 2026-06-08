@@ -10,12 +10,12 @@ A quick-reference guide for the tools, services, and commands integrated into th
 ### Tool Overview
 | Tool | Purpose |
 | :--- | :--- |
-| **Sherlock** | Finds accounts on 400+ social networks. |
-| **Maigret** | Advanced username OSINT (extracts profile data). |
-| **Blackbird** | Additional username coverage across platforms. |
-| **Holehe** | Checks if an email is registered on various sites (IG, Twitter, etc). |
-| **h8mail** | Finds passwords/breach data associated with an email. |
-| **theHarvester** | Scrapes emails and names from public search engines. |
+| **[Sherlock](https://github.com/sherlock-project/sherlock)** | Finds accounts on 400+ social networks. |
+| **[Maigret](https://bellingcat.gitbook.io/toolkit/more/all-tools/maigret)** | Advanced username OSINT (extracts profile data). |
+| **[Blackbird](https://github.com/p1ngul1n0/blackbird)** | Additional username coverage across platforms. |
+| **[Holehe](https://github.com/megadose/holehe)** | Checks if an email is registered on various sites (IG, Twitter, etc). |
+| **[h8mail](https://github.com/khast3x/h8mail)** | Finds passwords/breach data associated with an email. |
+| **[theHarvester](https://github.com/laramies/theharvester)** | Scrapes emails and names from public search engines. |
 
 ### Quick Commands
 ```bash
@@ -38,11 +38,11 @@ blackbird -u username                      # Additional coverage search
 ### Tool Overview
 | Tool | Purpose |
 | :--- | :--- |
-| **Amass** | Deep DNS enumeration and sub-domain mapping. |
-| **Subfinder** | Fast subdomain discovery. |
-| **Shodan** | Identifies open ports and running services on a server. |
-| **WhoisXML** | (API Integrated) Retrieves ownership history and registrar info. |
-| **AbuseIPDB**| (API Integrated) Checks if an IP is a known source of fraud/spam. |
+| **[Amass](https://github.com/owasp-amass/amass)** | Deep DNS enumeration and sub-domain mapping. |
+| **[Subfinder](https://github.com/projectdiscovery/subfinder)** | Fast subdomain discovery. |
+| **[Shodan](https://www.shodan.io/)** | Identifies open ports and running services on a server. |
+| **[WhoisXML](https://www.whoisxmlapi.com/)** | (API Integrated) Retrieves ownership history and registrar info. |
+| **[AbuseIPDB](https://www.abuseipdb.com/)**| (API Integrated) Checks if an IP is a known source of fraud/spam. |
 
 ### Quick Commands
 ```bash
@@ -70,9 +70,9 @@ shodan host 1.2.3.4                        # Service and port identification
 ### Tool Overview & Commands
 | Tool | Purpose | Command / Usage |
 | :--- | :--- | :--- |
-| **Photon** | Crawls site for secret keys, files, and URLs. | `python photon.py -u [https://target.com](https://target.com)` |
-| **waybackurls**| Historical URL discovery via Wayback Machine. | `echo target.com | waybackurls` |
-| **Wget** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ [https://target.com](https://target.com)` |
+| **[Photon](https://github.com/s0md3v/photon)** | Crawls site for secret keys, files, and URLs. | `python photon.py -u [https://target.com](https://target.com)` |
+| **[waybackurls](https://github.com/tomnomnom/waybackurls)**| Historical URL discovery via Wayback Machine. | `echo target.com | waybackurls` |
+| **[Wget](https://osintteam.blog/master-real-world-web-app-enumeration-with-curl-wget-and-bash-a-step-by-step-guide-5f74ab34e795)** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ [https://target.com](https://target.com)` |
 
 ---
 
@@ -82,8 +82,8 @@ shodan host 1.2.3.4                        # Service and port identification
 ### Tool Overview & Commands
 | Tool | Purpose | Command / Usage |
 | :--- | :--- | :--- |
-| **PhoneInfoga** | Checks carrier, location, and reputation. | `phoneinfoga scan -n <number>` |
-| **Google Dorking**| Manual lookup for linked social profiles. | `site:facebook.com "number"` |
+| **[PhoneInfoga](https://github.com/sundowndev/phoneinfoga)** | Checks carrier, location, and reputation. | `phoneinfoga scan -n <number>` |
+| **[Google Dorking](https://tryhackme.com/room/googledorking)**| Manual lookup for linked social profiles. | `site:facebook.com "number"` |
 
 ---
 
@@ -93,9 +93,9 @@ shodan host 1.2.3.4                        # Service and port identification
 ### Tool Overview
 | Tool | Purpose |
 | :--- | :--- |
-| **SpiderFoot** | Runs 100+ modules automatically against a single target. |
-| **Recon-ng** | A framework to manage targets in a local database. |
-| **Maltego** | Drag-and-drop link analysis to see connections between entities. |
+| **[SpiderFoot](https://github.com/smicallef/spiderfoot)** | Runs 100+ modules automatically against a single target. |
+| **[Recon-ng](https://github.com/lanmaster53/recon-ng)** | A framework to manage targets in a local database. |
+| **[Maltego](https://www.maltego.com/)** | Drag-and-drop link analysis to see connections between entities. |
 
 ### Quick Commands
 ```bash
@@ -139,10 +139,10 @@ sha256sum evidence_*.html screenshot_*.png > evidence_hashes.txt
 
 ## 🛠️ Essential Linux Commands for OSINT
 Native utilities that are invaluable during an investigation:
-*   **DNS Lookup:** `dig <domain> ANY`
-*   **Owner Lookup:** `whois <domain>`
-*   **File Extraction:** `grep -r "regex" ./raw_data/`
-*   **Metadata Check:** `exiftool image.jpg`
+*   **[DNS Lookup:](https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/)** `dig <domain> ANY`
+*   **[Owner Lookup:](https://www.kali.org/tools/whois/)** `whois <domain>`
+*   **[File Extraction:](https://developers.redhat.com/articles/2022/09/14/beginners-guide-regular-expressions-grep)** `grep -r "regex" ./raw_data/`
+*   **[Metadata Check:](https://exiftool.org/examples.html)** `exiftool image.jpg`
 
 ---
 > **⚠️ Disclaimer:** Ensure all research is conducted securely (via a VPN/Tor) and strictly follows the legal guidelines and regulations for your jurisdiction.
