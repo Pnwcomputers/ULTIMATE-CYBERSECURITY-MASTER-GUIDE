@@ -20,7 +20,7 @@
 
 This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches. Each platform combination (OS + CPU architecture) gets its own reference document and any platform-specific tooling.
 
-The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possible — the same orchestration logic runs on any Linux system with the right CLI tools installed. The cheat sheets document the platform-specific package managers, driver stacks, and tooling that differ between distributions and architectures.
+The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possible; the same orchestration logic runs on any Linux system with the right CLI tools installed. The cheat sheets document the platform-specific package managers, driver stacks, and tooling that differ between distributions and architectures.
 
 ---
 
@@ -42,7 +42,7 @@ The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possib
 
 ---
 
-## Manjaro Linux — Intel ✅
+## Manjaro Linux (Intel CPU) ✅
 
 **Reference:** [`Manjaro_Intel_TestBench.md`](./Manjaro_Intel_TestBench.md)
 
@@ -60,16 +60,16 @@ Covers Z790 motherboards with 13th/14th Gen Core i9 processors running Manjaro (
 
 ---
 
-## Python Scripts — [`py/`](./py/)
+## Python Scripts [`py/`](./py/)
 
 Four Python scripts that orchestrate CLI tools, stream output live, and compile results into Markdown reports. Designed for Manjaro/Intel but largely portable to any Linux system with the appropriate tools installed.
 
 | Script | What it does | Sudo |
 | :--- | :--- | :---: |
-| `full_hw_suite.py` | Full sequential diagnostic — system info, CPU, RAM, storage, GPU | ✅ |
+| `full_hw_suite.py` | Full sequential diagnostic; system info, CPU, RAM, storage, GPU | ✅ |
 | `standalone_gpu_tester.py` | GPU benchmark with X11/Wayland auto-detection | ❌ |
 | `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing | ✅ |
-| `stress_soak.py` | Reliability burn-in — simultaneous load with continuous thermal logging and PASS/FAIL verdict | ✅ |
+| `stress_soak.py` | Reliability burn-in; simultaneous load with continuous thermal logging and PASS/FAIL verdict | ✅ |
 
 See [`py/README.md`](./py/README.md) for full installation instructions, usage, and per-script documentation.
 
