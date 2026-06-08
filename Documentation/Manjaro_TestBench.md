@@ -1,3 +1,4 @@
+```markdown
 # 🖥️ Manjaro Linux Hardware Testing & Benchmarking Cheat Sheet
 
 This document serves as a quick reference for hardware diagnostics, stress testing, and benchmarking on Manjaro (Arch-based) Linux. It is specifically tailored for modern Intel test benches (**Z790 motherboards and 13th/14th Gen Core i9 processors**) but applies broadly to any modern PC hardware testing environment.
@@ -42,7 +43,7 @@ With an i9 processor, monitoring thermals and power draw (PL1/PL2 limits) is cri
 | `watch -n 1 sensors` | **Basic Thermals** | Reads motherboard and CPU temperature sensors every second. Run `sudo sensors-detect` first. |
 | `s-tui` | **Terminal UI Monitor** | A highly visual terminal graph for CPU frequency, utilization, temperature, and power consumption. |
 | `sudo turbostat` | **Deep Intel CPU Data** | Essential for i9s. Shows exact C-states, turbo frequencies per core, and precise package power (Watts). |
-| `sudo intel_gpu_top` | **iGPU Monitoring** | Monitors utilization of the integrated Intel graphics on the i9 chip (requires `igt-gpu-tools`). |
+| `sudo intel_gpu_top` | **iGPU Monitoring** | Monitors utilization of the integrated Intel graphics on the i9 chip (requires `intel-gpu-tools`). |
 | `nvtop` | **GPU Monitor** | Like `htop` but for GPUs. Supports Intel, AMD, and NVIDIA dedicated GPUs. |
 
 ---
@@ -86,8 +87,7 @@ base-devel git curl wget jq rsync tree tmux screen htop btop \
 inxi hwinfo dmidecode lshw pciutils usbutils \
 lm_sensors sysstat cpupower s-tui stress-ng sysbench \
 smartmontools nvme-cli hdparm fio kdiskmark \
-memtester igt-gpu-tools nvtop \
-phoronix-test-suite
+memtester intel-gpu-tools nvtop
 ```
 
 ### 6.2 AUR Tools (pamac)
@@ -99,7 +99,8 @@ pamac build \
 mprime-bin \
 linpack \
 glmark2 \
-unigine-superposition
+unigine-superposition \
+phoronix-test-suite
 ```
 
 ### 6.3 Post-Install Setup
@@ -144,8 +145,46 @@ For comprehensive, standardized hardware reviews and comparisons, use the Phoron
 
 ---
 
+## 9. Dedicated GPU Testing (NVIDIA & AMD)
+
+For test benches equipped with dedicated graphics cards alongside or instead of the Intel iGPU, Manjaro provides native and AUR tools for monitoring and stressing both Team Green and Team Red.
+
+### 9.1 Universal GPU Tools
+
+| Command | Purpose | Explanation |
+| :--- | :--- | :--- |
+| `sudo pacman -S nvtop` | **Universal Monitor** | An excellent `htop`-style visual monitor that supports NVIDIA, AMD, and Intel GPUs simultaneously. |
+| `pamac build unigine-superposition` | **Superposition Benchmark** | A visually demanding 3D benchmark. Perfect for testing maximum GPU boost clocks, thermal limits, and VRAM stability. |
+| `pamac build gputest` | **FurMark / Thermal Torture** | A "power virus" style OpenGL test designed to push the GPU to its absolute thermal and power draw limits. |
+
+### 9.2 NVIDIA-Specific Tools
+
+NVIDIA diagnostics on Linux rely heavily on the proprietary drivers (`nvidia` package). The core CLI utilities are included in the `nvidia-utils` package.
+
+| Command | Purpose | Explanation |
+| :--- | :--- | :--- |
+| `nvidia-smi` | **GPU Snapshot** | Displays the current driver version, CUDA version, VRAM usage, temperature, and power consumption (Watts). |
+| `watch -n 1 nvidia-smi` | **Live NVIDIA Monitor** | Refreshes the `nvidia-smi` readout every second for real-time monitoring under load. |
+| `nvidia-smi dmon` | **Device Monitor** | Outputs a scrolling, compact table of stats (utilization, clocks, power)—ideal for logging metrics to a file during a benchmark. |
+| `nvidia-settings` | **NVIDIA GUI Panel** | The graphical control panel for checking thermals, adjusting fan curves, and configuring display pipelines. |
+
+### 9.3 AMD-Specific Tools
+
+Modern AMD Radeon cards use the open-source `amdgpu` kernel driver, which integrates deeply with the Linux kernel and provides excellent transparency out of the box.
+
+| Command | Purpose | Explanation |
+| :--- | :--- | :--- |
+| `sudo pacman -S amdgpu_top radeontop` | **Install AMD Monitors** | Installs the best dedicated CLI monitoring utilities for Radeon RX series cards. |
+| `amdgpu_top` | **Detailed AMD Monitor** | Shows deep metrics including CU (Compute Unit) usage, VRAM/GTT allocation, power consumption, and exact clock states. |
+| `radeontop` | **Graphics Pipe Monitor** | A TUI that shows specific hardware block utilization (e.g., Vertex Grouper, Shader Export, Primitive Assembly). |
+| `sudo cat /sys/kernel/debug/dri/0/amdgpu_pm_info` | **Raw Kernel Data** | Reads raw power limits, current clocks, and thermal parameters directly from the AMD kernel driver. |
+
+---
+
 ## Test Bench Best Practices ⚠️
 
 * **BIOS Updates:** Z790 platforms and 13th/14th Gen Intel CPUs frequently receive BIOS updates affecting power limits (e.g., "Intel Baseline Profile"). Always flash the latest BIOS before establishing benchmark baselines.
 * **Kernel Versions:** Manjaro offers multiple kernels. Always test hardware on the latest stable kernel (e.g., `Linux 6.8+`) using Manjaro Settings Manager to ensure maximum compatibility with the newest Thread Directors and chipset drivers.
 * **Thermal Paste/Mounts:** If `turbostat` shows immediate thermal throttling (hitting 100°C) before PL2 duration expires, physically check the cooler mounting pressure and thermal paste application before assuming a software or hardware failure.
+
+```
