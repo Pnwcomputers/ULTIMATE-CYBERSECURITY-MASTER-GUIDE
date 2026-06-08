@@ -3,6 +3,23 @@
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ---
+## Arch Linux Quick Refrence:
+[Manjaro](https://manjaro.org/) Arch is based on [Arch](https://archlinux.org/) Linux, meaning [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!
+
+| Command | Purpose | Explanation |
+| :--- | :--- | :--- |
+| `sudo pacman -Syu` | **System Update** | Synchronizes repositories and updates all installed packages. Always do this before testing. |
+| `sudo pacman -S [pkg]` | **Install Package** | Basic command to install a software package from the official Manjaro repos. |
+| `sudo pacman -Rns [pkg]` | **Remove Package Cleanly** | Removes the package, its configuration files, and any unneeded dependencies. |
+| `pacman -Qdt` | **List Orphans** | Lists packages installed as dependencies that are no longer needed. |
+| `sudo pacman -Sc` | **Clean Cache** | Clears out the local cache of downloaded package files. |
+| `pamac build [pkg]` | **Install from AUR** | Builds and installs a community package from the Arch User Repository (e.g., proprietary benchmarks). |
+
+---
+
+# Debian Based Linux OS Refrence:
+
+Debian maintains massive, heavily vetted official [repositories](https://github.com/InfoSecWarrior/Linux-Essentials/blob/main/Package-Management/Understanding-Repositories.md). If a piece of software isn't in the official repos (short for repositories), users typically add third-party repositories or PPAs [(Personal Package Archives)](https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/). Debian Linux uses [`apt`](https://linuxize.com/post/how-to-use-apt-command/) for it's package installation and management. For a graphical interface, users can also use the [Synaptic Package Manager](https://www.nongnu.org/synaptic/) to easily find and install applications on their system.
 
 ## 1. SSH and File Permissions
 
