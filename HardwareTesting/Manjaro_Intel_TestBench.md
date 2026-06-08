@@ -88,7 +88,7 @@ sudo pacman -S --needed \
   smartmontools nvme-cli hdparm \
   lm_sensors s-tui htop btop nvtop \
   intel-gpu-tools amdgpu_top radeontop \
-  base-devel git curl wget
+  base-devel git curl wget nvidia-utils
 
 # Detect motherboard sensors (run once after install)
 sudo sensors-detect --auto
@@ -98,7 +98,7 @@ sudo sensors-detect --auto
 
 ```bash
 # NVIDIA — nvidia-smi ships with the driver; install nvidia-utils if missing
-sudo pacman -S --needed nvidia-utils
+# No additional steps required
 ```
 
 ```bash
@@ -138,7 +138,7 @@ phoronix-test-suite
 ### 6.3 Post-Install Setup
 
 **Detect Motherboard Sensors:**
-To ensure your Z790 motherboard sensors are properly read by `lm_sensors` and `s-tui`:
+To ensure your motherboard sensors are properly read by `lm_sensors` and `s-tui`:
 
 ```bash
 sudo sensors-detect --auto
