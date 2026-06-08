@@ -77,7 +77,7 @@ KERNEL_POLL_S      = 30    # seconds between journalctl polls
 VM_BYTES_PCT       = 60    # % of RAM stress-ng vm workers consume
 FIO_TESTFILE       = "/tmp/soak_testfile.fio"
 FIO_SIZE           = "2G"
-REPORT_DIR         = os.path.expanduser("~")
+REPORT_DIR         = os.getcwd()   # save reports next to wherever the script is invoked from
 
 # ── Global process registry (for clean signal-handler shutdown) ────────────────
 _active_procs: list[subprocess.Popen] = []
