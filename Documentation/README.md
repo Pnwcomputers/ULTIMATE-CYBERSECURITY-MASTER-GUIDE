@@ -110,8 +110,6 @@ This documentation serves as a reference material for security implementations, 
 | :--- | :--- |
 | [`/Homelab/`](../Homelab/) | Homelab build guides, network architecture, and lab environment setup |
 | [`/OSINT/`](../OSINT/) | OSINT methodology, tools guide, and investigator cheat sheet |
-| [`/Documentation/`](../Documentation/) | Comprehensive technical documentation, guides, and reference materials |
-
 
 ---
 
