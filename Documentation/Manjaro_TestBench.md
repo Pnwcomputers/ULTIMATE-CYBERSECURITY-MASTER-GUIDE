@@ -93,10 +93,11 @@ memtester intel-gpu-tools nvtop
 
 Some specialized testing tools (like Prime95 and specific GPU benchmarks) are only available in the Arch User Repository. We use `pamac build` for this, which comes standard on Manjaro.
 
+*(Note: The standalone `linpack` AUR package frequently fails to build due to Intel gating the source downloads. It has been removed from this script. Use Phoronix Test Suite in Section 8 to run Linpack instead.)*
+
 ```bash
 pamac build \
 mprime-bin \
-linpack \
 glmark2 \
 unigine-superposition \
 phoronix-test-suite
@@ -133,13 +134,14 @@ fio --name=randrw-4k --ioengine=libaio --iodepth=64 --rw=randrw --bs=4k --direct
 
 ## 8. The Phoronix Test Suite (Automated Benchmarking)
 
-For comprehensive, standardized hardware reviews and comparisons, use the Phoronix Test Suite installed in the one-liner above.
+For comprehensive, standardized hardware reviews and comparisons, use the Phoronix Test Suite installed in the one-liner above. PTS will automatically download and compile the necessary dependencies for tests like Linpack, bypassing AUR build issues.
 
 | Task | Command |
 | :--- | :--- |
 | **List Available Tests** | `phoronix-test-suite list-available-tests` |
 | **Run a CPU Suite** | `phoronix-test-suite benchmark cpu` |
 | **Run a Memory Suite** | `phoronix-test-suite benchmark memory` |
+| **Run Linpack Benchmark** | `phoronix-test-suite benchmark pts/linpack` |
 | **System Info Summary** | `phoronix-test-suite system-info` |
 
 ---
