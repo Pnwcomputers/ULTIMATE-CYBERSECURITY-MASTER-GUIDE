@@ -24,7 +24,7 @@ import time
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 GLMARK2_TIMEOUT = 600       # seconds — full run is 8-15 min; 600 is safe for any GPU
-REPORT_DIR      = os.path.expanduser("~")
+REPORT_DIR      = os.getcwd()   # save reports next to wherever the script is invoked from
 
 # Set to a list to run only specific scenes for a faster pass, e.g.:
 #   GLMARK2_SCENES = ["build", "texture", "shading", "desktop", "buffer"]
