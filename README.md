@@ -68,10 +68,10 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 [Incident Response](Incident%20Response/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
-| 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
-| 🧰 [Hardware Testing & Benchmarks](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
-| 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
 | 👾 [Space Security](Space%20Security/) | Offensive and defensive security across the three segments of modern space systems |
+| 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
+| 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🧰 [Hardware Testing](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
