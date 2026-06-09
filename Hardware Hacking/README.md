@@ -28,6 +28,10 @@ Software threat modeling assumes the attacker is remote and logical. Hardware th
 
 The classic security model of "inside the trust boundary = trusted" collapses when an attacker can physically manipulate the hardware. Hardware threat modeling rebuilds the trust boundary from the silicon up.
 
+<p align="center">
+  <img src="assets/CollapsingtheTrustBoundary.jpg" alt="Figure 1: Threat Modeling Boundaries. (Left) The logical model, where a remote attacker is stopped by a network firewall. (Right) The hardware model, where an attacker with physical access uses techniques like probing and glitching to bypass the now-meaningless logical trust boundary." width="600"/>
+</p>
+
 ---
 
 ### Attacker Profiles
@@ -207,6 +211,10 @@ Different logic families use different voltage levels. Probing or injecting at t
 
 ### Communication Interfaces
 
+<p align="center">
+  <img src="assets/UART.jpg" alt="Figure 2: UART Timing Diagram. A complete async frame (Start, 8 data bits, Parity, Stop). The data '0x55' (character 'U') is captured by the receiver by sampling at the center of each bit period based on the pre-configured baud rate." width="600"/>
+</p>
+
 #### UART (Universal Asynchronous Receiver/Transmitter)
 
 The most commonly found debug interface in embedded systems. Often provides a Linux shell or bootloader prompt.
@@ -227,6 +235,10 @@ Common baud rates: 9600, 38400, 57600, 115200, 230400, 921600
 **Attack value:** Boot logs, root shell access, U-Boot console with `nand read`/`tftp` commands for firmware extraction.
 
 ---
+
+<p align="center">
+  <img src="assets/SPI.jpg" alt="Figure 3: SPI Timing and Modes. Synchronized diagram showing the relationship between Chip Select (CS#), Clock (SCK), and Data (MOSI/MISO). It details how data is sampled on different clock edges depending on the Clock Polarity (CPOL) and Clock Phase (CPHA) configuration." width="600"/>
+</p>
 
 #### SPI (Serial Peripheral Interface)
 
@@ -254,6 +266,10 @@ flashrom -p ch341a_spi -r firmware_dump.bin
 
 ---
 
+<p align="center">
+  <img src="assets/I²C.jpg" alt="Figure 4: I²C Waveform. Diagram showing the open-drain SCL/SDA lines with required pull-up resistors. It highlights the unique Start and Stop conditions (SDA transitioning while SCL is High) and the ACK/NACK bit that follows every byte." width="600"/>
+</p>
+
 #### I²C (Inter-Integrated Circuit)
 
 Two-wire synchronous bus. Common for configuration EEPROMs, sensors, real-time clocks, PMICs.
@@ -277,6 +293,10 @@ i2cset -y 1 0x50 0x00 0xFF  # Write register (authorized testing only)
 **Attack value:** EEPROM at 0x50–0x57 range often stores device configuration, keys, or calibration. PMIC at various addresses can be used for voltage fault injection via I²C commands on systems with software-controlled power rails.
 
 ---
+
+<p align="center">
+  <img src="assets/JTAG.jpg" alt="Figure 5: JTAG TAP State Machine. Navigation of this state machine depends entirely on the logic level of the TMS signal at the rising edge of the TCK clock. Every arrow is labeled with the required TMS '0' or '1' to transition states." width="600"/>
+</p>
 
 #### JTAG (Joint Test Action Group)
 
@@ -339,6 +359,10 @@ openocd -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 - **Rigol DS1104Z-S** — adds signal gen; useful for clock injection testing
 - **Siglent SDS1204X-E** (~$400) — 200 MHz, 14 Mpts; better for RF work
 - **PicoScope 6000E** — 12-bit ADC; excellent for power analysis
+
+<p align="center">
+  <img src="assets/ShuntSetup.jpg" alt="Figure 6: Shunt Measurement Schematic. Setup for power analysis. A low-value shunt resistor (e.g., 10Ω) is placed in series with the target MCU's VDD. The oscilloscope measures the small, differential voltage drop across the shunt, which represents instantaneous current draw (I = V/R)." width="600"/>
+</p>
 
 #### Shunt Resistors for Power Measurement
 
@@ -405,6 +429,10 @@ Faulted execution (skip the branch):
 
 ### Fault Injection Methods
 
+<p align="center">
+  <img src="assets/ClockvsVoltage.jpg" alt="Figure 7: Fault Injection Comparison. (Top) Clock Glitching modifies a clock edge to violate internal setup time. (Bottom) Voltage Glitching briefly dips the supply voltage (crowbar fault) to cause propagation delays or memory corruption. In both cases, the glitch must be precisely aligned with a target security instruction." width="600"/>
+</p>
+
 #### Clock Glitching
 
 Introduce a glitch (shortened or extended clock pulse) into the target's clock line. The CPU executes an instruction in less time than it needs, producing incorrect results.
@@ -464,6 +492,10 @@ Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾‾�
 
 ---
 
+<p align="center">
+  <img src="assets/ElectromagneticFaultInjection.jpg" alt="Figure 8: EMFI Probe Setup. An specialized injection coil (the probe) is held less than 1mm above the surface of the target chip. A concept overlay shows how the intense pulsed B-field induces localized eddy currents directly into the silicon die through inductive coupling, bypassing the plastic packaging." width="600"/>
+</p>
+
 #### Electromagnetic Fault Injection (EMFI)
 
 A focused EM pulse induces transient currents in the target IC through inductive coupling, causing localized bit flips or logic faults without requiring physical contact to the supply or clock.
@@ -492,6 +524,10 @@ Target IC surface
 - Higher voltage = stronger fault but higher crash probability; sweep the parameter
 
 ---
+
+<p align="center">
+  <img src="assets/LaserFaultInjection.jpg" alt="Figure 9: LFI Laboratory Setup. The target chip must be mechanically 'decapped' to expose the silicon die. The chip is mounted under a microscope where a conceptual visualization shows a sub-micron laser spot targeting specific memory cells or logic comparators to induce transient photionization faults (bit flips)." width="600"/>
+</p>
 
 #### Laser Fault Injection (LFI)
 
@@ -718,6 +754,10 @@ Power consumption of a digital circuit correlates with the data it processes:
 - **Switching activity:** CMOS gates consume power only when switching (0→1 or 1→0). A byte of value 0xFF (all 1s) causes fewer transitions from previous all-1s state than a byte of value 0x00.
 - **Hamming weight model:** Power ∝ number of 1-bits in the data being processed
 - **Hamming distance model:** Power ∝ number of bits that change between consecutive operations
+
+<p align="center">
+  <img src="assets/SPAonRSA.jpg" alt="Figure 10: Annotated SPA Trace of RSA. Visualizing modular 'Square' versus modular 'Multiply' operations during modular exponentiation. In this example, the visible pattern directly reveals the private key bits: a Square operation indicates bit=0, while a Square followed by a Multiply indicates bit=1." width="600"/>
+</p>
 
 #### SPA on RSA
 
@@ -1035,6 +1075,10 @@ def align_traces_xcorr(traces, reference_trace):
 ---
 
 ### Differential Power Analysis — Leveling Up
+
+<p align="center">
+  <img src="assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack. Captured traces are processed through hypotheses about intermediate power consumption. These hypothetical values are correlated (Pearson r) against measured trace samples. In the final graph, the one key guess (red peak) with the highest correlation reveals the correct secret key byte." width="600"/>
+</p>
 
 #### Correlation Power Analysis (CPA)
 
