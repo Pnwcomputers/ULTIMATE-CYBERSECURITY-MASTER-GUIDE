@@ -80,7 +80,7 @@ See [`py/README.md`](./py/README.md) for full installation instructions, usage, 
 sudo pacman -S --needed \
   python stress-ng fio memtester sysbench \
   inxi dmidecode hwinfo lshw pciutils usbutils \
-  smartmontools nvme-cli hdparm \
+  smartmontools nvme-cli nvidia-smi hdparm \
   lm_sensors s-tui htop btop nvtop \
   intel-gpu-tools amdgpu_top radeontop \
   base-devel git curl wget
