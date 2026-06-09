@@ -1,6 +1,6 @@
 # Offensive AI
 
-> **Scope:** Adversarial machine learning, AI red teaming, and offensive techniques against AI/ML systems — covering attack methodology, data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks. This section treats AI systems as attack surfaces subject to the same rigorous adversarial analysis applied to traditional software and networks.
+> **Scope:** Adversarial machine learning, AI red teaming, and offensive techniques against AI/ML systems; covering attack methodology, data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks. This section treats AI systems as attack surfaces subject to the same rigorous adversarial analysis applied to traditional software and networks.
 >
 > **Ethical context:** All techniques are presented for authorized red teaming, security research, and defensive understanding. Apply only against systems you own, have written authorization to test, or in approved research environments.
 
