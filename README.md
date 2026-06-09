@@ -72,8 +72,10 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
 | 📚 [Documentation](Documentation/) | Supplemental technical documentation and cheat sheets |
-| 🕵️ [Tradecraft](Tradecraft/) | Security tradecraft for red team, blue team, and purple team practitioners |
-
+| 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🧰 [Hardware Testing & Benchmarks](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
+| 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
+| 👾 [Space Security](Space%20Security/) | Offensive and defensive security across the three segments of modern space systems |
 ---
 
 ## 🆕 UNIQUE & PERSONAL CONTENT
