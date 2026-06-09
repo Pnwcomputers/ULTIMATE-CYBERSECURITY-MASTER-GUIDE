@@ -29,7 +29,7 @@ Software threat modeling assumes the attacker is remote and logical. Hardware th
 The classic security model of "inside the trust boundary = trusted" collapses when an attacker can physically manipulate the hardware. Hardware threat modeling rebuilds the trust boundary from the silicon up.
 
 <p align="center">
-  <img src="assets/CollapsingtheTrustBoundary.jpg" alt="Figure 1: Threat Modeling Boundaries. (Left) The logical model, where a remote attacker is stopped by a network firewall. (Right) The hardware model, where an attacker with physical access uses techniques like probing and glitching to bypass the now-meaningless logical trust boundary." width="600"/>
+  <img src="/assets/CollapsingtheTrustBoundary.jpg" alt="Figure 1: Threat Modeling Boundaries. (Left) The logical model, where a remote attacker is stopped by a network firewall. (Right) The hardware model, where an attacker with physical access uses techniques like probing and glitching to bypass the now-meaningless logical trust boundary." width="600"/>
 </p>
 
 ---
