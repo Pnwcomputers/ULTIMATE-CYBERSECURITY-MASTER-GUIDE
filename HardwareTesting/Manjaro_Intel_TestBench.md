@@ -78,7 +78,7 @@ Run these commands on a fresh Manjaro installation to immediately provision the 
 
 ### 6.1 Standard Repository Tools (pacman)
 
-Installs core system utilities, sensors, terminal monitors, storage diagnostics, and stress utilities. All GPU vendor tools (`intel-gpu-tools`, `amdgpu_top`, `radeontop`, `nvidia-utils`, `nvidia-smi`) are included in the universal block — they are small, do not conflict with each other, and a test bench may serve mixed hardware configurations.
+Installs core system utilities, sensors, terminal monitors, storage diagnostics, and stress utilities. All GPU vendor tools (`intel-gpu-tools`, `amdgpu_top`, `radeontop`, `nvidia-utils`, `nvidia-smi`) are included in the universal block; they are small, do not conflict with each other, and a test bench may serve mixed hardware configurations.
 
 ```bash
 sudo pacman -S --needed \
@@ -173,7 +173,7 @@ NVIDIA diagnostics on Linux rely heavily on the proprietary drivers (`nvidia` pa
 | :--- | :--- | :--- |
 | `nvidia-smi` | **GPU Snapshot** | Displays the current driver version, CUDA version, VRAM usage, temperature, and power consumption (Watts). |
 | `watch -n 1 nvidia-smi` | **Live NVIDIA Monitor** | Refreshes the `nvidia-smi` readout every second for real-time monitoring under load. |
-| `nvidia-smi dmon` | **Device Monitor** | Outputs a scrolling, compact table of stats (utilization, clocks, power) — ideal for logging metrics to a file during a benchmark. |
+| `nvidia-smi dmon` | **Device Monitor** | Outputs a scrolling, compact table of stats (utilization, clocks, power); ideal for logging metrics to a file during a benchmark. |
 | `nvidia-settings` | **NVIDIA GUI Panel** | The graphical control panel for checking thermals, adjusting fan curves, and configuring display pipelines. |
 
 ### 9.3 AMD-Specific Tools
@@ -190,7 +190,7 @@ Modern AMD Radeon cards use the open-source `amdgpu` kernel driver, which integr
 
 ## 10. Automated Hardware Testing & Reporting Scripts
 
-Modular Python orchestration scripts for Manjaro Linux test benches. Rather than writing low-level hardware tests in pure Python, these scripts act as orchestrators — running robust CLI tools (`stress-ng`, `sysbench`, `inxi`, `fio`, `glmark2`, `memtester`), streaming their output live so the terminal never appears frozen, and compiling results into clean client-facing Markdown reports.
+Modular Python orchestration scripts for Manjaro Linux test benches. Rather than writing low-level hardware tests in pure Python, these scripts act as orchestrators; running robust CLI tools (`stress-ng`, `sysbench`, `inxi`, `fio`, `glmark2`, `memtester`), streaming their output live so the terminal never appears frozen, and compiling results into clean client-facing Markdown reports.
 
 All scripts are located in the [`py/`](./py/) subdirectory. See [`py/README.md`](./py/README.md) for full installation and usage documentation.
 
@@ -200,7 +200,7 @@ All scripts are located in the [`py/`](./py/) subdirectory. See [`py/README.md`]
 
 Runs a full sequential diagnostic pass: system and motherboard info → CPU benchmark → RAM bandwidth and stability → storage SMART and IOPS → GPU benchmark. All long-running tools stream output live so the terminal never appears frozen. Compiles everything into a single timestamped Markdown report saved to the directory the script is run from.
 
-**Requires:** `sudo` — memtester and dmidecode need root. Run from a **desktop terminal**, not SSH — glmark2 needs a display. Run from the **mount point of the drive you want to test** — fio writes a temporary file to the current directory.
+**Requires:** `sudo` — memtester and dmidecode need root. Run from a **desktop terminal**, not SSH — glmark2 needs a display. Run from the **mount point of the drive you want to test**; fio writes a temporary file to the current directory.
 
 ```bash
 sudo python3 full_hw_suite.py
@@ -212,9 +212,9 @@ sudo python3 full_hw_suite.py
 
 ### 10.3 Standalone GPU Tester (`standalone_gpu_tester.py`)
 
-Tests the GPU in isolation. Collects hardware and driver info via `inxi`, captures a vendor-specific diagnostic snapshot (`nvidia-smi` for NVIDIA, `amdgpu_top` for AMD, `intel_gpu_top` for iGPU), then runs a full `glmark2` benchmark with per-scene FPS scores. Automatically detects X11 vs Wayland and selects the correct glmark2 binary — binary/display-server mismatch is the most common cause of silent glmark2 hangs.
+Tests the GPU in isolation. Collects hardware and driver info via `inxi`, captures a vendor-specific diagnostic snapshot (`nvidia-smi` for NVIDIA, `amdgpu_top` for AMD, `intel_gpu_top` for iGPU), then runs a full `glmark2` benchmark with per-scene FPS scores. Automatically detects X11 vs Wayland and selects the correct glmark2 binary; binary/display-server mismatch is the most common cause of silent glmark2 hangs.
 
-**Requires:** Active desktop session (X11 or Wayland) — do not run over SSH. Does **not** require `sudo`.
+**Requires:** Active desktop session (X11 or Wayland); do not run over SSH. Does **not** require `sudo`.
 
 > **Quick-pass mode:** Set `GLMARK2_SCENES` at the top of the script to a short list (e.g. `["build", "texture", "shading"]`) to finish in ~2 minutes instead of 15.
 
@@ -228,7 +228,7 @@ python3 standalone_gpu_tester.py
 
 ### 10.4 Standalone RAM Tester (`standalone_ram_tester.py`)
 
-Tests RAM in isolation. Reads hardware topology from `dmidecode` (populated slots, speeds, part numbers), runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation. `memtester` output streams live — every test line prints as it completes so you can watch for `FAILED` lines in real time without waiting for the full run.
+Tests RAM in isolation. Reads hardware topology from `dmidecode` (populated slots, speeds, part numbers), runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation. `memtester` output streams live; every test line prints as it completes so you can watch for `FAILED` lines in real time without waiting for the full run.
 
 **Requires:** `sudo` — memtester must lock memory pages. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` to half your installed RAM and `MEMTESTER_PASSES` to 3–5 before running.
 
@@ -242,7 +242,7 @@ sudo python3 standalone_ram_tester.py
 
 ### 10.5 Stress Soak Reliability Tester (`stress_soak.py`)
 
-Purpose-built for reliability validation — fundamentally different from the diagnostic scripts above, which test each subsystem sequentially for seconds at a time. `stress_soak.py` hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss entirely: thermal soak through a marginal cooler mount, XMP instability under sustained pressure, PSU marginal capacity under combined load, and VRM thermal limits that only appear when everything runs at once.
+Purpose-built for reliability validation; fundamentally different from the diagnostic scripts above, which test each subsystem sequentially for seconds at a time. `stress_soak.py` hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss entirely: thermal soak through a marginal cooler mount, XMP instability under sustained pressure, PSU marginal capacity under combined load, and VRM thermal limits that only appear when everything runs at once.
 
 Runs in three phases:
 
