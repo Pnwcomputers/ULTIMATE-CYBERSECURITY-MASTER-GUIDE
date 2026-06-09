@@ -92,8 +92,8 @@ sudo sensors-detect --auto
 > **GPU tools — install the block that matches your hardware:**
 
 ```bash
-# NVIDIA — nvidia-smi ships with the driver; install nvidia-utils if missing
-sudo pacman -S --needed nvidia-utils
+# NVIDIA — nvidia-smi and nvidia-utils already included in the universal block above
+# No additional steps required
 ```
 
 ```bash
