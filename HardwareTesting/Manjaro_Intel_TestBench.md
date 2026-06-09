@@ -84,7 +84,7 @@ Installs core system utilities, sensors, terminal monitors, storage diagnostics,
 sudo pacman -S --needed \
   python stress-ng fio memtester sysbench \
   inxi dmidecode hwinfo lshw pciutils usbutils \
-  smartmontools nvme-cli hdparm \
+  smartmontools nvme-cli nvidia-smi hdparm \
   lm_sensors s-tui htop btop nvtop \
   intel-gpu-tools amdgpu_top radeontop nvidia-utils \
   base-devel git curl wget
