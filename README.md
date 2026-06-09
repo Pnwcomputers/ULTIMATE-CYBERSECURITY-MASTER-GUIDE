@@ -62,11 +62,11 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
 | 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
 | 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
+| 🚨 [Incident Response](Incident%20Response/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 📊 [SIEM Deployment Guides](Incident%20Response/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 | 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology — 400+ categorized tools, investigation workflows, automated VM setup |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices — anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
-| 🚨 [Incident Response](Incident%20Response/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
 | 👾 [Space Security](Space%20Security/) | Offensive and defensive security across the three segments of modern space systems |
 | 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
