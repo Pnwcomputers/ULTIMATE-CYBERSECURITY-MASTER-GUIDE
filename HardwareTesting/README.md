@@ -82,7 +82,7 @@ sudo pacman -S --needed \
   inxi dmidecode hwinfo lshw pciutils usbutils \
   smartmontools nvme-cli nvidia-smi hdparm \
   lm_sensors s-tui htop btop nvtop \
-  intel-gpu-tools amdgpu_top radeontop \
+  intel-gpu-tools amdgpu_top radeontop nvidia-utils \
   base-devel git curl wget
 
 # Detect motherboard sensors (run once after install)
