@@ -78,7 +78,7 @@ Run these commands on a fresh Manjaro installation to immediately provision the 
 
 ### 6.1 Standard Repository Tools (pacman)
 
-Installs core system utilities, sensors, terminal monitors, storage diagnostics, and stress utilities. All GPU vendor tools (`intel-gpu-tools`, `amdgpu_top`, `radeontop`, `nvidia-utils`) are included in the universal block — they are small, do not conflict with each other, and a test bench may serve mixed hardware configurations.
+Installs core system utilities, sensors, terminal monitors, storage diagnostics, and stress utilities. All GPU vendor tools (`intel-gpu-tools`, `amdgpu_top`, `radeontop`, `nvidia-utils`, `nvidia-smi`) are included in the universal block — they are small, do not conflict with each other, and a test bench may serve mixed hardware configurations.
 
 ```bash
 sudo pacman -S --needed \
