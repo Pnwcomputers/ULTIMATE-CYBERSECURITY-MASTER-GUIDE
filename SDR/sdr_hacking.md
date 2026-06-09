@@ -1,8 +1,8 @@
 # SDR Hacking Advanced: Reversing and Exploiting Wireless Communications
 
-> This guide tries to cover nearly every topic for SDR HACKING; from SIGINT identification techniques and GNU Radio flowgraph optimization through firmware vulnerability analysis, custom RF baseband exploitation, LoRa key cracking, TEMPEST, and EM side-channel attacks.
+> This guide tries to cover nearly every topic for SDR Hacking; from SIGINT identification techniques and GNU Radio flowgraph optimization through firmware vulnerability analysis, to custom RF baseband exploitation, LoRa key cracking, TEMPEST, and EM side-channel attacks.
 >
-> **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (not replaces) the SDR Foundations section.
+> **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (does not replaces) the General SDR.md section.
 >
 > **Legal notice:** All offensive techniques are presented for authorized security research, CTF competition, and defensive understanding only. Apply only against systems you own or have written authorization to test. RF transmission requires appropriate licensing.
 
