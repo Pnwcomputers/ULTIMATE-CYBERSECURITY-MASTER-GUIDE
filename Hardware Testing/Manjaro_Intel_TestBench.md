@@ -83,10 +83,13 @@ Installs core system utilities, sensors, terminal monitors, storage diagnostics,
 **Base Diagnostics & System Tools:**
 ```bash
 sudo pacman -S --needed \
-  base-devel git python \
-  inxi pciutils usbutils lm_sensors smartmontools \
-  vulkan-tools mesa-utils \
-  vkmark glmark2
+base-devel git make gcc cmake ninja pkgconf rust cargo \
+python python-pip curl unzip jq \
+inxi dmidecode pciutils usbutils lshw hwinfo \
+lm_sensors smartmontools nvme-cli \
+sysbench memtester stress-ng fio \
+vulkan-tools mesa-utils \
+vkmark glmark2 intel-gpu-tools nvtop
 ```
 
 **For AMD Test Environments:**
@@ -100,7 +103,79 @@ sudo pacman -S --needed \
 **For NVIDIA Test Environments:**
 ```bash
 sudo pacman -S --needed \
-  nvidia-utils cuda
+  nvidia-utils cuda opencl-nvidia
+```
+
+# ── Source-built GPU diagnostic tools ──────────────────────────────
+
+# memtest_vulkan — cross-vendor Vulkan VRAM stability test
+```bash
+mkdir -p ~/src
+cd ~/src
+
+if [ ! -d memtest_vulkan ]; then
+  git clone https://github.com/GpuZelenograd/memtest_vulkan.git
+fi
+
+cd memtest_vulkan
+git pull
+cargo build --release
+sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
+# gpu-burn — NVIDIA CUDA stress test
+# This is only needed for NVIDIA diagnostic runs using --gpu-burn.
+
+mkdir -p ~/src
+cd ~/src
+
+if command -v nvcc >/dev/null 2>&1; then
+  if [ ! -d gpu-burn ]; then
+    git clone https://github.com/wilicc/gpu-burn.git
+  fi
+
+  cd gpu-burn
+  git pull
+  make
+
+  sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
+  sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+else
+  echo "nvcc was not found. Skipping gpu-burn build."
+  echo "Install/repair CUDA first if this bench needs NVIDIA gpu-burn testing."
+fi
+```
+
+# ── Verify Required and Optional Tools ─────────────────────────────
+# Run this after installing the base tools, GPU tools, optional tools,
+# memtest_vulkan, and gpu-burn.
+```bash
+echo "== Core script tools =="
+for bin in \
+  python git make gcc cmake ninja cargo rustc \
+  inxi dmidecode lspci lsusb lshw hwinfo \
+  sysbench memtester fio stress-ng \
+  smartctl nvme sensors \
+  glmark2 vkmark vulkaninfo glxinfo \
+  intel_gpu_top nvtop; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo '❌ NOT FOUND')"
+done
+
+echo
+echo "== AMD tools =="
+for bin in amd-smi amdgpu_top radeontop; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo 'optional / not installed')"
+done
+
+echo
+echo "== NVIDIA tools =="
+for bin in nvidia-smi nvcc gpu-burn gpu_burn; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo 'optional / not installed')"
+done
+
+echo
+echo "== GPU VRAM test =="
+for bin in memtest_vulkan; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo '❌ NOT FOUND')"
+done
 ```
 
 ### All-In-One Tool Installation Script [install_testbench_tools.sh](install_testbench_tools.sh) (AMD + NVIDIA + Intel)
