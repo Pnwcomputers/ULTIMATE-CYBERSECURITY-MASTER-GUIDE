@@ -1,4 +1,3 @@
-```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -178,4 +177,3 @@ echo
 echo "============================================================"
 echo "  PNWC test bench tool installation complete."
 echo "============================================================"
-```
