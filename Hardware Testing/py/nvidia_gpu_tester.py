@@ -29,6 +29,8 @@ import shutil
 import threading
 import time
 import csv
+import platform
+import getpass
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 REPORT_DIR        = os.getcwd()   # reports save next to where the script is invoked
@@ -67,6 +69,46 @@ SMI_STATIC_FIELDS = [
     "pcie.link.gen.current", "pcie.link.gen.max",
     "pcie.link.width.current", "pcie.link.width.max",
 ]
+
+
+def print_banner(report_file_path="Not Generated Yet"):
+    """
+    Renders the PNWC toolkit ASCII banner to the terminal window.
+    """
+    # Update terminal/console window title dynamically based on environment
+    if platform.system() == "Windows":
+        os.system("title PNWC NVIDIA GPU Diagnostic v1.2")
+    else:
+        print("\033]0;PNWC NVIDIA GPU Diagnostic v1.2\a", end="")
+
+    # Clear the host screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    # Build timestamp strings
+    formatted_time = datetime.datetime.now().strftime('%A %B %d %Y  %H:%M:%S')
+
+    # Print ASCII Header Art & Info Block
+    print("")
+    print("  ######   ##  ##   ##    ##   ######")
+    print("  ##  ##   ### ##   ##    ##   ##    ")
+    print("  ######   ######   ## ## ##   ##    ")
+    print("  ##       ## ###   ########   ##    ")
+    print("  ##       ##  ##   ##    ##   ######")
+    print("")
+    print("  Pacific Northwest Computers")
+    print("  Malware Remediation Toolkit & Benchmarks")
+    print("")
+    print("=" * 70)
+    print("   PNWC Diagnostic Tool - NVIDIA GPU Hardware & Load Benchmarking")
+    print("   Pacific Northwest Computers  |  jon@pnwcomputers.com")
+    print("   v1.2 -- Diagnostics Variant")
+    print("=" * 70)
+    print("")
+    print(f"  Started  : {formatted_time}")
+    print(f"  Computer : {platform.node()}")
+    print(f"  Operator : {getpass.getuser()}")
+    print(f"  CSV Log  : {report_file_path}")
+    print("")
 
 
 class NvidiaMonitor:
@@ -333,4 +375,15 @@ class NvidiaGPUTester:
                 f"PARTIAL (timed out after {GLMARK2_TIMEOUT}s — "
                 f"{len(scenes)} scenes). Last: {scenes[-1]}"
             )
-        elif
+        else:
+            self.data["benchmark"] = "FAILED — glmark2 exited abnormally without score"
+
+
+# ── Execution Trigger ────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    # Generate timestamped CSV name ahead of time to show in the banner
+    timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    csv_report_name = os.path.join(REPORT_DIR, f"gpu_log_{timestamp_str}.csv")
+
+    # Render the custom text banner instantly when running the script
+    print_banner(csv_report_name)
