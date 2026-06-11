@@ -213,20 +213,43 @@ All scripts are located in the [`py/`](./py/) subdirectory. Ensure all tools fro
 
 ### 10.1 The Unified Hardware Test Suite (`full_hw_suite.py`)
 
-Runs a full sequential diagnostic pass: system info → CPU benchmark → RAM bandwidth/stability → storage SMART/IOPS → GPU benchmark. Compiles everything into a timestamped Markdown report.
+Runs a full sequential diagnostic pass (v2.1): system info → CPU benchmark → RAM bandwidth/stability → storage SMART/IOPS → GPU benchmark. Compiles everything into a timestamped Markdown report.
 **Requires:** `sudo` (for memtester/dmidecode), a desktop terminal (for glmark2), and execution from the target drive's mount point.
 
 ```bash
-sudo python3 full_hw_suite.py
+sudo python3 full_hw_suite.py --client "Client Name"
 ```
 
 ---
 
-### 10.2 AMD GPU Diagnostic Script (`pnwc_amd_gpu_diag.py`)
+### 10.2 Universal Standalone GPU Tester (`standalone_gpu_tester.py`)
 
-Dedicated diagnostic path for Radeon GPUs. This script **no longer depends on ROCm being functional**. It uses `amdgpu sysfs` as the baseline telemetry path. AMD's current SMI CLI documentation includes static, metric, and monitor-style workflows, so the script collects `amd-smi` snapshots when present, but will *not* fail a consumer Radeon card just because ROCm/SMI support is incomplete. 
+A general first-pass GPU validation script (v2.1) for any vendor (Intel, AMD, NVIDIA). It checks hardware via `inxi`/`lspci`, validates Vulkan/OpenGL renderers, warns on software rendering, and optionally runs `memtest_vulkan` and `vkmark`. It uses `glmark2` for the main OpenGL load test while scanning kernel logs for Xid/NVRM, amdgpu resets, i915 hangs, DRM, and PCIe AER errors. Uses strict process-group cleanup for hung tests.
 
-**Improvements Include:** `--card-index` support, better temperature sensor handling, PCIe current/max sysfs checks, `amd-smi` & `amdgpu_top` snapshots, `memtest_vulkan`, `vkmark`, `glmark2`, optional FurMark, kernel GPU/PCIe fault scanning, and a stricter Markdown verdict.
+*For a serious suspected AMD or NVIDIA card failure, run the vendor-specific scripts (10.3/10.4) afterward for richer per-second telemetry.*
+
+**Run Commands:**
+```bash
+# Standard general diagnostic:
+python3 standalone_gpu_tester.py --client "Client Name"
+
+# Quick smoke test:
+python3 standalone_gpu_tester.py --quick --client "Client Name"
+
+# Longer OpenGL timed soak:
+python3 standalone_gpu_tester.py --glmark2-run-forever --glmark2-timeout 900 --client "Client Name"
+
+# Skip optional tests if needed:
+python3 standalone_gpu_tester.py --no-memtest --no-vkmark --client "Client Name"
+```
+
+---
+
+### 10.3 AMD GPU Diagnostic Script (`pnwc_amd_gpu_diag.py`)
+
+Dedicated diagnostic path for Radeon GPUs. This script uses `amdgpu sysfs` as the baseline telemetry path. AMD's current SMI CLI documentation includes static, metric, and monitor-style workflows, so the script collects `amd-smi` snapshots when present, but will *not* fail a consumer Radeon card just because ROCm/SMI support is incomplete. 
+
+**Features:** `--card-index` support, PCIe current/max sysfs checks, `amd-smi` & `amdgpu_top` snapshots, `memtest_vulkan`, `vkmark`, `glmark2`, optional FurMark, kernel GPU/PCIe fault scanning, and a stricter Markdown verdict.
 
 **Run Commands:**
 ```bash
@@ -242,11 +265,11 @@ python3 pnwc_amd_gpu_diag.py --client "Client Name" --furmark
 
 ---
 
-### 10.3 NVIDIA GPU Diagnostic Script (`pnwc_nvidia_gpu_diag.py`)
+### 10.4 NVIDIA GPU Diagnostic Script (`pnwc_nvidia_gpu_diag.py`)
 
 Dedicated diagnostic path for GeForce/Quadro/RTX GPUs. 
 
-**Improvements Include:** `--gpu-index` support, dynamic `nvidia-smi` field probing, PCIe link tracking during load, throttle tracking, ECC checks, `memtest_vulkan`, `vkmark`, `glmark2`, optional `gpu-burn`, optional FurMark, kernel GPU/PCIe fault scanning, and a more complete Markdown verdict.
+**Features:** `--gpu-index` support, dynamic `nvidia-smi` field probing, PCIe link tracking during load, throttle tracking, ECC checks, `memtest_vulkan`, `vkmark`, `glmark2`, optional `gpu-burn`, optional FurMark, kernel GPU/PCIe fault scanning, and a complete Markdown verdict.
 
 **Run Commands:**
 ```bash
@@ -260,26 +283,24 @@ python3 pnwc_nvidia_gpu_diag.py --client "Client Name" --glmark2-run-forever --g
 python3 pnwc_nvidia_gpu_diag.py --client "Client Name" --furmark
 ```
 
-> **Validation Note:** The AMD and NVIDIA scripts have been syntax-checked via `py_compile`, but pending hardware-validation against real AMD/NVIDIA GPUs. **Next validation step:** Please run each script on your Manjaro bench and return any tracebacks, bad parses, weird CSV outputs, or report sections that look incorrect.
-
 ---
 
-### 10.4 Standalone RAM Tester (`standalone_ram_tester.py`)
+### 10.5 Standalone RAM Tester (`standalone_ram_tester.py`)
 
-Tests RAM in isolation. Reads hardware topology from `dmidecode`, runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation.
-**Requires:** `sudo`. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` and `MEMTESTER_PASSES` before running.
+Tests RAM in isolation (v2.1). Reads hardware topology from `dmidecode`, runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation. Outputs stream live and kernel logs are scanned for MCE/EDAC/OOM errors.
+**Requires:** `sudo`. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` and `MEMTESTER_PASSES` via CLI flags before running.
 
 ```bash
-sudo python3 standalone_ram_tester.py
+sudo python3 standalone_ram_tester.py --client "Client Name" --memtester-size 4G --passes 3
 ```
 
 ---
 
-### 10.5 Stress Soak Reliability Tester (`stress_soak.py`)
+### 10.6 Stress Soak Reliability Tester (`stress_soak.py`)
 
-Purpose-built for reliability validation. Hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss (thermal soak through marginal cooler mounts, combined-load PSU issues, VRM thermal limits). 
+Purpose-built for reliability validation (v1.1). Hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss (thermal soak through marginal cooler mounts, combined-load PSU issues, VRM thermal limits). 
 
-Logs sensor readings to CSV every 5 seconds. The kernel ring buffer is polled every 30 seconds for throttle events and hardware errors. The final report opens with a PASS/FAIL verdict table.
+Logs sensor readings to CSV every 5 seconds. The kernel ring buffer is polled every 30 seconds for throttle events, MCEs, and hardware errors. The final report opens with a strict PASS/FAIL verdict table.
 
 **Requires:** `sudo` — run from a desktop terminal for GPU stress; use `--skip-gpu` for headless.
 
