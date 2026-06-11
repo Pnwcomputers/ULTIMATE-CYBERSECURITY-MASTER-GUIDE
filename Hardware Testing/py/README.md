@@ -39,7 +39,7 @@ sudo pacman -Syu --needed \
   intel-gpu-tools
 ```
 
-### Or you can install ALL of the tools at once (AMD + Nvidia + Intel) using the [install_testbench_tools.sh](install_testbench_tools.sh) installation script.
+### Or you can install ALL of the tools at once (AMD + Nvidia + Intel) using the [install_testbench_tools.sh](/Hardware%20Testing/install_testbench_tools.sh) installation script.
 
 ### Step 2 — Sensor detection (run once after install)
 
