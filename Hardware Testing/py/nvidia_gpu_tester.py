@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-nvidia_gpu_tester.py — PNWC NVIDIA GPU Diagnostic & Benchmark Tool v1.2
+PNWC NVIDIA GPU Diagnostic & Benchmark Tool v1.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Optimized for Manjaro/Arch XFCE Hardware Benchmarking Stations.
+What this script does that standalone_gpu_tester.py does NOT:
+  • Polls nvidia-smi every second DURING the benchmark on a parallel thread, building a full load curve (clocks, power, temp, utilization, throttle)
+  • Verifies PCIe link gen + width under load (catches x8 / Gen3 negotiation)
+  • Checks ECC volatile error counters (workstation/datacenter cards)
+  • Reports active throttle reasons (thermal / power-brake / sw-cap)
+  • Idle vs load comparison table
+  • Logs every per-second sample to a timestamped CSV
+  • Optional FurMark torture via gputest (AUR) if installed
 
 Verified & Audited Logic:
   • Fixed GpuTest/FurMark pathing by using native Python execution directories (cwd).
@@ -10,8 +17,7 @@ Verified & Audited Logic:
   • Wrapped background logging loops in exception-safeguards to prevent file locks.
   • Handled volatile/non-volatile dynamic queries gracefully without crashing.
 
-Requires : nvidia-utils, inxi, glmark2 (or glmark2-es2)
-Optional : gputest (AUR — requires 'libpng12' from AUR to run on modern Arch)
+Requires : nvidia-utils, inxi, glmark2 (or glmark2-es2), gputest (AUR — requires 'libpng12' from AUR to run on modern Arch)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
 
