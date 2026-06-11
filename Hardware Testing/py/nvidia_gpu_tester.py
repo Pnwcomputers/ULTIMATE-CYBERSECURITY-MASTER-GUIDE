@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PNWC NVIDIA GPU Diagnostic & Benchmark Tool v2.0
+PNWC NVIDIA GPU Diagnostic & Benchmark Tool v2.3.1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 What this script DOES:
   • Polls nvidia-smi every second during the full GPU test window
@@ -41,6 +41,7 @@ import csv
 import datetime
 import getpass
 import os
+from pathlib import Path
 import platform
 import re
 import shutil
@@ -66,6 +67,29 @@ GPU_UTIL_MIN_WARN       = 35        # warn if load tests never engage GPU
 # ───────────────────────────────────────────────────────────────────────────────
 
 SOFTWARE_RENDERERS = ("llvmpipe", "lavapipe", "softpipe", "software rasterizer", "swrast")
+
+# These patterns are treated as utility/display compatibility issues unless
+# accompanied by NVIDIA kernel faults or true memory corruption messages.
+VULKAN_UTILITY_EDGE_PATTERNS = [
+    r"Selected present mode Mailbox is not supported",
+    r"present mode .* not supported",
+    r"surface.*not supported",
+    r"no supported present modes",
+]
+
+# These are high-confidence card/driver-path fault indicators when observed
+# during a test window. They are not treated as simple benchmark utility issues.
+HIGH_CONFIDENCE_GPU_FAULT_PATTERNS = [
+    r"NVRM",
+    r"Xid",
+    r"NV_ERR",
+    r"ERROR_DEVICE_LOST",
+    r"fallen off the bus",
+    r"PCIe Bus Error",
+    r"AER:",
+    r"mmuWalkMap",
+    r"dmaAllocMapping",
+]
 
 KERNEL_PATTERNS = [
     r"NVRM",
@@ -173,9 +197,9 @@ def trim_block(text: str, max_chars: int = 4000) -> str:
 def print_banner(report_file_path="Not Generated Yet"):
     """Render the PNWC toolkit ASCII banner to the terminal window."""
     if platform.system() == "Windows":
-        os.system("title PNWC NVIDIA GPU Diagnostic v2.0")
+        os.system("title PNWC NVIDIA GPU Diagnostic v2.3.1")
     else:
-        print("\033]0;PNWC NVIDIA GPU Diagnostic v2.0\a", end="")
+        print("\033]0;PNWC NVIDIA GPU Diagnostic v2.3.1\a", end="")
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -189,12 +213,12 @@ def print_banner(report_file_path="Not Generated Yet"):
     print("  ##       ##  ##   ##    ##   ######")
     print("")
     print("  Pacific Northwest Computers")
-    print("  NVIDIA GPU Testing & Benchmark Script v2.0")
+    print("  NVIDIA GPU Testing & Benchmark Script v2.3.1")
     print("")
     print("=" * 70)
     print("   PNWC Diagnostic Tool - NVIDIA GPU Hardware & Load Benchmarking")
     print("   Pacific Northwest Computers  |  support@pnwcomputers.com")
-    print("   v2.0 -- Deep Diagnostics Variant")
+    print("   v2.3.1 -- Robust Classification Variant")
     print("=" * 70)
     print("")
     print(f"  Started  : {formatted_time}")
@@ -234,7 +258,7 @@ class ProcessRunner:
             self.errors.append(f"EXEC ERROR: {printable_cmd(cmd)} -> {exc}")
             return "ERROR"
 
-    def run_streaming(self, cmd, timeout: int, cwd: str | None = None, label: str = "process") -> tuple[list[str], bool, int | None]:
+    def run_streaming(self, cmd, timeout: int, cwd: str | None = None, label: str = "process", env: dict | None = None, allow_fail: bool = False) -> tuple[list[str], bool, int | None]:
         lines: list[str] = []
         timed_out = False
         rc: int | None = None
@@ -253,6 +277,7 @@ class ProcessRunner:
                 bufsize=1,
                 cwd=cwd,
                 start_new_session=True,
+                env=env,
             )
 
             def _reader():
@@ -293,7 +318,7 @@ class ProcessRunner:
             else:
                 proc.wait()
                 rc = proc.returncode
-                if rc not in (0, None):
+                if rc not in (0, None) and not allow_fail:
                     self.errors.append(f"{label} exited with rc={rc}.")
         except Exception as exc:
             timed_out = True
@@ -531,6 +556,9 @@ class NvidiaGPUTester:
             "unsupported_smi_fields": [],
             "errors": [],
             "warnings": [],
+            "utility_notes": [],
+            "tool_edge_notes": [],
+            "hardware_suspect_notes": [],
         }
         self.runner = ProcessRunner(self.data["errors"], self.data["warnings"])
 
@@ -548,6 +576,61 @@ class NvidiaGPUTester:
         order = (["glmark2-wayland", "glmark2-es2-wayland", "glmark2-es2", "glmark2"]
                  if display == "wayland" else ["glmark2", "glmark2-es2"])
         return next((b for b in order if self._which(b)), None)
+
+    def _nvidia_vulkan_env(self) -> dict:
+        """Prefer the NVIDIA Vulkan ICD for NVIDIA-specific validation.
+
+        This helps prevent llvmpipe/Intel/other Vulkan ICDs from being selected
+        on mixed-GPU Linux benches. If the ICD is not found, the system Vulkan
+        loader is used and the report explicitly notes that.
+        """
+        env = os.environ.copy()
+        candidates = [
+            Path("/usr/share/vulkan/icd.d/nvidia_icd.json"),
+            Path("/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json"),
+            Path("/etc/vulkan/icd.d/nvidia_icd.json"),
+        ]
+        icd_dir = Path("/usr/share/vulkan/icd.d")
+        if icd_dir.exists():
+            candidates.extend(sorted(icd_dir.glob("*nvidia*.json")))
+        icd = next((c for c in candidates if c.exists()), None)
+        if icd:
+            env["VK_DRIVER_FILES"] = str(icd)
+            env["VK_ICD_FILENAMES"] = str(icd)
+            note = f"NVIDIA Vulkan ICD forced for NVIDIA tests: {icd}"
+            if note not in self.data["utility_notes"]:
+                self.data["utility_notes"].append(note)
+        else:
+            note = "NVIDIA Vulkan ICD file not found; using system Vulkan loader/device selection."
+            if note not in self.data["tool_edge_notes"]:
+                self.data["tool_edge_notes"].append(note)
+        return env
+
+    @staticmethod
+    def _has_utility_edge(text: str) -> bool:
+        return any(re.search(p, text, re.I) for p in VULKAN_UTILITY_EDGE_PATTERNS)
+
+    @staticmethod
+    def _classify_memtest_vulkan_lines(lines: list[str]) -> tuple[str, list[str]]:
+        """Return (classification, bad_lines) for memtest_vulkan output.
+
+        memtest_vulkan is often stopped by timeout/SIGINT, so the parser must
+        not treat every non-zero/controlled-stop condition as a card fault.
+        It also must not misread phrases like "no any errors" as an error.
+        """
+        good_re = re.compile(r"(no\s+(any\s+)?errors|0\s+errors|testing\s+pass(ed)?|pass(ed)?!)", re.I)
+        bad_re = re.compile(r"(error found|runtime error|device lost|mismatch|corrupt|failed|fault)", re.I)
+        bad_lines = []
+        for line in lines:
+            if good_re.search(line):
+                continue
+            if bad_re.search(line):
+                bad_lines.append(line)
+        if bad_lines:
+            return "FAIL", bad_lines
+        if any(good_re.search(line) for line in lines):
+            return "PASS", []
+        return "NO_ERRORS_PARSED", []
 
     def _query_named(self, fields: list[str], allow_fail: bool = True) -> dict:
         if not fields:
@@ -638,19 +721,28 @@ class NvidiaGPUTester:
             self.data["tests"]["memtest_vulkan"] = "SKIPPED - memtest_vulkan not installed."
             self.data["warnings"].append("memtest_vulkan not installed; VRAM-specific Vulkan memory test skipped.")
             return
-        lines, timed_out, rc = self.runner.run_streaming(["memtest_vulkan"], timeout=duration, label="memtest_vulkan")
+        env = self._nvidia_vulkan_env()
+        lines, timed_out, rc = self.runner.run_streaming(
+            ["memtest_vulkan"], timeout=duration, label="memtest_vulkan", env=env, allow_fail=True
+        )
         text = "\n".join(lines)
-        bad_lines = [l for l in lines if re.search(r"(mismatch|corrupt|fail|fault|error)", l, re.I)
-                     and not re.search(r"(0 errors|no errors|without errors)", l, re.I)]
-        if bad_lines:
-            self.data["errors"].append("memtest_vulkan reported possible VRAM/memory errors.")
-            status = "FAILED - possible VRAM/memory errors detected."
+        classification, bad_lines = self._classify_memtest_vulkan_lines(lines)
+        if classification == "FAIL":
+            self.data["errors"].append("memtest_vulkan reported true error/device-loss/failure text.")
+            self.data["hardware_suspect_notes"].append(
+                "memtest_vulkan reported actual error/device-loss/failure text; this is not treated as a simple utility edge case."
+            )
+            status = "FAILED - memtest_vulkan reported true error/device-loss/failure text."
         elif timed_out:
-            status = f"NO ERRORS OBSERVED during {duration}s timed run."
+            status = f"NO DATA ERRORS PARSED during {duration}s timed run; controlled stop/timeout is expected for this test style."
+        elif classification == "PASS":
+            status = "PASS - memtest_vulkan reported no errors."
         elif rc == 0:
-            status = "COMPLETED - no obvious errors parsed."
+            status = "COMPLETED - no obvious data errors parsed."
         else:
-            status = f"COMPLETED with rc={rc}; review output."
+            status = f"COMPLETED with rc={rc}; no true data-error lines parsed; review output."
+        if bad_lines:
+            status += "\n\nNotable failure lines:\n" + "\n".join(bad_lines[:12])
         self.data["tests"]["memtest_vulkan"] = status + "\n" + trim_block(text, 2500)
 
     def run_vkmark(self, display: str | None, timeout: int):
@@ -663,12 +755,35 @@ class NvidiaGPUTester:
             self.data["tests"]["vkmark"] = "SKIPPED - vkmark not installed."
             self.data["warnings"].append("vkmark not installed; Vulkan rendering/load benchmark skipped.")
             return
-        lines, timed_out, rc = self.runner.run_streaming(["vkmark"], timeout=timeout, label="vkmark")
+        env = self._nvidia_vulkan_env()
+        lines, timed_out, rc = self.runner.run_streaming(["vkmark"], timeout=timeout, label="vkmark", env=env, allow_fail=True)
         text = "\n".join(lines)
-        score = next((l for l in reversed(lines) if "score" in l.lower()), "No score parsed.")
-        if any(re.search(r"(segmentation fault|device lost|failed|error)", l, re.I) for l in lines):
-            self.data["errors"].append("vkmark output contains error/failure indicators.")
-        self.data["tests"]["vkmark"] = f"Result: {score}\nTimed out: {timed_out}\n" + trim_block(text, 2500)
+
+        retry_note = ""
+        if self._has_utility_edge(text):
+            note = "vkmark hit a Vulkan window-system/present-mode compatibility edge; not counted as card failure by itself."
+            if note not in self.data["tool_edge_notes"]:
+                self.data["tool_edge_notes"].append(note)
+            winsys = "xcb" if display == "x11" else "wayland"
+            retry_cmd = ["vkmark", "--winsys", winsys]
+            retry_lines, retry_timeout, retry_rc = self.runner.run_streaming(
+                retry_cmd, timeout=timeout, label=f"vkmark --winsys {winsys}", env=env, allow_fail=True
+            )
+            retry_text = "\n".join(retry_lines)
+            text += "\n\n--- Retry with explicit window system ---\n" + retry_text
+            timed_out = timed_out or retry_timeout
+            rc = retry_rc
+            retry_note = f"\nUtility-edge mitigation: retried with {' '.join(retry_cmd)}."
+
+        score = next((l for l in reversed(text.splitlines()) if "score" in l.lower()), "No score parsed.")
+        high_conf = any(re.search(r"(segmentation fault|device lost|VK_ERROR_DEVICE_LOST)", l, re.I) for l in text.splitlines())
+        generic_error = any(re.search(r"(failed|error)", l, re.I) for l in text.splitlines())
+        if high_conf:
+            self.data["errors"].append("vkmark reported high-confidence crash/device-loss indicators.")
+            self.data["hardware_suspect_notes"].append("vkmark produced crash/device-loss text; treat as suspect if reproducible.")
+        elif generic_error and not self._has_utility_edge(text):
+            self.data["warnings"].append("vkmark returned generic error text; review output, but not automatically treated as card failure.")
+        self.data["tests"]["vkmark"] = f"Result: {score}\nTimed out: {timed_out}{retry_note}\n" + trim_block(text, 3000)
 
     def run_glmark2(self, display: str | None, timeout: int, run_forever: bool):
         print("\n[4/6] OpenGL rendering/load test (glmark2)...")
@@ -855,6 +970,31 @@ class NvidiaGPUTester:
         tests_section = "\n".join(test_blocks) if test_blocks else "No workload tests recorded."
 
         kernel_block = "\n".join(self.data["kernel_events"]) if self.data["kernel_events"] else "No matching NVIDIA/kernel GPU fault events detected during test window."
+
+        if self.data["kernel_events"]:
+            kernel_text_lower = "\n".join(self.data["kernel_events"]).lower()
+            if any(re.search(p, kernel_text_lower, re.I) for p in HIGH_CONFIDENCE_GPU_FAULT_PATTERNS):
+                note = (
+                    "High-confidence NVIDIA/kernel GPU fault events were recorded during the workload window. "
+                    "These are treated as card/driver-path suspect, not as simple benchmark utility failures."
+                )
+                if note not in self.data["hardware_suspect_notes"]:
+                    self.data["hardware_suspect_notes"].append(note)
+
+        interpretation_lines = []
+        if self.data["utility_notes"]:
+            interpretation_lines.append("Utility controls applied:")
+            interpretation_lines.extend(f"- {x}" for x in dict.fromkeys(self.data["utility_notes"]))
+        if self.data["tool_edge_notes"]:
+            interpretation_lines.append("Tool/display edge cases isolated:")
+            interpretation_lines.extend(f"- {x}" for x in dict.fromkeys(self.data["tool_edge_notes"]))
+        if self.data["hardware_suspect_notes"]:
+            interpretation_lines.append("Hardware/driver-path suspect indicators:")
+            interpretation_lines.extend(f"- {x}" for x in dict.fromkeys(self.data["hardware_suspect_notes"]))
+        if not interpretation_lines:
+            interpretation_lines.append("No utility edge cases or hardware-suspect interpretation notes were generated.")
+        interpretation_block = "\n".join(interpretation_lines)
+
         issues = self.data["errors"] + self.data["warnings"]
         diag = (f"\n## Diagnostics Log\n{cb}text\n" + "\n".join(issues) + f"\n{cb}\n") if issues else "\n**Status:** No errors or warnings.\n"
 
@@ -900,7 +1040,14 @@ glxinfo -B:
 
 ---
 
-## 3. Idle vs Load Comparison
+## 3. Utility Edge-Case Controls / Interpretation
+{cb}text
+{interpretation_block}
+{cb}
+
+---
+
+## 4. Idle vs Load Comparison
 *nvidia-smi polled every {SMI_POLL_S}s during workload test window*
 
 {load_table}
@@ -908,7 +1055,7 @@ glxinfo -B:
 
 ---
 
-## 4. Workload Tests
+## 5. Workload Tests
 {tests_section}
 
 ### glmark2 Per-Scene FPS
@@ -918,21 +1065,21 @@ glxinfo -B:
 
 ---
 
-## 5. ECC Memory
+## 6. ECC Memory
 {cb}text
 {self.data['ecc'] or 'Not applicable / not supported.'}
 {cb}
 
 ---
 
-## 6. Kernel Stability
+## 7. Kernel Stability
 {cb}text
 {kernel_block}
 {cb}
 {diag}
 ---
 *Per-second monitoring log: {self.data['csv_path']}*  
-*Generated by PNWC nvidia_gpu_tester.py v2.0*
+*Generated by PNWC nvidia_gpu_tester.py v2.3.1*
 """
         fname = os.path.join(REPORT_DIR, f"NVIDIA_GPU_Report_{ts_file}.md")
         with open(fname, "w") as fh:
@@ -942,7 +1089,7 @@ glxinfo -B:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="PNWC NVIDIA GPU Tester v2.0")
+    ap = argparse.ArgumentParser(description="PNWC NVIDIA GPU Tester v2.3.1")
     ap.add_argument("--client", default="", help="Client name for the report")
     ap.add_argument("--gpu-index", type=int, default=0, help="nvidia-smi GPU index to test")
     ap.add_argument("--skip-memtest", action="store_true", help="Skip memtest_vulkan")
