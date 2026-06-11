@@ -3,7 +3,6 @@
 PNWC NVIDIA GPU Diagnostic & Benchmark Tool v2.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 What this script DOES:
-  • Keeps the PNWC-branded diagnostic banner and customer-facing report format
   • Polls nvidia-smi every second during the full GPU test window
   • Builds a per-second CSV load curve: temp, power, clocks, utilization,
     memory utilization, P-state, PCIe link, fan, and throttle reasons
