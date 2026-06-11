@@ -33,8 +33,13 @@ sudo pacman -Syu --needed \
   stress-ng fio memtester sysbench \
   inxi dmidecode smartmontools nvme-cli pciutils usbutils \
   lm_sensors intel-gpu-tools \
-  vulkan-tools mesa-utils vkmark glmark2
+  vulkan-tools mesa-utils vkmark glmark2 \
+  nvidia-utils cuda mesa vulkan-radeon \
+  amdsmi amdgpu_top radeontop nvidia-smi \
+  intel-gpu-tools
 ```
+
+### Or you can install ALL of the tools at once (AMD + Nvidia + Intel) using the [install_testbench_tools.sh](install_testbench_tools.sh) installation script.
 
 ### Step 2 — Sensor detection (run once after install)
 
