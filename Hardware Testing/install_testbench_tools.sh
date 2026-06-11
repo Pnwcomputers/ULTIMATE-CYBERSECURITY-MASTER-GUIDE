@@ -14,15 +14,17 @@ PNWC_SRC_DIR="${PNWC_SRC_DIR:-$HOME/src}"
 
 # ── CUDA path detection ────────────────────────────────────────────
 # Arch / Manjaro CUDA commonly installs under /opt/cuda.
-# Some upstream CUDA projects assume /usr/local/cuda.
+# gpu-burn's Makefile specifically expects CUDAPATH, not CUDA_HOME.
 detect_cuda_root() {
   local candidate=""
 
   for candidate in \
+    "${CUDAPATH:-}" \
     "${CUDA_HOME:-}" \
     "${CUDA_PATH:-}" \
     /opt/cuda \
-    /usr/local/cuda; do
+    /usr/local/cuda \
+    /usr; do
     if [ -n "$candidate" ] && [ -x "$candidate/bin/nvcc" ]; then
       printf "%s" "$candidate"
       return 0
@@ -43,6 +45,9 @@ detect_cuda_root() {
 configure_cuda_env() {
   local cuda_root="$1"
 
+  # Keep all common CUDA variables set for different tools.
+  # gpu-burn specifically needs CUDAPATH.
+  export CUDAPATH="$cuda_root"
   export CUDA_HOME="$cuda_root"
   export CUDA_PATH="$cuda_root"
   export CUDACXX="$cuda_root/bin/nvcc"
@@ -110,10 +115,10 @@ echo
 echo "[5/7] Building and installing gpu-burn..."
 
 # gpu-burn is NVIDIA/CUDA-specific.
-# Important: gpu-burn's Makefile needs CUDA_HOME/CUDA_PATH set correctly.
-# If CUDA_HOME is empty, gpu-burn can compile with -I/include and fail with:
-#   fatal error: cublas_v2.h: No such file or directory
-
+# Important: gpu-burn's Makefile uses CUDAPATH.
+# On Manjaro/Arch, CUDA is normally /opt/cuda, but upstream gpu-burn only
+# autodetects /usr/bin/nvcc and /usr/local/cuda/bin/nvcc. Without CUDAPATH,
+# it can incorrectly try /bin/nvcc and -I/include.
 mkdir -p "$PNWC_SRC_DIR"
 
 if ! command -v nvidia-smi >/dev/null 2>&1; then
@@ -132,8 +137,13 @@ else
 
   echo "Using CUDA root: $CUDA_ROOT"
   echo "Using nvcc:      $(command -v nvcc)"
+  echo "Using CUDAPATH:  $CUDAPATH"
 
-  if [ ! -f "$CUDA_ROOT/include/cublas_v2.h" ]; then
+  if [ ! -x "$CUDA_ROOT/bin/nvcc" ]; then
+    echo "ERROR: nvcc was expected at:"
+    echo "       $CUDA_ROOT/bin/nvcc"
+    echo "       but it was not executable."
+  elif [ ! -f "$CUDA_ROOT/include/cublas_v2.h" ]; then
     echo "ERROR: CUDA was found, but cuBLAS header was not found:"
     echo "       $CUDA_ROOT/include/cublas_v2.h"
     echo
@@ -153,10 +163,12 @@ else
     cd gpu-burn
     git pull
 
-    make clean || true
+    make clean CUDAPATH="$CUDA_ROOT" || true
 
-    # Pass both variable names. Different CUDA projects/Makefiles use different names.
-    make CUDA_HOME="$CUDA_ROOT" CUDA_PATH="$CUDA_ROOT"
+    # CUDAPATH is the variable gpu-burn's Makefile actually uses.
+    make CUDAPATH="$CUDA_ROOT" \
+         CUDA_HOME="$CUDA_ROOT" \
+         CUDA_PATH="$CUDA_ROOT"
 
     if [ ! -f gpu_burn ]; then
       echo "ERROR: gpu-burn build completed but gpu_burn binary was not created."
