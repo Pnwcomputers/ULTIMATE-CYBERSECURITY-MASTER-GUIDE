@@ -2,7 +2,7 @@
 
 Python orchestration scripts for diagnostics, benchmarking, and reliability stress testing on Manjaro Linux test benches. Designed for Z790/i9 platforms but works on any modern PC hardware.
 
-These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `memtester`, `sysbench`, etc.), stream their output live so you always see progress, and compile results into clean client-facing Markdown reports with a clear **PASS / FAIL verdict**.
+These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `memtester`, `sysbench`, etc.), stream their output live so you always see progress, and compile results into clean client-facing Markdown reports with a clear **PASS / FAIL verdict**.
 
 > Part of the [PNWC ULTIMATE-CYBERSECURITY-MASTER-GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE) · Pacific Northwest Computers · Vancouver, WA
 
@@ -12,10 +12,12 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `memtester`,
 
 | Script | Purpose | Requires sudo |
 | :--- | :--- | :---: |
-| [`full_hw_suite.py`](#full_hw_suitepy) | Full diagnostic pass — system info, CPU, RAM, storage, GPU | ✅ |
-| [`standalone_gpu_tester.py`](#standalone_gpu_testerpy) | GPU-only benchmark (glmark2 with display server auto-detection) | ❌ |
-| [`standalone_ram_tester.py`](#standalone_ram_testerpy) | RAM-only — bandwidth (sysbench) + stability (memtester) | ✅ |
-| [`stress_soak.py`](#stress_soakpy) | Reliability burn-in — simultaneous CPU+RAM+storage+GPU stress with continuous thermal logging | ✅ |
+| [`full_hw_suite.py`](#full_hw_suitepy-v21) | Full diagnostic pass — system info, CPU, RAM, storage, GPU | ✅ |
+| [`standalone_gpu_tester.py`](#standalone_gpu_testerpy-v21) | Universal GPU benchmark (OpenGL/Vulkan validation, memtest, kernel fault scanning) | ❌ |
+| [`pnwc_amd_gpu_diag.py`](#pnwc_amd_gpu_diagpy--pnwc_nvidia_gpu_diagpy-v10) | AMD Radeon GPU diagnostic with amdgpu telemetry & Vulkan/OpenGL testing | ❌ |
+| [`pnwc_nvidia_gpu_diag.py`](#pnwc_amd_gpu_diagpy--pnwc_nvidia_gpu_diagpy-v10) | NVIDIA GPU diagnostic with nvidia-smi telemetry & Vulkan/OpenGL testing | ❌ |
+| [`standalone_ram_tester.py`](#standalone_ram_testerpy-v21) | RAM-only — bandwidth (sysbench) + stability (memtester) | ✅ |
+| [`stress_soak.py`](#stress_soakpy-v11) | Reliability burn-in — simultaneous CPU+RAM+storage+GPU stress with continuous thermal logging | ✅ |
 
 > **Quick rule of thumb:** Run the diagnostic scripts first to establish a baseline and catch obvious failures. Run `stress_soak.py` before returning hardware to a client to validate long-term reliability.
 
@@ -27,9 +29,11 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `memtester`,
 
 ```bash
 sudo pacman -Syu --needed \
-  python stress-ng fio memtester sysbench \
-  inxi dmidecode smartmontools nvme-cli \
-  lm_sensors intel-gpu-tools
+  base-devel git python \
+  stress-ng fio memtester sysbench \
+  inxi dmidecode smartmontools nvme-cli pciutils usbutils \
+  lm_sensors intel-gpu-tools \
+  vulkan-tools mesa-utils vkmark glmark2
 ```
 
 ### Step 2 — Sensor detection (run once after install)
@@ -46,91 +50,135 @@ Without this, `sensors` returns no data and post-load thermal snapshots will be 
 
 **AMD Radeon:**
 ```bash
-sudo pacman -S --needed amdgpu_top radeontop
+sudo pacman -S --needed mesa vulkan-radeon amdsmi amdgpu_top radeontop
 ```
 
-**NVIDIA** — `nvidia-smi` ships with the driver. Verify it's present:
+**NVIDIA:**
+```bash
+sudo pacman -S --needed nvidia-utils cuda
+```
+Verify NVIDIA tools are present:
 ```bash
 nvidia-smi --version
-# If missing:
-sudo pacman -S --needed nvidia-utils
 ```
 
-### Step 4 — glmark2 (AUR — required for GPU benchmarks)
-
-```bash
-pamac build glmark2
-```
-
-This builds all four binaries (`glmark2`, `glmark2-es2`, `glmark2-wayland`, `glmark2-es2-wayland`). The scripts auto-detect your display server and pick the correct one. **Wayland/X11 binary mismatch is the #1 cause of silent glmark2 hangs** — let the scripts handle selection.
-
-### Step 5 — Verify everything is on PATH
+### Step 4 — Verify everything is on PATH
 
 ```bash
 for bin in inxi dmidecode sysbench memtester fio stress-ng \
-           smartctl nvme sensors glmark2 intel_gpu_top; do
+           smartctl nvme sensors glmark2 vkmark intel_gpu_top \
+           vulkaninfo glxinfo; do
   printf "%-20s %s\n" "$bin" "$(command -v $bin || echo '❌ NOT FOUND')"
 done
 ```
 
-Any `❌ NOT FOUND` line means that tool needs to be installed before running the relevant script.
+Any `❌ NOT FOUND` line means that tool needs to be installed before running the relevant script. *(Note: `glmark2` and `vkmark` are natively packaged in Manjaro/Arch!)*
 
 ---
 
-## `full_hw_suite.py`
+## `full_hw_suite.py` (v2.1)
 
-Runs a complete diagnostic pass sequentially: System info → CPU benchmark → RAM (bandwidth + stability) → Storage (SMART + fio IOPS) → GPU benchmark. Produces a single Markdown report.
+Runs a complete diagnostic pass sequentially: System info → CPU benchmark → RAM (bandwidth + stability) → Storage (SMART + fio IOPS) → GPU benchmark. Produces a single Markdown report with a report-level verdict.
 
-**Run from the mount point of the drive you want to test** — `fio` writes a temp file to the current directory.
+**Run from the mount point of the drive you want to test.**
 
 ```bash
-sudo python3 full_hw_suite.py
+sudo python3 full_hw_suite.py --client "Client Name"
 ```
 
 **Output:** `~/Full_Hardware_Report_YYYYMMDD_HHMMSS.md`
 
-**Key v2.0 improvements over the original:**
-- All long-running tests stream output live (no more frozen terminals)
-- glmark2 auto-detects the correct X11/Wayland binary
-- All storage devices (`nvme?n1`, `sd?`) auto-enumerated; SMART run on each
-- Post-CPU-load thermal snapshot via `sensors` captured immediately after benchmark
-- `stderr` now surfaced in the errors log instead of silently discarded
-- Errors tagged by subsystem `[CPU]`, `[RAM]`, `[GPU]` in report footer
+**Key v2.1 improvements:**
+- Safer timeout and process-group handling to prevent zombie processes.
+- Better storage testing utilizing temporary `fio` files rather than repo-folder test files.
+- Deep SMART analysis via `smartctl`.
+- Renderer validation for both Vulkan and OpenGL environments.
+- Proper desktop GPU command handling when running under `sudo` (avoids display server blocks).
+- Kernel hardware error snapshots embedded directly in the report.
+- Clear report-level **PASS / FAIL verdict**.
 
 ---
 
-## `standalone_gpu_tester.py`
+## `standalone_gpu_tester.py` (v2.1)
 
-Tests the GPU only. No `sudo` required. Run from a desktop terminal session (X11 or Wayland — **not SSH**).
+Tests the GPU in isolation. This is an excellent **general first-pass GPU script** for any vendor (Intel, AMD, NVIDIA). For a serious suspected AMD or NVIDIA card failure, run the vendor-specific AMD/NVIDIA script afterward because those collect richer per-second telemetry.
+
+No `sudo` required. Run from a desktop terminal session (X11 or Wayland — **not SSH**).
+
+**Features:**
+- Keeps/adds the PNWC ASCII banner branding.
+- Checks GPU hardware with `inxi` and `lspci`.
+- Validates Vulkan (`vulkaninfo --summary`) and OpenGL (`glxinfo -B`).
+- Warns/fails if it detects software rendering (e.g., llvmpipe, lavapipe, softpipe, or software rasterizer).
+- Optionally runs `memtest_vulkan` for VRAM stability if installed.
+- Optionally runs `vkmark` for Vulkan load testing if installed.
+- Keeps `glmark2` as the core OpenGL benchmark/load test.
+- Watches kernel logs during the run for NVIDIA Xid/NVRM events, amdgpu resets/ring timeouts/VM faults, Intel i915 hangs, DRM errors, and PCIe AER errors.
+- Uses process-group timeout cleanup so hung GPU tests are killed more reliably.
+
+**Example Runs:**
 
 ```bash
-python3 standalone_gpu_tester.py
-```
+# Standard Run:
+python3 standalone_gpu_tester.py --client "Client Name"
 
-**Quick-pass mode** — set `GLMARK2_SCENES` at the top of the file for a ~2 minute run instead of 15:
+# Quick smoke test:
+python3 standalone_gpu_tester.py --quick --client "Client Name"
 
-```python
-# In standalone_gpu_tester.py, edit this line:
-GLMARK2_SCENES = ["build", "texture", "shading", "desktop", "buffer"]
+# Longer OpenGL timed soak:
+python3 standalone_gpu_tester.py --glmark2-run-forever --glmark2-timeout 900 --client "Client Name"
+
+# Skip optional tests if needed:
+python3 standalone_gpu_tester.py --no-memtest --no-vkmark --client "Client Name"
 ```
 
 **Output:** `~/GPU_Report_YYYYMMDD_HHMMSS.md`
 
 ---
 
-## `standalone_ram_tester.py`
+## `pnwc_amd_gpu_diag.py` & `pnwc_nvidia_gpu_diag.py` (v1.0)
 
-Tests RAM only. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` to half your installed RAM and `MEMTESTER_PASSES` to 3–5 before running. Output streams live — every test line is printed as it completes so you can watch for `FAILED` lines in real time.
+Dedicated, vendor-specific diagnostic paths for deep GPU telemetry.
 
 ```bash
-sudo python3 standalone_ram_tester.py
+# AMD Run:
+python3 pnwc_amd_gpu_diag.py --client "Client Name"
+
+# NVIDIA Run:
+python3 pnwc_nvidia_gpu_diag.py --client "Client Name"
 ```
 
-**Output:** `~/RAM_Report_YYYYMMDD_HHMMSS.md`
+**Output:** `~/GPU_Report_YYYYMMDD_HHMMSS.md`
+
+**Features:**
+- Leverages `memtest_vulkan` for thorough VRAM stability testing (default 360 seconds).
+- Standardized load testing using both `vkmark` (Vulkan) and `glmark2` (OpenGL/ES).
+- Collects continuous vendor telemetry (`amdgpu` sysfs / `amd-smi` snapshots or `nvidia-smi` dynamic probing) during all tests.
+- Scans kernel logs specifically for GPU/PCIe faults.
+- Optional aggressive stress modes (`--glmark2-run-forever --glmark2-timeout 900`) and optional legacy torture mode (`--furmark`).
 
 ---
 
-## `stress_soak.py`
+## `standalone_ram_tester.py` (v2.1)
+
+Tests RAM only. Reads hardware topology from `dmidecode`, runs `sysbench` memory bandwidth, then `memtester` for bit-pattern stability. Output streams live so you can watch for `FAILED` lines in real time.
+
+```bash
+sudo python3 standalone_ram_tester.py --client "Client Name" --memtester-size 4G --passes 3
+```
+
+**Output:** `~/RAM_Report_YYYYMMDD_HHMMSS.md` and full memtester log.
+
+**Key v2.1 improvements:**
+- Keeps the PNWC banner and adds robust CLI options (`--client`, `--memtester-size`, `--passes`, `--auto-size`).
+- Dynamically checks available memory before launching `memtester` to prevent hard system locks.
+- Saves a complete raw `memtester` log alongside the Markdown report.
+- Watches kernel logs specifically for MCE, EDAC, OOM, and memory faults during the run.
+- Produces a real **PASS / FAIL verdict table**.
+
+---
+
+## `stress_soak.py` (v1.1)
 
 Reliability burn-in tester. Fundamentally different from the diagnostic scripts — it exists to answer the question *"will this machine hold up under real sustained load?"* not just *"is this machine functional right now?"*
 
@@ -138,43 +186,33 @@ Reliability burn-in tester. Fundamentally different from the diagnostic scripts 
 
 The diagnostic scripts run each subsystem **sequentially** and for **seconds at a time**. A machine can pass all of them and still fail 45 minutes into a real workload when:
 
-- Thermals soak through a marginal cooler mount
-- XMP instability surfaces under sustained memory pressure
-- A PSU with marginal capacity can't sustain simultaneous CPU + GPU + storage load
-- A VRM thermal limit kicks in that only appears under combined load
+- Thermals soak through a marginal cooler mount.
+- XMP/EXPO instability surfaces under sustained memory pressure.
+- A PSU with marginal capacity can't sustain simultaneous CPU + GPU + storage load.
+- A VRM thermal limit kicks in that only appears under combined load.
 
 `stress_soak.py` addresses this by:
 
-- Running CPU, RAM, storage, and GPU stressors **simultaneously** for hours
-- Logging every thermal reading to CSV throughout the entire run
-- Watching the kernel ring buffer continuously for throttle events and hardware errors
-- Running memtester before the combined load so RAM errors surface early
-- Producing a **PASS / FAIL verdict** with one row per check
-
-### Installation
-
-`stress-ng` is the key new dependency not required by the other scripts:
-
-```bash
-sudo pacman -S --needed stress-ng
-```
-
-All other dependencies are shared with the diagnostic scripts (see [Prerequisites](#prerequisites) above).
+- Running CPU, RAM, storage, and GPU stressors **simultaneously** for hours.
+- Logging every thermal reading to CSV throughout the entire run.
+- Watching the kernel ring buffer continuously for throttle events and hardware errors.
+- Running `memtester` before the combined load so RAM errors surface early.
+- Producing a **PASS / FAIL verdict** with one row per check.
 
 ### Usage
 
 ```bash
 # Quick smoke test (~15 min) — good for first run on new hardware
-sudo python3 stress_soak.py --mode quick
+sudo python3 stress_soak.py --mode quick --client "Client Name"
 
 # Standard burn-in before returning hardware to a client (~4 hrs)
-sudo python3 stress_soak.py --mode standard --client "Acme Corp"
+sudo python3 stress_soak.py --mode standard --client "Client Name"
 
 # Overnight burn-in for rebuilt, re-pasted, or overclocked systems
-sudo python3 stress_soak.py --mode overnight --client "Acme Corp"
+sudo python3 stress_soak.py --mode overnight --client "Client Name"
 
 # Skip GPU stress (headless, or CPU/RAM focus only)
-sudo python3 stress_soak.py --mode standard --skip-gpu
+sudo python3 stress_soak.py --mode standard --client "Client Name" --skip-gpu
 ```
 
 ### Duration modes
@@ -187,27 +225,25 @@ sudo python3 stress_soak.py --mode standard --skip-gpu
 | `extended` | ~8 hr | 16G × 5 passes | 7 hr | 30 min |
 | `overnight` | ~24 hr | 16G × 10 passes | 23 hr | 60 min |
 
-### What it tests and how
+### What it tests and how (v1.1 improvements)
 
 **Phase 1 — RAM validation (memtester)**
-Runs first with dedicated RAM — no competing vm workers. Any `FAILED` line is flagged immediately and surfaced in the final report. If memtester finds errors, you know within the first few minutes rather than at the end of a 4-hour run.
+Runs first with dedicated RAM. Any `FAILED` line is flagged immediately. If `memtester` finds errors, you know within the first few minutes rather than at the end of a 4-hour run.
 
 **Phase 2 — Combined stress soak (stress-ng + fio + glmark2)**
-
-- `stress-ng --cpu N --cpu-method all` — cycles every stressor method (integer, FP, AVX, matrix ops) across all threads
-- `stress-ng --vm 2 --vm-bytes 60%` — two RAM workers running bit-flip patterns simultaneously with the CPU stressors
-- `fio` — 4K random read/write on storage, running the full duration alongside CPU/RAM stress
-- `glmark2 --run-forever` — if a display is available, continuous GPU render loop; FPS tracked for throttle detection
-
-Running all three at once is what exposes PSU marginal capacity and VRM thermal limits that sequential testing misses entirely.
+- `stress-ng --cpu N --cpu-method all` — cycles every stressor method across all threads.
+- `stress-ng --vm 2 --vm-bytes 60%` — two RAM workers running bit-flip patterns simultaneously.
+- `fio` — 4K random read/write on storage, running alongside CPU/RAM stress.
+- `glmark2 --run-forever` — continuous GPU render loop. **(v1.1: GPU execution is properly routed under the original desktop user to bypass root display-server blocks!)**
+- **v1.1:** Adds strict return-code checks for `fio` and `stress-ng`.
 
 **Phase 3 — Cooldown monitoring**
-Post-stress thermal monitoring. A slow cooldown with still-elevated temps after load ends is a strong indicator of a cooler mount problem — even if the system never technically throttled during the run.
+Post-stress thermal monitoring. A slow cooldown with still-elevated temps indicates a cooler mount problem.
 
 **Continuous throughout all phases:**
-
-- `SensorPoller` — polls `sensors` every 5 seconds, writes every reading to a timestamped CSV. After an overnight run you have a full 24-hour temperature timeline you can graph in a spreadsheet.
-- `KernelWatcher` — polls `journalctl -k` every 30 seconds and classifies new kernel entries into throttle events (PROCHOT, package power limit, thermal) vs hardware errors (EDAC, MCE, GPU hang, NVMe errors). Both print live to the terminal with ⚠️/🔴 prefixes.
+- `SensorPoller` — polls `sensors` (now with better CPU package sensor detection in v1.1) every 5 seconds, writes every reading to a timestamped CSV.
+- `KernelWatcher` — polls `journalctl -k` every 30 seconds. Checks for tighter kernel fault patterns (throttle events, MCE, GPU hangs).
+- **v1.1:** Improved GPU FPS degradation logic to catch thermal throttling.
 
 ### Output
 
@@ -231,7 +267,7 @@ The report opens with a verdict table — one row per check. A single ❌ flags 
 
 ### Interrupt handling
 
-`Ctrl+C` at any point terminates all stress child processes cleanly, stops monitoring threads, and writes a partial report marked `⚠️ INCOMPLETE`. Thermal CSV data collected up to the interrupt point is preserved.
+`Ctrl+C` at any point terminates all stress child processes cleanly (v1.1 adds better process cleanup), stops monitoring threads, and writes a partial report marked `⚠️ INCOMPLETE`. Thermal CSV data collected up to the interrupt point is preserved.
 
 ---
 
@@ -251,9 +287,9 @@ The report opens with a verdict table — one row per check. A single ❌ flags 
 
 ## Reference — Cheat Sheet
 
-For manual commands, package manager reference, sensor detection, turbostat, Phoronix Test Suite, fio deep-dives, and BIOS/kernel best practices, see the [Manjaro_TestBench.md](../Manjaro_TestBench.md) cheat sheet in the parent directory.
+For manual commands, package manager reference, sensor detection, turbostat, Phoronix Test Suite, fio deep-dives, and BIOS/kernel best practices, see the [Manjaro_TestBench.md](../Manjaro_Intel_TestBench.md) cheat sheet in the parent directory.
 
 ---
 
 *Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
-*Last updated: 06-08-2026*
+*Last updated: 06-11-2026*
