@@ -92,7 +92,7 @@ def print_banner(report_file_path="Not Generated Yet"):
     print("  ##       ##  ##   ##    ##   ######")
     print("")
     print("  Pacific Northwest Computers")
-    print("  NVIDIA GPU Testing & Benchmark Script")
+    print("  NVIDIA GPU Testing & Benchmark Script v1.2")
     print("")
     print("=" * 70)
     print("   PNWC Diagnostic Tool - NVIDIA GPU Hardware & Load Benchmarking")
