@@ -34,7 +34,6 @@ detect_cuda_root() {
   if command -v nvcc >/dev/null 2>&1; then
     local nvcc_path
     nvcc_path="$(command -v nvcc)"
-    # nvcc is normally $CUDA_ROOT/bin/nvcc
     printf "%s" "$(dirname "$(dirname "$nvcc_path")")"
     return 0
   fi
@@ -45,8 +44,6 @@ detect_cuda_root() {
 configure_cuda_env() {
   local cuda_root="$1"
 
-  # Keep all common CUDA variables set for different tools.
-  # gpu-burn specifically needs CUDAPATH.
   export CUDAPATH="$cuda_root"
   export CUDA_HOME="$cuda_root"
   export CUDA_PATH="$cuda_root"
@@ -56,6 +53,49 @@ configure_cuda_env() {
   export CPATH="$cuda_root/include:${CPATH:-}"
   export LIBRARY_PATH="$cuda_root/lib64:${LIBRARY_PATH:-}"
   export LD_LIBRARY_PATH="$cuda_root/lib64:${LD_LIBRARY_PATH:-}"
+}
+
+patch_gpu_burn_makefile_if_needed() {
+  local cuda_root="$1"
+
+  if [ ! -f Makefile ]; then
+    echo "ERROR: gpu-burn Makefile not found in $(pwd)"
+    return 1
+  fi
+
+  # Test the exact command make plans to run. If it still shows /bin/nvcc
+  # or -I/include, CUDAPATH is not being applied correctly.
+  local preview=""
+  preview="$(make -n CUDAPATH="$cuda_root" compare.fatbin 2>/dev/null || true)"
+
+  if printf "%s\n" "$preview" | grep -Eq '(^|[[:space:]])/bin/nvcc([[:space:]]|$)|-I/include([[:space:]]|$)'; then
+    echo "WARN: gpu-burn Makefile is still resolving CUDA incorrectly."
+    echo "      Applying PNWC Arch/Manjaro CUDA Makefile shim."
+
+    cp -f Makefile Makefile.pnwc-original
+
+    {
+      echo "# PNWC Arch/Manjaro CUDA path shim"
+      echo "# Added by install_testbench_tools.sh because upstream gpu-burn"
+      echo "# autodetects /usr/bin/nvcc and /usr/local/cuda/bin/nvcc, but"
+      echo "# Manjaro/Arch commonly installs CUDA under /opt/cuda."
+      echo "CUDAPATH ?= $cuda_root"
+      echo
+      cat Makefile.pnwc-original
+    } > Makefile
+  fi
+
+  preview="$(make -n CUDAPATH="$cuda_root" compare.fatbin 2>/dev/null || true)"
+
+  if printf "%s\n" "$preview" | grep -Eq '(^|[[:space:]])/bin/nvcc([[:space:]]|$)|-I/include([[:space:]]|$)'; then
+    echo "ERROR: gpu-burn Makefile still resolves CUDA incorrectly after patch."
+    echo "Preview:"
+    printf "%s\n" "$preview" | head -20
+    return 1
+  fi
+
+  echo "gpu-burn Makefile CUDA path preview looks correct:"
+  printf "%s\n" "$preview" | grep -E 'nvcc|cublas|I/' | head -5 || true
 }
 
 echo
@@ -88,7 +128,6 @@ if ! sudo pacman -S --needed \
   echo "      Continue if this bench does not need NVIDIA testing."
 fi
 
-# Configure CUDA environment after package install, if CUDA is present.
 CUDA_ROOT=""
 if CUDA_ROOT="$(detect_cuda_root)"; then
   configure_cuda_env "$CUDA_ROOT"
@@ -114,11 +153,6 @@ sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
 echo
 echo "[5/7] Building and installing gpu-burn..."
 
-# gpu-burn is NVIDIA/CUDA-specific.
-# Important: gpu-burn's Makefile uses CUDAPATH.
-# On Manjaro/Arch, CUDA is normally /opt/cuda, but upstream gpu-burn only
-# autodetects /usr/bin/nvcc and /usr/local/cuda/bin/nvcc. Without CUDAPATH,
-# it can incorrectly try /bin/nvcc and -I/include.
 mkdir -p "$PNWC_SRC_DIR"
 
 if ! command -v nvidia-smi >/dev/null 2>&1; then
@@ -151,8 +185,6 @@ else
     echo "Try locating the package that provides it:"
     echo "  sudo pacman -Fy"
     echo "  pacman -F cublas_v2.h"
-    echo
-    echo "Then install the package shown by pacman -F and rerun this installer."
   else
     cd "$PNWC_SRC_DIR"
 
@@ -163,9 +195,9 @@ else
     cd gpu-burn
     git pull
 
-    make clean CUDAPATH="$CUDA_ROOT" || true
+    patch_gpu_burn_makefile_if_needed "$CUDA_ROOT"
 
-    # CUDAPATH is the variable gpu-burn's Makefile actually uses.
+    make clean CUDAPATH="$CUDA_ROOT" || true
     make CUDAPATH="$CUDA_ROOT" \
          CUDA_HOME="$CUDA_ROOT" \
          CUDA_PATH="$CUDA_ROOT"
