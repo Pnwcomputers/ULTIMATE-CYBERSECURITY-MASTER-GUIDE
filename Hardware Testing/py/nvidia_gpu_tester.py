@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PNWC NVIDIA GPU Diagnostic & Benchmark Tool v2.3.1
+PNWC NVIDIA GPU Diagnostic & Benchmark Tool v2.3.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 What this script DOES:
   • Polls nvidia-smi every second during the full GPU test window
@@ -18,6 +18,20 @@ What this script DOES:
     PCIe AER, and related GPU fault events
   • Detects likely software rendering / wrong renderer paths
   • Writes a timestamped Markdown report and telemetry CSV
+
+Changes in v2.3.2:
+  • gpu-burn result parsing no longer false-fails on the literal word
+    "errors" (e.g. "errors: 0"); it now keys on FAULTY / nonzero counts.
+  • Throttle telemetry understands the 590-era field rename
+    (clocks_throttle_reasons.* -> clocks_event_reasons.*). When neither set
+    is supported, the Thermal Throttling check reports REVIEW instead of a
+    silent PASS, and verdicts are now tri-state (PASS / FAIL / REVIEW).
+  • Kernel fault monitoring probes journal access up front; if the kernel
+    journal is unreadable the Kernel GPU Faults check reports REVIEW instead
+    of a falsely-clean PASS.
+  • OpenGL path forces the NVIDIA GPU on hybrid/Optimus benches
+    (__NV_PRIME_RENDER_OFFLOAD / __GLX_VENDOR_LIBRARY_NAME) and warns if the
+    glxinfo renderer string is not NVIDIA.
 
 Requires : nvidia-utils, inxi
 Recommended: vulkan-tools, mesa-utils, memtest_vulkan, vkmark, glmark2
@@ -103,6 +117,21 @@ KERNEL_PATTERNS = [
     r"nvidia.*timeout",
 ]
 
+# Throttle-reason suffixes. As of the 590 driver branch nvidia-smi renamed the
+# field family from clocks_throttle_reasons.* to clocks_event_reasons.*; both
+# variants are probed and whichever the driver supports is used.
+THROTTLE_REASON_SUFFIXES = [
+    "active",
+    "hw_thermal_slowdown",
+    "sw_thermal_slowdown",
+    "hw_power_brake_slowdown",
+    "sw_power_cap",
+]
+THROTTLE_FIELD_NAMES = (
+    [f"clocks_throttle_reasons.{s}" for s in THROTTLE_REASON_SUFFIXES]
+    + [f"clocks_event_reasons.{s}" for s in THROTTLE_REASON_SUFFIXES]
+)
+
 # nvidia-smi fields to try. Unsupported fields are dropped dynamically.
 SMI_FIELDS_DESIRED = [
     "timestamp",
@@ -124,6 +153,12 @@ SMI_FIELDS_DESIRED = [
     "clocks_throttle_reasons.sw_thermal_slowdown",
     "clocks_throttle_reasons.hw_power_brake_slowdown",
     "clocks_throttle_reasons.sw_power_cap",
+    # 590-era rename fallback; unsupported variants are dropped by the probe.
+    "clocks_event_reasons.active",
+    "clocks_event_reasons.hw_thermal_slowdown",
+    "clocks_event_reasons.sw_thermal_slowdown",
+    "clocks_event_reasons.hw_power_brake_slowdown",
+    "clocks_event_reasons.sw_power_cap",
 ]
 
 SMI_STATIC_FIELDS_DESIRED = [
@@ -197,9 +232,9 @@ def trim_block(text: str, max_chars: int = 4000) -> str:
 def print_banner(report_file_path="Not Generated Yet"):
     """Render the PNWC toolkit ASCII banner to the terminal window."""
     if platform.system() == "Windows":
-        os.system("title PNWC NVIDIA GPU Diagnostic v2.3.1")
+        os.system("title PNWC NVIDIA GPU Diagnostic v2.3.2")
     else:
-        print("\033]0;PNWC NVIDIA GPU Diagnostic v2.3.1\a", end="")
+        print("\033]0;PNWC NVIDIA GPU Diagnostic v2.3.2\a", end="")
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -213,12 +248,12 @@ def print_banner(report_file_path="Not Generated Yet"):
     print("  ##       ##  ##   ##    ##   ######")
     print("")
     print("  Pacific Northwest Computers")
-    print("  NVIDIA GPU Testing & Benchmark Script v2.3.1")
+    print("  NVIDIA GPU Testing & Benchmark Script v2.3.2")
     print("")
     print("=" * 70)
     print("   PNWC Diagnostic Tool - NVIDIA GPU Hardware & Load Benchmarking")
     print("   Pacific Northwest Computers  |  support@pnwcomputers.com")
-    print("   v2.3.1 -- Robust Classification Variant")
+    print("   v2.3.2 -- Robust Classification Variant")
     print("=" * 70)
     print("")
     print(f"  Started  : {formatted_time}")
@@ -229,11 +264,11 @@ def print_banner(report_file_path="Not Generated Yet"):
 
 
 class ProcessRunner:
-    def __init__(self, errors: list[str], warnings: list[str]):
+    def __init__(self, errors: list, warnings: list):
         self.errors = errors
         self.warnings = warnings
 
-    def run_cmd(self, cmd, timeout: int = 60, cwd: str | None = None, allow_fail: bool = False) -> str:
+    def run_cmd(self, cmd, timeout: int = 60, cwd=None, allow_fail: bool = False, env=None) -> str:
         print(f"    -> {printable_cmd(cmd)}")
         shell = isinstance(cmd, str)
         try:
@@ -245,6 +280,7 @@ class ProcessRunner:
                 text=True,
                 timeout=timeout,
                 cwd=cwd,
+                env=env,
             )
             if r.returncode != 0 and not allow_fail:
                 err = r.stderr.strip()
@@ -258,10 +294,10 @@ class ProcessRunner:
             self.errors.append(f"EXEC ERROR: {printable_cmd(cmd)} -> {exc}")
             return "ERROR"
 
-    def run_streaming(self, cmd, timeout: int, cwd: str | None = None, label: str = "process", env: dict | None = None, allow_fail: bool = False) -> tuple[list[str], bool, int | None]:
-        lines: list[str] = []
+    def run_streaming(self, cmd, timeout: int, cwd=None, label: str = "process", env=None, allow_fail: bool = False):
+        lines: list = []
         timed_out = False
-        rc: int | None = None
+        rc = None
         shell = isinstance(cmd, str)
 
         print(f"    -> {printable_cmd(cmd)}")
@@ -288,7 +324,7 @@ class ProcessRunner:
                     lines.append(line)
                     if any(k.lower() in line.lower() for k in [
                         "[", "score", "error", "failed", "warning", "fault", "xid", "nvrm",
-                        "gpu", "mismatch", "corrupt", "timeout"
+                        "gpu", "mismatch", "corrupt", "timeout", "faulty"
                     ]):
                         print(f"       {line}")
 
@@ -328,15 +364,52 @@ class ProcessRunner:
 
 
 class KernelFaultWatcher:
-    def __init__(self, start_epoch: int, patterns: list[str], errors: list[str]):
+    def __init__(self, start_epoch: int, patterns: list, errors: list, warnings: list):
         self.start_epoch = start_epoch
         self.patterns = [re.compile(p, re.IGNORECASE) for p in patterns]
         self.errors = errors
-        self.events: list[str] = []
+        self.warnings = warnings
+        self.events: list = []
         self.running = False
+        self.accessible = True
         self._thread = None
         self._seen = set()
         self._lock = threading.Lock()
+
+    def probe_access(self) -> bool:
+        """Verify the kernel journal is readable before relying on a clean run.
+
+        Without root or membership in 'systemd-journal', journalctl -k yields
+        nothing and the watcher would silently report no faults. We surface that
+        as a warning and flag the run as un-monitored so the report does not show
+        a falsely-clean Kernel GPU Faults PASS.
+        """
+        try:
+            r = subprocess.run(
+                ["journalctl", "-k", "--no-pager", "-n", "1"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=15,
+            )
+            if r.returncode != 0:
+                self.accessible = False
+                detail = (r.stderr or "").strip().splitlines()
+                hint = detail[0] if detail else f"rc={r.returncode}"
+                self.warnings.append(
+                    "Kernel journal not accessible (" + hint + "); kernel GPU fault "
+                    "monitoring is DISABLED for this run. Run as root or add the user "
+                    "to the 'systemd-journal' group."
+                )
+                return False
+            return True
+        except Exception as exc:
+            self.accessible = False
+            self.warnings.append(
+                f"Kernel journal access check failed ({exc}); kernel GPU fault "
+                "monitoring is DISABLED for this run (is journalctl present?)."
+            )
+            return False
 
     def _poll(self):
         try:
@@ -365,6 +438,7 @@ class KernelFaultWatcher:
             time.sleep(5)
 
     def start(self):
+        self.probe_access()
         self.running = True
         self._thread = threading.Thread(target=self._run_loop, daemon=True)
         self._thread.start()
@@ -381,7 +455,7 @@ class KernelFaultWatcher:
         with self._lock:
             return len(self.events)
 
-    def snapshot(self) -> list[str]:
+    def snapshot(self) -> list:
         with self._lock:
             return list(self.events)
 
@@ -389,7 +463,7 @@ class KernelFaultWatcher:
 class NvidiaMonitor:
     """Background nvidia-smi monitor writing every sample to CSV."""
 
-    def __init__(self, gpu_index: int, csv_path: str, fields: list[str]):
+    def __init__(self, gpu_index: int, csv_path: str, fields: list):
         self.gpu_index = gpu_index
         self.csv_path = csv_path
         self.fields = fields
@@ -399,21 +473,37 @@ class NvidiaMonitor:
         self._lock = threading.Lock()
         self._samples = 0
 
-        self.temps: list[float] = []
-        self.powers: list[float] = []
-        self.gclks: list[float] = []
-        self.mclks: list[float] = []
-        self.utils: list[float] = []
-        self.memutils: list[float] = []
-        self.vram_used: list[float] = []
-        self.pcie_gen_seen: list[str] = []
-        self.pcie_width_seen: list[str] = []
+        # True only if the driver actually exposed a throttle/event-reason field.
+        self.throttle_measured = any(f in fields for f in THROTTLE_FIELD_NAMES)
+
+        self.temps: list = []
+        self.powers: list = []
+        self.gclks: list = []
+        self.mclks: list = []
+        self.utils: list = []
+        self.memutils: list = []
+        self.vram_used: list = []
+        self.pcie_gen_seen: list = []
+        self.pcie_width_seen: list = []
 
         self.hw_thermal_events = 0
         self.sw_thermal_events = 0
         self.power_brake_events = 0
         self.sw_power_cap_events = 0
-        self.active_throttle_reasons: set[str] = set()
+        self.active_throttle_reasons: set = set()
+
+    @staticmethod
+    def _tr(d: dict, suffix: str) -> str:
+        """Read a throttle reason from whichever field family the driver used.
+
+        Prefers clocks_throttle_reasons.* and falls back to the 590-era
+        clocks_event_reasons.* so values are counted exactly once even if a
+        driver happens to alias both.
+        """
+        v = d.get(f"clocks_throttle_reasons.{suffix}")
+        if v is None:
+            v = d.get(f"clocks_event_reasons.{suffix}", "")
+        return v or ""
 
     def _sample(self):
         try:
@@ -450,7 +540,7 @@ class NvidiaMonitor:
         except Exception as e:
             print(f"\n[!] Monitor encountered a structural logging error: {e}")
 
-    def _ingest(self, row: list[str]):
+    def _ingest(self, row: list):
         d = dict(zip(self.fields, row))
         with self._lock:
             self._samples += 1
@@ -472,19 +562,19 @@ class NvidiaMonitor:
             if d.get("pcie.link.width.current"):
                 self.pcie_width_seen.append(d.get("pcie.link.width.current", ""))
 
-            active = d.get("clocks_throttle_reasons.active", "").strip()
+            active = self._tr(d, "active").strip()
             if active and active not in ("Not Active", "N/A", "[N/A]"):
                 self.active_throttle_reasons.add(f"Active throttle: {active}")
-            if d.get("clocks_throttle_reasons.hw_thermal_slowdown", "").strip() == "Active":
+            if self._tr(d, "hw_thermal_slowdown").strip() == "Active":
                 self.hw_thermal_events += 1
                 self.active_throttle_reasons.add("HW thermal slowdown")
-            if d.get("clocks_throttle_reasons.sw_thermal_slowdown", "").strip() == "Active":
+            if self._tr(d, "sw_thermal_slowdown").strip() == "Active":
                 self.sw_thermal_events += 1
                 self.active_throttle_reasons.add("SW thermal slowdown")
-            if d.get("clocks_throttle_reasons.hw_power_brake_slowdown", "").strip() == "Active":
+            if self._tr(d, "hw_power_brake_slowdown").strip() == "Active":
                 self.power_brake_events += 1
                 self.active_throttle_reasons.add("HW power brake")
-            if d.get("clocks_throttle_reasons.sw_power_cap", "").strip() == "Active":
+            if self._tr(d, "sw_power_cap").strip() == "Active":
                 self.sw_power_cap_events += 1
                 self.active_throttle_reasons.add("SW power cap")
 
@@ -527,6 +617,7 @@ class NvidiaMonitor:
                 "vram_used": self._stats(self.vram_used),
                 "pcie_gen_mode": self._mode(self.pcie_gen_seen),
                 "pcie_width_mode": self._mode(self.pcie_width_seen),
+                "throttle_measured": self.throttle_measured,
                 "hw_thermal": self.hw_thermal_events,
                 "sw_thermal": self.sw_thermal_events,
                 "power_brake": self.power_brake_events,
@@ -551,6 +642,7 @@ class NvidiaGPUTester:
             "scene_scores": [],
             "load_summary": {},
             "kernel_events": [],
+            "kernel_monitored": True,
             "csv_path": "",
             "supported_smi_fields": [],
             "unsupported_smi_fields": [],
@@ -606,12 +698,75 @@ class NvidiaGPUTester:
                 self.data["tool_edge_notes"].append(note)
         return env
 
+    def _nvidia_gl_env(self) -> dict:
+        """Force the NVIDIA GPU for OpenGL on hybrid/Optimus (PRIME) benches.
+
+        On a single-NVIDIA desktop these variables are harmless no-ops; on an
+        Optimus laptop where the X server runs on the iGPU they push GLX onto
+        the NVIDIA GPU so the OpenGL load actually exercises the card under test.
+        """
+        env = os.environ.copy()
+        env["__NV_PRIME_RENDER_OFFLOAD"] = "1"
+        env["__GLX_VENDOR_LIBRARY_NAME"] = "nvidia"
+        note = "OpenGL forced onto NVIDIA via __NV_PRIME_RENDER_OFFLOAD/__GLX_VENDOR_LIBRARY_NAME."
+        if note not in self.data["utility_notes"]:
+            self.data["utility_notes"].append(note)
+        return env
+
     @staticmethod
     def _has_utility_edge(text: str) -> bool:
         return any(re.search(p, text, re.I) for p in VULKAN_UTILITY_EDGE_PATTERNS)
 
     @staticmethod
-    def _classify_memtest_vulkan_lines(lines: list[str]) -> tuple[str, list[str]]:
+    def _gl_renderer_warning(glxinfo_text: str):
+        """Return a warning string if the GL renderer is not the NVIDIA GPU.
+
+        Returns None when the renderer is NVIDIA, the renderer is unknown, or it
+        is already a software renderer (handled/flagged separately).
+        """
+        if not glxinfo_text:
+            return None
+        m = re.search(r"OpenGL renderer string:\s*(.+)", glxinfo_text)
+        if not m:
+            return None
+        renderer = m.group(1).strip()
+        low = renderer.lower()
+        if "nvidia" in low:
+            return None
+        if any(s in low for s in SOFTWARE_RENDERERS):
+            return None  # software-renderer case is reported by the dedicated check
+        return (f"OpenGL renderer is not NVIDIA ('{renderer}') - possible iGPU/Optimus "
+                "path; the glmark2 result may not reflect the NVIDIA GPU.")
+
+    @staticmethod
+    def _classify_gpu_burn_lines(lines: list):
+        """Return (is_fault, detail) for gpu-burn output.
+
+        gpu-burn prints benign lines such as 'errors: 0' on every healthy
+        iteration, so matching the bare word 'error' false-fails a good card.
+        A real failure is the per-GPU 'FAULTY' verdict, a nonzero error count,
+        or hard device-loss/Xid/NVRM text.
+        """
+        faulty = False
+        detail = []
+        count_re = re.compile(r"errors?\s*[:=]?\s*(\d+)", re.I)
+        count_re_pre = re.compile(r"(\d+)\s+errors?\b", re.I)
+        hard_re = re.compile(r"(FAULTY|device lost|Xid|NVRM|NV_ERR|VK_ERROR|segmentation fault|unstable)", re.I)
+        for line in lines:
+            if hard_re.search(line):
+                faulty = True
+                detail.append(line.strip())
+                continue
+            for rx in (count_re, count_re_pre):
+                m = rx.search(line)
+                if m and int(m.group(1)) > 0:
+                    faulty = True
+                    detail.append(line.strip())
+                    break
+        return faulty, detail[:12]
+
+    @staticmethod
+    def _classify_memtest_vulkan_lines(lines: list):
         """Return (classification, bad_lines) for memtest_vulkan output.
 
         memtest_vulkan is often stopped by timeout/SIGINT, so the parser must
@@ -632,7 +787,7 @@ class NvidiaGPUTester:
             return "PASS", []
         return "NO_ERRORS_PARSED", []
 
-    def _query_named(self, fields: list[str], allow_fail: bool = True) -> dict:
+    def _query_named(self, fields: list, allow_fail: bool = True) -> dict:
         if not fields:
             return {}
         out = self.runner.run_cmd(
@@ -652,7 +807,7 @@ class NvidiaGPUTester:
             return {}
         return dict(zip(fields, values))
 
-    def _probe_smi_fields(self, desired: list[str]) -> list[str]:
+    def _probe_smi_fields(self, desired: list) -> list:
         supported = []
         unsupported = []
         for field in desired:
@@ -705,13 +860,22 @@ class NvidiaGPUTester:
             self.data["warnings"].append("vulkaninfo not found. Install: sudo pacman -S vulkan-tools")
 
         if self._which("glxinfo"):
-            self.data["glxinfo"] = self.runner.run_cmd(["glxinfo", "-B"], timeout=30, allow_fail=True)
+            self.data["glxinfo"] = self.runner.run_cmd(
+                ["glxinfo", "-B"], timeout=30, allow_fail=True, env=self._nvidia_gl_env()
+            )
         else:
             self.data["warnings"].append("glxinfo not found. Install: sudo pacman -S mesa-utils")
 
         renderer_text = f"{self.data['vulkan_summary']}\n{self.data['glxinfo']}".lower()
         if any(s in renderer_text for s in SOFTWARE_RENDERERS):
             self.data["errors"].append("Software renderer detected (llvmpipe/lavapipe/softpipe). Test may not be hitting NVIDIA GPU.")
+
+        gl_warn = self._gl_renderer_warning(self.data["glxinfo"])
+        if gl_warn:
+            self.data["warnings"].append(gl_warn)
+            note = "OpenGL renderer string did not contain 'NVIDIA'; GL load may have targeted a non-NVIDIA device."
+            if note not in self.data["tool_edge_notes"]:
+                self.data["tool_edge_notes"].append(note)
 
         return True
 
@@ -745,7 +909,7 @@ class NvidiaGPUTester:
             status += "\n\nNotable failure lines:\n" + "\n".join(bad_lines[:12])
         self.data["tests"]["memtest_vulkan"] = status + "\n" + trim_block(text, 2500)
 
-    def run_vkmark(self, display: str | None, timeout: int):
+    def run_vkmark(self, display, timeout: int):
         print("\n[3/6] Vulkan rendering/load test (vkmark)...")
         if display is None:
             self.data["tests"]["vkmark"] = "SKIPPED - no display session detected."
@@ -785,7 +949,7 @@ class NvidiaGPUTester:
             self.data["warnings"].append("vkmark returned generic error text; review output, but not automatically treated as card failure.")
         self.data["tests"]["vkmark"] = f"Result: {score}\nTimed out: {timed_out}{retry_note}\n" + trim_block(text, 3000)
 
-    def run_glmark2(self, display: str | None, timeout: int, run_forever: bool):
+    def run_glmark2(self, display, timeout: int, run_forever: bool):
         print("\n[4/6] OpenGL rendering/load test (glmark2)...")
         if display is None:
             self.data["tests"]["glmark2"] = "SKIPPED - no display detected ($DISPLAY / $WAYLAND_DISPLAY unset)."
@@ -800,7 +964,9 @@ class NvidiaGPUTester:
         if run_forever:
             cmd.append("--run-forever")
         print(f"    Binary  : {binary}  |  Display : {display.upper()}")
-        lines, timed_out, rc = self.runner.run_streaming(cmd, timeout=timeout, label="glmark2")
+        lines, timed_out, rc = self.runner.run_streaming(
+            cmd, timeout=timeout, label="glmark2", env=self._nvidia_gl_env()
+        )
         scenes, final = [], None
         for ln in lines:
             s = ln.strip()
@@ -830,9 +996,15 @@ class NvidiaGPUTester:
             return
         lines, timed_out, rc = self.runner.run_streaming(["gpu-burn", str(duration)], timeout=duration + 60, label="gpu-burn")
         text = "\n".join(lines)
-        if any(re.search(r"(error|fault|fail|unstable|bad)", l, re.I) for l in lines):
-            self.data["errors"].append("gpu-burn output contains error/failure indicators.")
-        self.data["tests"]["gpu_burn"] = f"Timed out: {timed_out}; rc={rc}\n" + trim_block(text, 2500)
+        is_fault, fault_lines = self._classify_gpu_burn_lines(lines)
+        if is_fault:
+            self.data["errors"].append("gpu-burn reported FAULTY result or nonzero error count.")
+            self.data["hardware_suspect_notes"].append(
+                "gpu-burn flagged FAULTY/nonzero errors; treat as suspect if reproducible."
+            )
+        status = "FAULTY/errors detected" if is_fault else "No FAULTY verdict or nonzero error count parsed"
+        fault_block = ("\n\nNotable lines:\n" + "\n".join(fault_lines)) if fault_lines else ""
+        self.data["tests"]["gpu_burn"] = f"Result: {status}\nTimed out: {timed_out}; rc={rc}{fault_block}\n" + trim_block(text, 2500)
 
     def run_furmark(self, monitor_csv_base: str):
         print("\n[6/6] Optional legacy FurMark thermal torture (GpuTest)...")
@@ -865,7 +1037,7 @@ class NvidiaGPUTester:
         if t[2] >= TEMP_FAIL_C:
             self.data["warnings"].append(f"FurMark peak {t[2]:.0f}C >= {TEMP_FAIL_C}C - check cooling.")
 
-    def run_test_suite(self, args, display: str | None, monitor: NvidiaMonitor, watcher: KernelFaultWatcher):
+    def run_test_suite(self, args, display, monitor: NvidiaMonitor, watcher: KernelFaultWatcher):
         monitor.start()
         watcher.start()
         try:
@@ -888,6 +1060,7 @@ class NvidiaGPUTester:
             monitor.stop()
         self.data["load_summary"] = monitor.summary()
         self.data["kernel_events"] = watcher.snapshot()
+        self.data["kernel_monitored"] = watcher.accessible
 
     def build_report(self, client: str = "") -> str:
         print("\n[REPORT] Compiling PNWC NVIDIA diagnostic report...")
@@ -898,36 +1071,57 @@ class NvidiaGPUTester:
         idle = self.data["idle_snap"]
         ls = self.data["load_summary"]
 
+        # Each check is (name, status, detail) with status in PASS/FAIL/REVIEW.
         checks = []
         if si:
             cur_gen = si.get("pcie.link.gen.current", "?")
             max_gen = si.get("pcie.link.gen.max", "?")
             cur_w = si.get("pcie.link.width.current", "?")
             max_w = si.get("pcie.link.width.max", "?")
-            pcie_ok = (cur_gen == max_gen and cur_w == max_w) if "?" not in (cur_gen, max_gen, cur_w, max_w) else True
-            checks.append(("PCIe Link", pcie_ok, f"Gen{cur_gen} x{cur_w} (max Gen{max_gen} x{max_w})" + ("" if pcie_ok else " - not at full link")))
+            if "?" in (cur_gen, max_gen, cur_w, max_w):
+                pcie_status = "REVIEW"
+                pcie_detail = f"Gen{cur_gen} x{cur_w} (max Gen{max_gen} x{max_w}) - link capability not fully reported"
+            else:
+                pcie_ok = (cur_gen == max_gen and cur_w == max_w)
+                pcie_status = "PASS" if pcie_ok else "FAIL"
+                pcie_detail = f"Gen{cur_gen} x{cur_w} (max Gen{max_gen} x{max_w})" + ("" if pcie_ok else " - not at full link")
+            checks.append(("PCIe Link", pcie_status, pcie_detail))
         if ls:
             peak_t = ls.get("temp", (0, 0, 0))[2]
-            checks.append(("Load Temperature", peak_t < TEMP_FAIL_C, f"Peak {peak_t:.0f}C (limit {TEMP_FAIL_C}C)"))
+            checks.append(("Load Temperature", "PASS" if peak_t < TEMP_FAIL_C else "FAIL", f"Peak {peak_t:.0f}C (limit {TEMP_FAIL_C}C)"))
             peak_util = ls.get("util", (0, 0, 0))[2]
-            checks.append(("GPU Engaged", peak_util >= GPU_UTIL_MIN_WARN, f"Peak GPU util {peak_util:.0f}%" + ("" if peak_util >= GPU_UTIL_MIN_WARN else " - load may not have hit GPU")))
-            hw_th = ls.get("hw_thermal", 0)
-            checks.append(("Thermal Throttling", not (THERMAL_SLOWDOWN_FAIL and hw_th > 0), f"{hw_th} HW thermal slowdown sample(s)"))
-        if self.data["kernel_events"]:
-            checks.append(("Kernel GPU Faults", False, f"{len(self.data['kernel_events'])} event(s) detected"))
+            checks.append(("GPU Engaged", "PASS" if peak_util >= GPU_UTIL_MIN_WARN else "FAIL",
+                           f"Peak GPU util {peak_util:.0f}%" + ("" if peak_util >= GPU_UTIL_MIN_WARN else " - load may not have hit GPU")))
+            if not ls.get("throttle_measured", True):
+                checks.append(("Thermal Throttling", "REVIEW",
+                               "throttle/event-reason fields unsupported on this driver - NOT measured"))
+            else:
+                hw_th = ls.get("hw_thermal", 0)
+                checks.append(("Thermal Throttling", "PASS" if not (THERMAL_SLOWDOWN_FAIL and hw_th > 0) else "FAIL",
+                               f"{hw_th} HW thermal slowdown sample(s)"))
+        if not self.data.get("kernel_monitored", True):
+            checks.append(("Kernel GPU Faults", "REVIEW", "kernel journal not accessible - NOT monitored (run as root / add to systemd-journal)"))
+        elif self.data["kernel_events"]:
+            checks.append(("Kernel GPU Faults", "FAIL", f"{len(self.data['kernel_events'])} event(s) detected"))
         else:
-            checks.append(("Kernel GPU Faults", True, "No NVIDIA/Xid/PCIe fault events detected during run"))
+            checks.append(("Kernel GPU Faults", "PASS", "No NVIDIA/Xid/PCIe fault events detected during run"))
         if self.data["ecc"]:
             ecc_ok = "Uncorrected: 0" in self.data["ecc"] or "Not supported" in self.data["ecc"] or "N/A" in self.data["ecc"]
-            checks.append(("ECC Memory", ecc_ok, self.data["ecc"]))
+            checks.append(("ECC Memory", "PASS" if ecc_ok else "FAIL", self.data["ecc"]))
         if any("Software renderer detected" in e for e in self.data["errors"]):
-            checks.append(("Renderer Path", False, "Software renderer detected"))
+            checks.append(("Renderer Path", "FAIL", "Software renderer detected"))
 
-        verdict = "PASS" if checks and all(ok for _, ok, _ in checks) and not self.data["errors"] else "FAIL"
+        statuses = [s for _, s, _ in checks]
         if not checks:
             verdict = "REVIEW"
+        elif any(s == "FAIL" for s in statuses) or self.data["errors"]:
+            verdict = "FAIL"
+        elif any(s == "REVIEW" for s in statuses):
+            verdict = "REVIEW"
+        else:
+            verdict = "PASS"
 
-        verdict_rows = "".join(f"| {'PASS' if ok else 'FAIL'} | {name} | {detail} |\n" for name, ok, detail in checks) or "| - | No checks performed | - |\n"
+        verdict_rows = "".join(f"| {status} | {name} | {detail} |\n" for name, status, detail in checks) or "| - | No checks performed | - |\n"
 
         static_block = "nvidia-smi static query unavailable."
         if si:
@@ -958,7 +1152,12 @@ class NvidiaGPUTester:
                 f"| Memory util (%) | {idle.get('utilization.memory','?')} | {_fmt_stat(ls['memutil'])} |\n"
                 f"| VRAM used (MiB) | {idle.get('memory.used','?')} | {_fmt_stat(ls['vram_used'])} |\n"
             )
-            throttle_note = ", ".join(ls["reasons"]) if ls.get("reasons") else "None observed"
+            if ls.get("reasons"):
+                throttle_note = ", ".join(ls["reasons"])
+            elif not ls.get("throttle_measured", True):
+                throttle_note = "Throttle/event-reason fields not supported on this driver - NOT measured"
+            else:
+                throttle_note = "None observed"
         else:
             load_table = "_No load monitoring data collected._\n"
             throttle_note = "n/a"
@@ -970,6 +1169,8 @@ class NvidiaGPUTester:
         tests_section = "\n".join(test_blocks) if test_blocks else "No workload tests recorded."
 
         kernel_block = "\n".join(self.data["kernel_events"]) if self.data["kernel_events"] else "No matching NVIDIA/kernel GPU fault events detected during test window."
+        if not self.data.get("kernel_monitored", True):
+            kernel_block = "KERNEL JOURNAL NOT ACCESSIBLE - kernel GPU fault monitoring was disabled for this run."
 
         if self.data["kernel_events"]:
             kernel_text_lower = "\n".join(self.data["kernel_events"]).lower()
@@ -1079,7 +1280,7 @@ glxinfo -B:
 {diag}
 ---
 *Per-second monitoring log: {self.data['csv_path']}*  
-*Generated by PNWC nvidia_gpu_tester.py v2.3.1*
+*Generated by PNWC nvidia_gpu_tester.py v2.3.2*
 """
         fname = os.path.join(REPORT_DIR, f"NVIDIA_GPU_Report_{ts_file}.md")
         with open(fname, "w") as fh:
@@ -1089,7 +1290,7 @@ glxinfo -B:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="PNWC NVIDIA GPU Tester v2.3.1")
+    ap = argparse.ArgumentParser(description="PNWC NVIDIA GPU Tester v2.3.2")
     ap.add_argument("--client", default="", help="Client name for the report")
     ap.add_argument("--gpu-index", type=int, default=0, help="nvidia-smi GPU index to test")
     ap.add_argument("--skip-memtest", action="store_true", help="Skip memtest_vulkan")
@@ -1124,7 +1325,7 @@ def main():
 
     monitor_fields = tester.data["supported_smi_fields"] or tester._probe_smi_fields(SMI_FIELDS_DESIRED)
     monitor = NvidiaMonitor(args.gpu_index, csv_report_name, monitor_fields)
-    watcher = KernelFaultWatcher(int(time.time()), KERNEL_PATTERNS, tester.data["errors"])
+    watcher = KernelFaultWatcher(int(time.time()), KERNEL_PATTERNS, tester.data["errors"], tester.data["warnings"])
 
     tester.run_test_suite(args, display_server, monitor, watcher)
 
