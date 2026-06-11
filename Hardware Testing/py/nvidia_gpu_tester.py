@@ -75,19 +75,15 @@ def print_banner(report_file_path="Not Generated Yet"):
     """
     Renders the PNWC toolkit ASCII banner to the terminal window.
     """
-    # Update terminal/console window title dynamically based on environment
     if platform.system() == "Windows":
         os.system("title PNWC NVIDIA GPU Diagnostic v1.2")
     else:
         print("\033]0;PNWC NVIDIA GPU Diagnostic v1.2\a", end="")
 
-    # Clear the host screen
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Build timestamp strings
     formatted_time = datetime.datetime.now().strftime('%A %B %d %Y  %H:%M:%S')
 
-    # Print ASCII Header Art & Info Block
     print("")
     print("  ######   ##  ##   ##    ##   ######")
     print("  ##  ##   ### ##   ##    ##   ##    ")
@@ -96,11 +92,11 @@ def print_banner(report_file_path="Not Generated Yet"):
     print("  ##       ##  ##   ##    ##   ######")
     print("")
     print("  Pacific Northwest Computers")
-    print("  Malware Remediation Toolkit & Benchmarks")
+    print("  NVIDIA GPU Testing & Benchmark Script")
     print("")
     print("=" * 70)
     print("   PNWC Diagnostic Tool - NVIDIA GPU Hardware & Load Benchmarking")
-    print("   Pacific Northwest Computers  |  jon@pnwcomputers.com")
+    print("   Pacific Northwest Computers  |  support@pnwcomputers.com")
     print("   v1.2 -- Diagnostics Variant")
     print("=" * 70)
     print("")
@@ -144,7 +140,6 @@ class NvidiaMonitor:
 
     def _sample(self):
         try:
-            # -i 0 targets the primary test bench slot explicitly
             r = subprocess.run(
                 f"nvidia-smi -i 0 --query-gpu={self.query} --format=csv,noheader,nounits",
                 shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -276,6 +271,42 @@ class NvidiaGPUTester:
         except Exception as exc:
             self.data["errors"].append(f"EXEC ERROR: {cmd} → {exc}")
             return "ERROR"
+            
+    def _run_streaming(self, cmd: str, timeout: int) -> tuple[list[str], bool]:
+        """
+        Runs a command while capturing stdout line-by-line in real-time.
+        Returns a tuple of (list_of_output_lines, bool_timed_out).
+        """
+        lines = []
+        timed_out = False
+        print(f"    → {cmd} (Streaming Output)")
+        
+        try:
+            process = subprocess.Popen(
+                cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+            )
+            
+            start_time = time.time()
+            # Read output continuously until the process finishes or times out
+            while True:
+                line = process.stdout.readline()
+                if not line and process.poll() is not None:
+                    break
+                
+                if line:
+                    lines.append(line.strip())
+                    # You can uncomment the line below to see glmark2 output live in the console
+                    # print(f"      {line.strip()}") 
+                    
+                if time.time() - start_time > timeout:
+                    process.terminate()
+                    timed_out = True
+                    break
+                    
+        except Exception as exc:
+            self.data["errors"].append(f"STREAM ERROR: {cmd} → {exc}")
+            
+        return lines, timed_out
 
     def _detect_display(self) -> str | None:
         if os.environ.get("WAYLAND_DISPLAY"):
@@ -387,3 +418,19 @@ if __name__ == "__main__":
 
     # Render the custom text banner instantly when running the script
     print_banner(csv_report_name)
+    
+    # Initialize Core Classes
+    tester = NvidiaGPUTester()
+    monitor = NvidiaMonitor(csv_report_name)
+    
+    # Run Diagnostics
+    if tester.gather_static():
+        # Fallback to x11 if display type detection fails
+        display_server = tester._detect_display() or "x11"
+        tester.run_benchmark(display_server, monitor)
+        
+        print("\n[✔] Diagnostic Routine Complete.")
+        print(f"    Final glmark2 score : {tester.data.get('benchmark')}")
+        print(f"    Total data samples  : {monitor.samples()}")
+    else:
+        print("\n[!] Diagnostic aborted. Static gathering failed (check if nvidia-smi is installed).")
