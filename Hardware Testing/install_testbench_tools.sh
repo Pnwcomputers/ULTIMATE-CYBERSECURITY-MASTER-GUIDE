@@ -63,6 +63,11 @@ patch_gpu_burn_makefile_if_needed() {
     return 1
   fi
 
+  # Keep a clean copy for troubleshooting. Do not overwrite it on reruns.
+  if [ ! -f Makefile.pnwc-original ]; then
+    cp -f Makefile Makefile.pnwc-original
+  fi
+
   # Test the exact command make plans to run. If it still shows /bin/nvcc
   # or -I/include, CUDAPATH is not being applied correctly.
   local preview=""
@@ -70,19 +75,54 @@ patch_gpu_burn_makefile_if_needed() {
 
   if printf "%s\n" "$preview" | grep -Eq '(^|[[:space:]])/bin/nvcc([[:space:]]|$)|-I/include([[:space:]]|$)'; then
     echo "WARN: gpu-burn Makefile is still resolving CUDA incorrectly."
-    echo "      Applying PNWC Arch/Manjaro CUDA Makefile shim."
-
-    cp -f Makefile Makefile.pnwc-original
+    echo "      Applying PNWC Arch/Manjaro CUDA path shim."
 
     {
       echo "# PNWC Arch/Manjaro CUDA path shim"
-      echo "# Added by install_testbench_tools.sh because upstream gpu-burn"
-      echo "# autodetects /usr/bin/nvcc and /usr/local/cuda/bin/nvcc, but"
-      echo "# Manjaro/Arch commonly installs CUDA under /opt/cuda."
+      echo "# Upstream gpu-burn autodetects /usr/bin/nvcc and /usr/local/cuda/bin/nvcc,"
+      echo "# while Manjaro/Arch commonly installs CUDA under /opt/cuda."
       echo "CUDAPATH ?= $cuda_root"
       echo
       cat Makefile.pnwc-original
     } > Makefile
+  fi
+
+  # Newer Manjaro/Arch toolchains may expose GCC/libstdc++ headers that require
+  # a newer C++ dialect than gpu-burn's upstream -std=c++11 default. CUDA 13.x
+  # nvcc supports --std c++20, so patch gpu-burn to compile with c++20 and allow
+  # newer host compiler combinations when needed.
+  if ! grep -q "PNWC CUDA 13 / GCC 16 compatibility shim" Makefile; then
+    echo "Applying PNWC CUDA 13 / GCC 16 compatibility shim."
+
+    python - <<'PY'
+from pathlib import Path
+p = Path("Makefile")
+s = p.read_text()
+
+# Preserve the original line/formatting as much as possible.
+s = s.replace("-std=c++11", "-std=c++20")
+
+if "--allow-unsupported-compiler" not in s:
+    # Normal multiline Makefile case.
+    needle = "override NVCCFLAGS += -I${CUDAPATH}/include"
+    if needle in s:
+        # If the Makefile was fetched as a single logical line, make sure any
+        # following make directive starts on a new line after our inserted flags.
+        s = s.replace(
+            needle,
+            needle + "\noverride NVCCFLAGS += -std=c++20\noverride NVCCFLAGS += --allow-unsupported-compiler"
+        )
+    else:
+        # Fallback: append flags at the end. Make's override += will still apply.
+        s += "\n# PNWC fallback NVCC flags\n"
+        s += "override NVCCFLAGS += -std=c++20\n"
+        s += "override NVCCFLAGS += --allow-unsupported-compiler\n"
+
+if "PNWC CUDA 13 / GCC 16 compatibility shim" not in s:
+    s = "# PNWC CUDA 13 / GCC 16 compatibility shim\n" + s
+
+p.write_text(s)
+PY
   fi
 
   preview="$(make -n CUDAPATH="$cuda_root" compare.fatbin 2>/dev/null || true)"
@@ -94,10 +134,9 @@ patch_gpu_burn_makefile_if_needed() {
     return 1
   fi
 
-  echo "gpu-burn Makefile CUDA path preview looks correct:"
-  printf "%s\n" "$preview" | grep -E 'nvcc|cublas|I/' | head -5 || true
+  echo "gpu-burn Makefile preview:"
+  printf "%s\n" "$preview" | grep -E 'nvcc|std=c\+\+|allow-unsupported|I/' | head -10 || true
 }
-
 echo
 echo "[1/7] Updating package database and installing core tools..."
 sudo pacman -Syu --needed
@@ -198,20 +237,27 @@ else
     patch_gpu_burn_makefile_if_needed "$CUDA_ROOT"
 
     make clean CUDAPATH="$CUDA_ROOT" || true
-    make CUDAPATH="$CUDA_ROOT" \
-         CUDA_HOME="$CUDA_ROOT" \
-         CUDA_PATH="$CUDA_ROOT"
 
-    if [ ! -f gpu_burn ]; then
-      echo "ERROR: gpu-burn build completed but gpu_burn binary was not created."
-      echo "       Check the make output above for CUDA/compiler errors."
+    if make CUDAPATH="$CUDA_ROOT" \
+            CUDA_HOME="$CUDA_ROOT" \
+            CUDA_PATH="$CUDA_ROOT"; then
+
+      if [ ! -f gpu_burn ]; then
+        echo "ERROR: gpu-burn build completed but gpu_burn binary was not created."
+        echo "       Check the make output above for CUDA/compiler errors."
+      else
+        sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
+        sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+
+        echo "gpu-burn installed:"
+        command -v gpu-burn || true
+        command -v gpu_burn || true
+      fi
     else
-      sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
-      sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
-
-      echo "gpu-burn installed:"
-      command -v gpu-burn || true
-      command -v gpu_burn || true
+      echo "WARN: gpu-burn still failed to build."
+      echo "      This is usually a CUDA/nvcc host compiler compatibility issue."
+      echo "      The rest of the PNWC test bench tools are still usable."
+      echo "      You can skip --gpu-burn and use memtest_vulkan, vkmark, and glmark2 instead."
     fi
   fi
 fi
