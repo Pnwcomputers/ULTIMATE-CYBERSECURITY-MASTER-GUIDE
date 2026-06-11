@@ -7,10 +7,10 @@
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 [![Hardware Testing](https://img.shields.io/badge/Hardware-Diagnostics%20%26%20Stress%20Testing-blue?style=for-the-badge)]()
-[![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge&logo=manjaro)]()
-[![Intel](https://img.shields.io/badge/CPU-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge&logo=intel)]()
-[![AMD](https://img.shields.io/badge/CPU-AMD%20%E2%80%94%20Coming%20Soon-ED1C24?style=for-the-badge&logo=amd)]()
-[![Debian](https://img.shields.io/badge/OS-Debian%20%E2%80%94%20Coming%20Soon-A81D33?style=for-the-badge&logo=debian)]()
+[![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge\&logo=manjaro)]()
+[![Intel](https://img.shields.io/badge/CPU%20Platform-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge\&logo=intel)]()
+[![AMD](https://img.shields.io/badge/CPU%20Platform-AMD%20%E2%80%94%20Planned-ED1C24?style=for-the-badge\&logo=amd)]()
+[![Debian](https://img.shields.io/badge/OS-Debian%20%E2%80%94%20Planned-A81D33?style=for-the-badge\&logo=debian)]()
 
 </div>
 
@@ -18,9 +18,11 @@
 
 ## Overview
 
-This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches. Each platform combination (OS + CPU architecture) gets its own reference document and any platform-specific tooling.
+This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches.
 
-The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possible — the same orchestration logic runs on any Linux system with the right CLI tools installed. The cheat sheets document the platform-specific package managers, driver stacks, and tooling that differ between distributions and architectures.
+Each platform combination, such as Manjaro + Intel or Debian + AMD, gets its own reference document for package management, driver setup, kernel notes, and hardware-specific tooling.
+
+The Python scripts in [`py/`](./py/) are Linux-focused and are designed to be portable where possible. The orchestration logic is shared across systems, but the install commands, driver packages, GPU tooling, and kernel behavior are platform-specific. The cheat sheets document those platform-specific differences.
 
 ---
 
@@ -28,17 +30,17 @@ The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possib
 
 ### ✅ Available Now
 
-| Platform | Cheat Sheet | Scripts |
-| :--- | :--- | :--- |
-| **Manjaro Linux — Intel (Z790 / 13th–14th Gen i9)** | [Manjaro_Intel_TestBench.md](./Manjaro_Intel_TestBench.md) | [py/](./py/) |
+| Platform                                                         | Cheat Sheet                                                | Scripts      |
+| :--------------------------------------------------------------- | :--------------------------------------------------------- | :----------- |
+| **Manjaro Linux — Intel CPU Platform (Z790 / 13th–14th Gen i9)** | [Manjaro_Intel_TestBench.md](./Manjaro_Intel_TestBench.md) | [py/](./py/) |
 
 ### 🔜 Planned
 
-| Platform | Status |
-| :--- | :--- |
-| **Manjaro Linux — AMD (X670 / Ryzen 7000)** | Planned |
-| **Debian — Intel (Z790 / 13th–14th Gen i9)** | Planned |
-| **Debian — AMD (X670 / Ryzen 7000)** | Planned |
+| Platform                                                  | Status  |
+| :-------------------------------------------------------- | :------ |
+| **Manjaro Linux — AMD CPU Platform (X670 / Ryzen 7000)**  | Planned |
+| **Debian — Intel CPU Platform (Z790 / 13th–14th Gen i9)** | Planned |
+| **Debian — AMD CPU Platform (X670 / Ryzen 7000)**         | Planned |
 
 ---
 
@@ -46,39 +48,49 @@ The Python scripts in [`py/`](./py/) are designed to be OS-agnostic where possib
 
 **Reference:** [`Manjaro_Intel_TestBench.md`](./Manjaro_Intel_TestBench.md)
 
-Covers Z790 motherboards with 13th/14th Gen Core i9 processors running Manjaro (Arch-based). Includes:
+Covers Z790 motherboards with 13th/14th Gen Core i9 processors running Manjaro Linux. The guide is written for an Intel CPU test bench, but the GPU testing workflow also supports AMD Radeon and NVIDIA GPUs when the correct GPU tools are installed.
 
-- `pacman` / `pamac` / AUR package management for diagnostic tools
-- Hardware diagnostics and system info (`inxi`, `dmidecode`, `lscpu`, `lspci`)
-- Thermal monitoring and Intel power management (`turbostat`, `s-tui`, `sensors`)
-- CPU and system stress testing (`stress-ng`, `sysbench`, `mprime`)
-- Memory and storage diagnostics (`memtester`, `nvme-cli`, `smartmontools`, `fio`, `kdiskmark`)
-- Fresh install provisioning one-liners for the full tool stack
-- Phoronix Test Suite for standardized benchmarks and Linpack
-- Dedicated modern GPU testing paths (memtest_vulkan, vkmark, glmark2, kernel PCIe fault scanning)
-- Python automation scripts with client-facing Markdown report generation
+Includes:
+
+* `pacman`, `pamac`, and AUR package management for diagnostic tools.
+* Hardware diagnostics and system info with `inxi`, `dmidecode`, `lscpu`, `lspci`, `lsusb`, `lshw`, and `hwinfo`.
+* Thermal monitoring with `lm_sensors` / `sensors`.
+* Intel-focused monitoring notes for tools such as `intel-gpu-tools`, `turbostat`, and `s-tui` where applicable.
+* CPU and system stress testing with `stress-ng`, `sysbench`, and optional Prime95 / `mprime`.
+* Memory and storage diagnostics with `memtester`, `nvme-cli`, `smartmontools`, `fio`, and optional `kdiskmark`.
+* Fresh install provisioning one-liners for the test-bench tool stack.
+* Optional Phoronix Test Suite workflows for standardized benchmark runs.
+* Modern GPU testing paths using `memtest_vulkan`, `vkmark`, `glmark2`, vendor telemetry, and kernel PCIe/GPU fault scanning.
+* Python automation scripts that generate client-facing Markdown reports.
 
 ---
 
 ## Python Scripts — [`py/`](./py/)
 
-Modular Python scripts that orchestrate CLI tools, stream output live, and compile results into clean Markdown reports. 
+Modular Python scripts that orchestrate CLI tools, stream output live, and compile results into clean Markdown reports.
 
-| Script | What it does | Sudo |
-| :--- | :--- | :---: |
-| `full_hw_suite.py` | Full sequential diagnostic — system info, CPU, RAM, storage, GPU | ✅ |
-| `standalone_gpu_tester.py` | Universal GPU first-pass benchmark (Vulkan/OpenGL, memtest, kernel faults) | ❌ |
-| `pnwc_amd_gpu_diag.py` | Dedicated AMD GPU diagnostic with amdgpu telemetry & rigorous load testing | ❌ |
-| `pnwc_nvidia_gpu_diag.py` | Dedicated NVIDIA GPU diagnostic with nvidia-smi telemetry & rigorous load testing | ❌ |
-| `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing | ✅ |
-| `stress_soak.py` | Reliability burn-in — simultaneous load with continuous thermal logging | ✅ |
+| Script                     | What it does                                                                                       | Sudo |
+| :------------------------- | :------------------------------------------------------------------------------------------------- | :--: |
+| `full_hw_suite.py`         | Full sequential diagnostic — system info, CPU, RAM, storage, GPU                                   |   ✅  |
+| `standalone_gpu_tester.py` | Universal GPU first-pass benchmark — Vulkan/OpenGL validation, VRAM testing, kernel fault scanning |   ❌  |
+| `amd_gpu_tester.py`        | Dedicated AMD Radeon GPU diagnostic with amdgpu telemetry and rigorous load testing                |   ❌  |
+| `nvidia_gpu_tester.py`     | Dedicated NVIDIA GPU diagnostic with `nvidia-smi` telemetry and rigorous load testing              |   ❌  |
+| `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing                                                     |   ✅  |
+| `stress_soak.py`           | Reliability burn-in — simultaneous CPU/RAM/storage/GPU load with continuous thermal logging        |   ✅  |
 
 See [`py/README.md`](./py/README.md) for full installation instructions, usage, and per-script documentation.
 
-**Quick start:**
+> If the vendor-specific GPU scripts are renamed in the repo, keep the table and examples aligned with the actual filenames in `py/`.
+
+---
+
+## Quick Start
+
+### 1. Install base diagnostics and system tools
+
+Run this on every Manjaro / Arch-based test bench:
 
 ```bash
-# ── Base Diagnostics & System Tools (run this on every test bench) ─
 sudo pacman -Syu --needed
 
 sudo pacman -S --needed \
@@ -90,36 +102,88 @@ sudo pacman -S --needed \
   vulkan-tools mesa-utils \
   vkmark glmark2 \
   intel-gpu-tools nvtop
+```
 
-# Detect motherboard sensors (run once after install)
+### 2. Detect motherboard sensors
+
+Run once after installing the base tools:
+
+```bash
 sudo sensors-detect --auto
 sensors
 ```
 
-> **GPU tools — install the block that matches your hardware:**
+Without sensor detection, thermal reporting may be incomplete or empty.
+
+---
+
+## GPU Tooling
+
+Install the GPU block that matches the hardware being tested.
+
+### AMD Radeon test environments
 
 ```bash
-# For AMD Test Environments:
 sudo pacman -S --needed \
   mesa vulkan-radeon \
   amdsmi amdgpu_top radeontop
 ```
 
+Useful AMD validation commands:
+
 ```bash
-# For NVIDIA Test Environments:
+inxi -G -c0
+lspci -nnk | grep -A4 -E "VGA|3D|Display"
+vulkaninfo --summary
+glxinfo -B
+amd-smi list
+amd-smi static --gpu 0
+amd-smi metric --gpu 0
+amdgpu_top --dump
+```
+
+### NVIDIA test environments
+
+```bash
 sudo pacman -S --needed \
   nvidia-utils cuda opencl-nvidia
 ```
 
+Useful NVIDIA validation commands:
+
 ```bash
-# ── Optional GUI / Deep Benchmark Tools ────────────────────────────
+nvidia-smi
+nvidia-smi -q
+nvcc --version
+vulkaninfo --summary
+glxinfo -B
+```
+
+---
+
+## Optional GUI / Deep Benchmark Tools
+
+These are useful for manual benchmarking, client demonstrations, or deeper comparative testing. Availability can vary by Manjaro repository/AUR status, so verify with `pamac search` if any package fails.
+
+```bash
 pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
 ```
 
-```bash
-# ── Source-built GPU diagnostic tools ──────────────────────────────
+If `phoronix-test-suite` is available from your configured Manjaro repositories, it may also be installed with:
 
-# memtest_vulkan — cross-vendor Vulkan VRAM stability test
+```bash
+pamac install phoronix-test-suite
+```
+
+---
+
+## Source-Built GPU Diagnostic Tools
+
+### `memtest_vulkan` — cross-vendor Vulkan VRAM stability test
+
+`memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
+
+```bash
 mkdir -p ~/src
 cd ~/src
 
@@ -133,10 +197,20 @@ cargo build --release
 sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
 ```
 
-```bash
-# gpu-burn — NVIDIA CUDA stress test
-# This is only needed for NVIDIA diagnostic runs using --gpu-burn.
+Verify:
 
+```bash
+command -v memtest_vulkan
+memtest_vulkan
+```
+
+Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
+
+### `gpu-burn` — NVIDIA CUDA stress test
+
+`gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
+
+```bash
 mkdir -p ~/src
 cd ~/src
 
@@ -157,11 +231,20 @@ else
 fi
 ```
 
-```bash
-# ── Verify Required and Optional Tools ─────────────────────────────
-# Run this after installing the base tools, GPU tools, optional tools,
-# memtest_vulkan, and gpu-burn.
+Verify:
 
+```bash
+gpu-burn -l
+gpu-burn 60
+```
+
+---
+
+## Verify Required and Optional Tools
+
+Run this after installing the base tools, GPU tools, optional benchmark tools, `memtest_vulkan`, and `gpu-burn`.
+
+```bash
 echo "== Core script tools =="
 for bin in \
   python git make gcc cmake ninja cargo rustc \
@@ -192,65 +275,118 @@ for bin in memtest_vulkan; do
 done
 ```
 
+---
+
+## Run the Scripts
+
+### Universal GPU diagnostic — first pass
+
 ```bash
-# ── Run a Universal GPU Diagnostic (First Pass) ────────────────────
 python3 py/standalone_gpu_tester.py --client "Client Name"
+```
 
-# ── Run a Full System Diagnostic ───────────────────────────────────
+### Dedicated AMD GPU diagnostic
+
+```bash
+python3 py/amd_gpu_tester.py --client "Client Name"
+```
+
+### Dedicated NVIDIA GPU diagnostic
+
+```bash
+python3 py/nvidia_gpu_tester.py --client "Client Name"
+```
+
+Optional NVIDIA CUDA stress path:
+
+```bash
+python3 py/nvidia_gpu_tester.py --client "Client Name" --gpu-burn
+```
+
+### Full system diagnostic
+
+```bash
 sudo python3 py/full_hw_suite.py --client "Client Name"
+```
 
-# ── Run a 4-hour Reliability Soak before returning to a client ─────
+### RAM-only diagnostic
+
+```bash
+sudo python3 py/standalone_ram_tester.py --client "Client Name" --memtester-size 4G --passes 3
+```
+
+### Reliability soak before returning hardware to a client
+
+```bash
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
+```
+
+Quick smoke-test soak:
+
+```bash
+sudo python3 py/stress_soak.py --mode quick --client "Client Name"
 ```
 
 ---
 
-## Manjaro Linux — AMD 🔜
+## Manjaro Linux — AMD CPU Platform 🔜
 
 > **Status:** Planned
 
-Will cover X670/X670E motherboards with Ryzen 7000 series processors. Key differences from the Intel guide:
+Will cover X670/X670E motherboards with Ryzen 7000 series processors. Key differences from the Intel guide will include:
 
-- `amdgpu` driver stack vs Intel integrated graphics tooling
-- `amd_pstate` vs `intel_pstate` CPU frequency scaling
-- `ryzenadj` for CPU power limit configuration (equivalent to Intel's `turbostat`)
-- EXPO vs XMP memory profile validation
-- AMD-specific kernel parameters and chipset driver notes
+* AMD CPU platform monitoring and validation.
+* `amd_pstate` vs `intel_pstate` CPU frequency scaling.
+* `k10temp` / optional `zenpower` temperature and voltage reporting.
+* Optional Ryzen tuning tools such as `ryzenadj`, where appropriate.
+* EXPO vs XMP memory profile validation.
+* AMD chipset, IOMMU, and kernel parameter notes.
+* AMD integrated/discrete graphics considerations where relevant.
 
 ---
 
-## Debian — Intel 🔜
+## Debian — Intel CPU Platform 🔜
 
 > **Status:** Planned
 
-Will cover the same Z790/i9 hardware running Debian stable. Key differences from the Manjaro guide:
+Will cover Z790/i9 hardware running Debian stable. Key differences from the Manjaro guide will include:
 
-- `apt` package management; some tools require backports or manual install
-- Mesa/OpenGL stack differences affecting glmark2 behavior
-- `systemd` service configuration for persistent sensor monitoring
-- Differences in kernel version availability and hardware support timelines
+* `apt` package management.
+* Backports or manual installation for newer kernels, Mesa, Vulkan, and hardware diagnostics.
+* Mesa/OpenGL stack differences affecting `glmark2`, `vkmark`, and Vulkan behavior.
+* `systemd` service configuration for persistent sensor monitoring.
+* Kernel version availability and hardware support timelines.
 
 ---
 
-## Debian — AMD 🔜
+## Debian — AMD CPU Platform 🔜
 
 > **Status:** Planned
 
-Will cover X670/Ryzen 7000 hardware on Debian stable. Will combine the AMD-specific tooling notes and the Debian packaging differences from the two planned guides above.
+Will cover X670/Ryzen 7000 hardware on Debian stable. It will combine the AMD-specific platform notes and Debian packaging differences from the planned guides above.
 
 ---
 
 ## Contributing
 
-If you're adding a new platform guide, follow the naming convention:
+If adding a new platform guide, follow the naming convention:
 
-```
-HardwareTesting/
-├── {Distro}_{Arch}_TestBench.md    # cheat sheet
-└── py/                             # shared Python scripts
+```text
+Hardware Testing/
+├── {Distro}_{CPUPlatform}_TestBench.md    # cheat sheet
+└── py/                                    # shared Python scripts
 ```
 
-Where `{Distro}` is `Manjaro`, `Debian`, etc. and `{Arch}` is `Intel` or `AMD`.
+Where `{Distro}` is `Manjaro`, `Debian`, etc. and `{CPUPlatform}` is `Intel`, `AMD`, or another hardware platform label.
+
+Examples:
+
+```text
+Manjaro_Intel_TestBench.md
+Manjaro_AMD_TestBench.md
+Debian_Intel_TestBench.md
+Debian_AMD_TestBench.md
+```
 
 ---
 
