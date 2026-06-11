@@ -203,8 +203,6 @@ sudo python3 py/full_hw_suite.py --client "Client Name"
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
 ```
 
-```
-
 ---
 
 ## Manjaro Linux — AMD 🔜
