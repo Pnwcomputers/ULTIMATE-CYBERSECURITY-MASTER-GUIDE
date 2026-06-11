@@ -10,18 +10,48 @@ if ! command -v pacman >/dev/null 2>&1; then
   exit 1
 fi
 
-# Arch / Manjaro CUDA commonly installs nvcc under /opt/cuda/bin.
-# Add it early so gpu-burn can build even when the user's shell PATH
-# has not been updated yet.
-if [ -d /opt/cuda/bin ]; then
-  export PATH="/opt/cuda/bin:$PATH"
-fi
-
-if [ -d /opt/cuda/lib64 ]; then
-  export LD_LIBRARY_PATH="/opt/cuda/lib64:${LD_LIBRARY_PATH:-}"
-fi
-
 PNWC_SRC_DIR="${PNWC_SRC_DIR:-$HOME/src}"
+
+# ── CUDA path detection ────────────────────────────────────────────
+# Arch / Manjaro CUDA commonly installs under /opt/cuda.
+# Some upstream CUDA projects assume /usr/local/cuda.
+detect_cuda_root() {
+  local candidate=""
+
+  for candidate in \
+    "${CUDA_HOME:-}" \
+    "${CUDA_PATH:-}" \
+    /opt/cuda \
+    /usr/local/cuda; do
+    if [ -n "$candidate" ] && [ -x "$candidate/bin/nvcc" ]; then
+      printf "%s" "$candidate"
+      return 0
+    fi
+  done
+
+  if command -v nvcc >/dev/null 2>&1; then
+    local nvcc_path
+    nvcc_path="$(command -v nvcc)"
+    # nvcc is normally $CUDA_ROOT/bin/nvcc
+    printf "%s" "$(dirname "$(dirname "$nvcc_path")")"
+    return 0
+  fi
+
+  return 1
+}
+
+configure_cuda_env() {
+  local cuda_root="$1"
+
+  export CUDA_HOME="$cuda_root"
+  export CUDA_PATH="$cuda_root"
+  export CUDACXX="$cuda_root/bin/nvcc"
+
+  export PATH="$cuda_root/bin:$PATH"
+  export CPATH="$cuda_root/include:${CPATH:-}"
+  export LIBRARY_PATH="$cuda_root/lib64:${LIBRARY_PATH:-}"
+  export LD_LIBRARY_PATH="$cuda_root/lib64:${LD_LIBRARY_PATH:-}"
+}
 
 echo
 echo "[1/7] Updating package database and installing core tools..."
@@ -53,13 +83,13 @@ if ! sudo pacman -S --needed \
   echo "      Continue if this bench does not need NVIDIA testing."
 fi
 
-# Re-add CUDA path after package install in case CUDA was installed above.
-if [ -d /opt/cuda/bin ]; then
-  export PATH="/opt/cuda/bin:$PATH"
-fi
-
-if [ -d /opt/cuda/lib64 ]; then
-  export LD_LIBRARY_PATH="/opt/cuda/lib64:${LD_LIBRARY_PATH:-}"
+# Configure CUDA environment after package install, if CUDA is present.
+CUDA_ROOT=""
+if CUDA_ROOT="$(detect_cuda_root)"; then
+  configure_cuda_env "$CUDA_ROOT"
+  echo "CUDA detected at: $CUDA_ROOT"
+else
+  echo "CUDA root was not detected yet. NVIDIA gpu-burn will be skipped unless CUDA is fixed."
 fi
 
 echo
@@ -79,44 +109,66 @@ sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
 echo
 echo "[5/7] Building and installing gpu-burn..."
 
-# gpu-burn is NVIDIA/CUDA-specific. It should be built when CUDA's nvcc
-# is present. On Manjaro/Arch, nvcc may exist at /opt/cuda/bin/nvcc even
-# when the shell has not added /opt/cuda/bin to PATH yet.
+# gpu-burn is NVIDIA/CUDA-specific.
+# Important: gpu-burn's Makefile needs CUDA_HOME/CUDA_PATH set correctly.
+# If CUDA_HOME is empty, gpu-burn can compile with -I/include and fail with:
+#   fatal error: cublas_v2.h: No such file or directory
+
 mkdir -p "$PNWC_SRC_DIR"
 
 if ! command -v nvidia-smi >/dev/null 2>&1; then
   echo "WARN: nvidia-smi was not found."
   echo "      Skipping gpu-burn because this does not currently look like an NVIDIA-ready bench."
   echo "      If this is an NVIDIA test bench, confirm the NVIDIA driver is installed and loaded."
-elif ! command -v nvcc >/dev/null 2>&1; then
-  echo "WARN: nvcc was not found even after adding /opt/cuda/bin to PATH."
+elif ! CUDA_ROOT="$(detect_cuda_root)"; then
+  echo "WARN: CUDA root was not detected."
   echo "      gpu-burn was not built."
-  echo "      Install/repair CUDA first, then rerun this script:"
-  echo "      sudo pacman -S --needed cuda nvidia-utils opencl-nvidia"
-  echo "      command -v nvcc || ls -l /opt/cuda/bin/nvcc"
+  echo "      Check:"
+  echo "        command -v nvcc"
+  echo "        ls -l /opt/cuda/bin/nvcc"
+  echo "        sudo pacman -S --needed cuda nvidia-utils opencl-nvidia"
 else
-  cd "$PNWC_SRC_DIR"
+  configure_cuda_env "$CUDA_ROOT"
 
-  if [ ! -d gpu-burn ]; then
-    git clone https://github.com/wilicc/gpu-burn.git
-  fi
+  echo "Using CUDA root: $CUDA_ROOT"
+  echo "Using nvcc:      $(command -v nvcc)"
 
-  cd gpu-burn
-  git pull
-
-  make clean || true
-  make
-
-  if [ ! -f gpu_burn ]; then
-    echo "ERROR: gpu-burn build completed but gpu_burn binary was not created."
-    echo "       Check the make output above for CUDA/compiler errors."
+  if [ ! -f "$CUDA_ROOT/include/cublas_v2.h" ]; then
+    echo "ERROR: CUDA was found, but cuBLAS header was not found:"
+    echo "       $CUDA_ROOT/include/cublas_v2.h"
+    echo
+    echo "gpu-burn requires cublas_v2.h."
+    echo "Try locating the package that provides it:"
+    echo "  sudo pacman -Fy"
+    echo "  pacman -F cublas_v2.h"
+    echo
+    echo "Then install the package shown by pacman -F and rerun this installer."
   else
-    sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
-    sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+    cd "$PNWC_SRC_DIR"
 
-    echo "gpu-burn installed:"
-    command -v gpu-burn || true
-    command -v gpu_burn || true
+    if [ ! -d gpu-burn ]; then
+      git clone https://github.com/wilicc/gpu-burn.git
+    fi
+
+    cd gpu-burn
+    git pull
+
+    make clean || true
+
+    # Pass both variable names. Different CUDA projects/Makefiles use different names.
+    make CUDA_HOME="$CUDA_ROOT" CUDA_PATH="$CUDA_ROOT"
+
+    if [ ! -f gpu_burn ]; then
+      echo "ERROR: gpu-burn build completed but gpu_burn binary was not created."
+      echo "       Check the make output above for CUDA/compiler errors."
+    else
+      sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
+      sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+
+      echo "gpu-burn installed:"
+      command -v gpu-burn || true
+      command -v gpu_burn || true
+    fi
   fi
 fi
 
