@@ -6,7 +6,7 @@ This document serves as a quick reference for hardware diagnostics, stress testi
 
 ## 1. Package Management (`pacman` and `pamac`)
 
-[Manjaro](https://manjaro.org/) Arch is based on [Arch](https://archlinux.org/) Linux, meaning [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru)) to automatically compile and install virtually any Linux software in existence directly from source scripts!
+[Manjaro](https://manjaro.org/) Arch is based on [Arch](https://archlinux.org/) Linux, meaning [`apt`]([https://linuxize.com/post/how-to-use-apt-command/](https://linuxize.com/post/how-to-use-apt-command/)) is replaced by [`pacman`]([https://wiki.archlinux.org/title/Pacman](https://wiki.archlinux.org/title/Pacman)) (standard repositories) and [`pamac`]([https://github.com/manjaro/pamac](https://github.com/manjaro/pamac)) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru)) to automatically compile and install virtually any Linux software in existence directly from source scripts!
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
@@ -78,16 +78,29 @@ Run these commands on a fresh Manjaro installation to immediately provision the 
 
 ### 6.1 Standard Repository Tools (pacman)
 
-Installs core system utilities, sensors, terminal monitors, storage diagnostics, and stress utilities. All GPU vendor tools (`intel-gpu-tools`, `amdgpu_top`, `radeontop`, `nvidia-utils`, `nvidia-smi`) are included in the universal block; they are small, do not conflict with each other, and a test bench may serve mixed hardware configurations.
+Installs core system utilities, sensors, terminal monitors, storage diagnostics, and testing engines. Both `vkmark` (Vulkan benchmark) and `glmark2` (OpenGL/ES benchmark) are now packaged natively in Arch/Manjaro. 
 
+**Base Diagnostics & System Tools:**
 ```bash
 sudo pacman -S --needed \
-  python stress-ng fio memtester sysbench \
-  inxi dmidecode hwinfo lshw pciutils usbutils \
-  smartmontools nvme-cli nvidia-smi hdparm \
-  lm_sensors s-tui htop btop nvtop \
-  intel-gpu-tools amdgpu_top radeontop nvidia-utils \
-  base-devel git curl wget
+  base-devel git python \
+  inxi pciutils usbutils lm_sensors smartmontools \
+  vulkan-tools mesa-utils \
+  vkmark glmark2
+```
+
+**For AMD Test Environments:**
+*(Note: `amdsmi` is currently packaged in Arch Extra as AMD’s System Management Interface library).*
+```bash
+sudo pacman -S --needed \
+  mesa vulkan-radeon \
+  amdsmi amdgpu_top radeontop
+```
+
+**For NVIDIA Test Environments:**
+```bash
+sudo pacman -S --needed \
+  nvidia-utils cuda
 ```
 
 ### 6.2 AUR Tools (pamac)
@@ -99,7 +112,6 @@ Some specialized testing tools are only available in the Arch User Repository. W
 ```bash
 pamac build \
   mprime-bin \
-  glmark2 \
   kdiskmark \
   unigine-superposition \
   phoronix-test-suite
@@ -120,8 +132,6 @@ Ensures the i9 processor has the latest microcode patches, which are critical fo
 ```bash
 sudo pacman -S intel-ucode
 ```
-
-*(Note: You may need to regenerate your GRUB/systemd-boot config depending on your bootloader to load the microcode.)*
 
 ---
 
@@ -155,102 +165,121 @@ For comprehensive, standardized hardware reviews and comparisons, use the Phoron
 
 ## 9. Dedicated GPU Testing (NVIDIA & AMD)
 
-For test benches equipped with dedicated graphics cards alongside or instead of the Intel iGPU, Manjaro provides native and AUR tools for monitoring and stressing both Team Green and Team Red.
+### 9.1 Modern GPU Diagnostic Methodology
 
-### 9.1 Universal GPU Tools
+The scripts and testing methodology now treat **FurMark / GpuTest as optional**, rather than the main diagnostic engine. The stronger standard path for GPU validation relies on:
+1.  **`memtest_vulkan`** for VRAM stability (Now treated as a first-class diagnostic. The upstream project describes it as a Vulkan compute video-memory stability test for overclocking or repair. Upstream recommends 6+ minutes; default is set to 360 seconds).
+2.  **`vkmark`** for standardized Vulkan loads.
+3.  **`glmark2`** for standardized OpenGL loads.
+4.  **Vendor telemetry tracking** during all tests.
+5.  **Kernel log scanning** for GPU/PCIe faults.
+
+### 9.2 Universal GPU Tools
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
 | `nvtop` | **Universal Monitor** | An excellent `htop`-style visual monitor that supports NVIDIA, AMD, and Intel GPUs simultaneously. |
 | `pamac build unigine-superposition` | **Superposition Benchmark** | A visually demanding 3D benchmark. Perfect for testing maximum GPU boost clocks, thermal limits, and VRAM stability. |
-| `pamac build gputest` | **FurMark / Thermal Torture** | A "power virus" style OpenGL test designed to push the GPU to its absolute thermal and power draw limits. |
+| `pamac build gputest` | **FurMark (Optional)** | A legacy "power virus" style OpenGL test designed to push the GPU to its absolute limits. |
 
-### 9.2 NVIDIA-Specific Tools
+### 9.3 NVIDIA-Specific Tools
 
-NVIDIA diagnostics on Linux rely heavily on the proprietary drivers (`nvidia` package). The core CLI utilities are included in the `nvidia-utils` package, which is installed as part of the Section 6.1 universal block.
-
-| Command | Purpose | Explanation |
-| :--- | :--- | :--- |
-| `nvidia-smi` | **GPU Snapshot** | Displays the current driver version, CUDA version, VRAM usage, temperature, and power consumption (Watts). |
-| `watch -n 1 nvidia-smi` | **Live NVIDIA Monitor** | Refreshes the `nvidia-smi` readout every second for real-time monitoring under load. |
-| `nvidia-smi dmon` | **Device Monitor** | Outputs a scrolling, compact table of stats (utilization, clocks, power); ideal for logging metrics to a file during a benchmark. |
-| `nvidia-settings` | **NVIDIA GUI Panel** | The graphical control panel for checking thermals, adjusting fan curves, and configuring display pipelines. |
-
-### 9.3 AMD-Specific Tools
-
-Modern AMD Radeon cards use the open-source `amdgpu` kernel driver, which integrates deeply with the Linux kernel and provides excellent transparency out of the box. `amdgpu_top` and `radeontop` are installed as part of the Section 6.1 universal block.
+NVIDIA diagnostics on Linux rely heavily on the proprietary drivers (`nvidia` package). 
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `amdgpu_top` | **Detailed AMD Monitor** | Shows deep metrics including CU (Compute Unit) usage, VRAM/GTT allocation, power consumption, and exact clock states. |
-| `radeontop` | **Graphics Pipe Monitor** | A TUI that shows specific hardware block utilization (e.g., Vertex Grouper, Shader Export, Primitive Assembly). |
-| `sudo cat /sys/kernel/debug/dri/0/amdgpu_pm_info` | **Raw Kernel Data** | Reads raw power limits, current clocks, and thermal parameters directly from the AMD kernel driver. |
+| `nvidia-smi` | **GPU Snapshot** | Displays current driver/CUDA versions, VRAM usage, temp, and power consumption (Watts). |
+| `watch -n 1 nvidia-smi` | **Live Monitor** | Refreshes the `nvidia-smi` readout every second for real-time monitoring under load. |
+| `nvidia-smi dmon` | **Device Monitor** | Outputs a scrolling, compact table of stats; ideal for logging metrics to a file. |
+| `nvidia-settings` | **NVIDIA GUI Panel** | Graphical control panel for checking thermals, adjusting fan curves, and display pipelines. |
+
+### 9.4 AMD-Specific Tools
+
+Modern AMD Radeon cards use the open-source `amdgpu` kernel driver, integrating deeply with the Linux kernel for excellent transparency.
+
+| Command | Purpose | Explanation |
+| :--- | :--- | :--- |
+| `amdgpu_top` | **Detailed AMD Monitor** | Shows deep metrics including CU usage, VRAM/GTT allocation, power consumption, and clocks. |
+| `radeontop` | **Graphics Pipe Monitor** | A TUI showing specific hardware block utilization. |
+| `sudo cat /sys/kernel/debug/dri/0/amdgpu_pm_info` | **Raw Kernel Data** | Reads raw power limits, current clocks, and thermal parameters directly from the kernel driver. |
 
 ---
 
 ## 10. Automated Hardware Testing & Reporting Scripts
 
-Modular Python orchestration scripts for Manjaro Linux test benches. Rather than writing low-level hardware tests in pure Python, these scripts act as orchestrators; running robust CLI tools (`stress-ng`, `sysbench`, `inxi`, `fio`, `glmark2`, `memtester`), streaming their output live so the terminal never appears frozen, and compiling results into clean client-facing Markdown reports.
+Modular Python orchestration scripts for Manjaro Linux test benches. These act as orchestrators; running robust CLI tools, streaming output live so the terminal never freezes, and compiling results into clean Markdown reports.
 
-All scripts are located in the [`py/`](./py/) subdirectory. See [`py/README.md`](./py/README.md) for full installation and usage documentation.
+All scripts are located in the [`py/`](./py/) subdirectory. Ensure all tools from Section 6 are installed before running any script.
 
-> **Prerequisites:** Ensure all tools from Section 6 are installed before running any script. Section 6 is the authoritative install reference.
+### 10.1 The Unified Hardware Test Suite (`full_hw_suite.py`)
 
-### 10.2 The Unified Hardware Test Suite (`full_hw_suite.py`)
-
-Runs a full sequential diagnostic pass: system and motherboard info → CPU benchmark → RAM bandwidth and stability → storage SMART and IOPS → GPU benchmark. All long-running tools stream output live so the terminal never appears frozen. Compiles everything into a single timestamped Markdown report saved to the directory the script is run from.
-
-**Requires:** `sudo` — memtester and dmidecode need root. Run from a **desktop terminal**, not SSH — glmark2 needs a display. Run from the **mount point of the drive you want to test**; fio writes a temporary file to the current directory.
+Runs a full sequential diagnostic pass: system info → CPU benchmark → RAM bandwidth/stability → storage SMART/IOPS → GPU benchmark. Compiles everything into a timestamped Markdown report.
+**Requires:** `sudo` (for memtester/dmidecode), a desktop terminal (for glmark2), and execution from the target drive's mount point.
 
 ```bash
 sudo python3 full_hw_suite.py
 ```
 
-**Output:** `Full_Hardware_Report_YYYYMMDD_HHMMSS.md`
+---
+
+### 10.2 AMD GPU Diagnostic Script (`pnwc_amd_gpu_diag.py`)
+
+Dedicated diagnostic path for Radeon GPUs. This script **no longer depends on ROCm being functional**. It uses `amdgpu sysfs` as the baseline telemetry path. AMD's current SMI CLI documentation includes static, metric, and monitor-style workflows, so the script collects `amd-smi` snapshots when present, but will *not* fail a consumer Radeon card just because ROCm/SMI support is incomplete. 
+
+**Improvements Include:** `--card-index` support, better temperature sensor handling, PCIe current/max sysfs checks, `amd-smi` & `amdgpu_top` snapshots, `memtest_vulkan`, `vkmark`, `glmark2`, optional FurMark, kernel GPU/PCIe fault scanning, and a stricter Markdown verdict.
+
+**Run Commands:**
+```bash
+# Standard Diagnostic Run
+python3 pnwc_amd_gpu_diag.py --client "Client Name"
+
+# More aggressive OpenGL stress mode
+python3 pnwc_amd_gpu_diag.py --client "Client Name" --glmark2-run-forever --glmark2-timeout 900
+
+# Optional FurMark/GpuTest mode
+python3 pnwc_amd_gpu_diag.py --client "Client Name" --furmark
+```
 
 ---
 
-### 10.3 Standalone GPU Tester (`standalone_gpu_tester.py`)
+### 10.3 NVIDIA GPU Diagnostic Script (`pnwc_nvidia_gpu_diag.py`)
 
-Tests the GPU in isolation. Collects hardware and driver info via `inxi`, captures a vendor-specific diagnostic snapshot (`nvidia-smi` for NVIDIA, `amdgpu_top` for AMD, `intel_gpu_top` for iGPU), then runs a full `glmark2` benchmark with per-scene FPS scores. Automatically detects X11 vs Wayland and selects the correct glmark2 binary; binary/display-server mismatch is the most common cause of silent glmark2 hangs.
+Dedicated diagnostic path for GeForce/Quadro/RTX GPUs. 
 
-**Requires:** Active desktop session (X11 or Wayland); do not run over SSH. Does **not** require `sudo`.
+**Improvements Include:** `--gpu-index` support, dynamic `nvidia-smi` field probing, PCIe link tracking during load, throttle tracking, ECC checks, `memtest_vulkan`, `vkmark`, `glmark2`, optional `gpu-burn`, optional FurMark, kernel GPU/PCIe fault scanning, and a more complete Markdown verdict.
 
-> **Quick-pass mode:** Set `GLMARK2_SCENES` at the top of the script to a short list (e.g. `["build", "texture", "shading"]`) to finish in ~2 minutes instead of 15.
-
+**Run Commands:**
 ```bash
-python3 standalone_gpu_tester.py
+# Standard Diagnostic Run
+python3 pnwc_nvidia_gpu_diag.py --client "Client Name"
+
+# More aggressive OpenGL stress mode
+python3 pnwc_nvidia_gpu_diag.py --client "Client Name" --glmark2-run-forever --glmark2-timeout 900
+
+# Optional FurMark/GpuTest mode
+python3 pnwc_nvidia_gpu_diag.py --client "Client Name" --furmark
 ```
 
-**Output:** `GPU_Report_YYYYMMDD_HHMMSS.md`
+> **Validation Note:** The AMD and NVIDIA scripts have been syntax-checked via `py_compile`, but pending hardware-validation against real AMD/NVIDIA GPUs. **Next validation step:** Please run each script on your Manjaro bench and return any tracebacks, bad parses, weird CSV outputs, or report sections that look incorrect.
 
 ---
 
 ### 10.4 Standalone RAM Tester (`standalone_ram_tester.py`)
 
-Tests RAM in isolation. Reads hardware topology from `dmidecode` (populated slots, speeds, part numbers), runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation. `memtester` output streams live; every test line prints as it completes so you can watch for `FAILED` lines in real time without waiting for the full run.
-
-**Requires:** `sudo` — memtester must lock memory pages. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` to half your installed RAM and `MEMTESTER_PASSES` to 3–5 before running.
+Tests RAM in isolation. Reads hardware topology from `dmidecode`, runs a `sysbench` memory bandwidth test, then runs `memtester` for bit-pattern stability validation.
+**Requires:** `sudo`. For thorough XMP/EXPO validation, increase `MEMTESTER_SIZE` and `MEMTESTER_PASSES` before running.
 
 ```bash
 sudo python3 standalone_ram_tester.py
 ```
 
-**Output:** `RAM_Report_YYYYMMDD_HHMMSS.md`
-
 ---
 
 ### 10.5 Stress Soak Reliability Tester (`stress_soak.py`)
 
-Purpose-built for reliability validation; fundamentally different from the diagnostic scripts above, which test each subsystem sequentially for seconds at a time. `stress_soak.py` hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss entirely: thermal soak through a marginal cooler mount, XMP instability under sustained pressure, PSU marginal capacity under combined load, and VRM thermal limits that only appear when everything runs at once.
+Purpose-built for reliability validation. Hammers CPU, RAM, storage, and GPU **simultaneously** for hours, exposing failures that quick benchmarks miss (thermal soak through marginal cooler mounts, combined-load PSU issues, VRM thermal limits). 
 
-Runs in three phases:
-
-1. **RAM validation** — `memtester` runs first with dedicated RAM before any competing vm workers, so bit errors surface in minutes rather than at the end of a 4-hour run
-2. **Combined stress** — `stress-ng` (CPU + RAM workers), `fio` (storage), and `glmark2 --run-forever` (GPU, if display available) all simultaneously for the full soak duration
-3. **Cooldown monitoring** — post-stress thermal monitoring; a slow recovery indicates a cooler mount problem even if the system never throttled under load
-
-Sensor readings log to CSV every 5 seconds throughout all phases. The kernel ring buffer is polled every 30 seconds for throttle events and hardware errors. The final report opens with a **PASS / FAIL verdict table** — one row per check, one ❌ fails the machine.
+Logs sensor readings to CSV every 5 seconds. The kernel ring buffer is polled every 30 seconds for throttle events and hardware errors. The final report opens with a PASS/FAIL verdict table.
 
 **Requires:** `sudo` — run from a desktop terminal for GPU stress; use `--skip-gpu` for headless.
 
@@ -258,8 +287,6 @@ Sensor readings log to CSV every 5 seconds throughout all phases. The kernel rin
 # Modes: quick (15 min) | short (1 hr) | standard (4 hr) | extended (8 hr) | overnight (24 hr)
 sudo python3 stress_soak.py --mode standard --client "Client Name"
 ```
-
-**Output:** `Soak_Report_YYYYMMDD_HHMMSS.md` + `soak_temps_YYYYMMDD_HHMMSS.csv`
 
 ---
 
@@ -271,4 +298,4 @@ sudo python3 stress_soak.py --mode standard --client "Client Name"
 
 ---
 
-*Last Updated: 06-08-2026*
+*Last Updated: 06-11-2026*
