@@ -76,7 +76,7 @@ With an i9 processor, monitoring thermals and power draw (PL1/PL2 limits) is cri
 
 Run these commands on a fresh Manjaro installation to immediately provision the system with all necessary diagnostic, benchmarking, and monitoring tools.
 
-### 6.1 Standard Repository Tools (pacman)
+## 6.1 Standard Repository Tools (pacman)
 
 Installs core system utilities, sensors, terminal monitors, storage diagnostics, and testing engines. Both `vkmark` (Vulkan benchmark) and `glmark2` (OpenGL/ES benchmark) are now packaged natively in Arch/Manjaro. 
 
@@ -106,8 +106,8 @@ sudo pacman -S --needed \
   nvidia-utils cuda opencl-nvidia
 ```
 
-### Source-built GPU Diagnostic Tools
-- memtest_vulkan — cross-vendor Vulkan VRAM stability test
+## Source-built GPU Diagnostic Tools:
+### 'memtest_vulkan' is a cross-vendor Vulkan VRAM stability test
 ```bash
 mkdir -p ~/src
 cd ~/src
@@ -120,9 +120,11 @@ cd memtest_vulkan
 git pull
 cargo build --release
 sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
-# gpu-burn — NVIDIA CUDA stress test
-# This is only needed for NVIDIA diagnostic runs using --gpu-burn.
+```
 
+### 'gpu-burn' is NVIDIA CUDA stress test utility
+- This is only needed for NVIDIA diagnostic runs using --gpu-burn.
+```bash
 mkdir -p ~/src
 cd ~/src
 
