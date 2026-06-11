@@ -103,6 +103,8 @@ sudo pacman -S --needed \
   nvidia-utils cuda
 ```
 
+### All-In-One Tool Installation Script [install_testbench_tools.sh](install_testbench_tools.sh) (AMD + NVIDIA + Intel)
+
 ### 6.2 AUR Tools (pamac)
 
 Some specialized testing tools are only available in the Arch User Repository. We use `pamac build`, which comes standard on Manjaro.
