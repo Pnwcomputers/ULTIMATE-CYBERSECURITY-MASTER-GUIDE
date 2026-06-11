@@ -120,17 +120,6 @@ pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
 ```
 
 ```bash
-# ── Run a Universal GPU Diagnostic (First Pass) ────────────────────
-python3 py/standalone_gpu_tester.py --client "Client Name"
-
-# ── Run a Full System Diagnostic ───────────────────────────────────
-sudo python3 py/full_hw_suite.py --client "Client Name"
-
-# ── Run a 4-hour Reliability Soak before returning to a client ─────
-sudo python3 py/stress_soak.py --mode standard --client "Client Name"
-```
-
-```bash
 # ── Source-built GPU diagnostic tools ──────────────────────────────
 
 # memtest_vulkan — cross-vendor Vulkan VRAM stability test
@@ -159,6 +148,52 @@ git pull
 make
 sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
 sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+```
+
+```bash
+# ── Verify Required and Optional Tools ─────────────────────────────
+# Run this after installing the base tools, GPU tools, AUR tools,
+# memtest_vulkan, and gpu-burn.
+
+echo "== Core script tools =="
+for bin in \
+  python git make gcc cmake ninja cargo rustc \
+  inxi dmidecode lspci lsusb lshw hwinfo \
+  sysbench memtester fio stress-ng \
+  smartctl nvme sensors \
+  glmark2 vkmark vulkaninfo glxinfo \
+  intel_gpu_top nvtop; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo '❌ NOT FOUND')"
+done
+
+echo
+echo "== AMD tools =="
+for bin in amd-smi amdgpu_top radeontop; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo 'optional / not installed')"
+done
+
+echo
+echo "== NVIDIA tools =="
+for bin in nvidia-smi nvcc gpu-burn gpu_burn; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo 'optional / not installed')"
+done
+
+echo
+echo "== GPU VRAM test =="
+for bin in memtest_vulkan; do
+  printf "%-22s %s\n" "$bin" "$(command -v "$bin" || echo '❌ NOT FOUND')"
+done
+```
+
+```bash
+# ── Run a Universal GPU Diagnostic (First Pass) ────────────────────
+python3 py/standalone_gpu_tester.py --client "Client Name"
+
+# ── Run a Full System Diagnostic ───────────────────────────────────
+sudo python3 py/full_hw_suite.py --client "Client Name"
+
+# ── Run a 4-hour Reliability Soak before returning to a client ─────
+sudo python3 py/stress_soak.py --mode standard --client "Client Name"
 ```
 
 ---
