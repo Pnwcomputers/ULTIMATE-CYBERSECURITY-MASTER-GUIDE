@@ -55,35 +55,35 @@ Covers Z790 motherboards with 13th/14th Gen Core i9 processors running Manjaro (
 - Memory and storage diagnostics (`memtester`, `nvme-cli`, `smartmontools`, `fio`, `kdiskmark`)
 - Fresh install provisioning one-liners for the full tool stack
 - Phoronix Test Suite for standardized benchmarks and Linpack
-- NVIDIA and AMD dedicated GPU testing alongside the Intel iGPU
+- Dedicated modern GPU testing paths (memtest_vulkan, vkmark, glmark2, kernel PCIe fault scanning)
 - Python automation scripts with client-facing Markdown report generation
 
 ---
 
 ## Python Scripts — [`py/`](./py/)
 
-Four Python scripts that orchestrate CLI tools, stream output live, and compile results into Markdown reports. Designed for Manjaro/Intel but largely portable to any Linux system with the appropriate tools installed.
+Modular Python scripts that orchestrate CLI tools, stream output live, and compile results into clean Markdown reports. 
 
 | Script | What it does | Sudo |
 | :--- | :--- | :---: |
 | `full_hw_suite.py` | Full sequential diagnostic — system info, CPU, RAM, storage, GPU | ✅ |
-| `standalone_gpu_tester.py` | GPU benchmark with X11/Wayland auto-detection | ❌ |
+| `standalone_gpu_tester.py` | Universal GPU first-pass benchmark (Vulkan/OpenGL, memtest, kernel faults) | ❌ |
+| `pnwc_amd_gpu_diag.py` | Dedicated AMD GPU diagnostic with amdgpu telemetry & rigorous load testing | ❌ |
+| `pnwc_nvidia_gpu_diag.py` | Dedicated NVIDIA GPU diagnostic with nvidia-smi telemetry & rigorous load testing | ❌ |
 | `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing | ✅ |
-| `stress_soak.py` | Reliability burn-in — simultaneous load with continuous thermal logging and PASS/FAIL verdict | ✅ |
+| `stress_soak.py` | Reliability burn-in — simultaneous load with continuous thermal logging | ✅ |
 
 See [`py/README.md`](./py/README.md) for full installation instructions, usage, and per-script documentation.
 
 **Quick start:**
 
 ```bash
-# ── Universal tools (run this on every test bench) ─────────────────
+# ── Base Diagnostics & System Tools (run this on every test bench) ─
 sudo pacman -S --needed \
-  python stress-ng fio memtester sysbench \
-  inxi dmidecode hwinfo lshw pciutils usbutils \
-  smartmontools nvme-cli nvidia-smi hdparm \
-  lm_sensors s-tui htop btop nvtop \
-  intel-gpu-tools amdgpu_top radeontop nvidia-utils \
-  base-devel git curl wget
+  base-devel git python \
+  inxi pciutils usbutils lm_sensors smartmontools \
+  vulkan-tools mesa-utils \
+  vkmark glmark2
 
 # Detect motherboard sensors (run once after install)
 sudo sensors-detect --auto
@@ -92,25 +92,31 @@ sudo sensors-detect --auto
 > **GPU tools — install the block that matches your hardware:**
 
 ```bash
-# NVIDIA — nvidia-smi and nvidia-utils already included in the universal block above
-# No additional steps required
+# For AMD Test Environments:
+sudo pacman -S --needed \
+  mesa vulkan-radeon \
+  amdsmi amdgpu_top radeontop
 ```
 
 ```bash
-# AMD — amdgpu_top and radeontop already included in the universal block above
-# No additional steps required
+# For NVIDIA Test Environments:
+sudo pacman -S --needed \
+  nvidia-utils cuda
 ```
 
 ```bash
 # ── AUR tools (all platforms) ──────────────────────────────────────
-pamac build glmark2 kdiskmark phoronix-test-suite
+pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
 ```
 
 ```bash
-# ── Run a full diagnostic ──────────────────────────────────────────
-sudo python3 py/full_hw_suite.py
+# ── Run a Universal GPU Diagnostic (First Pass) ────────────────────
+python3 py/standalone_gpu_tester.py --client "Client Name"
 
-# ── Run a 4-hour reliability soak before returning to a client ─────
+# ── Run a Full System Diagnostic ───────────────────────────────────
+sudo python3 py/full_hw_suite.py --client "Client Name"
+
+# ── Run a 4-hour Reliability Soak before returning to a client ─────
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
 ```
 
@@ -158,7 +164,7 @@ If you're adding a new platform guide, follow the naming convention:
 ```
 HardwareTesting/
 ├── {Distro}_{Arch}_TestBench.md    # cheat sheet
-└── py/                              # shared Python scripts
+└── py/                             # shared Python scripts
 ```
 
 Where `{Distro}` is `Manjaro`, `Debian`, etc. and `{Arch}` is `Intel` or `AMD`.
@@ -166,4 +172,4 @@ Where `{Distro}` is `Manjaro`, `Debian`, etc. and `{Arch}` is `Intel` or `AMD`.
 ---
 
 *Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
-*Last updated: 06-08-2026*
+*Last updated: 06-11-2026*
