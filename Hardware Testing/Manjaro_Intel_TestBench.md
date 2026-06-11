@@ -106,9 +106,8 @@ sudo pacman -S --needed \
   nvidia-utils cuda opencl-nvidia
 ```
 
-# ── Source-built GPU diagnostic tools ──────────────────────────────
-
-# memtest_vulkan — cross-vendor Vulkan VRAM stability test
+### Source-built GPU Diagnostic Tools
+- memtest_vulkan — cross-vendor Vulkan VRAM stability test
 ```bash
 mkdir -p ~/src
 cd ~/src
@@ -144,9 +143,8 @@ else
 fi
 ```
 
-# ── Verify Required and Optional Tools ─────────────────────────────
-# Run this after installing the base tools, GPU tools, optional tools,
-# memtest_vulkan, and gpu-burn.
+### Verify Required and Optional Tools
+- Run this after installing the base tools, GPU tools, optional tools, memtest_vulkan, and gpu-burn.
 ```bash
 echo "== Core script tools =="
 for bin in \
