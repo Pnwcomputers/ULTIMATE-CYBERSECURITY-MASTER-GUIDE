@@ -79,11 +79,16 @@ See [`py/README.md`](./py/README.md) for full installation instructions, usage, 
 
 ```bash
 # ── Base Diagnostics & System Tools (run this on every test bench) ─
+sudo pacman -Syu --needed
 sudo pacman -S --needed \
-  base-devel git python \
-  inxi pciutils usbutils lm_sensors smartmontools \
+  base-devel git make gcc cmake ninja pkgconf rust cargo \
+  python python-pip curl unzip jq \
+  inxi dmidecode pciutils usbutils lshw hwinfo \
+  lm_sensors smartmontools nvme-cli \
+  sysbench memtester stress-ng fio \
   vulkan-tools mesa-utils \
-  vkmark glmark2
+  vkmark glmark2 \
+  intel-gpu-tools nvtop
 
 # Detect motherboard sensors (run once after install)
 sudo sensors-detect --auto
@@ -101,11 +106,16 @@ sudo pacman -S --needed \
 ```bash
 # For NVIDIA Test Environments:
 sudo pacman -S --needed \
-  nvidia-utils cuda
+  nvidia-utils cuda opencl-nvidia
 ```
 
 ```bash
 # ── AUR tools (all platforms) ──────────────────────────────────────
+pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
+```
+
+```bash
+# ── Optional GUI / Deep Benchmark Tools ────────────────────────────
 pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
 ```
 
@@ -118,6 +128,37 @@ sudo python3 py/full_hw_suite.py --client "Client Name"
 
 # ── Run a 4-hour Reliability Soak before returning to a client ─────
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
+```
+
+```bash
+# ── Source-built GPU diagnostic tools ──────────────────────────────
+
+# memtest_vulkan — cross-vendor Vulkan VRAM stability test
+mkdir -p ~/src
+cd ~/src
+
+if [ ! -d memtest_vulkan ]; then
+  git clone https://github.com/GpuZelenograd/memtest_vulkan.git
+fi
+
+cd memtest_vulkan
+git pull
+cargo build --release
+sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
+
+
+# gpu-burn — NVIDIA CUDA stress test
+cd ~/src
+
+if [ ! -d gpu-burn ]; then
+  git clone https://github.com/wilicc/gpu-burn.git
+fi
+
+cd gpu-burn
+git pull
+make
+sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
+sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
 ```
 
 ---
