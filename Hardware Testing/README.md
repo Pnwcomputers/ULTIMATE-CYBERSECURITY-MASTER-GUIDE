@@ -80,6 +80,7 @@ See [`py/README.md`](./py/README.md) for full installation instructions, usage, 
 ```bash
 # ── Base Diagnostics & System Tools (run this on every test bench) ─
 sudo pacman -Syu --needed
+
 sudo pacman -S --needed \
   base-devel git make gcc cmake ninja pkgconf rust cargo \
   python python-pip curl unzip jq \
@@ -92,6 +93,7 @@ sudo pacman -S --needed \
 
 # Detect motherboard sensors (run once after install)
 sudo sensors-detect --auto
+sensors
 ```
 
 > **GPU tools — install the block that matches your hardware:**
@@ -107,11 +109,6 @@ sudo pacman -S --needed \
 # For NVIDIA Test Environments:
 sudo pacman -S --needed \
   nvidia-utils cuda opencl-nvidia
-```
-
-```bash
-# ── AUR tools (all platforms) ──────────────────────────────────────
-pamac build mprime-bin kdiskmark unigine-superposition phoronix-test-suite
 ```
 
 ```bash
@@ -134,25 +131,35 @@ cd memtest_vulkan
 git pull
 cargo build --release
 sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
+```
 
-
+```bash
 # gpu-burn — NVIDIA CUDA stress test
+# This is only needed for NVIDIA diagnostic runs using --gpu-burn.
+
+mkdir -p ~/src
 cd ~/src
 
-if [ ! -d gpu-burn ]; then
-  git clone https://github.com/wilicc/gpu-burn.git
-fi
+if command -v nvcc >/dev/null 2>&1; then
+  if [ ! -d gpu-burn ]; then
+    git clone https://github.com/wilicc/gpu-burn.git
+  fi
 
-cd gpu-burn
-git pull
-make
-sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
-sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+  cd gpu-burn
+  git pull
+  make
+
+  sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
+  sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
+else
+  echo "nvcc was not found. Skipping gpu-burn build."
+  echo "Install/repair CUDA first if this bench needs NVIDIA gpu-burn testing."
+fi
 ```
 
 ```bash
 # ── Verify Required and Optional Tools ─────────────────────────────
-# Run this after installing the base tools, GPU tools, AUR tools,
+# Run this after installing the base tools, GPU tools, optional tools,
 # memtest_vulkan, and gpu-burn.
 
 echo "== Core script tools =="
@@ -194,6 +201,8 @@ sudo python3 py/full_hw_suite.py --client "Client Name"
 
 # ── Run a 4-hour Reliability Soak before returning to a client ─────
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"
+```
+
 ```
 
 ---
