@@ -13,9 +13,9 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `m
 | Script | Purpose | Requires sudo |
 | :--- | :--- | :---: |
 | [`full_hw_suite.py`](#full_hw_suitepy-v21) | Full diagnostic pass — system info, CPU, RAM, storage, GPU | ✅ |
-| [`standalone_gpu_tester.py`](#standalone_gpu_testerpy-v21) | Universal GPU benchmark (OpenGL/Vulkan validation, memtest, kernel fault scanning) | ❌ |
-| [`pnwc_amd_gpu_diag.py`](#pnwc_amd_gpu_diagpy--pnwc_nvidia_gpu_diagpy-v10) | AMD Radeon GPU diagnostic with amdgpu telemetry & Vulkan/OpenGL testing | ❌ |
-| [`pnwc_nvidia_gpu_diag.py`](#pnwc_amd_gpu_diagpy--pnwc_nvidia_gpu_diagpy-v10) | NVIDIA GPU diagnostic with nvidia-smi telemetry & Vulkan/OpenGL testing | ❌ |
+| [`standalone_gpu_tester.py`](#standalone_gpu_testerpy-v21) | Universal GPU benchmark (OpenGL/Vulkan validation, memtest, kernel fault scanning) | ✅ |
+| [`amd_gpu_tester.py`](#pnwc_amd_gpu_diagpy--pnwc_nvidia_gpu_diagpy-v10) | AMD Radeon GPU diagnostic with amdgpu telemetry & Vulkan/OpenGL testing | ✅ |
+| [`nvidia_gpu_tester.py`](#pnwc_amd_gpu_diagpy--pnvidia_gpu_diagpy-v10) | NVIDIA GPU diagnostic with nvidia-smi telemetry & Vulkan/OpenGL testing | ✅ |
 | [`standalone_ram_tester.py`](#standalone_ram_testerpy-v21) | RAM-only — bandwidth (sysbench) + stability (memtester) | ✅ |
 | [`stress_soak.py`](#stress_soakpy-v11) | Reliability burn-in — simultaneous CPU+RAM+storage+GPU stress with continuous thermal logging | ✅ |
 
@@ -141,7 +141,7 @@ python3 standalone_gpu_tester.py --no-memtest --no-vkmark --client "Client Name"
 
 ---
 
-## `pnwc_amd_gpu_diag.py` & `pnwc_nvidia_gpu_diag.py` (v1.0)
+## `amd_gpu_tester.py` & `nvidia_gpu_tester.py` (v1.0)
 
 Dedicated, vendor-specific diagnostic paths for deep GPU telemetry.
 
