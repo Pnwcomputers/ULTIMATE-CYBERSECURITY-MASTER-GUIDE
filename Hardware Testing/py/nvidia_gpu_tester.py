@@ -2,7 +2,7 @@
 """
 PNWC NVIDIA GPU Diagnostic & Benchmark Tool v1.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-What this script DOES that 'standalone_gpu_tester.py' does NOT:
+What this script DOES that standalone_gpu_tester.py does NOT:
   • Polls nvidia-smi every second DURING the benchmark on a parallel thread, building a full load curve (clocks, power, temp, utilization, throttle)
   • Verifies PCIe link gen + width under load (catches x8 / Gen3 negotiation)
   • Checks ECC volatile error counters (workstation/datacenter cards)
