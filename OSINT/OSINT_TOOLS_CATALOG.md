@@ -5,6 +5,7 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | :--- | :--- | :--- |
 | [**theHarvester**](https://github.com/laramies/theHarvester) | Recon | Email, subdomain, and host harvesting. |
 | [**Sherlock**](https://github.com/sherlock-project/sherlock) | Social | Username search across 400+ platforms. |
+| [**Xquik**](https://github.com/Xquik-dev/x-twitter-scraper) | Social | X/Twitter search, profile lookup, follower export, and monitoring. |
 | [**Recon-ng**](https://github.com/lanmaster53/recon-ng) | Framework | Modular web-reconnaissance and data management. |
 | [**Amass**](https://github.com/owasp-amass/amass) | Infrastructure | In-depth DNS enumeration and attack surface mapping. |
 | [**SpiderFoot**](https://github.com/smicallef/spiderfoot) | Automation | Automated OSINT collection from 100+ sources. |
