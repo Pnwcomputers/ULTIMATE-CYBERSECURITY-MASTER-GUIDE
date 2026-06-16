@@ -18,7 +18,7 @@
 
 ## Overview
 
-This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches.
+This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches. This can be a critcally needed process for using used or repurposed hardware for General Operations, Password Hashing, Local AI, etc.
 
 Each platform combination, such as Manjaro + Intel or Debian + AMD, gets its own reference document for package management, driver setup, kernel notes, and hardware-specific tooling.
 
