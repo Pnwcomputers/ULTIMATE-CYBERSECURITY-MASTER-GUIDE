@@ -107,11 +107,11 @@ Introduce controlled transient errors to bypass security checks, skip instructio
 
 | Method | Equipment | Precision | Complexity | Cost |
 |--------|-----------|-----------|-----------|------|
-| **Voltage Glitching** | MOSFET + FPGA or ChipWhisperer | Medium | Low | $ |
-| **Clock Glitching** | FPGA or ChipWhisperer | High | Medium | $$ |
-| **EMFI** | ChipSHOUTER or custom coil + pulser | Medium-High | Medium | $–$$ |
-| **Laser FI** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
-| **Body Biasing** | Probe + pulse generator | Medium | Medium | $$ |
+| **[Voltage Glitching](https://wiki.newae.com/VCC_Glitch_Attacks)** | [MOSFET](https://www.amazon.com/s?k=logic+level+N-channel+MOSFET) + [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | Medium | Low | $ |
+| **[Clock Glitching](https://wiki.newae.com/Clock_Glitching)** | [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | High | Medium | $$ |
+| **[EMFI](https://wiki.newae.com/Electromagnetic_Fault_Injection_(EMFI))** | [ChipSHOUTER](https://www.newae.com/chipshouter) or custom coil + pulser | Medium-High | Medium | $–$$ |
+| **[Laser FI](https://www.riscure.com/equipment/laser-fault-injection/)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
+| **[Body Biasing](https://www.usenix.org/conference/usenixsecurity21/presentation/hofmann)** | Probe + pulse generator | Medium | Medium | $$ |
 
 ### Side-Channel Analysis (Passive)
 
@@ -119,22 +119,22 @@ Extract secrets by observing physical emissions during normal operation.
 
 | Technique | Observable | Traces Needed | Target |
 |-----------|-----------|---------------|--------|
-| **SPA** | Power (single trace) | 1–10 | RSA, ECC with visible square/multiply pattern |
-| **DPA / CPA** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
-| **Timing** | Execution time | 100–10,000 | Password comparison, RSA, cache-based |
-| **SEMA** | EM emissions | 100–10,000 | Same as DPA but contactless |
-| **Template** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
-| **TVLA** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
+| **[SPA](https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis)** | Power (single trace) | 1–10 | RSA, ECC with visible square/multiply pattern |
+| **[DPA](https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis) / [CPA](https://wiki.newae.com/Correlation_Power_Analysis)** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
+| **[Timing](https://en.wikipedia.org/wiki/Timing_attack)** | Execution time | 100–10,000 | Password comparison, RSA, cache-based |
+| **[SEMA](https://en.wikipedia.org/wiki/Electromagnetic_acoustics_and_side-channel_attacks)** | EM emissions | 100–10,000 | Same as DPA but contactless |
+| **[Template](https://wiki.newae.com/Template_Attacks)** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
+| **[TVLA](https://wiki.newae.com/Test_Vector_Leakage_Assessment_(TVLA))** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
 
 ### Interface Exploitation (Physical Access)
 
 | Interface | Wires | Attack Value | Common Tools |
 |-----------|-------|-------------|-------------|
-| **UART** | TX, RX, GND | Boot logs, root shell, U-Boot console | USB-UART adapter, logic analyzer |
-| **JTAG** | TCK, TMS, TDI, TDO, TRST | CPU halt, memory dump, register access | J-Link, OpenOCD, [JTAGulator](./JTAGulator.md) |
-| **SWD** | SWDCLK, SWDIO | Same as JTAG (ARM Cortex-M) | ST-LINK, CMSIS-DAP |
-| **SPI** | SCLK, MOSI, MISO, CS | Flash dump (firmware extraction) | flashrom, [Bus Pirate](./BusPirate.md), CH341A |
-| **I²C** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, [Bus Pirate](./BusPirate.md) |
+| **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs, root shell, U-Boot console | [USB-UART adapter](https://www.amazon.com/s?k=FTDI+USB+UART+Adapter), [logic analyzer](https://www.amazon.com/s?k=24MHz+8CH+USB+Logic+Analyzer) |
+| **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | CPU halt, memory dump, register access | [J-Link](https://www.amazon.com/s?k=SEGGER+J-Link+EDU), OpenOCD, [JTAGulator](./JTAGulator.md) |
+| **[SWD](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug)** | SWDCLK, SWDIO | Same as JTAG (ARM Cortex-M) | [ST-LINK](https://www.amazon.com/s?k=ST-Link+V2), CMSIS-DAP |
+| **[SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)** | SCLK, MOSI, MISO, CS | Flash dump (firmware extraction) | flashrom, [Bus Pirate](./BusPirate.md), [CH341A](https://www.amazon.com/s?k=CH341A+SPI+Programmer) |
+| **[I²C](https://learn.sparkfun.com/tutorials/i2c/all)** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, [Bus Pirate](./BusPirate.md) |
 
 ---
 
@@ -142,27 +142,29 @@ Extract secrets by observing physical emissions during normal operation.
 
 ### Essential Equipment
 
+### Essential Equipment
+
 | Equipment | Recommended | Budget | Purpose |
 |-----------|-------------|--------|---------|
-| **Oscilloscope** | Rigol DS1054Z / Siglent SDS1204X-E | $350–$400 | Signal capture, power analysis, glitch verification |
-| **Logic Analyzer** | [Innomaker LA1010](./LA1010.md) / [HiLetgo](./HiLetgo.md) / DSLogic | $10–$150 | Protocol decode (UART, SPI, I²C, JTAG) |
-| **Multimeter** | Any decent DMM | $20–$50 | Voltage/continuity checks |
-| **USB-UART Adapter** | FTDI FT232R / CP2102 | $5–$15 | Serial console access |
-| **JTAG/SWD Probe** | J-Link EDU / ST-LINK V2 | $20–$70 | Debug interface access |
-| **SPI/IC Programmer** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
-| **Soldering Station** | Hakko FX-888D | $100 | Component removal, wire attachment |
-| **Hot Air Rework** | Quick 957DW or equivalent | $100–$200 | IC removal, BGA work |
+| **[Oscilloscope](https://en.wikipedia.org/wiki/Oscilloscope)** | [Rigol DS1054Z](https://www.amazon.com/s?k=Rigol+DS1054Z) / [Siglent SDS1204X-E](https://www.amazon.com/s?k=Siglent+SDS1204X-E) | $350–$400 | Signal capture, power analysis, glitch verification |
+| **[Logic Analyzer](https://en.wikipedia.org/wiki/Logic_analyzer)** | [Innomaker LA1010](./LA1010.md) / [HiLetgo](./HiLetgo.md) / [DSLogic](https://www.amazon.com/s?k=DSLogic+Plus) | $10–$150 | Protocol decode (UART, SPI, I²C, JTAG) |
+| **[Multimeter](https://en.wikipedia.org/wiki/Multimeter)** | [Any decent DMM](https://www.amazon.com/s?k=digital+multimeter) | $20–$50 | Voltage/continuity checks |
+| **[USB-UART Adapter](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)** | [FTDI FT232R](https://www.amazon.com/s?k=FTDI+FT232RL+USB+to+TTL) / [CP2102](https://www.amazon.com/s?k=CP2102+USB+to+TTL) | $5–$15 | Serial console access |
+| **[JTAG/SWD Probe](https://en.wikipedia.org/wiki/JTAG)** | [J-Link EDU](https://www.segger.com/products/debug-probes/j-link/models/j-link-edu/) / [ST-LINK V2](https://www.amazon.com/s?k=ST-Link+V2) | $20–$70 | Debug interface access |
+| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Hardware_programmer)** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
+| **[Soldering Station](https://en.wikipedia.org/wiki/Soldering)** | [Hakko FX-888D](https://www.amazon.com/s?k=Hakko+FX-888D) | $100 | Component removal, wire attachment |
+| **[Hot Air Rework](https://en.wikipedia.org/wiki/Rework_(electronics))** | [Quick 957DW](https://www.amazon.com/s?k=Quick+957DW+hot+air+rework) or equivalent | $100–$200 | IC removal, BGA work |
 
 ### Power Analysis & Fault Injection
 
 | Equipment | Recommended | Budget | Purpose |
 |-----------|-------------|--------|---------|
-| **ChipWhisperer Lite** | NewAE Technology | ~$250 | Integrated glitching + power analysis |
-| **ChipWhisperer Pro** | NewAE Technology | ~$1,500 | Higher performance, more glitch options |
-| **ChipSHOUTER** | NewAE Technology | ~$1,000 | Electromagnetic fault injection |
-| **JTAGulator** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
-| **Glasgow Interface Explorer** | Open-source FPGA | ~$150 | Scriptable multi-protocol interface |
-| **GreatFET One** | [Great Scott Gadgets (Guide)](./GreatFETone.md) | ~$100 | Multi-purpose interface and bus manipulation |
+| **[ChipWhisperer Lite](https://rtfm.newae.com/Capture/ChipWhisperer-Lite/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-lite) | ~$250 | Integrated glitching + power analysis |
+| **[ChipWhisperer Pro](https://rtfm.newae.com/Capture/ChipWhisperer-Pro/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-pro) | ~$1,500 | Higher performance, more glitch options |
+| **[ChipSHOUTER](https://rtfm.newae.com/FaultInjection/ChipSHOUTER/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipshouter) | ~$1,000 | Electromagnetic fault injection |
+| **[JTAGulator](http://www.grandideastudio.com/jtagulator/)** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
+| **[Glasgow Interface Explorer](https://github.com/GlasgowEmbedded/glasgow)** | [Open-source FPGA](https://www.crowdsupply.com/1bitsquared/glasgow) | ~$150 | Scriptable multi-protocol interface |
+| [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | [Great Scott Gadgets (Guide)](./GreatFETone.md) | ~$100 | Multi-purpose interface and bus manipulation |
 
 ---
 
