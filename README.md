@@ -72,7 +72,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
 | 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
-| 📟 **uConsole Field Guide** | Configuration, portable pentesting setups, and operational workflows optimized for the ClockworkPi uConsole cyberdeck. |
+| 📟 [uConsole](uConsole/ | Configuration, portable pentesting setups, and operational workflows optimized for the ClockworkPi uConsole cyberdeck. |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
