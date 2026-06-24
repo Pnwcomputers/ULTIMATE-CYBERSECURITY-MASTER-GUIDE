@@ -1,8 +1,8 @@
-# 🛠️ uConsole Field Platform — Setup & Deployment Guide
+# 🛠️ uConsole — Setup & Deployment Guides
 
 <div align="center">
 
-**Complete build guide for the ClockworkPi uConsole with HackerGadgets AIO v2 board — SDR, LoRa, GPS, and pentesting in your pocket**
+**Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board — SDR, LoRa, GPS, and pentesting in your pocket**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
