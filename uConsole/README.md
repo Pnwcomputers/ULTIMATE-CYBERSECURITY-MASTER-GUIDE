@@ -1,4 +1,4 @@
-# uConsole Guide
+# uConsole Setup Guide
 
 ## Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM4 Configuration
 
@@ -183,50 +183,32 @@ sudo apt update
 
 ### Fix dpkg-divert Conflict BEFORE Installing (Required)
 
-The `kali-defaults` package (a dependency of all Kali meta-packages) tries to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` to remove the PEP 668 restriction on `pip install`. However, Rex's Trixie image already has `raspberrypi-sys-mods` installed, which diverts the same file to a different target name. This causes a diversion clash that hard-fails the install:
+The `raspberrypi-sys-mods` package (pre-installed on all Rex images) conflicts with Kali packages in two ways:
 
-```
-dpkg-divert: error: 'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED to
-/usr/lib/python3.13/EXTERNALLY-MANAGED.original by kali-defaults' clashes with
-'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED to
-/usr/lib/python3.13/EXTERNALLY-MANAGED.orig by raspberrypi-sys-mods'
-```
+1. **Diversion clash:** Both `raspberrypi-sys-mods` and `kali-defaults` try to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` but to different target filenames, which hard-fails the install.
 
-Fix this before installing any Kali packages:
+2. **File ownership collision:** Even after fixing the diversion, `raspberrypi-sys-mods` and Kali's `libpython3.13-stdlib` both claim ownership of the same file, causing `dpkg` to refuse to unpack upgrades.
+
+The cleanest fix is to remove `raspberrypi-sys-mods` entirely before installing any Kali packages. At this point your system is becoming a Kali box with Rex's kernel: `raspberrypi-sys-mods` will just keep fighting you on every upgrade.
 
 ```bash
-# Remove the file blocking the diversion rename
-sudo rm /usr/lib/python3.13/EXTERNALLY-MANAGED
+# Remove the conflicting package
+sudo apt remove raspberrypi-sys-mods -y
 
-# Remove the existing diversion owned by raspberrypi-sys-mods
-sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED
+# Clean up any diversion it left behind
+sudo rm -f /usr/lib/python3.13/EXTERNALLY-MANAGED
+sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED 2>/dev/null
 ```
+
+> **Note:** Check what `apt remove raspberrypi-sys-mods` wants to pull out with it. If it tries to remove kernel or device tree packages, cancel and use the force-overwrite approach instead (see [Troubleshooting](#troubleshooting)).
 
 > **Note:** The Python version in the path (`python3.13`) may differ depending on when you install. Check with `ls /usr/lib/python3.*/EXTERNALLY-MANAGED` if the above path doesn't exist.
 
-### Choose Your Toolkit
-
-Pick one based on how much you want installed:
-
-| Meta-Package | What You Get |
-|---|---|
-| `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
-| `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit: everything you'd get from a Kali ISO |
-
-```bash
-# Example: install the core top 10
-sudo apt install -t kali-rolling kali-tools-top10 -y
-
-# Or go bigger
-sudo apt install -t kali-rolling kali-linux-headless -y
-```
-
 ### Set Kali as the Primary Package Source (Required)
 
-Once any Kali meta-package is installed, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) will be upgraded to newer versions than Trixie carries. From that point on, **every** `apt install` that touches those libraries will fail with version mismatch errors unless the packages come from Kali too: including the Meshtasticd `-dev` dependencies in [Step 6](#step-6--configure-lora--meshtasticd) and anything else you install later.
+Once you start installing Kali packages, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) get upgraded past what Trixie carries. From that point on, **every** `apt install` that touches those libraries will fail with version mismatch errors unless the packages come from Kali too: including the Meshtasticd `-dev` dependencies in [Step 6](#step-6--configure-lora--meshtasticd) and anything else you install later.
 
-Rather than remembering to add `-t kali-rolling` to every single `apt install` command, set Kali as the default high-priority repo:
+Set Kali as the default high-priority repo **before** installing any Kali packages:
 
 ```bash
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
@@ -240,7 +222,27 @@ sudo apt update
 
 This makes Kali rolling the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (like the AIO board package and uConsole-specific kernel packages). Your system is effectively a Kali box running Rex's kernel and hardware patches: which is exactly what you want for a pentest platform.
 
-> **Note:** After setting this pin, you no longer need `-t kali-rolling` on individual install commands. Regular `apt install <package>` will pull from Kali first.
+### Choose Your Toolkit
+
+Pick one based on how much you want installed:
+
+| Meta-Package | What You Get |
+|---|---|
+| `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
+| `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
+| `kali-linux-default` | Full default Kali desktop toolkit: everything you'd get from a Kali ISO |
+
+```bash
+# Example: install the core top 10
+sudo apt install kali-tools-top10 -y
+
+# Or go bigger
+sudo apt install kali-linux-headless -y
+
+# If any file ownership collisions occur during install
+sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
+sudo apt full-upgrade -y
+```
 
 ---
 
@@ -1149,23 +1151,39 @@ sudo dpkg --remove --force-remove-reinstreq cryptsetup-initramfs
 sudo apt --fix-broken install -y
 ```
 
-### kali-defaults fails with dpkg-divert clash (Trixie + Kali Tools)
+### raspberrypi-sys-mods conflicts with Kali packages (Trixie + Kali Tools)
 
-When installing Kali meta-packages on Trixie, `kali-defaults` and `raspberrypi-sys-mods` both try to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` but to different target filenames. The install fails with a diversion clash error.
+`raspberrypi-sys-mods` from the Raspberry Pi repo and several Kali packages (`kali-defaults`, `libpython3.13-stdlib`) fight over the same files. This shows up as either a diversion clash or a file ownership error:
 
-```bash
-# Remove the file that blocks the rename
-sudo rm /usr/lib/python3.13/EXTERNALLY-MANAGED
-
-# Remove the Pi-owned diversion
-sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED
-
-# Fix and retry
-sudo dpkg --configure -a
-sudo apt --fix-broken install -y
+```
+dpkg-divert: error: 'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED ...' clashes with ...
+```
+or:
+```
+trying to overwrite '/usr/lib/python3.13/EXTERNALLY-MANAGED', which is also in package raspberrypi-sys-mods
 ```
 
-If you hit additional diversion clashes from other Pi packages during the Kali install, the pattern is the same: identify the Pi package that owns the existing diversion (`dpkg-divert --list` to see all active diversions), remove it, and let the Kali package take over.
+**Best fix: remove raspberrypi-sys-mods:**
+
+```bash
+sudo apt remove raspberrypi-sys-mods -y
+sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
+sudo apt full-upgrade -y
+```
+
+**Fallback: if removing raspberrypi-sys-mods would pull out critical packages:**
+
+```bash
+# Force dpkg to overwrite the conflicting files
+sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
+sudo apt -o Dpkg::Options::="--force-overwrite" full-upgrade -y
+```
+
+You can make the force-overwrite persistent so you don't have to type it every time:
+
+```bash
+echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-force-overwrite
+```
 
 ### "Unsatisfied dependencies" or version mismatches on Trixie + Kali
 
