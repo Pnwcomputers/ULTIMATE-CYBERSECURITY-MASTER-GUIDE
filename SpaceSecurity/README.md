@@ -63,7 +63,7 @@ These materials serve as:
 | **[PartII.md](./PartII.md)** | Ground | Ground-space communications, link architecture, frequency bands, CCSDS protocol stack, mission control system architecture, ground segment exploitation, protocol fuzzing, network penetration paths, and hardening controls |
 | **[PartIII.md](./PartIII.md)** | Space | Spacecraft software architecture, RTOS platforms (VxWorks, RTEMS, FreeRTOS), flight software vulnerabilities, software upload security, spacecraft hacking scenarios, CubeSat security research, and space segment hardening |
 | **[PartIV.md](./PartIV.md)** | User | SATCOM terminal architecture, terminal firmware analysis, VSAT attack surface, GNSS overview and signal weaknesses, jamming and spoofing techniques, real-world GNSS attacks, countermeasures, and industry/regulatory appendices |
-| **[Appendices.md](./Appendices.md)** | Reference |  General appendices |
+| **[Appendices.md](./Appendices.md)** | Reference |  Repo sub-section topic appendices |
 
 ### Reading Order
 
