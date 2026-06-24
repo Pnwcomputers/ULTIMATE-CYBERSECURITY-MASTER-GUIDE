@@ -1,4 +1,4 @@
-# 🛠️ uConsole — Setup & Deployment Guides
+# 🛠️ uConsole: Setup & Deployment Guides
 
 <div align="center">
 
