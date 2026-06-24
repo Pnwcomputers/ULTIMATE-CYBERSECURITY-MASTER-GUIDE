@@ -274,20 +274,20 @@ USERS EXPLICITLY ACKNOWLEDGE:
 |----------|-------------|
 | [Hack-A-Sat](https://hackasat.com/) | Annual CTF run by US Space Force / Air Force |
 | [DEF CON Aerospace Village](https://aerospacevillage.org/) | Aerospace security community and talks |
-| IOActive — SATCOM Security | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
-| Black Hat 2020 — Ruben Santamarta | Revisited SATCOM vulnerabilities; aviation implications |
-| DEFCON 30 (2022) — Starlink | Physical fault injection; custom firmware execution |
+| [IOActive — SATCOM Security](https://ioactive.com/resources/white-papers/) | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
+| [Black Hat 2020 — Ruben Santamarta](https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511) | Revisited SATCOM vulnerabilities; aviation implications |
+| [DEFCON 30 (2022) — Starlink](https://www.youtube.com/watch?v=UJgnFSsV2bY) | Physical fault injection; custom firmware execution |
 
 ### Online Resources
 
 | Resource | URL |
 |----------|-----|
-| MITRE ATT&CK for ICS | https://attack.mitre.org/matrices/ics/ |
-| SatNOGS Network | https://network.satnogs.org/ |
-| Space-Track.org | https://www.space-track.org/ |
-| AMSAT | https://www.amsat.org/ |
-| CCSDS Publications | https://public.ccsds.org/Publications/default.aspx |
-| FCC ULS License Search | https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp |
+| MITRE ATT&CK for ICS | [https://attack.mitre.org/matrices/ics/](https://attack.mitre.org/matrices/ics/) |
+| SatNOGS Network | [https://network.satnogs.org/](https://network.satnogs.org/) |
+| Space-Track.org | [https://www.space-track.org/](https://www.space-track.org/) |
+| AMSAT | [https://www.amsat.org/](https://www.amsat.org/) |
+| CCSDS Publications | [https://public.ccsds.org/Publications/default.aspx](https://public.ccsds.org/Publications/default.aspx) |
+| FCC ULS License Search | [https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp](https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp) |
 
 ---
 
