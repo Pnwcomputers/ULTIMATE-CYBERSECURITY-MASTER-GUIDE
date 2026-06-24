@@ -21,6 +21,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Step 9 — GPIO Power Control](#step-9--gpio-power-control)
 - [Step 10 — WiFi Pentesting Setup](#step-10--wifi-pentesting-setup)
 - [Step 11 — LAN Pentesting via RJ45](#step-11--lan-pentesting-via-rj45)
+- [Step 12 — NVMe Battery Board Setup](#step-12--nvme-battery-board-setup)
 - [CM4-Specific Notes and Limitations](#cm4-specific-notes-and-limitations)
 - [AIO v2 Board — Hardware Reference](#aio-v2-board--hardware-reference)
 - [aiov2_ctl — Full Command Reference](#aiov2_ctl--full-command-reference)
@@ -581,6 +582,188 @@ sudo nmap -sS -sV -O -p- 192.168.1.0/24
 
 ---
 
+## Step 12 — NVMe Battery Board Setup
+
+The HackerGadgets NVMe Battery Board replaces the stock uConsole battery board, combining NVMe SSD storage with the battery compartment in a single PCB. This is part of the HackerGadgets Upgrade Kit and requires the HackerGadgets adapter board.
+
+### Hardware Overview
+
+| Feature | Detail |
+|---|---|
+| NVMe Slot | M.2 M-key, supports 2230 through 2280 form factors |
+| Battery | Two variants: dual 18650 holder, or LiPo battery pack |
+| Reverse Protection | Improved — no heat generated on reverse battery insertion; warning LED lights up |
+| Power Switch Mod | Desolder R14, connect a push-lock switch to J6 for manual on/off control |
+| Requires | HackerGadgets adapter board (from Upgrade Kit) |
+
+> **Important:** The NVMe feature requires the HackerGadgets adapter board. The NVMe Battery Board alone will not provide NVMe functionality without it.
+
+### Board Variants
+
+The NVMe Battery Board comes in two configurations:
+
+- **With Dual 18650 Battery Holder** — fits two standard 18650 cells side by side (the more common choice)
+- **Without Battery Holder** — designed for use with a LiPo battery pack wired in directly
+
+### Physical Installation
+
+1. Remove the stock uConsole battery board
+2. Install the HackerGadgets adapter board (connects the CM4 to the NVMe Battery Board via ribbon cable)
+3. Seat the NVMe Battery Board in place of the stock battery board
+4. Connect the ribbon cable between the adapter board and the NVMe Battery Board
+
+> **Critical:** Check ribbon cable orientation carefully. An incorrectly installed ribbon cable can prevent boot. If the uConsole won't boot after installation, the cable is likely flipped. **Never plug in the charger with a reversed ribbon cable** — this will damage the mainboard.
+
+5. Insert your NVMe SSD into the M.2 slot (2230 is the most compact; 2242 and 2280 also fit)
+6. Install your 18650 batteries or connect your LiPo pack
+
+### NVMe Software Configuration (CM4)
+
+#### Enable PCIe in config.txt
+
+Add the following to `/boot/firmware/config.txt`:
+
+```
+dtparam=pciex1
+```
+
+Or if your image already has it set to off, change it:
+
+```
+dtparam=pciex1=on
+```
+
+Reboot and verify the NVMe drive is detected:
+
+```bash
+lspci                    # Should show the NVMe controller
+lsblk                   # Should show nvme0n1
+sudo fdisk -l /dev/nvme0n1   # Full partition info
+```
+
+#### CM4 EEPROM — Do You Need to Update?
+
+Per Rex (the image maintainer): **"There's nothing you need to do to the EEPROM with the CM4."** Most CM4 modules shipped in recent years have NVMe boot support enabled in the EEPROM by default.
+
+However, if your CM4 is an older unit and NVMe isn't detected, you may need to update the EEPROM boot order. You can check your current EEPROM config with:
+
+```bash
+sudo CM4_ENABLE_RPI_EEPROM_UPDATE=1 rpi-eeprom-config
+```
+
+If `BOOT_ORDER` doesn't include `6` (NVMe), you'll need to update it. See the [Updating CM4 EEPROM](#updating-cm4-eeprom-if-needed) subsection below.
+
+### Cloning SD Card to NVMe
+
+The easiest way to migrate your working Kali setup from microSD to NVMe:
+
+#### Method 1: rpi-clone (Recommended)
+
+```bash
+# Install rpi-clone
+git clone https://github.com/billw2/rpi-clone.git
+cd rpi-clone
+sudo cp rpi-clone /usr/local/sbin/
+
+# Clone SD card to NVMe (device is nvme0n1 inside the uConsole)
+sudo rpi-clone nvme0n1
+```
+
+Follow the prompts. rpi-clone handles partition resizing and UUID updates automatically.
+
+#### Method 2: SD Card Copier (GUI)
+
+If you're running a desktop environment, the built-in SD Card Copier utility (available in Rex's Trixie and Bookworm) can copy from SD to NVMe. Select your SD card as source and the NVMe drive as destination.
+
+> **Tip from the community:** Consider adding `dtparam=pciex1_gen=2` to config.txt to cap the PCIe link at Gen 2 speed for improved stability. The CM4's PCIe is Gen 2 natively, so this just ensures no negotiation issues with certain drives.
+
+### Booting from NVMe
+
+Once the NVMe drive has a bootable OS image:
+
+#### Option A: NVMe as Primary Boot (Remove SD Card)
+
+If BOOT_ORDER in the EEPROM includes NVMe (`6`), simply remove the microSD card and the CM4 will fall through to NVMe boot.
+
+#### Option B: Dual Boot (SD + NVMe)
+
+Set the EEPROM boot order to SD first, NVMe second (`BOOT_ORDER=0xf16`). This gives you a simple dual-boot setup:
+
+- **SD card inserted** → boots from SD
+- **SD card removed** → boots from NVMe
+
+This is useful for keeping different OS configurations (e.g., Kali on NVMe for daily use, DragonOS on an SD card for SDR sessions).
+
+### Updating CM4 EEPROM (If Needed)
+
+If your CM4 doesn't detect the NVMe drive or won't boot from it, you may need to update the EEPROM. This requires a separate Raspberry Pi or a CM4 IO Board:
+
+```bash
+# On a host Pi (not the uConsole)
+sudo apt install git libusb-1.0-0-dev pkg-config
+git clone --depth=1 https://github.com/raspberrypi/usbboot
+cd usbboot
+make
+
+# Edit the boot configuration
+cd recovery
+nano boot.conf
+```
+
+Set `BOOT_ORDER` to try SD first, then NVMe:
+
+```ini
+[all]
+BOOT_UART=0
+WAKE_ON_GPIO=1
+POWER_OFF_ON_HALT=0
+BOOT_ORDER=0xf25461
+ENABLE_SELF_UPDATE=1
+```
+
+Then apply the update:
+
+```bash
+./update-pieeprom.sh
+cd ..
+sudo ./rpiboot -d recovery
+```
+
+Connect the CM4 (with the "disable eMMC boot" jumper set, if applicable) to the host Pi via USB. The EEPROM will be flashed. Disconnect, remove the jumper, and the CM4 will now support NVMe boot.
+
+### Optional: Hardware Power Switch Mod
+
+The NVMe Battery Board includes provision for a physical power switch — a nice feature for field use where you want to fully power down without pulling batteries:
+
+1. Desolder resistor **R14** on the NVMe Battery Board
+2. Solder a push-lock (latching) switch to the **J6** pads
+3. When the switch is locked → battery power is on
+4. When the switch is released → battery power is completely off
+
+A community member documented using an **SMD MSK12C02** slide switch that sits flush at the side panel for a clean, non-destructive, reversible installation.
+
+### Troubleshooting NVMe
+
+**NVMe not detected (`lspci` shows nothing):**
+
+- Verify `dtparam=pciex1=on` (not `off`) in `/boot/firmware/config.txt`
+- Reseat the ribbon cable between the adapter board and NVMe battery board — try flipping it if needed
+- Try the NVMe drive in a USB enclosure on another machine to confirm the drive itself works
+- Check for a faulty ribbon cable (broken traces)
+
+**NVMe detected but won't boot:**
+
+- Ensure a bootable OS image is on the NVMe (flash with Raspberry Pi Imager to a USB enclosure first, then move the drive)
+- Check EEPROM boot order includes NVMe: `sudo CM4_ENABLE_RPI_EEPROM_UPDATE=1 rpi-eeprom-config`
+- Verify the NVMe partition has boot files: `sudo mount /dev/nvme0n1p1 /mnt && ls /mnt`
+
+**Intermittent boot failures or PCIe errors in dmesg:**
+
+- Add `dtparam=pciex1_gen=2` to config.txt to force Gen 2 negotiation
+- Some Gen 4 NVMe drives have link training issues when negotiating down to Gen 2; try a different drive if problems persist
+
+---
+
 ## CM4-Specific Notes and Limitations
 
 | Item | CM4 Detail |
@@ -798,6 +981,14 @@ dtoverlay=i2c-rtc,pcf85063a
 |---|---|
 | AIO v2 Board | https://hackergadgets.com/products/uconsole-aio-v2 |
 | uConsole Upgrade Kit | https://hackergadgets.com/products/uconsole-upgrade-kit |
+| NVMe Battery Board | https://hackergadgets.com/products/nvme |
+
+### Community Threads
+
+| Resource | URL |
+|---|---|
+| Upgrade Kit Discussion | https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019 |
+| Power Switch Mod for NVMe Board | https://forum.clockworkpi.com/t/power-switch-for-hackergadgets-nvme-battery-board/21553 |
 
 ---
 
