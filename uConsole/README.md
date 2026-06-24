@@ -146,7 +146,7 @@ Rex's custom APT repo is pre-configured on his images. The AIO board package ins
 
 ```bash
 sudo apt update
-sudo apt install hackergadgets-uconsole-aio-board
+sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y && sudo apt install meshtastic-mui -y
 sudo reboot
 ```
 
