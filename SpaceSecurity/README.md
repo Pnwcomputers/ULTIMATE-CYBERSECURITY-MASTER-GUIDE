@@ -30,18 +30,18 @@
 
 ## 🎯 Overview
 
-Space systems underpin critical infrastructure worldwide — from GPS-enabled financial trading to military communications to commercial aviation. Yet most operational satellites were designed before modern cybersecurity practices existed, and the expanding commercial space sector has introduced a rapidly growing attack surface across orbital altitudes, radio frequencies, ground infrastructure, and end-user hardware.
+Space systems underpin critical infrastructure worldwide: from GPS-enabled financial trading to military communications to commercial aviation. Yet most operational satellites were designed before modern cybersecurity practices existed, and the expanding commercial space sector has introduced a rapidly growing attack surface across orbital altitudes, radio frequencies, ground infrastructure, and end-user hardware.
 
 This section provides a **comprehensive security reference** covering the entire space domain, organized by segment.
 
 **What You'll Find Here:**
-- 📡 Ground segment penetration testing — mission control, TT&C uplink chains, ground station networks
-- 🛰️ Space segment security — flight software vulnerabilities, RTOS exploitation, command injection
-- 📺 User segment attacks — SATCOM terminal hacking, GNSS spoofing and jamming, VSAT modem analysis
-- 📻 RF link analysis — CCSDS protocol dissection, signal interception, passive reconnaissance
-- 🔐 Hardening strategies — command authentication, encryption, network segmentation, defense-in-depth
-- 📊 Historical incident analysis — Viasat KA-SAT wiper attack, Turla satellite C2, GNSS spoofing campaigns
-- 🧪 Testing methodology — legal frameworks, assessment approaches, lab setup for space security research
+- 📡 Ground segment penetration testing: mission control, TT&C uplink chains, ground station networks
+- 🛰️ Space segment security: flight software vulnerabilities, RTOS exploitation, command injection
+- 📺 User segment attacks: SATCOM terminal hacking, GNSS spoofing and jamming, VSAT modem analysis
+- 📻 RF link analysis: CCSDS protocol dissection, signal interception, passive reconnaissance
+- 🔐 Hardening strategies: command authentication, encryption, network segmentation, defense-in-depth
+- 📊 Historical incident analysis: Viasat KA-SAT wiper attack, Turla satellite C2, GNSS spoofing campaigns
+- 🧪 Testing methodology: legal frameworks, assessment approaches, lab setup for space security research
 
 ### Purpose
 
@@ -70,9 +70,9 @@ These materials serve as:
 ```
 New to space security?
   └─> Start with Part I (Foundations) for terminology, threat landscape, and methodology
-  └─> Then Part II (Ground) — most attacks originate here
-  └─> Then Part IV (User) — highest practical applicability for pentesters
-  └─> Then Part III (Space) — advanced/research context
+  └─> Then Part II (Ground): most attacks originate here
+  └─> Then Part IV (User): highest practical applicability for pentesters
+  └─> Then Part III (Space): advanced/research context
 
 Experienced practitioner?
   └─> Jump directly to the segment relevant to your engagement
@@ -123,11 +123,11 @@ Every space system consists of three interdependent segments. A compromise of an
 ## 🔴 Why Space Security Matters Now
 
 - **Proliferated LEO constellations** (Starlink, OneWeb, Kuiper) serve millions of users and carry critical infrastructure traffic
-- **GNSS is everywhere** — financial systems, power grids, cellular networks, aviation, maritime, and autonomous vehicles all depend on GPS/Galileo/GLONASS timing and positioning
-- **Military dependence on commercial SATCOM** — DoD and allied forces rely heavily on commercial satellite communications for operations
-- **Nation-state ASAT programs** — Russia, China, Iran, and North Korea actively develop kinetic and cyber capabilities targeting space systems
-- **Legacy design** — Most operational GEO satellites were designed and launched before modern cybersecurity practices existed; many lack basic command authentication
-- **Expanding attack surface** — CubeSats with open-source FSW, COTS components, and publicly documented protocols lower the barrier for security research and adversarial activity
+- **GNSS is everywhere**: financial systems, power grids, cellular networks, aviation, maritime, and autonomous vehicles all depend on GPS/Galileo/GLONASS timing and positioning
+- **Military dependence on commercial SATCOM**: DoD and allied forces rely heavily on commercial satellite communications for operations
+- **Nation-state ASAT programs**: Russia, China, Iran, and North Korea actively develop kinetic and cyber capabilities targeting space systems
+- **Legacy design**: Most operational GEO satellites were designed and launched before modern cybersecurity practices existed; many lack basic command authentication
+- **Expanding attack surface**: CubeSats with open-source FSW, COTS components, and publicly documented protocols lower the barrier for security research and adversarial activity
 
 ---
 
@@ -135,18 +135,18 @@ Every space system consists of three interdependent segments. A compromise of an
 
 | Actor Type | Motivation | Capability | Historical Example |
 |------------|-----------|-----------|-------------------|
-| **Nation-state** | Strategic advantage, disruption, espionage | Kinetic ASAT, RF jamming/spoofing, cyber intrusion | GRU — Viasat KA-SAT wiper (2022) |
+| **Nation-state** | Strategic advantage, disruption, espionage | Kinetic ASAT, RF jamming/spoofing, cyber intrusion | GRU: Viasat KA-SAT wiper (2022) |
 | **Criminal** | Financial gain | Ground segment ransomware, data theft | Ransomware on satellite ground ops |
 | **Hacktivist** | Political messaging | Low-level jamming, signal hijacking | Signal hijacking incidents |
-| **Researcher** | Disclosure, learning | Variable — CTF, lab research | DEFCON Aerospace Village, Hack-A-Sat |
-| **Insider** | Sabotage, espionage | High — privileged access to command systems | Undetected until damage occurs |
+| **Researcher** | Disclosure, learning | Variable: CTF, lab research | DEFCON Aerospace Village, Hack-A-Sat |
+| **Insider** | Sabotage, espionage | High: privileged access to command systems | Undetected until damage occurs |
 
 ### Key Historical Incidents
 
 | Year | Incident | Impact |
 |------|---------|--------|
 | 2007–2008 | NASA/USGS satellite interference (China alleged) | Multiple TT&C intrusions on ground systems |
-| 2018 | Turla (Snake) APT — satellite internet C2 | Covert exfiltration via hijacked satellite links |
+| 2018 | Turla (Snake) APT: satellite internet C2 | Covert exfiltration via hijacked satellite links |
 | 2022 | Viasat KA-SAT cyberattack (Sandworm) | ~50,000 VSAT modems bricked across Europe |
 | 2022–present | GNSS jamming/spoofing in Ukraine/Eastern Europe | Aviation GPS outages, maritime position errors |
 
@@ -162,7 +162,7 @@ Every space system consists of three interdependent segments. A compromise of an
 | [**SDR#**](https://airspy.com/download/) / [**GQRX**](https://www.gqrx.dk/) / [**SDR++**](https://github.com/AlexandreRouworworma/SDRPlusPlus) | SDR receiver GUI | Spectrum monitoring and visualization |
 | [**gr-satellites**](https://github.com/daniestevez/gr-satellites) | Satellite signal decoder | Supports dozens of amateur/CubeSat formats |
 | [**SatDump**](https://github.com/SatDump/SatDump) | Satellite data decoder | NOAA, Meteor, MetOp weather satellites |
-| [**HackRF One**](https://greatscottgadgets.com/hackrf/one/) | Full-duplex SDR (1 MHz – 6 GHz) | TX capability — authorized lab use only |
+| [**HackRF One**](https://greatscottgadgets.com/hackrf/one/) | Full-duplex SDR (1 MHz – 6 GHz) | TX capability: authorized lab use only |
 | [**USRP B210**](https://www.ettus.com/all-products/ub210-kit/) | High-performance SDR (70 MHz – 6 GHz) | Research-grade wideband analysis |
 | [**RTL-SDR**](https://www.rtl-sdr.com/) | Receive-only SDR (500 kHz – 1.75 GHz) | Passive monitoring, entry-level |
 
@@ -179,7 +179,7 @@ Every space system consists of three interdependent segments. A compromise of an
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| [**GPS-SDR-SIM**](https://github.com/osqzss/gps-sdr-sim) | GPS L1 C/A signal simulator | TX requires HackRF — shielded enclosure only |
+| [**GPS-SDR-SIM**](https://github.com/osqzss/gps-sdr-sim) | GPS L1 C/A signal simulator | TX requires HackRF: shielded enclosure only |
 | [**GNSS-SDRLIB**](https://github.com/taroz/GNSS-SDRLIB) | Multi-constellation SDR receiver/generator | Research use |
 | [**Spirent GSS7000**](https://www.spirent.com/products/gnss-simulator-gss7000) | Commercial GNSS simulator | Professional lab testing |
 
@@ -225,8 +225,8 @@ This section contains attack techniques targeting space systems infrastructure.
 
 | Law / Regulation | Scope |
 |-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems — up to 10 years imprisonment |
-| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies — criminal offense |
+| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems: up to 10 years imprisonment |
+| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies: criminal offense |
 | **ITAR (22 CFR 120-130)** | Export control on satellite technology, tools, and techniques |
 | **EAR (15 CFR 730-774)** | Additional export controls on dual-use space technology |
 | **ITU Radio Regulations** | International frequency coordination and harmful interference prohibition |
@@ -274,9 +274,9 @@ USERS EXPLICITLY ACKNOWLEDGE:
 |----------|-------------|
 | [Hack-A-Sat](https://hackasat.com/) | Annual CTF run by US Space Force / Air Force |
 | [DEF CON Aerospace Village](https://aerospacevillage.org/) | Aerospace security community and talks |
-| [IOActive — SATCOM Security](https://ioactive.com/resources/white-papers/) | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
-| [Black Hat 2020 — Ruben Santamarta](https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511) | Revisited SATCOM vulnerabilities; aviation implications |
-| [DEFCON 30 (2022) — Starlink](https://www.youtube.com/watch?v=UJgnFSsV2bY) | Physical fault injection; custom firmware execution |
+| [IOActive: SATCOM Security](https://ioactive.com/resources/white-papers/) | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
+| [Black Hat 2020: Ruben Santamarta](https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511) | Revisited SATCOM vulnerabilities; aviation implications |
+| [DEFCON 30 (2022): Starlink](https://www.youtube.com/watch?v=UJgnFSsV2bY) | Physical fault injection; custom firmware execution |
 
 ### Online Resources
 
@@ -327,7 +327,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
-*Space systems are critical infrastructure — treat them accordingly.*
+*Space systems are critical infrastructure: treat them accordingly.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
