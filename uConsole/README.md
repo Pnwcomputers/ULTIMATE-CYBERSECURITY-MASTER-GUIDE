@@ -1,4 +1,4 @@
-# uConsole Setup Guide
+# uConsole Guide
 
 ## Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM4 Configuration
 
@@ -222,25 +222,25 @@ sudo apt install -t kali-rolling kali-tools-top10 -y
 sudo apt install -t kali-rolling kali-linux-headless -y
 ```
 
-> **Important:** Always use `-t kali-rolling` when installing Kali packages on Trixie. Without it, APT tries to mix subpackage versions across both repos (e.g., `wireshark` from Trixie with `wireshark-common` from Kali) and the install will fail with unresolvable dependency conflicts. The `-t` flag temporarily boosts the Kali repo priority for that transaction so all dependencies pull from the same source.
+### Set Kali as the Primary Package Source (Required)
 
-### Recommended: Pin Kali Packages
+Once any Kali meta-package is installed, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) will be upgraded to newer versions than Trixie carries. From that point on, **every** `apt install` that touches those libraries will fail with version mismatch errors unless the packages come from Kali too: including the Meshtasticd `-dev` dependencies in [Step 6](#step-6--configure-lora--meshtasticd) and anything else you install later.
 
-Create a pin file that lets Kali win for everything except a handful of core system packages you never want replaced:
+Rather than remembering to add `-t kali-rolling` to every single `apt install` command, set Kali as the default high-priority repo:
 
 ```bash
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
-Package: libc6 libc-bin libssl3 openssl python3 python3-minimal
-Pin: release o=Kali
-Pin-Priority: 1
-
 Package: *
 Pin: release o=Kali
-Pin-Priority: 500
+Pin-Priority: 900
 EOF
+
+sudo apt update
 ```
 
-This prevents `apt upgrade` from pulling Kali's versions of critical system libraries while allowing Kali's versions of everything else (including tools and their dependencies like Qt, Wireshark, etc.) to take priority. This avoids the version-mixing dependency conflicts that occur with a more restrictive pin.
+This makes Kali rolling the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (like the AIO board package and uConsole-specific kernel packages). Your system is effectively a Kali box running Rex's kernel and hardware patches: which is exactly what you want for a pentest platform.
+
+> **Note:** After setting this pin, you no longer need `-t kali-rolling` on individual install commands. Regular `apt install <package>` will pull from Kali first.
 
 ---
 
@@ -396,6 +396,8 @@ pinctrl set 22 op dh   # GPIO 22 = LoRa
 ```
 
 ### Install Meshtasticd Dependencies
+
+> **Trixie + Kali users:** If you haven't set the Kali APT pin from [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only), these `-dev` packages will fail with version mismatches against the Kali-upgraded runtime libraries. Either set the pin first or add `-t kali-rolling` to this command.
 
 ```bash
 sudo apt install libgpiod-dev libyaml-cpp-dev libbluetooth-dev \
@@ -1165,17 +1167,29 @@ sudo apt --fix-broken install -y
 
 If you hit additional diversion clashes from other Pi packages during the Kali install, the pattern is the same: identify the Pi package that owns the existing diversion (`dpkg-divert --list` to see all active diversions), remove it, and let the Kali package take over.
 
-### Kali tools fail with "Unsatisfied dependencies" on Trixie
+### "Unsatisfied dependencies" or version mismatches on Trixie + Kali
 
-APT tries to mix subpackage versions across Trixie and Kali repos (e.g., `wireshark` from one repo with `wireshark-common` from the other), resulting in unresolvable dependency conflicts.
+Once Kali meta-packages are installed, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) are upgraded past what Trixie carries. From that point on, any `apt install` that touches those libraries (including `-dev` header packages for compiling Meshtasticd, etc.) will fail with version mismatch errors unless the packages come from Kali.
 
-Always install Kali meta-packages with the `-t kali-rolling` flag:
+**Quick fix for a single install:**
 
 ```bash
-sudo apt install -t kali-rolling kali-tools-top10 -y
+sudo apt install -t kali-rolling <packages> -y
 ```
 
-This forces APT to pull the entire dependency tree from the Kali repo for that transaction. If it still fails, check whether an APT pin file is restricting Kali packages to low priority and adjust it (see [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only)).
+**Permanent fix (recommended):**
+
+```bash
+sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
+Package: *
+Pin: release o=Kali
+Pin-Priority: 900
+EOF
+
+sudo apt update
+```
+
+This makes Kali rolling the primary repo. Trixie and Rex's repo fill in anything Kali doesn't carry. After setting this, regular `apt install` works without `-t kali-rolling`.
 
 ---
 
