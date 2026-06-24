@@ -72,6 +72,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
 | 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
+| 📟 **uConsole Field Guide** | Configuration, portable pentesting setups, and operational workflows optimized for the ClockworkPi uConsole cyberdeck. |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
@@ -134,6 +135,12 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 ### 🔧 Hardware Arsenal Documented
 **Multi-tools:** [Flipper Zero](https://flipperzero.one/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
 
+### 📟 uConsole & Portable Operations
+Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations. 
+* **OS & Toolkit Optimization:** Customizing Kali Linux, Parrot OS, or custom Debian builds for the uConsole's unique form factor.
+* **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
+* **Hardware Interfacing:** Using the uConsole for serial connections, hardware debugging, and local network audits.
+
 **Hak5 Suite:** [Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky) · [Bash Bunny](https://shop.hak5.org/products/bash-bunny) · [LAN Turtle](https://shop.hak5.org/products/lan-turtle) · [Packet Squirrel](https://shop.hak5.org/products/packet-squirrel) · [Shark Jack](https://shop.hak5.org/products/shark-jack) · [O.MG Cable](https://shop.hak5.org/products/omg-cable)
 
 **RF / SDR:** [HackRF One](https://greatscottgadgets.com/hackrf/) · [RTL-SDR](https://www.rtl-sdr.com/) · [Ubertooth One](https://greatscottgadgets.com/ubertoothone/) · [YardStick One](https://greatscottgadgets.com/yardstickone/)
@@ -168,6 +175,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - ✅ Develop and analyze exploits
 - ✅ Build and operate a security homelab
 - ✅ Analyze real-world attack campaigns
+- ✅ **Deploy Portable Cyberdecks**: Set up and optimize the uConsole for on-the-go pentesting, SDR (Software Defined Radio), and field operations.
 
 ### For Your Career
 - ✅ Prepare for OSCP, CEH, GPEN, CySA+, CISSP
