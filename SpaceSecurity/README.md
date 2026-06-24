@@ -158,38 +158,38 @@ Every space system consists of three interdependent segments. A compromise of an
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| **GNU Radio** | SDR signal processing framework | Core platform for all RF analysis |
-| **SDR# / GQRX / SDR++** | SDR receiver GUI | Spectrum monitoring and visualization |
-| **gr-satellites** | Satellite signal decoder | Supports dozens of amateur/CubeSat formats |
-| **SatDump** | Satellite data decoder | NOAA, Meteor, MetOp weather satellites |
-| **HackRF One** | Full-duplex SDR (1 MHz – 6 GHz) | TX capability — authorized lab use only |
-| **USRP B210** | High-performance SDR (70 MHz – 6 GHz) | Research-grade wideband analysis |
-| **RTL-SDR** | Receive-only SDR (500 kHz – 1.75 GHz) | Passive monitoring, entry-level |
+| [**GNU Radio**](https://www.gnuradio.org/) | SDR signal processing framework | Core platform for all RF analysis |
+| [**SDR#**](https://airspy.com/download/) / [**GQRX**](https://www.gqrx.dk/) / [**SDR++**](https://github.com/AlexandreRouworworma/SDRPlusPlus) | SDR receiver GUI | Spectrum monitoring and visualization |
+| [**gr-satellites**](https://github.com/daniestevez/gr-satellites) | Satellite signal decoder | Supports dozens of amateur/CubeSat formats |
+| [**SatDump**](https://github.com/SatDump/SatDump) | Satellite data decoder | NOAA, Meteor, MetOp weather satellites |
+| [**HackRF One**](https://greatscottgadgets.com/hackrf/one/) | Full-duplex SDR (1 MHz – 6 GHz) | TX capability — authorized lab use only |
+| [**USRP B210**](https://www.ettus.com/all-products/ub210-kit/) | High-performance SDR (70 MHz – 6 GHz) | Research-grade wideband analysis |
+| [**RTL-SDR**](https://www.rtl-sdr.com/) | Receive-only SDR (500 kHz – 1.75 GHz) | Passive monitoring, entry-level |
 
 ### Ground System and Network
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| **Wireshark** | Ground network traffic analysis | Custom CCSDS dissectors available |
-| **COSMOS** | Open-source mission control framework | FSW testing and simulation |
-| **Shodan / Censys** | Internet-exposed ground system discovery | Search for exposed MCS interfaces |
-| **boofuzz** | Protocol fuzzing | Target CCSDS parsers and ground APIs |
+| [**Wireshark**](https://www.wireshark.org/) | Ground network traffic analysis | Custom CCSDS dissectors available |
+| [**COSMOS**](https://github.com/OpenC3/cosmos) | Open-source mission control framework | FSW testing and simulation |
+| [**Shodan**](https://www.shodan.io/) / [**Censys**](https://search.censys.io/) | Internet-exposed ground system discovery | Search for exposed MCS interfaces |
+| [**boofuzz**](https://github.com/jtpereyda/boofuzz) | Protocol fuzzing | Target CCSDS parsers and ground APIs |
 
 ### GNSS Research
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| **GPS-SDR-SIM** | GPS L1 C/A signal simulator | TX requires HackRF — shielded enclosure only |
-| **GNSS-SDRLIB** | Multi-constellation SDR receiver/generator | Research use |
-| **Spirent GSS7000** | Commercial GNSS simulator | Professional lab testing |
+| [**GPS-SDR-SIM**](https://github.com/osqzss/gps-sdr-sim) | GPS L1 C/A signal simulator | TX requires HackRF — shielded enclosure only |
+| [**GNSS-SDRLIB**](https://github.com/taroz/GNSS-SDRLIB) | Multi-constellation SDR receiver/generator | Research use |
+| [**Spirent GSS7000**](https://www.spirent.com/products/gnss-simulator-gss7000) | Commercial GNSS simulator | Professional lab testing |
 
 ### Firmware Analysis
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
-| **binwalk** | Firmware extraction | Standard first step for terminal analysis |
-| **QEMU** | Firmware emulation | Dynamic analysis of extracted binaries |
-| **Ghidra / IDA** | Reverse engineering | Static analysis of FSW and terminal firmware |
+| [**binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction | Standard first step for terminal analysis |
+| [**QEMU**](https://www.qemu.org/) | Firmware emulation | Dynamic analysis of extracted binaries |
+| [**Ghidra**](https://ghidra-sre.org/) / [**IDA**](https://hex-rays.com/ida-pro/) | Reverse engineering | Static analysis of FSW and terminal firmware |
 
 ---
 
