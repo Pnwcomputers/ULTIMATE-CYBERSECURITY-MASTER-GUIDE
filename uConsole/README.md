@@ -216,33 +216,31 @@ Pick one based on how much you want installed:
 
 ```bash
 # Example: install the core top 10
-sudo apt install kali-tools-top10 -y
+sudo apt install -t kali-rolling kali-tools-top10 -y
 
 # Or go bigger
-sudo apt install kali-linux-headless -y
+sudo apt install -t kali-rolling kali-linux-headless -y
 ```
 
-### Optional: Pin Kali Packages to Lower Priority
+> **Important:** Always use `-t kali-rolling` when installing Kali packages on Trixie. Without it, APT tries to mix subpackage versions across both repos (e.g., `wireshark` from Trixie with `wireshark-common` from Kali) and the install will fail with unresolvable dependency conflicts. The `-t` flag temporarily boosts the Kali repo priority for that transaction so all dependencies pull from the same source.
 
-If you want Trixie's base system packages to always take precedence over Kali's versions during `apt upgrade`, create a pin file:
+### Recommended: Pin Kali Packages
+
+Create a pin file that lets Kali win for everything except a handful of core system packages you never want replaced:
 
 ```bash
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
+Package: libc6 libc-bin libssl3 openssl python3 python3-minimal
+Pin: release o=Kali
+Pin-Priority: 1
+
 Package: *
-Pin: release o=Kali
-Pin-Priority: 100
-
-Package: kali-*
-Pin: release o=Kali
-Pin-Priority: 500
-
-Package: metasploit-framework aircrack-ng nmap burpsuite responder crackmapexec impacket-scripts sqlmap john hashcat wifite bettercap
 Pin: release o=Kali
 Pin-Priority: 500
 EOF
 ```
 
-This ensures Kali's repo is only used for the security tools and doesn't replace Trixie's core system packages (libc, openssl, python, etc.) with Kali's versions.
+This prevents `apt upgrade` from pulling Kali's versions of critical system libraries while allowing Kali's versions of everything else (including tools and their dependencies like Qt, Wireshark, etc.) to take priority. This avoids the version-mixing dependency conflicts that occur with a more restrictive pin.
 
 ---
 
@@ -1166,6 +1164,18 @@ sudo apt --fix-broken install -y
 ```
 
 If you hit additional diversion clashes from other Pi packages during the Kali install, the pattern is the same: identify the Pi package that owns the existing diversion (`dpkg-divert --list` to see all active diversions), remove it, and let the Kali package take over.
+
+### Kali tools fail with "Unsatisfied dependencies" on Trixie
+
+APT tries to mix subpackage versions across Trixie and Kali repos (e.g., `wireshark` from one repo with `wireshark-common` from the other), resulting in unresolvable dependency conflicts.
+
+Always install Kali meta-packages with the `-t kali-rolling` flag:
+
+```bash
+sudo apt install -t kali-rolling kali-tools-top10 -y
+```
+
+This forces APT to pull the entire dependency tree from the Kali repo for that transaction. If it still fails, check whether an APT pin file is restricting Kali packages to low priority and adjust it (see [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only)).
 
 ---
 
