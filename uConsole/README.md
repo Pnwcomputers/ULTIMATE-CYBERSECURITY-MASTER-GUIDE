@@ -1,6 +1,6 @@
 # uConsole Setup Guide
 
-## Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM4 Configuration
+## Rex's Kali or Trixie + HackerGadgets AIO v2 Board — CM4 Configuration
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
@@ -9,23 +9,23 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 ## Table of Contents
 
 - [Hardware Overview](#hardware-overview)
-- [Choosing Your OS: Kali vs Trixie](#choosing-your-os--kali-vs-trixie)
-- [Step 1: Flash the OS](#step-1--flash-the-os)
-- [Step 2: First Boot and Initial Setup](#step-2--first-boot-and-initial-setup)
-- [Step 2.5: Install Kali Tools on Trixie (Trixie Only)](#step-25--install-kali-tools-on-trixie-trixie-only)
-- [Step 3: Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
-- [Step 4: Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
-- [Step 5: Configure GPS (CM4)](#step-5--configure-gps-cm4)
-- [Step 6: Configure LoRa / Meshtasticd](#step-6--configure-lora--meshtasticd)
-- [Step 7: Configure RTC](#step-7--configure-rtc)
-- [Step 8: Configure SDR](#step-8--configure-sdr)
-- [Step 9: GPIO Power Control](#step-9--gpio-power-control)
-- [Step 10: WiFi Pentesting Setup](#step-10--wifi-pentesting-setup)
-- [Step 11: LAN Pentesting via RJ45](#step-11--lan-pentesting-via-rj45)
-- [Step 12: NVMe Battery Board Setup](#step-12--nvme-battery-board-setup)
+- [Choosing Your OS — Kali vs Trixie](#choosing-your-os--kali-vs-trixie)
+- [Step 1 — Flash the OS](#step-1--flash-the-os)
+- [Step 2 — First Boot and Initial Setup](#step-2--first-boot-and-initial-setup)
+- [Step 2.5 — Install Kali Tools on Trixie (Trixie Only)](#step-25--install-kali-tools-on-trixie-trixie-only)
+- [Step 3 — Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
+- [Step 4 — Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
+- [Step 5 — Configure GPS (CM4)](#step-5--configure-gps-cm4)
+- [Step 6 — Configure LoRa / Meshtasticd](#step-6--configure-lora--meshtasticd)
+- [Step 7 — Configure RTC](#step-7--configure-rtc)
+- [Step 8 — Configure SDR](#step-8--configure-sdr)
+- [Step 9 — GPIO Power Control](#step-9--gpio-power-control)
+- [Step 10 — WiFi Pentesting Setup](#step-10--wifi-pentesting-setup)
+- [Step 11 — LAN Pentesting via RJ45](#step-11--lan-pentesting-via-rj45)
+- [Step 12 — NVMe Battery Board Setup](#step-12--nvme-battery-board-setup)
 - [CM4-Specific Notes and Limitations](#cm4-specific-notes-and-limitations)
-- [AIO v2 Board: Hardware Reference](#aio-v2-board--hardware-reference)
-- [aiov2_ctl: Full Command Reference](#aiov2_ctl--full-command-reference)
+- [AIO v2 Board — Hardware Reference](#aio-v2-board--hardware-reference)
+- [aiov2_ctl — Full Command Reference](#aiov2_ctl--full-command-reference)
 - [Meshtasticd Web Interface](#meshtasticd-web-interface)
 - [Boot Automation](#boot-automation)
 - [Troubleshooting](#troubleshooting)
@@ -56,19 +56,19 @@ This guide assumes the following hardware stack:
 | **USB Hub** | External USB-C port + internal USB-C + pin header |
 | **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
 
-> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way**: incorrect installation will damage the uConsole mainboard.
+> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** — incorrect installation will damage the uConsole mainboard.
 
 ---
 
-## Choosing Your OS: Kali vs Trixie
+## Choosing Your OS — Kali vs Trixie
 
-Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package: this package is not available on stock ClockworkPi images.
+Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package — this package is not available on stock ClockworkPi images.
 
 This guide covers two recommended paths:
 
 ### Path A: Rex's Kali Image (Pentesting Out of the Box)
 
-The full Kali toolchain comes pre-installed: aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc. No additional tool installation needed. Best for users who want a ready-made pentest platform.
+The full Kali toolchain comes pre-installed — aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc. No additional tool installation needed. Best for users who want a ready-made pentest platform.
 
 **Pros:** Everything pre-installed, Kali community support, familiar to pentesters.
 **Cons:** Can hit package conflicts with `cryptsetup-initramfs` during AIO board setup (see Step 3). Trackball slightly less responsive than on Bookworm/Trixie.
@@ -91,7 +91,7 @@ Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling
 
 ---
 
-## Step 1: Flash the OS
+## Step 1 — Flash the OS
 
 ### Download Your Image
 
@@ -102,7 +102,7 @@ Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling
 
 **Trixie:**
 - **Thread:** [Trixie 6.12.y for the uConsole and DevTerm](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
-- Same process: MEGA link in the first post, kernel 6.12.67+
+- Same process — MEGA link in the first post, kernel 6.12.67+
 
 ### Flash the Image
 
@@ -125,7 +125,7 @@ Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling
 
 ---
 
-## Step 2: First Boot and Initial Setup
+## Step 2 — First Boot and Initial Setup
 
 ### Default Credentials
 
@@ -165,9 +165,9 @@ sudo reboot
 
 ---
 
-## Step 2.5: Install Kali Tools on Trixie (Trixie Only)
+## Step 2.5 — Install Kali Tools on Trixie (Trixie Only)
 
-> **Skip this step if you are using Rex's Kali image: the tools are already installed.**
+> **Skip this step if you are using Rex's Kali image — the tools are already installed.**
 
 Add the Kali rolling repository and import the signing key:
 
@@ -181,15 +181,38 @@ curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o /etc
 sudo apt update
 ```
 
+### Fix dpkg-divert Conflict BEFORE Installing (Required)
+
+The `kali-defaults` package (a dependency of all Kali meta-packages) tries to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` to remove the PEP 668 restriction on `pip install`. However, Rex's Trixie image already has `raspberrypi-sys-mods` installed, which diverts the same file to a different target name. This causes a diversion clash that hard-fails the install:
+
+```
+dpkg-divert: error: 'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED to
+/usr/lib/python3.13/EXTERNALLY-MANAGED.original by kali-defaults' clashes with
+'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED to
+/usr/lib/python3.13/EXTERNALLY-MANAGED.orig by raspberrypi-sys-mods'
+```
+
+Fix this before installing any Kali packages:
+
+```bash
+# Remove the file blocking the diversion rename
+sudo rm /usr/lib/python3.13/EXTERNALLY-MANAGED
+
+# Remove the existing diversion owned by raspberrypi-sys-mods
+sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED
+```
+
+> **Note:** The Python version in the path (`python3.13`) may differ depending on when you install. Check with `ls /usr/lib/python3.*/EXTERNALLY-MANAGED` if the above path doesn't exist.
+
 ### Choose Your Toolkit
 
 Pick one based on how much you want installed:
 
 | Meta-Package | What You Get |
 |---|---|
-| `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
-| `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit: everything you'd get from a Kali ISO |
+| `kali-tools-top10` | Core 10 tools — nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
+| `kali-linux-headless` | Larger headless set — good for SSH-only or lightweight desktop use |
+| `kali-linux-default` | Full default Kali desktop toolkit — everything you'd get from a Kali ISO |
 
 ```bash
 # Example: install the core top 10
@@ -223,7 +246,7 @@ This ensures Kali's repo is only used for the security tools and doesn't replace
 
 ---
 
-## Step 3: Install the AIO v2 Board Package
+## Step 3 — Install the AIO v2 Board Package
 
 Rex's custom APT repo is pre-configured on his images. The AIO board package installs everything needed for the AIO v2 ecosystem in one command.
 
@@ -252,7 +275,7 @@ sudo reboot
 
 | Package | Function |
 |---|---|
-| `hackergadgets-uconsole-aio-board` | Core AIO v2 integration: GPIO, power rails, RTC support, services, uConsole-specific configuration |
+| `hackergadgets-uconsole-aio-board` | Core AIO v2 integration — GPIO, power rails, RTC support, services, uConsole-specific configuration |
 | `meshtastic-mui` | Meshtastic graphical UI for LoRa/Meshtastic devices |
 | `sdrpp-brown` | Preconfigured SDR++ build for the uConsole (RF scanning/listening) |
 | `tar1090` | ADS-B aircraft tracking web UI (visualizes planes from your SDR feed) |
@@ -262,7 +285,7 @@ It also sets up supporting services (RTC, GPIO helpers, and desktop menu entries
 
 ---
 
-## Step 4: Install aiov2_ctl (GPIO Control Tool)
+## Step 4 — Install aiov2_ctl (GPIO Control Tool)
 
 `aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It provides both CLI and system tray GUI for toggling peripherals on/off, monitoring power, and configuring boot states.
 
@@ -299,7 +322,7 @@ This creates an XDG autostart entry so the system tray icon launches on login.
 
 ---
 
-## Step 5: Configure GPS (CM4)
+## Step 5 — Configure GPS (CM4)
 
 ### CM4-Specific GPS Path
 
@@ -347,9 +370,9 @@ dtoverlay=pps-gpio,gpiopin=6
 
 ---
 
-## Step 6: Configure LoRa / Meshtasticd
+## Step 6 — Configure LoRa / Meshtasticd
 
-### Prerequisites: SPI and Service Conflicts
+### Prerequisites — SPI and Service Conflicts
 
 Add the following to `/boot/firmware/config.txt`:
 
@@ -358,7 +381,7 @@ dtparam=spi=on
 dtoverlay=spi1-1cs
 ```
 
-**Disable the devterm-printer service**: it uses SPI1 GPIO and will conflict with LoRa:
+**Disable the devterm-printer service** — it uses SPI1 GPIO and will conflict with LoRa:
 
 ```bash
 sudo systemctl stop devterm-printer.service
@@ -396,7 +419,7 @@ Lora:
   spidev: spidev1.0
 
 GPS:
-  SerialPath: /dev/ttyS0    # CM4 path: use /dev/ttyAMA0 for CM5
+  SerialPath: /dev/ttyS0    # CM4 path — use /dev/ttyAMA0 for CM5
 
 Webserver:
   Port: 443
@@ -454,7 +477,7 @@ Connect a 433/915 MHz antenna (depending on your region) to the IPEX connector l
 
 ---
 
-## Step 7: Configure RTC
+## Step 7 — Configure RTC
 
 The RTC (PCF85063A) requires manual configuration. Add the following to `/boot/firmware/config.txt`:
 
@@ -487,7 +510,7 @@ sudo hwclock -w
 
 ---
 
-## Step 8: Configure SDR
+## Step 8 — Configure SDR
 
 ### Enable GPIO for SDR
 
@@ -514,7 +537,7 @@ Connect an antenna to the IPEX connector labeled **"SDR"** on the AIO v2 board. 
 
 ---
 
-## Step 9: GPIO Power Control
+## Step 9 — GPIO Power Control
 
 ### AIO v2 GPIO Pin Map
 
@@ -599,7 +622,7 @@ Left-click the tray icon for a status window; right-click for toggle controls. T
 
 ---
 
-## Step 10: WiFi Pentesting Setup
+## Step 10 — WiFi Pentesting Setup
 
 The CM4's onboard WiFi **does not support monitor mode**. You need an external USB WiFi adapter.
 
@@ -657,9 +680,9 @@ sqlmap
 
 ---
 
-## Step 11: LAN Pentesting via RJ45
+## Step 11 — LAN Pentesting via RJ45
 
-The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the **HackerGadgets adapter board** from the Upgrade Kit: without it, the RJ45 port will not function.
+The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the **HackerGadgets adapter board** from the Upgrade Kit — without it, the RJ45 port will not function.
 
 With the adapter board installed, you can use the uConsole as a network tap or drop box:
 
@@ -682,7 +705,7 @@ sudo nmap -sS -sV -O -p- 192.168.1.0/24
 
 ---
 
-## Step 12: NVMe Battery Board Setup
+## Step 12 — NVMe Battery Board Setup
 
 The HackerGadgets NVMe Battery Board replaces the stock uConsole battery board, combining NVMe SSD storage with the battery compartment in a single PCB. This is part of the HackerGadgets Upgrade Kit and requires the HackerGadgets adapter board.
 
@@ -692,7 +715,7 @@ The HackerGadgets NVMe Battery Board replaces the stock uConsole battery board, 
 |---|---|
 | NVMe Slot | M.2 M-key, supports 2230 through 2280 form factors |
 | Battery | Two variants: dual 18650 holder, or LiPo battery pack |
-| Reverse Protection | Improved: no heat generated on reverse battery insertion; warning LED lights up |
+| Reverse Protection | Improved — no heat generated on reverse battery insertion; warning LED lights up |
 | Power Switch Mod | Desolder R14, connect a push-lock switch to J6 for manual on/off control |
 | Requires | HackerGadgets adapter board (from Upgrade Kit) |
 
@@ -702,8 +725,8 @@ The HackerGadgets NVMe Battery Board replaces the stock uConsole battery board, 
 
 The NVMe Battery Board comes in two configurations:
 
-- **With Dual 18650 Battery Holder**: fits two standard 18650 cells side by side (the more common choice)
-- **Without Battery Holder**: designed for use with a LiPo battery pack wired in directly
+- **With Dual 18650 Battery Holder** — fits two standard 18650 cells side by side (the more common choice)
+- **Without Battery Holder** — designed for use with a LiPo battery pack wired in directly
 
 ### Physical Installation
 
@@ -712,7 +735,7 @@ The NVMe Battery Board comes in two configurations:
 3. Seat the NVMe Battery Board in place of the stock battery board
 4. Connect the ribbon cable between the adapter board and the NVMe Battery Board
 
-> **Critical:** Check ribbon cable orientation carefully. An incorrectly installed ribbon cable can prevent boot. If the uConsole won't boot after installation, the cable is likely flipped. **Never plug in the charger with a reversed ribbon cable**: this will damage the mainboard.
+> **Critical:** Check ribbon cable orientation carefully. An incorrectly installed ribbon cable can prevent boot. If the uConsole won't boot after installation, the cable is likely flipped. **Never plug in the charger with a reversed ribbon cable** — this will damage the mainboard.
 
 5. Insert your NVMe SSD into the M.2 slot (2230 is the most compact; 2242 and 2280 also fit)
 6. Install your 18650 batteries or connect your LiPo pack
@@ -741,7 +764,7 @@ lsblk                   # Should show nvme0n1
 sudo fdisk -l /dev/nvme0n1   # Full partition info
 ```
 
-#### CM4 EEPROM: Do You Need to Update?
+#### CM4 EEPROM — Do You Need to Update?
 
 Per Rex (the image maintainer): **"There's nothing you need to do to the EEPROM with the CM4."** Most CM4 modules shipped in recent years have NVMe boot support enabled in the EEPROM by default.
 
@@ -833,7 +856,7 @@ Connect the CM4 (with the "disable eMMC boot" jumper set, if applicable) to the 
 
 ### Optional: Hardware Power Switch Mod
 
-The NVMe Battery Board includes provision for a physical power switch: a nice feature for field use where you want to fully power down without pulling batteries:
+The NVMe Battery Board includes provision for a physical power switch — a nice feature for field use where you want to fully power down without pulling batteries:
 
 1. Desolder resistor **R14** on the NVMe Battery Board
 2. Solder a push-lock (latching) switch to the **J6** pads
@@ -847,7 +870,7 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 **NVMe not detected (`lspci` shows nothing):**
 
 - Verify `dtparam=pciex1=on` (not `off`) in `/boot/firmware/config.txt`
-- Reseat the ribbon cable between the adapter board and NVMe battery board: try flipping it if needed
+- Reseat the ribbon cable between the adapter board and NVMe battery board — try flipping it if needed
 - Try the NVMe drive in a USB enclosure on another machine to confirm the drive itself works
 - Check for a faulty ribbon cable (broken traces)
 
@@ -875,12 +898,12 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 | RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM5 which needs `i2c_csi_dsi0` remap) |
 | Serial Console | Must remove `console=serial0,115200` from cmdline.txt for GPS |
 | SPI Conflict | Must disable `devterm-printer.service` for LoRa |
-| Onboard WiFi | Does NOT support monitor mode: external adapter required |
+| Onboard WiFi | Does NOT support monitor mode — external adapter required |
 | RJ45 Ethernet | Requires HackerGadgets adapter board from Upgrade Kit |
 
 ---
 
-## AIO v2 Board: Hardware Reference
+## AIO v2 Board — Hardware Reference
 
 ### Antenna Connectors
 
@@ -915,7 +938,7 @@ The antenna mounting kit (sold with some variants) supports up to 7 antennas.
 
 ---
 
-## aiov2_ctl: Full Command Reference
+## aiov2_ctl — Full Command Reference
 
 ```
 aiov2_ctl                           # Show current GPIO state
@@ -1006,7 +1029,7 @@ dtoverlay=spi1-1cs
 dtparam=i2c_arm=on
 dtoverlay=i2c-rtc,pcf85063a
 
-# GPS PPS output (optional: for precision timing)
+# GPS PPS output (optional — for precision timing)
 # dtoverlay=pps-gpio,gpiopin=6
 ```
 
@@ -1044,15 +1067,15 @@ dtoverlay=i2c-rtc,pcf85063a
 
 ### Trackball quirks on Kali
 
-- The trackball can be slightly less responsive on Kali compared to Bookworm or Trixie: this is a known minor issue
+- The trackball can be slightly less responsive on Kali compared to Bookworm or Trixie — this is a known minor issue
 - Trixie does not have this problem, which is another reason it makes a good base image
 - If problematic on Kali, the Bookworm or Trixie images have the best trackball behavior
 
 ### uConsole won't boot after AIO v2 installation
 
-- **Check the ribbon cable orientation**: this is the most common cause
+- **Check the ribbon cable orientation** — this is the most common cause
 - Refer to the HackerGadgets installation photos for correct orientation
-- **Never plug in the charger if the ribbon cable is wrong**: it will damage the mainboard
+- **Never plug in the charger if the ribbon cable is wrong** — it will damage the mainboard
 
 ### Package install fails with "subprocess returned error code 1" (cryptsetup-initramfs)
 
@@ -1090,7 +1113,7 @@ sudo mount --bind /proc /mnt/proc
 # Enter the chroot
 sudo chroot /mnt /bin/bash
 
-# Inside chroot: fix the cryptsetup issue
+# Inside chroot — fix the cryptsetup issue
 mkdir -p /etc/cryptsetup-initramfs
 echo "CRYPTSETUP=n" > /etc/cryptsetup-initramfs/conf-hook
 dpkg --configure -a
@@ -1125,6 +1148,24 @@ If the package state is too mangled to fix in place:
 sudo dpkg --remove --force-remove-reinstreq cryptsetup-initramfs
 sudo apt --fix-broken install -y
 ```
+
+### kali-defaults fails with dpkg-divert clash (Trixie + Kali Tools)
+
+When installing Kali meta-packages on Trixie, `kali-defaults` and `raspberrypi-sys-mods` both try to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` but to different target filenames. The install fails with a diversion clash error.
+
+```bash
+# Remove the file that blocks the rename
+sudo rm /usr/lib/python3.13/EXTERNALLY-MANAGED
+
+# Remove the Pi-owned diversion
+sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED
+
+# Fix and retry
+sudo dpkg --configure -a
+sudo apt --fix-broken install -y
+```
+
+If you hit additional diversion clashes from other Pi packages during the Kali install, the pattern is the same: identify the Pi package that owns the existing diversion (`dpkg-divert --list` to see all active diversions), remove it, and let the Kali package take over.
 
 ---
 
