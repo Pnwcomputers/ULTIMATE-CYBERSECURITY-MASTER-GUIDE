@@ -338,6 +338,16 @@ sudo nano /boot/firmware/cmdline.txt
 
 Find and delete `console=serial0,115200` from the line. Save and exit.
 
+### Add Serial Port Permissions
+
+To read from `/dev/ttyS0` without `sudo` (important for GUI tools like `pygpsclient` running in user-space), add your user to the `dialout` group:
+
+```bash
+sudo usermod -a -G dialout $USER
+```
+
+> **Note:** You need to log out and back in (or reboot) for the group membership to take effect.
+
 ### Enable GPIO for GPS
 
 ```bash
@@ -405,6 +415,21 @@ pinctrl set 22 op dh   # GPIO 22 = LoRa
 sudo apt install libgpiod-dev libyaml-cpp-dev libbluetooth-dev \
   libusb-1.0-0-dev libi2c-dev openssl libssl-dev libulfius-dev liborcania-dev
 ```
+
+### Install Meshtasticd
+
+The `meshtasticd` binary is not in the standard Debian or Kali repos: download the `.deb` package from the Meshtastic firmware releases page:
+
+```bash
+# Download the latest arm64 package (check GitHub for the current version)
+wget https://github.com/meshtastic/firmware/releases/download/v2.3.13/meshtasticd_2.3.13_arm64.deb
+
+# Install it
+sudo dpkg -i meshtasticd_*_arm64.deb
+sudo apt --fix-broken install -y
+```
+
+> **Note:** Check the [Meshtastic firmware releases](https://github.com/meshtastic/firmware/releases) page for the latest version. Replace `v2.3.13` with the current release tag.
 
 ### Configure Meshtasticd
 
@@ -523,6 +548,18 @@ aiov2_ctl SDR on
 pinctrl set 7 op dh   # GPIO 7 = SDR
 ```
 
+### Blacklist the DVB-T Kernel Driver
+
+The Linux kernel will try to claim the RTL2832U/R828D chip as a DVB-T television tuner by default, which blocks SDR software from accessing the hardware. Blacklist the default driver:
+
+```bash
+# Blacklist the default DVB-T driver
+echo "blacklist dvb_usb_rtl28xxu" | sudo tee /etc/modprobe.d/blacklist-rtl.conf
+
+# Remove the module if it's already loaded (or reboot)
+sudo rmmod dvb_usb_rtl28xxu 2>/dev/null
+```
+
 ### Launch SDR++
 
 SDR++ (the `sdrpp-brown` build) is installed by the AIO board package:
@@ -633,11 +670,19 @@ The CM4's onboard WiFi **does not support monitor mode**. You need an external U
 | Adapter | Chipset | Notes |
 |---|---|---|
 | HackerGadgets AC1200 USB-C WiFi Card | RTL8812AU | Sold separately from the Upgrade Kit, monitor mode supported |
-| Alfa AWUS036ACH | RTL8812AU | Proven pentesting adapter, well-supported on both Kali and Trixie |
+| Alfa AWUS036ACH | RTL8812AU | Proven pentesting adapter |
 | Alfa AWUS036ACSM | RTL8812AU | Smaller form factor |
-| Any RTL8812AU/RTL8814AU adapter | RTL8812AU/RTL8814AU | Most work out of the box on Kali; on Trixie, may need `apt install realtek-rtl88xxau-dkms` |
+| Any RTL8812AU/RTL8814AU adapter | RTL8812AU/RTL8814AU | Widely available, well-supported |
 
 > **Note:** CM4 is limited to USB 2.0 regardless of adapter. This is fine for packet capture but worth keeping in mind for high-throughput deauth/injection scenarios.
+
+### Install the DKMS Driver (Required on Both Kali and Trixie)
+
+RTL8812AU/RTL8814AU chipsets are **not supported by the mainline Linux kernel**. The driver is a DKMS module that must be installed separately: it is not baked in even on Kali. Without it, `iwconfig` will not see the adapter.
+
+```bash
+sudo apt install realtek-rtl88xxau-dkms -y
+```
 
 ### Verify Monitor Mode
 
@@ -812,7 +857,7 @@ If BOOT_ORDER in the EEPROM includes NVMe (`6`), simply remove the microSD card 
 
 #### Option B: Dual Boot (SD + NVMe)
 
-Set the EEPROM boot order to SD first, NVMe second (`BOOT_ORDER=0xf16`). This gives you a simple dual-boot setup:
+Set the EEPROM boot order to SD first, NVMe second (`BOOT_ORDER=0xf61`). This gives you a simple dual-boot setup:
 
 - **SD card inserted** → boots from SD
 - **SD card removed** → boots from NVMe
@@ -842,7 +887,7 @@ Set `BOOT_ORDER` to try SD first, then NVMe:
 BOOT_UART=0
 WAKE_ON_GPIO=1
 POWER_OFF_ON_HALT=0
-BOOT_ORDER=0xf25461
+BOOT_ORDER=0xf61
 ENABLE_SELF_UPDATE=1
 ```
 
@@ -1066,6 +1111,39 @@ dtoverlay=i2c-rtc,pcf85063a
 - Enable SDR power: `aiov2_ctl SDR on`
 - Check USB device: `lsusb | grep -i rtl`
 - Verify antenna connection on the "SDR" IPEX connector
+
+### "Failed to start session" at LightDM login (Trixie + Kali)
+
+After upgrading with Kali packages, the RPi-specific session file `rpd-labwc` may be removed or replaced while LightDM is still configured to use it. Check:
+
+```bash
+grep -i "session" /etc/lightdm/lightdm.conf
+```
+
+If you see `user-session=rpd-labwc` or `autologin-session=rpd-labwc`, fix it:
+
+```bash
+sudo sed -i 's/user-session=rpd-labwc/user-session=labwc/' /etc/lightdm/lightdm.conf
+sudo sed -i 's/autologin-session=rpd-labwc/autologin-session=labwc/' /etc/lightdm/lightdm.conf
+```
+
+If the Pi greeter is also gone, switch to the standard LightDM GTK greeter:
+
+```bash
+sudo sed -i 's/greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
+```
+
+Also fix AccountsService if it has a stale session:
+
+```bash
+sudo sed -i 's/rpd-labwc/labwc/' /var/lib/AccountsService/users/$USER 2>/dev/null
+```
+
+Restart LightDM to apply:
+
+```bash
+sudo systemctl restart lightdm
+```
 
 ### Trackball quirks on Kali
 
