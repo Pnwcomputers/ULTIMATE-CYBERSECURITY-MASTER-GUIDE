@@ -1,4 +1,4 @@
-# uConsole Field Platform Setup Guide
+# uConsole Setup Guide
 
 ## Kali Linux (Rex's Image) + HackerGadgets AIO v2 Board — CM4 Configuration
 
@@ -81,6 +81,27 @@ For an SDR recon, WiFi pentesting, and LAN pentesting mission profile, Rex's Kal
 | **DragonOS** | Dedicated SDR/RF analysis (now based on Debian Trixie) |
 | **Kali 6.12.y** | Pentesting-focused (recommended for this build) |
 
+### Alternative Approach: Trixie + Kali Tools
+
+If you run into package conflicts or initramfs issues with the Kali image, Rex's **Trixie** image is a solid alternative base. Trixie (Debian 13) has the newest packages and the same AIO board package support. You can layer Kali's toolset on top:
+
+```bash
+# Add the Kali rolling repo
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/kali.list
+
+# Import the Kali signing key
+curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
+
+sudo apt update
+
+# Pick one based on how much you want:
+sudo apt install kali-tools-top10 -y          # Core 10 (nmap, metasploit, burp, etc.)
+sudo apt install kali-linux-headless -y       # Bigger headless set
+sudo apt install kali-linux-default -y        # Full default desktop toolkit
+```
+
+> **Note:** Pin Kali packages to lower priority if you want Trixie's base system packages to take precedence over Kali's versions. Otherwise, `apt upgrade` may pull replacements from the Kali repo for system-level packages.
+
 ---
 
 ## Step 1 — Flash the OS
@@ -142,11 +163,26 @@ sudo reboot
 
 ## Step 3 — Install the AIO v2 Board Package
 
-Rex's custom APT repo is pre-configured on his images. The AIO board package installs everything needed for the AIO v2 ecosystem in one command:
+Rex's custom APT repo is pre-configured on his images. The AIO board package installs everything needed for the AIO v2 ecosystem in one command.
+
+### Fix cryptsetup-initramfs BEFORE Installing (Critical)
+
+The AIO board package (or its dependency chain) can pull in `cryptsetup-initramfs` as a recommended package. On CM4, the initramfs hook tries to resolve `/dev/root` and hard-fails because the Pi uses `PARTUUID=` in cmdline.txt. This returns exit code 1, which kills the entire `dpkg` post-install trigger and leaves your system in a broken package state. If this happens during a kernel-related package install, **it can corrupt your initramfs and leave the system unbootable.**
+
+Pre-empt this before installing anything:
+
+```bash
+sudo mkdir -p /etc/cryptsetup-initramfs
+echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
+```
+
+This tells the cryptsetup initramfs hook to skip its root device detection entirely. Unless you are setting up LUKS full-disk encryption, this is exactly what you want.
+
+### Install the Package
 
 ```bash
 sudo apt update
-sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y && sudo apt install meshtastic-mui -y
+sudo apt install hackergadgets-uconsole-aio-board -y
 sudo reboot
 ```
 
@@ -952,6 +988,78 @@ dtoverlay=i2c-rtc,pcf85063a
 - **Check the ribbon cable orientation** — this is the most common cause
 - Refer to the HackerGadgets installation photos for correct orientation
 - **Never plug in the charger if the ribbon cable is wrong** — it will damage the mainboard
+
+### Package install fails with "subprocess returned error code 1" (cryptsetup-initramfs)
+
+This is caused by the `cryptsetup-initramfs` hook failing to resolve `/dev/root` on Pi systems. The hook exits non-zero, which kills the dpkg trigger and can leave packages in a broken state.
+
+**If the system still boots:**
+
+```bash
+# Fix the root cause
+sudo mkdir -p /etc/cryptsetup-initramfs
+echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
+
+# Clean up the broken install state
+sudo dpkg --configure -a
+sudo apt --fix-broken install -y
+
+# Retry your install
+sudo apt install hackergadgets-uconsole-aio-board -y
+```
+
+**If the system won't boot (NVMe):**
+
+Boot from a spare SD card (flash any Rex image), then chroot into the NVMe to fix it:
+
+```bash
+# Mount the NVMe root and boot partitions
+sudo mount /dev/nvme0n1p2 /mnt
+sudo mount /dev/nvme0n1p1 /mnt/boot/firmware
+
+# Bind-mount system filesystems for chroot
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /sys /mnt/sys
+sudo mount --bind /proc /mnt/proc
+
+# Enter the chroot
+sudo chroot /mnt /bin/bash
+
+# Inside chroot — fix the cryptsetup issue
+mkdir -p /etc/cryptsetup-initramfs
+echo "CRYPTSETUP=n" > /etc/cryptsetup-initramfs/conf-hook
+dpkg --configure -a
+apt --fix-broken install -y
+update-initramfs -u -k $(uname -r)
+exit
+
+# Unmount everything
+sudo umount /mnt/proc /mnt/sys /mnt/dev /mnt/boot/firmware /mnt
+```
+
+Remove the SD card and reboot into the NVMe.
+
+**If the system won't boot (SD card):**
+
+Mount the SD card on another machine and apply the fix directly:
+
+```bash
+sudo mount /dev/sdX2 /mnt
+sudo mkdir -p /mnt/etc/cryptsetup-initramfs
+echo "CRYPTSETUP=n" | sudo tee /mnt/etc/cryptsetup-initramfs/conf-hook
+sudo umount /mnt
+```
+
+Then boot the SD card in the uConsole and run `sudo dpkg --configure -a && sudo apt --fix-broken install -y`.
+
+### Nuclear option: remove cryptsetup-initramfs entirely
+
+If the package state is too mangled to fix in place:
+
+```bash
+sudo dpkg --remove --force-remove-reinstreq cryptsetup-initramfs
+sudo apt --fix-broken install -y
+```
 
 ---
 
