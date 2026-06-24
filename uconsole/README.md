@@ -1,0 +1,806 @@
+# uConsole Field Platform Setup Guide
+
+## Kali Linux (Rex's Image) + HackerGadgets AIO v2 Board — CM4 Configuration
+
+A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's Kali Linux image, and the HackerGadgets AIO v2 extension board.
+
+---
+
+## Table of Contents
+
+- [Hardware Overview](#hardware-overview)
+- [Why Rex's Kali Image](#why-rexs-kali-image)
+- [Step 1 — Flash the OS](#step-1--flash-the-os)
+- [Step 2 — First Boot and Initial Setup](#step-2--first-boot-and-initial-setup)
+- [Step 3 — Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
+- [Step 4 — Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
+- [Step 5 — Configure GPS (CM4)](#step-5--configure-gps-cm4)
+- [Step 6 — Configure LoRa / Meshtasticd](#step-6--configure-lora--meshtasticd)
+- [Step 7 — Configure RTC](#step-7--configure-rtc)
+- [Step 8 — Configure SDR](#step-8--configure-sdr)
+- [Step 9 — GPIO Power Control](#step-9--gpio-power-control)
+- [Step 10 — WiFi Pentesting Setup](#step-10--wifi-pentesting-setup)
+- [Step 11 — LAN Pentesting via RJ45](#step-11--lan-pentesting-via-rj45)
+- [CM4-Specific Notes and Limitations](#cm4-specific-notes-and-limitations)
+- [AIO v2 Board — Hardware Reference](#aio-v2-board--hardware-reference)
+- [aiov2_ctl — Full Command Reference](#aiov2_ctl--full-command-reference)
+- [Meshtasticd Web Interface](#meshtasticd-web-interface)
+- [Boot Automation](#boot-automation)
+- [Troubleshooting](#troubleshooting)
+- [Resources and Links](#resources-and-links)
+
+---
+
+## Hardware Overview
+
+This guide assumes the following hardware stack:
+
+| Component | Detail |
+|---|---|
+| **Handheld** | ClockworkPi uConsole |
+| **Compute Module** | Raspberry Pi CM4 (with HackerGadgets CM4 adapter board) |
+| **Extension Board** | HackerGadgets AIO v2 (RTL-SDR / LoRa / GPS / RTC / USB Hub) |
+| **OS** | Rex's Kali Linux image (6.12.y kernel) |
+| **WiFi Adapter** | External monitor-mode capable adapter (CM4 onboard WiFi does NOT support monitor mode) |
+
+### What the AIO v2 Provides
+
+| Feature | Chip / Spec |
+|---|---|
+| **RTL-SDR** | R828D + TCXO, 100 kHz–1.74 GHz, 5V bias tee for active antennas/LNAs |
+| **LoRa** | SX1262, 860–960 MHz, 22 dBm max output, TCXO, Meshtastic-ready |
+| **GPS** | Multi-mode (GPS/BDS/GNSS), active and passive antenna support |
+| **RTC** | PCF85063A + CR1220 battery backup |
+| **USB Hub** | External USB-C port + internal USB-C + pin header |
+| **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
+
+> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** — incorrect installation will damage the uConsole mainboard.
+
+---
+
+## Why Rex's Kali Image
+
+Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package — this package is not available on stock ClockworkPi images.
+
+For an SDR recon, WiFi pentesting, and LAN pentesting mission profile, Rex's Kali image is the best fit because:
+
+- Full Kali toolchain pre-installed (aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc.)
+- The AIO board package works on Kali since it is Debian-based
+- Rex updated his Kali image to support the new uConsole screens as of Feb 2026 (kernel 6.12.67)
+- CM4 is the most stable and mature compute module for the uConsole
+
+> **Tip:** Consider keeping Rex's DragonOS on a second SD card for dedicated SDR/RF analysis sessions. It ships with GNU Radio, SDR++, and a broader RF toolkit than the AIO board package alone.
+
+### Alternative OS Options (All Rex's Images)
+
+| Image | Best For |
+|---|---|
+| **Bookworm 6.12.y** | Maximum stability, daily driver, most community-tested |
+| **Trixie 6.12.y** | Bleeding edge, newer packages, Debian 13 |
+| **DragonOS** | Dedicated SDR/RF analysis (now based on Debian Trixie) |
+| **Kali 6.12.y** | Pentesting-focused (recommended for this build) |
+
+---
+
+## Step 1 — Flash the OS
+
+1. Download Rex's Kali image from the ClockworkPi forum:
+   - **Thread:** [Kali 6.12.y for the uConsole and DevTerm](https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463)
+   - Look for the MEGA download link in the first post
+   - Ensure you grab the image labeled with kernel **6.12.67** or later (new screen support)
+
+2. Extract the `.7z` archive:
+   ```bash
+   7z x <image-filename>.7z
+   ```
+
+3. Flash to a microSD card (16 GB minimum, 32+ GB recommended):
+
+   **Linux:**
+   ```bash
+   sudo dd if=<image-filename>.img of=/dev/sdX bs=4M status=progress conv=fsync
+   ```
+
+   **Windows/macOS:**
+   Use [balenaEtcher](https://etcher.balena.io/) to flash the `.img` file.
+
+4. Insert the microSD card into the uConsole and boot.
+
+---
+
+## Step 2 — First Boot and Initial Setup
+
+Default credentials for Rex's Kali image (verify in the forum thread as these may change):
+
+```
+Username: kali
+Password: kali
+```
+
+After first boot:
+
+```bash
+# Update the system
+sudo apt update && sudo apt full-upgrade -y
+
+# Set your timezone
+sudo dpkg-reconfigure tzdata
+
+# Change the default password
+passwd
+
+# Optionally set hostname
+sudo hostnamectl set-hostname uconsole
+
+# Expand filesystem if not auto-expanded
+sudo raspi-config --expand-rootfs
+sudo reboot
+```
+
+---
+
+## Step 3 — Install the AIO v2 Board Package
+
+Rex's custom APT repo is pre-configured on his images. The AIO board package installs everything needed for the AIO v2 ecosystem in one command:
+
+```bash
+sudo apt update
+sudo apt install hackergadgets-uconsole-aio-board
+sudo reboot
+```
+
+### What This Package Installs
+
+| Package | Function |
+|---|---|
+| `hackergadgets-uconsole-aio-board` | Core AIO v2 integration — GPIO, power rails, RTC support, services, uConsole-specific configuration |
+| `meshtastic-mui` | Meshtastic graphical UI for LoRa/Meshtastic devices |
+| `sdrpp-brown` | Preconfigured SDR++ build for the uConsole (RF scanning/listening) |
+| `tar1090` | ADS-B aircraft tracking web UI (visualizes planes from your SDR feed) |
+| `pygpsclient` | GPS monitoring and diagnostics GUI (position, satellites, NMEA data) |
+
+It also sets up supporting services (RTC, GPIO helpers, and desktop menu entries).
+
+---
+
+## Step 4 — Install aiov2_ctl (GPIO Control Tool)
+
+`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It provides both CLI and system tray GUI for toggling peripherals on/off, monitoring power, and configuring boot states.
+
+```bash
+# Install dependencies
+sudo apt update
+sudo apt install -y python3 python3-pyqt6 git
+
+# Clone and install
+git clone https://github.com/hackergadgets/aiov2_ctl.git
+cd aiov2_ctl
+sudo python3 ./aiov2_ctl.py --install
+
+# Verify installation
+aiov2_ctl
+aiov2_ctl --status
+```
+
+### Optional: Install AIO Companion Apps via aiov2_ctl
+
+If you did not install the `hackergadgets-uconsole-aio-board` package in Step 3, you can install the companion apps through `aiov2_ctl`:
+
+```bash
+sudo aiov2_ctl --add-apps
+```
+
+### Enable GUI Autostart (Recommended)
+
+```bash
+aiov2_ctl --autostart
+```
+
+This creates an XDG autostart entry so the system tray icon launches on login.
+
+---
+
+## Step 5 — Configure GPS (CM4)
+
+### CM4-Specific GPS Path
+
+On CM4, the GPS serial port is `/dev/ttyS0` (NOT `/dev/ttyAMA0` which is for CM5).
+
+### Free the Serial Port
+
+The serial console must be disabled or GPS will not work continuously. Edit `/boot/firmware/cmdline.txt` and **remove** `console=serial0,115200`:
+
+```bash
+sudo nano /boot/firmware/cmdline.txt
+```
+
+Find and delete `console=serial0,115200` from the line. Save and exit.
+
+### Enable GPIO for GPS
+
+```bash
+# Turn on GPS power rail
+aiov2_ctl GPS on
+
+# Or manually via pinctrl:
+pinctrl set 27 op dh   # GPIO 27 = GPS
+```
+
+### Verify GPS
+
+```bash
+# Check for GPS data stream
+cat /dev/ttyS0
+
+# Or use pygpsclient (installed by the AIO board package)
+pygpsclient
+```
+
+You should see NMEA sentences streaming. Make sure you have a GPS antenna connected to the IPEX connector labeled "GPS" on the AIO v2 board.
+
+### PPS Output (Advanced)
+
+The GPS has a PPS (pulse-per-second) output on GPIO 6 for microsecond-level timing accuracy. To configure PPS, add to `/boot/firmware/config.txt`:
+
+```
+dtoverlay=pps-gpio,gpiopin=6
+```
+
+---
+
+## Step 6 — Configure LoRa / Meshtasticd
+
+### Prerequisites — SPI and Service Conflicts
+
+Add the following to `/boot/firmware/config.txt`:
+
+```
+dtparam=spi=on
+dtoverlay=spi1-1cs
+```
+
+**Disable the devterm-printer service** — it uses SPI1 GPIO and will conflict with LoRa:
+
+```bash
+sudo systemctl stop devterm-printer.service
+sudo systemctl disable devterm-printer.service
+```
+
+### Enable GPIO for LoRa
+
+```bash
+aiov2_ctl LORA on
+
+# Or manually:
+pinctrl set 22 op dh   # GPIO 22 = LoRa
+```
+
+### Install Meshtasticd Dependencies
+
+```bash
+sudo apt install libgpiod-dev libyaml-cpp-dev libbluetooth-dev \
+  libusb-1.0-0-dev libi2c-dev openssl libssl-dev libulfius-dev liborcania-dev
+```
+
+### Configure Meshtasticd
+
+Edit `/etc/meshtasticd/config.yaml`:
+
+```yaml
+Lora:
+  Module: sx1262
+  DIO2_AS_RF_SWITCH: true
+  DIO3_TCXO_VOLTAGE: true
+  IRQ: 26
+  Busy: 24
+  Reset: 25
+  spidev: spidev1.0
+
+GPS:
+  SerialPath: /dev/ttyS0    # CM4 path — use /dev/ttyAMA0 for CM5
+
+Webserver:
+  Port: 443
+  RootPath: /usr/share/meshtasticd/web
+```
+
+### SX1262 Pin Reference for AIO v2
+
+| Function | GPIO Pin |
+|---|---|
+| SPI Bus | SPI1 |
+| Chip Select | SPI1-CE0 (GPIO 18) |
+| DIO2 (RF Switch) | Controlled by SX1262 |
+| DIO3 (TCXO Voltage) | Controlled by SX1262 |
+| IRQ | GPIO 26 |
+| Busy | GPIO 24 |
+| Reset | GPIO 25 |
+
+### Create Meshtasticd Systemd Service
+
+```bash
+sudo nano /etc/systemd/system/meshtasticd.service
+```
+
+```ini
+[Unit]
+Description=Meshtastic Daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/meshtasticd
+Restart=always
+User=root
+Group=root
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable meshtasticd.service
+sudo systemctl start meshtasticd.service
+
+# Check status
+sudo systemctl status meshtasticd.service
+```
+
+### Connect an Antenna
+
+Connect a 433/915 MHz antenna (depending on your region) to the IPEX connector labeled **"LoRa"** on the AIO v2 board.
+
+> **Important:** After first start, open the Meshtastic web interface and set your LoRa region under Config → LoRa. Different regions cannot communicate with each other. For US operation, select **US** (915 MHz band).
+
+---
+
+## Step 7 — Configure RTC
+
+The RTC (PCF85063A) requires manual configuration. Add the following to `/boot/firmware/config.txt`:
+
+```
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,pcf85063a
+```
+
+Reboot, then verify:
+
+```bash
+sudo hwclock -r
+```
+
+If successful, you should see the current date/time output.
+
+### Sync System Time to RTC
+
+After confirming your system time is correct (via NTP or manual set):
+
+```bash
+# Via aiov2_ctl
+sudo aiov2_ctl --sync-rtc
+
+# Or manually
+sudo hwclock -w
+```
+
+> **Note:** Make sure the CR1220 battery is installed in the RTC socket on the AIO v2 board. If `hwclock -r` returns nothing, check the battery orientation.
+
+---
+
+## Step 8 — Configure SDR
+
+### Enable GPIO for SDR
+
+```bash
+aiov2_ctl SDR on
+
+# Or manually:
+pinctrl set 7 op dh   # GPIO 7 = SDR
+```
+
+### Launch SDR++
+
+SDR++ (the `sdrpp-brown` build) is installed by the AIO board package:
+
+```bash
+sdrpp
+```
+
+Connect an antenna to the IPEX connector labeled **"SDR"** on the AIO v2 board. The RTL-SDR covers 100 kHz to 1.74 GHz with a 5V bias tee for active antennas and LNAs.
+
+### ADS-B Tracking
+
+`tar1090` is installed by the AIO board package and provides a web-based ADS-B aircraft tracking UI. After enabling the SDR and configuring dump1090, access it at `http://localhost/tar1090`.
+
+---
+
+## Step 9 — GPIO Power Control
+
+### AIO v2 GPIO Pin Map
+
+| GPIO Pin | Peripheral | Notes |
+|---|---|---|
+| GPIO 27 | GPS | Pull HIGH to enable |
+| GPIO 22 | LoRa | Pull HIGH to enable |
+| GPIO 7 | SDR (RTL-SDR) | Pull HIGH to enable |
+| GPIO 6 | Internal USB (USB-C + pin header) | Pull HIGH to enable |
+
+### CM4 Boot Behavior
+
+On CM4, **all peripherals start powered off by default.** You must explicitly enable each one. This is different from CM5 where GPIO 7 (SDR) starts high.
+
+### Using aiov2_ctl (Recommended)
+
+```bash
+# Show current GPIO state
+aiov2_ctl
+
+# Show detailed status with battery/power info
+aiov2_ctl --status
+
+# Toggle peripherals on/off
+aiov2_ctl GPS on
+aiov2_ctl LORA on
+aiov2_ctl SDR on
+aiov2_ctl USB on
+
+aiov2_ctl GPS off
+aiov2_ctl SDR off
+
+# Live power monitoring
+aiov2_ctl --power
+
+# Compact live GPIO + power view
+aiov2_ctl --watch
+```
+
+### Configure Boot Defaults
+
+Set peripherals to auto-enable at boot:
+
+```bash
+# Set GPS and LoRa to come up automatically
+aiov2_ctl --boot-rail GPS on
+aiov2_ctl --boot-rail LORA on
+aiov2_ctl --boot-rail SDR on
+
+# Check boot rail configuration
+aiov2_ctl --boot-rails-status
+```
+
+Boot rail settings are applied by the `aiov2-rails-boot.service` (installed automatically with `aiov2_ctl --install`).
+
+### Manual GPIO Control (Without aiov2_ctl)
+
+```bash
+# Enable GPS
+pinctrl set 27 op dh
+
+# Enable LoRa
+pinctrl set 22 op dh
+
+# Enable SDR
+pinctrl set 7 op dh
+
+# Enable Internal USB
+pinctrl set 6 op dh
+
+# Disable SDR
+pinctrl set 7 op dl
+```
+
+### GUI Mode
+
+```bash
+aiov2_ctl --gui
+```
+
+Left-click the tray icon for a status window; right-click for toggle controls. The right-click menu also includes a "Rails on boot" submenu for persistent boot preferences.
+
+---
+
+## Step 10 — WiFi Pentesting Setup
+
+The CM4's onboard WiFi **does not support monitor mode**. You need an external USB WiFi adapter.
+
+### Recommended Adapters
+
+| Adapter | Chipset | Notes |
+|---|---|---|
+| HackerGadgets AC1200 USB-C WiFi Card | RTL8812AU | Sold separately from the Upgrade Kit, monitor mode supported |
+| Alfa AWUS036ACH | RTL8812AU | Proven pentesting adapter, well-supported in Kali |
+| Alfa AWUS036ACSM | RTL8812AU | Smaller form factor |
+| Any RTL8812AU/RTL8814AU adapter | RTL8812AU/RTL8814AU | Most work out of the box on Kali |
+
+> **Note:** CM4 is limited to USB 2.0 regardless of adapter. This is fine for packet capture but worth keeping in mind for high-throughput deauth/injection scenarios.
+
+### Verify Monitor Mode
+
+```bash
+# List wireless interfaces
+iwconfig
+
+# Check adapter capabilities
+iw list | grep -A 10 "Supported interface modes"
+
+# Enable monitor mode
+sudo airmon-ng start wlan1    # wlan1 = external adapter (wlan0 = onboard)
+
+# Verify
+iwconfig wlan1mon
+```
+
+### Common Pentest Toolkit (Pre-installed on Kali)
+
+```bash
+# Wireless
+aircrack-ng, airodump-ng, aireplay-ng, airmon-ng
+bettercap
+kismet
+wifite
+
+# Network
+nmap, masscan
+responder
+impacket-scripts
+crackmapexec / netexec
+wireshark / tshark
+tcpdump
+
+# Exploitation
+metasploit-framework
+burpsuite
+sqlmap
+```
+
+---
+
+## Step 11 — LAN Pentesting via RJ45
+
+The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the **HackerGadgets adapter board** from the Upgrade Kit — without it, the RJ45 port will not function.
+
+With the adapter board installed, you can use the uConsole as a network tap or drop box:
+
+```bash
+# Plug into a target switch, check for DHCP
+sudo dhclient eth0
+
+# Verify connectivity
+ip addr show eth0
+
+# Quick network scan
+sudo nmap -sn 192.168.1.0/24
+
+# Run Responder for credential capture
+sudo responder -I eth0 -wrf
+
+# Full port scan
+sudo nmap -sS -sV -O -p- 192.168.1.0/24
+```
+
+---
+
+## CM4-Specific Notes and Limitations
+
+| Item | CM4 Detail |
+|---|---|
+| GPS Serial Port | `/dev/ttyS0` (CM5 uses `/dev/ttyAMA0`) |
+| USB Speed | USB 2.0 only (USB 3.0 requires CM5 + Upgrade Kit) |
+| GPIO Boot State | All peripherals start OFF (CM5 has GPIO 7/SDR on by default) |
+| Stability | Most mature and community-tested configuration |
+| RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM5 which needs `i2c_csi_dsi0` remap) |
+| Serial Console | Must remove `console=serial0,115200` from cmdline.txt for GPS |
+| SPI Conflict | Must disable `devterm-printer.service` for LoRa |
+| Onboard WiFi | Does NOT support monitor mode — external adapter required |
+| RJ45 Ethernet | Requires HackerGadgets adapter board from Upgrade Kit |
+
+---
+
+## AIO v2 Board — Hardware Reference
+
+### Antenna Connectors
+
+The AIO v2 has three IPEX antenna connectors labeled on the board:
+
+| Label | Purpose | Antenna Type |
+|---|---|---|
+| **SDR** | RTL-SDR receiver | Wideband antenna or frequency-specific antenna |
+| **LoRa** | SX1262 transceiver | 433 or 915 MHz antenna (region-dependent) |
+| **GPS** | GPS/BDS/GNSS receiver | Active or passive GPS antenna |
+
+The antenna mounting kit (sold with some variants) supports up to 7 antennas.
+
+### RTL-SDR Specs
+
+| Spec | Value |
+|---|---|
+| Tuner Chip | R828D |
+| Frequency Range | 100 kHz – 1.74 GHz |
+| Clock | TCXO (temperature-compensated, near-zero drift) |
+| Bias Tee | 5V (for active antennas and LNAs) |
+
+### LoRa / SX1262 Specs
+
+| Spec | Value |
+|---|---|
+| Chip | SX1262 |
+| Frequency Band | 860–960 MHz |
+| Max Output Power | 22 dBm |
+| Clock | TCXO |
+| SPI Bus | SPI1 (spidev1.0) |
+
+---
+
+## aiov2_ctl — Full Command Reference
+
+```
+aiov2_ctl                           # Show current GPIO state
+aiov2_ctl --status                  # Detailed status (GPIO + battery + power)
+aiov2_ctl <FEATURE> <on|off>        # Toggle: GPS, LORA, SDR, USB
+aiov2_ctl --power                   # Live power monitor (Ctrl+C to exit)
+aiov2_ctl --watch                   # Compact live GPIO + power line
+aiov2_ctl --gui                     # Launch system tray GUI
+aiov2_ctl --autostart               # Enable GUI autostart on login
+aiov2_ctl --no-autostart            # Disable GUI autostart
+aiov2_ctl --boot-rail <FEAT> on     # Set peripheral to enable at boot
+aiov2_ctl --boot-rail <FEAT> off    # Set peripheral to stay off at boot
+aiov2_ctl --boot-rail <FEAT> status # Check boot state for a peripheral
+aiov2_ctl --boot-rails-status       # Show all boot rail configurations
+aiov2_ctl --sync-rtc                # Write system time to hardware RTC
+aiov2_ctl --update                  # Pull latest version and reinstall
+sudo aiov2_ctl --add-apps           # Install AIO companion apps
+sudo aiov2_ctl --remove-apps        # Remove AIO companion apps
+```
+
+### Debug Mode
+
+```bash
+AIOV2_CTL_DEBUG=1 aiov2_ctl --status
+```
+
+Shows state source labels: `(pinctrl)` for direct hi/lo, `(boot_default)` for fallback, `(unknown)` for unparseable reads.
+
+---
+
+## Meshtasticd Web Interface
+
+Meshtasticd includes a built-in web server (available in Meshtastic firmware 2.3.0+).
+
+1. Ensure the webserver is enabled in `/etc/meshtasticd/config.yaml`:
+   ```yaml
+   Webserver:
+     Port: 443
+     RootPath: /usr/share/meshtasticd/web
+   ```
+
+2. Open a browser on the uConsole and navigate to `https://localhost`
+
+3. If you get an SSL warning, click "Proceed to localhost (unsafe)"
+
+4. To connect, enter `localhost` in the IP Address field (not `meshtastic.local`)
+
+5. First-time setup: Go to **Config → LoRa** and set your region (e.g., US for 915 MHz)
+
+6. Use the **Messages** menu to send/receive on the public channel or between individual nodes
+
+---
+
+## Boot Automation
+
+### Recommended Boot Configuration
+
+For a field-ready setup, configure all needed peripherals to come up automatically:
+
+```bash
+# Set boot rails
+aiov2_ctl --boot-rail GPS on
+aiov2_ctl --boot-rail LORA on
+aiov2_ctl --boot-rail SDR on
+
+# Enable GUI tray on login
+aiov2_ctl --autostart
+
+# Enable Meshtasticd on boot
+sudo systemctl enable meshtasticd.service
+
+# Verify boot rail config
+aiov2_ctl --boot-rails-status
+```
+
+### Complete /boot/firmware/config.txt Additions
+
+Add these lines to the end of `/boot/firmware/config.txt` for full AIO v2 support:
+
+```ini
+# === AIO v2 Board Configuration ===
+
+# SPI for LoRa (SX1262)
+dtparam=spi=on
+dtoverlay=spi1-1cs
+
+# I2C and RTC (PCF85063A)
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,pcf85063a
+
+# GPS PPS output (optional — for precision timing)
+# dtoverlay=pps-gpio,gpiopin=6
+```
+
+---
+
+## Troubleshooting
+
+### GPS shows no data on /dev/ttyS0
+
+- Verify `console=serial0,115200` has been **removed** from `/boot/firmware/cmdline.txt`
+- Ensure GPS power rail is enabled: `aiov2_ctl GPS on`
+- Check antenna connection on the "GPS" IPEX connector
+- Try outdoor or near a window for initial satellite fix
+
+### LoRa / Meshtasticd fails to start
+
+- Verify `devterm-printer.service` is disabled: `sudo systemctl status devterm-printer.service`
+- Ensure SPI overlays are in config.txt: `dtparam=spi=on` and `dtoverlay=spi1-1cs`
+- Check LoRa power rail: `aiov2_ctl LORA on`
+- Review logs: `sudo journalctl -u meshtasticd.service -f`
+- Verify `/etc/meshtasticd/config.yaml` has correct SX1262 pin mappings
+
+### RTC not responding
+
+- Verify CR1220 battery is installed correctly (check orientation)
+- Confirm I2C overlay is in config.txt: `dtoverlay=i2c-rtc,pcf85063a`
+- Test with: `sudo hwclock -r`
+- Detect I2C device: `sudo i2cdetect -y 1` (should show device at address 0x51)
+
+### SDR not detected
+
+- Enable SDR power: `aiov2_ctl SDR on`
+- Check USB device: `lsusb | grep -i rtl`
+- Verify antenna connection on the "SDR" IPEX connector
+
+### Trackball quirks on Kali
+
+- The trackball can be slightly less responsive on Kali compared to Bookworm — this is a known minor issue
+- If problematic, the Bookworm image has the best trackball behavior
+
+### uConsole won't boot after AIO v2 installation
+
+- **Check the ribbon cable orientation** — this is the most common cause
+- Refer to the HackerGadgets installation photos for correct orientation
+- **Never plug in the charger if the ribbon cable is wrong** — it will damage the mainboard
+
+---
+
+## Resources and Links
+
+### Forum Threads
+
+| Resource | URL |
+|---|---|
+| Rex's Kali Image | https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463 |
+| Rex's Bookworm Image | https://forum.clockworkpi.com/t/bookworm-6-12-y-for-the-uconsole-and-devterm/15847 |
+| Rex's Trixie Image | https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457 |
+| AIO Board Package Thread | https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875 |
+| Updated Images (New Screens) | https://forum.clockworkpi.com/t/updated-images-for-new-uconsole-screens/21666 |
+
+### Documentation and Guides
+
+| Resource | URL |
+|---|---|
+| AIO v2 Setup Guide | https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide |
+| aiov2_ctl GitHub Repo | https://github.com/hackergadgets/aiov2_ctl |
+| uConsole GitHub (Official) | https://github.com/clockworkpi/uConsole |
+
+### Products
+
+| Product | URL |
+|---|---|
+| AIO v2 Board | https://hackergadgets.com/products/uconsole-aio-v2 |
+| uConsole Upgrade Kit | https://hackergadgets.com/products/uconsole-upgrade-kit |
+
+---
+
+## License
+
+This guide is provided as-is for personal reference and community use. Hardware documentation and software referenced herein belong to their respective authors (ClockworkPi, HackerGadgets, Rex, Meshtastic project).
