@@ -1,17 +1,18 @@
 # uConsole Setup Guide
 
-## Kali Linux (Rex's Image) + HackerGadgets AIO v2 Board — CM4 Configuration
+## Rex's Kali or Trixie + HackerGadgets AIO v2 Board — CM4 Configuration
 
-A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's Kali Linux image, and the HackerGadgets AIO v2 extension board.
+A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
 ---
 
 ## Table of Contents
 
 - [Hardware Overview](#hardware-overview)
-- [Why Rex's Kali Image](#why-rexs-kali-image)
+- [Choosing Your OS — Kali vs Trixie](#choosing-your-os--kali-vs-trixie)
 - [Step 1 — Flash the OS](#step-1--flash-the-os)
 - [Step 2 — First Boot and Initial Setup](#step-2--first-boot-and-initial-setup)
+- [Step 2.5 — Install Kali Tools on Trixie (Trixie Only)](#step-25--install-kali-tools-on-trixie-trixie-only)
 - [Step 3 — Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
 - [Step 4 — Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
 - [Step 5 — Configure GPS (CM4)](#step-5--configure-gps-cm4)
@@ -41,7 +42,7 @@ This guide assumes the following hardware stack:
 | **Handheld** | ClockworkPi uConsole |
 | **Compute Module** | Raspberry Pi CM4 (with HackerGadgets CM4 adapter board) |
 | **Extension Board** | HackerGadgets AIO v2 (RTL-SDR / LoRa / GPS / RTC / USB Hub) |
-| **OS** | Rex's Kali Linux image (6.12.y kernel) |
+| **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
 | **WiFi Adapter** | External monitor-mode capable adapter (CM4 onboard WiFi does NOT support monitor mode) |
 
 ### What the AIO v2 Provides
@@ -59,64 +60,58 @@ This guide assumes the following hardware stack:
 
 ---
 
-## Why Rex's Kali Image
+## Choosing Your OS — Kali vs Trixie
 
 Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package — this package is not available on stock ClockworkPi images.
 
-For an SDR recon, WiFi pentesting, and LAN pentesting mission profile, Rex's Kali image is the best fit because:
+This guide covers two recommended paths:
 
-- Full Kali toolchain pre-installed (aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc.)
-- The AIO board package works on Kali since it is Debian-based
-- Rex updated his Kali image to support the new uConsole screens as of Feb 2026 (kernel 6.12.67)
-- CM4 is the most stable and mature compute module for the uConsole
+### Path A: Rex's Kali Image (Pentesting Out of the Box)
 
-> **Tip:** Consider keeping Rex's DragonOS on a second SD card for dedicated SDR/RF analysis sessions. It ships with GNU Radio, SDR++, and a broader RF toolkit than the AIO board package alone.
+The full Kali toolchain comes pre-installed — aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc. No additional tool installation needed. Best for users who want a ready-made pentest platform.
 
-### Alternative OS Options (All Rex's Images)
+**Pros:** Everything pre-installed, Kali community support, familiar to pentesters.
+**Cons:** Can hit package conflicts with `cryptsetup-initramfs` during AIO board setup (see Step 3). Trackball slightly less responsive than on Bookworm/Trixie.
+
+### Path B: Rex's Trixie Image + Kali Tools (Recommended)
+
+Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling repo added on top for pentesting tools. Most current base system, fewer package conflicts, same AIO board support.
+
+**Pros:** Newest packages, cleaner base, fewer initramfs/package conflicts, best trackball behavior alongside Bookworm.
+**Cons:** Extra step to add Kali tools. Mixing Kali rolling repo with Trixie can occasionally create version conflicts (mitigated with APT pinning).
+
+### Other Rex Images
 
 | Image | Best For |
 |---|---|
 | **Bookworm 6.12.y** | Maximum stability, daily driver, most community-tested |
-| **Trixie 6.12.y** | Bleeding edge, newer packages, Debian 13 |
 | **DragonOS** | Dedicated SDR/RF analysis (now based on Debian Trixie) |
-| **Kali 6.12.y** | Pentesting-focused (recommended for this build) |
 
-### Alternative Approach: Trixie + Kali Tools
-
-If you run into package conflicts or initramfs issues with the Kali image, Rex's **Trixie** image is a solid alternative base. Trixie (Debian 13) has the newest packages and the same AIO board package support. You can layer Kali's toolset on top:
-
-```bash
-# Add the Kali rolling repo
-echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/kali.list
-
-# Import the Kali signing key
-curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
-
-sudo apt update
-
-# Pick one based on how much you want:
-sudo apt install kali-tools-top10 -y          # Core 10 (nmap, metasploit, burp, etc.)
-sudo apt install kali-linux-headless -y       # Bigger headless set
-sudo apt install kali-linux-default -y        # Full default desktop toolkit
-```
-
-> **Note:** Pin Kali packages to lower priority if you want Trixie's base system packages to take precedence over Kali's versions. Otherwise, `apt upgrade` may pull replacements from the Kali repo for system-level packages.
+> **Tip:** Consider keeping Rex's DragonOS on a second SD card for dedicated SDR/RF analysis sessions. It ships with GNU Radio, SDR++, and a broader RF toolkit than the AIO board package alone.
 
 ---
 
 ## Step 1 — Flash the OS
 
-1. Download Rex's Kali image from the ClockworkPi forum:
-   - **Thread:** [Kali 6.12.y for the uConsole and DevTerm](https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463)
-   - Look for the MEGA download link in the first post
-   - Ensure you grab the image labeled with kernel **6.12.67** or later (new screen support)
+### Download Your Image
 
-2. Extract the `.7z` archive:
+**Kali:**
+- **Thread:** [Kali 6.12.y for the uConsole and DevTerm](https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463)
+- Look for the MEGA download link in the first post
+- Ensure you grab the image labeled with kernel **6.12.67** or later (new screen support)
+
+**Trixie:**
+- **Thread:** [Trixie 6.12.y for the uConsole and DevTerm](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
+- Same process — MEGA link in the first post, kernel 6.12.67+
+
+### Flash the Image
+
+1. Extract the `.7z` archive:
    ```bash
    7z x <image-filename>.7z
    ```
 
-3. Flash to a microSD card (16 GB minimum, 32+ GB recommended):
+2. Flash to a microSD card (16 GB minimum, 32+ GB recommended):
 
    **Linux:**
    ```bash
@@ -126,20 +121,29 @@ sudo apt install kali-linux-default -y        # Full default desktop toolkit
    **Windows/macOS:**
    Use [balenaEtcher](https://etcher.balena.io/) to flash the `.img` file.
 
-4. Insert the microSD card into the uConsole and boot.
+3. Insert the microSD card into the uConsole and boot.
 
 ---
 
 ## Step 2 — First Boot and Initial Setup
 
-Default credentials for Rex's Kali image (verify in the forum thread as these may change):
+### Default Credentials
 
+Verify in the forum thread for your image as these may change.
+
+**Kali:**
 ```
 Username: kali
 Password: kali
 ```
 
-After first boot:
+**Trixie:**
+```
+Username: pi
+Password: clockworkpi
+```
+
+### Post-Boot Setup (Both Images)
 
 ```bash
 # Update the system
@@ -158,6 +162,64 @@ sudo hostnamectl set-hostname uconsole
 sudo raspi-config --expand-rootfs
 sudo reboot
 ```
+
+---
+
+## Step 2.5 — Install Kali Tools on Trixie (Trixie Only)
+
+> **Skip this step if you are using Rex's Kali image — the tools are already installed.**
+
+Add the Kali rolling repository and import the signing key:
+
+```bash
+# Add the Kali rolling repo
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/kali.list
+
+# Import the Kali signing key
+curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
+
+sudo apt update
+```
+
+### Choose Your Toolkit
+
+Pick one based on how much you want installed:
+
+| Meta-Package | What You Get |
+|---|---|
+| `kali-tools-top10` | Core 10 tools — nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
+| `kali-linux-headless` | Larger headless set — good for SSH-only or lightweight desktop use |
+| `kali-linux-default` | Full default Kali desktop toolkit — everything you'd get from a Kali ISO |
+
+```bash
+# Example: install the core top 10
+sudo apt install kali-tools-top10 -y
+
+# Or go bigger
+sudo apt install kali-linux-headless -y
+```
+
+### Optional: Pin Kali Packages to Lower Priority
+
+If you want Trixie's base system packages to always take precedence over Kali's versions during `apt upgrade`, create a pin file:
+
+```bash
+sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
+Package: *
+Pin: release o=Kali
+Pin-Priority: 100
+
+Package: kali-*
+Pin: release o=Kali
+Pin-Priority: 500
+
+Package: metasploit-framework aircrack-ng nmap burpsuite responder crackmapexec impacket-scripts sqlmap john hashcat wifite bettercap
+Pin: release o=Kali
+Pin-Priority: 500
+EOF
+```
+
+This ensures Kali's repo is only used for the security tools and doesn't replace Trixie's core system packages (libc, openssl, python, etc.) with Kali's versions.
 
 ---
 
@@ -546,9 +608,9 @@ The CM4's onboard WiFi **does not support monitor mode**. You need an external U
 | Adapter | Chipset | Notes |
 |---|---|---|
 | HackerGadgets AC1200 USB-C WiFi Card | RTL8812AU | Sold separately from the Upgrade Kit, monitor mode supported |
-| Alfa AWUS036ACH | RTL8812AU | Proven pentesting adapter, well-supported in Kali |
+| Alfa AWUS036ACH | RTL8812AU | Proven pentesting adapter, well-supported on both Kali and Trixie |
 | Alfa AWUS036ACSM | RTL8812AU | Smaller form factor |
-| Any RTL8812AU/RTL8814AU adapter | RTL8812AU/RTL8814AU | Most work out of the box on Kali |
+| Any RTL8812AU/RTL8814AU adapter | RTL8812AU/RTL8814AU | Most work out of the box on Kali; on Trixie, may need `apt install realtek-rtl88xxau-dkms` |
 
 > **Note:** CM4 is limited to USB 2.0 regardless of adapter. This is fine for packet capture but worth keeping in mind for high-throughput deauth/injection scenarios.
 
@@ -568,7 +630,9 @@ sudo airmon-ng start wlan1    # wlan1 = external adapter (wlan0 = onboard)
 iwconfig wlan1mon
 ```
 
-### Common Pentest Toolkit (Pre-installed on Kali)
+### Common Pentest Toolkit
+
+These tools are pre-installed on Kali. On Trixie, install them via the Kali meta-packages in [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only).
 
 ```bash
 # Wireless
@@ -980,8 +1044,9 @@ dtoverlay=i2c-rtc,pcf85063a
 
 ### Trackball quirks on Kali
 
-- The trackball can be slightly less responsive on Kali compared to Bookworm — this is a known minor issue
-- If problematic, the Bookworm image has the best trackball behavior
+- The trackball can be slightly less responsive on Kali compared to Bookworm or Trixie — this is a known minor issue
+- Trixie does not have this problem, which is another reason it makes a good base image
+- If problematic on Kali, the Bookworm or Trixie images have the best trackball behavior
 
 ### uConsole won't boot after AIO v2 installation
 
