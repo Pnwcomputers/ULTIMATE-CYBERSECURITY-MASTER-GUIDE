@@ -30,18 +30,18 @@
 
 ## 🎯 Overview
 
-Hardware security extends the attack surface beyond software and networks into the **physical domain** — where an attacker who can touch the device has capabilities unavailable over any network. Debug interfaces, power traces, clock signals, and electromagnetic emissions all become vectors for extraction, bypass, and exploitation.
+Hardware security extends the attack surface beyond software and networks into the **physical domain**: where an attacker who can touch the device has capabilities unavailable over any network. Debug interfaces, power traces, clock signals, and electromagnetic emissions all become vectors for extraction, bypass, and exploitation.
 
 This section provides a **comprehensive reference** for hardware security assessment, from threat modeling and electrical fundamentals through advanced fault injection and side-channel analysis techniques.
 
 **What You'll Find Here:**
-- 🎯 Hardware threat modeling — attacker profiles, asset mapping, countermeasure frameworks
-- ⚡ Electrical fundamentals — logic levels, communication interfaces (UART, SPI, I²C, JTAG/SWD), measurement equipment
-- 💥 Fault injection attacks — voltage glitching, clock glitching, EMFI, laser fault injection, body biasing
-- 📊 Side-channel analysis — timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA)
-- 🔬 Power analysis practicals — measurement setup, trace acquisition, filtering, CPA implementation, visualization
-- 🛡️ Countermeasures — silicon-level, firmware-level, and physical protections
-- 📟 **Device-specific guides** — setup, connection, and usage tutorials for common hardware hacking tools.
+- 🎯 Hardware threat modeling: Attacker profiles, asset mapping, countermeasure frameworks
+- ⚡ Electrical fundamentals: Logic levels, communication interfaces (UART, SPI, I²C, JTAG/SWD), measurement equipment
+- 💥 Fault injection attacks: Voltage glitching, clock glitching, EMFI, laser fault injection, body biasing
+- 📊 Side-channel analysis: Timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA)
+- 🔬 Power analysis practicals: Measurement setup, trace acquisition, filtering, CPA implementation, visualization
+- 🛡️ Countermeasures: Silicon-level, firmware-level, and physical protections
+- 📟 **Device-specific guides**: Setup, connection, and usage tutorials for common hardware hacking tools.
 
 ### Purpose
 
@@ -71,8 +71,8 @@ These materials serve as:
 New to hardware hacking?
   └─> Start with Chapter 1 (Threat Modeling) for framework and terminology
   └─> Then Chapter 2 (Electrical Fundamentals) for bench skills
-  └─> Then Chapter 3 (Fault Injection) — most accessible attack category
-  └─> Then Chapters 4–5 (Side-Channel) — builds on measurement fundamentals
+  └─> Then Chapter 3 (Fault Injection): most accessible attack category
+  └─> Then Chapters 4–5 (Side-Channel): builds on measurement fundamentals
 
 Experienced practitioner?
   └─> Jump directly to the relevant chapter
@@ -123,8 +123,8 @@ Extract secrets by observing physical emissions during normal operation.
 | **DPA / CPA** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
 | **Timing** | Execution time | 100–10,000 | Password comparison, RSA, cache-based |
 | **SEMA** | EM emissions | 100–10,000 | Same as DPA but contactless |
-| **Template** | Power (profiled) | 1–10 | Any — requires clone device for profiling |
-| **TVLA** | Power (assessment) | 1,000–10,000 | Leakage detection — not key recovery |
+| **Template** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
+| **TVLA** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
 
 ### Interface Exploitation (Physical Access)
 
@@ -236,12 +236,12 @@ This section contains hardware attack techniques and methodologies for:
 
 | Law / Regulation | Scope |
 |-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to protected computers — includes embedded systems |
+| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to protected computers: includes embedded systems |
 | **DMCA (17 U.S.C. § 1201)** | Circumvention of technological protection measures (DRM bypass) |
 | **EAR / ITAR** | Export controls on certain cryptographic and defense-related hardware tools |
 | **Trade Secret Laws** | Extraction of proprietary firmware or algorithms may constitute misappropriation |
 | **EU Cybercrime Directives** | Unauthorized access to computer systems including embedded devices |
-| **DMCA § 1201(j)** | Security research exemption — narrow; consult legal counsel |
+| **DMCA § 1201(j)** | Security research exemption: narrow; consult legal counsel |
 
 ### Warranty Disclaimer
 
@@ -269,9 +269,9 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 Hardware hacking involves potentially dangerous equipment:
    • High-voltage pulse generators (EMFI, LFI)
-   • Laser sources (Class 3B/4 — eye damage risk)
+   • Laser sources (Class 3B/4: eye damage risk)
    • Soldering and hot air rework (burn risk)
-   • Chemical decapping agents (fuming acids — fume hood required)
+   • Chemical decapping agents (fuming acids: fume hood required)
 
 ALWAYS:
    ✓ Wear appropriate PPE (safety glasses, gloves, lab coat)
@@ -309,11 +309,11 @@ ALWAYS:
 
 | Conference | Focus |
 |-----------|-------|
-| **CHES** | Cryptographic Hardware and Embedded Systems — leading SCA/FI venue |
-| **DEF CON HHV** | Hardware Hacking Village — hands-on workshops and talks |
+| **CHES** | Cryptographic Hardware and Embedded Systems: leading SCA/FI venue |
+| **DEF CON HHV** | Hardware Hacking Village: hands-on workshops and talks |
 | **Hardwear.io** | Dedicated hardware security conference |
-| **REcon** | Reverse engineering — significant hardware content |
-| **USENIX Security** | Academic security — regular hardware security papers |
+| **REcon** | Reverse engineering: significant hardware content |
+| **USENIX Security** | Academic security: regular hardware security papers |
 
 ---
 
@@ -347,7 +347,7 @@ ALWAYS:
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
-*Physical access changes everything — test only what you own or are authorized to assess.*
+*Physical access changes everything: test only what you own or are authorized to assess.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -355,11 +355,11 @@ ALWAYS:
 
 ---
 
-⚠️ **Hardware attacks can permanently damage devices — test on authorized hardware only** ⚠️
+⚠️ **Hardware attacks can permanently damage devices: test on authorized hardware only** ⚠️
 
-⚠️ **DMCA restrictions may apply to DRM circumvention — consult legal counsel** ⚠️
+⚠️ **DMCA restrictions may apply to DRM circumvention: consult legal counsel** ⚠️
 
-⚠️ **Electrical safety hazards — follow proper EHS guidelines** ⚠️
+⚠️ **Electrical safety hazards: follow proper EHS guidelines** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
