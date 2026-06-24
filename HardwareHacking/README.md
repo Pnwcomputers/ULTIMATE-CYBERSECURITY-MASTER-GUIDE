@@ -19,6 +19,7 @@
 
 - [Overview](#overview)
 - [Chapter Guides](#chapter-guides)
+- [Device Setup & Usage Guides](#device-setup--usage-guides)
 - [Attack Categories](#attack-categories)
 - [Bench Equipment Reference](#bench-equipment-reference)
 - [Tool Ecosystem](#tool-ecosystem)
@@ -40,6 +41,7 @@ This section provides a **comprehensive reference** for hardware security assess
 - 📊 Side-channel analysis — timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA)
 - 🔬 Power analysis practicals — measurement setup, trace acquisition, filtering, CPA implementation, visualization
 - 🛡️ Countermeasures — silicon-level, firmware-level, and physical protections
+- 📟 **Device-specific guides** — setup, connection, and usage tutorials for common hardware hacking tools.
 
 ### Purpose
 
@@ -81,6 +83,22 @@ Experienced practitioner?
 
 ---
 
+## 📟 Device Setup & Usage Guides
+
+Detailed documentation, reference links, and step-by-step usage tutorials for specific hardware hacking tools on your bench:
+
+| Device Guide | Description |
+|--------------|-------------|
+| **[BusPirate.md](./BusPirate.md)** | Open-source hacker multi-tool for interfacing with I2C, SPI, UART, and JTAG. |
+| **[GreatFETone.md](./GreatFETone.md)** | Extensible open-source hardware tool for logic analysis, I2C/SPI manipulation, and USB RE. |
+| **[JTAGulator.md](./JTAGulator.md)** | Hardware tool to brute-force and discover on-chip debug (OCD) interfaces like JTAG/UART. |
+| **[BitPirate.md](./BitPirate.md)** | Serial interface bridge for embedded systems recon, fuzzing, and debugging. |
+| **[LA1010.md](./LA1010.md)** | Setup and usage for the Innomaker LA1010 100MHz 16-channel USB Logic Analyzer. |
+| **[HiLetgo.md](./HiLetgo.md)** | Setup and usage for the HiLetgo 24MHz 8-channel USB Logic Analyzer (Saleae clone). |
+| **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Universal IC Programmer guide for dumping and flashing EPROM, MCU, SPI, and NAND Flash. |
+
+---
+
 ## ⚡ Attack Categories
 
 ### Fault Injection (Active)
@@ -113,10 +131,10 @@ Extract secrets by observing physical emissions during normal operation.
 | Interface | Wires | Attack Value | Common Tools |
 |-----------|-------|-------------|-------------|
 | **UART** | TX, RX, GND | Boot logs, root shell, U-Boot console | USB-UART adapter, logic analyzer |
-| **JTAG** | TCK, TMS, TDI, TDO, TRST | CPU halt, memory dump, register access | J-Link, OpenOCD, JTAGulator |
+| **JTAG** | TCK, TMS, TDI, TDO, TRST | CPU halt, memory dump, register access | J-Link, OpenOCD, [JTAGulator](./JTAGulator.md) |
 | **SWD** | SWDCLK, SWDIO | Same as JTAG (ARM Cortex-M) | ST-LINK, CMSIS-DAP |
-| **SPI** | SCLK, MOSI, MISO, CS | Flash dump (firmware extraction) | flashrom, Bus Pirate, CH341A |
-| **I²C** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, Bus Pirate |
+| **SPI** | SCLK, MOSI, MISO, CS | Flash dump (firmware extraction) | flashrom, [Bus Pirate](./BusPirate.md), CH341A |
+| **I²C** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, [Bus Pirate](./BusPirate.md) |
 
 ---
 
@@ -127,11 +145,11 @@ Extract secrets by observing physical emissions during normal operation.
 | Equipment | Recommended | Budget | Purpose |
 |-----------|-------------|--------|---------|
 | **Oscilloscope** | Rigol DS1054Z / Siglent SDS1204X-E | $350–$400 | Signal capture, power analysis, glitch verification |
-| **Logic Analyzer** | Saleae Logic 8 / DSLogic | $100–$500 | Protocol decode (UART, SPI, I²C, JTAG) |
+| **Logic Analyzer** | [Innomaker LA1010](./LA1010.md) / [HiLetgo](./HiLetgo.md) / DSLogic | $10–$150 | Protocol decode (UART, SPI, I²C, JTAG) |
 | **Multimeter** | Any decent DMM | $20–$50 | Voltage/continuity checks |
 | **USB-UART Adapter** | FTDI FT232R / CP2102 | $5–$15 | Serial console access |
 | **JTAG/SWD Probe** | J-Link EDU / ST-LINK V2 | $20–$70 | Debug interface access |
-| **SPI Programmer** | CH341A / Bus Pirate 5 | $5–$150 | Flash chip read/write |
+| **SPI/IC Programmer** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
 | **Soldering Station** | Hakko FX-888D | $100 | Component removal, wire attachment |
 | **Hot Air Rework** | Quick 957DW or equivalent | $100–$200 | IC removal, BGA work |
 
@@ -142,9 +160,9 @@ Extract secrets by observing physical emissions during normal operation.
 | **ChipWhisperer Lite** | NewAE Technology | ~$250 | Integrated glitching + power analysis |
 | **ChipWhisperer Pro** | NewAE Technology | ~$1,500 | Higher performance, more glitch options |
 | **ChipSHOUTER** | NewAE Technology | ~$1,000 | Electromagnetic fault injection |
-| **JTAGulator** | Grand Idea Studio | ~$150 | JTAG/UART pinout brute-force |
+| **JTAGulator** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
 | **Glasgow Interface Explorer** | Open-source FPGA | ~$150 | Scriptable multi-protocol interface |
-| **Current Probe** | Tektronix TCP0020 | $$$ | Non-invasive current measurement |
+| **GreatFET One** | [Great Scott Gadgets (Guide)](./GreatFETone.md) | ~$100 | Multi-purpose interface and bus manipulation |
 
 ---
 
@@ -152,14 +170,16 @@ Extract secrets by observing physical emissions during normal operation.
 
 ### Hardware Tools
 
-| Tool | Purpose | Cost |
-|------|---------|------|
-| [**ChipWhisperer**](https://www.newae.com/chipwhisperer) | Integrated glitching + power analysis platform | $250–$1,500 |
-| [**ChipSHOUTER**](https://www.newae.com/chipshooter) | EMFI pulse injector | ~$1,000 |
-| [**JTAGulator**](http://www.grandideastudio.com/jtagulator/) | JTAG/UART pinout discovery | ~$150 |
-| [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | FPGA-based scriptable interface explorer | ~$150 |
-| [**Bus Pirate 5**](https://buspirate.com/) | Interactive multi-protocol interface tool | ~$35 |
-| [**Saleae Logic**](https://www.saleae.com/) | Logic analyzer with protocol decoders | $100–$500 |
+| Tool | Purpose | Cost | Reference Guide |
+|------|---------|------|-----------------|
+| [**ChipWhisperer**](https://www.newae.com/chipwhisperer) | Integrated glitching + power analysis platform | $250–$1,500 | N/A |
+| [**ChipSHOUTER**](https://www.newae.com/chipshooter) | EMFI pulse injector | ~$1,000 | N/A |
+| [**JTAGulator**](http://www.grandideastudio.com/jtagulator/) | JTAG/UART pinout discovery | ~$150 | [JTAGulator.md](./JTAGulator.md) |
+| [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | FPGA-based scriptable interface explorer | ~$150 | N/A |
+| [**Bus Pirate**](https://buspirate.com/) | Interactive multi-protocol interface tool | ~$35 | [BusPirate.md](./BusPirate.md) |
+| [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | USB/Logic/Interface exploration | ~$100 | [GreatFETone.md](./GreatFETone.md) |
+| [**T48 TL866-3G**](https://www.amazon.com/dp/B0BFX9FXGV) | Universal IC Programmer | ~$65 | [T48_TL866-3G.md](./T48_TL866-3G.md) |
+| [**LA1010 / HiLetgo**](https://www.amazon.com) | USB Logic Analyzers (100MHz / 24MHz) | $15–$50 | [LA1010.md](./LA1010.md) & [HiLetgo.md](./HiLetgo.md) |
 
 ### Software Tools
 
@@ -278,12 +298,12 @@ ALWAYS:
 
 | Resource | URL |
 |----------|-----|
-| ChipWhisperer Documentation & Tutorials | https://chipwhisperer.readthedocs.io/ |
-| Microcorruption CTF (MSP430 exploitation) | https://microcorruption.com/ |
-| CHES Conference Proceedings | https://ches.iacr.org/ |
-| Riscure Public Training Materials | https://www.riscure.com/security-tools/ |
-| DEF CON Hardware Hacking Village | https://dchhv.org/ |
-| Wrong Baud (hardware RE blog) | https://wrongbaud.github.io/ |
+| ChipWhisperer Documentation & Tutorials | [https://chipwhisperer.readthedocs.io/](https://chipwhisperer.readthedocs.io/) |
+| Microcorruption CTF (MSP430 exploitation) | [https://microcorruption.com/](https://microcorruption.com/) |
+| CHES Conference Proceedings | [https://ches.iacr.org/](https://ches.iacr.org/) |
+| Riscure Public Training Materials | [https://www.riscure.com/security-tools/](https://www.riscure.com/security-tools/) |
+| DEF CON Hardware Hacking Village | [https://dchhv.org/](https://dchhv.org/) |
+| Wrong Baud (hardware RE blog) | [https://wrongbaud.github.io/](https://wrongbaud.github.io/) |
 
 ### Conferences and Communities
 
