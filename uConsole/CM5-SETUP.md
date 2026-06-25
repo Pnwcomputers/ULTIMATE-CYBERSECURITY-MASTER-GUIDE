@@ -1,6 +1,6 @@
-# uConsole Field Platform Setup Guide
+# uConsole Field Platform Setup Guide: CM5 Configuration
 
-## Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM5 Configuration
+## Rex's Kali or Trixie + HackerGadgets AIO v2 Board
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
@@ -15,7 +15,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Step 2.5: Install Kali Tools on Trixie (Trixie Only)](#step-25--install-kali-tools-on-trixie-trixie-only)
 - [Step 3: Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
 - [Step 4: Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
-- [Step 5: Configure GPS (CM4)](#step-5--configure-gps-cm4)
+- [Step 5: Configure GPS (CM5)](#step-5--configure-gps-CM5)
 - [Step 6: Configure LoRa / Meshtasticd](#step-6--configure-lora--meshtasticd)
 - [Step 7: Configure RTC](#step-7--configure-rtc)
 - [Step 8: Configure SDR](#step-8--configure-sdr)
@@ -40,10 +40,10 @@ This guide assumes the following hardware stack:
 | Component | Detail |
 |---|---|
 | **Handheld** | ClockworkPi uConsole |
-| **Compute Module** | Raspberry Pi CM5 (with HackerGadgets CM4/CM5 adapter board) |
+| **Compute Module** | Raspberry Pi CM5 (with HackerGadgets CM5/CM5 adapter board) |
 | **Extension Board** | HackerGadgets AIO v2 (RTL-SDR / LoRa / GPS / RTC / USB Hub) |
 | **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
-| **WiFi Adapter** | External monitor-mode capable adapter (CM4 onboard WiFi does NOT support monitor mode) |
+| **WiFi Adapter** | External monitor-mode capable adapter (CM5 onboard WiFi does NOT support monitor mode) |
 
 ### What the AIO v2 Provides
 
@@ -252,7 +252,7 @@ Rex's custom APT repo is pre-configured on his images. The AIO board package ins
 
 ### Fix cryptsetup-initramfs BEFORE Installing (Critical)
 
-The AIO board package (or its dependency chain) can pull in `cryptsetup-initramfs` as a recommended package. On CM4, the initramfs hook tries to resolve `/dev/root` and hard-fails because the Pi uses `PARTUUID=` in cmdline.txt. This returns exit code 1, which kills the entire `dpkg` post-install trigger and leaves your system in a broken package state. If this happens during a kernel-related package install, **it can corrupt your initramfs and leave the system unbootable.**
+The AIO board package (or its dependency chain) can pull in `cryptsetup-initramfs` as a recommended package. On CM5, the initramfs hook tries to resolve `/dev/root` and hard-fails because the Pi uses `PARTUUID=` in cmdline.txt. This returns exit code 1, which kills the entire `dpkg` post-install trigger and leaves your system in a broken package state. If this happens during a kernel-related package install, **it can corrupt your initramfs and leave the system unbootable.**
 
 Pre-empt this before installing anything:
 
@@ -322,11 +322,11 @@ This creates an XDG autostart entry so the system tray icon launches on login.
 
 ---
 
-## Step 5: Configure GPS (CM4)
+## Step 5: Configure GPS (CM5)
 
 ### CM5-Specific GPS Path
 
-On CM5, the GPS serial port is `/dev/ttyAMA0` (NOT `/dev/ttyAMA0` which is for CM4).
+On CM5, the GPS serial port is `/dev/ttyAMA0` (NOT `/dev/ttyAMA0` which is for CM5).
 
 ### Free the Serial Port
 
@@ -446,7 +446,7 @@ Lora:
   spidev: spidev1.0
 
 GPS:
-  SerialPath: /dev/ttyAMA0    # CM5 path: use /dev/ttyS0 for CM4
+  SerialPath: /dev/ttyAMA0    # CM5 path: use /dev/ttyS0 for CM5
 
 Webserver:
   Port: 443
@@ -667,7 +667,7 @@ Left-click the tray icon for a status window; right-click for toggle controls. T
 
 ## Step 10: WiFi Pentesting Setup
 
-The CM4's onboard WiFi **does not support monitor mode**. You need an external USB WiFi adapter.
+The CM5's onboard WiFi **does not support monitor mode**. You need an external USB WiFi adapter.
 
 ### Recommended Adapters
 
@@ -782,7 +782,7 @@ The NVMe Battery Board comes in two configurations:
 ### Physical Installation
 
 1. Remove the stock uConsole battery board
-2. Install the HackerGadgets adapter board (connects the CM4 to the NVMe Battery Board via ribbon cable)
+2. Install the HackerGadgets adapter board (connects the CM5 to the NVMe Battery Board via ribbon cable)
 3. Seat the NVMe Battery Board in place of the stock battery board
 4. Connect the ribbon cable between the adapter board and the NVMe Battery Board
 
@@ -791,7 +791,7 @@ The NVMe Battery Board comes in two configurations:
 5. Insert your NVMe SSD into the M.2 slot (2230 is the most compact; 2242 and 2280 also fit)
 6. Install your 18650 batteries or connect your LiPo pack
 
-### NVMe Software Configuration (CM4)
+### NVMe Software Configuration (CM5)
 
 #### Enable PCIe in config.txt
 
@@ -817,7 +817,7 @@ sudo fdisk -l /dev/nvme0n1   # Full partition info
 
 #### CM5 EEPROM: No Update Required
 
-The CM5 has native PCIe and NVMe boot support. Unlike the CM4, **you do not need to update the EEPROM** for NVMe detection or boot. Simply add `dtparam=pciex1` to config.txt and the NVMe drive will be detected automatically.
+The CM5 has native PCIe and NVMe boot support. Unlike the CM5, **you do not need to update the EEPROM** for NVMe detection or boot. Simply add `dtparam=pciex1` to config.txt and the NVMe drive will be detected automatically.
 
 ### Cloning SD Card to NVMe
 
@@ -841,7 +841,7 @@ Follow the prompts. rpi-clone handles partition resizing and UUID updates automa
 
 If you're running a desktop environment, the built-in SD Card Copier utility (available in Rex's Trixie and Bookworm) can copy from SD to NVMe. Select your SD card as source and the NVMe drive as destination.
 
-> **Tip from the community:** Consider adding `dtparam=pciex1_gen=2` to config.txt to cap the PCIe link at Gen 2 speed for improved stability. The CM4's PCIe is Gen 2 natively, so this just ensures no negotiation issues with certain drives.
+> **Tip from the community:** Consider adding `dtparam=pciex1_gen=2` to config.txt to cap the PCIe link at Gen 2 speed for improved stability. The CM5's PCIe is Gen 2 natively, so this just ensures no negotiation issues with certain drives.
 
 ### Booting from NVMe
 
@@ -849,7 +849,7 @@ Once the NVMe drive has a bootable OS image:
 
 #### Option A: NVMe as Primary Boot (Remove SD Card)
 
-If BOOT_ORDER in the EEPROM includes NVMe (`6`), simply remove the microSD card and the CM4 will fall through to NVMe boot.
+If BOOT_ORDER in the EEPROM includes NVMe (`6`), simply remove the microSD card and the CM5 will fall through to NVMe boot.
 
 #### Option B: Dual Boot (SD + NVMe)
 
@@ -887,7 +887,7 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 **NVMe detected but won't boot:**
 
 - Ensure a bootable OS image is on the NVMe (flash with Raspberry Pi Imager to a USB enclosure first, then move the drive)
-- Check EEPROM boot order includes NVMe: `sudo CM4_ENABLE_RPI_EEPROM_UPDATE=1 rpi-eeprom-config`
+- Check EEPROM boot order includes NVMe: `sudo CM5_ENABLE_RPI_EEPROM_UPDATE=1 rpi-eeprom-config`
 - Verify the NVMe partition has boot files: `sudo mount /dev/nvme0n1p1 /mnt && ls /mnt`
 
 **Intermittent boot failures or PCIe errors in dmesg:**
@@ -901,10 +901,10 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 
 | Item | CM5 Detail |
 |---|---|
-| GPS Serial Port | `/dev/ttyAMA0` (CM4 uses `/dev/ttyS0`) |
+| GPS Serial Port | `/dev/ttyAMA0` (CM5 uses `/dev/ttyS0`) |
 | USB Speed | USB 3.0 with Upgrade Kit adapter board (USB 2.0 without) |
 | GPIO Boot State | GPIO 7 (SDR) starts ON; GPS, LoRa, USB start OFF |
-| Stability | Newer, improving rapidly: occasional rough edges vs CM4 |
+| Stability | Newer, improving rapidly: occasional rough edges vs CM5 |
 | RTC Config | Must disable internal RTC: `dtparam=rtc=off` + `dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0` |
 | Serial Console | Must remove `console=serial0,115200` from cmdline.txt for GPS |
 | SPI Conflict | Must disable `devterm-printer.service` for LoRa |
