@@ -8,7 +8,7 @@
 
 [![Fault Injection](https://img.shields.io/badge/Fault_Injection-Glitching_%7C_EMFI_%7C_Laser-red?style=for-the-badge)]()
 [![Side-Channel](https://img.shields.io/badge/Side--Channel-SPA_%7C_DPA_%7C_CPA-blue?style=for-the-badge)]()
-[![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_UART_%7C_SPI-green?style=for-the-badge)]()
+[![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_SPI-green?style=for-the-badge)]()
 [![Threat Modeling](https://img.shields.io/badge/Threat_Modeling-Assets_%7C_Profiles_%7C_Countermeasures-orange?style=for-the-badge)]()
 
 </div>
@@ -107,10 +107,10 @@ Introduce controlled transient errors to bypass security checks, skip instructio
 
 | Method | Equipment | Precision | Complexity | Cost |
 |--------|-----------|-----------|-----------|------|
-| **[Voltage Glitching](https://wiki.newae.com/VCC_Glitch_Attacks)** | [MOSFET](https://www.amazon.com/s?k=logic+level+N-channel+MOSFET) + [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | Medium | Low | $ |
-| **[Clock Glitching](https://wiki.newae.com/Clock_Glitching)** | [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | High | Medium | $$ |
-| **[EMFI](https://wiki.newae.com/Electromagnetic_Fault_Injection_(EMFI))** | [ChipSHOUTER](https://www.newae.com/chipshouter) or custom coil + pulser | Medium-High | Medium | $–$$ |
-| **[Laser FI](https://www.riscure.com/equipment/laser-fault-injection/)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
+| **[Voltage Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | [MOSFET](https://www.amazon.com/s?k=logic+level+N-channel+MOSFET) + [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | Medium | Low | $ |
+| **[Clock Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | High | Medium | $$ |
+| **[EMFI](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | [ChipSHOUTER](https://www.newae.com/chipshouter) or custom coil + pulser | Medium-High | Medium | $–$$ |
+| **[Laser FI](https://www.keysight.com/us/en/cmp/device-security.html)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
 | **[Body Biasing](https://www.usenix.org/conference/usenixsecurity21/presentation/hofmann)** | Probe + pulse generator | Medium | Medium | $$ |
 
 ### Side-Channel Analysis (Passive)
@@ -120,11 +120,11 @@ Extract secrets by observing physical emissions during normal operation.
 | Technique | Observable | Traces Needed | Target |
 |-----------|-----------|---------------|--------|
 | **[SPA](https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis)** | Power (single trace) | 1–10 | RSA, ECC with visible square/multiply pattern |
-| **[DPA](https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis) / [CPA](https://wiki.newae.com/Correlation_Power_Analysis)** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
+| **[DPA](https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis) / [CPA](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
 | **[Timing](https://en.wikipedia.org/wiki/Timing_attack)** | Execution time | 100–10,000 | Password comparison, RSA, cache-based |
-| **[SEMA](https://en.wikipedia.org/wiki/Electromagnetic_acoustics_and_side-channel_attacks)** | EM emissions | 100–10,000 | Same as DPA but contactless |
-| **[Template](https://wiki.newae.com/Template_Attacks)** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
-| **[TVLA](https://wiki.newae.com/Test_Vector_Leakage_Assessment_(TVLA))** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
+| **[SEMA](https://en.wikipedia.org/wiki/Electromagnetic_attack)** | EM emissions | 100–10,000 | Same as DPA but contactless |
+| **[Template](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
+| **[TVLA](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
 
 ### Interface Exploitation (Physical Access)
 
@@ -159,10 +159,10 @@ Extract secrets by observing physical emissions during normal operation.
 
 | Equipment | Recommended | Budget | Purpose |
 |-----------|-------------|--------|---------|
-| **[ChipWhisperer Lite](https://rtfm.newae.com/Capture/ChipWhisperer-Lite/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-lite) | ~$250 | Integrated glitching + power analysis |
-| **[ChipWhisperer Pro](https://rtfm.newae.com/Capture/ChipWhisperer-Pro/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-pro) | ~$1,500 | Higher performance, more glitch options |
-| **[ChipSHOUTER](https://rtfm.newae.com/FaultInjection/ChipSHOUTER/)** | [NewAE Technology](https://www.mouser.com/c/?q=chipshouter) | ~$1,000 | Electromagnetic fault injection |
-| **[JTAGulator](http://www.grandideastudio.com/jtagulator/)** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
+| **[ChipWhisperer Lite](https://chipwhisperer.readthedocs.io/en/latest/Capture/ChipWhisperer-Lite.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-lite) | ~$250 | Integrated glitching + power analysis |
+| **[ChipWhisperer Pro](https://chipwhisperer.readthedocs.io/en/latest/Capture/ChipWhisperer-Pro.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-pro) | ~$1,500 | Higher performance, more glitch options |
+| **[ChipSHOUTER](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipshouter) | ~$1,000 | Electromagnetic fault injection |
+| **[JTAGulator](https://grandideastudio.com/portfolio/security/jtagulator/)** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
 | **[Glasgow Interface Explorer](https://github.com/GlasgowEmbedded/glasgow)** | [Open-source FPGA](https://www.crowdsupply.com/1bitsquared/glasgow) | ~$150 | Scriptable multi-protocol interface |
 | [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | [Great Scott Gadgets (Guide)](./GreatFETone.md) | ~$100 | Multi-purpose interface and bus manipulation |
 
@@ -175,8 +175,8 @@ Extract secrets by observing physical emissions during normal operation.
 | Tool | Purpose | Cost | Reference Guide |
 |------|---------|------|-----------------|
 | [**ChipWhisperer**](https://www.newae.com/chipwhisperer) | Integrated glitching + power analysis platform | $250–$1,500 | N/A |
-| [**ChipSHOUTER**](https://www.newae.com/chipshooter) | EMFI pulse injector | ~$1,000 | N/A |
-| [**JTAGulator**](http://www.grandideastudio.com/jtagulator/) | JTAG/UART pinout discovery | ~$150 | [JTAGulator.md](./JTAGulator.md) |
+| [**ChipSHOUTER**](https://www.newae.com/chipshouter) | EMFI pulse injector | ~$1,000 | N/A |
+| [**JTAGulator**](https://grandideastudio.com/portfolio/security/jtagulator/) | JTAG/UART pinout discovery | ~$150 | [JTAGulator.md](./JTAGulator.md) |
 | [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | FPGA-based scriptable interface explorer | ~$150 | N/A |
 | [**Bus Pirate**](https://buspirate.com/) | Interactive multi-protocol interface tool | ~$35 | [BusPirate.md](./BusPirate.md) |
 | [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | USB/Logic/Interface exploration | ~$100 | [GreatFETone.md](./GreatFETone.md) |
@@ -189,7 +189,7 @@ Extract secrets by observing physical emissions during normal operation.
 |------|---------|------|
 | [**OpenOCD**](https://openocd.org/) | Open-source JTAG/SWD debug | Free/OSS |
 | [**flashrom**](https://www.flashrom.org/) | SPI/parallel flash read/write | Free/OSS |
-| [**Ghidra**](https://ghidra-sre.org/) | Firmware reverse engineering | Free/OSS |
+| [**Ghidra**](https://github.com/NationalSecurityAgency/ghidra) | Firmware reverse engineering | Free/OSS |
 | [**IDA Pro**](https://hex-rays.com/ida-pro/) | Firmware reverse engineering | $$$$ |
 | [**Binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction and analysis | Free/OSS |
 | [**Sigrok / PulseView**](https://sigrok.org/) | Open-source logic analyzer frontend | Free/OSS |
@@ -201,7 +201,7 @@ Extract secrets by observing physical emissions during normal operation.
 |---------|---------|-----|
 | [**scared**](https://github.com/eshard/scared) | Side-channel analysis framework | Free/OSS |
 | [**lascar**](https://github.com/Ledger-Donjon/lascar) | Flexible SCA framework (Ledger) | Free/OSS |
-| [**SCApy**](https://github.com/phdphuc/scapy-sca) | Side-channel analysis in Python | Free/OSS |
+| [**SCARR**](https://github.com/decryptofy/scarr) | Side-channel analysis framework (Oregon State) | Free/OSS |
 | **NumPy / SciPy / Matplotlib** | Trace processing, filtering, visualization | Free/OSS |
 
 ---
@@ -303,7 +303,7 @@ ALWAYS:
 | ChipWhisperer Documentation & Tutorials | [https://chipwhisperer.readthedocs.io/](https://chipwhisperer.readthedocs.io/) |
 | Microcorruption CTF (MSP430 exploitation) | [https://microcorruption.com/](https://microcorruption.com/) |
 | CHES Conference Proceedings | [https://ches.iacr.org/](https://ches.iacr.org/) |
-| Riscure Public Training Materials | [https://www.riscure.com/security-tools/](https://www.riscure.com/security-tools/) |
+| Riscure / Keysight Device Security Tools | [https://www.riscure.com/security-tools/](https://www.riscure.com/security-tools/) |
 | DEF CON Hardware Hacking Village | [https://dchhv.org/](https://dchhv.org/) |
 | Wrong Baud (hardware RE blog) | [https://wrongbaud.github.io/](https://wrongbaud.github.io/) |
 
