@@ -4,23 +4,23 @@ Welcome to the **Incident Response (IR)** section of the **ULTIMATE-CYBERSECURIT
 
 ## 🎯 Purpose
 This section focuses on **visibility and defense**. It provides the resources to:
-* **[Centralize Logs:](/Incident%20Response/log_agg.md)** Ingest data from endpoints, servers, and network devices into a SIEM.
-* **[Detect Threats:](/Incident%20Response/SIEM)** Write SIGMA rules and alerts to catch malicious activity generated in the lab.
-* **[Analyze Artifacts:](/Incident%20Response/Digital-Forensics)** Perform forensics on memory (RAM) and disk images.
+* **[Centralize Logs:](/IncidentResponse/log_agg.md)** Ingest data from endpoints, servers, and network devices into a SIEM.
+* **[Detect Threats:](/IncidentResponse/SIEM)** Write SIGMA rules and alerts to catch malicious activity generated in the lab.
+* **[Analyze Artifacts:](/IncidentResponse/Digital-Forensics)** Perform forensics on memory (RAM) and disk images.
 * **[Standardized Response:](/PlayBooks/BlueTeam_IncResp_Enhanced.md)** Use Playbooks to handle incidents (e.g., Phishing, Ransomware) consistently.
 
 ## 📂 Directory Contents
 
 ### 📊 Log Aggregation & SIEM
-* **[ELK Stack (Elastic):](/Incident%20Response/SIEM/elk_stack.md)** Docker compose files and configs for Elasticsearch, Logstash, and Kibana.
-* **[Wazuh:](/Incident%20Response/SIEM/wazuh.md)** Deployment guides for the Wazuh manager and agent registration.
-* **[Splunk:](/Incident%20Response/SIEM/splunk.md)** Setup for Splunk Free/Enterprise trial and creating indexes.
-* **[Graylog:](/Incident%20Response/SIEM/graylog.md)** Configuration for lightweight log management.
+* **[ELK Stack (Elastic):](/IncidentResponse/SIEM/elk_stack.md)** Docker compose files and configs for Elasticsearch, Logstash, and Kibana.
+* **[Wazuh:](/IncidentResponse/SIEM/wazuh.md)** Deployment guides for the Wazuh manager and agent registration.
+* **[Splunk:](/IncidentResponse/SIEM/splunk.md)** Setup for Splunk Free/Enterprise trial and creating indexes.
+* **[Graylog:](/IncidentResponse/SIEM/graylog.md)** Configuration for lightweight log management.
 
 ### 👁️ Endpoint Visibility (EDR)
-* **Windows [(Sysmon)](/Incident%20Response/Endpoint-Visibility/Windows/sysmon.md):** Installation scripts and configuration files (e.g., SwiftOnSecurity or Olaf Hartong configs) for granular event tracing.
-* **Linux [(Auditd/Syslog)](/Incident%20Response/Endpoint-Visibility/Linux/auditd_syslog.md):** Hardening logging configurations for Linux servers.
-* **[Osquery](/Incident%20Response/Endpoint-Visibility/Linux/osquery.md):** SQL-powered operating system instrumentation.
+* **Windows [(Sysmon)](/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md):** Installation scripts and configuration files (e.g., SwiftOnSecurity or Olaf Hartong configs) for granular event tracing.
+* **Linux [(Auditd/Syslog)](/IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md):** Hardening logging configurations for Linux servers.
+* **[Osquery](/IncidentResponse/Endpoint-Visibility/Linux/osquery.md):** SQL-powered operating system instrumentation.
 
 ### 🕸️ Network Monitoring (NSM)
 * **Zeek (Bro):** Scripts for analyzing network traffic logs.
@@ -32,16 +32,16 @@ Step-by-step guides for specific incident types:
 * **Malware Outbreak:** Isolation, identification, and eradication steps.
 * **[Phishing Analysis:](/PlayBooks/sop_phising_analysis.md)** Header analysis, attachment detonation, and URL scanning.
 * **[Unauthorized Access:](/PlayBooks/unauth_access.md)** Investigating brute force and impossible travel alerts.
-* **[Wireless Intrusion & Unauthorized Network Access:](/Incident%20Response/network_intrusion.md)** Investigating unauthorized access to local or private networks.
+* **[Wireless Intrusion & Unauthorized Network Access:](/IncidentResponse/network_intrusion.md)** Investigating unauthorized access to local or private networks.
 
 ### 🔎 Digital Forensics
-* **[Memory Analysis](/Incident%20Response/Digital-Forensics/Memory):** Cheatsheets for using **Volatility** to analyze RAM dumps.
-* **[Disk Forensics](/Incident%20Response/Digital-Forensics/Disks):** Guides for **Autopsy** and **KAPE** (Kroll Artifact Parser and Extractor).
-* **[Live Response](/Incident%20Response/Digital-Forensics/Live%20Data/live_data_collection.md):** Scripts for gathering volatile data from a compromised host.
+* **[Memory Analysis](/IncidentResponse/Digital-Forensics/Memory):** Cheatsheets for using **Volatility** to analyze RAM dumps.
+* **[Disk Forensics](/IncidentResponse/Digital-Forensics/Disks):** Guides for **Autopsy** and **KAPE** (Kroll Artifact Parser and Extractor).
+* **[Live Response](/IncidentResponse/Digital-Forensics/Live%20Data/live_data_collection.md):** Scripts for gathering volatile data from a compromised host.
 
 ## 🚀 Getting Started
-1.  **Choose a [SIEM](/Incident%20Response/SIEM):** Start by deploying a central log server (recommend **Wazuh** or **ELK** for beginners) using the guides in the `SIEM/` folder.
-2.  **Deploy [Agents](/Incident%20Response/Endpoint-Visibility):** Install agents (Sysmon + Winlogbeat, or Wazuh Agent) on your **Homelab** VMs.
+1.  **Choose a [SIEM](/IncidentResponse/SIEM):** Start by deploying a central log server (recommend **Wazuh** or **ELK** for beginners) using the guides in the `SIEM/` folder.
+2.  **Deploy [Agents](/IncidentResponse/Endpoint-Visibility):** Install agents (Sysmon + Winlogbeat, or Wazuh Agent) on your **Homelab** VMs.
 3.  **[Generate Noise:](/PlayBooks)** Run an attack from your Kali box (from the Homelab branch) against a target VM.
 4.  **Analyze:** Go to your SIEM dashboard and attempt to trace the attack chain.
 
