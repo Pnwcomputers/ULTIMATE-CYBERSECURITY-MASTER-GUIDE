@@ -62,16 +62,16 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
 | 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
 | 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
-| 🚨 [Incident Response](Incident%20Response/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
-| 📊 [SIEM Deployment Guides](Incident%20Response/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
+| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
+| 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 | 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology — 400+ categorized tools, investigation workflows, automated VM setup |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices — anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
-| 👾 [Space Security](Space%20Security/) | Offensive and defensive security across the three segments of modern space systems |
+| 👾 [Space Security](SpaceSecurity/) | Offensive and defensive security across the three segments of modern space systems |
 | 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
-| 🥷 [Hardware Hacking](Hardware%20Hacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
-| 🧰 [Hardware Testing](Hardware%20Testing/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
+| 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
 | 📟 [uConsole](uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck. |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
@@ -105,11 +105,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - [Blue Team — Incident Response Enhanced](PlayBooks/BlueTeam_IncResp_Enhanced.md)
 
 **Detection Pipeline & SIEM**
-- [ELK Stack (Elastic) SIEM Deployment](Incident%20Response/SIEM/elk_stack.md)
-- [Wazuh SIEM Deployment](Incident%20Response/SIEM/wazuh.md)
-- [Splunk SIEM Deployment](Incident%20Response/SIEM/splunk.md)
-- [Graylog SIEM Deployment](Incident%20Response/SIEM/graylog.md)
-- [Log Aggregation Guide](Incident%20Response/log_agg.md)
+- [ELK Stack (Elastic) SIEM Deployment](IncidentResponse/SIEM/elk_stack.md)
+- [Wazuh SIEM Deployment](IncidentResponse/SIEM/wazuh.md)
+- [Splunk SIEM Deployment](IncidentResponse/SIEM/splunk.md)
+- [Graylog SIEM Deployment](IncidentResponse/SIEM/graylog.md)
+- [Log Aggregation Guide](IncidentResponse/log_agg.md)
 
 ### 💻 Custom Scripts & Tools
 - **[`pnwc_install_tools.sh`](Scripts/pnwc_install_tools.sh)** — Cross-distro Linux installer for all tools in this guide (apt · pacman · dnf)
