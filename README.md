@@ -19,7 +19,7 @@
 > *Abide by the [Legal Terms of Use & Disclaimer](LEGAL.md) for the use and misuse of this repository.*
 
 > "Under pressure, you don't rise to the occasion; you fall to the level of your training."
-
+>
 > "It ain't what you don't know that gets you into trouble. It's what you know for sure that just ain't so."
 
 ---
