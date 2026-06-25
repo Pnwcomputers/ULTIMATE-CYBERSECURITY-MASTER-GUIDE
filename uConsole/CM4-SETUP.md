@@ -1,4 +1,6 @@
-# Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM4 Configuration
+# uConsole Field Platform Setup Guide
+
+## Rex's Kali or Trixie + HackerGadgets AIO v2 Board: CM4 Configuration
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
@@ -324,7 +326,7 @@ This creates an XDG autostart entry so the system tray icon launches on login.
 
 ### CM4-Specific GPS Path
 
-On CM4, the GPS serial port is `/dev/ttyS0` (NOT `/dev/ttyAMA0` which is for CM5).
+On CM4, the GPS serial port is `/dev/ttyS0` (NOT `/dev/ttyAMA0` which is for CM4).
 
 ### Free the Serial Port
 
@@ -444,7 +446,7 @@ Lora:
   spidev: spidev1.0
 
 GPS:
-  SerialPath: /dev/ttyS0    # CM4 path: use /dev/ttyAMA0 for CM5
+  SerialPath: /dev/ttyS0    # CM4 path: use /dev/ttyAMA0 for CM4
 
 Webserver:
   Port: 443
@@ -587,7 +589,7 @@ Connect an antenna to the IPEX connector labeled **"SDR"** on the AIO v2 board. 
 
 ### CM4 Boot Behavior
 
-On CM4, **all peripherals start powered off by default.** You must explicitly enable each one. This is different from CM5 where GPIO 7 (SDR) starts high.
+On CM4, **all peripherals start powered off by default.** You must explicitly enable each one. This is different from CM4 where GPIO 7 (SDR) starts high.
 
 ### Using aiov2_ctl (Recommended)
 
@@ -936,11 +938,11 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 
 | Item | CM4 Detail |
 |---|---|
-| GPS Serial Port | `/dev/ttyS0` (CM5 uses `/dev/ttyAMA0`) |
-| USB Speed | USB 2.0 only (USB 3.0 requires CM5 + Upgrade Kit) |
-| GPIO Boot State | All peripherals start OFF (CM5 has GPIO 7/SDR on by default) |
+| GPS Serial Port | `/dev/ttyS0` (CM4 uses `/dev/ttyAMA0`) |
+| USB Speed | USB 2.0 only (USB 3.0 requires CM4 + Upgrade Kit) |
+| GPIO Boot State | All peripherals start OFF (CM4 has GPIO 7/SDR on by default) |
 | Stability | Most mature and community-tested configuration |
-| RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM5 which needs `i2c_csi_dsi0` remap) |
+| RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM4 which needs `i2c_csi_dsi0` remap) |
 | Serial Console | Must remove `console=serial0,115200` from cmdline.txt for GPS |
 | SPI Conflict | Must disable `devterm-printer.service` for LoRa |
 | Onboard WiFi | Does NOT support monitor mode: external adapter required |
