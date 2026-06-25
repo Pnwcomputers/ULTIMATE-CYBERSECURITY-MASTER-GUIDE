@@ -58,12 +58,12 @@ Using these tools improperly violates:
 
 | Device | Capabilities | Target Use Case | Risk Level |
 |--------|--------------|-----------------|------------|
-| **RTL-SDR (V3/V4)** | Receive Only (Rx) | Sniffing, Reconnaissance, SIGINT | 🟢 LOW |
-| **HackRF One** | Half-Duplex (Tx/Rx) | Replay attacks, fuzzing, wideband sniffing | 🔴 HIGH |
-| **BladeRF / USRP** | Full-Duplex (Tx/Rx) | Cell base station spoofing, GPS spoofing | 🔴 EXTREME |
-| **LimeSDR** | Full-Duplex (Tx/Rx) | Advanced telecommunications research | 🔴 EXTREME |
-| **Flipper Zero** | Sub-GHz (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
-| **Yard Stick One** | Sub-GHz (Tx/Rx) | Proprietary RF protocol exploitation | 🔴 HIGH |
+| **[RTL-SDR (V3/V4)](https://www.rtl-sdr.com/)** | Receive Only (Rx) | Sniffing, Reconnaissance, SIGINT | 🟢 LOW |
+| **[HackRF One](https://greatscottgadgets.com/hackrf/one/)** | Half-Duplex (Tx/Rx) | Replay attacks, fuzzing, wideband sniffing | 🔴 HIGH |
+| **[BladeRF](https://www.nuand.com/) / [USRP](https://www.ettus.com/)** | Full-Duplex (Tx/Rx) | Cell base station spoofing, GPS spoofing | 🔴 EXTREME |
+| **[LimeSDR](https://limemicro.com/products/boards/limesdr/)** | Full-Duplex (Tx/Rx) | Advanced telecommunications research | 🔴 EXTREME |
+| **[Flipper Zero](https://flipperzero.one/)** | Sub-GHz (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
+| **[Yard Stick One](https://greatscottgadgets.com/yardstickone/)** | Sub-GHz (Tx/Rx) | Proprietary RF protocol exploitation | 🔴 HIGH |
 
 ---
 
@@ -75,11 +75,11 @@ Using these tools improperly violates:
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **GQRX / SDR#** | General spectrum monitoring and audio demodulation | 🟢 LOW |
-| **rtl_433** | Decoding ISM band devices (weather stations, TPMS, alarms) | 🟢 LOW |
-| **dump1090** | ADS-B aviation tracking and decoding | 🟢 LOW |
-| **Kalibrate** | GSM base station frequency calculation | 🟢 LOW |
-| **Kismet** | Wi-Fi / Bluetooth / SDR network discovery | 🟡 MEDIUM |
+| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/spy-server/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
+| **[rtl_433](https://github.com/merbanan/rtl_433)** | Decoding ISM band devices (weather stations, TPMS, alarms) | 🟢 LOW |
+| **[dump1090](https://github.com/flightaware/dump1090)** | ADS-B aviation tracking and decoding | 🟢 LOW |
+| **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |
+| **[Kismet](https://www.kismetwireless.net/)** | Wi-Fi / Bluetooth / SDR network discovery | 🟡 MEDIUM |
 
 **Security Considerations:**
 ```
@@ -96,10 +96,10 @@ the Wiretap Act and ECPA.
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **Universal Radio Hacker (URH)** | Protocol investigation, demodulation, and bit extraction | 🟡 MEDIUM |
-| **Inspectrum** | Visual analysis of captured I/Q baseband signals | 🟢 LOW |
-| **GNU Radio** | Block-based visual programming for DSP and signal routing | 🟡 MEDIUM |
-| **Baudline** | Time-frequency signal analysis | 🟢 LOW |
+| **[Universal Radio Hacker (URH)](https://github.com/jopohl/urh)** | Protocol investigation, demodulation, and bit extraction | 🟡 MEDIUM |
+| **[Inspectrum](https://github.com/miek/inspectrum)** | Visual analysis of captured I/Q baseband signals | 🟢 LOW |
+| **[GNU Radio](https://www.gnuradio.org/)** | Block-based visual programming for DSP and signal routing | 🟡 MEDIUM |
+| **[Baudline](http://www.baudline.com/)** | Time-frequency signal analysis | 🟢 LOW |
 
 ---
 
@@ -109,11 +109,11 @@ the Wiretap Act and ECPA.
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **Replay Attack Scripts** | Capturing and rebroadcasting OOK/ASK signals | 🔴 HIGH |
-| **GPS-SDR-SIM** | Generating fake GPS constellations for spoofing | 🔴 EXTREME |
-| **gr-gsm / srsLTE** | Rogue base station / IMSI catcher frameworks | 🔴 EXTREME |
-| **RollJam** | Rolling code bypass implementation | 🔴 HIGH |
-| **Jamming / Flooding** | Overpowering legitimate RF receivers | 🔴 EXTREME |
+| **[Replay Attack Scripts](https://github.com/mossmann/hackrf/tree/master/firmware/hackrf_usb)** | Capturing and rebroadcasting OOK/ASK signals | 🔴 HIGH |
+| **[GPS-SDR-SIM](https://github.com/osqzss/gps-sdr-sim)** | Generating fake GPS constellations for spoofing | 🔴 EXTREME |
+| **[gr-gsm](https://github.com/ptrkrysik/gr-gsm) / [srsLTE (srsRAN)](https://www.srsran.com/)** | Rogue base station / IMSI catcher frameworks | 🔴 EXTREME |
+| **[RollJam (Sammy Kamkar)](https://samy.pl/rolljam/)** | Rolling code bypass implementation | 🔴 HIGH |
+| **[Jamming / Flooding](https://www.fcc.gov/general/jammer-enforcement)** | Overpowering legitimate RF receivers | 🔴 EXTREME |
 
 **Security Considerations:**
 ```
