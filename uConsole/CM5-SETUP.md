@@ -1,4 +1,4 @@
-# uConsole Field Platform Setup Guide: CM5 Configuration
+# uConsole Setup Guide: CM5 Configuration
 
 ## Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board
 
