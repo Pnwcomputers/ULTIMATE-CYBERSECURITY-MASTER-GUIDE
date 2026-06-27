@@ -4,7 +4,7 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
-> **About this revision (audited against forum sources):** The order of operations is now "harden first, upgrade second, then install." Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. GPIO pin assignments, GPS UART config, and the relationship between `hackergadgets-uconsole-aio-board` and `aiov2_ctl` have been corrected against the [official HackerGadgets setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) and [Rex's package thread on the ClockworkPi forum](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875).
+> **About this revision (audited against forum sources):** The order of operations is now "harden first, upgrade second, then install." Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. GPIO pin assignments, GPS UART config, and the relationship between `hackergadgets-uconsole-aio-board` and `aiov2_ctl` have been corrected against the [Official HackerGadgets setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) and [Rex's package thread on the ClockworkPi forum](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875).
 
 ---
 
