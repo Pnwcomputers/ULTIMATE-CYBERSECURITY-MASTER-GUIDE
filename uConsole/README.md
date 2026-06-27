@@ -50,9 +50,9 @@ This directory contains **complete, step-by-step build guides and automated depl
 ### Purpose
 
 These guides serve as:
-- **Step-by-step build documentation** — flash to fully operational
+- **Step-by-step build documentation** — Flash to fully operational
 - **Hardware reference** — GPIO pinouts, SPI mappings, antenna connectors
-- **Troubleshooting playbook** — every issue we've hit and fixed
+- **Troubleshooting playbook** — Every issue we've hit and fixed
 - **Pentest platform quick-start** — Kali tools, WiFi adapters, LAN drop box config
 
 ---
