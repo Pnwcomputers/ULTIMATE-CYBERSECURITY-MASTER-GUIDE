@@ -1,11 +1,17 @@
-# uConsole Automated Setup Scripts
+# uConsole Automated Setup Scripts (CM4 and CM5)
 
-`uconsole-cm4-setup.sh` — Automates the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md).
-`uconsole-cm5-setup.sh` — Automates the post-flash setup described in [CM5-SETUP.md](../CM5-SETUP.md).
+Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md) and [CM5-SETUP.md](../CM5-SETUP.md):
+
+| Script | Target | State file |
+|---|---|---|
+| `uconsole-cm4-setup.sh` | Raspberry Pi CM4 | `/var/lib/uconsole-setup/cm4-state` |
+| `uconsole-cm5-setup.sh` | Raspberry Pi CM5 | `/var/lib/uconsole-setup/cm5-state` |
+
+Both follow the same six-phase structure and CLI surface. They auto-detect hardware via `/proc/device-tree/model` and warn loudly if you run the wrong one. The deltas between them are CM5-specific kernel/overlay settings — see the "CM5 vs CM4 Differences" section near the bottom.
 
 ## What They Do
 
-Mirror the manual guides as a phase-aware script with state tracking. Each phase advances a marker file in `/var/lib/uconsole-setup/cm4-state`, so the script can be stopped (or hit a reboot point) and resumed cleanly on the next run.
+Mirrors the manual guide as a phase-aware script with state tracking. Each phase advances a marker file in `/var/lib/uconsole-setup/cm4-state`, so the script can be stopped (or hit a reboot point) and resumed cleanly on the next run.
 
 | Phase | What runs | Reboot after? |
 |---|---|---|
@@ -127,6 +133,21 @@ The script prints all of these as a checklist when Phase 6 (finalize) runs.
 - **Rex's Trixie 6.12.y** — fully supported, full path including Kali tools layered on top
 - **Rex's Bookworm 6.12.y** — should work (similar to Kali path) but not extensively tested
 - **DragonOS** — not officially supported; you can run with `--phase=peripherals` only if you just want the config.txt setup
+
+
+## CM5 vs CM4 Differences (what's in `uconsole-cm5-setup.sh` and not in `uconsole-cm4-setup.sh`)
+
+| Item | CM4 script | CM5 script | Why |
+|---|---|---|---|
+| GPS serial path | `/dev/ttyS0` | `/dev/ttyAMA0` | Different UART exposed by RPi firmware |
+| GPS UART config | `enable_uart=1` | `dtparam=uart0` | CM5 uses the newer dtparam syntax |
+| LoRa SPI overlay | `dtparam=spi=on` + `dtoverlay=spi1-1cs` | just `dtoverlay=spi1-1cs` | CM5 SPI is enabled differently |
+| RTC overlay | `dtoverlay=i2c-rtc,pcf85063a` | `dtparam=rtc=off` + `dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0` | CM5 has an internal RTC that must be disabled, and i2c0 must be remapped to GPIO38/39 |
+| SDR rail at boot | Defaults OFF | Defaults ON | Firmware-level GPIO 7 default |
+| NVMe EEPROM | May need update (older CM4s) | Native PCIe, no update normally needed | CM5 architecture |
+| SD boot quirks | Generally none | CM5 lite needs specific EEPROM settings if SD won't boot | Per Rex's Trixie thread |
+
+Everything else — pre-flight hardening (cryptsetup, LightDM, raspberrypi-sys-mods, Kali repo+pin), Kali tools install, aiov2_ctl install, AIO board package install, dialout group, DVB-T blacklist, devterm-printer disable, RTL8812AU DKMS, boot rails, verification checks — is identical between the two scripts.
 
 ## License & Provenance
 
