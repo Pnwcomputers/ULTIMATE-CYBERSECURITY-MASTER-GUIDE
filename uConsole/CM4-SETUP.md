@@ -13,7 +13,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Hardware Overview](#hardware-overview)
 - [Choosing Your OS: Kali vs Trixie](#choosing-your-os-kali-vs-trixie)
 - [Step 1: Flash the OS](#step-1-flash-the-os)
-- [Step 2: First Boot — Pre-Flight Hardening](#step-2-first-boot--pre-flight-hardening)
+- [Step 2: First Boot; Pre-Flight Hardening](#step-2-first-boot--pre-flight-hardening)
 - [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
 - [Step 4: Add Kali Tools (Trixie Only)](#step-4-add-kali-tools-trixie-only)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
