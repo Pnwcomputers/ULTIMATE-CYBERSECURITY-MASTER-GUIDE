@@ -1,29 +1,43 @@
 #!/usr/bin/env bash
 #
-# uconsole-cm5-setup.sh — automated post-flash setup for the ClockworkPi uConsole CM5
+# uconsole-cm4-setup.sh — automated post-flash setup for the ClockworkPi uConsole CM4
 #
-# Mirrors the CM5-SETUP.md guide step-by-step, with state tracking so it can
+# Mirrors the CM4-SETUP.md guide step-by-step, with state tracking so it can
 # resume across the three required reboots.
 #
 # IMPORTANT: Run this BEFORE the first `sudo apt full-upgrade` on a fresh Rex
 # image. The pre-flight hardening must happen before any upgrade can break the
 # LightDM session or initramfs.
 #
-# CM5-specific deltas vs the CM4 script:
-#   - GPS path:    /dev/ttyAMA0       (CM4 uses /dev/ttyS0)
-#   - GPS UART:    dtparam=uart0      (CM4 uses enable_uart=1)
-#   - LoRa SPI:    just dtoverlay=spi1-1cs (CM4 also needs dtparam=spi=on)
-#   - RTC:         must disable internal RTC (dtparam=rtc=off) + remap i2c0
-#                  to GPIO38/39 via i2c_csi_dsi0 — different from CM4
-#   - SDR rail:    defaults HIGH at boot on CM5 (defaults OFF on CM4)
-#   - PCIe/NVMe:   native, no EEPROM update typically needed
-#
 # Usage:
-#   sudo ./uconsole-cm5-setup.sh                 # auto-detect phase, run forward
-#   sudo ./uconsole-cm5-setup.sh --phase=preflight
-#   sudo ./uconsole-cm5-setup.sh --help
+#   sudo ./uconsole-cm4-setup.sh                 # auto-detect phase, run forward
+#   sudo ./uconsole-cm4-setup.sh --phase=preflight
+#   sudo ./uconsole-cm4-setup.sh --help
 #
 # Hosting: drop this into Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/uConsole/scripts/
+#
+# CHANGELOG:
+#   v1.1 — Bug fixes from real-hardware testing:
+#     - Phase 1.2: LightDM session swap is now GUARDED. Only swaps user-session
+#       and autologin-session if rpd-labwc.desktop is missing; only swaps
+#       greeter-session if pi-greeter-labwc.desktop is missing; skips entirely
+#       if clockworkpi-theme is installed. Recognizes the upstream rename of
+#       rpd-labwc → LXDE-pi-labwc.
+#     - Phase 1.3: raspberrypi-sys-mods removal now checks for cascade into
+#       rpd-*, raspberrypi-ui-mods, pi-greeter, wf-panel-pi, wayfire (the
+#       load-bearing Pi desktop packages — removing these gives you a black
+#       screen with just a cursor). On cascade, skips removal cleanly.
+#     - Phase 1.4: Kali pin narrowed from "Package: *" to an allowlist of
+#       kali-* names and known security tools. Added a counter-pin for the
+#       Pi archive at priority 1001 covering libfm family, lxpanel, libwf,
+#       libwlroots, wf-panel-pi, wayfire, pcmanfm, rpd-*, clockworkpi-theme,
+#       pi-greeter. Prevents the libfm 1.4.1 ABI mismatch that produced
+#       "symbol lookup error: undefined symbol: fm_cell_renderer_pixbuf_get_scale".
+#     - Phase 4.3: Symlinks /usr/bin/pcmanfm-pi → /usr/bin/pcmanfm if missing,
+#       so Rex's labwc autostart works on Trixie where pcmanfm-pi isn't a
+#       distinct binary.
+#     - Phase 6: Adds verification checks for the v1.1 safeguards (narrow
+#       pin scope, Pi counter-pin, libfm is +rpt build, pcmanfm-pi exists).
 
 set -uo pipefail
 
@@ -31,7 +45,7 @@ set -uo pipefail
 # Configuration (override via env vars or CLI flags)
 # ============================================================================
 
-VERSION="1.0"
+VERSION="1.1"
 HOSTNAME_NEW="${HOSTNAME_NEW:-uconsole}"
 KALI_METAPACKAGE="${KALI_METAPACKAGE:-kali-tools-top10}"
 INSTALL_WIFI_DKMS="${INSTALL_WIFI_DKMS:-yes}"
@@ -41,7 +55,7 @@ DRY_RUN="${DRY_RUN:-no}"
 FORCE_PHASE=""
 
 STATE_DIR="/var/lib/uconsole-setup"
-STATE_FILE="$STATE_DIR/cm5-state"
+STATE_FILE="$STATE_DIR/cm4-state"
 LOG_FILE="/var/log/uconsole-setup.log"
 
 CONFIG_TXT="/boot/firmware/config.txt"
@@ -217,9 +231,9 @@ preflight_checks() {
     info "Hostname: $(hostname)"
     info "Kernel:   $(uname -r)"
 
-    if [[ "$hw" != "cm5" ]]; then
-        warn "Hardware doesn't appear to be a CM5 (detected: $hw)"
-        warn "This script is CM5-specific. The CM4 setup script has different GPIO/UART/RTC configs."
+    if [[ "$hw" != "cm4" ]]; then
+        warn "Hardware doesn't appear to be a CM4 (detected: $hw)"
+        warn "This script is CM4-specific. The CM5 setup script has different GPIO/UART/RTC configs."
         confirm "Continue anyway?" || die "Aborted by user"
     fi
 
@@ -258,24 +272,74 @@ phase_preflight() {
     fi
     ok "cryptsetup hook neutered"
 
-    # 1.2 — LightDM session pinning
-    info "1.2 — Repointing LightDM at upgrade-survivable sessions"
+    # 1.2 — LightDM session pinning (defensive: only swap if Pi files are missing)
+    info "1.2 — Checking LightDM session references for safety"
     run "apt-get update -qq"
     run "apt-get install -y lightdm-gtk-greeter labwc"
 
     if [[ -f "$LIGHTDM_CONF" && "$DRY_RUN" != "yes" ]]; then
-        sed -i \
-            -e 's/^user-session=rpd-labwc/user-session=labwc/' \
-            -e 's/^autologin-session=rpd-labwc/autologin-session=labwc/' \
-            -e 's/^greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' \
-            "$LIGHTDM_CONF"
+        # Inventory: which session/greeter files and key packages are present?
+        local has_rpd_session=no
+        local has_lxde_pi_session=no
+        local has_pi_greeter=no
+        local has_clockworkpi_theme=no
 
-        for f in /var/lib/AccountsService/users/*; do
-            [[ -f "$f" ]] && sed -i 's/rpd-labwc/labwc/g' "$f"
-        done
+        [ -f /usr/share/wayland-sessions/rpd-labwc.desktop ]        && has_rpd_session=yes
+        [ -f /usr/share/wayland-sessions/LXDE-pi-labwc.desktop ]    && has_lxde_pi_session=yes
+        [ -f /usr/share/xgreeters/pi-greeter-labwc.desktop ]        && has_pi_greeter=yes
+        dpkg -l clockworkpi-theme 2>/dev/null | grep -q '^ii'       && has_clockworkpi_theme=yes
+
+        info "  Session inventory:"
+        info "    rpd-labwc.desktop:        $has_rpd_session"
+        info "    LXDE-pi-labwc.desktop:    $has_lxde_pi_session"
+        info "    pi-greeter-labwc.desktop: $has_pi_greeter"
+        info "    clockworkpi-theme:        $has_clockworkpi_theme"
+
+        # If clockworkpi-theme is installed, the session/greeter files are load-bearing
+        # on Rex's image and the image is healthy. DO NOT swap anything.
+        if [[ "$has_clockworkpi_theme" == "yes" ]]; then
+            ok "  clockworkpi-theme installed — leaving LightDM config alone (image is healthy)"
+        else
+            # user-session and autologin-session: prefer LXDE-pi-labwc → rpd-labwc → labwc
+            if [[ "$has_rpd_session" == "no" && "$has_lxde_pi_session" == "yes" ]]; then
+                info "  Upstream renamed session: rpd-labwc → LXDE-pi-labwc. Updating lightdm.conf."
+                sed -i \
+                    -e 's/^user-session=rpd-labwc$/user-session=LXDE-pi-labwc/' \
+                    -e 's/^autologin-session=rpd-labwc$/autologin-session=LXDE-pi-labwc/' \
+                    "$LIGHTDM_CONF"
+            elif [[ "$has_rpd_session" == "no" && "$has_lxde_pi_session" == "no" ]]; then
+                warn "  Neither rpd-labwc nor LXDE-pi-labwc present — falling back to plain labwc"
+                sed -i \
+                    -e 's/^user-session=rpd-labwc$/user-session=labwc/' \
+                    -e 's/^autologin-session=rpd-labwc$/autologin-session=labwc/' \
+                    "$LIGHTDM_CONF"
+            else
+                ok "  rpd-labwc.desktop present — leaving user-session/autologin-session alone"
+            fi
+
+            # greeter-session: only swap if pi-greeter-labwc is actually missing
+            if [[ "$has_pi_greeter" == "no" ]]; then
+                warn "  pi-greeter-labwc.desktop missing — falling back to lightdm-gtk-greeter"
+                sed -i 's/^greeter-session=pi-greeter-labwc$/greeter-session=lightdm-gtk-greeter/' "$LIGHTDM_CONF"
+            else
+                ok "  pi-greeter-labwc.desktop present — leaving greeter-session alone"
+            fi
+
+            # AccountsService cleanup: only rewrite if rpd-labwc is gone
+            if [[ "$has_rpd_session" == "no" ]]; then
+                local replacement="labwc"
+                [[ "$has_lxde_pi_session" == "yes" ]] && replacement="LXDE-pi-labwc"
+                for f in /var/lib/AccountsService/users/*; do
+                    [[ -f "$f" ]] || continue
+                    if grep -q "^XSession=rpd-labwc" "$f"; then
+                        sed -i "s/^XSession=rpd-labwc$/XSession=${replacement}/" "$f"
+                    fi
+                done
+            fi
+        fi
     fi
 
-    # Confirm session and greeter files exist
+    # Fallback compositor and greeter must always be installable, even if we didn't swap
     if [[ "$DRY_RUN" != "yes" ]]; then
         if [[ ! -f /usr/share/wayland-sessions/labwc.desktop ]]; then
             die "labwc.desktop session file missing after install — something is wrong"
@@ -284,22 +348,39 @@ phase_preflight() {
             die "lightdm-gtk-greeter.desktop missing after install — something is wrong"
         fi
     fi
-    ok "LightDM pinned to labwc + lightdm-gtk-greeter"
+    ok "LightDM session check complete"
 
     # 1.3 — (Trixie only) raspberrypi-sys-mods removal
     if [[ "$os" == "trixie" ]]; then
-        info "1.3 — Removing raspberrypi-sys-mods (Trixie + Kali path)"
+        info "1.3 — Considering raspberrypi-sys-mods removal (Trixie + Kali path)"
         if dpkg -l raspberrypi-sys-mods 2>/dev/null | grep -q '^ii'; then
             # Dry-run check — make sure removal won't take out anything critical
             local removal_preview
             removal_preview=$(apt-get -s remove raspberrypi-sys-mods 2>/dev/null | grep -E "^Remv" || true)
-            if echo "$removal_preview" | grep -qE "linux-image|raspberrypi-kernel|device-tree"; then
-                err "Removing raspberrypi-sys-mods would also pull out critical packages:"
+
+            # Tier 1: kernel/firmware/device-tree — removal of these bricks the system
+            local critical_pattern="linux-image|raspberrypi-kernel|raspi-firmware|device-tree"
+            # Tier 2: load-bearing Pi desktop packages — removal breaks the desktop
+            #         (rpd-*, raspberrypi-ui-mods ship lwrespawn + session files; pi-greeter
+            #         ships the greeter session; wf-panel-pi is the taskbar)
+            local desktop_pattern="rpd-|raspberrypi-ui-mods|raspberrypi-net-mods|pi-greeter|wf-panel-pi|wayfire"
+
+            if echo "$removal_preview" | grep -qE "$critical_pattern"; then
+                err "Removing raspberrypi-sys-mods would also pull out CRITICAL packages:"
                 echo "$removal_preview" | tee -a "$LOG_FILE"
                 err "Aborting. Use --force-overwrite path manually instead — see CM4-SETUP.md troubleshooting."
                 return 1
             fi
-            run "apt-get remove -y raspberrypi-sys-mods"
+
+            if echo "$removal_preview" | grep -qE "$desktop_pattern"; then
+                warn "Removing raspberrypi-sys-mods would cascade into Pi desktop packages:"
+                echo "$removal_preview" | grep -E "$desktop_pattern" | tee -a "$LOG_FILE"
+                warn "Skipping removal — keeping the desktop intact."
+                warn "Future apt operations will use --force-overwrite to handle the diversion conflict instead."
+                info "(This is the safe path on Rex's image where the desktop is healthy.)"
+            else
+                run "apt-get remove -y raspberrypi-sys-mods"
+            fi
         else
             info "raspberrypi-sys-mods not installed — skipping"
         fi
@@ -313,8 +394,8 @@ phase_preflight() {
         fi
         ok "raspberrypi-sys-mods cleaned up"
 
-        # 1.4 — Add Kali repo + pin
-        info "1.4 — Adding Kali rolling repo and pinning"
+        # 1.4 — Add Kali repo + NARROW pin + Pi counter-pin
+        info "1.4 — Adding Kali rolling repo with narrow pin scope"
         if [[ "$DRY_RUN" != "yes" ]]; then
             echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" \
                 > /etc/apt/sources.list.d/kali.list
@@ -322,14 +403,47 @@ phase_preflight() {
             curl -fsSL https://archive.kali.org/archive-key.asc \
                 | gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
 
+            # NARROW Kali pin: ONLY Kali-named packages and known security tools.
+            # The old "Package: *" pin pulled in Kali's newer runtime libs (libfm 1.4.1)
+            # which ABI-conflict with Pi-archive binaries (pcmanfm 1.4.0) and produce
+            # "symbol lookup error: undefined symbol: fm_cell_renderer_pixbuf_get_scale"
+            # at runtime. Allowlist scope only.
             cat > /etc/apt/preferences.d/kali-pin <<'EOF'
-Package: *
+# Kali rolling: ONLY for Kali-named packages and security tools.
+# Do NOT pin Kali for system libraries — they ABI-conflict with Pi-archive binaries.
+
+Package: kali-* metasploit-framework
 Pin: release o=Kali
-Pin-Priority: 900
+Pin-Priority: 990
+
+Package: aircrack-ng* bettercap* hydra* nmap responder impacket-* crackmapexec netexec wireshark* burpsuite sqlmap john* hashcat* gobuster ffuf nikto wpscan
+Pin: release o=Kali
+Pin-Priority: 990
+EOF
+
+            # Counter-pin: Pi archive at priority 1001 (>1000 means "downgrade if needed")
+            # for runtime libraries ABI-coupled to Pi-built binaries. Without this, Kali's
+            # libfm 1.4.1 silently replaces Pi's libfm 1.4.0 and breaks pcmanfm/lxpanel.
+            cat > /etc/apt/preferences.d/uconsole-keep-pi-libs <<'EOF'
+# Pi-archive versions of runtime libraries ABI-coupled to Pi-built binaries
+# (pcmanfm, lxpanel, wf-panel-pi, raspberrypi-ui-mods, etc.).
+# Priority 1001 means apt will downgrade to maintain these if Kali ships newer.
+
+Package: libfm-data libfm-gtk-data libfm-modules libfm4t64 libfm-extra4t64 libfm-gtk3-4t64
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
+
+Package: lxpanel lxpanel-data lxpanel-* libwf-* libwlroots-* wf-panel-pi wayfire
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
+
+Package: pcmanfm raspberrypi-ui-mods rpd-* clockworkpi-theme pi-greeter pi-greeter-* labwc-prompt
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
 EOF
         fi
         run "apt-get update"
-        ok "Kali repo configured and pinned"
+        ok "Kali repo configured with narrow pin + Pi-archive counter-pin"
     else
         info "Kali image detected — skipping raspberrypi-sys-mods removal and Kali repo setup"
     fi
@@ -445,6 +559,22 @@ phase_aio() {
     fi
     run "apt-get install -y meshtastic-mui" || warn "meshtastic-mui install failed — non-fatal"
 
+    # 4.3 — Ensure /usr/bin/pcmanfm-pi exists so Rex's labwc autostart works
+    info "4.3 — Ensuring /usr/bin/pcmanfm-pi exists for Rex's autostart"
+    if [[ "$DRY_RUN" != "yes" ]]; then
+        if [[ ! -e /usr/bin/pcmanfm-pi && -x /usr/bin/pcmanfm ]]; then
+            ln -sf /usr/bin/pcmanfm /usr/bin/pcmanfm-pi
+            ok "  Symlinked /usr/bin/pcmanfm-pi → /usr/bin/pcmanfm"
+            info "  (Rex's /etc/xdg/labwc/autostart calls pcmanfm-pi but Trixie's pcmanfm"
+            info "   package installs only /usr/bin/pcmanfm — the symlink bridges the gap.)"
+        elif [[ -e /usr/bin/pcmanfm-pi ]]; then
+            info "  /usr/bin/pcmanfm-pi already present — skipping"
+        else
+            warn "  Neither pcmanfm-pi nor pcmanfm found — desktop file manager will not autostart"
+            warn "  Install pcmanfm with: sudo apt install pcmanfm"
+        fi
+    fi
+
     state_set "aio"
     ok "Phase 4 complete — AIO board ecosystem installed"
     warn "REBOOT REQUIRED so kernel modules and services load cleanly."
@@ -476,32 +606,27 @@ config_txt_append() {
 phase_peripherals() {
     header "Phase 5/6: Peripheral configuration (GPS UART, SPI, RTC, dialout, blacklists)"
 
-    # 5.1 — config.txt additions (CM5-specific)
-    info "5.1 — Updating /boot/firmware/config.txt (CM5 overlays)"
+    # 5.1 — config.txt additions
+    info "5.1 — Updating /boot/firmware/config.txt"
 
     # Add a block header so the user can see where this script wrote
-    if ! grep -q "AIO v2 Board Configuration (CM5)" "$CONFIG_TXT" 2>/dev/null; then
+    if ! grep -q "AIO v2 Board Configuration (CM4)" "$CONFIG_TXT" 2>/dev/null; then
         if [[ "$DRY_RUN" != "yes" ]]; then
             cat >> "$CONFIG_TXT" <<'EOF'
 
-# === AIO v2 Board Configuration (CM5) — added by uconsole-cm5-setup.sh ===
+# === AIO v2 Board Configuration (CM4) — added by uconsole-cm4-setup.sh ===
 EOF
         fi
     fi
 
-    # GPS UART on CM5 uses dtparam=uart0 (NOT enable_uart=1 which is CM4)
-    config_txt_append "dtparam=uart0"    "dtparam=uart0"
-
-    # CM5 only needs dtoverlay=spi1-1cs — does NOT need dtparam=spi=on like CM4 does
+    config_txt_append "enable_uart=1"    "enable_uart=1"
+    config_txt_append "dtparam=spi=on"   "dtparam=spi=on"
     config_txt_append "dtoverlay=spi1-1cs" "dtoverlay=spi1-1cs"
-
-    # RTC on CM5: must disable internal RTC and remap i2c0 to GPIO38/39
-    config_txt_append "dtparam=rtc=off"  "dtparam=rtc=off"
     config_txt_append "dtparam=i2c_arm=on" "dtparam=i2c_arm=on"
-    config_txt_append "dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0" "dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0"
+    config_txt_append "dtoverlay=i2c-rtc,pcf85063a" "dtoverlay=i2c-rtc,pcf85063a"
 
     # 5.2 — cmdline.txt: remove console=serial0,115200
-    info "5.2 — Freeing /dev/ttyAMA0 for GPS in cmdline.txt"
+    info "5.2 — Freeing /dev/ttyS0 for GPS in cmdline.txt"
     if grep -q "console=serial0,115200" "$CMDLINE_TXT" 2>/dev/null; then
         if [[ "$DRY_RUN" != "yes" ]]; then
             cp "$CMDLINE_TXT" "${CMDLINE_TXT}.bak.$(date +%s)"
@@ -613,13 +738,23 @@ phase_finalize() {
     check "labwc compositor available" "[ -f /usr/share/wayland-sessions/labwc.desktop ]"
     check "lightdm-gtk-greeter available" "[ -f /usr/share/xgreeters/lightdm-gtk-greeter.desktop ]"
     check "cryptsetup hook disabled"   "grep -q 'CRYPTSETUP=n' /etc/cryptsetup-initramfs/conf-hook"
-    check "config.txt has dtparam=uart0 (CM5 GPS UART)" "grep -q '^dtparam=uart0' $CONFIG_TXT"
-    check "config.txt has SPI1 overlay" "grep -q 'dtoverlay=spi1-1cs' $CONFIG_TXT"
-    check "config.txt has rtc=off (CM5 internal RTC disabled)" "grep -q '^dtparam=rtc=off' $CONFIG_TXT"
-    check "config.txt has CM5 RTC overlay with i2c_csi_dsi0 remap" "grep -q 'i2c_csi_dsi0' $CONFIG_TXT"
+    check "config.txt has enable_uart" "grep -q '^enable_uart=1' $CONFIG_TXT"
+    check "config.txt has SPI overlays" "grep -q 'dtoverlay=spi1-1cs' $CONFIG_TXT"
+    check "config.txt has RTC overlay" "grep -q 'pcf85063a' $CONFIG_TXT"
     check "cmdline.txt console freed"  "! grep -q 'console=serial0,115200' $CMDLINE_TXT"
     check "DVB-T blacklist present"    "[ -f /etc/modprobe.d/blacklist-rtl.conf ]"
     check "devterm-printer disabled"   "! systemctl is-enabled devterm-printer.service 2>/dev/null | grep -q enabled"
+    check "pcmanfm-pi exists (binary or symlink)" "[ -e /usr/bin/pcmanfm-pi ]"
+
+    # Trixie-only checks (Kali image won't have these pin files)
+    if [[ "$(detect_os)" == "trixie" ]]; then
+        check "Kali pin is narrow (no Package:* wildcard)" \
+            "[ -f /etc/apt/preferences.d/kali-pin ] && ! grep -qE '^Package:[[:space:]]*\\*[[:space:]]*\$' /etc/apt/preferences.d/kali-pin"
+        check "Pi-archive lib counter-pin in place" \
+            "[ -f /etc/apt/preferences.d/uconsole-keep-pi-libs ]"
+        check "libfm-modules is Pi-archive build (no ABI mismatch)" \
+            "dpkg -l libfm-modules 2>/dev/null | grep -qE '\\+rpt[0-9]'"
+    fi
 
     echo "" | tee -a "$LOG_FILE"
     if (( checks_failed == 0 )); then
@@ -641,15 +776,10 @@ MANUAL STEPS REMAINING (script can't do these for you):
      - Config → LoRa → Modem Preset: LongFast (slot 20 for US)
   5. Test peripherals:
      - aiov2_ctl --status
-     - sudo minicom -D /dev/ttyAMA0 -b 9600    (GPS NMEA stream — CM5 uses ttyAMA0)
+     - sudo minicom -D /dev/ttyS0 -b 9600     (GPS NMEA stream)
      - sdrpp                                    (SDR++)
      - sudo hwclock -r && sudo aiov2_ctl --sync-rtc  (RTC)
-  6. (If using NVMe Battery Board) Add 'dtparam=pciex1=on' to config.txt
-     and see CM5-SETUP.md Step 14. CM5 has native PCIe — no EEPROM update
-     needed in normal cases.
-  7. (CM5 lite SD boot failures) See CM5-SETUP.md Troubleshooting —
-     CM5 lite needs specific EEPROM settings; firmware must be newer
-     than 2025-01-06.
+  6. (If using NVMe Battery Board) See CM4-SETUP.md Step 14
 ────────────────────────────────────────────────────────────────────
 EOF
 
@@ -702,7 +832,7 @@ run_from() {
 
 usage() {
     cat <<EOF
-uconsole-cm5-setup.sh v$VERSION — automated post-flash setup for ClockworkPi uConsole CM5
+uconsole-cm4-setup.sh v$VERSION — automated post-flash setup for ClockworkPi uConsole CM4
 
 USAGE:
     sudo $0 [OPTIONS]
@@ -740,7 +870,7 @@ EXAMPLES:
 
 STATE:    $STATE_FILE
 LOG:      $LOG_FILE
-GUIDE:    https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/uConsole/CM5-SETUP.md
+GUIDE:    https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/uConsole/CM4-SETUP.md
 EOF
 }
 
@@ -786,7 +916,7 @@ main() {
     touch "$LOG_FILE"
     chmod 644 "$LOG_FILE"
 
-    header "uConsole CM5 Setup v$VERSION — $(date)"
+    header "uConsole CM4 Setup v$VERSION — $(date)"
     [[ "$DRY_RUN" == "yes" ]] && warn "DRY-RUN MODE: no changes will be made"
 
     preflight_checks
