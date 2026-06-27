@@ -8,7 +8,13 @@ Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.
 | `uconsole-cm5-setup.sh` | Raspberry Pi CM5 | `/var/lib/uconsole-setup/cm5-state` |
 | `uconsole-repair.sh` | Raspberry Pi CM4/CM5 | `Wrong script install repair` |
 
-Both follow the same six-phase structure and CLI surface. They auto-detect hardware via `/proc/device-tree/model` and warn loudly if you run the wrong one. The deltas between them are CM5-specific kernel/overlay settings — see the "CM5 vs CM4 Differences" section near the bottom.
+The `uconsole-cm4-setup.sh` and `uconsole-cm5-setup.sh` scripts provide a fully automated, state-tracked installation process. They handle the complex peripheral configuration and package dependencies required for Kali/Debian Trixie environments.
+
+**Recent Script Improvements:**
+* **Desktop Stability:** Automatically installs `rtkit` to resolve GDBus/RealtimeKit1 errors associated with `xdg-desktop-portal` under the Labwc compositor.
+* **LoRa / Meshtastic Recovery:** Bypasses Debian Trixie dependency drift by automatically fetching `libgpiod2` and `libyaml-cpp0.7` from the Bookworm archives, ensuring `meshtasticd` and `meshtastic-mui` install cleanly without user intervention.
+* **ADS-B Hardware Sequencing:** Dynamically powers the SDR hardware rail during execution to allow the `readsb` decoder to bind to the RTL-SDR before initializing the `tar1090` frontend map.
+* **Pathing Fixes:** Resolves root `$PATH` dropouts for `aiov2_ctl` via direct binary symlinking.
 
 ## What They Do
 
