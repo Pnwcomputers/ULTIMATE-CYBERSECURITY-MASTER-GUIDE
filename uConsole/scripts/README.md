@@ -135,6 +135,53 @@ The script prints all of these as a checklist when Phase 6 (finalize) runs.
 - **DragonOS** — not officially supported; you can run with `--phase=peripherals` only if you just want the config.txt setup
 
 
+## `uconsole-repair.sh` — Fix a Wrong-CM Run
+
+If someone clicks through the "Hardware doesn't appear to be a CMx" warning and runs the wrong setup script for their hardware, the wrong device-tree overlays get written into `/boot/firmware/config.txt`. GPS and RTC won't work, but the failure mode isn't obvious — they'll just see no NMEA sentences and `hwclock -r` returning nothing.
+
+`uconsole-repair.sh` detects and fixes this:
+
+```bash
+# Diagnose only (no changes, no prompt)
+sudo ./uconsole-repair.sh --diagnose
+
+# Show what would change without writing
+sudo ./uconsole-repair.sh --dry-run
+
+# Interactive repair (default)
+sudo ./uconsole-repair.sh
+
+# Unattended repair
+sudo ./uconsole-repair.sh --yes
+```
+
+### What it detects and repairs
+
+| Symptom | Action |
+|---|---|
+| CM4 hardware but `dtparam=uart0` in config.txt | Removes it, adds `enable_uart=1` |
+| CM5 hardware but `enable_uart=1` in config.txt | Removes it, adds `dtparam=uart0` |
+| CM4 hardware but CM5-style RTC overlay (with `i2c_csi_dsi0`) | Reverts to plain CM4 form |
+| CM5 hardware but CM4-style RTC overlay (no remap) | Swaps in the `i2c_csi_dsi0` remap |
+| CM5 hardware missing `dtparam=rtc=off` | Adds it (CM5 internal RTC must be disabled) |
+| Wrong-platform "AIO v2 Board Configuration" marker line | Removes it, adds the correct one |
+| Stale state file (e.g. `cm4-state` on CM5 hardware) | Removes the stale state file |
+
+### Safety guarantees
+
+- **Always backs up** `config.txt` to `config.txt.bak.repair.<timestamp>` before any modification
+- **Idempotent** — running it twice on a healthy config is a no-op
+- **Only touches known overlay lines** — manually-added lines elsewhere in `config.txt` are not affected
+- **Doesn't touch** `cmdline.txt`, the dialout group, the DVB-T blacklist, the devterm-printer service, DKMS, or anything else that's the same on both CMs
+- **Fails closed** — if hardware can't be detected from `/proc/device-tree/model`, refuses to make changes
+
+### When to run it
+
+- After realizing you ran the wrong setup script
+- Any time GPS or RTC stop working after a reflash with a different CM module
+- Diagnostically — `--diagnose` is read-only and a fast way to confirm `config.txt` matches the hardware
+
+
 ## CM5 vs CM4 Differences (what's in `uconsole-cm5-setup.sh` and not in `uconsole-cm4-setup.sh`)
 
 | Item | CM4 script | CM5 script | Why |
