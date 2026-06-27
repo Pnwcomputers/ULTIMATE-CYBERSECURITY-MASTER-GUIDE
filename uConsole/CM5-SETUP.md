@@ -1,4 +1,3 @@
-```markdown
 # uConsole Setup Guide: CM5 Configuration
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
@@ -630,5 +629,3 @@ If opening pcmanfm or lxpanel yields `symbol lookup error: undefined symbol: fm_
 * [aiov2_ctl GitHub Repo](https://github.com/hackergadgets/aiov2_ctl)
 * [Rex's AIO Board Package Thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
 * [Rex's Trixie Image](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
-
-```
