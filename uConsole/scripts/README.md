@@ -1,10 +1,11 @@
-# uConsole CM4 Automated Setup Script
+# uConsole Automated Setup Scripts
 
-`uconsole-cm4-setup.sh` — automates the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md).
+`uconsole-cm4-setup.sh` — Automates the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md).
+`uconsole-cm5-setup.sh` — Automates the post-flash setup described in [CM5-SETUP.md](../CM5-SETUP.md).
 
-## What It Does
+## What They Do
 
-Mirrors the manual guide as a phase-aware script with state tracking. Each phase advances a marker file in `/var/lib/uconsole-setup/cm4-state`, so the script can be stopped (or hit a reboot point) and resumed cleanly on the next run.
+Mirror the manual guides as a phase-aware script with state tracking. Each phase advances a marker file in `/var/lib/uconsole-setup/cm4-state`, so the script can be stopped (or hit a reboot point) and resumed cleanly on the next run.
 
 | Phase | What runs | Reboot after? |
 |---|---|---|
