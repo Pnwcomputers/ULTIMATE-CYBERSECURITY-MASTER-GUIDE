@@ -1,3 +1,4 @@
+```markdown
 # uConsole Setup Guide: CM5 Configuration
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
@@ -141,7 +142,7 @@ Rex's specific guidance from the forum threads: **use Raspberry Pi Imager direct
 
 > **Linux/`dd` alternative:** If you prefer the command line, decompress with `xz -d <image>.xz` first, then `sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync`. Pi Imager is what Rex specifically recommends, though.
 
-> **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#cm5-lite-sd-card-boot-fails) before getting frustrated — this is a known issue with a documented fix.
+> **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#troubleshooting) before getting frustrated — this is a known issue with a documented fix.
 
 ### First Boot
 
@@ -169,48 +170,45 @@ echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
 
 ### 2.2 — Pin LightDM to sessions that survive upgrades
 
-Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Some upgrade paths replace those packages and remove the session files, leaving LightDM pointing at nothing — "Failed to start session" on next login.
-
-Swap the references now to session names that are stable across Rex's images and Kali rolling:
+Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Upstream changes often rename or remove these without updating the config file, breaking the GUI login. We apply guarded swaps to fix this:
 
 ```bash
-# Make sure the fallback compositor and greeter are installed
+# 1. Ensure fallback compositor and greeter are installed
 sudo apt update
-sudo apt install -y lightdm-gtk-greeter labwc
+sudo apt install -y lightdm-gtk-greeter labwc rtkit
 
-# Repoint lightdm.conf
+# 2. Check session references. If clockworkpi-theme is installed, your image is likely healthy.
+# Otherwise, if upstream renamed the session to LXDE-pi-labwc, update lightdm.conf safely:
 sudo sed -i \
-  -e 's/^user-session=rpd-labwc/user-session=labwc/' \
-  -e 's/^autologin-session=rpd-labwc/autologin-session=labwc/' \
-  -e 's/^greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' \
+  -e 's/^user-session=rpd-labwc$/user-session=LXDE-pi-labwc/' \
+  -e 's/^autologin-session=rpd-labwc$/autologin-session=LXDE-pi-labwc/' \
   /etc/lightdm/lightdm.conf
 
-# Fix any AccountsService entry that still references rpd-labwc
+# 3. Fix any AccountsService entries to match
 for f in /var/lib/AccountsService/users/*; do
-  [ -f "$f" ] && sudo sed -i 's/rpd-labwc/labwc/g' "$f"
+  [ -f "$f" ] && sudo sed -i 's/^XSession=rpd-labwc$/XSession=LXDE-pi-labwc/' "$f"
 done
-
-# Confirm the session/greeter files exist
-ls /usr/share/wayland-sessions/labwc.desktop \
-   /usr/share/xgreeters/lightdm-gtk-greeter.desktop
 ```
-
-If either `ls` line errors out, stop and resolve it before continuing — the upgrade will not install them for you.
 
 ### 2.3 — (Trixie path only) Remove raspberrypi-sys-mods
 
 > **Kali users:** Skip 2.3 and 2.4. Your image doesn't ship `raspberrypi-sys-mods` and isn't layering Kali on top of Trixie.
 
-`raspberrypi-sys-mods` (preinstalled on Rex's Trixie image) will collide with `kali-defaults` and `libpython3.13-stdlib` once you add the Kali repo. Remove it now so the first full-upgrade doesn't fight it later:
+`raspberrypi-sys-mods` (preinstalled on Rex's Trixie image) will collide with `kali-defaults` later. However, we must ensure removing it doesn't break the desktop:
 
 ```bash
-# Dry-run to see what would be removed
+# 1. Dry-run to see what would be removed
 sudo apt -s remove raspberrypi-sys-mods
 
-# If nothing critical (kernels, device-tree packages) is listed, proceed:
+# IMPORTANT: If the output lists load-bearing Pi desktop packages like `rpd-*`, 
+# `raspberrypi-ui-mods`, `pi-greeter`, `wf-panel-pi`, or `wayfire`, 
+# DO NOT proceed with removal (it will give you a black screen).
+# If those show up, SKIP to Step 2.4 and let `--force-overwrite` handle it in Step 3.
+
+# 2. If only safe packages are listed, proceed:
 sudo apt remove raspberrypi-sys-mods -y
 
-# Clean up any stale diversion / file
+# 3. Clean up stale diversion
 EXTMGD=$(ls /usr/lib/python3.*/EXTERNALLY-MANAGED 2>/dev/null | head -1)
 if [ -n "$EXTMGD" ]; then
   sudo rm -f "$EXTMGD"
@@ -220,7 +218,7 @@ fi
 
 ### 2.4 — (Trixie path only) Add Kali rolling and pin it
 
-Pinning Kali as the primary repo **before** the first big upgrade prevents the dependency-mismatch storm that hits when Kali's newer `libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6 etc. land on a half-Trixie system:
+Pinning Kali as the primary repo **before** the first big upgrade prevents the dependency-mismatch storm. We use a **NARROW pin** to grab tools while explicitly protecting Pi desktop libraries (`libfm`, `lxpanel`) from ABI-breaking Kali upgrades.
 
 ```bash
 # Add Kali rolling repo
@@ -231,17 +229,34 @@ echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-
 curl -fsSL https://archive.kali.org/archive-key.asc \
   | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
 
-# Pin Kali as primary
+# 1. NARROW Kali pin (only Kali tools, block Kali system libs)
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
-Package: *
+Package: kali-* metasploit-framework
 Pin: release o=Kali
-Pin-Priority: 900
+Pin-Priority: 990
+
+Package: aircrack-ng* bettercap* hydra* nmap responder impacket-* crackmapexec netexec wireshark* burpsuite sqlmap john* hashcat* gobuster ffuf nikto wpscan
+Pin: release o=Kali
+Pin-Priority: 990
+EOF
+
+# 2. Counter-pin: Keep Pi-archive versions of load-bearing desktop libs
+sudo tee /etc/apt/preferences.d/uconsole-keep-pi-libs <<'EOF'
+Package: libfm-data libfm-gtk-data libfm-modules libfm4t64 libfm-extra4t64 libfm-gtk3-4t64
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
+
+Package: lxpanel lxpanel-data lxpanel-* libwf-* libwlroots-* wf-panel-pi wayfire
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
+
+Package: pcmanfm raspberrypi-ui-mods rpd-* clockworkpi-theme pi-greeter pi-greeter-* labwc-prompt
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: 1001
 EOF
 
 sudo apt update
 ```
-
-After this, Kali rolling is the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (uConsole kernel, AIO board package).
 
 ---
 
@@ -265,9 +280,9 @@ sudo hostnamectl set-hostname uconsole
 sudo reboot
 ```
 
-> **Note:** Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed. Confirm with `df -h /` if you're curious — it should show the SD card's full capacity.
+> **Note:** Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed.
 
-After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. If not, see [Troubleshooting → "Failed to start session"](#failed-to-start-session-at-lightdm-login).
+After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. 
 
 ---
 
@@ -300,3 +315,320 @@ sudo apt full-upgrade -y
 > `echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-force-overwrite`
 
 ---
+
+## Step 5: Install aiov2_ctl (GPIO Control Tool)
+
+`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It must be installed *before* the main AIO board package to resolve pathing correctly.
+
+```bash
+# Install build/runtime dependencies
+sudo apt update
+sudo apt install -y python3 python3-pyqt6 git
+
+# Clone and install
+git clone https://github.com/hackergadgets/aiov2_ctl.git /opt/aiov2_ctl
+cd /opt/aiov2_ctl
+sudo python3 ./aiov2_ctl.py --install
+
+# Fix PATH for root environments
+sudo ln -sf /usr/local/bin/aiov2_ctl /usr/bin/aiov2_ctl
+
+# Verify
+command -v aiov2_ctl && aiov2_ctl --status
+```
+The install enables the `aiov2-rails-boot.service` so boot-rail settings persist across reboots.
+
+---
+
+## Step 6: Install the AIO v2 Board Package
+
+The `hackergadgets-uconsole-aio-board` package does the heavy lifting: SDR++, tar1090, PyGPSClient, Meshtasticd, the OpenSUSE Meshtastic APT repo, RTC service, and desktop menu entries.
+
+```bash
+# 1. Ensure pcmanfm-pi exists for Rex's labwc autostart (Trixie workaround)
+if [ ! -e /usr/bin/pcmanfm-pi ] && [ -x /usr/bin/pcmanfm ]; then
+  sudo ln -sf /usr/bin/pcmanfm /usr/bin/pcmanfm-pi
+fi
+
+# 2. Inject legacy dependencies for Meshtasticd if missing
+wget -q -O /tmp/libgpiod2.deb http://ftp.us.debian.org/debian/pool/main/libg/libgpiod/libgpiod2_1.6.3-1+b3_arm64.deb
+wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/yaml-cpp/libyaml-cpp0.7_0.7.0+dfsg-8+b1_arm64.deb
+sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
+
+# 3. Power on SDR LIVE so readsb/tar1090 detect it during installation
+aiov2_ctl --sdr on
+sleep 3
+
+# 4. Install the AIO ecosystem and Web UI
+sudo apt update
+sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y
+sudo apt install meshtastic-mui -y
+
+# 5. Install backend decoders explicitly to ensure aircraft.json generation
+sudo bash -c "$(wget -q -O - https://github.com/wiedehopf/adsb-scripts/raw/master/readsb-install.sh)"
+sudo bash -c "$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)"
+
+sudo reboot
+```
+
+---
+
+## Step 7: Configure GPS (CM5)
+
+### CM5-Specific GPS Path
+On CM5, the GPS serial port is `/dev/ttyAMA0` (CM4 uses `/dev/ttyS0`).
+
+### Enable the UART in config.txt
+Per HackerGadgets' CM5 setup guide, add the following to `/boot/firmware/config.txt`:
+
+```ini
+dtparam=uart0
+```
+
+### Free the Serial Port from the Console
+Edit `/boot/firmware/cmdline.txt` and remove `console=serial0,115200`:
+
+```bash
+sudo sed -i 's/console=serial0,115200 \?//' /boot/firmware/cmdline.txt
+```
+
+### Add Your User to the dialout Group
+```bash
+sudo usermod -a -G dialout $USER
+```
+Log out and back in (or reboot) for the group change to take effect.
+
+---
+
+## Step 8: Configure LoRa / Meshtastic
+
+### Enable SPI1 in config.txt
+Add to `/boot/firmware/config.txt` (CM5 does not need `dtparam=spi=on` like CM4):
+
+```ini
+dtoverlay=spi1-1cs
+```
+
+### Disable the conflicting devterm-printer service
+```bash
+sudo systemctl stop devterm-printer.service
+sudo systemctl disable devterm-printer.service
+```
+
+### Power on the LoRa module
+```bash
+aiov2_ctl LORA on
+```
+
+---
+
+## Step 9: Configure RTC (CM5)
+
+The CM5 requires disabling its internal RTC and mapping the AIO board's RTC over `i2c_csi_dsi0`. 
+
+### Enable the RTC overlay (CM5)
+Add to `/boot/firmware/config.txt`:
+
+```ini
+dtparam=rtc=off
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0
+```
+Reboot, then verify:
+
+```bash
+sudo hwclock -r
+sudo aiov2_ctl --sync-rtc
+```
+
+---
+
+## Step 10: Configure SDR
+
+### Blacklist the DVB-T kernel driver
+The Linux kernel will try to claim the RTL2832U/R828D chip as a TV tuner. Blacklist it:
+
+```bash
+echo "blacklist dvb_usb_rtl28xxu" | sudo tee /etc/modprobe.d/blacklist-rtl.conf
+sudo rmmod dvb_usb_rtl28xxu 2>/dev/null
+```
+*Note: On CM5, the SDR rail defaults to HIGH at boot, so the device is immediately available.*
+
+---
+
+## Step 11: GPIO Power Control
+
+Configure peripherals to auto-enable at boot:
+
+```bash
+aiov2_ctl --boot-rail GPS on
+aiov2_ctl --boot-rail LORA on
+aiov2_ctl --boot-rail SDR on
+
+# Verify
+aiov2_ctl --boot-rails-status
+```
+
+---
+
+## Step 12: WiFi Pentesting Setup
+
+The CM5's onboard WiFi does not support monitor mode. Use an external USB WiFi adapter.
+
+```bash
+# Install DKMS driver for RTL8812AU
+sudo apt install realtek-rtl88xxau-dkms -y
+sudo dkms status | grep rtl88
+
+# Enable monitor mode (wlan1 = external; wlan0 = onboard)
+sudo airmon-ng start wlan1
+iwconfig wlan1mon
+```
+
+---
+
+## Step 13: LAN Pentesting via RJ45
+
+The AIO v2 provides Gigabit Ethernet via the RJ45 port (requires Upgrade Kit adapter).
+
+```bash
+# Plug into a target switch, request DHCP
+sudo dhclient eth0
+
+# Verify connectivity
+ip addr show eth0
+
+# Run Responder for credential capture
+sudo responder -I eth0 -wrf
+```
+
+---
+
+## Step 14: NVMe Battery Board Setup
+
+### NVMe Software Configuration (CM5)
+CM5 features native PCIe lanes. Usually, no EEPROM update is required for basic NVMe recognition. Add to `/boot/firmware/config.txt`:
+
+```ini
+dtparam=pciex1=on
+```
+Reboot and verify:
+
+```bash
+lspci                          # Should show the NVMe controller
+lsblk                          # Should show nvme0n1
+sudo fdisk -l /dev/nvme0n1     # Full partition info
+```
+
+---
+
+## CM5-Specific Notes and Limitations
+
+| Item | CM5 Detail |
+|---|---|
+| GPS Serial Port | `/dev/ttyAMA0` (CM4 uses `/dev/ttyS0`) |
+| GPS UART Config | Requires `dtparam=uart0` in `config.txt` (CM4 uses `enable_uart=1`) |
+| SPI Config | Requires `dtoverlay=spi1-1cs` (CM4 also needs `dtparam=spi=on`) |
+| RTC Config | Must disable internal RTC (`dtparam=rtc=off`) + remap i2c0 via `i2c_csi_dsi0` |
+| SDR Boot State | Defaults HIGH (ON) at boot (CM4 defaults OFF) |
+| Serial Console | Must remove `console=serial0,115200` from `cmdline.txt` for GPS |
+| PCIe / NVMe | Native PCIe support. |
+
+---
+
+## AIO v2 Board: Hardware Reference
+
+### Antenna Connectors
+| Label | Purpose | Antenna Type |
+|---|---|---|
+| SDR | RTL-SDR receiver | Wideband, or frequency-specific |
+| LoRa | SX1262 transceiver | 433 or 915 MHz (region-dependent) |
+| GPS | GPS/BDS/GNSS receiver | Active or passive GPS antenna |
+
+---
+
+## aiov2_ctl: Full Command Reference
+
+```bash
+aiov2_ctl                           # Show current GPIO state
+aiov2_ctl --status                  # Detailed status (GPIO + battery + power)
+aiov2_ctl <FEATURE> <on|off>        # Toggle: GPS, LORA, SDR, USB
+aiov2_ctl --power                   # Live power monitor (Ctrl+C to exit)
+aiov2_ctl --watch                   # Compact live GPIO + power line
+aiov2_ctl --gui                     # Launch system tray GUI
+aiov2_ctl --autostart               # Enable GUI autostart on login
+aiov2_ctl --boot-rail <FEAT> on     # Set peripheral to enable at boot
+aiov2_ctl --boot-rails-status       # Show all boot rail configurations
+aiov2_ctl --sync-rtc                # Write system time to hardware RTC
+```
+
+---
+
+## Meshtastic Web Interface
+
+Meshtasticd's web server is enabled by the AIO board package's default config.
+
+1. Browse to `https://localhost` on the uConsole.
+2. Accept the self-signed cert ("Proceed to localhost (unsafe)").
+3. In the connection dialog, enter `localhost` (not `meshtastic.local`) and click **Connect**.
+4. **Config → LoRa → Region:** set your region (US for 915 MHz). Different regions cannot communicate.
+5. **Config → LoRa → Modem Preset:** Set to `LongFast` (Standard slot 20 for US).
+
+---
+
+## Boot Automation
+
+### Complete `/boot/firmware/config.txt` Additions (CM5)
+These are the overlay/parameter lines this guide adds to the bottom of Rex's `config.txt`:
+
+```ini
+# === AIO v2 Board Configuration (CM5) ===
+
+# Enable UART0 for GPS on /dev/ttyAMA0
+dtparam=uart0
+
+# SPI for LoRa (SX1262)
+dtoverlay=spi1-1cs
+
+# Disable internal RTC and map AIO RTC (PCF85063A)
+dtparam=rtc=off
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0
+
+# PCIe for NVMe (only if using NVMe Battery Board)
+dtparam=pciex1=on
+```
+
+---
+
+## Troubleshooting
+
+### CM5 lite SD card boot fails
+CM5 lite modules shipped with older EEPROMs may fail to boot from the SD card. You likely need an EEPROM update (firmware must be newer than `2025-01-06`). Check the ClockworkPi forums for CM5 recovery/flashing guides.
+
+### "Failed to start session" at LightDM login
+See Step 2.2. If you skipped pre-flight hardening, you'll need to drop to a TTY (`Ctrl+Alt+F2`), install `labwc` / `lightdm-gtk-greeter`, and modify `/etc/lightdm/lightdm.conf` manually.
+
+### GPS shows no data on `/dev/ttyAMA0`
+* Confirm `dtparam=uart0` is in `/boot/firmware/config.txt` and you've rebooted.
+* Confirm `console=serial0,115200` is removed from `/boot/firmware/cmdline.txt`.
+* Confirm GPS power rail is enabled: `aiov2_ctl GPS on`.
+
+### LoRa / Meshtasticd fails to start
+* Verify devterm-printer.service is disabled: `sudo systemctl status devterm-printer.service`.
+* Confirm SPI overlay in config.txt: `dtoverlay=spi1-1cs`.
+* Check LoRa power rail: `aiov2_ctl LORA on`.
+
+### `libfm` ABI Mismatch (symbol lookup error)
+If opening pcmanfm or lxpanel yields `symbol lookup error: undefined symbol: fm_cell_renderer_pixbuf_get_scale`, Kali's `libfm` packages have overwritten the Pi-specific ones. Re-apply the counter-pin in Step 2.4 and `sudo apt update && sudo apt install --reinstall libfm-modules lxpanel pcmanfm`.
+
+---
+
+## Resources and Links
+
+* [HackerGadgets AIO V1/V2 Setup Guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide)
+* [aiov2_ctl GitHub Repo](https://github.com/hackergadgets/aiov2_ctl)
+* [Rex's AIO Board Package Thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
+* [Rex's Trixie Image](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
+
+```
