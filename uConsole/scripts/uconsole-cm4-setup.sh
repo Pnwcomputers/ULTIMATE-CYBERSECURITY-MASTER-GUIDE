@@ -275,7 +275,7 @@ phase_preflight() {
     # 1.2 — LightDM session pinning (defensive: only swap if Pi files are missing)
     info "1.2 — Checking LightDM session references for safety"
     run "apt-get update -qq"
-    run "apt-get install -y lightdm-gtk-greeter labwc"
+    run "apt-get install -y lightdm-gtk-greeter labwc rtkit"
 
     if [[ -f "$LIGHTDM_CONF" && "$DRY_RUN" != "yes" ]]; then
         # Inventory: which session/greeter files and key packages are present?
