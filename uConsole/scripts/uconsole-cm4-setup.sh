@@ -552,7 +552,7 @@ phase_aio() {
     ok "aiov2_ctl installed"
 
     # 4.2 — AIO board package (Rex's recommended command)
-    info "4.2 — Installing hackergadgets-uconsole-aio-board (+ recommends) and meshtastic-mui"
+    info "4.2 — Installing hackergadgets-uconsole-aio-board (+ recommends)"
     run "apt-get update"
     if ! run "apt-get --install-recommends install -y hackergadgets-uconsole-aio-board"; then
         warn "AIO board package failed — applying the documented /tmp script fix (purge + retry)"
@@ -561,7 +561,6 @@ phase_aio() {
         run "apt-get --install-recommends install -y hackergadgets-uconsole-aio-board" \
             || die "AIO board package install failed twice — see /var/log/uconsole-setup.log"
     fi
-    run "apt-get install -y meshtastic-mui" || warn "meshtastic-mui install failed — non-fatal"
 
     # 4.3 — Ensure /usr/bin/pcmanfm-pi exists so Rex's labwc autostart works
     info "4.3 — Ensuring /usr/bin/pcmanfm-pi exists for Rex's autostart"
@@ -579,8 +578,36 @@ phase_aio() {
         fi
     fi
 
-    # 4.4 — ADS-B Tracking (readsb + tar1090)
-    info "4.4 — Installing ADS-B Tracking (readsb + tar1090)"
+    # 4.4 — Fix missing dependencies for meshtasticd on Trixie/Kali
+    info "4.4 — Checking older dependencies required for LoRa services..."
+    
+    if ! apt-cache show libgpiod2 >/dev/null 2>&1; then
+        info "  libgpiod2 not found in apt repos. Fetching from Bookworm..."
+        if [[ "$DRY_RUN" != "yes" ]]; then
+            run "wget -q -O /tmp/libgpiod2.deb http://ftp.us.debian.org/debian/pool/main/libg/libgpiod/libgpiod2_1.6.3-1+b3_arm64.deb"
+            run "dpkg -i /tmp/libgpiod2.deb" || warn "Failed to inject libgpiod2"
+        fi
+    fi
+
+    if ! apt-cache show libyaml-cpp0.7 >/dev/null 2>&1; then
+        info "  libyaml-cpp0.7 not found in apt repos. Fetching from Bookworm..."
+        if [[ "$DRY_RUN" != "yes" ]]; then
+            run "wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/yaml-cpp/libyaml-cpp0.7_0.7.0+dfsg-8+b1_arm64.deb"
+            run "dpkg -i /tmp/libyaml-cpp0.7.deb" || warn "Failed to inject libyaml-cpp0.7"
+        fi
+    fi
+
+    # Install meshtastic-mui with auto-recovery for dependency snags
+    info "Installing meshtastic-mui (LoRa Web UI)..."
+    if ! run "apt-get install -y meshtastic-mui"; then
+        warn "  meshtastic-mui install hit a snag — attempting --fix-broken and retrying..."
+        run "apt-get --fix-broken install -y" || true
+        run "apt-get -o Dpkg::Options::='--force-overwrite' install -y meshtastic-mui" \
+            || warn "  meshtastic-mui still failing — non-fatal, continuing."
+    fi
+
+    # 4.5 — ADS-B Tracking (readsb + tar1090)
+    info "4.5 — Installing ADS-B Tracking (readsb + tar1090)"
     
     # Power on the SDR rail LIVE so the hardware is immediately visible to the installer
     if [[ "$DRY_RUN" != "yes" ]]; then
@@ -589,13 +616,13 @@ phase_aio() {
     fi
 
     # Install the backend decoder FIRST so it claims the SDR and creates aircraft.json
-    info "Installing readsb (Backend Decoder)..."
+    info "  Installing readsb (Backend Decoder)..."
     if ! run "bash -c \"\$(wget -q -O - https://github.com/wiedehopf/adsb-scripts/raw/master/readsb-install.sh)\""; then
-        warn "readsb installation hit a snag — check if the SDR is visible via lsusb"
+        warn "  readsb installation hit a snag — check if the SDR is visible via lsusb"
     fi
 
     # Install the frontend web map SECOND, now that the backend is running
-    info "Installing tar1090 (Frontend Map)..."
+    info "  Installing tar1090 (Frontend Map)..."
     run "bash -c \"\$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)\""
     
     ok "ADS-B ecosystem installed"
@@ -605,7 +632,6 @@ phase_aio() {
     warn "REBOOT REQUIRED so kernel modules and services load cleanly."
     REBOOT_REQUIRED=yes
 }
-
 # ============================================================================
 # Phase 5: Peripheral configuration (config.txt, cmdline.txt, groups, blacklists)
 # ============================================================================
