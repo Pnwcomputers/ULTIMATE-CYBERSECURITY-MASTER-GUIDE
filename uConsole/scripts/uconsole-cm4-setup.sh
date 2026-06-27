@@ -543,7 +543,11 @@ phase_aio() {
     run "cd '$clone_dir' && python3 ./aiov2_ctl.py --install"
 
     if [[ "$DRY_RUN" != "yes" ]] && ! command -v aiov2_ctl >/dev/null; then
-        die "aiov2_ctl install reported success but binary is not on PATH"
+        if [[ -f "/usr/local/bin/aiov2_ctl" ]]; then
+            run "ln -sf /usr/local/bin/aiov2_ctl /usr/bin/aiov2_ctl"
+        else
+            die "aiov2_ctl install failed: binary not found in /usr/local/bin"
+        fi
     fi
     ok "aiov2_ctl installed"
 
@@ -563,7 +567,7 @@ phase_aio() {
     info "4.3 — Ensuring /usr/bin/pcmanfm-pi exists for Rex's autostart"
     if [[ "$DRY_RUN" != "yes" ]]; then
         if [[ ! -e /usr/bin/pcmanfm-pi && -x /usr/bin/pcmanfm ]]; then
-            ln -sf /usr/bin/pcmanfm /usr/bin/pcmanfm-pi
+            run "ln -sf /usr/bin/pcmanfm /usr/bin/pcmanfm-pi"
             ok "  Symlinked /usr/bin/pcmanfm-pi → /usr/bin/pcmanfm"
             info "  (Rex's /etc/xdg/labwc/autostart calls pcmanfm-pi but Trixie's pcmanfm"
             info "   package installs only /usr/bin/pcmanfm — the symlink bridges the gap.)"
@@ -574,6 +578,27 @@ phase_aio() {
             warn "  Install pcmanfm with: sudo apt install pcmanfm"
         fi
     fi
+
+    # 4.4 — ADS-B Tracking (readsb + tar1090)
+    info "4.4 — Installing ADS-B Tracking (readsb + tar1090)"
+    
+    # Power on the SDR rail LIVE so the hardware is immediately visible to the installer
+    if [[ "$DRY_RUN" != "yes" ]]; then
+        run "aiov2_ctl --sdr on"
+        run "sleep 3" # Give the USB bus a few seconds to enumerate the Realtek device
+    fi
+
+    # Install the backend decoder FIRST so it claims the SDR and creates aircraft.json
+    info "Installing readsb (Backend Decoder)..."
+    if ! run "bash -c \"\$(wget -q -O - https://github.com/wiedehopf/adsb-scripts/raw/master/readsb-install.sh)\""; then
+        warn "readsb installation hit a snag — check if the SDR is visible via lsusb"
+    fi
+
+    # Install the frontend web map SECOND, now that the backend is running
+    info "Installing tar1090 (Frontend Map)..."
+    run "bash -c \"\$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)\""
+    
+    ok "ADS-B ecosystem installed"
 
     state_set "aio"
     ok "Phase 4 complete — AIO board ecosystem installed"
