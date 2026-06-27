@@ -571,7 +571,14 @@ phase_aio() {
         run "apt-get --install-recommends install -y hackergadgets-uconsole-aio-board" \
             || die "AIO board package install failed twice — see /var/log/uconsole-setup.log"
     fi
-    run "apt-get install -y meshtastic-mui" || warn "meshtastic-mui install failed — non-fatal"
+    # Install meshtastic-mui with auto-recovery for dependency snags
+    info "Installing meshtastic-mui (LoRa Web UI)..."
+    if ! run "apt-get install -y meshtastic-mui"; then
+        warn "meshtastic-mui install hit a snag — attempting --fix-broken and retrying..."
+        run "apt-get --fix-broken install -y" || true
+        run "apt-get -o Dpkg::Options::='--force-overwrite' install -y meshtastic-mui" \
+            || warn "meshtastic-mui still failing — non-fatal, continuing."
+    fi
 
     # 4.3 — Ensure /usr/bin/pcmanfm-pi exists so Rex's labwc autostart works
     info "4.3 — Ensuring /usr/bin/pcmanfm-pi exists for Rex's autostart"
