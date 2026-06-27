@@ -6,6 +6,7 @@ Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.
 |---|---|---|
 | `uconsole-cm4-setup.sh` | Raspberry Pi CM4 | `/var/lib/uconsole-setup/cm4-state` |
 | `uconsole-cm5-setup.sh` | Raspberry Pi CM5 | `/var/lib/uconsole-setup/cm5-state` |
+| `uconsole-repair.sh` | Raspberry Pi CM4/CM5 | `None` |
 
 Both follow the same six-phase structure and CLI surface. They auto-detect hardware via `/proc/device-tree/model` and warn loudly if you run the wrong one. The deltas between them are CM5-specific kernel/overlay settings — see the "CM5 vs CM4 Differences" section near the bottom.
 
