@@ -1,18 +1,27 @@
 #!/usr/bin/env bash
 #
-# uconsole-cm4-setup.sh — automated post-flash setup for the ClockworkPi uConsole CM4
+# uconsole-cm5-setup.sh — automated post-flash setup for the ClockworkPi uConsole CM5
 #
-# Mirrors the CM4-SETUP.md guide step-by-step, with state tracking so it can
+# Mirrors the CM5-SETUP.md guide step-by-step, with state tracking so it can
 # resume across the three required reboots.
 #
 # IMPORTANT: Run this BEFORE the first `sudo apt full-upgrade` on a fresh Rex
 # image. The pre-flight hardening must happen before any upgrade can break the
 # LightDM session or initramfs.
 #
+# CM5-specific deltas vs the CM4 script:
+#   - GPS path:    /dev/ttyAMA0       (CM4 uses /dev/ttyS0)
+#   - GPS UART:    dtparam=uart0      (CM4 uses enable_uart=1)
+#   - LoRa SPI:    just dtoverlay=spi1-1cs (CM4 also needs dtparam=spi=on)
+#   - RTC:         must disable internal RTC (dtparam=rtc=off) + remap i2c0
+#                  to GPIO38/39 via i2c_csi_dsi0 — different from CM4
+#   - SDR rail:    defaults HIGH at boot on CM5 (defaults OFF on CM4)
+#   - PCIe/NVMe:   native, no EEPROM update typically needed
+#
 # Usage:
-#   sudo ./uconsole-cm4-setup.sh                 # auto-detect phase, run forward
-#   sudo ./uconsole-cm4-setup.sh --phase=preflight
-#   sudo ./uconsole-cm4-setup.sh --help
+#   sudo ./uconsole-cm5-setup.sh                 # auto-detect phase, run forward
+#   sudo ./uconsole-cm5-setup.sh --phase=preflight
+#   sudo ./uconsole-cm5-setup.sh --help
 #
 # Hosting: drop this into Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/uConsole/scripts/
 #
@@ -55,7 +64,7 @@ DRY_RUN="${DRY_RUN:-no}"
 FORCE_PHASE=""
 
 STATE_DIR="/var/lib/uconsole-setup"
-STATE_FILE="$STATE_DIR/cm4-state"
+STATE_FILE="$STATE_DIR/cm5-state"
 LOG_FILE="/var/log/uconsole-setup.log"
 
 CONFIG_TXT="/boot/firmware/config.txt"
@@ -231,9 +240,9 @@ preflight_checks() {
     info "Hostname: $(hostname)"
     info "Kernel:   $(uname -r)"
 
-    if [[ "$hw" != "cm4" ]]; then
-        warn "Hardware doesn't appear to be a CM4 (detected: $hw)"
-        warn "This script is CM4-specific. The CM5 setup script has different GPIO/UART/RTC configs."
+    if [[ "$hw" != "cm5" ]]; then
+        warn "Hardware doesn't appear to be a CM5 (detected: $hw)"
+        warn "This script is CM5-specific. The CM4 setup script has different GPIO/UART/RTC configs."
         confirm "Continue anyway?" || die "Aborted by user"
     fi
 
@@ -368,7 +377,7 @@ phase_preflight() {
             if echo "$removal_preview" | grep -qE "$critical_pattern"; then
                 err "Removing raspberrypi-sys-mods would also pull out CRITICAL packages:"
                 echo "$removal_preview" | tee -a "$LOG_FILE"
-                err "Aborting. Use --force-overwrite path manually instead — see CM4-SETUP.md troubleshooting."
+                err "Aborting. Use --force-overwrite path manually instead — see CM5-SETUP.md troubleshooting."
                 return 1
             fi
 
@@ -606,27 +615,32 @@ config_txt_append() {
 phase_peripherals() {
     header "Phase 5/6: Peripheral configuration (GPS UART, SPI, RTC, dialout, blacklists)"
 
-    # 5.1 — config.txt additions
-    info "5.1 — Updating /boot/firmware/config.txt"
+    # 5.1 — config.txt additions (CM5-specific)
+    info "5.1 — Updating /boot/firmware/config.txt (CM5 overlays)"
 
     # Add a block header so the user can see where this script wrote
-    if ! grep -q "AIO v2 Board Configuration (CM4)" "$CONFIG_TXT" 2>/dev/null; then
+    if ! grep -q "AIO v2 Board Configuration (CM5)" "$CONFIG_TXT" 2>/dev/null; then
         if [[ "$DRY_RUN" != "yes" ]]; then
             cat >> "$CONFIG_TXT" <<'EOF'
 
-# === AIO v2 Board Configuration (CM4) — added by uconsole-cm4-setup.sh ===
+# === AIO v2 Board Configuration (CM5) — added by uconsole-cm5-setup.sh ===
 EOF
         fi
     fi
 
-    config_txt_append "enable_uart=1"    "enable_uart=1"
-    config_txt_append "dtparam=spi=on"   "dtparam=spi=on"
+    # GPS UART on CM5 uses dtparam=uart0 (NOT enable_uart=1 which is CM4)
+    config_txt_append "dtparam=uart0"    "dtparam=uart0"
+
+    # CM5 only needs dtoverlay=spi1-1cs — does NOT need dtparam=spi=on like CM4 does
     config_txt_append "dtoverlay=spi1-1cs" "dtoverlay=spi1-1cs"
+
+    # RTC on CM5: must disable internal RTC and remap i2c0 to GPIO38/39
+    config_txt_append "dtparam=rtc=off"  "dtparam=rtc=off"
     config_txt_append "dtparam=i2c_arm=on" "dtparam=i2c_arm=on"
-    config_txt_append "dtoverlay=i2c-rtc,pcf85063a" "dtoverlay=i2c-rtc,pcf85063a"
+    config_txt_append "dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0" "dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0"
 
     # 5.2 — cmdline.txt: remove console=serial0,115200
-    info "5.2 — Freeing /dev/ttyS0 for GPS in cmdline.txt"
+    info "5.2 — Freeing /dev/ttyAMA0 for GPS in cmdline.txt"
     if grep -q "console=serial0,115200" "$CMDLINE_TXT" 2>/dev/null; then
         if [[ "$DRY_RUN" != "yes" ]]; then
             cp "$CMDLINE_TXT" "${CMDLINE_TXT}.bak.$(date +%s)"
@@ -738,9 +752,10 @@ phase_finalize() {
     check "labwc compositor available" "[ -f /usr/share/wayland-sessions/labwc.desktop ]"
     check "lightdm-gtk-greeter available" "[ -f /usr/share/xgreeters/lightdm-gtk-greeter.desktop ]"
     check "cryptsetup hook disabled"   "grep -q 'CRYPTSETUP=n' /etc/cryptsetup-initramfs/conf-hook"
-    check "config.txt has enable_uart" "grep -q '^enable_uart=1' $CONFIG_TXT"
-    check "config.txt has SPI overlays" "grep -q 'dtoverlay=spi1-1cs' $CONFIG_TXT"
-    check "config.txt has RTC overlay" "grep -q 'pcf85063a' $CONFIG_TXT"
+    check "config.txt has dtparam=uart0 (CM5 GPS UART)" "grep -q '^dtparam=uart0' $CONFIG_TXT"
+    check "config.txt has SPI1 overlay" "grep -q 'dtoverlay=spi1-1cs' $CONFIG_TXT"
+    check "config.txt has rtc=off (CM5 internal RTC disabled)" "grep -q '^dtparam=rtc=off' $CONFIG_TXT"
+    check "config.txt has CM5 RTC overlay with i2c_csi_dsi0 remap" "grep -q 'i2c_csi_dsi0' $CONFIG_TXT"
     check "cmdline.txt console freed"  "! grep -q 'console=serial0,115200' $CMDLINE_TXT"
     check "DVB-T blacklist present"    "[ -f /etc/modprobe.d/blacklist-rtl.conf ]"
     check "devterm-printer disabled"   "! systemctl is-enabled devterm-printer.service 2>/dev/null | grep -q enabled"
@@ -776,10 +791,15 @@ MANUAL STEPS REMAINING (script can't do these for you):
      - Config → LoRa → Modem Preset: LongFast (slot 20 for US)
   5. Test peripherals:
      - aiov2_ctl --status
-     - sudo minicom -D /dev/ttyS0 -b 9600     (GPS NMEA stream)
+     - sudo minicom -D /dev/ttyAMA0 -b 9600    (GPS NMEA stream — CM5 uses ttyAMA0)
      - sdrpp                                    (SDR++)
      - sudo hwclock -r && sudo aiov2_ctl --sync-rtc  (RTC)
-  6. (If using NVMe Battery Board) See CM4-SETUP.md Step 14
+  6. (If using NVMe Battery Board) Add 'dtparam=pciex1=on' to config.txt
+     and see CM5-SETUP.md Step 14. CM5 has native PCIe — no EEPROM update
+     needed in normal cases.
+  7. (CM5 lite SD boot failures) See CM5-SETUP.md Troubleshooting —
+     CM5 lite needs specific EEPROM settings; firmware must be newer
+     than 2025-01-06.
 ────────────────────────────────────────────────────────────────────
 EOF
 
@@ -832,7 +852,7 @@ run_from() {
 
 usage() {
     cat <<EOF
-uconsole-cm4-setup.sh v$VERSION — automated post-flash setup for ClockworkPi uConsole CM4
+uconsole-cm5-setup.sh v$VERSION — automated post-flash setup for ClockworkPi uConsole CM5
 
 USAGE:
     sudo $0 [OPTIONS]
@@ -870,7 +890,7 @@ EXAMPLES:
 
 STATE:    $STATE_FILE
 LOG:      $LOG_FILE
-GUIDE:    https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/uConsole/CM4-SETUP.md
+GUIDE:    https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/uConsole/CM5-SETUP.md
 EOF
 }
 
@@ -916,7 +936,7 @@ main() {
     touch "$LOG_FILE"
     chmod 644 "$LOG_FILE"
 
-    header "uConsole CM4 Setup v$VERSION — $(date)"
+    header "uConsole CM5 Setup v$VERSION — $(date)"
     [[ "$DRY_RUN" == "yes" ]] && warn "DRY-RUN MODE: no changes will be made"
 
     preflight_checks
