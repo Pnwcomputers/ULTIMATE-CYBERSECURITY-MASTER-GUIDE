@@ -541,6 +541,7 @@ phase_aio() {
     # 4.1 — aiov2_ctl
     info "4.1 — Installing aiov2_ctl from upstream git"
     run "apt-get install -y python3 python3-pyqt6 git"
+    
 
     local clone_dir="/opt/aiov2_ctl"
     if [[ -d "$clone_dir" ]]; then
@@ -552,7 +553,11 @@ phase_aio() {
     run "cd '$clone_dir' && python3 ./aiov2_ctl.py --install"
 
     if [[ "$DRY_RUN" != "yes" ]] && ! command -v aiov2_ctl >/dev/null; then
-        die "aiov2_ctl install reported success but binary is not on PATH"
+        if [[ -f "/usr/local/bin/aiov2_ctl" ]]; then
+            run "ln -sf /usr/local/bin/aiov2_ctl /usr/bin/aiov2_ctl"
+        else
+            die "aiov2_ctl install failed: binary not found in /usr/local/bin"
+        fi
     fi
     ok "aiov2_ctl installed"
 
