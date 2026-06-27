@@ -24,7 +24,7 @@
 - [CM4 vs CM5 — Quick Reference](#cm4-vs-cm5--quick-reference)
 - [OS Options](#os-options)
 - [AIO v2 Board Capabilities](#aio-v2-board-capabilities)
-- [Common Setup Sequence](#common-setup-sequence)
+- [Common Setup Sequence (The 6-Phase Approach)](#common-setup-sequence-the-6-phase-approach)
 - [Security & Legal Disclaimer](#security--legal-disclaimer)
 - [Resources](#resources)
 
@@ -32,19 +32,20 @@
 
 ## 🎯 Overview
 
-This directory contains **complete, step-by-step build guides** for turning a ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension board.
+This directory contains **complete, step-by-step build guides and automated deployment scripts** for turning a ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension board.
 
 **What This Covers:**
-- 📡 RTL-SDR setup and configuration (100 kHz – 1.74 GHz)
-- 📻 LoRa / Meshtastic mesh networking (SX1262)
-- 🛰️ GPS receiver configuration and PPS timing
-- ⏰ Hardware RTC with battery backup (PCF85063A)
-- 🔌 NVMe storage via the HackerGadgets NVMe Battery Board
-- 🌐 Gigabit Ethernet via RJ45 (Upgrade Kit required)
-- 📶 WiFi pentesting with external monitor-mode adapters
-- 🔧 GPIO power control via `aiov2_ctl`
-- 🐧 OS setup for both Kali Linux and Debian Trixie (Rex's images)
-- ⚠️ Known package conflicts and fixes (cryptsetup, raspberrypi-sys-mods, dpkg-divert)
+- ⚙️ **Automated setup scripts** (`uconsole-cm5-setup.sh`) for hardened, error-free deployments
+- 📡 **RTL-SDR** setup and configuration (100 kHz – 1.74 GHz)
+- 📻 **LoRa / Meshtastic** mesh networking (SX1262)
+- 🛰️ **GPS** receiver configuration and PPS timing
+- ⏰ **Hardware RTC** with battery backup (PCF85063A)
+- 🔌 **NVMe storage** via the HackerGadgets NVMe Battery Board
+- 🌐 **Gigabit Ethernet** via RJ45 (Upgrade Kit required)
+- 📶 **WiFi pentesting** with external monitor-mode adapters
+- 🔧 **GPIO power control** via `aiov2_ctl`
+- 🐧 **OS setup** for both Kali Linux and Debian Trixie (Rex's images)
+- ⚠️ **Known package conflicts and automated fixes** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch)
 
 ### Purpose
 
@@ -60,8 +61,8 @@ These guides serve as:
 
 | Guide | Compute Module | Description |
 |-------|---------------|-------------|
-| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 setup — most mature and community-tested configuration |
-| **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup — USB 3.0, native PCIe, newer SoC |
+| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 manual setup — most mature and community-tested configuration. |
+| **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup — features the `uconsole-cm5-setup.sh` automated installer, USB 3.0, and native PCIe configurations. |
 
 > **Which guide should I follow?** If you already have your hardware, follow the guide matching your compute module. If you're buying new, see the [comparison table](#cm4-vs-cm5--quick-reference) below.
 
@@ -123,9 +124,9 @@ Full Kali toolchain pre-installed — pentesting-ready out of the box.
 
 | Pros | Cons |
 |---|---|
-| Everything pre-installed | Can hit `cryptsetup-initramfs` failures |
+| Everything pre-installed | Can hit `cryptsetup-initramfs` failures if not hardened |
 | Familiar to pentesters | Trackball slightly less responsive |
-| Kali community support | N/A |
+| Kali community support | Requires LightDM session pinning |
 
 ### Path B: Rex's Trixie + Kali Tools (Recommended)
 
@@ -134,8 +135,8 @@ Debian 13 base with Kali rolling repo layered on top.
 | Pros | Cons |
 |---|---|
 | Newest packages | Extra setup step for Kali tools |
-| Fewer package conflicts | Must remove `raspberrypi-sys-mods` |
-| Best trackball behavior | Must set Kali APT pin to 900 |
+| Fewer package conflicts | Must carefully manage `raspberrypi-sys-mods` |
+| Best trackball behavior | Requires precise APT pinning to avoid `libfm` ABI mismatch |
 | Cleanest base system | N/A |
 
 ### Other Rex Images
@@ -172,7 +173,7 @@ Debian 13 base with Kali rolling repo layered on top.
 
 All peripherals are controlled via GPIO using `aiov2_ctl` ([GitHub](https://github.com/hackergadgets/aiov2_ctl)):
 
-```
+```bash
 aiov2_ctl                           # Show current GPIO state
 aiov2_ctl <FEATURE> <on|off>        # Toggle: GPS, LORA, SDR, USB
 aiov2_ctl --status                  # Detailed status (GPIO + battery + power)
@@ -183,67 +184,40 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 ---
 
-## 🔧 Common Setup Sequence
+## 🔧 Common Setup Sequence (The 6-Phase Approach)
 
-Regardless of CM4 or CM5, the high-level setup flow is the same. Refer to your compute-module-specific guide for exact commands and config values.
+Our latest documentation uses a strict **"Harden first, upgrade second, then install"** methodology to prevent bricked installations. On the CM5, this entire process is automated via `uconsole-cm5-setup.sh`.
 
-```
-1. Flash Rex's Image (Kali or Trixie)
-   └─> Download from ClockworkPi forum
-   └─> Flash with dd or balenaEtcher
+```text
+Phase 1: Pre-Flight Hardening
+   └─> Disable cryptsetup-initramfs to prevent boot failures
+   └─> Pin LightDM sessions safely so upgrades don't break the GUI
+   └─> [Trixie] Safely manage raspberrypi-sys-mods
+   └─> [Trixie] Inject Kali rolling repo with a narrow, protected APT pin
 
-2. First Boot & Initial Config
-   └─> Change default password
-   └─> Set timezone and hostname
-   └─> Expand filesystem
+Phase 2: First System Upgrade
+   └─> apt full-upgrade (now safe to run)
+   └─> Set hostname
 
-3. [Trixie Only] Install Kali Tools
-   └─> Remove raspberrypi-sys-mods
-   └─> Add Kali repo + signing key
-   └─> Set Kali APT pin to 900
-   └─> Install kali-tools-top10 or kali-linux-headless
+Phase 3: Kali Tools Integration
+   └─> Install target metapackage (e.g., kali-tools-top10)
 
-4. Fix cryptsetup-initramfs
-   └─> Set CRYPTSETUP=n in conf-hook
-   └─> Prevents non-bootable system from initramfs failures
+Phase 4: AIO Board Ecosystem
+   └─> Install aiov2_ctl from source
+   └─> Inject legacy dependencies (libgpiod2, libyaml-cpp0.7) if missing
+   └─> Install hackergadgets-uconsole-aio-board, meshtastic-mui
+   └─> Install ADS-B trackers (readsb, tar1090)
 
-5. Install AIO v2 Board Package
-   └─> sudo apt install hackergadgets-uconsole-aio-board
+Phase 5: Peripheral Configuration
+   └─> Free serial port for GPS UART
+   └─> Enable SPI overlays and hardware RTC mappings
+   └─> Blacklist DVB-T driver for RTL-SDR
+   └─> Disable conflicting services (devterm-printer)
+   └─> Set boot rails for GPS, LoRa, and SDR
 
-6. Install aiov2_ctl
-   └─> Clone from GitHub, run --install
-
-7. Configure GPS
-   └─> Free serial port (remove console= from cmdline.txt)
-   └─> Add user to dialout group
-   └─> Enable GPIO, verify NMEA output
-
-8. Configure LoRa / Meshtasticd
-   └─> Enable SPI overlays, disable devterm-printer
-   └─> Download and install meshtasticd .deb
-   └─> Configure config.yaml with SX1262 pin mapping
-   └─> Set LoRa region in web interface
-
-9. Configure RTC
-   └─> Add I2C + RTC overlays to config.txt
-   └─> Verify with hwclock -r
-
-10. Configure SDR
-    └─> Blacklist dvb_usb_rtl28xxu kernel driver
-    └─> Enable GPIO, launch SDR++
-
-11. Install WiFi DKMS Driver
-    └─> sudo apt install realtek-rtl88xxau-dkms
-
-12. [Optional] NVMe Battery Board
-    └─> Enable PCIe in config.txt
-    └─> Clone SD to NVMe with rpi-clone
-    └─> Configure boot order
-
-13. Set Boot Defaults
-    └─> Configure boot rails via aiov2_ctl
-    └─> Enable Meshtasticd service
-    └─> Enable GUI autostart
+Phase 6: Finalization & Verification
+   └─> Perform automated sanity checks on configs and dependencies
+   └─> Manual hand-off: set timezones, passwords, connect antennas
 ```
 
 ---
@@ -252,7 +226,7 @@ Regardless of CM4 or CM5, the high-level setup flow is the same. Refer to your c
 
 ### 🔴 Authorized Use Only
 
-```
+```text
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️
 
 This platform includes tools and capabilities for:
@@ -284,7 +258,7 @@ This platform includes tools and capabilities for:
 
 ### Warranty Disclaimer
 
-```
+```text
 These guides are provided "AS IS" without warranty of any kind.
 
 THE AUTHORS:
@@ -308,28 +282,28 @@ USERS ACKNOWLEDGE:
 
 | Resource | URL |
 |---|---|
-| Rex's Kali Image | https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463 |
-| Rex's Trixie Image | https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457 |
-| Rex's Bookworm Image | https://forum.clockworkpi.com/t/bookworm-6-12-y-for-the-uconsole-and-devterm/15847 |
-| AIO Board Package | https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875 |
-| Updated Images (New Screens) | https://forum.clockworkpi.com/t/updated-images-for-new-uconsole-screens/21666 |
+| Rex's Kali Image | [https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463](https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463) |
+| Rex's Trixie Image | [https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457) |
+| Rex's Bookworm Image | [https://forum.clockworkpi.com/t/bookworm-6-12-y-for-the-uconsole-and-devterm/15847](https://forum.clockworkpi.com/t/bookworm-6-12-y-for-the-uconsole-and-devterm/15847) |
+| AIO Board Package | [https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875) |
+| Updated Images (New Screens) | [https://forum.clockworkpi.com/t/updated-images-for-new-uconsole-screens/21666](https://forum.clockworkpi.com/t/updated-images-for-new-uconsole-screens/21666) |
 
 ### Documentation & Guides
 
 | Resource | URL |
 |---|---|
-| AIO v2 Setup Guide | https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide |
-| aiov2_ctl GitHub | https://github.com/hackergadgets/aiov2_ctl |
-| uConsole GitHub (Official) | https://github.com/clockworkpi/uConsole |
-| Meshtastic Firmware Releases | https://github.com/meshtastic/firmware/releases |
+| AIO v2 Setup Guide | [https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) |
+| aiov2_ctl GitHub | [https://github.com/hackergadgets/aiov2_ctl](https://github.com/hackergadgets/aiov2_ctl) |
+| uConsole GitHub (Official) | [https://github.com/clockworkpi/uConsole](https://github.com/clockworkpi/uConsole) |
+| Meshtastic Firmware Releases | [https://github.com/meshtastic/firmware/releases](https://github.com/meshtastic/firmware/releases) |
 
 ### Products
 
 | Product | URL |
 |---|---|
-| AIO v2 Board | https://hackergadgets.com/products/uconsole-aio-v2 |
-| uConsole Upgrade Kit | https://hackergadgets.com/products/uconsole-upgrade-kit |
-| NVMe Battery Board | https://hackergadgets.com/products/nvme |
+| AIO v2 Board | [https://hackergadgets.com/products/uconsole-aio-v2](https://hackergadgets.com/products/uconsole-aio-v2) |
+| uConsole Upgrade Kit | [https://hackergadgets.com/products/uconsole-upgrade-kit](https://hackergadgets.com/products/uconsole-upgrade-kit) |
+| NVMe Battery Board | [https://hackergadgets.com/products/nvme](https://hackergadgets.com/products/nvme) |
 
 ---
 
@@ -348,8 +322,8 @@ USERS ACKNOWLEDGE:
 
 ## 📊 Repository Statistics
 
-```
-📁 Setup Guides: 2 (CM4, CM5)
+```text
+📁 Setup Guides: 2 (CM4, CM5) + 1 Automation Script
 📖 Covers: OS setup, AIO v2 board, NVMe, WiFi, LoRa, GPS, SDR, RTC
 🔄 Last Updated: June 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
