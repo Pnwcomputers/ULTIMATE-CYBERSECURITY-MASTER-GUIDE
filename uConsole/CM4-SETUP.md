@@ -1,4 +1,5 @@
 # uConsole Setup Guide: CM4 Configuration
+> *Updated June 2026*
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
