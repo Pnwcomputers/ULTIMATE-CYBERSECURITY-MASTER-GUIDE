@@ -4,28 +4,30 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
+> **About this revision:** This guide uses a "harden first, upgrade second" flow. The most common reason previous versions broke a fresh install was running `apt full-upgrade` before pre-empting the `cryptsetup-initramfs` hook and the LightDM session reference issue. Follow the steps in order and the box should survive every reboot.
+
 ---
 
 ## Table of Contents
 
 - [Hardware Overview](#hardware-overview)
-- [Choosing Your OS: Kali vs Trixie](#choosing-your-os--kali-vs-trixie)
-- [Step 1: Flash the OS](#step-1--flash-the-os)
-- [Step 2: First Boot and Initial Setup](#step-2--first-boot-and-initial-setup)
-- [Step 2.5: Install Kali Tools on Trixie (Trixie Only)](#step-25--install-kali-tools-on-trixie-trixie-only)
-- [Step 3: Install the AIO v2 Board Package](#step-3--install-the-aio-v2-board-package)
-- [Step 4: Install aiov2_ctl (GPIO Control Tool)](#step-4--install-aiov2_ctl-gpio-control-tool)
-- [Step 5: Configure GPS (CM4)](#step-5--configure-gps-cm4)
-- [Step 6: Configure LoRa / Meshtasticd](#step-6--configure-lora--meshtasticd)
-- [Step 7: Configure RTC](#step-7--configure-rtc)
-- [Step 8: Configure SDR](#step-8--configure-sdr)
-- [Step 9: GPIO Power Control](#step-9--gpio-power-control)
-- [Step 10: WiFi Pentesting Setup](#step-10--wifi-pentesting-setup)
-- [Step 11: LAN Pentesting via RJ45](#step-11--lan-pentesting-via-rj45)
-- [Step 12: NVMe Battery Board Setup](#step-12--nvme-battery-board-setup)
+- [Choosing Your OS: Kali vs Trixie](#choosing-your-os-kali-vs-trixie)
+- [Step 1: Flash the OS](#step-1-flash-the-os)
+- [Step 2: First Boot — Pre-Flight Hardening (Do This Before Anything Else)](#step-2-first-boot--pre-flight-hardening-do-this-before-anything-else)
+- [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
+- [Step 4: Add Kali Tools (Trixie Only)](#step-4-add-kali-tools-trixie-only)
+- [Step 5: Install the AIO v2 Board Package](#step-5-install-the-aio-v2-board-package)
+- [Step 6: Configure GPS (CM4)](#step-6-configure-gps-cm4)
+- [Step 7: Configure LoRa / Meshtasticd](#step-7-configure-lora--meshtasticd)
+- [Step 8: Configure RTC](#step-8-configure-rtc)
+- [Step 9: Configure SDR](#step-9-configure-sdr)
+- [Step 10: GPIO Power Control](#step-10-gpio-power-control)
+- [Step 11: WiFi Pentesting Setup](#step-11-wifi-pentesting-setup)
+- [Step 12: LAN Pentesting via RJ45](#step-12-lan-pentesting-via-rj45)
+- [Step 13: NVMe Battery Board Setup](#step-13-nvme-battery-board-setup)
 - [CM4-Specific Notes and Limitations](#cm4-specific-notes-and-limitations)
-- [AIO v2 Board: Hardware Reference](#aio-v2-board--hardware-reference)
-- [aiov2_ctl: Full Command Reference](#aiov2_ctl--full-command-reference)
+- [AIO v2 Board: Hardware Reference](#aio-v2-board-hardware-reference)
+- [aiov2_ctl: Full Command Reference](#aiov2_ctl-full-command-reference)
 - [Meshtasticd Web Interface](#meshtasticd-web-interface)
 - [Boot Automation](#boot-automation)
 - [Troubleshooting](#troubleshooting)
@@ -56,13 +58,13 @@ This guide assumes the following hardware stack:
 | **USB Hub** | External USB-C port + internal USB-C + pin header |
 | **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
 
-> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way**: incorrect installation will damage the uConsole mainboard.
+> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** — incorrect installation will damage the uConsole mainboard.
 
 ---
 
 ## Choosing Your OS: Kali vs Trixie
 
-Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package: this package is not available on stock ClockworkPi images.
+Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all the necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository that is **required** for the `hackergadgets-uconsole-aio-board` package — this package is not available on stock ClockworkPi images.
 
 This guide covers two recommended paths:
 
@@ -71,14 +73,14 @@ This guide covers two recommended paths:
 The full Kali toolchain comes pre-installed: aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc. No additional tool installation needed. Best for users who want a ready-made pentest platform.
 
 **Pros:** Everything pre-installed, Kali community support, familiar to pentesters.
-**Cons:** Can hit package conflicts with `cryptsetup-initramfs` during AIO board setup (see Step 3). Trackball slightly less responsive than on Bookworm/Trixie.
+**Cons:** First-boot Kali rolling updates frequently remove the RPi-specific LightDM session and greeter that Rex's image ships with. Skip Step 4 in this guide but still complete the Step 2 hardening — that's what keeps the upgrade from breaking the login screen.
 
 ### Path B: Rex's Trixie Image + Kali Tools (Recommended)
 
-Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling repo added on top for pentesting tools. Most current base system, fewer package conflicts, same AIO board support.
+Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling repo added on top for pentesting tools. Most current base system, fewer initramfs conflicts, same AIO board support.
 
 **Pros:** Newest packages, cleaner base, fewer initramfs/package conflicts, best trackball behavior alongside Bookworm.
-**Cons:** Extra step to add Kali tools. Mixing Kali rolling repo with Trixie can occasionally create version conflicts (mitigated with APT pinning).
+**Cons:** Extra step to add Kali tools. Mixing Kali rolling repo with Trixie creates version conflicts unless APT pinning is set up correctly (this guide handles that).
 
 ### Other Rex Images
 
@@ -123,10 +125,6 @@ Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling
 
 3. Insert the microSD card into the uConsole and boot.
 
----
-
-## Step 2: First Boot and Initial Setup
-
 ### Default Credentials
 
 Verify in the forum thread for your image as these may change.
@@ -143,74 +141,92 @@ Username: pi
 Password: clockworkpi
 ```
 
-### Post-Boot Setup (Both Images)
-
-```bash
-# Update the system
-sudo apt update && sudo apt full-upgrade -y
-
-# Set your timezone
-sudo dpkg-reconfigure tzdata
-
-# Change the default password
-passwd
-
-# Optionally set hostname
-sudo hostnamectl set-hostname uconsole
-
-# Expand filesystem if not auto-expanded
-sudo raspi-config --expand-rootfs
-sudo reboot
-```
+> **Important:** Log in to the desktop and open a terminal. **Do NOT run `apt update` or `apt full-upgrade` yet.** Proceed straight to Step 2.
 
 ---
 
-## Step 2.5: Install Kali Tools on Trixie (Trixie Only)
+## Step 2: First Boot — Pre-Flight Hardening (Do This Before Anything Else)
 
-> **Skip this step if you are using Rex's Kali image: the tools are already installed.**
+This step pre-empts the three issues that historically break a fresh uConsole install during its first upgrade:
 
-Add the Kali rolling repository and import the signing key:
+1. The `cryptsetup-initramfs` hook fails on Pi systems and can leave the initramfs corrupted, making the system unbootable.
+2. Upgrades replace `lightdm` and its session/greeter packages, removing the `rpd-labwc` session file and `pi-greeter-labwc` while `/etc/lightdm/lightdm.conf` still points at them. Result: "Failed to start session" at the next login.
+3. (Trixie + Kali path only) `raspberrypi-sys-mods` will fight Kali packages over file ownership and dpkg diversions.
+
+We fix all three **before** the first `apt full-upgrade`.
+
+### 2.1 — Disable the cryptsetup-initramfs hook
+
+Unless you're running LUKS full-disk encryption (you aren't, on a fresh Rex image), tell the initramfs hook to skip its root device detection:
 
 ```bash
-# Add the Kali rolling repo
-echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/kali.list
-
-# Import the Kali signing key
-curl -fsSL https://archive.kali.org/archive-key.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
-
-sudo apt update
+sudo mkdir -p /etc/cryptsetup-initramfs
+echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
 ```
 
-### Fix dpkg-divert Conflict BEFORE Installing (Required)
+### 2.2 — Pin LightDM to sessions that will survive the upgrade
 
-The `raspberrypi-sys-mods` package (pre-installed on all Rex images) conflicts with Kali packages in two ways:
-
-1. **Diversion clash:** Both `raspberrypi-sys-mods` and `kali-defaults` try to divert `/usr/lib/python3.13/EXTERNALLY-MANAGED` but to different target filenames, which hard-fails the install.
-
-2. **File ownership collision:** Even after fixing the diversion, `raspberrypi-sys-mods` and Kali's `libpython3.13-stdlib` both claim ownership of the same file, causing `dpkg` to refuse to unpack upgrades.
-
-The cleanest fix is to remove `raspberrypi-sys-mods` entirely before installing any Kali packages. At this point your system is becoming a Kali box with Rex's kernel: `raspberrypi-sys-mods` will just keep fighting you on every upgrade.
+Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. When the upgrade replaces those packages, the session files disappear and LightDM can't start. Swap the references now to session names that are stable across both Rex's images and Kali:
 
 ```bash
-# Remove the conflicting package
+# Make sure the fallback greeter and compositor are actually installed
+sudo apt update
+sudo apt install -y lightdm-gtk-greeter labwc
+
+# Repoint lightdm.conf to sessions that survive package upgrades
+sudo sed -i \
+  -e 's/^user-session=rpd-labwc/user-session=labwc/' \
+  -e 's/^autologin-session=rpd-labwc/autologin-session=labwc/' \
+  -e 's/^greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' \
+  /etc/lightdm/lightdm.conf
+
+# Fix any AccountsService entry that still references rpd-labwc
+for f in /var/lib/AccountsService/users/*; do
+  [ -f "$f" ] && sudo sed -i 's/rpd-labwc/labwc/g' "$f"
+done
+
+# Confirm the session files exist before going further
+ls /usr/share/wayland-sessions/labwc.desktop \
+   /usr/share/xgreeters/lightdm-gtk-greeter.desktop
+```
+
+If either `ls` line errors out, **stop and resolve it** before continuing — the upgrade will not magically install them later.
+
+### 2.3 — (Trixie path only) Pre-empt the raspberrypi-sys-mods conflict
+
+> **Kali users:** Skip 2.3 and 2.4. Your image doesn't ship `raspberrypi-sys-mods` and isn't layering Kali on top of Trixie.
+
+`raspberrypi-sys-mods` (preinstalled on Rex's Trixie image) will collide with `kali-defaults` and `libpython3.13-stdlib` once you add the Kali repo. Remove it now so the first full-upgrade doesn't fight it later:
+
+```bash
+# Check what would be removed alongside it
+sudo apt -s remove raspberrypi-sys-mods
+
+# If nothing critical (kernels, device-tree packages) is listed, proceed:
 sudo apt remove raspberrypi-sys-mods -y
 
-# Clean up any diversion it left behind
-sudo rm -f /usr/lib/python3.13/EXTERNALLY-MANAGED
-sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename /usr/lib/python3.13/EXTERNALLY-MANAGED 2>/dev/null
+# Clean up any stale diversion / file
+EXTMGD=$(ls /usr/lib/python3.*/EXTERNALLY-MANAGED 2>/dev/null | head -1)
+if [ -n "$EXTMGD" ]; then
+  sudo rm -f "$EXTMGD"
+  sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename "$EXTMGD" 2>/dev/null
+fi
 ```
 
-> **Note:** Check what `apt remove raspberrypi-sys-mods` wants to pull out with it. If it tries to remove kernel or device tree packages, cancel and use the force-overwrite approach instead (see [Troubleshooting](#troubleshooting)).
+### 2.4 — (Trixie path only) Add Kali rolling and pin it
 
-> **Note:** The Python version in the path (`python3.13`) may differ depending on when you install. Check with `ls /usr/lib/python3.*/EXTERNALLY-MANAGED` if the above path doesn't exist.
-
-### Set Kali as the Primary Package Source (Required)
-
-Once you start installing Kali packages, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) get upgraded past what Trixie carries. From that point on, **every** `apt install` that touches those libraries will fail with version mismatch errors unless the packages come from Kali too: including the Meshtasticd `-dev` dependencies in [Step 6](#step-6--configure-lora--meshtasticd) and anything else you install later.
-
-Set Kali as the default high-priority repo **before** installing any Kali packages:
+Adding Kali rolling and pinning it as the primary repo **before** the first big upgrade prevents the dependency-mismatch storm that hits when Kali's newer `libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc. land on a system that's still half-Trixie:
 
 ```bash
+# Add Kali rolling repo
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" \
+  | sudo tee /etc/apt/sources.list.d/kali.list
+
+# Import the Kali signing key
+curl -fsSL https://archive.kali.org/archive-key.asc \
+  | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
+
+# Pin Kali as primary
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
 Package: *
 Pin: release o=Kali
@@ -220,11 +236,41 @@ EOF
 sudo apt update
 ```
 
-This makes Kali rolling the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (like the AIO board package and uConsole-specific kernel packages). Your system is effectively a Kali box running Rex's kernel and hardware patches: which is exactly what you want for a pentest platform.
+After this, Kali rolling is the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (uConsole kernel, AIO board package).
 
-### Choose Your Toolkit
+---
 
-Pick one based on how much you want installed:
+## Step 3: System Update and Initial Configuration
+
+With Step 2 complete, it is now safe to update the system.
+
+```bash
+# First full system upgrade — Step 2 made this safe
+sudo apt update
+sudo apt full-upgrade -y
+
+# If you see file-ownership collisions, force overwrite once:
+sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
+
+# Basic config
+sudo dpkg-reconfigure tzdata
+passwd
+sudo hostnamectl set-hostname uconsole
+
+sudo reboot
+```
+
+> **Note:** Rex's images expand the root filesystem automatically on first boot. `raspi-config --expand-rootfs` is not required and can be skipped. If you want to verify, `df -h /` should show the SD card's full capacity.
+
+After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. If not, see [Troubleshooting → "Failed to start session"](#failed-to-start-session-at-lightdm-login).
+
+---
+
+## Step 4: Add Kali Tools (Trixie Only)
+
+> **Skip this step on Rex's Kali image — the tools are already installed.**
+
+The Kali repo and pin were already added in Step 2.4. Now install the toolkit. Pick one based on how much you want installed:
 
 | Meta-Package | What You Get |
 |---|---|
@@ -244,31 +290,21 @@ sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
 sudo apt full-upgrade -y
 ```
 
+> **Tip:** If you find yourself typing `-o Dpkg::Options::="--force-overwrite"` repeatedly, make it persistent: `echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-force-overwrite`
+
 ---
 
-## Step 3: Install the AIO v2 Board Package
+## Step 5: Install the AIO v2 Board Package
 
-Rex's custom APT repo is pre-configured on his images. The AIO board package installs everything needed for the AIO v2 ecosystem in one command.
+Rex's custom APT repo is pre-configured on his images. The AIO board metapackage installs the entire AIO v2 ecosystem — including `aiov2_ctl` — in one command. **You do not need to separately clone `aiov2_ctl` from GitHub.** The metapackage pulls it in as a dependency, and a separate git install would clobber the apt-managed binary and break future upgrades.
 
-### Fix cryptsetup-initramfs BEFORE Installing (Critical)
-
-The AIO board package (or its dependency chain) can pull in `cryptsetup-initramfs` as a recommended package. On CM4, the initramfs hook tries to resolve `/dev/root` and hard-fails because the Pi uses `PARTUUID=` in cmdline.txt. This returns exit code 1, which kills the entire `dpkg` post-install trigger and leaves your system in a broken package state. If this happens during a kernel-related package install, **it can corrupt your initramfs and leave the system unbootable.**
-
-Pre-empt this before installing anything:
-
-```bash
-sudo mkdir -p /etc/cryptsetup-initramfs
-echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
-```
-
-This tells the cryptsetup initramfs hook to skip its root device detection entirely. Unless you are setting up LUKS full-disk encryption, this is exactly what you want.
+The `cryptsetup-initramfs` fix was already applied in Step 2.1, so the AIO package's post-install triggers will run cleanly.
 
 ### Install the Package
 
 ```bash
 sudo apt update
 sudo apt install hackergadgets-uconsole-aio-board -y
-sudo reboot
 ```
 
 ### What This Package Installs
@@ -276,6 +312,7 @@ sudo reboot
 | Package | Function |
 |---|---|
 | `hackergadgets-uconsole-aio-board` | Core AIO v2 integration: GPIO, power rails, RTC support, services, uConsole-specific configuration |
+| `aiov2_ctl` | CLI and tray GUI for toggling peripherals on/off, monitoring power, boot states |
 | `meshtastic-mui` | Meshtastic graphical UI for LoRa/Meshtastic devices |
 | `sdrpp-brown` | Preconfigured SDR++ build for the uConsole (RF scanning/listening) |
 | `tar1090` | ADS-B aircraft tracking web UI (visualizes planes from your SDR feed) |
@@ -283,50 +320,29 @@ sudo reboot
 
 It also sets up supporting services (RTC, GPIO helpers, and desktop menu entries).
 
----
-
-## Step 4: Install aiov2_ctl (GPIO Control Tool)
-
-`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It provides both CLI and system tray GUI for toggling peripherals on/off, monitoring power, and configuring boot states.
+### Verify and Enable GUI Autostart
 
 ```bash
-# Install dependencies
-sudo apt update
-sudo apt install -y python3 python3-pyqt6 git
+# Confirm the control tool is available
+command -v aiov2_ctl && aiov2_ctl --status
 
-# Clone and install
-git clone https://github.com/hackergadgets/aiov2_ctl.git
-cd aiov2_ctl
-sudo python3 ./aiov2_ctl.py --install
-
-# Verify installation
-aiov2_ctl
-aiov2_ctl --status
-```
-
-### Optional: Install AIO Companion Apps via aiov2_ctl
-
-If you did not install the `hackergadgets-uconsole-aio-board` package in Step 3, you can install the companion apps through `aiov2_ctl`:
-
-```bash
-sudo aiov2_ctl --add-apps
-```
-
-### Enable GUI Autostart (Recommended)
-
-```bash
+# Enable system tray autostart on login
 aiov2_ctl --autostart
 ```
 
-This creates an XDG autostart entry so the system tray icon launches on login.
+Now reboot so the new kernel modules and services load cleanly:
+
+```bash
+sudo reboot
+```
 
 ---
 
-## Step 5: Configure GPS (CM4)
+## Step 6: Configure GPS (CM4)
 
 ### CM4-Specific GPS Path
 
-On CM4, the GPS serial port is `/dev/ttyS0` (NOT `/dev/ttyAMA0` which is for CM4).
+On CM4, the GPS serial port is `/dev/ttyS0` (NOT `/dev/ttyAMA0`, which is the CM5 path).
 
 ### Free the Serial Port
 
@@ -380,7 +396,7 @@ dtoverlay=pps-gpio,gpiopin=6
 
 ---
 
-## Step 6: Configure LoRa / Meshtasticd
+## Step 7: Configure LoRa / Meshtasticd
 
 ### Prerequisites: SPI and Service Conflicts
 
@@ -391,7 +407,7 @@ dtparam=spi=on
 dtoverlay=spi1-1cs
 ```
 
-**Disable the devterm-printer service**: it uses SPI1 GPIO and will conflict with LoRa:
+**Disable the devterm-printer service** — it uses SPI1 GPIO and will conflict with LoRa:
 
 ```bash
 sudo systemctl stop devterm-printer.service
@@ -407,29 +423,25 @@ aiov2_ctl LORA on
 pinctrl set 22 op dh   # GPIO 22 = LoRa
 ```
 
-### Install Meshtasticd Dependencies
-
-> **Trixie + Kali users:** If you haven't set the Kali APT pin from [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only), these `-dev` packages will fail with version mismatches against the Kali-upgraded runtime libraries. Either set the pin first or add `-t kali-rolling` to this command.
-
-```bash
-sudo apt install libgpiod-dev libyaml-cpp-dev libbluetooth-dev \
-  libusb-1.0-0-dev libi2c-dev openssl libssl-dev libulfius-dev liborcania-dev
-```
-
 ### Install Meshtasticd
 
-The `meshtasticd` binary is not in the standard Debian or Kali repos: download the `.deb` package from the Meshtastic firmware releases page:
+The `meshtasticd` binary is not in the standard Debian or Kali repos — install the prebuilt `.deb` package from the Meshtastic firmware releases. The `.deb` already declares all its runtime dependencies, so you do not need to install any separate `-dev` packages.
 
 ```bash
-# Download the latest arm64 package (check GitHub for the current version)
-wget https://github.com/meshtastic/firmware/releases/download/v2.3.13/meshtasticd_2.3.13_arm64.deb
+# Grab the latest arm64 release URL dynamically
+LATEST_URL=$(curl -fsSL https://api.github.com/repos/meshtastic/firmware/releases/latest \
+  | grep "browser_download_url.*meshtasticd_.*_arm64.deb" \
+  | head -1 \
+  | cut -d '"' -f 4)
 
-# Install it
-sudo dpkg -i meshtasticd_*_arm64.deb
-sudo apt --fix-broken install -y
+echo "Downloading: $LATEST_URL"
+wget "$LATEST_URL"
+
+# Install it — apt will resolve any missing runtime deps automatically
+sudo apt install -y "./$(basename "$LATEST_URL")"
 ```
 
-> **Note:** Check the [Meshtastic firmware releases](https://github.com/meshtastic/firmware/releases) page for the latest version. Replace `v2.3.13` with the current release tag.
+> **If the curl-based version lookup fails** (e.g. you're offline-bridged through another host), check the [Meshtastic firmware releases](https://github.com/meshtastic/firmware/releases) page and download the latest `meshtasticd_<version>_arm64.deb` manually, then `sudo apt install -y ./meshtasticd_*_arm64.deb`.
 
 ### Configure Meshtasticd
 
@@ -446,7 +458,7 @@ Lora:
   spidev: spidev1.0
 
 GPS:
-  SerialPath: /dev/ttyS0    # CM4 path: use /dev/ttyAMA0 for CM4
+  SerialPath: /dev/ttyS0    # CM4 path — use /dev/ttyAMA0 on CM5
 
 Webserver:
   Port: 443
@@ -466,6 +478,8 @@ Webserver:
 | Reset | GPIO 25 |
 
 ### Create Meshtasticd Systemd Service
+
+> **Note:** Recent Meshtasticd `.deb` packages install their own systemd unit. Check first with `systemctl list-unit-files | grep meshtasticd` — if a unit already exists, skip the manual creation below and just enable/start it.
 
 ```bash
 sudo nano /etc/systemd/system/meshtasticd.service
@@ -504,7 +518,7 @@ Connect a 433/915 MHz antenna (depending on your region) to the IPEX connector l
 
 ---
 
-## Step 7: Configure RTC
+## Step 8: Configure RTC
 
 The RTC (PCF85063A) requires manual configuration. Add the following to `/boot/firmware/config.txt`:
 
@@ -533,11 +547,11 @@ sudo aiov2_ctl --sync-rtc
 sudo hwclock -w
 ```
 
-> **Note:** Make sure the CR1220 battery is installed in the RTC socket on the AIO v2 board. If `hwclock -r` returns nothing, check the battery orientation.
+> **Note:** Make sure the CR1220 battery is installed in the RTC socket on the AIO v2 board. If `hwclock -r` returns nothing, check the battery orientation, then confirm the device shows up on the bus with `sudo i2cdetect -y 1` (you should see a device at address `0x51`).
 
 ---
 
-## Step 8: Configure SDR
+## Step 9: Configure SDR
 
 ### Enable GPIO for SDR
 
@@ -576,7 +590,7 @@ Connect an antenna to the IPEX connector labeled **"SDR"** on the AIO v2 board. 
 
 ---
 
-## Step 9: GPIO Power Control
+## Step 10: GPIO Power Control
 
 ### AIO v2 GPIO Pin Map
 
@@ -589,7 +603,7 @@ Connect an antenna to the IPEX connector labeled **"SDR"** on the AIO v2 board. 
 
 ### CM4 Boot Behavior
 
-On CM4, **all peripherals start powered off by default.** You must explicitly enable each one. This is different from CM4 where GPIO 7 (SDR) starts high.
+On CM4, **all peripherals start powered off by default.** You must explicitly enable each one. This is different from CM5, where GPIO 7 (SDR) starts high.
 
 ### Using aiov2_ctl (Recommended)
 
@@ -630,7 +644,7 @@ aiov2_ctl --boot-rail SDR on
 aiov2_ctl --boot-rails-status
 ```
 
-Boot rail settings are applied by the `aiov2-rails-boot.service` (installed automatically with `aiov2_ctl --install`).
+Boot rail settings are applied by the `aiov2-rails-boot.service`, installed automatically with the AIO board package.
 
 ### Manual GPIO Control (Without aiov2_ctl)
 
@@ -661,7 +675,7 @@ Left-click the tray icon for a status window; right-click for toggle controls. T
 
 ---
 
-## Step 10: WiFi Pentesting Setup
+## Step 11: WiFi Pentesting Setup
 
 The CM4's onboard WiFi **does not support monitor mode**. You need an external USB WiFi adapter.
 
@@ -678,11 +692,36 @@ The CM4's onboard WiFi **does not support monitor mode**. You need an external U
 
 ### Install the DKMS Driver (Required on Both Kali and Trixie)
 
-RTL8812AU/RTL8814AU chipsets are **not supported by the mainline Linux kernel**. The driver is a DKMS module that must be installed separately: it is not baked in even on Kali. Without it, `iwconfig` will not see the adapter.
+RTL8812AU/RTL8814AU chipsets are **not supported by the mainline Linux kernel**. The driver is a DKMS module that must be installed separately — it is not baked in even on Kali. Without it, `iwconfig` will not see the adapter.
+
+DKMS needs kernel headers that match your running kernel. Rex's images don't always ship headers preinstalled, and the upstream Debian/Kali headers won't match Rex's custom 6.12.y kernel. Check first:
+
+```bash
+# Confirm kernel headers are available for the running kernel
+uname -r
+ls /lib/modules/$(uname -r)/build 2>/dev/null && echo "Headers OK" || echo "Headers MISSING"
+```
+
+If headers are missing, install them from Rex's repo first:
+
+```bash
+# Rex's image typically provides a meta-package that matches the running kernel
+sudo apt install -y "linux-headers-$(uname -r)" 2>/dev/null \
+  || sudo apt install -y raspberrypi-kernel-headers \
+  || echo "Check Rex's forum thread for the correct headers package name"
+```
+
+Once headers are in place:
 
 ```bash
 sudo apt install realtek-rtl88xxau-dkms -y
+
+# Verify the module built and loaded
+sudo dkms status | grep rtl88
+modinfo 88XXau 2>/dev/null | head -5
 ```
+
+If `dkms status` shows the module as installed for your kernel, you're good.
 
 ### Verify Monitor Mode
 
@@ -693,8 +732,8 @@ iwconfig
 # Check adapter capabilities
 iw list | grep -A 10 "Supported interface modes"
 
-# Enable monitor mode
-sudo airmon-ng start wlan1    # wlan1 = external adapter (wlan0 = onboard)
+# Enable monitor mode (wlan1 = external adapter; wlan0 = onboard)
+sudo airmon-ng start wlan1
 
 # Verify
 iwconfig wlan1mon
@@ -702,7 +741,7 @@ iwconfig wlan1mon
 
 ### Common Pentest Toolkit
 
-These tools are pre-installed on Kali. On Trixie, install them via the Kali meta-packages in [Step 2.5](#step-25--install-kali-tools-on-trixie-trixie-only).
+These tools are pre-installed on Kali. On Trixie, they're available via the Kali meta-packages from Step 4.
 
 ```bash
 # Wireless
@@ -727,9 +766,9 @@ sqlmap
 
 ---
 
-## Step 11: LAN Pentesting via RJ45
+## Step 12: LAN Pentesting via RJ45
 
-The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the **HackerGadgets adapter board** from the Upgrade Kit: without it, the RJ45 port will not function.
+The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the **HackerGadgets adapter board** from the Upgrade Kit — without it, the RJ45 port will not function.
 
 With the adapter board installed, you can use the uConsole as a network tap or drop box:
 
@@ -752,7 +791,7 @@ sudo nmap -sS -sV -O -p- 192.168.1.0/24
 
 ---
 
-## Step 12: NVMe Battery Board Setup
+## Step 13: NVMe Battery Board Setup
 
 The HackerGadgets NVMe Battery Board replaces the stock uConsole battery board, combining NVMe SSD storage with the battery compartment in a single PCB. This is part of the HackerGadgets Upgrade Kit and requires the HackerGadgets adapter board.
 
@@ -782,7 +821,7 @@ The NVMe Battery Board comes in two configurations:
 3. Seat the NVMe Battery Board in place of the stock battery board
 4. Connect the ribbon cable between the adapter board and the NVMe Battery Board
 
-> **Critical:** Check ribbon cable orientation carefully. An incorrectly installed ribbon cable can prevent boot. If the uConsole won't boot after installation, the cable is likely flipped. **Never plug in the charger with a reversed ribbon cable**: this will damage the mainboard.
+> **Critical:** Check ribbon cable orientation carefully. An incorrectly installed ribbon cable can prevent boot. If the uConsole won't boot after installation, the cable is likely flipped. **Never plug in the charger with a reversed ribbon cable** — this will damage the mainboard.
 
 5. Insert your NVMe SSD into the M.2 slot (2230 is the most compact; 2242 and 2280 also fit)
 6. Install your 18650 batteries or connect your LiPo pack
@@ -794,28 +833,22 @@ The NVMe Battery Board comes in two configurations:
 Add the following to `/boot/firmware/config.txt`:
 
 ```
-dtparam=pciex1
-```
-
-Or if your image already has it set to off, change it:
-
-```
 dtparam=pciex1=on
 ```
 
 Reboot and verify the NVMe drive is detected:
 
 ```bash
-lspci                    # Should show the NVMe controller
-lsblk                   # Should show nvme0n1
-sudo fdisk -l /dev/nvme0n1   # Full partition info
+lspci                          # Should show the NVMe controller
+lsblk                          # Should show nvme0n1
+sudo fdisk -l /dev/nvme0n1     # Full partition info
 ```
 
 #### CM4 EEPROM: Do You Need to Update?
 
 Per Rex (the image maintainer): **"There's nothing you need to do to the EEPROM with the CM4."** Most CM4 modules shipped in recent years have NVMe boot support enabled in the EEPROM by default.
 
-However, if your CM4 is an older unit and NVMe isn't detected, you may need to update the EEPROM boot order. You can check your current EEPROM config with:
+However, if your CM4 is an older unit and NVMe isn't detected, you may need to update the EEPROM boot order. Check your current EEPROM config with:
 
 ```bash
 sudo CM4_ENABLE_RPI_EEPROM_UPDATE=1 rpi-eeprom-config
@@ -825,7 +858,7 @@ If `BOOT_ORDER` doesn't include `6` (NVMe), you'll need to update it. See the [U
 
 ### Cloning SD Card to NVMe
 
-The easiest way to migrate your working Kali setup from microSD to NVMe:
+The easiest way to migrate your working setup from microSD to NVMe:
 
 #### Method 1: rpi-clone (Recommended)
 
@@ -903,7 +936,7 @@ Connect the CM4 (with the "disable eMMC boot" jumper set, if applicable) to the 
 
 ### Optional: Hardware Power Switch Mod
 
-The NVMe Battery Board includes provision for a physical power switch: a nice feature for field use where you want to fully power down without pulling batteries:
+The NVMe Battery Board includes provision for a physical power switch — a nice feature for field use where you want to fully power down without pulling batteries:
 
 1. Desolder resistor **R14** on the NVMe Battery Board
 2. Solder a push-lock (latching) switch to the **J6** pads
@@ -917,7 +950,7 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 **NVMe not detected (`lspci` shows nothing):**
 
 - Verify `dtparam=pciex1=on` (not `off`) in `/boot/firmware/config.txt`
-- Reseat the ribbon cable between the adapter board and NVMe battery board: try flipping it if needed
+- Reseat the ribbon cable between the adapter board and NVMe battery board — try flipping it if needed
 - Try the NVMe drive in a USB enclosure on another machine to confirm the drive itself works
 - Check for a faulty ribbon cable (broken traces)
 
@@ -938,14 +971,14 @@ A community member documented using an **SMD MSK12C02** slide switch that sits f
 
 | Item | CM4 Detail |
 |---|---|
-| GPS Serial Port | `/dev/ttyS0` (CM4 uses `/dev/ttyAMA0`) |
-| USB Speed | USB 2.0 only (USB 3.0 requires CM4 + Upgrade Kit) |
-| GPIO Boot State | All peripherals start OFF (CM4 has GPIO 7/SDR on by default) |
+| GPS Serial Port | `/dev/ttyS0` (CM5 uses `/dev/ttyAMA0`) |
+| USB Speed | USB 2.0 only (USB 3.0 requires CM5 + Upgrade Kit) |
+| GPIO Boot State | All peripherals start OFF (CM5 has GPIO 7/SDR on by default) |
 | Stability | Most mature and community-tested configuration |
-| RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM4 which needs `i2c_csi_dsi0` remap) |
+| RTC Config | `dtoverlay=i2c-rtc,pcf85063a` (simpler than CM5 which needs `i2c_csi_dsi0` remap) |
 | Serial Console | Must remove `console=serial0,115200` from cmdline.txt for GPS |
 | SPI Conflict | Must disable `devterm-printer.service` for LoRa |
-| Onboard WiFi | Does NOT support monitor mode: external adapter required |
+| Onboard WiFi | Does NOT support monitor mode — external adapter required |
 | RJ45 Ethernet | Requires HackerGadgets adapter board from Upgrade Kit |
 
 ---
@@ -1076,7 +1109,12 @@ dtoverlay=spi1-1cs
 dtparam=i2c_arm=on
 dtoverlay=i2c-rtc,pcf85063a
 
-# GPS PPS output (optional: for precision timing)
+# PCIe for NVMe (if using NVMe Battery Board)
+dtparam=pciex1=on
+# Optional: cap link at Gen 2 for stability with some drives
+# dtparam=pciex1_gen=2
+
+# GPS PPS output (optional — for precision timing)
 # dtoverlay=pps-gpio,gpiopin=6
 ```
 
@@ -1084,12 +1122,42 @@ dtoverlay=i2c-rtc,pcf85063a
 
 ## Troubleshooting
 
+### "Failed to start session" at LightDM login
+
+This used to be the #1 failure mode of fresh installs. Step 2.2 of this guide pre-empts it by repointing LightDM at sessions that survive Kali rolling upgrades. If you hit it anyway (e.g. on a system that didn't go through this guide), fix it like so:
+
+```bash
+# Check what LightDM is configured to launch
+grep -i "session" /etc/lightdm/lightdm.conf
+
+# Switch user-session and autologin-session to labwc
+sudo sed -i \
+  -e 's/^user-session=rpd-labwc/user-session=labwc/' \
+  -e 's/^autologin-session=rpd-labwc/autologin-session=labwc/' \
+  -e 's/^greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' \
+  /etc/lightdm/lightdm.conf
+
+# Fix AccountsService entries for any user with a stale session pointer
+for f in /var/lib/AccountsService/users/*; do
+  [ -f "$f" ] && sudo sed -i 's/rpd-labwc/labwc/g' "$f"
+done
+
+# Make sure the fallback greeter is installed
+sudo apt install -y lightdm-gtk-greeter labwc
+
+# Restart LightDM
+sudo systemctl restart lightdm
+```
+
+If you cannot log in to a desktop session at all, switch to a TTY with `Ctrl+Alt+F2`, log in there, and run the fix from the console.
+
 ### GPS shows no data on /dev/ttyS0
 
 - Verify `console=serial0,115200` has been **removed** from `/boot/firmware/cmdline.txt`
 - Ensure GPS power rail is enabled: `aiov2_ctl GPS on`
 - Check antenna connection on the "GPS" IPEX connector
 - Try outdoor or near a window for initial satellite fix
+- Confirm your user is in the `dialout` group (logout/login required after `usermod -aG dialout $USER`)
 
 ### LoRa / Meshtasticd fails to start
 
@@ -1109,66 +1177,41 @@ dtoverlay=i2c-rtc,pcf85063a
 ### SDR not detected
 
 - Enable SDR power: `aiov2_ctl SDR on`
+- Confirm the DVB-T driver is blacklisted: `cat /etc/modprobe.d/blacklist-rtl.conf`
 - Check USB device: `lsusb | grep -i rtl`
 - Verify antenna connection on the "SDR" IPEX connector
 
-### "Failed to start session" at LightDM login (Trixie + Kali)
+### RTL8812AU adapter not visible
 
-After upgrading with Kali packages, the RPi-specific session file `rpd-labwc` may be removed or replaced while LightDM is still configured to use it. Check:
-
-```bash
-grep -i "session" /etc/lightdm/lightdm.conf
-```
-
-If you see `user-session=rpd-labwc` or `autologin-session=rpd-labwc`, fix it:
-
-```bash
-sudo sed -i 's/user-session=rpd-labwc/user-session=labwc/' /etc/lightdm/lightdm.conf
-sudo sed -i 's/autologin-session=rpd-labwc/autologin-session=labwc/' /etc/lightdm/lightdm.conf
-```
-
-If the Pi greeter is also gone, switch to the standard LightDM GTK greeter:
-
-```bash
-sudo sed -i 's/greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
-```
-
-Also fix AccountsService if it has a stale session:
-
-```bash
-sudo sed -i 's/rpd-labwc/labwc/' /var/lib/AccountsService/users/$USER 2>/dev/null
-```
-
-Restart LightDM to apply:
-
-```bash
-sudo systemctl restart lightdm
-```
+- Verify the DKMS module built for your running kernel: `sudo dkms status | grep rtl88`
+- If status shows "added" but not "installed", kernel headers don't match the running kernel. Reinstall headers and run `sudo dkms autoinstall`
+- After install, unplug and replug the adapter, then `iwconfig` should list it
+- Confirm with `dmesg | tail` immediately after plugging in — you should see `88XXau` or `8812au` initialization messages
 
 ### Trackball quirks on Kali
 
-- The trackball can be slightly less responsive on Kali compared to Bookworm or Trixie: this is a known minor issue
+- The trackball can be slightly less responsive on Kali compared to Bookworm or Trixie — this is a known minor issue
 - Trixie does not have this problem, which is another reason it makes a good base image
 - If problematic on Kali, the Bookworm or Trixie images have the best trackball behavior
 
 ### uConsole won't boot after AIO v2 installation
 
-- **Check the ribbon cable orientation**: this is the most common cause
+- **Check the ribbon cable orientation** — this is the most common cause
 - Refer to the HackerGadgets installation photos for correct orientation
-- **Never plug in the charger if the ribbon cable is wrong**: it will damage the mainboard
+- **Never plug in the charger if the ribbon cable is wrong** — it will damage the mainboard
 
 ### Package install fails with "subprocess returned error code 1" (cryptsetup-initramfs)
 
-This is caused by the `cryptsetup-initramfs` hook failing to resolve `/dev/root` on Pi systems. The hook exits non-zero, which kills the dpkg trigger and can leave packages in a broken state.
+This shouldn't happen if Step 2.1 was completed before any upgrades. If it did happen — e.g. you skipped Step 2 — the `cryptsetup-initramfs` hook is failing to resolve `/dev/root` and killing dpkg post-install triggers.
 
 **If the system still boots:**
 
 ```bash
-# Fix the root cause
+# Apply the fix that Step 2.1 should have applied
 sudo mkdir -p /etc/cryptsetup-initramfs
 echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
 
-# Clean up the broken install state
+# Clean up broken install state
 sudo dpkg --configure -a
 sudo apt --fix-broken install -y
 
@@ -1220,7 +1263,7 @@ sudo umount /mnt
 
 Then boot the SD card in the uConsole and run `sudo dpkg --configure -a && sudo apt --fix-broken install -y`.
 
-### Nuclear option: remove cryptsetup-initramfs entirely
+**Nuclear option — remove cryptsetup-initramfs entirely:**
 
 If the package state is too mangled to fix in place:
 
@@ -1231,17 +1274,19 @@ sudo apt --fix-broken install -y
 
 ### raspberrypi-sys-mods conflicts with Kali packages (Trixie + Kali Tools)
 
-`raspberrypi-sys-mods` from the Raspberry Pi repo and several Kali packages (`kali-defaults`, `libpython3.13-stdlib`) fight over the same files. This shows up as either a diversion clash or a file ownership error:
+Should not occur if Step 2.3 was completed before adding the Kali repo. If it did happen, you'll see either a diversion clash:
 
 ```
 dpkg-divert: error: 'diversion of /usr/lib/python3.13/EXTERNALLY-MANAGED ...' clashes with ...
 ```
-or:
+
+or a file ownership error:
+
 ```
 trying to overwrite '/usr/lib/python3.13/EXTERNALLY-MANAGED', which is also in package raspberrypi-sys-mods
 ```
 
-**Best fix: remove raspberrypi-sys-mods:**
+**Fix — remove raspberrypi-sys-mods now:**
 
 ```bash
 sudo apt remove raspberrypi-sys-mods -y
@@ -1249,7 +1294,7 @@ sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
 sudo apt full-upgrade -y
 ```
 
-**Fallback: if removing raspberrypi-sys-mods would pull out critical packages:**
+**Fallback — if removing raspberrypi-sys-mods would pull out critical packages:**
 
 ```bash
 # Force dpkg to overwrite the conflicting files
@@ -1257,7 +1302,7 @@ sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
 sudo apt -o Dpkg::Options::="--force-overwrite" full-upgrade -y
 ```
 
-You can make the force-overwrite persistent so you don't have to type it every time:
+Make the force-overwrite persistent if you don't want to type it every time:
 
 ```bash
 echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-force-overwrite
@@ -1265,15 +1310,13 @@ echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-
 
 ### "Unsatisfied dependencies" or version mismatches on Trixie + Kali
 
-Once Kali meta-packages are installed, Kali's versions of core runtime libraries (`libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, Qt6, etc.) are upgraded past what Trixie carries. From that point on, any `apt install` that touches those libraries (including `-dev` header packages for compiling Meshtasticd, etc.) will fail with version mismatch errors unless the packages come from Kali.
-
-**Quick fix for a single install:**
+Shouldn't happen if Step 2.4 set the Kali APT pin before any Kali packages were installed. If it did, install the affected packages from Kali explicitly:
 
 ```bash
 sudo apt install -t kali-rolling <packages> -y
 ```
 
-**Permanent fix (recommended):**
+To make the pin permanent (it should already be set from Step 2.4, but if you're on a system that skipped it):
 
 ```bash
 sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
@@ -1284,8 +1327,6 @@ EOF
 
 sudo apt update
 ```
-
-This makes Kali rolling the primary repo. Trixie and Rex's repo fill in anything Kali doesn't carry. After setting this, regular `apt install` works without `-t kali-rolling`.
 
 ---
 
