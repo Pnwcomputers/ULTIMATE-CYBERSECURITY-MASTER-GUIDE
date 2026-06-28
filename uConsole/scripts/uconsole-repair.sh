@@ -27,7 +27,7 @@
 
 set -uo pipefail
 
-VERSION="1.1"
+VERSION="1.2"
 DRY_RUN="${DRY_RUN:-no}"
 DIAGNOSE_ONLY="${DIAGNOSE_ONLY:-no}"
 ASSUME_YES="${ASSUME_YES:-no}"
@@ -183,6 +183,31 @@ detect_pcmanfm_pi_missing() {
     grep -rq "pcmanfm-pi" /etc/xdg/labwc/autostart 2>/dev/null
 }
 
+detect_libxcb_cursor_missing() {
+    # Returns 0 (issue found) if libxcb-cursor0 is not installed.
+    # Required by Qt6 XCB platform plugin; without it aiov2_ctl --gui fails silently.
+    ! dpkg -l libxcb-cursor0 2>/dev/null | grep -q "^ii"
+}
+
+detect_polkit_conflict() {
+    # Returns 0 (issue found) if polkit-mate agent is present but not suppressed.
+    # Kali metapackages install it; it races lxpolkit on Labwc login and causes
+    # a GDBus auth-agent-already-registered error on every login.
+    local polkit_mate="/etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop"
+    [ -f "$polkit_mate" ] || return 1
+
+    # Need SUDO_USER to know which home dir to check — skip if running as direct root
+    local target_user="${SUDO_USER:-}"
+    [ -z "$target_user" ] && return 1
+
+    local dest="/home/${target_user}/.config/autostart/polkit-mate-authentication-agent-1.desktop"
+    if [ ! -f "$dest" ] || ! grep -q "^Hidden=true" "$dest"; then
+        REPAIR_POLKIT_USER="$target_user"
+        return 0
+    fi
+    return 1
+}
+
 # ----------------------------------------------------------------------------
 # Diagnosis
 # ----------------------------------------------------------------------------
@@ -322,6 +347,30 @@ diagnose() {
         ((issues++))
         warn "  ✗ /etc/xdg/labwc/autostart calls pcmanfm-pi but /usr/bin/pcmanfm-pi is missing"
         warn "    Symptom: desktop drawer (wallpaper, icons, right-click menu) doesn't load"
+    fi
+
+    REPAIR_LIBXCB_CURSOR=no
+    REPAIR_POLKIT_CONFLICT=no
+    REPAIR_POLKIT_USER=""
+
+    if detect_libxcb_cursor_missing; then
+        REPAIR_LIBXCB_CURSOR=yes
+        ((issues++))
+        warn "  ✗ libxcb-cursor0 not installed — required by Qt6 XCB platform plugin"
+        warn "    Symptom: aiov2_ctl --gui fails to open (xcb platform not found)"
+    else
+        ok "  libxcb-cursor0 installed (Qt6 XCB GUI support present)"
+    fi
+
+    if detect_polkit_conflict; then
+        REPAIR_POLKIT_CONFLICT=yes
+        ((issues++))
+        warn "  ✗ polkit-mate agent present with no per-user Hidden=true override for ${REPAIR_POLKIT_USER}"
+        warn "    Symptom: GDBus auth-agent-already-registered error at every Labwc login"
+    elif [ -n "${SUDO_USER:-}" ]; then
+        ok "  PolKit agent conflict not detected for ${SUDO_USER}"
+    else
+        info "  PolKit conflict check skipped (no SUDO_USER — run via sudo, not as direct root)"
     fi
 
     # Verdict
@@ -631,6 +680,36 @@ PINEOF
         fi
     fi
 
+    if [[ "$REPAIR_LIBXCB_CURSOR" == "yes" ]]; then
+        info "Installing libxcb-cursor0 (Qt6 XCB platform plugin dependency)"
+        if [[ "$DRY_RUN" == "yes" ]]; then
+            log "  DRY-RUN: would run: apt-get install -y libxcb-cursor0"
+        else
+            if apt-get install -y libxcb-cursor0 >/dev/null 2>&1; then
+                ok "  libxcb-cursor0 installed"
+            else
+                err "  libxcb-cursor0 install failed — try manually: sudo apt install libxcb-cursor0"
+            fi
+        fi
+    fi
+
+    if [[ "$REPAIR_POLKIT_CONFLICT" == "yes" ]]; then
+        info "Suppressing polkit-mate authentication agent for ${REPAIR_POLKIT_USER}"
+        local polkit_src="/etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop"
+        local user_autostart="/home/${REPAIR_POLKIT_USER}/.config/autostart"
+        local dest="${user_autostart}/polkit-mate-authentication-agent-1.desktop"
+        if [[ "$DRY_RUN" == "yes" ]]; then
+            log "  DRY-RUN: would mkdir -p ${user_autostart}"
+            log "  DRY-RUN: would copy ${polkit_src} → ${dest} and append Hidden=true"
+        else
+            mkdir -p "$user_autostart"
+            [ ! -f "$dest" ] && cp "$polkit_src" "$dest"
+            grep -q "^Hidden=true" "$dest" || echo "Hidden=true" >> "$dest"
+            chown -R "${REPAIR_POLKIT_USER}:${REPAIR_POLKIT_USER}" "$user_autostart"
+            ok "  polkit-mate agent suppressed for ${REPAIR_POLKIT_USER} (log out and back in)"
+        fi
+    fi
+
     echo ""
     if [[ "$DRY_RUN" == "yes" ]]; then
         ok "Dry run complete — no changes were actually made."
@@ -690,6 +769,15 @@ WHAT IT REPAIRS:
         → repoints to whichever Pi session is actually present, else plain labwc
       - /usr/bin/pcmanfm-pi missing while autostart references it
         → symlinks to /usr/bin/pcmanfm
+
+    Desktop-stack issues (v1.2 — GUI and PolKit fixes from real-hardware testing):
+      - libxcb-cursor0 not installed — required by Qt6 XCB platform plugin;
+        without it aiov2_ctl --gui silently fails with an xcb platform error
+        → apt-get install libxcb-cursor0
+      - polkit-mate-authentication-agent-1 present with no per-user Hidden=true
+        override; races lxpolkit on Labwc login causing GDBus auth-agent errors
+        → writes ~/.config/autostart/polkit-mate-authentication-agent-1.desktop
+          with Hidden=true for the invoking user (requires running via sudo)
 
 WHAT IT WON'T TOUCH:
     - Lines you added manually (only known overlay lines are removed)
