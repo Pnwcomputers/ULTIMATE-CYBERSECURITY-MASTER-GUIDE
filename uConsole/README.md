@@ -35,7 +35,7 @@
 This directory contains **complete, step-by-step build guides and automated deployment scripts** for turning a ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension board.
 
 **What This Covers:**
-- ⚙️ **Automated setup scripts** (`uconsole-cm5-setup.sh`) for hardened, error-free deployments
+- ⚙️ **Automated setup scripts** (`uconsole-cm4-setup.sh`, `uconsole-cm5-setup.sh`) for hardened, error-free deployments
 - 📡 **RTL-SDR** setup and configuration (100 kHz – 1.74 GHz)
 - 📻 **LoRa / Meshtastic** mesh networking (SX1262)
 - 🛰️ **GPS** receiver configuration and PPS timing
@@ -45,7 +45,7 @@ This directory contains **complete, step-by-step build guides and automated depl
 - 📶 **WiFi pentesting** with external monitor-mode adapters
 - 🔧 **GPIO power control** via `aiov2_ctl`
 - 🐧 **OS setup** for both Kali Linux and Debian Trixie (Rex's images)
-- ⚠️ **Known package conflicts and automated fixes** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch)
+- ⚠️ **Known package conflicts and automated fixes** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch, `libxcb-cursor0` for Qt6 GUI, `.pygpsclient` venv ownership, PolKit agent conflict on Labwc)
 
 ### Purpose
 
@@ -186,7 +186,7 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 ## 🔧 Common Setup Sequence (The 6-Phase Approach)
 
-Our latest documentation uses a strict **"Harden first, upgrade second, then install"** methodology to prevent bricked installations. On the CM5, this entire process is automated via `uconsole-cm5-setup.sh`.
+Our latest documentation uses a strict **"Harden first, upgrade second, then install"** methodology to prevent bricked installations. This entire process is automated via `uconsole-cm4-setup.sh` and `uconsole-cm5-setup.sh`.
 
 ```text
 Phase 1: Pre-Flight Hardening
@@ -214,6 +214,7 @@ Phase 5: Peripheral Configuration
    └─> Blacklist DVB-T driver for RTL-SDR
    └─> Disable conflicting services (devterm-printer)
    └─> Set boot rails for GPS, LoRa, and SDR
+   └─> Suppress polkit-mate agent (XDG Hidden override for Labwc)
 
 Phase 6: Finalization & Verification
    └─> Perform automated sanity checks on configs and dependencies
@@ -323,7 +324,7 @@ USERS ACKNOWLEDGE:
 ## 📊 Repository Statistics
 
 ```text
-📁 Setup Guides: 2 (CM4, CM5) + 1 Automation Script
+📁 Setup Guides: 2 (CM4, CM5) + 2 Automation Scripts
 📖 Covers: OS setup, AIO v2 board, NVMe, WiFi, LoRa, GPS, SDR, RTC
 🔄 Last Updated: June 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)

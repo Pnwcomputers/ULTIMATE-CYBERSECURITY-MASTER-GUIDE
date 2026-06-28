@@ -10,7 +10,12 @@ Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.
 
 The `uconsole-cm4-setup.sh` and `uconsole-cm5-setup.sh` scripts provide a fully automated, state-tracked installation process. They handle the complex peripheral configuration and package dependencies required for Kali/Debian Trixie environments.
 
-**Recent Script Improvements:**
+**Recent Script Improvements (v1.2):**
+* **Qt6 GUI dependency:** Installs `libxcb-cursor0` in Phase 1.2 — required by the Qt6 XCB platform plugin; without it `aiov2_ctl --gui` silently fails to render.
+* **`.pygpsclient` venv ownership:** After `aiov2_ctl --install` runs as root, chowns `~/.pygpsclient` to the invoking user and installs PyQt6 into the venv so the regular user can launch `--gui`.
+* **PolKit agent conflict:** Suppresses `polkit-mate-authentication-agent-1` via an XDG `Hidden=true` per-user override (Phase 5.8). Kali metapackages install polkit-mate, which races lxpolkit on Labwc login.
+
+**v1.1 improvements (still present):**
 * **Desktop Stability:** Automatically installs `rtkit` to resolve GDBus/RealtimeKit1 errors associated with `xdg-desktop-portal` under the Labwc compositor.
 * **LoRa / Meshtastic Recovery:** Bypasses Debian Trixie dependency drift by automatically fetching `libgpiod2` and `libyaml-cpp0.7` from the Bookworm archives, ensuring `meshtasticd` and `meshtastic-mui` install cleanly without user intervention.
 * **ADS-B Hardware Sequencing:** Dynamically powers the SDR hardware rail during execution to allow the `readsb` decoder to bind to the RTL-SDR before initializing the `tar1090` frontend map.
@@ -26,7 +31,7 @@ Mirrors the manual guide as a phase-aware script with state tracking. Each phase
 | **update** | First `apt full-upgrade`, hostname set | **Yes** |
 | **kali_tools** | Install chosen Kali metapackage (Trixie only) | No |
 | **aio** | Install `aiov2_ctl` from git, install `hackergadgets-uconsole-aio-board` + `meshtastic-mui` | **Yes** |
-| **peripherals** | config.txt overlays, cmdline.txt console removal, dialout group, DVB-T blacklist, devterm-printer disable, RTL8812AU DKMS, boot rails | **Yes** |
+| **peripherals** | config.txt overlays, cmdline.txt console removal, dialout group, DVB-T blacklist, devterm-printer disable, RTL8812AU DKMS, boot rails, PolKit agent suppression | **Yes** |
 | **finalize** | Verification checks + handoff list of remaining manual steps | No |
 
 ## ⚠️ Run This BEFORE Updating
