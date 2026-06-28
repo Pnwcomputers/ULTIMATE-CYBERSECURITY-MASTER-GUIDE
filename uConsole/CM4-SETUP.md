@@ -165,7 +165,7 @@ Swap the references now to session names that are stable across Rex's images and
 ```bash
 # Make sure the fallback compositor, greeter, and RT daemon are installed
 sudo apt update
-sudo apt install -y lightdm-gtk-greeter labwc rtkit
+sudo apt install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0
 
 # Repoint lightdm.conf
 sudo sed -i \
@@ -306,10 +306,27 @@ command -v aiov2_ctl && aiov2_ctl --status
 ```
 The install enables the `aiov2-rails-boot.service` so boot-rail settings persist across reboots.
 
+**Fix `.pygpsclient` venv ownership (required for `aiov2_ctl --gui`)**
+
+`python3 ./aiov2_ctl.py --install` creates a Python venv at `~/.pygpsclient/` but runs as root, so the venv files are root-owned. The regular user can't launch `--gui` until ownership is corrected and PyQt6 is installed inside the venv:
+
+```bash
+# Fix ownership so your regular user owns the venv
+sudo chown -R $USER:$USER ~/.pygpsclient
+
+# Install PyQt6 inside the venv (not the system Python)
+~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
+
+# Verify
+aiov2_ctl --status
+```
+
 **Enable the system tray GUI on login (optional)**
 ```bash
 aiov2_ctl --autostart
 ```
+
+> **Note:** `aiov2_ctl --gui` requires a physical display. Running it over SSH (with no `DISPLAY`) will fail. Use `--autostart` and reboot to launch the tray icon natively from the desktop.
 
 ---
 
@@ -750,7 +767,7 @@ for f in /var/lib/AccountsService/users/*; do
 done
 
 # Make sure the fallback packages are installed
-sudo apt install -y lightdm-gtk-greeter labwc rtkit
+sudo apt install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0
 
 # Restart LightDM
 sudo systemctl restart lightdm
@@ -818,6 +835,50 @@ wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/y
 sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
 sudo apt --fix-broken install -y
 ```
+
+### `aiov2_ctl --gui` fails: "PyQt6 is not installed"
+
+`aiov2_ctl --install` creates a Python venv at `~/.pygpsclient/` as root, so the files are root-owned after the script runs. Fix it:
+
+```bash
+# Restore ownership
+sudo chown -R $USER:$USER ~/.pygpsclient
+
+# Install PyQt6 inside the venv
+~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
+
+# Now try the GUI
+aiov2_ctl --gui
+```
+
+Also ensure `libxcb-cursor0` is installed — the Qt6 XCB platform plugin won't load without it:
+
+```bash
+sudo apt install -y libxcb-cursor0
+```
+
+### `aiov2_ctl --gui` errors over SSH
+
+The GUI requires a live display server (`$DISPLAY` / Wayland socket). Running it from an SSH session fails because there is no display. Use `--autostart` instead and reboot — the tray icon will launch natively from the desktop:
+
+```bash
+aiov2_ctl --autostart
+sudo reboot
+```
+
+### GDBus error: polkit-mate agent conflict on Labwc
+
+Symptom: `GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: An authentication agent already exists for the given subject` in journalctl at login.
+
+Kali metapackages install `polkit-mate-authentication-agent-1`, which conflicts with `lxpolkit` on Labwc. Suppress it with an XDG per-user override (do **not** remove the package — other Kali tools depend on it):
+
+```bash
+mkdir -p ~/.config/autostart
+cp /etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop ~/.config/autostart/
+echo "Hidden=true" >> ~/.config/autostart/polkit-mate-authentication-agent-1.desktop
+```
+
+Log out and back in to confirm the error is gone.
 
 ---
 

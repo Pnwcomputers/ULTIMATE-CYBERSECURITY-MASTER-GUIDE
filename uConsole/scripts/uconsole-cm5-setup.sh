@@ -47,6 +47,18 @@
 #       distinct binary.
 #     - Phase 6: Adds verification checks for the v1.1 safeguards (narrow
 #       pin scope, Pi counter-pin, libfm is +rpt build, pcmanfm-pi exists).
+#   v1.2 — GUI and desktop stability fixes from real-hardware testing:
+#     - Phase 1.2: Adds libxcb-cursor0 to the initial apt install. Required
+#       by the Qt6 XCB platform plugin; without it aiov2_ctl --gui silently
+#       fails to load the GUI with an xcb platform error.
+#     - Phase 4.1: After aiov2_ctl --install, chowns ~/.pygpsclient to the
+#       invoking user and installs PyQt6 into the venv. The --install step
+#       runs as root so the venv files land root-owned; the regular user
+#       cannot launch --gui until ownership is fixed.
+#     - Phase 5.8: Suppresses polkit-mate-authentication-agent-1 via an
+#       XDG Hidden=true per-user override. Kali metapackages pull in
+#       polkit-mate, which conflicts with lxpolkit on Labwc and causes a
+#       GDBus auth-agent-already-registered error on every login.
 
 set -uo pipefail
 
@@ -54,7 +66,7 @@ set -uo pipefail
 # Configuration (override via env vars or CLI flags)
 # ============================================================================
 
-VERSION="1.1"
+VERSION="1.2"
 HOSTNAME_NEW="${HOSTNAME_NEW:-uconsole}"
 KALI_METAPACKAGE="${KALI_METAPACKAGE:-kali-tools-top10}"
 INSTALL_WIFI_DKMS="${INSTALL_WIFI_DKMS:-yes}"
@@ -284,7 +296,7 @@ phase_preflight() {
     # 1.2 — LightDM session pinning (defensive: only swap if Pi files are missing)
     info "1.2 — Checking LightDM session references for safety"
     run "apt-get update -qq"
-    run "apt-get install -y lightdm-gtk-greeter labwc rtkit"
+    run "apt-get install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0"
 
     if [[ -f "$LIGHTDM_CONF" && "$DRY_RUN" != "yes" ]]; then
         # Inventory: which session/greeter files and key packages are present?
@@ -560,6 +572,19 @@ phase_aio() {
     fi
     ok "aiov2_ctl installed"
 
+    # Fix .pygpsclient venv ownership: --install runs as root so the venv files are
+    # root-owned; the regular user can't launch aiov2_ctl --gui until we chown them.
+    local target_user="${SUDO_USER:-${USER:-pi}}"
+    if [[ "$DRY_RUN" != "yes" && -d "/home/${target_user}/.pygpsclient" ]]; then
+        run "chown -R '${target_user}:${target_user}' '/home/${target_user}/.pygpsclient'"
+        if [[ -f "/home/${target_user}/.pygpsclient/bin/pip3" ]]; then
+            run "sudo -u '${target_user}' '/home/${target_user}/.pygpsclient/bin/pip3' \
+                install --ignore-installed PyQt6 --break-system-packages" \
+                || warn "PyQt6 venv install failed — run manually: ~/.pygpsclient/bin/pip3 install PyQt6"
+        fi
+        ok "  .pygpsclient venv ownership fixed for ${target_user}"
+    fi
+
     # 4.2 — AIO board package (Rex's recommended command)
     info "4.2 — Installing hackergadgets-uconsole-aio-board (+ recommends)"
     run "apt-get update"
@@ -767,6 +792,26 @@ EOF
         run "aiov2_ctl --boot-rail SDR on" || warn "Failed to set SDR boot rail — set manually post-reboot"
     else
         warn "aiov2_ctl not on PATH — skipping boot rail config. Run manually after reboot."
+    fi
+
+    # 5.8 — Suppress polkit-mate auth agent (conflicts with lxpolkit on Labwc)
+    # Kali metapackages install polkit-mate-authentication-agent-1; on Labwc it
+    # races lxpolkit at login and causes a GDBus auth-agent-already-registered error.
+    # The correct fix is an XDG per-user Hidden=true override, not package removal.
+    info "5.8 — Suppressing polkit-mate authentication agent (Kali/Labwc conflict)"
+    local polkit_mate_desktop="/etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop"
+    if [[ "$DRY_RUN" != "yes" && -f "$polkit_mate_desktop" ]]; then
+        local user_autostart="/home/${target_user}/.config/autostart"
+        local dest="${user_autostart}/polkit-mate-authentication-agent-1.desktop"
+        run "mkdir -p '${user_autostart}'"
+        if [[ ! -f "$dest" ]]; then
+            run "cp '$polkit_mate_desktop' '$dest'"
+        fi
+        grep -q "^Hidden=true" "$dest" || echo "Hidden=true" >> "$dest"
+        run "chown -R '${target_user}:${target_user}' '${user_autostart}'"
+        ok "  polkit-mate agent suppressed for ${target_user}"
+    else
+        info "  polkit-mate autostart not present — skipping"
     fi
 
     state_set "peripherals"
