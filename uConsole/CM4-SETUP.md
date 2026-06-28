@@ -4,6 +4,14 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
+> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh). Run it on a fresh Rex image and it handles all six phases for you — including reboots.
+> ```bash
+> wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm4-setup.sh
+> chmod +x uconsole-cm4-setup.sh
+> sudo ./uconsole-cm4-setup.sh
+> ```
+> See [`scripts/README.md`](./scripts/README.md) for flags and options.
+
 > **About this revision (v1.2):** The order of operations is "harden first, upgrade second, then install." This revision includes automated fixes for Trixie dependency drift (Meshtastic), Wayland GDBus errors (`rtkit`), and ADS-B SDR sequencing. Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. 
 
 ---

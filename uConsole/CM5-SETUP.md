@@ -4,6 +4,14 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
+> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh). Run it on a fresh Rex image and it handles all six phases for you — including reboots.
+> ```bash
+> wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm5-setup.sh
+> chmod +x uconsole-cm5-setup.sh
+> sudo ./uconsole-cm5-setup.sh
+> ```
+> See [`scripts/README.md`](./scripts/README.md) for flags and options.
+
 > **About this revision (audited against forum sources):** The order of operations is "harden first, upgrade second, then install." Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. GPIO pin assignments, GPS UART config (CM5-specific `dtparam=uart0`), the CM5-specific RTC overlay (`dtparam=rtc=off` + `i2c_csi_dsi0` remap), and the relationship between `hackergadgets-uconsole-aio-board` and `aiov2_ctl` have been corrected against the [official HackerGadgets setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) and [Rex's package thread on the ClockworkPi forum](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875).
 
 ---
