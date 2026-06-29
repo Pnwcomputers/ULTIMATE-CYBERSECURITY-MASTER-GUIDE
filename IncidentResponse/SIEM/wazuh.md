@@ -361,7 +361,7 @@ Get-Content "C:\Program Files (x86)\ossec-agent\ossec.log" -Tail 50
 
 Linux:
 ```bash
-tail -50 /var/ossec/logs/ossec.log
+tail -n 50 /var/ossec/logs/ossec.log
 ```
 
 **Common issues:**

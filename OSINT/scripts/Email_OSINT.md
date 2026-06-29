@@ -1,3 +1,17 @@
+# Email OSINT Investigation Script
+
+Script for automated email OSINT — breach history (HaveIBeenPwned), paste exposure, Hunter.io verification, EmailRep reputation, LeakLookup credential search, Gravatar presence, and social media account checks.
+
+**Dependencies:** `jq`, `curl`, `dig`, `whois`  
+**Usage:** Copy the script below into a `.sh` file and `chmod +x` it.
+
+**Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
+- `HIBP_KEY` — [haveibeenpwned.com/API/Key](https://haveibeenpwned.com/API/Key) ($3.50/month)
+- `HUNTER_KEY` — [hunter.io](https://hunter.io/) (free tier available)
+- `LEAKLOOKUP_KEY` — [leak-lookup.com](https://leak-lookup.com/)
+- `INTELX_KEY` — [intelx.io](https://intelx.io/)
+
+```bash
 #!/bin/bash
 
 #############################################
@@ -629,3 +643,4 @@ done
 
 log "${GREEN}[+] Master summary: $SUMMARY_FILE${NC}"
 section "Investigation Complete!"
+```

@@ -63,7 +63,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🟣 [Purple Team Playbooks](PlayBooks/PurpleTeam_Simple.md) | Simple, Detailed, and Multi-Script purple team exercises |
 | 🔵 [Blue Team Playbooks](PlayBooks/BlueTeam_IncResp_Simple.md) | Incident response procedures — simple and enhanced versions |
 | 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phising_analysis.md) | Standard operating procedure for phishing email triage |
+| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing email triage |
 | 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
 | 🚨 [Incident Response](IncidentResponse/) | Blue Team operations — threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |

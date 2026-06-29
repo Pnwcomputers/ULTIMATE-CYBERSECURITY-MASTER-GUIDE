@@ -689,7 +689,7 @@ cat x509.log | zeek-cut id certificate.subject certificate.issuer certificate.no
 
 # Certificates issued minutes/hours ago (fresh C2 infra)
 cat x509.log | zeek-cut certificate.not_valid_before id \
-  | sort | tail -20
+  | sort | tail -n 20
 
 # Look for C2-typical certificate patterns
 # C2 certs often have:

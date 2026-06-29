@@ -551,13 +551,13 @@ sudo cp /mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json.bak \
         /mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json
 
 # View app lifecycle logs
-sudo grep openclaw /var/log/app_lifecycle.log | tail -20
+sudo grep openclaw /var/log/app_lifecycle.log | tail -n 20
 
 # Check environment variables in container
 sudo docker exec -it ix-openclaw-openclaw-1 env | grep -E "GROQ|GEMINI|OLLAMA|ANTHROPIC"
 
 # View container logs
-sudo docker logs ix-openclaw-openclaw-1 2>&1 | tail -30
+sudo docker logs ix-openclaw-openclaw-1 2>&1 | tail -n 30
 ```
 
 ---

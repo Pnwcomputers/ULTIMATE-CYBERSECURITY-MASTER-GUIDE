@@ -250,9 +250,9 @@ pip3 install \
     selenium
 
 echo "[*] Installing Go tools..."
-go install github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install github.com/projectdiscovery/httpx/v2/cmd/httpx@latest
 go install github.com/tomnomnom/waybackurls@latest
 
 echo "[*] Setting up directories..."
@@ -571,10 +571,10 @@ cd Photon
 pip3 install -r requirements.txt
 
 # Install subfinder
-GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
+go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 # Install Amass
-go install -v github.com/OWASP/Amass/v3/...@master
+go install github.com/owasp-amass/amass/v4/...@latest
 
 echo "[+] OSINT VM setup complete!"
 ```
@@ -3801,13 +3801,9 @@ Write-Host ""
  
 # PART 6: OPERATIONAL TRADECRAFT
  
-[#operational-tradecraft](#operational-tradecraft)
- 
 ---
  
 ## Tradecraft Overview
- 
-[#tradecraft-overview](#tradecraft-overview)
  
 Operational tradecraft reference covering the full offensive/defensive cycle —
 C2 frameworks, evasion techniques, living-off-the-land, OSINT methodology,
@@ -3844,8 +3840,6 @@ TA0010 Exfiltration         → network-detection.md
 ---
  
 ## C2 Frameworks
- 
-[#c2-frameworks](#c2-frameworks)
  
 *Full reference: [Tradecraft/c2-frameworks.md](Tradecraft/c2-frameworks.md)*
  
@@ -3903,8 +3897,6 @@ level: medium
 ---
  
 ## AV/EDR Evasion — Recognition & Defense
- 
-[#av-edr-evasion](#av-edr-evasion)
  
 *Full reference: [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md)*
  
@@ -3987,8 +3979,6 @@ Decode shellcode:  From Hex → Disassemble x86/x64
 ---
  
 ## Living Off the Land — LOLBins & LOLBAs
- 
-[#lolbins-lolbas](#lolbins-lolbas)
  
 *Full reference: [Tradecraft/lolbins-lolbas.md](Tradecraft/lolbins-lolbas.md)*
  
@@ -4074,8 +4064,6 @@ $rules | ForEach-Object {
  
 ## OSINT & Threat Intelligence
  
-[#osint-threat-intel-tradecraft](#osint-threat-intel-tradecraft)
- 
 *Full reference: [Tradecraft/osint-threat-intel.md](Tradecraft/osint-threat-intel.md)*
  
 ### OSINT Methodology Cycle
@@ -4123,7 +4111,9 @@ dnstwist --registered target.com     # typosquatting domains
  
 **Windows install (pip-based):**
 ```powershell
-pip install shodan censys theHarvester trufflehog dnstwist h8mail holehe maigret
+pip install shodan censys theHarvester dnstwist h8mail holehe maigret
+# TruffleHog v3 is a Go binary — not available via pip:
+# curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
 # Go tools: subfinder, amass, assetfinder, gau, waybackurls
 ```
  
@@ -4157,8 +4147,6 @@ Scoring factors:
 ---
  
 ## Network Detection & Packet Analysis
- 
-[#network-detection-tradecraft](#network-detection-tradecraft)
  
 *Full reference: [Tradecraft/network-detection.md](Tradecraft/network-detection.md)*
  
@@ -4261,8 +4249,6 @@ Med:   Large DNS responses (> 200 bytes) to single domain
  
 ## Active Directory — Attacks & Defense
  
-[#active-directory-tradecraft](#active-directory-tradecraft)
- 
 *Full reference: [Tradecraft/active-directory.md](Tradecraft/active-directory.md)*
  
 ### Attack Path Overview
@@ -4353,8 +4339,6 @@ Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
 ---
  
 ## Analysis Environments
- 
-[#analysis-environments](#analysis-environments)
  
 *Full reference: [Tradecraft/av-edr-evasion.md — Analysis Environments & Tooling Reference](Tradecraft/av-edr-evasion.md#analysis-environments--tooling-reference)*
  

@@ -173,14 +173,14 @@ SigninLogs
 
 ```bash
 # Failed SSH attempts
-grep "Failed password" /var/log/auth.log | tail -100
+grep "Failed password" /var/log/auth.log | tail -n 100
 
 # Extract IPs with failure counts
 grep "Failed password" /var/log/auth.log | \
   awk '{print $(NF-3)}' | sort | uniq -c | sort -rn | head -20
 
 # Successful logins
-grep "Accepted" /var/log/auth.log | tail -50
+grep "Accepted" /var/log/auth.log | tail -n 50
 ```
 
 **Splunk Query:**

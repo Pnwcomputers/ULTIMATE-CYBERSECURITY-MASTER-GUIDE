@@ -84,7 +84,7 @@ Step-by-step containment, eradication, and recovery guides.
 | Playbook | Scenario | Focus |
 |----------|----------|-------|
 | **Malware Outbreak** | Ransomware / Worms | Isolation, identification, and eradication steps. |
-| **[Phishing Analysis](/PlayBooks/sop_phising_analysis.md)** | Malicious Emails | Header analysis, attachment detonation, URL scanning. |
+| **[Phishing Analysis](/PlayBooks/sop_phishing_analysis.md)** | Malicious Emails | Header analysis, attachment detonation, URL scanning. |
 | **[Unauthorized Access](/PlayBooks/unauth_access.md)** | Compromised Credentials | Investigating brute force and impossible travel alerts. |
 | **[Wireless Intrusion](/IncidentResponse/network_intrusion.md)** | Rogue APs / Network Breaches | Investigating unauthorized access to local/private networks. |
 

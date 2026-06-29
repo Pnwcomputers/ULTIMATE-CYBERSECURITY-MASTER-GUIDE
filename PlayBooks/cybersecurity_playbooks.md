@@ -1569,7 +1569,7 @@ grep "Failed password" $LOG_FILE | awk '{print $9}' | sort | uniq -c | sort -nr 
 
 echo ""
 echo "[*] Failed login timeline (last 24 hours):"
-grep "Failed password" $LOG_FILE | tail -100
+grep "Failed password" $LOG_FILE | tail -n 100
 ```
 
 ---

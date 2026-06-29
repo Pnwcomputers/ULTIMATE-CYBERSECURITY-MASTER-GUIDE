@@ -514,7 +514,7 @@ cd spiderfoot
 pip3 install -r requirements.txt
 
 # Amass
-go install -v github.com/owasp-amass/amass/v3/...@master
+go install -v github.com/owasp-amass/amass/v4/...@latest
 
 # Photon
 git clone https://github.com/s0md3v/Photon
@@ -595,9 +595,9 @@ git clone https://github.com/s0md3v/Photon && \
     cd Photon && pip3 install -r requirements.txt && cd ..
 
 # Install Go tools
-go install -v github.com/owasp-amass/amass/v3/...@master
+go install -v github.com/owasp-amass/amass/v4/...@latest
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install -v github.com/projectdiscovery/httpx/v2/cmd/httpx@latest
 go install -v github.com/tomnomnom/waybackurls@latest
 
 echo "OSINT VM setup complete!"

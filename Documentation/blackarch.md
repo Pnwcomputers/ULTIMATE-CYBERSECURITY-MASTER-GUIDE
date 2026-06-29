@@ -35,7 +35,7 @@
 ## Do a full system update/upgrade
 ### sudo pacman -Syu
 
-## *Can be used to automatically accept upgrades/updates; but WILL ALSO select default options for App/Software selection/prefrence prompts.
+## *Can be used to automatically accept upgrades/updates; but WILL ALSO select default options for App/Software selection/preference prompts.
 ### sudo pacman -Syu --noconfirm
 
 ## *Can be used to overwrite any older conflicting packages

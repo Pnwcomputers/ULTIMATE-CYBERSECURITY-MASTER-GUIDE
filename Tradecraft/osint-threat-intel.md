@@ -732,7 +732,7 @@ wsl --install -d Ubuntu
 pip install shodan           # Shodan CLI
 pip install censys           # Censys CLI
 pip install theHarvester     # theHarvester
-pip install trufflehog       # TruffleHog git scanner
+# TruffleHog v3 (Go binary — not available via pip): curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
 pip install dnstwist         # Domain typosquatting monitor
 pip install h8mail           # Email breach hunter
 pip install holehe            # Email account checker
@@ -945,8 +945,9 @@ Scans git repositories and other sources for leaked credentials and secrets.
  
 ```powershell
 # Windows install
-pip install trufflehog
-# or binary from https://github.com/trufflesecurity/trufflehog/releases
+# TruffleHog v3 — Go binary, not available via pip. Use installer:
+# curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
+# or download binary from https://github.com/trufflesecurity/trufflehog/releases
  
 # Linux
 curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
