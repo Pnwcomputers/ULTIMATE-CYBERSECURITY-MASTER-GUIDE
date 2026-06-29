@@ -807,5 +807,5 @@
 ---
 
 **Maintained by:** Pacific Northwest Computers  
-**Contact:** suppor@pnwcomputers.com
+**Contact:** support@pnwcomputers.com
 **License:** Free to use for educational and professional purposes

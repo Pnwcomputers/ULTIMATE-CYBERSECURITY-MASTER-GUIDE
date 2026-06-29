@@ -936,5 +936,3 @@ We welcome contributions from security professionals to improve and expand this 
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
-EOF
-echo "PlayBooks README created successfully!"

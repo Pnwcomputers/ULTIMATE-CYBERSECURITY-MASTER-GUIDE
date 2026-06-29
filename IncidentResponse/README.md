@@ -98,7 +98,7 @@ Post-incident artifact extraction and timeline reconstruction.
 |--------|-------------|---------------|
 | **[Memory Analysis](/IncidentResponse/Digital-Forensics/Memory)** | Cheatsheets for extracting malware, processes, and keys from RAM. | Volatility, Rekall |
 | **[Disk Forensics](/IncidentResponse/Digital-Forensics/Disks)** | Guides for parsing NTFS artifacts, registry hives, and event logs. | Autopsy, KAPE, FTK Imager |
-| **[Live Response](/IncidentResponse/Digital-Forensics/Live%20Data/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
+| **[Live Response](/IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
 
 ---
 

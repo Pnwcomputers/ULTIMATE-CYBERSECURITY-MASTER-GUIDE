@@ -327,7 +327,7 @@ We welcome contributions from RF researchers and security professionals, but all
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
 - [🔧 Hardware Hacking](../HardwareHacking/README.md)
-- [🛰️ Space Security](../Space-Security/README.md)
+- [🛰️ Space Security](../SpaceSecurity/README.md)
 - [📚 Documentation](../Documentation/README.md)
 
 ---

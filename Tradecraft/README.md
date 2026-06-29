@@ -57,9 +57,9 @@ These references are structured for **dual-use** — each file covers both offen
 
 ## Related Sections
 
-- [`/hardware-hacking`](../hardware-hacking/) — Physical and embedded device attacks
-- [`/payloads`](../payloads/) — ESP32 and Raspberry Pi pentesting platforms
-- [`/tools`](../tools/) — Tool references and field guides
+- [`/HardwareHacking`](../HardwareHacking/) — Physical and embedded device attacks
+- [`/Scripts`](../Scripts/) — Offensive scripts, payloads, and automation tools
+- [`/Documentation`](../Documentation/) — Tool references and field guides
 
 ---
 
@@ -73,7 +73,7 @@ These references are structured for **dual-use** — each file covers both offen
 
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
-🔴 **THESE ARE OFFENSIVE & DEFFENSIVE SECURITY TACTICS** 🔴
+🔴 **THESE ARE OFFENSIVE & DEFENSIVE SECURITY TACTICS** 🔴
 
 🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
 

@@ -855,7 +855,7 @@ We welcome contributions from security professionals to improve and expand this 
 ## 📊 Repository Statistics
 
 ```
-📁 Current Checklists: 18 comprehensive checklists
+📁 Current Checklists: 17 comprehensive checklists
 📖 Categories: AD Security, Initial Access, PrivEsc, Lateral Movement, Evasion, Applications
 🔄 Last Updated: November 2024
 👥 Maintained by: Pacific Northwest Computers (PNWC)

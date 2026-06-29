@@ -79,7 +79,7 @@ This documentation serves as a reference material for security implementations, 
 | `SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf` | Static Application Security Testing scanners reference | PDF |
 | `Ethical.Hacking.MindMap.pdf` | Ethical hacking methodology and concepts mind map | PDF |
 | `subdomains.txt` | Subdomain wordlist for enumeration and discovery | Wordlist |
-| `refrences.txt` | Quick-reference tables for port numbers, HTTP status codes, etc. | Refrence Guide |
+| `refrences.md` | Quick-reference tables for port numbers, HTTP status codes, etc. | Reference Guide |
 
 ---
 

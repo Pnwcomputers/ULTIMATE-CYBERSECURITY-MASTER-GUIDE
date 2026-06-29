@@ -124,7 +124,7 @@ Always link to the **official homepage or official GitHub repo** — not forks, 
 | Linux installer/automation | `Scripts/` |
 | OSINT tools, methodology | `OSINT/` |
 | Homelab setup guides | `Homelab/` |
-| Incident response procedures | `Incident Response/` |
+| Incident response procedures | `IncidentResponse/` |
 | OPSEC practices | `OPSEC/` |
 | Field playbooks | `PlayBooks/` |
 | Pre/post engagement checklists | `Checklists/` |

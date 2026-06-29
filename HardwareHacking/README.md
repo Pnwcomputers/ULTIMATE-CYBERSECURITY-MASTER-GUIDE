@@ -326,7 +326,7 @@ ALWAYS:
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
 - [✅ Security Checklists](../Checklists/README.md)
-- [🛰️ Space Security](../Space-Security/README.md)
+- [🛰️ Space Security](../SpaceSecurity/README.md)
 - [🔍 OSINT Resources](../OSINT/README.md)
 - [📚 Documentation](../Documentation/README.md)
 - [🔒 OPSEC Guidelines](../OPSEC/README.md)

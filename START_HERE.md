@@ -11,7 +11,7 @@
 - **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
 - **Preparing for OSCP?** → [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Advanced Techniques Part 2](advanced_techniques_part2.md) (Buffer Overflows; CRITICAL) + [Playbooks](PlayBooks/cybersecurity_playbooks.md)
 - **Professional Pentester?** → Use All Guides As Reference
-- **Blue Team / SOC?** → [Incident Response](Incident%20Response/) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](Incident%20Response/SIEM/)
+- **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
 - **Red Team Operator?** → [Tradecraft](Tradecraft/) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/)
 - **Hardware Hacker?** → [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)
@@ -69,7 +69,7 @@
 | 🕵️ **[Tradecraft](Tradecraft/)** | Offensive tradecraft; AD attacks, C2 frameworks, AV/EDR evasion, LOLBins, network detection evasion, threat intel |
 | 🔴 **[OPSEC](OPSEC/)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 **[Homelab Guides](Homelab/)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
-| 🚨 **[Incident Response](Incident%20Response/)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
+| 🚨 **[Incident Response](IncidentResponse/)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
 | 💻 **[Scripts](Scripts/)** | Security automation; Bash, Python, PowerShell, C, Go, Ducky scripts |
 | 📋 **[Checklists](Checklists/)** | Pre-engagement, testing, and post-engagement checklists |
 | 📄 **[PDF Resources](PDF/)** | Curated PDF references and guides |
@@ -104,8 +104,8 @@
 
 ### 🛡️ BLUE TEAM / SOC ANALYST PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part VI (Network Defense)
-2. [Incident Response](Incident%20Response/); Detection, triage, response procedures
-3. [Incident Response/SIEM](Incident%20Response/SIEM/); ELK, Wazuh, Splunk, Graylog setup
+2. [Incident Response](IncidentResponse/); Detection, triage, response procedures
+3. [Incident Response/SIEM](IncidentResponse/SIEM/); ELK, Wazuh, Splunk, Graylog setup
 4. [Blue Team Playbooks](PlayBooks/); Incident response, phishing analysis, unauthorized access
 5. [Tradecraft](Tradecraft/); Understanding what you're defending against
 
@@ -204,4 +204,4 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 
 ---
 
-*Built by [Pacific Northwest Computers](https://www.pacificnwcomputers.com) | [blog.pacificnwcomputers.com](https://blog.pacificnwcomputers.com)*
+*Built by [Pacific Northwest Computers](https://www.pnwcomputers.com) | [pnwcomputers.com](https://www.pnwcomputers.com)*

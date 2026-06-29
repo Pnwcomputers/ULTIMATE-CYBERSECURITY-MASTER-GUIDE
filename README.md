@@ -120,7 +120,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[Bash](Scripts/Bash)** — System admin, recon, auditing, log analysis utilities (`Scripts/Bash/`)
 - **[C](Scripts/C)** — Low-level utilities: user enumeration, port scanning, system manipulation
 - **[SQL](Scripts/SQL)** — WordPress admin injection testing scripts
-- **[Go](Scripts/Go)** — (`Scripts/GO/`)
+- **[Go](Scripts/GO)** — (`Scripts/GO/`)
 
 ### 🎯 Attack Case Studies (10+ Analyzed)
 | Incident | Type |
