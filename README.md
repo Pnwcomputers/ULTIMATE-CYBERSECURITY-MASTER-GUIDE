@@ -40,6 +40,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 |---|---|
 | 🔥 **[Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide — key takeaways from 70+ professional security books, full penetration testing lifecycle |
 | 🔥 **[Enhanced Cybersecurity Master Guide](ENHANCED_MASTER_GUIDE.md)** | All of the above + 90+ PNWC internal docs, KB articles, and operational experience layered in |
+| 🔥 **[Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
 
 ---
 

@@ -14,7 +14,10 @@
 - **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
 - **Red Team Operator?** → [Tradecraft](Tradecraft/) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/)
-- **Hardware Hacker?** → [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+- **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+- **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
+- **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
+- **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/)
 
 ---
 
@@ -34,10 +37,14 @@
 - Real-world OPSEC procedures, case studies, and field-tested playbooks
 - Complete penetration testing lifecycle with operational context
 
-#### Guide 3: **[AI Cybersecurity Resources](AI/README.md)**
-- Self-hosted AI agents (OpenClaw, AnythingLLM)
-- LLM prompting for security workflows
-- Offline AI deployment and AI-powered security automation
+#### Guide 3: **[Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md)** 🔥
+**DEEP-DIVE INTO SPECIALIZED & EMERGING DOMAINS**
+- AI & LLM Security: adversarial ML, prompt injection, self-hosted Ollama/Dolphin/AnythingLLM, OpenClaw, AI red teaming
+- Hardware Hacking: threat modeling, UART/SPI/JTAG interfaces, fault injection, side-channel analysis, CPA implementation
+- Hardware Testing: Manjaro/Intel test bench setup, diagnostic workflows, Python automation scripts
+- uConsole Cyberdeck: CM4/CM5 setup, HackerGadgets AIO v2 (RTL-SDR, LoRa, GPS), field ops workflow
+- Space Security: ground/space/user segment threat modeling, GNSS spoofing, satellite comms security
+- SDR & RF Security: IQ sampling, hardware ecosystem, protocol reversing, RF exploitation, legal/licensing
 
 ---
 
