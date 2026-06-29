@@ -3,7 +3,7 @@
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ---
-# Arch Linux Quick Refrence:
+# Arch Linux Quick Reference:
 [Arch](https://archlinux.org/) Linux: Unlike Debian based Linux, in Arch [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!
 
 | Command | Purpose | Explanation |
@@ -17,7 +17,7 @@ This document serves as a quick reference for common system administration, netw
 
 ---
 
-# Debian/General Linux Refrence Guide:
+# Debian/General Linux Reference Guide:
 
 [Debian](https://www.debian.org/) Linux maintains massive, heavily vetted official [repositories](https://github.com/InfoSecWarrior/Linux-Essentials/blob/main/Package-Management/Understanding-Repositories.md). If a piece of software isn't in the official repos (short for repositories), users typically add third-party repositories or PPAs [(Personal Package Archives)](https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/). Debian Linux uses [`apt`](https://linuxize.com/post/how-to-use-apt-command/) for it's package installation and management. For a graphical interface, users can also use the [Synaptic Package Manager](https://www.nongnu.org/synaptic/) to easily find and install applications on their system.
 
@@ -52,7 +52,7 @@ This document serves as a quick reference for common system administration, netw
 | `lsusb` | **List USB Devices** | Lists USB devices connected to the system. |
 | `lspci` | **List PCI Devices** | Lists PCI buses and devices. |
 | `lshw` | **Hardware Info** | Lists detailed hardware configuration of the machine. |
-| `dmesg \| tail -50` | **Kernel Messages** | Shows the last 50 kernel ring buffer messages (great for USB/hardware issues). |
+| `dmesg \| tail -n 50` | **Kernel Messages** | Shows the last 50 kernel ring buffer messages (great for USB/hardware issues). |
 | `free -h` | **Memory Usage** | Displays free, used, and total system memory and swap space in a **h**uman-readable format. |
 | `sudo iftop` | **Network Traffic (General)** | Displays network bandwidth usage on an interface in real-time. |
 | `sudo nethogs` | **Network Traffic (Per Process)** | Displays which process/program is using the most network bandwidth. |
@@ -492,8 +492,8 @@ Quick descriptions of what each tool does, organized by category.
 | `ripgrep` (`rg`) | Fast recursive grep. |
 | `fd-find` (`fd`) | Fast user-friendly `find` replacement. |
 | `fzf` | Fuzzy finder — fuzzy history search, file picker, command palette. |
-| `bat` | `cat` with syntax highlighting and git integration. |
-| `eza` | Modern `ls` replacement (Ubuntu 24.04+; not in 22.04 main). |
+| `bat` | `cat` with syntax highlighting and git integration. Binary is `batcat` on Ubuntu 22.04 (run `bat` on 23.10+ or Arch/Manjaro). |
+| `eza` | Modern `ls` replacement (Ubuntu 23.10+, Arch/Manjaro; requires a PPA on Ubuntu 22.04). |
 | `zoxide` | Smarter `cd` that learns from your habits. |
 | `direnv` | Per-directory environment variables. |
 | `gh` | GitHub CLI — issues, PRs, repo management. |
@@ -519,8 +519,6 @@ Quick descriptions of what each tool does, organized by category.
 
 ## 15. OSINT (Open Source Intelligence)
 
-[#15-osint-open-source-intelligence](#15-osint-open-source-intelligence)
-
 Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, and tool documentation see [`OSINT/OSINT_GUIDE.md`](../OSINT/OSINT_GUIDE.md) and [`OSINT/OSINT_CHEATSHEET.md`](../OSINT/OSINT_CHEATSHEET.md).
 
 > **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts — never your personal identity.
@@ -528,8 +526,6 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 ---
 
 ### 15.1 Phase 1 — Identity & Social Hunting
-
-[#151-phase-1--identity--social-hunting](#151-phase-1--identity--social-hunting)
 
 *Start when you have a username, real name, or email address.*
 
@@ -544,8 +540,6 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 ---
 
 ### 15.2 Phase 2 — Infrastructure & Domain Recon
-
-[#152-phase-2--infrastructure--domain-recon](#152-phase-2--infrastructure--domain-recon)
 
 *Start when you have a domain, IP, or URL.*
 
@@ -573,8 +567,6 @@ site:*.target.com -www
 
 ### 15.3 Phase 3 — Communication Intelligence
 
-[#153-phase-3--communication-intelligence](#153-phase-3--communication-intelligence)
-
 *Start when you have a phone number.*
 
 | Tool            | Command                           | Purpose                                      |
@@ -584,8 +576,6 @@ site:*.target.com -www
 ---
 
 ### 15.4 Phase 4 — Analysis & Automation
-
-[#154-phase-4--analysis--automation](#154-phase-4--analysis--automation)
 
 *Automate collection and visualize relationships.*
 
@@ -607,8 +597,6 @@ recon-ng
 
 ### 15.5 File & Metadata Analysis
 
-[#155-file--metadata-analysis](#155-file--metadata-analysis)
-
 | Command                                              | Purpose                                         |
 | ---------------------------------------------------- | ----------------------------------------------- |
 | `exiftool image.jpg`                                 | Extract EXIF metadata (GPS, timestamps, device). |
@@ -620,8 +608,6 @@ recon-ng
 ---
 
 ### 15.6 OSINT Tool Installation (Quick Setup)
-
-[#156-osint-tool-installation-quick-setup](#156-osint-tool-installation-quick-setup)
 
 **pip/pipx installs:**
 ```bash
@@ -646,15 +632,13 @@ git clone https://github.com/s0md3v/Photon && \
 
 **Go-based installs:**
 ```bash
-go install -v github.com/owasp-amass/amass/v3/...@master
+go install -v github.com/owasp-amass/amass/v4/...@latest
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
 
 ---
 
 ### 15.7 OSINT Reference — Key Web Services
-
-[#157-osint-reference--key-web-services](#157-osint-reference--key-web-services)
 
 | Service                  | URL                          | Use Case                                  |
 | ------------------------ | ---------------------------- | ----------------------------------------- |
@@ -672,8 +656,6 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ---
 
 ### 15.8 OSINT OPSEC Checklist
-
-[#158-osint-opsec-checklist](#158-osint-opsec-checklist)
 
 ```
 ✅ Route all traffic through VPN or Tor before investigating
