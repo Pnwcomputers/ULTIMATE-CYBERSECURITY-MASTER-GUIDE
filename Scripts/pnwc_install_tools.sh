@@ -145,6 +145,19 @@ pkg_install() {
     done
 }
 
+# pipx install — isolated per-tool virtualenv; avoids system package conflicts
+pipx_install() {
+    for pkg in "$@"; do
+        info "  pipx install: $pkg"
+        if pipx install "$pkg" >> "$LOGFILE" 2>&1; then
+            ok "  $pkg (pipx) installed"
+        else
+            warn "  pipx failed for $pkg"
+            FAILED_TOOLS+=("pipx:$pkg")
+        fi
+    done
+}
+
 # pip install — always user-safe, never fails the script
 pip_install() {
     for pkg in "$@"; do
@@ -249,17 +262,17 @@ install_dev() {
         apt)
             pkg_install \
                 build-essential git curl wget python3 python3-pip python3-venv \
-                python3-dev libssl-dev libffi-dev ruby ruby-dev gem golang \
+                python3-dev python3-pipx libssl-dev libffi-dev ruby ruby-dev gem golang \
                 nodejs npm cargo rustup libpcap-dev libnet1-dev libnl-3-dev \
                 libnl-genl-3-dev cmake automake autoconf libtool pkg-config \
-                swig zlib1g-dev libusb-dev libusb-1.0-0-dev default-jre \
-                default-jdk docker.io docker-compose jq vim tmux screen
+                swig zlib1g-dev libusb-dev libusb-1.0-0-dev libbluetooth-dev \
+                default-jre default-jdk docker.io docker-compose jq vim tmux screen
             ;;
         pacman)
             pkg_install \
                 base-devel git curl wget python python-pip python-virtualenv \
-                ruby go nodejs npm rust cmake automake autoconf libtool \
-                libpcap libnet libnl swig zlib libusb jre-openjdk \
+                python-pipx ruby go nodejs npm rust cmake automake autoconf libtool \
+                libpcap libnet libnl swig zlib libusb bluez-libs jre-openjdk \
                 jdk-openjdk docker docker-compose jq vim tmux screen
             ;;
         dnf)
@@ -297,13 +310,9 @@ install_recon() {
     esac
 
     # Python OSINT tools (theHarvester covered by pkg_install above; Photon/metagoofil have no PyPI package)
-    pip_install \
-        shodan \
-        censys \
-        holehe \
-        maigret \
-        h8mail \
-        osrframework
+    # maigret and osrframework use pipx for isolation — they conflict with system packages when pip-installed as root
+    pip_install shodan censys holehe h8mail
+    pipx_install maigret osrframework
 
     # theHarvester — PyPI package is a stub; git clone for distros without a system package
     if ! command -v theHarvester &>/dev/null; then
@@ -560,11 +569,14 @@ install_exploit() {
         *) warn "BloodHound not auto-installed on this distro — download from https://github.com/BloodHoundAD/BloodHound/releases" ;;
     esac
 
-    # Empire post-exploitation (-y = non-interactive; -o = override OS check for non-Debian distros)
+    # Empire post-exploitation — install.sh uses apt-get internally; apt-based distros only
     git_clone_tool "Empire" "https://github.com/BC-SECURITY/Empire.git"
-    if [[ -f "$INSTALL_DIR/Empire/setup/install.sh" ]]; then
-        bash "$INSTALL_DIR/Empire/setup/install.sh" -y -o >> "$LOGFILE" 2>&1 \
-            && ok "Empire installed" || warn "Empire setup failed"
+    if [[ "$PKG_MGR" == "apt" ]] && [[ -f "$INSTALL_DIR/Empire/setup/install.sh" ]]; then
+        bash "$INSTALL_DIR/Empire/setup/install.sh" -y >> "$LOGFILE" 2>&1 \
+            && ok "Empire installed" || warn "Empire setup failed — check log"
+    elif [[ "$PKG_MGR" != "apt" ]]; then
+        warn "Empire install.sh requires apt — skipping on this distro (use Docker: https://github.com/BC-SECURITY/Empire)"
+        SKIPPED_TOOLS+=("Empire")
     fi
 
     # PowerSploit (reference)
@@ -626,7 +638,7 @@ install_wireless() {
         apt)
             pkg_install aircrack-ng kismet wifite reaver bully \
                         hostapd dnsmasq wireless-tools iw rfkill \
-                        hackrf rtl-sdr gqrx gnuradio libhackrf-dev \
+                        hackrf rtl-sdr gqrx-sdr gnuradio libhackrf-dev \
                         ubertooth mdk4
             ;;
         pacman)
@@ -751,13 +763,15 @@ install_defense() {
 
     case "$PKG_MGR" in
         apt)
-            pkg_install snort suricata zeek ossec-hids fail2ban \
+            # zeek and ossec-hids are not in standard apt repos — installed separately below
+            pkg_install snort suricata fail2ban \
                         auditd aide rkhunter chkrootkit lynis \
                         clamav clamav-daemon ufw iptables-persistent \
                         logwatch logcheck rsyslog
             ;;
         pacman)
-            pkg_install snort suricata zeek fail2ban \
+            # zeek is only in BlackArch; skip from standard pacman
+            pkg_install snort suricata fail2ban \
                         audit aide rkhunter lynis \
                         clamav ufw iptables
             ;;
@@ -768,11 +782,45 @@ install_defense() {
             ;;
     esac
 
-    # Wazuh agent (universal installer)
+    # Zeek — not in standard apt/pacman repos; add official zeek.org repo for apt
+    if ! command -v zeek &>/dev/null; then
+        if [[ "$PKG_MGR" == "apt" ]]; then
+            info "Adding zeek.org apt repository…"
+            local ZEEK_CODENAME; ZEEK_CODENAME=$(. /etc/os-release && echo "${VERSION_CODENAME:-xUbuntu_22.04}")
+            echo "deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_22.04/ /" \
+                > /etc/apt/sources.list.d/zeek.list 2>/dev/null || true
+            curl -fsSL "https://download.opensuse.org/repositories/security:zeek/xUbuntu_22.04/Release.key" \
+                | gpg --dearmor -o /etc/apt/trusted.gpg.d/zeek.gpg >> "$LOGFILE" 2>&1 || true
+            apt-get update -qq >> "$LOGFILE" 2>&1
+            pkg_install zeek
+        else
+            warn "Zeek not in standard repos for this distro — install from https://zeek.org/get-zeek/"
+            SKIPPED_TOOLS+=("zeek")
+        fi
+    fi
+
+    # OSSEC-HIDS — not in standard repos; install from source
+    if ! command -v ossec-control &>/dev/null; then
+        git_clone_tool "ossec-hids" "https://github.com/ossec/ossec-hids.git"
+        if [[ -f "$INSTALL_DIR/ossec-hids/install.sh" ]]; then
+            echo "server" | bash "$INSTALL_DIR/ossec-hids/install.sh" >> "$LOGFILE" 2>&1 \
+                && ok "OSSEC-HIDS installed" || warn "OSSEC-HIDS install failed — see log"
+        fi
+    fi
+
+    # Wazuh agent (requires a Wazuh manager — provide guided install)
     if ! command -v wazuh-agent &>/dev/null; then
-        info "Wazuh agent — see https://documentation.wazuh.com/current/installation-guide/ for your platform"
-        warn "Wazuh requires a server endpoint — skipping automated install"
-        SKIPPED_TOOLS+=("wazuh-agent")
+        if [[ "$PKG_MGR" == "apt" ]]; then
+            curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH \
+                | gpg --dearmor -o /usr/share/keyrings/wazuh.gpg >> "$LOGFILE" 2>&1 || true
+            echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" \
+                > /etc/apt/sources.list.d/wazuh.list 2>/dev/null || true
+            apt-get update -qq >> "$LOGFILE" 2>&1
+            WAZUH_MANAGER="127.0.0.1" pkg_install wazuh-agent
+        else
+            warn "Wazuh agent — install manually from https://documentation.wazuh.com/current/installation-guide/"
+            SKIPPED_TOOLS+=("wazuh-agent")
+        fi
     fi
 
     # Update ClamAV signatures
@@ -798,7 +846,7 @@ install_hardware() {
             pkg_install openocd flashrom binwalk avrdude \
                         python3-serial minicom picocom screen \
                         hackrf rtl-sdr librtlsdr-dev \
-                        sdrpp gqrx gr-osmosdr \
+                        gqrx-sdr gr-osmosdr \
                         bluetooth bluez bluez-tools \
                         libusb-dev libusb-1.0-0-dev
             ;;
@@ -813,10 +861,13 @@ install_hardware() {
             ;;
     esac
 
-    # ChipWhisperer
+    # ChipWhisperer — requires numpy<=1.26.4 which conflicts with system numpy; use dedicated venv
     git_clone_tool "chipwhisperer" "https://github.com/newaetech/chipwhisperer.git"
-    pip3 install -q --break-system-packages -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
-        && ok "ChipWhisperer installed" || warn "ChipWhisperer install failed"
+    python3 -m venv /opt/chipwhisperer-env >> "$LOGFILE" 2>&1 \
+        && /opt/chipwhisperer-env/bin/pip install -q -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
+        && ln -sf /opt/chipwhisperer-env/bin/cw /usr/local/bin/cw \
+        && ok "ChipWhisperer installed in /opt/chipwhisperer-env" \
+        || warn "ChipWhisperer install failed"
 
     # Bus Pirate scripts / pyserial tools
     pip_install pyserial bitstring
