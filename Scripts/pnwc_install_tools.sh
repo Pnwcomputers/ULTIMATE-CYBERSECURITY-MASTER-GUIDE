@@ -854,16 +854,7 @@ install_defense() {
 
     # Zeek — try pkg mgr inline (not via pkg_install) so SKIPPED only fires on genuine failure
     if ! command -v zeek &>/dev/null; then
-        _zeek_ok=false
-        if [[ "$PKG_MGR" == "apt" ]] && apt-get install -y -qq zeek >> "$LOGFILE" 2>&1; then
-            ok "zeek installed via apt"; _zeek_ok=true
-        elif [[ "$PKG_MGR" == "pacman" ]] && pacman -S --noconfirm --needed zeek >> "$LOGFILE" 2>&1; then
-            ok "zeek installed via pacman"; _zeek_ok=true
-        fi
-        if ! $_zeek_ok; then
-            info "Zeek not available on this distro — see https://zeek.org/get-zeek/"
-            SKIPPED_TOOLS+=("zeek")
-        fi
+        MANUAL_TOOLS+=("zeek (see https://zeek.org/get-zeek/)")
     fi
 
     # OSSEC-HIDS — interactive installer; manual setup required
