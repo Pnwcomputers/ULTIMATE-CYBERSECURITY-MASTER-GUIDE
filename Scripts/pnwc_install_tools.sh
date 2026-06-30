@@ -560,10 +560,10 @@ install_exploit() {
         *) warn "BloodHound not auto-installed on this distro — download from https://github.com/BloodHoundAD/BloodHound/releases" ;;
     esac
 
-    # Empire post-exploitation
+    # Empire post-exploitation (-y = non-interactive; -o = override OS check for non-Debian distros)
     git_clone_tool "Empire" "https://github.com/BC-SECURITY/Empire.git"
     if [[ -f "$INSTALL_DIR/Empire/setup/install.sh" ]]; then
-        bash "$INSTALL_DIR/Empire/setup/install.sh" >> "$LOGFILE" 2>&1 \
+        bash "$INSTALL_DIR/Empire/setup/install.sh" -y -o >> "$LOGFILE" 2>&1 \
             && ok "Empire installed" || warn "Empire setup failed"
     fi
 
@@ -606,8 +606,8 @@ install_password() {
         ok "rockyou.txt already present"
     fi
 
-    # Mentalist (Go based wordlist generator)
-    go_install "github.com/sc0tfree/mentalist@latest" || true
+    # Mentalist (Python wordlist generator — not Go; has pyproject.toml)
+    pip_install "git+https://github.com/sc0tfree/mentalist.git"
 
     # Sprayhound / kerbrute
     go_install "github.com/ropnop/kerbrute@latest"
