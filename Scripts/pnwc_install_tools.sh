@@ -262,7 +262,7 @@ install_dev() {
         apt)
             pkg_install \
                 build-essential git curl wget python3 python3-pip python3-venv \
-                python3-dev pipx libssl-dev libffi-dev ruby ruby-dev gem golang \
+                python3-dev libssl-dev libffi-dev ruby ruby-dev gem golang \
                 nodejs npm cargo rustup libpcap-dev libnet1-dev libnl-3-dev \
                 libnl-genl-3-dev cmake automake autoconf libtool pkg-config \
                 swig zlib1g-dev libusb-dev libusb-1.0-0-dev libbluetooth-dev \
@@ -271,7 +271,7 @@ install_dev() {
         pacman)
             pkg_install \
                 base-devel git curl wget python python-pip python-virtualenv \
-                python-pipx ruby go nodejs npm rust cmake automake autoconf libtool \
+                ruby go nodejs npm rust cmake automake autoconf libtool \
                 libpcap libnet libnl swig zlib libusb bluez-libs jre-openjdk \
                 jdk-openjdk docker docker-compose jq vim tmux screen
             ;;
