@@ -296,17 +296,31 @@ install_recon() {
         dnf)    pkg_install nmap masscan bind-utils whois traceroute netdiscover ;;
     esac
 
-    # Python OSINT tools
+    # Python OSINT tools (theHarvester covered by pkg_install above; Photon/metagoofil have no PyPI package)
     pip_install \
-        theHarvester \
         shodan \
         censys \
         holehe \
         maigret \
         h8mail \
-        "git+https://github.com/s0md3v/Photon.git" \
-        osrframework \
-        metagoofil
+        osrframework
+
+    # theHarvester — PyPI package is a stub; git clone for distros without a system package
+    if ! command -v theHarvester &>/dev/null; then
+        git_clone_tool "theHarvester" "https://github.com/laramies/theHarvester.git"
+        pip3 install -q --break-system-packages -r "$INSTALL_DIR/theHarvester/requirements/base.txt" >> "$LOGFILE" 2>&1 || warn "theHarvester requirements install failed"
+        make_symlink "theHarvester" "$INSTALL_DIR/theHarvester/theHarvester.py"
+    fi
+
+    # Photon — no setup.py/pyproject.toml; must be run directly
+    git_clone_tool "Photon" "https://github.com/s0md3v/Photon.git"
+    pip3 install -q --break-system-packages -r "$INSTALL_DIR/Photon/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Photon requirements install failed"
+    make_symlink "photon" "$INSTALL_DIR/Photon/photon.py"
+
+    # Metagoofil — not on PyPI; install from git
+    git_clone_tool "metagoofil" "https://github.com/laramies/metagoofil.git"
+    pip3 install -q --break-system-packages -r "$INSTALL_DIR/metagoofil/requirements.txt" >> "$LOGFILE" 2>&1 || warn "metagoofil requirements install failed"
+    make_symlink "metagoofil" "$INSTALL_DIR/metagoofil/metagoofil.py"
 
     # Sherlock
     git_clone_tool "sherlock" "https://github.com/sherlock-project/sherlock.git"
@@ -319,8 +333,26 @@ install_recon() {
         make_symlink "spiderfoot" "$INSTALL_DIR/spiderfoot/sf.py"
     fi
 
-    # PhoneInfoga (Go binary)
-    go_install "github.com/sundowndev/phoneinfoga/v2/cmd/phoneinfoga@latest"
+    # PhoneInfoga — go install fails (web assets not bundled); download prebuilt binary
+    local phoneinfoga_ver
+    phoneinfoga_ver=$(curl -s "https://api.github.com/repos/sundowndev/phoneinfoga/releases/latest" \
+        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
+    if [[ -n "$phoneinfoga_ver" ]]; then
+        local arch; arch=$(uname -m)
+        local os; os=$(uname -s | tr '[:upper:]' '[:lower:]')
+        [[ "$arch" == "x86_64" ]] && arch="amd64"
+        [[ "$arch" == "aarch64" ]] && arch="arm64"
+        local url="https://github.com/sundowndev/phoneinfoga/releases/download/${phoneinfoga_ver}/phoneinfoga_${os}_${arch}.tar.gz"
+        curl -sL "$url" -o /tmp/phoneinfoga.tar.gz >> "$LOGFILE" 2>&1 \
+            && tar -xzf /tmp/phoneinfoga.tar.gz -C /usr/local/bin phoneinfoga >> "$LOGFILE" 2>&1 \
+            && chmod +x /usr/local/bin/phoneinfoga \
+            && ok "phoneinfoga installed" \
+            || warn "phoneinfoga binary download failed"
+        rm -f /tmp/phoneinfoga.tar.gz
+    else
+        warn "Could not determine phoneinfoga release version"
+        FAILED_TOOLS+=("bin:phoneinfoga")
+    fi
 
     # Amass (Go)
     go_install "github.com/owasp-amass/amass/v4/...@latest"
@@ -328,8 +360,8 @@ install_recon() {
     # Subfinder (Go — ProjectDiscovery)
     go_install "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
 
-    # httpx (Go — ProjectDiscovery)
-    go_install "github.com/projectdiscovery/httpx/v2/cmd/httpx@latest"
+    # httpx (Go — ProjectDiscovery; no v2 module prefix)
+    go_install "github.com/projectdiscovery/httpx/cmd/httpx@latest"
 
     # dnsx (Go — ProjectDiscovery)
     go_install "github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
@@ -384,8 +416,11 @@ install_network() {
     # Impacket
     pip_install impacket
 
-    # NetExec (CrackMapExec successor — do not install both, they conflict)
-    pip_install netexec
+    # NetExec (CrackMapExec successor — not on PyPI; install from git)
+    git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
+    pip3 install -q --break-system-packages -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
+        && ok "NetExec installed" \
+        || warn "NetExec install failed"
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
