@@ -458,10 +458,21 @@ install_web() {
     # dalfox (XSS scanner — Go)
     go_install "github.com/hahwul/dalfox/v2@latest"
 
-    # feroxbuster (Rust-based dir buster)
-    if command -v cargo &>/dev/null; then
-        cargo install feroxbuster --quiet >> "$LOGFILE" 2>&1 && ok "feroxbuster installed" \
-            || warn "feroxbuster cargo install failed"
+    # feroxbuster (Rust-based dir buster — prebuilt binary; cargo install is too slow/fragile)
+    local ferox_ver
+    ferox_ver=$(curl -s "https://api.github.com/repos/epi052/feroxbuster/releases/latest" \
+        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
+    if [[ -n "$ferox_ver" ]]; then
+        curl -sL "https://github.com/epi052/feroxbuster/releases/download/${ferox_ver}/x86_64-linux-feroxbuster.zip" \
+            -o /tmp/feroxbuster.zip >> "$LOGFILE" 2>&1 \
+            && unzip -qo /tmp/feroxbuster.zip feroxbuster -d /usr/local/bin >> "$LOGFILE" 2>&1 \
+            && chmod +x /usr/local/bin/feroxbuster \
+            && ok "feroxbuster installed" \
+            || warn "feroxbuster binary download failed"
+        rm -f /tmp/feroxbuster.zip
+    else
+        warn "Could not determine feroxbuster release version"
+        FAILED_TOOLS+=("bin:feroxbuster")
     fi
 
     # Python web tools
@@ -471,11 +482,12 @@ install_web() {
         arjun \
         uro
 
-    # WhatWeb
-    if command -v gem &>/dev/null; then
-        gem install whatweb --quiet >> "$LOGFILE" 2>&1 && ok "whatweb installed" \
-            || warn "whatweb gem install failed"
+    # WhatWeb — not a RubyGems package; clone and symlink the script
+    git_clone_tool "WhatWeb" "https://github.com/urbanadventurer/WhatWeb.git"
+    if [[ -d "$INSTALL_DIR/WhatWeb" ]] && command -v bundle &>/dev/null; then
+        bundle install --gemfile="$INSTALL_DIR/WhatWeb/Gemfile" --quiet >> "$LOGFILE" 2>&1 || true
     fi
+    make_symlink "whatweb" "$INSTALL_DIR/WhatWeb/whatweb"
 
     # AutoRecon
     pip_install autorecon
