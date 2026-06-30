@@ -39,6 +39,7 @@ LOGFILE="/var/log/pnwc_install_$(date +%Y%m%d_%H%M%S).log"
 INSTALL_DIR="/opt/pnwc-tools"
 FAILED_TOOLS=()
 SKIPPED_TOOLS=()
+MANUAL_TOOLS=()   # tools that intentionally need manual/Docker setup
 
 # ── Helper functions ──────────────────────────────────────────────────────────
 banner() {
@@ -586,7 +587,7 @@ install_exploit() {
     # Empire — requires Docker; clone repo for reference, manual setup required
     git_clone_tool "Empire" "https://github.com/BC-SECURITY/Empire.git"
     info "Empire cloned → start with: cd $INSTALL_DIR/Empire && docker compose up -d"
-    SKIPPED_TOOLS+=("Empire")
+    MANUAL_TOOLS+=("Empire (Docker: cd $INSTALL_DIR/Empire && docker compose up -d)")
 
     # PowerSploit (reference)
     git_clone_tool "PowerSploit" "https://github.com/PowerShellMafia/PowerSploit.git"
@@ -775,28 +776,24 @@ install_forensics() {
             && ok "Volatility3 installed" || warn "Volatility3 install failed"
     fi
 
-    # pwndbg — GDB plugin (no standalone binary); try pkg mgr first, git clone fallback
-    # Handled inline (not via pkg_install) so SKIPPED only fires if everything fails
+    # pwndbg — GDB plugin; try apt → git+setup.sh → pip3, SKIPPED only if all three fail
+    _pwndbg_install() {
+        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git" \
+            && bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
+            && { ok "pwndbg installed via git"; return 0; }
+        pip3 install --quiet --break-system-packages pwndbg >> "$LOGFILE" 2>&1 \
+            && { ok "pwndbg installed via pip"; return 0; }
+        warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); return 1
+    }
     if [[ "$PKG_MGR" == "apt" ]] && ! dpkg -l pwndbg 2>/dev/null | grep -q '^ii'; then
-        if apt-get install -y -qq pwndbg >> "$LOGFILE" 2>&1; then
-            ok "pwndbg installed via apt"
-        else
-            git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
-            bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-                && ok "pwndbg installed via git" \
-                || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
-        fi
+        apt-get install -y -qq pwndbg >> "$LOGFILE" 2>&1 \
+            && ok "pwndbg installed via apt" || _pwndbg_install
     elif [[ "$PKG_MGR" == "pacman" ]] && ! pacman -Q pwndbg &>/dev/null 2>&1; then
-        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
-        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed via git" \
-            || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
+        _pwndbg_install
     elif [[ "$PKG_MGR" == "dnf" ]]; then
-        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
-        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed via git" \
-            || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
+        _pwndbg_install
     fi
+    unset -f _pwndbg_install
 
     # Ghidra (if not installed via package manager)
     if ! command -v ghidra &>/dev/null && [[ ! -d /opt/ghidra ]]; then
@@ -872,7 +869,7 @@ install_defense() {
     # OSSEC-HIDS — interactive installer; manual setup required
     if ! command -v ossec-control &>/dev/null; then
         info "OSSEC-HIDS requires interactive setup — see https://www.ossec.net/docs/docs/manual/installation/"
-        SKIPPED_TOOLS+=("ossec-hids")
+        MANUAL_TOOLS+=("ossec-hids (interactive: https://www.ossec.net/docs/docs/manual/installation/)")
     fi
 
     # Wazuh agent (requires a Wazuh manager — provide guided install)
@@ -887,8 +884,8 @@ install_defense() {
             pkg_install wazuh-agent
             unset WAZUH_MANAGER
         else
-            warn "Wazuh agent — install manually from https://documentation.wazuh.com/current/installation-guide/"
-            SKIPPED_TOOLS+=("wazuh-agent")
+            info "Wazuh agent — install manually from https://documentation.wazuh.com/current/installation-guide/"
+            MANUAL_TOOLS+=("wazuh-agent (manual: https://documentation.wazuh.com/current/installation-guide/)")
         fi
     fi
 
@@ -1017,6 +1014,14 @@ print_summary() {
         echo -e "${YELLOW}  Skipped / not in repos (${#SKIPPED_TOOLS[@]}):${RESET}"
         for t in "${SKIPPED_TOOLS[@]}"; do
             echo -e "    ${YELLOW}→${RESET} $t"
+        done
+        echo ""
+    fi
+
+    if [[ ${#MANUAL_TOOLS[@]} -gt 0 ]]; then
+        echo -e "${CYAN}  Requires manual setup (${#MANUAL_TOOLS[@]}):${RESET}"
+        for t in "${MANUAL_TOOLS[@]}"; do
+            echo -e "    ${CYAN}ℹ${RESET} $t"
         done
         echo ""
     fi
