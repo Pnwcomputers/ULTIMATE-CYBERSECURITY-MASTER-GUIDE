@@ -333,9 +333,8 @@ install_recon() {
     pip3 install -q --break-system-packages -r "$INSTALL_DIR/Photon/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Photon requirements install failed"
     make_symlink "photon" "$INSTALL_DIR/Photon/photon.py"
 
-    # Metagoofil — not on PyPI; install from git
+    # Metagoofil — standalone Python script, no requirements.txt; clone and symlink only
     git_clone_tool "metagoofil" "https://github.com/laramies/metagoofil.git"
-    pip3 install -q --break-system-packages -r "$INSTALL_DIR/metagoofil/requirements.txt" >> "$LOGFILE" 2>&1 || warn "metagoofil requirements install failed"
     make_symlink "metagoofil" "$INSTALL_DIR/metagoofil/metagoofil.py"
 
     # Sherlock
@@ -355,8 +354,7 @@ install_recon() {
         | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
     if [[ -n "$phoneinfoga_ver" ]]; then
         local arch; arch=$(uname -m)
-        local os; os=$(uname -s | tr '[:upper:]' '[:lower:]')
-        [[ "$arch" == "x86_64" ]] && arch="amd64"
+        local os; os=$(uname -s)   # keep original case: Linux, Darwin
         [[ "$arch" == "aarch64" ]] && arch="arm64"
         local url="https://github.com/sundowndev/phoneinfoga/releases/download/${phoneinfoga_ver}/phoneinfoga_${os}_${arch}.tar.gz"
         curl -sL "$url" -o /tmp/phoneinfoga.tar.gz >> "$LOGFILE" 2>&1 \
@@ -432,11 +430,8 @@ install_network() {
     # Impacket
     pip_install impacket
 
-    # NetExec (CrackMapExec successor — not on PyPI; install from git)
-    git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
-    pip3 install -q --break-system-packages -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
-        && ok "NetExec installed" \
-        || warn "NetExec install failed"
+    # NetExec (CrackMapExec successor — uses poetry-dynamic-versioning build plugin; pipx handles it cleanly)
+    pipx_install "git+https://github.com/Pennyw0rth/NetExec.git"
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
@@ -576,15 +571,10 @@ install_exploit() {
         *) warn "BloodHound not auto-installed on this distro — download from https://github.com/BloodHoundAD/BloodHound/releases" ;;
     esac
 
-    # Empire post-exploitation — install.sh uses apt-get internally; apt-based distros only
+    # Empire — interactive installer; clone repo for reference only; install manually via Docker
     git_clone_tool "Empire" "https://github.com/BC-SECURITY/Empire.git"
-    if [[ "$PKG_MGR" == "apt" ]] && [[ -f "$INSTALL_DIR/Empire/setup/install.sh" ]]; then
-        bash "$INSTALL_DIR/Empire/setup/install.sh" -y >> "$LOGFILE" 2>&1 \
-            && ok "Empire installed" || warn "Empire setup failed — check log"
-    elif [[ "$PKG_MGR" != "apt" ]]; then
-        warn "Empire install.sh requires apt — skipping on this distro (use Docker: https://github.com/BC-SECURITY/Empire)"
-        SKIPPED_TOOLS+=("Empire")
-    fi
+    warn "Empire requires interactive setup — run manually: cd $INSTALL_DIR/Empire && docker compose up -d"
+    SKIPPED_TOOLS+=("Empire")
 
     # PowerSploit (reference)
     git_clone_tool "PowerSploit" "https://github.com/PowerShellMafia/PowerSploit.git"
@@ -789,30 +779,16 @@ install_defense() {
             ;;
     esac
 
-    # Zeek — not in standard apt/pacman repos; add official zeek.org repo for apt
+    # Zeek — not in standard repos; requires manual repo setup; skip with download pointer
     if ! command -v zeek &>/dev/null; then
-        if [[ "$PKG_MGR" == "apt" ]]; then
-            info "Adding zeek.org apt repository…"
-            local ZEEK_CODENAME; ZEEK_CODENAME=$(. /etc/os-release && echo "${VERSION_CODENAME:-xUbuntu_22.04}")
-            echo "deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_22.04/ /" \
-                > /etc/apt/sources.list.d/zeek.list 2>/dev/null || true
-            curl -fsSL "https://download.opensuse.org/repositories/security:zeek/xUbuntu_22.04/Release.key" \
-                | gpg --dearmor -o /etc/apt/trusted.gpg.d/zeek.gpg >> "$LOGFILE" 2>&1 || true
-            apt-get update -qq >> "$LOGFILE" 2>&1
-            pkg_install zeek
-        else
-            warn "Zeek not in standard repos for this distro — install from https://zeek.org/get-zeek/"
-            SKIPPED_TOOLS+=("zeek")
-        fi
+        warn "Zeek not in standard repos — install from https://zeek.org/get-zeek/ or your distro's security repo"
+        SKIPPED_TOOLS+=("zeek")
     fi
 
-    # OSSEC-HIDS — not in standard repos; install from source
+    # OSSEC-HIDS — interactive installer unsuitable for automation; skip with pointer
     if ! command -v ossec-control &>/dev/null; then
-        git_clone_tool "ossec-hids" "https://github.com/ossec/ossec-hids.git"
-        if [[ -f "$INSTALL_DIR/ossec-hids/install.sh" ]]; then
-            echo "server" | bash "$INSTALL_DIR/ossec-hids/install.sh" >> "$LOGFILE" 2>&1 \
-                && ok "OSSEC-HIDS installed" || warn "OSSEC-HIDS install failed — see log"
-        fi
+        warn "OSSEC-HIDS requires interactive setup — see https://www.ossec.net/docs/docs/manual/installation/installation-requirements.html"
+        SKIPPED_TOOLS+=("ossec-hids")
     fi
 
     # Wazuh agent (requires a Wazuh manager — provide guided install)
