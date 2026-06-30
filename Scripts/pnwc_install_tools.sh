@@ -224,6 +224,7 @@ setup_extra_repos() {
         apt)
             # Remove stale zeek OpenSUSE apt source added by older versions of this script
             rm -f /etc/apt/sources.list.d/zeek.list /etc/apt/trusted.gpg.d/zeek.gpg 2>/dev/null || true
+            apt-get update -qq >> "$LOGFILE" 2>&1 || true
             # Kali rolling already has everything; for Ubuntu/Debian add Kali repo tools
             if [[ "$DISTRO_ID" != "kali" ]] && [[ "$DISTRO_ID" != "parrot" ]]; then
                 warn "Non-Kali Debian-based system detected."
@@ -432,17 +433,19 @@ install_network() {
     git_clone_tool "Responder" "https://github.com/lgandx/Responder.git"
     make_symlink "responder" "$INSTALL_DIR/Responder/Responder.py"
 
-    # NetExec — uses poetry-dynamic-versioning build backend; isolated venv avoids conflicts
-    # Check venv binary directly to avoid re-installing over a stale broken venv
-    git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
-    if [[ ! -x /opt/netexec-env/bin/nxc ]]; then
-        python3 -m venv --clear /opt/netexec-env >> "$LOGFILE" 2>&1 \
-            && /opt/netexec-env/bin/pip install -q poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 \
-            && /opt/netexec-env/bin/pip install -q --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
-            && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
-            && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
-            && ok "NetExec installed" || warn "NetExec install failed"
+    # NetExec — Kali apt has 'netexec'; PyPI venv fallback for other distros
+    if ! command -v nxc &>/dev/null; then
+        if [[ "$PKG_MGR" == "apt" ]] && apt-get install -y -qq netexec >> "$LOGFILE" 2>&1; then
+            ok "NetExec installed via apt"
+        elif [[ ! -x /opt/netexec-env/bin/nxc ]]; then
+            python3 -m venv --clear /opt/netexec-env >> "$LOGFILE" 2>&1 \
+                && /opt/netexec-env/bin/pip install -q netexec >> "$LOGFILE" 2>&1 \
+                && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
+                && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
+                && ok "NetExec installed via pip" || { warn "NetExec install failed"; FAILED_TOOLS+=("NetExec"); }
+        fi
     fi
+    git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
@@ -694,7 +697,7 @@ install_forensics() {
 
     case "$PKG_MGR" in
         apt)
-            pkg_install autopsy sleuthkit volatility3 binwalk foremost \
+            pkg_install autopsy sleuthkit binwalk foremost \
                         binutils file libimage-exiftool-perl testdisk \
                         radare2 gdb ltrace strace pwndbg \
                         hexedit xxd \
@@ -847,10 +850,11 @@ install_defense() {
             ;;
     esac
 
-    # Zeek — in Kali apt (installed above); note for other distros
+    # Zeek — in Kali apt and BlackArch (installed above); note for other distros
+    # Only add to SKIPPED for non-apt systems (apt's pkg_install already added it on failure)
     if ! command -v zeek &>/dev/null; then
         info "Zeek not available on this distro — see https://zeek.org/get-zeek/"
-        SKIPPED_TOOLS+=("zeek")
+        [[ "$PKG_MGR" != "apt" ]] && SKIPPED_TOOLS+=("zeek")
     fi
 
     # OSSEC-HIDS — interactive installer; manual setup required
