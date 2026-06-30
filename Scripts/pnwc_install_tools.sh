@@ -672,15 +672,15 @@ install_forensics() {
     case "$PKG_MGR" in
         apt)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
-                        strings file exiftool testdisk photorec \
-                        radare2 gdb ltrace strace pwndbg \
+                        binutils file exiftool testdisk \
+                        radare2 gdb ltrace strace \
                         hexedit xxd bless \
                         ghidra jadx apktool dex2jar \
                         yara scalpel
             ;;
         pacman)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
-                        exiftool testdisk radare2 gdb ltrace strace \
+                        binutils exiftool testdisk radare2 gdb ltrace strace \
                         ghidra apktool yara
             ;;
         dnf)
@@ -689,11 +689,18 @@ install_forensics() {
             ;;
     esac
 
-    # Volatility 3
+    # Volatility 3 (uses pyproject.toml, not requirements.txt)
     if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
         git_clone_tool "volatility3" "https://github.com/volatilityfoundation/volatility3.git"
-        pip3 install -q --break-system-packages -r "$INSTALL_DIR/volatility3/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Volatility3 requirements install failed"
+        pip3 install -q --break-system-packages "$INSTALL_DIR/volatility3/" >> "$LOGFILE" 2>&1 || warn "Volatility3 install failed"
         make_symlink "vol3" "$INSTALL_DIR/volatility3/vol.py"
+    fi
+
+    # pwndbg — only in Kali apt and Arch extra; install from git for other systems
+    if ! command -v pwndbg &>/dev/null; then
+        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
+        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
+            && ok "pwndbg installed" || warn "pwndbg setup failed"
     fi
 
     # Ghidra (if not installed via package manager)
