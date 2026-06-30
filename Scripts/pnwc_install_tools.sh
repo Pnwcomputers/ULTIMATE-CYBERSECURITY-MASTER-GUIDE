@@ -21,6 +21,9 @@
 #    --wireless     Wireless tools only
 #    --forensics    Forensics & RE tools only
 #    --defense      IDS/IPS & monitoring tools only
+#    --hardware     Hardware, embedded & RF tools only
+#    --wordlists    Wordlists & reference data only
+#    --pnwc         PNWC custom scripts only
 #    --dev          Development dependencies only
 #    --help         Show this help
 # =============================================================================
@@ -310,8 +313,8 @@ install_recon() {
     # Package manager
     case "$PKG_MGR" in
         apt)    pkg_install nmap masscan dnsutils whois traceroute netdiscover \
-                            recon-ng theharvester amass maltego spiderfoot ;;
-        pacman) pkg_install nmap masscan dnsutils whois traceroute netdiscover \
+                            recon-ng theharvester amass spiderfoot ;;
+        pacman) pkg_install nmap masscan bind whois traceroute netdiscover \
                             recon-ng theharvester amass ;;
         dnf)    pkg_install nmap masscan bind-utils whois traceroute netdiscover ;;
     esac
@@ -369,7 +372,7 @@ install_recon() {
     fi
 
     # Amass (Go)
-    go_install "github.com/owasp-amass/amass/v4/...@latest"
+    go_install "github.com/owasp-amass/amass/v4/cmd/amass@latest"
 
     # Subfinder (Go — ProjectDiscovery)
     go_install "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
@@ -400,7 +403,7 @@ install_network() {
             pkg_install \
                 wireshark tshark tcpdump netcat-openbsd ncat socat \
                 bettercap arpwatch net-tools iproute2 iputils-ping \
-                nmap masscan p0f ettercap-text-only dsniff hping3 \
+                p0f ettercap-text-only dsniff hping3 \
                 yersinia macchanger proxychains4 sshuttle \
                 openvpn wireguard tor torsocks
             ;;
@@ -408,7 +411,7 @@ install_network() {
             pkg_install \
                 wireshark-qt tshark tcpdump openbsd-netcat ncat socat \
                 bettercap arpwatch net-tools iproute2 iputils \
-                nmap masscan p0f ettercap dsniff hping macchanger \
+                p0f ettercap dsniff hping macchanger \
                 proxychains-ng sshuttle openvpn wireguard-tools tor
             ;;
         dnf)
@@ -426,9 +429,6 @@ install_network() {
     # Responder
     git_clone_tool "Responder" "https://github.com/lgandx/Responder.git"
     make_symlink "responder" "$INSTALL_DIR/Responder/Responder.py"
-
-    # Impacket
-    pip_install impacket
 
     # NetExec (CrackMapExec successor — uses poetry-dynamic-versioning build plugin; pipx handles it cleanly)
     pipx_install "git+https://github.com/Pennyw0rth/NetExec.git"
@@ -463,7 +463,7 @@ install_web() {
 
     # Update Nuclei templates
     if command -v nuclei &>/dev/null; then
-        nuclei -update -silent >> "$LOGFILE" 2>&1 && ok "Nuclei templates updated"
+        nuclei -update-templates -silent >> "$LOGFILE" 2>&1 && ok "Nuclei templates updated"
     fi
 
     # dalfox (XSS scanner — Go)
@@ -474,7 +474,9 @@ install_web() {
     ferox_ver=$(curl -s "https://api.github.com/repos/epi052/feroxbuster/releases/latest" \
         | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
     if [[ -n "$ferox_ver" ]]; then
-        curl -sL "https://github.com/epi052/feroxbuster/releases/download/${ferox_ver}/x86_64-linux-feroxbuster.zip" \
+        local ferox_arch; ferox_arch=$(uname -m)
+        [[ "$ferox_arch" == "aarch64" ]] && ferox_arch="aarch64" || ferox_arch="x86_64"
+        curl -sL "https://github.com/epi052/feroxbuster/releases/download/${ferox_ver}/${ferox_arch}-linux-feroxbuster.zip" \
             -o /tmp/feroxbuster.zip >> "$LOGFILE" 2>&1 \
             && unzip -qo /tmp/feroxbuster.zip feroxbuster -d /usr/local/bin >> "$LOGFILE" 2>&1 \
             && chmod +x /usr/local/bin/feroxbuster \
@@ -486,12 +488,8 @@ install_web() {
         FAILED_TOOLS+=("bin:feroxbuster")
     fi
 
-    # Python web tools
-    pip_install \
-        sqlmap \
-        wfuzz \
-        arjun \
-        uro
+    # Python web tools (sqlmap/wfuzz already installed via pkg_install above)
+    pip_install arjun uro
 
     # WhatWeb — not a RubyGems package; clone and symlink the script
     git_clone_tool "WhatWeb" "https://github.com/urbanadventurer/WhatWeb.git"
@@ -615,7 +613,12 @@ install_password() {
         ok "rockyou.txt already present"
     fi
 
-    # Mentalist (Python wordlist generator — not Go; has pyproject.toml)
+    # Mentalist (Python/GUI wordlist generator — requires wxPython system package)
+    case "$PKG_MGR" in
+        apt)    pkg_install python3-wxgtk4.0 ;;
+        pacman) pkg_install python-wxpython ;;
+        *) ;;
+    esac
     pip_install "git+https://github.com/sc0tfree/mentalist.git"
 
     # Sprayhound / kerbrute
@@ -681,15 +684,14 @@ install_forensics() {
     case "$PKG_MGR" in
         apt)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
-                        binutils file exiftool testdisk \
+                        binutils file libimage-exiftool-perl testdisk \
                         radare2 gdb ltrace strace \
                         hexedit xxd bless \
-                        ghidra jadx apktool dex2jar \
-                        yara scalpel
+                        apktool yara scalpel
             ;;
         pacman)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
-                        binutils exiftool testdisk radare2 gdb ltrace strace \
+                        binutils perl-image-exiftool testdisk radare2 gdb ltrace strace \
                         ghidra apktool yara
             ;;
         dnf)
@@ -697,6 +699,58 @@ install_forensics() {
                         radare2 gdb ltrace strace yara
             ;;
     esac
+
+    # jadx — not in standard apt repos; download release zip
+    if ! command -v jadx &>/dev/null; then
+        local jadx_ver
+        jadx_ver=$(curl -s "https://api.github.com/repos/skylot/jadx/releases/latest" \
+            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
+        if [[ -n "$jadx_ver" ]]; then
+            curl -sL "https://github.com/skylot/jadx/releases/download/${jadx_ver}/jadx-${jadx_ver#v}.zip" \
+                -o /tmp/jadx.zip >> "$LOGFILE" 2>&1 \
+                && unzip -qo /tmp/jadx.zip -d /opt/jadx >> "$LOGFILE" 2>&1 \
+                && ln -sf /opt/jadx/bin/jadx /usr/local/bin/jadx \
+                && ok "jadx installed" || warn "jadx download failed"
+            rm -f /tmp/jadx.zip
+        else
+            warn "Could not determine jadx version"; FAILED_TOOLS+=("jadx")
+        fi
+    fi
+
+    # dex2jar — not in standard apt repos; download release zip
+    if ! command -v d2j-dex2jar.sh &>/dev/null; then
+        local d2j_ver
+        d2j_ver=$(curl -s "https://api.github.com/repos/pxb1988/dex2jar/releases/latest" \
+            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
+        if [[ -n "$d2j_ver" ]]; then
+            curl -sL "https://github.com/pxb1988/dex2jar/releases/download/${d2j_ver}/dex-tools-${d2j_ver#v}.zip" \
+                -o /tmp/dex2jar.zip >> "$LOGFILE" 2>&1 \
+                && unzip -qo /tmp/dex2jar.zip -d /opt/ >> "$LOGFILE" 2>&1 \
+                && ln -sf /opt/dex-tools-${d2j_ver#v}/d2j-dex2jar.sh /usr/local/bin/d2j-dex2jar.sh \
+                && chmod +x /opt/dex-tools-${d2j_ver#v}/*.sh \
+                && ok "dex2jar installed" || warn "dex2jar download failed"
+            rm -f /tmp/dex2jar.zip
+        else
+            warn "Could not determine dex2jar version"; FAILED_TOOLS+=("dex2jar")
+        fi
+    fi
+
+    # apktool — fallback download for non-Kali apt systems
+    if ! command -v apktool &>/dev/null; then
+        local apk_ver
+        apk_ver=$(curl -s "https://api.github.com/repos/iBotPeaches/Apktool/releases/latest" \
+            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"v\(.*\)".*/\1/')
+        if [[ -n "$apk_ver" ]]; then
+            curl -sL "https://github.com/iBotPeaches/Apktool/releases/download/v${apk_ver}/apktool_${apk_ver}.jar" \
+                -o /usr/local/bin/apktool.jar >> "$LOGFILE" 2>&1 \
+                && printf '#!/bin/sh\nexec java -jar /usr/local/bin/apktool.jar "$@"\n' \
+                    > /usr/local/bin/apktool \
+                && chmod +x /usr/local/bin/apktool \
+                && ok "apktool installed" || warn "apktool download failed"
+        else
+            warn "Could not determine apktool version"; FAILED_TOOLS+=("apktool")
+        fi
+    fi
 
     # Volatility 3 (uses pyproject.toml, not requirements.txt)
     if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
@@ -737,16 +791,8 @@ install_forensics() {
             && ok "radare2 built from source" || warn "radare2 build failed"
     fi
 
-    # Python forensics (unicorn/pwntools require cmake to build from source)
-    pkg_install cmake
-    pip_install \
-        oletools \
-        pefile \
-        capstone \
-        unicorn \
-        ropper \
-        pwntools \
-        r2pipe
+    # Python forensics (unicorn requires cmake; pwntools already installed in exploit section)
+    pip_install oletools pefile capstone unicorn ropper r2pipe
 
     # YARA rules
     git_clone_tool "yara-rules" "https://github.com/Yara-Rules/rules.git"
@@ -799,7 +845,9 @@ install_defense() {
             echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" \
                 > /etc/apt/sources.list.d/wazuh.list 2>/dev/null || true
             apt-get update -qq >> "$LOGFILE" 2>&1
-            WAZUH_MANAGER="127.0.0.1" pkg_install wazuh-agent
+            export WAZUH_MANAGER="127.0.0.1"
+            pkg_install wazuh-agent
+            unset WAZUH_MANAGER
         else
             warn "Wazuh agent — install manually from https://documentation.wazuh.com/current/installation-guide/"
             SKIPPED_TOOLS+=("wazuh-agent")
@@ -826,7 +874,7 @@ install_hardware() {
 
     case "$PKG_MGR" in
         apt)
-            pkg_install openocd flashrom binwalk avrdude \
+            pkg_install openocd flashrom avrdude \
                         python3-serial minicom picocom screen \
                         hackrf rtl-sdr librtlsdr-dev \
                         gqrx-sdr gr-osmosdr \
@@ -834,7 +882,7 @@ install_hardware() {
                         libusb-dev libusb-1.0-0-dev
             ;;
         pacman)
-            pkg_install openocd flashrom binwalk avrdude \
+            pkg_install openocd flashrom avrdude \
                         python-pyserial minicom picocom \
                         hackrf rtl-sdr bluez bluez-utils libusb
             ;;
@@ -848,8 +896,7 @@ install_hardware() {
     git_clone_tool "chipwhisperer" "https://github.com/newaetech/chipwhisperer.git"
     python3 -m venv /opt/chipwhisperer-env >> "$LOGFILE" 2>&1 \
         && /opt/chipwhisperer-env/bin/pip install -q -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
-        && ln -sf /opt/chipwhisperer-env/bin/cw /usr/local/bin/cw \
-        && ok "ChipWhisperer installed in /opt/chipwhisperer-env" \
+        && ok "ChipWhisperer installed in /opt/chipwhisperer-env (use: /opt/chipwhisperer-env/bin/python)" \
         || warn "ChipWhisperer install failed"
 
     # Bus Pirate scripts / pyserial tools
@@ -858,8 +905,8 @@ install_hardware() {
     # Scapy (packet crafting)
     pip_install scapy
 
-    # Bluepy / Bleak for BLE
-    pip_install bluepy bleak
+    # Bleak for BLE (bluepy is abandoned and breaks on Python 3.12+)
+    pip_install bleak
 
     ok "Hardware & RF tools installed"
 }
@@ -997,6 +1044,9 @@ main() {
         wireless)  install_dev; install_wireless ;;
         forensics) install_dev; install_forensics ;;
         defense)   install_dev; install_defense ;;
+        hardware)  install_dev; install_hardware ;;
+        wordlists) install_dev; install_wordlists ;;
+        pnwc)      install_dev; install_pnwc_scripts ;;
         dev)       install_dev ;;
         *)
             error "Unknown option: $MODE"
