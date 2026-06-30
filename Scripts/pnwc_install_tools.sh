@@ -527,8 +527,13 @@ install_exploit() {
         ok "Metasploit already installed"
     fi
 
-    # pwntools
-    pip_install pwntools
+    # pwntools — unicorn dep requires cmake to build; skip pip if already installed by pkg manager
+    if ! python3 -c "import pwn" &>/dev/null 2>&1; then
+        pkg_install cmake
+        pip_install pwntools
+    else
+        ok "pwntools already installed"
+    fi
 
     # Impacket (Python)
     pip_install impacket
@@ -716,7 +721,8 @@ install_forensics() {
             && ok "radare2 built from source" || warn "radare2 build failed"
     fi
 
-    # Python forensics
+    # Python forensics (unicorn/pwntools require cmake to build from source)
+    pkg_install cmake
     pip_install \
         oletools \
         pefile \
