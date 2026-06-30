@@ -222,6 +222,8 @@ setup_extra_repos() {
     section "Extra Repository Setup"
     case "$PKG_MGR" in
         apt)
+            # Remove stale zeek OpenSUSE apt source added by older versions of this script
+            rm -f /etc/apt/sources.list.d/zeek.list /etc/apt/trusted.gpg.d/zeek.gpg 2>/dev/null || true
             # Kali rolling already has everything; for Ubuntu/Debian add Kali repo tools
             if [[ "$DISTRO_ID" != "kali" ]] && [[ "$DISTRO_ID" != "parrot" ]]; then
                 warn "Non-Kali Debian-based system detected."
