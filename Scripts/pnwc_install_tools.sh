@@ -430,10 +430,13 @@ install_network() {
     git_clone_tool "Responder" "https://github.com/lgandx/Responder.git"
     make_symlink "responder" "$INSTALL_DIR/Responder/Responder.py"
 
-    # NetExec — build backend is poetry-dynamic-versioning; pre-install build deps then use --no-build-isolation
+    # NetExec — uses poetry-dynamic-versioning build backend; isolated venv avoids conflicts
     git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
-    pip3 install -q --break-system-packages poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 || true
-    pip3 install -q --break-system-packages --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
+    python3 -m venv /opt/netexec-env >> "$LOGFILE" 2>&1 \
+        && /opt/netexec-env/bin/pip install -q poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 \
+        && /opt/netexec-env/bin/pip install -q --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
+        && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
+        && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
         && ok "NetExec installed" || warn "NetExec install failed"
 
     # Evil-WinRM
@@ -572,9 +575,9 @@ install_exploit() {
         *) warn "BloodHound not auto-installed on this distro — download from https://github.com/BloodHoundAD/BloodHound/releases" ;;
     esac
 
-    # Empire — interactive installer; clone repo for reference only; install manually via Docker
+    # Empire — requires Docker; clone repo for reference, manual setup required
     git_clone_tool "Empire" "https://github.com/BC-SECURITY/Empire.git"
-    warn "Empire requires interactive setup — run manually: cd $INSTALL_DIR/Empire && docker compose up -d"
+    info "Empire cloned → start with: cd $INSTALL_DIR/Empire && docker compose up -d"
     SKIPPED_TOOLS+=("Empire")
 
     # PowerSploit (reference)
@@ -688,7 +691,7 @@ install_forensics() {
         apt)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
                         binutils file libimage-exiftool-perl testdisk \
-                        radare2 gdb ltrace strace \
+                        radare2 gdb ltrace strace pwndbg \
                         hexedit xxd \
                         apktool yara scalpel
             ;;
@@ -755,9 +758,12 @@ install_forensics() {
         fi
     fi
 
-    # Volatility 3 — install from PyPI (pre-built wheels avoid Python 3.14 source-build issues)
+    # Volatility 3 — isolated venv avoids Python 3.14 dep conflicts
     if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
-        pip_install volatility3
+        python3 -m venv /opt/volatility3-env >> "$LOGFILE" 2>&1 \
+            && /opt/volatility3-env/bin/pip install -q volatility3 >> "$LOGFILE" 2>&1 \
+            && ln -sf /opt/volatility3-env/bin/vol3 /usr/local/bin/vol3 \
+            && ok "Volatility3 installed" || warn "Volatility3 install failed"
     fi
 
     # pwndbg — in Arch extra (installed above); git clone fallback for apt/dnf
@@ -807,8 +813,8 @@ install_defense() {
 
     case "$PKG_MGR" in
         apt)
-            # zeek and ossec-hids are not in standard apt repos — installed separately below
-            pkg_install snort suricata fail2ban \
+            # zeek is in Kali repos; silently skipped on Ubuntu/Debian where it's absent
+            pkg_install snort suricata zeek fail2ban \
                         auditd aide rkhunter chkrootkit lynis \
                         clamav clamav-daemon ufw iptables-persistent \
                         logwatch logcheck rsyslog
@@ -826,15 +832,15 @@ install_defense() {
             ;;
     esac
 
-    # Zeek — not in standard repos; requires manual repo setup; skip with download pointer
+    # Zeek — in Kali apt (installed above); note for other distros
     if ! command -v zeek &>/dev/null; then
-        warn "Zeek not in standard repos — install from https://zeek.org/get-zeek/ or your distro's security repo"
+        info "Zeek not available on this distro — see https://zeek.org/get-zeek/"
         SKIPPED_TOOLS+=("zeek")
     fi
 
-    # OSSEC-HIDS — interactive installer unsuitable for automation; skip with pointer
+    # OSSEC-HIDS — interactive installer; manual setup required
     if ! command -v ossec-control &>/dev/null; then
-        warn "OSSEC-HIDS requires interactive setup — see https://www.ossec.net/docs/docs/manual/installation/installation-requirements.html"
+        info "OSSEC-HIDS requires interactive setup — see https://www.ossec.net/docs/docs/manual/installation/"
         SKIPPED_TOOLS+=("ossec-hids")
     fi
 
