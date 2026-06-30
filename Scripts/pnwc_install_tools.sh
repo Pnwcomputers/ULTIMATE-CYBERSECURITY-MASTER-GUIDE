@@ -433,13 +433,16 @@ install_network() {
     make_symlink "responder" "$INSTALL_DIR/Responder/Responder.py"
 
     # NetExec — uses poetry-dynamic-versioning build backend; isolated venv avoids conflicts
+    # Check venv binary directly to avoid re-installing over a stale broken venv
     git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
-    python3 -m venv /opt/netexec-env >> "$LOGFILE" 2>&1 \
-        && /opt/netexec-env/bin/pip install -q poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 \
-        && /opt/netexec-env/bin/pip install -q --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
-        && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
-        && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
-        && ok "NetExec installed" || warn "NetExec install failed"
+    if [[ ! -x /opt/netexec-env/bin/nxc ]]; then
+        python3 -m venv --clear /opt/netexec-env >> "$LOGFILE" 2>&1 \
+            && /opt/netexec-env/bin/pip install -q poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 \
+            && /opt/netexec-env/bin/pip install -q --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
+            && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
+            && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
+            && ok "NetExec installed" || warn "NetExec install failed"
+    fi
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
@@ -761,15 +764,25 @@ install_forensics() {
     fi
 
     # Volatility 3 — isolated venv avoids Python 3.14 dep conflicts
-    if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
-        python3 -m venv /opt/volatility3-env >> "$LOGFILE" 2>&1 \
+    # Check venv binary directly; command -v vol3 may be a stale symlink from a prior broken run
+    if [[ ! -x /opt/volatility3-env/bin/vol3 ]]; then
+        python3 -m venv --clear /opt/volatility3-env >> "$LOGFILE" 2>&1 \
             && /opt/volatility3-env/bin/pip install -q volatility3 >> "$LOGFILE" 2>&1 \
             && ln -sf /opt/volatility3-env/bin/vol3 /usr/local/bin/vol3 \
             && ok "Volatility3 installed" || warn "Volatility3 install failed"
     fi
 
-    # pwndbg — in Arch extra (installed above); git clone fallback for apt/dnf
-    if ! command -v pwndbg &>/dev/null && [[ "$PKG_MGR" != "pacman" ]]; then
+    # pwndbg — GDB plugin (no standalone binary); command -v always fails even when installed
+    # Check the package manager's records instead; git fallback if not found
+    if [[ "$PKG_MGR" == "apt" ]] && ! dpkg -l pwndbg 2>/dev/null | grep -q '^ii'; then
+        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
+        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
+            && ok "pwndbg installed" || warn "pwndbg setup failed"
+    elif [[ "$PKG_MGR" == "pacman" ]] && ! pacman -Q pwndbg &>/dev/null 2>&1; then
+        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
+        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
+            && ok "pwndbg installed" || warn "pwndbg setup failed"
+    elif [[ "$PKG_MGR" == "dnf" ]]; then
         git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
         bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
             && ok "pwndbg installed" || warn "pwndbg setup failed"
@@ -822,8 +835,8 @@ install_defense() {
                         logwatch logcheck rsyslog
             ;;
         pacman)
-            # zeek is only in BlackArch; skip from standard pacman
-            pkg_install snort suricata fail2ban \
+            # zeek is in BlackArch; gracefully skipped on standard Arch/Manjaro without it
+            pkg_install snort suricata zeek fail2ban \
                         audit aide rkhunter lynis \
                         clamav ufw iptables
             ;;
