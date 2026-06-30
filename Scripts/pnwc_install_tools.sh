@@ -776,24 +776,10 @@ install_forensics() {
             && ok "Volatility3 installed" || warn "Volatility3 install failed"
     fi
 
-    # pwndbg — GDB plugin; try apt → git+setup.sh → pip3, SKIPPED only if all three fail
-    _pwndbg_install() {
-        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git" \
-            && bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && { ok "pwndbg installed via git"; return 0; }
-        pip3 install --quiet --break-system-packages pwndbg >> "$LOGFILE" 2>&1 \
-            && { ok "pwndbg installed via pip"; return 0; }
-        warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); return 1
-    }
-    if [[ "$PKG_MGR" == "apt" ]] && ! dpkg -l pwndbg 2>/dev/null | grep -q '^ii'; then
-        apt-get install -y -qq pwndbg >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed via apt" || _pwndbg_install
-    elif [[ "$PKG_MGR" == "pacman" ]] && ! pacman -Q pwndbg &>/dev/null 2>&1; then
-        _pwndbg_install
-    elif [[ "$PKG_MGR" == "dnf" ]]; then
-        _pwndbg_install
+    # pwndbg — GDB plugin; requires GDB with Python support and manual gdbinit config
+    if ! dpkg -l pwndbg 2>/dev/null | grep -q '^ii' && ! pacman -Q pwndbg &>/dev/null 2>&1; then
+        MANUAL_TOOLS+=("pwndbg (see https://github.com/pwndbg/pwndbg#installation)")
     fi
-    unset -f _pwndbg_install
 
     # Ghidra (if not installed via package manager)
     if ! command -v ghidra &>/dev/null && [[ ! -d /opt/ghidra ]]; then
