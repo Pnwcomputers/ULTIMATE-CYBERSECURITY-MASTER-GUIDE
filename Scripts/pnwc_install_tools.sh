@@ -430,8 +430,11 @@ install_network() {
     git_clone_tool "Responder" "https://github.com/lgandx/Responder.git"
     make_symlink "responder" "$INSTALL_DIR/Responder/Responder.py"
 
-    # NetExec (CrackMapExec successor — uses poetry-dynamic-versioning build plugin; pipx handles it cleanly)
-    pipx_install "git+https://github.com/Pennyw0rth/NetExec.git"
+    # NetExec — build backend is poetry-dynamic-versioning; pre-install build deps then use --no-build-isolation
+    git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
+    pip3 install -q --break-system-packages poetry-core poetry-dynamic-versioning >> "$LOGFILE" 2>&1 || true
+    pip3 install -q --break-system-packages --no-build-isolation -e "$INSTALL_DIR/NetExec/" >> "$LOGFILE" 2>&1 \
+        && ok "NetExec installed" || warn "NetExec install failed"
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
@@ -686,13 +689,13 @@ install_forensics() {
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
                         binutils file libimage-exiftool-perl testdisk \
                         radare2 gdb ltrace strace \
-                        hexedit xxd bless \
+                        hexedit xxd \
                         apktool yara scalpel
             ;;
         pacman)
             pkg_install autopsy sleuthkit volatility3 binwalk foremost \
                         binutils perl-image-exiftool testdisk radare2 gdb ltrace strace \
-                        ghidra apktool yara
+                        pwndbg ghidra apktool yara
             ;;
         dnf)
             pkg_install sleuthkit binwalk foremost file exiftool \
@@ -723,11 +726,11 @@ install_forensics() {
         d2j_ver=$(curl -s "https://api.github.com/repos/pxb1988/dex2jar/releases/latest" \
             | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
         if [[ -n "$d2j_ver" ]]; then
-            curl -sL "https://github.com/pxb1988/dex2jar/releases/download/${d2j_ver}/dex-tools-${d2j_ver#v}.zip" \
+            curl -sL "https://github.com/pxb1988/dex2jar/releases/download/${d2j_ver}/dex-tools-${d2j_ver}.zip" \
                 -o /tmp/dex2jar.zip >> "$LOGFILE" 2>&1 \
                 && unzip -qo /tmp/dex2jar.zip -d /opt/ >> "$LOGFILE" 2>&1 \
-                && ln -sf /opt/dex-tools-${d2j_ver#v}/d2j-dex2jar.sh /usr/local/bin/d2j-dex2jar.sh \
-                && chmod +x /opt/dex-tools-${d2j_ver#v}/*.sh \
+                && ln -sf /opt/dex-tools-${d2j_ver}/d2j-dex2jar.sh /usr/local/bin/d2j-dex2jar.sh \
+                && chmod +x /opt/dex-tools-${d2j_ver}/*.sh \
                 && ok "dex2jar installed" || warn "dex2jar download failed"
             rm -f /tmp/dex2jar.zip
         else
@@ -752,15 +755,13 @@ install_forensics() {
         fi
     fi
 
-    # Volatility 3 (uses pyproject.toml, not requirements.txt)
+    # Volatility 3 — install from PyPI (pre-built wheels avoid Python 3.14 source-build issues)
     if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
-        git_clone_tool "volatility3" "https://github.com/volatilityfoundation/volatility3.git"
-        pip3 install -q --break-system-packages "$INSTALL_DIR/volatility3/" >> "$LOGFILE" 2>&1 || warn "Volatility3 install failed"
-        make_symlink "vol3" "$INSTALL_DIR/volatility3/vol.py"
+        pip_install volatility3
     fi
 
-    # pwndbg — only in Kali apt and Arch extra; install from git for other systems
-    if ! command -v pwndbg &>/dev/null; then
+    # pwndbg — in Arch extra (installed above); git clone fallback for apt/dnf
+    if ! command -v pwndbg &>/dev/null && [[ "$PKG_MGR" != "pacman" ]]; then
         git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
         bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
             && ok "pwndbg installed" || warn "pwndbg setup failed"
