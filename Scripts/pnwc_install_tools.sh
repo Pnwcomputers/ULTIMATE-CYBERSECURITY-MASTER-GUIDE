@@ -262,7 +262,7 @@ install_dev() {
         apt)
             pkg_install \
                 build-essential git curl wget python3 python3-pip python3-venv \
-                python3-dev python3-pipx libssl-dev libffi-dev ruby ruby-dev gem golang \
+                python3-dev pipx libssl-dev libffi-dev ruby ruby-dev gem golang \
                 nodejs npm cargo rustup libpcap-dev libnet1-dev libnl-3-dev \
                 libnl-genl-3-dev cmake automake autoconf libtool pkg-config \
                 swig zlib1g-dev libusb-dev libusb-1.0-0-dev libbluetooth-dev \
@@ -288,6 +288,13 @@ install_dev() {
     # Upgrade pip
     pip3 install --quiet --break-system-packages --upgrade pip setuptools wheel >> "$LOGFILE" 2>&1 || warn "pip upgrade failed — continuing"
     ok "pip upgraded"
+
+    # Ensure pipx is available (package manager install may have missed it)
+    if ! command -v pipx &>/dev/null; then
+        pip3 install --quiet --break-system-packages pipx >> "$LOGFILE" 2>&1 \
+            && ok "pipx installed via pip" || warn "pipx install failed — pipx-based tools will be skipped"
+    fi
+    pipx ensurepath >> "$LOGFILE" 2>&1 || true
 
     # Go path
     mkdir -p /opt/go/{bin,pkg,src}
