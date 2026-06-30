@@ -77,7 +77,8 @@ detect_distro() {
     if [[ -f /etc/os-release ]]; then
         source /etc/os-release
         DISTRO_ID="${ID,,}"
-        DISTRO_LIKE="${ID_LIKE,,:-}"
+        DISTRO_LIKE="${ID_LIKE:-}"
+        DISTRO_LIKE="${DISTRO_LIKE,,}"
     else
         DISTRO_ID="unknown"
         DISTRO_LIKE=""
@@ -148,7 +149,7 @@ pkg_install() {
 pip_install() {
     for pkg in "$@"; do
         info "  pip install: $pkg"
-        if pip3 install --quiet "$pkg" >> "$LOGFILE" 2>&1; then
+        if pip3 install --quiet --break-system-packages "$pkg" >> "$LOGFILE" 2>&1; then
             ok "  $pkg (pip) installed"
         else
             warn "  pip failed for $pkg"
@@ -214,11 +215,11 @@ setup_extra_repos() {
         pacman)
             if ! grep -q '\[blackarch\]' /etc/pacman.conf 2>/dev/null; then
                 info "Adding BlackArch repository…"
-                curl -qO https://blackarch.org/strap.sh >> "$LOGFILE" 2>&1
-                chmod +x strap.sh
-                bash strap.sh >> "$LOGFILE" 2>&1 && ok "BlackArch repo added" \
+                curl -qo /tmp/blackarch_strap.sh https://blackarch.org/strap.sh >> "$LOGFILE" 2>&1 \
+                    && chmod +x /tmp/blackarch_strap.sh \
+                    && bash /tmp/blackarch_strap.sh >> "$LOGFILE" 2>&1 && ok "BlackArch repo added" \
                     || warn "BlackArch strap.sh failed — continuing without it"
-                rm -f strap.sh
+                rm -f /tmp/blackarch_strap.sh
             else
                 ok "BlackArch repo already configured"
             fi
@@ -272,7 +273,7 @@ install_dev() {
     esac
 
     # Upgrade pip
-    pip3 install --quiet --upgrade pip setuptools wheel >> "$LOGFILE" 2>&1
+    pip3 install --quiet --break-system-packages --upgrade pip setuptools wheel >> "$LOGFILE" 2>&1 || warn "pip upgrade failed — continuing"
     ok "pip upgraded"
 
     # Go path
@@ -305,7 +306,6 @@ install_recon() {
         h8mail \
         "git+https://github.com/s0md3v/Photon.git" \
         osrframework \
-        phoneinfoga \
         metagoofil
 
     # Sherlock
@@ -315,7 +315,7 @@ install_recon() {
     # SpiderFoot (if not in packages)
     if ! command -v spiderfoot &>/dev/null; then
         git_clone_tool "spiderfoot" "https://github.com/smicallef/spiderfoot.git"
-        pip3 install -q -r "$INSTALL_DIR/spiderfoot/requirements.txt" >> "$LOGFILE" 2>&1
+        pip3 install -q --break-system-packages -r "$INSTALL_DIR/spiderfoot/requirements.txt" >> "$LOGFILE" 2>&1 || warn "SpiderFoot requirements install failed"
         make_symlink "spiderfoot" "$INSTALL_DIR/spiderfoot/sf.py"
     fi
 
@@ -323,13 +323,13 @@ install_recon() {
     go_install "github.com/sundowndev/phoneinfoga/v2/cmd/phoneinfoga@latest"
 
     # Amass (Go)
-    go_install "github.com/owasp-amass/amass/v4/...@master"
+    go_install "github.com/owasp-amass/amass/v4/...@latest"
 
     # Subfinder (Go — ProjectDiscovery)
     go_install "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
 
     # httpx (Go — ProjectDiscovery)
-    go_install "github.com/projectdiscovery/httpx/cmd/httpx@latest"
+    go_install "github.com/projectdiscovery/httpx/v2/cmd/httpx@latest"
 
     # dnsx (Go — ProjectDiscovery)
     go_install "github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
@@ -339,7 +339,7 @@ install_recon() {
 
     # Recon-ng
     git_clone_tool "recon-ng" "https://github.com/lanmaster53/recon-ng.git"
-    pip3 install -q -r "$INSTALL_DIR/recon-ng/REQUIREMENTS" >> "$LOGFILE" 2>&1
+    pip3 install -q --break-system-packages -r "$INSTALL_DIR/recon-ng/REQUIREMENTS" >> "$LOGFILE" 2>&1 || warn "recon-ng requirements install failed"
     make_symlink "recon-ng" "$INSTALL_DIR/recon-ng/recon-ng"
 
     ok "Recon & OSINT tools installed"
@@ -384,8 +384,8 @@ install_network() {
     # Impacket
     pip_install impacket
 
-    # CrackMapExec / NetExec
-    pip_install crackmapexec netexec
+    # NetExec (CrackMapExec successor — do not install both, they conflict)
+    pip_install netexec
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
@@ -417,7 +417,7 @@ install_web() {
 
     # Update Nuclei templates
     if command -v nuclei &>/dev/null; then
-        nuclei -update-templates -silent >> "$LOGFILE" 2>&1 && ok "Nuclei templates updated"
+        nuclei -update -silent >> "$LOGFILE" 2>&1 && ok "Nuclei templates updated"
     fi
 
     # dalfox (XSS scanner — Go)
@@ -434,8 +434,7 @@ install_web() {
         sqlmap \
         wfuzz \
         arjun \
-        uro \
-        "git+https://github.com/s0md3v/Arjun.git"
+        uro
 
     # WhatWeb
     if command -v gem &>/dev/null; then
@@ -468,11 +467,15 @@ install_exploit() {
     # Metasploit installer (universal fallback)
     if ! command -v msfconsole &>/dev/null; then
         info "Installing Metasploit Framework via rapid7 installer…"
-        curl -qs https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb \
-             -o /tmp/msfinstall >> "$LOGFILE" 2>&1
-        chmod +x /tmp/msfinstall
-        /tmp/msfinstall >> "$LOGFILE" 2>&1 && ok "Metasploit installed" \
-            || warn "Metasploit install failed — install manually from https://metasploit.com"
+        if curl -qs https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb \
+             -o /tmp/msfinstall >> "$LOGFILE" 2>&1; then
+            chmod +x /tmp/msfinstall
+            /tmp/msfinstall >> "$LOGFILE" 2>&1 && ok "Metasploit installed" \
+                || warn "Metasploit install failed — install manually from https://metasploit.com"
+            rm -f /tmp/msfinstall
+        else
+            warn "Metasploit download failed — install manually from https://metasploit.com"
+        fi
     else
         ok "Metasploit already installed"
     fi
@@ -520,7 +523,7 @@ install_exploit() {
 
     # ExploitDB searchsploit
     if ! command -v searchsploit &>/dev/null; then
-        git_clone_tool "exploitdb" "https://github.com/offensive-security/exploitdb.git"
+        git_clone_tool "exploitdb" "https://gitlab.com/exploit-database/exploitdb.git"
         make_symlink "searchsploit" "$INSTALL_DIR/exploitdb/searchsploit"
     fi
 
@@ -590,11 +593,11 @@ install_wireless() {
     make_symlink "wifite2" "$INSTALL_DIR/wifite2/Wifite.py"
 
     # hcxtools / hcxdumptool (for PMKID attacks)
-    if command -v apt &>/dev/null; then
+    if [[ "$PKG_MGR" == "apt" ]]; then
         pkg_install hcxtools hcxdumptool
     else
         git_clone_tool "hcxtools" "https://github.com/ZerBea/hcxtools.git"
-        cd "$INSTALL_DIR/hcxtools" && make -j"$(nproc)" install >> "$LOGFILE" 2>&1 || true
+        (cd "$INSTALL_DIR/hcxtools" && make -j"$(nproc)" install >> "$LOGFILE" 2>&1) || warn "hcxtools build failed"
     fi
 
     # Bettercap (already in network, but re-confirm)
@@ -637,7 +640,7 @@ install_forensics() {
     # Volatility 3
     if ! command -v vol3 &>/dev/null && ! command -v volatility3 &>/dev/null; then
         git_clone_tool "volatility3" "https://github.com/volatilityfoundation/volatility3.git"
-        pip3 install -q -r "$INSTALL_DIR/volatility3/requirements.txt" >> "$LOGFILE" 2>&1
+        pip3 install -q --break-system-packages -r "$INSTALL_DIR/volatility3/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Volatility3 requirements install failed"
         make_symlink "vol3" "$INSTALL_DIR/volatility3/vol.py"
     fi
 
@@ -646,12 +649,14 @@ install_forensics() {
         info "Downloading Ghidra…"
         GHIDRA_VER="11.1.2"
         GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20240709.zip"
-        curl -qs -L "$GHIDRA_URL" -o /tmp/ghidra.zip >> "$LOGFILE" 2>&1 \
-            && unzip -q /tmp/ghidra.zip -d /opt/ >> "$LOGFILE" 2>&1 \
-            && mv /opt/ghidra_${GHIDRA_VER}_PUBLIC /opt/ghidra 2>/dev/null || true \
-            && ln -sf /opt/ghidra/ghidraRun /usr/local/bin/ghidra \
-            && ok "Ghidra installed to /opt/ghidra" \
-            || warn "Ghidra download failed — install manually from https://ghidra-sre.org"
+        if curl -qs -L "$GHIDRA_URL" -o /tmp/ghidra.zip >> "$LOGFILE" 2>&1 \
+            && unzip -q /tmp/ghidra.zip -d /opt/ >> "$LOGFILE" 2>&1; then
+            mv /opt/ghidra_${GHIDRA_VER}_PUBLIC /opt/ghidra 2>/dev/null || true
+            ln -sf /opt/ghidra/ghidraRun /usr/local/bin/ghidra
+            ok "Ghidra installed to /opt/ghidra"
+        else
+            warn "Ghidra download failed — install manually from https://ghidra-sre.org"
+        fi
         rm -f /tmp/ghidra.zip
     else
         ok "Ghidra already installed"
@@ -750,7 +755,7 @@ install_hardware() {
 
     # ChipWhisperer
     git_clone_tool "chipwhisperer" "https://github.com/newaetech/chipwhisperer.git"
-    pip3 install -q -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
+    pip3 install -q --break-system-packages -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
         && ok "ChipWhisperer installed" || warn "ChipWhisperer install failed"
 
     # Bus Pirate scripts / pyserial tools
