@@ -699,7 +699,7 @@ install_forensics() {
         apt)
             pkg_install autopsy sleuthkit binwalk foremost \
                         binutils file libimage-exiftool-perl testdisk \
-                        radare2 gdb ltrace strace pwndbg \
+                        radare2 gdb ltrace strace \
                         hexedit xxd \
                         apktool yara scalpel
             ;;
@@ -775,20 +775,27 @@ install_forensics() {
             && ok "Volatility3 installed" || warn "Volatility3 install failed"
     fi
 
-    # pwndbg — GDB plugin (no standalone binary); command -v always fails even when installed
-    # Check the package manager's records instead; git fallback if not found
+    # pwndbg — GDB plugin (no standalone binary); try pkg mgr first, git clone fallback
+    # Handled inline (not via pkg_install) so SKIPPED only fires if everything fails
     if [[ "$PKG_MGR" == "apt" ]] && ! dpkg -l pwndbg 2>/dev/null | grep -q '^ii'; then
-        git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
-        bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed" || warn "pwndbg setup failed"
+        if apt-get install -y -qq pwndbg >> "$LOGFILE" 2>&1; then
+            ok "pwndbg installed via apt"
+        else
+            git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
+            bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
+                && ok "pwndbg installed via git" \
+                || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
+        fi
     elif [[ "$PKG_MGR" == "pacman" ]] && ! pacman -Q pwndbg &>/dev/null 2>&1; then
         git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
         bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed" || warn "pwndbg setup failed"
+            && ok "pwndbg installed via git" \
+            || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
     elif [[ "$PKG_MGR" == "dnf" ]]; then
         git_clone_tool "pwndbg" "https://github.com/pwndbg/pwndbg.git"
         bash "$INSTALL_DIR/pwndbg/setup.sh" >> "$LOGFILE" 2>&1 \
-            && ok "pwndbg installed" || warn "pwndbg setup failed"
+            && ok "pwndbg installed via git" \
+            || { warn "pwndbg install failed"; SKIPPED_TOOLS+=("pwndbg"); }
     fi
 
     # Ghidra (if not installed via package manager)
@@ -831,15 +838,13 @@ install_defense() {
 
     case "$PKG_MGR" in
         apt)
-            # zeek is in Kali repos; silently skipped on Ubuntu/Debian where it's absent
-            pkg_install snort suricata zeek fail2ban \
+            pkg_install snort suricata fail2ban \
                         auditd aide rkhunter chkrootkit lynis \
                         clamav clamav-daemon ufw iptables-persistent \
                         logwatch logcheck rsyslog
             ;;
         pacman)
-            # zeek is in BlackArch; gracefully skipped on standard Arch/Manjaro without it
-            pkg_install snort suricata zeek fail2ban \
+            pkg_install snort suricata fail2ban \
                         audit aide rkhunter lynis \
                         clamav ufw iptables
             ;;
@@ -850,11 +855,18 @@ install_defense() {
             ;;
     esac
 
-    # Zeek — in Kali apt and BlackArch (installed above); note for other distros
-    # Only add to SKIPPED for non-apt systems (apt's pkg_install already added it on failure)
+    # Zeek — try pkg mgr inline (not via pkg_install) so SKIPPED only fires on genuine failure
     if ! command -v zeek &>/dev/null; then
-        info "Zeek not available on this distro — see https://zeek.org/get-zeek/"
-        [[ "$PKG_MGR" != "apt" ]] && SKIPPED_TOOLS+=("zeek")
+        _zeek_ok=false
+        if [[ "$PKG_MGR" == "apt" ]] && apt-get install -y -qq zeek >> "$LOGFILE" 2>&1; then
+            ok "zeek installed via apt"; _zeek_ok=true
+        elif [[ "$PKG_MGR" == "pacman" ]] && pacman -S --noconfirm --needed zeek >> "$LOGFILE" 2>&1; then
+            ok "zeek installed via pacman"; _zeek_ok=true
+        fi
+        if ! $_zeek_ok; then
+            info "Zeek not available on this distro — see https://zeek.org/get-zeek/"
+            SKIPPED_TOOLS+=("zeek")
+        fi
     fi
 
     # OSSEC-HIDS — interactive installer; manual setup required
