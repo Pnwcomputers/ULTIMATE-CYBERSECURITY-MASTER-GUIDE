@@ -66,6 +66,10 @@
 #       adds itself. Previously, a missing repo produced two identical
 #       opaque apt failures (initial install + purge/retry) before dying.
 #       Now it fails immediately with a message pointing at the real cause.
+#     - Phase 4.0 (new): Runs `dpkg --configure -a` and `apt-get -f install`
+#       before any installs in this phase, self-healing an interrupted dpkg
+#       state (killed process, dropped session, prior failed run) that would
+#       otherwise cause confusing, unrelated-looking apt-get failures.
 
 set -uo pipefail
 
@@ -556,6 +560,15 @@ phase_kali_tools() {
 
 phase_aio() {
     header "Phase 4/6: Install aiov2_ctl and the HackerGadgets AIO board package"
+
+    # 4.0 — Self-heal dpkg/apt state before attempting any installs in this phase.
+    # An interrupted dpkg run (killed process, dropped SSH session, prior failed
+    # attempt) leaves packages half-configured, which makes every apt-get install
+    # in this phase fail with confusing errors unrelated to their actual cause.
+    # This is safe to run unconditionally — a no-op when dpkg/apt are already clean.
+    info "4.0 — Ensuring dpkg/apt are in a clean state before installing"
+    run "dpkg --configure -a"
+    run "apt-get -f install -y"
 
     # 4.1 — aiov2_ctl
     info "4.1 — Installing aiov2_ctl from upstream git"
