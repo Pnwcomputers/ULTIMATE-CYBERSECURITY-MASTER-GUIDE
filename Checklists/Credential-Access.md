@@ -1,5 +1,7 @@
 # Credential Access
 _Credential theft and harvesting techniques mapped to MITRE ATT&CK technique IDs, for red team engagements and blue team detection engineering. Source: Pentest Laboratories._
+###🛠️ Related scripts: [Scripts/PowerShell/cred_hunt.ps1](../Scripts/PowerShell/cred_hunt.ps1) · [Scripts/PowerShell/localbrute.ps1](../Scripts/PowerShell/localbrute.ps1) · [Scripts/PowerShell/smblogin.ps1](../Scripts/PowerShell/smblogin.ps1)
+---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |CA-001   |[Password Filter DLL](https://pentestlab.blog/2020/02/10/credential-access-password-filter-dll/)|[T1556.002](https://attack.mitre.org/techniques/T1556/002/)|
