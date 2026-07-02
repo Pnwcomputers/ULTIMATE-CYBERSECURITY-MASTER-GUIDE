@@ -8,6 +8,7 @@ _Exchange Server attack techniques covering authentication abuse, post-compromis
 **Goal:** Determine whether Exchange is a stepping stone to full domain compromise rather than an isolated mail-server risk. The ACL-abuse and domain-escalation items in particular test for a specific, well-documented misconfiguration (excessive Exchange group permissions) that many organizations still haven't remediated even after Microsoft's post-2019 guidance to tighten it.
  
 **When & how to use this:** Run against on-premises Exchange deployments specifically — this checklist doesn't apply to Exchange Online/Microsoft 365, which has a completely different permission model and attack surface. Start with authentication-layer items (password spraying, NTLM relay) during external/perimeter testing; the post-compromise and domain-escalation items apply once you already have some level of Exchange access and are testing how far that access extends into AD.
+
 ---
 * [ME-001 - Password Spraying](https://pentestlab.blog/2019/09/05/microsoft-exchange-password-spraying/)
 * [ME-002 - NTLM Relay](https://pentestlab.blog/2019/09/09/microsoft-exchange-ntlm-relay/)
