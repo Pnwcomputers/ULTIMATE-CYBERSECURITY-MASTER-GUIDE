@@ -1,6 +1,15 @@
 # Lateral Movement
 _Techniques for moving between systems within a compromised network, mapped to MITRE ATT&CK where applicable. Source: Pentest Laboratories._
-### 📖 Full deep-dive: 
+
+**Purpose:** Covers moving from one compromised host to another within a network — the connective tissue between "I own one machine" and "I control the domain." Each item is a distinct protocol or mechanism for remote code execution using credentials or tickets already obtained, ranging from decades-old (Services/PsExec-style) to very recent (BitLocker COM hijacking, disclosed in 2025).
+ 
+**Function:** Entries fall into a few families: service-based (Services, WinRM, RDP — legitimate remote administration protocols used with valid or stolen credentials), Kerberos-based (Kerberoast, AS-REP Roast — recover crackable ticket material that then enables movement), and living-off-the-land/protocol-abuse (WMI, WebClient, Visual Studio DTE, BitLocker — abuse a specific feature's remote-trigger capability rather than a purpose-built admin protocol). The mix matters: the more "administrative" a technique looks (RDP, WinRM), the more likely it's logged and alerted on; the more obscure (BitLocker COM hijacking), the more likely it evades existing detection rules simply because nobody's written one yet.
+ 
+**Goal:** Determine how far a single compromised credential or host can propagate through a network, and specifically whether that propagation is visible to existing monitoring. This checklist doubles as a detection-coverage test: for each technique, "would our SOC see this" is the real question being answered, not just "does this technique work."
+ 
+**When & how to use this:** Use once you have valid credentials or tickets from a [Credential Access](./Credential-Access.md) or [Domain Escalation](./Domain-Escalation.md) step and need to reach additional hosts — start with whichever technique matches the credential type you actually have (NTLM hash → pass-the-hash via Services/WinRM; Kerberos ticket → ticket-based movement) rather than working the list in order. Pair with [Tradecraft/network-detection.md](../Tradecraft/network-detection.md) if you're testing detection coverage rather than pure offense.
+
+#### 📖 Full deep-dive: 
 - [Tradecraft/active-directory.md](../Tradecraft/active-directory.md) (Kerberos/AD-based movement)
 - [Tradecraft/network-detection.md](../Tradecraft/network-detection.md) (detection side)
 
