@@ -1,5 +1,5 @@
 # Active Directory
-_Active Directory attack techniques for red team engagements — golden tickets, skeleton keys, DCShadow, and related AD abuse primitives. Source: Pentest Laboratories (pentestlab.blog)._
+_Active Directory attack techniques for red team engagements; ie golden tickets, skeleton keys, DCShadow, and related AD abuse primitives. Source: Pentest Laboratories (pentestlab.blog)._
 
 * [AD-001 - Golden Ticket](https://pentestlab.blog/2018/04/09/golden-ticket/)
 * [AD-002 - Skeleton Key](https://pentestlab.blog/2018/04/10/skeleton-key/)
