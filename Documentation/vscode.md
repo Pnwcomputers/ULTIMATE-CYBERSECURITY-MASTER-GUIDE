@@ -2,6 +2,20 @@
 
 Visual Studio Code (VS Code) is the industry standard for modern software development. Whether you are building web applications, writing Python scripts, or managing embedded systems, a properly configured VS Code environment will exponentially increase your productivity.
 
+## 🎯 Purpose
+A one-time setup guide to take a bare VS Code install to a fully-configured workstation covering general software development, GitHub integration, embedded/microcontroller development, and AI-assisted coding — the baseline environment referenced elsewhere in this repo (e.g., `arduinoIDE.md`) rather than a language-specific guide.
+
+## ⚙️ Function
+Five sequential setup steps: core editor settings (autosave, format-on-save), general-purpose extensions (formatting, error highlighting, language packs), GitHub integration (PRs/Issues, GitLens), embedded development via PlatformIO, and an optional AI assistant layer (Copilot, Gemini Code Assist, Claude Code, Cline).
+
+## 🏆 Goal
+Get a new machine from a fresh VS Code install to a fully productive dev environment in one pass, without needing to rediscover the same dozen extensions and settings tweaks every time.
+
+## 📋 When to Use
+- Setting up a new development machine or VM
+- Onboarding — hand this to anyone joining a project as the baseline environment doc
+- Adding embedded/microcontroller support to an existing VS Code install (Step 4), which pairs with `arduinoIDE.md` in this same folder
+
 ## Step 1: Base Installation and Core Settings
 
 Before adding extensions, optimize the core editor for a better developer experience.
