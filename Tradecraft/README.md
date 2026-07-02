@@ -57,6 +57,7 @@ These references are structured for **dual-use** — each file covers both offen
 
 ## Related Sections
 
+- [`/Checklists`](../Checklists/) — Quick-reference attack checklists that pair with these deep dives
 - [`/HardwareHacking`](../HardwareHacking/) — Physical and embedded device attacks
 - [`/Scripts`](../Scripts/) — Offensive scripts, payloads, and automation tools
 - [`/Documentation`](../Documentation/) — Tool references and field guides
