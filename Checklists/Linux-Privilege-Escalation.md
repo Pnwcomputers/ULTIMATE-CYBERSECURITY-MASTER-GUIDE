@@ -1,5 +1,7 @@
 # Linux Privilege Escalation
 _Common Linux local privilege escalation vectors._
+#### 📄 PDF reference: [Linux_Privilege_Escalation.pdf](../PDF/Linux_Privilege_Escalation.pdf)
+---
 * [LPE-01 - Dirty Cow](https://dirtycow.ninja/)
 * [LPE-02 - SUID Executables](https://pentestlab.blog/2017/09/25/suid-executables/)
 * [LPE-03 - Sudo Users](https://gtfobins.github.io/gtfobins/sudo/)
