@@ -155,32 +155,25 @@ Layer 5: Data Security
 ### Recommended Operating Systems (From Your Notion)
 
 #### For Offensive Security:
-```bash
-# Kali Linux - Primary offensive OS
-wget https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-virtualbox-amd64.7z
 
-# BlackArch - Alternative with 2500+ tools
-# Based on Arch Linux
-curl -O https://blackarch.org/ova/blackarch-linux-2024.iso
+- **Kali Linux** — Primary offensive OS
+  Official download page (always current release, checksums, mirrors): https://www.kali.org/get-kali/
 
-# Parrot Security OS
-# Lightweight alternative to Kali
-wget https://download.parrot.sec/parrot/iso/5.3/Parrot-security-5.3_amd64.iso
-```
+- **BlackArch** — Alternative with 2800+ tools, based on Arch Linux
+  Official downloads page (Full/Slim/Netinstall ISO, OVA, mirrors, checksums): https://blackarch.org/downloads.html
+
+- **Parrot Security OS** — Lightweight alternative to Kali
+  Official download page: https://parrotsec.org/download/
 
 #### For OSINT Investigations:
-```bash
-# Buscador OSINT VM (IntelTechniques)
-# Custom Ubuntu with pre-configured OSINT tools
-# Download from: inteltechniques.com/buscador
 
-# Trace Labs OSINT VM
-wget https://www.tracelabs.org/initiatives/osint-vm
+- **IntelTechniques OSINT VM** (formerly "Buscador")
+  Custom Debian/Ubuntu build with pre-configured OSINT tools, maintained by Michael Bazzell/David Westcott.
+  Official page: https://inteltechniques.com/buscador/
+  Follow the setup instructions on that page directly — don't hardcode credentials into install URLs; they end up in shell history and logs.
 
-# OSINT VM Automated Setup Script:
-wget https://uvm:317@inteltechniques.com/osintvm/install.sh
-chmod +x install.sh && ./install.sh
-```
+- **Trace Labs OSINT VM**
+  Official GitHub Releases (OVA downloads + SHA256 checksums): https://github.com/tracelabs/tlosint-vm/releases
 
 #### For General Purpose:
 - **Debian** - Stable, security-focused
