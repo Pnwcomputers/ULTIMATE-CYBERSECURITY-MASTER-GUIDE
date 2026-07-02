@@ -1,4 +1,4 @@
-# Windows Build Review Checklist
+# Windows Build Review
 _Host-level configuration review checklist for Windows build/hardening assessments. No item in this list has an individual write-up in the original source material — every item links to the CIS Microsoft Windows Benchmarks (★ general reference), the industry-standard hardening baseline that covers all 22 of these review areas in one place._
 
 **Purpose:** A configuration-review (not exploitation) checklist for auditing a single Windows host's build against baseline hardening expectations — the kind of assessment done against a "gold image" before mass deployment, or against an existing production host to establish its current security posture. This is fundamentally different in character from the attack-technique checklists elsewhere in this repo: there's no exploit to run here, only configuration to inspect and compare against a known-good baseline.
