@@ -1,5 +1,5 @@
 # Persistence
-
+_Windows persistence techniques mapped to MITRE ATT&CK, covering registry, service, scheduled task, and application-based persistence mechanisms. Source: Pentest Laboratories._
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |PE-001   |[Winlogon Helper DLL](https://pentestlab.blog/2020/01/14/persistence-winlogon-helper-dll/)|[T1547.004](https://attack.mitre.org/techniques/T1547/004/)|
@@ -38,9 +38,33 @@
 |PE-034   |[DLL Proxy Loading](https://pentestlab.blog/2024/04/03/persistence-dll-proxy-loading/)|N/A|
 |PE-035   |[Windows Telemetry](https://pentestlab.blog/2023/11/06/persistence-windows-telemetry/)|N/A|
 |PE-036   |[Scheduled Task Tampering](https://pentestlab.blog/2023/11/20/persistence-scheduled-task-tampering/)|N/A|
-|PE-037   |Junction Folder|N/A|
-|PE-038   |Library Files|N/A|
+|PE-037   |[Junction Folder](https://www.countercept.com/blog/hunting-for-junction-folder-persistence/)|N/A|
+|PE-038   |[Library Files](https://www.countercept.com/blog/abusing-windows-library-files-for-persistence/)|N/A|
 |PE-039   |[Disk Clean-up](https://pentestlab.blog/2024/01/29/persistence-disk-clean-up/)|N/A|
 |PE-040   |[Windows Setup Script](https://pentestlab.blog/2024/02/05/persistence-windows-setup-script/)|N/A|
 |PE-041   |[Visual Studio Code Extensions](https://pentestlab.blog/2024/03/04/persistence-visual-studio-code-extensions/)|N/A|
 |PE-042   |[Explorer](https://pentestlab.blog/2024/03/05/persistence-explorer/)|N/A|
+
+---
+
+<div align="center">
+
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
+
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
