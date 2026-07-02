@@ -130,6 +130,8 @@ This PDF library serves as:
 - AD_Attacks_.pdf - Attack vectors and techniques
 - AD_Post_Exploitation.pdf - Post-compromise operations
 
+**Quick-reference checklists:** [Active Directory](../Checklists/ActiveDirectory.md) · [Domain Escalation](../Checklists/Domain-Escalation.md) · [Domain Persistence](../Checklists/Domain-Persistence.md)
+
 **Use Cases:**
 - Internal penetration testing
 - Red team operations
