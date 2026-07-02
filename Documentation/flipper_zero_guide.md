@@ -1,5 +1,5 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
-### *For authorized IT and penetration testing use only*
+### *For Authorized IT and Prior-Authorized Penetration Testing Use Only*
 
 ---
 
