@@ -1,7 +1,5 @@
 # Active Directory
-
-_Active Directory attack techniques for red team engagements; ie. golden tickets, skeleton keys, DCShadow, and related AD abuse primitives. Source: Pentest Laboratories (pentestlab.blog)._
-
+_Active Directory attack techniques for red team engagements — golden tickets, skeleton keys, DCShadow, and related AD abuse primitives. Source: Pentest Laboratories (pentestlab.blog)._
 * [AD-001 - Golden Ticket](https://pentestlab.blog/2018/04/09/golden-ticket/)
 * [AD-002 - Skeleton Key](https://pentestlab.blog/2018/04/10/skeleton-key/)
 * [AD-003 - DCShadow](https://pentestlab.blog/2018/04/16/dcshadow/)
@@ -11,13 +9,24 @@ _Active Directory attack techniques for red team engagements; ie. golden tickets
 
 ---
 
-📖 Use These Checklists Responsibly: Authorization is MANDATORY
-- Attack techniques are powerful - use them ethically and legally.
-- Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
+<div align="center">
 
-### Maintained by: [Pacific Northwest Computers](https://www.pacificnwcomputers.com/)
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
 
-* ⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
-* ⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
-* ⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
-* ⭐ Star this repo if you find it useful! ⭐
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
