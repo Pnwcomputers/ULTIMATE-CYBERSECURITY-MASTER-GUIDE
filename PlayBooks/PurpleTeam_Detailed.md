@@ -1,10 +1,22 @@
 # Purple Team Playbook (Detailed)
 
-## Purpose & Scope
-
-### Purpose:
+## 🎯 Purpose
 
 Bring Red-Team attack techniques and Blue-Team detections together in repeatable, measurable exercises—leveraging Python, PowerShell, Batch, and dedicated frameworks—to harden your environment against real adversaries.
+
+## ⚙️ Function
+
+A named-tool, enterprise-scale exercise framework: MITRE-mapped attack simulation (Atomic Red Team, Caldera, Metasploit), detection engineering (Sigma, YARA, OSQuery), hunting/visibility (Velociraptor, Falcon, Sysmon), network analysis (Zeek, Suricata), and formal exercise tracking/reporting (MITRE Engage, Jira, Splunk Phantom, TheHive). This is the **enterprise-tooled version** of `PurpleTeam_Simple.md` — same red/blue/purple collaboration model, but with the full toolchain and process workflow needed to run and report on exercises across an entire org.
+
+## 🏆 Goal
+
+Produce measurable, repeatable purple team exercises across the full attack lifecycle (initial access through cleanup) with defensible metrics and after-action reports suitable for tracking detection coverage improvement over time.
+
+## 📋 When to Use
+
+- Running formal, scheduled purple team exercises across an enterprise environment (not a single lab machine)
+- Needing to report exercise outcomes and detection-coverage metrics to security leadership
+- Coordinating exercises across multiple platforms (Windows, Linux, macOS, cloud) and control types (SIEM, EDR, network sensors, IAM, email gateways) simultaneously
 
 ### Scope:
 
