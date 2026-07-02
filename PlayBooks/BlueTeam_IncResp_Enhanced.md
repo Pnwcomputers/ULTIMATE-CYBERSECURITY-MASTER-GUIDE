@@ -1,10 +1,22 @@
 # Incident Response Playbook (Enhanced)
 
-## 1. Purpose & Scope
-
-### Purpose:
+## 🎯 Purpose
 
 Define standardized, repeatable processes—aligned to NIST SP 800-61 r2 and ISO/IEC 27035—for detecting, analyzing, containing, and recovering from security incidents.
+
+## ⚙️ Function
+
+The same seven-phase lifecycle as `BlueTeam_IncResp_Simple.md`, expanded with specific named tooling per role (Splunk ES/QRadar/Elastic, CrowdStrike Falcon, FTK Imager, Ghidra/IDA Pro, ServiceNow), explicit NIST SP 800-61 r2 / ISO 27035 framework alignment, and enterprise-scale assumptions (24×7 SOC, formal CMDB, dedicated forensic workstations).
+
+## 🏆 Goal
+
+Provide a framework-defensible incident response procedure suitable for organizations that need to demonstrate compliance alignment (audits, cyber insurance, regulatory review) alongside operational effectiveness — not just "what to do" but "what to do, mapped to the standard an auditor will ask about."
+
+## 📋 When to Use
+
+- Mature SOCs with a defined toolchain who need the specific-tool version rather than the generic quick-reference
+- Organizations that must demonstrate NIST SP 800-61 / ISO 27035 alignment for compliance, audit, or cyber insurance purposes
+- Enterprise incidents spanning multiple asset classes (endpoints, cloud workloads, OT) requiring formal role coordination
 
 ### Scope:
 
