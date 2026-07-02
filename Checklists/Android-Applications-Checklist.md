@@ -1,4 +1,4 @@
-# Android Mobile Application Checklist
+# Android Mobile Application
 
 **Purpose:** A first-pass triage checklist for reviewing an Android APK's client-side security posture before (or instead of) a full OWASP MASTG-scale assessment. It's narrower than MASTG by design — 8 items instead of MASTG's hundreds of test cases — aimed at catching the handful of mistakes that show up in the overwhelming majority of real-world mobile app pentests.
   
