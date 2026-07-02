@@ -1,5 +1,5 @@
 # Credential Access
-
+_Credential theft and harvesting techniques mapped to MITRE ATT&CK technique IDs, for red team engagements and blue team detection engineering. Source: Pentest Laboratories._
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |CA-001   |[Password Filter DLL](https://pentestlab.blog/2020/02/10/credential-access-password-filter-dll/)|[T1556.002](https://attack.mitre.org/techniques/T1556/002/)|
@@ -11,3 +11,27 @@
 |CA-007   |[Stored Credentials](https://pentestlab.blog/2017/04/19/stored-credentials/)|[T1552](https://attack.mitre.org/techniques/T1552/)|
 |CA-008   |[Golden Ticket](https://pentestlab.blog/2018/04/09/golden-ticket/)|[T1558.001](https://attack.mitre.org/techniques/T1558.001/)|
 |CA-009   |[Kerberoasting](https://pentestlab.blog/2018/06/12/kerberoast/)|[T1558.003](https://attack.mitre.org/techniques/T1558/003/)|
+
+---
+
+<div align="center">
+
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
+
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
