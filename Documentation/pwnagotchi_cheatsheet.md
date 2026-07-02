@@ -1,5 +1,19 @@
 
-## Pwnagotchi Commands and Configuration 🤖
+# Pwnagotchi Commands and Configuration 🤖
+
+## 🎯 Purpose
+Command reference for setting up, configuring, and operating a Pwnagotchi — an autonomous, AI-driven WPA handshake collector that runs unattended on a Raspberry Pi Zero W/2W. Distinct from [bjorn_pi.md](bjorn_pi.md), which is also an autonomous Pi tool but attacks network *services* (SSH/SMB/FTP/RDP/SQL), not WiFi.
+
+## ⚙️ Function
+Covers image flashing, `config.toml` tuning, systemd service management, plugin management, and handshake backup/cracking. Unlike the Marauder/Cardputer guides, there's no menu navigation — everything is config-file- and SSH-driven, since Pwnagotchi has no keyboard/screen input of its own beyond the e-Paper status display.
+
+## 🏆 Goal
+Get a Pwnagotchi from a blank SD card to an unattended, continuously-learning WPA handshake collector, and know how to pull captured handshakes off for cracking.
+
+## 📋 When to Use
+- Initial Pwnagotchi setup and config.toml tuning
+- Troubleshooting a Pwnagotchi that's stopped capturing or won't boot
+- Pulling handshakes off-device for offline cracking with aircrack-ng/hashcat
 
 ### Basic Setup
 
