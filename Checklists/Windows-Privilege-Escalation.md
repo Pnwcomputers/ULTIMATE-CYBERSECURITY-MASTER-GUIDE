@@ -1,5 +1,7 @@
 # Windows Privilege Escalation
 _Common Windows local privilege escalation vectors, from weak service permissions to kernel exploits. Source: Pentest Laboratories._
+#### 🛠️ Related scripts: [Scripts/PowerShell/system_enum.ps1](../Scripts/PowerShell/system_enum.ps1) · [Scripts/PowerShell/](../Scripts/PowerShell/)
+---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |WPE-01   |[Stored Credentials](https://pentestlab.blog/2017/04/19/stored-credentials/)|[NA](https://attack.mitre.org/)|
