@@ -178,6 +178,8 @@ This PDF library serves as:
 **Documents:**
 - Linux_Privilege_Escalation.pdf - Comprehensive guide
 
+**Quick-reference checklist:** [Linux Privilege Escalation](../Checklists/Linux-Privilege-Escalation.md)
+
 **Use Cases:**
 - Linux security assessments
 - Privilege escalation testing
@@ -828,6 +830,7 @@ We welcome high-quality PDF contributions from security professionals.
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
 - [🔍 OSINT Resources](../OSINT/README.md)
 - [✅ Security Checklists](../Checklists/README.md)
+- [💻 Security Scripts & Tools](../Scripts/README.md)
 - [📚 Documentation](../Documentation/README.md)
 - [🔒 OPSEC Guidelines](../OPSEC/README.md)
 
