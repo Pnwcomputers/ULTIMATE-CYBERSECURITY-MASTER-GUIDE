@@ -3,6 +3,22 @@
 
 ---
 
+## 🎯 Purpose
+Full field reference for the Flipper Zero itself — firmware selection, every radio/protocol subsystem (Sub-GHz, NFC, 125kHz RFID, IR, iButton, BadUSB, U2F, GPIO, BLE, WiFi via ESP32 dev board), and PNWC-specific pentest/IT-admin workflows. Where [evil_m5.md](evil_m5.md), [bruce_firmware.md](bruce_firmware.md), and [bjorn_pi.md](bjorn_pi.md) cover ESP32/Pi-based firmware projects, this file covers the Flipper Zero's own STM32-based hardware and official/community firmware ecosystem — a different device family entirely, though Appendix tables in the other three chapters cross-reference where the Flipper fits alongside them.
+
+## ⚙️ Function
+Nineteen sections organized by subsystem (one per radio/protocol), each with menu paths, supported protocols, and PNWC-specific workflow call-outs (physical access assessments, IT admin field triage, client security reviews). The WiFi section (13) requires the separate ESP32 WiFi Dev Board running Marauder firmware — the Flipper itself has no native WiFi radio, unlike the ESP32-based Cardputer devices in the other hardware chapters.
+
+## 🏆 Goal
+Equip a field technician or pentester to use every Flipper Zero subsystem correctly — from badge cloning to BadUSB deployment to WiFi handshake capture — and hand off a repeatable field-kit workflow for both offensive engagements and routine IT admin visits.
+
+## 📋 When to Use
+- Building or provisioning a Flipper Zero field kit (firmware choice, SD card layout, app catalog)
+- Mid-engagement reference for a specific subsystem's menu path or protocol support
+- IT admin site visits needing fast system triage (Section 16) without carrying a laptop
+
+---
+
 > ⚠️ **Legal Disclaimer**: All techniques in this guide are for use only on systems and devices you own or have **explicit written authorization** to test. Unauthorized interception, cloning, or access of wireless signals, access control systems, or computer systems violates the Computer Fraud and Abuse Act (CFAA), the Electronic Communications Privacy Act (ECPA), and applicable state laws. PNWC accepts no liability for misuse of the information contained herein.
 
 ---
