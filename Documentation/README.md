@@ -1,4 +1,19 @@
 # 📚 Technical Documentation
+
+## 🎯 Purpose
+Index and navigation hub for all documentation in the `Documentation/` directory — covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
+
+## ⚙️ Function
+Catalogs 22+ documents by category with descriptions and links, explains the documentation conventions, provides usage guidance for security professionals, IT administrators, and students, and lists related directories (Homelab, OSINT) within the master guide.
+
+## 🏆 Goal
+Enable readers to quickly find the right documentation file for their current task — whether that's a wireless engagement, OSINT operation, lab setup, or scripting reference — without browsing the entire directory.
+
+## 📋 When to Use
+- Starting point for any Documentation/ section: find the right file for your current task
+- Onboarding new team members to the repo structure
+- Checking what documentation exists before writing a new guide (avoid duplication)
+
 Comprehensive technical documentation, guides, and reference materials for cybersecurity operations
 
 Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
@@ -176,7 +191,6 @@ We welcome contributions from security professionals and researchers.
 
 ## 🔨 Future Documents (Coming Soon)
 * **Architecture:** Zero Trust, DMZ Design, Security Architecture.
-* **References:** Port Numbers, Regex Patterns, HTTP Status Codes.
 
 ---
 **Use This Knowledge Responsibly: Always Obtain Authorization**

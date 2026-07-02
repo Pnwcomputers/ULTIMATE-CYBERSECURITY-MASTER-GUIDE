@@ -1,5 +1,20 @@
 # 📖 Security & Networking Reference Guide
 
+## 🎯 Purpose
+Quick-reference tables for port numbers (well-known, registered, dynamic), HTTP status codes, and regex patterns used in cybersecurity operations, penetration testing, network administration, and log analysis.
+
+## ⚙️ Function
+Three main reference tables: (1) Port numbers organized by service category (file transfer, email, web, database, remote access, security tools, IoT); (2) HTTP status codes by class (2xx success, 3xx redirect, 4xx client error, 5xx server error); (3) Regex patterns for IPs, emails, URLs, credentials, file paths, and common attack signatures.
+
+## 🏆 Goal
+Provide a single-file lookup for the most commonly needed port/protocol/regex facts during security assessments — eliminating the need to search IANA tables or MDN docs mid-engagement.
+
+## 📋 When to Use
+- Writing Nmap or Nessus scan filters requiring specific port ranges
+- Interpreting HTTP response codes in web application pen testing
+- Building Suricata/Zeek rules using regex patterns for credential or attack detection
+- Quick lookup during log analysis or incident response triage
+
 Quick-reference tables for port numbers, HTTP status codes, and regex patterns commonly used in cybersecurity operations, penetration testing, and network administration.
 
 Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
@@ -480,4 +495,9 @@ This reference material is provided for educational purposes, authorized securit
 * **Status:** Active & Growing
 
 ---
+## Related Files
+- [wireshark.md](wireshark.md) — Wireshark filter reference; pairs with port numbers table for targeted captures
+- [LinuxCheatSheet.md](LinuxCheatSheet.md) — Linux networking commands that reference the same ports listed here
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Uses port/protocol knowledge for identifying captured traffic types
+
 **Use This Knowledge Responsibly: Always Obtain Authorization**
