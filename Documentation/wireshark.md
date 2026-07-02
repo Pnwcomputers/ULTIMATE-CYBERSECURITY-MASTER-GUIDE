@@ -1,6 +1,22 @@
 
 # 🦈 Wireshark Filters Reference
 
+## 🎯 Purpose
+Comprehensive Wireshark display and capture filter reference for network analysis, security operations, threat hunting, and protocol-specific capture (Bluetooth/BLE, Zigbee, WiFi, remote SSH streaming).
+
+## ⚙️ Function
+Organized by filter type: core protocol filters, port-based filters, IP/subnet filters, TCP flag and state analysis, security/threat detection patterns, noise reduction, remote SSH-to-Wireshark streaming, BLE/Bluetooth capture, Zigbee, MikroTik RouterOS sniffer, OpenWRT/tcpdump, and ready-to-paste starter filter sets for common scenarios.
+
+## 🏆 Goal
+Serve as a field reference for copy-paste-ready Wireshark filters during live network analysis, security assessments, and lab exercises — reducing time spent looking up syntax during active captures.
+
+## 📋 When to Use
+- Live packet analysis during penetration tests or incident response
+- Analyzing brute-force/exfiltration traffic from tools like Bjorn (blue-team detection)
+- Capturing and inspecting BLE, Bluetooth, or Zigbee traffic alongside hardware tools
+- Setting up remote captures from routers (MikroTik, OpenWRT) via SSH
+- Building Suricata/Zeek detection rules from real Wireshark captures
+
 <div align="center">
 
 **Complete Wireshark display and capture filter reference for network analysis and security operations**
@@ -700,6 +716,15 @@ Tips, caveats, hardware requirements
 ---
 
 <div align="center">
+
+## Related Files
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) — hcxpcapngtool for converting WiFi captures to Hashcat format; Wireshark for verifying the EAPOL frames
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng captures the .cap files that Wireshark can open and analyze
+- [bjorn_pi.md](bjorn_pi.md) — Bjorn's brute-force and exfiltration traffic is exactly what Wireshark blue-team exercises analyze
+- [evil_m5.md](evil_m5.md) — Evil-M5 EAPOL/deauth detection exercises benefit from parallel Wireshark verification
+- [python.md](python.md) — Python Scapy scripts generate traffic that Wireshark can inspect and validate
+
+---
 
 **🦈 Use Wireshark Responsibly: Always Obtain Authorization Before Capturing Traffic**
 

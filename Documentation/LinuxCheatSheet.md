@@ -1,5 +1,20 @@
 # 🐧 Linux Command Cheat Sheet and Reference
 
+## 🎯 Purpose
+Quick reference for common Linux system administration, networking, security auditing, and hardware interface commands — covering both Debian/Ubuntu (apt) and Arch/Manjaro (pacman/pamac) distributions, plus WSL2 differences.
+
+## ⚙️ Function
+Organized by domain: SSH/permissions, package management, diagnostics/system info, storage/filesystem, network configuration/scanning, service management, file operations, security tools, WSL2-specific, and hardware hacking commands. Each command includes its purpose and a plain-English explanation.
+
+## 🏆 Goal
+Serve as a field reference for security professionals and system administrators to quickly find the right command for Debian/Ubuntu or Arch/Manjaro systems without needing to search documentation.
+
+## 📋 When to Use
+- Day-to-day system administration on Kali, Ubuntu, Debian, Manjaro, or Arch
+- Quickly finding the right networking or security command during an engagement
+- WSL2 Linux environment configuration and troubleshooting
+- Hardware interface work (USB, serial, JTAG) requiring specific Linux commands
+
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ---
@@ -687,5 +702,11 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 - CTF (Capture The Flag) competitions
 
 ---
+
+## Related Files
+- [python.md](python.md) — Python scripting for security: socket programming, Scapy, ctypes/WinAPI automation
+- [wireshark.md](wireshark.md) — Wireshark filter reference for the network traffic you'll be capturing on Linux
+- [../HardwareHacking/Chapter2.md](../HardwareHacking/Chapter2.md) — Hardware interface fundamentals (UART, SPI, I2C, JTAG) accessed via Linux serial tools
+- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) — Automated installer for cybersecurity tools on Kali/Debian and Arch/Manjaro
 
 *Last Updated: 06-08-2026*
