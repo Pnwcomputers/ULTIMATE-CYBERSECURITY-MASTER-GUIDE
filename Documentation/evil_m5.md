@@ -1,12 +1,28 @@
 # The M5Cardputer & Evil-M5Project
 
+## 🎯 Purpose
+Technical guide for the M5Cardputer running Evil-M5Project firmware — a pocket-sized, keyboard-driven wireless security workstation for authorized WiFi penetration testing, captive portal attacks, and network reconnaissance.
+
+## ⚙️ Function
+Covers hardware specifications, firmware installation via M5Burner or Arduino IDE compilation, SD card preparation, UI navigation conventions, and module deep-dives: WiFi scanning, wardriving with GPS, deauthentication, evil twin captive portal, handshake capture, BadUSB, EAPOL/deauth detection, BLE device detection (Wall of Flipper, AirTag, skimmers), and the Reverse TCP Tunnel implant mode. Includes an 8-exercise closed-lab playbook and a blue-team attack/defense table.
+
+## 🏆 Goal
+Equip security professionals with a discreet, pocket-portable WiFi attack and detection platform for authorized red-team engagements, client demonstrations, and security training.
+
+## 📋 When to Use
+- WiFi security assessments requiring a low-profile tool (Cardputer on a lanyard is not a laptop)
+- Client demonstrations of evil twin attacks, deauthentication, and captive portal credential capture
+- Security awareness training: show clients their phone connecting to a rogue AP in real time
+- Wardriving and passive WiFi reconnaissance with GPS-tagged output
+- Defensive monitoring: detecting deauth floods, Flipper Zero BLE, Bluetooth skimmers
+
 > **Reader prerequisites.** This part of the repository assumes working familiarity with [802.11 frame types](https://en.wikipedia.org/wiki/802.11_frame_types) (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first; the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
 
 ---
 
 ## 1. Why this platform matters
 
-The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3?srsltid=AfmBOooLBeALilkbpo5fB3QyYeC2gRQnEKWKzC7j-703hDyGrUdELIxj) is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
+The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3) is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
 
 Loaded with the **[Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project)** firmware by [7h30th3r0n3](https://github.com/7h30th3r0n3), that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that; only a few years ago; required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
 
@@ -677,6 +693,16 @@ If any line is unchecked, the radio stays off.
 - Wall of Flipper concept: `https://github.com/K3YOMI/Wall-of-Flippers`
 - Reference reading on 802.11w / PMF: IEEE 802.11-2016 §11.11
 - Hashcat WPA cracking reference: `https://hashcat.net/wiki/doku.php?id=cracking_wpawpa2`
+
+---
+
+## Related Files
+- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero: complementary multi-radio tool (Sub-GHz, NFC, RFID, IR, iButton, BLE, BadUSB)
+- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: autonomous network-service attacker (pairs with Evil-M5 for RF + network-layer coverage)
+- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware: alternative to Evil-M5 on Cardputer with Sub-GHz, NFC, IR, and FM support
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — Marauder command reference (Marauder is a sibling firmware for the same ESP32 hardware)
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Converting captured .pcap files to Hashcat mode 22000 format for WPA2 cracking
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng for processing handshakes captured by Evil-M5
 
 ---
 

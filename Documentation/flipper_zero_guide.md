@@ -1,4 +1,21 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
+
+## 🎯 Purpose
+Field guide for the Flipper Zero multi-tool device covering all built-in radios and interfaces for authorized physical penetration testing, IT administration, and security assessment workflows.
+
+## ⚙️ Function
+Organized by hardware module: Sub-GHz radio, NFC (13.56 MHz), 125kHz RFID, Infrared, iButton, BadUSB, GPIO, Bluetooth, and WiFi via the ESP32 Dev Board. Covers firmware options (Official, Unleashed, Momentum, RogueMaster), initial setup, the full app catalog, pentesting and IT-admin workflows, and field kit integration with tools like HackRF, Bus Pirate, and ProxMark3.
+
+## 🏆 Goal
+Enable IT professionals and penetration testers to use the Flipper Zero effectively across the full range of physical security assessment tasks — from access control badge cloning to wireless handshake capture to BadUSB payload delivery.
+
+## 📋 When to Use
+- Physical access control assessments (125kHz RFID/NFC badge reading and cloning)
+- Wireless assessments (Sub-GHz fixed-code replay, WiFi handshake capture via Marauder)
+- USB HID attacks (BadUSB payloads) during authorized red-team engagements
+- IT admin console access to routers and switches via GPIO UART
+- Client security awareness demonstrations (BLE spam, IR disruption, unlocked workstation demos)
+
 ### *For authorized IT and penetration testing use only*
 
 ---
@@ -1396,6 +1413,18 @@ list -s       List scanned stations
 clearlist -a  Clear AP list
 clearlist -s  Clear station list
 ```
+
+---
+
+## Related Files
+- [evil_m5.md](evil_m5.md) — M5Cardputer with Evil-M5Project: complementary ESP32-based WiFi attack tool
+- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: network-service brute-force and exfiltration tool (network layer vs. Flipper's RF layer)
+- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware alternative for Cardputer: multi-radio (Sub-GHz, NFC, IR, BLE, FM)
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32 Marauder cheat sheet (the firmware running on Flipper's WiFi Dev Board)
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) — Full Marauder guide for WiFi pentesting workflows
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Converting Marauder .pcap captures to Hashcat format and cracking WPA2
+- [../HardwareHacking/BusPirate.md](../HardwareHacking/BusPirate.md) — Bus Pirate 5: deep hardware interface tool that complements Flipper's GPIO work
+- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) — Hardware hacking foundations (UART, SPI, I2C, JTAG)
 
 ---
 
