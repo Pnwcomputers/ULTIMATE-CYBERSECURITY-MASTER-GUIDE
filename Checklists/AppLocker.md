@@ -1,6 +1,9 @@
 # AppLocker Bypass
 _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Windows application whitelisting assessments. Source: Pentest Laboratories._
-📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+### 📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+
+---
+
 * [AL-01 - InstallUtil](https://pentestlab.blog/2017/05/08/applocker-bypass-installutil/)
 * [AL-02 - Regsvr32](https://pentestlab.blog/2017/05/11/applocker-bypass-regsvr32/)
 * [AL-03 - Regasm and Regsvcs](https://pentestlab.blog/2017/05/19/applocker-bypass-regasm-and-regsvcs/)
