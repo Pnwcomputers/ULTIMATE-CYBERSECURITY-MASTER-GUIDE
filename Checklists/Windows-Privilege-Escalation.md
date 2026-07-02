@@ -1,7 +1,5 @@
 # Windows Privilege Escalation
-
 _Common Windows local privilege escalation vectors, from weak service permissions to kernel exploits. Source: Pentest Laboratories._
-
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |WPE-01   |[Stored Credentials](https://pentestlab.blog/2017/04/19/stored-credentials/)|[NA](https://attack.mitre.org/)|
@@ -23,13 +21,24 @@ _Common Windows local privilege escalation vectors, from weak service permission
 
 ---
 
-📖 Use These Checklists Responsibly: Authorization is MANDATORY
-- Attack techniques are powerful - use them ethically and legally.
-- Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
+<div align="center">
 
-### Maintained by: [Pacific Northwest Computers](https://www.pacificnwcomputers.com/)
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
 
-* ⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
-* ⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
-* ⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
-* ⭐ Star this repo if you find it useful! ⭐
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
