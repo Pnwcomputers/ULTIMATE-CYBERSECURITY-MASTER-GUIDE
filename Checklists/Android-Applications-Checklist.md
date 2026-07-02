@@ -1,5 +1,10 @@
 # Android Mobile Application Checklist
-_Mobile application security review checklist for Android apps. AMA-001, 002, and 008 link to specific pentestlab.blog write-ups. AMA-003 links to the specific OWASP MASTG test case. AMA-004 through AMA-007 link to the general OWASP MASTG guide (★ general reference — OWASP restructures individual test IDs periodically, so these point to the stable top-level guide rather than a specific page that could break)._
+*Mobile application security review checklist for Android apps:*
+- AMA-001, 002, and 008 link to specific pentestlab.blog write-ups.
+- AMA-003 links to the specific OWASP MASTG test case.
+- AMA-004 through AMA-007 link to the general OWASP MASTG guide
+- ★ General reference, OWASP restructures individual test IDs periodically, so these point to the stable top-level guide rather than a specific page that could break).
+---
 * [AMA-001 - Manifest File Review](https://pentestlab.blog/2017/01/24/security-guidelines-for-android-manifest-files/)
 * [AMA-002 - Insecure WebView Implementation](https://pentestlab.blog/2017/02/12/android-webview-vulnerabilities/)
 * [AMA-003 - Lack of Certificate Pinning](https://mas.owasp.org/MASTG/tests/android/MASVS-NETWORK/MASTG-TEST-0244/)
