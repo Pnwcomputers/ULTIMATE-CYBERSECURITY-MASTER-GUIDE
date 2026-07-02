@@ -52,8 +52,8 @@ This toolkit is designed for:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Pnwcomputers/osint-playbook.git
-cd osint-playbook
+git clone https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE.git
+cd ULTIMATE-CYBERSECURITY-MASTER-GUIDE/OSINT/Playbook
 ```
 
 ### 2. Install Dependencies
