@@ -1,7 +1,5 @@
 # AppLocker Bypass
-
 _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Windows application whitelisting assessments. Source: Pentest Laboratories._
-
 * [AL-01 - InstallUtil](https://pentestlab.blog/2017/05/08/applocker-bypass-installutil/)
 * [AL-02 - Regsvr32](https://pentestlab.blog/2017/05/11/applocker-bypass-regsvr32/)
 * [AL-03 - Regasm and Regsvcs](https://pentestlab.blog/2017/05/19/applocker-bypass-regasm-and-regsvcs/)
@@ -20,13 +18,24 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
 
 ---
 
-📖 Use These Checklists Responsibly: Authorization is MANDATORY
-- Attack techniques are powerful - use them ethically and legally.
-- Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
+<div align="center">
 
-### Maintained by: [Pacific Northwest Computers](https://www.pacificnwcomputers.com/)
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
 
-* ⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
-* ⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
-* ⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
-* ⭐ Star this repo if you find it useful! ⭐
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
