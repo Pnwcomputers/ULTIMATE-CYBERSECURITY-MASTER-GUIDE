@@ -1,5 +1,6 @@
 # Environment Breakout Checklist
 _Checklist for testing kiosk, thin-client, and restricted desktop environments for breakout to a full shell. No item in this list has an individual write-up in the original source material — every item links to the LOLBAS project (★ general reference), the standard living catalog of living-off-the-land binaries and techniques used for exactly this kind of restricted-environment breakout._
+📖 Companion deep-dive on the same LOLBins/LOLScripts: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
 * [EB-001 - Physical Security of the Device ★](https://lolbas-project.github.io/)
 * [EB-002 - Platform Identification and Version Software in Use ★](https://lolbas-project.github.io/)
 * [EB-003 - Enumeration of Windows Boxes Available ★](https://lolbas-project.github.io/)
