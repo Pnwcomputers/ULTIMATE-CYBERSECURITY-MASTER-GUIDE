@@ -71,7 +71,7 @@ The **Wiretap Act**, 18 U.S.C. § 2511, applies when Bjorn's network scanning ca
 
 The corollary, and the only safe operational posture:
 
-1. **Air-gapped or fully-isolated lab use only**, against intentionally vulnerable VMs you have provisioned for the purpose. Metasploitable2, Metasploitable3, DVWA, OWASP Broken Web Apps; these exist precisely so practitioners can learn attack tooling without breaking the law.
+1. **Air-gapped or fully-isolated lab use only**, against intentionally vulnerable VMs you have provisioned for the purpose. Metasploitable2, Metasploitable3, DVWA, and the vulnerable apps catalogued in the OWASP Vulnerable Web Applications Directory (successor to the retired OWASP Broken Web Apps project); these exist precisely so practitioners can learn attack tooling without breaking the law.
 2. **Documented and signed ROE that specifically enumerates authorized brute-force activity**; many ROEs that authorize "vulnerability scanning" do not authorize "credential brute force" or "data exfiltration." Bjorn does the latter two automatically. If the ROE doesn't say so explicitly, do not run Bjorn under it.
 3. **No "drive-by" deployment.** Once Bjorn is on a network, the operator has, by design, given up moment-to-moment control of what it attacks. The deployment location, the network it attaches to, and the time-bounded scope of its operation must all be enumerated in the ROE.
 
@@ -677,7 +677,7 @@ Ragnar is worth knowing about because:
   - Metasploitable2: `https://docs.rapid7.com/metasploit/metasploitable-2`
   - Metasploitable3: `https://github.com/rapid7/metasploitable3`
   - DVWA: `https://github.com/digininja/DVWA`
-  - OWASP Broken Web Apps: `https://owasp.org/www-project-broken-web-applications/`
+  - OWASP Broken Web Apps (BWA) is retired; its successor is the OWASP Vulnerable Web Applications Directory: `https://vwad.owasp.org/`
 - **CFAA full text:** `https://www.law.cornell.edu/uscode/text/18/1030`
 - **Stored Communications Act:** `https://www.law.cornell.edu/uscode/text/18/2701`
 - **Wiretap Act:** `https://www.law.cornell.edu/uscode/text/18/2511`
