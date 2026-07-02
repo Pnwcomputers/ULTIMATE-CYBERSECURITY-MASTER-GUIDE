@@ -43,7 +43,7 @@ Click the **Extensions** icon on the left sidebar (`Ctrl+Shift+X` / `Cmd+Shift+X
 
 VS Code has excellent built-in Git support, but you can turn it into a complete GitHub workstation.
 
-1. **[GitHub Pull Requests and Issues:](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions)** Install this official extension by GitHub. It allows you to review pull requests, comment on code, and manage issues directly within the editor without opening a browser.
+1. **[GitHub Pull Requests and Issues:](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)** Install this official extension by GitHub. It allows you to review pull requests, comment on code, and manage issues directly within the editor without opening a browser.
 2. **[GitLens — Git supercharged:](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)** An absolute must-have. It adds inline "blame" annotations (showing who last modified a line and when), a visual commit graph, and advanced file history exploration.
 3. **Authentication:** * Click the Accounts icon (bottom left profile icon).
    * Select **Sign in with GitHub to use GitHub Pull Requests and Issues**.
