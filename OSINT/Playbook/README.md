@@ -85,7 +85,7 @@ nano ~/.config/osint-investigator/api_keys.conf
 ## 📁 Directory Structure
 
 ```
-osint-playbook/
+OSINT/Playbook/
 ├── osint_investigator.sh      # Main playbook script
 ├── install_dependencies.sh     # Dependency installer
 ├── README.md                   # This file
@@ -93,8 +93,6 @@ osint-playbook/
 ├── .gitignore                  # Git ignore rules
 └── docs/
     ├── API_SETUP.md            # API configuration guide
-    ├── INVESTIGATION_GUIDE.md  # Investigation procedures
-    └── TOOLS_REFERENCE.md      # Tool documentation
 ```
 
 ### Case Directory Structure
@@ -446,17 +444,13 @@ Connect with your existing OSINT scripts:
 ## 📁 Complete File List
 
 ```
-osint-playbook/
+OSINT/Playbook/
 ├── osint_investigator.sh       # Main playbook (CLI menu)
 ├── web_interface.py            # Flask web UI
 ├── abuse_report_generator.sh   # Abuse report drafts
 ├── toolkit_integration.sh      # Connect existing scripts
 ├── install_dependencies.sh     # Dependency installer
 ├── example_api_keys.conf       # API key template
-├── README.md                   # This file
-├── .gitignore                  # Git ignore rules
-└── docs/
-    └── INVESTIGATION_GUIDE.md  # Detailed procedures
 ```
 
 ## 🚀 Quick Start
