@@ -1,5 +1,20 @@
 # Cybersecurity Virtual Machines and Lab Environments
 
+## 🎯 Purpose
+Reference catalog of purpose-built cybersecurity virtual machines and lab environments — covering privacy/anonymity OSes, OSINT VMs, penetration testing distributions, forensics workstations, malware analysis environments, and threat-hunting platforms.
+
+## ⚙️ Function
+Organized by use case category: Privacy and Anonymity (Tails, Whonix, Qubes), OSINT (Trace Labs, Buscador, Tsurugi), Penetration Testing (Kali, ParrotOS, BlackArch, Commando VM), Digital Forensics (SIFT, CAINE, CSI Linux), Reverse Engineering/Malware Analysis (FLARE-VM, REMnux), and Threat Hunting (Security Onion, RedHunt-OS). Also covers the Black Hat Bash Docker lab environment and Kali setup scripts (Pimp My Kali).
+
+## 🏆 Goal
+Provide a curated list of download links and use-case descriptions so security professionals can quickly select and deploy the right VM for a given task without researching from scratch.
+
+## 📋 When to Use
+- Setting up a new security lab or rebuilding an existing one
+- Selecting the appropriate specialized VM for a specific discipline (forensics vs. OSINT vs. red team)
+- Deploying the Black Hat Bash Docker lab for hands-on penetration testing practice
+- Configuring a privacy-focused environment (Tails/Whonix) for sensitive OSINT work
+
 ## Table of Contents
 
 - [Specialized Virtual Machines](#specialized-virtual-machines)
@@ -896,15 +911,21 @@ Most cybersecurity VMs have similar requirements:
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
 
-* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
-* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Testing:** Get **written permission** before testing any network or system. Only test systems you own or have explicit authorization to test.
+* **Lab Isolation:** Run vulnerable target VMs (Metasploitable, DVWA) in isolated networks with no route to production or the internet.
 * **Legal Compliance:** Strictly comply with all local laws and regulations.
 
 **Legal Use Cases:**
 * Penetration testing with client authorization.
-* Testing your own home or lab network security.
-* Security research in isolated lab environments.
+* Isolated lab environments with purpose-built vulnerable VMs.
+* Security research and training in controlled environments.
 
 ---
 
 **Unauthorized access to computer systems is illegal.** Always obtain proper authorization before conducting security testing on any systems you do not own.
+
+## Related Files
+- [TOR.md](TOR.md) — Tor Browser guide: used with Tails/Whonix OSINT VMs for anonymized investigations
+- [VPN.md](VPN.md) — Mullvad VPN guide: pairs with OSINT VMs for layered anonymity
+- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: requires isolated lab VMs (Metasploitable2/3) for authorized testing
+- [../Homelab/](../Homelab/) — Proxmox/TrueNAS homelab setup for hosting these VMs in a proper lab environment

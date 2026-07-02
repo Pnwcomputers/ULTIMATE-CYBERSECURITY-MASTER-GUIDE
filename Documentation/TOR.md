@@ -1,5 +1,21 @@
 # 🧅 Tor: Connection & Browser Guide
 
+## 🎯 Purpose
+Reference guide for deploying and operating Tor for anonymous network access — covering both Tor Browser (GUI) and the Tor daemon (system-level SOCKS5 proxy via port 9050) for OSINT investigations, anonymous reconnaissance, and privacy-sensitive incident response work.
+
+## ⚙️ Function
+Organized by deployment model: Tor Browser installation and hardening (security levels, about:config settings), Tor daemon setup and torrc configuration, proxychains integration for proxying any CLI tool, bridges and censorship circumvention (obfs4, Snowflake, meek-azure, WebTunnel), .onion service access and hosting, connection verification, and OPSEC checklists.
+
+## 🏆 Goal
+Establish reliable, anonymous network connectivity that prevents IP/DNS leaks, survives adversarial ISP environments, and provides documented OPSEC procedures for security professionals conducting authorized investigations.
+
+## 📋 When to Use
+- OSINT investigations requiring IP anonymity (run from a dedicated VM)
+- Accessing .onion services or SecureDrop instances
+- Proxying CLI security tools (theHarvester, amass, sqlmap) through Tor via proxychains
+- Circumventing Tor censorship with bridges
+- Combining with Mullvad VPN for VPN→Tor stacking
+
 This document covers both the **Tor daemon** (system-level, CLI) and **Tor Browser** (GUI) for use in OSINT investigations, anonymous reconnaissance, and privacy-sensitive incident response work.
 
 > **OPSEC Note**: Tor provides *anonymity*, not complete security. Combine with disciplined operational behavior. For OSINT work, always operate from a dedicated VM — never your daily-driver OS.
@@ -47,15 +63,17 @@ This document covers both the **Tor daemon** (system-level, CLI) and **Tor Brows
 **Method 1: Official tarball (recommended — always current)**
 
 ~~~bash
-# Download from official site
-wget https://www.torproject.org/dist/torbrowser/13.5.1/tor-browser-linux-x86_64-13.5.1.tar.xz
+# Download the LATEST version from: https://www.torproject.org/download/
+# Replace VERSION with the current release (e.g., 14.5 — check the site)
+VERSION="14.5"
+wget "https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux-x86_64-${VERSION}.tar.xz"
 
 # Verify signature (recommended)
 gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-gpg --verify tor-browser-linux-x86_64-13.5.1.tar.xz.asc
+gpg --verify "tor-browser-linux-x86_64-${VERSION}.tar.xz.asc"
 
 # Extract and launch
-tar -xvJf tor-browser-linux-x86_64-13.5.1.tar.xz
+tar -xvJf "tor-browser-linux-x86_64-${VERSION}.tar.xz"
 cd tor-browser/
 ./start-tor-browser.desktop
 ~~~
@@ -446,6 +464,11 @@ media.peerconnection.enabled         → false  (disables WebRTC — leak risk)
 | Tor metrics / relay list | https://metrics.torproject.org           |
 
 ---
+
+## Related Files
+- [VPN.md](VPN.md) — Mullvad VPN guide: VPN→Tor stacking, kill switch, DNS leak prevention
+- [virtualmachines.md](virtualmachines.md) — Recommended OSINT VMs (Tails, Whonix, Trace Labs VM) for isolated Tor usage
+- [../OSINT/](../OSINT/) — OSINT techniques that should be run from behind Tor or VPN
 
 *Last Updated: 2026-06-08*
 *Maintained by: Pacific Northwest Computers (PNWC)*

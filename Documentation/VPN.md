@@ -1,5 +1,21 @@
 # 🔒 VPN Security Guide
 
+## 🎯 Purpose
+Operational guide for VPN selection, configuration, and use by security professionals — focused on Mullvad VPN as the top recommendation, with coverage of kill switch setup, DNS leak prevention, multi-hop, split tunneling, browser hardening, and VPN+Tor stacking strategies.
+
+## ⚙️ Function
+Organized by use case: Mullvad app configuration and CLI commands, manual UFW-based kill switch, DNS leak prevention (systemd-resolved), multi-hop routing, Linux policy-based split tunneling, browser hardening (Firefox about:config, WebRTC), VPN→Tor and Tor→VPN stacking, and pre/during/post session operational checklists. Includes a VPN comparison table covering logging, jurisdiction, and open-source status.
+
+## 🏆 Goal
+Establish a verifiable, leak-free VPN posture for security operations — covering both routine OSINT work and penetration test recon where exit IP, DNS, and WebRTC leaks would compromise operational security.
+
+## 📋 When to Use
+- All OSINT investigations and penetration test recon (never from your home IP)
+- Any work on untrusted networks (client sites, hotels, conferences)
+- Hiding Tor usage from your ISP (VPN→Tor stack)
+- Bypassing Tor blocks on specific sites (Tor→VPN stack)
+- Incident response IOC lookups that must not tip off threat actors
+
 This guide covers VPN selection, configuration, operational usage, and integration with other privacy tools for both daily use and sensitive security work.
 
 > **For OSINT and penetration testing operations: ALWAYS use a third-party network. Never conduct security work from your home IP or client networks.**
@@ -613,6 +629,11 @@ print(f'ISP:         {d[\"organization\"]}')
 - **Audit reports**: https://mullvad.net/blog/tag/audit
 
 ---
+
+## Related Files
+- [TOR.md](TOR.md) — Tor Browser and daemon guide: VPN→Tor stacking, proxychains, .onion services
+- [virtualmachines.md](virtualmachines.md) — Privacy VMs (Tails, Whonix, Qubes) that integrate with or replace VPN-based anonymity
+- [../OSINT/](../OSINT/) — OSINT workflows requiring Mullvad or Tor→VPN for anonymity
 
 *Last Updated: 2026-06-08*
 *Maintained by: Pacific Northwest Computers (PNWC)*
