@@ -1,5 +1,18 @@
 # ⚡ WiFi Marauder (v1.8.9+) Cheat Sheet 📡
 
+## 🎯 Purpose
+On-device command/menu reference for the ESP32 Marauder firmware itself — the quick-lookup companion to [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md), which is the full deep-dive (hardware options, comparison tables, defensive strategies, OPSEC).
+
+## ⚙️ Function
+Menu-path reference organized by task (scan, capture, deauth, beacon spam, wardriving), followed by the post-capture Linux/Kali workflow for converting and cracking captured handshakes. Unlike `WiFiMarauder_Guide.md`, this file has no background/comparison content — it assumes you already own the hardware and just need the menu paths and cracking commands.
+
+## 🏆 Goal
+Go from "device in hand" to a captured PMKID/handshake file, cracked, without needing to page through the full guide.
+
+## 📋 When to Use
+- Mid-engagement, when you need the exact menu path for a Marauder feature without re-reading the full guide
+- Immediately after a capture, for the post-processing hashcat commands
+
 ### Basic Workflow: On-Device Capture
 
 The Marauder handles the packet capture and attack functions directly via its menu.
@@ -69,31 +82,31 @@ After capturing the `.pcapng` file on the Marauder's SD card, transfer it to a L
 
 **1. Convert Marauder PCAPNG to Hashcat Format**
 ```bash
--m 16800 is the mode for WPA-PMKID/EAPOL (HCX format)
+-m 22000 is the current unified mode for WPA-PMKID/EAPOL (replaces deprecated 16800); hcxpcaptool is deprecated, use hcxpcapngtool
 -o: output file, -E: create ESSID list for filtering
-hcxpcaptool -o marauder_hash.16800 -E essid_list.txt /path/to/marauder/capture.pcapng
+hcxpcapngtool -o marauder_hash.22000 -E essid_list.txt /path/to/marauder/capture.pcapng
 ```
 
 **2. WPA/WPA2/WPA3 Cracking with Hashcat**
 ### Dictionary attack against the converted hash file
 ```bash
-hashcat -m 16800 marauder_hash.16800 /path/to/wordlist.txt
+hashcat -m 22000 marauder_hash.22000 /path/to/wordlist.txt
 ```
 
 ### Hybrid attack (Wordlist + 4 digits at the end)
 ```bash
-hashcat -m 16800 marauder_hash.16800 wordlist.txt -a 6 ?d?d?d?d
+hashcat -m 22000 marauder_hash.22000 wordlist.txt -a 6 ?d?d?d?d
 ```
 
 ### Resume a previous session
 ```bash
-hashcat -m 16800 marauder_hash.16800 wordlist.txt --session=last_run --status
+hashcat -m 22000 marauder_hash.22000 wordlist.txt --session=last_run --status
 ```
 
 **3. File Analysis & Cleaning**
-### Show info on the captured file (ESSIDs, BSSIDs, packet counts)
+### Show info on the converted hash file, filtered to one ESSID (the legacy `hcxinfo` tool no longer exists — `hcxhashtool` is the current equivalent)
 ```bash
-hcxinfo -i /path/to/marauder/capture.pcapng
+hcxhashtool --info=stdout -i marauder_hash.22000 --essid=TargetSSID
 ```
 
 ### Merge multiple capture files before conversion
