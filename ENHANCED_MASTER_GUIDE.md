@@ -264,7 +264,7 @@ echo "[*] Installing custom tools..."
 cd ~/tools
 
 # Install LinPEAS and WinPEAS
-git clone https://github.com/carlospolop/PEASS-ng.git
+git clone https://github.com/peass-ng/PEASS-ng.git
 
 # Install PowerSploit
 git clone https://github.com/PowerShellMafia/PowerSploit.git
@@ -272,8 +272,8 @@ git clone https://github.com/PowerShellMafia/PowerSploit.git
 # Install Nishang
 git clone https://github.com/samratashok/nishang.git
 
-# Install privilege escalation awesome scripts
-git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
+# Install privilege escalation awesome scripts (Now merged into PEASS-ng)
+git clone https://github.com/peass-ng/PEASS-ng.git
 
 # Install PayloadsAllTheThings
 git clone https://github.com/swisskyrepo/PayloadsAllTheThings.git
@@ -4319,12 +4319,12 @@ msiexec /q /i LAPS.x64.msi
 Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
  
 # Rotate krbtgt (invalidates golden tickets)
-# https://github.com/microsoft/New-KrbtgtKeys.ps1
+# https://github.com/microsoftarchive/New-KrbtgtKeys.ps1
 # Must rotate TWICE, 10 hours apart
 ```
  
 **AD Assessment tools:**
-- [BloodHound](https://github.com/BloodHoundAD/BloodHound) — attack path mapping
+- [BloodHound](https://github.com/SpecterOps/BloodHound) — attack path mapping
 - [Pingcastle](https://www.pingcastle.com/) — free AD health/risk score
 - [Purple Knight](https://www.purple-knight.com/) — free AD security assessment
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
