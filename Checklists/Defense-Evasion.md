@@ -1,6 +1,9 @@
 # Defense Evasion
 _Techniques for evading detection and security controls during an engagement, mapped to MITRE ATT&CK. Currently a short list — expand as new techniques are added. Source: Pentest Laboratories._
-📖 Full deep-dive (AV/EDR evasion, detection artifacts, hardening): [Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md)
+### 📖 Full deep-dive (AV/EDR evasion, detection artifacts, hardening): [Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md)
+
+---
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |DE-001   |[Parent PID Spoofing](https://pentestlab.blog/2020/02/24/parent-pid-spoofing/)|[T1502](https://attack.mitre.org/techniques/T1502/)|
