@@ -463,8 +463,8 @@ osint-playbook/
 
 ```bash
 # 1. Clone/extract the toolkit
-git clone https://github.com/Pnwcomputers/osint-playbook.git
-cd osint-playbook
+git clone https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE.git
+cd ULTIMATE-CYBERSECURITY-MASTER-GUIDE/OSINT/Playbook
 
 # 2. Install dependencies
 sudo ./install_dependencies.sh --full
