@@ -2,6 +2,8 @@
 
 > **Scope:** Using legitimate Windows binaries, libraries, and scripts for offensive operations. Includes enumeration, execution, download, lateral movement, and detection/hunting guidance.
 
+✅ **Quick-reference checklists:** [AppLocker Bypass](../Checklists/AppLocker.md) · [Environment Breakout](../Checklists/Environment-Breakout-Checklist.md)
+
 ---
 
 ## Table of Contents
