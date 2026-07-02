@@ -1,14 +1,24 @@
-# Domain Persistence
-_Techniques for maintaining privileged access within an Active Directory domain after initial compromise. Source: Pentest Laboratories._
-|Code     |Technique               |Mitre     |
-|---------|------------------------|----------|
-|DP-01   |[Golden Certificate](https://pentestlab.blog/2021/11/15/golden-certificate/)|[NA](https://attack.mitre.org/)|
-|DP-02   |[AdminSDHolder](https://pentestlab.blog/2022/01/04/domain-persistence-adminsdholder/)|[NA](https://attack.mitre.org/)|
-|DP-03   |[Golden Ticket](https://pentestlab.blog/2018/04/09/golden-ticket/)|[NA](https://attack.mitre.org/)|
-|DP-04   |[DCShadow](https://pentestlab.blog/2018/04/16/dcshadow/)|[NA](https://attack.mitre.org/)|
-|DP-05   |[Machine Account](https://pentestlab.blog/2022/01/17/domain-persistence-machine-account/)|[NA](https://attack.mitre.org/)|
-|DP-06   |[Shadow Credentials](https://pentestlab.blog/2022/02/07/shadow-credentials/)|[NA](https://attack.mitre.org/)|
-|DP-07   |[Diamond Ticket](https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/diamond-ticket.html)|[NA](https://attack.mitre.org/)|
+# AppLocker Bypass
+_Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Windows application whitelisting assessments. Source: Pentest Laboratories._
+### 📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+
+---
+
+* [AL-01 - InstallUtil](https://pentestlab.blog/2017/05/08/applocker-bypass-installutil/)
+* [AL-02 - Regsvr32](https://pentestlab.blog/2017/05/11/applocker-bypass-regsvr32/)
+* [AL-03 - Regasm and Regsvcs](https://pentestlab.blog/2017/05/19/applocker-bypass-regasm-and-regsvcs/)
+* [AL-04 - MSBuild](https://pentestlab.blog/2017/05/29/applocker-bypass-msbuild/)
+* [AL-05 - Rundll32](https://pentestlab.blog/2017/05/23/applocker-bypass-rundll32/)
+* [AL-06 - IEExec](https://pentestlab.blog/2017/06/13/applocker-bypass-ieexec/)
+* [AL-07 - Control Panel](https://pentestlab.blog/2017/05/24/applocker-bypass-control-panel/)
+* [AL-08 - Weak Path Rules](https://pentestlab.blog/2017/05/22/applocker-bypass-weak-path-rules/)
+* [AL-09 - BgInfo](https://pentestlab.blog/2017/06/05/applocker-bypass-bginfo)
+* [AL-10 - Assembly Load](https://pentestlab.blog/2017/06/06/applocker-bypass-assembly-load/)
+* [AL-11 - File Extensions](https://pentestlab.blog/2017/06/12/applocker-bypass-file-extensions/)
+* [AL-12 - MSIEXEC](https://pentestlab.blog/2017/06/16/applocker-bypass-msiexec/)
+* [AL-13 - MSXSL](https://pentestlab.blog/2017/07/06/applocker-bypass-msxsl/)
+* [AL-14 - CreateRestrictedToken](https://pentestlab.blog/2017/07/07/applocker-bypass-createrestrictedtoken/)
+* [AL-15 - Cmstp](https://pentestlab.blog/2018/05/10/applocker-bypass-cmstp/)
 
 ---
 
