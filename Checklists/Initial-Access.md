@@ -1,6 +1,7 @@
 # Initial Access
 _Techniques for gaining initial foothold on a target, mapped to MITRE ATT&CK where applicable. Source: Pentest Laboratories._
-🔵 Blue-team companion (investigating access after the fact): [PlayBooks/unauth_access.md](../PlayBooks/unauth_access.md)
+### 🔵 Blue-team companion (investigating access after the fact): [PlayBooks/unauth_access.md](../PlayBooks/unauth_access.md)
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |IA-001   |[search-ms URI Handler](https://pentestlab.blog/2024/01/02/initial-access-search-ms-uri-handler/)|N/A|
