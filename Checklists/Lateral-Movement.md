@@ -1,5 +1,7 @@
 # Lateral Movement
 _Techniques for moving between systems within a compromised network, mapped to MITRE ATT&CK where applicable. Source: Pentest Laboratories._
+### 📖 Full deep-dive: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md) (Kerberos/AD-based movement) · [Tradecraft/network-detection.md](../Tradecraft/network-detection.md) (detection side)
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |LM-001   |[Services](https://pentestlab.blog/2020/07/21/lateral-movement-services/)|[T1021.002](https://attack.mitre.org/techniques/T1021/002/)|
