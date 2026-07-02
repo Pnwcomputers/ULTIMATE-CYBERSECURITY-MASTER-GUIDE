@@ -8,3 +8,21 @@ _Active Directory attack techniques for red team engagements — golden tickets,
 * [AD-004 - SPN Discovery](https://pentestlab.blog/2018/06/04/spn-discovery/)
 * [AD-005 - Kerberoast](https://pentestlab.blog/2018/06/12/kerberoast/)
 * [AD-006 - Dumping Domain Password Hashes](https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/)
+
+---
+
+📖 Use These Checklists Responsibly: Authorization is MANDATORY
+
+Attack techniques are powerful - use them ethically and legally.
+
+Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
+
+Maintained by: Pacific Northwest Computers
+
+⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
+
+⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
+
+⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
+
+⭐ Star this repo if you find it useful! ⭐
