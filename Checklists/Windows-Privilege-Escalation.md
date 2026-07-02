@@ -1,5 +1,7 @@
 # Windows Privilege Escalation
 
+_Common Windows local privilege escalation vectors, from weak service permissions to kernel exploits. Source: Pentest Laboratories._
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |WPE-01   |[Stored Credentials](https://pentestlab.blog/2017/04/19/stored-credentials/)|[NA](https://attack.mitre.org/)|
@@ -19,7 +21,15 @@
 |WPE-15   |[HiveNightmare](https://pentestlab.blog/2021/08/16/hivenightmare/)|[NA](https://attack.mitre.org/)|
 |WPE-16   |[Resource Based Constrained Delegation](https://pentestlab.blog/2021/10/18/resource-based-constrained-delegation/)|[NA](https://attack.mitre.org/)|
 
+---
 
+📖 Use These Checklists Responsibly: Authorization is MANDATORY
+- Attack techniques are powerful - use them ethically and legally.
+- Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
 
+### Maintained by: [Pacific Northwest Computers](https://www.pacificnwcomputers.com/)
 
- 
+* ⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
+* ⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
+* ⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
+* ⭐ Star this repo if you find it useful! ⭐
