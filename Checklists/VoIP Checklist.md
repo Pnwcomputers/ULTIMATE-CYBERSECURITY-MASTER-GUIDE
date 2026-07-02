@@ -1,4 +1,4 @@
-# VoIP Checklist for Penetration Testers
+# VoIP Checklist
 _Checklist for VoIP/SIP infrastructure assessments. This exact checklist is netbiosX's own list — every item traces back to his companion write-up at pentestlab.blog, which explains each check in detail. VoIP-009 links directly to the default credentials list it references; all other items link to that companion post._
 
 **Purpose:** Covers assessment of Voice over IP / SIP telephony infrastructure — a distinct network stack (signaling via SIP, media via RTP) that's frequently deployed on the same physical or logical network as data traffic and is often overlooked in general network pentests despite carrying sensitive voicemail, call data, and — via toll fraud — a direct financial risk.
