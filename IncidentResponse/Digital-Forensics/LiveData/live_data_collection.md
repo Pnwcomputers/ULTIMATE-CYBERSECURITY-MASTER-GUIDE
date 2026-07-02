@@ -925,7 +925,7 @@ sudo ./avml --compress memory.lime.compressed
 
 ```bash
 # Build LiME module
-git clone https://github.com/504ensicsLabs/LiME.git
+git clone https://github.com/jtsylve/LiME.git
 cd LiME/src
 make
 
