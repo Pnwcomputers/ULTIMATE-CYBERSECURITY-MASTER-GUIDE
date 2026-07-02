@@ -94,9 +94,9 @@ OPSEC documentation serves to:
 
 | File | Description | Coverage |
 |------|-------------|----------|
-| **[OPSEC_Guide.md](./OPSEC_Guide.md)** | Comprehensive 2025 OPSEC guide for cybersecurity operations | Complete Guide |
+| **[OPSEC_guide.md](./OPSEC_guide.md)** | Comprehensive 2025 OPSEC guide for cybersecurity operations | Complete Guide | 
 
-### What's Covered in OPSEC_Guide.md
+### What's Covered in OPSEC_guide.md
 
 **Virtualized Security Environment:**
 - Host OS security configurations
@@ -290,7 +290,7 @@ Information Control:
 ✅ Route through multiple hops for sensitive targets
 ✅ Change IP addresses frequently
 
-Recommended Setup (from OPSEC_Guide.md):
+Recommended Setup (from OPSEC_guide.md):
    Host OS → VPN → VM (NAT only) → Internet
    OR
    Host OS → VPN → Whonix Gateway → Whonix Workstation
@@ -332,7 +332,7 @@ Browser Hardening:
 
 ### Malware Analysis OPSEC
 
-**Lab Isolation (from OPSEC_Guide.md):**
+**Lab Isolation (from OPSEC_guide.md):**
 ```
 Critical Rules:
 ☐ NEVER analyze malware on host system
@@ -377,7 +377,7 @@ Analysis Workflow:
 
 **Blue Team Infrastructure:**
 ```
-Recommended Setup (from OPSEC_Guide.md):
+Recommended Setup (from OPSEC_guide.md):
    • Zeek sensor VM (packet analysis)
    • Suricata IDS/IPS VM (threat detection)
    • Wazuh Manager VM (HIDS, log analysis)
