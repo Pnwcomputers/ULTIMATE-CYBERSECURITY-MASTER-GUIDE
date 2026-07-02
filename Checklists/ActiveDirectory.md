@@ -12,17 +12,12 @@ _Active Directory attack techniques for red team engagements; ie. golden tickets
 ---
 
 📖 Use These Checklists Responsibly: Authorization is MANDATORY
+- Attack techniques are powerful - use them ethically and legally.
+- Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
 
-Attack techniques are powerful - use them ethically and legally.
+### Maintained by: [Pacific Northwest Computers](https://www.pacificnwcomputers.com/)
 
-Repository: ULTIMATE CYBERSECURITY MASTER GUIDE
-
-Maintained by: Pacific Northwest Computers
-
-⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
-
-⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
-
-⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
-
-⭐ Star this repo if you find it useful! ⭐
+* ⚠️ CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED ⚠️
+* ⚠️ Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment ⚠️
+* ⚠️ ALWAYS obtain explicit written authorization before using any technique ⚠️
+* ⭐ Star this repo if you find it useful! ⭐
