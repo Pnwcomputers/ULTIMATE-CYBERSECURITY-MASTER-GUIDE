@@ -1,5 +1,19 @@
 # Bruce Firmware: A Multi-Radio Offensive Platform for ESP32 Hardware
 
+## 🎯 Purpose
+Deep-dive on Bruce, a multi-radio firmware (Wi-Fi, BLE, sub-GHz, NFC/RFID, IR, FM, NRF24) that runs on the same M5Cardputer hardware as [evil_m5.md](evil_m5.md) plus a much wider device list (Lilygo T-Embed, M5Stick, CYD boards). Read the Evil-M5 chapter first — this one builds directly on its legal framework and adds the additional FCC exposure (47 USC §§301/302a) that comes with sub-GHz/FM/NRF24 transmission.
+
+## ⚙️ Function
+Same chapter structure as `evil_m5.md` (legal framework, hardware, installation, module deep-dives, lab playbook, blue-team matrix) but organized around Bruce's much wider radio surface. Appendix A gives an explicit "Bruce vs Evil-M5: when to use which" table — the short version is Evil-M5 for deep Wi-Fi work, Bruce for anything needing sub-GHz replay, NFC/RFID cloning, IR, FM broadcast, or scripted JS attack chains.
+
+## 🏆 Goal
+Choose the right hardware/firmware combination for a multi-radio engagement, understand the expanded regulatory exposure of sub-GHz/FM/NRF24 transmission, and run the RF-specific lab exercises (sub-GHz replay, RFID/NFC cloning) safely in an isolated lab.
+
+## 📋 When to Use
+- An engagement needs sub-GHz (garage door/gate remote), 13.56 MHz/125 kHz badge cloning, IR, or FM demonstration alongside Wi-Fi work
+- Deciding between Evil-M5 and Bruce for a given Cardputer (Appendix A)
+- Referencing the FCC transmit-authorization checklist (Appendix C) before enabling any jammer/replay/broadcast feature
+
 > **Reader prerequisites.** This chapter assumes the foundational material from the previous chapter on the M5Cardputer and Evil-M5Project. Bruce runs on the same Cardputer hardware (and many others), targets the same broad threat-modeling space, but goes much wider — into Sub-GHz, NFC/RFID, IR, FM, and 2.4 GHz NRF24 — which substantially expands the legal and regulatory surface. Working familiarity with FCC Part 15 unlicensed operation, basic ISM-band concepts, ham radio rules where applicable, and the wireless attack primitives covered in the Evil-M5 chapter are assumed.
 
 ---
