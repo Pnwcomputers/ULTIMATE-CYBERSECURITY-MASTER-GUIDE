@@ -1,5 +1,19 @@
 # The M5Cardputer & Evil-M5Project
 
+## 🎯 Purpose
+Deep-dive chapter on the M5Cardputer hardware and Evil-M5Project firmware — a pocket-sized, keyboard-driven Wi-Fi/BLE offensive platform. First of a three-part hardware series with [bruce_firmware.md](bruce_firmware.md) (multi-radio firmware for the same and other hardware) and [bjorn_pi.md](bjorn_pi.md) (autonomous network-service attacks on a Raspberry Pi) — read this one first, since Bruce and Bjorn's chapters assume its legal/lab-setup framework.
+
+## ⚙️ Function
+Legal framework, hardware spec, installation (M5Burner or source build), UI conventions, module deep-dives (recon, wardriving, deauth, evil twin, handshake capture, BadUSB), a graduated lab exercise playbook, and a blue-team defense matrix. Distinct from `bruce_firmware.md`: Evil-M5 is Wi-Fi-only but has the more mature captive-portal/KARMA tooling; Bruce runs on the same Cardputer hardware but trades Wi-Fi depth for sub-GHz, NFC, IR, and FM radio support. Distinct from `bjorn_pi.md`: Evil-M5 operates at the Wi-Fi/BLE protocol layer and requires constant operator interaction, while Bjorn is an unattended network-service attacker.
+
+## 🏆 Goal
+Stand up a working Evil-M5 Cardputer, understand its legal exposure under CFAA/47 USC §333 and state analogues, and be able to run and defensively detect its core attacks (deauth, evil twin, handshake capture, BadUSB) in an authorized lab.
+
+## 📋 When to Use
+- Evaluating or building a pocket-sized Wi-Fi pentest device
+- Running the graduated lab exercises (Section 9) to train on wireless attack/defense pairs
+- Referencing the legal citations (CFAA, 47 USC §333, Washington/Oregon state statutes) before any engagement involving deauth or captive-portal techniques
+
 > **Reader prerequisites.** This part of the repository assumes working familiarity with [802.11 frame types](https://en.wikipedia.org/wiki/802.11_frame_types) (beacon, probe request/response, deauthentication, EAPOL four-way handshake), basic Linux command-line use, soldering-free hobby electronics, and the legal framework governing wireless testing in your jurisdiction. If any of those are unfamiliar, read the foundations chapters first; the techniques described here can cause real disruption to networks and people if used carelessly or maliciously.
 
 ---
