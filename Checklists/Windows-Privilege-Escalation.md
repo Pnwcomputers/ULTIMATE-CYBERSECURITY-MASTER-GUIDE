@@ -1,6 +1,16 @@
 # Windows Privilege Escalation
 _Common Windows local privilege escalation vectors, from weak service permissions to kernel exploits. Source: Pentest Laboratories._
+
+**Purpose:** Covers the path from a standard/low-privileged user to SYSTEM or local Administrator on a single Windows host — the local counterpart to [Domain Escalation](./Domain-Escalation.md), scoped to one machine rather than the domain. This is the checklist most directly validated by findings from [Windows Build Review](./Windows-Build-Review-Checklist.md); several items here are the exploitation half of misconfigurations that checklist would flag during a passive audit.
+ 
+**Function:** The list spans configuration abuse (weak service permissions, unquoted service paths, insecure registry permissions, Group Policy Preferences — all cases of a legitimate Windows feature configured too loosely) and code-level exploitation (DLL injection/hijacking, Token Manipulation, Hot Potato/token impersonation attacks, and specific named vulnerabilities like HiveNightmare and Intel SYSRET). The token manipulation and Hot Potato-family items specifically abuse Windows' privilege/impersonation model rather than any single misconfiguration — they work by tricking a SYSTEM-level process into authenticating to an attacker-controlled listener.
+ 
+**Goal:** Establish every independent path from the current user context to SYSTEM/Administrator on the host, and — since several of these are the direct result of specific configuration choices — trace each successful escalation back to a concrete, fixable root cause rather than leaving it as an abstract "privilege escalation possible" finding.
+ 
+**When & how to use this:** Run automated enumeration (WinPEAS, PowerUp, or the scripts below) first to shortlist which vectors are actually present, then manually verify and exploit the most promising ones — service misconfigurations and weak registry permissions are typically both more common and lower-risk to test than the named-CVE items like HiveNightmare, which may have narrower applicable version ranges. Cross-reference against [Windows Build Review](./Windows-Build-Review-Checklist.md): findings there (weak service permissions, unquoted paths) often predict exactly which items on this list will succeed.
+
 #### 🛠️ Related scripts: [Scripts/PowerShell/system_enum.ps1](../Scripts/PowerShell/system_enum.ps1) · [Scripts/PowerShell/](../Scripts/PowerShell/)
+
 ---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
