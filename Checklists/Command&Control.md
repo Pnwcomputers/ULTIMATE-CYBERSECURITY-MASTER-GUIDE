@@ -1,4 +1,4 @@
-# Command and Control
+# Command & Control
 _C2 channel techniques and covert communication methods for red team infrastructure, organized by protocol/channel. Most items link to a specific pentestlab.blog write-up. C2-005, C2-010, C2-011, and C2-020 have no dedicated article, so they link to the general pentestlab.blog Command & Control category (★ general reference)._
 
 **Purpose:** A survey of covert communication channels an implant can use to phone home once execution is achieved, organized by carrier protocol/service rather than by C2 framework. Where [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md) covers *which tool* to run (Cobalt Strike, Sliver, Havoc), this checklist covers *which channel* the traffic rides on — DNS, HTTPS, WebDAV, cloud storage APIs, social media, even images and JavaScript as a transport.
