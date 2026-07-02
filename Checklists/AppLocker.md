@@ -9,7 +9,7 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
  
 **When & How to use this:** Run this once you have code-execution-but-restricted access on a system with AppLocker (or WDAC) enforced — either during an authorized red team engagement or a defensive control validation exercise. Test the rule set's actual configuration first (`Get-AppLockerPolicy -Effective`) to know which rule *types* apply, since some bypasses only work against path-based rules and are moot against strict publisher/hash rules.
 
-### 📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+#### 📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
 
 ---
 
