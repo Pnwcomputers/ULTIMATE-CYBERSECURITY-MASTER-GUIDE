@@ -1,5 +1,5 @@
 
-# Pwnagotchi Commands and Configuration 🤖
+# Pwnagotchi Commands & Configuration 🤖
 
 ## 🎯 Purpose
 Command reference for setting up, configuring, and operating a Pwnagotchi — an autonomous, AI-driven WPA handshake collector that runs unattended on a Raspberry Pi Zero W/2W. Distinct from [bjorn_pi.md](bjorn_pi.md), which is also an autonomous Pi tool but attacks network *services* (SSH/SMB/FTP/RDP/SQL), not WiFi.
