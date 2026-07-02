@@ -1,5 +1,9 @@
 # Domain Escalation
 _Active Directory domain escalation techniques (coerced authentication, delegation abuse, ACL abuse) for red team engagements. Source: Pentest Laboratories (note: some newer posts have moved to pentestlaboratories.com under the same team)._
+### 📖 Full deep-dive with detection/defense guidance: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md)
+
+---
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |DE-01   |[PrintNightmare](https://pentestlab.blog/2021/08/17/domain-escalation-printnightmare/)|[NA](https://attack.mitre.org/)|
