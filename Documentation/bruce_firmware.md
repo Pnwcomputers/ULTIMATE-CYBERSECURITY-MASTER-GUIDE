@@ -1,5 +1,20 @@
 # Bruce Firmware: A Multi-Radio Offensive Platform for ESP32 Hardware
 
+## 🎯 Purpose
+Operational guide to Bruce firmware — the multi-radio ESP32 platform covering sub-GHz (CC1101), NFC/RFID (PN532), IR, FM, NRF24, BLE/HID, and WiFi attack capabilities across M5Cardputer, LilyGo, and Bruce open-hardware boards.
+
+## ⚙️ Function
+Covers: what Bruce is and where it sits vs. Evil-M5, the expanded FCC/regulatory framework for multi-band RF transmission, per-module operational guides (WiFi, sub-GHz, NFC/RFID, IR, BLE, FM, JavaScript automaton), supported hardware matrix, flashing workflow, a pre-engagement checklist, and an appendix of further resources.
+
+## 🏆 Goal
+Enable red-team operators to safely and legally extend beyond WiFi-only capability into RF, NFC/RFID, and IR attack surfaces — with a clear understanding of the dramatically expanded FCC enforcement exposure that multi-band transmission entails.
+
+## 📋 When to Use
+- Physical and wireless red-team engagements requiring sub-GHz replay (garage doors, gate openers), NFC/RFID badge cloning, IR control injection, or BLE HID attacks
+- When an engagement needs capabilities beyond what Evil-M5 WiFi-only provides
+- Authorized FCC-licensed amateur radio operations on sub-GHz bands (Part 97)
+- Security research on ISM-band protocols in a lab environment with proper authorization
+
 > **Reader prerequisites.** This chapter assumes the foundational material from the previous chapter on the M5Cardputer and Evil-M5Project. Bruce runs on the same Cardputer hardware (and many others), targets the same broad threat-modeling space, but goes much wider — into Sub-GHz, NFC/RFID, IR, FM, and 2.4 GHz NRF24 — which substantially expands the legal and regulatory surface. Working familiarity with FCC Part 15 unlicensed operation, basic ISM-band concepts, ham radio rules where applicable, and the wireless attack primitives covered in the Evil-M5 chapter are assumed.
 
 ---
@@ -8,7 +23,7 @@
 
 If Evil-M5Project is the Wi-Fi specialist, **Bruce** is the multi-radio swiss army knife. The same Cardputer that runs Evil-M5 can be reflashed with Bruce and gain — among other things — sub-GHz transmit and replay (with a CC1101), 13.56 MHz NFC read/clone (with a PN532), 125 kHz RFID, IR transmit/receive, FM broadcast, NRF24-based 2.4 GHz operations, BLE spoofing and HID, and a JavaScript interpreter for automating attack sequences.
 
-Bruce is open source under the **AGPL-3.0**, maintained by pr3y with extensive contributions from bmorcelli (cross-device porting and core), IncursioHack (RF/RFID), and a wide contributor base. The project's official home is `https://bruce.computer` and the canonical repositories are `github.com/pr3y/Bruce` and `github.com/BruceDevices/firmware` — both serve the same codebase. As of February 2026 the current release is **Bruce 1.14**, and the project ships frequent point releases.
+Bruce is open source under the **AGPL-3.0**, maintained by pr3y with extensive contributions from bmorcelli (cross-device porting and core), IncursioHack (RF/RFID), and a wide contributor base. The project's official home is `https://bruce.computer` and the canonical repository is `github.com/BruceDevices/firmware` (previously `github.com/pr3y/Bruce` — that path now permanently redirects to BruceDevices). As of May 2026 the current release is **Bruce 1.15**, and the project ships frequent point releases.
 
 Where Evil-M5 is wiki-driven and feature-stable, Bruce is release-driven, ships a polished **official Web Flasher** (`https://bruce.computer/flasher`), maintains an active Discord, and has its own ecosystem of open-hardware boards (Smoochiee V2, Bruce RF Reaper). For the practicing security professional, the practical implication is:
 
@@ -52,7 +67,7 @@ A compliance checklist tailored to Bruce's broader regulatory surface appears in
 
 ### 3.1 Compatible devices
 
-Bruce runs on a substantially wider set of hardware than Evil-M5. The official compatibility matrix as of release 1.14:
+Bruce runs on a substantially wider set of hardware than Evil-M5. The official compatibility matrix as of release 1.15:
 
 | Device | CC1101 (Sub-GHz) | NRF24 (2.4 GHz) | FM Radio | PN532 (NFC) | Mic | BadUSB | RGB | Speaker | Notes |
 |---|---|---|---|---|---|---|---|---|---|
@@ -92,7 +107,7 @@ The Lilygo T-Embed CC1101 includes the CC1101 on the same PCB as the ESP32-S3, e
 
 ### 4.1 Feature inventory (Cardputer + full module set)
 
-Bruce organizes features into top-level radio domains, plus utility categories. From the project's README and wiki as of release 1.14:
+Bruce organizes features into top-level radio domains, plus utility categories. From the project's README and wiki as of release 1.15:
 
 **WiFi (overlaps significantly with Evil-M5)**
 - Connect to WiFi / WiFi AP / Disconnect
@@ -223,7 +238,7 @@ The most flexible path. Useful when scripting, when working with custom boards, 
 3. Put the device into download mode (Cardputer: hold G0 while plugging in USB).
 4. Flash:
    ```bash
-   esptool.py --port /dev/ttyACM0 write_flash 0x00000 Bruce-Cardputer_1.14.bin
+   esptool.py --port /dev/ttyACM0 write_flash 0x00000 Bruce-Cardputer_<version>.bin
    ```
    Adjust port and filename as needed. On Windows, the port looks like `COM3`.
 5. Disconnect and reconnect; the device boots into Bruce.
@@ -392,7 +407,7 @@ With an NRF24L01+ module attached, Bruce offers:
 
 - **NRF24 Jammer.** Blasts the 2.4 GHz band, disrupting Wi-Fi, Bluetooth, Zigbee, and other 2.4 GHz consumer protocols within range.
 - **2.4 GHz Spectrum.** Receive-only spectrum visualization; useful for confirming a target's channel use.
-- Mousejack is listed as planned but not yet implemented as of release 1.14.
+- Mousejack is listed as planned but not yet implemented as of release 1.15.
 
 **Legal status of the jammer:** Same as the sub-GHz jammer. Categorically illegal under §§ 301, 302a, 333. Don't.
 
@@ -668,11 +683,11 @@ If any line is unchecked for the operations you intend to run, the affected modu
 
 - **Bruce project home:** `https://bruce.computer`
 - **Bruce Web Flasher:** `https://bruce.computer/flasher`
-- **GitHub repos:** `https://github.com/pr3y/Bruce` and `https://github.com/BruceDevices/firmware` (same codebase)
-- **Bruce wiki (per-module documentation):** `https://github.com/pr3y/Bruce/wiki`
+- **GitHub repo:** `https://github.com/BruceDevices/firmware` (canonical; `github.com/pr3y/Bruce` permanently redirects here)
+- **Bruce wiki (per-module documentation):** `https://github.com/BruceDevices/firmware/wiki`
 - **Doolittle JS interpreter project:** `https://github.com/justinknight93/Doolittle`
 - **Bruce open-hardware boards:** `https://bruce.computer/boards` (Smoochiee V2, Bruce RF Reaper PCBs)
-- **FCC Enforcement Bureau:** `https://www.fcc.gov/enforcement` — read the actual jammer enforcement advisories before operating any transmit feature.
+- **FCC Enforcement Bureau:** `https://www.fcc.gov/enforcement-bureau` — read the actual jammer enforcement advisories before operating any transmit feature.
 - **FCC Part 15 reference:** `47 CFR Part 15` (unlicensed operation rules)
 - **FCC Part 73:** `47 CFR Part 73` (broadcast service rules — applies to FM)
 - **47 USC §§ 301, 302a, 333:** the three statutes that bracket every transmit operation Bruce can perform.
@@ -680,3 +695,10 @@ If any line is unchecked for the operations you intend to run, the affected modu
 ---
 
 *This chapter is provided for educational and authorized red-team use only. The Bruce firmware authors, the manufacturers of M5Stack and Lilygo hardware, and the author of this chapter accept no responsibility for misuse. Operating transmitters without authorization, intentionally interfering with licensed radio communications, and accessing computer systems without authorization are crimes in every U.S. state and in most jurisdictions worldwide. The expanded RF feature set in Bruce relative to Evil-M5 dramatically expands the practitioner's exposure to FCC enforcement action. Treat every transmit feature as a regulated activity requiring affirmative authorization before use.*
+
+## Related Files
+- [evil_m5.md](evil_m5.md) — Evil-M5Project: the WiFi-specialist complement to Bruce on the same M5Cardputer hardware
+- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero: overlapping sub-GHz, NFC/RFID, IR, and BLE capabilities from a different hardware platform
+- [arduinoIDE.md](arduinoIDE.md) — Arduino IDE + ESP32 board core: required for compiling and flashing Bruce from source
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — WiFi Marauder: ESP32 WiFi attack firmware (different from Bruce's WiFi module, but same ESP32 ecosystem)
+- [../SDR/](../SDR/) — Software Defined Radio guides: complement Bruce's sub-GHz capabilities with full-spectrum RF analysis
