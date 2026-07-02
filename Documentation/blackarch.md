@@ -1,3 +1,22 @@
+# BlackArch Linux Setup Reference
+
+## 🎯 Purpose
+Quick-reference commands for bootstrapping and maintaining a BlackArch or Arch-based penetration testing environment — covering network adapter activation, pacman keyring management, mirror optimization, and full system upgrades.
+
+## ⚙️ Function
+Covers: bringing up network adapters and DHCP, enabling NetworkManager, clearing/regenerating GNUPG keyring, adding BlackArch mirrors, removing conflicting packages, and running full system updates with various pacman flags.
+
+## 🏆 Goal
+Serve as a copy-paste command reference for the initial BlackArch setup steps and routine maintenance tasks that are easily forgotten between uses.
+
+## 📋 When to Use
+- Initial setup after installing BlackArch or adding it as a repo overlay on Arch/Manjaro
+- Recovering from broken pacman keyring errors
+- Resolving package conflicts before a major system update
+- Activating a new wireless or USB network adapter in a live environment
+
+---
+
 ## Identify and "Bring Up" any needed network adapters
 ### ip link show
 ### ip link set "dev" up
@@ -8,8 +27,10 @@
 
 ***
 
-## Create a scheduled task to start the local NetworkManager and newly activated network adapter at system start-up
-### sudo systemctl enable --now NetworkManager rmtui
+## Create a scheduled task to start the local NetworkManager at system start-up
+### sudo systemctl enable --now NetworkManager
+
+*(To open the NetworkManager text UI for configuring connections interactively, run `sudo nmtui` as a separate command.)*
 
 ***
 
@@ -40,3 +61,9 @@
 
 ## *Can be used to overwrite any older conflicting packages
 ### sudo pacman -Syu --overwrite '*' --noconfirm
+
+---
+
+## Related Files
+- [LinuxCheatSheet.md](LinuxCheatSheet.md) — Full Arch/pacman and Debian/apt command reference including the pacman commands used here
+- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) — Automated cybersecurity tool installer for Arch/Manjaro (pacman/BlackArch repo)
