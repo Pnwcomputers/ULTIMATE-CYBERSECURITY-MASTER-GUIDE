@@ -1,10 +1,22 @@
 # Incident Response Playbook
 
-## 1. Purpose & Scope
-
-### Purpose:
+## 🎯 Purpose
 
 Define standardized, repeatable processes for detecting, analyzing, containing, and recovering from security incidents.
+
+## ⚙️ Function
+
+A seven-phase lifecycle procedure (Preparation → Detection → Containment → Eradication → Recovery → Post-Incident) with a defined roles table and generic tool references (SIEM, EDR, IDS/IPS by category rather than specific product). This is the **quick-reference version** — for the same lifecycle with specific named tools (Splunk ES, CrowdStrike Falcon, Ghidra) and NIST/ISO framework alignment, see `BlueTeam_IncResp_Enhanced.md`.
+
+## 🏆 Goal
+
+Give a smaller team or a single analyst a fast, no-frills checklist to follow the moment an incident is declared, without needing to first read a lengthy framework-aligned document.
+
+## 📋 When to Use
+
+- Any declared security incident (malware, data exfiltration, unauthorized access, DoS, insider threat, supply-chain compromise) impacting on-prem or cloud systems
+- Small teams or lean SOCs that need a working procedure today rather than a fully tooled framework
+- Training new SOC analysts on the incident response lifecycle before introducing the enhanced/tool-specific version
 
 ### Scope:
 
