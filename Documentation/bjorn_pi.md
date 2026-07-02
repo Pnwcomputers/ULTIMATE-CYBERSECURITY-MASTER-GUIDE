@@ -1,5 +1,19 @@
 # Bjorn: An Autonomous Network-Service Attacker on the Raspberry Pi
 
+## 🎯 Purpose
+Deep-dive on Bjorn, an autonomous Raspberry Pi daemon that discovers hosts, brute-forces SSH/SMB/FTP/RDP/Telnet/SQL, and exfiltrates data — unattended. Third in the hardware series after [evil_m5.md](evil_m5.md) and [bruce_firmware.md](bruce_firmware.md); unlike those two (Wi-Fi/BLE/RF protocol-layer tools requiring constant operator interaction), Bjorn operates at the network-service layer and runs unsupervised once deployed, which is why its legal-exposure section is written to be read twice.
+
+## ⚙️ Function
+Same chapter structure as the other two hardware chapters (legal framework, hardware, installation, module deep-dives, lab playbook, blue-team matrix), but the legal section here centers on the CFAA, Stored Communications Act, and Wiretap Act rather than FCC transmission rules, since Bjorn's brute-force/exfiltration behavior — not radio use — is what creates felony exposure. Appendix A cross-references all three hardware chapters in one "when to use which" table.
+
+## 🏆 Goal
+Understand why Bjorn's autonomous brute-force/exfiltration design makes its legal exposure categorically different from the wireless tools, and be able to run its lab exercises (Metasploitable/DVWA targets only) to learn account-lockout and credential-hygiene findings for a client deliverable.
+
+## 📋 When to Use
+- Teaching or demonstrating account-lockout policy weaknesses in a fully isolated lab
+- Deciding between Bjorn (autonomous network-service attack) and the Evil-M5/Bruce wireless tools for a given engagement scenario (Appendix A)
+- Reviewing the Bjorn-specific compliance checklist (Appendix C) before any deployment — its bar for "no ROE, no run" is stricter than the wireless chapters
+
 > **Reader prerequisites.** [Bjorn](https://github.com/infinition/Bjorn) is a fundamentally different category of tool from others that we have covered. Where Evil-M5 and Bruce operate at the wireless protocol layer (Wi-Fi frames, Bluetooth advertisements, sub-GHz RF, NFC, IR), Bjorn operates at the **network service layer**; SSH, SMB, FTP, RDP, Telnet, and SQL; and performs actual authentication attacks and data exfiltration against discovered hosts. Working knowledge of basic Linux administration, network scanning fundamentals (nmap, port scanning, service enumeration), and the host-side service stack on enterprise networks is assumed. Critically, the **legal exposure** for running Bjorn is meaningfully larger than for the previous two tools; the Computer Fraud and Abuse Act and the Stored Communications Act both apply directly to its core operations.
 
 ---
