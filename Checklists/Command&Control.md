@@ -9,7 +9,7 @@ _C2 channel techniques and covert communication methods for red team infrastruct
  
 **When & how to use this:** Use during red team engagements after initial access, when establishing a resilient C2 channel is the next objective — test the most "boring"/high-blend-in channels first (HTTPS, DNS) before escalating to more unusual ones (Instagram, images) that are more likely to be a research curiosity than a production-viable channel. For blue/purple teams, use this as a checklist of channels to validate detection coverage against, ideally paired with the Sigma/detection content in [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md).
 
-### 📖 Full Deep-dives (Cobalt Strike, etc; Architecture, Detection, etc): [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md)
+#### 📖 Full Deep-dives (Cobalt Strike, etc; Architecture, Detection, etc): [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md)
 
 ---
 
