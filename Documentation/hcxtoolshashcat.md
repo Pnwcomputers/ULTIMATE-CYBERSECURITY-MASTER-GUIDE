@@ -1,5 +1,18 @@
 # HCXTools & Hashcat Cheat Sheet ⚡
-## Basic Workflow: PMKID & Handshake Capture
+
+## 🎯 Purpose
+Command reference for the modern, monitor-mode-free WiFi capture pipeline: `hcxdumptool` → `hcxpcapngtool` → `hashcat` (unified 22000 hash format). This is the newer counterpart to [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md), which covers the classic monitor-mode aircrack-ng suite and still-relevant WEP/WPS attacks this pipeline doesn't do.
+
+## ⚙️ Function
+Three-stage pipeline: capture PMKID/EAPOL frames with `hcxdumptool` (no monitor mode required), convert to hashcat's unified `.22000` format with `hcxpcapngtool`, then crack with hashcat mode 22000. Differs from `Aircrack-ng_Commands.md` in that it needs no deauth or monitor mode for PMKID capture and produces one hash format covering PMKID and full handshakes, instead of aircrack-ng's separate WEP/WPA/WPS toolchains.
+
+## 🏆 Goal
+Get from a raw WiFi capture to a crackable `.22000` hash file using only the actively-maintained hcxtools/hashcat pipeline, without the classic monitor-mode dance.
+
+## 📋 When to Use
+- Clientless PMKID capture against a target AP (no associated clients required)
+- Any WPA/WPA2/WPA3 handshake conversion for hashcat, since 22000 is the hash mode hashcat now recommends over the deprecated 2500/16800 modes
+- Post-processing capture files pulled off a Marauder, Flipper Zero WiFi board, or other hcxdumptool-based device — see [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) and [flipper_zero_guide.md](flipper_zero_guide.md)
 
 *****
 
@@ -17,9 +30,9 @@ sudo hcxdumptool -i wlan1 -o capture.pcapng -C 60 --check_client_list --enable_s
 ```
 
 **3. Convert to Hashcat Format**
-### Convert PCAPNG (hcxdumptool output) to Hashcat HASH format (16800 for PMKID/Handshakes)
+### Convert PCAPNG (hcxdumptool output) to the unified Hashcat 22000 format (`hcxpcaptool` is deprecated — use `hcxpcapngtool`)
 ```bash
-hcxpcaptool -o hash.16800 -E essid_list.txt capture.pcapng
+hcxpcapngtool -o hash.22000 -E essid_list.txt capture.pcapng
 ```
 ### -E: Creates an optional list of ESSIDs found in the capture
 
@@ -47,50 +60,50 @@ sudo hcxdumptool -i wlan1 -o probes.pcapng --filtermode 3 --enable_status=1
 ```
 ---
 
-# Hashcat Cracking (Mode 2500 & 16800)
+# Hashcat Cracking (Mode 22000)
 
 **WPA/WPA2/WPA3 (Handshakes and PMKID)**
-## Crack the converted HASH file (HCX format) using a wordlist
+## Crack the converted HASH file (HC22000 format) using a wordlist
 ```bash
--m 16800 is the mode for WPA-PMKID-PBKDF2/WPA2-EAPOL-PBKDF2
-hashcat -m 16800 hash.16800 /path/to/wordlist.txt
+-m 22000 is the recommended unified mode for WPA-PMKID-PBKDF2/WPA2-EAPOL-PBKDF2, replacing deprecated modes 2500 and 16800
+hashcat -m 22000 hash.22000 /path/to/wordlist.txt
 ```
 
-## Crack a traditional Aircrack-ng .hccapx converted file (WPA-EAPOL)
+## Crack a traditional Aircrack-ng .hccapx converted file (WPA-EAPOL, legacy)
 ```bash
--m 2500 is the mode for WPA/WPA2
+-m 2500 is the deprecated mode for WPA/WPA2 hccapx files — only needed if you're stuck with an old .hccapx and can't reconvert from the original capture
 hashcat -m 2500 capture.hccapx /path/to/wordlist.txt
 ```
 
 **Using Rules for Advanced Cracking**
 ### Apply a rule file to transform the wordlist (e.g., append numbers, capitalization)
 ```bash
-hashcat -m 16800 hash.16800 wordlist.txt -r rules/best64.rule
+hashcat -m 22000 hash.22000 wordlist.txt -r rules/best64.rule
 ```
 
 ### Hybrid attack: Wordlist + bruteforce mask for the end of the password
 ```bash
-hashcat -m 16800 hash.16800 wordlist.txt -a 6 ?d?d?d?d
+hashcat -m 22000 hash.22000 wordlist.txt -a 6 ?d?d?d?d
 ```
 
 **Checking Hash Status**
 ### Resume a previous cracking session
 ```bash
-hashcat -m 16800 hash.16800 /path/to/wordlist.txt --session=mysession --status
+hashcat -m 22000 hash.22000 /path/to/wordlist.txt --session=mysession --status
 ```
 
 ### View the passwords successfully cracked (the "cracked" file)
 ```bash
-hashcat -m 16800 hash.16800 --show
+hashcat -m 22000 hash.22000 --show
 ```
 ---
 
 # HCXTools for File Analysis
 
 **File Conversion & Cleaning**
-### Convert Aircrack-ng .cap file to PCAPNG format for HCX analysis
+### hcxpcapngtool reads .cap, .pcap, and .pcapng (including gzip-compressed) directly — no separate conversion step is needed
 ```bash
-aircrack-ng-cap2pcap capture.cap -o output.pcapng
+hcxpcapngtool -o output.22000 capture.cap
 ```
 
 ### Merge multiple PCAPNG files before conversion
@@ -104,14 +117,14 @@ wpaclean cleaned.cap capture-01.cap
 ```
 
 **Inspecting and Filtering Captured Data**
-### View unique BSSIDs/ESSIDs found in a capture file
+### View info on a converted 22000 hash file, filtered to one ESSID (the legacy `hcxinfo` tool no longer exists — this is the current equivalent)
 ```bash
-hcxinfo -i capture.pcapng
+hcxhashtool --info=stdout -i hash.22000 --essid=TargetSSID
 ```
 
-### Filter out duplicate or low-quality packets before cracking
+### Filter a hash file down to PMKID-only or EAPOL-only entries (there is no `hcxhash` tool — `hcxhashtool` is the real filtering utility)
 ```bash
-hcxhash -i capture.pcapng -o unique_hashes.txt -a 3
+hcxhashtool -i hash.22000 -o pmkid_only.22000 --type=1
 ```
 
 *****
