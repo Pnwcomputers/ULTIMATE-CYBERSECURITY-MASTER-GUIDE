@@ -2,9 +2,23 @@
 
 ---
 
-## Purpose
+## 🎯 Purpose
 
 Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi-platform attack simulation & detection validation.
+
+## ⚙️ Function
+
+A tight, four-step scripted loop (pick a TTP → script the attack in Python/PowerShell/Batch → run it in an isolated lab → check SIEM/EDR for the resulting logs and alerts). This is the **script-centric variant** of the purple team playbooks — where `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, this file is specifically about writing and running the actual attack scripts that drive detection validation, organized by scripting language/platform.
+
+## 🏆 Goal
+
+Make it fast to go from "we want to validate detection for TTP X" to an actual runnable script and a confirmed SIEM/EDR alert (or confirmed detection gap) — minimizing the time between choosing a technique and getting a real answer about your detection coverage.
+
+## 📋 When to Use
+
+- You already have a purple team process (see `PurpleTeam_Simple.md`/`PurpleTeam_Detailed.md`) and need the actual attack script for a specific TTP
+- Validating detection coverage for a technique across multiple platforms/languages (e.g., confirming both a PowerShell-based and Python-based version of the same TTP get caught)
+- Building a reusable library of attack scripts mapped to MITRE ATT&CK techniques for repeat testing
 
 ---
 
