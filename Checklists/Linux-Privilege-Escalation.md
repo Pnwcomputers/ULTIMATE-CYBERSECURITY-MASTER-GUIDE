@@ -1,5 +1,14 @@
 # Linux Privilege Escalation
 _Common Linux local privilege escalation vectors._
+
+**Purpose:** Covers the path from an unprivileged shell on a Linux host to root — the standard set of misconfigurations and kernel vulnerabilities that show up repeatedly across real-world Linux systems and CTF-style privilege escalation challenges alike. Unlike the AD-focused checklists in this repo, most items here are host-local rather than network/protocol-based.
+ 
+**Function:** The list spans three categories: kernel-level vulnerabilities (Dirty Cow, Baron Samedit — actual CVEs with specific affected version ranges), misconfiguration abuse (SUID binaries, sudo permissions, cron jobs, PATH hijacking — legitimate system features configured too permissively), and technique classes rather than single bugs (wildcard injection is a pattern that applies to any privileged script calling `tar`/`rsync`/`chown` unsafely, not a single fixed vulnerability).
+ 
+**Goal:** Establish whether a foothold on a Linux system can be escalated to root, and specifically *how* — kernel exploits and sudo/SUID misconfigurations require different remediation entirely (patch the kernel vs. fix a permissions file), so this checklist's real value is in categorizing the finding correctly, not just proving root is reachable.
+ 
+**When & how to use this:** Run automated enumeration first (LinPEAS or similar — see [Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) for setup) to shortlist which of these vectors are actually present before manually working through the list — kernel version alone rules out most of the CVE-specific items immediately. Check sudo/SUID/cron misconfigurations before reaching for a kernel exploit; they're lower-risk (no chance of a kernel panic) and far more common in practice.
+
 #### 📄 PDF reference: [Linux_Privilege_Escalation.pdf](../PDF/Linux_Privilege_Escalation.pdf)
 ---
 * [LPE-01 - Dirty Cow](https://dirtycow.ninja/)
