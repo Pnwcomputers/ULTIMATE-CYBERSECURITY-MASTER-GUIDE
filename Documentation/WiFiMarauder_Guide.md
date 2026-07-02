@@ -1,4 +1,20 @@
 # WiFi Marauder Guide
+
+## 🎯 Purpose
+Comprehensive guide for ESP32 Marauder firmware covering hardware selection, installation, all core attack and detection features, integration with external tools (Hashcat, Wireshark, Kismet), and detection/defense strategies.
+
+## ⚙️ Function
+Organized as a reference guide from hardware selection through advanced attack scenarios: WiFi scanning, deauthentication, beacon spam, PMKID capture, evil twin, BLE operations, GPS wardriving, and post-capture Hashcat cracking. For the condensed on-device cheat sheet, see [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md).
+
+## 🏆 Goal
+Enable security professionals to select the right Marauder hardware variant, flash and configure it, execute authorized WiFi security assessments, and integrate captures into a full cracking pipeline.
+
+## 📋 When to Use
+- Planning a Marauder deployment and need hardware/firmware selection guidance
+- Executing a full WiFi security assessment including post-capture cracking
+- Building detection rules for deauth floods, beacon spam, or rogue APs
+- Wardriving with GPS-tagged AP discovery for site surveys
+
 ## Professional Wireless Security Testing with ESP32 Hardware
 
 > **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
@@ -191,7 +207,8 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ## WiFi Attack Techniques
 
-*(Retains original detailed recon/deauth/beacon/PMKID/Evil Twin workflows.)*
+<!-- TODO: Expand with full deauth/beacon/PMKID/Evil Twin workflow detail from WifiMarauder_CheatSheet.md -->
+See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed on-device workflow reference.
 
 ---
 
@@ -218,13 +235,11 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ## Advanced Attack Scenarios
 
-- **Corporate WiFi Assessment**  
-- **Red Team Wireless Foothold**  
-- **IoT Security Testing**  
-- **WiFi Pineapple Emulation**  
-- **Backdoor/Persistence Simulation (lab only)**  
-
-*(All original content retained.)*
+- **Corporate WiFi Assessment** — enumerate all SSIDs, identify open/WEP/WPA2-Personal networks, capture PMKIDs, assess 802.11w/PMF enforcement
+- **Red Team Wireless Foothold** — evil twin + captive portal credential capture, then lateral movement on the authenticated network
+- **IoT Security Testing** — identify IoT SSIDs and weak-PSK networks via PMKID capture; assess device isolation
+- **WiFi Pineapple Emulation** — beacon spam + deauth + KARMA-style attacks replicating Pineapple PineAP behavior
+- **Backdoor/Persistence Simulation (lab only)** — demonstrate persistent rogue AP detection gaps in WIDS
 
 ---
 
@@ -347,5 +362,15 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 * Penetration testing with client authorization.
 * Testing your own home or lab network security.
 * Security research in isolated lab environments.
+
+---
+
+## Related Files
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — Quick-reference on-device commands and post-capture workflow
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) — hcxpcapngtool + Hashcat mode 22000 cracking workflow for Marauder captures
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Traditional deauth-forced handshake capture with aircrack-ng
+- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero + ESP32 Dev Board running Marauder firmware
+- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5Project: alternative ESP32 WiFi attack platform
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Pwnagotchi: autonomous passive WiFi capture on Pi
 
 ---

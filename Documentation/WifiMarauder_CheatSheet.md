@@ -1,5 +1,20 @@
 # ⚡ WiFi Marauder (v1.8.9+) Cheat Sheet 📡
 
+## 🎯 Purpose
+On-device command reference for ESP32 Marauder firmware — the pocket-sized WiFi and Bluetooth security testing platform. Covers the capture workflow (on-device) and the post-capture processing pipeline (on Kali/Linux).
+
+## ⚙️ Function
+Organized in two phases: on-device capture using the Marauder menu system (AP scanning, handshake/PMKID capture, deauth, beacon spam, GPS wardriving), and post-capture processing using hcxpcapngtool to convert `.pcapng` files to Hashcat mode 22000 format for cracking. See [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) for the full guide with hardware selection, installation, and advanced scenarios.
+
+## 🏆 Goal
+Capture WPA2 handshakes and PMKIDs from target networks (authorized testing only), transfer the `.pcapng` to a Linux workstation, and crack the pre-shared key with Hashcat.
+
+## 📋 When to Use
+- Authorized WiFi security assessments requiring a small, portable capture device
+- On-site handshake capture when a Kali laptop would be conspicuous
+- Wardriving with GPS-tagged AP discovery
+- Quick deauth/beacon demonstrations for client security awareness
+
 ### Basic Workflow: On-Device Capture
 
 The Marauder handles the packet capture and attack functions directly via its menu.
@@ -69,31 +84,29 @@ After capturing the `.pcapng` file on the Marauder's SD card, transfer it to a L
 
 **1. Convert Marauder PCAPNG to Hashcat Format**
 ```bash
--m 16800 is the mode for WPA-PMKID/EAPOL (HCX format)
--o: output file, -E: create ESSID list for filtering
-hcxpcaptool -o marauder_hash.16800 -E essid_list.txt /path/to/marauder/capture.pcapng
+# hcxpcapngtool replaced hcxpcaptool in hcxtools ≥5.3.0
+# Mode 22000 is the unified WPA/WPA2/WPA3 format (replaces deprecated modes 16800 and 2500)
+# -o: output file, -E: create ESSID list for targeted cracking
+hcxpcapngtool -o marauder_hash.hc22000 -E essid_list.txt /path/to/marauder/capture.pcapng
 ```
 
 **2. WPA/WPA2/WPA3 Cracking with Hashcat**
-### Dictionary attack against the converted hash file
 ```bash
-hashcat -m 16800 marauder_hash.16800 /path/to/wordlist.txt
-```
+# Dictionary attack against the converted hash file
+hashcat -m 22000 marauder_hash.hc22000 /path/to/wordlist.txt
 
-### Hybrid attack (Wordlist + 4 digits at the end)
-```bash
-hashcat -m 16800 marauder_hash.16800 wordlist.txt -a 6 ?d?d?d?d
-```
+# Hybrid attack (Wordlist + 4 digits at the end)
+hashcat -m 22000 marauder_hash.hc22000 wordlist.txt -a 6 ?d?d?d?d
 
-### Resume a previous session
-```bash
-hashcat -m 16800 marauder_hash.16800 wordlist.txt --session=last_run --status
+# Resume a previous session
+hashcat -m 22000 marauder_hash.hc22000 wordlist.txt --session=last_run --status
 ```
 
 **3. File Analysis & Cleaning**
-### Show info on the captured file (ESSIDs, BSSIDs, packet counts)
 ```bash
-hcxinfo -i /path/to/marauder/capture.pcapng
+# Show info on the captured file (ESSIDs, BSSIDs, packet counts)
+# hcxinfo was replaced by hcxpcapngtool --info=stdout in hcxtools ≥5.3.0
+hcxpcapngtool --info=stdout /path/to/marauder/capture.pcapng
 ```
 
 ### Merge multiple capture files before conversion
@@ -117,4 +130,12 @@ mergecap -w merged.pcapng capture-*.pcapng
 * Security research in isolated lab environments.
 
 ---
+
+## Related Files
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) — Full Marauder guide: hardware selection, firmware installation, advanced attack scenarios
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Complete hcxtools + Hashcat mode 22000 cracking workflow
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng suite for deauth-forced handshake capture workflows
+- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero + ESP32 Dev Board: running Marauder via the Flipper
+- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5Project: keyboard-driven WiFi attack platform (sibling to Marauder)
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Pwnagotchi: passive handshake capture on Pi (same pcapng output format)
 

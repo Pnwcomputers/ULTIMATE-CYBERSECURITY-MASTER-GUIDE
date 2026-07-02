@@ -208,7 +208,7 @@ Procedure:
    https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
    ```
 3. In **Tools → Board → Boards Manager**, install **esp32 by Espressif Systems**. The project documentation specifically requires version **2.1.4 or earlier** and warns that 3.x (including the `3.0.0-alpha3` revision) breaks the build on most non-M5 boards. Anything in the 2.x line up to 2.1.4 is safe.
-4. Install the M5Stack board package per `https://docs.m5stack.com/en/arduino/arduino_board`.
+4. Install the M5Stack board package — see `https://docs.m5stack.com/en/arduino/arduino_board` (verify current URL; M5Stack docs restructure periodically) or search M5Stack's Arduino quickstart in their official docs.
 5. Install the following libraries via **Library Manager**:
    - `Adafruit_NeoPixel`
    - `ArduinoJson`

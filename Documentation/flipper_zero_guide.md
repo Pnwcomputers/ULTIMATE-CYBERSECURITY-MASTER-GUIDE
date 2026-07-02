@@ -143,7 +143,7 @@ Key pins for common use:
 - Extra apps in `*e.tgz` or resources package
 - Supports custom asset packs
 
-### [RogueMaster](https://rogue-master.net/)
+### [RogueMaster](https://github.com/RogueMaster/flipperzero-firmware-wPlugins)
 - **Source**: github.com/RogueMaster/flipperzero-firmware-wPlugins
 - Maximum features and app count
 - Less stable, rolling releases
@@ -815,7 +815,7 @@ The ESP32-S2-based WiFi Development Board attaches to the Flipper's GPIO header 
 
 1. Attach WiFi Dev Board to GPIO header (keyed, only fits one way)
 2. Flash Marauder firmware onto the ESP32:
-   - Windows: Use Marauder's web flasher at `esp.huhn.me`
+   - Windows: Use Spacehuhn's ESP web flasher at `esptool.spacehuhn.com` (general-purpose ESP32 flasher, not Marauder-specific)
    - Or: download Marauder binary from `github.com/justcallmekoko/ESP32Marauder/releases`
 3. Install Marauder Companion app on Flipper (Flipper Lab)
 
@@ -828,9 +828,9 @@ The ESP32-S2-based WiFi Development Board attaches to the Flipper's GPIO header 
 
 #### Deauthentication Attacks
 **802.11 deauthentication frames** — disassociates clients from their AP:
-- `deauth -a` — deauth all stations from all APs
-- `deauth -b [BSSID]` — target specific AP
-- Select from scan results in Marauder UI
+- `attack -t deauth` — deauth all scanned APs
+- `attack -t deauth -b [BSSID]` — target specific AP
+- Select target from scan results in Marauder UI before running attack
 
 > **Pentest use**: Demonstrate that anyone within radio range can forcibly disconnect clients. Effective for showing client why open/public WiFi is dangerous, and why 802.11w (Management Frame Protection) should be enabled.
 
@@ -1313,7 +1313,7 @@ github.com/UberGuidoZ/Flipper/tree/main/NFC
 | Resource | URL |
 |---|---|
 | Flipper Zero official | flipper.net |
-| qFlipper download | flipperzero.one/update |
+| qFlipper download | flipper.net/pages/downloads |
 | Flipper Lab (app catalog) | lab.flipper.net |
 | Official documentation | docs.flipper.net |
 
@@ -1357,7 +1357,7 @@ github.com/UberGuidoZ/Flipper/tree/main/NFC
 
 - [Computer Fraud and Abuse Act (CFAA) — 18 U.S.C. § 1030](https://www.law.cornell.edu/uscode/text/18/1030)
 - [Electronic Communications Privacy Act (ECPA)](https://www.law.cornell.edu/uscode/text/18/part-I/chapter-119)
-- [Washington State RCW 9A.52.110 — Computer Trespass](https://apps.leg.wa.gov/rcw/default.aspx?cite=9A.52.110)
+- [Washington State RCW 9A.90 — Washington Cybercrime Act](https://app.leg.wa.gov/RCW/default.aspx?cite=9A.90) (RCW 9A.52.110 was repealed in 2016; current law is RCW 9A.90.040 computer trespass 1st degree, RCW 9A.90.050 2nd degree)
 - [FCC Part 15 — Unlicensed RF devices](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15)
 
 ---

@@ -87,7 +87,7 @@ The **Wiretap Act**, 18 U.S.C. § 2511, applies when Bjorn's network scanning ca
 
 The corollary, and the only safe operational posture:
 
-1. **Air-gapped or fully-isolated lab use only**, against intentionally vulnerable VMs you have provisioned for the purpose. Metasploitable2, Metasploitable3, DVWA, OWASP Broken Web Apps; these exist precisely so practitioners can learn attack tooling without breaking the law.
+1. **Air-gapped or fully-isolated lab use only**, against intentionally vulnerable VMs you have provisioned for the purpose. Metasploitable2, Metasploitable3, DVWA, OWASP WebGoat/Juice Shop; these exist precisely so practitioners can learn attack tooling without breaking the law.
 2. **Documented and signed ROE that specifically enumerates authorized brute-force activity**; many ROEs that authorize "vulnerability scanning" do not authorize "credential brute force" or "data exfiltration." Bjorn does the latter two automatically. If the ROE doesn't say so explicitly, do not run Bjorn under it.
 3. **No "drive-by" deployment.** Once Bjorn is on a network, the operator has, by design, given up moment-to-moment control of what it attacks. The deployment location, the network it attaches to, and the time-bounded scope of its operation must all be enumerated in the ROE.
 
@@ -411,7 +411,7 @@ Every exercise in this section assumes a **fully isolated lab environment**. The
   - Metasploitable2; Linux with weak everything (FTP, SSH, Telnet, MySQL with msfadmin/msfadmin, SMB Samba 3 with anonymous shares)
   - Metasploitable3 (Linux and Windows variants); newer Rapid7-maintained vulnerable images
   - DVWA; web app focus, less Bjorn-relevant but useful for context
-  - OWASP Broken Web Apps; same
+  - OWASP WebGoat / Juice Shop (replaced OWASP BWA); same
   - A Windows VM with anonymous SMB share enabled and a weak local administrator password
 - **Bjorn deployment:** Pi Zero 2 W with e-Paper HAT, attached to the lab VLAN.
 - **Observer station:** a separate VM running Wireshark and an IDS (Suricata or Zeek) on a SPAN port of the lab switch, so you can independently observe what Bjorn does.
@@ -693,7 +693,8 @@ Ragnar is worth knowing about because:
   - Metasploitable2: `https://docs.rapid7.com/metasploit/metasploitable-2`
   - Metasploitable3: `https://github.com/rapid7/metasploitable3`
   - DVWA: `https://github.com/digininja/DVWA`
-  - OWASP Broken Web Apps: `https://owasp.org/www-project-broken-web-applications/`
+  - OWASP WebGoat (replaced OWASP BWA): `https://owasp.org/www-project-webgoat/`
+  - OWASP Juice Shop: `https://owasp.org/www-project-juice-shop/`
 - **CFAA full text:** `https://www.law.cornell.edu/uscode/text/18/1030`
 - **Stored Communications Act:** `https://www.law.cornell.edu/uscode/text/18/2701`
 - **Wiretap Act:** `https://www.law.cornell.edu/uscode/text/18/2511`
