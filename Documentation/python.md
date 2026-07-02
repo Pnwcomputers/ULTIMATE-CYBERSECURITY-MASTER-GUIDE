@@ -1,5 +1,19 @@
 # Python Pen Testing Cheat Sheet
 
+## 🎯 Purpose
+Command/snippet reference for Python-based exploit development and dynamic analysis on Windows — ctypes-based WinAPI access, manual debugger construction, DLL/shellcode injection, fuzzing, and IDAPython scripting. This is the only file in the repo covering Python at the exploit-dev/reverse-engineering layer rather than general scripting or OSINT automation.
+
+## ⚙️ Function
+Organized by technique rather than tool: raw ctypes WinAPI calls first, then progressively higher-level debugging frameworks (PyDbg, Immunity Debugger PyCommands) built on the same primitives, then injection, fuzzing, and IDAPython sections. Several of the named frameworks here (PyDbg, Sulley) are historical/legacy — see the inline notes on their current maintenance status before building new tooling on them.
+
+## 🏆 Goal
+Have working Python snippets for the exploit-dev primitives (process creation under a debugger, breakpoint set/restore, DLL/shellcode injection, basic fuzzing, IDAPython automation) without re-deriving the ctypes signatures from scratch each time.
+
+## 📋 When to Use
+- Writing a custom Windows debugger or exploit harness in Python
+- Quick ctypes signature lookup for a WinAPI call used in exploit dev
+- Scripting IDA Pro analysis (function renaming, xref hunting, string extraction) via IDAPython
+
 ## Basic Execution
 
 ```bash
@@ -94,6 +108,8 @@ kernel32.WriteProcessMemory(h_process, address, original_byte, 1, byref(c_ulong(
 ---
 
 ## PyDbg - Advanced Debugging
+
+> **Status note:** The original OpenRCE `PyDbg` (from Pedram Amini's PaiMei framework) is Python 2-only and has been unmaintained for years. For new work on Python 3, look at community forks like `pydbg3`, or consider `WinAppDbg` as a more actively-documented pure-Python Windows debugging library. The concepts below (callbacks, breakpoints, memory read/write) carry over regardless of which library you use.
 
 ### Basic Setup
 ```python
@@ -239,6 +255,8 @@ for size in range(1, 256):
 ---
 
 ## Sulley Framework
+
+> **Status note:** Sulley itself is no longer maintained. **`boofuzz`** (github.com/jtpereyda/boofuzz) is the actively-maintained fork and drop-in successor — same block/request concepts shown below, current Python 3 support. Prefer boofuzz for any new fuzzing harness.
 
 ### Basic Request
 ```python
