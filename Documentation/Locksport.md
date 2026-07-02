@@ -2,6 +2,20 @@
 
 > **Scope:** The art, sport, and science of lock picking — covering mechanical lock fundamentals, hands-on picking and impressioning techniques, tool selection, and competitive locksport. This section treats lock picking as a legitimate skill and sport, consistent with the laws and ethics of the locksport community.
 
+## 🎯 Purpose
+Standalone reference on physical lock mechanics, picking/impressioning technique, and competitive locksport — the only file in this repo covering physical (non-cyber) security bypass in depth. Complements the Flipper Zero/hardware guides' brief NFC/RFID badge-cloning coverage but doesn't overlap with them: this is entirely about mechanical locks, not electronic access control.
+
+## ⚙️ Function
+Three parts: foundational lock mechanics and legal landscape (Part I), hands-on picking/impressioning/safe-manipulation technique (Part II), and competitive locksport formats and strategy (Part III). Unlike the tool-focused Documentation files, this one is almost entirely technique and physics — there's no firmware, no CLI, no version drift to track.
+
+## 🏆 Goal
+Understand how mechanical locks work well enough to evaluate their security, pick a pin-tumbler lock via single-pin-picking, and know the legal/ethical boundaries of practicing and competing in locksport.
+
+## 📋 When to Use
+- Physical security assessments where lock/access-control mechanisms are in scope
+- Learning locksport as a hobby or preparing for competition
+- Reference for lock terminology and security-pin behavior when picking is part of a physical penetration test
+
 ---
 
 ## Table of Contents
@@ -310,7 +324,7 @@ Lock picks are legal to own in most US states. A small number of states have mor
 | /r/lockpicking | Reddit | Largest English-language community; belt ranking system; feedback and progression |
 | Keypicking.com | Forum | Long-running technical forum; European-heavy |
 | The Open Organisation Of Lockpickers (TOOOL) | Global chapters + Discord | Competitive and educational; chapters worldwide |
-| Locksport International (LSI) | Forum + YouTube | Competitive focus; hosts championships |
+| Locksport International (LSI) | locksport.com | Competitive focus; hosts championships |
 | BosnianBill, LockPickingLawyer | YouTube | High-quality video reviews and picking demonstrations |
 
 **In-person:**
@@ -1001,7 +1015,7 @@ Common at SSV (safe and vault) trade events and some locksport championships.
 **Competitions:**
 - **DEF CON Lockpicking Village** — defcon.org; annual; Las Vegas
 - **TOOOL events** — toool.us; chapter events worldwide
-- **Locksport International** — locksportinternational.com
+- **Locksport International** — locksport.com (the `locksportinternational.com` domain no longer resolves; `locksport.com` is the org's current domain per Wikipedia, though the site itself returns intermittent server errors as of this writing)
 - **ALOA Annual Convention** — aloa.org; professional context; manipulation competitions
 
 **Sourcing Locks and Supplies:**
