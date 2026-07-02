@@ -18,7 +18,7 @@ Understand why Bjorn's autonomous brute-force/exfiltration design makes its lega
 
 ---
 
-## 1. What Bjorn is & How it Differs From Other Devices:
+## 1. What Bjorn is, and how it differs
 
 [Bjorn](https://github.com/infinition/Bjorn) is an open-source autonomous network attacker created by the developer "infinition," distributed under the **MIT license** at `github.com/infinition/Bjorn`. It runs as a Python daemon on a Raspberry Pi with an attached **2.13-inch Waveshare e-Paper HAT** that gives the device a "Tamagotchi-like" character: a small cartoon Viking named Bjorn whose live commentary, mood, and growth statistics scroll across the e-Paper screen as Bjorn methodically scans, attacks, and exfiltrates from whatever network it's plugged into.
 
