@@ -198,11 +198,11 @@ This guide stands on the shoulders of the global cybersecurity community.
 **Exploitation & Post-Exploitation**
 - [Metasploit Framework](https://www.rapid7.com/) — Rapid7
 - [Impacket](https://github.com/fortra/impacket) — Fortra
-- [BloodHound](https://github.com/BloodHoundAD/BloodHound) — SpecterOps
+- [BloodHound](https://github.com/SpecterOps/BloodHound) — SpecterOps
 - [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) / [NetExec](https://github.com/Pennyw0rth/NetExec)
 - [Empire](https://github.com/BC-SECURITY/Empire) — BC Security
 - [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) · [Nishang](https://github.com/samratashok/nishang)
-- [PEASS-ng](https://github.com/carlospolop/PEASS-ng) — Carlos Polop
+- [PEASS-ng](https://github.com/peass-ng/PEASS-ng) — Carlos Polop
 - [Responder](https://github.com/lgandx/Responder) — Laurent Gaffié
 
 **OSINT**
@@ -216,7 +216,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Nmap](https://nmap.org/) · [Wireshark](https://www.wireshark.org/) · [Burp Suite](https://portswigger.net/burp) · [OWASP ZAP](https://www.zaproxy.org/)
 - [Nikto](https://github.com/sullo/nikto) · [SQLmap](https://sqlmap.org/) · [Gobuster](https://github.com/OJ/gobuster) · [ffuf](https://github.com/ffuf/ffuf)
 - [Nuclei](https://github.com/projectdiscovery/nuclei) · [Subfinder](https://github.com/projectdiscovery/subfinder) · [httpx](https://github.com/projectdiscovery/httpx) — ProjectDiscovery
-- [AutoRecon](https://github.com/Tib3rius/AutoRecon) — Tib3rius
+- [AutoRecon](https://github.com/AutoRecon/AutoRecon) — Tib3rius
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) · [SecLists](https://github.com/danielmiessler/SecLists) · [ExploitDB](https://www.exploit-db.com/)
 
 **Password & Credentials**
