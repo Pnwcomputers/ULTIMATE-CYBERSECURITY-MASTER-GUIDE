@@ -1,7 +1,9 @@
 # Command and Control
 _C2 channel techniques and covert communication methods for red team infrastructure, organized by protocol/channel. Most items link to a specific pentestlab.blog write-up. C2-005, C2-010, C2-011, and C2-020 have no dedicated article, so they link to the general pentestlab.blog Command & Control category (★ general reference)._
 
-### 📖 Full deep-dive (Cobalt Strike, Sliver, Havoc; Architecture, OpSec, Detection): [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md)
+### 📖 Full Deep-dives (Cobalt Strike, etc; Architecture, Detection, etc): [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md)
+
+---
 
 * [C2-001 - ICMP](https://pentestlab.blog/2017/07/28/command-and-control-icmp/)
 * [C2-002 - DNS](https://pentestlab.blog/2017/09/06/command-and-control-dns/)
