@@ -2,6 +2,8 @@
 
 > **Scope:** Cobalt Strike, Sliver, and Havoc — architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
 
+✅ **Quick-reference checklist:** [Command and Control](../Checklists/Command&Control.md)
+
 ---
 
 ## Table of Contents
