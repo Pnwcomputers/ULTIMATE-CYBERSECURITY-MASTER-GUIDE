@@ -63,6 +63,18 @@
 38. [Analysis Environments (FLARE VM / REMnux)](#analysis-environments)
 ---
 
+## 🎯 Purpose
+Everything in [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) plus PNWC's 20-years-first-hand operational knowledge layered in — OPSEC procedures, OSINT investigation tradecraft, real-world attack case studies, field-tested playbooks, and custom automation scripts that come from actual engagements rather than published books.
+
+## ⚙️ Function
+6 parts: Operational Security & Setup (OPSEC, VMs, anonymity), OSINT Mastery (people search, username/email/phone investigation, geolocation, metadata analysis), Real-World Attack Case Studies (Stuxnet through Snowden), Team Playbooks (Purple/Blue Team, detection pipelines, SIEM), Custom Scripts & Automation, and Operational Tradecraft (which links out to the dedicated [Tradecraft/](Tradecraft/) folder for C2/evasion/LOLBins/AD-attack depth). Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) by adding the operational/field layer on top of the book-derived lifecycle content; differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging technical domains (AI, hardware, SDR, space) rather than operational tradecraft.
+
+## 🏆 Goal
+A reader can run a full OSINT investigation, execute an OPSEC-compliant engagement, and reference real incident case studies for lessons learned — all grounded in field-tested procedure, not just textbook theory.
+
+## 📋 When to Use
+When you need PNWC's actual operational procedure (not just book theory) for OPSEC, OSINT, playbooks, or case-study analysis, or as the bridge between the foundational master guide and the dedicated Tradecraft/ folder.
+
 # PART 2: OPERATIONAL SECURITY & SETUP
 
 ## OPSEC Fundamentals
@@ -167,10 +179,7 @@ Layer 5: Data Security
 
 #### For OSINT Investigations:
 
-- **IntelTechniques OSINT VM** (formerly "Buscador")
-  Custom Debian/Ubuntu build with pre-configured OSINT tools, maintained by Michael Bazzell/David Westcott.
-  Official page: https://inteltechniques.com/buscador/
-  Follow the setup instructions on that page directly — don't hardcode credentials into install URLs; they end up in shell history and logs.
+- ~~**Buscador OSINT VM**~~ — **unmaintained**: the official page (`inteltechniques.com/buscador/`) is gone and the project has had no updates in years. Use **Tsurugi Linux** instead — an actively maintained Debian-based OSINT/forensics distro with a comparable pre-configured tool set: https://tsurugi-linux.org/downloads.php
 
 - **Trace Labs OSINT VM**
   Official GitHub Releases (OVA downloads + SHA256 checksums): https://github.com/tracelabs/tlosint-vm/releases
@@ -1607,8 +1616,9 @@ Compromised Standards:
 # - Deniable authentication
 
 # 2. Tor usage increase
-# Download Tor Browser
-wget https://www.torproject.org/dist/torbrowser/latest/tor-browser-linux64.tar.xz
+# Download Tor Browser (get the current version number from the download page —
+# never hardcode a version, the /latest/ symlink path no longer exists)
+# https://www.torproject.org/download/
 
 # 3. VPN usage
 # Select no-logs VPN provider
@@ -3944,7 +3954,7 @@ Set-ExecutionPolicy Unrestricted -Force && .\install.ps1
  
 **Linux — REMnux:**
 ```bash
-wget https://REMnux.org/remnux-cli && sudo mv remnux-cli /usr/local/bin/remnux
+wget https://REMnux.org/remnux && sudo mv remnux /usr/local/bin/remnux
 sudo chmod +x /usr/local/bin/remnux && remnux install
 # Key tools: Volatility 3, YARA, Ghidra, radare2/Cutter,
 #            oledump, pdf-parser, NetworkMiner, FakeNet-NG, inetsim
@@ -4357,8 +4367,8 @@ Process Monitor, Process Hacker, VMMap, Regshot, FakeNet-NG, CyberChef, dnSpy, d
 Ubuntu-based Linux malware analysis distro. Use alongside FLARE VM.
  
 ```bash
-wget https://REMnux.org/remnux-cli
-sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
+wget https://REMnux.org/remnux
+sudo mv remnux /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
 remnux install
 ```
  
