@@ -1069,7 +1069,7 @@ If using Fleet for central management:
 ### Community
 
 - [Osquery Slack](https://osquery.slack.com/)
-- [Osquery GitHub Discussions](https://github.com/osquery/osquery/discussions)
+- [Osquery GitHub Issues](https://github.com/osquery/osquery/issues)
 
 ---
 
