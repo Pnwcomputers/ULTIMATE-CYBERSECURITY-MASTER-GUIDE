@@ -1,5 +1,17 @@
 # Bash Scripting Cheat Sheet
 
+## 🎯 Purpose
+A general-purpose Bash syntax reference (loops, conditionals, arrays, string manipulation, error handling) — unlike [Scripts/Bash/BashBunny/README.md](BashBunny/README.md), which is specific to one hardware platform's payload format, this covers standard Bash you'd use in any script.
+
+## ⚙️ Function
+Organized by language feature (loops, arrays, string manipulation, error handling) followed by security-specific sections (System Information, Pen Testing Patterns, Web Shell Scripts, Useful Tools) and a closing ethics/legal section. Differs from [Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md), which covers CLI *commands* (ls, grep, systemctl) rather than Bash *scripting syntax* (loops, conditionals, functions).
+
+## 🏆 Goal
+A reader can look up correct Bash syntax for a construct without needing to search `man bash` or external references mid-script.
+
+## 📋 When to Use
+While writing or debugging a Bash script and needing a quick syntax reminder for loops, conditionals, arrays, or error handling.
+
 ## Basic Execution
 
 ```bash
