@@ -1074,7 +1074,7 @@ sudo apt install kali-tools-information-gathering
 - [OSINT Framework](https://osintframework.com/)
 - [Bellingcat OSINT Toolkit](https://docs.google.com/spreadsheets/d/18rtqh8EG2q1xBo2cLNyhIDuK9jrPGwYr9DI2UncoqJQ/edit)
 - [MITRE ATT&CK: Reconnaissance](https://attack.mitre.org/tactics/TA0043/)
-- [SANS OSINT Poster](https://www.sans.org/security-resources/posters/open-source-intelligence-gathering/)
+- [SANS Intelligence Analyst's Playbook Poster](https://www.sans.org/posters/intelligence-analysts-playbook)
 - [IntelTechniques](https://inteltechniques.com/tools/)
 - [Trace Labs CTF (missing persons OSINT)](https://www.tracelabs.org/)
 - [OSINT Curious](https://osintcurio.us/)

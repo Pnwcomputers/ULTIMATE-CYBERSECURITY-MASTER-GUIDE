@@ -932,13 +932,13 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -Onli
 
 ```bash
 # Install REMnux on Ubuntu (converts existing install)
-wget https://REMnux.org/remnux-cli
-mv remnux-cli /usr/local/bin/remnux
-chmod +x /usr/local/bin/remnux
-remnux install
+curl -O https://REMnux.org/remnux
+chmod +x remnux
+sudo mv remnux /usr/local/bin
+sudo remnux install --mode=addon
 
-# Or download the pre-built OVA:
-# https://remnux.org/get-remnux/
+# Or download the pre-built OVA / see docs:
+# https://docs.remnux.org/
 ```
 
 Key REMnux tools:
@@ -1125,7 +1125,7 @@ Memory forensics on acquired dump?
 - [Ghidra](https://ghidra-sre.org/)
 - [Cutter / rizin](https://cutter.re/)
 - [CAPE Sandbox](https://github.com/kevoreilly/CAPEv2)
-- [Elastic: Detecting Evasion with Memory Signatures](https://www.elastic.co/security-labs/detecting-cobalt-strike-with-memory-signatures)
+- [Elastic: Detecting Cobalt Strike with Memory Signatures](https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures)
 - [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
 - [VECTR Purple Team Platform](https://vectr.io/)
 - [Sysmon Config (SwiftOnSecurity)](https://github.com/SwiftOnSecurity/sysmon-config)
