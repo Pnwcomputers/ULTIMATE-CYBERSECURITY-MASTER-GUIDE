@@ -21,6 +21,18 @@
 
 ---
 
+## 🎯 Purpose
+A curated, execution-flow-organized walkthrough of Windows LOLBins/LOLBAs — where the [LOLBAS Project](https://lolbas-project.github.io/) is an exhaustive per-binary catalog, this file organizes the same technique space by attacker goal (execution, download, lateral movement, persistence, credential access) so it maps directly onto an engagement's kill chain.
+
+## ⚙️ Function
+Covers what LOLBins are, then sections by offensive goal (execution, download/transfer, lateral movement, persistence, credential harvesting, recon) plus a dedicated LOLDrivers section, closing with detection/hunting and defensive controls. Pairs with the [AppLocker Bypass](../Checklists/AppLocker.md) and [Environment Breakout](../Checklists/Environment-Breakout-Checklist.md) quick-reference checklists; differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading detection generally rather than specifically abusing trusted signed binaries.
+
+## 🏆 Goal
+An operator can complete a full attack chain using only signed/trusted Windows binaries (minimizing custom-tool detection surface), and a defender can build detections for that same abuse.
+
+## 📋 When to Use
+When an engagement requires allowlist/AppLocker bypass, or when building detection logic for living-off-the-land abuse on the defensive side.
+
 ## What is LOLB?
 
 Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed executables, DLLs, and scripts built into Windows that can be abused for malicious purposes.
