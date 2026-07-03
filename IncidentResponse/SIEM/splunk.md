@@ -909,7 +909,7 @@ publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
 - [Splunk Community](https://community.splunk.com/)
 - [Splunk Education](https://www.splunk.com/en_us/training.html)
 - [Splunk Fundamentals 1](https://www.splunk.com/en_us/training/courses/splunk-fundamentals-1.html) (Free)
-- [Boss of the SOC (BOTS)](https://www.splunk.com/en_us/blog/security/boss-of-the-soc-bots-v5-dataset-released.html) (Practice datasets)
+- [Boss of the SOC (BOTS)](https://bots.splunk.com/) · [BOTS v3 dataset](https://github.com/splunk/botsv3) (Practice datasets)
 
 ### Detection Content
 

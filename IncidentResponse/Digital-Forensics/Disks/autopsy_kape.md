@@ -244,7 +244,7 @@ Category: EventLogs
 Author: Eric Zimmerman
 Version: 1.0
 Id: 87654321-4321-4321-4321-cba987654321
-BinaryUrl: https://f001.backblazeb2.com/file/EricZimmermanTools/EvtxECmd.zip
+BinaryUrl: https://download.ericzimmermanstools.com/net9/EvtxECmd.zip
 ExportFormat: csv
 Processors:
     -
@@ -814,7 +814,7 @@ Remove-Item -Recurse "$env:APPDATA\.autopsy"
 
 - [Autopsy User Documentation](https://sleuthkit.org/autopsy/docs/user-docs/4.19.3/)
 - [KAPE Documentation](https://ericzimmerman.github.io/KapeDocs/)
-- [SANS DFIR Resources](https://www.sans.org/blog/dfir-resources/)
+- [SANS DFIR Cheat Sheets](https://digital-forensics.sans.org/community/cheat-sheets)
 
 ### Training
 

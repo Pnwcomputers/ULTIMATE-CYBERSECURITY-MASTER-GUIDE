@@ -99,7 +99,7 @@ sudo yum install -y osquery
 
 #### Method 1: MSI Installer
 
-Download from [osquery.io/downloads](https://osquery.io/downloads/official/):
+Download from [osquery GitHub releases](https://github.com/osquery/osquery/releases):
 
 ```powershell
 # Download installer
@@ -1052,7 +1052,7 @@ If using Fleet for central management:
 ### Documentation
 
 - [Osquery Documentation](https://osquery.readthedocs.io/)
-- [Osquery Schema](https://osquery.io/schema/)
+- [Osquery Schema (Fleet table reference)](https://fleetdm.com/tables)
 - [Osquery GitHub](https://github.com/osquery/osquery)
 
 ### Query Packs
