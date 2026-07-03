@@ -919,4 +919,13 @@ A: While this guide focuses on inference, you can fine-tune models using tools l
 
 ---
 
+## Related Files
+- [README.md](README.md) — AI/ section index
+- [AnythingLLM/anything_llm_agentflows.md](AnythingLLM/anything_llm_agentflows.md) — AgentFlow automation built on top of the AnythingLLM instance this guide installs
+- [ai_prompts.md](ai_prompts.md) — Prompt engineering techniques that apply directly to locally-hosted Dolphin models
+- [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) — Homelab hardware this offline LLM stack is typically deployed on
+- [../OSINT/README.md](../OSINT/README.md) — OSINT work that benefits from air-gapped, no-data-leaves-the-machine AI assistance
+
+---
+
 **Happy local AI adventures! 🚀**

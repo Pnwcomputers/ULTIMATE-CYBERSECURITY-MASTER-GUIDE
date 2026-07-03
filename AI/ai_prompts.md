@@ -178,4 +178,13 @@ Begin.
 
 ---
 
+## Related Files
+- [README.md](README.md) — AI/ section index
+- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) — Security-domain prompt examples that apply these techniques
+- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) — Agent persona/system prompts built using the Master Template here
+- [offensive_ai.md](offensive_ai.md) — Prompt injection: the adversarial flip side of the prompting techniques in this file
+- [offline-llm.md](offline-llm.md) — Local LLM deployment these prompting techniques apply to just as well as cloud models
+
+---
+
 *Created as a part of the ULTIMATE CYBERSECURITY MASTER GUIDE*
