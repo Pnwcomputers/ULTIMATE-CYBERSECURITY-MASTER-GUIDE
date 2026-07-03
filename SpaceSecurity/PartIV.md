@@ -1,5 +1,20 @@
 # 📺 Part IV: The User Segment
 
+## 🎯 Purpose
+User segment attack guide — covering SATCOM terminal vulnerabilities (Viasat KA-SAT style attacks), GNSS spoofing and jamming, VSAT security assessments, and maritime/aviation satellite terminal exploitation.
+
+## ⚙️ Function
+Covers: ODU/IDU terminal architecture, Ku/Ka-band link exploitation, modem firmware extraction and analysis, GNSS spoofing mechanics (civilian GPS L1 C/A is unencrypted), VSAT terminal default credentials and web interface vulnerabilities, and the regulatory landscape for GNSS interference.
+
+## 🏆 Goal
+Assess the security of satellite user terminals — the most accessible segment of a space system from an attacker's perspective — identifying credential exposure, firmware vulnerabilities, and GNSS signal integrity weaknesses.
+
+## 📋 When to Use
+- Security assessment of a maritime, aviation, or enterprise SATCOM installation
+- GNSS spoofing resilience testing in an authorized lab environment
+- Understanding how the 2022 Viasat attack worked and how to defend against it
+- CubeSat ground terminal security review
+
 ## Chapter 10: Attacking SATCOM Terminals
 
 #### Terminal Architecture
@@ -241,6 +256,10 @@ Spoofing attack progression:
 <div align="center">
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
+
+## Related Files
+- [PartI.md](PartI.md) — Foundations: threat actors and attack taxonomy for user segment threats
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — SDR hacking: GPS spoofing and SATCOM signal analysis tools and techniques
 
 *Space systems are critical infrastructure — treat them accordingly.*
 

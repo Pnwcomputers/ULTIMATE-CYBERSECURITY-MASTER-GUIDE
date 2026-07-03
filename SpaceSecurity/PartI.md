@@ -1,5 +1,19 @@
 # 🌍 Part I: Foundations of Space Security
 
+## 🎯 Purpose
+Foundational overview of space security — covering the three-segment architecture (ground/space/user), historical incident timeline, threat actor taxonomy, attack surface mapping, and the security engineering principles specific to space systems.
+
+## ⚙️ Function
+Covers: space system segment definitions and interdependencies, attack surface per segment, historical incidents (Cosmos 954, Galaxy 15, Viasat KA-SAT), threat actor profiles (nation-states, cyber criminals, hacktivists), COTS-driven risk changes, and space-specific security engineering considerations.
+
+## 🏆 Goal
+Build the conceptual foundation needed to understand why space systems have unique security properties and how the three-segment architecture creates cascading risk — before diving into segment-specific attacks in Parts II-IV.
+
+## 📋 When to Use
+- Starting point for space security: read before any of the other Parts
+- Threat modeling a space system: use the attack taxonomy and threat actor profiles here
+- Scoping a space security assessment: understand which segments are in scope and their interdependencies
+
 ## Chapter 1: A Space Security Primer
 
 #### Space System Segments
@@ -168,6 +182,11 @@ Space Segment (Research/Lab Context)
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
+
+## Related Files
+- [PartII.md](PartII.md) — Ground segment attacks: next after establishing foundations here
+- [README.md](README.md) — SpaceSecurity section index with regulatory and tool ecosystem overview
+- [../SDR/sdr.md](../SDR/sdr.md) — SDR fundamentals: the hardware and techniques used to interact with satellite RF links
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

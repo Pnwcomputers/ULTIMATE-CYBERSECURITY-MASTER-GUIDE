@@ -1,5 +1,19 @@
 # 🚀 Part III: The Space Segment
 
+## 🎯 Purpose
+Space segment attack and defense guide — covering onboard computer (OBC) architecture, flight software (FSW) vulnerabilities, RTOS security (VxWorks, RTEMS, FreeRTOS), memory corruption in space-grade processors, and supply chain risks in COTS satellite components.
+
+## ⚙️ Function
+Covers: spacecraft software architecture layering (mission apps/FSW/RTOS/BSP), memory protection unit limitations, RTOS-specific vulnerabilities, FSW patching constraints (bandwidth-limited uplinks), SEU/radiation-induced fault injection, and CubeSat COTS hardware attack surface.
+
+## 🏆 Goal
+Understand the unique constraints of space-segment software security — where patching may require months, memory protection is limited, and hardware faults (SEU) can be weaponized — to assess and improve spacecraft software security posture.
+
+## 📋 When to Use
+- Assessing a spacecraft FSW codebase for vulnerabilities before launch
+- Understanding why space software security differs from terrestrial embedded systems
+- Red-teaming a CubeSat or small satellite with COTS OBC hardware
+
 ## Chapter 8: Onboard Software
 
 #### Spacecraft Software Architecture
@@ -118,6 +132,11 @@ python decode_telemetry.py --frames decoded.json
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
+
+## Related Files
+- [PartII.md](PartII.md) — Ground segment: the uplink path to the FSW
+- [PartIV.md](PartIV.md) — User segment: the downstream satellite services
+- [../HardwareHacking/Chapter3.md](../HardwareHacking/Chapter3.md) — Fault injection: SEU/radiation fault injection has parallels to hardware glitching
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

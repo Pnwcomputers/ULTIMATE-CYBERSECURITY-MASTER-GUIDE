@@ -1,5 +1,20 @@
 # 📡 Part II: The Ground Segment
 
+## 🎯 Purpose
+Ground segment attack and defense guide — covering uplink/downlink RF link architecture, TT&C (Telemetry, Tracking, and Commanding) attack vectors, mission control network security, ground station infrastructure vulnerabilities, and supply chain risks.
+
+## ⚙️ Function
+Covers: ground-space RF link architecture (uplink/downlink/crosslink), TT&C command injection and replay attacks, CCSDS frame structure and authentication weaknesses, ground station network lateral movement, mission control server hardening, and supply chain security for ground hardware.
+
+## 🏆 Goal
+Identify and assess vulnerabilities in the ground segment of a space system — the earth-based infrastructure that commands satellites and receives telemetry — without touching or transmitting to the satellite itself.
+
+## 📋 When to Use
+- Penetration testing a ground station or mission control network
+- Assessing TT&C command authentication for a satellite operator
+- Understanding how ground segment compromise enables satellite takeover
+- Red-teaming space-adjacent infrastructure (ground networks, not orbital targets)
+
 ## Chapter 4: Ground-Space Communications
 
 #### Link Architecture
@@ -278,6 +293,11 @@ Mission Impact
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
+
+## Related Files
+- [PartI.md](PartI.md) — Foundations: read before this Part
+- [PartIII.md](PartIII.md) — Space segment: the satellite side of the link
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — SDR advanced: CCSDS protocol reversing and satellite RF signal capture
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

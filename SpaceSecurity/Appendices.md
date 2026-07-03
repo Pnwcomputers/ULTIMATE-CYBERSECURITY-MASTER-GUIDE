@@ -1,5 +1,19 @@
 # 🏢 Appendix A: The Space Sector
 
+## 🎯 Purpose
+Reference appendices for the Space Security guide — covering industry overview (commercial, defense, NewSpace), regulatory and standards bodies (NIST SP 800-53, CCSDS, ITU), career paths in space security, and further reading resources.
+
+## ⚙️ Function
+Contains tabular industry overview (sector/key players/security relevance), regulatory bodies and applicable standards, space security career paths (ground segment security engineer, satellite systems pentester, RF security researcher), and curated resource lists.
+
+## 🏆 Goal
+Provide the background context, standards references, and resource pointers that complement the operational content in Parts I-IV — useful for scoping assessments, understanding regulatory constraints, and professional development.
+
+## 📋 When to Use
+- Identifying which standards apply to a client's space system (NIST, CCSDS, ITU)
+- Career reference: understanding the space security job landscape
+- Further reading for any space security topic covered in Parts I-IV
+
 ## Industry Overview
 
 | Sector | Key Players | Security Relevance |
@@ -181,6 +195,10 @@ USERS EXPLICITLY ACKNOWLEDGE:
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
+
+## Related Files
+- [README.md](README.md) — SpaceSecurity section index
+- [PartI.md](PartI.md) — Foundations: the operational content these appendices support
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 
