@@ -45,7 +45,7 @@ Faulted execution (skip the branch):
 ### Fault Injection Methods
 
 <p align="center">
-  <img src="/assets/ClockvsVoltage.jpg" alt="Figure 7: Fault Injection Comparison. (Top) Clock Glitching modifies a clock edge to violate internal setup time. (Bottom) Voltage Glitching briefly dips the supply voltage (crowbar fault) to cause propagation delays or memory corruption." width="600"/>
+  <img src="../assets/ClockvsVoltage.jpg" alt="Figure 7: Fault Injection Comparison. (Top) Clock Glitching modifies a clock edge to violate internal setup time. (Bottom) Voltage Glitching briefly dips the supply voltage (crowbar fault) to cause propagation delays or memory corruption." width="600"/>
 </p>
 
 #### Clock Glitching
@@ -108,7 +108,7 @@ Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾�
 ---
 
 <p align="center">
-  <img src="/assets/ElectromagneticFaultInjection.jpg" alt="Figure 8: EMFI Probe Setup. An specialized injection coil (the probe) is held less than 1mm above the surface of the target chip." width="600"/>
+  <img src="../assets/ElectromagneticFaultInjection.jpg" alt="Figure 8: EMFI Probe Setup. An specialized injection coil (the probe) is held less than 1mm above the surface of the target chip." width="600"/>
 </p>
 
 #### Electromagnetic Fault Injection (EMFI)
@@ -134,7 +134,7 @@ A focused EM pulse induces transient currents in the target IC through inductive
 ---
 
 <p align="center">
-  <img src="/assets/LaserFaultInjection.jpg" alt="Figure 9: LFI Laboratory Setup. The target chip must be mechanically 'decapped' to expose the silicon die." width="600"/>
+  <img src="../assets/LaserFaultInjection.jpg" alt="Figure 9: LFI Laboratory Setup. The target chip must be mechanically 'decapped' to expose the silicon die." width="600"/>
 </p>
 
 #### Laser Fault Injection (LFI)

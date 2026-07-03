@@ -64,7 +64,7 @@ Different logic families use different voltage levels. Probing or injecting at t
 ### Communication Interfaces
 
 <p align="center">
-  <img src="/assets/UART.jpg" alt="Figure 2: UART Timing Diagram. A complete async frame (Start, 8 data bits, Parity, Stop). The data '0x55' (character 'U') is captured by the receiver by sampling at the center of each bit period based on the pre-configured baud rate." width="600"/>
+  <img src="../assets/UART.jpg" alt="Figure 2: UART Timing Diagram. A complete async frame (Start, 8 data bits, Parity, Stop). The data '0x55' (character 'U') is captured by the receiver by sampling at the center of each bit period based on the pre-configured baud rate." width="600"/>
 </p>
 
 #### UART (Universal Asynchronous Receiver/Transmitter)
@@ -89,7 +89,7 @@ Common baud rates: 9600, 38400, 57600, 115200, 230400, 921600
 ---
 
 <p align="center">
-  <img src="/assets/SPI.jpg" alt="Figure 3: SPI Timing and Modes. Synchronized diagram showing the relationship between Chip Select (CS#), Clock (SCK), and Data (MOSI/MISO). It details how data is sampled on different clock edges depending on the Clock Polarity (CPOL) and Clock Phase (CPHA) configuration." width="600"/>
+  <img src="../assets/SPI.jpg" alt="Figure 3: SPI Timing and Modes. Synchronized diagram showing the relationship between Chip Select (CS#), Clock (SCK), and Data (MOSI/MISO). It details how data is sampled on different clock edges depending on the Clock Polarity (CPOL) and Clock Phase (CPHA) configuration." width="600"/>
 </p>
 
 #### SPI (Serial Peripheral Interface)
@@ -119,7 +119,7 @@ flashrom -p ch341a_spi -r firmware_dump.bin
 ---
 
 <p align="center">
-  <img src="/assets/I²C.jpg" alt="Figure 4: I²C Waveform. Diagram showing the open-drain SCL/SDA lines with required pull-up resistors. It highlights the unique Start and Stop conditions (SDA transitioning while SCL is High) and the ACK/NACK bit that follows every byte." width="600"/>
+  <img src="../assets/I²C.jpg" alt="Figure 4: I²C Waveform. Diagram showing the open-drain SCL/SDA lines with required pull-up resistors. It highlights the unique Start and Stop conditions (SDA transitioning while SCL is High) and the ACK/NACK bit that follows every byte." width="600"/>
 </p>
 
 #### I²C (Inter-Integrated Circuit)
@@ -147,7 +147,7 @@ i2cset -y 1 0x50 0x00 0xFF  # Write register (authorized testing only)
 ---
 
 <p align="center">
-  <img src="/assets/JTAG.jpg" alt="Figure 5: JTAG TAP State Machine. Navigation of this state machine depends entirely on the logic level of the TMS signal at the rising edge of the TCK clock. Every arrow is labeled with the required TMS '0' or '1' to transition states." width="600"/>
+  <img src="../assets/JTAG.jpg" alt="Figure 5: JTAG TAP State Machine. Navigation of this state machine depends entirely on the logic level of the TMS signal at the rising edge of the TCK clock. Every arrow is labeled with the required TMS '0' or '1' to transition states." width="600"/>
 </p>
 
 #### JTAG (Joint Test Action Group)
@@ -211,7 +211,7 @@ openocd -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 - **PicoScope 6000E** — 12-bit ADC; excellent for power analysis
 
 <p align="center">
-  <img src="/assets/ShuntSetup.jpg" alt="Figure 6: Shunt Measurement Schematic. Setup for power analysis. A low-value shunt resistor (e.g., 10Ω) is placed in series with the target MCU's VDD. The oscilloscope measures the small, differential voltage drop across the shunt, which represents instantaneous current draw (I = V/R)." width="600"/>
+  <img src="../assets/ShuntSetup.jpg" alt="Figure 6: Shunt Measurement Schematic. Setup for power analysis. A low-value shunt resistor (e.g., 10Ω) is placed in series with the target MCU's VDD. The oscilloscope measures the small, differential voltage drop across the shunt, which represents instantaneous current draw (I = V/R)." width="600"/>
 </p>
 
 #### Shunt Resistors for Power Measurement
