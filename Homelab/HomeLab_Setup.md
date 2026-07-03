@@ -1696,10 +1696,10 @@ git clone https://github.com/BC-SECURITY/Empire.git /opt/Empire
 cd /opt/Empire
 sudo ./setup/install.sh
 
-# Install Starkiller (GUI)
-wget https://github.com/BC-SECURITY/Starkiller/releases/download/v1.11.0/starkiller-1.11.0.AppImage
-chmod +x starkiller-1.11.0.AppImage
-./starkiller-1.11.0.AppImage
+# Install Starkiller (GUI) -- the v1.11.0 AppImage is long gone, and
+# current releases (v3.5.0+) don't publish a prebuilt AppImage asset at
+# all anymore. Follow the current install instructions at
+# https://github.com/BC-SECURITY/Starkiller#installation
 ```
 
 #### Web Application Testing
@@ -2297,7 +2297,11 @@ qm create 411 --name splunk --memory 8192 --cores 2 \
     --scsi0 local-lvm:100
 
 # Install Ubuntu, then Splunk
-wget -O splunk.deb 'https://download.splunk.com/products/splunk/releases/9.1.2/linux/splunk-9.1.2-b6436b649711-linux-2.6-amd64.deb'
+# Don't hardcode a version -- Splunk removes old release binaries from
+# its CDN (this exact 9.1.2 URL is already dead). Get the current link
+# from splunk.com/en_us/download/splunk-enterprise.html (right-click the
+# download button to copy it)
+wget -O splunk.deb '<current-download-url-from-splunk.com>'
 sudo dpkg -i splunk.deb
 sudo /opt/splunk/bin/splunk start --accept-license
 sudo /opt/splunk/bin/splunk enable boot-start
@@ -2320,8 +2324,10 @@ Install-WindowsFeature -Name Windows-EventCollector
 
 On Linux targets:
 ```bash
-# Install Splunk forwarder
-wget -O splunkforwarder.deb 'https://download.splunk.com/products/universalforwarder/releases/9.1.2/linux/splunkforwarder-9.1.2-b6436b649711-linux-2.6-amd64.deb'
+# Install Splunk forwarder -- again, get the current URL from
+# splunk.com/en_us/download/universal-forwarder.html rather than hardcoding
+# a version (this exact 9.1.2 URL is already dead)
+wget -O splunkforwarder.deb '<current-download-url-from-splunk.com>'
 sudo dpkg -i splunkforwarder.deb
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 sudo /opt/splunkforwarder/bin/splunk add forward-server 10.40.40.11:9997
