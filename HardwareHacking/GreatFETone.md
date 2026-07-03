@@ -1,5 +1,20 @@
 # 🦡 GreatFET One (with Add-On Boards)
 
+## 🎯 Purpose
+Extensible open-source hardware tool from Great Scott Gadgets for I2C/SPI bus scanning and manipulation, JTAG debugging, logic analysis, and advanced USB protocol reverse engineering — using Python scripting on the host.
+
+## ⚙️ Function
+Python-based host toolchain (`greatfet` pip package) communicates with the GreatFET One board. Add-on boards (Neighbor boards) extend functionality. Primary commands: `greatfet_info` (device check), `greatfet_i2c -z` (I2C bus scan), `greatfet_i2c -a <addr> -r <bytes>` (read device registers).
+
+## 🏆 Goal
+Programmatically interact with target hardware over I2C, SPI, JTAG, and USB from a Python script — enabling scripted, automated protocol reverse engineering without writing firmware.
+
+## 📋 When to Use
+- Scanning an unknown I2C bus to enumerate hidden device addresses
+- Scripting repeatable read/write sequences to a chip under test
+- USB protocol reverse engineering (using the GreatFET's Facedancer capability)
+- When Bus Pirate's interactive mode isn't enough and scripted automation is needed
+
 ## 📖 Description
 The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets. It is an extensible, open-source hardware tool tailored for hardware hackers. With its add-on boards, it can be used for logic analysis, I2C/SPI manipulation, JTAG debugging, and advanced USB reverse engineering.
 
@@ -42,3 +57,11 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
    ```bash
    greatfet_i2c -a 0x50 -r 256 -f dump.bin
    ```
+
+---
+
+## Related Files
+- [BusPirate.md](BusPirate.md) — Similar multi-protocol tool; Bus Pirate is interactive, GreatFET is script-driven
+- [JTAGulator.md](JTAGulator.md) — Discovers pin assignments; GreatFET then interfaces via the identified JTAG/I2C pins
+- [LA1010.md](LA1010.md) — Logic analyzer to verify GreatFET's I2C/SPI transactions on the wire
+- [Chapter2.md](Chapter2.md) — Electrical fundamentals: I2C addressing, SPI modes, and bus topology explained
