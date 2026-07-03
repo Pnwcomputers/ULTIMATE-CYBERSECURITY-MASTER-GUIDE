@@ -1,5 +1,19 @@
 # 📖 Wireless Intrusion & Unauthorized Network Access
 
+## 🎯 Purpose
+Incident response playbook for wireless intrusion scenarios — specifically detecting and responding to a Rogue Access Point (Evil Twin) broadcasting your SSID, or a physical plant device (LAN Turtle, Raspberry Pi, Bjorn Pi) plugged into a wall port.
+
+## ⚙️ Function
+Structured by IR phase: (1) Log aggregation/preparation — required log sources and SIEM configuration; (2) Detection — IOCs, Wireshark/Zeek detection queries, alerting rules; (3) Containment — immediate network isolation steps; (4) Eradication — removing the rogue device; (5) KQL queries for pivot/lateral movement analysis; (6) Artifact collection checklist.
+
+## 🏆 Goal
+Detect, contain, and eradicate a rogue AP or unauthorized physical network device before credential theft or lateral movement occurs — and collect the evidence needed for post-incident review.
+
+## 📋 When to Use
+- Active incident: unknown BSSID broadcasting your SSID, or suspicious device found on a wall port
+- Purple team exercise: testing wireless intrusion detection and response capabilities
+- SIEM rule validation: verifying your alerting fires on Evil Twin or deauth frame patterns
+
 **Scenario ID:** IR-NET-001
 **Severity:** High
 **Context:** A "Rogue Access Point" (Evil Twin) is detected broadcasting your SSID, or an unauthorized physical device (e.g., LAN Turtle/Raspberry Pi) has been plugged into a wall port ("Plant Hack").
@@ -90,6 +104,12 @@ source.ip: "192.168.1.105" AND destination.port: * AND event.count > 100
 
 * **PCAP:** Save the packet capture showing the "Evil Twin" beacon frames.
 * **Photos:** If a physical device (e.g., WiFi Pineapple) was found, photograph its location and connections before removal.
+
+## Related Files
+- [log_agg.md](log_agg.md) — Log aggregation setup: configure the log sources required by this playbook before an incident occurs
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark filters for analyzing the PCAP captures referenced in the Artifact Collection section
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) — Bjorn Pi: exactly the kind of physical "plant" device this playbook is written to detect and remove
+- [../Documentation/evil_m5.md](../Documentation/evil_m5.md) — Evil-M5: produces the Evil Twin/captive portal traffic this playbook detects
 
 ---
 *Part of the [Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)*

@@ -1,5 +1,19 @@
 # 🚨 Incident Response & Log Aggregation
 
+## 🎯 Purpose
+Index for the Incident Response section — covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
+
+## ⚙️ Function
+Links to log aggregation and visibility setup (log_agg.md), wireless/network intrusion response procedures (network_intrusion.md), and provides an attack taxonomy, tool ecosystem reference, playbook overview, and SIEM configuration guidance.
+
+## 🏆 Goal
+Enable blue team operators to quickly find the right IR procedure, log source configuration, or detection rule for an active or suspected incident.
+
+## 📋 When to Use
+- Starting incident response work: find the right playbook or log configuration file
+- Setting up a new SIEM or log aggregation infrastructure from scratch
+- Responding to a wireless intrusion, rogue AP, or physical plant hack scenario
+
 <div align="center">
 
 **Blue Team operations, threat detection, digital forensics, and standardized response procedures**
@@ -229,6 +243,15 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 ---
 
 <div align="center">
+
+## Related Files
+- [log_agg.md](log_agg.md) — Log aggregation and SIEM feed configuration (the visibility prerequisite for all IR work)
+- [network_intrusion.md](network_intrusion.md) — Wireless intrusion / rogue AP / plant hack IR procedure (Scenario IR-NET-001)
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark filters for the PCAP analysis referenced in network_intrusion.md
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) — Bjorn Pi is exactly the kind of "plant" device described in IR-NET-001
+- [../Homelab/](../Homelab/) — Homelab lab setup where this IR infrastructure would be deployed and tested
+
+---
 
 **🛡️ DEFEND FORWARD. HUNT TIRELESSLY. 🛡️**
 
