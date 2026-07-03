@@ -1,5 +1,19 @@
 # 🦁 Wazuh Deployment Guide
 
+## 🎯 Purpose
+Docker-based deployment guide for Wazuh — the only XDR/EDR-plus-SIEM option among the four in this directory (see [elk_stack.md](elk_stack.md), [splunk.md](splunk.md), [graylog.md](graylog.md), and the [README](../README.md)'s comparison table).
+
+## ⚙️ Function
+Nine parts: server prep, Docker Compose deployment (manager + indexer + dashboard), firewall rules, Windows and Linux agent deployment/enrollment, verification/test alerts, agent grouping, troubleshooting, and hardening. Differs from the other three SIEMs in that Wazuh ships a pre-built detection ruleset, file-integrity monitoring, and vulnerability detection out of the box via its agent — where ELK/Graylog/Splunk require you to build detection logic yourself.
+
+## 🏆 Goal
+Stand up a working Wazuh manager with enrolled Windows and Linux agents reporting active status, and confirm test alerts fire correctly before relying on it for real detection.
+
+## 📋 When to Use
+- Wanting pre-built detection rules and file-integrity monitoring without writing your own SIEM queries
+- A homelab or small org that wants EDR-style endpoint visibility, not just log aggregation
+- Comparing SIEM options — see the other three files in this directory for log-aggregation-first alternatives
+
 **Wazuh** is an open-source security platform providing unified XDR (Extended Detection and Response) and SIEM (Security Information and Event Management) capabilities. It monitors endpoints, detects threats, identifies vulnerabilities, and ensures compliance across your infrastructure.
 
 This guide covers deploying the Wazuh Manager using Docker and installing agents on Windows and Linux endpoints.
