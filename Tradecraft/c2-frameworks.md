@@ -19,6 +19,18 @@
 
 ---
 
+## 🎯 Purpose
+Deep-dive on the three C2 frameworks a red team is most likely to encounter or deploy (Cobalt Strike, Sliver, Havoc) — architecture, OpSec, and detection in one place, rather than scattered across each tool's own docs.
+
+## ⚙️ Function
+Covers C2 architecture fundamentals, then a dedicated section per framework (Cobalt Strike, Sliver, Havoc), followed by cross-framework Malleable C2/traffic-shaping, infrastructure OpSec, detection/hunting, and defensive countermeasures. Pairs with the quick-reference [Command & Control checklist](../Checklists/Command&Control.md) for field use, and differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading endpoint detection rather than C2 channel/infrastructure design.
+
+## 🏆 Goal
+An operator can stand up and OpSec-harden a C2 infrastructure for any of the three frameworks, and a defender can recognize and hunt for their traffic/behavioral signatures.
+
+## 📋 When to Use
+When selecting or configuring a C2 framework for an engagement, or when building detections/hunts for C2 traffic on the defensive side.
+
 ## C2 Architecture Fundamentals
 
 A Command and Control (C2) framework provides operators with a persistent channel to interact with compromised hosts. Core components:
