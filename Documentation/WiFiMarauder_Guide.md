@@ -1,28 +1,6 @@
 # WiFi Marauder Guide
 
 ## 🎯 Purpose
-Comprehensive guide for ESP32 Marauder firmware covering hardware selection, installation, all core attack and detection features, integration with external tools (Hashcat, Wireshark, Kismet), and detection/defense strategies.
-
-## ⚙️ Function
-Organized as a reference guide from hardware selection through advanced attack scenarios: WiFi scanning, deauthentication, beacon spam, PMKID capture, evil twin, BLE operations, GPS wardriving, and post-capture Hashcat cracking. For the condensed on-device cheat sheet, see [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md).
-
-## 🏆 Goal
-Enable security professionals to select the right Marauder hardware variant, flash and configure it, execute authorized WiFi security assessments, and integrate captures into a full cracking pipeline.
-
-## 📋 When to Use
-- Planning a Marauder deployment and need hardware/firmware selection guidance
-- Executing a full WiFi security assessment including post-capture cracking
-- Building detection rules for deauth floods, beacon spam, or rogue APs
-- Wardriving with GPS-tagged AP discovery for site surveys
-
-## Professional Wireless Security Testing with ESP32 Hardware
-
-> **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
-> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
-> **Skill Level:** Intermediate to Advanced wireless security
-
-## 🎯 Purpose
 Full deep-dive on the ESP32 Marauder firmware and hardware ecosystem — hardware selection, firmware installation, the complete feature set, and defensive/legal guidance. This is the reference document; [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) is the quick on-device command lookup once you already own and understand the hardware.
 
 ## ⚙️ Function
@@ -35,6 +13,13 @@ Choose the right Marauder hardware variant, get it flashed and configured, and u
 - Evaluating which ESP32 Marauder hardware variant to buy
 - First-time firmware flash/setup on new hardware
 - Building the defensive/detection section of a wireless assessment deliverable
+
+## Professional Wireless Security Testing with ESP32 Hardware
+
+> **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
+> **Last Updated:** November 2025  
+> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
+> **Skill Level:** Intermediate to Advanced wireless security
 
 ---
 

@@ -1,23 +1,6 @@
 # Arduino IDE Multi-Platform Setup Guide
 
 ## 🎯 Purpose
-Step-by-step configuration guide for turning Arduino IDE 2.x into a universal microcontroller workstation supporting Arduino, ESP32, STM32, ESP8266, and Raspberry Pi RP2040/Pico families.
-
-## ⚙️ Function
-Covers: migrating to IDE 2.x, adding board manager URLs for ESP32/STM32/ESP8266/RP2040, installing board cores via Boards Manager, optimizing IDE preferences (verbose output, compiler warnings), installing universal libraries (Adafruit Sensor, MQTT, OLED, JSON), and installing CH340/CP210x USB drivers for third-party boards.
-
-## 🏆 Goal
-Enable selecting any supported microcontroller family from the board dropdown and uploading code without additional manual toolchain setup — one unified IDE for all embedded targets.
-
-## 📋 When to Use
-- Initial setup of a new development machine for embedded hardware projects
-- Adding ESP32/Flipper/Marauder firmware compilation capability
-- Troubleshooting board detection issues (CH340/CP210x driver installation)
-- Starting a new multi-board project and needing the right library foundations
-
-Setting up the Arduino IDE to be a universal workstation for multiple microcontroller families (Arduino, ESP32, STM32, and others) is a great move. This guide provides the initial configuration to turn your Arduino IDE into a multi-platform powerhouse.
-
-## 🎯 Purpose
 One-time setup to turn a stock Arduino IDE 2.x install into a universal workstation covering Arduino, ESP32, ESP8266, STM32, and RP2040 (Pico) boards from a single install — the specific driver/board-package combination that trips people up on a fresh setup.
 
 ## ⚙️ Function

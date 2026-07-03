@@ -1,23 +1,6 @@
 # Locksport
 
 ## 🎯 Purpose
-Comprehensive guide to locksport as a legitimate skill and competitive sport — covering mechanical lock theory, hands-on picking and impressioning techniques, tool selection, combination safe manipulation, and competition formats used at DEF CON, TOOOL, and ALOA events.
-
-## ⚙️ Function
-Organized in three parts: (I) Foundations — how locks work, what makes them secure, laws and community; (II) Techniques — pin tumbler picking, lever locks, impressioning, safe manipulation, advanced lock types, tools; (III) Competition — setup/hosting, strategy/tactics, competition formats and scoring.
-
-## 🏆 Goal
-Enable security professionals to understand physical security mechanisms at a hands-on level — both for offensive physical penetration testing and for evaluating the physical security posture of facilities being assessed.
-
-## 📋 When to Use
-- Physical penetration testing engagements requiring lock bypass skills
-- Physical security assessments evaluating lock quality and resistance
-- Locksport competition preparation (DEF CON Lockpicking Village, TOOOL, ALOA)
-- Understanding physical access control as a complement to network security work
-
-> **Scope:** The art, sport, and science of lock picking — covering mechanical lock fundamentals, hands-on picking and impressioning techniques, tool selection, and competitive locksport. This section treats lock picking as a legitimate skill and sport, consistent with the laws and ethics of the locksport community.
-
-## 🎯 Purpose
 Standalone reference on physical lock mechanics, picking/impressioning technique, and competitive locksport — the only file in this repo covering physical (non-cyber) security bypass in depth. Complements the Flipper Zero/hardware guides' brief NFC/RFID badge-cloning coverage but doesn't overlap with them: this is entirely about mechanical locks, not electronic access control.
 
 ## ⚙️ Function
