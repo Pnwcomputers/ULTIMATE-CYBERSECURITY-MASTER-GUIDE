@@ -1004,14 +1004,18 @@ zfs set sharenfs="rw=@10.20.20.0/24,no_root_squash" tank/pentest-data
 
 **Deployment Method**:
 ```bash
-# Download latest Kali Proxmox image
+# Don't hardcode a version -- Kali images are pruned from the CDN once
+# superseded (this exact 2024.4 URL is already dead). Get the current
+# release name and filename from https://kali.download/base-images/ or
+# the QEMU/Proxmox tab at https://www.kali.org/get-kali/#kali-virtual-machines
 cd /var/lib/vz/template/iso/
-wget https://kali.download/base-images/kali-2024.4/kali-linux-2024.4-qemu-amd64.7z
-7z x kali-linux-2024.4-qemu-amd64.7z
+KALI_RELEASE="2026.2"  # check the site for the current release
+wget "https://kali.download/base-images/kali-${KALI_RELEASE}/kali-linux-${KALI_RELEASE}-qemu-amd64.7z"
+7z x "kali-linux-${KALI_RELEASE}-qemu-amd64.7z"
 
 # Create VM from qcow2 image
 qm create 200 --name kali-primary --memory 16384 --cores 6 --net0 virtio,bridge=vmbr1,tag=20
-qm importdisk 200 kali-linux-2024.4-qemu-amd64.qcow2 local-lvm
+qm importdisk 200 "kali-linux-${KALI_RELEASE}-qemu-amd64.qcow2" local-lvm
 qm set 200 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-200-disk-0
 qm set 200 --boot order=scsi0
 qm set 200 --agent enabled=1
@@ -1055,14 +1059,17 @@ qm snapshot 200 baseline --vmstate 1 --description "Clean Kali install, all tool
 
 **Deployment**:
 ```bash
-# Download Parrot ISO
+# This exact 5.3 URL is already dead -- Parrot prunes old ISOs from the
+# CDN too. Get the current version and filename from
+# https://www.parrotsec.org/download/
 cd /var/lib/vz/template/iso/
-wget https://download.parrot.sh/parrot/iso/5.3/Parrot-security-5.3_amd64.iso
+PARROT_VERSION="7.3"  # check the site for the current release
+wget "https://download.parrot.sh/parrot/iso/${PARROT_VERSION}/Parrot-security-${PARROT_VERSION}_amd64.iso"
 
 # Create VM
 qm create 201 --name parrot-sec --memory 8192 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=20 \
-    --cdrom local:iso/Parrot-security-5.3_amd64.iso \
+    --cdrom "local:iso/Parrot-security-${PARROT_VERSION}_amd64.iso" \
     --scsi0 local-lvm:32 --scsihw virtio-scsi-pci
 
 # Start and install via VNC
