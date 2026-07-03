@@ -1,5 +1,20 @@
 # Software Defined Radio (SDR)
 
+## 🎯 Purpose
+Foundational SDR guide covering theory and practice from first principles through advanced signal intelligence — IQ sampling, GNU Radio flowgraph design, hardware selection, antenna fundamentals, and application chapters on Wi-Fi, Bluetooth, cellular, GPS, and satellite signal analysis.
+
+## ⚙️ Function
+Organized in five parts: (I) Foundations (what is SDR, IQ sampling, hardware, antennas); (II) GNU Radio (flowgraph design, custom blocks, Python scripting); (III) Protocol analysis (Wi-Fi, Bluetooth, ADS-B, APRS, LoRa, 433MHz); (IV) Advanced applications (cellular IMSI/paging intercept, GPS, satellite); (V) Security (SIGINT ethics, legal framework, RF fingerprinting, wideband monitoring).
+
+## 🏆 Goal
+Build the RF knowledge base needed to capture, decode, and analyze wireless signals across the spectrum — from 433MHz ISM band through cellular and satellite — for security research and authorized assessments.
+
+## 📋 When to Use
+- Starting SDR work: read Part I-II before touching hardware
+- Analyzing a specific protocol (BLE advertisement, LoRa, APRS) — go to the relevant Part III chapter
+- Setting up wideband monitoring for a red-team engagement — Part V
+- Complement to bruce_firmware.md or flipper_zero_guide.md sub-GHz work requiring full spectrum analysis
+
 > **Scope:** Software Defined Radio theory, practice, and applications — from building your first virtual receiver in GNU Radio through advanced signal intelligence, protocol reversing, wideband monitoring, and FPGA-accelerated DSP. Bridges foundational tutorials and advanced RF security applications including Wi-Fi, Bluetooth, cellular, GPS, and satellite systems.
 >
 > **Legal notice:** Transmitting on licensed frequencies without authorization violates FCC regulations (47 CFR) and equivalent international law. Receiving and analyzing signals is generally legal in most jurisdictions; decrypting communications you're not authorized to receive may not be. Always verify local law. This section is written for licensed radio operators, security researchers, and students with appropriate authorization.
@@ -2164,6 +2179,13 @@ echo "[*] Installation complete. Log out and back in for USB permissions to take
 - greatscottgadgets.com — HackRF One (original)
 - airspy.com — Airspy receivers
 - analog.com/pluto — Pluto SDR
+
+## Related Files
+- [sdr_hacking.md](sdr_hacking.md) — Advanced guide: assumes sdr.md fundamentals; covers SIGINT, protocol reversing, baseband exploitation
+- [README.md](README.md) — SDR section index with hardware comparison and tool ecosystem overview
+- [../SpaceSecurity/](../SpaceSecurity/) — Satellite and space signal analysis — applies the SDR techniques from this guide
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce firmware sub-GHz operations: the RF targets whose signals SDR can capture and replay-attack-test
+- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) — Flipper Zero sub-GHz: replay attacks that SDR can analyze and decode
 
 ---
 

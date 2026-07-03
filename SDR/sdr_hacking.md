@@ -1,5 +1,20 @@
 # SDR Hacking Advanced: Reversing and Exploiting Wireless Communications
 
+## 🎯 Purpose
+Advanced SDR security guide — extending sdr.md fundamentals with offensive techniques: SIGINT signal identification, GNU Radio flowgraph optimization, protocol reverse engineering with URH, LoRa key cracking, TEMPEST EM side-channel, firmware vulnerability analysis, and custom RF baseband exploitation.
+
+## ⚙️ Function
+Organized in four parts: (1) SIGINT, GNU Radio mastery, signal reversing; (2) Wireless protocol vulnerabilities (LoRa, Zigbee, BLE, NRF24, GPS spoofing); (3) Advanced exploitation (baseband firmware analysis, RF fuzzing, Unicorn/Qiling emulation, MouseJack); (4) TEMPEST and EM side-channel attacks. Each section includes practical GNU Radio flowgraphs, Python scripts, and real attack examples.
+
+## 🏆 Goal
+Perform authorized RF security assessments against IoT, industrial, and wireless access control targets — capturing, reversing, and exploiting wireless protocols beyond what a basic SDR tutorial covers.
+
+## 📋 When to Use
+- Protocol reversing: unknown wireless signal on 433MHz, 915MHz, or 2.4GHz requires identification and decoding
+- LoRa/Zigbee/BLE security assessment with need to test key derivation or key cracking
+- TEMPEST/EM side-channel work on a hardware target with RF emissions
+- Advanced red-team: GPS spoofing, NRF24 MouseJack, or custom baseband exploitation
+
 > This guide tries to cover nearly every topic for SDR Hacking; from SIGINT identification techniques and GNU Radio flowgraph optimization through firmware vulnerability analysis, to custom RF baseband exploitation, LoRa key cracking, TEMPEST, and EM side-channel attacks.
 >
 > **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (does not replaces) the General SDR.md section.
@@ -2129,6 +2144,13 @@ Wide flat    Noise-like      Constant       DSSS (GPS, 802.11b, etc.)
 **Hardwear.io training:**
 - Original course: *SDR Hacking Advanced: Reversing and Exploiting Wireless Communications* — Sébastien Dudek, hardwear.io
 - Trainer profile: hardwear.io/trainer/sebastien-dudek
+
+## Related Files
+- [sdr.md](sdr.md) — Foundational SDR guide: required reading before this advanced guide
+- [README.md](README.md) — SDR section index with hardware comparison table
+- [../HardwareHacking/Chapter4.md](../HardwareHacking/Chapter4.md) — Power/EM side-channel theory: TEMPEST and EM analysis use the same fundamentals
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce sub-GHz firmware targets are exactly the protocols this guide teaches how to reverse
+- [../SpaceSecurity/](../SpaceSecurity/) — GPS spoofing and satellite analysis: advanced SDR applications covered here
 
 ---
 

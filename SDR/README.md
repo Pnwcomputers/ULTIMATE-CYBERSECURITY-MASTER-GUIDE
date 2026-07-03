@@ -1,5 +1,19 @@
 # 📻 Software Defined Radio (SDR) & RF Security
 
+## 🎯 Purpose
+Index and entry point for the SDR section — covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, and advanced RF security topics across two comprehensive guides.
+
+## ⚙️ Function
+Links to sdr.md (foundational guide: IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS analysis) and sdr_hacking.md (advanced guide: SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation). Includes hardware comparison table, frequency reference, legal framework summary, and tool ecosystem overview.
+
+## 🏆 Goal
+Serve as the starting point for SDR work — directing beginners to sdr.md for fundamentals and practitioners with GNU Radio experience to sdr_hacking.md for offensive techniques.
+
+## 📋 When to Use
+- Choosing which SDR guide to start with based on experience level
+- Hardware selection: comparing RTL-SDR, HackRF, Airspy, PlutoSDR for a specific use case
+- Legal/regulatory reference: FCC licensing requirements before transmitting
+
 <div align="center">
 
 **Collection of RF analysis tools, signal capture guides, and SDR exploitation techniques**
@@ -355,6 +369,15 @@ We welcome contributions from RF researchers and security professionals, but all
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+## Related Files
+- [sdr.md](sdr.md) — Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
+- [sdr_hacking.md](sdr_hacking.md) — Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
+- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) — Flipper Zero: sub-GHz replay attacks whose signals SDR can capture and analyze
+- [../SpaceSecurity/](../SpaceSecurity/) — Space security: satellite communication analysis and GPS spoofing detection — an SDR application
 
 ---
 
