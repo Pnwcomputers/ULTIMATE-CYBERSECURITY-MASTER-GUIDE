@@ -19,6 +19,18 @@
 
 ---
 
+## 🎯 Purpose
+A condensed, command-first quick-reference — where [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) explains methodology in depth, this file is the "essentials at a glance" version for looking something up mid-engagement.
+
+## ⚙️ Function
+12 topic sections mirroring the master guide's core lifecycle (recon through OSCP prep) but stripped to bullet points and command snippets, plus a dedicated "Quick Reference Commands" section at the end. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) by omitting explanation/context in favor of density — no prose walkthroughs, just what to run and when.
+
+## 🏆 Goal
+A command or concept can be located and copy-pasted in seconds without reading surrounding narrative.
+
+## 📋 When to Use
+Mid-engagement, during a live exam (OSCP), or any time you already know the methodology and just need the exact syntax.
+
 ## Ethical Hacking Fundamentals
 
 ### Core Concepts
