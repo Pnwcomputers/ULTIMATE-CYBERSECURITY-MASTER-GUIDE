@@ -1,5 +1,17 @@
 # Bash Bunny Payload Setup Guide
 
+## 🎯 Purpose
+Hardware-specific setup and payload-authoring guide for the Hak5 Bash Bunny — the only file in this repo covering this specific multi-function USB attack platform's switch modes, firmware update process, and payload syntax.
+
+## ⚙️ Function
+Covers initial setup/firmware update, switch-based payload deployment, payload authoring syntax, LED status indicators, HID commands, data exfiltration (loot), platform-specific payloads, network mode, advanced features, configuration files, testing/debugging, the payload library, best practices, and legal considerations. Differs from [Scripts/Ducky/README.md](../../Ducky/README.md) (Rubber Ducky — keystroke-injection-only, no storage/network emulation) and from general [Scripts/README.md](../../README.md) (folder-level index, not hardware-specific).
+
+## 🏆 Goal
+A reader can go from an unconfigured Bash Bunny to a working, tested payload deployed against a target device.
+
+## 📋 When to Use
+When setting up a new Bash Bunny, writing or debugging a payload, or looking up switch/LED/HID command syntax.
+
 ## Overview
 The Bash Bunny is a multi-function USB attack platform that can emulate keyboards, storage devices, network adapters, and serial devices. Payloads are written in bash with special Bash Bunny-specific commands.
 
