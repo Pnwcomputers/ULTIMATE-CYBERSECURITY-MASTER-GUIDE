@@ -38,7 +38,7 @@ Understand the unique constraints of space-segment software security — where p
 |------|-------|-------------|
 | **VxWorks** | Legacy GEO satellites, many heritage platforms | CVE-2019-12255 (URGENT/11 TCP/IP stack bugs); numerous historical CVEs |
 | **RTEMS** | Open-source; many CubeSats, NASA missions | Smaller CVE surface but limited security hardening |
-| **FreeRTOS** | Proliferated LEO, smallsats | CVE-2018-16528 (SafeRTOS heap overflow) and related |
+| **FreeRTOS** | Proliferated LEO, smallsats | CVE-2018-16528 (AWS FreeRTOS mbedTLS context corruption in TLS connect path, CVSS 8.1 RCE) and related |
 | **Linux** | Modern commercial satellites | Kernel CVEs; often unpatched in flight due to update risk |
 | **INTEGRITY (GHS)** | High-assurance defense platforms | Proprietary; limited public vulnerability data |
 
