@@ -2,6 +2,19 @@
 
 A quick-reference guide for the tools, services, and commands integrated into the **OSINT Investigator Playbook**. 
 
+## 🎯 Purpose
+Quick-command lookup organized by investigation phase (identity, infrastructure, web crawling, phone, analysis/automation), tied directly to the tools used in [Playbook/investigation_guide.md](Playbook/investigation_guide.md). Distinct from [OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) (full methodology/background) and [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) (exhaustive tool directory) — this file is just the commands, phase-ordered.
+
+## ⚙️ Function
+Five investigation phases (identity/social, infrastructure/domain, web crawling/historical, communication/phone, analysis/automation) each with a tool table and copy-paste commands, plus an evidence-preservation section (hashing, archiving) and essential Linux one-liners.
+
+## 🏆 Goal
+Have the exact command syntax on hand for each investigation phase without re-deriving flags from tool documentation mid-investigation.
+
+## 📋 When to Use
+- Mid-investigation command lookup once you already know your methodology (see OSINT_GUIDE.md if you don't)
+- Preserving evidence with proper hashing/archiving before compiling a final report
+
 ---
 
 ## 🎯 Phase 1: Identity & Social Hunting
@@ -70,9 +83,9 @@ shodan host 1.2.3.4                        # Service and port identification
 ### Tool Overview & Commands
 | Tool | Purpose | Command / Usage |
 | :--- | :--- | :--- |
-| **[Photon](https://github.com/s0md3v/photon)** | Crawls site for secret keys, files, and URLs. | `python photon.py -u [https://target.com](https://target.com)` |
+| **[Photon](https://github.com/s0md3v/photon)** | Crawls site for secret keys, files, and URLs. | `python photon.py -u https://target.com` |
 | **[waybackurls](https://github.com/tomnomnom/waybackurls)**| Historical URL discovery via Wayback Machine. | `echo target.com | waybackurls` |
-| **[Wget](https://osintteam.blog/master-real-world-web-app-enumeration-with-curl-wget-and-bash-a-step-by-step-guide-5f74ab34e795)** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ [https://target.com](https://target.com)` |
+| **[Wget](https://osintteam.blog/master-real-world-web-app-enumeration-with-curl-wget-and-bash-a-step-by-step-guide-5f74ab34e795)** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ https://target.com` |
 
 ---
 

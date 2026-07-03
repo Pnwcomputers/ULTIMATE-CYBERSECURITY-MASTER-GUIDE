@@ -26,6 +26,19 @@
 
 ---
 
+## 🎯 Purpose
+Index and entry point for the OSINT collection — methodology, a 400+ tool catalog, investigation playbooks, and automation scripts. Distinct files serve distinct depths: [OSINT_GUIDE.md](OSINT_GUIDE.md) is the master reference, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the quick-command lookup, [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) is the exhaustive tool directory, and [Playbook/](Playbook/) is step-by-step investigation procedure.
+
+## ⚙️ Function
+Categorized folder contents table (core docs, specialized guides, scripts, case studies) plus a 4-level learning path (Fundamentals → Expert) and curated external training/community resources. This file doesn't teach OSINT itself — it routes to the file that does for a given need.
+
+## 🏆 Goal
+Point a reader to the right OSINT resource for their skill level and task, rather than requiring them to already know this repo's structure.
+
+## 📋 When to Use
+- First time navigating the OSINT/ folder — start here before OSINT_GUIDE.md
+- Deciding which specialized script (`scripts/Email_OSINT.md`, `Domain_IP_Recon.md`, `Phone_OSINT.md`) fits a given investigation type
+
 ## 🎯 Overview
 
 This directory contains **comprehensive Open Source Intelligence (OSINT) resources** curated for cybersecurity professionals, researchers, investigators, and students. The content focuses on practical application of OSINT techniques for legitimate security research, threat intelligence, and authorized investigations.
