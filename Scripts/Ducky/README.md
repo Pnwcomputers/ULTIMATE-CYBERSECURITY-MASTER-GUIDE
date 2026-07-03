@@ -194,6 +194,13 @@ When submitting payloads to this repository:
 
 ---
 
+## Related Files
+- [../README.md](../README.md) — Scripts/ section index
+- [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) — Bash Bunny: storage/network/HID emulation and full bash payloads, vs. Ducky's keystroke-injection-only scope
+- [../Bash/bash_scripting_cheat-sheet.md](../Bash/bash_scripting_cheat-sheet.md) — General Bash syntax reference
+
+---
+
 **Pacific NW Computers**  
 Email: jon@pnwcomputers.com  
 Phone: 360-624-7379

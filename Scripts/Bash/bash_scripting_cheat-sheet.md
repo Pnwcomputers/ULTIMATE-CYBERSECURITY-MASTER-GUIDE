@@ -743,15 +743,22 @@ ldapsearch                           # LDAP queries
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+**IMPORTANT**: The pen-testing patterns and web shell scripts in this cheat sheet are for **authorized security testing only**. Unauthorized use is illegal.
 
-* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
-* **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
+* **Authorization:** Get **written permission** before running any reconnaissance or exploitation pattern from this file against a target you don't own.
+* **Isolated Testing:** Test web shell and enumeration scripts in an **isolated lab environment** first.
 * **Legal Compliance:** Strictly comply with all local laws and regulations.
 
 **Legal Use Cases:**
 * Penetration testing with client authorization.
 * Testing your own home or lab network security.
 * Security research in isolated lab environments.
+
+---
+
+## Related Files
+- [../README.md](../README.md) — Scripts/ section index
+- [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) — Linux CLI *commands* reference; this file covers Bash *scripting syntax* instead
+- [BashBunny/README.md](BashBunny/README.md) — Bash Bunny payload authoring, which uses this same Bash syntax in a hardware-specific payload format
 
 ---
