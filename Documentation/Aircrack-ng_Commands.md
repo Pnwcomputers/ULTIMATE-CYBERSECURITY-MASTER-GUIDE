@@ -191,3 +191,5 @@ john --wordlist=wordlist.txt hash.txt
 - [hcxtoolshashcat.md](hcxtoolshashcat.md) — Modern passive PMKID/handshake capture with hcxtools and Hashcat mode 22000
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Automated passive capture using hcxtools/bettercap
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32 Marauder for mobile WiFi auditing
+- [wireshark.md](wireshark.md) — Wireshark filters for inspecting the .cap/.pcapng files this workflow produces
+- [PDF/Wi_Fi_hacking__.pdf](../PDF/Wi_Fi_hacking__.pdf) — supplementary WiFi attack reference

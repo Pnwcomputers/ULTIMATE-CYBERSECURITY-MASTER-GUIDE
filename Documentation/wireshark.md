@@ -723,6 +723,7 @@ Tips, caveats, hardware requirements
 - [bjorn_pi.md](bjorn_pi.md) — Bjorn's brute-force and exfiltration traffic is exactly what Wireshark blue-team exercises analyze
 - [evil_m5.md](evil_m5.md) — Evil-M5 EAPOL/deauth detection exercises benefit from parallel Wireshark verification
 - [python.md](python.md) — Python Scapy scripts generate traffic that Wireshark can inspect and validate
+- [PDF/Wireshark_Cheat_Sheet.pdf](../PDF/Wireshark_Cheat_Sheet.pdf) — condensed printable version of the filter reference
 
 ---
 
