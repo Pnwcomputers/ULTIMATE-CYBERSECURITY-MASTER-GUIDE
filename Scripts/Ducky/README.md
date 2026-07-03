@@ -1,5 +1,17 @@
 # USB Rubber Ducky Script Compilation Guide
 
+## 🎯 Purpose
+Compilation and deployment guide for the Hak5 USB Rubber Ducky — the only file in this repo covering DuckyScript-to-`inject.bin` compilation, keyboard layout handling, and deployment via microSD.
+
+## ⚙️ Function
+Covers three compilation methods (Payload Studio, the now-deprecated CLI encoder, Duck Toolkit), deployment steps, keyboard layout selection, testing/debugging, DuckyScript syntax quick reference, best practices, and legal considerations. Differs from [Scripts/Bash/BashBunny/README.md](../Bash/BashBunny/README.md) (Bash Bunny supports storage/network/HID emulation and full bash payloads; Rubber Ducky is HID-keystroke-injection only and requires a separate compile step).
+
+## 🏆 Goal
+A reader can write a DuckyScript payload, compile it correctly for their Ducky model and target keyboard layout, and deploy it successfully.
+
+## 📋 When to Use
+When writing, compiling, or troubleshooting a Rubber Ducky payload, or deciding between Ducky and Bash Bunny for a given engagement.
+
 ## Overview
 These DuckyScript payloads are designed for the USB Rubber Ducky by Hak5. They must be compiled into `inject.bin` format before deployment.
 
@@ -16,26 +28,8 @@ The easiest way to compile DuckyScript payloads.
 4. **Click** "Compile"
 5. **Download** the `inject.bin` file
 
-### Method 2: Hak5 Encoder (Command Line)
-For offline compilation or automation.
-
-**Installation:**
-```bash
-# Download from Hak5
-wget https://github.com/hak5/usbrubberducky-payloads/raw/master/duckencoder.jar
-
-# Or install via package manager (if available)
-```
-
-**Compile:**
-```bash
-java -jar duckencoder.jar -i payload.txt -o inject.bin
-```
-
-**Options:**
-- `-i` : Input DuckyScript file (.txt)
-- `-o` : Output compiled file (inject.bin)
-- `-l` : Keyboard layout (default: US)
+### Method 2: Hak5 Encoder (Command Line) — Deprecated
+**`duckencoder.jar` has been removed from the [hak5/usbrubberducky-payloads](https://github.com/hak5/usbrubberducky-payloads) repository.** Hak5 has consolidated all compilation (including offline/CLI-style workflows) into [Payload Studio](https://payloadstudio.hak5.org/), which also supports repo synchronization for automation use cases. Use Method 1 or Method 3 instead — there is no current standalone CLI jar to install.
 
 ### Method 3: Duck Toolkit
 Alternative online encoder.
@@ -74,10 +68,7 @@ DuckyScript supports multiple keyboard layouts. If your target system uses a non
 - `es` - Spanish
 - `it` - Italian
 
-**Specify in Payload Studio** or use encoder flag:
-```bash
-java -jar duckencoder.jar -i payload.txt -o inject.bin -l uk
-```
+**Specify the keyboard layout in Payload Studio's language selector** when compiling (the standalone `duckencoder.jar` CLI referenced in older guides has been discontinued — see Method 2 above).
 
 ## Testing & Debugging
 
