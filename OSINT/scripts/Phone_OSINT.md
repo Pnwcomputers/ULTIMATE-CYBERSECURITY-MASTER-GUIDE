@@ -2,6 +2,19 @@
 
 Script for automated phone number OSINT — carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
 
+## 🎯 Purpose
+Self-contained bash script automating phone-number investigation — carrier/line-type validation (Numverify, Veriphone, AbstractAPI), breach/leak correlation (IntelX, LeakLookup), and reverse-lookup URL generation. The phone-only counterpart to [Email_OSINT.md](Email_OSINT.md) and [Domain_IP_Recon.md](Domain_IP_Recon.md).
+
+## ⚙️ Function
+A single bash script accepting one or more phone numbers (or a file), querying multiple carrier-validation APIs for redundancy (since free tiers are rate-limited), correlating against breach/leak databases, and generating ready-to-click reverse-lookup URLs for manual services (Truecaller, etc.) that don't offer a public API.
+
+## 🏆 Goal
+Run one command against a suspected scammer's phone number and get back carrier/line-type/VoIP indicators plus any breach correlation, without manually querying each validation service.
+
+## 📋 When to Use
+- Phone-only investigation step in a scam/fraud case (see `../Playbook/investigation_guide.md`'s Phone Investigation Procedure)
+- Determining whether a number is VoIP/burner-app-issued (common scammer indicator) versus a genuine mobile/landline number
+
 **Dependencies:** `jq`, `curl`  
 **Usage:** `chmod +x Phone_OSINT.md` or copy the script below into a `.sh` file.
 

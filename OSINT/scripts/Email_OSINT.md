@@ -2,6 +2,19 @@
 
 Script for automated email OSINT — breach history (HaveIBeenPwned), paste exposure, Hunter.io verification, EmailRep reputation, LeakLookup credential search, Gravatar presence, and social media account checks.
 
+## 🎯 Purpose
+Self-contained bash script automating email-address investigation — breach/paste exposure, deliverability verification, reputation scoring, Gravatar/social-media presence, and domain DNS/WHOIS. The email-only counterpart to [Domain_IP_Recon.md](Domain_IP_Recon.md) — entirely passive API/DNS lookups, no active scanning.
+
+## ⚙️ Function
+A single bash script accepting one or more email addresses (or a file), running HIBP breach/paste checks, Hunter.io verification, EmailRep reputation, LeakLookup, IntelX, Gravatar, and social-media presence checks (GitHub/Twitter/Instagram/Reddit) per address, then domain DNS/WHOIS for the associated domain, writing per-email JSON output plus a master summary.
+
+## 🏆 Goal
+Run one command against a suspected scammer's email address and get back breach exposure, reputation signals, and any linked public accounts, without manually querying each API.
+
+## 📋 When to Use
+- Email-only investigation step in a scam/fraud case (see `../Playbook/investigation_guide.md`'s Email Investigation Procedure)
+- Verifying whether an email address is disposable/deliverable and checking its associated breach history before further investigation
+
 **Dependencies:** `jq`, `curl`, `dig`, `whois`  
 **Usage:** Copy the script below into a `.sh` file and `chmod +x` it.
 
