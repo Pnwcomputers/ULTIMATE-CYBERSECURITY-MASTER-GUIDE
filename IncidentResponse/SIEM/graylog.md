@@ -1,5 +1,19 @@
 # 🟢 Graylog SIEM Deployment Guide
 
+## 🎯 Purpose
+Docker-based deployment guide for Graylog — the lightest-weight of the four SIEM options in this directory (see [elk_stack.md](elk_stack.md), [wazuh.md](wazuh.md), [splunk.md](splunk.md), and the [README](../README.md)'s comparison table).
+
+## ⚙️ Function
+Fourteen parts: server prep, Docker Compose deployment (MongoDB + OpenSearch + Graylog), data inputs (Syslog/Beats/GELF), streams and processing pipelines, Windows/Linux agent shipping, search syntax, dashboards, alerting, index/retention management, LDAP auth, and troubleshooting. Differs from ELK in that Graylog uses its own purpose-built web UI (not Kibana) and has built-in alerting even on the free tier — the tradeoff is a smaller plugin/dashboard ecosystem than Elastic's.
+
+## 🏆 Goal
+Stand up a working Graylog SIEM with routed streams (Windows/Linux/network) and working alerts for brute-force login patterns and suspicious PowerShell, using less server resource overhead than a full ELK deployment.
+
+## 📋 When to Use
+- Homelab or small-org SIEM where server resources are limited and built-in alerting (without extra config) matters
+- Preferring a purpose-built log-management UI over Kibana's general-purpose visualization tooling
+- Comparing SIEM options — see the other three files in this directory
+
 **Graylog** is an open-source log management platform designed for collecting, indexing, and analyzing log data. It combines the power of Elasticsearch (or OpenSearch) for storage with an intuitive web interface for search and visualization. Graylog is lighter weight than ELK and offers a more streamlined experience for log aggregation and SIEM use cases.
 
 This guide covers deploying Graylog using Docker and configuring it to receive logs from various sources.

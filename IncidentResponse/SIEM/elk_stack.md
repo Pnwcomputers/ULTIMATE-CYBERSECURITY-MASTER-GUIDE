@@ -1,5 +1,19 @@
 # 🦌 ELK Stack SIEM Deployment Guide
 
+## 🎯 Purpose
+Docker-based deployment guide for a self-hosted ELK (Elasticsearch/Logstash/Kibana) SIEM. One of four SIEM options documented side by side in this directory — see [wazuh.md](wazuh.md), [splunk.md](splunk.md), and [graylog.md](graylog.md) for the others; the [README](../README.md)'s comparison table explains when to pick each.
+
+## ⚙️ Function
+Eleven parts: server prep, Docker Compose deployment (Elasticsearch + Logstash + Kibana + Beats), firewall rules, Windows (Winlogbeat) and Linux (Filebeat) agent deployment, Kibana dashboards/detection rules, KQL query examples, index lifecycle management, TLS/security hardening, and troubleshooting. Differs from Wazuh in that ELK is a general-purpose log platform requiring you to build detection logic yourself (Logstash filters, KQL queries), where Wazuh ships a pre-built ruleset and XDR agent out of the box.
+
+## 🏆 Goal
+Stand up a working ELK SIEM that ingests Windows Event Logs and Linux syslog via Beats, with working detection queries for failed logins, encoded PowerShell, and credential-dumping activity (LSASS access).
+
+## 📋 When to Use
+- Building a homelab or small-org SIEM where you want full control over parsing/enrichment logic (Logstash) and are comfortable writing your own detection queries
+- Already using Elastic tooling elsewhere and want a consistent query language (KQL/Lucene)
+- Comparing SIEM options — see the other three files in this directory for lighter-weight (Graylog) or ready-made-ruleset (Wazuh) alternatives
+
 **The ELK Stack** (Elasticsearch, Logstash, Kibana) is a powerful open-source platform for log aggregation, search, and visualization. Combined with Beats agents, it forms a complete SIEM solution capable of ingesting data from endpoints, network devices, and applications.
 
 This guide covers deploying a production-ready ELK Stack using Docker and configuring agents to forward security telemetry.

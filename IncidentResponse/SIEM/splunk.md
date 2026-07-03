@@ -1,5 +1,19 @@
 # 🔷 Splunk SIEM Deployment Guide
 
+## 🎯 Purpose
+Deployment guide for Splunk (Free tier or Enterprise Trial) — the only commercial/closed-source option among the four SIEMs in this directory (see [elk_stack.md](elk_stack.md), [wazuh.md](wazuh.md), [graylog.md](graylog.md), and the [README](../README.md)'s comparison table).
+
+## ⚙️ Function
+Fourteen parts: server prep, native and Docker installation, firewall rules, data inputs (syslog, HEC), index design, Universal Forwarder deployment (Windows/Linux), Splunkbase security apps, SPL query examples, alerting (Enterprise only), retention management, and hardening. Differs from the three open-source options in that Splunk's free tier caps daily indexing volume (500 MB/day) and has no alerting — Enterprise Trial unlocks both but expires after 60 days.
+
+## 🏆 Goal
+Stand up a working Splunk deployment, ship logs from Windows/Linux endpoints via Universal Forwarder, and have working SPL searches for failed logins, encoded PowerShell, and LSASS access — while understanding the licensing tradeoffs of Free vs Enterprise Trial vs Enterprise.
+
+## 📋 When to Use
+- An organization or lab already standardized on Splunk, or wanting Splunk-specific skills (SPL) for career/certification purposes
+- Small deployments that fit under the 500 MB/day free-tier cap and don't need alerting
+- Comparing SIEM options — see the other three files in this directory for open-source alternatives without the volume cap
+
 **Splunk** is a powerful commercial platform for log aggregation, search, and security analytics. While enterprise licensing can be costly, Splunk offers a **Free** tier (500 MB/day indexing) and **Enterprise Trial** (60 days, full features) that are perfect for homelabs, training, and small deployments.
 
 This guide covers deploying Splunk Enterprise, configuring inputs, installing the Universal Forwarder on endpoints, and setting up security monitoring.
