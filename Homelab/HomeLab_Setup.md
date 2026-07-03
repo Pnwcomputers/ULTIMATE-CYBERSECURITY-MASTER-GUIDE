@@ -1,4 +1,20 @@
 # Penetration Testing Home Lab Guide
+
+## 🎯 Purpose
+Comprehensive build guide for a professional penetration testing home lab — covering hardware selection, network architecture (VLANs, isolated subnets), hypervisor setup (Proxmox, VMware, VirtualBox), vulnerable VM deployment (Metasploitable, DVWA, VulnHub), and ongoing lab maintenance.
+
+## ⚙️ Function
+Organized as a progressive build from beginner (single-machine VirtualBox) to advanced (dedicated bare-metal Proxmox cluster with VLAN isolation). Covers: hardware planning, network topology design, hypervisor installation, security tool VM deployment, target VM catalog, and lab hardening to prevent accidental internet exposure.
+
+## 🏆 Goal
+Build a fully isolated, legally-safe environment where offensive and defensive security techniques can be practiced, tools can be tested, and IR playbooks can be validated — without risk to production networks or legal exposure.
+
+## 📋 When to Use
+- Setting up a new lab environment for security training or research
+- Adding a new vulnerable target VM (Metasploitable3, DVWA, VulnHub) to an existing lab
+- Designing network isolation (VLANs, firewall rules) to prevent lab escape to the internet
+- Choosing hardware for a Proxmox homelab build
+
 ## Professional Infrastructure for Ethical Hacking & Security Research
 
 > **For:** Security professionals, students, researchers, and enthusiasts  
@@ -3249,7 +3265,7 @@ Your lab is now ready. **Time to hack responsibly!**
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
 
-* **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
+* **Lab Testing:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
 * **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
 * **Legal Compliance:** Strictly comply with all local laws and regulations.
 
@@ -3257,6 +3273,12 @@ Your lab is now ready. **Time to hack responsibly!**
 * Penetration testing with client authorization.
 * Testing your own home or lab network security.
 * Security research in isolated lab environments.
+
+## Related Files
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) — VM catalog (Kali, Metasploitable, DVWA, Tails, etc.) deployed in this lab environment
+- [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) — Log aggregation infrastructure that runs in this homelab
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) — Bjorn Pi: a key lab tool for network assessment practice in the isolated lab environment
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark for monitoring traffic within the lab network segments
 
 ---
 
