@@ -978,8 +978,7 @@ Content Packs bundle inputs, extractors, streams, and dashboards:
 
 ### Community
 
-- [Graylog Community](https://community.graylog.org/)
-- [Graylog Slack](https://graylog.org/community-slack/)
+- [Graylog Community](https://community.graylog.org/) — Graylog folded its Slack workspace into this Discourse forum; `graylog.org/community-slack/` no longer exists
 
 ---
 

@@ -826,7 +826,7 @@ Remove-Item -Recurse "$env:APPDATA\.autopsy"
 
 - [Eric Zimmerman Tools](https://ericzimmerman.github.io/)
 - [Arsenal Image Mounter](https://arsenalrecon.com/products/arsenal-image-mounter)
-- [FTK Imager](https://www.exterro.com/ftk-imager)
+- [FTK Imager](https://www.exterro.com/digital-forensics-software/ftk-imager)
 
 ---
 
