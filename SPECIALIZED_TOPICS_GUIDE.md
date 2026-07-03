@@ -57,6 +57,18 @@
 
 ---
 
+## 🎯 Purpose
+The third guide in the master series — covers domains the other two guides only mention in passing: AI/LLM security, hardware hacking (fault injection, side-channel), hardware benchmarking, the uConsole cyberdeck, space security, and SDR/RF. Each Part is a condensed overview with "Deeper reference" pointers into the dedicated folders ([AI/](AI/), [HardwareHacking/](HardwareHacking/), [HardwareTesting/](HardwareTesting/), [uConsole/](uConsole/), [SpaceSecurity/](SpaceSecurity/), [SDR/](SDR/)) where the full technical depth lives.
+
+## ⚙️ Function
+6 parts (31 numbered sections) each opening with a "Deeper reference" callout linking to the corresponding folder's files, then summarizing that domain's core concepts inline. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), which cover the core pentest lifecycle — this file exists specifically because those domains (AI security, hardware fault injection, satellite security, RF exploitation) don't fit that lifecycle framing and needed their own guide.
+
+## 🏆 Goal
+A reader gets oriented in an emerging/specialized domain quickly, then knows exactly which folder to open for hands-on implementation detail.
+
+## 📋 When to Use
+When starting work in one of these six specialized domains for the first time, or as a map back to the detailed folder-level guides when you've forgotten where specific content lives.
+
 # PART I: AI & SELF-HOSTED LLM SECURITY
 
 > **Deeper reference:** [`AI/offensive_ai.md`](AI/offensive_ai.md) · [`AI/offline-llm.md`](AI/offline-llm.md) · [`AI/AnythingLLM/`](AI/AnythingLLM/) · [`AI/OpenClaw/`](AI/OpenClaw/)
