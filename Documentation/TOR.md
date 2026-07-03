@@ -316,7 +316,7 @@ sudo systemctl restart tor
 | DuckDuckGo           | `https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion`        |
 | Tor Project          | `http://2gzyxa5ihm7nsggfxnu52rck2vv4rvmdlkiu3zzui5du4xyclen53wid.onion`         |
 | ProtonMail           | `https://protonmailrmez3lotccipshtkleegetolb73fuirgj7r4o4vfu7ozyd.onion`        |
-| Facebook             | `https://www.facebookwkhpilnemxj7asber7cybef2xtcftpmrqe64lqhwdpzlh3xq.onion`  |
+| Facebook             | `https://www.facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion`  |
 | SecureDrop (Freedom) | `http://sdolvtfhatvsysc6l34d65ymdwxcujausv7k5jk4cy5ttzhjoi6fzvyd.onion`        |
 
 ### 6.2 Host an .onion Service (Tor Daemon)
