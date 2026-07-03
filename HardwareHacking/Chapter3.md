@@ -1,6 +1,21 @@
 
 # Chapter 3: Fault Injection Attacks
 
+## 🎯 Purpose
+Practical guide to fault injection attacks — covering voltage glitching, clock glitching, EM fault injection, laser fault injection, and the parameter-space search methodology for finding exploitable fault windows in embedded security checks.
+
+## ⚙️ Function
+Covers: FI attack concept and goals (skipping security checks, corrupting comparisons), voltage glitch hardware setup, clock glitch circuit design, EM/laser injection, timing parameters (offset and width), parameter-space sweeping methodology, Python scripting for automated fault campaigns, and a matplotlib-based result visualization pattern.
+
+## 🏆 Goal
+Successfully inject a transient fault at the right CPU cycle to bypass a security check (secure boot, PIN verification, cryptographic key comparison) on a target embedded device.
+
+## 📋 When to Use
+- When a target device's firmware is encrypted or signed and cannot be dumped via JTAG
+- Testing secure boot bypass resistance on development hardware
+- Advanced hardware security assessments where passive methods are exhausted
+- Research on fault countermeasure effectiveness (masking, redundancy)
+
 > *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
@@ -216,6 +231,13 @@ plt.title('Fault Injection Parameter Map')
 plt.colorbar(label='Result: 0=Normal, 1=Crash, 2=Success')
 plt.show()
 ```
+
+---
+
+## Related Files
+- [Chapter2.md](Chapter2.md) — Electrical fundamentals: voltage supply manipulation and oscilloscope setup required for fault injection
+- [Chapter4.md](Chapter4.md) — Power analysis: passive counterpart to active fault injection; complementary techniques
+- [Chapter1.md](Chapter1.md) — Threat modeling: fault injection is one of the key attack classes to model in scope
 
 ---
 

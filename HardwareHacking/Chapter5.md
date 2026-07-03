@@ -1,6 +1,21 @@
 
 # Chapter 5: Power Analysis — Practical Techniques
 
+## 🎯 Purpose
+Hands-on guide to real-world power analysis — covering measurement hardware setup, trace acquisition scripts, signal processing (filtering, alignment, PCA), CPA attack implementation in Python/NumPy, and Test Vector Leakage Assessment (TVLA) for validating leakage before committing to a full attack campaign.
+
+## ⚙️ Function
+Covers: oscilloscope/current probe hardware configuration, shunt resistor insertion, Python trace acquisition via scope API (Rigol/PicoScope), trigger synchronization, trace preprocessing (bandpass filter, cross-correlation alignment, PCA dimensionality reduction), CPA attack on AES SubBytes with NumPy, and TVLA Welch t-test leakage detection.
+
+## 🏆 Goal
+Successfully acquire clean power traces, align them by trigger, and execute a CPA attack that recovers the AES key from a target microcontroller, or confirm via TVLA whether meaningful side-channel leakage exists before investing in a full trace campaign.
+
+## 📋 When to Use
+- After Chapter 4 theory: applying DPA/CPA concepts in a real lab setup
+- Setting up a power analysis testbed for a new target device
+- Validating whether a device leaks before investing in 10,000+ trace campaigns
+- Measuring the effectiveness of masking or other countermeasures
+
 > *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
@@ -376,6 +391,13 @@ Use TVLA results to:
 - Confirm a device leaks before investing in full CPA
 - Identify the exact sample indices (POI) where leakage is strongest
 - Measure the effectiveness of countermeasures (compare TVLA before/after masking)
+
+---
+
+## Related Files
+- [Chapter4.md](Chapter4.md) — Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
+- [Chapter2.md](Chapter2.md) — Electrical fundamentals: shunt resistor calculation, probe loading, and decoupling cap removal for clean power traces
+- [Chapter3.md](Chapter3.md) — Fault injection: the active attack complement; often combined with power analysis in advanced assessments
 
 ---
 

@@ -1,6 +1,21 @@
 
 # Chapter 4: Timing and Power Analysis Attacks
 
+## 🎯 Purpose
+Introduction to passive side-channel attacks — covering timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA), Correlation Power Analysis (CPA), electromagnetic (EM) side-channel, and acoustic side-channel, including the statistical foundations and trace collection methodology.
+
+## ⚙️ Function
+Covers: what leaks via power/time/EM/acoustic, timing attack theory and implementation, SPA trace interpretation, DPA statistical approach (difference of means), CPA with Pearson correlation, EM measurement setup, acoustic analysis, and sample size requirements for different attack levels (unprotected AES, masked AES, RSA).
+
+## 🏆 Goal
+Extract a cryptographic key (AES, RSA) or reveal secret-dependent computation paths from a target device's physical observables without triggering any software-level security detection.
+
+## 📋 When to Use
+- Evaluating whether a cryptographic implementation leaks key material via power consumption
+- When active attacks (JTAG, fault injection) are blocked but passive observation is feasible
+- Validating the effectiveness of masking countermeasures on development hardware
+- Advanced red-team assessments requiring key extraction from HSMs or secure elements
+
 > *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
@@ -197,6 +212,13 @@ print(f"Key byte 0: 0x{likely_key_byte:02X} (correlation: {result[likely_key_byt
 | AES (second-order masked) | N/A | N/A | 1M+ |
 | RSA (no blinding) | 1 (SPA) | N/A | N/A |
 | RSA (blinded) | 10,000+ (template) | N/A | N/A |
+
+---
+
+## Related Files
+- [Chapter5.md](Chapter5.md) — Practical power analysis: hands-on measurement setup, trace acquisition, and TVLA analysis
+- [Chapter2.md](Chapter2.md) — Electrical fundamentals: shunt resistor measurement and oscilloscope techniques for trace collection
+- [Chapter3.md](Chapter3.md) — Fault injection: active attack complement to passive side-channel analysis
 
 ---
 

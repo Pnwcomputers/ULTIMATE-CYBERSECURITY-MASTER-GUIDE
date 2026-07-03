@@ -1,6 +1,20 @@
 
 # Chapter 2: Electrical Fundamentals
 
+## 🎯 Purpose
+Reference for the electrical concepts underlying hardware hacking — covering voltage/current/power, digital logic levels, bus protocols (UART, SPI, I2C, JTAG), oscilloscope/logic-analyzer measurement, and signal integrity issues that affect hardware security work.
+
+## ⚙️ Function
+Covers: V/I/R/P relationships, digital logic levels (CMOS vs TTL, 1.8/3.3/5V), Ohm's law for shunt measurement, UART framing, SPI modes, I2C addressing, JTAG TAP state machine, oscilloscope setup, logic analyzer configuration, and practical probe tips for hardware analysis.
+
+## 🏆 Goal
+Provide the minimum electrical knowledge needed to safely connect to, measure, and communicate with an embedded target without damaging it or the test equipment.
+
+## 📋 When to Use
+- Before connecting any hardware tool (Bus Pirate, logic analyzer, oscilloscope) to an unknown target
+- Reference during fault injection or power analysis setup (shunt calculation, probe loading)
+- When interpreting logic analyzer captures and troubleshooting protocol issues
+
 > *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
@@ -232,6 +246,15 @@ Poor signal integrity is the most common cause of failed hardware hacking attemp
 - **Probe loading:** A ×10 scope probe has 10 MΩ input impedance — fine for most digital work. Active probes (1 MΩ or 50 Ω matched) needed for high-frequency or sensitive measurements.
 - **Decoupling capacitors:** Target boards place decoupling caps (100nF ceramic) on power pins to suppress noise. For power analysis, you often **remove** the decoupling cap nearest the target IC to improve signal fidelity — the cap averages out the current transients you're trying to measure.
 - **50 Ω termination:** For signals above ~100 MHz, use 50 Ω terminated probing to prevent reflections. Scope inputs should be set to 50 Ω mode.
+
+---
+
+## Related Files
+- [BusPirate.md](BusPirate.md) — Implements the UART/SPI/I2C protocols described in this chapter
+- [HiLetgo.md](HiLetgo.md) — Logic analyzer for capturing the digital signals described in this chapter
+- [LA1010.md](LA1010.md) — Higher-speed logic analyzer for protocols requiring >24MHz capture rate
+- [Chapter3.md](Chapter3.md) — Fault injection: applies the power/voltage concepts from this chapter to attack scenarios
+- [Chapter4.md](Chapter4.md) — Power analysis: extends the shunt measurement and oscilloscope techniques introduced here
 
 ---
 

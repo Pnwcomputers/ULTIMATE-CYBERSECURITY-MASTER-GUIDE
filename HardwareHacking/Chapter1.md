@@ -1,5 +1,19 @@
 # Chapter 1: Threat Modeling for Hardware Security
 
+## 🎯 Purpose
+Framework for analyzing hardware security threats — covering physical access threat models, STRIDE applied to embedded systems, trust boundary identification, and the hardware security properties that software threat modeling ignores.
+
+## ⚙️ Function
+Introduces hardware-specific threat modeling concepts: physical access attack vectors (JTAG, SWD, UART, voltage glitching, side-channel), asset identification on embedded systems, STRIDE table applied to hardware, countermeasures, and a structured threat model template for documenting findings.
+
+## 🏆 Goal
+Produce a hardware threat model for a target device that identifies the physically accessible attack surfaces, the assets at risk, and appropriate countermeasures — before tool selection or hands-on work begins.
+
+## 📋 When to Use
+- Starting a hardware security assessment: build the threat model before touching the device
+- Designing a new embedded product: identify security requirements before hardware is finalized
+- Scoping a hardware pen test engagement: determine which physical attack vectors are in scope
+
 > *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
@@ -150,6 +164,15 @@ COUNTERMEASURES:
 RESIDUAL RISK:
   [Threats not fully mitigated and accepted rationale]
 ```
+
+---
+
+## Related Files
+- [Chapter2.md](Chapter2.md) — Electrical fundamentals: the physical layer knowledge underlying every threat in this model
+- [JTAGulator.md](JTAGulator.md) — Primary tool for exploiting the JTAG/UART debug-interface threat identified in threat models
+- [T48_TL866-3G.md](T48_TL866-3G.md) — IC programmer for the firmware extraction threat vector
+- [Chapter3.md](Chapter3.md) — Fault injection: one of the key hardware attacks this chapter helps scope
+- [Chapter4.md](Chapter4.md) — Side-channel: the passive observation threat class this chapter introduces
 
 ---
 
