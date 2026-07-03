@@ -1,5 +1,19 @@
 # uConsole Automated Setup Scripts (CM4 and CM5)
 
+## 🎯 Purpose
+Reference for the state-tracked, resumable automation scripts (`uconsole-cm4-setup.sh`, `uconsole-cm5-setup.sh`, `uconsole-repair.sh`) that implement the manual procedures in [../CM4-SETUP.md](../CM4-SETUP.md) and [../CM5-SETUP.md](../CM5-SETUP.md) as executable, idempotent code. Use this file to understand script behavior/flags; use the manual guides for the underlying "why" or to hand-fix a step the script got stuck on.
+
+## ⚙️ Function
+Documents each script's phase structure (preflight/update/kali_tools/aio/peripherals/finalize) with reboot points, CLI flags and environment variables, exactly which files each script touches (for auditing/rollback), and `uconsole-repair.sh`'s wrong-CM-detection/repair logic as a separate safety-net tool.
+
+## 🏆 Goal
+Run the correct automated script for your compute module (CM4 or CM5) to completion without manually working through the 40+ individual steps in the corresponding setup guide, and recover cleanly via `uconsole-repair.sh` if the wrong script was run against the wrong hardware.
+
+## 📋 When to Use
+- First-time automated uConsole setup, immediately after flashing and first boot (before running `apt update` manually)
+- Diagnosing a stuck/failed setup run (`--status`, `--phase=<phase>`, or full `--reset`)
+- GPS or RTC not working after reflashing with the other compute module — run `uconsole-repair.sh --diagnose` first
+
 Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md) and [CM5-SETUP.md](../CM5-SETUP.md):
 
 | Script | Target | State/Info |
