@@ -108,9 +108,10 @@ A Raspberry Pi running Kismet positioned to monitor your wireless environment, f
 # Update system
 sudo apt update && sudo apt upgrade -y
 
-# Add Kismet repository
-wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
-echo "deb https://www.kismetwireless.net/repos/apt/release/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kismet.list
+# Add Kismet repository (apt-key is deprecated on Debian Bookworm/Ubuntu 22.04+;
+# store the key in /usr/share/keyrings and reference it with signed-by instead)
+wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | sudo gpg --dearmor -o /usr/share/keyrings/kismet-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kismet.list
 
 # Install Kismet
 sudo apt update

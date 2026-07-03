@@ -123,7 +123,7 @@ the Wiretap Act and ECPA.
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **[Replay Attack Scripts](https://github.com/mossmann/hackrf/tree/master/firmware/hackrf_usb)** | Capturing and rebroadcasting OOK/ASK signals | 🔴 HIGH |
+| **[Replay Attack Scripts](https://github.com/greatscottgadgets/hackrf/tree/master/firmware/hackrf_usb)** | Capturing and rebroadcasting OOK/ASK signals | 🔴 HIGH |
 | **[GPS-SDR-SIM](https://github.com/osqzss/gps-sdr-sim)** | Generating fake GPS constellations for spoofing | 🔴 EXTREME |
 | **[gr-gsm](https://github.com/ptrkrysik/gr-gsm) / [srsLTE (srsRAN)](https://www.srsran.com/)** | Rogue base station / IMSI catcher frameworks | 🔴 EXTREME |
 | **[RollJam (Sammy Kamkar)](https://samy.pl/rolljam/)** | Rolling code bypass implementation | 🔴 HIGH |

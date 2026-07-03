@@ -286,7 +286,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 | Resource | Description |
 |----------|-------------|
-| [Hack-A-Sat](https://hackasat.com/) | Annual CTF run by US Space Force / Air Force |
+| [Hack-A-Sat](https://afresearchlab.com/technology/hack-a-sat/) | CTF run by US Space Force / AFRL (2020–2023; see the [challenge archive](https://github.com/deptofdefense/hack-a-sat-library)) |
 | [DEF CON Aerospace Village](https://aerospacevillage.org/) | Aerospace security community and talks |
 | [IOActive: SATCOM Security](https://ioactive.com/resources/white-papers/) | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
 | [Black Hat 2020: Ruben Santamarta](https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511) | Revisited SATCOM vulnerabilities; aviation implications |
@@ -320,7 +320,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 - [MITRE ATT&CK](https://attack.mitre.org/)
 - [CCSDS Publications](https://public.ccsds.org/Publications/default.aspx)
 - [DEF CON Aerospace Village](https://aerospacevillage.org/)
-- [Hack-A-Sat](https://hackasat.com/)
+- [Hack-A-Sat](https://afresearchlab.com/technology/hack-a-sat/) (2020–2023; [challenge archive](https://github.com/deptofdefense/hack-a-sat-library))
 - [SatNOGS](https://network.satnogs.org/)
 
 ---
