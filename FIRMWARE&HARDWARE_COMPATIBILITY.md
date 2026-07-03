@@ -6,6 +6,20 @@
 
 ---
 
+## 🎯 Purpose
+The only file in the repo that answers "does firmware X run on hardware Y?" — a compatibility matrix for DIY wireless-pentest devices (ESP32 variants, LilyGO boards, M5Stack devices, Raspberry Pi models, Flipper Zero, nRF52840) against the firmware projects that target them (Marauder, Bruce, Nemo, Pwnagotchi, Bjorn, P4wnP1, Deauther, etc).
+
+## ⚙️ Function
+A compatibility matrix table (firmware × hardware, ✅/⚠️/❌) followed by detailed per-chip hardware specs, per-firmware capability breakdowns, recommended-hardware-by-use-case, purchase links, and a firmware installation quick reference. Differs from [Documentation/](Documentation/) firmware-specific files (e.g., `WifiMarauder_Guide.md`, `bjorn_pi.md`), which document how to *use* one specific firmware — this file only answers what hardware it *runs on*.
+
+## 🏆 Goal
+Before buying hardware or flashing firmware, a reader can confirm compatibility in one lookup instead of trial-and-error or scattered forum research.
+
+## 📋 When to Use
+When choosing hardware for a new DIY pentest device build, or checking whether a firmware project supports hardware you already own.
+
+---
+
 ## Quick Reference Compatibility Matrix
 
 | Firmware/Project | ESP32 | ESP32-S2 | ESP32-S3 | ESP32-C3 | LilyGO T-Display | LilyGO TTGO | M5 Cardputer | M5Stick | M5Stick Plus | CC1101 | Raspberry Pi 4 | Pi Zero | Pi Zero W | Pi Zero 2W | Flipper Zero | nRF52840 |
