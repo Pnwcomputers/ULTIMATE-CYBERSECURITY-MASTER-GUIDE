@@ -89,7 +89,7 @@ Using these tools improperly violates:
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/spy-server/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
+| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/download/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
 | **[rtl_433](https://github.com/merbanan/rtl_433)** | Decoding ISM band devices (weather stations, TPMS, alarms) | 🟢 LOW |
 | **[dump1090](https://github.com/flightaware/dump1090)** | ADS-B aviation tracking and decoding | 🟢 LOW |
 | **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |
