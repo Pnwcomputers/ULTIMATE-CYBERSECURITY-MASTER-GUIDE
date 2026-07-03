@@ -1,5 +1,19 @@
 # 🧠 Volatility 3 Memory Forensics Guide
 
+## 🎯 Purpose
+Memory (RAM) forensics guide covering acquisition and Volatility 3 analysis — process, network, injection/malware, credential, file system, registry, and timeline artifacts. Complements the disk-focused [../Disks/autopsy_kape.md](../Disks/autopsy_kape.md) and the collection-methodology [../LiveData/live_data_collection.md](../LiveData/live_data_collection.md), which covers memory *acquisition* tools (WinPMEM, AVML, LiME) in the context of a broader live-response collection — this file is specifically the *analysis* side once you have a dump.
+
+## ⚙️ Function
+Seventeen parts: installation, memory acquisition (Windows/Linux/VM), basic usage syntax, then plugin categories (process, network, malware/injection, DLL, credential, file system, registry, timeline, YARA), pre-built investigation workflows (suspicious process, malware hunt, credential theft, lateral movement), and troubleshooting.
+
+## 🏆 Goal
+Take a memory dump from a potentially compromised Windows host and extract the artifacts (hidden processes, C2 network connections, injected code, dumped credentials, persistence indicators) that disk forensics alone can't reveal.
+
+## 📋 When to Use
+- Analyzing a memory dump collected during live response (see `live_data_collection.md` for the acquisition step)
+- Investigating suspected process injection, credential theft (LSASS access), or in-memory-only malware
+- Building a timeline of an incident using memory artifacts alongside disk/registry timelines from `autopsy_kape.md`
+
 **Volatility** is the industry-standard open-source framework for memory forensics. It enables analysts to extract digital artifacts from volatile memory (RAM) dumps, revealing evidence that may not exist on disk—running processes, network connections, injected code, encryption keys, and more.
 
 This guide covers Volatility 3 installation, memory acquisition, and comprehensive analysis techniques for Windows memory forensics.

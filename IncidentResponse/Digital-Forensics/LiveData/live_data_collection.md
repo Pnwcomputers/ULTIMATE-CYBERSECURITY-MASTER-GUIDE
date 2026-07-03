@@ -1,5 +1,19 @@
 # 🚨 Live Response Collection Guide
 
+## 🎯 Purpose
+Methodology and ready-to-run scripts for collecting volatile and non-volatile evidence from a live (running, not-yet-imaged) Windows or Linux system during incident response. This is the "first responder" step that precedes both the memory analysis in [../Memory/volatility_cheatsheet.md](../Memory/volatility_cheatsheet.md) and the disk analysis in [../Disks/autopsy_kape.md](../Disks/autopsy_kape.md) — it's about what to collect and in what order before the system is powered off or imaged.
+
+## ⚙️ Function
+Five parts: preparation checklist and collection-drive layout, Windows live response (batch + PowerShell scripts covering system/network/process/user/persistence/filesystem/security/event-log collection), Linux live response (equivalent bash script), memory acquisition tool commands (cross-referencing the Memory forensics file), and chain-of-custody/collection-notes templates.
+
+## 🏆 Goal
+Capture the volatile evidence (running processes, network state, logged-in users, memory) that would be lost on reboot, in the correct order of volatility, with proper chain-of-custody documentation, before a compromised system is powered off or imaged.
+
+## 📋 When to Use
+- First on-scene response to a suspected active compromise, before deciding whether to image the disk
+- Any time system state needs capturing before a reboot/shutdown that would destroy volatile evidence
+- Building the evidence handoff for later analysis in `volatility_cheatsheet.md` (memory) and `autopsy_kape.md` (disk)
+
 **Live Response** is the process of collecting volatile and non-volatile data from a running system during an incident. This data can be lost when a system is powered off, making timely collection critical. Live response captures the current state of a potentially compromised system before forensic imaging or remediation.
 
 This guide covers live response methodology, tools, and scripts for Windows and Linux systems.

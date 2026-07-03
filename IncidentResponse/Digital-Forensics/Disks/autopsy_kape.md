@@ -1,6 +1,20 @@
 
 # 💽 Disk Forensics Guide (Autopsy & KAPE)
 
+## 🎯 Purpose
+Disk forensics guide covering rapid triage collection (KAPE) and full filesystem analysis (Autopsy) — registry, event logs, browser artifacts, timeline reconstruction, and file recovery. Complements [../Memory/volatility_cheatsheet.md](../Memory/volatility_cheatsheet.md) (RAM analysis) and [../LiveData/live_data_collection.md](../LiveData/live_data_collection.md) (the broader live-response collection that KAPE is often run as part of).
+
+## ⚙️ Function
+Two parts covering the two tools in the typical KAPE-then-Autopsy workflow: KAPE (targets/modules, collection and processing examples, output structure) for fast triage collection, then Autopsy (case creation, ingest modules, keyword/timeline/registry/hash analysis, reporting) for deep-dive examination — including how to feed a KAPE collection into Autopsy as a Logical Files data source.
+
+## 🏆 Goal
+Rapidly collect the right disk artifacts from a live or imaged system with KAPE, then perform full timeline, keyword, and artifact analysis in Autopsy to reconstruct what happened on a compromised host.
+
+## 📋 When to Use
+- Rapid remote/live triage collection before or instead of full disk imaging (KAPE)
+- Deep-dive filesystem analysis, deleted file recovery, or timeline reconstruction on a disk image (Autopsy)
+- Combining both: KAPE for fast collection, Autopsy for analysis of the same case (Workflow 3)
+
 **Disk forensics** involves the acquisition, analysis, and reporting of data stored on persistent storage media. This guide covers two essential tools: **Autopsy** (a full-featured forensic platform) and **KAPE** (Kroll Artifact Parser and Extractor - a rapid triage collection tool).
 
 Together, these tools enable investigators to quickly collect artifacts and perform deep-dive analysis of compromised systems.
