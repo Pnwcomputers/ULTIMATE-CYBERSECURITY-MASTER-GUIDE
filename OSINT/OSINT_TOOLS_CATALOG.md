@@ -1,4 +1,18 @@
 # 🛠️ Core OSINT Toolkit
+
+## 🎯 Purpose
+Directory of the CLI tools and API-based services referenced across the OSINT Playbook, organized as tool table + API category list. Distinct from [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) (command syntax) — this file is purely "what exists and where to get it," with no usage instructions.
+
+## ⚙️ Function
+A CLI tool table (name, category, function) followed by six API-key categories (threat recon, scanning/asset discovery, email/breach/identity, domain/infrastructure, phone verification, blockchain/abuse tracking), each linking to the service's signup/API page. API keys configured here are read from `${HOME}/.config/osint-investigator/api_keys.conf` by the toolkit referenced in [Playbook/investigation_guide.md](Playbook/investigation_guide.md).
+
+## 🏆 Goal
+Know which service to sign up for and configure before running an investigation that needs it, without hunting through the playbook for the first mention of each tool.
+
+## 📋 When to Use
+- Setting up API keys before running the OSINT Investigator toolkit for the first time
+- Looking up an unfamiliar tool/service name referenced elsewhere in the OSINT playbook
+
 The playbook integrates the following industry-standard tools for deep reconnaissance:
 
 | Tool | Category | Primary Function |
@@ -25,7 +39,7 @@ The framework leverages several high-authority databases. Ensure your API keys a
 * [**VirusTotal**](https://www.virustotal.com/): Malware and URL Intelligence
 * [**Censys**](https://censys.io/): Host & Certificate Intelligence
 * [**SecurityTrails**](https://securitytrails.com/): DNS & Domain History
-* [**ZoomEye**](https://www.zoomeye.org/): Cyberspace Search Engine
+* [**ZoomEye**](https://www.zoomeye.ai/): Cyberspace Search Engine (the legacy `zoomeye.org` domain is currently returning a server error; `zoomeye.ai` is the actively promoted current domain)
 * [**Criminal IP**](https://www.criminalip.io/): CTI & IP Scoring
 
 ## 2. SCANNING & ASSET DISCOVERY
