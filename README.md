@@ -265,7 +265,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 
 **Other key works:** Ryan Barnett (*Black Hat Bash*) · Travis Goodspeed (*Microcontroller Exploits*) · Seth Enoka (*Cybersecurity for Small Networks*) · Peter Kim (*The Hacker Playbook 3*) · Ben Clark (*RTFM / BTFM*) · Christopher Hadnagy (*Social Engineering*) · Kevin Mitnick (*The Art of Invisibility*)
 
-> See the [full 77-entry bibliography](#-complete-bibliography) below.
+> See the [full 78-entry bibliography](#-complete-bibliography) below.
 
 ### 🐧 Security Linux Distributions
 [Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.boum.org/) · [Whonix](https://www.whonix.org/)
