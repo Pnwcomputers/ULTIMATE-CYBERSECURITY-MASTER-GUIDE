@@ -124,8 +124,7 @@ Dolphin models are available in various sizes. Choose based on your hardware cap
 
 - **dolphin-phi (2.7B)**: Smallest, fastest, good for simple tasks
 - **dolphin-mistral (7B)**: Balanced performance and quality
-- **dolphin-mixtral (8x7B)**: High quality, requires more resources
-- **dolphin2.5-mixtral (8x7B)**: Latest version with improvements
+- **dolphin-mixtral (8x7B)**: High quality, requires more resources; the `dolphin2.5-mixtral` tag has been retired and folded into this one's `latest` tag
 
 ### Downloading Dolphin Models
 
@@ -133,13 +132,10 @@ Dolphin models are available in various sizes. Choose based on your hardware cap
 # Option 1: Dolphin-Mistral 7B (Recommended for most users)
 ollama pull dolphin-mistral
 
-# Option 2: Dolphin-Mixtral 8x7B (Better quality, needs more RAM)
+# Option 2: Dolphin-Mixtral 8x7B (Better quality, needs more RAM; `dolphin2.5-mixtral` no longer exists as a separate tag)
 ollama pull dolphin-mixtral
 
-# Option 3: Dolphin 2.5 Mixtral (Latest version)
-ollama pull dolphin2.5-mixtral
-
-# Option 4: Dolphin-Phi (Fastest, smaller model)
+# Option 3: Dolphin-Phi (Fastest, smaller model)
 ollama pull dolphin-phi
 ```
 
@@ -408,7 +404,7 @@ ps aux | grep ollama
 | Quick questions | dolphin-phi | 8GB | Fast |
 | General use | dolphin-mistral | 16GB | Balanced |
 | Complex tasks | dolphin-mixtral | 32GB | Best quality |
-| Technical work | dolphin2.5-mixtral | 32GB | High accuracy |
+| Technical work | dolphin-mixtral | 32GB | High accuracy |
 
 ## Part 8: Best Practices for Offline Use
 
