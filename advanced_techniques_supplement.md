@@ -15,6 +15,18 @@
 
 ---
 
+## 🎯 Purpose
+"Advanced Techniques — Part 1" (per README.md/START_HERE.md's numbering): deep-dive Metasploit/Bash/Python/cloud/evasion/IoT content sourced specifically from Metasploit 2E, Black Hat Bash, and Gray Hat Python — content the core master guides don't go deep enough on. Complements [advanced_techniques_part2.md](advanced_techniques_part2.md) (Part 2), which covers exploit development/buffer overflows instead.
+
+## ⚙️ Function
+6 sections: Advanced Metasploit (Meterpreter, post-exploitation), Bash Scripting for Offensive Security, Python for Security Automation, Cloud Penetration Testing, Advanced Evasion Techniques, and Microcontroller/IoT Exploitation. Differs from [advanced_techniques_part2.md](advanced_techniques_part2.md), which is exploit-development-focused (shellcode, buffer overflows, custom payloads) rather than tooling/automation-focused.
+
+## 🏆 Goal
+A reader can script and automate advanced offensive workflows (Metasploit sessions, cloud attack surface enumeration, IoT firmware attacks) beyond what the foundational master guide covers.
+
+## 📋 When to Use
+When the core master guide's Metasploit/cloud/IoT sections aren't deep enough for the task at hand — e.g., scripting Meterpreter automation or enumerating cloud storage misconfigurations.
+
 ## Advanced Metasploit Techniques
 
 ### Modern Metasploit Framework Architecture
