@@ -1,5 +1,18 @@
 # AnythingLLM AgentFlow Workflow Examples
 
+## 🎯 Purpose
+Workflow-chaining reference showing how to combine the 9 individual AgentFlows documented in [README.md](README.md) into complete engagement workflows (pre-engagement OSINT, network pentest, incident response). Complements the individual `flow-*.md` files, which document a single flow's block configuration in isolation.
+
+## ⚙️ Function
+Three detailed workflow patterns (pre-engagement OSINT, network penetration test, incident response) plus four quick flow-combination diagrams and one full example engagement timeline, each showing which flows to run in what order and what inputs/outputs connect them.
+
+## 🏆 Goal
+Know which sequence of AgentFlows to run for a given engagement type, so individual flows aren't run ad hoc without a coherent intelligence-gathering-to-reporting pipeline.
+
+## 📋 When to Use
+- Planning the AgentFlow sequence for a new engagement (pre-engagement OSINT, network pentest, or IR)
+- Understanding how one flow's output feeds another flow's input variable
+
 ## Overview
 
 This document provides practical workflow examples using AnythingLLM custom AgentFlows for cybersecurity assessments and penetration testing. These workflows demonstrate how to chain together multiple flows to accomplish common security tasks efficiently.

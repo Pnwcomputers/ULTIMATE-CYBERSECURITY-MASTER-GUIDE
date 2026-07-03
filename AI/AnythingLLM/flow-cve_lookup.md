@@ -1,5 +1,18 @@
 # CVELookup AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for turning a CVE ID plus system context into a CVSS-scored exploitability assessment and a concrete remediation/patching plan. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+3 blocks: a NIST NVD scrape feeding two LLM-instruction blocks — one extracts CVSS scoring and exploitability details tailored to the supplied system context, the other generates a tiered remediation plan (immediate/patching/compensating-controls/long-term) with a timeline based on severity.
+
+## 🏆 Goal
+Go from a bare CVE ID discovered by `NmapAnalyzer` to a specific, timeline-bound remediation plan tailored to the actual affected system, not a generic CVE description.
+
+## 📋 When to Use
+- Researching a specific CVE flagged during scanning, before deciding how urgently to patch
+- Justifying an emergency change-management request with CVSS/exploitability evidence
+
 ## Flow Information
 
 **Name:** `CVELookup`

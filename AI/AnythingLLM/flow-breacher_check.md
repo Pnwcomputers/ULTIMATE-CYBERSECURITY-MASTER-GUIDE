@@ -1,5 +1,18 @@
 # BreachChecker AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for domain-wide breach exposure checking via HaveIBeenPwned. Distinct from `EmailOSINT`: this flow is scoped to breach/paste data only (no social media profiling) and accepts either a whole domain or a single email. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+4 blocks: two HIBP API calls (breached accounts, paste sites) feeding a single LLM-analysis block that produces a full risk report — breach timeline, exposed data types, password-reuse/account-takeover risk, and compliance impact (GDPR/CCPA/PCI-DSS/HIPAA).
+
+## 🏆 Goal
+Quantify a domain or individual's breach exposure and translate it into prioritized remediation actions (immediate/short-term/long-term) suitable for client reporting.
+
+## 📋 When to Use
+- Domain-wide breach assessment as part of pre-engagement OSINT
+- Verifying suspected credential compromise during incident response
+
 ## Flow Information
 
 **Name:** `BreachChecker`

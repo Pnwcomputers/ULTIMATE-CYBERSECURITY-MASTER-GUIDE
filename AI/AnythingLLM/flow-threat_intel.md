@@ -1,5 +1,18 @@
 # ThreatIntelCheck AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for checking an IP or domain's reputation against VirusTotal and AbuseIPDB, producing a BLOCK/MONITOR/ALLOW/INVESTIGATE recommendation. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+5 blocks: a VirusTotal API call and an AbuseIPDB scrape feeding two LLM-instruction blocks — one calculates a weighted 0-100 threat score, the other turns that score into a concrete action plan with implementation steps and timeline per recommendation tier.
+
+## 🏆 Goal
+Turn raw reputation data from two sources into a single actionable decision (block this IP now vs. monitor vs. it's legitimate infrastructure) with a defensible justification for the security team.
+
+## 📋 When to Use
+- Verifying IPs discovered during `NmapAnalyzer` or incident response log review before deciding to block
+- Avoiding false-positive blocks on shared infrastructure (CDNs, cloud providers) that superficially look suspicious
+
 ## Flow Information
 
 **Name:** `ThreatIntelCheck`

@@ -1,5 +1,18 @@
 # GitHubSecrets AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for finding exposed credentials/API keys in public GitHub repositories and commit history tied to a target company. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+5 blocks: two GitHub search scrapes (current code, commit history for "removed" secrets) feeding two LLM-analysis blocks that classify findings by credential type and risk level (CRITICAL/HIGH/MEDIUM/LOW).
+
+## 🏆 Goal
+Discover leaked credentials (cloud keys, database passwords, API tokens) sitting in public repos or git history, classified by severity, with immediate remediation guidance (rotate/revoke).
+
+## 📋 When to Use
+- Pre-engagement OSINT once a target domain/company name is known
+- Investigating a suspected credential-exposure incident to check if it originated from a public commit
+
 ## Flow Information
 
 **Name:** `GitHubSecrets`

@@ -1,5 +1,18 @@
 # CompanyOSINT AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for gathering public company intelligence (employees, email formats, tech stack) as the first step of pre-engagement recon. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+6 blocks: three web-scraping blocks (LinkedIn, GitHub, BuiltWith) feeding two LLM-analysis blocks (employee intelligence, technology analysis) that compile into a final OSINT report. Typically the first flow run in an engagement, since its outputs (email format, key personnel) feed `EmailOSINT` and `GitHubSecrets`.
+
+## 🏆 Goal
+Get employee naming conventions/email formats, key personnel, and a technology-stack summary from a target company's public footprint, ready to hand to the next flow in the recon chain.
+
+## 📋 When to Use
+- Very first step of pre-engagement OSINT, before any active scanning
+- Building a social-engineering target list or email-format guess for a phishing assessment
+
 ## Flow Information
 
 **Name:** `CompanyOSINT`

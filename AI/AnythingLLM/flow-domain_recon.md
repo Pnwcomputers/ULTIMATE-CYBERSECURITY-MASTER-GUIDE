@@ -1,5 +1,18 @@
 # DomainRecon AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for technical domain reconnaissance (subdomains, DNS, certificates, security headers, WHOIS) — the attack-surface-mapping counterpart to `CompanyOSINT`'s people-focused recon. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+6 blocks: four web-scraping sources (certificate transparency via crt.sh, reverse IP lookup, security headers, WHOIS) feeding a single LLM-analysis block that categorizes subdomains by risk (production, dev/staging, admin interfaces) and assesses security posture.
+
+## 🏆 Goal
+Map a target domain's full attack surface — subdomains, hosting, security header gaps, registration data — prioritized by which discovered assets are worth testing first (dev/staging and admin interfaces over production).
+
+## 📋 When to Use
+- Mapping attack surface after initial company OSINT, before active scanning
+- Discovering forgotten dev/staging subdomains that are often less secured than production
+
 ## Flow Information
 
 **Name:** `DomainRecon`
@@ -217,7 +230,7 @@ The flow will return `recon_report` containing:
 
 ### Subdomain Discovery Alternatives:
 - `https://api.hackertarget.com/hostsearch/?q=${domain}` (API, free tier)
-- `https://sonar.omnisint.io/subdomains/${domain}` (Project Sonar)
+- ~~`https://sonar.omnisint.io/subdomains/${domain}` (Project Sonar)~~ — **discontinued**: Rapid7 revoked public access to the underlying dataset and the omnisint API was shut down; use `crt.sh` or the HackerTarget API above instead
 
 ### Security Headers Alternatives:
 - Manual check: `curl -I https://${domain}`

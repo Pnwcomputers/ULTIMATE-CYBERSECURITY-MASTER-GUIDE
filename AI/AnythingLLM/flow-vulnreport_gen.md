@@ -1,5 +1,18 @@
 # VulnReportGenerator AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for turning a raw vulnerability finding into a professional, client-ready report section (executive summary + technical detail + remediation). This is the reporting-phase flow that every other flow in this directory ultimately feeds into. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+4 LLM-instruction blocks in sequence: executive summary (non-technical, C-level framing), technical findings (CVSS/CWE/OWASP-referenced), remediation steps (immediate/short-term/long-term with verification), then a final formatting block that compiles all three into one cohesive report section.
+
+## 🏆 Goal
+Convert terse technical finding notes into a polished report section suitable for direct inclusion in a client deliverable, without manually re-writing the same three-part structure (exec summary/technical/remediation) for every finding.
+
+## 📋 When to Use
+- Documenting each vulnerability discovered during an engagement, right after it's confirmed
+- Batch-processing multiple findings at the end of an engagement for report compilation
+
 ## Flow Information
 
 **Name:** `VulnReportGenerator`

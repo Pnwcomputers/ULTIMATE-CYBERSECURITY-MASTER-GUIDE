@@ -1,5 +1,18 @@
 # EmailOSINT AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for investigating a specific email address or username's breach history and social media footprint. Distinct from `BreachChecker`: this flow adds social media profiling for social-engineering assessment on top of the same HaveIBeenPwned breach data. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+6 blocks: an HIBP API call and a social-media Google-dork scrape, feeding two LLM-analysis blocks (breach analysis, social media profile) that compile into a final OSINT/social-engineering intelligence report.
+
+## 🏆 Goal
+Build a per-individual intelligence profile — breach exposure, social media presence, OPSEC weaknesses — to support authorized social engineering assessments or credential-exposure investigations.
+
+## 📋 When to Use
+- Profiling specific key personnel identified by `CompanyOSINT` for a social engineering assessment
+- Verifying breach exposure for a specific individual rather than a whole domain (see `BreachChecker` for domain-wide checks)
+
 ## Flow Information
 
 **Name:** `EmailOSINT`

@@ -1,5 +1,18 @@
 # NmapAnalyzer AgentFlow
 
+## 🎯 Purpose
+Block-by-block AnythingLLM AgentFlow configuration for turning raw Nmap output into a prioritized, risk-rated findings table with next-step recommendations. See [README.md](README.md) for how this fits among the other 8 flows.
+
+## ⚙️ Function
+2 LLM-instruction blocks: the first parses raw scan text into a structured port/service/version/risk table, the second generates prioritized recommendations (top 3 critical items, next recon steps, required tools) from that table. No web scraping or API calls — pure LLM analysis of pasted scan output.
+
+## 🏆 Goal
+Turn a wall of raw Nmap text into a triaged action list, ready to feed into `CVELookup` for each flagged version and `VulnReportGenerator` for each finding.
+
+## 📋 When to Use
+- Immediately after running an Nmap scan, to prioritize which services to investigate first
+- Analyzing scans across multiple hosts/subnets to spot systemic patterns
+
 ## Flow Information
 
 **Name:** `NmapAnalyzer`
