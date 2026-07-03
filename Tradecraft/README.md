@@ -20,6 +20,18 @@ Operational security tradecraft for red team, blue team, and purple team practit
 
 ---
 
+## 🎯 Purpose
+The folder-level index for offensive tradecraft deep-dives — content too specialized/detailed to fit inline in the master guides, which instead link out to these 6 files (see e.g. [ultimate_cybersecurity_master_guide.md](../ultimate_cybersecurity_master_guide.md) Part XI and [ENHANCED_MASTER_GUIDE.md](../ENHANCED_MASTER_GUIDE.md) Part 6).
+
+## ⚙️ Function
+Lists all 6 Tradecraft files with descriptions, explains the dual-use (offense + defense) structure shared across every file in the folder, maps each file to its primary MITRE ATT&CK tactics, and cross-links to related folders (Checklists, HardwareHacking, Scripts, Documentation). Differs from those master guides by containing the actual deep technical content rather than a summary; differs from [Checklists/](../Checklists/), which provides quick-reference checklists rather than full methodology write-ups.
+
+## 🏆 Goal
+A reader can find the right tradecraft file for a given ATT&CK tactic or technique and understands upfront that every file pairs offensive technique with matching detection/defense guidance.
+
+## 📋 When to Use
+As the entry point into the Tradecraft/ folder, or when looking up which file covers a specific ATT&CK tactic.
+
 ## Contents
 
 | File | Description |
