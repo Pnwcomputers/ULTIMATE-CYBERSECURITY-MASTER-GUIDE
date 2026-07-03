@@ -1,6 +1,20 @@
 
 # 🐧 Linux Auditd & Syslog Hardening Guide
 
+## 🎯 Purpose
+Linux endpoint-visibility guide covering kernel-level auditing (auditd) and general logging (rsyslog), plus forwarding both to a SIEM. This is the Linux equivalent of [../Windows/sysmon.md](../Windows/sysmon.md) — auditd's process-execution rule (Part 2) is explicitly noted as "equivalent to Sysmon Event ID 1." Distinct from [osquery.md](osquery.md): auditd is a passive kernel-level logger (always recording per its ruleset), where osquery is a pull-based SQL query engine you actively schedule.
+
+## ⚙️ Function
+Eleven parts: auditd installation, a full security-focused ruleset (auth files, privilege escalation, process execution, network activity, persistence mechanisms, anti-forensics), daemon config, SIEM forwarding options (audisp plugins, Filebeat, Wazuh), rsyslog local/remote config, hardening, and log analysis with `ausearch`/`aureport`.
+
+## 🏆 Goal
+Get comprehensive kernel-level audit visibility (auth, privilege escalation, process execution, persistence, anti-forensics indicators) and general syslog forwarding working on a Linux host, feeding into whichever SIEM from [../../SIEM/](../../SIEM/) you've deployed.
+
+## 📋 When to Use
+- Deploying Linux endpoint telemetry as part of a homelab or org SIEM buildout
+- Investigating a Linux host and needing to know which audit key/log file covers a given activity (Part 9's log file reference, Part 8's `ausearch`/`aureport` commands)
+- Meeting compliance requirements (PCI-DSS, HIPAA, SOX) that specifically require auditd-level logging
+
 **Auditd** (Linux Audit Daemon) and **Syslog** are foundational components for Linux security monitoring. Auditd provides granular kernel-level auditing of system calls, file access, and user activity, while Syslog aggregates application and system logs. Together, they form the backbone of Linux endpoint visibility.
 
 This guide covers configuring both systems for security monitoring and forwarding logs to your SIEM.

@@ -1,5 +1,19 @@
 # 🔎 Osquery Deployment Guide
 
+## 🎯 Purpose
+Cross-platform (Windows/Linux/macOS) SQL-queryable endpoint visibility guide. Distinct from [sysmon.md](../Windows/sysmon.md) (Windows-only, event-driven) and [auditd_syslog.md](auditd_syslog.md) (Linux-only, kernel-level) — osquery's value is a single SQL interface across all three OSes plus ad-hoc interactive querying (`osqueryi`), not just scheduled logging.
+
+## ⚙️ Function
+Ten parts: installation (Linux/Windows), interactive querying (`osqueryi`) with security-focused example queries, daemon configuration and a security query pack, file integrity monitoring, SIEM forwarding (Filebeat/rsyslog/Wazuh/Fleet), enterprise deployment (GPO, Ansible), a large threat-hunting query library (persistence, credential access, lateral movement, exfiltration, defense evasion), and a full table reference.
+
+## 🏆 Goal
+Get osquery deployed and scheduled with a security-focused query pack, and have a working library of ad-hoc SQL queries for threat hunting across processes, network, users, persistence, and file system activity.
+
+## 📋 When to Use
+- Deploying fleet-wide endpoint visibility across mixed Windows/Linux/macOS environments with one query language
+- Ad-hoc interactive investigation of a single host during incident response (Part 2's `osqueryi` examples)
+- Building or extending a threat-hunting query library (Part 7)
+
 **Osquery** is an open-source tool developed by Facebook that exposes operating system information as a relational database. Using SQL queries, you can interrogate endpoints to gather security-relevant data about processes, users, network connections, file changes, and more. It's like having a SQL interface to your entire fleet of endpoints.
 
 This guide covers deploying Osquery on Windows and Linux, configuring security-focused queries, and integrating with your SIEM.
@@ -58,10 +72,11 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 ### Linux Installation (Debian/Ubuntu)
 
 ```bash
-# Add osquery repository
-export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
-sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+# Add osquery repository (apt-key is deprecated on Debian Bookworm/Ubuntu 22.04+;
+# use a scoped keyring with signed-by instead)
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkg.osquery.io/deb/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/osquery.gpg
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/osquery.gpg] https://pkg.osquery.io/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
 
 # Install osquery
 sudo apt update

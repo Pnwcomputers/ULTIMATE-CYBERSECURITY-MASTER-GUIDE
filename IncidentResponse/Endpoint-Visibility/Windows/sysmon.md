@@ -1,5 +1,19 @@
 # 🪟 Windows Sysmon Deployment Guide
 
+## 🎯 Purpose
+Deployment and configuration guide for Sysmon, the Windows-specific process/network/registry telemetry source that all four SIEMs in [../../SIEM/](../../SIEM/) consume. Distinct from [osquery.md](../Linux/osquery.md) (cross-platform, pull-based SQL queries) and [auditd_syslog.md](../Linux/auditd_syslog.md) (Linux kernel auditing) — Sysmon is Windows-only and event-driven (push), which is why its Event ID reference (Part 5) is the detail this file adds that the other two don't need.
+
+## ⚙️ Function
+Eleven parts: config selection (SwiftOnSecurity vs Olaf Hartong vs custom), installation, enterprise deployment (GPO/PowerShell remoting/SCCM), a full Event ID reference with red-flag indicators, testing via Atomic Red Team, config updates, SIEM integration snippets for all four SIEMs in this directory, log management, troubleshooting, and anti-tampering.
+
+## 🏆 Goal
+Get Sysmon deployed fleet-wide with a sane configuration, know which Event IDs matter for which attack technique, and have it feeding whichever SIEM you chose from the SIEM/ directory.
+
+## 📋 When to Use
+- Deploying endpoint telemetry to Windows hosts as part of a homelab or org SIEM buildout
+- Looking up what a specific Sysmon Event ID means during threat hunting (Part 5)
+- Testing detection coverage with Atomic Red Team (Part 6)
+
 **System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more—critical telemetry for threat detection and incident response.
 
 This guide covers installing, configuring, and maintaining Sysmon across your environment.
