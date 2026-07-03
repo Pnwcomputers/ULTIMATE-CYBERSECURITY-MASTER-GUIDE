@@ -1,5 +1,19 @@
 # Offensive AI
 
+## 🎯 Purpose
+Deep-dive on attacking AI/ML systems themselves — data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks. Distinct from the rest of `AI/`: those files (OpenClaw, AnythingLLM, `ai_prompts.md`) are about *using* AI as a tool; this file treats the AI system as the target, the same way a pentest treats a web app or network as the target.
+
+## ⚙️ Function
+Eleven chapters across three parts: methodology and the "AI attack graph" mental model (Part I), the core attack technique taxonomy — reconnaissance, data poisoning, evasion, prompt injection, agentic exploitation, model extraction/privacy attacks (Part II), and full campaign execution — attack chaining, reporting, and the future of AI red teaming (Part III). Includes working Python scaffolding for several attack classes (FGSM/PGD adversarial examples, backdoor poisoning, membership inference).
+
+## 🏆 Goal
+Be able to scope, execute, and report an AI red team engagement — from building the target's attack graph through chaining techniques (e.g., reconnaissance → model extraction → transfer attack) to writing a business-impact-framed report.
+
+## 📋 When to Use
+- Scoping or executing an authorized AI/ML red team engagement (own systems, written authorization, or approved research)
+- Assessing a specific AI application's exposure to prompt injection, jailbreaking, or agentic tool abuse
+- Writing an AI-specific finding report for a non-technical audience (Chapter 10's severity model and risk-framing table)
+
 > **Scope:** Adversarial machine learning, AI red teaming, and offensive techniques against AI/ML systems; covering attack methodology, data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks. This section treats AI systems as attack surfaces subject to the same rigorous adversarial analysis applied to traditional software and networks.
 >
 > **Ethical context:** All techniques are presented for authorized red teaming, security research, and defensive understanding. Apply only against systems you own, have written authorization to test, or in approved research environments.

@@ -1,5 +1,19 @@
 # Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
 
+## 🎯 Purpose
+Step-by-step guide to a fully air-gapped local LLM stack (Ollama + uncensored Dolphin models + AnythingLLM UI) for sensitive engagements where data can't leave the machine. Distinct from `AnythingLLM/anything_llm_agentflows.md`: that file assumes AnythingLLM is already running and focuses on AgentFlow automation, while this file is the ground-up install/deployment guide for the underlying stack itself.
+
+## ⚙️ Function
+Fourteen parts: hardware requirements and model-size tradeoffs, Ollama installation, Dolphin model selection/download, AnythingLLM installation (desktop/Docker/source), connecting the two, workspace setup, RAG document chat, performance tuning, backup, troubleshooting, use-case examples, privacy/security hardening, and advanced config (custom Modelfiles, API integration).
+
+## 🏆 Goal
+Get a ChatGPT-like local AI assistant running entirely offline — no data leaves the machine, no recurring API costs, uncensored model behavior for technical/security work.
+
+## 📋 When to Use
+- Sensitive client engagements or classified/restricted environments where cloud AI use is prohibited
+- Cost-conscious homelab AI deployment avoiding per-token API charges
+- Wanting an uncensored model for security research/technical work that cloud providers' safety filters would refuse
+
 ## Introduction
 
 Running a Large Language Model (LLM) completely offline gives you privacy, control, and independence from cloud services. In this comprehensive guide, I'll walk you through setting up a fully functional offline AI assistant using three powerful tools:

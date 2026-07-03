@@ -27,6 +27,20 @@
 
 ---
 
+## 🎯 Purpose
+Index and entry point for AI/ML resources applied to cybersecurity — self-hosted agent frameworks (OpenClaw, AnythingLLM), prompt engineering, offline/air-gapped LLM deployment, and adversarial AI (`offensive_ai.md`). Distinct from `offensive_ai.md`'s narrow scope (attacking AI systems as a target) — this README indexes the broader "use AI as a tool" side: agents, prompting, and self-hosted deployment.
+
+## ⚙️ Function
+Six resource categories (self-hosted agent frameworks, GenAI/LLM security applications, offline/air-gapped deployment, red team, blue team, and governance), each linking to the relevant file/subfolder. `AnythingLLM/` and `OpenClaw/` are the two agent-framework subdirectories; `ai_prompts.md`, `offline-llm.md`, and `offensive_ai.md` are standalone deep-dives at this level.
+
+## 🏆 Goal
+Get a self-hosted AI agent running (OpenClaw or AnythingLLM) with role-appropriate personas and skills, and know which file to reference for prompt engineering, offline deployment, or adversarial AI security work.
+
+## 📋 When to Use
+- Deploying a self-hosted AI agent (OpenClaw/AnythingLLM) for IT support, blue team, red team, or OSINT automation
+- Setting up an air-gapped LLM for sensitive engagement work (`offline-llm.md`)
+- Red-teaming an AI/ML system itself, as opposed to using AI as a tool (`offensive_ai.md`)
+
 ## 🎯 Overview
 
 This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity — with an emphasis on **self-hosted, privacy-respecting deployments** that keep your data on your own hardware.
@@ -56,6 +70,7 @@ These resources are designed to:
 |-------------|-------------|
 | **[offline-llm.md](offline-llm.md)** | Create a completely offline LLM system — hardware selection, model deployment, air-gapped setup, and operational security for sensitive environments |
 | **[ai_prompts.md](ai_prompts.md)** | Master resource and cheat sheet for high-performance AI prompting — templates, patterns, and techniques for security and IT workflows |
+| **[offensive_ai.md](offensive_ai.md)** | Adversarial ML and AI red teaming — data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks against AI/ML systems themselves |
 | **[AnythingLLM/](AnythingLLM/)** | Generative AI configuration and AgentFlows for automating incident response, OSINT data collection, and security audits using a self-hosted AnythingLLM instance |
 | **[OpenClaw/](OpenClaw/)** | Complete setup guide and configurations for deploying OpenClaw on TrueNAS SCALE — multi-provider LLM routing, homelab integration, and cybersecurity agent workflows |
 | └ [README.md](OpenClaw/README.md) | TrueNAS SCALE installation guide — ixVolume setup, provider config, NPMplus HTTPS proxy, device pairing, and troubleshooting |
@@ -129,6 +144,7 @@ These resources are designed to:
 - OpenClaw Rex agent config — Pentest-focused persona with scope guardrails
 - OpenClaw Oliver agent config — OSINT-focused research assistant
 - `use_cases.md` red team and OSINT sections
+- `offensive_ai.md` — treats AI/ML systems themselves as the attack surface (data poisoning, evasion, prompt injection, model extraction), distinct from using AI as an offensive tool
 
 ---
 
@@ -238,7 +254,7 @@ Always comply with:
 
 **AI Security Research:**
 - **MITRE ATLAS** (AI threat matrix) — https://atlas.mitre.org
-- **NIST AI Risk Management Framework** — https://www.nist.gov/ai/risk-management-framework
+- **NIST AI Risk Management Framework** — https://www.nist.gov/itl/ai-risk-management-framework
 - **OWASP LLM Top 10** — https://owasp.org/www-project-top-10-for-large-language-model-applications
 
 **LLM Providers (Free Tiers Available):**

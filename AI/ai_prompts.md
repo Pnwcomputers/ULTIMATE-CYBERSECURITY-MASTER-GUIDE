@@ -2,6 +2,20 @@
 
 A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
 
+## 🎯 Purpose
+Platform-agnostic prompt engineering reference — templates, patterns, and psychology for getting better output from any LLM. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md` (which are security-workflow-specific prompt examples): this file is technique-level, applicable to any prompting task regardless of domain.
+
+## ⚙️ Function
+Ten sections moving from platform documentation links (Anthropic/Google/OpenAI/Fabric) through advanced strategies (agentic prompting, chain-of-thought, multi-modal), copy-paste system prompt templates, platform-specific tactics, and a prompt-debugging protocol for fixing hallucination/laziness/logic-error failure modes.
+
+## 🏆 Goal
+Have ready-to-use prompt templates and debugging techniques on hand so you're not re-deriving prompt structure from scratch for every new task or AI tool.
+
+## 📋 When to Use
+- Writing a system prompt for a new AI agent or workflow (Section 3's Master Template)
+- An AI response is hallucinating, being lazy, or making logic errors (Section 7's debugging protocol)
+- Working across multiple LLM platforms and needing to know which tactics apply where (Section 4)
+
 ---
 
 ## 📚 1. Core Documentation & Resources
