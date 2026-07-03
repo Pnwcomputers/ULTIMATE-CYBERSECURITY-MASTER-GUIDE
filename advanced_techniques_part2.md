@@ -16,6 +16,18 @@
 
 ---
 
+## 🎯 Purpose
+"Advanced Techniques — Part 2": low-level exploit development content (memory layout, buffer overflows, SEH overwrites, mobile pentesting, AV evasion) sourced from Georgia Weidman's *Penetration Testing* and Metasploit 2E — the OSCP-critical material the core master guides don't cover at this depth.
+
+## ⚙️ Function
+7 sections progressing from exploit-dev fundamentals (memory/registers) through buffer overflows, SEH overwrites, mobile pentesting, advanced password attacks, AV evasion, and advanced web app attacks. Differs from [advanced_techniques_supplement.md](advanced_techniques_supplement.md) (Part 1), which is tooling/automation-focused (Metasploit scripting, cloud, IoT) rather than low-level exploit-development-focused.
+
+## 🏆 Goal
+A reader can write a working buffer-overflow exploit from scratch (bad-char analysis through EIP control through shellcode execution) using only this file — the single most OSCP-critical skill this repository documents.
+
+## 📋 When to Use
+When developing a custom exploit, studying buffer overflows for OSCP, or needing SEH-overwrite/mobile-pentest/AV-evasion technique detail beyond the core master guide.
+
 ## Exploit Development Fundamentals
 
 ### Understanding Memory Layout
