@@ -24,6 +24,20 @@
 
 ---
 
+## 🎯 Purpose
+The repository's front door and master index — every guide, playbook, script folder, and reference in this project is linked from here. Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog: what exists, where it lives, and a one-line description of each.
+
+## ⚙️ Function
+Organized top-to-bottom as: a "start here" pointer, the three primary master guides, supporting reference guides, folder-level links to every operational section (Checklists, PlayBooks, IncidentResponse, OSINT, Homelab, AI, SpaceSecurity, SDR, HardwareHacking, HardwareTesting, uConsole, Scripts, PDF, Documentation), a "unique/personal content" showcase, repository statistics, credits/acknowledgments (tools, books, distros, communities), the complete 78-entry bibliography, and the legal disclaimer. Differs from [START_HERE.md](START_HERE.md), which routes readers by role/goal rather than listing everything; differs from the three master guides ([ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md), [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)), which contain the actual technical content rather than links to it.
+
+## 🏆 Goal
+A new reader (or returning contributor) can find any resource in the repository within one click of this file, and understands at a glance what the project covers and how it's licensed/credited.
+
+## 📋 When to Use
+As the entry point when landing on the repo for the first time, when looking for "what guide covers X," or when checking what's been added/credited since a prior visit.
+
+---
+
 ## 🎯 START HERE
 
 ### 🆕 New to IT/Computers/Networks in General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
@@ -127,7 +141,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 | Incident | Type |
 |---|---|
 | [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon — Iranian nuclear facilities |
-| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/wannacry-ransomware) | Global ransomware outbreak |
+| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) | Global ransomware outbreak |
 | [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
 | [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
 | [Carbanak](https://www.fireeye.com/blog/threat-research/2017/06/behind-the-carbanak-backdoor.html) | APT banking theft campaign |
