@@ -121,12 +121,11 @@ sudo chown splunk:splunk /opt/splunk
 2. Select **Linux** → **.deb** (for Ubuntu) or **.rpm** (for RHEL)
 3. Download the package
 
-Or via wget (replace with current version):
+Or via wget — **do not hardcode a version number**. Splunk removes old release binaries from its CDN once superseded, so a pinned URL like `.../releases/9.2.0/...` 404s within a release cycle or two (confirmed: this exact URL is dead). Get the current link from [splunk.com/download/splunk-enterprise.html](https://www.splunk.com/en_us/download/splunk-enterprise.html) (right-click the download button to copy it), then:
 
 ```bash
-# Download Splunk (check website for latest URL)
 cd /tmp
-wget -O splunk-9.2.0-linux-2.6-amd64.deb "https://download.splunk.com/products/splunk/releases/9.2.0/linux/splunk-9.2.0-linux-2.6-amd64.deb"
+wget -O splunk-latest-linux-amd64.deb "<CURRENT_URL_FROM_DOWNLOAD_PAGE>"
 ```
 
 #### Step 2.2: Install Splunk
@@ -355,11 +354,10 @@ The Splunk Universal Forwarder (UF) is a lightweight agent that ships logs to Sp
 
 Download from [splunk.com/download/universal-forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html)
 
-Or via PowerShell:
+Or via PowerShell — again, get the current URL from the download page rather than hardcoding a version (this exact 9.2.0 URL is already dead):
 
 ```powershell
-# Download (check website for current version)
-$url = "https://download.splunk.com/products/universalforwarder/releases/9.2.0/windows/splunkforwarder-9.2.0-x64-release.msi"
+$url = "<CURRENT_URL_FROM_DOWNLOAD_PAGE>"
 Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\splunkforwarder.msi"
 ```
 
@@ -470,11 +468,12 @@ Get-Service SplunkForwarder
 
 ### Step 7.1: Download and Install
 
+Get the current package URL from [splunk.com/download/universal-forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html) — the 9.2.0 URLs previously here are dead (Splunk purges old release binaries).
+
 **Debian/Ubuntu:**
 
 ```bash
-# Download (check website for current version)
-wget -O /tmp/splunkforwarder.deb "https://download.splunk.com/products/universalforwarder/releases/9.2.0/linux/splunkforwarder-9.2.0-linux-2.6-amd64.deb"
+wget -O /tmp/splunkforwarder.deb "<CURRENT_URL_FROM_DOWNLOAD_PAGE>"
 
 # Install
 sudo dpkg -i /tmp/splunkforwarder.deb
@@ -483,7 +482,7 @@ sudo dpkg -i /tmp/splunkforwarder.deb
 **RHEL/CentOS:**
 
 ```bash
-wget -O /tmp/splunkforwarder.rpm "https://download.splunk.com/products/universalforwarder/releases/9.2.0/linux/splunkforwarder-9.2.0-linux-2.6-x86_64.rpm"
+wget -O /tmp/splunkforwarder.rpm "<CURRENT_URL_FROM_DOWNLOAD_PAGE>"
 
 sudo rpm -i /tmp/splunkforwarder.rpm
 ```
