@@ -2,6 +2,20 @@
 
 ### [Click Here For The Advanced OSINT Guide](/Tradecraft/osint-threat-intel.md) 
 
+## 🎯 Purpose
+Master reference for OSINT — methodology, a categorized tool reference, investigation VM setup, per-identifier investigation procedures, evidence handling, and legal/OPSEC guidance. This is the foundational/general guide; [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) (linked above) is the advanced, threat-intelligence-focused counterpart. Within this folder, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the condensed command-only version of this same material.
+
+## ⚙️ Function
+Twelve sections moving from OSINT theory (the intelligence cycle, framework categories) through tool reference (organized by identifier type: email, username, domain, phone), VM setup (Buscador, Trace Labs, Tsurugi), per-identifier investigation procedures and full workflows, then evidence preservation, abuse reporting, OPSEC, and legal considerations — ending in a quick-reference cheat sheet.
+
+## 🏆 Goal
+Understand OSINT methodology well enough to run a structured investigation on any identifier type (email, domain, IP, phone, username, cryptocurrency), from initial recon through evidence-preserved reporting.
+
+## 📋 When to Use
+- Learning OSINT methodology and the intelligence cycle for the first time
+- Setting up an OSINT investigation VM or looking up which tool covers a given identifier type
+- Reference for legal/OPSEC requirements before starting any investigation
+
 ## Table of Contents
 1. [Introduction to OSINT](#introduction-to-osint)
 2. [OSINT Methodology & Framework](#osint-methodology--framework)
@@ -351,7 +365,7 @@ site:*.target.com -www
 - **CriminalIP** (https://www.criminalip.io) - Cyber threat intelligence with IP/domain reputation
 - **Netlas** (https://netlas.io) - Internet-wide scanning, similar to Shodan/Censys
 - **FullHunt** (https://fullhunt.io) - Attack surface discovery and monitoring
-- **ZoomEye** (https://www.zoomeye.org) - Cyberspace search engine (strong outside US)
+- **ZoomEye** (https://www.zoomeye.ai) - Cyberspace search engine (strong outside US); the legacy `zoomeye.org` domain currently returns a server error
 - **AbuseIPDB** (https://www.abuseipdb.com) - Crowdsourced IP abuse database
 - **SecurityTrails** (https://securitytrails.com) - DNS history, passive DNS, subdomain data
 - **WhoisXML API** (https://whoisxmlapi.com) - WHOIS data + DNS intelligence
@@ -463,7 +477,7 @@ curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | s
 - **Based on**: Ubuntu
 - **Tools**: 100+ pre-installed OSINT tools
 - **Use Case**: General OSINT investigations
-- **Download**: https://inteltechniques.com/buscador/
+- **Status**: The IntelTechniques download page for Buscador (`inteltechniques.com/buscador/`) is gone (404) and the project has had no public update since 2019 — treat this VM as unmaintained. Consider [Tsurugi Linux](https://tsurugi-linux.org) as an actively-maintained alternative for the same use case.
 
 #### **Trace Labs OSINT VM**
 - **Purpose**: Search and rescue operations
@@ -754,7 +768,8 @@ curl -s "https://blockchain.info/rawaddr/ADDRESS?limit=50" | jq
 
 **Ethereum (Etherscan API):**
 ~~~bash
-curl -s "https://api.etherscan.io/api?module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
+# Etherscan API v1 was fully deprecated 2025-08-15 — v2 requires a chainid parameter (1 = Ethereum mainnet)
+curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
 ~~~
 
 **Examine:**
@@ -1356,8 +1371,8 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
    - Updated regularly with new techniques
 
 2. **"OSINT Handbook" by i-intelligence**
-   - Free resource from Dutch intelligence agency
-   - Practical methodologies and tools
+   - Free resource from i-intelligence, a Switzerland-based private OSINT training firm (not a government intelligence agency, despite the name)
+   - Practical methodologies and tools — current edition at [osinthandbook.com](https://www.osinthandbook.com/)
 
 3. **"Social Engineering: The Science of Human Hacking" by Christopher Hadnagy**
    - Relevant for understanding social OSINT
@@ -1383,7 +1398,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 - **OSINTQuiz**: Twitter-based challenges
 
 #### **Hands-On Practice Sites**
-- **OSINT Challenge**: https://www.osintchallenge.com
+- ~~**OSINT Challenge**: https://www.osintchallenge.com~~ — domain no longer resolves to a live site; **OSINT Arena** (https://osintarena.com) is a current, live equivalent
 - **CTFtime.org**: OSINT categories in CTF competitions
 - **HackTheBox**: Some machines include OSINT elements
 - **TryHackMe**: Dedicated OSINT rooms
@@ -1401,7 +1416,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 #### **OSINT Frameworks & Collections**
 - **OSINT Framework**: https://osintframework.com
 - **Awesome OSINT**: https://github.com/jivoi/awesome-osint
-- **OSINT Handbook**: https://www.i-intelligence.eu/wp-content/uploads/2016/11/2016_November_Open-Source-Intelligence-Tools-and-Resources-Handbook.pdf
+- **OSINT Handbook**: https://www.osinthandbook.com/ (the 2016 PDF previously linked here has been removed; this is the current home for the regularly-updated handbook)
 
 #### **Verification Tools**
 - **InVID Verification Plugin**: Video verification
