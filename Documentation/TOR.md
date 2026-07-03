@@ -356,8 +356,10 @@ curl --socks5-hostname 127.0.0.1:9050 https://api.ipify.org
 curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip
 # Expected: {"IsTor":true,"IP":"x.x.x.x"}
 
-# Check for DNS leaks
-proxychains4 curl https://dnsleaktest.com/api/v1/check
+# Check for DNS leaks — a true DNS leak test resolves unique subdomains,
+# so run the browser-based "Extended Test" at https://dnsleaktest.com
+# For a quick CLI check that traffic (incl. DNS) exits through Tor:
+curl --socks5-hostname 127.0.0.1:9050 https://am.i.mullvad.net/json
 ~~~
 
 ### 7.3 Verify Tor Process

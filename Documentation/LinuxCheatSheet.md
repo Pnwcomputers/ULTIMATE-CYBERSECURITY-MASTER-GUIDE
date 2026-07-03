@@ -655,7 +655,7 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 | Service                  | URL                          | Use Case                                  |
 | ------------------------ | ---------------------------- | ----------------------------------------- |
 | Shodan                   | https://shodan.io            | Internet-connected device search          |
-| Censys                   | https://censys.io            | Internet-wide scanning and certificate data|
+| Censys                   | https://censys.com           | Internet-wide scanning and certificate data|
 | Have I Been Pwned        | https://haveibeenpwned.com   | Email breach notification                 |
 | Hunter.io                | https://hunter.io            | Email finder and domain email patterns    |
 | GreyNoise                | https://greynoise.io         | Background noise / IP reputation          |
