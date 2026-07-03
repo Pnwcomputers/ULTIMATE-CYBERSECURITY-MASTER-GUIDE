@@ -1,4 +1,15 @@
 # Persistence
+_Windows persistence techniques mapped to MITRE ATT&CK, covering registry, service, scheduled task, and application-based persistence mechanisms. Source: Pentest Laboratories._
+
+**Purpose:** The largest checklist in this collection (42 items) — a comprehensive survey of ways to make code re-execute automatically on a Windows host across reboots, logons, or specific trigger events, without relying on any single point of failure. This is host-level persistence (surviving a reboot or logoff), distinct from [Domain Persistence](./Domain-Persistence.md), which covers surviving at the AD/domain level.
+ 
+**Function:** The techniques cluster into families based on *what* triggers re-execution: logon-time (Winlogon Helper, Registry Run Keys, PowerShell Profile, Screensaver), service-based (New/Modified Service, Port Monitors, Time Providers — all run as SYSTEM), event-driven (WMI Event Subscription — fires on arbitrary system conditions, not just boot/logon), and hijacking-based (DLL Search Order, COM Hijacking, Netsh Helper DLL, DLL Proxy Loading — abuse how Windows locates and loads code rather than registering a new autostart entry at all). The hijacking family is generally the stealthiest, since it doesn't create a new, independently-auditable autostart entry — it corrupts an existing legitimate one.
+ 
+**Goal:** Establish redundant, differently-detected persistence across multiple mechanism families (not just multiple instances of the same mechanism) so that a single remediation action — deleting one Run key, restarting one service — doesn't fully evict the implant. From a defensive standpoint, this list is close to a canonical Windows autostart/persistence audit checklist: working through even a subset of these locations covers the large majority of real-world Windows persistence findings.
+ 
+**When & how to use this:** During red team work, plant persistence using at least one item from 2-3 different families above (not 3 variations of the same technique) so recovery genuinely tests IR capability. During defensive/hunt work, use this as a structured sweep list — most EDR "autoruns"-style tooling covers the registry/service/scheduled-task items natively, but the hijacking-family items (DLL search order, COM hijacking) usually require manual or purpose-built hunting since they don't register in a conventional autostart location.
+
+---
 
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
@@ -38,9 +49,33 @@
 |PE-034   |[DLL Proxy Loading](https://pentestlab.blog/2024/04/03/persistence-dll-proxy-loading/)|N/A|
 |PE-035   |[Windows Telemetry](https://pentestlab.blog/2023/11/06/persistence-windows-telemetry/)|N/A|
 |PE-036   |[Scheduled Task Tampering](https://pentestlab.blog/2023/11/20/persistence-scheduled-task-tampering/)|N/A|
-|PE-037   |Junction Folder|N/A|
-|PE-038   |Library Files|N/A|
+|PE-037   |[Junction Folder](https://www.countercept.com/blog/hunting-for-junction-folder-persistence/)|N/A|
+|PE-038   |[Library Files](https://www.countercept.com/blog/abusing-windows-library-files-for-persistence/)|N/A|
 |PE-039   |[Disk Clean-up](https://pentestlab.blog/2024/01/29/persistence-disk-clean-up/)|N/A|
 |PE-040   |[Windows Setup Script](https://pentestlab.blog/2024/02/05/persistence-windows-setup-script/)|N/A|
 |PE-041   |[Visual Studio Code Extensions](https://pentestlab.blog/2024/03/04/persistence-visual-studio-code-extensions/)|N/A|
 |PE-042   |[Explorer](https://pentestlab.blog/2024/03/05/persistence-explorer/)|N/A|
+
+---
+
+<div align="center">
+
+**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
+
+*Attack techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>

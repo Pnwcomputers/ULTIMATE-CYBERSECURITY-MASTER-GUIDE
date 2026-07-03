@@ -159,7 +159,7 @@ Free GUI tool from Magnet Forensics:
 sudo apt install -y build-essential linux-headers-$(uname -r)
 
 # Clone and build LiME
-git clone https://github.com/504ensicsLabs/LiME.git
+git clone https://github.com/jtsylve/LiME.git
 cd LiME/src
 make
 

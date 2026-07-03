@@ -6,10 +6,23 @@ This playbook is designed to be modular and expandable — so you can plug in ne
 
 ---
 
-## Purpose & Scope
+## 🎯 Purpose
 
-### Purpose:
 Integrate offensive and defensive techniques to continuously test, measure, and improve detection and response capabilities.
+
+## ⚙️ Function
+
+A three-role, lab-first exercise cycle (Red Operator attacks → Blue Analyst monitors/tunes → Purple Facilitator coordinates and documents) run against a defined lab environment (isolated network, EDR, SIEM, Atomic Red Team/CALDERA/Metta). This is the **entry-level version** — for the same purple-team concept with named enterprise tooling, formal workflow phases, and reporting/metrics dashboards, see `PurpleTeam_Detailed.md`; for a scripting-focused variant built around Python/PowerShell/Batch attack scripts specifically, see `PurpleTeam_Multi-Scrip.md`.
+
+## 🏆 Goal
+
+Get a small team or individual practitioner running a first purple team exercise in a home lab or small environment without needing enterprise SIEM/EDR licensing or a formal exercise framework first.
+
+## 📋 When to Use
+
+- Standing up your first purple team exercise in a personal lab or small org
+- Validating that basic detection coverage (SIEM ingestion, EDR alerting) actually works before investing in a formal program
+- Training new red or blue team members on the collaborative purple-team concept
 
 ### Scope:
 - Simulate real-world attacker tactics (Red Team)

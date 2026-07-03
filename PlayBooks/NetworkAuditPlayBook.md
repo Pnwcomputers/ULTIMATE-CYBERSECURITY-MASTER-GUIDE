@@ -6,6 +6,24 @@
 
 ---
 
+## 🎯 Purpose
+Provide a complete, engagement-ready procedure for auditing an organization's wireless and network security posture — from pre-engagement paperwork through evidence collection to final reporting — so that nothing gets skipped under time pressure and every finding is defensible.
+
+## ⚙️ Function
+Structured as eight sequential sections covering pre-engagement authorization, wireless-specific testing, internal network testing, external perimeter testing, documentation standards, evidence/screenshot requirements, post-testing analysis, and a tool reference guide. Each section is a checklist-style procedure meant to be followed in order during a live engagement, not just read once.
+
+## 🏆 Goal
+Ensure every network/wireless penetration test produces (1) legally defensible evidence, obtained under signed authorization, (2) consistent, comparable results across engagements and testers, and (3) a report that a client can act on.
+
+## 📋 When to Use
+- Running an internal network penetration test
+- Conducting a wireless security assessment (WPA2/WPA3, rogue AP detection, deauth testing)
+- Performing external perimeter testing
+- Onboarding a new tester who needs a standardized procedure to follow
+- Preparing engagement documentation and reports for a client
+
+---
+
 ## TABLE OF CONTENTS
 
 1. [Pre-Engagement Checklist](#section-1-pre-engagement-checklist)

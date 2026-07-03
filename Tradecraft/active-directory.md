@@ -2,6 +2,8 @@
 
 > **Scope:** Active Directory attack techniques, post-exploitation paths, Kerberos abuse, privilege escalation, and corresponding defensive controls and detection logic. Structured for both red and blue team reference.
 
+✅ **Quick-reference checklists:** [Active Directory](../Checklists/ActiveDirectory.md) · [Domain Escalation](../Checklists/Domain-Escalation.md) · [Domain Persistence](../Checklists/Domain-Persistence.md) · [Lateral Movement](../Checklists/Lateral-Movement.md)
+
 ---
 
 ## Table of Contents
@@ -816,7 +818,7 @@ Infrastructure
 
 ## References
 
-- [BloodHound](https://github.com/BloodHoundAD/BloodHound)
+- [BloodHound](https://github.com/SpecterOps/BloodHound)
 - [PowerView / PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 - [Impacket](https://github.com/fortra/impacket)
 - [Rubeus](https://github.com/GhostPack/Rubeus)

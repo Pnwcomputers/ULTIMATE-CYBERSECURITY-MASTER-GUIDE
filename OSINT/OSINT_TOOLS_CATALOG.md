@@ -11,7 +11,7 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | [**SpiderFoot**](https://github.com/smicallef/spiderfoot) | Automation | Automated OSINT collection from 100+ sources. |
 | [**Maltego**](https://www.maltego.com/) | Analysis | Visual link analysis and relationship mapping. |
 | [**Photon**](https://github.com/s0md3v/Photon) | Crawler | High-speed extraction of URLs, keys, and files. |
-| [**H8mail**](https://github.com/khast3ze/h8mail) | Breach | Email breach hunting and credential leak analysis. |
+| [**H8mail**](https://github.com/khast3x/h8mail) | Breach | Email breach hunting and credential leak analysis. |
 | [**Holehe**](https://github.com/megadose/holehe) | Verification | Email-to-account registration enumeration. |
 | [**PhoneInfoga**](https://github.com/sundowndev/phoneinfoga) | Phone | Phone number intelligence and carrier tracking. |
 

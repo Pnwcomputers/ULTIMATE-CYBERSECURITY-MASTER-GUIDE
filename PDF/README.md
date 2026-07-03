@@ -130,6 +130,8 @@ This PDF library serves as:
 - AD_Attacks_.pdf - Attack vectors and techniques
 - AD_Post_Exploitation.pdf - Post-compromise operations
 
+**Quick-reference checklists:** [Active Directory](../Checklists/ActiveDirectory.md) · [Domain Escalation](../Checklists/Domain-Escalation.md) · [Domain Persistence](../Checklists/Domain-Persistence.md)
+
 **Use Cases:**
 - Internal penetration testing
 - Red team operations
@@ -175,6 +177,8 @@ This PDF library serves as:
 
 **Documents:**
 - Linux_Privilege_Escalation.pdf - Comprehensive guide
+
+**Quick-reference checklist:** [Linux Privilege Escalation](../Checklists/Linux-Privilege-Escalation.md)
 
 **Use Cases:**
 - Linux security assessments
@@ -826,6 +830,7 @@ We welcome high-quality PDF contributions from security professionals.
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
 - [🔍 OSINT Resources](../OSINT/README.md)
 - [✅ Security Checklists](../Checklists/README.md)
+- [💻 Security Scripts & Tools](../Scripts/README.md)
 - [📚 Documentation](../Documentation/README.md)
 - [🔒 OPSEC Guidelines](../OPSEC/README.md)
 

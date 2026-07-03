@@ -59,6 +59,17 @@
 #       XDG Hidden=true per-user override. Kali metapackages pull in
 #       polkit-mate, which conflicts with lxpolkit on Labwc and causes a
 #       GDBus auth-agent-already-registered error on every login.
+#   v1.3 — Check-before-you-leap for the AIO board package (issue #9):
+#     - Phase 4.2: Verifies hackergadgets-uconsole-aio-board is resolvable
+#       via `apt-cache show` before attempting install. This package only
+#       ships via Rex's ak-rex repo, which the script assumes but never
+#       adds itself. Previously, a missing repo produced two identical
+#       opaque apt failures (initial install + purge/retry) before dying.
+#       Now it fails immediately with a message pointing at the real cause.
+#     - Phase 4.0 (new): Runs `dpkg --configure -a` and `apt-get -f install`
+#       before any installs in this phase, self-healing an interrupted dpkg
+#       state (killed process, dropped session, prior failed run) that would
+#       otherwise cause confusing, unrelated-looking apt-get failures.
 
 set -uo pipefail
 
@@ -66,7 +77,7 @@ set -uo pipefail
 # Configuration (override via env vars or CLI flags)
 # ============================================================================
 
-VERSION="1.2"
+VERSION="1.3"
 HOSTNAME_NEW="${HOSTNAME_NEW:-uconsole}"
 KALI_METAPACKAGE="${KALI_METAPACKAGE:-kali-tools-top10}"
 INSTALL_WIFI_DKMS="${INSTALL_WIFI_DKMS:-yes}"
@@ -550,6 +561,15 @@ phase_kali_tools() {
 phase_aio() {
     header "Phase 4/6: Install aiov2_ctl and the HackerGadgets AIO board package"
 
+    # 4.0 — Self-heal dpkg/apt state before attempting any installs in this phase.
+    # An interrupted dpkg run (killed process, dropped SSH session, prior failed
+    # attempt) leaves packages half-configured, which makes every apt-get install
+    # in this phase fail with confusing errors unrelated to their actual cause.
+    # This is safe to run unconditionally — a no-op when dpkg/apt are already clean.
+    info "4.0 — Ensuring dpkg/apt are in a clean state before installing"
+    run "dpkg --configure -a"
+    run "apt-get -f install -y"
+
     # 4.1 — aiov2_ctl
     info "4.1 — Installing aiov2_ctl from upstream git"
     run "apt-get install -y python3 python3-pyqt6 git"
@@ -588,6 +608,20 @@ phase_aio() {
     # 4.2 — AIO board package (Rex's recommended command)
     info "4.2 — Installing hackergadgets-uconsole-aio-board (+ recommends)"
     run "apt-get update"
+
+    # Check-before-you-leap: this package only exists via Rex's ak-rex repo. If it's
+    # not resolvable, purge+retry below just reproduces the same opaque failure twice
+    # before dying — fail fast here with a message that points at the actual cause.
+    if [[ "$DRY_RUN" != "yes" ]] && ! apt-cache show hackergadgets-uconsole-aio-board >/dev/null 2>&1; then
+        err "hackergadgets-uconsole-aio-board is not available from any configured apt repo."
+        err "This package ships via ClockworkPi's 'ak-rex' repo, which this script assumes"
+        err "is already present (it does not add this repo itself)."
+        err "Check with:  grep -r ak-rex /etc/apt/sources.list /etc/apt/sources.list.d/"
+        err "If that's empty, you're likely not on Rex's uConsole image — see CM5-SETUP.md"
+        err "troubleshooting for manual repo setup, or re-flash Rex's official CM5 image."
+        die "Aborting phase 4 — hackergadgets-uconsole-aio-board not found"
+    fi
+
     if ! run "apt-get --install-recommends install -y hackergadgets-uconsole-aio-board"; then
         warn "AIO board package failed — applying the documented /tmp script fix (purge + retry)"
         run "apt-get purge -y hackergadgets-uconsole-aio-board" || true

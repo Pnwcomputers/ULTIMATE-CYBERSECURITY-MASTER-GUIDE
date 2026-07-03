@@ -111,6 +111,8 @@ kernel32.WriteProcessMemory(h_process, address, original_byte, 1, byref(c_ulong(
 
 ## PyDbg - Advanced Debugging
 
+> **Status note:** The original OpenRCE `PyDbg` (from Pedram Amini's PaiMei framework) is Python 2-only and has been unmaintained for years. For new work on Python 3, look at community forks like `pydbg3`, or consider `WinAppDbg` as a more actively-documented pure-Python Windows debugging library. The concepts below (callbacks, breakpoints, memory read/write) carry over regardless of which library you use.
+
 ### Basic Setup
 ```python
 from pydbg import *
@@ -255,6 +257,8 @@ for size in range(1, 256):
 ---
 
 ## Sulley Framework
+
+> **Status note:** Sulley itself is no longer maintained. **`boofuzz`** (github.com/jtpereyda/boofuzz) is the actively-maintained fork and drop-in successor — same block/request concepts shown below, current Python 3 support. Prefer boofuzz for any new fuzzing harness.
 
 ### Basic Request
 ```python

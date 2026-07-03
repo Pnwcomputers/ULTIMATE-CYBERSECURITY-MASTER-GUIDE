@@ -1095,8 +1095,7 @@ The primary open-source tool for trunked radio decoding on SDR hardware.
 
 ```bash
 # Install SDR-Trunk (Java application)
-# Download from: https://github.com/DSheirer/sdr-trunk/releases
-java -jar sdr-trunk.jar
+# Download from: https://github.com/DSheirer/sdrtrunk/releases
 
 # Alternatively:
 sudo apt install default-jre
@@ -2130,7 +2129,7 @@ sudo apt install -y airspy libairspy-dev
 
 # SatDump
 sudo apt install -y libairspy-dev libsdrplay-dev
-git clone https://github.com/altillimity/SatDump.git
+git clone https://github.com/SatDump/SatDump.git
 cd SatDump && mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4
 sudo make install
@@ -2146,7 +2145,7 @@ sudo apt install -y gqrx-sdr
 
 # SDR-Trunk (Java)
 sudo apt install -y default-jre
-echo "[*] Download SDR-Trunk from: https://github.com/DSheirer/sdr-trunk/releases"
+echo "[*] Download SDR-Trunk from: https://github.com/DSheirer/sdrtrunk/releases"
 
 # Add user to plugdev group for USB access
 sudo usermod -aG plugdev $USER

@@ -2,6 +2,8 @@
 
 > **Scope:** How attackers evade antivirus and endpoint detection/response solutions — technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
 
+✅ **Quick-reference checklists:** [Defense Evasion](../Checklists/Defense-Evasion.md) · [AppLocker Bypass](../Checklists/AppLocker.md)
+
 ---
 
 ## Table of Contents

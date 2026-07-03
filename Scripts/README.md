@@ -161,6 +161,8 @@ MUST be compiled and tested in isolated environments before use.
 - SMB/CIFS protocol testing
 - Remote access establishment
 
+**Quick-reference checklists these scripts support:** [Active Directory](../Checklists/ActiveDirectory.md) · [Credential Access](../Checklists/Credential-Access.md) · [Windows Privilege Escalation](../Checklists/Windows-Privilege-Escalation.md)
+
 **Security Considerations:**
 ```
 ⚠️ CRITICAL: These PowerShell scripts include:

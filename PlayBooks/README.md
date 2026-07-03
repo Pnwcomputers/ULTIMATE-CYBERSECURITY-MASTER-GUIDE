@@ -86,6 +86,13 @@ These playbooks serve as:
 |----------|-------------|------------|
 | **[cybersecurity_playbooks.md](./cybersecurity_playbooks.md)** | General cybersecurity operational playbooks and procedures | Comprehensive |
 
+### Alert Triage & Access Incident Response
+
+| Playbook | Description | Complexity |
+|----------|-------------|------------|
+| **[sop_phishing_analysis.md](./sop_phishing_analysis.md)** | Standard operating procedure for triaging and analyzing reported phishing emails | Beginner-Friendly |
+| **[unauth_access.md](./unauth_access.md)** | Investigation procedures for brute force attacks and impossible-travel account compromise alerts | Intermediate |
+
 ---
 
 ## 🗂️ Playbook Categories
@@ -270,6 +277,38 @@ These playbooks serve as:
 - Compliance officers
 - Security architects
 - Risk management teams
+
+---
+
+### 6. Alert Triage & Access Incident Response Playbooks
+
+**Purpose**: Focused, single-incident-type response procedures for the two alert categories a SOC handles most often — phishing reports and access-abuse alerts (brute force, impossible travel, credential stuffing).
+
+**What's Covered:**
+- Phishing email header, URL, and attachment analysis
+- Secure Email Gateway (SEG) alert triage
+- Brute force and password-spraying investigation
+- Impossible-travel and geo-anomaly login analysis
+- Credential-stuffing detection and containment
+- MITRE ATT&CK mapping (T1110 Brute Force, T1078 Valid Accounts, T1566 Phishing)
+- Evidence collection for both incident types
+- Escalation and closure criteria
+
+**Playbooks:**
+- **sop_phishing_analysis.md**: Short-form SOP — header analysis, URL/attachment sandboxing, and containment steps for a single reported phishing email
+- **unauth_access.md**: Longer-form investigation playbook for brute force and impossible-travel alerts, from initial triage through containment
+
+**Use Cases:**
+- Triaging a user-reported phishing email
+- Investigating a SIEM/Azure AD/Okta brute-force or impossible-travel alert
+- Building tier-1 SOC analyst runbooks
+- Standardizing phishing/access-abuse response across a team
+
+**Target Audience:**
+- Tier-1/Tier-2 SOC analysts
+- Incident responders
+- Help desk / IT support staff handling escalations
+- Security awareness teams (source material for training)
 
 ---
 

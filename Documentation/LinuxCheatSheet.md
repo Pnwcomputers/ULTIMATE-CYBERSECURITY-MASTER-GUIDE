@@ -17,6 +17,20 @@ Serve as a field reference for security professionals and system administrators 
 
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
+## 🎯 Purpose
+General-purpose Linux command reference spanning package management (Arch/pacman and Debian/apt), diagnostics, wireless adapter setup, fresh-install tool bundles, and a full bare-metal-vs-WSL2 comparison for hardware hacking work. Distinct from [blackarch.md](blackarch.md) (BlackArch/Arch-specific first-boot sequence) in that this file is the general Debian/Arch reference, not a single distro's post-install checklist.
+
+## ⚙️ Function
+Fifteen numbered sections moving from basic sysadmin commands through package repair, storage, networking/wireless, fresh-install one-liners, and a dedicated WSL2 section (12) that flags exactly what does and doesn't work under WSL (monitor mode, DKMS drivers, GPU passthrough) versus bare-metal Linux. Section 13 doubles as a tool-purpose glossary for everything installed in Section 11's one-liners. Section 15 is a condensed OSINT tool quick-reference — for full methodology see [OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) and [OSINT/OSINT_CHEATSHEET.md](../OSINT/OSINT_CHEATSHEET.md).
+
+## 🏆 Goal
+Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for security/hardware-hacking work in one pass, and know in advance which hardware-hacking capabilities (monitor mode, DKMS, live USB device access) will or won't work under WSL2 before wasting time troubleshooting.
+
+## 📋 When to Use
+- Provisioning a new Linux VM, bare-metal box, or WSL2 distro for security/hardware work
+- Deciding whether a given hardware-hacking task needs bare-metal Linux instead of WSL2 (Section 12.1's capability table)
+- Quick command lookup for package management, wireless adapter setup, or the OSINT tool quick-reference (Section 15)
+
 ---
 # Arch Linux Quick Reference:
 [Arch](https://archlinux.org/) Linux: Unlike Debian based Linux, in Arch [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!

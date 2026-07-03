@@ -47,7 +47,7 @@ Notes:
 
 ### Or install everything at once
 
-You can install the full AMD + NVIDIA + Intel tool set in one shot using the [`install_testbench_tools.sh`](/Hardware%20Testing/install_testbench_tools.sh) script.
+You can install the full AMD + NVIDIA + Intel tool set in one shot using the [`install_testbench_tools.sh`](/HardwareTesting/install_testbench_tools.sh) script.
 
 ### Step 2 — Sensor detection (run once after install)
 
