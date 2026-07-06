@@ -1,5 +1,19 @@
 # GitHubSecrets AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for discovering accidentally exposed credentials, API keys, and sensitive information in public GitHub repositories related to a target domain or company.
+
+## ⚙️ Function
+Orchestrates GitHub search queries via AnythingLLM agent to find: hardcoded API keys, secrets, passwords, tokens, and private keys committed to public repos - using dork-style search patterns targeting the specified organization or domain.
+
+## 🏆 Goal
+Rapidly identify credential exposure in public code during authorized OSINT and attack surface assessment phases - a common high-value finding that bypasses traditional network defenses.
+
+## 📋 When to Use
+- OSINT phase of an authorized engagement: checking target's GitHub for exposed secrets
+- Threat intelligence: monitoring for your own organization's accidental credential exposure
+- Red team pre-engagement reconnaissance to find valid credentials before active testing
+
 ## Flow Information
 
 **Name:** `GitHubSecrets`
@@ -506,3 +520,8 @@ Action: Revoke key, audit transactions, implement secrets vault
 - **DomainRecon** - Discover additional domains to search
 - **VulnReportGenerator** - Document exposed secrets
 - **BreachChecker** - Check if credentials were breached
+
+## Related Files
+- [README.md](README.md) - AnythingLLM section index
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - Parent AgentFlows index
+- [../../OSINT/scripts/Domain_IP_Recon.md](../../OSINT/scripts/Domain_IP_Recon.md) - Domain recon to generate targets for this flow
