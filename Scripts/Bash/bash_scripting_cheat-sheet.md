@@ -1,5 +1,20 @@
 # Bash Scripting Cheat Sheet
 
+
+## 🎯 Purpose
+Bash scripting reference for security professionals - covering the patterns, syntax, and idioms commonly needed for writing security automation scripts, log parsing tools, and recon helpers.
+
+## ⚙️ Function
+Covers: execution and shebang patterns, variables and arrays, control flow, functions, string/file/numeric operations, process substitution, here-docs, error handling, and common one-liners for security tasks.
+
+## 🏆 Goal
+Provide a go-to reference that reduces lookup time when writing or debugging bash scripts for security automation, making common patterns immediately accessible.
+
+## 📋 When to Use
+- Writing a new security automation script in bash
+- Debugging a failing bash script (checking syntax, traps, exit codes)
+- Quick lookup for specific bash syntax (arrays, parameter expansion, conditionals)
+
 ## Basic Execution
 
 ```bash
@@ -743,3 +758,8 @@ ldapsearch                           # LDAP queries
 * Security research in isolated lab environments.
 
 ---
+
+## Related Files
+- [../README.md](../README.md) - Scripts section index
+- [BashBunny/README.md](BashBunny/README.md) - Bash Bunny payloads written in bash
+- [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands context

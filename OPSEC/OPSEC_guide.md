@@ -1,4 +1,20 @@
 # Cybersecurity OPSEC Guide (2025)
+
+## 🎯 Purpose
+Practical OPSEC guide for cybersecurity professionals - covering the specific virtualized environment setup, identity management, and operational discipline needed for pentesting, malware research, and privacy-sensitive security work.
+
+## ⚙️ Function
+Documents the complete virtualized security research setup: host OS hardening, VM compartmentalization by workload type (pentesting/malware/OSINT), Tor/VPN chaining, identity separation (accounts, payment, devices), storage encryption, and communications OPSEC.
+
+## 🏆 Goal
+Build a repeatable, compartmentalized research environment that separates professional security work from personal digital identity - reducing attribution risk from operational mistakes during authorized engagements.
+
+## 📋 When to Use
+- Initial setup of a new security research workstation
+- Auditing your current OPSEC posture for gaps
+- Preparing for an engagement requiring high-confidentiality operational security
+- Training yourself or a team on professional OPSEC practices
+
 ## Professional Virtualized Setup for Pentesting, Malware Research, and Privacy
 
 ---
@@ -296,3 +312,9 @@ This mode is for **full home lab deployments**, learning, testing networks, SOC 
       └── qcow2-base-images/
 ```
 
+
+## Related Files
+- [README.md](README.md) - OPSEC section index
+- [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup
+- [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous access
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization setup

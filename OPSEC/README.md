@@ -1,5 +1,20 @@
 # 🔒 OPSEC (Operational Security)
 
+## 🎯 Purpose
+Operational security practices for cybersecurity professionals - covering identity separation, network anonymization, virtualization compartmentalization, anti-forensics, communications security, and device hygiene for security research and authorized engagements.
+
+## ⚙️ Function
+Documents OPSEC controls across five layers: identity (separate personas, accounts, payment methods), network (Tor, VPN chaining, residential proxies), endpoint (VM compartmentalization, live OS, disk encryption), operational (timing discipline, metadata scrubbing), and communications (Signal, encrypted email, secure drops).
+
+## 🏆 Goal
+Enable security practitioners to conduct authorized research and engagements with appropriate separation between their professional and personal digital identities, minimizing attribution risk from operational mistakes.
+
+## 📋 When to Use
+- Preparing an engagement where client confidentiality requires strong operational separation
+- Setting up a research environment for malware analysis or threat intelligence work
+- Learning OPSEC concepts for training or CTF scenarios
+- Building a privacy-focused personal computing environment
+
 <div align="center">
 
 **Comprehensive operational security practices for cybersecurity professionals and security researchers**
@@ -1031,3 +1046,10 @@ Date and version information
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+## Related Files
+- [OPSEC_guide.md](OPSEC_guide.md) - Detailed 2025 OPSEC guide: virtualized setup for pentesting, malware research, and privacy
+- [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup for OPSEC-safe networking
+- [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous research
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization for OPSEC isolation
+- [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - OSINT OPSEC: how to research without leaving traces

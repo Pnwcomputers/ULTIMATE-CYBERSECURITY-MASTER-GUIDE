@@ -1,5 +1,20 @@
 # 💻 Security Scripts & Tools
 
+
+## 🎯 Purpose
+Index of security scripts and automation tools organized by language - bash, Python, PowerShell, C, Go, SQL, YAML, and specialized payloads (Bash Bunny, USB Rubber Ducky) - plus the main cross-distro installer for all guide tools.
+
+## ⚙️ Function
+Documents the pnwc_install_tools.sh cross-distro installer (apt/pacman/dnf), bash scripting cheat sheet, Bash Bunny payload compilation guide, USB Rubber Ducky DuckyScript compilation guide, and directories for Python, PowerShell, Go, C, SQL, and YAML scripts.
+
+## 🏆 Goal
+Provide ready-to-use security automation scripts and a single installer to set up all tools referenced in this guide across Debian/Ubuntu, Arch/Manjaro, and Fedora/RHEL systems.
+
+## 📋 When to Use
+- Running pnwc_install_tools.sh to bootstrap a new Kali/Arch/Fedora security workstation
+- Finding a script template for a specific security task
+- Setting up Bash Bunny or USB Rubber Ducky payloads for an authorized engagement
+
 <div align="center">
 
 **Collection of security automation scripts, exploitation tools, and utility programs**
@@ -1092,3 +1107,11 @@ We welcome contributions from security professionals, but all scripts must meet 
 ⭐ **Star this repo if you find it useful (and use it legally!)** ⭐
 
 </div>
+
+## Related Files
+- [../README.md](../README.md) - Main repo index
+- [pnwc_install_tools.sh](pnwc_install_tools.sh) - Cross-distro tool installer (apt/pacman/dnf)
+- [Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md) - Bash scripting reference
+- [Bash/BashBunny/README.md](Bash/BashBunny/README.md) - Bash Bunny payload guide
+- [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky DuckyScript guide
+- [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch tool installation context

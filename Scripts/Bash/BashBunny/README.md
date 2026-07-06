@@ -1,5 +1,20 @@
 # Bash Bunny Payload Setup Guide
 
+
+## 🎯 Purpose
+Setup and payload compilation guide for the Hak5 Bash Bunny - a multi-function USB attack platform that emulates keyboards, storage devices, and network adapters for authorized red team physical access testing.
+
+## ⚙️ Function
+Covers: Bash Bunny modes (arming vs attack), DuckyScript payload syntax, payload directory structure, LED/ATTACKMODE commands, credential exfiltration via storage emulation, network adapter emulation for MiTM, and example payloads for common authorized test scenarios.
+
+## 🏆 Goal
+Enable authorized red team practitioners to write, compile, and deploy Bash Bunny payloads for physical access security assessments.
+
+## 📋 When to Use
+- Writing new Bash Bunny payloads for an authorized physical access engagement
+- Setting up a Bash Bunny for the first time (arming mode, payload structure)
+- Troubleshooting payload execution issues
+
 ## Overview
 The Bash Bunny is a multi-function USB attack platform that can emulate keyboards, storage devices, network adapters, and serial devices. Payloads are written in bash with special Bash Bunny-specific commands.
 
@@ -563,3 +578,9 @@ Email: jon@pnwcomputers.com
 Phone: 360-624-7379
 
 *Always use responsibly and legally.*
+
+## Related Files
+- [../../README.md](../../README.md) - Scripts section index
+- [../bash_scripting_cheat-sheet.md](../bash_scripting_cheat-sheet.md) - Bash reference for payload writing
+- [../../Ducky/README.md](../../Scripts/Ducky/README.md) - USB Rubber Ducky: keyboard-only attack platform
+- [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads

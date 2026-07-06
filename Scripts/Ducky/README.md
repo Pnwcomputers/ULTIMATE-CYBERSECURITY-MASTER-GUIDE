@@ -1,5 +1,20 @@
 # USB Rubber Ducky Script Compilation Guide
 
+
+## 🎯 Purpose
+USB Rubber Ducky DuckyScript compilation guide - covers writing, compiling, and deploying DuckyScript payloads for the Hak5 USB Rubber Ducky keyboard emulation attack platform for authorized red team engagements.
+
+## ⚙️ Function
+Covers: DuckyScript syntax (DELAY, STRING, ENTER, CTRL, ALT, GUI, MOD), payload compilation with PayloadStudio, inject.bin deployment to the device, common payload patterns (credential harvesting, reverse shell, data exfil), and multi-stage payload structuring.
+
+## 🏆 Goal
+Enable authorized red team practitioners to compile and deploy DuckyScript payloads for physical access security assessments using the USB Rubber Ducky.
+
+## 📋 When to Use
+- Writing DuckyScript payloads for an authorized physical access engagement
+- Compiling existing payload scripts into inject.bin format
+- Troubleshooting payload timing issues (DELAY adjustments for slow targets)
+
 ## Overview
 These DuckyScript payloads are designed for the USB Rubber Ducky by Hak5. They must be compiled into `inject.bin` format before deployment.
 
@@ -208,3 +223,8 @@ Email: jon@pnwcomputers.com
 Phone: 360-624-7379
 
 *Always use these tools ethically and legally.*
+
+## Related Files
+- [../../README.md](../../README.md) - Scripts section index
+- [../BashBunny/README.md](../BashBunny/README.md) - Bash Bunny: full multi-function USB attack platform
+- [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
