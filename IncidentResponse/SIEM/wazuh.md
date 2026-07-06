@@ -1,5 +1,20 @@
 # 🦁 Wazuh Deployment Guide
 
+## 🎯 Purpose
+Wazuh SIEM and XDR deployment guide - covering Wazuh manager installation, agent deployment across Windows/Linux, built-in detection rules, vulnerability assessment, compliance modules, and integration with ELK/OpenSearch.
+
+## ⚙️ Function
+Covers: Wazuh all-in-one installation, agent enrollment, rule customization, active response configuration, vulnerability detection, file integrity monitoring (FIM), compliance dashboards (PCI-DSS, GDPR, HIPAA, CIS), and Wazuh + OpenSearch/Elasticsearch integration.
+
+## 🏆 Goal
+Deploy Wazuh as a unified SIEM/XDR platform that combines log management, endpoint detection, vulnerability assessment, and compliance monitoring in a single open-source solution.
+
+## 📋 When to Use
+- Building a comprehensive SIEM/XDR stack for a homelab or small organization
+- Needing compliance monitoring (PCI-DSS, CIS, GDPR) alongside threat detection
+- Setting up endpoint agent-based monitoring across mixed Windows/Linux environments
+- Purple team exercises requiring EDR-style endpoint telemetry
+
 **Wazuh** is an open-source security platform providing unified XDR (Extended Detection and Response) and SIEM (Security Information and Event Management) capabilities. It monitors endpoints, detects threats, identifies vulnerabilities, and ensures compliance across your infrastructure.
 
 This guide covers deploying the Wazuh Manager using Docker and installing agents on Windows and Linux endpoints.
@@ -471,3 +486,10 @@ docker compose up -d
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [elk_stack.md](elk_stack.md) - ELK Stack backend for Wazuh indexer
+- [splunk.md](splunk.md) - Splunk as Wazuh SIEM alternative
+- [graylog.md](graylog.md) - Graylog alternative
+- [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Sysmon data source for Wazuh agents

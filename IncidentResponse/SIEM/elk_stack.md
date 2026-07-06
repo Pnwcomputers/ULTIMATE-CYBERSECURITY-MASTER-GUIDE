@@ -1,5 +1,20 @@
 # 🦌 ELK Stack SIEM Deployment Guide
 
+## 🎯 Purpose
+ELK Stack SIEM deployment guide - covering Elasticsearch, Logstash, and Kibana installation, Beats configuration, index templates, dashboards, and detection rule setup for a self-hosted security operations platform.
+
+## ⚙️ Function
+Covers: Elasticsearch cluster setup, Kibana configuration, Logstash pipelines, Filebeat/Winlogbeat/Auditbeat deployment, index lifecycle management, Kibana Lens dashboards, Elasticsearch SIEM detection rules, and performance tuning for security data volumes.
+
+## 🏆 Goal
+Deploy a fully functional self-hosted SIEM on the ELK Stack that ingests Sysmon, auditd, network, and application logs and surfaces security-relevant events through dashboards and detection rules.
+
+## 📋 When to Use
+- Building a self-hosted SIEM for a homelab or small SOC
+- Setting up threat detection infrastructure for a purple team exercise
+- Learning SIEM operations for professional development
+- Centralizing security logs from multiple endpoints and network devices
+
 **The ELK Stack** (Elasticsearch, Logstash, Kibana) is a powerful open-source platform for log aggregation, search, and visualization. Combined with Beats agents, it forms a complete SIEM solution capable of ingesting data from endpoints, network devices, and applications.
 
 This guide covers deploying a production-ready ELK Stack using Docker and configuring agents to forward security telemetry.
@@ -1050,3 +1065,11 @@ curl -u elastic:YourStrongPassword123! "localhost:9200/_cat/indices?v"
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [graylog.md](graylog.md) - Alternative self-hosted SIEM
+- [wazuh.md](wazuh.md) - Wazuh integrates natively with ELK
+- [splunk.md](splunk.md) - Commercial SIEM alternative
+- [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Primary data source for Windows logs
+- [../../../Homelab/HomeLab_Setup.md](../../../Homelab/HomeLab_Setup.md) - Homelab where ELK runs

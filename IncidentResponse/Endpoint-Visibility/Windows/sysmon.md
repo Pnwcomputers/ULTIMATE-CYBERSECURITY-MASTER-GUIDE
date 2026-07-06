@@ -1,5 +1,20 @@
 # 🪟 Windows Sysmon Deployment Guide
 
+## 🎯 Purpose
+Windows Sysmon deployment guide - covering installation, configuration (SwiftOnSecurity, Olaf Hartong configs), and key event IDs for endpoint visibility, threat hunting, and incident response.
+
+## ⚙️ Function
+Covers: Sysmon installation and update, configuration XML structure, critical event IDs (1/process create, 3/network, 7/image load, 8/CreateRemoteThread, 10/access, 11/file create, 22/DNS), hash algorithms, log forwarding to SIEM, and detection use cases per event type.
+
+## 🏆 Goal
+Configure Sysmon on Windows endpoints to generate rich process, network, and file telemetry that feeds a SIEM and enables detection of common attacker TTPs.
+
+## 📋 When to Use
+- Setting up Windows endpoint visibility for a SOC or purple team environment
+- Investigating a Windows compromise and auditing what Sysmon events are available
+- Tuning Sysmon configuration to reduce noise while preserving detection coverage
+- Building SIEM detection rules that reference Sysmon event IDs
+
 **System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more-critical telemetry for threat detection and incident response.
 
 This guide covers installing, configuring, and maintaining Sysmon across your environment.
@@ -730,3 +745,10 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" | Where-Object {$_.
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../Linux/auditd_syslog.md](../Linux/auditd_syslog.md) - Linux equivalent: auditd
+- [../Linux/osquery.md](../Linux/osquery.md) - Cross-platform endpoint visibility
+- [../../SIEM/splunk.md](../../SIEM/splunk.md) - Splunk for Sysmon event analysis
+- [../../SIEM/wazuh.md](../../SIEM/wazuh.md) - Wazuh for Sysmon log ingestion

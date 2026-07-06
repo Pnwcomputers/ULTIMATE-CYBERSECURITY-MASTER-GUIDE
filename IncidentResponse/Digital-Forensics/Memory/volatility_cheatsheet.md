@@ -1,5 +1,20 @@
 # 🧠 Volatility 3 Memory Forensics Guide
 
+## 🎯 Purpose
+Volatility 3 memory forensics cheat sheet - covering the full analysis workflow for Windows and Linux memory dumps captured during incident response.
+
+## ⚙️ Function
+Covers: Volatility 3 plugin taxonomy (windows.pslist, windows.cmdline, windows.netscan, windows.malfind, windows.dlllist), process analysis, network connection extraction, injected code detection, registry hive extraction, and artifact recovery from memory.
+
+## 🏆 Goal
+Enable IR analysts to extract actionable intelligence from memory dumps: running processes, network connections at time of capture, injected shellcode, credential material, and attacker tooling loaded in memory.
+
+## 📋 When to Use
+- Analyzing a memory dump captured from a compromised system
+- Hunting for in-memory malware (fileless malware, process injection)
+- Extracting network connections and process trees for timeline reconstruction
+- Recovering attacker tools or credential material from RAM
+
 **Volatility** is the industry-standard open-source framework for memory forensics. It enables analysts to extract digital artifacts from volatile memory (RAM) dumps, revealing evidence that may not exist on disk-running processes, network connections, injected code, encryption keys, and more.
 
 This guide covers Volatility 3 installation, memory acquisition, and comprehensive analysis techniques for Windows memory forensics.
@@ -1102,3 +1117,9 @@ python3 vol.py -f memory.dmp windows.vadyarascan --yara-file rules.yar
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../LiveData/live_data_collection.md](../LiveData/live_data_collection.md) - How the memory dump was captured
+- [../Disks/autopsy_kape.md](../Disks/autopsy_kape.md) - Disk forensics for persistence artifacts after memory analysis
+- [../../SIEM/splunk.md](../../SIEM/splunk.md) - SIEM correlation of memory-derived IOCs

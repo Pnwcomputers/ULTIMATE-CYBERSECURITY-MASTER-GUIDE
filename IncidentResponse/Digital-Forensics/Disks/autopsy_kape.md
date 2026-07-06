@@ -1,6 +1,21 @@
 
 # 💽 Disk Forensics Guide (Autopsy & KAPE)
 
+## 🎯 Purpose
+Disk forensics guide covering Autopsy (full forensic platform) and KAPE (Kroll Artifact Parser - rapid triage collection) for disk image acquisition, evidence analysis, and artifact extraction.
+
+## ⚙️ Function
+Covers: disk image acquisition (FTK Imager, dd), Autopsy case setup and analysis workflow, KAPE targets/modules for rapid artifact collection, timeline analysis, file carving, hash verification, and forensic report generation.
+
+## 🏆 Goal
+Enable IR practitioners to acquire disk evidence correctly and efficiently analyze it with Autopsy or KAPE to identify attacker activity, persistence mechanisms, and data access during an incident.
+
+## 📋 When to Use
+- Disk forensics during incident response (compromised workstation or server)
+- Rapid triage with KAPE before full Autopsy analysis
+- Evidence preservation and chain of custody documentation
+- Post-incident artifact collection for legal hold
+
 **Disk forensics** involves the acquisition, analysis, and reporting of data stored on persistent storage media. This guide covers two essential tools: **Autopsy** (a full-featured forensic platform) and **KAPE** (Kroll Artifact Parser and Extractor - a rapid triage collection tool).
 
 Together, these tools enable investigators to quickly collect artifacts and perform deep-dive analysis of compromised systems.
@@ -864,3 +879,9 @@ Remove-Item -Recurse "$env:APPDATA\.autopsy"
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../Memory/volatility_cheatsheet.md](../Memory/volatility_cheatsheet.md) - Memory forensics to pair with disk analysis
+- [../LiveData/live_data_collection.md](../LiveData/live_data_collection.md) - Live response before disk imaging
+- [../../SIEM/splunk.md](../../SIEM/splunk.md) - SIEM for correlating disk forensics findings

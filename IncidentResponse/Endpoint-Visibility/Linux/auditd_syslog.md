@@ -1,6 +1,21 @@
 
 # 🐧 Linux Auditd & Syslog Hardening Guide
 
+## 🎯 Purpose
+Linux Auditd and Syslog hardening and configuration guide - covering kernel-level auditing rules, syslog aggregation, and log forwarding for Linux endpoint visibility in a SOC or IR context.
+
+## ⚙️ Function
+Covers: auditd rule syntax (syscall auditing, file access monitoring, user session tracking), pre-built rule sets (STIG, CIS), rsyslog/syslog-ng configuration, log forwarding to SIEM, auditd log parsing (ausearch, aureport), and common detection use cases.
+
+## 🏆 Goal
+Configure Linux endpoints with comprehensive audit logging that feeds a SIEM, enabling detection of privilege escalation, lateral movement, persistence, and data exfiltration on Linux hosts.
+
+## 📋 When to Use
+- Hardening a new Linux server for a production environment
+- Setting up endpoint visibility before a purple team exercise
+- Investigating a Linux compromise and needing to understand available audit trails
+- Building auditd-based detection rules for specific MITRE ATT&CK techniques
+
 **Auditd** (Linux Audit Daemon) and **Syslog** are foundational components for Linux security monitoring. Auditd provides granular kernel-level auditing of system calls, file access, and user activity, while Syslog aggregates application and system logs. Together, they form the backbone of Linux endpoint visibility.
 
 This guide covers configuring both systems for security monitoring and forwarding logs to your SIEM.
@@ -924,3 +939,10 @@ sudo journalctl --vacuum-time=7d
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [osquery.md](osquery.md) - Complementary Linux endpoint visibility via SQL-based queries
+- [../Windows/sysmon.md](../Windows/sysmon.md) - Windows equivalent: Sysmon for event logging
+- [../../SIEM/wazuh.md](../../SIEM/wazuh.md) - Wazuh SIEM that ingests auditd logs
+- [../../SIEM/elk_stack.md](../../SIEM/elk_stack.md) - ELK stack for auditd log analysis

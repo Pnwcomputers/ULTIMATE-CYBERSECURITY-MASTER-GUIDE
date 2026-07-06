@@ -1,5 +1,20 @@
 # 🟢 Graylog SIEM Deployment Guide
 
+## 🎯 Purpose
+Graylog SIEM deployment guide - covering installation, input configuration, stream processing, alerting, dashboards, and log management for a self-hosted open-source SIEM alternative.
+
+## ⚙️ Function
+Covers: Graylog server and MongoDB/OpenSearch setup, GELF/Syslog/Beats input configuration, stream routing and processing pipelines, alert conditions and notifications, Graylog dashboards, index rotation/retention, and content pack installation.
+
+## 🏆 Goal
+Deploy Graylog as a centralized log management and alerting platform for security operations, with stream-based routing that separates security-relevant logs from operational noise.
+
+## 📋 When to Use
+- Building a self-hosted SIEM that's lighter-weight than the full ELK stack
+- Centralizing syslog from network devices, Linux servers, and Windows Beats
+- Setting up alert-based detection for specific log patterns
+- Log management and retention for compliance requirements
+
 **Graylog** is an open-source log management platform designed for collecting, indexing, and analyzing log data. It combines the power of Elasticsearch (or OpenSearch) for storage with an intuitive web interface for search and visualization. Graylog is lighter weight than ELK and offers a more streamlined experience for log aggregation and SIEM use cases.
 
 This guide covers deploying Graylog using Docker and configuring it to receive logs from various sources.
@@ -1030,3 +1045,10 @@ curl -u admin:password "http://localhost:9000/api/system/overview"
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [elk_stack.md](elk_stack.md) - ELK Stack SIEM alternative
+- [wazuh.md](wazuh.md) - Wazuh for endpoint detection that feeds Graylog
+- [splunk.md](splunk.md) - Commercial SIEM comparison
+- [../../../Homelab/HomeLab_Setup.md](../../../Homelab/HomeLab_Setup.md) - Homelab context

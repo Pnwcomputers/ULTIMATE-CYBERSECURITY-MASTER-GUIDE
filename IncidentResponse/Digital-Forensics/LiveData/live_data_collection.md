@@ -1,5 +1,20 @@
 # 🚨 Live Response Collection Guide
 
+## 🎯 Purpose
+Live data collection and triage guide for capturing volatile evidence from a running system during incident response - covering memory acquisition, network state, process state, and persistence mechanisms before powering down.
+
+## ⚙️ Function
+Covers: volatile data priority order, memory acquisition (WinPmem, DumpIt, avml for Linux), network state capture (netstat, ss, active connections), process listing and hash verification, prefetch/amcache, registry hive export, browser artifacts, and chain of custody documentation.
+
+## 🏆 Goal
+Collect the maximum volatile evidence from a live system before it is powered down or imaged, following IR triage priority order to preserve the most time-sensitive artifacts first.
+
+## 📋 When to Use
+- First responder arriving at a suspected compromised system
+- Remote IR triage via EDR or RMM tool
+- Time-constrained incident response (system must stay up for business reasons)
+- Building a live response collection kit for an incident response team
+
 **Live Response** is the process of collecting volatile and non-volatile data from a running system during an incident. This data can be lost when a system is powered off, making timely collection critical. Live response captures the current state of a potentially compromised system before forensic imaging or remediation.
 
 This guide covers live response methodology, tools, and scripts for Windows and Linux systems.
@@ -1096,3 +1111,9 @@ Collection Hash (SHA256): _________________
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../Disks/autopsy_kape.md](../Disks/autopsy_kape.md) - Disk forensics after live data collected
+- [../Memory/volatility_cheatsheet.md](../Memory/volatility_cheatsheet.md) - Analyzing the memory dump captured here
+- [../../network_intrusion.md](../../network_intrusion.md) - Network evidence collection procedures

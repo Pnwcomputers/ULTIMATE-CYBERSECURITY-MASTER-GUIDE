@@ -1,5 +1,20 @@
 # 🔷 Splunk SIEM Deployment Guide
 
+## 🎯 Purpose
+Splunk SIEM deployment guide - covering installation, index configuration, Universal Forwarder deployment, SPL search queries, dashboards, and detection rule development for Splunk Free (500MB/day) and Enterprise.
+
+## ⚙️ Function
+Covers: Splunk indexer/search head installation, Universal Forwarder setup for Windows/Linux, index and sourcetype configuration, SPL query writing (stats, eval, transaction, lookup), Splunk Security Essentials app, saved searches, alerts, and BOSS of the SOC training data.
+
+## 🏆 Goal
+Deploy Splunk as a SIEM for security monitoring, with Universal Forwarders on endpoints feeding centralized log analysis and SPL-based detection rules.
+
+## 📋 When to Use
+- Setting up Splunk for a homelab SOC or security training environment
+- Writing SPL queries to hunt for specific attacker behaviors
+- Building Splunk dashboards for security operations
+- Preparing for Splunk Power User or SIEM analyst certification
+
 **Splunk** is a powerful commercial platform for log aggregation, search, and security analytics. While enterprise licensing can be costly, Splunk offers a **Free** tier (500 MB/day indexing) and **Enterprise Trial** (60 days, full features) that are perfect for homelabs, training, and small deployments.
 
 This guide covers deploying Splunk Enterprise, configuring inputs, installing the Universal Forwarder on endpoints, and setting up security monitoring.
@@ -958,3 +973,10 @@ publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [elk_stack.md](elk_stack.md) - Open-source ELK Stack alternative
+- [graylog.md](graylog.md) - Lighter-weight SIEM alternative
+- [wazuh.md](wazuh.md) - Wazuh SIEM with native Splunk integration
+- [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Primary Windows log source

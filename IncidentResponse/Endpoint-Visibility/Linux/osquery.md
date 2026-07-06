@@ -1,5 +1,20 @@
 # 🔎 Osquery Deployment Guide
 
+## 🎯 Purpose
+Osquery deployment and query guide - covering installation, configuration, and SQL-based queries for Linux endpoint visibility, threat hunting, and security monitoring.
+
+## ⚙️ Function
+Covers: osquery installation (Linux/macOS/Windows), osqueryd configuration (scheduled queries, FIM, logger configuration), essential tables (processes, users, listening_ports, file, hash, shell_history, authorized_keys), osquery packs, threat hunting queries, and fleet management with osquery.
+
+## 🏆 Goal
+Deploy osquery as a host-based security monitoring tool that enables SQL-based querying of system state for incident response triage, threat hunting, and compliance monitoring.
+
+## 📋 When to Use
+- Setting up host-based monitoring on Linux servers for SOC visibility
+- Writing osquery queries to hunt for specific attacker behaviors
+- Triage: querying a suspected compromised host for IOCs
+- Building a scheduled query pack for continuous compliance monitoring
+
 **Osquery** is an open-source tool developed by Facebook that exposes operating system information as a relational database. Using SQL queries, you can interrogate endpoints to gather security-relevant data about processes, users, network connections, file changes, and more. It's like having a SQL interface to your entire fleet of endpoints.
 
 This guide covers deploying Osquery on Windows and Linux, configuring security-focused queries, and integrating with your SIEM.
@@ -1112,3 +1127,9 @@ If using Fleet for central management:
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+
+## Related Files
+- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [auditd_syslog.md](auditd_syslog.md) - Kernel-level auditing to pair with osquery
+- [../Windows/sysmon.md](../Windows/sysmon.md) - Windows equivalent endpoint visibility
+- [../../SIEM/wazuh.md](../../SIEM/wazuh.md) - Wazuh can ingest osquery results
