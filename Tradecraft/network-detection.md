@@ -2,7 +2,7 @@
 
 > **Scope:** Network-based threat detection, packet capture and analysis, protocol anomaly detection, IDS/IPS tuning, traffic baselining, and network forensics methodology.
 
-✅ **Related offensive-side checklists:** [Lateral Movement](../Checklists/Lateral-Movement.md) · [Command and Control](../Checklists/Command&Control.md)
+✅ **Related offensive-side checklists:** [Lateral Movement](../Checklists/Lateral-Movement.md) · [Command and Control](../Checklists/Command%26Control.md)
 
 ---
 

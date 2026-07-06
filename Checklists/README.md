@@ -82,7 +82,7 @@ These checklists serve as:
 |-----------|-------------|------------|
 | **[Lateral-Movement.md](./Lateral-Movement.md)** | Lateral movement techniques across networks | Movement |
 | **[Persistence.md](./Persistence.md)** | System-level persistence mechanisms | Persistence |
-| **[Command&Control.md](./Command&Control.md)** | Command and Control (C2) techniques and channels | C2 |
+| **[Command&Control.md](./Command%26Control.md)** | Command and Control (C2) techniques and channels | C2 |
 
 ### Defense Evasion
 
@@ -96,8 +96,8 @@ These checklists serve as:
 | Checklist | Description | Focus Area |
 |-----------|-------------|------------|
 | **[Android-Applications-Checklist.md](./Android-Applications-Checklist.md)** | Android application security assessment | Mobile Security |
-| **[VoIP Checklist.md](./VoIP Checklist.md)** | Voice over IP security testing and assessment | VoIP Security |
-| **[Microsoft Exchange.md](./Microsoft Exchange.md)** | Microsoft Exchange server security assessment | Exchange |
+| **[VoIP Checklist.md](./VoIP%20Checklist.md)** | Voice over IP security testing and assessment | VoIP Security |
+| **[Microsoft Exchange.md](./Microsoft%20Exchange.md)** | Microsoft Exchange server security assessment | Exchange |
 
 ### System Hardening & Configuration
 
