@@ -1,6 +1,6 @@
-# AV/EDR Evasion — Detection & Defense Deep Dive
+# AV/EDR Evasion - Detection & Defense Deep Dive
 
-> **Scope:** How attackers evade antivirus and endpoint detection/response solutions — technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
+> **Scope:** How attackers evade antivirus and endpoint detection/response solutions - technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
 
 ✅ **Quick-reference checklists:** [Defense Evasion](../Checklists/Defense-Evasion.md) · [AppLocker Bypass](../Checklists/AppLocker.md)
 
@@ -26,7 +26,7 @@
 
 ## EDR Architecture & Detection Layers
 
-Understanding where EDR detects is essential to understanding what attackers try to bypass — and therefore what defenders must protect.
+Understanding where EDR detects is essential to understanding what attackers try to bypass - and therefore what defenders must protect.
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -40,7 +40,7 @@ Understanding where EDR detects is essential to understanding what attackers try
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**Key insight for defenders:** Attackers who are "EDR-aware" target specific layers. Detection gaps appear when one layer is bypassed but others aren't compensating. Defense-in-depth across all layers is the goal — no single layer is sufficient.
+**Key insight for defenders:** Attackers who are "EDR-aware" target specific layers. Detection gaps appear when one layer is bypassed but others aren't compensating. Defense-in-depth across all layers is the goal - no single layer is sufficient.
 
 ### How EDR Instruments the Endpoint
 
@@ -58,7 +58,7 @@ Understanding where EDR detects is essential to understanding what attackers try
 
 ### How It Works
 
-Static analysis examines a file's content without executing it — AV signatures, hash matching, YARA rules, and string scanning. Attackers modify payloads so the static signature no longer matches.
+Static analysis examines a file's content without executing it - AV signatures, hash matching, YARA rules, and string scanning. Attackers modify payloads so the static signature no longer matches.
 
 **Common techniques:**
 
@@ -80,7 +80,7 @@ Static analysis examines a file's content without executing it — AV signatures
 
 **Detection opportunities:**
 
-**Entropy analysis** — Encrypted/compressed payloads have high entropy (close to 8.0 bits/byte). High-entropy sections in PE files are anomalous.
+**Entropy analysis** - Encrypted/compressed payloads have high entropy (close to 8.0 bits/byte). High-entropy sections in PE files are anomalous.
 
 ```python
 # Detect high-entropy sections in PE files
@@ -101,18 +101,18 @@ def section_entropy(data: bytes) -> float:
 # Flag sections above ~7.2 for investigation
 ```
 
-**Behavioral detonation** — Even if static evasion succeeds, the payload must execute. Sandbox detonation catches behavior that static misses.
+**Behavioral detonation** - Even if static evasion succeeds, the payload must execute. Sandbox detonation catches behavior that static misses.
 
-**Memory scanning** — Payloads decrypt at runtime. The decrypted shellcode in memory can then match signatures. EDRs with memory scanning (PE-sieve, Moneta, Elastic memory scanning) catch this post-decrypt.
+**Memory scanning** - Payloads decrypt at runtime. The decrypted shellcode in memory can then match signatures. EDRs with memory scanning (PE-sieve, Moneta, Elastic memory scanning) catch this post-decrypt.
 
-**YARA — hunt for high-entropy PE sections:**
+**YARA - hunt for high-entropy PE sections:**
 
 ```yara
 import "math"
 
 rule HighEntropyPESection {
     meta:
-        description = "PE with high-entropy section — possible packing or encryption"
+        description = "PE with high-entropy section - possible packing or encryption"
     condition:
         uint16(0) == 0x5A4D and
         math.entropy(0, filesize) > 7.2
@@ -125,7 +125,7 @@ rule HighEntropyPESection {
 
 ### How AMSI Works
 
-AMSI (Antimalware Scan Interface) is a Windows API that allows script hosts to submit content to AV engines before execution. PowerShell, VBScript, JScript, and the .NET CLR all call AMSI before running any script content — so even fully in-memory scripts get scanned.
+AMSI (Antimalware Scan Interface) is a Windows API that allows script hosts to submit content to AV engines before execution. PowerShell, VBScript, JScript, and the .NET CLR all call AMSI before running any script content - so even fully in-memory scripts get scanned.
 
 The core function is `AmsiScanBuffer` in `amsi.dll`. If it returns `AMSI_RESULT_DETECTED`, execution is blocked.
 
@@ -140,7 +140,7 @@ The most direct bypass patches `AmsiScanBuffer` in memory to always return a "cl
 
 ### Evasion Approach: Reflection
 
-AMSI's internal state can be manipulated via .NET reflection — accessing private fields in `System.Management.Automation` that control whether AMSI scanning is active.
+AMSI's internal state can be manipulated via .NET reflection - accessing private fields in `System.Management.Automation` that control whether AMSI scanning is active.
 
 **What defenders see:**
 - Reflection calls targeting `System.Management.Automation` internals
@@ -148,14 +148,14 @@ AMSI's internal state can be manipulated via .NET reflection — accessing priva
 
 ### Evasion Approach: PowerShell Downgrade
 
-PowerShell v2 predates AMSI and does not support it. Launching `powershell -version 2` bypasses AMSI entirely — if the v2 engine is installed.
+PowerShell v2 predates AMSI and does not support it. Launching `powershell -version 2` bypasses AMSI entirely - if the v2 engine is installed.
 
 **What defenders see:**
 - `powershell.exe` launched with `-version 2` or `-ver 2` in the command line
 
 ### Detection
 
-**Event ID 4104 (Script Block Logging)** — Captures PowerShell script content before execution. Even obfuscated bypass attempts are often partially captured. This is the primary AMSI bypass detection mechanism.
+**Event ID 4104 (Script Block Logging)** - Captures PowerShell script content before execution. Even obfuscated bypass attempts are often partially captured. This is the primary AMSI bypass detection mechanism.
 
 ```powershell
 # Enable Script Block Logging
@@ -165,7 +165,7 @@ Set-ItemProperty $path -Name "EnableScriptBlockLogging" -Value 1
 Set-ItemProperty $path -Name "EnableScriptBlockInvocationLogging" -Value 1
 ```
 
-**Sigma — AMSI bypass strings in Script Block Log:**
+**Sigma - AMSI bypass strings in Script Block Log:**
 
 ```yaml
 title: PowerShell AMSI Bypass Attempt
@@ -189,7 +189,7 @@ tags:
     - attack.t1562.001
 ```
 
-**Sigma — PowerShell v2 downgrade:**
+**Sigma - PowerShell v2 downgrade:**
 
 ```yaml
 title: PowerShell Version 2 Downgrade
@@ -206,7 +206,7 @@ detection:
 level: high
 ```
 
-**Defensive control — disable PowerShell v2:**
+**Defensive control - disable PowerShell v2:**
 
 ```powershell
 Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" -NoRestart
@@ -222,7 +222,7 @@ Event Tracing for Windows is a kernel-level logging infrastructure. ETW provider
 
 ### Evasion Approach: Patching EtwEventWrite
 
-`EtwEventWrite` in `ntdll.dll` is the user-mode function that submits events to ETW. Patching it with a `RET` instruction causes all ETW events from that process to silently disappear — the function returns immediately without writing anything.
+`EtwEventWrite` in `ntdll.dll` is the user-mode function that submits events to ETW. Patching it with a `RET` instruction causes all ETW events from that process to silently disappear - the function returns immediately without writing anything.
 
 **What defenders see:**
 - `VirtualProtect` + memory write to `ntdll.dll`'s `EtwEventWrite` address in the process
@@ -243,10 +243,10 @@ Event Tracing for Windows is a kernel-level logging infrastructure. ETW provider
 
 **Detect via telemetry gap analysis:** A process that is active but generating zero ETW events (especially PowerShell with no Script Block logs) is itself anomalous.
 
-**Sigma — memory write to ntdll.dll ETW function:**
+**Sigma - memory write to ntdll.dll ETW function:**
 
 ```yaml
-title: Possible EtwEventWrite Patch — ETW Tampering
+title: Possible EtwEventWrite Patch - ETW Tampering
 logsource:
     category: process_access
     product: windows
@@ -289,16 +289,16 @@ Attackers restore the original bytes in `ntdll.dll` by reading a fresh unmodifie
 
 ### Evasion Approach: Per-Function Unhooking
 
-Restoring only specific functions rather than the entire `.text` section — less noisy, but same detection surface.
+Restoring only specific functions rather than the entire `.text` section - less noisy, but same detection surface.
 
 ### Detection
 
 **Kernel-mode sensors are unaffected by user-mode unhooking.** Kernel callbacks (`PsSetCreateProcessNotifyRoutine`, minifilter driver) don't go through `ntdll.dll` and cannot be removed by user-mode unhooking.
 
-**Sigma — unusual ntdll.dll file reads:**
+**Sigma - unusual ntdll.dll file reads:**
 
 ```yaml
-title: Suspicious ntdll.dll Read — Possible Unhooking
+title: Suspicious ntdll.dll Read - Possible Unhooking
 logsource:
     category: file_access
     product: windows
@@ -322,15 +322,15 @@ level: medium
 
 ### How It Works
 
-Windows API calls ultimately translate to syscalls — numbered kernel services invoked via the `syscall` CPU instruction. Normally, code calls a wrapper in `ntdll.dll` which sets the syscall number and executes `syscall`. EDR hooks intercept at the `ntdll.dll` layer.
+Windows API calls ultimately translate to syscalls - numbered kernel services invoked via the `syscall` CPU instruction. Normally, code calls a wrapper in `ntdll.dll` which sets the syscall number and executes `syscall`. EDR hooks intercept at the `ntdll.dll` layer.
 
-**Direct syscalls:** Custom assembly stubs that set the syscall number and execute `syscall` directly — bypassing `ntdll.dll` entirely and therefore bypassing all EDR hooks on that DLL. Tools like SysWhispers generate these stubs at compile time or resolve syscall numbers at runtime.
+**Direct syscalls:** Custom assembly stubs that set the syscall number and execute `syscall` directly - bypassing `ntdll.dll` entirely and therefore bypassing all EDR hooks on that DLL. Tools like SysWhispers generate these stubs at compile time or resolve syscall numbers at runtime.
 
-**Indirect syscalls:** Rather than placing the `syscall` instruction in attacker code (which has an anomalous call stack origin), the attacker locates a legitimate `syscall` gadget inside `ntdll.dll` and jumps to it after setting up the syscall number. The call stack then appears to originate from `ntdll.dll` — harder to detect than direct syscalls.
+**Indirect syscalls:** Rather than placing the `syscall` instruction in attacker code (which has an anomalous call stack origin), the attacker locates a legitimate `syscall` gadget inside `ntdll.dll` and jumps to it after setting up the syscall number. The call stack then appears to originate from `ntdll.dll` - harder to detect than direct syscalls.
 
 ### What Makes This Detectable
 
-**Call stack analysis:** For legitimate code, a call to `NtAllocateVirtualMemory` should have a stack tracing back through `ntdll.dll` → calling DLL → application. Direct syscalls produce a call stack originating in unusual memory (heap allocation, anonymous MEM_PRIVATE) — anomalous and detectable by EDRs with call stack inspection.
+**Call stack analysis:** For legitimate code, a call to `NtAllocateVirtualMemory` should have a stack tracing back through `ntdll.dll` → calling DLL → application. Direct syscalls produce a call stack originating in unusual memory (heap allocation, anonymous MEM_PRIVATE) - anomalous and detectable by EDRs with call stack inspection.
 
 **Kernel ETW:** Kernel-level syscall auditing can detect anomalous patterns without relying on user-mode telemetry.
 
@@ -340,7 +340,7 @@ Windows API calls ultimately translate to syscalls — numbered kernel services 
 
 EDRs with **kernel-mode telemetry and call stack analysis** are required to reliably detect syscall abuse. User-mode-only EDRs are blind to direct syscalls by design.
 
-**Defensive implication:** When evaluating EDR products, test specifically for direct/indirect syscall detection — ask vendors for documentation on how they handle this. It's a known gap in many user-mode-first products.
+**Defensive implication:** When evaluating EDR products, test specifically for direct/indirect syscall detection - ask vendors for documentation on how they handle this. It's a known gap in many user-mode-first products.
 
 ---
 
@@ -353,42 +353,42 @@ Process injection places and executes attacker code within another (often legiti
 ### Common Injection Variants and Their Artifacts
 
 **Classic VirtualAlloc + WriteProcessMemory + CreateRemoteThread**
-The foundational injection method. Allocates memory in target, writes shellcode, spawns a thread to execute it. Generates the most telemetry and is the most heavily signatured — `CreateRemoteThread` on a foreign process is a loud signal.
+The foundational injection method. Allocates memory in target, writes shellcode, spawns a thread to execute it. Generates the most telemetry and is the most heavily signatured - `CreateRemoteThread` on a foreign process is a loud signal.
 
 **APC Injection**
-Queues code execution via Asynchronous Procedure Calls on an existing thread. Executes when the thread enters an alertable wait state. *Early Bird* variant queues the APC into a freshly-created suspended process before it starts — stealthier because the thread never "normally" runs and the APC fires at startup.
+Queues code execution via Asynchronous Procedure Calls on an existing thread. Executes when the thread enters an alertable wait state. *Early Bird* variant queues the APC into a freshly-created suspended process before it starts - stealthier because the thread never "normally" runs and the APC fires at startup.
 
 **Thread Hijacking**
-Opens an existing thread, suspends it, overwrites its instruction pointer to point at shellcode, then resumes. Avoids `CreateRemoteThread` but generates `NtGetContextThread`/`NtSetContextThread` calls on a foreign thread — detectable via process access monitoring.
+Opens an existing thread, suspends it, overwrites its instruction pointer to point at shellcode, then resumes. Avoids `CreateRemoteThread` but generates `NtGetContextThread`/`NtSetContextThread` calls on a foreign thread - detectable via process access monitoring.
 
 **Process Hollowing**
 Creates a legitimate process in suspended state, unmaps its memory, replaces it with a malicious PE, resumes. Externally looks like a legitimate process; internally executes malicious code. Sysmon Event 25 (ProcessTampering) is specifically designed to catch this.
 
 **Module Stomping / DLL Stomping**
-Loads a legitimate DLL into a process then overwrites its memory with shellcode. The shellcode appears to reside within a legitimate module — evades memory scanners that trust image-backed memory regions. Detectable via integrity checking of loaded module content vs. on-disk copy.
+Loads a legitimate DLL into a process then overwrites its memory with shellcode. The shellcode appears to reside within a legitimate module - evades memory scanners that trust image-backed memory regions. Detectable via integrity checking of loaded module content vs. on-disk copy.
 
 **Process Doppelgänging**
 Uses NTFS transactions to write a payload, create a process from the transacted file, then roll back the transaction. The file technically never existed on disk. Complex and fragile; detectable via transaction handle anomalies.
 
 **Reflective DLL Injection**
-A DLL containing its own loader function (`ReflectiveLoader`). When called, it maps itself into memory, resolves imports, and executes — without any `LoadLibrary` call. Widely used by C2 frameworks. Leaves no entry in the process's module list, but PE headers exist in `MEM_PRIVATE` memory and are found by memory scanners.
+A DLL containing its own loader function (`ReflectiveLoader`). When called, it maps itself into memory, resolves imports, and executes - without any `LoadLibrary` call. Widely used by C2 frameworks. Leaves no entry in the process's module list, but PE headers exist in `MEM_PRIVATE` memory and are found by memory scanners.
 
 ### Detection
 
-**API call sequences** — Most injection techniques involve recognizable sequences:
+**API call sequences** - Most injection techniques involve recognizable sequences:
 - `OpenProcess` → `VirtualAllocEx` → `WriteProcessMemory` → `CreateRemoteThread` (classic)
 - `CreateProcess` (suspended) → `NtUnmapViewOfSection` → `VirtualAllocEx` → `ResumeThread` (hollowing)
 - `QueueUserAPC` on a foreign process thread (APC injection)
 
 **Memory region characteristics:**
-- RWX memory (read-write-execute simultaneously) — almost never legitimate
+- RWX memory (read-write-execute simultaneously) - almost never legitimate
 - `MEM_PRIVATE` executable memory not backed by a file on disk
 - PE headers appearing in heap-allocated regions
 
 **Sysmon Event IDs:**
-- **Event 8:** `CreateRemoteThread` — injecting a thread into another process
-- **Event 10:** `ProcessAccess` — one process reading/writing another's memory
-- **Event 25:** `ProcessTampering` — process hollowing indicator
+- **Event 8:** `CreateRemoteThread` - injecting a thread into another process
+- **Event 10:** `ProcessAccess` - one process reading/writing another's memory
+- **Event 25:** `ProcessTampering` - process hollowing indicator
 
 ```yaml
 title: CreateRemoteThread into Non-Child Process
@@ -434,7 +434,7 @@ level: medium
 
 ### What It Is
 
-Executing code without writing a recognizable payload to disk — evades file-based AV and reduces forensic artifacts.
+Executing code without writing a recognizable payload to disk - evades file-based AV and reduces forensic artifacts.
 
 ### Reflective DLL Loading
 
@@ -447,13 +447,13 @@ A DLL with its own `ReflectiveLoader` export that maps itself into memory withou
 .NET assemblies can be loaded and executed entirely from memory by hosting the CLR in a native process. C2 frameworks use this to run post-exploitation tools (Rubeus, Seatbelt, SharpHound) without writing them to disk.
 
 **Detection:**
-- ETW .NET CLR provider records assembly loads — visible if ETW is intact
+- ETW .NET CLR provider records assembly loads - visible if ETW is intact
 - `clr.dll` or `clrjit.dll` loaded into processes that have no business hosting .NET (Sysmon Event 7)
 - Behavioral anomaly: process hosting CLR for the first time with no prior .NET activity
 
 ### PowerShell Without powershell.exe
 
-Hosting `System.Management.Automation.dll` in a custom process allows PowerShell command execution without launching `powershell.exe` — evades PowerShell-specific process monitoring.
+Hosting `System.Management.Automation.dll` in a custom process allows PowerShell command execution without launching `powershell.exe` - evades PowerShell-specific process monitoring.
 
 **Detection:**
 - `System.Management.Automation.dll` loaded into non-PowerShell processes (Sysmon Event 7)
@@ -479,7 +479,7 @@ These techniques encrypt the implant's own memory region before sleeping:
 5. Restore RX protection
 6. Resume execution
 
-During the sleep window: the shellcode region is RW with encrypted content — no signature can match, and the region is non-executable so behavior-based scanners ignore it.
+During the sleep window: the shellcode region is RW with encrypted content - no signature can match, and the region is non-executable so behavior-based scanners ignore it.
 
 ### Stack Spoofing
 
@@ -554,8 +554,8 @@ C2 frameworks (especially Cobalt Strike) traditionally spawn a new process to ex
 Windows security tokens determine a process's identity and privileges. Attackers steal tokens from other processes or create new ones to impersonate privileged accounts (SYSTEM, Domain Admin) or blend with expected process identity.
 
 **Detection:**
-- Event 4624 Logon Type 9 (NewCredentials) — token created from supplied credentials
-- Sysmon Event 10 with `PROCESS_QUERY_INFORMATION | PROCESS_DUP_HANDLE` — token duplication pattern
+- Event 4624 Logon Type 9 (NewCredentials) - token created from supplied credentials
+- Sysmon Event 10 with `PROCESS_QUERY_INFORMATION | PROCESS_DUP_HANDLE` - token duplication pattern
 - Process running under an identity inconsistent with its image path (e.g., `notepad.exe` running as SYSTEM)
 
 ### Command Line Obfuscation
@@ -567,7 +567,7 @@ Attackers obfuscate PowerShell and cmd.exe command lines to evade string-matchin
 - Encoded commands: `-EncodedCommand <base64>`
 - Whitespace manipulation
 
-**Detection:** Script Block Logging decodes obfuscated PowerShell before logging — so command-line obfuscation is often irrelevant if Script Block Logging is enabled. AMSI also sees the decoded content before execution. For cmd.exe obfuscation, process command line logging (Event 4688 with command line enabled) combined with regex detection:
+**Detection:** Script Block Logging decodes obfuscated PowerShell before logging - so command-line obfuscation is often irrelevant if Script Block Logging is enabled. AMSI also sees the decoded content before execution. For cmd.exe obfuscation, process command line logging (Event 4688 with command line enabled) combined with regex detection:
 
 ```yaml
 title: Suspicious PowerShell Encoded Command
@@ -619,21 +619,21 @@ level: low
 
 ### Tiered Alert Model
 
-**Tier 1 — High confidence, alert immediately:**
+**Tier 1 - High confidence, alert immediately:**
 - AMSI bypass strings in Script Block Log
 - `CreateRemoteThread` into non-child processes from non-system binaries
 - LSASS process access from non-security tools
 - Sysmon Event 25 (ProcessTampering)
 - `ntdll.dll` memory write from non-OS process
 
-**Tier 2 — Medium confidence, investigate:**
+**Tier 2 - Medium confidence, investigate:**
 - High-entropy PE from temp/user/AppData directories
 - PowerShell encoded commands with outbound network connections
 - `clr.dll` loaded into processes with no prior .NET history
 - Short-lived processes (< 5 seconds) spawned from Office applications
 - `MEM_PRIVATE` RX allocations exceeding 1MB in non-dev processes
 
-**Tier 3 — Low confidence, trend and baseline:**
+**Tier 3 - Low confidence, trend and baseline:**
 - Command line obfuscation patterns
 - Unusual parent-child relationships without other indicators
 - Processes with very few loaded modules making network connections
@@ -645,28 +645,28 @@ level: low
 ### EDR Selection Criteria
 
 When evaluating EDR products, prioritize:
-- **Kernel-mode driver** — resists user-mode unhooking
-- **Call stack analysis** — detects direct/indirect syscalls
-- **Memory scanning** — catches reflective loads and sleep-obfuscated implants
-- **ETW-independent telemetry** — not solely reliant on patchable ETW providers
-- **Behavioral ML** — catches novel evasions that signature rules miss
+- **Kernel-mode driver** - resists user-mode unhooking
+- **Call stack analysis** - detects direct/indirect syscalls
+- **Memory scanning** - catches reflective loads and sleep-obfuscated implants
+- **ETW-independent telemetry** - not solely reliant on patchable ETW providers
+- **Behavioral ML** - catches novel evasions that signature rules miss
 
 Ask vendors specifically: *How does your product detect direct syscalls? How does it handle ntdll unhooking?* Vague answers indicate user-mode-only architecture.
 
 ### Windows Security Feature Checklist
 
 ```powershell
-# 1. Credential Guard — VBS-protected LSA, prevents most LSASS dumping
+# 1. Credential Guard - VBS-protected LSA, prevents most LSASS dumping
 # Enable via GPO: Computer Config → Admin Templates → System → Device Guard
 
-# 2. LSASS Protected Process Light (PPL) — requires Secure Boot
+# 2. LSASS Protected Process Light (PPL) - requires Secure Boot
 Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "RunAsPPL" -Value 1
 
-# 3. Disable WDigest — prevents cleartext credentials in LSASS
+# 3. Disable WDigest - prevents cleartext credentials in LSASS
 Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" `
     -Name "UseLogonCredential" -Value 0
 
-# 4. Disable PowerShell v2 — removes AMSI downgrade path
+# 4. Disable PowerShell v2 - removes AMSI downgrade path
 Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" -NoRestart
 
 # 5. Enable PowerShell Script Block Logging
@@ -719,17 +719,17 @@ auditpol /set /subcategory:"DPAPI Activity" /success:enable /failure:enable
         <TargetImage condition="is not">C:\Windows\system32\svchost.exe</TargetImage>
     </CreateRemoteThread>
 
-    <!-- Event 10: ProcessAccess — LSASS and cross-process -->
+    <!-- Event 10: ProcessAccess - LSASS and cross-process -->
     <ProcessAccess onmatch="include">
         <TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
     </ProcessAccess>
 
-    <!-- Event 7: ImageLoad — unsigned DLLs -->
+    <!-- Event 7: ImageLoad - unsigned DLLs -->
     <ImageLoad onmatch="include">
         <Signed condition="is">false</Signed>
     </ImageLoad>
 
-    <!-- Event 25: ProcessTampering — hollowing indicator -->
+    <!-- Event 25: ProcessTampering - hollowing indicator -->
     <ProcessTampering onmatch="include" />
 </EventFiltering>
 ```
@@ -767,7 +767,7 @@ Invoke-AtomicTest T1003.001
 
 VECTR (vectr.io) tracks purple team exercises against MITRE ATT&CK and maintains a living record of which techniques are detected vs. which are blind spots. Essential for communicating coverage to stakeholders and tracking improvement over time.
 
-### After Each Test — Ask These Questions
+### After Each Test - Ask These Questions
 
 - Did the alert fire? At what layer?
 - What's the false positive rate of this detection in production?
@@ -775,7 +775,7 @@ VECTR (vectr.io) tracks purple team exercises against MITRE ATT&CK and maintains
 - What's the mean time to detect (MTTD)?
 - Which layer would have caught this if the primary layer was bypassed?
 
-The goal is not just "does the alert fire" but **resilience across layers** — if one layer is bypassed, the next one should still catch it.
+The goal is not just "does the alert fire" but **resilience across layers** - if one layer is bypassed, the next one should still catch it.
 
 ---
 
@@ -785,7 +785,7 @@ A complete analyst toolkit spans both platforms. The right tool depends on what 
 
 ### Windows Analysis Environment
 
-**FLARE VM** — Mandiant's Windows-based malware analysis distribution. Installs on top of a standard Windows VM and deploys 100+ analysis tools automatically. The Windows equivalent of REMnux.
+**FLARE VM** - Mandiant's Windows-based malware analysis distribution. Installs on top of a standard Windows VM and deploys 100+ analysis tools automatically. The Windows equivalent of REMnux.
 
 ```powershell
 # Install FLARE VM on a clean Windows 10/11 VM
@@ -800,21 +800,21 @@ Key tools installed by FLARE VM:
 
 | Tool | Purpose |
 |---|---|
-| x64dbg / x32dbg | Windows debugger — step through malware execution |
+| x64dbg / x32dbg | Windows debugger - step through malware execution |
 | IDA Free / Ghidra | Disassembly and decompilation |
 | PE-bear | PE file editor and viewer |
 | CFF Explorer | PE structure inspection |
 | PEiD / Detect-It-Easy | Packer/compiler detection |
 | Procmon | Real-time process/file/registry monitoring |
 | Process Hacker | Advanced process and memory viewer |
-| Regshot | Registry snapshot diff — before/after malware run |
+| Regshot | Registry snapshot diff - before/after malware run |
 | Wireshark | Packet capture and analysis |
 | FakeNet-NG | Simulated network for malware C2 interception |
-| CyberChef | Data decoding — base64, XOR, gzip, hex, any combination |
+| CyberChef | Data decoding - base64, XOR, gzip, hex, any combination |
 | dnSpy | .NET assembly decompiler and debugger |
 | de4dot | .NET deobfuscator |
 
-**Sysinternals Suite** — Microsoft's essential Windows analysis toolkit. Available at `https://live.sysinternals.com` or installable via winget.
+**Sysinternals Suite** - Microsoft's essential Windows analysis toolkit. Available at `https://live.sysinternals.com` or installable via winget.
 
 ```powershell
 winget install Microsoft.Sysinternals.ProcessMonitor
@@ -836,10 +836,10 @@ Expand-Archive SysinternalsSuite.zip -DestinationPath C:\Tools\Sysinternals\
 | **TCPView** | Live network connections per process | Identify C2 beacons, unusual outbound connections |
 | **VMMap** | Detailed virtual memory map of a process | Spot MEM_PRIVATE executable regions, injected code |
 | **Handle** | Open handles per process | Find suspicious cross-process handle ownership |
-| **Strings** | Extract printable strings from binaries | Quick triage — find C2 domains, function names, paths |
+| **Strings** | Extract printable strings from binaries | Quick triage - find C2 domains, function names, paths |
 | **Sigcheck** | Verify code signing on executables | Find unsigned or fake-signed binaries |
 
-**PE-sieve** (Windows) — Scan running processes for injected code, hollowing, and reflective loads:
+**PE-sieve** (Windows) - Scan running processes for injected code, hollowing, and reflective loads:
 
 ```powershell
 # Download PE-sieve
@@ -858,12 +858,12 @@ Get-Process | ForEach-Object {
 
 # Output interpretation:
 # [*] Found: 1 modified module(s)
-# INJECTED: virtual address 0x1F4000000 — shellcode or reflective DLL
-# PE file (reflective) — PE header in private memory, not in module list
-# Image replaced  — process hollowing detected
+# INJECTED: virtual address 0x1F4000000 - shellcode or reflective DLL
+# PE file (reflective) - PE header in private memory, not in module list
+# Image replaced  - process hollowing detected
 ```
 
-**Moneta** (Windows) — In-memory IOC scanner, finds anomalous memory regions:
+**Moneta** (Windows) - In-memory IOC scanner, finds anomalous memory regions:
 
 ```powershell
 # Download from https://github.com/forrest-orr/moneta
@@ -878,7 +878,7 @@ Get-Process | ForEach-Object {
 # Threads with start addresses in anomalous memory
 ```
 
-**CyberChef** (Windows/Linux/Web) — The Swiss army knife for decoding obfuscated content. Runs in browser at `https://gchq.github.io/CyberChef/` or as a local install.
+**CyberChef** (Windows/Linux/Web) - The Swiss army knife for decoding obfuscated content. Runs in browser at `https://gchq.github.io/CyberChef/` or as a local install.
 
 ```
 # Common recipes for malware analysis:
@@ -896,13 +896,13 @@ XOR (key: 0x41, scheme: Standard)
 JavaScript Beautify → Extract URLs
 
 # Detect and decode multiple layers automatically
-"Magic" operation — detects encoding and applies appropriate decoding
+"Magic" operation - detects encoding and applies appropriate decoding
 
 # Decode a hex-encoded shellcode blob
 From Hex → Disassemble x86 (32-bit or 64-bit)
 ```
 
-**Windows Sandbox** — Built-in lightweight VM for quick behavioral detonation, no setup required:
+**Windows Sandbox** - Built-in lightweight VM for quick behavioral detonation, no setup required:
 
 ```powershell
 # Enable Windows Sandbox (requires Windows 10/11 Pro or Enterprise)
@@ -910,11 +910,11 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -Onli
 
 # Launch: Start Menu → Windows Sandbox
 # Drop suspicious file in, run it, observe behavior
-# Sandbox is fully disposable — wiped on close
+# Sandbox is fully disposable - wiped on close
 # Limitation: no persistence across sessions, limited network visibility
 ```
 
-**Regshot** (Windows) — Take a registry/filesystem snapshot before and after running a suspicious binary to see exactly what changed:
+**Regshot** (Windows) - Take a registry/filesystem snapshot before and after running a suspicious binary to see exactly what changed:
 
 ```
 1. Open Regshot, click "1st shot" → scans registry + optional filesystem
@@ -928,7 +928,7 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -Onli
 
 ### Linux Analysis Environment
 
-**REMnux** — The Linux counterpart to FLARE VM. A Ubuntu-based distro packed with malware analysis tools. Use alongside FLARE VM for cross-platform analysis pipelines.
+**REMnux** - The Linux counterpart to FLARE VM. A Ubuntu-based distro packed with malware analysis tools. Use alongside FLARE VM for cross-platform analysis pipelines.
 
 ```bash
 # Install REMnux on Ubuntu (converts existing install)
@@ -945,12 +945,12 @@ Key REMnux tools:
 
 | Tool | Purpose |
 |---|---|
-| Volatility 3 | Memory forensics — analyze RAM dumps |
+| Volatility 3 | Memory forensics - analyze RAM dumps |
 | YARA | Pattern matching across files and memory |
 | radare2 / Cutter | Disassembly and reverse engineering |
 | Ghidra | NSA decompiler (also on Windows) |
 | pestudio | PE file static analysis |
-| ssdeep | Fuzzy hashing — find similar malware samples |
+| ssdeep | Fuzzy hashing - find similar malware samples |
 | exiftool | Metadata extraction from files |
 | binwalk | Firmware and binary analysis, extract embedded files |
 | oledump | Analyze malicious Office documents |
@@ -958,10 +958,10 @@ Key REMnux tools:
 | vmonkey | VBA macro emulator for Office documents |
 | NetworkMiner | PCAP analysis, extracts files transferred over network |
 | Wireshark / tshark | Packet capture and analysis |
-| FakeNet-NG | Linux version — intercept malware C2 traffic |
+| FakeNet-NG | Linux version - intercept malware C2 traffic |
 | inetsim | Simulate internet services for malware analysis |
 
-**Volatility 3** (Linux/Windows/macOS) — Memory forensics framework. Analyze RAM dumps to find injected code, hidden processes, network connections, and credentials:
+**Volatility 3** (Linux/Windows/macOS) - Memory forensics framework. Analyze RAM dumps to find injected code, hidden processes, network connections, and credentials:
 
 ```bash
 # Install
@@ -979,7 +979,7 @@ python3 vol.py -f memory.dmp windows.pslist      # Standard process list
 python3 vol.py -f memory.dmp windows.pstree      # Process tree with parent-child
 python3 vol.py -f memory.dmp windows.psscan      # Scan memory for EPROCESS blocks (finds hidden)
 
-# Find injected code — the core evasion detection use case
+# Find injected code - the core evasion detection use case
 python3 vol.py -f memory.dmp windows.malfind     # Find MEM_PRIVATE executable regions with PE headers
                                                   # This is the primary injection/hollowing detector
 
@@ -1008,7 +1008,7 @@ python3 vol.py -f memory.dmp windows.lsadump
 # 4d 5a 90 00 ...                                     ← MZ header = PE in memory
 ```
 
-**AVML** — Linux memory acquisition tool (Microsoft):
+**AVML** - Linux memory acquisition tool (Microsoft):
 
 ```bash
 # Acquire memory from a live Linux system
@@ -1020,7 +1020,7 @@ sudo ./avml /tmp/memory.lime
 python3 vol.py -f /tmp/memory.lime linux.pslist
 ```
 
-**Cutter / rizin** (Linux/Windows/macOS) — Open-source GUI reverse engineering platform, Rizin-based:
+**Cutter / rizin** (Linux/Windows/macOS) - Open-source GUI reverse engineering platform, Rizin-based:
 
 ```bash
 # Install on Linux
@@ -1038,7 +1038,7 @@ rizin -A suspicious.exe   # Analyze and auto-identify functions
 [0x00401000]> ii           # List imports
 ```
 
-**pwndbg / peda** (Linux) — GDB extensions that add malware/exploit analysis capabilities:
+**pwndbg / peda** (Linux) - GDB extensions that add malware/exploit analysis capabilities:
 
 ```bash
 # Install pwndbg
@@ -1051,7 +1051,7 @@ gdb ./suspicious_binary
 # register highlighting, backtrace enhancement
 ```
 
-**CAPE Sandbox** (Linux-hosted) — Open-source automated malware analysis platform, self-hosted:
+**CAPE Sandbox** (Linux-hosted) - Open-source automated malware analysis platform, self-hosted:
 
 ```bash
 # CAPE runs on Ubuntu and provides behavioral analysis, memory dumps,
@@ -1115,10 +1115,10 @@ Memory forensics on acquired dump?
 ## References
 
 - [MITRE ATT&CK: Defense Evasion (TA0005)](https://attack.mitre.org/tactics/TA0005/)
-- [PE-sieve — memory scanner](https://github.com/hasherezade/pe-sieve)
-- [Moneta — in-memory IOC scanner](https://github.com/forrest-orr/moneta)
-- [FLARE VM — Windows malware analysis distro](https://github.com/mandiant/flare-vm)
-- [REMnux — Linux malware analysis distro](https://remnux.org/)
+- [PE-sieve - memory scanner](https://github.com/hasherezade/pe-sieve)
+- [Moneta - in-memory IOC scanner](https://github.com/forrest-orr/moneta)
+- [FLARE VM - Windows malware analysis distro](https://github.com/mandiant/flare-vm)
+- [REMnux - Linux malware analysis distro](https://remnux.org/)
 - [Volatility 3](https://github.com/volatilityfoundation/volatility3)
 - [CyberChef](https://gchq.github.io/CyberChef/)
 - [Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/)

@@ -1,4 +1,4 @@
-# 🦞 OpenClaw on TrueNAS SCALE — Complete Setup Guide
+# 🦞 OpenClaw on TrueNAS SCALE - Complete Setup Guide
 
 <div align="center">
 
@@ -17,7 +17,7 @@
 
 ## What is OpenClaw?
 
-OpenClaw is a free, open-source AI agent framework that runs on your own hardware. Think of it as a personal AI assistant — like having a local version of ChatGPT that you control completely, connected to your messaging apps, files, and services.
+OpenClaw is a free, open-source AI agent framework that runs on your own hardware. Think of it as a personal AI assistant - like having a local version of ChatGPT that you control completely, connected to your messaging apps, files, and services.
 
 **What it can do:**
 - Chat via Telegram, Discord, WhatsApp, Slack, Signal, and 50+ other platforms from a single agent
@@ -25,7 +25,7 @@ OpenClaw is a free, open-source AI agent framework that runs on your own hardwar
 - Connect to multiple AI providers simultaneously (Anthropic, Google, Groq, local Ollama models) and route tasks to the best/cheapest model automatically
 - Remember context across sessions and schedule automated tasks with cron jobs
 - Extend functionality with community-built skills (ClawHub) for homelab management, GitHub, Notion, media servers, and more
-- Run 100% locally with Ollama — no data leaves your network
+- Run 100% locally with Ollama - no data leaves your network
 
 **Why self-host it?**
 - Your conversations stay on your hardware
@@ -42,7 +42,7 @@ This repository includes three guides. Start here, then refer to the others once
 | File | Description |
 |------|-------------|
 | **README.md** *(this file)* | Full installation and configuration guide for TrueNAS SCALE |
-| **[use_cases.md](use_cases.md)** | Real-world example prompts organized by workflow — personal, IT support, blue team, red team, purple team, OSINT, and more |
+| **[use_cases.md](use_cases.md)** | Real-world example prompts organized by workflow - personal, IT support, blue team, red team, purple team, OSINT, and more |
 | **[agent_skill_config.md](agent_skill_config.md)** | Pre-built agent personas, skill configurations, cron jobs, and automation setups ready to apply to your instance |
 
 ---
@@ -89,7 +89,7 @@ Before installing, generate a strong random token:
 openssl rand -hex 32
 ```
 
-Save this token — you'll need it throughout setup and to connect to the dashboard.
+Save this token - you'll need it throughout setup and to connect to the dashboard.
 
 ### 1.3 Configuration Settings
 
@@ -117,7 +117,7 @@ Fill in the app installer form as follows:
 
 **Storage Configuration:**
 
-> ⚠️ **CRITICAL: Leave storage type as `ixVolume` — do NOT change to Host Path.**
+> ⚠️ **CRITICAL: Leave storage type as `ixVolume` - do NOT change to Host Path.**
 >
 > There is a known bug in OpenClaw 2026.3.2+ where the config init container fails when using Host Path storage. The ixVolume option (TrueNAS managed storage) is the only storage type that works reliably with the TrueNAS Community app.
 
@@ -139,7 +139,7 @@ In the **Additional Environment Variables** section, add all provider API keys b
 | `OLLAMA_API_KEY` | `ollama-local` |
 | `OLLAMA_BASE_URL` | `http://YOUR_OLLAMA_IP:11434` |
 
-> **Note:** Use `OLLAMA_BASE_URL` — not `OLLAMA_HOST`. The `OLLAMA_HOST` variable is ignored by this version of OpenClaw.
+> **Note:** Use `OLLAMA_BASE_URL` - not `OLLAMA_HOST`. The `OLLAMA_HOST` variable is ignored by this version of OpenClaw.
 
 Click **Install** and wait for the app to show as Running (green) in Apps → Installed.
 
@@ -494,7 +494,7 @@ The `OLLAMA_HOST` environment variable is not supported by this version.
 
 HTTP/2 or HTTP/3 is being negotiated, which breaks WebSocket upgrades.
 
-**Fix:** Ensure `proxy_http_version 1.1` is in the NPMplus advanced config, and that HTTP/2 and HTTP/3 are disabled in the TLS tab. Also ensure your Unbound DNS override is resolving the domain to your local TrueNAS IP — if the domain resolves to your WAN IP, traffic hairpins through NAT and the connection fails.
+**Fix:** Ensure `proxy_http_version 1.1` is in the NPMplus advanced config, and that HTTP/2 and HTTP/3 are disabled in the TLS tab. Also ensure your Unbound DNS override is resolving the domain to your local TrueNAS IP - if the domain resolves to your WAN IP, traffic hairpins through NAT and the connection fails.
 
 ### Certificate request fails with Internal Error in NPMplus
 
@@ -566,7 +566,7 @@ sudo docker logs ix-openclaw-openclaw-1 2>&1 | tail -n 30
 
 | Provider | Cost | Best For |
 |----------|------|----------|
-| Groq | Free tier (generous) | Default for most tasks — fast Llama 3.3 70B |
+| Groq | Free tier (generous) | Default for most tasks - fast Llama 3.3 70B |
 | Google Gemini | Free tier | Long context tasks (1M token window) |
 | Ollama (local) | Free forever | Sensitive tasks, offline use |
 | Anthropic (Claude) | Paid | Complex reasoning, long documents |
@@ -582,7 +582,7 @@ The **Adaptive** model mode in the dashboard automatically routes to a stronger 
   sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs onboard --auth-choice telegram
   ```
 - **Install the TrueNAS skill** from ClawHub to manage your homelab via OpenClaw
-- **Rotate your API keys** — Groq and Gemini keys were visible in shell history during initial setup
+- **Rotate your API keys** - Groq and Gemini keys were visible in shell history during initial setup
 - **Run periodic health checks:**
   ```bash
   sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs security audit

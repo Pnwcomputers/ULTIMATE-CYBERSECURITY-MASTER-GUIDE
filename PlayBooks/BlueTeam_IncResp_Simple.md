@@ -6,7 +6,7 @@ Define standardized, repeatable processes for detecting, analyzing, containing, 
 
 ## ⚙️ Function
 
-A seven-phase lifecycle procedure (Preparation → Detection → Containment → Eradication → Recovery → Post-Incident) with a defined roles table and generic tool references (SIEM, EDR, IDS/IPS by category rather than specific product). This is the **quick-reference version** — for the same lifecycle with specific named tools (Splunk ES, CrowdStrike Falcon, Ghidra) and NIST/ISO framework alignment, see `BlueTeam_IncResp_Enhanced.md`.
+A seven-phase lifecycle procedure (Preparation → Detection → Containment → Eradication → Recovery → Post-Incident) with a defined roles table and generic tool references (SIEM, EDR, IDS/IPS by category rather than specific product). This is the **quick-reference version** - for the same lifecycle with specific named tools (Splunk ES, CrowdStrike Falcon, Ghidra) and NIST/ISO framework alignment, see `BlueTeam_IncResp_Enhanced.md`.
 
 ## 🏆 Goal
 
@@ -20,7 +20,7 @@ Give a smaller team or a single analyst a fast, no-frills checklist to follow th
 
 ### Scope:
 
-Covers any incident impacting on-premise or cloud systems—including malware infections, data exfiltration, unauthorized access, denial-of-service, insider threats, and supply-chain compromises—across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
+Covers any incident impacting on-premise or cloud systems-including malware infections, data exfiltration, unauthorized access, denial-of-service, insider threats, and supply-chain compromises-across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
 
 ---
 

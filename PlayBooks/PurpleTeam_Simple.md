@@ -1,6 +1,6 @@
 # Purple Team Playbook (Simple)
 
-This playbook is designed to be modular and expandable — so you can plug in new techniques, scripts, and lessons learned over time. It's practical and organized for your own lab or for professional purple team exercises.
+This playbook is designed to be modular and expandable - so you can plug in new techniques, scripts, and lessons learned over time. It's practical and organized for your own lab or for professional purple team exercises.
 
 **Your living guide for designing, executing, and improving detection and defense.**
 
@@ -12,7 +12,7 @@ Integrate offensive and defensive techniques to continuously test, measure, and 
 
 ## ⚙️ Function
 
-A three-role, lab-first exercise cycle (Red Operator attacks → Blue Analyst monitors/tunes → Purple Facilitator coordinates and documents) run against a defined lab environment (isolated network, EDR, SIEM, Atomic Red Team/CALDERA/Metta). This is the **entry-level version** — for the same purple-team concept with named enterprise tooling, formal workflow phases, and reporting/metrics dashboards, see `PurpleTeam_Detailed.md`; for a scripting-focused variant built around Python/PowerShell/Batch attack scripts specifically, see `PurpleTeam_Multi-Scrip.md`.
+A three-role, lab-first exercise cycle (Red Operator attacks → Blue Analyst monitors/tunes → Purple Facilitator coordinates and documents) run against a defined lab environment (isolated network, EDR, SIEM, Atomic Red Team/CALDERA/Metta). This is the **entry-level version** - for the same purple-team concept with named enterprise tooling, formal workflow phases, and reporting/metrics dashboards, see `PurpleTeam_Detailed.md`; for a scripting-focused variant built around Python/PowerShell/Batch attack scripts specifically, see `PurpleTeam_Multi-Scrip.md`.
 
 ## 🏆 Goal
 
@@ -68,13 +68,13 @@ Get a small team or individual practitioner running a first purple team exercise
 
 ## Execution Workflow
 
-### 🗂️ Step 1 — Select TTP
+### 🗂️ Step 1 - Select TTP
 
 ✅ Pick from MITRE ATT&CK  
 ✅ Document tactic, technique ID, scenario  
-✅ Example: T1110 — Brute Force
+✅ Example: T1110 - Brute Force
 
-### 🗂️ Step 2 — Simulate
+### 🗂️ Step 2 - Simulate
 
 ✅ Run manual or automated attack:
 
@@ -91,14 +91,14 @@ import requests
 # loop over creds
 ```
 
-### 🗂️ Step 3 — Monitor
+### 🗂️ Step 3 - Monitor
 
 ✅ Confirm:
 - Logs generated?
 - SIEM parsing correct fields?
 - Alert fired?
 
-### 🗂️ Step 4 — Document
+### 🗂️ Step 4 - Document
 
 Record:
 
@@ -111,7 +111,7 @@ Record:
 | False Positives | Yes/No |
 | Improvement | Add user lockout |
 
-### 🗂️ Step 5 — Tune
+### 🗂️ Step 5 - Tune
 
 ✅ Adjust:
 - Detection thresholds
@@ -124,11 +124,11 @@ Record:
 
 ## Example Playbook Entries
 
-### ✅ Playbook Entry — Brute Force Test
+### ✅ Playbook Entry - Brute Force Test
 
 | Item | Details |
 |------|---------|
-| TTP | T1110 — Brute Force |
+| TTP | T1110 - Brute Force |
 | Goal | Confirm SIEM detects repeated login failures |
 | Method | Atomic Red Team `Invoke-AtomicTest T1110` |
 | Logs | Auth logs, Windows Event 4625 |
@@ -136,11 +136,11 @@ Record:
 | Expected | Alert in SIEM dashboard |
 | Notes | Verify lockout policy |
 
-### ✅ Playbook Entry — Malicious PowerShell
+### ✅ Playbook Entry - Malicious PowerShell
 
 | Item | Details |
 |------|---------|
-| TTP | T1059 — Command and Scripting Interpreter |
+| TTP | T1059 - Command and Scripting Interpreter |
 | Goal | Detect suspicious PowerShell |
 | Method | Python script to run `Invoke-WebRequest` |
 | Logs | PowerShell logs, Process CommandLine |
@@ -148,11 +148,11 @@ Record:
 | Expected | SIEM alert |
 | Notes | Tune for false positives (legit scripts) |
 
-### ✅ Playbook Entry — DNS Tunneling
+### ✅ Playbook Entry - DNS Tunneling
 
 | Item | Details |
 |------|---------|
-| TTP | T1071.004 — Application Layer Protocol: DNS |
+| TTP | T1071.004 - Application Layer Protocol: DNS |
 | Goal | Detect unusual DNS query patterns |
 | Method | Python script to simulate repeated encoded DNS queries |
 | Logs | DNS server logs |
@@ -179,8 +179,8 @@ Record:
 
 | TTP | Status | Next Test Date | Notes |
 |-----|--------|----------------|-------|
-| T1003 — Credential Dumping | Not Tested | July 2025 | Needs lab config |
-| T1547 — Persistence | Tested | Quarterly | Verify detection resilience |
+| T1003 - Credential Dumping | Not Tested | July 2025 | Needs lab config |
+| T1547 - Persistence | Tested | Quarterly | Verify detection resilience |
 
 ---
 
@@ -206,7 +206,7 @@ Record:
 ✅ Always get written approvals for live network tests  
 ✅ Version-control scripts & rules  
 ✅ Share findings with blue team for tuning  
-✅ Log everything — repeatable evidence is gold!
+✅ Log everything - repeatable evidence is gold!
 
 ---
 

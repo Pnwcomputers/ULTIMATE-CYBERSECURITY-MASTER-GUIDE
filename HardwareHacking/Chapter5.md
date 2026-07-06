@@ -1,8 +1,8 @@
 
-# Chapter 5: Power Analysis — Practical Techniques
+# Chapter 5: Power Analysis - Practical Techniques
 
 ## 🎯 Purpose
-Hands-on guide to real-world power analysis — covering measurement hardware setup, trace acquisition scripts, signal processing (filtering, alignment, PCA), CPA attack implementation in Python/NumPy, and Test Vector Leakage Assessment (TVLA) for validating leakage before committing to a full attack campaign.
+Hands-on guide to real-world power analysis - covering measurement hardware setup, trace acquisition scripts, signal processing (filtering, alignment, PCA), CPA attack implementation in Python/NumPy, and Test Vector Leakage Assessment (TVLA) for validating leakage before committing to a full attack campaign.
 
 ## ⚙️ Function
 Covers: oscilloscope/current probe hardware configuration, shunt resistor insertion, Python trace acquisition via scope API (Rigol/PicoScope), trigger synchronization, trace preprocessing (bandpass filter, cross-correlation alignment, PCA dimensionality reduction), CPA attack on AES SubBytes with NumPy, and TVLA Welch t-test leakage detection.
@@ -16,7 +16,7 @@ Successfully acquire clean power traces, align them by trigger, and execute a CP
 - Validating whether a device leaks before investing in 10,000+ trace campaigns
 - Measuring the effectiveness of masking or other countermeasures
 
-> *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+> *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
 
@@ -76,7 +76,7 @@ target.baud = 38400
 - **Interleave plaintext randomization:** Use a CSPRNG for plaintext generation, not sequential values
 - **Temperature stability:** Let the bench warm up 15–30 minutes; temperature drift causes trace misalignment
 - **Capture sufficient traces:** Start with 1,000; increase if CPA peak is ambiguous
-- **Validate trigger consistency:** Check trigger-to-first-sample jitter — even 1 clock cycle of jitter significantly degrades DPA quality
+- **Validate trigger consistency:** Check trigger-to-first-sample jitter - even 1 clock cycle of jitter significantly degrades DPA quality
 
 ```python
 import chipwhisperer as cw
@@ -139,7 +139,7 @@ def bandpass_filter(traces, low_hz, high_hz, sample_rate_hz, order=4):
     return filtfilt(b, a, traces, axis=1)
 ```
 
-#### Trace Alignment — SAD Method
+#### Trace Alignment - SAD Method
 
 Timing jitter between traces destroys DPA correlation. Alignment corrects this.
 
@@ -203,7 +203,7 @@ def align_traces_xcorr(traces, reference_trace):
   <img src="/assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack." width="600"/>
 </p>
 
-CPA (Brier et al., 2004) is the modern standard — more efficient than original DPA's difference-of-means. Uses Pearson correlation coefficient.
+CPA (Brier et al., 2004) is the modern standard - more efficient than original DPA's difference-of-means. Uses Pearson correlation coefficient.
 
 ```python
 def cpa_attack(traces, plaintexts, byte_idx, poi_start=0, poi_end=None):
@@ -257,7 +257,7 @@ def plot_trace_overlay(traces, n_show=100, title="Power Traces"):
         ax1.plot(traces[i], alpha=0.05, color='blue', linewidth=0.5)
     ax1.plot(np.mean(traces, axis=0), color='red', linewidth=1.5, label='Mean')
     ax1.set_ylabel('Power (ADC units)')
-    ax1.set_title(f'{title} — Overlay ({n_show} traces)')
+    ax1.set_title(f'{title} - Overlay ({n_show} traces)')
     ax1.legend()
     
     ax2.plot(np.std(traces, axis=0), color='orange', linewidth=1)
@@ -278,7 +278,7 @@ def plot_cpa_result(correlation_matrix, true_key_byte=None, byte_idx=0):
     im = ax1.imshow(np.abs(correlation_matrix), aspect='auto', cmap='hot', interpolation='nearest')
     ax1.set_xlabel('Sample index')
     ax1.set_ylabel('Key guess (0x00 – 0xFF)')
-    ax1.set_title(f'CPA Correlation Map — Key Byte {byte_idx}')
+    ax1.set_title(f'CPA Correlation Map - Key Byte {byte_idx}')
     plt.colorbar(im, ax=ax1, label='|Pearson r|')
     
     if true_key_byte is not None:
@@ -352,7 +352,7 @@ def second_order_dpa(traces, byte_idx, poi1, poi2):
 
 Template attacks (Chari et al., 2002) are the most powerful single-trace attacks. They require a training phase on a copy of the target device where the key is known, then a matching phase on the actual target.
 
-Template attacks can recover keys from a **single trace** against unprotected implementations — the theoretical optimum for passive side-channel attacks.
+Template attacks can recover keys from a **single trace** against unprotected implementations - the theoretical optimum for passive side-channel attacks.
 
 #### Leakage Assessment: t-TVLA
 
@@ -395,9 +395,9 @@ Use TVLA results to:
 ---
 
 ## Related Files
-- [Chapter4.md](Chapter4.md) — Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: shunt resistor calculation, probe loading, and decoupling cap removal for clean power traces
-- [Chapter3.md](Chapter3.md) — Fault injection: the active attack complement; often combined with power analysis in advanced assessments
+- [Chapter4.md](Chapter4.md) - Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: shunt resistor calculation, probe loading, and decoupling cap removal for clean power traces
+- [Chapter3.md](Chapter3.md) - Fault injection: the active attack complement; often combined with power analysis in advanced assessments
 
 ---
 

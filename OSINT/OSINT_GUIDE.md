@@ -124,7 +124,7 @@ maigret username --pdf --html -o ./username_results/
 
 #### **Blackbird**
 ~~~bash
-# Username enumeration — alternative/complement to Sherlock & Maigret
+# Username enumeration - alternative/complement to Sherlock & Maigret
 blackbird -u username
 ~~~
 - **Use Case**: Username search across additional platforms not covered by Sherlock
@@ -360,7 +360,7 @@ site:*.target.com -www
 - **crt.sh** (https://crt.sh) - Certificate transparency log search
 
 ~~~bash
-# Certificate transparency — find related domains via shared certs
+# Certificate transparency - find related domains via shared certs
 curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | sort -u
 ~~~
 
@@ -536,13 +536,13 @@ pip3 install holehe
 
 #### **Evidence & Archival Tools**
 ~~~bash
-# Monolith — self-contained HTML archives
+# Monolith - self-contained HTML archives
 cargo install monolith
 
-# CutyCapt — CLI screenshots
+# CutyCapt - CLI screenshots
 sudo apt install -y cutycapt
 
-# WaybackPy — Wayback Machine submission
+# WaybackPy - Wayback Machine submission
 pip3 install waybackpy
 ~~~
 
@@ -715,7 +715,7 @@ cat subs.txt | httpx -td -server -title -asn
 # Historical URLs
 echo scam-domain.com | waybackurls > historical_urls.txt
 
-# Certificate transparency — find related domains
+# Certificate transparency - find related domains
 curl -s "https://crt.sh/?q=%25.scam-domain.com&output=json" | jq
 ~~~
 
@@ -770,7 +770,7 @@ For significant addresses:
 1. Identify the **first funding source** (often reveals on/off-ramp)
 2. Track outgoing transactions
 3. Look for **exchange deposits** (cluster analysis tools like OXT, Breadcrumbs)
-4. Note address clustering — wallets controlled by the same entity
+4. Note address clustering - wallets controlled by the same entity
 
 #### Step 5: Documentation
 
@@ -820,17 +820,17 @@ VoIP detection is built into PhoneInfoga and most carrier lookup APIs.
 
 ### Username Investigation Procedure
 
-#### Step 1: Wide Net — Maigret (2500+ sites)
+#### Step 1: Wide Net - Maigret (2500+ sites)
 ~~~bash
 maigret target_username --pdf --html -o ./username_results/
 ~~~
 
-#### Step 2: Fast Verification — Sherlock (400+ sites)
+#### Step 2: Fast Verification - Sherlock (400+ sites)
 ~~~bash
 sherlock target_username --csv
 ~~~
 
-#### Step 3: Additional Coverage — Blackbird
+#### Step 3: Additional Coverage - Blackbird
 ~~~bash
 blackbird -u target_username
 ~~~
@@ -1025,11 +1025,11 @@ For each discovered profile:
 
 ### Golden Rules
 
-1. **Hash everything** — SHA256 immediately upon collection
-2. **Timestamp everything** — UTC timestamps for all evidence
-3. **Document chain of custody** — log who collected what and when
-4. **Multiple copies** — original + working copy in separate locations
-5. **Integrity verification** — periodic hash re-checks
+1. **Hash everything** - SHA256 immediately upon collection
+2. **Timestamp everything** - UTC timestamps for all evidence
+3. **Document chain of custody** - log who collected what and when
+4. **Multiple copies** - original + working copy in separate locations
+5. **Integrity verification** - periodic hash re-checks
 
 ### Web Page Archival Procedure
 
@@ -1108,7 +1108,7 @@ From your investigation, compile contacts for:
 - **Email provider** abuse address (Gmail, Outlook, Proton, etc.)
 - **Upstream ISP** (if identifiable separately from hosting)
 - **Social media platform** abuse/trust & safety contacts
-- **Payment processor** (if money is involved — Stripe, PayPal, crypto exchange)
+- **Payment processor** (if money is involved - Stripe, PayPal, crypto exchange)
 
 ### Step 2: Prepare the Report
 
@@ -1118,7 +1118,7 @@ Each report should include:
 ✅ Nature of abuse (phishing, scam, malware, CSAM, etc.)
 ✅ Specific URLs, IPs, and domains
 ✅ Timeline of observed activity (with UTC timestamps)
-✅ Evidence references (don't attach — reference your hash manifest)
+✅ Evidence references (don't attach - reference your hash manifest)
 ✅ Your contact information for follow-up
 ✅ Statement that you are reporting in good faith
 ~~~
@@ -1158,7 +1158,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 
 ~~~
 ✅ Victim information (with consent)
-✅ Suspect information — all known identifiers
+✅ Suspect information - all known identifiers
 ✅ Financial loss amount (if applicable)
 ✅ Payment methods used (wire, crypto, gift cards, etc.)
 ✅ Communication records (preserved with hashes)

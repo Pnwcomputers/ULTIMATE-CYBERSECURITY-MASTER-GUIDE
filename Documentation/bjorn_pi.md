@@ -1,16 +1,16 @@
 # Bjorn: An Autonomous Network-Service Attacker on the Raspberry Pi
 
 ## 🎯 Purpose
-Technical guide for Bjorn — an open-source autonomous network attacker running as a Python daemon on a Raspberry Pi that performs network discovery, vulnerability scanning, brute-force authentication attacks, and file/data exfiltration against network services (SSH, SMB, FTP, RDP, Telnet, SQL).
+Technical guide for Bjorn - an open-source autonomous network attacker running as a Python daemon on a Raspberry Pi that performs network discovery, vulnerability scanning, brute-force authentication attacks, and file/data exfiltration against network services (SSH, SMB, FTP, RDP, Telnet, SQL).
 
 ## ⚙️ Function
 Covers hardware requirements (Pi Zero W/Zero 2 W + Waveshare 2.13" e-Paper HAT), automated installation via `install_bjorn.sh`, scope configuration, and deep-dives on each attack module: host discovery, nmap NSE vulnerability scanning, per-service brute-force connectors, file/SQL stealers, and the zombie catalog for persistent credential reuse. Includes a 7-exercise closed-lab playbook (using Metasploitable2/3), blue-team detection and prevention table, bill of materials, and strict compliance checklists.
 
 ## 🏆 Goal
-Enable security professionals to evaluate network-service authentication strength, account lockout policies, and exfiltration detection capabilities in an isolated lab — and to write Suricata/Zeek detection rules from real attack traffic.
+Enable security professionals to evaluate network-service authentication strength, account lockout policies, and exfiltration detection capabilities in an isolated lab - and to write Suricata/Zeek detection rules from real attack traffic.
 
 ## 📋 When to Use
-- **Closed lab only** — against Metasploitable2/3, DVWA, or purpose-built vulnerable VMs
+- **Closed lab only** - against Metasploitable2/3, DVWA, or purpose-built vulnerable VMs
 - Evaluating SSH/SMB/FTP/RDP/SQL authentication strength and account lockout policy impact
 - Teaching the consequences of weak credentials and poor network segmentation
 - Building NIDS detection rules against brute-force and exfiltration patterns
@@ -703,12 +703,12 @@ Ragnar is worth knowing about because:
 ---
 
 ## Related Files
-- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5Project: RF/WiFi layer attacks that complement Bjorn's network-service layer
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero: Sub-GHz, NFC, RFID physical layer tool; used alongside Bjorn in a complete engagement kit
-- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware on Cardputer: multi-radio tool referenced in Bjorn's tool-comparison appendix
-- [wireshark.md](wireshark.md) — Wireshark: analyzing the brute-force and exfiltration traffic Bjorn generates (blue-team detection exercises)
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Pwnagotchi: autonomous Pi-based WiFi handshake capture (same Pi hardware, wireless layer)
-- [../Homelab/](../Homelab/) — Proxmox/TrueNAS homelab guides for building the isolated VLAN lab Bjorn requires
+- [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5Project: RF/WiFi layer attacks that complement Bjorn's network-service layer
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero: Sub-GHz, NFC, RFID physical layer tool; used alongside Bjorn in a complete engagement kit
+- [bruce_firmware.md](bruce_firmware.md) - Bruce firmware on Cardputer: multi-radio tool referenced in Bjorn's tool-comparison appendix
+- [wireshark.md](wireshark.md) - Wireshark: analyzing the brute-force and exfiltration traffic Bjorn generates (blue-team detection exercises)
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: autonomous Pi-based WiFi handshake capture (same Pi hardware, wireless layer)
+- [../Homelab/](../Homelab/) - Proxmox/TrueNAS homelab guides for building the isolated VLAN lab Bjorn requires
 
 ---
 

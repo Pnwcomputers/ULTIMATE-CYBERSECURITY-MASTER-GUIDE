@@ -1,13 +1,13 @@
 # 🏢 Appendix A: The Space Sector
 
 ## 🎯 Purpose
-Reference appendices for the Space Security guide — covering industry overview (commercial, defense, NewSpace), regulatory and standards bodies (NIST SP 800-53, CCSDS, ITU), career paths in space security, and further reading resources.
+Reference appendices for the Space Security guide - covering industry overview (commercial, defense, NewSpace), regulatory and standards bodies (NIST SP 800-53, CCSDS, ITU), career paths in space security, and further reading resources.
 
 ## ⚙️ Function
 Contains tabular industry overview (sector/key players/security relevance), regulatory bodies and applicable standards, space security career paths (ground segment security engineer, satellite systems pentester, RF security researcher), and curated resource lists.
 
 ## 🏆 Goal
-Provide the background context, standards references, and resource pointers that complement the operational content in Parts I-IV — useful for scoping assessments, understanding regulatory constraints, and professional development.
+Provide the background context, standards references, and resource pointers that complement the operational content in Parts I-IV - useful for scoping assessments, understanding regulatory constraints, and professional development.
 
 ## 📋 When to Use
 - Identifying which standards apply to a client's space system (NIST, CCSDS, ITU)
@@ -33,7 +33,7 @@ Provide the background context, standards references, and resource pointers that
 | **FCC** | US licensing for earth stations, satellites, terminals |
 | **FAA** | Aviation use of GNSS and SATCOM |
 | **NIST** | SP 800-53 controls applicable to federal space systems |
-| **CCSDS** | Protocol standards (also security recommendations — CCSDS 350.x series) |
+| **CCSDS** | Protocol standards (also security recommendations - CCSDS 350.x series) |
 | **CISA** | Space Systems Critical Infrastructure guidance |
 | **DoD / NSA** | COMSEC requirements for national security space |
 
@@ -130,8 +130,8 @@ This section contains attack techniques and methodologies for:
 
 | Law / Regulation | Scope |
 |-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems — up to 10 years |
-| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies — criminal offense |
+| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems - up to 10 years |
+| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies - criminal offense |
 | **ITAR (22 CFR 120-130)** | Export control on satellite technology and related security tools |
 | **ITU Radio Regulations** | International frequency coordination and harmful interference prohibition |
 | **UK Computer Misuse Act** | Unauthorized access to space-related computer systems |
@@ -163,7 +163,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 - CCSDS 350.0-G-3: *The Application of Security to CCSDS Protocols*
 - CCSDS 351.0-M-1: *Security Architecture for Space Data Systems*
-- NIST SP 800-53 Rev 5 — Control families applicable to space (SA, SI, SC, AU)
+- NIST SP 800-53 Rev 5 - Control families applicable to space (SA, SI, SC, AU)
 - NIST IR 8270: *An Overview of Cybersecurity for Commercial Satellite Operations*
 - CISA: *Space Systems Critical Infrastructure Security and Resilience*
 - Aerospace Corporation: *Defending Space Systems from Cyber Threats*
@@ -172,15 +172,15 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 - IOActive: *SATCOM Security* (2014, 2020 revisit)
 - DEF CON Aerospace Village proceedings (annual)
-- Hack-A-Sat CTF competition (annual — US Space Force / Air Force)
-- Black Hat 2020 — Ruben Santamarta: Revisiting SATCOM Security
+- Hack-A-Sat CTF competition (annual - US Space Force / Air Force)
+- Black Hat 2020 - Ruben Santamarta: Revisiting SATCOM Security
 
 ### Online Resources
 
-- [MITRE ATT&CK for ICS](https://attack.mitre.org/matrices/ics/) — Relevant overlap for ground segment OT
-- [SatNOGS Network](https://network.satnogs.org/) — Open-source global ground station network
-- [Space-Track.org](https://www.space-track.org/) — TLE orbital element data
-- [AMSAT](https://www.amsat.org/) — Amateur satellite frequencies and protocols
+- [MITRE ATT&CK for ICS](https://attack.mitre.org/matrices/ics/) - Relevant overlap for ground segment OT
+- [SatNOGS Network](https://network.satnogs.org/) - Open-source global ground station network
+- [Space-Track.org](https://www.space-track.org/) - TLE orbital element data
+- [AMSAT](https://www.amsat.org/) - Amateur satellite frequencies and protocols
 
 ---
 
@@ -188,7 +188,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
-*Space systems are critical infrastructure — treat them accordingly.*
+*Space systems are critical infrastructure - treat them accordingly.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -197,8 +197,8 @@ USERS EXPLICITLY ACKNOWLEDGE:
 ---
 
 ## Related Files
-- [README.md](README.md) — SpaceSecurity section index
-- [PartI.md](PartI.md) — Foundations: the operational content these appendices support
+- [README.md](README.md) - SpaceSecurity section index
+- [PartI.md](PartI.md) - Foundations: the operational content these appendices support
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

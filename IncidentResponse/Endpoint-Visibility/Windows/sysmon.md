@@ -1,6 +1,6 @@
 # 🪟 Windows Sysmon Deployment Guide
 
-**System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more—critical telemetry for threat detection and incident response.
+**System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more-critical telemetry for threat detection and incident response.
 
 This guide covers installing, configuring, and maintaining Sysmon across your environment.
 

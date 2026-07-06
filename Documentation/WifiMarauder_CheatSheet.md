@@ -1,7 +1,7 @@
 # ⚡ WiFi Marauder (v1.8.9+) Cheat Sheet 📡
 
 ## 🎯 Purpose
-On-device command reference for ESP32 Marauder firmware — the pocket-sized WiFi and Bluetooth security testing platform. Covers the capture workflow (on-device) and the post-capture processing pipeline (on Kali/Linux).
+On-device command reference for ESP32 Marauder firmware - the pocket-sized WiFi and Bluetooth security testing platform. Covers the capture workflow (on-device) and the post-capture processing pipeline (on Kali/Linux).
 
 ## ⚙️ Function
 Organized in two phases: on-device capture using the Marauder menu system (AP scanning, handshake/PMKID capture, deauth, beacon spam, GPS wardriving), and post-capture processing using hcxpcapngtool to convert `.pcapng` files to Hashcat mode 22000 format for cracking. See [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) for the full guide with hardware selection, installation, and advanced scenarios.
@@ -132,10 +132,10 @@ mergecap -w merged.pcapng capture-*.pcapng
 ---
 
 ## Related Files
-- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) — Full Marauder guide: hardware selection, firmware installation, advanced attack scenarios
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Complete hcxtools + Hashcat mode 22000 cracking workflow
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng suite for deauth-forced handshake capture workflows
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero + ESP32 Dev Board: running Marauder via the Flipper
-- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5Project: keyboard-driven WiFi attack platform (sibling to Marauder)
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Pwnagotchi: passive handshake capture on Pi (same pcapng output format)
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) - Full Marauder guide: hardware selection, firmware installation, advanced attack scenarios
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Complete hcxtools + Hashcat mode 22000 cracking workflow
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng suite for deauth-forced handshake capture workflows
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero + ESP32 Dev Board: running Marauder via the Flipper
+- [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5Project: keyboard-driven WiFi attack platform (sibling to Marauder)
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: passive handshake capture on Pi (same pcapng output format)
 

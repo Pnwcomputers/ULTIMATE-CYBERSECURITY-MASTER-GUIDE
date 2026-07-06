@@ -4,7 +4,7 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
-> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh). Run it on a fresh Rex image and it handles all six phases for you — including reboots.
+> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh). Run it on a fresh Rex image and it handles all six phases for you - including reboots.
 > ```bash
 > wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm4-setup.sh
 > chmod +x uconsole-cm4-setup.sh
@@ -67,11 +67,11 @@ This guide assumes the following hardware stack:
 | **USB Hub** | External USB-C port + internal USB-C + pin header |
 | **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
 
-> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** — incorrect installation will damage the uConsole mainboard.
+> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** - incorrect installation will damage the uConsole mainboard.
 
 ### AIO v2 GPIO Map (Verified Against HackerGadgets Official Docs)
 
-These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and Internal USB — make sure you're working with v2 hardware.)
+These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and Internal USB - make sure you're working with v2 hardware.)
 
 | Peripheral | GPIO | Notes |
 |---|---|---|
@@ -85,7 +85,7 @@ These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and
 
 ## Choosing Your OS: Kali vs Trixie
 
-Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository required for the `hackergadgets-uconsole-aio-board` package — that package is not available on stock ClockworkPi or upstream Kali images.
+Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository required for the `hackergadgets-uconsole-aio-board` package - that package is not available on stock ClockworkPi or upstream Kali images.
 
 Rex's images include several conveniences that this guide relies on:
 - Auto-expanding root filesystem on first boot (no `raspi-config` needed)
@@ -144,18 +144,18 @@ Rex's specific guidance from the forum threads: **use Raspberry Pi Imager direct
 
 ### First Boot
 
-Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once — let that complete. After the second boot:
+Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once - let that complete. After the second boot:
 - Log in with the default credentials
 - Open a terminal
 **Do NOT run `apt update` or `apt full-upgrade` yet.** Proceed directly to Step 2.
 
 ---
 
-## Step 2: First Boot — Pre-Flight Hardening
+## Step 2: First Boot - Pre-Flight Hardening
 
 This step pre-empts the three issues that historically break a fresh uConsole install on its first upgrade. We fix all three before any `apt full-upgrade` runs.
 
-### 2.1 — Disable the cryptsetup-initramfs hook
+### 2.1 - Disable the cryptsetup-initramfs hook
 
 The `cryptsetup-initramfs` hook fails on Pi systems (it can't resolve `/dev/root` from `PARTUUID=` cmdlines), which kills dpkg triggers and can corrupt the initramfs mid-upgrade. Unless you're using LUKS (you aren't, on a fresh Rex image), disable the hook:
 
@@ -164,9 +164,9 @@ sudo mkdir -p /etc/cryptsetup-initramfs
 echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
 ```
 
-### 2.2 — Pin LightDM to sessions that survive upgrades
+### 2.2 - Pin LightDM to sessions that survive upgrades
 
-Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Some upgrade paths replace those packages and remove the session files, leaving LightDM pointing at nothing — "Failed to start session" on next login.
+Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Some upgrade paths replace those packages and remove the session files, leaving LightDM pointing at nothing - "Failed to start session" on next login.
 
 Swap the references now to session names that are stable across Rex's images and Kali rolling:
 
@@ -191,9 +191,9 @@ done
 ls /usr/share/wayland-sessions/labwc.desktop \
    /usr/share/xgreeters/lightdm-gtk-greeter.desktop
 ```
-If either `ls` line errors out, stop and resolve it before continuing — the upgrade will not install them for you.
+If either `ls` line errors out, stop and resolve it before continuing - the upgrade will not install them for you.
 
-### 2.3 — (Trixie path only) Remove raspberrypi-sys-mods
+### 2.3 - (Trixie path only) Remove raspberrypi-sys-mods
 
 *Kali users: Skip 2.3 and 2.4. Your image doesn't ship raspberrypi-sys-mods and isn't layering Kali on top of Trixie.*
 
@@ -214,7 +214,7 @@ if [ -n "$EXTMGD" ]; then
 fi
 ```
 
-### 2.4 — (Trixie path only) Add Kali rolling and pin it
+### 2.4 - (Trixie path only) Add Kali rolling and pin it
 
 Pinning Kali as the primary repo before the first big upgrade prevents the dependency-mismatch storm that hits when Kali's newer `libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, `Qt6` etc. land on a half-Trixie system:
 
@@ -245,7 +245,7 @@ After this, Kali rolling is the primary package source. Trixie and Rex's repo fi
 With Step 2 complete, it is now safe to update the system:
 
 ```bash
-# First full system upgrade — Step 2 made this safe
+# First full system upgrade - Step 2 made this safe
 sudo apt update
 sudo apt full-upgrade -y
 
@@ -259,7 +259,7 @@ sudo hostnamectl set-hostname uconsole
 
 sudo reboot
 ```
-*Note: Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed. Confirm with `df -h /` if you're curious — it should show the SD card's full capacity.*
+*Note: Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed. Confirm with `df -h /` if you're curious - it should show the SD card's full capacity.*
 
 After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. If not, see **Troubleshooting → "Failed to start session"**.
 
@@ -267,7 +267,7 @@ After the reboot, log back in. If LightDM hands you a working desktop, Step 2 di
 
 ## Step 4: Add Kali Tools (Trixie Only)
 
-*Skip this step on Rex's Kali image — the tools are already installed.*
+*Skip this step on Rex's Kali image - the tools are already installed.*
 
 The Kali repo and pin were added in Step 2.4. Now install the toolkit:
 
@@ -275,7 +275,7 @@ The Kali repo and pin were added in Step 2.4. Now install the toolkit:
 |---|---|
 | `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
 | `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit — everything you'd get from a Kali ISO |
+| `kali-linux-default` | Full default Kali desktop toolkit - everything you'd get from a Kali ISO |
 
 ```bash
 # Pick one
@@ -375,7 +375,7 @@ sudo reboot
 | `sdrpp-brown` | Preconfigured SDR++ build for the uConsole | Yes |
 | `tar1090` | ADS-B aircraft tracking web UI | Yes |
 | `pygpsclient` | GPS monitoring and diagnostics GUI | Yes |
-| `meshtasticd` | Meshtastic daemon | Yes — repo added, config.yaml written |
+| `meshtasticd` | Meshtastic daemon | Yes - repo added, config.yaml written |
 
 ---
 
@@ -399,7 +399,7 @@ The serial console must be disabled or GPS will be intermittently overwritten by
 ```bash
 sudo nano /boot/firmware/cmdline.txt
 ```
-Find and delete `console=serial0,115200` from the line. Save and exit. Keep all the other parameters on a single line — `cmdline.txt` is whitespace-sensitive.
+Find and delete `console=serial0,115200` from the line. Save and exit. Keep all the other parameters on a single line - `cmdline.txt` is whitespace-sensitive.
 
 ### Add Your User to the dialout Group
 To read from `/dev/ttyS0` without sudo (required for GUI tools like pygpsclient):
@@ -461,7 +461,7 @@ Lora:
 
 ### Connect the Antenna
 Connect a 433 or 915 MHz antenna (region-dependent) to the IPEX connector labeled "LoRa" on the AIO v2 board.
-**Never transmit without an antenna connected — the SX1262's PA can be damaged by reflected power.**
+**Never transmit without an antenna connected - the SX1262's PA can be damaged by reflected power.**
 
 ### First-Time Meshtastic Setup (Web UI)
 1. Restart the daemon (`sudo systemctl restart meshtasticd`), then open a browser on the uConsole and navigate to `https://localhost`.
@@ -554,13 +554,13 @@ aiov2_ctl --boot-rails-status
 The CM4's onboard WiFi does not support monitor mode. You need an external USB WiFi adapter.
 
 ### Install the DKMS Driver
-RTL8812AU/RTL8814AU chipsets are not in the mainline Linux kernel — they need a DKMS module. Rex's images ship with `linux-headers` already included:
+RTL8812AU/RTL8814AU chipsets are not in the mainline Linux kernel - they need a DKMS module. Rex's images ship with `linux-headers` already included:
 
 ```bash
 sudo apt install realtek-rtl88xxau-dkms -y
 sudo dkms status | grep rtl88
 ```
-Plug in the adapter — `iwconfig` should now list it.
+Plug in the adapter - `iwconfig` should now list it.
 
 ### Verify Monitor Mode
 ```bash
@@ -782,7 +782,7 @@ sudo systemctl restart lightdm
 ```
 
 ### AIO board package fails with `/tmp` script errors
-Symptoms — postinst script can't find `/tmp/readsb-install.sh` or `/tmp/config.yaml`. Fix:
+Symptoms - postinst script can't find `/tmp/readsb-install.sh` or `/tmp/config.yaml`. Fix:
 
 ```bash
 sudo apt purge hackergadgets-uconsole-aio-board -y
@@ -810,12 +810,12 @@ sudo apt install meshtastic-mui -y
 
 ### RTL8812AU adapter not visible
 * DKMS module built for your running kernel: `sudo dkms status | grep rtl88`
-* If status shows "added" but not "installed" — kernel headers aren't matching. Install the matching `linux-headers-$(uname -r)` and run `sudo dkms autoinstall`.
+* If status shows "added" but not "installed" - kernel headers aren't matching. Install the matching `linux-headers-$(uname -r)` and run `sudo dkms autoinstall`.
 
 ### uConsole won't boot after AIO v2 installation
-* Check the ribbon cable orientation — most common cause
+* Check the ribbon cable orientation - most common cause
 * Refer to the HackerGadgets installation photos for correct orientation
-* Never plug in the charger if the ribbon cable is wrong — it will damage the mainboard
+* Never plug in the charger if the ribbon cable is wrong - it will damage the mainboard
 
 ### "Unsatisfied dependencies" or version mismatches on Trixie + Kali
 Install affected packages from Kali explicitly:
@@ -859,7 +859,7 @@ sudo chown -R $USER:$USER ~/.pygpsclient
 aiov2_ctl --gui
 ```
 
-Also ensure `libxcb-cursor0` is installed — the Qt6 XCB platform plugin won't load without it:
+Also ensure `libxcb-cursor0` is installed - the Qt6 XCB platform plugin won't load without it:
 
 ```bash
 sudo apt install -y libxcb-cursor0
@@ -867,7 +867,7 @@ sudo apt install -y libxcb-cursor0
 
 ### `aiov2_ctl --gui` errors over SSH
 
-The GUI requires a live display server (`$DISPLAY` / Wayland socket). Running it from an SSH session fails because there is no display. Use `--autostart` instead and reboot — the tray icon will launch natively from the desktop:
+The GUI requires a live display server (`$DISPLAY` / Wayland socket). Running it from an SSH session fails because there is no display. Use `--autostart` instead and reboot - the tray icon will launch natively from the desktop:
 
 ```bash
 aiov2_ctl --autostart
@@ -878,7 +878,7 @@ sudo reboot
 
 Symptom: `GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: An authentication agent already exists for the given subject` in journalctl at login.
 
-Kali metapackages install `polkit-mate-authentication-agent-1`, which conflicts with `lxpolkit` on Labwc. Suppress it with an XDG per-user override (do **not** remove the package — other Kali tools depend on it):
+Kali metapackages install `polkit-mate-authentication-agent-1`, which conflicts with `lxpolkit` on Labwc. Suppress it with an XDG per-user override (do **not** remove the package - other Kali tools depend on it):
 
 ```bash
 mkdir -p ~/.config/autostart

@@ -7,7 +7,7 @@ Step-by-step configuration guide for turning Arduino IDE 2.x into a universal mi
 Covers: migrating to IDE 2.x, adding board manager URLs for ESP32/STM32/ESP8266/RP2040, installing board cores via Boards Manager, optimizing IDE preferences (verbose output, compiler warnings), installing universal libraries (Adafruit Sensor, MQTT, OLED, JSON), and installing CH340/CP210x USB drivers for third-party boards.
 
 ## 🏆 Goal
-Enable selecting any supported microcontroller family from the board dropdown and uploading code without additional manual toolchain setup — one unified IDE for all embedded targets.
+Enable selecting any supported microcontroller family from the board dropdown and uploading code without additional manual toolchain setup - one unified IDE for all embedded targets.
 
 ## 📋 When to Use
 - Initial setup of a new development machine for embedded hardware projects
@@ -18,13 +18,13 @@ Enable selecting any supported microcontroller family from the board dropdown an
 Setting up the Arduino IDE to be a universal workstation for multiple microcontroller families (Arduino, ESP32, STM32, and others) is a great move. This guide provides the initial configuration to turn your Arduino IDE into a multi-platform powerhouse.
 
 ## 🎯 Purpose
-One-time setup to turn a stock Arduino IDE 2.x install into a universal workstation covering Arduino, ESP32, ESP8266, STM32, and RP2040 (Pico) boards from a single install — the specific driver/board-package combination that trips people up on a fresh setup.
+One-time setup to turn a stock Arduino IDE 2.x install into a universal workstation covering Arduino, ESP32, ESP8266, STM32, and RP2040 (Pico) boards from a single install - the specific driver/board-package combination that trips people up on a fresh setup.
 
 ## ⚙️ Function
 Six steps: install IDE 2.x (not legacy 1.8.x), add third-party board manager URLs, install the actual board packages those URLs unlock, tune compiler/upload preferences for easier debugging, install cross-platform sensor/communication libraries, and install the USB-to-serial drivers (CH340/CP210x) that clone and third-party boards need but official Arduino boards don't.
 
 ## 🏆 Goal
-Eliminate the most common first-time failure mode with multi-board Arduino IDE setups — a board not showing up in the ports list because of a missing USB driver, or a board not appearing in the boards list because its package URL was never added.
+Eliminate the most common first-time failure mode with multi-board Arduino IDE setups - a board not showing up in the ports list because of a missing USB driver, or a board not appearing in the boards list because its package URL was never added.
 
 ## 📋 When to Use
 - Setting up a new machine for embedded/hardware hacking work spanning multiple microcontroller families
@@ -98,8 +98,8 @@ Because you are using third-party boards (especially ESP32s and cloned Arduinos)
 ---
 
 ## Related Files
-- [vscode.md](vscode.md) — VS Code + PlatformIO: a modern alternative to Arduino IDE with project-level board config
-- [evil_m5.md](evil_m5.md) — Evil-M5Project firmware built with Arduino IDE targeting the M5Cardputer (ESP32-S3)
-- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware for ESP32 boards; same Arduino IDE + ESP32 board core workflow
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero ESP32 Wi-Fi Marauder co-processor setup uses Arduino IDE for ESP32 firmware flashing
-- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) — Hardware hacking fundamentals that Arduino IDE supports (serial, I2C, SPI)
+- [vscode.md](vscode.md) - VS Code + PlatformIO: a modern alternative to Arduino IDE with project-level board config
+- [evil_m5.md](evil_m5.md) - Evil-M5Project firmware built with Arduino IDE targeting the M5Cardputer (ESP32-S3)
+- [bruce_firmware.md](bruce_firmware.md) - Bruce firmware for ESP32 boards; same Arduino IDE + ESP32 board core workflow
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero ESP32 Wi-Fi Marauder co-processor setup uses Arduino IDE for ESP32 firmware flashing
+- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) - Hardware hacking fundamentals that Arduino IDE supports (serial, I2C, SPI)

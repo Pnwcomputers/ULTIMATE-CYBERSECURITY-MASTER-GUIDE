@@ -6,7 +6,7 @@ community input.
 
 ---
 
-## ⚖️ Legal Requirement — Read Before Anything Else
+## ⚖️ Legal Requirement - Read Before Anything Else
 
 **All contributions must comply with the [LEGAL.md](../LEGAL.md) terms.**
 
@@ -27,7 +27,7 @@ By submitting a contribution you confirm:
 | Broken link fixes | A tool URL changed, a GitHub repo moved |
 | Factual corrections | Wrong command syntax, outdated version info, wrong tool description |
 | New tool entries | Actively maintained, legitimate security tools not already listed |
-| New scripts | Security automation, recon, defensive tooling — with full documentation and legal warnings |
+| New scripts | Security automation, recon, defensive tooling - with full documentation and legal warnings |
 | Typos / formatting | Grammar, markdown rendering issues, heading fixes |
 | New guides | Homelab procedures, IR playbooks, OSINT methodology |
 | Compatibility updates | New distro support, updated firmware versions in hardware guide |
@@ -51,7 +51,7 @@ By submitting a contribution you confirm:
 2. Make your change
 3. At the bottom, select **"Create a new branch for this commit and start a pull request"**
 4. Title your PR clearly: `fix: broken link to Amass repo` or `fix: typo in OSINT guide`
-5. Submit — it'll be reviewed and merged quickly if it's accurate
+5. Submit - it'll be reviewed and merged quickly if it's accurate
 
 ### For Larger Contributions (new scripts, new guides, new sections)
 
@@ -72,9 +72,9 @@ By submitting a contribution you confirm:
 
 - Use **tables** for tool listings, not bare bullet lists
 - Use `code blocks` for all commands, file paths, and code
-- Headers: `##` for main sections, `###` for subsections — don't skip levels
-- Keep lines reasonably wrapped — no 500-character single lines
-- Badge syntax: `![Badge](https://img.shields.io/badge/...)` — use sparingly
+- Headers: `##` for main sections, `###` for subsections - don't skip levels
+- Keep lines reasonably wrapped - no 500-character single lines
+- Badge syntax: `![Badge](https://img.shields.io/badge/...)` - use sparingly
 
 ### Script Standards (if contributing to `Scripts/`)
 
@@ -106,7 +106,7 @@ When adding a tool to any guide, use this format:
 | [Tool Name](https://tool-homepage.com) | Brief one-line description | Distro/platform |
 ```
 
-Always link to the **official homepage or official GitHub repo** — not forks, mirrors, or third-party sites.
+Always link to the **official homepage or official GitHub repo** - not forks, mirrors, or third-party sites.
 
 ### Attribution
 
@@ -138,12 +138,12 @@ Always link to the **official homepage or official GitHub repo** — not forks, 
 ## 🐛 Reporting Issues
 
 Use GitHub Issues for:
-- **Broken links** — title: `broken link: [description]`
-- **Outdated information** — title: `outdated: [tool/section name]`
-- **Missing content suggestions** — title: `suggestion: [what and where]`
-- **Script bugs** — title: `bug: [script name] - [what it does wrong]`
+- **Broken links** - title: `broken link: [description]`
+- **Outdated information** - title: `outdated: [tool/section name]`
+- **Missing content suggestions** - title: `suggestion: [what and where]`
+- **Script bugs** - title: `bug: [script name] - [what it does wrong]`
 
-Use the issue templates provided — they keep reports consistent and actionable.
+Use the issue templates provided - they keep reports consistent and actionable.
 
 ---
 

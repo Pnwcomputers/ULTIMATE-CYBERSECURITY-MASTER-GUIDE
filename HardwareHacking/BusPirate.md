@@ -1,13 +1,13 @@
 # 🏴‍☠️ Bus Pirate
 
 ## 🎯 Purpose
-Open-source universal bus interface tool for communicating with electronic components (SPI, I2C, UART, JTAG, 1-Wire) directly from a PC serial terminal — without writing custom microcontroller code.
+Open-source universal bus interface tool for communicating with electronic components (SPI, I2C, UART, JTAG, 1-Wire) directly from a PC serial terminal - without writing custom microcontroller code.
 
 ## ⚙️ Function
 Provides an interactive command-line protocol interface via USB serial. Mode selection (`m`) switches between supported protocols. Power supply output (3.3V/5V) eliminates need for a separate bench supply for small targets. Used for firmware extraction (`flashrom`), EEPROM read/write, and protocol exploration.
 
 ## 🏆 Goal
-Talk to any chip directly from a terminal prompt — enabling firmware extraction, EEPROM patching, and protocol reverse engineering during hardware security assessments.
+Talk to any chip directly from a terminal prompt - enabling firmware extraction, EEPROM patching, and protocol reverse engineering during hardware security assessments.
 
 ## 📋 When to Use
 - Extracting firmware from SPI EEPROM or NOR flash chips
@@ -61,8 +61,8 @@ The Bus Pirate is an open-source hacker multi-tool that talks to electronic comp
 ---
 
 ## Related Files
-- [BitPirate.md](BitPirate.md) — Similar UART-to-USB interface; good for comparison when choosing a debug tool
-- [JTAGulator.md](JTAGulator.md) — Discovers which pins are JTAG/UART; Bus Pirate then communicates on those identified pins
-- [HiLetgo.md](HiLetgo.md) — Logic analyzer to verify Bus Pirate signals and troubleshoot protocol issues
-- [T48_TL866-3G.md](T48_TL866-3G.md) — IC programmer for chips that need desoldering; Bus Pirate handles in-circuit access
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: voltage levels, logic thresholds, and SPI/I2C protocols explained
+- [BitPirate.md](BitPirate.md) - Similar UART-to-USB interface; good for comparison when choosing a debug tool
+- [JTAGulator.md](JTAGulator.md) - Discovers which pins are JTAG/UART; Bus Pirate then communicates on those identified pins
+- [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify Bus Pirate signals and troubleshoot protocol issues
+- [T48_TL866-3G.md](T48_TL866-3G.md) - IC programmer for chips that need desoldering; Bus Pirate handles in-circuit access
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: voltage levels, logic thresholds, and SPI/I2C protocols explained

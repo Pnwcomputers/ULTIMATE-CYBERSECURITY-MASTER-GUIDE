@@ -1,13 +1,13 @@
 # 📡 Part II: The Ground Segment
 
 ## 🎯 Purpose
-Ground segment attack and defense guide — covering uplink/downlink RF link architecture, TT&C (Telemetry, Tracking, and Commanding) attack vectors, mission control network security, ground station infrastructure vulnerabilities, and supply chain risks.
+Ground segment attack and defense guide - covering uplink/downlink RF link architecture, TT&C (Telemetry, Tracking, and Commanding) attack vectors, mission control network security, ground station infrastructure vulnerabilities, and supply chain risks.
 
 ## ⚙️ Function
 Covers: ground-space RF link architecture (uplink/downlink/crosslink), TT&C command injection and replay attacks, CCSDS frame structure and authentication weaknesses, ground station network lateral movement, mission control server hardening, and supply chain security for ground hardware.
 
 ## 🏆 Goal
-Identify and assess vulnerabilities in the ground segment of a space system — the earth-based infrastructure that commands satellites and receives telemetry — without touching or transmitting to the satellite itself.
+Identify and assess vulnerabilities in the ground segment of a space system - the earth-based infrastructure that commands satellites and receives telemetry - without touching or transmitting to the satellite itself.
 
 ## 📋 When to Use
 - Penetration testing a ground station or mission control network
@@ -53,10 +53,10 @@ Ground Station (Downlink)
 
 #### Signal Security Considerations
 
-- **Unencrypted telemetry** — Many legacy satellites downlink telemetry in cleartext CCSDS frames, allowing passive monitoring of spacecraft health, mode, and configuration
-- **Weak or absent command authentication** — Early command systems used MAC codes that are now trivially breakable; some older birds have no authentication at all
-- **Signal intercept** — Any sufficiently directional antenna aimed at the correct orbital slot can capture downlink signals; uplink intercept requires proximity to the ground station
-- **Replay attacks** — Without command sequence counters, captured command frames can be replayed
+- **Unencrypted telemetry** - Many legacy satellites downlink telemetry in cleartext CCSDS frames, allowing passive monitoring of spacecraft health, mode, and configuration
+- **Weak or absent command authentication** - Early command systems used MAC codes that are now trivially breakable; some older birds have no authentication at all
+- **Signal intercept** - Any sufficiently directional antenna aimed at the correct orbital slot can capture downlink signals; uplink intercept requires proximity to the ground station
+- **Replay attacks** - Without command sequence counters, captured command frames can be replayed
 
 #### CCSDS Protocol Stack
 
@@ -113,11 +113,11 @@ External Networks / Internet
 
 Common MCC components:
 
-- **Mission Operations Center (MOC)** — Operator consoles, display systems, command generation
-- **Flight Dynamics System (FDS)** — Orbit determination, maneuver planning
-- **Telemetry Processing System** — Ingests raw frames, decommutates engineering data
-- **Command Management System** — Command authorization, sequencing, uplink management
-- **Data Archive** — Historical telemetry, products, mission records
+- **Mission Operations Center (MOC)** - Operator consoles, display systems, command generation
+- **Flight Dynamics System (FDS)** - Orbit determination, maneuver planning
+- **Telemetry Processing System** - Ingests raw frames, decommutates engineering data
+- **Command Management System** - Command authorization, sequencing, uplink management
+- **Data Archive** - Historical telemetry, products, mission records
 
 #### Technology Stack Vulnerabilities
 
@@ -131,11 +131,11 @@ Common MCC components:
 
 #### Attack Vectors
 
-- **IT-side intrusion → lateral movement to MCS network** — Most historically successful path (mirrors IT/OT targeting in ICS attacks)
-- **Supply chain compromise** — Malicious updates to MCS software or ground station hardware
-- **Remote access exploitation** — VPN credential compromise, MFA bypass
-- **Insider threat** — Privileged operators with unrestricted command access
-- **Removable media** — USB-introduced malware in air-gapped or semi-air-gapped environments
+- **IT-side intrusion → lateral movement to MCS network** - Most historically successful path (mirrors IT/OT targeting in ICS attacks)
+- **Supply chain compromise** - Malicious updates to MCS software or ground station hardware
+- **Remote access exploitation** - VPN credential compromise, MFA bypass
+- **Insider threat** - Privileged operators with unrestricted command access
+- **Removable media** - USB-introduced malware in air-gapped or semi-air-gapped environments
 
 #### Historical Example: Viasat KA-SAT (2022)
 
@@ -171,12 +171,12 @@ python -m gr_satellites <satellite-name> --iq /path/to/capture.iq
 
 With captured IQ data, work down the protocol stack:
 
-1. **Synchronization** — Find the CCSDS Attached Synchronization Marker (ASM): `0x1ACFFC1D`
-2. **Frame delineation** — Transfer frame length is fixed per mission; determine from ASM spacing
-3. **Header parsing** — Extract SCID, VCID, frame counter, data field status
-4. **Reed-Solomon / LDPC decode** — Strip error correction coding
-5. **Space Packet extraction** — Parse APID, sequence flags, packet length
-6. **Application data** — Mission-specific; may require protocol documentation or reverse engineering
+1. **Synchronization** - Find the CCSDS Attached Synchronization Marker (ASM): `0x1ACFFC1D`
+2. **Frame delineation** - Transfer frame length is fixed per mission; determine from ASM spacing
+3. **Header parsing** - Extract SCID, VCID, frame counter, data field status
+4. **Reed-Solomon / LDPC decode** - Strip error correction coding
+5. **Space Packet extraction** - Parse APID, sequence flags, packet length
+6. **Application data** - Mission-specific; may require protocol documentation or reverse engineering
 
 Wireshark supports CCSDS with appropriate dissectors. Custom dissectors can be written in Lua for mission-specific protocols.
 
@@ -263,7 +263,7 @@ Mission Impact
 #### Common Vulnerabilities in Mission Control Applications
 
 - **Hardcoded credentials** in legacy MCS deployments (often installed once and never rotated)
-- **Unencrypted internal protocols** — some MCS components communicate via unencrypted UDP/TCP internally
+- **Unencrypted internal protocols** - some MCS components communicate via unencrypted UDP/TCP internally
 - **Weak authentication** on web-based display systems and dashboards
 - **Outdated dependencies** in Java-based or Python-based MCS stacks
 - **Insufficient input validation** in command parameter interfaces
@@ -286,7 +286,7 @@ Mission Impact
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
-*Space systems are critical infrastructure — treat them accordingly.*
+*Space systems are critical infrastructure - treat them accordingly.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -295,9 +295,9 @@ Mission Impact
 ---
 
 ## Related Files
-- [PartI.md](PartI.md) — Foundations: read before this Part
-- [PartIII.md](PartIII.md) — Space segment: the satellite side of the link
-- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — SDR advanced: CCSDS protocol reversing and satellite RF signal capture
+- [PartI.md](PartI.md) - Foundations: read before this Part
+- [PartIII.md](PartIII.md) - Space segment: the satellite side of the link
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) - SDR advanced: CCSDS protocol reversing and satellite RF signal capture
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

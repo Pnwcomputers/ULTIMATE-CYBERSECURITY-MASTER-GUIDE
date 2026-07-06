@@ -7,7 +7,7 @@
 A short, tier-1-analyst-ready SOP for the single most common SOC ticket type: a user-reported or SEG-flagged phishing email. Designed to be followed start-to-finish in one sitting on a single email.
 
 ## ⚙️ Function
-Three-stage procedure: (1) immediate triage and containment (isolate the machine if a link was clicked, pull original headers), (2) URL and attachment analysis using specific named tools, (3) closure/escalation decision. Deliberately short — this is the fast-path SOP, not a deep-dive; see `unauth_access.md` for the follow-on investigation if the phishing led to actual account compromise.
+Three-stage procedure: (1) immediate triage and containment (isolate the machine if a link was clicked, pull original headers), (2) URL and attachment analysis using specific named tools, (3) closure/escalation decision. Deliberately short - this is the fast-path SOP, not a deep-dive; see `unauth_access.md` for the follow-on investigation if the phishing led to actual account compromise.
 
 ## 🏆 Goal
 Contain potential compromise within minutes of a report landing, and produce a consistent, minimal evidence trail (headers, URL verdicts, attachment verdicts) for every phishing ticket regardless of which analyst handles it.

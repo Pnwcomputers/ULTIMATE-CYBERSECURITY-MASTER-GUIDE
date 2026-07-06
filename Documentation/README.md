@@ -1,13 +1,13 @@
 # 📚 Technical Documentation
 
 ## 🎯 Purpose
-Index and navigation hub for all documentation in the `Documentation/` directory — covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
+Index and navigation hub for all documentation in the `Documentation/` directory - covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
 
 ## ⚙️ Function
 Catalogs 22+ documents by category with descriptions and links, explains the documentation conventions, provides usage guidance for security professionals, IT administrators, and students, and lists related directories (Homelab, OSINT) within the master guide.
 
 ## 🏆 Goal
-Enable readers to quickly find the right documentation file for their current task — whether that's a wireless engagement, OSINT operation, lab setup, or scripting reference — without browsing the entire directory.
+Enable readers to quickly find the right documentation file for their current task - whether that's a wireless engagement, OSINT operation, lab setup, or scripting reference - without browsing the entire directory.
 
 ## 📋 When to Use
 - Starting point for any Documentation/ section: find the right file for your current task

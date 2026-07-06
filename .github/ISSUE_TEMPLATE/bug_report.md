@@ -8,7 +8,7 @@ assignees: Pnwcomputers
 
 ## What's the issue?
 
-<!-- Broken link / wrong command / outdated info / script error — pick one and describe it -->
+<!-- Broken link / wrong command / outdated info / script error - pick one and describe it -->
 
 **File or section affected:**
 <!-- e.g. README.md, Scripts/Python/port_scan.py, OSINT/OSINT_GUIDE.md -->

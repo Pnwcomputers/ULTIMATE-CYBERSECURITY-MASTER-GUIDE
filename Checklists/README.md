@@ -840,10 +840,10 @@ We welcome contributions from security professionals to improve and expand this 
 - [🏠 Main Repository](../README.md)
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
-- [🗡️ Tradecraft Deep Dives](../Tradecraft/README.md) — full write-ups behind several of these checklists
-- [📘 Playbooks](../PlayBooks/README.md) — blue-team investigation procedures
-- [📄 PDF Library](../PDF/README.md) — reference PDFs behind several of these checklists
-- [💻 Security Scripts & Tools](../Scripts/README.md) — scripts that implement several of these techniques
+- [🗡️ Tradecraft Deep Dives](../Tradecraft/README.md) - full write-ups behind several of these checklists
+- [📘 Playbooks](../PlayBooks/README.md) - blue-team investigation procedures
+- [📄 PDF Library](../PDF/README.md) - reference PDFs behind several of these checklists
+- [💻 Security Scripts & Tools](../Scripts/README.md) - scripts that implement several of these techniques
 - [🔍 OSINT Resources](../OSINT/README.md)
 - [📚 Documentation](../Documentation/README.md)
 - [🔒 OPSEC Guidelines](../OPSEC/README.md)

@@ -282,7 +282,7 @@ These playbooks serve as:
 
 ### 6. Alert Triage & Access Incident Response Playbooks
 
-**Purpose**: Focused, single-incident-type response procedures for the two alert categories a SOC handles most often — phishing reports and access-abuse alerts (brute force, impossible travel, credential stuffing).
+**Purpose**: Focused, single-incident-type response procedures for the two alert categories a SOC handles most often - phishing reports and access-abuse alerts (brute force, impossible travel, credential stuffing).
 
 **What's Covered:**
 - Phishing email header, URL, and attachment analysis
@@ -295,7 +295,7 @@ These playbooks serve as:
 - Escalation and closure criteria
 
 **Playbooks:**
-- **sop_phishing_analysis.md**: Short-form SOP — header analysis, URL/attachment sandboxing, and containment steps for a single reported phishing email
+- **sop_phishing_analysis.md**: Short-form SOP - header analysis, URL/attachment sandboxing, and containment steps for a single reported phishing email
 - **unauth_access.md**: Longer-form investigation playbook for brute force and impossible-travel alerts, from initial triage through containment
 
 **Use Cases:**

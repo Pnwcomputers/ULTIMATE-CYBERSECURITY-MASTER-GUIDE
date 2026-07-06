@@ -24,8 +24,8 @@ Operational security tradecraft for red team, blue team, and purple team practit
 
 | File | Description |
 |---|---|
-| [c2-frameworks.md](c2-frameworks.md) | Cobalt Strike, Sliver, and Havoc — architecture, deployment, OpSec, malleable C2, infrastructure, and detection |
-| [lolbins-lolbas.md](lolbins-lolbas.md) | Living off the land — Windows LOLBins for execution, download, lateral movement, persistence, and credential access |
+| [c2-frameworks.md](c2-frameworks.md) | Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec, malleable C2, infrastructure, and detection |
+| [lolbins-lolbas.md](lolbins-lolbas.md) | Living off the land - Windows LOLBins for execution, download, lateral movement, persistence, and credential access |
 | [osint-threat-intel.md](osint-threat-intel.md) | OSINT methodology, passive recon, DNS/infra enumeration, people intelligence, threat intel platforms, and operationalization |
 | [network-detection.md](network-detection.md) | Packet capture, Zeek/Suricata analysis, C2 traffic detection, DNS tunneling, lateral movement, and network forensics |
 | [active-directory.md](active-directory.md) | AD enumeration, credential attacks, Kerberos abuse, privilege escalation paths, domain persistence, detection, and hardening |
@@ -35,11 +35,11 @@ Operational security tradecraft for red team, blue team, and purple team practit
 
 ## Usage
 
-These references are structured for **dual-use** — each file covers both offensive technique context and the corresponding detection/defensive guidance. Sections are clearly labeled:
+These references are structured for **dual-use** - each file covers both offensive technique context and the corresponding detection/defensive guidance. Sections are clearly labeled:
 
-- **Attack / technique sections** — Understand how attacks work, what tools are used
-- **Detection & Hunting sections** — Sigma rules, KQL queries, event IDs, behavioral indicators
-- **Defensive sections** — Hardening controls, configuration recommendations, monitoring priorities
+- **Attack / technique sections** - Understand how attacks work, what tools are used
+- **Detection & Hunting sections** - Sigma rules, KQL queries, event IDs, behavioral indicators
+- **Defensive sections** - Hardening controls, configuration recommendations, monitoring priorities
 
 ---
 
@@ -57,10 +57,10 @@ These references are structured for **dual-use** — each file covers both offen
 
 ## Related Sections
 
-- [`/Checklists`](../Checklists/) — Quick-reference attack checklists that pair with these deep dives
-- [`/HardwareHacking`](../HardwareHacking/) — Physical and embedded device attacks
-- [`/Scripts`](../Scripts/) — Offensive scripts, payloads, and automation tools
-- [`/Documentation`](../Documentation/) — Tool references and field guides
+- [`/Checklists`](../Checklists/) - Quick-reference attack checklists that pair with these deep dives
+- [`/HardwareHacking`](../HardwareHacking/) - Physical and embedded device attacks
+- [`/Scripts`](../Scripts/) - Offensive scripts, payloads, and automation tools
+- [`/Documentation`](../Documentation/) - Tool references and field guides
 
 ---
 

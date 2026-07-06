@@ -2,7 +2,7 @@
 # Chapter 3: Fault Injection Attacks
 
 ## 🎯 Purpose
-Practical guide to fault injection attacks — covering voltage glitching, clock glitching, EM fault injection, laser fault injection, and the parameter-space search methodology for finding exploitable fault windows in embedded security checks.
+Practical guide to fault injection attacks - covering voltage glitching, clock glitching, EM fault injection, laser fault injection, and the parameter-space search methodology for finding exploitable fault windows in embedded security checks.
 
 ## ⚙️ Function
 Covers: FI attack concept and goals (skipping security checks, corrupting comparisons), voltage glitch hardware setup, clock glitch circuit design, EM/laser injection, timing parameters (offset and width), parameter-space sweeping methodology, Python scripting for automated fault campaigns, and a matplotlib-based result visualization pattern.
@@ -16,13 +16,13 @@ Successfully inject a transient fault at the right CPU cycle to bypass a securit
 - Advanced hardware security assessments where passive methods are exhausted
 - Research on fault countermeasure effectiveness (masking, redundancy)
 
-> *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+> *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
 
 ### Concept
 
-Fault injection (FI) introduces a transient error into a target system at a controlled moment to cause incorrect behavior — most commonly to skip a security check, corrupt a comparison, or force a branch taken/not-taken.
+Fault injection (FI) introduces a transient error into a target system at a controlled moment to cause incorrect behavior - most commonly to skip a security check, corrupt a comparison, or force a branch taken/not-taken.
 
 The attacker's goal is **temporal and spatial precision**: the fault must hit the right logic, at the right clock cycle, to produce exploitable behavior rather than a crash.
 
@@ -36,7 +36,7 @@ Normal execution:
 Faulted execution (skip the branch):
   Load compare value
   Compare PIN input vs stored PIN
-  [FAULT INJECTED HERE — branch skipped]
+  [FAULT INJECTED HERE - branch skipped]
   [Access granted]  ← attacker wins
 ```
 
@@ -57,7 +57,7 @@ Normal clock:   _____|‾‾‾‾‾|_____|‾‾‾‾‾|_____|‾‾‾‾�
 Glitched clock: _____|‾‾‾‾‾|_____|‾|_____|‾‾‾‾‾|_____
                                      ^
                                  Short pulse (glitch)
-                                 CPU sees a "half cycle" —
+                                 CPU sees a "half cycle" -
                                  flip-flops sample wrong data
 ```
 
@@ -76,9 +76,9 @@ Crystal → [Mux / MOSFET switch] → Target CLK pin
 ```
 
 **Key parameters to sweep:**
-- `offset` — clock cycles after trigger before firing glitch
-- `width` — duration of the glitch pulse (often sub-nanosecond)
-- `repeat` — number of consecutive glitch pulses
+- `offset` - clock cycles after trigger before firing glitch
+- `width` - duration of the glitch pulse (often sub-nanosecond)
+- `repeat` - number of consecutive glitch pulses
 
 ---
 
@@ -103,7 +103,7 @@ Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾�
 | DAC-controlled power supply | Fast DAC + LDO | Precise control | Bandwidth limited |
 | Capacitor discharge | Cap + switch | Very fast edges | Less repeatable |
 
-**Critical:** The glitch must propagate through the target's power distribution network (PDN) to the sensitive logic. Bulk decoupling capacitors on the target board will absorb the glitch — **remove or bypass the nearest decoupling cap** to the target chip for best results.
+**Critical:** The glitch must propagate through the target's power distribution network (PDN) to the sensitive logic. Bulk decoupling capacitors on the target board will absorb the glitch - **remove or bypass the nearest decoupling cap** to the target chip for best results.
 
 ---
 
@@ -116,19 +116,19 @@ Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾�
 A focused EM pulse induces transient currents in the target IC through inductive coupling, causing localized bit flips or logic faults without requiring physical contact to the supply or clock.
 
 **Advantages over voltage/clock glitching:**
-- No electrical connection to target required — works on encapsulated or potted boards
-- Spatially selective — target specific regions of the die
+- No electrical connection to target required - works on encapsulated or potted boards
+- Spatially selective - target specific regions of the die
 - Can fault through packaging material (up to several mm of plastic)
 
 **Equipment:**
-- **Riscure EM Fault Injector** — Professional; ~$15K+
-- **ChipSHOUTER** (NewAE Technology) — Affordable research EMFI tool; ~$1K
+- **Riscure EM Fault Injector** - Professional; ~$15K+
+- **ChipSHOUTER** (NewAE Technology) - Affordable research EMFI tool; ~$1K
 - **DIY:** EMFI coil + high-voltage pulse generator + FPGA trigger; buildable for <$500 but requires careful tuning
 
 **Practical tips:**
 - Use an XY stage for repeatable positioning
 - Start with the coil perpendicular to the PCB surface; tilt for sensitivity
-- Sweep position across the IC surface systematically — optimal position is non-obvious
+- Sweep position across the IC surface systematically - optimal position is non-obvious
 - Higher voltage = stronger fault but higher crash probability; sweep the parameter
 
 ---
@@ -139,10 +139,10 @@ A focused EM pulse induces transient currents in the target IC through inductive
 
 #### Laser Fault Injection (LFI)
 
-Focused laser light on the chip die generates electron-hole pairs in transistors, causing localized bit flips. Highest precision of all fault injection methods — can target individual cells.
+Focused laser light on the chip die generates electron-hole pairs in transistors, causing localized bit flips. Highest precision of all fault injection methods - can target individual cells.
 
 **Requirements:**
-- Decapped (delayered) chip — protective coating and packaging must be removed
+- Decapped (delayered) chip - protective coating and packaging must be removed
 - IR laser (1064 nm penetrates silicon from backside) or visible laser (requires thinned front side)
 - Precision XY (optionally Z) stage
 - Trigger synchronization
@@ -181,7 +181,7 @@ Finding where and when to inject is often harder than the injection itself.
 | **Fixed offset from trigger** | UART TX start bit, GPIO toggle, power-on reset | Deterministic code paths |
 | **Side-channel correlation** | Align fault offset with power/EM signature of target instruction | Variable-latency paths |
 | **Incremental sweep** | Automated sweep of offset in fine steps | Unknown target offset |
-| **Loop amplification** | Fault inside a repeated loop — each iteration is another attempt | Crypto operations |
+| **Loop amplification** | Fault inside a repeated loop - each iteration is another attempt | Crypto operations |
 
 **Trigger sources:**
 
@@ -196,8 +196,8 @@ Logic analyzer: Decode serial comms; trigger on specific transaction
 #### Spatial Targeting (EMFI / LFI)
 
 - **Die photographs** from published datasheets or delayered samples
-- **Function mapping** — correlate die regions with observed fault effects
-- **Systematic XY raster scan** — grid sweep with fixed timing; map fault rate by position
+- **Function mapping** - correlate die regions with observed fault effects
+- **Systematic XY raster scan** - grid sweep with fixed timing; map fault rate by position
 
 ---
 
@@ -205,7 +205,7 @@ Logic analyzer: Decode serial comms; trigger on specific transaction
 
 **Start with the easiest method first.** Voltage glitching requires minimal equipment; try it before investing in EMFI or laser setups.
 
-**Automate everything:** Manual parameter sweeps are untenable — write a Python script to iterate offset, width, and voltage parameters, reset the target between attempts, capture and classify the result.
+**Automate everything:** Manual parameter sweeps are untenable - write a Python script to iterate offset, width, and voltage parameters, reset the target between attempts, capture and classify the result.
 
 **Classify results carefully:**
 
@@ -216,7 +216,7 @@ Logic analyzer: Decode serial comms; trigger on specific transaction
 | **Unexpected output / partial data** | Fault too early or too late | Fine-tune offset |
 | **Target behavior (e.g., auth bypass)** | Fault hit the right instruction | Record all parameters; repeat to confirm |
 
-**Build a fault map:** Plot fault type vs. (offset, width) as a 2D heatmap. Successful faults cluster — the "sweet spot" becomes visually clear.
+**Build a fault map:** Plot fault type vs. (offset, width) as a 2D heatmap. Successful faults cluster - the "sweet spot" becomes visually clear.
 
 ```python
 import numpy as np
@@ -235,15 +235,15 @@ plt.show()
 ---
 
 ## Related Files
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: voltage supply manipulation and oscilloscope setup required for fault injection
-- [Chapter4.md](Chapter4.md) — Power analysis: passive counterpart to active fault injection; complementary techniques
-- [Chapter1.md](Chapter1.md) — Threat modeling: fault injection is one of the key attack classes to model in scope
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: voltage supply manipulation and oscilloscope setup required for fault injection
+- [Chapter4.md](Chapter4.md) - Power analysis: passive counterpart to active fault injection; complementary techniques
+- [Chapter1.md](Chapter1.md) - Threat modeling: fault injection is one of the key attack classes to model in scope
 
 ---
 
 <div align="center">
 
-**Next:** [Chapter 4 — Timing and Power Analysis Attacks →](./Chapter4.md)
+**Next:** [Chapter 4 - Timing and Power Analysis Attacks →](./Chapter4.md)
 
 [← Chapter 2: Electrical Fundamentals](./Chapter2.md) · [Back to Hardware Hacking README](./README.md)
 

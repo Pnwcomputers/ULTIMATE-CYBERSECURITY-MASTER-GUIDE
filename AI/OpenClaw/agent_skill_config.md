@@ -29,7 +29,7 @@ Pre-built agent configurations and skill setups for IT support, cybersecurity, h
 
 **Agents** in OpenClaw are named personas with specific instructions, tool access, model preferences, and memory contexts. You can have multiple agents for different purposes and switch between them.
 
-**Skills** are reusable tools that extend what an agent can do — connecting to external APIs, running scripts, or providing specialized knowledge.
+**Skills** are reusable tools that extend what an agent can do - connecting to external APIs, running scripts, or providing specialized knowledge.
 
 **Config location:** `/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json`
 
@@ -66,13 +66,13 @@ config['agents']['field-tech'] = {
 Your role is to help Jon Pienkowski during on-site service calls and remote support sessions.
 
 Behavior:
-- Give concise, actionable answers — Jon is usually busy with a client
+- Give concise, actionable answers - Jon is usually busy with a client
 - Lead with the most likely solution first, not a list of all possibilities
-- Use exact commands with correct syntax — no guessing
+- Use exact commands with correct syntax - no guessing
 - Flag anything that could cause data loss or outtime BEFORE suggesting it
-- When writing client communications, use plain English — no jargon
+- When writing client communications, use plain English - no jargon
 - Default to Windows-focused advice unless Linux/Mac is specified
-- Know that Jon holds CompTIA A+ and has 20+ years experience — skip basics
+- Know that Jon holds CompTIA A+ and has 20+ years experience - skip basics
 
 Context:
 - Business: Pacific Northwest Computers, Vancouver WA
@@ -151,7 +151,7 @@ Behavior:
 - Always assess severity before recommending action
 - Provide MITRE ATT&CK technique mappings when relevant (format: T####.###)
 - When analyzing logs or alerts, distinguish between confirmed threats, 
-  likely threats, and noise — with confidence levels
+  likely threats, and noise - with confidence levels
 - Recommend containment BEFORE investigation for active incidents
 - Reference NIST IR framework phases: Preparation, Detection, Containment, 
   Eradication, Recovery, Lessons Learned
@@ -198,7 +198,7 @@ print('Done')
 ```
 "Analyze these Wazuh alerts and triage by severity: [paste alerts]"
 
-"I'm seeing repeated failed SSH logins from 185.234.x.x — 
+"I'm seeing repeated failed SSH logins from 185.234.x.x - 
 is this IP associated with any known threat actors?"
 
 "Write a Wazuh rule to detect when net.exe or net1.exe is used 
@@ -384,10 +384,10 @@ print('Done')
 ### Example Prompts
 ```
 "Do a passive recon profile on the domain example.com. 
-Don't touch the target — passive sources only."
+Don't touch the target - passive sources only."
 
 "I'm meeting a potential client tomorrow. 
-Research [company name] in Vancouver WA — size, tech stack hints, 
+Research [company name] in Vancouver WA - size, tech stack hints, 
 any recent news, and LinkedIn key contacts."
 
 "Find all subdomains of example.com indexed in public sources 
@@ -401,7 +401,7 @@ that could be used for phishing?"
 
 ## Agent: Business Operations Assistant
 
-Handles the business side of running Pacific Northwest Computers — quotes, client communications, scheduling, and documentation.
+Handles the business side of running Pacific Northwest Computers - quotes, client communications, scheduling, and documentation.
 
 ### Configuration
 
@@ -441,7 +441,7 @@ Behavior:
 - For quotes: include labor, hardware with markup, travel if applicable, and support options
 - For reports: lead with what was done and the outcome, then technical details
 - Keep marketing content local and specific to SW Washington / Portland area
-- Default to plain English — most clients are non-technical
+- Default to plain English - most clients are non-technical
 
 Typical pricing context (adjust based on current market):
 - Hourly labor: $95-125/hr depending on work type
@@ -587,7 +587,7 @@ print('Done')
 
 ### Example Prompts
 ```
-"Quick health check — what should I verify on the R630 after a power outage?"
+"Quick health check - what should I verify on the R630 after a power outage?"
 
 "I want to add a new VM to Proxmox for a pentesting lab. 
 What specs and network config do you recommend given my current setup?"
@@ -746,7 +746,7 @@ SKILLEOF'
 "INCIDENT: Found cryptominer running on my TrueNAS server. 
 Process name is xmrig, using 100% CPU. What do I do right now?"
 
-"INCIDENT: Client called — all their files have .encrypted extension 
+"INCIDENT: Client called - all their files have .encrypted extension 
 and there's a ransom note on the desktop. They're a dental office. 
 Walk me through immediate response."
 ```
@@ -968,7 +968,7 @@ CONTAINERS
   🟢 18/18 expected containers running
   
 SECURITY
-  🔴 3 CRITICAL Wazuh alerts overnight — review required
+  🔴 3 CRITICAL Wazuh alerts overnight - review required
   🟢 All NPMplus certs valid >30 days
   
 ACTION ITEMS:
@@ -1046,7 +1046,7 @@ config['cron']['jobs'] = {
 
     'friday-security-summary': {
         'schedule': '0 16 * * 5',
-        'prompt': 'End of week security summary. What were the notable security events this week? Any patches I should apply this weekend? Any ongoing threats I should monitor? Keep it brief — 5 bullet points max.',
+        'prompt': 'End of week security summary. What were the notable security events this week? Any patches I should apply this weekend? Any ongoing threats I should monitor? Keep it brief - 5 bullet points max.',
         'agent': 'blue-team',
         'enabled': True
     }
@@ -1150,7 +1150,7 @@ print('Done')
 
 ## Multi-Agent Workflow Example
 
-This example shows how to chain agents for a complete penetration test engagement — from scoping through final report.
+This example shows how to chain agents for a complete penetration test engagement - from scoping through final report.
 
 ### Workflow: SMB Pentest Engagement
 
@@ -1204,7 +1204,7 @@ To apply everything in this guide at once, restart the OpenClaw app after making
 
 ```bash
 # Validate config is valid before restarting
-sudo python3 -c "import json; json.load(open('/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json')); print('Config valid — safe to restart')"
+sudo python3 -c "import json; json.load(open('/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json')); print('Config valid - safe to restart')"
 ```
 
 Then in the TrueNAS UI: **Apps → OpenClaw → Stop → Start**

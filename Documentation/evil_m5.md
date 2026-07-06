@@ -1,7 +1,7 @@
 # The M5Cardputer & Evil-M5Project
 
 ## 🎯 Purpose
-Technical guide for the M5Cardputer running Evil-M5Project firmware — a pocket-sized, keyboard-driven wireless security workstation for authorized WiFi penetration testing, captive portal attacks, and network reconnaissance.
+Technical guide for the M5Cardputer running Evil-M5Project firmware - a pocket-sized, keyboard-driven wireless security workstation for authorized WiFi penetration testing, captive portal attacks, and network reconnaissance.
 
 ## ⚙️ Function
 Covers hardware specifications, firmware installation via M5Burner or Arduino IDE compilation, SD card preparation, UI navigation conventions, and module deep-dives: WiFi scanning, wardriving with GPS, deauthentication, evil twin captive portal, handshake capture, BadUSB, EAPOL/deauth detection, BLE device detection (Wall of Flipper, AirTag, skimmers), and the Reverse TCP Tunnel implant mode. Includes an 8-exercise closed-lab playbook and a blue-team attack/defense table.
@@ -208,7 +208,7 @@ Procedure:
    https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
    ```
 3. In **Tools → Board → Boards Manager**, install **esp32 by Espressif Systems**. The project documentation specifically requires version **2.1.4 or earlier** and warns that 3.x (including the `3.0.0-alpha3` revision) breaks the build on most non-M5 boards. Anything in the 2.x line up to 2.1.4 is safe.
-4. Install the M5Stack board package — see `https://docs.m5stack.com/en/arduino/arduino_board` (verify current URL; M5Stack docs restructure periodically) or search M5Stack's Arduino quickstart in their official docs.
+4. Install the M5Stack board package - see `https://docs.m5stack.com/en/arduino/arduino_board` (verify current URL; M5Stack docs restructure periodically) or search M5Stack's Arduino quickstart in their official docs.
 5. Install the following libraries via **Library Manager**:
    - `Adafruit_NeoPixel`
    - `ArduinoJson`
@@ -697,12 +697,12 @@ If any line is unchecked, the radio stays off.
 ---
 
 ## Related Files
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero: complementary multi-radio tool (Sub-GHz, NFC, RFID, IR, iButton, BLE, BadUSB)
-- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: autonomous network-service attacker (pairs with Evil-M5 for RF + network-layer coverage)
-- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware: alternative to Evil-M5 on Cardputer with Sub-GHz, NFC, IR, and FM support
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — Marauder command reference (Marauder is a sibling firmware for the same ESP32 hardware)
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Converting captured .pcap files to Hashcat mode 22000 format for WPA2 cracking
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng for processing handshakes captured by Evil-M5
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero: complementary multi-radio tool (Sub-GHz, NFC, RFID, IR, iButton, BLE, BadUSB)
+- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: autonomous network-service attacker (pairs with Evil-M5 for RF + network-layer coverage)
+- [bruce_firmware.md](bruce_firmware.md) - Bruce firmware: alternative to Evil-M5 on Cardputer with Sub-GHz, NFC, IR, and FM support
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - Marauder command reference (Marauder is a sibling firmware for the same ESP32 hardware)
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Converting captured .pcap files to Hashcat mode 22000 format for WPA2 cracking
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng for processing handshakes captured by Evil-M5
 
 ---
 

@@ -1,7 +1,7 @@
 # 🕷️ JTAGulator
 
 ## 🎯 Purpose
-Open-source hardware tool by Joe Grand for automatically discovering JTAG and UART pin assignments on an unknown target PCB by brute-forcing all pin permutations — eliminating the need to manually trace PCB traces or read silkscreen labels.
+Open-source hardware tool by Joe Grand for automatically discovering JTAG and UART pin assignments on an unknown target PCB by brute-forcing all pin permutations - eliminating the need to manually trace PCB traces or read silkscreen labels.
 
 ## ⚙️ Function
 Connects to a target device's unknown debug header pins via a serial terminal interface. Voltage is set to match the target logic level, then automated IDCODE scan (`J` + `I` commands) or UART detection test cycles through all permutations and reports which pin is TDI/TDO/TCK/TMS or TX/RX.
@@ -11,7 +11,7 @@ Identify the correct pinout of an unknown JTAG or UART debug interface so a JTAG
 
 ## 📋 When to Use
 - When a target PCB has an unlabeled or mystery debug header
-- Before connecting a Bus Pirate or OpenOCD — need to know pin assignments first
+- Before connecting a Bus Pirate or OpenOCD - need to know pin assignments first
 - Firmware extraction from a locked device via JTAG boundary scan
 - Physical red team assessment of embedded devices with unknown debug interfaces
 
@@ -49,8 +49,8 @@ The JTAGulator is an open-source hardware tool created by Joe Grand that simplif
 ---
 
 ## Related Files
-- [BusPirate.md](BusPirate.md) — Use Bus Pirate to communicate on the JTAG/UART pins discovered by JTAGulator
-- [BitPirate.md](BitPirate.md) — Connect a UART adapter to the TX/RX pins found by JTAGulator's UART scan
-- [HiLetgo.md](HiLetgo.md) — Logic analyzer to verify signal integrity on the pins JTAGulator identified
-- [Chapter1.md](Chapter1.md) — Threat modeling: JTAG/debug interface access is a primary physical attack vector
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: JTAG protocol, logic levels, and voltage compatibility
+- [BusPirate.md](BusPirate.md) - Use Bus Pirate to communicate on the JTAG/UART pins discovered by JTAGulator
+- [BitPirate.md](BitPirate.md) - Connect a UART adapter to the TX/RX pins found by JTAGulator's UART scan
+- [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify signal integrity on the pins JTAGulator identified
+- [Chapter1.md](Chapter1.md) - Threat modeling: JTAG/debug interface access is a primary physical attack vector
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: JTAG protocol, logic levels, and voltage compatibility

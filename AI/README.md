@@ -29,11 +29,11 @@
 
 ## 🎯 Overview
 
-This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity — with an emphasis on **self-hosted, privacy-respecting deployments** that keep your data on your own hardware.
+This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity - with an emphasis on **self-hosted, privacy-respecting deployments** that keep your data on your own hardware.
 
 **What You'll Find Here:**
 - Self-hosted AI agent frameworks (OpenClaw, AnythingLLM) with full setup guides for TrueNAS SCALE
-- Multi-provider LLM routing — Anthropic Claude, Google Gemini, Groq, and local Ollama models
+- Multi-provider LLM routing - Anthropic Claude, Google Gemini, Groq, and local Ollama models
 - AI-powered workflows for blue team, red team, purple team, OSINT, and IT support operations
 - Prompt engineering cheat sheets and templates for security practitioners
 - AgentFlow configurations for automating incident response, OSINT collection, and security audits
@@ -42,7 +42,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 ### Purpose
 
 These resources are designed to:
-- Provide **practical, deployable configurations** for integrating AI into cybersecurity workflows — not just theory
+- Provide **practical, deployable configurations** for integrating AI into cybersecurity workflows - not just theory
 - Enable **cost-effective AI operations** using free tiers (Groq, Gemini) and local inference (Ollama) while reserving paid APIs for complex tasks
 - Offer **reusable agent personas and skill configurations** for IT support, pentesting, and SOC work
 - Encourage **responsible and privacy-conscious** use of AI with self-hosted infrastructure
@@ -54,11 +54,11 @@ These resources are designed to:
 
 | File/Folder | Description |
 |-------------|-------------|
-| **[offline-llm.md](offline-llm.md)** | Create a completely offline LLM system — hardware selection, model deployment, air-gapped setup, and operational security for sensitive environments |
-| **[ai_prompts.md](ai_prompts.md)** | Master resource and cheat sheet for high-performance AI prompting — templates, patterns, and techniques for security and IT workflows |
+| **[offline-llm.md](offline-llm.md)** | Create a completely offline LLM system - hardware selection, model deployment, air-gapped setup, and operational security for sensitive environments |
+| **[ai_prompts.md](ai_prompts.md)** | Master resource and cheat sheet for high-performance AI prompting - templates, patterns, and techniques for security and IT workflows |
 | **[AnythingLLM/](AnythingLLM/)** | Generative AI configuration and AgentFlows for automating incident response, OSINT data collection, and security audits using a self-hosted AnythingLLM instance |
-| **[OpenClaw/](OpenClaw/)** | Complete setup guide and configurations for deploying OpenClaw on TrueNAS SCALE — multi-provider LLM routing, homelab integration, and cybersecurity agent workflows |
-| └ [README.md](OpenClaw/README.md) | TrueNAS SCALE installation guide — ixVolume setup, provider config, NPMplus HTTPS proxy, device pairing, and troubleshooting |
+| **[OpenClaw/](OpenClaw/)** | Complete setup guide and configurations for deploying OpenClaw on TrueNAS SCALE - multi-provider LLM routing, homelab integration, and cybersecurity agent workflows |
+| └ [README.md](OpenClaw/README.md) | TrueNAS SCALE installation guide - ixVolume setup, provider config, NPMplus HTTPS proxy, device pairing, and troubleshooting |
 | └ [use_cases.md](OpenClaw/use_cases.md) | Real-world prompt examples for IT support, blue team, red team, purple team, OSINT, homelab, and business operations |
 | └ [agent_skill_config.md](OpenClaw/agent_skill_config.md) | Pre-built agent personas, skill configurations, cron jobs, and multi-agent workflow setups |
 
@@ -71,8 +71,8 @@ These resources are designed to:
 **Purpose**: Deploy persistent AI agents on your own hardware that connect to messaging platforms, tools, and services.
 
 **What's included:**
-- **OpenClaw on TrueNAS SCALE** — Full deployment guide for a multi-provider AI agent framework running as a TrueNAS community app. Connects to Telegram, Discord, Slack, and 50+ channels. Routes tasks automatically between Anthropic, Gemini, Groq, and local Ollama models based on cost and capability.
-- **AnythingLLM AgentFlows** — Custom automation flows for incident response, OSINT collection, log analysis, and security audits running inside a self-hosted AnythingLLM instance.
+- **OpenClaw on TrueNAS SCALE** - Full deployment guide for a multi-provider AI agent framework running as a TrueNAS community app. Connects to Telegram, Discord, Slack, and 50+ channels. Routes tasks automatically between Anthropic, Gemini, Groq, and local Ollama models based on cost and capability.
+- **AnythingLLM AgentFlows** - Custom automation flows for incident response, OSINT collection, log analysis, and security audits running inside a self-hosted AnythingLLM instance.
 
 **Key capabilities:**
 - Run 24/7 on your homelab with no cloud dependency
@@ -84,24 +84,24 @@ These resources are designed to:
 
 ### 2. 🧠 GenAI / LLM Applications for Security
 
-**Purpose**: Apply large language models to security operations tasks — report generation, log analysis, threat hunting, and SOC automation.
+**Purpose**: Apply large language models to security operations tasks - report generation, log analysis, threat hunting, and SOC automation.
 
 **Key focus areas:**
-- Prompt engineering for security workflows — triage, IR, pentest reporting
+- Prompt engineering for security workflows - triage, IR, pentest reporting
 - RAG (retrieval-augmented generation) for threat intelligence and knowledge bases
 - Multi-agent workflows for complex security assessments
-- Model routing strategy — knowing when to use local vs. cloud models
+- Model routing strategy - knowing when to use local vs. cloud models
 
 **Included resources:**
-- `ai_prompts.md` — Comprehensive prompt cheat sheet organized by security domain
-- OpenClaw `use_cases.md` — 50+ real-world example prompts covering blue team, red team, OSINT, IT support, and business ops
-- OpenClaw `agent_skill_config.md` — Pre-built agent personas for field tech, security analyst, pentester, OSINT researcher, and homelab monitor roles
+- `ai_prompts.md` - Comprehensive prompt cheat sheet organized by security domain
+- OpenClaw `use_cases.md` - 50+ real-world example prompts covering blue team, red team, OSINT, IT support, and business ops
+- OpenClaw `agent_skill_config.md` - Pre-built agent personas for field tech, security analyst, pentester, OSINT researcher, and homelab monitor roles
 
 ---
 
 ### 3. 📴 Offline & Air-Gapped AI Deployment
 
-**Purpose**: Run AI inference in environments where internet connectivity is restricted or prohibited — classified networks, air-gapped labs, sensitive client engagements.
+**Purpose**: Run AI inference in environments where internet connectivity is restricted or prohibited - classified networks, air-gapped labs, sensitive client engagements.
 
 **Key focus areas:**
 - Hardware selection for local inference (GPU/CPU requirements by model size)
@@ -110,7 +110,7 @@ These resources are designed to:
 - OPSEC considerations for AI in sensitive environments
 
 **Included resources:**
-- `offline-llm.md` — Complete guide to building a fully offline LLM system
+- `offline-llm.md` - Complete guide to building a fully offline LLM system
 
 ---
 
@@ -126,8 +126,8 @@ These resources are designed to:
 - CTF assistance and lab environment support
 
 **Included resources:**
-- OpenClaw Rex agent config — Pentest-focused persona with scope guardrails
-- OpenClaw Oliver agent config — OSINT-focused research assistant
+- OpenClaw Rex agent config - Pentest-focused persona with scope guardrails
+- OpenClaw Oliver agent config - OSINT-focused research assistant
 - `use_cases.md` red team and OSINT sections
 
 ---
@@ -144,8 +144,8 @@ These resources are designed to:
 - Security awareness training content
 
 **Included resources:**
-- OpenClaw Blaine agent config — Blue team analyst persona with MITRE ATT&CK awareness
-- OpenClaw daily security digest cron job — Automated CVE and threat briefings
+- OpenClaw Blaine agent config - Blue team analyst persona with MITRE ATT&CK awareness
+- OpenClaw daily security digest cron job - Automated CVE and threat briefings
 - `use_cases.md` blue team section
 
 ---
@@ -184,14 +184,14 @@ These resources are designed to:
 
 ### For Sensitive / Air-Gapped Environments
 - Follow `offline-llm.md` for fully offline deployment
-- Use Ollama as the sole inference backend — no data leaves the machine
+- Use Ollama as the sole inference backend - no data leaves the machine
 - Apply the `agent_skill_config.md` homelab agent (Homer) for infrastructure management
 
 ### Customization Tips
 - **Adapt agent personas**: Edit the `instructions` field in agent configs to match your business name, client base, and tooling
 - **Adjust model routing**: Change `primary`/`fallback` model assignments per agent based on your API budget
 - **Modify cron schedules**: Update cron expressions in `agent_skill_config.md` to match your timezone and preferred timing
-- **Extend skill prompts**: Each skill's prompt template is plain text — customize it to reference your specific environment
+- **Extend skill prompts**: Each skill's prompt template is plain text - customize it to reference your specific environment
 
 ---
 
@@ -224,27 +224,27 @@ Always comply with:
 - ✅ Reusable and modular configurations/templates
 - ✅ Governance and ethical sections where relevant
 - ✅ Version history (e.g., `v1.0 – 2026-04-21 – JP`)
-- ✅ Tested configurations — note the version/environment it was tested on
+- ✅ Tested configurations - note the version/environment it was tested on
 
 ---
 
 ## 📚 Resources
 
 **AI Frameworks & Tools:**
-- **OpenClaw** — https://openclaw.ai
-- **AnythingLLM** — https://anythingllm.com
-- **Ollama** — https://ollama.ai
-- **Hugging Face Models** — https://huggingface.co/models
+- **OpenClaw** - https://openclaw.ai
+- **AnythingLLM** - https://anythingllm.com
+- **Ollama** - https://ollama.ai
+- **Hugging Face Models** - https://huggingface.co/models
 
 **AI Security Research:**
-- **MITRE ATLAS** (AI threat matrix) — https://atlas.mitre.org
-- **NIST AI Risk Management Framework** — https://www.nist.gov/ai/risk-management-framework
-- **OWASP LLM Top 10** — https://owasp.org/www-project-top-10-for-large-language-model-applications
+- **MITRE ATLAS** (AI threat matrix) - https://atlas.mitre.org
+- **NIST AI Risk Management Framework** - https://www.nist.gov/ai/risk-management-framework
+- **OWASP LLM Top 10** - https://owasp.org/www-project-top-10-for-large-language-model-applications
 
 **LLM Providers (Free Tiers Available):**
-- **Groq** (Llama 3.3 70B, free tier) — https://console.groq.com
-- **Google Gemini** (1M context, free tier) — https://aistudio.google.com
-- **Anthropic Claude** — https://console.anthropic.com
+- **Groq** (Llama 3.3 70B, free tier) - https://console.groq.com
+- **Google Gemini** (1M context, free tier) - https://aistudio.google.com
+- **Anthropic Claude** - https://console.anthropic.com
 
 ---
 

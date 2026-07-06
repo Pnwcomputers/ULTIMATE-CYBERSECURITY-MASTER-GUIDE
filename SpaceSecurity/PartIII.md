@@ -1,13 +1,13 @@
 # 🚀 Part III: The Space Segment
 
 ## 🎯 Purpose
-Space segment attack and defense guide — covering onboard computer (OBC) architecture, flight software (FSW) vulnerabilities, RTOS security (VxWorks, RTEMS, FreeRTOS), memory corruption in space-grade processors, and supply chain risks in COTS satellite components.
+Space segment attack and defense guide - covering onboard computer (OBC) architecture, flight software (FSW) vulnerabilities, RTOS security (VxWorks, RTEMS, FreeRTOS), memory corruption in space-grade processors, and supply chain risks in COTS satellite components.
 
 ## ⚙️ Function
 Covers: spacecraft software architecture layering (mission apps/FSW/RTOS/BSP), memory protection unit limitations, RTOS-specific vulnerabilities, FSW patching constraints (bandwidth-limited uplinks), SEU/radiation-induced fault injection, and CubeSat COTS hardware attack surface.
 
 ## 🏆 Goal
-Understand the unique constraints of space-segment software security — where patching may require months, memory protection is limited, and hardware faults (SEU) can be weaponized — to assess and improve spacecraft software security posture.
+Understand the unique constraints of space-segment software security - where patching may require months, memory protection is limited, and hardware faults (SEU) can be weaponized - to assess and improve spacecraft software security posture.
 
 ## 📋 When to Use
 - Assessing a spacecraft FSW codebase for vulnerabilities before launch
@@ -56,12 +56,12 @@ Understand the unique constraints of space-segment software security — where p
 
 Telecommand software uploads (patches, parameter updates, full FSW loads) represent the highest-risk command type:
 
-- **Integrity verification** — Is the uplinked binary cryptographically signed and verified before execution?
-- **Authentication** — Is the command chain that initiates an upload authenticated end-to-end?
-- **Rollback protection** — Can an attacker upload a known-vulnerable older version?
-- **Execution path** — Is uploaded code loaded into protected memory? Can it overwrite the bootloader?
+- **Integrity verification** - Is the uplinked binary cryptographically signed and verified before execution?
+- **Authentication** - Is the command chain that initiates an upload authenticated end-to-end?
+- **Rollback protection** - Can an attacker upload a known-vulnerable older version?
+- **Execution path** - Is uploaded code loaded into protected memory? Can it overwrite the bootloader?
 
-Many legacy satellites have no meaningful software upload authentication — the only protection is the difficulty of gaining uplink access.
+Many legacy satellites have no meaningful software upload authentication - the only protection is the difficulty of gaining uplink access.
 
 ---
 
@@ -96,7 +96,7 @@ CubeSats represent the most accessible research target for spacecraft security:
 - Some have open command interfaces for ground station operators
 
 ```bash
-# SatNOGS global ground station network — passive telemetry collection
+# SatNOGS global ground station network - passive telemetry collection
 # https://network.satnogs.org
 
 # Decode AX.25-framed CubeSat telemetry
@@ -117,7 +117,7 @@ python decode_telemetry.py --frames decoded.json
 | **Watchdog timers** | Hardware watchdog to recover from FSW compromise or corruption |
 | **Safe mode** | Autonomous safe mode entry on anomaly; limited command set in safe mode |
 | **Memory protection** | MPU/MMU enforcement; non-executable data regions |
-| **Radiation hardening** | Redundant memory, scrubbing, error-correcting codes (EDAC) — also relevant to fault injection |
+| **Radiation hardening** | Redundant memory, scrubbing, error-correcting codes (EDAC) - also relevant to fault injection |
 
 ---
 
@@ -125,7 +125,7 @@ python decode_telemetry.py --frames decoded.json
 
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
-*Space systems are critical infrastructure — treat them accordingly.*
+*Space systems are critical infrastructure - treat them accordingly.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -134,9 +134,9 @@ python decode_telemetry.py --frames decoded.json
 ---
 
 ## Related Files
-- [PartII.md](PartII.md) — Ground segment: the uplink path to the FSW
-- [PartIV.md](PartIV.md) — User segment: the downstream satellite services
-- [../HardwareHacking/Chapter3.md](../HardwareHacking/Chapter3.md) — Fault injection: SEU/radiation fault injection has parallels to hardware glitching
+- [PartII.md](PartII.md) - Ground segment: the uplink path to the FSW
+- [PartIV.md](PartIV.md) - User segment: the downstream satellite services
+- [../HardwareHacking/Chapter3.md](../HardwareHacking/Chapter3.md) - Fault injection: SEU/radiation fault injection has parallels to hardware glitching
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 

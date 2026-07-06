@@ -1,18 +1,18 @@
 # GitHub Security Playbooks & DevSecOps Resources
 
 ## 🎯 Purpose
-A curated pointer list to actively-maintained, community-vetted GitHub repositories for blue team, red team, and purple team operations — organized so you can go from "I need X category of tooling" to a specific, starred repository without re-searching GitHub from scratch each time.
+A curated pointer list to actively-maintained, community-vetted GitHub repositories for blue team, red team, and purple team operations - organized so you can go from "I need X category of tooling" to a specific, starred repository without re-searching GitHub from scratch each time.
 
 ## ⚙️ Function
-This is a **resource index, not a procedure** — unlike the other files in this folder, it doesn't walk through a specific incident type step-by-step. Instead it groups external repositories by team function (Blue/Red/Purple), with a one-line description of what each repo actually does and why it's useful, plus star counts as a rough signal of community adoption/maintenance.
+This is a **resource index, not a procedure** - unlike the other files in this folder, it doesn't walk through a specific incident type step-by-step. Instead it groups external repositories by team function (Blue/Red/Purple), with a one-line description of what each repo actually does and why it's useful, plus star counts as a rough signal of community adoption/maintenance.
 
 ## 🏆 Goal
-Give you a fast, categorized starting point when you need to add a new tool or reference to your kit — e.g., "I need an ATT&CK-mapped test library" points straight at `atomic-red-team` instead of a generic search.
+Give you a fast, categorized starting point when you need to add a new tool or reference to your kit - e.g., "I need an ATT&CK-mapped test library" points straight at `atomic-red-team` instead of a generic search.
 
 ## 📋 When to Use
 - Building out a new blue/red/purple team toolkit from scratch
 - Looking for a specific category of tool (DFIR, offensive recon, purple team exercise frameworks) without knowing exact repo names
-- Periodic toolkit refresh — revisit this list to check for newer/better-maintained alternatives
+- Periodic toolkit refresh - revisit this list to check for newer/better-maintained alternatives
 
 ---
 

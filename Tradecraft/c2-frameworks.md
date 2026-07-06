@@ -1,6 +1,6 @@
-# C2 Frameworks — Deep Dive
+# C2 Frameworks - Deep Dive
 
-> **Scope:** Cobalt Strike, Sliver, and Havoc — architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
+> **Scope:** Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
 
 ✅ **Quick-reference checklist:** [Command and Control](../Checklists/Command&Control.md)
 
@@ -52,7 +52,7 @@ A Command and Control (C2) framework provides operators with a persistent channe
 
 ### Overview
 
-Cobalt Strike (CS) is a commercial adversary simulation platform. Its Beacon payload is one of the most widely analyzed implants in existence — OpSec requires heavy customization.
+Cobalt Strike (CS) is a commercial adversary simulation platform. Its Beacon payload is one of the most widely analyzed implants in existence - OpSec requires heavy customization.
 
 ### Team Server Setup
 
@@ -154,7 +154,7 @@ Default CS artifacts are heavily signatured. Use Artifact Kit to customize:
 
 ### Overview
 
-Sliver is an open-source C2 framework from BishopFox. Written in Go — implants compile to native binaries with no external dependencies. Actively developed and increasingly used in real-world operations.
+Sliver is an open-source C2 framework from BishopFox. Written in Go - implants compile to native binaries with no external dependencies. Actively developed and increasingly used in real-world operations.
 
 ### Installation
 
@@ -458,9 +458,9 @@ server {
 ### Domain Selection
 
 - **Categorized domains:** Purchase aged domains already categorized as Finance, IT, News
-- **Certificate:** Always use a valid TLS cert (Let's Encrypt) — avoid self-signed
+- **Certificate:** Always use a valid TLS cert (Let's Encrypt) - avoid self-signed
 - **Domain fronting:** Route traffic through CDNs (Cloudflare, AWS CloudFront) when possible
-- **TTL:** Set short DNS TTL early, then lengthen — allows fast pivoting if burned
+- **TTL:** Set short DNS TTL early, then lengthen - allows fast pivoting if burned
 
 ### Infrastructure Separation
 
@@ -562,7 +562,7 @@ rule CobaltStrike_Beacon_Generic {
 # DNS RPZ (Response Policy Zone) to block C2 domains
 # In BIND/Unbound, load RPZ feed from threat intel provider
 
-# Egress filtering — whitelist approach
+# Egress filtering - whitelist approach
 iptables -P OUTPUT DROP
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -d <approved_proxy_IP> -p tcp --dport 3128 -j ACCEPT

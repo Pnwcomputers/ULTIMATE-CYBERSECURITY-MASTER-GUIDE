@@ -37,13 +37,13 @@
 19. [Persistence Mechanisms](#persistence-mechanisms)
 20. [Data Exfiltration](#data-exfiltration-via-dns)
 21. [C2 Frameworks & Tradecraft](Tradecraft/c2-frameworks.md)
-22. [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+22. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 23. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
 24. [Covering Tracks](#covering-tracks)
 
 ### PART VI: ADVANCED TOPICS
 22. [Active Directory Attacks](#active-directory-attacks)
-23. [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
+23. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
 24. [Cloud Security & Exploitation](#cloud-security--exploitation)
 25. [Mobile Device Security](#mobile-device-security)
 26. [IoT & Hardware Hacking](#iot--hardware-hacking)
@@ -76,11 +76,11 @@
 ### PART XI: TRADECRAFT REFERENCE
 43. [Tradecraft Overview](Tradecraft/README.md)
 44. [C2 Frameworks](Tradecraft/c2-frameworks.md)
-45. [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+45. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 46. [Living Off the Land](Tradecraft/lolbins-lolbas.md)
 47. [OSINT & Threat Intelligence](Tradecraft/osint-threat-intel.md)
 48. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
-49. [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
+49. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
 
 ---
 
@@ -907,7 +907,7 @@ net user /domain
 net group /domain
 ```
 ---
-> 📁 **Full Reference:** [Active Directory — Attacks & Defense](Tradecraft/active-directory.md)
+> 📁 **Full Reference:** [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
 > covers BloodHound/SharpHound, Kerberoasting, AS-REP roasting, Golden/Silver/Diamond tickets,
 > DCSync, ACL abuse, GPO abuse, domain persistence, and the full hardening checklist.
 
@@ -1087,7 +1087,7 @@ snort -A console -q -c /etc/snort/snort.conf -i eth0
 - **Keylogger** - Keystroke recording
 
 ---
-> 📁 **Deep Dive:** [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md)
+> 📁 **Deep Dive:** [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 > covers FLARE VM, REMnux, Volatility 3, PE-sieve, Moneta, CyberChef, and Sysinternals
 > for Windows and Linux malware analysis, plus recognition patterns for all major
 > evasion techniques (AMSI bypass, ETW tampering, process injection, sleep obfuscation).
@@ -1270,7 +1270,7 @@ Overall Risk: [Critical/High/Medium/Low]
 ## Overview
  
 Operational tradecraft reference covering C2 frameworks, evasion techniques, living-off-the-land,
-OSINT methodology, network detection, and Active Directory — structured for both red team and blue
+OSINT methodology, network detection, and Active Directory - structured for both red team and blue
 team practitioners. Each file covers offensive technique context alongside detection, hunting, and
 defensive hardening guidance.
  
@@ -1319,14 +1319,14 @@ python3 vol.py -f memory.dmp windows.hollowprocesses
  
 **Key Detection Tools**
 ```
-PE-sieve    — scan running processes for injection/hollowing (Windows)
-Moneta      — in-memory IOC scanner (Windows)
-Zeek        — protocol log generation from PCAP or live (Linux primary)
-Suricata    — IDS/IPS rules engine (Windows + Linux)
-pktmon      — built-in Windows packet capture (Win10 2004+)
-Sysmon      — extended Windows event telemetry
-Sigma       — cross-platform detection rule format
-CyberChef   — decode obfuscated payloads (browser / cross-platform)
+PE-sieve    - scan running processes for injection/hollowing (Windows)
+Moneta      - in-memory IOC scanner (Windows)
+Zeek        - protocol log generation from PCAP or live (Linux primary)
+Suricata    - IDS/IPS rules engine (Windows + Linux)
+pktmon      - built-in Windows packet capture (Win10 2004+)
+Sysmon      - extended Windows event telemetry
+Sigma       - cross-platform detection rule format
+CyberChef   - decode obfuscated payloads (browser / cross-platform)
 ```
  
 ### Purple Team Validation

@@ -1,13 +1,13 @@
 # 🛰️ Space Security
 
 ## 🎯 Purpose
-Index for the Space Security section — covering offensive and defensive security across all three space system segments: ground (mission control, TT&C, ground stations), space (flight software, OBC, RTOS), and user (SATCOM terminals, GNSS receivers, VSATs).
+Index for the Space Security section - covering offensive and defensive security across all three space system segments: ground (mission control, TT&C, ground stations), space (flight software, OBC, RTOS), and user (SATCOM terminals, GNSS receivers, VSATs).
 
 ## ⚙️ Function
 Links to four content parts (Foundations, Ground Segment, Space Segment, User Segment) and one appendices file. Provides attack surface taxonomy, regulatory reference (CFAA, ITAR/EAR, FCC), tool ecosystem, and career path overview.
 
 ## 🏆 Goal
-Serve as the starting point for space security work — directing practitioners to the right Part file for their current focus area (ground infrastructure, flight software, or SATCOM terminal attacks).
+Serve as the starting point for space security work - directing practitioners to the right Part file for their current focus area (ground infrastructure, flight software, or SATCOM terminal attacks).
 
 ## 📋 When to Use
 - Choosing which Part to read based on assessment focus (ground vs. space vs. user segment)
@@ -340,12 +340,12 @@ USERS EXPLICITLY ACKNOWLEDGE:
 <div align="center">
 
 ## Related Files
-- [PartI.md](PartI.md) — Foundations: space system segments, threat landscape, attack taxonomy
-- [PartII.md](PartII.md) — Ground segment: TT&C, mission control, ground station attacks
-- [PartIII.md](PartIII.md) — Space segment: flight software, RTOS, OBC vulnerabilities
-- [PartIV.md](PartIV.md) — User segment: SATCOM terminals, GNSS spoofing, VSAT attacks
-- [Appendices.md](Appendices.md) — Industry overview, regulatory bodies, further resources
-- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — SDR hacking advanced: GPS spoofing and satellite signal analysis techniques used in this section
+- [PartI.md](PartI.md) - Foundations: space system segments, threat landscape, attack taxonomy
+- [PartII.md](PartII.md) - Ground segment: TT&C, mission control, ground station attacks
+- [PartIII.md](PartIII.md) - Space segment: flight software, RTOS, OBC vulnerabilities
+- [PartIV.md](PartIV.md) - User segment: SATCOM terminals, GNSS spoofing, VSAT attacks
+- [Appendices.md](Appendices.md) - Industry overview, regulatory bodies, further resources
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) - SDR hacking advanced: GPS spoofing and satellite signal analysis techniques used in this section
 
 ---
 

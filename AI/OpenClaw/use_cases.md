@@ -35,7 +35,7 @@ and today's weather in Vancouver WA"
 ```
 "I'm at a client site and they mentioned moving to Azure AD. 
 Give me a 5-minute briefing on what that means for a 15-person SMB 
-migrating from on-prem AD — costs, gotchas, and what questions I should ask them"
+migrating from on-prem AD - costs, gotchas, and what questions I should ask them"
 ```
 
 ### Shopping & Errands
@@ -60,7 +60,7 @@ I can do between service calls. No jumping, I'm in dress clothes."
 
 ### Home Automation Integration
 ```
-"Check my Home Assistant — is the garage door open? 
+"Check my Home Assistant - is the garage door open? 
 Also what's the current temperature inside vs outside?"
 ```
 *Requires: Home Assistant skill or API integration*
@@ -146,7 +146,7 @@ What should I check first?"
 ```
 "Write a non-technical explanation I can send to a client explaining 
 why their computer is running slow. The actual cause is a failing HDD 
-with bad sectors. Don't use jargon — they're a 65-year-old small business owner."
+with bad sectors. Don't use jargon - they're a 65-year-old small business owner."
 ```
 
 ### On-the-Fly Training
@@ -226,7 +226,7 @@ Keep them under 280 characters and avoid tech jargon."
 
 ### TrueNAS Health Checks
 ```
-"Check my TrueNAS pools — are they healthy? 
+"Check my TrueNAS pools - are they healthy? 
 Any scrub errors or degraded drives?"
 ```
 *Requires: TrueNAS skill from ClawHub*
@@ -256,7 +256,7 @@ Also check if any ZFS snapshots are older than 7 days and should be pruned."
 
 ### Service Uptime
 ```
-"Quick health check — are all my self-hosted services responding? 
+"Quick health check - are all my self-hosted services responding? 
 Check: Jellyfin, Frigate, Home Assistant, NPMplus, Ollama"
 ```
 
@@ -294,7 +294,7 @@ high-frequency queries, long subdomain strings, and unusual record types"
 ```
 "A Windows workstation on my network made 3,000 DNS queries in 5 minutes 
 to random subdomains of a .xyz domain. Walk me through an IR playbook 
-for suspected C2 beaconing — what do I contain, collect, and analyze first?"
+for suspected C2 beaconing - what do I contain, collect, and analyze first?"
 ```
 
 ```
@@ -386,7 +386,7 @@ What should I check before running it?"
 ### CTF Assistance
 ```
 "I'm stuck on a CTF challenge. Here's what I have so far: [describe challenge]. 
-Don't give me the answer — give me hints and point me toward the right technique."
+Don't give me the answer - give me hints and point me toward the right technique."
 ```
 
 ---
@@ -444,7 +444,7 @@ For legitimate research, due diligence, and authorized investigations.
 
 ### Business Intelligence
 ```
-"I'm meeting with a potential client — ABC Manufacturing in Vancouver WA. 
+"I'm meeting with a potential client - ABC Manufacturing in Vancouver WA. 
 Find what you can about their business: size, industry, any news, 
 tech stack hints from their website, LinkedIn presence, 
 and any public information about their IT infrastructure."
@@ -486,7 +486,7 @@ What credentials or data may be exposed?"
 Using only publicly available information about their company, 
 show me what a social engineer could find out in 15 minutes 
 to craft a convincing pretexting call. 
-This is for defensive awareness — show them what attackers can learn."
+This is for defensive awareness - show them what attackers can learn."
 ```
 
 ### Brand Monitoring
@@ -601,7 +601,7 @@ For anything involving:
 "Write a [friendly/formal/urgent] email to a client explaining: [situation]"
 
 # Cost estimate
-"Rough cost estimate for: [hardware/service list] — parts + typical labor"
+"Rough cost estimate for: [hardware/service list] - parts + typical labor"
 
 # Study/cert prep
 "Give me 10 practice questions for [certification] on the topic of [topic]"

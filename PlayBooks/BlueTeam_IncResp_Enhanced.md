@@ -2,7 +2,7 @@
 
 ## 🎯 Purpose
 
-Define standardized, repeatable processes—aligned to NIST SP 800-61 r2 and ISO/IEC 27035—for detecting, analyzing, containing, and recovering from security incidents.
+Define standardized, repeatable processes-aligned to NIST SP 800-61 r2 and ISO/IEC 27035-for detecting, analyzing, containing, and recovering from security incidents.
 
 ## ⚙️ Function
 
@@ -10,7 +10,7 @@ The same seven-phase lifecycle as `BlueTeam_IncResp_Simple.md`, expanded with sp
 
 ## 🏆 Goal
 
-Provide a framework-defensible incident response procedure suitable for organizations that need to demonstrate compliance alignment (audits, cyber insurance, regulatory review) alongside operational effectiveness — not just "what to do" but "what to do, mapped to the standard an auditor will ask about."
+Provide a framework-defensible incident response procedure suitable for organizations that need to demonstrate compliance alignment (audits, cyber insurance, regulatory review) alongside operational effectiveness - not just "what to do" but "what to do, mapped to the standard an auditor will ask about."
 
 ## 📋 When to Use
 
@@ -20,7 +20,7 @@ Provide a framework-defensible incident response procedure suitable for organiza
 
 ### Scope:
 
-Covers any incident impacting on-prem or cloud systems—including malware, data exfiltration, unauthorized access, DoS, insider threats, and supply-chain compromises—across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
+Covers any incident impacting on-prem or cloud systems-including malware, data exfiltration, unauthorized access, DoS, insider threats, and supply-chain compromises-across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
 
 ---
 
@@ -149,7 +149,7 @@ Covers any incident impacting on-prem or cloud systems—including malware, data
    - Version control in Git; tag updates with incident ID.
 
 4. **Training:**
-   - SOC refresher on new TTPs—e.g., host-based hunting labs via RangeForce or Cyberbit.
+   - SOC refresher on new TTPs-e.g., host-based hunting labs via RangeForce or Cyberbit.
 
 ---
 

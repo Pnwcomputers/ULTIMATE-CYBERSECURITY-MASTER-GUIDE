@@ -8,7 +8,7 @@ Comprehensive Wireshark display and capture filter reference for network analysi
 Organized by filter type: core protocol filters, port-based filters, IP/subnet filters, TCP flag and state analysis, security/threat detection patterns, noise reduction, remote SSH-to-Wireshark streaming, BLE/Bluetooth capture, Zigbee, MikroTik RouterOS sniffer, OpenWRT/tcpdump, and ready-to-paste starter filter sets for common scenarios.
 
 ## 🏆 Goal
-Serve as a field reference for copy-paste-ready Wireshark filters during live network analysis, security assessments, and lab exercises — reducing time spent looking up syntax during active captures.
+Serve as a field reference for copy-paste-ready Wireshark filters during live network analysis, security assessments, and lab exercises - reducing time spent looking up syntax during active captures.
 
 ## 📋 When to Use
 - Live packet analysis during penetration tests or incident response
@@ -96,7 +96,7 @@ Before filtering, choose the right capture mode for your scenario.
 
 ## 🗂️ Core Protocol Filters
 
-These are Wireshark **display filters** — enter them in the filter bar after a capture is running or loaded.
+These are Wireshark **display filters** - enter them in the filter bar after a capture is running or loaded.
 
 ### Transport Layer
 
@@ -204,28 +204,28 @@ ip.addr == 192.168.1.10 && ip.addr == 192.168.1.20
 ## 🚩 TCP Flag & State Filters
 
 ```wireshark
-# SYN only — connection initiations
+# SYN only - connection initiations
 tcp.flags.syn == 1 && tcp.flags.ack == 0
 
-# SYN-ACK — handshake responses
+# SYN-ACK - handshake responses
 tcp.flags.syn == 1 && tcp.flags.ack == 1
 
-# RST — connection resets / failures
+# RST - connection resets / failures
 tcp.flags.reset == 1
 
-# FIN — connection teardowns
+# FIN - connection teardowns
 tcp.flags.fin == 1
 
-# PSH+ACK — actual data payload traffic
+# PSH+ACK - actual data payload traffic
 tcp.flags.push == 1 && tcp.flags.ack == 1
 
-# Retransmissions — packet loss / congestion indicator
+# Retransmissions - packet loss / congestion indicator
 tcp.analysis.retransmission
 
 # Duplicate ACKs
 tcp.analysis.duplicate_ack
 
-# Zero window — receiver buffer full (performance issue)
+# Zero window - receiver buffer full (performance issue)
 tcp.analysis.zero_window
 ```
 
@@ -234,37 +234,37 @@ tcp.analysis.zero_window
 ## 🛡️ Security & Threat Detection Filters
 
 ```wireshark
-# Port scan indicator — SYN flood or half-open connections
+# Port scan indicator - SYN flood or half-open connections
 tcp.flags.syn == 1 && tcp.flags.ack == 0
 
-# Failed connections — RST flood
+# Failed connections - RST flood
 tcp.flags.reset == 1
 
-# Large packets — potential data exfiltration
+# Large packets - potential data exfiltration
 frame.len > 1400
 
-# Fragmented IP packets — possible evasion technique
+# Fragmented IP packets - possible evasion technique
 ip.flags.mf == 1 || ip.frag_offset > 0
 
-# Broadcast traffic — network discovery or flood
+# Broadcast traffic - network discovery or flood
 eth.dst == ff:ff:ff:ff:ff:ff
 
-# ICMP echo flood — DoS indicator
+# ICMP echo flood - DoS indicator
 icmp.type == 8
 
-# DNS over non-standard port — possible DNS tunneling
+# DNS over non-standard port - possible DNS tunneling
 dns && !(udp.port == 53) && !(tcp.port == 53)
 
-# HTTP on non-standard port — C2 traffic indicator
+# HTTP on non-standard port - C2 traffic indicator
 http && !(tcp.port == 80)
 
-# TLS on non-standard port — possible C2 or evasion
+# TLS on non-standard port - possible C2 or evasion
 tls && !(tcp.port == 443) && !(tcp.port == 8443)
 
-# ARP reply with no prior request — ARP spoofing indicator
+# ARP reply with no prior request - ARP spoofing indicator
 arp.opcode == 2
 
-# Long DNS query names — possible DNS exfiltration
+# Long DNS query names - possible DNS exfiltration
 dns.qry.name.len > 50
 ```
 
@@ -296,7 +296,7 @@ Use these to strip background chatter and focus on relevant traffic.
 # Show only your subnet's outbound internet traffic
 ip.src == 192.168.1.0/24 && !(ip.dst == 192.168.1.0/24)
 
-# Clean view — application traffic only, no management noise
+# Clean view - application traffic only, no management noise
 (tcp || udp) && !(bootp || nbns || ssdp || mdns || stp || arp)
 ```
 
@@ -309,7 +309,7 @@ Stream live captures from a remote device directly into your local Wireshark ins
 ### Basic SSH Streaming
 
 ```bash
-# Linux/macOS — stream from a remote Linux device
+# Linux/macOS - stream from a remote Linux device
 ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" | wireshark -k -i -
 
 # OpenWRT / GL.iNet router
@@ -347,10 +347,10 @@ ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" > /tmp/capture.pcap
 | **Ubertooth One** | Default (ubertooth-btle) | Pipe to pcap or use as live interface |
 
 ```bash
-# Ubertooth — capture to pcap file, open in Wireshark after
+# Ubertooth - capture to pcap file, open in Wireshark after
 ubertooth-btle -f -c /tmp/ble.pcap
 
-# Ubertooth — live stream directly into Wireshark
+# Ubertooth - live stream directly into Wireshark
 ubertooth-btle -f -w /dev/stdout | wireshark -k -i -
 ```
 
@@ -383,7 +383,7 @@ hci_cmd || hci_evt
 ### Hardware & Capture Tools
 
 ```bash
-# KillerBee — capture on Zigbee channel 15
+# KillerBee - capture on Zigbee channel 15
 zbdump -c 15 -w /tmp/zigbee.pcap
 
 # Scan for active Zigbee PANs
@@ -453,7 +453,7 @@ RouterOS has a built-in packet sniffer with its own syntax, separate from Wiresh
 ### Firewall Logging Rules
 
 ```routeros
-# Log HTTP/HTTPS (passthrough — does not block)
+# Log HTTP/HTTPS (passthrough - does not block)
 /ip firewall filter add chain=forward protocol=tcp dst-port=80,443 action=passthrough log=yes
 
 # Log DNS queries
@@ -718,11 +718,11 @@ Tips, caveats, hardware requirements
 <div align="center">
 
 ## Related Files
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — hcxpcapngtool for converting WiFi captures to Hashcat format; Wireshark for verifying the EAPOL frames
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng captures the .cap files that Wireshark can open and analyze
-- [bjorn_pi.md](bjorn_pi.md) — Bjorn's brute-force and exfiltration traffic is exactly what Wireshark blue-team exercises analyze
-- [evil_m5.md](evil_m5.md) — Evil-M5 EAPOL/deauth detection exercises benefit from parallel Wireshark verification
-- [python.md](python.md) — Python Scapy scripts generate traffic that Wireshark can inspect and validate
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - hcxpcapngtool for converting WiFi captures to Hashcat format; Wireshark for verifying the EAPOL frames
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng captures the .cap files that Wireshark can open and analyze
+- [bjorn_pi.md](bjorn_pi.md) - Bjorn's brute-force and exfiltration traffic is exactly what Wireshark blue-team exercises analyze
+- [evil_m5.md](evil_m5.md) - Evil-M5 EAPOL/deauth detection exercises benefit from parallel Wireshark verification
+- [python.md](python.md) - Python Scapy scripts generate traffic that Wireshark can inspect and validate
 
 ---
 

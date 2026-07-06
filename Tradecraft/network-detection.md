@@ -1,4 +1,4 @@
-# Network Detection & Packet Analysis — Deep Dive
+# Network Detection & Packet Analysis - Deep Dive
 
 > **Scope:** Network-based threat detection, packet capture and analysis, protocol anomaly detection, IDS/IPS tuning, traffic baselining, and network forensics methodology.
 
@@ -56,7 +56,7 @@ Internet
 | Network TAP | Hardware, lossless, passive | Physical install required |
 | Inline IPS | Active blocking possible | Single point of failure risk |
 | Agent-based (EDR) | Per-host visibility | Coverage gaps on unmanaged devices |
-| NetFlow/IPFIX | Low overhead, scalable | No payload — metadata only |
+| NetFlow/IPFIX | Low overhead, scalable | No payload - metadata only |
 
 ### NSM Stack Components
 
@@ -69,10 +69,10 @@ Raw Packets → [Capture] → [Parser/Decoder] → [Detection Engine] → [Alert
 ```
 
 Common stacks:
-- **Security Onion** — Zeek + Suricata + Elasticsearch + Kibana (full NSM)
-- **Zeek + ELK** — Custom deployment
-- **Arkime (Moloch)** — Full packet capture + search
-- **ntopng** — Flow analysis and visualization
+- **Security Onion** - Zeek + Suricata + Elasticsearch + Kibana (full NSM)
+- **Zeek + ELK** - Custom deployment
+- **Arkime (Moloch)** - Full packet capture + search
+- **ntopng** - Flow analysis and visualization
 
 ---
 
@@ -229,7 +229,7 @@ tcp.time_relative > 300 && tcp.len < 100     # Long idle connection with small d
 
 ## Zeek (Bro) for Detection
 
-Zeek generates high-fidelity protocol logs from network traffic — far more useful than raw PCAPs for detection at scale.
+Zeek generates high-fidelity protocol logs from network traffic - far more useful than raw PCAPs for detection at scale.
 
 ### Key Log Files
 
@@ -244,7 +244,7 @@ Zeek generates high-fidelity protocol logs from network traffic — far more use
 | `smtp.log` | Email metadata |
 | `notice.log` | Zeek-generated alerts |
 | `weird.log` | Protocol anomalies |
-| `dpd.log` | Dynamic Protocol Detection — protocol mismatches |
+| `dpd.log` | Dynamic Protocol Detection - protocol mismatches |
 
 ### Zeek Log Analysis with zeek-cut
 
@@ -314,9 +314,9 @@ ja3 -a capture.pcap
 # https://github.com/salesforce/ja3
 
 # Common malicious JA3 hashes:
-# 51c64c77e60f3980eea90869b68c58a8 — Metasploit/Meterpreter
-# 6734f37431670b3ab4292b8f60f29984 — CobaltStrike default
-# a0e9f5d64349fb13191bc781f81f42e1 — Emotet
+# 51c64c77e60f3980eea90869b68c58a8 - Metasploit/Meterpreter
+# 6734f37431670b3ab4292b8f60f29984 - CobaltStrike default
+# a0e9f5d64349fb13191bc781f81f42e1 - Emotet
 
 # Search in Zeek ssl.log
 cat ssl.log | zeek-cut ja3 id.orig_h server_name | grep "6734f37431670b3ab4292b8f60f29984"
@@ -685,7 +685,7 @@ Even without decryption, encrypted traffic metadata reveals a lot.
 ### TLS Metadata Analysis
 
 ```bash
-# Certificate validity — self-signed or very short validity (C2 indicator)
+# Certificate validity - self-signed or very short validity (C2 indicator)
 cat x509.log | zeek-cut id certificate.subject certificate.issuer certificate.not_valid_after \
   | awk '$2 == $3 {print "[SELF-SIGNED]", $1, $2}'
 
@@ -695,7 +695,7 @@ cat x509.log | zeek-cut certificate.not_valid_before id \
 
 # Look for C2-typical certificate patterns
 # C2 certs often have:
-#   - Generic CN (mail.microsoft.com, update.windows.com — lookalikes)
+#   - Generic CN (mail.microsoft.com, update.windows.com - lookalikes)
 #   - Issued by Let's Encrypt to newly registered domain
 #   - Short validity (90 day LE certs are normal, but combined with other IOCs...)
 cat ssl.log | zeek-cut id.resp_h server_name issuer \
@@ -725,7 +725,7 @@ tshark -r capture.pcap -T fields -e ip.src -e ip.dst -e tcp.dstport -e frame.len
 # Capture traffic from suspected compromised host
 tcpdump -i eth0 host SUSPECT_IP -w /evidence/suspect_$(date +%Y%m%d_%H%M%S).pcap
 
-# Capture all traffic (ring buffer — last 10GB retained)
+# Capture all traffic (ring buffer - last 10GB retained)
 tcpdump -i eth0 -C 1000 -W 10 -w /evidence/ring_capture_%Y%m%d_%H%M%S.pcap
 
 # Extract all files from HTTP traffic
@@ -839,14 +839,14 @@ for ip, count in today_counts.most_common():
 
 ## Windows-Native Network Detection Tools
 
-The sections above are Linux/NSM-stack heavy. This section covers the native Windows toolset — what you use when you're on a Windows endpoint or domain without a full Security Onion deployment.
+The sections above are Linux/NSM-stack heavy. This section covers the native Windows toolset - what you use when you're on a Windows endpoint or domain without a full Security Onion deployment.
 
-### Netsh — Built-in Packet Capture
+### Netsh - Built-in Packet Capture
 
 `netsh trace` is a built-in Windows packet capture mechanism, no install required. Output is `.etl` format, convertible to PCAP.
 
 ```powershell
-# Start a capture — no third-party tools needed
+# Start a capture - no third-party tools needed
 netsh trace start capture=yes tracefile=C:\Temp\capture.etl maxsize=500 overwrite=yes
 
 # Capture filtered to specific IP
@@ -868,7 +868,7 @@ pktmon stop
 pktmon etl2pcap C:\Temp\pktmon.etl --out C:\Temp\capture.pcap
 ```
 
-### pktmon — Windows Packet Monitor
+### pktmon - Windows Packet Monitor
 
 `pktmon` is built into Windows 10 (2004+) and Windows Server 2019+. More capable than netsh trace for live filtering.
 
@@ -903,9 +903,9 @@ pktmon filter list
 pktmon filter remove
 ```
 
-### TCPView — Live Connection Monitoring
+### TCPView - Live Connection Monitoring
 
-Sysinternals TCPView shows all active TCP/UDP connections with the owning process — essential for spotting C2 beacons in real time.
+Sysinternals TCPView shows all active TCP/UDP connections with the owning process - essential for spotting C2 beacons in real time.
 
 ```powershell
 # Install via winget
@@ -922,7 +922,7 @@ winget install Microsoft.Sysinternals.TCPView
 # - Short-lived connections at regular intervals (beacon pattern)
 ```
 
-### Defender for Endpoint — Network Telemetry (KQL)
+### Defender for Endpoint - Network Telemetry (KQL)
 
 Microsoft Defender for Endpoint captures network events per-process. Hunt via the Advanced Hunting console in the M365 Defender portal.
 
@@ -937,7 +937,7 @@ DeviceNetworkEvents
 | where count_ > 5
 | order by count_ desc
 
-// Hunt for beacon timing — low jitter regular connections
+// Hunt for beacon timing - low jitter regular connections
 DeviceNetworkEvents
 | where Timestamp > ago(1h)
 | where ActionType == "ConnectionSuccess"
@@ -975,7 +975,7 @@ DeviceEvents
 
 ### Windows Firewall Logging
 
-Windows Firewall can log all allowed/blocked connections natively — lightweight and always available.
+Windows Firewall can log all allowed/blocked connections natively - lightweight and always available.
 
 ```powershell
 # Enable firewall logging for both profiles
@@ -998,12 +998,12 @@ Get-Content "C:\Windows\System32\LogFiles\Firewall\pfirewall.log" |
 # DROP  = connection blocked
 ```
 
-### NetworkMiner (Windows/Linux) — PCAP File Analysis
+### NetworkMiner (Windows/Linux) - PCAP File Analysis
 
 NetworkMiner reconstructs sessions from PCAP files and extracts files, credentials, and hostnames. Runs on Windows natively; also works on Linux via Mono.
 
 ```powershell
-# Windows — download from https://www.netresec.com/?page=NetworkMiner
+# Windows - download from https://www.netresec.com/?page=NetworkMiner
 # Open PCAP file → automatically:
 #   - Reconstructs TCP sessions
 #   - Extracts transferred files (HTTP downloads, SMB transfers)
@@ -1018,7 +1018,7 @@ unzip NetworkMiner.zip
 mono NetworkMiner.exe
 ```
 
-### Event Tracing for Windows (ETW) — Direct Consumer
+### Event Tracing for Windows (ETW) - Direct Consumer
 
 Beyond what EDRs collect, you can subscribe to ETW providers directly for custom detection pipelines on Windows.
 
@@ -1027,13 +1027,13 @@ Beyond what EDRs collect, you can subscribe to ETW providers directly for custom
 logman query providers | Select-String "Network\|DNS\|Firewall\|TCP"
 
 # Key providers for network detection:
-# Microsoft-Windows-TCPIP                    — TCP/IP stack events
-# Microsoft-Windows-DNS-Client               — DNS query/response events
-# Microsoft-Windows-Windows Firewall With Advanced Security — FW events
-# Microsoft-Windows-WebIO                    — WinHTTP/WinInet requests
-# Microsoft-Windows-WinRM                    — WinRM lateral movement
-# Microsoft-Windows-SMBClient/Operational    — SMB client activity
-# Microsoft-Windows-SMBServer/Operational    — SMB server activity
+# Microsoft-Windows-TCPIP                    - TCP/IP stack events
+# Microsoft-Windows-DNS-Client               - DNS query/response events
+# Microsoft-Windows-Windows Firewall With Advanced Security - FW events
+# Microsoft-Windows-WebIO                    - WinHTTP/WinInet requests
+# Microsoft-Windows-WinRM                    - WinRM lateral movement
+# Microsoft-Windows-SMBClient/Operational    - SMB client activity
+# Microsoft-Windows-SMBServer/Operational    - SMB server activity
 
 # Enable DNS debug log (captures all DNS queries on the system)
 # On DNS Server role:
@@ -1061,7 +1061,7 @@ Sysmon Event ID 3 captures every TCP/UDP connection with process context. Far mo
 <!-- Sysmon config for network event capture -->
 <!-- Add to your sysmon config XML under EventFiltering -->
 
-<!-- Event 3: Network connections — capture outbound, filter noise -->
+<!-- Event 3: Network connections - capture outbound, filter noise -->
 <NetworkConnect onmatch="exclude">
     <!-- Exclude known-good system processes -->
     <Image condition="is">C:\Windows\System32\svchost.exe</Image>
@@ -1135,6 +1135,6 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
 - [Wireshark Display Filter Reference](https://www.wireshark.org/docs/dfref/)
 - [pktmon Documentation (Microsoft)](https://docs.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon)
 - [NetworkMiner](https://www.netresec.com/?page=NetworkMiner)
-- [Sysmon Network Events — SwiftOnSecurity config](https://github.com/SwiftOnSecurity/sysmon-config)
+- [Sysmon Network Events - SwiftOnSecurity config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Microsoft Defender for Endpoint Advanced Hunting](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-hunting-overview)
 - [etl2pcapng](https://github.com/microsoft/etl2pcapng)

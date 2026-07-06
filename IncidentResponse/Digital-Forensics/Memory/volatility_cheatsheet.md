@@ -1,6 +1,6 @@
 # 🧠 Volatility 3 Memory Forensics Guide
 
-**Volatility** is the industry-standard open-source framework for memory forensics. It enables analysts to extract digital artifacts from volatile memory (RAM) dumps, revealing evidence that may not exist on disk—running processes, network connections, injected code, encryption keys, and more.
+**Volatility** is the industry-standard open-source framework for memory forensics. It enables analysts to extract digital artifacts from volatile memory (RAM) dumps, revealing evidence that may not exist on disk-running processes, network connections, injected code, encryption keys, and more.
 
 This guide covers Volatility 3 installation, memory acquisition, and comprehensive analysis techniques for Windows memory forensics.
 
@@ -314,7 +314,7 @@ python3 vol.py -f memory.dmp windows.psscan
 **Why this matters:**
 - Rootkits unlink processes from the active process list
 - `psscan` finds these by scanning raw memory for process structures
-- Compare output with `pslist`—differences indicate hidden processes
+- Compare output with `pslist`-differences indicate hidden processes
 
 **Find hidden processes:**
 ```bash

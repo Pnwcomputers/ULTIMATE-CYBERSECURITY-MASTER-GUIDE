@@ -1,13 +1,13 @@
 # 📺 Part IV: The User Segment
 
 ## 🎯 Purpose
-User segment attack guide — covering SATCOM terminal vulnerabilities (Viasat KA-SAT style attacks), GNSS spoofing and jamming, VSAT security assessments, and maritime/aviation satellite terminal exploitation.
+User segment attack guide - covering SATCOM terminal vulnerabilities (Viasat KA-SAT style attacks), GNSS spoofing and jamming, VSAT security assessments, and maritime/aviation satellite terminal exploitation.
 
 ## ⚙️ Function
 Covers: ODU/IDU terminal architecture, Ku/Ka-band link exploitation, modem firmware extraction and analysis, GNSS spoofing mechanics (civilian GPS L1 C/A is unencrypted), VSAT terminal default credentials and web interface vulnerabilities, and the regulatory landscape for GNSS interference.
 
 ## 🏆 Goal
-Assess the security of satellite user terminals — the most accessible segment of a space system from an attacker's perspective — identifying credential exposure, firmware vulnerabilities, and GNSS signal integrity weaknesses.
+Assess the security of satellite user terminals - the most accessible segment of a space system from an attacker's perspective - identifying credential exposure, firmware vulnerabilities, and GNSS signal integrity weaknesses.
 
 ## 📋 When to Use
 - Security assessment of a maritime, aviation, or enterprise SATCOM installation
@@ -66,19 +66,19 @@ grep -r "admin\|root\|password\|default" rootfs/etc/ --include="*.conf"
 
 #### Known Vulnerability Classes in SATCOM Terminals
 
-- **Hardcoded credentials** — Factory default admin accounts that cannot be changed (documented in multiple Iridium, Hughes, ViaSat, and Intellian advisories)
-- **Pre-auth RCE** — Command injection in web UI before authentication (multiple CVEs across major vendors 2020–2024)
-- **Unencrypted management** — HTTP instead of HTTPS; Telnet instead of SSH
-- **Insecure firmware updates** — No signature verification on update packages
-- **Debug interfaces** — UART/JTAG left exposed in production hardware
+- **Hardcoded credentials** - Factory default admin accounts that cannot be changed (documented in multiple Iridium, Hughes, ViaSat, and Intellian advisories)
+- **Pre-auth RCE** - Command injection in web UI before authentication (multiple CVEs across major vendors 2020–2024)
+- **Unencrypted management** - HTTP instead of HTTPS; Telnet instead of SSH
+- **Insecure firmware updates** - No signature verification on update packages
+- **Debug interfaces** - UART/JTAG left exposed in production hardware
 
 #### Notable Research
 
 | Research | Findings |
 |----------|---------|
-| IOActive — SATCOM Security (2014) | Pre-auth RCE in Iridium, BGAN, Hughes, ViaSat terminals |
-| Black Hat 2020 — Ruben Santamarta | Revisited SATCOM vulnerabilities; aviation safety implications |
-| DEFCON 30 (2022) — Starlink | Physical fault injection on Starlink dish; custom firmware execution |
+| IOActive - SATCOM Security (2014) | Pre-auth RCE in Iridium, BGAN, Hughes, ViaSat terminals |
+| Black Hat 2020 - Ruben Santamarta | Revisited SATCOM vulnerabilities; aviation safety implications |
+| DEFCON 30 (2022) - Starlink | Physical fault injection on Starlink dish; custom firmware execution |
 
 ---
 
@@ -96,20 +96,20 @@ grep -r "admin\|root\|password\|default" rootfs/etc/ --include="*.conf"
 
 #### Signal Characteristics and Weaknesses
 
-GNSS signals arrive at Earth's surface at approximately **-130 dBm** — roughly 20 dB below thermal noise. This extreme weakness makes them trivially susceptible to interference:
+GNSS signals arrive at Earth's surface at approximately **-130 dBm** - roughly 20 dB below thermal noise. This extreme weakness makes them trivially susceptible to interference:
 
-- **Open signals** — Civilian GNSS signals (GPS L1 C/A, Galileo E1-B/C) are unencrypted and unauthenticated by design
-- **No uplink** — Receivers are passive; the signal cannot "respond" to verify authenticity
-- **Predictable structure** — PRN codes, nav message formats, and satellite ephemeris are all public
+- **Open signals** - Civilian GNSS signals (GPS L1 C/A, Galileo E1-B/C) are unencrypted and unauthenticated by design
+- **No uplink** - Receivers are passive; the signal cannot "respond" to verify authenticity
+- **Predictable structure** - PRN codes, nav message formats, and satellite ephemeris are all public
 
 #### Attack Types
 
 **Jamming**
 
-Broadband noise or CW interference on GNSS frequencies. Low technical barrier — cheap jammers widely available (though illegal in most jurisdictions).
+Broadband noise or CW interference on GNSS frequencies. Low technical barrier - cheap jammers widely available (though illegal in most jurisdictions).
 
 - Effective range: meters to kilometers depending on power
-- Impact: loss of PNT — navigation, timing systems fail
+- Impact: loss of PNT - navigation, timing systems fail
 - Detection: GNSS receiver AGC spike; multiple receivers losing fix simultaneously
 - Countermeasures: Antenna nulling (CRPA), inertial navigation fallback, multi-frequency receivers
 
@@ -129,9 +129,9 @@ Receiver accepts spoofed signal → reports false position/time
 
 Spoofing attack progression:
 
-1. **Meaconing** — Simply re-broadcast authentic signals (introduces delay = false position)
-2. **Simple spoofing** — Static false position, no correlation with authentic signal timing
-3. **Sophisticated spoofing** — Gradually drag receiver position; preserves carrier phase continuity to avoid detection
+1. **Meaconing** - Simply re-broadcast authentic signals (introduces delay = false position)
+2. **Simple spoofing** - Static false position, no correlation with authentic signal timing
+3. **Sophisticated spoofing** - Gradually drag receiver position; preserves carrier phase continuity to avoid detection
 
 **Spoofing Tools (Research Context)**
 
@@ -149,7 +149,7 @@ Spoofing attack progression:
 |----------|------|--------|--------|
 | Russian Black Sea spoofing | 2017–ongoing | Large-scale GPS spoofing | Dozens of ships reported false positions in Moscow |
 | Tehran GPS spoofing (RQ-170 capture) | 2011 | Alleged GPS spoof | US drone landed in Iran (disputed) |
-| Contested GPS jamming — Ukraine/Eastern Europe | 2022–present | Broadband L1/L2 jamming | Aviation GPS outages across Eastern Europe |
+| Contested GPS jamming - Ukraine/Eastern Europe | 2022–present | Broadband L1/L2 jamming | Aviation GPS outages across Eastern Europe |
 | Dallas ADS-B GPS disruption | 2022 | Ground-based interference | FAA NOTAM; flight delays |
 
 #### GNSS Security Countermeasures
@@ -186,7 +186,7 @@ Spoofing attack progression:
 | **FCC** | US licensing for earth stations, satellites, terminals |
 | **FAA** | Aviation use of GNSS and SATCOM |
 | **NIST** | SP 800-53 controls applicable to federal space systems |
-| **CCSDS** | Protocol standards (also security recommendations — CCSDS 350.x series) |
+| **CCSDS** | Protocol standards (also security recommendations - CCSDS 350.x series) |
 | **CISA** | Space Systems Critical Infrastructure guidance |
 | **DoD / NSA** | COMSEC requirements for national security space |
 
@@ -258,10 +258,10 @@ Spoofing attack progression:
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
 ## Related Files
-- [PartI.md](PartI.md) — Foundations: threat actors and attack taxonomy for user segment threats
-- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — SDR hacking: GPS spoofing and SATCOM signal analysis tools and techniques
+- [PartI.md](PartI.md) - Foundations: threat actors and attack taxonomy for user segment threats
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) - SDR hacking: GPS spoofing and SATCOM signal analysis tools and techniques
 
-*Space systems are critical infrastructure — treat them accordingly.*
+*Space systems are critical infrastructure - treat them accordingly.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 

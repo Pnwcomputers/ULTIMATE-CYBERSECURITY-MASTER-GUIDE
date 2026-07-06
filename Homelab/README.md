@@ -1,7 +1,7 @@
 # 🏠 Cybersecurity Homelab
 
 ## 🎯 Purpose
-Index and entry point for the Homelab section — covering the hardware, software, and network architecture needed to build an isolated cybersecurity lab for offensive and defensive research.
+Index and entry point for the Homelab section - covering the hardware, software, and network architecture needed to build an isolated cybersecurity lab for offensive and defensive research.
 
 ## ⚙️ Function
 Links to HomeLab_Setup.md (comprehensive build guide) and provides a quick-reference overview of hardware choices, network topology, virtualization platforms (Proxmox, VMware, VirtualBox), and security considerations for lab isolation.
@@ -194,10 +194,10 @@ vulnerable systems, and potent offensive tools.
 ---
 
 ## Related Files
-- [HomeLab_Setup.md](HomeLab_Setup.md) — Full build guide: hardware, network, hypervisor, and VM deployment
-- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) — VM catalog for the VMs you'll deploy in this lab
-- [../IncidentResponse/](../IncidentResponse/) — IR infrastructure deployed within the homelab environment
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark for monitoring the lab's network traffic
+- [HomeLab_Setup.md](HomeLab_Setup.md) - Full build guide: hardware, network, hypervisor, and VM deployment
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM catalog for the VMs you'll deploy in this lab
+- [../IncidentResponse/](../IncidentResponse/) - IR infrastructure deployed within the homelab environment
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for monitoring the lab's network traffic
 
 ---
 

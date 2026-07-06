@@ -1,13 +1,13 @@
 # 📻 Software Defined Radio (SDR) & RF Security
 
 ## 🎯 Purpose
-Index and entry point for the SDR section — covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, and advanced RF security topics across two comprehensive guides.
+Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, and advanced RF security topics across two comprehensive guides.
 
 ## ⚙️ Function
 Links to sdr.md (foundational guide: IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS analysis) and sdr_hacking.md (advanced guide: SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation). Includes hardware comparison table, frequency reference, legal framework summary, and tool ecosystem overview.
 
 ## 🏆 Goal
-Serve as the starting point for SDR work — directing beginners to sdr.md for fundamentals and practitioners with GNU Radio experience to sdr_hacking.md for offensive techniques.
+Serve as the starting point for SDR work - directing beginners to sdr.md for fundamentals and practitioners with GNU Radio experience to sdr_hacking.md for offensive techniques.
 
 ## 📋 When to Use
 - Choosing which SDR guide to start with based on experience level
@@ -373,11 +373,11 @@ We welcome contributions from RF researchers and security professionals, but all
 ---
 
 ## Related Files
-- [sdr.md](sdr.md) — Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
-- [sdr_hacking.md](sdr_hacking.md) — Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
-- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
-- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) — Flipper Zero: sub-GHz replay attacks whose signals SDR can capture and analyze
-- [../SpaceSecurity/](../SpaceSecurity/) — Space security: satellite communication analysis and GPS spoofing detection — an SDR application
+- [sdr.md](sdr.md) - Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
+- [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
+- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: sub-GHz replay attacks whose signals SDR can capture and analyze
+- [../SpaceSecurity/](../SpaceSecurity/) - Space security: satellite communication analysis and GPS spoofing detection - an SDR application
 
 ---
 

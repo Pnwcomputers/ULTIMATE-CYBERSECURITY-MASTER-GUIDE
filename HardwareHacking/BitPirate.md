@@ -1,10 +1,10 @@
 # 🏴‍☠️ Bit Pirate
 
 ## 🎯 Purpose
-Generic USB-to-UART/SPI bridge for accessing embedded device debug ports — typically referring to CH340/FTDI-based adapters or Bus Pirate firmware forks used as UART console interfaces for IoT device exploitation.
+Generic USB-to-UART/SPI bridge for accessing embedded device debug ports - typically referring to CH340/FTDI-based adapters or Bus Pirate firmware forks used as UART console interfaces for IoT device exploitation.
 
 ## ⚙️ Function
-Provides a USB serial bridge to a target device's UART debug port. Primary use case: connecting to a device's bootloader (U-Boot) or shell prompt exposed over UART — often yielding a root shell on misconfigured IoT devices.
+Provides a USB serial bridge to a target device's UART debug port. Primary use case: connecting to a device's bootloader (U-Boot) or shell prompt exposed over UART - often yielding a root shell on misconfigured IoT devices.
 
 ## 🏆 Goal
 Gain interactive shell access to an embedded device's OS via its exposed UART debug port without needing network-based exploitation.
@@ -46,7 +46,7 @@ Gain interactive shell access to an embedded device's OS via its exposed UART de
 ---
 
 ## Related Files
-- [BusPirate.md](BusPirate.md) — More capable multi-protocol tool (SPI/I2C/UART/JTAG) when UART access alone isn't enough
-- [JTAGulator.md](JTAGulator.md) — Identifies which pins are UART/JTAG before connecting a Bit Pirate or Bus Pirate
-- [HiLetgo.md](HiLetgo.md) — Logic analyzer to verify TX/RX signals and identify baud rate before connecting
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: UART signal levels, voltage compatibility, and baud rate concepts
+- [BusPirate.md](BusPirate.md) - More capable multi-protocol tool (SPI/I2C/UART/JTAG) when UART access alone isn't enough
+- [JTAGulator.md](JTAGulator.md) - Identifies which pins are UART/JTAG before connecting a Bit Pirate or Bus Pirate
+- [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify TX/RX signals and identify baud rate before connecting
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: UART signal levels, voltage compatibility, and baud rate concepts

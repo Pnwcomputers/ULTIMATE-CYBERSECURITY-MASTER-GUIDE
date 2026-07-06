@@ -1,16 +1,16 @@
 # Phone Number OSINT Investigation Script
 
-Script for automated phone number OSINT — carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
+Script for automated phone number OSINT - carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
 
 **Dependencies:** `jq`, `curl`  
 **Usage:** `chmod +x Phone_OSINT.md` or copy the script below into a `.sh` file.
 
 **Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
-- `NUMVERIFY_KEY` — [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
-- `VERIPHONE_KEY` — [veriphone.io](https://veriphone.io/)
-- `ABSTRACTAPI_KEY` — [abstractapi.com](https://www.abstractapi.com/api/phone-validation-api)
-- `INTELX_KEY` — [intelx.io](https://intelx.io/)
-- `LEAKLOOKUP_KEY` — [leak-lookup.com](https://leak-lookup.com/)
+- `NUMVERIFY_KEY` - [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
+- `VERIPHONE_KEY` - [veriphone.io](https://veriphone.io/)
+- `ABSTRACTAPI_KEY` - [abstractapi.com](https://www.abstractapi.com/api/phone-validation-api)
+- `INTELX_KEY` - [intelx.io](https://intelx.io/)
+- `LEAKLOOKUP_KEY` - [leak-lookup.com](https://leak-lookup.com/)
 
 ```bash
 #!/bin/bash

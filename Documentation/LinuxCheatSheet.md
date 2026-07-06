@@ -1,7 +1,7 @@
 # 🐧 Linux Command Cheat Sheet and Reference
 
 ## 🎯 Purpose
-Quick reference for common Linux system administration, networking, security auditing, and hardware interface commands — covering both Debian/Ubuntu (apt) and Arch/Manjaro (pacman/pamac) distributions, plus WSL2 differences.
+Quick reference for common Linux system administration, networking, security auditing, and hardware interface commands - covering both Debian/Ubuntu (apt) and Arch/Manjaro (pacman/pamac) distributions, plus WSL2 differences.
 
 ## ⚙️ Function
 Organized by domain: SSH/permissions, package management, diagnostics/system info, storage/filesystem, network configuration/scanning, service management, file operations, security tools, WSL2-specific, and hardware hacking commands. Each command includes its purpose and a plain-English explanation.
@@ -21,7 +21,7 @@ This document serves as a quick reference for common system administration, netw
 General-purpose Linux command reference spanning package management (Arch/pacman and Debian/apt), diagnostics, wireless adapter setup, fresh-install tool bundles, and a full bare-metal-vs-WSL2 comparison for hardware hacking work. Distinct from [blackarch.md](blackarch.md) (BlackArch/Arch-specific first-boot sequence) in that this file is the general Debian/Arch reference, not a single distro's post-install checklist.
 
 ## ⚙️ Function
-Fifteen numbered sections moving from basic sysadmin commands through package repair, storage, networking/wireless, fresh-install one-liners, and a dedicated WSL2 section (12) that flags exactly what does and doesn't work under WSL (monitor mode, DKMS drivers, GPU passthrough) versus bare-metal Linux. Section 13 doubles as a tool-purpose glossary for everything installed in Section 11's one-liners. Section 15 is a condensed OSINT tool quick-reference — for full methodology see [OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) and [OSINT/OSINT_CHEATSHEET.md](../OSINT/OSINT_CHEATSHEET.md).
+Fifteen numbered sections moving from basic sysadmin commands through package repair, storage, networking/wireless, fresh-install one-liners, and a dedicated WSL2 section (12) that flags exactly what does and doesn't work under WSL (monitor mode, DKMS drivers, GPU passthrough) versus bare-metal Linux. Section 13 doubles as a tool-purpose glossary for everything installed in Section 11's one-liners. Section 15 is a condensed OSINT tool quick-reference - for full methodology see [OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) and [OSINT/OSINT_CHEATSHEET.md](../OSINT/OSINT_CHEATSHEET.md).
 
 ## 🏆 Goal
 Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for security/hardware-hacking work in one pass, and know in advance which hardware-hacking capabilities (monitor mode, DKMS, live USB device access) will or won't work under WSL2 before wasting time troubleshooting.
@@ -121,7 +121,7 @@ cd /tmp/
 sudo arp-scan -l
 ```
 
-> **Note:** Wireless monitor mode and packet injection require **bare-metal Linux** or a passed-through USB Wi-Fi adapter — they do **not** work natively in WSL (no kernel Wi-Fi stack access).
+> **Note:** Wireless monitor mode and packet injection require **bare-metal Linux** or a passed-through USB Wi-Fi adapter - they do **not** work natively in WSL (no kernel Wi-Fi stack access).
 
 ---
 
@@ -188,9 +188,9 @@ sudo make dkms_install
 
 ---
 
-## 11. Fresh Install — Bare-Metal / VM / Container Linux
+## 11. Fresh Install - Bare-Metal / VM / Container Linux
 
-This section is for **standard Linux installs** — desktops, servers, VMs, LXC containers, Raspberry Pi, etc. — *not* WSL. For WSL, see Section 12.
+This section is for **standard Linux installs** - desktops, servers, VMs, LXC containers, Raspberry Pi, etc. - *not* WSL. For WSL, see Section 12.
 
 ### 11.1 Base System Tools (One-Liner)
 
@@ -219,7 +219,7 @@ sudo apt-get install screen tmux
 
 ### 11.2 Hardware Hacking & Programming Add-On (Bare-Metal)
 
-This adds USB serial tools, microcontroller flashers, SDR utilities, reverse engineering tools, logic analyzers, and Bluetooth hardware support. Bare-metal Linux has full access to USB devices, kernel modules, and Wi-Fi monitor mode — none of the WSL workarounds in Section 12 are needed.
+This adds USB serial tools, microcontroller flashers, SDR utilities, reverse engineering tools, logic analyzers, and Bluetooth hardware support. Bare-metal Linux has full access to USB devices, kernel modules, and Wi-Fi monitor mode - none of the WSL workarounds in Section 12 are needed.
 
 ```bash
 sudo apt update && \
@@ -265,19 +265,19 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ### 11.4 Build-from-Source Tools (Bare-Metal)
 
-**`kalibrate-hackrf`** — clock calibration for HackRF (not packaged):
+**`kalibrate-hackrf`** - clock calibration for HackRF (not packaged):
 ```bash
 mkdir -p ~/tools && cd ~/tools
 git clone https://github.com/scateu/kalibrate-hackrf
 cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
 ```
 
-**`arduino-cli`** — official installer:
+**`arduino-cli`** - official installer:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 
-**`Ghidra`** — manual download (needs JDK 17+):
+**`Ghidra`** - manual download (needs JDK 17+):
 ```bash
 sudo apt install -y openjdk-17-jdk
 # Download latest from: https://github.com/NationalSecurityAgency/ghidra/releases
@@ -285,7 +285,7 @@ sudo apt install -y openjdk-17-jdk
 
 ---
 
-## 12. Fresh Install — WSL2 (Windows Subsystem for Linux)
+## 12. Fresh Install - WSL2 (Windows Subsystem for Linux)
 
 WSL2 has some critical differences from bare-metal Linux that affect hardware hacking workflows. This section covers the Windows-side prerequisites, WSL configuration changes, and the corrected install commands that account for what does and doesn't work under WSL.
 
@@ -300,7 +300,7 @@ WSL2 has some critical differences from bare-metal Linux that affect hardware ha
 | DKMS Wi-Fi drivers (rtl8812au) | ✅ Works | ❌ WSL kernel is custom |
 | systemd | ✅ Default | ⚠️ Must enable in `/etc/wsl.conf` |
 | GUI apps (PulseView, Gqrx) | ✅ Native | ✅ Via WSLg (Win11/recent Win10) |
-| GPU passthrough (hashcat) | ✅ Native | ⚠️ Limited — use Windows-native hashcat |
+| GPU passthrough (hashcat) | ✅ Native | ⚠️ Limited - use Windows-native hashcat |
 
 ### 12.2 Windows-Side Prerequisites
 
@@ -321,7 +321,7 @@ usbipd detach --busid <BUSID>        # to release
 
 ### 12.3 Enable systemd in WSL
 
-systemd is required for `udev` rules to fire properly — without it, HackRF, Ubertooth, RTL-SDR, and most USB tools demand `sudo` for everything.
+systemd is required for `udev` rules to fire properly - without it, HackRF, Ubertooth, RTL-SDR, and most USB tools demand `sudo` for everything.
 
 ```bash
 sudo tee /etc/wsl.conf > /dev/null <<'EOF'
@@ -356,7 +356,7 @@ ncdu htop btop lshw lsof parted \
 psmisc moreutils figlet lolcat screenfetch
 ```
 
-> **Note:** `aircrack-ng` and `hashcat` install fine and are useful for working with capture files (`.pcap`, `.hccapx`) — they just can't capture live traffic without a passed-through Wi-Fi adapter.
+> **Note:** `aircrack-ng` and `hashcat` install fine and are useful for working with capture files (`.pcap`, `.hccapx`) - they just can't capture live traffic without a passed-through Wi-Fi adapter.
 
 ### 12.5 Hardware Hacking & Programming Add-On (WSL)
 
@@ -398,11 +398,11 @@ sudo update-alternatives --install /usr/local/bin/usbip usbip \
   $(ls /usr/lib/linux-tools/*/usbip | tail -n1) 20
 ```
 
-> Most of the time you won't need this — `usbipd attach --wsl` from the Windows side handles the Linux end automatically. Only needed if attaching to a remote `usbipd` host manually.
+> Most of the time you won't need this - `usbipd attach --wsl` from the Windows side handles the Linux end automatically. Only needed if attaching to a remote `usbipd` host manually.
 
 ### 12.7 Python Tools via pipx (WSL)
 
-Same as bare-metal — these are user-space and work identically:
+Same as bare-metal - these are user-space and work identically:
 
 ```bash
 pipx ensurepath && \
@@ -439,7 +439,7 @@ Quick descriptions of what each tool does, organized by category.
 
 | Tool | Purpose |
 | :--- | :--- |
-| `tio` | Modern serial terminal — autoconnect, logging, hex mode, dead simple. **Recommended default.** |
+| `tio` | Modern serial terminal - autoconnect, logging, hex mode, dead simple. **Recommended default.** |
 | `minicom` | Classic serial terminal, menu-driven config. |
 | `picocom` | Lightweight terminal, scriptable. |
 | `screen` | Doubles as a serial terminal: `screen /dev/ttyUSB0 115200`. |
@@ -452,26 +452,26 @@ Quick descriptions of what each tool does, organized by category.
 | Tool | Purpose |
 | :--- | :--- |
 | `platformio` | All-in-one toolchain: ESP32, ESP8266, AVR, STM32, RP2040, nRF, etc. Integrates with VSCode. |
-| `arduino-cli` | Official Arduino CLI — sketches, libraries, board management. |
+| `arduino-cli` | Official Arduino CLI - sketches, libraries, board management. |
 | `esptool.py` | ESP32 / ESP8266 flashing, fuse reading, security operations. |
 | `avrdude` | AVR / ATmega / ATtiny flashing with USBasp, AVRISP, Arduino-as-ISP. |
 | `dfu-util` | USB DFU mode flashing (STM32, many bootloaders). |
 | `stm32flash` | STM32 UART/I2C bootloader flashing. |
-| `openocd` | JTAG / SWD debugging — works with ST-Link, J-Link, CMSIS-DAP, FT2232. |
-| `flashrom` | SPI flash chip read/write — BIOS dumps, router firmware extraction (CH341A, Bus Pirate, FT2232). |
+| `openocd` | JTAG / SWD debugging - works with ST-Link, J-Link, CMSIS-DAP, FT2232. |
+| `flashrom` | SPI flash chip read/write - BIOS dumps, router firmware extraction (CH341A, Bus Pirate, FT2232). |
 | `picotool` | RP2040 (Pico) inspection and flashing utility. |
 
 ### 13.3 SDR / RF
 
 | Tool | Purpose |
 | :--- | :--- |
-| `hackrf` | HackRF One control — `hackrf_info`, `hackrf_transfer`, `hackrf_sweep`. |
-| `rtl-sdr` | RTL2832U-based dongles — `rtl_sdr`, `rtl_fm`, `rtl_433`, `rtl_tcp`. |
+| `hackrf` | HackRF One control - `hackrf_info`, `hackrf_transfer`, `hackrf_sweep`. |
+| `rtl-sdr` | RTL2832U-based dongles - `rtl_sdr`, `rtl_fm`, `rtl_433`, `rtl_tcp`. |
 | `gnuradio` | Visual signal processing flowgraphs (GNU Radio Companion). |
 | `gr-osmosdr` | GNU Radio source/sink for HackRF, RTL-SDR, BladeRF, etc. |
 | `gqrx-sdr` | GUI spectrum analyzer / receiver. Needs WSLg under WSL. |
 | `inspectrum` | Burst analysis and demodulation visualization. |
-| `urh` | Universal Radio Hacker — sub-GHz protocol reverse engineering, OOK/FSK decoding. |
+| `urh` | Universal Radio Hacker - sub-GHz protocol reverse engineering, OOK/FSK decoding. |
 | `rfcat` | Yard Stick One / IM-Me control library. |
 | `multimon-ng` | Decode POCSAG, FLEX, AFSK, DTMF, AX.25 from audio streams. |
 | `kalibrate-hackrf` | GSM-based clock calibration for HackRF. |
@@ -481,8 +481,8 @@ Quick descriptions of what each tool does, organized by category.
 | Tool | Purpose |
 | :--- | :--- |
 | `binwalk` | Firmware signature scanning and extraction. |
-| `unblob` | Modern firmware unpacker — generally faster and more accurate than binwalk. |
-| `radare2` | Reverse engineering framework — disassembly, debugging, patching. |
+| `unblob` | Modern firmware unpacker - generally faster and more accurate than binwalk. |
+| `radare2` | Reverse engineering framework - disassembly, debugging, patching. |
 | `cutter` | GUI for radare2/rizin (needs WSLg under WSL). |
 | `Ghidra` | NSA's reverse engineering suite with decompiler. Needs JDK 17+. |
 | `qemu-user-static` | Run foreign-architecture binaries directly (MIPS/ARM router firmware on x86). |
@@ -493,7 +493,7 @@ Quick descriptions of what each tool does, organized by category.
 
 | Tool | Purpose |
 | :--- | :--- |
-| `sigrok-cli` | CLI for logic analyzers — Saleae clones, FX2, DSLogic, etc. |
+| `sigrok-cli` | CLI for logic analyzers - Saleae clones, FX2, DSLogic, etc. |
 | `pulseview` | GUI sigrok front-end with protocol decoders (I²C, SPI, UART, 1-Wire, CAN, etc.). |
 | `wireshark` / `tshark` | Network packet analysis. Also reads Ubertooth and SDR captures. |
 | `tcpdump` | CLI packet capture. |
@@ -503,16 +503,16 @@ Quick descriptions of what each tool does, organized by category.
 | Tool | Purpose |
 | :--- | :--- |
 | `ubertooth` | Ubertooth One BT classic / BLE sniffing (`ubertooth-rx`, `ubertooth-btle`). |
-| `bluez` / `bluez-tools` | Linux Bluetooth stack — `bluetoothctl`, `hcitool`, `gatttool`. |
+| `bluez` / `bluez-tools` | Linux Bluetooth stack - `bluetoothctl`, `hcitool`, `gatttool`. |
 
 ### 13.7 Mesh Networking (LoRa / Reticulum)
 
 | Tool | Purpose |
 | :--- | :--- |
-| `rns` | Reticulum Network Stack — `rnsd`, `rnsh`, `rnstatus`, `rnodeconf`. |
+| `rns` | Reticulum Network Stack - `rnsd`, `rnsh`, `rnstatus`, `rnodeconf`. |
 | `nomadnet` | Reticulum chat / pages / files application. |
 | `lxmf` | Lightweight Extensible Messaging Format library. |
-| `meshtastic` | Meshtastic CLI — flash, configure, message LoRa nodes. |
+| `meshtastic` | Meshtastic CLI - flash, configure, message LoRa nodes. |
 
 ### 13.8 Quality-of-Life Shell Tools
 
@@ -520,12 +520,12 @@ Quick descriptions of what each tool does, organized by category.
 | :--- | :--- |
 | `ripgrep` (`rg`) | Fast recursive grep. |
 | `fd-find` (`fd`) | Fast user-friendly `find` replacement. |
-| `fzf` | Fuzzy finder — fuzzy history search, file picker, command palette. |
+| `fzf` | Fuzzy finder - fuzzy history search, file picker, command palette. |
 | `bat` | `cat` with syntax highlighting and git integration. Binary is `batcat` on Ubuntu 22.04 (run `bat` on 23.10+ or Arch/Manjaro). |
 | `eza` | Modern `ls` replacement (Ubuntu 23.10+, Arch/Manjaro; requires a PPA on Ubuntu 22.04). |
 | `zoxide` | Smarter `cd` that learns from your habits. |
 | `direnv` | Per-directory environment variables. |
-| `gh` | GitHub CLI — issues, PRs, repo management. |
+| `gh` | GitHub CLI - issues, PRs, repo management. |
 | `pandoc` | Convert between markup formats (Markdown ↔ DOCX ↔ PDF ↔ HTML). |
 
 ---
@@ -550,11 +550,11 @@ Quick descriptions of what each tool does, organized by category.
 
 Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, and tool documentation see [`OSINT/OSINT_GUIDE.md`](../OSINT/OSINT_GUIDE.md) and [`OSINT/OSINT_CHEATSHEET.md`](../OSINT/OSINT_CHEATSHEET.md).
 
-> **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts — never your personal identity.
+> **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts - never your personal identity.
 
 ---
 
-### 15.1 Phase 1 — Identity & Social Hunting
+### 15.1 Phase 1 - Identity & Social Hunting
 
 *Start when you have a username, real name, or email address.*
 
@@ -563,12 +563,12 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 | `sherlock`       | `sherlock <username>`                    | Username search across 400+ social platforms.      |
 | `maigret`        | `maigret <username>`                     | Advanced username enum with extra data extraction. |
 | `holehe`         | `holehe <email>`                         | Checks which services an email is registered on.   |
-| `h8mail`         | `h8mail -t <email>`                      | Breach hunting — finds passwords linked to email.  |
+| `h8mail`         | `h8mail -t <email>`                      | Breach hunting - finds passwords linked to email.  |
 | `theHarvester`   | `theHarvester -d <domain> -b google`     | Scrapes emails, names, subdomains from search engines. |
 
 ---
 
-### 15.2 Phase 2 — Infrastructure & Domain Recon
+### 15.2 Phase 2 - Infrastructure & Domain Recon
 
 *Start when you have a domain, IP, or URL.*
 
@@ -580,7 +580,7 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 | `photon`      | `python photon.py -u <url> -l 3`   | Crawls for endpoints, keys, emails, JS files.             |
 | `whatweb`     | `whatweb <target>`                 | Fingerprint web technologies and CMS.                     |
 | `whois`       | `whois <domain>`                   | Registrar, owner, nameserver lookup.                      |
-| `dig`         | `dig <domain> ANY`                 | DNS records — A, MX, NS, TXT, SOA.                        |
+| `dig`         | `dig <domain> ANY`                 | DNS records - A, MX, NS, TXT, SOA.                        |
 | `shodan`      | `shodan host <IP>`                 | Open ports and running services on a target IP.           |
 
 **Google Dorking Quick Reference:**
@@ -594,7 +594,7 @@ site:*.target.com -www
 
 ---
 
-### 15.3 Phase 3 — Communication Intelligence
+### 15.3 Phase 3 - Communication Intelligence
 
 *Start when you have a phone number.*
 
@@ -604,7 +604,7 @@ site:*.target.com -www
 
 ---
 
-### 15.4 Phase 4 — Analysis & Automation
+### 15.4 Phase 4 - Analysis & Automation
 
 *Automate collection and visualize relationships.*
 
@@ -612,7 +612,7 @@ site:*.target.com -www
 | ------------ | -------------------------------- | ---------------------------------------------------------- |
 | `spiderfoot` | `spiderfoot -s <target>`         | Runs 100+ automated modules against a single target.       |
 | `recon-ng`   | `recon-ng` (interactive)         | Framework with workspace management and module marketplace. |
-| Maltego      | GUI — drag-and-drop              | Visual link analysis and entity relationship mapping.      |
+| Maltego      | GUI - drag-and-drop              | Visual link analysis and entity relationship mapping.      |
 
 **Recon-ng Quick Start:**
 ```bash
@@ -667,7 +667,7 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 ---
 
-### 15.7 OSINT Reference — Key Web Services
+### 15.7 OSINT Reference - Key Web Services
 
 | Service                  | URL                          | Use Case                                  |
 | ------------------------ | ---------------------------- | ----------------------------------------- |
@@ -680,7 +680,7 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 | Wayback Machine          | https://archive.org          | Historical snapshots of web pages         |
 | Archive.today            | https://archive.is           | On-demand page archiving                  |
 | IntelX                   | https://intelx.io            | Breach data and dark web search           |
-| VirusTotal               | https://virustotal.com       | IOC enrichment — IPs, domains, hashes     |
+| VirusTotal               | https://virustotal.com       | IOC enrichment - IPs, domains, hashes     |
 
 ---
 
@@ -689,12 +689,12 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
 ✅ Route all traffic through VPN or Tor before investigating
 ✅ Use a dedicated OSINT VM (Tsurugi, Buscador, or DIY)
-✅ Never use personal accounts — create isolated sock puppet personas
+✅ Never use personal accounts - create isolated sock puppet personas
 ✅ Use burner email (ProtonMail/Tutanota) and virtual phone numbers
 ✅ Screenshot and archive evidence as you go (archive.is, Wayback)
 ✅ Log all commands, queries, and sources
 ✅ Cross-reference findings from at least two independent sources
-✅ Respect ToS — unauthorized scraping can have legal consequences
+✅ Respect ToS - unauthorized scraping can have legal consequences
 ```
 
 ---
@@ -718,9 +718,9 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ---
 
 ## Related Files
-- [python.md](python.md) — Python scripting for security: socket programming, Scapy, ctypes/WinAPI automation
-- [wireshark.md](wireshark.md) — Wireshark filter reference for the network traffic you'll be capturing on Linux
-- [../HardwareHacking/Chapter2.md](../HardwareHacking/Chapter2.md) — Hardware interface fundamentals (UART, SPI, I2C, JTAG) accessed via Linux serial tools
-- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) — Automated installer for cybersecurity tools on Kali/Debian and Arch/Manjaro
+- [python.md](python.md) - Python scripting for security: socket programming, Scapy, ctypes/WinAPI automation
+- [wireshark.md](wireshark.md) - Wireshark filter reference for the network traffic you'll be capturing on Linux
+- [../HardwareHacking/Chapter2.md](../HardwareHacking/Chapter2.md) - Hardware interface fundamentals (UART, SPI, I2C, JTAG) accessed via Linux serial tools
+- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) - Automated installer for cybersecurity tools on Kali/Debian and Arch/Manjaro
 
 *Last Updated: 06-08-2026*

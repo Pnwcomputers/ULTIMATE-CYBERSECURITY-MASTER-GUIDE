@@ -223,7 +223,7 @@ This repository contains materials across multiple categories, each with specifi
 - Applying LOLBins/LOLBAS techniques for unauthorized access or persistence
 - Network evasion techniques used against systems you do not own
 
-**Important:** Tradecraft documentation describes techniques used by real threat actors. Understanding these techniques is essential for defenders — but **executing** them without authorization is a federal crime regardless of claimed intent.
+**Important:** Tradecraft documentation describes techniques used by real threat actors. Understanding these techniques is essential for defenders - but **executing** them without authorization is a federal crime regardless of claimed intent.
 
 ---
 
@@ -437,8 +437,8 @@ PENALTY: Up to 5 years imprisonment (first offense)
 
 **General Data Protection Regulation (GDPR)**
 - Protects personal data of EU residents
-- **Tier 1 fines:** Up to €10 million or 2% of global annual revenue (whichever is greater) — for less serious infringements
-- **Tier 2 fines:** Up to €20 million or 4% of global annual revenue (whichever is greater) — for serious infringements including unauthorized data collection and processing
+- **Tier 1 fines:** Up to €10 million or 2% of global annual revenue (whichever is greater) - for less serious infringements
+- **Tier 2 fines:** Up to €20 million or 4% of global annual revenue (whichever is greater) - for serious infringements including unauthorized data collection and processing
 - Criminal penalties vary by member state
 - Applies to data processed about EU residents regardless of processor location
 
@@ -814,10 +814,10 @@ Just because information is publicly accessible does NOT mean:
 SPECIFIC OSINT CONTENT IN THIS REPOSITORY:
 
 The following OSINT resources carry specific legal risk if misused:
-• Domain_IP_Recon.md — Passive and active recon of domains/IPs
-• Email_OSINT.md — Email address investigation techniques
-• Phone_OSINT.md — Phone number investigation techniques
-• OSINT_TOOLS_CATALOG.md — 400+ categorized tools
+• Domain_IP_Recon.md - Passive and active recon of domains/IPs
+• Email_OSINT.md - Email address investigation techniques
+• Phone_OSINT.md - Phone number investigation techniques
+• OSINT_TOOLS_CATALOG.md - 400+ categorized tools
 
 Phone and email OSINT in particular intersects heavily with
 anti-stalking laws and telecommunications privacy regulations.
@@ -1106,7 +1106,7 @@ CONTENT COVERED:
 • Active Directory attack chains (Kerberoasting, DCSync, ACL abuse)
 • C2 framework selection, deployment, and operational usage
 • AV/EDR evasion techniques (obfuscation, living-off-the-land)
-• LOLBins/LOLBAS — abusing legitimate Windows/Linux tools
+• LOLBins/LOLBAS - abusing legitimate Windows/Linux tools
 • Network detection evasion and traffic blending
 • OSINT-driven threat intelligence operationalization
 
@@ -1551,8 +1551,8 @@ TOTAL POTENTIAL LIABILITY: $1,725,000-$2,300,000
 - Transferring data outside EU without safeguards
 
 **Penalties:**
-- **Tier 1**: Up to €10 million or 2% of global annual revenue (whichever is higher) — less serious infringements
-- **Tier 2**: Up to €20 million or 4% of global annual revenue (whichever is higher) — serious infringements
+- **Tier 1**: Up to €10 million or 2% of global annual revenue (whichever is higher) - less serious infringements
+- **Tier 2**: Up to €20 million or 4% of global annual revenue (whichever is higher) - serious infringements
 
 **Example**: A company with $1 billion revenue faces potential GDPR Tier 2 fine of **$40 million** for serious violations.
 
@@ -3189,7 +3189,7 @@ Version: 1.1
 
 CHANGELOG:
 v1.1 (June 1, 2026)
-  - Added Section 8: Tradecraft — legal warnings for AD attack chains,
+  - Added Section 8: Tradecraft - legal warnings for AD attack chains,
     C2 frameworks, AV/EDR evasion, LOLBins, and network detection evasion
   - Added Tradecraft Documentation content-specific warning block
   - Added Bash Bunny and USB Rubber Ducky to Scripts legal warnings

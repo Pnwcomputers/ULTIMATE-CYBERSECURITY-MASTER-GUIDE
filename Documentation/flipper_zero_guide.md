@@ -7,7 +7,7 @@ Field guide for the Flipper Zero multi-tool device covering all built-in radios 
 Organized by hardware module: Sub-GHz radio, NFC (13.56 MHz), 125kHz RFID, Infrared, iButton, BadUSB, GPIO, Bluetooth, and WiFi via the ESP32 Dev Board. Covers firmware options (Official, Unleashed, Momentum, RogueMaster), initial setup, the full app catalog, pentesting and IT-admin workflows, and field kit integration with tools like HackRF, Bus Pirate, and ProxMark3.
 
 ## 🏆 Goal
-Enable IT professionals and penetration testers to use the Flipper Zero effectively across the full range of physical security assessment tasks — from access control badge cloning to wireless handshake capture to BadUSB payload delivery.
+Enable IT professionals and penetration testers to use the Flipper Zero effectively across the full range of physical security assessment tasks - from access control badge cloning to wireless handshake capture to BadUSB payload delivery.
 
 ## 📋 When to Use
 - Physical access control assessments (125kHz RFID/NFC badge reading and cloning)
@@ -38,8 +38,8 @@ Enable IT professionals and penetration testers to use the Flipper Zero effectiv
 10. [U2F / FIDO2](#10-u2f--fido2)
 11. [GPIO & Hardware Interfaces](#11-gpio--hardware-interfaces)
 12. [Bluetooth](#12-bluetooth)
-13. [WiFi — ESP32 Dev Board](#13-wifi--esp32-dev-board)
-14. [Apps — Full Catalog](#14-apps--full-catalog)
+13. [WiFi - ESP32 Dev Board](#13-wifi--esp32-dev-board)
+14. [Apps - Full Catalog](#14-apps--full-catalog)
 15. [Pentesting Workflows](#15-pentesting-workflows)
 16. [IT Admin Workflows](#16-it-admin-workflows)
 17. [Field Kit Integration](#17-field-kit-integration)
@@ -102,10 +102,10 @@ Enable IT professionals and penetration testers to use the Flipper Zero effectiv
 ```
 
 Key pins for common use:
-- **Pin 13/14** — UART TX/RX (serial console work)
-- **Pin 15/16** — SPI MOSI/MISO
-- **Pin 18** — 5V (from USB only, not battery)
-- **Pin 1** — 3.3V regulated output (~20mA max)
+- **Pin 13/14** - UART TX/RX (serial console work)
+- **Pin 15/16** - SPI MOSI/MISO
+- **Pin 18** - 5V (from USB only, not battery)
+- **Pin 1** - 3.3V regulated output (~20mA max)
 
 ---
 
@@ -188,7 +188,7 @@ Extract and copy the `apps/` folder to your SD card via qFlipper File Manager.
 - [ ] Set region: Settings → System → Region
 - [ ] Set time/date: Settings → System → Date & Time
 - [ ] Enable BLE if needed: Settings → Bluetooth
-- [ ] Pair with mobile app (Flipper Mobile App — iOS/Android)
+- [ ] Pair with mobile app (Flipper Mobile App - iOS/Android)
 
 ### SD Card Setup
 
@@ -256,7 +256,7 @@ Passive capture mode. The Flipper listens on a configured frequency and decodes 
 **Supported protocols (built-in + Unleashed/Momentum extras):**
 - Princeton, CAME, Nice Flor, Chamberlain, Linear, Securplus
 - Ansonic, Holtek, Doitrand, SMC5326, GangQi
-- KeeLoq (fixed code capture — not rolling)
+- KeeLoq (fixed code capture - not rolling)
 - Star Line automotive (fixed segments)
 
 ### Read RAW
@@ -272,7 +272,7 @@ Raw files are larger but more universal. They replay the exact timing of the ori
 
 **Settings in RAW mode:**
 - Frequency: manually set or use Frequency Analyzer first
-- RSSI: signal strength indicator — get close to transmitter
+- RSSI: signal strength indicator - get close to transmitter
 
 ### Send / Replay
 
@@ -304,7 +304,7 @@ Iterates through all possible fixed codes for a given protocol and bit length. E
 **Usage:**
 1. Select protocol (Princeton is most common)
 2. Select bit length (typically 24 or 25 bit)
-3. Start — Flipper transmits codes sequentially
+3. Start - Flipper transmits codes sequentially
 
 **Time estimates:**
 - 24-bit Princeton: ~45 minutes for full sweep
@@ -377,7 +377,7 @@ For Mifare Classic, initial read captures the UID and sector structure but locke
 Flipper presents itself as the saved card to readers. Works well for:
 - Mifare Ultralight (full emulation)
 - NTAG series (full emulation)
-- Mifare Classic (partial — some readers detect timing differences)
+- Mifare Classic (partial - some readers detect timing differences)
 
 ### Mifare Classic Key Recovery
 
@@ -385,7 +385,7 @@ Mifare Classic uses 48-bit sector keys (Key A and Key B). Default keys (0xFFFFFF
 
 **Method 1: MFKey App (requires a real reader)**
 1. Install MFKey from Flipper Lab
-2. NFC → Detect Reader — hold Flipper near the target reader (badge reader on a door)
+2. NFC → Detect Reader - hold Flipper near the target reader (badge reader on a door)
 3. The reader will challenge the Flipper, which captures the crypto nonces
 4. Apps → NFC → MFKey → Run
 5. MFKey performs offline CRYPTO1 cryptanalysis to recover the sector keys
@@ -413,7 +413,7 @@ Writes saved card data to a blank writable card. Requires:
 
 ### Picopass / iClass App
 
-HID iClass is a 13.56 MHz standard common in corporate environments. Not supported by the built-in NFC app — requires the **Picopass** app.
+HID iClass is a 13.56 MHz standard common in corporate environments. Not supported by the built-in NFC app - requires the **Picopass** app.
 
 **Install:** Flipper Lab → search "Picopass"
 
@@ -466,7 +466,7 @@ HID iClass is a 13.56 MHz standard common in corporate environments. Not support
 
 Hold card against Flipper's back. Most LF cards read instantly. Save with descriptive name.
 
-> These cards transmit their ID with zero authentication — any reader in range can capture the credential. This is the lowest tier of access control security.
+> These cards transmit their ID with zero authentication - any reader in range can capture the credential. This is the lowest tier of access control security.
 
 ### Emulating RFID
 
@@ -502,7 +502,7 @@ Iterates through credential ranges for a given protocol. Useful for:
 - Cloning takes under 5 seconds with the Flipper
 - Virtually all SMB facilities running HID Prox or EM4100 are vulnerable
 
-**Common client scenario**: Visitor badges at front desk use the same format as employee badges — capture visitor badge UID, clone it, present at secured doors.
+**Common client scenario**: Visitor badges at front desk use the same format as employee badges - capture visitor badge UID, clone it, present at secured doors.
 
 ---
 
@@ -557,9 +557,9 @@ Iterates through all known codes for a given device type/brand. Useful for unloc
 iButton (1-Wire / Dallas keys) are contact-based keys used in some intercom systems, apartment buildings (common in Eastern Europe and Russia), and some industrial access control systems. Less common in the US but still encountered.
 
 **Supported types:**
-- DS1990A (RW1990) — most common
-- DS1992, DS1996 — memory types
-- Cyfral, Metakom — Russian apartment systems
+- DS1990A (RW1990) - most common
+- DS1992, DS1996 - memory types
+- Cyfral, Metakom - Russian apartment systems
 
 ### Reading iButton
 
@@ -637,7 +637,7 @@ CTRL-SHIFT ESC  Task Manager
 Match the payload's keyboard layout to the target system. Set in:
 **Settings → System → USB Keyboard Layout**
 
-Important for special characters — `@`, `\`, `/` vary by locale. US layout is default.
+Important for special characters - `@`, `\`, `/` vary by locale. US layout is default.
 
 ### PNWC Payload Library
 
@@ -671,7 +671,7 @@ The Flipper can act as a FIDO U2F hardware security key for two-factor authentic
 
 **Limitations:**
 - Stores one U2F credential
-- Not FIDO2/WebAuthn level — works for U2F only
+- Not FIDO2/WebAuthn level - works for U2F only
 - No PIN protection (anyone with physical Flipper can authenticate)
 
 **Practical use for IT/security:**
@@ -740,7 +740,7 @@ Generates square waves on GPIO pins. Useful for:
 
 **Apps → GPIO → Wire Tester**
 
-Continuity tester using GPIO pins. Quick cable verification tool — handy for network cable checking on client sites.
+Continuity tester using GPIO pins. Quick cable verification tool - handy for network cable checking on client sites.
 
 ### Raspberry Pi / SBC Integration
 
@@ -795,17 +795,17 @@ Pairs as a BLE HID device and presents a navigation remote. Useful for controlli
 
 ### Bad BT (App)
 
-BLE HID keyboard injection — connects wirelessly and injects keystrokes, same as BadUSB but over Bluetooth. Requires pairing first (target must accept connection).
+BLE HID keyboard injection - connects wirelessly and injects keystrokes, same as BadUSB but over Bluetooth. Requires pairing first (target must accept connection).
 
 **Use case:** USB ports blocked or disabled on target workstation, but Bluetooth is available.
 
 ### BLE Scanner (via Marauder)
 
-With the WiFi Dev Board, Marauder can perform detailed BLE scanning — see BLE section under WiFi Dev Board.
+With the WiFi Dev Board, Marauder can perform detailed BLE scanning - see BLE section under WiFi Dev Board.
 
 ---
 
-## 13. WiFi — ESP32 Dev Board
+## 13. WiFi - ESP32 Dev Board
 
 ### Overview
 
@@ -827,9 +827,9 @@ The ESP32-S2-based WiFi Development Board attaches to the Flipper's GPIO header 
 - **Scan AP+Station**: Combined view showing which clients are connected to which APs
 
 #### Deauthentication Attacks
-**802.11 deauthentication frames** — disassociates clients from their AP:
-- `attack -t deauth` — deauth all scanned APs
-- `attack -t deauth -b [BSSID]` — target specific AP
+**802.11 deauthentication frames** - disassociates clients from their AP:
+- `attack -t deauth` - deauth all scanned APs
+- `attack -t deauth -b [BSSID]` - target specific AP
 - Select target from scan results in Marauder UI before running attack
 
 > **Pentest use**: Demonstrate that anyone within radio range can forcibly disconnect clients. Effective for showing client why open/public WiFi is dangerous, and why 802.11w (Management Frame Protection) should be enabled.
@@ -837,8 +837,8 @@ The ESP32-S2-based WiFi Development Board attaches to the Flipper's GPIO header 
 #### PMKID / Handshake Capture
 Captures WPA2 handshakes for offline cracking:
 1. Scan APs → select target
-2. `attack -t pmkid` — captures PMKID from AP beacon (no client needed)
-3. Or: `attack -t wpa` — captures full 4-way handshake (requires client authentication)
+2. `attack -t pmkid` - captures PMKID from AP beacon (no client needed)
+3. Or: `attack -t wpa` - captures full 4-way handshake (requires client authentication)
 4. Save `.pcap` to SD card
 5. Transfer to Kali → `hashcat -m 22000 capture.hc22000 wordlist.txt`
 
@@ -915,7 +915,7 @@ hashcat -m 22000 hash.hc22000 rockyou.txt --attack-mode 0
 
 ---
 
-## 14. Apps — Full Catalog
+## 14. Apps - Full Catalog
 
 ### NFC Apps
 
@@ -996,7 +996,7 @@ hashcat -m 22000 hash.hc22000 rockyou.txt --attack-mode 0
 
 | File | Description |
 |---|---|
-| **PNWC Payload Library** | Full suite — see separate documentation |
+| **PNWC Payload Library** | Full suite - see separate documentation |
 | **Rubber Ducky scripts** | Compatible with existing Hak5 .txt payloads |
 | **UAC bypass demo** | Common UAC bypass demonstration |
 | **Windows enumeration** | Quick user/network enumeration |
@@ -1026,7 +1026,7 @@ hashcat -m 22000 hash.hc22000 rockyou.txt --attack-mode 0
 | **HEX Viewer** | Flipper Lab | Inspect binary files on SD card |
 
 ### Games (Non-pentesting)
-Portal of Flipper, Doom, Tetris, Snake, Flappy Bird — various on Flipper Lab. Useful for social engineering "hey look at this" openers.
+Portal of Flipper, Doom, Tetris, Snake, Flappy Bird - various on Flipper Lab. Useful for social engineering "hey look at this" openers.
 
 ---
 
@@ -1052,12 +1052,12 @@ Before any physical pentest engagement:
 - Identify card format used by employees (proximity, smart card, iClass)
 
 **Step 2: Card Capture**
-- LF (HID Prox / EM4100): `125kHz RFID → Read` — works through wallets/purses at ~5cm
-- HF Mifare Classic: `NFC → Read` — brief contact needed
+- LF (HID Prox / EM4100): `125kHz RFID → Read` - works through wallets/purses at ~5cm
+- HF Mifare Classic: `NFC → Read` - brief contact needed
 - HF iClass: `Apps → Picopass → Read`
 
 **Step 3: Reader Nonce Capture (Mifare Classic)**
-- `NFC → Detect Reader` — hold Flipper near reader
+- `NFC → Detect Reader` - hold Flipper near reader
 - Captures crypto nonces → `Apps → NFC → MFKey → Run`
 - Recovers sector keys in ~30 seconds
 
@@ -1079,18 +1079,18 @@ Before any physical pentest engagement:
 ### Wireless Assessment
 
 **Sub-GHz Assessment:**
-1. `Sub-GHz → Frequency Analyzer` — identify active frequencies on site
-2. `Sub-GHz → Read` — capture gate/door/barrier remotes
+1. `Sub-GHz → Frequency Analyzer` - identify active frequencies on site
+2. `Sub-GHz → Read` - capture gate/door/barrier remotes
 3. Test replay on target
-4. `Sub-GHz Bruteforcer` — if fixed-code, demonstrate full code space compromise
+4. `Sub-GHz Bruteforcer` - if fixed-code, demonstrate full code space compromise
 
 **WiFi Assessment (with ESP32 Dev Board):**
-1. Marauder → Scan APs — enumerate all SSIDs, note encryption types
+1. Marauder → Scan APs - enumerate all SSIDs, note encryption types
 2. Identify any open networks or WEP (rare but still exists)
-3. Marauder → PMKID — capture from all WPA2 targets
-4. Marauder → Scan Stations — identify client devices
+3. Marauder → PMKID - capture from all WPA2 targets
+4. Marauder → Scan Stations - identify client devices
 5. Transfer .pcap to Kali → crack with hashcat
-6. Marauder → Deauth — demonstrate forced disconnection
+6. Marauder → Deauth - demonstrate forced disconnection
 7. Document: open networks, weak passwords, lack of 802.11w
 
 ### USB Drop / BadUSB Testing
@@ -1143,9 +1143,9 @@ Always run `win-cleanup.txt` after any engagement to remove:
 
 **Fast intake workflow:**
 1. Plug Flipper into client machine
-2. Run `win-intake-form.txt` — opens Notepad with auto-filled system info
+2. Run `win-intake-form.txt` - opens Notepad with auto-filled system info
 3. Fill in reported issue while system info populates in background
-4. Run `win-inventory.txt` — captures full HW/SW for your records
+4. Run `win-inventory.txt` - captures full HW/SW for your records
 
 **Common issue investigation:**
 - Slow machine: `win-sysinfo-full.txt` → check process list and startup items
@@ -1168,7 +1168,7 @@ Always run `win-cleanup.txt` after any engagement to remove:
 ### Client Security Reviews
 
 **Quick security posture for SMB clients:**
-1. Run `win-security-audit.txt` — generates full report
+1. Run `win-security-audit.txt` - generates full report
 2. Key items to check in output:
    - Defender real-time protection enabled?
    - UAC set to appropriate level?
@@ -1355,10 +1355,10 @@ github.com/UberGuidoZ/Flipper/tree/main/NFC
 
 ### Legal References
 
-- [Computer Fraud and Abuse Act (CFAA) — 18 U.S.C. § 1030](https://www.law.cornell.edu/uscode/text/18/1030)
+- [Computer Fraud and Abuse Act (CFAA) - 18 U.S.C. § 1030](https://www.law.cornell.edu/uscode/text/18/1030)
 - [Electronic Communications Privacy Act (ECPA)](https://www.law.cornell.edu/uscode/text/18/part-I/chapter-119)
-- [Washington State RCW 9A.90 — Washington Cybercrime Act](https://app.leg.wa.gov/RCW/default.aspx?cite=9A.90) (RCW 9A.52.110 was repealed in 2016; current law is RCW 9A.90.040 computer trespass 1st degree, RCW 9A.90.050 2nd degree)
-- [FCC Part 15 — Unlicensed RF devices](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15)
+- [Washington State RCW 9A.90 - Washington Cybercrime Act](https://app.leg.wa.gov/RCW/default.aspx?cite=9A.90) (RCW 9A.52.110 was repealed in 2016; current law is RCW 9A.90.040 computer trespass 1st degree, RCW 9A.90.050 2nd degree)
+- [FCC Part 15 - Unlicensed RF devices](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15)
 
 ---
 
@@ -1417,14 +1417,14 @@ clearlist -s  Clear station list
 ---
 
 ## Related Files
-- [evil_m5.md](evil_m5.md) — M5Cardputer with Evil-M5Project: complementary ESP32-based WiFi attack tool
-- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: network-service brute-force and exfiltration tool (network layer vs. Flipper's RF layer)
-- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware alternative for Cardputer: multi-radio (Sub-GHz, NFC, IR, BLE, FM)
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32 Marauder cheat sheet (the firmware running on Flipper's WiFi Dev Board)
-- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) — Full Marauder guide for WiFi pentesting workflows
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Converting Marauder .pcap captures to Hashcat format and cracking WPA2
-- [../HardwareHacking/BusPirate.md](../HardwareHacking/BusPirate.md) — Bus Pirate 5: deep hardware interface tool that complements Flipper's GPIO work
-- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) — Hardware hacking foundations (UART, SPI, I2C, JTAG)
+- [evil_m5.md](evil_m5.md) - M5Cardputer with Evil-M5Project: complementary ESP32-based WiFi attack tool
+- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: network-service brute-force and exfiltration tool (network layer vs. Flipper's RF layer)
+- [bruce_firmware.md](bruce_firmware.md) - Bruce firmware alternative for Cardputer: multi-radio (Sub-GHz, NFC, IR, BLE, FM)
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder cheat sheet (the firmware running on Flipper's WiFi Dev Board)
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) - Full Marauder guide for WiFi pentesting workflows
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Converting Marauder .pcap captures to Hashcat format and cracking WPA2
+- [../HardwareHacking/BusPirate.md](../HardwareHacking/BusPirate.md) - Bus Pirate 5: deep hardware interface tool that complements Flipper's GPIO work
+- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) - Hardware hacking foundations (UART, SPI, I2C, JTAG)
 
 ---
 

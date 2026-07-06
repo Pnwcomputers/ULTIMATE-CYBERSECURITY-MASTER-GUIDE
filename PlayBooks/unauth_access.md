@@ -3,10 +3,10 @@
 This playbook provides step-by-step procedures for investigating unauthorized access incidents, with a focus on **brute force attacks** and **impossible travel alerts**. These are common indicators of credential compromise and account takeover attempts.
 
 ## 🎯 Purpose
-A full investigation procedure for the two most common access-abuse alert types a SOC sees — brute force/credential stuffing and impossible-travel logins — carried from initial alert through to containment and closure.
+A full investigation procedure for the two most common access-abuse alert types a SOC sees - brute force/credential stuffing and impossible-travel logins - carried from initial alert through to containment and closure.
 
 ## ⚙️ Function
-Structured in parts: alert triage, brute-force-specific investigation, impossible-travel-specific investigation, and containment. Unlike `sop_phishing_analysis.md` (single-sitting, single-email SOP), this is the longer investigation you escalate into when triage confirms likely account compromise — including scenarios that started as a successful phish.
+Structured in parts: alert triage, brute-force-specific investigation, impossible-travel-specific investigation, and containment. Unlike `sop_phishing_analysis.md` (single-sitting, single-email SOP), this is the longer investigation you escalate into when triage confirms likely account compromise - including scenarios that started as a successful phish.
 
 ## 🏆 Goal
 Correctly distinguish real account takeover from false positives (e.g., legitimate VPN use triggering impossible-travel), and produce MITRE ATT&CK-mapped (T1110 Brute Force, T1078 Valid Accounts) evidence sufficient to justify containment actions like forced password reset or account lockout.

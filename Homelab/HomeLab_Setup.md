@@ -1,13 +1,13 @@
 # Penetration Testing Home Lab Guide
 
 ## 🎯 Purpose
-Comprehensive build guide for a professional penetration testing home lab — covering hardware selection, network architecture (VLANs, isolated subnets), hypervisor setup (Proxmox, VMware, VirtualBox), vulnerable VM deployment (Metasploitable, DVWA, VulnHub), and ongoing lab maintenance.
+Comprehensive build guide for a professional penetration testing home lab - covering hardware selection, network architecture (VLANs, isolated subnets), hypervisor setup (Proxmox, VMware, VirtualBox), vulnerable VM deployment (Metasploitable, DVWA, VulnHub), and ongoing lab maintenance.
 
 ## ⚙️ Function
 Organized as a progressive build from beginner (single-machine VirtualBox) to advanced (dedicated bare-metal Proxmox cluster with VLAN isolation). Covers: hardware planning, network topology design, hypervisor installation, security tool VM deployment, target VM catalog, and lab hardening to prevent accidental internet exposure.
 
 ## 🏆 Goal
-Build a fully isolated, legally-safe environment where offensive and defensive security techniques can be practiced, tools can be tested, and IR playbooks can be validated — without risk to production networks or legal exposure.
+Build a fully isolated, legally-safe environment where offensive and defensive security techniques can be practiced, tools can be tested, and IR playbooks can be validated - without risk to production networks or legal exposure.
 
 ## 📋 When to Use
 - Setting up a new lab environment for security training or research
@@ -3275,10 +3275,10 @@ Your lab is now ready. **Time to hack responsibly!**
 * Security research in isolated lab environments.
 
 ## Related Files
-- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) — VM catalog (Kali, Metasploitable, DVWA, Tails, etc.) deployed in this lab environment
-- [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) — Log aggregation infrastructure that runs in this homelab
-- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) — Bjorn Pi: a key lab tool for network assessment practice in the isolated lab environment
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark for monitoring traffic within the lab network segments
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM catalog (Kali, Metasploitable, DVWA, Tails, etc.) deployed in this lab environment
+- [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) - Log aggregation infrastructure that runs in this homelab
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi: a key lab tool for network assessment practice in the isolated lab environment
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for monitoring traffic within the lab network segments
 
 ---
 

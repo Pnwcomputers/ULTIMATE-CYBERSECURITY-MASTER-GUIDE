@@ -1,13 +1,13 @@
 # 🔧 Hardware Hacking
 
 ## 🎯 Purpose
-Index and navigation hub for the Hardware Hacking section — covering physical and electronic attack techniques against embedded systems: JTAG/SWD/UART debug access, fault injection (voltage, clock, EM, laser), side-channel analysis (SPA, DPA, CPA), firmware extraction, and the hardware tools used in each category.
+Index and navigation hub for the Hardware Hacking section - covering physical and electronic attack techniques against embedded systems: JTAG/SWD/UART debug access, fault injection (voltage, clock, EM, laser), side-channel analysis (SPA, DPA, CPA), firmware extraction, and the hardware tools used in each category.
 
 ## ⚙️ Function
 Links to five chapter guides (threat modeling, electrical fundamentals, fault injection, power analysis theory, power analysis practicals) and seven device guides (Bus Pirate, Bit Pirate, GreatFET One, JTAGulator, LA1010 logic analyzer, HiLetgo logic analyzer, T48 IC programmer). Includes attack category taxonomy, bench equipment reference, and tool ecosystem overview.
 
 ## 🏆 Goal
-Serve as the entry point for hardware security work — helping practitioners find the right chapter or tool guide for their current task without reading the full guide linearly.
+Serve as the entry point for hardware security work - helping practitioners find the right chapter or tool guide for their current task without reading the full guide linearly.
 
 ## 📋 When to Use
 - Starting a hardware security assessment: choose the right chapter and tool for your target
@@ -362,11 +362,11 @@ ALWAYS:
 <div align="center">
 
 ## Related Files
-- [../Documentation/Locksport.md](../Documentation/Locksport.md) — Physical lock bypass: complements hardware debug access in full red-team physical assessments
-- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce firmware: NFC/RFID and sub-GHz attacks on the wireless protocols used by embedded targets
-- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) — Flipper Zero: RFID/NFC/sub-GHz tool for the RF-adjacent attack surface of embedded devices
-- [../SDR/](../SDR/) — SDR guides: RF analysis of wireless-enabled embedded targets
-- [../IncidentResponse/](../IncidentResponse/) — Incident response: detecting hardware-level attacks and evidence collection from embedded devices
+- [../Documentation/Locksport.md](../Documentation/Locksport.md) - Physical lock bypass: complements hardware debug access in full red-team physical assessments
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: NFC/RFID and sub-GHz attacks on the wireless protocols used by embedded targets
+- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: RFID/NFC/sub-GHz tool for the RF-adjacent attack surface of embedded devices
+- [../SDR/](../SDR/) - SDR guides: RF analysis of wireless-enabled embedded targets
+- [../IncidentResponse/](../IncidentResponse/) - Incident response: detecting hardware-level attacks and evidence collection from embedded devices
 
 ---
 

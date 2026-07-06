@@ -166,7 +166,7 @@ glxinfo -B
 
 ## 7. Source-Built GPU Diagnostic Tools
 
-### 7.1 `memtest_vulkan` — cross-vendor Vulkan VRAM stability test
+### 7.1 `memtest_vulkan` - cross-vendor Vulkan VRAM stability test
 
 `memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
 
@@ -193,7 +193,7 @@ memtest_vulkan
 
 Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
 
-### 7.2 `gpu-burn` — NVIDIA CUDA stress test
+### 7.2 `gpu-burn` - NVIDIA CUDA stress test
 
 `gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
 

@@ -1,13 +1,13 @@
 # Locksport
 
 ## 🎯 Purpose
-Comprehensive guide to locksport as a legitimate skill and competitive sport — covering mechanical lock theory, hands-on picking and impressioning techniques, tool selection, combination safe manipulation, and competition formats used at DEF CON, TOOOL, and ALOA events.
+Comprehensive guide to locksport as a legitimate skill and competitive sport - covering mechanical lock theory, hands-on picking and impressioning techniques, tool selection, combination safe manipulation, and competition formats used at DEF CON, TOOOL, and ALOA events.
 
 ## ⚙️ Function
-Organized in three parts: (I) Foundations — how locks work, what makes them secure, laws and community; (II) Techniques — pin tumbler picking, lever locks, impressioning, safe manipulation, advanced lock types, tools; (III) Competition — setup/hosting, strategy/tactics, competition formats and scoring.
+Organized in three parts: (I) Foundations - how locks work, what makes them secure, laws and community; (II) Techniques - pin tumbler picking, lever locks, impressioning, safe manipulation, advanced lock types, tools; (III) Competition - setup/hosting, strategy/tactics, competition formats and scoring.
 
 ## 🏆 Goal
-Enable security professionals to understand physical security mechanisms at a hands-on level — both for offensive physical penetration testing and for evaluating the physical security posture of facilities being assessed.
+Enable security professionals to understand physical security mechanisms at a hands-on level - both for offensive physical penetration testing and for evaluating the physical security posture of facilities being assessed.
 
 ## 📋 When to Use
 - Physical penetration testing engagements requiring lock bypass skills
@@ -15,13 +15,13 @@ Enable security professionals to understand physical security mechanisms at a ha
 - Locksport competition preparation (DEF CON Lockpicking Village, TOOOL, ALOA)
 - Understanding physical access control as a complement to network security work
 
-> **Scope:** The art, sport, and science of lock picking — covering mechanical lock fundamentals, hands-on picking and impressioning techniques, tool selection, and competitive locksport. This section treats lock picking as a legitimate skill and sport, consistent with the laws and ethics of the locksport community.
+> **Scope:** The art, sport, and science of lock picking - covering mechanical lock fundamentals, hands-on picking and impressioning techniques, tool selection, and competitive locksport. This section treats lock picking as a legitimate skill and sport, consistent with the laws and ethics of the locksport community.
 
 ## 🎯 Purpose
-Standalone reference on physical lock mechanics, picking/impressioning technique, and competitive locksport — the only file in this repo covering physical (non-cyber) security bypass in depth. Complements the Flipper Zero/hardware guides' brief NFC/RFID badge-cloning coverage but doesn't overlap with them: this is entirely about mechanical locks, not electronic access control.
+Standalone reference on physical lock mechanics, picking/impressioning technique, and competitive locksport - the only file in this repo covering physical (non-cyber) security bypass in depth. Complements the Flipper Zero/hardware guides' brief NFC/RFID badge-cloning coverage but doesn't overlap with them: this is entirely about mechanical locks, not electronic access control.
 
 ## ⚙️ Function
-Three parts: foundational lock mechanics and legal landscape (Part I), hands-on picking/impressioning/safe-manipulation technique (Part II), and competitive locksport formats and strategy (Part III). Unlike the tool-focused Documentation files, this one is almost entirely technique and physics — there's no firmware, no CLI, no version drift to track.
+Three parts: foundational lock mechanics and legal landscape (Part I), hands-on picking/impressioning/safe-manipulation technique (Part II), and competitive locksport formats and strategy (Part III). Unlike the tool-focused Documentation files, this one is almost entirely technique and physics - there's no firmware, no CLI, no version drift to track.
 
 ## 🏆 Goal
 Understand how mechanical locks work well enough to evaluate their security, pick a pin-tumbler lock via single-pin-picking, and know the legal/ethical boundaries of practicing and competing in locksport.
@@ -63,7 +63,7 @@ Lock picking is a legitimate skill practiced by locksmiths, security professiona
 - Never pick a lock you are not prepared to purchase as replacement (you may damage it)
 - Share knowledge openly; support fellow sport pickers
 
-**Legal context varies by jurisdiction** — see Chapter 3 for a detailed breakdown. In most US states and many countries, possession of lock picks is legal. Intent and context determine legality in ambiguous cases. When in doubt, consult local statute.
+**Legal context varies by jurisdiction** - see Chapter 3 for a detailed breakdown. In most US states and many countries, possession of lock picks is legal. Intent and context determine legality in ambiguous cases. When in doubt, consult local statute.
 
 ---
 
@@ -73,7 +73,7 @@ Lock picking is a legitimate skill practiced by locksmiths, security professiona
 
 #### The Core Problem Locks Solve
 
-Every lock is a mechanical solution to a single problem: allowing authorized access while denying unauthorized access. Understanding the mechanism is the first step to evaluating — or defeating — it.
+Every lock is a mechanical solution to a single problem: allowing authorized access while denying unauthorized access. Understanding the mechanism is the first step to evaluating - or defeating - it.
 
 #### Pin Tumbler Locks
 
@@ -95,7 +95,7 @@ The most common lock type worldwide. Found in residential deadbolts, padlocks, f
 ```
 Without key (locked):
   Shell ──────────────────────
-  Driver pins ▼▼▼▼▼ (span shear line — lock blocked)
+  Driver pins ▼▼▼▼▼ (span shear line - lock blocked)
   ─ ─ ─ ─ shear line ─ ─ ─ ─
   Key pins   █████
   Plug ───────────────────────
@@ -108,7 +108,7 @@ With correct key:
   Plug ───────────────────────  ← plug can now rotate
 ```
 
-The key's **bitting** — the pattern of cuts — lifts each key pin to a precise height so that every key-pin/driver-pin interface sits exactly at the shear line simultaneously.
+The key's **bitting** - the pattern of cuts - lifts each key pin to a precise height so that every key-pin/driver-pin interface sits exactly at the shear line simultaneously.
 
 **Pin count:** Most consumer locks use 5 pins. High-security locks use 6–7. More pins = more possible key combinations and more picking difficulty.
 
@@ -118,8 +118,8 @@ The key's **bitting** — the pattern of cuts — lifts each key pin to a precis
 Tools needed: follower tool (same diameter as plug), plug follower block or pinning tray
 
 1. Insert follower behind plug after removing cylinder from lock body
-2. Push plug out forward with follower — follower maintains spring/driver pin position in shell
-3. Tip plug: key pins will fall out (catch them — they're tiny)
+2. Push plug out forward with follower - follower maintains spring/driver pin position in shell
+3. Tip plug: key pins will fall out (catch them - they're tiny)
 4. Use a pick or pin to push driver pins and springs out of shell chambers
 5. Sort and label pins by chamber number; document heights
 6. Reverse to reassemble; use plug follower to re-engage drivers without losing them
@@ -134,7 +134,7 @@ Tools needed: follower tool (same diameter as plug), plug follower block or pinn
 Found in filing cabinets, desk drawers, older vehicles, and low-security padlocks. Simpler than pin tumblers.
 
 - Single-piece wafers span the plug-housing gap (unlike the two-piece pin tumbler stack)
-- No springs in the traditional sense — wafers are flat spring steel
+- No springs in the traditional sense - wafers are flat spring steel
 - More susceptible to raking and jiggling than pin tumblers
 - Low pick resistance; useful for beginners to build feedback intuition
 
@@ -165,7 +165,7 @@ Common in Abus and Abloy products. Use rotating discs rather than pins or levers
 - Each disc has a notch; all notches must align to allow the sidebar to fall
 - Require a specialized rotating pick rather than standard tension + lifting
 - High-security variants (Abloy Protec2) are extremely pick-resistant
-- Good cross-training for locksport — very different tactile feedback from pin tumblers
+- Good cross-training for locksport - very different tactile feedback from pin tumblers
 
 ---
 
@@ -181,7 +181,7 @@ Two main types: **padlock dials** (consumer) and **safe locks** (high-security).
 **Safe combination locks:**
 - Precision-machined; typically 3-wheel (100 positions each = 1,000,000 combinations)
 - Relocking mechanisms, anti-drill plates, anti-manipulation features in high-security models
-- Manipulation (non-destructive opening) is a key locksport and locksmith skill — covered in Chapter 7
+- Manipulation (non-destructive opening) is a key locksport and locksmith skill - covered in Chapter 7
 
 ---
 
@@ -191,7 +191,7 @@ Keeping practice locks in good condition extends their life and improves feedbac
 
 | Maintenance Task | Frequency | Method |
 |-----------------|-----------|--------|
-| Lubrication | Monthly (heavy use) or annually | Dry PTFE spray or graphite powder — **never WD-40** (petroleum-based; attracts dirt, degrades rubber) |
+| Lubrication | Monthly (heavy use) or annually | Dry PTFE spray or graphite powder - **never WD-40** (petroleum-based; attracts dirt, degrades rubber) |
 | Pin inspection | When feedback degrades | Disassemble; check for worn, burred, or corroded pins |
 | Spring replacement | When springs feel weak or inconsistent | Source replacement springs from locksmith supply (Multiplex, Hudson) |
 | Keyway cleaning | When grit is felt | Compressed air; soft brush; dry lube |
@@ -220,7 +220,7 @@ More pins = exponentially more possible key combinations. Wider bitting depth ra
 
 **2. Security Pins**
 
-Standard driver pins are uniform cylinders — easy to set because the feedback is clear. Security pins are modified to provide false sets and resist picking. See Chapter 9 for detailed coverage.
+Standard driver pins are uniform cylinders - easy to set because the feedback is clear. Security pins are modified to provide false sets and resist picking. See Chapter 9 for detailed coverage.
 
 | Pin Type | Description | Picking Difficulty |
 |----------|-------------|-------------------|
@@ -240,7 +240,7 @@ High-quality machining means tighter tolerances between plug and shell. Tighter 
 
 **5. Anti-Pick Features**
 
-- **Sidebar:** A secondary locking mechanism (Medeco, Mul-T-Lock) requiring pins to also rotate to specific orientations — adds a second dimension of information required
+- **Sidebar:** A secondary locking mechanism (Medeco, Mul-T-Lock) requiring pins to also rotate to specific orientations - adds a second dimension of information required
 - **Paracentric keyway:** Extremely convoluted profile; frustrates pick insertion
 - **False gates:** Additional notches in lever lock gates; confuse manipulation
 - **Security curtain:** Restricts physical access to lever lock internals
@@ -276,7 +276,7 @@ High-quality machining means tighter tolerances between plug and shell. Tighter 
 - Diamond = highest grade; product-tested against power tools
 
 **CMDTA / Master Keying Security:**
-Security degrades in master key systems because pins must accommodate multiple valid keys — this creates predictable pin stack patterns that experienced pickers can exploit.
+Security degrades in master key systems because pins must accommodate multiple valid keys - this creates predictable pin stack patterns that experienced pickers can exploit.
 
 #### The Locksport Belt Ranking System
 
@@ -344,16 +344,16 @@ Lock picks are legal to own in most US states. A small number of states have mor
 
 **In-person:**
 
-- **DEF CON Lockpicking Village** — Annual; Las Vegas; competitions and open picking tables
-- **TOOOL chapters** — Regular meetups in major cities worldwide
-- **SSdev (Safe & Vault Technicians Association)** — Professional context; manipulation competitions
-- **Locksport Europe** — Continental European championships
-- **ALOA (Associated Locksmiths of America)** — Professional association; competitions at annual convention
+- **DEF CON Lockpicking Village** - Annual; Las Vegas; competitions and open picking tables
+- **TOOOL chapters** - Regular meetups in major cities worldwide
+- **SSdev (Safe & Vault Technicians Association)** - Professional context; manipulation competitions
+- **Locksport Europe** - Continental European championships
+- **ALOA (Associated Locksmiths of America)** - Professional association; competitions at annual convention
 
 **Etiquette at meetups:**
 - Bring your own locks to trade or share
 - Don't pick locks brought by others without asking
-- Share techniques freely — locksport culture strongly favors open knowledge
+- Share techniques freely - locksport culture strongly favors open knowledge
 - Beginners are welcomed; the community is notably inclusive
 
 ---
@@ -364,7 +364,7 @@ Lock picks are legal to own in most US states. A small number of states have mor
 
 #### The Physics of Single Pin Picking (SPP)
 
-SPP exploits a universal manufacturing reality: due to tolerances, pin chambers in a lock plug are never all perfectly aligned with their driver pins simultaneously. When the plug is under light rotational tension, only **one** chamber is binding at any given moment — the rest are loose.
+SPP exploits a universal manufacturing reality: due to tolerances, pin chambers in a lock plug are never all perfectly aligned with their driver pins simultaneously. When the plug is under light rotational tension, only **one** chamber is binding at any given moment - the rest are loose.
 
 ```
 Plug under tension (exaggerated):
@@ -372,14 +372,14 @@ Plug under tension (exaggerated):
 Chamber 1: binding  ← driver pin catches on shear line edge
 Chamber 2: loose    ← driver pin floats freely
 Chamber 3: loose
-Chamber 4: binding  (secondary bind — will bind after 1 is set)
+Chamber 4: binding  (secondary bind - will bind after 1 is set)
 Chamber 5: loose
 ```
 
 **Setting a pin:**
 1. Apply light rotational tension to the plug with a tension wrench
-2. Identify the binding pin — it feels stiffer, with less up-down play than loose pins
-3. Lift the binding pin until you feel a slight plug rotation and a subtle click or give — the driver pin has set above the shear line, held by the ledge created by plug rotation
+2. Identify the binding pin - it feels stiffer, with less up-down play than loose pins
+3. Lift the binding pin until you feel a slight plug rotation and a subtle click or give - the driver pin has set above the shear line, held by the ledge created by plug rotation
 4. The next pin is now binding; repeat
 5. When all pins are set, the plug rotates fully
 
@@ -399,14 +399,14 @@ Experienced pickers describe picking feedback in consistent terms. Developing th
 
 | Sensation | Meaning |
 |-----------|---------|
-| **Stiff, resistant upward movement** | Binding pin — this is the one to set |
-| **Loose, springy movement** | Non-binding pin — skip to the next |
-| **Small plug rotation + slight click or give** | Pin set — move to next binding pin |
-| **False set** — plug rotates partially then stops | Security pin (spool/serrated) partially set; reduce tension slightly to finish |
+| **Stiff, resistant upward movement** | Binding pin - this is the one to set |
+| **Loose, springy movement** | Non-binding pin - skip to the next |
+| **Small plug rotation + slight click or give** | Pin set - move to next binding pin |
+| **False set** - plug rotates partially then stops | Security pin (spool/serrated) partially set; reduce tension slightly to finish |
 | **All pins feel loose** | No tension or tension wrong direction |
 | **Plug snaps back** | Overset a pin; pins dropped; start over |
 
-**The false set** is the most important sensation for intermediate pickers to master. When a spool pin is encountered, lifting it produces a partial plug rotation — the driver pin's spool waist has caught the shear line edge. Slightly reducing tension allows the plug to rotate a tiny bit more, finishing the set. Many beginners maintain constant tension and miss this entirely.
+**The false set** is the most important sensation for intermediate pickers to master. When a spool pin is encountered, lifting it produces a partial plug rotation - the driver pin's spool waist has caught the shear line edge. Slightly reducing tension allows the plug to rotate a tiny bit more, finishing the set. Many beginners maintain constant tension and miss this entirely.
 
 #### Tension Wrench Selection
 
@@ -419,7 +419,7 @@ Tension is the most important and most commonly mismanaged variable in picking.
 | **Pry bar style** | Plugs into base of keyway | Strong leverage; suited to heavy padlocks and high-tension locks |
 | **Offset / low-profile** | Angled to clear the keyway | When standard wrench blocks pick travel |
 
-Start with bottom-of-keyway on a standard keyway. Use the lightest tension that still produces a bind — most beginners use 5–10× too much tension.
+Start with bottom-of-keyway on a standard keyway. Use the lightest tension that still produces a bind - most beginners use 5–10× too much tension.
 
 #### Raking
 
@@ -437,11 +437,11 @@ Effective on cheap, low-tolerance locks. Ineffective on security pins or tight k
 | **Worm / W-rake** | Worm profile | Older, simpler locks |
 | **Dimple rake** | Narrower; shorter peaks | Dimple keyways |
 
-**Technique:** Insert fully, apply light tension, use a scrubbing motion (in-out) combined with up-down oscillation. Vary tension and speed. If no progress in 10–15 seconds, stop, release tension, and try again — attempting to force a set makes things worse.
+**Technique:** Insert fully, apply light tension, use a scrubbing motion (in-out) combined with up-down oscillation. Vary tension and speed. If no progress in 10–15 seconds, stop, release tension, and try again - attempting to force a set makes things worse.
 
 #### Zipping
 
-A variation: insert rake fully, then rapidly pull it out while maintaining tension and light upward pressure. All pins are lifted simultaneously and some may catch as the rake withdraws. Requires very little technique — effective surprise method on cheap locks.
+A variation: insert rake fully, then rapidly pull it out while maintaining tension and light upward pressure. All pins are lifted simultaneously and some may catch as the rake withdraws. Requires very little technique - effective surprise method on cheap locks.
 
 ---
 
@@ -449,18 +449,18 @@ A variation: insert rake fully, then rapidly pull it out while maintaining tensi
 
 #### Lever Lock Picking
 
-Lever locks require a different tool and different mental model than pin tumblers. You are lifting levers, not pins — and the lock's curtain (a shield over the keyhole) means you often work partially blind.
+Lever locks require a different tool and different mental model than pin tumblers. You are lifting levers, not pins - and the lock's curtain (a shield over the keyhole) means you often work partially blind.
 
 **Tools:**
-- **Lever lock pick set** — long, thin picks with various hooks designed to navigate through the curtain
-- **Tension tool** — often a flat metal lever applied to the bolt itself, not the plug
+- **Lever lock pick set** - long, thin picks with various hooks designed to navigate through the curtain
+- **Tension tool** - often a flat metal lever applied to the bolt itself, not the plug
 
 **Technique (standard lever lock):**
 
 1. Insert tension tool; apply light pressure to the bolt in the retraction direction
-2. Due to bolt pressure and slight lever misalignment, one lever will be binding — its post contacts its lever more firmly than the others
+2. Due to bolt pressure and slight lever misalignment, one lever will be binding - its post contacts its lever more firmly than the others
 3. Insert lever pick through curtain; feel for the binding lever
-4. Lift the binding lever until its gate aligns with the post — you'll feel the bolt move slightly
+4. Lift the binding lever until its gate aligns with the post - you'll feel the bolt move slightly
 5. Move to the next binding lever; repeat
 6. All levers set = bolt retracts
 
@@ -468,11 +468,11 @@ Lever locks require a different tool and different mental model than pin tumbler
 
 #### 2-in-1 Lever Picks
 
-Some lever picks combine tension and lifting into a single tool, with one arm providing tension on the bolt and another arm lifting levers. These are often called **curtain picks** and are faster once mastered — but less precise for learning because it's harder to isolate variables.
+Some lever picks combine tension and lifting into a single tool, with one arm providing tension on the bolt and another arm lifting levers. These are often called **curtain picks** and are faster once mastered - but less precise for learning because it's harder to isolate variables.
 
 #### Warded Locks
 
-Older and simpler than lever locks. Wards are fixed obstructions in the keyhole that the key must navigate around. The "picks" for warded locks are **skeleton keys** — keys with most of the material removed to clear all wards simultaneously.
+Older and simpler than lever locks. Wards are fixed obstructions in the keyhole that the key must navigate around. The "picks" for warded locks are **skeleton keys** - keys with most of the material removed to clear all wards simultaneously.
 
 Warded locks provide almost no security against picking; they are primarily a key-interchange barrier rather than a security mechanism.
 
@@ -497,9 +497,9 @@ Impressioning is the process of creating a working key from a blank by making re
 
 2. **Initial marking:** Insert the blank into the lock. Apply moderate turning pressure (as if turning a key) while simultaneously applying upward pressure on the bow of the blank (wiggling it while under rotation tension). This forces each pin down onto the blank's surface.
 
-3. **Extract and examine:** Remove the blank under good magnification. Look for bright marks — small shiny scratches where the driver pin has pressed into and displaced metal on the blank's surface.
+3. **Extract and examine:** Remove the blank under good magnification. Look for bright marks - small shiny scratches where the driver pin has pressed into and displaced metal on the blank's surface.
 
-4. **File:** File a small notch at each mark location. File perpendicular to the length of the blank. Remove only a small amount of material — less than you think.
+4. **File:** File a small notch at each mark location. File perpendicular to the length of the blank. Remove only a small amount of material - less than you think.
 
 5. **Repeat:** Re-insert, re-apply pressure, extract, examine. Marks in the center of your filed notch = correct depth, keep filing. Marks at the edges of the notch = cut is in the right spot but not deep enough. No marks in a notch = you've reached or passed the correct depth.
 
@@ -508,9 +508,9 @@ Impressioning is the process of creating a working key from a blank by making re
 **Impressioning time:** Skilled impressioners open average 5-pin locks in 5–20 minutes. Competition times for expert-level locks run 15–45 minutes.
 
 **Tips:**
-- Rotate tension with each mark attempt — wiggling in only one direction can produce misleading marks
+- Rotate tension with each mark attempt - wiggling in only one direction can produce misleading marks
 - Use consistent pressure; variable pressure produces inconsistent marks
-- A fresh blank shows clearer marks than a re-polished one — when confused, start fresh
+- A fresh blank shows clearer marks than a re-polished one - when confused, start fresh
 - Work in natural light or strong white LED; shadow changes how marks appear
 
 ---
@@ -524,7 +524,7 @@ When the bitting of a key is known (from a code, a decoded depth-key reading, or
 Most locks use a documented bitting specification:
 - **Depth values:** Each cut position has a numbered depth (0 = no cut, 5 or 9 = deepest cut depending on system)
 - **Spacing:** Distance between cuts is standardized per keyway family
-- **MACS (Maximum Adjacent Cut Specification):** Maximum allowed depth difference between adjacent cuts — exceeding MACS makes a key that physically won't insert or will break
+- **MACS (Maximum Adjacent Cut Specification):** Maximum allowed depth difference between adjacent cuts - exceeding MACS makes a key that physically won't insert or will break
 
 **Manual key cutting process:**
 
@@ -551,7 +551,7 @@ Safe entry methods ranked by skill requirement and invasiveness:
 | **Drilling** | Medium | Moderate | 15–60 min |
 | **Grinding / cutting** | Low | Severe | 15–30 min |
 
-Manipulation is the locksport-relevant method — no damage, no drilling, recoverable afterward.
+Manipulation is the locksport-relevant method - no damage, no drilling, recoverable afterward.
 
 #### Safe Lock Mechanics
 
@@ -581,7 +581,7 @@ releasing the bolt.
 
 **Step 1: Contact Points**
 
-Rotate the dial while holding the handle with very light upward or downward pressure (direction depends on bolt orientation). As you rotate, the fence contacts the wheel surface. Note the dial positions where you feel a slight "drop" or change in resistance — these are the **contact points** where the fence is contacting a wheel's notch.
+Rotate the dial while holding the handle with very light upward or downward pressure (direction depends on bolt orientation). As you rotate, the fence contacts the wheel surface. Note the dial positions where you feel a slight "drop" or change in resistance - these are the **contact points** where the fence is contacting a wheel's notch.
 
 **Step 2: Building the Graph**
 
@@ -636,7 +636,7 @@ Once all three gate positions are identified, dial them in sequence using the st
 | **Covert Instruments** | Specialty and slim tools; covert carry focus | $20–$50/pick |
 | **Red Team Tools** | High-end; specialty designs | $30–$70/pick |
 
-**Material:** High-carbon spring steel (most picks). Titanium (some premium picks — lighter, non-magnetic, corrosion-resistant). Avoid stainless steel (too brittle, snaps under lateral load).
+**Material:** High-carbon spring steel (most picks). Titanium (some premium picks - lighter, non-magnetic, corrosion-resistant). Avoid stainless steel (too brittle, snaps under lateral load).
 
 **Handle style:** Preference varies. Solid handles (Peterson) provide better feedback transmission for SPP. Padded handles reduce hand fatigue during long sessions. Try both.
 
@@ -703,7 +703,7 @@ A stereo microscope on the bench is the single biggest upgrade for impressioning
 
 **Key decoder:** A tool (sometimes a pick-like instrument) that, when inserted into the lock's keyway, contacts each pin stack and reads the bitting depth directly. Useful for key duplication without the original key present (authorized use only).
 
-**HPC Codebreaker / Lishi tools:** Commercial key-reading tools that decode the bitting of a lock in-situ. The Lishi 2-in-1 tool is particularly notable — combines a pick and decoder in one instrument, allowing picking and simultaneous bitting readout.
+**HPC Codebreaker / Lishi tools:** Commercial key-reading tools that decode the bitting of a lock in-situ. The Lishi 2-in-1 tool is particularly notable - combines a pick and decoder in one instrument, allowing picking and simultaneous bitting readout.
 
 ---
 
@@ -725,13 +725,13 @@ Cross-section of spool pin:
     |___|   ← bottom (wide)
 ```
 
-When the waist catches on the shear line during picking, the plug rotates partially — this is the **false set**. The picker feels a small rotation and may mistakenly think the lock is about to open. To resolve: reduce tension slightly while maintaining upward pressure on the spool pin. The reduced tension allows the plug to rotate slightly more, pulling the spool pin's top edge past the shear line into a true set position.
+When the waist catches on the shear line during picking, the plug rotates partially - this is the **false set**. The picker feels a small rotation and may mistakenly think the lock is about to open. To resolve: reduce tension slightly while maintaining upward pressure on the spool pin. The reduced tension allows the plug to rotate slightly more, pulling the spool pin's top edge past the shear line into a true set position.
 
 **Serrated Pins:**
 
 Multiple grooves cut into the driver pin. Each groove creates a potential false set position. The picker must recognize and work through multiple false sets per pin. Resolving serrated pins requires the same tension-reduction technique as spools but may need to be applied 2–4 times per pin.
 
-**Combination stacks (spool + serrated):** Some high-security locks use both types in the same lock — some chambers with spools, some with serrated pins. The picker must identify which type each pin is and apply the correct technique.
+**Combination stacks (spool + serrated):** Some high-security locks use both types in the same lock - some chambers with spools, some with serrated pins. The picker must identify which type each pin is and apply the correct technique.
 
 ---
 
@@ -748,7 +748,7 @@ Wards are fixed obstructions in the keyhole that restrict what can enter and whe
 | Paracentric (Medeco, ASSA) | High | Only thin picks fit; limited angles |
 | Security keyway (Abloy) | Very high | Highly restricted access; specialized tools |
 
-**Paracentric keyways** are intentionally convoluted — bowed, curved walls that require picks to navigate around wards while maintaining the correct approach angle to the pins. The Medeco keyway is a classic example: requires a very thin pick inserted at an angle, with limited lateral movement range.
+**Paracentric keyways** are intentionally convoluted - bowed, curved walls that require picks to navigate around wards while maintaining the correct approach angle to the pins. The Medeco keyway is a classic example: requires a very thin pick inserted at an angle, with limited lateral movement range.
 
 ---
 
@@ -820,7 +820,7 @@ Competitor station:
 
 **Lock selection for competitions:**
 - Grade locks by difficulty bracket; clearly mark or disclose difficulty tiers
-- All competitors use identical lock sets (same lot where possible — bitting and tolerances vary)
+- All competitors use identical lock sets (same lot where possible - bitting and tolerances vary)
 - Locks should be tested and confirmed to open smoothly before competition
 - Provide fallback locks (spares) in case a lock is damaged during competition
 
@@ -866,7 +866,7 @@ Most competitions use a standard tool policy:
 
 #### Pre-Competition Lock Intel
 
-Gathering information about competition locks before the event is a legitimate part of competitive locksport. This is not cheating — knowing a lock's characteristics is part of the skill.
+Gathering information about competition locks before the event is a legitimate part of competitive locksport. This is not cheating - knowing a lock's characteristics is part of the skill.
 
 **Research sources:**
 - **LockWiki / /r/lockpicking Wiki:** Profiles of common competition locks; known pin configurations; picking difficulty notes
@@ -896,12 +896,12 @@ Build and maintain a personal lock database. Competition locks repeat across eve
 #### Competition Strategy
 
 **Lock ordering:**
-- In points-based competitions, open the highest-value locks you can open quickly — don't spend 20 minutes on a hard lock when three medium locks would score more points
+- In points-based competitions, open the highest-value locks you can open quickly - don't spend 20 minutes on a hard lock when three medium locks would score more points
 - Know your own speed profile; don't attempt locks above your reliable tier in early rounds
 
 **The reset problem:**
 - Locks in competition are often picked and reset many times; worn set pins, slightly deformed shear line, and residual pin position from previous picker all affect behavior
-- When a lock "doesn't feel right," release tension completely, reinsert tool, and start fresh — you may be fighting the previous picker's overset pins
+- When a lock "doesn't feel right," release tension completely, reinsert tool, and start fresh - you may be fighting the previous picker's overset pins
 
 **Time management:**
 - Set a personal time limit per lock (e.g., 3 minutes); if not making progress, move on
@@ -928,7 +928,7 @@ Competition anxiety is real and affects even experienced pickers. Physiological 
 | Over-analyzing | Trust muscle memory; return to basics |
 | Dropped tool | Breathe; retrieve calmly; restart methodically |
 
-**The reset ritual:** Many competitive pickers develop a physical reset routine — a specific series of movements (set down pick, take two slow breaths, re-grip) used when things go wrong. The ritual interrupts the anxiety loop and cues the practiced, calm picking state.
+**The reset ritual:** Many competitive pickers develop a physical reset routine - a specific series of movements (set down pick, take two slow breaths, re-grip) used when things go wrong. The ritual interrupts the anxiety loop and cues the practiced, calm picking state.
 
 ---
 
@@ -955,7 +955,7 @@ Two competitors sit at adjacent identical lock sets. On the signal, both begin. 
 - In case of dispute about simultaneous completion, judge's call is final
 - Damaged lock = competitor continues with a replacement (time penalty or judge discretion per rules)
 
-**Psychology of head-to-head:** Hearing your opponent open a lock is a significant psychological event. The best competitors report hearing this and using it as motivation rather than distraction — acknowledging it consciously and refocusing on their own lock.
+**Psychology of head-to-head:** Hearing your opponent open a lock is a significant psychological event. The best competitors report hearing this and using it as motivation rather than distraction - acknowledging it consciously and refocusing on their own lock.
 
 ---
 
@@ -965,7 +965,7 @@ A format developed in the locksport community that adds strategic decision-makin
 
 **Setup:**
 - Nine locks arranged in a 3×3 grid; each lock occupies a tic-tac-toe square
-- Locks vary in difficulty by position (corners = hardest, center = medium, edges = easiest — or variations thereof)
+- Locks vary in difficulty by position (corners = hardest, center = medium, edges = easiest - or variations thereof)
 - Two competitors; competitor A picks an open lock to "claim" a square; competitor B does the same; standard tic-tac-toe victory conditions
 
 **Strategy layer:**
@@ -973,13 +973,13 @@ A format developed in the locksport community that adds strategic decision-makin
 - Forcing the opponent into a corner lock (hardest) while you take center is a strong opening
 - Experienced pickers will have profiled all nine locks; less experienced pickers may not know which squares are difficult until they attempt them
 
-**Skill + strategy balance:** PicTacToe rewards competitors who are both fast on easy locks and can reliably open harder locks — pure speed on easy locks without ability to finish medium locks loses to a strategic player.
+**Skill + strategy balance:** PicTacToe rewards competitors who are both fast on easy locks and can reliably open harder locks - pure speed on easy locks without ability to finish medium locks loses to a strategic player.
 
 ---
 
 #### Escape Challenges
 
-Locks are integrated into a scenario — you must pick them in sequence or in combination to "escape" the challenge. Common at conventions and DEF CON Lockpicking Village.
+Locks are integrated into a scenario - you must pick them in sequence or in combination to "escape" the challenge. Common at conventions and DEF CON Lockpicking Village.
 
 **Format variations:**
 - Chained locks: Lock A opens a box containing key to lock B; etc.
@@ -987,7 +987,7 @@ Locks are integrated into a scenario — you must pick them in sequence or in co
 - Puzzle integration: Lock picking combined with other puzzle elements
 
 **Preparation:**
-- Escape challenges often use obscure or unusual locks specifically to challenge experienced pickers — research what previous iterations of the same event used
+- Escape challenges often use obscure or unusual locks specifically to challenge experienced pickers - research what previous iterations of the same event used
 - Multi-step scenarios require lock recognition (identifying lock type and approach quickly) more than pure picking speed
 
 ---
@@ -997,7 +997,7 @@ Locks are integrated into a scenario — you must pick them in sequence or in co
 Competitors are given identical locked padlocks and a set of blanks (usually 3–5). Scored on time to open. Penalty time added per additional blank used.
 
 **Competition-specific technique adjustments:**
-- Under competition pressure, the tendency is to over-file — take smaller passes and check more frequently than in practice
+- Under competition pressure, the tendency is to over-file - take smaller passes and check more frequently than in practice
 - The penalty for extra blanks incentivizes working carefully on one blank rather than discarding and starting over
 - Practiced impression readers can see marks after 2–3 attempts; beginners often need many more
 
@@ -1010,31 +1010,31 @@ Common at SSV (safe and vault) trade events and some locksport championships.
 - Identical safe locks pre-set to unknown combinations
 - Competitors attempt to manipulate open; scored on time
 - Expert competitors may open a standard 3-wheel lock in 1–2 hours; beginners may not open within the time limit
-- Often allows scoping (post-drill borescope inspection) as an alternative for competitors who can't complete manipulation — scored separately
+- Often allows scoping (post-drill borescope inspection) as an alternative for competitors who can't complete manipulation - scored separately
 
 ---
 
 ## Further Reading and Resources
 
 **Books:**
-- *Keys to the Kingdom* — Deviant Ollam (lockpicking for physical penetration testing)
-- *Practical Lock Picking* — Deviant Ollam (technique reference; widely used)
-- *Open Organization Of Lockpickers (TOOOL) Handouts* — Free PDF; excellent technical foundation
+- *Keys to the Kingdom* - Deviant Ollam (lockpicking for physical penetration testing)
+- *Practical Lock Picking* - Deviant Ollam (technique reference; widely used)
+- *Open Organization Of Lockpickers (TOOOL) Handouts* - Free PDF; excellent technical foundation
 
 **Online Learning:**
 - /r/lockpicking wiki and the **Belt Ranking** progression guide
-- LockPickingLawyer (YouTube) — 1,700+ lock reviews and picks; invaluable reference library
-- BosnianBill (YouTube) — Deep technical dives; security pin analysis; tool reviews
-- Keypicking.com — Technical forum; European locks; experienced community
+- LockPickingLawyer (YouTube) - 1,700+ lock reviews and picks; invaluable reference library
+- BosnianBill (YouTube) - Deep technical dives; security pin analysis; tool reviews
+- Keypicking.com - Technical forum; European locks; experienced community
 
 **Competitions:**
-- **DEF CON Lockpicking Village** — defcon.org; annual; Las Vegas
-- **TOOOL events** — toool.us; chapter events worldwide
-- **Locksport International** — locksport.com (the `locksportinternational.com` domain no longer resolves; `locksport.com` is the org's current domain per Wikipedia, though the site itself returns intermittent server errors as of this writing)
-- **ALOA Annual Convention** — aloa.org; professional context; manipulation competitions
+- **DEF CON Lockpicking Village** - defcon.org; annual; Las Vegas
+- **TOOOL events** - toool.us; chapter events worldwide
+- **Locksport International** - locksport.com (the `locksportinternational.com` domain no longer resolves; `locksport.com` is the org's current domain per Wikipedia, though the site itself returns intermittent server errors as of this writing)
+- **ALOA Annual Convention** - aloa.org; professional context; manipulation competitions
 
 **Sourcing Locks and Supplies:**
-- eBay / Craigslist — Bulk lots of used padlocks; economical practice supply
+- eBay / Craigslist - Bulk lots of used padlocks; economical practice supply
 - Lock pick supply vendors: Peterson (lockpickshop.com), Sparrows, Southord
 - Pinning kits and blanks: Multiplex, Hudson, Arrow (locksmith supply distributors)
 - Impressioning blanks: Ilco, Silca blank catalogs; key blank cross-reference at iLco.com
@@ -1042,10 +1042,10 @@ Common at SSV (safe and vault) trade events and some locksport championships.
 ---
 
 ## Related Files
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero physical access features (RFID/NFC cloning, iButton) complement physical lock bypass skills
-- [bruce_firmware.md](bruce_firmware.md) — Bruce firmware includes 125 kHz RFID and 13.56 MHz NFC cloning (electronic complement to physical locksport)
-- [evil_m5.md](evil_m5.md) — Evil-M5 NFC/RFID features for badge cloning alongside physical access assessment
-- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) — Hardware hacking fundamentals: physical layer access complements lock bypass in red-team engagements
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero physical access features (RFID/NFC cloning, iButton) complement physical lock bypass skills
+- [bruce_firmware.md](bruce_firmware.md) - Bruce firmware includes 125 kHz RFID and 13.56 MHz NFC cloning (electronic complement to physical locksport)
+- [evil_m5.md](evil_m5.md) - Evil-M5 NFC/RFID features for badge cloning alongside physical access assessment
+- [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) - Hardware hacking fundamentals: physical layer access complements lock bypass in red-team engagements
 
 ---
 

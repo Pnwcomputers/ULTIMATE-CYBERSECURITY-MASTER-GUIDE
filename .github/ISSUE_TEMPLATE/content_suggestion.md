@@ -47,5 +47,5 @@ assignees: Pnwcomputers
 
 ## Would you like to contribute it yourself?
 
-- [ ] Yes — I'll submit a pull request
-- [ ] No — just flagging it for the maintainer
+- [ ] Yes - I'll submit a pull request
+- [ ] No - just flagging it for the maintainer

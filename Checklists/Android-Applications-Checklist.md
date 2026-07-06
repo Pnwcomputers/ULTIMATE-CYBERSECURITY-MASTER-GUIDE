@@ -1,10 +1,10 @@
 # Android Mobile Application
 
-**Purpose:** A first-pass triage checklist for reviewing an Android APK's client-side security posture before (or instead of) a full OWASP MASTG-scale assessment. It's narrower than MASTG by design — 8 items instead of MASTG's hundreds of test cases — aimed at catching the handful of mistakes that show up in the overwhelming majority of real-world mobile app pentests.
+**Purpose:** A first-pass triage checklist for reviewing an Android APK's client-side security posture before (or instead of) a full OWASP MASTG-scale assessment. It's narrower than MASTG by design - 8 items instead of MASTG's hundreds of test cases - aimed at catching the handful of mistakes that show up in the overwhelming majority of real-world mobile app pentests.
   
 **Function:** The checklist splits into two categories: static configuration review (manifest permissions, certificate/signing setup, code obfuscation presence) and runtime/network behavior (WebView implementation, certificate pinning, rooting detection, plaintext data handling). Manifest and WebView issues can be found from the decompiled APK alone; certificate pinning and rooting detection require dynamic testing with a proxy and/or a rooted test device.
   
-**Goal:** Determine whether the app leaks sensitive data at rest or in transit, whether it can be trivially repackaged or MITM'd, and whether an attacker with physical access to a rooted device can bypass the app's own defenses. This is fundamentally a "can this app be trusted on a compromised device" checklist, not a backend API security review — server-side findings need a separate methodology.
+**Goal:** Determine whether the app leaks sensitive data at rest or in transit, whether it can be trivially repackaged or MITM'd, and whether an attacker with physical access to a rooted device can bypass the app's own defenses. This is fundamentally a "can this app be trusted on a compromised device" checklist, not a backend API security review - server-side findings need a separate methodology.
   
 **When & How to use this:** Use during mobile app engagements as an initial pass before diving into MASTG's full test suite, or as a lightweight recurring check between major MASTG-scale assessments (e.g., after each app release). AMA-001/002 (manifest, WebView) can be done from a static APK dump with no device needed; the rest need a test device or emulator with Frida/Objection available.
 

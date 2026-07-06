@@ -23,10 +23,10 @@ Enable security professionals to select the right Marauder hardware variant, fla
 > **Skill Level:** Intermediate to Advanced wireless security
 
 ## 🎯 Purpose
-Full deep-dive on the ESP32 Marauder firmware and hardware ecosystem — hardware selection, firmware installation, the complete feature set, and defensive/legal guidance. This is the reference document; [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) is the quick on-device command lookup once you already own and understand the hardware.
+Full deep-dive on the ESP32 Marauder firmware and hardware ecosystem - hardware selection, firmware installation, the complete feature set, and defensive/legal guidance. This is the reference document; [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) is the quick on-device command lookup once you already own and understand the hardware.
 
 ## ⚙️ Function
-Fourteen sections covering hardware options and comparison against competing tools (WiFi Pineapple, HackRF, Flipper Zero, Pwnagotchi), firmware installation/flashing, the full menu/feature inventory, advanced attack scenarios, and detection/defense strategies. Unlike the cheat sheet, this file explains *why* and *when*, not just menu paths — read it once when evaluating or first setting up the hardware.
+Fourteen sections covering hardware options and comparison against competing tools (WiFi Pineapple, HackRF, Flipper Zero, Pwnagotchi), firmware installation/flashing, the full menu/feature inventory, advanced attack scenarios, and detection/defense strategies. Unlike the cheat sheet, this file explains *why* and *when*, not just menu paths - read it once when evaluating or first setting up the hardware.
 
 ## 🏆 Goal
 Choose the right Marauder hardware variant, get it flashed and configured, and understand the full attack/defense surface well enough to run an authorized wireless assessment and brief a client on findings.
@@ -249,11 +249,11 @@ See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed o
 
 ## Advanced Attack Scenarios
 
-- **Corporate WiFi Assessment** — enumerate all SSIDs, identify open/WEP/WPA2-Personal networks, capture PMKIDs, assess 802.11w/PMF enforcement
-- **Red Team Wireless Foothold** — evil twin + captive portal credential capture, then lateral movement on the authenticated network
-- **IoT Security Testing** — identify IoT SSIDs and weak-PSK networks via PMKID capture; assess device isolation
-- **WiFi Pineapple Emulation** — beacon spam + deauth + KARMA-style attacks replicating Pineapple PineAP behavior
-- **Backdoor/Persistence Simulation (lab only)** — demonstrate persistent rogue AP detection gaps in WIDS
+- **Corporate WiFi Assessment** - enumerate all SSIDs, identify open/WEP/WPA2-Personal networks, capture PMKIDs, assess 802.11w/PMF enforcement
+- **Red Team Wireless Foothold** - evil twin + captive portal credential capture, then lateral movement on the authenticated network
+- **IoT Security Testing** - identify IoT SSIDs and weak-PSK networks via PMKID capture; assess device isolation
+- **WiFi Pineapple Emulation** - beacon spam + deauth + KARMA-style attacks replicating Pineapple PineAP behavior
+- **Backdoor/Persistence Simulation (lab only)** - demonstrate persistent rogue AP detection gaps in WIDS
 
 ---
 
@@ -311,7 +311,7 @@ See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed o
 
 ---
 
-## Appendix A — Updated Menu Map (v1.8.9)
+## Appendix A - Updated Menu Map (v1.8.9)
 
 * **Main Menu**
     * **WiFi**
@@ -380,11 +380,11 @@ See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed o
 ---
 
 ## Related Files
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — Quick-reference on-device commands and post-capture workflow
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — hcxpcapngtool + Hashcat mode 22000 cracking workflow for Marauder captures
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Traditional deauth-forced handshake capture with aircrack-ng
-- [flipper_zero_guide.md](flipper_zero_guide.md) — Flipper Zero + ESP32 Dev Board running Marauder firmware
-- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5Project: alternative ESP32 WiFi attack platform
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Pwnagotchi: autonomous passive WiFi capture on Pi
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - Quick-reference on-device commands and post-capture workflow
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - hcxpcapngtool + Hashcat mode 22000 cracking workflow for Marauder captures
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Traditional deauth-forced handshake capture with aircrack-ng
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero + ESP32 Dev Board running Marauder firmware
+- [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5Project: alternative ESP32 WiFi attack platform
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: autonomous passive WiFi capture on Pi
 
 ---

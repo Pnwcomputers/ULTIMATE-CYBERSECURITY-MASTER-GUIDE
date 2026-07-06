@@ -7,7 +7,7 @@
 ---
 
 ## 🎯 Purpose
-Provide a complete, engagement-ready procedure for auditing an organization's wireless and network security posture — from pre-engagement paperwork through evidence collection to final reporting — so that nothing gets skipped under time pressure and every finding is defensible.
+Provide a complete, engagement-ready procedure for auditing an organization's wireless and network security posture - from pre-engagement paperwork through evidence collection to final reporting - so that nothing gets skipped under time pressure and every finding is defensible.
 
 ## ⚙️ Function
 Structured as eight sequential sections covering pre-engagement authorization, wireless-specific testing, internal network testing, external perimeter testing, documentation standards, evidence/screenshot requirements, post-testing analysis, and a tool reference guide. Each section is a checklist-style procedure meant to be followed in order during a live engagement, not just read once.

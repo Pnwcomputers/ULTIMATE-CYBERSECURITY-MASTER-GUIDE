@@ -2,7 +2,7 @@
 # Chapter 4: Timing and Power Analysis Attacks
 
 ## 🎯 Purpose
-Introduction to passive side-channel attacks — covering timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA), Correlation Power Analysis (CPA), electromagnetic (EM) side-channel, and acoustic side-channel, including the statistical foundations and trace collection methodology.
+Introduction to passive side-channel attacks - covering timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA), Correlation Power Analysis (CPA), electromagnetic (EM) side-channel, and acoustic side-channel, including the statistical foundations and trace collection methodology.
 
 ## ⚙️ Function
 Covers: what leaks via power/time/EM/acoustic, timing attack theory and implementation, SPA trace interpretation, DPA statistical approach (difference of means), CPA with Pearson correlation, EM measurement setup, acoustic analysis, and sample size requirements for different attack levels (unprotected AES, masked AES, RSA).
@@ -16,13 +16,13 @@ Extract a cryptographic key (AES, RSA) or reveal secret-dependent computation pa
 - Validating the effectiveness of masking countermeasures on development hardware
 - Advanced red-team assessments requiring key extraction from HSMs or secure elements
 
-> *Part of the [Hardware Hacking Guide](./README.md) — [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+> *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ---
 
 ### Introduction to Side-Channel Analysis
 
-Side-channel attacks extract secret information from **physical observables** — time, power, electromagnetic emissions, acoustic noise, photon emission — that leak as a function of the data being processed.
+Side-channel attacks extract secret information from **physical observables** - time, power, electromagnetic emissions, acoustic noise, photon emission - that leak as a function of the data being processed.
 
 Unlike fault injection (which modifies behavior), side-channel analysis is **passive observation**. The target device operates normally; the attacker observes.
 
@@ -49,7 +49,7 @@ CPU executes crypto operation
 
 If a security-sensitive operation takes different amounts of time depending on the secret value or on secret-dependent branches, an attacker can recover the secret by measuring execution time.
 
-**Classic example — non-constant-time string comparison:**
+**Classic example - non-constant-time string comparison:**
 
 ```c
 // VULNERABLE: returns early on first mismatch
@@ -61,7 +61,7 @@ int check_password(const char *input, const char *stored) {
 }
 ```
 
-An attacker can recover the password one character at a time — the correct first character takes slightly longer (comparison proceeds to byte 2).
+An attacker can recover the password one character at a time - the correct first character takes slightly longer (comparison proceeds to byte 2).
 
 ```python
 import time, requests
@@ -77,7 +77,7 @@ def timing_attack_password(target_url, charset, known_prefix=""):
     return max(results, key=results.get)  # Highest time = correct character
 ```
 
-**Mitigation:** `hmac.compare_digest()` in Python, `crypto_verify_*` in libsodium, `timingsafe_bcmp()` in BSD libc — constant-time comparison regardless of data.
+**Mitigation:** `hmac.compare_digest()` in Python, `crypto_verify_*` in libsodium, `timingsafe_bcmp()` in BSD libc - constant-time comparison regardless of data.
 
 ---
 
@@ -150,7 +150,7 @@ plt.figure(figsize=(20, 4))
 plt.plot(time_axis * 1e6, trace * 1000, linewidth=0.5)
 plt.xlabel('Time (μs)')
 plt.ylabel('Power (mW proxy)')
-plt.title('RSA Private Key Operation — SPA Trace')
+plt.title('RSA Private Key Operation - SPA Trace')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
@@ -216,15 +216,15 @@ print(f"Key byte 0: 0x{likely_key_byte:02X} (correlation: {result[likely_key_byt
 ---
 
 ## Related Files
-- [Chapter5.md](Chapter5.md) — Practical power analysis: hands-on measurement setup, trace acquisition, and TVLA analysis
-- [Chapter2.md](Chapter2.md) — Electrical fundamentals: shunt resistor measurement and oscilloscope techniques for trace collection
-- [Chapter3.md](Chapter3.md) — Fault injection: active attack complement to passive side-channel analysis
+- [Chapter5.md](Chapter5.md) - Practical power analysis: hands-on measurement setup, trace acquisition, and TVLA analysis
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: shunt resistor measurement and oscilloscope techniques for trace collection
+- [Chapter3.md](Chapter3.md) - Fault injection: active attack complement to passive side-channel analysis
 
 ---
 
 <div align="center">
 
-**Next:** [Chapter 5 — Power Analysis Practicals →](./Chapter5.md)
+**Next:** [Chapter 5 - Power Analysis Practicals →](./Chapter5.md)
 
 [← Chapter 3: Fault Injection](./Chapter3.md) · [Back to Hardware Hacking README](./README.md)
 

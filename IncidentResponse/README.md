@@ -1,7 +1,7 @@
 # 🚨 Incident Response & Log Aggregation
 
 ## 🎯 Purpose
-Index for the Incident Response section — covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
+Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
 ## ⚙️ Function
 Links to log aggregation and visibility setup (log_agg.md), wireless/network intrusion response procedures (network_intrusion.md), and provides an attack taxonomy, tool ecosystem reference, playbook overview, and SIEM configuration guidance.
@@ -245,11 +245,11 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 <div align="center">
 
 ## Related Files
-- [log_agg.md](log_agg.md) — Log aggregation and SIEM feed configuration (the visibility prerequisite for all IR work)
-- [network_intrusion.md](network_intrusion.md) — Wireless intrusion / rogue AP / plant hack IR procedure (Scenario IR-NET-001)
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark filters for the PCAP analysis referenced in network_intrusion.md
-- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) — Bjorn Pi is exactly the kind of "plant" device described in IR-NET-001
-- [../Homelab/](../Homelab/) — Homelab lab setup where this IR infrastructure would be deployed and tested
+- [log_agg.md](log_agg.md) - Log aggregation and SIEM feed configuration (the visibility prerequisite for all IR work)
+- [network_intrusion.md](network_intrusion.md) - Wireless intrusion / rogue AP / plant hack IR procedure (Scenario IR-NET-001)
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark filters for the PCAP analysis referenced in network_intrusion.md
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi is exactly the kind of "plant" device described in IR-NET-001
+- [../Homelab/](../Homelab/) - Homelab lab setup where this IR infrastructure would be deployed and tested
 
 ---
 

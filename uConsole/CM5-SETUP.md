@@ -4,7 +4,7 @@
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
-> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh). Run it on a fresh Rex image and it handles all six phases for you — including reboots.
+> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh). Run it on a fresh Rex image and it handles all six phases for you - including reboots.
 > ```bash
 > wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm5-setup.sh
 > chmod +x uconsole-cm5-setup.sh
@@ -21,7 +21,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Hardware Overview](#hardware-overview)
 - [Choosing Your OS: Kali vs Trixie](#choosing-your-os-kali-vs-trixie)
 - [Step 1: Flash the OS](#step-1-flash-the-os)
-- [Step 2: First Boot — Pre-Flight Hardening](#step-2-first-boot--pre-flight-hardening)
+- [Step 2: First Boot - Pre-Flight Hardening](#step-2-first-boot--pre-flight-hardening)
 - [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
 - [Step 4: Add Kali Tools (Trixie Only)](#step-4-add-kali-tools-trixie-only)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
@@ -67,17 +67,17 @@ This guide assumes the following hardware stack:
 | **USB Hub** | External USB-C port + internal USB-C + pin header |
 | **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
 
-> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** — incorrect installation will damage the uConsole mainboard.
+> **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** - incorrect installation will damage the uConsole mainboard.
 
 ### AIO v2 GPIO Map (Verified Against HackerGadgets Official Docs)
 
-These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and Internal USB — make sure you're working with v2 hardware.)
+These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and Internal USB - make sure you're working with v2 hardware.)
 
 | Peripheral | GPIO | Notes |
 |---|---|---|
 | **GPS** | 27 | Pull HIGH to enable |
 | **LoRa** | 16 | Pull HIGH to enable |
-| **SDR** (RTL-SDR) | 7 | Pull HIGH to enable. **On CM5, this defaults HIGH at boot** — RTL-SDR is detected immediately. On CM4, it defaults OFF. |
+| **SDR** (RTL-SDR) | 7 | Pull HIGH to enable. **On CM5, this defaults HIGH at boot** - RTL-SDR is detected immediately. On CM4, it defaults OFF. |
 | **Internal USB** (USB-C + pin header) | 23 | Pull HIGH to enable |
 | **GPS PPS** (output) | 6 | Optional, for microsecond-accurate NTP timing |
 
@@ -85,7 +85,7 @@ These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and
 
 ## Choosing Your OS: Kali vs Trixie
 
-Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository required for the `hackergadgets-uconsole-aio-board` package — that package is not available on stock ClockworkPi or upstream Kali images.
+Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository required for the `hackergadgets-uconsole-aio-board` package - that package is not available on stock ClockworkPi or upstream Kali images.
 
 Rex's images include several conveniences that this guide relies on:
 
@@ -93,7 +93,7 @@ Rex's images include several conveniences that this guide relies on:
 - `linux-headers` shipped with the kernel (no separate DKMS headers install)
 - A dedicated "drivers" block at the bottom of `/boot/firmware/config.txt` with instructions for enabling overlays
 
-> **CM5 special note from Rex:** The AIO board package was developed primarily for CM5 because enabling SPI for Meshtastic on CM5 needs additional plumbing to keep the display panel working. Using the official `hackergadgets-uconsole-aio-board` package is therefore strongly recommended on CM5 — the manual route is risky.
+> **CM5 special note from Rex:** The AIO board package was developed primarily for CM5 because enabling SPI for Meshtastic on CM5 needs additional plumbing to keep the display panel working. Using the official `hackergadgets-uconsole-aio-board` package is therefore strongly recommended on CM5 - the manual route is risky.
 
 ### Path A: Rex's Kali Image (Pentesting Out of the Box)
 
@@ -149,11 +149,11 @@ Rex's specific guidance from the forum threads: **use Raspberry Pi Imager direct
 
 > **Linux/`dd` alternative:** If you prefer the command line, decompress with `xz -d <image>.xz` first, then `sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync`. Pi Imager is what Rex specifically recommends, though.
 
-> **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#troubleshooting) before getting frustrated — this is a known issue with a documented fix.
+> **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#troubleshooting) before getting frustrated - this is a known issue with a documented fix.
 
 ### First Boot
 
-Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once — let that complete. After the second boot:
+Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once - let that complete. After the second boot:
 
 - Log in with the default credentials
 - Open a terminal
@@ -162,11 +162,11 @@ Power on. Rex's images auto-expand the root filesystem on first boot and then re
 
 ---
 
-## Step 2: First Boot — Pre-Flight Hardening
+## Step 2: First Boot - Pre-Flight Hardening
 
 This step pre-empts the three issues that historically break a fresh uConsole install on its first upgrade. We fix all three before any `apt full-upgrade` runs.
 
-### 2.1 — Disable the cryptsetup-initramfs hook
+### 2.1 - Disable the cryptsetup-initramfs hook
 
 The `cryptsetup-initramfs` hook fails on Pi systems (it can't resolve `/dev/root` from `PARTUUID=` cmdlines), which kills dpkg triggers and can corrupt the initramfs mid-upgrade. Unless you're using LUKS (you aren't, on a fresh Rex image), disable the hook:
 
@@ -175,7 +175,7 @@ sudo mkdir -p /etc/cryptsetup-initramfs
 echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
 ```
 
-### 2.2 — Pin LightDM to sessions that survive upgrades
+### 2.2 - Pin LightDM to sessions that survive upgrades
 
 Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Upstream changes often rename or remove these without updating the config file, breaking the GUI login. We apply guarded swaps to fix this:
 
@@ -197,7 +197,7 @@ for f in /var/lib/AccountsService/users/*; do
 done
 ```
 
-### 2.3 — (Trixie path only) Remove raspberrypi-sys-mods
+### 2.3 - (Trixie path only) Remove raspberrypi-sys-mods
 
 > **Kali users:** Skip 2.3 and 2.4. Your image doesn't ship `raspberrypi-sys-mods` and isn't layering Kali on top of Trixie.
 
@@ -223,7 +223,7 @@ if [ -n "$EXTMGD" ]; then
 fi
 ```
 
-### 2.4 — (Trixie path only) Add Kali rolling and pin it
+### 2.4 - (Trixie path only) Add Kali rolling and pin it
 
 Pinning Kali as the primary repo **before** the first big upgrade prevents the dependency-mismatch storm. We use a **NARROW pin** to grab tools while explicitly protecting Pi desktop libraries (`libfm`, `lxpanel`) from ABI-breaking Kali upgrades.
 
@@ -272,7 +272,7 @@ sudo apt update
 With Step 2 complete, it is now safe to update the system:
 
 ```bash
-# First full system upgrade — Step 2 made this safe
+# First full system upgrade - Step 2 made this safe
 sudo apt update
 sudo apt full-upgrade -y
 
@@ -295,7 +295,7 @@ After the reboot, log back in. If LightDM hands you a working desktop, Step 2 di
 
 ## Step 4: Add Kali Tools (Trixie Only)
 
-> **Skip this step on Rex's Kali image — the tools are already installed.**
+> **Skip this step on Rex's Kali image - the tools are already installed.**
 
 The Kali repo and pin were added in Step 2.4. Now install the toolkit:
 
@@ -303,7 +303,7 @@ The Kali repo and pin were added in Step 2.4. Now install the toolkit:
 |---|---|
 | `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
 | `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit — everything you'd get from a Kali ISO |
+| `kali-linux-default` | Full default Kali desktop toolkit - everything you'd get from a Kali ISO |
 
 ```bash
 # Pick one
@@ -661,7 +661,7 @@ sudo chown -R $USER:$USER ~/.pygpsclient
 aiov2_ctl --gui
 ```
 
-Also ensure `libxcb-cursor0` is installed — the Qt6 XCB platform plugin won't load without it:
+Also ensure `libxcb-cursor0` is installed - the Qt6 XCB platform plugin won't load without it:
 
 ```bash
 sudo apt install -y libxcb-cursor0

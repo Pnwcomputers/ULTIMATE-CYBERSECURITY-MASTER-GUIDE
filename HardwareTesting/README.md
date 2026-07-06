@@ -32,19 +32,19 @@ The Python scripts in [`py/`](./py/) are Linux-focused and are designed to be po
 
 | Platform                                                         | Cheat Sheet                                                | Scripts      |
 | :--------------------------------------------------------------- | :--------------------------------------------------------- | :----------- |
-| **Manjaro Linux — Intel CPU Platform (Z790 / 13th–14th Gen i9)** | [Manjaro_Intel_TestBench.md](./Manjaro_Intel_TestBench.md) | [py/](./py/) |
+| **Manjaro Linux - Intel CPU Platform (Z790 / 13th–14th Gen i9)** | [Manjaro_Intel_TestBench.md](./Manjaro_Intel_TestBench.md) | [py/](./py/) |
 
 ### 🔜 Planned
 
 | Platform                                                  | Status  |
 | :-------------------------------------------------------- | :------ |
-| **Manjaro Linux — AMD CPU Platform (X670 / Ryzen 7000)**  | Planned |
-| **Debian — Intel CPU Platform (Z790 / 13th–14th Gen i9)** | Planned |
-| **Debian — AMD CPU Platform (X670 / Ryzen 7000)**         | Planned |
+| **Manjaro Linux - AMD CPU Platform (X670 / Ryzen 7000)**  | Planned |
+| **Debian - Intel CPU Platform (Z790 / 13th–14th Gen i9)** | Planned |
+| **Debian - AMD CPU Platform (X670 / Ryzen 7000)**         | Planned |
 
 ---
 
-## Manjaro Linux — Intel ✅
+## Manjaro Linux - Intel ✅
 
 **Reference:** [`Manjaro_Intel_TestBench.md`](./Manjaro_Intel_TestBench.md)
 
@@ -65,18 +65,18 @@ Includes:
 
 ---
 
-## Python Scripts — [`py/`](./py/)
+## Python Scripts - [`py/`](./py/)
 
 Modular Python scripts that orchestrate CLI tools, stream output live, and compile results into clean Markdown reports.
 
 | Script                     | What it does                                                                                       | Sudo |
 | :------------------------- | :------------------------------------------------------------------------------------------------- | :--: |
-| `full_hw_suite.py`         | Full sequential diagnostic — system info, CPU, RAM, storage, GPU                                   |   ✅  |
-| `standalone_gpu_tester.py` | Universal GPU first-pass benchmark — Vulkan/OpenGL validation, VRAM testing, kernel fault scanning |   ❌  |
+| `full_hw_suite.py`         | Full sequential diagnostic - system info, CPU, RAM, storage, GPU                                   |   ✅  |
+| `standalone_gpu_tester.py` | Universal GPU first-pass benchmark - Vulkan/OpenGL validation, VRAM testing, kernel fault scanning |   ❌  |
 | `amd_gpu_tester.py`        | Dedicated AMD Radeon GPU diagnostic with amdgpu telemetry and rigorous load testing                |   ❌  |
 | `nvidia_gpu_tester.py`     | Dedicated NVIDIA GPU diagnostic with `nvidia-smi` telemetry and rigorous load testing              |   ❌  |
 | `standalone_ram_tester.py` | RAM bandwidth and multi-pass stability testing                                                     |   ✅  |
-| `stress_soak.py`           | Reliability burn-in — simultaneous CPU/RAM/storage/GPU load with continuous thermal logging        |   ✅  |
+| `stress_soak.py`           | Reliability burn-in - simultaneous CPU/RAM/storage/GPU load with continuous thermal logging        |   ✅  |
 
 See [`py/README.md`](./py/README.md) for full installation instructions, usage, and per-script documentation.
 
@@ -179,7 +179,7 @@ pamac install phoronix-test-suite
 
 ## Source-Built GPU Diagnostic Tools
 
-### `memtest_vulkan` — cross-vendor Vulkan VRAM stability test
+### `memtest_vulkan` - cross-vendor Vulkan VRAM stability test
 
 `memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
 
@@ -206,7 +206,7 @@ memtest_vulkan
 
 Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
 
-### `gpu-burn` — NVIDIA CUDA stress test
+### `gpu-burn` - NVIDIA CUDA stress test
 
 `gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
 
@@ -279,7 +279,7 @@ done
 
 ## Run the Scripts
 
-### Universal GPU diagnostic — first pass
+### Universal GPU diagnostic - first pass
 
 ```bash
 python3 py/standalone_gpu_tester.py --client "Client Name"
@@ -329,7 +329,7 @@ sudo python3 py/stress_soak.py --mode quick --client "Client Name"
 
 ---
 
-## Manjaro Linux — AMD CPU Platform 🔜
+## Manjaro Linux - AMD CPU Platform 🔜
 
 > **Status:** Planned
 
@@ -345,7 +345,7 @@ Will cover X670/X670E motherboards with Ryzen 7000 series processors. Key differ
 
 ---
 
-## Debian — Intel CPU Platform 🔜
+## Debian - Intel CPU Platform 🔜
 
 > **Status:** Planned
 
@@ -359,7 +359,7 @@ Will cover Z790/i9 hardware running Debian stable. Key differences from the Manj
 
 ---
 
-## Debian — AMD CPU Platform 🔜
+## Debian - AMD CPU Platform 🔜
 
 > **Status:** Planned
 

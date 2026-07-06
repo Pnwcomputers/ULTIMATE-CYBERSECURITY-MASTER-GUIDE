@@ -1,13 +1,13 @@
 # SDR Hacking Advanced: Reversing and Exploiting Wireless Communications
 
 ## 🎯 Purpose
-Advanced SDR security guide — extending sdr.md fundamentals with offensive techniques: SIGINT signal identification, GNU Radio flowgraph optimization, protocol reverse engineering with URH, LoRa key cracking, TEMPEST EM side-channel, firmware vulnerability analysis, and custom RF baseband exploitation.
+Advanced SDR security guide - extending sdr.md fundamentals with offensive techniques: SIGINT signal identification, GNU Radio flowgraph optimization, protocol reverse engineering with URH, LoRa key cracking, TEMPEST EM side-channel, firmware vulnerability analysis, and custom RF baseband exploitation.
 
 ## ⚙️ Function
 Organized in four parts: (1) SIGINT, GNU Radio mastery, signal reversing; (2) Wireless protocol vulnerabilities (LoRa, Zigbee, BLE, NRF24, GPS spoofing); (3) Advanced exploitation (baseband firmware analysis, RF fuzzing, Unicorn/Qiling emulation, MouseJack); (4) TEMPEST and EM side-channel attacks. Each section includes practical GNU Radio flowgraphs, Python scripts, and real attack examples.
 
 ## 🏆 Goal
-Perform authorized RF security assessments against IoT, industrial, and wireless access control targets — capturing, reversing, and exploiting wireless protocols beyond what a basic SDR tutorial covers.
+Perform authorized RF security assessments against IoT, industrial, and wireless access control targets - capturing, reversing, and exploiting wireless protocols beyond what a basic SDR tutorial covers.
 
 ## 📋 When to Use
 - Protocol reversing: unknown wireless signal on 433MHz, 915MHz, or 2.4GHz requires identification and decoding
@@ -27,9 +27,9 @@ Perform authorized RF security assessments against IoT, industrial, and wireless
 
 - [Part 1: SIGINT, GNU Radio Mastery, and Signal Reversing](#part-1-sigint-gnu-radio-mastery-and-signal-reversing)
   - [Chapter 1: Key Radio Concepts Review](#chapter-1-key-radio-concepts-review)
-  - [Chapter 2: Devices — Spectrum Analyzers, SDRs, and Special RF Chips](#chapter-2-devices--spectrum-analyzers-sdrs-and-special-rf-chips)
-  - [Chapter 3: SIGINT — Identifying Targeted Transmissions](#chapter-3-sigint--identifying-targeted-transmissions)
-  - [Chapter 4: GNU Radio — Advanced Flowgraphs](#chapter-4-gnu-radio--advanced-flowgraphs)
+  - [Chapter 2: Devices - Spectrum Analyzers, SDRs, and Special RF Chips](#chapter-2-devices--spectrum-analyzers-sdrs-and-special-rf-chips)
+  - [Chapter 3: SIGINT - Identifying Targeted Transmissions](#chapter-3-sigint--identifying-targeted-transmissions)
+  - [Chapter 4: GNU Radio - Advanced Flowgraphs](#chapter-4-gnu-radio--advanced-flowgraphs)
   - [Chapter 5: SDR Tools and Fuzzing](#chapter-5-sdr-tools-and-fuzzing)
 - [Part 2: Attacking Real Targets](#part-2-attacking-real-targets)
   - [Chapter 6: Reverse Engineering Remote Controls](#chapter-6-reverse-engineering-remote-controls)
@@ -50,7 +50,7 @@ Perform authorized RF security assessments against IoT, industrial, and wireless
 
 ### Chapter 1: Key Radio Concepts Review
 
-#### Wireless Connectivity — A Security Lens
+#### Wireless Connectivity - A Security Lens
 
 Every wireless system has four exploitable layers. Understanding which layer an attack targets is the foundation of wireless security assessment:
 
@@ -65,11 +65,11 @@ The training CTF methodology mirrors this: start at the RF layer, work up throug
 
 ---
 
-#### Modulation Review — Attack-Relevant Properties
+#### Modulation Review - Attack-Relevant Properties
 
 | Modulation | Key Property | Security Implication |
 |-----------|-------------|---------------------|
-| **OOK/ASK** | On/off keying — simple amplitude shift | Trivial replay; no inherent authentication |
+| **OOK/ASK** | On/off keying - simple amplitude shift | Trivial replay; no inherent authentication |
 | **FSK** | Two or more frequencies encode bits | Easy to decode; clock recovery straightforward |
 | **GFSK** | Gaussian-filtered FSK | Bluetooth, ZigBee; slight increase in decoder complexity |
 | **PSK/BPSK/QPSK** | Phase shifts encode symbols | More complex sync; common in satellite, GPS, digital voice |
@@ -164,7 +164,7 @@ Most consumer wireless protocols use weak or no integrity protection. Understand
 
 ---
 
-### Chapter 2: Devices — Spectrum Analyzers, SDRs, and Special RF Chips
+### Chapter 2: Devices - Spectrum Analyzers, SDRs, and Special RF Chips
 
 #### Spectrum and Signal Analyzers
 
@@ -178,7 +178,7 @@ Beyond SDRs, dedicated spectrum analyzers provide higher dynamic range, real-tim
 | **Rohde & Schwarz FPC1500** | 5 kHz–3 GHz | 10 MHz | ~$3,500 | Benchtop; high accuracy |
 | **RIGOL DSA815** | 9 kHz–1.5 GHz | Swept | ~$1,200 | Accessible benchtop option |
 
-**TinySA Ultra** is the practical field tool — pair it with your SDR for initial site survey and signal characterization before committing capture bandwidth.
+**TinySA Ultra** is the practical field tool - pair it with your SDR for initial site survey and signal characterization before committing capture bandwidth.
 
 ```
 TinySA Ultra workflow:
@@ -190,7 +190,7 @@ TinySA Ultra workflow:
 
 #### Special RF Chips and Their Attack Surface
 
-RF SoCs (System-on-Chip) integrate the entire radio stack — from RF front end through baseband processing to microcontroller. Vulnerabilities at the chip level affect every device using that silicon.
+RF SoCs (System-on-Chip) integrate the entire radio stack - from RF front end through baseband processing to microcontroller. Vulnerabilities at the chip level affect every device using that silicon.
 
 | Chip | Protocol | Used In | Known Issues |
 |------|---------|---------|-------------|
@@ -203,7 +203,7 @@ RF SoCs (System-on-Chip) integrate the entire radio stack — from RF front end 
 | **Semtech SX1276** | LoRa | LoRaWAN devices | Key management; replay; join accept forgery |
 | **ESP8266/ESP32** | Wi-Fi + BLE | DIY IoT everywhere | Known RCEs in SDK history; often no OTA signing |
 
-**MouseJack — nRF24L01 attack:**
+**MouseJack - nRF24L01 attack:**
 
 ```python
 # MouseJack exploits the nRF24L01's Enhanced ShockBurst protocol
@@ -222,9 +222,9 @@ RF SoCs (System-on-Chip) integrate the entire radio stack — from RF front end 
 
 ---
 
-### Chapter 3: SIGINT — Identifying Targeted Transmissions
+### Chapter 3: SIGINT - Identifying Targeted Transmissions
 
-SIGINT (Signals Intelligence) in the SDR context means rapidly characterizing unknown signals in a dense RF environment — determining what you're looking at before investing in deep analysis.
+SIGINT (Signals Intelligence) in the SDR context means rapidly characterizing unknown signals in a dense RF environment - determining what you're looking at before investing in deep analysis.
 
 #### The SIGINT Mindset
 
@@ -280,7 +280,7 @@ Step 3: Look at temporal behavior
 
 #### SIGINT Tools and Libraries
 
-**Inspectrum** — Primary tool for visual binary analysis:
+**Inspectrum** - Primary tool for visual binary analysis:
 
 ```bash
 sudo apt install inspectrum
@@ -293,7 +293,7 @@ inspectrum capture.iq
 # - Export symbols to file for further analysis
 ```
 
-**SigDigger** — Signal analyzer with demodulation:
+**SigDigger** - Signal analyzer with demodulation:
 
 ```bash
 # Install from: https://github.com/BatchDrake/SigDigger
@@ -304,7 +304,7 @@ inspectrum capture.iq
 #   - Doppler tracking
 ```
 
-**Universal Radio Hacker (URH)** — The primary protocol reversing tool:
+**Universal Radio Hacker (URH)** - The primary protocol reversing tool:
 
 ```bash
 pip install urh
@@ -318,7 +318,7 @@ urh
 # 5. Simulator tab: multi-device protocol simulation
 ```
 
-**Baudline** — High-resolution spectral analysis:
+**Baudline** - High-resolution spectral analysis:
 
 ```bash
 # Baudline is a standalone binary; download from baudline.com
@@ -347,7 +347,7 @@ import torch.nn as nn
 class RadioMLClassifier(nn.Module):
     """
     Simplified CNN for radio modulation classification.
-    Input: (batch, 2, 1024) — I and Q as two channels.
+    Input: (batch, 2, 1024) - I and Q as two channels.
     Output: class probabilities for modulation types.
     """
     def __init__(self, n_classes=11):
@@ -411,7 +411,7 @@ def classify_signal(iq_samples, model, n_samples=1024):
 # print(classify_signal(iq_samples, model))
 ```
 
-**gr-inspector** — GNU Radio module for automated signal detection and classification:
+**gr-inspector** - GNU Radio module for automated signal detection and classification:
 
 ```bash
 # Install gr-inspector
@@ -422,7 +422,7 @@ sudo apt install gnuradio-inspector  # or build from source
 #   - Modulation Classifier: ML-based mod type identification
 ```
 
-**SigMF (Signal Metadata Format)** — Standardized format for annotating IQ captures:
+**SigMF (Signal Metadata Format)** - Standardized format for annotating IQ captures:
 
 ```python
 import sigmf
@@ -435,7 +435,7 @@ meta = SigMFFile(
     global_info={
         SigMFFile.DATATYPE_KEY: 'cf32_le',       # complex float32, little-endian
         SigMFFile.SAMPLE_RATE_KEY: 2400000,
-        SigMFFile.DESCRIPTION_KEY: 'ISM band capture — keyfob analysis',
+        SigMFFile.DESCRIPTION_KEY: 'ISM band capture - keyfob analysis',
         SigMFFile.AUTHOR_KEY: 'PNWC Red Team',
         SigMFFile.DATETIME_KEY: datetime.utcnow().isoformat(),
     }
@@ -496,11 +496,11 @@ pip install sdrangel || sudo snap install sdrangel
 
 ---
 
-### Chapter 4: GNU Radio — Advanced Flowgraphs
+### Chapter 4: GNU Radio - Advanced Flowgraphs
 
 #### Building a Signal Analyzer Flowgraph
 
-A comprehensive analyzer flowgraph goes beyond a simple spectrum display — it provides synchronized time, frequency, constellation, and power views:
+A comprehensive analyzer flowgraph goes beyond a simple spectrum display - it provides synchronized time, frequency, constellation, and power views:
 
 ```
 [osmocom Source]
@@ -532,7 +532,7 @@ In GRC, add a QT GUI Range block:
 
 Connect to osmocom Source's `center_freq` parameter via the variable name. The slider updates the SDR tuning in real time.
 
-#### Interfacing with Radio Channels — Channel Models
+#### Interfacing with Radio Channels - Channel Models
 
 For testing demodulators and decoders against realistic impairments, GNU Radio's channel model blocks simulate real propagation:
 
@@ -590,7 +590,7 @@ Flowgraph 1: Visual identification
 
 Flowgraph 2: Try FM demodulation  
   [File Source] → [NBFM Receive] → [Audio Sink]
-  Observation: Voice audio decoded — it's FM voice comms
+  Observation: Voice audio decoded - it's FM voice comms
 
 Flowgraph 3: Extract and analyze content
   [File Source] → [NBFM Receive] → [File Sink (float)]
@@ -660,7 +660,7 @@ volk_profile    # Benchmarks and selects optimal SIMD kernels; run once
 
 #### Accelerating RE with Specialized Tools
 
-**rtl_433 — protocol decoder:**
+**rtl_433 - protocol decoder:**
 
 ```bash
 # Decode 200+ known ISM protocols; output unknown ones in raw form
@@ -680,7 +680,7 @@ for line in sys.stdin:
 rtl_433 -r capture.cu8 -A   # cu8 = unsigned 8-bit IQ from rtl_sdr
 ```
 
-**URH automation — scripting protocol analysis:**
+**URH automation - scripting protocol analysis:**
 
 ```python
 # URH can be driven programmatically for automated analysis
@@ -756,7 +756,7 @@ class RFPacketFuzzer:
     def length_mutation(self, packet: bytearray, 
                          length_field_offset: int, 
                          field_size: int = 1) -> bytearray:
-        """Corrupt the length field — common parser bug trigger"""
+        """Corrupt the length field - common parser bug trigger"""
         mutated = bytearray(packet)
         # Try extreme values: 0, max, max+1, actual+large
         extreme_lengths = [0, 0xFF, 0xFFFF, len(packet) + 100, 0]
@@ -831,7 +831,7 @@ class RFPacketFuzzer:
 
 ### Chapter 6: Reverse Engineering Remote Controls
 
-Remote controls are ideal training targets — commonly available, no ongoing service dependency, clear success criterion (device responds to forged signal).
+Remote controls are ideal training targets - commonly available, no ongoing service dependency, clear success criterion (device responds to forged signal).
 
 #### The Remote Control Attack Chain
 
@@ -850,7 +850,7 @@ Remote controls are ideal training targets — commonly available, no ongoing se
 
 ```bash
 # Step 1: Find the frequency
-# Check FCC ID database: fccid.io — search the FCC ID on the remote label
+# Check FCC ID database: fccid.io - search the FCC ID on the remote label
 # This gives frequency, modulation type, sometimes internal photos
 
 # Step 2: Capture
@@ -879,7 +879,7 @@ def decode_ook_pwm(iq_samples, sample_rate,
                     short_pulse_us=300, long_pulse_us=600):
     """
     Decode OOK PWM encoding.
-    Short pulse = '0', Long pulse = '1' (or vice versa — need to determine empirically)
+    Short pulse = '0', Long pulse = '1' (or vice versa - need to determine empirically)
     """
     # Get envelope (magnitude of complex signal)
     envelope = np.abs(iq_samples)
@@ -945,7 +945,7 @@ hackrf_transfer -t door_open.iq -f 315000000 -s 2000000 -x 40 -a 1
 
 **KeeLoq weaknesses:**
 
-1. **Relay/amplification attack:** No RF attack needed — extend the range of the legitimate fob signal to the receiver without capturing any code.
+1. **Relay/amplification attack:** No RF attack needed - extend the range of the legitimate fob signal to the receiver without capturing any code.
 
 2. **MitM desync attack ("RollJam"):** Jam the receiver while capturing the code; victim presses button twice; you have two valid codes. First captured code is never consumed by the receiver. Replay first code; victim thinks it worked (second code opened it); you use the captured second code later.
 
@@ -959,7 +959,7 @@ RollJam attack flow:
   3. Victim presses button again → code2 transmitted but jammed
      Attacker captures code2
      Attacker immediately replays code1 → receiver opens; victim satisfied
-  4. Attacker now holds code2 — valid unused code
+  4. Attacker now holds code2 - valid unused code
   5. Later: attacker replays code2 → opens device
 ```
 
@@ -967,7 +967,7 @@ RollJam attack flow:
 
 ### Chapter 7: Attacking Receivers
 
-The receiver is often more vulnerable than the transmitter — it must accept and process all incoming signals on its operating frequency.
+The receiver is often more vulnerable than the transmitter - it must accept and process all incoming signals on its operating frequency.
 
 #### Jamming
 
@@ -975,11 +975,11 @@ Jamming denies service by flooding the target frequency with noise or interferen
 
 | Jamming Type | Method | Detection Difficulty |
 |-------------|--------|---------------------|
-| **Spot jamming** | Continuous wave or noise on exact frequency | Easy — energy always present |
+| **Spot jamming** | Continuous wave or noise on exact frequency | Easy - energy always present |
 | **Sweep jamming** | Sweep across a band | Medium |
-| **Barrage jamming** | Noise across wide band | Easy — raises noise floor everywhere |
-| **Reactive jamming** | Detect-then-jam; only active when target signal present | Hard — appears as interference |
-| **Deceptive jamming** | Transmit valid-looking but incorrect data | Hard — target appears to function |
+| **Barrage jamming** | Noise across wide band | Easy - raises noise floor everywhere |
+| **Reactive jamming** | Detect-then-jam; only active when target signal present | Hard - appears as interference |
+| **Deceptive jamming** | Transmit valid-looking but incorrect data | Hard - target appears to function |
 
 ```python
 # GNU Radio: simple spot jammer (authorized jamming/testing lab only)
@@ -1311,7 +1311,7 @@ class FindMemcpyVulns(GhidraScript):
 
 #### Exploit Development for RF Targets
 
-RF baseband vulnerabilities are exploited by transmitting specially crafted RF packets. The attack surface is wireless — no physical connection required.
+RF baseband vulnerabilities are exploited by transmitting specially crafted RF packets. The attack surface is wireless - no physical connection required.
 
 **Exploit delivery pipeline:**
 
@@ -1337,7 +1337,7 @@ RF baseband vulnerabilities are exploited by transmitting specially crafted RF p
 [Achieve impact]                   ← Code execution, crash, authentication bypass
 ```
 
-#### Stack Overflow via Malicious Packet — Walkthrough
+#### Stack Overflow via Malicious Packet - Walkthrough
 
 ```python
 import struct
@@ -1382,7 +1382,7 @@ def build_exploit_packet(shellcode: bytes) -> bytes:
 # Each gadget is a small sequence of instructions ending in POP {pc} or BX LR
 
 # Example: call a function with controlled arguments
-# Gadget 1: POP {r0, pc}  — loads r0 (first arg) and jumps
+# Gadget 1: POP {r0, pc}  - loads r0 (first arg) and jumps
 # Gadget 2: Address of target function
 
 def build_rop_chain(target_func_addr, arg0):
@@ -1430,8 +1430,8 @@ Higher SF = longer air time = more power consumption = lower duty cycle complian
 
 ```
 Device (End Node)
-  ├── NwkSKey: 128-bit AES key — encrypts network header; MIC calculation
-  └── AppSKey: 128-bit AES key — encrypts application payload
+  ├── NwkSKey: 128-bit AES key - encrypts network header; MIC calculation
+  └── AppSKey: 128-bit AES key - encrypts application payload
 
 Network Server
   └── NwkSKey (shared with device)
@@ -1440,7 +1440,7 @@ Application Server
   └── AppSKey (shared with device; network server doesn't see plaintext payload)
 ```
 
-**Join procedure (OTAA — Over-The-Air Activation):**
+**Join procedure (OTAA - Over-The-Air Activation):**
 
 ```
 Device → Network:  Join Request  [DevEUI + AppEUI + DevNonce]
@@ -1490,7 +1490,7 @@ import lora  # gr-lora
 
 ```python
 # LoRaWAN OTAA join request replay
-# The Join Request contains a DevNonce — should be unique per join
+# The Join Request contains a DevNonce - should be unique per join
 # Early LoRaWAN 1.0 spec: DevNonce was random (not counter)
 # Attack: replay captured Join Request if DevNonce not tracked by server
 
@@ -1501,7 +1501,7 @@ import lora  # gr-lora
 
 **2. Bit-Flip Attack on Unconfirmed Uplinks**
 
-LoRaWAN 1.0 uses AES-CTR for payload encryption. CTR mode is malleable — flipping a bit in the ciphertext flips the corresponding bit in plaintext.
+LoRaWAN 1.0 uses AES-CTR for payload encryption. CTR mode is malleable - flipping a bit in the ciphertext flips the corresponding bit in plaintext.
 
 ```python
 def flip_lora_payload_bit(encrypted_payload: bytes, 
@@ -1678,7 +1678,7 @@ TEMPEST (a US government codename, retrospectively backronymed as *Transient Ele
 
 #### The Core Concept
 
-Every electronic circuit emits RF radiation as a byproduct of operation. Rapidly switching digital signals radiate according to their frequency content. A CPU processing sensitive data, a display controller rendering an image, or a keyboard generating keystrokes — all emit characteristic RF signatures that can be received and decoded at a distance.
+Every electronic circuit emits RF radiation as a byproduct of operation. Rapidly switching digital signals radiate according to their frequency content. A CPU processing sensitive data, a display controller rendering an image, or a keyboard generating keystrokes - all emit characteristic RF signatures that can be received and decoded at a distance.
 
 ```
 Source of emission:
@@ -1918,7 +1918,7 @@ class EMTraceCollector:
         return traces
 ```
 
-After collection, apply DPA/CPA analysis from the Hardware Hacking section — the math is identical; only the measurement source differs.
+After collection, apply DPA/CPA analysis from the Hardware Hacking section - the math is identical; only the measurement source differs.
 
 ---
 
@@ -1982,7 +1982,7 @@ Many installations never change from default keys.
 
 ### Chapter 15: Wi-Fi RF Security
 
-Beyond standard 802.11 protocol attacks (WPA2 cracking, PMKID, evil twin — covered in other guide sections), the RF layer of Wi-Fi offers additional attack surfaces accessible via SDR and specialized hardware.
+Beyond standard 802.11 protocol attacks (WPA2 cracking, PMKID, evil twin - covered in other guide sections), the RF layer of Wi-Fi offers additional attack surfaces accessible via SDR and specialized hardware.
 
 #### RF-Layer Wi-Fi Attacks
 
@@ -1997,7 +1997,7 @@ aireplay-ng -0 0 -a [AP_BSSID] -c [CLIENT_MAC] wlan0mon
 
 **OFDM pilot tone analysis:**
 
-Every 802.11 OFDM frame contains pilot subcarriers — known reference tones at fixed subcarrier positions. These can be used for:
+Every 802.11 OFDM frame contains pilot subcarriers - known reference tones at fixed subcarrier positions. These can be used for:
 
 - **Device fingerprinting:** Slight frequency and phase offset patterns in pilot tones are hardware-specific
 - **Channel estimation:** Reconstruct the multipath channel for signal processing
@@ -2032,7 +2032,7 @@ def extract_pilot_cfo(iq_frame, fft_size=64, cp_length=16):
         pilot_phases.append(np.angle(corrected))
     
     # CFO estimate from linear phase slope across pilot positions
-    # (simplified — full CFO estimation is more complex)
+    # (simplified - full CFO estimation is more complex)
     phase_diff = np.mean(np.diff(sorted(pilot_phases)))
     cfo_estimate = phase_diff * (64 / (2 * np.pi * 1e-7))  # Rough Hz estimate
     
@@ -2122,12 +2122,12 @@ Wide flat    Noise-like      Constant       DSSS (GPS, 802.11b, etc.)
 ## Further Reading
 
 **Papers and Research:**
-- Van Eck, W. (1985) — *Electromagnetic Radiation from Video Display Units: An Eavesdropping Risk* (original TEMPEST paper)
-- Vuagnoux & Pasini (2009) — *Compromising Electromagnetic Emanations of Wired and Wireless Keyboards* (Usenix Security)
-- Marinov, M. — TempestSDR GitHub repository (practical Van Eck implementation)
-- Ronen et al. — *IoT Goes Nuclear: Creating a ZigBee Chain Reaction* (IEEE S&P 2017)
-- Yang et al. — *LoRaWAN Replay Attack and Session Key Extraction*
-- Robyns et al. — *Physical-Layer Fingerprinting of LoRa devices* (WiSec 2017)
+- Van Eck, W. (1985) - *Electromagnetic Radiation from Video Display Units: An Eavesdropping Risk* (original TEMPEST paper)
+- Vuagnoux & Pasini (2009) - *Compromising Electromagnetic Emanations of Wired and Wireless Keyboards* (Usenix Security)
+- Marinov, M. - TempestSDR GitHub repository (practical Van Eck implementation)
+- Ronen et al. - *IoT Goes Nuclear: Creating a ZigBee Chain Reaction* (IEEE S&P 2017)
+- Yang et al. - *LoRaWAN Replay Attack and Session Key Extraction*
+- Robyns et al. - *Physical-Layer Fingerprinting of LoRa devices* (WiSec 2017)
 
 **Tools referenced:**
 - TempestSDR: github.com/martinmarinov/TempestSDR
@@ -2142,15 +2142,15 @@ Wide flat    Noise-like      Constant       DSSS (GPS, 802.11b, etc.)
 - SigMF: github.com/sigmf/SigMF
 
 **Hardwear.io training:**
-- Original course: *SDR Hacking Advanced: Reversing and Exploiting Wireless Communications* — Sébastien Dudek, hardwear.io
+- Original course: *SDR Hacking Advanced: Reversing and Exploiting Wireless Communications* - Sébastien Dudek, hardwear.io
 - Trainer profile: hardwear.io/trainer/sebastien-dudek
 
 ## Related Files
-- [sdr.md](sdr.md) — Foundational SDR guide: required reading before this advanced guide
-- [README.md](README.md) — SDR section index with hardware comparison table
-- [../HardwareHacking/Chapter4.md](../HardwareHacking/Chapter4.md) — Power/EM side-channel theory: TEMPEST and EM analysis use the same fundamentals
-- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) — Bruce sub-GHz firmware targets are exactly the protocols this guide teaches how to reverse
-- [../SpaceSecurity/](../SpaceSecurity/) — GPS spoofing and satellite analysis: advanced SDR applications covered here
+- [sdr.md](sdr.md) - Foundational SDR guide: required reading before this advanced guide
+- [README.md](README.md) - SDR section index with hardware comparison table
+- [../HardwareHacking/Chapter4.md](../HardwareHacking/Chapter4.md) - Power/EM side-channel theory: TEMPEST and EM analysis use the same fundamentals
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce sub-GHz firmware targets are exactly the protocols this guide teaches how to reverse
+- [../SpaceSecurity/](../SpaceSecurity/) - GPS spoofing and satellite analysis: advanced SDR applications covered here
 
 ---
 

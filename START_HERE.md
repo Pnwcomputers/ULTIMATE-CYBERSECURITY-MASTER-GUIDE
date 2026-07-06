@@ -62,8 +62,8 @@
 
 | Guide | Description |
 |-------|-------------|
-| **[Advanced Cybersecurity Techniques — Part 1](advanced_techniques_supplement.md)** | Advanced Metasploit, cloud pentesting, lateral movement, pivoting |
-| **[Advanced Cybersecurity Techniques — Part 2](advanced_techniques_part2.md)** | Exploit development, buffer overflows, shellcode, custom payloads |
+| **[Advanced Cybersecurity Techniques - Part 1](advanced_techniques_supplement.md)** | Advanced Metasploit, cloud pentesting, lateral movement, pivoting |
+| **[Advanced Cybersecurity Techniques - Part 2](advanced_techniques_part2.md)** | Exploit development, buffer overflows, shellcode, custom payloads |
 
 ---
 

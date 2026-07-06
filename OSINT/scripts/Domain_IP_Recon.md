@@ -1,17 +1,17 @@
 # Domain / IP Recon Investigation Script
 
-Script for automated domain and IP OSINT — theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
+Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
 
 **Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
 **Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  
 **Usage:** Copy the script below into a `.sh` file and `chmod +x` it.
 
 **Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
-- `CRIMINALIP_KEY` — [criminalip.io](https://www.criminalip.io/)
-- `HIBP_KEY` — [haveibeenpwned.com/API/Key](https://haveibeenpwned.com/API/Key)
-- `LEAKLOOKUP_KEY` — [leak-lookup.com](https://leak-lookup.com/)
-- `NETLAS_KEY` — [netlas.io](https://netlas.io/)
-- `PROJECTDISCOVERY_KEY` — [projectdiscovery.io](https://projectdiscovery.io/) (for Nuclei cloud)
+- `CRIMINALIP_KEY` - [criminalip.io](https://www.criminalip.io/)
+- `HIBP_KEY` - [haveibeenpwned.com/API/Key](https://haveibeenpwned.com/API/Key)
+- `LEAKLOOKUP_KEY` - [leak-lookup.com](https://leak-lookup.com/)
+- `NETLAS_KEY` - [netlas.io](https://netlas.io/)
+- `PROJECTDISCOVERY_KEY` - [projectdiscovery.io](https://projectdiscovery.io/) (for Nuclei cloud)
 
 ```bash
 #!/bin/bash

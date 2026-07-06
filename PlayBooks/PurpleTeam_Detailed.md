@@ -2,11 +2,11 @@
 
 ## 🎯 Purpose
 
-Bring Red-Team attack techniques and Blue-Team detections together in repeatable, measurable exercises—leveraging Python, PowerShell, Batch, and dedicated frameworks—to harden your environment against real adversaries.
+Bring Red-Team attack techniques and Blue-Team detections together in repeatable, measurable exercises-leveraging Python, PowerShell, Batch, and dedicated frameworks-to harden your environment against real adversaries.
 
 ## ⚙️ Function
 
-A named-tool, enterprise-scale exercise framework: MITRE-mapped attack simulation (Atomic Red Team, Caldera, Metasploit), detection engineering (Sigma, YARA, OSQuery), hunting/visibility (Velociraptor, Falcon, Sysmon), network analysis (Zeek, Suricata), and formal exercise tracking/reporting (MITRE Engage, Jira, Splunk Phantom, TheHive). This is the **enterprise-tooled version** of `PurpleTeam_Simple.md` — same red/blue/purple collaboration model, but with the full toolchain and process workflow needed to run and report on exercises across an entire org.
+A named-tool, enterprise-scale exercise framework: MITRE-mapped attack simulation (Atomic Red Team, Caldera, Metasploit), detection engineering (Sigma, YARA, OSQuery), hunting/visibility (Velociraptor, Falcon, Sysmon), network analysis (Zeek, Suricata), and formal exercise tracking/reporting (MITRE Engage, Jira, Splunk Phantom, TheHive). This is the **enterprise-tooled version** of `PurpleTeam_Simple.md` - same red/blue/purple collaboration model, but with the full toolchain and process workflow needed to run and report on exercises across an entire org.
 
 ## 🏆 Goal
 
@@ -147,4 +147,4 @@ Maintain a shared Confluence/Git repo of scripts, detection rules, exercise logs
 
 ## Conclusion
 
-With this expanded playbook, you now have a full lifecycle—planning, execution, validation, remediation, and governance—capable of evolving alongside both attacker techniques and your defensive tooling. Let me know if you'd like code snippets for CI integration, sample Sigma rules, or a templated AAR document!
+With this expanded playbook, you now have a full lifecycle-planning, execution, validation, remediation, and governance-capable of evolving alongside both attacker techniques and your defensive tooling. Let me know if you'd like code snippets for CI integration, sample Sigma rules, or a templated AAR document!

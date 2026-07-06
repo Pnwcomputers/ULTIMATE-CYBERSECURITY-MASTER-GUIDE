@@ -1,7 +1,7 @@
 # Cybersecurity Virtual Machines and Lab Environments
 
 ## 🎯 Purpose
-Reference catalog of purpose-built cybersecurity virtual machines and lab environments — covering privacy/anonymity OSes, OSINT VMs, penetration testing distributions, forensics workstations, malware analysis environments, and threat-hunting platforms.
+Reference catalog of purpose-built cybersecurity virtual machines and lab environments - covering privacy/anonymity OSes, OSINT VMs, penetration testing distributions, forensics workstations, malware analysis environments, and threat-hunting platforms.
 
 ## ⚙️ Function
 Organized by use case category: Privacy and Anonymity (Tails, Whonix, Qubes), OSINT (Trace Labs, Buscador, Tsurugi), Penetration Testing (Kali, ParrotOS, BlackArch, Commando VM), Digital Forensics (SIFT, CAINE, CSI Linux), Reverse Engineering/Malware Analysis (FLARE-VM, REMnux), and Threat Hunting (Security Onion, RedHunt-OS). Also covers the Black Hat Bash Docker lab environment and Kali setup scripts (Pimp My Kali).
@@ -925,7 +925,7 @@ Most cybersecurity VMs have similar requirements:
 **Unauthorized access to computer systems is illegal.** Always obtain proper authorization before conducting security testing on any systems you do not own.
 
 ## Related Files
-- [TOR.md](TOR.md) — Tor Browser guide: used with Tails/Whonix OSINT VMs for anonymized investigations
-- [VPN.md](VPN.md) — Mullvad VPN guide: pairs with OSINT VMs for layered anonymity
-- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: requires isolated lab VMs (Metasploitable2/3) for authorized testing
-- [../Homelab/](../Homelab/) — Proxmox/TrueNAS homelab setup for hosting these VMs in a proper lab environment
+- [TOR.md](TOR.md) - Tor Browser guide: used with Tails/Whonix OSINT VMs for anonymized investigations
+- [VPN.md](VPN.md) - Mullvad VPN guide: pairs with OSINT VMs for layered anonymity
+- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: requires isolated lab VMs (Metasploitable2/3) for authorized testing
+- [../Homelab/](../Homelab/) - Proxmox/TrueNAS homelab setup for hosting these VMs in a proper lab environment

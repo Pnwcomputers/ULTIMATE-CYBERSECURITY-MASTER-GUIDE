@@ -16,11 +16,11 @@ Security concerns fall into two categories:
 
 **Do not open a public GitHub Issue for security vulnerabilities.**
 
-If you find something in this repo that poses a genuine security risk — a script behaving
-dangerously, accidentally committed sensitive data, or similar — please report it privately:
+If you find something in this repo that poses a genuine security risk - a script behaving
+dangerously, accidentally committed sensitive data, or similar - please report it privately:
 
 **Email:** jon@pnwcomputers.com  
-**Subject line:** `[SECURITY] ULTIMATE-CYBERSECURITY-MASTER-GUIDE — brief description`
+**Subject line:** `[SECURITY] ULTIMATE-CYBERSECURITY-MASTER-GUIDE - brief description`
 
 Include:
 - Which file(s) are affected
@@ -37,7 +37,7 @@ and you'll be credited in the fix commit (unless you prefer anonymity).
 
 Scripts in the `Scripts/` directory are **penetration testing tools** intended for authorized
 use only. If you believe a script could be made safer or better documented without reducing
-its legitimate utility, that's a welcome contribution — open an Issue or PR.
+its legitimate utility, that's a welcome contribution - open an Issue or PR.
 
 If you believe a specific script crosses the line into pure malware with no legitimate use,
 report it via email above.
@@ -48,7 +48,7 @@ report it via email above.
 
 The following are **not** security vulnerabilities in this repo:
 
-- Tools that are inherently offensive (that's the point — they require authorization to use)
+- Tools that are inherently offensive (that's the point - they require authorization to use)
 - Techniques documented in the guides (documentation is not an attack surface)
 - Links to third-party tools that have their own vulnerabilities (report those upstream)
 
@@ -56,7 +56,7 @@ The following are **not** security vulnerabilities in this repo:
 
 ## 📬 Contact
 
-**Jon Pienkowski — Pacific Northwest Computers (PNWC)**  
+**Jon Pienkowski - Pacific Northwest Computers (PNWC)**  
 Email: jon@pnwcomputers.com  
 Website: [pnwcomputers.com](https://pnwcomputers.com)  
 GitHub: [@Pnwcomputers](https://github.com/Pnwcomputers)

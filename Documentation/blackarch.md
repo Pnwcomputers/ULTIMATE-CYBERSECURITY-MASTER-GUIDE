@@ -1,7 +1,7 @@
 # BlackArch Linux Setup Reference
 
 ## 🎯 Purpose
-Quick-reference commands for bootstrapping and maintaining a BlackArch or Arch-based penetration testing environment — covering network adapter activation, pacman keyring management, mirror optimization, and full system upgrades.
+Quick-reference commands for bootstrapping and maintaining a BlackArch or Arch-based penetration testing environment - covering network adapter activation, pacman keyring management, mirror optimization, and full system upgrades.
 
 ## ⚙️ Function
 Covers: bringing up network adapters and DHCP, enabling NetworkManager, clearing/regenerating GNUPG keyring, adding BlackArch mirrors, removing conflicting packages, and running full system updates with various pacman flags.
@@ -65,5 +65,5 @@ Serve as a copy-paste command reference for the initial BlackArch setup steps an
 ---
 
 ## Related Files
-- [LinuxCheatSheet.md](LinuxCheatSheet.md) — Full Arch/pacman and Debian/apt command reference including the pacman commands used here
-- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) — Automated cybersecurity tool installer for Arch/Manjaro (pacman/BlackArch repo)
+- [LinuxCheatSheet.md](LinuxCheatSheet.md) - Full Arch/pacman and Debian/apt command reference including the pacman commands used here
+- [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) - Automated cybersecurity tool installer for Arch/Manjaro (pacman/BlackArch repo)

@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board — SDR, LoRa, GPS, and pentesting in your pocket**
+**Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - SDR, LoRa, GPS, and pentesting in your pocket**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -21,7 +21,7 @@
 - [Overview](#overview)
 - [Setup Guides](#setup-guides)
 - [Hardware Stack](#hardware-stack)
-- [CM4 vs CM5 — Quick Reference](#cm4-vs-cm5--quick-reference)
+- [CM4 vs CM5 - Quick Reference](#cm4-vs-cm5--quick-reference)
 - [OS Options](#os-options)
 - [AIO v2 Board Capabilities](#aio-v2-board-capabilities)
 - [Common Setup Sequence (The 6-Phase Approach)](#common-setup-sequence-the-6-phase-approach)
@@ -50,10 +50,10 @@ This directory contains **complete, step-by-step build guides and automated depl
 ### Purpose
 
 These guides serve as:
-- **Step-by-step build documentation** — Flash to fully operational
-- **Hardware reference** — GPIO pinouts, SPI mappings, antenna connectors
-- **Troubleshooting playbook** — Every issue we've hit and fixed
-- **Pentest platform quick-start** — Kali tools, WiFi adapters, LAN drop box config
+- **Step-by-step build documentation** - Flash to fully operational
+- **Hardware reference** - GPIO pinouts, SPI mappings, antenna connectors
+- **Troubleshooting playbook** - Every issue we've hit and fixed
+- **Pentest platform quick-start** - Kali tools, WiFi adapters, LAN drop box config
 
 ---
 
@@ -61,8 +61,8 @@ These guides serve as:
 
 | Guide | Compute Module | Description |
 |-------|---------------|-------------|
-| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 setup — Most mature and community-tested configuration and features the `uconsole-cm4-setup.sh` automated installer. |
-| **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup — Features the `uconsole-cm5-setup.sh` automated installer, USB 3.0, and native PCIe configurations. |
+| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 setup - Most mature and community-tested configuration and features the `uconsole-cm4-setup.sh` automated installer. |
+| **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup - Features the `uconsole-cm5-setup.sh` automated installer, USB 3.0, and native PCIe configurations. |
 
 > **Which guide should I follow?** If you already have your hardware, follow the guide matching your compute module. If you're buying new, see the [comparison table](#cm4-vs-cm5--quick-reference) below.
 
@@ -90,7 +90,7 @@ These guides serve as:
 
 ---
 
-## ⚖️ CM4 vs CM5 — Quick Reference
+## ⚖️ CM4 vs CM5 - Quick Reference
 
 | Feature | CM4 | CM5 |
 |---|---|---|
@@ -120,7 +120,7 @@ Both setup guides cover two primary OS paths:
 
 ### Path A: Rex's Kali Image
 
-Full Kali toolchain pre-installed — pentesting-ready out of the box.
+Full Kali toolchain pre-installed - pentesting-ready out of the box.
 
 | Pros | Cons |
 |---|---|
@@ -169,7 +169,7 @@ Debian 13 base with Kali rolling repo layered on top.
 | **LoRa** | SX1262 transceiver | 433 or 915 MHz (region-dependent) |
 | **GPS** | GPS/BDS/GNSS receiver | Active or passive GPS antenna |
 
-### GPIO Control Tool — aiov2_ctl
+### GPIO Control Tool - aiov2_ctl
 
 All peripherals are controlled via GPIO using `aiov2_ctl` ([GitHub](https://github.com/hackergadgets/aiov2_ctl)):
 
@@ -337,7 +337,7 @@ USERS ACKNOWLEDGE:
 
 **📖 Build Responsibly: Authorization is MANDATORY for Pentesting**
 
-*A pocket-sized SIGINT and pentesting platform — use it ethically and legally.*
+*A pocket-sized SIGINT and pentesting platform - use it ethically and legally.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 

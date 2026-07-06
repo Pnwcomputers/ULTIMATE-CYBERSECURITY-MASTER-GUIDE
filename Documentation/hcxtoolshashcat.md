@@ -1,7 +1,7 @@
 # HCXTools & Hashcat Cheat Sheet ⚡
 
 ## 🎯 Purpose
-Practical command reference for the modern passive WiFi capture workflow using hcxtools, and for cracking the resulting hashes with Hashcat. This covers PMKID capture (clientless — no deauth needed) and EAPOL handshake capture, then unified cracking with mode 22000.
+Practical command reference for the modern passive WiFi capture workflow using hcxtools, and for cracking the resulting hashes with Hashcat. This covers PMKID capture (clientless - no deauth needed) and EAPOL handshake capture, then unified cracking with mode 22000.
 
 ## ⚙️ Function
 Organized by workflow phase: interface prep → passive capture → file conversion → hashcat cracking → advanced options. Focuses on the **hcxtools** suite (`hcxdumptool`, `hcxpcapngtool`), which differs from the classic aircrack-ng workflow in that it captures passively without sending deauth frames and outputs directly to Hashcat's modern unified format.
@@ -25,7 +25,7 @@ Successfully capture PMKID or EAPOL frames from a target network, convert them t
 ```bash
 sudo ip link set wlan1 down          # Bring interface down before hcxdumptool takes it
 sudo hcxdumptool -i wlan1 -o dump.pcapng --disable_deauthentication
-# hcxdumptool manages monitor mode internally — no airmon-ng needed
+# hcxdumptool manages monitor mode internally - no airmon-ng needed
 ```
 
 **2. Capture Management Frames (PMKID & EAPOL)**
@@ -54,7 +54,7 @@ sudo hcxdumptool -i wlan1 -o target.pcapng --bssid AA:BB:CC:DD:EE:FF --channel 6
 
 **Filtering the Output**
 ```bash
-# Capture only PMKID (mode 4) and EAPOL (mode 1/3) packets — this is the default
+# Capture only PMKID (mode 4) and EAPOL (mode 1/3) packets - this is the default
 sudo hcxdumptool -i wlan1 -o filtered.pcapng --filtermode 4 --enable_status=1
 ```
 
@@ -70,7 +70,7 @@ sudo hcxdumptool -i wlan1 -o probes.pcapng --filtermode 3 --enable_status=1
 
 Mode 22000 is the unified WPA/WPA2/WPA3 mode introduced in Hashcat 6.0. It supersedes both mode 2500 (WPA-EAPOL) and mode 16800 (WPA-PMKID-PBKDF2), which are no longer accepted in current Hashcat releases.
 
-**WPA/WPA2/WPA3 — Dictionary Attack**
+**WPA/WPA2/WPA3 - Dictionary Attack**
 ```bash
 hashcat -m 22000 hash.hc22000 /path/to/wordlist.txt
 ```
@@ -139,6 +139,6 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 ---
 
 ## Related Files
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Traditional active-deauth workflow, WEP, WPS attacks
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) — Automated passive PMKID/handshake capture using hcxtools output
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32-based WiFi attacks (different hardware path)
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Traditional active-deauth workflow, WEP, WPS attacks
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive PMKID/handshake capture using hcxtools output
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32-based WiFi attacks (different hardware path)

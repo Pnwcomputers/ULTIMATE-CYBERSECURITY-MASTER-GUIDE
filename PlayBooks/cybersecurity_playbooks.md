@@ -4,10 +4,10 @@
 ---
 
 ## 🎯 Purpose
-A day-to-day operational reference spanning six core security functions — incident response, vulnerability assessment, penetration testing, network security, malware analysis, and threat hunting — built around specific, named scenarios (e.g., "Suspected Account Compromise") rather than abstract methodology.
+A day-to-day operational reference spanning six core security functions - incident response, vulnerability assessment, penetration testing, network security, malware analysis, and threat hunting - built around specific, named scenarios (e.g., "Suspected Account Compromise") rather than abstract methodology.
 
 ## ⚙️ Function
-Each of the six sections contains multiple standalone playbooks, each triggered by a specific indicator (e.g., a SIEM alert type) and structured as: trigger indicators → immediate actions → investigation steps → containment/remediation → closure criteria. Unlike `NetworkAuditPlayBook.md` (one long engagement procedure) or the Purple Team files (attack/detect exercises), this file is a **library of discrete, independently-triggerable playbooks** — pull out exactly the one matching your current alert.
+Each of the six sections contains multiple standalone playbooks, each triggered by a specific indicator (e.g., a SIEM alert type) and structured as: trigger indicators → immediate actions → investigation steps → containment/remediation → closure criteria. Unlike `NetworkAuditPlayBook.md` (one long engagement procedure) or the Purple Team files (attack/detect exercises), this file is a **library of discrete, independently-triggerable playbooks** - pull out exactly the one matching your current alert.
 
 ## 🏆 Goal
 Give a security operations team a single field guide covering the most common day-to-day scenarios across all six domains, so an analyst doesn't need to hunt across six different documents mid-incident.

@@ -1,7 +1,7 @@
 # Pwnagotchi Commands and Configuration 🤖
 
 ## 🎯 Purpose
-Quick-reference for deploying, configuring, and operating a Pwnagotchi — an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that passively collects WPA/WPA2 handshakes using hcxtools and bettercap.
+Quick-reference for deploying, configuring, and operating a Pwnagotchi - an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that passively collects WPA/WPA2 handshakes using hcxtools and bettercap.
 
 ## ⚙️ Function
 Covers installation and flashing, essential config.toml settings, service management, plugin configuration, handshake processing for offline cracking with Hashcat, performance tuning, and troubleshooting. Focuses on the field-capture side of the passive WiFi audit workflow; pair with hcxtoolshashcat.md for the conversion and cracking steps.
@@ -155,7 +155,7 @@ ls -lah *.pcap
 # Copy handshakes to local machine
 scp pi@10.0.0.2:/root/handshakes/*.pcap ./handshakes/
 
-# Convert to Hashcat unified format (mode 22000 — replaces deprecated 16800/2500)
+# Convert to Hashcat unified format (mode 22000 - replaces deprecated 16800/2500)
 hcxpcapngtool -o hashes.hc22000 -E essid_list.txt handshake.pcap
 
 # Crack with Hashcat (GPU-accelerated, faster than aircrack-ng's CPU cracker)
@@ -258,10 +258,10 @@ ui.fps = 1  # Lower refresh rate to save power
 ---
 
 ## Related Files
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) — Full hcxtools + Hashcat mode 22000 workflow for converting and cracking Pwnagotchi captures
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) — Aircrack-ng as alternative CPU-based cracker for .pcap files
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) — ESP32 Marauder: active WiFi attack tool that complements Pwnagotchi's passive capture
-- [evil_m5.md](evil_m5.md) — M5Cardputer Evil-M5: interactive WiFi attack platform (active deauth + evil twin)
-- [bjorn_pi.md](bjorn_pi.md) — Bjorn Pi: autonomous network-service attacker on Pi hardware (different attack surface)
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Full hcxtools + Hashcat mode 22000 workflow for converting and cracking Pwnagotchi captures
+- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng as alternative CPU-based cracker for .pcap files
+- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder: active WiFi attack tool that complements Pwnagotchi's passive capture
+- [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5: interactive WiFi attack platform (active deauth + evil twin)
+- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: autonomous network-service attacker on Pi hardware (different attack surface)
 
 *Last Updated: 2025-11-03*

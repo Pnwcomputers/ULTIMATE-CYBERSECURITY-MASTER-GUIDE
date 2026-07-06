@@ -11,7 +11,7 @@ Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.
 The `uconsole-cm4-setup.sh` and `uconsole-cm5-setup.sh` scripts provide a fully automated, state-tracked installation process. They handle the complex peripheral configuration and package dependencies required for Kali/Debian Trixie environments.
 
 **Recent Script Improvements (v1.2):**
-* **Qt6 GUI dependency:** Installs `libxcb-cursor0` in Phase 1.2 — required by the Qt6 XCB platform plugin; without it `aiov2_ctl --gui` silently fails to render.
+* **Qt6 GUI dependency:** Installs `libxcb-cursor0` in Phase 1.2 - required by the Qt6 XCB platform plugin; without it `aiov2_ctl --gui` silently fails to render.
 * **`.pygpsclient` venv ownership:** After `aiov2_ctl --install` runs as root, chowns `~/.pygpsclient` to the invoking user and installs PyQt6 into the venv so the regular user can launch `--gui`.
 * **PolKit agent conflict:** Suppresses `polkit-mate-authentication-agent-1` via an XDG `Hidden=true` per-user override (Phase 5.8). Kali metapackages install polkit-mate, which races lxpolkit on Labwc login.
 
@@ -50,10 +50,10 @@ If you've already upgraded and hit the "Failed to start session" screen, see CM4
 wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm4-setup.sh
 chmod +x uconsole-cm4-setup.sh
 
-# Run it — script tells you when to reboot
+# Run it - script tells you when to reboot
 sudo ./uconsole-cm4-setup.sh
 
-# After each prompted reboot, re-run the same command — it auto-resumes
+# After each prompted reboot, re-run the same command - it auto-resumes
 sudo reboot
 # (back from reboot)
 sudo ./uconsole-cm4-setup.sh
@@ -103,11 +103,11 @@ You can also set these instead of (or alongside) flags:
 
 A few things are deliberately left manual:
 
-- **`passwd`** — security-critical, you choose the password
-- **`dpkg-reconfigure tzdata`** — interactive timezone picker
-- **Antenna connections** — physical
-- **Meshtastic first-time region/channel setup** — region-specific, done via web UI (`https://localhost`)
-- **NVMe Battery Board** — hardware mod with ribbon cable orientation that needs eyes-on. See CM4-SETUP.md Step 14.
+- **`passwd`** - security-critical, you choose the password
+- **`dpkg-reconfigure tzdata`** - interactive timezone picker
+- **Antenna connections** - physical
+- **Meshtastic first-time region/channel setup** - region-specific, done via web UI (`https://localhost`)
+- **NVMe Battery Board** - hardware mod with ribbon cable orientation that needs eyes-on. See CM4-SETUP.md Step 14.
 
 The script prints all of these as a checklist when Phase 6 (finalize) runs.
 
@@ -133,23 +133,23 @@ The script prints all of these as a checklist when Phase 6 (finalize) runs.
 
 ## If Something Goes Wrong
 
-1. **Check the log** — `/var/log/uconsole-setup.log` has every command and its output.
+1. **Check the log** - `/var/log/uconsole-setup.log` has every command and its output.
 2. **`--status`** tells you which phase you're stuck at.
-3. **Single-phase retry** — `sudo ./uconsole-cm4-setup.sh --phase=<phase>` re-runs one phase without advancing state.
-4. **Full reset** — `sudo ./uconsole-cm4-setup.sh --reset` wipes the state file so the next run starts from preflight. (Idempotent operations will skip what's already done; non-idempotent ones may error harmlessly.)
-5. **Worst case** — manually follow the corresponding section of [CM4-SETUP.md](../CM4-SETUP.md). The script is intentionally a 1:1 translation of the guide so the same fixes apply.
+3. **Single-phase retry** - `sudo ./uconsole-cm4-setup.sh --phase=<phase>` re-runs one phase without advancing state.
+4. **Full reset** - `sudo ./uconsole-cm4-setup.sh --reset` wipes the state file so the next run starts from preflight. (Idempotent operations will skip what's already done; non-idempotent ones may error harmlessly.)
+5. **Worst case** - manually follow the corresponding section of [CM4-SETUP.md](../CM4-SETUP.md). The script is intentionally a 1:1 translation of the guide so the same fixes apply.
 
 ## Compatibility
 
-- **Rex's Kali 6.12.y** — fully supported, skips the Trixie-specific raspberrypi-sys-mods / Kali repo steps
-- **Rex's Trixie 6.12.y** — fully supported, full path including Kali tools layered on top
-- **Rex's Bookworm 6.12.y** — should work (similar to Kali path) but not extensively tested
-- **DragonOS** — not officially supported; you can run with `--phase=peripherals` only if you just want the config.txt setup
+- **Rex's Kali 6.12.y** - fully supported, skips the Trixie-specific raspberrypi-sys-mods / Kali repo steps
+- **Rex's Trixie 6.12.y** - fully supported, full path including Kali tools layered on top
+- **Rex's Bookworm 6.12.y** - should work (similar to Kali path) but not extensively tested
+- **DragonOS** - not officially supported; you can run with `--phase=peripherals` only if you just want the config.txt setup
 
 
-## `uconsole-repair.sh` — Fix a Wrong-CM Run
+## `uconsole-repair.sh` - Fix a Wrong-CM Run
 
-If someone clicks through the "Hardware doesn't appear to be a CMx" warning and runs the wrong setup script for their hardware, the wrong device-tree overlays get written into `/boot/firmware/config.txt`. GPS and RTC won't work, but the failure mode isn't obvious — they'll just see no NMEA sentences and `hwclock -r` returning nothing.
+If someone clicks through the "Hardware doesn't appear to be a CMx" warning and runs the wrong setup script for their hardware, the wrong device-tree overlays get written into `/boot/firmware/config.txt`. GPS and RTC won't work, but the failure mode isn't obvious - they'll just see no NMEA sentences and `hwclock -r` returning nothing.
 
 `uconsole-repair.sh` detects and fixes this:
 
@@ -182,16 +182,16 @@ sudo ./uconsole-repair.sh --yes
 ### Safety guarantees
 
 - **Always backs up** `config.txt` to `config.txt.bak.repair.<timestamp>` before any modification
-- **Idempotent** — running it twice on a healthy config is a no-op
-- **Only touches known overlay lines** — manually-added lines elsewhere in `config.txt` are not affected
+- **Idempotent** - running it twice on a healthy config is a no-op
+- **Only touches known overlay lines** - manually-added lines elsewhere in `config.txt` are not affected
 - **Doesn't touch** `cmdline.txt`, the dialout group, the DVB-T blacklist, the devterm-printer service, DKMS, or anything else that's the same on both CMs
-- **Fails closed** — if hardware can't be detected from `/proc/device-tree/model`, refuses to make changes
+- **Fails closed** - if hardware can't be detected from `/proc/device-tree/model`, refuses to make changes
 
 ### When to run it
 
 - After realizing you ran the wrong setup script
 - Any time GPS or RTC stop working after a reflash with a different CM module
-- Diagnostically — `--diagnose` is read-only and a fast way to confirm `config.txt` matches the hardware
+- Diagnostically - `--diagnose` is read-only and a fast way to confirm `config.txt` matches the hardware
 
 
 ## CM5 vs CM4 Differences (what's in `uconsole-cm5-setup.sh` and not in `uconsole-cm4-setup.sh`)
@@ -206,7 +206,7 @@ sudo ./uconsole-repair.sh --yes
 | NVMe EEPROM | May need update (older CM4s) | Native PCIe, no update normally needed | CM5 architecture |
 | SD boot quirks | Generally none | CM5 lite needs specific EEPROM settings if SD won't boot | Per Rex's Trixie thread |
 
-Everything else — pre-flight hardening (cryptsetup, LightDM, raspberrypi-sys-mods, Kali repo+pin), Kali tools install, aiov2_ctl install, AIO board package install, dialout group, DVB-T blacklist, devterm-printer disable, RTL8812AU DKMS, boot rails, verification checks — is identical between the two scripts.
+Everything else - pre-flight hardening (cryptsetup, LightDM, raspberrypi-sys-mods, Kali repo+pin), Kali tools install, aiov2_ctl install, AIO board package install, dialout group, DVB-T blacklist, devterm-printer disable, RTL8812AU DKMS, boot rails, verification checks - is identical between the two scripts.
 
 ## License & Provenance
 

@@ -144,7 +144,7 @@ This section focuses on **safe, defensive validation**: discovering what’s pre
 - **Pi Zero running P4wnP1 (USB gadget):** useful for *your own* endpoint hardening tests in controlled conditions.
 - **M5Stick / nRF52840 BLE sniffer:** suited for **Bluetooth Low Energy visibility and analysis** (sniffing in your environment).
 - **CC1101 radios (T-Embed):** **sub-GHz ISM** exploration (common bands like 315/433/868/915 MHz depending on region).
-  * *Note:* CC1101 is not an “802.15.1/SMBus” tool—**802.15.1 is Bluetooth**; **SMBus** is a wired bus based on I²C.
+  * *Note:* CC1101 is not an “802.15.1/SMBus” tool-**802.15.1 is Bluetooth**; **SMBus** is a wired bus based on I²C.
 - **Rubber Ducky / Bash Bunny:** best treated as **endpoint security validation tools** (e.g., verifying USB policies, EDR response, least privilege), not “payload delivery platforms.”
 
 ---
@@ -168,7 +168,7 @@ Before testing, define the target posture:
 
 ---
 
-## 3) Phase 1 — Passive Recon (Low Risk)
+## 3) Phase 1 - Passive Recon (Low Risk)
 
 Goal: observe without changing anything.
 
@@ -188,7 +188,7 @@ Goal: observe without changing anything.
 
 ---
 
-## 4) Phase 2 — Network Enumeration (Controlled Active Scanning)
+## 4) Phase 2 - Network Enumeration (Controlled Active Scanning)
 
 Goal: map assets and exposure with minimal disruption.
 
@@ -211,7 +211,7 @@ Goal: map assets and exposure with minimal disruption.
 
 ---
 
-## 5) Phase 3 — Wireless Security Controls Validation (Defensive Tests)
+## 5) Phase 3 - Wireless Security Controls Validation (Defensive Tests)
 
 Goal: validate you are resilient to common wireless attack *classes* without providing attack recipes.
 
@@ -237,7 +237,7 @@ Goal: validate you are resilient to common wireless attack *classes* without pro
 
 ---
 
-## 6) Phase 4 — BLE / Sub-GHz Surface Mapping (Visibility-First)
+## 6) Phase 4 - BLE / Sub-GHz Surface Mapping (Visibility-First)
 
 Goal: understand what RF surfaces exist in your environment and how you’d defend them.
 
@@ -262,7 +262,7 @@ Goal: understand what RF surfaces exist in your environment and how you’d defe
 
 ---
 
-## 7) Phase 5 — Endpoint Security Validation (Safe, Controlled)
+## 7) Phase 5 - Endpoint Security Validation (Safe, Controlled)
 
 Tools like USB gadget platforms and keystroke-injection devices can be used defensively to validate endpoint controls:
 
@@ -312,7 +312,7 @@ Tools like USB gadget platforms and keystroke-injection devices can be used defe
 
 ---
 
-# Appendix A — Operational Templates
+# Appendix A - Operational Templates
 
 Use the following templates to document your findings as you execute the playbooks.
 
@@ -445,7 +445,7 @@ Describe what an attacker could do.
 
 ---
 
-# Appendix B — Quick Wins Checklist
+# Appendix B - Quick Wins Checklist
 
 - [ ] Update AP/router/switch firmware
 - [ ] Disable WPS everywhere
@@ -457,7 +457,7 @@ Describe what an attacker could do.
 
 ---
 
-# Appendix C — Pro-Tips for Lab Stability
+# Appendix C - Pro-Tips for Lab Stability
 
 ### 1. Time Synchronization (Forensic Integrity)
 * **Problem:** Pi Zeros lack RTCs; logs may default to 1970, breaking timeline analysis.

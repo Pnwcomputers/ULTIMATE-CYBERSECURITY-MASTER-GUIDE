@@ -1,13 +1,13 @@
 # 📊 Log Aggregation & Visibility Guide
 
 ## 🎯 Purpose
-Infrastructure and configuration guide for centralized log collection — covering rsyslog/syslog-ng setup, Linux auth logs, network device logs (pfSense, Cisco, Mikrotik), endpoint Windows Event logs, web server logs, DNS logs, firewall logs, and SIEM integration (Wazuh, ELK, Splunk).
+Infrastructure and configuration guide for centralized log collection - covering rsyslog/syslog-ng setup, Linux auth logs, network device logs (pfSense, Cisco, Mikrotik), endpoint Windows Event logs, web server logs, DNS logs, firewall logs, and SIEM integration (Wazuh, ELK, Splunk).
 
 ## ⚙️ Function
 Organized by log source: Linux system auth and syslog, Windows Event Log forwarding, network device syslog, web server access logs, DNS query logging, database audit logs, application logs, and cloud logs. Each section provides the exact configuration commands and rsyslog/syslog-ng forwarding rules to direct logs to a central SIEM.
 
 ## 🏆 Goal
-Establish "single pane of glass" visibility across all network assets so that an incident — wireless intrusion, brute-force, lateral movement, exfiltration — can be detected, correlated, and investigated from one place with complete log coverage.
+Establish "single pane of glass" visibility across all network assets so that an incident - wireless intrusion, brute-force, lateral movement, exfiltration - can be detected, correlated, and investigated from one place with complete log coverage.
 
 ## 📋 When to Use
 - Setting up a new homelab SIEM or IR environment from scratch
@@ -1028,9 +1028,9 @@ sudo chown syslog:adm /var/log/remote
 - [ ] TLS encryption enabled (if required)
 
 ## Related Files
-- [network_intrusion.md](network_intrusion.md) — Network intrusion IR playbook: the log sources configured here are what feeds that detection
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) — Wireshark complements log aggregation: captures what syslog misses at the packet level
-- [../Homelab/](../Homelab/) — Homelab build: the hardware platform where this log aggregation infrastructure runs
+- [network_intrusion.md](network_intrusion.md) - Network intrusion IR playbook: the log sources configured here are what feeds that detection
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark complements log aggregation: captures what syslog misses at the packet level
+- [../Homelab/](../Homelab/) - Homelab build: the hardware platform where this log aggregation infrastructure runs
 
 ---
 
