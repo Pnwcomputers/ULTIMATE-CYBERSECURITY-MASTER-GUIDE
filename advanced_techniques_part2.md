@@ -1,4 +1,20 @@
 # Advanced Cybersecurity Techniques - Part 2
+
+## 🎯 Purpose
+Advanced cybersecurity techniques Part 2 - covering exploit development, buffer overflows, shellcode writing, and custom payload creation for experienced security practitioners.
+
+## ⚙️ Function
+Covers: x86/x64 buffer overflow exploitation, SEH-based overflows, return-oriented programming (ROP), shellcode development (Linux/Windows), custom payload generation, heap exploitation concepts, format string vulnerabilities, and exploit reliability techniques.
+
+## 🏆 Goal
+Extend practitioner skills into exploit development and low-level vulnerability research - bridging the gap between running existing exploits and understanding and creating custom attack code.
+
+## 📋 When to Use
+- Learning exploit development for OSCP/OSED or professional development
+- Developing a custom exploit for an authorized vulnerability assessment
+- Understanding the internals of exploits you use from Metasploit or exploit-db
+- Advanced CTF challenges involving binary exploitation
+
 ## Exploit Development, Mobile Hacking & Advanced Techniques
 
 *Compiled from: Penetration Testing (Georgia Weidman), Metasploit 2E, and many other professional security resources*
@@ -1269,3 +1285,9 @@ int main(int argc, char **argv) {
 ---
 
 *This concludes Part 2 of the Advanced Cybersecurity Techniques guide. Continue building your skills through practice and staying current with the latest attack techniques and defenses.*
+
+## Related Files
+- [README.md](README.md) - Repo index
+- [advanced_techniques_supplement.md](advanced_techniques_supplement.md) - Part 1: Metasploit, cloud, lateral movement
+- [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) - Foundational context
+- [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md) - Using custom payloads for AV/EDR evasion

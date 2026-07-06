@@ -1,5 +1,20 @@
 # 🛡️ START HERE - Your Complete Cybersecurity Guide Collection
 
+## 🎯 Purpose
+Navigation guide for the entire guide series - quick paths to the right content for every practitioner role and purpose (red team, blue team, OSINT, forensics, homelab, career).
+
+## ⚙️ Function
+Provides role-based navigation paths: Red Team (Tradecraft, Checklists, PlayBooks), Blue Team (IncidentResponse, SIEM, Documentation), OSINT investigator (OSINT/), Forensics analyst (Digital-Forensics/), Homelab builder (Homelab/), and career/learning paths by certification track.
+
+## 🏆 Goal
+Eliminate navigation friction for new users and returning practitioners by providing direct paths to the most relevant content for their current role or task without reading the full README.
+
+## 📋 When to Use
+- First visit to the repository - start here to find the right guide
+- Returning practitioner who forgot where a specific section lives
+- Onboarding a team member to the guide structure
+- Quickly jumping to a role-specific reference path
+
 <p align="center">
   <img src="assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
 </p>
@@ -212,3 +227,9 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 ---
 
 *Built by [Pacific Northwest Computers](https://www.pnwcomputers.com) | [pnwcomputers.com](https://www.pnwcomputers.com)*
+
+## Related Files
+- [README.md](README.md) - Full repo index
+- [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Main comprehensive guide
+- [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized topics guide
+- [LEGAL.md](LEGAL.md) - Legal terms before using any technique

@@ -1,5 +1,19 @@
 # 🔄 Change Log - May 27, 2026
 
+## 🎯 Purpose
+Repository change log tracking all significant additions, fixes, and updates to the guide since its creation.
+
+## ⚙️ Function
+Chronological record of: new file additions, broken link fixes, content updates, tool version updates, URL corrections, structural changes, and documentation cleanup passes - organized by date with file-level detail.
+
+## 🏆 Goal
+Provide version history transparency so practitioners can see what changed, when, and why - enabling them to know if content they reference has been recently updated or corrected.
+
+## 📋 When to Use
+- Checking what changed in a recent update
+- Verifying a specific fix was applied (broken link, outdated tool)
+- Understanding the evolution of the guide for contribution purposes
+
 ## 📊 Quick Stats
 - **Commits Analyzed**: 521
 - **Files Modified**: 224
@@ -1171,3 +1185,7 @@
 - `generate_changelog.py`
 
 </details>
+
+## Related Files
+- [README.md](README.md) - Main repo index
+- [Scripts/generate_changelog.py](Scripts/generate_changelog.py) - Script that generates this changelog

@@ -1,4 +1,20 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
+
+## 🎯 Purpose
+Firmware and hardware compatibility chart for SBC-based DIY pentesting devices - covering Flipper Zero, Raspberry Pi variants, ESP32 boards, uConsole, and other common security tool platforms.
+
+## ⚙️ Function
+Documents firmware compatibility, supported hardware variants, known issues, and installation paths for: Flipper Zero (official/Unleashed/Momentum), Raspberry Pi OS/Kali versions, ESP32 security firmwares (Ghost ESP, Bruce, Nemo), M5Stack variants, and HackerGadgets AIO board compatibility.
+
+## 🏆 Goal
+Prevent hardware/firmware mismatch issues when setting up DIY security tools - providing a single reference to check compatibility before flashing or purchasing hardware.
+
+## 📋 When to Use
+- Purchasing new DIY security hardware and checking firmware compatibility
+- Flashing a firmware update and verifying compatibility with the hardware variant
+- Troubleshooting a hardware/firmware incompatibility issue
+- Planning a new tool build and selecting the right hardware platform
+
 ## Wireless Security Testing Devices
 
 **Last Updated:** October 2025  
@@ -809,3 +825,9 @@
 **Maintained by:** Pacific Northwest Computers  
 **Contact:** support@pnwcomputers.com
 **License:** Free to use for educational and professional purposes
+
+## Related Files
+- [README.md](README.md) - Repo index
+- [HardwareHacking/](HardwareHacking/) - Hardware hacking tool guides
+- [uConsole/README.md](uConsole/README.md) - uConsole compatibility details
+- [Documentation/flipper_zero_guide.md](Documentation/flipper_zero_guide.md) - Flipper Zero guide
