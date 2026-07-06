@@ -1042,6 +1042,7 @@ Common at SSV (safe and vault) trade events and some locksport championships.
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero physical access features (RFID/NFC cloning, iButton) complement physical lock bypass skills
 - [bruce_firmware.md](bruce_firmware.md) - Bruce firmware includes 125 kHz RFID and 13.56 MHz NFC cloning (electronic complement to physical locksport)
 - [evil_m5.md](evil_m5.md) - Evil-M5 NFC/RFID features for badge cloning alongside physical access assessment

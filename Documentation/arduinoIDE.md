@@ -98,6 +98,7 @@ Because you are using third-party boards (especially ESP32s and cloned Arduinos)
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [vscode.md](vscode.md) - VS Code + PlatformIO: a modern alternative to Arduino IDE with project-level board config
 - [evil_m5.md](evil_m5.md) - Evil-M5Project firmware built with Arduino IDE targeting the M5Cardputer (ESP32-S3)
 - [bruce_firmware.md](bruce_firmware.md) - Bruce firmware for ESP32 boards; same Arduino IDE + ESP32 board core workflow

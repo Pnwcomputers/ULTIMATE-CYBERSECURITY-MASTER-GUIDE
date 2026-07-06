@@ -631,6 +631,7 @@ print(f'ISP:         {d[\"organization\"]}')
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [TOR.md](TOR.md) - Tor Browser and daemon guide: VPN→Tor stacking, proxychains, .onion services
 - [virtualmachines.md](virtualmachines.md) - Privacy VMs (Tails, Whonix, Qubes) that integrate with or replace VPN-based anonymity
 - [../OSINT/](../OSINT/) - OSINT workflows requiring Mullvad or Tor→VPN for anonymity

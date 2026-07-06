@@ -65,5 +65,6 @@ Serve as a copy-paste command reference for the initial BlackArch setup steps an
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [LinuxCheatSheet.md](LinuxCheatSheet.md) - Full Arch/pacman and Debian/apt command reference including the pacman commands used here
 - [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) - Automated cybersecurity tool installer for Arch/Manjaro (pacman/BlackArch repo)

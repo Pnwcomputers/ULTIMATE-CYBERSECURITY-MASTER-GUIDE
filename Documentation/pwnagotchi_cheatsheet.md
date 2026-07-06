@@ -258,6 +258,7 @@ ui.fps = 1  # Lower refresh rate to save power
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [hcxtoolshashcat.md](hcxtoolshashcat.md) - Full hcxtools + Hashcat mode 22000 workflow for converting and cracking Pwnagotchi captures
 - [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng as alternative CPU-based cracker for .pcap files
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder: active WiFi attack tool that complements Pwnagotchi's passive capture

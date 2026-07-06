@@ -92,6 +92,7 @@ AI coding tools are transforming development by generating boilerplate, writing 
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [arduinoIDE.md](arduinoIDE.md) - Arduino IDE setup for ESP32/STM32; PlatformIO in VS Code is a modern alternative
 - [python.md](python.md) - Python security scripting that VS Code's Python extension and AI assistants will help develop
 - [LinuxCheatSheet.md](LinuxCheatSheet.md) - Linux commands for running and managing the tools built in VS Code

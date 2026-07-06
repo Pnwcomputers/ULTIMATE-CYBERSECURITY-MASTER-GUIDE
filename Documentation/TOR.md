@@ -466,6 +466,7 @@ media.peerconnection.enabled         → false  (disables WebRTC - leak risk)
 ---
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [VPN.md](VPN.md) - Mullvad VPN guide: VPN→Tor stacking, kill switch, DNS leak prevention
 - [virtualmachines.md](virtualmachines.md) - Recommended OSINT VMs (Tails, Whonix, Trace Labs VM) for isolated Tor usage
 - [../OSINT/](../OSINT/) - OSINT techniques that should be run from behind Tor or VPN

@@ -697,6 +697,7 @@ If any line is unchecked for the operations you intend to run, the affected modu
 *This chapter is provided for educational and authorized red-team use only. The Bruce firmware authors, the manufacturers of M5Stack and Lilygo hardware, and the author of this chapter accept no responsibility for misuse. Operating transmitters without authorization, intentionally interfering with licensed radio communications, and accessing computer systems without authorization are crimes in every U.S. state and in most jurisdictions worldwide. The expanded RF feature set in Bruce relative to Evil-M5 dramatically expands the practitioner's exposure to FCC enforcement action. Treat every transmit feature as a regulated activity requiring affirmative authorization before use.*
 
 ## Related Files
+- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [evil_m5.md](evil_m5.md) - Evil-M5Project: the WiFi-specialist complement to Bruce on the same M5Cardputer hardware
 - [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero: overlapping sub-GHz, NFC/RFID, IR, and BLE capabilities from a different hardware platform
 - [arduinoIDE.md](arduinoIDE.md) - Arduino IDE + ESP32 board core: required for compiling and flashing Bruce from source
