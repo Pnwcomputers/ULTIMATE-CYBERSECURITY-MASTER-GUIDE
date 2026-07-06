@@ -46,6 +46,7 @@ Gain interactive shell access to an embedded device's OS via its exposed UART de
 ---
 
 ## Related Files
+- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
 - [BusPirate.md](BusPirate.md) - More capable multi-protocol tool (SPI/I2C/UART/JTAG) when UART access alone isn't enough
 - [JTAGulator.md](JTAGulator.md) - Identifies which pins are UART/JTAG before connecting a Bit Pirate or Bus Pirate
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify TX/RX signals and identify baud rate before connecting

@@ -61,6 +61,7 @@ The Bus Pirate is an open-source hacker multi-tool that talks to electronic comp
 ---
 
 ## Related Files
+- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
 - [BitPirate.md](BitPirate.md) - Similar UART-to-USB interface; good for comparison when choosing a debug tool
 - [JTAGulator.md](JTAGulator.md) - Discovers which pins are JTAG/UART; Bus Pirate then communicates on those identified pins
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify Bus Pirate signals and troubleshoot protocol issues

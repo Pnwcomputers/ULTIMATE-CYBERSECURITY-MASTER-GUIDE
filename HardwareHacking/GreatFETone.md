@@ -61,6 +61,7 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
 ---
 
 ## Related Files
+- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
 - [BusPirate.md](BusPirate.md) - Similar multi-protocol tool; Bus Pirate is interactive, GreatFET is script-driven
 - [JTAGulator.md](JTAGulator.md) - Discovers pin assignments; GreatFET then interfaces via the identified JTAG/I2C pins
 - [LA1010.md](LA1010.md) - Logic analyzer to verify GreatFET's I2C/SPI transactions on the wire

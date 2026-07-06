@@ -49,6 +49,7 @@ The HiLetgo USB Logic Analyzer is a cost-effective, 8-channel, 24MHz logic analy
 ---
 
 ## Related Files
+- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
 - [LA1010.md](LA1010.md) - Higher-performance logic analyzer (100MHz/16ch, KingstVIS) for faster buses needing more channels
 - [BitPirate.md](BitPirate.md) - Connect a UART adapter to the TX pin you identified with the HiLetgo to interact with the shell
 - [BusPirate.md](BusPirate.md) - Use alongside Bus Pirate to verify SPI/I2C signals at the hardware level

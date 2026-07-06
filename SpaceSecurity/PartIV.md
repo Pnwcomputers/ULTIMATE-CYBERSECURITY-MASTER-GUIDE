@@ -258,7 +258,9 @@ Spoofing attack progression:
 **📖 Use These Techniques Responsibly: Authorization is MANDATORY**
 
 ## Related Files
+- [README.md](README.md) - SpaceSecurity section index
 - [PartI.md](PartI.md) - Foundations: threat actors and attack taxonomy for user segment threats
+- [PartIII.md](PartIII.md) - Space segment: flight software vulnerabilities
 - [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) - SDR hacking: GPS spoofing and SATCOM signal analysis tools and techniques
 
 *Space systems are critical infrastructure - treat them accordingly.*

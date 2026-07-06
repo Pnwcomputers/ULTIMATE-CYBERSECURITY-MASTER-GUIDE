@@ -49,6 +49,7 @@ The JTAGulator is an open-source hardware tool created by Joe Grand that simplif
 ---
 
 ## Related Files
+- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
 - [BusPirate.md](BusPirate.md) - Use Bus Pirate to communicate on the JTAG/UART pins discovered by JTAGulator
 - [BitPirate.md](BitPirate.md) - Connect a UART adapter to the TX/RX pins found by JTAGulator's UART scan
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify signal integrity on the pins JTAGulator identified
