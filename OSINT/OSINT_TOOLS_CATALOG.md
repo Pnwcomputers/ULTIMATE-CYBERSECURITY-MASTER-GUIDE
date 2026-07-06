@@ -1,4 +1,19 @@
 # 🛠️ Core OSINT Toolkit
+
+## 🎯 Purpose
+Comprehensive catalog of core OSINT tools integrated into the OSINT Investigator Playbook - with descriptions, installation, and use cases for each tool.
+
+## ⚙️ Function
+Documents each tool in the OSINT toolkit: theHarvester, Maltego, Shodan CLI, Recon-ng, SpiderFoot, OSINT Framework, Sherlock, Holehe, PhotonCrawler, and domain/IP/email/phone-specific tools - with installation commands and primary use cases.
+
+## 🏆 Goal
+Serve as the authoritative tool reference for the OSINT Investigator Playbook, ensuring practitioners can install and use each tool correctly within the investigation workflow.
+
+## 📋 When to Use
+- Installing the OSINT toolkit on a new system
+- Looking up the purpose and usage of a specific OSINT tool
+- Deciding which tool to use for a specific data type during an investigation
+
 The playbook integrates the following industry-standard tools for deep reconnaissance:
 
 | Tool | Category | Primary Function |
@@ -54,3 +69,9 @@ The framework leverages several high-authority databases. Ensure your API keys a
 * [**Etherscan**](https://etherscan.io/): Ethereum Explorer
 * [**BlockCypher**](https://www.blockcypher.com/): Multi-chain Crypto Data
 * [**AbuseIPDB**](https://www.abuseipdb.com/): IP Reputation & Blacklist Reporting
+
+## Related Files
+- [README.md](README.md) - OSINT section index
+- [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick command reference for these tools
+- [Playbook/README.md](Playbook/README.md) - Playbook that orchestrates these tools
+- [argus_osint.md](argus_osint.md) - Argus toolkit installation

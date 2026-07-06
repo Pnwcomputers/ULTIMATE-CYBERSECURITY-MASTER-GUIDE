@@ -1,5 +1,19 @@
 # 🖥️ Hardware Testing & Benchmarking
 
+## 🎯 Purpose
+Index for hardware testing, diagnostics, and benchmarking tools on Manjaro Linux - covering stress testing, reliability validation, and performance benchmarking for dedicated test bench systems.
+
+## ⚙️ Function
+Indexes the HardwareTesting section: the dedicated Intel test bench setup guide (Manjaro), Python orchestration scripts for automated diagnostic runs, and hardware-specific testing procedures for CPU, memory, storage, and GPU.
+
+## 🏆 Goal
+Provide a complete reference for hardware qualification testing on Linux, enabling repeatable diagnostics and benchmarks for system validation before production deployment.
+
+## 📋 When to Use
+- Qualifying hardware for a dedicated security lab or test bench system
+- Running reliability stress tests on a new Linux system
+- Diagnosing intermittent hardware failures with structured testing
+
 <div align="center">
 
 **Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches**
@@ -392,3 +406,8 @@ Debian_AMD_TestBench.md
 
 *Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
 *Last updated: 06-11-2026*
+
+## Related Files
+- [Manjaro_Intel_TestBench.md](Manjaro_Intel_TestBench.md) - Dedicated Intel test bench guide
+- [py/README.md](py/README.md) - Python orchestration scripts for automated testing
+- [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab context for test bench

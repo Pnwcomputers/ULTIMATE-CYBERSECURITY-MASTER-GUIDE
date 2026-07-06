@@ -1,5 +1,19 @@
 # Phone Number OSINT Investigation Script
 
+## 🎯 Purpose
+Documentation for the Phone Number OSINT investigation script - automated phone intelligence covering carrier lookup, breach history, spam database checks, and reverse lookup URL generation.
+
+## ⚙️ Function
+Covers: script usage (single number, comma-separated list, or file input), carrier/line type lookup, breach database queries, spam score databases (800notes, WhoCalledUs, CallerSmart), reverse lookup URL generation, and international number format handling.
+
+## 🏆 Goal
+Enable investigators to quickly build an intelligence profile on a phone number for fraud, scam caller, and social engineering investigation cases.
+
+## 📋 When to Use
+- Investigating a phone number associated with a scam call or fraud case
+- Building a full profile on a threat actor's contact infrastructure
+- Batch processing multiple numbers from a fraud case for pattern analysis
+
 Script for automated phone number OSINT - carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
 
 **Dependencies:** `jq`, `curl`  
@@ -945,3 +959,8 @@ done
 log ""
 log "${GREEN}Investigation completed: $(date)${NC}"
 ```
+
+## Related Files
+- [../Playbook/README.md](../Playbook/README.md) - Playbook that calls this script
+- [Domain_IP_Recon.md](Domain_IP_Recon.md) - Domain investigation script
+- [Email_OSINT.md](Email_OSINT.md) - Email investigation script

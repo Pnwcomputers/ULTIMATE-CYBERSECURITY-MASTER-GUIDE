@@ -1,5 +1,19 @@
 # OSINT Investigation Procedures Guide
 
+## 🎯 Purpose
+Step-by-step OSINT investigation procedures guide for conducting thorough scam and fraud case investigations using the OSINT Investigator Playbook.
+
+## ⚙️ Function
+Documents investigation procedures by case type: domain-based scams (phishing, fake shops), email-based fraud, phone scams, crypto fraud (wallet tracing, exchange identification), identity theft, and combined multi-vector cases - with tool commands and evidence collection steps.
+
+## 🏆 Goal
+Give investigators a precise procedural guide that walks through each investigation type step by step, ensuring consistent evidence collection and documentation for all case types.
+
+## 📋 When to Use
+- Working an active fraud case and following the investigation procedure
+- Training investigators on systematic OSINT case methodology
+- Building a custom investigation workflow by adapting these procedures
+
 This guide provides step-by-step procedures for conducting thorough OSINT investigations on scam and fraud cases.
 
 ## Table of Contents
@@ -606,3 +620,9 @@ Submit at: https://www.ic3.gov/
 
 *Document version: 1.0*
 *Last updated: 2024*
+
+## Related Files
+- [README.md](README.md) - Playbook index
+- [../OSINT_CHEATSHEET.md](../OSINT_CHEATSHEET.md) - Quick command reference during investigation
+- [../scripts/Domain_IP_Recon.md](../scripts/Domain_IP_Recon.md) - Automated domain investigation
+- [../scripts/Email_OSINT.md](../scripts/Email_OSINT.md) - Automated email investigation

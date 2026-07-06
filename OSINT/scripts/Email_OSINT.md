@@ -1,5 +1,19 @@
 # Email OSINT Investigation Script
 
+## 🎯 Purpose
+Documentation for the Email OSINT investigation script - automated email intelligence combining HaveIBeenPwned, Hunter.io, EmailRep, LeakLookup, Gravatar, and social media account enumeration.
+
+## ⚙️ Function
+Covers: script usage, API key configuration (HaveIBeenPwned, Hunter.io, EmailRep, LeakLookup), breach history output, paste exposure, email reputation scoring, Gravatar presence check, and cross-referencing email across social platforms.
+
+## 🏆 Goal
+Enable investigators to quickly assess an email address's breach history, reputation, and associated online presence for fraud and identity investigation cases.
+
+## 📋 When to Use
+- Investigating an email address from a fraud or phishing case
+- Checking if an email appears in known breaches (victim or attacker infrastructure)
+- Correlating email identity across social platforms during an OSINT investigation
+
 Script for automated email OSINT - breach history (HaveIBeenPwned), paste exposure, Hunter.io verification, EmailRep reputation, LeakLookup credential search, Gravatar presence, and social media account checks.
 
 **Dependencies:** `jq`, `curl`, `dig`, `whois`  
@@ -644,3 +658,8 @@ done
 log "${GREEN}[+] Master summary: $SUMMARY_FILE${NC}"
 section "Investigation Complete!"
 ```
+
+## Related Files
+- [../Playbook/README.md](../Playbook/README.md) - Playbook that calls this script
+- [Domain_IP_Recon.md](Domain_IP_Recon.md) - Domain investigation script
+- [Phone_OSINT.md](Phone_OSINT.md) - Phone investigation script

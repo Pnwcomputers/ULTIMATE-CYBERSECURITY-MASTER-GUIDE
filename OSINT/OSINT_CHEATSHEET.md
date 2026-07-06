@@ -1,5 +1,19 @@
 # 🔍 Comprehensive OSINT Investigator Cheat Sheet
 
+## 🎯 Purpose
+Quick-reference OSINT cheat sheet covering tools, commands, and services integrated into the OSINT Investigator Playbook for rapid investigation lookup.
+
+## ⚙️ Function
+Tabular reference for: domain/IP tools (whois, nslookup, Shodan, Censys, theHarvester), email tools (HaveIBeenPwned, Hunter.io, EmailRep), social media OSINT, image OSINT (reverse search, ExifTool), dark web search, and Google dork operators.
+
+## 🏆 Goal
+Serve as a working reference during an active investigation - covering what tool to use for which data type and the key commands/URLs without having to dig through longer guides.
+
+## 📋 When to Use
+- During an active OSINT investigation needing a quick tool lookup
+- Preparing for a recon engagement and reviewing available tools
+- Quick reference for Google dork syntax or API endpoint formats
+
 A quick-reference guide for the tools, services, and commands integrated into the **OSINT Investigator Playbook**. 
 
 ---
@@ -146,3 +160,9 @@ Native utilities that are invaluable during an investigation:
 
 ---
 > **⚠️ Disclaimer:** Ensure all research is conducted securely (via a VPN/Tor) and strictly follows the legal guidelines and regulations for your jurisdiction.
+
+## Related Files
+- [README.md](README.md) - OSINT section index
+- [OSINT_GUIDE.md](OSINT_GUIDE.md) - Full methodology context
+- [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Detailed tool descriptions
+- [Playbook/README.md](Playbook/README.md) - Playbook that uses these tools

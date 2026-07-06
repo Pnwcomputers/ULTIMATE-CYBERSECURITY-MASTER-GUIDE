@@ -1,5 +1,19 @@
 # Domain / IP Recon Investigation Script
 
+## 🎯 Purpose
+Documentation for the Domain/IP Recon investigation script - automated OSINT combining theHarvester, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei, Dirsearch, and WhatWeb into a single command.
+
+## ⚙️ Function
+Covers: script usage (domain, IP, email, file input modes), API key setup for CriminalIP/Netlas/ipinfo/LeakLookup, output format, Nuclei template selection, RustScan/Nmap integration, and interpreting results for fraud investigation.
+
+## 🏆 Goal
+Enable investigators to run comprehensive domain and IP OSINT with a single command, generating structured output suitable for case documentation.
+
+## 📋 When to Use
+- Investigating a suspicious domain (phishing, fraud, C2 infrastructure)
+- Correlating multiple IPs or domains associated with a threat actor
+- Running automated recon as the first step in the OSINT Investigator Playbook domain workflow
+
 Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
 
 **Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
@@ -508,3 +522,9 @@ EOF
 log "${GREEN}[+] Master summary: $SUMMARY_FILE${NC}"
 section "Investigation Complete!"
 ```
+
+## Related Files
+- [../Playbook/README.md](../Playbook/README.md) - Playbook that calls this script
+- [Email_OSINT.md](Email_OSINT.md) - Email investigation script
+- [Phone_OSINT.md](Phone_OSINT.md) - Phone investigation script
+- [../../Tradecraft/osint-threat-intel.md](../../Tradecraft/osint-threat-intel.md) - Manual OSINT techniques for deeper analysis

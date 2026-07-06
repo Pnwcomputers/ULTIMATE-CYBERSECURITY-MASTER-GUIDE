@@ -1,5 +1,20 @@
 # 🖥️ Manjaro Linux Dedicated Hardware Testing & Benchmarking PC (Intel CPU)
 
+## 🎯 Purpose
+Quick reference for hardware diagnostics, stress testing, benchmarking, and reliability validation on a dedicated Manjaro Linux test bench with Intel CPU.
+
+## ⚙️ Function
+Covers: CPU stress testing (stress-ng, Prime95), memory testing (memtest86+, memtester), storage diagnostics (smartctl, badblocks, fio), GPU testing (glmark2, GPU-Burn), thermal monitoring, system profiling (sysbench, Phoronix Test Suite), and interpreting results.
+
+## 🏆 Goal
+Enable systematic hardware qualification testing on a dedicated Manjaro/Intel bench system with consistent test procedures and pass/fail criteria for each component.
+
+## 📋 When to Use
+- Running hardware acceptance testing on a new system
+- Diagnosing thermal or stability issues under load
+- Benchmarking for performance baseline before lab deployment
+- Stress testing before RMA decision on suspected faulty hardware
+
 This document is a quick reference for hardware diagnostics, stress testing, benchmarking, and reliability validation on a dedicated Manjaro Linux test bench.
 
 It is specifically tailored for modern Intel CPU test benches, especially **Z790 motherboards and 13th/14th Gen Core i9 processors**, but many of the tools and workflows apply broadly to modern PC hardware diagnostics.
@@ -644,3 +659,8 @@ Do not rely on benchmark score alone. Combine VRAM testing, Vulkan/OpenGL valida
 ---
 
 *Last Updated: 06-11-2026*
+
+## Related Files
+- [README.md](README.md) - HardwareTesting section index
+- [py/README.md](py/README.md) - Python scripts that automate these test procedures
+- [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab where test bench lives

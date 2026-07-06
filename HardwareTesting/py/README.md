@@ -1,5 +1,20 @@
 # 🖥️ PNWC Hardware Testing Scripts (Manjaro Linux - Intel CPU)
 
+## 🎯 Purpose
+Python orchestration scripts for automated hardware diagnostics, benchmarking, and reliability stress testing on Manjaro Linux test benches (Z790/i9 platform, broadly compatible).
+
+## ⚙️ Function
+Documents the Python test suite: automated CPU/memory/storage/GPU test orchestration, result logging and comparison, thermal monitoring during tests, pass/fail thresholds, and HTML report generation for test results.
+
+## 🏆 Goal
+Automate the full hardware qualification test suite so results are reproducible, logged, and comparable across systems without manual command-by-command execution.
+
+## 📋 When to Use
+- Running a full automated hardware qualification suite on a new system
+- Comparing test results across multiple systems for consistency
+- Generating documented test reports for hardware procurement or RMA
+- Scheduling periodic automated health checks on lab hardware
+
 Python orchestration scripts for diagnostics, benchmarking, and reliability stress testing on Manjaro Linux test benches. Designed for Z790/i9 platforms but works on any modern PC hardware.
 
 These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `memtester`, `sysbench`, etc.), stream their output live so you always see progress, and compile results into clean client-facing Markdown reports with a clear **PASS / FAIL verdict**.
@@ -316,3 +331,7 @@ For manual commands, package manager reference, sensor detection, turbostat, Pho
 
 *Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
 *Last updated: 06-11-2026*
+
+## Related Files
+- [../README.md](../README.md) - HardwareTesting section index
+- [../Manjaro_Intel_TestBench.md](../Manjaro_Intel_TestBench.md) - Manual test procedures these scripts automate
