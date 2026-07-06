@@ -79,6 +79,18 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 38. [Analysis Environments (FLARE VM / REMnux)](#analysis-environments)
 ---
 
+## 🎯 Purpose
+Everything in [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) plus PNWC's 20-years-first-hand operational knowledge layered in — OPSEC procedures, OSINT investigation tradecraft, real-world attack case studies, field-tested playbooks, and custom automation scripts that come from actual engagements rather than published books.
+
+## ⚙️ Function
+6 parts: Operational Security & Setup (OPSEC, VMs, anonymity), OSINT Mastery (people search, username/email/phone investigation, geolocation, metadata analysis), Real-World Attack Case Studies (Stuxnet through Snowden), Team Playbooks (Purple/Blue Team, detection pipelines, SIEM), Custom Scripts & Automation, and Operational Tradecraft (which links out to the dedicated [Tradecraft/](Tradecraft/) folder for C2/evasion/LOLBins/AD-attack depth). Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) by adding the operational/field layer on top of the book-derived lifecycle content; differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging technical domains (AI, hardware, SDR, space) rather than operational tradecraft.
+
+## 🏆 Goal
+A reader can run a full OSINT investigation, execute an OPSEC-compliant engagement, and reference real incident case studies for lessons learned — all grounded in field-tested procedure, not just textbook theory.
+
+## 📋 When to Use
+When you need PNWC's actual operational procedure (not just book theory) for OPSEC, OSINT, playbooks, or case-study analysis, or as the bridge between the foundational master guide and the dedicated Tradecraft/ folder.
+
 # PART 2: OPERATIONAL SECURITY & SETUP
 
 ## OPSEC Fundamentals

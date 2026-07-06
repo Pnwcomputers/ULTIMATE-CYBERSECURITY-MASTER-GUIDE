@@ -151,6 +151,8 @@ Save both values for the next step.
 
 ### Step 2.2: Create Docker Compose File
 
+> **Note:** This guide pins `graylog/graylog:5.2` and `opensearchproject/opensearch:2.12.0` for a known-good config. Graylog does **not** support OpenSearch 3.0+ (it will break your instance) — check the [Graylog compatibility matrix](https://go2docs.graylog.org/current/downloading_and_installing_graylog/compatibility_matrix.htm) before bumping either version.
+
 Create `docker-compose.yml`:
 
 ```yaml

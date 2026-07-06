@@ -45,6 +45,19 @@ A fully configured, field-ready uConsole running on Kali or Trixie with all hard
 
 ---
 
+## 🎯 Purpose
+Index for turning a ClockworkPi uConsole + HackerGadgets AIO v2 board into a field-deployable pentesting/SIGINT platform. Points to the two hardware-specific guides ([CM4-SETUP.md](CM4-SETUP.md), [CM5-SETUP.md](CM5-SETUP.md)) and the automated setup scripts in [scripts/](scripts/) that implement the same procedure as executable code.
+
+## ⚙️ Function
+Hardware stack overview, a CM4-vs-CM5 comparison table (the deciding factor for which setup guide to follow), OS path comparison (Kali vs Trixie+Kali-tools), AIO v2 peripheral/GPIO reference, and the 6-phase setup methodology ("harden first, upgrade second, then install") that both the manual guides and the automated scripts implement identically.
+
+## 🏆 Goal
+Pick the right compute module (CM4 vs CM5) and OS path for a new uConsole build, and know where to go next (manual guide vs automated script) to get from a fresh flash to a working RTL-SDR/LoRa/GPS/pentesting platform.
+
+## 📋 When to Use
+- Planning a new uConsole build — which hardware and OS combination to buy/flash
+- Understanding what the 6-phase setup methodology does before running the automated scripts blind
+
 ## 🎯 Overview
 
 This directory contains **complete, step-by-step build guides and automated deployment scripts** for turning a ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension board.

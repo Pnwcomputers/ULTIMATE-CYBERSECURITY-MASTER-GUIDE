@@ -19,6 +19,18 @@ Eliminate navigation friction for new users and returning practitioners by provi
   <img src="assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
 </p>
 
+## 🎯 Purpose
+Role- and goal-based navigation for the repository — instead of listing every file (like [README.md](README.md) does), this routes a reader by who they are and what they're trying to accomplish (beginner, pentester, OSCP candidate, blue team, red team, OSINT investigator, hardware hacker) straight to the relevant subset of guides.
+
+## ⚙️ Function
+Organized as: a quick-start lookup table by role, a library overview of the three primary guides plus supporting/advanced references, a table of every operational section folder, eight numbered "choose your path" learning tracks, a skills checklist, and a get-started timeline (today/this week/this month). Differs from [README.md](README.md) (flat index of everything) by curating a path rather than cataloging; differs from the master guides themselves by pointing to content rather than containing it.
+
+## 🏆 Goal
+A reader identifies their role/goal within seconds and has a concrete, ordered reading list to follow — without needing to browse the full repository structure first.
+
+## 📋 When to Use
+The very first file to open after the root [README.md](README.md), or anytime you need to re-orient ("what should I read for X role/goal") rather than look up a specific fact.
+
 ## 🎯 QUICK START
 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**

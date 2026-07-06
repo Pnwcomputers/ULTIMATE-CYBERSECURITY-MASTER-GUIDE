@@ -200,7 +200,7 @@ def align_traces_xcorr(traces, reference_trace):
 ### Correlation Power Analysis (CPA)
 
 <p align="center">
-  <img src="/assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack." width="600"/>
+  <img src="../assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack." width="600"/>
 </p>
 
 CPA (Brier et al., 2004) is the modern standard - more efficient than original DPA's difference-of-means. Uses Pearson correlation coefficient.

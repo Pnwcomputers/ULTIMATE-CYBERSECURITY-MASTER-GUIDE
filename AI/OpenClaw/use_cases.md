@@ -17,6 +17,20 @@ Reduce the learning curve for new OpenClaw users by demonstrating what the tool 
 
 A practical guide to getting value out of OpenClaw across personal, professional, IT support, and cybersecurity workflows. These examples assume OpenClaw is running with Telegram or Discord configured as a chat channel so you can interact from anywhere.
 
+## 🎯 Purpose
+Copy-paste-ready example prompts organized by workflow domain (personal, business, IT field work, blue/red/purple team, OSINT), assuming an already-running OpenClaw instance (see [README.md](README.md) for setup). Complements [agent_skill_config.md](agent_skill_config.md): this file shows *what to ask*, that file shows *how to configure the agent* that answers well.
+
+## ⚙️ Function
+Ten sections of example prompts organized by domain, plus a model-routing strategy table (which model for which task type) and a tips section on prompt specificity, role-priming, and keeping sensitive data local via `@ollama`.
+
+## 🏆 Goal
+Have ready-made, tested prompt patterns for common IT/security workflows so you're not starting from a blank chat box for routine tasks.
+
+## 📋 When to Use
+- Looking for a starting-point prompt for a specific workflow (IT field diagnostics, blue team log triage, OSINT recon, etc.)
+- Deciding which model to route a task to (Section: Model Routing Strategy)
+- Handling sensitive client data and needing the local-only `@ollama` pattern
+
 ---
 
 ## Table of Contents

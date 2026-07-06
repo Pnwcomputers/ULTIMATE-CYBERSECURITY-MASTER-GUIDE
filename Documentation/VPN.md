@@ -202,7 +202,7 @@ resolvectl status wg0
 
 | Provider         | Address                        | Protocol          |
 | ---------------- | ------------------------------ | ----------------- |
-| Mullvad          | `194.242.2.2`                  | DoH, DoT          |
+| Mullvad          | `dns.mullvad.net` (`194.242.2.2`) | DoH, DoT      |
 | Cloudflare       | `1.1.1.1` / `1.0.0.1`         | DoH, DoT          |
 | NextDNS          | Custom per account             | DoH, DoT, DoQ     |
 | Quad9            | `9.9.9.9`                      | DoH, DoT (blocks malware)|
@@ -526,9 +526,9 @@ curl https://api.ipify.org
 # 3. Confirm Mullvad exit IP matches expected server
 curl https://am.i.mullvad.net/json | python3 -m json.tool
 
-# 4. Check DNS is routing through tunnel
+# 4. Check DNS is routing through tunnel (dns.mullvad.net is Mullvad's public DoH endpoint)
 curl -H "accept: application/dns-json" \
-  "https://mullvad-dns.com/dns-query?name=whoami.akamai.net&type=A"
+  "https://dns.mullvad.net/dns-query?name=whoami.akamai.net&type=A"
 ~~~
 
 ### 11.2 Leak Test Sites

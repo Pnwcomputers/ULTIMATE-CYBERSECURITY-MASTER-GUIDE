@@ -122,10 +122,9 @@ sudo chown splunk:splunk /opt/splunk
 2. Select **Linux** → **.deb** (for Ubuntu) or **.rpm** (for RHEL)
 3. Download the package
 
-Or via wget (replace with current version):
+Or via wget — **do not hardcode a version number**. Splunk removes old release binaries from its CDN once superseded, so a pinned URL like `.../releases/9.2.0/...` 404s within a release cycle or two (confirmed: this exact URL is dead). Get the current link from [splunk.com/download/splunk-enterprise.html](https://www.splunk.com/en_us/download/splunk-enterprise.html) (right-click the download button to copy it), then:
 
 ```bash
-# Download Splunk (check website for latest URL)
 cd /tmp
 wget -O splunk-9.2.0-linux-2.6-amd64.deb "https://www.splunk.com/en_us/download/splunk-enterprise.html"
 ```
@@ -356,7 +355,7 @@ The Splunk Universal Forwarder (UF) is a lightweight agent that ships logs to Sp
 
 Download from [splunk.com/download/universal-forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html)
 
-Or via PowerShell:
+Or via PowerShell — again, get the current URL from the download page rather than hardcoding a version (this exact 9.2.0 URL is already dead):
 
 ```powershell
 # Download (check website for current version)
@@ -470,6 +469,8 @@ Get-Service SplunkForwarder
 ## 🐧 Part 7: Linux Universal Forwarder Deployment
 
 ### Step 7.1: Download and Install
+
+Get the current package URL from [splunk.com/download/universal-forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html) — the 9.2.0 URLs previously here are dead (Splunk purges old release binaries).
 
 **Debian/Ubuntu:**
 

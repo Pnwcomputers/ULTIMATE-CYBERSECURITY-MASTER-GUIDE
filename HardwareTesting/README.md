@@ -32,11 +32,27 @@ Provide a complete reference for hardware qualification testing on Linux, enabli
 
 ## Overview
 
-This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, and reliability testing on dedicated PC test benches. This can be a critically needed process for verifying functionality and performance of used or repurposed hardware; for General Operations, Password Hashing, Local AI, etc.
+This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, stress testing, and reliability validation on dedicated PC test benches.
 
-Each platform combination, such as Manjaro + Intel or Debian + AMD, gets its own reference document for package management, driver setup, kernel notes, and hardware-specific tooling.
+While hardware testing is often treated as a general repair or homelab task, it directly applies to cybersecurity work in several important ways. Security labs, forensic workstations, password-cracking rigs, virtualization hosts, local AI systems, network monitoring boxes, and incident-response machines all depend on stable, trusted, and properly matched hardware. A system that is unstable, overheating, misconfigured, underpowered, or using unreliable used parts can create false positives, failed workloads, corrupted data, inaccurate benchmarks, or wasted investigation time.
 
-The Python scripts in [`py/`](./py/) are Linux-focused and are designed to be portable where possible. The orchestration logic is shared across systems, but the install commands, driver packages, GPU tooling, and kernel behavior are platform-specific. The cheat sheets document those platform-specific differences.
+This process is especially useful for verifying functionality and performance of used, refurbished, repurposed, or donated hardware before trusting it in a work environment, home lab, cybersecurity lab, or production-adjacent role. It helps answer questions such as:
+
+* Is this CPU, RAM, GPU, SSD, NIC, or motherboard actually stable under load?
+* Is the hardware performing as expected for its generation and specifications?
+* Are there signs of overheating, throttling, failing storage, memory instability, PCIe issues, driver problems, or firmware-related problems?
+* Is this machine appropriate for general operations, virtualization, password hashing, packet capture, local AI, malware analysis, security monitoring, or backup/recovery tasks?
+* Is the hardware worth using, reselling, repairing, upgrading, or retiring?
+
+For cybersecurity specifically, choosing the right hardware for the task matters. A password-cracking system may prioritize GPU performance and cooling. A Security Onion, Zeek, Suricata, or packet-capture box may depend heavily on NIC compatibility, storage throughput, and sustained uptime. A virtualization or malware-analysis host needs stable RAM, CPU virtualization support, disk I/O, and safe isolation. A local AI or log-analysis workstation may need GPU VRAM, system memory, and fast NVMe storage. A forensic workstation needs reliability, data integrity, and predictable behavior more than raw benchmark numbers.
+
+These tests also help establish a baseline of trust before hardware is used for sensitive work. Used systems can have failing drives, unstable memory, outdated firmware, unsupported chipsets, poor thermal performance, or unknown configuration problems. Testing does not magically make hardware “secure,” but it does reduce uncertainty and helps confirm that the equipment is reliable enough for the role it is being assigned.
+
+Each platform combination, such as Manjaro + Intel or Debian + AMD, gets its own reference document for package management, driver setup, kernel notes, firmware considerations, GPU tooling, sensor support, stress-testing tools, and hardware-specific behavior.
+
+The Python scripts in `py/` are Linux-focused and designed to be portable where possible. The orchestration logic is shared across systems, but install commands, driver packages, kernel behavior, GPU tooling, sensor detection, and package availability can vary by distribution and hardware platform. The cheat sheets document those platform-specific differences so the same general testing workflow can be adapted across multiple Linux environments.
+
+The overall goal of this section is to make hardware validation repeatable, practical, and useful for real-world repair work, homelab builds, cybersecurity labs, infrastructure planning, and choosing the best hardware for a specific technical role.
 
 ---
 

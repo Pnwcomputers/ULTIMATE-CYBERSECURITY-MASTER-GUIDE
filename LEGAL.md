@@ -94,6 +94,18 @@ IF YOU DO NOT AGREE TO THESE TERMS, EXIT THIS REPOSITORY IMMEDIATELY.
 
 ---
 
+## 🎯 Purpose
+The single legally-binding terms-of-use document for the entire repository — every other file's "abide by LEGAL.md" pointer resolves here. No other file in the repo covers applicable statutes (CFAA, Wiretap Act, state/international law), authorization requirements, or liability terms.
+
+## ⚙️ Function
+A 20-section legal document covering: document purpose, repository content scope, applicable laws, authorization requirements, content-specific warnings, criminal/civil penalties, international considerations, professional standards, authorized/prohibited use cases, safe usage guidelines, risk assessment, incident response obligations, warranty disclaimers, liability limitations, indemnification, and governing law. Unlike every other file in this repo, it is legal boilerplate rather than technical content, and is not meant to be technically verified the way tool commands or URLs are — it's included in this pass for structural consistency only.
+
+## 🏆 Goal
+Anyone using this repository understands, before touching any tool or technique documented here, exactly what authorization they need and what liability they assume.
+
+## 📋 When to Use
+Before using any offensive content from this repository for the first time, or when unsure whether a specific activity falls within authorized use.
+
 ## 📄 Purpose of This Document
 
 This Legal Disclaimer establishes the **legally binding terms and conditions** for accessing, using, or distributing any content from the ULTIMATE CYBERSECURITY MASTER GUIDE repository.

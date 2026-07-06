@@ -88,6 +88,11 @@ This documentation serves as a reference material for security implementations, 
 | `virtualmachines.md` | Virtual machine setup and management guide | Guide |
 | `blackarch.md` | General "Blackarch 101" guide | Guide |
 
+### Physical Security
+| File | Description | Size/Type |
+| :--- | :--- | :--- |
+| `Locksport.md` | Lock picking fundamentals, impressioning, safe manipulation, and competitive locksport | Guide |
+
 ### Security Assessment Resources
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
@@ -118,6 +123,9 @@ This documentation serves as a reference material for security implementations, 
 * **Linux Fundamentals:** User permissions, process control, network config, hardware hacking toolkit, WSL2, and OSINT tools.
 * **Virtualization:** Hypervisor setup and snapshot management for safe testing.
 * **BlackArch:** Arch-based penetration testing distribution setup and tooling.
+
+### 5. Physical Security
+* **Locksport:** Lock mechanics, picking/impressioning technique, safe manipulation, and competitive locksport.
 
 ---
 

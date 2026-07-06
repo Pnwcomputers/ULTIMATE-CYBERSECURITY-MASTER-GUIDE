@@ -58,6 +58,20 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 
 ---
 
+## 🎯 Purpose
+Step-by-step build instructions for the CM5 variant of the uConsole + AIO v2 platform specifically — GPIO pin behavior, `config.txt` overlays, and known failure modes here are CM5-specific (e.g., `/dev/ttyAMA0` instead of `/dev/ttyS0`, `dtparam=uart0` instead of `enable_uart=1`, native PCIe NVMe support) and will not match the CM4. Use this file (not [CM4-SETUP.md](./CM4-SETUP.md)) when your board is a Raspberry Pi Compute Module 5.
+
+## ⚙️ Function
+Organized as the same 14 sequential numbered steps as [CM4-SETUP.md](./CM4-SETUP.md) (flash OS → pre-flight hardening → system update → Kali tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables and a Troubleshooting section. Differs from CM4-SETUP.md in GPIO/UART/RTC device-tree overlays, GPS serial port path, SDR default boot state (HIGH on CM5 vs OFF on CM4), and native PCIe NVMe support; differs from [README.md](./README.md), which is the folder-level index rather than a build walkthrough. Every step is also implemented as an idempotent shell script in [`scripts/uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh) (see [scripts/README.md](./scripts/README.md)).
+
+## 🏆 Goal
+A working CM5-based uConsole with the AIO v2 board fully configured — RTL-SDR, LoRa/Meshtastic, GPS, and RTC all functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed — without the CM5-specific pitfalls (SD boot failures on old EEPROM, UART/RTC overlay mismatches) this guide's troubleshooting section already documents.
+
+## 📋 When to Use
+When building or repairing a CM5-based uConsole from scratch, or when a specific step (e.g., Meshtastic not starting, GPS not getting a fix, CM5 lite SD card not booting) needs a manual fix outside of running the automation script.
+
+---
+
 ## Hardware Overview
 
 This guide assumes the following hardware stack:

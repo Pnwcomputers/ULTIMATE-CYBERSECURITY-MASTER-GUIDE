@@ -2,13 +2,19 @@
 
 A comprehensive, menu-driven OSINT investigation toolkit designed for investigating scams, fraud, and cybercrime. Built for use on Tsurugi Linux and other OSINT-focused distributions.
 
-## 🆕 New Features (v2.1)
-
-- **🌐 Web Interface** - Browser-based UI using Flask (`python3 web_interface.py`)
-- **📝 Abuse Report Generator** - Draft emails for registrars, hosts, ISPs, social media, IC3
-- **🔗 Toolkit Integration** - Connect with existing scripts (scammer_audit.sh, email_audit.sh, phone_audit.sh)
-
 ## 🎯 Purpose
+Menu-driven bash toolkit (`osint_investigator.sh`) for scam/fraud investigations — case management, evidence chain-of-custody, and abuse-report drafting in one script. Distinct from [investigation_guide.md](investigation_guide.md) (the manual, tool-by-tool methodology in this same folder): this file documents the automated script that wraps many of those same tools into a single guided workflow.
+
+## ⚙️ Function
+Six investigation modules (email, phone, domain, IP, username, crypto) that shell out to existing CLI tools (Holehe, h8mail, PhoneInfoga, Subfinder, Maigret, Sherlock, etc.), plus case management, automatic evidence hashing/logging, and abuse-report templating — all driven from a single interactive menu script.
+
+## 🏆 Goal
+Run a full scam/fraud investigation — email through crypto wallet — from one script, ending with a hash-verified evidence trail and ready-to-send abuse reports for registrars, hosts, and IC3.
+
+## 📋 When to Use
+- Investigating a scam or fraud case where a client needs documented evidence
+- Needing a chain-of-custody evidence log for a report a client or law enforcement will rely on
+- Preparing abuse reports for domain registrars, hosting providers, or IC3
 
 This toolkit is designed for:
 - **Scam/Fraud Investigation** - Gather evidence on scammers targeting your clients
@@ -87,12 +93,10 @@ nano ~/.config/osint-investigator/api_keys.conf
 ```
 OSINT/Playbook/
 ├── osint_investigator.sh      # Main playbook script
-├── install_dependencies.sh     # Dependency installer
-├── README.md                   # This file
-├── LICENSE                     # License file
-├── .gitignore                  # Git ignore rules
-└── docs/
-    ├── API_SETUP.md            # API configuration guide
+├── install_dependencies.sh    # Dependency installer
+├── api_keys.conf              # API key template
+├── investigation_guide.md     # Manual, tool-by-tool methodology
+└── README.md                  # This file
 ```
 
 ### Case Directory Structure
@@ -357,128 +361,29 @@ MIT License - See LICENSE file for details.
 - [sundowndev](https://github.com/sundowndev) - PhoneInfoga
 - [nitefood](https://github.com/nitefood) - ASN tool
 
-## 🌐 Web Interface
+## 🔭 Planned / Not Yet Included in This Repo
 
-Launch the browser-based interface:
+The following are referenced as intended features but **do not currently exist as files in `OSINT/Playbook/`** (verified against git history — they've never been committed here). Documenting the intended design in case they're picked back up, but don't expect these commands to work yet:
 
-```bash
-# From command line
-python3 web_interface.py
+- **Web Interface** (`web_interface.py`) — planned Flask-based browser UI as an alternative to the CLI menu, with case dashboard, quick investigation tools, and mobile-responsive design.
+- **Abuse Report Generator** (`abuse_report_generator.sh`) — planned standalone script to draft abuse reports (registrar, host, ISP, social media, IC3 worksheet) with auto-detected abuse contacts via WHOIS/ASN.
+- **Toolkit Integration** (`toolkit_integration.sh`) — planned bridge to external scripts (`scammer_audit.sh`, `email_audit.sh`, `phone_audit.sh`, `victim_osint_toolkit.sh`) that aren't part of this repo.
 
-# Or from the main menu
-./osint_investigator.sh
-# Select [W] Launch Web Interface
-```
-
-Then open http://localhost:5000 in your browser.
-
-**Features:**
-- Dashboard with case statistics
-- Create and manage cases
-- Quick investigation tools
-- Abuse report generation
-- API key configuration
-- Mobile-responsive design
-
-**Requirements:**
-- Python 3.8+
-- Flask (auto-installed if missing)
-
-## 📝 Abuse Report Generator
-
-Generate professional abuse reports ready to submit:
-
-```bash
-# Interactive mode
-./abuse_report_generator.sh
-
-# Generate all reports for a case
-./abuse_report_generator.sh /path/to/case
-
-# Configure reporter information
-./abuse_report_generator.sh --config
-```
-
-**Report Types:**
-| Type | Description | Recipients |
-|------|-------------|------------|
-| Domain Registrar | Malicious domain reports | GoDaddy, Namecheap, etc. |
-| Hosting Provider | Phishing/scam hosting | AWS, DigitalOcean, etc. |
-| Email Provider | Scam email accounts | Gmail, Outlook, ProtonMail |
-| ISP | Network abuse | Comcast, AT&T, etc. |
-| Social Media | Fake profiles | Facebook, Instagram, Twitter |
-| IC3 Worksheet | FBI complaint prep | ic3.gov |
-
-**Auto-Detection:**
-- Finds abuse contacts via WHOIS
-- Identifies registrars from domain lookup
-- Maps IPs to hosting providers via ASN
-
-## 🔗 Toolkit Integration
-
-Connect with your existing OSINT scripts:
-
-```bash
-# Auto-detect existing scripts
-./toolkit_integration.sh --detect
-
-# Configure paths manually
-./toolkit_integration.sh --config
-
-# Show integration status
-./toolkit_integration.sh --status
-```
-
-**Supported Scripts:**
-- `scammer_audit.sh` - Domain/IP investigation
-- `email_audit.sh` - Email address analysis
-- `phone_audit.sh` - Phone number lookup
-- `theHarvester` - Email/subdomain harvesting
-- `victim_osint_toolkit.sh` - Forensics tools
-
-**Integration from Main Menu:**
-1. Run `./osint_investigator.sh`
-2. Select `[6] Integrated Tools`
-3. Run individual tools or all at once
+Today, abuse-report drafting and evidence handling happen through `osint_investigator.sh`'s own menu (see Usage Guide above) and the workflow documented in [investigation_guide.md](investigation_guide.md).
 
 ## 📁 Complete File List
 
 ```
 OSINT/Playbook/
 ├── osint_investigator.sh       # Main playbook (CLI menu)
-├── web_interface.py            # Flask web UI
-├── abuse_report_generator.sh   # Abuse report drafts
-├── toolkit_integration.sh      # Connect existing scripts
 ├── install_dependencies.sh     # Dependency installer
-├── example_api_keys.conf       # API key template
+├── api_keys.conf               # API key template
+├── investigation_guide.md      # Manual, tool-by-tool methodology
+└── README.md                   # This file
 ```
 
-## 🚀 Quick Start
-
-```bash
-# 1. Clone/extract the toolkit
-git clone https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE.git
-cd ULTIMATE-CYBERSECURITY-MASTER-GUIDE/OSINT/Playbook
-
-# 2. Install dependencies
-sudo ./install_dependencies.sh --full
-
-# 3. Configure APIs
-cp example_api_keys.conf ~/.config/osint-investigator/api_keys.conf
-nano ~/.config/osint-investigator/api_keys.conf
-
-# 4. Run CLI interface
-./osint_investigator.sh
-
-# OR run web interface
-python3 web_interface.py
-```
-
-## 🎯 Complete Investigation Workflow
-
-1. **Create Case** → Assign case ID, enter targets
-2. **Run Investigations** → Email, Phone, Domain, IP, Username modules
-3. **Integrate Tools** → Run scammer_audit, theHarvester, etc.
-4. **Generate Reports** → Final report, abuse reports, IC3 worksheet
-5. **Archive Evidence** → Screenshots, hashes, Wayback Machine
-6. **Submit Reports** → Use generated drafts to contact providers
+## Related Files
+- [investigation_guide.md](investigation_guide.md) — Manual, tool-by-tool version of the same investigation workflow this script automates
+- [../OSINT_GUIDE.md](../OSINT_GUIDE.md) — Broader OSINT methodology this playbook implements a slice of
+- [../OSINT_TOOLS_CATALOG.md](../OSINT_TOOLS_CATALOG.md) — Full catalog of the individual tools (Holehe, Maigret, Sherlock, etc.) this script wraps
+- [../scripts/Domain_IP_Recon.md](../scripts/Domain_IP_Recon.md) — Manual domain/IP recon workflow this script's `investigate_domain` function automates a slice of

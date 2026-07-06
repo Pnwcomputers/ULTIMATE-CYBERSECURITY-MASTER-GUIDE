@@ -40,7 +40,7 @@ The framework leverages several high-authority databases. Ensure your API keys a
 * [**VirusTotal**](https://www.virustotal.com/): Malware and URL Intelligence
 * [**Censys**](https://censys.com/): Host & Certificate Intelligence
 * [**SecurityTrails**](https://securitytrails.com/): DNS & Domain History
-* [**ZoomEye**](https://www.zoomeye.org/): Cyberspace Search Engine
+* [**ZoomEye**](https://www.zoomeye.ai/): Cyberspace Search Engine (the legacy `zoomeye.org` domain is currently returning a server error; `zoomeye.ai` is the actively promoted current domain)
 * [**Criminal IP**](https://www.criminalip.io/): CTI & IP Scoring
 
 ## 2. SCANNING & ASSET DISCOVERY

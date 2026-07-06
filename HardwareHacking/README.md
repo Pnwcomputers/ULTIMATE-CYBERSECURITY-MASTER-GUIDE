@@ -125,7 +125,7 @@ Introduce controlled transient errors to bypass security checks, skip instructio
 | **[Clock Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | High | Medium | $$ |
 | **[EMFI](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | [ChipSHOUTER](https://www.newae.com/chipshouter) or custom coil + pulser | Medium-High | Medium | $–$$ |
 | **[Laser FI](https://www.keysight.com/us/en/cmp/device-security.html)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
-| **[Body Biasing](https://www.usenix.org/conference/usenixsecurity21/presentation/hofmann)** | Probe + pulse generator | Medium | Medium | $$ |
+| **[Body Biasing](https://link.springer.com/chapter/10.1007/978-3-030-68487-7_11)** | Probe + pulse generator | Medium | Medium | $$ |
 
 ### Side-Channel Analysis (Passive)
 
@@ -153,8 +153,6 @@ Extract secrets by observing physical emissions during normal operation.
 ---
 
 ## 🔬 Bench Equipment Reference
-
-### Essential Equipment
 
 ### Essential Equipment
 

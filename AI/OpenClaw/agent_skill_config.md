@@ -17,6 +17,20 @@ Skip the trial-and-error of building OpenClaw skills from scratch - use proven c
 
 Pre-built agent configurations and skill setups for IT support, cybersecurity, homelab management, and business operations. Each configuration includes the OpenClaw JSON config block, setup instructions, and example prompts to test it.
 
+## 🎯 Purpose
+Ready-to-apply JSON configuration blocks for 6 role-specific OpenClaw agent personas (field tech, blue team, red team, OSINT, business ops, homelab) plus 5 automation skills and cron jobs. Complements [use_cases.md](use_cases.md) (example prompts assuming an agent already exists) and [README.md](README.md) (base install, before any of this applies).
+
+## ⚙️ Function
+Six full agent configs (each with persona instructions, model routing, and tool profile), five skill configs with scheduling (daily security digest, incident responder, report generator, ticket triage, homelab health check), cron job and hook definitions, model-alias routing rules, and a multi-agent workflow example chaining four agents through a full pentest engagement.
+
+## 🏆 Goal
+Apply a specific agent persona or automation skill to an existing OpenClaw instance via the provided Python config-edit snippets, without hand-writing the JSON schema from scratch.
+
+## 📋 When to Use
+- Setting up a role-specific agent (blue team analyst, pentester, OSINT researcher, etc.) for the first time
+- Adding a scheduled automation (daily security digest, homelab health check) via cron
+- Chaining multiple agents together for a multi-phase engagement (see Multi-Agent Workflow Example)
+
 ---
 
 ## Table of Contents

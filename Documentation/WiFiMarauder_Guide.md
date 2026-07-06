@@ -36,6 +36,13 @@ Choose the right Marauder hardware variant, get it flashed and configured, and u
 - First-time firmware flash/setup on new hardware
 - Building the defensive/detection section of a wireless assessment deliverable
 
+## Professional Wireless Security Testing with ESP32 Hardware
+
+> **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
+> **Last Updated:** November 2025  
+> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
+> **Skill Level:** Intermediate to Advanced wireless security
+
 ---
 
 ## Table of Contents

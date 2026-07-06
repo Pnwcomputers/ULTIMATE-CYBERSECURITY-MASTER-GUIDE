@@ -30,6 +30,20 @@ Automate repetitive security research tasks through configured AgentFlows rather
 
 ---
 
+## 🎯 Purpose
+Index and full technical documentation for 9 custom AnythingLLM AgentFlows covering OSINT/recon, scanning analysis, and vulnerability reporting. Complements [anything_llm_agentflows.md](anything_llm_agentflows.md), which shows how to chain these flows together into multi-step workflows rather than documenting each flow's internal block configuration.
+
+## ⚙️ Function
+A categorized flow catalog (OSINT/Recon, Scanning/Analysis, Vulnerability Management) with quick-reference tables by use case, complexity, and required API keys, followed by each flow's dedicated `flow-*.md` file containing exact block-by-block configuration for recreating it in AnythingLLM.
+
+## 🏆 Goal
+Recreate any of the 9 documented AgentFlows in your own AnythingLLM instance from the block-level configuration, and know which flow to use for a given engagement phase (pre-engagement, active testing, reporting).
+
+## 📋 When to Use
+- Setting up AnythingLLM AgentFlows for the first time (start here, then open the specific `flow-*.md`)
+- Deciding which flow fits a given engagement phase (see "By Use Case" table)
+- Troubleshooting a flow that isn't producing expected output (see "Common Issues & Solutions")
+
 ## Overview
 
 This directory contains complete technical documentation for creating custom AgentFlows used in cybersecurity assessments and penetration testing. Each flow is documented with full configuration details, block specifications, and usage instructions.

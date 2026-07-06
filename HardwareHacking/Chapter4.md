@@ -118,7 +118,7 @@ Power consumption of a digital circuit correlates with the data it processes:
 - **Hamming distance model:** Power ∝ number of bits that change between consecutive operations
 
 <p align="center">
-  <img src="/assets/SPAonRSA.jpg" alt="Figure 10: Annotated SPA Trace of RSA. Visualizing modular Square versus Multiply operations during modular exponentiation." width="600"/>
+  <img src="../assets/SPAonRSA.jpg" alt="Figure 10: Annotated SPA Trace of RSA. Visualizing modular Square versus Multiply operations during modular exponentiation." width="600"/>
 </p>
 
 #### SPA on RSA

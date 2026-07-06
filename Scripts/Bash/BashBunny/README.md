@@ -573,6 +573,13 @@ See individual payload files in this repository for:
 
 ---
 
+## Related Files
+- [../../README.md](../../README.md) — Scripts/ section index
+- [../../Ducky/README.md](../../Ducky/README.md) — Rubber Ducky: HID-keystroke-injection only, no storage/network emulation, needs a separate compile step
+- [../bash_scripting_cheat-sheet.md](../bash_scripting_cheat-sheet.md) — General Bash syntax reference that applies directly to writing Bash Bunny payloads
+
+---
+
 **Pacific NW Computers**  
 Email: jon@pnwcomputers.com  
 Phone: 360-624-7379

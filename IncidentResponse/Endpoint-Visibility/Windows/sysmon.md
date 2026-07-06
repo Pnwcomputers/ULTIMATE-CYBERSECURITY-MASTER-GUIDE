@@ -140,13 +140,14 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/olafhartong/sysmon-mod
 
 **Best for:** Advanced users, threat hunters, red team detection
 
-### Option 3: Microsoft's Default Config
+### Option 3: Microsoft MSTIC-Sysmon (Reference)
 
-Microsoft provides a basic configuration for reference:
+Microsoft's Threat Intelligence Center publishes Sysmon **schemas and reference
+material** (ATT&CK-aligned). Note: this repo no longer ships a single ready-to-use
+`sysmonconfig.xml` — use Option 1 or 2 for a deployable config and consult
+MSTIC-Sysmon for schema reference:
 
-```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/MSTIC-Sysmon/main/sysmonconfig.xml" -OutFile "C:\Tools\Sysmon\sysmonconfig.xml"
-```
+- Repository: <https://github.com/microsoft/MSTIC-Sysmon>
 
 ### Option 4: Custom Configuration
 
