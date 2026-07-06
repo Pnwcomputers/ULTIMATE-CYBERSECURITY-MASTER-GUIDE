@@ -1,5 +1,19 @@
 # 📄 PDF Reference Library
 
+## 🎯 Purpose
+Index of the PDF reference library - curated security PDFs, cheat sheets, and reference guides organized by topic for offline access during engagements, training, and research.
+
+## ⚙️ Function
+Indexes categorized PDFs covering: penetration testing methodology, CTF reference sheets, network protocols, exploit development, malware analysis, compliance frameworks (NIST, PCI-DSS, ISO 27001), tool manuals, and course materials - maintained as locally accessible offline references.
+
+## 🏆 Goal
+Provide reliable offline access to critical security reference materials that would otherwise require internet connectivity, ensuring availability during air-gapped engagements or unreliable network conditions.
+
+## 📋 When to Use
+- Preparing for an engagement and downloading relevant offline references
+- Finding a specific technical PDF (protocol specs, exploit technique papers, tool manuals)
+- Building an offline security library for training or certification preparation
+
 <div align="center">
 
 **Comprehensive collection of cybersecurity reference materials, cheat sheets, and technical guides**
@@ -940,3 +954,8 @@ We welcome high-quality PDF contributions from security professionals.
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+## Related Files
+- [../README.md](../README.md) - Main repo index
+- [../ENHANCED_MASTER_GUIDE.md](../ENHANCED_MASTER_GUIDE.md) - Enhanced master guide with deep-dive references
+- [../START_HERE.md](../START_HERE.md) - Starting point for the entire guide

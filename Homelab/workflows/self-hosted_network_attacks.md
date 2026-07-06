@@ -1,5 +1,20 @@
 # Comprehensive Wireless Lab Security Assessment: Master Playbook
 
+## 🎯 Purpose
+Master playbook for authorized self-hosted wireless lab security assessments - combining device operational guides, red team attack procedures, and blue team defensive assessment workflows in a single reference.
+
+## ⚙️ Function
+Documents the full wireless lab assessment workflow: lab setup (Kali Pi, Pineapple, Bjorn, Evil Twin AP), red team procedures (WPA2 handshake capture, PMKID attack, deauth, rogue AP), blue team monitoring (Wireshark, airmon-ng, log analysis), and de-confliction between simultaneous red/blue operations.
+
+## 🏆 Goal
+Enable practitioners to run a complete authorized wireless security assessment in a self-hosted lab environment, executing both offensive techniques and blue team detection simultaneously to understand attacker/defender perspectives.
+
+## 📋 When to Use
+- Running an authorized wireless security assessment in a controlled lab
+- Testing WPA2/WPA3 attack detection in a self-hosted environment
+- Training red/blue team skills on wireless attack scenarios without external impact
+- Documenting wireless security posture for a lab environment
+
 This document combines a **Device Operational Guide**, **Red Team (Offensive) Plan**, and **Blue Team (Defensive) Assessment** for an authorized, self-hosted wireless lab.
 
 ---
@@ -470,3 +485,9 @@ Describe what an attacker could do.
 ### 3. De-Confliction (Bjorn vs. Pineapple)
 * **Problem:** Bjorn may attack the Pineapple's Rogue AP if not scoped correctly, confusing your own logs.
 * **Fix:** Add the Pineapple's MAC address and "Evil Twin" SSIDs to Bjorn's `whitelist.txt` (or equivalent config) so your tools don't fight each other.
+
+## Related Files
+- [../../Homelab/HomeLab_Setup.md](../../Homelab/HomeLab_Setup.md) - Homelab infrastructure this workflow runs on
+- [../../Documentation/Aircrack-ng_Commands.md](../../Documentation/Aircrack-ng_Commands.md) - Aircrack-ng command reference
+- [../../Documentation/wireshark.md](../../Documentation/wireshark.md) - Wireshark for blue team monitoring
+- [../../IncidentResponse/network_intrusion.md](../../IncidentResponse/network_intrusion.md) - Network intrusion detection procedures
