@@ -1,5 +1,18 @@
 # VulnReportGenerator AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for automated vulnerability report generation - takes structured findings input and produces a professional pentest report section with finding title, severity, description, proof of concept, business impact, and remediation recommendation.
+
+## ⚙️ Function
+Accepts finding details (service, vulnerability type, CVSS score, evidence), applies standard report templates, generates professional narrative descriptions, maps to CVSS/CWE/CVE references, and produces formatted markdown or Word-compatible output.
+
+## 🏆 Goal
+Accelerate pentest report writing by generating first-draft finding descriptions from structured input - reducing reporting time from hours to minutes per finding.
+
+## 📋 When to Use
+Writing a penetration test report; documenting findings after an assessment; creating standardized vulnerability descriptions for client deliverables.
+
+
 ## Flow Information
 
 **Name:** `VulnReportGenerator`
@@ -548,3 +561,9 @@ immediate remediation is strongly recommended within 24-48 hours.
 - **CVELookup** - Research CVE details for technical section
 - **ThreatIntelCheck** - Add threat context
 - **CompanyOSINT** - Understand client business context
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-nmap_analyzer.md](flow-nmap_analyzer.md) - Nmap findings that feed into this report generator
+- [flow-cve_lookup.md](flow-cve_lookup.md) - CVE data used in finding descriptions
+- [flow-threat_intel.md](flow-threat_intel.md) - Threat intel that enriches business impact sections

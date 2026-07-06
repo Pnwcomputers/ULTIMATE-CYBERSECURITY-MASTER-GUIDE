@@ -1,5 +1,18 @@
 # BreachChecker AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for automated breach and credential leak checking - queries HaveIBeenPwned and other breach databases for email addresses or domains identified during OSINT.
+
+## ⚙️ Function
+Accepts email addresses or domain names as input, queries breach intelligence APIs, and returns structured results showing breach databases, exposed credential types, and remediation priority.
+
+## 🏆 Goal
+Quickly identify whether target email addresses or domains appear in known breach databases during OSINT or engagement scoping.
+
+## 📋 When to Use
+During OSINT on a target organization; validating phishing simulation scope; checking employee email exposure before a social engineering engagement.
+
+
 ## Flow Information
 
 **Name:** `BreachChecker`
@@ -557,3 +570,9 @@ TIMELINE:
 - **GitHubSecrets** - Check for exposed credentials in code
 - **VulnReportGenerator** - Document breach findings
 - **ThreatIntelCheck** - Correlate with threat intelligence
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-email_osint.md](flow-email_osint.md) - Email OSINT that feeds addresses into this flow
+- [flow-company_osint.md](flow-company_osint.md) - Company OSINT that identifies emails for breach checking
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - Chained workflow examples

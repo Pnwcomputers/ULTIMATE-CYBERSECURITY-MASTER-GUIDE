@@ -1,5 +1,18 @@
 # DomainRecon AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for automated domain reconnaissance - performs passive DNS enumeration, WHOIS lookup, certificate transparency search, and web technology fingerprinting on a target domain.
+
+## ⚙️ Function
+Accepts a domain name, runs passive recon via public sources (crt.sh, WHOIS, Shodan, DNS records), and returns: subdomains, IP ranges, hosting providers, SSL certificate history, MX/SPF/DMARC configuration, and web tech stack.
+
+## 🏆 Goal
+Build a complete passive domain intelligence picture as the first step in an authorized engagement's reconnaissance phase.
+
+## 📋 When to Use
+Starting recon on an authorized target domain; identifying attack surface before active scanning; populating the target profile for scoping decisions.
+
+
 ## Flow Information
 
 **Name:** `DomainRecon`
@@ -354,3 +367,9 @@ Result Variable: whois_data
 - **ThreatIntelCheck** - IP reputation checking
 - **NmapAnalyzer** - Port scanning discovered assets
 - **GitHubSecrets** - Code repository investigation
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-company_osint.md](flow-company_osint.md) - Company-level context for discovered domains
+- [flow-email_osint.md](flow-email_osint.md) - Email OSINT on contacts from this domain
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - DomainRecon is the standard first step in the recon chain

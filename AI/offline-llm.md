@@ -1,5 +1,20 @@
 # Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
 
+## 🎯 Purpose
+Complete guide for building a fully air-gapped LLM system using Ollama (inference engine), Dolphin models (uncensored GGUF variants), and AnythingLLM (local UI/RAG layer) - for environments where cloud API calls are prohibited or undesirable.
+
+## ⚙️ Function
+Covers hardware requirements by model size, Ollama installation and model management, Dolphin model selection trade-offs (7B/47B MoE/2.7B), AnythingLLM local setup and RAG configuration, system service hardening for localhost-only binding, and OPSEC considerations for sensitive deployments.
+
+## 🏆 Goal
+A fully functional private LLM assistant running entirely on local hardware with zero external network calls - suitable for sensitive client engagements, air-gapped labs, or privacy-first personal AI workflows.
+
+## 📋 When to Use
+- Preparing for an engagement where cloud tools are prohibited
+- Building a privacy-sensitive AI workflow for sensitive research
+- Setting up offline inference for the homelab before internet connectivity is available
+- Deploying AnythingLLM in a corporate environment without external API exposure
+
 ## Introduction
 
 Running a Large Language Model (LLM) completely offline gives you privacy, control, and independence from cloud services. In this comprehensive guide, I'll walk you through setting up a fully functional offline AI assistant using three powerful tools:
@@ -910,3 +925,10 @@ A: While this guide focuses on inference, you can fine-tune models using tools l
 ---
 
 **Happy local AI adventures! 🚀**
+
+## Related Files
+- [README.md](README.md) - AI section index
+- [AnythingLLM/README.md](AnythingLLM/README.md) - AnythingLLM AgentFlows that run on top of this offline stack
+- [ai_prompts.md](ai_prompts.md) - Prompt patterns optimized for Dolphin/Ollama models
+- [OpenClaw/README.md](OpenClaw/README.md) - OpenClaw can also route to local Ollama as a provider
+- [../SPECIALIZED_TOPICS_GUIDE.md](../SPECIALIZED_TOPICS_GUIDE.md) - Broader context for self-hosted AI in security labs

@@ -1,5 +1,18 @@
 # CVELookup AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for CVE research and analysis - takes a CVE ID or affected software/version and returns structured vulnerability intelligence including CVSS score, affected versions, PoC availability, and patch status.
+
+## ⚙️ Function
+Queries NVD, CVE.org, and ExploitDB for CVE details; summarizes technical impact, exploitation complexity, and known public exploits; flags whether a patch exists and whether in-the-wild exploitation has been observed.
+
+## 🏆 Goal
+Rapidly contextualize a CVE during engagement scoping, vulnerability scanning triage, or threat intelligence research without manually navigating multiple databases.
+
+## 📋 When to Use
+Triaging scanner output during a vulnerability assessment; researching a CVE found in a target's environment; building remediation priority recommendations.
+
+
 ## Flow Information
 
 **Name:** `CVELookup`
@@ -559,3 +572,9 @@ Ubuntu: https://ubuntu.com/security/${cve_id}
 - **VulnReportGenerator** - Document CVE findings
 - **ThreatIntelCheck** - Correlate with threat intelligence
 - **BreachChecker** - Check if CVE led to breaches
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-nmap_analyzer.md](flow-nmap_analyzer.md) - Nmap findings that trigger CVE lookups
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - CVE data feeds into vulnerability reports
+- [flow-threat_intel.md](flow-threat_intel.md) - Threat intel on active CVE exploitation

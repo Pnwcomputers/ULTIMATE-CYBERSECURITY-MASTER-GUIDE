@@ -1,5 +1,20 @@
 # Offensive AI
 
+## 🎯 Purpose
+Adversarial ML and offensive AI guide - treating AI/ML systems as attack surfaces; covering prompt injection, jailbreaking, model extraction, data poisoning, evasion techniques, agentic system exploitation, and AI-augmented offensive tooling.
+
+## ⚙️ Function
+Full offensive AI taxonomy: direct/indirect prompt injection, LLM jailbreaking patterns, model extraction via API query analysis, adversarial examples for vision/text models, training data poisoning, RAG poisoning, multi-agent orchestrator attacks, and AI-enabled attack tooling for recon and payload research. Includes MITRE ATLAS mapping and detection guidance.
+
+## 🏆 Goal
+Enable authorized red teamers to assess AI/ML-integrated applications for security weaknesses; understand how LLM-backed products fail under adversarial input; develop detections for AI-augmented attacks.
+
+## 📋 When to Use
+- Red teaming an LLM-integrated product or chatbot for prompt injection and data leakage
+- Assessing an RAG pipeline for poisoning or extraction vulnerabilities
+- Researching AI-augmented offensive tradecraft for defensive understanding
+- CTF challenges at DEF CON AI Village or similar AI security competitions
+
 > **Scope:** Adversarial machine learning, AI red teaming, and offensive techniques against AI/ML systems; covering attack methodology, data poisoning, evasion, prompt injection, agentic system exploitation, model extraction, and privacy attacks. This section treats AI systems as attack surfaces subject to the same rigorous adversarial analysis applied to traditional software and networks.
 >
 > **Ethical context:** All techniques are presented for authorized red teaming, security research, and defensive understanding. Apply only against systems you own, have written authorization to test, or in approved research environments.
@@ -1483,3 +1498,10 @@ Commercial implementations: Garak (open-source LLM vulnerability scanner), Adver
 ---
 
 *Document maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. For corrections or contributions, submit a PR to the repository.*
+
+## Related Files
+- [README.md](README.md) - AI section index
+- [ai_prompts.md](ai_prompts.md) - Prompt engineering patterns (context for prompt injection research)
+- [AnythingLLM/README.md](AnythingLLM/README.md) - Self-hosted LLM target for authorized testing
+- [../Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md) - AI-assisted evasion techniques context
+- [../OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) - AI-augmented OSINT workflows

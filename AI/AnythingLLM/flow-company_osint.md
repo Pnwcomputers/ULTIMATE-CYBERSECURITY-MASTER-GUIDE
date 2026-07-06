@@ -1,5 +1,18 @@
 # CompanyOSINT AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for automated company-level OSINT - aggregates public information about a target organization including tech stack, employee data, infrastructure, and social presence.
+
+## ⚙️ Function
+Accepts a company name or domain, queries public OSINT sources, and returns structured intelligence: employee count/structure, technology stack (job postings, LinkedIn), public IP ranges, email formats, social media presence, and known subsidiaries.
+
+## 🏆 Goal
+Build a comprehensive target profile for a company during the reconnaissance phase of an authorized engagement, without active probing.
+
+## 📋 When to Use
+Early-stage reconnaissance on an authorized target organization; scoping an engagement; building the target profile before active testing begins.
+
+
 ## Flow Information
 
 **Name:** `CompanyOSINT`
@@ -287,3 +300,9 @@ The flow will return `osint_report` containing:
 - **EmailOSINT** - Email address investigation
 - **GitHubSecrets** - Repository credential scanning
 - **BreachChecker** - Breach data verification
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-domain_recon.md](flow-domain_recon.md) - Technical domain recon to pair with this company profile
+- [flow-email_osint.md](flow-email_osint.md) - Email investigation of contacts discovered here
+- [flow-breacher_check.md](flow-breacher_check.md) - Breach checking for emails found here

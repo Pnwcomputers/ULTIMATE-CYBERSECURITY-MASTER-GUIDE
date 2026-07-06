@@ -1,5 +1,18 @@
 # NmapAnalyzer AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for automated nmap output analysis - takes raw nmap XML or text output and returns structured findings: open ports, service versions, OS fingerprints, and prioritized attack surface with CVE suggestions.
+
+## ⚙️ Function
+Parses nmap output (XML preferred), identifies services and versions, cross-references against known CVEs, flags high-risk configurations (open RDP, unauthenticated services, outdated software), and produces a prioritized findings list.
+
+## 🏆 Goal
+Turn raw nmap scan output into an actionable prioritized attack surface assessment in seconds rather than manually reviewing port lists.
+
+## 📋 When to Use
+After running an nmap scan against an authorized target; triaging a large scan with many open ports; building the service inventory section of a pentest report.
+
+
 ## Flow Information
 
 **Name:** `NmapAnalyzer`
@@ -499,3 +512,9 @@ target_info: Internal network - identify all services across 192.168.1.0/24
 - **CVELookup** - Research identified CVEs
 - **VulnReportGenerator** - Document findings
 - **DomainRecon** - Pre-scan reconnaissance
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-cve_lookup.md](flow-cve_lookup.md) - CVE research on services identified by nmap
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Nmap findings feed directly into vuln reports
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - NmapAnalyzer in the assessment workflow chain

@@ -1,5 +1,20 @@
 # 🚀 Ultimate AI Prompt Engineering (2026 Edition)
 
+## 🎯 Purpose
+Master prompt engineering cheat sheet for security practitioners - covering structured prompting, chain-of-thought, role-based prompts, and Fabric-style patterns synthesized from Anthropic, Google, OpenAI, and community frameworks.
+
+## ⚙️ Function
+Organized prompt templates and patterns for security-relevant tasks: incident response triage, threat hunting, log analysis, pentest report writing, code review, OSINT queries, and CTF assistance. Covers prompt anatomy, few-shot examples, constraint specification, and output format control.
+
+## 🏆 Goal
+Improve LLM output quality and consistency for security workflows through systematic prompting patterns rather than ad-hoc queries - making AI tools genuinely useful on engagements.
+
+## 📋 When to Use
+- Writing prompts for Claude, Gemini, GPT-4, or local Ollama models
+- Building AnythingLLM AgentFlows or OpenClaw skill descriptions
+- Training team members on effective AI tool use for security tasks
+- Debugging poor LLM output by diagnosing prompt structure issues
+
 A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
 
 ---
@@ -165,3 +180,10 @@ Begin.
 ---
 
 *Created as a part of the ULTIMATE CYBERSECURITY MASTER GUIDE*
+
+## Related Files
+- [README.md](README.md) - AI section index
+- [offensive_ai.md](offensive_ai.md) - Adversarial prompting and jailbreaking context
+- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - 50+ ready-to-use OpenClaw prompt examples
+- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Skill descriptions that use these prompt patterns
+- [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting

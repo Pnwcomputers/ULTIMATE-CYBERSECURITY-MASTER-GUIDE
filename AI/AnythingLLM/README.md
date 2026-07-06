@@ -1,5 +1,20 @@
 # 🧠 AnythingLLM AgentFlow Documentation
 
+## 🎯 Purpose
+Index and guide for AnythingLLM AgentFlow configurations - custom automation flows for cybersecurity assessments, OSINT, breach checking, CVE research, nmap analysis, threat intelligence, and vulnerability report generation.
+
+## ⚙️ Function
+Documents all 8 AgentFlows (BreachChecker, CompanyOSINT, CVELookup, DomainRecon, EmailOSINT, NmapAnalyzer, ThreatIntelCheck, VulnReportGenerator), explains the AgentFlow architecture, and shows how to chain flows for complete security assessment workflows.
+
+## 🏆 Goal
+Automate repetitive security research tasks through configured AgentFlows rather than repeated manual LLM queries - saving time on engagements and standardizing output quality.
+
+## 📋 When to Use
+- Selecting which AgentFlow fits a given security task
+- Understanding how to chain flows for a complete recon-to-report pipeline
+- Setting up AnythingLLM automation for a penetration test engagement
+- Adding new custom flows to the collection
+
 <div align="center">
 
 **Custom AgentFlow configurations for cybersecurity assessments, penetration testing, and security automation**
@@ -326,3 +341,16 @@ When modifying flows:
 **Ethical Use:** Responsible disclosure of all findings
 
 ---
+
+## Related Files
+- [../README.md](../README.md) - AI section index
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - Chained workflow examples using these flows
+- [flow-breacher_check.md](flow-breacher_check.md) - Breach/credential leak checker flow
+- [flow-company_osint.md](flow-company_osint.md) - Company OSINT automation flow
+- [flow-cve_lookup.md](flow-cve_lookup.md) - CVE research and analysis flow
+- [flow-domain_recon.md](flow-domain_recon.md) - Domain reconnaissance flow
+- [flow-email_osint.md](flow-email_osint.md) - Email OSINT investigation flow
+- [flow-nmap_analyzer.md](flow-nmap_analyzer.md) - Nmap output analysis flow
+- [flow-threat_intel.md](flow-threat_intel.md) - Threat intelligence lookup flow
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Vulnerability report generation flow
+- [../offline-llm.md](../offline-llm.md) - Offline LLM backend that AnythingLLM can use

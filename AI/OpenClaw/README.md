@@ -1,5 +1,20 @@
 # 🦞 OpenClaw on TrueNAS SCALE - Complete Setup Guide
 
+## 🎯 Purpose
+Complete deployment guide for OpenClaw on TrueNAS SCALE - a self-hosted multi-provider AI agent framework that routes tasks between Anthropic Claude, Gemini, Groq, and local Ollama models based on cost and capability.
+
+## ⚙️ Function
+Covers: TrueNAS SCALE community app installation, ixVolume storage configuration, API key setup for all four LLM providers, NPMplus HTTPS reverse proxy configuration, Telegram/Discord/Slack device pairing, and troubleshooting common startup and connectivity issues.
+
+## 🏆 Goal
+Running OpenClaw 24/7 on homelab hardware as a persistent AI assistant accessible from Telegram or Discord, with automatic routing between free (Groq, Gemini) and paid (Anthropic) providers and full local fallback via Ollama.
+
+## 📋 When to Use
+- Setting up OpenClaw for the first time on TrueNAS SCALE
+- Reconfiguring LLM provider API keys or adding a new provider
+- Setting up HTTPS access via NPMplus for remote use
+- Troubleshooting agent connection, Docker container, or provider authentication issues
+
 <div align="center">
 
 **Self-hosted AI agent framework with multi-provider LLM routing, homelab integration, and cybersecurity workflows**
@@ -591,3 +606,10 @@ The **Adaptive** model mode in the dashboard automatically routes to a stronger 
 ---
 
 *Deployment environment: TrueNAS SCALE 25.04 · Dell R630 · OPNsense · NPMplus · Ollama · OpenClaw 2026.4.15*
+
+## Related Files
+- [../README.md](../README.md) - AI section index
+- [use_cases.md](use_cases.md) - 50+ ready-to-use OpenClaw prompts for security workflows
+- [agent_skill_config.md](agent_skill_config.md) - Pre-built agent personas and skill configs
+- [../offline-llm.md](../offline-llm.md) - Setting up the Ollama backend that OpenClaw routes to
+- [../../Homelab/HomeLab_Setup.md](../../Homelab/HomeLab_Setup.md) - TrueNAS SCALE homelab context where OpenClaw runs

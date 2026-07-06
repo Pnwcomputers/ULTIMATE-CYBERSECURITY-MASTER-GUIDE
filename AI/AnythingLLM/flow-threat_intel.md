@@ -1,5 +1,18 @@
 # ThreatIntelCheck AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for threat intelligence lookups - accepts an IP, domain, hash, or indicator of compromise (IoC) and queries public threat intel sources for malicious activity associations.
+
+## ⚙️ Function
+Queries VirusTotal, AbuseIPDB, Shodan, and threat intel feeds for the given IoC; returns: reputation scores, known malware associations, C2 infrastructure links, geographic context, and recent activity timeline.
+
+## 🏆 Goal
+Quickly determine whether an IoC is associated with known threat actors or malicious activity during incident response triage or threat hunting.
+
+## 📋 When to Use
+Triaging a suspicious IP or domain during incident response; enriching IoCs from a SIEM alert; building the threat context section of an IR report.
+
+
 ## Flow Information
 
 **Name:** `ThreatIntelCheck`
@@ -698,3 +711,9 @@ Headers: {"key": "YOUR_KEY"}
 - **DomainRecon** - Discover domains to verify
 - **VulnReportGenerator** - Document malicious indicators
 - **CompanyOSINT** - Correlate with target intelligence
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-cve_lookup.md](flow-cve_lookup.md) - CVE context for vulnerabilities exploited by known threat actors
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Threat intel enriches vulnerability reports
+- [../../IncidentResponse/README.md](../../IncidentResponse/README.md) - Incident response context for threat intel use

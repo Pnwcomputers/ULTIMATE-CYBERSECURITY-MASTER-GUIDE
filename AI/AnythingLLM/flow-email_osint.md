@@ -1,5 +1,18 @@
 # EmailOSINT AgentFlow
 
+## 🎯 Purpose
+AnythingLLM AgentFlow for email address OSINT - investigates a target email address across public data sources to identify associated accounts, social profiles, breach exposure, and likely identity.
+
+## ⚙️ Function
+Accepts an email address, queries public OSINT sources (breach databases, social media, public records, search engines), and returns: associated accounts/profiles, breach exposure, phone/name correlations, and confidence ratings.
+
+## 🏆 Goal
+Build a profile on a target email address for authorized social engineering research, insider threat investigation, or engagement scoping.
+
+## 📋 When to Use
+Investigating a phishing sender's email; profiling an email address during authorized engagement recon; correlating email addresses to real identities for red team targeting.
+
+
 ## Flow Information
 
 **Name:** `EmailOSINT`
@@ -472,3 +485,9 @@ Result Variable: dehashed_data
 - **BreachChecker** - Domain-wide breach checking
 - **GitHubSecrets** - Username code search
 - **VulnReportGenerator** - Document findings
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow index
+- [flow-breacher_check.md](flow-breacher_check.md) - Breach checking as a sub-step of email OSINT
+- [flow-company_osint.md](flow-company_osint.md) - Company context for corporate email addresses
+- [anything_llm_agentflows.md](anything_llm_agentflows.md) - Email OSINT in the standard recon chain

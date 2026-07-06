@@ -1,5 +1,18 @@
 # AnythingLLM AgentFlow Workflow Examples
 
+## 🎯 Purpose
+Practical workflow examples showing how to chain AnythingLLM AgentFlows for complete security assessment sequences - from initial recon through email OSINT, breach checking, threat intel, and final report generation.
+
+## ⚙️ Function
+Demonstrates multi-flow chains: DomainRecon -> EmailOSINT -> BreachChecker -> ThreatIntelCheck -> VulnReportGenerator. Includes example prompts, expected output structures, and guidance on passing data between flows.
+
+## 🏆 Goal
+Enable end-to-end automated security assessments using chained AgentFlows with minimal manual intervention between steps.
+
+## 📋 When to Use
+Planning an automated recon workflow; combining multiple flows for a comprehensive assessment; understanding how flows connect and hand off data to each other.
+
+
 ## Overview
 
 This document provides practical workflow examples using AnythingLLM custom AgentFlows for cybersecurity assessments and penetration testing. These workflows demonstrate how to chain together multiple flows to accomplish common security tasks efficiently.
@@ -236,3 +249,9 @@ Client presentation preparation
 **Last Updated:** November 2025  
 **Author:** Pacific Northwest Computers  
 **Purpose:** AnythingLLM AgentFlow workflow reference guide
+
+## Related Files
+- [README.md](README.md) - AnythingLLM AgentFlow documentation index
+- [flow-domain_recon.md](flow-domain_recon.md) - First flow in the standard recon chain
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Final output flow for report generation
+- [../ai_prompts.md](../ai_prompts.md) - Prompt patterns used within each flow
