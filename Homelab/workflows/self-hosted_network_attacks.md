@@ -18,7 +18,7 @@ Enable practitioners to run a complete authorized wireless security assessment i
 This document combines a **Device Operational Guide**, **Red Team (Offensive) Plan**, and **Blue Team (Defensive) Assessment** for an authorized, self-hosted wireless lab.
 
 ## 🎯 Purpose
-Homelab-specific operational playbook that ties together the individual hardware guides in [Documentation/](../../Documentation/) (Pwnagotchi, Bjorn, Evil-M5, Bruce, WiFi Marauder) into one coordinated red-team/blue-team exercise against your own lab network. This is the "how it all fits together" document — for command-level detail on any single device, see its dedicated file in Documentation/.
+Homelab-specific operational playbook that ties together the individual hardware guides in [Documentation/](../../Documentation/) (Pwnagotchi, Bjorn, Evil-M5, Bruce, WiFi Marauder) into one coordinated red-team/blue-team exercise against your own lab network. This is the "how it all fits together" document - for command-level detail on any single device, see its dedicated file in Documentation/.
 
 ## ⚙️ Function
 Three parts: a device inventory/operational quick-reference table for every tool in the kit (cross-referencing the per-device guides), a phased Red Team playbook (passive recon → active recon → exploitation → physical/persistence), and a parallel Blue Team playbook (ROE, baseline definition, controlled validation phases, reporting templates) that reframes the same devices as defensive-validation tools rather than attack tools.
@@ -29,7 +29,7 @@ Run a full-cycle offense/defense exercise against your own homelab wireless envi
 ## 📋 When to Use
 - Running a coordinated red/blue exercise across your full hardware kit rather than one device at a time
 - Onboarding a new piece of hardware into the lab and needing to know where it fits in the attack/defense phase model
-- Needing the Blue Team framing (Part 2) to validate defenses rather than just attack — useful when the goal is hardening, not just capture
+- Needing the Blue Team framing (Part 2) to validate defenses rather than just attack - useful when the goal is hardening, not just capture
 
 ---
 

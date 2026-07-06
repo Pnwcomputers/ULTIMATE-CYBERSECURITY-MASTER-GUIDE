@@ -23,10 +23,10 @@ Prevent hardware/firmware mismatch issues when setting up DIY security tools - p
 ---
 
 ## 🎯 Purpose
-The only file in the repo that answers "does firmware X run on hardware Y?" — a compatibility matrix for DIY wireless-pentest devices (ESP32 variants, LilyGO boards, M5Stack devices, Raspberry Pi models, Flipper Zero, nRF52840) against the firmware projects that target them (Marauder, Bruce, Nemo, Pwnagotchi, Bjorn, P4wnP1, Deauther, etc).
+The only file in the repo that answers "does firmware X run on hardware Y?" - a compatibility matrix for DIY wireless-pentest devices (ESP32 variants, LilyGO boards, M5Stack devices, Raspberry Pi models, Flipper Zero, nRF52840) against the firmware projects that target them (Marauder, Bruce, Nemo, Pwnagotchi, Bjorn, P4wnP1, Deauther, etc).
 
 ## ⚙️ Function
-A compatibility matrix table (firmware × hardware, ✅/⚠️/❌) followed by detailed per-chip hardware specs, per-firmware capability breakdowns, recommended-hardware-by-use-case, purchase links, and a firmware installation quick reference. Differs from [Documentation/](Documentation/) firmware-specific files (e.g., `WifiMarauder_Guide.md`, `bjorn_pi.md`), which document how to *use* one specific firmware — this file only answers what hardware it *runs on*.
+A compatibility matrix table (firmware × hardware, ✅/⚠️/❌) followed by detailed per-chip hardware specs, per-firmware capability breakdowns, recommended-hardware-by-use-case, purchase links, and a firmware installation quick reference. Differs from [Documentation/](Documentation/) firmware-specific files (e.g., `WifiMarauder_Guide.md`, `bjorn_pi.md`), which document how to *use* one specific firmware - this file only answers what hardware it *runs on*.
 
 ## 🏆 Goal
 Before buying hardware or flashing firmware, a reader can confirm compatibility in one lookup instead of trial-and-error or scattered forum research.

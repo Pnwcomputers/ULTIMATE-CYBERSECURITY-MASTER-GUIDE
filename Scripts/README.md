@@ -43,7 +43,7 @@ Provide ready-to-use security automation scripts and a single installer to set u
 ---
 
 ## 🎯 Purpose
-The folder-level index for every automation script in the repository (Bash, C, Go, PowerShell, Python, SQL, YAML) — the only file that explains directory layout and legal warnings once, instead of repeating them in every language subfolder's own README.
+The folder-level index for every automation script in the repository (Bash, C, Go, PowerShell, Python, SQL, YAML) - the only file that explains directory layout and legal warnings once, instead of repeating them in every language subfolder's own README.
 
 ## ⚙️ Function
 Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. Note: only these 4 `.md` files are checked out in this local clone (the executable script payloads in Bash/PowerShell/Python/C/SQL/GO are intentionally excluded from disk here per a local antivirus constraint, though they exist in the repository).

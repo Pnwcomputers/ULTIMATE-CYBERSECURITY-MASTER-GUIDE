@@ -17,7 +17,7 @@ Give investigators a precise procedural guide that walks through each investigat
 This guide provides step-by-step procedures for conducting thorough OSINT investigations on scam and fraud cases.
 
 ## 🎯 Purpose
-Step-by-step scam/fraud investigation procedures (email, phone, domain, IP, username, cryptocurrency) built around the `osint_investigator.sh` toolkit referenced throughout, ending in evidence preservation and abuse/IC3 reporting workflows. Distinct from [../OSINT_CHEATSHEET.md](../OSINT_CHEATSHEET.md) (generic command reference) and [../OSINT_GUIDE.md](../OSINT_GUIDE.md) (methodology/background) — this is specifically the scam-investigation playbook with a defined case workflow from intake to law enforcement referral.
+Step-by-step scam/fraud investigation procedures (email, phone, domain, IP, username, cryptocurrency) built around the `osint_investigator.sh` toolkit referenced throughout, ending in evidence preservation and abuse/IC3 reporting workflows. Distinct from [../OSINT_CHEATSHEET.md](../OSINT_CHEATSHEET.md) (generic command reference) and [../OSINT_GUIDE.md](../OSINT_GUIDE.md) (methodology/background) - this is specifically the scam-investigation playbook with a defined case workflow from intake to law enforcement referral.
 
 ## ⚙️ Function
 Ten sections following a single investigation from pre-investigation checklist through six identifier-specific procedures (email/phone/domain/IP/username/crypto), then evidence preservation, report generation, abuse reporting, and an IC3 submission checklist.
@@ -465,7 +465,7 @@ Check:
 
 **Ethereum:**
 ```bash
-# Etherscan API v1 was fully deprecated 2025-08-15 — v2 requires a chainid parameter (1 = Ethereum mainnet)
+# Etherscan API v1 was fully deprecated 2025-08-15 - v2 requires a chainid parameter (1 = Ethereum mainnet)
 curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
 ```
 

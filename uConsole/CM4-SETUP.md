@@ -59,13 +59,13 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 ---
 
 ## 🎯 Purpose
-Step-by-step build instructions for the CM4 variant of the uConsole + AIO v2 platform specifically — GPIO pin numbers, `config.txt` overlays, package names, and known failure modes here are CM4-specific and will not match the CM5. Use this file (not [CM5-SETUP.md](./CM5-SETUP.md)) when your board is a Raspberry Pi Compute Module 4.
+Step-by-step build instructions for the CM4 variant of the uConsole + AIO v2 platform specifically - GPIO pin numbers, `config.txt` overlays, package names, and known failure modes here are CM4-specific and will not match the CM5. Use this file (not [CM5-SETUP.md](./CM5-SETUP.md)) when your board is a Raspberry Pi Compute Module 4.
 
 ## ⚙️ Function
 Organized as 14 sequential numbered steps (flash OS → pre-flight hardening → system update → Kali tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables (hardware pinout, `aiov2_ctl` command reference), a Troubleshooting section with 10+ named failure modes and fixes, and a Resources/Links section. Differs from [CM5-SETUP.md](./CM5-SETUP.md) in package names, device-tree overlays, and the CM4-only NVMe/battery board step; differs from [README.md](./README.md), which is the folder-level index and hardware overview rather than a build walkthrough. Every step is also implemented as an idempotent shell script in [`scripts/uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh) (see [scripts/README.md](./scripts/README.md)).
 
 ## 🏆 Goal
-A working CM4-based uConsole with the AIO v2 board fully configured — RTL-SDR, LoRa/Meshtastic, GPS, and RTC all functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed — without bricking the board or fighting the dependency issues this guide's troubleshooting section already documents.
+A working CM4-based uConsole with the AIO v2 board fully configured - RTL-SDR, LoRa/Meshtastic, GPS, and RTC all functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed - without bricking the board or fighting the dependency issues this guide's troubleshooting section already documents.
 
 ## 📋 When to Use
 When building or repairing a CM4-based uConsole from scratch, or when a specific step (e.g., Meshtastic not starting, GPS not getting a fix, `aiov2_ctl` failing) needs a manual fix outside of running the automation script.

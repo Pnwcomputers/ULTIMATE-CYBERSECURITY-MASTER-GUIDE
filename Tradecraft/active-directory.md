@@ -38,7 +38,7 @@ Provide a complete dual-use AD reference: red team practitioners understand atta
 ---
 
 ## 🎯 Purpose
-The full-depth AD attack/defense reference — where [ultimate_cybersecurity_master_guide.md](../ultimate_cybersecurity_master_guide.md)'s Active Directory Attacks section covers the topic briefly, this file goes deep on enumeration, credential attacks, Kerberos abuse, privilege-escalation paths, lateral movement, and domain persistence with matching detection/hardening guidance.
+The full-depth AD attack/defense reference - where [ultimate_cybersecurity_master_guide.md](../ultimate_cybersecurity_master_guide.md)'s Active Directory Attacks section covers the topic briefly, this file goes deep on enumeration, credential attacks, Kerberos abuse, privilege-escalation paths, lateral movement, and domain persistence with matching detection/hardening guidance.
 
 ## ⚙️ Function
 10 sections progressing from AD architecture through enumeration, credential attacks, Kerberos abuse, privilege escalation, lateral movement, domain persistence, detection/hunting, defensive hardening, and a closing security assessment checklist. Pairs with 4 dedicated quick-reference checklists ([Active Directory](../Checklists/ActiveDirectory.md), [Domain Escalation](../Checklists/Domain-Escalation.md), [Domain Persistence](../Checklists/Domain-Persistence.md), [Lateral Movement](../Checklists/Lateral-Movement.md)); differs from [c2-frameworks.md](c2-frameworks.md) and [lolbins-lolbas.md](lolbins-lolbas.md), which cover post-exploitation tooling/technique generally rather than AD-specific attack paths.

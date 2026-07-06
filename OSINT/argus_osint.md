@@ -17,7 +17,7 @@ Get Argus running on a modern Debian/Ubuntu system without the typical Python ve
 This guide provides a streamlined path for installing and running the [The Argus Recon OSINT Toolkit](https://github.com/jasonxtn/argus) by [Jason13](https://github.com/jasonxtn) on a modern Linux system (Ubuntu/Debian) using Python 3.12+. Argus is a Python-based toolkit for Information Gathering & Reconnaissance
 
 ## 🎯 Purpose
-Minimal installation guide for the third-party Argus Recon OSINT toolkit on a modern Debian/Ubuntu system, specifically addressing PEP 668's externally-managed-environment restriction that breaks naive `pip install` on recent distros. Distinct from the other OSINT tool references in this folder — this is a single-tool setup guide, not a methodology or command reference.
+Minimal installation guide for the third-party Argus Recon OSINT toolkit on a modern Debian/Ubuntu system, specifically addressing PEP 668's externally-managed-environment restriction that breaks naive `pip install` on recent distros. Distinct from the other OSINT tool references in this folder - this is a single-tool setup guide, not a methodology or command reference.
 
 ## ⚙️ Function
 Five sequential steps: system prerequisites, repo clone, virtual environment creation (required by PEP 668), dependency installation via the project's own `requirements.txt`, and the launch command.
@@ -65,7 +65,7 @@ pip install --upgrade pip setuptools wheel
 ```
 
 ### 5. Install Dependencies
-Use the project's own requirements file rather than installing packages manually — Argus depends on 25+ libraries (aiohttp, dnspython, beautifulsoup4, cryptography, ldap3, and more), and a hand-picked subset will fail with import errors once you actually run it:
+Use the project's own requirements file rather than installing packages manually - Argus depends on 25+ libraries (aiohttp, dnspython, beautifulsoup4, cryptography, ldap3, and more), and a hand-picked subset will fail with import errors once you actually run it:
 ```bash
 pip install -r requirements.txt
 ```

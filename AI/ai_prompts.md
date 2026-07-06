@@ -18,7 +18,7 @@ Improve LLM output quality and consistency for security workflows through system
 A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
 
 ## 🎯 Purpose
-Platform-agnostic prompt engineering reference — templates, patterns, and psychology for getting better output from any LLM. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md` (which are security-workflow-specific prompt examples): this file is technique-level, applicable to any prompting task regardless of domain.
+Platform-agnostic prompt engineering reference - templates, patterns, and psychology for getting better output from any LLM. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md` (which are security-workflow-specific prompt examples): this file is technique-level, applicable to any prompting task regardless of domain.
 
 ## ⚙️ Function
 Ten sections moving from platform documentation links (Anthropic/Google/OpenAI/Fabric) through advanced strategies (agentic prompting, chain-of-thought, multi-modal), copy-paste system prompt templates, platform-specific tactics, and a prompt-debugging protocol for fixing hallucination/laziness/logic-error failure modes.
@@ -194,11 +194,11 @@ Begin.
 ---
 
 ## Related Files
-- [README.md](README.md) — AI/ section index
-- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) — Security-domain prompt examples that apply these techniques
-- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) — Agent persona/system prompts built using the Master Template here
-- [offensive_ai.md](offensive_ai.md) — Prompt injection: the adversarial flip side of the prompting techniques in this file
-- [offline-llm.md](offline-llm.md) — Local LLM deployment these prompting techniques apply to just as well as cloud models
+- [README.md](README.md) - AI/ section index
+- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - Security-domain prompt examples that apply these techniques
+- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the Master Template here
+- [offensive_ai.md](offensive_ai.md) - Prompt injection: the adversarial flip side of the prompting techniques in this file
+- [offline-llm.md](offline-llm.md) - Local LLM deployment these prompting techniques apply to just as well as cloud models
 
 ---
 

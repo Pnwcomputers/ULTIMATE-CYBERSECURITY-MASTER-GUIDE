@@ -17,7 +17,7 @@ Serve as a working reference during an active investigation - covering what tool
 A quick-reference guide for the tools, services, and commands integrated into the **OSINT Investigator Playbook**. 
 
 ## 🎯 Purpose
-Quick-command lookup organized by investigation phase (identity, infrastructure, web crawling, phone, analysis/automation), tied directly to the tools used in [Playbook/investigation_guide.md](Playbook/investigation_guide.md). Distinct from [OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) (full methodology/background) and [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) (exhaustive tool directory) — this file is just the commands, phase-ordered.
+Quick-command lookup organized by investigation phase (identity, infrastructure, web crawling, phone, analysis/automation), tied directly to the tools used in [Playbook/investigation_guide.md](Playbook/investigation_guide.md). Distinct from [OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) (full methodology/background) and [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) (exhaustive tool directory) - this file is just the commands, phase-ordered.
 
 ## ⚙️ Function
 Five investigation phases (identity/social, infrastructure/domain, web crawling/historical, communication/phone, analysis/automation) each with a tool table and copy-paste commands, plus an evidence-preservation section (hashing, archiving) and essential Linux one-liners.

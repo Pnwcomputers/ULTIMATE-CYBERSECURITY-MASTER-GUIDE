@@ -17,7 +17,7 @@ Enable investigators to run comprehensive domain and IP OSINT with a single comm
 Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
 
 ## 🎯 Purpose
-Self-contained bash script combining theHarvester domain recon with direct API calls (CriminalIP, Netlas, ipinfo, ip-api, LeakLookup) and active scanning (Nmap, RustScan, Nuclei, Dirsearch, WhatWeb) into one automated investigation run. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) — this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
+Self-contained bash script combining theHarvester domain recon with direct API calls (CriminalIP, Netlas, ipinfo, ip-api, LeakLookup) and active scanning (Nmap, RustScan, Nuclei, Dirsearch, WhatWeb) into one automated investigation run. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
 
 ## ⚙️ Function
 A single bash script accepting domain, IP(s), email, or file input, running theHarvester first to extract IPs (if not supplied), then per-IP API queries and Nmap/RustScan/Nuclei/Dirsearch scans (parallelizable), writing organized JSON/text output per target plus a master summary report.
@@ -27,7 +27,7 @@ Run one command against a suspected scam domain or IP range and get back organiz
 
 ## 📋 When to Use
 - Investigating a scam/phishing domain or its hosting infrastructure as part of the fraud investigation workflow
-- Needing both passive OSINT and active scanning (Nmap/Nuclei) results in one run — note this crosses from passive to active recon, so ensure authorization covers scanning, not just OSINT
+- Needing both passive OSINT and active scanning (Nmap/Nuclei) results in one run - note this crosses from passive to active recon, so ensure authorization covers scanning, not just OSINT
 
 **Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
 **Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  

@@ -144,7 +144,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/olafhartong/sysmon-mod
 
 Microsoft's Threat Intelligence Center publishes Sysmon **schemas and reference
 material** (ATT&CK-aligned). Note: this repo no longer ships a single ready-to-use
-`sysmonconfig.xml` — use Option 1 or 2 for a deployable config and consult
+`sysmonconfig.xml` - use Option 1 or 2 for a deployable config and consult
 MSTIC-Sysmon for schema reference:
 
 - Repository: <https://github.com/microsoft/MSTIC-Sysmon>

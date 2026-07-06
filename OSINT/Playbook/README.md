@@ -3,13 +3,13 @@
 A comprehensive, menu-driven OSINT investigation toolkit designed for investigating scams, fraud, and cybercrime. Built for use on Tsurugi Linux and other OSINT-focused distributions.
 
 ## 🎯 Purpose
-Menu-driven bash toolkit (`osint_investigator.sh`) for scam/fraud investigations — case management, evidence chain-of-custody, and abuse-report drafting in one script. Distinct from [investigation_guide.md](investigation_guide.md) (the manual, tool-by-tool methodology in this same folder): this file documents the automated script that wraps many of those same tools into a single guided workflow.
+Menu-driven bash toolkit (`osint_investigator.sh`) for scam/fraud investigations - case management, evidence chain-of-custody, and abuse-report drafting in one script. Distinct from [investigation_guide.md](investigation_guide.md) (the manual, tool-by-tool methodology in this same folder): this file documents the automated script that wraps many of those same tools into a single guided workflow.
 
 ## ⚙️ Function
-Six investigation modules (email, phone, domain, IP, username, crypto) that shell out to existing CLI tools (Holehe, h8mail, PhoneInfoga, Subfinder, Maigret, Sherlock, etc.), plus case management, automatic evidence hashing/logging, and abuse-report templating — all driven from a single interactive menu script.
+Six investigation modules (email, phone, domain, IP, username, crypto) that shell out to existing CLI tools (Holehe, h8mail, PhoneInfoga, Subfinder, Maigret, Sherlock, etc.), plus case management, automatic evidence hashing/logging, and abuse-report templating - all driven from a single interactive menu script.
 
 ## 🏆 Goal
-Run a full scam/fraud investigation — email through crypto wallet — from one script, ending with a hash-verified evidence trail and ready-to-send abuse reports for registrars, hosts, and IC3.
+Run a full scam/fraud investigation - email through crypto wallet - from one script, ending with a hash-verified evidence trail and ready-to-send abuse reports for registrars, hosts, and IC3.
 
 ## 📋 When to Use
 - Investigating a scam or fraud case where a client needs documented evidence
@@ -363,11 +363,11 @@ MIT License - See LICENSE file for details.
 
 ## 🔭 Planned / Not Yet Included in This Repo
 
-The following are referenced as intended features but **do not currently exist as files in `OSINT/Playbook/`** (verified against git history — they've never been committed here). Documenting the intended design in case they're picked back up, but don't expect these commands to work yet:
+The following are referenced as intended features but **do not currently exist as files in `OSINT/Playbook/`** (verified against git history - they've never been committed here). Documenting the intended design in case they're picked back up, but don't expect these commands to work yet:
 
-- **Web Interface** (`web_interface.py`) — planned Flask-based browser UI as an alternative to the CLI menu, with case dashboard, quick investigation tools, and mobile-responsive design.
-- **Abuse Report Generator** (`abuse_report_generator.sh`) — planned standalone script to draft abuse reports (registrar, host, ISP, social media, IC3 worksheet) with auto-detected abuse contacts via WHOIS/ASN.
-- **Toolkit Integration** (`toolkit_integration.sh`) — planned bridge to external scripts (`scammer_audit.sh`, `email_audit.sh`, `phone_audit.sh`, `victim_osint_toolkit.sh`) that aren't part of this repo.
+- **Web Interface** (`web_interface.py`) - planned Flask-based browser UI as an alternative to the CLI menu, with case dashboard, quick investigation tools, and mobile-responsive design.
+- **Abuse Report Generator** (`abuse_report_generator.sh`) - planned standalone script to draft abuse reports (registrar, host, ISP, social media, IC3 worksheet) with auto-detected abuse contacts via WHOIS/ASN.
+- **Toolkit Integration** (`toolkit_integration.sh`) - planned bridge to external scripts (`scammer_audit.sh`, `email_audit.sh`, `phone_audit.sh`, `victim_osint_toolkit.sh`) that aren't part of this repo.
 
 Today, abuse-report drafting and evidence handling happen through `osint_investigator.sh`'s own menu (see Usage Guide above) and the workflow documented in [investigation_guide.md](investigation_guide.md).
 
@@ -383,7 +383,7 @@ OSINT/Playbook/
 ```
 
 ## Related Files
-- [investigation_guide.md](investigation_guide.md) — Manual, tool-by-tool version of the same investigation workflow this script automates
-- [../OSINT_GUIDE.md](../OSINT_GUIDE.md) — Broader OSINT methodology this playbook implements a slice of
-- [../OSINT_TOOLS_CATALOG.md](../OSINT_TOOLS_CATALOG.md) — Full catalog of the individual tools (Holehe, Maigret, Sherlock, etc.) this script wraps
-- [../scripts/Domain_IP_Recon.md](../scripts/Domain_IP_Recon.md) — Manual domain/IP recon workflow this script's `investigate_domain` function automates a slice of
+- [investigation_guide.md](investigation_guide.md) - Manual, tool-by-tool version of the same investigation workflow this script automates
+- [../OSINT_GUIDE.md](../OSINT_GUIDE.md) - Broader OSINT methodology this playbook implements a slice of
+- [../OSINT_TOOLS_CATALOG.md](../OSINT_TOOLS_CATALOG.md) - Full catalog of the individual tools (Holehe, Maigret, Sherlock, etc.) this script wraps
+- [../scripts/Domain_IP_Recon.md](../scripts/Domain_IP_Recon.md) - Manual domain/IP recon workflow this script's `investigate_domain` function automates a slice of

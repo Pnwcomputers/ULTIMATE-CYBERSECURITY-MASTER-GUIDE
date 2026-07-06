@@ -129,7 +129,7 @@ cd ~/elk-stack
 
 ### Step 2.1: Create Docker Compose File
 
-> **Note:** This guide pins Elastic Stack `8.12.0` for a known-good, internally consistent config. Elastic has since released the `9.x` line — check the [Elastic Stack release notes](https://www.elastic.co/guide/en/elastic-stack/current/index.html) before deploying, since major-version upgrades can change default `xpack.*` settings and config syntax used below.
+> **Note:** This guide pins Elastic Stack `8.12.0` for a known-good, internally consistent config. Elastic has since released the `9.x` line - check the [Elastic Stack release notes](https://www.elastic.co/guide/en/elastic-stack/current/index.html) before deploying, since major-version upgrades can change default `xpack.*` settings and config syntax used below.
 
 Create `docker-compose.yml`:
 

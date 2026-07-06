@@ -55,7 +55,7 @@ Hardware stack overview, a CM4-vs-CM5 comparison table (the deciding factor for 
 Pick the right compute module (CM4 vs CM5) and OS path for a new uConsole build, and know where to go next (manual guide vs automated script) to get from a fresh flash to a working RTL-SDR/LoRa/GPS/pentesting platform.
 
 ## 📋 When to Use
-- Planning a new uConsole build — which hardware and OS combination to buy/flash
+- Planning a new uConsole build - which hardware and OS combination to buy/flash
 - Understanding what the 6-phase setup methodology does before running the automated scripts blind
 
 ## 🎯 Overview

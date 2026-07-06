@@ -101,13 +101,13 @@ Distill 70+ expert cybersecurity books into a single actionable reference that c
 ---
 
 ## 🎯 Purpose
-The foundational, book-derived technical reference — key takeaways from 70+ professional security books condensed into a single full-lifecycle guide (foundations through exploitation through defense). Unlike [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), this file contains no PNWC-specific operational/internal-KB content — it's the "textbook" layer, not the "field experience" layer.
+The foundational, book-derived technical reference - key takeaways from 70+ professional security books condensed into a single full-lifecycle guide (foundations through exploitation through defense). Unlike [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), this file contains no PNWC-specific operational/internal-KB content - it's the "textbook" layer, not the "field experience" layer.
 
 ## ⚙️ Function
-11 parts covering the complete pentest lifecycle: Foundations, Recon/Enumeration, Vulnerability Assessment, Exploitation, Post-Exploitation, Advanced Topics (AD, cloud, mobile, IoT, wireless), Defensive Security, Specialized Skills (malware/forensics/RE/social engineering), Automation/Tooling, Professional Practice, and a Tradecraft Reference part that links out to the dedicated [Tradecraft/](Tradecraft/) folder for the deepest offensive-tradecraft material (C2, evasion, LOLBins, AD attacks — kept in their own folder rather than duplicated here). Differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging/niche domains (AI security, hardware hacking, SDR, space security) not covered in this core lifecycle guide.
+11 parts covering the complete pentest lifecycle: Foundations, Recon/Enumeration, Vulnerability Assessment, Exploitation, Post-Exploitation, Advanced Topics (AD, cloud, mobile, IoT, wireless), Defensive Security, Specialized Skills (malware/forensics/RE/social engineering), Automation/Tooling, Professional Practice, and a Tradecraft Reference part that links out to the dedicated [Tradecraft/](Tradecraft/) folder for the deepest offensive-tradecraft material (C2, evasion, LOLBins, AD attacks - kept in their own folder rather than duplicated here). Differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging/niche domains (AI security, hardware hacking, SDR, space security) not covered in this core lifecycle guide.
 
 ## 🏆 Goal
-A reader can execute a complete penetration test — from reconnaissance through reporting — using only the commands and methodology in this single file, escalating to ENHANCED_MASTER_GUIDE.md or Tradecraft/ only when they need PNWC-specific operational context or deep offensive tradecraft.
+A reader can execute a complete penetration test - from reconnaissance through reporting - using only the commands and methodology in this single file, escalating to ENHANCED_MASTER_GUIDE.md or Tradecraft/ only when they need PNWC-specific operational context or deep offensive tradecraft.
 
 ## 📋 When to Use
 As the primary technical reference during an engagement, when studying for OSCP/CEH/GPEN, or as the first stop before consulting the more specialized guides.

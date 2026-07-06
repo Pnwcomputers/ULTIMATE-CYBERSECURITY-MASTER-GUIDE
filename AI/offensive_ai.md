@@ -1498,10 +1498,10 @@ Commercial implementations: Garak (open-source LLM vulnerability scanner), Adver
 ---
 
 ## Related Files
-- [README.md](README.md) — AI/ section index
-- [ai_prompts.md](ai_prompts.md) — Prompt engineering techniques; the defensive-use counterpart to this file's prompt injection chapter
-- [../Tradecraft/README.md](../Tradecraft/README.md) — General offensive tradecraft methodology this file's AI-specific attack graph model extends
-- [../Checklists/README.md](../Checklists/README.md) — Engagement checklists for scoping and reporting patterns referenced in Part III
+- [README.md](README.md) - AI/ section index
+- [ai_prompts.md](ai_prompts.md) - Prompt engineering techniques; the defensive-use counterpart to this file's prompt injection chapter
+- [../Tradecraft/README.md](../Tradecraft/README.md) - General offensive tradecraft methodology this file's AI-specific attack graph model extends
+- [../Checklists/README.md](../Checklists/README.md) - Engagement checklists for scoping and reporting patterns referenced in Part III
 
 ---
 

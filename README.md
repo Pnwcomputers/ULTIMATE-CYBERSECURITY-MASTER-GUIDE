@@ -39,7 +39,7 @@ Serve as a single, continuously maintained reference hub for the full spectrum o
 ---
 
 ## 🎯 Purpose
-The repository's front door and master index — every guide, playbook, script folder, and reference in this project is linked from here. Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog: what exists, where it lives, and a one-line description of each.
+The repository's front door and master index - every guide, playbook, script folder, and reference in this project is linked from here. Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog: what exists, where it lives, and a one-line description of each.
 
 ## ⚙️ Function
 Organized top-to-bottom as: a "start here" pointer, the three primary master guides, supporting reference guides, folder-level links to every operational section (Checklists, PlayBooks, IncidentResponse, OSINT, Homelab, AI, SpaceSecurity, SDR, HardwareHacking, HardwareTesting, uConsole, Scripts, PDF, Documentation), a "unique/personal content" showcase, repository statistics, credits/acknowledgments (tools, books, distros, communities), the complete 78-entry bibliography, and the legal disclaimer. Differs from [START_HERE.md](START_HERE.md), which routes readers by role/goal rather than listing everything; differs from the three master guides ([ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md), [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)), which contain the actual technical content rather than links to it.

@@ -89,7 +89,7 @@ DuckyScript supports multiple keyboard layouts. If your target system uses a non
 - `es` - Spanish
 - `it` - Italian
 
-**Specify the keyboard layout in Payload Studio's language selector** when compiling (the standalone `duckencoder.jar` CLI referenced in older guides has been discontinued — see Method 2 above).
+**Specify the keyboard layout in Payload Studio's language selector** when compiling (the standalone `duckencoder.jar` CLI referenced in older guides has been discontinued - see Method 2 above).
 
 ## Testing & Debugging
 
@@ -216,9 +216,9 @@ When submitting payloads to this repository:
 ---
 
 ## Related Files
-- [../README.md](../README.md) — Scripts/ section index
-- [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) — Bash Bunny: storage/network/HID emulation and full bash payloads, vs. Ducky's keystroke-injection-only scope
-- [../Bash/bash_scripting_cheat-sheet.md](../Bash/bash_scripting_cheat-sheet.md) — General Bash syntax reference
+- [../README.md](../README.md) - Scripts/ section index
+- [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) - Bash Bunny: storage/network/HID emulation and full bash payloads, vs. Ducky's keystroke-injection-only scope
+- [../Bash/bash_scripting_cheat-sheet.md](../Bash/bash_scripting_cheat-sheet.md) - General Bash syntax reference
 
 ---
 

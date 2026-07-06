@@ -17,10 +17,10 @@ Provide a complete beginner-to-intermediate OSINT reference that builds systemat
 ### [Click Here For The Advanced OSINT Guide](/Tradecraft/osint-threat-intel.md) 
 
 ## 🎯 Purpose
-Master reference for OSINT — methodology, a categorized tool reference, investigation VM setup, per-identifier investigation procedures, evidence handling, and legal/OPSEC guidance. This is the foundational/general guide; [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) (linked above) is the advanced, threat-intelligence-focused counterpart. Within this folder, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the condensed command-only version of this same material.
+Master reference for OSINT - methodology, a categorized tool reference, investigation VM setup, per-identifier investigation procedures, evidence handling, and legal/OPSEC guidance. This is the foundational/general guide; [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) (linked above) is the advanced, threat-intelligence-focused counterpart. Within this folder, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the condensed command-only version of this same material.
 
 ## ⚙️ Function
-Twelve sections moving from OSINT theory (the intelligence cycle, framework categories) through tool reference (organized by identifier type: email, username, domain, phone), VM setup (Buscador, Trace Labs, Tsurugi), per-identifier investigation procedures and full workflows, then evidence preservation, abuse reporting, OPSEC, and legal considerations — ending in a quick-reference cheat sheet.
+Twelve sections moving from OSINT theory (the intelligence cycle, framework categories) through tool reference (organized by identifier type: email, username, domain, phone), VM setup (Buscador, Trace Labs, Tsurugi), per-identifier investigation procedures and full workflows, then evidence preservation, abuse reporting, OPSEC, and legal considerations - ending in a quick-reference cheat sheet.
 
 ## 🏆 Goal
 Understand OSINT methodology well enough to run a structured investigation on any identifier type (email, domain, IP, phone, username, cryptocurrency), from initial recon through evidence-preserved reporting.
@@ -782,7 +782,7 @@ curl -s "https://blockchain.info/rawaddr/ADDRESS?limit=50" | jq
 
 **Ethereum (Etherscan API):**
 ~~~bash
-# Etherscan API v1 was fully deprecated 2025-08-15 — v2 requires a chainid parameter (1 = Ethereum mainnet)
+# Etherscan API v1 was fully deprecated 2025-08-15 - v2 requires a chainid parameter (1 = Ethereum mainnet)
 curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
 ~~~
 
@@ -1386,7 +1386,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 
 2. **"OSINT Handbook" by i-intelligence**
    - Free resource from i-intelligence, a Switzerland-based private OSINT training firm (not a government intelligence agency, despite the name)
-   - Practical methodologies and tools — current edition at [osinthandbook.com](https://www.osinthandbook.com/)
+   - Practical methodologies and tools - current edition at [osinthandbook.com](https://www.osinthandbook.com/)
 
 3. **"Social Engineering: The Science of Human Hacking" by Christopher Hadnagy**
    - Relevant for understanding social OSINT

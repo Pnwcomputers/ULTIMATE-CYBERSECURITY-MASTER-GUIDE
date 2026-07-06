@@ -31,17 +31,17 @@ Running OpenClaw 24/7 on homelab hardware as a persistent AI assistant accessibl
 ---
 
 ## 🎯 Purpose
-Complete installation and configuration guide for deploying OpenClaw (a self-hosted, multi-provider AI agent framework) on TrueNAS SCALE, including known TrueNAS-Community-app-specific bugs and their workarounds. First of three companion OpenClaw guides — see [use_cases.md](use_cases.md) for prompt examples and [agent_skill_config.md](agent_skill_config.md) for ready-to-apply agent personas once this install is complete.
+Complete installation and configuration guide for deploying OpenClaw (a self-hosted, multi-provider AI agent framework) on TrueNAS SCALE, including known TrueNAS-Community-app-specific bugs and their workarounds. First of three companion OpenClaw guides - see [use_cases.md](use_cases.md) for prompt examples and [agent_skill_config.md](agent_skill_config.md) for ready-to-apply agent personas once this install is complete.
 
 ## ⚙️ Function
-Eight parts covering app-catalog installation, the provider onboarding wizard (Anthropic/Gemini/Groq/Ollama), manual config fixes for wizard bugs (Groq model registration, Ollama API key), security hardening, NPMplus HTTPS reverse-proxy setup with local DNS override, and device pairing — followed by a troubleshooting section documenting specific failure modes and their exact fixes.
+Eight parts covering app-catalog installation, the provider onboarding wizard (Anthropic/Gemini/Groq/Ollama), manual config fixes for wizard bugs (Groq model registration, Ollama API key), security hardening, NPMplus HTTPS reverse-proxy setup with local DNS override, and device pairing - followed by a troubleshooting section documenting specific failure modes and their exact fixes.
 
 ## 🏆 Goal
 Get OpenClaw running on TrueNAS SCALE with all four LLM providers verified working, HTTPS access configured via NPMplus, and a paired device connected to the dashboard.
 
 ## 📋 When to Use
 - First-time OpenClaw deployment on TrueNAS SCALE
-- Diagnosing a specific OpenClaw/TrueNAS app failure (config service exit 1, WebSocket disconnects, provider not showing in `models list`) — check Troubleshooting first
+- Diagnosing a specific OpenClaw/TrueNAS app failure (config service exit 1, WebSocket disconnects, provider not showing in `models list`) - check Troubleshooting first
 
 ## What is OpenClaw?
 

@@ -22,7 +22,7 @@ Deploy a set-and-forget passive handshake capture device that autonomously impro
 **Install Pwnagotchi (on Raspberry Pi Zero W/2W)**
 ```bash
 # The jayofelony fork is the actively maintained release (evilsocket's original is archived)
-# Releases ship as pwnagotchi-32bit-<version>.img.xz / pwnagotchi-64bit-<version>.img.xz —
+# Releases ship as pwnagotchi-32bit-<version>.img.xz / pwnagotchi-64bit-<version>.img.xz -
 # pick the correct architecture for your Pi. wget can't glob a wildcard against a remote
 # URL, so grab the exact filename from the releases page (or the GitHub API) first:
 # curl -s https://api.github.com/repos/jayofelony/pwnagotchi/releases/latest | grep browser_download_url

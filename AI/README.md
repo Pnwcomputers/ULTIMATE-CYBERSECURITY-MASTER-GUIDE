@@ -43,7 +43,7 @@ Enable security practitioners to integrate AI tooling into blue team, red team, 
 ---
 
 ## 🎯 Purpose
-Index and entry point for AI/ML resources applied to cybersecurity — self-hosted agent frameworks (OpenClaw, AnythingLLM), prompt engineering, offline/air-gapped LLM deployment, and adversarial AI (`offensive_ai.md`). Distinct from `offensive_ai.md`'s narrow scope (attacking AI systems as a target) — this README indexes the broader "use AI as a tool" side: agents, prompting, and self-hosted deployment.
+Index and entry point for AI/ML resources applied to cybersecurity - self-hosted agent frameworks (OpenClaw, AnythingLLM), prompt engineering, offline/air-gapped LLM deployment, and adversarial AI (`offensive_ai.md`). Distinct from `offensive_ai.md`'s narrow scope (attacking AI systems as a target) - this README indexes the broader "use AI as a tool" side: agents, prompting, and self-hosted deployment.
 
 ## ⚙️ Function
 Six resource categories (self-hosted agent frameworks, GenAI/LLM security applications, offline/air-gapped deployment, red team, blue team, and governance), each linking to the relevant file/subfolder. `AnythingLLM/` and `OpenClaw/` are the two agent-framework subdirectories; `ai_prompts.md`, `offline-llm.md`, and `offensive_ai.md` are standalone deep-dives at this level.
@@ -158,7 +158,7 @@ These resources are designed to:
 - OpenClaw Rex agent config - Pentest-focused persona with scope guardrails
 - OpenClaw Oliver agent config - OSINT-focused research assistant
 - `use_cases.md` red team and OSINT sections
-- `offensive_ai.md` — treats AI/ML systems themselves as the attack surface (data poisoning, evasion, prompt injection, model extraction), distinct from using AI as an offensive tool
+- `offensive_ai.md` - treats AI/ML systems themselves as the attack surface (data poisoning, evasion, prompt injection, model extraction), distinct from using AI as an offensive tool
 
 ---
 

@@ -230,7 +230,7 @@ The flow will return `recon_report` containing:
 
 ### Subdomain Discovery Alternatives:
 - `https://api.hackertarget.com/hostsearch/?q=${domain}` (API, free tier)
-- ~~`https://sonar.omnisint.io/subdomains/${domain}` (Project Sonar)~~ — **discontinued**: Rapid7 revoked public access to the underlying dataset and the omnisint API was shut down; use `crt.sh` or the HackerTarget API above instead
+- ~~`https://sonar.omnisint.io/subdomains/${domain}` (Project Sonar)~~ - **discontinued**: Rapid7 revoked public access to the underlying dataset and the omnisint API was shut down; use `crt.sh` or the HackerTarget API above instead
 
 ### Security Headers Alternatives:
 - Manual check: `curl -I https://${domain}`
