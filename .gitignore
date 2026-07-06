@@ -47,3 +47,4 @@ Desktop.ini
 # If your changelog generator creates temp files
 DRAFT_CHANGELOG.md
 # (Uncomment above if you only want the final CHANGELOG.md tracked)
+osint/
