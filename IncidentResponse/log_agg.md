@@ -1028,6 +1028,7 @@ sudo chown syslog:adm /var/log/remote
 - [ ] TLS encryption enabled (if required)
 
 ## Related Files
+- [README.md](README.md) - IncidentResponse section index: all IR and forensics guides
 - [network_intrusion.md](network_intrusion.md) - Network intrusion IR playbook: the log sources configured here are what feeds that detection
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark complements log aggregation: captures what syslog misses at the packet level
 - [../Homelab/](../Homelab/) - Homelab build: the hardware platform where this log aggregation infrastructure runs

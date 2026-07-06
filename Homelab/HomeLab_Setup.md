@@ -3275,6 +3275,7 @@ Your lab is now ready. **Time to hack responsibly!**
 * Security research in isolated lab environments.
 
 ## Related Files
+- [README.md](README.md) - Homelab section index: Proxmox, TrueNAS, and lab architecture overview
 - [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM catalog (Kali, Metasploitable, DVWA, Tails, etc.) deployed in this lab environment
 - [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) - Log aggregation infrastructure that runs in this homelab
 - [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi: a key lab tool for network assessment practice in the isolated lab environment

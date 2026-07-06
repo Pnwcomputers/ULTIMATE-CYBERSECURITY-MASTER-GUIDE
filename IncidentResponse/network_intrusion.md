@@ -106,6 +106,7 @@ source.ip: "192.168.1.105" AND destination.port: * AND event.count > 100
 * **Photos:** If a physical device (e.g., WiFi Pineapple) was found, photograph its location and connections before removal.
 
 ## Related Files
+- [README.md](README.md) - IncidentResponse section index: all IR and forensics guides
 - [log_agg.md](log_agg.md) - Log aggregation setup: configure the log sources required by this playbook before an incident occurs
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark filters for analyzing the PCAP captures referenced in the Artifact Collection section
 - [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi: exactly the kind of physical "plant" device this playbook is written to detect and remove
