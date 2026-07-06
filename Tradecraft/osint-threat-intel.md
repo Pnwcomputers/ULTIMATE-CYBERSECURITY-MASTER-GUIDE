@@ -1,5 +1,21 @@
 # OSINT & Threat Intelligence: A Deep Dive
 
+
+## 🎯 Purpose
+OSINT methodology and threat intelligence deep-dive - covering passive recon, people/organization research, infrastructure mapping, social media OSINT, threat intel platform operationalization, and attribution methodology.
+
+## ⚙️ Function
+Covers: OSINT framework (OSINT Framework, Maltego, Spiderfoot), passive recon (Shodan, Censys, crt.sh, BGPView), people research (LinkedIn, email format discovery, social media correlation), infrastructure mapping (ASN, WHOIS, passive DNS), threat intel platforms (MISP, OpenCTI, VirusTotal), and IOC operationalization.
+
+## 🏆 Goal
+Enable practitioners to build comprehensive target intelligence pictures using only public sources, and to operationalize threat intelligence from external feeds into actionable detection and hunting workflows.
+
+## 📋 When to Use
+- Passive reconnaissance during an authorized engagement scoping phase
+- Threat intelligence research on a suspected threat actor or campaign
+- Building a threat intel feed ingestion pipeline (MISP/OpenCTI)
+- OSINT-based attribution analysis during or after an incident
+
 > **Scope:** Open-source intelligence methodology, tooling, and threat intelligence platforms. Covers passive recon, active enumeration, people/organization research, infrastructure mapping, and threat intel operationalization.
 
 ### [Click Here For The Basic/General OSINT Guide](/OSINT/OSINT_GUIDE.md)
@@ -1087,3 +1103,10 @@ sudo apt install kali-tools-information-gathering
 - [dnstwist](https://github.com/elceef/dnstwist)
 - [Shodan CLI](https://cli.shodan.io/)
 - [Censys CLI](https://github.com/censys/censys-python)
+
+## Related Files
+- [README.md](README.md) - Tradecraft section index
+- [../OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) - Full OSINT methodology and tools catalog
+- [../OSINT/OSINT_TOOLS_CATALOG.md](../OSINT/OSINT_TOOLS_CATALOG.md) - Comprehensive tool list
+- [../AI/offensive_ai.md](../AI/offensive_ai.md) - AI-augmented OSINT and recon
+- [../AI/AnythingLLM/flow-domain_recon.md](../AI/AnythingLLM/flow-domain_recon.md) - Automated OSINT AgentFlow

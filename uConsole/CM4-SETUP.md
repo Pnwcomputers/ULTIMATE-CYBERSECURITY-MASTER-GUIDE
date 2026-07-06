@@ -1,5 +1,19 @@
 # uConsole Setup Guide: CM4 Configuration
 
+## 🎯 Purpose
+Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM4 module - covering Rex's Kali/Trixie community image, HackerGadgets AIO v2 board configuration, Battery/NVMe expansion board, and all driver setup.
+
+## ⚙️ Function
+Step-by-step post-flash configuration: WiFi adapter drivers, Bluetooth, audio, display brightness, RTL-SDR, LoRa, GPS, RTC, PoE HAT, Meshtastic, NVMe storage setup, and power board configuration specific to the CM4 compute module.
+
+## 🏆 Goal
+A fully working CM4-based uConsole with all HackerGadgets hardware functional and Kali or Trixie configured for field pentesting and SIGINT use.
+
+## 📋 When to Use
+- Initial setup after flashing Rex's Kali or Trixie image to a CM4 module
+- Driver troubleshooting for CM4-specific hardware (WiFi, audio, display)
+- Configuring the HackerGadgets AIO v2 board for the first time on CM4
+
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
@@ -926,3 +940,9 @@ Log out and back in to confirm the error is gone.
 
 ### License
 This guide is provided as-is for personal reference and community use. Hardware documentation and software referenced herein belong to their respective authors (ClockworkPi, HackerGadgets, Rex, Meshtastic project).
+
+## Related Files
+- [README.md](README.md) - uConsole section index
+- [CM5-SETUP.md](CM5-SETUP.md) - CM5 module variant of this guide
+- [scripts/README.md](scripts/README.md) - Automated scripts to run after following this guide
+- [../SDR/sdr.md](../SDR/sdr.md) - Using the RTL-SDR built into the uConsole

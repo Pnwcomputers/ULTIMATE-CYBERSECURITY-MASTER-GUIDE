@@ -1,5 +1,20 @@
 # 🛠️ uConsole: Setup & Deployment Guides
 
+## 🎯 Purpose
+Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a pocket-sized Linux handheld optimized for SDR, LoRa, GPS, and field pentesting use.
+
+## ⚙️ Function
+Documents CM4 and CM5 module configurations, HackerGadgets AIO v2 + Battery/NVMe board setup, Kali Linux and Debian Trixie post-flash configuration, driver installation (WiFi, Bluetooth, audio, display), and automated setup scripts for reproducible deployments.
+
+## 🏆 Goal
+A fully configured, field-ready uConsole running on Kali or Trixie with all hardware working: RTL-SDR, LoRa, GPS, external WiFi adapter, NVMe storage, and the HackerGadgets power board.
+
+## 📋 When to Use
+- Initial uConsole build after flashing Kali or Trixie to the CM4/CM5 module
+- Rebuilding a uConsole after a failed update or storage wipe
+- Configuring a new HackerGadgets AIO v2 board with battery and NVMe expansion
+- Reference for driver troubleshooting (WiFi chipset, audio, display brightness)
+
 <div align="center">
 
 **Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - SDR, LoRa, GPS, and pentesting in your pocket**
@@ -352,3 +367,10 @@ USERS ACKNOWLEDGE:
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+## Related Files
+- [CM4-SETUP.md](CM4-SETUP.md) - Full setup guide for CM4 module configuration
+- [CM5-SETUP.md](CM5-SETUP.md) - Full setup guide for CM5 module configuration
+- [scripts/README.md](scripts/README.md) - Automated post-flash setup scripts for CM4 and CM5
+- [../SDR/sdr.md](../SDR/sdr.md) - SDR fundamentals for the RTL-SDR built into the uConsole
+- [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch repo for additional pentesting tools on the uConsole

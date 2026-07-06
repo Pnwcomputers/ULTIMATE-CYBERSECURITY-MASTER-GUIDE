@@ -1,5 +1,21 @@
 # AV/EDR Evasion - Detection & Defense Deep Dive
 
+
+## 🎯 Purpose
+AV/EDR evasion techniques reference for blue team and purple team - covering how each evasion technique works, what artifacts it leaves, and how to detect, hunt, and harden against it.
+
+## ⚙️ Function
+Covers: AMSI bypass, script obfuscation, process injection (shellcode, DLL hollowing, process ghosting), PE obfuscation, sandbox detection, memory-only payloads, direct syscalls, and EDR-specific bypasses - with detection signatures, Sysmon event IDs, and YARA rules for each category.
+
+## 🏆 Goal
+Give defenders a complete technical understanding of evasion techniques so they can tune EDR rules, write detection logic, and understand which controls are effective against which techniques.
+
+## 📋 When to Use
+- Building EDR/AV detection rules for a specific evasion technique
+- Understanding why a payload evaded a specific security control
+- Red team engagement planning for environments with known EDR products
+- Security tool evaluation: testing which detections a control actually fires
+
 > **Scope:** How attackers evade antivirus and endpoint detection/response solutions - technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
 
 ✅ **Quick-reference checklists:** [Defense Evasion](../Checklists/Defense-Evasion.md) · [AppLocker Bypass](../Checklists/AppLocker.md)
@@ -1134,3 +1150,10 @@ Memory forensics on acquired dump?
 - [Windows Security Baselines (Microsoft)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-security-configuration-framework/windows-security-baselines)
 - [Red Canary Threat Detection Report](https://redcanary.com/threat-detection-report/)
 - [Sigma Rules Repository](https://github.com/SigmaHQ/sigma)
+
+## Related Files
+- [README.md](README.md) - Tradecraft section index
+- [c2-frameworks.md](c2-frameworks.md) - C2 frameworks that deploy evasion techniques
+- [lolbins-lolbas.md](lolbins-lolbas.md) - LOLBins used to bypass application control
+- [../Checklists/Defense-Evasion.md](../Checklists/Defense-Evasion.md) - Defense evasion technique checklist
+- [../AI/offensive_ai.md](../AI/offensive_ai.md) - AI-augmented evasion research

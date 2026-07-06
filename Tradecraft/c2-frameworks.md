@@ -1,5 +1,21 @@
 # C2 Frameworks - Deep Dive
 
+
+## 🎯 Purpose
+C2 framework deep-dive covering Cobalt Strike, Sliver, and Havoc - architecture, deployment, malleable profiles, OpSec considerations, detection signatures, and defensive countermeasures.
+
+## ⚙️ Function
+Per-framework coverage: deployment setup, listener configuration, payload generation, staging vs stageless, malleable C2 profiles (Cobalt Strike), OPSEC-safe operations, traffic signatures, JA3/JA3S fingerprints, and Sigma/Sysmon detection rules for each framework's behaviors.
+
+## 🏆 Goal
+Give red teamers an operational reference for deploying C2 infrastructure safely, and blue teamers the signatures and behavioral indicators to detect and attribute C2 activity in their environments.
+
+## 📋 When to Use
+- Setting up Cobalt Strike, Sliver, or Havoc infrastructure for an authorized engagement
+- Building C2 traffic detections for a SOC or SIEM
+- Evaluating C2 framework selection for a specific engagement profile
+- Purple team: emulating C2 behavior and testing network detections
+
 > **Scope:** Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
 
 ✅ **Quick-reference checklist:** [Command and Control](../Checklists/Command%26Control.md)
@@ -596,3 +612,10 @@ iptables -A OUTPUT -d <approved_proxy_IP> -p tcp --dport 3128 -j ACCEPT
 - [Malleable C2 Profiles](https://github.com/rsmudge/Malleable-C2-Profiles)
 - [MITRE ATT&CK: C2](https://attack.mitre.org/tactics/TA0011/)
 - [C2 Matrix](https://howto.thec2matrix.com/)
+
+## Related Files
+- [README.md](README.md) - Tradecraft section index
+- [active-directory.md](active-directory.md) - Post-exploitation via C2 in AD environments
+- [av-edr-evasion.md](av-edr-evasion.md) - Evasion techniques for C2 payload delivery
+- [network-detection.md](network-detection.md) - Detecting C2 traffic at the network layer
+- [../Checklists/Command%26Control.md](../Checklists/Command%26Control.md) - C2 technique checklist

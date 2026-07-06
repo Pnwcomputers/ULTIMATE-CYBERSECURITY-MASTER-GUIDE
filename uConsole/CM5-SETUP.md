@@ -1,5 +1,19 @@
 # uConsole Setup Guide: CM5 Configuration
 
+## 🎯 Purpose
+Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM5 module - the newer, faster CM5 variant covering Rex's Kali/Trixie image, HackerGadgets AIO v2 board, and CM5-specific driver differences from the CM4 setup.
+
+## ⚙️ Function
+Post-flash configuration for CM5: WiFi adapter drivers (CM5-specific chipset differences), Bluetooth, audio, display brightness, RTL-SDR, LoRa, GPS, NVMe storage, and the HackerGadgets AIO v2 board - with attention to CM5 vs CM4 behavioral differences.
+
+## 🏆 Goal
+A fully working CM5-based uConsole with all HackerGadgets hardware functional, taking advantage of the CM5's improved CPU/RAM performance for compute-heavy tasks like SDR processing and AI inference.
+
+## 📋 When to Use
+- Initial setup after flashing Rex's Kali or Trixie image to a CM5 module
+- When upgrading from CM4 to CM5 and needing to account for driver differences
+- Troubleshooting CM5-specific hardware issues (USB, PCIe, WiFi chipset variants)
+
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
@@ -698,3 +712,9 @@ Log out and back in to confirm the error is gone.
 * [aiov2_ctl GitHub Repo](https://github.com/hackergadgets/aiov2_ctl)
 * [Rex's AIO Board Package Thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
 * [Rex's Trixie Image](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
+
+## Related Files
+- [README.md](README.md) - uConsole section index
+- [CM4-SETUP.md](CM4-SETUP.md) - CM4 module variant of this guide
+- [scripts/README.md](scripts/README.md) - Automated scripts to run after following this guide
+- [../SDR/sdr.md](../SDR/sdr.md) - Using the RTL-SDR built into the uConsole

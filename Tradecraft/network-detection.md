@@ -1,5 +1,20 @@
 # Network Detection & Packet Analysis - Deep Dive
 
+## 🎯 Purpose
+Network-based threat detection deep-dive - covering packet capture, Zeek/Suricata deployment, protocol anomaly detection, C2 traffic signatures, lateral movement network indicators, encrypted traffic analysis, and network forensics methodology.
+
+## ⚙️ Function
+Covers: sensor placement strategy, tcpdump/tshark/Wireshark workflow, Zeek log analysis (conn.log, dns.log, ssl.log, JA3/JA3S), Suricata rule writing, DNS/HTTP/TLS anomaly detection, C2 beacon detection, lateral movement network patterns, and PCAP forensics at scale.
+
+## 🏆 Goal
+Enable blue team practitioners to build an effective network detection stack, write actionable detection rules, and perform network forensics investigation on captured traffic.
+
+## 📋 When to Use
+- Deploying Zeek + Suricata in a SOC or homelab NSM stack
+- Writing Suricata rules or Zeek scripts for specific threat detection
+- Investigating suspicious network traffic during an incident
+- Baselining network behavior before a purple team exercise
+
 > **Scope:** Network-based threat detection, packet capture and analysis, protocol anomaly detection, IDS/IPS tuning, traffic baselining, and network forensics methodology.
 
 ✅ **Related offensive-side checklists:** [Lateral Movement](../Checklists/Lateral-Movement.md) · [Command and Control](../Checklists/Command%26Control.md)
@@ -1138,3 +1153,10 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
 - [Sysmon Network Events - SwiftOnSecurity config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Microsoft Defender for Endpoint Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-hunting-overview)
 - [etl2pcapng](https://github.com/microsoft/etl2pcapng)
+
+## Related Files
+- [README.md](README.md) - Tradecraft section index
+- [c2-frameworks.md](c2-frameworks.md) - C2 framework traffic signatures to detect
+- [active-directory.md](active-directory.md) - AD lateral movement patterns visible at network layer
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark deep-dive reference
+- [../IncidentResponse/network_intrusion.md](../IncidentResponse/network_intrusion.md) - Network intrusion response procedures

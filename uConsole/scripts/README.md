@@ -1,5 +1,19 @@
 # uConsole Automated Setup Scripts (CM4 and CM5)
 
+## 🎯 Purpose
+Automated bash scripts that replicate the manual setup steps from CM4-SETUP.md and CM5-SETUP.md - for reproducible, hands-off uConsole configuration after flashing Rex's Kali or Trixie image.
+
+## ⚙️ Function
+Two parallel scripts (one per compute module variant) that install drivers, configure the HackerGadgets AIO v2 board, set up RTL-SDR/LoRa/GPS, configure audio and display, and install the standard pentesting toolset - automating the complete post-flash workflow.
+
+## 🏆 Goal
+Reduce uConsole rebuild time from ~2 hours of manual steps to a single script run, with consistent results across CM4 and CM5 modules.
+
+## 📋 When to Use
+- After flashing a fresh Kali or Trixie image (run the appropriate script instead of following the manual guide)
+- Rebuilding a uConsole after storage failure
+- Setting up a second uConsole with identical configuration
+
 Two parallel scripts that automate the post-flash setup described in [CM4-SETUP.md](../CM4-SETUP.md) and [CM5-SETUP.md](../CM5-SETUP.md):
 
 | Script | Target | State/Info |
@@ -218,3 +232,8 @@ Hardware specs and package commands sourced and verified against:
 - [Rex's Kali image thread](https://forum.clockworkpi.com/t/kali-6-12-y-for-the-uconsole-and-devterm/14463)
 - [HackerGadgets AIO V1/V2 Setup Guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide)
 - [aiov2_ctl README](https://github.com/hackergadgets/aiov2_ctl)
+
+## Related Files
+- [../README.md](../README.md) - uConsole section index
+- [../CM4-SETUP.md](../CM4-SETUP.md) - Manual guide that these CM4 scripts automate
+- [../CM5-SETUP.md](../CM5-SETUP.md) - Manual guide that these CM5 scripts automate
