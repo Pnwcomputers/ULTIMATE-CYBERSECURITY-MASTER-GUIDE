@@ -986,9 +986,9 @@ We welcome contributions from security professionals, but all scripts must meet 
 - **eWPT**: eLearnSecurity Web Penetration Tester
 
 **Training Resources:**
-- **Offensive Security**: https://www.offensive-security.com/
+- **Offensive Security**: https://www.offsec.com/
 - **SANS Institute**: https://www.sans.org/
-- **eLearnSecurity**: https://elearnsecurity.com/
+- **eLearnSecurity**: https://ine.com/security
 - **Cybrary**: https://www.cybrary.it/
 - **Pluralsight**: Security training paths
 
@@ -1008,7 +1008,7 @@ We welcome contributions from security professionals, but all scripts must meet 
 - [📘 Playbooks](../PlayBooks/README.md)
 
 ### External Resources
-- [Offensive Security](https://www.offensive-security.com/)
+- [Offensive Security](https://www.offsec.com/)
 - [OWASP](https://owasp.org)
 - [NIST Cybersecurity](https://www.nist.gov/cyberframework)
 - [SANS Institute](https://www.sans.org/)

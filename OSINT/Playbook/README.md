@@ -144,7 +144,7 @@ The toolkit supports multiple APIs for enhanced intelligence gathering:
 |-----|---------|---------|
 | **Hunter.io** | Email discovery/verification | [hunter.io](https://hunter.io) |
 | **SecurityTrails** | Domain intelligence | [securitytrails.com](https://securitytrails.com) |
-| **Censys** | Host/certificate search | [censys.io](https://censys.io) |
+| **Censys** | Host/certificate search | [censys.io](https://censys.com) |
 | **AbuseIPDB** | IP reputation | [abuseipdb.com](https://abuseipdb.com) |
 | **Intelligence X** | Deep search | [intelx.io](https://intelx.io) |
 | **ProjectDiscovery** | Cloud platform | [cloud.projectdiscovery.io](https://cloud.projectdiscovery.io) |

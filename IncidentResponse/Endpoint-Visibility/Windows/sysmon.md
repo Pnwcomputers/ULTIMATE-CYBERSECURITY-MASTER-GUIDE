@@ -35,7 +35,7 @@ Standard Windows logging misses critical security events. Sysmon fills these gap
 
 ### Required Downloads
 
-1. **Sysmon Binary:** [Microsoft Sysinternals](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
+1. **Sysmon Binary:** [Microsoft Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
 2. **Configuration File:** Choose based on your needs (see Configuration Options below)
 
 ---
@@ -686,7 +686,7 @@ Set-Acl "C:\Windows\Sysmon64.exe" $acl
 
 ## 📚 Additional Resources
 
-- [Sysmon Documentation (Microsoft)](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
+- [Sysmon Documentation (Microsoft)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
 - [SwiftOnSecurity Sysmon Config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Sysmon Modular (Olaf Hartong)](https://github.com/olafhartong/sysmon-modular)
 - [TrustedSec Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide)

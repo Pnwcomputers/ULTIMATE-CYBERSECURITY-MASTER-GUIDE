@@ -1212,7 +1212,7 @@ strings firmware.bin | grep -E "(key|pass|secret|token|cred)" -i
 
 ```bash
 # Install Ghidra
-# Download from: https://ghidra-sre.org
+# Download from: https://github.com/NationalSecurityAgency/ghidra
 # Requires Java 17+: sudo apt install openjdk-17-jdk
 
 # Launch

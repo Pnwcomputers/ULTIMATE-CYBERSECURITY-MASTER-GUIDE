@@ -535,7 +535,7 @@ Filebeat ships log files from Linux systems.
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 
 # Add repository
-echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/stable/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 
 # Install Filebeat
 sudo apt update
@@ -552,7 +552,7 @@ sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 cat << EOF | sudo tee /etc/yum.repos.d/elastic.repo
 [elastic-8.x]
 name=Elastic repository for 8.x packages
-baseurl=https://artifacts.elastic.co/packages/8.x/yum
+baseurl=https://artifacts.elastic.co/packages/stable/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1

@@ -1300,7 +1300,7 @@ Set-ExecutionPolicy Unrestricted -Force
 **Linux (REMnux)**
 ```bash
 # Install REMnux on Ubuntu
-wget https://REMnux.org/remnux-cli
+wget https://remnux.org/docs/distro/get/
 sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
 remnux install
 # Installs: Volatility 3, YARA, Ghidra, radare2/Cutter, oledump, pdf-parser,

@@ -626,7 +626,7 @@ print(f'ISP:         {d[\"organization\"]}')
 - **Mullvad Privacy Guides**: https://mullvad.net/blog
 - **Privacy Guides (community)**: https://www.privacyguides.org
 - **PrivacyTests.org**: Browser privacy comparison matrix
-- **Audit reports**: https://mullvad.net/blog/tag/audit
+- **Audit reports**: https://mullvad.net/en/blog/tags/audit
 
 ---
 

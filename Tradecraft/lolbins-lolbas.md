@@ -33,7 +33,7 @@ Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed e
 
 **Resources:**
 - [LOLBAS Project](https://lolbas-project.github.io/) - comprehensive catalog
-- [GTFOBins](https://gtfobins.github.io/) - Linux equivalents
+- [GTFOBins](https://gtfobins.org/) - Linux equivalents
 
 ---
 

@@ -127,16 +127,16 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 | Incident | Type |
 |---|---|
 | [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon - Iranian nuclear facilities |
-| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/wannacry-ransomware) | Global ransomware outbreak |
+| [WannaCry](https://www.cisa.gov/news-events/alerts) | Global ransomware outbreak |
 | [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
 | [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
-| [Carbanak](https://www.fireeye.com/blog/threat-research/2017/06/behind-the-carbanak-backdoor.html) | APT banking theft campaign |
+| [Carbanak](https://www.mandiant.com/resources/blog/threat-research/2017/06/behind-the-carbanak-backdoor.html) | APT banking theft campaign |
 | [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
 | [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
 | + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
 
 ### 🔧 Hardware Arsenal Documented
-**Multi-tools:** [Flipper Zero](https://flipperzero.one/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
+**Multi-tools:** [Flipper Zero](https://flipper.net/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
 
 ### 📟 uConsole & Portable Operations
 Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations. 
@@ -230,10 +230,10 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [OpenOCD](https://openocd.org/) · [Bus Pirate](http://dangerousprototypes.com/docs/Bus_Pirate)
 
 **Forensics & Reverse Engineering**
-- [Volatility](https://www.volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://ghidra-sre.org/) - NSA
+- [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
 - [radare2](https://rada.re/) - pancake · [IDA Pro](https://hex-rays.com/ida-pro/) - Hex-Rays
 - [Binwalk](https://github.com/ReFirmLabs/binwalk) · [YARA](https://github.com/VirusTotal/yara)
-- [Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/) - Mark Russinovich
+- [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) - Mark Russinovich
 
 **Monitoring & Defense**
 - [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
@@ -254,10 +254,10 @@ This guide stands on the shoulders of the global cybersecurity community.
 > See the [full 77-entry bibliography](#-complete-bibliography) below.
 
 ### 🐧 Security Linux Distributions
-[Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.boum.org/) · [Whonix](https://www.whonix.org/)
+[Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.net/) · [Whonix](https://www.whonix.org/)
 
 ### 🌐 Knowledge Frameworks & Communities
-[MITRE ATT&CK](https://attack.mitre.org/) · [OWASP](https://owasp.org/) · [NIST NVD](https://nvd.nist.gov/) · [CVE](https://cve.mitre.org/) · [CISA](https://www.cisa.gov/) · [SANS](https://www.sans.org/)
+[MITRE ATT&CK](https://attack.mitre.org/) · [OWASP](https://owasp.org/) · [NIST NVD](https://nvd.nist.gov/) · [CVE](https://www.cve.org/) · [CISA](https://www.cisa.gov/) · [SANS](https://www.sans.org/)
 
 [HackTheBox](https://www.hackthebox.com/) · [TryHackMe](https://tryhackme.com/) · [VulnHub](https://www.vulnhub.com/) · [OverTheWire](https://overthewire.org/) · [PentesterLab](https://pentesterlab.com/)
 
@@ -265,10 +265,10 @@ This guide stands on the shoulders of the global cybersecurity community.
 
 ### 🔐 Privacy & Anonymity Tools
 [Tor Project](https://www.torproject.org/) · [Mullvad VPN](https://mullvad.net/) · [ProtonVPN](https://protonvpn.com/) · [IVPN](https://www.ivpn.net/)
-[VeraCrypt](https://www.veracrypt.fr/) · [ProtonMail](https://proton.me/mail) · [Signal](https://signal.org/)
+[VeraCrypt](https://veracrypt.io/) · [ProtonMail](https://proton.me/mail) · [Signal](https://signal.org/)
 
 ### 🎓 Certification Bodies
-[Offensive Security](https://www.offensive-security.com/) (OSCP, OSEP, OSCE) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
+[Offensive Security](https://www.offsec.com/) (OSCP, OSEP, OSCE) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
 
 ### 👥 Notable Security Researchers
 Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · HD Moore · Tavis Ormandy · Marcus Hutchins · Brian Krebs · Troy Hunt · Katie Moussouris · Parisa Tabriz · The Grugq · and countless others

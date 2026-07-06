@@ -418,7 +418,7 @@ Trace cryptocurrency transactions and identify connections to known scam wallets
 #### Step 2: Scam Database Check
 
 Manual checks:
-- https://www.bitcoinabuse.com/reports/ADDRESS
+- https://chainabuse.com/address/ADDRESS
 - https://www.chainabuse.com/address/ADDRESS
 - https://cryptoscamdb.org/search
 

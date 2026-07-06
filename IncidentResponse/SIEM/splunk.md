@@ -112,7 +112,7 @@ Or via wget (replace with current version):
 ```bash
 # Download Splunk (check website for latest URL)
 cd /tmp
-wget -O splunk-9.2.0-linux-2.6-amd64.deb "https://download.splunk.com/products/splunk/releases/9.2.0/linux/splunk-9.2.0-linux-2.6-amd64.deb"
+wget -O splunk-9.2.0-linux-2.6-amd64.deb "https://www.splunk.com/en_us/download/splunk-enterprise.html"
 ```
 
 #### Step 2.2: Install Splunk
@@ -345,7 +345,7 @@ Or via PowerShell:
 
 ```powershell
 # Download (check website for current version)
-$url = "https://download.splunk.com/products/universalforwarder/releases/9.2.0/windows/splunkforwarder-9.2.0-x64-release.msi"
+$url = "https://www.splunk.com/en_us/download/universal-forwarder.html"
 Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\splunkforwarder.msi"
 ```
 
@@ -460,7 +460,7 @@ Get-Service SplunkForwarder
 
 ```bash
 # Download (check website for current version)
-wget -O /tmp/splunkforwarder.deb "https://download.splunk.com/products/universalforwarder/releases/9.2.0/linux/splunkforwarder-9.2.0-linux-2.6-amd64.deb"
+wget -O /tmp/splunkforwarder.deb "https://www.splunk.com/en_us/download/universal-forwarder.html"
 
 # Install
 sudo dpkg -i /tmp/splunkforwarder.deb
@@ -469,7 +469,7 @@ sudo dpkg -i /tmp/splunkforwarder.deb
 **RHEL/CentOS:**
 
 ```bash
-wget -O /tmp/splunkforwarder.rpm "https://download.splunk.com/products/universalforwarder/releases/9.2.0/linux/splunkforwarder-9.2.0-linux-2.6-x86_64.rpm"
+wget -O /tmp/splunkforwarder.rpm "https://www.splunk.com/en_us/download/universal-forwarder.html"
 
 sudo rpm -i /tmp/splunkforwarder.rpm
 ```
@@ -896,7 +896,7 @@ publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
 - [Splunk Community](https://community.splunk.com/)
 - [Splunk Education](https://www.splunk.com/en_us/training.html)
 - [Splunk Fundamentals 1](https://www.splunk.com/en_us/training/courses/splunk-fundamentals-1.html) (Free)
-- [Boss of the SOC (BOTS)](https://www.splunk.com/en_us/blog/security/boss-of-the-soc-bots-v5-dataset-released.html) (Practice datasets)
+- [Boss of the SOC (BOTS)](https://www.splunk.com/en_us/blog/tag/boss-of-the-soc.html) (Practice datasets)
 
 ### Detection Content
 

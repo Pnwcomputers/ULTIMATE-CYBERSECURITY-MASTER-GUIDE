@@ -823,8 +823,8 @@ Infrastructure
 - [Impacket](https://github.com/fortra/impacket)
 - [Rubeus](https://github.com/GhostPack/Rubeus)
 - [MITRE ATT&CK: Credential Access](https://attack.mitre.org/tactics/TA0006/)
-- [SpecterOps BloodHound Blog](https://posts.specterops.io/)
+- [SpecterOps BloodHound Blog](https://specterops.io/blog/)
 - [Harmj0y AD Security Blog](https://blog.harmj0y.net/)
-- [Microsoft AD Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/)
+- [Microsoft AD Security Best Practices](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/executive-summary)
 - [Pingcastle AD Health Check](https://www.pingcastle.com/)
-- [Purple Knight](https://www.purple-knight.com/) - Free AD assessment tool
+- [Purple Knight](https://www.semperis.com/purple-knight/) - Free AD assessment tool

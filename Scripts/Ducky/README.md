@@ -22,7 +22,7 @@ For offline compilation or automation.
 **Installation:**
 ```bash
 # Download from Hak5
-wget https://github.com/hak5/usbrubberducky-payloads/raw/master/duckencoder.jar
+wget https://payloadstudio.com/
 
 # Or install via package manager (if available)
 ```
@@ -40,7 +40,7 @@ java -jar duckencoder.jar -i payload.txt -o inject.bin
 ### Method 3: Duck Toolkit
 Alternative online encoder.
 
-1. **Visit**: https://ducktoolkit.com/encode
+1. **Visit**: https://payloadstudio.com/login/
 2. **Paste** your DuckyScript
 3. **Select** keyboard layout
 4. **Download** `inject.bin`
@@ -180,9 +180,9 @@ For legitimate IT/security work:
 ## Resources
 
 - **Hak5 Forums**: https://forums.hak5.org/
-- **Official Docs**: https://docs.hak5.org/usb-rubber-ducky/
+- **Official Docs**: https://documentation.hak5.org/hak5-usb-rubber-ducky/
 - **Payload Library**: https://github.com/hak5/usbrubberducky-payloads
-- **DuckyScript Docs**: https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-tm-quick-reference
+- **DuckyScript Docs**: https://documentation.hak5.org/hak5-usb-rubber-ducky/duckyscript-tm-quick-reference
 
 ## Support
 

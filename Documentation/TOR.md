@@ -459,7 +459,7 @@ media.peerconnection.enabled         → false  (disables WebRTC - leak risk)
 | IP leak test             | https://ipleak.net                       |
 | DNS leak test            | https://dnsleaktest.com                  |
 | Get bridges              | https://bridges.torproject.org           |
-| Tor Browser manual       | https://tb-manual.torproject.org         |
+| Tor Browser manual       | https://support.torproject.org         |
 | Support                  | https://support.torproject.org           |
 | Tor metrics / relay list | https://metrics.torproject.org           |
 

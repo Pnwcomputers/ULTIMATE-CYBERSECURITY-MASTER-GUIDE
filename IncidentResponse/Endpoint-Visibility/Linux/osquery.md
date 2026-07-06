@@ -61,7 +61,7 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 # Add osquery repository
 export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
-sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquerypackages.com/deb deb main'
 
 # Install osquery
 sudo apt update
@@ -72,7 +72,7 @@ sudo apt install -y osquery
 
 ```bash
 # Add osquery repository
-curl -L https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
+curl -L https://pkg.osquerypackages.com/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
 sudo yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
 sudo yum-config-manager --enable osquery-s3-rpm
 
@@ -84,7 +84,7 @@ sudo yum install -y osquery
 
 #### Method 1: MSI Installer
 
-Download from [osquery.io/downloads](https://osquery.io/downloads/official/):
+Download from [osquery.io/downloads](https://osquery.io/downloads/):
 
 ```powershell
 # Download installer
@@ -684,7 +684,7 @@ Create `deploy_osquery.yml`:
   tasks:
     - name: Add osquery repository (Debian)
       apt_repository:
-        repo: 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+        repo: 'deb [arch=amd64] https://pkg.osquerypackages.com/deb deb main'
         state: present
       when: ansible_os_family == "Debian"
 
@@ -1037,7 +1037,7 @@ If using Fleet for central management:
 ### Documentation
 
 - [Osquery Documentation](https://osquery.readthedocs.io/)
-- [Osquery Schema](https://osquery.io/schema/)
+- [Osquery Schema](https://osquery.io/schema/5.14.0/)
 - [Osquery GitHub](https://github.com/osquery/osquery)
 
 ### Query Packs
@@ -1054,7 +1054,7 @@ If using Fleet for central management:
 ### Community
 
 - [Osquery Slack](https://osquery.slack.com/)
-- [Osquery GitHub Discussions](https://github.com/osquery/osquery/discussions)
+- [Osquery GitHub Discussions](https://github.com/osquery/osquery/issues)
 
 ---
 

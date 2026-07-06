@@ -230,7 +230,7 @@ Category: EventLogs
 Author: Eric Zimmerman
 Version: 1.0
 Id: 87654321-4321-4321-4321-cba987654321
-BinaryUrl: https://f001.backblazeb2.com/file/EricZimmermanTools/EvtxECmd.zip
+BinaryUrl: https://ericzimmerman.github.io/#!index.md
 ExportFormat: csv
 Processors:
     -
@@ -367,7 +367,7 @@ KAPE includes a GUI for easier use:
 
 ### Step 1: Download Autopsy
 
-Download from [sleuthkit.org/autopsy](https://www.sleuthkit.org/autopsy/download.php)
+Download from [sleuthkit.org/autopsy](https://www.autopsy.com/download/)
 
 ### Step 2: Install
 
@@ -800,7 +800,7 @@ Remove-Item -Recurse "$env:APPDATA\.autopsy"
 
 - [Autopsy User Documentation](https://sleuthkit.org/autopsy/docs/user-docs/4.19.3/)
 - [KAPE Documentation](https://ericzimmerman.github.io/KapeDocs/)
-- [SANS DFIR Resources](https://www.sans.org/blog/dfir-resources/)
+- [SANS DFIR Resources](https://www.sans.org/blog/tag/dfir/)
 
 ### Training
 
@@ -812,7 +812,7 @@ Remove-Item -Recurse "$env:APPDATA\.autopsy"
 
 - [Eric Zimmerman Tools](https://ericzimmerman.github.io/)
 - [Arsenal Image Mounter](https://arsenalrecon.com/products/arsenal-image-mounter)
-- [FTK Imager](https://www.exterro.com/ftk-imager)
+- [FTK Imager](https://www.exterro.com/digital-forensics-software/ftk-imager)
 
 ---
 

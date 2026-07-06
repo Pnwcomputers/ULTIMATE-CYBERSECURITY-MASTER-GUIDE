@@ -851,7 +851,7 @@ We welcome contributions from security professionals to improve and expand this 
 ### External Resources
 - [MITRE ATT&CK](https://attack.mitre.org/)
 - [OWASP Foundation](https://owasp.org)
-- [Offensive Security](https://www.offensive-security.com/)
+- [Offensive Security](https://www.offsec.com/)
 - [SANS Institute](https://www.sans.org/)
 
 ---

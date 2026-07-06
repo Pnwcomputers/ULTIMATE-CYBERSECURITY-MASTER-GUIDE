@@ -869,7 +869,7 @@ Date and version information
 
 - **VMware Workstation Pro Docs**: https://docs.vmware.com/
 - **Proxmox VE Documentation**: https://pve.proxmox.com/wiki/
-- **QEMU/KVM Documentation**: https://www.qemu.org/docs/
+- **QEMU/KVM Documentation**: https://www.qemu.org/docs/master/
 - **VirtualBox Documentation**: https://www.virtualbox.org/wiki/Documentation
 
 ### Malware Analysis Resources

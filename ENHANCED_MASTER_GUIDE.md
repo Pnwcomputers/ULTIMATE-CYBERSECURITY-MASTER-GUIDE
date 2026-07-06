@@ -169,7 +169,7 @@ Layer 5: Data Security
 
 - **IntelTechniques OSINT VM** (formerly "Buscador")
   Custom Debian/Ubuntu build with pre-configured OSINT tools, maintained by Michael Bazzell/David Westcott.
-  Official page: https://inteltechniques.com/buscador/
+  Official page: https://www.kali.org/get-kali/
   Follow the setup instructions on that page directly - don't hardcode credentials into install URLs; they end up in shell history and logs.
 
 - **Trace Labs OSINT VM**
@@ -1608,7 +1608,7 @@ Compromised Standards:
 
 # 2. Tor usage increase
 # Download Tor Browser
-wget https://www.torproject.org/dist/torbrowser/latest/tor-browser-linux64.tar.xz
+wget https://www.torproject.org/download/
 
 # 3. VPN usage
 # Select no-logs VPN provider
@@ -2770,8 +2770,8 @@ mkdir -p ~/lab/vulnhub
 cd ~/lab/vulnhub
 
 # Download popular vulnerable VMs
-wget https://download.vulnhub.com/kioptrix/kioptrix2014.tar.bz2
-wget https://download.vulnhub.com/hackthebox/HTB-Lame.ova
+wget https://www.vulnhub.com/entry/kioptrix-2014-5,62/
+wget https://www.vulnhub.com/
 
 # Extract and import
 tar -xvf kioptrix2014.tar.bz2
@@ -3944,7 +3944,7 @@ Set-ExecutionPolicy Unrestricted -Force && .\install.ps1
  
 **Linux - REMnux:**
 ```bash
-wget https://REMnux.org/remnux-cli && sudo mv remnux-cli /usr/local/bin/remnux
+wget https://remnux.org/docs/distro/get/ && sudo mv remnux-cli /usr/local/bin/remnux
 sudo chmod +x /usr/local/bin/remnux && remnux install
 # Key tools: Volatility 3, YARA, Ghidra, radare2/Cutter,
 #            oledump, pdf-parser, NetworkMiner, FakeNet-NG, inetsim
@@ -4326,7 +4326,7 @@ Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
 **AD Assessment tools:**
 - [BloodHound](https://github.com/SpecterOps/BloodHound) - attack path mapping
 - [Pingcastle](https://www.pingcastle.com/) - free AD health/risk score
-- [Purple Knight](https://www.purple-knight.com/) - free AD security assessment
+- [Purple Knight](https://www.semperis.com/purple-knight/) - free AD security assessment
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
 ---
@@ -4357,7 +4357,7 @@ Process Monitor, Process Hacker, VMMap, Regshot, FakeNet-NG, CyberChef, dnSpy, d
 Ubuntu-based Linux malware analysis distro. Use alongside FLARE VM.
  
 ```bash
-wget https://REMnux.org/remnux-cli
+wget https://remnux.org/docs/distro/get/
 sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
 remnux install
 ```

@@ -13,7 +13,7 @@ _Common Linux local privilege escalation vectors._
 ---
 * [LPE-01 - Dirty Cow](https://dirtycow.ninja/)
 * [LPE-02 - SUID Executables](https://pentestlab.blog/2017/09/25/suid-executables/)
-* [LPE-03 - Sudo Users](https://gtfobins.github.io/gtfobins/sudo/)
+* [LPE-03 - Sudo Users](https://gtfobins.org/gtfobins/sudo/)
 * [LPE-04 - Wildcard Injection](https://hacktricks.wiki/en/linux-hardening/privilege-escalation/wildcards-spare-tricks.html)
 * [LPE-05 - Kernel Exploits](https://github.com/lucyoa/kernel-exploits)
 * [LPE-06 - Path Hijacking](https://hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html)

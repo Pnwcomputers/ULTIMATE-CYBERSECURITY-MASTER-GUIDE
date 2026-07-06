@@ -515,7 +515,7 @@ fi
 
 ## Resources
 
-- **Official Docs**: https://docs.hak5.org/bash-bunny/
+- **Official Docs**: https://documentation.hak5.org/bash-bunny/
 - **Forums**: https://forums.hak5.org/forum/94-bash-bunny/
 - **Payload Library**: https://github.com/hak5/bashbunny-payloads
 - **Downloads**: https://downloads.hak5.org/bunny

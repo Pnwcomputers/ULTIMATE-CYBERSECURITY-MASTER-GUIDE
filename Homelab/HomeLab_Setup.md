@@ -1006,7 +1006,7 @@ zfs set sharenfs="rw=@10.20.20.0/24,no_root_squash" tank/pentest-data
 ```bash
 # Download latest Kali Proxmox image
 cd /var/lib/vz/template/iso/
-wget https://kali.download/base-images/kali-2024.4/kali-linux-2024.4-qemu-amd64.7z
+wget https://www.kali.org/get-kali/#kali-virtual-machines
 7z x kali-linux-2024.4-qemu-amd64.7z
 
 # Create VM from qcow2 image
@@ -1057,7 +1057,7 @@ qm snapshot 200 baseline --vmstate 1 --description "Clean Kali install, all tool
 ```bash
 # Download Parrot ISO
 cd /var/lib/vz/template/iso/
-wget https://download.parrot.sh/parrot/iso/5.3/Parrot-security-5.3_amd64.iso
+wget https://www.parrotsec.org/download/
 
 # Create VM
 qm create 201 --name parrot-sec --memory 8192 --cores 4 \
@@ -1690,7 +1690,7 @@ cd /opt/Empire
 sudo ./setup/install.sh
 
 # Install Starkiller (GUI)
-wget https://github.com/BC-SECURITY/Starkiller/releases/download/v1.11.0/starkiller-1.11.0.AppImage
+wget https://github.com/BC-SECURITY/Starkiller/releases/latest
 chmod +x starkiller-1.11.0.AppImage
 ./starkiller-1.11.0.AppImage
 ```
@@ -2290,7 +2290,7 @@ qm create 411 --name splunk --memory 8192 --cores 2 \
     --scsi0 local-lvm:100
 
 # Install Ubuntu, then Splunk
-wget -O splunk.deb 'https://download.splunk.com/products/splunk/releases/9.1.2/linux/splunk-9.1.2-b6436b649711-linux-2.6-amd64.deb'
+wget -O splunk.deb 'https://www.splunk.com/en_us/download/splunk-enterprise.html'
 sudo dpkg -i splunk.deb
 sudo /opt/splunk/bin/splunk start --accept-license
 sudo /opt/splunk/bin/splunk enable boot-start
@@ -2314,7 +2314,7 @@ Install-WindowsFeature -Name Windows-EventCollector
 On Linux targets:
 ```bash
 # Install Splunk forwarder
-wget -O splunkforwarder.deb 'https://download.splunk.com/products/universalforwarder/releases/9.1.2/linux/splunkforwarder-9.1.2-b6436b649711-linux-2.6-amd64.deb'
+wget -O splunkforwarder.deb 'https://www.splunk.com/en_us/download/universal-forwarder.html'
 sudo dpkg -i splunkforwarder.deb
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 sudo /opt/splunkforwarder/bin/splunk add forward-server 10.40.40.11:9997

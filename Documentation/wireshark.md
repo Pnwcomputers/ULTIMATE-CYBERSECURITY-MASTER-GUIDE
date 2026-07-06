@@ -666,7 +666,7 @@ Tips, caveats, hardware requirements
 ### Legal Resources
 
 - **US-CERT**: https://www.cisa.gov/
-- **CFAA Guidance**: https://www.justice.gov/criminal-ccips/ccmanual
+- **CFAA Guidance**: https://www.justice.gov/criminal/cybercrime/ccmanual
 - **EFF Legal Guide**: https://www.eff.org/issues/coders/reverse-engineering-faq
 
 ### Internal Links

@@ -76,7 +76,7 @@ Using these tools improperly violates:
 | **[HackRF One](https://greatscottgadgets.com/hackrf/one/)** | Half-Duplex (Tx/Rx) | Replay attacks, fuzzing, wideband sniffing | 🔴 HIGH |
 | **[BladeRF](https://www.nuand.com/) / [USRP](https://www.ettus.com/)** | Full-Duplex (Tx/Rx) | Cell base station spoofing, GPS spoofing | 🔴 EXTREME |
 | **[LimeSDR](https://limemicro.com/products/boards/limesdr/)** | Full-Duplex (Tx/Rx) | Advanced telecommunications research | 🔴 EXTREME |
-| **[Flipper Zero](https://flipperzero.one/)** | Sub-GHz (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
+| **[Flipper Zero](https://flipper.net/)** | Sub-GHz (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
 | **[Yard Stick One](https://greatscottgadgets.com/yardstickone/)** | Sub-GHz (Tx/Rx) | Proprietary RF protocol exploitation | 🔴 HIGH |
 
 ---
@@ -89,7 +89,7 @@ Using these tools improperly violates:
 
 | Tool / Script | Description | Risk Level |
 |--------|-------------|------------|
-| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/spy-server/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
+| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/downloads/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
 | **[rtl_433](https://github.com/merbanan/rtl_433)** | Decoding ISM band devices (weather stations, TPMS, alarms) | 🟢 LOW |
 | **[dump1090](https://github.com/flightaware/dump1090)** | ADS-B aviation tracking and decoding | 🟢 LOW |
 | **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |

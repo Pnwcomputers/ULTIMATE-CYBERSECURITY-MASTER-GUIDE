@@ -203,7 +203,7 @@ Every space system consists of three interdependent segments. A compromise of an
 |------|---------|-------|
 | [**binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction | Standard first step for terminal analysis |
 | [**QEMU**](https://www.qemu.org/) | Firmware emulation | Dynamic analysis of extracted binaries |
-| [**Ghidra**](https://ghidra-sre.org/) / [**IDA**](https://hex-rays.com/ida-pro/) | Reverse engineering | Static analysis of FSW and terminal firmware |
+| [**Ghidra**](https://github.com/NationalSecurityAgency/ghidra/) / [**IDA**](https://hex-rays.com/ida-pro/) | Reverse engineering | Static analysis of FSW and terminal firmware |
 
 ---
 

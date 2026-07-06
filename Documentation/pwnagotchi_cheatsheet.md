@@ -114,7 +114,7 @@ main.plugins.memtemp.enabled = true
 ```bash
 # Download plugin
 cd /usr/local/share/pwnagotchi/custom-plugins/
-sudo wget https://raw.githubusercontent.com/user/plugin.py
+sudo wget https://github.com/evilsocket/pwnagotchi/tree/master/pwnagotchi/plugins
 
 # Add to config.toml
 main.plugins.plugin-name.enabled = true

@@ -226,7 +226,7 @@ community.riskiq.com (PassiveTotal)
  
 # Get IP ranges for an ASN
 whois -h whois.radb.net -- '-i origin AS12345'
-curl -s "https://api.bgpview.io/asn/12345/prefixes" | jq '.data.ipv4_prefixes[].prefix'
+curl -s "https://bgpview.io/asn/12345" | jq '.data.ipv4_prefixes[].prefix'
  
 # Reverse lookup all IPs in a range
 nmap -sL 192.168.1.0/24 | grep "Nmap scan report"
@@ -1074,7 +1074,7 @@ sudo apt install kali-tools-information-gathering
 - [OSINT Framework](https://osintframework.com/)
 - [Bellingcat OSINT Toolkit](https://docs.google.com/spreadsheets/d/18rtqh8EG2q1xBo2cLNyhIDuK9jrPGwYr9DI2UncoqJQ/edit)
 - [MITRE ATT&CK: Reconnaissance](https://attack.mitre.org/tactics/TA0043/)
-- [SANS OSINT Poster](https://www.sans.org/security-resources/posters/open-source-intelligence-gathering/)
+- [SANS OSINT Poster](https://www.sans.org/blog/tag/osint/)
 - [IntelTechniques](https://inteltechniques.com/tools/)
 - [Trace Labs CTF (missing persons OSINT)](https://www.tracelabs.org/)
 - [OSINT Curious](https://osintcurio.us/)

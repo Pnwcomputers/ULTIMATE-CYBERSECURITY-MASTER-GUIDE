@@ -165,7 +165,7 @@ Extract secrets by observing physical emissions during normal operation.
 | **[Multimeter](https://en.wikipedia.org/wiki/Multimeter)** | [Any decent DMM](https://www.amazon.com/s?k=digital+multimeter) | $20–$50 | Voltage/continuity checks |
 | **[USB-UART Adapter](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)** | [FTDI FT232R](https://www.amazon.com/s?k=FTDI+FT232RL+USB+to+TTL) / [CP2102](https://www.amazon.com/s?k=CP2102+USB+to+TTL) | $5–$15 | Serial console access |
 | **[JTAG/SWD Probe](https://en.wikipedia.org/wiki/JTAG)** | [J-Link EDU](https://www.segger.com/products/debug-probes/j-link/models/j-link-edu/) / [ST-LINK V2](https://www.amazon.com/s?k=ST-Link+V2) | $20–$70 | Debug interface access |
-| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Hardware_programmer)** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
+| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Programmer_(hardware))** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
 | **[Soldering Station](https://en.wikipedia.org/wiki/Soldering)** | [Hakko FX-888D](https://www.amazon.com/s?k=Hakko+FX-888D) | $100 | Component removal, wire attachment |
 | **[Hot Air Rework](https://en.wikipedia.org/wiki/Rework_(electronics))** | [Quick 957DW](https://www.amazon.com/s?k=Quick+957DW+hot+air+rework) or equivalent | $100–$200 | IC removal, BGA work |
 

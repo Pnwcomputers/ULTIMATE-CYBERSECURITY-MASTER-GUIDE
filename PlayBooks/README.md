@@ -825,10 +825,10 @@ We welcome contributions from security professionals to improve and expand this 
 ### Incident Response Frameworks
 
 - **NIST SP 800-61**: Computer Security Incident Handling Guide
-- **SANS Incident Response**: https://www.sans.org/incident-response/
+- **SANS Incident Response**: https://www.sans.org/security-resources/
 - **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework
 - **ISO/IEC 27035**: Information security incident management
-- **CISA Incident Response**: https://www.cisa.gov/incident-response
+- **CISA Incident Response**: https://www.cisa.gov/topics/cyber-threats-and-advisories/incident-response
 
 ### Security Operations
 
@@ -836,7 +836,7 @@ We welcome contributions from security professionals to improve and expand this 
 - **Cyber Kill Chain**: Lockheed Martin framework
 - **Diamond Model**: Threat intelligence framework
 - **OODA Loop**: Decision-making framework
-- **Purple Team Framework**: https://www.purpleteamsec.us/
+- **Purple Team Framework**: https://www.mitre.org/
 
 ### Professional Certifications
 

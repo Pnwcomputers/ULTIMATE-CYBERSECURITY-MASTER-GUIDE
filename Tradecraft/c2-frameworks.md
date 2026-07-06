@@ -595,4 +595,4 @@ iptables -A OUTPUT -d <approved_proxy_IP> -p tcp --dport 3128 -j ACCEPT
 - [Havoc Framework](https://github.com/HavocFramework/Havoc)
 - [Malleable C2 Profiles](https://github.com/rsmudge/Malleable-C2-Profiles)
 - [MITRE ATT&CK: C2](https://attack.mitre.org/tactics/TA0011/)
-- [C2 Matrix](https://www.thec2matrix.com/)
+- [C2 Matrix](https://howto.thec2matrix.com/)

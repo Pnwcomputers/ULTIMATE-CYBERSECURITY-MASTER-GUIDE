@@ -215,7 +215,7 @@ ALWAYS:
 - **[IntelTechniques by Michael Bazzell](https://inteltechniques.com)** - Books, training, tools
 - **[Trace Labs](https://www.tracelabs.org)** - OSINT for missing persons, CTF competitions
 - **[SANS SEC487](https://www.sans.org/cyber-security-courses/open-source-intelligence-gathering/)** - Professional OSINT training
-- **[TCM Security OSINT Course](https://academy.tcm-sec.com/)** - Practical OSINT training
+- **[TCM Security OSINT Course](https://tcm-sec.com/academy/)** - Practical OSINT training
 
 ### Essential Books
 

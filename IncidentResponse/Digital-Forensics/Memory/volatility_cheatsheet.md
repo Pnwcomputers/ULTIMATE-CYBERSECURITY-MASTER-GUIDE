@@ -1030,7 +1030,7 @@ python3 vol.py --plugin-dirs /path/to/plugins -f memory.dmp <plugin>
 
 - [Volatility 3 Documentation](https://volatility3.readthedocs.io/)
 - [Volatility GitHub](https://github.com/volatilityfoundation/volatility3)
-- [Volatility Foundation](https://www.volatilityfoundation.org/)
+- [Volatility Foundation](https://volatilityfoundation.org/)
 
 ### YARA Rules
 

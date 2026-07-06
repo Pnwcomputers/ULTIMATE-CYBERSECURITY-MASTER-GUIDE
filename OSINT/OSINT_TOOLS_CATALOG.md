@@ -23,7 +23,7 @@ The framework leverages several high-authority databases. Ensure your API keys a
 ## 1. PRIMARY INTELLIGENCE & THREAT RECON
 * [**Shodan**](https://www.shodan.io/): IoT and Device Search
 * [**VirusTotal**](https://www.virustotal.com/): Malware and URL Intelligence
-* [**Censys**](https://censys.io/): Host & Certificate Intelligence
+* [**Censys**](https://censys.com/): Host & Certificate Intelligence
 * [**SecurityTrails**](https://securitytrails.com/): DNS & Domain History
 * [**ZoomEye**](https://www.zoomeye.org/): Cyberspace Search Engine
 * [**Criminal IP**](https://www.criminalip.io/): CTI & IP Scoring

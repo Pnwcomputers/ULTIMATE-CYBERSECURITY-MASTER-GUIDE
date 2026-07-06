@@ -949,21 +949,21 @@ docker compose logs -f graylog | grep -i "received"
 ### Documentation
 
 - [Graylog Documentation](https://docs.graylog.org/)
-- [Graylog Marketplace](https://marketplace.graylog.org/)
+- [Graylog Marketplace](https://community.graylog.org/c/marketplace/31)
 - [Graylog GitHub](https://github.com/Graylog2/graylog2-server)
 
 ### Content Packs
 
 Content Packs bundle inputs, extractors, streams, and dashboards:
 
-- [Windows Event Log Pack](https://marketplace.graylog.org/)
-- [Linux Syslog Pack](https://marketplace.graylog.org/)
-- [Network Security Monitoring](https://marketplace.graylog.org/)
+- [Windows Event Log Pack](https://community.graylog.org/c/marketplace/31)
+- [Linux Syslog Pack](https://community.graylog.org/c/marketplace/31)
+- [Network Security Monitoring](https://community.graylog.org/c/marketplace/31)
 
 ### Community
 
 - [Graylog Community](https://community.graylog.org/)
-- [Graylog Slack](https://graylog.org/community-slack/)
+- [Graylog Slack](https://community.graylog.org/)
 
 ---
 

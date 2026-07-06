@@ -194,7 +194,7 @@
 
 ### Flipper Zero
 
-#### [Flipper Zero](https://flipperzero.one/)
+#### [Flipper Zero](https://flipper.net/)
 - **Specifications:**
   - STM32WB55 (Cortex-M4 + Cortex-M0+)
   - Sub-GHz radio (300-928 MHz)
@@ -213,7 +213,7 @@
 - **Popular Use:** RFID/NFC testing, Sub-GHz analysis, IR remote
 - **Note:** Requires ESP32 WiFi board for WiFi testing
 
-#### [Flipper Zero + WiFi Dev Board](https://shop.flipperzero.one/products/wifi-devboard?srsltid=AfmBOoodVfsOS-PxVsuAIlZTy2OBBL-GZVEaUKO8wfSDX0_cjwzY6pjR)
+#### [Flipper Zero + WiFi Dev Board](https://flipper.net/products/wifi-devboard?srsltid=AfmBOoodVfsOS-PxVsuAIlZTy2OBBL-GZVEaUKO8wfSDX0_cjwzY6pjR)
 - **Add-on Specs:**
   - ESP32-S2 chip
   - Connects via GPIO

@@ -932,13 +932,13 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -Onli
 
 ```bash
 # Install REMnux on Ubuntu (converts existing install)
-wget https://REMnux.org/remnux-cli
+wget https://remnux.org/docs/distro/get/
 mv remnux-cli /usr/local/bin/remnux
 chmod +x /usr/local/bin/remnux
 remnux install
 
 # Or download the pre-built OVA:
-# https://remnux.org/get-remnux/
+# https://remnux.org/docs/distro/get/
 ```
 
 Key REMnux tools:
@@ -1121,16 +1121,16 @@ Memory forensics on acquired dump?
 - [REMnux - Linux malware analysis distro](https://remnux.org/)
 - [Volatility 3](https://github.com/volatilityfoundation/volatility3)
 - [CyberChef](https://gchq.github.io/CyberChef/)
-- [Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/)
-- [Ghidra](https://ghidra-sre.org/)
+- [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/)
+- [Ghidra](https://github.com/NationalSecurityAgency/ghidra/)
 - [Cutter / rizin](https://cutter.re/)
 - [CAPE Sandbox](https://github.com/kevoreilly/CAPEv2)
-- [Elastic: Detecting Evasion with Memory Signatures](https://www.elastic.co/security-labs/detecting-cobalt-strike-with-memory-signatures)
+- [Elastic: Detecting Evasion with Memory Signatures](https://www.elastic.co/security-labs/)
 - [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
 - [VECTR Purple Team Platform](https://vectr.io/)
 - [Sysmon Config (SwiftOnSecurity)](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Sysmon-Modular (olafhartong)](https://github.com/olafhartong/sysmon-modular)
 - [hasherezade malware analysis blog](https://hshrzd.wordpress.com/)
-- [Windows Security Baselines (Microsoft)](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-configuration-framework/windows-security-baselines)
+- [Windows Security Baselines (Microsoft)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-security-configuration-framework/windows-security-baselines)
 - [Red Canary Threat Detection Report](https://redcanary.com/threat-detection-report/)
 - [Sigma Rules Repository](https://github.com/SigmaHQ/sigma)

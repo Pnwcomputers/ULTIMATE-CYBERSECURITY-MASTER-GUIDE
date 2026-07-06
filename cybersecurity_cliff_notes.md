@@ -1325,9 +1325,9 @@ This comprehensive guide covers the essential topics in cybersecurity and penetr
 ### Resources
 - **OWASP**: https://owasp.org
 - **MITRE ATT&CK**: https://attack.mitre.org
-- **HackTricks**: https://book.hacktricks.xyz
+- **HackTricks**: https://hacktricks.wiki/en
 - **PayloadsAllTheThings**: GitHub repository
-- **GTFOBins**: https://gtfobins.github.io
+- **GTFOBins**: https://gtfobins.org
 - **LOLBAS**: Living Off The Land Binaries and Scripts
 
 ---

@@ -19,7 +19,7 @@ Decode unknown digital communication from a target embedded device - identifying
 The HiLetgo USB Logic Analyzer is a cost-effective, 8-channel, 24MHz logic analyzer. It is a Saleae Logic clone and is the absolute standard for beginner and intermediate hardware hacking, allowing you to monitor and decode digital signals.
 
 ## 🔗 Reference Links
-* **Product Link:** [HiLetgo USB Logic Analyzer (Amazon)](https://www.amazon.com/dp/B009OXPEL2)
+* **Product Link:** [HiLetgo USB Logic Analyzer (Amazon)](https://www.amazon.com/s?k=HiLetgo+USB+Logic+Analyzer)
 * **Required Software:** [sigrok / PulseView](https://sigrok.org/wiki/Downloads)
 
 ## 🚀 Step-by-Step Example: Setup, Connect, and Use

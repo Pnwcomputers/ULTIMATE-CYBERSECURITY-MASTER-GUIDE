@@ -814,7 +814,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ### Additional Resources
 
-- **Offensive Security**: https://www.offensive-security.com/
+- **Offensive Security**: https://www.offsec.com/
 - **SANS Institute**: https://www.sans.org/
 - **HackTheBox**: https://www.hackthebox.com/
 - **TryHackMe**: https://tryhackme.com/
@@ -836,7 +836,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ### External Resources
 - [OWASP Foundation](https://owasp.org)
-- [Offensive Security](https://www.offensive-security.com/)
+- [Offensive Security](https://www.offsec.com/)
 - [SANS Institute](https://www.sans.org/)
 - [NIST Cybersecurity](https://www.nist.gov/cyberframework)
 

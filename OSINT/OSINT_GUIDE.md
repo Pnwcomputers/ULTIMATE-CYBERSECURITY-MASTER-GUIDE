@@ -342,7 +342,7 @@ site:*.target.com -www
 
 #### **Specialized Search Engines**
 - **Shodan** (https://shodan.io) - Search engine for Internet-connected devices
-- **Censys** (https://censys.io) - Internet-wide scanning and analysis
+- **Censys** (https://censys.com) - Internet-wide scanning and analysis
 - **GreyNoise** (https://greynoise.io) - Internet background noise intelligence
 - **Hunter.io** (https://hunter.io) - Email finder and verification
 - **Have I Been Pwned** (https://haveibeenpwned.com) - Breach notification service
@@ -463,7 +463,7 @@ curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | s
 - **Based on**: Ubuntu
 - **Tools**: 100+ pre-installed OSINT tools
 - **Use Case**: General OSINT investigations
-- **Download**: https://inteltechniques.com/buscador/
+- **Download**: https://www.kali.org/get-kali/
 
 #### **Trace Labs OSINT VM**
 - **Purpose**: Search and rescue operations
@@ -741,7 +741,7 @@ whatweb -a 3 https://scam-domain.com
 #### Step 2: Scam Database Lookups
 
 Public databases for known fraudulent addresses:
-- **BitcoinAbuse**: https://www.bitcoinabuse.com/reports/ADDRESS
+- **BitcoinAbuse**: https://chainabuse.com/address/ADDRESS
 - **ChainAbuse**: https://www.chainabuse.com/address/ADDRESS
 - **CryptoScamDB**: https://cryptoscamdb.org/search
 
@@ -1383,7 +1383,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 - **OSINTQuiz**: Twitter-based challenges
 
 #### **Hands-On Practice Sites**
-- **OSINT Challenge**: https://www.osintchallenge.com
+- **OSINT Challenge**: https://osintchallenge.com
 - **CTFtime.org**: OSINT categories in CTF competitions
 - **HackTheBox**: Some machines include OSINT elements
 - **TryHackMe**: Dedicated OSINT rooms
@@ -1401,7 +1401,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 #### **OSINT Frameworks & Collections**
 - **OSINT Framework**: https://osintframework.com
 - **Awesome OSINT**: https://github.com/jivoi/awesome-osint
-- **OSINT Handbook**: https://www.i-intelligence.eu/wp-content/uploads/2016/11/2016_November_Open-Source-Intelligence-Tools-and-Resources-Handbook.pdf
+- **OSINT Handbook**: https://www.bellingcat.com/resources/
 
 #### **Verification Tools**
 - **InVID Verification Plugin**: Video verification

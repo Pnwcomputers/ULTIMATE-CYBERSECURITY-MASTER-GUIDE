@@ -248,12 +248,12 @@ Always comply with:
 **AI Frameworks & Tools:**
 - **OpenClaw** - https://openclaw.ai
 - **AnythingLLM** - https://anythingllm.com
-- **Ollama** - https://ollama.ai
+- **Ollama** - https://ollama.com
 - **Hugging Face Models** - https://huggingface.co/models
 
 **AI Security Research:**
 - **MITRE ATLAS** (AI threat matrix) - https://atlas.mitre.org
-- **NIST AI Risk Management Framework** - https://www.nist.gov/ai/risk-management-framework
+- **NIST AI Risk Management Framework** - https://airc.nist.gov/
 - **OWASP LLM Top 10** - https://owasp.org/www-project-top-10-for-large-language-model-applications
 
 **LLM Providers (Free Tiers Available):**

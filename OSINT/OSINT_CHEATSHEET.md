@@ -142,7 +142,7 @@ Native utilities that are invaluable during an investigation:
 *   **[DNS Lookup:](https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/)** `dig <domain> ANY`
 *   **[Owner Lookup:](https://www.kali.org/tools/whois/)** `whois <domain>`
 *   **[File Extraction:](https://developers.redhat.com/articles/2022/09/14/beginners-guide-regular-expressions-grep)** `grep -r "regex" ./raw_data/`
-*   **[Metadata Check:](https://exiftool.org/examples.html)** `exiftool image.jpg`
+*   **[Metadata Check:](https://exiftool.org/)** `exiftool image.jpg`
 
 ---
 > **⚠️ Disclaimer:** Ensure all research is conducted securely (via a VPN/Tor) and strictly follows the legal guidelines and regulations for your jurisdiction.
