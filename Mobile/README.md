@@ -205,6 +205,57 @@ The following files would round out this section:
 
 ---
 
+## 🤝 Contributing
+
+To contribute to the Mobile section:
+
+1. Follow the 4-header standard: `## 🎯 Purpose`, `## ⚙️ Function`, `## 🏆 Goal`, `## 📋 When to Use` after every H1
+2. Add a `## Related Files` section at the bottom with bidirectional links
+3. Use hyphens (-) not em-dashes
+4. Verify all commands against the current tool version before adding
+5. Include written authorization reminders for any offensive technique
+6. For device-specific guides, note the exact firmware/OS version tested against
+
+---
+
+## 📚 Resources
+
+### Official Documentation
+- [Kali NetHunter Documentation](https://www.kali.org/docs/nethunter/)
+- [OWASP Mobile Application Security (MASTG)](https://mas.owasp.org/MASTG/)
+- [OWASP MASVS Controls](https://mas.owasp.org/MASVS/)
+- [LineageOS Wiki - enchilada](https://wiki.lineageos.org/devices/enchilada/)
+- [TWRP for OnePlus 6](https://twrp.me/oneplus/oneplus6.html)
+- [Magisk Installation Guide](https://topjohnwu.github.io/Magisk/install.html)
+
+### Mobile Pentesting Tools
+- [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) - Mobile Security Framework
+- [Frida](https://frida.re/) - Dynamic instrumentation toolkit
+- [Objection](https://github.com/sensepost/objection) - Runtime mobile exploration
+- [APKTool](https://apktool.org/) - APK reverse engineering
+- [jadx](https://github.com/skylot/jadx) - Java decompiler for APKs
+- [Drozer](https://github.com/WithSecureLabs/drozer) - Android attack surface analyzer
+
+### Learning Resources
+- [OWASP MASTG Test Cases](https://mas.owasp.org/MASTG/tests/) - Comprehensive mobile test methodology
+- [HackTricks - Android](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting) - Android pentesting reference
+- [HackTricks - iOS](https://book.hacktricks.xyz/mobile-pentesting/ios-pentesting) - iOS pentesting reference
+- [NetHunter App Store](https://store.nethunter.com/) - NetHunter-specific app repository
+
+---
+
+## Related Files
+- [../Checklists/Android-Applications-Checklist.md](../Checklists/Android-Applications-Checklist.md) - Android APK triage checklist
+- [../Checklists/README.md](../Checklists/README.md) - Checklists section index
+- [../Scripts/Python/iphone_messages.py](../Scripts/Python/iphone_messages.py) - iOS backup message extractor
+- [../Scripts/Python/iphone_finder.py](../Scripts/Python/iphone_finder.py) - iPhone WiFi/Bluetooth detection script
+- [../OPSEC/OPSEC_guide.md](../OPSEC/OPSEC_guide.md) - OPSEC practices relevant to mobile usage
+- [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking (overlaps with mobile hardware attacks)
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for Bluetooth/WiFi capture used in mobile testing
+- [../Scripts/Bash/BashBunny/README.md](../Scripts/Bash/BashBunny/README.md) - Bash Bunny / DuckyScript payloads (DuckHunter-compatible)
+
+---
+
 ## ⚠️ Security & Legal Disclaimer
 
 ### 🔴 CRITICAL: Authorized Use Only
@@ -272,57 +323,6 @@ Mobile security testing intersects multiple legal frameworks:
    - RF attacks that could disrupt safety-critical systems
    - Any technique that could affect bystander devices
 ```
-
----
-
-## 🤝 Contributing
-
-To contribute to the Mobile section:
-
-1. Follow the 4-header standard: `## 🎯 Purpose`, `## ⚙️ Function`, `## 🏆 Goal`, `## 📋 When to Use` after every H1
-2. Add a `## Related Files` section at the bottom with bidirectional links
-3. Use hyphens (-) not em-dashes
-4. Verify all commands against the current tool version before adding
-5. Include written authorization reminders for any offensive technique
-6. For device-specific guides, note the exact firmware/OS version tested against
-
----
-
-## 📚 Resources
-
-### Official Documentation
-- [Kali NetHunter Documentation](https://www.kali.org/docs/nethunter/)
-- [OWASP Mobile Application Security (MASTG)](https://mas.owasp.org/MASTG/)
-- [OWASP MASVS Controls](https://mas.owasp.org/MASVS/)
-- [LineageOS Wiki - enchilada](https://wiki.lineageos.org/devices/enchilada/)
-- [TWRP for OnePlus 6](https://twrp.me/oneplus/oneplus6.html)
-- [Magisk Installation Guide](https://topjohnwu.github.io/Magisk/install.html)
-
-### Mobile Pentesting Tools
-- [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) - Mobile Security Framework
-- [Frida](https://frida.re/) - Dynamic instrumentation toolkit
-- [Objection](https://github.com/sensepost/objection) - Runtime mobile exploration
-- [APKTool](https://apktool.org/) - APK reverse engineering
-- [jadx](https://github.com/skylot/jadx) - Java decompiler for APKs
-- [Drozer](https://github.com/WithSecureLabs/drozer) - Android attack surface analyzer
-
-### Learning Resources
-- [OWASP MASTG Test Cases](https://mas.owasp.org/MASTG/tests/) - Comprehensive mobile test methodology
-- [HackTricks - Android](https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting) - Android pentesting reference
-- [HackTricks - iOS](https://book.hacktricks.xyz/mobile-pentesting/ios-pentesting) - iOS pentesting reference
-- [NetHunter App Store](https://store.nethunter.com/) - NetHunter-specific app repository
-
----
-
-## Related Files
-- [../Checklists/Android-Applications-Checklist.md](../Checklists/Android-Applications-Checklist.md) - Android APK triage checklist
-- [../Checklists/README.md](../Checklists/README.md) - Checklists section index
-- [../Scripts/Python/iphone_messages.py](../Scripts/Python/iphone_messages.py) - iOS backup message extractor
-- [../Scripts/Python/iphone_finder.py](../Scripts/Python/iphone_finder.py) - iPhone WiFi/Bluetooth detection script
-- [../OPSEC/OPSEC_guide.md](../OPSEC/OPSEC_guide.md) - OPSEC practices relevant to mobile usage
-- [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking (overlaps with mobile hardware attacks)
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for Bluetooth/WiFi capture used in mobile testing
-- [../Scripts/Bash/BashBunny/README.md](../Scripts/Bash/BashBunny/README.md) - Bash Bunny / DuckyScript payloads (DuckHunter-compatible)
 
 ---
 
