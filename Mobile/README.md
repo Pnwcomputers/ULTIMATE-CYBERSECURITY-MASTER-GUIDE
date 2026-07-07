@@ -1,15 +1,4 @@
 # 📱 Mobile Security
-<div align="center">
-
-**Mobile penetration testing, device security, forensics, and authorized attack platforms**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![NetHunter](https://img.shields.io/badge/Kali-NetHunter-blue?style=for-the-badge)]()
-[![Android](https://img.shields.io/badge/Android-Security-green?style=for-the-badge)]()
-[![iOS](https://img.shields.io/badge/iOS-Forensics-lightgrey?style=for-the-badge)]()
-
-</div>
 
 <div align="center">
 
