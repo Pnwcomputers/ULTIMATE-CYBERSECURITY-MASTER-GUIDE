@@ -34,7 +34,7 @@ Check your current ROM: **Settings → About phone**. If it says OxygenOS, flash
 ## 3. Installation
 
 ### 3.1 Prerequisites checklist
-_[OnePlus 6 A3006 Rooting Guide:](/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/Mobile/OnePlus_A3006/Rooting.md)_
+_[OnePlus 6 A3006 Rooting Guide:](/Rooting.md)_
 
 - Bootloader unlocked ✅ (already done)
 - TWRP installed ✅ (already done)
