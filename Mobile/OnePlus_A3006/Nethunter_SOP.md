@@ -1,10 +1,26 @@
-# Kali NetHunter — Standard Operating Procedures
+# Kali NetHunter - Standard Operating Procedures
 
-**Platform:** OnePlus 6 (`enchilada`, model A6000/A6003) — Full NetHunter Edition (custom kernel)
+## 🎯 Purpose
+Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests - from pre-engagement setup through post-engagement teardown and evidence handling.
+
+## ⚙️ Function
+Per-module procedures for every NetHunter capability: HID/BadUSB attacks, WifiPumpkin rogue AP, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit payload generation, SearchSploit, KeX desktop, MAC changer, and CARsenal. Each section includes prerequisites, authorization gates, verification steps, and cleanup actions.
+
+## 🏆 Goal
+Ensure consistent, authorized, and evidence-tracked execution of mobile pentesting operations. Covers the full engagement lifecycle: RoE confirmation, device baseline verification, per-tool procedures, and teardown checklist with artifact hashing and data handling.
+
+## 📋 When to Use
+- Before any engagement using the NetHunter device (RoE and pre-engagement checklist)
+- During testing as a step-by-step procedure reference for each NetHunter module
+- At teardown for evidence handling, MAC restoration, and device cleanup
+
+---
+
+**Platform:** OnePlus 6 (`enchilada`, model A6000/A6003) - Full NetHunter Edition (custom kernel)
 **Maintained by:** Pacific Northwest Computers (PNWC)
 **Contact:** jon@pnwcomputers.com · 360-624-7379
 **Version:** 1.0
-**Classification:** Internal — Field Operations Reference
+**Classification:** Internal - Field Operations Reference
 
 ---
 
@@ -15,7 +31,7 @@
 Before any engagement, confirm and file:
 
 - [ ] Signed **Statement of Work / Rules of Engagement (RoE)** naming the client, scope, and authorized target ranges (IP/SSID/BSSID/asset list).
-- [ ] Explicit **in-scope wireless SSIDs/BSSIDs** and MAC allow-list. Wireless and RF attacks bleed easily into out-of-scope airspace — document exclusions.
+- [ ] Explicit **in-scope wireless SSIDs/BSSIDs** and MAC allow-list. Wireless and RF attacks bleed easily into out-of-scope airspace - document exclusions.
 - [ ] **Time window** for testing and any blackout periods.
 - [ ] **Emergency stop contact** on the client side.
 - [ ] Physical-access authorization (badge, escort, or written consent) if HID/BadUSB is in scope.
@@ -40,7 +56,7 @@ Perform once per device, and re-verify after any NetHunter/kernel update.
 3. Verify kernel capabilities expected on the OnePlus 6 full edition:
    - **HID / USB gadget** (for HID + BadUSB)
    - **OTG wireless** (external adapter support)
-   - **Monitor mode / injection** (internal chipset is limited — see Appendix A; use an external adapter for reliable injection)
+   - **Monitor mode / injection** (internal chipset is limited - see Appendix A; use an external adapter for reliable injection)
 
 ### 1.2 Update the chroot
 ```bash
@@ -74,14 +90,14 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 
 ---
 
-## 3. NetHunter App — Home, Chroot Manager & Services
+## 3. NetHunter App - Home, Chroot Manager & Services
 
 **Purpose:** Central control for the Kali chroot and background services.
 
 **Procedure**
-1. **Home** — status dashboard. Confirm chroot present and IP shown.
-2. **Kali Chroot Manager** — install/remove/update the chroot; switch minimal ↔ full; re-run `apt` from here or terminal.
-3. **Kali Services** — toggle services (SSH, PostgreSQL for Metasploit DB, Apache, VNC, etc.). Start only what the task needs; stop them at teardown.
+1. **Home** - status dashboard. Confirm chroot present and IP shown.
+2. **Kali Chroot Manager** - install/remove/update the chroot; switch minimal ↔ full; re-run `apt` from here or terminal.
+3. **Kali Services** - toggle services (SSH, PostgreSQL for Metasploit DB, Apache, VNC, etc.). Start only what the task needs; stop them at teardown.
 
 **Verification:** started services appear active; `ss -tlnp` in terminal shows expected listeners.
 
@@ -102,7 +118,7 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
   # detach: Ctrl-b d   |   reattach: tmux attach -t eng
   ```
 
-**Notes:** On non-root/rootless setups some tools (e.g., `top`) misbehave — full edition on the OnePlus 6 avoids most of these.
+**Notes:** On non-root/rootless setups some tools (e.g., `top`) misbehave - full edition on the OnePlus 6 avoids most of these.
 
 ---
 
@@ -121,7 +137,7 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 
 ## 6. Kali NetHunter Desktop Experience (KeX Manager)
 
-**Purpose:** Full Kali desktop over VNC — HDMI/wireless casting for tools that need a GUI (Wireshark, Burp).
+**Purpose:** Full Kali desktop over VNC - HDMI/wireless casting for tools that need a GUI (Wireshark, Burp).
 
 **Procedure**
 1. NetHunter app → **KeX Manager** → set a VNC password (first run).
@@ -137,14 +153,14 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 
 ## 7. USB Arsenal
 
-**Purpose:** Control USB gadget configuration — the switchboard for HID, BadUSB, mass storage, and CD-ROM emulation modes.
+**Purpose:** Control USB gadget configuration - the switchboard for HID, BadUSB, mass storage, and CD-ROM emulation modes.
 
 **Procedure**
 1. NetHunter app → **USB Arsenal**.
 2. Select the gadget config required by the task (e.g., HID for keyboard attacks, MITM/RNDIS for BadUSB).
 3. Apply, then run the corresponding attack module (Sections 9–10).
 
-**Notes:** Only one gadget mode is typically active at a time. If HID/BadUSB "does nothing," USB Arsenal mode is the usual culprit — verify it first.
+**Notes:** Only one gadget mode is typically active at a time. If HID/BadUSB "does nothing," USB Arsenal mode is the usual culprit - verify it first.
 
 ---
 
@@ -180,7 +196,7 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 
 ## 10. DuckHunter HID (Rubber Ducky compatibility)
 
-**Purpose:** Run **USB Rubber Ducky** DuckyScript payloads from the phone (you already run Rubber Ducky/Bash Bunny — DuckHunter reuses that script language).
+**Purpose:** Run **USB Rubber Ducky** DuckyScript payloads from the phone (you already run Rubber Ducky/Bash Bunny - DuckHunter reuses that script language).
 
 **Procedure**
 1. NetHunter app → **DuckHunter HID** → **Convert** tab.
@@ -250,7 +266,7 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 **Procedure**
 1. NetHunter app → **Bluetooth Arsenal**.
 2. **Recon**: scan/enumerate nearby devices (record only in-scope MACs).
-3. **Attack/Audio**: spoof, connect, or inject per module — only against authorized targets.
+3. **Attack/Audio**: spoof, connect, or inject per module - only against authorized targets.
 
 **Safety:** BT ranges catch bystander devices easily. Scope discipline is critical here.
 
@@ -297,7 +313,7 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
    ```
 4. Start the matching handler in `msfconsole`.
 
-**Notes:** Payloads are engagement artifacts — store, hash, and clean them up at teardown.
+**Notes:** Payloads are engagement artifacts - store, hash, and clean them up at teardown.
 
 ---
 
@@ -326,7 +342,7 @@ Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 2. NetHunter app → **Wardriving** → start passive capture.
 3. Export results (Kismet/CSV) into the engagement folder for mapping.
 
-**Notes:** Passive only by default — keep it passive unless active testing is separately authorized.
+**Notes:** Passive only by default - keep it passive unless active testing is separately authorized.
 
 ---
 
@@ -364,7 +380,7 @@ Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 1. Open the **NetHunter Store** client → search/install (e.g., cSploit, Shodan, Router Keygen, RF tools).
 2. Update installed apps before each engagement.
 
-**Note:** The store button may not flip to "installed" — ignore the cosmetic bug.
+**Note:** The store button may not flip to "installed" - ignore the cosmetic bug.
 
 ---
 
@@ -388,7 +404,7 @@ Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 | Symptom | First checks |
 |---|---|
 | HID/BadUSB does nothing | Wrong **USB Arsenal** gadget mode; wrong keyboard layout; cable is charge-only |
-| No monitor mode / injection | Internal chipset limits — use external adapter; verify with `airmon-ng`, `iw dev` |
+| No monitor mode / injection | Internal chipset limits - use external adapter; verify with `airmon-ng`, `iw dev` |
 | Chroot won't start | Re-open Chroot Manager; check storage; reboot; verify kernel string with `uname -a` |
 | Metasploit DB errors | Start **PostgreSQL** in Kali Services; `msfdb init` |
 | KeX black screen | Restart KeX server; re-enter VNC password; check resolution setting |
@@ -397,18 +413,18 @@ Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 
 ---
 
-## Appendix A — External Wi-Fi Adapters (recommended for injection)
+## Appendix A - External Wi-Fi Adapters (recommended for injection)
 
 Internal OnePlus 6 Wi-Fi injection is limited/inconsistent. For reliable monitor mode + injection, use a known-good external adapter over OTG:
 
-- **Atheros AR9271** (2.4 GHz) — rock-solid, widely supported.
-- **Realtek RTL8812AU / RTL8811AU** (2.4/5 GHz) — needs the `8812au` driver; good dual-band.
-- **MediaTek MT7612U / MT7610U** — strong 5 GHz support.
-- **RT3070/RT5370** — reliable 2.4 GHz budget option.
+- **Atheros AR9271** (2.4 GHz) - rock-solid, widely supported.
+- **Realtek RTL8812AU / RTL8811AU** (2.4/5 GHz) - needs the `8812au` driver; good dual-band.
+- **MediaTek MT7612U / MT7610U** - strong 5 GHz support.
+- **RT3070/RT5370** - reliable 2.4 GHz budget option.
 
-Power draw matters on a phone — use a powered OTG/Y-cable for high-power adapters or long ops.
+Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapters or long ops.
 
-## Appendix B — Engagement Folder Layout (suggested)
+## Appendix B - Engagement Folder Layout (suggested)
 
 ```
 ~/engagements/<client>-<YYYYMMDD>/
@@ -424,4 +440,11 @@ Power draw matters on a phone — use a powered OTG/Y-cable for high-power adapt
 
 ---
 
-*End of document — v1.0. Update the version and re-verify Section 1 after any NetHunter or kernel update.*
+*End of document - v1.0. Update the version and re-verify Section 1 after any NetHunter or kernel update.*
+
+## Related Files
+- [Rooting.md](Rooting.md) - Prerequisite: bootloader unlock, LineageOS, TWRP, and Magisk root setup
+- [Kali_NetHunter.md](Kali_NetHunter.md) - NetHunter installation guide this SOP builds on
+- [../README.md](../README.md) - Mobile section index
+- [../../Scripts/Bash/BashBunny/README.md](../../Scripts/Bash/BashBunny/README.md) - Bash Bunny payloads (DuckHunter-compatible DuckyScript)
+- [../../Tradecraft/c2-frameworks.md](../../Tradecraft/c2-frameworks.md) - C2 frameworks for post-exploitation after NetHunter initial access
