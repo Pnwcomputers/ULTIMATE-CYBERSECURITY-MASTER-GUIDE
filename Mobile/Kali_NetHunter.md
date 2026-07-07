@@ -1,6 +1,7 @@
-# Kali NetHunter on OnePlus 6 (A3006 / "Enchilada"); Overview & Setup Guide
+# Kali NetHunter on OnePlus 6 A3006 / "Enchilada"
+### Overview & Setup Guide
 
-Last verified against Kali's official docs, July 2026 (current release: NetHunter 2026.2).
+_Last verified against Kali's official docs, July 2026 (current release: NetHunter 2026.2)._
 
 This guide assumes you're starting from where you are now: bootloader unlocked, TWRP installed, Magisk root working. It covers what NetHunter actually is, the OnePlus-6-specific prerequisite you need to check first, installing the image, and post-install configuration (updates, apps, auto-starting services).
 
