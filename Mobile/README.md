@@ -1,4 +1,15 @@
 # 📱 Mobile Security
+<div align="center">
+
+**Mobile penetration testing, device security, forensics, and authorized attack platforms**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![NetHunter](https://img.shields.io/badge/Kali-NetHunter-blue?style=for-the-badge)]()
+[![Android](https://img.shields.io/badge/Android-Security-green?style=for-the-badge)]()
+[![iOS](https://img.shields.io/badge/iOS-Forensics-lightgrey?style=for-the-badge)]()
+
+</div>
 
 ## 🎯 Purpose
 Mobile security reference covering device preparation (rooting, custom ROM), mobile pentesting platforms (Kali NetHunter), Android/iOS app security assessment, mobile forensics, and device OSINT. Currently focused on the OnePlus 6 A3006 as the primary NetHunter attack platform.
@@ -14,18 +25,6 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 - Running a NetHunter-based engagement (HID, Evil AP, Wardriving, etc.)
 - Conducting an authorized Android or iOS app penetration test
 - Performing iOS backup forensics or mobile device OSINT
-
-<div align="center">
-
-**Mobile penetration testing, device security, forensics, and authorized attack platforms**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![NetHunter](https://img.shields.io/badge/Kali-NetHunter-blue?style=for-the-badge)]()
-[![Android](https://img.shields.io/badge/Android-Security-green?style=for-the-badge)]()
-[![iOS](https://img.shields.io/badge/iOS-Forensics-lightgrey?style=for-the-badge)]()
-
-</div>
 
 ---
 
