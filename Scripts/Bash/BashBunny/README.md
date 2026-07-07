@@ -591,3 +591,5 @@ Phone: 360-624-7379
 - [../bash_scripting_cheat-sheet.md](../bash_scripting_cheat-sheet.md) - Bash reference for payload writing
 - [../../Ducky/README.md](../../Ducky/README.md) - USB Rubber Ducky: keyboard-only attack platform
 - [../../../Documentation/LinuxCheatSheet.md](../../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
+- [../../../Mobile/mobile_pentest_sop.md](../../../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (DuckHunter HID on NetHunter uses BashBunny-compatible DuckyScript)
+- [../../../Mobile/OnePlus_A3006/Nethunter_SOP.md](../../../Mobile/OnePlus_A3006/Nethunter_SOP.md) - NetHunter DuckHunter HID module SOP

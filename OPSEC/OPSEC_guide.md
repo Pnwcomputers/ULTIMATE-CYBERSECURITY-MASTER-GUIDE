@@ -318,3 +318,5 @@ This mode is for **full home lab deployments**, learning, testing networks, SOC 
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup
 - [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous access
 - [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization setup
+- [../Mobile/README.md](../Mobile/README.md) - Mobile security section (mobile OPSEC, device hardening)
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (MAC randomization, covert operation procedures)

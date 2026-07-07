@@ -232,3 +232,5 @@ Phone: 360-624-7379
 - [../../README.md](../../README.md) - Scripts section index
 - [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) - Bash Bunny: full multi-function USB attack platform
 - [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
+- [../../Mobile/mobile_pentest_sop.md](../../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (NetHunter DuckHunter runs DuckyScript from your phone)
+- [../../Mobile/OnePlus_A3006/Nethunter_SOP.md](../../Mobile/OnePlus_A3006/Nethunter_SOP.md) - NetHunter DuckHunter HID module SOP

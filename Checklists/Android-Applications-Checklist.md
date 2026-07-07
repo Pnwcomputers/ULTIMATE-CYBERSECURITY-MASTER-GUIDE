@@ -48,3 +48,5 @@ _★ General reference, OWASP restructures individual test IDs periodically, so 
 </div>
 ## Related Files
 - [README.md](README.md) - Checklists section index
+- [../Mobile/README.md](../Mobile/README.md) - Mobile security section (Android/iOS pentesting, NetHunter platform)
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Engagement-level SOP for mobile platform pentesting

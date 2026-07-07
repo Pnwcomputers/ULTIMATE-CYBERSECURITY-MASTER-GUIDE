@@ -890,3 +890,5 @@ This playbook should be reviewed and updated quarterly to reflect:
 For questions or suggestions, contact: [Your Contact Information]
 ## Related Files
 - [README.md](README.md) - PlayBooks section index
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile platform variant of this SOP (NetHunter as primary attack platform)
+- [../Mobile/OnePlus_A3006/Nethunter_SOP.md](../Mobile/OnePlus_A3006/Nethunter_SOP.md) - Per-module NetHunter field procedures

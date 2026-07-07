@@ -104,6 +104,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
 | 📟 [uConsole](uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck. |
+| 📱 [Mobile Security](Mobile/) | Kali NetHunter on OnePlus 6 (rooting, install, field SOPs), Android/iOS app pentesting, mobile forensics, and engagement-level mobile pentest SOP |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |

@@ -723,6 +723,8 @@ Tips, caveats, hardware requirements
 - [bjorn_pi.md](bjorn_pi.md) - Bjorn's brute-force and exfiltration traffic is exactly what Wireshark blue-team exercises analyze
 - [evil_m5.md](evil_m5.md) - Evil-M5 EAPOL/deauth detection exercises benefit from parallel Wireshark verification
 - [python.md](python.md) - Python Scapy scripts generate traffic that Wireshark can inspect and validate
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (Wardriving and BadUSB MITM captures analyzed in Wireshark/KeX)
+- [../Mobile/OnePlus_A3006/Nethunter_SOP.md](../Mobile/OnePlus_A3006/Nethunter_SOP.md) - NetHunter KeX section runs Wireshark GUI on the phone over VNC
 
 ---
 

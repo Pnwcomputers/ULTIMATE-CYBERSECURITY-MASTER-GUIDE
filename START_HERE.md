@@ -45,6 +45,7 @@ The very first file to open after the root [README.md](README.md), or anytime yo
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
 - **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/)
+- **Mobile Platform Pentesting?** → [Mobile Security](Mobile/) + [Mobile Pentest SOP](Mobile/mobile_pentest_sop.md) + [NetHunter Setup](Mobile/OnePlus_A3006/Kali_NetHunter.md)
 
 ---
 

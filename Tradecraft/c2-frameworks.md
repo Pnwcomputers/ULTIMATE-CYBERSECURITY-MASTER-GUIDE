@@ -631,3 +631,4 @@ iptables -A OUTPUT -d <approved_proxy_IP> -p tcp --dport 3128 -j ACCEPT
 - [av-edr-evasion.md](av-edr-evasion.md) - Evasion techniques for C2 payload delivery
 - [network-detection.md](network-detection.md) - Detecting C2 traffic at the network layer
 - [../Checklists/Command%26Control.md](../Checklists/Command%26Control.md) - C2 technique checklist
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (Metasploit post-exploitation from NetHunter device)
