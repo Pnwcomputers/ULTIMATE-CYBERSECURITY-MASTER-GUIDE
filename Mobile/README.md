@@ -75,6 +75,7 @@ These guides serve as:
 | File | Description | Status |
 |------|-------------|--------|
 | **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Full engagement-level SOP for pentesting with the NetHunter device: pre-engagement legal/device prep, passive recon, active recon, exploitation (Evil AP, HID, BadUSB, LLMNR, Metasploit), post-exploitation, evidence handling, teardown, and report structure | ✅ Complete |
+| **[Nethunter_SOP.md](OnePlus_A3006/Nethunter_SOP.md)** | Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests. From pre-engagement setup through post-engagement teardown and evidence handling. | ✅ Complete |
 
 ### OnePlus 6 / Kali NetHunter (Device-Specific)
 
