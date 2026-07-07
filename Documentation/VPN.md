@@ -51,7 +51,7 @@ This guide covers VPN selection, configuration, operational usage, and integrati
 | Payment                    | Cash, Monero, Bitcoin, card (cash preferred)         |
 | Infrastructure             | Owned servers - not rented (reduces third-party risk)|
 | Client code                | Open source - auditable                              |
-| Protocol support           | WireGuard, OpenVPN, DAITA                            |
+| Protocol support           | WireGuard, OpenVPN                                   |
 | Multi-hop                  | ✅ Built-in                                          |
 | Kill switch                | ✅ Built-in ("Always require VPN")                   |
 | Split tunneling            | ✅ Built-in                                          |
@@ -98,7 +98,7 @@ Settings → DNS:
 # Best practices for server selection:
 - Choose exit country appropriate to your activity
 - Avoid 5/9/14-Eyes countries for sensitive work
-  (US, UK, CA, AU, NZ, DE, FR, SE, NO, DK, NL, BE, IT, ES, JP)
+  (US, UK, CA, AU, NZ, DE, FR, SE, NO, DK, NL, BE, IT, ES)
 - Use a country with strong privacy laws:
   Switzerland, Iceland, Panama, Romania, Malaysia
 - For OSINT: pick an exit matching the target's region

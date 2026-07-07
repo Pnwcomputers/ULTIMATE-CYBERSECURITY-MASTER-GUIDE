@@ -188,8 +188,8 @@ sudo systemctl restart tor
 # curl through Tor
 curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip
 
-# wget through Tor
-wget -e "https_proxy=socks5://127.0.0.1:9050" https://example.com
+# wget through Tor (wget doesn't support SOCKS5 natively - use torsocks wrapper)
+torsocks wget https://example.com
 
 # Test your exit IP
 curl --socks5-hostname 127.0.0.1:9050 https://api.ipify.org

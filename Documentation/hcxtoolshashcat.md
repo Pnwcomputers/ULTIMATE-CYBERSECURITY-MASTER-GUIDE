@@ -114,8 +114,8 @@ wpaclean cleaned.cap capture-01.cap
 
 **Inspecting and Filtering Captured Data**
 ```bash
-# View unique BSSIDs/ESSIDs found in a capture file
-hcxhashtool -i capture.pcapng --info=stdout
+# View unique BSSIDs/ESSIDs found in a capture file (use hcxpcapngtool for .pcapng)
+hcxpcapngtool --info=stdout capture.pcapng
 
 # Deduplicate and filter hashes before cracking
 hcxhashtool -i hash.hc22000 -o unique.hc22000

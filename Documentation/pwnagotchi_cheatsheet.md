@@ -115,9 +115,10 @@ main.plugins.memtemp.enabled = true
 
 **Custom Plugin Installation**
 ```bash
-# Download plugin
+# Download individual plugin .py files by raw URL (jayofelony fork is actively maintained)
+# Example: download a single plugin from the jayofelony fork
 cd /usr/local/share/pwnagotchi/custom-plugins/
-sudo wget https://github.com/evilsocket/pwnagotchi/tree/master/pwnagotchi/plugins
+sudo wget https://raw.githubusercontent.com/jayofelony/pwnagotchi/master/pwnagotchi/plugins/default/example.py
 
 # Add to config.toml
 main.plugins.plugin-name.enabled = true
