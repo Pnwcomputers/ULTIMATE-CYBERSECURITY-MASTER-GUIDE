@@ -81,3 +81,5 @@ Give you a fast, categorized starting point when you need to add a new tool or r
 * Security research in isolated lab environments.
 
 ---
+## Related Files
+- [README.md](README.md) - PlayBooks section index

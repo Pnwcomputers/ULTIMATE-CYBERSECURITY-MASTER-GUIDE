@@ -59,3 +59,5 @@ _C2 channel techniques and covert communication methods for red team infrastruct
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

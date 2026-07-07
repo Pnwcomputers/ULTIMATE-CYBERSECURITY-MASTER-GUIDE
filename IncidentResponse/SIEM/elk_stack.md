@@ -693,12 +693,12 @@ sudo systemctl status filebeat
 
 ## 📊 Part 6: Kibana Configuration
 
-### Step 6.1: Create Index Patterns
+### Step 6.1: Create Data Views (formerly Index Patterns)
 
-1. Navigate to **Stack Management → Index Patterns**
-2. Click **Create index pattern**
+1. Navigate to **Stack Management → Data Views** (Kibana 8.x+; was "Index Patterns" in Kibana 7.x)
+2. Click **Create data view**
 3. Enter pattern: `winlogbeat-*` → Click **Next step**
-4. Select `@timestamp` as the time field → Click **Create index pattern**
+4. Select `@timestamp` as the time field → Click **Save data view to Kibana**
 5. Repeat for `filebeat-*` and `logstash-*`
 
 ### Step 6.2: Import Security Dashboards
@@ -1069,9 +1069,9 @@ curl -u elastic:YourStrongPassword123! "localhost:9200/_cat/indices?v"
 *Part of the Incident Response & Log Aggregation Branch*
 
 ## Related Files
-- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../README.md](../README.md) - IncidentResponse section index
 - [graylog.md](graylog.md) - Alternative self-hosted SIEM
 - [wazuh.md](wazuh.md) - Wazuh integrates natively with ELK
 - [splunk.md](splunk.md) - Commercial SIEM alternative
 - [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Primary data source for Windows logs
-- [../../../Homelab/HomeLab_Setup.md](../../../Homelab/HomeLab_Setup.md) - Homelab where ELK runs
+- [../../Homelab/HomeLab_Setup.md](../../Homelab/HomeLab_Setup.md) - Homelab where ELK runs

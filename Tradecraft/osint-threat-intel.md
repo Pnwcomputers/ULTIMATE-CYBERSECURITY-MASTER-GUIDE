@@ -270,10 +270,11 @@ dig target.com TXT | grep -i "spf\|dmarc\|dkim"
 # DMARC
 dig _dmarc.target.com TXT
  
-# SPF analysis - identify authorized senders
+# DMARC policy analysis (p= values are DMARC, not SPF)
 # p=none  → monitoring only (no enforcement)
 # p=quarantine → quarantine failing mail
 # p=reject → reject failing mail (strongest)
+# SPF uses mechanisms: -all (hard fail), ~all (soft fail), +all, ?all
 ```
  
 ---

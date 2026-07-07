@@ -99,7 +99,7 @@ sudo auditctl -l
 | `/etc/audit/auditd.conf` | Daemon configuration (log size, rotation) |
 | `/etc/audit/rules.d/*.rules` | Audit rules (what to monitor) |
 | `/etc/audit/audit.rules` | Compiled rules (auto-generated) |
-| `/etc/audisp/plugins.d/` | Dispatcher plugins (forwarding) |
+| `/etc/audit/plugins.d/` | Dispatcher plugins - auditd 3.x (Ubuntu 20.04+, RHEL 8+) |
 
 ---
 
@@ -435,7 +435,7 @@ sudo auditctl -s
 
 ### Option 1: Audisp Syslog Plugin
 
-Edit `/etc/audisp/plugins.d/syslog.conf`:
+Edit `/etc/audit/plugins.d/syslog.conf` (auditd 3.x: Ubuntu 20.04+, RHEL 8+) or `/etc/audisp/plugins.d/syslog.conf` (auditd 2.x: Ubuntu 18.04, RHEL 7):
 
 ```ini
 active = yes
@@ -452,7 +452,7 @@ Then configure rsyslog to forward (see Part 6).
 
 For direct forwarding to a remote audit server:
 
-Edit `/etc/audisp/plugins.d/au-remote.conf`:
+Edit `/etc/audit/plugins.d/au-remote.conf` (auditd 3.x) or `/etc/audisp/plugins.d/au-remote.conf` (auditd 2.x):
 
 ```ini
 active = yes

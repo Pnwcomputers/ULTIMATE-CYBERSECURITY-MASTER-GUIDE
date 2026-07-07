@@ -67,7 +67,7 @@ Memory analysis reveals artifacts that disk forensics cannot:
 pip3 install volatility3
 
 # Verify installation
-vol --help
+vol3 --help
 ```
 
 ### Method 2: Installation from Source
@@ -115,7 +115,7 @@ unzip windows.zip
 
 ```bash
 # List available plugins
-vol --help | grep windows
+vol3 --help | grep windows
 
 # Or from source
 python3 vol.py --help | grep windows
@@ -174,7 +174,7 @@ Free GUI tool from Magnet Forensics:
 sudo apt install -y build-essential linux-headers-$(uname -r)
 
 # Clone and build LiME
-git clone https://github.com/jtsylve/LiME.git
+git clone https://github.com/504ensicsLabs/LiME.git
 cd LiME/src
 make
 

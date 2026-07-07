@@ -51,3 +51,5 @@ _Checklist for testing kiosk, thin-client, and restricted desktop environments f
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

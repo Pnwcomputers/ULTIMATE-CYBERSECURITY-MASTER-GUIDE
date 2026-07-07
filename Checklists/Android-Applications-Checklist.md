@@ -46,3 +46,5 @@ _★ General reference, OWASP restructures individual test IDs periodically, so 
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

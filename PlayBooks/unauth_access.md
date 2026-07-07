@@ -1085,3 +1085,5 @@ SigninLogs | where RiskEventTypes_V2 contains "impossibleTravel"
 ---
 
 *Part of the Incident Response & Log Aggregation Branch*
+## Related Files
+- [README.md](README.md) - PlayBooks section index

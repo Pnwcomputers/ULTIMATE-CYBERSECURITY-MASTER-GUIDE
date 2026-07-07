@@ -46,3 +46,5 @@ _Active Directory domain escalation techniques (coerced authentication, delegati
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

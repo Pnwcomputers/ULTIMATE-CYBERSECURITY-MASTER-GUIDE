@@ -488,7 +488,7 @@ docker compose up -d
 *Part of the Incident Response & Log Aggregation Branch*
 
 ## Related Files
-- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../README.md](../README.md) - IncidentResponse section index
 - [elk_stack.md](elk_stack.md) - ELK Stack backend for Wazuh indexer
 - [splunk.md](splunk.md) - Splunk as Wazuh SIEM alternative
 - [graylog.md](graylog.md) - Graylog alternative

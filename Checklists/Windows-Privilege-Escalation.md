@@ -54,3 +54,5 @@ _Common Windows local privilege escalation vectors, from weak service permission
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

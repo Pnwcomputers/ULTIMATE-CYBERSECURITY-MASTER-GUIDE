@@ -40,3 +40,5 @@ _Techniques for gaining initial foothold on a target, mapped to MITRE ATT&CK whe
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

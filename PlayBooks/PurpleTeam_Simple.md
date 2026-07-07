@@ -244,3 +244,5 @@ Use this for each new TTP test:
 * Security research in isolated lab environments.
 
 ---
+## Related Files
+- [README.md](README.md) - PlayBooks section index

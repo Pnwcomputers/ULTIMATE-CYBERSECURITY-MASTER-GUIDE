@@ -1049,8 +1049,8 @@ curl -u admin:password "http://localhost:9000/api/system/overview"
 *Part of the Incident Response & Log Aggregation Branch*
 
 ## Related Files
-- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../README.md](../README.md) - IncidentResponse section index
 - [elk_stack.md](elk_stack.md) - ELK Stack SIEM alternative
 - [wazuh.md](wazuh.md) - Wazuh for endpoint detection that feeds Graylog
 - [splunk.md](splunk.md) - Commercial SIEM comparison
-- [../../../Homelab/HomeLab_Setup.md](../../../Homelab/HomeLab_Setup.md) - Homelab context
+- [../../Homelab/HomeLab_Setup.md](../../Homelab/HomeLab_Setup.md) - Homelab context

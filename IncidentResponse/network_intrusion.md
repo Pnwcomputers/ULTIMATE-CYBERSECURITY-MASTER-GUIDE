@@ -96,9 +96,11 @@ event.category: "network" AND event.action: "connection_attempt" AND wireless.ss
 Check if the "Plant" device scanned other internal IPs.
 
 ```kql
-# Check for port scanning from the suspicious IP
-source.ip: "192.168.1.105" AND destination.port: * AND event.count > 100
+# Check for connections from the suspicious IP (per-document filter)
+source.ip: "192.168.1.105"
 ```
+
+> **Note:** Port scan detection requires an aggregation, not a per-document filter. In Kibana SIEM, create a Threshold rule: `source.ip` grouped by `destination.port` with count > 100. In Elasticsearch, use a terms aggregation over the time window. A simple KQL filter cannot count across documents.
 
 ### Artifact Collection
 

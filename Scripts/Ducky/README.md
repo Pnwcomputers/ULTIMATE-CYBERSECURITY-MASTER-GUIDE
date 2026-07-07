@@ -230,5 +230,5 @@ Phone: 360-624-7379
 
 ## Related Files
 - [../../README.md](../../README.md) - Scripts section index
-- [../BashBunny/README.md](../BashBunny/README.md) - Bash Bunny: full multi-function USB attack platform
+- [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) - Bash Bunny: full multi-function USB attack platform
 - [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads

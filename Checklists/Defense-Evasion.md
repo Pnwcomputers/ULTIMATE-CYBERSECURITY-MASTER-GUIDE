@@ -13,7 +13,7 @@ _Techniques for evading detection and security controls during an engagement, ma
 ---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
-|DE-001   |[Parent PID Spoofing](https://pentestlab.blog/2020/02/24/parent-pid-spoofing/)|[T1502](https://attack.mitre.org/techniques/T1502/)|
+|DE-001   |[Parent PID Spoofing](https://pentestlab.blog/2020/02/24/parent-pid-spoofing/)|[T1134.004](https://attack.mitre.org/techniques/T1134/004/)|
 
 ---
 
@@ -38,3 +38,5 @@ _Techniques for evading detection and security controls during an engagement, ma
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

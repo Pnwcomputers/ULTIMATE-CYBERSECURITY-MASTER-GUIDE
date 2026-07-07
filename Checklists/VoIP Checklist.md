@@ -47,3 +47,5 @@ _Checklist for VoIP/SIP infrastructure assessments. This exact checklist is netb
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

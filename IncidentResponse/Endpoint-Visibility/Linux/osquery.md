@@ -76,7 +76,7 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 # Add osquery repository
 export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
-sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquerypackages.com/deb deb main'
+sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
 
 # Install osquery
 sudo apt update
@@ -87,7 +87,7 @@ sudo apt install -y osquery
 
 ```bash
 # Add osquery repository
-curl -L https://pkg.osquerypackages.com/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
+curl -L https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
 sudo yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
 sudo yum-config-manager --enable osquery-s3-rpm
 
@@ -309,10 +309,12 @@ SELECT * FROM chrome_extensions;
 -- Firefox addons
 SELECT * FROM firefox_addons;
 
--- Browser history (sample - be careful with privacy)
-SELECT url, title, visit_count, last_visit_time 
-FROM chrome_visits 
-LIMIT 10;
+-- Browser history: osquery does not expose a chrome_visits table.
+-- Chrome history is stored in SQLite at:
+--   Linux:   ~/.config/google-chrome/Default/History
+--   macOS:   ~/Library/Application Support/Google/Chrome/Default/History
+--   Windows: %LOCALAPPDATA%\Google\Chrome\User Data\Default\History
+-- Use direct SQLite access or an EDR/forensic tool to query it.
 ```
 
 ---
@@ -699,7 +701,7 @@ Create `deploy_osquery.yml`:
   tasks:
     - name: Add osquery repository (Debian)
       apt_repository:
-        repo: 'deb [arch=amd64] https://pkg.osquerypackages.com/deb deb main'
+        repo: 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
         state: present
       when: ansible_os_family == "Debian"
 

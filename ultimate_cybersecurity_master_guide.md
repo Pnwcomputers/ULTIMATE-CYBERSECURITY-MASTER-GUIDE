@@ -1422,6 +1422,7 @@ Invoke-AtomicTest T1071.004   # DNS C2               → network-detection.md
 
 ## Related Files
 - [README.md](README.md) - Repo index
+- [START_HERE.md](START_HERE.md) - Navigation guide for all sections
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Enhanced version with PNWC operational experience
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized domains supplement
 - [cybersecurity_cliff_notes.md](cybersecurity_cliff_notes.md) - Quick command reference companion

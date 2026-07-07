@@ -948,12 +948,12 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -Onli
 
 ```bash
 # Install REMnux on Ubuntu (converts existing install)
-wget https://remnux.org/docs/distro/get/
+wget https://REMnux.org/remnux-cli -O remnux-cli
 mv remnux-cli /usr/local/bin/remnux
 chmod +x /usr/local/bin/remnux
 remnux install
 
-# Or download the pre-built OVA:
+# Or download the pre-built OVA from:
 # https://remnux.org/docs/distro/get/
 ```
 

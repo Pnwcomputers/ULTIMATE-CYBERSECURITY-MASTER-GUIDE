@@ -236,3 +236,5 @@ Use `git` so you track edits & additions over time.
 * Security research in isolated lab environments.
 
 ---
+## Related Files
+- [README.md](README.md) - PlayBooks section index

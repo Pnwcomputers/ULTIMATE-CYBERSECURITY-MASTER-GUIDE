@@ -202,7 +202,7 @@ smb2.filename contains ".exe"
 
 # Kerberos
 kerberos.msg_type == 10                      # AS-REQ
-kerberos.msg_type == 30                      # TGS-REQ (Kerberoasting)
+kerberos.msg_type == 12                      # TGS-REQ (Kerberoasting) - RFC 4120 type 12, not 30
 
 # ICMP tunneling indicators
 icmp && frame.len > 100                      # Unusually large ICMP (tunnel)

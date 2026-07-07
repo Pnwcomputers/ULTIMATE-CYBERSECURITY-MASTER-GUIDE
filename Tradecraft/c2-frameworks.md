@@ -296,7 +296,7 @@ Havoc is an open-source, modern C2 framework with a Qt-based GUI. Written in C/C
 ```bash
 # Install dependencies
 sudo apt install -y git build-essential cmake libssl-dev pkg-config \
-  libboost-all-dev mingw-w64 nasm python3-dev qt5-default
+  libboost-all-dev mingw-w64 nasm python3-dev qtbase5-dev qtchooser
 
 # Clone and build
 git clone https://github.com/HavocFramework/Havoc.git

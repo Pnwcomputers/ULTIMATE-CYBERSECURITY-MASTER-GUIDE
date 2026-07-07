@@ -170,3 +170,5 @@ GET /_search
 * Security research in isolated lab environments.
 
 ---
+## Related Files
+- [README.md](README.md) - PlayBooks section index

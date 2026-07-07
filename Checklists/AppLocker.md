@@ -52,3 +52,5 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

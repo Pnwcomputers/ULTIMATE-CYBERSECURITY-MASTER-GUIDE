@@ -589,5 +589,5 @@ Phone: 360-624-7379
 ## Related Files
 - [../../README.md](../../README.md) - Scripts section index
 - [../bash_scripting_cheat-sheet.md](../bash_scripting_cheat-sheet.md) - Bash reference for payload writing
-- [../../Ducky/README.md](../../Scripts/Ducky/README.md) - USB Rubber Ducky: keyboard-only attack platform
-- [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
+- [../../Ducky/README.md](../../Ducky/README.md) - USB Rubber Ducky: keyboard-only attack platform
+- [../../../Documentation/LinuxCheatSheet.md](../../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads

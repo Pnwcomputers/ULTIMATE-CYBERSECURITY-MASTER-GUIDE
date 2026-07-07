@@ -783,7 +783,7 @@ For multi-case correlation:
 java -version
 
 # Clear cache (Windows)
-Remove-Item -Recurse "$env:APPDATA\.autopsy"
+Remove-Item -Recurse "$env:USERPROFILE\.autopsy"
 ```
 
 ### Slow Performance

@@ -43,3 +43,5 @@ _Active Directory attack techniques for red team engagements; golden tickets, sk
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+## Related Files
+- [README.md](README.md) - Checklists section index

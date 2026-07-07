@@ -976,7 +976,7 @@ publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
 *Part of the Incident Response & Log Aggregation Branch*
 
 ## Related Files
-- [../../../README.md](../../../README.md) - IncidentResponse section index
+- [../README.md](../README.md) - IncidentResponse section index
 - [elk_stack.md](elk_stack.md) - Open-source ELK Stack alternative
 - [graylog.md](graylog.md) - Lighter-weight SIEM alternative
 - [wazuh.md](wazuh.md) - Wazuh SIEM with native Splunk integration
