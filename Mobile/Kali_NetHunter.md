@@ -1,4 +1,4 @@
-# Kali NetHunter on OnePlus 6 (A3006 / "enchilada") — Overview & Setup Guide
+# Kali NetHunter on OnePlus 6 (A3006 / "Enchilada"); Overview & Setup Guide
 
 Last verified against Kali's official docs, July 2026 (current release: NetHunter 2026.2).
 
