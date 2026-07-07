@@ -22,20 +22,6 @@
 >
 > "It ain't what you don't know that gets you into trouble. It's what you know for sure that just ain't so."
 
-## 🎯 Purpose
-Comprehensive cybersecurity knowledge base compiled from 70+ expert books and 90+ PNWC internal documents - covering red team, blue team, and purple team disciplines for security professionals, researchers, and practitioners.
-
-## ⚙️ Function
-Indexes the entire guide: offensive techniques (Tradecraft, Checklists, PlayBooks), defensive tools (IncidentResponse, Documentation), OSINT, specialized hardware (uConsole, HardwareHacking, HardwareTesting), homelab setup, AI/ML security, OPSEC, and automation scripts - with cross-linked navigation throughout.
-
-## 🏆 Goal
-Serve as a single, continuously maintained reference hub for the full spectrum of cybersecurity practice - from initial reconnaissance through incident response, accessible offline and organized for fast lookup during authorized engagements.
-
-## 📋 When to Use
-- Navigating to a specific topic or tool reference during an authorized engagement
-- Onboarding new security team members to the full scope of the practice
-- Finding the right guide, cheat sheet, or playbook for a specific security task
-
 ---
 
 ## 🎯 Purpose
