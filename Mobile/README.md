@@ -70,13 +70,19 @@ These guides serve as:
 
 ## 📂 Current Content
 
+### Engagement SOPs
+
+| File | Description | Status |
+|------|-------------|--------|
+| **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Full engagement-level SOP for pentesting with the NetHunter device: pre-engagement legal/device prep, passive recon, active recon, exploitation (Evil AP, HID, BadUSB, LLMNR, Metasploit), post-exploitation, evidence handling, teardown, and report structure | ✅ Complete |
+
 ### OnePlus 6 / Kali NetHunter (Device-Specific)
 
 | File | Description | Status |
 |------|-------------|--------|
 | **[OnePlus_A3006/Rooting.md](OnePlus_A3006/Rooting.md)** | Phase-by-phase: bootloader unlock, dtbo flash, LineageOS 22.2 install via sideload, TWRP install (temporary-boot method), and Magisk root via boot image patching | ✅ Complete |
 | **[OnePlus_A3006/Kali_NetHunter.md](OnePlus_A3006/Kali_NetHunter.md)** | NetHunter install (Magisk module or TWRP), LineageOS prerequisite, post-install config, metapackage and app selection, chroot management | ✅ Complete |
-| **[OnePlus_A3006/Nethunter_SOP.md](OnePlus_A3006/Nethunter_SOP.md)** | Field SOPs for all NetHunter modules: HID, DuckHunter, BadUSB, WifiPumpkin, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit, KeX, MAC changer, CARsenal, teardown checklist | ✅ Complete |
+| **[OnePlus_A3006/Nethunter_SOP.md](OnePlus_A3006/Nethunter_SOP.md)** | Per-module SOPs for all NetHunter tools: HID, DuckHunter, BadUSB, WifiPumpkin, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit, KeX, MAC changer, CARsenal, teardown checklist | ✅ Complete |
 
 ### Checklists
 

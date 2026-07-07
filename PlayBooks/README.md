@@ -73,6 +73,7 @@ These playbooks serve as:
 | Playbook | Description | Complexity |
 |----------|-------------|------------|
 | **[NetworkAuditPlayBook.md](./NetworkAuditPlayBook.md)** | Comprehensive network security audit and penetration testing playbook | Intermediate |
+| **[../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md)** | Full engagement SOP for pentesting with Kali NetHunter on OnePlus 6: pre-engagement, passive/active recon, Evil AP, HID, BadUSB, Metasploit, evidence handling, reporting | Intermediate |
 
 ### Development & Operations Security
 
