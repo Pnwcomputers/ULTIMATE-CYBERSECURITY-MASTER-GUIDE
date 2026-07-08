@@ -1046,7 +1046,7 @@ config['cron']['jobs'] = {
     },
 
     'daily-security-digest': {
-        'schedule': '0 7 30 * * 1-5',
+        'schedule': '30 7 * * 1-5',
         'prompt': 'Run my daily security digest. Search for critical CVEs in the last 24 hours affecting: TrueNAS, Proxmox, UniFi, OPNsense, Windows 10/11, Home Assistant, Wazuh, NPMplus, Docker. Also check CISA KEV for new additions. Use emoji severity indicators. Under 400 words.',
         'agent': 'blue-team',
         'enabled': True

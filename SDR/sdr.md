@@ -255,7 +255,7 @@ Significant step up from RTL-SDR in dynamic range and sample rate.
 | Specification | Value |
 |--------------|-------|
 | **Frequency range** | 24 – 1800 MHz |
-| **Sample rate** | 2.5 or 10 MSa/s (real); 20 MSPS IQ |
+| **Sample rate** | 2.5 or 10 MSa/s (real); 10 MSPS IQ |
 | **ADC resolution** | 12-bit |
 | **Dynamic range** | ~80 dB (vs. ~50 dB for RTL-SDR) |
 | **Spurious-free dynamic range** | ~65 dB |
@@ -269,7 +269,7 @@ Specialized for HF and VHF reception; exceptional performance in its range.
 
 | Specification | Value |
 |--------------|-------|
-| **Frequency range** | 0.5 kHz – 31 MHz (HF), 60 – 260 MHz (VHF) |
+| **Frequency range** | 9 kHz – 31 MHz (HF), 60 – 260 MHz (VHF) |
 | **ADC resolution** | 18-bit sigma-delta |
 | **Dynamic range** | >110 dB in HF |
 | **Cost** | ~$169 |
@@ -1446,7 +1446,7 @@ gnss-sdr --config_file=gps_l1.conf
 
 #### Weather Satellites: NOAA APT
 
-NOAA weather satellites (15, 18, 19) transmit analog APT images on 137.500 MHz, 137.100 MHz, and 137.9125 MHz. The easiest satellite image project:
+NOAA weather satellites (15, 18, 19) transmit analog APT images on 137.620 MHz, 137.9125 MHz, and 137.100 MHz respectively. The easiest satellite image project:
 
 ```bash
 # Receive and decode NOAA APT
@@ -1455,7 +1455,7 @@ sudo apt install predict
 predict -p "NOAA 19"  # Shows next pass time, max elevation
 
 # Step 2: Record IQ during pass
-rtl_fm -f 137.9125M -M fm -s 60000 -r 11025 -E deemp noaa19.wav &
+rtl_fm -f 137.100M -M fm -s 60000 -r 11025 -E deemp noaa19.wav &
 # Wait for pass and stop recording
 
 # Step 3: Decode

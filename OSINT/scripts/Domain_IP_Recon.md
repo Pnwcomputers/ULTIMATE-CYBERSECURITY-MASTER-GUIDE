@@ -451,7 +451,7 @@ scan_ip() {
     PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null || echo 0)
     if [ "$PORT80_OPEN" -gt 0 ]; then
         WEB_TARGET="http://$IP"
-        [ command -v whatweb &> /dev/null ] && whatweb "$WEB_TARGET" --log-json="$IP_DIR/whatweb.json" > "$IP_DIR/whatweb.txt" 2>&1
+        command -v whatweb &>/dev/null && whatweb "$WEB_TARGET" --log-json="$IP_DIR/whatweb.json" > "$IP_DIR/whatweb.txt" 2>&1
         run_nuclei "$WEB_TARGET" "$IP_DIR/nuclei_results.txt"
         run_dirsearch "$WEB_TARGET" "$IP_DIR/dirsearch_results.txt"
     fi

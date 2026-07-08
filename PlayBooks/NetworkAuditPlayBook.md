@@ -268,7 +268,7 @@ Using Reaver/Bully on Kali:
 - DNS enumeration:
   ```bash
   # dnsenum [domain]
-  # fierce -dns [domain]
+  # fierce --domain [domain]
   ```
 
 **STEP 4: Network Protocol Analysis**

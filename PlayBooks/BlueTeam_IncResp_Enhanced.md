@@ -59,7 +59,7 @@ Covers any incident impacting on-prem or cloud systems-including malware, data e
 | Legal Counsel | Acme Law LLP | security@acmelaw.com | +1 555-2345 |
 | PR Agency | BrightPoint Communications | press@brightpoint.com | +1 555-3456 |
 | IT Operations Manager | John Smith | j.smith@company.com | +1 555-4567 |
-| External Law Enforcement Liaison | FBI Cyber Division (Seattle) | sfoc@ic.fbi.gov | +1 206-622-0460 |
+| External Law Enforcement Liaison | FBI Cyber Division (San Francisco) | sfoc@ic.fbi.gov | +1 206-622-0460 |
 
 ### 4. Playbook Testing
 - Quarterly tabletop exercises following NIST SP 800-84: phishing, ransomware, insider threat, DDoS scenarios.

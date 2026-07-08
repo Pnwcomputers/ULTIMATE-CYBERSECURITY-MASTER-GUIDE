@@ -579,7 +579,7 @@ mimikatz # lsadump::dcshadow /push
 | 4720 | User account created | Persistence |
 | 4728/4732/4756 | Member added to group | Privilege escalation |
 | 4769 | TGS requested | Kerberoasting (RC4 cipher alert) |
-| 4768 | AS-REP returned (pre-auth disabled) | AS-REP roasting (pre-auth not required) |
+| 4768 | Kerberos TGT requested (AS-REQ) | AS-REP roastable if pre-auth type 0 present in the event |
 | 4771 | Pre-auth failure | Password spraying (wrong password on pre-auth-required accounts) |
 | 4776 | NTLM credential validation | PtH detection |
 | 5145 | Network share access | SMB enumeration, lateral movement |

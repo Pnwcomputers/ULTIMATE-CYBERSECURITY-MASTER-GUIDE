@@ -1972,7 +1972,7 @@ Join process:
                                                               on first join!
 
 Default/well-known keys:
-  ZigBee default trust center key: 0x5A696742656541 6C6C69616E636530
+  ZigBee default trust center key: 0x5A6967426565416C6C69616E636530
   Hue bridge default ZLL key:      0x451234567890ABCDEF456789ABCDEF01
   
 Many installations never change from default keys.

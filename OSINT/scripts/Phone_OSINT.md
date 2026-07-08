@@ -309,7 +309,7 @@ query_numverify() {
         return
     fi
     
-    curl -s "http://apilayer.net/api/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" \
+    curl -s "https://api.apilayer.com/number_verification/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" \
         | pretty_json > "$OUTPUT" 2>&1
     
     if [ -s "$OUTPUT" ]; then

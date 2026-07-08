@@ -491,7 +491,7 @@ curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | s
 - **Based on**: Ubuntu
 - **Tools**: 100+ pre-installed OSINT tools
 - **Use Case**: General OSINT investigations
-- **Download**: https://www.kali.org/get-kali/
+- **Download**: Buscador was discontinued by IntelTechniques; no longer available. Consider Trace Labs OSINT VM or Tsurugi Linux as alternatives.
 
 #### **Trace Labs OSINT VM**
 - **Purpose**: Search and rescue operations

@@ -15,10 +15,11 @@ def ret_banner(ip, port):
 
 
 def check_vulns(banner, filename):
+    banner_str = banner.decode('utf-8', errors='ignore')
     with open(filename) as file:
         for line in file.readlines():
-            if line.strip('\n') in banner.strip('\n'):
-                print(f'[+] Server is vulnerable: {banner}')
+            if line.strip('\n') in banner_str:
+                print(f'[+] Server is vulnerable: {banner_str}')
 
 
 if __name__ == '__main__':

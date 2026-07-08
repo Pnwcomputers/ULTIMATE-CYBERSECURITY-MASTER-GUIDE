@@ -44,7 +44,7 @@ Contain potential compromise within minutes of a report landing, and produce a c
 2.  **Detonate:** Upload to an automated sandbox like [Any.Run](https://app.any.run/) or [Hybrid Analysis](https://www.hybrid-analysis.com/).
 
 ## 3. 🧹 Remediation
-* **Purge:** Delete the email from the user's inbox and searching for it across the organization (Exchange/O365 Search-Mailbox).
+* **Purge:** Delete the email from the user's inbox and search for it across the organization using `New-ComplianceSearch` + `New-ComplianceSearchAction -Purge` via Security & Compliance PowerShell (`Search-Mailbox` and `Search-MailboxAuditLog` were removed from Exchange Online).
 * **Block:** Add the sender domain and malicious URL to your firewall/web proxy blocklist.
 * **Reset:** Force a password reset for the targeted user.
 

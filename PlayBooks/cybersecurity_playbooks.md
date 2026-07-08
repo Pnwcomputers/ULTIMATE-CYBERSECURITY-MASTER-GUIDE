@@ -122,13 +122,13 @@ Give a security operations team a single field guide covering the most common da
 #### O365/Azure AD
 ```powershell
 # Recent sign-ins
-Get-AzureADAuditSignInLogs -Filter "userPrincipalName eq 'user@domain.com'" | Select-Object CreatedDateTime, UserPrincipalName, IPAddress, Location, Status
+Get-MgAuditLogSignIn -Filter "userPrincipalName eq 'user@domain.com'" | Select-Object CreatedDateTime, UserPrincipalName, IPAddress, Location, Status
 
 # Recent activities
 Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -UserIds user@domain.com
 
 # Mailbox rule changes
-Search-MailboxAuditLog -Identity user@domain.com -LogonTypes Owner,Delegate -ShowDetails | Where-Object {$_.Operation -eq "New-InboxRule"}
+Search-UnifiedAuditLog -UserIds user@domain.com -RecordType ExchangeItem -Operations New-InboxRule | Where-Object {$_.Operations -eq "New-InboxRule"}
 ```
 
 #### Linux Systems
@@ -609,7 +609,7 @@ Report Structure:
 nmap -p 445 --script smb-vuln-ms17-010 target
 
 # Check for BlueKeep (CVE-2019-0708)
-nmap -p 3389 --script rdp-vuln-bluekeep target
+nmap -p 3389 --script rdp-vuln-ms19-0708 target
 
 # Check for Log4Shell
 nmap -p 8080 --script http-vuln-cve2021-44228 target

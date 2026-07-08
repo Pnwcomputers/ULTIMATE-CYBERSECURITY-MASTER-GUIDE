@@ -94,7 +94,7 @@ All enterprise platforms (Windows, Linux, macOS, cloud), tooling (SIEM, EDR, net
 | Field | Details |
 |-------|---------|
 | **Goal** | Measure detection of remote SMB session creation via `Invoke-Command` |
-| **Attack Method** | Python script using `pywinrm` or PowerShell `New-PSSession \\host` |
+| **Attack Method** | Python script using `pywinrm` or PowerShell `New-PSSession -ComputerName host` |
 | **Detection Rule** | YARA rule for SMB session opening; SIEM correlation on `EventID=5140` |
 | **Hunting Query** | Splunk: `index=wineventlog EventCode=5140` |
 | **Result** | Coverage gap found; new rule deployed, tested, and validated |

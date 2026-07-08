@@ -754,7 +754,7 @@ pip install dnstwist         # Domain typosquatting monitor
 pip install h8mail           # Email breach hunter
 pip install holehe            # Email account checker
 pip install maigret           # Username search
-pip install phoneinfoga       # Phone number OSINT
+go install github.com/sundowndev/phoneinfoga/v2/cmd/phoneinfoga@latest  # Phone number OSINT (Go binary; not on PyPI)
  
 # Install go-based tools (requires Go on Windows)
 # https://go.dev/dl/

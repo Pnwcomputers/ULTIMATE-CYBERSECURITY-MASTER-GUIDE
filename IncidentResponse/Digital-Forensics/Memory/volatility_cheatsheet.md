@@ -66,8 +66,8 @@ Memory analysis reveals artifacts that disk forensics cannot:
 # Install Volatility 3
 pip3 install volatility3
 
-# Verify installation
-vol3 --help
+# Verify installation (pip installs the binary as 'vol', not 'vol3')
+vol --help
 ```
 
 ### Method 2: Installation from Source
@@ -115,7 +115,7 @@ unzip windows.zip
 
 ```bash
 # List available plugins
-vol3 --help | grep windows
+vol --help | grep windows
 
 # Or from source
 python3 vol.py --help | grep windows

@@ -126,12 +126,13 @@ index=windows sourcetype="WinEventLog:Security" (EventCode=4625 OR EventCode=462
 | table _time, Account_Name, Source_Network_Address, eventcount
 ```
 
-**ELK/KQL Query - Failed Logins:**
+**Elastic ES\|QL Query - Failed Logins:**
 
-```kql
-winlog.event_id:4625 
-| stats count() by winlog.event_data.TargetUserName, source.ip
-| where count > 5
+```esql
+FROM logs-* 
+| WHERE winlog.event_id == 4625
+| STATS count = COUNT(*) BY winlog.event_data.TargetUserName, source.ip
+| WHERE count > 5
 ```
 
 **Wazuh Query:**
@@ -557,15 +558,15 @@ Set-ADUser -Identity jsmith -ChangePasswordAtLogon $true
 **Azure AD:**
 
 ```powershell
-# Block sign-in
-Set-AzureADUser -ObjectId jsmith@company.com -AccountEnabled $false
+# Block sign-in (Microsoft Graph PowerShell - AzureAD module retired March 2024)
+Update-MgUser -UserId jsmith@company.com -AccountEnabled $false
 
 # Revoke all refresh tokens
-Revoke-AzureADUserAllRefreshToken -ObjectId jsmith@company.com
+Invoke-MgUserRevokeSignInSession -UserId jsmith@company.com
 
 # Reset password
-$newPassword = ConvertTo-SecureString "TempP@ss123!" -AsPlainText -Force
-Set-AzureADUserPassword -ObjectId jsmith@company.com -Password $newPassword -ForceChangePasswordNextLogin $true
+$newPassword = @{ Password = "TempP@ss123!"; ForceChangePasswordNextSignIn = $true }
+Update-MgUser -UserId jsmith@company.com -PasswordProfile $newPassword
 ```
 
 **Via Azure Portal:**
@@ -667,7 +668,7 @@ Remove-AzureADOAuth2PermissionGrant -ObjectId <grant-id>
 
 ```powershell
 # Check MFA status
-Get-MsolUser -UserPrincipalName jsmith@company.com | Select-Object DisplayName, StrongAuthenticationRequirements, StrongAuthenticationMethods
+Get-MgUser -UserId jsmith@company.com -Property DisplayName,UserPrincipalName | Select-Object DisplayName  # MSOnline retired April 2024; use Get-MgUserAuthenticationMethod below for MFA details
 
 # Check authentication methods (Microsoft Graph)
 Get-MgUserAuthenticationMethod -UserId jsmith@company.com
@@ -716,7 +717,7 @@ VERIFICATION
 Get-MessageTrace -SenderAddress jsmith@company.com -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date)
 
 # Mailbox audit log
-Search-MailboxAuditLog -Identity jsmith@company.com -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -ShowDetails
+Search-UnifiedAuditLog -UserIds jsmith@company.com -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -RecordType ExchangeItem
 ```
 
 **Unified Audit Log:**
