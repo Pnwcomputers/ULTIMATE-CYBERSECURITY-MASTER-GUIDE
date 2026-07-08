@@ -85,8 +85,9 @@ This documentation serves as a reference material for security implementations, 
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | `LinuxCheatSheet.md` | Essential Linux commands, system administration, hardware hacking toolkit, WSL2, SDR/RF, and OSINT tools | Cheat Sheet |
+| `ArchLinux_CheatSheet.md` | Arch-specific deep reference: pacman, AUR helpers (yay/paru/pamac), makepkg/PKGBUILD, kernel/module management, systemd, mirrors, security tooling setup | Cheat Sheet |
+| `blackarch.md` | BlackArch repository setup (strap.sh), keyring management, tool category installation, mirror configuration, and system maintenance | Guide |
 | `virtualmachines.md` | Virtual machine setup and management guide | Guide |
-| `blackarch.md` | General "Blackarch 101" guide | Guide |
 
 ### Physical Security
 | File | Description | Size/Type |
