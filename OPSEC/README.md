@@ -1,5 +1,17 @@
 # 🔒 OPSEC (Operational Security)
 
+<div align="center">
+
+**Comprehensive operational security practices for cybersecurity professionals and security researchers**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![OPSEC](https://img.shields.io/badge/OPSEC-Operational%20Security-red?style=for-the-badge)]()
+[![Privacy](https://img.shields.io/badge/Privacy-Protection-blue?style=for-the-badge)]()
+[![Anonymity](https://img.shields.io/badge/Anonymity-Best%20Practices-green?style=for-the-badge)]()
+
+</div>
+
 ## 🎯 Purpose
 Operational security practices for cybersecurity professionals - covering identity separation, network anonymization, virtualization compartmentalization, anti-forensics, communications security, and device hygiene for security research and authorized engagements.
 
@@ -14,18 +26,6 @@ Enable security practitioners to conduct authorized research and engagements wit
 - Setting up a research environment for malware analysis or threat intelligence work
 - Learning OPSEC concepts for training or CTF scenarios
 - Building a privacy-focused personal computing environment
-
-<div align="center">
-
-**Comprehensive operational security practices for cybersecurity professionals and security researchers**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![OPSEC](https://img.shields.io/badge/OPSEC-Operational%20Security-red?style=for-the-badge)]()
-[![Privacy](https://img.shields.io/badge/Privacy-Protection-blue?style=for-the-badge)]()
-[![Anonymity](https://img.shields.io/badge/Anonymity-Best%20Practices-green?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -1037,11 +1037,11 @@ Date and version information
 
 ---
 
-⚠️ **WARNING: OPSEC does not provide legal immunity for unauthorized activities** ⚠️
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **Even with strong OPSEC, unauthorized access is illegal and prosecutable** ⚠️
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
 
-⚠️ **Always obtain written authorization before any security operations** ⚠️
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

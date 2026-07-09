@@ -1,5 +1,18 @@
 # 🗡️ Tradecraft
 
+<div align="center">
+
+**Deep-dive tradecraft for red and blue teams: TTPs, detection logic, and countermeasures**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Red Team](https://img.shields.io/badge/Red_Team-Offensive_TTPs-red?style=for-the-badge)]()
+[![Blue Team](https://img.shields.io/badge/Blue_Team-Detection_%26_Defense-blue?style=for-the-badge)]()
+[![MITRE](https://img.shields.io/badge/MITRE-ATT%26CK-orange?style=for-the-badge)]()
+
+</div>
+
+---
 
 ## 🎯 Purpose
 Deep-dive tradecraft reference for red team, blue team, and purple team practitioners - covering offensive TTPs, detection logic, and defensive countermeasures across AD, C2, AV/EDR evasion, LOLBins, network detection, and OSINT.
@@ -17,20 +30,6 @@ Provide a single reference for understanding attack techniques and the correspon
 - Understanding the defensive perspective on a specific attack method
 
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
-
-<div align="center">
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)]()
-[![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)]()
-[![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)]()
-[![YARA](https://img.shields.io/badge/YARA-Rules-orange?style=for-the-badge&logo=virustotal)]()
-[![Sigma](https://img.shields.io/badge/Sigma-Detection_Rules-purple?style=for-the-badge&logo=elastic)]()
-[![Windows](https://img.shields.io/badge/Windows-Tools-0078D6?style=for-the-badge&logo=windows)]()
-[![Linux](https://img.shields.io/badge/Linux-Tools-FCC624?style=for-the-badge&logo=linux&logoColor=black)]()
-
-</div>
 
 ---
 

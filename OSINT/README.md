@@ -1,5 +1,19 @@
 # 🔍 OSINT (Open Source Intelligence) Resources
 
+<div align="center">
+
+**A comprehensive collection of OSINT tools, techniques, methodologies, and resources**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)]()
+[![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)]()
+[![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
 
@@ -13,18 +27,6 @@ Provide a complete OSINT reference hub that takes practitioners from initial rec
 - Starting an OSINT investigation and navigating to the right sub-guide
 - Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
 - Reviewing what tools and scripts are available before a recon engagement
-
-<div align="center">
-
-**A comprehensive collection of OSINT tools, techniques, methodologies, and resources**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)]()
-[![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)]()
-[![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -466,6 +468,12 @@ This OSINT collection wouldn't exist without:
 **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

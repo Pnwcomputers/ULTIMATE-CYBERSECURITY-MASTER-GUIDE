@@ -1,5 +1,19 @@
 # 🛰️ Space Security
 
+<div align="center">
+
+**Offensive and defensive security across ground, space, and user segments of modern space systems**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Ground Segment](https://img.shields.io/badge/Ground-Mission_Control_%7C_TT%26C-blue?style=for-the-badge)]()
+[![Space Segment](https://img.shields.io/badge/Space-FSW_%7C_OBC_%7C_RTOS-red?style=for-the-badge)]()
+[![User Segment](https://img.shields.io/badge/User-SATCOM_%7C_GNSS_%7C_VSAT-green?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index for the Space Security section - covering offensive and defensive security across all three space system segments: ground (mission control, TT&C, ground stations), space (flight software, OBC, RTOS), and user (SATCOM terminals, GNSS receivers, VSATs).
 
@@ -13,19 +27,6 @@ Serve as the starting point for space security work - directing practitioners to
 - Choosing which Part to read based on assessment focus (ground vs. space vs. user segment)
 - Legal/regulatory reference: ITAR/EAR controls, RF transmission authorization requirements
 - Understanding how SDR techniques apply specifically to satellite communication systems
-
-<div align="center">
-
-**Offensive and defensive security across ground, space, and user segments of modern space systems**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![Ground Segment](https://img.shields.io/badge/Ground-Mission_Control_%7C_TT%26C-blue?style=for-the-badge)]()
-[![Space Segment](https://img.shields.io/badge/Space-FSW_%7C_OBC_%7C_RTOS-red?style=for-the-badge)]()
-[![User Segment](https://img.shields.io/badge/User-SATCOM_%7C_GNSS_%7C_VSAT-green?style=for-the-badge)]()
-[![RF](https://img.shields.io/badge/RF-SDR_%7C_CCSDS_%7C_DVB--S2-orange?style=for-the-badge)]()
-
-</div>
 
 ---
 

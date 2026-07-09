@@ -1,5 +1,17 @@
 # 🏠 Cybersecurity Homelab
 
+<div align="center">
+
+**Building, configuring, and maintaining isolated environments for offensive and defensive research**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Infrastructure](https://img.shields.io/badge/Infrastructure-Virtualization-blue?style=for-the-badge&logo=vmware)]()
+[![Hardware](https://img.shields.io/badge/Hardware-SBCs_%7C_Networking-green?style=for-the-badge&logo=raspberrypi)]()
+[![Isolation](https://img.shields.io/badge/Security-Air--Gapped_%7C_VLANs-orange?style=for-the-badge)]()
+
+</div>
+
 ## 🎯 Purpose
 Index and entry point for the Homelab section - covering the hardware, software, and network architecture needed to build an isolated cybersecurity lab for offensive and defensive research.
 
@@ -13,19 +25,6 @@ Help practitioners build a legally-safe, network-isolated lab environment where 
 - Starting point for anyone building their first security homelab
 - Reference for lab architecture decisions (hardware, hypervisor, VLAN isolation)
 - Cross-referencing which lab tools correspond to which Documentation/ guides
-
-<div align="center">
-
-**Building, configuring, and maintaining isolated environments for offensive and defensive research**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![Infrastructure](https://img.shields.io/badge/Infrastructure-Virtualization-blue?style=for-the-badge&logo=vmware)]()
-[![Hardware](https://img.shields.io/badge/Hardware-SBCs_%7C_Networking-green?style=for-the-badge&logo=raspberrypi)]()
-[![Isolation](https://img.shields.io/badge/Security-Air--Gapped_%7C_VLANs-orange?style=for-the-badge)]()
-[![Homelab](https://img.shields.io/badge/Environment-Homelab-red?style=for-the-badge&logo=server)]()
-
-</div>
 
 ---
 
@@ -181,15 +180,35 @@ vulnerable systems, and potent offensive tools.
 
 ---
 
-<div align="center">
+## 🤝 Contributing
 
-**🛡️ BUILD IT. BREAK IT. SECURE IT. 🛡️**
+To contribute to the Homelab section:
 
-*The best place to learn how an attacker breaches a network is on a network you built yourself.*
+1. Follow the 4-header standard: `## 🎯 Purpose`, `## ⚙️ Function`, `## 🏆 Goal`, `## 📋 When to Use` after every H1
+2. Add a `## Related Files` section at the bottom with bidirectional links
+3. Use hyphens (-) not em-dashes
+4. Include network isolation requirements for any vulnerable VM or attack tool guide
+5. Verify all hypervisor and OS versions before adding configuration steps
+6. Add warnings whenever content involves live malware, exploit testing, or vulnerable machines
 
-**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+---
 
-**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+## 📚 Resources
+
+### Virtualization Platforms
+- **Proxmox VE**: https://www.proxmox.com/en/proxmox-ve
+- **VMware Workstation Pro**: https://www.vmware.com/products/workstation-pro.html
+- **VirtualBox**: https://www.virtualbox.org/
+
+### Network Security & Isolation
+- **pfSense**: https://www.pfsense.org/
+- **OPNsense**: https://opnsense.org/
+
+### Intentionally Vulnerable Machines
+- **Metasploitable**: https://sourceforge.net/projects/metasploitable/
+- **HackTheBox**: https://www.hackthebox.com/
+- **VulnHub**: https://www.vulnhub.com/
+- **TryHackMe**: https://tryhackme.com/
 
 ---
 
@@ -201,14 +220,24 @@ vulnerable systems, and potent offensive tools.
 
 ---
 
-🔴 **NEVER EXPOSE VULNERABLE LAB VMS TO THE INTERNET** 🔴
+<div align="center">
 
-🔴 **ALWAYS VERIFY NETWORK ISOLATION** 🔴
+**📖 Use This Lab Responsibly: Authorization is MANDATORY for Pentesting**
 
-🔴 **DETONATE MALWARE AT YOUR OWN RISK** 🔴
+*The best place to learn how an attacker breaches a network is on a network you built yourself.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
 
-⭐ **Star this repo if you find it useful for building your lab!** ⭐
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
 
 </div>

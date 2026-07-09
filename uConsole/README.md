@@ -1,5 +1,17 @@
 # 🛠️ uConsole: Setup & Deployment Guides
 
+<div align="center">
+
+**Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - SDR, LoRa, GPS, and pentesting in your pocket**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)]()
+[![CM5](https://img.shields.io/badge/CM5-Supported-green?style=for-the-badge)]()
+[![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)]()
+
+</div>
+
 ## 🎯 Purpose
 Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a pocket-sized Linux handheld optimized for SDR, LoRa, GPS, and field pentesting use.
 
@@ -14,20 +26,6 @@ A fully configured, field-ready uConsole running on Kali or Trixie with all hard
 - Rebuilding a uConsole after a failed update or storage wipe
 - Configuring a new HackerGadgets AIO v2 board with battery and NVMe expansion
 - Reference for driver troubleshooting (WiFi chipset, audio, display brightness)
-
-<div align="center">
-
-**Complete build guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - SDR, LoRa, GPS, and pentesting in your pocket**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)]()
-[![CM5](https://img.shields.io/badge/CM5-Supported-green?style=for-the-badge)]()
-[![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)]()
-[![Kali](https://img.shields.io/badge/Kali-Rolling-557C94?style=for-the-badge)]()
-[![Trixie](https://img.shields.io/badge/Debian-Trixie-A81D33?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -44,19 +42,6 @@ A fully configured, field-ready uConsole running on Kali or Trixie with all hard
 - [Resources](#resources)
 
 ---
-
-## 🎯 Purpose
-Index for turning a ClockworkPi uConsole + HackerGadgets AIO v2 board into a field-deployable pentesting/SIGINT platform. Points to the two hardware-specific guides ([CM4-SETUP.md](CM4-SETUP.md), [CM5-SETUP.md](CM5-SETUP.md)) and the automated setup scripts in [scripts/](scripts/) that implement the same procedure as executable code.
-
-## ⚙️ Function
-Hardware stack overview, a CM4-vs-CM5 comparison table (the deciding factor for which setup guide to follow), OS path comparison (Kali vs Trixie+Kali-tools), AIO v2 peripheral/GPIO reference, and the 6-phase setup methodology ("harden first, upgrade second, then install") that both the manual guides and the automated scripts implement identically.
-
-## 🏆 Goal
-Pick the right compute module (CM4 vs CM5) and OS path for a new uConsole build, and know where to go next (manual guide vs automated script) to get from a fresh flash to a working RTL-SDR/LoRa/GPS/pentesting platform.
-
-## 📋 When to Use
-- Planning a new uConsole build - which hardware and OS combination to buy/flash
-- Understanding what the 6-phase setup methodology does before running the automated scripts blind
 
 ## 🎯 Overview
 
@@ -361,6 +346,19 @@ USERS ACKNOWLEDGE:
 
 ---
 
+## 🤝 Contributing
+
+To contribute to the uConsole section:
+
+1. Follow the 4-header standard: `## 🎯 Purpose`, `## ⚙️ Function`, `## 🏆 Goal`, `## 📋 When to Use` after every H1
+2. Add a `## Related Files` section at the bottom with bidirectional links
+3. Use hyphens (-) not em-dashes
+4. Verify all commands against the current hardware/firmware version before adding
+5. Include RF compliance notes for any SDR or radio transmission guidance
+6. Note the exact hardware revision and OS version tested against
+
+---
+
 <div align="center">
 
 **📖 Build Responsibly: Authorization is MANDATORY for Pentesting**
@@ -373,9 +371,11 @@ USERS ACKNOWLEDGE:
 
 ---
 
-⚠️ **WiFi pentesting and network attacks require WRITTEN AUTHORIZATION** ⚠️
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **Unauthorized access is a FEDERAL CRIME under the CFAA** ⚠️
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

@@ -1,5 +1,19 @@
 # 📻 Software Defined Radio (SDR) & RF Security
 
+<div align="center">
+
+**Collection of RF analysis tools, signal capture guides, and SDR exploitation techniques**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![SDR](https://img.shields.io/badge/Hardware-SDR-blue?style=for-the-badge&logo=broadcom)]()
+[![RF](https://img.shields.io/badge/Frequencies-RF_Analysis-green?style=for-the-badge&logo=wifi)]()
+[![GNURadio](https://img.shields.io/badge/Software-GNU_Radio-orange?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, and advanced RF security topics across two comprehensive guides.
 
@@ -13,19 +27,6 @@ Serve as the starting point for SDR work - directing beginners to sdr.md for fun
 - Choosing which SDR guide to start with based on experience level
 - Hardware selection: comparing RTL-SDR, HackRF, Airspy, PlutoSDR for a specific use case
 - Legal/regulatory reference: FCC licensing requirements before transmitting
-
-<div align="center">
-
-**Collection of RF analysis tools, signal capture guides, and SDR exploitation techniques**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![SDR](https://img.shields.io/badge/Hardware-SDR-blue?style=for-the-badge&logo=broadcom)]()
-[![RF](https://img.shields.io/badge/Frequencies-RF_Analysis-green?style=for-the-badge&logo=wifi)]()
-[![GNURadio](https://img.shields.io/badge/Software-GNU_Radio-orange?style=for-the-badge)]()
-[![Security](https://img.shields.io/badge/Security-Signal_Intelligence-red?style=for-the-badge&logo=hackthebox)]()
-
-</div>
 
 ---
 

@@ -1,5 +1,17 @@
 # 🖥️ Hardware Testing & Benchmarking
 
+<div align="center">
+
+**Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Hardware Testing](https://img.shields.io/badge/Hardware-Diagnostics%20%26%20Stress%20Testing-blue?style=for-the-badge)]()
+[![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge&logo=manjaro)]()
+[![Intel](https://img.shields.io/badge/CPU%20Platform-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge&logo=intel)]()
+
+</div>
+
 ## 🎯 Purpose
 Index for hardware testing, diagnostics, and benchmarking tools on Manjaro Linux - covering stress testing, reliability validation, and performance benchmarking for dedicated test bench systems.
 
@@ -13,20 +25,6 @@ Provide a complete reference for hardware qualification testing on Linux, enabli
 - Qualifying hardware for a dedicated security lab or test bench system
 - Running reliability stress tests on a new Linux system
 - Diagnosing intermittent hardware failures with structured testing
-
-<div align="center">
-
-**Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![Hardware Testing](https://img.shields.io/badge/Hardware-Diagnostics%20%26%20Stress%20Testing-blue?style=for-the-badge)]()
-[![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge\&logo=manjaro)]()
-[![Intel](https://img.shields.io/badge/CPU%20Platform-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge\&logo=intel)]()
-[![AMD](https://img.shields.io/badge/CPU%20Platform-AMD%20%E2%80%94%20Planned-ED1C24?style=for-the-badge\&logo=amd)]()
-[![Debian](https://img.shields.io/badge/OS-Debian%20%E2%80%94%20Planned-A81D33?style=for-the-badge\&logo=debian)]()
-
-</div>
 
 ---
 
@@ -420,10 +418,79 @@ Debian_AMD_TestBench.md
 
 ---
 
-*Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
-*Last updated: 06-11-2026*
+## ⚠️ Security & Legal Disclaimer
+
+### Authorized Use Only
+
+These hardware testing guides and scripts are provided for:
+
+```
+✅ AUTHORIZED USES:
+   • Qualifying hardware you own or have explicit permission to test
+   • Reliability testing for security labs, forensic workstations, and pentest rigs
+   • Benchmarking and stress testing in controlled environments
+   • Supporting authorized security operations and incident response
+
+🚫 STRICTLY PROHIBITED:
+   • Running diagnostic or stress tools on hardware you do not own or control
+   • Using hardware-level access techniques without authorization
+   • Any activities violating applicable laws or regulations
+```
+
+**Warranty Disclaimer**: These guides are provided "AS IS" without warranty of any kind. The authors are not responsible for hardware damage, data loss, or other outcomes from running stress tests, diagnostic tools, or configuration changes on any system.
+
+---
+
+## 📚 Resources
+
+### Diagnostic & Benchmarking Tools
+- **stress-ng**: https://github.com/ColinIanKing/stress-ng
+- **sysbench**: https://github.com/akopytov/sysbench
+- **Phoronix Test Suite**: https://www.phoronix-test-suite.com/
+- **memtest86+**: https://www.memtest.org/
+- **smartmontools**: https://www.smartmontools.org/
+
+### Manufacturer Tools
+- **Intel GPU Tools**: https://01.org/linuxgraphics
+- **AMD SMI**: https://github.com/ROCm/amdsmi
+- **NVIDIA SMI**: Included with NVIDIA drivers
+
+### Manjaro / Arch References
+- **Arch Wiki**: https://wiki.archlinux.org/
+- **Manjaro Forum**: https://forum.manjaro.org/
+
+---
 
 ## Related Files
 - [Manjaro_Intel_TestBench.md](Manjaro_Intel_TestBench.md) - Dedicated Intel test bench guide
 - [py/README.md](py/README.md) - Python orchestration scripts for automated testing
 - [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab context for test bench
+
+---
+
+*Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
+*Last updated: 06-11-2026*
+
+---
+
+<div align="center">
+
+**📖 Use These Guides Responsibly: Test Only Hardware You Own or Control**
+
+*Hardware diagnostics and stress testing - use them ethically and with proper authorization.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
