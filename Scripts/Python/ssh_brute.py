@@ -52,9 +52,9 @@ def main():
             if Found:
                 print("[*] Exiting: Password Found")
                 exit(0)
-                if Fails > 5:
-                    print("[!] Exiting: Too Many Socket Timeouts")
-                    exit(0)
+            if Fails > 5:
+                print("[!] Exiting: Too Many Socket Timeouts")
+                exit(0)
             connection_lock.acquire()
             password = line.strip('\r').strip('\n')
             print("[-] Testing: " + str(password))

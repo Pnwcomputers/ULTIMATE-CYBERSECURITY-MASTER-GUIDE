@@ -41,7 +41,7 @@ P = I² × R       (power through a resistor)
 P = V²/R         (power across a resistor)
 ```
 
-**Why it matters:** In power analysis, you insert a small shunt resistor (typically 1–100 Ω) in the power supply path and measure the voltage across it. By Ohm's Law, V_shunt = I × R_shunt - the voltage waveform across the shunt directly represents the instantaneous current draw of the target device.
+**Why it matters:** In power analysis, you insert a small shunt resistor (typically 0.1–10 Ω) in the power supply path and measure the voltage across it. By Ohm's Law, V_shunt = I × R_shunt - the voltage waveform across the shunt directly represents the instantaneous current draw of the target device.
 
 ---
 
@@ -233,7 +233,7 @@ Rule of thumb: **R_shunt × I_max < 0.1 × V_supply**. For a 3.3V device drawing
 | Saleae Logic 8 | 8 | 100 MHz | Best software ecosystem; protocol decoders |
 | Saleae Logic Pro 16 | 16 | 500 MHz analog | Analog + digital; excellent for mixed-signal |
 | DreamSourceLab DSLogic | 16 | 400 MHz | Lower cost; sigrok compatible |
-| Bus Pirate 5 | Multi | ~1 MHz | Interactive; SPI/I2C/UART/JTAG all-in-one |
+| Bus Pirate 5 | Multi | ~1 MHz | Protocol bridge with basic capture; not a standalone logic analyzer — use a dedicated tool for high-speed or multi-channel captures |
 | Glasgow Interface Explorer | Multi | ~100 MHz | FPGA-based; highly scriptable |
 
 ---

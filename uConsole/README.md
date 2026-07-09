@@ -183,10 +183,10 @@ Debian 13 base with Kali rolling repo layered on top.
 | Peripheral | Chip / Spec | GPIO Control |
 |---|---|---|
 | **RTL-SDR** | R828D + TCXO, 100 kHz – 1.74 GHz, 5V bias tee | GPIO 7 |
-| **LoRa** | SX1262, 860–960 MHz, 22 dBm, TCXO, Meshtastic-ready | GPIO 22 |
+| **LoRa** | SX1262, 860–960 MHz, 22 dBm, TCXO, Meshtastic-ready | GPIO 16 |
 | **GPS** | Multi-mode GPS/BDS/GNSS, active + passive antenna | GPIO 27 |
 | **RTC** | PCF85063A + CR1220 battery backup | I2C (always on) |
-| **Internal USB** | USB-C + pin header hub | GPIO 6 |
+| **Internal USB** | USB-C + pin header hub | GPIO 23 |
 | **RJ45 Ethernet** | Gigabit (requires Upgrade Kit adapter board) | Always on |
 
 ### Antenna Connectors

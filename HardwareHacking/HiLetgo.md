@@ -37,7 +37,7 @@ The HiLetgo USB Logic Analyzer is a cost-effective, 8-channel, 24MHz logic analy
 
 ### 3. Use
 * Open **PulseView**.
-* At the top, select the driver: Choose `fx2lafw` or `Saleae Logic`. The device should connect.
+* At the top, select the driver: Choose `fx2lafw`. The device should connect. (`Saleae Logic` in this list is only for genuine Saleae hardware — selecting it for a clone will fail.)
 * Set the Sample Rate to `2 MHz` and the Sample Count to `1 M samples`. (UART is slow, so 2MHz is plenty).
 * Click the **Run** button (top left).
 * Immediately turn on the power to your target device. PulseView will capture the signals and stop.

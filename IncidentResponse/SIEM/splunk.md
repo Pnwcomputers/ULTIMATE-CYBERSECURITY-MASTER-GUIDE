@@ -126,7 +126,7 @@ Or via wget - **do not hardcode a version number**. Splunk removes old release b
 
 ```bash
 cd /tmp
-wget -O splunk-9.2.0-linux-2.6-amd64.deb "https://www.splunk.com/en_us/download/splunk-enterprise.html"
+wget -O splunk.deb "<PASTE-DIRECT-DOWNLOAD-URL-FROM-SPLUNK-WEBSITE>"
 ```
 
 #### Step 2.2: Install Splunk
@@ -476,7 +476,7 @@ Get the current package URL from [splunk.com/download/universal-forwarder](https
 
 ```bash
 # Download (check website for current version)
-wget -O /tmp/splunkforwarder.deb "https://www.splunk.com/en_us/download/universal-forwarder.html"
+wget -O /tmp/splunkforwarder.deb "<PASTE-DIRECT-DOWNLOAD-URL-FROM-SPLUNK-WEBSITE>"
 
 # Install
 sudo dpkg -i /tmp/splunkforwarder.deb
@@ -485,7 +485,7 @@ sudo dpkg -i /tmp/splunkforwarder.deb
 **RHEL/CentOS:**
 
 ```bash
-wget -O /tmp/splunkforwarder.rpm "https://www.splunk.com/en_us/download/universal-forwarder.html"
+wget -O /tmp/splunkforwarder.rpm "<PASTE-DIRECT-DOWNLOAD-URL-FROM-SPLUNK-WEBSITE>"
 
 sudo rpm -i /tmp/splunkforwarder.rpm
 ```
