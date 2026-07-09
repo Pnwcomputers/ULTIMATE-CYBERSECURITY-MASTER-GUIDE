@@ -1,5 +1,19 @@
 # 📚 Technical Documentation
 
+<div align="center">
+
+**Comprehensive technical documentation, guides, and reference materials for cybersecurity operations**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Documentation](https://img.shields.io/badge/Documentation-Cybersecurity%20Base-blue?style=for-the-badge)]()
+[![Knowledge Base](https://img.shields.io/badge/Category-Knowledge%20Base-green?style=for-the-badge)]()
+[![Cybersecurity Ops](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index and navigation hub for all documentation in the `Documentation/` directory - covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
 
@@ -13,14 +27,6 @@ Enable readers to quickly find the right documentation file for their current ta
 - Starting point for any Documentation/ section: find the right file for your current task
 - Onboarding new team members to the repo structure
 - Checking what documentation exists before writing a new guide (avoid duplication)
-
-Comprehensive technical documentation, guides, and reference materials for cybersecurity operations
-
-Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
-
-[![Documentation](https://img.shields.io/badge/Documentation-Cybersecurity%20Base-blue?style=for-the-badge&logo=googledocs&logoColor=white)]()
-[![Knowledge Base](https://img.shields.io/badge/Category-Knowledge%20Base-green?style=for-the-badge&logo=gitbook&logoColor=white)]()
-[![Cybersecurity Ops](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge&logo=fortinet&logoColor=white)]()
 
 ---
 
@@ -202,4 +208,34 @@ We welcome contributions from security professionals and researchers.
 * **Architecture:** Zero Trust, DMZ Design, Security Architecture.
 
 ---
-**Use This Knowledge Responsibly: Always Obtain Authorization**
+
+## 🔗 Related Files
+- [../Homelab/README.md](../Homelab/README.md) - Homelab build guides and network architecture
+- [../OSINT/README.md](../OSINT/README.md) - OSINT methodology and tools guide
+- [../Checklists/README.md](../Checklists/README.md) - Security assessment checklists
+- [../Scripts/README.md](../Scripts/README.md) - Scripts that implement many documented techniques
+- [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking tools and techniques
+
+---
+
+<div align="center">
+
+**📚 Use These Resources Responsibly: Authorization is MANDATORY**
+
+*These techniques are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>

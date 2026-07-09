@@ -1,5 +1,19 @@
 # 🚨 Incident Response & Log Aggregation
 
+<div align="center">
+
+**Blue Team operations, threat detection, digital forensics, and standardized response procedures**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)]()
+[![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)]()
+[![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
@@ -13,19 +27,6 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 - Starting incident response work: find the right playbook or log configuration file
 - Setting up a new SIEM or log aggregation infrastructure from scratch
 - Responding to a wireless intrusion, rogue AP, or physical plant hack scenario
-
-<div align="center">
-
-**Blue Team operations, threat detection, digital forensics, and standardized response procedures**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge&logo=shield)]()
-[![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)]()
-[![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)]()
-[![Forensics](https://img.shields.io/badge/Analysis-Digital_Forensics-green?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -253,9 +254,9 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 
 ---
 
-**🛡️ DEFEND FORWARD. HUNT TIRELESSLY. 🛡️**
+**🛡️ Use These Resources Responsibly: Authorization is MANDATORY**
 
-*Visibility is the foundation of security. You cannot defend against what you cannot see.*
+*Visibility is the foundation of security - use these tools ethically and legally.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -263,6 +264,12 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 
 ---
 
-⭐ **Star this repo if you find it useful for your Blue Team operations!** ⭐
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
 
 </div>

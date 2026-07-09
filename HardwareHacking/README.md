@@ -1,5 +1,19 @@
 # 🔧 Hardware Hacking
 
+<div align="center">
+
+**Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![Fault Injection](https://img.shields.io/badge/Fault_Injection-Glitching_%7C_EMFI_%7C_Laser-red?style=for-the-badge)]()
+[![Side-Channel](https://img.shields.io/badge/Side--Channel-SPA_%7C_DPA_%7C_CPA-blue?style=for-the-badge)]()
+[![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_SPI-green?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index and navigation hub for the Hardware Hacking section - covering physical and electronic attack techniques against embedded systems: JTAG/SWD/UART debug access, fault injection (voltage, clock, EM, laser), side-channel analysis (SPA, DPA, CPA), firmware extraction, and the hardware tools used in each category.
 
@@ -13,19 +27,6 @@ Serve as the entry point for hardware security work - helping practitioners find
 - Starting a hardware security assessment: choose the right chapter and tool for your target
 - Identifying which hardware tool to use for a given protocol or attack type
 - Onboarding to hardware hacking: read chapters in order, then reference tool files for specific devices
-
-<div align="center">
-
-**Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![Fault Injection](https://img.shields.io/badge/Fault_Injection-Glitching_%7C_EMFI_%7C_Laser-red?style=for-the-badge)]()
-[![Side-Channel](https://img.shields.io/badge/Side--Channel-SPA_%7C_DPA_%7C_CPA-blue?style=for-the-badge)]()
-[![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_SPI-green?style=for-the-badge)]()
-[![Threat Modeling](https://img.shields.io/badge/Threat_Modeling-Assets_%7C_Profiles_%7C_Countermeasures-orange?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -297,6 +298,19 @@ ALWAYS:
 
 ---
 
+## 🤝 Contributing
+
+To contribute to the Hardware Hacking section:
+
+1. Fork the repository
+2. Follow the 4-header standard: `## 🎯 Purpose`, `## ⚙️ Function`, `## 🏆 Goal`, `## 📋 When to Use` after every H1
+3. Include written authorization reminders for any offensive technique
+4. Add electrical and physical safety warnings for hands-on procedures
+5. Note the exact tool model, firmware version, and OS environment tested
+6. Submit a pull request with a description of the contribution
+
+---
+
 ## 📚 Resources
 
 ### Books
@@ -380,11 +394,11 @@ ALWAYS:
 
 ---
 
-⚠️ **Hardware attacks can permanently damage devices: test on authorized hardware only** ⚠️
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **DMCA restrictions may apply to DRM circumvention: consult legal counsel** ⚠️
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
 
-⚠️ **Electrical safety hazards: follow proper EHS guidelines** ⚠️
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

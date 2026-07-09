@@ -1,5 +1,19 @@
 # 🤖 AI Cybersecurity Resources
 
+<div align="center">
+
+**AI, Machine Learning, and Generative Intelligence resources applied to cybersecurity**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+[![AI Agents](https://img.shields.io/badge/AI_Agents-OpenClaw_|_AnythingLLM-red?style=for-the-badge)]()
+[![LLM Providers](https://img.shields.io/badge/LLM_Providers-Anthropic_|_Groq_|_Ollama-purple?style=for-the-badge)]()
+[![Deployment](https://img.shields.io/badge/Deployment-Self--Hosted_|_TrueNAS_SCALE-blue?style=for-the-badge)]()
+
+</div>
+
+---
+
 ## 🎯 Purpose
 Index and entry point for AI/ML cybersecurity resources covering self-hosted agent frameworks, prompt engineering, offensive AI techniques, and offline LLM deployments - all oriented around practical security operations.
 
@@ -14,19 +28,6 @@ Enable security practitioners to integrate AI tooling into blue team, red team, 
 - Setting up offline LLM inference for air-gapped or sensitive environments
 - Automating repetitive security tasks (recon, triage, reporting) via AgentFlows
 - Red teaming LLM-integrated applications or studying adversarial ML
-
-<div align="center">
-
-**AI, Machine Learning, and Generative Intelligence resources applied to cybersecurity**
-
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
-
-[![AI Agents](https://img.shields.io/badge/AI_Agents-OpenClaw_|_AnythingLLM-red?style=for-the-badge)]()
-[![LLM Providers](https://img.shields.io/badge/LLM_Providers-Anthropic_|_Gemini_|_Groq_|_Ollama-purple?style=for-the-badge)]()
-[![Deployment](https://img.shields.io/badge/Deployment-Self--Hosted_|_TrueNAS_SCALE-blue?style=for-the-badge)]()
-[![Use Cases](https://img.shields.io/badge/Use_Cases-Blue_Team_|_Red_Team_|_OSINT-green?style=for-the-badge)]()
-
-</div>
 
 ---
 
@@ -298,10 +299,22 @@ Always comply with:
 
 <div align="center">
 
-**🧠 Harness AI with a Security Mindset**
-*Advance responsibly, stay ethical, stay effective.*
+**🤖 Use These Resources Responsibly: Authorization is MANDATORY**
 
-Maintained by **[Pacific Northwest Computers (PNWC)](https://pnwcomputers.com)**
-⭐ If you find these resources useful, please star the repo ⭐
+*AI tools are powerful - use them ethically and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
