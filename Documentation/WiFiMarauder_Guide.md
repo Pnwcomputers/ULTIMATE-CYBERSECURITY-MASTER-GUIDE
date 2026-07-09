@@ -228,8 +228,77 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 ## WiFi Attack Techniques
 
-<!-- TODO: Expand with full deauth/beacon/PMKID/Evil Twin workflow detail from WifiMarauder_CheatSheet.md -->
-See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed on-device workflow reference.
+All attack techniques require **written authorization** before use. See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed command-only reference.
+
+### 1. Reconnaissance — Scan for APs
+
+Before any attack, identify the target's BSSID (AP MAC) and channel.
+
+**Menu:** `WiFi → Scan / Sniff → Scan APs`
+
+- Populates the AP list with BSSID, SSID, channel, RSSI, and encryption type.
+- Set the device to the target channel for best capture results:
+  `Settings/Device → WiFi Settings → Set Channel`
+
+---
+
+### 2. PMKID / Handshake Capture
+
+The primary passive capture mode. Attempts to grab both PMKID frames and 4-way EAPOL handshakes without sending any deauth frames.
+
+**Menu:** `WiFi → Scan / Sniff → PMKID`
+
+- Capture file is saved to SD card as `YYYYMMDD_TIME.pcapng`.
+- PMKID capture works without a client connected to the AP — just needs the AP in range.
+- EAPOL handshake requires a client to authenticate during the capture window.
+
+**When to use:** Start here. Passive, no deauth noise, works against WPA2/WPA3.
+
+---
+
+### 3. Deauth Attack — Force Handshake Capture
+
+If PMKID capture yields no usable frames, send deauthentication frames to force connected clients to re-authenticate, triggering a new EAPOL handshake.
+
+**Menu:** `WiFi → Attack → Deauth → Deauth All Clients`
+
+- Select the target AP (BSSID) from the scanned AP list.
+- Run PMKID capture (Step 2) simultaneously in the background — the handshake fires when the client reconnects.
+- **Targeted deauth:** Choose a specific client STA from the station list instead of "All Clients" to minimize noise.
+
+**When to use:** After a passive capture attempt yields no handshake. More visible — generates 802.11 deauth frames detectable by WIDS.
+
+---
+
+### 4. Beacon Spam
+
+Broadcasts a large number of fake SSIDs (beacon frames) to pollute client probe request logs, trigger WIDS alerts, or collect client probe requests for profiling.
+
+**Menu:** `WiFi → Attack → Beacon Spam → Enable/Disable`
+
+- **Funny SSIDs mode:** Broadcasts a built-in list of joke/provocative SSIDs — useful for social engineering awareness demonstrations.
+- **Custom SSID mode:** Broadcast a specific SSID (used as a component of Evil Twin attacks).
+- Generates significant RF noise — use with caution in dense environments.
+
+**When to use:** Social engineering demonstrations, WIDS testing, client probe collection during authorized assessments.
+
+---
+
+### 5. Evil Twin (Rogue AP)
+
+Clones a legitimate AP's SSID to lure clients into connecting to a controlled access point, then serves a captive portal to capture credentials or perform a man-in-the-middle attack.
+
+**Marauder's role (RF layer):**
+1. Scan and identify the target SSID + BSSID + channel.
+2. Use **Beacon Spam** with the cloned SSID on the same channel to broadcast a competing AP.
+3. Use **Deauth** against the legitimate AP to force clients to disconnect and probe for reconnection.
+
+**External component required (captive portal):**
+- Marauder handles the RF attack layer but does not run a full DHCP/HTTP stack.
+- Pair with a Raspberry Pi, laptop running hostapd + dnsmasq, or a WiFi Pineapple to serve the captive portal and capture credentials.
+- Alternatively, the [Evil-M5Project (evil_m5.md)](evil_m5.md) on an M5Cardputer provides a built-in captive portal with credential logging.
+
+**When to use:** Red team wireless footholds, credential capture assessments with explicit written authorization. 802.11w/PMF-protected networks are resistant to deauth-based client forcing.
 
 ---
 
