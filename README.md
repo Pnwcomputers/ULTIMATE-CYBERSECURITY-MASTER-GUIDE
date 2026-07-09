@@ -24,7 +24,7 @@
 
 ---
 
-### This is the repository's front door and master index. Every guide, playbook, script folder, and reference in this project is linked from here. Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog: what exists, where it lives, and a one-line description of each.
+### This is the repository's front door and master index. Every guide, playbook, script folder, and reference in this project is linked from here. Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog. The what exists, where it lives, and a description of each.
 
 #### Organized top-to-bottom as a pointer for the entire project/repo, including direct access to the three primary master guides, supporting reference guides, folder-level links to every operational section (Checklists, PlayBooks, IncidentResponse, OSINT, Homelab, AI, SpaceSecurity, SDR, HardwareHacking, HardwareTesting, uConsole, Scripts, PDF, Documentation), the repo's "unique/personal content" showcase, repository statistics, credits/acknowledgments (tools, books, distros, communities), the complete 78-entry bibliography, and the legal disclaimer(s) for everything within.
 
