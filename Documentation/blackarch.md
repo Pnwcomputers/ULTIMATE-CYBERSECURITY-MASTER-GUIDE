@@ -248,8 +248,227 @@ pacman -Sl blackarch | grep '\[installed\]'
 
 ---
 
+## 11. AUR Helpers
+
+The Arch User Repository (AUR) contains community-maintained build scripts for virtually any Linux software. AUR helpers automate the build/install process.
+
+### Install yay (Most Common)
+
+```bash
+sudo pacman -S base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay && makepkg -si
+```
+
+### Install paru (Rust-based, stricter PKGBUILD review)
+
+```bash
+git clone https://aur.archlinux.org/paru.git
+cd paru && makepkg -si
+```
+
+### AUR Helper Comparison
+
+| Task | yay | paru | pamac |
+| :--- | :--- | :--- | :--- |
+| Update all (incl. AUR) | `yay -Syu` | `paru -Syu` | `pamac update` |
+| Install | `yay -S <pkg>` | `paru -S <pkg>` | `pamac install <pkg>` |
+| Search | `yay -Ss <kw>` | `paru -Ss <kw>` | `pamac search <kw>` |
+| Remove cleanly | `yay -Rns <pkg>` | `paru -Rns <pkg>` | `pamac remove <pkg>` |
+| List AUR packages | `yay -Qm` | `paru -Qm` | `pamac list -f` |
+| Update git-tracked AUR | `yay --devel -Syu` | `paru --devel -Syu` | — |
+| Open PKGBUILD before build | — | `paru --fm nvim -S <pkg>` | — |
+
+---
+
+## 12. makepkg and PKGBUILD
+
+Build packages manually from AUR or custom PKGBUILDs.
+
+```bash
+# Clone an AUR package and build it
+git clone https://aur.archlinux.org/<pkg>.git
+cd <pkg>
+makepkg -si          # -s: install deps, -i: install result
+
+# Common makepkg flags
+makepkg -s           # Install missing dependencies
+makepkg -i           # Install the package after building
+makepkg -c           # Clean build directory after build
+makepkg -f           # Force rebuild even if package already built
+makepkg --skipchecksums     # Skip checksum validation (not recommended)
+makepkg --skippgpcheck      # Skip PGP signature check (not recommended)
+
+# Build without installing (creates .pkg.tar.zst)
+makepkg
+
+# Install a manually built package
+sudo pacman -U <package>.pkg.tar.zst
+```
+
+### Minimal PKGBUILD Template
+
+```bash
+# Maintainer: Your Name <email>
+pkgname=mypackage
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Short description"
+arch=('x86_64')
+url="https://example.com"
+license=('MIT')
+depends=('python')
+makedepends=('git')
+source=("$pkgname-$pkgver.tar.gz::https://example.com/releases/v$pkgver.tar.gz")
+sha256sums=('SKIP')     # Replace with actual checksum
+
+build() {
+    cd "$pkgname-$pkgver"
+    python setup.py build
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    python setup.py install --root="$pkgdir" --optimize=1
+}
+```
+
+---
+
+## 13. pacman Cache Management (paccache)
+
+```bash
+# Install paccache (part of pacman-contrib)
+sudo pacman -S pacman-contrib
+
+# Keep last 3 versions of each cached package (default)
+sudo paccache -r
+
+# Keep only last 1 version
+sudo paccache -rk1
+
+# Remove all cached versions of uninstalled packages
+sudo paccache -ruk0
+
+# Enable automatic cache cleanup (weekly timer)
+sudo systemctl enable --now paccache.timer
+```
+
+---
+
+## 14. Kernel and Module Management
+
+```bash
+# List installed kernels
+pacman -Q | grep linux
+
+# Install alternate kernels
+sudo pacman -S linux-lts          # LTS kernel
+sudo pacman -S linux-zen          # Zen kernel (desktop-optimized)
+sudo pacman -S linux-hardened     # Hardened/security kernel
+
+# Install kernel headers (required for DKMS drivers like rtl8812au)
+sudo pacman -S linux-headers      # For standard linux kernel
+sudo pacman -S linux-lts-headers  # For linux-lts kernel
+
+# List loaded kernel modules
+lsmod
+
+# Load a module
+sudo modprobe <module_name>
+
+# Load module with parameters
+sudo modprobe <module_name> param=value
+
+# Unload a module
+sudo modprobe -r <module_name>
+
+# Show module info
+modinfo <module_name>
+
+# Permanently load a module at boot
+echo "<module_name>" | sudo tee /etc/modules-load.d/<module_name>.conf
+
+# Blacklist a module (prevent auto-load)
+echo "blacklist <module_name>" | sudo tee /etc/modprobe.d/blacklist-<module_name>.conf
+
+# Rebuild DKMS modules for current kernel
+sudo dkms autoinstall
+
+# Regenerate initramfs (after kernel or module config changes)
+sudo mkinitcpio -P
+```
+
+---
+
+## 15. pacman.conf Reference
+
+Key options in `/etc/pacman.conf`:
+
+```ini
+# Enable multilib (32-bit support — needed for Wine, Steam)
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+# Add BlackArch repo
+[blackarch]
+Server = https://www.blackarch.org/blackarch/$arch
+
+# Enable colored output
+Color
+
+# Enable verbose package lists (shows old→new versions during upgrade)
+VerbosePkgLists
+
+# Enable parallel downloads (default: 5)
+ParallelDownloads = 5
+```
+
+```bash
+# Edit pacman config
+sudo nvim /etc/pacman.conf
+
+# Sync after editing
+sudo pacman -Sy
+```
+
+---
+
+## 16. Arch Maintenance Checklist
+
+Run these periodically to keep an Arch/Manjaro/BlackArch system healthy:
+
+```bash
+# 1. Update everything (official repos)
+sudo pacman -Syu
+
+# 2. Update AUR packages including git-tracking ones
+yay -Syu --devel
+
+# 3. Remove orphaned packages
+sudo pacman -Rns $(pacman -Qdtq)
+
+# 4. Clean old package cache (keep last 3 versions)
+sudo paccache -r
+
+# 5. Check for .pacnew / .pacsave config files to merge
+sudo find /etc -name "*.pacnew" -o -name "*.pacsave" 2>/dev/null
+
+# 6. Check for failed services
+systemctl --failed
+
+# 7. Check systemd journal disk usage and trim
+sudo journalctl --disk-usage
+sudo journalctl --vacuum-size=500M
+
+# 8. Rebuild DKMS modules if kernel was updated
+sudo dkms autoinstall
+```
+
+---
+
 ## Related Files
 - [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [LinuxCheatSheet.md](LinuxCheatSheet.md) - Full Arch/pacman and Debian/apt command reference
-- [ArchLinux_CheatSheet.md](ArchLinux_CheatSheet.md) - Arch-specific deep reference: pacman, AUR, makepkg, systemd, kernel, PKGBUILD
+- [LinuxCheatSheet.md](LinuxCheatSheet.md) - Full Debian/apt + Arch/pacman combined reference; WSL2 section
+- [ArchLinux_CheatSheet.md](ArchLinux_CheatSheet.md) - Arch-flavored version of LinuxCheatSheet.md: same 15-section structure, all commands tailored for Arch/pacman
 - [../Scripts/pnwc_install_tools.sh](../Scripts/pnwc_install_tools.sh) - Automated cybersecurity tool installer for Arch/Manjaro (pacman/BlackArch repo)
