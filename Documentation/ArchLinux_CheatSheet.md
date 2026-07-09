@@ -27,7 +27,7 @@ Serve as a field reference for Arch/Manjaro/EndeavourOS users who need fast acce
 | `sudo pacman -Si <pkg>` | **Package Info (Remote)** | Show detailed info (size, deps, description) for a repo package. |
 | `sudo pacman -Rns <pkg>` | **Clean Remove** | Remove package, its config files, and any now-orphaned dependencies. |
 | `sudo pacman -Rdd <pkg>` | **Force Remove** | Remove ignoring dependency checks. Use with care. |
-| `sudo pacman -Sc` | **Clean Old Cache** | Remove all cached packages except the latest version. |
+| `sudo pacman -Sc` | **Clean Old Cache** | Remove all cached versions of packages no longer installed. Keeps all cached versions of currently installed packages. |
 | `sudo pacman -Scc` | **Clear Entire Cache** | Remove all cached packages. Frees disk space. |
 | `pacman -Q <pkg>` | **Check Installed** | Confirm if a package is installed and show its version. |
 | `pacman -Qs <keyword>` | **Search Installed** | Search names/descriptions of installed packages only. |
@@ -318,7 +318,7 @@ lsblk -f                               # Include filesystem type and UUID
 
 # Mount a drive
 sudo mount /dev/<device> /mnt/<point>
-sudo mount -t exfat /dev/sdb1 /mnt/usb # ExFAT (requires exfat-utils)
+sudo mount -t exfat /dev/sdb1 /mnt/usb # ExFAT (native kernel 5.7+; exfatprogs for mkfs.exfat/fsck.exfat)
 sudo mount -t ntfs-3g /dev/sdb1 /mnt/usb # NTFS
 
 # Unmount
@@ -459,7 +459,7 @@ sudo pacman -Sy
 
 ```bash
 # Install base security tooling
-sudo pacman -S nmap wireshark-qt tcpdump netcat aircrack-ng hashcat john \
+sudo pacman -S nmap wireshark-qt tcpdump openbsd-netcat aircrack-ng hashcat john \
                hydra metasploit sqlmap gobuster ffuf
 
 # Add BlackArch repo first (see blackarch.md), then install tool groups

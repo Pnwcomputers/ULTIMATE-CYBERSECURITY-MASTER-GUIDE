@@ -147,9 +147,9 @@ Remove packages that commonly conflict with BlackArch tool installations:
 
 ```bash
 sudo pacman -Rdd \
-  jre-openjdk jdk-openjdk-headless jdk-openjdk jre11-openjdk jdk11-openjdk \
+  jre-openjdk jdk-openjdk jre11-openjdk jdk11-openjdk \
   jdk17-openjdk jre17-openjdk jre17-openjdk-headless \
-  erlang-nox jre11-openjdk-headless python-gast03 python-uvicorn
+  erlang-nox jre11-openjdk-headless python-gast python-uvicorn
 ```
 
 > **Tip:** Only remove packages listed above if you actually have them installed. Run `pacman -Q <pkg>` first to check.
@@ -224,7 +224,7 @@ pacman -Ss wireless | grep blackarch
 # https://blackarch.org/tools.html
 
 # List all installed packages from BlackArch
-pacman -Qm | grep -i <keyword>
+pacman -Sl blackarch | grep '\[installed\]'
 ```
 
 ---
