@@ -30,8 +30,11 @@
 
 ### 📋 Use this README as the entry point when landing on this repo for the first time, when looking for "what guide covers X," or when checking what's been added/credited since a prior visit. A new reader (or returning contributor) can find any resource in the repository within one click of this file, and understands at a glance what the project covers and how it's licensed/credited.
 
----
+<p align="center">
+  <h1 align="center"> THANK YOU FOR CHECKING THIS OUT! </h1>
+<p align="center">
 
+---
 ## 🎯 START HERE
 
 ### 🆕 New to IT/Computers/Networks in General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
