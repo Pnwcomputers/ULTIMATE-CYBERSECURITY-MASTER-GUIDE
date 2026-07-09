@@ -64,7 +64,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | [Advanced Techniques - Part 1](advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
 | [DIY Hardware & Firmware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md) | SBC-based DIY pentesting devices as well as compatibility & firmware guides |
-| [Debia Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md) | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
+| [Debian Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md) | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
 | [Arch Linux Command Cheat Sheet](Documentation/ArchLinux_CheatSheet.md) | Most-used Linux CLI commands for Arch |
 | [BlackArch Linux Cheat Sheet](Documentation/blackarch.md) | Most-used Linux CLI commands for BlackArch |
 
