@@ -28,7 +28,7 @@
 
 ### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. The "START_HERE" guide differs from the three master guides ([ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md), [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)), which contain the actual technical content rather than just linking to everyting.
 
-#### 📋 Use this README as the entry point when landing on this repo for the first time, when looking for "what guide covers X," or when checking what's been added/credited since a prior visit. A new reader (or returning contributor) can find any resource in the repository within one click of this file, and understands at a glance what the project covers and how it's licensed/credited.
+#### 📋 Use this README as the entry point when landing on this repo for: Using it all for the first time, when looking for "what guide covers X," or when checking what's been added/credited since a prior visit. A new reader (or returning contributor) can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
 
 <p align="center">
   <h1 align="center"> THANK YOU FOR CHECKING THIS OUT! </h1>
