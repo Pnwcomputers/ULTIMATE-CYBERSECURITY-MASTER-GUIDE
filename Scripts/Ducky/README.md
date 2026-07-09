@@ -215,13 +215,6 @@ When submitting payloads to this repository:
 
 ---
 
-## Related Files
-- [../README.md](../README.md) - Scripts/ section index
-- [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) - Bash Bunny: storage/network/HID emulation and full bash payloads, vs. Ducky's keystroke-injection-only scope
-- [../Bash/bash_scripting_cheat-sheet.md](../Bash/bash_scripting_cheat-sheet.md) - General Bash syntax reference
-
----
-
 **Pacific NW Computers**  
 Email: jon@pnwcomputers.com  
 Phone: 360-624-7379
@@ -229,7 +222,7 @@ Phone: 360-624-7379
 *Always use these tools ethically and legally.*
 
 ## Related Files
-- [../../README.md](../../README.md) - Scripts section index
+- [../README.md](../README.md) - Scripts section index
 - [../Bash/BashBunny/README.md](../Bash/BashBunny/README.md) - Bash Bunny: full multi-function USB attack platform
 - [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
 - [../../Mobile/mobile_pentest_sop.md](../../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (NetHunter DuckHunter runs DuckyScript from your phone)
