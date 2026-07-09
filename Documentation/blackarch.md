@@ -1,4 +1,4 @@
-# BlackArch Linux Setup Reference
+# BlackArch Linux Reference
 
 ## 🎯 Purpose
 Quick-reference commands for bootstrapping and maintaining a BlackArch or Arch-based penetration testing environment - covering repository installation, network adapter activation, pacman keyring management, mirror optimization, tool category installation, and full system upgrades.
