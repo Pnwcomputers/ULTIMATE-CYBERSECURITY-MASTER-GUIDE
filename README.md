@@ -67,6 +67,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | [Debian Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md) | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
 | [Arch Linux Command Cheat Sheet](Documentation/ArchLinux_CheatSheet.md) | Most-used Linux CLI commands for Arch |
 | [BlackArch Linux Cheat Sheet](Documentation/blackarch.md) | Most-used Linux CLI commands for BlackArch |
+| [OSINT Cheat Sheet](OSINT/OSINT_CHEATSHEET.md) | Quick-reference OSINT cheat sheet covering tools, commands, and services |
 
 ### Operational Sections
 
