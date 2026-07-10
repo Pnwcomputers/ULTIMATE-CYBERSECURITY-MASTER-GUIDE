@@ -36,9 +36,9 @@
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)
 
-### This README is the entry point when landing on this repo. It can be users/readers to:
-- Give a general overview of the repository
-- Help look for specific subjects or topics, such as "What guide covers %TOPIC%"
+### This README is the entry point when landing on this repo:
+- Gives a general overview of the repository
+- Helps users look for specific subjects or topics, such as "What guide covers %TOPIC%"
 - Check on what's been added/credited since a prior visit
 
 ### From this main page you can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
