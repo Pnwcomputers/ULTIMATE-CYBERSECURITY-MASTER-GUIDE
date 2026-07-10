@@ -28,8 +28,11 @@
 
 #### Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog. The what exists, where it lives, and a description of each.
 
-### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. 
-### The "START_HERE" guide differs from the three master guides ([ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md), [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)), which contain the actual technical content rather than just linking to everyting.
+### [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. 
+### The [START_HERE.md](START_HERE.md) guide differs from the three master guides which contain the actual technical content rather than just linking to everyting:
+- [Ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)
+- [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)
+- [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)
 
 ### Use this README as the entry point when landing on this repo for: 
 - General overview of the repository
