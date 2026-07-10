@@ -39,7 +39,7 @@
 - Looking for specific subjects or topics, such as "What guide covers %TOPIC%"
 - Checking on what's been added/credited since a prior visit
 
-### With this main README, you can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
+### From this main page you can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
 
 <p align="center">
   <h1 align="center"> THANK YOU FOR CHECKING THIS OUT! </h1>
