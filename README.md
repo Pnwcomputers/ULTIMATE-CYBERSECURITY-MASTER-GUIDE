@@ -24,7 +24,8 @@
 
 ---
 
-#### This is the repository's front door and master index. Every guide, playbook, script folder, and reference in this project is linked from here. 
+#### This is the repository's front door and master index. 
+#### Every guide, playbook, script folder, and reference in this project is linked from here. 
 
 #### Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog. The what exists, where it lives, and a description of each.
 
