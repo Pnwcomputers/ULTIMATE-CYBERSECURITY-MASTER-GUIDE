@@ -29,16 +29,18 @@
 
 #### Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog; the what exists, where it lives, and a description of each.
 
-### [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. 
-### The [START_HERE.md](START_HERE.md) guide differs from the three master guides which contain the actual technical content rather than just linking to everyting:
+### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. 
+### The [START_HERE.md](START_HERE.md) guide differs from the three _Master Guides_, which contain actual technical content rather than just linking to everyting.
+
+## Master Guides:
 - [Ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)
 
-### Use this README as the entry point when landing on this repo for: 
-- General overview of the repository
-- Looking for specific subjects or topics, such as "What guide covers %TOPIC%"
-- Checking on what's been added/credited since a prior visit
+### This README is the entry point when landing on this repo. It can be users/readers to:
+- Give a general overview of the repository
+- Help look for specific subjects or topics, such as "What guide covers %TOPIC%"
+- Check on what's been added/credited since a prior visit
 
 ### From this main page you can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
 
