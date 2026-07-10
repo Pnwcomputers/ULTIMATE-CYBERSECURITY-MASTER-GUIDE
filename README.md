@@ -31,7 +31,7 @@
 
 ### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. But [START_HERE.md](START_HERE.md) does differ from the three _Master Guides_. The three _Master Guides_ contain actual technical content, rather than just linking to everyting.
 
-## Master Guides:
+### Master Guides:
 - [Ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)
