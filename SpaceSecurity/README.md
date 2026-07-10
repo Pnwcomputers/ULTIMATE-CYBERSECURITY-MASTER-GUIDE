@@ -16,8 +16,8 @@
 
 ## 🎯 Purpose
 Index for the Space Security section - covering offensive and defensive security across all three space system segments: 
-- **Ground** ([mission control](https://en.wikipedia.org/wiki/Mission_control_center), [TT&C](https://www.everythingrf.com/community/what-are-tt-c-telemetry-tracking-and-command-systems), [ground stations](https://en.wikipedia.org/wiki/Ground_station)
-- **Space** ([flight software](https://www.nasa.gov/wp-content/uploads/2015/04/flight_software.pdf), [OBC](https://www.satnow.com/search/on-board-computers), [RTOS](https://www.specialeinvest.com/post/rtos-the-invisible-os-shaping-the-future-of-intelligent-machines)
+- **Ground** ([Mission control](https://en.wikipedia.org/wiki/Mission_control_center), [TT&C](https://www.everythingrf.com/community/what-are-tt-c-telemetry-tracking-and-command-systems), [Ground stations](https://en.wikipedia.org/wiki/Ground_station)
+- **Space** ([Flight software](https://www.nasa.gov/wp-content/uploads/2015/04/flight_software.pdf), [OBC](https://www.satnow.com/search/on-board-computers), [RTOS](https://www.specialeinvest.com/post/rtos-the-invisible-os-shaping-the-future-of-intelligent-machines)
 - **User** ([SATCOM terminals](https://www.satnow.com/browse/satcom-terminals), [GNSS receivers](https://pointonenav.com/insights/gnss-receivers/), [VSATs](https://www.ipinternational.net/vsat-use-cases-for-business/).
 
 ## ⚙️ Function
