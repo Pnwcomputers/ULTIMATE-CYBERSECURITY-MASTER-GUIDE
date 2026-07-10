@@ -29,7 +29,7 @@
 
 #### Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog; the what exists, where it lives, and a description of each.
 
-### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. But it does differ from the three _Master Guides_, which contain actual technical content rather than just linking to everyting.
+### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. But [START_HERE.md](START_HERE.md) does differ from the three _Master Guides_. The three _Master Guides_ contain actual technical content rather than just linking to everyting.
 
 ## Master Guides:
 - [Ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)
