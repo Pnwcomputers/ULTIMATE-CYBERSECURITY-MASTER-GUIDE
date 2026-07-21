@@ -1,4 +1,4 @@
-# 🐧 Linux Command Cheat Sheet and Reference _(Debian Based)_
+# 🐧 Linux Command Cheat Sheet & Reference _(Debian Based)_
 
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
