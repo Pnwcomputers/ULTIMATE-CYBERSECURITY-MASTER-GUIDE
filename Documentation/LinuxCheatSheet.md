@@ -1,20 +1,5 @@
 # 🐧 Linux Command Cheat Sheet and Reference
 
-## 🎯 Purpose
-Quick reference for common Linux system administration, networking, security auditing, and hardware interface commands - covering both Debian/Ubuntu (apt) and Arch/Manjaro (pacman/pamac) distributions, plus WSL2 differences.
-
-## ⚙️ Function
-Organized by domain: SSH/permissions, package management, diagnostics/system info, storage/filesystem, network configuration/scanning, service management, file operations, security tools, WSL2-specific, and hardware hacking commands. Each command includes its purpose and a plain-English explanation.
-
-## 🏆 Goal
-Serve as a field reference for security professionals and system administrators to quickly find the right command for Debian/Ubuntu or Arch/Manjaro systems without needing to search documentation.
-
-## 📋 When to Use
-- Day-to-day system administration on Kali, Ubuntu, Debian, Manjaro, or Arch
-- Quickly finding the right networking or security command during an engagement
-- WSL2 Linux environment configuration and troubleshooting
-- Hardware interface work (USB, serial, JTAG) requiring specific Linux commands
-
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ## 🎯 Purpose
@@ -32,6 +17,7 @@ Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for secur
 - Quick command lookup for package management, wireless adapter setup, or the OSINT tool quick-reference (Section 15)
 
 ---
+
 # Arch Linux Quick Reference:
 [Arch](https://archlinux.org/) Linux: Unlike Debian based Linux, in Arch [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!
 
