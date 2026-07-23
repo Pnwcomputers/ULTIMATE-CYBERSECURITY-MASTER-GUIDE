@@ -224,6 +224,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 ### 🛠️ Key Tools & Frameworks
 
 **Exploitation & Post-Exploitation**
+- [Darkmoon](https://github.com/ASCIT31/Dark-Moon) - Open source (GPL-3.0) autonomous AI penetration testing platform covering web, API, Active Directory and Kubernetes, with proof of exploitation.
 - [Metasploit Framework](https://www.rapid7.com/) - Rapid7
 - [Impacket](https://github.com/fortra/impacket) - Fortra
 - [BloodHound](https://github.com/SpecterOps/BloodHound) - SpecterOps
