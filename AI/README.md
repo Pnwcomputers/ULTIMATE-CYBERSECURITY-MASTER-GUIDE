@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![AI Agents](https://img.shields.io/badge/AI_Agents-OpenClaw_|_AnythingLLM-red?style=for-the-badge)]()
-[![LLM Providers](https://img.shields.io/badge/LLM_Providers-Anthropic_|_Groq_|_Ollama-purple?style=for-the-badge)]()
-[![Deployment](https://img.shields.io/badge/Deployment-Self--Hosted_|_TrueNAS_SCALE-blue?style=for-the-badge)]()
+![AI Agents](https://img.shields.io/badge/AI_Agents-OpenClaw_|_AnythingLLM-red?style=for-the-badge)
+![LLM Providers](https://img.shields.io/badge/LLM_Providers-Anthropic_|_Groq_|_Ollama-purple?style=for-the-badge)
+![Deployment](https://img.shields.io/badge/Deployment-Self--Hosted_|_TrueNAS_SCALE-blue?style=for-the-badge)
 
 </div>
 

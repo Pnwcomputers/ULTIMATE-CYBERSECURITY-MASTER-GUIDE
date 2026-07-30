@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Ground Segment](https://img.shields.io/badge/Ground-Mission_Control_%7C_TT%26C-blue?style=for-the-badge)]()
-[![Space Segment](https://img.shields.io/badge/Space-FSW_%7C_OBC_%7C_RTOS-red?style=for-the-badge)]()
-[![User Segment](https://img.shields.io/badge/User-SATCOM_%7C_GNSS_%7C_VSAT-green?style=for-the-badge)]()
+![Ground Segment](https://img.shields.io/badge/Ground-Mission_Control_%7C_TT%26C-blue?style=for-the-badge)
+![Space Segment](https://img.shields.io/badge/Space-FSW_%7C_OBC_%7C_RTOS-red?style=for-the-badge)
+![User Segment](https://img.shields.io/badge/User-SATCOM_%7C_GNSS_%7C_VSAT-green?style=for-the-badge)
 
 </div>
 

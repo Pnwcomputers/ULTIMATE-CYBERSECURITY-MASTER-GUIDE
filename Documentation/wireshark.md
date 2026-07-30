@@ -23,9 +23,9 @@ Serve as a field reference for copy-paste-ready Wireshark filters during live ne
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Documentation](https://img.shields.io/badge/Documentation-Wireshark%20Filters-blue?style=for-the-badge)]()
-[![Network Analysis](https://img.shields.io/badge/Category-Network%20Analysis-green?style=for-the-badge)]()
-[![Security Operations](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge)]()
+![Documentation](https://img.shields.io/badge/Documentation-Wireshark%20Filters-blue?style=for-the-badge)
+![Network Analysis](https://img.shields.io/badge/Category-Network%20Analysis-green?style=for-the-badge)
+![Security Operations](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge)
 
 </div>
 

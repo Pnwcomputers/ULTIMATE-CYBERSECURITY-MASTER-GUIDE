@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Infrastructure](https://img.shields.io/badge/Infrastructure-Virtualization-blue?style=for-the-badge&logo=vmware)]()
-[![Hardware](https://img.shields.io/badge/Hardware-SBCs_%7C_Networking-green?style=for-the-badge&logo=raspberrypi)]()
-[![Isolation](https://img.shields.io/badge/Security-Air--Gapped_%7C_VLANs-orange?style=for-the-badge)]()
+![Infrastructure](https://img.shields.io/badge/Infrastructure-Virtualization-blue?style=for-the-badge&logo=vmware)
+![Hardware](https://img.shields.io/badge/Hardware-SBCs_%7C_Networking-green?style=for-the-badge&logo=raspberrypi)
+![Isolation](https://img.shields.io/badge/Security-Air--Gapped_%7C_VLANs-orange?style=for-the-badge)
 
 </div>
 

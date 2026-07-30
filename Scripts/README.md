@@ -21,10 +21,10 @@ Provide ready-to-use security automation scripts and a single installer to set u
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)]()
-[![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)]()
-[![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)]()
-[![C](https://img.shields.io/badge/C-Programs-red?style=for-the-badge&logo=c)]()
+![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)
+![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)
+![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)
+![C](https://img.shields.io/badge/C-Programs-red?style=for-the-badge&logo=c)
 
 </div>
 

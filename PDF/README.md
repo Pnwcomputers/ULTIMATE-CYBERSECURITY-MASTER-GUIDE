@@ -20,9 +20,9 @@ Provide reliable offline access to critical security reference materials that wo
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Reference](https://img.shields.io/badge/Reference-PDF%20Library-red?style=for-the-badge)]()
-[![Cheat Sheets](https://img.shields.io/badge/Cheat%20Sheets-Quick%20Reference-blue?style=for-the-badge)]()
-[![Guides](https://img.shields.io/badge/Guides-Technical%20Documentation-green?style=for-the-badge)]()
+![Reference](https://img.shields.io/badge/Reference-PDF%20Library-red?style=for-the-badge)
+![Cheat Sheets](https://img.shields.io/badge/Cheat%20Sheets-Quick%20Reference-blue?style=for-the-badge)
+![Guides](https://img.shields.io/badge/Guides-Technical%20Documentation-green?style=for-the-badge)
 
 </div>
 

@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Hardware Testing](https://img.shields.io/badge/Hardware-Diagnostics%20%26%20Stress%20Testing-blue?style=for-the-badge)]()
-[![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge&logo=manjaro)]()
-[![Intel](https://img.shields.io/badge/CPU%20Platform-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge&logo=intel)]()
+![Hardware Testing](https://img.shields.io/badge/Hardware-Diagnostics%20%26%20Stress%20Testing-blue?style=for-the-badge)
+![Manjaro](https://img.shields.io/badge/OS-Manjaro%20Linux-35BF5D?style=for-the-badge&logo=manjaro)
+![Intel](https://img.shields.io/badge/CPU%20Platform-Intel%20i9%20%2F%20Z790-0071C5?style=for-the-badge&logo=intel)
 
 </div>
 

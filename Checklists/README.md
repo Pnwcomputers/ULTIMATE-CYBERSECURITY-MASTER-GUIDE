@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Pentesting](https://img.shields.io/badge/Pentesting-Checklists-red?style=for-the-badge)]()
-[![Audit](https://img.shields.io/badge/Security-Audits-blue?style=for-the-badge)]()
-[![Compliance](https://img.shields.io/badge/Compliance-Standards-green?style=for-the-badge)]()
+![Pentesting](https://img.shields.io/badge/Pentesting-Checklists-red?style=for-the-badge)
+![Audit](https://img.shields.io/badge/Security-Audits-blue?style=for-the-badge)
+![Compliance](https://img.shields.io/badge/Compliance-Standards-green?style=for-the-badge)
 
 </div>
 

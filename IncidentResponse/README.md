@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)]()
-[![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)]()
-[![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)]()
+![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
+![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)
+![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)
 
 </div>
 

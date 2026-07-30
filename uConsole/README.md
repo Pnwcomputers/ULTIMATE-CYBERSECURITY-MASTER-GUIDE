@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)]()
-[![CM5](https://img.shields.io/badge/CM5-Supported-green?style=for-the-badge)]()
-[![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)]()
+![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)
+![CM5](https://img.shields.io/badge/CM5-Supported-green?style=for-the-badge)
+![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)
 
 </div>
 
