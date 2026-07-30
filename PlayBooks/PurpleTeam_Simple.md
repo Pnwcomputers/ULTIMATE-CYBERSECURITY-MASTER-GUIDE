@@ -61,7 +61,7 @@ Get a small team or individual practitioner running a first purple team exercise
 | Simulations | Atomic Red Team, CALDERA, Metta | Run TTPs |
 | C2 | Mythic, Cobalt Strike (licensed) | Advanced Red testing |
 | SIEM | Elastic, Splunk, Graylog | Log collection & detection |
-| EDR | Defender ATP, CrowdStrike | Endpoint telemetry |
+| EDR | Microsoft Defender for Endpoint, CrowdStrike | Endpoint telemetry |
 | Scripting | Python, PowerShell | Custom tests & automations |
 
 ---

@@ -301,7 +301,7 @@ These playbooks serve as:
 
 **Use Cases:**
 - Triaging a user-reported phishing email
-- Investigating a SIEM/Azure AD/Okta brute-force or impossible-travel alert
+- Investigating a SIEM/Microsoft Entra ID/Okta brute-force or impossible-travel alert
 - Building tier-1 SOC analyst runbooks
 - Standardizing phishing/access-abuse response across a team
 
