@@ -1086,7 +1086,6 @@ NO EXCEPTIONS. NO EXCUSES. NO SECOND CHANCES.
 
 Scripts:
 • add_wordpress_admin.sql
-• wordpress_add_admin.sql
 
 ILLEGAL ACTIVITIES:
 ❌ Creating admin accounts without authorization

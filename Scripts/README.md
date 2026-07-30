@@ -251,7 +251,7 @@ PENALTIES: Up to 10 years imprisonment + significant fines
 #### Web & Application Security
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **python-webshell-check.py** | Webshell detection tool | 🟡 MEDIUM |
+| **webshell_check.py** | Webshell detection tool | 🟡 MEDIUM |
 | **firefox_parser.py** | Firefox data parser | 🟡 MEDIUM |
 | **imap_parser.py** | IMAP protocol parser | 🟡 MEDIUM |
 | **link_parser.py** | Link extraction tool | 🟢 LOW |
@@ -331,7 +331,6 @@ USING WITHOUT AUTHORIZATION = FEDERAL PRISON TIME
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **add_wordpress_admin.sql** | WordPress admin account creation | 🔴 HIGH |
-| **wordpress_add_admin.sql** | WordPress admin injection | 🔴 HIGH |
 
 **Purpose:**
 - Database manipulation
