@@ -1,4 +1,10 @@
 #!/bin/bash
+# ==============================================================================
+# DISCLAIMER & LEGAL NOTICE:
+# This script is provided STRICTLY for authorized red team testing, defense evasion
+# demonstration, and educational purposes in controlled lab environments.
+# Unauthorized credential harvesting or deployment on unauthorized systems is illegal.
+# ==============================================================================
 # shellcheck disable=SC2124
 ARGS="$@"
 

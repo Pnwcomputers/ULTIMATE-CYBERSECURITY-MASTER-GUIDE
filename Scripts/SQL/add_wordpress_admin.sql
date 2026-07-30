@@ -1,3 +1,8 @@
+-- ==============================================================================
+-- PURPOSE & DISCLAIMER:
+-- Emergency administrative account creation script for WordPress database recovery.
+-- For authorized system administration, emergency recovery, or red team lab testing.
+-- ==============================================================================
 use wordpress;
 
 INSERT INTO `wordpress`.`wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES ('3', 'jane', MD5('bash'), 'Jane', 'jane@example.com', 'http://www.example.com/', '2023-01-01 00:00:00', '', '0', 'Jane');
