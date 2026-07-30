@@ -31,7 +31,7 @@
 
 ## 3. Script & Code Block Standards
 
-- **Language Specifier:** Always specify the syntax language in fenced code blocks (e.g. ```bash, ```python, ```powershell, ```sql).
+- **Language Specifier:** Always specify the syntax language in fenced code blocks (e.g. `bash`, `python`, `powershell`, `sql`).
 - **Safety Disclaimers:** Any script performing credential capture, privilege escalation, or defense evasion must include an explicit disclaimer header:
   ```bash
   # ==============================================================================

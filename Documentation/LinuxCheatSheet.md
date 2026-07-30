@@ -618,7 +618,7 @@ recon-ng
 | `exiftool -gpslatitude -gpslongitude image.jpg`      | Pull GPS coords only.                           |
 | `metagoofil -d <domain> -t pdf,doc -l 100 -o output` | Harvest metadata from public documents.         |
 | `grep -r "regex" ./raw_data/`                        | Search collected data for patterns.             |
-| `strings file.bin | grep -i "http"`                  | Pull URLs/strings from binary files.            |
+| `strings file.bin \| grep -i "http"`                 | Pull URLs/strings from binary files.            |
 
 ---
 

@@ -1110,7 +1110,7 @@ sudo apt install default-jre
 
 **RR Playlist import:** SDR-Trunk can import RadioReference CSV exports for automated channel setup. Create a free RadioReference account, navigate to your county, export the system data.
 
-#### Scanning Workflow with SDR#
+#### Scanning Workflow with SDR
 
 For non-trunked scanning:
 

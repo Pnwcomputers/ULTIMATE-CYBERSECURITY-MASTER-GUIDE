@@ -268,7 +268,7 @@ This mode is for **full home lab deployments**, learning, testing networks, SOC 
 ## Offensive Tools
 - [Kali Linux tools](https://www.kali.org/tools/)
 - [ParrotOS tools](https://parrotsec.org/docs/tools/)
-- [ProxyChains  ](https://github.com/haad/proxychains)
+- [ProxyChains](https://github.com/haad/proxychains)
 - [Evilginx](https://evilginx.com/) / [Responder](https://github.com/SpiderLabs/Responder) / [Impacket](https://github.com/fortra/impacket)  
 - [Sliver C2](https://github.com/BishopFox/sliver)
 

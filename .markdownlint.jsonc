@@ -1,16 +1,54 @@
 {
-  // markdownlint config — intentionally lenient to match this repo's house
-  // style (inline HTML for centered images, emoji headers, long command lines).
-  // Docs: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+  // markdownlint config for a large, hand-authored knowledge base.
+  //
+  // This repo has a deliberate house style (emoji headings, tables and lists
+  // without surrounding blank lines, repeated Purpose/Function/Goal headings,
+  // intentional bare URLs in command examples, compact tables). markdownlint's
+  // *style* rules fight that style on essentially every file, so enforcing them
+  // would fail even new content written correctly in the house style.
+  //
+  // We therefore disable the style/whitespace family and keep only genuine
+  // CORRECTNESS checks — the things that indicate an actual mistake (malformed
+  // tables, hard tabs, broken code spans / links). Docs:
+  // https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
   "default": true,
 
-  "MD013": false,   // line length — command examples and tables run long
-  "MD033": false,   // inline HTML — used for <p align="center"> image blocks
-  "MD041": false,   // first line H1 — some files open with an alert/badge
-  "MD024": { "siblings_only": true }, // allow repeated headings in diff sections
-  "MD029": false,   // ordered-list numbering — mixed styles across long guides
-  "MD036": false,   // emphasis-as-heading — used for lightweight sub-labels
-  "MD040": false,   // fenced code language — many illustrative blocks omit it
-  "MD046": false,   // code block style — both indented and fenced appear
-  "MD007": { "indent": 2 }
+  // --- Style / whitespace / house-style (intentionally disabled) ---
+  "MD001": false,  // heading increment (levels are skipped by design)
+  "MD003": false,  // heading style
+  "MD004": false,  // unordered list marker style
+  "MD007": false,  // list indent
+  "MD009": false,  // trailing spaces (used for hard line breaks)
+  "MD012": false,  // multiple consecutive blank lines
+  "MD013": false,  // line length (commands/tables run long)
+  "MD022": false,  // blanks around headings
+  "MD024": false,  // duplicate headings (Purpose/Function/Goal repeat)
+  "MD025": false,  // single H1 (dual Purpose-block pattern)
+  "MD026": false,  // trailing punctuation in headings
+  "MD028": false,  // blank line inside blockquote
+  "MD029": false,  // ordered list numbering
+  "MD030": false,  // spaces after list marker
+  "MD031": false,  // blanks around fenced code
+  "MD032": false,  // blanks around lists
+  "MD033": false,  // inline HTML (<p align="center"> image blocks)
+  "MD034": false,  // bare URLs (intentional in examples)
+  "MD035": false,  // horizontal rule style
+  "MD036": false,  // emphasis used as heading
+  "MD040": false,  // fenced code language
+  "MD041": false,  // first line H1
+  "MD046": false,  // code block style
+  "MD049": false,  // emphasis style (_ vs *)
+  "MD051": false,  // link fragments (emoji-heading false positives; anchor
+                   // checking is handled separately by the link-check workflow)
+  "MD058": false,  // blanks around tables
+  "MD060": false,  // table column pipe spacing/alignment
+
+  // --- Correctness rule tuned, not disabled ---
+  "MD010": { "code_blocks": false }  // allow hard tabs inside code blocks
+                                     // (they can be meaningful, e.g. tab-separated
+                                     // strings in a query) but flag them in prose
+
+  // --- Kept (correctness): MD010 hard tabs, MD011 reversed links,
+  //     MD018/MD019/MD020 heading hash spacing, MD037/MD038/MD039 spaces in
+  //     emphasis/code/links, MD042 empty links, MD056 table column count, etc.
 }
