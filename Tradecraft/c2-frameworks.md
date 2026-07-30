@@ -18,7 +18,7 @@ Give red teamers an operational reference for deploying C2 infrastructure safely
 
 > **Scope:** Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
 
-✅ **Quick-reference checklist:** [Command and Control](../Checklists/Command%26Control.md)
+✅ **Quick-reference checklist:** [Command and Control](../Checklists/command-and-control.md)
 
 ---
 
@@ -39,7 +39,7 @@ Give red teamers an operational reference for deploying C2 infrastructure safely
 Deep-dive on the three C2 frameworks a red team is most likely to encounter or deploy (Cobalt Strike, Sliver, Havoc) - architecture, OpSec, and detection in one place, rather than scattered across each tool's own docs.
 
 ## ⚙️ Function
-Covers C2 architecture fundamentals, then a dedicated section per framework (Cobalt Strike, Sliver, Havoc), followed by cross-framework Malleable C2/traffic-shaping, infrastructure OpSec, detection/hunting, and defensive countermeasures. Pairs with the quick-reference [Command & Control checklist](../Checklists/Command&Control.md) for field use, and differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading endpoint detection rather than C2 channel/infrastructure design.
+Covers C2 architecture fundamentals, then a dedicated section per framework (Cobalt Strike, Sliver, Havoc), followed by cross-framework Malleable C2/traffic-shaping, infrastructure OpSec, detection/hunting, and defensive countermeasures. Pairs with the quick-reference [Command & Control checklist](../Checklists/command-and-control.md) for field use, and differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading endpoint detection rather than C2 channel/infrastructure design.
 
 ## 🏆 Goal
 An operator can stand up and OpSec-harden a C2 infrastructure for any of the three frameworks, and a defender can recognize and hunt for their traffic/behavioral signatures.
@@ -630,5 +630,5 @@ iptables -A OUTPUT -d <approved_proxy_IP> -p tcp --dport 3128 -j ACCEPT
 - [active-directory.md](active-directory.md) - Post-exploitation via C2 in AD environments
 - [av-edr-evasion.md](av-edr-evasion.md) - Evasion techniques for C2 payload delivery
 - [network-detection.md](network-detection.md) - Detecting C2 traffic at the network layer
-- [../Checklists/Command%26Control.md](../Checklists/Command%26Control.md) - C2 technique checklist
+- [../Checklists/command-and-control.md](../Checklists/command-and-control.md) - C2 technique checklist
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (Metasploit post-exploitation from NetHunter device)

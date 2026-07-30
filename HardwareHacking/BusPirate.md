@@ -19,7 +19,7 @@ Talk to any chip directly from a terminal prompt - enabling firmware extraction,
 The Bus Pirate is an open-source hacker multi-tool that talks to electronic components from a PC serial terminal. It eliminates the need to write custom code to interact with new chips. It acts as a universal bus interface, allowing you to communicate via protocols like I2C, SPI, UART, JTAG, and more directly from your computer.
 
 ## 🔗 Reference Links
-* **Product Link:** [Bus Pirate 5 (buspirate.com)](https://buspirate.com/bus-pirate-5/) — current version; v3.6/v4 are discontinued
+* **Product Link:** [Bus Pirate 5 (buspirate.com)](https://buspirate.com/get/) — current version; v3.6/v4 are discontinued
 * **Reference Material:** [Bus Pirate 5 Documentation](https://firmware.buspirate.com/)
 * **Legacy Docs (v3.6/v4):** [Dangerous Prototypes Archive](http://dangerousprototypes.com/docs/Bus_Pirate)
 

@@ -49,8 +49,8 @@ _Windows persistence techniques mapped to MITRE ATT&CK, covering registry, servi
 |PE-034   |[DLL Proxy Loading](https://pentestlab.blog/2024/04/03/persistence-dll-proxy-loading/)|N/A|
 |PE-035   |[Windows Telemetry](https://pentestlab.blog/2023/11/06/persistence-windows-telemetry/)|N/A|
 |PE-036   |[Scheduled Task Tampering](https://pentestlab.blog/2023/11/20/persistence-scheduled-task-tampering/)|N/A|
-|PE-037   |[Junction Folder](https://www.withsecure.com/en/expertise/blog-posts)|N/A|
-|PE-038   |[Library Files](https://www.withsecure.com/en/expertise/blog-posts)|N/A|
+|PE-037   |[Junction Folder](https://pentestlab.blog/methodologies/red-teaming/persistence/)|N/A|
+|PE-038   |[Library Files](https://pentestlab.blog/methodologies/red-teaming/persistence/)|N/A|
 |PE-039   |[Disk Clean-up](https://pentestlab.blog/2024/01/29/persistence-disk-clean-up/)|N/A|
 |PE-040   |[Windows Setup Script](https://pentestlab.blog/2024/02/05/persistence-windows-setup-script/)|N/A|
 |PE-041   |[Visual Studio Code Extensions](https://pentestlab.blog/2024/03/04/persistence-visual-studio-code-extensions/)|N/A|

@@ -39,7 +39,7 @@ Enable security practitioners to conduct authorized research and engagements wit
 - [Security & Legal Considerations](#security--legal-considerations)
 - [Contributing](#contributing)
 - [Resources](#resources)
-- [Tradecraft](/Tradecraft/)
+- [Tradecraft](../Tradecraft)
 
 ---
 

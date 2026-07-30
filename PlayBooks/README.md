@@ -829,7 +829,7 @@ We welcome contributions from security professionals to improve and expand this 
 - **SANS Incident Response**: https://www.sans.org/security-resources/
 - **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework
 - **ISO/IEC 27035**: Information security incident management
-- **CISA Incident Response**: https://www.cisa.gov/topics/cyber-threats-and-advisories/incident-response
+- **CISA Incident Response**: https://www.cisa.gov/topics/cyber-threats-and-response/incident-response
 
 ### Security Operations
 

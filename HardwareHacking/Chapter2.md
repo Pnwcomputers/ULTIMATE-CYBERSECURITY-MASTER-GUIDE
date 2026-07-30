@@ -119,7 +119,7 @@ flashrom -p ch341a_spi -r firmware_dump.bin
 ---
 
 <p align="center">
-  <img src="../assets/I²C.jpg" alt="Figure 4: I²C Waveform. Diagram showing the open-drain SCL/SDA lines with required pull-up resistors. It highlights the unique Start and Stop conditions (SDA transitioning while SCL is High) and the ACK/NACK bit that follows every byte." width="600"/>
+  <img src="../assets/i2c.jpg" alt="Figure 4: I²C Waveform. Diagram showing the open-drain SCL/SDA lines with required pull-up resistors. It highlights the unique Start and Stop conditions (SDA transitioning while SCL is High) and the ACK/NACK bit that follows every byte." width="600"/>
 </p>
 
 #### I²C (Inter-Integrated Circuit)

@@ -263,7 +263,7 @@ ALWAYS:
 ### Practice Platforms
 
 - **Trace Labs CTF** - Missing persons OSINT competitions
-- **OSINT Challenges** - osintchallenge.com
+- **OSINT Exercises (Gralhix)** - gralhix.com/list-of-osint-exercises
 - **TryHackMe** - OSINT learning paths
 - **Sector035 Quizzes** - Weekly OSINT exercises
 

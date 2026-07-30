@@ -18,7 +18,7 @@ Enable practitioners to build comprehensive target intelligence pictures using o
 
 > **Scope:** Open-source intelligence methodology, tooling, and threat intelligence platforms. Covers passive recon, active enumeration, people/organization research, infrastructure mapping, and threat intel operationalization.
 
-### [Click Here For The Basic/General OSINT Guide](/OSINT/OSINT_GUIDE.md)
+### [Click Here For The Basic/General OSINT Guide](../OSINT/OSINT_GUIDE.md)
 ---
  
 ## Table of Contents
@@ -371,8 +371,8 @@ curl "https://api.opencorporates.com/v0.4/companies/search?q=Target+Corp"
 # Crunchbase - funding, acquisitions, investors
 https://www.crunchbase.com/organization/target-company
  
-# FOIA requests (US federal entities)
-https://www.foiaonline.gov/
+# FOIA requests (US federal entities; FOIAonline was decommissioned 2023-09-30)
+https://www.foia.gov/
 ```
  
 ### Email Permutation & Verification

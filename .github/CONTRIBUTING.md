@@ -128,7 +128,7 @@ Always link to the **official homepage or official GitHub repo** - not forks, mi
 | OPSEC practices | `OPSEC/` |
 | Field playbooks | `PlayBooks/` |
 | Pre/post engagement checklists | `Checklists/` |
-| Hardware/firmware compatibility | `FIRMWARE&HARDWARE_COMPATIBILITY.md` |
+| Hardware/firmware compatibility | `firmware-hardware-compatibility.md` |
 | AI/LLM security workflows | `AI/` |
 | Reference PDFs | `PDF/` |
 | Command references, cheat sheets | `Documentation/` |
