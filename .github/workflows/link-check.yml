@@ -1,0 +1,56 @@
+name: Link Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+  push:
+    branches: [main]
+    paths:
+      - '**/*.md'
+  schedule:
+    # Weekly full (online) sweep, Mondays 07:00 UTC
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  internal-links:
+    # Fast, deterministic gate: checks only local/relative links (no network).
+    # Runs on every PR and push so broken internal links block the merge.
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    name: Internal links (offline)
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check relative/anchor links only
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --offline
+            --no-progress
+            './**/*.md'
+          fail: true
+          # Note: --include-fragments (anchor checking) intentionally omitted
+          # until heading anchors are audited; enable it once TOC anchors are
+          # confirmed to match GitHub's slugification.
+
+  external-links:
+    # Full online sweep. Informational only (external hosts rate-limit / block
+    # bots), so it never fails the build - review the summary in the run log.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    name: External links (online, informational)
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check all links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-retries 2
+            --accept 200,201,202,206,301,302,401,403,429
+            './**/*.md'
+          fail: false

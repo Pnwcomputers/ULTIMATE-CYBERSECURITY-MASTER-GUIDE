@@ -1,0 +1,25 @@
+# Intentional placeholder / example / offensive-example URLs (not real links).
+# One regex per line. Used by lychee (see .github/workflows/link-check.yml).
+
+# Shell-variable / template placeholders in command examples
+.*\$\{?[A-Za-z_].*
+.*%[A-Z_]+%.*
+
+# RFC 5737 / RFC 2606 documentation ranges and example hosts
+^https?://(www\.)?example\.(com|org|net).*
+^https?://.*\.example\.(com|org|net).*
+^https?://(target|attacker|victim|evil|bank|site|company-name|companyname|tool-homepage|suspicious-url|scam-domain|scam-site)\..*
+^https?://target(_host)?(/.*)?$
+^https?://.*(YOUR_|_KEY|/FUZZ).*
+
+# Private / loopback / link-local (lab and payload examples)
+^https?://(localhost|127\.|0\.0\.0\.0|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.|169\.254\.).*
+^https?://[a-z0-9-]+:[0-9]+.*
+^https?://.*\.(local|duckdns\.org|yourdomain\..*)(/.*)?$
+
+# Tor onion services (unreachable without Tor)
+^https?://[a-z2-7]{16,56}\.onion.*
+
+# Bot-hostile hosts that reliably 403/404 to CI but work in browsers
+^https?://marketplace\.visualstudio\.com/.*
+^https?://a\.co/.*

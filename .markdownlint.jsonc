@@ -1,0 +1,16 @@
+{
+  // markdownlint config — intentionally lenient to match this repo's house
+  // style (inline HTML for centered images, emoji headers, long command lines).
+  // Docs: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+  "default": true,
+
+  "MD013": false,   // line length — command examples and tables run long
+  "MD033": false,   // inline HTML — used for <p align="center"> image blocks
+  "MD041": false,   // first line H1 — some files open with an alert/badge
+  "MD024": { "siblings_only": true }, // allow repeated headings in diff sections
+  "MD029": false,   // ordered-list numbering — mixed styles across long guides
+  "MD036": false,   // emphasis-as-heading — used for lightweight sub-labels
+  "MD040": false,   // fenced code language — many illustrative blocks omit it
+  "MD046": false,   // code block style — both indented and fenced appear
+  "MD007": { "indent": 2 }
+}

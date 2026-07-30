@@ -1,0 +1,40 @@
+name: Markdown Lint
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+  workflow_dispatch:   # manual full-repo run
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    name: Lint changed Markdown
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Determine files to lint
+        id: files
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Only Markdown changed in this PR — enforce on new content,
+            # don't retroactively block on legacy files.
+            base="${{ github.event.pull_request.base.sha }}"
+            files=$(git diff --name-only --diff-filter=d "$base" HEAD -- '*.md' | tr '\n' ' ')
+          else
+            files="**/*.md"   # manual dispatch = full repo
+          fi
+          echo "list=$files" >> "$GITHUB_OUTPUT"
+          echo "Linting: ${files:-（none）}"
+
+      - name: Run markdownlint-cli2
+        if: steps.files.outputs.list != ''
+        uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          config: '.markdownlint.jsonc'
+          globs: ${{ steps.files.outputs.list }}
