@@ -1344,6 +1344,13 @@ rtl_433 -R 40 -f 433.92M  # Protocol 40 = LaCrosse weather station
 
 GSM uses TDMA on 900 MHz (GSM-900) and 1800 MHz (GSM-1800). Partially unencrypted control channels allow passive monitoring.
 
+> [!NOTE]
+> `gr-gsm` is no longer actively maintained upstream and does not build from
+> source against GNU Radio 3.10+ (an open PR tracks 3.10/3.11 support). The
+> Kali/Debian `apt` package below still works because it is built against the
+> distro's GNU Radio version; to build from source on a modern system, use a
+> community fork that adds 3.10 support.
+
 ```bash
 # gr-gsm: GNU Radio-based GSM receiver
 sudo apt install gr-gsm
