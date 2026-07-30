@@ -275,7 +275,7 @@ Use bridges when Tor is blocked or when you want to hide Tor usage from your ISP
 | ------------ | ------------------------------------------------ | ------------------------------- |
 | `obfs4`      | Obfuscates traffic to look random                | Most use cases, ISP blocking    |
 | `Snowflake`  | Routes through volunteer WebRTC proxies          | Heavy censorship (CN, IR, RU)   |
-| `meek-azure` | Disguises as Microsoft Azure traffic             | Very restrictive networks       |
+| `meek-azure` | Domain-fronting via Azure — **fronting largely deprecated**, slow; prefer WebTunnel/Snowflake | Last resort only               |
 | `WebTunnel`  | Mimics HTTPS to a website                        | Deep packet inspection bypass   |
 
 ### 5.2 Get Bridges
