@@ -111,7 +111,7 @@ These guides serve as:
 | [Frida](https://frida.re/) | Dynamic instrumentation toolkit | `pip install frida-tools` |
 | [Objection](https://github.com/sensepost/objection) | Runtime mobile exploration (Frida-based) | `pip install objection` |
 | [Drozer](https://github.com/WithSecureLabs/drozer) | Android attack surface analyzer | `pip install drozer` |
-| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for traffic interception | Configure Android to use Burp CA |
+| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for traffic interception | Since Android 7, apps ignore **user**-installed CAs — install Burp's CA into the **system** store (rooted) or bypass pinning with Frida/objection |
 | [apksigner](https://developer.android.com/tools/apksigner) | Sign repackaged APKs | Included in Android SDK build-tools |
 
 ### iOS
