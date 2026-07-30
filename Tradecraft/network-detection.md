@@ -17,7 +17,7 @@ Enable blue team practitioners to build an effective network detection stack, wr
 
 > **Scope:** Network-based threat detection, packet capture and analysis, protocol anomaly detection, IDS/IPS tuning, traffic baselining, and network forensics methodology.
 
-✅ **Related offensive-side checklists:** [Lateral Movement](../Checklists/Lateral-Movement.md) · [Command and Control](../Checklists/Command%26Control.md)
+✅ **Related offensive-side checklists:** [Lateral Movement](../Checklists/Lateral-Movement.md) · [Command and Control](../Checklists/command-and-control.md)
 
 ---
 

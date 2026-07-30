@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)]()
-[![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)]()
-[![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)]()
+![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
+![DFIR](https://img.shields.io/badge/Framework-DFIR-darkred?style=for-the-badge)
+![SIEM](https://img.shields.io/badge/Tools-SIEM_%7C_EDR-orange?style=for-the-badge)
 
 </div>
 
@@ -46,10 +46,10 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 Welcome to the **Incident Response (IR)** and Digital Forensics section. This directory focuses strictly on **visibility, detection, and defense**. It provides the architecture, configurations, and standard operating procedures (SOPs) required to ingest telemetry, hunt for adversaries, and respond to active threats systematically.
 
 **Core Objectives:**
-* **[Centralize Logs](/IncidentResponse/log_agg.md):** Ingest data from endpoints, servers, and network devices into a SIEM.
-* **[Detect Threats](/IncidentResponse/SIEM):** Write SIGMA rules and custom alerts to catch malicious activity generated in your environment.
-* **[Analyze Artifacts](/IncidentResponse/Digital-Forensics):** Perform digital forensics on memory (RAM) and disk images to establish timelines and indicators of compromise (IoCs).
-* **[Standardize Response](/PlayBooks/BlueTeam_IncResp_Enhanced.md):** Utilize playbooks to handle specific incidents (e.g., Ransomware, Insider Threat) consistently and thoroughly.
+* **[Centralize Logs](./log_agg.md):** Ingest data from endpoints, servers, and network devices into a SIEM.
+* **[Detect Threats](./SIEM):** Write SIGMA rules and custom alerts to catch malicious activity generated in your environment.
+* **[Analyze Artifacts](./Digital-Forensics):** Perform digital forensics on memory (RAM) and disk images to establish timelines and indicators of compromise (IoCs).
+* **[Standardize Response](../PlayBooks/BlueTeam_IncResp_Enhanced.md):** Utilize playbooks to handle specific incidents (e.g., Ransomware, Insider Threat) consistently and thoroughly.
 
 ---
 
@@ -61,10 +61,10 @@ Central nervous systems for security telemetry.
 
 | Platform / Guide | Description | Deployment Complexity |
 |------------------|-------------|-----------------------|
-| **[ELK Stack (Elastic)](/IncidentResponse/SIEM/elk_stack.md)** | Docker compose files and configs for Elasticsearch, Logstash, and Kibana. | 🟡 MEDIUM |
-| **[Wazuh](/IncidentResponse/SIEM/wazuh.md)** | Deployment guides for the Wazuh manager, agent registration, and rule tuning. | 🟡 MEDIUM |
-| **[Splunk](/IncidentResponse/SIEM/splunk.md)** | Setup for Splunk Free/Enterprise trial and creating optimal data indexes. | 🟢 LOW |
-| **[Graylog](/IncidentResponse/SIEM/graylog.md)** | Configuration for lightweight, scalable log management and parsing. | 🟡 MEDIUM |
+| **[ELK Stack (Elastic)](./SIEM/elk_stack.md)** | Docker compose files and configs for Elasticsearch, Logstash, and Kibana. | 🟡 MEDIUM |
+| **[Wazuh](./SIEM/wazuh.md)** | Deployment guides for the Wazuh manager, agent registration, and rule tuning. | 🟡 MEDIUM |
+| **[Splunk](./SIEM/splunk.md)** | Setup for Splunk Free/Enterprise trial and creating optimal data indexes. | 🟢 LOW |
+| **[Graylog](./SIEM/graylog.md)** | Configuration for lightweight, scalable log management and parsing. | 🟡 MEDIUM |
 
 ---
 
@@ -74,9 +74,9 @@ Instrumentation for host-level telemetry.
 
 | Tool / OS | Description | Integration |
 |-----------|-------------|-------------|
-| **[Windows (Sysmon)](/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md)** | Installation scripts and configs (SwiftOnSecurity/Olaf Hartong) for granular event tracing (Process creation, network connections). | High |
-| **[Linux (Auditd/Syslog)](/IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md)** | Hardening logging configurations for Linux servers and standardizing syslog output. | Medium |
-| **[Osquery](/IncidentResponse/Endpoint-Visibility/Linux/osquery.md)** | SQL-powered operating system instrumentation for proactive threat hunting. | High |
+| **[Windows (Sysmon)](./Endpoint-Visibility/Windows/sysmon.md)** | Installation scripts and configs (SwiftOnSecurity/Olaf Hartong) for granular event tracing (Process creation, network connections). | High |
+| **[Linux (Auditd/Syslog)](./Endpoint-Visibility/Linux/auditd_syslog.md)** | Hardening logging configurations for Linux servers and standardizing syslog output. | Medium |
+| **[Osquery](./Endpoint-Visibility/Linux/osquery.md)** | SQL-powered operating system instrumentation for proactive threat hunting. | High |
 
 ---
 
@@ -99,9 +99,9 @@ Step-by-step containment, eradication, and recovery guides.
 | Playbook | Scenario | Focus |
 |----------|----------|-------|
 | **Malware Outbreak** | Ransomware / Worms | Isolation, identification, and eradication steps. |
-| **[Phishing Analysis](/PlayBooks/sop_phishing_analysis.md)** | Malicious Emails | Header analysis, attachment detonation, URL scanning. |
-| **[Unauthorized Access](/PlayBooks/unauth_access.md)** | Compromised Credentials | Investigating brute force and impossible travel alerts. |
-| **[Wireless Intrusion](/IncidentResponse/network_intrusion.md)** | Rogue APs / Network Breaches | Investigating unauthorized access to local/private networks. |
+| **[Phishing Analysis](../PlayBooks/sop_phishing_analysis.md)** | Malicious Emails | Header analysis, attachment detonation, URL scanning. |
+| **[Unauthorized Access](../PlayBooks/unauth_access.md)** | Compromised Credentials | Investigating brute force and impossible travel alerts. |
+| **[Wireless Intrusion](./network_intrusion.md)** | Rogue APs / Network Breaches | Investigating unauthorized access to local/private networks. |
 
 ---
 
@@ -111,9 +111,9 @@ Post-incident artifact extraction and timeline reconstruction.
 
 | Domain | Description | Primary Tools |
 |--------|-------------|---------------|
-| **[Memory Analysis](/IncidentResponse/Digital-Forensics/Memory)** | Cheatsheets for extracting malware, processes, and keys from RAM. | Volatility, Rekall |
-| **[Disk Forensics](/IncidentResponse/Digital-Forensics/Disks)** | Guides for parsing NTFS artifacts, registry hives, and event logs. | Autopsy, KAPE, FTK Imager |
-| **[Live Response](/IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
+| **[Memory Analysis](./Digital-Forensics/Memory)** | Cheatsheets for extracting malware, processes, and keys from RAM. | Volatility, Rekall |
+| **[Disk Forensics](./Digital-Forensics/Disks)** | Guides for parsing NTFS artifacts, registry hives, and event logs. | Autopsy, KAPE, FTK Imager |
+| **[Live Response](./Digital-Forensics/LiveData/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
 
 ---
 

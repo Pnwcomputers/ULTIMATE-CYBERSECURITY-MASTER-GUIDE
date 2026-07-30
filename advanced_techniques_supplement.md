@@ -1153,3 +1153,6 @@ curl https://s3.amazonaws.com/bucket-name/
 - [advanced_techniques_part2.md](advanced_techniques_part2.md) - Part 2: exploit development
 - [Tradecraft/active-directory.md](Tradecraft/active-directory.md) - AD attack techniques context
 - [Tradecraft/c2-frameworks.md](Tradecraft/c2-frameworks.md) - C2 infrastructure for advanced operations
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

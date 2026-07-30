@@ -1,5 +1,7 @@
 # 🔎 Osquery Deployment Guide
 
+_Last reviewed: 2026-07-30_
+
 ## 🎯 Purpose
 Osquery deployment and query guide - covering installation, configuration, and SQL-based queries for Linux endpoint visibility, threat hunting, and security monitoring.
 
@@ -73,10 +75,14 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 ### Linux Installation (Debian/Ubuntu)
 
 ```bash
-# Add osquery repository
+# Add osquery repository (apt-key is deprecated on Ubuntu 22.04+/Debian 12+;
+# use a dedicated keyring with signed-by instead)
 export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
-sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+sudo mkdir -p /etc/apt/keyrings
+sudo gpg --no-default-keyring --keyring /etc/apt/keyrings/osquery.gpg \
+  --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/osquery.gpg] https://pkg.osquery.io/deb deb main" \
+  | sudo tee /etc/apt/sources.list.d/osquery.list
 
 # Install osquery
 sudo apt update

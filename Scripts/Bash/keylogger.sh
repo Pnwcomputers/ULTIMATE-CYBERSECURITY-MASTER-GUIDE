@@ -1,3 +1,9 @@
+#!/bin/bash
+# ==============================================================================
+# DISCLAIMER & LEGAL NOTICE:
+# This demonstration setup script is provided STRICTLY for authorized security testing,
+# awareness demonstration, and educational purposes in authorized environments.
+# ==============================================================================
 clear
 
 apt install git

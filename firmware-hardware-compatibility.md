@@ -845,3 +845,6 @@ When choosing hardware for a new DIY pentest device build, or checking whether a
 - [HardwareHacking/](HardwareHacking/) - Hardware hacking tool guides
 - [uConsole/README.md](uConsole/README.md) - uConsole compatibility details
 - [Documentation/flipper_zero_guide.md](Documentation/flipper_zero_guide.md) - Flipper Zero guide
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

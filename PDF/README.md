@@ -20,9 +20,9 @@ Provide reliable offline access to critical security reference materials that wo
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Reference](https://img.shields.io/badge/Reference-PDF%20Library-red?style=for-the-badge)]()
-[![Cheat Sheets](https://img.shields.io/badge/Cheat%20Sheets-Quick%20Reference-blue?style=for-the-badge)]()
-[![Guides](https://img.shields.io/badge/Guides-Technical%20Documentation-green?style=for-the-badge)]()
+![Reference](https://img.shields.io/badge/Reference-PDF%20Library-red?style=for-the-badge)
+![Cheat Sheets](https://img.shields.io/badge/Cheat%20Sheets-Quick%20Reference-blue?style=for-the-badge)
+![Guides](https://img.shields.io/badge/Guides-Technical%20Documentation-green?style=for-the-badge)
 
 </div>
 
@@ -117,13 +117,13 @@ This PDF library serves as:
 | PDF | Description | Focus Area |
 |-----|-------------|------------|
 | **[SSH_Access_.pdf](./SSH_Access_.pdf)** | SSH access techniques and security testing | SSH Security |
-| **[Ssh pen testing .pdf](./Ssh pen testing .pdf)** | SSH penetration testing methodology | SSH Testing |
+| **[ssh-pen-testing.pdf](./ssh-pen-testing.pdf)** | SSH penetration testing methodology | SSH Testing |
 
 ### Container Security
 
 | PDF | Description | Focus Area |
 |-----|-------------|------------|
-| **[Docker pen test.pdf](./Docker pen test.pdf)** | Docker container penetration testing techniques | Container Security |
+| **[docker-pen-test.pdf](./docker-pen-test.pdf)** | Docker container penetration testing techniques | Container Security |
 
 ---
 
@@ -287,7 +287,7 @@ This PDF library serves as:
 
 **Documents:**
 - SSH_Access_.pdf - SSH security
-- Ssh pen testing .pdf - SSH testing methodology
+- ssh-pen-testing.pdf - SSH testing methodology
 
 **Use Cases:**
 - Remote access security testing
@@ -309,7 +309,7 @@ This PDF library serves as:
 - Container runtime security
 
 **Documents:**
-- Docker pen test.pdf - Container security testing
+- docker-pen-test.pdf - Container security testing
 
 **Use Cases:**
 - Container security assessments

@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Incident Response](https://img.shields.io/badge/Incident%20Response-Blue%20Team-blue?style=for-the-badge)]()
-[![Purple Team](https://img.shields.io/badge/Purple%20Team-Collaboration-purple?style=for-the-badge)]()
-[![Security Operations](https://img.shields.io/badge/Security-Operations-green?style=for-the-badge)]()
+![Incident Response](https://img.shields.io/badge/Incident%20Response-Blue%20Team-blue?style=for-the-badge)
+![Purple Team](https://img.shields.io/badge/Purple%20Team-Collaboration-purple?style=for-the-badge)
+![Security Operations](https://img.shields.io/badge/Security-Operations-green?style=for-the-badge)
 
 </div>
 
@@ -829,7 +829,7 @@ We welcome contributions from security professionals to improve and expand this 
 - **SANS Incident Response**: https://www.sans.org/security-resources/
 - **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework
 - **ISO/IEC 27035**: Information security incident management
-- **CISA Incident Response**: https://www.cisa.gov/topics/cyber-threats-and-advisories/incident-response
+- **CISA Incident Response**: https://www.cisa.gov/topics/cyber-threats-and-response/incident-response
 
 ### Security Operations
 

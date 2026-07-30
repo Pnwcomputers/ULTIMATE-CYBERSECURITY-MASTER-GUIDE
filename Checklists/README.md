@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Pentesting](https://img.shields.io/badge/Pentesting-Checklists-red?style=for-the-badge)]()
-[![Audit](https://img.shields.io/badge/Security-Audits-blue?style=for-the-badge)]()
-[![Compliance](https://img.shields.io/badge/Compliance-Standards-green?style=for-the-badge)]()
+![Pentesting](https://img.shields.io/badge/Pentesting-Checklists-red?style=for-the-badge)
+![Audit](https://img.shields.io/badge/Security-Audits-blue?style=for-the-badge)
+![Compliance](https://img.shields.io/badge/Compliance-Standards-green?style=for-the-badge)
 
 </div>
 
@@ -82,7 +82,7 @@ These checklists serve as:
 |-----------|-------------|------------|
 | **[Lateral-Movement.md](./Lateral-Movement.md)** | Lateral movement techniques across networks | Movement |
 | **[Persistence.md](./Persistence.md)** | System-level persistence mechanisms | Persistence |
-| **[Command&Control.md](./Command%26Control.md)** | Command and Control (C2) techniques and channels | C2 |
+| **[command-and-control.md](./command-and-control.md)** | Command and Control (C2) techniques and channels | C2 |
 
 ### Defense Evasion
 
@@ -96,8 +96,8 @@ These checklists serve as:
 | Checklist | Description | Focus Area |
 |-----------|-------------|------------|
 | **[Android-Applications-Checklist.md](./Android-Applications-Checklist.md)** | Android application security assessment | Mobile Security |
-| **[VoIP Checklist.md](./VoIP%20Checklist.md)** | Voice over IP security testing and assessment | VoIP Security |
-| **[Microsoft Exchange.md](./Microsoft%20Exchange.md)** | Microsoft Exchange server security assessment | Exchange |
+| **[voip-checklist.md](./voip-checklist.md)** | Voice over IP security testing and assessment | VoIP Security |
+| **[microsoft-exchange.md](./microsoft-exchange.md)** | Microsoft Exchange server security assessment | Exchange |
 
 ### System Hardening & Configuration
 

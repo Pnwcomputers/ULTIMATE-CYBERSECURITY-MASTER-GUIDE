@@ -21,8 +21,8 @@ Ensure all practitioners understand the legal framework before using any techniq
 
 **READ THIS ENTIRE DOCUMENT BEFORE USING ANY CONTENT FROM THIS REPOSITORY**
 
-[![Legal](https://img.shields.io/badge/Status-LEGALLY%20BINDING-red?style=for-the-badge)]()
-[![Warning](https://img.shields.io/badge/Warning-FEDERAL%20CRIME%20IF%20MISUSED-darkred?style=for-the-badge)]()
+![Legal](https://img.shields.io/badge/Status-LEGALLY%20BINDING-red?style=for-the-badge)
+![Warning](https://img.shields.io/badge/Warning-FEDERAL%20CRIME%20IF%20MISUSED-darkred?style=for-the-badge)
 
 </div>
 
@@ -1086,7 +1086,6 @@ NO EXCEPTIONS. NO EXCUSES. NO SECOND CHANCES.
 
 Scripts:
 • add_wordpress_admin.sql
-• wordpress_add_admin.sql
 
 ILLEGAL ACTIVITIES:
 ❌ Creating admin accounts without authorization

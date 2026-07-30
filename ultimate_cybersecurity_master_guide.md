@@ -1327,10 +1327,10 @@ Set-ExecutionPolicy Unrestricted -Force
  
 **Linux (REMnux)**
 ```bash
-# Install REMnux on Ubuntu
-wget https://remnux.org/docs/distro/get/
-sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
-remnux install
+# Install REMnux on Ubuntu (see docs.remnux.org for the current SHA256 to verify)
+curl -O https://REMnux.org/remnux
+chmod +x remnux && sudo mv remnux /usr/local/bin
+sudo remnux install
 # Installs: Volatility 3, YARA, Ghidra, radare2/Cutter, oledump, pdf-parser,
 #           NetworkMiner, Wireshark, FakeNet-NG, inetsim
 ```
@@ -1426,3 +1426,6 @@ Invoke-AtomicTest T1071.004   # DNS C2               → network-detection.md
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Enhanced version with PNWC operational experience
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized domains supplement
 - [cybersecurity_cliff_notes.md](cybersecurity_cliff_notes.md) - Quick command reference companion
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Red Team](https://img.shields.io/badge/Red_Team-Offensive_TTPs-red?style=for-the-badge)]()
-[![Blue Team](https://img.shields.io/badge/Blue_Team-Detection_%26_Defense-blue?style=for-the-badge)]()
-[![MITRE](https://img.shields.io/badge/MITRE-ATT%26CK-orange?style=for-the-badge)]()
+![Red Team](https://img.shields.io/badge/Red_Team-Offensive_TTPs-red?style=for-the-badge)
+![Blue Team](https://img.shields.io/badge/Blue_Team-Detection_%26_Defense-blue?style=for-the-badge)
+![MITRE](https://img.shields.io/badge/MITRE-ATT%26CK-orange?style=for-the-badge)
 
 </div>
 

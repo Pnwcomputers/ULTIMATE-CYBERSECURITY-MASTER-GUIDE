@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Fault Injection](https://img.shields.io/badge/Fault_Injection-Glitching_%7C_EMFI_%7C_Laser-red?style=for-the-badge)]()
-[![Side-Channel](https://img.shields.io/badge/Side--Channel-SPA_%7C_DPA_%7C_CPA-blue?style=for-the-badge)]()
-[![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_SPI-green?style=for-the-badge)]()
+![Fault Injection](https://img.shields.io/badge/Fault_Injection-Glitching_%7C_EMFI_%7C_Laser-red?style=for-the-badge)
+![Side-Channel](https://img.shields.io/badge/Side--Channel-SPA_%7C_DPA_%7C_CPA-blue?style=for-the-badge)
+![Interfaces](https://img.shields.io/badge/Interfaces-JTAG_%7C_SWD_%7C_SPI-green?style=for-the-badge)
 
 </div>
 

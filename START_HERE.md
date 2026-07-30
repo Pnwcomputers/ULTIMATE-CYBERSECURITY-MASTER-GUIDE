@@ -1,35 +1,19 @@
 # 🛡️ START HERE - Your Complete Cybersecurity Guide Collection
 
-## 🎯 Purpose
-Navigation guide for the entire guide series - quick paths to the right content for every practitioner role and purpose (red team, blue team, OSINT, forensics, homelab, career).
-
-## ⚙️ Function
-Provides role-based navigation paths: Red Team (Tradecraft, Checklists, PlayBooks), Blue Team (IncidentResponse, SIEM, Documentation), OSINT investigator (OSINT/), Forensics analyst (Digital-Forensics/), Homelab builder (Homelab/), and career/learning paths by certification track.
-
-## 🏆 Goal
-Eliminate navigation friction for new users and returning practitioners by providing direct paths to the most relevant content for their current role or task without reading the full README.
-
-## 📋 When to Use
-- First visit to the repository - start here to find the right guide
-- Returning practitioner who forgot where a specific section lives
-- Onboarding a team member to the guide structure
-- Quickly jumping to a role-specific reference path
+> **Role- and Goal-Based Navigation Guide**  
+> Direct paths for every practitioner role (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
 
 <p align="center">
   <img src="assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
 </p>
 
-## 🎯 Purpose
-Role- and goal-based navigation for the repository - instead of listing every file (like [README.md](README.md) does), this routes a reader by who they are and what they're trying to accomplish (beginner, pentester, OSCP candidate, blue team, red team, OSINT investigator, hardware hacker) straight to the relevant subset of guides.
-
-## ⚙️ Function
-Organized as: a quick-start lookup table by role, a library overview of the three primary guides plus supporting/advanced references, a table of every operational section folder, eight numbered "choose your path" learning tracks, a skills checklist, and a get-started timeline (today/this week/this month). Differs from [README.md](README.md) (flat index of everything) by curating a path rather than cataloging; differs from the master guides themselves by pointing to content rather than containing it.
-
-## 🏆 Goal
-A reader identifies their role/goal within seconds and has a concrete, ordered reading list to follow - without needing to browse the full repository structure first.
+## 🎯 Purpose & Function
+Routes readers by role and objective (beginner, pentester, OSCP candidate, blue team, red team, OSINT investigator, hardware hacker) straight to the relevant subset of guides. Differs from [README.md](README.md) (flat catalog) by curating a structured path rather than listing everything.
 
 ## 📋 When to Use
-The very first file to open after the root [README.md](README.md), or anytime you need to re-orient ("what should I read for X role/goal") rather than look up a specific fact.
+- **First Visit:** Start here to find your role-specific reading list.
+- **Orientation:** When asking "what should I read next for X goal?" rather than looking up a specific command or tool.
+
 
 ## 🎯 QUICK START
 
@@ -41,7 +25,7 @@ The very first file to open after the root [README.md](README.md), or anytime yo
 - **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
 - **Red Team Operator?** → [Tradecraft](Tradecraft/) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/)
-- **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+- **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
 - **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/)
@@ -80,9 +64,10 @@ The very first file to open after the root [README.md](README.md), or anytime yo
 
 | Resource | Description |
 |----------|-------------|
+| **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
 | **[Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md)** | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot/Arch |
-| **[Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
+| **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
 
 ---
 
@@ -160,7 +145,7 @@ The very first file to open after the root [README.md](README.md), or anytime yo
 ### 🔧 HARDWARE HACKER PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part V (IoT & Hardware)
 2. [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md); Hardware arsenal & firmware
-3. [Firmware & Hardware Compatibility](FIRMWARE%26HARDWARE_COMPATIBILITY.md)
+3. [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 4. Get hardware tools (Flipper Zero, WiFi Pineapple, HackRF, etc.)
 5. Practice: Firmware extraction, programming, reverse engineering
 

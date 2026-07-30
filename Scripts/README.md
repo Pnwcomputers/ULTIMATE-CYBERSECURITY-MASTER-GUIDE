@@ -21,10 +21,10 @@ Provide ready-to-use security automation scripts and a single installer to set u
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)]()
-[![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)]()
-[![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)]()
-[![C](https://img.shields.io/badge/C-Programs-red?style=for-the-badge&logo=c)]()
+![Bash](https://img.shields.io/badge/Bash-Scripts-green?style=for-the-badge&logo=gnu-bash)
+![PowerShell](https://img.shields.io/badge/PowerShell-Scripts-blue?style=for-the-badge&logo=powershell)
+![Python](https://img.shields.io/badge/Python-Scripts-yellow?style=for-the-badge&logo=python)
+![C](https://img.shields.io/badge/C-Programs-red?style=for-the-badge&logo=c)
 
 </div>
 
@@ -251,7 +251,7 @@ PENALTIES: Up to 10 years imprisonment + significant fines
 #### Web & Application Security
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **python-webshell-check.py** | Webshell detection tool | 🟡 MEDIUM |
+| **webshell_check.py** | Webshell detection tool | 🟡 MEDIUM |
 | **firefox_parser.py** | Firefox data parser | 🟡 MEDIUM |
 | **imap_parser.py** | IMAP protocol parser | 🟡 MEDIUM |
 | **link_parser.py** | Link extraction tool | 🟢 LOW |
@@ -331,7 +331,6 @@ USING WITHOUT AUTHORIZATION = FEDERAL PRISON TIME
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **add_wordpress_admin.sql** | WordPress admin account creation | 🔴 HIGH |
-| **wordpress_add_admin.sql** | WordPress admin injection | 🔴 HIGH |
 
 **Purpose:**
 - Database manipulation

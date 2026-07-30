@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)]()
-[![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)]()
-[![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)]()
+![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)
+![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)
+![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)
 
 </div>
 
@@ -263,7 +263,7 @@ ALWAYS:
 ### Practice Platforms
 
 - **Trace Labs CTF** - Missing persons OSINT competitions
-- **OSINT Challenges** - osintchallenge.com
+- **OSINT Exercises (Gralhix)** - gralhix.com/list-of-osint-exercises
 - **TryHackMe** - OSINT learning paths
 - **Sector035 Quizzes** - Weekly OSINT exercises
 

@@ -441,8 +441,8 @@ Provide version history transparency so practitioners can see what changed, when
 - Update Aircrack-ng_Commands.md (`87ead3b`)
 - Update LinuxCheatSheet.md (`9e354ef`)
 - Update README.md (`1bd5426`)
-- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`d3001dc`)
-- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`8554eb9`)
+- Update firmware-hardware-compatibility.md (`d3001dc`)
+- Update firmware-hardware-compatibility.md (`8554eb9`)
 - Update hardware compatibility and firmware details (`f106dd6`)
 - Update section headers and table of contents (`edb2d15`)
 - Update README.md (`cf3f6ab`)
@@ -752,7 +752,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/C/scanner.c`
 - `PDF/AD_Attacks_.pdf`
 - `PDF/AD_Post_Exploitation.pdf`
-- `PDF/Docker pen test.pdf`
+- `PDF/docker-pen-test.pdf`
 - `PDF/IDOR_Guide.pdf`
 - `PDF/Linux_Privilege_Escalation.pdf`
 - `PDF/Network_101_1738356173.pdf`
@@ -762,7 +762,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `PDF/Pentest_Guide.pdf`
 - `PDF/ReactJs_Cheatsheet.pdf`
 - `PDF/SSH_Access_.pdf`
-- `PDF/Ssh pen testing .pdf`
+- `PDF/ssh-pen-testing.pdf`
 - `PDF/Web_Attacks_.pdf`
 - `PDF/Web_application_Firewall__.pdf`
 - `PDF/Wi_Fi_hacking__.pdf`
@@ -772,7 +772,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Checklists/ActiveDirectory.md`
 - `Checklists/Android-Applications-Checklist.md`
 - `Checklists/AppLocker.md`
-- `Checklists/Command&Control.md`
+- `Checklists/command-and-control.md`
 - `Checklists/Credential-Access.md`
 - `Checklists/Defense-Evasion.md`
 - `Checklists/Domain-Escalation.md`
@@ -781,9 +781,9 @@ Provide version history transparency so practitioners can see what changed, when
 - `Checklists/Initial-Access.md`
 - `Checklists/Lateral-Movement.md`
 - `Checklists/Linux-Privilege-Escalation.md`
-- `Checklists/Microsoft Exchange.md`
+- `Checklists/microsoft-exchange.md`
 - `Checklists/Persistence.md`
-- `Checklists/VoIP Checklist.md`
+- `Checklists/voip-checklist.md`
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
 - `Scripts/PowerShell/adlogin.ps1`
@@ -1010,7 +1010,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Documentation/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf`
 - `Aircrack-ng_Commands.md`
 - `pwnagotchi_cheatsheet.md`
-- `FIRMWARE&HARDWARE_COMPATIBILITY.md`
+- `firmware-hardware-compatibility.md`
 - `NetworkAuditPlayBook.md`
 - `advanced_techniques_part2.md`
 - `advanced_techniques_supplement.md`
@@ -1188,4 +1188,4 @@ Provide version history transparency so practitioners can see what changed, when
 
 ## Related Files
 - [README.md](README.md) - Main repo index
-- [Scripts/generate_changelog.py](Scripts/generate_changelog.py) - Script that generates this changelog
+- [generate_changelog.py](generate_changelog.py) - Script that generates this changelog

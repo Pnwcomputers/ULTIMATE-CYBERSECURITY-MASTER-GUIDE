@@ -14,7 +14,7 @@ Provide a complete beginner-to-intermediate OSINT reference that builds systemat
 - Running a basic domain or person investigation
 - Learning OSINT tools and workflows for professional development
 
-### [Click Here For The Advanced OSINT Guide](/Tradecraft/osint-threat-intel.md) 
+### [Click Here For The Advanced OSINT Guide](../Tradecraft/osint-threat-intel.md) 
 
 ## 🎯 Purpose
 Master reference for OSINT - methodology, a categorized tool reference, investigation VM setup, per-identifier investigation procedures, evidence handling, and legal/OPSEC guidance. This is the foundational/general guide; [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) (linked above) is the advanced, threat-intelligence-focused counterpart. Within this folder, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the condensed command-only version of this same material.
@@ -1412,7 +1412,7 @@ For US-based victims or US-impacting crimes, submit to https://www.ic3.gov/.
 - **OSINTQuiz**: Twitter-based challenges
 
 #### **Hands-On Practice Sites**
-- **OSINT Challenge**: https://osintchallenge.com
+- **OSINT Exercises (Gralhix)**: https://gralhix.com/list-of-osint-exercises/
 - **CTFtime.org**: OSINT categories in CTF competitions
 - **HackTheBox**: Some machines include OSINT elements
 - **TryHackMe**: Dedicated OSINT rooms

@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![SDR](https://img.shields.io/badge/Hardware-SDR-blue?style=for-the-badge&logo=broadcom)]()
-[![RF](https://img.shields.io/badge/Frequencies-RF_Analysis-green?style=for-the-badge&logo=wifi)]()
-[![GNURadio](https://img.shields.io/badge/Software-GNU_Radio-orange?style=for-the-badge)]()
+![SDR](https://img.shields.io/badge/Hardware-SDR-blue?style=for-the-badge&logo=broadcom)
+![RF](https://img.shields.io/badge/Frequencies-RF_Analysis-green?style=for-the-badge&logo=wifi)
+![GNURadio](https://img.shields.io/badge/Software-GNU_Radio-orange?style=for-the-badge)
 
 </div>
 

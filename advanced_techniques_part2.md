@@ -1303,3 +1303,6 @@ int main(int argc, char **argv) {
 - [advanced_techniques_supplement.md](advanced_techniques_supplement.md) - Part 1: Metasploit, cloud, lateral movement
 - [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) - Foundational context
 - [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md) - Using custom payloads for AV/EDR evasion
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

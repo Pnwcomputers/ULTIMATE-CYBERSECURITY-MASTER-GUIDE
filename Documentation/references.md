@@ -19,9 +19,9 @@ Quick-reference tables for port numbers, HTTP status codes, and regex patterns c
 
 Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 
-[![Documentation](https://img.shields.io/badge/Documentation-Cybersecurity%20Base-blue?style=for-the-badge&logo=googledocs&logoColor=white)]()
-[![Knowledge Base](https://img.shields.io/badge/Category-Reference-green?style=for-the-badge&logo=gitbook&logoColor=white)]()
-[![Cybersecurity Ops](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge&logo=fortinet&logoColor=white)]()
+![Documentation](https://img.shields.io/badge/Documentation-Cybersecurity%20Base-blue?style=for-the-badge&logo=googledocs&logoColor=white)
+![Knowledge Base](https://img.shields.io/badge/Category-Reference-green?style=for-the-badge&logo=gitbook&logoColor=white)
+![Cybersecurity Ops](https://img.shields.io/badge/Use-Security%20Operations-orange?style=for-the-badge&logo=fortinet&logoColor=white)
 
 ---
 

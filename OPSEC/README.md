@@ -6,9 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-[![OPSEC](https://img.shields.io/badge/OPSEC-Operational%20Security-red?style=for-the-badge)]()
-[![Privacy](https://img.shields.io/badge/Privacy-Protection-blue?style=for-the-badge)]()
-[![Anonymity](https://img.shields.io/badge/Anonymity-Best%20Practices-green?style=for-the-badge)]()
+![OPSEC](https://img.shields.io/badge/OPSEC-Operational%20Security-red?style=for-the-badge)
+![Privacy](https://img.shields.io/badge/Privacy-Protection-blue?style=for-the-badge)
+![Anonymity](https://img.shields.io/badge/Anonymity-Best%20Practices-green?style=for-the-badge)
 
 </div>
 
@@ -39,7 +39,7 @@ Enable security practitioners to conduct authorized research and engagements wit
 - [Security & Legal Considerations](#security--legal-considerations)
 - [Contributing](#contributing)
 - [Resources](#resources)
-- [Tradecraft](/Tradecraft/)
+- [Tradecraft](../Tradecraft)
 
 ---
 
