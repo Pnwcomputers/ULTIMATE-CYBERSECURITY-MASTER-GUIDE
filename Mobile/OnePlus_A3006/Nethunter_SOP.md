@@ -408,7 +408,7 @@ Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 | Chroot won't start | Re-open Chroot Manager; check storage; reboot; verify kernel string with `uname -a` |
 | Metasploit DB errors | Start **PostgreSQL** in Kali Services; `msfdb init` |
 | KeX black screen | Restart KeX server; re-enter VNC password; check resolution setting |
-| Adapter not detected | Reseat OTG; check power (use Y-cable); `dmesg | tail` for USB errors |
+| Adapter not detected | Reseat OTG; check power (use Y-cable); `dmesg \| tail` for USB errors |
 | Tools slow / OOM | Close KeX/background sessions; use `tmux`; watch battery/thermals |
 
 ---

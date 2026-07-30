@@ -98,7 +98,7 @@ shodan host 1.2.3.4                        # Service and port identification
 | Tool | Purpose | Command / Usage |
 | :--- | :--- | :--- |
 | **[Photon](https://github.com/s0md3v/photon)** | Crawls site for secret keys, files, and URLs. | `python photon.py -u https://target.com` |
-| **[waybackurls](https://github.com/tomnomnom/waybackurls)**| Historical URL discovery via Wayback Machine. | `echo target.com | waybackurls` |
+| **[waybackurls](https://github.com/tomnomnom/waybackurls)**| Historical URL discovery via Wayback Machine. | `echo target.com \| waybackurls` |
 | **[Wget](https://osintteam.blog/master-real-world-web-app-enumeration-with-curl-wget-and-bash-a-step-by-step-guide-5f74ab34e795)** | Complete website mirroring for offline review. | `wget -r -l 2 -P output/ https://target.com` |
 
 ---
