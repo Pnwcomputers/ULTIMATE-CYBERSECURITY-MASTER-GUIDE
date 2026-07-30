@@ -1,5 +1,7 @@
 # 🔎 Osquery Deployment Guide
 
+_Last reviewed: 2026-07-30_
+
 ## 🎯 Purpose
 Osquery deployment and query guide - covering installation, configuration, and SQL-based queries for Linux endpoint visibility, threat hunting, and security monitoring.
 

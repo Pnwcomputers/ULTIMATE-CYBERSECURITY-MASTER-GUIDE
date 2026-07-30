@@ -1,5 +1,7 @@
 # 🔒 VPN Security Guide
 
+_Last reviewed: 2026-07-30_
+
 ## 🎯 Purpose
 Operational guide for VPN selection, configuration, and use by security professionals - focused on Mullvad VPN as the top recommendation, with coverage of kill switch setup, DNS leak prevention, multi-hop, split tunneling, browser hardening, and VPN+Tor stacking strategies.
 

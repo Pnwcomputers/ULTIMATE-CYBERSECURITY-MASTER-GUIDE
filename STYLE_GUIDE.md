@@ -52,3 +52,17 @@
   [⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
   ```
 - **Authoritative Sources:** When citing CVEs, standards, or vendor documentation, provide direct reference URLs (NIST, CISA, OWASP, MITRE ATT&CK).
+- **Related-Content Blocks:** Where useful, guides should end (above the navigation footer) with a `## See also` list of related guides, and advanced guides should open with a short `**Prerequisites:**` line linking to the fundamentals a reader needs first. Define acronyms on first use and link them to [GLOSSARY.md](GLOSSARY.md).
+
+---
+
+## 5. Review Metadata
+
+- **Last-Reviewed Line:** Reference and install/tool docs should carry a review date near the top, immediately under the H1 (or under any badge/image block):
+
+  ```markdown
+  _Last reviewed: YYYY-MM-DD_
+  ```
+
+- **Meaning:** The date asserts that, as of then, a maintainer verified the doc's links resolve and its commands / versions / product names are current. Update it whenever you re-verify a doc.
+- **Rollout:** Apply the line as each doc receives a review pass — do not back-date docs that have not actually been checked.

@@ -1,5 +1,7 @@
 # 🏴‍☠️ Bus Pirate
 
+_Last reviewed: 2026-07-30_
+
 ## 🎯 Purpose
 Open-source universal bus interface tool for communicating with electronic components (SPI, I2C, UART, JTAG, 1-Wire) directly from a PC serial terminal - without writing custom microcontroller code.
 
