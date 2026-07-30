@@ -3972,8 +3972,9 @@ Set-ExecutionPolicy Unrestricted -Force && .\install.ps1
  
 **Linux - REMnux:**
 ```bash
-wget https://remnux.org/docs/distro/get/ && sudo mv remnux-cli /usr/local/bin/remnux
-sudo chmod +x /usr/local/bin/remnux && remnux install
+curl -O https://REMnux.org/remnux          # verify SHA256 against docs.remnux.org
+chmod +x remnux && sudo mv remnux /usr/local/bin
+sudo remnux install
 # Key tools: Volatility 3, YARA, Ghidra, radare2/Cutter,
 #            oledump, pdf-parser, NetworkMiner, FakeNet-NG, inetsim
 ```
@@ -4385,9 +4386,9 @@ Process Monitor, Process Hacker, VMMap, Regshot, FakeNet-NG, CyberChef, dnSpy, d
 Ubuntu-based Linux malware analysis distro. Use alongside FLARE VM.
  
 ```bash
-wget https://remnux.org/docs/distro/get/
-sudo mv remnux-cli /usr/local/bin/remnux && sudo chmod +x /usr/local/bin/remnux
-remnux install
+curl -O https://REMnux.org/remnux          # verify SHA256 against docs.remnux.org
+chmod +x remnux && sudo mv remnux /usr/local/bin
+sudo remnux install
 ```
  
 **Key tools installed:** Volatility 3, YARA, radare2/Cutter, Ghidra, pestudio, ssdeep,
