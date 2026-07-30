@@ -12,7 +12,7 @@ Structured in parts: alert triage, brute-force-specific investigation, impossibl
 Correctly distinguish real account takeover from false positives (e.g., legitimate VPN use triggering impossible-travel), and produce MITRE ATT&CK-mapped (T1110 Brute Force, T1078 Valid Accounts) evidence sufficient to justify containment actions like forced password reset or account lockout.
 
 ## 📋 When to Use
-- A SIEM, Azure AD, Okta, firewall, or VPN alert fires for repeated failed logins or geographically impossible login sequences
+- A SIEM, Microsoft Entra ID (formerly Azure AD), Okta, firewall, or VPN alert fires for repeated failed logins or geographically impossible login sequences
 - Escalating from `sop_phishing_analysis.md` after a phish led to a successful credential capture
 - Investigating a suspected credential-stuffing campaign against multiple accounts
 
@@ -28,7 +28,7 @@ Correctly distinguish real account takeover from false positives (e.g., legitima
 | **Sub-Types** | Brute Force, Impossible Travel, Credential Stuffing |
 | **Severity** | Medium to Critical (context-dependent) |
 | **MITRE ATT&CK** | T1110 (Brute Force), T1078 (Valid Accounts) |
-| **Typical Sources** | SIEM alerts, Azure AD, Okta, Firewall, VPN logs |
+| **Typical Sources** | SIEM alerts, Microsoft Entra ID, Okta, Firewall, VPN logs |
 
 ### Scope
 
@@ -144,7 +144,7 @@ rule.id:18106 OR rule.id:18107
 #### Azure AD / Entra ID
 
 **Sign-in Logs Location:**
-- Azure Portal → Azure Active Directory → Sign-in logs
+- Azure Portal → Microsoft Entra ID → Sign-in logs (or the Microsoft Entra admin center)
 - Or via Microsoft Graph API
 
 **Key Fields:**
@@ -168,7 +168,7 @@ rule.id:18106 OR rule.id:18107
 | 53003 | Blocked by Conditional Access |
 | 50158 | External security challenge (MFA) |
 
-**KQL Query (Azure Sentinel):**
+**KQL Query (Microsoft Sentinel):**
 
 ```kql
 SigninLogs
@@ -267,9 +267,18 @@ For each targeted account:
 # Active Directory
 Get-ADUser -Identity jsmith -Properties *
 
-# Azure AD (PowerShell)
+# Microsoft Entra ID (PowerShell)
 Get-AzureADUser -ObjectId jsmith@company.com | Format-List
 ```
+
+> [!NOTE]
+> The **AzureAD** PowerShell module (`Get-AzureADUser`, `Set-AzureADUser`,
+> `Revoke-AzureADUserAllRefreshToken`) was deprecated on 2024-03-30 and became
+> unsupported after 2025-03-30 (retired mid-2025). It is replaced by the
+> **Microsoft Graph PowerShell SDK** (`Get-MgUser`, `Update-MgUser`,
+> `Invoke-MgInvalidateUserRefreshToken`). The legacy cmdlets are kept here as
+> many environments still have the module installed; prefer the `Mg*`
+> equivalents for new automation.
 
 **Document:**
 - Account type (standard, admin, service)
@@ -382,7 +391,7 @@ Impossible travel alerts trigger when a user authenticates from two geographic l
 #### Azure AD Impossible Travel
 
 **Azure Portal:**
-1. Azure Active Directory → Security → Risky sign-ins
+1. Microsoft Entra ID → Security → Risky sign-ins
 2. Filter by risk type: "Impossible travel"
 
 **KQL Query:**
@@ -733,7 +742,7 @@ Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -Us
 Search-UnifiedAuditLog -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date) -UserIds jsmith@company.com -RecordType SharePointFileOperation | Select-Object -ExpandProperty AuditData | ConvertFrom-Json
 ```
 
-**KQL (Azure Sentinel):**
+**KQL (Microsoft Sentinel):**
 
 ```kql
 OfficeActivity
@@ -866,7 +875,7 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | alert
 ```
 
-**Azure Sentinel Analytics Rule:**
+**Microsoft Sentinel Analytics Rule:**
 
 ```kql
 SigninLogs
@@ -878,7 +887,7 @@ SigninLogs
 
 ### 7.2 Impossible Travel Detection
 
-**Azure Sentinel:**
+**Microsoft Sentinel:**
 
 ```kql
 let timeWindow = 60m;

@@ -119,7 +119,7 @@ Give a security operations team a single field guide covering the most common da
 
 ### Investigation Queries
 
-#### O365/Azure AD
+#### Microsoft 365 / Microsoft Entra ID
 ```powershell
 # Recent sign-ins
 Get-MgAuditLogSignIn -Filter "userPrincipalName eq 'user@domain.com'" | Select-Object CreatedDateTime, UserPrincipalName, IPAddress, Location, Status
