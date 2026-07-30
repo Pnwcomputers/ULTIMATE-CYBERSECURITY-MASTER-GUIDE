@@ -419,6 +419,9 @@ to:@username
 #hashtag filter:media
  
 # OSINT tools
+# NOTE: twint and snscrape's Twitter/X modules broke with X's 2023 API lockdown
+# and are largely non-functional; current X collection generally requires the
+# official (paid) API or authenticated tooling.
 twint -u username --since 2023-01-01 --output tweets.csv --csv
 snscrape twitter-user username > tweets.json
  

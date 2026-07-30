@@ -646,7 +646,7 @@ sherlock username
 # Maigret - enhanced username search
 maigret username
 
-# Twint - Twitter OSINT
+# Twint - Twitter OSINT (NOTE: archived/non-functional since X's 2023 API lockdown)
 twint -u username --timeline
 
 # Instagram loader
