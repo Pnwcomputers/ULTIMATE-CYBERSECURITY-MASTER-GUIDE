@@ -1426,3 +1426,6 @@ Invoke-AtomicTest T1071.004   # DNS C2               → network-detection.md
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Enhanced version with PNWC operational experience
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized domains supplement
 - [cybersecurity_cliff_notes.md](cybersecurity_cliff_notes.md) - Quick command reference companion
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

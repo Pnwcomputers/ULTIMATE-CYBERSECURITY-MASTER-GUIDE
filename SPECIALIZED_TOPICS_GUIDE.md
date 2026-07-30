@@ -2560,3 +2560,6 @@ See [LEGAL.md](LEGAL.md) for complete terms.
 - [HardwareHacking/](HardwareHacking/) - Hardware hacking tool guides
 - [AI/README.md](AI/README.md) - AI security resources
 - [uConsole/README.md](uConsole/README.md) - uConsole cyberdeck section
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
