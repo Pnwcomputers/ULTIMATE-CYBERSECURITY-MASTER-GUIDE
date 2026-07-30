@@ -73,6 +73,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 ### Core References
 | Resource | Description |
 |---|---|
+| [Glossary](GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | [Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
 | [Advanced Techniques - Part 1](advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |

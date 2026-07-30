@@ -64,6 +64,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 | Resource | Description |
 |----------|-------------|
+| **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
 | **[Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md)** | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot/Arch |
 | **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
