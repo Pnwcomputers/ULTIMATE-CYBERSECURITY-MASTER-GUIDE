@@ -88,11 +88,10 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | Section | Description |
 |---|---|
 | 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of all playbooks - network audits, WiFi assessments, IR, phishing, unauthorized access |
-| 🟣 [Purple Team Playbooks](PlayBooks/PurpleTeam_Simple.md) | Simple, Detailed, and Multi-Script purple team exercises |
-| 🔵 [Blue Team Playbooks](PlayBooks/BlueTeam_IncResp_Simple.md) | Incident response procedures - simple and enhanced versions |
+| 📚 [Playbooks Collection](PlayBooks/) | Simple, Detailed, and Multi-Script purple, blue and red team exercises as well as incident response procedures, etc |
 | 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 🎣 [SOP: Phishing Analysis](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing email triage |
-| 🚷 [Unauthorized Access Investigation](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
+| 🎣 [SOP: Phishing Analysis Playbook](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing email triage |
+| 🚷 [Unauthorized Access Investigation Playbook](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
 | 🚨 [Incident Response](IncidentResponse/) | Blue Team operations - threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 | 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology - 400+ categorized tools, investigation workflows, automated VM setup |
