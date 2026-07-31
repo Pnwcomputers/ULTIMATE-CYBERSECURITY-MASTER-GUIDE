@@ -36,17 +36,17 @@ The workflow leans on the following tools for enumeration, capture, and recovery
 
 | Tool | Category | Primary Function |
 | --- | --- | --- |
-| Sherlock | Enumeration | Username search across 400+ platforms. |
-| Maigret | Enumeration | Username search with profile parsing and metadata extraction. |
-| WhatsMyName | Enumeration | Community-maintained username presence checking (web + data). |
-| yt-dlp | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
-| gallery-dl | Capture | Bulk image/media download across many social platforms. |
-| Instaloader | Capture | Instagram profile and media capture (login required for most targets). |
-| ExifTool | Metadata | Metadata extraction from downloaded media. |
-| waybackpy / gau | Recovery | Historical and deleted content recovery via web archives. |
-| memory.lol | Recovery | X/Twitter handle-history and numeric-ID correlation. |
-| Firefox Multi-Account Containers | OPSEC | Per-investigation session and cookie compartmentalization. |
-| Browser Developer Tools | Capture | Source-of-truth media and exact-timestamp extraction (no third party in the chain). |
+| [Sherlock](https://github.com/sherlock-project/sherlock) | Enumeration | Username search across 400+ platforms. |
+| [Maigret](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
+| [WhatsMyName](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
+| [gallery-dl](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
+| [Instaloader](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
+| [ExifTool](https://exiftool.org/) | Metadata | Metadata extraction from downloaded media. |
+| [waybackpy](https://github.com/akamhy/waybackpy) / [gau](https://github.com/lc/gau) | Recovery | Historical and deleted content recovery via web archives. |
+| [memory.lol](https://github.com/travisbrown/memory.lol) | Recovery | X/Twitter handle-history and numeric-ID correlation. |
+| [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/) | OPSEC | Per-investigation session and cookie compartmentalization. |
+| [Browser Developer Tools](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools) | Capture | Source-of-truth media and exact-timestamp extraction (no third party in the chain). |
 
 > Third-party "downloader" and "analytics" sites (story downloaders, follower auditors, engagement analyzers) are convenient but insert an untrusted party between you and your target, and they break constantly. Fine for triage; go to the source for anything that ends up in a report or a courtroom.
 
