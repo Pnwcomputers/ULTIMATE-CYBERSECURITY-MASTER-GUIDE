@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**A comprehensive collection of OSINT tools, techniques, methodologies, and resources**
+**A Comprehensive Collection of OSINT Tools, Techniques, Methodologies, and Resources**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -11,22 +11,6 @@
 ![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)
 
 </div>
-
----
-
-## 🎯 Purpose
-OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
-
-## ⚙️ Function
-Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
-
-## 🏆 Goal
-Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
-
-## 📋 When to Use
-- Starting an OSINT investigation and navigating to the right sub-guide
-- Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
-- Reviewing what tools and scripts are available before a recon engagement
 
 ---
 
