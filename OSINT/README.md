@@ -1,197 +1,766 @@
-# 🕵️ Social Media OSINT
+# 🔍 OSINT (Open Source Intelligence) Resources
+
+<div align="center">
+
+**A comprehensive collection of OSINT tools, techniques, methodologies, and resources**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)
+![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)
+![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)
+
+</div>
+
+---
 
 ## 🎯 Purpose
-Methodology and tooling for collecting **publicly available** intelligence from social platforms during authorized engagements - covering cross-platform pivots, per-platform collection notes, and defensible evidence handling for the OSINT Investigator Playbook.
+OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
 
 ## ⚙️ Function
-Documents the durable social media OSINT workflow: investigator OPSEC (research accounts, compartmentalization, behavioral hygiene), platform-agnostic pivots (username enumeration, numeric ID anchoring, search-engine dorking, reverse image search, archive recovery, contact enumeration), and platform-specific collection for Meta, X, TikTok, LinkedIn, Reddit, the Fediverse/Bluesky, and Snapchat/Telegram/Discord - plus evidence capture and chain-of-custody practices.
+Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
 
 ## 🏆 Goal
-Serve as the authoritative social media reference for the OSINT Investigator Playbook, giving practitioners a methodology that survives platform churn and the tradecraft to collect, attribute, and preserve social artifacts to a reportable/evidentiary standard.
+Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
 
 ## 📋 When to Use
-- Building a subject's social media footprint during an investigation
-- Pivoting a known username, real name, or profile image across platforms
-- Recovering deleted, renamed, or archived accounts and posts
-- Capturing social media artifacts for a client report or legal process
-- Deciding which platform and collection method fits the available selectors
+- Starting an OSINT investigation and navigating to the right sub-guide
+- Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
+- Reviewing what tools and scripts are available before a recon engagement
 
 ---
 
-## ⚠️ Read This First
+## 📋 Table of Contents
 
-Social media OSINT is the most volatile discipline in this guide. Platforms actively fight enumeration and scraping, kill undocumented endpoints without notice, and rotate URL structures. **Assume any platform-specific trick below has a shelf life measured in months.** The *methodology* is durable; the *implementation details* are not.
-
-Nothing here requires exploiting a vulnerability or bypassing authentication - every technique operates on data the target (or a third party) chose to make public. Even so:
-
-- **Stay in scope.** Only collect against targets covered by your rules of engagement, warrant, or client authorization. "Publicly available" is not the same as "in scope."
-- **Minimize.** Collect what the objective requires. Incidental third-party data (friends, commenters, bystanders) should be handled and retained accordingly.
-- **Know your jurisdiction.** Pretexting, ToS violations, and automated collection carry different legal weight depending on where you and the target sit. Consult the Legal & Ethical Notice in the [OSINT section README](README.md) before an engagement.
-
----
-
-## 🧰 Toolkit
-
-The workflow leans on the following tools for enumeration, capture, and recovery:
-
-| Tool | Category | Primary Function |
-| --- | --- | --- |
-| Sherlock | Enumeration | Username search across 400+ platforms. |
-| Maigret | Enumeration | Username search with profile parsing and metadata extraction. |
-| WhatsMyName | Enumeration | Community-maintained username presence checking (web + data). |
-| yt-dlp | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
-| gallery-dl | Capture | Bulk image/media download across many social platforms. |
-| Instaloader | Capture | Instagram profile and media capture (login required for most targets). |
-| ExifTool | Metadata | Metadata extraction from downloaded media. |
-| waybackpy / gau | Recovery | Historical and deleted content recovery via web archives. |
-| memory.lol | Recovery | X/Twitter handle-history and numeric-ID correlation. |
-| Firefox Multi-Account Containers | OPSEC | Per-investigation session and cookie compartmentalization. |
-| Browser Developer Tools | Capture | Source-of-truth media and exact-timestamp extraction (no third party in the chain). |
-
-> Third-party "downloader" and "analytics" sites (story downloaders, follower auditors, engagement analyzers) are convenient but insert an untrusted party between you and your target, and they break constantly. Fine for triage; go to the source for anything that ends up in a report or a courtroom.
+- [Overview](#overview)
+- [What is OSINT?](#what-is-osint)
+- [Folder Contents](#folder-contents)
+- [Quick Start](#quick-start)
+- [Legal & Ethical Notice](#legal--ethical-notice)
+- [Contributing](#contributing)
+- [Resources](#resources)
 
 ---
 
-## 🛡️ Operational Security for the Investigator
+## 🎯 Purpose
+Index and entry point for the OSINT collection - methodology, a 400+ tool catalog, investigation playbooks, and automation scripts. Distinct files serve distinct depths: [OSINT_GUIDE.md](OSINT_GUIDE.md) is the master reference, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the quick-command lookup, [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) is the exhaustive tool directory, and [Playbook/](Playbook/) is step-by-step investigation procedure.
 
-You are the easiest thing for a target to detect. Collection posture leaks intent.
+## ⚙️ Function
+Categorized folder contents table (core docs, specialized guides, scripts, case studies) plus a 4-level learning path (Fundamentals → Expert) and curated external training/community resources. This file doesn't teach OSINT itself - it routes to the file that does for a given need.
 
-**Research ("sock puppet") accounts.** Most platforms restrict search, profile viewing, and media access to authenticated users. Maintain aged, low-signal accounts dedicated to investigation - never a personal account. Aged accounts survive scrutiny better than fresh ones; stand a few up long before you need them. Expect periodic suspensions and CAPTCHA challenges; treat them as routine.
+## 🏆 Goal
+Point a reader to the right OSINT resource for their skill level and task, rather than requiring them to already know this repo's structure.
 
-**Compartmentalization.**
-- One browser profile / container per investigation account. Firefox Multi-Account Containers or dedicated browser profiles keep cookies, sessions, and fingerprints from bleeding across cases.
-- Route collection through infrastructure that isn't attributable to you or your client - a VPN or dedicated VPS, not your office egress. Repeated hits from one IP against one target are a reliable way to get flagged and to notify the target.
-- Disable link previews and "who viewed your profile"-style features where the platform offers them.
+## 📋 When to Use
+- First time navigating the OSINT/ folder - start here before OSINT_GUIDE.md
+- Deciding which specialized script (`scripts/Email_OSINT.md`, `Domain_IP_Recon.md`, `Phone_OSINT.md`) fits a given investigation type
 
-**Behavioral hygiene.** Don't like, follow, connect, add-friend, or request anything unless you fully understand the notification it triggers. A stray follow or a contact-sync prompt can burn an entire operation. Read every button before you click it.
+## 🎯 Overview
 
-**Automation is a tripwire.** Aggressive auto-scrolling, headless scraping, and rapid sequential requests are exactly what anti-abuse systems look for. Pace collection like a human. Where you must automate, test against your own accounts first to learn the detection threshold.
+This directory contains **comprehensive Open Source Intelligence (OSINT) resources** curated for cybersecurity professionals, researchers, investigators, and students. The content focuses on practical application of OSINT techniques for legitimate security research, threat intelligence, and authorized investigations.
+
+**What You'll Find Here:**
+- 📚 Complete OSINT methodology and frameworks
+- 🛠️ 400+ categorized OSINT tools with usage examples
+- 📖 Step-by-step investigation workflows
+- 🖥️ VM setup guides and automation scripts
+- 🔐 OPSEC and privacy best practices
+- ⚖️ Legal and ethical guidelines
+- 📝 Cheat sheets and quick references
 
 ---
 
-## 🔗 Cross-Platform Methodology
+## 🔎 What is OSINT?
 
-Platform-specific tricks come and go. These pivots work everywhere and should form the backbone of any social media workup.
+**Open Source Intelligence (OSINT)** is the collection and analysis of information gathered from publicly available sources. OSINT is used for:
 
-### Username pivoting
-People reuse handles. A username unique enough to matter (i.e., not `mike` or `jsmith`) is one of the highest-yield selectors you have. Take every known handle, vanity string, or distinctive bio phrase and check it across every platform of interest. Targets who lock down one platform frequently leave an identically named account wide open on another - TikTok and gaming platforms are common blind spots. Automate the first pass with `sherlock`, `maigret`, or WhatsMyName, then verify manually - a matching handle is a lead, not a confirmation.
+- **Cybersecurity**: Threat intelligence, vulnerability research, attack surface mapping
+- **Penetration Testing**: Reconnaissance phase of security assessments
+- **Incident Response**: Threat actor attribution and IOC correlation
+- **Corporate Security**: Due diligence, brand protection, competitive analysis
+- **Law Enforcement**: Investigations and intelligence gathering
+- **Research**: Academic and investigative journalism
 
-### Numeric ID vs. handle
-Nearly every major platform assigns each account a **stable numeric ID** internally while exposing a **mutable handle** publicly. The handle is what changes when a target rebrands or tries to disappear; the numeric ID does not. Capture the numeric ID early - it lets you re-locate an account after a handle change and correlate the same account across a platform's various endpoints. IDs are typically recoverable from page source, an info/API endpoint, or the URL of a piece of content. Because many platforms assign IDs sequentially or in dateable ranges, the ID can also bound an account's **creation date**.
+### Core Principles
 
-### Search-engine dorking
-A platform's internal search is usually worse than Google or Bing pointed at the same platform. Use `site:` scoping plus quoted selectors:
+✅ **Publicly Available**: Only collect information accessible to the public  
+✅ **Legally Obtained**: No hacking, unauthorized access, or circumvention  
+✅ **Ethically Collected**: Respect privacy laws and terms of service  
+✅ **Properly Documented**: Maintain chain of custody and source attribution
+
+---
+
+## 📂 Folder Contents
+
+### Core Documentation
+
+| File | Description | Status |
+|------|-------------|--------|
+| **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
+| **[OSINT Playbook](./Playbook/README.md)** | 🔄 Investigation workflows and procedures | ✅ Complete |
+| **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
+| **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
+
+### Specialized Guides
+
+| Guide | Focus Area | Status |
+|-------|------------|--------|
+| **Social_Media_OSINT.md** | Social media investigation techniques | 🔨 Planned |
+| **[Email_OSINT.md](./scripts/Email_OSINT.md)** | Email enumeration and analysis | ✅ Complete |
+| **[Domain_IP_Recon.md](./scripts/Domain_IP_Recon.md)** | Domain and infrastructure reconnaissance | ✅ Complete |
+| **[Phone_OSINT.md](./scripts/Phone_OSINT.md)** | Phone number investigation methods | ✅ Complete |
+| **Geolocation_OSINT.md** | Image analysis and geolocation | 🔨 Planned |
+| **People_Search.md** | Person investigation methodologies | 🔨 Planned |
+| **[argus_osint.md](./argus_osint.md)** | How-to for installing the Argus OSINT Python Utility | ✅ Complete |
+
+### Scripts & Automation
+
+| Directory | Contents | Status |
+|-----------|----------|--------|
+| **Playbook** | Investigation workflows and procedures | ✅ Complete |
+| **scripts** | Automation scripts for OSINT workflows | ✅ Complete |
+| **templates** | Report templates and investigation forms | 🔨 Planned |
+
+### Case Studies
+
+| Study | Description | Status |
+|-------|-------------|--------|
+| **case-studies/** | Real-world OSINT investigation examples | 🔨 Planned |
+
+---
+
+## 🚀 Quick Start
+
+### For Beginners
+
+1. **Start Here**: Read the [OSINT_GUIDE.md](./OSINT_GUIDE.md) introduction
+2. **Learn the Methodology**: Understand the OSINT intelligence cycle
+3. **Set Up Your Environment**: Follow the VM setup guide
+4. **Practice**: Try the investigation workflows on authorized targets
+5. **Stay Legal**: Review the legal and ethical considerations section
+
+### For Experienced Practitioners
+
+1. **Tool Reference**: Jump to the Core OSINT Tools section
+2. **Advanced Workflows**: Review domain/company investigation procedures
+3. **Automation**: Check the scripts directory for time-saving tools
+4. **Cheat Sheets**: Use quick reference guides for common commands
+
+### Essential Tools to Install First
+
+```bash
+# Core OSINT toolkit (Top 10)
+1. theHarvester - Email/subdomain harvesting
+2. Sherlock - Username search across platforms
+3. Recon-ng - Reconnaissance framework
+4. Amass - Network mapping (OWASP)
+5. SpiderFoot - Automated OSINT
+6. Maltego - Link analysis and visualization
+7. Photon - Fast web crawler
+8. H8mail - Email breach hunting
+9. Holehe - Email account enumeration
+10. PhoneInfoga - Phone number intelligence
+```
+
+See [OSINT_GUIDE.md - VM Setup](./OSINT_GUIDE.md#osint-vm-setup) for complete installation instructions.
+
+---
+
+## ⚖️ Legal & Ethical Notice
+
+### 🔴 CRITICAL: Read Before Using Any OSINT Techniques
 
 ```
-site:instagram.com "targethandle"
-site:instagram.com "@targethandle"           # posts mentioning the target, not the target's own
-site:tiktok.com "targethandle"
-site:x.com "targethandle" "instagram.com/p"   # cross-links to their other accounts
-site:threads.net OR site:bsky.app OR site:mastodon.social "targethandle"
+⚠️ LEGAL USE ONLY ⚠️
+
+This content is provided for:
+✅ Educational purposes
+✅ Authorized security research
+✅ Legal investigations with proper authority
+✅ Ethical intelligence gathering within legal boundaries
+
+STRICTLY PROHIBITED:
+🚫 Stalking, harassment, or doxxing
+🚫 Unauthorized access to systems or data
+🚫 Violations of privacy laws (GDPR, CCPA, etc.)
+🚫 Circumventing security measures
+🚫 Social engineering or pretexting
+🚫 Any illegal activities
+
+ALWAYS:
+- Obtain proper authorization before investigations
+- Respect all applicable laws and regulations
+- Follow website terms of service
+- Consider privacy and ethical implications
+- Document your sources and methods
+- Consult legal counsel when in doubt
 ```
 
-Repeat across Google, Bing, and Yandex - index coverage differs, and each surfaces content the others miss. Quoting a comment string or bio phrase, rather than a handle, catches mentions the target doesn't control.
+### Applicable Laws & Regulations
 
-### Reverse image search on profile media
-Profile photos and avatars are frequently reused across platforms and dating/forum accounts. Pull the **highest-resolution** version available (thumbnails defeat the match) and run it through Google Lens, Yandex, PimEyes, and TinEye. This is often the fastest way to jump from one account to a target's broader footprint. See [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) for the reverse-image and facial-recognition tooling.
+- **United States**: Computer Fraud and Abuse Act (CFAA), Electronic Communications Privacy Act (ECPA)
+- **European Union**: General Data Protection Regulation (GDPR)
+- **California**: California Consumer Privacy Act (CCPA)
+- **State Laws**: Various state privacy and computer crime statutes
+- **International**: Laws vary by jurisdiction - know your local regulations
 
-### Deleted & historical content
-Deletion on the client is not deletion everywhere.
-- **Wayback Machine** (`web.archive.org/web/*/URL`) - profile snapshots, sometimes including removed posts and, historically, likes/activity pages.
-- **Search-engine caches** - largely degraded now that Google retired its cache button, but other engines retain limited functionality.
-- **Handle-history services** (e.g., `memory.lol` for X) - map current numeric IDs back to prior handles and vice versa.
-- Pull the numeric ID *before* content disappears; it's your anchor for archive lookups afterward.
-
-### Contact-import enumeration
-Some mobile apps confirm whether a given email or phone maps to an account when you add it to a device's contacts and let the app "find friends." Powerful for tying a selector to an account, but **high-risk**: it can notify the target and can flag your account. Use a clean, single-contact device or emulator, understand the notification behavior for that specific app version, and never run it from an account you can't afford to lose.
+**Unauthorized access is a crime.** This collection is for educational and authorized testing purposes only.
 
 ---
 
-## 🌐 Platform Notes
+## 🎓 Learning Path
 
-Platform sections are deliberately brief and principle-focused, because specifics rot fast. Where a technique depends on a URL pattern or endpoint, treat it as an example of the *approach*, not a guaranteed-working recipe.
+### Level 1: Fundamentals
+- [ ] Understand OSINT principles and methodology
+- [ ] Learn basic Google dorking
+- [ ] Practice username enumeration
+- [ ] Set up basic OSINT tools
 
-### Meta (Facebook / Instagram / Threads)
-The highest-value, highest-friction ecosystem. Meta has spent years dismantling the enumeration techniques that made Facebook Graph the crown jewel of OSINT, and continues to.
-- **Real names** - Facebook is the platform where targets most often use their real identity, tied to employer, school, and location, making filtered name search viable when it fails elsewhere.
-- **Numeric UIDs** are recoverable from profile page source and anchor deeper queries. Page, event, and group objects carry their own IDs; city/place IDs appear in place URLs.
-- **URL-addressable profile sections** (about, work, education, friends, photos, check-ins) let you methodically walk a profile rather than trusting the default view to surface everything.
-- **Selector confirmation** via the password-reset flow can confirm an email/phone maps to an account and may reveal a masked recovery selector. Run it logged-out, from non-attributable infrastructure - repeated attempts can flag the session or notify the account holder.
-- **Threads** rides on Instagram credentials: same numeric ID as the paired Instagram account, so it's a free pivot, though many users never actively post there.
-- **Instagram** requires login for essentially everything useful. Numeric user IDs and an info endpoint let you translate an ID back into a current handle after a rename. Dev-tools Network capture is the clean path to full-res media and exact (Unix) post timestamps.
+### Level 2: Intermediate
+- [ ] Master subdomain enumeration
+- [ ] Conduct full domain reconnaissance
+- [ ] Perform social media investigations
+- [ ] Use automation frameworks (Recon-ng, SpiderFoot)
 
-### X (Twitter)
-The API paywall (2023) gutted the third-party tooling ecosystem, but the native **search operators** are still the most powerful text-search primitives of any major platform. Learn them instead of the advanced-search GUI - operators are scriptable, documentable, and monitor-able.
+### Level 3: Advanced
+- [ ] Dark web investigation techniques
+- [ ] Advanced geolocation analysis
+- [ ] Threat intelligence correlation
+- [ ] Custom script development
+- [ ] Complex case investigations
 
-| Operator | Effect |
-| --- | --- |
-| `from:handle` | Posts authored by the account |
-| `to:handle` | Posts directed at the account (incoming - often more revealing than outgoing) |
-| `@handle` | Mentions |
-| `since:YYYY-MM-DD` / `until:YYYY-MM-DD` | Date bounding |
-| `geocode:lat,long,Nkm` | Posts within radius N of coordinates (reliable radii: 1/5/10/25; `mi` also valid) |
-| `filter:links` / `filter:replies` / `filter:media` | Content-type filters (negate with `-`) |
-| `min_faves:N` / `min_replies:N` | Engagement thresholds |
-| `url:domain.tld` | Posts linking to a domain |
-| `"exact phrase"` … `term OR term` | Mandatory phrase + optional terms (OR must be uppercase) |
-
-Combine operators for surgical queries and to page through years of history one interval at a time when the profile timeline won't scroll far enough back. Geo-tagged posts are now rare (location defaults to off), so a null geo result rules out nothing. For deleted/renamed accounts, use archives plus `memory.lol` for handle history. `OldTweetDeck` restores much of the retired TweetDeck monitoring workflow for live column-based tracking.
-
-### TikTok
-Now a primary source for targets under ~30, and frequently where a target who locked down everything else is still posting publicly under the same handle.
-- **URL-addressable** profiles, tag pages, user search, and video search - many accessible without login, some gated.
-- Three source-code identifiers per profile: numeric `id`, `uniqueId` (handle), and `nickname` (non-unique vanity string). The numeric ID is your stable anchor.
-- **`yt-dlp` is the right tool** for pulling videos plus a rich platform-generated metadata JSON (upload date/time, view/like/comment counts, codecs, dimensions, channel IDs) - far more defensible than native right-click save.
-- Exact upload time is recoverable from a Unix timestamp in page source when you need precision beyond the displayed date.
-- Comments are reachable as JSON via the Network tab (`comment/list` endpoint) for structured export.
-
-### LinkedIn
-Underused in social OSINT and invaluable for **corporate reconnaissance and pretext development**: org charts, tenure, tooling and tech-stack mentions in job posts, reporting lines, and employee enumeration. Aggressive against logged-in scraping and profile-view notifications - mind your research account and never view a target while logged into an attributable profile. Google dorking (`site:linkedin.com/in "Company" "Title"`) surfaces profiles without tripping in-platform view alerts.
-
-### Reddit
-Pseudonymous but often startlingly self-documenting. A single username maps to a complete post/comment history via `reddit.com/user/handle`. Public API and third-party tools expose per-user activity aggregation - subreddit participation, active hours (timezone inference), recurring topics, and self-disclosures. Reddit handles are prime candidates for cross-platform pivots. Pushshift-style historical corpora (availability varies) recover deleted/edited comments.
-
-### The Fediverse & Bluesky
-Platform migration is an intelligence opportunity: displaced users recreate accounts under familiar handles.
-- **Bluesky** (`bsky.app`) - federated, open, easy to search; popular with technical audiences. Low friction to investigate.
-- **Mastodon** / the wider fediverse - instance-fragmented, so search is per-instance; `site:` dorking across common instances helps locate accounts.
-- **Threads** - see Meta above.
-
-Pivot known handles here whenever a target's primary platform activity drops off.
-
-### Snapchat / Telegram / Discord
-- **Snapchat** - ephemeral by design; primary public surfaces are Snap Map (geolocated public stories) and the Spotlight feed. Little persistent public footprint.
-- **Telegram** - public channel/group content is broadly searchable and a major venue for leaked/breach data; treat channel names and forwarded-message provenance as selectors. Handle any breach material per your engagement's data-handling policy; see breach tooling (H8mail, Intelligence X, LeakLookup) in [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md).
-- **Discord** - largely closed; public intelligence is limited to invite-linked public servers and third-party server directories. Membership enumeration generally requires being in the server.
+### Level 4: Expert
+- [ ] Tool development and customization
+- [ ] Advanced OPSEC and counter-OSINT
+- [ ] Teaching and mentoring others
+- [ ] Contributing to OSINT community
 
 ---
 
-## 🗄️ Evidence Handling
+## 📚 Recommended Resources
 
-If collection might support a report, a client deliverable, or legal process, capture it so a third party can trust it.
+### Training & Certifications
 
-- **Capture from the source.** Prefer dev-tools/native capture over third-party downloaders you can't attest to. You should be able to describe exactly how each artifact was obtained.
-- **Record provenance for every artifact:** full URL, numeric account ID, collection date/time (with timezone), and the account/infrastructure used to collect.
-- **Preserve timestamps.** Convert and record platform Unix timestamps to a documented standard (UTC), and note the display value you saw alongside the precise value.
-- **Hash media** on acquisition (SHA-256) and record the hash so integrity is provable later.
-- **Screenshot *and* save source/media.** A screenshot shows context; the saved file and its metadata prove content. Keep both.
-- **Don't alter accounts.** Any like, follow, or comment you leave is both an OPSEC failure and a contamination of the evidentiary record.
+- **[IntelTechniques by Michael Bazzell](https://inteltechniques.com)** - Books, training, tools
+- **[Trace Labs](https://www.tracelabs.org)** - OSINT for missing persons, CTF competitions
+- **[SANS SEC487](https://www.sans.org/cyber-security-courses/open-source-intelligence-gathering/)** - Professional OSINT training
+- **[TCM Security OSINT Course](https://tcm-sec.com/academy/)** - Practical OSINT training
+
+### Essential Books
+
+1. **"Open Source Intelligence Techniques" by Michael Bazzell** ⭐ Must Read
+2. **"OSINT Handbook" by i-intelligence** (Free)
+3. **"Social Engineering" by Christopher Hadnagy**
+4. **"The Art of Invisibility" by Kevin Mitnick**
+
+### Communities
+
+- **Reddit**: r/OSINT, r/SocialEngineering
+- **Discord**: Trace Labs, OSINT Curious
+- **Twitter**: #OSINT hashtag
+- **Blogs**: Bellingcat, IntelTechniques, Sector035
+
+### Practice Platforms
+
+- **Trace Labs CTF** - Missing persons OSINT competitions
+- **OSINT Exercises (Gralhix)** - gralhix.com/list-of-osint-exercises
+- **TryHackMe** - OSINT learning paths
+- **Sector035 Quizzes** - Weekly OSINT exercises
 
 ---
+
+## 🤝 Contributing
+
+This OSINT knowledge base is continuously growing. Contributions are welcome!
+
+### How to Contribute
+
+1. **Tools**: Submit new OSINT tools with descriptions and examples
+2. **Techniques**: Share investigation methodologies and workflows
+3. **Scripts**: Contribute automation scripts or improvements
+4. **Case Studies**: Submit anonymized investigation examples (with authorization)
+5. **Documentation**: Improve existing guides, fix errors, add clarifications
+6. **Resources**: Share training materials, articles, or tutorials
+
+### Contribution Guidelines
+
+- ✅ Only submit legally and ethically obtained information
+- ✅ Test all tools and commands before submission
+- ✅ Provide proper attribution and credits
+- ✅ Include warnings for sensitive or advanced techniques
+- ✅ Follow markdown formatting standards
+- ✅ Redact any sensitive or personal information
+
+**Submit via**: Pull requests on the main repository or open an issue with suggestions
+
+---
+
+## 🔗 Quick Links
+
+### Internal Links
+- [🏠 Main Repository](../README.md)
+- [📘 Master OSINT Guide](./OSINT_GUIDE.md)
+- [🎯 START HERE Guide](../START_HERE.md)
+- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
+
+### External Resources
+- [OSINT Framework](https://osintframework.com) - Comprehensive tool directory
+- [Awesome OSINT](https://github.com/jivoi/awesome-osint) - Curated GitHub list
+- [Bellingcat's Toolkit](https://www.bellingcat.com) - Investigative resources
+- [IntelTechniques Tools](https://inteltechniques.com/tools/) - Free OSINT tools
+
+---
+
+## 📊 Repository Statistics
+
+```
+📁 Total Files: Growing collection
+🛠️ Tools Documented: 400+
+📖 Guides: Core guide complete, more coming
+🔄 Last Updated: November 2024
+👥 Maintained by: Pacific Northwest Computers (PNWC)
+```
+
+---
+
+## 🎯 Use Cases
+
+This OSINT collection supports:
+
+### Security Professionals
+- Penetration testing reconnaissance
+- Vulnerability research
+- Threat intelligence gathering
+- Attack surface mapping
+
+### Investigators
+- Background checks (authorized)
+- Due diligence research
+- Fraud investigations
+- Missing persons cases (with authority)
+
+### Researchers
+- Academic research
+- Investigative journalism
+- Open source intelligence studies
+- Security awareness training
+
+### Students
+- Learning OSINT methodologies
+- Practicing ethical hacking skills
+- Preparing for certifications (CEH, OSCP, GPEN)
+- Building security career skills
+
+---
+
+## ⚡ Recent Updates
+
+### November 2024
+- ✅ Created comprehensive OSINT Master Guide (27KB)
+- ✅ Documented 400+ OSINT tools with examples
+- ✅ Added complete methodology and workflows
+- ✅ Included VM setup guides and scripts
+- ✅ Established folder structure for future content
+
+### Coming Soon
+- 🔨 Individual tool deep-dive guides
+- 🔨 Investigation workflow templates
+- 🔨 Automation script collection
+- 🔨 Video tutorials and demonstrations
+- 🔨 Case study examples
+
+---
+
+## 💬 Feedback & Support
+
+### Questions or Issues?
+- Open an issue on GitHub
+- Check existing documentation first
+- Be specific about your use case
+- Include relevant details (OS, tools, errors)
+
+### Feature Requests
+- Suggest new tools to document
+- Propose new investigation workflows
+- Request specific guides or tutorials
+- Share ideas for improvements
+
+### Community
+- Join discussions on GitHub
+- Share your OSINT successes (ethically)
+- Help others in the community
+- Contribute back to the project
+
+---
+
+## 📜 License & Disclaimer
+
+### Copyright & Attribution
+
+This OSINT resource collection is part of the ULTIMATE CYBERSECURITY MASTER GUIDE:
+- Compiled by **Pacific Northwest Computers (PNWC)**
+- Content sourced from 70+ professional cybersecurity books
+- Tools and techniques from industry-leading researchers
+- Community contributions from OSINT practitioners
+
+All tools referenced are property of their respective creators. This is an educational resource compilation under fair use. Purchase original books and support tool developers.
+
+### Disclaimer
+
+```
+THE AUTHORS AND CONTRIBUTORS PROVIDE THIS CONTENT "AS IS" WITHOUT
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. USE AT YOUR OWN RISK.
+
+The maintainers assume no liability for:
+- Misuse of information or tools
+- Legal consequences of unauthorized activities
+- Privacy violations or harm caused
+- Accuracy of third-party resources
+- Outcomes of OSINT investigations
+
+Users are responsible for:
+- Complying with all applicable laws
+- Obtaining proper authorization
+- Ethical use of techniques
+- Consequences of their actions
+```
+
+---
+
+## 🌟 Acknowledgments
+
+This OSINT collection wouldn't exist without:
+
+### OSINT Pioneers
+- **Michael Bazzell** - IntelTechniques, Buscador VM
+- **Trace Labs Community** - OSINT VM, CTF competitions
+- **Bellingcat** - Open source investigative journalism
+- **Sector035** - OSINT education and resources
+
+### Tool Developers
+- Christian Martorella (theHarvester)
+- Sherlock Project Team
+- Steve Micallef (SpiderFoot)
+- Tim Tomes (Recon-ng)
+- OWASP Team (Amass)
+- ProjectDiscovery Team (Subfinder, Nuclei)
+- And 400+ other tool creators
+
+### Organizations
+- OWASP Foundation
+- SANS Institute
+- IntelTechniques
+- Trace Labs
+- Open Source Intelligence Community
+
+**Thank you for making OSINT accessible to everyone.**
+
+---
+
+<div align="center">
+
+**📖 Start Your OSINT Journey: [Read the Master Guide](./OSINT_GUIDE.md)**
+
+*Use this knowledge responsibly, ethically, and legally.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+
+⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+
+⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
+
+***
+
+## Security, Legal, and Ethical Considerations ⚠️
+
+### 🔴 CRITICAL: Legal and Ethical OSINT Use Only
+
+**OSINT involves collecting publicly available information - but "public" does NOT mean "unrestricted use."**
+
+### Legal Framework & Compliance
+
+**ALWAYS comply with applicable laws:**
+
+#### United States
+- **Computer Fraud and Abuse Act (CFAA)**: Prohibits unauthorized access and exceeding authorized access to computer systems
+- **Electronic Communications Privacy Act (ECPA)**: Protects electronic communications and stored data
+- **State Privacy Laws**: Many states have additional privacy and anti-stalking statutes
+- **California Consumer Privacy Act (CCPA)**: Regulates collection and use of California residents' data
+
+#### European Union
+- **General Data Protection Regulation (GDPR)**: Strict regulations on personal data processing
+  - Applies to EU residents' data regardless of investigator location
+  - Requires lawful basis for data processing
+  - Includes "right to be forgotten" and data minimization principles
+
+#### International
+- Laws vary significantly by jurisdiction
+- Some countries restrict OSINT activities more strictly than others
+- Cross-border investigations may trigger multiple legal frameworks
+
+### Terms of Service (ToS) Compliance
+```
+⚠️ Violating website Terms of Service can result in:
+- Legal action from the website operator
+- Account termination and IP bans
+- Civil lawsuits for damages
+- Potential CFAA violations in some cases
+```
+
+**Many websites explicitly prohibit:**
+- Automated scraping or data collection
+- Creating fake accounts or misrepresentation
+- Accessing data through unauthorized means
+- Commercial use of collected data
+
+**ALWAYS review and comply with ToS before collecting data from any platform.**
+
+---
+
+### ✅ Legal Use Cases for OSINT
+
+**Authorized and Legitimate Uses:**
+
+- ✅ **Cybersecurity Threat Intelligence**: Identifying threats to your organization
+- ✅ **Authorized Penetration Testing**: Reconnaissance phase with written authorization
+- ✅ **Incident Response**: Threat actor attribution and IOC correlation
+- ✅ **Corporate Due Diligence**: Business intelligence with proper authorization
+- ✅ **Law Enforcement Investigations**: With proper legal authority and warrants
+- ✅ **Missing Persons Cases**: Authorized search and rescue operations (e.g., Trace Labs)
+- ✅ **Investigative Journalism**: Public interest reporting within legal bounds
+- ✅ **Academic Research**: Ethical research with IRB approval
+- ✅ **Personal Security**: Monitoring your own digital footprint
+- ✅ **Background Checks**: With consent and for legitimate purposes
+- ✅ **Fraud Prevention**: Protecting your organization from fraud
+- ✅ **Competitive Intelligence**: Ethical business research from public sources
+- ✅ **Educational Purposes**: Learning in controlled, authorized environments
+- ✅ **CTF Competitions**: Authorized OSINT challenges (Trace Labs, etc.)
+
+---
+
+### 🚫 PROHIBITED Uses - Zero Tolerance
+
+**The following activities are ILLEGAL and UNETHICAL:**
+
+- 🚫 **Stalking or Harassment**: Using OSINT to follow, intimidate, or harass individuals
+- 🚫 **Doxxing**: Publishing private information with intent to harm
+- 🚫 **Identity Theft**: Using collected information to impersonate or defraud
+- 🚫 **Blackmail or Extortion**: Threatening to release information for gain
+- 🚫 **Unauthorized Private Investigation**: Operating without proper licensing
+- 🚫 **Invasion of Privacy**: Collecting information beyond legal scope
+- 🚫 **Corporate Espionage**: Using illegal methods for competitive advantage
+- 🚫 **Unauthorized Access**: Circumventing security or authentication
+- 🚫 **Social Engineering**: Pretexting or deception to obtain information
+- 🚫 **Child Endangerment**: Any activity that could harm minors
+- 🚫 **Discrimination**: Using OSINT for discriminatory purposes
+- 🚫 **Revenge or Retaliation**: Personal vendettas or grudges
+
+---
+
+### Ethical Guidelines for OSINT Practitioners
+
+#### Core Principles
+
+1. **Respect Privacy**: Collect only what is necessary for your legitimate purpose
+2. **Do No Harm**: Consider the potential consequences of your investigation
+3. **Transparency**: Understand who you're working for and why
+4. **Legal Compliance**: Follow all applicable laws and regulations
+5. **Professional Standards**: Maintain objectivity, accuracy, and integrity
+6. **Data Minimization**: Collect the minimum information needed
+7. **Proper Storage**: Protect collected data from unauthorized access
+8. **Responsible Disclosure**: Report security issues through proper channels
+
+#### Before Starting Any Investigation
+
+**Ask yourself:**
+- Do I have legal authority or authorization for this investigation?
+- What is my legitimate purpose for collecting this information?
+- Am I respecting individual privacy and dignity?
+- Could my actions cause harm to individuals or organizations?
+- Am I complying with all applicable laws and regulations?
+- Am I following ethical guidelines for my profession?
+- Would I be comfortable if my methods were made public?
+
+---
+
+### Operational Security (OPSEC) Requirements
+
+**Protect yourself and your investigation:**
+
+#### Network Security
+- ✅ **ALWAYS use VPN or Tor** for OSINT activities
+- ✅ Use dedicated networks separate from personal/corporate
+- ✅ Employ VM snapshots for clean investigative states
+- ✅ Rotate IP addresses and user agents regularly
+
+#### Identity Protection
+- ✅ Use burner accounts for social media reconnaissance
+- ✅ Never use personal accounts for investigations
+- ✅ Create detailed, believable sock puppet personas
+- ✅ Use separate email addresses for each persona
+- ✅ Use virtual phone numbers (never personal numbers)
+
+#### Data Security
+- ✅ Encrypt all collected investigation data
+- ✅ Use secure storage with access controls
+- ✅ Maintain proper chain of custody for evidence
+- ✅ Securely delete data when no longer needed
+- ✅ Follow data retention policies and regulations
+
+---
+
+### Documentation & Evidence Handling
+
+**Proper documentation is essential:**
+
+#### Required Practices
+- 📝 Screenshot everything with timestamps
+- 📝 Archive web pages (archive.is, Wayback Machine)
+- 📝 Record video for dynamic content
+- 📝 Log all commands and queries used
+- 📝 Document sources for all information
+- 📝 Calculate and verify file hashes
+- 📝 Maintain detailed investigation notes
+- 📝 Preserve metadata where relevant
+
+#### Chain of Custody
+- Maintain unbroken documentation of evidence handling
+- Use write-blockers for forensic data
+- Store multiple copies in different locations
+- Follow proper legal procedures for evidence preservation
+
+---
+
+### International Considerations
+
+**OSINT crosses borders - laws vary:**
+
+- 🌍 **Jurisdiction Matters**: Different countries have different privacy laws
+- 🌍 **Data Protection**: EU GDPR, UK DPA, Brazil LGPD, etc.
+- 🌍 **Cultural Sensitivity**: Respect cultural norms and expectations
+- 🌍 **Legal Authority**: Some techniques legal in one country may be illegal in another
+- 🌍 **Export Controls**: Some tools may be restricted for international use
+
+---
+
+### Red Lines - NEVER Cross These Boundaries
+```
+🔴 Automated actions that violate ToS
+🔴 Circumventing authentication or security measures
+🔴 Accessing protected or private information without authorization
+🔴 Social engineering, pretexting, or deception
+🔴 Creating accounts with false information (unless authorized)
+🔴 Distributed denial of service or system disruption
+🔴 Exploiting vulnerabilities without authorization
+🔴 Sharing collected intelligence for illegal purposes
+🔴 Conducting investigations for stalking or harassment
+🔴 Using OSINT to facilitate any illegal activity
+```
+
+---
+
+### Disclaimer & Liability
+```
+⚠️ IMPORTANT LEGAL NOTICE ⚠️
+
+The authors, contributors, and maintainers of this OSINT resource:
+
+- Provide this content "AS IS" without warranty of any kind
+- Assume NO liability for misuse of information or tools
+- Are NOT responsible for legal consequences of unauthorized activities
+- Do NOT endorse any illegal or unethical use of these techniques
+- Strongly advocate for legal, ethical, and authorized OSINT only
+
+USERS ARE SOLELY RESPONSIBLE FOR:
+✓ Ensuring their activities comply with all applicable laws
+✓ Obtaining proper authorization before conducting investigations
+✓ Understanding and following ethical guidelines
+✓ Respecting individual privacy and dignity
+✓ Consequences of their actions and investigations
+
+This content is for educational purposes and authorized security research only.
+Unauthorized or unethical use is strictly prohibited.
+
+WHEN IN DOUBT, CONSULT LEGAL COUNSEL.
+```
+
+---
+
+### Professional Licensing Requirements
+
+**Some jurisdictions require licensing for:**
+- Private investigation services
+- Security consulting
+- Background check services
+- Due diligence research
+
+**Check your local requirements before offering OSINT services commercially.**
+
+---
+
+### Reporting Concerns
+
+**If you discover:**
+- ❗ Criminal activity during OSINT investigations
+- ❗ Child endangerment or exploitation
+- ❗ Threats to public safety
+- ❗ Security vulnerabilities in critical systems
+
+**Take appropriate action:**
+1. Document findings securely
+2. Report to appropriate authorities (law enforcement, CERT, etc.)
+3. Follow responsible disclosure practices
+4. Consult with legal counsel if uncertain
+
+---
+
+### Zero Tolerance for Abuse
+
+This OSINT resource collection has **zero tolerance** for misuse. We strongly condemn:
+- Stalking, harassment, and doxxing
+- Privacy violations and unauthorized surveillance
+- Discrimination and hate crimes
+- Any illegal or unethical activities
+
+**Use OSINT for good. Protect people. Respect privacy. Follow the law.**
+
+---
+
+### Final Reminder
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  OSINT is a powerful capability that must be used           │
+│  responsibly and ethically.                                 │
+│                                                             │
+│  With great power comes great responsibility.              │
+│                                                             │
+│  Your actions can impact real people's lives.              │
+│                                                             │
+│  Always operate within legal and ethical boundaries.       │
+│                                                             │
+│  When in doubt - DON'T.                                    │
+│  Consult legal counsel and ethical guidelines.             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Last Updated**: November 2025  
+**Review this disclaimer regularly as laws and regulations evolve.**
 
 ## Related Files
-- [README.md](README.md) - OSINT section index (contains the Legal, Ethical & OPSEC framework)
-- [OSINT_GUIDE.md](OSINT_GUIDE.md) - Master OSINT methodology guide
-- [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick command reference
-- [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Full tool catalog and API configuration
-- [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook that orchestrates these tools
+- [OSINT_GUIDE.md](OSINT_GUIDE.md) - Basic/general OSINT methodology guide
+- [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick-reference tool and command cheat sheet
+- [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Full toolkit catalog
+- [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook for fraud investigations
 - [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - Advanced OSINT and threat intelligence techniques
-
----
-
-*This document covers publicly available information collection during authorized engagements only. See the Legal & Ethical Notice in the [OSINT section README](README.md) and the [Tradecraft](../Tradecraft/osint-threat-intel.md) guide for scope, authorization, and OPSEC requirements.*
-
-## 📚 Further Reading
-- Michael Bazzell, *Open Source Intelligence Techniques* - the standard reference for platform-by-platform social media collection; his `inteltechniques.com/tools` offline suite automates much of the URL construction described above. Treat any specific technique in print as a snapshot in time.
-- [OSINT Framework](https://osintframework.com/) - curated tool directory.
-- [Bellingcat's Online Investigation Toolkit](https://bit.ly/bcattools) - practitioner-maintained.
