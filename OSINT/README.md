@@ -14,6 +14,22 @@
 
 ---
 
+## 🎯 Purpose
+OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
+
+## ⚙️ Function
+Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, specialized platform guides (social media, email, domain/IP, phone), and recon scripts.
+
+## 🏆 Goal
+Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
+
+## 📋 When to Use
+- Starting an OSINT investigation and navigating to the right sub-guide
+- Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
+- Reviewing what tools and scripts are available before a recon engagement
+
+---
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -25,19 +41,6 @@
 - [Resources](#resources)
 
 ---
-
-## 🎯 Purpose
-Index and entry point for the OSINT collection - methodology, a 400+ tool catalog, investigation playbooks, and automation scripts. Distinct files serve distinct depths: [OSINT_GUIDE.md](OSINT_GUIDE.md) is the master reference, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the quick-command lookup, [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) is the exhaustive tool directory, and [Playbook/](Playbook/) is step-by-step investigation procedure.
-
-## ⚙️ Function
-Categorized folder contents table (core docs, specialized guides, scripts, case studies) plus a 4-level learning path (Fundamentals → Expert) and curated external training/community resources. This file doesn't teach OSINT itself - it routes to the file that does for a given need.
-
-## 🏆 Goal
-Point a reader to the right OSINT resource for their skill level and task, rather than requiring them to already know this repo's structure.
-
-## 📋 When to Use
-- First time navigating the OSINT/ folder - start here before OSINT_GUIDE.md
-- Deciding which specialized script (`scripts/Email_OSINT.md`, `Domain_IP_Recon.md`, `Phone_OSINT.md`) fits a given investigation type
 
 ## 🎯 Overview
 
@@ -89,7 +92,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 | Guide | Focus Area | Status |
 |-------|------------|--------|
-| **Social_Media_OSINT.md** | Social media investigation techniques | 🔨 Planned |
+| **[Social_Media_OSINT.md](./Social_Media_OSINT.md)** | Social media investigation - cross-platform methodology + Meta, X, TikTok, LinkedIn, Reddit, Fediverse, Telegram/Discord | ✅ Complete |
 | **[Email_OSINT.md](./scripts/Email_OSINT.md)** | Email enumeration and analysis | ✅ Complete |
 | **[Domain_IP_Recon.md](./scripts/Domain_IP_Recon.md)** | Domain and infrastructure reconnaissance | ✅ Complete |
 | **[Phone_OSINT.md](./scripts/Phone_OSINT.md)** | Phone number investigation methods | ✅ Complete |
@@ -301,7 +304,7 @@ This OSINT knowledge base is continuously growing. Contributions are welcome!
 📁 Total Files: Growing collection
 🛠️ Tools Documented: 400+
 📖 Guides: Core guide complete, more coming
-🔄 Last Updated: November 2024
+🔄 Last Updated: July 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 ```
 
@@ -339,6 +342,9 @@ This OSINT collection supports:
 
 ## ⚡ Recent Updates
 
+### July 2026
+- ✅ Added **[Social Media OSINT](./Social_Media_OSINT.md)** guide - cross-platform methodology (username pivoting, numeric-ID anchoring, dorking, archive recovery), per-platform collection for Meta/X/TikTok/LinkedIn/Reddit/Fediverse/Telegram/Discord, investigator OPSEC, and evidence handling
+
 ### November 2024
 - ✅ Created comprehensive OSINT Master Guide (27KB)
 - ✅ Documented 400+ OSINT tools with examples
@@ -347,10 +353,9 @@ This OSINT collection supports:
 - ✅ Established folder structure for future content
 
 ### Coming Soon
-- 🔨 Individual tool deep-dive guides
+- 🔨 Geolocation & image analysis guide (Geolocation_OSINT.md)
+- 🔨 People search methodology guide (People_Search.md)
 - 🔨 Investigation workflow templates
-- 🔨 Automation script collection
-- 🔨 Video tutorials and demonstrations
 - 🔨 Case study examples
 
 ---
@@ -739,12 +744,14 @@ This OSINT resource collection has **zero tolerance** for misuse. We strongly co
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Last Updated**: November 2025  
+**Last Updated**: July 2026  
 **Review this disclaimer regularly as laws and regulations evolve.**
 
 ## Related Files
 - [OSINT_GUIDE.md](OSINT_GUIDE.md) - Basic/general OSINT methodology guide
 - [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick-reference tool and command cheat sheet
 - [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Full toolkit catalog
+- [Social_Media_OSINT.md](Social_Media_OSINT.md) - Social media investigation methodology and per-platform collection
+- [Social_Media_OSINT.md](Social_Media_OSINT.md) - Social media investigation methodology and per-platform collection
 - [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook for fraud investigations
 - [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - Advanced OSINT and threat intelligence techniques
