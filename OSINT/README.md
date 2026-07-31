@@ -14,22 +14,6 @@
 
 ---
 
-## 🎯 Purpose
-OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
-
-## ⚙️ Function
-Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
-
-## 🏆 Goal
-Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
-
-## 📋 When to Use
-- Starting an OSINT investigation and navigating to the right sub-guide
-- Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
-- Reviewing what tools and scripts are available before a recon engagement
-
----
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
