@@ -26,7 +26,7 @@ Nothing here requires exploiting a vulnerability or bypassing authentication - e
 
 - **Stay in scope.** Only collect against targets covered by your rules of engagement, warrant, or client authorization. "Publicly available" is not the same as "in scope."
 - **Minimize.** Collect what the objective requires. Incidental third-party data (friends, commenters, bystanders) should be handled and retained accordingly.
-- **Know your jurisdiction.** Pretexting, ToS violations, and automated collection carry different legal weight depending on where you and the target sit. Consult the [Legal](../legal/) section before an engagement.
+- **Know your jurisdiction.** Pretexting, ToS violations, and automated collection carry different legal weight depending on where you and the target sit. Consult the Legal & Ethical Notice in the [OSINT section README](README.md) before an engagement.
 
 ---
 
@@ -93,7 +93,7 @@ site:threads.net OR site:bsky.app OR site:mastodon.social "targethandle"
 Repeat across Google, Bing, and Yandex - index coverage differs, and each surfaces content the others miss. Quoting a comment string or bio phrase, rather than a handle, catches mentions the target doesn't control.
 
 ### Reverse image search on profile media
-Profile photos and avatars are frequently reused across platforms and dating/forum accounts. Pull the **highest-resolution** version available (thumbnails defeat the match) and run it through Google Lens, Yandex, PimEyes, and TinEye. This is often the fastest way to jump from one account to a target's broader footprint. Full reverse-image tradecraft is in the [Images](../images/) section.
+Profile photos and avatars are frequently reused across platforms and dating/forum accounts. Pull the **highest-resolution** version available (thumbnails defeat the match) and run it through Google Lens, Yandex, PimEyes, and TinEye. This is often the fastest way to jump from one account to a target's broader footprint. See [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) for the reverse-image and facial-recognition tooling.
 
 ### Deleted & historical content
 Deletion on the client is not deletion everywhere.
@@ -161,7 +161,7 @@ Pivot known handles here whenever a target's primary platform activity drops off
 
 ### Snapchat / Telegram / Discord
 - **Snapchat** - ephemeral by design; primary public surfaces are Snap Map (geolocated public stories) and the Spotlight feed. Little persistent public footprint.
-- **Telegram** - public channel/group content is broadly searchable and a major venue for leaked/breach data; treat channel names and forwarded-message provenance as selectors. Handle breach material per the [Breach Data](../breach-data/) section.
+- **Telegram** - public channel/group content is broadly searchable and a major venue for leaked/breach data; treat channel names and forwarded-message provenance as selectors. Handle any breach material per your engagement's data-handling policy; see breach tooling (H8mail, Intelligence X, LeakLookup) in [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md).
 - **Discord** - largely closed; public intelligence is limited to invite-linked public servers and third-party server directories. Membership enumeration generally requires being in the server.
 
 ---
@@ -180,17 +180,16 @@ If collection might support a report, a client deliverable, or legal process, ca
 ---
 
 ## Related Files
-- `README.md` - OSINT section index
-- `OSINT_CHEATSHEET.md` - Quick command reference for these tools
-- `Playbook/README.md` - Playbook that orchestrates these tools
-- `core-osint-toolkit.md` - Core OSINT tool catalog and API configuration
-- `../legal/` - Scope, authorization, and jurisdiction guidance
-- `../images/` - Reverse image search tradecraft
-- `../breach-data/` - Breach and leak data handling
+- [README.md](README.md) - OSINT section index (contains the Legal, Ethical & OPSEC framework)
+- [OSINT_GUIDE.md](OSINT_GUIDE.md) - Master OSINT methodology guide
+- [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick command reference
+- [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Full tool catalog and API configuration
+- [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook that orchestrates these tools
+- [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - Advanced OSINT and threat intelligence techniques
 
 ---
 
-*This document covers publicly available information collection during authorized engagements only. See the Legal and Tradecraft sections of this guide for scope, authorization, and OPSEC requirements.*
+*This document covers publicly available information collection during authorized engagements only. See the Legal & Ethical Notice in the [OSINT section README](README.md) and the [Tradecraft](../Tradecraft/osint-threat-intel.md) guide for scope, authorization, and OPSEC requirements.*
 
 ## 📚 Further Reading
 - Michael Bazzell, *Open Source Intelligence Techniques* - the standard reference for platform-by-platform social media collection; his `inteltechniques.com/tools` offline suite automates much of the URL construction described above. Treat any specific technique in print as a snapshot in time.
