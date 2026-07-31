@@ -29,15 +29,15 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | [**H8mail**](https://github.com/khast3x/h8mail) | Breach | Email breach hunting and credential leak analysis. |
 | [**Holehe**](https://github.com/megadose/holehe) | Verification | Email-to-account registration enumeration. |
 | [**PhoneInfoga**](https://github.com/sundowndev/phoneinfoga) | Phone | Phone number intelligence and carrier tracking. |
-* [**Maigret**](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
-* [**WhatsMyName**](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
-* [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
-* [**gallery-dl**](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
-* [**Instaloader**](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
-* [**waybackpy**](https://github.com/akamhy/waybackpy) / [gau](https://github.com/lc/gau) | Recovery | Historical and deleted content recovery via web archives. |
-* [**memory.lo**l](https://github.com/travisbrown/memory.lol) | Recovery | X/Twitter handle-history and numeric-ID correlation. |
-* [**ExifTool**](https://exiftool.org/) | Metadata | Metadata extraction from downloaded media. |
-* [**Argus**](https://github.com/jasonxtn/argus) | Recon | A python-based toolkit for Information Gathering & Reconnaissance |
+| [**Maigret**](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
+| [**WhatsMyName**](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
+| [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
+| [**gallery-dl**](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
+| [**Instaloader**](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
+| [**waybackpy**](https://github.com/akamhy/waybackpy) / [gau](https://github.com/lc/gau) | Recovery | Historical and deleted content recovery via web archives. |
+| [**memory.lo**l](https://github.com/travisbrown/memory.lol) | Recovery | X/Twitter handle-history and numeric-ID correlation. |
+| [**ExifTool**](https://exiftool.org/) | Metadata | Metadata extraction from downloaded media. |
+| [**Argus**](https://github.com/jasonxtn/argus) | Recon | A python-based toolkit for Information Gathering & Reconnaissance |
 
 ---
 
