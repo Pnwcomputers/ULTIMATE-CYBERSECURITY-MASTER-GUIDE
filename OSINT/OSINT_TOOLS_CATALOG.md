@@ -42,6 +42,7 @@ The framework leverages several high-authority databases. Ensure your API keys a
 * [**SecurityTrails**](https://securitytrails.com/): DNS & Domain History
 * [**ZoomEye**](https://www.zoomeye.ai/): Cyberspace Search Engine (the legacy `zoomeye.org` domain is currently returning a server error; `zoomeye.ai` is the actively promoted current domain)
 * [**Criminal IP**](https://www.criminalip.io/): CTI & IP Scoring
+* [ExifTool](https://exiftool.org/) | Metadata | Metadata extraction from downloaded media. |
 
 ## 2. SCANNING & ASSET DISCOVERY
 * [**FullHunt**](https://fullhunt.io/): Attack Surface Mapping
@@ -69,6 +70,16 @@ The framework leverages several high-authority databases. Ensure your API keys a
 * [**Etherscan**](https://etherscan.io/): Ethereum Explorer
 * [**BlockCypher**](https://www.blockcypher.com/): Multi-chain Crypto Data
 * [**AbuseIPDB**](https://www.abuseipdb.com/): IP Reputation & Blacklist Reporting
+
+## 7. SOCIALMEDIA
+* [Sherlock](https://github.com/sherlock-project/sherlock) | Enumeration | Username search across 400+ platforms. |
+* [Maigret](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
+* [WhatsMyName](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
+* [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
+* [gallery-dl](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
+* [Instaloader](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
+* [waybackpy](https://github.com/akamhy/waybackpy) / [gau](https://github.com/lc/gau) | Recovery | Historical and deleted content recovery via web archives. |
+* [memory.lol](https://github.com/travisbrown/memory.lol) | Recovery | X/Twitter handle-history and numeric-ID correlation. |
 
 ## Related Files
 - [README.md](README.md) - OSINT section index
