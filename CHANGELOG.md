@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1264
-- **Files Modified**: 1504
-- **New Files**: 585
+- **Commits Analyzed**: 1265
+- **Files Modified**: 1508
+- **New Files**: 588
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- feat: add Container & Kubernetes Security section (deliverable G gap) (#62) (`8ad050f`)
 - feat: add Compliance & GRC section (deliverable G gap) (#60) (`505f0bd`)
 - feat: add Cloud Security section (deliverable G gap) (#58) (`7901b9f`)
 - feat: add Web Application Security section (deliverable G, top gap) (#56) (`1a2b920`)
@@ -1289,12 +1290,15 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_REPORT.md`
-- `Compliance/README.md`
-- `Compliance/frameworks.md`
-- `Compliance/regulations.md`
+- `ContainerSecurity/README.md`
+- `ContainerSecurity/containers.md`
+- `ContainerSecurity/kubernetes.md`
 - `README.md`
 - `START_HERE.md`
 - `CHANGELOG.md`
+- `Compliance/README.md`
+- `Compliance/frameworks.md`
+- `Compliance/regulations.md`
 - `Cloud/README.md`
 - `Cloud/aws.md`
 - `Cloud/azure.md`
