@@ -91,6 +91,14 @@ docker compose version
 
 ## 🚀 Part 2: Deploying the Wazuh Manager (Docker)
 
+> [!NOTE]
+> This guide pins Wazuh `4.7.0` for a known-good, internally consistent config.
+> The current line is `4.14.x` (with `5.0` in beta) — check the
+> [Wazuh releases](https://github.com/wazuh/wazuh/releases) and
+> [wazuh-docker releases](https://github.com/wazuh/wazuh-docker/releases) before
+> deploying, since version bumps can change the compose files and default
+> settings used below.
+
 ### Step 2.1: Clone the Wazuh Docker Repository
 
 ```bash
@@ -459,7 +467,7 @@ docker compose up -d
 
 - [Wazuh Documentation](https://documentation.wazuh.com/)
 - [Wazuh GitHub Repository](https://github.com/wazuh/wazuh)
-- [Wazuh Ruleset](https://github.com/wazuh/wazuh-ruleset)
+- [Wazuh Ruleset](https://github.com/wazuh/wazuh/tree/main/ruleset) *(the standalone `wazuh-ruleset` repo is archived; rules now ship in the main repo)*
 - [Wazuh Slack Community](https://wazuh.com/community/join-us-on-slack/)
 
 ---

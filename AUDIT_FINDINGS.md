@@ -373,6 +373,25 @@ as each completes.
   all three endpoint guides — adequate.
 - **Verdict:** sound; two dead/stale links fixed in the osquery guide.
 
+### IncidentResponse — SIEM + log aggregation (2026-08-03)
+
+- **Scope 2 (accuracy):** verified install/repo commands, ports, and config across
+  Splunk, ELK, Graylog, and Wazuh guides. Splunkbase app IDs and the Elastic /
+  Wazuh package repos are valid. `elk_stack.md` pins Elastic `8.12.0` with an
+  **exemplary** explicit note pointing at the 9.x line — left as a model to copy.
+- **Fixed:**
+  - `wazuh.md`: the standalone `wazuh/wazuh-ruleset` repo is **archived** → link
+    repointed to the ruleset in the main `wazuh/wazuh` repo.
+  - `wazuh.md`: the guide pins Wazuh `4.7.0` (current `4.14.x`, `5.0` beta) with
+    no note — added a currency note mirroring the ELK one (pinned artifacts were
+    verified still live, so the guide still works as written).
+  - `log_agg.md`: the "SANS Log Management Cheat Sheet" link (a blog tag page)
+    now 404s → replaced with the authoritative **NIST SP 800-92**.
+- **Scope 4:** SIEM guides are defensive infrastructure; risk is deployment/config
+  rather than offensive — no safety-header gap.
+- **Verdict:** sound; three stale/dead links fixed, one currency note added.
+  **IncidentResponse domain review complete.**
+
 ---
 
 ## Open workstreams (not yet itemized as findings)
