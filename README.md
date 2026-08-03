@@ -99,6 +99,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | ☁️ [Cloud Security](Cloud/) | Shared-responsibility model, common misconfigurations, and per-provider attack surface & hardening for AWS, Azure/Entra ID, and GCP |
 | 📋 [Compliance & GRC](Compliance/) | Governance, risk & compliance - NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, and GDPR/HIPAA/CCPA with control mapping |
 | 📦 [Container & Kubernetes Security](ContainerSecurity/) | Image/runtime attack surface, container escape, and Kubernetes hardening (RBAC, Pod Security Standards, network policy) |
+| 🔐 [Cryptography](Cryptography/) | Practical crypto reference - current vs deprecated algorithms, applied use (TLS, password storage, key management), and post-quantum (FIPS 203/204/205) |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices - anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
