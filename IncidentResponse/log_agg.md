@@ -991,7 +991,7 @@ sudo chown syslog:adm /var/log/remote
 - [Rsyslog Documentation](https://www.rsyslog.com/doc/)
 - [Wazuh Log Collection](https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/)
 - [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/index.html)
-- [SANS Log Management Cheat Sheet](https://www.sans.org/blog/tag/log-management/)
+- [NIST SP 800-92 — Guide to Computer Security Log Management](https://csrc.nist.gov/pubs/sp/800/92/final)
 
 ---
 
