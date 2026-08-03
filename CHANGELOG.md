@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1268
-- **Files Modified**: 1512
+- **Commits Analyzed**: 1272
+- **Files Modified**: 1517
 - **New Files**: 592
 - **Deleted Files**: 117
 
@@ -540,6 +540,9 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Enhance documentation with updated tool links (`4242af2`)
+- Update microcontroller_wifi_testing.md (`2e38125`)
+- Update microcontroller_wifi_testing.md (`304c081`)
 - Rename Microcontroller_Wifi_Testing.md to microcontroller_wifi_testing.md (`c6e86ca`)
 - docs: update Audit Findings Register statuses to reflect resolutions (#28) (`b8c4d76`)
 - Update OSINT_TOOLS_CATALOG.md (`dfca57d`)
@@ -1093,6 +1096,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Enhance Wi-Fi testing documentation with tool links (`d87217f`)
 - audit(scope 2/4): IncidentResponse forensics review — Volatility guide (#38) (`4ab34af`)
 - Revise OSINT README by removing detailed sections (`2b3e266`)
 - Revise Social Media OSINT documentation for clarity (`5b499b1`)
@@ -1292,15 +1296,15 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/microcontroller_wifi_testing.md`
+- `CHANGELOG.md`
 - `AUDIT_REPORT.md`
 - `Cryptography/README.md`
 - `Cryptography/algorithms.md`
 - `Cryptography/applied-crypto.md`
 - `README.md`
 - `START_HERE.md`
-- `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
-- `CHANGELOG.md`
 - `ContainerSecurity/README.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/kubernetes.md`
