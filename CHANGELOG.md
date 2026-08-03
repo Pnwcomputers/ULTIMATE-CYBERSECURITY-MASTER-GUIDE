@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1258
-- **Files Modified**: 1472
+- **Commits Analyzed**: 1259
+- **Files Modified**: 1481
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -405,6 +405,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- audit(scope 2/4): Mobile domain review — fix OnePlus 6 model number (A3006->A6003) (#50) (`2117fab`)
 - fix(F-09): standardize the offensive-content safety header (#34) (`3206566`)
 - fix(F-10): repair dead/retired external links (scope 10 sweep) (#32) (`70a8386`)
 - fix(F-01+F-04): repair 198 broken TOC anchors and enable the CI anchor guard (#24) (`722c70f`)
@@ -1283,8 +1284,18 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
-- `SDR/sdr_hacking.md`
+- `Documentation/wireshark.md`
+- `Mobile/OnePlus_A6003/Kali_NetHunter.md`
+- `Mobile/OnePlus_A6003/Nethunter_SOP.md`
+- `Mobile/OnePlus_A6003/Rooting.md`
+- `Mobile/README.md`
+- `Mobile/mobile_pentest_sop.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `START_HERE.md`
+- `Scripts/Bash/BashBunny/README.md`
+- `Scripts/Ducky/README.md`
 - `CHANGELOG.md`
+- `SDR/sdr_hacking.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/av-edr-evasion.md`
@@ -1312,7 +1323,6 @@
 - `Documentation/VPN.md`
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/references.md`
-- `Documentation/wireshark.md`
 - `HardwareHacking/README.md`
 - `Homelab/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
@@ -1320,7 +1330,6 @@
 - `IncidentResponse/README.md`
 - `IncidentResponse/SIEM/README.md`
 - `LEGAL.md`
-- `Mobile/README.md`
 - `OPSEC/README.md`
 - `OSINT/README.md`
 - `PDF/README.md`
@@ -1368,7 +1377,6 @@
 - `PDF/.gitirnore`
 - `PDF/docker-pen-test.pdf`
 - `PDF/ssh-pen-testing.pdf`
-- `START_HERE.md`
 - `Scripts/Bash/banner_grab.sh`
 - `Scripts/Bash/case_ip_address_check.sh`
 - `Scripts/Bash/check_root_function.sh`
@@ -1394,8 +1402,6 @@
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/blackarch.md`
 - `Documentation/ArchLinux_CheatSheet.md`
-- `Scripts/Bash/BashBunny/README.md`
-- `Scripts/Ducky/README.md`
 - `Checklists/Domain-Escalation.md`
 - `HardwareHacking/HiLetgo.md`
 - `IncidentResponse/SIEM/splunk.md`
@@ -1403,11 +1409,9 @@
 - `AI/OpenClaw/agent_skill_config.md`
 - `Checklists/Command&Control.md`
 - `Checklists/Lateral-Movement.md`
-- `Mobile/mobile_pentest_sop.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Phone_OSINT.md`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
-- `PlayBooks/NetworkAuditPlayBook.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
