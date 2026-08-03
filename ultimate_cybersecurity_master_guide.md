@@ -624,6 +624,11 @@ smbclient //192.168.1.100/share -U username
 
 ## Web Application Reconnaissance
 
+> [!NOTE]
+> **Canonical reference:** the dedicated web section is
+> [WebAppSecurity/](WebAppSecurity/README.md) - OWASP Top 10 deep-dive and a full
+> testing methodology. This section is a summary.
+
 ### Directory & File Enumeration
 ```bash
 # Gobuster

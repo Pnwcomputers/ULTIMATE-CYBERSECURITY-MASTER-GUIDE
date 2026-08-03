@@ -1075,6 +1075,10 @@ api_call = deobfuscate_string("Gx4bHRsd")  # "VirtualAlloc"
 
 ## Advanced Web Application Attacks
 
+> [!NOTE]
+> **Canonical reference:** for OWASP Top 10 and full methodology see the dedicated
+> [WebAppSecurity/](WebAppSecurity/README.md) section. This covers advanced attacks.
+
 ### Server-Side Template Injection (SSTI)
 
 #### Detection
