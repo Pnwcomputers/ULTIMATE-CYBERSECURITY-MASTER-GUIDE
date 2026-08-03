@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1247
-- **Files Modified**: 1427
+- **Commits Analyzed**: 1248
+- **Files Modified**: 1429
 - **New Files**: 574
 - **Deleted Files**: 117
 
@@ -528,6 +528,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- docs: update Audit Findings Register statuses to reflect resolutions (#28) (`b8c4d76`)
 - Update OSINT_TOOLS_CATALOG.md (`dfca57d`)
 - Update OSINT_TOOLS_CATALOG.md (`0eb63a9`)
 - Revise OSINT README for clarity and updates (`d385d25`)
@@ -1271,6 +1272,8 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `AUDIT_FINDINGS.md`
+- `CHANGELOG.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
 - `AI/offensive_ai.md`
@@ -1306,8 +1309,6 @@
 - `uConsole/CM5-SETUP.md`
 - `uConsole/README.md`
 - `HardwareHacking/LA1010.md`
-- `AUDIT_FINDINGS.md`
-- `CHANGELOG.md`
 - `.github/workflows/auto_changelog.yml`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
