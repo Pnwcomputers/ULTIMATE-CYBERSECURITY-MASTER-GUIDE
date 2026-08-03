@@ -1,5 +1,11 @@
 # Offensive AI
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Testing AI/ML systems you do not
+> own or lack explicit written permission to assess is illegal. See
+> [LEGAL.md](../LEGAL.md).
+
 ## 🎯 Purpose
 Adversarial ML and offensive AI guide - treating AI/ML systems as attack surfaces; covering prompt injection, jailbreaking, model extraction, data poisoning, evasion techniques, agentic system exploitation, and AI-augmented offensive tooling.
 

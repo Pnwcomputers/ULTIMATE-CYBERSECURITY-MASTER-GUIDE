@@ -457,6 +457,43 @@ as each completes.
 - **Verdict:** sound; one real factual fix (device model / directory rename).
   **Mobile review complete.**
 
+### HardwareHacking (2026-08-03)
+
+- **Scope 2 (accuracy):** ✅ verified — the electrical fundamentals are correct
+  and precise (logic-level thresholds for 5V TTL / 3.3V LVTTL / 1.8V; the
+  level-shifter damage warning; the UART `0x55`='U' framing example). Device and
+  tool references (Bus Pirate, GreatFET, JTAGulator, LA1010, T48) are current.
+- **Scope 4 (safety):** ✅ strong — high density of electrical/physical safety
+  content (ESD, voltage, damage-on-mismatch, fault-injection cautions).
+- **Links:** the only failures are Amazon `503` bot-blocks (work for humans) and
+  the flaky-but-live `qdkingst.com` — no real dead links.
+- **Verdict:** high quality; no changes needed.
+
+### AI (2026-08-03)
+
+- **Scope 2 (accuracy):** ✅ model references current (Claude, Gemini, Groq /
+  Llama 3.3 70B, Ollama); 0 dead links.
+- **Scope 4 (safety):** strong framing overall ("authorized, ethical, supervised
+  use only"). **Fixed:** `offensive_ai.md` (primary-offensive adversarial-ML
+  guide) mentioned "authorized" only in prose — added the standard F-09
+  authorization header.
+- **Verdict:** sound; one safety-header added.
+
+### Remaining domains — batch review (2026-08-03)
+
+SpaceSecurity, uConsole, Documentation, Homelab, Checklists, PlayBooks, Scripts,
+PDF reviewed together:
+
+- **Links:** ✅ across 1,393 links the only failure is
+  `kookarai.idocker.hacking-lab.com` (a Hacking-Lab training instance with a
+  self-signed cert — expected for a lab platform, works for users who accept it).
+  No dead links.
+- **Scope 4:** every offensive / dual-use doc already carries substantial
+  authorization framing (7–124 framing lines each: Scripts/README's legal-warning
+  section, GO/shells' "AUTHORIZED USE ONLY" banner, the PlayBooks' legal sections,
+  the HID-payload READMEs). No header gaps — no changes needed.
+- **Verdict:** sound. **Per-domain scope 2/4 review complete across all domains.**
+
 ### Repo-wide dead-link sweeps (2026-08-03)
 
 - **SANS `/blog/tag/*` link rot (systematic):** SANS reorganised their blog and
