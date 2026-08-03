@@ -425,6 +425,20 @@ as each completes.
   evidence. Worth a human eyeball.
 - **Verdict:** high quality; no changes needed beyond the repo-wide SANS sweep.
 
+### SDR / RF (2026-08-03)
+
+- **Scope 2 (accuracy):** ✅ sound. RF/regulatory claims check out (FCC framing,
+  APRS 144.390 MHz, band references); tool references current; `gr-gsm`'s
+  upstream-unmaintained status is already noted.
+- **Scope 4 (safety):** ✅ strong — the domain treats RF transmission as the
+  high-risk activity it is. `SDR/README.md` carries a prominent federal-offense
+  transmission warning; both `sdr.md` and `sdr_hacking.md` have early RF-safety
+  framing and high warning density (jamming/GPS-spoofing/licensing/Faraday-load).
+  `sdr_hacking.md` already had a dedicated legal notice — **added the missing
+  link to `LEGAL.md`** (the one gap).
+- **Links:** ✅ online check clean (0 errors).
+- **Verdict:** high quality; one legal-notice link added. **SDR review complete.**
+
 ### Repo-wide dead-link sweeps (2026-08-03)
 
 - **SANS `/blog/tag/*` link rot (systematic):** SANS reorganised their blog and
