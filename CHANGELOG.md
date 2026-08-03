@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1256
-- **Files Modified**: 1466
+- **Commits Analyzed**: 1257
+- **Files Modified**: 1469
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1195,6 +1195,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): OSINT domain review + repo-wide SANS link sweep (#46) (`9594d01`)
 - audit(scope 2/4): Tradecraft domain review (#44) (`30a649e`)
 - audit(scope 2/4): IncidentResponse SIEM + log aggregation review (#42) (`fef43f7`)
 - audit(scope 2/4): IncidentResponse Endpoint-Visibility review (#40) (`e51cedc`)
@@ -1281,12 +1282,13 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
+- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
+- `CHANGELOG.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `Tradecraft/network-detection.md`
 - `Tradecraft/osint-threat-intel.md`
-- `CHANGELOG.md`
 - `IncidentResponse/SIEM/wazuh.md`
 - `IncidentResponse/log_agg.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
@@ -1427,7 +1429,6 @@
 - `Checklists/VoIP Checklist.md`
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
-- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `IncidentResponse/SIEM/elk_stack.md`
