@@ -976,6 +976,11 @@ net group /domain
 
 ## Cloud Security & Exploitation
 
+> [!NOTE]
+> **Canonical reference:** the dedicated [Cloud/](Cloud/README.md) section covers
+> AWS, Azure/Entra ID, and GCP in depth (misconfigurations, attack surface,
+> hardening). This section is a summary.
+
 ### AWS Enumeration
 ```bash
 # List S3 buckets
