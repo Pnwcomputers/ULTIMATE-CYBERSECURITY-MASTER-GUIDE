@@ -89,6 +89,7 @@ The routing, switching, and boundary protection of the lab.
 |-------------|------------|-------------|
 | **[Lab Setup & Maintenance](./HomeLab_Setup.md)** | Architecture | Core procedures for architecting, deploying, and maintaining homelab environments. |
 | **[Provisioning Workflows](./workflows/)** | Automation | Step-by-step guides for deployment workflows (Ansible/Terraform) and automation playbooks. |
+| **[Wireless Lab Security Assessment](./workflows/self-hosted_network_attacks.md)** | Offensive Testing | Master playbook for authorized security assessment of a self-hosted wireless lab. |
 | **Incident Response** | Blue Team | SOPs for log ingestion (ELK/Splunk) and artifact analysis within the lab environment. |
 | **Hardware Prep** | Physical Assets | OS installation, firmware flashing, and setup of physical pentest tools (e.g., Proxmark3). |
 
