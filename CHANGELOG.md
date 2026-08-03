@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1249
-- **Files Modified**: 1431
+- **Commits Analyzed**: 1250
+- **Files Modified**: 1435
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -404,6 +404,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(F-10): repair dead/retired external links (scope 10 sweep) (#32) (`70a8386`)
 - fix(F-01+F-04): repair 198 broken TOC anchors and enable the CI anchor guard (#24) (`722c70f`)
 - fix(F-05): upgrade external links to HTTPS where supported (#25) (`07632fc`)
 - fix(F-02/F-03): link orphaned wireless-lab playbook; verify index coverage (#26) (`ba1e314`)
@@ -1274,8 +1275,10 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
-- `AUDIT_REPORT.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `Tradecraft/osint-threat-intel.md`
 - `CHANGELOG.md`
+- `AUDIT_REPORT.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
 - `AI/offensive_ai.md`
@@ -1312,7 +1315,6 @@
 - `uConsole/README.md`
 - `HardwareHacking/LA1010.md`
 - `.github/workflows/auto_changelog.yml`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
 - `README.md`
 - `SDR/sdr.md`
@@ -1323,7 +1325,6 @@
 - `OSINT/OSINT_CHEATSHEET.md`
 - `STYLE_GUIDE.md`
 - `Tradecraft/active-directory.md`
-- `Tradecraft/osint-threat-intel.md`
 - `PlayBooks/PurpleTeam_Simple.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
