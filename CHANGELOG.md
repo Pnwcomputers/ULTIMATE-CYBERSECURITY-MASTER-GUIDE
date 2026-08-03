@@ -1,28 +1,188 @@
-# 🔄 Change Log - May 27, 2026
-
-## 🎯 Purpose
-Repository change log tracking all significant additions, fixes, and updates to the guide since its creation.
-
-## ⚙️ Function
-Chronological record of: new file additions, broken link fixes, content updates, tool version updates, URL corrections, structural changes, and documentation cleanup passes - organized by date with file-level detail.
-
-## 🏆 Goal
-Provide version history transparency so practitioners can see what changed, when, and why - enabling them to know if content they reference has been recently updated or corrected.
-
-## 📋 When to Use
-- Checking what changed in a recent update
-- Verifying a specific fix was applied (broken link, outdated tool)
-- Understanding the evolution of the guide for contribution purposes
+# 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 521
-- **Files Modified**: 224
-- **New Files**: 483
-- **Deleted Files**: 97
+- **Commits Analyzed**: 1243
+- **Files Modified**: 1388
+- **New Files**: 573
+- **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Endpoint-Visibility and Digital-Forensics section READMEs (#19) (`5a96542`)
+- Add links to OSINT tools in social media documentation (`d53f10a`)
+- Create OSINT_socialmedia.md (`fd7700b`)
+- Add files via upload (`120483a`)
+- Add files via upload (`bea4105`)
+- docs: add SIEM section README (folder index) (#18) (`f6255b7`)
+- Add tool ecosystem link to README (`9f5ab34`)
+- Add OSINT Cheat Sheet to documentation (`09fe03c`)
+- Fix 6 errors in new ArchLinux_CheatSheet.md and blackarch.md (`6a8eba5`)
+- Expand blackarch.md + add ArchLinux_CheatSheet.md (`c1a7f72`)
+- Add Mobile section cross-links across repo (`4bd67e8`)
+- Add Nethunter SOP for OnePlus 6 to README (`ed1eb2b`)
+- Add Mobile/mobile_pentest_sop.md - engagement-level pentesting SOP (`e5cd2a0`)
+- Add closing legal footer to Mobile/README.md (`d649295`)
+- Add Mobile/README.md and update OnePlus A3006 guides (`ff9f352`)
+- Create Nethunter_SOP.md (`760b42a`)
+- Add link to OnePlus 6 A3006 rooting guide (`e993f7d`)
+- Create Rooting.md (`9f973b3`)
+- Add Kali NetHunter documentation for OnePlus A3006 (`97b2366`)
+- Create Kali NetHunter setup guide for OnePlus 6 (`ac3d5e1`)
+- AI/AnythingLLM/flow-github_secrets.md: add 4-header pattern and Related Files (`f18c4b3`)
+- Root-level files: add 4-header pattern and Related Files to 11 files (`2b7ad52`)
+- Homelab/workflows/ and PDF/: add 4-header pattern and Related Files (`680fcd8`)
+- OSINT/ and HardwareTesting/: add 4-header pattern and Related Files (`9e1f372`)
+- IncidentResponse/: add 4-header pattern and Related Files to 10 files (`c407e7a`)
+- OPSEC/ and Scripts/: add 4-header pattern and Related Files (`fcb7e00`)
+- uConsole/ and Tradecraft/: add 4-header pattern and Related Files (`5363ed7`)
+- AI/ folder: add 4-header pattern and Related Files to all 17 files (`a29e96f`)
+- Add section README backlinks to IncidentResponse and Homelab files (`fe44c43`)
+- Add Documentation/README.md backlinks to all tool guide files (`0178210`)
+- Add missing bidirectional backlinks to section READMEs (`37188e0`)
+- Remove osint/ nested repo from index; add to .gitignore (`48449ff`)
+- Fix mismatched disclaimer and add cross-references in Scripts/ (`00f4c09`)
+- Add standard sections; fix filename bug; flag aspirational content in OSINT/Playbook/README.md (`4370391`)
+- Add missing Related Files cross-references to AI/ standalone files (`9a3b3b6`)
+- Add PDF/ cross-references to wireshark.md and Aircrack-ng_Commands.md (`66bb979`)
+- Add standard sections to Tradecraft/active-directory.md, fix dead Microsoft docs link (`44600dd`)
+- Add standard sections to Tradecraft/lolbins-lolbas.md (`31df8cc`)
+- Add standard sections to Tradecraft/c2-frameworks.md (`780bfd0`)
+- Add standard sections to Tradecraft/README.md (`6f46ae1`)
+- Add standard sections to Scripts/Ducky/README.md, remove dead duckencoder.jar references (`d261061`)
+- Add standard sections to Scripts/Bash/bash_scripting_cheat-sheet.md (`102a1c2`)
+- Add standard sections to Scripts/Bash/BashBunny/README.md (`a321882`)
+- Add standard sections to Scripts/README.md (`8e8d4f9`)
+- Add standard sections to ENHANCED_MASTER_GUIDE.md, fix dead/stale links (`e43e9f0`)
+- Add standard sections to SPECIALIZED_TOPICS_GUIDE.md (`7e5798f`)
+- Add standard sections to FIRMWARE&HARDWARE_COMPATIBILITY.md (`cce2d48`)
+- Add standard sections to advanced_techniques_part2.md (`12878e2`)
+- Add standard sections to advanced_techniques_supplement.md (`0238ca0`)
+- Add standard sections to cybersecurity_cliff_notes.md (`78d947a`)
+- Add standard sections to ultimate_cybersecurity_master_guide.md, fix dead REMnux install URL (`d4edbf8`)
+- Add standard sections to LEGAL.md (`9356ead`)
+- Add standard sections to CHANGELOG.md (`0b2bbc6`)
+- Add standard sections to START_HERE.md (`b32e195`)
+- Add standard sections to root README.md, fix dead CISA WannaCry link (`e49abd7`)
+- Add standard sections to uConsole CM4/CM5 setup guides (`a911111`)
+- Add standard sections to uConsole README and scripts README (`7ec99ef`)
+- Add standard sections to OSINT_GUIDE.md + fix 6 stale/dead references (`f24dc9a`)
+- Add standard sections to OSINT investigation scripts (`fbc1f33`)
+- Add standard sections to OSINT_TOOLS_CATALOG.md + fix dead ZoomEye domain (`554c5e4`)
+- Add standard sections + fix wrong clone URL, incomplete deps, dead Etherscan v1 API (`b0d8419`)
+- Add standard sections to OSINT README/cheatsheet + fix broken markdown links (`8442cb1`)
+- Add standard sections to OpenClaw guides, completing AI/ folder (`a377e8b`)
+- Add standard sections to AnythingLLM AgentFlow docs + fix dead subdomain API (`0feaca5`)
+- Add standard sections to AI/ root files + fix dead NIST link, missing index entry (`c4178ef`)
+- Add standard sections to Digital-Forensics guides and Homelab workflow playbook (`3095f18`)
+- Add standard sections to Endpoint-Visibility guides + fix deprecated apt-key usage (`72cbc66`)
+- Add standard sections to SIEM guides + fix dead Splunk download links (`3ccc65a`)
+- Enhance WiFi Marauder Guide with new sections (`11d534a`)
+- Enhance VS Code setup guide with new sections (`2d6d268`)
+- Add link to Checklists section in README (`9069dc8`)
+- Add internal links to additional resources (`62bc5f7`)
+- Add quick-reference checklist to README (`ad1f02a`)
+- Add quick-reference checklists to README (`a62d58f`)
+- Enhance cybersecurity playbooks with new sections (`1fb51fc`)
+- Enhance Network Audit Playbook with new sections (`91aa104`)
+- Revise VoIP Checklist with additional context and warnings (`8d01a7d`)
+- Enhance Initial Access documentation with new techniques (`d954260`)
+- Add PDF reference to Linux Privilege Escalation checklist (`4c24e28`)
+- Add PDF references to Domain Escalation checklist (`8d5c3fd`)
+- Add search-ms URI Handler technique to Initial Access (`5c804a8`)
+- Add lateral movement techniques table (`2507097`)
+- Enhance Lateral Movement checklist with additional resources (`84daa47`)
+- Add deep-dive link for C2 frameworks (`5e2f8d9`)
+- Add deep-dive link for AV/EDR evasion techniques (`0bec583`)
+- Add link to Tradecraft LOLBins documentation (`a304134`)
+- Add companion link to LOLBins/LOLScripts (`627a20f`)
+- Add blue-team companion link to Initial Access checklist (`85c466c`)
+- Update Initial-Access.md (`abb1dc0`)
+- Revise Android Applications Checklist with new links (`13fb5f4`)
+- Revise lateral movement techniques and add disclaimers (`0d17642`)
+- Update Initial-Access.md (`af4bf00`)
+- Revise Diamond Ticket link and add usage warnings (`3b24a93`)
+- Add description for Active Directory attack techniques (`6ffabf5`)
+- Add MANUAL_TOOLS category; fix pwndbg with pip3 fallback (`127b6dd`)
+- Fix pipx package name: python3-pipx -> pipx (apt), add pip fallback (`b336fc1`)
+- Add SPECIALIZED_TOPICS_GUIDE.md — third guide in the master series (`3dbcb08`)
+- Add automation script callout to CM4 and CM5 guides (`5f400cb`)
+- uconsole-repair.sh v1.2: add libxcb-cursor0 and PolKit detectors (`9b0620f`)
+- Revise README with new setup sequence and automation details (`6769d3f`)
+- Add rtkit to LightDM installation command (`74f5897`)
+- Add newline at end of uconsole-cm4-setup.sh (`e269222`)
+- Create uconsole-repair.sh (`6a49356`)
+- Create uconsole-cm5-setup.sh (`6a36adb`)
+- Add uconsole-cm4-setup.sh for automated setup (`dc77150`)
+- Add README for uConsole CM4 setup script (`aea8c75`)
+- Update uConsole setup guide with new date (`bf5ef3b`)
+- Add Mark Twain quote to README (`ed57260`)
+- Add quote by Mark Twain to README (`aaf67b7`)
+- Add links to SDR devices and tools in README (`9351c9d`)
+- Create README.md (`7a9487d`)
+- Add device setup and usage guides section (`68faab8`)
+- Add documentation for HiLetgo USB Logic Analyzer (`08abaae`)
+- Add documentation for T48 TL866-3G IC programmer (`4b56f94`)
+- Create documentation for Innomaker LA1010 Logic Analyzer (`0f5efda`)
+- Create BitPirate.md with usage instructions (`f492082`)
+- Add JTAGulator documentation (`2003502`)
+- Create GreatFET One documentation (`c1d5acf`)
+- Create BusPirate.md (`d17dfcd`)
+- Add links to ClockworkPi in uConsole section (`4547916`)
+- Add uConsole Field Guide and portable operations section (`6783425`)
+- Add Chapter 4: Timing and Power Analysis Attacks (`14c5bdc`)
+- Add Chapter 2: Electrical Fundamentals (`6a6c200`)
+- Add Chapter 1 on Threat Modeling for Hardware Security (`c1a0446`)
+- Create Chapter5.md (`57c398b`)
+- Create Chapter4.md (`431fb5d`)
+- Create Chapter3.md (`25e7d86`)
+- Create Chapter2.md (`b76deb0`)
+- Create Chapter1.md (`a99d65a`)
+- Create Appendices.md (`1f8c2b7`)
+- Create PartIV.md (`87a7ccf`)
+- Create PartIII.md (`6ba9fc6`)
+- Create PartII.md (`578ab0a`)
+- Create PartI.md (`d3c8dd8`)
+- Create CM5-SETUP.md (`bd9d7aa`)
+- Add NVMe Battery Board Setup instructions to README (`4d4bb57`)
+- Create uconsole.md (`aa66d5f`)
+- Add Xquik to OSINT tools catalog (#8) (`bbc846e`)
+- Add hardware test bench tool installer script (`a9beb12`)
+- Create standalone_gpu_tester.py (`e3dc522`)
+- Create full_hw_suite.py (`3482c79`)
+- Create standalone_ram_tester.py (`dd752ce`)
+- Create nvidia_gpu_test.md (`52fcb86`)
+- Refactor banner and add streaming output capture (`d77065e`)
+- Create amd_gpu_tester.py (`b45a24b`)
+- Add files via upload (`c559096`)
+- Update README with new hardware and space security sections (`7b4564e`)
+- Create sdr_hacking.md (`96df755`)
+- Create Hardware Hacking/hardware_hacking.md (`dc48cd0`)
+- Create SDR/sdr.md (`a8b0051`)
+- Create Space Security/space_securiy.md (`8a603ba`)
+- Create hardware_hacking.md (`91ee4fb`)
+- Create Locksport.md (`ee1830c`)
+- Create offensive_ai.md (`fe89fee`)
+- Create README.md (`b0d2fce`)
+- Create README.md (`a7c5adb`)
+- Create stress_soak.py (`432d49a`)
+- Create standalone_ram_tester.py (`09d8745`)
+- Create standalone_gpu_tester.py (`be952c3`)
+- Add full hardware diagnostic and benchmark suite (`9b6e0a5`)
+- Add last updated date to Manjaro_TestBench.md (`18538d5`)
+- Add Manjaro Linux Hardware Testing Cheat Sheet (`2f233a6`)
+- Add links to OSINT tools in cheatsheet (`925da6a`)
+- Add reference guide for quick-reference tables (`82d02f5`)
+- Add Security & Networking Reference Guide (`01d8fef`)
+- Add Documentation directory to README (`bd37ef3`)
+- Add OSINT tools and methodologies section (`a9e0be2`)
+- Create av-edr-evasion.md (`ead59eb`)
+- Create osint-threat-intel.md (`1373832`)
+- Create active-directory.md (`22533c5`)
+- Create network-detection.md (`47c7c59`)
+- Create lolbins-lolbas.md (`3b8c96b`)
+- Create c2-frameworks.md (`0e44d0b`)
+- Create Tradecraft/README.md (`b29714c`)
 - Revise playbook descriptions and add team sections (`17c8a7e`)
 - Add workflow to auto-generate CHANGELOG.md (`3200911`)
 - Create content suggestion issue template (`d87aef1`)
@@ -242,6 +402,112 @@ Provide version history transparency so practitioners can see what changed, when
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: fix broken Social_Media_OSINT.md links in OSINT README (#20) (`060c7f2`)
+- Fix formatting of Bellingcat's Online Investigation Toolkit link (`a4172c1`)
+- Mobile audit + markdownlint config fix (repo now lint-clean) (#15) (`356c7cb`)
+- Repo audit: cleanup, link fixes, currency, glossary & CI (#12) (`466fb8a`)
+- Fix formatting in LinuxCheatSheet title (`782c4b9`)
+- Fix formatting of security section links in README (`e927e64`)
+- Fix formatting in README for User section (`cbcfe9c`)
+- Fix grammar in README.md description of START_HERE.md (`01f82d6`)
+- Fix grammar and update Master Guides section (`e12f50e`)
+- Fix wording in README for clarity (`badca51`)
+- Fix formatting and clarify START_HERE.md references (`1a4d06a`)
+- Fix formatting of README entry point section (`d050cf1`)
+- Fix typo in Debian Linux Command Cheat Sheet link (`e70d70c`)
+- Fix header formatting in README.md (`9e59458`)
+- Fix duplicate Related Files sections in Scripts/ sub-READMEs (`aa10e41`)
+- Fix 12 deferred errors from accuracy review (batch 3) (`7ed4fec`)
+- Fix 37 technical errors across repo (accuracy review batch 2) (`2751bea`)
+- Fix 6 technical errors in Documentation/ (accuracy review) (`fbed23f`)
+- Fix em-dash in mobile_pentest_sop.md introduced by web edit (`4a3c131`)
+- Fix duplicate div block in Mobile/README.md from merge conflict (`44b33ef`)
+- Fix Mobile/README.md badge placement - move to top after H1 (`9a95b3f`)
+- Fix link format in Kali_NetHunter.md (`f64a5ea`)
+- Fix link to Rooting Guide in Kali NetHunter documentation (`615e687`)
+- Fix capitalization in Kali NetHunter guide title (`50b2528`)
+- Fix accuracy bugs, broken links, and missing backlinks (full repo review) (`469a367`)
+- Fix 53 broken external links and update 34 redirected domain URLs (`98dea9e`)
+- Fix URL encoding for filenames with special characters in links (`5094062`)
+- Tradecraft: fix 4 dead reference links (verified replacements) (`8a33b08`)
+- Fix 2 dead links found in independent link re-audit (`253545b`)
+- Fix dead citations, a renamed repo, and a deprecated command (audit sweep) (`fe31b5d`)
+- IncidentResponse: fix 6 dead/stale download & reference links (`1c91fa7`)
+- Documentation: fix dead DNS-leak API call and stale Censys domain (`3caf4df`)
+- Correct bibliography count reference to 78 entries; restore cliff notes (`dc0f4aa`)
+- Fix dead dolphin2.5-mixtral Ollama tag in AI/offline-llm.md (`fa072b7`)
+- Fix mischaracterized CVE-2018-16528 description in SpaceSecurity/PartIII.md (`5bda4b0`)
+- Fix dead Airspy SpyServer link in SDR/README.md (`0f06127`)
+- Fix more dead hardcoded download URLs in HomeLab_Setup.md (`b4870e6`)
+- Fix dead hardcoded Kali/Parrot ISO version pins in HomeLab_Setup.md (`9b53e9d`)
+- Fix 2 more dead links in IncidentResponse/ found by full link audit (`85f0932`)
+- Fix broken image paths and a dead Wikipedia link in HardwareHacking/ (`c9a3255`)
+- Fix broken pwnagotchi install command (wildcard glob doesn't work over wget) (`32c1b8a`)
+- Fix duplicated standard-section headers in Documentation/ from merge (`97a42e7`)
+- Fix remaining verified bugs missed by the parallel Documentation pass (`6af1561`)
+- Docs batch 3: pwnagotchi, WifiMarauder, WiFiMarauder_Guide + bugfixes (`ceddbce`)
+- Docs batch 1: hcxtoolshashcat + Aircrack-ng — headers, deprecations fixed (`9eeff50`)
+- Fix grammar and clarity in bjorn_pi.md (`b04f23e`)
+- Fix link path for install_testbench_tools.sh in README (`3dbc315`)
+- Fix title formatting in Command & Control checklist (`ae282ca`)
+- Fix header formatting in Command&Control.md (`1e2e685`)
+- Fix formatting issues in Android checklist (`8e056be`)
+- Fix formatting of checklist reference note (`56e1a0a`)
+- Fix formatting of related scripts section in markdown (`ee9f141`)
+- Fix header formatting for related scripts section (`8497485`)
+- Correct punctuation in C2 deep-dive description (`1bff9b9`)
+- Fix download links for LinPEAS and WinPEAS (`1dc62fc`)
+- Fix links for BloodHound, PEASS-ng, and AutoRecon (`0e7e3f0`)
+- Fix formatting of Sliver Wiki reference (`a200bc1`)
+- Fix link for H8mail in OSINT tools catalog (`e56da3f`)
+- Correct HTML closing tag in privilege escalation checklist (`d2edd3a`)
+- Fix HTML entity encoding in Microsoft Exchange checklist (`d7848fb`)
+- Correct closing div tag in Lateral-Movement.md (`61f3fef`)
+- Fix closing div tag in Domain-Escalation.md (`4619189`)
+- Correct closing div tag in Defense-Evasion.md (`30a5efd`)
+- Fix HTML closing tag in Credential-Access.md (`e4b857b`)
+- Fix formatting in Active Directory checklist (`608a320`)
+- Fix pwndbg and zeek appearing in SKIPPED when install succeeds (`4b32f62`)
+- Fix NetExec, zeek, volatility3, pwndbg on Kali/Debian (`4d2ee71`)
+- Fix pwndbg, NetExec, and volatility3 install logic for apt and pacman (`555c708`)
+- Fix NetExec, volatility3, pwndbg, zeek, Empire, ossec-hids (`5b8a259`)
+- Fix NetExec, volatility3, dex2jar, bless, pwndbg installs (`52e092a`)
+- Fix 23 audit findings in pnwc_install_tools.sh (`bdb43aa`)
+- Fix metagoofil, phoneinfoga URL, NetExec, Empire, zeek, ossec-hids (`070ca6f`)
+- Fix maigret, osrframework, bluepy, chipwhisperer, zeek, ossec-hids, wazuh, gqrx, Empire installs (`b154c31`)
+- Fix strings, volatility3, bless, pwndbg, photorec installs in pnwc_install_tools.sh (`4c38b06`)
+- Fix Empire and Mentalist installs in pnwc_install_tools.sh (`9f7ebca`)
+- Fix pwntools install failures in pnwc_install_tools.sh (`488ca0f`)
+- Fix feroxbuster and whatweb installs in pnwc_install_tools.sh (`592cb04`)
+- Fix 6 broken installs in pnwc_install_tools.sh (`58bbedc`)
+- Fix 12 bugs in pnwc_install_tools.sh (`a833018`)
+- Fix errors across 17 files — typos, deprecated commands, outdated tools, artifacts (`934448f`)
+- Fix errors and clean up LinuxCheatSheet.md (`c1d2ff8`)
+- Fix broken links, typos, and content artifacts across repo (`8e499ca`)
+- Fix capitalization in README setup guides (`372ce17`)
+- v1.2: fix aiov2_ctl GUI, PolKit conflict, libxcb-cursor0 (`e546b5d`)
+- Fix capitalization in README purpose section (`146d8d8`)
+- Fix typo in uconsole-repair.sh state description (`479da49`)
+- Fix aiov2_ctl installation path check (`dfe1e9b`)
+- Upgrade uconsole-repair.sh to version 1.1 (`a4a0c6c`)
+- Document uconsole-repair.sh functionality and usage (`d471bdb`)
+- Fix formatting in Step 2 header for clarity (`9bc8143`)
+- Fix formatting issues in README quotes (`bb0bdc1`)
+- Fix formatting of quote by Mark Twain in README (`8219a7c`)
+- Fix links in README for incident response and hardware sections (`a009d12`)
+- Fix links in README for Incident Response section (`d129597`)
+- Fix link formatting for uConsole section in README (`17d20f7`)
+- Fix formatting and punctuation in README.md (`e1a3b35`)
+- Fix grammar in README overview section (`fb95d32`)
+- Fix link to install_testbench_tools.sh in README (`f5d88bc`)
+- Fix formatting issue in Manjaro Intel TestBench document (`36a9fd9`)
+- Fix formatting in nvidia_gpu_tester.py documentation (`699fb70`)
+- Fix formatting in nvidia_gpu_tester.py docstring (`f2dc80e`)
+- Fix image path in README.md for hardware hacking (`23ae98a`)
+- Fix duplicate Incident Response entry in README (`a82bc1b`)
+- Fix punctuation in Manjaro Intel Test Bench documentation (`ef3c8dd`)
+- Fix heading formatting for Arch Linux section (`fe874eb`)
+- Fix grammatical error in Debian section (`3fb9a87`)
 - Rename ISSUE_TEMPLATE/bug_report.md to .github/ISSUE_TEMPLATE/bug_report.md (`be76b92`)
 - Fix bjorn_pi.md entry in README (`f2addf7`)
 - Fix punctuation and formatting in evil_m5.md (`c2074f0`)
@@ -258,6 +524,309 @@ Provide version history transparency so practitioners can see what changed, when
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update OSINT_TOOLS_CATALOG.md (`dfca57d`)
+- Update OSINT_TOOLS_CATALOG.md (`0eb63a9`)
+- Revise OSINT README for clarity and updates (`d385d25`)
+- Revise OSINT README for clarity and updates (`98355d9`)
+- Remove purpose and function sections from README (`3cf4d85`)
+- Update README.md (`b295a11`)
+- Refactor OSINT README for social media focus (`3ca5801`)
+- Revise OSINT README introduction and remove sections (`58afbf2`)
+- Update OSINT_socialmedia.md (`7caa534`)
+- docs: rename Azure AD -> Microsoft Entra ID and refresh product names (#13) (`a5a2e0a`)
+- Update purpose section for clarity on Debian reference (`6371d73`)
+- Update LinuxCheatSheet.md for clarity on references (`d57f7f9`)
+- Update LinuxCheatSheet.md (`f2853d8`)
+- Refactor Purpose section formatting in README (`f4eb6a4`)
+- Update README.md (`400f0c5`)
+- Enhance README with updated regulatory links (`d0e6248`)
+- Update links in Space Security README (`32b0826`)
+- Update links in Space Security README section (`bc6de4f`)
+- Update README.md (`1bb63fb`)
+- Update README.md (`9ab2885`)
+- Update README.md for clarity on guides (`b22d516`)
+- Refactor README.md for clarity and consistency (`e419385`)
+- Update README.md (`c8a21ad`)
+- Update README for clarity and structure (`3d7f81c`)
+- Revise README for improved structure and readability (`aa2eb4f`)
+- Update Linux command cheat sheets in README (`c9ea6df`)
+- Update Linux command cheat sheet descriptions (`000ac4f`)
+- Update README entry point usage instructions (`4c96559`)
+- Refactor README sections for clarity and organization (`d8cadc0`)
+- Update blackarch.md (`57b511a`)
+- Restructure Arch docs: rewrite ArchLinux_CheatSheet to mirror LinuxCheatSheet, expand blackarch.md (`214acef`)
+- Update mobile_pentest_sop.md (`351bbb2`)
+- Update README.md (`6da4be0`)
+- update (`5943fa9`)
+- update (`5a3b2ae`)
+- Revise Locksport.md for clarity and updates (`6169609`)
+- Update disclaimer for authorized use (`1e68eac`)
+- Update bruce_firmware.md (`9149755`)
+- Update bjorn_pi.md (`8bc9de8`)
+- Update title formatting in cheatsheet (`fc75060`)
+- Update GitHub extension link in vscode.md (`4d21b13`)
+- Update README.md (`65460ef`)
+- Update network-detection.md with related checklists (`edbee1b`)
+- Update README.md (`03834cd`)
+- Update clone instructions in README.md (`80a09f0`)
+- Update BlueTeam_IncResp_Enhanced.md (`e0e15eb`)
+- Revise Incident Response Playbook structure and content (`4c1c73b`)
+- Update README with quick-reference checklists (`83d5f86`)
+- Update README.md (`8595cc0`)
+- Rename Environment Breakout Checklist to Environment Breakout (`e95bba3`)
+- Update Android-Applications-Checklist.md (`2746fda`)
+- Revise VoIP checklist for clarity and structure (`b46d19d`)
+- Update Microsoft Exchange checklist usage guidelines (`aa07937`)
+- Enhance Lateral Movement checklist with details and guidance (`a67ce90`)
+- Update heading level for companion deep-dive link (`e95b926`)
+- Update Windows Privilege Escalation checklist with scripts (`f2199a4`)
+- Update Credential Access checklist with related scripts (`63cda9b`)
+- Update formatting for references in Domain Escalation (`6bdefab`)
+- Update ActiveDirectory.md (`0d86d23`)
+- Update Domain-Escalation.md (`c2fd9b0`)
+- Update Domain-Persistence.md (`38907e5`)
+- Update section header for clarity and consistency (`933bad7`)
+- Update Defense Evasion checklist formatting (`db6c816`)
+- Update heading format for Command and Control section (`8d151e2`)
+- Update Command and Control checklist with deep-dive link (`8399b68`)
+- Update LiME repository URL in cheatsheet (`649dc97`)
+- Update LiME repository URL in live data collection (`1b3d45a`)
+- Update ENHANCED_MASTER_GUIDE.md (`0481ac0`)
+- Update BloodHound reference link (`81ad250`)
+- Update sdr.md (`bd929c0`)
+- Update README.md (`4b33fbd`)
+- Update Environment Breakout Checklist with disclaimers (`f95343d`)
+- Update link for Diamond Ticket entry (`69cd2fd`)
+- Update AppLocker.md (`154d7dc`)
+- Update Microsoft Exchange checklist with ethical guidelines (`4afc55e`)
+- Update Domain Escalation checklist with usage guidelines (`170da83`)
+- Update Credential-Access.md (`6e48a16`)
+- Update ActiveDirectory.md (`8524ec9`)
+- Update Windows Privilege Escalation checklist with disclaimers (`df3cb3e`)
+- Refactor warning section in ActiveDirectory checklist (`6b48c9f`)
+- Update description formatting in ActiveDirectory.md (`8d81f5a`)
+- Update description formatting in ActiveDirectory.md (`00e2a11`)
+- Update ENHANCED_MASTER_GUIDE.md (`d4c4e78`)
+- Move pwndbg to MANUAL_TOOLS — consistent with zeek/ossec-hids treatment (`4b3a1b2`)
+- Move zeek to MANUAL_TOOLS — too unreliable to auto-install (`8263d0f`)
+- Remove stale zeek OpenSUSE apt source left by prior script versions (`d80dd36`)
+- Remove pipx from pkg_install lists — install via pip fallback only (`da7881e`)
+- Update READMEs for v1.2 script changes (`c41be65`)
+- Refactor CM5-SETUP.md for clarity and formatting (`2dffd60`)
+- Update CM5-SETUP.md (`73319ad`)
+- Update CM4-SETUP.md (`9ceca51`)
+- Update CM4-SETUP.md (`be6e1d3`)
+- Update README.md for script state file descriptions (`2fca979`)
+- Update README.md (`c98f06f`)
+- Update uconsole-cm5-setup.sh (`1565af5`)
+- Refactor AIO board installation and dependency checks (`113857d`)
+- Update uconsole-cm5-setup.sh (`d65197a`)
+- Rename script for CM5 setup and update references (`4c59f44`)
+- Rename setup script from CM5 to CM4 (`c080e27`)
+- Bump version to 1.1 and update changelog (`2cd7458`)
+- Update print statement from 'Hello' to 'Goodbye' (`eecbd94`)
+- Update print statement from 'Hello' to 'Goodbye' (`f3da60c`)
+- Update CM4-SETUP.md (`b02107c`)
+- Remove quote by Mark Twain from README (`a6fde19`)
+- Update links and formatting in README.md (`6e029aa`)
+- Remove quote by Mark Twain from README (`33d0f17`)
+- Update README.md (`b42f5e9`)
+- Update header formatting in CM4 setup guide (`3102c94`)
+- Update title of CM5 setup guide (`897823a`)
+- Update title of CM4 setup guide (`19dd55b`)
+- Update CM5 references in setup guide (`71715dd`)
+- Update CM4-SETUP.md (`532eb83`)
+- Update CM4-SETUP.md (`5458b48`)
+- Rename README.md to README.md (`f9baf56`)
+- Rename log_agg.md to log_agg.md (`af3c601`)
+- Rename network_intrusion.md to network_intrusion.md (`8521a5d`)
+- Rename autopsy_kape.md to autopsy_kape.md (`deec200`)
+- Rename live_data_collection.md to live_data_collection.md (`f750efb`)
+- Rename volatility_cheatsheet.md to volatility_cheatsheet.md (`0dfc0ac`)
+- Rename osquery.md to osquery.md (`b5d2eec`)
+- Rename auditd_syslog.md to auditd_syslog.md (`92a758a`)
+- Rename sysmon.md to sysmon.md (`dc5177b`)
+- Rename elk_stack.md to elk_stack.md (`b32bf60`)
+- Rename graylog.md to graylog.md (`2a0f4fd`)
+- Rename splunk.md to splunk.md (`472988e`)
+- Rename wazuh.md to wazuh.md (`41040bc`)
+- Rename stress_soak.py to stress_soak.py (`9db0bd2`)
+- Rename standalone_ram_tester.py to standalone_ram_tester.py (`238cb40`)
+- Rename standalone_gpu_tester.py to standalone_gpu_tester.py (`1ff3866`)
+- Rename nvidia_gpu_tester.py to nvidia_gpu_tester.py (`7acb6a8`)
+- Rename full_hw_suite.py to full_hw_suite.py (`5563916`)
+- Rename amd_gpu_tester.py to amd_gpu_tester.py (`fdf2ab9`)
+- Rename stress_soak.py to stress_soak.py (`9eddb43`)
+- Rename standalone_ram_tester.py to standalone_ram_tester.py (`4680469`)
+- Rename standalone_gpu_tester.py to standalone_gpu_tester.py (`8a33b73`)
+- Rename nvidia_gpu_tester.py to nvidia_gpu_tester.py (`d8c6fff`)
+- Rename full_hw_suite.py to full_hw_suite.py (`0a6a1b6`)
+- Rename amd_gpu_tester.py to amd_gpu_tester.py (`81480cf`)
+- Update README.md for Hardware Testing (`775642a`)
+- Rename README.md to README.md (`e519c41`)
+- Rename install_testbench_tools.sh to install_testbench_tools.sh (`44ac759`)
+- Rename Manjaro_Intel_TestBench.md to Manjaro_Intel_TestBench.md (`504aa15`)
+- Update README.md (`c6d3b52`)
+- Update BusPirate.md (`59cc213`)
+- Update README.md (`0c49e1f`)
+- Update README.md (`1c6f05b`)
+- Update Chapter5.md (`aad601d`)
+- Update Chapter3.md (`07cfe6b`)
+- Rename README.md to README.md (`873a81d`)
+- Update README.md (`fa4ecb5`)
+- Update tool links in README for SDR and RF analysis (`0f14650`)
+- Update appendices description in README.md (`ce17be4`)
+- Update README.md (`c9ac25e`)
+- Update PartIII.md (`6117bcc`)
+- Update PartI.md (`2a34310`)
+- Rename README.md to README.md (`6e70bfc`)
+- Update README title format (`c96a59b`)
+- Rename cm4.md to CM4-SETUP.md (`6e84f38`)
+- Update README title and pluralize guides (`b709659`)
+- Revise uConsole README for clarity and structure (`8c09752`)
+- Update README.md (`39fa338`)
+- Update print statement from 'Hello' to 'Goodbye' (`cdee35c`)
+- Update README.md (`c705294`)
+- Update README.md (`506481b`)
+- Update README.md (`30bda54`)
+- Refactor README.md for improved formatting (`526adf6`)
+- Update README.md (`47f0d75`)
+- Refactor README headings for consistency (`b86180c`)
+- Update README.md (`fab661e`)
+- Update README.md (`72dfd59`)
+- Rename README.md to README.md (`b031027`)
+- Update and rename uconsole.md to README.md (`eab4cec`)
+- Update README with improved overview description (`f9c9a15`)
+- Update README.md (`cd54235`)
+- Update README.md (`a8ae4f7`)
+- Update README.md (`723dfe9`)
+- Update nvidia_gpu_tester.py (`ba07ded`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`2eb40c5`)
+- Update NVIDIA GPU Tester to version 2.3.1 (`728957f`)
+- Update nvidia_gpu_tester.py (`80aa552`)
+- Update nvidia_gpu_tester.py (`a3481e6`)
+- Update install_testbench_tools.sh (`3ab7288`)
+- Update install_testbench_tools.sh (`c90cc0f`)
+- Update install_testbench_tools.sh (`ddd9b8d`)
+- Update install_testbench_tools.sh (`ea24ed9`)
+- Remove code block formatting from install script (`9bf6fb0`)
+- Update Manjaro_Intel_TestBench.md (`0ac8b26`)
+- Update README.md (`5af57f7`)
+- Update formatting and headings in Manjaro test bench doc (`0d647ed`)
+- Update formatting and headers in test bench documentation (`35706bc`)
+- Update Manjaro_Intel_TestBench.md (`adc71bb`)
+- Clean up README.md by removing empty code block (`11c84e5`)
+- Update README.md (`a292d66`)
+- Enhance README with updated installation and build steps (`9699214`)
+- Update Manjaro Intel TestBench documentation (`6a1c09d`)
+- Update README.md (`9517fc7`)
+- Update README.md (`ca45482`)
+- Update Manjaro_Intel_TestBench.md (`a6e7d67`)
+- Update README.md (`3fb77b0`)
+- Rename Hardware Testing/py/standalone_gpu_tester.py to Hardware Testing/py/old/standalone_gpu_tester.py (`51e6229`)
+- Rename Hardware Testing/py/full_hw_suite.py to Hardware Testing/py/old/full_hw_suite.py (`b01c10d`)
+- Rename Hardware Testing/py/standalone_ram_tester.py to Hardware Testing/py/old/standalone_ram_tester.py (`418a6c9`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`4094274`)
+- Rename Hardware Testing/py/stress_soak.py to Hardware Testing/py/old/stress_soak.py (`65f71f6`)
+- Update Manjaro_Intel_TestBench.md (`02a700d`)
+- Update fmt.Println message from 'Hello' to 'Goodbye' (`3676ba8`)
+- Rename amd_gpu_tester.py to old directory (`5fd0877`)
+- Update nvidia_gpu_tester.py (`62fbd03`)
+- Rename nvidia_gpu_tester.md to nvidia_gpu_tester.py (`b8a41b7`)
+- Rename nvidia_gpu_test.md to nvidia_gpu_tester.md (`657a50f`)
+- Rename Hardware Testing/py/nvidia_gpu_tester.py to Hardware Testing/py/old/nvidia_gpu_tester.py (`a3dd86d`)
+- Update nvidia_gpu_tester.py (`618fbdf`)
+- Update version in NVIDIA GPU testing script (`38afbd2`)
+- Update nvidia_gpu_tester.py (`b9a50e7`)
+- Update image paths in README.md (`195b251`)
+- Update README.md (`434c23a`)
+- Rename Electromagnetic Fault Injection.jpg to ElectromagneticFaultInjection.jpg (`21c80ba`)
+- Rename Laser Fault Injection.jpg to LaserFaultInjection.jpg (`0f4e583`)
+- Rename SPA on RSA.jpg to SPAonRSA.jpg (`a4eb437`)
+- Rename Shunt Setup.jpg to ShuntSetup.jpg (`afe2099`)
+- Rename Collapsing the Trust Boundary.jpg to CollapsingtheTrustBoundary.jpg (`589ed18`)
+- Rename Clock vs Voltage.jpg to ClockvsVoltage.jpg (`afb86fc`)
+- Rename CPA Correlation Process.jpg to CPACorrelationProcess.jpg (`aa222eb`)
+- Update README.md (`17636b4`)
+- Update README.md (`444a9a3`)
+- Rename hardware_hacking.md to README.md (`5717c7a`)
+- Rename space_securiy.md to README.md (`e62b8ac`)
+- Rename stress_soak.py to stress_soak.py (`9c2c324`)
+- Rename standalone_ram_tester.py to standalone_ram_tester.py (`c0665c4`)
+- Rename standalone_gpu_tester.py to standalone_gpu_tester.py (`36de696`)
+- Rename full_hw_suite.py to full_hw_suite.py (`7e6ebd0`)
+- Update README.md for hardware testing (`f0df124`)
+- Rename Manjaro_Intel_TestBench.md to Manjaro_Intel_TestBench.md (`767fe6d`)
+- Rename README.md to README.md (`beac912`)
+- Update offensive_ai.md (`d37733c`)
+- Update sdr_hacking.md (`d23ee08`)
+- Update sdr_hacking.md (`2c0378c`)
+- Update Manjaro_Intel_TestBench.md (`1ceb82a`)
+- Update README with nvidia-utils package (`c91bb7f`)
+- Update README.md (`e67d17d`)
+- Update Manjaro_Intel_TestBench.md (`268c2e5`)
+- Update Manjaro_Intel_TestBench.md (`c6f0d0c`)
+- Update GPU tools instructions in test bench (`16a83c8`)
+- Update README for clarity and formatting (`c3d254f`)
+- Update REPORT_DIR to current working directory (`910514e`)
+- Update standalone_ram_tester.py (`3aa7fcf`)
+- Update REPORT_DIR to use current working directory (`9e9b9c5`)
+- Refactor _fmt_s for better time formatting (`7d17e78`)
+- Update title to include Intel CPU specification (`6307e0c`)
+- Rename Manjaro_TestBench.md to Manjaro_Intel_TestBench.md (`5bf0e6e`)
+- Rename HardwareTesting/standalone_ram_tester.py to HardwareTesting/py/standalone_ram_tester.py (`498fe2b`)
+- Rename HardwareTesting/standalone_gpu_tester.py to HardwareTesting/py/standalone_gpu_tester.py (`3c996a1`)
+- Rename HardwareTesting/full_hw_suite.py to HardwareTesting/py/full_hw_suite.py (`135401c`)
+- Update Manjaro_TestBench.md (`a48fcf3`)
+- Rename Manjaro_TestBench.md to Manjaro_TestBench.md (`2ae1188`)
+- Update README.md (`3d0b0d4`)
+- Update README.md (`bc743d4`)
+- Update README.md (`240be83`)
+- Update Manjaro_TestBench.md (`6e66939`)
+- Update LinuxCheatSheet.md (`8042a97`)
+- Update last updated date in Linux cheat sheet (`fdc3911`)
+- Update LinuxCheatSheet.md (`7121328`)
+- Update LinuxCheatSheet.md (`57c816b`)
+- Update LinuxCheatSheet.md (`fd04e52`)
+- Update LinuxCheatSheet.md (`10bb6fb`)
+- Update Manjaro TestBench documentation for clarity (`5c78ebd`)
+- Update Manjaro_TestBench.md (`5c6aeee`)
+- Update Manjaro_TestBench.md (`e16cf18`)
+- Remove duplicate thermal paste/mounts advice (`a340f1f`)
+- Update Manjaro_TestBench.md (`f54b710`)
+- Update Manjaro_TestBench.md (`1178103`)
+- Update OSINT_CHEATSHEET.md (`bb274cf`)
+- Revise OSINT guide structure and content (`c4ad8d6`)
+- Update last updated date in README (`5cfaaa8`)
+- Rename refrence_guide.md to refrences.md (`3adbb87`)
+- Remove Documentation directory reference from README (`24dba84`)
+- Update LEGAL.md (`e9bd494`)
+- Update START_HERE.md (`933d781`)
+- Update README.md (`e0be7d1`)
+- Update ultimate_cybersecurity_master_guide.md (`4dc00e3`)
+- Update ultimate_cybersecurity_master_guide.md (`2540227`)
+- Update ENHANCED_MASTER_GUIDE.md (`4cd99e9`)
+- Update README.md (`775a631`)
+- Update README.md (`0000435`)
+- Update README.md (`71b1463`)
+- Update README.md (`5012153`)
+- Update README.md (`1f7c435`)
+- Update README.md (`403a5ce`)
+- Update README.md (`07732fe`)
+- Update README.md (`6e7d05e`)
+- Update osint-threat-intel.md (`c942804`)
+- Update network-detection.md (`05e15d0`)
+- Update av-edr-evasion.md (`ddcfff5`)
+- Update README.md (`90accdc`)
+- Update README.md (`a5a4869`)
+- Update README.md (`827872e`)
+- Update osint-threat-intel.md (`3073506`)
+- Update osint-threat-intel.md (`37a40e1`)
+- Update OSINT_GUIDE.md (`98dc944`)
+- Update OSINT_GUIDE.md (`fdedfe0`)
+- Rename osint-threat-intel.md to osint-threat-intel.md (`a570292`)
+- Update generate_changelog.py (`088f462`)
+- Update CHANGELOG with January 20, 2026 changes (`967290f`)
 - Update auto_changelog.yml (`3330d63`)
 - Update auto_changelog.yml (`fb7e94a`)
 - Update auto_changelog.yml (`3d3bf17`)
@@ -441,8 +1010,8 @@ Provide version history transparency so practitioners can see what changed, when
 - Update Aircrack-ng_Commands.md (`87ead3b`)
 - Update LinuxCheatSheet.md (`9e354ef`)
 - Update README.md (`1bd5426`)
-- Update firmware-hardware-compatibility.md (`d3001dc`)
-- Update firmware-hardware-compatibility.md (`8554eb9`)
+- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`d3001dc`)
+- Update FIRMWARE&HARDWARE_COMPATIBILITY.md (`8554eb9`)
 - Update hardware compatibility and firmware details (`f106dd6`)
 - Update section headers and table of contents (`edb2d15`)
 - Update README.md (`cf3f6ab`)
@@ -506,6 +1075,80 @@ Provide version history transparency so practitioners can see what changed, when
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Revise OSINT README by removing detailed sections (`2b3e266`)
+- Revise Social Media OSINT documentation for clarity (`5b499b1`)
+- docs: note meek-azure Tor bridge fronting is deprecated (#17) (`cf37959`)
+- docs: note gr-gsm is unmaintained upstream (GNU Radio 3.10+) (#16) (`8deec8c`)
+- docs: note deprecated tooling (CrackMapExec->NetExec, twint) (#14) (`c12405c`)
+- Standardize formatting in SpaceSecurity README (`0b444e6`)
+- Improve formatting of Purpose section in README (`06d0947`)
+- Enhance README formatting for clarity (`f76e0fb`)
+- Clarify tool ecosystem reference in README (`ed5cd32`)
+- Change 'Master Guides' header to H3 (`cf5bc47`)
+- Improve README clarity and formatting (`6b96f4f`)
+- Revise wording for clarity in README section (`2111849`)
+- Revise README entry point and overview sections (`07835fe`)
+- Complete WiFi Attack Techniques section in WiFiMarauder_Guide.md (`aa2a71b`)
+- Revise core references in README.md (`26ffdd0`)
+- Enhance README with a thank you message and IT manual link (`bfa4842`)
+- Simplify README by removing excess information (`5f4a0d4`)
+- Change headers from h4 to h3 in README.md (`29f815e`)
+- Clarify repository index description in README (`b55d3be`)
+- Standardize OSINT, SDR, SpaceSecurity, Tradecraft, uConsole, Homelab, HardwareTesting, OPSEC READMEs to gold standard (`2d9838b`)
+- Standardize AI, Documentation, HardwareHacking, IncidentResponse READMEs (`a3259d3`)
+- Streamline README by removing detailed sections (`b6d1abe`)
+- Enhance Mobile README with contribution guidelines (`ecd608f`)
+- Expand Mobile/README.md to match section README standard (`788038a`)
+- Revise README for clarity on hardware testing importance (`564459c`)
+- SpaceSecurity batch: README, PartI-IV, Appendices (`e770773`)
+- SDR batch: README, sdr, sdr_hacking (`962a07d`)
+- Homelab batch: HomeLab_Setup, README (`bd7ef46`)
+- IncidentResponse batch: README, network_intrusion, log_agg (`df22045`)
+- HardwareHacking batch 2: Chapter1-5 and README (`c6de354`)
+- Docs batch 7: Locksport, bruce_firmware (`3402603`)
+- Docs batch 8: references, Documentation README (`24e9876`)
+- Docs batch 6: blackarch, vscode, arduinoIDE (`6e39729`)
+- Docs batch 5: LinuxCheatSheet, python, wireshark (`c2fc9be`)
+- Docs batch 4: TOR, VPN, virtualmachines (`6b9effd`)
+- Docs batch 2: flipper_zero_guide, evil_m5, bjorn_pi (`372e757`)
+- Expand Flipper Zero guide with purpose and usage details (`9303a43`)
+- Enhance documentation for Evil-M5 project (`68424e8`)
+- Revise section title for Bjorn documentation (`f75c76f`)
+- Expand Bjorn documentation with purpose and usage details (`499bdda`)
+- Revise Aircrack-ng Commands documentation (`880c147`)
+- Enhance Arduino IDE guide with purpose and usage details (`05b07e8`)
+- Enhance LOLBins documentation with quick-reference checklists (`b750b05`)
+- Enhance AV/EDR Evasion document with checklists (`e4118c3`)
+- Enhance Domain Escalation documentation with techniques (`b60a6e3`)
+- Enhance Defense Evasion documentation with details (`26eac70`)
+- Enhance Credential Access documentation with details (`0cbdfbf`)
+- Enhance AppLocker bypass documentation (`e3b9daa`)
+- Revise ethical guidelines and repository details (`a77a579`)
+- Expand Defense Evasion checklist with usage guidelines (`7374b04`)
+- Include usage guidelines and repository details (`78f7af1`)
+- Enhance CM4 setup guide description (`8bbba29`)
+- Enhance README with recent script improvements (`1cf0f68`)
+- Enhance README with CM4/CM5 script details (`d4d4639`)
+- Revise README for uConsole setup scripts (`e7bca01`)
+- Revise setup guide for HackerGadgets AIO board (`fdc56e2`)
+- Enhance README with detailed IR and Forensics content (`04a628f`)
+- Format title for CM5 setup guide (`9d736e7`)
+- Revise title for CM4 setup guide (`e8afb08`)
+- Revise title for CM5 setup guide (`5b7631f`)
+- Refine language in README for clarity (`e660a6e`)
+- Revise GreatFET One documentation and usage example (`dba3d59`)
+- Revise title for uConsole setup guide (`747f125`)
+- Modify installation command in README (`5aa93a4`)
+- Revise README for hardware testing instructions (`6a35dfb`)
+- Enhance script documentation and requirements (`e4d238b`)
+- Clarify NVIDIA installation steps in README (`8d2a8eb`)
+- Revise Manjaro Intel Test Bench documentation (`97cc861`)
+- Revise GPU tools installation instructions in README (`efc0a0a`)
+- Improve README formatting and language (`6ac1ed1`)
+- Enhance package management documentation for Manjaro (`450f662`)
+- Refine documentation descriptions and statistics (`a0f35f8`)
+- Revise VPN Security Guide for clarity and detail (`7a9d677`)
+- Revise and enhance Tor Browser guide (`b58202c`)
 - Revise playbooks section in README (`779a325`)
 - Enhance documentation with hyperlinks for references (`d4feb91`)
 - Enhance README with image and maintenance badge (`fb8df0d`)
@@ -523,6 +1166,7 @@ Provide version history transparency so practitioners can see what changed, when
 - Revise entries in README for clarity (`f727804`)
 
 ### 🗑️ Removals
+- Delete hardware_hacking.md (`17e7d94`)
 - Delete DRAFT_CHANGELOG.md (`0419ea9`)
 - Delete Incident Response/Endpoint-Visibility/Linux/syslog.md (`71a9452`)
 - Delete Checklists/Active_Directory.md (`4f0b16c`)
@@ -541,17 +1185,81 @@ Provide version history transparency so practitioners can see what changed, when
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- ci: open a PR for CHANGELOG.md instead of pushing to main (#21) (`81ab594`)
+- Clarify BinaryEdge description in OSINT tools catalog (`439acd6`)
+- Reorder OSINT tools in the catalog (`a500657`)
+- Revise legal references and enhance toolkit links (`b51c1bf`)
+- Revise playbook section titles and descriptions (`a4a14c4`)
+- Modify title of Linux cheat sheet for clarity (`0883e2c`)
+- Clarify Debian reference in Linux cheat sheet (`9dd3da8`)
+- Simplify OSINT Cheat Sheet description (`e77c822`)
+- Refine title and emphasize verification note (`72ce063`)
+- Replace em-dashes reintroduced by remote merge (42 files) (`f5a910e`)
+- Replace all em-dashes (—) with hyphens (-) across entire repo (`a338554`)
+- HardwareHacking: point XGecu link at the actual download page + mirror (`df2ff71`)
+- Flag stale major-version pins in elk_stack.md and graylog.md (`73c6bf4`)
+- HardwareHacking batch 1: 7 hardware tool files (`512b546`)
+- Enhance Python cheat sheet with detailed sections (`4b0d94c`)
+- Enhance LinuxCheatSheet with detailed sections (`cb357f8`)
+- Enhance Pwnagotchi cheatsheet with detailed sections (`5d25aea`)
+- Revise WiFi Marauder Cheat Sheet for v1.8.9+ (`a2e452d`)
+- Revise HCXTools & Hashcat cheat sheet for clarity (`2cf20cb`)
+- Revise BlackArch post-install setup instructions (`725500d`)
+- Enhance c2-frameworks.md with checklist (`7db24a3`)
+- Enhance active-directory.md with quick-reference checklists (`8db6387`)
+- Enhance Purple Team Playbook with detailed sections (`b4c7c2e`)
+- Enhance Purple Team Playbook with detailed sections (`7d9b46e`)
+- Revise purpose and scope in PurpleTeam_Simple.md (`3f7d0b9`)
+- Enhance unauthorized access investigation playbook (`e89ed5c`)
+- Enhance SOP for phishing email analysis (`5ef5d0f`)
+- Enhance GitHubPlaybooks.md with introduction and goals (`e1ee2de`)
+- Enhance Windows Privilege Escalation checklist content (`fee7d28`)
+- Revise Windows Build Review Checklist content (`08f3b2f`)
+- Enhance Windows Build Review Checklist with details (`661800f`)
+- Enhance Windows persistence checklist with details (`1d9ef4b`)
+- Enhance Microsoft Exchange checklist with detailed context (`b779eb7`)
+- Enhance Linux Privilege Escalation checklist details (`45e0d3d`)
+- Enhance Environment Breakout Checklist details (`18c1fc5`)
+- Revise checklist for Domain Persistence techniques (`1bdfc9b`)
+- Change header format for LOLBins deep-dive link (`472de62`)
+- Enhance Command and Control checklist details (`ff3f42c`)
+- Enhance Active Directory checklist with detailed sections (`8e1f205`)
+- Enhance Android Applications Checklist details (`9e2bcae`)
+- Improve formatting of Android applications checklist (`fa19701`)
+- Format references as subheadings in Active Directory.md (`fb63e68`)
+- Format AppLocker markdown header for consistency (`2b98855`)
+- Format companion deep-dive section header (`e625f37`)
+- Format blue-team companion section with heading (`6de2b88`)
+- Format deep-dive links into bullet points (`83dc033`)
+- Format the deep-dive link in Command and Control (`f0cdea3`)
+- Change repository clone and directory for quick start (`ead027a`)
+- Revise Windows Build Review Checklist with links and disclaimers (`c4fd301`)
+- Revise VoIP Checklist with links and usage warnings (`67c3272`)
+- Enhance Persistence.md with links and usage warnings (`19c0414`)
+- Enhance Linux Privilege Escalation checklist with links (`fe75066`)
+- Enhance Command and Control checklist with links (`6e87dca`)
+- Revise AppLocker Bypass checklist for clarity (`4f8ce0f`)
+- Include responsible use disclaimer in AppLocker.md (`0f5899f`)
+- Self-heal dpkg/apt state at start of phase_aio (`a78892f`)
+- Fail fast in phase_aio when hackergadgets-uconsole-aio-board is missing (v1.3) (`1d40fe7`)
+- Enhance meshtastic-mui installation with recovery steps (`bb2f71c`)
+- Implement ADS-B Tracking installation in setup script (`14719d0`)
+- Implement ADS-B Tracking installation in setup script (`1bf1d14`)
+- Expand Part IV with SATCOM and GNSS security details (`ea092df`)
+- Expand Part II with ground segment details and security (`1826580`)
+- Revise installation instructions for Kali tools (`09fa0da`)
+- Refine script header in nvidia_gpu_tester.py (`4540b8b`)
+- Enhance install_testbench_tools.sh with error handling (`4ea366e`)
+- Implement banner display for GPU diagnostics (`347b9d9`)
+- Implement nvidia_gpu_tester.py for GPU testing (`954c24e`)
+- Replace 'nvidia-smi' with 'nvidia-utils' in package list (`febc514`)
+- Modify GPU tools section and sensor detection instructions (`73113be`)
+- Revise installation instructions in Manjaro test bench (`df7141a`)
+- Change report directory to current working directory (`1f8e813`)
+- Improve description of references.txt (`cc79a1b`)
 - Enhance changelog generator functionality (`96fcea6`)
 - Enhance Volatility 3 cheatsheet with detailed commands (`9d315ad`)
-- Merge pull request #7 from Pnwcomputers/Pnwcomputers-patch-1 (`1b90a59`)
-- Merge pull request #6 from Pnwcomputers/Pnwcomputers-patch-1 (`fc78cc5`)
-- Merge pull request #5 from Pnwcomputers/Pnwcomputers-patch-1 (`596eb64`)
-- Merge pull request #4 from Pnwcomputers/Pnwcomputers-patch-2 (`cf2240c`)
-- Merge pull request #3 from Pnwcomputers/Pnwcomputers-patch-2 (`5e1a219`)
-- Merge pull request #2 from Pnwcomputers/Pnwcomputers-patch-2 (`0c515ce`)
-- Merge pull request #1 from Pnwcomputers/Pnwcomputers-patch-1 (`351c406`)
 - Refine DIY PenTesting hardware description (`a66a1fe`)
-- Merge branch 'main' of https://github.com/Pnwcomputers/Cybersecurity-Operational-Playbooks (`665c8d7`)
 - removing books (`1d64fdb`)
 - PDF Books (`27e0360`)
 
@@ -560,43 +1268,290 @@ Provide version history transparency so practitioners can see what changed, when
 <summary>Click to view full file list</summary>
 
 - `.github/workflows/auto_changelog.yml`
-- `.github/ISSUE_TEMPLATE/content_suggestion.md`
-- `.github/ISSUE_TEMPLATE/bug_report.md`
+- `OSINT/README.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/OSINT_socialmedia.md`
 - `README.md`
+- `IncidentResponse/Endpoint-Visibility/README.md`
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/SIEM/README.md`
+- `Documentation/TOR.md`
+- `SDR/sdr.md`
+- `.markdownlint.jsonc`
+- `Documentation/LinuxCheatSheet.md`
+- `Mobile/OnePlus_A3006/Nethunter_SOP.md`
+- `Mobile/README.md`
+- `OPSEC/OPSEC_guide.md`
+- `OSINT/OSINT_CHEATSHEET.md`
+- `STYLE_GUIDE.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `Tradecraft/active-directory.md`
+- `Tradecraft/osint-threat-intel.md`
+- `PlayBooks/PurpleTeam_Simple.md`
+- `PlayBooks/README.md`
+- `PlayBooks/cybersecurity_playbooks.md`
+- `PlayBooks/unauth_access.md`
+- `.github/CONTRIBUTING.md`
+- `.github/ISSUE_TEMPLATE/outdated_content.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/workflows/link-check.yml`
+- `.github/workflows/markdownlint.yml`
+- `.lycheeignore`
+- `AI/AnythingLLM/README.md`
+- `AI/OpenClaw/README.md`
+- `AI/README.md`
+- `CHANGELOG.md`
+- `Checklists/Persistence.md`
+- `Checklists/README.md`
+- `Checklists/command-and-control.md`
+- `Checklists/microsoft-exchange.md`
+- `Checklists/voip-checklist.md`
+- `Documentation/README.md`
+- `Documentation/VPN.md`
+- `Documentation/references.md`
+- `Documentation/wireshark.md`
+- `GLOSSARY.md`
+- `HardwareHacking/BusPirate.md`
+- `HardwareHacking/Chapter2.md`
+- `HardwareHacking/README.md`
+- `HardwareTesting/README.md`
+- `HardwareTesting/py/README.md`
+- `HardwareTesting/py/old/full_hw_suite.py`
+- `HardwareTesting/py/old/standalone_ram_tester.py`
+- `HardwareTesting/py/old/stress_soak.py`
+- `Homelab/README.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
+- `IncidentResponse/README.md`
+- `LEGAL.md`
+- `OPSEC/README.md`
+- `OSINT/OSINT_GUIDE.md`
+- `PDF/.gitirnore`
+- `PDF/README.md`
+- `PDF/docker-pen-test.pdf`
+- `PDF/ssh-pen-testing.pdf`
+- `SDR/README.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `START_HERE.md`
+- `Scripts/Bash/banner_grab.sh`
+- `Scripts/Bash/case_ip_address_check.sh`
+- `Scripts/Bash/check_root_function.sh`
+- `Scripts/Bash/curl_banner_grab,sh`
+- `Scripts/Bash/fake_sudo.sh`
+- `Scripts/Bash/host_monitor_notification.sh`
+- `Scripts/Bash/keylogger.sh`
+- `Scripts/Bash/nmap_OS_detect.sh`
+- `Scripts/Bash/nuclei-notifier.sh`
+- `Scripts/Bash/ping_w_argument.sh`
+- `Scripts/GO/shells/README.md`
+- `Scripts/GO/shells/bypass.exe`
+- `Scripts/GO/shells/ishell.exe`
+- `Scripts/Python/python-webshell-check.py`
+- `Scripts/README.md`
+- `Scripts/SQL/add_wordpress_admin.sql`
+- `Scripts/SQL/wordpress_add_admin.sql`
+- `SpaceSecurity/README.md`
+- `Tradecraft/README.md`
+- `Tradecraft/av-edr-evasion.md`
+- `Tradecraft/c2-frameworks.md`
+- `Tradecraft/network-detection.md`
+- `advanced_techniques_part2.md`
+- `advanced_techniques_supplement.md`
+- `assets/i2c.jpg`
+- `assets/md`
+- `cybersecurity_cliff_notes.md`
+- `firmware-hardware-compatibility.md`
+- `installer.sh`
+- `uConsole/README.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/blackarch.md`
+- `Documentation/ArchLinux_CheatSheet.md`
+- `Scripts/Bash/BashBunny/README.md`
+- `Scripts/Ducky/README.md`
+- `Checklists/Domain-Escalation.md`
+- `HardwareHacking/HiLetgo.md`
+- `IncidentResponse/SIEM/splunk.md`
+- `Scripts/Python/ssh_brute.py`
+- `AI/OpenClaw/agent_skill_config.md`
+- `Checklists/Command&Control.md`
+- `Checklists/Lateral-Movement.md`
+- `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
+- `Mobile/mobile_pentest_sop.md`
+- `OSINT/scripts/Domain_IP_Recon.md`
+- `OSINT/scripts/Phone_OSINT.md`
+- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `PlayBooks/PurpleTeam_Detailed.md`
+- `PlayBooks/sop_phishing_analysis.md`
+- `SDR/sdr_hacking.md`
+- `Scripts/Python/vuln_scanner.py`
+- `Documentation/bruce_firmware.md`
+- `Documentation/hcxtoolshashcat.md`
+- `Documentation/pwnagotchi_cheatsheet.md`
+- `Checklists/Android-Applications-Checklist.md`
+- `Mobile/OnePlus_A3006/Kali_NetHunter.md`
+- `Mobile/OnePlus_A3006/Rooting.md`
+- `Mobile/Kali_NetHunter.md`
+- `Checklists/ActiveDirectory.md`
+- `Checklists/AppLocker.md`
+- `Checklists/Credential-Access.md`
+- `Checklists/Defense-Evasion.md`
+- `Checklists/Domain-Persistence.md`
+- `Checklists/Environment-Breakout-Checklist.md`
+- `Checklists/Initial-Access.md`
+- `Checklists/Linux-Privilege-Escalation.md`
+- `Checklists/Microsoft Exchange.md`
+- `Checklists/VoIP Checklist.md`
+- `Checklists/Windows-Build-Review-Checklist.md`
+- `Checklists/Windows-Privilege-Escalation.md`
+- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
+- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
+- `IncidentResponse/SIEM/elk_stack.md`
+- `IncidentResponse/SIEM/graylog.md`
+- `IncidentResponse/SIEM/wazuh.md`
+- `IncidentResponse/network_intrusion.md`
+- `PlayBooks/BlueTeam_IncResp_Simple.md`
+- `PlayBooks/GitHubPlaybooks.md`
+- `PlayBooks/PurpleTeam_Multi-Scrip.md`
+- `Tradecraft/lolbins-lolbas.md`
+- `AI/AnythingLLM/flow-domain_recon.md`
+- `AI/ai_prompts.md`
+- `AI/offensive_ai.md`
+- `AI/offline-llm.md`
+- `FIRMWARE&HARDWARE_COMPATIBILITY.md`
+- `Homelab/workflows/self-hosted_network_attacks.md`
+- `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/investigation_guide.md`
+- `OSINT/argus_osint.md`
+- `OSINT/scripts/Email_OSINT.md`
+- `uConsole/CM4-SETUP.md`
+- `uConsole/CM5-SETUP.md`
+- `AI/AnythingLLM/flow-github_secrets.md`
+- `HardwareTesting/Manjaro_Intel_TestBench.md`
+- `Scripts/Bash/bash_scripting_cheat-sheet.md`
+- `uConsole/scripts/README.md`
+- `Homelab/HomeLab_Setup.md`
+- `IncidentResponse/log_agg.md`
+- `AI/AnythingLLM/anything_llm_agentflows.md`
+- `AI/AnythingLLM/flow-breacher_check.md`
+- `AI/AnythingLLM/flow-company_osint.md`
+- `AI/AnythingLLM/flow-cve_lookup.md`
+- `AI/AnythingLLM/flow-email_osint.md`
+- `AI/AnythingLLM/flow-nmap_analyzer.md`
+- `AI/AnythingLLM/flow-threat_intel.md`
+- `AI/AnythingLLM/flow-vulnreport_gen.md`
+- `AI/OpenClaw/use_cases.md`
+- `Documentation/Aircrack-ng_Commands.md`
+- `Documentation/Locksport.md`
+- `Documentation/WifiMarauder_CheatSheet.md`
+- `Documentation/arduinoIDE.md`
+- `Documentation/flipper_zero_guide.md`
+- `Documentation/python.md`
+- `Documentation/virtualmachines.md`
+- `Documentation/vscode.md`
+- `HardwareHacking/BitPirate.md`
+- `HardwareHacking/GreatFETone.md`
+- `HardwareHacking/JTAGulator.md`
+- `HardwareHacking/LA1010.md`
+- `HardwareHacking/T48_TL866-3G.md`
+- `SpaceSecurity/PartII.md`
+- `SpaceSecurity/PartIII.md`
+- `SpaceSecurity/PartIV.md`
+- `.gitignore`
+- `osint`
+- `.github/ISSUE_TEMPLATE/bug_report.md`
+- `.github/ISSUE_TEMPLATE/content_suggestion.md`
+- `.github/SECURITY.md`
+- `Documentation/bjorn_pi.md`
+- `Documentation/evil_m5.md`
+- `HardwareHacking/Chapter1.md`
+- `HardwareHacking/Chapter3.md`
+- `HardwareHacking/Chapter4.md`
+- `HardwareHacking/Chapter5.md`
+- `OSINT/Playbook/install_dependencies.sh`
+- `OSINT/Playbook/osint_investigator.sh`
+- `Scripts/pnwc_install_tools.sh`
+- `SpaceSecurity/Appendices.md`
+- `SpaceSecurity/PartI.md`
+- `OSINT/Playbook/api_keys.conf`
+- `uConsole/scripts/uconsole-cm5-setup.sh`
+- `uConsole/scripts/uconsole-repair.sh`
+- `uConsole/scripts/uconsole-cm4-setup.sh`
+- `HardwareTesting/py/old/standalone_gpu_tester.py`
+- `HardwareTesting/py/old/nvidia_gpu_tester.py`
+- `HardwareTesting/py/old/amd_gpu_tester.py`
+- `HardwareTesting/py/stress_soak.py`
+- `HardwareTesting/py/standalone_ram_tester.py`
+- `HardwareTesting/py/standalone_gpu_tester.py`
+- `HardwareTesting/py/nvidia_gpu_tester.py`
+- `HardwareTesting/py/full_hw_suite.py`
+- `HardwareTesting/py/amd_gpu_tester.py`
+- `HardwareTesting/install_testbench_tools.sh`
+- `uConsole/cm4.md`
+- `uconsole/README.md`
+- `uconsole/uconsole.md`
+- `Hardware Testing/README.md`
+- `Hardware Testing/py/README.md`
+- `Hardware Testing/py/nvidia_gpu_tester.py`
+- `Hardware Testing/py/amd_gpu_tester.py`
+- `Hardware Testing/install_testbench_tools.sh`
+- `Hardware Testing/Manjaro_Intel_TestBench.md`
+- `Hardware Testing/py/standalone_gpu_tester.py`
+- `Hardware Testing/py/old/standalone_gpu_tester.py`
+- `Hardware Testing/py/full_hw_suite.py`
+- `Hardware Testing/py/old/full_hw_suite.py`
+- `Hardware Testing/py/standalone_ram_tester.py`
+- `Hardware Testing/py/old/standalone_ram_tester.py`
+- `Hardware Testing/py/stress_soak.py`
+- `Hardware Testing/py/old/stress_soak.py`
+- `Hardware Testing/py/old/amd_gpu_tester.py`
+- `Hardware Testing/py/nvidia_gpu_tester.md`
+- `Hardware Testing/py/nvidia_gpu_test.md`
+- `Hardware Testing/py/old/nvidia_gpu_tester.py`
+- `Hardware Hacking/README.md`
+- `assets/ElectromagneticFaultInjection.jpg`
+- `assets/LaserFaultInjection.jpg`
+- `assets/SPAonRSA.jpg`
+- `assets/ShuntSetup.jpg`
+- `assets/CollapsingtheTrustBoundary.jpg`
+- `assets/ClockvsVoltage.jpg`
+- `assets/CPACorrelationProcess.jpg`
+- `assets/CPA Correlation Process.jpg`
+- `assets/Clock vs Voltage.jpg`
+- `assets/Collapsing the Trust Boundary.jpg`
+- `assets/Electromagnetic Fault Injection.jpg`
+- `"assets/I\302\262C.jpg"`
+- `assets/JTAG.jpg`
+- `assets/Laser Fault Injection.jpg`
+- `assets/SPA on RSA.jpg`
+- `assets/SPI.jpg`
+- `assets/Shunt Setup.jpg`
+- `assets/UART.jpg`
+- `Space Security/README.md`
+- `Hardware Hacking/hardware_hacking.md`
+- `Documentation/hardware_hacking.md`
+- `Space Security/space_securiy.md`
+- `HardwareTesting/standalone_ram_tester.py`
+- `HardwareTesting/standalone_gpu_tester.py`
+- `HardwareTesting/full_hw_suite.py`
+- `HardwareTesting/Manjaro_TestBench.md`
+- `Documentation/Manjaro_TestBench.md`
+- `Documentation/refrences.md`
+- `Documentation/refrence_guide.md`
+- `OSINT/osint-threat-intel.md`
 - `generate_changelog.py`
 - `workflows/auto_changelog.yml`
 - `ISSUE_TEMPLATE/content_suggestion.md`
 - `ISSUE_TEMPLATE/bug_report.md`
-- `.github/SECURITY.md`
-- `.github/CONTRIBUTING.md`
-- `Scripts/pnwc_install_tools.sh`
 - `pnwc_install_tools.sh`
 - `Documentation/subdomains.txt`
-- `Documentation/README.md`
-- `Documentation/vscode.md`
-- `Documentation/arduinoIDE.md`
-- `Documentation/bjorn_pi.md`
-- `Documentation/bruce_firmware.md`
-- `Documentation/evil_m5.md`
-- `Documentation/LinuxCheatSheet.md`
-- `OSINT/argus_osint.md`
-- `OSINT/README.md`
 - `OSINT/argus-osint.md`
-- `Documentation/flipper_zero_guide.md`
 - `assets/cybersecurityguide.png`
-- `assets/md`
 - `DRAFT_CHANGELOG.md`
-- `Documentation/wireshark.md`
-- `START_HERE.md`
-- `AI/README.md`
-- `AI/AnythingLLM/README.md`
-- `AI/OpenClaw/README.md`
-- `AI/OpenClaw/agent_skill_config.md`
 - `AI/OpenClaw/agen_skill_config.md`
-- `AI/OpenClaw/use_cases.md`
-- `.gitignore`
 - `Incident Response/README.md`
-- `PlayBooks/unauth_access.md`
 - `Incident Response/Digital-Forensics/Live Data/live_data_collection.md`
 - `Incident Response/Digital-Forensics/Disks/autopsy_kape.md`
 - `Incident Response/Digital-Forensics/Memory/volatility_cheatsheet.md`
@@ -616,59 +1571,22 @@ Provide version history transparency so practitioners can see what changed, when
 - `Incident Response/Digital-Forensics/Memory-Analysis/Volatility-Cheatsheet.md`
 - `PlayBooks/sop_phising_analysis.md`
 - `Incident Response/network_intrusion.md`
-- `Homelab/README.md`
-- `Homelab/workflows/self-hosted_network_attacks.md`
-- `Homelab/HomeLab_Setup.md`
 - `Homelab/self-hosted_network_attacks.md`
 - `home lab/self-hosted_network_attacks.md`
 - `examples/self-hosted_network_attacks.md`
 - `examples/self-hosted_SBC_attacks.md`
-- `CHANGELOG.md`
-- `AI/ai_prompts.md`
 - `Scripts/Bash/BashBunny/sys_prof.txt`
 - `Scripts/Bash/BashBunny/cred_harv.txt`
 - `Scripts/Bash/BashBunny/network_recon.txt`
 - `Scripts/Bash/BashBunny/windows_exfil.txt`
-- `Scripts/Bash/BashBunny/README.md`
-- `Scripts/Ducky/README.md`
 - `Scripts/Ducky/exfil_windowsPC.txt`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
-- `OSINT/scripts/Phone_OSINT.md`
-- `OSINT/scripts/Domain_IP_Recon.md`
-- `OSINT/scripts/Email_OSINT.md`
-- `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_GUIDE.md`
-- `OSINT/Playbook/osint_investigator.sh`
-- `OSINT/Playbook/README.md`
-- `OSINT/Playbook/api_keys.conf`
-- `OSINT/Playbook/install_dependencies.sh`
-- `OSINT/Playbook/investigation_guide.md`
-- `Documentation/blackarch.md`
-- `LEGAL.md`
-- `Scripts/README.md`
-- `PlayBooks/README.md`
-- `PDF/README.md`
-- `Checklists/README.md`
-- `OPSEC/README.md`
 - `OSINT/osint_guide.md`
-- `OPSEC/OPSEC_guide.md`
 - `OPSEC/OPSEC_Setup.md`
-- `AI/offline-llm.md`
 - `Checklists/Active_Directory.md`
-- `AI/AnythingLLM/flow-threat_intel.md`
-- `AI/AnythingLLM/flow-vulnreport_gen.md`
-- `AI/AnythingLLM/flow-cve_lookup.md`
-- `AI/AnythingLLM/flow-nmap_analyzer.md`
-- `AI/AnythingLLM/flow-github_secrets.md`
-- `AI/AnythingLLM/flow-company_osint.md`
-- `AI/AnythingLLM/flow-email_osint.md`
-- `AI/AnythingLLM/flow-breacher_check.md`
-- `AI/AnythingLLM/flow-domain_recon.md`
 - `AI/AnythingLLM/flow-Github_secrets.md`
 - `AI/AnythingLLM/flow-emailOSINT.md`
 - `AI/AnythingLLM/flow-DomainRecon.md`
 - `AI/AnythingLLM/flow-CompanyOSINT.md`
-- `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/anything_llm_agentflows,md`
 - `Scripts/Bash/admin-panel-finder.sh`
 - `Scripts/Python/bindshell.py`
@@ -733,13 +1651,11 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Python/port_scan.py`
 - `Scripts/Python/skype_parse.py`
 - `Scripts/Python/ssh_botnet.py`
-- `Scripts/Python/ssh_brute.py`
 - `Scripts/Python/ssh_brutekey.py`
 - `Scripts/Python/ssh_command.py`
 - `Scripts/Python/ssh_pxssh_command.py`
 - `Scripts/Python/userpass.txt`
 - `Scripts/Python/vuln_banners.txt`
-- `Scripts/Python/vuln_scanner.py`
 - `Scripts/Python/zip_crack.py`
 - `Scripts/GO/brute_http_basic.go`
 - `Scripts/wordpress_add_admin`
@@ -752,7 +1668,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/C/scanner.c`
 - `PDF/AD_Attacks_.pdf`
 - `PDF/AD_Post_Exploitation.pdf`
-- `PDF/docker-pen-test.pdf`
+- `PDF/Docker pen test.pdf`
 - `PDF/IDOR_Guide.pdf`
 - `PDF/Linux_Privilege_Escalation.pdf`
 - `PDF/Network_101_1738356173.pdf`
@@ -762,30 +1678,12 @@ Provide version history transparency so practitioners can see what changed, when
 - `PDF/Pentest_Guide.pdf`
 - `PDF/ReactJs_Cheatsheet.pdf`
 - `PDF/SSH_Access_.pdf`
-- `PDF/ssh-pen-testing.pdf`
+- `PDF/Ssh pen testing .pdf`
 - `PDF/Web_Attacks_.pdf`
 - `PDF/Web_application_Firewall__.pdf`
 - `PDF/Wi_Fi_hacking__.pdf`
 - `PDF/Wireshark_Cheat_Sheet.pdf`
 - `PDF/zero-day-hunter.pdf`
-- `PDF/.gitirnore`
-- `Checklists/ActiveDirectory.md`
-- `Checklists/Android-Applications-Checklist.md`
-- `Checklists/AppLocker.md`
-- `Checklists/command-and-control.md`
-- `Checklists/Credential-Access.md`
-- `Checklists/Defense-Evasion.md`
-- `Checklists/Domain-Escalation.md`
-- `Checklists/Domain-Persistence.md`
-- `Checklists/Environment-Breakout-Checklist.md`
-- `Checklists/Initial-Access.md`
-- `Checklists/Lateral-Movement.md`
-- `Checklists/Linux-Privilege-Escalation.md`
-- `Checklists/microsoft-exchange.md`
-- `Checklists/Persistence.md`
-- `Checklists/voip-checklist.md`
-- `Checklists/Windows-Build-Review-Checklist.md`
-- `Checklists/Windows-Privilege-Escalation.md`
 - `Scripts/PowerShell/adlogin.ps1`
 - `Scripts/PowerShell/localbrute-extra-mini.ps1`
 - `Scripts/PowerShell/localbrute.ps1`
@@ -807,9 +1705,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/GO/scan/scan.py`
 - `Scripts/GO/scan/socksscan.go`
 - `Scripts/GO/shells/bypass.c`
-- `Scripts/GO/shells/bypass.exe`
 - `Scripts/GO/shells/insert_encoder.go`
-- `Scripts/GO/shells/ishell.exe`
 - `Scripts/GO/shells/ishell.py`
 - `Scripts/GO/shells/shell.py`
 - `Scripts/GO/shells/stealth.go`
@@ -866,10 +1762,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/GO/passwords/weak_passwords.py`
 - `Scripts/Bash/exit_codes.sh`
 - `Scripts/Bash/ping_with_arguments.sh`
-- `Scripts/Bash/case_ip_address_check.sh`
-- `Scripts/Bash/check_root_function.sh`
 - `Scripts/Bash/curl_banner_grab.sh`
-- `Scripts/Bash/host_monitor_notification.sh`
 - `Scripts/Bash/multi_host_ping.sh`
 - `Scripts/Bash/netcat_banner_grab.sh`
 - `Scripts/Bash/nmap_to_portfiles.sh`
@@ -879,12 +1772,8 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/curl_fetch_robots_txt.sh`
 - `Scripts/Bash/directory_indexing_scanner.sh`
 - `Scripts/Bash/exercise_solution.sh`
-- `Scripts/Bash/nuclei-notifier.sh`
 - `Scripts/Python/app.py`
-- `Scripts/Python/python-webshell-check.py`
 - `Scripts/C/getuser.c`
-- `Scripts/SQL/wordpress_add_admin.sql`
-- `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/C/system_sleep.c`
 - `Scripts/Bash/admin-panel-sniffer.sh`
 - `Scripts/Bash/arp-spoofing-detect.sh`
@@ -892,7 +1781,6 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/get-wifi-pass.sh`
 - `Scripts/Bash/hack-gmail.sh`
 - `Scripts/Bash/hulkscanner.sh`
-- `Scripts/Bash/keylogger.sh`
 - `Scripts/Bash/netdiscover.sh`
 - `Scripts/Bash/network-monitor.sh`
 - `Scripts/Bash/shodan-api.sh`
@@ -900,14 +1788,11 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/xss-vulnerability-finder.sh`
 - `Scripts/GIT/git_finder`
 - `Scripts/C/get_user.c`
-- `Scripts/Bash/banner_grab.sh`
-- `Scripts/Bash/bash_scripting_cheat-sheet.md`
 - `Scripts/Bash/host_notify.sh`
 - `Scripts/Bash/ip_check.sh`
 - `Scripts/Bash/multi-host_ping.sh`
 - `Scripts/Bash/network_port_watch.sh`
 - `Scripts/Bash/os_command_inj.sh`
-- `Scripts/Bash/ping_w_argument.sh`
 - `Scripts/Bash/port_services_scan.sh`
 - `Scripts/Bash/string_compare.sh`
 - `Scripts/Bash/file_search.sh`
@@ -941,7 +1826,6 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/port_hopper.sh`
 - `Scripts/Bash/ssh_brute.sh`
 - `Scripts/Wordpress_Add_Admin`
-- `Scripts/Bash/curl_banner_grab,sh`
 - `Scripts/Bash/nuclei_web_scanner.sh`
 - `Scripts/GIT/GITfinder`
 - `Scripts/Bash/server_site_DIR_scan.sh`
@@ -951,7 +1835,6 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/systemsleep.c`
 - `Scripts/Bash/binary_name_rotate.sh`
 - `Scripts/Bash/profile_hook.sh`
-- `Scripts/Bash/fake_sudo.sh`
 - `Scripts/Bash/local_user_brute.sh`
 - `Scripts/Bash/gtfobins_search.sh`
 - `Scripts/Bash/gnupg_brute.sh`
@@ -959,7 +1842,6 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/check_root_user.sh`
 - `Scripts/Bash/home_DIR_accesschk.sh`
 - `Scripts/Bash/os_detect_local.sh`
-- `Scripts/Bash/nmap_OS_detect.sh`
 - `Scripts/Bash/nmap_to_profile.sh`
 - `Scripts/Bash/Banner_Grab.sh`
 - `Scripts/Bash/Host_Notify.sh`
@@ -968,37 +1850,20 @@ Provide version history transparency so practitioners can see what changed, when
 - `Scripts/Bash/IPAddressCheck.sh`
 - `Scripts/Bash/MultiHost_Ping.sh`
 - `Scripts/Bash/Ping_w_Argument.sh`
-- `Documentation/python.md`
 - `python.md`
 - `cybersecurity_playbooks.md`
-- `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/cybersecurity_playbook.md`
-- `PlayBooks/NetworkAuditPlayBook.md`
-- `PlayBooks/PurpleTeam_Detailed.md`
-- `PlayBooks/GitHubPlaybooks.md`
-- `PlayBooks/BlueTeam_IncResp_Simple.md`
-- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
-- `PlayBooks/PurpleTeam_Simple.md`
-- `PlayBooks/PurpleTeam_Multi-Scrip.md`
 - `PlayBooks/BlueTeam_IncResp_Simple`
 - `PlayBooks/BlueTeam_IncResp_Enhanced`
 - `PlayBooks/BlueTeam_IncidentResponse.md`
 - `PlayBooks/PurpleTeam_Multi-Scripting`
 - `PlayBooks/PurpleTeam_Playbook_Detailed.md`
 - `PlayBooks/PurpleTeamPlaybook_Multi-Scripting`
-- `Documentation/virtualmachines.md`
 - `Documentation/GitHubPlaybooks.md`
-- `Documentation/VPN.md`
-- `Documentation/TOR.md`
 - `Documentation/HomeLab_Setup.md`
-- `Documentation/WiFiMarauder_Guide.md`
-- `Documentation/WifiMarauder_CheatSheet.md`
 - `Documentation/HomeLabSetup.md`
-- `Documentation/pwnagotchi_cheatsheet.md`
-- `Documentation/hcxtoolshashcat.md`
 - `Documentation/WifiMarauderCheatSheet.md`
 - `Documentation/WiFiMarauderGuide.md`
-- `Documentation/Aircrack-ng_Commands.md`
 - `Documentation/hcxtoolshashcat.md.`
 - `hcxtoolshashcat.md`
 - `Documentation/MarauderCheatSheet.md`
@@ -1010,12 +1875,7 @@ Provide version history transparency so practitioners can see what changed, when
 - `Documentation/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf`
 - `Aircrack-ng_Commands.md`
 - `pwnagotchi_cheatsheet.md`
-- `firmware-hardware-compatibility.md`
 - `NetworkAuditPlayBook.md`
-- `advanced_techniques_part2.md`
-- `advanced_techniques_supplement.md`
-- `ultimate_cybersecurity_master_guide.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Books/.gitignore`
 - `Books/001Introduction.To.Ethical.Hacking.pdf`
 - `Books/002Foot.Printing.and.Reconnaissance.LAB.pdf`
@@ -1095,7 +1955,6 @@ Provide version history transparency so practitioners can see what changed, when
 - `Books/the-underground-hacker-s-handbook.pdf`
 - `START HERE.md`
 - `ENHANCED CYBERSECURITY MASTER GUIDE.md`
-- `cybersecurity_cliff_notes.md`
 - `ultimate_cybersecurity_master_guide.md.md`
 - `The_Ultimate_Cybersecurity_Master_Guide.md`
 - `Deep_learning_with_python--develop_deep.pdf`
@@ -1116,76 +1975,3 @@ Provide version history transparency so practitioners can see what changed, when
 - `Cybersecurity Operational Playbooks.md`
 
 </details>
- 
----
-
-# 🔄 Change Log - January 20, 2026
-
-## 📊 Quick Stats
-- **Commits Analyzed**: 25
-- **Files Modified**: 4
-- **New Files**: 13
-- **Deleted Files**: 0
-
-## 📝 Detailed Changes
-
-### ✨ New Content
-- Create generate_changelog.py (`bcada85`)
-- Create ai_prompts.md (`ecbe1e7`)
-- Create sys_prof.txt (`a311f9b`)
-- Add credential harvester script for Windows (`aff56d5`)
-- Add network reconnaissance script for Bash Bunny (`0e443fe`)
-- Add Windows Migration Data Collection script (`56ba738`)
-- Add Bash Bunny Payload Setup Guide (`8d97139`)
-- Add USB Rubber Ducky Script Compilation Guide (`78eae3a`)
-- Create exfil_windowsPC.txt (`7ae4bd3`)
-- Create Phone_OSINT.md (`4a2e4dc`)
-- Create Domain_IP_Recon.md (`b834edb`)
-- Create Email_OSINT.md (`1773885`)
-
-### ♻️ Updates & Refactors
-- Update description of offline-llm.md (`0f8d75c`)
-- Update descriptions in README.md for clarity (`20a9217`)
-- Update README.md (`42bfb30`)
-- Update README.md (`8efb3fb`)
-- Update OSINT_TOOLS_CATALOG.md (`87016b3`)
-- Update OSINT_TOOLS_CATALOG.md (`50cf5e9`)
-- Update README.md (`2b81249`)
-- Update README.md (`cdb2073`)
-- Update README.md (`50cc738`)
-- Update README.md (`1d81c73`)
-
-### 📚 Documentation
-- Revise AI prompts document for 2026 edition (`d24c509`)
-
-### ⚡ Other Changes
-- Merge pull request #6 from Pnwcomputers/Pnwcomputers-patch-1 (`fc78cc5`)
-- Merge pull request #5 from Pnwcomputers/Pnwcomputers-patch-1 (`596eb64`)
-
-## 📂 Files Touched
-<details>
-<summary>Click to view full file list</summary>
-
-- `AI/README.md`
-- `AI/ai_prompts.md`
-- `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
-- `OSINT/README.md`
-- `OSINT/scripts/Domain_IP_Recon.md`
-- `OSINT/scripts/Email_OSINT.md`
-- `OSINT/scripts/Phone_OSINT.md`
-- `README.md`
-- `Scripts/Bash/BashBunny/README.md`
-- `Scripts/Bash/BashBunny/cred_harv.txt`
-- `Scripts/Bash/BashBunny/network_recon.txt`
-- `Scripts/Bash/BashBunny/sys_prof.txt`
-- `Scripts/Bash/BashBunny/windows_exfil.txt`
-- `Scripts/Ducky/README.md`
-- `Scripts/Ducky/exfil_windowsPC.txt`
-- `generate_changelog.py`
-
-</details>
-
-## Related Files
-- [README.md](README.md) - Main repo index
-- [generate_changelog.py](generate_changelog.py) - Script that generates this changelog
