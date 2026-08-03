@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1248
-- **Files Modified**: 1429
-- **New Files**: 574
+- **Commits Analyzed**: 1249
+- **Files Modified**: 1431
+- **New Files**: 575
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Audit Report (deliverables A, E, F, G, I) + findings F-08/F-09 (#30) (`ef9f61e`)
 - docs: add Audit Findings Register (deliverable C) (#23) (`f9e583b`)
 - docs: add Endpoint-Visibility and Digital-Forensics section READMEs (#19) (`5a96542`)
 - Add links to OSINT tools in social media documentation (`d53f10a`)
@@ -1273,6 +1274,7 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
+- `AUDIT_REPORT.md`
 - `CHANGELOG.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
