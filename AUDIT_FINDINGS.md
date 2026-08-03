@@ -335,6 +335,30 @@ findings were raised for it. Recorded here for honesty about what was checked:
 
 ---
 
+## Domain review log (scope 2 & 4, per-domain)
+
+The systematic per-domain review runs one domain at a time; results recorded here
+as each completes.
+
+### IncidentResponse — Digital Forensics (2026-08-03)
+
+- **Scope 2 (accuracy):** ✅ Clean. Verified the Volatility 3 command surface in
+  `Memory/volatility_cheatsheet.md` against upstream — plugin namespacing
+  (`windows.pslist/pstree/psscan/cmdline/netscan/malfind/hashdump/lsadump/
+  cachedump`, `windows.registry.*`), render flags (`-r json`), dump syntax
+  (`-o <dir> … --dump`), the symbol-pack URL, and acquisition tools (DumpIt,
+  WinPMEM, FTK Imager, Magnet, LiME, AVML) are all correct.
+- **Scope 4 (safety/forensic soundness):** Strong at the domain level — the
+  README, disk, and live-data guides cover order of volatility, write-blocking,
+  chain of custody, and hashing. **Fixed:** the memory guide's acquisition
+  section didn't remind the reader to hash the acquired image; added an integrity
+  / chain-of-custody note cross-linking the README's evidence-handling guidance.
+- **Currency:** ✅ Fixed — WinPMEM was attributed to the defunct Rekall project;
+  updated to Velocidex (current maintainer).
+- **Verdict:** high-quality, factually sound; two small additive corrections.
+
+---
+
 ## Open workstreams (not yet itemized as findings)
 
 These audit-scope areas were **not** covered in this structural pass and are not
