@@ -40,6 +40,12 @@ source; **Medium** = verified pattern but individual instances need a human call
 | F-05 | Low | Link hygiene | External links using `http://` where `https://` may be available | 6 hosts | Medium | ✅ Fixed (#25) |
 | F-06 | Low | Content | `TODO` / placeholder / `TBD` markers left in published docs | 9 | High | ✅ Resolved — intentional (#25) |
 | F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | ⏸️ Deferred by owner |
+| F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | 🔵 Open — plan in report |
+| F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | 🔵 Open — plan in report |
+
+*Findings F-08–F-09 come from the second audit pass (scope 2/4/11). The
+remediation approach for both lives in [AUDIT_REPORT.md](./AUDIT_REPORT.md)
+(Cross-Linking Plan and Implementation Roadmap).*
 
 ---
 
@@ -246,23 +252,81 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ---
 
+## F-08 — Core topics duplicated across "master guide" docs (no canonical source)
+
+- **Priority:** Medium **Category:** Duplication (scope 11) **Confidence:** High **Status:** 🔵 Open — plan in [report](./AUDIT_REPORT.md)
+- **Issue:** Several core topics are covered in 2–3 root-level guides with no
+  designated canonical source, so updates must be repeated or the copies drift.
+  Observed overlap (by section headings):
+  - **Metasploit** — `ultimate_cybersecurity_master_guide.md`,
+    `cybersecurity_cliff_notes.md`, `advanced_techniques_supplement.md`
+  - **Buffer overflow / exploit dev** — `ultimate_cybersecurity_master_guide.md`,
+    `advanced_techniques_part2.md`
+  - **Bash / Python for security** — `ultimate_cybersecurity_master_guide.md`,
+    `advanced_techniques_supplement.md`
+  - **Mobile** — `ultimate_cybersecurity_master_guide.md`,
+    `advanced_techniques_part2.md`, and the `Mobile/` section
+  - **OSINT** — `ENHANCED_MASTER_GUIDE.md` (OSINT Mastery) vs the `OSINT/` section
+- **Evidence:** H2 heading inventory of the six root guides (documented in the
+  Cross-Linking Plan).
+- **Recommended correction:** designate a canonical source per topic and convert
+  the other copies to a short summary + "canonical reference" link. Full mapping
+  in [AUDIT_REPORT.md](./AUDIT_REPORT.md) § E.
+- **Proposed action:** one PR per topic; no content deleted — copies become
+  summaries that link to the canonical source.
+
+---
+
+## F-09 — Inconsistent safety/authorization header on offensive docs
+
+- **Priority:** Medium **Category:** Safety (scope 4) **Confidence:** Medium **Status:** 🔵 Open — plan in [report](./AUDIT_REPORT.md)
+- **Issue:** Offensive documents all *reference* authorized use, but the
+  prominence is inconsistent — from a full warning block (`SDR/README.md`,
+  `SPECIALIZED_TOPICS_GUIDE.md`: ~38 warning-related lines) down to a single
+  "authorized" mention in a Goal line (`advanced_techniques_supplement.md`: ~7).
+- **Evidence:** warning-term density scan across the offensive root guides.
+- **Not** a claim that any doc is warning-*free* — it is a **consistency** issue.
+- **Recommended correction:** define one standard safety/authorization header in
+  `STYLE_GUIDE.md` and apply it near the top of each offensive doc.
+- **Proposed action:** add the standard to the style guide, then apply per doc.
+  This **adds** warnings/context; it removes nothing.
+
+---
+
+## Second-pass verification notes (scope 2/3 — sampled clean)
+
+The second pass **sampled** factual/currency claims; the sample held up, so no
+findings were raised for it. Recorded here for honesty about what was checked:
+
+- Version references that looked stale on a grep were individually verified as
+  correct: `Python 3.7+` is a *minimum* for Volatility 3; `Ubuntu 18.04/20.04/
+  23.04/23.10` appear as *compatibility/availability notes*, not recommendations;
+  `Kali 6.12` is a kernel version. **No EOL software is recommended.**
+- This was a sample, **not** exhaustive verification — see the open workstream
+  below for the remaining systematic accuracy review.
+
+---
+
 ## Open workstreams (not yet itemized as findings)
 
 These audit-scope areas were **not** covered in this structural pass and are not
 represented above. They are listed so the register is honest about coverage, not
 as claims of specific defects.
 
-- **Factual & technical accuracy (scope 2)** — only a targeted currency pass has
-  run (Entra ID rename, NetExec/twint/gr-gsm/meek-azure deprecation notes).
-  No systematic per-domain verification against vendor/CISA/NIST/OWASP sources.
-- **Safety review (scope 4)** — no systematic audit of destructive commands,
-  missing backup/privilege warnings, or authorization notices across scripts and
-  hardening steps. **Constraint reaffirmed by the maintainer: do not remove
-  scripts or sterilize content** — safety work should *add* warnings/context, not
-  strip material.
-- **Duplication & contradiction (scope 11)** — overlap between the several
-  "master guide" documents has not been mapped.
-- **Coverage gaps (scope 12)** — not yet assessed.
+- **Factual & technical accuracy (scope 2)** — a currency pass plus a second-pass
+  **sample** have run; the sample was clean (see verification notes above). A
+  systematic per-domain verification against vendor/CISA/NIST/OWASP sources is
+  still outstanding (roadmap Phase 4).
+- **Safety review (scope 4)** — header *consistency* is now tracked as F-09. A
+  systematic audit of destructive commands for backup/privilege/rollback notes is
+  still outstanding. **Constraint reaffirmed by the maintainer: do not remove
+  scripts or sterilize content** — safety work should *add* warnings/context.
+- **Duplication & contradiction (scope 11)** — overlap is now mapped and tracked
+  as **F-08**, with a remediation plan in the report. *Contradiction* detection
+  (conflicting advice between docs) is still outstanding.
+- **Coverage gaps (scope 12)** — assessed; see the Content Expansion Plan in
+  [AUDIT_REPORT.md](./AUDIT_REPORT.md) § G (Web App, Cloud, Containers, Crypto,
+  Compliance identified as gaps).
 
 ---
 
@@ -270,13 +334,13 @@ as claims of specific defects.
 
 | Deliverable | Status |
 |-------------|--------|
-| A. Executive Summary | Not started |
-| B. Repository Map | Partial (Phase 0 inventory exists in prior session) |
+| A. Executive Summary | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § A |
+| B. Repository Map | ✅ Inventory in [AUDIT_REPORT.md](./AUDIT_REPORT.md) § F + per-file breakdown here |
 | **C. Findings Register** | **This document** |
 | D. Broken-Link Report | Covered here (F-01, F-03, F-05); link-check CI green for relative links |
-| E. Cross-Linking Plan | Not started (informed by F-02/F-03) |
-| F. Proposed Information Architecture | Not started (relates to F-07) |
-| G. Content Expansion Plan | Not started |
-| H. Style Guide | Exists (`STYLE_GUIDE.md`); not yet reconciled with findings |
-| I. Implementation Roadmap | Not started |
-| J. Proposed Changes | Findings F-01–F-06 implemented (PRs #24–#26); F-07 deferred by owner |
+| E. Cross-Linking Plan | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § E |
+| F. Proposed Information Architecture | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § F (proposal; owner-gated) |
+| G. Content Expansion Plan | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § G |
+| H. Style Guide | Exists (`STYLE_GUIDE.md`); reconciliation with findings tracked in report § G |
+| I. Implementation Roadmap | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § I |
+| J. Proposed Changes | Findings F-01–F-06 implemented (PRs #24–#26); F-07 deferred; F-08/F-09 planned |
