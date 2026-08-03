@@ -1,7 +1,7 @@
-# OnePlus 6 (A3006 / "enchilada")
+# OnePlus 6 (A6003 / "enchilada")
 
 ## 🎯 Purpose
-Root an OnePlus 6 A3006 ("enchilada") from stock OxygenOS to a rooted LineageOS 22.2 system with TWRP and Magisk - the exact prerequisite state for Kali NetHunter.
+Root an OnePlus 6 A6003 ("enchilada") from stock OxygenOS to a rooted LineageOS 22.2 system with TWRP and Magisk - the exact prerequisite state for Kali NetHunter.
 
 ## ⚙️ Function
 Phased walkthrough: bootloader unlock, dtbo partition flash (OnePlus 6-specific requirement), LineageOS 22.2 install via Lineage Recovery sideload, TWRP install using the temporary-boot method, and Magisk root via boot image patching. Includes exact fastboot/adb commands and safety notes for each phase.
@@ -10,7 +10,7 @@ Phased walkthrough: bootloader unlock, dtbo partition flash (OnePlus 6-specific 
 Reach: unlocked bootloader + TWRP as recovery + LineageOS 22.2 (Android 15) + Magisk root. That state is the starting point for the Kali NetHunter install guide.
 
 ## 📋 When to Use
-- Starting fresh from stock OxygenOS on an OnePlus 6 A3006
+- Starting fresh from stock OxygenOS on an OnePlus 6 A6003
 - After a factory reset that reverts the device to a partially-set-up state
 - Preparing a new OnePlus 6 unit for NetHunter deployment
 

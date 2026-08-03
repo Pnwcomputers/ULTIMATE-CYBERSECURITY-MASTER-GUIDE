@@ -154,7 +154,7 @@ each fix should be visually confirmed in GitHub's preview.*
   - `IncidentResponse/Digital-Forensics/Memory` (1)
   - `IncidentResponse/Endpoint-Visibility/Linux` (2)
   - `IncidentResponse/Endpoint-Visibility/Windows` (1)
-  - `Mobile/OnePlus_A3006` (3)
+  - `Mobile/OnePlus_A6003` (3)
   - `OSINT/scripts` (3 — files are linked from `OSINT/README.md`, but the folder has no index)
   - `Homelab/workflows` (1)
   - `Scripts/Bash` (1)
@@ -438,6 +438,24 @@ as each completes.
   link to `LEGAL.md`** (the one gap).
 - **Links:** ✅ online check clean (0 errors).
 - **Verdict:** high quality; one legal-notice link added. **SDR review complete.**
+
+### Mobile (2026-08-03)
+
+- **Scope 2 (accuracy):** **Fixed a factual error** — the OnePlus 6 (codename
+  `enchilada`) is model **A6003**, but the directory and most docs used the
+  transposed **A3006**. The repo's own `Nethunter_SOP.md` correctly said
+  `A6000/A6003`, confirming the typo. Renamed `Mobile/OnePlus_A3006/` →
+  `Mobile/OnePlus_A6003/` and corrected every `A3006` reference repo-wide
+  (text + ~8 cross-links from START_HERE, wireshark, Ducky/BashBunny READMEs,
+  NetworkAuditPlayBook). Rooting commands (`fastboot oem unlock`, dtbo/boot
+  flashing, LineageOS 22.2 / TWRP `enchilada`) verified correct.
+- **Scope 4 (safety):** ✅ strong — `Rooting.md` is exemplary: an up-front "every
+  phase wipes data, back up first, the very first step erases everything" warning
+  plus per-phase wipe notes. `mobile_pentest_sop.md` opens with a Legal & Scope
+  Verification section.
+- **Links:** online check clean (0 errors); all renamed paths re-verified.
+- **Verdict:** sound; one real factual fix (device model / directory rename).
+  **Mobile review complete.**
 
 ### Repo-wide dead-link sweeps (2026-08-03)
 

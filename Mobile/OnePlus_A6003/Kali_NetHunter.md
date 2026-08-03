@@ -1,7 +1,7 @@
-# Kali NetHunter on OnePlus 6 A3006 / "Enchilada"
+# Kali NetHunter on OnePlus 6 A6003 / "Enchilada"
 
 ## 🎯 Purpose
-Install and configure Kali NetHunter on the OnePlus 6 A3006 ("enchilada") running LineageOS 22.2 with Magisk root and TWRP already in place.
+Install and configure Kali NetHunter on the OnePlus 6 A6003 ("enchilada") running LineageOS 22.2 with Magisk root and TWRP already in place.
 
 ## ⚙️ Function
 Step-by-step install guide covering the LineageOS prerequisite (NetHunter images are built against LOS, not OxygenOS), both Magisk module and TWRP flash methods, first-boot configuration, app/metapackage selection, chroot update workflow, and service auto-start setup.
@@ -42,7 +42,7 @@ Per Kali's official pre-built image list, the OnePlus 6/6T entry is:
 - Base ROM: LineageOS 19.1 or LineageOS 22.2
 - Current downloadable image: `kali-nethunter-2026.2-oneplus6-los-fifteen-full.zip` (LineageOS 22.2 / Android 15 base, full rootfs, ~1.9 GiB)
 
-If your phone is currently on stock OxygenOS (even rooted/TWRP'd), you need to flash LineageOS 22.2 first - the NetHunter kernel/overlay is built specifically for that base. If you're already running LineageOS on the A3006, you're set.
+If your phone is currently on stock OxygenOS (even rooted/TWRP'd), you need to flash LineageOS 22.2 first - the NetHunter kernel/overlay is built specifically for that base. If you're already running LineageOS on the A6003, you're set.
 
 Check your current ROM: **Settings → About phone**. If it says OxygenOS, flash LineageOS 22.2 for OnePlus 6 (enchilada) before continuing (standard LineageOS install via TWRP - download the LineageOS build for `enchilada`, flash it, then re-flash Magisk if you want root preserved on top of it).
 
@@ -51,7 +51,7 @@ Check your current ROM: **Settings → About phone**. If it says OxygenOS, flash
 ## 3. Installation
 
 ### 3.1 Prerequisites checklist
-_[OnePlus 6 A3006 Rooting Guide:](Rooting.md)_
+_[OnePlus 6 A6003 Rooting Guide:](Rooting.md)_
 
 - Bootloader unlocked ✅ (already done)
 - TWRP installed ✅ (already done)
