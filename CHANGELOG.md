@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1255
-- **Files Modified**: 1459
+- **Commits Analyzed**: 1256
+- **Files Modified**: 1466
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1195,6 +1195,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): Tradecraft domain review (#44) (`30a649e`)
 - audit(scope 2/4): IncidentResponse SIEM + log aggregation review (#42) (`fef43f7`)
 - audit(scope 2/4): IncidentResponse Endpoint-Visibility review (#40) (`e51cedc`)
 - ci: open a PR for CHANGELOG.md instead of pushing to main (#21) (`81ab594`)
@@ -1280,9 +1281,14 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
+- `Tradecraft/active-directory.md`
+- `Tradecraft/av-edr-evasion.md`
+- `Tradecraft/lolbins-lolbas.md`
+- `Tradecraft/network-detection.md`
+- `Tradecraft/osint-threat-intel.md`
+- `CHANGELOG.md`
 - `IncidentResponse/SIEM/wazuh.md`
 - `IncidentResponse/log_agg.md`
-- `CHANGELOG.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `ENHANCED_MASTER_GUIDE.md`
@@ -1292,7 +1298,6 @@
 - `STYLE_GUIDE.md`
 - `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
-- `Tradecraft/osint-threat-intel.md`
 - `AUDIT_REPORT.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
@@ -1321,7 +1326,6 @@
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
-- `Tradecraft/network-detection.md`
 - `uConsole/CM4-SETUP.md`
 - `uConsole/CM5-SETUP.md`
 - `uConsole/README.md`
@@ -1335,7 +1339,6 @@
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `OPSEC/OPSEC_guide.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `Tradecraft/active-directory.md`
 - `PlayBooks/PurpleTeam_Simple.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
@@ -1380,7 +1383,6 @@
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/SQL/wordpress_add_admin.sql`
 - `Tradecraft/README.md`
-- `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/c2-frameworks.md`
 - `assets/i2c.jpg`
 - `assets/md`
@@ -1434,7 +1436,6 @@
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
-- `Tradecraft/lolbins-lolbas.md`
 - `AI/AnythingLLM/flow-domain_recon.md`
 - `AI/ai_prompts.md`
 - `AI/offline-llm.md`
