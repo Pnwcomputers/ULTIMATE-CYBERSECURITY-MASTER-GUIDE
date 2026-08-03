@@ -409,6 +409,30 @@ as each completes.
 - **Verdict:** sound; safety-header coverage completed for the offensive guides,
   two dead links fixed. **Tradecraft domain review complete.**
 
+### OSINT (2026-08-03)
+
+- **Scope 2 (accuracy):** ✅ well-maintained. Tool-install repos are correct and
+  active (theHarvester, sherlock, spiderfoot, Photon — none archived); no
+  undocumented dead tools (twint's X-API breakage is already noted). The tools
+  catalog had 4 dead links fixed earlier (F-10).
+- **Scope 4 (legal/ethical):** ✅ exceptionally strong — 100+ legal/ethical/
+  authorization references in `OSINT/README.md` alone, plus per-guide framing.
+- **Still flagged (unchanged):** the 5 F-10 hosts in `OSINT_TOOLS_CATALOG.md`
+  (abusix.org, threatjammer.com, emailcrawlr.com, got-hacked.wtf, spyonweb.com)
+  still resolve but block automated requests even with a browser UA. abusix.org
+  is a known-active company, so these read as WAF / datacenter-IP blocking rather
+  than dead sites — **not** changed, to avoid removing working resources on weak
+  evidence. Worth a human eyeball.
+- **Verdict:** high quality; no changes needed beyond the repo-wide SANS sweep.
+
+### Repo-wide dead-link sweeps (2026-08-03)
+
+- **SANS `/blog/tag/*` link rot (systematic):** SANS reorganised their blog and
+  removed all tag pages. Fixed every occurrence found repo-wide —
+  `log_agg.md`, `network-detection.md`, `osint-threat-intel.md`, and
+  `Digital-Forensics/Disks/autopsy_kape.md` (→ NIST SP 800-86 / SP 800-92 /
+  SANS course & poster landings). No `sans.org/blog/tag/` links remain.
+
 ---
 
 ## Open workstreams (not yet itemized as findings)

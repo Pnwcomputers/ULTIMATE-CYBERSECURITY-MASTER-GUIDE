@@ -815,7 +815,7 @@ Remove-Item -Recurse "$env:USERPROFILE\.autopsy"
 
 - [Autopsy User Documentation](https://sleuthkit.org/autopsy/docs/user-docs/4.19.3/)
 - [KAPE Documentation](https://ericzimmerman.github.io/KapeDocs/)
-- [SANS DFIR Resources](https://www.sans.org/blog/tag/dfir/)
+- [SANS DFIR Courses & Resources](https://www.sans.org/cyber-security-courses/?focus-area=digital-forensics-incident-response)
 
 ### Training
 
