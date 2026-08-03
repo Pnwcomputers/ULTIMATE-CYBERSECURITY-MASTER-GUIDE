@@ -231,7 +231,7 @@ dig axfr target.com @ns1.target.com
 # DNS history (passive)
 securitytrails.com
 passivedns.mnemonic.no
-community.riskiq.com (PassiveTotal)
+ti.defender.microsoft.com (PassiveTotal/RiskIQ retired -> Microsoft Defender TI)
 ```
  
 ### ASN & IP Range Mapping

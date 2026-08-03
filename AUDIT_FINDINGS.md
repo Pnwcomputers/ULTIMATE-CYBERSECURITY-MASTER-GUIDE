@@ -42,6 +42,7 @@ source; **Medium** = verified pattern but individual instances need a human call
 | F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | ⏸️ Deferred by owner |
 | F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | 🔵 Open — plan in report |
 | F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | 🔵 Open — plan in report |
+| F-10 | Low | Link hygiene | Dead/retired external links (scope 10, online sweep) | 4 fixed, 4 flagged | High | ✅ Fixed dead links; 4 flagged for manual review |
 
 *Findings F-08–F-09 come from the second audit pass (scope 2/4/11). The
 remediation approach for both lives in [AUDIT_REPORT.md](./AUDIT_REPORT.md)
@@ -290,6 +291,33 @@ each fix should be visually confirmed in GitHub's preview.*
   `STYLE_GUIDE.md` and apply it near the top of each offensive doc.
 - **Proposed action:** add the standard to the style guide, then apply per doc.
   This **adds** warnings/context; it removes nothing.
+
+---
+
+## F-10 — Dead / retired external links (scope 10, online sweep)
+
+- **Priority:** Low **Category:** Link hygiene **Confidence:** High **Status:** ✅ Dead links fixed; 4 flagged for manual review
+- **Method:** full online link sweep (lychee) over all tracked Markdown, then every
+  failure re-verified by hand (browser user-agent + DNS check) to separate truly
+  dead domains from bot-blocking / transient timeouts. Of ~2040 unique links,
+  most "errors" were bot-blocks; the following were confirmed.
+- **Fixed — confirmed dead or retired, repointed to verified successors:**
+  - `farsightsecurity.com` (NXDOMAIN — Farsight acquired by DomainTools 2021) →
+    DomainTools DNSDB. `OSINT/OSINT_TOOLS_CATALOG.md`
+  - `community.riskiq.com` (RiskIQ acquired by Microsoft; portal retired) →
+    Microsoft Defender Threat Intelligence. `OSINT_TOOLS_CATALOG.md`,
+    `Tradecraft/osint-threat-intel.md`
+  - `onion.link` (Tor2web deprecated 2019, gateway defunct) → Ahmia.
+    `OSINT_TOOLS_CATALOG.md`
+  - `zonefiles.io` (NXDOMAIN) → entry kept, dead link removed, alternatives noted
+    (WhoisXML API / Whoisds). `OSINT_TOOLS_CATALOG.md`
+- **Flagged for manual review — host resolves but blocked automated checks (likely
+  fine for humans; NOT changed to avoid breaking working links):**
+  `abusix.org` (connection reset — WAF), `emailcrawlr.com` (TLS eof),
+  `threatjammer.com` (connection reset), `got-hacked.wtf` (serves a default
+  "Plesk" TLS cert — genuinely misconfigured HTTPS, worth a look).
+- **Note:** `qdkingst.com` failed in the automated sweep but verified **working**
+  by hand — no action (the F-05 HTTPS upgrade stands).
 
 ---
 
