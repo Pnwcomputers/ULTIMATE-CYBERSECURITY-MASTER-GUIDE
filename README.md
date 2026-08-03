@@ -87,32 +87,33 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 
 | Section | Description |
 |---|---|
-| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of all playbooks - network audits, WiFi assessments, IR, phishing, unauthorized access |
-| 📚 [Playbooks Collection](PlayBooks/) | Simple, Detailed, and Multi-Script purple, blue and red team exercises as well as incident response procedures, etc |
-| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 🎣 [SOP: Phishing Analysis Playbook](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing email triage |
-| 🚷 [Unauthorized Access Investigation Playbook](PlayBooks/unauth_access.md) | Playbook for investigating unauthorized access incidents |
-| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations - threat detection, log aggregation, artifact analysis, standardized response procedures |
-| 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
-| 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology - 400+ categorized tools, investigation workflows, automated VM setup |
-| 🕸️ [Web Application Security](WebAppSecurity/) | OWASP Top 10 deep-dive and a full web app pentest methodology (recon, Burp workflow, injection/access-control/API testing) |
-| ☁️ [Cloud Security](Cloud/) | Shared-responsibility model, common misconfigurations, and per-provider attack surface & hardening for AWS, Azure/Entra ID, and GCP |
-| 📋 [Compliance & GRC](Compliance/) | Governance, risk & compliance - NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, and GDPR/HIPAA/CCPA with control mapping |
-| 📦 [Container & Kubernetes Security](ContainerSecurity/) | Image/runtime attack surface, container escape, and Kubernetes hardening (RBAC, Pod Security Standards, network policy) |
-| 🔐 [Cryptography](Cryptography/) | Practical crypto reference - current vs deprecated algorithms, applied use (TLS, password storage, key management), and post-quantum (FIPS 203/204/205) |
-| 🔴 [OPSEC](OPSEC/) | Operational security practices - anonymity workflows, VM setup, personal rules for professionals |
-| 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
-| 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
-| 👾 [Space Security](SpaceSecurity/) | Offensive and defensive security across the three segments of modern space systems |
-| 📻 [SDR](SDR/) | Software Defined Radio theory, practice, and applications |
-| 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
-| 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress testing guides and scripts for PC test benches |
-| 📟 [uConsole](uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck. |
-| 📱 [Mobile Security](Mobile/) | Kali NetHunter on OnePlus 6 (rooting, install, field SOPs), Android/iOS app pentesting, mobile forensics, and engagement-level mobile pentest SOP |
-| 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, recon utilities, and utility programs |
+| 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
 | 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
+| ☁️ [Cloud Security](Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
+| 📋 [Compliance & GRC](Compliance/) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
+| 📦 [Container & Kubernetes Security](ContainerSecurity/) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
+| 🔐 [Cryptography](Cryptography/) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205 |
+| 📚 [Documentation](Documentation/) | Supplemental technical documentation, command references, and cheat sheets |
+| 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
+| 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
+| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures |
+| 📱 [Mobile Security](Mobile/) | Kali NetHunter on OnePlus 6, Android and iOS application pentesting, mobile forensics, field SOPs, and engagement-level mobile pentesting |
+| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
+| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
+| 🔴 [OPSEC](OPSEC/) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
+| 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
-| 📚 [Documentation](Documentation/) | Supplemental technical documentation and cheat sheets |
+| 📚 [Playbooks Collection](PlayBooks/) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
+| 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
+| 📻 [SDR](SDR/) | Software Defined Radio theory, security assessment techniques, practical workflows, and applications |
+| 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
+| 🎣 [SOP: Phishing Analysis Playbook](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
+| 👾 [Space Security](SpaceSecurity/) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
+| 🗡️ [Tradecraft](Tradecraft/) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
+| 📟 [uConsole](uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
+| 🚷 [Unauthorized Access Investigation Playbook](PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
+| 🕸️ [Web Application Security](WebAppSecurity/) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
 
 ---
 
