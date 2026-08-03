@@ -1,5 +1,11 @@
 # Advanced Cybersecurity Techniques - Part 2
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+
 ## 🎯 Purpose
 Advanced cybersecurity techniques Part 2 - covering exploit development, buffer overflows, shellcode writing, and custom payload creation for experienced security practitioners.
 

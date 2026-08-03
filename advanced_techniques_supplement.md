@@ -1,5 +1,11 @@
 # Advanced Cybersecurity Techniques - Professional Supplement
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+
 ## 🎯 Purpose
 Advanced cybersecurity techniques Part 1 - covering advanced Metasploit usage, cloud penetration testing, lateral movement techniques, and network pivoting for experienced practitioners.
 

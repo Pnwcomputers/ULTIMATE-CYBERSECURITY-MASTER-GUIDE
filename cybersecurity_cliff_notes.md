@@ -1,5 +1,11 @@
 # Cybersecurity Comprehensive Cliff Notes
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+
 ## 🎯 Purpose
 Quick command reference for the most essential cybersecurity tools and techniques - the key commands practitioners reach for most often during authorized engagements.
 

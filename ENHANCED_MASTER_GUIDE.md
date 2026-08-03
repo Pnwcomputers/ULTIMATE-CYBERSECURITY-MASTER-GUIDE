@@ -1,5 +1,11 @@
 # ENHANCED CYBERSECURITY MASTER GUIDE
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+
 ## 🎯 Purpose
 Enhanced version of the Ultimate Cybersecurity Master Guide - layers 90+ PNWC internal documents, KB articles, and operational experience on top of the foundational content from 70+ professional security books.
 

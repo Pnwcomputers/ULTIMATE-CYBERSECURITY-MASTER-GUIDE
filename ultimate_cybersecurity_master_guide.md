@@ -1,5 +1,11 @@
 # The Ultimate Cybersecurity Master Guide
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+
 ## 🎯 Purpose
 Foundational cybersecurity master guide compiled from 70+ professional security books - covering the complete penetration testing lifecycle with expert-sourced methodology and key takeaways.
 

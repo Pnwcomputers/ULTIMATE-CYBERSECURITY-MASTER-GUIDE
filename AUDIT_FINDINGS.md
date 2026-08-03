@@ -41,7 +41,7 @@ source; **Medium** = verified pattern but individual instances need a human call
 | F-06 | Low | Content | `TODO` / placeholder / `TBD` markers left in published docs | 9 | High | ✅ Resolved — intentional (#25) |
 | F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | ⏸️ Deferred by owner |
 | F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | 🔵 Open — plan in report |
-| F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | 🔵 Open — plan in report |
+| F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | ✅ Fixed |
 | F-10 | Low | Link hygiene | Dead/retired external links (scope 10, online sweep) | 4 fixed, 4 flagged | High | ✅ Fixed dead links; 4 flagged for manual review |
 
 *Findings F-08–F-09 come from the second audit pass (scope 2/4/11). The
@@ -280,7 +280,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-09 — Inconsistent safety/authorization header on offensive docs
 
-- **Priority:** Medium **Category:** Safety (scope 4) **Confidence:** Medium **Status:** 🔵 Open — plan in [report](./AUDIT_REPORT.md)
+- **Priority:** Medium **Category:** Safety (scope 4) **Confidence:** Medium **Status:** ✅ Fixed — standard header added to `STYLE_GUIDE.md` §4 and applied to the 5 offensive root guides
 - **Issue:** Offensive documents all *reference* authorized use, but the
   prominence is inconsistent — from a full warning block (`SDR/README.md`,
   `SPECIALIZED_TOPICS_GUIDE.md`: ~38 warning-related lines) down to a single
