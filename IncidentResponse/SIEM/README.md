@@ -33,14 +33,14 @@ Enable a practitioner to deploy a working SIEM that ingests endpoint, server, an
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Platform Comparison](#platform-comparison)
-- [Deployment Guides](#deployment-guides)
-- [Which SIEM Should I Choose?](#which-siem-should-i-choose)
-- [Deployment Workflow](#deployment-workflow)
+- [Overview](#-overview)
+- [Platform Comparison](#️-platform-comparison)
+- [Deployment Guides](#-deployment-guides)
+- [Which SIEM Should I Choose?](#-which-siem-should-i-choose)
+- [Deployment Workflow](#-deployment-workflow)
 - [⚠️ Security, Privacy & Legal Warning](#️-security-privacy--legal-warning)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

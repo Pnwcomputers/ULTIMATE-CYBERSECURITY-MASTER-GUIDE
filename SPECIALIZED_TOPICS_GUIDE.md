@@ -30,7 +30,7 @@ Extend the guide series into specialized domains that represent cutting-edge and
 
 ## PART I: AI & SELF-HOSTED LLM SECURITY
 1. [AI Threat Landscape & Attack Surface](#1-ai-threat-landscape--attack-surface)
-2. [Self-Hosted LLM Deployment - Ollama + Dolphin](#2-self-hosted-llm-deployment--ollama--dolphin)
+2. [Self-Hosted LLM Deployment - Ollama + Dolphin](#2-self-hosted-llm-deployment---ollama--dolphin)
 3. [AnythingLLM Security AgentFlows](#3-anythingllm-security-agentflows)
 4. [OpenClaw Platform Setup](#4-openclaw-platform-setup)
 5. [Offensive AI Techniques](#5-offensive-ai-techniques)
@@ -46,7 +46,7 @@ Extend the guide series into specialized domains that represent cutting-edge and
 13. [Hardware Hacking Tools & Bench Setup](#13-hardware-hacking-tools--bench-setup)
 
 ## PART III: HARDWARE TESTING & BENCHMARKING
-14. [Test Bench Platform Setup - Manjaro + Intel](#14-test-bench-platform-setup--manjaro--intel)
+14. [Test Bench Platform Setup - Manjaro + Intel](#14-test-bench-platform-setup---manjaro--intel)
 15. [Diagnostic Workflows](#15-diagnostic-workflows)
 16. [Python Automation Scripts](#16-python-automation-scripts)
 
@@ -2498,7 +2498,7 @@ pip install pyrtlsdr pyModeS
 | Topic | This Guide | Detailed Section |
 |---|---|---|
 | AI red teaming | [§5](#5-offensive-ai-techniques) | [`AI/offensive_ai.md`](AI/offensive_ai.md) |
-| Offline LLM setup | [§2](#2-self-hosted-llm-deployment--ollama--dolphin) | [`AI/offline-llm.md`](AI/offline-llm.md) |
+| Offline LLM setup | [§2](#2-self-hosted-llm-deployment---ollama--dolphin) | [`AI/offline-llm.md`](AI/offline-llm.md) |
 | AnythingLLM flows | [§3](#3-anythingllm-security-agentflows) | [`AI/AnythingLLM/`](AI/AnythingLLM/) |
 | OpenClaw setup | [§4](#4-openclaw-platform-setup) | [`AI/OpenClaw/README.md`](AI/OpenClaw/README.md) |
 | Hardware threat modeling | [§8](#8-hardware-threat-modeling) | [`HardwareHacking/Chapter1.md`](HardwareHacking/Chapter1.md) |

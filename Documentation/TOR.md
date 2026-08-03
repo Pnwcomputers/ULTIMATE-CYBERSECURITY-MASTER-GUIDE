@@ -25,8 +25,8 @@ This document covers both the **Tor daemon** (system-level, CLI) and **Tor Brows
 ## Table of Contents
 
 1. [What is Tor?](#1-what-is-tor)
-2. [Tor Browser - Installation & Setup](#2-tor-browser--installation--setup)
-3. [Tor Daemon (CLI) - System-Level Connection](#3-tor-daemon-cli--system-level-connection)
+2. [Tor Browser - Installation & Setup](#2-tor-browser---installation--setup)
+3. [Tor Daemon (CLI) - System-Level Connection](#3-tor-daemon-cli---system-level-connection)
 4. [Proxychains + Tor](#4-proxychains--tor)
 5. [Bridges & Censorship Circumvention](#5-bridges--censorship-circumvention)
 6. [.onion Services](#6-onion-services)
@@ -34,7 +34,7 @@ This document covers both the **Tor daemon** (system-level, CLI) and **Tor Brows
 8. [Tor Browser Security Settings](#8-tor-browser-security-settings)
 9. [Troubleshooting](#9-troubleshooting)
 10. [OPSEC Checklist](#10-opsec-checklist)
-11. [Quick Reference - Key URLs](#11-quick-reference--key-urls)
+11. [Quick Reference - Key URLs](#11-quick-reference---key-urls)
 
 ---
 

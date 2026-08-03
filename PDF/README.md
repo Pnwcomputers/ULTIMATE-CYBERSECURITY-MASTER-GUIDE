@@ -30,13 +30,13 @@ Provide reliable offline access to critical security reference materials that wo
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [PDF Library Contents](#pdf-library-contents)
-- [Document Categories](#document-categories)
-- [How to Use These Resources](#how-to-use-these-resources)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [PDF Library Contents](#-pdf-library-contents)
+- [Document Categories](#️-document-categories)
+- [How to Use These Resources](#-how-to-use-these-resources)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

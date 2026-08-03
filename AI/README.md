@@ -33,13 +33,13 @@ Enable security practitioners to integrate AI tooling into blue team, red team, 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Folder Contents](#folder-contents)
-- [Resource Categories](#resource-categories)
-- [How to Use These Resources](#how-to-use-these-resources)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Folder Contents](#-folder-contents)
+- [Resource Categories](#️-resource-categories)
+- [How to Use These Resources](#-how-to-use-these-resources)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

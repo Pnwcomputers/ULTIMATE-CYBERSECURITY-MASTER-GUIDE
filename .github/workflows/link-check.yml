@@ -30,12 +30,15 @@ jobs:
         with:
           args: >-
             --offline
+            --include-fragments
             --no-progress
             './**/*.md'
           fail: true
-          # Note: --include-fragments (anchor checking) intentionally omitted
-          # until heading anchors are audited; enable it once TOC anchors are
-          # confirmed to match GitHub's slugification.
+          # Anchor checking (--include-fragments) is enabled: the TOC anchors
+          # were audited and corrected to match GitHub's slugification
+          # (github-slugger). lychee's slugifier agrees with GitHub - including
+          # the leading '-' emoji headings produce and the triple '-' from a
+          # literal ' - ' in a heading - so this now guards against regressions.
 
   external-links:
     # Full online sweep. Informational only (external hosts rate-limit / block

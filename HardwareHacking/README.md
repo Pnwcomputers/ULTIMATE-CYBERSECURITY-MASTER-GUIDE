@@ -32,14 +32,14 @@ Serve as the entry point for hardware security work - helping practitioners find
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Chapter Guides](#chapter-guides)
-- [Device Setup & Usage Guides](#device-setup--usage-guides)
-- [Attack Categories](#attack-categories)
-- [Bench Equipment Reference](#bench-equipment-reference)
-- [Tool Ecosystem](#tool-ecosystem)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Chapter Guides](#-chapter-guides)
+- [Device Setup & Usage Guides](#-device-setup--usage-guides)
+- [Attack Categories](#-attack-categories)
+- [Bench Equipment Reference](#-bench-equipment-reference)
+- [Tool Ecosystem](#️-tool-ecosystem)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Resources](#-resources)
 
 ---
 

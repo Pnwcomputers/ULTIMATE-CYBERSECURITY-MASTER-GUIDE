@@ -30,12 +30,12 @@ Help practitioners build a legally-safe, network-isolated lab environment where 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Infrastructure & Directory Contents](#infrastructure--directory-contents)
-- [Guides & Standard Operating Procedures](#guides--standard-operating-procedures-sops)
-- [Getting Started: Lab Architecture](#getting-started-lab-architecture)
+- [Overview](#-overview)
+- [Infrastructure & Directory Contents](#️-infrastructure--directory-contents)
+- [Guides & Standard Operating Procedures](#-guides--standard-operating-procedures-sops)
+- [Getting Started: Lab Architecture](#-getting-started-lab-architecture)
 - [⚠️ CRITICAL Security & Isolation Warning](#️-critical-security--isolation-warning)
-- [Resources](#resources)
+- [Resources](#-resources)
 
 ---
 

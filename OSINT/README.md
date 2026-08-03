@@ -32,13 +32,13 @@ Provide a complete OSINT reference hub that takes practitioners from initial rec
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [What is OSINT?](#what-is-osint)
-- [Folder Contents](#folder-contents)
-- [Quick Start](#quick-start)
-- [Legal & Ethical Notice](#legal--ethical-notice)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [What is OSINT?](#-what-is-osint)
+- [Folder Contents](#-folder-contents)
+- [Quick Start](#-quick-start)
+- [Legal & Ethical Notice](#️-legal--ethical-notice)
+- [Contributing](#-contributing)
+- [Resources](#-recommended-resources)
 
 ---
 

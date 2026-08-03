@@ -31,14 +31,14 @@ Enable security practitioners to conduct authorized research and engagements wit
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [What is OPSEC?](#what-is-opsec)
-- [Current Documentation](#current-documentation)
-- [Core OPSEC Principles](#core-opsec-principles)
-- [OPSEC Guidelines by Activity](#opsec-guidelines-by-activity)
-- [Security & Legal Considerations](#security--legal-considerations)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [What is OPSEC?](#-what-is-opsec)
+- [Current Documentation](#-current-documentation)
+- [Core OPSEC Principles](#️-core-opsec-principles)
+- [OPSEC Guidelines by Activity](#️-opsec-guidelines-by-activity)
+- [Security & Legal Considerations](#️-security--legal-considerations)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 - [Tradecraft](../Tradecraft)
 
 ---

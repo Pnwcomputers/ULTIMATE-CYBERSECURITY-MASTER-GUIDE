@@ -16,13 +16,13 @@
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Current Checklists](#current-checklists)
-- [Checklist Categories](#checklist-categories)
-- [How to Use These Checklists](#how-to-use-these-checklists)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Current Checklists](#-current-checklists)
+- [Checklist Categories](#️-checklist-categories)
+- [How to Use These Checklists](#-how-to-use-these-checklists)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

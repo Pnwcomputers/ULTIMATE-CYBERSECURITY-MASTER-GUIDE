@@ -26,8 +26,8 @@ Extend core penetration testing skills into advanced post-exploitation scenarios
 2. [Bash Scripting for Offensive Security](#bash-scripting-for-offensive-security)
 3. [Python for Security Automation](#python-for-security-automation)
 4. [Cloud Penetration Testing](#cloud-penetration-testing)
-5. [Advanced Evasion Techniques](#advanced-evasion-techniques)
-6. [Microcontroller and IoT Exploitation](#microcontroller-and-iot-exploitation)
+5. Advanced Evasion Techniques 🔨 *(planned)*
+6. Microcontroller and IoT Exploitation 🔨 *(planned)*
 
 ---
 

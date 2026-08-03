@@ -33,23 +33,23 @@ Serve as a field reference for copy-paste-ready Wireshark filters during live ne
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Capture Methods](#capture-methods)
-- [Core Protocol Filters](#core-protocol-filters)
-- [Port-Based Filters](#port-based-filters)
-- [IP & Subnet Filters](#ip--subnet-filters)
-- [TCP Flag & State Filters](#tcp-flag--state-filters)
-- [Security & Threat Detection Filters](#security--threat-detection-filters)
-- [Noise Reduction Filters](#noise-reduction-filters)
-- [Remote Capture via SSH](#remote-capture-via-ssh)
-- [BLE & Bluetooth Capture](#ble--bluetooth-capture)
-- [Zigbee Capture](#zigbee-capture)
-- [MikroTik RouterOS Sniffer](#mikrotik-routeros-sniffer)
-- [OpenWRT & tcpdump Reference](#openwrt--tcpdump-reference)
-- [Minimum Starter Filter Sets](#minimum-starter-filter-sets)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Capture Methods](#-capture-methods)
+- [Core Protocol Filters](#️-core-protocol-filters)
+- [Port-Based Filters](#-port-based-filters)
+- [IP & Subnet Filters](#-ip--subnet-filters)
+- [TCP Flag & State Filters](#-tcp-flag--state-filters)
+- [Security & Threat Detection Filters](#️-security--threat-detection-filters)
+- [Noise Reduction Filters](#-noise-reduction-filters)
+- [Remote Capture via SSH](#️-remote-capture-via-ssh)
+- [BLE & Bluetooth Capture](#-ble--bluetooth-capture)
+- [Zigbee Capture](#️-zigbee-capture)
+- [MikroTik RouterOS Sniffer](#-mikrotik-routeros-sniffer)
+- [OpenWRT & tcpdump Reference](#-openwrt--tcpdump-reference)
+- [Minimum Starter Filter Sets](#-minimum-starter-filter-sets)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 
@@ -88,7 +88,7 @@ Before filtering, choose the right capture mode for your scenario.
 | **Monitor mode** | Capture all 802.11 frames including other stations | Requires compatible wireless NIC |
 | **Port mirroring / SPAN** | Mirror another switch port to your monitoring interface | Requires managed switch |
 | **Network tap** | Passive in-line capture on a physical link | Most accurate, no network impact |
-| **Remote SSH capture** | Live stream from router or remote device into Wireshark | See [Remote Capture](#remote-capture-via-ssh) section |
+| **Remote SSH capture** | Live stream from router or remote device into Wireshark | See [Remote Capture](#️-remote-capture-via-ssh) section |
 
 > ✅ **Tip:** Enable promiscuous mode in **Capture → Options → Promiscuous** before starting. For wireless, use **Capture → Options → Monitor Mode**.
 

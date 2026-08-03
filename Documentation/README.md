@@ -33,9 +33,9 @@ Enable readers to quickly find the right documentation file for their current ta
 ## 📋 Table of Contents
 * [Overview](#-overview)
 * [Current Documentation](#-current-documentation)
-* [Documentation Categories](#-documentation-categories)
+* [Documentation Categories](#️-documentation-categories)
 * [How to Use This Documentation](#-how-to-use-this-documentation)
-* [Security & Legal Disclaimer](#-security--legal-disclaimer)
+* [Security & Legal Disclaimer](#️-security--legal-disclaimer)
 * [Contributing](#-contributing)
 * [Resources](#-resources)
 

@@ -33,13 +33,13 @@ Enable a defender to instrument Windows and Linux hosts so that process, network
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Instrumentation Sources](#instrumentation-sources)
-- [Deployment Guides](#deployment-guides)
-- [Deployment Workflow](#deployment-workflow)
+- [Overview](#-overview)
+- [Instrumentation Sources](#️-instrumentation-sources)
+- [Deployment Guides](#-deployment-guides)
+- [Deployment Workflow](#-deployment-workflow)
 - [⚠️ Monitoring, Consent & Legal Warning](#️-monitoring-consent--legal-warning)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 
