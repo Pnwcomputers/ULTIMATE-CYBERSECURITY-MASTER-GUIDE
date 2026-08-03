@@ -15,7 +15,7 @@
 ---
 
 ## 🎯 Purpose
-Mobile security reference covering device preparation (rooting, custom ROM), mobile pentesting platforms (Kali NetHunter), Android/iOS app security assessment, mobile forensics, and device OSINT. Currently focused on the OnePlus 6 A3006 as the primary NetHunter attack platform.
+Mobile security reference covering device preparation (rooting, custom ROM), mobile pentesting platforms (Kali NetHunter), Android/iOS app security assessment, mobile forensics, and device OSINT. Currently focused on the OnePlus 6 A6003 as the primary NetHunter attack platform.
 
 ## ⚙️ Function
 Covers: OnePlus 6 rooting workflow (bootloader unlock, LineageOS, TWRP, Magisk), Kali NetHunter install and configuration, field SOPs for NetHunter attack modules (HID, BadUSB, WifiPumpkin, Bluetooth Arsenal, Wardriving), Android APK assessment, iOS backup forensics, and mobile device OSINT tools.
@@ -75,15 +75,15 @@ These guides serve as:
 | File | Description | Status |
 |------|-------------|--------|
 | **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Full engagement-level SOP for pentesting with the NetHunter device: pre-engagement legal/device prep, passive recon, active recon, exploitation (Evil AP, HID, BadUSB, LLMNR, Metasploit), post-exploitation, evidence handling, teardown, and report structure | ✅ Complete |
-| **[Nethunter_SOP.md](OnePlus_A3006/Nethunter_SOP.md)** | Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests. From pre-engagement setup through post-engagement teardown and evidence handling. | ✅ Complete |
+| **[Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests. From pre-engagement setup through post-engagement teardown and evidence handling. | ✅ Complete |
 
 ### OnePlus 6 / Kali NetHunter (Device-Specific)
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[OnePlus_A3006/Rooting.md](OnePlus_A3006/Rooting.md)** | Phase-by-phase: bootloader unlock, dtbo flash, LineageOS 22.2 install via sideload, TWRP install (temporary-boot method), and Magisk root via boot image patching | ✅ Complete |
-| **[OnePlus_A3006/Kali_NetHunter.md](OnePlus_A3006/Kali_NetHunter.md)** | NetHunter install (Magisk module or TWRP), LineageOS prerequisite, post-install config, metapackage and app selection, chroot management | ✅ Complete |
-| **[OnePlus_A3006/Nethunter_SOP.md](OnePlus_A3006/Nethunter_SOP.md)** | Per-module SOPs for all NetHunter tools: HID, DuckHunter, BadUSB, WifiPumpkin, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit, KeX, MAC changer, CARsenal, teardown checklist | ✅ Complete |
+| **[OnePlus_A6003/Rooting.md](OnePlus_A6003/Rooting.md)** | Phase-by-phase: bootloader unlock, dtbo flash, LineageOS 22.2 install via sideload, TWRP install (temporary-boot method), and Magisk root via boot image patching | ✅ Complete |
+| **[OnePlus_A6003/Kali_NetHunter.md](OnePlus_A6003/Kali_NetHunter.md)** | NetHunter install (Magisk module or TWRP), LineageOS prerequisite, post-install config, metapackage and app selection, chroot management | ✅ Complete |
+| **[OnePlus_A6003/Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Per-module SOPs for all NetHunter tools: HID, DuckHunter, BadUSB, WifiPumpkin, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit, KeX, MAC changer, CARsenal, teardown checklist | ✅ Complete |
 
 ### Checklists
 
