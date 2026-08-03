@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1263
-- **Files Modified**: 1500
-- **New Files**: 582
+- **Commits Analyzed**: 1264
+- **Files Modified**: 1504
+- **New Files**: 585
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- feat: add Compliance & GRC section (deliverable G gap) (#60) (`505f0bd`)
 - feat: add Cloud Security section (deliverable G gap) (#58) (`7901b9f`)
 - feat: add Web Application Security section (deliverable G, top gap) (#56) (`1a2b920`)
 - fix(F-08): add canonical cross-links for duplicated topics (#36) (`86974b0`)
@@ -1288,14 +1289,17 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_REPORT.md`
+- `Compliance/README.md`
+- `Compliance/frameworks.md`
+- `Compliance/regulations.md`
+- `README.md`
+- `START_HERE.md`
+- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Cloud/aws.md`
 - `Cloud/azure.md`
 - `Cloud/gcp.md`
-- `README.md`
-- `START_HERE.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `CHANGELOG.md`
 - `WebAppSecurity/README.md`
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-top-10.md`
