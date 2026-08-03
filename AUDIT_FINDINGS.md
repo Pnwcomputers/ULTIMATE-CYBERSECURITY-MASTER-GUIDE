@@ -392,6 +392,23 @@ as each completes.
 - **Verdict:** sound; three stale/dead links fixed, one currency note added.
   **IncidentResponse domain review complete.**
 
+### Tradecraft (2026-08-03)
+
+- **Scope 2 (accuracy):** command syntax and tool references check out.
+  Deprecations are already well-handled in-place — CrackMapExec carries a note
+  that it is archived and `nxc` (NetExec) is the successor; twint/snscrape carry a
+  note about X's 2023 API lockdown. No factual defects.
+- **Scope 4 (safety):** applied the standard authorization header (F-09) to the
+  three dual-use offensive guides that lacked one — `active-directory.md`,
+  `av-edr-evasion.md`, `lolbins-lolbas.md`. `c2-frameworks.md` and
+  `osint-threat-intel.md` already had one; `network-detection.md` is defensive
+  (Zeek/Suricata/packet analysis) and doesn't need the offensive header.
+- **Fixed (dead links):** two more rotted SANS blog-tag pages (404) →
+  `network-detection.md` now cites **NIST SP 800-86**; `osint-threat-intel.md`
+  now points at the stable SANS **posters** landing.
+- **Verdict:** sound; safety-header coverage completed for the offensive guides,
+  two dead links fixed. **Tradecraft domain review complete.**
+
 ---
 
 ## Open workstreams (not yet itemized as findings)

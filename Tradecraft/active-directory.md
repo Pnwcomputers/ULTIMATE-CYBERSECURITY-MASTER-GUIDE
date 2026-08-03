@@ -1,5 +1,10 @@
 # Active Directory - Attacks & Defense Deep Dive
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 Complete Active Directory attack and defense reference - covering enumeration, Kerberos abuse (Kerberoasting, AS-REP, Golden/Silver tickets), lateral movement, persistence, DCSync, and corresponding detection logic with BloodHound integration.
