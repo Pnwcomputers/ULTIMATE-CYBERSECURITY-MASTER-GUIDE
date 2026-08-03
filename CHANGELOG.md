@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1254
-- **Files Modified**: 1455
+- **Commits Analyzed**: 1255
+- **Files Modified**: 1459
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1195,6 +1195,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): IncidentResponse SIEM + log aggregation review (#42) (`fef43f7`)
 - audit(scope 2/4): IncidentResponse Endpoint-Visibility review (#40) (`e51cedc`)
 - ci: open a PR for CHANGELOG.md instead of pushing to main (#21) (`81ab594`)
 - Clarify BinaryEdge description in OSINT tools catalog (`439acd6`)
@@ -1279,8 +1280,10 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
+- `IncidentResponse/SIEM/wazuh.md`
+- `IncidentResponse/log_agg.md`
 - `CHANGELOG.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `advanced_techniques_part2.md`
@@ -1427,7 +1430,6 @@
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `IncidentResponse/SIEM/elk_stack.md`
 - `IncidentResponse/SIEM/graylog.md`
-- `IncidentResponse/SIEM/wazuh.md`
 - `IncidentResponse/network_intrusion.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
@@ -1448,7 +1450,6 @@
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
 - `uConsole/scripts/README.md`
 - `Homelab/HomeLab_Setup.md`
-- `IncidentResponse/log_agg.md`
 - `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
 - `AI/AnythingLLM/flow-company_osint.md`
