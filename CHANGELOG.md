@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1243
-- **Files Modified**: 1388
-- **New Files**: 573
+- **Commits Analyzed**: 1247
+- **Files Modified**: 1427
+- **New Files**: 574
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Audit Findings Register (deliverable C) (#23) (`f9e583b`)
 - docs: add Endpoint-Visibility and Digital-Forensics section READMEs (#19) (`5a96542`)
 - Add links to OSINT tools in social media documentation (`d53f10a`)
 - Create OSINT_socialmedia.md (`fd7700b`)
@@ -402,6 +403,9 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(F-01+F-04): repair 198 broken TOC anchors and enable the CI anchor guard (#24) (`722c70f`)
+- fix(F-05): upgrade external links to HTTPS where supported (#25) (`07632fc`)
+- fix(F-02/F-03): link orphaned wireless-lab playbook; verify index coverage (#26) (`ba1e314`)
 - docs: fix broken Social_Media_OSINT.md links in OSINT README (#20) (`060c7f2`)
 - Fix formatting of Bellingcat's Online Investigation Toolkit link (`a4172c1`)
 - Mobile audit + markdownlint config fix (repo now lint-clean) (#15) (`356c7cb`)
@@ -1267,70 +1271,83 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `.github/workflows/auto_changelog.yml`
+- `.github/workflows/link-check.yml`
+- `AI/README.md`
+- `AI/offensive_ai.md`
+- `Checklists/README.md`
+- `Documentation/README.md`
+- `Documentation/TOR.md`
+- `Documentation/VPN.md`
+- `Documentation/flipper_zero_guide.md`
+- `Documentation/references.md`
+- `Documentation/wireshark.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `HardwareHacking/README.md`
+- `Homelab/README.md`
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/Endpoint-Visibility/README.md`
+- `IncidentResponse/README.md`
+- `IncidentResponse/SIEM/README.md`
+- `LEGAL.md`
+- `Mobile/README.md`
+- `OPSEC/README.md`
 - `OSINT/README.md`
+- `PDF/README.md`
+- `PlayBooks/README.md`
+- `SDR/README.md`
+- `SDR/sdr_hacking.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `Scripts/README.md`
+- `SpaceSecurity/README.md`
+- `Tradecraft/network-detection.md`
+- `advanced_techniques_part2.md`
+- `advanced_techniques_supplement.md`
+- `uConsole/CM4-SETUP.md`
+- `uConsole/CM5-SETUP.md`
+- `uConsole/README.md`
+- `HardwareHacking/LA1010.md`
+- `AUDIT_FINDINGS.md`
+- `CHANGELOG.md`
+- `.github/workflows/auto_changelog.yml`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
 - `README.md`
-- `IncidentResponse/Endpoint-Visibility/README.md`
-- `IncidentResponse/Digital-Forensics/README.md`
-- `IncidentResponse/SIEM/README.md`
-- `Documentation/TOR.md`
 - `SDR/sdr.md`
 - `.markdownlint.jsonc`
 - `Documentation/LinuxCheatSheet.md`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
-- `Mobile/README.md`
 - `OPSEC/OPSEC_guide.md`
 - `OSINT/OSINT_CHEATSHEET.md`
 - `STYLE_GUIDE.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/osint-threat-intel.md`
 - `PlayBooks/PurpleTeam_Simple.md`
-- `PlayBooks/README.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
 - `.github/CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
-- `.github/workflows/link-check.yml`
 - `.github/workflows/markdownlint.yml`
 - `.lycheeignore`
 - `AI/AnythingLLM/README.md`
 - `AI/OpenClaw/README.md`
-- `AI/README.md`
-- `CHANGELOG.md`
 - `Checklists/Persistence.md`
-- `Checklists/README.md`
 - `Checklists/command-and-control.md`
 - `Checklists/microsoft-exchange.md`
 - `Checklists/voip-checklist.md`
-- `Documentation/README.md`
-- `Documentation/VPN.md`
-- `Documentation/references.md`
-- `Documentation/wireshark.md`
 - `GLOSSARY.md`
 - `HardwareHacking/BusPirate.md`
 - `HardwareHacking/Chapter2.md`
-- `HardwareHacking/README.md`
 - `HardwareTesting/README.md`
 - `HardwareTesting/py/README.md`
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
-- `Homelab/README.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
-- `IncidentResponse/README.md`
-- `LEGAL.md`
-- `OPSEC/README.md`
 - `OSINT/OSINT_GUIDE.md`
 - `PDF/.gitirnore`
-- `PDF/README.md`
 - `PDF/docker-pen-test.pdf`
 - `PDF/ssh-pen-testing.pdf`
-- `SDR/README.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `START_HERE.md`
 - `Scripts/Bash/banner_grab.sh`
 - `Scripts/Bash/case_ip_address_check.sh`
@@ -1346,22 +1363,16 @@
 - `Scripts/GO/shells/bypass.exe`
 - `Scripts/GO/shells/ishell.exe`
 - `Scripts/Python/python-webshell-check.py`
-- `Scripts/README.md`
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/SQL/wordpress_add_admin.sql`
-- `SpaceSecurity/README.md`
 - `Tradecraft/README.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/c2-frameworks.md`
-- `Tradecraft/network-detection.md`
-- `advanced_techniques_part2.md`
-- `advanced_techniques_supplement.md`
 - `assets/i2c.jpg`
 - `assets/md`
 - `cybersecurity_cliff_notes.md`
 - `firmware-hardware-compatibility.md`
 - `installer.sh`
-- `uConsole/README.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/blackarch.md`
@@ -1383,7 +1394,6 @@
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/sop_phishing_analysis.md`
-- `SDR/sdr_hacking.md`
 - `Scripts/Python/vuln_scanner.py`
 - `Documentation/bruce_firmware.md`
 - `Documentation/hcxtoolshashcat.md`
@@ -1417,7 +1427,6 @@
 - `Tradecraft/lolbins-lolbas.md`
 - `AI/AnythingLLM/flow-domain_recon.md`
 - `AI/ai_prompts.md`
-- `AI/offensive_ai.md`
 - `AI/offline-llm.md`
 - `FIRMWARE&HARDWARE_COMPATIBILITY.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
@@ -1426,8 +1435,6 @@
 - `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
 - `OSINT/scripts/Email_OSINT.md`
-- `uConsole/CM4-SETUP.md`
-- `uConsole/CM5-SETUP.md`
 - `AI/AnythingLLM/flow-github_secrets.md`
 - `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
@@ -1447,14 +1454,12 @@
 - `Documentation/Locksport.md`
 - `Documentation/WifiMarauder_CheatSheet.md`
 - `Documentation/arduinoIDE.md`
-- `Documentation/flipper_zero_guide.md`
 - `Documentation/python.md`
 - `Documentation/virtualmachines.md`
 - `Documentation/vscode.md`
 - `HardwareHacking/BitPirate.md`
 - `HardwareHacking/GreatFETone.md`
 - `HardwareHacking/JTAGulator.md`
-- `HardwareHacking/LA1010.md`
 - `HardwareHacking/T48_TL866-3G.md`
 - `SpaceSecurity/PartII.md`
 - `SpaceSecurity/PartIII.md`
