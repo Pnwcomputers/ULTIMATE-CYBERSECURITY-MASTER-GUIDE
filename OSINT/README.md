@@ -92,7 +92,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 | Guide | Focus Area | Status |
 |-------|------------|--------|
-| **[Social_Media_OSINT.md](./Social_Media_OSINT.md)** | Social media investigation techniques | ✅ Complete |
+| **[OSINT_socialmedia.md](./OSINT_socialmedia.md)** | Social media investigation techniques | ✅ Complete |
 | **[Email_OSINT.md](./scripts/Email_OSINT.md)** | Email enumeration and analysis | ✅ Complete |
 | **[Domain_IP_Recon.md](./scripts/Domain_IP_Recon.md)** | Domain and infrastructure reconnaissance | ✅ Complete |
 | **[Phone_OSINT.md](./scripts/Phone_OSINT.md)** | Phone number investigation methods | ✅ Complete |
@@ -749,6 +749,6 @@ This OSINT resource collection has **zero tolerance** for misuse. We strongly co
 - [OSINT_GUIDE.md](OSINT_GUIDE.md) - Basic/general OSINT methodology guide
 - [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick-reference tool and command cheat sheet
 - [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) - Full toolkit catalog
-- [Social_Media_OSINT.md](Social_Media_OSINT.md) - Social media investigation methodology and per-platform collection
+- [OSINT_socialmedia.md](OSINT_socialmedia.md) - Social media investigation methodology and per-platform collection
 - [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook for fraud investigations
 - [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - Advanced OSINT and threat intelligence techniques
