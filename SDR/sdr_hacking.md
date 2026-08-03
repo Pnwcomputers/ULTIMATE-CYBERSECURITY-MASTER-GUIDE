@@ -19,7 +19,7 @@ Perform authorized RF security assessments against IoT, industrial, and wireless
 >
 > **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (does not replaces) the General SDR.md section.
 >
-> **Legal notice:** All offensive techniques are presented for authorized security research, CTF competition, and defensive understanding only. Apply only against systems you own or have written authorization to test. RF transmission requires appropriate licensing.
+> **Legal notice:** All offensive techniques are presented for authorized security research, CTF competition, and defensive understanding only. Apply only against systems you own or have written authorization to test. RF transmission requires appropriate licensing. See [LEGAL.md](../LEGAL.md).
 
 ---
 
