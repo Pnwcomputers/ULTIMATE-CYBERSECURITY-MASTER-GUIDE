@@ -95,6 +95,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🚨 [Incident Response](IncidentResponse/) | Blue Team operations - threat detection, log aggregation, artifact analysis, standardized response procedures |
 | 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog setup and configuration |
 | 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology - 400+ categorized tools, investigation workflows, automated VM setup |
+| 🕸️ [Web Application Security](WebAppSecurity/) | OWASP Top 10 deep-dive and a full web app pentest methodology (recon, Burp workflow, injection/access-control/API testing) |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices - anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |

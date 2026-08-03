@@ -181,7 +181,7 @@ listed topic is **referenced in many files but lacks a dedicated section**.
 
 | Priority | Topic | Evidence | Proposed home |
 |----------|-------|----------|---------------|
-| High | **Web Application Security** | ~47 files mention it; no dedicated section | `WebAppSecurity/` (OWASP Top 10, Burp workflow, API testing) |
+| ✅ Done | **Web Application Security** | ~47 files mentioned it; no dedicated section | Delivered: [`WebAppSecurity/`](./WebAppSecurity/README.md) (OWASP Top 10:2025 deep-dive + full methodology) |
 | High | **Cloud Security** | ~42 files; only inside master guides | `Cloud/` (AWS/Azure/GCP attack + hardening) |
 | Medium | **Container & Kubernetes Security** | ~35 files; scattered | `Cloud/containers.md` or `ContainerSecurity/` |
 | Medium | **Cryptography** | ~24 files; only in cliff notes | `Documentation/cryptography.md` (primitives, TLS, hashing, PKI) |
