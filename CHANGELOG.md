@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1251
-- **Files Modified**: 1443
+- **Commits Analyzed**: 1252
+- **Files Modified**: 1449
 - **New Files**: 575
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- fix(F-08): add canonical cross-links for duplicated topics (#36) (`86974b0`)
 - docs: add Audit Report (deliverables A, E, F, G, I) + findings F-08/F-09 (#30) (`ef9f61e`)
 - docs: add Audit Findings Register (deliverable C) (#23) (`f9e583b`)
 - docs: add Endpoint-Visibility and Digital-Forensics section READMEs (#19) (`5a96542`)
@@ -1277,12 +1278,12 @@
 
 - `AUDIT_FINDINGS.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `STYLE_GUIDE.md`
 - `advanced_techniques_part2.md`
-- `advanced_techniques_supplement.md`
 - `cybersecurity_cliff_notes.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `CHANGELOG.md`
+- `STYLE_GUIDE.md`
+- `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `Tradecraft/osint-threat-intel.md`
 - `AUDIT_REPORT.md`
