@@ -44,7 +44,28 @@
 
 ---
 
-## 4. Cross-Referencing & Navigation
+## 4. Offensive-Content Safety Header
+
+Any guide whose primary subject is offensive or dual-use tradecraft (exploitation,
+post-exploitation, evasion, credential attacks, RF transmission, etc.) must open
+with a standard authorization callout, placed immediately after the H1 (and any
+badge/image block), before the Purpose block. Use the existing alert convention:
+
+```markdown
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](LEGAL.md).
+```
+
+This is a **document-level** complement to the per-script disclaimer in §3 — a
+reader landing anywhere in an offensive guide should see the authorization
+boundary near the top. It **adds** context; it never replaces or removes content.
+
+---
+
+## 5. Cross-Referencing & Navigation
 
 - **Navigation Footer:** Long guides should end with a standard navigation footer:
   ```markdown
@@ -56,7 +77,7 @@
 
 ---
 
-## 5. Review Metadata
+## 6. Review Metadata
 
 - **Last-Reviewed Line:** Reference and install/tool docs should carry a review date near the top, immediately under the H1 (or under any badge/image block):
 
