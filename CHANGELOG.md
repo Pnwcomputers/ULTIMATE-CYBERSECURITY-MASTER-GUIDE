@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1259
-- **Files Modified**: 1481
+- **Commits Analyzed**: 1260
+- **Files Modified**: 1484
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1196,6 +1196,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): HardwareHacking, AI + remaining domains — review complete (#52) (`89111d2`)
 - audit(scope 2/4): SDR/RF domain review (#48) (`f580e0b`)
 - audit(scope 2/4): OSINT domain review + repo-wide SANS link sweep (#46) (`9594d01`)
 - audit(scope 2/4): Tradecraft domain review (#44) (`30a649e`)
@@ -1283,7 +1284,9 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `AI/offensive_ai.md`
 - `AUDIT_FINDINGS.md`
+- `CHANGELOG.md`
 - `Documentation/wireshark.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
@@ -1294,7 +1297,6 @@
 - `START_HERE.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
-- `CHANGELOG.md`
 - `SDR/sdr_hacking.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `Tradecraft/active-directory.md`
@@ -1316,7 +1318,6 @@
 - `AUDIT_REPORT.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
-- `AI/offensive_ai.md`
 - `Checklists/README.md`
 - `Documentation/README.md`
 - `Documentation/TOR.md`
