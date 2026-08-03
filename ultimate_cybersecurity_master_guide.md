@@ -322,6 +322,11 @@ tail -f /var/log/syslog | grep --line-buffered "ERROR"
 
 ## Python for Security Professionals
 
+> [!NOTE]
+> **Canonical reference:** advanced Python automation lives in
+> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#python-for-security-automation).
+> Keep major updates there; this section is a foundational summary.
+
 ### Python Basics for Security
 
 #### Essential Python Constructs
@@ -446,6 +451,11 @@ def port_scanner(target, ports):
 ---
 
 ## Bash Scripting for Red Teams
+
+> [!NOTE]
+> **Canonical reference:** advanced offensive Bash lives in
+> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#bash-scripting-for-offensive-security).
+> Keep major updates there; this section is a foundational summary.
 
 ### Bash Script Fundamentals
 
@@ -702,6 +712,11 @@ sqlmap -u "http://target.com/page?id=1" -D database --tables
 
 ## Metasploit Framework Mastery
 
+> [!NOTE]
+> **Canonical reference:** the deepest Metasploit treatment lives in
+> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#advanced-metasploit-techniques).
+> Keep major updates there; this section is a foundational summary.
+
 ### Basic Metasploit Usage
 ```bash
 # Start Metasploit
@@ -744,6 +759,11 @@ run -j
 ---
 
 ## Buffer Overflow Exploitation
+
+> [!NOTE]
+> **Canonical reference:** in-depth exploit development lives in
+> [advanced_techniques_part2.md](advanced_techniques_part2.md#buffer-overflow-exploitation).
+> Keep major updates there; this section is a foundational summary.
 
 ### Stack Buffer Overflow Basics
 1. Fuzzing to find crash
@@ -968,6 +988,12 @@ aws ec2 describe-instances
 ---
 
 ## Mobile Device Security
+
+> [!NOTE]
+> **Canonical reference:** the dedicated mobile section is [Mobile/](Mobile/README.md);
+> deeper mobile pentesting is in
+> [advanced_techniques_part2.md](advanced_techniques_part2.md#mobile-device-penetration-testing).
+> This section is a foundational summary.
 
 ### Android Security Testing
 ```bash

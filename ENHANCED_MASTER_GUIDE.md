@@ -41,6 +41,12 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 4. [Anonymity & Privacy Protection](#anonymity--privacy-protection)
 
 ## OSINT MASTERY
+
+> [!NOTE]
+> **Canonical reference:** the dedicated, maintained OSINT section is
+> [OSINT/](OSINT/README.md) (tools catalog, cheat sheet, per-platform guides,
+> investigator playbook). Keep major OSINT updates there; this is an embedded
+> summary.
 5. [Comprehensive OSINT Resources](#comprehensive-osint-resources)
 6. [OSINT Virtual Machines](#osint-vm-setup)
 7. [OSINT Tools & Software](#part-3-osint-tools--software)
