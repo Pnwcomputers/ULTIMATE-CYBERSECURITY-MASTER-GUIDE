@@ -127,6 +127,14 @@ python3 vol.py --help | grep windows
 
 Before analysis, you need a memory dump. Several tools can capture RAM from live systems.
 
+> [!IMPORTANT]
+> **Preserve integrity as you acquire.** Live acquisition itself perturbs RAM, so
+> capture memory **first** (order of volatility) and with the smallest footprint
+> tool available. Immediately hash the resulting image
+> (`sha256sum image.raw > image.raw.sha256`) and record it in your notes — this
+> establishes integrity for chain of custody. See the section's evidence-handling
+> guidance in [Digital-Forensics/README.md](../README.md#-order-of-volatility).
+
 ### Windows Memory Acquisition
 
 #### DumpIt (Recommended for Simplicity)
@@ -140,7 +148,7 @@ DumpIt.exe
 
 Output: Creates a raw memory dump in the current directory.
 
-#### WinPMEM (Rekall Project)
+#### WinPMEM (Velocidex; formerly Rekall)
 
 ```cmd
 :: Capture to raw format
