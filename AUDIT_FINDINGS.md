@@ -357,6 +357,22 @@ as each completes.
   updated to Velocidex (current maintainer).
 - **Verdict:** high-quality, factually sound; two small additive corrections.
 
+### IncidentResponse — Endpoint Visibility (2026-08-03)
+
+- **Scope 2 (accuracy):** verified Sysmon install/config commands (`-accepteula -i`,
+  `-c`, schemaversion 4.90), auditd rule syntax (`-w … -p wa -k`,
+  `-a always,exit -S execve`, `augenrules`, `systemctl … auditd`), and the Sysmon
+  and SwiftOnSecurity config download URLs — all correct/live.
+- **Fixed (currency / dead links) in `Linux/osquery.md`:**
+  - `osquery.io/schema/5.14.0/` returned 404 (verified with curl **and** lychee;
+    site content changed since the F-10 sweep) → replaced with the actively
+    maintained [Fleet tables reference](https://fleetdm.com/tables).
+  - `github.com/kolide/fleet` is **archived** → repointed to the active
+    `fleetdm/fleet` (the `fleetdm.com` landing was already linked separately).
+- **Scope 4:** deployment-impact / tuning / noise-baseline guidance is present in
+  all three endpoint guides — adequate.
+- **Verdict:** sound; two dead/stale links fixed in the osquery guide.
+
 ---
 
 ## Open workstreams (not yet itemized as findings)

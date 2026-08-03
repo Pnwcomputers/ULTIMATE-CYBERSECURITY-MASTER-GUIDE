@@ -1060,7 +1060,7 @@ If using Fleet for central management:
 ### Documentation
 
 - [Osquery Documentation](https://osquery.readthedocs.io/)
-- [Osquery Schema](https://osquery.io/schema/5.14.0/)
+- [Osquery Schema (Fleet tables reference)](https://fleetdm.com/tables)
 - [Osquery GitHub](https://github.com/osquery/osquery)
 
 ### Query Packs
@@ -1072,7 +1072,7 @@ If using Fleet for central management:
 ### Fleet Management
 
 - [Fleet (FleetDM)](https://fleetdm.com/)
-- [Kolide Fleet](https://github.com/kolide/fleet)
+- [Fleet on GitHub](https://github.com/fleetdm/fleet) *(the old `kolide/fleet` repo is archived)*
 
 ### Community
 
