@@ -98,6 +98,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 | 🕸️ [Web Application Security](WebAppSecurity/) | OWASP Top 10 deep-dive and a full web app pentest methodology (recon, Burp workflow, injection/access-control/API testing) |
 | ☁️ [Cloud Security](Cloud/) | Shared-responsibility model, common misconfigurations, and per-provider attack surface & hardening for AWS, Azure/Entra ID, and GCP |
 | 📋 [Compliance & GRC](Compliance/) | Governance, risk & compliance - NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, and GDPR/HIPAA/CCPA with control mapping |
+| 📦 [Container & Kubernetes Security](ContainerSecurity/) | Image/runtime attack surface, container escape, and Kubernetes hardening (RBAC, Pod Security Standards, network policy) |
 | 🔴 [OPSEC](OPSEC/) | Operational security practices - anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, AI-powered security workflows |
