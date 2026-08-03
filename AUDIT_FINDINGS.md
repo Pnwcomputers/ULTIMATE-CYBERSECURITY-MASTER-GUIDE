@@ -33,20 +33,20 @@ source; **Medium** = verified pattern but individual instances need a human call
 
 | ID | Priority | Category | Finding | Count | Confidence | Status |
 |----|----------|----------|---------|-------|------------|--------|
-| F-01 | High | Navigation | Manual TOC anchors don't match GitHub-generated heading slugs | 198 links / 33 files | High | Open |
-| F-02 | Medium | Navigation | Content directories with no `README.md` index | 9 dirs | High | Open |
-| F-03 | Medium | Navigation | Orphaned docs / broken TOC entry not reachable from any index | 4 | High | Open |
-| F-04 | Medium | Tooling | CI anchor-checking (`--include-fragments`) disabled, so F-01 can regress silently | 1 | High | Open |
-| F-05 | Low | Link hygiene | External links using `http://` where `https://` may be available | 6 hosts | Medium | Open |
-| F-06 | Low | Content | `TODO` / placeholder / `TBD` markers left in published docs | 9 | High | Open |
-| F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | Open |
+| F-01 | High | Navigation | Manual TOC anchors don't match GitHub-generated heading slugs | 198 links / 33 files | High | ✅ Fixed (#24) |
+| F-02 | Medium | Navigation | Content directories with no `README.md` index | 9 dirs | High | ✅ Resolved — no action (#26) |
+| F-03 | Medium | Navigation | Orphaned docs / broken TOC entry not reachable from any index | 4 | High | ✅ Fixed (#24, #26) |
+| F-04 | Medium | Tooling | CI anchor-checking (`--include-fragments`) disabled, so F-01 can regress silently | 1 | High | ✅ Fixed (#24) |
+| F-05 | Low | Link hygiene | External links using `http://` where `https://` may be available | 6 hosts | Medium | ✅ Fixed (#25) |
+| F-06 | Low | Content | `TODO` / placeholder / `TBD` markers left in published docs | 9 | High | ✅ Resolved — intentional (#25) |
+| F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | ⏸️ Deferred by owner |
 
 ---
 
 ## F-01 — Manual TOC anchors don't match GitHub's generated heading slugs
 
 - **Priority:** High **Category:** Navigation / broken internal links
-  **Confidence:** High **Status:** Open
+  **Confidence:** High **Status:** ✅ Fixed (#24)
 - **Files:** 33 (see per-file breakdown). **Occurrences:** 198 anchor links.
 - **Issue:** Hand-authored / tool-generated "Table of Contents" links point at
   anchors that GitHub does not generate, so clicking a TOC entry jumps nowhere.
@@ -132,7 +132,11 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-02 — Content directories with no README index
 
-- **Priority:** Medium **Category:** Navigation **Confidence:** High **Status:** Open
+- **Priority:** Medium **Category:** Navigation **Confidence:** High **Status:** ✅ Resolved — no action (#26)
+- **Resolution:** Verified that every file in these directories is already linked
+  or table-listed from its parent section README, so per-directory index stubs
+  would duplicate existing navigation (filler the audit brief forbids). No stubs
+  added, confirmed by the maintainer.
 - **Issue:** These directories contain published `.md` content but no
   `README.md`, so GitHub shows a bare file list instead of an index. The repo
   already has a strong folder-index house style (see `OSINT/README.md`,
@@ -157,7 +161,13 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-03 — Orphaned documents and dead TOC entry
 
-- **Priority:** Medium **Category:** Navigation **Confidence:** High **Status:** Open
+- **Priority:** Medium **Category:** Navigation **Confidence:** High **Status:** ✅ Fixed (#24, #26)
+- **Resolution:** The Homelab wireless-lab playbook is now linked and correctly
+  labelled in `Homelab/README` (#26); the dead `#tcpdump-field-reference` TOC
+  entry was repointed to `#tcpdump-essentials` (#24). The remaining scanner
+  "orphans" are non-issues: `.github/*` templates are unlinked by design,
+  `Documentation/references.md` is table-listed in its section index, and
+  `Scripts/GO/shells/README.md` sits under the root-linked `Scripts/GO`.
 - **Issue:** Content not reachable from any index page (excludes `.github/*`
   templates, which are correctly unlinked by design).
 - **Instances:**
@@ -179,7 +189,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-04 — CI anchor-checking is disabled
 
-- **Priority:** Medium **Category:** Tooling / maintenance **Confidence:** High **Status:** Open
+- **Priority:** Medium **Category:** Tooling / maintenance **Confidence:** High **Status:** ✅ Fixed (#24)
 - **Evidence:** `.github/workflows/link-check.yml` intentionally omits
   `--include-fragments`, and `.markdownlint.jsonc` disables `MD051`
   (link-fragments) — both with comments citing emoji-heading false positives.
@@ -195,7 +205,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-05 — Insecure `http://` external links
 
-- **Priority:** Low **Category:** Link hygiene **Confidence:** Medium **Status:** Open
+- **Priority:** Low **Category:** Link hygiene **Confidence:** Medium **Status:** ✅ Fixed (#25)
 - **Issue:** External links use `http://` where an `https://` equivalent may
   exist. Confidence is Medium because some legacy hardware-vendor sites are
   genuinely HTTP-only — each must be checked, not blindly rewritten.
@@ -210,7 +220,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-06 — Leftover `TODO` / placeholder markers
 
-- **Priority:** Low **Category:** Content completeness **Confidence:** High **Status:** Open
+- **Priority:** Low **Category:** Content completeness **Confidence:** High **Status:** ✅ Resolved — intentional (#25)
 - **Issue:** 9 `TODO` / `FIXME` / `TBD` / placeholder markers remain in published
   docs (excludes the intentional `🔨 Planned` status markers, which are a
   deliberate roadmap convention).
@@ -222,7 +232,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-07 — Very large monolithic guides (editorial)
 
-- **Priority:** Editorial **Category:** Information architecture **Confidence:** Low **Status:** Open
+- **Priority:** Editorial **Category:** Information architecture **Confidence:** Low **Status:** ⏸️ Deferred by owner
 - **Issue:** Several root guides are large enough to be hard to navigate in a
   single page: `ENHANCED_MASTER_GUIDE.md` (~123 KB), `LEGAL.md` (~115 KB),
   `SPECIALIZED_TOPICS_GUIDE.md` (~87 KB), `advanced_techniques_supplement.md`
@@ -269,4 +279,4 @@ as claims of specific defects.
 | G. Content Expansion Plan | Not started |
 | H. Style Guide | Exists (`STYLE_GUIDE.md`); not yet reconciled with findings |
 | I. Implementation Roadmap | Not started |
-| J. Proposed Changes | In progress (prior PRs #12–#22; this register) |
+| J. Proposed Changes | Findings F-01–F-06 implemented (PRs #24–#26); F-07 deferred by owner |
