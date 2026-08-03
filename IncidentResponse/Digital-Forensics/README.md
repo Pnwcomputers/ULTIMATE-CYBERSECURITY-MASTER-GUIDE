@@ -33,13 +33,13 @@ Enable a responder to capture the right evidence in the right order, analyze it 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Forensic Domains](#forensic-domains)
-- [Analysis Guides](#analysis-guides)
-- [Order of Volatility](#order-of-volatility)
+- [Overview](#-overview)
+- [Forensic Domains](#️-forensic-domains)
+- [Analysis Guides](#-analysis-guides)
+- [Order of Volatility](#-order-of-volatility)
 - [⚠️ Evidence Handling & Legal Warning](#️-evidence-handling--legal-warning)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

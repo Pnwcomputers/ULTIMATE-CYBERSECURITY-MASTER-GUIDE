@@ -26,7 +26,7 @@ Enable blue team practitioners to build an effective network detection stack, wr
 1. [Detection Architecture](#detection-architecture)
 2. [Packet Capture Fundamentals](#packet-capture-fundamentals)
 3. [Wireshark Analysis](#wireshark-analysis)
-4. [tcpdump Field Reference](#tcpdump-field-reference)
+4. [tcpdump Field Reference](#tcpdump-essentials)
 5. [Zeek (Bro) for Detection](#zeek-bro-for-detection)
 6. [Suricata IDS/IPS](#suricata-idsips)
 7. [Protocol Anomaly Detection](#protocol-anomaly-detection)

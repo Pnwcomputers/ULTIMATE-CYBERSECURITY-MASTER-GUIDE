@@ -16,13 +16,13 @@
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Playbook Collection](#playbook-collection)
-- [Playbook Categories](#playbook-categories)
-- [How to Use These Playbooks](#how-to-use-these-playbooks)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Playbook Collection](#-playbook-collection)
+- [Playbook Categories](#️-playbook-categories)
+- [How to Use These Playbooks](#-how-to-use-these-playbooks)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

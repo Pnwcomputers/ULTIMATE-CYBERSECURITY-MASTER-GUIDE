@@ -33,14 +33,14 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Current Content](#current-content)
-- [Mobile Pentesting Toolchain](#mobile-pentesting-toolchain)
-- [Testing Methodology Overview](#testing-methodology-overview)
-- [Suggested Future Content](#suggested-future-content)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Current Content](#-current-content)
+- [Mobile Pentesting Toolchain](#️-mobile-pentesting-toolchain)
+- [Testing Methodology Overview](#-testing-methodology-overview)
+- [Suggested Future Content](#-suggested-future-content)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

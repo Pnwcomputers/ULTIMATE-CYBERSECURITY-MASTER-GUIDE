@@ -37,7 +37,7 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 ## OSINT MASTERY
 5. [Comprehensive OSINT Resources](#comprehensive-osint-resources)
 6. [OSINT Virtual Machines](#osint-vm-setup)
-7. [OSINT Tools & Software](#osint-tools--software)
+7. [OSINT Tools & Software](#part-3-osint-tools--software)
 8. [People Search & Identity Tracing](#people-search--identity-tracing)
 9. [Username & Email OSINT](#username-osint)
 10. [Phone Number Investigation](#phone-number-investigation)
@@ -71,11 +71,11 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 ## OPERATIONAL TRADECRAFT
 31. [Tradecraft Overview & Index](#tradecraft-overview)
 32. [C2 Frameworks - Cobalt Strike, Sliver, Havoc](#c2-frameworks)
-33. [AV/EDR Evasion - Recognition & Defense](#av-edr-evasion)
-34. [Living Off the Land - LOLBins & LOLBAs](#lolbins-lolbas)
-35. [OSINT & Threat Intelligence](#osint-threat-intel-tradecraft)
-36. [Network Detection & Packet Analysis](#network-detection-tradecraft)
-37. [Active Directory - Attacks & Defense](#active-directory-tradecraft)
+33. [AV/EDR Evasion - Recognition & Defense](#avedr-evasion---recognition--defense)
+34. [Living Off the Land - LOLBins & LOLBAs](#living-off-the-land---lolbins--lolbas)
+35. [OSINT & Threat Intelligence](#osint--threat-intelligence)
+36. [Network Detection & Packet Analysis](#network-detection--packet-analysis)
+37. [Active Directory - Attacks & Defense](#active-directory---attacks--defense)
 38. [Analysis Environments (FLARE VM / REMnux)](#analysis-environments)
 ---
 

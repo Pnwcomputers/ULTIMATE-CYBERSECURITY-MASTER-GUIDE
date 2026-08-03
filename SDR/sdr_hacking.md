@@ -27,9 +27,9 @@ Perform authorized RF security assessments against IoT, industrial, and wireless
 
 - [Part 1: SIGINT, GNU Radio Mastery, and Signal Reversing](#part-1-sigint-gnu-radio-mastery-and-signal-reversing)
   - [Chapter 1: Key Radio Concepts Review](#chapter-1-key-radio-concepts-review)
-  - [Chapter 2: Devices - Spectrum Analyzers, SDRs, and Special RF Chips](#chapter-2-devices--spectrum-analyzers-sdrs-and-special-rf-chips)
-  - [Chapter 3: SIGINT - Identifying Targeted Transmissions](#chapter-3-sigint--identifying-targeted-transmissions)
-  - [Chapter 4: GNU Radio - Advanced Flowgraphs](#chapter-4-gnu-radio--advanced-flowgraphs)
+  - [Chapter 2: Devices - Spectrum Analyzers, SDRs, and Special RF Chips](#chapter-2-devices---spectrum-analyzers-sdrs-and-special-rf-chips)
+  - [Chapter 3: SIGINT - Identifying Targeted Transmissions](#chapter-3-sigint---identifying-targeted-transmissions)
+  - [Chapter 4: GNU Radio - Advanced Flowgraphs](#chapter-4-gnu-radio---advanced-flowgraphs)
   - [Chapter 5: SDR Tools and Fuzzing](#chapter-5-sdr-tools-and-fuzzing)
 - [Part 2: Attacking Real Targets](#part-2-attacking-real-targets)
   - [Chapter 6: Reverse Engineering Remote Controls](#chapter-6-reverse-engineering-remote-controls)

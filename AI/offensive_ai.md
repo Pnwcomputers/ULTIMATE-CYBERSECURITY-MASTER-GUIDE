@@ -24,19 +24,19 @@ Enable authorized red teamers to assess AI/ML-integrated applications for securi
 ## Table of Contents
 
 - [Part I: The Adversarial Playbook](#part-i-the-adversarial-playbook-mindset--methodology)
-  - [Chapter 1: The New Attack Surface - Thinking in Graphs](#chapter-1-the-new-attack-surface-thinking-in-graphs)
-  - [Chapter 2: The Engagement - An AI Red Teamer's Methodology](#chapter-2-the-engagement-an-ai-red-teamers-methodology)
-- [Part II: The AI Kill Graph - Core Attack Techniques](#part-ii-the-ai-kill-graph-core-attack-techniques)
-  - [Chapter 3: Reconnaissance - Mapping the AI Terrain](#chapter-3-reconnaissance-mapping-the-ai-terrain)
-  - [Chapter 4: Poisoning the Well - Corrupting AI Data](#chapter-4-poisoning-the-well-corrupting-ai-data)
-  - [Chapter 5: Fooling the Oracle - Evasive Attacks at Inference](#chapter-5-fooling-the-oracle-evasive-attacks-at-inference)
-  - [Chapter 6: Hijacking the Conversation - LLM Prompt Injection](#chapter-6-hijacking-the-conversation-llm-prompt-injection)
-  - [Chapter 7: Seizing Control - Agentic System Exploitation](#chapter-7-seizing-control-agentic-system-exploitation)
-  - [Chapter 8: Stealing the Brain - Model Extraction and Privacy Attacks](#chapter-8-stealing-the-brain-model-extraction-and-privacy-attacks)
-- [Part III: The Campaign - Execution & Impact](#part-iii-the-campaign-execution--impact)
-  - [Chapter 9: Graphs of Pain - Advanced Attack Sequences](#chapter-9-graphs-of-pain-advanced-attack-sequences)
-  - [Chapter 10: The Endgame - Reporting for Maximum Impact](#chapter-10-the-endgame-reporting-for-maximum-impact)
-  - [Chapter 11: The Next Frontier - The Future of AI Red Teaming](#chapter-11-the-next-frontier-the-future-of-ai-red-teaming)
+  - [Chapter 1: The New Attack Surface - Thinking in Graphs](#chapter-1-the-new-attack-surface---thinking-in-graphs)
+  - [Chapter 2: The Engagement - An AI Red Teamer's Methodology](#chapter-2-the-engagement---an-ai-red-teamers-methodology)
+- [Part II: The AI Kill Graph - Core Attack Techniques](#part-ii-the-ai-kill-graph---core-attack-techniques)
+  - [Chapter 3: Reconnaissance - Mapping the AI Terrain](#chapter-3-reconnaissance---mapping-the-ai-terrain)
+  - [Chapter 4: Poisoning the Well - Corrupting AI Data](#chapter-4-poisoning-the-well---corrupting-ai-data)
+  - [Chapter 5: Fooling the Oracle - Evasive Attacks at Inference](#chapter-5-fooling-the-oracle---evasive-attacks-at-inference)
+  - [Chapter 6: Hijacking the Conversation - LLM Prompt Injection](#chapter-6-hijacking-the-conversation---llm-prompt-injection)
+  - [Chapter 7: Seizing Control - Agentic System Exploitation](#chapter-7-seizing-control---agentic-system-exploitation)
+  - [Chapter 8: Stealing the Brain - Model Extraction and Privacy Attacks](#chapter-8-stealing-the-brain---model-extraction-and-privacy-attacks)
+- [Part III: The Campaign - Execution & Impact](#part-iii-the-campaign---execution--impact)
+  - [Chapter 9: Graphs of Pain - Advanced Attack Sequences](#chapter-9-graphs-of-pain---advanced-attack-sequences)
+  - [Chapter 10: The Endgame - Reporting for Maximum Impact](#chapter-10-the-endgame---reporting-for-maximum-impact)
+  - [Chapter 11: The Next Frontier - The Future of AI Red Teaming](#chapter-11-the-next-frontier---the-future-of-ai-red-teaming)
 
 ---
 

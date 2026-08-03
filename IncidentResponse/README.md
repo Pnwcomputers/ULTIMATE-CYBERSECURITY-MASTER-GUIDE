@@ -32,12 +32,12 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Tool & Infrastructure Categories](#tool--infrastructure-categories)
-- [Deployment & Operations Workflow](#deployment--operations-workflow)
+- [Overview](#-overview)
+- [Tool & Infrastructure Categories](#️-tool--infrastructure-categories)
+- [Deployment & Operations Workflow](#-deployment--operations-workflow)
 - [⚠️ CRITICAL Security, Privacy & Legal Warning](#️-critical-security-privacy--legal-warning)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

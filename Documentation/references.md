@@ -29,7 +29,7 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 * [Port Numbers](#-port-numbers)
 * [HTTP Status Codes](#-http-status-codes)
 * [Regex Patterns](#-regex-patterns)
-* [Legal Disclaimer](#-legal-disclaimer)
+* [Legal Disclaimer](#️-legal-disclaimer)
 
 ---
 

@@ -35,14 +35,14 @@ Serve as the starting point for space security work - directing practitioners to
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Section Guides](#section-guides)
-- [Space System Segments](#space-system-segments)
-- [Why Space Security Matters Now](#why-space-security-matters-now)
-- [Threat Landscape Summary](#threat-landscape-summary)
-- [Tools Reference](#tools-reference)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Section Guides](#-section-guides)
+- [Space System Segments](#-space-system-segments)
+- [Why Space Security Matters Now](#-why-space-security-matters-now)
+- [Threat Landscape Summary](#-threat-landscape-summary)
+- [Tools Reference](#-tools-reference)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Resources](#-resources)
 
 ---
 

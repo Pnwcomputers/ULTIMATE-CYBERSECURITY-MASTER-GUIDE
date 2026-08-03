@@ -31,15 +31,15 @@ A fully configured, field-ready uConsole running on Kali or Trixie with all hard
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Setup Guides](#setup-guides)
-- [Hardware Stack](#hardware-stack)
-- [CM4 vs CM5 - Quick Reference](#cm4-vs-cm5--quick-reference)
-- [OS Options](#os-options)
-- [AIO v2 Board Capabilities](#aio-v2-board-capabilities)
-- [Common Setup Sequence (The 6-Phase Approach)](#common-setup-sequence-the-6-phase-approach)
-- [Security & Legal Disclaimer](#security--legal-disclaimer)
-- [Resources](#resources)
+- [Overview](#-overview)
+- [Setup Guides](#-setup-guides)
+- [Hardware Stack](#️-hardware-stack)
+- [CM4 vs CM5 - Quick Reference](#️-cm4-vs-cm5---quick-reference)
+- [OS Options](#-os-options)
+- [AIO v2 Board Capabilities](#-aio-v2-board-capabilities)
+- [Common Setup Sequence (The 6-Phase Approach)](#-common-setup-sequence-the-6-phase-approach)
+- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
+- [Resources](#-resources)
 
 ---
 
@@ -77,7 +77,7 @@ These guides serve as:
 | **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 setup - Most mature and community-tested configuration and features the `uconsole-cm4-setup.sh` automated installer. |
 | **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup - Features the `uconsole-cm5-setup.sh` automated installer, USB 3.0, and native PCIe configurations. |
 
-> **Which guide should I follow?** If you already have your hardware, follow the guide matching your compute module. If you're buying new, see the [comparison table](#cm4-vs-cm5--quick-reference) below.
+> **Which guide should I follow?** If you already have your hardware, follow the guide matching your compute module. If you're buying new, see the [comparison table](#️-cm4-vs-cm5---quick-reference) below.
 
 ---
 

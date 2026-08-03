@@ -24,7 +24,7 @@ Extend practitioner skills into exploit development and low-level vulnerability 
 ## Table of Contents
 1. [Exploit Development Fundamentals](#exploit-development-fundamentals)
 2. [Buffer Overflow Exploitation](#buffer-overflow-exploitation)
-3. [Structured Exception Handler (SEH) Overwrites](#structured-exception-handler-overwrites)
+3. [Structured Exception Handler (SEH) Overwrites](#structured-exception-handler-seh-overwrites)
 4. [Mobile Device Penetration Testing](#mobile-device-penetration-testing)
 5. [Advanced Password Attacks](#advanced-password-attacks)
 6. [Antivirus Evasion Techniques](#antivirus-evasion-techniques)

@@ -32,13 +32,13 @@ Provide ready-to-use security automation scripts and a single installer to set u
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Script Categories](#script-categories)
-- [Directory Structure](#directory-structure)
-- [How to Use These Scripts](#how-to-use-these-scripts)
+- [Overview](#-overview)
+- [Script Categories](#️-script-categories)
+- [Directory Structure](#-directory-structure)
+- [How to Use These Scripts](#-how-to-use-these-scripts)
 - [⚠️ CRITICAL Security & Legal Warning](#️-critical-security--legal-warning)
-- [Contributing](#contributing)
-- [Resources](#resources)
+- [Contributing](#-contributing)
+- [Resources](#-resources)
 
 ---
 

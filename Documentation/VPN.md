@@ -34,11 +34,11 @@ This guide covers VPN selection, configuration, operational usage, and integrati
 6. [Split Tunneling](#6-split-tunneling)
 7. [Mullvad on Linux (CLI)](#7-mullvad-on-linux-cli)
 8. [Browser Hardening](#8-browser-hardening)
-9. [VPN + Tor - Stacking Strategies](#9-vpn--tor--stacking-strategies)
+9. [VPN + Tor - Stacking Strategies](#9-vpn--tor---stacking-strategies)
 10. [VPN for Security Operations](#10-vpn-for-security-operations)
 11. [Leak Testing & Verification](#11-leak-testing--verification)
 12. [Operational Checklist](#12-operational-checklist)
-13. [VPN Comparison - Quick Reference](#13-vpn-comparison--quick-reference)
+13. [VPN Comparison - Quick Reference](#13-vpn-comparison---quick-reference)
 
 ---
 
