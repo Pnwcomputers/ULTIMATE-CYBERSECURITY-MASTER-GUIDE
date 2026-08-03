@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1250
-- **Files Modified**: 1435
+- **Commits Analyzed**: 1251
+- **Files Modified**: 1443
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -404,6 +404,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(F-09): standardize the offensive-content safety header (#34) (`3206566`)
 - fix(F-10): repair dead/retired external links (scope 10 sweep) (#32) (`70a8386`)
 - fix(F-01+F-04): repair 198 broken TOC anchors and enable the CI anchor guard (#24) (`722c70f`)
 - fix(F-05): upgrade external links to HTTPS where supported (#25) (`07632fc`)
@@ -1275,9 +1276,15 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `STYLE_GUIDE.md`
+- `advanced_techniques_part2.md`
+- `advanced_techniques_supplement.md`
+- `cybersecurity_cliff_notes.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `CHANGELOG.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `Tradecraft/osint-threat-intel.md`
-- `CHANGELOG.md`
 - `AUDIT_REPORT.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
@@ -1289,7 +1296,6 @@
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/references.md`
 - `Documentation/wireshark.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `HardwareHacking/README.md`
 - `Homelab/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
@@ -1308,8 +1314,6 @@
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
 - `Tradecraft/network-detection.md`
-- `advanced_techniques_part2.md`
-- `advanced_techniques_supplement.md`
 - `uConsole/CM4-SETUP.md`
 - `uConsole/CM5-SETUP.md`
 - `uConsole/README.md`
@@ -1323,7 +1327,6 @@
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `OPSEC/OPSEC_guide.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `STYLE_GUIDE.md`
 - `Tradecraft/active-directory.md`
 - `PlayBooks/PurpleTeam_Simple.md`
 - `PlayBooks/cybersecurity_playbooks.md`
@@ -1374,10 +1377,8 @@
 - `Tradecraft/c2-frameworks.md`
 - `assets/i2c.jpg`
 - `assets/md`
-- `cybersecurity_cliff_notes.md`
 - `firmware-hardware-compatibility.md`
 - `installer.sh`
-- `ultimate_cybersecurity_master_guide.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/blackarch.md`
 - `Documentation/ArchLinux_CheatSheet.md`
