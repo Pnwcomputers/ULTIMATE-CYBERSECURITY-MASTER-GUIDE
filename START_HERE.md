@@ -29,6 +29,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Cloud Security?** → [Cloud Security](Cloud/) ([AWS](Cloud/aws.md) · [Azure/Entra ID](Cloud/azure.md) · [GCP](Cloud/gcp.md))
 - **Compliance / Auditor?** → [Compliance & GRC](Compliance/) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
 - **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
+- **Cryptography?** → [Cryptography](Cryptography/) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md))
 - **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
@@ -95,6 +96,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | ☁️ **[Cloud Security](Cloud/)** | AWS, Azure/Entra ID, and GCP - shared responsibility, misconfigurations, attack surface, and hardening |
 | 📋 **[Compliance & GRC](Compliance/)** | Frameworks (NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS) and regulations (GDPR, HIPAA, CCPA) with control mapping |
 | 📦 **[Container & Kubernetes Security](ContainerSecurity/)** | Image/runtime security, container escape, and Kubernetes hardening (RBAC, Pod Security Standards) |
+| 🔐 **[Cryptography](Cryptography/)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum |
 | 🔴 **[OPSEC](OPSEC/)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 **[Homelab Guides](Homelab/)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 **[Incident Response](IncidentResponse/)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
