@@ -28,11 +28,11 @@ Portable devices can handle specialized collection and testing tasks in a compac
 
 | Stage | Recommended Tool | Primary Role | Typical Output |
 | :--- | :--- | :--- | :--- |
-| Automated Wi-Fi discovery and collection | Pwnagotchi | Channel hopping, WPA/WPA2 handshake collection, and PMKID collection | PCAP files and capture metadata |
-| Active Wi-Fi testing | ESP32 Marauder-compatible device | Scanning, packet monitoring, authorized management-frame testing, and captive-portal simulations | Scan results, PCAP files, logs, and observations |
-| Sub-GHz exploration | Flipper Zero with its internal or an external CC1101 radio | Frequency discovery, signal capture, protocol identification, and authorized static-signal testing | Saved Sub-GHz captures and decoded protocol data |
-| Network-side observation | MikroTik RouterOS | Router/interface capture, logs, client state, and network-response monitoring | PCAP files, RouterOS logs, and interface statistics |
-| Detailed analysis and reporting | Linux workstation | Wireshark analysis, timeline correlation, capture preservation, and reporting | Findings, screenshots, notes, and final report |
+| Automated Wi-Fi discovery and collection | [Pwnagotchi](https://pwnagotchi.org/getting-started/index.html) | Channel hopping, WPA/WPA2 handshake collection, and PMKID collection | PCAP files and capture metadata |
+| Active Wi-Fi testing | [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder)-compatible device | Scanning, packet monitoring, authorized management-frame testing, and captive-portal simulations | Scan results, PCAP files, logs, and observations |
+| Sub-GHz exploration | [Flipper Zero](https://flipper.net/) with its internal or an external CC1101 radio | Frequency discovery, signal capture, protocol identification, and authorized static-signal testing | Saved Sub-GHz captures and decoded protocol data |
+| Network-side observation | [MikroTik RouterOS Device](https://a.co/d/0gQ8joO6) | Router/interface capture, logs, client state, and network-response monitoring | PCAP files, RouterOS logs, and interface statistics |
+| Detailed analysis and reporting | [Linux](https://www.linux.org/) workstation | Wireshark analysis, timeline correlation, capture preservation, and reporting | Findings, screenshots, notes, and final report |
 
 ---
 
