@@ -40,7 +40,7 @@ source; **Medium** = verified pattern but individual instances need a human call
 | F-05 | Low | Link hygiene | External links using `http://` where `https://` may be available | 6 hosts | Medium | ✅ Fixed (#25) |
 | F-06 | Low | Content | `TODO` / placeholder / `TBD` markers left in published docs | 9 | High | ✅ Resolved — intentional (#25) |
 | F-07 | Editorial | Structure | Very large monolithic guides are candidates for splitting | 4 docs | Low | ⏸️ Deferred by owner |
-| F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | 🔵 Open — plan in report |
+| F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | ✅ Fixed (canonical cross-links) |
 | F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | ✅ Fixed |
 | F-10 | Low | Link hygiene | Dead/retired external links (scope 10, online sweep) | 4 fixed, 4 flagged | High | ✅ Fixed dead links; 4 flagged for manual review |
 
@@ -255,7 +255,7 @@ each fix should be visually confirmed in GitHub's preview.*
 
 ## F-08 — Core topics duplicated across "master guide" docs (no canonical source)
 
-- **Priority:** Medium **Category:** Duplication (scope 11) **Confidence:** High **Status:** 🔵 Open — plan in [report](./AUDIT_REPORT.md)
+- **Priority:** Medium **Category:** Duplication (scope 11) **Confidence:** High **Status:** ✅ Fixed — additive canonical cross-links added under each duplicated section (no content removed)
 - **Issue:** Several core topics are covered in 2–3 root-level guides with no
   designated canonical source, so updates must be repeated or the copies drift.
   Observed overlap (by section headings):

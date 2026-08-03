@@ -485,6 +485,11 @@ s.close()
 
 ## Mobile Device Penetration Testing
 
+> [!NOTE]
+> **Related:** the dedicated mobile section — including device-specific SOPs — is
+> [Mobile/](Mobile/README.md). This section covers the penetration-testing
+> techniques.
+
 ### Android Application Security
 
 #### APK Analysis Workflow
