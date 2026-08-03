@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1260
-- **Files Modified**: 1484
+- **Commits Analyzed**: 1261
+- **Files Modified**: 1489
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -405,6 +405,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- audit(scope 11): resolve deprecated-tool contradictions (F-11) (#54) (`bde051d`)
 - audit(scope 2/4): Mobile domain review — fix OnePlus 6 model number (A3006->A6003) (#50) (`2117fab`)
 - fix(F-09): standardize the offensive-content safety header (#34) (`3206566`)
 - fix(F-10): repair dead/retired external links (scope 10 sweep) (#32) (`70a8386`)
@@ -1284,9 +1285,12 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `AI/offensive_ai.md`
 - `AUDIT_FINDINGS.md`
+- `GLOSSARY.md`
+- `SDR/README.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
 - `CHANGELOG.md`
+- `AI/offensive_ai.md`
 - `Documentation/wireshark.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
@@ -1335,8 +1339,6 @@
 - `OSINT/README.md`
 - `PDF/README.md`
 - `PlayBooks/README.md`
-- `SDR/README.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
 - `uConsole/CM4-SETUP.md`
@@ -1366,7 +1368,6 @@
 - `Checklists/command-and-control.md`
 - `Checklists/microsoft-exchange.md`
 - `Checklists/voip-checklist.md`
-- `GLOSSARY.md`
 - `HardwareHacking/BusPirate.md`
 - `HardwareHacking/Chapter2.md`
 - `HardwareTesting/README.md`
