@@ -1,14 +1,16 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1265
-- **Files Modified**: 1508
-- **New Files**: 588
+- **Commits Analyzed**: 1268
+- **Files Modified**: 1512
+- **New Files**: 592
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- feat: add Cryptography section (final deliverable G gap) (#64) (`22e7532`)
+- Add Microcontroller WiFi Testing Lab Workflow documentation (`9ae3847`)
 - feat: add Container & Kubernetes Security section (deliverable G gap) (#62) (`8ad050f`)
 - feat: add Compliance & GRC section (deliverable G gap) (#60) (`505f0bd`)
 - feat: add Cloud Security section (deliverable G gap) (#58) (`7901b9f`)
@@ -538,6 +540,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Rename Microcontroller_Wifi_Testing.md to microcontroller_wifi_testing.md (`c6e86ca`)
 - docs: update Audit Findings Register statuses to reflect resolutions (#28) (`b8c4d76`)
 - Update OSINT_TOOLS_CATALOG.md (`dfca57d`)
 - Update OSINT_TOOLS_CATALOG.md (`0eb63a9`)
@@ -1290,12 +1293,17 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_REPORT.md`
+- `Cryptography/README.md`
+- `Cryptography/algorithms.md`
+- `Cryptography/applied-crypto.md`
+- `README.md`
+- `START_HERE.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `Documentation/Microcontroller_Wifi_Testing.md`
+- `CHANGELOG.md`
 - `ContainerSecurity/README.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/kubernetes.md`
-- `README.md`
-- `START_HERE.md`
-- `CHANGELOG.md`
 - `Compliance/README.md`
 - `Compliance/frameworks.md`
 - `Compliance/regulations.md`
