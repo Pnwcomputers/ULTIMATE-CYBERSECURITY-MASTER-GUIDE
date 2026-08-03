@@ -2418,7 +2418,7 @@ A HAM license enables legal transmission on many useful research frequencies:
 
 **Recommended:** Get at minimum a Technician license before transmitting with SDR hardware.
 
-Study resources: [ARRL.org](http://www.arrl.org/getting-licensed) · HamStudy.org · Ham Radio Prep app
+Study resources: [ARRL.org](https://www.arrl.org/getting-licensed) · HamStudy.org · Ham Radio Prep app
 
 [Return to Table of Contents](#table-of-contents)
 
