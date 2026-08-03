@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1253
-- **Files Modified**: 1452
+- **Commits Analyzed**: 1254
+- **Files Modified**: 1455
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1195,6 +1195,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): IncidentResponse Endpoint-Visibility review (#40) (`e51cedc`)
 - ci: open a PR for CHANGELOG.md instead of pushing to main (#21) (`81ab594`)
 - Clarify BinaryEdge description in OSINT tools catalog (`439acd6`)
 - Reorder OSINT tools in the catalog (`a500657`)
@@ -1278,8 +1279,9 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
-- `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `CHANGELOG.md`
+- `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `advanced_techniques_part2.md`
 - `cybersecurity_cliff_notes.md`
@@ -1353,7 +1355,6 @@
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
-- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `OSINT/OSINT_GUIDE.md`
 - `PDF/.gitirnore`
 - `PDF/docker-pen-test.pdf`
