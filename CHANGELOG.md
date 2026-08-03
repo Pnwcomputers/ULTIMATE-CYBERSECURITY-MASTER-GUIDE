@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1252
-- **Files Modified**: 1449
+- **Commits Analyzed**: 1253
+- **Files Modified**: 1452
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1084,6 +1084,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- audit(scope 2/4): IncidentResponse forensics review — Volatility guide (#38) (`4ab34af`)
 - Revise OSINT README by removing detailed sections (`2b3e266`)
 - Revise Social Media OSINT documentation for clarity (`5b499b1`)
 - docs: note meek-azure Tor bridge fronting is deprecated (#17) (`cf37959`)
@@ -1277,11 +1278,12 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
+- `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
+- `CHANGELOG.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `advanced_techniques_part2.md`
 - `cybersecurity_cliff_notes.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `CHANGELOG.md`
 - `STYLE_GUIDE.md`
 - `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
@@ -1392,7 +1394,6 @@
 - `AI/OpenClaw/agent_skill_config.md`
 - `Checklists/Command&Control.md`
 - `Checklists/Lateral-Movement.md`
-- `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `Mobile/mobile_pentest_sop.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Phone_OSINT.md`
