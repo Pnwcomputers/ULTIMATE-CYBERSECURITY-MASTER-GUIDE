@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1257
-- **Files Modified**: 1469
+- **Commits Analyzed**: 1258
+- **Files Modified**: 1472
 - **New Files**: 575
 - **Deleted Files**: 117
 
@@ -1195,6 +1195,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit(scope 2/4): SDR/RF domain review (#48) (`f580e0b`)
 - audit(scope 2/4): OSINT domain review + repo-wide SANS link sweep (#46) (`9594d01`)
 - audit(scope 2/4): Tradecraft domain review (#44) (`30a649e`)
 - audit(scope 2/4): IncidentResponse SIEM + log aggregation review (#42) (`fef43f7`)
@@ -1282,8 +1283,9 @@
 <summary>Click to view full file list</summary>
 
 - `AUDIT_FINDINGS.md`
-- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
+- `SDR/sdr_hacking.md`
 - `CHANGELOG.md`
+- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
@@ -1324,7 +1326,6 @@
 - `PDF/README.md`
 - `PlayBooks/README.md`
 - `SDR/README.md`
-- `SDR/sdr_hacking.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
