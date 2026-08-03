@@ -1,5 +1,10 @@
 # Living Off the Land - LOLBins, LOLBAs, LOLScripts
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 LOLBins and LOLBAs reference - legitimate Windows binaries, libraries, and scripts that can be abused for execution, download, lateral movement, and defense evasion without dropping traditional malware.

@@ -1143,7 +1143,7 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
 - [Zeek Documentation](https://docs.zeek.org/)
 - [Suricata Documentation](https://docs.suricata.io/en/latest/)
 - [Emerging Threats Rules](https://rules.emergingthreats.net/)
-- [SANS Network Forensics Cheat Sheet](https://www.sans.org/blog/tag/network-forensics/)
+- [NIST SP 800-86 — Integrating Forensic Techniques into Incident Response](https://csrc.nist.gov/pubs/sp/800/86/final)
 - [Arkime (Moloch)](https://arkime.com/)
 - [JA3 Fingerprints Database](https://sslbl.abuse.ch/ja3-fingerprints/)
 - [MITRE ATT&CK: Exfiltration Over C2](https://attack.mitre.org/tactics/TA0010/)

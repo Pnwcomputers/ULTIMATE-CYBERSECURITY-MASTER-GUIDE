@@ -1,5 +1,10 @@
 # AV/EDR Evasion - Detection & Defense Deep Dive
 
+> [!CAUTION]
+> **Authorized use only.** The techniques below are for authorized security
+> testing, education, and defensive research. Using them against systems you do
+> not own or lack explicit written permission to test is illegal. See
+> [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 AV/EDR evasion techniques reference for blue team and purple team - covering how each evasion technique works, what artifacts it leaves, and how to detect, hunt, and harden against it.
