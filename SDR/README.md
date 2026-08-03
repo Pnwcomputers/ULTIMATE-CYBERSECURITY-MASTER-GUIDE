@@ -114,7 +114,7 @@ the Wiretap Act and ECPA.
 | **[Universal Radio Hacker (URH)](https://github.com/jopohl/urh)** | Protocol investigation, demodulation, and bit extraction | 🟡 MEDIUM |
 | **[Inspectrum](https://github.com/miek/inspectrum)** | Visual analysis of captured I/Q baseband signals | 🟢 LOW |
 | **[GNU Radio](https://www.gnuradio.org/)** | Block-based visual programming for DSP and signal routing | 🟡 MEDIUM |
-| **[Baudline](http://www.baudline.com/)** | Time-frequency signal analysis | 🟢 LOW |
+| **[Baudline](https://www.baudline.com/)** | Time-frequency signal analysis | 🟢 LOW |
 
 ---
 
@@ -324,7 +324,7 @@ We welcome contributions from RF researchers and security professionals, but all
 ### Licensing & Legal
 
 - **FCC Part 15 Rules**: [Understanding Unlicensed RF](https://www.fcc.gov/oet/ea/rfdevice)
-- **ARRL**: [Get your Amateur Radio (HAM) License](http://www.arrl.org/getting-licensed) (Highly recommended for SDR practitioners)
+- **ARRL**: [Get your Amateur Radio (HAM) License](https://www.arrl.org/getting-licensed) (Highly recommended for SDR practitioners)
 
 ### Learning SDR
 
