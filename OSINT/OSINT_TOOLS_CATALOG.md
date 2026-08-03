@@ -62,12 +62,12 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 
 ### 2. DNS, DOMAIN, WHOIS & CERTIFICATES
 * [**SecurityTrails**](https://securitytrails.com/): Obtain Passive DNS and other information from SecurityTrails. *(Free tier · key)*
-* [**DNSDB**](https://www.farsightsecurity.com): Query FarSight's DNSDB for historical and passive DNS data. *(Free tier · key)*
+* [**DNSDB**](https://www.domaintools.com/products/farsight-dnsdb/): Query Farsight DNSDB for historical and passive DNS data. *(Farsight Security was acquired by DomainTools in 2021; the old farsightsecurity.com domain no longer resolves.)* *(Free tier · key)*
 * [**CIRCL.LU**](https://www.circl.lu/): Obtain information from CIRCL.LU's Passive DNS and Passive SSL databases. *(Free · key)*
-* [**RiskIQ**](https://community.riskiq.com/): Obtain information from RiskIQ's (formerly PassiveTotal) Passive DNS and Passive SSL databases. *(Free tier · key)*
+* [**Microsoft Defender Threat Intelligence**](https://ti.defender.microsoft.com/): Passive DNS and Passive SSL data formerly served by RiskIQ / PassiveTotal. *(RiskIQ was acquired by Microsoft in 2021; the community.riskiq.com portal was retired and its data folded into Defender TI.)* *(Paid · key)*
 * [**Host.io**](https://host.io): Obtain information about domain names from host.io. *(Free tier · key)*
 * [**Zetalytics**](https://zetalytics.com/): Query the Zetalytics database for hosts on your target domain(s). *(Free tier · key)*
-* [**ZoneFile.io**](https://zonefiles.io): Search ZoneFiles.io Domain query API for domain information. *(Free tier · key)*
+* **ZoneFile.io**: Domain zone-file query API. *(⚠️ Service appears defunct as of 2026-08 — zonefiles.io no longer resolves. For bulk zone-file / newly-registered-domain data, consider [WhoisXML API](https://www.whoisxmlapi.com/) or [Whoisds](https://whoisds.com/newly-registered-domains) instead.)*
 * [**CertSpotter**](https://sslmate.com/certspotter/): Gather information about SSL certificates from SSLMate CertSpotter API. *(Free tier · key)*
 * [**ViewDNS.info**](https://viewdns.info/): Identify co-hosted websites and perform reverse Whois lookups using ViewDNS.info. *(Free tier · key)*
 * [**JsonWHOIS.com**](https://jsonwhois.com): Search JsonWHOIS.com for WHOIS records associated with a domain. *(Free tier · key)*
@@ -131,7 +131,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**Google**](https://developers.google.com/custom-search): Obtain information from the Google Custom Search API to identify sub-domains and links. *(Free tier · key)*
 * [**OpenCorporates**](https://opencorporates.com): Look up company information from OpenCorporates. *(Free · key optional)*
 * [**StackOverflow**](https://www.stackexchange.com): Search StackOverflow for any mentions of a target domain. Returns potentially related information. *(Free · key optional)*
-* [**Onion.link**](https://onion.link/): Search Tor 'Onion City' search engine for mentions of the target domain using Google Custom Search. *(Free · key optional)*
+* [**Ahmia**](https://ahmia.fi/): Search the Tor network for onion services mentioning the target. *(Replaces the defunct Onion.link / "Onion City" Tor2web gateway — most Tor2web services shut down after the Tor Project deprecated Tor2web in 2019.)* *(Free)*
 
 ### 7. PHONE NUMBER INTELLIGENCE
 * [**numverify**](https://numverify.com/): Lookup phone number location and carrier information from numverify.com. *(Free tier · key)*
