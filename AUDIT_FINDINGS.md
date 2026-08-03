@@ -43,6 +43,7 @@ source; **Medium** = verified pattern but individual instances need a human call
 | F-08 | Medium | Duplication | Core topics duplicated across several root "master guide" docs with no canonical source | 6+ topics | High | ✅ Fixed (canonical cross-links) |
 | F-09 | Medium | Safety | Inconsistent prominence of the safety/authorization header on offensive docs | ~3 docs | Medium | ✅ Fixed |
 | F-10 | Low | Link hygiene | Dead/retired external links (scope 10, online sweep) | 4 fixed, 4 flagged | High | ✅ Fixed dead links; 4 flagged for manual review |
+| F-11 | Low | Contradiction | Deprecated tools recommended without caveat in some docs while flagged deprecated in others | 3 tools | High | ✅ Fixed (central GLOSSARY note + inline caveats) |
 
 *Findings F-08–F-09 come from the second audit pass (scope 2/4/11). The
 remediation approach for both lives in [AUDIT_REPORT.md](./AUDIT_REPORT.md)
@@ -291,6 +292,37 @@ each fix should be visually confirmed in GitHub's preview.*
   `STYLE_GUIDE.md` and apply it near the top of each offensive doc.
 - **Proposed action:** add the standard to the style guide, then apply per doc.
   This **adds** warnings/context; it removes nothing.
+
+---
+
+## F-11 — Deprecated tools referenced without caveat (scope 11, contradiction)
+
+- **Priority:** Low **Category:** Contradiction / consistency (scope 11) **Confidence:** High **Status:** ✅ Fixed
+- **Issue:** Three tools are flagged as deprecated in one authoritative place but
+  presented as current, without caveat, in other docs — a reader following the
+  latter would be misled. Severity varies by how broken each tool is:
+  - **CrackMapExec** — caveated in `README.md` and `Tradecraft/active-directory.md`,
+    but used without a note in ~10 other files (Homelab 14×, PlayBooks 7×,
+    advanced_techniques_part2 5×, ENHANCED 3×, Mobile SOP 3×, others). **Low
+    severity** — it is a maintained drop-in rename (`nxc`), so the commands still
+    work.
+  - **twint** — caveated in `Tradecraft/osint-threat-intel.md`, but listed in an
+    `ENHANCED_MASTER_GUIDE.md` install set without a note. **Higher severity** —
+    genuinely broken since X's 2023 API lockdown.
+  - **gr-gsm** — caveated in `SDR/sdr.md`, but listed without a note in
+    `SPECIALIZED_TOPICS_GUIDE.md` and `SDR/README.md` tables. **Higher severity** —
+    does not build on GNU Radio 3.10+.
+- **Fix (proportionate to severity):**
+  - Added a central **"Deprecated / Renamed Tooling"** section to `GLOSSARY.md`
+    covering all three — one authoritative, repo-wide status reference. This
+    resolves the CrackMapExec case centrally (a rename; per-line notes across 10
+    files would be noise).
+  - Added inline caveats to the genuinely-broken **gr-gsm** table rows in
+    `SPECIALIZED_TOPICS_GUIDE.md` and `SDR/README.md`.
+- **Not changed:** individual `crackmapexec` command examples (they work as `nxc`;
+  the GLOSSARY now states this), and the `twint` install-list line (mid-code-block;
+  covered by the GLOSSARY + the existing osint-threat-intel caveat).
+- **Verdict:** contradiction resolved; nothing removed.
 
 ---
 

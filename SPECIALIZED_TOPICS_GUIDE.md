@@ -2161,7 +2161,7 @@ def analyze_iq_file(filename: str, sample_rate: float, center_freq: float):
 | **SatDump** | All | Satellite signal decoding suite |
 | **rtl_433** | All | ISM band device decoder (weather, TPMS, alarms) |
 | **dump1090** | All | ADS-B aircraft transponder decoder |
-| **gr-gsm** | Linux | GSM/cellular passive monitoring (research) |
+| **gr-gsm** | Linux | GSM/cellular passive monitoring (research) — ⚠️ unmaintained; won't build on GNU Radio 3.10+ (see [GLOSSARY](GLOSSARY.md#deprecated--renamed-tooling)) |
 | **kalibrate-rtl** | Linux | GSM base station frequency calibration |
 
 [Return to Table of Contents](#table-of-contents)

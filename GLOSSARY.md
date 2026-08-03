@@ -55,6 +55,19 @@ A quick reference for acronyms and terms used across this repository. Terms are 
 - **SDR — Software-Defined Radio:** A radio whose signal processing is done in software (e.g., HackRF, RTL-SDR). See [SDR/](SDR/).
 - **Firmware:** The low-level software embedded in a device's non-volatile memory.
 
+## Deprecated / Renamed Tooling
+
+Repo-wide status notes for tools that appear across multiple guides. Where a guide
+still shows the old command, treat it per the note below.
+
+- **CrackMapExec (CME) → NetExec (`nxc`):** CrackMapExec was archived in 2023 and
+  continues as the maintained, **drop-in** NetExec — same syntax (run any
+  `crackmapexec …` example as `nxc …`).
+- **twint — broken:** stopped working after X/Twitter's 2023 API lockdown. Use
+  `snscrape` (non-Twitter modules) or official APIs instead.
+- **gr-gsm — unmaintained:** does not build on GNU Radio 3.10+. For cellular
+  research prefer `srsRAN` (srsLTE) or a maintained fork.
+
 ## Frameworks & Standards
 
 - **MITRE ATT&CK:** A knowledge base of adversary TTPs, referenced throughout the checklists. <https://attack.mitre.org>
