@@ -185,7 +185,7 @@ listed topic is **referenced in many files but lacks a dedicated section**.
 | ✅ Done | **Cloud Security** | ~42 files; only inside master guides | Delivered: [`Cloud/`](./Cloud/README.md) (AWS, Azure/Entra ID, GCP - attack surface + hardening) |
 | Medium | **Container & Kubernetes Security** | ~35 files; scattered | `Cloud/containers.md` or `ContainerSecurity/` |
 | Medium | **Cryptography** | ~24 files; only in cliff notes | `Documentation/cryptography.md` (primitives, TLS, hashing, PKI) |
-| Medium | **Compliance / GRC** | ~82 mentions; no structured home | `Documentation/compliance.md` (NIST CSF, ISO 27001, SOC 2 mapping) |
+| ✅ Done | **Compliance / GRC** | ~82 mentions; no structured home | Delivered: [`Compliance/`](./Compliance/README.md) (NIST CSF 2.0, ISO 27001:2022, SOC 2, PCI DSS 4.0.1, CIS v8; GDPR/HIPAA/CCPA) |
 | Low | **Detection Engineering** | ~27 files; partial via SIEM | extend `IncidentResponse/` (Sigma/YARA rule authoring) |
 
 Each new section should follow the house template (Purpose/Function/Goal/When to
