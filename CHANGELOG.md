@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1261
-- **Files Modified**: 1489
-- **New Files**: 575
+- **Commits Analyzed**: 1262
+- **Files Modified**: 1495
+- **New Files**: 578
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- feat: add Web Application Security section (deliverable G, top gap) (#56) (`1a2b920`)
 - fix(F-08): add canonical cross-links for duplicated topics (#36) (`86974b0`)
 - docs: add Audit Report (deliverables A, E, F, G, I) + findings F-08/F-09 (#30) (`ef9f61e`)
 - docs: add Audit Findings Register (deliverable C) (#23) (`f9e583b`)
@@ -1285,11 +1286,19 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `AUDIT_REPORT.md`
+- `README.md`
+- `START_HERE.md`
+- `WebAppSecurity/README.md`
+- `WebAppSecurity/methodology.md`
+- `WebAppSecurity/owasp-top-10.md`
+- `advanced_techniques_part2.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `CHANGELOG.md`
 - `AUDIT_FINDINGS.md`
 - `GLOSSARY.md`
 - `SDR/README.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
-- `CHANGELOG.md`
 - `AI/offensive_ai.md`
 - `Documentation/wireshark.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
@@ -1298,7 +1307,6 @@
 - `Mobile/README.md`
 - `Mobile/mobile_pentest_sop.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
-- `START_HERE.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `SDR/sdr_hacking.md`
@@ -1313,13 +1321,10 @@
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `advanced_techniques_part2.md`
 - `cybersecurity_cliff_notes.md`
-- `ultimate_cybersecurity_master_guide.md`
 - `STYLE_GUIDE.md`
 - `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
-- `AUDIT_REPORT.md`
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
 - `Checklists/README.md`
@@ -1347,7 +1352,6 @@
 - `HardwareHacking/LA1010.md`
 - `.github/workflows/auto_changelog.yml`
 - `OSINT/OSINT_socialmedia.md`
-- `README.md`
 - `SDR/sdr.md`
 - `.markdownlint.jsonc`
 - `Documentation/LinuxCheatSheet.md`
