@@ -164,3 +164,6 @@ Provider-native: **AWS** IAM Access Analyzer / GuardDuty / Security Hub,
 - [gcp.md](gcp.md) - Google Cloud Platform security
 - [../WebAppSecurity/README.md](../WebAppSecurity/README.md) - Web app security (cloud-hosted apps)
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
+
+---
+| [⬅️ Back to Master Index](README.md) |
