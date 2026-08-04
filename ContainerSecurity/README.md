@@ -141,4 +141,4 @@ weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
 
 ---
-[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
+[⬅️ Back to Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)

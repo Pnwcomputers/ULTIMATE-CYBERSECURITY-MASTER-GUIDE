@@ -369,4 +369,18 @@ The goal is not simply to generate wireless activity. The goal is to create a re
 - [MikroTik RouterOS Packet Sniffer](https://help.mikrotik.com/docs/spaces/ROS/pages/8323088/Packet+Sniffer)
 - [MikroTik RouterOS Wireless Interface Documentation](https://help.mikrotik.com/docs/spaces/ROS/pages/8978446/Wireless+Interface)
 
+---
+
+## Related Files (in this repo)
+
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) / [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder reference and commands
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi setup and command reference
+- [evil_m5.md](evil_m5.md) / [bruce_firmware.md](bruce_firmware.md) - M5Stack / Cardputer firmware workflows
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero (Sub-GHz, Wi-Fi Dev Board)
+- [wireshark.md](wireshark.md) - Wireshark filters for analyzing the captured traffic
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - converting captures and auditing handshake strength
+- [../Homelab/workflows/self-hosted_network_attacks.md](../Homelab/workflows/self-hosted_network_attacks.md) - full self-hosted wireless lab assessment playbook
+- [../SDR/README.md](../SDR/README.md) - RF / Sub-GHz context for the CC1101 role
+- [../LEGAL.md](../LEGAL.md) - legal notice and authorized-use terms
+
 *Last Updated: 08-03-2026*

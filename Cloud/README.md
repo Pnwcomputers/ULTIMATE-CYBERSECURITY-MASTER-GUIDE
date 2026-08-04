@@ -166,4 +166,4 @@ Provider-native: **AWS** IAM Access Analyzer / GuardDuty / Security Hub,
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
 
 ---
-| [⬅️ Back to Master Index](README.md) |
+| [⬅️ Back to Master Index](../README.md) |
