@@ -1,14 +1,19 @@
-# 🔄 Change Log - August 03, 2026
+# 🔄 Change Log - August 04, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1272
-- **Files Modified**: 1517
+- **Commits Analyzed**: 1282
+- **Files Modified**: 1528
 - **New Files**: 592
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add back navigation link to Master Index in README (`453c718`)
+- Add navigation links to README (`e8d6a32`)
+- Add navigation links to Compliance README (`2d923e5`)
+- Add navigation links to README (`d971042`)
+- Add section on Hardware Security Keys to applied-crypto.md (`7f2f1c0`)
 - feat: add Cryptography section (final deliverable G gap) (#64) (`22e7532`)
 - Add Microcontroller WiFi Testing Lab Workflow documentation (`9ae3847`)
 - feat: add Container & Kubernetes Security section (deliverable G gap) (#62) (`8ad050f`)
@@ -540,6 +545,10 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update Compliance README links (`09669f7`)
+- Update README to remove Role Navigation link (`162904e`)
+- Remove duplicate entry for Hardware Security Keys (`e56262d`)
+- Update applied-crypto.md (`25d0f48`)
 - Enhance documentation with updated tool links (`4242af2`)
 - Update microcontroller_wifi_testing.md (`2e38125`)
 - Update microcontroller_wifi_testing.md (`304c081`)
@@ -1096,6 +1105,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Revise operational sections in README (`d283127`)
 - Enhance Wi-Fi testing documentation with tool links (`d87217f`)
 - audit(scope 2/4): IncidentResponse forensics review — Volatility guide (#38) (`4ab34af`)
 - Revise OSINT README by removing detailed sections (`2b3e266`)
@@ -1296,22 +1306,22 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Documentation/microcontroller_wifi_testing.md`
-- `CHANGELOG.md`
-- `AUDIT_REPORT.md`
+- `Compliance/README.md`
+- `Cloud/README.md`
 - `Cryptography/README.md`
-- `Cryptography/algorithms.md`
+- `ContainerSecurity/README.md`
 - `Cryptography/applied-crypto.md`
 - `README.md`
+- `CHANGELOG.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `AUDIT_REPORT.md`
+- `Cryptography/algorithms.md`
 - `START_HERE.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
-- `ContainerSecurity/README.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/kubernetes.md`
-- `Compliance/README.md`
 - `Compliance/frameworks.md`
 - `Compliance/regulations.md`
-- `Cloud/README.md`
 - `Cloud/aws.md`
 - `Cloud/azure.md`
 - `Cloud/gcp.md`
