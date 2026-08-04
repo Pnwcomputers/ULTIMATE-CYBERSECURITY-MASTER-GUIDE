@@ -530,6 +530,9 @@ Key management is where most real deployments fail. See
 - [FIDO Alliance Passkeys](https://fidoalliance.org/passkeys/)
 - [Web Authentication: WebAuthn Level 3](https://www.w3.org/TR/webauthn-3/)
 - [RFC 6238 - Time-Based One-Time Password Algorithm](https://datatracker.ietf.org/doc/html/rfc6238)
+
+### Hardware Security Keys
+
 - [FIDO Alliance](https://fidoalliance.org/) - FIDO standards, certification, and deployment resources
 - [FIDO Certified Products](https://fidoalliance.org/certification/fido-certified-products/) - Searchable directory of certified authenticators
 - [YubiKey 5 Series Technical Manual](https://docs.yubico.com/hardware/yubikey/yk-tech-manual/)
