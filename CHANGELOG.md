@@ -1,8 +1,8 @@
 # 🔄 Change Log - August 04, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1283
-- **Files Modified**: 1530
+- **Commits Analyzed**: 1284
+- **Files Modified**: 1536
 - **New Files**: 592
 - **Deleted Files**: 117
 
@@ -417,6 +417,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: cross-link microcontroller guide + fix broken section-README nav paths (#70) (`07856a1`)
 - audit(scope 11): resolve deprecated-tool contradictions (F-11) (#54) (`bde051d`)
 - audit(scope 2/4): Mobile domain review — fix OnePlus 6 model number (A3006->A6003) (#50) (`2117fab`)
 - fix(F-09): standardize the offensive-content safety header (#34) (`3206566`)
@@ -1307,15 +1308,15 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Documentation/README.md`
-- `CHANGELOG.md`
-- `Compliance/README.md`
 - `Cloud/README.md`
-- `Cryptography/README.md`
+- `Compliance/README.md`
 - `ContainerSecurity/README.md`
+- `Cryptography/README.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `CHANGELOG.md`
+- `Documentation/README.md`
 - `Cryptography/applied-crypto.md`
 - `README.md`
-- `Documentation/microcontroller_wifi_testing.md`
 - `AUDIT_REPORT.md`
 - `Cryptography/algorithms.md`
 - `START_HERE.md`
