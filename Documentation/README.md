@@ -73,6 +73,7 @@ This documentation serves as a reference material for security implementations, 
 | `flipper_zero_guide.md` | Reference guide for analysis and operations using a Flipper Zero | Guide |
 | `wireshark.md` | Wireshark filters and reference for network analysis and security operations | Guide |
 | `hcxtoolshashcat.md` | HCX tools and Hashcat for WiFi password cracking | Guide |
+| `microcontroller_wifi_testing.md` | Reference for using Pwnagotchi, Wifi-Marauder & Flipper Zero together for wifi testing | Guide |
 
 ### Privacy & Anonymity
 | File | Description | Size/Type |
