@@ -502,6 +502,7 @@ Describe what an attacker could do.
 
 ## Related Files
 - [../../Homelab/HomeLab_Setup.md](../../Homelab/HomeLab_Setup.md) - Homelab infrastructure this workflow runs on
+- [../../Documentation/microcontroller_wifi_testing.md](../../Documentation/microcontroller_wifi_testing.md) - distributed microcontroller wireless workflow (Pwnagotchi/Marauder + MikroTik TZSP capture)
 - [../../Documentation/Aircrack-ng_Commands.md](../../Documentation/Aircrack-ng_Commands.md) - Aircrack-ng command reference
 - [../../Documentation/wireshark.md](../../Documentation/wireshark.md) - Wireshark for blue team monitoring
 - [../../IncidentResponse/network_intrusion.md](../../IncidentResponse/network_intrusion.md) - Network intrusion detection procedures

@@ -1,61 +1,184 @@
-# Distributed Wireless Penetration Testing Lab Workflow
+# 📡 Distributed Wireless Penetration Testing Lab Workflow
 
-This document outlines a modular approach to wireless network security assessments. By shifting active attacks and passive harvesting to specialized microcontroller hardware, the primary analysis machine is freed up for centralized monitoring and data processing. This workflow integrates well into broader repositories covering wireless network security configurations.
+> [!CAUTION]
+> **Authorized use only.** This workflow describes active wireless attacks
+> (deauthentication, beacon spam, evil portals). **Transmitting deauthentication
+> frames against networks or clients you do not own or lack explicit written
+> permission to test is illegal** - the U.S. FCC has ruled Wi-Fi deauth/blocking
+> unlawful and fined operators, and unauthorized disruption can violate the CFAA
+> and equivalents elsewhere. Run this **only** inside a lab you own or under a
+> signed scope and rules of engagement. See [LEGAL.md](../LEGAL.md).
+
+_Last reviewed: 2026-08-04_
+
+## 🎯 Purpose
+A modular workflow for wireless assessments that offloads active attacks and
+passive handshake harvesting to portable microcontroller hardware, freeing the
+main analysis machine for centralized capture and processing - with a MikroTik
+router providing ground-truth 802.11 capture.
+
+## ⚙️ Function
+Assigns roles across a Linux "Command Hub", a Pwnagotchi (passive handshake
+collection), ESP32/Marauder-class devices (active deauth/beacon/scan), and a
+MikroTik router (TZSP live capture), then walks four phases - passive harvesting,
+active attacks, central monitoring, and Wireshark analysis - plus an out-of-band
+Sub-GHz role for the Flipper Zero + CC1101.
+
+## 🏆 Goal
+Let a practitioner quickly deploy attacks and captures from low-power hardware
+without a full terminal on each device, while the MikroTik provides ground-truth
+data on what is actually happening in the air.
+
+## 📋 When to Use
+- Building a repeatable wireless test lab around a MikroTik ground-truth sniffer
+- Offloading handshake capture / active attacks to portable microcontrollers
+- Observing how an AP and clients respond to deauth, beacon spam, and disconnects
+- Correlating device-generated frames against a live packet capture
+
+---
 
 ## Hardware Roles
-*   **The Command Hub (Linux Laptop):** Central analysis, running Hashcat for offline cracking and Wireshark for live packet inspection.
-*   **The Passive Sensor (Pwnagotchi):** Autonomous 4-way handshake (EAPOL) collection.
-*   **The Active Injectors (ESP32 Marauder, Flipper Zero, M5Stack Cardputer):** Targeted deauthentication, beacon spam, and active client scanning.
-*   **The Ground Truth (MikroTik Router):** Full-spectrum 802.11 packet capture and TZSP streaming.
-*   **The Sub-GHz Explorer (Flipper Zero + CC1101):** Out-of-band IoT and RF signal analysis (315/433/868/915 MHz).
+
+- **The Command Hub (Linux Laptop):** Central analysis - Hashcat for offline
+  cracking, Wireshark for live packet inspection.
+- **The Passive Sensor (Pwnagotchi):** Autonomous 4-way handshake (EAPOL)
+  collection on a Raspberry Pi Zero W / Zero 2 W.
+- **The Active Injectors (ESP32 Marauder, Flipper Zero, M5Stack Cardputer):**
+  Targeted deauthentication, beacon spam, and active client scanning.
+- **The Ground Truth (MikroTik Router):** Full-spectrum 802.11 packet capture and
+  TZSP streaming.
+- **The Sub-GHz Explorer (Flipper Zero + CC1101):** Out-of-band IoT and RF signal
+  analysis (315 / 433 / 868 / 915 MHz) - see [flipper_zero_guide.md](flipper_zero_guide.md).
+
+---
 
 ## Phase 1: Automated Passive Harvesting (Pwnagotchi)
-The Pwnagotchi operates autonomously, navigating Wi-Fi channels to intelligently deauthenticate clients and capture the resulting 4-way handshakes.
+
+The Pwnagotchi operates autonomously, using reinforcement learning to navigate
+Wi-Fi channels, deauthenticate clients, and capture the resulting 4-way handshakes.
+
+> [!NOTE]
+> Development of the original Pwnagotchi has slowed; the actively maintained
+> community fork is [jayofelony/pwnagotchi](https://github.com/jayofelony/pwnagotchi)
+> (supports current Raspberry Pi OS / newer boards). Verify the image you flash.
 
 **Deployment:**
-1.  Configure the Pwnagotchi to target specific in-scope SSIDs or channels.
-2.  Deploy physically within the target environment using a USB power bank.
-3.  Handshakes are automatically stored as `.pcap` files in `/root/handshakes/`.
+
+1. Configure the Pwnagotchi to target specific **in-scope** SSIDs or channels
+   (edit `/etc/pwnagotchi/config.toml`; e.g. `main.whitelist` to protect
+   out-of-scope networks).
+2. Deploy physically within the lab using a USB power bank.
+3. Handshakes are stored as `.pcap` files in `/root/handshakes/`.
 
 **Extraction:**
-Automate extraction via SSH over USB using standard tools like `rsync` or `scp` to pull captures to the Command Hub for processing.
+Automate extraction via SSH over USB (default `10.0.0.2`) using `rsync` or `scp`
+to pull captures to the Command Hub for offline dictionary attacks or analysis.
+
+```bash
+# Pull captures from the Pwnagotchi (USB gadget interface)
+rsync -avz root@10.0.0.2:/root/handshakes/ ./handshakes/
+```
+
+---
 
 ## Phase 2: Active Targeted Attacks (ESP32 Marauder)
-Devices running the Marauder firmware (ESP32 standalone, Flipper Wi-Fi Devboard, or Cardputer) handle the active transmission of malicious frames.
+
+Devices running the Marauder firmware (ESP32 standalone, Flipper Wi-Fi Dev Board,
+or M5Stack Cardputer) handle active transmission of management frames.
 
 **Workflow:**
-1.  Targeted Deauthentication: Select a specific BSSID or client MAC to force disconnections.
-2.  Beacon Spam: Generate randomized or sequential SSIDs to obscure activity or test client parsing.
-3.  Automation: Connect via USB to the Command Hub and issue serial CLI commands (e.g., `scanap`, `select -a <index>`, `attack -t deauth`) via custom scripts.
+
+1. **Targeted Deauthentication:** select a specific BSSID/client to force
+   disconnections (only against in-scope devices).
+2. **Beacon Spam:** generate randomized or sequential SSIDs to test client parsing.
+3. **Automation:** connect via USB to the Command Hub and issue serial CLI commands
+   via custom scripts.
+
+```text
+# Marauder serial CLI (example)
+scanap                 # scan for access points
+select -a <index>      # select a target AP by list index
+attack -t deauth       # launch deauth against the selection
+stopscan               # halt the current operation
+```
+
+---
 
 ## Phase 3: The Central Monitor (MikroTik & TZSP)
-The MikroTik router acts as an immobile, powerful sniffer that captures all environmental traffic, including the frames generated by the microcontrollers, and streams it live.
+
+The MikroTik router acts as an immobile sniffer that captures environmental
+traffic - including frames generated by the microcontrollers - and streams it live
+via the **TaZmen Sniffer Protocol (TZSP)**.
 
 ### 1. Prepare the Command Hub
-Open UDP port 37008 on the Linux machine to receive the TaZmen Sniffer Protocol (TZSP) stream:
+
+Open UDP port **37008** (the TZSP default) on the Linux machine to receive the stream:
+
 ```bash
 sudo ufw allow 37008/udp
 ```
 
 ### 2. Start the MikroTik Sniffer
-Connect to the MikroTik terminal and configure the sniffer to target the auditing interface (`wlan1`), directing the stream to the Command Hub's IP (`192.168.88.50`).
+
+Configure the sniffer to target the auditing interface (`wlan1`) and direct the
+stream to the Command Hub's IP (`192.168.88.50`):
+
 ```text
 /tool sniffer
 set streaming-enabled=yes streaming-server=192.168.88.50 interface=wlan1
 /tool sniffer start
 ```
-*(Note: Never set the capture interface to 'all' to avoid a catastrophic feedback loop.)*
+
+> [!WARNING]
+> Never set the capture interface to `all`. Streaming captured traffic back over
+> the same interface that carries the TZSP stream creates a **feedback loop** that
+> can overwhelm the router.
+
+---
 
 ## Phase 4: Analysis (Wireshark Filters)
-With Wireshark listening on the Command Hub's network interface, apply the following display filters to parse the incoming TZSP stream.
+
+With Wireshark listening on the Command Hub interface, apply these display filters
+to parse the incoming TZSP stream:
 
 | Target Activity | Wireshark Display Filter | Description |
 | :--- | :--- | :--- |
-| **Deauth Attacks** | `wlan.fc.type_subtype == 0x000c` | Isolates management frames forcing client disconnections. |
-| **WPA Handshakes** | `eapol` | Highlights the 4-way authentication process (Message 1-4). |
-| **Beacon Spam** | `wlan.fc.type_subtype == 0x0008` | Displays AP announcements to identify fake SSID floods. |
-| **Target Isolation** | `wlan.addr == XX:XX:XX:XX:XX:XX` | Filters all traffic involving a specific source or destination MAC. |
-| **Clean Stream** | `tzsp && wlan` | Strips out standard Command Hub background IP traffic. |
+| **Deauth Attacks** | `wlan.fc.type_subtype == 0x0c` | Management frames forcing client disconnections (subtype 12). |
+| **WPA Handshakes** | `eapol` | The 4-way authentication process (Messages 1-4). |
+| **Beacon Spam** | `wlan.fc.type_subtype == 0x08` | AP announcements (subtype 8) - identify fake SSID floods. |
+| **Target Isolation** | `wlan.addr == XX:XX:XX:XX:XX:XX` | All traffic involving a specific MAC. |
+| **Clean Stream** | `tzsp && wlan` | Strips standard Command Hub background IP traffic. |
+
+*802.11 management-frame subtypes: deauthentication = 12 (`0x0c`), beacon = 8
+(`0x08`). See [wireshark.md](wireshark.md) for the broader filter reference.*
 
 ---
-**Post-Engagement:** Always halt the MikroTik sniffer (`/tool sniffer stop`) to reduce router CPU overhead once the audit is complete.
+
+## Tying It Back to the MikroTik
+
+The MikroTik provides the ground-truth data for analyzing each tool's effect:
+
+1. **Baseline:** start a clean capture on the MikroTik.
+2. **Attack:** launch a specific attack (Marauder beacon spam, Pwnagotchi deauth
+   cycles) against **in-scope** targets.
+3. **Analyze:** stop the capture and inspect the PCAP - the flood of fake beacons,
+   the structure of the deauthentication frames, and how the target devices and the
+   router respond at the protocol level.
+
+**Post-engagement:** always halt the MikroTik sniffer to reduce router CPU load:
+
+```text
+/tool sniffer stop
+```
+
+---
+
+## 🔗 See Also
+
+- [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) / [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder reference
+- [evil_m5.md](evil_m5.md) - M5Stack / evil portal workflows
+- [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero (Sub-GHz, Wi-Fi Dev Board)
+- [wireshark.md](wireshark.md) - Wireshark filter reference and capture methods
+- [../Homelab/workflows/self-hosted_network_attacks.md](../Homelab/workflows/self-hosted_network_attacks.md) - full wireless lab assessment playbook
+- [../SDR/README.md](../SDR/README.md) - RF / Sub-GHz context for the CC1101 role
+- [../LEGAL.md](../LEGAL.md) - legal notice and authorized-use terms
