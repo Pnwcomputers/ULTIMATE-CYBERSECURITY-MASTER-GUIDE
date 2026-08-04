@@ -158,4 +158,4 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 - [../GLOSSARY.md](../GLOSSARY.md) - acronyms (AEAD, KDF, PKI…)
 
 ---
-[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
+[⬅️ Back to Master Index](README.md) |
