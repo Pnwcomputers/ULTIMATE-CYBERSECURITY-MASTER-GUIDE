@@ -158,3 +158,6 @@ cross-framework crosswalks to accelerate this.
 - [regulations.md](regulations.md) - Data-protection regulations
 - [../IncidentResponse/README.md](../IncidentResponse/README.md) - the detection/response controls compliance requires
 - [../Checklists/README.md](../Checklists/README.md) - operational checklists that implement controls
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
