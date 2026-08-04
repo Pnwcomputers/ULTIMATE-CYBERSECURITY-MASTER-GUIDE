@@ -156,3 +156,6 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 - [applied-crypto.md](applied-crypto.md) - TLS, password storage, key management
 - [../Documentation/VPN.md](../Documentation/VPN.md) - applied transport encryption
 - [../GLOSSARY.md](../GLOSSARY.md) - acronyms (AEAD, KDF, PKI…)
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
