@@ -139,3 +139,6 @@ weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape
 - [kubernetes.md](kubernetes.md) - Kubernetes security
 - [../Cloud/README.md](../Cloud/README.md) - Cloud security (managed K8s: EKS/AKS/GKE)
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
+
+---
+[⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
