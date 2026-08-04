@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 04, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1282
-- **Files Modified**: 1528
+- **Commits Analyzed**: 1283
+- **Files Modified**: 1530
 - **New Files**: 592
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add microcontroller WiFi testing reference to README (`543ed1c`)
 - Add back navigation link to Master Index in README (`453c718`)
 - Add navigation links to README (`e8d6a32`)
 - Add navigation links to Compliance README (`2d923e5`)
@@ -1306,13 +1307,14 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/README.md`
+- `CHANGELOG.md`
 - `Compliance/README.md`
 - `Cloud/README.md`
 - `Cryptography/README.md`
 - `ContainerSecurity/README.md`
 - `Cryptography/applied-crypto.md`
 - `README.md`
-- `CHANGELOG.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `AUDIT_REPORT.md`
 - `Cryptography/algorithms.md`
@@ -1363,7 +1365,6 @@
 - `.github/workflows/link-check.yml`
 - `AI/README.md`
 - `Checklists/README.md`
-- `Documentation/README.md`
 - `Documentation/TOR.md`
 - `Documentation/VPN.md`
 - `Documentation/flipper_zero_guide.md`
