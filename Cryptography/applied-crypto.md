@@ -38,11 +38,11 @@ authentication without falling into well-known security traps.
 - [Transport Security (TLS)](#transport-security-tls)
 - [Password Storage](#password-storage)
 - [Multi-Factor Authentication (MFA/2FA)](#multi-factor-authentication-mfa2fa)
+- [Hardware Security Keys](#hardware-security-keys)
 - [Key Management](#key-management)
 - [Randomness](#randomness)
 - [Common Mistakes](#common-mistakes)
 - [Resources](#-resources)
-- [Hardware Security Keys](#hardware-security-keys)
 
 ---
 
