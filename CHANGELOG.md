@@ -1,14 +1,15 @@
 # 🔄 Change Log - August 04, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1284
-- **Files Modified**: 1536
+- **Commits Analyzed**: 1285
+- **Files Modified**: 1539
 - **New Files**: 592
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- feat: add "Navigate by Area" grouped index to README (deliverable F, Phase 1) (#72) (`c7880f6`)
 - Add microcontroller WiFi testing reference to README (`543ed1c`)
 - Add back navigation link to Master Index in README (`453c718`)
 - Add navigation links to README (`e8d6a32`)
@@ -1308,16 +1309,16 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `AUDIT_REPORT.md`
+- `README.md`
+- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
 - `Cryptography/README.md`
 - `Documentation/microcontroller_wifi_testing.md`
-- `CHANGELOG.md`
 - `Documentation/README.md`
 - `Cryptography/applied-crypto.md`
-- `README.md`
-- `AUDIT_REPORT.md`
 - `Cryptography/algorithms.md`
 - `START_HERE.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
