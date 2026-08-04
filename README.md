@@ -58,6 +58,25 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 
 ---
 
+## 🧭 Navigate by Area
+
+A grouped map of the whole repository. Prefer routing by **role/goal**? Use
+[START_HERE.md](START_HERE.md). Want the full flat catalog? See
+[Supporting Guides & Reference](#-supporting-guides--reference-material) below.
+
+| Area | Start here | Also in this area |
+|------|-----------|-------------------|
+| 🚀 **Start & Master Guides** | [START_HERE.md](START_HERE.md) | [Ultimate](ultimate_cybersecurity_master_guide.md) · [Enhanced](ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md) · [Cliff Notes](cybersecurity_cliff_notes.md) |
+| 🗡️ **Offensive Security** | [Tradecraft/](Tradecraft/) | [Advanced Techniques](advanced_techniques_supplement.md) · [Part 2](advanced_techniques_part2.md) · [PlayBooks/](PlayBooks/) · [Checklists/](Checklists/) |
+| 🕸️ **App, Cloud & Container** | [WebAppSecurity/](WebAppSecurity/) | [Cloud/](Cloud/) · [ContainerSecurity/](ContainerSecurity/) |
+| 🛡️ **Defensive & Incident Response** | [IncidentResponse/](IncidentResponse/) | [SIEM](IncidentResponse/SIEM/) · [Digital Forensics](IncidentResponse/Digital-Forensics/) · [Homelab/](Homelab/) |
+| 🔍 **OSINT & Recon** | [OSINT/](OSINT/) | [Tools Catalog](OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](OSINT/Playbook/README.md) |
+| 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) | [AI/](AI/) · [SDR/](SDR/) · [HardwareHacking/](HardwareHacking/) · [SpaceSecurity/](SpaceSecurity/) · [Mobile/](Mobile/) · [uConsole/](uConsole/) |
+| 🔐 **Governance, Crypto & Reference** | [Compliance/](Compliance/) | [Cryptography/](Cryptography/) · [Documentation/](Documentation/) · [GLOSSARY.md](GLOSSARY.md) · [OPSEC/](OPSEC/) |
+| ⚖️ **Legal & Contributing** | [LEGAL.md](LEGAL.md) | [STYLE_GUIDE.md](STYLE_GUIDE.md) · [Contributing](.github/CONTRIBUTING.md) |
+
+---
+
 ## 📚 PRIMARY MASTER GUIDES
 
 | Guide | Description |

@@ -162,9 +162,9 @@ logically. A higher-effort version physically relocates them into folders.
 
 ### Recommended approach
 
-- **Phase 1 (safe, recommended):** implement the grouping as an **index table**
-  in `README.md`/`START_HERE.md` only. Zero file moves, zero broken links,
-  immediate navigation benefit.
+- **Phase 1 (safe, recommended):** ✅ **Done** - implemented as the
+  [Navigate by Area](./README.md#-navigate-by-area) grouped index in `README.md`
+  (zero file moves, zero broken links). Complements `START_HERE.md`'s by-role routing.
 - **Phase 2 (owner-gated):** *if* physical reorganization is desired, move one
   group at a time, each as its own PR, updating every inbound link and anchor and
   re-running the CI anchor guard. Given F-07 was deferred, treat this as optional.
