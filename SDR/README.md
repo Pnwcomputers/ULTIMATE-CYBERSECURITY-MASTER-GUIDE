@@ -50,7 +50,7 @@ Serve as the starting point for SDR work - directing beginners to sdr.md for fun
 - [Overview](#-overview)
 - [Hardware Ecosystem](#-hardware-ecosystem)
 - [Software & Tool Categories](#️-software--tool-categories)
-- Target Frequencies & Protocols 🔨 *(planned)*
+- Target Frequencies & Protocols MASTER LIST 🔨 *(planned)*
 - [How to Use SDR Tools Safely](#-how-to-use-sdr-tools-safely)
 - [⚠️ CRITICAL Security & Legal Warning](#️-critical-security--legal-warning)
 - [Contributing](#-contributing)
