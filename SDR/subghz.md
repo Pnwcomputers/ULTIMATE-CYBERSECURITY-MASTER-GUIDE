@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Definitive manual for multi-band signal capture, protocol reversing, and hardware security testing below 1 GHz and across the 2.4 GHz ISM bands**
+**Manual for multi-band signal capture, protocol reversing, and hardware security testing below 1 GHz and across the 2.4 GHz ISM bands**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
