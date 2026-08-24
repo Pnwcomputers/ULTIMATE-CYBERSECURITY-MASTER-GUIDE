@@ -1,42 +1,103 @@
-# SubGhz RF Exploration Manual & Protocol Engineering Guide
+# 📻 SubGhz RF Exploration Manual & Protocol Engineering Guide
 
-This manual serves as a definitive resource for educational theory, multi-band signal capture procedures, laboratory logging documentation, software processing pipelines, and protocol architecture breakdowns for signals below 1 GHz and within the 2.4 GHz ISM bands.
+<div align="center">
 
----
+**Definitive lab manual for multi-band signal capture, protocol reversing, and hardware security testing below 1 GHz and across the 2.4 GHz ISM bands**
 
-## Table of Contents
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-1. [Educational Foundations](#1-educational-foundations-the-who-what-when-and-why-of-rf-scanning)
-2. [Core Principles of Sub-GHz RF](#2-core-principles-of-sub-ghz-rf)
-3. [Core Sub-GHz Protocol Concepts Explained](#3-core-sub-ghz-protocol-concepts-explained)
-4. [Hardware Specific Operations & Flowcharts](#4-hardware-specific-operations--flowcharts)
-5. [Entry-Level GNU Radio Flowgraph Guide (HackRF)](#5-entry-level-gnu-radio-flowgraph-guide-hackrf)
-6. [Dedicated Hardware Chips: CC1101 vs. nRF24L01+](#6-dedicated-hardware-chips-cc1101-vs-nrf24l01)
-7. [Troubleshooting: Clipping & Signal Distortion](#7-troubleshooting-clipping--signal-distortion)
-8. [Post-Processing Pipeline: Software Options & Flows](#8-post-processing-pipeline-software-options--flows)
-9. [Master Device and Protocol Reference Matrix](#9-master-device-and-protocol-reference-matrix)
-10. [Protocol Profiles Dictionary](#10-protocol-profiles-dictionary-what-they-are-briefly)
-11. [Laboratory Protocol Logging Template](#11-laboratory-protocol-logging-template)
-12. [Example Project Checklist: Safe Garage Door Analysis](#12-example-project-checklist-safe-garage-door-analysis)
-13. [Lab Safety & Legal Compliance](#13-lab-safety--legal-compliance)
+![SDR](https://img.shields.io/badge/Hardware-SDR-blue?style=for-the-badge&logo=broadcom)
+![RF](https://img.shields.io/badge/Frequencies-Sub_GHz_%26_2.4GHz-green?style=for-the-badge&logo=wifi)
+![GNURadio](https://img.shields.io/badge/Software-GNU_Radio-orange?style=for-the-badge)
+![Protocols](https://img.shields.io/badge/Focus-Protocol_Reversing-red?style=for-the-badge)
+
+</div>
 
 ---
 
-## 1. Educational Foundations: The "Who, What, When, and Why" of RF Scanning
+## 🎯 Purpose
+
+Comprehensive bench manual for SubGhz RF exploration - covering educational theory, multi-band signal capture procedures, laboratory logging documentation, software processing pipelines, and protocol architecture breakdowns for embedded, IoT, and access-control systems.
+
+## ⚙️ Function
+
+Walks through the full capture-to-analysis workflow across the major toolsets (Flipper Zero, HackRF One, RTL-SDR, ESP32 Marauder, Bruce firmware), then into GNU Radio flowgraph construction, transceiver chip selection (CC1101 vs. nRF24L01+), IQ troubleshooting, post-processing pipelines (URH, Wireshark, rtl_433), a master device/protocol reference matrix, a protocol profiles dictionary, and a standardized logging template.
+
+## 🏆 Goal
+
+Serve as the practical, repeatable reference for authorized RF security testing - taking a signal from unknown center frequency all the way to a documented, validated protocol breakdown, safely and legally.
+
+## 📋 When to Use
+
+- Identifying an unknown Sub-GHz or 2.4 GHz signal by center frequency and modulation
+- Choosing the right capture hardware and modulation settings for a target device
+- Reverse engineering a fixed-code vs. rolling-code protocol during an authorized assessment
+- Documenting a reproducible capture session for a hardware security audit
+
+---
+
+## 📋 Table of Contents
+
+- [Educational Foundations](#-1-educational-foundations)
+- [Core Principles of Sub-GHz RF](#-2-core-principles-of-sub-ghz-rf)
+- [Core Sub-GHz Protocol Concepts](#-3-core-sub-ghz-protocol-concepts)
+- [Hardware Specific Operations & Flowcharts](#-4-hardware-specific-operations--flowcharts)
+- [GNU Radio Flowgraph Guide (HackRF)](#-5-entry-level-gnu-radio-flowgraph-guide-hackrf)
+- [Dedicated Hardware Chips: CC1101 vs. nRF24L01+](#-6-dedicated-hardware-chips-cc1101-vs-nrf24l01)
+- [Troubleshooting: Clipping & Signal Distortion](#-7-troubleshooting-clipping--signal-distortion)
+- [Post-Processing Pipeline](#-8-post-processing-pipeline)
+- [Master Device & Protocol Reference Matrix](#-9-master-device--protocol-reference-matrix)
+- [Protocol Profiles Dictionary](#-10-protocol-profiles-dictionary)
+- [Laboratory Protocol Logging Template](#-11-laboratory-protocol-logging-template)
+- [Example Project: Safe Garage Door Analysis](#-12-example-project-safe-garage-door-analysis)
+- [⚠️ CRITICAL Security & Legal Warning](#️-critical-security--legal-warning)
+- [Resources](#-resources)
+
+---
+
+### 🔴 CRITICAL WARNING
+
+```
+⚠️ RADIO FREQUENCY TRANSMISSION IS HEAVILY REGULATED ⚠️
+
+Many procedures in this manual can involve TRANSMITTING radio signals, emulating
+captured payloads, or replaying access-control codes. Unauthorized transmission is
+a FEDERAL OFFENSE.
+
+YOU MUST have explicit authorization, proper licensing (e.g., HAM Radio License),
+and appropriate containment (Faraday bags/cages, dummy loads) before transmitting.
+
+Improper use violates:
+• Federal Communications Commission (FCC) Regulations - Massive fines & imprisonment
+• Electronic Communications Privacy Act (ECPA) / Wiretap Act
+• Federal Aviation Administration (FAA) laws
+• Critical Infrastructure protection laws
+
+RECEIVE-ONLY analysis on hardware you own is the default. Do NOT transmit toward
+devices you do not own.
+```
+
+---
+
+## 🎓 1. Educational Foundations
+
+**The "Who, What, When, and Why" of RF Scanning.**
 
 ### What Is It?
 
-SubGhz Radio Frequency (RF) scanning is the systematic monitoring, recording, and interpretation of electromagnetic waves travelling through free space. In the Sub-GHz spectrum (300 MHz to 928 MHz), signals are mostly comprised of short, bursting data packets transmitted by low-power embedded microcontrollers. In the 2.4 GHz spectrum, transmissions rely on complex, high-throughput channel-hopping network architectures.
+SubGhz (Sub-Gigahertz) Radio Frequency (RF) scanning is the systematic monitoring, recording, and interpretation of electromagnetic waves travelling through free space. In the Sub-GHz spectrum (300 MHz to 928 MHz), signals are mostly comprised of short, bursting data packets transmitted by low-power embedded microcontrollers. In the 2.4 GHz spectrum, transmissions rely on complex, high-throughput channel-hopping network architectures.
 
 ### Who Uses It?
 
-- **Embedded Engineers:** To debug wireless transceiver communications and ensure compliance with communication timing constraints.
-- **Security Auditors:** To evaluate whether wireless devices use unencrypted fixed-payload structures that could allow intercept or unauthorized manipulation.
-- **IoT Architects:** To measure environmental noise floors, optimize reception ranges, and check packet structures across expansive mesh topologies.
+| Role | Application |
+|------|-------------|
+| **Embedded Engineers** | Debug wireless transceiver communications and ensure compliance with timing constraints |
+| **Security Auditors** | Evaluate whether devices use unencrypted fixed-payload structures vulnerable to intercept or manipulation |
+| **IoT Architects** | Measure environmental noise floors, optimize reception ranges, and check packet structures across mesh topologies |
 
 ### When Is It Conducted?
 
-- **During Product R&D:** To verify that custom hardware transmits strictly within regulatory bandwidth windows.
+- **During Product R&D:** To verify custom hardware transmits strictly within regulatory bandwidth windows.
 - **During Security Assessments:** To audit a facility's perimeter defense footprint against physical signal leakage.
 - **During Spectrum Deconfliction:** When ambient radio noise or physical boundaries disrupt smart-grid sensors or internal communication networks.
 
@@ -46,7 +107,7 @@ Wireless data is inherently public. Unlike hardwired networks, anyone with a che
 
 ---
 
-## 2. Core Principles of Sub-GHz RF
+## 📡 2. Core Principles of Sub-GHz RF
 
 - **Wavelength Advantage:** Sub-GHz frequencies feature longer wavelengths than 2.4 GHz or 5 GHz bands, allowing signals to travel farther and penetrate walls efficiently.
 - **Low Power Usage:** Ideal for small devices operating on coin-cell batteries for years, as the transmission requires less energy.
@@ -59,7 +120,7 @@ Wireless data is inherently public. Unlike hardwired networks, anyone with a che
 
 ---
 
-## 3. Core Sub-GHz Protocol Concepts Explained
+## 🧩 3. Core Sub-GHz Protocol Concepts
 
 To thoroughly analyze wireless transmissions, it is essential to understand the underlying code architectures running on target chips.
 
@@ -77,7 +138,19 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
 
 ---
 
-## 4. Hardware Specific Operations & Flowcharts
+## 🔨 4. Hardware Specific Operations & Flowcharts
+
+### Hardware Capability Overview
+
+| Device | Capabilities | Best For | Risk Level |
+|--------|--------------|----------|------------|
+| **[Flipper Zero](https://flipper.net/)** | Sub-GHz (Tx/Rx) | Field triage, protocol ID, fixed-code emulation | 🟡 MEDIUM |
+| **[HackRF One](https://greatscottgadgets.com/hackrf/one/)** | Half-Duplex (Tx/Rx) | Wideband monitoring, custom signal creation | 🔴 HIGH |
+| **[RTL-SDR (V3/V4)](https://www.rtl-sdr.com/)** | Receive Only (Rx) | Continuous logging, budget spectrum analysis | 🟢 LOW |
+| **[ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder)** | 2.4 GHz (Tx/Rx) | Localized Wi-Fi / BT triage, asset discovery | 🟡 MEDIUM |
+| **[Bruce Firmware](https://github.com/pr3y/Bruce)** | Multi-band (Tx/Rx) | Consolidated screen-driven diagnostics | 🟡 MEDIUM |
+
+---
 
 ### 📌 Flipper Zero (Standalone Portability)
 
@@ -133,6 +206,12 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
 - **Wide Spectrum Sweep:** Pair the HackRF with a computer running GQRX. Set a wide bandwidth (up to 20 MHz) to monitor multiple sub-GHz channels simultaneously.
 - **IQ Data Capture:** Use the command line utility `hackrf_transfer -r capture.iq -f 433920000 -s 2000000` to stream pristine, uncompressed analog RF data straight to a file for URH analysis.
 - **Custom Transmission:** Load an edited or created IQ file into GNU Radio or URH and utilize `hackrf_transfer -t playback.iq` inside an RF enclosure to broadcast custom payloads.
+
+```
+⚠️ HackRF is a TRANSMIT-CAPABLE device. Any playback/Tx procedure must be
+   performed into a dummy load or inside a Faraday enclosure - never over the air
+   toward equipment you do not own.
+```
 
 ---
 
@@ -219,7 +298,7 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
 
 ---
 
-## 5. Entry-Level GNU Radio Flowgraph Guide (HackRF)
+## 🛠️ 5. Entry-Level GNU Radio Flowgraph Guide (HackRF)
 
 GNU Radio Companion (GRC) allows you to build custom visual processing blocks to interact with your HackRF. Below is the blueprint for a baseline **Sub-GHz OOK Signal Recorder Flowgraph**.
 
@@ -247,9 +326,14 @@ Connect the following blocks sequentially in GRC from top to bottom / left to ri
 - Press your target transmitter button. You will see a spike appear in the QT GUI Sink.
 - Click the **Stop** icon immediately after transmission to keep your output file size small and manageable.
 
+```
+💡 TIP: Test your flowgraph with the SDR sink DISCONNECTED first to validate
+   block wiring before any radio hardware is engaged.
+```
+
 ---
 
-## 6. Dedicated Hardware Chips: CC1101 vs. nRF24L01+
+## 🔌 6. Dedicated Hardware Chips: CC1101 vs. nRF24L01+
 
 When building custom lab sniffers or low-power embedded modules, these physical transceiver breakouts serve distinct operational purposes.
 
@@ -276,7 +360,7 @@ When building custom lab sniffers or low-power embedded modules, these physical 
 
 ---
 
-## 7. Troubleshooting: Clipping & Signal Distortion
+## 🧯 7. Troubleshooting: Clipping & Signal Distortion
 
 When capturing raw IQ data, poor signal quality will ruin software demodulation. Use these baseline checks to ensure pristine data captures:
 
@@ -300,9 +384,15 @@ When capturing raw IQ data, poor signal quality will ruin software demodulation.
 
 ---
 
-## 8. Post-Processing Pipeline: Software Options & Flows
+## 💻 8. Post-Processing Pipeline
 
 Once data is captured as a raw `.iq`, `.pcap`, or text log file, choose one of these software paths to extract meaningful protocol intelligence.
+
+| Pipeline | Best For | Risk Level |
+|----------|----------|------------|
+| **[Universal Radio Hacker (URH)](https://github.com/jopohl/urh)** | Custom, proprietary, or unknown OOK/FSK payloads | 🟡 MEDIUM |
+| **[Wireshark](https://www.wireshark.org/)** | 2.4 GHz 802.11 Wi-Fi, BLE beacons, Marauder `.pcap` exports | 🟢 LOW |
+| **[rtl_433](https://github.com/merbanan/rtl_433)** | Verifying known commercial telemetry streams instantly | 🟢 LOW |
 
 ### Pipeline 1: Universal Radio Hacker (Reverse Engineering Raw Sub-GHz)
 
@@ -344,7 +434,7 @@ Once data is captured as a raw `.iq`, `.pcap`, or text log file, choose one of t
 
 ---
 
-## 9. Master Device and Protocol Reference Matrix
+## 🗂️ 9. Master Device & Protocol Reference Matrix
 
 The table below serves as a laboratory lookup guide to identify unknown target signals based on their detected center frequency and mapping to known protocol standard architectures.
 
@@ -371,7 +461,7 @@ The table below serves as a laboratory lookup guide to identify unknown target s
 
 ---
 
-## 10. Protocol Profiles Dictionary: "What They Are Briefly"
+## 📖 10. Protocol Profiles Dictionary
 
 When analyzing signals from the reference matrix above, use this operational dictionary to understand what the specific protocol structure does.
 
@@ -389,7 +479,7 @@ When analyzing signals from the reference matrix above, use this operational dic
 
 ---
 
-## 11. Laboratory Protocol Logging Template
+## 📝 11. Laboratory Protocol Logging Template
 
 To maintain reproducibility across hardware security audits, document every successful or unparsed capture session using the following standardized Markdown format. Copy the block below into a new file for each session:
 
@@ -408,7 +498,7 @@ To maintain reproducibility across hardware security audits, document every succ
 - **Expected Security Category:** [ ] Fixed Code  |  [ ] Rolling Code  |  [ ] Encrypted
 - **Associated Protocol Signature:** [e.g., Princeton PT2262 / KeeLoq / Somfy RTS]
 
-## 3. SubGhz Radio Frequency Parameters
+## 3. Radio Frequency Parameters
 - **Target Frequency:** ___________ MHz
 - **Detected Bandwidth:** ___________ kHz
 - **Estimated Modulation:** [ ] ASK/OOK  |  [ ] 2-FSK  |  [ ] GFSK  |  [ ] Other
@@ -441,9 +531,9 @@ transmission instances.]
 
 ---
 
-## 12. Example Project Checklist: Safe Garage Door Analysis
+## 🚪 12. Example Project: Safe Garage Door Analysis
 
-Use this checklist to practice baseline exploration concepts safely on a standard residential garage door system without accidentally breaking the remote pairing or breaking local laws.
+Use this checklist to practice baseline exploration concepts safely on a standard residential garage door system **you own** - without accidentally breaking the remote pairing or breaking local laws.
 
 ### Phase 1: Pre-Lab Setup & Safety
 
@@ -472,12 +562,215 @@ Use this checklist to practice baseline exploration concepts safely on a standar
 
 ---
 
-## 13. Lab Safety & Legal Compliance
+## ⚠️ CRITICAL Security & Legal Warning
 
-- **Shielding Barriers:** Perform all active signal emulation and transmitting tests inside a Faraday bag, RF enclosure, or a shielded basement lab space to block signal leakage.
-- **Spectrum Regulations:** Strictly adhere to local regulatory boundaries (e.g., FCC, CE) regarding allowable transmit power levels, duty cycles, and unauthorized frequencies.
-- **Jamming Prohibitions:** Never broadcast continuous carrier waves or high-power signals that disrupt authorized nearby communications, as malicious jamming is highly illegal.
+### 🔴 FEDERAL REGULATORY WARNING
+
+```
+═══════════════════════════════════════════════════════════════
+                    ⚠️ CRITICAL LEGAL WARNING ⚠️
+═══════════════════════════════════════════════════════════════
+
+The tools and techniques in this manual govern the physical transmission
+and interception of Radio Frequency (RF) energy.
+
+UNAUTHORIZED TRANSMISSION OR INTERCEPTION IS A FEDERAL CRIME.
+
+Federal Communications Commission (FCC) Regulations:
+   ► Operating without a license: Fines up to $150,000+ per day.
+   ► Jamming Devices: STRICTLY PROHIBITED. Marketing, selling, or using
+     a jammer carries massive civil and criminal penalties.
+   ► Aviation Interference: Endangering aircraft navigation (GPS spoofing,
+     ADS-B injection) can result in federal terrorism charges.
+
+Electronic Communications Privacy Act (ECPA) & Wiretap Act:
+   ► Intercepting encrypted or private communications (Cellular, Pagers,
+     Private Land Mobile Radio) is a federal felony.
+   ► Up to 5 years imprisonment for unauthorized interception.
+
+State Laws:
+   ► Many states have distinct laws regarding eavesdropping, wiretapping,
+     and the possession of lock bypass tools (which can include SDRs loaded
+     with replay attack software).
+
+International Laws:
+   ► CEPT/ETSI regulations in Europe.
+   ► Ofcom regulations in the UK.
+   ► Telecommunications laws vary heavily by country. ALWAYS check local laws.
+═══════════════════════════════════════════════════════════════
+```
+
+### Attack-Specific Legal Warnings
+
+#### Signal Jamming
+
+```
+🔴 FEDERAL CRIME: Intentional Interference
+
+ILLEGAL ACTIVITIES:
+   • Jamming Wi-Fi networks (Deauth attacks via RF flooding)
+   • GPS Jamming
+   • Cellular network disruption
+   • Blocking security system heartbeats
+
+LAWS VIOLATED:
+   • Communications Act of 1934
+   • FCC Rules (47 CFR Part 15)
+
+PENALTIES:
+   • Seizure of all equipment
+   • Civil fines frequently exceeding $100,000
+   • Federal imprisonment
+```
+
+#### Replay Attacks (Access Control)
+
+```
+🔴 FEDERAL CRIME: Unauthorized Access & Trespassing
+
+ILLEGAL ACTIVITIES:
+   • Capturing and re-transmitting a neighbor's garage door signal
+   • Spoofing car key fobs (RollJam / RollBack)
+   • Bypassing physical RFID/Sub-GHz access control systems
+
+LAWS VIOLATED:
+   • Computer Fraud and Abuse Act (CFAA)
+   • State trespassing and burglary tool possession laws
+   • Auto theft statutes
+
+AUTHORIZED USE ONLY:
+   ✓ Written authorization from the property/vehicle owner
+   ✓ Testing on hardware explicitly purchased for research
+```
+
+### 📖 Before Transmitting Any Signal
+
+```
+MANDATORY CHECKLIST:
+☐ Am I using a Faraday cage/bag or an RF dummy load?
+☐ If transmitting over the air, do I have the appropriate FCC/local license?
+☐ Am I operating within the ISM (Industrial, Scientific, Medical) bands?
+☐ Am I adhering to the legal power limits (EIRP) for this frequency?
+☐ Have I verified I am NOT transmitting on Aviation, Emergency, or Cellular bands?
+☐ Do I OWN the target receiving device (e.g., the key fob and the car)?
+☐ Have I tested my GNU Radio flowgraph without the SDR sink connected first?
+☐ Am I prepared to document all transmission logs?
+
+If you answered NO to ANY question: DO NOT TRANSMIT. USE RECEIVE-ONLY.
+```
+
+### Warranty Disclaimer
+
+```
+═══════════════════════════════════════════════════════════════
+                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
+═══════════════════════════════════════════════════════════════
+
+These RF procedures, flowgraphs, and templates are provided "AS IS" WITHOUT
+WARRANTY of any kind, either expressed or implied.
+
+THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
+✗ Make NO guarantees about procedure functionality or RF safety
+✗ Are NOT responsible for damaged hardware (e.g., burnt out SDR amplifiers)
+✗ Do NOT warrant compliance with FCC or international RF emission laws
+✗ Are NOT liable for any legal consequences of misuse
+✗ Do NOT provide support for illegal activities
+✗ Disclaim ALL liability for unauthorized transmission or interception
+
+USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
+► They use these RF techniques entirely at their own risk
+► They are solely responsible for ensuring RF containment and compliance
+► They understand that transmitting signals can interfere with critical infrastructure
+► They accept that unauthorized use is a FEDERAL CRIME
+► They will defend and indemnify authors from any claims
+═══════════════════════════════════════════════════════════════
+```
 
 ---
 
-*This manual is intended for educational and authorized security-research use only. Only transmit on frequencies and devices you own or have explicit written permission to test.*
+## 📚 Resources
+
+### Licensing & Legal
+
+- **FCC Part 15 Rules**: [Understanding Unlicensed RF](https://www.fcc.gov/oet/ea/rfdevice)
+- **ARRL**: [Get your Amateur Radio (HAM) License](https://www.arrl.org/getting-licensed) (Highly recommended for SDR practitioners)
+
+### Learning SDR & RF
+
+- **Great Scott Gadgets SDR Course**: [HackRF Lessons](https://greatscottgadgets.com/sdr/)
+- **GNU Radio Tutorials**: [Guided Tutorials](https://wiki.gnuradio.org/index.php/Guided_Tutorials)
+- **RTL-SDR Blog**: [rtl-sdr.com](https://www.rtl-sdr.com/)
+- **SigIDWiki**: [Signal Identification Guide](https://www.sigidwiki.com/) (waterfall references and audio samples)
+
+### Tooling
+
+- **Universal Radio Hacker (URH)**: [github.com/jopohl/urh](https://github.com/jopohl/urh)
+- **rtl_433**: [github.com/merbanan/rtl_433](https://github.com/merbanan/rtl_433)
+- **Inspectrum**: [github.com/miek/inspectrum](https://github.com/miek/inspectrum)
+- **Bruce Firmware**: [github.com/pr3y/Bruce](https://github.com/pr3y/Bruce)
+
+---
+
+## 🔗 Quick Links
+
+### Internal Links
+
+- [🏠 Main Repository](../README.md)
+- [🎯 START HERE Guide](../START_HERE.md)
+- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
+- [🔧 Hardware Hacking](../HardwareHacking/README.md)
+- [🛰️ Space Security](../SpaceSecurity/README.md)
+- [📚 Documentation](../Documentation/README.md)
+
+---
+
+## 📊 Repository Statistics
+
+```
+📁 Manual Sections: 13 (Theory, Hardware, Flowgraphs, Pipelines, Reference, Logging)
+📻 Target Hardware: Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce (CC1101)
+📡 Spectrum Coverage: 300 MHz – 928 MHz Sub-GHz + 2.4 GHz ISM
+💻 Ecosystems: GNU Radio, URH, Wireshark, rtl_433
+⚠️ Risk Level: MEDIUM to HIGH (Transmission-capable procedures)
+🔄 Last Updated: August 2026
+👥 Maintained by: Pacific Northwest Computers (PNWC)
+📝 Status: Active - Proceed with EXTREME CAUTION
+```
+
+---
+
+<div align="center">
+
+**⚠️ USE THESE RF TOOLS RESPONSIBLY AND LEGALLY ⚠️**
+
+*The airwaves are public, but transmitting on them is a privilege regulated by law.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+## Related Files
+
+- [sdr.md](sdr.md) - Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
+- [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
+- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
+- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: sub-GHz replay attacks whose signals SDR can capture and analyze
+- [../SpaceSecurity/](../SpaceSecurity/) - Space security: satellite communication analysis and GPS spoofing detection - an SDR application
+
+---
+
+🔴 **RADIO TRANSMISSION IS FEDERALLY REGULATED** 🔴
+
+🔴 **UNAUTHORIZED TRANSMISSION = FEDERAL OFFENSE** 🔴
+
+🔴 **NEVER INTERFERE WITH AVIATION OR EMERGENCY SERVICES** 🔴
+
+🔴 **PROPER ISOLATION (DUMMY LOADS/FARADAY) MANDATORY** 🔴
+
+---
+
+⭐ **Star this repo if you find it useful (and use it legally!)** ⭐
+
+</div>
