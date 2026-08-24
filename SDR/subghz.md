@@ -1,4 +1,4 @@
-# 📻 SubGhz RF Exploration Manual & Protocol Engineering Guide
+# 📻 SubGhz RF Exploration & Protocol Engineering Guide
 
 <div align="center">
 
