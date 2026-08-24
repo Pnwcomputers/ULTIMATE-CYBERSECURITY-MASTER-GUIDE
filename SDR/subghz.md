@@ -1,4 +1,4 @@
-# Master SubGhz RF Exploration Lab Manual & Protocol Engineering Guide
+# SubGhz RF Exploration Manual & Protocol Engineering Guide
 
 This manual serves as a definitive resource for educational theory, multi-band signal capture procedures, laboratory logging documentation, software processing pipelines, and protocol architecture breakdowns for signals below 1 GHz and within the 2.4 GHz ISM bands.
 
