@@ -1,14 +1,16 @@
-# 🔄 Change Log - August 04, 2026
+# 🔄 Change Log - August 24, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1285
-- **Files Modified**: 1539
-- **New Files**: 592
+- **Commits Analyzed**: 1293
+- **Files Modified**: 1547
+- **New Files**: 593
 - **Deleted Files**: 117
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Revise README for SDR section and add new manual (`3100212`)
+- Create subghz.md (`758355b`)
 - feat: add "Navigate by Area" grouped index to README (deliverable F, Phase 1) (#72) (`c7880f6`)
 - Add microcontroller WiFi testing reference to README (`543ed1c`)
 - Add back navigation link to Master Index in README (`453c718`)
@@ -548,6 +550,11 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update target frequencies section title in README (`5b1d389`)
+- Update title of SubGhz RF Exploration manual (`84a0893`)
+- Update subghz.md (`4889bf2`)
+- Revise SubGhz RF Manual with legal updates and formatting (`b4dddc3`)
+- Update title of SubGhz RF exploration manual (`6244ab1`)
 - Update Compliance README links (`09669f7`)
 - Update README to remove Role Navigation link (`162904e`)
 - Remove duplicate entry for Hardware Security Keys (`e56262d`)
@@ -1221,6 +1228,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Revise description in subghz.md (`cc5f6f7`)
 - audit(scope 2/4): HardwareHacking, AI + remaining domains — review complete (#52) (`89111d2`)
 - audit(scope 2/4): SDR/RF domain review (#48) (`f580e0b`)
 - audit(scope 2/4): OSINT domain review + repo-wide SANS link sweep (#46) (`9594d01`)
@@ -1309,9 +1317,11 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `SDR/README.md`
+- `SDR/subghz.md`
+- `CHANGELOG.md`
 - `AUDIT_REPORT.md`
 - `README.md`
-- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
@@ -1336,7 +1346,6 @@
 - `advanced_techniques_part2.md`
 - `AUDIT_FINDINGS.md`
 - `GLOSSARY.md`
-- `SDR/README.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `AI/offensive_ai.md`
 - `Documentation/wireshark.md`
