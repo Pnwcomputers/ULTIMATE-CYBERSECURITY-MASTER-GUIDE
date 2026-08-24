@@ -15,23 +15,38 @@
 ---
 
 ## 🎯 Purpose
-Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, and advanced RF security topics across two comprehensive guides.
+
+Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, Sub-GHz lab procedures, and advanced RF security topics across three comprehensive guides.
 
 ## ⚙️ Function
-Links to sdr.md (foundational guide: IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS analysis) and sdr_hacking.md (advanced guide: SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation). Includes hardware comparison table, frequency reference, legal framework summary, and tool ecosystem overview.
+
+Links to sdr.md (foundational guide: IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS analysis), sdr_hacking.md (advanced guide: SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation), and subghz.md (hands-on Sub-GHz lab manual: multi-tool capture workflows, protocol reversing, device/frequency reference matrix, and a standardized capture-logging template). Includes hardware comparison table, frequency reference, legal framework summary, and tool ecosystem overview.
 
 ## 🏆 Goal
-Serve as the starting point for SDR work - directing beginners to sdr.md for fundamentals and practitioners with GNU Radio experience to sdr_hacking.md for offensive techniques.
+
+Serve as the starting point for SDR work - directing beginners to sdr.md for fundamentals, hands-on practitioners to subghz.md for bench-level Sub-GHz capture and protocol work, and experienced operators with GNU Radio experience to sdr_hacking.md for offensive techniques.
 
 ## 📋 When to Use
+
 - Choosing which SDR guide to start with based on experience level
 - Hardware selection: comparing RTL-SDR, HackRF, Airspy, PlutoSDR for a specific use case
 - Legal/regulatory reference: FCC licensing requirements before transmitting
 
 ---
 
+## 📂 Guides in This Section
+
+| Guide | Level | Focus |
+|-------|-------|-------|
+| **[sdr.md](sdr.md)** | 🟢 Foundational | IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS signal analysis |
+| **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
+| **[sdr_hacking.md](sdr_hacking.md)** | 🔴 Advanced / Offensive | SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation |
+
+---
+
 ## 📋 Table of Contents
 
+- [Guides in This Section](#-guides-in-this-section)
 - [Overview](#-overview)
 - [Hardware Ecosystem](#-hardware-ecosystem)
 - [Software & Tool Categories](#️-software--tool-categories)
@@ -96,7 +111,10 @@ Using these tools improperly violates:
 | **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |
 | **[Kismet](https://www.kismetwireless.net/)** | Wi-Fi / Bluetooth / SDR network discovery | 🟡 MEDIUM |
 
+> 📘 **Hands-on walkthroughs** for the Sub-GHz capture tools above (Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce firmware) live in **[subghz.md](subghz.md)**.
+
 **Security Considerations:**
+
 ```
 ⚠️ While RECEIVING is generally legal in many jurisdictions, DECODING encrypted 
 or private communications (like cellular calls or pager messages) can violate 
@@ -131,6 +149,7 @@ the Wiretap Act and ECPA.
 | **[Jamming / Flooding](https://www.fcc.gov/general/jammer-enforcement)** | Overpowering legitimate RF receivers | 🔴 EXTREME |
 
 **Security Considerations:**
+
 ```
 ⚠️ CRITICAL: Active transmission attacks include:
    • GPS Spoofing (Extremely illegal, endangers aviation and maritime navigation)
@@ -149,7 +168,6 @@ TRANSMITTING WITHOUT AUTHORIZATION/LICENSING = SEVERE FEDERAL PENALTIES
 
 ```
 MANDATORY CHECKLIST:
-
 ☐ Am I using a Faraday cage/bag or an RF dummy load?
 ☐ If transmitting over the air, do I have the appropriate FCC/local license?
 ☐ Am I operating within the ISM (Industrial, Scientific, Medical) bands?
@@ -218,7 +236,6 @@ International Laws:
    ► CEPT/ETSI regulations in Europe.
    ► Ofcom regulations in the UK.
    ► Telecommunications laws vary heavily by country. ALWAYS check local laws.
-
 ═══════════════════════════════════════════════════════════════
 ```
 
@@ -278,7 +295,6 @@ These RF tools and SDR flowgraphs are provided "AS IS" WITHOUT WARRANTY
 of any kind, either expressed or implied.
 
 THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-
 ✗ Make NO guarantees about script functionality or RF safety
 ✗ Are NOT responsible for damaged hardware (e.g., burnt out SDR amplifiers)
 ✗ Do NOT warrant compliance with FCC or international RF emission laws
@@ -287,13 +303,11 @@ THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
 ✗ Disclaim ALL liability for unauthorized transmission or interception
 
 USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-
 ► They use these SDR techniques entirely at their own risk
 ► They are solely responsible for ensuring RF containment and compliance
 ► They understand that transmitting signals can interfere with critical infrastructure
 ► They accept that unauthorized use is a FEDERAL CRIME
 ► They will defend and indemnify authors from any claims
-
 ═══════════════════════════════════════════════════════════════
 ```
 
@@ -306,12 +320,14 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 We welcome contributions from RF researchers and security professionals, but all materials must prioritize safety and legality.
 
 **What We Accept:**
+
 - ✅ GNU Radio flowgraphs for DSP education
 - ✅ Receive-only (Rx) Python decoding scripts
 - ✅ Telemetry parsers for public, unencrypted protocols (Weather, ISM)
 - ✅ Hardware modification documentation (filters, antennas)
 
 **🚫 Will NOT Accept:**
+
 - Ready-to-use jamming scripts or flowgraphs
 - Malicious IMSI catcher/Stingray deployments
 - Scripts containing hardcoded cellular or aviation frequencies for Tx
@@ -338,6 +354,7 @@ We welcome contributions from RF researchers and security professionals, but all
 ## 🔗 Quick Links
 
 ### Internal Links
+
 - [🏠 Main Repository](../README.md)
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
@@ -351,10 +368,11 @@ We welcome contributions from RF researchers and security professionals, but all
 
 ```
 📁 SDR Categories: 3 (Capture, Analysis, Exploitation)
+📄 Section Guides: 3 (sdr.md, subghz.md, sdr_hacking.md)
 📻 Target Hardware: RTL-SDR, HackRF, LimeSDR, Flipper Zero
 💻 Ecosystems: GNU Radio, Python, C++
 ⚠️ Risk Level: HIGH to EXTREME (Transmission capabilities)
-🔄 Last Updated: June 2026
+🔄 Last Updated: August 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active - Proceed with EXTREME CAUTION
 ```
@@ -374,7 +392,9 @@ We welcome contributions from RF researchers and security professionals, but all
 ---
 
 ## Related Files
+
 - [sdr.md](sdr.md) - Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
+- [subghz.md](subghz.md) - Sub-GHz lab manual: multi-tool capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, and a capture-logging template
 - [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
 - [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
 - [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: sub-GHz replay attacks whose signals SDR can capture and analyze
