@@ -1,8 +1,8 @@
-# 📻 Software Defined Radio (SDR), RF, NFC/RFID Security
+# 📻 Software Defined Radio (SDR), RF, NFC/RFID, SubGhz Security
 
 <div align="center">
 
-**Collection of RF analysis tools, signal capture guides, and SDR exploitation techniques**
+**Collection of analysis tools, signal capture guides, and exploitation techniques**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
