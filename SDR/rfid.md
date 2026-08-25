@@ -640,10 +640,10 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ---
 
 <div align="center">
-**⚠️ USE THESE RFID TOOLS RESPONSIBLY AND LEGALLY ⚠️**
-*A credential is presented in the open, but cloning and using one is regulated by law.*
-**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
-**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+- **⚠️ USE THESE RFID TOOLS RESPONSIBLY AND LEGALLY ⚠️**
+- *A credential is presented in the open, but cloning and using one is regulated by law.*
+- **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+- **Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 ---
 
