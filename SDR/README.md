@@ -16,7 +16,7 @@
 
 ## 🎯 Purpose
 
-Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, Sub-GHz lab procedures, and advanced RF security topics across three comprehensive guides.
+Index and entry point for the SDR section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, Sub-GHz & NFC/RFID lab procedures, and advanced RF security topics across four comprehensive guides.
 
 ## ⚙️ Function
 
