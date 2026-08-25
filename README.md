@@ -125,7 +125,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
 | 📚 [Playbooks Collection](PlayBooks/) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
 | 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
-| 📻 [SDR](SDR/) | Software Defined Radio theory, security assessment techniques, practical workflows, and applications |
+| 📻 [SDR](SDR/) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
 | 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
 | 🎣 [SOP: Phishing Analysis Playbook](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
 | 👾 [Space Security](SpaceSecurity/) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
