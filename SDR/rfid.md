@@ -85,6 +85,7 @@ RFID (Radio Frequency Identification) analysis is the systematic reading, record
 
 ### Why Is It Critical?
 A credential is only as strong as the transponder behind it. Unlike a password, a physical card is presented in the open and can be read at a distance by anyone with the right coil. Understanding how transponders are energized, addressed, authenticated, and parsed is the only path toward selecting and deploying access-control technology that actually resists duplication.
+
 ---
 
 ## 📡 2. Core Principles of RFID & NFC
@@ -100,10 +101,13 @@ A credential is only as strong as the transponder behind it. Unlike a password, 
 
 ## 🧩 3. Core RFID/NFC Protocol Concepts
 To thoroughly analyze contactless credentials, it is essential to understand the memory layouts and authentication models running on target transponders.
+
 ### Fixed-ID Transponders (e.g., EM4100, HID Prox)
 Fixed-ID architectures broadcast a static identifier the instant they enter a reader's field. There is no memory to write, no key to present, and no challenge-response. Because the identifier never changes and there is no cryptographic verification, any ID read out of the field can be written to a blank writable transponder (like a T5577) and will be accepted indefinitely. They dominate legacy building access and many older parking and elevator systems.
+
 ### Sector-Authenticated Transponders (e.g., MIFARE Classic / Crypto1)
 MIFARE Classic divides memory into sectors, each guarded by two 48-bit keys (A and B) and access-condition bits. Reading or writing a block requires authenticating to that sector's key using the proprietary Crypto1 stream cipher. Crypto1 has been publicly broken for over a decade: weaknesses in its nonce generation and authentication allow keys to be recovered with the *darkside*, *nested*, and *hardnested* attacks, or extracted from a single sniffed reader-to-card transaction via *mfkey*. Once keys are known, the full card contents can be dumped and rewritten onto a "magic" (Gen1/Gen2) card.
+
 ### Strongly-Authenticated Transponders (e.g., MIFARE DESFire, SEOS, iCLASS SE)
 Modern credentials use standardized, peer-reviewed ciphers - typically AES-128 or 3DES - with mutual authentication and per-card diversified keys. Applications live in isolated files with their own access rights. Without the master and application keys (which never leave the reader/HSM in a properly deployed system), the card cannot be authenticated to, read, or cloned. Reverse engineering here focuses on the *deployment* (weak key diversification, default keys left in place, keys leaked in reader firmware) rather than the cipher itself.
 
