@@ -39,8 +39,8 @@ Serve as the starting point for SDR work - directing beginners to sdr.md for fun
 | Guide | Level | Focus |
 |-------|-------|-------|
 | **[sdr.md](sdr.md)** | 🟢 Foundational | IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS signal analysis |
-| **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
 | **[sdr_hacking.md](sdr_hacking.md)** | 🔴 Advanced / Offensive | SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation |
+| **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
 | **[rfid.md](rfid.md)** | 🔴 Advanced / Offensive | SIGINT, LF/HF proximity card capture, reverse engineering, and security testing at 125 kHz and 13.56 MHz |
 
 ---
