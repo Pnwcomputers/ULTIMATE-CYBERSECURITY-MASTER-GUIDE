@@ -1113,7 +1113,13 @@ snort -A console -q -c /etc/snort/snort.conf -i eth0
 
 ---
 
-## Security Monitoring with OSSEC
+## Security Monitoring with OSSEC / Wazuh
+
+OSSEC is the original open-source host-based IDS project. **Wazuh is its actively-maintained fork** — same core detection engine (file integrity monitoring, log analysis, rootkit detection), plus a modern web UI, agent management, and compliance dashboards that plain OSSEC no longer receives active development on.
+
+For a full deployment guide (server install, agent enrollment, FIM, active response, compliance modules), see **[IncidentResponse/SIEM/wazuh.md](IncidentResponse/SIEM/wazuh.md)**.
+
+If you specifically need vanilla OSSEC (e.g. an existing OSSEC deployment you're maintaining, not starting fresh):
 
 ```bash
 # Start OSSEC
