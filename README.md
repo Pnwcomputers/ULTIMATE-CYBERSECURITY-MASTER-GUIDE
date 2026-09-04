@@ -69,7 +69,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🚀 **Start & Master Guides** | [START_HERE.md](START_HERE.md) | [Ultimate](ultimate_cybersecurity_master_guide.md) · [Enhanced](ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md) · [Cliff Notes](cybersecurity_cliff_notes.md) |
 | 🗡️ **Offensive Security** | [Tradecraft/](Tradecraft/) | [Advanced Techniques](advanced_techniques_supplement.md) · [Part 2](advanced_techniques_part2.md) · [PlayBooks/](PlayBooks/) · [Checklists/](Checklists/) |
 | 🕸️ **App, Cloud & Container** | [WebAppSecurity/](WebAppSecurity/) | [Cloud/](Cloud/) · [ContainerSecurity/](ContainerSecurity/) |
-| 🛡️ **Defensive & Incident Response** | [IncidentResponse/](IncidentResponse/) | [SIEM](IncidentResponse/SIEM/) · [Digital Forensics](IncidentResponse/Digital-Forensics/) · [Homelab/](Homelab/) |
+| 🛡️ **Defensive & Incident Response** | [IncidentResponse/](IncidentResponse/) | [SIEM](IncidentResponse/SIEM/) · [IDS & IPS](IncidentResponse/IDS%26IPS/) · [Honeypots](IncidentResponse/Honeypots/) · [Digital Forensics](IncidentResponse/Digital-Forensics/) · [Homelab/](Homelab/) |
 | 🔍 **OSINT & Recon** | [OSINT/](OSINT/) | [Tools Catalog](OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](OSINT/Playbook/README.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) | [AI/](AI/) · [SDR/](SDR/) · [HardwareHacking/](HardwareHacking/) · [SpaceSecurity/](SpaceSecurity/) · [Mobile/](Mobile/) · [uConsole/](uConsole/) |
 | 🔐 **Governance, Crypto & Reference** | [Compliance/](Compliance/) | [Cryptography/](Cryptography/) · [Documentation/](Documentation/) · [GLOSSARY.md](GLOSSARY.md) · [OPSEC/](OPSEC/) |
@@ -116,7 +116,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
 | 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
-| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures |
+| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](IncidentResponse/IDS%26IPS/) (nzyme, Suricata/Zeek) and [Honeypot](IncidentResponse/Honeypots/) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
 | 📱 [Mobile Security](Mobile/) | Kali NetHunter on OnePlus 6, Android and iOS application pentesting, mobile forensics, field SOPs, and engagement-level mobile pentesting |
 | 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
 | 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
@@ -290,8 +290,15 @@ This guide stands on the shoulders of the global cybersecurity community.
 
 **Monitoring & Defense**
 - [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
-- [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/)
 - [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://www.graylog.org/)
+- [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/) · [nzyme](https://nzyme.org/)
+
+**Honeypots & Deception**
+- [OpenCanary](https://github.com/thinkst/opencanary) - Thinkst
+- [Cowrie](https://github.com/cowrie/cowrie) - Michel Oosterhof
+- [Dionaea](https://github.com/DinoTools/dionaea) - DinoTools
+- [T-Pot](https://github.com/telekom-security/tpotce) - Deutsche Telekom Security
+
 
 ### 📚 Book Authors & Publishers
 
