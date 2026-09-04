@@ -15,10 +15,10 @@
 ---
 
 ## 🎯 Purpose
-Index for the Honeypots sub-section — self-hosted deception-technology build guides, so a blue teamer can deploy a low-noise, high-signal decoy layer alongside the traffic-based detection covered elsewhere in this repo.
+Index for the Honeypots sub-section with self-hosted deception-technology build guides, so a blue teamer can deploy a low-noise, high-signal decoy layer alongside the traffic-based detection covered elsewhere in this repo.
 
 ## ⚙️ Function
-Links to a full build guide per platform — install, real dependency/installer gotchas from actual builds, service configuration, alerting, and log analysis — plus guidance on how a honeypot fits alongside IDS/IPS and SIEM.
+Links to a full build guide per platform; install, real dependency/installer gotchas from actual builds, service configuration, alerting, and log analysis, plus guidance on how a honeypot fits alongside IDS/IPS and SIEM.
 
 ## 🏆 Goal
 Enable a practitioner to stand up a working honeypot that reliably logs attacker interaction, on hardware as modest as a Raspberry Pi, without repeating the installer dead-ends a real build already ran into.
