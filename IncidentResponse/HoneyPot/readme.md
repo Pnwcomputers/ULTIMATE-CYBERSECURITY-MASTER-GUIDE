@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Deception-based detection — decoys that exist purely to be attacked**
+**Deception-Based Detection — Decoys that exist purely to be attacked**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) section*
 
