@@ -1,4 +1,4 @@
-# 🧅 Security Onion — Turnkey Network Security Monitoring
+# 🧅 Security Onion: Turnkey Network Security Monitoring
 
 <div align="center">
 
