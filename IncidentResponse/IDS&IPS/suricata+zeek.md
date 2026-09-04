@@ -15,13 +15,13 @@
 ---
 
 ## 🎯 Purpose
-Guide for deploying an open-source network Intrusion Detection/Prevention System — Suricata for signature-based detection and inline blocking, Zeek for protocol-level network security monitoring (NSM) — either standalone on Linux or via a firewall VM's built-in package (OPNsense/pfSense).
+Guide for deploying an open-source network Intrusion Detection/Prevention System. Suricata for signature-based detection and inline blocking, Zeek for protocol-level network security monitoring (NSM). Run either standalone on Linux or via a firewall VM's built-in package (OPNsense/pfSense).
 
 ## ⚙️ Function
 Covers choosing IDS-only (passive/tap) vs IPS (inline/blocking) deployment mode, standalone Suricata install on Debian/Ubuntu, the OPNsense built-in Suricata path, rule management, Zeek as a complementary NSM layer, validation/testing, and the gotchas that actually cost time during a real build.
 
 ## 🏆 Goal
-Get a homelab or small-network operator from bare hardware to a validated, alert-tuned IDS — with a clear, informed path to IPS (active blocking) only after the detection side has been proven safe.
+Get a homelab or small-network operator from bare hardware to a validated, alert-tuned IDS with a clear, informed path to IPS (active blocking) only after the detection side has been proven safe.
 
 ## 📋 When to Use
 - Standing up network-level threat detection from scratch, on a dedicated box or a firewall VM
@@ -53,8 +53,8 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 
 | Mode | What it does | Failure behavior | Deployment |
 |---|---|---|---|
-| **IDS** (Intrusion *Detection*) | Passively inspects a copy of traffic, generates alerts | Fails safe — a crashed sensor just stops alerting, traffic keeps flowing | Tap/SPAN/mirror port, or `af-packet` in IDS mode |
-| **IPS** (Intrusion *Prevention*) | Sits inline, actively drops/rejects matching traffic in real time | Fails differently depending on config — can fail open (bypass) or fail closed (outage) | Inline bridge, or `af-packet`/NFQUEUE in IPS mode |
+| **IDS** (Intrusion *Detection*) | Passively inspects a copy of traffic, generates alerts | Fails safe for a crashed sensor that just stops alerting, traffic will keep flowing | Tap/SPAN/mirror port, or `af-packet` in IDS mode |
+| **IPS** (Intrusion *Prevention*) | Sits inline, actively drops/rejects matching traffic in real time | Fails differently depending on config; can fail open (bypass) or fail closed (outage) | Inline bridge, or `af-packet`/NFQUEUE in IPS mode |
 
 **The practical rule:** always start in IDS/alert-only mode, run it for at least 1–2 weeks against real traffic, review false positives, and only then flip to IPS/blocking. An aggressive ruleset in blocking mode on day one can take down legitimate traffic — DNS, software updates, VoIP, and anything using an uncommon-but-valid pattern are common false-positive sources.
 
@@ -64,11 +64,11 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 
 | Engine | Type | Blocking (IPS) | Strength | Weakness |
 |---|---|---|---|---|
-| **Suricata** | Signature + protocol-aware | ✅ Yes (native) | Multi-threaded, deep packet inspection, large community ruleset (ET Open) | Signature-based — blind to genuinely novel traffic patterns |
+| **Suricata** | Signature + protocol-aware | ✅ Yes (native) | Multi-threaded, deep packet inspection, large community ruleset (ET Open) | Signature-based; blind to genuinely novel traffic patterns |
 | **Snort** | Signature-based | ✅ Yes (native) | Mature, huge rule ecosystem, well documented | Historically single-threaded; scales worse on busy links than Suricata |
-| **Zeek** (formerly Bro) | Protocol/anomaly analysis | ❌ No — detection/logging only | Rich structured logs (`conn.log`, `dns.log`, `ssl.log`, JA3/JA3S) for hunting and forensics | Not an inline blocker; steeper scripting learning curve |
+| **Zeek** (formerly Bro) | Protocol/anomaly analysis | ❌ No. Detection/logging only | Rich structured logs (`conn.log`, `dns.log`, `ssl.log`, JA3/JA3S) for hunting and forensics | Not an inline blocker; steeper scripting learning curve |
 
-For a from-scratch build, **Suricata is the default choice** for the IDS/IPS role itself — native multi-threading and both detection and blocking in one engine. **Zeek runs alongside it**, not instead of it, for the deep protocol visibility Suricata's rule-matching doesn't give you. This mirrors how full NSM stacks (e.g. Security Onion) combine them rather than picking one.
+For a from-scratch build, **Suricata is the default choice** for the IDS/IPS role itself with native multi-threading and both detection and blocking in one engine. **Zeek runs alongside it**, not instead of it, for the deep protocol visibility Suricata's rule-matching doesn't give you. This mirrors how full NSM stacks (e.g. Security Onion) combine them rather than picking one.
 
 ---
 
@@ -123,7 +123,9 @@ sudo apt install -y suricata
 ip -br link
 ```
 
-Don't assume `eth0` — cloud images, Proxmox VMs (`ens18`, `enp6s18`, etc.), and physical NICs on different distros all name interfaces differently. Confirm it before editing config.
+Don't assume `eth0`
+Cloud images, Proxmox VMs (`ens18`, `enp6s18`, etc.), and physical NICs on different distros all name interfaces differently. 
+Confirm it before editing config.
 
 ### Configure `af-packet` Capture
 
@@ -143,18 +145,18 @@ af-packet:
     ring-size: 200000
 ```
 
-This runs Suricata in **passive IDS mode** — it inspects a copy of traffic and alerts, without sitting inline.
+This runs Suricata in **passive IDS mode** — It inspects a copy of traffic and alerts, without sitting inline.
 
 ### For IPS Inline Blocking on Standalone Linux
 
 Two common patterns:
 
-- **NFQUEUE** — traffic is routed through Suricata via `iptables`/`nftables`, Suricata accepts or drops each packet:
+- **NFQUEUE** — Traffic is routed through Suricata via `iptables`/`nftables`, Suricata accepts or drops each packet:
   ```bash
   sudo iptables -I FORWARD -j NFQUEUE --queue-num 0
   ```
   Then set `suricata.yaml`'s `nfq` section and run Suricata with `-q 0` in IPS mode.
-- **AF_PACKET IPS mode (bridge)** — two NICs bridged, Suricata inspects and forwards/drops between them. Requires the box to sit physically/logically inline on the network path.
+- **AF_PACKET IPS mode (bridge)** — Two NICs bridged, Suricata inspects and forwards/drops between them. Requires the box to sit physically/logically inline on the network path.
 
 Either way, **do not enable inline mode until you've validated in IDS/alert-only mode first** (see [Validation & Testing](#-validation--testing)).
 
@@ -170,7 +172,7 @@ sudo systemctl status suricata
 
 ## 🔩 Suricata on OPNsense/pfSense
 
-Both OPNsense and pfSense ship Suricata as a built-in package — no separate install needed. This is a common path for a firewall-integrated IDS/IPS since the traffic is already flowing through the box.
+Both OPNsense and pfSense ship Suricata as a built-in package so no separate install is needed. This is a common path for a firewall-integrated IDS/IPS since the traffic is already flowing through the box.
 
 ### 1. Enable and Configure
 
@@ -179,7 +181,7 @@ Both OPNsense and pfSense ship Suricata as a built-in package — no separate in
 | Setting | Value |
 |---|---|
 | Enable IDS/IPS | ✅ |
-| IPS Mode | ❌ leave unchecked initially — alert-only first |
+| IPS Mode | ❌ leave unchecked initially, alert-only first |
 | Promiscuous Mode | ✅ |
 | Pattern Matcher | `Hyperscan` |
 | Interfaces to Protect | LAN, WAN (or whichever segments you want visibility on) |
@@ -227,7 +229,7 @@ service suricata status
 tail -50 /var/log/suricata/suricata_*.log
 ```
 
-Look for `Engine started` at the end of the log — that's success.
+Look for `Engine started` at the end of the log; that's success.
 
 ### 3. Enable IPS Mode _(only after validating)_
 
@@ -241,7 +243,7 @@ Look for `Engine started` at the end of the log — that's success.
 ---
 
 ## pfSense-Specific Differences
-pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense the way it is on OPNsense — you install it as a package first:
+pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense the way it is on OPNsense so you need to install it as a package first:
 
 **System → Package Manager → Available Packages** → search "Suricata" → **Install**.
 
@@ -254,7 +256,7 @@ Once installed, the menu path is also different from OPNsense:
 | Per-interface setup | One combined interface list | **Services → Suricata → Interfaces → Add** (one entry per interface you want monitored) |
 | Inline/IPS mode | `af-packet` IPS mode, toggled in Administration | **Netmap-based Inline Mode** — requires a NIC/driver with netmap support; check pfSense's Suricata docs for supported drivers before enabling, don't assume it works on your NIC |
 
-Same discipline applies regardless of platform: enable as IDS, watch alerts, tune out false positives, **then** consider inline/IPS mode — a noisy rule in blocking mode can cut off legitimate traffic on a live firewall, including your own management access.
+Same discipline applies regardless of platform: enable as IDS, watch alerts, tune out false positives, **then** consider inline/IPS mode; a noisy rule in blocking mode can cut off legitimate traffic on a live firewall, including your own management access.
 
 ---
 
@@ -282,7 +284,7 @@ For writing custom rules, tuning performance (CPU affinity, `af-packet` ring siz
 
 ## 🔍 Zeek as a Complementary NSM Layer
 
-Zeek doesn't block anything — it turns raw traffic into structured, high-fidelity protocol logs (`conn.log`, `dns.log`, `http.log`, `ssl.log` with JA3/JA3S fingerprints, `files.log` with hashes) that are far more useful for hunting and forensics than either a signature match alone or a raw pcap. Run it on the same tap/mirror interface as Suricata — they don't conflict, since both just read a copy of the traffic.
+Zeek doesn't block anything. It turns raw traffic into structured, high-fidelity protocol logs (`conn.log`, `dns.log`, `http.log`, `ssl.log` with JA3/JA3S fingerprints, `files.log` with hashes) that are far more useful for hunting and forensics than either a signature match alone or a raw pcap. Run it on the same tap/mirror interface as Suricata; they don't conflict, since both just read a copy of the traffic.
 
 ```bash
 sudo apt install -y zeek
