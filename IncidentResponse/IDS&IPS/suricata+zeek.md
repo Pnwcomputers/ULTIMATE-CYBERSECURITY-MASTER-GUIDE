@@ -117,7 +117,7 @@ sudo apt update
 sudo apt install -y suricata
 ```
 
-### Identify your capture interface
+### Identify Your Capture Interface
 
 ```bash
 ip -br link
@@ -125,7 +125,7 @@ ip -br link
 
 Don't assume `eth0` — cloud images, Proxmox VMs (`ens18`, `enp6s18`, etc.), and physical NICs on different distros all name interfaces differently. Confirm it before editing config.
 
-### Configure `af-packet` capture
+### Configure `af-packet` Capture
 
 Edit `/etc/suricata/suricata.yaml`:
 
@@ -145,7 +145,7 @@ af-packet:
 
 This runs Suricata in **passive IDS mode** — it inspects a copy of traffic and alerts, without sitting inline.
 
-### For IPS (inline blocking) on standalone Linux
+### For IPS Inline Blocking on Standalone Linux
 
 Two common patterns:
 
@@ -158,7 +158,7 @@ Two common patterns:
 
 Either way, **do not enable inline mode until you've validated in IDS/alert-only mode first** (see [Validation & Testing](#-validation--testing)).
 
-### Enable and start
+### Enable and Start
 
 ```bash
 sudo suricata-update
@@ -172,7 +172,7 @@ sudo systemctl status suricata
 
 Both OPNsense and pfSense ship Suricata as a built-in package — no separate install needed. This is a common path for a firewall-integrated IDS/IPS since the traffic is already flowing through the box.
 
-### 1. Enable and configure
+### 1. Enable and Configure
 
 **Services → Intrusion Detection → Administration:**
 
@@ -188,7 +188,7 @@ Save, then **Services → Intrusion Detection → Download**, enable the **ET Op
 
 Click **Apply** on the Administration page to start Suricata.
 
-### 2. Fix the interface name mismatch
+### 2. Fix the Interface Name Mismatch
 
 This is the gotcha that actually cost time in a real build: the config can default to a generic interface name (`eth0`) that doesn't exist on a BSD-based firewall — physical/virtual NICs there use driver-based names (`em0`, `em1`, `igb0`, etc., depending on the underlying hardware or virtio/e1000 emulation).
 
@@ -229,13 +229,13 @@ tail -50 /var/log/suricata/suricata_*.log
 
 Look for `Engine started` at the end of the log — that's success.
 
-### 3. Enable IPS Mode (only after validating)
+### 3. Enable IPS Mode _(only after validating)_
 
 **Services → Intrusion Detection → Administration → IPS Mode → check → Save → Apply.**
 
 > ⚠️ Do this only after running alert-only for 1–2 weeks with no false positives on legitimate traffic. Flipping this on day one is how you find out DNS or a software updater matches a rule you didn't expect.
 
-### 4. Email Alerting (optional)
+### 4. Email Alerting _(optional)_
 **System → Settings → Notifications** — SMTP host/port/credentials...
 
 ---
