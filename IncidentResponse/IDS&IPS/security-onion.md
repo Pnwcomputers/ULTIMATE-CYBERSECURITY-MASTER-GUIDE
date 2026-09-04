@@ -53,7 +53,7 @@ Security Onion isn't a new detection engine — it's the same Suricata and Zeek 
 - **Strelka** for file scanning/extraction
 - **CyberChef**, **NetworkMiner**, and **Wireshark** bundled for analyst workflows
 - **Sigma** and **YARA** rule support layered on top of Suricata's own signature rules
-- **IDH (Intrusion Detection Honeypot)** nodes — a lightweight, purpose-built honeypot role baked into the platform, conceptually similar to this repo's [Honeypots](../Honeypots/README.md) guides but managed as part of the Security Onion grid
+- **IDH (Intrusion Detection Honeypot)** nodes — a lightweight, purpose-built honeypot role baked into the platform, conceptually similar to this repo's [Honeypots](../HoneyPot/readme.md) guides but managed as part of the Security Onion grid
 
 Think of it as: everything you'd otherwise assemble by hand from this repo's Suricata/Zeek and SIEM guides, pre-wired together and given a management console.
 
@@ -139,7 +139,7 @@ If you've already worked through this repo's other guides, Security Onion's comp
 | [Suricata & Zeek](./suricata+zeek.md) | The NIDS/NSM engine layer — same engines, centrally managed rules and config |
 | [SIEM: ELK Stack](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/elk_stack.md) | The Elasticsearch/Logstash/Kibana backend, pre-wired to ingest Suricata/Zeek output automatically |
 | [SIEM: Wazuh](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/wazuh.md) | Available as a host-visibility/EDR-style integration option |
-| [Honeypots](../Honeypots/README.md) | The IDH (Intrusion Detection Honeypot) node type — a purpose-built, low-resource honeypot role in the grid |
+| [Honeypots](../HoneyPot/readme.md) | The IDH (Intrusion Detection Honeypot) node type — a purpose-built, low-resource honeypot role in the grid |
 | [Endpoint Visibility: Sysmon](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) | Ingested directly as a host-visibility source |
 
 This is the practical value proposition: if you understand Suricata, Zeek, and ELK from this repo's other guides already, you're not learning new detection concepts here — you're learning how Security Onion wires the pieces together and manages them centrally.
@@ -204,8 +204,8 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 ## Related Files
 - [IDS&IPS/README.md](./README.md) - Sub-section index and platform comparison
 - [IDS&IPS/suricata+zeek.md](./suricata%2Bzeek.md) - The standalone version of this platform's core detection engines
-- [Honeypots/tpot.md](../Honeypots/tpot.md) - The honeypot-domain equivalent of this "everything pre-integrated" approach
-- [Honeypots/README.md](../Honeypots/README.md) - Including the IDH honeypot role this platform can run natively
+- [Honeypots/tpot.md](../HoneyPot/tpot.md) - The honeypot-domain equivalent of this "everything pre-integrated" approach
+- [Honeypots/README.md](../HoneyPot/readme.md) - Including the IDH honeypot role this platform can run natively
 - [IncidentResponse/SIEM/elk_stack.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/elk_stack.md) - The standalone version of the backend this platform bundles
 - [IncidentResponse/SIEM/wazuh.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/wazuh.md) - Available as a host-visibility integration alongside this platform
 
