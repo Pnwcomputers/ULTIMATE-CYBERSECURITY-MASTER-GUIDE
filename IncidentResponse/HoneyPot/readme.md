@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Deception-Based Detection — Decoys that exist purely to be attacked**
+**Deception-based detection — decoys that exist purely to be attacked**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) section*
 
@@ -15,10 +15,10 @@
 ---
 
 ## 🎯 Purpose
-Index for the Honeypots sub-section with self-hosted deception-technology build guides, so a blue teamer can deploy a low-noise, high-signal decoy layer alongside the traffic-based detection covered elsewhere in this repo.
+Index for the Honeypots sub-section for self-hosted deception-technology build guides, so a blue teamer can deploy a low-noise, high-signal decoy layer alongside the traffic-based detection covered elsewhere in this repo.
 
 ## ⚙️ Function
-Links to a full build guide per platform; install, real dependency/installer gotchas from actual builds, service configuration, alerting, and log analysis, plus guidance on how a honeypot fits alongside IDS/IPS and SIEM.
+Links to a full build guide per platform — install, real dependency/installer gotchas from actual builds, service configuration, alerting, and log analysis — plus guidance on how a honeypot fits alongside IDS/IPS and SIEM.
 
 ## 🏆 Goal
 Enable a practitioner to stand up a working honeypot that reliably logs attacker interaction, on hardware as modest as a Raspberry Pi, without repeating the installer dead-ends a real build already ran into.
@@ -46,9 +46,9 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 
 ## 🎯 Overview
 
-A **honeypot** is a decoy "vulnerable" system with fake services with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because there is no normal traffic: any interaction with it is by definition a scan, a misconfiguration, or an attacker. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
+A **honeypot** is a decoy vulnerable "fake service or system" with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because there is no normal traffic: any interaction with it is by definition a scan, a misconfiguration, or an attacker. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
 
-This sub-section provides **hands-on, from-a-real-build guides**. Where an installer silently failed, a dependency chain broke, or a "recommended" tool turned out to be the wrong first choice, that's documented explicitly rather than presenting only the happy path.
+This sub-section favors **hands-on, from-a-real-build detail** where it exists; the OpenCanary and HoneyPi guides document actual installer/dependency failures hit during a real deployment, including a genuine "HoneyPi" name collision with an unrelated project that explains one of them. The Cowrie, Dionaea, and T-Pot guides are sourced from current official documentation rather than a live build log, and are marked as such internally; they're no less accurate, just a different provenance.
 
 > [!TIP]
 > New to detection infrastructure generally? A honeypot pairs well with, but doesn't
@@ -59,11 +59,13 @@ This sub-section provides **hands-on, from-a-real-build guides**. Where an insta
 
 ## 🗂️ Platform Comparison
 
-| Platform | Guide | Type | Resource Footprint | Services Emulated |
+| Platform | Guide | Type | Resource Footprint | Captures / Emulates |
 |---|---|---|---|---|
 | 🐍 **[OpenCanary](./opencanary.md)** | Low-interaction | Very low — runs on a Pi 3B | SSH, FTP, HTTP(S), Telnet, MySQL, MSSQL, SMB, RDP, TFTP, NTP, SNMP, port-scan detection |
-
-*(This table grows as additional platforms are added — see [Contributing](#-contributing).)*
+| 🐚 **[Cowrie](./cowrie.md)** | Medium-to-high interaction | Low-moderate | Full emulated SSH/Telnet shell session — records real attacker commands, keystrokes, and file up/downloads, not just the login attempt |
+| 🕷️ **[Dionaea](./dionaea.md)** | Low-interaction, payload-focused | Low (Docker) | FTP, SMB, MySQL, MSSQL, TFTP, MQTT, SIP, Memcached — captures the actual **malware payload** dropped by an exploit, not just the connection |
+| 🍯🐝 **[HoneyPi](./honeypi.md)** | Low-interaction | Very low — runs on a Pi | Port-scan detection (via PSAD), FTP, Telnet, VNC — built for **internal**-network placement rather than internet-facing decoys |
+| 🐳 **[T-Pot](./tpot.md)** | Multi-platform (20+ honeypots at once) | High — 8-16 GB RAM, 128+ GB disk | Everything above plus ~15 more (ConPot, Honeytrap, ADBHoney, Heralding, Log4Pot, and more), with Elastic Stack dashboards and an attack map bundled in |
 
 ---
 
@@ -71,6 +73,18 @@ This sub-section provides **hands-on, from-a-real-build guides**. Where an insta
 
 ### 🐍 [OpenCanary](./opencanary.md)
 A lightweight, pure-Python low-interaction honeypot. Covers why it was the platform that actually worked after two other honeypots (HoneyPi, Cowrie) hit dead ends on the same hardware, the real dependency-resolution chain on modern Debian/Ubuntu (PEP 668, `pkg_resources`, `simplejson`, `twisted`), safely freeing port 22 for the honeypot without losing real SSH access, multi-service configuration, email alerting, and log analysis one-liners.
+
+### 🐚 [Cowrie](./cowrie.md)
+A medium-to-high interaction SSH/Telnet honeypot that emulates a full fake shell in Python, recording everything an attacker does once "in" — not just that they tried. Covers the current, simpler pip-based install (vs. the older git-clone path that's more prone to breaking), listening on port 22 without losing real SSH access, and session replay for forensic review.
+
+### 🕷️ [Dionaea](./dionaea.md)
+A low-interaction honeypot purpose-built to let automated exploit attempts complete far enough to deliver their actual payload, which Dionaea then captures to disk. Covers the officially-recommended Docker deployment, the considerably longer from-source alternative, port planning across its wide service footprint, and handling captured samples safely.
+
+### 🍯🐝 [HoneyPi](./honeypi.md)
+A PSAD-based honeypot purpose-built for **internal**-network intrusion detection — catching an attacker already past the perimeter, rather than collecting internet-wide threat intelligence. **Opens with a name-collision warning:** "HoneyPi" also refers to a completely unrelated IoT beehive-monitoring project on GitHub, which is almost certainly what caused a real "installer succeeded but nothing was created" failure during an actual deployment attempt.
+
+### 🐳 [T-Pot](./tpot.md)
+The "go big" option — 20+ individual honeypots (including Cowrie and Dionaea) running as Docker containers under one orchestration layer, with Elastic Stack dashboards and an animated attack map out of the box. Covers sizing, the Hive/Sensor distributed-deployment model, customizing which honeypots run, and the update/backup maintenance model.
 
 ---
 
@@ -102,9 +116,11 @@ A honeypot is a **complement**, not a substitute, for traffic-based detection �
 
 2. Choose a platform:
    └─> Start with OpenCanary for a low-resource, multi-service decoy.
-   └─> If a specific protocol/behavior matters more than breadth
-       (e.g. deep SSH session logging), a higher-interaction option
-       may be worth the extra install complexity.
+   └─> Want deep attacker session capture? -> Cowrie.
+   └─> Want actual malware payloads, not just connection logs? -> Dionaea.
+   └─> Want internal-network port-scan detection specifically? -> HoneyPi.
+   └─> Have real hardware to spare and want 20+ honeypots plus
+       dashboards out of the box? -> T-Pot.
 
 3. Free real services off common ports:
    └─> If emulating SSH on 22, move the box's actual SSH daemon
@@ -160,7 +176,7 @@ A honeypot is a **complement**, not a substitute, for traffic-based detection �
 Contributions from blue teamers and deception-technology practitioners are welcome.
 
 **What we accept:**
-- ✅ Additional platform guides (Cowrie, Dionaea, T-Pot, HoneyPi — if you get one working cleanly, document it and add its row to the comparison table above)
+- ✅ Additional platform guides (Honeytrap, ConPot, Glutton, Heralding, Trapster Community — if you get one working cleanly, document it and add its row to the comparison table above)
 - ✅ Real installer/dependency gotchas from an actual build — the more specific, the better
 - ✅ Alerting/webhook integrations beyond email
 - ✅ Log-forwarding configs into SIEM platforms covered in ../SIEM/
@@ -176,8 +192,11 @@ Contributions from blue teamers and deception-technology practitioners are welco
 ## 📚 Resources
 
 - **OpenCanary GitHub:** <https://github.com/thinkst/opencanary>
-- **Canarytokens (complementary project):** <https://canarytokens.org>
 - **Cowrie:** <https://github.com/cowrie/cowrie>
+- **Dionaea:** <https://github.com/DinoTools/dionaea>
+- **HoneyPi (the real one):** <https://github.com/mattymcfatty/HoneyPi>
+- **T-Pot:** <https://github.com/telekom-security/tpotce>
+- **Canarytokens (complementary project):** <https://canarytokens.org>
 - **The Honeynet Project:** <https://www.honeynet.org/>
 - **MITRE ATT&CK (mapping attacker behavior seen in honeypot logs):** <https://attack.mitre.org/>
 
