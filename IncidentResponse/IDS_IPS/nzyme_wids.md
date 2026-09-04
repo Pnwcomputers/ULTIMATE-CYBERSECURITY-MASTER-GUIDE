@@ -357,9 +357,9 @@ are the right venue for bugs without a known fix.
 <div align="center">
 
 ## Related Files
-- [network_intrusion.md](network_intrusion.md) - Wireless intrusion / rogue AP IR procedure once nzyme raises an alert
-- [log_agg.md](log_agg.md) - Feeding nzyme alerts into a broader SIEM pipeline
-- [../Homelab/](../Homelab/) - Homelab infrastructure this WIDS deployment lives in
+- [network_intrusion.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/network_intrusion.md) - Wireless intrusion / rogue AP IR procedure once nzyme raises an alert
+- [log_agg.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/log_agg.md) - Feeding nzyme alerts into a broader SIEM pipeline
+- [Homelab/](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab) - Homelab infrastructure this WIDS deployment lives in
 
 ---
 
