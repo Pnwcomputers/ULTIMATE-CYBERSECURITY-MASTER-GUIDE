@@ -156,7 +156,7 @@ findtime = 600
 
 > **Distro-specific log path:** Ubuntu/Debian use `/var/log/auth.log`. RHEL/AlmaLinux/Rocky use `/var/log/secure` and typically need `backend = systemd` added to the jail since auth logging goes through journald by default rather than a flat file. Confirm which applies to your distro before assuming the Ubuntu path is universal.
 
-If you moved SSH to a non-standard port (a pattern used elsewhere in this repo's honeypot guides — see [Cowrie](../Honeypots/cowrie.md) and [OpenCanary](../Honeypots/opencanary.md)), update `port` to match.
+If you moved SSH to a non-standard port (a pattern used elsewhere in this repo's honeypot guides — see [Cowrie](../HoneyPot/cowrie.md) and [OpenCanary](../HoneyPot/opencanary.md)), update `port` to match.
 
 ---
 
@@ -274,7 +274,7 @@ fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
 ## Related Files
 - [IDS&IPS/README.md](./README.md) - Sub-section index and platform comparison
 - [IDS&IPS/suricata+zeek.md](./suricata%2Bzeek.md) - Full network-level IDS/IPS for when log-based banning alone isn't enough
-- [Honeypots/opencanary.md](../Honeypots/opencanary.md) - A honeypot's SSH-port-move pattern this guide's SSH jail should be updated to match
+- [Honeypots/opencanary.md](../HoneyPot/opencanary.md) - A honeypot's SSH-port-move pattern this guide's SSH jail should be updated to match
 - [Homelab/HomeLab_Setup.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab/HomeLab_Setup.md) - Broader firewall/segmentation context this tool operates within
 
 ---
