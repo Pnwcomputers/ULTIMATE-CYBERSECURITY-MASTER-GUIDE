@@ -1,4 +1,4 @@
-# 🚫 Fail2Ban — Log-Triggered Automatic Banning
+# 🚫 Fail2Ban: Log-Triggered Automatic Banning
 
 <div align="center">
 
@@ -15,13 +15,13 @@
 ---
 
 ## 🎯 Purpose
-Guide for deploying [Fail2Ban](https://github.com/fail2ban/fail2ban), a lightweight log-monitoring IPS that watches log files for patterns indicating brute-force or abusive behavior and automatically bans the offending IP via firewall rules — the simplest, lowest-overhead entry in this repo's IDS/IPS lineup.
+Guide for deploying [Fail2Ban](https://github.com/fail2ban/fail2ban), a lightweight log-monitoring IPS that watches log files for patterns indicating brute-force or abusive behavior and automatically bans the offending IP via firewall rules; the simplest, lowest-overhead entry in this repo's IDS/IPS lineup.
 
 ## ⚙️ Function
 Covers install, the jail/filter/action configuration model, protecting SSH (the most common use case) plus other common services, testing a jail actually works, and the operational commands for inspecting and manually unbanning.
 
 ## 🏆 Goal
-Get automatic, log-driven banning running on any Linux box in minutes — this is the tool to reach for when a full Suricata/Snort deployment is overkill for the actual problem (SSH brute-forcing, web-login stuffing) you're trying to stop.
+Get automatic, log-driven banning running on any Linux box in minutes. This is the tool to reach for when a full Suricata/Snort deployment is overkill for the actual problem (SSH brute-forcing, web-login stuffing) you're trying to stop.
 
 ## 📋 When to Use
 - Any internet-facing Linux box with SSH exposed — this is close to a default-should-have for that alone
@@ -48,7 +48,7 @@ Get automatic, log-driven banning running on any Linux box in minutes — this i
 
 ## 🎯 Where This Fits
 
-Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Security Onion](./security-onion.md) — it doesn't inspect packets or understand protocols. It's a **log watcher with a trigger finger**: it tails log files, matches known failure patterns via regex filters, and when a source IP crosses a threshold, it bans that IP at the firewall for a configured duration. That narrow scope is exactly its value — near-zero resource overhead, works on any box with a log file and a firewall, and covers the single most common real-world attack pattern (credential brute-forcing) that a full NIDS is arguably overkill for.
+Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Security Onion](./security-onion.md). It doesn't inspect packets or understand protocols. It's a **log watcher with a trigger finger**: it tails log files, matches known failure patterns via regex filters, and when a source IP crosses a threshold, it bans that IP at the firewall for a configured duration. That narrow scope is exactly its value; near-zero resource overhead, works on any box with a log file and a firewall, and covers the single most common real-world attack pattern (credential brute-forcing) that a full NIDS is arguably overkill for.
 
 ---
 
