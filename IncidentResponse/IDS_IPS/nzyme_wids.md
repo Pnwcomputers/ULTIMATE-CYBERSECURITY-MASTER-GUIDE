@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real**
+**Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real and immediate application**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
