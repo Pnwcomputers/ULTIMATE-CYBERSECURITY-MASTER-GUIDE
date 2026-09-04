@@ -236,8 +236,24 @@ Look for `Engine started` at the end of the log — that's success.
 > ⚠️ Do this only after running alert-only for 1–2 weeks with no false positives on legitimate traffic. Flipping this on day one is how you find out DNS or a software updater matches a rule you didn't expect.
 
 ### 4. Email alerting (optional)
+**System → Settings → Notifications** — SMTP host/port/credentials...
 
-**System → Settings → Notifications** — SMTP host/port/credentials (a Gmail app password works cleanly for this). Test the notification before relying on it.
+### pfSense-specific differences
+
+pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense the way it is on OPNsense — you install it as a package first:
+
+**System → Package Manager → Available Packages** → search "Suricata" → **Install**.
+
+Once installed, the menu path is also different from OPNsense:
+
+| | OPNsense | pfSense |
+|---|---|---|
+| Package install | Built in, nothing to install | **System → Package Manager → Available Packages** first |
+| Configuration menu | Services → Intrusion Detection | **Services → Suricata** |
+| Per-interface setup | One combined interface list | **Services → Suricata → Interfaces → Add** (one entry per interface you want monitored) |
+| Inline/IPS mode | `af-packet` IPS mode, toggled in Administration | **Netmap-based Inline Mode** — requires a NIC/driver with netmap support; check pfSense's Suricata docs for supported drivers before enabling, don't assume it works on your NIC |
+
+Same discipline applies regardless of platform: enable as IDS, watch alerts, tune out false positives, **then** consider inline/IPS mode — a noisy rule in blocking mode can cut off legitimate traffic on a live firewall, including your own management access.
 
 ---
 
