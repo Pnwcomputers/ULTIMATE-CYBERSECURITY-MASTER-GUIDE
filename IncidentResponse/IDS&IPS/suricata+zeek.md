@@ -1,4 +1,4 @@
-# 🛡️ Intrusion Detection & Intrustion Prevention (IDS/IPS) with Suricata & Zeek
+# 🛡️ Intrusion Detection & Intrusion Prevention with Suricata & Zeek
 
 <div align="center">
 
