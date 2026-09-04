@@ -229,17 +229,18 @@ tail -50 /var/log/suricata/suricata_*.log
 
 Look for `Engine started` at the end of the log — that's success.
 
-### 3. Enable IPS mode (only after validating)
+### 3. Enable IPS Mode (only after validating)
 
 **Services → Intrusion Detection → Administration → IPS Mode → check → Save → Apply.**
 
 > ⚠️ Do this only after running alert-only for 1–2 weeks with no false positives on legitimate traffic. Flipping this on day one is how you find out DNS or a software updater matches a rule you didn't expect.
 
-### 4. Email alerting (optional)
+### 4. Email Alerting (optional)
 **System → Settings → Notifications** — SMTP host/port/credentials...
 
-### pfSense-specific differences
+---
 
+## pfSense-Specific Differences
 pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense the way it is on OPNsense — you install it as a package first:
 
 **System → Package Manager → Available Packages** → search "Suricata" → **Install**.
