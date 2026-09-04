@@ -1,3 +1,73 @@
+# 🔄 Change Log - September 4, 2026
+
+> **Note:** Entries below are not yet committed to git and have no commit hashes.
+> This section was written manually ahead of commit; replace it with the
+> auto-generated version once these files are committed, if you want hash
+> references restored.
+
+## 📊 Quick Stats
+- **New Files**: 8
+- **Files Modified**: 2
+
+## 📝 Detailed Changes
+
+### ✨ New Content
+- Add IDS/IPS guide: Snort — signature-based IDS/IPS, documents a broken official-repo GPG key and the real-world pivot to Suricata
+- Add IDS/IPS guide: Security Onion — turnkey Suricata + Zeek + Elastic Stack NSM platform, node types and hardware sizing
+- Add IDS/IPS guide: Fail2Ban — log-triggered automatic banning, jail/filter/action model
+- Add Honeypots guide: T-Pot — 20+ honeypot orchestration platform with Elastic dashboards
+- Add Honeypots guide: Cowrie — high-fidelity SSH/Telnet session-capture honeypot
+- Add Honeypots guide: Dionaea — malware-payload-capture honeypot
+- Add IncidentResponse/IDS&IPS/README.md — section index and platform comparison
+- Add IncidentResponse/Honeypots/README.md — section index and platform comparison
+
+### 🐛 Fixes
+- Fix stale 2-line OSSEC stub in ultimate_cybersecurity_master_guide.md — redirect to the existing IncidentResponse/SIEM/wazuh.md guide, since Wazuh is OSSEC's actively-maintained fork
+
+### 📚 Documentation
+- Add pfSense-specific differences subsection to IDS&IPS/suricata+zeek.md — explicit package install path, differing menu locations, netmap-based inline mode vs. OPNsense's af-packet
+- Update IDS&IPS/README.md comparison table and deployment-guides section with Snort, Security Onion, and Fail2Ban
+- Update Honeypots/README.md comparison table and deployment-guides section with T-Pot, Cowrie, and Dionaea
+
+## 📂 Files Touched
+<details>
+<summary>Click to view full file list</summary>
+
+- `IncidentResponse/IDS&IPS/snort.md`
+- `IncidentResponse/IDS&IPS/security-onion.md`
+- `IncidentResponse/IDS&IPS/fail2ban.md`
+- `IncidentResponse/IDS&IPS/README.md`
+- `IncidentResponse/Honeypots/tpot.md`
+- `IncidentResponse/Honeypots/cowrie.md`
+- `IncidentResponse/Honeypots/dionaea.md`
+- `IncidentResponse/Honeypots/README.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `ultimate_cybersecurity_master_guide.md`
+
+</details>
+
+---
+
+# 🔄 Change Log - September 2, 2026
+
+## 📊 Quick Stats
+- **New Files**: 2
+
+## 📝 Detailed Changes
+
+### ✨ New Content
+- Add Mobile/UserLAnd/readme.md — UserLAnd (Linux on Android) reference: portable Linux environments, admin/scripting/troubleshooting workflows, and authorized security assessments on Android, part of the Mobile Security section
+- Add Mobile/UserLAnd/alpinelinux.md — distribution-specific UserLAnd guide
+
+## 📂 Files Touched
+<details>
+<summary>Click to view full file list</summary>
+
+- `Mobile/UserLAnd/readme.md`
+- `Mobile/UserLAnd/alpinelinux.md`
+
+</details>
+
 # 🔄 Change Log - August 24, 2026
 
 ## 📊 Quick Stats
