@@ -1,8 +1,8 @@
-# 🐷 Snort — Signature-Based IDS/IPS
+# 🐷 Snort: Signature-Based IDS/IPS
 
 <div align="center">
 
-**The original open-source IDS — still relevant, but harder to install cleanly than its modern alternative**
+**The original open-source IDS, that is still relevant! It's just a bit harder to install cleanly than its modern alternative**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](./README.md) section*
 
