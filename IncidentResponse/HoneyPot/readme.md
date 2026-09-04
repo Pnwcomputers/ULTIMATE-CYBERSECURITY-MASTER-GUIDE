@@ -46,7 +46,7 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 
 ## 🎯 Overview
 
-A **honeypot** is a decoy — a fake service with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because there is no normal traffic: any interaction with it is by definition a scan, a misconfiguration, or an attacker. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
+A **honeypot** is a decoy "vulnerable" system with fake services with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because there is no normal traffic: any interaction with it is by definition a scan, a misconfiguration, or an attacker. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
 
 This sub-section provides **hands-on, from-a-real-build guides**. Where an installer silently failed, a dependency chain broke, or a "recommended" tool turned out to be the wrong first choice, that's documented explicitly rather than presenting only the happy path.
 
