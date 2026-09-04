@@ -1,4 +1,4 @@
-# 📡 DIY WiFi Intrusion Detection with nzyme
+# 📡 DIY WiFi Intrusion Detection with Nzyme
 
 <div align="center">
 
