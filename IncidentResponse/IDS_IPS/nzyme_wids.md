@@ -1,8 +1,8 @@
-# 📡 DIY WiFi Intrusion Detection with Nzyme
+# 📡 DIY WiFi Intrusion Detection with nzyme
 
 <div align="center">
 
-**Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real and immediate application**
+**Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
