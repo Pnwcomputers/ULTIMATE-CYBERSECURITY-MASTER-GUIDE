@@ -1,10 +1,5 @@
 # 🔄 Change Log - September 4, 2026
 
-> **Note:** Entries below are not yet committed to git and have no commit hashes.
-> This section was written manually ahead of commit; replace it with the
-> auto-generated version once these files are committed, if you want hash
-> references restored.
-
 ## 📊 Quick Stats
 - **New Files**: 8
 - **Files Modified**: 2
