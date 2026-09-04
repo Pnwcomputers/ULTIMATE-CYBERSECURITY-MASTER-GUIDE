@@ -3,7 +3,7 @@
 
 <div align="center">
 
-**Intrusion Detection & Prevention — wireless and wired, passive and inline**
+**Intrusion Detection & Prevention — Wireless and Wired, Passive and Inline**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) section*
 
