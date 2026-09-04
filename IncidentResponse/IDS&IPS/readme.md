@@ -1,4 +1,3 @@
-
 # 🛡️ IDS & IPS Deployment Guides
 
 <div align="center">
@@ -63,6 +62,9 @@ This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc
 |---|---|---|---|---|
 | 📡 **[nzyme_wids.md](./nzyme_wids.md)** | Wireless (802.11) | nzyme | ❌ Detection only | 🟡 MEDIUM |
 | 🛡️ **[suricata+zeek.md](./suricata+zeek.md)** | Wired/Network | Suricata + Zeek | ✅ Suricata supports inline blocking | 🟡 MEDIUM |
+| 🐷 **[snort.md](./snort.md)** | Wired/Network | Snort | ✅ Native inline (NFQUEUE) | 🟡 MEDIUM (packaging can be the hard part) |
+| 🧅 **[security-onion.md](./security-onion.md)** | Wired/Network (turnkey NSM stack) | Suricata + Zeek + Elastic Stack, pre-integrated | ✅ Suricata component supports inline blocking | 🔴 HIGH (dedicated hardware, appliance-style install) |
+| 🚫 **[fail2ban.md](./fail2ban.md)** | Host-level (log-triggered) | Fail2Ban | ✅ Native (firewall ban) | 🟢 LOW |
 
 ---
 
@@ -73,6 +75,15 @@ Wireless Intrusion Detection System — a Proxmox VM node plus Raspberry Pi tap 
 
 ### 🛡️ [Suricata & Zeek](./suricata+zeek.md)
 Wired/network Intrusion Detection **and** Prevention — Suricata for signature-based detection with native inline blocking, Zeek as a complementary protocol-level NSM layer. Covers standalone Suricata install on Debian/Ubuntu (both passive `af-packet` and inline NFQUEUE/bridge patterns), the OPNsense/pfSense built-in package path, rule management, and the validation steps to run before ever flipping on blocking mode.
+
+### 🐷 [Snort](./snort.md)
+The original signature-based IDS/IPS, now maintained by Cisco. Covers all four real install paths, honestly documents a broken official-repo GPG key that a real attempt hit, and gives the informed choice between pushing through Snort's packaging friction or moving to Suricata instead.
+
+### 🧅 [Security Onion](./security-onion.md)
+A free, turnkey Linux distro that pre-integrates Suricata, Zeek, and a full Elastic Stack (plus Wazuh, CyberChef, and more) into one appliance-style NSM platform. The wired-network equivalent of what T-Pot is for honeypots — covers sizing, the ISO-based install, node types (standalone vs. distributed), and where the pieces you already know from the standalone guides live inside it.
+
+### 🚫 [Fail2Ban](./fail2ban.md)
+The lightest-weight tool in this section — a log watcher that bans brute-forcing IPs at the firewall automatically. Not a NIDS replacement, but the highest-value-for-effort entry here: covers the jail/filter/action model, protecting SSH (the default use case) and other services, and the operational commands for checking and manually unbanning.
 
 ---
 
