@@ -1,14 +1,16 @@
-# 🔄 Change Log - September 04, 2026
+# 🔄 Change Log - September 05, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 59
-- **Files Modified**: 4
-- **New Files**: 15
-- **Deleted Files**: 0
+- **Commits Analyzed**: 1355
+- **Files Modified**: 1591
+- **New Files**: 610
+- **Deleted Files**: 118
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Create evasion.md (`ea30a21`)
+- Update CHANGELOG with new content and fixes (`f4ab212`)
 - Update IDS & IPS readme with new guides (`04f9ea9`)
 - Create Fail2Ban deployment guide (`f9af876`)
 - Create Security Onion deployment guide (`b3597ee`)
@@ -31,157 +33,6 @@
 - Add RFID section to README (`9c781b2`)
 - Revise RFID guide with new procedures and warnings (`aad9fe1`)
 - Create rfid.md (`0cc2700`)
-
-### 🐛 Fixes
-- Fix typo in Honeypots link in README.md (`0de663d`)
-- Correct capitalization of 'Nzyme' in markdown (`5b65fe2`)
-- Fix typo in IDS/IPS document title (`e9fe7a2`)
-- Fix header formatting in security-onion.md (`f2ea134`)
-- Correct capitalization in IDS & IPS section header (`d7e4a36`)
-- Fix formatting and wording in Honeypot readme (`c3af95d`)
-- Fix capitalization in nzyme_wids.md (`a255925`)
-- Correct capitalization of 'Nzyme' in documentation (`a2a39e8`)
-- Fix formatting in README for subghz.md entry (`6c6890c`)
-
-### ♻️ Updates & Refactors
-- Update CHANGELOG.md to remove manual note (`cfd297d`)
-- Update CHANGELOG.md (`5ad7d14`)
-- Refactor headings in Suricata and Zeek documentation (`3322c5b`)
-- Update heading style in Honeypot readme (`01a7539`)
-- Rename nzyme_wids.md to nzyme_wids.md (`f4fa800`)
-- Rename nzyme_wids.md to nzyme_wids.md (`4f33014`)
-- Update links in nzyme_wids.md to point to GitHub (`bffd5d1`)
-- Update warning and repository information in rfid.md (`420f84a`)
-- Update README to include NFC/RFID in title (`1acfa0c`)
-- Update target frequencies section title in README (`5b1d389`)
-
-### 📚 Documentation
-- Refine Fail2Ban documentation for clarity (`c6ff91d`)
-- Refine language and formatting in Suricata and Zeek guide (`07bd336`)
-- Revise section headers in Suricata and Zeek documentation (`1a65fe3`)
-- Document pfSense Suricata setup differences (`8c09438`)
-- Revise Snort documentation for clarity (`1bc8e2d`)
-- Enhance Defensive & Incident Response section in README (`3a2ddf8`)
-- Improve clarity in readme.md function section (`a5401ff`)
-- Improve clarity in Honeypot readme (`94b1959`)
-- Revise README for SDR, RF, and NFC/RFID clarity (`8e3beb4`)
-- Revise SDR section description in README.md (`3404e01`)
-- Revise README title and description for clarity (`63fc014`)
-- Enhance RFID documentation with transponder security details (`4f1ad92`)
-- Enhance RFID/NFC access control guide content (`fa38952`)
-
-### ⚡ Other Changes
-- Enhance OSSEC section with Wazuh details (`5c5b16e`)
-- Refine punctuation in HoneyPi and T-Pot descriptions (`646721d`)
-- Enhance description for Nzyme WiFi IDS (`f97602e`)
-- Enhance SDR section with more application details (`bfe42cb`)
-- Revise focus areas in subghz.md and rfid.md (`a4278da`)
-
-## 📂 Files Touched
-<details>
-<summary>Click to view full file list</summary>
-
-- `CHANGELOG.md`
-- `IncidentResponse/HoneyPot/cowrie.md`
-- `IncidentResponse/HoneyPot/dionaea.md`
-- `IncidentResponse/HoneyPot/honeypi.md`
-- `IncidentResponse/HoneyPot/opencanary.md`
-- `IncidentResponse/HoneyPot/readme.md`
-- `IncidentResponse/HoneyPot/tpot.md`
-- `IncidentResponse/IDS&IPS/fail2ban.md`
-- `IncidentResponse/IDS&IPS/nzyme_wids.md`
-- `IncidentResponse/IDS&IPS/readme.md`
-- `IncidentResponse/IDS&IPS/security-onion.md`
-- `IncidentResponse/IDS&IPS/snort.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
-- `Mobile/UserLAnd/alpinelinux.md`
-- `Mobile/UserLAnd/readme.md`
-- `README.md`
-- `SDR/README.md`
-- `SDR/rfid.md`
-- `ultimate_cybersecurity_master_guide.md`
-
-</details>
-
-
----
-
-# 🔄 Change Log - September 4, 2026
-
-## 📊 Quick Stats
-- **New Files**: 8
-- **Files Modified**: 2
-
-## 📝 Detailed Changes
-
-### ✨ New Content
-- Add IDS/IPS guide: Snort — signature-based IDS/IPS, documents a broken official-repo GPG key and the real-world pivot to Suricata
-- Add IDS/IPS guide: Security Onion — turnkey Suricata + Zeek + Elastic Stack NSM platform, node types and hardware sizing
-- Add IDS/IPS guide: Fail2Ban — log-triggered automatic banning, jail/filter/action model
-- Add Honeypots guide: T-Pot — 20+ honeypot orchestration platform with Elastic dashboards
-- Add Honeypots guide: Cowrie — high-fidelity SSH/Telnet session-capture honeypot
-- Add Honeypots guide: Dionaea — malware-payload-capture honeypot
-- Add IncidentResponse/IDS&IPS/README.md — section index and platform comparison
-- Add IncidentResponse/Honeypots/README.md — section index and platform comparison
-
-### 🐛 Fixes
-- Fix stale 2-line OSSEC stub in ultimate_cybersecurity_master_guide.md — redirect to the existing IncidentResponse/SIEM/wazuh.md guide, since Wazuh is OSSEC's actively-maintained fork
-
-### 📚 Documentation
-- Add pfSense-specific differences subsection to IDS&IPS/suricata+zeek.md — explicit package install path, differing menu locations, netmap-based inline mode vs. OPNsense's af-packet
-- Update IDS&IPS/README.md comparison table and deployment-guides section with Snort, Security Onion, and Fail2Ban
-- Update Honeypots/README.md comparison table and deployment-guides section with T-Pot, Cowrie, and Dionaea
-
-## 📂 Files Touched
-<details>
-<summary>Click to view full file list</summary>
-
-- `IncidentResponse/IDS&IPS/snort.md`
-- `IncidentResponse/IDS&IPS/security-onion.md`
-- `IncidentResponse/IDS&IPS/fail2ban.md`
-- `IncidentResponse/IDS&IPS/README.md`
-- `IncidentResponse/Honeypots/tpot.md`
-- `IncidentResponse/Honeypots/cowrie.md`
-- `IncidentResponse/Honeypots/dionaea.md`
-- `IncidentResponse/Honeypots/README.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
-- `ultimate_cybersecurity_master_guide.md`
-
-</details>
-
----
-
-# 🔄 Change Log - September 2, 2026
-
-## 📊 Quick Stats
-- **New Files**: 2
-
-## 📝 Detailed Changes
-
-### ✨ New Content
-- Add Mobile/UserLAnd/readme.md — UserLAnd (Linux on Android) reference: portable Linux environments, admin/scripting/troubleshooting workflows, and authorized security assessments on Android, part of the Mobile Security section
-- Add Mobile/UserLAnd/alpinelinux.md — distribution-specific UserLAnd guide
-
-## 📂 Files Touched
-<details>
-<summary>Click to view full file list</summary>
-
-- `Mobile/UserLAnd/readme.md`
-- `Mobile/UserLAnd/alpinelinux.md`
-
-</details>
-
-# 🔄 Change Log - August 24, 2026
-
-## 📊 Quick Stats
-- **Commits Analyzed**: 1293
-- **Files Modified**: 1547
-- **New Files**: 593
-- **Deleted Files**: 117
-
-## 📝 Detailed Changes
-
-### ✨ New Content
 - Revise README for SDR section and add new manual (`3100212`)
 - Create subghz.md (`758355b`)
 - feat: add "Navigate by Area" grouped index to README (deliverable F, Phase 1) (#72) (`c7880f6`)
@@ -593,6 +444,17 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix links to Honeypot README and tpot files (`0fb6784`)
+- Fix markdown links and formatting in fail2ban.md (`f05756d`)
+- Fix typo in Honeypots link in README.md (`0de663d`)
+- Correct capitalization of 'Nzyme' in markdown (`5b65fe2`)
+- Fix typo in IDS/IPS document title (`e9fe7a2`)
+- Fix header formatting in security-onion.md (`f2ea134`)
+- Correct capitalization in IDS & IPS section header (`d7e4a36`)
+- Fix formatting and wording in Honeypot readme (`c3af95d`)
+- Fix capitalization in nzyme_wids.md (`a255925`)
+- Correct capitalization of 'Nzyme' in documentation (`a2a39e8`)
+- Fix formatting in README for subghz.md entry (`6c6890c`)
 - docs: cross-link microcontroller guide + fix broken section-README nav paths (#70) (`07856a1`)
 - audit(scope 11): resolve deprecated-tool contradictions (F-11) (#54) (`bde051d`)
 - audit(scope 2/4): Mobile domain review — fix OnePlus 6 model number (A3006->A6003) (#50) (`2117fab`)
@@ -723,6 +585,15 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update CHANGELOG.md to remove manual note (`cfd297d`)
+- Update CHANGELOG.md (`5ad7d14`)
+- Refactor headings in Suricata and Zeek documentation (`3322c5b`)
+- Update heading style in Honeypot readme (`01a7539`)
+- Rename nzyme_wids.md to nzyme_wids.md (`f4fa800`)
+- Rename nzyme_wids.md to nzyme_wids.md (`4f33014`)
+- Update links in nzyme_wids.md to point to GitHub (`bffd5d1`)
+- Update warning and repository information in rfid.md (`420f84a`)
+- Update README to include NFC/RFID in title (`1acfa0c`)
 - Update target frequencies section title in README (`5b1d389`)
 - Update title of SubGhz RF Exploration manual (`84a0893`)
 - Update subghz.md (`4889bf2`)
@@ -1288,6 +1159,19 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Refine Fail2Ban documentation for clarity (`c6ff91d`)
+- Refine language and formatting in Suricata and Zeek guide (`07bd336`)
+- Revise section headers in Suricata and Zeek documentation (`1a65fe3`)
+- Document pfSense Suricata setup differences (`8c09438`)
+- Revise Snort documentation for clarity (`1bc8e2d`)
+- Enhance Defensive & Incident Response section in README (`3a2ddf8`)
+- Improve clarity in readme.md function section (`a5401ff`)
+- Improve clarity in Honeypot readme (`94b1959`)
+- Revise README for SDR, RF, and NFC/RFID clarity (`8e3beb4`)
+- Revise SDR section description in README.md (`3404e01`)
+- Revise README title and description for clarity (`63fc014`)
+- Enhance RFID documentation with transponder security details (`4f1ad92`)
+- Enhance RFID/NFC access control guide content (`fa38952`)
 - Revise operational sections in README (`d283127`)
 - Enhance Wi-Fi testing documentation with tool links (`d87217f`)
 - audit(scope 2/4): IncidentResponse forensics review — Volatility guide (#38) (`4ab34af`)
@@ -1401,6 +1285,11 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Enhance OSSEC section with Wazuh details (`5c5b16e`)
+- Refine punctuation in HoneyPi and T-Pot descriptions (`646721d`)
+- Enhance description for Nzyme WiFi IDS (`f97602e`)
+- Enhance SDR section with more application details (`bfe42cb`)
+- Revise focus areas in subghz.md and rfid.md (`a4278da`)
 - Revise description in subghz.md (`cc5f6f7`)
 - audit(scope 2/4): HardwareHacking, AI + remaining domains — review complete (#52) (`89111d2`)
 - audit(scope 2/4): SDR/RF domain review (#48) (`f580e0b`)
@@ -1490,11 +1379,32 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `SDR/README.md`
-- `SDR/subghz.md`
+- `Tradecraft/evasion.md`
+- `IncidentResponse/IDS&IPS/security-onion.md`
+- `IncidentResponse/IDS&IPS/fail2ban.md`
 - `CHANGELOG.md`
-- `AUDIT_REPORT.md`
 - `README.md`
+- `IncidentResponse/IDS&IPS/nzyme_wids.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `IncidentResponse/IDS&IPS/readme.md`
+- `IncidentResponse/IDS&IPS/security_onion.md`
+- `IncidentResponse/IDS&IPS/snort.md`
+- `IncidentResponse/HoneyPot/readme.md`
+- `IncidentResponse/HoneyPot/honeypi.md`
+- `IncidentResponse/HoneyPot/dionaea.md`
+- `IncidentResponse/HoneyPot/cowrie.md`
+- `IncidentResponse/HoneyPot/tpot.md`
+- `IncidentResponse/HoneyPot/opencanary.md`
+- `IncidentResponse/IDS/nzyme_wids.md`
+- `IncidentResponse/IDS_IPS/nzyme_wids.md`
+- `IncidentResponse/IDS_IPS/nzymewids.md`
+- `Mobile/UserLAnd/alpinelinux.md`
+- `Mobile/UserLAnd/readme.md`
+- `SDR/README.md`
+- `SDR/rfid.md`
+- `SDR/subghz.md`
+- `AUDIT_REPORT.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
@@ -1512,7 +1422,6 @@
 - `Cloud/aws.md`
 - `Cloud/azure.md`
 - `Cloud/gcp.md`
-- `ultimate_cybersecurity_master_guide.md`
 - `WebAppSecurity/README.md`
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-top-10.md`
