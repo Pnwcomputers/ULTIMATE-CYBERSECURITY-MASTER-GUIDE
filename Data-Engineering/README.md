@@ -12,12 +12,13 @@
 ![Pipelines](https://img.shields.io/badge/Architecture-Batch_%7C_Streaming-darkgreen?style=for-the-badge)
 ![Security](https://img.shields.io/badge/Focus-Secure_%26_Reliable-purple?style=for-the-badge)
 ![Automation](https://img.shields.io/badge/Infrastructure-Versioned_%26_Repeatable-orange?style=for-the-badge)
+![Phase 1](https://img.shields.io/badge/Phase_1-Published-success?style=for-the-badge)
 
 </div>
 
 ---
 
-_Index reviewed: 2026-09-11. Existing links checked against the repository; proposed documents are identified separately._
+_Index reviewed: 2026-09-11. Existing links checked against the repository. Phase 1 foundations are published in `Phase1/`; Phase 2 and Phase 3 remain proposed and are identified separately._
 
 ## 🎯 Purpose
 
@@ -47,7 +48,9 @@ Help practitioners build understandable, reliable, secure, and maintainable data
 ## 📋 Table of Contents
 
 - [Overview & Scope](#overview)
-- [Start Here: Secure Data Pipelines](#start-here)
+- [Start Here: Choose Your Entry Point](#start-here)
+- [Phase 1: Foundations](#phase-1)
+- [Secure Data Pipelines](#secure-pipelines)
 - [Existing Repository Resources](#existing-resources)
 - [Core Data Engineering Categories](#categories)
 - [Recommended Future Documents](#future-documents)
@@ -80,11 +83,64 @@ These areas overlap. Use this section for the data pipeline foundations and the 
 
 <a id="start-here"></a>
 
-## 🚀 Start Here: Secure Data Pipelines
+## 🚀 Start Here: Choose Your Entry Point
 
-### 🛡️ [Secure Data Pipelines & Security Automation](./data_pipelines.md)
+Two entry points serve different goals. Either can be taken first.
 
-The foundational guide currently in this section connects six practical capabilities in one document:
+| If you want to… | Start with | Why |
+| --- | --- | --- |
+| **Learn data engineering from the beginning** | [Phase 1 foundations](#phase-1) | Lifecycle, Python, SQL, ETL/ELT, and quality — each with a runnable lab requiring no server or third-party package |
+| **Build a secure security-telemetry pipeline now** | [Secure Data Pipelines](#secure-pipelines) | TLS, SSH, Git, parsing, caching, Kafka, and Ansible in one applied project |
+
+**Recommended combined path:** Work through Phase 1 in order, then apply it to security telemetry in `data_pipelines.md`. The foundations explain *why* the pipeline guide handles quarantine, event identity, and idempotence the way it does.
+
+---
+
+<a id="phase-1"></a>
+
+## 🟢 Phase 1: Foundations
+
+Five published guides in [`Phase1/`](./Phase1/). Each is self-contained, states its prerequisites, and ends with a **Verification Record** listing the checks actually performed and what remains unverified.
+
+| # | Guide | Coverage | Lab |
+| --- | --- | --- | --- |
+| 1 | 🧱 [Data Engineering Fundamentals](./Phase1/data_engineering_fundamentals.md) | Lifecycle, terminology, requirements template, batch/streaming decisions, source-to-destination design | CSV → SQLite loader with validation, quarantine, idempotent upserts, and a run log |
+| 2 | 🐍 [Python for Data Processing](./Phase1/python_data_processing.md) | Bounded-memory iteration, encoding, CSV and JSON Lines, timestamps, logging, packaging, tests | Installable `assetpipe` package with a `unittest` suite and a console entry point |
+| 3 | 🗃️ [SQL & Data Modeling](./Phase1/sql_data_modeling.md) | Keys, constraints, NULL semantics, joins, aggregates, window functions, transactions, indexes, query plans | Inventory and telemetry schema, then a star schema with an enforced grain |
+| 4 | 🔄 [ETL & ELT Pipeline Design](./Phase1/etl_elt_pipeline_design.md) | ETL versus ELT, staging layers, watermarks, overlap windows, merge writes, checkpoints, backfills | Incremental pipeline demonstrating idempotent reruns, a backfill repair, and reconciliation |
+| 5 | ✅ [Data Quality & Schema Contracts](./Phase1/data_quality_schema_contracts.md) | Quality dimensions, record and batch validation, nulls, duplicates, schema evolution, quarantine, producer/consumer obligations | Contract-driven validator and a compatibility gate that fails a build on breaking changes |
+
+### 📘 Reading order and dependencies
+
+```text
+1. Fundamentals ──┬──► 2. Python ──┐
+                  │                ├──► 4. ETL & ELT ──► 5. Data Quality
+                  └──► 3. SQL ─────┘
+```
+
+Guides 2 and 3 can be read in either order. Guide 4 assumes both. Guide 5 assumes guide 4's load structure.
+
+### 🧰 Shared characteristics
+
+| Property | Detail |
+| --- | --- |
+| **Dependencies** | Python standard library and SQLite only — no servers, containers, or package installs |
+| **Data** | Synthetic fixtures throughout; nothing contacts a network service |
+| **Verification** | Every lab was executed; documented outputs are actual results, with limitations stated |
+| **Failure handling** | Each guide covers what breaks, how it presents, and which check detects it |
+
+> [!NOTE]
+> The labs deliberately use SQLite so they run anywhere, including locked-down hosts. Each guide flags where the patterns differ on PostgreSQL, MySQL, or SQL Server, and the Verification Record states which engine was actually tested.
+
+---
+
+<a id="secure-pipelines"></a>
+
+## 🛡️ Secure Data Pipelines
+
+### 🔐 [Secure Data Pipelines & Security Automation](./data_pipelines.md)
+
+The applied security guide in this section connects six practical capabilities in one document:
 
 | Capability | Covered Topics | Jump to Guide Section |
 | --- | --- | --- |
@@ -96,6 +152,8 @@ The foundational guide currently in this section connects six practical capabili
 | ⚙️ **Automate deployment** | Ansible inventory, templates, validation, and idempotence | [Ansible](./data_pipelines.md#9-automate-deployments-with-ansible) |
 
 **Suggested first project:** Follow the guide's synthetic SSH-log exercise, trace each accepted event through parsing and enrichment, and then work through the Kafka and deployment milestones.
+
+**Foundations behind this guide:** its parsing and quarantine approach is explained generally in [Data Quality & Schema Contracts](./Phase1/data_quality_schema_contracts.md), its event-identity and replay handling in [Data Engineering Fundamentals](./Phase1/data_engineering_fundamentals.md), and its Python patterns in [Python for Data Processing](./Phase1/python_data_processing.md).
 
 > [!NOTE]
 > The guide distinguishes runnable local exercises, configuration templates, and further integration work. Read its [verification record](./data_pipelines.md#verification-record) for the checks performed and the deployment steps that remain unverified.
@@ -138,16 +196,16 @@ Use these categories to organize future material and identify gaps in a project.
 
 | Category | Learning Focus | Current Starting Point |
 | --- | --- | --- |
-| 🧱 **Foundations & architecture** | Data lifecycle, batch versus streaming, latency, ownership, and failure boundaries | [Pipeline overview](./data_pipelines.md#1-understand-the-complete-system); broader foundations proposed below |
-| 📥 **Ingestion & integration** | Files, APIs, pagination, incremental loads, checkpoints, and database changes | [Log aggregation](../IncidentResponse/log_agg.md); general ingestion guide proposed |
-| 🧹 **Transformation & modeling** | Parsing, types, timestamps, SQL, joins, schemas, and reusable transformations | [Structured events](./data_pipelines.md#6-transform-messy-logs-into-structured-events); SQL/modeling guides proposed |
-| 🗄️ **Storage & serving** | Relational databases, object storage, analytical stores, file formats, and retention | [Search/log platform guides](../IncidentResponse/SIEM/README.md); general storage guide proposed |
-| 📡 **Streaming & messaging** | Event identity, ordering, offsets, replay, backpressure, and delivery semantics | [Kafka introduction](./data_pipelines.md#8-stream-and-centralize-events-with-kafka) |
+| 🧱 **Foundations & architecture** | Data lifecycle, batch versus streaming, latency, ownership, and failure boundaries | [Data Engineering Fundamentals](./Phase1/data_engineering_fundamentals.md) |
+| 📥 **Ingestion & integration** | Files, APIs, pagination, incremental loads, checkpoints, and database changes | [Incremental extraction](./Phase1/etl_elt_pipeline_design.md#3-incremental-extraction) and [log aggregation](../IncidentResponse/log_agg.md); dedicated API ingestion guide proposed |
+| 🧹 **Transformation & modeling** | Parsing, types, timestamps, SQL, joins, schemas, and reusable transformations | [Python for Data Processing](./Phase1/python_data_processing.md) and [SQL & Data Modeling](./Phase1/sql_data_modeling.md) |
+| 🗄️ **Storage & serving** | Relational databases, object storage, analytical stores, file formats, and retention | [Analytical modeling](./Phase1/sql_data_modeling.md#9-analytical-modeling) and [search/log platform guides](../IncidentResponse/SIEM/README.md); general storage guide proposed |
+| 📡 **Streaming & messaging** | Event identity, ordering, offsets, replay, backpressure, and delivery semantics | [Batch versus streaming](./Phase1/data_engineering_fundamentals.md#5-batch-micro-batch-and-streaming) and the [Kafka introduction](./data_pipelines.md#8-stream-and-centralize-events-with-kafka) |
 | 🧠 **Enrichment & caching** | Lookup data, freshness, expiry, cache misses, and authoritative sources | [Redis and Memcached](./data_pipelines.md#7-enrich-events-with-redis-and-memcached) |
-| ✅ **Quality & contracts** | Required fields, uniqueness, completeness, compatibility, and rejected records | Parser examples in the [pipeline guide](./data_pipelines.md); dedicated guide proposed |
-| ⚙️ **Orchestration & deployment** | Job dependencies, scheduling, retries, backfills, versioned configuration, and deployment | [Git](./data_pipelines.md#5-manage-code-and-configuration-with-git) and [Ansible](./data_pipelines.md#9-automate-deployments-with-ansible); orchestration guide proposed |
-| 🔎 **Observability & recovery** | Freshness, processing lag, errors, reconciliation, replay, and restore procedures | [Troubleshooting reference](./data_pipelines.md#11-troubleshooting-reference); dedicated operations guides proposed |
-| 🔐 **Governance & protection** | Access control, secrets, lineage, classification, retention, and auditability | [Applied cryptography](../Cryptography/applied-crypto.md); data governance guide proposed |
+| ✅ **Quality & contracts** | Required fields, uniqueness, completeness, compatibility, and rejected records | [Data Quality & Schema Contracts](./Phase1/data_quality_schema_contracts.md) |
+| ⚙️ **Orchestration & deployment** | Job dependencies, scheduling, retries, backfills, versioned configuration, and deployment | [Checkpoints and backfills](./Phase1/etl_elt_pipeline_design.md#5-checkpoints-and-run-state), plus [Git](./data_pipelines.md#5-manage-code-and-configuration-with-git) and [Ansible](./data_pipelines.md#9-automate-deployments-with-ansible); orchestration guide proposed |
+| 🔎 **Observability & recovery** | Freshness, processing lag, errors, reconciliation, replay, and restore procedures | [Reconciliation](./Phase1/etl_elt_pipeline_design.md#8-reconciliation) and the [troubleshooting reference](./data_pipelines.md#11-troubleshooting-reference); dedicated operations guides proposed |
+| 🔐 **Governance & protection** | Access control, secrets, lineage, classification, retention, and auditability | [Producer and consumer obligations](./Phase1/data_quality_schema_contracts.md#10-producer-and-consumer-obligations) and [applied cryptography](../Cryptography/applied-crypto.md); data governance guide proposed |
 
 **Useful distinction:** Deployment automation configures the services that run pipelines. Workflow orchestration schedules and coordinates the data-processing jobs themselves. A section about Ansible does not replace a guide to job dependencies, retries, and backfills.
 
@@ -155,21 +213,21 @@ Use these categories to organize future material and identify gaps in a project.
 
 <a id="future-documents"></a>
 
-## 📝 Recommended Future Documents
+## 📝 Documentation Roadmap
 
-The following is a proposed documentation roadmap, not a list of completed or scheduled work. Filenames are suggestions within `Data-Engineering/` and intentionally remain unlinked until the documents are created.
+Phase 1 is published. Phases 2 and 3 remain a proposed roadmap, not a list of completed or scheduled work; their filenames are suggestions within `Data-Engineering/` and intentionally remain unlinked until the documents are created.
 
-### 🟢 Phase 1: General Foundations
+### 🟢 Phase 1: General Foundations — Published
 
-| Proposed Document | Suggested Filename | Recommended Coverage |
+| Document | Location | Coverage |
 | --- | --- | --- |
-| **Data Engineering Fundamentals** | `data_engineering_fundamentals.md` | Lifecycle, batch/streaming decisions, source-to-destination design, terminology, requirements, and a small file-to-database project. |
-| **Python for Data Processing** | `python_data_processing.md` | CSV and JSON handling, iterators, bounded memory use, encoding, timestamp conversion, packaging, logging, and tests. |
-| **SQL & Data Modeling** | `sql_data_modeling.md` | Queries, joins, aggregates, window functions, keys, constraints, transactions, indexes, and introductory analytical models. |
-| **ETL & ELT Pipeline Design** | `etl_elt_pipeline_design.md` | Extract-transform-load versus extract-load-transform, staging, incremental loads, idempotent writes, checkpoints, and reconciliation. |
-| **Data Quality & Schema Contracts** | `data_quality_schema_contracts.md` | Validation, nulls, duplicates, schema evolution, compatibility checks, quarantine, and producer/consumer expectations. |
+| **Data Engineering Fundamentals** | [`Phase1/data_engineering_fundamentals.md`](./Phase1/data_engineering_fundamentals.md) | Lifecycle, batch/streaming decisions, source-to-destination design, terminology, requirements, and a small file-to-database project. |
+| **Python for Data Processing** | [`Phase1/python_data_processing.md`](./Phase1/python_data_processing.md) | CSV and JSON handling, iterators, bounded memory use, encoding, timestamp conversion, packaging, logging, and tests. |
+| **SQL & Data Modeling** | [`Phase1/sql_data_modeling.md`](./Phase1/sql_data_modeling.md) | Queries, joins, aggregates, window functions, keys, constraints, transactions, indexes, and introductory analytical models. |
+| **ETL & ELT Pipeline Design** | [`Phase1/etl_elt_pipeline_design.md`](./Phase1/etl_elt_pipeline_design.md) | Extract-transform-load versus extract-load-transform, staging, incremental loads, idempotent writes, checkpoints, and reconciliation. |
+| **Data Quality & Schema Contracts** | [`Phase1/data_quality_schema_contracts.md`](./Phase1/data_quality_schema_contracts.md) | Validation, nulls, duplicates, schema evolution, compatibility checks, quarantine, and producer/consumer expectations. |
 
-### 🟡 Phase 2: Storage & Integration
+### 🟡 Phase 2: Storage & Integration — Proposed
 
 | Proposed Document | Suggested Filename | Recommended Coverage |
 | --- | --- | --- |
@@ -178,7 +236,7 @@ The following is a proposed documentation roadmap, not a list of completed or sc
 | **Workflow Orchestration** | `workflow_orchestration.md` | Schedules, dependencies, retries, concurrency, parameterized jobs, backfills, and separating orchestration from processing. |
 | **Streaming & Change Data Capture** | `streaming_cdc.md` | Database change capture, snapshots, event time, ordering, duplicates, late records, replay, and consumer compatibility. |
 
-### 🔵 Phase 3: Operations & Governance
+### 🔵 Phase 3: Operations & Governance — Proposed
 
 | Proposed Document | Suggested Filename | Recommended Coverage |
 | --- | --- | --- |
@@ -187,7 +245,9 @@ The following is a proposed documentation roadmap, not a list of completed or sc
 | **Data Governance, Lineage & Access** | `data_governance_lineage.md` | Ownership, source lineage, sensitive fields, access boundaries, secrets, retention, deletion, and audit trails. |
 | **Backup, Replay & Disaster Recovery** | `data_recovery_replay.md` | Backups versus replication, restore exercises, replay boundaries, recovery objectives, deduplication, and rebuilding derived data. |
 
-**Suggested writing order:** Start with fundamentals, Python, SQL, ETL/ELT, and quality. Then expand into storage and orchestration before adding more distributed components. Each document should include one small practical exercise with observable success and failure conditions.
+**Suggested continuation:** With foundations in place, expand into storage formats and orchestration before adding more distributed components. Each new document should include one small practical exercise with observable success and failure conditions, and a verification record stating what was actually executed.
+
+**Placement convention:** Phase 1 guides live in `Phase1/`. Later phases may use `Phase2/` and `Phase3/` for consistency; whichever is chosen, update the relative links inside the guides to match their depth.
 
 ---
 
@@ -195,21 +255,23 @@ The following is a proposed documentation roadmap, not a list of completed or sc
 
 ## 🚀 Learning & Implementation Workflow
 
-| Step | Action | Deliverable |
-| --- | --- | --- |
-| **1. Define the purpose** | Identify the source, consumer, sensitivity, expected volume, and acceptable delay. | Short requirements and ownership record. |
-| **2. Build a small path** | Move a synthetic sample from one source to one destination. | Reproducible working example. |
-| **3. Establish the contract** | Define field types, event identity, timestamps, and rejected-record handling. | Schema and accepted/rejected fixtures. |
-| **4. Protect access** | Configure verified transport, least-privilege identities, and secret handling. | Documented access and trust configuration. |
-| **5. Make writes repeatable** | Decide how incremental loads, retries, and duplicate records behave. | Replay and reconciliation checks. |
-| **6. Automate execution** | Version configuration, deploy consistently, and schedule jobs where needed. | Reviewed configuration and run procedure. |
-| **7. Observe failures** | Test unavailable sources, bad records, destination failures, and stale data. | Metrics, alerts, and troubleshooting notes. |
-| **8. Expand deliberately** | Measure bottlenecks before introducing new services or partitions. | Capacity notes and tested recovery plan. |
+| Step | Action | Deliverable | Related Guide |
+| --- | --- | --- | --- |
+| **1. Define the purpose** | Identify the source, consumer, sensitivity, expected volume, and acceptable delay. | Short requirements and ownership record. | [Requirements before code](./Phase1/data_engineering_fundamentals.md#4-requirements-before-code) |
+| **2. Build a small path** | Move a synthetic sample from one source to one destination. | Reproducible working example. | [File-to-database lab](./Phase1/data_engineering_fundamentals.md#7-lab-file-to-database-pipeline) |
+| **3. Establish the contract** | Define field types, event identity, timestamps, and rejected-record handling. | Schema and accepted/rejected fixtures. | [What a contract contains](./Phase1/data_quality_schema_contracts.md#2-what-a-contract-contains) |
+| **4. Protect access** | Configure verified transport, least-privilege identities, and secret handling. | Documented access and trust configuration. | [TLS and SSH](./data_pipelines.md#3-encrypt-and-authenticate-with-tls) |
+| **5. Make writes repeatable** | Decide how incremental loads, retries, and duplicate records behave. | Replay and reconciliation checks. | [Idempotent writes and merge](./Phase1/etl_elt_pipeline_design.md#4-idempotent-writes-and-merge) |
+| **6. Automate execution** | Version configuration, deploy consistently, and schedule jobs where needed. | Reviewed configuration and run procedure. | [Git](./data_pipelines.md#5-manage-code-and-configuration-with-git) and [Ansible](./data_pipelines.md#9-automate-deployments-with-ansible) |
+| **7. Observe failures** | Test unavailable sources, bad records, destination failures, and stale data. | Metrics, alerts, and troubleshooting notes. | [Failure drills](./Phase1/data_engineering_fundamentals.md#8-failure-drills) and [failure modes](./Phase1/etl_elt_pipeline_design.md#9-failure-modes) |
+| **8. Expand deliberately** | Measure bottlenecks before introducing new services or partitions. | Capacity notes and tested recovery plan. | [Indexes and query plans](./Phase1/sql_data_modeling.md#8-indexes-and-query-plans) |
 
 ### 🧪 Suggested Practice Projects
 
+- **Inventory reporting:** Import synthetic asset CSV files into a relational database, validate serial-number uniqueness, and produce a queryable current inventory. Implemented as the [file-to-database lab](./Phase1/data_engineering_fundamentals.md#7-lab-file-to-database-pipeline), extended by the [star schema lab](./Phase1/sql_data_modeling.md#10-lab-build-the-star-schema).
+- **Incremental load with recovery:** Run a watermark-based pipeline, prove the second run changes nothing, then simulate data loss and repair it with a backfill. Implemented as the [incremental pipeline lab](./Phase1/etl_elt_pipeline_design.md#6-lab-the-incremental-pipeline).
+- **Contract enforcement:** Declare a contract, validate a defective batch against it, and gate a schema change on compatibility. Implemented as the [contract validator lab](./Phase1/data_quality_schema_contracts.md#7-lab-the-contract-validator).
 - **Security telemetry:** Parse synthetic authentication logs, add cached context, and publish structured events using [data_pipelines.md](./data_pipelines.md).
-- **Inventory reporting:** Import synthetic asset CSV files into a relational database, validate serial-number uniqueness, and produce a queryable current inventory. This is a proposed exercise for the future SQL and ETL guides.
 - **API ingestion:** Collect records from a permitted test API with pagination and checkpoints, then demonstrate recovery after an interrupted run. This is a proposed exercise for the future ingestion guide.
 
 ---
@@ -226,6 +288,9 @@ The following is a proposed documentation roadmap, not a list of completed or sc
 - Test restore and replay procedures before relying on them during an outage.
 - Keep documented test results specific to the environment and versions actually checked.
 
+> [!CAUTION]
+> Quarantined records inherit the classification of their source. A reject file assembled from security logs or customer data carries the same handling obligations as the original, and the fact that a record failed validation does not make it non-sensitive. See [quarantine and reject handling](./Phase1/data_quality_schema_contracts.md#9-quarantine-and-reject-handling).
+
 ---
 
 <a id="contributing"></a>
@@ -241,13 +306,26 @@ Contributions can extend the general foundations, add small reproducible labs, o
 3. State prerequisites, tested versions, expected results, and known limitations.
 4. Include sanitized examples and failure-handling exercises where practical.
 5. Add a relative link here when a proposed document is created; remove its proposed-only status.
-6. Update the [master index](../README.md) when adding a new guide or major section.
+6. Include a verification record stating what was executed, the output observed, and what remains unverified.
+7. Prefer standard-library and single-file-database examples so labs run without installation.
+8. When placing a guide in a phase subfolder, check that its relative links account for the extra directory level.
+9. Update the [master index](../README.md) when adding a new guide or major section.
 
 ---
 
 <a id="quick-links"></a>
 
 ## 🔗 Quick Links
+
+### 🟢 Phase 1 Foundations
+
+- [🧱 Data Engineering Fundamentals](./Phase1/data_engineering_fundamentals.md)
+- [🐍 Python for Data Processing](./Phase1/python_data_processing.md)
+- [🗃️ SQL & Data Modeling](./Phase1/sql_data_modeling.md)
+- [🔄 ETL & ELT Pipeline Design](./Phase1/etl_elt_pipeline_design.md)
+- [✅ Data Quality & Schema Contracts](./Phase1/data_quality_schema_contracts.md)
+
+### 🔐 Applied & Related
 
 - [🛡️ Secure Data Pipelines & Security Automation](./data_pipelines.md)
 - [🚨 Incident Response](../IncidentResponse/README.md)
@@ -266,9 +344,11 @@ Contributions can extend the general foundations, add small reproducible labs, o
 | Item | Status |
 | --- | --- |
 | **Section directory** | `Data-Engineering/` |
-| **Foundational document** | [data_pipelines.md](./data_pipelines.md) |
+| **Applied security guide** | [data_pipelines.md](./data_pipelines.md) |
+| **Phase 1 foundations** | Published — 5 guides in [`Phase1/`](./Phase1/) |
+| **Phase 2 & 3** | Proposed roadmap; not yet linked as published guides |
 | **Existing supporting resources** | Linked from their current repository locations |
-| **Future coverage** | Proposed roadmap; not yet linked as published guides |
+| **Lab dependencies** | Python standard library and SQLite; no servers or third-party packages |
 | **Index review** | September 11, 2026 |
 
 ---
