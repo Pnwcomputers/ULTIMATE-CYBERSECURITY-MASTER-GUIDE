@@ -1,4 +1,3 @@
-
 # 🐍 Python for Data Processing
 
 <div align="center">
@@ -7,7 +6,7 @@
 
 *CSV • JSON Lines • Iterators • Encoding • datetime • logging • Packaging • unittest*
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Foundations](https://img.shields.io/badge/Level-Foundations-blue?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Language-Python_3.10%2B-darkgreen?style=for-the-badge)
@@ -419,7 +418,7 @@ log.info("run_summary %s", json.dumps({
 }, sort_keys=True))
 ```
 
-That final summary line is what makes a pipeline observable without extra infrastructure: it can be grepped, shipped to a log aggregator, or parsed into freshness and error-rate metrics. See [Log Aggregation & Visibility](../IncidentResponse/log_agg.md) for the collection side.
+That final summary line is what makes a pipeline observable without extra infrastructure: it can be grepped, shipped to a log aggregator, or parsed into freshness and error-rate metrics. See [Log Aggregation & Visibility](../../IncidentResponse/log_agg.md) for the collection side.
 
 > [!CAUTION]
 > Never log credentials, tokens, session identifiers, or unredacted personal data. Logs are frequently retained longer and read more widely than the data itself. When a record must be logged for diagnosis, log its identifier rather than its contents.
@@ -784,7 +783,7 @@ Local checks used Python 3.12.3 on Ubuntu with setuptools from the active virtua
 3. State the minimum supported Python version for any version-dependent behavior.
 4. Keep transformation examples free of file and database access.
 5. Report what you executed and the exact output observed.
-6. Update the [section index](./README.md) when adding a guide.
+6. Update the [section index](../README.md) when adding a guide.
 
 ---
 
@@ -809,14 +808,14 @@ Local checks used Python 3.12.3 on Ubuntu with setuptools from the active virtua
 
 ## 🔗 Quick Links & Related Guides
 
-- [🗄️ Data Engineering Section Index](./README.md)
+- [🗄️ Data Engineering Section Index](../README.md)
 - [🧱 Data Engineering Fundamentals](./data_engineering_fundamentals.md)
 - [🗃️ SQL & Data Modeling](./sql_data_modeling.md)
 - [🔄 ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md)
 - [✅ Data Quality & Schema Contracts](./data_quality_schema_contracts.md)
-- [🛡️ Secure Data Pipelines](./data_pipelines.md)
-- [📊 Log Aggregation & Visibility](../IncidentResponse/log_agg.md)
-- [📖 Repository Glossary](../GLOSSARY.md)
+- [🛡️ Secure Data Pipelines](../data_pipelines.md)
+- [📊 Log Aggregation & Visibility](../../IncidentResponse/log_agg.md)
+- [📖 Repository Glossary](../../GLOSSARY.md)
 
 ---
 
@@ -830,7 +829,7 @@ Local checks used Python 3.12.3 on Ubuntu with setuptools from the active virtua
 | 🧰 Core Technologies | Python standard library: csv, json, itertools, datetime, zoneinfo, logging, unittest |
 | 📘 Format | Reference guide with a complete installable lab package |
 | 🧪 Validation Status | Examples and lab executed locally; results and limitations documented above |
-| 📁 Location | `Data-Engineering/python_data_processing.md` |
+| 📁 Location | `Data-Engineering/Phase1/python_data_processing.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
@@ -845,7 +844,7 @@ Local checks used Python 3.12.3 on Ubuntu with setuptools from the active virtua
 
 **Pacific Northwest Computers:** [PNWC on GitHub](https://github.com/Pnwcomputers)
 
-[🏠 Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../LEGAL.md)
+[🏠 Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../../LEGAL.md)
 
 ⭐ **Star the repository if you find it useful!** ⭐
 
