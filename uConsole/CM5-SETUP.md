@@ -1,13 +1,18 @@
 # uConsole Setup Guide: CM5 Configuration
 
 ## 🎯 Purpose
-Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM5 module - the newer, faster CM5 variant covering Rex's Kali/Trixie image, HackerGadgets AIO v2 board, and CM5-specific driver differences from the CM4 setup.
+Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM5 module - the newer, faster CM5 variant
+covering Rex's Kali/Trixie image, HackerGadgets AIO v2 board, and CM5-specific driver differences from the CM4
+setup.
 
 ## ⚙️ Function
-Post-flash configuration for CM5: WiFi adapter drivers (CM5-specific chipset differences), Bluetooth, audio, display brightness, RTL-SDR, LoRa, GPS, NVMe storage, and the HackerGadgets AIO v2 board - with attention to CM5 vs CM4 behavioral differences.
+Post-flash configuration for CM5: WiFi adapter drivers (CM5-specific chipset differences), Bluetooth, audio,
+display brightness, RTL-SDR, LoRa, GPS, NVMe storage, and the HackerGadgets AIO v2 board - with attention to CM5 vs
+CM4 behavioral differences.
 
 ## 🏆 Goal
-A fully working CM5-based uConsole with all HackerGadgets hardware functional, taking advantage of the CM5's improved CPU/RAM performance for compute-heavy tasks like SDR processing and AI inference.
+A fully working CM5-based uConsole with all HackerGadgets hardware functional, taking advantage of the CM5's
+improved CPU/RAM performance for compute-heavy tasks like SDR processing and AI inference.
 
 ## 📋 When to Use
 - Initial setup after flashing Rex's Kali or Trixie image to a CM5 module
@@ -16,17 +21,13 @@ A fully working CM5-based uConsole with all HackerGadgets hardware functional, t
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
-A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
+A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole
+with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2
+extension board.
 
-> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh). Run it on a fresh Rex image and it handles all six phases for you - including reboots.
-> ```bash
-> wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm5-setup.sh
-> chmod +x uconsole-cm5-setup.sh
-> sudo ./uconsole-cm5-setup.sh
-> ```
-> See [`scripts/README.md`](./scripts/README.md) for flags and options.
-
-> **About this revision (audited against forum sources):** The order of operations is "harden first, upgrade second, then install." Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. GPIO pin assignments, GPS UART config (CM5-specific `dtparam=uart0`), the CM5-specific RTC overlay (`dtparam=rtc=off` + `i2c_csi_dsi0` remap), and the relationship between `hackergadgets-uconsole-aio-board` and `aiov2_ctl` have been corrected against the [official HackerGadgets setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) and [Rex's package thread on the ClockworkPi forum](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875).
+> [!IMPORTANT]
+> **CM5 desktop regression:** Earlier script revisions can disrupt the working Rex desktop. Start with [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) if you have a rotated screen or a blank desktop after login. The proposed v1.4 installer preserves session and boot configuration, skips upgrades, and makes AIO installation opt-in. Hardware validation is pending. See [script usage](./scripts/README.md).
+> Do not layer Kali repositories onto Debian or replace the image's desktop with plain Labwc.
 
 ---
 
@@ -35,9 +36,9 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Hardware Overview](#hardware-overview)
 - [Choosing Your OS: Kali vs Trixie](#choosing-your-os-kali-vs-trixie)
 - [Step 1: Flash the OS](#step-1-flash-the-os)
-- [Step 2: First Boot - Pre-Flight Hardening](#step-2-first-boot---pre-flight-hardening)
+- [Step 2: Preserve the Working Image](#step-2-first-boot---preserve-the-working-image)
 - [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
-- [Step 4: Add Kali Tools (Trixie Only)](#step-4-add-kali-tools-trixie-only)
+- [Step 4: Distribution Security Tools](#step-4-security-tools-for-your-distribution)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
 - [Step 6: Install the AIO v2 Board Package](#step-6-install-the-aio-v2-board-package)
 - [Step 7: Configure GPS (CM5)](#step-7-configure-gps-cm5)
@@ -59,16 +60,31 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 ---
 
 ## 🎯 Purpose
-Step-by-step build instructions for the CM5 variant of the uConsole + AIO v2 platform specifically - GPIO pin behavior, `config.txt` overlays, and known failure modes here are CM5-specific (e.g., `/dev/ttyAMA0` instead of `/dev/ttyS0`, `dtparam=uart0` instead of `enable_uart=1`, native PCIe NVMe support) and will not match the CM4. Use this file (not [CM4-SETUP.md](./CM4-SETUP.md)) when your board is a Raspberry Pi Compute Module 5.
+Step-by-step build instructions for the CM5 variant of the uConsole + AIO v2 platform specifically - GPIO pin
+behavior, `config.txt` overlays, and known failure modes here are CM5-specific (e.g., `/dev/ttyAMA0` instead of
+`/dev/ttyS0`, `dtparam=uart0` instead of `enable_uart=1`, native PCIe NVMe support) and will not match the CM4. Use
+this file (not [CM4-SETUP.md](./CM4-SETUP.md)) when your board is a Raspberry Pi Compute Module 5.
 
 ## ⚙️ Function
-Organized as the same 14 sequential numbered steps as [CM4-SETUP.md](./CM4-SETUP.md) (flash OS → pre-flight hardening → system update → Kali tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables and a Troubleshooting section. Differs from CM4-SETUP.md in GPIO/UART/RTC device-tree overlays, GPS serial port path, SDR default boot state (HIGH on CM5 vs OFF on CM4), and native PCIe NVMe support; differs from [README.md](./README.md), which is the folder-level index rather than a build walkthrough. Every step is also implemented as an idempotent shell script in [`scripts/uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh) (see [scripts/README.md](./scripts/README.md)).
+Organized as the same 14 sequential numbered steps as [CM4-SETUP.md](./CM4-SETUP.md) (flash OS → pre-flight
+hardening → system update → Kali tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR
+configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables
+and a Troubleshooting section. Differs from CM4-SETUP.md in GPIO/UART/RTC device-tree overlays, GPS serial port
+path, SDR default boot state (HIGH on CM5 vs OFF on CM4), and native PCIe NVMe support; differs from
+[README.md](./README.md), which is the folder-level index rather than a build walkthrough. Every step is also
+implemented as an idempotent shell script in [`scripts/uconsole-cm5-setup.sh`](./scripts/uconsole-cm5-setup.sh)
+(see [scripts/README.md](./scripts/README.md)).
 
 ## 🏆 Goal
-A working CM5-based uConsole with the AIO v2 board fully configured - RTL-SDR, LoRa/Meshtastic, GPS, and RTC all functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed - without the CM5-specific pitfalls (SD boot failures on old EEPROM, UART/RTC overlay mismatches) this guide's troubleshooting section already documents.
+A working CM5-based uConsole with the AIO v2 board fully configured - RTL-SDR, LoRa/Meshtastic, GPS, and RTC all
+functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed - without the CM5-specific
+pitfalls (SD boot failures on old EEPROM, UART/RTC overlay mismatches) this guide's troubleshooting section already
+documents.
 
 ## 📋 When to Use
-When building or repairing a CM5-based uConsole from scratch, or when a specific step (e.g., Meshtastic not starting, GPS not getting a fix, CM5 lite SD card not booting) needs a manual fix outside of running the automation script.
+When building or repairing a CM5-based uConsole from scratch, or when a specific step (e.g., Meshtastic not
+starting, GPS not getting a fix, CM5 lite SD card not booting) needs a manual fix outside of running the automation
+script.
 
 ---
 
@@ -113,7 +129,10 @@ These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and
 
 ## Choosing Your OS: Kali vs Trixie
 
-Rex maintains community images for the uConsole that include a custom kernel (6.12.y) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include a custom APT repository required for the `hackergadgets-uconsole-aio-board` package - that package is not available on stock ClockworkPi or upstream Kali images.
+Rex maintains community images for the uConsole that include a custom kernel (record the actual version with `uname
+-r`) with all necessary hardware patches for the uConsole display, keyboard, and trackball. His images also include
+a custom APT repository required for the `hackergadgets-uconsole-aio-board` package - that package is not available
+on stock ClockworkPi or upstream Kali images.
 
 Rex's images include several conveniences that this guide relies on:
 
@@ -123,19 +142,17 @@ Rex's images include several conveniences that this guide relies on:
 
 > **CM5 special note from Rex:** The AIO board package was developed primarily for CM5 because enabling SPI for Meshtastic on CM5 needs additional plumbing to keep the display panel working. Using the official `hackergadgets-uconsole-aio-board` package is therefore strongly recommended on CM5 - the manual route is risky.
 
-### Path A: Rex's Kali Image (Pentesting Out of the Box)
+### Path A: Rex's Kali Image
 
-The full Kali toolchain comes pre-installed: aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc.
+Choose the native Kali image when you need Kali metapackages. Check which tools are included in that specific
+release. Preserve its desktop/session configuration and review package upgrades before applying them.
 
-**Pros:** Everything pre-installed, familiar to pentesters.
-**Cons:** Kali rolling upgrades have a history of replacing the RPi-specific LightDM session/greeter without updating `lightdm.conf`, breaking the login screen. Step 2 of this guide pre-empts that.
+### Path B: Rex's Trixie Image
 
-### Path B: Rex's Trixie Image + Kali Tools (Recommended)
-
-Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling repo added on top for pentesting tools.
-
-**Pros:** Newest packages, cleaner base, better trackball behavior, fewer initramfs/package conflicts.
-**Cons:** Extra step to add Kali tools. Mixing Kali rolling with Trixie creates dependency-version conflicts unless APT pinning is set up correctly (this guide handles that in Step 2).
+Use Debian 13 Trixie with its intended Debian/Raspberry Pi/Rex repositories. Install tools available for that
+distribution. For Kali-only workflows, use a separate Kali installation instead of adding Kali rolling to Debian.
+The old tool allowlist did not prevent unrelated Kali packages from becoming upgrade candidates. [Kali repository
+guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 
 ### Other Rex Images
 
@@ -166,7 +183,9 @@ Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling
 
 ### Flash the Image
 
-Rex's specific guidance from the forum threads: **use Raspberry Pi Imager directly on the compressed `.xz` file, and do not apply any custom settings.** Custom settings (hostname, WiFi, SSH) from Pi Imager will cause Rex's images to fail to boot.
+Rex's specific guidance from the forum threads: **use Raspberry Pi Imager directly on the compressed `.xz` file,
+and do not apply any custom settings.** Custom settings (hostname, WiFi, SSH) from Pi Imager will cause Rex's
+images to fail to boot.
 
 1. Install [Raspberry Pi Imager](https://www.raspberrypi.com/software/) on your host machine.
 2. In Pi Imager:
@@ -186,170 +205,46 @@ Power on. Rex's images auto-expand the root filesystem on first boot and then re
 - Log in with the default credentials
 - Open a terminal
 
-**Do NOT run `apt update` or `apt full-upgrade` yet.** Proceed directly to Step 2.
+Record the working baseline and back up before package changes. Proceed to Step 2.
 
 ---
 
-## Step 2: First Boot - Pre-Flight Hardening
+## Step 2: First Boot - Preserve the Working Image
 
-This step pre-empts the three issues that historically break a fresh uConsole install on its first upgrade. We fix all three before any `apt full-upgrade` runs.
+Verify the desktop, panel, input and orientation before setup. Record `/etc/os-release`, `uname -r` and the image
+release; back up storage and configuration. Preserve the supplied LightDM/AccountsService session choices,
+cryptsetup configuration, Python protections and `raspberrypi-sys-mods`.
 
-### 2.1 - Disable the cryptsetup-initramfs hook
-
-The `cryptsetup-initramfs` hook fails on Pi systems (it can't resolve `/dev/root` from `PARTUUID=` cmdlines), which kills dpkg triggers and can corrupt the initramfs mid-upgrade. Unless you're using LUKS (you aren't, on a fresh Rex image), disable the hook:
-
-```bash
-sudo mkdir -p /etc/cryptsetup-initramfs
-echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
-```
-
-### 2.2 - Pin LightDM to sessions that survive upgrades
-
-Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Upstream changes often rename or remove these without updating the config file, breaking the GUI login. We apply guarded swaps to fix this:
-
-```bash
-# 1. Ensure fallback compositor and greeter are installed
-sudo apt update
-sudo apt install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0
-
-# 2. Check session references. If clockworkpi-theme is installed, your image is likely healthy.
-# Otherwise, if upstream renamed the session to LXDE-pi-labwc, update lightdm.conf safely:
-sudo sed -i \
-  -e 's/^user-session=rpd-labwc$/user-session=LXDE-pi-labwc/' \
-  -e 's/^autologin-session=rpd-labwc$/autologin-session=LXDE-pi-labwc/' \
-  /etc/lightdm/lightdm.conf
-
-# 3. Fix any AccountsService entries to match
-for f in /var/lib/AccountsService/users/*; do
-  [ -f "$f" ] && sudo sed -i 's/^XSession=rpd-labwc$/XSession=LXDE-pi-labwc/' "$f"
-done
-```
-
-### 2.3 - (Trixie path only) Remove raspberrypi-sys-mods
-
-> **Kali users:** Skip 2.3 and 2.4. Your image doesn't ship `raspberrypi-sys-mods` and isn't layering Kali on top of Trixie.
-
-`raspberrypi-sys-mods` (preinstalled on Rex's Trixie image) will collide with `kali-defaults` later. However, we must ensure removing it doesn't break the desktop:
-
-```bash
-# 1. Dry-run to see what would be removed
-sudo apt -s remove raspberrypi-sys-mods
-
-# IMPORTANT: If the output lists load-bearing Pi desktop packages like `rpd-*`, 
-# `raspberrypi-ui-mods`, `pi-greeter`, `wf-panel-pi`, or `wayfire`, 
-# DO NOT proceed with removal (it will give you a black screen).
-# If those show up, SKIP to Step 2.4 and let `--force-overwrite` handle it in Step 3.
-
-# 2. If only safe packages are listed, proceed:
-sudo apt remove raspberrypi-sys-mods -y
-
-# 3. Clean up stale diversion
-EXTMGD=$(ls /usr/lib/python3.*/EXTERNALLY-MANAGED 2>/dev/null | head -1)
-if [ -n "$EXTMGD" ]; then
-  sudo rm -f "$EXTMGD"
-  sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename "$EXTMGD" 2>/dev/null
-fi
-```
-
-### 2.4 - (Trixie path only) Add Kali rolling and pin it
-
-Pinning Kali as the primary repo **before** the first big upgrade prevents the dependency-mismatch storm. We use a **NARROW pin** to grab tools while explicitly protecting Pi desktop libraries (`libfm`, `lxpanel`) from ABI-breaking Kali upgrades.
-
-```bash
-# Add Kali rolling repo
-echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" \
-  | sudo tee /etc/apt/sources.list.d/kali.list
-
-# Import the Kali signing key
-curl -fsSL https://archive.kali.org/archive-key.asc \
-  | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
-
-# 1. NARROW Kali pin (only Kali tools, block Kali system libs)
-sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
-Package: kali-* metasploit-framework
-Pin: release o=Kali
-Pin-Priority: 990
-
-Package: aircrack-ng* bettercap* hydra* nmap responder impacket-* crackmapexec netexec wireshark* burpsuite sqlmap john* hashcat* gobuster ffuf nikto wpscan
-Pin: release o=Kali
-Pin-Priority: 990
-EOF
-
-# 2. Counter-pin: Keep Pi-archive versions of load-bearing desktop libs
-sudo tee /etc/apt/preferences.d/uconsole-keep-pi-libs <<'EOF'
-Package: libfm-data libfm-gtk-data libfm-modules libfm4t64 libfm-extra4t64 libfm-gtk3-4t64
-Pin: release o=Raspberry Pi Foundation
-Pin-Priority: 1001
-
-Package: lxpanel lxpanel-data lxpanel-* libwf-* libwlroots-* wf-panel-pi wayfire
-Pin: release o=Raspberry Pi Foundation
-Pin-Priority: 1001
-
-Package: pcmanfm raspberrypi-ui-mods rpd-* clockworkpi-theme pi-greeter pi-greeter-* labwc-prompt
-Pin: release o=Raspberry Pi Foundation
-Pin-Priority: 1001
-EOF
-
-sudo apt update
-```
-
----
+Do not switch to a generic Labwc session to preempt a hypothetical failure. If the desktop is already broken, use
+[CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) before installing more packages.
 
 ## Step 3: System Update and Initial Configuration
 
-With Step 2 complete, it is now safe to update the system:
+Review the image maintainer's current update guidance. After checking repository configuration, inspect a simulation before considering an upgrade:
 
 ```bash
-# First full system upgrade - Step 2 made this safe
-sudo apt update
-sudo apt full-upgrade -y
-
-# If you see file-ownership collisions, force overwrite once:
-sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
-
-# Basic config
-sudo dpkg-reconfigure tzdata
-passwd
-sudo hostnamectl set-hostname uconsole
-
-sudo reboot
+sudo apt-get update
+apt-get -s upgrade
 ```
 
-> **Note:** Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed.
+These commands refresh indexes and simulate changes; they do not perform a system upgrade. Check proposed changes
+to the kernel, firmware, compositor, display manager and desktop packages. No pin file or forced-overwrite setting
+makes every upgrade safe. The v1.4 setup script skips system upgrades.
 
-After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. 
+Set your timezone with `sudo dpkg-reconfigure tzdata` and update your account password using `passwd` as needed.
 
----
+## Step 4: Security Tools for Your Distribution
 
-## Step 4: Add Kali Tools (Trixie Only)
-
-> **Skip this step on Rex's Kali image - the tools are already installed.**
-
-The Kali repo and pin were added in Step 2.4. Now install the toolkit:
-
-| Meta-Package | What You Get |
-|---|---|
-| `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
-| `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit - everything you'd get from a Kali ISO |
+On Debian, use tools packaged for Debian and the intended image repositories. Do not add Kali sources or install
+Kali metapackages on this host. On a native Kali image, review the selected metapackage and optionally use:
 
 ```bash
-# Pick one
-sudo apt install kali-tools-top10 -y
-# or
-sudo apt install kali-linux-headless -y
-# or
-sudo apt install kali-linux-default -y
-
-# If any file-ownership collisions occur during install:
-sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
-sudo apt full-upgrade -y
+sudo bash ./uconsole-cm5-setup.sh --install-kali-tools
 ```
 
-> **Tip:** Make force-overwrite persistent if you don't want to keep typing it:
-> `echo 'Dpkg::Options { "--force-overwrite"; }' | sudo tee /etc/apt/apt.conf.d/99-force-overwrite`
+This requires the reviewed v1.4 script. Existing v1.3 state must be investigated before continuing; `--reset` is not a rollback.
 
----
+**Steps 5–11 and the boot-overlay reference apply only to fitted AIO hardware.** Confirm the current vendor instructions for your board/image before executing hardware changes. The v1.4 script does not automate these manual boot edits or source installers.
 
 ## Step 5: Install aiov2_ctl (GPIO Control Tool)
 
@@ -375,7 +270,9 @@ The install enables the `aiov2-rails-boot.service` so boot-rail settings persist
 
 **Fix `.pygpsclient` venv ownership (required for `aiov2_ctl --gui`)**
 
-`python3 ./aiov2_ctl.py --install` creates a Python venv at `~/.pygpsclient/` but runs as root, so the venv files are root-owned. The regular user can't launch `--gui` until ownership is corrected and PyQt6 is installed inside the venv:
+`python3 ./aiov2_ctl.py --install` creates a Python venv at `~/.pygpsclient/` but runs as root, so the venv files
+are root-owned. The regular user can't launch `--gui` until ownership is corrected and PyQt6 is installed inside
+the venv:
 
 ```bash
 # Fix ownership so your regular user owns the venv
@@ -394,34 +291,22 @@ aiov2_ctl --status
 
 ## Step 6: Install the AIO v2 Board Package
 
-The `hackergadgets-uconsole-aio-board` package does the heavy lifting: SDR++, tar1090, PyGPSClient, Meshtasticd, the OpenSUSE Meshtastic APT repo, RTC service, and desktop menu entries.
+Only for a physically installed, supported HackerGadgets AIO board. Check the [current Rex package
+instructions](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875) and inspect the proposed
+installation:
 
 ```bash
-# 1. Ensure pcmanfm-pi exists for Rex's labwc autostart (Trixie workaround)
-if [ ! -e /usr/bin/pcmanfm-pi ] && [ -x /usr/bin/pcmanfm ]; then
-  sudo ln -sf /usr/bin/pcmanfm /usr/bin/pcmanfm-pi
-fi
-
-# 2. Inject legacy dependencies for Meshtasticd if missing
-wget -q -O /tmp/libgpiod2.deb http://ftp.us.debian.org/debian/pool/main/libg/libgpiod/libgpiod2_1.6.3-1+b3_arm64.deb
-wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/yaml-cpp/libyaml-cpp0.7_0.7.0+dfsg-8+b1_arm64.deb
-sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
-
-# 3. Power on SDR LIVE so readsb/tar1090 detect it during installation
-aiov2_ctl --sdr on
-sleep 3
-
-# 4. Install the AIO ecosystem and Web UI
-sudo apt update
-sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y
-sudo apt install meshtastic-mui -y
-
-# 5. Install backend decoders explicitly to ensure aircraft.json generation
-sudo bash -c "$(wget -q -O - https://github.com/wiedehopf/adsb-scripts/raw/master/readsb-install.sh)"
-sudo bash -c "$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)"
-
-sudo reboot
+sudo apt-get update
+apt-get -s --no-remove --install-recommends install hackergadgets-uconsole-aio-board
 ```
+
+If the repository/package is unavailable or dependencies conflict, stop and resolve the image compatibility
+problem. Do not inject Bookworm libraries, purge/retry automatically, force file overwrites, or create a
+`pcmanfm-pi` symlink as a desktop workaround.
+
+The reviewed v1.4 script's `--with-aio` option installs this package through APT. Package maintainer scripts can
+still change configuration; `--no-remove` does not prevent that. Back up first and test the desktop afterward.
+Follow upstream instructions separately for optional controller, Meshtastic and ADS-B features.
 
 ---
 
@@ -656,10 +541,14 @@ dtparam=pciex1=on
 ## Troubleshooting
 
 ### CM5 lite SD card boot fails
-CM5 lite modules shipped with older EEPROMs may fail to boot from the SD card. You likely need an EEPROM update (firmware must be newer than `2025-01-06`). Check the ClockworkPi forums for CM5 recovery/flashing guides.
+CM5 lite modules shipped with older EEPROMs may fail to boot from the SD card. You likely need an EEPROM update
+(firmware must be newer than `2025-01-06`). Check the ClockworkPi forums for CM5 recovery/flashing guides.
 
 ### "Failed to start session" at LightDM login
-See Step 2.2. If you skipped pre-flight hardening, you'll need to drop to a TTY (`Ctrl+Alt+F2`), install `labwc` / `lightdm-gtk-greeter`, and modify `/etc/lightdm/lightdm.conf` manually.
+
+Use [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) to identify the selected session, package changes and startup
+errors. Restore the matching image configuration; do not assume generic Labwc, a forced package version, or
+suppressing an authentication agent is a universal fix.
 
 ### GPS shows no data on `/dev/ttyAMA0`
 * Confirm `dtparam=uart0` is in `/boot/firmware/config.txt` and you've rebooted.
@@ -672,7 +561,10 @@ See Step 2.2. If you skipped pre-flight hardening, you'll need to drop to a TTY 
 * Check LoRa power rail: `aiov2_ctl LORA on`.
 
 ### `libfm` ABI Mismatch (symbol lookup error)
-If opening pcmanfm or lxpanel yields `symbol lookup error: undefined symbol: fm_cell_renderer_pixbuf_get_scale`, Kali's `libfm` packages have overwritten the Pi-specific ones. Re-apply the counter-pin in Step 2.4 and `sudo apt update && sudo apt install --reinstall libfm-modules lxpanel pcmanfm`.
+
+Use [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) to identify the selected session, package changes and startup
+errors. Restore the matching image configuration; do not assume generic Labwc, a forced package version, or
+suppressing an authentication agent is a universal fix.
 
 ### `aiov2_ctl --gui` fails: "PyQt6 is not installed"
 
@@ -706,19 +598,9 @@ sudo reboot
 
 ### GDBus error: polkit-mate agent conflict on Labwc
 
-Symptom: `GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: An authentication agent already exists for the given subject` in journalctl at login.
-
-Kali metapackages install `polkit-mate-authentication-agent-1`, which conflicts with `lxpolkit` on Labwc. Suppress it with an XDG per-user override:
-
-```bash
-mkdir -p ~/.config/autostart
-cp /etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop ~/.config/autostart/
-echo "Hidden=true" >> ~/.config/autostart/polkit-mate-authentication-agent-1.desktop
-```
-
-Log out and back in to confirm the error is gone.
-
----
+Use [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) to identify the selected session, package changes and startup
+errors. Restore the matching image configuration; do not assume generic Labwc, a forced package version, or
+suppressing an authentication agent is a universal fix.
 
 ## Resources and Links
 
