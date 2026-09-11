@@ -1,4 +1,3 @@
-
 # 🔄 ETL & ELT Pipeline Design
 
 <div align="center">
@@ -7,7 +6,7 @@
 
 *Extract-Transform-Load vs Extract-Load-Transform • Watermarks • Merge • Replay • Proof of completeness*
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Foundations](https://img.shields.io/badge/Level-Foundations-blue?style=for-the-badge)
 ![Patterns](https://img.shields.io/badge/Patterns-ETL_%7C_ELT-darkgreen?style=for-the-badge)
@@ -106,7 +105,7 @@ With ETL, it requires going back to the source — which may have already aged o
 
 ### 📘 Where ETL remains correct
 
-- **Sensitive fields must never land.** Masking or dropping personal data, credentials, or regulated fields before they touch the destination is a control that ELT cannot provide after the fact. See the governance considerations in [Applied Cryptography](../Cryptography/applied-crypto.md).
+- **Sensitive fields must never land.** Masking or dropping personal data, credentials, or regulated fields before they touch the destination is a control that ELT cannot provide after the fact. See the governance considerations in [Applied Cryptography](../../Cryptography/applied-crypto.md).
 - **The source is the bottleneck.** A rate-limited API or a production database under load should be read once, not repeatedly.
 - **The destination cannot transform.** Object storage and message brokers have no compute.
 - **Volume reduction is enormous.** Aggregating a billion raw events into a thousand summary rows before landing is legitimate — provided the raw is retained somewhere.
@@ -571,7 +570,7 @@ SELECT MAX(source_updated_at) AS newest_record,
 FROM dw_assets;
 ```
 
-A pipeline that runs successfully every fifteen minutes against a source that stopped producing three days ago has a perfect run history and stale data. Freshness monitoring is what separates "the job ran" from "the data is current" — and it is the metric most commonly missing when a pipeline fails silently. See [Log Aggregation & Visibility](../IncidentResponse/log_agg.md) for shipping these signals somewhere they will be seen.
+A pipeline that runs successfully every fifteen minutes against a source that stopped producing three days ago has a perfect run history and stale data. Freshness monitoring is what separates "the job ran" from "the data is current" — and it is the metric most commonly missing when a pipeline fails silently. See [Log Aggregation & Visibility](../../IncidentResponse/log_agg.md) for shipping these signals somewhere they will be seen.
 
 ---
 
@@ -646,7 +645,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Batch identifiers 
 3. Include the reconciliation query alongside any new load pattern.
 4. Use synthetic sources so examples run without external systems.
 5. Report the actual output observed, including failure paths.
-6. Update the [section index](./README.md) when adding a guide.
+6. Update the [section index](../README.md) when adding a guide.
 
 ---
 
@@ -667,14 +666,14 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Batch identifiers 
 
 ## 🔗 Quick Links & Related Guides
 
-- [🗄️ Data Engineering Section Index](./README.md)
+- [🗄️ Data Engineering Section Index](../README.md)
 - [🧱 Data Engineering Fundamentals](./data_engineering_fundamentals.md)
 - [🐍 Python for Data Processing](./python_data_processing.md)
 - [🗃️ SQL & Data Modeling](./sql_data_modeling.md)
 - [✅ Data Quality & Schema Contracts](./data_quality_schema_contracts.md)
-- [🛡️ Secure Data Pipelines](./data_pipelines.md)
-- [📊 Log Aggregation & Visibility](../IncidentResponse/log_agg.md)
-- [📖 Repository Glossary](../GLOSSARY.md)
+- [🛡️ Secure Data Pipelines](../data_pipelines.md)
+- [📊 Log Aggregation & Visibility](../../IncidentResponse/log_agg.md)
+- [📖 Repository Glossary](../../GLOSSARY.md)
 
 ---
 
@@ -688,7 +687,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Batch identifiers 
 | 🧰 Core Technologies | Python standard library, SQLite |
 | 📘 Format | Reference guide with a fully executed incremental pipeline lab |
 | 🧪 Validation Status | Full cycle executed including backfill and mismatch detection; limitations documented above |
-| 📁 Location | `Data-Engineering/etl_elt_pipeline_design.md` |
+| 📁 Location | `Data-Engineering/Phase1/etl_elt_pipeline_design.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
@@ -703,7 +702,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Batch identifiers 
 
 **Pacific Northwest Computers:** [PNWC on GitHub](https://github.com/Pnwcomputers)
 
-[🏠 Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../LEGAL.md)
+[🏠 Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../../LEGAL.md)
 
 ⭐ **Star the repository if you find it useful!** ⭐
 
