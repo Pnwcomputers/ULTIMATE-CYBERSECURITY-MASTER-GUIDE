@@ -1,91 +1,105 @@
-# The Practical PF Firewall Guide
+# 🔥 OpenBSD PF Firewall — The Practical Guide
 
-*A hands-on path to mastering OpenBSD's Packet Filter (with FreeBSD notes throughout)*
+<div align="center">
 
-> **Status:** Technical claims in this guide were verified against the OpenBSD manual
-> pages (`man.openbsd.org`) and the official [OpenBSD PF FAQ](https://www.openbsd.org/faq/pf/).
-> Firewall syntax still changes across releases — treat the man pages on *your* box as the
-> final authority, and validate every ruleset with `pfctl -nf` before loading it.
+**Rulesets, NAT, DMZs, bridges, wireless, high availability, adaptive defense, traffic shaping, and NetFlow monitoring — end to end**
 
----
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-## How to use this guide
+![Domain](https://img.shields.io/badge/Domain-Network_Defense-blue?style=for-the-badge)
+![Packet Filter](https://img.shields.io/badge/Tool-PF_Packet_Filter-orange?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-OpenBSD_%7C_FreeBSD-red?style=for-the-badge)
+![Verified](https://img.shields.io/badge/Sources-Man_Pages_Verified-brightgreen?style=for-the-badge)
 
-This is a learning guide, not just a cheat sheet. Each section builds on the last:
-fundamentals first, then progressively harder network scenarios, then the "grown-up"
-subsystems (HA, adaptive defense, shaping, monitoring). Every example is a pattern you
-can adapt, not a drop-in production config — read it, understand *why* each line is there,
-then rewrite it for your topology.
-
-### Version target and the big syntax changes
-
-All PF syntax here targets **modern OpenBSD (6.x / 7.x)**. PF's syntax has changed in
-breaking ways across releases, and old configs from the internet frequently won't load:
-
-- **OpenBSD 4.6** changed traffic normalization: standalone `scrub` rules became a `match`
-  action, e.g. `match in all scrub (...)`.
-- **OpenBSD 4.7** (2010) folded NAT into the main ruleset — `nat-to` / `rdr-to` / `binat-to`
-  replaced the old separate `nat` / `rdr` / `binat` sections.
-- **OpenBSD 5.5** (2014) introduced the new `queue` / `prio` traffic-shaping system and
-  **deprecated ALTQ** (still usable that release via the `oldqueue` keyword).
-- **OpenBSD 5.6** (2014) **removed ALTQ entirely.** From 5.6 on, OpenBSD has only the new
-  queueing system.
-- **OpenBSD 6.3** (2018) added `set syncookies` (adaptive SYN-flood protection).
-- **FreeBSD's** PF is a fork of an older OpenBSD PF: it still uses **ALTQ**, adds **Dummynet**,
-  does **not** understand `match … scrub` (uses standalone `scrub`), and differs on a few
-  keywords. FreeBSD differences are flagged inline throughout.
-
-> **Golden rule:** the authoritative reference for *your* box is always the man pages on
-> *your* box — `man pf.conf`, `man pf`, `man pfctl`, `man carp`, `man authpf`, `man spamd`,
-> `man relayd.conf`, `man pflow`. When in doubt, `man` beats any blog (including this one).
+</div>
 
 ---
 
-## Table of contents
+## 🎯 Purpose
+A hands-on, build-it-yourself reference for OpenBSD's Packet Filter (PF) — the tool that turns a BSD box into a stateful firewall, NAT gateway, load balancer, and network sensor. Covers IPv4 **and** IPv6 across LANs, NAT, DMZs, bridges, and routed networks, with FreeBSD differences flagged throughout.
 
-1. [Mental model: how PF reads a ruleset](#1-mental-model)
-2. [Ruleset fundamentals (v4 + v6)](#2-ruleset-fundamentals)
-3. [Real network scenarios: LAN, NAT, DMZ, bridges, routed nets](#3-network-scenarios)
-4. [Wireless APs, authpf, and per-user access control](#4-wireless-and-authpf)
-5. [High availability: CARP, pfsync, relayd, redirection](#5-high-availability)
-6. [Adaptive defense: brute-force tables and spamd](#6-adaptive-defense)
-7. [Traffic shaping: OpenBSD queues/prio, FreeBSD ALTQ + Dummynet](#7-traffic-shaping)
-8. [Monitoring and visualization, including NetFlow](#8-monitoring)
-9. [Workflow, testing, and where to go next](#9-workflow)
-10. [References](#10-references)
+## ⚙️ Function
+Walks from the PF evaluation model up through progressively harder deployments: baseline rulesets, multi-interface gateways, wireless APs with `authpf`, redundancy via CARP/pfsync/relayd, adaptive brute-force and spam defense, the modern queue/`prio` traffic shaper, and native NetFlow/IPFIX export with `pflow`.
+
+## 🏆 Goal
+Enable an operator to reason about a ruleset rather than copy-paste one — to design a redundant, self-defending, observable network edge and understand *why* every line is there.
+
+## 📋 When to Use
+- Standing up a new OpenBSD/FreeBSD firewall, NAT gateway, or DMZ segment from scratch
+- Adding high availability (CARP + pfsync) or load balancing (relayd) to an existing edge
+- Building adaptive defenses against brute-force, floods, or spam
+- Shaping traffic to kill bufferbloat, or wiring the firewall into a SIEM via NetFlow/IPFIX
+- Learning PF properly in a lab before touching production
 
 ---
 
-## 1. Mental model {#1-mental-model}
+## 📋 Table of Contents
 
-Before writing a single rule, internalize how PF evaluates traffic. Most PF confusion is
-really confusion about evaluation order.
+- [Overview](#-overview)
+- [The Mental Model](#-the-mental-model)
+- [Ruleset Fundamentals](#-ruleset-fundamentals)
+- [Network Scenarios](#-network-scenarios)
+- [Wireless & authpf](#-wireless--authpf)
+- [High Availability](#-high-availability)
+- [Adaptive Defense](#-adaptive-defense)
+- [Traffic Shaping](#-traffic-shaping)
+- [Monitoring & Visualization](#-monitoring--visualization)
+- [Workflow & Testing](#-workflow--testing)
+- [⚠️ CRITICAL Operational & Legal Warning](#️-critical-operational--legal-warning)
+- [Contributing](#-contributing)
+- [References & Resources](#-references--resources)
 
-### The processing model
+---
+
+## 🎯 Overview
+
+PF is the OpenBSD packet filter: a single, readable `/etc/pf.conf` drives stateful filtering, NAT, redirection, queueing, and normalization. This guide targets **modern OpenBSD (6.x / 7.x)** and calls out FreeBSD's forked PF inline.
+
+> **Status:** Technical claims here were verified against the OpenBSD manual pages (`man.openbsd.org`) and the official [OpenBSD PF FAQ](https://www.openbsd.org/faq/pf/). PF syntax still drifts between releases — treat the man pages on *your* box as the final authority, and validate every ruleset with `pfctl -nf` before loading it.
+
+### 🧭 Version & Syntax Timeline
+
+PF has had breaking syntax changes; configs from old blog posts frequently won't load. Know which era you're in:
+
+| Release | Change | Impact |
+|---------|--------|--------|
+| **OpenBSD 4.6** | `scrub` became a `match` action | `match in all scrub (...)`; standalone `scrub` rules removed |
+| **OpenBSD 4.7** (2010) | NAT folded into the main ruleset | `nat-to` / `rdr-to` / `binat-to` replace separate `nat`/`rdr`/`binat` sections |
+| **OpenBSD 5.5** (2014) | New `queue` / `prio` shaper introduced | ALTQ deprecated (still usable that release via `oldqueue`) |
+| **OpenBSD 5.6** (2014) | **ALTQ removed entirely** | Only the new queueing system remains on OpenBSD |
+| **OpenBSD 6.3** (2018) | `set syncookies` added | Adaptive SYN-flood protection |
+| **FreeBSD PF** | Fork of older OpenBSD PF | Keeps **ALTQ**, adds **Dummynet**, no `match … scrub`, differing keywords |
+
+> **Golden rule:** the authoritative reference for *your* box is the man pages on *your* box — `man pf.conf`, `man pf`, `man pfctl`, `man carp`, `man authpf`, `man spamd`, `man relayd.conf`, `man pflow`. `man` beats any blog (including this one).
+
+---
+
+## 🧠 The Mental Model
+
+Most PF confusion is really confusion about evaluation order. Internalize this before writing a rule.
+
+### 🔄 The Processing Model
 
 - PF reads `/etc/pf.conf` top to bottom for **every** packet.
-- **Last matching rule wins** — unless a rule uses `quick`, in which case evaluation stops
-  there immediately. This is the single most important sentence in this guide. Put your
-  broad default-deny near the top and specific `pass` rules below it, *or* use `quick` on
-  specific rules — but don't mix the two mental models carelessly.
-- Rules come in three verbs:
-  - `block` — drop or reject the packet.
-  - `pass` — allow it (and, by default, **create state** — see §2).
-  - `match` — don't decide pass/block, but *do* apply actions (NAT, queueing, scrub, marking)
-    to matching packets.
+- **Last matching rule wins** — unless a rule uses `quick`, which stops evaluation immediately. This is the single most important sentence in this guide.
+- Three verbs:
 
-### block-policy: drop vs return
+| Verb | Meaning |
+|------|---------|
+| `block` | Drop or reject the packet |
+| `pass` | Allow it (and, by default, **create state** — see fundamentals) |
+| `match` | Don't decide pass/block, but apply actions (NAT, queueing, scrub, marking) |
+
+### 🚦 block-policy: drop vs return
 
 ```pf
 set block-policy drop      # silently discard (stealthy; sender sees a timeout)
 # set block-policy return  # actively reject (RST for TCP, ICMP unreachable otherwise)
 ```
 
-`drop` is stealthier; `return` is friendlier to your own hosts (no waiting on timeouts for
-services you intentionally refuse internally). A common approach: `drop` globally, override
-with `block return` on internal rules.
+`drop` is stealthier; `return` is friendlier to your own hosts. A common approach: `drop` globally, override with `block return` on internal rules.
 
-### Enabling and driving PF
+### 🛠️ Enabling and Driving PF
 
 ```sh
 # OpenBSD: PF is on by default. Ruleset path is set in rc.conf(8): pf_rules=/etc/pf.conf
@@ -101,23 +115,19 @@ pfctl -si                # show global info/counters
 pfctl -sa                # show (almost) everything
 ```
 
-> **Remote-admin safety:** never `pfctl -f` a ruleset you haven't `-nf`-checked, and when
-> working on a remote firewall, arrange an auto-revert so a mistake can't lock you out. A
-> crude but effective net:
+> **🔒 Remote-admin safety:** never `pfctl -f` a ruleset you haven't `-nf`-checked, and when working remotely, arrange an auto-revert so a mistake can't lock you out:
 > ```sh
 > pfctl -f /etc/pf.conf && sleep 60 && pfctl -f /etc/pf.conf.known-good
 > ```
-> Better: a cron/at job that reloads the last-known-good ruleset in N minutes unless you
-> cancel it. Locking yourself out of a firewall you can't physically reach is a rite of
-> passage you can skip.
+> Better still: a cron/at job that reloads the last-known-good ruleset in N minutes unless you cancel it.
 
 ---
 
-## 2. Ruleset fundamentals {#2-ruleset-fundamentals}
+## 🧱 Ruleset Fundamentals
 
-### Macros, lists, and tables
+### 📦 Macros, Lists, and Tables
 
-**Macros** are variables — use them so a re-IP or interface swap is a one-line change:
+**Macros** are variables — so a re-IP or interface swap is a one-line change:
 
 ```pf
 ext_if = "em0"
@@ -126,15 +136,13 @@ int_net = "10.0.0.0/24"
 tcp_services = "{ ssh, http, https }"
 ```
 
-**Lists** (`{ ... }`) get expanded by PF into multiple rules automatically:
+**Lists** (`{ ... }`) expand into multiple rules automatically:
 
 ```pf
 pass in on $ext_if proto tcp to port $tcp_services   # expands to 3 rules
 ```
 
-**Tables** are the workhorse for large or dynamic address sets. They're hashed (fast even
-with thousands of entries) and can be modified live without reloading the whole ruleset —
-which is exactly why adaptive defense (§6) leans on them.
+**Tables** are the workhorse for large or dynamic address sets — hashed (fast at thousands of entries) and modifiable live without a full reload, which is why adaptive defense leans on them:
 
 ```pf
 table <bruteforce> persist                                # empty, survives reloads
@@ -149,39 +157,34 @@ pfctl -t bruteforce -T delete 1.2.3.4 # remove live
 pfctl -t bruteforce -T expire 86400   # drop entries idle > 1 day (cron this!)
 ```
 
-### Normalization (scrub) and antispoof
+### 🧼 Normalization (scrub) and antispoof
 
-**Scrub** reassembles fragments and sanitizes packets. On modern OpenBSD it's a `match`
-action, not a standalone rule:
+Scrub reassembles fragments and sanitizes packets. On modern OpenBSD it's a `match` action:
 
 ```pf
 match in all scrub (no-df random-id max-mss 1440)
 ```
 
-> **FreeBSD difference:** FreeBSD PF does **not** understand `match … scrub`. Use the older
-> standalone form: `scrub in all no-df random-id max-mss 1440`
+> **⚙️ FreeBSD difference:** FreeBSD PF does **not** understand `match … scrub`. Use the standalone form: `scrub in all no-df random-id max-mss 1440`
 
-**antispoof** auto-generates rules that drop packets claiming to come from a network on the
-wrong interface (a basic spoofing defense):
+`antispoof` auto-generates rules dropping packets that claim a network on the wrong interface:
 
 ```pf
 antispoof quick for { lo $int_if }
 ```
 
-### Stateful filtering — the default that saves you
+### 🔗 Stateful Filtering — the Default That Saves You
 
-When a `pass` rule matches, PF creates a **state entry**, and the return traffic for that
-connection is allowed automatically. You almost never write rules for reply traffic. Keeping
-state is the default; you can tune it:
+A matching `pass` rule creates a **state entry**, and reply traffic is allowed automatically — you almost never write rules for return traffic. Keeping state is the default; tune it:
 
 ```pf
 pass in on $ext_if proto tcp to port 22 \
     keep state (max-src-conn 15, max-src-conn-rate 5/3)
 ```
 
-### A complete single-host baseline
+### 🧩 A Complete Single-Host Baseline
 
-A sane starting ruleset for one machine (a server or workstation). Read every line.
+A sane starting ruleset for one machine. Read every line.
 
 ```pf
 # ---------- macros ----------
@@ -221,28 +224,19 @@ pass in on $ext_if proto tcp to port 22 \
     overload <bruteforce> flush global)
 ```
 
-> **Critical IPv6 note:** IPv6 *depends* on ICMPv6 to function — Neighbor Discovery replaces
-> ARP, and Path MTU Discovery relies on "packet too big" messages. If you blanket-block
-> ICMPv6 the way people historically blocked ICMP on v4, IPv6 will break in confusing,
-> intermittent ways. Always explicitly pass neighbor solicitation/advertisement and
-> unreachables on any interface carrying v6.
+> **🚨 Critical IPv6 note:** IPv6 *depends* on ICMPv6 — Neighbor Discovery replaces ARP, and Path MTU Discovery relies on "packet too big" messages. Blanket-blocking ICMPv6 the way people historically blocked ICMP on v4 breaks IPv6 in confusing, intermittent ways. Always pass neighbor solicitation/advertisement and unreachables on any v6 interface.
 
-### Dual-stack discipline
+### ⚖️ Dual-Stack Discipline
 
-Write v4 and v6 rules deliberately. `inet` = IPv4, `inet6` = IPv6; a rule with neither
-keyword applies to both. Being explicit prevents "I only firewalled half my stack" bugs — a
-very common way a host ends up locked down on v4 but wide open on v6.
+`inet` = IPv4, `inet6` = IPv6; a rule with neither applies to both. Be explicit to avoid the classic "tight on v4, wide open on v6" failure.
 
 ---
 
-## 3. Network scenarios {#3-network-scenarios}
+## 🌐 Network Scenarios
 
-Now the box becomes a **gateway/firewall** with multiple interfaces. The `egress` keyword is
-your friend: it means "whichever interface holds the default route," so rules survive an
-uplink change. (This whole section mirrors the official OpenBSD PF FAQ "Building a Router"
-example, which is worth reading alongside it.)
+The box becomes a **gateway/firewall** with multiple interfaces. The `egress` keyword means "whichever interface holds the default route," so rules survive an uplink change. This section mirrors the official PF FAQ "Building a Router" example.
 
-### 3a. IPv4 NAT (hiding a LAN)
+### 🔀 IPv4 NAT (Hiding a LAN)
 
 ```pf
 ext_if = "em0"          # WAN
@@ -256,19 +250,12 @@ pass out quick on egress inet
 pass in  on $int_if inet from $int_net to any     # let the LAN out
 ```
 
-- `nat-to (egress:0)` uses the current primary address of the egress interface — parentheses
-  make it re-evaluate if the IP changes (DHCP WAN). The `:0` avoids alias addresses.
-- Because NAT is part of the ruleset, order matters: a `match … nat-to` applies the
-  translation, then a later `pass` still has to allow the packet.
-- The FAQ's equivalent one-liner, `match out on egress inet from !(egress:network) to any
-  nat-to (egress:0)`, translates everything that isn't already on the egress network.
+- `nat-to (egress:0)` uses the egress interface's current primary address; parentheses re-evaluate it if the IP changes (DHCP WAN), and `:0` avoids alias addresses.
+- NAT is part of the ruleset, so order matters: `match … nat-to` applies translation, then a later `pass` must still allow the packet.
 
-> **FreeBSD:** same `nat-to` syntax on modern FreeBSD PF. Very old docs show the legacy
-> `nat on $ext_if from $int_net to any -> ($ext_if)` form.
+> **⚙️ FreeBSD:** same `nat-to` syntax. Very old docs show the legacy `nat on $ext_if … -> ($ext_if)` form.
 
-### 3b. Port forwarding / inbound redirection (rdr-to)
-
-Expose an internal web server and an SSH host to the world:
+### ↪️ Port Forwarding / Inbound Redirection (rdr-to)
 
 ```pf
 webserver = "10.0.0.10"
@@ -278,13 +265,11 @@ pass in on egress inet proto tcp to (egress) port { 80, 443 } rdr-to $webserver
 pass in on egress inet proto tcp to (egress) port 2222 rdr-to $sshhost port 22
 ```
 
-The redirect and the filter decision are the same rule now. If you split translation and
-filtering, remember PF filters on the **translated** (post-rdr) address for inbound.
+Redirect and filter decision are the same rule now. If you split them, PF filters on the **translated** (post-rdr) address for inbound.
 
-### 3c. IPv6 — no NAT, just routing + filtering
+### 🌍 IPv6 — No NAT, Just Routing + Filtering
 
-IPv6 hosts get globally routable addresses; the firewall **routes** rather than translates.
-Your job is filtering, not hiding.
+IPv6 hosts get globally routable addresses; the firewall **routes** rather than translates. Your job is filtering, not hiding.
 
 ```pf
 int6_net = "2001:db8:10::/64"
@@ -295,19 +280,16 @@ pass in  on $int_if inet6 from $int6_net to any
 # Inbound to a specific v6 service host - reachable directly, so filter tightly:
 pass in on egress inet6 proto tcp to 2001:db8:10::10 port { 80, 443 }
 
-# ICMPv6 essentials on BOTH sides (see the v6 warning in section 2)
+# ICMPv6 essentials on BOTH sides (see the v6 warning above)
 pass inet6 proto icmp6 icmp6-type { echoreq, unreach, timex, paramprob, \
     neighbrsol, neighbradv, routersol, routeradv, toobig }
 ```
 
-If you genuinely need to translate v6 (e.g. renumber avoidance), OpenBSD supports **NPTv6**
-via `binat-to` on the prefix — but reach for it rarely; NAT is not a security feature and v6
-is designed to avoid it.
+Need to translate v6 (renumber avoidance)? OpenBSD supports **NPTv6** via `binat-to` on the prefix — but reach for it rarely.
 
-### 3d. A DMZ (three-legged firewall)
+### 🧱 A DMZ (Three-Legged Firewall)
 
-Segment public-facing services onto their own interface so a compromise there can't pivot
-into the LAN.
+Segment public-facing services onto their own interface so a compromise there can't pivot into the LAN.
 
 ```pf
 ext_if = "em0"           # WAN
@@ -330,15 +312,11 @@ pass in on $dmz_if inet from 10.0.2.0/24 to !10.0.0.0/24
 block quick on $dmz_if from 10.0.2.0/24 to 10.0.0.0/24   # belt-and-suspenders
 ```
 
-The mental model: **the DMZ is untrusted.** Traffic flows Internet→DMZ and DMZ→Internet, but
-DMZ→LAN is denied. If the LAN needs a DMZ service (e.g. internal users hitting the web app),
-allow that *specific* flow explicitly.
+**Model:** the DMZ is untrusted. Traffic flows Internet→DMZ and DMZ→Internet, but DMZ→LAN is denied. If the LAN needs a DMZ service, allow that *specific* flow explicitly.
 
-### 3e. Filtering bridges (transparent / layer-2 firewall)
+### 🌉 Filtering Bridges (Transparent / Layer-2 Firewall)
 
-A bridge firewall passes traffic between segments with **no IP of its own on the data path** —
-invisible to the hosts, which keep their addresses. Great for dropping a firewall in front of
-an existing segment without re-IPing anything.
+A bridge firewall passes traffic between segments with **no IP on the data path** — invisible to hosts, which keep their addresses. Great for inserting a firewall in front of a segment without re-IPing anything.
 
 ```sh
 # OpenBSD: create the bridge (e.g. /etc/hostname.bridge0)
@@ -354,23 +332,13 @@ pass on em1 inet proto tcp to port { 80, 443 }
 pass on em2 inet proto tcp to port { 80, 443 }
 ```
 
-Notes:
-- On a bridge there's no NAT and no routing — you're filtering frames as they cross.
-- OpenBSD provides `bridge(4)`; newer OpenBSD also has `veb(4)`/`vport(4)` for VLAN-aware
-  bridging.
-- **FreeBSD** does transparent bridging via `if_bridge` and requires
-  `net.link.bridge.pfil_bridge=1` (sysctl) for PF to see bridged frames.
+- No NAT, no routing — you filter frames as they cross.
+- OpenBSD provides `bridge(4)`; newer OpenBSD also has `veb(4)`/`vport(4)` for VLAN-aware bridging.
+- **⚙️ FreeBSD** uses `if_bridge` and needs `net.link.bridge.pfil_bridge=1` for PF to see bridged frames.
 
-### 3f. Wider / routed networks
+### 🗺️ Wider / Routed Networks
 
-When you're routing between many internal subnets (branch offices, VLANs, VPN tunnels),
-lean on:
-
-- **Tables** for "all internal networks" so one edit covers every subnet.
-- **Interface groups**: tag interfaces (e.g. all VLAN ifs) and match the group name, so
-  `pass on vlans …` covers them all.
-- **Tagging** (`tag` / `tagged`) to carry a decision across rules — mark a packet in one
-  rule, match the mark later, which keeps complex multi-segment logic readable.
+Routing between many internal subnets (branch offices, VLANs, VPN tunnels)? Lean on **tables** ("all internal networks"), **interface groups** (match a tagged group of VLAN ifs), and **tagging** (`tag`/`tagged`) to carry a decision across rules:
 
 ```pf
 table <internal> const { 10.0.0.0/24, 10.0.2.0/24, 10.8.0.0/24 }
@@ -380,12 +348,11 @@ pass out on $ext_if tagged INTERNAL nat-to (egress:0)
 
 ---
 
-## 4. Wireless and authpf {#4-wireless-and-authpf}
+## 📶 Wireless & authpf
 
-### 4a. Standing up an access point on OpenBSD
+### 📡 Standing Up an Access Point on OpenBSD
 
-OpenBSD can run a supported wireless card as an AP in **hostap** mode. Configure it
-persistently in `/etc/hostname.<iface>` (e.g. `/etc/hostname.athn0`):
+OpenBSD can run a supported wireless card as an AP in **hostap** mode. Configure it persistently in `/etc/hostname.<iface>` (e.g. `/etc/hostname.athn0`):
 
 ```sh
 # /etc/hostname.athn0
@@ -399,9 +366,7 @@ inet 10.0.5.1 255.255.255.0
 up
 ```
 
-Then treat that wireless interface as just another (untrusted) firewall leg. Bridge it to a
-wired segment, or route it — routing is cleaner if you want to filter wireless clients
-distinctly:
+Then treat that wireless interface as just another (untrusted) firewall leg — routing it is cleaner than bridging if you want to filter wireless clients distinctly:
 
 ```pf
 wifi_if  = "athn0"
@@ -413,89 +378,68 @@ pass in on $wifi_if inet proto { tcp, udp } to port domain          # DNS
 pass in on $wifi_if inet proto tcp to port { http, https }          # web only, say
 ```
 
-> WPA2-PSK protects the link layer; it does **not** authorize *who* can use the network for
-> what. That's where authpf comes in.
+> WPA2-PSK protects the *link layer*; it does **not** authorize *who* can use the network for what. That's `authpf`.
 
-### 4b. authpf — the authenticating gateway
+### 🔑 authpf — the Authenticating Gateway
 
-`authpf` is a login shell that loads **per-user PF rules** the moment a user authenticates
-(via SSH), and tears them down when they disconnect. Perfect for "the WiFi is locked at the
-link layer, but you get *network* access only after you log in, and only the access your role
-allows." It turns a flat wireless segment into per-user policy.
+`authpf` is a login shell that loads **per-user PF rules** the moment a user authenticates over SSH, and tears them down on disconnect. It turns a flat wireless segment into per-user policy.
 
-**Setup:**
+| Step | Action |
+|------|--------|
+| 1 | Set the account's shell to `/usr/sbin/authpf` (in `/etc/passwd`) |
+| 2 | Create `/etc/authpf/authpf.conf` — may be **empty**, but must exist to enable authpf |
+| 3 | Add `anchor "authpf/*"` to `/etc/pf.conf` where per-user rules get injected |
+| 4 | Write template rules (global or per-user) using the `$user_ip` macro |
 
-1. Give the account `authpf` as its shell:
-   ```sh
-   # /etc/passwd entry ends in:  /usr/sbin/authpf
-   ```
-2. Create `/etc/authpf/authpf.conf` — it may be **empty**, but it must exist to enable authpf.
-3. Add an anchor to `/etc/pf.conf` where per-user rules get injected:
-   ```pf
-   anchor "authpf/*"
-   ```
-4. Write the template rules. Global default in `/etc/authpf/authpf.rules`, or per-user in
-   `/etc/authpf/users/<username>/authpf.rules`. authpf provides the `$user_ip` macro (the
-   address the user logged in from):
+```pf
+# /etc/authpf/users/nathan/authpf.rules
+pass in quick from $user_ip to 10.0.0.0/24        # this user reaches the LAN
+pass in quick from $user_ip to port { http, https }
+```
 
-   ```pf
-   # /etc/authpf/users/nathan/authpf.rules
-   pass in quick from $user_ip to 10.0.0.0/24        # this user reaches the LAN
-   pass in quick from $user_ip to port { http, https }
-   ```
-
-**Flow:** user connects to WiFi → gets an IP but limited/no access → SSHes to the gateway →
-authpf authenticates them and loads their rules into the anchor → access granted for their
-session only → on logout/disconnect, rules vanish. You get authenticated, auditable,
-per-identity firewalling with no client software beyond an SSH client.
+**Flow:** connect to WiFi → get an IP but limited/no access → SSH to the gateway → authpf loads your rules into the anchor → access for your session only → on logout/disconnect, rules vanish. Authenticated, auditable, per-identity firewalling with no client software beyond SSH.
 
 **Lock-down patterns:**
-- Keep the *base* ruleset restrictive (DNS + the authpf gateway only) so an unauthenticated
-  client can do nothing but log in.
-- Use `/etc/authpf/banned/<username>` to instantly refuse a user with a message.
-- Combine with a captive-portal-style splash if you want a browser flow instead of SSH.
+- Keep the *base* ruleset restrictive (DNS + the authpf gateway only) so an unauthenticated client can do nothing but log in.
+- `/etc/authpf/banned/<username>` instantly refuses a user with a message.
+- Combine with a captive-portal splash for a browser flow instead of SSH.
 
 ---
 
-## 5. High availability {#5-high-availability}
+## 🔁 High Availability
 
-The goal: no single firewall is a single point of failure, and connections survive a
-failover without dropping.
+No single firewall should be a single point of failure, and connections should survive failover without dropping.
 
-### 5a. CARP — shared virtual IP failover
+### 🛟 CARP — Shared Virtual IP Failover
 
-**CARP** (Common Address Redundancy Protocol) lets two or more firewalls share a virtual IP.
-One is master; if it dies, a backup takes the IP over in ~seconds. Configure a `carp`
-pseudo-interface per shared address.
+**CARP** (Common Address Redundancy Protocol) lets two or more firewalls share a virtual IP. One is master; if it dies, a backup takes over in ~seconds. Configure a `carp` pseudo-interface per shared address.
 
 ```sh
 # OpenBSD /etc/hostname.carp1 on the MASTER
 #   inet 10.0.0.1 255.255.255.0 vhid 1 carpdev em1 advskew 0 pass sharedsecret
 #
-# On the BACKUP, same line but higher advskew (it advertises "less eager"):
+# On the BACKUP, same line but higher advskew (advertises "less eager"):
 #   inet 10.0.0.1 255.255.255.0 vhid 1 carpdev em1 advskew 100 pass sharedsecret
 ```
 
 ```sh
-# Allow the winner to grab the IP the instant the master weakens:
+# Let the winner grab the IP the instant the master weakens:
 sysctl net.inet.carp.preempt=1
 echo 'net.inet.carp.preempt=1' >> /etc/sysctl.conf     # persist across reboots
 ```
 
-- `vhid` = virtual host ID; must match across the pair and be unique per subnet.
-- `advskew` = advertisement skew; **lower wins.** Master 0, backup 100 (any higher value works).
-- `pass` = shared CARP authentication password.
-- Run a CARP group on **each** interface that needs a floating IP (WAN and LAN both). With
-  `preempt` enabled, if any one physical interface on the master fails, all of that host's
-  carp interfaces demote together so the backup takes over the whole group cleanly.
-- Let CARP advertisements through PF: `pass on { $int_if $ext_if } proto carp`.
+| Parameter | Meaning |
+|-----------|---------|
+| `vhid` | Virtual host ID — must match across the pair, unique per subnet |
+| `advskew` | Advertisement skew — **lower wins**. Master 0, backup 100+ |
+| `pass` | Shared CARP authentication password |
+| `carpdev` | Physical interface the carp device attaches to |
 
-### 5b. pfsync — so failover doesn't drop connections
+Run a CARP group on **each** interface needing a floating IP (WAN and LAN). With `preempt`, if any one physical interface on the master fails, all its carp interfaces demote together so the backup takes the whole group. Let advertisements through PF: `pass on { $int_if $ext_if } proto carp`.
 
-CARP moves the *IP*; **pfsync** moves the *state table*. Without it, every existing
-connection resets on failover (users notice). With it, the backup already knows about live
-connections and picks them up seamlessly. Use a dedicated crossover link between the
-firewalls for sync traffic.
+### 🔄 pfsync — So Failover Doesn't Drop Connections
+
+CARP moves the *IP*; **pfsync** moves the *state table*. Without it, every live connection resets on failover. With it, the backup already knows about live connections and picks them up seamlessly. Use a dedicated crossover link.
 
 ```sh
 # /etc/hostname.pfsync0
@@ -508,26 +452,19 @@ pass on em2 proto pfsync                 # allow sync traffic on the dedicated l
 pass quick on { em0 em1 } proto carp     # allow CARP advertisements
 ```
 
-> Keep pfsync on an isolated, trusted link — it's unauthenticated state data. A dedicated
-> cable (or a locked-down VLAN) between the two boxes is the norm.
+> Keep pfsync on an isolated, trusted link — it's unauthenticated state data.
 
-### 5c. relayd — load balancing, health checks, and layer-7 relaying
+### ⚖️ relayd — Load Balancing, Health Checks, Layer-7 Relaying
 
-`relayd` does three related jobs: **redirects** (fast layer 3/4 load balancing via a PF
-anchor), **relays** (layer-7 proxying with content inspection / TLS), and **health checking**
-of backends so dead servers drop out of rotation automatically.
-
-relayd needs an anchor in `/etc/pf.conf`:
+`relayd` does three jobs: **redirects** (fast L3/4 balancing via a PF anchor), **relays** (L7 proxying with content inspection / TLS), and **health checking** so dead backends drop out of rotation. It needs an anchor in `/etc/pf.conf`:
 
 ```pf
 anchor "relayd/*"
 ```
 
-> **FreeBSD difference:** on FreeBSD the filter section needs `rdr-anchor "relayd/*"` instead
-> of `anchor "relayd/*"`.
+> **⚙️ FreeBSD difference:** on FreeBSD the filter section needs `rdr-anchor "relayd/*"` instead of `anchor "relayd/*"`.
 
-Minimal `/etc/relayd.conf` load-balancing two web backends with an HTTP health check and an
-ICMP fallback (this mirrors the base-system example config):
+Minimal `/etc/relayd.conf` load-balancing two web backends with an HTTP health check and ICMP fallback (mirrors the base-system example):
 
 ```
 web1 = "10.0.2.10"
@@ -543,8 +480,7 @@ redirect "www" {
 }
 ```
 
-A **relay** (layer 7) is what you use when you need TLS termination or header inspection —
-for example, terminate HTTPS and forward cleartext to a local backend:
+A **relay** (layer 7) terminates TLS and forwards cleartext to a local backend:
 
 ```
 relay "tlsproxy" {
@@ -559,13 +495,11 @@ rcctl enable relayd && rcctl start relayd    # OpenBSD service management
 relayctl show hosts                          # watch health-check status live
 ```
 
-Use **redirect** blocks for fast layer-3/4 balancing; use **relay** blocks when you need TLS
-termination, header rewriting, or protocol-aware routing.
+Use **redirect** blocks for fast L3/4 balancing; **relay** blocks when you need TLS termination, header rewriting, or protocol-aware routing.
 
-### 5d. Plain redirection-based balancing (no relayd)
+### 🔁 Plain Redirection-Based Balancing (No relayd)
 
-For simple round-robin without a daemon, PF alone can spread inbound connections across a
-pool using a table:
+Simple round-robin without a daemon, using a table:
 
 ```pf
 table <webpool> persist { 10.0.2.10, 10.0.2.11 }
@@ -573,21 +507,17 @@ pass in on egress proto tcp to (egress) port 80 \
     rdr-to <webpool> round-robin sticky-address
 ```
 
-`sticky-address` keeps a given client pinned to the same backend (helps session affinity).
-No health checking, though — that's relayd's value-add.
+`sticky-address` pins a client to the same backend (session affinity). No health checking, though — that's relayd's value-add.
 
 ---
 
-## 6. Adaptive defense {#6-adaptive-defense}
+## 🛡️ Adaptive Defense
 
-"Adaptive" means the firewall reacts to behavior — an address that misbehaves gets added to a
-penalty table automatically and is dropped going forward. This is stateful defense that
-scales without you babysitting logs.
+"Adaptive" means the firewall reacts to behavior — a misbehaving address is added to a penalty table automatically and dropped going forward. Stateful defense that scales without babysitting logs.
 
-### 6a. Brute-force / flood protection with overload tables
+### 🔨 Brute-Force / Flood Protection with Overload Tables
 
-The pattern: on a service rule, set connection-rate limits; when a source exceeds them, PF
-adds it to a table and `flush global` kills its existing states too.
+Set connection-rate limits on a service rule; a source that exceeds them is tabled and `flush global` kills its existing states too.
 
 ```pf
 table <bruteforce> persist
@@ -598,11 +528,12 @@ pass in on egress proto tcp to port 22 \
     overload <bruteforce> flush global)
 ```
 
-Line by line:
-- `max-src-conn 15` — at most 15 simultaneous connections from one source.
-- `max-src-conn-rate 5/3` — at most 5 new connections per 3 seconds from one source.
-- `overload <bruteforce>` — a source that trips either limit is added to the table.
-- `flush global` — immediately drop *all* of that source's existing states, not just new ones.
+| Clause | Effect |
+|--------|--------|
+| `max-src-conn 15` | At most 15 simultaneous connections from one source |
+| `max-src-conn-rate 5/3` | At most 5 new connections per 3 seconds from one source |
+| `overload <bruteforce>` | A source that trips either limit is added to the table |
+| `flush global` | Immediately drop **all** of that source's existing states, not just new ones |
 
 **Don't let the table grow forever** — expire idle offenders on a schedule:
 
@@ -611,10 +542,9 @@ Line by line:
 0 3 * * *  /sbin/pfctl -t bruteforce -T expire 86400
 ```
 
-Apply the same shape to web (`port { 80, 443 }`), SMTP, etc. Tune the numbers to real traffic
-so you don't table your own busy clients.
+Apply the same shape to web (`port { 80, 443 }`), SMTP, etc. Tune the numbers to real traffic so you don't table your own busy clients.
 
-### 6b. Global state defense knobs
+### 🧯 Global State Defense Knobs
 
 ```pf
 set optimization aggressive        # reap idle states faster under pressure
@@ -622,20 +552,13 @@ set optimization aggressive        # reap idle states faster under pressure
 set syncookies adaptive (start 25%, end 12%)
 ```
 
-`set syncookies adaptive` (OpenBSD 6.3+) is a strong, low-effort SYN-flood mitigation: PF
-starts answering SYNs with syncookies once half-open connections fill the given percentage of
-the state table, and stops when it drops back down — so a flood can't exhaust the state table.
+`set syncookies adaptive` (OpenBSD 6.3+) answers SYNs with syncookies once half-open connections fill the given percentage of the state table, and stops when it drops back — so a flood can't exhaust state.
 
-### 6c. spamd — greylisting and greytrapping for mail
+### 📧 spamd — Greylisting and Greytrapping for Mail
 
-`spamd` is OpenBSD's spam-deferral daemon (unrelated to SpamAssassin's `spamd`). It doesn't
-scan content; it exploits the fact that real mail servers retry and spam engines usually don't
-(**greylisting**), and it can tarpit known-bad senders and auto-trap anyone who mails a bait
-address (**greytrapping**).
+`spamd` is OpenBSD's spam-deferral daemon (unrelated to SpamAssassin's `spamd`). No content scanning — it exploits the fact that real mail servers retry and spam engines usually don't (**greylisting**), and it can tarpit known-bad senders and auto-trap anyone mailing a bait address (**greytrapping**).
 
-**PF side** — send inbound SMTP to spamd, with allow-lists bypassing it. This matches the
-current spamd(8) man page, which uses `divert-to` (an in-place divert that preserves the
-original destination):
+**PF side** — send inbound SMTP to spamd, with allow-lists bypassing it. This matches the current spamd(8) man page, which uses `divert-to` (preserves the original destination):
 
 ```pf
 table <spamd-white> persist
@@ -648,51 +571,34 @@ pass in log on egress proto tcp from <spamd-white> to any port smtp
 pass out log on egress proto tcp to any port smtp
 ```
 
-> Older tutorials (and plenty of running systems) use `rdr-to 127.0.0.1 port spamd` instead
-> of `divert-to`; both work, but `divert-to` is the form the current man page documents.
-> spamd listens on port 8025 by default (the `spamd` service name).
+> Older tutorials (and many running systems) use `rdr-to 127.0.0.1 port spamd` instead of `divert-to`; both work, but `divert-to` is what the current man page documents. spamd listens on port 8025 (the `spamd` service name) by default.
 
 **spamd side** — `/etc/mail/spamd.conf` defines blacklists/allow-lists (cgetent format); then:
 
 ```sh
-spamd-setup            # load/refresh the configured lists (cron this; -b for blacklist-only)
+spamd-setup            # load/refresh lists (cron this; -b for blacklist-only)
 spamdb                 # inspect/manage the greylist + whitelist database
 spamdb -t -a trap@yourdomain.example   # add a greytrap bait address
 ```
 
-How it behaves:
-- Unknown sender → **greylisted**: the first delivery attempt gets a temporary defer; a
-  legitimate server retries and is then allowed (and moves toward `<spamd-white>`). Most spam
-  never retries. (Default greylist expiry is ~4 hours — the point by which most real MTAs
-  have retried.)
-- Known-bad or greytrapped sender → stuttered one byte at a time (tarpit), wasting *their*
-  time.
-- Combine with reputable blacklists in `spamd.conf` for a very effective, low-false-positive
-  front door — with essentially zero content inspection.
+**Behavior:**
+- Unknown sender → **greylisted**: first attempt gets a temporary defer; a legitimate server retries and is allowed (and moves toward `<spamd-white>`). Most spam never retries. (Default greylist expiry ~4 hours.)
+- Known-bad / greytrapped → stuttered one byte at a time (tarpit), wasting *their* time.
+- Combine with reputable blacklists in `spamd.conf` for a low-false-positive front door with zero content inspection.
 
-> spamd is the piece people underuse. For any org still running its own MX, greylisting +
-> greytrapping cuts the junk load dramatically before it ever reaches your real mail filter.
+> 💡 spamd is underused. For any org still running its own MX, greylisting + greytrapping cuts junk load dramatically before it reaches your real mail filter.
 
 ---
 
-## 7. Traffic shaping {#7-traffic-shaping}
+## 🚦 Traffic Shaping
 
-Shaping keeps a link responsive under load — interactive traffic (SSH, VoIP, DNS) stays snappy
-while bulk transfers use the rest. **This is the biggest OpenBSD/FreeBSD divergence in PF**, so
-the two platforms are covered separately.
+Keep a link responsive under load — interactive traffic (SSH, VoIP, DNS) stays snappy while bulk transfers use the rest. **This is the biggest OpenBSD/FreeBSD divergence in PF.**
 
-> **First principle: shape egress, not ingress.** You control the traffic you *send*. You
-> can't directly slow packets already arriving from the Internet — so shape outbound and
-> prioritize ACKs to influence remote senders. Set your root bandwidth slightly **below** your
-> true uplink rate so the queue (not your ISP's buffer) is where congestion is managed. That's
-> what actually defeats bufferbloat.
+> **First principle: shape egress, not ingress.** You control what you *send*; you can't directly slow packets already arriving. Shape outbound and prioritize ACKs to influence remote senders, and set your root bandwidth slightly **below** your true uplink so the queue — not your ISP's buffer — manages congestion. That's what defeats bufferbloat.
 
-### 7a. OpenBSD: the modern `queue` / `prio` system (5.5+, ALTQ removed in 5.6)
+### 🅾️ OpenBSD: the Modern `queue` / `prio` System (5.5+, ALTQ removed in 5.6)
 
-ALTQ is **gone** from OpenBSD as of 5.6. The current system has two mechanisms:
-
-**(1) Simple priority** — `set prio` (0–7, higher = more urgent; the default priority is **3**).
-Cheap and effective for "make ACKs and SSH beat bulk":
+**(1) Simple priority** — `set prio` (0–7, higher = more urgent; **default is 3**):
 
 ```pf
 pass out on egress proto tcp to port 22 set prio 6
@@ -702,13 +608,9 @@ pass out on egress proto tcp to port { 80, 443 } set prio 3
 pass out on egress proto tcp set prio (3, 7)
 ```
 
-> **FreeBSD difference:** FreeBSD's `set prio` is **not** the same feature — there it sets the
-> 802.1p priority bits in VLAN headers, and doesn't behave like OpenBSD's queue prioritization.
-> Don't copy OpenBSD `set prio` lines onto FreeBSD expecting the same effect.
+> **⚙️ FreeBSD difference:** FreeBSD's `set prio` is a *different* feature — it sets 802.1p VLAN priority bits, not OpenBSD-style queue prioritization. Don't copy these lines to FreeBSD expecting the same effect.
 
-**(2) Queues** — hierarchical bandwidth allocation (HFSC under the hood). Define a root queue
-bound to the egress interface's real bandwidth, then children, then assign traffic with
-`set queue`:
+**(2) Queues** — hierarchical bandwidth allocation (HFSC under the hood). Root queue at real interface bandwidth, then children, then assign with `set queue`:
 
 ```pf
 queue rootq on egress bandwidth 100M max 100M
@@ -720,19 +622,11 @@ match out on egress proto tcp to port 22            set queue interac
 match out on egress proto tcp to port { 80, 443 }   set queue web
 ```
 
-You can also assign two subqueues at once to split a service's bulk vs. latency-sensitive
-packets, e.g. `set queue (ssh_bulk, ssh_interactive)`.
+Two-subqueue assignment (e.g. `set queue (ssh_bulk, ssh_interactive)`) splits a service's bulk vs. latency-sensitive packets. Key parameters (pf.conf(5) QUEUEING): `bandwidth`, `min`, `max`, `qlimit`, `burst … for …`, and `flows` + `quantum` for fair per-flow queueing. Suffixes `K`/`M`/`G` = bits/sec.
 
-Key parameters (see pf.conf(5) QUEUEING): `bandwidth` (target share), `min` (guaranteed
-floor), `max` (ceiling), `qlimit` (queue depth), `burst … for …`, and `flows` + `quantum`
-(fair-queue each flow separately — great for sharing a link fairly among many clients).
-Bandwidth suffixes are `K`, `M`, `G` (bits/sec).
+### 🅱️ FreeBSD: ALTQ
 
-### 7b. FreeBSD: ALTQ
-
-FreeBSD PF still ships ALTQ. You declare an `altq` discipline on the interface, then `queue`s,
-then assign with `queue` on pass rules. Disciplines: `cbq`, `priq`, `hfsc`. This requires ALTQ
-support compiled into the kernel (`options ALTQ` plus the discipline, e.g. `options ALTQ_HFSC`).
+FreeBSD PF still ships ALTQ (`cbq`, `priq`, `hfsc`). Requires kernel support (`options ALTQ` + a discipline, e.g. `options ALTQ_HFSC`):
 
 ```pf
 # FreeBSD PF (ALTQ)
@@ -745,40 +639,40 @@ pass out on em0 proto tcp to port 22          queue interac
 pass out on em0 proto tcp to port { 80, 443 } queue web
 ```
 
-Note the differences from OpenBSD: `altq on …`, bandwidth written as `100Mb`, and `queue`
-(not `set queue`) as the assignment keyword. The OpenBSD `queue … parent …` syntax will **not**
-load on FreeBSD.
+Note: `altq on …`, bandwidth as `100Mb`, `queue` (not `set queue`) to assign. The OpenBSD `queue … parent …` syntax will **not** load on FreeBSD.
 
-### 7c. FreeBSD: Dummynet (via pf + dnctl)
+### 🌀 FreeBSD: Dummynet (via pf + dnctl)
 
-Dummynet is FreeBSD's pipe/queue shaper. Modern FreeBSD PF hands traffic to Dummynet pipes
-with `dnpipe` / `dnqueue`, configured out-of-band with `dnctl`:
+Dummynet is FreeBSD's pipe/queue shaper. Modern FreeBSD PF hands traffic to pipes with `dnpipe`/`dnqueue`, configured out-of-band with `dnctl`:
 
 ```sh
-# Define a 20 Mbit pipe with 50ms of induced latency (a hard cap, or WAN emulation for tests)
+# 20 Mbit pipe with 50ms induced latency (hard cap, or WAN emulation for tests)
 dnctl pipe 1 config bw 20Mbit/s delay 50ms
 ```
 
 ```pf
-# FreeBSD pf.conf - send matching traffic into pipe 1
+# FreeBSD pf.conf
 match out on em0 proto tcp to port ftp-data dnpipe 1
 ```
 
-Dummynet shines for **hard rate caps, per-flow queues, and simulating WAN conditions**
-(latency/loss) for testing — a genuinely useful lab tool alongside its production role.
+Dummynet shines for **hard rate caps, per-flow queues, and simulating WAN conditions** (latency/loss).
 
-> **Which do I use?** OpenBSD: `set prio` for quick wins, `queue` when you need real bandwidth
-> guarantees. FreeBSD: ALTQ (especially HFSC) for hierarchical shaping, Dummynet for hard caps
-> and network emulation. Don't apply ALTQ and Dummynet to the same traffic.
+### 🧾 Which Shaper?
+
+| Platform | Quick prioritization | Bandwidth guarantees | Hard caps / WAN emulation |
+|----------|---------------------|----------------------|---------------------------|
+| **OpenBSD** | `set prio` | `queue` (HFSC) | — |
+| **FreeBSD** | — (prio ≠ same) | ALTQ (HFSC) | Dummynet |
+
+> Don't apply ALTQ and Dummynet to the same traffic.
 
 ---
 
-## 8. Monitoring and visualization {#8-monitoring}
+## 👁️ Monitoring & Visualization
 
-You can't defend or tune what you can't see. PF gives you counters, a live state view, a
-dedicated log interface, and native flow export.
+You can't defend or tune what you can't see. PF gives you counters, a live state view, a dedicated log interface, and native flow export.
 
-### 8a. Counters, states, and rule accounting
+### 🔢 Counters, States, and Rule Accounting
 
 ```pf
 # Label rules to get named, per-rule byte/packet counters:
@@ -788,19 +682,17 @@ pass in on egress proto tcp to port 443 label "https-in"
 ```sh
 pfctl -si                 # global stats: state count, searches, inserts, match rate
 pfctl -ss                 # dump the live state table
-pfctl -sl                 # per-label counters (great for "how much traffic per service?")
-pfctl -vsr                # rules WITH their hit counters (find dead or hot rules)
+pfctl -sl                 # per-label counters ("how much traffic per service?")
+pfctl -vsr                # rules WITH hit counters (find dead or hot rules)
 pfctl -vsq                # queues with per-queue bandwidth/packet/byte counters
 pfctl -t bruteforce -Ts   # what's currently in a table
 ```
 
-`label` counters are your cheapest, most durable telemetry — attach them to the rules you
-care about and you have per-service accounting with zero extra tooling.
+`label` counters are your cheapest, most durable telemetry — per-service accounting with zero extra tooling.
 
-### 8b. pflog — logging and live packet capture
+### 🪵 pflog — Logging and Live Packet Capture
 
-`block log` / `pass log` copy matching packets to the **pflog0** pseudo-interface. `pflogd`
-writes them to a pcap; you can also watch live with tcpdump:
+`block log` / `pass log` copy matching packets to the **pflog0** pseudo-interface. `pflogd` writes a pcap; watch live with tcpdump:
 
 ```sh
 tcpdump -n -e -ttt -i pflog0                        # live, all logged packets
@@ -808,10 +700,9 @@ tcpdump -n -e -ttt -i pflog0 'port 22'              # just SSH
 tcpdump -n -r /var/log/pflog                        # read the saved capture
 ```
 
-Because it's real pcap, everything you know about tcpdump/Wireshark filters applies. Tip: use
-`log (to pflog1)` on specific rules to split noisy logging onto a second pflog interface.
+It's real pcap, so all your tcpdump/Wireshark filters apply. Tip: `log (to pflog1)` on noisy rules splits their logging onto a second interface.
 
-### 8c. Live dashboards: systat and pftop
+### 📟 Live Dashboards: systat and pftop
 
 ```sh
 systat states       # live state table, sortable
@@ -820,13 +711,11 @@ systat queues       # live per-queue utilization
 pftop               # top(1)-style live view of states/rules (pkg: pftop)
 ```
 
-`pftop` is the fastest way to answer "what is my firewall doing *right now*, and who's driving
-the traffic."
+`pftop` is the fastest way to answer "what is my firewall doing *right now*, and who's driving the traffic."
 
-### 8d. NetFlow / IPFIX export with pflow(4)
+### 📈 NetFlow / IPFIX Export with pflow(4)
 
-OpenBSD exports flow records natively through the **pflow** pseudo-interface (present since
-OpenBSD 4.5) — no third-party agent needed. Point it at a collector and mark states for export.
+OpenBSD exports flow records natively through the **pflow** pseudo-interface (present since OpenBSD 4.5) — no third-party agent. Point it at a collector and mark states for export.
 
 ```sh
 # /etc/hostname.pflow0
@@ -834,10 +723,8 @@ OpenBSD 4.5) — no third-party agent needed. Point it at a collector and mark s
 #   up
 ```
 
-- `flowdst` = your collector's IP:port; `flowsrc` = the source address the collector sees.
-- `pflowproto` = export format: **`5` (NetFlow v5)** or **`10` (IPFIX)**. Current OpenBSD pflow
-  supports these two. (NetFlow v9 support existed briefly around OpenBSD 5.1 but is not in
-  current pflow — confirm with `man pflow` on your release.)
+- `flowdst` = collector IP:port; `flowsrc` = the source address the collector sees.
+- `pflowproto` = export format: **`5` (NetFlow v5)** or **`10` (IPFIX)**. Current OpenBSD pflow supports these two. (NetFlow v9 existed briefly around 5.1 but is not in current pflow — confirm with `man pflow`.)
 
 Mark which states get exported — globally or per-rule:
 
@@ -846,92 +733,218 @@ set state-defaults pflow                        # export all states, or...
 pass in on egress proto tcp to port 443 keep state (pflow)   # ...just these
 ```
 
-**Collectors / analysis** to point it at:
-- **flowd** (Damien Miller's small, privilege-separated flow collector) — a natural OpenBSD fit.
-- **nfdump / NfSen** — the classic capture + web-visualization stack.
-- Modern pipelines: ingest IPFIX into your existing SIEM/observability stack (Elastic,
-  Grafana + a flow source, etc.).
+**Collectors / analysis:**
 
-With flows going to a collector you get per-talker bandwidth, top-N conversations, and
-historical baselines — exactly what makes "this host is suddenly beaconing outbound" visible.
+| Tool | Role |
+|------|------|
+| **flowd** | Small, privilege-separated flow collector — a natural OpenBSD fit |
+| **nfdump / NfSen** | Classic capture + web-visualization stack |
+| **SIEM (Elastic, Grafana + flow source)** | Ingest IPFIX into your existing observability pipeline |
 
-> **FreeBSD difference:** pflow on FreeBSD is provided via a port and is configured with the
-> `pflowctl` utility rather than `ifconfig`
-> (e.g. `pflowctl -s pflow0 src 10.0.0.1 dst 10.0.0.2:9995`, then `pflowctl -s pflow0 proto 10`).
+Flows to a collector give you per-talker bandwidth, top-N conversations, and historical baselines — exactly what makes "this host is suddenly beaconing outbound" visible.
 
-### 8e. Historical graphing: pfstat
+> **⚙️ FreeBSD difference:** pflow there is a port configured with `pflowctl`, not `ifconfig` (e.g. `pflowctl -s pflow0 src 10.0.0.1 dst 10.0.0.2:9995`, then `pflowctl -s pflow0 proto 10`).
 
-`pfstat` (pkg) samples `pfctl` counters over time and renders PNG graphs of pass/block rates,
-state counts, and per-label throughput — a lightweight, PF-native way to get trend lines
-without standing up a full metrics stack.
+### 🖼️ Historical Graphing: pfstat
+
+`pfstat` (pkg) samples `pfctl` counters over time and renders PNG graphs of pass/block rates, state counts, and per-label throughput — a lightweight, PF-native trend view without a full metrics stack.
 
 ---
 
-## 9. Workflow, testing, and where to go next {#9-workflow}
+## 🚀 Workflow & Testing
 
-### A safe editing loop
+### ✅ A Safe Editing Loop
 
-1. Edit `/etc/pf.conf`.
-2. `pfctl -nf /etc/pf.conf` — **parse only.** Never skip this.
-3. `pfctl -f /etc/pf.conf` — load it.
-4. `pfctl -vsr` and `tcpdump -ni pflog0` — confirm it does what you think.
-5. Keep a `/etc/pf.conf.known-good` and, on remote boxes, a timed auto-revert (see §1).
+```text
+1. Edit /etc/pf.conf
+   └─> Make the smallest change that accomplishes the goal.
 
-### Test your logic deliberately
+2. pfctl -nf /etc/pf.conf
+   └─> PARSE ONLY. Never skip this. Catches syntax errors before they bite.
 
-- **`pfctl -f`, then generate the traffic** and watch `pflog0` / label counters — don't
-  assume, observe.
-- Test **both address families.** A ruleset that's tight on v4 and open on v6 is a classic,
-  silent failure. Re-run every acceptance test over IPv6.
-- Test **failover** for real: pull the master's cable and confirm CARP moves the IP *and*
-  pfsync kept the connection alive.
-- Watch for **rule-order surprises** — if a packet isn't matching the rule you expect, remember
-  last-match-wins and check for a later overriding rule (or a missing `quick`).
+3. pfctl -f /etc/pf.conf
+   └─> Load it. On remote boxes, pair with a timed auto-revert (see Mental Model).
 
-### A suggested learning lab
+4. pfctl -vsr  +  tcpdump -ni pflog0
+   └─> Observe, don't assume. Confirm rules match and counters move.
 
-Build the whole thing in VMs (vmm(4) on OpenBSD, or bhyve/VirtualBox):
+5. cp /etc/pf.conf /etc/pf.conf.known-good
+   └─> Snapshot the working ruleset for rollback.
+```
 
-1. One OpenBSD "firewall" VM with three vNICs: WAN, LAN, DMZ. Implement §2–3.
-2. Add a second firewall VM and build a CARP + pfsync pair (§5). Break the master on purpose.
-3. Stand up a wireless segment (even virtualized/routed) and gate it with authpf (§4).
-4. Add overload tables and point spamd at a throwaway domain (§6).
-5. Turn on `pflow0` → flowd/nfdump and graph your own lab traffic (§8).
+### 🧪 Test Your Logic Deliberately
 
-Each step is small; the sequence takes you from "I can write a pass rule" to "I can architect
-a redundant, self-defending, observable edge."
+- **Load, then generate the traffic** and watch `pflog0` / label counters. Observe, don't assume.
+- Test **both address families** — a ruleset tight on v4 and open on v6 is a classic silent failure. Re-run every acceptance test over IPv6.
+- Test **failover for real** — pull the master's cable and confirm CARP moved the IP *and* pfsync kept the connection alive.
+- Watch for **rule-order surprises** — last-match-wins; check for a later overriding rule or a missing `quick`.
 
----
+### 🏗️ A Suggested Learning Lab
 
-## 10. References {#10-references}
+Build it all in VMs (vmm(4) on OpenBSD, or bhyve/VirtualBox):
 
-Authoritative, primary sources — prefer these over any third-party blog (this one included),
-and always cross-check against the man pages for *your* installed release:
+```text
+1. Firewall VM (3 vNICs: WAN, LAN, DMZ)
+   └─> Implement Fundamentals + Network Scenarios.
 
-**OpenBSD man pages**
-- pf.conf(5) — ruleset syntax, NAT, queueing, scrub, options: <https://man.openbsd.org/pf.conf.5>
-- pf(4) — the packet filter itself: <https://man.openbsd.org/pf.4>
-- pfctl(8) — control utility: <https://man.openbsd.org/pfctl.8>
-- carp(4) — redundancy protocol: <https://man.openbsd.org/carp.4>
-- pfsync(4) — state synchronization: <https://man.openbsd.org/pfsync.4>
-- authpf(8) — authenticating gateway: <https://man.openbsd.org/authpf.8>
-- relayd(8) / relayd.conf(5) — load balancer/relay: <https://man.openbsd.org/relayd.conf.5>
-- spamd(8) / spamd.conf(5) — spam deferral: <https://man.openbsd.org/spamd.8>
-- pflow(4) — NetFlow/IPFIX export: <https://man.openbsd.org/pflow.4>
-- ifconfig(8) / hostname.if(5) — interface config: <https://man.openbsd.org/hostname.if.5>
+2. Second firewall VM
+   └─> Build a CARP + pfsync pair. Break the master on purpose.
 
-**Guides and books**
-- OpenBSD PF FAQ (the canonical, version-tracked tutorial): <https://www.openbsd.org/faq/pf/>
-- FreeBSD Handbook, Firewalls chapter (pf on FreeBSD, ALTQ, Dummynet):
-  <https://docs.freebsd.org/en/books/handbook/firewalls/>
-- *The Book of PF*, Peter N. M. Hansteen (No Starch Press) — the definitive book-length
-  treatment; its chapter structure closely tracks this guide, so it's the natural next step
-  for depth on any section here. (The 3rd edition covers the ALTQ-to-new-queueing transition;
-  later editions track newer releases.)
+3. Wireless segment (virtualized/routed)
+   └─> Gate it with authpf.
+
+4. Overload tables + spamd
+   └─> Point spamd at a throwaway domain and watch it greylist.
+
+5. pflow0 -> flowd/nfdump
+   └─> Export and graph your own lab traffic.
+```
+
+Each step is small; the sequence takes you from "I can write a pass rule" to "I can architect a redundant, self-defending, observable edge."
 
 ---
 
-*Built as a learning scaffold — read it at the shell with the man pages open, break things in
-a lab, and adapt every config to your own topology before it goes anywhere near production.
-Verified against OpenBSD man pages and the OpenBSD PF FAQ; re-verify against your installed
-release, since PF syntax evolves.*
+## ⚠️ CRITICAL Operational & Legal Warning
+
+### 🔴 FIREWALL CHANGE-CONTROL & AUTHORIZATION GUIDELINES
+
+```
+═══════════════════════════════════════════════════════════════
+                    ⚠️ CRITICAL WARNING ⚠️
+═══════════════════════════════════════════════════════════════
+
+This guide covers DEFENSIVE network configuration. The risk here is not
+"attack" - it is breaking connectivity, exposing services, or touching a
+network you are not authorized to change.
+
+1. DON'T LOCK YOURSELF OUT
+   ► ALWAYS validate with `pfctl -nf` before loading a ruleset.
+   ► On any remote or headless box, arrange a timed auto-revert to a known-good
+     ruleset before you load a risky change.
+   ► Keep /etc/pf.conf.known-good current. Losing access to a firewall you
+     can't physically reach is the #1 real-world failure.
+
+2. FAIL CLOSED, VERIFY OPEN
+   ► Default-deny, then explicitly pass. A typo should DROP traffic, not
+     silently expose a service.
+   ► Test BOTH IPv4 and IPv6. "Tight on v4, wide open on v6" is a common,
+     silent exposure. Never blanket-block ICMPv6 (it breaks IPv6).
+   ► After every change, confirm what is actually reachable from outside -
+     don't assume the ruleset does what you intended.
+
+3. AUTHORIZATION TO MODIFY NETWORKS
+   ► Only configure, redirect, or shape traffic on networks you OWN or are
+     explicitly authorized (in writing) to administer.
+   ► Deploying a gateway, transparent bridge, authpf portal, or traffic
+     interception on a network you don't control can constitute unauthorized
+     access or interception under the CFAA/ECPA and similar laws.
+   ► NetFlow/pflow and pflog capture metadata about real users - handle,
+     store, and share it in line with your org's privacy obligations
+     (GDPR, HIPAA, CCPA, PCI-DSS as applicable).
+
+4. TEST IN A LAB FIRST
+   ► Build and break these configurations in VMs before production.
+   ► Version-check every example against the man pages for YOUR release -
+     PF syntax has real breaking changes across OpenBSD/FreeBSD versions.
+
+═══════════════════════════════════════════════════════════════
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions from network engineers, BSD admins, and blue-team operators are welcome.
+
+**What We Accept:**
+- ✅ Additional, tested PF rulesets (VPN gateways, IPv6-only edges, multi-WAN, VLAN segmentation).
+- ✅ FreeBSD/NetBSD parity notes and syntax differences.
+- ✅ Collector/visualization recipes (flowd, nfdump/NfSen, Grafana + IPFIX).
+- ✅ Hardening patterns and adaptive-defense table tuning.
+
+**Submission Guidelines:**
+1. Fork the repository.
+2. Validate every config with `pfctl -nf` and note the OpenBSD/FreeBSD version tested.
+3. Sanitize real addresses, hostnames, and keys before sharing.
+4. Submit a Pull Request describing the defensive value and the release you verified against.
+
+---
+
+## 📚 References & Resources
+
+Prefer these primary sources over any third-party blog (this one included), and always cross-check the man pages for *your* installed release.
+
+### 📖 OpenBSD Manual Pages
+- **[pf.conf(5)](https://man.openbsd.org/pf.conf.5)** — ruleset syntax, NAT, queueing, scrub, options
+- **[pf(4)](https://man.openbsd.org/pf.4)** — the packet filter itself
+- **[pfctl(8)](https://man.openbsd.org/pfctl.8)** — control utility
+- **[carp(4)](https://man.openbsd.org/carp.4)** / **[pfsync(4)](https://man.openbsd.org/pfsync.4)** — redundancy & state sync
+- **[authpf(8)](https://man.openbsd.org/authpf.8)** — authenticating gateway
+- **[relayd.conf(5)](https://man.openbsd.org/relayd.conf.5)** — load balancer / relay
+- **[spamd(8)](https://man.openbsd.org/spamd.8)** — spam deferral daemon
+- **[pflow(4)](https://man.openbsd.org/pflow.4)** — NetFlow/IPFIX export
+- **[hostname.if(5)](https://man.openbsd.org/hostname.if.5)** — interface configuration
+
+### 📘 Guides & Books
+- **OpenBSD PF FAQ** — the canonical, version-tracked tutorial: [openbsd.org/faq/pf](https://www.openbsd.org/faq/pf/)
+- **FreeBSD Handbook — Firewalls** (pf, ALTQ, Dummynet): [docs.freebsd.org](https://docs.freebsd.org/en/books/handbook/firewalls/)
+- **The Book of PF** — Peter N. M. Hansteen (No Starch Press): the definitive book-length treatment; its chapter structure closely tracks this guide.
+
+---
+
+## 🔗 Quick Links
+
+### Internal Links
+- [🏠 Main Repository](../README.md)
+- [🎯 START HERE Guide](../START_HERE.md)
+- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
+- [🏠 Homelab Setup](../Homelab/README.md)
+- [✅ Security Checklists](../Checklists/README.md)
+- [📚 Documentation](../Documentation/README.md)
+- [🔒 OPSEC Guidelines](../OPSEC/README.md)
+
+---
+
+## 📊 Repository Statistics
+
+```
+📁 Topics: Rulesets, NAT/DMZ, Bridges, Wireless/authpf, CARP/pfsync/relayd, spamd, Queueing, NetFlow
+🔍 Focus: Defensive network engineering, gateway/firewall design, traffic visibility
+💻 Core Platforms: OpenBSD (6.x/7.x), FreeBSD (ALTQ/Dummynet notes)
+✅ Verification: Cross-checked against OpenBSD man pages + official PF FAQ
+🔄 Last Updated: September 2026
+👥 Maintained by: Pacific Northwest Computers (PNWC)
+📝 Status: Active - Defensive Operations Ready
+```
+
+---
+
+<div align="center">
+
+## Related Files
+- [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) - Point pflow/NetFlow and pflog output into the SIEM described here
+- [../IncidentResponse/network_intrusion.md](../IncidentResponse/network_intrusion.md) - PF is the enforcement layer for the wireless/rogue-AP response procedures
+- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Analyze the pcap that pflog0 produces
+- [../Homelab/](../Homelab/) - Where to build and break these configurations before production
+
+---
+
+**🛡️ Use These Resources Responsibly: Authorization is MANDATORY**
+
+*A firewall is only as trustworthy as the change-control around it - test in a lab, fail closed, and only touch networks you're authorized to administer.*
+
+**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
+
+**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+
+---
+
+⚠️ **Only configure networks you own or are explicitly authorized (in writing) to administer** ⚠️
+
+⚠️ **Always `pfctl -nf` before loading, and keep a known-good rollback on remote boxes** ⚠️
+
+⚠️ **Verify every example against the man pages for YOUR OpenBSD/FreeBSD release** ⚠️
+
+⭐ **Star this repo if you find it useful!** ⭐
+
+</div>
