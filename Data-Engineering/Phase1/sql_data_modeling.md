@@ -6,7 +6,7 @@
 
 *Keys • NULL semantics • JOIN types • GROUP BY • OVER() • ACID • EXPLAIN • Star schemas*
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Foundations](https://img.shields.io/badge/Level-Foundations-blue?style=for-the-badge)
 ![SQL](https://img.shields.io/badge/Language-SQL-darkgreen?style=for-the-badge)
@@ -443,7 +443,7 @@ ws-acct-01   2026-09-09T14:00:00+00:00   18.0      5.5
 ws-acct-01   2026-09-10T14:00:00+00:00   74.2      56.2
 ```
 
-The first row's delta is `NULL` because no previous row exists — correct, and distinct from a delta of zero. That 56.2-point jump is exactly the kind of signal a detection rule consumes; see [Log Aggregation & Visibility](../IncidentResponse/log_agg.md).
+The first row's delta is `NULL` because no previous row exists — correct, and distinct from a delta of zero. That 56.2-point jump is exactly the kind of signal a detection rule consumes; see [Log Aggregation & Visibility](../../IncidentResponse/log_agg.md).
 
 ### 📘 Moving average with a frame
 
@@ -762,7 +762,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Statements were ex
 3. Show the query plan when making a performance claim.
 4. State the grain of any fact table you add.
 5. Keep example datasets small enough to reason about by hand.
-6. Update the [section index](./README.md) when adding a guide.
+6. Update the [section index](../README.md) when adding a guide.
 
 ---
 
@@ -783,14 +783,14 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Statements were ex
 
 ## 🔗 Quick Links & Related Guides
 
-- [🗄️ Data Engineering Section Index](./README.md)
+- [🗄️ Data Engineering Section Index](../README.md)
 - [🧱 Data Engineering Fundamentals](./data_engineering_fundamentals.md)
 - [🐍 Python for Data Processing](./python_data_processing.md)
 - [🔄 ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md)
 - [✅ Data Quality & Schema Contracts](./data_quality_schema_contracts.md)
-- [🛡️ Secure Data Pipelines](./data_pipelines.md)
-- [📊 Log Aggregation & Visibility](../IncidentResponse/log_agg.md)
-- [📖 Repository Glossary](../GLOSSARY.md)
+- [🛡️ Secure Data Pipelines](../data_pipelines.md)
+- [📊 Log Aggregation & Visibility](../../IncidentResponse/log_agg.md)
+- [📖 Repository Glossary](../../GLOSSARY.md)
 
 ---
 
@@ -804,7 +804,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Statements were ex
 | 🧰 Core Technologies | SQLite 3.45 (portability notes for PostgreSQL and MySQL) |
 | 📘 Format | Reference guide with an executed lab and real query output |
 | 🧪 Validation Status | All queries executed; outputs and limitations documented above |
-| 📁 Location | `Data-Engineering/sql_data_modeling.md` |
+| 📁 Location | `Data-Engineering/Phase1/sql_data_modeling.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
@@ -819,7 +819,7 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Statements were ex
 
 **Pacific Northwest Computers:** [PNWC on GitHub](https://github.com/Pnwcomputers)
 
-[🏠 Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../LEGAL.md)
+[🏠 Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../../LEGAL.md)
 
 ⭐ **Star the repository if you find it useful!** ⭐
 
