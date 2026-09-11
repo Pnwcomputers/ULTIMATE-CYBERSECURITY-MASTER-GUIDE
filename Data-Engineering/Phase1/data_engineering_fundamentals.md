@@ -1,4 +1,3 @@
-
 # 🧱 Data Engineering Fundamentals
 
 <div align="center">
@@ -7,7 +6,7 @@
 
 *Terminology • Requirements • Batch vs Streaming • Contracts • A file-to-database project*
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Foundations](https://img.shields.io/badge/Level-Foundations-blue?style=for-the-badge)
 ![Data Engineering](https://img.shields.io/badge/Discipline-Data_Engineering-darkgreen?style=for-the-badge)
@@ -96,7 +95,7 @@ Notice that each failure mode produces a *successful-looking job*. Most of the e
 | --- | --- | --- |
 | **Data engineering** | Movement, shape, reliability, and delivery of data | Stops at the prepared dataset |
 | **Analytics** | Interpretation of prepared data | Depends on the engineer's contract holding |
-| **Detection engineering** | Which telemetry patterns warrant investigation | Consumes structured events; see [Incident Response](../IncidentResponse/README.md) |
+| **Detection engineering** | Which telemetry patterns warrant investigation | Consumes structured events; see [Incident Response](../../IncidentResponse/README.md) |
 | **Platform / infrastructure** | The servers, containers, and networks underneath | Deploys the pipeline; does not define its schema |
 
 ---
@@ -130,9 +129,9 @@ These terms recur in every other guide in this section. Definitions here are ope
 | **Reconciliation** | Comparing source and destination counts or checksums to prove completeness. |
 
 > [!NOTE]
-> Two terms are routinely confused. *Deployment automation* configures the machines that run a pipeline (see the Ansible section of [data_pipelines.md](./data_pipelines.md#9-automate-deployments-with-ansible)). *Workflow orchestration* schedules and sequences the data jobs themselves. A configured server does not imply a scheduled, retried, dependency-aware job.
+> Two terms are routinely confused. *Deployment automation* configures the machines that run a pipeline (see the Ansible section of [data_pipelines.md](../data_pipelines.md#9-automate-deployments-with-ansible)). *Workflow orchestration* schedules and sequences the data jobs themselves. A configured server does not imply a scheduled, retried, dependency-aware job.
 
-Acronyms used across this section are defined on first use and collected in the repository [glossary](../GLOSSARY.md).
+Acronyms used across this section are defined on first use and collected in the repository [glossary](../../GLOSSARY.md).
 
 ---
 
@@ -245,7 +244,7 @@ Start with batch. Move up only when a specific consumer requirement — not a pr
 **Streaming is justified when:**
 - A delayed decision loses value — blocking an active session, paging an on-call responder.
 - The source is genuinely continuous and unbounded.
-- The team can operate brokers, consumer groups, and lag monitoring. See the Kafka material in [data_pipelines.md](./data_pipelines.md#8-stream-and-centralize-events-with-kafka) and the Phase 2 streaming guide when published.
+- The team can operate brokers, consumer groups, and lag monitoring. See the Kafka material in [data_pipelines.md](../data_pipelines.md#8-stream-and-centralize-events-with-kafka) and the Phase 2 streaming guide when published.
 
 > [!WARNING]
 > Streaming does not remove batch work; it adds to it. Streamed data still requires periodic reconciliation, backfills after logic changes, and historical reprocessing. Teams that adopt streaming without keeping a batch correction path end up unable to fix past data.
@@ -675,7 +674,7 @@ Answer in your own words. If an answer requires reading the code, the concept is
 | Design the destination properly instead of one flat table | [SQL & Data Modeling](./sql_data_modeling.md) |
 | Add staging, incremental loads, and reconciliation | [ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md) |
 | Formalize validation and schema change rules | [Data Quality & Schema Contracts](./data_quality_schema_contracts.md) |
-| Apply all of it to security telemetry | [Secure Data Pipelines](./data_pipelines.md) |
+| Apply all of it to security telemetry | [Secure Data Pipelines](../data_pipelines.md) |
 
 ---
 
@@ -708,7 +707,7 @@ Local checks used Python 3.12.3 and SQLite 3.45.1 on Ubuntu. These identify the 
 3. Describe what you executed, the output observed, and what remains unverified.
 4. Prefer standard-library examples so readers can run them without setup.
 5. Keep the distinction between runnable labs and configuration templates explicit.
-6. Update the [section index](./README.md) and [master index](../README.md) when adding a guide.
+6. Update the [section index](../README.md) and [master index](../../README.md) when adding a guide.
 
 ---
 
@@ -729,14 +728,14 @@ Local checks used Python 3.12.3 and SQLite 3.45.1 on Ubuntu. These identify the 
 
 ## 🔗 Quick Links & Related Guides
 
-- [🗄️ Data Engineering Section Index](./README.md)
-- [🛡️ Secure Data Pipelines & Security Automation](./data_pipelines.md)
+- [🗄️ Data Engineering Section Index](../README.md)
+- [🛡️ Secure Data Pipelines & Security Automation](../data_pipelines.md)
 - [🐍 Python for Data Processing](./python_data_processing.md)
 - [🗃️ SQL & Data Modeling](./sql_data_modeling.md)
 - [🔄 ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md)
 - [✅ Data Quality & Schema Contracts](./data_quality_schema_contracts.md)
-- [📖 Repository Glossary](../GLOSSARY.md)
-- [📏 Repository Style Guide](../STYLE_GUIDE.md)
+- [📖 Repository Glossary](../../GLOSSARY.md)
+- [📏 Repository Style Guide](../../STYLE_GUIDE.md)
 
 ---
 
@@ -750,7 +749,7 @@ Local checks used Python 3.12.3 and SQLite 3.45.1 on Ubuntu. These identify the 
 | 🧰 Core Technologies | Python standard library, SQLite |
 | 📘 Format | Reference guide with one complete runnable lab |
 | 🧪 Validation Status | Lab executed locally; results and limitations documented above |
-| 📁 Location | `Data-Engineering/data_engineering_fundamentals.md` |
+| 📁 Location | `Data-Engineering/Phase1/data_engineering_fundamentals.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
@@ -765,7 +764,7 @@ Local checks used Python 3.12.3 and SQLite 3.45.1 on Ubuntu. These identify the 
 
 **Pacific Northwest Computers:** [PNWC on GitHub](https://github.com/Pnwcomputers)
 
-[🏠 Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../LEGAL.md)
+[🏠 Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../../LEGAL.md)
 
 ⭐ **Star the repository if you find it useful!** ⭐
 
