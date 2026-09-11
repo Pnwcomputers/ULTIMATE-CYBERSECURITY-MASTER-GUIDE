@@ -1,22 +1,23 @@
+# 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE
+
 <p align="center">
-  <img src="assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
+  <img src="./assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
 </p>
 
-<h1 align="center">🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE</h1>
-<h3 align="center">Professional Cybersecurity Knowledge Base · Red Team · Blue Team · Purple Team</h3>
+<p align="center"><strong>Professional Cybersecurity Knowledge Base · Red Team · Blue Team · Purple Team</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained-Yes-green" alt="Maintained"/>
   <img src="https://img.shields.io/badge/Books%20Referenced-70%2B-blue" alt="Books"/>
   <img src="https://img.shields.io/badge/PNWC%20Internal%20Docs-90%2B-orange" alt="Docs"/>
   <img src="https://img.shields.io/badge/OSINT%20Tools-400%2B-purple" alt="OSINT"/>
-  <img src="https://img.shields.io/badge/Scripts-15%2B-red" alt="Scripts"/>
+  <img src="https://img.shields.io/badge/Scripts-Source_Collection-red" alt="Scripts"/>
   <img src="https://img.shields.io/badge/License-Educational%20Use-yellow" alt="License"/>
   <img src="https://img.shields.io/github/last-commit/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE" alt="Last Commit"/>
 </p>
 
 > **Compiled from 70+ expert books · 90+ PNWC internal documents · custom tools & scripts**  
-> *Abide by the [Legal Terms of Use & Disclaimer](LEGAL.md) for the use and misuse of this repository.*
+> *Abide by the [Legal Terms of Use & Disclaimer](./LEGAL.md) for the use and misuse of this repository.*
 
 > "Under pressure, you don't rise to the occasion; you fall to the level of your training."
 >
@@ -24,35 +25,21 @@
 
 ---
 
-#### This is the repository's front door and master index. 
-#### Every guide, playbook, script folder, and reference in this project is linked from here. 
+## 🧭 About This Index
 
-#### Unlike [START_HERE.md](START_HERE.md) (a role-based navigation guide), this file is a flat catalog; the what exists, where it lives, and a description of each.
+This README is the repository's front door: it lists the main sections, subsection indexes, and selected guides. Section READMEs provide the detailed file catalogs within each area.
 
-### The [START_HERE.md](START_HERE.md) guide, can be used to route yourself through the sea of data by role/goal rather than listing EVERYTHING like it is here. But [START_HERE.md](START_HERE.md) does differ from the three _Master Guides_. The three _Master Guides_ contain actual technical content, rather than just linking to everyting.
+Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
 
-### Master Guides:
-- [Ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md)
-- [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md)
-- [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md)
-
-### This README is the entry point when landing on this repo:
-- Gives a general overview of the repository
-- Helps users look for specific subjects or topics, such as "What guide covers %TOPIC%"
-- Check on what's been added/credited since a prior visit
-
-### From this main page you can find any resource in the repository within one click of this file, and understand at a glance what the project covers and how it's licensed/credited.
-
-<p align="center">
-  <h1 align="center"> THANK YOU FOR CHECKING THIS OUT! </h1>
-<p align="center">
+<p align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></p>
 
 ---
 ## 🎯 START HERE
 
 ### 🆕 New to IT/Computers/Networks in General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
 
-### ⭐ **[START_HERE.md](START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
+### ⭐ **[START_HERE.md](./START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
+
 Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
 
 
@@ -61,78 +48,105 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 ## 🧭 Navigate by Area
 
 A grouped map of the whole repository. Prefer routing by **role/goal**? Use
-[START_HERE.md](START_HERE.md). Want the full flat catalog? See
-[Supporting Guides & Reference](#-supporting-guides--reference-material) below.
+[START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
+[Supporting Guides & Reference](#supporting-guides) below.
 
 | Area | Start here | Also in this area |
 |------|-----------|-------------------|
-| 🚀 **Start & Master Guides** | [START_HERE.md](START_HERE.md) | [Ultimate](ultimate_cybersecurity_master_guide.md) · [Enhanced](ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md) · [Cliff Notes](cybersecurity_cliff_notes.md) |
-| 🗡️ **Offensive Security** | [Tradecraft/](Tradecraft/) | [Advanced Techniques](advanced_techniques_supplement.md) · [Part 2](advanced_techniques_part2.md) · [PlayBooks/](PlayBooks/) · [Checklists/](Checklists/) |
-| 🕸️ **App, Cloud & Container** | [WebAppSecurity/](WebAppSecurity/) | [Cloud/](Cloud/) · [ContainerSecurity/](ContainerSecurity/) |
-| 🛡️ **Defensive & Incident Response** | [IncidentResponse/](IncidentResponse/) | [SIEM](IncidentResponse/SIEM/) · [IDS & IPS](IncidentResponse/IDS%26IPS/) · [Honeypots](IncidentResponse/HoneyPot/) · [Digital Forensics](IncidentResponse/Digital-Forensics/) · [Homelab/](Homelab/) |
-| 🔍 **OSINT & Recon** | [OSINT/](OSINT/) | [Tools Catalog](OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](OSINT/Playbook/README.md) |
-| 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) | [AI/](AI/) · [SDR/](SDR/) · [HardwareHacking/](HardwareHacking/) · [SpaceSecurity/](SpaceSecurity/) · [Mobile/](Mobile/) · [uConsole/](uConsole/) |
-| 🔐 **Governance, Crypto & Reference** | [Compliance/](Compliance/) | [Cryptography/](Cryptography/) · [Documentation/](Documentation/) · [GLOSSARY.md](GLOSSARY.md) · [OPSEC/](OPSEC/) |
-| ⚖️ **Legal & Contributing** | [LEGAL.md](LEGAL.md) | [STYLE_GUIDE.md](STYLE_GUIDE.md) · [Contributing](.github/CONTRIBUTING.md) |
+| 🚀 **Start & Master Guides** | [START_HERE.md](./START_HERE.md) | [Ultimate](./ultimate_cybersecurity_master_guide.md) · [Enhanced](./ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](./SPECIALIZED_TOPICS_GUIDE.md) · [Cliff Notes](./cybersecurity_cliff_notes.md) |
+| 🗡️ **Offensive Security** | [Tradecraft/](./Tradecraft/) | [Advanced Techniques](./advanced_techniques_supplement.md) · [Part 2](./advanced_techniques_part2.md) · [PlayBooks/](./PlayBooks/) · [Checklists/](./Checklists/) |
+| 🕸️ **App, Cloud & Container** | [WebAppSecurity/](./WebAppSecurity/) | [Cloud/](./Cloud/) · [ContainerSecurity/](./ContainerSecurity/) |
+| 🛡️ **Defensive & Incident Response** | [IncidentResponse/](./IncidentResponse/) | [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) · [SIEM](./IncidentResponse/SIEM/) · [IDS & IPS](./IncidentResponse/IDS%26IPS/) · [Honeypots](./IncidentResponse/HoneyPot/) · [Digital Forensics](./IncidentResponse/Digital-Forensics/) · [Homelab/](./Homelab/) |
+| 🗄️ **Data Engineering & Automation** | [Data Engineering](./Data-Engineering/README.md) | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) · [Scripts](./Scripts/README.md) |
+| 🔍 **OSINT & Recon** | [OSINT/](./OSINT/) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
+| 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI/](./AI/) · [SDR/](./SDR/) · [HardwareHacking/](./HardwareHacking/) · [HardwareTesting/](./HardwareTesting/) · [SpaceSecurity/](./SpaceSecurity/) · [Mobile/](./Mobile/) · [uConsole/](./uConsole/) |
+| 🔐 **Governance, Crypto & Reference** | [Compliance/](./Compliance/) | [Cryptography/](./Cryptography/) · [Documentation/](./Documentation/) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC/](./OPSEC/) |
+| ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) |
 
 ---
+
+<a id="primary-master-guides"></a>
 
 ## 📚 PRIMARY MASTER GUIDES
 
 | Guide | Description |
 |---|---|
-| 🔥 **[Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide - key takeaways from 70+ professional security books, full penetration testing lifecycle |
-| 🔥 **[Enhanced Cybersecurity Master Guide](ENHANCED_MASTER_GUIDE.md)** | All of the above + 90+ PNWC internal docs, KB articles, and operational experience layered in |
-| 🔥 **[Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
+| 🔥 **[Ultimate Cybersecurity Master Guide](./ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide - key takeaways from 70+ professional security books, full penetration testing lifecycle |
+| 🔥 **[Enhanced Cybersecurity Master Guide](./ENHANCED_MASTER_GUIDE.md)** | All of the above + 90+ PNWC internal docs, KB articles, and operational experience layered in |
+| 🔥 **[Specialized Topics Guide](./SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
 
 ---
+
+<a id="supporting-guides"></a>
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
 
 ### Core References
+
 | Resource | Description |
 |---|---|
-| [Glossary](GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
-| [Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
-| [Advanced Techniques - Part 1](advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
-| [Advanced Techniques - Part 2](advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
-| [DIY Hardware & Firmware Compatibility](firmware-hardware-compatibility.md) | SBC-based DIY pentesting devices as well as compatibility & firmware guides |
-| [Debian Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md) | Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
-| [Arch Linux Command Cheat Sheet](Documentation/ArchLinux_CheatSheet.md) | Linux CLI commands for Arch |
-| [BlackArch Linux Cheat Sheet](Documentation/blackarch.md) | Linux CLI commands for BlackArch |
-| [OSINT Cheat Sheet](OSINT/OSINT_CHEATSHEET.md) | Quick-reference OSINT cheat sheet |
+| [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
+| [Cybersecurity Cliff Notes](./cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
+| [Advanced Techniques - Part 1](./advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
+| [Advanced Techniques - Part 2](./advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
+| [DIY Hardware & Firmware Compatibility](./firmware-hardware-compatibility.md) | SBC-based DIY pentesting devices as well as compatibility & firmware guides |
+| [Debian Linux Command Cheat Sheet](./Documentation/LinuxCheatSheet.md) | Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
+| [Arch Linux Command Cheat Sheet](./Documentation/ArchLinux_CheatSheet.md) | Linux CLI commands for Arch |
+| [BlackArch Linux Cheat Sheet](./Documentation/blackarch.md) | Linux CLI commands for BlackArch |
+| [OSINT Cheat Sheet](./OSINT/OSINT_CHEATSHEET.md) | Quick-reference OSINT cheat sheet |
 
 ### Operational Sections
 
 | Section | Description |
 |---|---|
-| 🤖 [AI Cybersecurity Resources](AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
-| 📋 [Checklists](Checklists/) | Pre-engagement, testing, and post-engagement checklists |
-| ☁️ [Cloud Security](Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
-| 📋 [Compliance & GRC](Compliance/) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
-| 📦 [Container & Kubernetes Security](ContainerSecurity/) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
-| 🔐 [Cryptography](Cryptography/) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205 |
-| 📚 [Documentation](Documentation/) | Supplemental technical documentation, command references, and cheat sheets |
-| 🥷 [Hardware Hacking](HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
-| 🧰 [Hardware Testing](HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
-| 🏠 [Homelab Guides](Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
-| 🚨 [Incident Response](IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](IncidentResponse/IDS%26IPS/) (nzyme, Suricata/Zeek) and [Honeypot](IncidentResponse/Honeypots/) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
-| 📱 [Mobile Security](Mobile/) | Kali NetHunter on OnePlus 6, Android and iOS application pentesting, mobile forensics, field SOPs, and engagement-level mobile pentesting |
-| 🔬 [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 📋 [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
-| 🔴 [OPSEC](OPSEC/) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
-| 🔍 [OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
-| 📄 [PDF Resources](PDF/) | Curated PDF references and guides |
-| 📚 [Playbooks Collection](PlayBooks/) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
-| 💻 [Scripts](Scripts/) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
-| 📻 [SDR](SDR/) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
-| 📊 [SIEM Deployment Guides](IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
-| 🎣 [SOP: Phishing Analysis Playbook](PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
-| 👾 [Space Security](SpaceSecurity/) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
-| 🗡️ [Tradecraft](Tradecraft/) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
-| 📟 [uConsole](uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
-| 🚷 [Unauthorized Access Investigation Playbook](PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
-| 🕸️ [Web Application Security](WebAppSecurity/) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
+| 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
+| 📋 [Checklists](./Checklists/) | Pre-engagement, testing, and post-engagement checklists |
+| ☁️ [Cloud Security](./Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
+| 📋 [Compliance & GRC](./Compliance/) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
+| 📦 [Container & Kubernetes Security](./ContainerSecurity/) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
+| 🔐 [Cryptography](./Cryptography/) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205 |
+| 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
+| 📚 [Documentation](./Documentation/) | Supplemental technical documentation, command references, and cheat sheets |
+| 🥷 [Hardware Hacking](./HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🧰 [Hardware Testing](./HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
+| 🏠 [Homelab Guides](./Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
+| 🚨 [Incident Response](./IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
+| 📱 [Mobile Security](./Mobile/) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
+| 🔬 [Network Audit Playbook](./PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
+| 📋 [Operational Playbooks](./PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
+| 🔴 [OPSEC](./OPSEC/) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
+| 🔍 [OSINT Guide, Tools & Techniques](./OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
+| 📄 [PDF Resources](./PDF/) | Curated PDF references and guides |
+| 📚 [Playbooks Collection](./PlayBooks/) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
+| 💻 [Scripts](./Scripts/) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
+| 📻 [SDR](./SDR/) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
+| 📊 [SIEM Deployment Guides](./IncidentResponse/SIEM/) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
+| 🎣 [SOP: Phishing Analysis Playbook](./PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
+| 👾 [Space Security](./SpaceSecurity/) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
+| 🗡️ [Tradecraft](./Tradecraft/) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
+| 📟 [uConsole](./uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
+| 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
+| 🕸️ [Web Application Security](./WebAppSecurity/) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
+
+### Subsection Indexes & Focused Entry Points
+
+| Parent Area | Subsection / Guide | Coverage |
+|---|---|---|
+| AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
+| AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
+| Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
+| Hardware Testing | [Python Diagnostic Suite](./HardwareTesting/py/README.md) | Automated hardware tests and result reporting |
+| Incident Response | [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) | Sysmon, Linux audit/syslog, and Osquery telemetry |
+| Incident Response | [SIEM](./IncidentResponse/SIEM/README.md) | Centralized search and security monitoring guides |
+| Incident Response | [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and wired intrusion detection guides |
+| Incident Response | [Honeypots](./IncidentResponse/HoneyPot/readme.md) | Deception-system deployment guides |
+| Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
+| Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
+| OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
+| Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup for authorized physical-access assessments |
+| Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
+| Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
+| uConsole | [Automated Setup Scripts](./uConsole/scripts/README.md) | CM4/CM5 setup and repair automation |
 
 ---
 
@@ -141,57 +155,67 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 Content sourced from PNWC's internal Notion knowledge base and real-world operations - not found in textbooks.
 
 ### 🔴 OPSEC & Operations
+
 - Personal field rules (*"ALWAYS use a 3rd-party network!"*)
 - VM isolation and compartmentalization procedures
 - Anonymity and identity-separation workflows
 
 ### 🔍 OSINT Arsenal
+
 - 400+ tools organized by category
 - Automated OSINT VM build scripts
 - Full investigation methodology (target profiling → pivot → report)
 
 ### 📘 Team Playbooks
+
 **Purple Team**
-- [Purple Team - Simple](PlayBooks/PurpleTeam_Simple.md)
-- [Purple Team - Detailed](PlayBooks/PurpleTeam_Detailed.md)
-- [Purple Team - Multi-Script](PlayBooks/PurpleTeam_Multi-Scrip.md)
+- [Purple Team - Simple](./PlayBooks/PurpleTeam_Simple.md)
+- [Purple Team - Detailed](./PlayBooks/PurpleTeam_Detailed.md)
+- [Purple Team - Multi-Script](./PlayBooks/PurpleTeam_Multi-Scrip.md)
 
 **Blue Team**
-- [Blue Team - Incident Response Simple](PlayBooks/BlueTeam_IncResp_Simple.md)
-- [Blue Team - Incident Response Enhanced](PlayBooks/BlueTeam_IncResp_Enhanced.md)
+- [Blue Team - Incident Response Simple](./PlayBooks/BlueTeam_IncResp_Simple.md)
+- [Blue Team - Incident Response Enhanced](./PlayBooks/BlueTeam_IncResp_Enhanced.md)
 
-**Detection Pipeline & SIEM**
-- [ELK Stack (Elastic) SIEM Deployment](IncidentResponse/SIEM/elk_stack.md)
-- [Wazuh SIEM Deployment](IncidentResponse/SIEM/wazuh.md)
-- [Splunk SIEM Deployment](IncidentResponse/SIEM/splunk.md)
-- [Graylog SIEM Deployment](IncidentResponse/SIEM/graylog.md)
-- [Log Aggregation Guide](IncidentResponse/log_agg.md)
+**Data Engineering, Detection Pipelines & SIEM**
+- [Data Engineering Section](./Data-Engineering/README.md)
+- [Secure Data Pipelines & Security Automation](./Data-Engineering/data_pipelines.md)
+- [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md)
+- [ELK Stack (Elastic) SIEM Deployment](./IncidentResponse/SIEM/elk_stack.md)
+- [Wazuh SIEM Deployment](./IncidentResponse/SIEM/wazuh.md)
+- [Splunk SIEM Deployment](./IncidentResponse/SIEM/splunk.md)
+- [Graylog SIEM Deployment](./IncidentResponse/SIEM/graylog.md)
+- [Log Aggregation Guide](./IncidentResponse/log_agg.md)
 
 ### 💻 Custom Scripts & Tools
-- **[`pnwc_install_tools.sh`](Scripts/pnwc_install_tools.sh)** - Cross-distro Linux installer for all tools in this guide (apt · pacman · dnf)
-- **[PowerShell](Scripts/PowerShell)** - 12 scripts: AD testing, SMB auth, brute force, port scanning, reverse shells, system enumeration
-- **[Python](Scripts/Python)** - 30+ scripts: network recon, credential analysis, Bluetooth, web, geolocation, exploitation tools
-- **[Bash](Scripts/Bash)** - System admin, recon, auditing, log analysis utilities (`Scripts/Bash/`)
-- **[C](Scripts/C)** - Low-level utilities: user enumeration, port scanning, system manipulation
-- **[SQL](Scripts/SQL)** - WordPress admin injection testing scripts
-- **[Go](Scripts/GO)** - (`Scripts/GO/`)
+
+- **[`pnwc_install_tools.sh`](./Scripts/pnwc_install_tools.sh)** - Cross-distro Linux tool installer (apt · pacman · dnf)
+- **[PowerShell](./Scripts/PowerShell)** - 12 scripts: AD testing, SMB auth, brute force, port scanning, reverse shells, system enumeration
+- **[Python](./Scripts/Python)** - Scripts for network recon, credential analysis, Bluetooth, web, geolocation, exploitation tools
+- **[Bash](./Scripts/Bash)** - System admin, recon, auditing, log analysis utilities (`Scripts/Bash/`)
+- **[C](./Scripts/C)** - Low-level utilities: user enumeration, port scanning, system manipulation
+- **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
+- **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
 ### 🎯 Attack Case Studies (10+ Analyzed)
+
 | Incident | Type |
 |---|---|
 | [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon - Iranian nuclear facilities |
-| [WannaCry](https://www.cisa.gov/news-events/cybersecurity-advisories) | Global ransomware outbreak |
+| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) | Global ransomware outbreak |
 | [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
 | [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
-| [Carbanak](https://www.mandiant.com/resources/blog/threat-research/2017/06/behind-the-carbanak-backdoor.html) | APT banking theft campaign |
+| [Carbanak](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) | APT banking theft campaign |
 | [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
 | [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
 | + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
 
 ### 🔧 Hardware Arsenal Documented
+
 **Multi-tools:** [Flipper Zero](https://flipper.net/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
 
 ### 📟 uConsole & Portable Operations
+
 Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations. 
 * **OS & Toolkit Optimization:** Customizing Kali Linux, Parrot OS, or custom Debian builds for the uConsole's unique form factor.
 * **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
@@ -207,33 +231,38 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This new s
 
 ## 📊 REPOSITORY STATISTICS
 
-| Category | Count |
+Counts below describe the repository snapshot reviewed on **September 11, 2026**; they are inventory counts, not claims that every example has been deployment-tested.
+
+| Category | Count / Definition |
 |---|---|
-| Expert books referenced | 70+ |
-| PNWC internal docs | 90+ |
-| Lines of content | 9,600+ |
-| OSINT tools catalogued | 400+ |
-| Operational playbooks | 5 |
-| Custom scripts | 15+ |
-| Attack case studies | 10+ |
-| Hardware devices documented | 20+ |
+| Top-level content sections | 23; excludes `.github` and `assets` |
+| Tracked files | 495 across the repository |
+| Markdown documents | 206 files with a `.md` extension, including indexes |
+| Playbook documents | 10 Markdown files under `PlayBooks/`, excluding its README |
+| Script source files | 215 `.py`, `.sh`, `.ps1`, `.go`, `.c`, `.rb`, `.js`, or `.sql` files under `Scripts/` |
+| Bibliography entries | 78 listed references, including books and educational materials |
+
+Original compilation figures such as the number of internal PNWC documents are provenance notes, not live repository inventory metrics.
 
 ---
 
 ## 🚀 WHAT YOU CAN DO WITH THIS GUIDE
 
-### Immediately
+### Learning & Practice
+
 - ✅ Conduct professional penetration tests
 - ✅ Perform OSINT investigations
 - ✅ Execute incident response procedures
-- ✅ Automate security tasks with ready-made scripts
+- ✅ Study and adapt security automation scripts
 - ✅ Assess IoT and embedded device security
 - ✅ Develop and analyze exploits
 - ✅ Build and operate a security homelab
+- ✅ Learn secure data pipelines, structured telemetry, streaming, and repeatable deployments
 - ✅ Analyze real-world attack campaigns
 - ✅ **Deploy Portable Cyberdecks**: Set up and optimize the uConsole for on-the-go pentesting, SDR (Software Defined Radio), and field operations.
 
 ### For Your Career
+
 - ✅ Prepare for OSCP, CEH, GPEN, CySA+, CISSP
 - ✅ Build skills for SOC analyst roles
 - ✅ Work as a professional pentester or red teamer
@@ -252,9 +281,9 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Metasploit Framework](https://www.rapid7.com/) - Rapid7
 - [Impacket](https://github.com/fortra/impacket) - Fortra
 - [BloodHound](https://github.com/SpecterOps/BloodHound) - SpecterOps
-- [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) / [NetExec](https://github.com/Pennyw0rth/NetExec)
+- [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) *(archived)* / [NetExec](https://github.com/Pennyw0rth/NetExec)
 - [Empire](https://github.com/BC-SECURITY/Empire) - BC Security
-- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) · [Nishang](https://github.com/samratashok/nishang)
+- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) *(archived)* · [Nishang](https://github.com/samratashok/nishang)
 - [PEASS-ng](https://github.com/peass-ng/PEASS-ng) - Carlos Polop
 - [Responder](https://github.com/lgandx/Responder) - Laurent Gaffié
 
@@ -263,7 +292,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [SpiderFoot](https://github.com/smicallef/spiderfoot) · [Recon-ng](https://github.com/lanmaster53/recon-ng) · [Amass](https://github.com/owasp-amass/amass)
 - [Maigret](https://github.com/soxoj/maigret) · [Holehe](https://github.com/megadose/holehe) · [H8mail](https://github.com/khast3x/h8mail)
 - [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) · [Photon](https://github.com/s0md3v/Photon)
-- [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) · [Trace Labs](https://www.tracelabs.org/)
+- [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) · [Trace Labs](https://tracelabs.org/)
 
 **Network & Web Security**
 - [Nmap](https://nmap.org/) · [Wireshark](https://www.wireshark.org/) · [Burp Suite](https://portswigger.net/burp) · [OWASP ZAP](https://www.zaproxy.org/)
@@ -280,7 +309,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Aircrack-ng](https://www.aircrack-ng.org/) · [Kismet](https://www.kismetwireless.net/) · [Wifite2](https://github.com/derv82/wifite2)
 - [Bettercap](https://www.bettercap.org/) - Simone Margaritelli
 - [ChipWhisperer](https://github.com/newaetech/chipwhisperer) - NewAE Technology
-- [OpenOCD](https://openocd.org/) · [Bus Pirate](http://dangerousprototypes.com/docs/Bus_Pirate)
+- [OpenOCD](https://openocd.org/) · [Bus Pirate](https://docs.buspirate.com/)
 
 **Forensics & Reverse Engineering**
 - [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
@@ -290,7 +319,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 
 **Monitoring & Defense**
 - [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
-- [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://www.graylog.org/)
+- [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://graylog.org/)
 - [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/) · [nzyme](https://nzyme.org/)
 
 **Honeypots & Deception**
@@ -311,12 +340,14 @@ This guide stands on the shoulders of the global cybersecurity community.
 
 **Other key works:** Ryan Barnett (*Black Hat Bash*) · Travis Goodspeed (*Microcontroller Exploits*) · Seth Enoka (*Cybersecurity for Small Networks*) · Peter Kim (*The Hacker Playbook 3*) · Ben Clark (*RTFM / BTFM*) · Christopher Hadnagy (*Social Engineering*) · Kevin Mitnick (*The Art of Invisibility*)
 
-> See the [full 78-entry bibliography](#-complete-bibliography) below.
+> See the [full 78-entry bibliography](#complete-bibliography) below.
 
 ### 🐧 Security Linux Distributions
+
 [Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.net/) · [Whonix](https://www.whonix.org/)
 
 ### 🌐 Knowledge Frameworks & Communities
+
 [MITRE ATT&CK](https://attack.mitre.org/) · [OWASP](https://owasp.org/) · [NIST NVD](https://nvd.nist.gov/) · [CVE](https://www.cve.org/) · [CISA](https://www.cisa.gov/) · [SANS](https://www.sans.org/)
 
 [HackTheBox](https://www.hackthebox.com/) · [TryHackMe](https://tryhackme.com/) · [VulnHub](https://www.vulnhub.com/) · [OverTheWire](https://overthewire.org/) · [PentesterLab](https://pentesterlab.com/)
@@ -324,16 +355,21 @@ This guide stands on the shoulders of the global cybersecurity community.
 **[TryHackMe FREE Roadmap](https://github.com/uttambodara/TryHackMeRoadmap)** - 350+ free rooms, beginner → advanced, curated by [Uttambodara](https://github.com/uttambodara)
 
 ### 🔐 Privacy & Anonymity Tools
+
 [Tor Project](https://www.torproject.org/) · [Mullvad VPN](https://mullvad.net/) · [ProtonVPN](https://protonvpn.com/) · [IVPN](https://www.ivpn.net/)
 [VeraCrypt](https://veracrypt.io/) · [ProtonMail](https://proton.me/mail) · [Signal](https://signal.org/)
 
 ### 🎓 Certification Bodies
-[Offensive Security](https://www.offsec.com/) (OSCP, OSEP, OSCE) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
+
+[OffSec](https://www.offsec.com/) (training and certifications) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
 
 ### 👥 Notable Security Researchers
+
 Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · HD Moore · Tavis Ormandy · Marcus Hutchins · Brian Krebs · Troy Hunt · Katie Moussouris · Parisa Tabriz · The Grugq · and countless others
 
 ---
+
+<a id="complete-bibliography"></a>
 
 ## 📚 Complete Bibliography
 
@@ -459,13 +495,14 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 **Unauthorized access to computer systems is a federal crime under the CFAA and equivalent laws worldwide. This repository is for educational purposes and authorized security testing only.**
 
 ### Authorized Use Cases
+
 - Professional penetration testing with signed client authorization
 - Security research in isolated lab environments you own
 - CTF (Capture the Flag) competitions
 - Homelab and educational practice on your own systems
 - Defensive security tooling and monitoring
 
-See the full [LEGAL.md](LEGAL.md) for complete terms.
+See the full [LEGAL.md](./LEGAL.md) for complete terms.
 
 ---
 
@@ -476,13 +513,13 @@ See the full [LEGAL.md](LEGAL.md) for complete terms.
 | 📚 70+ professional books synthesized | Complete coverage from recognized industry experts |
 | 🏢 90+ PNWC internal docs | Real operational experience - not just theory |
 | 🎯 10+ attack case studies | Root cause, TTPs, IOCs, and defensive lessons analyzed |
-| ⚙️ 5 field-ready playbooks | Drop-in procedures for professional engagements |
-| 🛠️ 15+ production scripts | Tested automation tools ready to deploy |
+| ⚙️ Operational playbook collection | Procedures for assessment, incident response, and team exercises |
+| 🛠️ Security script collection | Source examples to review and validate in the intended environment |
 | 📡 20+ hardware devices | IoT and embedded security from real-world toolkit |
 | 🔍 400+ OSINT tools | Organized by category with usage methodology |
 | 🤖 AI security workflows | Self-hosted LLM integration for security operations |
 | 🎓 Cert-aligned content | OSCP · CEH · GPEN · CySA+ · CISSP mapped |
-| 🔁 Full lifecycle coverage | Offense + Defense + Operations + Forensics |
+| 🔁 Cross-domain coverage | Offense + Defense + Operations + Forensics + Data Engineering |
 
 ---
 
@@ -510,11 +547,15 @@ Want to help the community?
 
 ---
 
-*Last Updated: June 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
+*Last Updated: September 11, 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
 
 ## Related Files
-- [START_HERE.md](START_HERE.md) - Quick navigation guide to all sections
-- [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Enhanced deep-dive guide
-- [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Third guide in the series
-- [LEGAL.md](LEGAL.md) - Legal disclaimer and terms of use
-- [CHANGELOG.md](CHANGELOG.md) - Repository change history
+
+- [Data Engineering](./Data-Engineering/README.md) - Data infrastructure and learning roadmap
+- [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) - TLS, SSH, Git, parsing, enrichment, Kafka, and Ansible
+- [START_HERE.md](./START_HERE.md) - Quick navigation guide to all sections
+- [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) - Enhanced deep-dive guide
+- [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) - Third guide in the series
+- [LEGAL.md](./LEGAL.md) - Legal disclaimer and terms of use
+- [CHANGELOG.md](./CHANGELOG.md) - Repository change history
+
