@@ -1,4 +1,4 @@
-# 🔥 OpenBSD PF Firewall — The Practical Guide
+# 🔥 OpenBSD PF Firewall: The Practical Guide
 
 <div align="center">
 
