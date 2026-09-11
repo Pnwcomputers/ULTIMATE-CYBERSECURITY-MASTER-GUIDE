@@ -1,4 +1,3 @@
-
 # ✅ Data Quality & Schema Contracts
 
 <div align="center">
@@ -7,7 +6,7 @@
 
 *Declared contracts • Record and batch checks • Null rates • Breaking-change detection • Reject handling*
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Foundations](https://img.shields.io/badge/Level-Foundations-blue?style=for-the-badge)
 ![Quality](https://img.shields.io/badge/Focus-Data_Quality-darkgreen?style=for-the-badge)
@@ -152,7 +151,7 @@ This distinction causes more contract disputes than any other:
 
 ### 📘 Keep the contract next to the code
 
-The contract belongs in version control, in the same repository as the pipeline, reviewed through the same process. A contract maintained in a wiki drifts from the code within weeks and then actively misleads. See the Git workflow section of [data_pipelines.md](./data_pipelines.md#5-manage-code-and-configuration-with-git).
+The contract belongs in version control, in the same repository as the pipeline, reviewed through the same process. A contract maintained in a wiki drifts from the code within weeks and then actively misleads. See the Git workflow section of [data_pipelines.md](../data_pipelines.md#5-manage-code-and-configuration-with-git).
 
 ---
 
@@ -797,7 +796,7 @@ Local checks used Python 3.12.3 on Ubuntu with standard-library modules only. Th
 3. Classify any proposed schema change using the table in §8 and justify the classification.
 4. Keep validation logic free of destination access so it can be unit tested.
 5. Report the actual output observed, including exit statuses.
-6. Update the [section index](./README.md) when adding a guide.
+6. Update the [section index](../README.md) when adding a guide.
 
 ---
 
@@ -819,14 +818,14 @@ Local checks used Python 3.12.3 on Ubuntu with standard-library modules only. Th
 
 ## 🔗 Quick Links & Related Guides
 
-- [🗄️ Data Engineering Section Index](./README.md)
+- [🗄️ Data Engineering Section Index](../README.md)
 - [🧱 Data Engineering Fundamentals](./data_engineering_fundamentals.md)
 - [🐍 Python for Data Processing](./python_data_processing.md)
 - [🗃️ SQL & Data Modeling](./sql_data_modeling.md)
 - [🔄 ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md)
-- [🛡️ Secure Data Pipelines](./data_pipelines.md)
-- [📊 Log Aggregation & Visibility](../IncidentResponse/log_agg.md)
-- [📖 Repository Glossary](../GLOSSARY.md)
+- [🛡️ Secure Data Pipelines](../data_pipelines.md)
+- [📊 Log Aggregation & Visibility](../../IncidentResponse/log_agg.md)
+- [📖 Repository Glossary](../../GLOSSARY.md)
 
 ---
 
@@ -840,7 +839,7 @@ Local checks used Python 3.12.3 on Ubuntu with standard-library modules only. Th
 | 🧰 Core Technologies | Python standard library; JSON contract files |
 | 📘 Format | Reference guide with an executed validator and compatibility gate |
 | 🧪 Validation Status | Both lab tools executed; outputs and limitations documented above |
-| 📁 Location | `Data-Engineering/data_quality_schema_contracts.md` |
+| 📁 Location | `Data-Engineering/Phase1/data_quality_schema_contracts.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
@@ -855,7 +854,7 @@ Local checks used Python 3.12.3 on Ubuntu with standard-library modules only. Th
 
 **Pacific Northwest Computers:** [PNWC on GitHub](https://github.com/Pnwcomputers)
 
-[🏠 Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../LEGAL.md)
+[🏠 Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [📋 Table of Contents](#table-of-contents) | [📜 Legal Notice](../../LEGAL.md)
 
 ⭐ **Star the repository if you find it useful!** ⭐
 
