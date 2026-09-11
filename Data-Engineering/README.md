@@ -231,10 +231,10 @@ Phase 1 is published. Phases 2 and 3 remain a proposed roadmap, not a list of co
 
 | Document | Location | Coverage |
 | --- | --- | --- |
-| **Data Storage & File Formats** | [`data_storage_file_formats.md`](./Phase2/data_storage_file_formats.md) | Relational versus object versus analytical storage; CSV, JSON Lines, and Parquet; partitioning, compression, and retention. |
-| **API & File Ingestion** | [`api_file_ingestion.md`](./Phase2/api_file_ingestion.md) | Authentication, pagination, rate limits, retries with backoff, watermarks, changed files, and partial-download recovery. |
-| **Workflow Orchestration** | [`workflow_orchestration.md`](./Phase2/workflow_orchestration.md) | Schedules, dependencies, retries, concurrency, parameterized jobs, backfills, and separating orchestration from processing. |
-| **Streaming & Change Data Capture** | [`streaming_cdc.md`](./Phase2/streaming_cdc.md) | Database change capture, snapshots, event time, ordering, duplicates, late records, replay, and consumer compatibility. |
+| **Data Storage & File Formats** | [`Phase2/data_storage_file_formats.md`](./Phase2/data_storage_file_formats.md) | Relational versus object versus analytical storage; CSV, JSON Lines, and Parquet; partitioning, compression, and retention. |
+| **API & File Ingestion** | [`Phase2/api_file_ingestion.md`](./Phase2/api_file_ingestion.md) | Authentication, pagination, rate limits, retries with backoff, watermarks, changed files, and partial-download recovery. |
+| **Workflow Orchestration** | [`Phase2/workflow_orchestration.md`](./Phase2/workflow_orchestration.md) | Schedules, dependencies, retries, concurrency, parameterized jobs, backfills, and separating orchestration from processing. |
+| **Streaming & Change Data Capture** | [`Phase2/streaming_cdc.md`](./Phase2/streaming_cdc.md) | Database change capture, snapshots, event time, ordering, duplicates, late records, replay, and consumer compatibility. |
 
 ### 🔵 Phase 3: Operations & Governance — Proposed
 
