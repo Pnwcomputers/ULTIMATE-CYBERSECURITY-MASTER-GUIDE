@@ -7,19 +7,26 @@
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)
-![CM5](https://img.shields.io/badge/CM5-Supported-green?style=for-the-badge)
+![CM5](https://img.shields.io/badge/CM5-Validation_Pending-yellow?style=for-the-badge)
 ![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)
 
 </div>
 
+> [!IMPORTANT]
+> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The proposed CM5 v1.4 revision preserves the desktop; device testing is pending. CM4 automation has not been audited by this fix.
+
 ## 🎯 Purpose
-Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a pocket-sized Linux handheld optimized for SDR, LoRa, GPS, and field pentesting use.
+Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a
+pocket-sized Linux handheld optimized for SDR, LoRa, GPS, and field pentesting use.
 
 ## ⚙️ Function
-Documents CM4 and CM5 module configurations, HackerGadgets AIO v2 + Battery/NVMe board setup, Kali Linux and Debian Trixie post-flash configuration, driver installation (WiFi, Bluetooth, audio, display), and automated setup scripts for reproducible deployments.
+Documents CM4 and CM5 module configurations, HackerGadgets AIO v2 + Battery/NVMe board setup, Kali Linux and Debian
+Trixie post-flash configuration, driver installation (WiFi, Bluetooth, audio, display), and automated setup scripts
+for reproducible deployments.
 
 ## 🏆 Goal
-A fully configured, field-ready uConsole running on Kali or Trixie with all hardware working: RTL-SDR, LoRa, GPS, external WiFi adapter, NVMe storage, and the HackerGadgets power board.
+A fully configured, field-ready uConsole running on Kali or Trixie with all hardware working: RTL-SDR, LoRa, GPS,
+external WiFi adapter, NVMe storage, and the HackerGadgets power board.
 
 ## 📋 When to Use
 - Initial uConsole build after flashing Kali or Trixie to the CM4/CM5 module
@@ -45,10 +52,12 @@ A fully configured, field-ready uConsole running on Kali or Trixie with all hard
 
 ## 🎯 Overview
 
-This directory contains **complete, step-by-step build guides and automated deployment scripts** for turning a ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension board.
+This directory contains **complete, step-by-step build guides and automated deployment scripts** for turning a
+ClockworkPi uConsole into a field-deployable hacking and SIGINT platform using the HackerGadgets AIO v2 extension
+board.
 
 **What This Covers:**
-- ⚙️ **Automated setup scripts** (`uconsole-cm4-setup.sh`, `uconsole-cm5-setup.sh`) for hardened, error-free deployments
+- ⚙️ **Automated setup scripts** (`uconsole-cm4-setup.sh`, `uconsole-cm5-setup.sh`) with image-specific prerequisites and recovery guidance
 - 📡 **RTL-SDR** setup and configuration (100 kHz – 1.74 GHz)
 - 📻 **LoRa / Meshtastic** mesh networking (SX1262)
 - 🛰️ **GPS** receiver configuration and PPS timing
@@ -133,24 +142,13 @@ Both setup guides cover two primary OS paths:
 
 ### Path A: Rex's Kali Image
 
-Full Kali toolchain pre-installed - pentesting-ready out of the box.
+Use a native Kali image for Kali metapackages. Check the image release's actual included tools and update guidance; preserve its desktop configuration.
 
-| Pros | Cons |
-|---|---|
-| Everything pre-installed | Can hit `cryptsetup-initramfs` failures if not hardened |
-| Familiar to pentesters | Trackball slightly less responsive |
-| Kali community support | Requires LightDM session pinning |
+### Path B: Rex's Trixie Image
 
-### Path B: Rex's Trixie + Kali Tools (Recommended)
-
-Debian 13 base with Kali rolling repo layered on top.
-
-| Pros | Cons |
-|---|---|
-| Newest packages | Extra setup step for Kali tools |
-| Fewer package conflicts | Must carefully manage `raspberrypi-sys-mods` |
-| Best trackball behavior | Requires precise APT pinning to avoid `libfm` ABI mismatch |
-| Cleanest base system | N/A |
+Use Debian 13 Trixie with the repositories intended for that image. Do not add Kali rolling to Debian. The old tool
+allowlist did not block all Kali system packages. [Kali repository
+guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 
 ### Other Rex Images
 
@@ -199,40 +197,21 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 ## 🔧 Common Setup Sequence (The 6-Phase Approach)
 
-Our latest documentation uses a strict **"Harden first, upgrade second, then install"** methodology to prevent bricked installations. This entire process is automated via `uconsole-cm4-setup.sh` and `uconsole-cm5-setup.sh`.
+For CM5 v1.4, the defaults preserve the working image and optional installations require flags. See [script
+usage](./scripts/README.md) and [recovery instructions](./CM5-DISPLAY-RECOVERY.md). This sequence does not describe
+the unchanged CM4 installer.
 
-```text
-Phase 1: Pre-Flight Hardening
-   └─> Disable cryptsetup-initramfs to prevent boot failures
-   └─> Pin LightDM sessions safely so upgrades don't break the GUI
-   └─> [Trixie] Safely manage raspberrypi-sys-mods
-   └─> [Trixie] Inject Kali rolling repo with a narrow, protected APT pin
+| Phase | CM5 v1.4 behavior |
+|---|---|
+| Preflight | Validate OS/hardware/source configuration and back up configuration |
+| Update | Skip system upgrades; optional hostname change |
+| Kali tools | Opt-in, native Kali only |
+| AIO | Opt-in Rex package installation for fitted hardware |
+| Peripherals | Preserve boot settings; optional chipset-appropriate DKMS package |
+| Finalize | Package audit; manual reboot/desktop/hardware verification |
 
-Phase 2: First System Upgrade
-   └─> apt full-upgrade (now safe to run)
-   └─> Set hostname
-
-Phase 3: Kali Tools Integration
-   └─> Install target metapackage (e.g., kali-tools-top10)
-
-Phase 4: AIO Board Ecosystem
-   └─> Install aiov2_ctl from source
-   └─> Inject legacy dependencies (libgpiod2, libyaml-cpp0.7) if missing
-   └─> Install hackergadgets-uconsole-aio-board, meshtastic-mui
-   └─> Install ADS-B trackers (readsb, tar1090)
-
-Phase 5: Peripheral Configuration
-   └─> Free serial port for GPS UART
-   └─> Enable SPI overlays and hardware RTC mappings
-   └─> Blacklist DVB-T driver for RTL-SDR
-   └─> Disable conflicting services (devterm-printer)
-   └─> Set boot rails for GPS, LoRa, and SDR
-   └─> Suppress polkit-mate agent (XDG Hidden override for Labwc)
-
-Phase 6: Finalization & Verification
-   └─> Perform automated sanity checks on configs and dependencies
-   └─> Manual hand-off: set timezones, passwords, connect antennas
-```
+Default setup does not install the complete AIO ecosystem. Follow the current board vendor instructions for
+additional hardware configuration. Software tests are not proof of a working CM5 desktop.
 
 ---
 
