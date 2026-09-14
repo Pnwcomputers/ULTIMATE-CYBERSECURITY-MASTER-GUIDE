@@ -27,9 +27,13 @@
 
 ## 🧭 About This Index
 
-This README is the repository's front door: it lists the main sections, subsection indexes, and selected guides. Section READMEs provide the detailed file catalogs within each area.
+This README is the repository's front door: it lists the main sections, subsection indexes, and selected guides. 
 
-Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
+Section READMEs provide the detailed file catalogs within each area.
+
+Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. 
+
+The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
 
 <h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
 
