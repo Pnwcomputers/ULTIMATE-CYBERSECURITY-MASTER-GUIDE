@@ -139,7 +139,7 @@ These guides serve as:
 
 ## 🐧 OS Options
 
-Both setup guides cover two primary OS paths:
+These setup guides cover two primary OS paths; both running different "flavors" of Kali Linux:
 
 ### Path A: Rex's Kali Image
 
