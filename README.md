@@ -31,7 +31,7 @@ This README is the repository's front door: it lists the main sections, subsecti
 
 Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
 
-<p align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></p>
+<h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
 
 ---
 ## 🎯 START HERE
