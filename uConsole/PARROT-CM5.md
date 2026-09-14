@@ -1,4 +1,4 @@
-# uConsole CM5 Parrot Setup
+# uConsole CM5 Parrot Setup _*Experimental; Use at your OWN RISK!_
 
 ## 🎯 Purpose
 
