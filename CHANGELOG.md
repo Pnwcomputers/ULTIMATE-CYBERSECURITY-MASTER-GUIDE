@@ -1,14 +1,18 @@
-# 🔄 Change Log - September 11, 2026
+# 🔄 Change Log - September 14, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1396
-- **Files Modified**: 1616
-- **New Files**: 632
-- **Deleted Files**: 119
+- **Commits Analyzed**: 1412
+- **Files Modified**: 1630
+- **New Files**: 637
+- **Deleted Files**: 120
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add ParrotOS guide for Raspberry Pi CM5 setup (`9df27af`)
+- Add ParrotOS Guide link to README (`fb079ef`)
+- Add experimental Parrot CM5 post-flash setup with package plan guards (#79) (`3e09b79`)
+- Create README.md (`26eee93`)
 - Add files via upload (`e9b2be5`)
 - Add Phase 2 documentation for Storage & Integration (`dfd3a63`)
 - Add files via upload (`e75996d`)
@@ -461,6 +465,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix link formatting and update ParrotOS guide description (`f0f3bf5`)
+- Fix formatting of experimental warning in documentation (`b15915e`)
 - Fix links in Phase 2 section of README.md (`e8ef223`)
 - Fix links and paths in data_quality_schema_contracts.md (`d5f5f8d`)
 - Fix relative links in ETL & ELT pipeline design (`98d2442`)
@@ -608,6 +614,13 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update OS information in README (`fa82754`)
+- Rename OS Options section to Kali OS Options (`aa86dd8`)
+- Update wording in OS Options section (`65002c5`)
+- Update ParrotOS Guide link with warning note (`1321f43`)
+- Update header formatting in PARROT-CM5.md (`8bb98fb`)
+- Update title to indicate experimental use (`1d8edcf`)
+- Rename uConsole/scripts/PARROT-CM5.md to uConsole/PARROT-CM5.md (`e754d01`)
 - Revise README for learning path and phase updates (`f4db3a1`)
 - Update and rename readme.md to README.md (`a862787`)
 - Update Phase 2 status from Proposed to Published (`46a9eb1`)
@@ -1197,6 +1210,8 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Enhance ParrotOS Guide description in README (`518bf40`)
+- Delete uConsole/ParrotOS/README.md (`87df2bc`)
 - Revise data pipelines documentation for clarity (`5365b6c`)
 - Refine Fail2Ban documentation for clarity (`c6ff91d`)
 - Refine language and formatting in Suricata and Zeek guide (`07bd336`)
@@ -1324,6 +1339,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Revise header in PARROT-CM5.md (`56ce545`)
 - Replace 'Hello World' with 'Goodbye World' (`e1cf8ca`)
 - Refine language and punctuation in openbsd_pf.md (`b1f6c89`)
 - Enhance OSSEC section with Wazuh details (`5c5b16e`)
@@ -1420,6 +1436,15 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `uConsole/README.md`
+- `uConsole/PARROT-CM5.md`
+- `uConsole/ParrotOS/README.md`
+- `.github/workflows/cm5-parrot-checks.yml`
+- `uConsole/scripts/PARROT-CM5.md`
+- `uConsole/scripts/README.md`
+- `uConsole/scripts/uconsole-cm5-parrot-setup.sh`
+- `uConsole/tests/test_cm5_parrot_setup.py`
+- `CHANGELOG.md`
 - `Data-Engineering/README.md`
 - `Data-Engineering/Phase3/README.md`
 - `Data-Engineering/Phase3/readme.md`
@@ -1442,8 +1467,6 @@
 - `Data-Engineering/Phase1/readme.md`
 - `uConsole/CM5-DISPLAY-RECOVERY.md`
 - `uConsole/CM5-SETUP.md`
-- `uConsole/README.md`
-- `uConsole/scripts/README.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
 - `README.md`
@@ -1455,7 +1478,6 @@
 - `Tradecraft/evasion.md`
 - `IncidentResponse/IDS&IPS/security-onion.md`
 - `IncidentResponse/IDS&IPS/fail2ban.md`
-- `CHANGELOG.md`
 - `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `ultimate_cybersecurity_master_guide.md`
