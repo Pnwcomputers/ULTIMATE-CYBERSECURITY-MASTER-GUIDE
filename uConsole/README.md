@@ -137,7 +137,7 @@ These guides serve as:
 
 ---
 
-## 🐧 OS Options
+## 🐧 Kali OS Options
 
 These setup guides cover two primary OS paths; both running different "flavors" of Kali Linux:
 
