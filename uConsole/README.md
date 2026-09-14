@@ -101,7 +101,7 @@ These guides serve as:
 | **Handheld** | ClockworkPi uConsole |
 | **Compute Module** | Raspberry Pi CM4 or CM5 (with HackerGadgets adapter board) |
 | **Extension Board** | HackerGadgets AIO v2 |
-| **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
+| **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel), *ParrotOS *work in progress* |
 | **WiFi Adapter** | External monitor-mode capable adapter (RTL8812AU recommended) |
 
 ### Optional Components
