@@ -11,6 +11,7 @@ Post-flash setup and recovery references for ClockworkPi uConsole systems. Choos
 
 | Script | Scope |
 |---|---|
+| [uconsole-cm5-parrot-setup.sh](./uconsole-cm5-parrot-setup.sh) | Experimental Parrot CM5 post-flash setup; requires existing Parrot. [Usage and limits](./PARROT-CM5.md) |
 | [uconsole-cm5-setup.sh](./uconsole-cm5-setup.sh) | Conservative CM5 setup, proposed v1.4; preserves the image's desktop and boot configuration |
 | [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | Legacy CM4 automation; review independently before use |
 | [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay repair; not a general desktop recovery tool |
