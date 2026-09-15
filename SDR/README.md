@@ -32,6 +32,7 @@ Serve as the starting point for RF and contactless work - directing beginners to
 - Choosing which guide to start with based on experience level and target technology
 - Hardware selection: comparing RTL-SDR, HackRF, Airspy, PlutoSDR for RF, or Proxmark3, Chameleon Ultra, PN532 for NFC/RFID
 - Legal/regulatory reference: FCC licensing before transmitting, and access-control/fraud law before reading or cloning credentials
+- Running a full engagement: pair these guides with the [HackRF RF Spectrum & Wireless Security Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md) for a start-to-finish field/bench procedure
 
 ---
 
@@ -43,6 +44,8 @@ Serve as the starting point for RF and contactless work - directing beginners to
 | **[sdr_hacking.md](sdr_hacking.md)** | 🔴 Advanced / Offensive | SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation |
 | **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
 | **[rfid.md](rfid.md)** | 🟡 Practical / Bench | LF/HF proximity card capture, Crypto1 key recovery, cloning/emulation, and security testing at 125 kHz and 13.56 MHz |
+
+> 📘 **Engagement playbook:** For an end-to-end HackRF field and bench procedure - spectrum surveys, focused IQ capture, interference and leakage analysis, protocol triage, controlled bench security tests, evidence handling, and reporting - see **[HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md)** in the PlayBooks section.
 
 ---
 
@@ -101,6 +104,8 @@ Using these tools improperly violates:
 | **[Flipper Zero](https://flipper.net/)** | Sub-GHz + LF/HF RFID (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
 | **[Yard Stick One](https://greatscottgadgets.com/yardstickone/)** | Sub-GHz (Tx/Rx) | Proprietary RF protocol exploitation | 🔴 HIGH |
 
+> 📘 **Field & bench workflows** for HackRF (spectrum surveys, IQ capture, interference/leakage analysis, and controlled bench security tests) live in the **[HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)**.
+
 ### NFC/RFID Devices
 
 | Device | Capabilities | Target Use Case | Risk Level |
@@ -129,7 +134,7 @@ Using these tools improperly violates:
 | **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |
 | **[Kismet](https://www.kismetwireless.net/)** | Wi-Fi / Bluetooth / SDR network discovery | 🟡 MEDIUM |
 
-> 📘 **Hands-on walkthroughs** for the Sub-GHz capture tools above (Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce firmware) live in **[subghz.md](subghz.md)**.
+> 📘 **Hands-on walkthroughs** for the Sub-GHz capture tools above (Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce firmware) live in **[subghz.md](subghz.md)**. For a structured HackRF survey-to-report procedure, see the **[HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)**.
 
 **Security Considerations:**
 
@@ -177,6 +182,8 @@ the Wiretap Act and ECPA.
 
 TRANSMITTING WITHOUT AUTHORIZATION/LICENSING = SEVERE FEDERAL PENALTIES
 ```
+
+> 📗 **Authorized-only note:** Any active transmission or replay work in this repository is intended for owned devices in a contained bench environment. The [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md) (Section 8) documents the containment, power-budget, and positive-control requirements for controlled bench security tests.
 
 ---
 
@@ -454,6 +461,7 @@ We welcome contributions from RF researchers and security professionals, but all
 - [🏠 Main Repository](../README.md)
 - [🎯 START HERE Guide](../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
+- [📓 HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)
 - [🔧 Hardware Hacking](../HardwareHacking/README.md)
 - [🛰️ Space Security](../SpaceSecurity/README.md)
 - [📚 Documentation](../Documentation/README.md)
@@ -465,11 +473,12 @@ We welcome contributions from RF researchers and security professionals, but all
 ```
 📁 Tool Categories: 4 (Capture, Analysis, RF Exploitation, NFC/RFID)
 📄 Section Guides: 4 (sdr.md, subghz.md, rfid.md, sdr_hacking.md)
+📓 Companion Playbook: HackRFAuditPlayBook.md (PlayBooks/)
 📻 Target Hardware: RTL-SDR, HackRF, LimeSDR, Flipper Zero, Proxmark3, Chameleon Ultra
 📡 Spectrum Coverage: 125 kHz LF / 13.56 MHz HF + Sub-GHz + 2.4 GHz ISM + wideband SDR
 💻 Ecosystems: GNU Radio, Python, C++, Proxmark3 Iceman, libnfc
 ⚠️ Risk Level: HIGH to EXTREME (Transmission & cloning capabilities)
-🔄 Last Updated: August 2026
+🔄 Last Updated: September 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active - Proceed with EXTREME CAUTION
 ```
@@ -496,6 +505,8 @@ We welcome contributions from RF researchers and security professionals, but all
 - [subghz.md](subghz.md) - Sub-GHz lab manual: multi-tool capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, and a capture-logging template
 - [rfid.md](rfid.md) - NFC/RFID lab manual: LF/HF proximity card capture, Crypto1 key recovery, cloning/emulation, card/protocol reference matrix, and a logging template
 - [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
+- [../PlayBooks/HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md) - HackRF field audit playbook: spectrum surveys, IQ capture, interference analysis, protocol triage, controlled bench security tests, evidence, and reporting
+- [../PlayBooks/NetworkAuditPlayBook.md](../PlayBooks/NetworkAuditPlayBook.md) - Wireless & Network Security Audit Playbook: the engagement structure this section's HackRF playbook follows
 - [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
 - [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: sub-GHz and LF/HF RFID operations whose signals SDR/Proxmark can capture and analyze
 - [../SpaceSecurity/](../SpaceSecurity/) - Space security: satellite communication analysis and GPS spoofing detection - an SDR application
