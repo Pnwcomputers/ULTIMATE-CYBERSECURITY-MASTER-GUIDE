@@ -1,4 +1,4 @@
-# 📡 Target Frequencies & Protocols MASTER LIST
+# 📡 Target Frequencies & Protocols (MASTER LIST) _*Ongoing Work In Progress*_
 
 **A practical frequency, protocol, and receiver reference for SDR and authorized wireless assessments.**
 
