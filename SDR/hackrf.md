@@ -1,11 +1,8 @@
 # HACKRF RF SPECTRUM & WIRELESS SECURITY AUDIT PLAYBOOK
 ## Field Surveys, Signal Analysis, Device Audits & Controlled Bench Testing
 
-**Version:** 1.1  
-**Last Updated:** September 15, 2026  
-**Owner:** Pacific Northwest Computers  
-**Suggested repository location:** `PlayBooks/HackRFAuditPlayBook.md`  
-**Primary platform:** HackRF One with a Linux host; optional PortaPack with Mayhem
+**Version 1.1**  
+**Last Updated: September 15, 2026**
 
 ---
 
@@ -591,7 +588,6 @@ These are receive-analysis workflows, not authorization to transmit navigation, 
 
 The [Sub-GHz/2.4 GHz guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/SDR/subghz.md) compares CC1101 and nRF24L01+ roles. Neither should be treated as a universal radio for the other's bands. A radio chipset match does not prove that a device is vulnerable to a named peripheral attack.
 
-
 ---
 
 ## SECTION 7: INTERFERENCE, LEAKAGE & MONITORING
@@ -677,7 +673,6 @@ Suggested monitoring output: **new activity**, **persistent increase**, **expect
 - Escalate only with adequate bandwidth, triggering, alignment, and measurement equipment.
 
 [Advanced SDR Chapters 12–13](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/SDR/sdr_hacking.md) provides TEMPEST/EM context. [Hardware Hacking Chapter 5](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/Chapter5.md) discusses trace acquisition, filtering, and alignment. Its power-trace setup and sampling assumptions are not automatically transferable to free-running HackRF IQ. A visible workload-dependent peak is evidence of correlation, not proof of exploitable data leakage.
-
 
 ---
 
@@ -1001,14 +996,22 @@ Retest result:
 
 - **Version:** 1.1
 - **Created:** September 15, 2026
-- **Next review:** December 2026, or after material hardware/software changes.
+- **Next Review:** December 2026, or after material hardware/software changes.
+- **Owner:** Pacific Northwest Computers
+- **Primary platform:** HackRF One with a Linux host; optional PortaPack with Mayhem.
+- **Repository location:** `PlayBooks/HackRFAuditPlayBook.md`
 - **Validation:** Upstream documentation/source review and static example checks; hardware execution still required before operational adoption.
 - **Maintenance:** Recheck command help, distribution packages, decoder compatibility, firmware formats, and regulatory context before field use.
 
 ### Related Files
 
-- [PlayBooks index](README.md)
-- [Wireless & Network Security Audit Playbook](NetworkAuditPlayBook.md)
+- [README.md](README.md) — PlayBooks section index.
+- [NetworkAuditPlayBook.md](NetworkAuditPlayBook.md) — Wireless & Network Security Audit Playbook (structural reference).
+- [../SDR/README.md](../SDR/README.md) — SDR / RF / NFC-RFID section index.
+- [../SDR/sdr.md](../SDR/sdr.md) — Foundational SDR guide: IQ sampling, GNU Radio, signal analysis.
+- [../SDR/subghz.md](../SDR/subghz.md) — Sub-GHz lab manual: capture workflows, protocol matrix, logging template.
+- [../SDR/sdr_hacking.md](../SDR/sdr_hacking.md) — Advanced SDR hacking: SIGINT, protocol reversing, TEMPEST, EM side-channel.
+- [../SDR/rfid.md](../SDR/rfid.md) — LF/HF RFID/NFC lab manual.
 
 ## SECTION 14: REPOSITORY CROSS-REFERENCE & CONSISTENCY REVIEW
 
@@ -1089,4 +1092,21 @@ For repository integration, place this file at `PlayBooks/HackRFAuditPlayBook.md
 | 1.0 | Initial standalone HackRF audit playbook. |
 | 1.1 | Repository-wide reference discovery, contextual companion links, proprietary 2.4 GHz and EM-research triage, evidence-template alignment, installer caveats, and source-discrepancy register. |
 
+---
+
 ## END OF PLAYBOOK
+
+This playbook should be reviewed and updated periodically to reflect:
+
+- New or updated HackRF/PortaPack firmware, tools, and decoder compatibility
+- Changes in distribution packaging and dependency stacks
+- Lessons learned from field engagements and bench testing
+- Updated regulatory context and repository cross-references
+
+**Document Control:**
+- **Version:** 1.1
+- **Created:** September 15, 2026
+- **Next Review:** December 2026, or after material hardware/software changes
+- **Owner:** Pacific Northwest Computers
+
+For questions or suggestions, contact: jon@pnwcomputers.com
