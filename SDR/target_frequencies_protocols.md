@@ -1,5 +1,5 @@
 # 📡 Target Frequencies & Protocols (MASTER LIST)
-### _*Ongoing Work In Progress*_
+### _*Ongoing Work In Progress_
 
 ---
 
