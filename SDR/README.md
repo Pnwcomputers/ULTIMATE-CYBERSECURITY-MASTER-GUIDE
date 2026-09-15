@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Collection of analysis tools, signal capture guides, and exploitation techniques across RF and contactless credential systems**
+**Guides for signal capture, protocol analysis, wireless security research, and authorized RF/contactless assessments**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -15,515 +15,314 @@
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
-Index and entry point for the SDR / RF / contactless section - covering foundational SDR theory, GNU Radio, signal intelligence, protocol reversing, Sub-GHz and NFC/RFID lab procedures, and advanced RF security topics across four comprehensive guides.
+This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, and the frequency/protocol master reference.
 
-## ⚙️ Function
+The linked documents contain explanations, examples, and workflows. A tool listed here is not necessarily bundled with the repository, installed on your system, or compatible with every radio.
 
-Links to `sdr.md` (foundational guide: IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS analysis), `sdr_hacking.md` (advanced guide: SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation), `subghz.md` (hands-on Sub-GHz lab manual: multi-tool capture workflows, protocol reversing, device/frequency reference matrix, and a standardized capture-logging template), and `rfid.md` (hands-on LF/HF proximity-card lab manual: Proxmark3/Flipper/PN532 read-to-clone workflows, Crypto1 key recovery, card/protocol reference matrix, and a logging template). Includes hardware comparison tables, frequency reference, legal framework summary, and tool ecosystem overview.
+## Function
 
-## 🏆 Goal
+Use this index to select a guide, identify suitable hardware and software, find regional frequency references, and understand the prerequisites for receiving, decoding, or testing a signal.
 
-Serve as the starting point for RF and contactless work - directing beginners to `sdr.md` for fundamentals, hands-on practitioners to `subghz.md` for bench-level Sub-GHz capture and `rfid.md` for LF/HF card analysis and cloning, and experienced operators with GNU Radio experience to `sdr_hacking.md` for offensive techniques.
+## Goal
 
-## 📋 When to Use
+Move from an RF question to a documented result: identify the relevant band and protocol, validate the receive chain, capture evidence, analyze it with compatible tools, and report conclusions supported by measurements.
 
-- Choosing which guide to start with based on experience level and target technology
-- Hardware selection: comparing RTL-SDR, HackRF, Airspy, PlutoSDR for RF, or Proxmark3, Chameleon Ultra, PN532 for NFC/RFID
-- Legal/regulatory reference: FCC licensing before transmitting, and access-control/fraud law before reading or cloning credentials
-- Running a full engagement: pair these guides with the [HackRF RF Spectrum & Wireless Security Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md) for a start-to-finish field/bench procedure
+## When to Use
+
+- Learning IQ sampling, antennas, demodulation, or GNU Radio.
+- Selecting a receiver, protocol sniffer, RFID reader, or analysis tool.
+- Looking up frequency ranges, exact channel centers, and regional differences.
+- Investigating interference or analyzing devices within an authorized assessment.
+- Planning an end-to-end engagement with the [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md).
+
+> **Operating scope:** Start with public broadcasts, provided recordings, or devices within your authorized scope. Transmissions, private communications, and credential interactions require additional checks. See [Safe Workflows](#safe-workflows) and [Security and Legal Boundaries](#security-and-legal-boundaries).
 
 ---
 
-## 📂 Guides in This Section
+## Table of Contents
+
+- [Guides in This Section](#guides-in-this-section)
+- [Choose a Starting Point](#choose-a-starting-point)
+- [Hardware Ecosystem](#hardware-ecosystem)
+- [Software and Tool Categories](#software-and-tool-categories)
+- [Target Frequencies and Protocols](#target-frequencies-and-protocols)
+- [Safe Workflows](#safe-workflows)
+- [Security and Legal Boundaries](#security-and-legal-boundaries)
+- [Contributing](#contributing)
+- [Resources](#resources)
+- [Related Repository Material](#related-repository-material)
+- [Section Inventory and Maintenance](#section-inventory-and-maintenance)
+
+## Guides in This Section
 
 | Guide | Level | Focus |
-|-------|-------|-------|
-| **[sdr.md](sdr.md)** | 🟢 Foundational | IQ sampling, SDR hardware, GNU Radio, Wi-Fi/BT/cellular/GPS signal analysis |
-| **[sdr_hacking.md](sdr_hacking.md)** | 🔴 Advanced / Offensive | SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation |
-| **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
-| **[rfid.md](rfid.md)** | 🟡 Practical / Bench | LF/HF proximity card capture, Crypto1 key recovery, cloning/emulation, and security testing at 125 kHz and 13.56 MHz |
-| **[hackrf.md](hackrf.md)** | 🟡 Practical / Bench | Repeatable procedure for surveying radio activity, investigating interference, analyzing owned wireless devices, and documenting RF security findings |
+|---|---|---|
+| **[SDR Fundamentals](sdr.md)** | 🟢 Foundational | IQ sampling, SDR hardware, antennas, GNU Radio, demodulation, and application chapters on wireless and satellite signals. |
+| **[HackRF RF Spectrum and Wireless Security Audits](hackrf.md)** | 🟡 Practical / Bench | Receive-chain validation, spectrum surveys, IQ captures, interference investigation, protocol triage, controlled bench testing, and reporting. |
+| **[Sub-GHz RF Exploration and Protocol Engineering](subghz.md)** | 🟡 Practical / Bench | Device capture workflows, OOK/FSK analysis, protocol identification, transceiver selection, and capture logs; also includes selected 2.4 GHz topics. |
+| **[RFID and NFC Exploration](rfid.md)** | 🟡 Practical / Bench | LF/HF tag identification, reader selection, supported authentication/key-recovery research, and authorized emulation or cloning workflows. |
+| **[Advanced SDR Security Research](sdr_hacking.md)** | 🔴 Advanced | Signal reversing, wireless protocol security, firmware/baseband research, TEMPEST, and electromagnetic side-channel topics. |
+| **[Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)** | 🟢 Reference / All Levels | Regional bands, exact channel tables, signal characteristics, hardware limits, decoder selection, and survey documentation. |
 
-> 📘 **Engagement playbook:** For an end-to-end HackRF field and bench procedure - spectrum surveys, focused IQ capture, interference and leakage analysis, protocol triage, controlled bench security tests, evidence handling, and reporting - see **[HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md)** in the PlayBooks section.
+> **Companion playbook:** [HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md) provides the engagement procedure in the PlayBooks section. Related HackRF material also exists in [hackrf.md](hackrf.md); contributors should keep shared procedures and references consistent.
 
----
+## Choose a Starting Point
 
-## 📋 Table of Contents
-
-- [Guides in This Section](#-guides-in-this-section)
-- [Overview](#-overview)
-- [Hardware Ecosystem](#-hardware-ecosystem)
-- [Software & Tool Categories](#️-software--tool-categories)
-- Target Frequencies & Protocols MASTER LIST 🔨 *(planned)*
-- [How to Use These Tools Safely](#-how-to-use-these-tools-safely)
-- [⚠️ CRITICAL Security & Legal Warning](#️-critical-security--legal-warning)
-- [Contributing](#-contributing)
-- [Resources](#-resources)
-
----
-
-## 🎯 Overview
-
-This directory contains **Software Defined Radio (SDR) configurations, RF reverse engineering tools, GNU Radio flowgraphs, signal analysis methodologies, and NFC/RFID access-control testing procedures**. These materials are designed for authorized hardware security testing, signal intelligence (SIGINT) research, physical-access assessment, and educational purposes.
-
-### 🔴 CRITICAL WARNING
-
-```
-⚠️ RF TRANSMISSION AND CREDENTIAL CLONING ARE HEAVILY REGULATED ⚠️
-
-Many techniques in this collection involve TRANSMITTING radio signals, Replay
-Attacks, Signal Jamming, or CLONING physical access credentials. Unauthorized
-transmission is a FEDERAL OFFENSE, and using a cloned credential to enter
-premises you are not authorized to enter is a SERIOUS CRIME.
-
-YOU MUST have explicit authorization, proper licensing (e.g., HAM Radio License),
-and use appropriate containment (Faraday cages, dummy loads) before transmitting -
-and work only on cards, readers, and devices you own or are contracted to test.
-
-Using these tools improperly violates:
-• Federal Communications Commission (FCC) Regulations - Massive fines & imprisonment
-• Electronic Communications Privacy Act (ECPA) / Wiretap Act
-• Federal Aviation Administration (FAA) laws
-• Computer Fraud and Abuse Act (CFAA) & Access Device Fraud (18 U.S.C. § 1029)
-• Critical Infrastructure protection laws
-```
+| What you need to do | Start here | Follow with |
+|---|---|---|
+| Learn SDR from the beginning | [sdr.md](sdr.md) | A known broadcast receive-chain check. |
+| Identify a frequency or choose a decoder | [Master list](target_frequencies_protocols.md) | The relevant protocol guide and exact device documentation. |
+| Survey a site or investigate interference | [hackrf.md](hackrf.md) | [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md). |
+| Analyze an owned remote or wireless sensor | [subghz.md](subghz.md) | IQ/pulse analysis and supported device decoders. |
+| Identify an authorized card or tag | [rfid.md](rfid.md) | A reader and antenna appropriate to that frequency and protocol. |
+| Research an unfamiliar waveform or implementation | [sdr_hacking.md](sdr_hacking.md) | Controlled experiments and reproducible evidence. |
+| Audit Wi-Fi frames, BLE traffic, or Thread/Zigbee | [Master list](target_frequencies_protocols.md) | A compatible protocol sniffer and network configuration. |
 
 ---
 
-## 📡 Hardware Ecosystem
+## Hardware Ecosystem
 
-### SDR & RF Devices
+### SDR and RF Devices
 
-| Device | Capabilities | Target Use Case | Risk Level |
-|--------|--------------|-----------------|------------|
-| **[RTL-SDR (V3/V4)](https://www.rtl-sdr.com/)** | Receive Only (Rx) | Sniffing, Reconnaissance, SIGINT | 🟢 LOW |
-| **[HackRF One](https://greatscottgadgets.com/hackrf/one/)** | Half-Duplex (Tx/Rx) | Replay attacks, fuzzing, wideband sniffing | 🔴 HIGH |
-| **[BladeRF](https://www.nuand.com/) / [USRP](https://www.ettus.com/)** | Full-Duplex (Tx/Rx) | Cell base station spoofing, GPS spoofing | 🔴 EXTREME |
-| **[LimeSDR](https://limemicro.com/products/boards/limesdr/)** | Full-Duplex (Tx/Rx) | Advanced telecommunications research | 🔴 EXTREME |
-| **[Flipper Zero](https://flipper.net/)** | Sub-GHz + LF/HF RFID (Tx/Rx) | IoT replay, access control testing | 🟡 MEDIUM |
-| **[Yard Stick One](https://greatscottgadgets.com/yardstickone/)** | Sub-GHz (Tx/Rx) | Proprietary RF protocol exploitation | 🔴 HIGH |
+| Device / family | Capabilities | Practical role and limits |
+|---|---|---|
+| **[RTL-SDR Blog V3/V4](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/)** | Receive-only SDR | Broadcast, supported Sub-GHz telemetry, ADS-B, and other signals within the model's range. V3/V4 HF operation differs. Common RTL-SDR tuners do not directly reach 2.4 GHz. |
+| **[HackRF One](https://hackrf.readthedocs.io/en/latest/hackrf_one.html)** | Half-duplex RX/TX; specified 1 MHz–6 GHz; up to 20 MS/s complex IQ | Spectrum surveys and waveform captures. Does not directly cover 125/134.2 kHz RFID, the full 6 GHz Wi-Fi band, or wide Wi-Fi channels. |
+| **[Airspy](https://airspy.com/)** | Receive-only SDR family | Select the exact model for HF versus VHF/UHF work; coverage and bandwidth differ. |
+| **[ADALM-Pluto](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html)** | RX/TX SDR development platform | DSP and RF experiments within its specified range. Unofficial extensions are not guaranteed specifications. |
+| **[bladeRF](https://www.nuand.com/), [USRP](https://www.ettus.com/), [LimeSDR](https://www.crowdsupply.com/lime-micro)** | SDR families with model-dependent RX/TX and duplex capabilities | Higher-bandwidth or synchronized research setups; verify the model, RF board, clocking, and host throughput. |
+| **[Flipper Zero](https://docs.flipper.net/zero/sub-ghz)** | Sub-GHz packet functions plus separate LF/NFC features | Supported device and credential triage. It is not a general wideband IQ SDR; region, firmware, and protocol support matter. |
+| **[YARD Stick One](https://greatscottgadgets.com/yardstickone/)** | Half-duplex Sub-GHz packet transceiver | Supported ASK/OOK/FSK/MSK-family work through rfcat. Official bands: 300–348, 391–464, and 782–928 MHz. It is not a general IQ receiver. |
+| **Monitor-mode Wi-Fi / BLE / IEEE 802.15.4 adapters** | Protocol-specific reception | Often the best route to decoded frames. Verify chipset, driver, band, PHY, channel-following, and firmware support. |
 
-> 📘 **Field & bench workflows** for HackRF (spectrum surveys, IQ capture, interference/leakage analysis, and controlled bench security tests) live in the **[HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)**.
+**Tuning range is not decoding capability.** Seeing energy at a frequency does not mean the receiver can capture the whole waveform or that software can decode it. HackRF One's 20 MS/s limit represents approximately 20 MHz of nominal instantaneous complex-IQ span, with less useful bandwidth near filter edges. A sweeping survey is not simultaneous recording of the entire sweep range. See the [hardware and capture reference](target_frequencies_protocols.md).
 
-### NFC/RFID Devices
+### NFC and RFID Devices
 
-| Device | Capabilities | Target Use Case | Risk Level |
-|--------|--------------|-----------------|------------|
-| **[Proxmark3 RDV4 / Easy](https://proxmark.com/)** | LF + HF (Read/Write/Sniff/Emulate) | Full card analysis, key recovery, cloning, sniffing | 🔴 HIGH |
-| **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | HF + LF emulation | Bench card emulation, MIFARE/NTAG spoofing | 🟡 MEDIUM |
-| **[PN532 + libnfc](https://github.com/nfc-tools/libnfc)** | HF (13.56 MHz Read/Write) | Budget MIFARE Classic cracking (mfoc/mfcuk) | 🟡 MEDIUM |
-| **[Flipper Zero](https://flipper.net/)** | LF (125 kHz) + HF (13.56 MHz) | Field card triage, fixed-ID emulation | 🟡 MEDIUM |
-| **[iCopy-X](https://icopy-x.com/)** | LF + HF (automated clone) | One-touch field cloning of common credentials | 🔴 HIGH |
+| Device | Role | Limits to check |
+|---|---|---|
+| **[Proxmark3 / RRG firmware](https://github.com/RfidResearchGroup/proxmark3)** | LF/HF identification, capture, supported reading/writing, and emulation | Hardware revision, antenna tuning, firmware/client match, and exact protocol support. |
+| **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | Supported LF/HF credential emulation and reader-side functions | Features depend on firmware and card type; do not assume universal tag support. |
+| **[PN532](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN) + [libnfc](https://github.com/nfc-tools/libnfc)** | Selected 13.56 MHz NFC/ISO 14443/FeliCa workflows | Not an LF or UHF reader; do not assume ISO 15693 support. NXP marks PN532 not recommended for new designs. |
+| **[Flipper Zero](https://docs.flipper.net/)** | Supported LF credential and HF/NFC identification/emulation | Supported protocol and memory/authentication features vary by card. |
+| **[iCopy-X](https://icopy-x.com/)** | Integrated workflows for supported credentials | Product/firmware-specific compatibility; not a guarantee of cloning arbitrary credentials. |
+| **Regional UHF EPC reader** | Passive UHF tag inventory and interaction | Required regional channel plan, antenna, and EPC/ISO protocol support; LF/HF tools do not substitute for it. |
 
-> 📘 **Hands-on walkthroughs** for the NFC/RFID hardware above (read → key recovery → clone/emulate) live in **[rfid.md](rfid.md)**.
-
----
-
-## 🗂️ Software & Tool Categories
-
-### 1. Signal Capture & Reconnaissance
-
-**Current Tools & Workflows:**
-
-| Tool / Script | Description | Risk Level |
-|--------|-------------|------------|
-| **[GQRX](https://gqrx.dk/) / [SDR# (SpyServer)](https://airspy.com/downloads/)** | General spectrum monitoring and audio demodulation | 🟢 LOW |
-| **[rtl_433](https://github.com/merbanan/rtl_433)** | Decoding ISM band devices (weather stations, TPMS, alarms) | 🟢 LOW |
-| **[dump1090](https://github.com/flightaware/dump1090)** | ADS-B aviation tracking and decoding | 🟢 LOW |
-| **[Kalibrate (kalibrate-rtl)](https://github.com/steve-m/kalibrate-rtl)** | GSM base station frequency calculation | 🟢 LOW |
-| **[Kismet](https://www.kismetwireless.net/)** | Wi-Fi / Bluetooth / SDR network discovery | 🟡 MEDIUM |
-
-> 📘 **Hands-on walkthroughs** for the Sub-GHz capture tools above (Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce firmware) live in **[subghz.md](subghz.md)**. For a structured HackRF survey-to-report procedure, see the **[HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)**.
-
-**Security Considerations:**
-
-```
-⚠️ While RECEIVING is generally legal in many jurisdictions, DECODING encrypted
-or private communications (like cellular calls or pager messages) can violate
-the Wiretap Act and ECPA.
-```
+**Reading a UID does not reproduce an entire credential.** Protected applications can require keys, counters, or backend validation. A card reader also normally generates an RF field and sends commands even when it does not write tag memory. See [rfid.md](rfid.md).
 
 ---
 
-### 2. Reverse Engineering & Analysis
+## Software and Tool Categories
 
-**Current Tools & Workflows:**
+Tool roles below describe their intended function. They do not guarantee support for a particular signal, operating system, software version, or hardware combination.
 
-| Tool / Script | Description | Risk Level |
-|--------|-------------|------------|
-| **[Universal Radio Hacker (URH)](https://github.com/jopohl/urh)** | Protocol investigation, demodulation, and bit extraction | 🟡 MEDIUM |
-| **[Inspectrum](https://github.com/miek/inspectrum)** | Visual analysis of captured I/Q baseband signals | 🟢 LOW |
-| **[GNU Radio](https://www.gnuradio.org/)** | Block-based visual programming for DSP and signal routing | 🟡 MEDIUM |
-| **[Baudline](https://www.baudline.com/)** | Time-frequency signal analysis | 🟢 LOW |
+### 1. Signal Capture and Discovery
 
----
+| Tool | Role | Notes |
+|---|---|---|
+| **[Gqrx](https://gqrx.dk/) / [SDR#](https://airspy.com/download/)** | Spectrum display and supported audio demodulation | SDR# is the receiver application; SpyServer is a separate remote-server component. |
+| **[rtl_433](https://github.com/merbanan/rtl_433)** | Supported sensor, remote, and telemetry decoding | Supports several bands and radio backends; not limited to 433 MHz. |
+| **[dump1090](https://github.com/flightaware/dump1090)** | 1090 MHz Mode S / ADS-B reception | Does not decode 978 MHz UAT; use a suitable UAT decoder for that link. |
+| **[Kismet](https://www.kismetwireless.net/docs/)** | Discovery and monitoring through supported data sources | Wi-Fi, Bluetooth, and SDR-related support depend on source hardware and helpers. |
+| **[Kalibrate-RTL](https://github.com/steve-m/kalibrate-rtl)** | Estimate receiver frequency error using GSM signals | Requires suitable local signals and compatible software; not a general precision calibration guarantee. |
+| **[gr-gsm](https://github.com/ptrkrysik/gr-gsm)** | GSM reception and analysis tools | Verify the chosen branch/package and GNU Radio compatibility. It is not accurately described as a turnkey IMSI catcher. |
 
-### 3. Exploitation & Transmission (Active RF Attacks)
+### 2. Waveform and Protocol Analysis
 
-**Current Tools & Workflows:**
+| Tool | Role |
+|---|---|
+| **[Universal Radio Hacker](https://github.com/jopohl/urh)** | Waveform inspection, demodulation, bit extraction, and protocol investigation. |
+| **[inspectrum](https://github.com/miek/inspectrum)** | Visual IQ analysis and timing measurements. |
+| **[GNU Radio](https://www.gnuradio.org/)** | DSP flowgraphs, filtering, demodulation, and custom processing; a hardware sink can transmit. |
+| **[Wireshark](https://www.wireshark.org/docs/)** | Supported packet dissection after a compatible capture/decoder pipeline. |
+| **[Baudline](https://www.baudline.com/)** | Time/frequency analysis; check platform and input-format support. |
 
-| Tool / Script | Description | Risk Level |
-|--------|-------------|------------|
-| **[Replay Attack Scripts](https://github.com/greatscottgadgets/hackrf/tree/master/firmware/hackrf_usb)** | Capturing and rebroadcasting OOK/ASK signals | 🔴 HIGH |
-| **[GPS-SDR-SIM](https://github.com/osqzss/gps-sdr-sim)** | Generating fake GPS constellations for spoofing | 🔴 EXTREME |
-| **[gr-gsm](https://github.com/ptrkrysik/gr-gsm) *(unmaintained; GNU Radio 3.10+)* / [srsRAN](https://www.srsran.com/)** | Rogue base station / IMSI catcher frameworks | 🔴 EXTREME |
-| **[RollJam (Sammy Kamkar)](https://samy.pl/rolljam/)** | Rolling code bypass implementation | 🔴 HIGH |
-| **[Jamming / Flooding](https://www.fcc.gov/general/jammer-enforcement)** | Overpowering legitimate RF receivers | 🔴 EXTREME |
+Record the sample rate, center frequency, signed/unsigned representation, bit depth, I/Q order, gain, and software versions with each capture. Incorrect import settings can produce misleading results.
 
-**Security Considerations:**
+### 3. Controlled RF and Cellular Research
 
-```
-⚠️ CRITICAL: Active transmission attacks include:
-   • GPS Spoofing (Extremely illegal, endangers aviation and maritime navigation)
-   • Jamming (Strictly prohibited by the FCC under ALL circumstances)
-   • IMSI Catching (Violates wiretap laws and telecom regulations)
-   • Access Control Replay (Illegal trespassing/access without authorization)
+| Resource | Actual role | Assessment boundary |
+|---|---|---|
+| **[HackRF host tools](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html)** | Hardware control, IQ reception/transmission, and spectrum sweeps | Select receive operations deliberately; validate any transmit path before enabling it. |
+| **[srsRAN Project](https://github.com/srsran/srsRAN_Project) / [srsRAN 4G](https://github.com/srsran/srsRAN_4G)** | Distinct open-source cellular stacks with different components and radio-generation support | Use the matching documentation and an authorized test network. These are not simply “IMSI catcher frameworks.” |
+| **[GPS-SDR-SIM](https://github.com/osqzss/gps-sdr-sim)** | Generate GPS simulation IQ for receiver research | File generation is separate from RF transmission; any hardware test requires an appropriately controlled setup. |
+| **[RollJam research](https://samy.pl/rolljam/)** | Case study in weaknesses affecting some rolling-code implementations | Not a universal rolling-code bypass or a routine field-test procedure. |
+| **[FCC jammer guidance](https://www.fcc.gov/enforcement/areas/jammers)** | Regulatory reference on prohibited jammer use | This is guidance, not a software tool or an assessment workflow. |
 
-TRANSMITTING WITHOUT AUTHORIZATION/LICENSING = SEVERE FEDERAL PENALTIES
-```
+Use the host-tool documentation and the [controlled bench procedure](../PlayBooks/HackRFAuditPlayBook.md) to distinguish firmware components from the commands used for capture and testing.
 
-> 📗 **Authorized-only note:** Any active transmission or replay work in this repository is intended for owned devices in a contained bench environment. The [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md) (Section 8) documents the containment, power-budget, and positive-control requirements for controlled bench security tests.
+### 4. NFC and RFID Analysis
 
----
+| Tool / family | Role | Important qualification |
+|---|---|---|
+| **[Proxmark3 / RRG](https://github.com/RfidResearchGroup/proxmark3)** | Supported LF/HF analysis, reading, emulation, and security research | Features are protocol-specific; do not assume success from the frequency alone. |
+| **[libnfc](https://github.com/nfc-tools/libnfc), [mfoc](https://github.com/nfc-tools/mfoc), [mfcuk](https://github.com/nfc-tools/mfcuk)** | NFC access and particular MIFARE Classic/Crypto1 research workflows | Distinct projects with different prerequisites; applicability depends on card behavior and reader support. |
+| **mfkey-family utilities in compatible RFID toolchains** | Recover candidate MIFARE Classic keys from suitable authentication data | Required nonce/authentication data differs by variant; “one sniffed transaction always yields a key” is incorrect. |
+| **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | Supported credential emulation and reader testing | A reproduced UID does not establish that protected application authentication will succeed. |
 
-### 4. NFC/RFID Access-Control Analysis
-
-**Current Tools & Workflows:**
-
-| Tool / Script | Description | Risk Level |
-|--------|-------------|------------|
-| **[Proxmark3 (Iceman/RRG)](https://github.com/RfidResearchGroup/proxmark3)** | LF/HF read, key recovery, sniffing, cloning, emulation | 🔴 HIGH |
-| **[libnfc + mfoc/mfcuk](https://github.com/nfc-tools)** | MIFARE Classic Crypto1 key recovery (nested / darkside) | 🟡 MEDIUM |
-| **[mfkey32 / mfkey64](https://github.com/RfidResearchGroup/proxmark3)** | Recover a key from one sniffed reader-card transaction | 🟡 MEDIUM |
-| **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | Bench-side card emulation to validate reader behavior | 🟡 MEDIUM |
-
-> 📘 **Hands-on walkthroughs** for LF/HF card capture, Crypto1 key recovery, and cloning/emulation live in **[rfid.md](rfid.md)**.
-
-**Security Considerations:**
-
-```
-⚠️ Cloning or emulating a credential you do not own - or using a clone to enter
-premises you are not authorized to enter - can violate the CFAA, Access Device
-Fraud statutes (18 U.S.C. § 1029), and state trespassing law, regardless of how
-the card data was obtained. Reading/cloning PAYMENT, PASSPORT, or eID chips you
-do not own is fraud, full stop. Read-only analysis on cards you own is the default.
-```
+See [rfid.md](rfid.md) for the detailed workflows and [the master list](target_frequencies_protocols.md) for LF/HF/UHF distinctions.
 
 ---
 
-## 📖 How to Use These Tools Safely
+## Target Frequencies and Protocols
 
-### ⚠️ BEFORE TRANSMITTING ANY SIGNAL
+### [📡 Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)
 
-```
-MANDATORY CHECKLIST:
-☐ Am I using a Faraday cage/bag or an RF dummy load?
-☐ If transmitting over the air, do I have the appropriate FCC/local license?
-☐ Am I operating within the ISM (Industrial, Scientific, Medical) bands?
-☐ Am I adhering to the legal power limits (EIRP) for this frequency?
-☐ Have I verified I am NOT transmitting on Aviation, Emergency, or Cellular bands?
-☐ Do I OWN the target receiving device (e.g., the key fob and the car)?
-☐ Have I tested my GNU Radio flowgraph without the SDR sink connected first?
-☐ Am I prepared to document all transmission logs?
+The completed master reference contains:
 
-If you answered NO to ANY question: DO NOT TRANSMIT. USE RECEIVE-ONLY.
-```
+- LF/HF RFID, NFC, UHF EPC, broadcast, amateur, marine, aviation, and weather entries.
+- Sub-GHz remotes, telemetry, LoRa/LoRaWAN, Z-Wave, and other building/industrial networks.
+- Exact Wi-Fi, BLE, and IEEE 802.15.4 channel tables with regional qualifications.
+- Cellular, DECT, GNSS, satellites, drones/Remote ID, UWB, and microwave-system references.
+- Capture bandwidth guidance, decoder selection, an evidence ladder, and a survey worksheet.
 
-### ⚠️ BEFORE READING, CLONING, OR EMULATING ANY CREDENTIAL
+**Interpretation rules:** Distinguish channel centers from band edges, standardized assignments from device examples, and active services from historical ones. Frequency alone does not identify a protocol, manufacturer, device, or security weakness. LoRa is not synonymous with LoRaWAN; Matter has no dedicated RF frequency.
 
-```
-MANDATORY CHECKLIST:
-☐ Do I OWN this credential, or have signed authorization to test it?
-☐ Am I working on a bench / authorized area, not a live production door?
-☐ Am I writing only to blank transponders I own (T5577 / magic card)?
-☐ Have I confirmed the card is NOT a payment, passport, or eID chip?
-☐ Am I logging every read, recovery, and clone for the assessment report?
-☐ Will any emulation be presented ONLY to readers I own?
-☐ Have I confirmed local law permits possession/use of these tools here?
-
-If you answered NO to ANY question: DO NOT PROCEED. USE READ-ONLY on owned cards.
-```
-
-### Lab & Bench Setup Rules
-
-```
-Safe Hardware Hacking Environments ONLY:
-
-✅ AUTHORIZED Setup:
-   • Coaxial cables directly connecting Tx to Rx with inline attenuators
-   • Use of 50-ohm Dummy Loads to prevent signal radiation
-   • RF shielded tents or Faraday boxes for over-the-air testing
-   • Blank T5577 / magic cards you own as the only write targets for cloning
-   • Explicit written permission from facility/credential owners
-
-🚫 NEVER Test On/With:
-   • Medical telemetry equipment (Pacemakers, hospital devices)
-   • Aviation frequencies (1090MHz, 121.5MHz, GPS L1/L2)
-   • Emergency services (Police, Fire, EMS radios)
-   • Cellular networks (GSM, LTE, 5G) without extreme isolation
-   • Payment, passport, or eID chips you do not own
-   • Your neighbor's garage door, car, badge, or IoT devices
-```
+The list marks NOAA-15/18/19 APT entries as historical following their 2025 retirement. It does not establish which transmitters are active at your location; consult current operator and device records.
 
 ---
 
-## ⚠️ CRITICAL Security & Legal Warning
+## Safe Workflows
 
-### 🔴 FEDERAL REGULATORY WARNING
+### Receive and Analyze
 
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL LEGAL WARNING ⚠️
-═══════════════════════════════════════════════════════════════
+1. Define the question, authorized scope, and permitted data handling before capturing.
+2. Match the receiver, antenna, filters, bandwidth, and decoder to the signal.
+3. Validate reception using a known reference or controlled device event.
+4. Capture the necessary data and record settings, time, and limitations.
+5. Separate observed energy, candidate protocol, validated decode, device attribution, and demonstrated security findings.
+6. Minimize incidental private data; redact identifiers, keys, and sensitive location information before publishing.
 
-The tools and techniques in this directory govern the physical transmission
-and interception of Radio Frequency (RF) energy, and the reading and cloning
-of contactless access credentials.
+No decoded output can mean the wrong channel, unsupported PHY, weak signal, overload, or a missed burst. It does not establish that the device was silent.
 
-UNAUTHORIZED TRANSMISSION, INTERCEPTION, OR CREDENTIAL CLONING IS A CRIME.
+### Before Any Transmission or Active Device Test
 
-Federal Communications Commission (FCC) Regulations:
-   ► Operating without a license: Fines up to $150,000+ per day.
-   ► Jamming Devices: STRICTLY PROHIBITED. Marketing, selling, or using
-     a jammer carries massive civil and criminal penalties.
-   ► Aviation Interference: Endangering aircraft navigation (GPS spoofing,
-     ADS-B injection) can result in federal terrorism charges.
+- [ ] Confirm the exact device/system, permitted actions, test window, and responsible owner.
+- [ ] Identify the applicable regulatory basis, equipment requirements, band, power, bandwidth, and operating conditions.
+- [ ] Use simulated/file-based processing where it answers the question; keep hardware transmit sinks disabled during setup.
+- [ ] For contained RF tests, calculate attenuation and receiver input levels and validate containment at the test frequencies.
+- [ ] Check bias-tee voltage, antenna/filter connections, and stop conditions.
+- [ ] Avoid interference with unrelated systems; do not radiate disruptive test signals into operational networks.
+- [ ] Log test settings, observations, and the restoration of normal operation.
 
-Electronic Communications Privacy Act (ECPA) & Wiretap Act:
-   ► Intercepting encrypted or private communications (Cellular, Pagers,
-     Private Land Mobile Radio) is a federal felony.
-   ► Up to 5 years imprisonment for unauthorized interception.
+An ISM band, low transmit power, device ownership, or a Faraday bag does not by itself establish permission or adequate containment. A dummy load reduces radiation from its connected RF port; cables, enclosures, and other paths can still leak.
 
-Computer Fraud and Abuse Act (CFAA) & Access Device Fraud (18 U.S.C. § 1029):
-   ► Using a cloned badge to access a facility can be charged as unauthorized
-     access - felony exposure.
-   ► Producing, using, or trafficking in cloned credentials carries heavy
-     federal penalties; payment/eID card cloning is fraud and identity theft.
+**Receiver protection:** HackRF One documentation specifies a maximum input of **−5 dBm**. Design an appropriate margin and attenuation arrangement; never connect a transmitter directly to an SDR input without checking the power budget. [Manufacturer specifications](https://hackrf.readthedocs.io/en/latest/hackrf_one.html).
 
-State Laws:
-   ► Many states have distinct laws regarding eavesdropping, wiretapping,
-     and the possession of lock bypass / cloning tools (which can include SDRs
-     and RFID cloners loaded with attack software).
+### Before Credential Interaction
 
-International Laws:
-   ► CEPT/ETSI regulations in Europe.
-   ► Ofcom regulations in the UK.
-   ► Telecommunications, computer-misuse, and data-protection laws vary heavily
-     by country. ALWAYS check local laws.
-═══════════════════════════════════════════════════════════════
-```
+- [ ] Confirm authorization from the relevant credential/system owner and the exact permitted operations.
+- [ ] Identify the tag's frequency, protocol, and application before choosing a tool.
+- [ ] Use lab readers and test credentials for writes, emulation, and authentication experiments.
+- [ ] Keep operations away from production doors, payment systems, and identity systems unless specifically authorized under an appropriate specialist engagement.
+- [ ] Protect dumps, keys, identifiers, and transaction traces as sensitive data.
 
-### Attack-Specific Legal Warnings
+Read-only memory access can still involve RF transmissions or sensitive information. Do not assume it is appropriate merely because the tool can perform it.
 
-#### Signal Jamming
+## Security and Legal Boundaries
 
-```
-🔴 FEDERAL CRIME: Intentional Interference
+**Regulatory baseline: United States.** Other jurisdictions can have different reception, transmission, equipment, privacy, and access-control requirements.
 
-ILLEGAL ACTIVITIES:
-   • Jamming Wi-Fi networks (Deauth attacks via RF flooding)
-   • GPS Jamming
-   • Cellular network disruption
-   • Blocking security system heartbeats
+| Activity | Boundary |
+|---|---|
+| Operating a transmitter | Some compliant operations are allowed without an individual license; others require a license or other authorization. Part 15 is conditional, not unrestricted spectrum access. |
+| Using an amateur license | A license applies within its service privileges and rules; it does not authorize arbitrary cellular, aviation, commercial, or other transmissions. |
+| Receiving, decoding, storing, or sharing traffic | These are separate activities. Unencrypted traffic is not automatically public or unrestricted; applicable exceptions and privacy rules matter. |
+| Jamming or disrupting communications | FCC guidance prohibits jammer use by the public. Ownership of nearby equipment or property does not create a general exemption. |
+| Testing credentials or access systems | Authorization must cover the credential, relevant system, and intended operation. Possession of a card does not necessarily authorize duplication or access-system testing. |
+| Aviation, GNSS, emergency, medical, or other operational systems | Do not introduce disruptive signals. Specialist research requires appropriate authorization and an engineered test environment. |
 
-LAWS VIOLATED:
-   • Communications Act of 1934
-   • FCC Rules (47 CFR Part 15)
+Sources: [FCC Part 15 rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15), [amateur service rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97), [FCC jammer guidance](https://www.fcc.gov/enforcement/areas/jammers), and [18 USC § 2511](https://uscode.house.gov/view.xhtml?req=%28title%3A18%20section%3A2511%29).
 
-PENALTIES:
-   • Seizure of all equipment
-   • Civil fines frequently exceeding $100,000
-   • Federal imprisonment
-```
+This README does not assign blanket criminal classifications, fine amounts, or prison terms to technical activities. Legal consequences depend on the conduct, applicable law, authorization, and other facts. Wi-Fi deauthentication is a protocol-layer action and is not technically identical to RF noise jamming, although either can cause disruption.
 
-#### Replay Attacks (Access Control)
+### Repository Terms and Warranty Notice
 
-```
-🔴 FEDERAL CRIME: Unauthorized Access & Trespassing
-
-ILLEGAL ACTIVITIES:
-   • Capturing and re-transmitting a neighbor's garage door signal
-   • Spoofing car key fobs (RollJam / RollBack)
-   • Bypassing physical RFID/Sub-GHz access control systems
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • State trespassing and burglary tool possession laws
-   • Auto theft statutes
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from the property/vehicle owner
-   ✓ Testing on hardware explicitly purchased for research
-```
-
-#### Credential Cloning (NFC/RFID)
-
-```
-🔴 SERIOUS CRIME: Unauthorized Access & Access-Device Fraud
-
-ILLEGAL ACTIVITIES:
-   • Reading/cloning a coworker's or stranger's access badge
-   • Long-range capture of a credential to duplicate it
-   • Using a cloned fob to enter premises you are not authorized to enter
-   • Capturing, cloning, or replaying EMV / contactless payment data
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • Access Device Fraud (18 U.S.C. § 1029) & identity theft statutes
-   • State trespassing and burglary-tool possession laws
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from the property/credential owner
-   ✓ Testing on cards and readers explicitly provided for the engagement
-```
+See [LEGAL.md](../LEGAL.md) for repository-wide terms. The materials are provided **as is**, without a guarantee of compatibility, accuracy, hardware safety, or suitability for an engagement. Documentation is not a substitute for current regulations or qualified advice on a specific legal question. This README's review does not validate every legal claim elsewhere in the repository.
 
 ---
 
-### Warranty Disclaimer
+## Contributing
 
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
-═══════════════════════════════════════════════════════════════
+Contributions should be reproducible, properly sourced, and suitable for education or authorized research.
 
-These RF/SDR/RFID tools, flowgraphs, and templates are provided "AS IS" WITHOUT
-WARRANTY of any kind, either expressed or implied.
+**Welcome contributions:**
 
-THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-✗ Make NO guarantees about script functionality or RF/card safety
-✗ Are NOT responsible for damaged hardware (e.g., burnt out SDR amplifiers,
-  bricked transponders)
-✗ Do NOT warrant compliance with FCC, access-control, or international law
-✗ Are NOT liable for any legal consequences of misuse
-✗ Do NOT provide support for illegal activities
-✗ Disclaim ALL liability for unauthorized transmission, interception, or cloning
+- DSP explanations and GNU Radio examples with documented input/output behavior.
+- Receive-only decoders and public or permission-cleared sample captures.
+- Defensive RF, interference, and credential-identification workflows.
+- Antenna, filter, coupling, and receiver-protection documentation.
+- Corrections to frequency tables, regional notes, compatibility, and retired services.
 
-USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-► They use these techniques entirely at their own risk
-► They are solely responsible for ensuring RF containment, authorization, and
-  legal compliance
-► They understand that transmitting signals or cloning credentials can interfere
-  with critical infrastructure or facilitate serious crimes
-► They accept that unauthorized use is a CRIME
-► They will defend and indemnify authors from any claims
-═══════════════════════════════════════════════════════════════
-```
+**Submission requirements:**
 
----
+- State hardware, firmware, software versions, dependencies, and tested limitations.
+- Mark transmit-capable examples clearly and keep transmission disabled by default.
+- Cite primary sources for frequencies, specifications, and regulatory claims.
+- Include authorization assumptions and data-handling requirements where relevant.
+- Validate relative links and update this index when adding or renaming a guide.
+- Use synthetic or redacted evidence; exclude real keys, credential dumps, and private traffic without permission to publish.
 
-## 🤝 Contributing
+**Not accepted in this section:** deployable jamming/disruption payloads, malicious cellular interception deployments, vehicle-theft workflows, or payment/passport/eID cloning tooling. These are repository contribution boundaries, not a claim that every conceivable research activity has the same legal status.
 
-### Contributing Scripts, Flowgraphs & Workflows
+## Resources
 
-We welcome contributions from RF researchers and security professionals, but all materials must prioritize safety and legality.
+### RF Rules and Specifications
 
-**What We Accept:**
+- [FCC radio spectrum allocation guidance](https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation).
+- [FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15) and [Part 97](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97).
+- [ARRL amateur licensing information](https://www.arrl.org/getting-licensed).
+- [NFC Forum technology overview](https://nfc-forum.org/learn/nfc-technology/).
+- [GS1 EPC Gen2 specification](https://ref.gs1.org/standards/gen2/).
+- [Master-list primary references](target_frequencies_protocols.md#17-primary-references) for protocol-specific authorities.
 
-- ✅ GNU Radio flowgraphs for DSP education
-- ✅ Receive-only (Rx) Python decoding scripts
-- ✅ Telemetry parsers for public, unencrypted protocols (Weather, ISM)
-- ✅ Hardware modification documentation (filters, antennas, coils)
-- ✅ Read-only / defensive NFC-RFID identification and audit workflows
+### Learning and Implementation References
 
-**🚫 Will NOT Accept:**
+- [Great Scott Gadgets SDR course](https://greatscottgadgets.com/sdr/).
+- [HackRF documentation](https://hackrf.readthedocs.io/en/latest/).
+- [GNU Radio tutorials](https://wiki.gnuradio.org/index.php/Tutorials).
+- [RTL-SDR setup guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/).
+- [Signal Identification Wiki](https://www.sigidwiki.com/wiki/Signal_Identification_Guide) — community waveform examples; corroborate identification with primary documentation and captures.
+- [Proxmark3 RRG documentation](https://github.com/RfidResearchGroup/proxmark3/wiki).
 
-- Ready-to-use jamming scripts or flowgraphs
-- Malicious IMSI catcher/Stingray deployments
-- Scripts containing hardcoded cellular or aviation frequencies for Tx
-- Tools designed specifically to steal vehicles
-- Payment-card, passport, or eID cloning tooling
+## Related Repository Material
 
----
+| Resource | Relationship |
+|---|---|
+| [Main repository](../README.md) | Top-level navigation. |
+| [START HERE](../START_HERE.md) | General learning and navigation guidance. |
+| [Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md) | Broader security reference. |
+| [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md) | Field/bench engagement procedure. |
+| [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) | Network assessment context. |
+| [Hardware Hacking](../HardwareHacking/README.md) | Embedded systems, interfaces, and hardware investigation. |
+| [Space Security](../SpaceSecurity/README.md) | Satellite and navigation-security context. |
+| [Documentation index](../Documentation/README.md) | Additional tool and platform guides. |
+| [Bruce firmware](../Documentation/bruce_firmware.md) | Supported embedded RF workflows; external radio hardware determines capabilities. |
+| [Flipper Zero guide](../Documentation/flipper_zero_guide.md) | Supported Sub-GHz and LF/HF device workflows. |
+| [Repository terms](../LEGAL.md) | Repository-wide terms and use requirements. |
 
-## 📚 Resources
+## Section Inventory and Maintenance
 
-### Licensing & Legal
+| Item | Current inventory |
+|---|---|
+| Documents linked from this index | **6:** `sdr.md`, `hackrf.md`, `subghz.md`, `rfid.md`, `sdr_hacking.md`, `target_frequencies_protocols.md`. |
+| Markdown files in `SDR/` | **7**, including this README. |
+| External companion playbook | `PlayBooks/HackRFAuditPlayBook.md`. |
+| Coverage | LF/HF RFID, Sub-GHz devices, wireless protocols, wideband SDR, and specialized higher-frequency topics; coverage depends on hardware. |
+| Review scope | README inventory, navigation, tool descriptions, selected hardware specifications, and legal wording. Companion guides remain separate technical documents. |
+| Last reviewed | September 15, 2026. |
+| Maintainer | [Pacific Northwest Computers / Pnwcomputers](https://github.com/Pnwcomputers). |
 
-- **FCC Part 15 Rules**: [Understanding Unlicensed RF](https://www.fcc.gov/oet/ea/rfdevice)
-- **ARRL**: [Get your Amateur Radio (HAM) License](https://www.arrl.org/getting-licensed) (Highly recommended for SDR practitioners)
-- **ISO/IEC 14443 & 15693**: Contactless proximity/vicinity card standards (see `rfid.md` for links)
-
-### Learning SDR, RF & NFC/RFID
-
-- **Great Scott Gadgets SDR Course**: [HackRF Lessons](https://greatscottgadgets.com/sdr/)
-- **GNU Radio Tutorials**: [Guided Tutorials](https://wiki.gnuradio.org/index.php/Guided_Tutorials)
-- **RTL-SDR Blog**: [rtl-sdr.com](https://www.rtl-sdr.com/)
-- **SigIDWiki**: [Signal Identification Guide](https://www.sigidwiki.com/) (waterfall references and audio samples)
-- **Proxmark3 Iceman Wiki**: [RfidResearchGroup/proxmark3](https://github.com/RfidResearchGroup/proxmark3/wiki)
-
----
-
-## 🔗 Quick Links
-
-### Internal Links
-
-- [🏠 Main Repository](../README.md)
-- [🎯 START HERE Guide](../START_HERE.md)
-- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
-- [📓 HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md)
-- [🔧 Hardware Hacking](../HardwareHacking/README.md)
-- [🛰️ Space Security](../SpaceSecurity/README.md)
-- [📚 Documentation](../Documentation/README.md)
-
----
-
-## 📊 Repository Statistics
-
-```
-📁 Tool Categories: 4 (Capture, Analysis, RF Exploitation, NFC/RFID)
-📄 Section Guides: 4 (sdr.md, subghz.md, rfid.md, sdr_hacking.md)
-📓 Companion Playbook: HackRFAuditPlayBook.md (PlayBooks/)
-📻 Target Hardware: RTL-SDR, HackRF, LimeSDR, Flipper Zero, Proxmark3, Chameleon Ultra
-📡 Spectrum Coverage: 125 kHz LF / 13.56 MHz HF + Sub-GHz + 2.4 GHz ISM + wideband SDR
-💻 Ecosystems: GNU Radio, Python, C++, Proxmark3 Iceman, libnfc
-⚠️ Risk Level: HIGH to EXTREME (Transmission & cloning capabilities)
-🔄 Last Updated: September 2026
-👥 Maintained by: Pacific Northwest Computers (PNWC)
-📝 Status: Active - Proceed with EXTREME CAUTION
-```
+**Maintenance note:** Update counts when adding or removing files. Recheck upstream compatibility and service status before relying on older examples. A guide's presence in this index does not establish that every command or security claim in it has been independently validated.
 
 ---
 
 <div align="center">
 
-**⚠️ USE THESE RF & RFID TOOLS RESPONSIBLY AND LEGALLY ⚠️**
+**Learn the signal. Verify the evidence. Respect the scope.**
 
-*The airwaves are public and a credential is presented in the open, but transmitting and cloning are privileges regulated by law.*
-
-**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
-
-**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
+[ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE) · [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 </div>
-
----
-
-## Related Files
-
-- [sdr.md](sdr.md) - Foundational SDR guide: GNU Radio, hardware, signal analysis, Wi-Fi/BT/cellular/GPS
-- [subghz.md](subghz.md) - Sub-GHz lab manual: multi-tool capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, and a capture-logging template
-- [rfid.md](rfid.md) - NFC/RFID lab manual: LF/HF proximity card capture, Crypto1 key recovery, cloning/emulation, card/protocol reference matrix, and a logging template
-- [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
-- [../PlayBooks/HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md) - HackRF field audit playbook: spectrum surveys, IQ capture, interference analysis, protocol triage, controlled bench security tests, evidence, and reporting
-- [../PlayBooks/NetworkAuditPlayBook.md](../PlayBooks/NetworkAuditPlayBook.md) - Wireless & Network Security Audit Playbook: the engagement structure this section's HackRF playbook follows
-- [../Documentation/bruce_firmware.md](../Documentation/bruce_firmware.md) - Bruce firmware: sub-GHz CC1101 operations that complement full-spectrum SDR analysis
-- [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: sub-GHz and LF/HF RFID operations whose signals SDR/Proxmark can capture and analyze
-- [../SpaceSecurity/](../SpaceSecurity/) - Space security: satellite communication analysis and GPS spoofing detection - an SDR application
-
----
-
-🔴 **RADIO TRANSMISSION IS FEDERALLY REGULATED** 🔴
-
-🔴 **UNAUTHORIZED TRANSMISSION OR CREDENTIAL CLONING = A CRIME** 🔴
-
-🔴 **NEVER INTERFERE WITH AVIATION OR EMERGENCY SERVICES** 🔴
-
-🔴 **NEVER TOUCH PAYMENT, PASSPORT, OR eID CHIPS YOU DO NOT OWN** 🔴
-
-🔴 **PROPER ISOLATION (DUMMY LOADS/FARADAY) MANDATORY** 🔴
-
----
-
-⭐ **Star this repo if you find it useful (and use it legally!)** ⭐
