@@ -21,15 +21,15 @@ This README is the entry point for the SDR, RF, and contactless section. It conn
 
 The linked documents contain explanations, examples, and workflows. A tool listed here is not necessarily bundled with the repository, installed on your system, or compatible with every radio.
 
-## Function
+## ⚙️ Function
 
 Use this index to select a guide, identify suitable hardware and software, find regional frequency references, and understand the prerequisites for receiving, decoding, or testing a signal.
 
-## Goal
+## 🏆 Goal
 
 Move from an RF question to a documented result: identify the relevant band and protocol, validate the receive chain, capture evidence, analyze it with compatible tools, and report conclusions supported by measurements.
 
-## When to Use
+## 📋 When to Use
 
 - Learning IQ sampling, antennas, demodulation, or GNU Radio.
 - Selecting a receiver, protocol sniffer, RFID reader, or analysis tool.
