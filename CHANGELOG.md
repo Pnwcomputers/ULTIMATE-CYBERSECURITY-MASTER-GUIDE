@@ -1,14 +1,15 @@
 # 🔄 Change Log - September 15, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1422
-- **Files Modified**: 1638
-- **New Files**: 639
+- **Commits Analyzed**: 1430
+- **Files Modified**: 1646
+- **New Files**: 640
 - **Deleted Files**: 120
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add files via upload (`52d8919`)
 - Add HackRF section to README (`041e725`)
 - Create hackrf.md (`ee07399`)
 - Add ParrotOS guide for Raspberry Pi CM5 setup (`9df27af`)
@@ -467,6 +468,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix formatting of ongoing work in progress header (`b78d3c5`)
 - Fix link path for HackRFAuditPlayBook in README (`efaa948`)
 - Fix link to HackRFAuditPlayBook.md in README (`ee8d34d`)
 - Fix link formatting and update ParrotOS guide description (`f0f3bf5`)
@@ -618,6 +620,10 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`625cb80`)
+- Update target frequencies protocols to indicate WIP (`dc2f532`)
+- Update target frequencies protocols header formatting (`c8d6d6b`)
+- Update target_frequencies_protocols.md (`f414d6c`)
 - Rename hackrfauditplaybook.md to HackRFAuditPlayBook.md (`e2a8a5d`)
 - Update print statement from 'Hello' to 'Goodbye' (`4592a3f`)
 - Revise HackRF playbook with updates and links (`9963cdf`)
@@ -1219,6 +1225,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Enhance README section headers with emojis (`c10e6eb`)
 - Enhance ParrotOS Guide description in README (`518bf40`)
 - Delete uConsole/ParrotOS/README.md (`87df2bc`)
 - Revise data pipelines documentation for clarity (`5365b6c`)
@@ -1348,6 +1355,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Enhance Purpose section header with emoji (`56f17e3`)
 - Revise HackRF Audit Playbook references and date (`8a862f9`)
 - Revise header in PARROT-CM5.md (`56ce545`)
 - Replace 'Hello World' with 'Goodbye World' (`e1cf8ca`)
@@ -1446,12 +1454,13 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `PlayBooks/HackRFAuditPlayBook.md`
 - `SDR/README.md`
+- `SDR/target_frequencies_protocols.md`
+- `CHANGELOG.md`
+- `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
 - `SDR/hackrf.md`
 - `README.md`
-- `CHANGELOG.md`
 - `uConsole/README.md`
 - `uConsole/PARROT-CM5.md`
 - `uConsole/ParrotOS/README.md`
