@@ -15,7 +15,7 @@
 
 ---
 
-## Purpose
+## 🎯 Purpose
 
 This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, and the frequency/protocol master reference.
 
