@@ -44,6 +44,7 @@ Serve as the starting point for RF and contactless work - directing beginners to
 | **[sdr_hacking.md](sdr_hacking.md)** | 🔴 Advanced / Offensive | SIGINT, protocol reversing, LoRa key cracking, TEMPEST, EM side-channel, firmware baseband exploitation |
 | **[subghz.md](subghz.md)** | 🟡 Practical / Bench | Sub-GHz capture workflows (Flipper Zero, HackRF, RTL-SDR, Marauder, Bruce), protocol reversing, device/frequency reference matrix, capture-logging template |
 | **[rfid.md](rfid.md)** | 🟡 Practical / Bench | LF/HF proximity card capture, Crypto1 key recovery, cloning/emulation, and security testing at 125 kHz and 13.56 MHz |
+| **[hackrf.md](hackrf.md)** | 🟡 Practical / Bench | Repeatable procedure for surveying radio activity, investigating interference, analyzing owned wireless devices, and documenting RF security findings |
 
 > 📘 **Engagement playbook:** For an end-to-end HackRF field and bench procedure - spectrum surveys, focused IQ capture, interference and leakage analysis, protocol triage, controlled bench security tests, evidence handling, and reporting - see **[HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md)** in the PlayBooks section.
 
