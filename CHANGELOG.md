@@ -1,14 +1,16 @@
-# 🔄 Change Log - September 14, 2026
+# 🔄 Change Log - September 15, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1412
-- **Files Modified**: 1630
-- **New Files**: 637
+- **Commits Analyzed**: 1422
+- **Files Modified**: 1638
+- **New Files**: 639
 - **Deleted Files**: 120
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add HackRF section to README (`041e725`)
+- Create hackrf.md (`ee07399`)
 - Add ParrotOS guide for Raspberry Pi CM5 setup (`9df27af`)
 - Add ParrotOS Guide link to README (`fb079ef`)
 - Add experimental Parrot CM5 post-flash setup with package plan guards (#79) (`3e09b79`)
@@ -465,6 +467,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix link path for HackRFAuditPlayBook in README (`efaa948`)
+- Fix link to HackRFAuditPlayBook.md in README (`ee8d34d`)
 - Fix link formatting and update ParrotOS guide description (`f0f3bf5`)
 - Fix formatting of experimental warning in documentation (`b15915e`)
 - Fix links in Phase 2 section of README.md (`e8ef223`)
@@ -614,6 +618,11 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Rename hackrfauditplaybook.md to HackRFAuditPlayBook.md (`e2a8a5d`)
+- Update print statement from 'Hello' to 'Goodbye' (`4592a3f`)
+- Revise HackRF playbook with updates and links (`9963cdf`)
+- Update README for better structure and clarity (`986c00c`)
+- Update README.md (`ded716c`)
 - Update OS information in README (`fa82754`)
 - Rename OS Options section to Kali OS Options (`aa86dd8`)
 - Update wording in OS Options section (`65002c5`)
@@ -1339,6 +1348,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Revise HackRF Audit Playbook references and date (`8a862f9`)
 - Revise header in PARROT-CM5.md (`56ce545`)
 - Replace 'Hello World' with 'Goodbye World' (`e1cf8ca`)
 - Refine language and punctuation in openbsd_pf.md (`b1f6c89`)
@@ -1436,6 +1446,12 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `PlayBooks/HackRFAuditPlayBook.md`
+- `SDR/README.md`
+- `PlayBooks/hackrfauditplaybook.md`
+- `SDR/hackrf.md`
+- `README.md`
+- `CHANGELOG.md`
 - `uConsole/README.md`
 - `uConsole/PARROT-CM5.md`
 - `uConsole/ParrotOS/README.md`
@@ -1444,7 +1460,6 @@
 - `uConsole/scripts/README.md`
 - `uConsole/scripts/uconsole-cm5-parrot-setup.sh`
 - `uConsole/tests/test_cm5_parrot_setup.py`
-- `CHANGELOG.md`
 - `Data-Engineering/README.md`
 - `Data-Engineering/Phase3/README.md`
 - `Data-Engineering/Phase3/readme.md`
@@ -1469,7 +1484,6 @@
 - `uConsole/CM5-SETUP.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
-- `README.md`
 - `Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
@@ -1495,7 +1509,6 @@
 - `IncidentResponse/IDS_IPS/nzymewids.md`
 - `Mobile/UserLAnd/alpinelinux.md`
 - `Mobile/UserLAnd/readme.md`
-- `SDR/README.md`
 - `SDR/rfid.md`
 - `SDR/subghz.md`
 - `AUDIT_REPORT.md`
