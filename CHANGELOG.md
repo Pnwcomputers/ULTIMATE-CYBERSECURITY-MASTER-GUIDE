@@ -1,8 +1,8 @@
 # 🔄 Change Log - September 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1435
-- **Files Modified**: 1650
+- **Commits Analyzed**: 1439
+- **Files Modified**: 1655
 - **New Files**: 664
 - **Deleted Files**: 120
 
@@ -470,6 +470,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix formatting in NanoVNA README header (`07fe6ca`)
+- Correct README formatting for NanoVNA-H (`f94c3a1`)
 - Fix formatting of touchscreen size in README.md (`d0d1e57`)
 - Fix capitalization in README hardware note (`44efe05`)
 - Fix formatting of ongoing work in progress header (`b78d3c5`)
@@ -624,6 +626,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README for NanoVNA with improved formatting (`b8565ea`)
+- Update README.md (`f6af76b`)
 - Update README to remove hardware version reference (`ba10728`)
 - Update README.md (`625cb80`)
 - Update target frequencies protocols to indicate WIP (`dc2f532`)
@@ -1460,6 +1464,7 @@
 <summary>Click to view full file list</summary>
 
 - `SDR/nanovna/README.md`
+- `CHANGELOG.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/03-calibration.md`
@@ -1483,7 +1488,6 @@
 - `SDR/nanovna/testdata/wet_2m.s1p`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
-- `CHANGELOG.md`
 - `SDR/README.md`
 - `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
