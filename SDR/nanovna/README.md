@@ -8,7 +8,7 @@ Working documentation for the two SEESII-branded NanoVNA units:
 Both are the same measurement engine in different packages. Everything here
 applies to both unless a section is explicitly marked for one model.
 
-> **Before you trust a spec on any page:** hardware details (point counts,
+> **Before you trust a spec on any page:** Hardware details (point counts,
 > calibration slots, battery, SD card, the 9 kHz lower limit, max input power)
 > vary by batch and firmware and were **not** verifiable for these listings.
 > Run the checklist in [12 §12.2](12-sources-and-scope.md#122-first-session-verification-checklist)
