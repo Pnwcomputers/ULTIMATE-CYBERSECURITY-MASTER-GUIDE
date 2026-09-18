@@ -1,6 +1,59 @@
-# 07 — Quick Reference Card
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📋 07 — Quick Reference Card
+
+<div align="center">
+
+**Keep the common procedures, display choices, and diagnostic checks close at hand.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Quick_Reference_Card-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-07_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Provide a compact companion to the detailed measurement chapters.
+
+## ⚙️ Function
+
+Collect checklists, conversion tables, formulas, presets, and troubleshooting references.
+
+## 🏆 Goal
+
+Find the relevant operating reminder quickly during a measurement session.
+
+## 📋 When to Use
+
+- Working at the bench or reviewing the field checklist.
+- Looking up a formula, marker operation, or display format.
+
+---
+
+## 📋 Table of Contents
+
+- [Pre-flight (every measurement)](#pre-flight-every-measurement)
+- [The 90-second calibration](#the-90-second-calibration)
+- [VSWR ↔ reflection ↔ reflected power](#vswr--reflection--reflected-power)
+- [Smith chart — instant diagnosis](#smith-chart--instant-diagnosis)
+- [Key formulas](#key-formulas)
+- [Velocity factors](#velocity-factors)
+- [Band presets](#band-presets)
+- [Troubleshooting flowchart](#troubleshooting-flowchart)
+- [Stop and diagnose before trimming if…](#stop-and-diagnose-before-trimming-if)
+- [Display format quick pick](#display-format-quick-pick)
+- [Marker operations](#marker-operations)
+- [Dynamic range by band](#dynamic-range-by-band)
+- [Things that kill the instrument](#things-that-kill-the-instrument)
+
+---
 
 Print this. Tape it inside the case lid.
 
@@ -280,3 +333,11 @@ MARKER → SELECT → DELTA        show differences between markers
 [← Cables & filters](06-cables-filters-other-uses.md) | [Next: PC software & firmware →](08-pc-software-and-firmware.md)
 
 More: [worked examples](09-worked-examples-by-band.md) · [special antenna types](10-antenna-types-and-special-cases.md) · [worksheet](11-worksheet-and-exercises.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

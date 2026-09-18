@@ -1,6 +1,60 @@
-# 09 — Worked Tuning Examples, Band by Band
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 🧪 09 — Worked Tuning Examples by Band
+
+<div align="center">
+
+**Follow worked examples from the initial sweep through diagnosis, adjustment, and documentation.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Worked_Tuning_Examples_by_Band-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-09_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Demonstrate the tuning process across representative antenna bands and configurations.
+
+## ⚙️ Function
+
+Use a consistent setup, sweep, diagnosis, calculation, adjustment, and result sequence.
+
+## 🏆 Goal
+
+Adapt the measurement method to your own antenna while recognizing illustrative data.
+
+## 📋 When to Use
+
+- Practicing with a band-specific example.
+- Comparing a tuning problem with a documented scenario.
+
+---
+
+## 📋 Table of Contents
+
+- [9.1 — 40 m wire dipole @ 7.150 MHz](#91--40-m-wire-dipole--7150-mhz)
+- [9.2 — 20 m dipole: the choke changes the antenna](#92--20-m-dipole-the-choke-changes-the-antenna)
+- [9.3 — CB / 11 m mobile whip @ 27.205 MHz](#93--cb--11-m-mobile-whip--27205-mhz)
+- [9.4 — 6 m ground plane @ 52 MHz — fix the radials first](#94--6-m-ground-plane--52-mhz--fix-the-radials-first)
+- [9.5 — 2 m quarter-wave vertical @ 146 MHz](#95--2-m-quarter-wave-vertical--146-mhz)
+- [9.6 — Airband receive vertical, 118–137 MHz — a bandwidth problem](#96--airband-receive-vertical-118137-mhz--a-bandwidth-problem)
+- [9.7 — GMRS mag mount @ 462/467 MHz — placement beats trimming](#97--gmrs-mag-mount--462467-mhz--placement-beats-trimming)
+- [9.8 — 433.92 MHz helical in an enclosure — matching network](#98--43392-mhz-helical-in-an-enclosure--matching-network)
+- [9.9 — 868 MHz PCB chip antenna — pi-network tuning](#99--868-mhz-pcb-chip-antenna--pi-network-tuning)
+- [9.10 — 915 MHz Yagi driven element — hairpin match](#910--915-mhz-yagi-driven-element--hairpin-match)
+- [9.11 — 1090 MHz ADS-B ground plane](#911--1090-mhz-ads-b-ground-plane)
+- [9.12 — HF magnetic loop @ 14.2 MHz — high Q, two controls](#912--hf-magnetic-loop--142-mhz--high-q-two-controls)
+- [9.13 — 2.4 GHz: what you can and cannot do](#913--24-ghz-what-you-can-and-cannot-do)
+- [9.14 — Measurement log template](#914--measurement-log-template)
+
+---
 
 Every example below follows the same shape: **setup → initial sweep → diagnosis →
 arithmetic → action → result.** The numbers are realistic and internally
@@ -910,3 +964,11 @@ Feedline one-way loss:             dB @          MHz
 [← PC software & firmware](08-pc-software-and-firmware.md) |
 [Next: Antenna types & special cases →](10-antenna-types-and-special-cases.md) |
 [Back to index](README.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

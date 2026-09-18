@@ -1,6 +1,50 @@
-# 12 — Sources, Scope, and Verification Limits
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📚 12 — Sources, Scope, and Verification Limits
+
+<div align="center">
+
+**Check the evidence behind the guide and identify what must be verified on the actual unit.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Sources_Scope_and_Verification_Limits-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-12_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Separate sourced information, conventions, and unverified device-specific details.
+
+## ⚙️ Function
+
+Provide verification checklists, primary references, and measurement-scope guidance.
+
+## 🏆 Goal
+
+State conclusions that match the evidence and limitations of the measurement.
+
+## 📋 When to Use
+
+- Confirming a hardware or firmware claim.
+- Preparing a report or reviewing what the measurement can establish.
+
+---
+
+## 📋 Table of Contents
+
+- [12.1 What's verified, what isn't](#121-whats-verified-what-isnt)
+- [12.2 First-session verification checklist](#122-first-session-verification-checklist)
+- [12.3 Primary sources](#123-primary-sources)
+- [12.4 Scope of what these procedures establish](#124-scope-of-what-these-procedures-establish)
+
+---
 
 This guide is independently written practical documentation. **It is not a
 SEESII factory manual**, and nobody who wrote it has had the specific units from
@@ -166,3 +210,11 @@ defensible technical report rather than an assertion.
 
 [← Worksheet & exercises](11-worksheet-and-exercises.md) |
 [Back to index](README.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

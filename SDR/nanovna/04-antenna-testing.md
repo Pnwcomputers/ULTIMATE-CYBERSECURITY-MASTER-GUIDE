@@ -1,6 +1,54 @@
-# 04 — Checking Antennas: The Complete How-To
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📡 04 — Antenna Testing and Diagnostics
+
+<div align="center">
+
+**Check an antenna methodically and separate antenna behavior from the measurement setup.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Antenna_Testing_and_Diagnostics-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-04_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Provide a repeatable antenna inspection and measurement procedure.
+
+## ⚙️ Function
+
+Combine preparation, sweep setup, reference-plane checks, diagnostic decisions, and examples.
+
+## 🏆 Goal
+
+Produce a documented baseline before deciding whether an antenna needs adjustment.
+
+## 📋 When to Use
+
+- Checking an installed antenna or investigating poor performance.
+- Separating feedline, connector, and common-mode effects.
+
+---
+
+## 📋 Table of Contents
+
+- [4.1 Before you connect anything](#41-before-you-connect-anything)
+- [4.2 Standard antenna test procedure](#42-standard-antenna-test-procedure)
+- [4.3 Reading the result — diagnostic decision tree](#43-reading-the-result--diagnostic-decision-tree)
+- [4.4 Testing for common-mode current](#44-testing-for-common-mode-current)
+- [4.5 Testing a coax run and an antenna separately](#45-testing-a-coax-run-and-an-antenna-separately)
+- [4.6 Worked example: tuning a 915 MHz LoRa whip](#46-worked-example-tuning-a-915-mhz-lora-whip)
+- [4.7 Worked example: diagnosing a "dead" 2 m base antenna](#47-worked-example-diagnosing-a-dead-2-m-base-antenna)
+- [4.8 Quick go/no-go field check](#48-quick-gono-go-field-check)
+
+---
 
 ---
 
@@ -434,3 +482,11 @@ full procedure in §4.2.
 ---
 
 [← Calibration](03-calibration.md) | [Next: Antenna tuning →](05-antenna-tuning.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

@@ -1,6 +1,55 @@
-# 01 — Hardware, Controls, and Setup
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 🔧 01 — Hardware, Controls, and Setup
+
+<div align="center">
+
+**Identify your analyzer, learn its controls, and prepare a repeatable measurement setup.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Hardware_Controls_and_Setup-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-01_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Explain the H/H4 hardware families, ports, controls, and essential accessories.
+
+## ⚙️ Function
+
+Connect model identification and menu navigation to the first-power-on checklist.
+
+## 🏆 Goal
+
+Start with a known configuration and protect the analyzer while making connections.
+
+## 📋 When to Use
+
+- Setting up a new NanoVNA-H or H4.
+- Identifying connectors, menu controls, and measurement accessories.
+
+---
+
+## 📋 Table of Contents
+
+- [1.1 What these instruments actually are](#11-what-these-instruments-actually-are)
+- [1.2 Model comparison](#12-model-comparison)
+- [1.3 Ports and what connects where](#13-ports-and-what-connects-where)
+- [1.4 Controls](#14-controls)
+- [1.5 Menu map](#15-menu-map)
+- [1.6 What's in the box, and what you should add](#16-whats-in-the-box-and-what-you-should-add)
+- [1.7 Things that will destroy your NanoVNA](#17-things-that-will-destroy-your-nanovna)
+- [1.8 First power-on checklist](#18-first-power-on-checklist)
+- [1.9 Battery and power notes](#19-battery-and-power-notes)
+
+---
 
 > **Read this before believing any spec on this page.** The tables below
 > describe the NanoVNA-H and H4 families as the upstream project documents
@@ -311,3 +360,11 @@ Do this every single time. It costs three seconds and saves the instrument.
 ---
 
 [Next: RF fundamentals →](02-rf-fundamentals.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

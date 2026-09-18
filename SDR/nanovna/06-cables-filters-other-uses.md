@@ -1,6 +1,56 @@
-# 06 — Cables, Filters, and Everything Else
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 🔌 06 — Cables, Filters, and Other Measurements
+
+<div align="center">
+
+**Apply the analyzer to feedlines, passive RF components, and repeatable service baselines.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Cables_Filters_and_Other_Measurements-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-06_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Extend NanoVNA measurements beyond antenna matching.
+
+## ⚙️ Function
+
+Cover cable delay and fault location, loss, filters, components, coupling, and baseline records.
+
+## 🏆 Goal
+
+Characterize the measured RF path with its setup and limitations documented.
+
+## 📋 When to Use
+
+- Checking coax, connectors, attenuators, or filters.
+- Investigating a cable fault or building a baseline library.
+
+---
+
+## 📋 Table of Contents
+
+- [6.1 TDR — Time Domain Reflectometry](#61-tdr--time-domain-reflectometry)
+- [6.2 Measuring an unknown cable's velocity factor and length](#62-measuring-an-unknown-cables-velocity-factor-and-length)
+- [6.3 Measuring cable loss](#63-measuring-cable-loss)
+- [6.4 Filters, duplexers, and cavities](#64-filters-duplexers-and-cavities)
+- [6.5 Measuring components](#65-measuring-components)
+- [6.6 Antenna-to-antenna coupling and isolation](#66-antenna-to-antenna-coupling-and-isolation)
+- [6.7 Shielding and enclosure effectiveness](#67-shielding-and-enclosure-effectiveness)
+- [6.8 Checking connectors and adapters](#68-checking-connectors-and-adapters)
+- [6.9 Verifying attenuators and dummy loads](#69-verifying-attenuators-and-dummy-loads)
+- [6.10 Building a service baseline library](#610-building-a-service-baseline-library)
+
+---
 
 ---
 
@@ -418,3 +468,11 @@ speculation, and beats a customer's description of the symptom.
 ---
 
 [← Antenna tuning](05-antenna-tuning.md) | [Next: Quick reference →](07-quick-reference.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>
