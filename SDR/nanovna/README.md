@@ -1,4 +1,4 @@
-# NanoVNA Field Guide — SEESII NanoVNA-H (HW3.7) & NanoVNA-H4
+# NanoVNA Field Guide — SEESII NanoVNA-H & NanoVNA-H4
 
 Working documentation for the two SEESII-branded NanoVNA units:
 
