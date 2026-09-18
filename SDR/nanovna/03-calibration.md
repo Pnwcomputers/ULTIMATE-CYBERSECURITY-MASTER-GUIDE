@@ -1,6 +1,56 @@
-# 03 — Calibration
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 🎯 03 — Calibration and Reference Planes
+
+<div align="center">
+
+**Set the measurement plane, capture standards, and verify the calibration before testing.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Calibration_and_Reference_Planes-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-03_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Establish the reference conditions for repeatable S11 and S21 measurements.
+
+## ⚙️ Function
+
+Walk through standards, calibration steps, saved slots, reference planes, and drift checks.
+
+## 🏆 Goal
+
+Measure at a known reference plane with correction and validation recorded.
+
+## 📋 When to Use
+
+- Preparing a new frequency span or cable arrangement.
+- Diagnosing unexpected readings or restoring a saved calibration.
+
+---
+
+## 📋 Table of Contents
+
+- [3.1 Why calibration is not optional](#31-why-calibration-is-not-optional)
+- [3.2 The calibration plane](#32-the-calibration-plane)
+- [3.3 The standards](#33-the-standards)
+- [3.4 Standard S11 calibration procedure](#34-standard-s11-calibration-procedure)
+- [3.5 Calibration slot strategy](#35-calibration-slot-strategy)
+- [3.6 Electrical delay / port extension](#36-electrical-delay--port-extension)
+- [3.7 Drift and when to re-calibrate](#37-drift-and-when-to-re-calibrate)
+- [3.8 Measuring through an installed feedline](#38-measuring-through-an-installed-feedline)
+- [3.9 Calibration mistakes that produce confident wrong answers](#39-calibration-mistakes-that-produce-confident-wrong-answers)
+- [3.10 Fast calibration routine (memorize this)](#310-fast-calibration-routine-memorize-this)
+
+---
 
 ---
 
@@ -430,3 +480,11 @@ Ninety seconds once it's muscle memory.
 ---
 
 [← RF fundamentals](02-rf-fundamentals.md) | [Next: Antenna testing →](04-antenna-testing.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

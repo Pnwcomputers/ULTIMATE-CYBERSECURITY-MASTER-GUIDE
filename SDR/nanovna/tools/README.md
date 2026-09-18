@@ -1,4 +1,54 @@
-# s1pdiff — Touchstone sweep analyser and baseline comparator
+<a id="top"></a>
+
+# 🧰 s1pdiff — Touchstone Sweep Analysis and Baseline Comparison
+
+<div align="center">
+
+**Command-line analysis and comparison of one-port NanoVNA sweep records**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../../README.md) · [SDR & RF](../../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Touchstone_Analysis-green?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](../README.md)
+
+## 🎯 Purpose
+
+Provide a command-line companion for reviewing archived NanoVNA S11 sweeps.
+
+## ⚙️ Function
+
+Analyze individual Touchstone files or compare a current sweep with a baseline and export the result.
+
+## 🏆 Goal
+
+Report measurement changes with the input data and comparison assumptions available for review.
+
+## 📋 When to Use
+
+- Analyzing an exported .s1p file.
+- Comparing repeat measurements and producing a report or machine-readable output.
+
+---
+
+## 📋 Table of Contents
+
+- [What it's for](#what-its-for)
+- [Install](#install)
+- [Usage](#usage)
+- [Exit codes](#exit-codes)
+- [Options](#options)
+- [File format support](#file-format-support)
+- [Interpretation caveats](#interpretation-caveats)
+- [Tests](#tests)
+- [Naming convention for archived sweeps](#naming-convention-for-archived-sweeps)
+
+---
 
 A standalone command-line tool for NanoVNA `.s1p` files. Python 3.8+, **standard
 library only** — no numpy, no scikit-rf, nothing to install.
@@ -193,3 +243,11 @@ series-RLC antenna model — regenerate or extend them freely.
 
 Date first sorts chronologically. Site, antenna, and **measurement plane** in the
 name means you never have to guess later which sweep is comparable to which.
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](../README.md) · [SDR & RF](../../README.md)
+
+</div>

@@ -17,7 +17,7 @@
 
 ## 🎯 Purpose
 
-This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, and the frequency/protocol master reference.
+This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents and the NanoVNA guide collection** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, frequency/protocol references, and antenna/RF measurements.
 
 The linked documents contain explanations, examples, and workflows. A tool listed here is not necessarily bundled with the repository, installed on your system, or compatible with every radio.
 
@@ -65,6 +65,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 | **[RFID and NFC Exploration](rfid.md)** | 🟡 Practical / Bench | LF/HF tag identification, reader selection, supported authentication/key-recovery research, and authorized emulation or cloning workflows. |
 | **[Advanced SDR Security Research](sdr_hacking.md)** | 🔴 Advanced | Signal reversing, wireless protocol security, firmware/baseband research, TEMPEST, and electromagnetic side-channel topics. |
 | **[Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)** | 🟢 Reference / All Levels | Regional bands, exact channel tables, signal characteristics, hardware limits, decoder selection, and survey documentation. |
+| **[NanoVNA Field Guide](nanovna/README.md)** | 🟢 Foundational → 🟡 Practical / Bench | Twelve chapters on H/H4 setup, calibration, antenna testing and tuning, cable/filter measurements, worked examples, and sweep comparison tools. |
 
 > **Companion playbook:** [HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md) provides the engagement procedure in the PlayBooks section. Related HackRF material also exists in [hackrf.md](hackrf.md); contributors should keep shared procedures and references consistent.
 
@@ -72,6 +73,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 | What you need to do | Start here | Follow with |
 |---|---|---|
+| Check or tune an antenna, cable, or filter | [NanoVNA Field Guide](nanovna/README.md) | [Calibration](nanovna/03-calibration.md), then [antenna testing](nanovna/04-antenna-testing.md). |
 | Learn SDR from the beginning | [sdr.md](sdr.md) | A known broadcast receive-chain check. |
 | Identify a frequency or choose a decoder | [Master list](target_frequencies_protocols.md) | The relevant protocol guide and exact device documentation. |
 | Survey a site or investigate interference | [hackrf.md](hackrf.md) | [HackRF Audit Playbook](../PlayBooks/HackRFAuditPlayBook.md). |
@@ -88,6 +90,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 | Device / family | Capabilities | Practical role and limits |
 |---|---|---|
+| **[NanoVNA-H / H4](nanovna/README.md)** | Vector network analyzer; S11 reflection and S21 transmission | Antenna match, cable and passive-filter measurements. Verify actual hardware/firmware coverage; not a spectrum analyzer or protocol receiver. |
 | **[RTL-SDR Blog V3/V4](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/)** | Receive-only SDR | Broadcast, supported Sub-GHz telemetry, ADS-B, and other signals within the model's range. V3/V4 HF operation differs. Common RTL-SDR tuners do not directly reach 2.4 GHz. |
 | **[HackRF One](https://hackrf.readthedocs.io/en/latest/hackrf_one.html)** | Half-duplex RX/TX; specified 1 MHz–6 GHz; up to 20 MS/s complex IQ | Spectrum surveys and waveform captures. Does not directly cover 125/134.2 kHz RFID, the full 6 GHz Wi-Fi band, or wide Wi-Fi channels. |
 | **[Airspy](https://airspy.com/)** | Receive-only SDR family | Select the exact model for HF versus VHF/UHF work; coverage and bandwidth differ. |
@@ -307,12 +310,13 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 
 | Item | Current inventory |
 |---|---|
-| Documents linked from this index | **6:** `sdr.md`, `hackrf.md`, `subghz.md`, `rfid.md`, `sdr_hacking.md`, `target_frequencies_protocols.md`. |
-| Markdown files in `SDR/` | **7**, including this README. |
+| Guide entries linked from this index | **7:** six companion documents plus the [NanoVNA guide collection](nanovna/README.md). |
+| Markdown files directly in `SDR/` | **7**, including this README; NanoVNA chapters are in the subdirectory. |
+| NanoVNA collection | **12 chapters**, a section README, and a tools README in `SDR/nanovna/`. |
 | External companion playbook | `PlayBooks/HackRFAuditPlayBook.md`. |
 | Coverage | LF/HF RFID, Sub-GHz devices, wireless protocols, wideband SDR, and specialized higher-frequency topics; coverage depends on hardware. |
 | Review scope | README inventory, navigation, tool descriptions, selected hardware specifications, and legal wording. Companion guides remain separate technical documents. |
-| Last reviewed | September 15, 2026. |
+| Last reviewed | September 15, 2026; NanoVNA navigation and inventory added September 18, 2026. |
 | Maintainer | [Pacific Northwest Computers / Pnwcomputers](https://github.com/Pnwcomputers). |
 
 **Maintenance note:** Update counts when adding or removing files. Recheck upstream compatibility and service status before relying on older examples. A guide's presence in this index does not establish that every command or security claim in it has been independently validated.

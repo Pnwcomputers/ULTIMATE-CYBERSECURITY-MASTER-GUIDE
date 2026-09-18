@@ -1,6 +1,52 @@
-# 08 — PC Software, Data Export, and Firmware
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 💻 08 — PC Software, Data Export, and Firmware
+
+<div align="center">
+
+**Connect to software, preserve measurement data, and manage model-specific firmware.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-PC_Software_Data_Export_and_Firmware-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-08_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Explain the computer-side workflow for collecting and maintaining NanoVNA data.
+
+## ⚙️ Function
+
+Cover NanoVNA-Saver, exports, serial access, firmware, and service documentation.
+
+## 🏆 Goal
+
+Keep reusable sweep records and understand firmware compatibility before updating.
+
+## 📋 When to Use
+
+- Exporting or comparing sweeps on a computer.
+- Preparing an automation workflow or reviewing firmware procedures.
+
+---
+
+## 📋 Table of Contents
+
+- [8.1 Why bother with PC software](#81-why-bother-with-pc-software)
+- [8.2 NanoVNA-Saver](#82-nanovna-saver)
+- [8.3 Other software](#83-other-software)
+- [8.4 The serial command interface](#84-the-serial-command-interface)
+- [8.5 Firmware](#85-firmware)
+- [8.6 Suggested workflow for service work](#86-suggested-workflow-for-service-work)
+
+---
 
 ---
 
@@ -322,3 +368,11 @@ evidence.
 ---
 
 [← Quick reference](07-quick-reference.md) | [Next: Worked examples →](09-worked-examples-by-band.md) | [Back to index](README.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

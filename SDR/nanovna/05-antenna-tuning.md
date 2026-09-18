@@ -1,6 +1,55 @@
-# 05 — Tuning Antennas
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 🛠️ 05 — Antenna Tuning and Matching
+
+<div align="center">
+
+**Use measured impedance to plan controlled changes to antenna length and matching.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Antenna_Tuning_and_Matching-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-05_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Explain practical adjustments for resonance and impedance matching.
+
+## ⚙️ Function
+
+Connect element trimming, ground planes, matching networks, chokes, and antenna-specific methods.
+
+## 🏆 Goal
+
+Make small, traceable adjustments and compare the final result with the baseline.
+
+## 📋 When to Use
+
+- Moving a resonance toward the intended frequency.
+- Investigating a resistance mismatch or choosing a matching approach.
+
+---
+
+## 📋 Table of Contents
+
+- [5.1 The two separate problems](#51-the-two-separate-problems)
+- [5.2 Fixing resonance: element trimming](#52-fixing-resonance-element-trimming)
+- [5.3 The ground plane — the most common cause of a mysteriously wrong vertical](#53-the-ground-plane--the-most-common-cause-of-a-mysteriously-wrong-vertical)
+- [5.4 Fixing the match: impedance transformation](#54-fixing-the-match-impedance-transformation)
+- [5.5 Common-mode chokes](#55-common-mode-chokes)
+- [5.6 Wideband vs. narrowband: bandwidth is a design choice](#56-wideband-vs-narrowband-bandwidth-is-a-design-choice)
+- [5.7 What an antenna tuner does and doesn't do](#57-what-an-antenna-tuner-does-and-doesnt-do)
+- [5.8 Tuning procedures by antenna type](#58-tuning-procedures-by-antenna-type)
+- [5.9 The tuning loop, condensed](#59-the-tuning-loop-condensed)
+
+---
 
 ---
 
@@ -527,3 +576,11 @@ simultaneously will cost you an hour.
 ---
 
 [← Antenna testing](04-antenna-testing.md) | [Next: Cables, filters & other uses →](06-cables-filters-other-uses.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

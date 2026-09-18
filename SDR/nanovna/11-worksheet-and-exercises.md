@@ -1,6 +1,49 @@
-# 11 — Field Worksheet and Practice Exercises
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📝 11 — Field Worksheet and Practice Exercises
+
+<div align="center">
+
+**Record each measurement setup and practice the method with controlled examples.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Field_Worksheet_and_Practice_Exercises-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-11_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Provide reusable measurement records and exercises for learning the instrument.
+
+## ⚙️ Function
+
+Pair a copy-per-job worksheet with known-load and baseline-comparison activities.
+
+## 🏆 Goal
+
+Build repeatable habits and preserve enough context to compare future measurements.
+
+## 📋 When to Use
+
+- Documenting a measurement or adjustment session.
+- Practicing calibration, impedance interpretation, or sweep comparisons.
+
+---
+
+## 📋 Table of Contents
+
+- [Part 1 — Measurement worksheet](#part-1--measurement-worksheet)
+- [Part 2 — Stop and diagnose before trimming if…](#part-2--stop-and-diagnose-before-trimming-if)
+- [Part 3 — Practice exercises](#part-3--practice-exercises)
+
+---
 
 Two things here: a **worksheet** to copy for every job, and a set of
 **exercises** that teach the instrument using known loads rather than guesswork
@@ -276,3 +319,11 @@ See [tools/README.md](tools/README.md).
 
 [← Antenna types & special cases](10-antenna-types-and-special-cases.md) |
 [Next: Sources & scope →](12-sources-and-scope.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

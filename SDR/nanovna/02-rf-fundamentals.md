@@ -1,6 +1,57 @@
-# 02 — RF Fundamentals: What Every Display Format Means
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📐 02 — RF Fundamentals and Display Formats
+
+<div align="center">
+
+**Understand what reflection, transmission, impedance, and the display formats tell you.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-RF_Fundamentals_and_Display_Formats-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-02_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Explain the RF quantities behind NanoVNA measurements.
+
+## ⚙️ Function
+
+Connect S-parameters, SWR, return loss, impedance, phase, and delay to their displays.
+
+## 🏆 Goal
+
+Read a sweep with a clear understanding of what it establishes and what it does not.
+
+## 📋 When to Use
+
+- Learning to interpret SWR, LOGMAG, or the Smith chart.
+- Choosing a display format or checking sweep resolution.
+
+---
+
+## 📋 Table of Contents
+
+- [2.1 The core idea: reflection](#21-the-core-idea-reflection)
+- [2.1a What a reflection sweep does and does not answer](#21a-what-a-reflection-sweep-does-and-does-not-answer)
+- [2.2 S-parameters](#22-s-parameters)
+- [2.3 LOGMAG — return loss and insertion loss](#23-logmag--return-loss-and-insertion-loss)
+- [2.4 SWR / VSWR](#24-swr--vswr)
+- [2.5 The Smith chart](#25-the-smith-chart)
+- [2.6 Phase](#26-phase)
+- [2.7 Group delay](#27-group-delay)
+- [2.8 The remaining formats](#28-the-remaining-formats)
+- [2.9 Sweep points and resolution](#29-sweep-points-and-resolution)
+- [2.10 Reading the status bar](#210-reading-the-status-bar)
+
+---
 
 ---
 
@@ -372,3 +423,11 @@ most common source of bad data is an uncalibrated sweep.
 ---
 
 [← Hardware & setup](01-hardware-and-setup.md) | [Next: Calibration →](03-calibration.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>

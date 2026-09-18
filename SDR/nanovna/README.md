@@ -1,4 +1,53 @@
-# NanoVNA Field Guide — SEESII NanoVNA-H & NanoVNA-H4
+<a id="top"></a>
+
+# 📡 NanoVNA Field Guide — SEESII NanoVNA-H & NanoVNA-H4
+
+<div align="center">
+
+**Practical guides for vector network analysis, antenna testing and tuning, cable diagnostics, and RF measurement records**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Antenna_%26_RF_Measurements-green?style=for-the-badge)
+
+</div>
+
+---
+
+## 🎯 Purpose
+
+Provide a practical reference for using the NanoVNA-H and NanoVNA-H4 to inspect antennas and passive RF systems.
+
+## ⚙️ Function
+
+Connect twelve chapters, worked examples, field worksheets, and a Touchstone comparison tool into a repeatable measurement workflow.
+
+## 🏆 Goal
+
+Move from a known calibration setup to a documented result, then make and verify controlled adjustments.
+
+## 📋 When to Use
+
+- Learning the analyzer, its controls, and RF display formats.
+- Checking antenna match, resonance, feedlines, filters, and connectors.
+- Tuning an antenna or comparing an installed system against a baseline.
+- Exporting measurements and documenting their scope and limitations.
+
+---
+
+## 📋 Table of Contents
+
+- [Guides in This Section](#guides-in-this-section)
+- [Choose a Starting Point](#choose-a-starting-point)
+- [The 60-second version](#the-60-second-version)
+- [Frequency coverage reality check](#frequency-coverage-reality-check)
+- [Accuracy expectations](#accuracy-expectations)
+- [What this guide does not establish](#what-this-guide-does-not-establish)
+- [Related Repository Material](#related-repository-material)
+- [Section Inventory and Maintenance](#section-inventory-and-maintenance)
+
+---
 
 Working documentation for the two SEESII-branded NanoVNA units:
 
@@ -20,27 +69,31 @@ applies to both unless a section is explicitly marked for one model.
 
 ---
 
-## Contents
+<a id="contents"></a>
 
-| File | What's in it |
+## Guides in This Section
+
+| Guide | Focus |
 |---|---|
-| [01-hardware-and-setup.md](01-hardware-and-setup.md) | Model comparison, ports, controls, menu map, first power-on, accessories, what will destroy the unit |
-| [02-rf-fundamentals.md](02-rf-fundamentals.md) | What a sweep can and can't answer · S-parameters · VSWR, return loss and the sign-convention trap · phase, delay, the Smith chart |
-| [03-calibration.md](03-calibration.md) | SOLT step by step, reference planes and why they change the answer, status indicators, save slots, drift, and the mistakes that produce confident wrong answers |
-| [04-antenna-testing.md](04-antenna-testing.md) | The full how-to: safety, repeatability, sweep setup, diagnostic decision tree, common-mode current, feedline effects |
-| [05-antenna-tuning.md](05-antenna-tuning.md) | Trimming elements, resonance vs. match, L-networks from Smith chart readings, stubs, transformers, chokes |
-| [06-cables-filters-other-uses.md](06-cables-filters-other-uses.md) | TDR fault location and its real resolution limits, velocity factor, coax loss, filters and duplexers, components, shielding |
-| [07-quick-reference.md](07-quick-reference.md) | Printable cheat sheet: conversion tables, formulas, band plans, troubleshooting flowchart |
-| [08-pc-software-and-firmware.md](08-pc-software-and-firmware.md) | NanoVNA-Saver, Touchstone exports, serial automation, firmware and DFU recovery |
-| [09-worked-examples-by-band.md](09-worked-examples-by-band.md) | Thirteen worked tuning examples from 40 m to 1090 MHz, each setup → sweep → diagnosis → arithmetic → result |
-| [10-antenna-types-and-special-cases.md](10-antenna-types-and-special-cases.md) | Handhelds, SDR/receive-only, active antennas, 75 Ω, mobile, dual-band, end-fed, traps, Yagis, discones, the DC continuity trap |
-| [11-worksheet-and-exercises.md](11-worksheet-and-exercises.md) | Copy-per-job field worksheet, plus eight practice exercises using known loads |
-| [12-sources-and-scope.md](12-sources-and-scope.md) | What's verified vs. convention vs. unverified, primary sources, and what these procedures do **not** establish |
-| [tools/](tools/README.md) | `s1pdiff.py` — Touchstone analyser and baseline comparator, with tests |
+| **[01 — Hardware, Controls, and Setup](01-hardware-and-setup.md)** | Model comparison, ports, controls, menu map, first power-on, accessories, what will destroy the unit |
+| **[02 — RF Fundamentals](02-rf-fundamentals.md)** | What a sweep can and can't answer · S-parameters · VSWR, return loss and the sign-convention trap · phase, delay, the Smith chart |
+| **[03 — Calibration](03-calibration.md)** | SOLT step by step, reference planes and why they change the answer, status indicators, save slots, drift, and the mistakes that produce confident wrong answers |
+| **[04 — Antenna Testing](04-antenna-testing.md)** | The full how-to: safety, repeatability, sweep setup, diagnostic decision tree, common-mode current, feedline effects |
+| **[05 — Antenna Tuning](05-antenna-tuning.md)** | Trimming elements, resonance vs. match, L-networks from Smith chart readings, stubs, transformers, chokes |
+| **[06 — Cables, Filters, and Other Measurements](06-cables-filters-other-uses.md)** | TDR fault location and its real resolution limits, velocity factor, coax loss, filters and duplexers, components, shielding |
+| **[07 — Quick Reference](07-quick-reference.md)** | Printable cheat sheet: conversion tables, formulas, band plans, troubleshooting flowchart |
+| **[08 — PC Software and Firmware](08-pc-software-and-firmware.md)** | NanoVNA-Saver, Touchstone exports, serial automation, firmware and DFU recovery |
+| **[09 — Worked Examples by Band](09-worked-examples-by-band.md)** | Thirteen worked tuning examples from 40 m to 1090 MHz, each setup → sweep → diagnosis → arithmetic → result |
+| **[10 — Antenna Types and Special Cases](10-antenna-types-and-special-cases.md)** | Handhelds, SDR/receive-only, active antennas, 75 Ω, mobile, dual-band, end-fed, traps, Yagis, discones, the DC continuity trap |
+| **[11 — Worksheet and Exercises](11-worksheet-and-exercises.md)** | Copy-per-job field worksheet, plus eight practice exercises using known loads |
+| **[12 — Sources and Scope](12-sources-and-scope.md)** | What's verified vs. convention vs. unverified, primary sources, and what these procedures do **not** establish |
+| **[Touchstone Analysis Tools](tools/README.md)** | `s1pdiff.py` — Touchstone analyser and baseline comparator, with tests |
 
 ---
 
-## Two ways in
+<a id="two-ways-in"></a>
+
+## Choose a Starting Point
 
 **New to VNAs?** Read in order: 01 → 02 → 03, then work Exercises 1–5 in
 [11](11-worksheet-and-exercises.md) before touching a real antenna. Then 04 → 05.
@@ -125,3 +178,40 @@ performance, or regulatory compliance.
 
 [12 §12.4](12-sources-and-scope.md#124-scope-of-what-these-procedures-establish)
 has the full scope statement and suggested report language.
+
+---
+
+## Related Repository Material
+
+| Resource | Relationship |
+|---|---|
+| [SDR & RF section](../README.md) | Parent section and guide selection. |
+| [SDR Fundamentals](../sdr.md) | Receivers, antennas, and signal-processing foundations. |
+| [HackRF RF Spectrum and Wireless Security Audits](../hackrf.md) | Spectrum surveys and receive-chain validation. |
+| [Target Frequencies & Protocols MASTER LIST](../target_frequencies_protocols.md) | Frequency references and hardware coverage. |
+| [Sub-GHz RF Exploration](../subghz.md) | Related device and protocol workflows. |
+| [HackRF Audit Playbook](../../PlayBooks/HackRFAuditPlayBook.md) | Broader field and bench engagement procedure. |
+| [Hardware Hacking](../../HardwareHacking/README.md) | Embedded hardware investigation. |
+
+## Section Inventory and Maintenance
+
+| Item | Inventory |
+|---|---|
+| Learning chapters | **12**, covering setup through sources and scope. |
+| Chapter sequence | Hardware → RF fundamentals → calibration → testing → tuning → other measurements → reference → software → examples → antenna types → exercises → sources. |
+| Companion tools | [Touchstone sweep analysis and comparison](tools/README.md). |
+| Measurement records | [Field worksheet and practice exercises](11-worksheet-and-exercises.md). |
+| Source and verification policy | [Sources, scope, and verification limits](12-sources-and-scope.md). |
+| Maintainer | [Pacific Northwest Computers / Pnwcomputers](https://github.com/Pnwcomputers). |
+
+**Maintenance note:** Keep chapter links and the parent SDR index synchronized when adding or renaming files. Record model, firmware, reference plane, and setup with measurement results.
+
+---
+
+<div align="center">
+
+**Calibrate the setup. Understand the measurement. Verify the result.**
+
+[↑ Back to Top](#top) · [SDR & RF](../README.md) · [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)
+
+</div>

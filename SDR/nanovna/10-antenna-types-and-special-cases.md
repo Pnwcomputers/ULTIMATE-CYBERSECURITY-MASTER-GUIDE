@@ -1,6 +1,59 @@
-# 10 — Antenna Types and Special Cases
+<a id="top"></a>
 
-[← Back to index](README.md)
+# 📻 10 — Antenna Types and Special Cases
+
+<div align="center">
+
+**Recognize when the standard antenna-testing procedure needs a different fixture or interpretation.**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF](../README.md)*
+
+![NanoVNA](https://img.shields.io/badge/Hardware-NanoVNA--H_%26_H4-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Antenna_Types_and_Special_Cases-green?style=for-the-badge)
+![Chapter](https://img.shields.io/badge/Chapter-10_of_12-orange?style=for-the-badge)
+
+</div>
+
+---
+
+[← NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+## 🎯 Purpose
+
+Explain antenna designs and installations that require additional measurement context.
+
+## ⚙️ Function
+
+Cover handhelds, receive-only and active antennas, 75-ohm systems, mobile and multiband designs.
+
+## 🏆 Goal
+
+Choose a procedure appropriate to the complete antenna system being measured.
+
+## 📋 When to Use
+
+- Working with end-fed, trapped, multiband, or broadband antennas.
+- Interpreting a handheld, active antenna, or DC continuity result.
+
+---
+
+## 📋 Table of Contents
+
+- [10.1 — Handheld antennas and rubber ducks](#101--handheld-antennas-and-rubber-ducks)
+- [10.2 — Telescoping whips and higher-order modes](#102--telescoping-whips-and-higher-order-modes)
+- [10.3 — Receive-only and SDR antennas](#103--receive-only-and-sdr-antennas)
+- [10.4 — Active antennas and mast-head amplifiers](#104--active-antennas-and-mast-head-amplifiers)
+- [10.5 — 75-ohm antennas on a 50-ohm instrument](#105--75-ohm-antennas-on-a-50-ohm-instrument)
+- [10.6 — Mobile antennas: the three-frequency test](#106--mobile-antennas-the-three-frequency-test)
+- [10.7 — Dual-band mobile whips](#107--dual-band-mobile-whips)
+- [10.8 — End-fed half-wave antennas](#108--end-fed-half-wave-antennas)
+- [10.9 — Random wire antennas and 9:1 ununs](#109--random-wire-antennas-and-91-ununs)
+- [10.10 — Fan dipoles and trapped antennas](#1010--fan-dipoles-and-trapped-antennas)
+- [10.11 — Yagis: what SWR does not tell you](#1011--yagis-what-swr-does-not-tell-you)
+- [10.12 — Discones and other broadband receiving antennas](#1012--discones-and-other-broadband-receiving-antennas)
+- [10.13 — The DC continuity trap](#1013--the-dc-continuity-trap)
+
+---
 
 The procedures in [04](04-antenna-testing.md) and [05](05-antenna-tuning.md)
 assume a simple radiator you can measure and trim. Plenty of real antennas
@@ -408,3 +461,11 @@ the antenna works.
 
 [← Worked examples](09-worked-examples-by-band.md) |
 [Next: Worksheet & exercises →](11-worksheet-and-exercises.md)
+
+---
+
+<div align="center">
+
+[↑ Back to Top](#top) · [NanoVNA Index](README.md) · [SDR & RF](../README.md)
+
+</div>
