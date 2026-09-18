@@ -2,8 +2,8 @@
 
 <div align="center">
 
-**Field manual for SEESII NanoVNA-H (HW3.7) and NanoVNA-H4 (V4.4)
-**Antenna testing, impedance matching, cable fault location, and defensible RF measurement
+**Field manual for SEESII NanoVNA-H (HW3.7) and NanoVNA-H4 (V4.4): 
+Antenna testing, impedance matching, cable fault location, and defensible RF measurement**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [SDR & RF Section](../README.md)*
 
