@@ -1,14 +1,16 @@
-# 🔄 Change Log - September 15, 2026
+# 🔄 Change Log - September 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1430
-- **Files Modified**: 1646
-- **New Files**: 640
+- **Commits Analyzed**: 1435
+- **Files Modified**: 1650
+- **New Files**: 664
 - **Deleted Files**: 120
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add files via upload (`c0d2a71`)
+- Create README.md (`e9e3bda`)
 - Add files via upload (`52d8919`)
 - Add HackRF section to README (`041e725`)
 - Create hackrf.md (`ee07399`)
@@ -468,6 +470,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix formatting of touchscreen size in README.md (`d0d1e57`)
+- Fix capitalization in README hardware note (`44efe05`)
 - Fix formatting of ongoing work in progress header (`b78d3c5`)
 - Fix link path for HackRFAuditPlayBook in README (`efaa948`)
 - Fix link to HackRFAuditPlayBook.md in README (`ee8d34d`)
@@ -620,6 +624,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README to remove hardware version reference (`ba10728`)
 - Update README.md (`625cb80`)
 - Update target frequencies protocols to indicate WIP (`dc2f532`)
 - Update target frequencies protocols header formatting (`c8d6d6b`)
@@ -1454,9 +1459,33 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `SDR/nanovna/README.md`
+- `SDR/nanovna/01-hardware-and-setup.md`
+- `SDR/nanovna/02-rf-fundamentals.md`
+- `SDR/nanovna/03-calibration.md`
+- `SDR/nanovna/04-antenna-testing.md`
+- `SDR/nanovna/05-antenna-tuning.md`
+- `SDR/nanovna/06-cables-filters-other-uses.md`
+- `SDR/nanovna/07-quick-reference.md`
+- `SDR/nanovna/08-pc-software-and-firmware.md`
+- `SDR/nanovna/09-worked-examples-by-band.md`
+- `SDR/nanovna/10-antenna-types-and-special-cases.md`
+- `SDR/nanovna/11-worksheet-and-exercises.md`
+- `SDR/nanovna/12-sources-and-scope.md`
+- `SDR/nanovna/testdata/base_2m.s1p`
+- `SDR/nanovna/testdata/base_2m_ma.s1p`
+- `SDR/nanovna/testdata/drift_2m.s1p`
+- `SDR/nanovna/testdata/gen.py`
+- `SDR/nanovna/testdata/lora_915.s1p`
+- `SDR/nanovna/testdata/run_tests.sh`
+- `SDR/nanovna/testdata/same_2m.s1p`
+- `SDR/nanovna/testdata/uhf_70cm.s1p`
+- `SDR/nanovna/testdata/wet_2m.s1p`
+- `SDR/nanovna/tools/README.md`
+- `SDR/nanovna/tools/s1pdiff.py`
+- `CHANGELOG.md`
 - `SDR/README.md`
 - `SDR/target_frequencies_protocols.md`
-- `CHANGELOG.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
 - `SDR/hackrf.md`
