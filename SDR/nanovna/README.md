@@ -2,7 +2,7 @@
 
 Working documentation for the two SEESII-branded NanoVNA units:
 
-- **NanoVNA-H, hardware rev 3.7** — ~2.8" resistive touchscreen
+- **NanoVNA-H, hardware rev 3.7** — 2.8" resistive touchscreen
 - **NanoVNA-H4, "V4.4"** — 4" touchscreen, more memory and sweep points
 
 Both are the same measurement engine in different packages. Everything here
