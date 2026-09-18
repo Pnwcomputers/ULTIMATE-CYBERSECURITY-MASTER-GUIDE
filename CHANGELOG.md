@@ -1,8 +1,8 @@
 # 🔄 Change Log - September 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1439
-- **Files Modified**: 1655
+- **Commits Analyzed**: 1440
+- **Files Modified**: 1670
 - **New Files**: 664
 - **Deleted Files**: 120
 
@@ -1234,6 +1234,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: align NanoVNA guides with SDR section formatting (#84) (`54e80a6`)
 - Enhance README section headers with emojis (`c10e6eb`)
 - Enhance ParrotOS Guide description in README (`518bf40`)
 - Delete uConsole/ParrotOS/README.md (`87df2bc`)
@@ -1463,8 +1464,7 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `SDR/nanovna/README.md`
-- `CHANGELOG.md`
+- `SDR/README.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/03-calibration.md`
@@ -1477,6 +1477,9 @@
 - `SDR/nanovna/10-antenna-types-and-special-cases.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
 - `SDR/nanovna/12-sources-and-scope.md`
+- `SDR/nanovna/tools/README.md`
+- `CHANGELOG.md`
+- `SDR/nanovna/README.md`
 - `SDR/nanovna/testdata/base_2m.s1p`
 - `SDR/nanovna/testdata/base_2m_ma.s1p`
 - `SDR/nanovna/testdata/drift_2m.s1p`
@@ -1486,9 +1489,7 @@
 - `SDR/nanovna/testdata/same_2m.s1p`
 - `SDR/nanovna/testdata/uhf_70cm.s1p`
 - `SDR/nanovna/testdata/wet_2m.s1p`
-- `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
-- `SDR/README.md`
 - `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
