@@ -1,9 +1,9 @@
-# 🔄 Change Log - September 18, 2026
+# 🔄 Change Log - September 21, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1440
-- **Files Modified**: 1670
-- **New Files**: 664
+- **Commits Analyzed**: 1441
+- **Files Modified**: 1707
+- **New Files**: 669
 - **Deleted Files**: 120
 
 ## 📝 Detailed Changes
@@ -470,6 +470,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix: remediate 2026-09-21 review findings (R01–R12) (#86) (`de8f587`)
 - Fix formatting in NanoVNA README header (`07fe6ca`)
 - Correct README formatting for NanoVNA-H (`f94c3a1`)
 - Fix formatting of touchscreen size in README.md (`d0d1e57`)
@@ -1464,6 +1465,48 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.github/workflows/cm5-parrot-checks.yml`
+- `.github/workflows/guide-tests.yml`
+- `AUDIT_FINDINGS.md`
+- `AUDIT_REPORT.md`
+- `Data-Engineering/Phase2/api_file_ingestion.md`
+- `Data-Engineering/Phase2/data_storage_file_formats.md`
+- `Data-Engineering/Phase2/streaming_cdc.md`
+- `Data-Engineering/Phase2/workflow_orchestration.md`
+- `Data-Engineering/Phase3/README.md`
+- `Data-Engineering/Phase3/data_governance_lineage.md`
+- `Data-Engineering/Phase3/data_recovery_replay.md`
+- `Data-Engineering/Phase3/pipeline_observability.md`
+- `Data-Engineering/Phase3/pipeline_testing_cicd.md`
+- `Data-Engineering/README.md`
+- `HardwareTesting/py/full_hw_suite.py`
+- `IncidentResponse/Firewalls/openbsd_pf.md`
+- `IncidentResponse/HoneyPot/cowrie.md`
+- `IncidentResponse/HoneyPot/dionaea.md`
+- `IncidentResponse/HoneyPot/honeypi.md`
+- `IncidentResponse/HoneyPot/opencanary.md`
+- `IncidentResponse/HoneyPot/readme.md`
+- `IncidentResponse/HoneyPot/tpot.md`
+- `IncidentResponse/IDS&IPS/fail2ban.md`
+- `IncidentResponse/IDS&IPS/security-onion.md`
+- `IncidentResponse/IDS&IPS/snort.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/osint_investigator.sh`
+- `OSINT/README.md`
+- `REVIEW_2026-09-21.md`
+- `SDR/hackrf.md`
+- `SDR/nanovna/tools/README.md`
+- `SDR/nanovna/tools/s1pdiff.py`
+- `Scripts/GO/README.md`
+- `Scripts/GO/bruteforce/cassbrute.py`
+- `Scripts/README.md`
+- `Scripts/pnwc_install_tools.sh`
+- `installer.sh`
+- `tools/run_data_labs.py`
+- `tools/tests/test_review_fixes.py`
+- `uConsole/PARROT-CM5.md`
+- `uConsole/scripts/README.md`
+- `CHANGELOG.md`
 - `SDR/README.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
@@ -1477,8 +1520,6 @@
 - `SDR/nanovna/10-antenna-types-and-special-cases.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
 - `SDR/nanovna/12-sources-and-scope.md`
-- `SDR/nanovna/tools/README.md`
-- `CHANGELOG.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/testdata/base_2m.s1p`
 - `SDR/nanovna/testdata/base_2m_ma.s1p`
@@ -1489,33 +1530,18 @@
 - `SDR/nanovna/testdata/same_2m.s1p`
 - `SDR/nanovna/testdata/uhf_70cm.s1p`
 - `SDR/nanovna/testdata/wet_2m.s1p`
-- `SDR/nanovna/tools/s1pdiff.py`
 - `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
-- `SDR/hackrf.md`
 - `README.md`
 - `uConsole/README.md`
-- `uConsole/PARROT-CM5.md`
 - `uConsole/ParrotOS/README.md`
-- `.github/workflows/cm5-parrot-checks.yml`
 - `uConsole/scripts/PARROT-CM5.md`
-- `uConsole/scripts/README.md`
 - `uConsole/scripts/uconsole-cm5-parrot-setup.sh`
 - `uConsole/tests/test_cm5_parrot_setup.py`
-- `Data-Engineering/README.md`
-- `Data-Engineering/Phase3/README.md`
 - `Data-Engineering/Phase3/readme.md`
-- `Data-Engineering/Phase3/data_governance_lineage.md`
-- `Data-Engineering/Phase3/data_recovery_replay.md`
-- `Data-Engineering/Phase3/pipeline_observability.md`
-- `Data-Engineering/Phase3/pipeline_testing_cicd.md`
 - `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/Phase2/readme.md`
-- `Data-Engineering/Phase2/api_file_ingestion.md`
-- `Data-Engineering/Phase2/data_storage_file_formats.md`
-- `Data-Engineering/Phase2/streaming_cdc.md`
-- `Data-Engineering/Phase2/workflow_orchestration.md`
 - `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
@@ -1529,24 +1555,14 @@
 - `uConsole/tests/test_cm5_setup.py`
 - `Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
-- `IncidentResponse/Firewalls/openbsd_pf.md`
 - `IncidentResponse/Firewall/openbsd_pf.md`
 - `IncidentResponse/Firewall/PF.md`
 - `Tradecraft/evasion.md`
-- `IncidentResponse/IDS&IPS/security-onion.md`
-- `IncidentResponse/IDS&IPS/fail2ban.md`
 - `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `IncidentResponse/IDS&IPS/readme.md`
 - `IncidentResponse/IDS&IPS/security_onion.md`
-- `IncidentResponse/IDS&IPS/snort.md`
-- `IncidentResponse/HoneyPot/readme.md`
-- `IncidentResponse/HoneyPot/honeypi.md`
-- `IncidentResponse/HoneyPot/dionaea.md`
-- `IncidentResponse/HoneyPot/cowrie.md`
-- `IncidentResponse/HoneyPot/tpot.md`
-- `IncidentResponse/HoneyPot/opencanary.md`
 - `IncidentResponse/IDS/nzyme_wids.md`
 - `IncidentResponse/IDS_IPS/nzyme_wids.md`
 - `IncidentResponse/IDS_IPS/nzymewids.md`
@@ -1554,7 +1570,6 @@
 - `Mobile/UserLAnd/readme.md`
 - `SDR/rfid.md`
 - `SDR/subghz.md`
-- `AUDIT_REPORT.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
@@ -1576,7 +1591,6 @@
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-top-10.md`
 - `advanced_techniques_part2.md`
-- `AUDIT_FINDINGS.md`
 - `GLOSSARY.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `AI/offensive_ai.md`
@@ -1620,10 +1634,8 @@
 - `IncidentResponse/SIEM/README.md`
 - `LEGAL.md`
 - `OPSEC/README.md`
-- `OSINT/README.md`
 - `PDF/README.md`
 - `PlayBooks/README.md`
-- `Scripts/README.md`
 - `SpaceSecurity/README.md`
 - `uConsole/CM4-SETUP.md`
 - `HardwareHacking/LA1010.md`
@@ -1681,7 +1693,6 @@
 - `assets/i2c.jpg`
 - `assets/md`
 - `firmware-hardware-compatibility.md`
-- `installer.sh`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/blackarch.md`
 - `Documentation/ArchLinux_CheatSheet.md`
@@ -1731,7 +1742,6 @@
 - `FIRMWARE&HARDWARE_COMPATIBILITY.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
-- `OSINT/Playbook/README.md`
 - `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
 - `OSINT/scripts/Email_OSINT.md`
@@ -1774,8 +1784,6 @@
 - `HardwareHacking/Chapter4.md`
 - `HardwareHacking/Chapter5.md`
 - `OSINT/Playbook/install_dependencies.sh`
-- `OSINT/Playbook/osint_investigator.sh`
-- `Scripts/pnwc_install_tools.sh`
 - `SpaceSecurity/Appendices.md`
 - `SpaceSecurity/PartI.md`
 - `OSINT/Playbook/api_keys.conf`
@@ -1788,7 +1796,6 @@
 - `HardwareTesting/py/standalone_ram_tester.py`
 - `HardwareTesting/py/standalone_gpu_tester.py`
 - `HardwareTesting/py/nvidia_gpu_tester.py`
-- `HardwareTesting/py/full_hw_suite.py`
 - `HardwareTesting/py/amd_gpu_tester.py`
 - `HardwareTesting/install_testbench_tools.sh`
 - `uConsole/cm4.md`
@@ -2034,7 +2041,6 @@
 - `Scripts/GO/bruteforce/brute_http_form.py`
 - `Scripts/GO/bruteforce/brute_http_ntlm.py`
 - `Scripts/GO/bruteforce/brute_ssh_keyboard.py`
-- `Scripts/GO/bruteforce/cassbrute.py`
 - `Scripts/GO/bruteforce/firewarebf.py`
 - `Scripts/GO/bruteforce/multi_ssh.py`
 - `Scripts/GO/bruteforce/sw_ike.py`
