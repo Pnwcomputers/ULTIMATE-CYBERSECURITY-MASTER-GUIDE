@@ -896,12 +896,12 @@ Prefer these primary sources over any third-party blog (this one included), and 
 
 ### Internal Links
 - [🏠 Main Repository](../README.md)
-- [🎯 START HERE Guide](../START_HERE.md)
-- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
-- [🏠 Homelab Setup](../Homelab/README.md)
-- [✅ Security Checklists](../Checklists/README.md)
-- [📚 Documentation](../Documentation/README.md)
-- [🔒 OPSEC Guidelines](../OPSEC/README.md)
+- [🎯 START HERE Guide](../../START_HERE.md)
+- [💻 Cybersecurity Master Guide](../../ultimate_cybersecurity_master_guide.md)
+- [🏠 Homelab Setup](../../Homelab/README.md)
+- [✅ Security Checklists](../../Checklists/README.md)
+- [📚 Documentation](../../Documentation/README.md)
+- [🔒 OPSEC Guidelines](../../OPSEC/README.md)
 
 ---
 
@@ -922,10 +922,10 @@ Prefer these primary sources over any third-party blog (this one included), and 
 <div align="center">
 
 ## Related Files
-- [../IncidentResponse/log_agg.md](../IncidentResponse/log_agg.md) - Point pflow/NetFlow and pflog output into the SIEM described here
-- [../IncidentResponse/network_intrusion.md](../IncidentResponse/network_intrusion.md) - PF is the enforcement layer for the wireless/rogue-AP response procedures
-- [../Documentation/wireshark.md](../Documentation/wireshark.md) - Analyze the pcap that pflog0 produces
-- [../Homelab/](../Homelab/) - Where to build and break these configurations before production
+- [../IncidentResponse/log_agg.md](../log_agg.md) - Point pflow/NetFlow and pflog output into the SIEM described here
+- [../IncidentResponse/network_intrusion.md](../network_intrusion.md) - PF is the enforcement layer for the wireless/rogue-AP response procedures
+- [../Documentation/wireshark.md](../../Documentation/wireshark.md) - Analyze the pcap that pflog0 produces
+- [../Homelab/](../../Homelab) - Where to build and break these configurations before production
 
 ---
 

@@ -1,3 +1,5 @@
+> **Runtime status:** The [historical collection](GO/README.md) includes Python 2 examples and an unfinished Go sketch. Listing a script here does not certify that it runs on a current system.
+
 # 💻 Security Scripts & Tools
 
 
@@ -1126,3 +1128,17 @@ We welcome contributions from security professionals, but all scripts must meet 
 - [Bash/BashBunny/README.md](Bash/BashBunny/README.md) - Bash Bunny payload guide
 - [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky DuckyScript guide
 - [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch tool installation context
+
+### Python environment used by the tool installer
+
+`pnwc_install_tools.sh` keeps pip-managed libraries and commands in
+`/opt/pnwc-tools/venv`, separate from the system interpreter. After installation,
+activate it for a new shell or invoke its binaries by absolute path:
+
+```bash
+source /opt/pnwc-tools/venv/bin/activate
+```
+
+On Arch-family systems, complete `sudo pacman -Syu` before starting the installer.
+The installer asks you to confirm that step and does not refresh package metadata
+separately. An unattended run without confirmation stops before installing tools.

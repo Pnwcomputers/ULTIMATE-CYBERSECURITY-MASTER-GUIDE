@@ -1,18 +1,17 @@
-name: CM5 Parrot setup checks
+name: CM5 setup checks
 
 on:
   push:
-    branches:
-      - 'codex/cm5-parrot-*'
     paths:
-      - 'uConsole/scripts/uconsole-cm5-parrot-setup.sh'
-      - 'uConsole/tests/test_cm5_parrot_setup.py'
+      - 'uConsole/scripts/uconsole-cm5*.sh'
+      - 'uConsole/tests/**'
       - '.github/workflows/cm5-parrot-checks.yml'
   pull_request:
     paths:
-      - 'uConsole/scripts/uconsole-cm5-parrot-setup.sh'
-      - 'uConsole/tests/test_cm5_parrot_setup.py'
+      - 'uConsole/scripts/uconsole-cm5*.sh'
+      - 'uConsole/tests/**'
       - '.github/workflows/cm5-parrot-checks.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -25,7 +24,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Check Bash syntax
-        run: bash -n uConsole/scripts/uconsole-cm5-parrot-setup.sh
+        run: |
+          bash -n uConsole/scripts/uconsole-cm5-setup.sh
+          bash -n uConsole/scripts/uconsole-cm5-parrot-setup.sh
       - name: Run isolated regression tests
-        run: python3 -m unittest discover -s uConsole/tests -p 'test_cm5_parrot_setup.py' -v
+        run: python3 -B -m unittest discover -s uConsole/tests -v

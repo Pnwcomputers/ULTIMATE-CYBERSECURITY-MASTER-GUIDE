@@ -103,9 +103,9 @@ No Parrot/CM5 hardware installation has been tested for this version. Validate o
 
 ## Related Files
 
-- [Parrot setup script](./uconsole-cm5-parrot-setup.sh)
+- [Parrot setup script](scripts/uconsole-cm5-parrot-setup.sh)
 - [Scripts index](./README.md)
-- [Original CM5 script](./uconsole-cm5-setup.sh)
-- [CM5 guide](../CM5-SETUP.md)
-- [Display recovery](../CM5-DISPLAY-RECOVERY.md)
-- [Parrot fixture tests](../tests/test_cm5_parrot_setup.py)
+- [Original CM5 script](scripts/uconsole-cm5-setup.sh)
+- [CM5 guide](CM5-SETUP.md)
+- [Display recovery](CM5-DISPLAY-RECOVERY.md)
+- [Parrot fixture tests](tests/test_cm5_parrot_setup.py)

@@ -1,5 +1,7 @@
 # 🔎 Audit Findings Register
 
+> **Historical assessment (August 2026):** These findings describe the earlier review, not the current tree. See the [September review](REVIEW_2026-09-21.md) for later defects and remediation status.
+
 *Deliverable C of the repository audit. A living register of verified,
 evidence-backed findings with recommended corrections, confidence levels, and
 proposed actions. Update the **Status** column as items are resolved.*

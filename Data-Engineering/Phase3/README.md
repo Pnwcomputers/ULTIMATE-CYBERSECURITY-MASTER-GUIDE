@@ -12,7 +12,7 @@
 ![Phase](https://img.shields.io/badge/Phase-3_Operations_%26_Governance-blue?style=for-the-badge)
 ![Labs](https://img.shields.io/badge/Local_Labs-4_Verified-darkgreen?style=for-the-badge)
 
-**[Data Engineering Overview](../README.md) · [Phase 2 Storage & Integration](../Phase2/readme.md)**
+**[Data Engineering Overview](../README.md) · [Phase 2 Storage & Integration](../Phase2/README.md)**
 
 </div>
 
@@ -72,7 +72,7 @@ who may access it, and which recovery procedure actually worked.
 
 ## 🧭 Prerequisites & Reading Order
 
-Start with [Phase 1](../Phase1/) and [Phase 2](../Phase2/readme.md). In particular, understand
+Start with [Phase 1](../Phase1/) and [Phase 2](../Phase2/README.md). In particular, understand
 [ETL & ELT](../Phase1/etl_elt_pipeline_design.md), [Quality & Contracts](../Phase1/data_quality_schema_contracts.md),
 [Orchestration](../Phase2/workflow_orchestration.md), and [Streaming & CDC](../Phase2/streaming_cdc.md).
 

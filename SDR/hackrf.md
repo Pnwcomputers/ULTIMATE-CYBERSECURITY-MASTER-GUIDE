@@ -1006,7 +1006,7 @@ Retest result:
 ### Related Files
 
 - [README.md](README.md) — PlayBooks section index.
-- [NetworkAuditPlayBook.md](NetworkAuditPlayBook.md) — Wireless & Network Security Audit Playbook (structural reference).
+- [NetworkAuditPlayBook.md](../PlayBooks/NetworkAuditPlayBook.md) — Wireless & Network Security Audit Playbook (structural reference).
 - [../SDR/README.md](../SDR/README.md) — SDR / RF / NFC-RFID section index.
 - [../SDR/sdr.md](../SDR/sdr.md) — Foundational SDR guide: IQ sampling, GNU Radio, signal analysis.
 - [../SDR/subghz.md](../SDR/subghz.md) — Sub-GHz lab manual: capture workflows, protocol matrix, logging template.

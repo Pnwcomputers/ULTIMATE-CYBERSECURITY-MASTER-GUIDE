@@ -23,7 +23,7 @@ def authenticate(server, username, password):
             username=username, password=password)
         cluster = Cluster([server], auth_provider=auth_provider)
         session = cluster.connect()
-    print("Success: {0}-{1}".format(username, password))
+        print("Success: {0}-{1}".format(username, password))
 
     except NoHostAvailable:
         pass

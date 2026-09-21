@@ -1,0 +1,49 @@
+name: Guide tool and lab checks
+
+on:
+  push:
+    paths:
+      - 'HardwareTesting/py/full_hw_suite.py'
+      - 'installer.sh'
+      - 'Scripts/pnwc_install_tools.sh'
+      - 'SDR/nanovna/**'
+      - 'Data-Engineering/Phase2/**'
+      - 'Data-Engineering/Phase3/**'
+      - 'tools/**'
+      - '.github/workflows/guide-tests.yml'
+  pull_request:
+    paths:
+      - 'HardwareTesting/py/full_hw_suite.py'
+      - 'installer.sh'
+      - 'Scripts/pnwc_install_tools.sh'
+      - 'SDR/nanovna/**'
+      - 'Data-Engineering/Phase2/**'
+      - 'Data-Engineering/Phase3/**'
+      - 'tools/**'
+      - '.github/workflows/guide-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer syntax
+        run: |
+          sh -n installer.sh
+          bash -n Scripts/pnwc_install_tools.sh
+      - name: Local failure regressions
+        run: python3 -B -m unittest discover -s tools/tests -v
+      - name: NanoVNA fixtures
+        run: bash SDR/nanovna/testdata/run_tests.sh
+      - name: Data-engineering labs
+        run: python3 -B tools/run_data_labs.py

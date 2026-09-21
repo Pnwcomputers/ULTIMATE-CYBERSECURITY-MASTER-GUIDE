@@ -4,7 +4,7 @@
 
 **Records real attacker commands and keystrokes, not just connection attempts**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![Honeypot](https://img.shields.io/badge/Framework-Deception_Tech-darkred?style=for-the-badge)
@@ -283,7 +283,7 @@ For forwarding Cowrie's output elsewhere, the project ships ready-made integrati
 <div align="center">
 
 ## Related Files
-- [Honeypots/README.md](./README.md) - Sub-section index and platform comparison
+- [Honeypots/README.md](readme.md) - Sub-section index and platform comparison
 - [Honeypots/opencanary.md](./opencanary.md) - The lower-interaction honeypot this guide is a step up from
 - [Honeypots/tpot.md](./tpot.md) - T-Pot bundles Cowrie as one of its 20+ honeypots, if you want it alongside many others
 - [IncidentResponse/SIEM/README.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/README.md) - Forward Cowrie's session logs into a SIEM using the project's own output plugins

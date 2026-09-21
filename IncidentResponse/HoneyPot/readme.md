@@ -52,7 +52,7 @@ This sub-section favors **hands-on, from-a-real-build detail** where it exists; 
 
 > [!TIP]
 > New to detection infrastructure generally? A honeypot pairs well with, but doesn't
-> replace, the guides in [../IDS&IPS/](../IDS%26IPS/README.md). Start there for
+> replace, the guides in [../IDS&IPS/](../IDS%26IPS/readme.md). Start there for
 > traffic-based detection, and add a honeypot here for a decoy layer.
 
 ---
@@ -205,7 +205,7 @@ Contributions from blue teamers and deception-technology practitioners are welco
 ## 🔗 Quick Links
 
 - [⬅️ Incident Response section](../README.md)
-- [🛡️ IDS & IPS Deployment Guides](../IDS%26IPS/README.md)
+- [🛡️ IDS & IPS Deployment Guides](../IDS%26IPS/readme.md)
 - [📊 SIEM Deployment Guides](../SIEM/README.md)
 - [📥 Log Aggregation primer](../log_agg.md)
 - [🚷 Unauthorized Access Investigation playbook](../../PlayBooks/unauth_access.md)

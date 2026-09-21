@@ -251,3 +251,10 @@ name means you never have to guess later which sweep is comparable to which.
 [↑ Back to Top](#top) · [NanoVNA Index](../README.md) · [SDR & RF](../../README.md)
 
 </div>
+
+### Invalid input and JSON results
+
+Nonfinite measurements, duplicate frequencies, invalid reference impedance, and
+malformed data rows are rejected with exit code 3. Unordered unique frequencies
+are sorted before interpolation. JSON uses `null` for unbounded derived RF
+quantities (such as open-circuit VSWR), never `Infinity` or `NaN`.

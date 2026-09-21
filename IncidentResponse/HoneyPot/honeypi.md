@@ -4,7 +4,7 @@
 
 **A Raspberry Pi that just watches for port scans, FTP, Telnet, and VNC probes on YOUR internal network**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![Honeypot](https://img.shields.io/badge/Framework-Deception_Tech-darkred?style=for-the-badge)
@@ -193,7 +193,7 @@ There's no shame in swapping tools mid-troubleshooting — the real build histor
 <div align="center">
 
 ## Related Files
-- [Honeypots/README.md](./README.md) - Sub-section index and platform comparison
+- [Honeypots/README.md](readme.md) - Sub-section index and platform comparison
 - [Honeypots/opencanary.md](./opencanary.md) - The actively-maintained fallback if this project doesn't cooperate on a modern OS
 - [Honeypots/cowrie.md](./cowrie.md) - For deep SSH/Telnet session capture instead of simple connection logging
 - [IncidentResponse/network_intrusion.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/network_intrusion.md) - Investigation procedure once this honeypot's internal placement catches something

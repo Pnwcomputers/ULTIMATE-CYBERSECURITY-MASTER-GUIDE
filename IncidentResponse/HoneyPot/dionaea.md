@@ -4,7 +4,7 @@
 
 **Catches the actual payload, not just the login attempt**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![Honeypot](https://img.shields.io/badge/Framework-Deception_Tech-darkred?style=for-the-badge)
@@ -242,7 +242,7 @@ Logs and captured binaries are written under Dionaea's data path (`/opt/dionaea/
 <div align="center">
 
 ## Related Files
-- [Honeypots/README.md](./README.md) - Sub-section index and platform comparison
+- [Honeypots/README.md](readme.md) - Sub-section index and platform comparison
 - [Honeypots/opencanary.md](./opencanary.md) - The connection-logging honeypot Dionaea complements with payload capture
 - [Honeypots/tpot.md](./tpot.md) - T-Pot bundles Dionaea as one of its 20+ honeypots, if you want it alongside many others
 - [IncidentResponse/Digital-Forensics/README.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Digital-Forensics/README.md) - Handling and analyzing samples captured here

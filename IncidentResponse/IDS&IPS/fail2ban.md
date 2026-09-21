@@ -4,7 +4,7 @@
 
 **Watches your logs, bans the IPs that earn it — the lightest-weight IPS in this repo**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![IDS/IPS](https://img.shields.io/badge/Framework-IDS_%2F_IPS-darkred?style=for-the-badge)
@@ -272,7 +272,7 @@ fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
 <div align="center">
 
 ## Related Files
-- [IDS&IPS/README.md](./README.md) - Sub-section index and platform comparison
+- [IDS&IPS/README.md](readme.md) - Sub-section index and platform comparison
 - [IDS&IPS/suricata+zeek.md](./suricata%2Bzeek.md) - Full network-level IDS/IPS for when log-based banning alone isn't enough
 - [Honeypots/opencanary.md](../HoneyPot/opencanary.md) - A honeypot's SSH-port-move pattern this guide's SSH jail should be updated to match
 - [Homelab/HomeLab_Setup.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab/HomeLab_Setup.md) - Broader firewall/segmentation context this tool operates within
