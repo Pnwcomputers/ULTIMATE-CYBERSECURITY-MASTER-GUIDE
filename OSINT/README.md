@@ -84,7 +84,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **[OSINT Playbook](./Playbook/README.md)** | 🔄 Investigation workflows and procedures | ✅ Complete |
+| **[OSINT Playbook](./Playbook/README.md)** | Manual guide and case-directory prototype | Prototype |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
 
@@ -104,7 +104,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 | Directory | Contents | Status |
 |-----------|----------|--------|
-| **Playbook** | Investigation workflows and procedures | ✅ Complete |
+| **Playbook** | Case-directory menu; investigation modules not implemented | Prototype |
 | **scripts** | Automation scripts for OSINT workflows | ✅ Complete |
 | **templates** | Report templates and investigation forms | 🔨 Planned |
 

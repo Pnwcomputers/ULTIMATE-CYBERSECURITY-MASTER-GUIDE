@@ -12,7 +12,7 @@
 ![Level](https://img.shields.io/badge/Level-Intermediate-darkgreen?style=for-the-badge)
 ![Lab](https://img.shields.io/badge/Core_Lab-Python_Standard_Library-purple?style=for-the-badge)
 
-**[Phase 2 Index](./readme.md) · [Data Engineering Overview](../README.md)**
+**[Phase 2 Index](README.md) · [Data Engineering Overview](../README.md)**
 
 </div>
 
@@ -369,7 +369,7 @@ For a correction, include the section, a synthetic reproducer, your runtime vers
 - [🗄️ Data Storage & File Formats](./data_storage_file_formats.md)
 - [📥 API & File Ingestion](./api_file_ingestion.md)
 - [⚙️ Workflow Orchestration](./workflow_orchestration.md)
-- [Phase 2 Index](./readme.md)
+- [Phase 2 Index](README.md)
 - [Phase 1 Fundamentals](../Phase1/data_engineering_fundamentals.md)
 - [Data Engineering Overview](../README.md)
 - [Repository Home](../../README.md)

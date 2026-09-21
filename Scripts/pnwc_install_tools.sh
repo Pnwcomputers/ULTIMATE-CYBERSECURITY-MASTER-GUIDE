@@ -111,7 +111,14 @@ pkg_update() {
     info "Updating package index…"
     case "$PKG_MGR" in
         apt)    apt-get update -qq ;;
-        pacman) pacman -Sy --noconfirm ;;
+        pacman)
+            warn "Arch requires a full upgrade before installing tools."
+            warn "Run sudo pacman -Syu, then rerun this installer and confirm."
+            local answer
+            read -r -p "Have you completed a successful full upgrade now? [y/N] " answer || return 1
+            [[ "$answer" == y || "$answer" == Y ]] || return 1
+            # Do not refresh metadata separately: use the database from that upgrade.
+            ;;
         dnf)    dnf check-update -q || true ;;
     esac
 }
@@ -162,11 +169,11 @@ pipx_install() {
     done
 }
 
-# pip install — always user-safe, never fails the script
+# Python tools and libraries use a dedicated environment, never system pip.
 pip_install() {
     for pkg in "$@"; do
         info "  pip install: $pkg"
-        if pip3 install --quiet --break-system-packages "$pkg" >> "$LOGFILE" 2>&1; then
+        if "$INSTALL_DIR/venv/bin/python" -m pip install --quiet "$pkg" >> "$LOGFILE" 2>&1; then
             ok "  $pkg (pip) installed"
         else
             warn "  pip failed for $pkg"
@@ -234,12 +241,8 @@ setup_extra_repos() {
             ;;
         pacman)
             if ! grep -q '\[blackarch\]' /etc/pacman.conf 2>/dev/null; then
-                info "Adding BlackArch repository…"
-                curl -qo /tmp/blackarch_strap.sh https://blackarch.org/strap.sh >> "$LOGFILE" 2>&1 \
-                    && chmod +x /tmp/blackarch_strap.sh \
-                    && bash /tmp/blackarch_strap.sh >> "$LOGFILE" 2>&1 && ok "BlackArch repo added" \
-                    || warn "BlackArch strap.sh failed — continuing without it"
-                rm -f /tmp/blackarch_strap.sh
+                warn "BlackArch is not configured; using existing repositories only."
+                warn "To add it, follow upstream instructions and complete a full upgrade before rerunning."
             else
                 ok "BlackArch repo already configured"
             fi
@@ -292,16 +295,17 @@ install_dev() {
             ;;
     esac
 
-    # Upgrade pip
-    pip3 install --quiet --break-system-packages --upgrade pip setuptools wheel >> "$LOGFILE" 2>&1 || warn "pip upgrade failed — continuing"
-    ok "pip upgraded"
-
-    # Ensure pipx is available (package manager install may have missed it)
-    if ! command -v pipx &>/dev/null; then
-        pip3 install --quiet --break-system-packages pipx >> "$LOGFILE" 2>&1 \
-            && ok "pipx installed via pip" || warn "pipx install failed — pipx-based tools will be skipped"
-    fi
-    pipx ensurepath >> "$LOGFILE" 2>&1 || true
+    # Keep Python dependencies out of the distribution-managed interpreter.
+    python3 -m venv "$INSTALL_DIR/venv" || {
+        error "Cannot create tool environment; install your distro's Python venv package."
+        return 1
+    }
+    export PATH="$INSTALL_DIR/venv/bin:$PATH"
+    "$INSTALL_DIR/venv/bin/python" -m pip install --upgrade pip setuptools wheel pipx >> "$LOGFILE" 2>&1 || {
+        error "Cannot prepare isolated Python tooling"
+        return 1
+    }
+    info "Python tools: $INSTALL_DIR/venv/bin (add this directory to your PATH for later sessions)"
 
     # Go path
     mkdir -p /opt/go/{bin,pkg,src}
@@ -331,13 +335,13 @@ install_recon() {
     # theHarvester — PyPI package is a stub; git clone for distros without a system package
     if ! command -v theHarvester &>/dev/null; then
         git_clone_tool "theHarvester" "https://github.com/laramies/theHarvester.git"
-        pip3 install -q --break-system-packages -r "$INSTALL_DIR/theHarvester/requirements/base.txt" >> "$LOGFILE" 2>&1 || warn "theHarvester requirements install failed"
+        "$INSTALL_DIR/venv/bin/python" -m pip install -q -r "$INSTALL_DIR/theHarvester/requirements/base.txt" >> "$LOGFILE" 2>&1 || warn "theHarvester requirements install failed"
         make_symlink "theHarvester" "$INSTALL_DIR/theHarvester/theHarvester.py"
     fi
 
     # Photon — no setup.py/pyproject.toml; must be run directly
     git_clone_tool "Photon" "https://github.com/s0md3v/Photon.git"
-    pip3 install -q --break-system-packages -r "$INSTALL_DIR/Photon/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Photon requirements install failed"
+    "$INSTALL_DIR/venv/bin/python" -m pip install -q -r "$INSTALL_DIR/Photon/requirements.txt" >> "$LOGFILE" 2>&1 || warn "Photon requirements install failed"
     make_symlink "photon" "$INSTALL_DIR/Photon/photon.py"
 
     # Metagoofil — standalone Python script, no requirements.txt; clone and symlink only
@@ -351,7 +355,7 @@ install_recon() {
     # SpiderFoot (if not in packages)
     if ! command -v spiderfoot &>/dev/null; then
         git_clone_tool "spiderfoot" "https://github.com/smicallef/spiderfoot.git"
-        pip3 install -q --break-system-packages -r "$INSTALL_DIR/spiderfoot/requirements.txt" >> "$LOGFILE" 2>&1 || warn "SpiderFoot requirements install failed"
+        "$INSTALL_DIR/venv/bin/python" -m pip install -q -r "$INSTALL_DIR/spiderfoot/requirements.txt" >> "$LOGFILE" 2>&1 || warn "SpiderFoot requirements install failed"
         make_symlink "spiderfoot" "$INSTALL_DIR/spiderfoot/sf.py"
     fi
 
@@ -392,7 +396,7 @@ install_recon() {
 
     # Recon-ng
     git_clone_tool "recon-ng" "https://github.com/lanmaster53/recon-ng.git"
-    pip3 install -q --break-system-packages -r "$INSTALL_DIR/recon-ng/REQUIREMENTS" >> "$LOGFILE" 2>&1 || warn "recon-ng requirements install failed"
+    "$INSTALL_DIR/venv/bin/python" -m pip install -q -r "$INSTALL_DIR/recon-ng/REQUIREMENTS" >> "$LOGFILE" 2>&1 || warn "recon-ng requirements install failed"
     make_symlink "recon-ng" "$INSTALL_DIR/recon-ng/recon-ng"
 
     ok "Recon & OSINT tools installed"
@@ -1039,7 +1043,7 @@ main() {
     setup_extra_repos
     setup_dirs
 
-    pkg_update
+    pkg_update || return 1
 
     case "$MODE" in
         all)
@@ -1077,4 +1081,6 @@ main() {
     print_summary
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

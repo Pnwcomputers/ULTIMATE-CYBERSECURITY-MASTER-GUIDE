@@ -4,7 +4,7 @@
 
 **20+ honeypots, Elastic Stack dashboards, and an attack map — orchestrated as Docker containers**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [Honeypots](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![Honeypot](https://img.shields.io/badge/Framework-Deception_Tech-darkred?style=for-the-badge)
@@ -57,7 +57,7 @@ T-Pot isn't a single honeypot — it's an orchestration layer. It runs Docker im
 - **Spiderfoot** for OSINT automation
 - Optional **LLM-based honeypots** (Beelzebub, Galah) that use Ollama or ChatGPT to generate dynamic responses to attacker commands
 
-This is the "go big" option in the [Honeypots](./README.md) comparison — where [OpenCanary](./opencanary.md) gives you broad-but-shallow service emulation on minimal hardware, T-Pot gives you deep, per-protocol honeypots plus a full analysis stack, at the cost of real resources and a dedicated, isolated machine.
+This is the "go big" option in the [Honeypots](readme.md) comparison — where [OpenCanary](./opencanary.md) gives you broad-but-shallow service emulation on minimal hardware, T-Pot gives you deep, per-protocol honeypots plus a full analysis stack, at the cost of real resources and a dedicated, isolated machine.
 
 ---
 
@@ -271,7 +271,7 @@ T-Pot adds a **daily reboot** by default (`sudo crontab -e` to adjust) to clean 
 <div align="center">
 
 ## Related Files
-- [Honeypots/README.md](./README.md) - Sub-section index and platform comparison
+- [Honeypots/README.md](readme.md) - Sub-section index and platform comparison
 - [Honeypots/opencanary.md](./opencanary.md) - The lighter-weight starting point this guide's "go big" option builds on
 - [Honeypots/cowrie.md](./cowrie.md) - T-Pot bundles Cowrie as one of its 20+ honeypots; this is the standalone deployment
 - [Honeypots/dionaea.md](./dionaea.md) - T-Pot bundles Dionaea as well; this is the standalone deployment

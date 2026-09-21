@@ -129,18 +129,20 @@ def read_s1p(path: str) -> Sweep:
                     scale = _UNIT_SCALE[t]
                 elif t in ("RI", "MA", "DB"):
                     fmt = t
-                elif t == "R" and i + 1 < len(toks):
+                elif t == "R":
                     try:
                         z0 = float(toks[i + 1])
                         i += 1
-                    except ValueError:
-                        pass
+                    except (ValueError, IndexError):
+                        raise TouchstoneError(f"{path}:{lineno}: invalid reference impedance")
+                    if not math.isfinite(z0) or z0 <= 0:
+                        raise TouchstoneError(f"{path}:{lineno}: reference impedance must be finite and positive")
                 i += 1
             continue
 
         parts = line.replace(",", " ").split()
-        if len(parts) < 3:
-            continue
+        if len(parts) != 3:
+            raise TouchstoneError(f"{path}:{lineno}: expected one frequency and two S11 values")
         try:
             f_hz = float(parts[0]) * scale
             a = float(parts[1])
@@ -148,19 +150,30 @@ def read_s1p(path: str) -> Sweep:
         except ValueError:
             raise TouchstoneError(f"{path}:{lineno}: cannot parse data line: {line!r}")
 
-        if fmt == "RI":
-            g = complex(a, b)
-        elif fmt == "MA":
-            g = cmath.rect(a, math.radians(b))
-        else:  # DB
-            g = cmath.rect(10.0 ** (a / 20.0), math.radians(b))
+        if not all(math.isfinite(v) for v in (f_hz, a, b)) or f_hz < 0:
+            raise TouchstoneError(f"{path}:{lineno}: measurements must be finite with nonnegative frequency")
+        if fmt == "MA" and a < 0:
+            raise TouchstoneError(f"{path}:{lineno}: magnitude cannot be negative")
+        try:
+            if fmt == "RI":
+                g = complex(a, b)
+            elif fmt == "MA":
+                g = cmath.rect(a, math.radians(b))
+            else:  # DB
+                g = cmath.rect(10.0 ** (a / 20.0), math.radians(b))
+        except (OverflowError, ValueError) as exc:
+            raise TouchstoneError(f"{path}:{lineno}: invalid reflection coefficient") from exc
+        if not all(math.isfinite(v) for v in (g.real, g.imag, abs(g))):
+            raise TouchstoneError(f"{path}:{lineno}: nonfinite reflection coefficient")
 
         freqs.append(f_hz)
         gammas.append(g)
 
     if not freqs:
         raise TouchstoneError(f"{path}: no data points found")
-    if len(freqs) > 1 and freqs[1] < freqs[0]:
+    if len(set(freqs)) != len(freqs):
+        raise TouchstoneError(f"{path}: duplicate frequencies")
+    if any(b < a for a, b in zip(freqs, freqs[1:])):
         pairs = sorted(zip(freqs, gammas))
         freqs = [p[0] for p in pairs]
         gammas = [p[1] for p in pairs]
@@ -854,12 +867,38 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
+def json_safe(value):
+    """Represent unbounded RF results (e.g. open-circuit VSWR) as JSON null."""
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {key: json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [json_safe(item) for item in value]
+    return value
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     args = build_parser().parse_args(argv)
     f_lo, f_hi = _band_to_hz(args.band)
     at_hz = args.at * 1e6 if args.at is not None else None
 
     try:
+        for name, value in vars(args).items():
+            values = value if isinstance(value, list) else [value]
+            if any(isinstance(v, float) and not math.isfinite(v) for v in values):
+                raise TouchstoneError(f"{name}: numeric options must be finite")
+        if args.swr_limit <= 1:
+            raise TouchstoneError("SWR limit must be greater than 1")
+        if args.band and not 0 <= args.band[0] < args.band[1]:
+            raise TouchstoneError("band must have nonnegative start below stop")
+        if args.at is not None and args.at < 0:
+            raise TouchstoneError("frequency must be nonnegative")
+        if args.cmd == "diff":
+            if args.tol_db < 0 or not 0 <= args.warn_db <= args.fail_db:
+                raise TouchstoneError("require nonnegative tolerance and 0 <= warning <= failure threshold")
+            if args.res_warn_pct < 0 or args.rl_ceiling_db <= 0:
+                raise TouchstoneError("invalid resonance threshold or return-loss ceiling")
         if args.cmd in ("analyze", "analyse"):
             sw = read_s1p(args.file)
             if args.band:
@@ -867,7 +906,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             s = summarise(sw, at_hz, args.swr_limit)
 
             if args.format == "json":
-                text = json.dumps(asdict(s), indent=2)
+                text = json.dumps(json_safe(asdict(s)), indent=2, allow_nan=False)
             elif args.format == "markdown":
                 text = "# Sweep summary\n\n```\n" + \
                        render_summary_text(s, args.swr_limit) + "\n```\n"
@@ -894,7 +933,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                              args.res_warn_pct, args.rl_ceiling_db)
 
         if args.format == "json":
-            text = json.dumps(asdict(result), indent=2)
+            text = json.dumps(json_safe(asdict(result)), indent=2, allow_nan=False)
         elif args.format == "markdown":
             text = render_diff_markdown(result, args.swr_limit)
         elif args.format == "csv":

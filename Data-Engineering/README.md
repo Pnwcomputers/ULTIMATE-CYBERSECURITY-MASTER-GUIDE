@@ -231,7 +231,7 @@ different responsibilities.
 
 ## 🟡 Phase 2: Storage & Integration
 
-Four completed guides belong in [`Phase2/`](./Phase2/readme.md). The supplied phase package contains the files
+Four completed guides belong in [`Phase2/`](Phase2/README.md). The supplied phase package contains the files
 linked below; they are no longer proposed document outlines.
 
 | # | Guide | Coverage | Lab |
@@ -251,7 +251,7 @@ The orchestration exercise is a teaching runner, not a deployed scheduling servi
 
 ## 🔵 Phase 3: Operations & Governance
 
-Four completed guides belong in [`Phase3/`](./Phase3/readme.md), extending the earlier foundations into
+Four completed guides belong in [`Phase3/`](Phase3/README.md), extending the earlier foundations into
 day-to-day operation and recovery.
 
 | # | Guide | Coverage | Lab |
@@ -274,8 +274,8 @@ remain deployment-specific validation work, not claims made by these exercises.
 | Phase | Folder | Guides | Outcome |
 | --- | --- | --- | --- |
 | 1 — Foundations | [`Phase1/`](./Phase1/) | 5 | Understand and build correct local processing |
-| 2 — Storage & Integration | [`Phase2/`](./Phase2/readme.md) | 4 | Store, collect and coordinate data across boundaries |
-| 3 — Operations & Governance | [`Phase3/`](./Phase3/readme.md) | 4 | Observe, test, control and recover the pipeline |
+| 2 — Storage & Integration | [`Phase2/`](Phase2/README.md) | 4 | Store, collect and coordinate data across boundaries |
+| 3 — Operations & Governance | [`Phase3/`](Phase3/README.md) | 4 | Observe, test, control and recover the pipeline |
 
 **Total:** 13 phase guides, plus the separate [Secure Data Pipelines & Security Automation](./data_pipelines.md)
 applied guide.
@@ -407,8 +407,8 @@ Contributions can extend the general foundations, add small reproducible labs, o
 | **Section directory** | `Data-Engineering/` |
 | **Applied security guide** | [data_pipelines.md](./data_pipelines.md) |
 | **Phase 1 foundations** | Published — 5 guides in [`Phase1/`](./Phase1/) |
-| **Phase 2 storage & integration** | 4 completed guides in [`Phase2/`](./Phase2/readme.md), supplied in its phase package |
-| **Phase 3 operations & governance** | 4 completed guides in [`Phase3/`](./Phase3/readme.md), supplied with this index |
+| **Phase 2 storage & integration** | 4 completed guides in [`Phase2/`](Phase2/README.md), supplied in its phase package |
+| **Phase 3 operations & governance** | 4 completed guides in [`Phase3/`](Phase3/README.md), supplied with this index |
 | **Phase guide total** | 13 guides across three folders |
 | **Existing supporting resources** | Linked from their current repository locations |
 | **Core phase labs** | Python standard library and SQLite where used; synthetic local fixtures |

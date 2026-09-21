@@ -9,7 +9,7 @@
 ![Phase](https://img.shields.io/badge/Phase_3-Operations_%26_Governance-blue?style=for-the-badge)
 ![Lab](https://img.shields.io/badge/Local_Lab-Verified-darkgreen?style=for-the-badge)
 
-**[Phase 3 Index](./readme.md) · [Data Engineering Overview](../README.md)**
+**[Phase 3 Index](README.md) · [Data Engineering Overview](../README.md)**
 
 </div>
 
@@ -423,8 +423,8 @@ Update verification claims only for checks performed. Keep secrets and customer 
 - [📊 Pipeline Observability & Reliability](./pipeline_observability.md)
 - [🧪 Pipeline Testing & CI/CD](./pipeline_testing_cicd.md)
 - [🔐 Data Governance, Lineage & Access](./data_governance_lineage.md)
-- [Phase 3 Index](./readme.md)
-- [Phase 2 Storage & Integration](../Phase2/readme.md)
+- [Phase 3 Index](README.md)
+- [Phase 2 Storage & Integration](../Phase2/README.md)
 - [Data Engineering Overview](../README.md)
 
 ---

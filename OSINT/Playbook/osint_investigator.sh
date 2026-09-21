@@ -3,10 +3,10 @@
 #
 #          FILE: osint_investigator.sh
 #
-#         USAGE: ./osint_investigator.sh [--install|--config|--help]
+#         USAGE: ./osint_investigator.sh
 #
-#   DESCRIPTION: Comprehensive OSINT Investigation Playbook for Scam/Fraud Cases
-#                Generates professional abuse reports for IC3/Law Enforcement
+#   DESCRIPTION: Experimental case-directory prototype
+#                Investigation and reporting menus are not implemented
 #
 #        AUTHOR: Jon Pienkowski (PNWC)
 #       VERSION: 2.1
@@ -118,7 +118,7 @@ prompt() {
     local var_name="$1" prompt_text="$2" default="$3" value
     read -rp "$(echo -e "${YELLOW}[?]${NC} ${prompt_text} [${default}]: ")" value
     value="${value:-$default}"
-    eval "$var_name=\"$value\""
+    printf -v "$var_name" '%s' "$value"
 }
 
 #-------------------------------------------------------------------------------
@@ -206,6 +206,10 @@ show_main_menu() {
 }
 
 main() {
+    if (( $# )); then
+        printf 'This prototype accepts no command-line options. See README.md.\n' >&2
+        return 1
+    fi
     init_config
     show_main_menu
 }

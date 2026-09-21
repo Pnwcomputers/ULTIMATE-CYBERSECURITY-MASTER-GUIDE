@@ -19,6 +19,9 @@ import sys
 import shutil
 import threading
 import time
+import tempfile
+import shlex
+import signal
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 REPORT_DIR         = os.getcwd()   # save reports next to wherever the script is invoked from
@@ -104,6 +107,7 @@ class HardwareTester:
                 stderr=subprocess.STDOUT,
                 text=True,
                 bufsize=1,
+                start_new_session=True,
             )
 
             def _reader():
@@ -118,16 +122,25 @@ class HardwareTester:
             reader.join(timeout=timeout)
 
             if reader.is_alive():
-                proc.terminate()
-                time.sleep(2)
-                proc.kill()
+                for sig in (signal.SIGTERM, signal.SIGKILL):
+                    try:
+                        os.killpg(proc.pid, sig)
+                    except ProcessLookupError:
+                        pass
+                    if sig == signal.SIGTERM:
+                        time.sleep(0.1)
+                proc.wait()
+                reader.join(timeout=2)
                 timed_out = True
                 self.data["errors"].append(
                     f"Command killed after {timeout}s. "
                     f"Partial output: {len(lines)} lines collected."
                 )
             else:
-                proc.wait()
+                code = proc.wait()
+                if code != 0:
+                    self.data["errors"].append(f"Command exited with status {code}: {cmd}")
+            proc.stdout.close()
 
         except Exception as exc:
             self.data["errors"].append(f"Streaming error: {exc}")
@@ -261,18 +274,20 @@ class StorageTest(HardwareTester):
 
         # fio random 4K read/write
         print(f"    fio 4K randrw ({self.size}, {self.runtime}s)...")
-        fio_cmd = (
-            f"fio --name=randrw-4k --ioengine=libaio --iodepth=64 "
-            f"--rw=randrw --bs=4k --direct=1 --size={self.size} "
-            f"--numjobs=4 --runtime={self.runtime} --group_reporting "
-            f"--filename=testfile.fio"
-        )
-        out_fio = self.run_cmd(fio_cmd, timeout=FIO_TIMEOUT)
-        parsed = [l.strip() for l in out_fio.splitlines()
-                  if "IOPS=" in l or "bw=" in l]
-        self.fio = "\n".join(parsed) or "fio failed — check errors."
-        if os.path.exists("testfile.fio"):
-            os.remove("testfile.fio")
+        # Keep the benchmark on the selected filesystem, but own its files.
+        with tempfile.TemporaryDirectory(prefix="pnwc-fio-", dir=os.getcwd()) as folder:
+            test_path = os.path.join(folder, "benchmark.fio")
+            fio_cmd = (
+                f"fio --name=randrw-4k --ioengine=libaio --iodepth=64 "
+                f"--rw=randrw --bs=4k --direct=1 --size={self.size} "
+                f"--numjobs=4 --runtime={self.runtime} --group_reporting "
+                f"--filename={shlex.quote(str(test_path))}"
+            )
+            out_fio = self.run_cmd(fio_cmd, timeout=FIO_TIMEOUT)
+            parsed = [l.strip() for l in out_fio.splitlines()
+                      if "IOPS=" in l or "bw=" in l]
+            self.fio = "\n".join(parsed) or "fio failed — check errors."
+
 
 
 class GPUTest(HardwareTester):

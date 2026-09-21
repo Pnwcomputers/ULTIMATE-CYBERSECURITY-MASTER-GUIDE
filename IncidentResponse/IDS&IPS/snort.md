@@ -4,7 +4,7 @@
 
 **The original open-source IDS, that is still relevant! It's just a bit harder to install cleanly than its modern alternative**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![IDS/IPS](https://img.shields.io/badge/Framework-IDS_%2F_IPS-darkred?style=for-the-badge)
@@ -199,7 +199,7 @@ snort -A console -q -c /etc/snort/snort.conf -i eth0
 snort -Q -c /etc/snort/snort.conf -i eth0
 ```
 
-The `-Q` flag switches Snort to inline/NFQUEUE mode, which requires the box to actually sit on the network path (traffic routed through it via `iptables`/`nftables` NFQUEUE rules) rather than just watching a copy of traffic. As with every IDS/IPS in this repo: **validate in alert-only mode for at least 1–2 weeks before enabling blocking** — see the general [IDS & IPS guide](./README.md) for why this matters.
+The `-Q` flag switches Snort to inline/NFQUEUE mode, which requires the box to actually sit on the network path (traffic routed through it via `iptables`/`nftables` NFQUEUE rules) rather than just watching a copy of traffic. As with every IDS/IPS in this repo: **validate in alert-only mode for at least 1–2 weeks before enabling blocking** — see the general [IDS & IPS guide](readme.md) for why this matters.
 
 ---
 
@@ -266,7 +266,7 @@ This isn't a blanket "always use Suricata instead" — if you have an organizati
 <div align="center">
 
 ## Related Files
-- [IDS&IPS/README.md](./README.md) - Sub-section index and platform comparison
+- [IDS&IPS/README.md](readme.md) - Sub-section index and platform comparison
 - [IDS&IPS/suricata+zeek.md](./suricata%2Bzeek.md) - The modern alternative this guide's real-world attempt pivoted to
 - [Tradecraft/network-detection.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Tradecraft/network-detection.md) - Rule-writing depth that transfers directly from Suricata syntax to Snort's
 - [Homelab/HomeLab_Setup.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab/HomeLab_Setup.md) - VLAN/firewall placement context for where an IDS/IPS sits in a lab network

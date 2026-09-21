@@ -85,8 +85,8 @@ Three honeypots were actually attempted on a Pi 3B, in this order:
        different port FIRST, before starting the honeypot.
 
 3. Install:
-   └─> pip-install OpenCanary; work through the dependency chain
-       (pkg_resources/setuptools, simplejson, twisted, pyOpenSSL).
+   └─> Install OpenCanary and its dependencies in an isolated venv
+       and run pip check before starting the service.
 
 4. Configure:
    └─> Edit /etc/opencanaryd/opencanary.conf — enable the services you
@@ -109,53 +109,29 @@ Three honeypots were actually attempted on a Pi 3B, in this order:
 
 ## 🔧 Installation
 
-### System dependencies
+### Install into an isolated environment
+
+Use the [upstream installation instructions](https://github.com/thinkst/opencanary/blob/master/README.md)
+and keep OpenCanary's dependencies separate from system Python:
 
 ```bash
 sudo apt update
-sudo apt install -y python3-pip python3-dev libssl-dev libffi-dev
+sudo apt install -y python3-dev python3-pip python3-venv libssl-dev libffi-dev libpcap-dev
+sudo python3 -m venv /opt/opencanary-venv
+sudo /opt/opencanary-venv/bin/python -m pip install --upgrade pip
+sudo /opt/opencanary-venv/bin/python -m pip install opencanary
+sudo /opt/opencanary-venv/bin/python -m pip check
+sudo /opt/opencanary-venv/bin/opencanaryd --copyconfig
 ```
 
-### Install OpenCanary
+Resolve installation failures inside this environment. Do not use `--no-deps`
+or override system Python protections to bypass a dependency conflict. For an
+existing global installation, preserve the configuration and stop the old service
+before switching its executable paths; do not blindly remove distro packages.
 
-Modern Debian/Ubuntu-based systems (including current Raspberry Pi OS) block system-wide `pip installs` by default (PEP 668). You'll hit an `error: externally-managed-environment` without the flag below:
-
-```bash
-sudo pip3 install opencanary --break-system-packages --no-deps
-```
-
-`--no-deps` is deliberate here — installing OpenCanary's full dependency list in one shot on a system with Debian-managed Python packages can trigger a package conflict:
-
-```
-Attempting uninstall: urllib3
-error: uninstall-no-record-file
-× Cannot uninstall urllib3 2.3.0
-```
-
-This happens because `urllib3` (and similar packages) is already installed by `apt`, and pip can't safely uninstall a package it didn't install. Installing with `--no-deps` first, then resolving each missing dependency individually as OpenCanary complains about it, sidesteps the conflict entirely.
-
-### Work through the dependency chain
-
-OpenCanary will fail at startup one missing module at a time — install each as it surfaces:
-
-```bash
-# opencanaryd --copyconfig fails with:  ModuleNotFoundError: No module named 'pkg_resources'
-sudo pip3 install setuptools --break-system-packages
-
-# opencanaryd --start fails with:  ModuleNotFoundError: No module named 'simplejson'
-sudo pip3 install simplejson --break-system-packages
-
-# opencanaryd --start fails with:  .../opencanaryd: line 48: /usr/local/bin/twistd: No such file or directory
-sudo pip3 install twisted --break-system-packages
-```
-
-Depending on your exact Python/OS combination you may also need `pyOpenSSL`:
-
-```bash
-sudo pip3 install pyopenssl --break-system-packages
-```
-
-> If you'd rather avoid touching system-managed Python packages at all, a virtual environment (`python3 -m venv ~/opencanary-env`) is the cleaner alternative — install OpenCanary inside it instead of using `--break-system-packages`. The trade-off is you'll need to activate that venv (or reference its full binary path) in whatever systemd unit later starts the daemon.
+The commands and service unit below use the same absolute environment path.
+Optional service emulations can require additional system packages; install only
+those required for the services you enable, following upstream documentation.
 
 ---
 
@@ -186,7 +162,7 @@ Only once that's confirmed working should OpenCanary be configured to bind port 
 Generate the default config, then edit it:
 
 ```bash
-sudo opencanaryd --copyconfig
+sudo /opt/opencanary-venv/bin/opencanaryd --copyconfig
 sudo nano /etc/opencanaryd/opencanary.conf
 ```
 
@@ -261,8 +237,8 @@ Enable only the services that make sense for what you're trying to attract — a
 ## ▶️ Running It
 
 ```bash
-sudo opencanaryd --start
-sudo opencanaryd --status
+sudo /opt/opencanary-venv/bin/opencanaryd --start
+sudo /opt/opencanary-venv/bin/opencanaryd --status
 ```
 
 Expect a startup warning like this — it's normal, not an error, since binding to low ports (22, 80, 21) requires root:
@@ -285,8 +261,8 @@ After=network.target
 
 [Service]
 Type=forking
-ExecStart=/usr/local/bin/opencanaryd --start
-ExecStop=/usr/local/bin/opencanaryd --stop
+ExecStart=/opt/opencanary-venv/bin/opencanaryd --start
+ExecStop=/opt/opencanary-venv/bin/opencanaryd --stop
 Restart=on-failure
 
 [Install]
@@ -367,11 +343,11 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| `error: externally-managed-environment` on `pip install` | PEP 668 blocking system-wide pip installs on modern Debian/Ubuntu | Add `--break-system-packages`, or use a venv |
-| `uninstall-no-record-file` on `urllib3` (or similar) during install | pip trying to uninstall a package that `apt`, not pip, originally installed | Install with `--no-deps` first, then add missing modules individually as errors surface |
-| `ModuleNotFoundError: No module named 'pkg_resources'` | `setuptools` missing/incompatible with the Python version | `pip3 install setuptools --break-system-packages` |
-| `ModuleNotFoundError: No module named 'simplejson'` | Dependency not pulled in by `--no-deps` install | `pip3 install simplejson --break-system-packages` |
-| `.../opencanaryd: line 48: /usr/local/bin/twistd: No such file or directory` | `twisted` (which provides `twistd`) missing | `pip3 install twisted --break-system-packages` |
+| `error: externally-managed-environment` on `pip install` | PEP 668 blocking system-wide pip installs on modern Debian/Ubuntu | Use the isolated environment above; do not override system Python protections |
+| `uninstall-no-record-file` on `urllib3` (or similar) during install | pip trying to uninstall a package that `apt`, not pip, originally installed | Install the complete dependency set in the isolated environment; leave distro packages intact |
+| `ModuleNotFoundError: No module named 'pkg_resources'` | `setuptools` missing/incompatible with the Python version | `sudo /opt/opencanary-venv/bin/python -m pip install setuptools` |
+| `ModuleNotFoundError: No module named 'simplejson'` | Dependency not pulled in by `--no-deps` install | `sudo /opt/opencanary-venv/bin/python -m pip install simplejson` |
+| `.../opencanaryd: line 48: /usr/local/bin/twistd: No such file or directory` | `twisted` (which provides `twistd`) missing | `sudo /opt/opencanary-venv/bin/python -m pip install twisted` |
 | Honeypot barely gets any hits | Emulated services on non-standard ports (e.g. SSH on 8022) | Move real SSH off 22 first, then run the honeypot's SSH listener *on* 22 — scanners target standard ports |
 | Locked out of the box after moving SSH | Didn't verify the new SSH port worked before restarting the daemon | Always test the new port from a second terminal/session before closing the original one |
 | Installer runs, "succeeds," nothing is actually running | Some pre-packaged honeypot installers (not OpenCanary specifically) exit cleanly without creating the service they claim to | Verify with `systemctl status <service>` and check for an actual log file being written, don't trust installer exit codes alone |

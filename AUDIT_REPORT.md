@@ -1,5 +1,7 @@
 # 🧭 Audit Report — Planning Deliverables
 
+> **Historical assessment (August 2026):** These findings describe the earlier review, not the current tree. See the [September review](REVIEW_2026-09-21.md) for later defects and remediation status.
+
 *Companion to the [Audit Findings Register](./AUDIT_FINDINGS.md). This document
 contains the audit's planning deliverables: **A** Executive Summary, **E**
 Cross-Linking Plan, **F** Proposed Information Architecture, **G** Content

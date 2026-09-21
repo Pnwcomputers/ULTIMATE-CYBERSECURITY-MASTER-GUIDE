@@ -4,7 +4,7 @@
 
 **Suricata + Zeek + Elastic Stack + Wazuh + CyberChef, pre-integrated into one appliance-style platform**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](./README.md) section*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](readme.md) section*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![NSM](https://img.shields.io/badge/Framework-Network_Security_Monitoring-darkred?style=for-the-badge)
@@ -25,7 +25,7 @@ Give an informed sizing and architecture decision *before* burning a full ISO in
 
 ## 📋 When to Use
 - You've already worked with standalone Suricata/Zeek and want the integrated dashboards, alerting, and case-management layer without building it yourself
-- You want the NSM (network security monitoring) equivalent of what [T-Pot](./tpot.md) is for honeypots — pre-integrated, appliance-style, dashboards included
+- You want the NSM (network security monitoring) equivalent of what [T-Pot](../HoneyPot/tpot.md) is for honeypots — pre-integrated, appliance-style, dashboards included
 - You have dedicated hardware to spare (this is **not** a Raspberry Pi project — see sizing below) and want full packet capture retention alongside alerts
 
 ---
@@ -202,7 +202,7 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 <div align="center">
 
 ## Related Files
-- [IDS&IPS/README.md](./README.md) - Sub-section index and platform comparison
+- [IDS&IPS/README.md](readme.md) - Sub-section index and platform comparison
 - [IDS&IPS/suricata+zeek.md](./suricata%2Bzeek.md) - The standalone version of this platform's core detection engines
 - [Honeypots/tpot.md](../HoneyPot/tpot.md) - The honeypot-domain equivalent of this "everything pre-integrated" approach
 - [Honeypots/README.md](../HoneyPot/readme.md) - Including the IDH honeypot role this platform can run natively
