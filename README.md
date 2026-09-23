@@ -116,7 +116,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🏠 [Homelab Guides](./Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
 | 🚨 [Incident Response](./IncidentResponse/) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
 | 📱 [Mobile Security](./Mobile/) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
-| 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by Sébastien Damaye |
+| 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by [Sébastien Damaye](https://github.com/sebastiendamaye) |
 | 🔬 [Network Audit Playbook](./PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
 | 📋 [Operational Playbooks](./PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
 | 🔴 [OPSEC](./OPSEC/) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
