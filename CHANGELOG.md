@@ -1,14 +1,15 @@
 # 🔄 Change Log - September 23, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1445
-- **Files Modified**: 1711
+- **Commits Analyzed**: 1448
+- **Files Modified**: 1715
 - **New Files**: 669
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add DarkWeb navigation guide to README (`2bc91d6`)
 - Update README with new resource links (`d259fcc`)
 - Update README with new resource links (`872da1b`)
 - Add files via upload (`c0d2a71`)
@@ -472,6 +473,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix wording in DarkWeb guide description (`e5048bf`)
 - fix: remediate 2026-09-21 review findings (R01–R12) (#86) (`de8f587`)
 - Fix formatting in NanoVNA README header (`07fe6ca`)
 - Correct README formatting for NanoVNA-H (`f94c3a1`)
@@ -629,6 +631,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Remove duplicate entry in README (`015ee56`)
 - Update README.md (`b6afbe6`)
 - Update README for NanoVNA with improved formatting (`b8565ea`)
 - Update README.md (`f6af76b`)
@@ -1469,9 +1472,10 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `README.md`
+- `CHANGELOG.md`
 - `Documentation/README.md`
 - `REVIEW_2026-09-21.md`
-- `CHANGELOG.md`
 - `.github/workflows/cm5-parrot-checks.yml`
 - `.github/workflows/guide-tests.yml`
 - `AUDIT_FINDINGS.md`
@@ -1538,7 +1542,6 @@
 - `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
-- `README.md`
 - `uConsole/README.md`
 - `uConsole/ParrotOS/README.md`
 - `uConsole/scripts/PARROT-CM5.md`
