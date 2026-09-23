@@ -110,6 +110,7 @@ This documentation serves as a reference material for security implementations, 
 | `references.md` | Quick-reference tables for port numbers, HTTP status codes, etc. | Reference Guide |
 
 ### Other Resources
+| Site | Description |
 | [Anarcho Copy](https://edu.anarcho-copy.org/) | An open digital archive and shadow library project that provides free, unrestrictive access to books, programming manuals, cybersecurity guides, etc |
 | [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence” is an online book written by Sébastien Damaye |
 
