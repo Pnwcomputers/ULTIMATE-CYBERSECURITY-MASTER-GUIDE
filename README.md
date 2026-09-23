@@ -131,6 +131,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 📟 [uConsole](./uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
 | 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
 | 🕸️ [Web Application Security](./WebAppSecurity/) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
+| 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence” is an online book written by Sébastien Damaye |
+
 
 ### Subsection Indexes & Focused Entry Points
 
