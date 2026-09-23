@@ -1,14 +1,16 @@
-# 🔄 Change Log - September 21, 2026
+# 🔄 Change Log - September 23, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1441
-- **Files Modified**: 1707
+- **Commits Analyzed**: 1445
+- **Files Modified**: 1711
 - **New Files**: 669
-- **Deleted Files**: 120
+- **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Update README with new resource links (`d259fcc`)
+- Update README with new resource links (`872da1b`)
 - Add files via upload (`c0d2a71`)
 - Create README.md (`e9e3bda`)
 - Add files via upload (`52d8919`)
@@ -627,6 +629,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`b6afbe6`)
 - Update README for NanoVNA with improved formatting (`b8565ea`)
 - Update README.md (`f6af76b`)
 - Update README to remove hardware version reference (`ba10728`)
@@ -1347,6 +1350,7 @@
 - Revise entries in README for clarity (`f727804`)
 
 ### 🗑️ Removals
+- Delete REVIEW_2026-09-21.md (`99da19d`)
 - Delete hardware_hacking.md (`17e7d94`)
 - Delete DRAFT_CHANGELOG.md (`0419ea9`)
 - Delete Incident Response/Endpoint-Visibility/Linux/syslog.md (`71a9452`)
@@ -1465,6 +1469,9 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/README.md`
+- `REVIEW_2026-09-21.md`
+- `CHANGELOG.md`
 - `.github/workflows/cm5-parrot-checks.yml`
 - `.github/workflows/guide-tests.yml`
 - `AUDIT_FINDINGS.md`
@@ -1493,7 +1500,6 @@
 - `OSINT/Playbook/README.md`
 - `OSINT/Playbook/osint_investigator.sh`
 - `OSINT/README.md`
-- `REVIEW_2026-09-21.md`
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
@@ -1506,7 +1512,6 @@
 - `tools/tests/test_review_fixes.py`
 - `uConsole/PARROT-CM5.md`
 - `uConsole/scripts/README.md`
-- `CHANGELOG.md`
 - `SDR/README.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
@@ -1575,7 +1580,6 @@
 - `ContainerSecurity/README.md`
 - `Cryptography/README.md`
 - `Documentation/microcontroller_wifi_testing.md`
-- `Documentation/README.md`
 - `Cryptography/applied-crypto.md`
 - `Cryptography/algorithms.md`
 - `START_HERE.md`
