@@ -1,14 +1,15 @@
-# 🔄 Change Log - September 23, 2026
+# 🔄 Change Log - September 29, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1449
-- **Files Modified**: 1717
-- **New Files**: 669
+- **Commits Analyzed**: 1456
+- **Files Modified**: 1724
+- **New Files**: 671
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add Reverse Engineering section and standalone Ghidra master guide (`2b4ce0f`)
 - Add DarkWeb navigation guide to README (`2bc91d6`)
 - Update README with new resource links (`d259fcc`)
 - Update README with new resource links (`872da1b`)
@@ -631,6 +632,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README title with emoji (`3184e49`)
+- Update ghidra-guide-index.md (`9fff798`)
 - Update README.md (`47061a3`)
 - Remove duplicate entry in README (`015ee56`)
 - Update README.md (`b6afbe6`)
@@ -1242,6 +1245,9 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Enhance Ghidra guide title and purpose sections (`f25cc79`)
+- Enhance README.md with emoji headers (`8cc59d0`)
+- Rewrite ReverseEngineering README as a working section hub (`31ee04a`)
 - docs: align NanoVNA guides with SDR section formatting (#84) (`54e80a6`)
 - Enhance README section headers with emojis (`c10e6eb`)
 - Enhance ParrotOS Guide description in README (`518bf40`)
@@ -1374,6 +1380,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Expand ReverseEngineering section index, part hub, and IDA appendix (`7bea757`)
 - Enhance Purpose section header with emoji (`56f17e3`)
 - Revise HackRF Audit Playbook references and date (`8a862f9`)
 - Revise header in PARROT-CM5.md (`56ce545`)
@@ -1473,8 +1480,10 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `README.md`
+- `ReverseEngineering/ghidra-guide-index.md`
+- `ReverseEngineering/README.md`
 - `CHANGELOG.md`
+- `README.md`
 - `Documentation/README.md`
 - `REVIEW_2026-09-21.md`
 - `.github/workflows/cm5-parrot-checks.yml`
