@@ -19,20 +19,20 @@ Last reviewed: 2026-09-29
 
 ---
 
-## Purpose
+## 🎯 Purpose
 
 Index and entry point for software reverse engineering (SRE) in this repository.
 The working tool is [Ghidra](https://github.com/NationalSecurityAgency/ghidra/),
 NSA's open-source SRE suite. The long-form text lives in
 [ghidra-guide-index.md](./ghidra-guide-index.md).
 
-## Function
+## ⚙️ Function
 
 Routes a reader to the right chapter of the Ghidra guide, the official install
 docs, and the neighboring repo sections (firmware, IR, lab) without forcing a
 linear read of all 23 chapters.
 
-## Goal
+## 🏆 Goal
 
 Get an authorized analyst from "I extracted a zip" to a repeatable workflow:
 classify the file, import it honestly, repair the listing, type the data,
