@@ -1,4 +1,4 @@
-# Reverse Engineering
+# 🔬 Reverse Engineering
 
 Last reviewed: 2026-09-29
 
