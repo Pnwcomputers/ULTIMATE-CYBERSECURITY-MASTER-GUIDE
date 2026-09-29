@@ -1,4 +1,4 @@
-# Ghidra Master Guide
+# 🔍 Ghidra Master Guide
 
 Last reviewed: 2026-09-29
 
@@ -11,7 +11,7 @@ Last reviewed: 2026-09-29
 **Prerequisites:** Comfort with a command line, basic C, and how programs load into
 memory. Isolated lab recommended: see [Homelab](../Homelab/).
 
-## Purpose
+## 🎯 Purpose
 
 A standalone operational guide to [Ghidra](https://github.com/NationalSecurityAgency/ghidra/),
 the NSA's open-source software reverse engineering (SRE) suite. It is organized into
