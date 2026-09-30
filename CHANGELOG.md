@@ -1,8 +1,8 @@
 # 🔄 Change Log - September 30, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1464
-- **Files Modified**: 1730
+- **Commits Analyzed**: 1465
+- **Files Modified**: 1732
 - **New Files**: 673
 - **Deleted Files**: 121
 
@@ -635,6 +635,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update whonix-kicksecure-usb-guide.md (`c76bec6`)
 - Rename talis-usb-setup-guide.md to tails-usb-setup-guide.md (`171ad1c`)
 - Update README.md (`05a18ed`)
 - Update README.md (`6bc74e4`)
@@ -1488,11 +1489,11 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OPSEC/whonix-kicksecure-usb-guide.md`
+- `CHANGELOG.md`
 - `OPSEC/README.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
-- `OPSEC/whonix-kicksecure-usb-guide.md`
-- `CHANGELOG.md`
 - `ReverseEngineering/ghidra-guide-index.md`
 - `ReverseEngineering/README.md`
 - `README.md`
