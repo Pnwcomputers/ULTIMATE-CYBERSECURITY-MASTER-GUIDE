@@ -219,7 +219,7 @@ Layer 5: Data Security
 - **Debian** - Stable, security-focused
 - **Ubuntu LTS** - User-friendly, well-supported
 - **Tails** - For maximum anonymity
-- **Whonix** - All traffic through Tor
+- **Whonix** - Workstation traffic through its separate Gateway and Tor; host applications are outside this routing. See [deployment guidance](OPSEC/whonix-kicksecure-usb-guide.md).
 
 ### Pimp My Kali Script
 

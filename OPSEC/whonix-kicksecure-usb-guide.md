@@ -13,7 +13,7 @@
 
 </div>
 
-_Documentation reviewed: 2026-09-29 — hardware testing and complete link-resolution verification remain pending._
+_Installer source and related guidance reviewed: 2026-09-30 — hardware testing and complete external link-resolution verification remain pending._
 
 **Prerequisites:** Basic Linux installation and disk-management skills; review the [Linux command reference](../Documentation/LinuxCheatSheet.md) and [OPSEC fundamentals](./README.md). Acronyms are defined below; see also the [repository glossary](../GLOSSARY.md).
 
@@ -54,6 +54,9 @@ Produce a repeatable external-drive setup whose boot independence, storage place
 - [💾 4. Create the Installer and Install to USB B](#installation)
 - [🔐 5. Verify Boot Independence and Encryption](#verify-storage)
 - [⚙️ 6. Update Kicksecure and Install Whonix](#install-whonix)
+  - [Guest names and installer arguments](#guest-names)
+  - [VirtualBox versus KVM/libvirt](#hypervisor-selection)
+  - [Invalid guest version troubleshooting](#guest-version-error)
 - [🖥️ 7. Configure and Update the Two VMs](#configure-vms)
 - [✅ 8. Validate the Setup](#validation)
 - [🔄 9. Choose Persistent or Live Use](#live-mode)
@@ -224,7 +227,7 @@ Current graphical releases use a distinction between ordinary activity and maint
 
 On the Kicksecure host, connect Ethernet or Wi-Fi and use the System Maintenance Panel's update functions. Complete updates and reboot if requested. You must later update both VMs separately; a host update does not update their operating systems.
 
-### Run the official installer on the host
+### Run the official VirtualBox installer on the host
 
 Open the host terminal and run the currently documented included command:
 
@@ -232,11 +235,65 @@ Open the host terminal and run the currently documented included command:
 whonix-lxqt-installer-cli
 ```
 
-The official installer handles downloads, integrity/authenticity checks, and VM import, and attempts to start the VMs. Kicksecure includes the installer, so its documented route does not require downloading an arbitrary script and piping it to a shell. Follow prompts about maintenance privileges, intended VM user, and reboots. [^1][^3]
+For **VirtualBox**, the official installer handles downloads, integrity/authenticity checks, and VM import, and attempts to start the VMs. Kicksecure includes the installer, so its documented route does not require downloading an arbitrary script and piping it to a shell. Follow prompts about maintenance privileges, intended VM user, and reboots. The KVM option has a different implementation and does not provide this complete import workflow. [^1][^3][^20]
 
 Keep downloads, VM disks, snapshots, and configuration under the encrypted external installation. If asked which user should own/run the VMs, choose the intended ordinary user, not an account you plan to use only for maintenance. After any requested reboot, open VirtualBox in that ordinary user's session and confirm both machines are registered.
 
 If the command is missing, update Kicksecure and recheck the linked installer page. If automated setup fails, use its official manual VirtualBox fallback and verified Whonix images. Do not disable signature checks, use random third-party appliances, or blindly rename an old `xfce` command to match a new release. [^3]
+
+<a id="guest-names"></a>
+
+### Guest names and installer arguments
+
+Whonix is a **Gateway/Workstation pair**. The current build documentation names the LXQt flavors `whonix-gateway-lxqt` and `whonix-workstation-lxqt`; CLI flavors are `whonix-gateway-cli` and `whonix-workstation-cli`. These are build flavors, not values accepted by the installer's `--guest` option. Imported VM display names come from the appliance; libvirt domain names come from its XML. Do not infer either from a lowercase build flavor. [^21]
+
+The shared `dist-installer-cli` selects the product and interface separately. On a host where it is installed, the explicit VirtualBox selection is:
+
+```bash
+dist-installer-cli --guest=whonix --interface=lxqt --hypervisor=virtualbox
+```
+
+This selects the Whonix LXQt appliance containing both VMs by default. Do not replace `--guest=whonix` with `--guest=whonix-gateway-lxqt`. `--import-only=gateway` or `--import-only=workstation` is an intentional partial VirtualBox import, not the normal complete setup. [^20]
+
+Kicksecure is a separate product: `--guest=kicksecure --interface=lxqt --hypervisor=virtualbox` selects a Kicksecure **guest VM**. It does not install Kicksecure onto USB B, encrypt the host, or supply the Whonix pair. The official Kicksecure VirtualBox wrapper is `kicksecure-lxqt-installer-cli`. Keep the physical-host ISO installation in Sections 3–5 distinct from these guest installers. [^22]
+
+<a id="hypervisor-selection"></a>
+
+### VirtualBox versus KVM/libvirt
+
+**Verification baseline:** This comparison uses `Kicksecure/usability-misc` commit `9b076dc91983728385f0b194e3fc825d269142ec`, inspected on 2026-09-30. Packaged and downloaded standalone installers can differ from upstream; record the version actually used. [^20]
+
+| Selection | Stable version source | Image selection | Import behavior in inspected source |
+|---|---|---|---|
+| `--hypervisor=virtualbox` | `Template:VersionNew` | `/ova/`, ending in `Intel_AMD64.ova` | Imports the appliance through VBoxManage |
+| `--hypervisor=kvm` | `Template:Version_KVM` | `/libvirt/`, ending in `Intel_AMD64.qcow2.libvirt.xz` | KVM import remains a placeholder |
+
+The inspected KVM branch has download and verification code, but `import_kvm()` reports that import is unavailable and exits with status 0. **A successful exit therefore does not establish that libvirt networks or VMs were created.** Selecting KVM also does not mean a VirtualBox OVA can be imported into libvirt unchanged. [^20]
+
+For KVM, use the [project-hosted Whonix KVM installation procedure](https://www.whonix.org/wiki/KVM), including its platform-specific signature verification, archive extraction, VM XML definitions, networking, and disk placement. The KVM pages are contributor maintained with community support. Use the XML supplied for that release: the current import section uses `qemu:///session` and the image-placement section uses `~/.local/share/images`. Older examples elsewhere on the page still use `qemu:///system` and `/var/lib/libvirt/images`; these are different scopes and paths. Match the actual XML and connection rather than combining examples. Confirm both domains and their Gateway-only routing before booting; define separate libvirt networks only if the release's configuration requires them. [^23][^24]
+
+This guide's remaining VirtualBox menus, adapter checks, snapshot paths, and startup instructions describe the VirtualBox baseline. For KVM, apply the same encryption and Gateway-only routing requirements using the official libvirt instructions. Store the actual QCOW2 files and any other persistent VM state on USB B's encrypted filesystem and confirm XML paths do not depend on an internal disk. A separate Kicksecure KVM guest follows [Kicksecure's KVM documentation](https://www.kicksecure.com/wiki/KVM), rather than the Whonix pair procedure. [^23][^24]
+
+<a id="guest-version-error"></a>
+
+### Invalid guest version troubleshooting
+
+**Reported symptom:** A KVM selection failed with `Invalid guest version: contains unexpected characters.` while the VirtualBox selection worked. This report establishes the observed symptom; the original response body and installed script version were not supplied, so its exact cause has not been reproduced.
+
+In the inspected source, automatic detection fetches the selected raw wiki template, takes its first line, removes text from the first `<` onward, and rejects an empty result or characters other than digits and periods. A separate check rejects values longer than 12 characters. The error is a version-response validation failure before image download/import, not evidence that VT-x/AMD-V or libvirt is broken. The different template sources explain how VirtualBox detection can work while KVM detection fails. HTML/error responses, template markup, whitespace, or an empty first line are possible causes; none is confirmed for the reported run. [^20]
+
+1. Record the complete invocation, installer version printed at startup, and exact error. Check the installed command's `--help` and update through the supported host maintenance route.
+2. Inspect the **Version Detection: API host** URL from the informational log. For default clearnet Whonix KVM selection, a read-only diagnostic request is:
+
+   ```bash
+   curl --tlsv1.3 --proto '=https' --max-time 30 --dump-header whonix-kvm-version.headers --output whonix-kvm-version.body --url 'https://www.whonix.org/w/index.php?title=Template:Version_KVM&stable=0&action=raw'
+   ```
+
+   Inspect the status/headers and first body line locally. If using a proxy/onion route, diagnose the route and URL actually logged; this clearnet example does not reproduce it. Never execute the returned body. Redact private paths, proxy details, and other sensitive log content before sharing.
+3. Confirm the available release on the official **KVM** page. Do not copy a VirtualBox release number into the KVM path merely because its lookup succeeds.
+4. Prefer the official manual KVM installation flow when automated detection fails. The source supports `--guest-version`, which skips automatic lookup, but use an explicit value only after confirming that exact platform-specific release and its signed artifacts. It cannot implement the missing KVM import. Do not strip arbitrary characters until a response happens to pass, patch out validation, or bypass image signature/hash checks. [^20][^23]
+
+Keep the headers/body and version details with any upstream bug report. A later successful template fetch would not prove what the earlier failing run received.
 
 ---
 
@@ -417,6 +474,8 @@ Maintain an offline record of the installation date, chosen releases, verificati
 | VT-x/AMD-V error | Enable CPU virtualization in firmware and fully restart |
 | VirtualBox kernel/module error | Check updates, kernel/module compatibility, reboot requirement, and Secure Boot trust using official instructions |
 | Installer missing or failing | Update host, consult current Linux installer page, then use its verified manual fallback |
+| `Invalid guest version: contains unexpected characters.` | Inspect the selected platform's version response; see [version diagnostics](#guest-version-error). Do not treat this as a virtualization hardware failure |
+| KVM installer exits successfully but no domains appear | The inspected KVM import is a placeholder; follow [official libvirt installation](#hypervisor-selection) |
 | VMs absent in ordinary user session | Check which account imported them and where their files are; do not use unrestricted permissions as a shortcut |
 | Gateway cannot bootstrap Tor | Check host connectivity and clock; inspect systemcheck and use supported bridges if needed |
 | Gateway works, Workstation does not | Check matching private network and imported settings; do not give Workstation direct NAT |
@@ -478,6 +537,11 @@ The linked project pages are the authority for changing release details. Capacit
 [^17]: [Whonix system hardening checklist](https://www.whonix.org/wiki/System_Hardening_Checklist) and [file transfer](https://www.whonix.org/wiki/File_Transfer)
 [^18]: [Whonix troubleshooting](https://www.whonix.org/wiki/Troubleshooting) and [common commands](https://www.whonix.org/wiki/Common_CLI_Commands)
 [^19]: [Whonix versus VPNs](https://www.whonix.org/wiki/Whonix_versus_VPNs)
+[^20]: [Installer source pinned to the inspected commit](https://github.com/Kicksecure/usability-misc/blob/9b076dc91983728385f0b194e3fc825d269142ec/usr/bin/dist-installer-cli): `get_version()`, `get_download_links()`, `import_virtualbox()`, `import_kvm()`, option validation, and `main()`; [current upstream source](https://github.com/Kicksecure/usability-misc/blob/master/usr/bin/dist-installer-cli). Upstream source inspection does not establish the version installed on a particular host.
+[^21]: [Whonix VM build documentation: flavor selection](https://www.whonix.org/wiki/Dev/Build_Documentation/images).
+[^22]: [Kicksecure Linux installer for VirtualBox](https://www.kicksecure.com/wiki/Linux).
+[^23]: [Whonix KVM installation and verification](https://www.whonix.org/wiki/KVM). Follow the current release's XML, disk paths, and libvirt connection instructions.
+[^24]: [Kicksecure KVM installation](https://www.kicksecure.com/wiki/KVM).
 
 
 ---

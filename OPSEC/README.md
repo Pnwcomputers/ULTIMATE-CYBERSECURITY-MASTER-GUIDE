@@ -143,6 +143,8 @@ The host is installed onto the external drive; this is a full installation with 
 
 **Important boundary:** Installing Whonix does not automatically send Kicksecure host applications through Tor. Perform the intended anonymous activity inside Whonix-Workstation.
 
+**Installer and naming:** The LXQt build flavors are `whonix-gateway-lxqt` and `whonix-workstation-lxqt`; the shared installer uses `--guest=whonix --interface=lxqt`. Its inspected VirtualBox branch imports both VMs, while KVM import remains a placeholder. See [guest names](./whonix-kicksecure-usb-guide.md#guest-names), [VirtualBox versus KVM/libvirt](./whonix-kicksecure-usb-guide.md#hypervisor-selection), and [invalid guest version diagnostics](./whonix-kicksecure-usb-guide.md#guest-version-error) for dated source evidence and the manual KVM route.
+
 The separate Gateway helps contain direct IP leaks from Workstation applications. This assumes the isolation remains intact: host, hypervisor, or Gateway compromise can undermine it. Malware can still steal documents or account credentials through the permitted Tor connection.
 
 ### Tails: A Live OS Booted Directly from USB
@@ -425,7 +427,7 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 
 - [General OPSEC Guide](./OPSEC_guide.md)
 - [Whonix + Kicksecure USB Setup Guide](./whonix-kicksecure-usb-guide.md)
-- [Tails USB Setup Guide](./talis-usb-setup-guide.md)
+- [Tails USB Setup Guide](./tails-usb-setup-guide.md)
 - [Tradecraft](../Tradecraft/)
 - [Master Index](../README.md)
 
