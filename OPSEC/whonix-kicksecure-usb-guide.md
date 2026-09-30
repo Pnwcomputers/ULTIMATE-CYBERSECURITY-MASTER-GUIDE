@@ -1,4 +1,4 @@
-# 🔒 Whonix + Kicksecure: Encrypted USB Operating System Setup Guide
+# 🔒 Whonix + Kicksecure: Encrypted Operating System Setup Guide
 
 <div align="center">
 
@@ -21,7 +21,7 @@ _Documentation reviewed: 2026-09-29 — hardware testing and complete link-resol
 
 ## 🎯 Purpose
 
-Build a portable, privacy-focused operating system using **Kicksecure installed directly on an encrypted external USB drive**, with **Whonix-Gateway** and **Whonix-Workstation** running in VirtualBox.
+Build a privacy-focused operating system using **Kicksecure installed directly on an encrypted external USB drive**, with **Whonix-Gateway** and **Whonix-Workstation** running in VirtualBox.
 
 ## ⚙️ Function
 
