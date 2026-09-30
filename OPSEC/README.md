@@ -13,1043 +13,475 @@
 </div>
 
 ## 🎯 Purpose
-Operational security practices for cybersecurity professionals - covering identity separation, network anonymization, virtualization compartmentalization, anti-forensics, communications security, and device hygiene for security research and authorized engagements.
+
+Document operational security practices for cybersecurity professionals, including identity separation, network privacy, virtualization, portable operating systems, communications security, and device hygiene.
 
 ## ⚙️ Function
-Documents OPSEC controls across five layers: identity (separate personas, accounts, payment methods), network (Tor, VPN chaining, residential proxies), endpoint (VM compartmentalization, live OS, disk encryption), operational (timing discipline, metadata scrubbing), and communications (Signal, encrypted email, secure drops).
+
+Organize controls across five layers: **identity**, **network**, **endpoint**, **operational procedures**, and **communications**. Provide a starting point for the general OPSEC guide and the dedicated **Whonix + Kicksecure** and **Tails OS** USB setup guides.
 
 ## 🏆 Goal
-Enable security practitioners to conduct authorized research and engagements with appropriate separation between their professional and personal digital identities, minimizing attribution risk from operational mistakes.
+
+Help practitioners protect client information, separate professional and personal activities, and reduce exposure from operational mistakes. Select controls according to the information being protected and the capabilities of the expected adversary.
 
 ## 📋 When to Use
-- Preparing an engagement where client confidentiality requires strong operational separation
-- Setting up a research environment for malware analysis or threat intelligence work
-- Learning OPSEC concepts for training or CTF scenarios
-- Building a privacy-focused personal computing environment
+
+- Preparing an authorized engagement requiring client confidentiality and operational separation.
+- Building an isolated research environment or reviewing an existing lab.
+- Choosing a portable privacy environment for temporary or persistent work.
+- Learning OPSEC concepts for training, research, or personal privacy.
+
+> [!IMPORTANT]
+> **No operating system guarantees anonymity.** Encryption, Tor routing, VM isolation, and temporary sessions address different risks. Accounts, documents, behavior, compromised hardware, and traffic analysis can still expose identity. [^tails-warnings]
 
 ---
 
 ## 📋 Table of Contents
 
-- [Overview](#-overview)
-- [What is OPSEC?](#-what-is-opsec)
-- [Current Documentation](#-current-documentation)
-- [Core OPSEC Principles](#️-core-opsec-principles)
-- [OPSEC Guidelines by Activity](#️-opsec-guidelines-by-activity)
-- [Security & Legal Considerations](#️-security--legal-considerations)
-- [Contributing](#-contributing)
-- [Resources](#-resources)
-- [Tradecraft](../Tradecraft)
+- [Overview](#overview)
+- [What is OPSEC?](#what-is-opsec)
+- [Current Documentation](#documentation)
+- [Whonix vs. Tails: How They Work](#whonix-vs-tails)
+- [Feature Comparison](#feature-comparison)
+- [Pros and Cons](#pros-and-cons)
+- [Which Setup Should You Choose?](#choose-a-setup)
+- [VPN Recommendations by Environment](#vpn-recommendations)
+- [Core OPSEC Principles](#principles)
+- [OPSEC Guidelines by Activity](#activities)
+- [Verification Checklist](#verification)
+- [Security & Legal Considerations](#security-and-legal)
+- [Incident Response](#incident-response)
+- [Contributing](#contributing)
+- [Resources and Related Files](#resources)
+- [Tradecraft](../Tradecraft/)
 
 ---
 
+<a id="overview"></a>
 ## 🎯 Overview
 
-This directory contains **comprehensive Operational Security (OPSEC) guidelines, best practices, and procedures** for maintaining security and anonymity during cybersecurity operations, research, and investigations.
+This directory covers **operational security for authorized security work and privacy-focused computing**.
 
 **What You'll Find Here:**
-- 🛡️ OPSEC fundamentals and principles
-- 🔐 Privacy and anonymity best practices
-- 🌐 Network isolation and segmentation
-- 💻 Secure operational procedures
-- 🖥️ Virtualization and compartmentalization
-- 🎭 Identity management and separation
-- 📱 Device and system hardening
-- 🔍 Counter-surveillance techniques
 
-### Purpose
+- 🛡️ Threat modeling and OPSEC fundamentals.
+- 🎭 Identity and account separation.
+- 🌐 Network privacy, Tor, and segmentation.
+- 🖥️ Virtualization and compartmentalization.
+- 💾 Portable USB operating systems.
+- 🔐 Encryption, selective persistence, and backups.
+- 📋 Verification, maintenance, and incident response.
 
-OPSEC documentation serves to:
-- **Protect operator identity** during security research
-- **Maintain confidentiality** of sensitive operations
-- **Prevent attribution** of security activities
-- **Mitigate risks** from adversary surveillance
-- **Ensure compliance** with professional standards
-- **Preserve evidence** integrity and chain of custody
+**Start with the threat model:** What must remain confidential? Who might obtain it? What access do they have? What would failure cost? The answers determine whether you need an ordinary client VM, a persistent Whonix workstation, a temporary Tails session, or a separate malware lab.
 
 ---
 
+<a id="what-is-opsec"></a>
 ## 🔎 What is OPSEC?
 
-**Operational Security (OPSEC)** is a risk management process that identifies critical information and implements safeguards to protect it from adversary exploitation.
+**Operational Security (OPSEC)** is a process for identifying sensitive information, understanding how it could be exposed, and applying proportionate safeguards.
 
 ### The Five-Step OPSEC Process
 
-```
-1. Identify Critical Information
-   └─> What needs protection? (identities, methods, targets, timelines)
+| Step | Question | Example |
+|------|----------|---------|
+| 1. Identify critical information | What needs protection? | Client data, account ownership, research notes, engagement timelines. |
+| 2. Analyze threats | Who could obtain or misuse it? | Malicious websites, a compromised endpoint, an unauthorized insider. |
+| 3. Analyze vulnerabilities | How could exposure happen? | Shared accounts, document metadata, unrestricted VM networking. |
+| 4. Assess risk | How likely and damaging is exposure? | Prioritize a stolen unlocked laptop over a low-impact tracking cookie. |
+| 5. Apply and review controls | What reduces the risk, and how will it be checked? | Encryption, separation, network restrictions, and recovery exercises. |
 
-2. Analyze Threats
-   └─> Who might want this information? (adversaries, competitors, bad actors)
+### Protection Goals Are Different
 
-3. Analyze Vulnerabilities
-   └─> How could they get it? (technical, procedural, human factors)
-
-4. Assess Risks
-   └─> What's the likelihood and impact? (probability × consequence)
-
-5. Apply Countermeasures
-   └─> How do we protect it? (technical controls, procedures, training)
-```
-
-### Core OPSEC Objectives
-
-- **Confidentiality**: Protect sensitive information from unauthorized disclosure
-- **Privacy**: Maintain personal and organizational privacy
-- **Anonymity**: Separate real identity from operational activities
-- **Integrity**: Ensure operations aren't compromised or manipulated
-- **Compartmentalization**: Isolate information and activities by necessity
-- **Deniability**: Ability to deny involvement or knowledge when appropriate
+| Goal | What it addresses | What it does not establish |
+|------|-------------------|-----------------------------|
+| Confidentiality | Who can read sensitive information. | Whether an activity can be linked to you. |
+| Anonymity | Whether activity can be linked to an identity. | Whether the endpoint is free of malware. |
+| Compartmentalization | How far a mistake or compromise can spread. | Perfect separation when accounts or files reconnect compartments. |
+| Amnesia | How much session state remains locally. | Erasure of remote records or files deliberately saved elsewhere. |
+| Encryption at rest | Protection of locked stored data. | Protection of data while unlocked and accessible. |
 
 ---
 
+<a id="documentation"></a>
 ## 📂 Current Documentation
 
 ### OPSEC Guides
 
-| File | Description | Coverage |
-|------|-------------|----------|
-| **[OPSEC_guide.md](./OPSEC_guide.md)** | Comprehensive 2025 OPSEC guide for cybersecurity operations | Complete Guide | 
+| File | Description | Primary Coverage |
+|------|-------------|------------------|
+| **[OPSEC_guide.md](./OPSEC_guide.md)** | General OPSEC and virtualized security environment guide. | Field and home-lab workflows, host security, VM architecture, network segmentation, and research practices. |
+| **[whonix-kicksecure-usb-guide.md](./whonix-kicksecure-usb-guide.md)** | Install Kicksecure on an encrypted external drive and run Whonix-Gateway and Whonix-Workstation in VirtualBox. | Trusted downloads, installation, encryption checks, VM routing, persistent/live modes, updates, and recovery. |
+| **[talis-usb-setup-guide.md](./talis-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
 
-### What's Covered in OPSEC_guide.md
+> [!NOTE]
+> The Tails guide is currently stored as **`talis-usb-setup-guide.md`**. The link above matches the repository filename. If it is renamed to `tails-usb-setup-guide.md`, update its incoming links at the same time.
 
-**Virtualized Security Environment:**
-- Host OS security configurations
-- Hypervisor layer setup (VMware, Proxmox)
-- Network architecture and isolation
-- VM architecture and deployment
+### Suggested Reading Order
 
-**Operational Modes:**
-- **Field Edition**: Portable OPSEC for on-the-go operations
-- **Home Lab Edition**: Persistent infrastructure for learning and practice
+1. Read the principles and comparison below.
+2. Review the general guide for broader lab and engagement context.
+3. Follow the dedicated setup guide for your chosen operating system.
+4. Complete that guide's acceptance checks before sensitive use.
+5. Recheck upstream documentation when versions or hardware change.
 
-**Key Topics:**
-- Professional virtualized setup for pentesting
-- Malware research isolation
-- Privacy and anonymity configurations
-- Red team and blue team workflows
-- Network segmentation and VLANs
-- VM compartmentalization strategies
-- OPSEC rules and critical configurations
-- Identity separation techniques
-- Recommended tools and technologies
-
-**Supported Activities:**
-- Penetration testing operations
-- OSINT and reconnaissance
-- Malware analysis and reverse engineering
-- Defensive research (IDS, SIEM, packet capture)
-- Privacy-focused research
-- Secure team workflows
+**Repository recommendation:** Keep a trusted, properly configured VPN connected whenever practical, including on ordinary operating systems and the Kicksecure host used for Whonix. Apply the environment-specific guidance below. NAT is not malware containment, and Tor Browser should not receive arbitrary fingerprinting modifications.
 
 ---
 
+<a id="whonix-vs-tails"></a>
+## 🧭 Whonix vs. Tails: How They Work
+
+**Tails emphasizes temporary live sessions. Whonix separates applications from the Tor gateway and supports an ongoing workspace.** Both use Tor, but their operating models differ.
+
+**Comparison scope:** The Whonix column below describes this repository's **Kicksecure host on an encrypted external USB drive with VirtualBox**. The Tails column describes **Tails booted directly from USB**. Whonix also supports other deployments; these are not universal claims about every Whonix platform.
+
+### Whonix + Kicksecure: A Host and Two VMs
+
+- **Kicksecure** is the physical computer's host operating system in this setup. It runs VirtualBox and manages physical networking and storage.
+- **Whonix-Gateway** runs Tor and provides the Workstation's network path.
+- **Whonix-Workstation** runs applications on an isolated virtual network connected to the Gateway. Its supplied configuration prevents ordinary direct Internet access. [^whonix-design]
+
+The host is installed onto the external drive; this is a full installation with VM disk images, rather than simply flashing a Whonix USB image. Host disk encryption must be selected and verified during installation. [^whonix-usb]
+
+**Important boundary:** Installing Whonix does not automatically send Kicksecure host applications through Tor. Perform the intended anonymous activity inside Whonix-Workstation.
+
+The separate Gateway helps contain direct IP leaks from Workstation applications. This assumes the isolation remains intact: host, hypervisor, or Gateway compromise can undermine it. Malware can still steal documents or account credentials through the permitted Tor connection.
+
+### Tails: A Live OS Booted Directly from USB
+
+Tails starts directly on compatible hardware, independently of the installed everyday operating system. It does not need a separate desktop host and hypervisor for this setup.
+
+Ordinary session changes are temporary. **Persistent Storage** is an optional encrypted partition for selected files and supported settings; users can leave it locked at startup. It is neither hidden storage nor encryption of the whole bootable USB. [^tails-persistence]
+
+Tails uses Tor for normal Internet application activity. The **Unsafe Browser is an explicit exception**: it connects without Tor and exposes the connection's public IP address to websites. Use it only for its documented captive-portal or trusted local-network purpose, then close it. [^unsafe-browser]
+
+### Persistent vs. Live Is a Separate Choice
+
+Whonix normally retains changes. Optional live modes exist at the **guest** and **host** layers; guest-only live mode does not establish that the host leaves no artifacts. The Gateway requires an initial persistent boot for Tor entry-guard setup. Updates and baseline maintenance must also survive restart. [^whonix-live]
+
+Tails starts from a temporary-session model, with selected persistence added when needed. Restarting does not delete its Persistent Storage, documents saved to other media, or records kept by websites and network operators.
+
+---
+
+<a id="feature-comparison"></a>
+## 📊 Feature Comparison
+
+| Category | Whonix + Kicksecure USB | Tails USB |
+|----------|-------------------------|-----------|
+| Operating model | Kicksecure host plus Gateway and Workstation VMs. | A live OS booted directly on the computer. |
+| Main design emphasis | Separate application execution from Tor routing. | Temporary sessions with optional selected persistence. |
+| Default retention | Installed host and VM disks retain changes. | Ordinary session changes are discarded; enabled persistence is retained. |
+| Optional live use | Host and guest live modes require deliberate setup and verification. | Live operation is the normal workflow. |
+| Encryption | Configure host storage encryption and verify VM disks, snapshots, and backups are covered. | Optional Persistent Storage is encrypted; bootable system files are not covered by that partition. |
+| Network boundary | Workstation reaches the Internet through Gateway; host traffic is a separate concern. | OS-level Tor routing restrictions, with documented exceptions such as Unsafe Browser. |
+| Application compromise | Separate Gateway limits direct network exposure if isolation holds; files and credentials remain at risk. | No separate Gateway VM boundary; an OS compromise can undermine routing protections. |
+| Hardware burden | Runs a host and two VMs; needs virtualization support and sufficient RAM/storage. | Avoids two-VM overhead; still requires supported processor, graphics, and networking hardware. |
+| USB workflow | Full external-drive installation; an external SSD is a practical choice for VM workloads. | Image a USB stick, boot it, and optionally create Persistent Storage. |
+| Customization | More suited to maintaining a persistent set of research applications. | Bundled tools and supported Additional Software; extensive customization needs caution. |
+| Maintenance | Maintain host, hypervisor, Gateway, and Workstation. | Follow the Tails upgrade process and maintain persistence backups. |
+| Local network identifier | Physical MAC-address policy belongs on the host; changing a guest MAC does not change it. | MAC address anonymization is enabled by default, subject to hardware support. |
+| Identity separation | Separate Workstations can help organize contexts; shared accounts, host, and Gateway still matter. | Restart between contexts; separate USBs may be appropriate where persistent data must stay apart. |
+| VPN recommendation | Keep a host-level VPN connected before starting Whonix; verify its routing and disconnect behavior. | Do not install a conventional VPN client inside Tails. An upstream VPN router is an optional, separately managed configuration; see below. |
+| Tor performance | Subject to Tor latency, service blocking, and protocol limitations. | Subject to the same Tor tradeoffs. |
+| Likely best fit | An ongoing research workspace with retained tools and controlled VM separation. | Portable browsing or document work with limited retained state. |
+
+Architecture and retention details: [Whonix design](https://www.whonix.org/wiki/Technical_Introduction), [USB installation](https://www.whonix.org/wiki/USB_Installation), [live mode](https://www.whonix.org/wiki/Live_Mode), and [Tails persistence](https://tails.net/doc/persistent_storage/index.en.html). Hardware, MAC policy, software, and maintenance references are listed under [Resources](#resources). “Best fit” judgments are practical recommendations for the setups in this repository.
+
+---
+
+<a id="pros-and-cons"></a>
+## ⚖️ Pros and Cons
+
+| Setup | ✅ Pros | ⚠️ Cons and Tradeoffs |
+|-------|---------|----------------------|
+| **Whonix + Kicksecure USB** | Separate Tor gateway; persistent tools and workspace; VM compartments and snapshots; encrypted external storage when configured; optional live modes. | More components to configure and update; greater resource and storage demands; host remains a trusted component; retained disks and snapshots need protection; live-mode behavior requires careful checks. |
+| **Tails USB** | Direct live boot; fewer setup layers; temporary sessions by default; selective encrypted persistence; portable workflow with bundled privacy tools. | Hardware compatibility varies; unsaved work is lost on shutdown; customization is more constrained; persistent data still creates retained records; no separate Gateway VM boundary. |
+
+**Shared limits:** Neither fixes identity reuse, a malicious document, an unlocked stolen device, compromised firmware, or a sufficiently capable traffic-correlation adversary. Neither is a dedicated malware-detonation sandbox. A USB drive provides portability, not trust in the computer it boots on.
+
+---
+
+<a id="choose-a-setup"></a>
+## 🧰 Which Setup Should You Choose?
+
+| Your Main Requirement | Starting Point | Reason |
+|-----------------------|----------------|--------|
+| Temporary browsing with little local retention | **Tails** | Temporary sessions are its normal operating model. |
+| A few saved documents or settings alongside live sessions | **Tails with selected persistence** | Retain only the features you need. |
+| Ongoing research with installed tools and saved project state | **Whonix + Kicksecure** | Persistent Workstations fit a maintained workspace. |
+| Separate application execution from Tor routing | **Whonix** | Gateway and Workstation are different VMs. |
+| Portable use with fewer installation steps | **Tails**, after compatibility checks | Avoids installing a host, hypervisor, and two guests. |
+| Client testing requiring a VPN, direct protocols, or agreed source IPs | **Dedicated engagement VM** | Follow the client's approved network design; anonymity systems may not fit. |
+| Executing unknown malware | **A dedicated isolated analysis lab** | Requires containment and monitoring beyond Tor routing. |
+| Suspected firmware or hardware compromise | **Replace or remediate the hardware first** | Neither USB setup makes compromised hardware trustworthy. |
+
+**Practical recommendation:** Choose the simplest setup that meets your threat model and that you can reliably maintain. “More layers” alone is not evidence of better protection.
+
+---
+
+<a id="vpn-recommendations"></a>
+## 🌐 VPN Recommendations by Environment
+
+**Keep a trusted VPN connected at all times when practical and compatible with the task.** This is the repository's operational preference for ordinary operating systems, research workstations, and the Kicksecure host in this guide. It is not a claim that Whonix or Tails requires a VPN or that adding one guarantees stronger anonymity.
+
+A correctly configured full-tunnel VPN encrypts traffic between the device and the VPN endpoint and reduces direct exposure to the local network and ISP. The provider becomes another party you must trust. Continue using HTTPS, supported updates, endpoint protections, and identity separation.
+
+| Environment | Recommended Approach | Important Qualification |
+|-------------|----------------------|-------------------------|
+| **Windows, macOS, and general-purpose Linux** | Keep a trusted VPN active whenever practical, including at home and on public networks. Enable automatic connection and a kill switch where supported. | Verify DNS, IPv6, and application routing. A VPN does not disable OS telemetry or prevent account-based tracking. |
+| **Ordinary research VMs** | Prefer a host VPN covering the intended VM egress, or an explicitly configured VPN gateway. | Verify actual traffic: bridged networking, split tunneling, and VPN exclusions can bypass the intended path. |
+| **Whonix on Kicksecure** | Connect the host VPN before launching Whonix and keep it connected during use. Preserve the supplied Gateway/Workstation isolation. | Treat this as VPN-before-Tor; do not add a direct Workstation adapter or an arbitrary Workstation VPN. |
+| **Tails booted directly from USB** | Keep Tails' standard Tor configuration. If a VPN layer is desired and feasible, manage it on an upstream router. | Tails does not support a conventional VPN client inside the OS. Router VPN operation is separate from Tails and must be verified independently. |
+| **Client and business environments** | Use the organization's approved VPN and routing policy. | A commercial privacy VPN must not conflict with required access, monitoring, or approved testing source IPs. |
+| **Malware labs** | Consider an approved VPN only at controlled egress when Internet access is authorized. | Keep samples isolated from the host, LAN, and business VPN; containment takes priority over tunnel availability. |
+
+### Whonix: Put the VPN Before Tor
+
+The intended external connection order is **your computer → VPN server → Tor network → destination**. Configure the VPN on Kicksecure, outside the VMs. Host applications use the VPN; Whonix application traffic still uses Tor. Follow the [Whonix VPN-before-Tor documentation](https://www.whonix.org/wiki/Tunnels/Connecting_to_a_VPN_before_Tor), which is community-supported guidance.
+
+The ISP sees the VPN connection; the VPN provider can associate your source connection with Tor use. Websites reached through Tor still see a Tor exit, not the VPN server. If the VPN fails without effective blocking, Tor may reconnect directly through the ISP. That is a failure of the intended VPN layer even if Workstation traffic still uses Tor. Review the [tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction).
+
+### Tails: Respect Its Supported Network Design
+
+Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does not work with VPNs directly. Do not retrofit a VPN client or alter its firewall to force this recommendation. A separately configured upstream VPN router can provide the VPN-before-Tor layer, but Tails cannot verify or enforce that router's tunnel. Tor bridges are another documented option when direct Tor access is blocked.
+
+### Verify the VPN Layer
+
+- Check provider trust, supported clients, security maintenance, and configuration documentation. Treat logging claims as claims to evaluate, not guarantees.
+- Prefer full-tunnel routing for the intended coverage. Document any split-tunnel or LAN-access exceptions.
+- Test DNS and IPv6 handling as well as the visible public IP; a browser IP check alone cannot validate every application or VM.
+- Test controlled VPN interruption, reconnection, network changes, and reboot using non-sensitive activity. Confirm covered Internet traffic remains blocked when the tunnel is unavailable; account for necessary tunnel/bootstrap traffic.
+- For Whonix, check the host VPN and Gateway egress separately from the Workstation's Tor check. A Tor exit address alone does not prove VPN-before-Tor is working.
+- When a captive portal or an authorized workflow requires an exception, pause sensitive activity, keep the exception narrow, and restore and recheck the VPN afterward.
+
+---
+
+<a id="principles"></a>
 ## 🛡️ Core OPSEC Principles
 
 ### 1. Compartmentalization
 
-```
-Principle: Isolate activities, identities, and information into separate compartments.
-
-Application:
-✅ Separate VMs for different operations
-✅ Different identities for different activities
-✅ Isolated network connections
-✅ Dedicated devices for sensitive work
-✅ Never mix operational contexts
-
-Compartmentalization Strategy:
-   • Personal Life → Real identity, personal devices
-   • Client Work → Client-specific VM, dedicated VPN
-   • OSINT Research → Anonymous persona, isolated VM
-   • Malware Analysis → Air-gapped or VLAN-isolated VM
-   • Blue Team Work → Defensive infrastructure, monitoring VM
-```
+- Separate personal, client, and research accounts and files.
+- Use a dedicated workspace for each sensitive context.
+- Treat clipboard sharing, shared folders, USB passthrough, and file transfers as deliberate connections between compartments.
+- Remember that logging into a known personal account identifies that activity even when the connection uses Tor.
 
 ### 2. Defense in Depth
 
-```
-Principle: Multiple layers of security controls, not a single point of protection.
+- Combine verified software, supported updates, encryption, restricted networking, and secure communications.
+- Keep a trusted VPN connected whenever practical, following the [environment-specific recommendations](#vpn-recommendations). Configure automatic connection and a tested kill switch where supported.
+- A VPN shifts trust to its operator; it does not automatically improve Tor anonymity, replace HTTPS, or conceal account identity.
+- Avoid ad hoc VPN/Tor/proxy chains. Review the chosen project's supported configuration and test the resulting routing.
 
-Application:
-✅ Layer 1: VPN on host system
-✅ Layer 2: Virtualization isolation
-✅ Layer 3: VM-level security controls
-✅ Layer 4: Network segmentation (VLANs)
-✅ Layer 5: Encrypted communications
+### 3. Assume Compromise Is Possible
 
-Security Layers:
-   Host OS (encrypted disk)
-      ↓
-   VPN Connection
-      ↓
-   Hypervisor (VMware/Proxmox)
-      ↓
-   Isolated VM (NAT/VLAN)
-      ↓
-   Application-level encryption
-```
-
-### 3. Assume Breach
-
-```
-Principle: Operate as if adversaries are already present.
-
-Application:
-✅ Encrypt all sensitive data at rest
-✅ Use ephemeral VMs with snapshots
-✅ Regularly rotate operational infrastructure
-✅ Monitor for indicators of compromise
-✅ Maintain plausible deniability
-
-Breach Assumption Practices:
-   • No plaintext sensitive data storage
-   • All VM traffic through VPN
-   • Snapshot and rollback after operations
-   • Audit logs for anomaly detection
-   • Regular security reviews
-```
+- Keep recoverable encrypted backups and protect their keys.
+- Minimize sensitive data available during a session.
+- Use snapshots for recovery, while recognizing that snapshots can retain secrets and compromised state.
+- Rebuild from trusted sources when compromise is suspected; rollback is not proof of eradication.
 
 ### 4. Minimize Attack Surface
 
-```
-Principle: Reduce opportunities for compromise.
+- Install only necessary software and disable unneeded integrations.
+- Keep the Tor Browser configuration close to its supported defaults. Do not add arbitrary extensions, user-agent randomizers, or fingerprint-spoofing tools.
+- Use supported browser security levels for script restrictions rather than accumulating custom tweaks.
+- Treat NAT as a networking mode, not as proof that a VM cannot contact the host, LAN, or Internet. [^virtualbox]
 
-Application:
-✅ Disable unnecessary services and features
-✅ Use minimal, hardened operating systems
-✅ NAT-only networking by default
-✅ No clipboard sharing between VMs
-✅ No USB passthrough for sensitive VMs
+### 5. Need-to-Know and Data Minimization
 
-Attack Surface Reduction:
-   • Clipboard sharing: OFF
-   • Drag-and-drop: OFF
-   • Shared folders: OFF
-   • USB passthrough: Disabled
-   • Bridged networking: Only when required
-```
-
-### 5. Need-to-Know Basis
-
-```
-Principle: Only share information with those who absolutely need it.
-
-Application:
-✅ Separate operational identities
-✅ Limit access to sensitive VMs
-✅ Don't discuss operations publicly
-✅ Minimize digital footprint
-✅ Compartmentalize team knowledge
-
-Information Control:
-   🚫 Never share:
-      • Real identity with operational personas
-      • Client information on personal devices
-      • Operational details on social media
-      • Target information unnecessarily
-      • Techniques on public forums
-```
+- Grant access only to people who need the information.
+- Keep client material out of unrelated accounts and devices.
+- Review metadata and visible contents before sharing a file.
+- Define retention, backup, and disposal requirements before collecting data.
 
 ---
 
+<a id="activities"></a>
 ## 🗂️ OPSEC Guidelines by Activity
 
-### Penetration Testing OPSEC
+### Penetration Testing
 
-**Pre-Engagement Security:**
-```
-☐ Set up isolated testing VM
-☐ Configure VPN for client network access
-☐ Create client-specific operational identity
-☐ Verify authorization documents signed
-☐ Prepare snapshot baseline for VM
-☐ Configure tools with client-specific profiles
-☐ Set up secure communication channels
-☐ Document network architecture
-☐ Prepare incident response procedures
-```
+**Before the engagement:**
 
-**During Engagement:**
-```
-☐ Use ONLY authorized testing infrastructure
-☐ Never use personal systems or accounts
-☐ Maintain detailed activity logs
-☐ Encrypt all client data immediately
-☐ Stay within authorized scope
-☐ Report critical findings immediately
-☐ Use snapshots before risky operations
-☐ Maintain chain of custody for evidence
-```
+- [ ] Confirm written authorization, scope, time windows, approved source infrastructure, and emergency contacts.
+- [ ] Prepare a patched client-specific VM and clean recovery baseline.
+- [ ] Configure the approved connection method and test network boundaries. Use the client-approved VPN where required; keep a privacy VPN active for other compatible traffic only when the engagement permits it. Do not stack tunnels or change agreed source IPs without approval.
+- [ ] Establish encrypted storage, reporting channels, and evidence retention requirements.
 
-**Post-Engagement:**
-```
-☐ Securely delete all client data
-☐ Sanitize VMs and remove configurations
-☐ Roll back to pre-engagement snapshot
-☐ Archive encrypted logs per retention policy
-☐ Destroy temporary accounts and credentials
-☐ Deliver reports through secure channels
-☐ Update OPSEC procedures based on lessons learned
-```
+**During and after the engagement:**
 
----
+- [ ] Stay within scope and maintain appropriate activity records.
+- [ ] Protect collected credentials, samples, and client data.
+- [ ] Report critical findings using agreed procedures.
+- [ ] Deliver findings securely and revoke temporary access.
+- [ ] Preserve required evidence; dispose of remaining data under the agreed retention policy.
 
-### OSINT Research OPSEC
+### OSINT and Privacy-Focused Research
 
-**Network Isolation:**
-```
-✅ ALWAYS use VPN for OSINT activities
-✅ Consider TOR for additional anonymity
-✅ Use dedicated OSINT VM
-✅ Route through multiple hops for sensitive targets
-✅ Change IP addresses frequently
+- Keep research accounts, recovery contacts, and browser state separate from personal identities.
+- Select Tails, Whonix, or an ordinary isolated research VM based on the task.
+- Keep a trusted VPN active on ordinary research hosts whenever practical. For Whonix, use the host VPN before Tor and verify that VM egress follows it; apply the Tails exception below.
+- Use Tor Browser as supplied when Tor browsing is needed; ordinary privacy browsers do not provide an equivalent anonymity model.
+- Treat account identifiers, writing patterns, uploaded documents, and behavioral overlap as potential links.
+- Do not assume frequent IP changes, extra proxy hops, or a new browser identity erase earlier links.
+- Review downloaded files before moving them into another compartment.
 
-Recommended Setup (from OPSEC_guide.md):
-   Host OS → VPN → VM (NAT only) → Internet
-   OR
-   Host OS → VPN → Whonix Gateway → Whonix Workstation
-```
+### Malware Analysis
 
-**Identity Protection:**
-```
-✅ Create detailed sock puppet personas
-✅ Use separate email for each persona
-✅ Never link personas together
-✅ Maintain consistent persona behavior
-✅ Use burner phone numbers (VoIP)
+> [!WARNING]
+> **Neither NAT nor Tor is a malware-containment strategy.** A VM using NAT can initiate outbound connections. Host-only networking includes the host. A VLAN requires enforced routing and firewall rules to create the intended boundary. [^virtualbox]
 
-Persona Management:
-   • Each identity gets its own VM
-   • Separate browser profiles per persona
-   • Dedicated credentials (never reused)
-   • Distinct behavioral patterns
-   • Complete compartmentalization
-```
+- Use a dedicated analysis environment separate from privacy and client workspaces.
+- Begin with disconnected or tightly controlled internal networking and simulated services where appropriate.
+- If Internet access is necessary, explicitly approve, restrict, and monitor egress; prevent access to management and production networks. Use an approved VPN at the controlled egress point when practical and permitted by the provider, while preserving containment and monitoring. Do not give a sample access to a corporate VPN or use a VPN as the containment boundary.
+- Disable unneeded shared folders, clipboard integration, and device passthrough.
+- Capture evidence and analyze it from an appropriate clean environment.
+- Use clean baselines and controlled recovery; do not assume a snapshot repairs an escaped infection.
 
-**Browser & Device Security:**
-```
-✅ Use privacy-focused browsers (Tor Browser, Brave)
-✅ Disable JavaScript when possible
-✅ Clear cookies and cache regularly
-✅ Block tracking and fingerprinting
-✅ Use VMs for different research contexts
+### Defensive Operations
 
-Browser Hardening:
-   • NoScript or uBlock Origin
-   • Privacy Badger
-   • Canvas fingerprint blockers
-   • WebRTC leak prevention
-   • User agent randomization
-```
+- Separate management, sensor, and analysis networks.
+- Prefer an organization-approved VPN for remote administration. On analyst workstations, keep a trusted VPN active when practical and compatible with organizational policy; do not reroute sensor collection or production traffic indiscriminately.
+- Protect SIEM and monitoring administration with least privilege and strong authentication.
+- Encrypt sensitive telemetry and backups; define retention and access auditing.
+- Monitor the monitoring infrastructure itself.
+- Keep response communications and recovery credentials available through an independent trusted channel.
 
 ---
 
-### Malware Analysis OPSEC
+<a id="verification"></a>
+## ✅ Verification Checklist
 
-**Lab Isolation (from OPSEC_guide.md):**
-```
-Critical Rules:
-☐ NEVER analyze malware on host system
-☐ Use isolated VM or dedicated hardware
-☐ Network isolation (NAT-only or VLAN)
-☐ No LAN access for malware VMs
-☐ Snapshot before detonation
-☐ Full RAM allocation to VM
-☐ No USB passthrough
-☐ No clipboard sharing
+Use the detailed tests in the selected setup guide. These are acceptance checks, not certification of anonymity.
 
-Recommended Architecture:
-   Malware VM (VLAN isolated)
-      ↓
-   Proxmox/VMware Firewall
-      ↓
-   Transparent Gateway (IDS/IPS)
-      ↓
-   VPN → Internet (if needed)
-```
+| Check | Whonix + Kicksecure | Tails |
+|-------|---------------------|-------|
+| Trusted installation | Verify host and Whonix downloads using official methods. | Verify the Tails image using the official workflow. |
+| Storage behavior | Confirm VM files, snapshots, and relevant host data are on the intended encrypted storage. | Confirm selected features persist and ordinary test files disappear after restart. |
+| Boot behavior | Confirm the external installation boots independently of the internal OS. | Confirm the machine boots the intended Tails USB. |
+| Network behavior | Verify supplied VM adapters and Gateway dependency; Workstation should lose Internet access when Gateway is stopped. | Complete Tor Connection and check Tor Browser; keep Unsafe Browser out of anonymous work. |
+| Retention mode | Test the actual host/guest persistent or live combination being used. | Test both locked and unlocked Persistent Storage sessions. |
+| Updates | Maintain all four layers: host, hypervisor, Gateway, and Workstation. | Use the supported Tails upgrade workflow. |
+| VPN behavior | Confirm host and VM egress follow the intended tunnel; test disconnect, reconnect, and reboot behavior. | If an upstream VPN router is used, verify its routing and kill switch there; retain Tails Tor protections. |
+| Recovery | Restore a non-sensitive test backup before relying on it. | Verify a persistence backup can recover a non-sensitive test file. |
 
-**Analysis Environment:**
-```
-✅ REMnux for Linux malware analysis
-✅ FLARE-VM for Windows malware
-✅ Network capture (Wireshark, Zeek)
-✅ Behavioral monitoring (Process Monitor, Sysmon)
-✅ Sandboxing (Cuckoo, ANY.RUN)
-
-Analysis Workflow:
-   1. Take VM snapshot
-   2. Isolate network (monitoring mode)
-   3. Detonate sample
-   4. Capture artifacts and behaviors
-   5. Roll back to clean snapshot
-   6. Store findings in encrypted archive
-```
+A successful Tor check confirms the connection observed by that check. It does not prove every application is correctly configured or that identity cannot be inferred.
 
 ---
 
-### Defensive Operations OPSEC
-
-**Blue Team Infrastructure:**
-```
-Recommended Setup (from OPSEC_guide.md):
-   • Zeek sensor VM (packet analysis)
-   • Suricata IDS/IPS VM (threat detection)
-   • Wazuh Manager VM (HIDS, log analysis)
-   • Elastic Stack VM (SIEM)
-   • pfSense VM (firewall/router)
-
-Network Architecture:
-   vmbr0 → Management network
-   vmbr1 → Monitored network (sensors)
-   vmbr2 → Isolated blue team VLAN
-```
-
-**Monitoring OPSEC:**
-```
-✅ Log all security events
-✅ Encrypt logs in transit and at rest
-✅ Implement log retention policies
-✅ Protect SIEM from compromise
-✅ Monitor the monitors (watch for attacks on infrastructure)
-
-Security Practices:
-   • Separate credentials for monitoring systems
-   • Multi-factor authentication on SIEM
-   • Regular backup of security logs
-   • Incident response playbooks ready
-   • Communication channels secured
-```
-
----
-
+<a id="security-and-legal"></a>
 ## ⚠️ Security & Legal Considerations
 
-### 🔴 CRITICAL: Authorized Operations Only
+Use these practices for personal privacy, authorized research, education, and legitimate defensive or assessment work. Obtain appropriate authorization before testing systems belonging to others and comply with the engagement's scope and data-handling requirements.
 
-```
-⚠️ IMPORTANT: AUTHORIZED USE ONLY ⚠️
+Privacy tools do not create permission to access systems or remove accountability. Legal obligations depend on jurisdiction and circumstances; consult the [repository legal notice](../LEGAL.md) and qualified advice where needed.
 
-OPSEC practices and infrastructure are designed for:
+### Technical Limits to Plan Around
 
-✅ AUTHORIZED USES:
-   • Authorized penetration testing with written permission
-   • Security research in isolated lab environments
-   • Educational purposes in controlled settings
-   • Defensive security operations (SOC, incident response)
-   • Malware analysis in isolated sandboxes
-   • OSINT research within legal boundaries
-   • Privacy protection for legitimate activities
-   • Professional security consulting with authorization
-
-🚫 STRICTLY PROHIBITED:
-   • Unauthorized penetration testing or hacking
-   • Bypassing security controls without permission
-   • Anonymous attacks or malicious activities
-   • Illegal surveillance or stalking
-   • Accessing systems without authorization
-   • Malware distribution or development for attacks
-   • Privacy violations or unauthorized monitoring
-   • Any activities violating laws or regulations
-```
+- **Physical access:** An unlocked system exposes data regardless of storage encryption.
+- **Hardware and firmware:** Booting from USB does not neutralize a hardware keylogger or compromised firmware.
+- **Remote records:** Restarting a live system does not erase service, account, or network logs.
+- **Traffic analysis:** Tor is not a guarantee against an observer able to correlate traffic at both ends.
+- **Compartment links:** Shared credentials, documents, or recovery methods can reconnect separated activities.
+- **Retention and disposal:** Follow evidence-preservation requirements before deleting data. Ordinary file deletion is not a reliable sanitization method for flash media.
 
 ---
 
-### OPSEC in Legal Context
+<a id="incident-response"></a>
+## 🚨 Incident Response for OPSEC Breaches
 
-#### Good OPSEC ≠ Permission to Break Laws
+1. **Stop affected activity** and avoid entering new credentials on the suspect system.
+2. **Isolate the affected environment** according to the response plan.
+3. **Record what happened** and preserve relevant evidence. Decide whether to shut down with the incident lead; rebooting or powering off may destroy volatile evidence.
+4. **Assess exposure:** accounts, documents, client information, identity links, and other connected systems.
+5. **Notify the appropriate contacts** using a trusted channel and the applicable engagement procedures.
+6. **Rotate exposed credentials and keys from a clean device**, including revoking active sessions where supported.
+7. **Rebuild or remediate from trusted sources** and verify recovery before resuming.
+8. **Review the failure** and update the controls, documentation, and acceptance checks.
 
-```
-⚠️ CRITICAL UNDERSTANDING:
-
-Strong OPSEC does NOT:
-   🚫 Grant permission to conduct unauthorized activities
-   🚫 Provide legal immunity for crimes
-   🚫 Excuse violations of computer crime laws
-   🚫 Allow bypassing of authorization requirements
-   🚫 Protect against prosecution for illegal acts
-
-OPSEC SHOULD be used to:
-   ✅ Protect authorized security operations
-   ✅ Maintain client confidentiality
-   ✅ Preserve evidence integrity
-   ✅ Protect personal privacy legally
-   ✅ Secure sensitive research
-   ✅ Follow professional standards
-```
-
-#### Legal Implications
-
-**Computer Fraud and Abuse Act (CFAA) - United States:**
-- Applies regardless of anonymity or OPSEC measures
-- Unauthorized access is illegal even if identity is hidden
-- "Good intentions" or "curiosity" are not legal defenses
-- Penalties: Up to 10 years imprisonment and significant fines
-
-**International Laws:**
-- **UK**: Computer Misuse Act 1990
-- **EU**: Cybercrime directives
-- **Canada**: Criminal Code Section 342.1
-- Laws apply even with VPNs, TOR, or other anonymity tools
-
-**Key Points:**
-- Using anonymity tools for crimes is still illegal
-- Authorities can and do de-anonymize suspects
-- Exit nodes, VPN logs, correlation attacks can reveal identity
-- Strong OPSEC buys time, not immunity
+Changing an IP address or rebooting into a clean session does not undo information already disclosed.
 
 ---
 
-### Privacy Tools: Legal vs Illegal Use
-
-#### VPN & TOR Usage
-
-**Legal Uses:**
-```
-✅ Privacy protection for personal security
-✅ Bypassing censorship (where legal)
-✅ Anonymous whistleblowing (legitimate)
-✅ OSINT research requiring anonymity
-✅ Protecting sensitive communications
-✅ Journalism and investigative research
-✅ Security research in authorized scope
-```
-
-**Illegal Uses (Prosecutable):**
-```
-🚫 Conducting cyberattacks
-🚫 Accessing illegal content
-🚫 Unauthorized system access
-🚫 Drug trafficking or illegal commerce
-🚫 Money laundering
-🚫 Terrorist activities
-🚫 Any criminal conduct
-```
-
-**Important Notes:**
-- Anonymity is not immunity
-- VPN providers may log and cooperate with warrants
-- Exit nodes can be monitored by law enforcement
-- Correlation attacks can de-anonymize users
-- Using privacy tools for crimes is prosecutable
-
----
-
-### Virtualization & Lab Security
-
-#### Malware Analysis Legal Requirements
-
-```
-⚠️ WARNING: Malware Analysis
-
-LEGAL CONSIDERATIONS:
-   • Possession of malware may be illegal in some jurisdictions
-   • Distribution of malware is generally illegal
-   • Creating malware for non-research purposes is illegal
-   • Use in authorized research and defensive contexts only
-
-REQUIRED PRECAUTIONS:
-   ✅ Isolated lab environment (no LAN access)
-   ✅ Proper authorization for research
-   ✅ Secure storage of malware samples
-   ✅ Encrypted sample repositories
-   ✅ Incident response plan ready
-   ✅ Never release malware to public
-   ✅ Follow responsible disclosure
-
-CONSEQUENCES OF MISUSE:
-   • Criminal charges for malware distribution
-   • Civil liability for damages
-   • Professional license revocation
-   • Permanent career damage
-```
-
-#### Lab Environment Authorization
-
-**Home Lab:**
-- ✅ Legal to build on your own network
-- ✅ Test on systems you own
-- ✅ Practice in isolated environments
-- 🚫 Never attack external systems without authorization
-- 🚫 Never scan/test networks you don't own
-
-**Client Site:**
-- ✅ Only with written authorization
-- ✅ Within defined scope and time windows
-- ✅ Using approved methodologies
-- 🚫 Never exceed authorized scope
-- 🚫 Never test without current authorization
-
----
-
-### Professional Standards
-
-#### Code of Ethics for OPSEC Operations
-
-**Core Principles:**
-
-1. **Authorization**: Always obtain explicit permission
-2. **Confidentiality**: Protect client and operational information
-3. **Integrity**: Operate honestly and transparently
-4. **Competence**: Use tools and techniques you understand
-5. **Responsibility**: Accept accountability for actions
-6. **Legal Compliance**: Follow all applicable laws
-
-#### Responsible OPSEC Practices
-
-```
-✅ DO:
-   • Use OPSEC to protect authorized operations
-   • Maintain client confidentiality
-   • Protect evidence integrity
-   • Secure sensitive research data
-   • Follow professional standards
-   • Document operational procedures
-   • Implement defense in depth
-   • Regularly review and update OPSEC
-
-🚫 DON'T:
-   • Use OPSEC to hide unauthorized activities
-   • Assume anonymity equals permission
-   • Exceed authorized scope
-   • Access systems without permission
-   • Develop tools for malicious purposes
-   • Share operational details publicly
-   • Violate laws or regulations
-   • Ignore professional ethics
-```
-
----
-
-### Risk Considerations
-
-#### Technical Risks
-
-**OPSEC Failure:**
-- Identity attribution and exposure
-- Compromise of operational infrastructure
-- Loss of anonymity or privacy
-- Evidence contamination
-- Network traffic correlation
-- VM escape or breakout
-
-**Infrastructure Compromise:**
-- Malware infection of host system
-- Network pivot to LAN
-- Data exfiltration
-- Credential theft
-- Backdoor persistence
-- Hardware keyloggers
-
-#### Legal Risks
-
-**Criminal Liability:**
-- Federal computer crime charges (CFAA)
-- State computer crime statutes
-- Wire fraud or identity theft charges
-- Conspiracy or aiding/abetting charges
-- International cybercrime prosecution
-
-**Civil Liability:**
-- Damages from unauthorized access
-- Privacy violations and lawsuits
-- Breach of contract (NDA, ToS)
-- Loss of business or reputation
-- Injunctions and restraining orders
-
-**Professional Consequences:**
-- Loss of security certifications
-- Professional license revocation
-- Employment termination
-- Industry blacklisting
-- Inability to work in security field
-
-#### Risk Mitigation
-
-```
-✅ Mitigation Strategies:
-
-Authorization & Documentation:
-   • Written authorization for all operations
-   • Clear scope and boundaries
-   • Regular authorization verification
-   • Detailed activity logs
-   • Evidence preservation procedures
-
-Technical Controls:
-   • Defense in depth architecture
-   • Regular security assessments
-   • Monitoring and alerting
-   • Incident response procedures
-   • Backup and recovery plans
-
-Professional Practices:
-   • Maintain professional liability insurance
-   • Follow industry standards and ethics
-   • Consult legal counsel when uncertain
-   • Participate in professional organizations
-   • Continuous education and training
-```
-
----
-
-### Incident Response for OPSEC Breaches
-
-#### If OPSEC is Compromised
-
-```
-🚨 Immediate Actions:
-
-1. STOP all operational activities immediately
-2. Document the compromise (what, when, how)
-3. Isolate affected systems
-4. Assess extent of exposure
-5. Notify appropriate parties:
-   - Client (if under engagement)
-   - Legal counsel
-   - Professional liability insurance
-   - Law enforcement (if criminal activity detected)
-
-6. Preserve evidence of compromise
-7. Implement additional security controls
-8. Conduct lessons learned review
-9. Update OPSEC procedures
-10. Monitor for ongoing threats
-```
-
-#### Post-Incident Procedures
-
-```
-Recovery Steps:
-   ☐ Rebuild compromised infrastructure
-   ☐ Rotate all credentials and keys
-   ☐ Review and strengthen OPSEC procedures
-   ☐ Conduct security training
-   ☐ Update incident response plans
-   ☐ Document lessons learned
-   ☐ Implement preventive controls
-   ☐ Monitor for indicators of compromise
-```
-
----
-
-### Warranty Disclaimer
-
-```
-⚠️ DISCLAIMER OF WARRANTIES ⚠️
-
-This OPSEC documentation is provided "AS IS" without warranty of any kind,
-either expressed or implied, including but not limited to:
-
-• Warranties of security or protection
-• Warranties of anonymity or privacy
-• Warranties of fitness for a particular purpose
-• Warranties of non-infringement
-• Warranties of accuracy or completeness
-
-THE AUTHORS AND MAINTAINERS:
-• Make no guarantees about OPSEC effectiveness
-• Are not responsible for OPSEC failures or breaches
-• Do not warrant protection from attribution
-• Cannot guarantee anonymity or privacy
-• Assume no liability for compromised operations
-• May update content without notice
-
-USERS ACKNOWLEDGE:
-• They use OPSEC practices at their own risk
-• They are responsible for their own security
-• They must obtain appropriate authorizations
-• They are liable for their actions
-• They understand limitations of technical controls
-• They should consult security professionals
-
-CRITICAL: Even strong OPSEC:
-- Does NOT provide legal immunity
-- Does NOT guarantee anonymity
-- Does NOT prevent all attribution
-- Does NOT excuse unauthorized activities
-- May be defeated by determined adversaries
-```
-
----
-
-### Liability Limitations
-
-**The Authors, Contributors, and Maintainers are NOT liable for:**
-
-- Identity exposure or attribution
-- Compromise of operational security
-- Data breaches or security incidents
-- Criminal charges resulting from user activities
-- Civil lawsuits from unauthorized operations
-- Loss of anonymity or privacy
-- System compromises or malware infections
-- Network intrusions or attacks
-- Professional license loss
-- Any damages arising from OPSEC practices
-
-**Maximum Liability:**
-To the extent permitted by law, total liability shall not exceed
-the amount paid for this documentation (which is zero).
-
-**User Assumption of Risk:**
-By implementing these OPSEC practices, users explicitly acknowledge
-and accept all risks, including but not limited to criminal prosecution,
-civil liability, professional consequences, and personal harm.
-
----
-
+<a id="contributing"></a>
 ## 🤝 Contributing
 
-### How to Contribute OPSEC Documentation
+Contributions should follow the repository's documentation style and include:
 
-We welcome contributions from security professionals and researchers.
+- Purpose, scope, prerequisites, and a clear protection model.
+- Procedures that identify the affected host, guest, drive, or account.
+- Verification steps, failure conditions, and recovery guidance.
+- Primary-source references for technical claims.
+- Tested versions and hardware where testing occurred.
+- A clear distinction between documentation review and hands-on validation.
+- Working relative links and an updated documentation table when files are added or renamed.
 
-#### Contribution Guidelines
-
-**To Submit OPSEC Documentation:**
-1. Fork the repository
-2. Create documentation following standards
-3. Test all procedures in isolated environments
-4. Include comprehensive security warnings
-5. Add proper attribution
-6. Submit pull request with description
-
-**Documentation Standards:**
-
-```markdown
-# [Topic] OPSEC Guide
-
-## ⚠️ Critical Warnings
-Legal and security warnings prominently displayed
-
-## Overview
-Purpose and scope of OPSEC practices
-
-## Prerequisites
-Required knowledge, tools, and authorizations
-
-## Implementation
-Step-by-step OPSEC procedures
-
-## Verification
-How to verify OPSEC measures
-
-## Common Pitfalls
-Mistakes to avoid
-
-## Incident Response
-What to do if OPSEC is compromised
-
-## References
-Sources and further reading
-
-## Last Updated
-Date and version information
-```
-
-#### Quality Requirements
-
-**All OPSEC Documentation Must Include:**
-- ✅ Prominent legal and security warnings
-- ✅ Authorization requirements
-- ✅ Risk assessments
-- ✅ Tested procedures
-- ✅ Incident response guidance
-- ✅ Verification methods
-- ✅ Common pitfalls
-- ✅ Professional standards
-- ✅ Proper attribution
-- ✅ Last updated date
+Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no evidence.” Report security concerns without publishing credentials, client information, or sensitive operational details.
 
 ---
 
-## 📚 Resources
+<a id="resources"></a>
+## 📚 Resources and Related Files
 
-### OPSEC Standards & Frameworks
+### Repository Navigation
 
-- **NIST SP 800-123**: Guide to General Server Security
-- **NIST SP 800-171**: Protecting Controlled Unclassified Information
-- **NSA OPSEC Guidelines**: https://www.nsa.gov/
-- **OWASP Security Principles**: https://owasp.org/
+- [General OPSEC Guide](./OPSEC_guide.md)
+- [Whonix + Kicksecure USB Setup Guide](./whonix-kicksecure-usb-guide.md)
+- [Tails USB Setup Guide](./talis-usb-setup-guide.md)
+- [Tradecraft](../Tradecraft/)
+- [Master Index](../README.md)
 
-### Anonymity & Privacy Resources
+### Official Whonix and Kicksecure Documentation
 
-- **TOR Project**: https://www.torproject.org/
-- **Whonix Documentation**: https://www.whonix.org/wiki/Documentation
-- **EFF Surveillance Self-Defense**: https://ssd.eff.org/
-- **Privacy Guides**: https://www.privacyguides.org/
+- [Whonix technical design](https://www.whonix.org/wiki/Technical_Introduction)
+- [Whonix USB installation](https://www.whonix.org/wiki/USB_Installation)
+- [Whonix live mode](https://www.whonix.org/wiki/Live_Mode)
+- [Whonix system requirements](https://www.whonix.org/wiki/System_Requirements)
+- [Whonix hardening checklist and host MAC policy](https://www.whonix.org/wiki/System_Hardening_Checklist)
+- [Kicksecure documentation](https://www.kicksecure.com/wiki/Documentation)
 
-### Virtualization & Lab Resources
+### Official Tails Documentation
 
-- **VMware Workstation Pro Docs**: https://docs.vmware.com/
-- **Proxmox VE Documentation**: https://pve.proxmox.com/wiki/
-- **QEMU/KVM Documentation**: https://www.qemu.org/docs/master/
-- **VirtualBox Documentation**: https://www.virtualbox.org/wiki/Documentation
+- [Installation and hardware preparation](https://tails.net/install/index.en.html)
+- [System requirements](https://tails.net/doc/about/requirements/index.en.html)
+- [Security warnings and limitations](https://tails.net/doc/about/warnings/index.en.html)
+- [Persistent Storage](https://tails.net/doc/persistent_storage/index.en.html)
+- [Additional Software](https://tails.net/doc/persistent_storage/additional_software/index.en.html)
+- [MAC address anonymization](https://tails.net/doc/first_steps/welcome_screen/mac_spoofing/index.en.html)
+- [Unsafe Browser](https://tails.net/doc/anonymous_internet/unsafe_browser/index.en.html)
+- [Upgrading Tails](https://tails.net/doc/upgrade/index.en.html)
 
-### Malware Analysis Resources
+### Broader References
 
-- **REMnux Documentation**: https://docs.remnux.org/
-- **FLARE-VM**: https://github.com/mandiant/flare-vm
-- **Cuckoo Sandbox**: https://cuckoosandbox.org/
-- **ANY.RUN**: https://any.run/
+- [Tor Browser manual](https://tb-manual.torproject.org/)
+- [EFF Surveillance Self-Defense](https://ssd.eff.org/)
+- [VirtualBox networking documentation](https://www.virtualbox.org/manual/ch06.html)
+- [REMnux documentation](https://docs.remnux.org/)
+- [FLARE-VM](https://github.com/mandiant/flare-vm)
 
-### Professional Development
+### Source Notes
 
-- **GIAC GPEN**: Penetration Tester Certification
-- **OSCP**: Offensive Security Certified Professional
-- **GIAC GCIH**: Certified Incident Handler
-- **Security+**: CompTIA Security+ Certification
-
----
-
-## 🔗 Quick Links
-
-### Internal Links
-- [🏠 Main Repository](../README.md)
-- [🎯 START HERE Guide](../START_HERE.md)
-- [💻 Cybersecurity Master Guide](../ultimate_cybersecurity_master_guide.md)
-- [🔍 OSINT Resources](../OSINT/README.md)
-- [✅ Security Checklists](../Checklists/README.md)
-- [📚 Documentation](../Documentation/README.md)
-
-### External Resources
-- [EFF Privacy Tools](https://www.eff.org/pages/tools)
-- [SANS Security Resources](https://www.sans.org/security-resources/)
-- [NIST Cybersecurity](https://www.nist.gov/cyberframework)
-- [OWASP Foundation](https://owasp.org)
-
----
-
-## 📊 Repository Statistics
-
-```
-📁 Current Files: 1 comprehensive guide
-📖 Coverage: Virtualization, Network Security, Privacy, Anonymity
-🔄 Last Updated: 2025
-👥 Maintained by: Pacific Northwest Computers (PNWC)
-📝 Status: Active & Current
-```
-
----
-
-## 🎓 OPSEC Best Practices Summary
-
-### Essential OPSEC Principles
-
-**Compartmentalization:**
-- Separate VMs for different operations
-- Isolated identities per activity
-- Network segmentation
-- No cross-contamination
-
-**Defense in Depth:**
-- Multiple security layers
-- VPN at host level
-- VM isolation
-- Encrypted communications
-- Regular snapshots
-
-**Assume Breach:**
-- Encrypt all sensitive data
-- Use ephemeral infrastructure
-- Regular security reviews
-- Incident response ready
-- Plausible deniability
-
-**Minimize Attack Surface:**
-- Disable unnecessary features
-- NAT-only networking default
-- No shared folders or clipboard
-- Minimal services running
-- Hardened configurations
-
-**Need-to-Know:**
-- Limit information sharing
-- Separate operational identities
-- Minimal digital footprint
-- No public operational discussions
-- Protect confidential information
-
----
-
-## 💬 Feedback & Support
-
-### Questions or Issues?
-- Open an issue on GitHub
-- Review documentation thoroughly first
-- Provide specific environment details
-- Include virtualization platform and version
-- Respect response times
-
-### Suggest Improvements
-- Share OPSEC lessons learned (anonymized)
-- Propose additional topics
-- Report security concerns
-- Contribute configurations
-- Help improve procedures
-
-### Professional Collaboration
-- Share anonymized case studies
-- Contribute best practices
-- Participate in security discussions
-- Help maintain documentation quality
-- Mentor others in OPSEC practices
-
----
-
-## 🌟 Acknowledgments
-
-### Technology Providers
-- **VMware** - Workstation Pro virtualization
-- **Proxmox** - Open-source virtualization platform
-- **TOR Project** - Anonymous communication network
-- **Whonix** - Privacy-focused operating system
-- **Kali Linux** - Penetration testing distribution
-
-### Security Communities
-- **Offensive Security** - Training and certifications
-- **SANS Institute** - Security education and research
-- **EFF** - Digital rights and privacy advocacy
-- **OWASP** - Application security resources
-- **Open source security community**
-
-### Knowledge Sources
-- 70+ professional cybersecurity books
-- Industry security frameworks
-- Professional security practitioners
-- Academic security research
-- Real-world operational experience
-
-**Thank you for practicing responsible operational security.**
+[^whonix-design]: [Whonix: Technical Introduction](https://www.whonix.org/wiki/Technical_Introduction). Gateway/Workstation architecture and Tor routing.
+[^whonix-usb]: [Whonix: USB Installation](https://www.whonix.org/wiki/USB_Installation). Kicksecure host installation and Whonix deployment on external storage.
+[^whonix-live]: [Whonix: Live Mode](https://www.whonix.org/wiki/Live_Mode). Host/guest distinction, default persistence, and initial Gateway setup.
+[^tails-persistence]: [Tails: Persistent Storage](https://tails.net/doc/persistent_storage/index.en.html). Selective encrypted storage and its visibility.
+[^tails-warnings]: [Tails: Warnings](https://tails.net/doc/about/warnings/index.en.html). Identity exposure, Tor limitations, and hardware/firmware threats.
+[^unsafe-browser]: [Tails: Unsafe Browser](https://tails.net/doc/anonymous_internet/unsafe_browser/index.en.html). Direct connectivity and intended uses.
+[^virtualbox]: [VirtualBox: Virtual Networking](https://www.virtualbox.org/manual/ch06.html). NAT, internal networking, and host-only networking boundaries.
 
 ---
 
 <div align="center">
 
-**📖 Implement OPSEC Responsibly: Always Within Legal Boundaries**
+**🔒 Protect identities. Separate activities. Verify assumptions.**
 
-*Strong OPSEC protects authorized operations, not illegal activities.*
+**Maintained by:** [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
-**Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
-
-**Maintained by**: [Pacific Northwest Computers](https://github.com/Pnwcomputers)
-
----
-
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
-
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
-
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
-
-⭐ **Star this repo if you find it useful!** ⭐
+**Documentation:** Three setup and OPSEC guides, plus this directory index.
 
 </div>
 
-## Related Files
-- [OPSEC_guide.md](OPSEC_guide.md) - Detailed 2025 OPSEC guide: virtualized setup for pentesting, malware research, and privacy
-- [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup for OPSEC-safe networking
-- [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous research
-- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization for OPSEC isolation
-- [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - OSINT OPSEC: how to research without leaving traces
+_Documentation reviewed: 2026-09-30. Comparison checked against official project documentation; hardware installation and isolation tests were not performed for this README update._
+
+[⬅️ Back to Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)
