@@ -115,7 +115,7 @@ This directory covers **operational security for authorized security work and pr
 | **[tails-usb-setup-guide.md](./talis-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
 
 > [!NOTE]
-> The Tails guide is currently stored as **`talis-usb-setup-guide.md`**. The link above matches the repository filename. If it is renamed to `tails-usb-setup-guide.md`, update its incoming links at the same time.
+> The Tails guide is currently stored as **`talis-usb-setup-guide.md`**. The link above matches the repository filename. It will be renamed to `tails-usb-setup-guide.md`, and will update its incoming links at the same time.
 
 ### Suggested Reading Order
 
