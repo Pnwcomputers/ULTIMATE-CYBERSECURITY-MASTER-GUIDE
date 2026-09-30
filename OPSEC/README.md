@@ -112,10 +112,7 @@ This directory covers **operational security for authorized security work and pr
 |------|-------------|------------------|
 | **[OPSEC_guide.md](./OPSEC_guide.md)** | General OPSEC and virtualized security environment guide. | Field and home-lab workflows, host security, VM architecture, network segmentation, and research practices. |
 | **[whonix-kicksecure-usb-guide.md](./whonix-kicksecure-usb-guide.md)** | Install Kicksecure on an encrypted external drive and run Whonix-Gateway and Whonix-Workstation in VirtualBox. | Trusted downloads, installation, encryption checks, VM routing, persistent/live modes, updates, and recovery. |
-| **[tails-usb-setup-guide.md](./talis-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
-
-> [!NOTE]
-> The Tails guide is currently stored as **`talis-usb-setup-guide.md`**. The link above matches the repository filename. It will be renamed to `tails-usb-setup-guide.md`, and will update its incoming links at the same time.
+| **[tails-usb-setup-guide.md](./tails-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
 
 ### Suggested Reading Order
 
