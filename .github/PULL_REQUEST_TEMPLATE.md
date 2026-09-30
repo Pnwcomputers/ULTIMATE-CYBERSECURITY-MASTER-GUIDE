@@ -14,7 +14,9 @@
 ## Checklist
 
 - [ ] Internal links use **relative paths** and resolve (the Link Check workflow passes)
-- [ ] Any renamed/moved files have **all referring links updated**
+- [ ] Any renamed/moved files have **all referring links updated**, including relative links inside moved documents
+- [ ] New guides have a clickable entry in their section index; new sections are linked from the root README and relevant START_HERE.md routes
+- [ ] Related guides and return navigation are linked where useful
 - [ ] New Markdown follows [STYLE_GUIDE.md](../STYLE_GUIDE.md) (single H1, logical heading levels)
 - [ ] Offensive/dual-use scripts include an **authorized-use disclaimer** and note prerequisites
 - [ ] Destructive commands carry a **warning + safer alternative / rollback** where relevant

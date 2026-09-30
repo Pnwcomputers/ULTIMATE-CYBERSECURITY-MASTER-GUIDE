@@ -76,6 +76,14 @@ By submitting a contribution you confirm:
 - Keep lines reasonably wrapped - no 500-character single lines
 - Badge syntax: `![Badge](https://img.shields.io/badge/...)` - use sparingly
 
+### Navigation for New or Moved Documents
+
+- Add a clickable entry to the nearest section index; plain filename text is not a navigation link.
+- For a new section, link its index from the root README and add a relevant route in START_HERE.md.
+- Add related-guide links where they help readers follow prerequisites or a companion workflow; include a route back to the section index.
+- After a rename or move, update incoming links, heading fragments, and relative paths in the moved document itself.
+- Confirm the full internal link check and changed-document Markdown lint pass. A passing link check alone does not detect documents missing from indexes.
+
 ### Script Standards (if contributing to `Scripts/`)
 
 Every script must include at the top:

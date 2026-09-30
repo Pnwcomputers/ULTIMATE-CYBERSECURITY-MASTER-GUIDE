@@ -18,7 +18,7 @@
 Deep-dive tradecraft reference for red team, blue team, and purple team practitioners - covering offensive TTPs, detection logic, and defensive countermeasures across AD, C2, AV/EDR evasion, LOLBins, network detection, and OSINT.
 
 ## ⚙️ Function
-Indexes 6 deep-dive files: Active Directory attacks/defense, AV/EDR evasion techniques, C2 framework deployment and detection, LOLBins/LOLBAs, network detection methodology, and OSINT/threat intelligence tradecraft. Each file covers both offensive technique and defensive detection.
+Indexes six deep-dive guides plus companion evasion study notes: Active Directory attacks/defense, AV/EDR evasion techniques, C2 framework deployment and detection, LOLBins/LOLBAs, network detection methodology, and OSINT/threat intelligence tradecraft. Each file covers both offensive technique and defensive detection.
 
 ## 🏆 Goal
 Provide a single reference for understanding attack techniques and the corresponding detection/hunting logic - useful for both red team planning and blue team detection engineering.
@@ -57,6 +57,7 @@ As the entry point into the Tradecraft/ folder, or when looking up which file co
 | [network-detection.md](network-detection.md) | Packet capture, Zeek/Suricata analysis, C2 traffic detection, DNS tunneling, lateral movement, and network forensics |
 | [active-directory.md](active-directory.md) | AD enumeration, credential attacks, Kerberos abuse, privilege escalation paths, domain persistence, detection, and hardening |
 | [av-edr-evasion.md](av-edr-evasion.md) | How attackers evade antivirus and endpoint detection/response solutions |
+| [evasion.md](evasion.md) | Companion evasion-engineering study notes; use alongside the AV/EDR guide |
 
 ---
 

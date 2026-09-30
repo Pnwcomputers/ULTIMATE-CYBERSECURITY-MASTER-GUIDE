@@ -72,6 +72,8 @@ boundary near the top. It **adds** context; it never replaces or removes content
   ---
   [⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)
   ```
+- **Index Coverage:** New guides need a clickable link from their nearest section index. New sections need a route from the root README and a relevant START_HERE.md entry. Keep related-guide links useful and include a return route to the section index.
+- **Moved Content:** Update referring links and the moved document's own relative paths; verify that links labeled as the master index actually target the root README.
 - **Authoritative Sources:** When citing CVEs, standards, or vendor documentation, provide direct reference URLs (NIST, CISA, OWASP, MITRE ATT&CK).
 - **Related-Content Blocks:** Where useful, guides should end (above the navigation footer) with a `## See also` list of related guides, and advanced guides should open with a short `**Prerequisites:**` line linking to the fundamentals a reader needs first. Define acronyms on first use and link them to [GLOSSARY.md](GLOSSARY.md).
 

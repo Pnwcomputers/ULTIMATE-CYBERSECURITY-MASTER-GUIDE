@@ -4,7 +4,7 @@
 
 **Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Blue Team](https://img.shields.io/badge/Operations-Blue_Team-blue?style=for-the-badge)
 ![WIDS](https://img.shields.io/badge/Framework-WIDS-darkred?style=for-the-badge)

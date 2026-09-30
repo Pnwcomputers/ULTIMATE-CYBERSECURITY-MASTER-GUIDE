@@ -933,6 +933,15 @@ What are you evading?
 | BOF (Beacon Object Files) | Inline execution in Cobalt Strike |
 | LOLBAS | LOLBin catalog |
 
+## See also
+
+- [Tradecraft index](./README.md) — the section catalog.
+- [AV/EDR evasion guide](./av-edr-evasion.md) — technique context and defensive detection.
+- [Reverse Engineering](../ReverseEngineering/README.md) — binary analysis and Ghidra workflows.
+- [Homelab](../Homelab/README.md) — controlled practice environments.
+
 ---
+
+[⬅️ Back to Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)
 
 *Cliff notes by Jon-Eric Pienkowski / PNWC — following Evasion Engineering (No Starch Press) by Dennis Chow & Michael LaSalvia*
