@@ -136,11 +136,13 @@ Host OS → VPN → Virtualization Layer → VMs → Internet
 - **NAT-only networking for most VMs**  
 - **Bridged mode ONLY for intentional LAN work**  
 
+**Whonix exception:** Workstation must use only the supplied private network to Gateway; do not apply the generic NAT/bridged advice to it. Use the [Whonix + Kicksecure guide](./whonix-kicksecure-usb-guide.md#hypervisor-selection) for the VirtualBox baseline and the separate KVM/libvirt installation route.
+
 ## Network OPSEC
 
-- VPN: **host level, no exceptions**  
+- VPN: host level when required by the task; a VPN is not a Whonix requirement. Review [Whonix tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction) before adding one.
 - Whonix:  
-  - Gateway VM → VPN (optional)  
+  - Workstation → Gateway → Tor; an optional host VPN sits before Tor
   - Workstation → Gateway only  
 
 ## Identity Separation
@@ -198,7 +200,7 @@ This mode is for **working on the go**, at client sites, on travel, or when you 
 ### VMs:
 - 1 × OSINT VM (Debian minimal)  
 - 1 × Kali/Parrot  
-- 1 × Whonix Workstation  
+- 1 × Whonix-Gateway **and** 1 × Whonix-Workstation (LXQt build flavors: `whonix-gateway-lxqt` and `whonix-workstation-lxqt`); see [installation and naming](./whonix-kicksecure-usb-guide.md#guest-names).
 - (Optional) 1 × Windows Malware VM  
 
 ### Storage:

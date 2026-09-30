@@ -46,6 +46,7 @@ Provide a curated list of download links and use-case descriptions so security p
 #### 💿 Whonix
 - **Purpose**: Privacy and Anonymity
 - **Description**: An operating system focused on anonymity, privacy, and security. It's based on Tor, Debian GNU/Linux, and the principle of security by isolation.
+- **Deployment**: Whonix-Gateway and Whonix-Workstation form a pair; the LXQt build flavors are `whonix-gateway-lxqt` and `whonix-workstation-lxqt`. See the [USB setup and installer distinctions](../OPSEC/whonix-kicksecure-usb-guide.md#guest-names), including the separate [KVM/libvirt route](../OPSEC/whonix-kicksecure-usb-guide.md#hypervisor-selection).
 - **Link**: https://www.whonix.org/wiki/Download
 
 #### 💿 Qubes OS
