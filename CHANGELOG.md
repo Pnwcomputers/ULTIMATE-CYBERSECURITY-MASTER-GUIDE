@@ -1,14 +1,16 @@
-# 🔄 Change Log - September 29, 2026
+# 🔄 Change Log - September 30, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1456
-- **Files Modified**: 1724
-- **New Files**: 671
+- **Commits Analyzed**: 1464
+- **Files Modified**: 1730
+- **New Files**: 673
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Create talis-usb-setup-guide.md (`6c2364b`)
+- Create whonix-kicksecure-usb-guide.md (`916ed02`)
 - Add Reverse Engineering section and standalone Ghidra master guide (`2b4ce0f`)
 - Add DarkWeb navigation guide to README (`2bc91d6`)
 - Update README with new resource links (`d259fcc`)
@@ -474,6 +476,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix filename reference for Tails USB setup guide (`fad81c4`)
 - Fix wording in DarkWeb guide description (`e5048bf`)
 - fix: remediate 2026-09-21 review findings (R01–R12) (#86) (`de8f587`)
 - Fix formatting in NanoVNA README header (`07fe6ca`)
@@ -632,6 +635,11 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Rename talis-usb-setup-guide.md to tails-usb-setup-guide.md (`171ad1c`)
+- Update README.md (`05a18ed`)
+- Update README.md (`6bc74e4`)
+- Update README.md (`e4e4afb`)
+- Update whonix-kicksecure-usb-guide.md (`152667c`)
 - Update README title with emoji (`3184e49`)
 - Update ghidra-guide-index.md (`9fff798`)
 - Update README.md (`47061a3`)
@@ -1480,9 +1488,13 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OPSEC/README.md`
+- `OPSEC/tails-usb-setup-guide.md`
+- `OPSEC/talis-usb-setup-guide.md`
+- `OPSEC/whonix-kicksecure-usb-guide.md`
+- `CHANGELOG.md`
 - `ReverseEngineering/ghidra-guide-index.md`
 - `ReverseEngineering/README.md`
-- `CHANGELOG.md`
 - `README.md`
 - `Documentation/README.md`
 - `REVIEW_2026-09-21.md`
@@ -1650,7 +1662,6 @@
 - `IncidentResponse/README.md`
 - `IncidentResponse/SIEM/README.md`
 - `LEGAL.md`
-- `OPSEC/README.md`
 - `PDF/README.md`
 - `PlayBooks/README.md`
 - `SpaceSecurity/README.md`
