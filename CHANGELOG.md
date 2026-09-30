@@ -1,8 +1,8 @@
 # 🔄 Change Log - September 30, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1465
-- **Files Modified**: 1732
+- **Commits Analyzed**: 1468
+- **Files Modified**: 1760
 - **New Files**: 673
 - **Deleted Files**: 121
 
@@ -476,6 +476,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: fix deleted review references and stale section anchors (#96) (`7020111`)
+- docs: correct Whonix installer, flavor naming and KVM guidance (#94) (`aea16e4`)
 - Fix filename reference for Tails USB setup guide (`fad81c4`)
 - Fix wording in DarkWeb guide description (`e5048bf`)
 - fix: remediate 2026-09-21 review findings (R01–R12) (#86) (`de8f587`)
@@ -1254,6 +1256,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: connect unindexed guides and strengthen navigation conventions (#97) (`e4dfdb3`)
 - Enhance Ghidra guide title and purpose sections (`f25cc79`)
 - Enhance README.md with emoji headers (`8cc59d0`)
 - Rewrite ReverseEngineering README as a working section hub (`31ee04a`)
@@ -1489,20 +1492,40 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `OPSEC/whonix-kicksecure-usb-guide.md`
+- `.github/CONTRIBUTING.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `AI/AnythingLLM/README.md`
+- `AI/OpenClaw/README.md`
+- `Documentation/README.md`
+- `HardwareHacking/README.md`
+- `IncidentResponse/Firewalls/openbsd_pf.md`
+- `IncidentResponse/IDS&IPS/nzyme_wids.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `IncidentResponse/README.md`
+- `PlayBooks/README.md`
+- `README.md`
+- `ReverseEngineering/ghidra-guide-index.md`
+- `START_HERE.md`
+- `STYLE_GUIDE.md`
+- `Tradecraft/README.md`
+- `Tradecraft/evasion.md`
+- `AUDIT_FINDINGS.md`
+- `AUDIT_REPORT.md`
+- `Scripts/GO/README.md`
+- `uConsole/README.md`
+- `ultimate_cybersecurity_master_guide.md`
 - `CHANGELOG.md`
+- `Documentation/virtualmachines.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `OPSEC/OPSEC_guide.md`
 - `OPSEC/README.md`
+- `OPSEC/whonix-kicksecure-usb-guide.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
-- `ReverseEngineering/ghidra-guide-index.md`
 - `ReverseEngineering/README.md`
-- `README.md`
-- `Documentation/README.md`
 - `REVIEW_2026-09-21.md`
 - `.github/workflows/cm5-parrot-checks.yml`
 - `.github/workflows/guide-tests.yml`
-- `AUDIT_FINDINGS.md`
-- `AUDIT_REPORT.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Data-Engineering/Phase2/data_storage_file_formats.md`
 - `Data-Engineering/Phase2/streaming_cdc.md`
@@ -1514,7 +1537,6 @@
 - `Data-Engineering/Phase3/pipeline_testing_cicd.md`
 - `Data-Engineering/README.md`
 - `HardwareTesting/py/full_hw_suite.py`
-- `IncidentResponse/Firewalls/openbsd_pf.md`
 - `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/HoneyPot/dionaea.md`
 - `IncidentResponse/HoneyPot/honeypi.md`
@@ -1530,7 +1552,6 @@
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
-- `Scripts/GO/README.md`
 - `Scripts/GO/bruteforce/cassbrute.py`
 - `Scripts/README.md`
 - `Scripts/pnwc_install_tools.sh`
@@ -1565,7 +1586,6 @@
 - `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
-- `uConsole/README.md`
 - `uConsole/ParrotOS/README.md`
 - `uConsole/scripts/PARROT-CM5.md`
 - `uConsole/scripts/uconsole-cm5-parrot-setup.sh`
@@ -1588,10 +1608,6 @@
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Firewall/openbsd_pf.md`
 - `IncidentResponse/Firewall/PF.md`
-- `Tradecraft/evasion.md`
-- `IncidentResponse/IDS&IPS/nzyme_wids.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
-- `ultimate_cybersecurity_master_guide.md`
 - `IncidentResponse/IDS&IPS/readme.md`
 - `IncidentResponse/IDS&IPS/security_onion.md`
 - `IncidentResponse/IDS/nzyme_wids.md`
@@ -1608,7 +1624,6 @@
 - `Documentation/microcontroller_wifi_testing.md`
 - `Cryptography/applied-crypto.md`
 - `Cryptography/algorithms.md`
-- `START_HERE.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/kubernetes.md`
@@ -1644,9 +1659,7 @@
 - `IncidentResponse/log_agg.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `cybersecurity_cliff_notes.md`
-- `STYLE_GUIDE.md`
 - `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `.github/workflows/link-check.yml`
@@ -1656,15 +1669,12 @@
 - `Documentation/VPN.md`
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/references.md`
-- `HardwareHacking/README.md`
 - `Homelab/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Endpoint-Visibility/README.md`
-- `IncidentResponse/README.md`
 - `IncidentResponse/SIEM/README.md`
 - `LEGAL.md`
 - `PDF/README.md`
-- `PlayBooks/README.md`
 - `SpaceSecurity/README.md`
 - `uConsole/CM4-SETUP.md`
 - `HardwareHacking/LA1010.md`
@@ -1674,18 +1684,13 @@
 - `.markdownlint.jsonc`
 - `Documentation/LinuxCheatSheet.md`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
-- `OPSEC/OPSEC_guide.md`
 - `OSINT/OSINT_CHEATSHEET.md`
 - `PlayBooks/PurpleTeam_Simple.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
-- `.github/CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
-- `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/workflows/markdownlint.yml`
 - `.lycheeignore`
-- `AI/AnythingLLM/README.md`
-- `AI/OpenClaw/README.md`
 - `Checklists/Persistence.md`
 - `Checklists/command-and-control.md`
 - `Checklists/microsoft-exchange.md`
@@ -1717,7 +1722,6 @@
 - `Scripts/Python/python-webshell-check.py`
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/SQL/wordpress_add_admin.sql`
-- `Tradecraft/README.md`
 - `Tradecraft/c2-frameworks.md`
 - `assets/i2c.jpg`
 - `assets/md`
@@ -1792,7 +1796,6 @@
 - `Documentation/WifiMarauder_CheatSheet.md`
 - `Documentation/arduinoIDE.md`
 - `Documentation/python.md`
-- `Documentation/virtualmachines.md`
 - `Documentation/vscode.md`
 - `HardwareHacking/BitPirate.md`
 - `HardwareHacking/GreatFETone.md`
