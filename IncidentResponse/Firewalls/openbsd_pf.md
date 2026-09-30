@@ -4,7 +4,7 @@
 
 **Rulesets, NAT, DMZs, bridges, wireless, high availability, adaptive defense, traffic shaping, and NetFlow monitoring — end to end**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![Domain](https://img.shields.io/badge/Domain-Network_Defense-blue?style=for-the-badge)
 ![Packet Filter](https://img.shields.io/badge/Tool-PF_Packet_Filter-orange?style=for-the-badge)
@@ -895,7 +895,7 @@ Prefer these primary sources over any third-party blog (this one included), and 
 ## 🔗 Quick Links
 
 ### Internal Links
-- [🏠 Main Repository](../README.md)
+- [🏠 Main Repository](../../README.md)
 - [🎯 START HERE Guide](../../START_HERE.md)
 - [💻 Cybersecurity Master Guide](../../ultimate_cybersecurity_master_guide.md)
 - [🏠 Homelab Setup](../../Homelab/README.md)

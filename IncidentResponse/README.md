@@ -92,6 +92,16 @@ Visibility into East/West and North/South traffic flows.
 
 ---
 
+### 🔥 Firewalls & Network Enforcement
+
+| Guide | Use |
+|---|---|
+| [OpenBSD PF Firewall](./Firewalls/openbsd_pf.md) | PF rulesets, NAT, network-edge deployments, high availability, and logging |
+
+Pair firewall enforcement with [network intrusion response](./network_intrusion.md) and [log aggregation](./log_agg.md). For analysis of an acquired binary, use the [Reverse Engineering index](../ReverseEngineering/README.md) after the sample is contained.
+
+---
+
 ### 📘 IR Playbooks & SOPs
 
 Step-by-step containment, eradication, and recovery guides.

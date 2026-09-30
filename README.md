@@ -65,7 +65,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔍 **OSINT & Recon** | [OSINT/](./OSINT/) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI/](./AI/) · [SDR/](./SDR/) · [HardwareHacking/](./HardwareHacking/) · [HardwareTesting/](./HardwareTesting/) · [SpaceSecurity/](./SpaceSecurity/) · [Mobile/](./Mobile/) · [uConsole/](./uConsole/) |
 | 🔐 **Governance, Crypto & Reference** | [Compliance/](./Compliance/) | [Cryptography/](./Cryptography/) · [Documentation/](./Documentation/) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC/](./OPSEC/) |
-| ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) |
+| ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) · [Security Policy](./.github/SECURITY.md) |
 
 ---
 
@@ -111,6 +111,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔐 [Cryptography](./Cryptography/) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205 |
 | 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
 | 📚 [Documentation](./Documentation/) | Supplemental technical documentation, command references, and cheat sheets |
+| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, and version comparison |
 | 🥷 [Hardware Hacking](./HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](./HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
 | 🏠 [Homelab Guides](./Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
@@ -146,12 +147,27 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Incident Response | [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and wired intrusion detection guides |
 | Incident Response | [Honeypots](./IncidentResponse/HoneyPot/readme.md) | Deception-system deployment guides |
 | Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
+| Incident Response | [OpenBSD PF Firewall](./IncidentResponse/Firewalls/openbsd_pf.md) | Rulesets, network-edge deployment, monitoring, and lab validation |
+| Reverse Engineering | [Ghidra Master Guide](./ReverseEngineering/ghidra-guide-index.md) | Five parts and 23 chapters; start with the section index |
+| OPSEC | [Whonix + Kicksecure USB](./OPSEC/whonix-kicksecure-usb-guide.md) · [Tails USB](./OPSEC/tails-usb-setup-guide.md) | Distinct host/guest, persistence, installation, and validation workflows |
+| SDR | [NanoVNA Field Guide](./SDR/nanovna/README.md) · [HackRF Audit Playbook](./PlayBooks/HackRFAuditPlayBook.md) | Antenna/RF measurements and spectrum-survey engagement procedures |
 | Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
 | OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
 | Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup for authorized physical-access assessments |
 | Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
 | Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
 | uConsole | [Automated Setup Scripts](./uConsole/scripts/README.md) | CM4/CM5 setup and repair automation |
+
+---
+
+### Maintenance & Historical Reviews
+
+| Resource | Purpose |
+|---|---|
+| [Audit Findings Register](./AUDIT_FINDINGS.md) | Historical August assessment and remediation register; read its scope notice |
+| [Audit Report](./AUDIT_REPORT.md) | Historical planning proposals, linked to the findings register |
+
+These records describe their dated review scope; they do not certify the current repository.
 
 ---
 

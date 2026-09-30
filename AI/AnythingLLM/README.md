@@ -19,7 +19,7 @@ Automate repetitive security research tasks through configured AgentFlows rather
 
 **Custom AgentFlow configurations for cybersecurity assessments, penetration testing, and security automation**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![AnythingLLM](https://img.shields.io/badge/AnythingLLM-AgentFlows-orange?style=for-the-badge)
 ![Use Case](https://img.shields.io/badge/Use_Case-Cybersecurity_|_Pentesting-red?style=for-the-badge)

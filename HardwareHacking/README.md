@@ -202,7 +202,7 @@ Extract secrets by observing physical emissions during normal operation.
 |------|---------|------|
 | [**OpenOCD**](https://openocd.org/) | Open-source JTAG/SWD debug | Free/OSS |
 | [**flashrom**](https://www.flashrom.org/) | SPI/parallel flash read/write | Free/OSS |
-| [**Ghidra**](https://github.com/NationalSecurityAgency/ghidra) | Firmware reverse engineering | Free/OSS |
+| [**Ghidra**](../ReverseEngineering/README.md) | Firmware reverse engineering; [local guide](../ReverseEngineering/ghidra-guide-index.md) and [upstream project](https://github.com/NationalSecurityAgency/ghidra) | Free/OSS |
 | [**IDA Pro**](https://hex-rays.com/ida-pro/) | Firmware reverse engineering | $$$$ |
 | [**Binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction and analysis | Free/OSS |
 | [**Sigrok / PulseView**](https://sigrok.org/) | Open-source logic analyzer frontend | Free/OSS |

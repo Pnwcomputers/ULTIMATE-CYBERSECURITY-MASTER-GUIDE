@@ -19,7 +19,7 @@ Running OpenClaw 24/7 on homelab hardware as a persistent AI assistant accessibl
 
 **Self-hosted AI agent framework with multi-provider LLM routing, homelab integration, and cybersecurity workflows**
 
-*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![OpenClaw](https://img.shields.io/badge/OpenClaw-2026.4.15-red?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)
 ![TrueNAS SCALE](https://img.shields.io/badge/TrueNAS-SCALE_25.04-blue?style=for-the-badge)

@@ -2,6 +2,8 @@
 
 Last reviewed: 2026-09-29
 
+*Part of the [Reverse Engineering section](./README.md) · [Master Index](../README.md)*
+
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security testing,
 > education, and defensive research. Using them against systems you do not own or
