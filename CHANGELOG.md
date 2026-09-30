@@ -1,8 +1,8 @@
 # 🔄 Change Log - September 30, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1468
-- **Files Modified**: 1760
+- **Commits Analyzed**: 1469
+- **Files Modified**: 1762
 - **New Files**: 673
 - **Deleted Files**: 121
 
@@ -637,6 +637,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- docs: clarify Whonix guest update sequence and session privileges (`eddee5a`)
 - Update whonix-kicksecure-usb-guide.md (`c76bec6`)
 - Rename talis-usb-setup-guide.md to tails-usb-setup-guide.md (`171ad1c`)
 - Update README.md (`05a18ed`)
@@ -1492,6 +1493,8 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OPSEC/whonix-kicksecure-usb-guide.md`
+- `CHANGELOG.md`
 - `.github/CONTRIBUTING.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `AI/AnythingLLM/README.md`
@@ -1514,12 +1517,10 @@
 - `Scripts/GO/README.md`
 - `uConsole/README.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `CHANGELOG.md`
 - `Documentation/virtualmachines.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `OPSEC/OPSEC_guide.md`
 - `OPSEC/README.md`
-- `OPSEC/whonix-kicksecure-usb-guide.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `ReverseEngineering/README.md`
