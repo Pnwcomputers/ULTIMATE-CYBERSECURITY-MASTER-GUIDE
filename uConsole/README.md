@@ -42,7 +42,7 @@ external WiFi adapter, NVMe storage, and the HackerGadgets power board.
 - [Setup Guides](#-setup-guides)
 - [Hardware Stack](#️-hardware-stack)
 - [CM4 vs CM5 - Quick Reference](#️-cm4-vs-cm5---quick-reference)
-- [OS Options](#-os-options)
+- [Kali OS Options](#-kali-os-options)
 - [ParrotOS Guide](./PARROT-CM5.md) _*This is a work in progress, use at your own risk!_
 - [AIO v2 Board Capabilities](#-aio-v2-board-capabilities)
 - [Common Setup Sequence (The 6-Phase Approach)](#-common-setup-sequence-the-6-phase-approach)

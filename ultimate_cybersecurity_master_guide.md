@@ -75,7 +75,7 @@ Distill 70+ expert cybersecurity books into a single actionable reference that c
 27. [Network Security Architecture](#complete-network-hardening)
 28. [Firewall Configuration](#firewall-configuration)
 29. [Intrusion Detection Systems](#intrusion-detection-with-snort)
-30. [Security Monitoring & SIEM](#security-monitoring-with-ossec)
+30. [Security Monitoring & SIEM](#security-monitoring-with-ossec--wazuh)
 31. [Incident Response](#incident-response)
 32. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
 
