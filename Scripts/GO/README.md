@@ -10,4 +10,4 @@ Do not treat these examples as installation-ready utilities or install obsolete
 interpreters to run them. Port and test an individual example in an isolated lab
 before considering it for use. Only test systems you own or are authorized to assess.
 
-See the [script index](../README.md) and [review](../../REVIEW_2026-09-21.md).
+See the [script index](../README.md) and [archived review](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/de8f58798d20db4fb07f5a9e996ec41ce8f86d6a/REVIEW_2026-09-21.md).
