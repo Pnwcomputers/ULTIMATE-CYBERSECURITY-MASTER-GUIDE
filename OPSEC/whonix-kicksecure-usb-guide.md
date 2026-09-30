@@ -340,6 +340,22 @@ Use each system's maintenance/update interface:
 
 Where present, use each VM's persistent SYSMAINT boot entry and Maintenance Panel, then return to ordinary USER mode. Keep Gateway available when Workstation needs its network. Reboot as requested, and repeat connectivity checks afterward. [^7][^18]
 
+### Step-by-step Gateway and Workstation updates
+
+For the LXQt VMs with `user-sysmaint-split`, update one guest at a time:
+
+1. Boot **Whonix-Gateway** into **PERSISTENT Mode | SYSMAINT Session**.
+2. Install Gateway updates using its System Maintenance Panel.
+3. Reboot Gateway into **PERSISTENT Mode | USER Session**.
+4. **Leave Gateway running** and wait for Tor connectivity.
+5. Boot **Whonix-Workstation** into **PERSISTENT Mode | SYSMAINT Session**.
+6. Install Workstation updates using its System Maintenance Panel. Its update traffic still passes through the running Gateway; do not shut Gateway down.
+7. Reboot Workstation into **PERSISTENT Mode | USER Session**.
+8. Repeat connectivity checks. **Normal use: both Gateway and Workstation run in USER sessions**, with Gateway started first. [^7][^15][^18]
+
+> [!NOTE]
+> **USER mode deliberately restricts administration.** Update attempts that report denied root access or permission denied for `sudo`/`pkexec` are expected in USER sessions. Reboot the affected VM into its own persistent SYSMAINT session for maintenance, then return to USER. **Host sysmaint privileges do not carry into guest VMs:** each guest has its own accounts and session permissions, regardless of the host session used to launch VirtualBox. [^7]
+
 ---
 
 <a id="validation"></a>
