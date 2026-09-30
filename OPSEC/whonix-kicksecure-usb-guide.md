@@ -1,4 +1,4 @@
-# 🔒 Whonix + Kicksecure — Encrypted USB Operating System Setup Guide
+# 🔒 Whonix + Kicksecure: Encrypted USB Operating System Setup Guide
 
 <div align="center">
 
