@@ -3,8 +3,8 @@
 _Last reviewed: 2026-10-02_
 
 > [!IMPORTANT]
-> **Historical and educational content.** Nothing in this section is secure for real
-> data. For protecting information, use the modern algorithms in
+> **Historical and educational content.** Ordinary classical ciphers are unsuitable
+> for real data. A true one-time pad has strict secrecy assumptions and no built-in authentication. For protecting information, use the modern algorithms in
 > [algorithms.md](../algorithms.md) and [applied-crypto.md](../applied-crypto.md).
 
 [← Alternative Alphabets](alphabets.md) · [🏠 Classical Index](README.md) · [Building Your Own Alphabet →](build-your-own.md)
@@ -109,7 +109,7 @@ W N
 
 `ATTACKATDAWN` → `CATTTANADAKW`
 
-Combining substitution **and** transposition (as in the WWI German ADFGVX cipher) is far stronger than either alone, and this "confusion plus diffusion" idea underlies modern block ciphers.
+Combining substitution **and** transposition (as in the WWI German ADFGVX cipher) can frustrate attacks on either stage alone. Composition does not automatically guarantee security; the details matter.
 
 ---
 
@@ -161,7 +161,7 @@ The Vigenère cipher encrypts using a series of interwoven Caesar ciphers chosen
 
 1. **Flattened frequencies:** Because the shift changes with the key, `E` encrypts to several different letters.
 2. **Same letter, different output:** The double `D` in `HIDDEN` became `B` and `N`.
-3. **Key length matters:** Security scales with the length and randomness of the keyword. A key as long as the message, used once, becomes a one-time pad ([The One-Time Pad](#the-one-time-pad)).
+3. **Key length matters:** Security scales with the length and randomness of the keyword. A uniformly random, independent, secret key as long as the message, used once, becomes a one-time pad ([The One-Time Pad](#the-one-time-pad)).
 
 ### Variants
 
@@ -176,13 +176,13 @@ The Vigenère cipher encrypts using a series of interwoven Caesar ciphers chosen
 
 ## The One-Time Pad
 
-If a Vigenère-style cipher uses a **truly random** key at least as long as the message, and the key is **never reused**, it becomes the **One-Time Pad (OTP)**, which is provably unbreakable.
+If a Vigenère-style cipher uses a **uniformly random, independent, secret** key at least as long as the message, and the key is **never reused**, it becomes the **One-Time Pad (OTP)**, which is provably unbreakable.
 
-It achieves *perfect secrecy* (Shannon, 1949): the ciphertext contains no information about the plaintext. Every plaintext of the same length is an equally valid decryption under some key.
+It achieves *perfect secrecy* (Shannon, 1949): the ciphertext contains no information about the plaintext. Every plaintext of the same length is compatible with some key. Observing the ciphertext does not change the prior probabilities of those plaintexts; it does not make all messages equally likely. Length can still be visible, and the pad does not authenticate messages.
 
-**The key distribution problem:** The flaw is logistical. To encrypt a 1 GB file, you must first securely share a 1 GB truly random key. If you had a channel secure enough for the key, you could send the message over it. OTPs were therefore reserved for the highest-value links, such as the Cold War Washington–Moscow hotline, with key material physically carried by couriers.
+**The key distribution problem:** The challenge is logistical. To encrypt a 1 GB file, you must first securely share a 1 GB truly random key. Pad material can be distributed securely in advance and used later when only an insecure communication channel is available. OTPs were therefore reserved for the highest-value links, such as the Cold War Washington–Moscow hotline, with key material physically carried by couriers.
 
-**Reuse is fatal:** If two messages use the same pad, `C₁ ⊕ C₂ = P₁ ⊕ P₂`; the key cancels out. The U.S. VENONA project exploited exactly this against reused Soviet pads.
+**Reuse is fatal:** For a binary XOR pad, if two messages reuse the same pad, `C₁ ⊕ C₂ = P₁ ⊕ P₂`; the key cancels out over the overlap. For the additive letter version, subtraction modulo 26 similarly cancels the pad. The U.S. VENONA project exploited exactly this against reused Soviet pads.
 
 ---
 
@@ -190,8 +190,10 @@ It achieves *perfect secrecy* (Shannon, 1949): the ciphertext contains no inform
 
 ## See also
 
+- [deciphering-workbook.md](deciphering-workbook.md) - worked decryption, additional cipher families, and exercises
 - [cryptanalysis.md](cryptanalysis.md) - how these ciphers are broken
 - [../algorithms.md](../algorithms.md) - modern replacements
 
 ---
 [⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)
+

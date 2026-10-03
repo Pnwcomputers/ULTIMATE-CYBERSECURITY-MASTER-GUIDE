@@ -11,7 +11,7 @@ A reference for character replacement and pre-modern cryptography, from leetspea
 Charts for every alphabet and cipher covered, methods for building new ones, the statistics used to break them, and a dependency-free Python toolkit.
 
 ## 🏆 Goal
-Recognize, decode, and explain obfuscated or classically encrypted text (CTFs, OSINT, phishing analysis, filter evasion), and understand why none of it protects real data.
+Recognize, decode, and explain obfuscated or classically encrypted text (CTFs, OSINT, phishing analysis, filter evasion), and understand the limits of historical ciphers and the strict assumptions behind one-time-pad secrecy.
 
 ## 📋 When to Use
 - Decoding puzzle, CTF, or OSINT text that uses leet, Morse, Braille, Polybius, etc.
@@ -21,7 +21,7 @@ Recognize, decode, and explain obfuscated or classically encrypted text (CTFs, O
 From internet slang to mathematically unbreakable encryption, altering text to hide or disguise its meaning has a long history. This section is a reference for character-replacement alphabets (leetspeak, Unicode styles, homoglyphs), classical ciphers, methods for building your own alphabets, and the mathematics used to break them, with charts and a working Python toolkit.
 
 > [!IMPORTANT]
-> **Historical and educational content.** Everything here is obfuscation or historical cryptography and is not secure for real data. Use the modern algorithms in [algorithms.md](../algorithms.md) and [applied-crypto.md](../applied-crypto.md).
+> **Historical and educational content.** Ordinary classical ciphers and obfuscation are unsuitable for real data. A true one-time pad is a special case with strict key requirements; it does not provide authentication. Use the modern algorithms in [algorithms.md](../algorithms.md) and [applied-crypto.md](../applied-crypto.md).
 
 ---
 
@@ -33,11 +33,12 @@ From internet slang to mathematically unbreakable encryption, altering text to h
 | [Alternative Alphabets](alphabets.md) | Unicode styled alphabets, upside-down text, homoglyphs, and signal/tactile/machine encodings (Morse, NATO, Braille, ASCII). |
 | [Classical Ciphers](ciphers.md) | Substitution master chart, transposition, Playfair, Vigenère and its variants, and the one-time pad. |
 | [Building Your Own Alphabet](build-your-own.md) | Construction methods, keyed alphabets, homophonic substitution, and a design checklist. |
+| [Deciphering Workbook](deciphering-workbook.md) | Cipher comparison, affine and Hill arithmetic, reverse transposition, Playfair, Vigenère variants, ADFGVX, rotors, XOR, and exercises. |
 | [Cryptanalysis](cryptanalysis.md) | Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence with a worked key-length attack. |
 | [Security Relevance](security.md) | Leet in password cracking, IDN homograph attacks, and filter evasion versus Unicode normalization. |
 | [Python toolkit](cipher_toolkit.py) | Dependency-free script for leet, Unicode styles, Caesar/ROT13, Atbash, Vigenère, keyed alphabets and IC analysis. |
 
-**Suggested reading order:** Leetspeak → Alternative Alphabets → Classical Ciphers → Cryptanalysis → Building Your Own → Security Relevance.
+**Suggested reading order:** Leetspeak → Alternative Alphabets → Classical Ciphers → Cryptanalysis → Deciphering Workbook → Building Your Own → Security Relevance.
 
 ---
 
@@ -56,13 +57,13 @@ From internet slang to mathematically unbreakable encryption, altering text to h
 | Rail fence / columnar | Transposition | Rails / keyword | Yes (exactly) | Anagramming, brute force |
 | Playfair | Polygraphic | 5×5 square | Partially | Digraph frequency |
 | Vigenère | Polyalphabetic | Keyword | No (flattened) | Kasiski + IC |
-| One-time pad | Polyalphabetic | Random, message-length | No | Unbreakable (unless key reused) |
+| One-time pad | Polyalphabetic | Random, message-length | No | Perfect secrecy only with an independent, uniformly random, secret, single-use pad |
 
 ---
 
 ## Python Toolkit
 
-[`cipher_toolkit.py`](cipher_toolkit.py) is a single Python 3 script with no third-party dependencies. It implements every transformation used in the charts.
+[`cipher_toolkit.py`](cipher_toolkit.py) is a single Python 3 script with no third-party dependencies. It supports leet, Unicode styles, Caesar/ROT13, Atbash, Vigenère, keyed alphabets, and IC analysis; it does not implement every cipher described in these guides.
 
 ```bash
 python3 Cryptography/Classical/cipher_toolkit.py leet "hacker" --tier 3     # |-|/-\(|<3|2
@@ -104,3 +105,4 @@ ct.ic_scan(ciphertext, max_len=12)     # [(key_len, avg_ic), ...]
 
 ---
 [⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)
+
