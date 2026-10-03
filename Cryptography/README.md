@@ -117,6 +117,7 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 |------|-------------|--------|
 | **[algorithms.md](./algorithms.md)** | Algorithm reference by primitive - symmetric, asymmetric, hashing, KDFs, and PQC, with key sizes and deprecations | ✅ Complete |
 | **[applied-crypto.md](./applied-crypto.md)** | Applied cryptography - TLS, password storage, key management, randomness, and common mistakes | ✅ Complete |
+| **[Classical/](./Classical/)** | Classical ciphers, leetspeak, Unicode alphabets and homoglyphs, cryptanalysis (frequency analysis, Kasiski, IC), and a Python toolkit | ✅ Complete |
 
 ---
 
@@ -154,6 +155,7 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 ## Related Files
 - [algorithms.md](algorithms.md) - algorithm reference by primitive
 - [applied-crypto.md](applied-crypto.md) - TLS, password storage, key management
+- [Classical/](Classical/) - classical ciphers, leetspeak, alternative alphabets, cryptanalysis
 - [../Documentation/VPN.md](../Documentation/VPN.md) - applied transport encryption
 - [../GLOSSARY.md](../GLOSSARY.md) - acronyms (AEAD, KDF, PKI…)
 
