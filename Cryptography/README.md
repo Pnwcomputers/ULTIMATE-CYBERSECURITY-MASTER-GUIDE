@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Practical cryptography reference - algorithms, applied use, and what to avoid**
+**Practical Cryptography Reference: Algorithms, Applied Use, and What to Avoid**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
