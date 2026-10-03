@@ -47,6 +47,15 @@ A quick reference for acronyms and terms used across this repository. Terms are 
 - **SOCMINT — Social Media Intelligence:** OSINT derived specifically from social platforms.
 - **TI — Threat Intelligence:** Operationalized knowledge about adversaries and their infrastructure. See [Tradecraft/osint-threat-intel.md](Tradecraft/osint-threat-intel.md).
 
+## Cryptography & Encoding
+
+- **Homoglyph:** A character from another script that looks identical to a Latin letter (e.g., Cyrillic `а` U+0430 vs Latin `a`). See [Cryptography/Classical/alphabets.md](Cryptography/Classical/alphabets.md#homoglyphs).
+- **IC — Index of Coincidence:** The probability that two randomly chosen letters of a text match; used to find a Vigenère key length. See [Cryptography/Classical/cryptanalysis.md](Cryptography/Classical/cryptanalysis.md).
+- **IDN Homograph Attack:** Registering an internationalized domain built from homoglyphs so it looks identical to a legitimate one. See [Cryptography/Classical/security.md](Cryptography/Classical/security.md#homograph-idn-attacks).
+- **Leetspeak (1337):** Replacing letters with look-alike digits or symbols (`H4ck3r`). See [Cryptography/Classical/leetspeak.md](Cryptography/Classical/leetspeak.md).
+- **NFKC — Normalization Form KC:** Unicode compatibility normalization; folds styled and fullwidth letters to plain forms but not cross-script homoglyphs.
+- **OTP — One-Time Pad:** A cipher using a truly random, message-length, never-reused key; the only cipher with proven perfect secrecy. (Not to be confused with one-time *passwords*.)
+
 ## Hardware, RF & Firmware
 
 - **JTAG / SWD:** Debug interfaces for reading/writing microcontroller memory and firmware.

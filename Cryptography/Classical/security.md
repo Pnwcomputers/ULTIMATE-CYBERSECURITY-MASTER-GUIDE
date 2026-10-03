@@ -67,6 +67,9 @@ unicodedata.normalize("NFKC", "ʜᴀᴄᴋ")       # -> 'ʜᴀᴄᴋ' (unchanged
 ## See also
 
 - [../applied-crypto.md](../applied-crypto.md) - correct password storage
+- [../../Documentation/hcxtoolshashcat.md](../../Documentation/hcxtoolshashcat.md) - hashcat rule-based attacks in practice
+- [../../Tradecraft/osint-threat-intel.md](../../Tradecraft/osint-threat-intel.md) - lookalike-domain discovery with dnstwist
+- [../../AI/offensive_ai.md](../../AI/offensive_ai.md) - homoglyph attacks against ML filters
 - [../../GLOSSARY.md](../../GLOSSARY.md) - acronyms
 
 ---

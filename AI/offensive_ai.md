@@ -689,6 +689,9 @@ For NLP models, the discrete nature of text makes gradient-based attacks harder.
 | **Paraphrase** | Rewrite with same meaning, different form | Natural-looking |
 | **Homoglyph attack** | Unicode homoglyphs bypass keyword filters | Passes naive string matching |
 
+> [!TIP]
+> For a full Latin → Cyrillic/Greek homoglyph chart with code points, and which look-alikes survive Unicode NFKC normalization (useful when building defenses), see [alternative alphabets](../Cryptography/Classical/alphabets.md#homoglyphs) and [filter evasion and normalization](../Cryptography/Classical/security.md#filter-evasion-and-normalization).
+
 ```python
 HOMOGLYPHS = {
     'a': 'а',  # Cyrillic а

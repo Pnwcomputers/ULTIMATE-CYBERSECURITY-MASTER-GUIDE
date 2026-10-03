@@ -428,6 +428,9 @@ hashcat -m 1400 -a 0 hash.txt wordlist.txt
 hashcat -m 0 -a 3 hash.txt ?a?a?a?a?a?a?a?a
 ```
 
+> [!TIP]
+> Leet substitutions (`P@55w0rd`) are covered by hashcat's bundled leet rule files. See [leet in passwords](./Cryptography/Classical/security.md#leet-in-passwords).
+
 #### Hydra (Online Attacks)
 ```bash
 # SSH
@@ -993,6 +996,11 @@ steghide embed -cf image.jpg -ef secret.txt
 # Extract data
 steghide extract -sf image.jpg
 ```
+
+### Classical Ciphers & Encodings
+- Caesar/ROT13, Atbash, Vigenère, Playfair, Morse, Baconian, Polybius, leetspeak and Unicode look-alikes
+- Common in CTFs and OSINT; **none are secure** for real data
+- Charts, cryptanalysis (frequency analysis, Kasiski, Index of Coincidence) and a Python toolkit: [Cryptography/Classical/](./Cryptography/Classical/)
 
 ---
 

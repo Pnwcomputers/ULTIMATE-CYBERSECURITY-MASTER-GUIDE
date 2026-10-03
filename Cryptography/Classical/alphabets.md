@@ -181,6 +181,8 @@ These are *encodings*, not ciphers. They have no key and are meant to be decoded
 - [leetspeak.md](leetspeak.md) - ASCII look-alike replacement
 - [security.md](security.md) - homograph attacks and normalization
 - [../../OSINT/](../../OSINT/) - recognizing encodings during investigations
+- [../../SDR/sdr.md](../../SDR/sdr.md) - CW (Morse) reception
+- [../../Data-Engineering/Phase1/python_data_processing.md](../../Data-Engineering/Phase1/python_data_processing.md) - Unicode normalization in data pipelines
 
 ---
 [⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)

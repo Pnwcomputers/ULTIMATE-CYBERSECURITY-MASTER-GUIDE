@@ -453,6 +453,9 @@ When rendered, triggers HTTP request carrying stolen data.
 | Multi-turn escalation | Gradually escalate requests | Start benign; creep toward prohibited |
 | Adversarial suffix (GCG) | Optimized token string appended to any prompt | Zou et al. 2023 - transfers across models |
 
+> [!TIP]
+> Token-manipulation defenses need to recognize leetspeak, Unicode styled text, and homoglyphs. Reference charts: [leetspeak.md](./Cryptography/Classical/leetspeak.md) and [alphabets.md](./Cryptography/Classical/alphabets.md); normalization guidance: [security.md](./Cryptography/Classical/security.md#filter-evasion-and-normalization).
+
 ### 5.3 Data Poisoning & Backdoors
 
 **Backdoor attack schema:**

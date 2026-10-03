@@ -137,3 +137,4 @@ weakness in either still leaves the other. Prioritize long-lived data against
 ## Related Files
 - [README.md](README.md) - Cryptography section index
 - [applied-crypto.md](applied-crypto.md) - applying these algorithms correctly
+- [Classical/](Classical/) - classical ciphers and why they are broken (historical context)

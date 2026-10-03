@@ -1023,6 +1023,9 @@ dnstwist --registered --format json target.com > lookalikes.json
 # Omission       - targt.com
 # Addition       - targets.com
 ```
+
+> [!TIP]
+> Beyond ASCII look-alikes (`rn` vs `m`), internationalized domains allow Cyrillic/Greek homoglyphs that render identically. See the [homoglyph chart](../Cryptography/Classical/alphabets.md#homoglyphs) and [homograph (IDN) attacks](../Cryptography/Classical/security.md#homograph-idn-attacks).
  
 ### h8mail (Windows/Linux)
  

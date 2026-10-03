@@ -157,6 +157,9 @@ def normkey(value: str) -> str:
 
 Use `casefold()` rather than `lower()` — it handles cases that `lower()` does not, such as the German ß.
 
+> [!NOTE]
+> NFKC folds fullwidth, circled, and mathematical styled letters to ASCII, but **not** small caps or Cyrillic/Greek homoglyphs (Cyrillic `а` stays distinct from Latin `a`). See [filter evasion and normalization](../../Cryptography/Classical/security.md#filter-evasion-and-normalization) for a tested comparison table.
+
 ---
 
 <a id="3-csv-and-its-sharp-edges"></a>

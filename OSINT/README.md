@@ -752,3 +752,4 @@ This OSINT resource collection has **zero tolerance** for misuse. We strongly co
 - [OSINT_socialmedia.md](OSINT_socialmedia.md) - Social media investigation methodology and per-platform collection
 - [Playbook/README.md](Playbook/README.md) - OSINT Investigator Playbook for fraud investigations
 - [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) - Advanced OSINT and threat intelligence techniques
+- [../Cryptography/Classical/](../Cryptography/Classical/) - Decoding leetspeak, homoglyphs, Morse, and classical ciphers found during investigations
