@@ -3,8 +3,8 @@
 _Last reviewed: 2026-10-02_
 
 > [!IMPORTANT]
-> **Historical and educational content.** Nothing in this section is secure for real
-> data. For protecting information, use the modern algorithms in
+> **Historical and educational content.** These attacks concern historical ciphers
+> and do not provide a general method for breaking modern encryption. For protecting information, use the modern algorithms in
 > [algorithms.md](../algorithms.md) and [applied-crypto.md](../applied-crypto.md).
 
 [← Building Your Own Alphabet](build-your-own.md) · [🏠 Classical Index](README.md) · [Security Relevance →](security.md)
@@ -22,7 +22,7 @@ Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence w
 
 ### English Letter Frequency
 
-Monoalphabetic ciphers keep the "fingerprint" of the language. The standard English frequency ranking is `ETAOIN SHRDLU`:
+Monoalphabetic ciphers keep the "fingerprint" of the language. A commonly used approximate English frequency ranking is `ETAOIN SHRDLU`:
 
 ```
 E  12.70%  ███████████████████████████████████████████████████
@@ -60,7 +60,7 @@ Z   0.07%
 * **Doubled letters:** Common doubles are `LL`, `EE`, `SS`, `OO`, `TT`.
 * **N-grams:** Common digraphs (`TH`, `HE`, `IN`, `ER`, `AN`) and trigraphs (`THE`, `AND`, `ING`).
 * **Pattern words (crib dragging):** `THAT` has the pattern `1-2-3-1`, `PEOPLE` has `1-2-3-1-4-2`. A ciphertext word with the same pattern is a candidate.
-* **Brute force:** A Caesar cipher has only 25 non-trivial keys, so try them all. A general substitution alphabet has 26! (about 4 × 10²⁶) keys, which is too many to brute-force, but frequency analysis plus hill-climbing solves it in seconds.
+* **Brute force:** A Caesar cipher has only 25 non-trivial keys, so try them all. A general substitution alphabet has 26! (about 4 × 10²⁶) keys, which is too many to brute-force, but frequency analysis and heuristic search can often recover sufficiently long natural-language messages. Runtime and success depend on the sample, language model, and search; short messages may remain ambiguous.
 
 ---
 
@@ -111,7 +111,7 @@ len 11  IC 0.0403  ████████████████████
 len 12  IC 0.0823  █████████████████████████████████████████
 ```
 
-Once *L* is known, each column is a Caesar cipher. Its shift is the one whose decryption best matches English letter frequencies (a chi-squared test).
+For a repeating Vigenère key, a candidate period *L* splits the text into candidate Caesar columns. A chi-squared score can rank shifts against reference language frequencies. Inspect multiple candidates and verify the complete message: short columns, accidental repeats, and multiples of the true period can mislead the analysis.
 
 ---
 
@@ -119,8 +119,10 @@ Once *L* is known, each column is a Caesar cipher. Its shift is the one whose de
 
 ## See also
 
+- [deciphering-workbook.md](deciphering-workbook.md) - a full workflow, attack assumptions, worked examples, and answer key
 - [ciphers.md](ciphers.md) - the ciphers being attacked
 - [cipher_toolkit.py](cipher_toolkit.py) - IC scan implementation
 
 ---
 [⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)
+
