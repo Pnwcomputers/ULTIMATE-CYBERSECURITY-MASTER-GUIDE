@@ -913,7 +913,7 @@ In GNU Radio: `AGC` block for single-channel, `AGC2` for faster attack/slower de
 | **SSB (USB/LSB)** | Product detector + BFO | Amateur HF voice, military |
 | **WBFM** | FM discriminator | Broadcast FM |
 | **NBFM** | FM discriminator | VHF/UHF voice communications |
-| **CW (Morse)** | BFO + AM detect | Amateur radio Morse code |
+| **CW (Morse)** | BFO + AM detect | Amateur radio Morse code ([Morse chart](../Cryptography/Classical/alphabets.md#signal-tactile-and-machine-alphabets)) |
 
 #### Digital Modulations
 

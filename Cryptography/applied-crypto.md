@@ -74,6 +74,7 @@ openssl s_client -connect example.com:443 -tls1_3 </dev/null 2>/dev/null | grep 
 - Check credentials against breached-password lists and support MFA.
 - Never log, email, or store plaintext passwords.
 - Never use reversible encryption as a substitute for password hashing.
+- Don't count leet substitutions (`P@55w0rd`) as added strength; cracking tools apply them automatically ([details](Classical/security.md#leet-in-passwords)).
 
 ---
 
@@ -545,5 +546,6 @@ Key management is where most real deployments fail. See
 
 - [README.md](README.md) - Cryptography section index
 - [algorithms.md](algorithms.md) - Algorithm reference by primitive
+- [Classical/](Classical/) - Classical ciphers, leetspeak, homoglyphs, and cryptanalysis
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Applied transport encryption
 - [../WebAppSecurity/owasp-top-10.md](../WebAppSecurity/owasp-top-10.md) - A04 Cryptographic Failures

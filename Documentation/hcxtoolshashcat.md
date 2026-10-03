@@ -81,6 +81,9 @@ hashcat -m 22000 hash.hc22000 /path/to/wordlist.txt
 hashcat -m 22000 hash.hc22000 wordlist.txt -r rules/best64.rule
 ```
 
+> [!TIP]
+> For leetspeak passphrases, chain a leet rule file such as `rules/unix-ninja-leetspeak.rule`. See [leet in passwords](../Cryptography/Classical/security.md#leet-in-passwords).
+
 **Hybrid Attack: Wordlist + Brute-Force Mask**
 ```bash
 # Append 4 digits to each wordlist entry
@@ -143,3 +146,4 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 - [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Traditional active-deauth workflow, WEP, WPS attacks
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive PMKID/handshake capture using hcxtools output
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32-based WiFi attacks (different hardware path)
+- [../Cryptography/Classical/security.md](../Cryptography/Classical/security.md) - Leet substitutions and hashcat leet rule files
