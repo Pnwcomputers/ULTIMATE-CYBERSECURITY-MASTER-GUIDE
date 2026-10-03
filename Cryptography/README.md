@@ -15,7 +15,7 @@
 ---
 
 ## 🎯 Purpose
-Dedicated home for cryptography - which algorithms to use (and avoid), how to apply
+Dedicated home for cryptography; which algorithms to use (and avoid), how to apply
 them correctly (TLS, password storage, key management), and where the field is
 heading (post-quantum).
 
