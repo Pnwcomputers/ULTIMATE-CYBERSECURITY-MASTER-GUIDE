@@ -1,14 +1,15 @@
-# 🔄 Change Log - September 30, 2026
+# 🔄 Change Log - October 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1469
-- **Files Modified**: 1762
-- **New Files**: 673
+- **Commits Analyzed**: 1471
+- **Files Modified**: 1779
+- **New Files**: 681
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add Classical ciphers, leetspeak & alternative alphabets section (#99) (`dd07a7f`)
 - Create talis-usb-setup-guide.md (`6c2364b`)
 - Create whonix-kicksecure-usb-guide.md (`916ed02`)
 - Add Reverse Engineering section and standalone Ghidra master guide (`2b4ce0f`)
@@ -1257,6 +1258,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Cross-link Classical crypto section across related guides (#101) (`44d9f93`)
 - docs: connect unindexed guides and strengthen navigation conventions (#97) (`e4dfdb3`)
 - Enhance Ghidra guide title and purpose sections (`f25cc79`)
 - Enhance README.md with emoji headers (`8cc59d0`)
@@ -1493,8 +1495,30 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `OPSEC/whonix-kicksecure-usb-guide.md`
+- `AI/offensive_ai.md`
+- `Cryptography/Classical/alphabets.md`
+- `Cryptography/Classical/security.md`
+- `Cryptography/algorithms.md`
+- `Cryptography/applied-crypto.md`
+- `Data-Engineering/Phase1/python_data_processing.md`
+- `Documentation/hcxtoolshashcat.md`
+- `GLOSSARY.md`
+- `OSINT/README.md`
+- `SDR/sdr.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `Tradecraft/osint-threat-intel.md`
+- `cybersecurity_cliff_notes.md`
+- `Cryptography/Classical/README.md`
+- `Cryptography/Classical/build-your-own.md`
+- `Cryptography/Classical/cipher_toolkit.py`
+- `Cryptography/Classical/ciphers.md`
+- `Cryptography/Classical/cryptanalysis.md`
+- `Cryptography/Classical/leetspeak.md`
+- `Cryptography/README.md`
+- `README.md`
+- `START_HERE.md`
 - `CHANGELOG.md`
+- `OPSEC/whonix-kicksecure-usb-guide.md`
 - `.github/CONTRIBUTING.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `AI/AnythingLLM/README.md`
@@ -1506,9 +1530,7 @@
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `IncidentResponse/README.md`
 - `PlayBooks/README.md`
-- `README.md`
 - `ReverseEngineering/ghidra-guide-index.md`
-- `START_HERE.md`
 - `STYLE_GUIDE.md`
 - `Tradecraft/README.md`
 - `Tradecraft/evasion.md`
@@ -1549,7 +1571,6 @@
 - `IncidentResponse/IDS&IPS/snort.md`
 - `OSINT/Playbook/README.md`
 - `OSINT/Playbook/osint_investigator.sh`
-- `OSINT/README.md`
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
@@ -1598,7 +1619,6 @@
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
 - `Data-Engineering/Phase1/sql_data_modeling.md`
-- `Data-Engineering/Phase1/python_data_processing.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/readme.md`
 - `uConsole/CM5-DISPLAY-RECOVERY.md`
@@ -1621,10 +1641,7 @@
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
-- `Cryptography/README.md`
 - `Documentation/microcontroller_wifi_testing.md`
-- `Cryptography/applied-crypto.md`
-- `Cryptography/algorithms.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/kubernetes.md`
@@ -1637,9 +1654,6 @@
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-top-10.md`
 - `advanced_techniques_part2.md`
-- `GLOSSARY.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
-- `AI/offensive_ai.md`
 - `Documentation/wireshark.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
@@ -1655,12 +1669,10 @@
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `Tradecraft/network-detection.md`
-- `Tradecraft/osint-threat-intel.md`
 - `IncidentResponse/SIEM/wazuh.md`
 - `IncidentResponse/log_agg.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
-- `cybersecurity_cliff_notes.md`
 - `advanced_techniques_supplement.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `.github/workflows/link-check.yml`
@@ -1681,7 +1693,6 @@
 - `HardwareHacking/LA1010.md`
 - `.github/workflows/auto_changelog.yml`
 - `OSINT/OSINT_socialmedia.md`
-- `SDR/sdr.md`
 - `.markdownlint.jsonc`
 - `Documentation/LinuxCheatSheet.md`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
@@ -1744,7 +1755,6 @@
 - `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
 - `Documentation/bruce_firmware.md`
-- `Documentation/hcxtoolshashcat.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `Checklists/Android-Applications-Checklist.md`
 - `Mobile/OnePlus_A3006/Kali_NetHunter.md`
