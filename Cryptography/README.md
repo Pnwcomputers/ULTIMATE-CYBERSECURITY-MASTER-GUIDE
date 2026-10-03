@@ -117,6 +117,7 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 |------|-------------|--------|
 | **[algorithms.md](./algorithms.md)** | Algorithm reference by primitive - symmetric, asymmetric, hashing, KDFs, and PQC, with key sizes and deprecations | ✅ Complete |
 | **[applied-crypto.md](./applied-crypto.md)** | Applied cryptography - TLS, password storage, key management, randomness, and common mistakes | ✅ Complete |
+| **[Mary, Queen of Scots](./Classical/mary-queen-of-scots.md)** | Historical cipher case study, intercepted correspondence, and a worked teaching example | ✅ Complete |
 | **[Deciphering workbook](./Classical/deciphering-workbook.md)** | Cipher comparisons, worked decryption, unknown-key methods, practice exercises, and a MIT Press reading connection | ✅ Complete |
 | **[Classical/](./Classical/)** | Classical ciphers, leetspeak, Unicode alphabets and homoglyphs, cryptanalysis (frequency analysis, Kasiski, IC), and a Python toolkit | ✅ Complete |
 

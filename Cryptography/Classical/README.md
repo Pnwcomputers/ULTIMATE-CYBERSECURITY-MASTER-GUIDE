@@ -33,6 +33,7 @@ From internet slang to mathematically unbreakable encryption, altering text to h
 | [Alternative Alphabets](alphabets.md) | Unicode styled alphabets, upside-down text, homoglyphs, and signal/tactile/machine encodings (Morse, NATO, Braille, ASCII). |
 | [Classical Ciphers](ciphers.md) | Substitution master chart, transposition, Playfair, Vigenère and its variants, and the one-time pad. |
 | [Building Your Own Alphabet](build-your-own.md) | Construction methods, keyed alphabets, homophonic substitution, and a design checklist. |
+| [Mary, Queen of Scots](mary-queen-of-scots.md) | Nomenclators, the Babington Plot, Phelippes, the 2023 decipherment, and an original practice example. |
 | [Deciphering Workbook](deciphering-workbook.md) | Cipher comparison, affine and Hill arithmetic, reverse transposition, Playfair, Vigenère variants, ADFGVX, rotors, XOR, and exercises. |
 | [Cryptanalysis](cryptanalysis.md) | Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence with a worked key-length attack. |
 | [Security Relevance](security.md) | Leet in password cracking, IDN homograph attacks, and filter evasion versus Unicode normalization. |

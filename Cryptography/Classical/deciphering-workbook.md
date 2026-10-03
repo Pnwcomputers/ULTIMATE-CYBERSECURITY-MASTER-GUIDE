@@ -159,6 +159,10 @@ frequencies can frustrate single-symbol analysis while longer language patterns
 still provide evidence. Tokenization matters if symbols use variable-length
 numbers: preserve separators until their role is understood.
 
+For a historical case study, see [Mary, Queen of Scots](mary-queen-of-scots.md):
+letter substitution, code entries, compromised correspondence, and the separate
+2023 decipherment.
+
 ## Scytale and columnar transposition
 
 A scytale can be modeled as writing in a rectangle and reading along a different
