@@ -1,14 +1,15 @@
 # 🔄 Change Log - October 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1471
-- **Files Modified**: 1779
-- **New Files**: 681
+- **Commits Analyzed**: 1474
+- **Files Modified**: 1786
+- **New Files**: 683
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Expand cipher deciphering guides and add Mary Queen of Scots case study (#103) (`efed4ef`)
 - Add Classical ciphers, leetspeak & alternative alphabets section (#99) (`dd07a7f`)
 - Create talis-usb-setup-guide.md (`6c2364b`)
 - Create whonix-kicksecure-usb-guide.md (`916ed02`)
@@ -638,6 +639,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`dab4ccf`)
+- Update README.md (`026a287`)
 - docs: clarify Whonix guest update sequence and session privileges (`eddee5a`)
 - Update whonix-kicksecure-usb-guide.md (`c76bec6`)
 - Rename talis-usb-setup-guide.md to tails-usb-setup-guide.md (`171ad1c`)
@@ -1495,6 +1498,13 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Cryptography/Classical/README.md`
+- `Cryptography/Classical/ciphers.md`
+- `Cryptography/Classical/cryptanalysis.md`
+- `Cryptography/Classical/deciphering-workbook.md`
+- `Cryptography/Classical/mary-queen-of-scots.md`
+- `Cryptography/README.md`
+- `CHANGELOG.md`
 - `AI/offensive_ai.md`
 - `Cryptography/Classical/alphabets.md`
 - `Cryptography/Classical/security.md`
@@ -1508,16 +1518,11 @@
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `Tradecraft/osint-threat-intel.md`
 - `cybersecurity_cliff_notes.md`
-- `Cryptography/Classical/README.md`
 - `Cryptography/Classical/build-your-own.md`
 - `Cryptography/Classical/cipher_toolkit.py`
-- `Cryptography/Classical/ciphers.md`
-- `Cryptography/Classical/cryptanalysis.md`
 - `Cryptography/Classical/leetspeak.md`
-- `Cryptography/README.md`
 - `README.md`
 - `START_HERE.md`
-- `CHANGELOG.md`
 - `OPSEC/whonix-kicksecure-usb-guide.md`
 - `.github/CONTRIBUTING.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
