@@ -1,6 +1,6 @@
 # 🔬 Reverse Engineering
 
-Last reviewed: 2026-09-29
+Last reviewed: 2026-10-07
 
 > [!CAUTION]
 > **Authorized use only.** Reverse engineering, disassembly, decompilation, binary
@@ -42,6 +42,7 @@ automate what repeats, and compare versions.
 
 - First Ghidra install, or a JDK mismatch after a Ghidra upgrade
 - Malware or unknown-binary triage after the sample is contained
+- Sourcing real samples safely for practice or detection work ([vx-underground](./vx-underground.md))
 - Firmware dumped in [HardwareHacking](../HardwareHacking/) that now needs a listing
 - An IDA habit you want to map onto Ghidra keys and project layout
 - Standing up headless analysis or a shared Ghidra Server later
@@ -64,6 +65,7 @@ Practice only in an isolated lab: [Homelab](../Homelab/).
 | Official release zip only | [Ghidra Releases](https://github.com/NationalSecurityAgency/ghidra/releases) (`ghidra_<version>_PUBLIC_<date>.zip`) |
 | Current JDK / launch / server notes | [GettingStarted.md](https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md) |
 | Official classroom labs | [GhidraClass](https://github.com/NationalSecurityAgency/ghidra/tree/master/GhidraDocs/GhidraClass) |
+| Real malware samples, source, and papers to practice on | [vx-underground guide](./vx-underground.md) |
 
 Download only the `PUBLIC` zip. The two GitHub "Source Code" archives are not
 the runnable release.
@@ -117,6 +119,7 @@ Need a pipeline, not a GUI?
 
 ## See also
 
+- [vx-underground: Malware Research Library](./vx-underground.md)
 - [LEGAL.md](../LEGAL.md)
 - [START_HERE.md](../START_HERE.md)
 

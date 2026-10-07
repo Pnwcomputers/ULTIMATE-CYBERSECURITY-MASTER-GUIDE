@@ -523,6 +523,8 @@ curl "https://ahmia.fi/search/?q=target+company"
 | Pulsedive | pulsedive.com | IOC enrichment |
 | OpenCTI | github.com/OpenCTI-Platform | Self-hosted CTI platform |
 | MISP | misp-project.org | Threat sharing platform |
+| vx-underground | vx-underground.org | Malware samples, source code, APT reports, papers ([guide](../ReverseEngineering/vx-underground.md)) |
+| MalwareBazaar | bazaar.abuse.ch | Fresh tagged malware samples, hash exports, API |
  
 ### Commercial
  
@@ -1110,10 +1112,12 @@ sudo apt install kali-tools-information-gathering
 - [dnstwist](https://github.com/elceef/dnstwist)
 - [Shodan CLI](https://cli.shodan.io/)
 - [Censys CLI](https://github.com/censys/censys-python)
+- [vx-underground](https://vx-underground.org) · [GitHub](https://github.com/vxunderground)
 
 ## Related Files
 - [README.md](README.md) - Tradecraft section index
 - [../OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) - Full OSINT methodology and tools catalog
 - [../OSINT/OSINT_TOOLS_CATALOG.md](../OSINT/OSINT_TOOLS_CATALOG.md) - Comprehensive tool list
+- [../ReverseEngineering/vx-underground.md](../ReverseEngineering/vx-underground.md) - Malware samples and APT report library, safe intake workflow
 - [../AI/offensive_ai.md](../AI/offensive_ai.md) - AI-augmented OSINT and recon
 - [../AI/AnythingLLM/flow-domain_recon.md](../AI/AnythingLLM/flow-domain_recon.md) - Automated OSINT AgentFlow

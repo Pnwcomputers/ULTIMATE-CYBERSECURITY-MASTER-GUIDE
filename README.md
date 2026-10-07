@@ -111,7 +111,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔐 [Cryptography](./Cryptography/) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205, plus classical ciphers, leetspeak, and cryptanalysis |
 | 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
 | 📚 [Documentation](./Documentation/) | Supplemental technical documentation, command references, and cheat sheets |
-| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, and version comparison |
+| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
 | 🥷 [Hardware Hacking](./HardwareHacking/) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](./HardwareTesting/) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
 | 🏠 [Homelab Guides](./Homelab/) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
@@ -149,6 +149,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
 | Incident Response | [OpenBSD PF Firewall](./IncidentResponse/Firewalls/openbsd_pf.md) | Rulesets, network-edge deployment, monitoring, and lab validation |
 | Reverse Engineering | [Ghidra Master Guide](./ReverseEngineering/ghidra-guide-index.md) | Five parts and 23 chapters; start with the section index |
+| Reverse Engineering | [vx-underground](./ReverseEngineering/vx-underground.md) | Malware samples, source, APT reports, and a lab-only intake workflow |
 | OPSEC | [Whonix + Kicksecure USB](./OPSEC/whonix-kicksecure-usb-guide.md) · [Tails USB](./OPSEC/tails-usb-setup-guide.md) | Distinct host/guest, persistence, installation, and validation workflows |
 | SDR | [NanoVNA Field Guide](./SDR/nanovna/README.md) · [HackRF Audit Playbook](./PlayBooks/HackRFAuditPlayBook.md) | Antenna/RF measurements and spectrum-survey engagement procedures |
 | Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
@@ -336,6 +337,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
 - [radare2](https://rada.re/) - pancake · [IDA Pro](https://hex-rays.com/ida-pro/) - Hex-Rays
 - [Binwalk](https://github.com/ReFirmLabs/binwalk) · [YARA](https://github.com/VirusTotal/yara)
+- [vx-underground](https://vx-underground.org) · [MalwareBazaar](https://bazaar.abuse.ch/) - malware sample and research libraries
 - [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) - Mark Russinovich
 
 **Monitoring & Defense**
