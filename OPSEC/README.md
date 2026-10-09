@@ -113,6 +113,7 @@ This directory covers **operational security for authorized security work and pr
 | **[OPSEC_guide.md](./OPSEC_guide.md)** | General OPSEC and virtualized security environment guide. | Field and home-lab workflows, host security, VM architecture, network segmentation, and research practices. |
 | **[whonix-kicksecure-usb-guide.md](./whonix-kicksecure-usb-guide.md)** | Install Kicksecure on an encrypted external drive and run Whonix-Gateway and Whonix-Workstation in VirtualBox. | Trusted downloads, installation, encryption checks, VM routing, persistent/live modes, updates, and recovery. |
 | **[tails-usb-setup-guide.md](./tails-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
+| **[anonymity-layering.md](./anonymity-layering.md)** | Layer non-attribution on top of a baseline VPN for OSINT and active engagements. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
 
 ### Suggested Reading Order
 
@@ -428,6 +429,7 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 - [General OPSEC Guide](./OPSEC_guide.md)
 - [Whonix + Kicksecure USB Setup Guide](./whonix-kicksecure-usb-guide.md)
 - [Tails USB Setup Guide](./tails-usb-setup-guide.md)
+- [Anonymity Layering for OSINT & Active Engagements](./anonymity-layering.md)
 - [Tradecraft](../Tradecraft/)
 - [Master Index](../README.md)
 
