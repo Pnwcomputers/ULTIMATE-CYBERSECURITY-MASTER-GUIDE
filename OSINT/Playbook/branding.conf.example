@@ -1,0 +1,29 @@
+#===============================================================================
+# OSINT Toolkit — Operator Branding Configuration (EXAMPLE / TEMPLATE)
+#
+# Your real contact details are operator-specific. Keep them OUT of the
+# committed scripts. Copy this file to your local config and edit it there:
+#
+#     cp branding.conf.example ~/.config/osint-investigator/branding.conf
+#     chmod 600 ~/.config/osint-investigator/branding.conf
+#     nano ~/.config/osint-investigator/branding.conf
+#
+# osint_investigator.sh and scripts/case_report_generator.sh source this file
+# automatically if it exists, overriding the placeholder defaults baked into
+# the scripts. This file is a template — do NOT put real values here or commit
+# a filled-in copy. The live branding.conf is gitignored.
+#===============================================================================
+
+export COMPANY_NAME="Your Company Name"
+export COMPANY_SHORT="YOURORG"
+export COMPANY_EMAIL="investigator@example.com"
+export COMPANY_PHONE="(555) 000-0000"
+export COMPANY_CELL=""                       # optional; leave blank to omit
+export COMPANY_WEBSITE="www.example.com"
+export COMPANY_LINKTREE=""                   # optional
+export COMPANY_LOCATION="City, ST"
+
+export INVESTIGATOR_NAME="Investigator Name"
+# Used by case_report_generator.sh report footers:
+export INVESTIGATOR_ORG="${COMPANY_NAME}"
+export INVESTIGATOR_CONTACT="${COMPANY_EMAIL}"
