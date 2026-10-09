@@ -7,7 +7,7 @@
 #
 #   DESCRIPTION: Installs all dependencies for the OSINT Investigator Playbook
 #
-#        AUTHOR: PNW Computers (jon@pnwcomputers.com)
+#        AUTHOR: Jon-Eric Pienkowski ~ PNW Computers (jon@pnwcomputers.com)
 #       VERSION: 1.0
 #
 #===============================================================================
@@ -23,6 +23,8 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
+SUDO_CMD=""
+
 info() { echo -e "${BLUE}[*]${NC} $1"; }
 success() { echo -e "${GREEN}[✓]${NC} $1"; }
 warn() { echo -e "${YELLOW}[!]${NC} $1"; }
@@ -33,7 +35,13 @@ error() { echo -e "${RED}[✗]${NC} $1"; }
 #-------------------------------------------------------------------------------
 check_root() {
     if [[ $EUID -ne 0 ]]; then
-        warn "Some installations require root. Run with sudo for full installation."
+        if command -v sudo &>/dev/null; then
+            SUDO_CMD="sudo"
+            warn "Some installations require elevated privileges. Using sudo where required."
+        else
+            error "Root privileges are required to install system packages. Please run as root or install sudo."
+            exit 1
+        fi
     fi
 }
 
@@ -56,8 +64,8 @@ install_system_packages() {
     
     case $DISTRO in
         ubuntu|debian|tsurugi|kali)
-            apt update
-            apt install -y \
+            ${SUDO_CMD} apt update
+            ${SUDO_CMD} apt install -y \
                 python3 python3-pip python3-venv python3-dev \
                 golang-go \
                 git curl wget \
@@ -72,11 +80,11 @@ install_system_packages() {
                 build-essential
             
             # Optional: screenshot tools
-            apt install -y cutycapt 2>/dev/null || warn "cutycapt not available"
-            apt install -y flameshot 2>/dev/null || warn "flameshot not available"
+            ${SUDO_CMD} apt install -y cutycapt 2>/dev/null || warn "cutycapt not available"
+            ${SUDO_CMD} apt install -y flameshot 2>/dev/null || warn "flameshot not available"
             ;;
         fedora|centos|rhel)
-            dnf install -y \
+            ${SUDO_CMD} dnf install -y \
                 python3 python3-pip python3-devel \
                 golang \
                 git curl wget \
@@ -90,7 +98,7 @@ install_system_packages() {
                 gcc gcc-c++ make
             ;;
         arch|manjaro)
-            pacman -Sy --noconfirm \
+            ${SUDO_CMD} pacman -Sy --noconfirm \
                 python python-pip \
                 go \
                 git curl wget \
@@ -120,11 +128,15 @@ install_python_tools() {
     python3 -m pip install --upgrade pip
     
     # Core OSINT tools
+    # Sherlock's published PyPI name is just "sherlock"; the previous
+    # sherlock-project entry failed to install and left the UI unable to
+    # detect the tool. Use the correct package name for both the main and
+    # fallback installation paths.
     pip3 install --break-system-packages \
         holehe \
         h8mail \
         maigret \
-        sherlock-project \
+        sherlock \
         waybackpy \
         phonenumbers \
         requests \
@@ -138,7 +150,7 @@ install_python_tools() {
         holehe \
         h8mail \
         maigret \
-        sherlock-project \
+        sherlock \
         waybackpy \
         phonenumbers \
         requests \
@@ -190,7 +202,7 @@ install_phoneinfoga() {
     curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash
     
     if [[ -f ./phoneinfoga ]]; then
-        mv phoneinfoga /usr/local/bin/ 2>/dev/null || mv phoneinfoga "${HOME}/.local/bin/"
+        ${SUDO_CMD} mv phoneinfoga /usr/local/bin/ 2>/dev/null || mv phoneinfoga "${HOME}/.local/bin/"
     fi
     
     success "PhoneInfoga installed"
@@ -198,10 +210,17 @@ install_phoneinfoga() {
 
 install_asn_tool() {
     info "Installing ASN lookup tool..."
-    
-    curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn | tee /usr/bin/asn > /dev/null
-    chmod +x /usr/bin/asn
-    
+
+    local target="/usr/bin/asn"
+    local tee_cmd="tee"
+
+    if [[ -n ${SUDO_CMD} ]]; then
+        tee_cmd="${SUDO_CMD} tee"
+    fi
+
+    curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn | ${tee_cmd} "$target" > /dev/null
+    ${SUDO_CMD} chmod +x "$target"
+
     success "ASN tool installed"
 }
 
@@ -273,7 +292,7 @@ install_monolith() {
         local arch="x86_64-unknown-linux-gnu"
         curl -sLO "https://github.com/Y2Z/monolith/releases/download/${version}/monolith-${version}-${arch}.tar.gz"
         tar -xzf "monolith-${version}-${arch}.tar.gz"
-        mv monolith /usr/local/bin/ 2>/dev/null || mv monolith "${HOME}/.local/bin/"
+        ${SUDO_CMD} mv monolith /usr/local/bin/ 2>/dev/null || mv monolith "${HOME}/.local/bin/"
         rm "monolith-${version}-${arch}.tar.gz"
     fi
     

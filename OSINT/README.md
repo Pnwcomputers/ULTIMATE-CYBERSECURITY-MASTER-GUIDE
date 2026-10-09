@@ -84,7 +84,8 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **[OSINT Playbook](./Playbook/README.md)** | Manual guide and case-directory prototype | Prototype |
+| **[OSINT Playbook](./Playbook/README.md)** | Menu-driven `osint_investigator.sh` + automated audit scripts + case management | ✅ Toolkit |
+| **[Toolkit Docs](./docs/)** | FAQ, installation, compatibility, troubleshooting | ✅ Complete |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
 
@@ -102,11 +103,35 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 ### Scripts & Automation
 
-| Directory | Contents | Status |
-|-----------|----------|--------|
-| **Playbook** | Case-directory menu; investigation modules not implemented | Prototype |
-| **scripts** | Automation scripts for OSINT workflows | ✅ Complete |
+| Directory / File | Contents | Status |
+|------------------|----------|--------|
+| **[Playbook/](./Playbook/)** | Menu-driven `osint_investigator.sh` + case management | ✅ |
+| **[Playbook/scripts/](./Playbook/scripts/)** | Audit & report scripts (below) | ✅ |
+| **[Playbook/abuse_report_generator.sh](./Playbook/abuse_report_generator.sh)** | Auto-drafts IC3 / FTC / registrar abuse reports | ✅ |
+| **[Playbook/toolkit_integration.sh](./Playbook/toolkit_integration.sh)** | Wires external tools into the playbook | ✅ |
+| **[Playbook/tools_api.md](./Playbook/tools_api.md)** | Tool + API reference | ✅ |
+| **[Playbook/branding.conf.example](./Playbook/branding.conf.example)** | Operator branding template (copy to local config) | ✅ |
 | **templates** | Report templates and investigation forms | 🔨 Planned |
+
+#### Audit scripts (`Playbook/scripts/`)
+
+| Script | Purpose |
+|--------|---------|
+| `scammer_audit.sh` | Full scam/fraud infrastructure workup (domain + IP + email) |
+| `email_audit.sh` | Email enumeration, breach, reputation |
+| `phone_audit.sh` | Phone number intelligence |
+| `username_audit.sh` | Username search across platforms |
+| `domain_monitor.sh` | Baseline + change detection for DNS / WHOIS / SSL / CT |
+| `whois_bulk.sh` | Batch WHOIS lookups |
+| `ssl_cert_audit.sh` | SSL/TLS certificate analysis |
+| `crypto_audit.sh` | BTC / ETH / LTC / DOGE / XMR / XRP / BCH on-chain + scam-DB checks |
+| `threat_feed_check.sh` | Parallel threat-intel feed IOC scoring |
+| `metadata_stripper.sh` | Evidence metadata extract + strip |
+| `screenshot_archive.sh` | Automated screenshots / page archival |
+| `case_report_generator.sh` | Rolls a case directory into one report |
+
+> **Setup:** copy `Playbook/branding.conf.example` to `~/.config/osint-investigator/branding.conf`
+> and add your details; API keys go in `~/.config/osint-investigator/api_keys.conf` (never committed).
 
 ### Case Studies
 
