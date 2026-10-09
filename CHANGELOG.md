@@ -1,14 +1,15 @@
 # 🔄 Change Log - October 09, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1476
-- **Files Modified**: 1793
-- **New Files**: 685
+- **Commits Analyzed**: 1478
+- **Files Modified**: 1798
+- **New Files**: 706
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add sanitized OSINT investigation toolkit to OSINT/Playbook (#107) (`ebdaea4`)
 - Add OPSEC anonymity-layering guide for OSINT & active engagements (`c0f2da9`)
 - Add vx-underground malware research library guide (#104) (`757cf17`)
 - Expand cipher deciphering guides and add Mary Queen of Scots case study (#103) (`efed4ef`)
@@ -641,6 +642,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update .gitignore (`df022c5`)
 - Update README.md (`dab4ccf`)
 - Update README.md (`026a287`)
 - docs: clarify Whonix guest update sequence and session privileges (`eddee5a`)
@@ -1500,9 +1502,34 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.gitignore`
+- `OSINT/Playbook/abuse_report_generator.sh`
+- `OSINT/Playbook/branding.conf.example`
+- `OSINT/Playbook/install_dependencies.sh`
+- `OSINT/Playbook/osint_investigator.sh`
+- `OSINT/Playbook/scripts/README.md`
+- `OSINT/Playbook/scripts/case_report_generator.sh`
+- `OSINT/Playbook/scripts/crypto_audit.sh`
+- `OSINT/Playbook/scripts/domain_monitor.sh`
+- `OSINT/Playbook/scripts/email_audit.sh`
+- `OSINT/Playbook/scripts/metadata_stripper.sh`
+- `OSINT/Playbook/scripts/phone_audit.sh`
+- `OSINT/Playbook/scripts/scammer_audit.sh`
+- `OSINT/Playbook/scripts/screenshot_archive.sh`
+- `OSINT/Playbook/scripts/ssl_cert_audit.sh`
+- `OSINT/Playbook/scripts/threat_feed_check.sh`
+- `OSINT/Playbook/scripts/username_audit.sh`
+- `OSINT/Playbook/scripts/whois_bulk.sh`
+- `OSINT/Playbook/toolkit_integration.sh`
+- `OSINT/Playbook/tools_api.md`
+- `OSINT/README.md`
+- `OSINT/docs/COMPATIBILITY.md`
+- `OSINT/docs/FAQ.md`
+- `OSINT/docs/INSTALLATION.md`
+- `OSINT/docs/TROUBLESHOOTING.md`
+- `CHANGELOG.md`
 - `OPSEC/README.md`
 - `OPSEC/anonymity-layering.md`
-- `CHANGELOG.md`
 - `README.md`
 - `ReverseEngineering/README.md`
 - `ReverseEngineering/vx-underground.md`
@@ -1522,7 +1549,6 @@
 - `Data-Engineering/Phase1/python_data_processing.md`
 - `Documentation/hcxtoolshashcat.md`
 - `GLOSSARY.md`
-- `OSINT/README.md`
 - `SDR/sdr.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `cybersecurity_cliff_notes.md`
@@ -1579,7 +1605,6 @@
 - `IncidentResponse/IDS&IPS/security-onion.md`
 - `IncidentResponse/IDS&IPS/snort.md`
 - `OSINT/Playbook/README.md`
-- `OSINT/Playbook/osint_investigator.sh`
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
@@ -1824,7 +1849,6 @@
 - `SpaceSecurity/PartII.md`
 - `SpaceSecurity/PartIII.md`
 - `SpaceSecurity/PartIV.md`
-- `.gitignore`
 - `osint`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
@@ -1835,7 +1859,6 @@
 - `HardwareHacking/Chapter3.md`
 - `HardwareHacking/Chapter4.md`
 - `HardwareHacking/Chapter5.md`
-- `OSINT/Playbook/install_dependencies.sh`
 - `SpaceSecurity/Appendices.md`
 - `SpaceSecurity/PartI.md`
 - `OSINT/Playbook/api_keys.conf`
