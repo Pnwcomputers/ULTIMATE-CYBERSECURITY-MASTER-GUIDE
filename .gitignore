@@ -15,6 +15,7 @@ local_notes.md
 *.pem
 secrets/
 config/local_config.*
+_apply/gitignore-credentials-block.txt
 
 # --- Python / Scripting ---
 # Byte-compiled / optimized / DLL files
