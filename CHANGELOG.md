@@ -1,14 +1,15 @@
-# 🔄 Change Log - October 07, 2026
+# 🔄 Change Log - October 09, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1475
-- **Files Modified**: 1791
-- **New Files**: 684
+- **Commits Analyzed**: 1476
+- **Files Modified**: 1793
+- **New Files**: 685
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add OPSEC anonymity-layering guide for OSINT & active engagements (`c0f2da9`)
 - Add vx-underground malware research library guide (#104) (`757cf17`)
 - Expand cipher deciphering guides and add Mary Queen of Scots case study (#103) (`efed4ef`)
 - Add Classical ciphers, leetspeak & alternative alphabets section (#99) (`dd07a7f`)
@@ -1499,12 +1500,14 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OPSEC/README.md`
+- `OPSEC/anonymity-layering.md`
+- `CHANGELOG.md`
 - `README.md`
 - `ReverseEngineering/README.md`
 - `ReverseEngineering/vx-underground.md`
 - `START_HERE.md`
 - `Tradecraft/osint-threat-intel.md`
-- `CHANGELOG.md`
 - `Cryptography/Classical/README.md`
 - `Cryptography/Classical/ciphers.md`
 - `Cryptography/Classical/cryptanalysis.md`
@@ -1550,7 +1553,6 @@
 - `Documentation/virtualmachines.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `OPSEC/OPSEC_guide.md`
-- `OPSEC/README.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
