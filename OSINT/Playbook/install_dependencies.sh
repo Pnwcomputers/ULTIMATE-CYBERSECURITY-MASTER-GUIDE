@@ -131,12 +131,12 @@ install_python_tools() {
     # Sherlock's published PyPI name is just "sherlock"; the previous
     # sherlock-project entry failed to install and left the UI unable to
     # detect the tool. Use the correct package name for both the main and
-    # fallback installation paths.
+    # The Sherlock OSINT package is sherlock-project; its executable is sherlock
     pip3 install --break-system-packages \
         holehe \
         h8mail \
         maigret \
-        sherlock \
+        sherlock-project \
         waybackpy \
         phonenumbers \
         requests \
@@ -150,7 +150,7 @@ install_python_tools() {
         holehe \
         h8mail \
         maigret \
-        sherlock \
+        sherlock-project \
         waybackpy \
         phonenumbers \
         requests \
@@ -361,7 +361,7 @@ verify_installation() {
             echo -e "  ${GREEN}✓${NC} $tool"
         else
             echo -e "  ${RED}✗${NC} $tool"
-            ((missing++))
+            missing=$((missing + 1))
         fi
     done
     
