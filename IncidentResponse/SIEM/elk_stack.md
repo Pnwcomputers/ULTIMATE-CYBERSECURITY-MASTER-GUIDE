@@ -161,7 +161,7 @@ services:
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
       - xpack.security.enrollment.enabled=true
-      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-changeme}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:?Set ELASTIC_PASSWORD in .env (see Step 2.2)}
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
     ulimits:
       memlock:
@@ -178,7 +178,9 @@ services:
     networks:
       - elk-network
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -u elastic:${ELASTIC_PASSWORD:-changeme} http://localhost:9200/_cluster/health | grep -q 'green\\|yellow'"]
+      # $$ makes the variable expand inside the container, so the password is not
+      # written into the rendered compose config or `docker inspect` output.
+      test: ["CMD-SHELL", "curl -s -u \"elastic:$$ELASTIC_PASSWORD\" http://localhost:9200/_cluster/health | grep -q 'green\\|yellow'"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -187,9 +189,9 @@ services:
     image: docker.elastic.co/logstash/logstash:8.12.0
     container_name: logstash
     environment:
-      - xpack.monitoring.elasticsearch.hosts=http://elasticsearch:9200
-      - xpack.monitoring.elasticsearch.username=elastic
-      - xpack.monitoring.elasticsearch.password=${ELASTIC_PASSWORD:-changeme}
+      # Least privilege: Logstash writes with its own role-limited user (Step 2.6),
+      # never with the elastic superuser.
+      - LOGSTASH_WRITER_PASSWORD=${LOGSTASH_WRITER_PASSWORD:?Set LOGSTASH_WRITER_PASSWORD in .env (see Step 2.2)}
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -210,9 +212,9 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - ELASTICSEARCH_USERNAME=kibana_system
-      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD:-changeme}
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD:?Set KIBANA_PASSWORD in .env (see Step 2.2)}
       - xpack.security.enabled=true
-      - xpack.encryptedSavedObjects.encryptionKey=${ENCRYPTION_KEY:-a]V@e3~:zK7L!mP9$fGhT2wX5yB8nC4q}
+      - xpack.encryptedSavedObjects.encryptionKey=${ENCRYPTION_KEY:?Set ENCRYPTION_KEY in .env (see Step 2.2)}
     ports:
       - "127.0.0.1:5601:5601"
     networks:
@@ -230,22 +232,33 @@ networks:
     driver: bridge
 ```
 
-### Step 2.2: Create Environment File
+### Step 2.2: Generate the Environment File
 
-Create `.env`:
+Do not reuse sample values. Generate unique random secrets on the Docker host.
+This creates `.env` with owner-only permissions (`0600`) and refuses to overwrite
+an existing file:
 
 ```bash
-# Elasticsearch superuser password
-ELASTIC_PASSWORD=YourStrongPassword123!
+python3 - <<'PY'
+import os, secrets
 
-# Kibana system user password
-KIBANA_PASSWORD=YourKibanaPassword123!
+names = ("ELASTIC_PASSWORD", "KIBANA_PASSWORD", "LOGSTASH_WRITER_PASSWORD")
+lines = [f"{n}={secrets.token_urlsafe(32)}" for n in names]
+# Kibana requires an encryption key of at least 32 characters.
+lines.append(f"ENCRYPTION_KEY={secrets.token_hex(32)}")
 
-# Encryption key for Kibana saved objects (32+ characters)
-ENCRYPTION_KEY=a]V@e3~:zK7L!mP9$fGhT2wX5yB8nC4qR1sU6vD0
+# O_EXCL fails instead of overwriting an existing .env; 0o600 is owner read/write only.
+fd = os.open(".env", os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+with os.fdopen(fd, "w") as fh:
+    fh.write("\n".join(lines) + "\n")
+print("Created .env (mode 0600). Values were not printed.")
+PY
 ```
 
-> ⚠️ **Security:** Change these default passwords immediately and never commit `.env` to version control.
+> ⚠️ **Security:** Never commit `.env` to version control (add it to `.gitignore`),
+> never paste its values into tickets or chat, and keep a copy in your password manager.
+> Rotate the values if the file is ever exposed. Compose refuses to start when a
+> required variable is missing, so there are no insecure fallback defaults.
 
 ### Step 2.3: Create Logstash Configuration
 
@@ -253,8 +266,7 @@ Create `logstash/config/logstash.yml`:
 
 ```yaml
 http.host: "0.0.0.0"
-xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
-xpack.monitoring.enabled: true
+xpack.monitoring.enabled: false
 pipeline.workers: 2
 pipeline.batch.size: 125
 ```
@@ -356,8 +368,8 @@ output {
   # Send to Elasticsearch
   elasticsearch {
     hosts => ["http://elasticsearch:9200"]
-    user => "elastic"
-    password => "${ELASTIC_PASSWORD}"
+    user => "logstash_writer"
+    password => "${LOGSTASH_WRITER_PASSWORD}"
     index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
     
     # For non-beat inputs, use a default index
@@ -371,27 +383,68 @@ output {
 }
 ```
 
-### Step 2.5: Start the Stack
+### Step 2.5: Start Elasticsearch First
+
+Kibana and Logstash authenticate with accounts that do not have passwords yet, so
+start Elasticsearch alone and wait until it reports healthy:
 
 ```bash
-# Start all services
-docker compose up -d
-
-# Monitor startup
-docker compose logs -f
-
-# Wait 2-3 minutes for full initialization
+docker compose up -d elasticsearch
+docker compose ps elasticsearch   # wait for "healthy" (can take 1-2 minutes)
 ```
 
-### Step 2.6: Set Up Kibana System User Password
+### Step 2.6: Set Service Account Passwords and the Logstash Role
 
-After Elasticsearch starts, set the kibana_system password:
+Set the `kibana_system` password and create a least-privilege Logstash writer
+from the values in `.env`. Passwords travel on stdin rather than on a command
+line, and the `elastic` credentials are read from the container's own environment:
 
 ```bash
-# Reset kibana_system password
-docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system -i
+set -a; . ./.env; set +a    # .env contains only the generated KEY=value lines
 
-# Enter the password from your .env file when prompted
+# Kibana's service account
+printf '{"password":"%s"}' "$KIBANA_PASSWORD" |
+  docker compose exec -T elasticsearch sh -c \
+  'curl -sS -u "elastic:$ELASTIC_PASSWORD" -H "Content-Type: application/json" \
+   -X POST http://localhost:9200/_security/user/kibana_system/_password -d @-'
+
+# Role that can only write the indices Logstash creates
+docker compose exec -T elasticsearch sh -c \
+  'curl -sS -u "elastic:$ELASTIC_PASSWORD" -H "Content-Type: application/json" \
+   -X PUT http://localhost:9200/_security/role/logstash_writer -d @-' <<'JSON'
+{
+  "cluster": ["manage_index_templates", "monitor"],
+  "indices": [
+    {
+      "names": ["winlogbeat-*", "filebeat-*", "logstash-*"],
+      "privileges": ["create_index", "create", "write"]
+    }
+  ]
+}
+JSON
+
+# User bound to that role
+printf '{"password":"%s","roles":["logstash_writer"]}' "$LOGSTASH_WRITER_PASSWORD" |
+  docker compose exec -T elasticsearch sh -c \
+  'curl -sS -u "elastic:$ELASTIC_PASSWORD" -H "Content-Type: application/json" \
+   -X POST http://localhost:9200/_security/user/logstash_writer -d @-'
+
+unset KIBANA_PASSWORD LOGSTASH_WRITER_PASSWORD ELASTIC_PASSWORD ENCRYPTION_KEY
+```
+
+Each call returns a JSON acknowledgement. The password endpoint is
+`POST /_security/user/<name>/_password`, as described in Elastic's
+*Set passwords for native and built-in users* documentation. If Logstash later logs
+`403` errors, the role lacks a privilege your pipeline needs (for example ILM
+management when Beats-managed ILM is enabled): adjust the index names and
+privileges for your pipeline instead of falling back to the `elastic` superuser.
+Check the Logstash security documentation for your Elastic version.
+
+Now start the remaining services:
+
+```bash
+docker compose up -d
+docker compose logs -f   # Ctrl-C stops following; allow 2-3 minutes to initialize
 ```
 
 ### Step 2.7: Verify Deployment
@@ -401,7 +454,8 @@ docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-p
 docker compose ps
 
 # Test Elasticsearch
-curl -u elastic:YourStrongPassword123! http://localhost:9200/_cluster/health?pretty
+docker compose exec -T elasticsearch sh -c \
+  'curl -sS -u "elastic:$ELASTIC_PASSWORD" "http://localhost:9200/_cluster/health?pretty"'
 
 # Test Kibana (may take a minute to fully start)
 curl -I http://localhost:5601
@@ -421,7 +475,7 @@ Remote administrative access requires a separately secured access method.
 
 **Login:**
 - Username: `elastic`
-- Password: Your `ELASTIC_PASSWORD` from `.env`
+- Password: the `ELASTIC_PASSWORD` value from your `.env` (copy it from your password manager; do not print it in shared terminals)
 
 ---
 
@@ -504,8 +558,8 @@ output.logstash:
 # Alternative: Direct to Elasticsearch
 # output.elasticsearch:
 #   hosts: ["<ELK-SERVER-IP>:9200"]
-#   username: "elastic"
-#   password: "YourStrongPassword123!"
+#   username: "<beats-writer-user>"
+#   password: "${BEATS_WRITER_PASSWORD}"   # store in the Beats keystore; never a literal password
 
 # ==================== Logging ====================
 
@@ -542,7 +596,7 @@ Get-Service winlogbeat
 
 ```powershell
 # Load pre-built dashboards
-.\winlogbeat.exe setup --dashboards -E output.elasticsearch.hosts=["<ELK-SERVER-IP>:9200"] -E output.elasticsearch.username=elastic -E output.elasticsearch.password=YourStrongPassword123!
+.\winlogbeat.exe setup --dashboards -E output.elasticsearch.hosts=["<ELK-SERVER-IP>:9200"] -E output.elasticsearch.username=<setup-user> -E output.elasticsearch.password=$env:ES_SETUP_PASSWORD
 ```
 
 ---
@@ -878,7 +932,7 @@ Navigate to **Stack Management → Index Lifecycle Policies → Create policy**
 # Via API
 curl -X PUT "localhost:9200/_ilm/policy/logs-policy" \
   -H 'Content-Type: application/json' \
-  -u elastic:YourStrongPassword123! \
+  --user elastic \
   -d @ilm-policy.json
 ```
 
@@ -920,9 +974,9 @@ environment:
 # Create a read-only analyst user
 curl -X POST "localhost:9200/_security/user/analyst" \
   -H 'Content-Type: application/json' \
-  -u elastic:YourStrongPassword123! \
+  --user elastic \
   -d '{
-    "password": "AnalystPassword123!",
+    "password": "<generate-a-unique-password>",
     "roles": ["viewer", "kibana_admin"],
     "full_name": "Security Analyst"
   }'
@@ -957,7 +1011,7 @@ docker compose logs elasticsearch
 ```bash
 curl -X PUT "localhost:9200/_cluster/settings" \
   -H 'Content-Type: application/json' \
-  -u elastic:YourStrongPassword123! \
+  --user elastic \
   -d '{
     "persistent": {
       "cluster.routing.allocation.disk.watermark.low": "90%",
@@ -979,7 +1033,7 @@ docker compose logs logstash
 echo "test message" | nc -q0 localhost 5000
 
 # Check if received
-curl -u elastic:YourStrongPassword123! "localhost:9200/logstash-*/_search?pretty"
+curl --user elastic "localhost:9200/logstash-*/_search?pretty"
 ```
 
 ### Beats Not Shipping
@@ -1008,7 +1062,7 @@ Get-Content "C:\ProgramData\winlogbeat\logs\winlogbeat" -Tail 50
 2. Check time range selector (top right)
 3. Verify data is actually in Elasticsearch:
 ```bash
-curl -u elastic:YourStrongPassword123! "localhost:9200/_cat/indices?v"
+curl --user elastic "localhost:9200/_cat/indices?v"
 ```
 
 ---
