@@ -37,10 +37,27 @@ export COMPANY_LINKTREE=""
 export COMPANY_LOCATION="City, ST"
 export INVESTIGATOR_NAME="Investigator Name"
 
+# A config file is shell code. Only load one that belongs to the current user,
+# is not a symlink and is not group/world-writable.
+trusted_conf() {
+    local f="$1" owner mode
+    [[ -f "$f" && ! -L "$f" ]] || return 1
+    read -r owner mode < <(stat -c '%u %a' -- "$f" 2>/dev/null) || return 1
+    [[ "$owner" == "$(id -u)" ]] || return 1
+    (( (8#$mode & 8#022) == 0 ))
+}
+
 # Override placeholders with local operator config if present (gitignored)
 BRANDING_CONF="${BRANDING_CONF:-${HOME}/.config/osint-investigator/branding.conf}"
-# shellcheck source=/dev/null
-[[ -f "$BRANDING_CONF" ]] && source "$BRANDING_CONF"
+if [[ -e "$BRANDING_CONF" ]]; then
+    if trusted_conf "$BRANDING_CONF"; then
+        # shellcheck source=/dev/null
+        source "$BRANDING_CONF"
+    else
+        echo "Refusing to load $BRANDING_CONF: must be a regular file you own, not group/world-writable." >&2
+    fi
+fi
+umask 077   # case data, evidence and logs are private by default
 
 #-------------------------------------------------------------------------------
 # GLOBAL CONFIGURATION
@@ -51,9 +68,13 @@ API_CONFIG="${CONFIG_DIR}/api_keys.conf"
 CASE_BASE_DIR="${HOME}/OSINT_Cases"
 LOG_DIR="${CONFIG_DIR}/logs"
 TOOLS_DIR="${CONFIG_DIR}/tools"
+STATE_PY="${SCRIPT_DIR}/lib/case_state.py"
+EVIDENCE_PY="${SCRIPT_DIR}/lib/collect_evidence.py"
+# Flask lives in the isolated venv created by install_dependencies.sh (no runtime pip).
+WEB_PYTHON="${OSINT_WEB_PYTHON:-${HOME}/.local/share/osint-investigator/venvs/web/bin/python}"
 
 sanitize_case_id() {
-    echo "$1" | tr ' ' '_' | tr -cd '[:alnum:]_-'
+    printf '%s' "$1" | tr ' ' '_' | tr -cd '[:alnum:]_-' | cut -c1-64
 }
 
 set_case_id_from_input() {
@@ -66,6 +87,10 @@ set_case_id_from_input() {
         return 1
     fi
 
+    python3 -I "$STATE_PY" check-id "$cleaned" || {
+        error "Case ID must be 1-64 letters, digits, '_' or '-'."
+        return 1
+    }
     CASE_ID="$cleaned"
     return 0
 }
@@ -213,8 +238,18 @@ check_tool() {
 init_config() {
     mkdir -p "${CONFIG_DIR}" "${LOG_DIR}" "${TOOLS_DIR}"
     [[ ! -f "${API_CONFIG}" ]] && create_api_config
-    # shellcheck source=/dev/null
-    [[ -f "${API_CONFIG}" ]] && source "${API_CONFIG}"
+    load_api_config
+}
+
+load_api_config() {
+    [[ -e "${API_CONFIG}" ]] || return 0
+    if trusted_conf "${API_CONFIG}"; then
+        # shellcheck source=/dev/null
+        source "${API_CONFIG}"
+    else
+        warn "Not loading ${API_CONFIG}: it must be a regular file you own and not group/world-writable (chmod 600)."
+        return 1
+    fi
 }
 
 create_api_config() {
@@ -240,9 +275,8 @@ APIEOF
 
 configure_apis() {
     print_section "API Key Configuration"
-    # shellcheck source=/dev/null
-    source "${API_CONFIG}" 2>/dev/null
-    
+    load_api_config || return 1
+
     local apis=(
         "SHODAN_API_KEY:Shodan"
         "VIRUSTOTAL_API_KEY:VirusTotal"
@@ -264,18 +298,25 @@ configure_apis() {
             echo -e "${RED}○${NC} ${description}: Not configured"
         fi
         
-        read -rp "  Enter new key (Enter to keep): " new_value
-        [[ -n "$new_value" ]] && sed -i "s|^export ${var_name}=.*|export ${var_name}=\"${new_value}\"|" "${API_CONFIG}"
+        read -rsp "  Enter new key (Enter to keep; input hidden): " new_value
+        echo ""
+        if [[ -z "$new_value" ]]; then
+            continue
+        # The value is written into a shell file: allow only characters that
+        # cannot terminate the quotes or trigger expansion.
+        elif [[ ! "$new_value" =~ ^[A-Za-z0-9._~+/=:-]{8,256}$ ]]; then
+            warn "  Rejected: keys must be 8-256 characters of letters, digits and . _ ~ + / = : -"
+            continue
+        fi
+        sed -i "s|^export ${var_name}=.*|export ${var_name}=\"${new_value}\"|" "${API_CONFIG}"
     done
-    # shellcheck source=/dev/null
-    source "${API_CONFIG}"
+    load_api_config
     success "API configuration saved"
 }
 
 show_api_status() {
     print_section "API Status"
-    # shellcheck source=/dev/null
-    [[ -f "${API_CONFIG}" ]] && source "${API_CONFIG}"
+    load_api_config
 
     local apis=(
         "SHODAN_API_KEY:Shodan"
@@ -304,14 +345,15 @@ launch_web_interface() {
 
     [[ ! -f "$web_script" ]] && { error "Web interface not found"; return 1; }
 
-    python3 -c "import flask" 2>/dev/null || {
-        warn "Installing Flask..."
-        pip3 install flask --break-system-packages 2>/dev/null || pip3 install flask
-    }
+    if [[ ! -x "$WEB_PYTHON" ]] || ! "$WEB_PYTHON" -c "import flask" 2>/dev/null; then
+        error "Flask is not installed in the playbook's isolated environment."
+        info "Run ${SCRIPT_DIR}/install_dependencies.sh (as your normal user) to set it up."
+        return 1
+    fi
 
     info "Starting web interface at http://localhost:5000"
     info "Press Ctrl+C to stop"
-    python3 "$web_script" --host 127.0.0.1 --port 5000
+    "$WEB_PYTHON" "$web_script" --host 127.0.0.1 --port 5000
 }
 
 #-------------------------------------------------------------------------------
@@ -323,13 +365,16 @@ create_new_case() {
     set_case_id_from_input "$CASE_ID" || return 1
     
     CASE_DIR="${CASE_BASE_DIR}/${CASE_ID}"
-    
-    if [[ -d "$CASE_DIR" ]]; then
-        confirm "Case exists. Resume?" && { load_case "$CASE_ID"; return 0; }
+
+    if [[ -e "$CASE_DIR" || -L "$CASE_DIR" ]]; then
+        confirm "Case exists. Resume?" && { load_case "$CASE_ID"; return $?; }
         error "Choose a different ID."
+        CASE_DIR=""
         return 1
     fi
-    
+    mkdir -p "$CASE_BASE_DIR" || { error "Cannot create $CASE_BASE_DIR"; CASE_DIR=""; return 1; }
+    mkdir -m 700 "$CASE_DIR" || { error "Cannot create case directory"; CASE_DIR=""; return 1; }
+
     EVIDENCE_DIR="${CASE_DIR}/evidence"
     REPORTS_DIR="${CASE_DIR}/reports"
     LOGS_DIR="${CASE_DIR}/logs"
@@ -340,8 +385,12 @@ create_new_case() {
     mkdir -p "${LOGS_DIR}"
     mkdir -p "${RAW_DIR}"/{email,domain,ip,phone,username,crypto,nmap}
     
-    echo "{\"case_id\": \"${CASE_ID}\", \"created\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\", \"investigator\": \"${INVESTIGATOR_NAME}\"}" > "${CASE_DIR}/case_info.json"
-    
+    # json.dumps does the escaping, so a name containing quotes cannot break the file.
+    python3 -I -c 'import json, sys, datetime
+print(json.dumps({"case_id": sys.argv[1], "investigator": sys.argv[2],
+                  "created": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")},
+                 indent=2))' "$CASE_ID" "$INVESTIGATOR_NAME" > "${CASE_DIR}/case_info.json"
+
     cat > "${CASE_DIR}/evidence_log.md" << EOF
 # Evidence Log - Case ${CASE_ID}
 
@@ -353,41 +402,104 @@ EOF
     save_case_state
 }
 
+reset_case_data() {
+    CASE_TYPE="Fraudulent Domain / Scam Infrastructure Investigation"
+    COMPANY_NAME_TARGET=""
+    HOSTING_PROVIDER=""; HOSTING_ASN=""; HOSTING_ISP=""; HOSTING_REGISTRY=""
+    HOSTING_GEOLOCATION=""; HOSTING_COORDINATES=""; HOSTING_TIMEZONE=""
+    EMAILS=(); PHONES=(); DOMAINS=(); IPS=(); IPV6S=(); USERNAMES=()
+    CRYPTO_ADDRESSES=(); SUBDOMAINS=()
+}
+
+# Case state is JSON validated by lib/case_state.py; it is never sourced or eval'd.
 load_case() {
     set_case_id_from_input "$1" || return 1
+    local wanted="$CASE_ID"
     CASE_DIR="${CASE_BASE_DIR}/${CASE_ID}"
     EVIDENCE_DIR="${CASE_DIR}/evidence"
     REPORTS_DIR="${CASE_DIR}/reports"
+    LOGS_DIR="${CASE_DIR}/logs"
     RAW_DIR="${CASE_DIR}/raw_data"
-    
-    [[ ! -d "$CASE_DIR" ]] && { error "Case not found"; return 1; }
-    # shellcheck source=/dev/null
-    [[ -f "${CASE_DIR}/.case_state" ]] && source "${CASE_DIR}/.case_state"
+
+    [[ -d "$CASE_DIR" && ! -L "$CASE_DIR" ]] || { error "Case not found"; CASE_ID=""; CASE_DIR=""; return 1; }
+
+    reset_case_data
+    if [[ -e "${CASE_DIR}/.case_state.json" || -L "${CASE_DIR}/.case_state.json" ]]; then
+        local tmp key value
+        tmp="$(mktemp)" || return 1
+        if ! python3 -I "$STATE_PY" load "$CASE_DIR" > "$tmp"; then
+            rm -f -- "$tmp"
+            error "Case state failed validation and was NOT loaded."
+            reset_case_data; CASE_ID=""; CASE_DIR=""
+            return 1
+        fi
+        while IFS= read -r -d '' key && IFS= read -r -d '' value; do
+            case "$key" in
+                CASE_ID)             CASE_ID="$value" ;;
+                CASE_TYPE)           CASE_TYPE="$value" ;;
+                COMPANY_NAME_TARGET) COMPANY_NAME_TARGET="$value" ;;
+                HOSTING_PROVIDER)    HOSTING_PROVIDER="$value" ;;
+                HOSTING_ASN)         HOSTING_ASN="$value" ;;
+                HOSTING_ISP)         HOSTING_ISP="$value" ;;
+                HOSTING_REGISTRY)    HOSTING_REGISTRY="$value" ;;
+                HOSTING_GEOLOCATION) HOSTING_GEOLOCATION="$value" ;;
+                HOSTING_COORDINATES) HOSTING_COORDINATES="$value" ;;
+                HOSTING_TIMEZONE)    HOSTING_TIMEZONE="$value" ;;
+                EMAILS)              EMAILS+=("$value") ;;
+                PHONES)              PHONES+=("$value") ;;
+                DOMAINS)             DOMAINS+=("$value") ;;
+                IPS)                 IPS+=("$value") ;;
+                IPV6S)               IPV6S+=("$value") ;;
+                USERNAMES)           USERNAMES+=("$value") ;;
+                CRYPTO_ADDRESSES)    CRYPTO_ADDRESSES+=("$value") ;;
+                SUBDOMAINS)          SUBDOMAINS+=("$value") ;;
+            esac
+        done < "$tmp"
+        rm -f -- "$tmp"
+        if [[ "$CASE_ID" != "$wanted" ]]; then
+            error "Case state belongs to '${CASE_ID}', not '${wanted}'; refusing to load."
+            reset_case_data; CASE_ID=""; CASE_DIR=""
+            return 1
+        fi
+    elif [[ -e "${CASE_DIR}/.case_state" ]]; then
+        warn "Found a legacy shell-format .case_state. It is NOT executed or loaded;"
+        warn "re-enter the indicators for this case (they will be saved as JSON)."
+    fi
     success "Loaded case: ${CASE_ID}"
 }
 
+_emit_array() {
+    local key="$1" v
+    shift
+    for v in "$@"; do printf '%s\0%s\0' "$key" "$v"; done
+}
+
 save_case_state() {
-    [[ -z "$CASE_DIR" ]] && return
-    cat > "${CASE_DIR}/.case_state" << EOF
-CASE_ID="${CASE_ID}"
-CASE_TYPE="${CASE_TYPE}"
-EMAILS=(${EMAILS[*]@Q})
-PHONES=(${PHONES[*]@Q})
-DOMAINS=(${DOMAINS[*]@Q})
-IPS=(${IPS[*]@Q})
-IPV6S=(${IPV6S[*]@Q})
-USERNAMES=(${USERNAMES[*]@Q})
-CRYPTO_ADDRESSES=(${CRYPTO_ADDRESSES[*]@Q})
-SUBDOMAINS=(${SUBDOMAINS[*]@Q})
-COMPANY_NAME_TARGET="${COMPANY_NAME_TARGET}"
-HOSTING_PROVIDER="${HOSTING_PROVIDER}"
-HOSTING_ASN="${HOSTING_ASN}"
-HOSTING_ISP="${HOSTING_ISP}"
-HOSTING_REGISTRY="${HOSTING_REGISTRY}"
-HOSTING_GEOLOCATION="${HOSTING_GEOLOCATION}"
-HOSTING_COORDINATES="${HOSTING_COORDINATES}"
-HOSTING_TIMEZONE="${HOSTING_TIMEZONE}"
-EOF
+    [[ -z "$CASE_DIR" ]] && return 0
+    {
+        printf '%s\0%s\0' \
+            CASE_ID "$CASE_ID" \
+            CASE_TYPE "$CASE_TYPE" \
+            COMPANY_NAME_TARGET "$COMPANY_NAME_TARGET" \
+            HOSTING_PROVIDER "$HOSTING_PROVIDER" \
+            HOSTING_ASN "$HOSTING_ASN" \
+            HOSTING_ISP "$HOSTING_ISP" \
+            HOSTING_REGISTRY "$HOSTING_REGISTRY" \
+            HOSTING_GEOLOCATION "$HOSTING_GEOLOCATION" \
+            HOSTING_COORDINATES "$HOSTING_COORDINATES" \
+            HOSTING_TIMEZONE "$HOSTING_TIMEZONE"
+        _emit_array EMAILS "${EMAILS[@]}"
+        _emit_array PHONES "${PHONES[@]}"
+        _emit_array DOMAINS "${DOMAINS[@]}"
+        _emit_array IPS "${IPS[@]}"
+        _emit_array IPV6S "${IPV6S[@]}"
+        _emit_array USERNAMES "${USERNAMES[@]}"
+        _emit_array CRYPTO_ADDRESSES "${CRYPTO_ADDRESSES[@]}"
+        _emit_array SUBDOMAINS "${SUBDOMAINS[@]}"
+    } | python3 -I "$STATE_PY" save "$CASE_DIR" || {
+        error "Case state was NOT saved (see message above)."
+        return 1
+    }
 }
 
 list_cases() {
@@ -416,144 +528,141 @@ select_case() {
 #-------------------------------------------------------------------------------
 # INVESTIGATION FUNCTIONS
 #-------------------------------------------------------------------------------
-investigate_email() {
-    local email="$1"
-    local output_dir="${RAW_DIR}/email"
-    mkdir -p "$output_dir"
-    
-    print_subsection "Email Investigation: ${email}"
-    
-    local report_file; report_file="${output_dir}/${email//[@.]/_}_$(date +%Y%m%d_%H%M%S).md"
+#-------------------------------------------------------------------------------
+# EVIDENCE COLLECTION
+#
+# Every external command runs through lib/collect_evidence.py, which keeps the
+# COMPLETE stdout and stderr, the exit code, UTC timestamps and SHA-256 hashes,
+# and marks a run "partial" (non-zero exit, timeout, size cap) or "not_run"
+# (tool missing). Nothing is truncated or silenced in the stored evidence;
+# only the on-screen preview is shortened.
+#-------------------------------------------------------------------------------
+safe_name() { printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '_' | cut -c1-80; }
 
-    {
-        echo "# Email Investigation: ${email}"
-        echo "Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        echo ""
-        
-        # Holehe
-        if command -v holehe &>/dev/null; then
-            echo "## Account Discovery (Holehe)"
-            echo '```'
-            holehe "$email" --only-used 2>/dev/null
-            echo '```'
-        fi
-        
-        # h8mail
-        if command -v h8mail &>/dev/null; then
-            echo "## Breach Data (h8mail)"
-            echo '```'
-            h8mail -t "$email" 2>/dev/null | head -50
-            echo '```'
-        fi
-        
-    } > "$report_file"
-    
-    success "Email report: ${report_file}"
+# collect LABEL BASE -- CMD [ARGS...]
+# Prints a short preview, returns 0 complete / 3 partial / 4 not run / other failure.
+collect() {
+    local label="$1" base="$2" rc=0
+    shift 2
+    [[ "${1:-}" == "--" ]] && shift
+    if [[ -z "$CASE_DIR" ]]; then error "No active case"; return 1; fi
+    python3 -I "$EVIDENCE_PY" --out "$base" --label "$label" \
+        --log "${CASE_DIR}/evidence_log.md" --timeout "${COLLECT_TIMEOUT:-300}" -- "$@" || rc=$?
+    case $rc in
+        0) ;;
+        3) warn "PARTIAL evidence for '${label}' (non-zero exit, timeout or size cap) - see ${base}.meta.json" ;;
+        4) warn "NOT RUN: '${label}' could not be started - see ${base}.meta.json" ;;
+        *) error "Evidence collection for '${label}' failed (rc=${rc})" ;;
+    esac
+    if [[ -s "${base}.stdout" ]]; then
+        head -n 15 -- "${base}.stdout" | sed 's/\x1b/?/g'
+        [[ $(wc -l < "${base}.stdout") -gt 15 ]] && echo -e "${DIM}  ... full output: ${base}.stdout${NC}"
+    fi
+    return "$rc"
+}
+
+# run_step REPORT LABEL BASE -- CMD...   (collect + one line in the human report)
+run_step() {
+    local report="$1" label="$2" base="$3" rc=0 status sha
+    shift 3
+    collect "$label" "$base" "$@" || rc=$?
+    case $rc in 0) status="complete" ;; 3) status="PARTIAL" ;; 4) status="NOT RUN" ;; *) status="FAILED" ;; esac
+    sha="n/a"
+    [[ -f "${base}.stdout" ]] && sha="$(sha256sum -- "${base}.stdout" | cut -d' ' -f1)"
+    printf -- '- **%s**: %s (stdout sha256 `%s`)\n  - files: `%s.stdout`, `%s.stderr`, `%s.meta.json`\n' \
+        "$label" "$status" "$sha" "$(basename "$base")" "$(basename "$base")" "$(basename "$base")" >> "$report"
+    return "$rc"
+}
+
+new_report() {  # new_report DIR TITLE STEM -> prints path
+    local report="$1/$3.md"
+    { printf '# %s\n' "$2"; printf 'Generated: %s\n\n' "$(date -u '+%Y-%m-%d %H:%M:%S UTC')"; } > "$report"
+    printf '%s' "$report"
+}
+
+investigate_email() {
+    local email="$1" output_dir="${RAW_DIR}/email" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Email Investigation: ${email}"
+    stem="$(safe_name "$email")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Email Investigation: ${email}" "$stem")"
+
+    if check_tool holehe; then
+        run_step "$report" "holehe" "${output_dir}/${stem}.holehe" -- holehe "$email" --only-used
+    else echo "- holehe: skipped (not installed)" >> "$report"; fi
+    if check_tool h8mail; then
+        run_step "$report" "h8mail" "${output_dir}/${stem}.h8mail" -- h8mail -t "$email"
+    else echo "- h8mail: skipped (not installed)" >> "$report"; fi
+    success "Email report: ${report}"
 }
 
 investigate_phone() {
-    local phone="$1"
-    local output_dir="${RAW_DIR}/phone"
+    local phone="$1" output_dir="${RAW_DIR}/phone" stem report
     mkdir -p "$output_dir"
-    
     print_subsection "Phone Investigation: ${phone}"
-    
-    if command -v phoneinfoga &>/dev/null; then
-        phoneinfoga scan -n "$phone" 2>/dev/null | tee "${output_dir}/${phone//[^0-9]/}_$(date +%Y%m%d_%H%M%S).txt"
+    stem="$(safe_name "${phone//[^0-9+]/}")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Phone Investigation" "$stem")"
+    if check_tool phoneinfoga; then
+        run_step "$report" "phoneinfoga" "${output_dir}/${stem}.phoneinfoga" -- phoneinfoga scan -n "$phone"
     else
+        echo "- phoneinfoga: skipped (not installed)" >> "$report"
         warn "PhoneInfoga not installed"
     fi
+    success "Phone report: ${report}"
 }
 
 investigate_domain() {
-    local domain="$1"
-    local output_dir="${RAW_DIR}/domain"
+    local domain="$1" output_dir="${RAW_DIR}/domain" stem report rtype
     mkdir -p "$output_dir"
-    
     print_subsection "Domain Investigation: ${domain}"
-    
-    local report_file; report_file="${output_dir}/${domain//./_}_$(date +%Y%m%d_%H%M%S).md"
+    stem="$(safe_name "$domain")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Domain Investigation: ${domain}" "$stem")"
 
-    {
-        echo "# Domain Investigation: ${domain}"
-        echo "Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        echo ""
-        
-        echo "## WHOIS"
-        echo '```'
-        whois "$domain" 2>/dev/null | head -80
-        echo '```'
-        
-        echo "## DNS Records"
-        echo '```'
-        for rtype in A AAAA MX NS TXT; do
-            echo "--- ${rtype} ---"
-            dig +short "$domain" "$rtype" 2>/dev/null
-        done
-        echo '```'
-        
-        if command -v subfinder &>/dev/null; then
-            echo "## Subdomains"
-            echo '```'
-            subfinder -d "$domain" -silent 2>/dev/null | head -30
-            echo '```'
-        fi
-        
-    } > "$report_file"
-    
-    success "Domain report: ${report_file}"
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$domain"
+    for rtype in A AAAA MX NS TXT; do
+        run_step "$report" "dig ${rtype}" "${output_dir}/${stem}.dig-${rtype}" -- dig +noall +answer "$domain" "$rtype"
+    done
+    if check_tool subfinder; then
+        run_step "$report" "subfinder" "${output_dir}/${stem}.subfinder" -- subfinder -d "$domain" -silent
+    else echo "- subfinder: skipped (not installed)" >> "$report"; fi
+    success "Domain report: ${report}"
 }
 
 investigate_ip() {
-    local ip="$1"
-    local output_dir="${RAW_DIR}/ip"
+    local ip="$1" output_dir="${RAW_DIR}/ip" stem report
     mkdir -p "$output_dir"
-    
     print_subsection "IP Investigation: ${ip}"
-    
-    local report_file; report_file="${output_dir}/${ip//./_}_$(date +%Y%m%d_%H%M%S).md"
+    stem="$(safe_name "$ip")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "IP Investigation: ${ip}" "$stem")"
 
-    {
-        echo "# IP Investigation: ${ip}"
-        echo "Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        echo ""
-        
-        echo "## WHOIS/Abuse Contact"
-        echo '```'
-        whois "$ip" 2>/dev/null | grep -iE "abuse|orgname|netname|country" | head -20
-        echo '```'
-        
-        echo "## Geolocation"
-        echo '```'
-        curl -s "http://ip-api.com/json/${ip}" 2>/dev/null | python3 -m json.tool 2>/dev/null
-        echo '```'
-        
-        echo "## Reverse DNS"
-        echo '```'
-        dig -x "$ip" +short 2>/dev/null
-        echo '```'
-        
-    } > "$report_file"
-    
-    success "IP report: ${report_file}"
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$ip"
+    # ip-api.com's free endpoint is HTTP only: the queried IP is sent in cleartext.
+    run_step "$report" "geolocation (ip-api.com)" "${output_dir}/${stem}.geo" -- \
+        curl -sS --fail --max-time 30 -- "http://ip-api.com/json/${ip}"
+    run_step "$report" "reverse DNS" "${output_dir}/${stem}.rdns" -- dig -x "$ip" +short
+    success "IP report: ${report}"
 }
 
 investigate_username() {
-    local username="$1"
-    local output_dir="${RAW_DIR}/username"
+    local username="$1" output_dir="${RAW_DIR}/username" stem report
     mkdir -p "$output_dir"
-    
     print_subsection "Username Investigation: ${username}"
-    
-    if command -v maigret &>/dev/null; then
+    stem="$(safe_name "$username")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Username Investigation" "$stem")"
+
+    if check_tool maigret; then
         info "Running Maigret..."
-        maigret "$username" -o "$output_dir" --pdf 2>/dev/null
-    elif command -v sherlock &>/dev/null; then
+        run_step "$report" "maigret" "${output_dir}/${stem}.maigret" -- \
+            maigret "$username" -o "${output_dir}/${stem}.maigret-out" --pdf
+    elif check_tool sherlock; then
         info "Running Sherlock..."
-        sherlock "$username" --output "${output_dir}/${username}.txt" 2>/dev/null
+        run_step "$report" "sherlock" "${output_dir}/${stem}.sherlock" -- \
+            sherlock "$username" --output "${output_dir}/${stem}.sherlock.txt"
     else
+        echo "- username tools: skipped (neither maigret nor sherlock installed)" >> "$report"
         warn "Neither Maigret nor Sherlock installed"
     fi
+    success "Username report: ${report}"
 }
 
 investigate_all() {
@@ -658,7 +767,7 @@ show_integration_menu() {
                     read -rp "Enter target (domain/IP): " target
                     if [[ -n "$target" ]]; then
                         mkdir -p "${RAW_DIR}/integrated"
-                        run_scammer_audit "$target" "${RAW_DIR}/integrated" 2>/dev/null || \
+                        run_scammer_audit "$target" "${RAW_DIR}/integrated" || \
                             warn "scammer_audit.sh not configured - run [D] to detect or [C] to configure"
                     fi
                 else
@@ -671,7 +780,7 @@ show_integration_menu() {
                     read -rp "Enter email address: " target
                     if [[ -n "$target" ]]; then
                         mkdir -p "${RAW_DIR}/integrated"
-                        run_email_audit "$target" "${RAW_DIR}/integrated" 2>/dev/null || \
+                        run_email_audit "$target" "${RAW_DIR}/integrated" || \
                             warn "email_audit.sh not configured - run [D] to detect or [C] to configure"
                     fi
                 else
@@ -684,7 +793,7 @@ show_integration_menu() {
                     read -rp "Enter phone number: " target
                     if [[ -n "$target" ]]; then
                         mkdir -p "${RAW_DIR}/integrated"
-                        run_phone_audit "$target" "${RAW_DIR}/integrated" 2>/dev/null || \
+                        run_phone_audit "$target" "${RAW_DIR}/integrated" || \
                             warn "phone_audit.sh not configured - run [D] to detect or [C] to configure"
                     fi
                 else
@@ -697,7 +806,7 @@ show_integration_menu() {
                     read -rp "Enter target IP address: " target
                     if [[ -n "$target" ]]; then
                         mkdir -p "${RAW_DIR}/integrated"
-                        run_full_nmap "$target" "${RAW_DIR}/integrated" 2>/dev/null || \
+                        run_full_nmap "$target" "${RAW_DIR}/integrated" || \
                             warn "full_nmap_scan.sh not configured - run [D] to detect or [C] to configure"
                     fi
                 else
@@ -710,7 +819,7 @@ show_integration_menu() {
                     read -rp "Enter domain: " target
                     if [[ -n "$target" ]]; then
                         mkdir -p "${RAW_DIR}/integrated"
-                        run_theharvester "$target" "${RAW_DIR}/integrated" 2>/dev/null || \
+                        run_theharvester "$target" "${RAW_DIR}/integrated" || \
                             warn "theHarvester not configured"
                     fi
                 else
@@ -751,7 +860,7 @@ show_settings_menu() {
             4)
                 local installer="${SCRIPT_DIR}/install_dependencies.sh"
                 if [[ -x "$installer" ]]; then
-                    sudo "$installer"
+                    "$installer"
                 else
                     warn "Installer not found"
                 fi
@@ -812,7 +921,7 @@ main() {
     init_config
     
     case "${1:-}" in
-        --install|-i) sudo "${SCRIPT_DIR}/install_dependencies.sh"; exit ;;
+        --install|-i) "${SCRIPT_DIR}/install_dependencies.sh"; exit $? ;;
         --config|-c) configure_apis; exit ;;
         --status|-s) show_tool_status; show_api_status; exit ;;
         --web|-w) launch_web_interface; exit ;;
@@ -821,7 +930,7 @@ main() {
             echo ""
             echo "Usage: $0 [OPTIONS]"
             echo ""
-            echo "  --install    Install dependencies"
+            echo "  --install    Install dependencies (run as your normal user, not root)"
             echo "  --config     Configure API keys"
             echo "  --status     Show tool/API status"
             echo "  --web        Launch web interface"
@@ -833,4 +942,6 @@ main() {
     show_main_menu
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi
