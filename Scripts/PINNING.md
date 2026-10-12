@@ -16,6 +16,7 @@ library that is a symlink or is group/world-writable.
 | `cargo:<crate>` | exact version | `cargo install --locked` |
 | `git:<name>` | full 40-hex commit | `git` checkouts (fetched at that commit) |
 | `dl:<name>:version` | version string | release archives / installer scripts |
+| `dl:<name>:commit` | full 40-hex commit | raw files served from a repository (URL is built from the commit, never a moving branch) |
 | `dl:<name>:sha256:<amd64\|arm64\|any>` | 64-hex SHA-256 | the file that is downloaded |
 
 ## Behaviour
@@ -46,9 +47,19 @@ library that is a symlink or is group/world-writable.
 
 ## Known limits
 
-* Only `pip:` pins are populated today. Git, Go, release-download and gem/cargo
-  pins are empty because they must be resolved and hash-verified against the
-  upstream projects; until then those tools are skipped and reported.
+* Pins were resolved on 2026-10-12: PyPI versions from PyPI, git commits and Go
+  versions from upstream tags via `git ls-remote`, the cargo version from the
+  crates.io index, and download hashes by hashing the artifacts as fetched over
+  HTTPS. Download hashes are trust-on-first-use (most projects publish no checksum
+  file); none of the pins is a security review of that release.
+* Deliberately unpinned (skipped and reported): `gem:evil-winrm` and
+  `dl:wazuh-gpg-key` (their hosts were unreachable when pins were resolved),
+  `exploitdb` (gitlab.com unreachable; use the distro package) and the
+  documentation clone of this repository (a pin would go stale on every merge).
+* Go versions come from git tags; availability on the Go proxy is checked when
+  `go install` runs, and the checksum database verifies the content.
+* Ghidra is pinned at 11.1.2, the version the installer is written for; it is
+  not the newest release, so bump it deliberately.
 * Pinning a top-level Python package does not hash-lock its dependencies.
   For stronger guarantees generate a hash-locked requirements file per tool
   (`pip-compile --generate-hashes`) and install with `--require-hashes`.

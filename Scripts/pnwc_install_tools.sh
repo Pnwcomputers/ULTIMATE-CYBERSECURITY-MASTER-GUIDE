@@ -407,7 +407,7 @@ install_network() {
 
     # Bettercap (Go)
     if ! command -v bettercap &>/dev/null; then
-        go_install "github.com/bettercap/bettercap"
+        go_install "github.com/bettercap/bettercap/v2"
     fi
 
     # Responder
@@ -521,12 +521,14 @@ install_exploit() {
 
     # Metasploit installer (universal fallback). The downloaded script is executed
     # only if its content matches a pinned SHA-256; otherwise set it up manually.
-    if ! command -v msfconsole &>/dev/null; then
+    # The URL is pinned to a commit (dl:msfinstall:commit) so the hash cannot drift
+    # with upstream's master branch.
+    if ! command -v msfconsole &>/dev/null && release_prereqs msfinstall any; then
         local msf_dir
         safe_mktemp_dir msf_dir
         info "Installing Metasploit Framework via the Rapid7 installer (pinned SHA-256 required)…"
         if fetch_pinned msfinstall any \
-            "https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb" \
+            "https://raw.githubusercontent.com/rapid7/metasploit-omnibus/${REL_VER}/config/templates/metasploit-framework-wrappers/msfupdate.erb" \
             "$msf_dir/msfinstall"; then
             chmod 700 "$msf_dir/msfinstall"
             if "$msf_dir/msfinstall" >> "$LOGFILE" 2>&1; then
@@ -538,8 +540,10 @@ install_exploit() {
         else
             MANUAL_TOOLS+=("metasploit-framework (use your distro package, or pin the installer SHA-256: dl:msfinstall:sha256:any)")
         fi
-    else
+    elif command -v msfconsole &>/dev/null; then
         ok "Metasploit already installed"
+    else
+        MANUAL_TOOLS+=("metasploit-framework (use your distro package, or pin dl:msfinstall:commit and :sha256:any)")
     fi
 
     # pwntools — unicorn dep requires cmake to build; skip pip if already installed by pkg manager

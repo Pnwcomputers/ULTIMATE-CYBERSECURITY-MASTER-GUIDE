@@ -117,19 +117,23 @@ days_since() {
     echo $(( (now_epoch - target_epoch) / 86400 ))
 }
 
-# ─── Extract cert from openssl ────────────────────────────────────────────────
-extract_cert_pem() {
-    local host="$1"
-    local port="$2"
-    openssl s_client -connect "${host}:${port}" -showcerts </dev/null 2>/dev/null \
-        | openssl x509 -noout -text 2>/dev/null
-}
-
-get_raw_pem() {
-    local host="$1"
-    local port="$2"
-    openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 2>/dev/null
+# ─── Fetch the certificate ONCE ───────────────────────────────────────────────
+# Every field below is derived from this single saved certificate. (Previously each
+# field triggered its own handshake, so a load balancer serving two certificates
+# could produce a report mixing subject, serial and fingerprint of different ones,
+# and every error was discarded.) The raw s_client transcript, its stderr and the
+# parsed PEM are kept next to the log as evidence.
+fetch_cert() {  # fetch_cert HOST PORT RAW PEM ERR
+    local host="$1" port="$2" raw="$3" pem="$4" err="$5" rc=0
+    local sni=()
+    # SNI is required to get the right certificate from shared hosting; it is
+    # invalid for literal IP addresses.
+    [[ "$host" =~ ^[0-9.]+$ || "$host" == *:* ]] || sni=(-servername "$host")
+    timeout 20 openssl s_client -connect "${host}:${port}" "${sni[@]}" -showcerts \
+        </dev/null >"$raw" 2>"$err" || rc=$?
+    echo "s_client exit status: ${rc}" >> "$err"
+    openssl x509 -in "$raw" -out "$pem" 2>>"$err" || return 1
+    [[ -s "$pem" ]]
 }
 
 # ─── Audit cert on a single host:port ────────────────────────────────────────
@@ -139,20 +143,27 @@ audit_cert() {
 
     section "Certificate Audit — ${host}:${port}"
 
-    # Fetch the raw cert text
-    local cert_text
-    cert_text=$(openssl s_client -connect "${host}:${port}" -showcerts </dev/null 2>/dev/null \
-        | openssl x509 -noout -text 2>/dev/null)
+    local safe base pem raw cert_err
+    safe="$(printf '%s' "${host}_${port}" | tr -c 'A-Za-z0-9._-' '_')"
+    base="${OUTPUT_DIR}/cert_${safe}_${TIMESTAMP}"
+    pem="${base}.pem"; raw="${base}.s_client.txt"; cert_err="${base}.err"
 
+    if ! fetch_cert "$host" "$port" "$raw" "$pem" "$cert_err"; then
+        warn "No TLS certificate retrieved from ${host}:${port} — port may not speak TLS, or the connection failed (details: ${cert_err})."
+        return
+    fi
+    log "  Evidence: ${pem} (raw transcript: ${raw})"
+
+    local cert_text
+    cert_text=$(openssl x509 -noout -text -in "$pem" 2>>"$cert_err")
     if [[ -z "$cert_text" ]]; then
-        warn "No TLS certificate returned from ${host}:${port} — port may not speak TLS."
+        warn "Certificate saved but could not be parsed (see ${cert_err})."
         return
     fi
 
     # ── Subject ──────────────────────────────────────────────────────────────
     local subject
-    subject=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -subject 2>/dev/null | sed 's/subject=//')
+    subject=$(openssl x509 -noout -subject -in "$pem" 2>>"$cert_err" | sed 's/subject=//')
     log "${GREEN}Subject:${NC}          $subject"
 
     local cn
@@ -170,8 +181,7 @@ audit_cert() {
 
     # ── Issuer ────────────────────────────────────────────────────────────────
     local issuer
-    issuer=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -issuer 2>/dev/null | sed 's/issuer=//')
+    issuer=$(openssl x509 -noout -issuer -in "$pem" 2>>"$cert_err" | sed 's/issuer=//')
     log "${GREEN}Issuer:${NC}           $issuer"
 
     local issuer_cn
@@ -195,24 +205,20 @@ audit_cert() {
 
     # ── Validity ─────────────────────────────────────────────────────────────
     local not_before not_after
-    not_before=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -startdate 2>/dev/null | sed 's/notBefore=//')
-    not_after=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -enddate 2>/dev/null | sed 's/notAfter=//')
+    not_before=$(openssl x509 -noout -startdate -in "$pem" 2>>"$cert_err" | sed 's/notBefore=//')
+    not_after=$(openssl x509 -noout -enddate -in "$pem" 2>>"$cert_err" | sed 's/notAfter=//')
     log "${GREEN}Validity:${NC}"
     log "  Not Before:       ${not_before}"
     log "  Not After:        ${not_after}"
 
     # ── Serial ────────────────────────────────────────────────────────────────
     local serial
-    serial=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -serial 2>/dev/null | sed 's/serial=//')
+    serial=$(openssl x509 -noout -serial -in "$pem" 2>>"$cert_err" | sed 's/serial=//')
     log "${GREEN}Serial Number:${NC}    ${serial}"
 
     # ── Fingerprint ───────────────────────────────────────────────────────────
     local fingerprint
-    fingerprint=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-        | openssl x509 -noout -fingerprint -sha256 2>/dev/null \
+    fingerprint=$(openssl x509 -noout -fingerprint -sha256 -in "$pem" 2>>"$cert_err" \
         | sed 's/SHA256 Fingerprint=//')
     log "${GREEN}SHA-256 Fingerprint:${NC}"
     log "  ${fingerprint}"
@@ -233,8 +239,7 @@ audit_cert() {
     sans=$(echo "$cert_text" | grep -A1 "Subject Alternative Name" | tail -1 \
         | tr ',' '\n' | sed 's/^\s*/  /' | grep -v '^$')
     if [[ -z "$sans" ]]; then
-        sans=$(openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null \
-            | openssl x509 -noout -ext subjectAltName 2>/dev/null \
+        sans=$(openssl x509 -noout -ext subjectAltName -in "$pem" 2>>"$cert_err" \
             | grep -v "^X509v3" | tr ',' '\n' | sed 's/^\s*/  /' | grep -v '^$')
     fi
     if [[ -n "$sans" ]]; then
@@ -339,9 +344,14 @@ check_crtsh() {
     fi
 
     local crtsh_url="https://crt.sh/?q=${domain}&output=json"
-    local crtsh_raw
-    crtsh_raw=$(curl -sS --max-time 30 "$crtsh_url" 2>/dev/null)
+    local crtsh_raw crtsh_err crtsh_rc=0
+    crtsh_err="${OUTPUT_DIR}/crtsh_$(printf '%s' "$domain" | tr -c 'A-Za-z0-9._-' '_')_${TIMESTAMP}.err"
+    crtsh_raw=$(curl -sS --fail --max-time 30 "$crtsh_url" 2>"$crtsh_err") || crtsh_rc=$?
 
+    if (( crtsh_rc != 0 )); then
+        warn "crt.sh lookup FAILED for ${domain} (curl exit ${crtsh_rc}: $(head -1 "$crtsh_err")) — results below are incomplete."
+        return
+    fi
     if [[ -z "$crtsh_raw" ]] || echo "$crtsh_raw" | grep -q "^<"; then
         warn "crt.sh returned no JSON for domain: ${domain}"
         return
@@ -427,7 +437,7 @@ scan_tls_ports() {
     for port in "${ports[@]}"; do
         log "${BLUE}Checking ${host}:${port} ...${NC}"
         local probe
-        probe=$(openssl s_client -connect "${host}:${port}" </dev/null 2>&1 | head -5)
+        probe=$(timeout 15 openssl s_client -connect "${host}:${port}" </dev/null 2>&1 | head -5)
         if echo "$probe" | grep -q "CONNECTED\|Certificate"; then
             log "${GREEN}  [OPEN/TLS]${NC} Port ${port} responds to TLS"
             audit_cert "$host" "$port"
@@ -565,4 +575,6 @@ main() {
     log "Finished: $(date)"
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

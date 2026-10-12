@@ -160,7 +160,7 @@ class SupplyChainTests(OsintInstallerBase):
     def test_asn_without_pin_is_not_installed_and_is_reported(self):
         r = self.run_script('OSINT_HOME="$HOME/.local/share/osint-investigator"; BIN_DIR="$HOME/.local/bin"; '
                             'mkdir -p "$BIN_DIR"; install_asn_tool; echo "M=${MANUAL_TOOLS[*]}"')
-        self.assertIn("M=asn (pin dl:asn:sha256:any", r.stdout)
+        self.assertIn("M=asn (pin dl:asn:commit", r.stdout)
         self.assertEqual(list((self.home / ".local" / "bin").iterdir()), [])
 
     def test_phoneinfoga_without_pin_is_skipped(self):
