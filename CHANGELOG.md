@@ -1,9 +1,9 @@
 # 🔄 Change Log - October 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1486
-- **Files Modified**: 1812
-- **New Files**: 717
+- **Commits Analyzed**: 1487
+- **Files Modified**: 1830
+- **New Files**: 719
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -1408,6 +1408,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Security/followup hardening (#114) (`9fd362d`)
 - Revise defense and validation sections in OWASP top 10 (#112) (`6a7d341`)
 - Revise authorization defense and validation details (`278846e`)
 - Expand ReverseEngineering section index, part hub, and IDA appendix (`7bea757`)
@@ -1511,6 +1512,25 @@
 <summary>Click to view full file list</summary>
 
 - `.github/workflows/guide-tests.yml`
+- `ENHANCED_MASTER_GUIDE.md`
+- `IncidentResponse/SIEM/graylog.md`
+- `IncidentResponse/SIEM/splunk.md`
+- `OSINT/Playbook/abuse_report_generator.sh`
+- `OSINT/Playbook/lib/trusted_conf.sh`
+- `OSINT/Playbook/scripts/case_report_generator.sh`
+- `OSINT/Playbook/scripts/crypto_audit.sh`
+- `OSINT/Playbook/scripts/domain_monitor.sh`
+- `OSINT/Playbook/scripts/email_audit.sh`
+- `OSINT/Playbook/scripts/phone_audit.sh`
+- `OSINT/Playbook/scripts/scammer_audit.sh`
+- `OSINT/Playbook/scripts/ssl_cert_audit.sh`
+- `OSINT/Playbook/scripts/threat_feed_check.sh`
+- `OSINT/Playbook/scripts/username_audit.sh`
+- `OSINT/Playbook/toolkit_integration.sh`
+- `SECURITY_REMEDIATION_PLAN.md`
+- `tests/hardening/test_no_embedded_secrets.py`
+- `tests/hardening/test_osint_consumers.py`
+- `CHANGELOG.md`
 - `.gitignore`
 - `IncidentResponse/SIEM/elk_stack.md`
 - `OSINT/Playbook/README.md`
@@ -1519,34 +1539,20 @@
 - `OSINT/Playbook/lib/collect_evidence.py`
 - `OSINT/Playbook/osint_investigator.sh`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
-- `SECURITY_REMEDIATION_PLAN.md`
 - `Scripts/PINNING.md`
 - `Scripts/lib/safe_install.sh`
 - `Scripts/pnwc_install_tools.sh`
 - `tests/hardening/test_installer_checks.py`
-- `tests/hardening/test_no_embedded_secrets.py`
 - `tests/hardening/test_osint_installer.py`
 - `tests/hardening/test_osint_investigator.py`
 - `tests/hardening/test_osint_state_evidence.py`
 - `tests/hardening/test_safe_install.py`
 - `WebAppSecurity/owasp-top-10.md`
-- `CHANGELOG.md`
-- `OSINT/Playbook/abuse_report_generator.sh`
 - `OSINT/Playbook/branding.conf.example`
 - `OSINT/Playbook/scripts/README.md`
-- `OSINT/Playbook/scripts/case_report_generator.sh`
-- `OSINT/Playbook/scripts/crypto_audit.sh`
-- `OSINT/Playbook/scripts/domain_monitor.sh`
-- `OSINT/Playbook/scripts/email_audit.sh`
 - `OSINT/Playbook/scripts/metadata_stripper.sh`
-- `OSINT/Playbook/scripts/phone_audit.sh`
-- `OSINT/Playbook/scripts/scammer_audit.sh`
 - `OSINT/Playbook/scripts/screenshot_archive.sh`
-- `OSINT/Playbook/scripts/ssl_cert_audit.sh`
-- `OSINT/Playbook/scripts/threat_feed_check.sh`
-- `OSINT/Playbook/scripts/username_audit.sh`
 - `OSINT/Playbook/scripts/whois_bulk.sh`
-- `OSINT/Playbook/toolkit_integration.sh`
 - `OSINT/Playbook/tools_api.md`
 - `OSINT/README.md`
 - `OSINT/docs/COMPATIBILITY.md`
@@ -1602,7 +1608,6 @@
 - `uConsole/README.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `Documentation/virtualmachines.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `OPSEC/OPSEC_guide.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
@@ -1798,7 +1803,6 @@
 - `Documentation/ArchLinux_CheatSheet.md`
 - `Checklists/Domain-Escalation.md`
 - `HardwareHacking/HiLetgo.md`
-- `IncidentResponse/SIEM/splunk.md`
 - `Scripts/Python/ssh_brute.py`
 - `AI/OpenClaw/agent_skill_config.md`
 - `Checklists/Command&Control.md`
@@ -1828,7 +1832,6 @@
 - `Checklists/Windows-Privilege-Escalation.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
-- `IncidentResponse/SIEM/graylog.md`
 - `IncidentResponse/network_intrusion.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
