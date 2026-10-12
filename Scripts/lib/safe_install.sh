@@ -514,8 +514,14 @@ fetch_pinned() {
 release_prereqs() {
     local name="$1" arch_mode="${2:-arch}"
     REL_VER=""; REL_ARCH="any"
-    if ! REL_VER=$(pin_version "$name"); then
-        warn "  $name: no pinned version (dl:${name}:version) in $PINS_FILE — not installing"
+    # A source may be pinned by release version (dl:NAME:version) or, for raw files
+    # served from a repository, by a 40-hex commit (dl:NAME:commit).
+    local c
+    if c=$(pin_get "dl:${name}:commit") && safe_is_commit "$c"; then
+        REL_VER="$c"
+    elif ! REL_VER=$(pin_version "$name"); then
+        REL_VER=""
+        warn "  $name: no pinned version (dl:${name}:version or dl:${name}:commit) in $PINS_FILE — not installing"
         SKIPPED_TOOLS+=("dl:${name} (no pinned version)")
         return 1
     fi

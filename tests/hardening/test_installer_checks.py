@@ -248,6 +248,15 @@ class ReleasePrereqTests(InstallerBase):
                             env={"SAFE_UNAME_M": "armv7l"})
         self.assertIn("rc=0 A=any", r.stdout)
 
+    def test_commit_pin_is_accepted_and_malformed_commit_is_not(self):
+        good = "a" * 40
+        self.pins.write_text(f"dl:tool:commit={good}\n")
+        r = self.run_script('release_prereqs tool any; echo "rc=$? V=$REL_VER"')
+        self.assertIn(f"rc=0 V={good}", r.stdout)
+        self.pins.write_text("dl:tool:commit=master\n")
+        r = self.run_script('release_prereqs tool any; echo "rc=$? V=[$REL_VER]"')
+        self.assertIn("rc=1 V=[]", r.stdout)
+
 
 class SummaryAndTrustTests(InstallerBase):
     def test_summary_does_not_claim_success_when_installs_failed(self):

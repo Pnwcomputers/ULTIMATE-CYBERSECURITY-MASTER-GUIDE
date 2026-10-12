@@ -350,9 +350,14 @@ install_asn_tool() {
         ok "  asn already installed"
         return 0
     fi
+    # dl:asn:commit is an upstream commit, so the URL (and therefore the hash) is immutable
+    if ! release_prereqs asn any; then
+        MANUAL_TOOLS+=("asn (pin dl:asn:commit and dl:asn:sha256:any, or install from https://github.com/nitefood/asn)")
+        return 0
+    fi
     local d
     safe_mktemp_dir d
-    if fetch_pinned asn any "https://raw.githubusercontent.com/nitefood/asn/master/asn" "${d}/asn" \
+    if fetch_pinned asn any "https://raw.githubusercontent.com/nitefood/asn/${REL_VER}/asn" "${d}/asn" \
        && install -m 0755 "${d}/asn" "${BIN_DIR}/asn"; then
         ok "  asn installed to ${BIN_DIR}/asn"
     else
@@ -409,14 +414,9 @@ install_monolith() {
         return 0
     fi
 
-    # No cargo: use a verified release archive (version + SHA-256 pinned).
-    # The asset name follows the earlier installer; confirm it when recording pins.
-    release_prereqs monolith || return 0
-    local triple="x86_64-unknown-linux-gnu"
-    [[ "$REL_ARCH" == arm64 ]] && triple="aarch64-unknown-linux-gnu"
-    install_release_member monolith \
-        "https://github.com/Y2Z/monolith/releases/download/${REL_VER}/monolith-${REL_VER}-${triple}.tar.gz" \
-        "$REL_ARCH" monolith "$BIN_DIR"
+    # Upstream publishes no Linux tar.gz asset matching a stable name, so there is no
+    # verified-download fallback; install via cargo (pinned, --locked) or by hand.
+    MANUAL_TOOLS+=("monolith (install cargo, then re-run; or see https://github.com/Y2Z/monolith)")
 }
 
 #-------------------------------------------------------------------------------
