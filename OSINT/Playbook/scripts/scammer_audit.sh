@@ -2,7 +2,7 @@
 
 #############################################
 #  SCAMMER OSINT INVESTIGATION SCRIPT v3.1
-#  Jon-Eric Pienkowski ~ PNW Computers (PNWC)
+#  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #  
 #  Usage: ./scammer_audit.sh -d <domain>
 #         ./scammer_audit.sh -i <ip1,ip2,ip3>
@@ -238,6 +238,22 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# query_api OUTPUT LABEL CURL_ARGS... — fetch JSON evidence. On a transport failure (network
+# error, timeout) or an empty body, OUTPUT is left empty and the failure is logged and saved
+# to OUTPUT.err, so a dead/unreachable API is never mistaken for "nothing found" (the prior
+# code piped curl straight into `jq || cat`, so a failed curl just produced a silently empty
+# evidence file indistinguishable from a clean negative result).
+query_api() {
+    local output="$1" label="$2" rc=0 body; shift 2
+    body="$(curl -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    : > "$output"
+    if (( rc != 0 )) || [ -z "$body" ]; then
+        log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
+        return 1
+    fi
+    printf '%s' "$body" | pretty_json > "$output"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -261,9 +277,8 @@ query_criminalip() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying CriminalIP...${NC}"
-    curl -s "https://api.criminalip.io/v1/ip/data?ip=$IP" \
-        -H "x-api-key: $CRIMINALIP_KEY" | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" CriminalIP "https://api.criminalip.io/v1/ip/data?ip=$IP" -H "x-api-key: $CRIMINALIP_KEY" || return
+
     # Check for malicious score
     if command -v jq &> /dev/null && [ -s "$OUTPUT" ]; then
         SCORE=$(jq -r '(.data.score.inbound // .data.score // .score // empty)' "$OUTPUT" 2>/dev/null)
@@ -280,7 +295,7 @@ query_hibp() {
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for breaches...${NC}"
     local HTTP_CODE
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
+    HTTP_CODE=$(curl -s --max-time 20 -w "%{http_code}" -o "$OUTPUT" \
         "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL" \
         -H "hibp-api-key: $HIBP_KEY" \
         -H "user-agent: PNWC-Scammer-Audit")
@@ -306,7 +321,7 @@ query_hibp_pastes() {
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for pastes...${NC}"
     local HTTP_CODE_PASTES
-    HTTP_CODE_PASTES=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
+    HTTP_CODE_PASTES=$(curl -s --max-time 20 -w "%{http_code}" -o "$OUTPUT" \
         "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
         -H "hibp-api-key: $HIBP_KEY" \
         -H "user-agent: PNWC-Scammer-Audit")
@@ -329,9 +344,8 @@ query_leaklookup() {
     local TYPE="$2"  # email_address, username, ip_address, domain, password, hash
     local OUTPUT="$3"
     log "${GREEN}[*] Querying LeakLookup ($TYPE)...${NC}"
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" LeakLookup "https://leak-lookup.com/api/search" -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" || return
+
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
         if [ "$ERROR" = "none" ] || [ "$ERROR" = "null" ]; then
@@ -350,9 +364,8 @@ query_netlas() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying Netlas...${NC}"
-    curl -s "https://app.netlas.io/api/hosts/$IP/" \
-        -H "X-API-Key: $NETLAS_KEY" | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] Netlas complete${NC}"
+    query_api "$OUTPUT" Netlas "https://app.netlas.io/api/hosts/$IP/" -H "X-API-Key: $NETLAS_KEY" \
+        && log "${GREEN}    [+] Netlas complete${NC}"
 }
 
 # ipinfo.io - Geolocation
@@ -360,8 +373,8 @@ query_ipinfo() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying ipinfo.io...${NC}"
-    curl -s "https://ipinfo.io/$IP" | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] ipinfo.io complete${NC}"
+    query_api "$OUTPUT" ipinfo.io "https://ipinfo.io/$IP" \
+        && log "${GREEN}    [+] ipinfo.io complete${NC}"
 }
 
 # ip-api.com - Geolocation & ISP
@@ -369,9 +382,8 @@ query_ipapi() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying ip-api.com...${NC}"
-    curl -s "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" \
-        | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" ip-api.com "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" || return
+
     # Check for proxy/hosting flags
     if command -v jq &> /dev/null; then
         IS_PROXY=$(jq -r '.proxy // false' "$OUTPUT" 2>/dev/null)
@@ -410,9 +422,7 @@ query_urlscan() {
     local -a CURL_ARGS=(-s -H "Content-Type: application/json")
     [ -n "$URLSCAN_KEY" ] && CURL_ARGS+=(-H "API-Key: ${URLSCAN_KEY}")
 
-    curl "${CURL_ARGS[@]}" \
-        "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" \
-        | pretty_json > "$OUTPUT" 2>&1
+    query_api "$OUTPUT" URLScan.io "${CURL_ARGS[@]}" "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" || return
 
     if command -v jq &>/dev/null; then
         local TOTAL
@@ -434,11 +444,8 @@ query_dnsdumpster() {
     fi
 
     log "${GREEN}    [*] Querying DNSDumpster...${NC}"
-    curl -s \
-        -H "Authorization: Bearer ${DNSDUMPSTER_KEY}" \
-        "https://api.dnsdumpster.com/domain/${DOMAIN}" \
-        | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] DNSDumpster complete${NC}"
+    query_api "$OUTPUT" DNSDumpster -H "Authorization: Bearer ${DNSDUMPSTER_KEY}" "https://api.dnsdumpster.com/domain/${DOMAIN}" \
+        && log "${GREEN}    [+] DNSDumpster complete${NC}"
 }
 
 # ZoomEye - Cyberspace search engine
@@ -463,11 +470,8 @@ query_zoomeye() {
     local ENCODED_QUERY
     ENCODED_QUERY=$(OSINT_QUERY="${QUERY}" python3 -c "import os,urllib.parse; print(urllib.parse.quote(os.environ['OSINT_QUERY']))" 2>/dev/null || printf '%s' "$QUERY" | sed 's/:/%3A/g;s/ /+/g')
 
-    curl -s \
-        -H "API-KEY: ${ZOOMEYE_KEY}" \
-        "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
-        | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] ZoomEye complete${NC}"
+    query_api "$OUTPUT" ZoomEye -H "API-KEY: ${ZOOMEYE_KEY}" "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
+        && log "${GREEN}    [+] ZoomEye complete${NC}"
 }
 
 # FullHunt - attack surface and subdomain discovery
@@ -481,10 +485,7 @@ query_fullhunt() {
     fi
 
     log "${GREEN}    [*] Querying FullHunt...${NC}"
-    curl -s \
-        -H "X-API-KEY: ${FULLHUNT_KEY}" \
-        "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains" \
-        | pretty_json > "$OUTPUT" 2>&1
+    query_api "$OUTPUT" FullHunt -H "X-API-KEY: ${FULLHUNT_KEY}" "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains"
 
     if command -v jq &>/dev/null; then
         local SUB_COUNT
@@ -513,7 +514,7 @@ run_nuclei() {
         log "${YELLOW}    (This may take a while...)${NC}"
         
         # Update templates silently
-        nuclei -ut -silent 2>/dev/null
+        nuclei -ut -silent 2>"${OUTPUT_DIR:-.}/nuclei_update.err" || log "${YELLOW}    [!] nuclei template update failed (see nuclei_update.err); templates may be stale${NC}"
 
         # Run nuclei
         nuclei -u "$TARGET" -severity low,medium,high,critical -silent -o "$OUTPUT_FILE" 2>&1
@@ -565,6 +566,21 @@ run_dirsearch() {
 #############################################
 # RustScan
 #############################################
+# run_scan LABEL OUTFILE CMD... — run a collector and keep its evidence. stdout goes to
+# OUTFILE.stdout, stderr to OUTFILE.err, exit status to OUTFILE.rc. A non-zero exit is
+# logged as FAILED and returned, so a failed scan can never be mistaken for "nothing found".
+run_scan() {
+    local label="$1" out="$2" rc=0; shift 2
+    "$@" >"${out}.stdout" 2>"${out}.err" || rc=$?
+    echo "$rc" > "${out}.rc"
+    if (( rc != 0 )); then
+        log "${RED}    [!] ${label} FAILED (exit ${rc}) — results incomplete/UNVERIFIED; see ${out}.err${NC}"
+    else
+        log "${GREEN}    [+] ${label} done${NC}"
+    fi
+    return "$rc"
+}
+
 run_rustscan() {
     local IP="$1"
     local OUTPUT="$2"
@@ -603,8 +619,8 @@ scan_ip() {
     # WHOIS
     if [[ ! "$IP" =~ ":" ]]; then
         log "${GREEN}    [*] Running WHOIS...${NC}"
-        whois -h whois.arin.net "$IP" > "$IP_DIR/whois_arin.txt" 2>&1
-        log "${GREEN}    [+] WHOIS complete${NC}"
+        run_scan "WHOIS" "$IP_DIR/whois_arin" whois -h whois.arin.net "$IP" || true
+        cat "$IP_DIR/whois_arin.stdout" "$IP_DIR/whois_arin.err" > "$IP_DIR/whois_arin.txt" 2>/dev/null || true
     fi
     
     #-----------------------------------------
@@ -631,29 +647,25 @@ scan_ip() {
     log "${GREEN}[*] Running Nmap scans...${NC}"
     
     # Basic Scan
-    nmap -sV -sC --host-timeout 300s "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" > /dev/null 2>&1
-    log "${GREEN}    [+] Basic scan done${NC}"
+    NMAP_BASIC_OK=true
+    run_scan "Basic scan" "$IP_DIR/nmap_basic" nmap -sV -sC --host-timeout 300s "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" || NMAP_BASIC_OK=false
 
     # Full port scan (skip in quick mode)
     if [ "$QUICK_MODE" = false ]; then
         log "${GREEN}    [*] Running full port scan (this takes a while)...${NC}"
-        nmap -p- -T4 --host-timeout 600s "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
-        log "${GREEN}    [+] Full port scan done${NC}"
+        run_scan "Full port scan" "$IP_DIR/nmap_fullport" nmap -p- -T4 --host-timeout 600s "$IP" -oN "$IP_DIR/nmap_fullport.txt" || true
     fi
-    
+
     # DNS NSID
-    nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] DNS scan done${NC}"
-    
+    run_scan "DNS scan" "$IP_DIR/nmap_dns" nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" || true
+
     # Extra ports
-    nmap -Pn -sV -p 443,8080,8443,3389,22,21,25,3306,5432,27017,6379 "$IP" -oN "$IP_DIR/nmap_extra.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] Extra ports scan done${NC}"
-    
+    run_scan "Extra ports scan" "$IP_DIR/nmap_extra" nmap -Pn -sV -p 443,8080,8443,3389,22,21,25,3306,5432,27017,6379 "$IP" -oN "$IP_DIR/nmap_extra.txt" || true
+
     # Vuln scripts
     log "${GREEN}    [*] Running Nmap vuln scripts...${NC}"
-    nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] Vuln scan done${NC}"
-    
+    run_scan "Vuln scan" "$IP_DIR/nmap_vuln" nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" || true
+
     #-----------------------------------------
     # Banner Grab
     #-----------------------------------------
@@ -668,9 +680,12 @@ scan_ip() {
     #-----------------------------------------
     PORT80_OPEN=0
     PORT443_OPEN=0
-    if [ -f "$IP_DIR/nmap_basic.txt" ]; then
-        PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null) || PORT80_OPEN=0
-        PORT443_OPEN=$(grep -c "443/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null) || PORT443_OPEN=0
+    if [ "$NMAP_BASIC_OK" = true ] && [ -f "$IP_DIR/nmap_basic.txt" ]; then
+        # grep -c exits 1 when the count is 0; that is a valid "closed" answer here
+        PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt") || PORT80_OPEN=0
+        PORT443_OPEN=$(grep -c "443/tcp.*open" "$IP_DIR/nmap_basic.txt") || PORT443_OPEN=0
+    else
+        log "${YELLOW}[!] Basic nmap scan failed — port state is UNVERIFIED (not 'closed'); skipping automatic web recon. Check ${IP_DIR}/nmap_basic.err${NC}"
     fi
     
     if [ "$PORT80_OPEN" -gt 0 ] 2>/dev/null || [ "$PORT443_OPEN" -gt 0 ] 2>/dev/null; then
@@ -694,7 +709,7 @@ scan_ip() {
         
         # Dirsearch
         run_dirsearch "$WEB_TARGET" "$IP_DIR/dirsearch_results.txt"
-    else
+    elif [ "$NMAP_BASIC_OK" = true ]; then
         log "${YELLOW}[!] No web ports (80/443) detected, skipping web recon${NC}"
     fi
     

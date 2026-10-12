@@ -9,7 +9,7 @@
 #                toolkit scripts (scammer_audit.sh, email_audit.sh, phone_audit.sh,
 #                full_nmap_scan.sh, victim_osint_toolkit.sh)
 #
-#        AUTHOR: Jon-Eric Pienkowski ~ PNW Computers (jon@pnwcomputers.com)
+#        AUTHOR: Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #       VERSION: 1.1
 #
 #===============================================================================

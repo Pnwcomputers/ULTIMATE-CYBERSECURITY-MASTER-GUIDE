@@ -5,8 +5,8 @@
 #              Detects coin type from address format, queries blockchain APIs, and checks
 #              against scam databases. Produces per-address reports formatted for
 #              IC3/FTC submission (dollar amounts, transaction dates, connected addresses).
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
@@ -198,10 +198,10 @@ check_cryptoscamdb() {
 
     info "CryptoScamDB: checking ${addr} ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         "https://api.cryptoscamdb.org/v1/check/${addr}")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local success
         success=$(jq_or_grep "$out_file" '.success' '"success":[^,}]*' "false")
         local status
@@ -229,10 +229,10 @@ audit_btc() {
     info "BTC: querying blockchain.info for $addr ..."
     local bc_file="${report_dir}/blockchain_info.json"
     local http_code
-    http_code=$(curl -s -o "$bc_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" \
         "https://blockchain.info/rawaddr/${addr}?limit=5")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local total_received total_sent final_balance n_tx
         total_received=$(jq_or_grep "$bc_file" '.total_received' '"total_received":[0-9]*' "0")
         total_sent=$(jq_or_grep "$bc_file" '.total_sent' '"total_sent":[0-9]*' "0")
@@ -277,8 +277,8 @@ audit_btc() {
         bc2_url="${bc2_url}?key=${BLOCKCHAIR_API_KEY}"
     fi
     local http_code2
-    http_code2=$(curl -s -o "$bc2_file" -w "%{http_code}" "$bc2_url")
-    if [[ "$http_code2" -eq 200 ]]; then
+    http_code2=$(curl -s --max-time 25 -o "$bc2_file" -w "%{http_code}" "$bc2_url")
+    if [[ "${http_code2:-000}" == "200" ]]; then
         local first_seen last_seen
         first_seen=$(jq_or_grep "$bc2_file" ".data.\"${addr}\".address.first_seen_receiving" '"first_seen_receiving":"[^"]*"' "N/A")
         last_seen=$(jq_or_grep "$bc2_file" ".data.\"${addr}\".address.last_seen_receiving" '"last_seen_receiving":"[^"]*"' "N/A")
@@ -306,11 +306,11 @@ audit_eth() {
     info "ETH: querying balance for $addr ..."
     local bal_file="${report_dir}/eth_balance.json"
     local http_code
-    http_code=$(curl -s -o "$bal_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$bal_file" -w "%{http_code}" \
         "https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}")
 
     local eth_balance="N/A"
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local wei
         wei=$(jq_or_grep "$bal_file" '.result' '"result":"[^"]*"' "0")
         eth_balance=$(awk "BEGIN {printf \"%.8f\", ${wei}/1000000000000000000}" 2>/dev/null || echo "N/A")
@@ -322,7 +322,7 @@ audit_eth() {
     info "ETH: querying transactions for $addr ..."
     local tx_file="${report_dir}/eth_txlist.json"
     local http_code2
-    http_code2=$(curl -s -o "$tx_file" -w "%{http_code}" \
+    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
         "https://api.etherscan.io/api?module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}")
 
     {
@@ -332,7 +332,7 @@ audit_eth() {
         printf "\nRECENT TRANSACTIONS (last 5):\n"
     } >> "$report_file"
 
-    if [[ "$http_code2" -eq 200 ]]; then
+    if [[ "${http_code2:-000}" == "200" ]]; then
         local api_status
         api_status=$(grep -o '"status":"[^"]*"' "$tx_file" | head -1 | cut -d'"' -f4 || echo "0")
         if [[ "$api_status" != "1" ]]; then
@@ -380,14 +380,14 @@ audit_blockchair() {
     fi
 
     local http_code
-    http_code=$(curl -s -o "$bc_file" -w "%{http_code}" "$bc_url")
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$bc_url")
 
     {
         printf "%s ADDRESS AUDIT\n" "$chain_label"
         printf "Address: %s\n" "$addr"
     } >> "$report_file"
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local received sent balance tx_count first_seen last_seen
         received=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.received" '"received":[0-9]*' "0")
         sent=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.spent" '"spent":[0-9]*' "0")
@@ -430,7 +430,7 @@ audit_xrp() {
     info "XRP: querying xrpscan for $addr ..."
     local xrp_file="${report_dir}/xrpscan.json"
     local http_code
-    http_code=$(curl -s -o "$xrp_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$xrp_file" -w "%{http_code}" \
         "https://api.xrpscan.com/api/v1/account/${addr}")
 
     {
@@ -438,7 +438,7 @@ audit_xrp() {
         printf "Address: %s\n" "$addr"
     } >> "$report_file"
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local balance tx_count initial_balance
         balance=$(jq_or_grep "$xrp_file" '.xrpBalance' '"xrpBalance":"[^"]*"' "N/A")
         tx_count=$(jq_or_grep "$xrp_file" '.txCount' '"txCount":[0-9]*' "N/A")
@@ -459,10 +459,10 @@ audit_xrp() {
     info "XRP: querying recent transactions ..."
     local tx_file="${report_dir}/xrpscan_txs.json"
     local http_code2
-    http_code2=$(curl -s -o "$tx_file" -w "%{http_code}" \
+    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
         "https://api.xrpscan.com/api/v1/account/${addr}/transactions?limit=5")
 
-    if [[ "$http_code2" -eq 200 ]]; then
+    if [[ "${http_code2:-000}" == "200" ]]; then
         printf "\nRECENT TRANSACTIONS (last 5):\n" >> "$report_file"
         if command -v jq &>/dev/null; then
             jq -r '.[]? | "  TxHash: \(.hash)\n  Time:   \(.date)\n  Type:   \(.TransactionType)\n  Amount: \(.Amount // "N/A")\n  ---"' "$tx_file" 2>/dev/null >> "$report_file" || true
@@ -514,9 +514,9 @@ audit_blockcypher() {
     [[ -n "$BLOCKCYPHER_API_KEY" ]] && url="${url}?token=${BLOCKCYPHER_API_KEY}"
 
     local http_code
-    http_code=$(curl -s -o "$bc_file" -w "%{http_code}" "$url")
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$url")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local balance tx_count
         balance=$(jq_or_grep "$bc_file" '.balance' '"balance":[0-9]*' "N/A")
         tx_count=$(jq_or_grep "$bc_file" '.n_tx' '"n_tx":[0-9]*' "N/A")
@@ -550,7 +550,7 @@ audit_address() {
         printf "=%.0s" {1..70}; printf "\n"
         printf "PNWC CRYPTO AUDIT REPORT\n"
         printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
-        printf "Investigator Contact: jon@pnwcomputers.com\n"
+        printf "Investigator Contact: (set in case notes)\n"
         printf "Chain: %s\n" "$chain"
         printf "=%.0s" {1..70}; printf "\n\n"
     } > "$report_file"
@@ -611,8 +611,8 @@ build_summary() {
         printf "=%.0s" {1..70}; printf "\n"
         printf "PNWC CRYPTOCURRENCY AUDIT SUMMARY\n"
         printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
-        printf "Investigator: Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)\n"
-        printf "Contact: jon@pnwcomputers.com\n"
+        printf "Investigator: (set in case notes)\n"
+        printf "Contact: (set in case notes)\n"
         printf "=%.0s" {1..70}; printf "\n\n"
         printf "Addresses audited: %d\n\n" "${#ADDRESSES[@]}"
     } > "$summary_file"

@@ -2,7 +2,7 @@
 
 #############################################
 #  PHONE NUMBER OSINT INVESTIGATION SCRIPT v1.0
-#  Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
+#  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #  
 #  Usage: ./phone_audit.sh -p <phone_number>
 #         ./phone_audit.sh -p <phone1,phone2,phone3>
@@ -239,6 +239,22 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# query_api OUTPUT LABEL CURL_ARGS... — fetch JSON evidence with curl. On any transport
+# failure (network error, timeout, non-2xx with --fail) or an empty body, OUTPUT is left
+# empty and the failure is logged and saved to OUTPUT.err, so a dead API or expired key
+# can never be mistaken for "nothing found" — the prior behavior piped curl straight into
+# `jq || cat` and a failed curl just produced a silently empty file.
+query_api() {
+    local output="$1" label="$2" rc=0 body; shift 2
+    body="$(curl -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    : > "$output"
+    if (( rc != 0 )) || [ -z "$body" ]; then
+        log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
+        return 1
+    fi
+    printf '%s' "$body" | pretty_json > "$output"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -269,9 +285,8 @@ query_numverify() {
         return
     fi
     
-    curl -s "http://apilayer.net/api/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" NumVerify "http://apilayer.net/api/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" || return
+
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
         CARRIER=$(jq -r '.carrier // "Unknown"' "$OUTPUT" 2>/dev/null)
@@ -296,13 +311,11 @@ query_veriphone() {
     
     if [ -z "$VERIPHONE_KEY" ]; then
         # Veriphone has a free tier without key (limited)
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" \
-            | pretty_json > "$OUTPUT" 2>&1
+        query_api "$OUTPUT" Veriphone "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" || return
     else
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" \
-            | pretty_json > "$OUTPUT" 2>&1
+        query_api "$OUTPUT" Veriphone "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" || return
     fi
-    
+
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.phone_valid // false' "$OUTPUT" 2>/dev/null)
         CARRIER=$(jq -r '.carrier // "Unknown"' "$OUTPUT" 2>/dev/null)
@@ -333,9 +346,8 @@ query_abstractapi() {
         return
     fi
     
-    curl -s "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" AbstractAPI "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" || return
+
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
         CARRIER=$(jq -r '.carrier // "Unknown"' "$OUTPUT" 2>/dev/null)
@@ -358,18 +370,24 @@ query_intelx() {
     local NORMALIZED; NORMALIZED=$(normalize_phone "$PHONE")
     
     # Start search
-    SEARCH_RESPONSE=$(curl -s "https://2.intelx.io/phonebook/search" \
+    local search_err="${OUTPUT}.search.err" search_rc=0
+    SEARCH_RESPONSE=$(curl -sS --fail --max-time 20 "https://2.intelx.io/phonebook/search" \
         -H "x-key: $INTELX_KEY" \
         -H "Content-Type: application/json" \
-        -d "{\"term\":\"$NORMALIZED\",\"maxresults\":100,\"media\":0,\"target\":2}")
-    
+        -d "{\"term\":\"$NORMALIZED\",\"maxresults\":100,\"media\":0,\"target\":2}" 2>"$search_err") || search_rc=$?
+
+    if (( search_rc != 0 )); then
+        log "${YELLOW}    [!] IntelX search request FAILED (curl exit ${search_rc}) — UNVERIFIED, see ${search_err}${NC}"
+        : > "$OUTPUT"
+        return
+    fi
+
     SEARCH_ID=$(echo "$SEARCH_RESPONSE" | jq -r '.id // empty' 2>/dev/null)
-    
+
     if [ -n "$SEARCH_ID" ]; then
         sleep 2
-        curl -s "https://2.intelx.io/phonebook/search/result?id=$SEARCH_ID" \
-            -H "x-key: $INTELX_KEY" | pretty_json > "$OUTPUT" 2>&1
-        
+        query_api "$OUTPUT" "IntelX result" "https://2.intelx.io/phonebook/search/result?id=$SEARCH_ID" -H "x-key: $INTELX_KEY" || return
+
         if [ -s "$OUTPUT" ]; then
             RESULT_COUNT=$(jq -r '.selectors | length // 0' "$OUTPUT" 2>/dev/null)
             if [ "$RESULT_COUNT" -gt 0 ] 2>/dev/null; then
@@ -392,10 +410,8 @@ query_leaklookup() {
     
     log "${GREEN}    [*] Checking LeakLookup...${NC}"
     
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=phone&query=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" LeakLookup "https://leak-lookup.com/api/search" -d "key=$LEAKLOOKUP_KEY&type=phone&query=$NORMALIZED" || return
+
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
         if [ "$ERROR" = "false" ] || [ "$ERROR" = "none" ]; then
@@ -496,8 +512,7 @@ lookup_area_code() {
     log "${GREEN}    [*] Looking up area code $AREA_CODE...${NC}"
     
     # Query free area code API
-    curl -s "https://www.randomphonenumbers.com/api/area-code/$AREA_CODE" \
-        | pretty_json > "$OUTPUT" 2>&1 || true
+    query_api "$OUTPUT" "Area code lookup" "https://www.randomphonenumbers.com/api/area-code/$AREA_CODE" || true
     
     # Also try npa-nxx database (if available)
     # Fallback: use static lookup for common codes

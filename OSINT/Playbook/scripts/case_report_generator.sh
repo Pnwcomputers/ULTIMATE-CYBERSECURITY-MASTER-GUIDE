@@ -7,8 +7,8 @@
 # DESCRIPTION: Rolls up all evidence from a PNWC OSINT case directory into a
 #              single structured Markdown report, with optional PDF export.
 #              Designed for packaging case materials for law enforcement referral.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

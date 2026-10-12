@@ -1430,7 +1430,6 @@ clearlist -s  Clear station list
 ---
 
 *Pacific Northwest Computers | Vancouver, WA*
-*jon@pnwcomputers.com | 360-624-7379*
 *github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE*
 
 ---

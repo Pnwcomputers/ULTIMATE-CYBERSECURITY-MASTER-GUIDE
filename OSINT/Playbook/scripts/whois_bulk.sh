@@ -4,8 +4,8 @@
 #              whois_bulk.sh -D example.com,scam.net,fraud.org [-o output_dir]
 # DESCRIPTION: Batch WHOIS lookup for a list of domains with rate limiting, structured
 #              output extraction, diff detection vs previous run, and suspicious-pattern flagging.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

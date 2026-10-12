@@ -6,8 +6,8 @@
 #              Blackbird, then collates all found profiles into a structured report.
 #              Derives username variants from email addresses, full names, and
 #              domain registrant info. Outputs a unified found_profiles.md table.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

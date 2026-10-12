@@ -20,7 +20,7 @@
 #   lab-only override for pip/go/git/cargo sources; it never applies to
 #   downloaded binaries.
 #
-#        AUTHOR: Jon-Eric Pienkowski ~ PNW Computers (jon@pnwcomputers.com)
+#        AUTHOR: Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #       VERSION: 2.0
 #
 #===============================================================================
