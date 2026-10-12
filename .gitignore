@@ -49,3 +49,9 @@ Desktop.ini
 DRAFT_CHANGELOG.md
 # (Uncomment above if you only want the final CHANGELOG.md tracked)
 osint/
+
+# OSINT playbook case data and evidence (may contain PII / sensitive material)
+.case_state
+.case_state.json
+*.case_state.json
+OSINT_Cases/

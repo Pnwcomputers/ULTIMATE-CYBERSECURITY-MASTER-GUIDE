@@ -6,6 +6,10 @@ on:
       - 'HardwareTesting/py/full_hw_suite.py'
       - 'installer.sh'
       - 'Scripts/pnwc_install_tools.sh'
+      - 'Scripts/**'
+      - 'OSINT/Playbook/**'
+      - 'IncidentResponse/SIEM/elk_stack.md'
+      - 'tests/hardening/**'
       - 'SDR/nanovna/**'
       - 'Data-Engineering/Phase2/**'
       - 'Data-Engineering/Phase3/**'
@@ -16,6 +20,10 @@ on:
       - 'HardwareTesting/py/full_hw_suite.py'
       - 'installer.sh'
       - 'Scripts/pnwc_install_tools.sh'
+      - 'Scripts/**'
+      - 'OSINT/Playbook/**'
+      - 'IncidentResponse/SIEM/elk_stack.md'
+      - 'tests/hardening/**'
       - 'SDR/nanovna/**'
       - 'Data-Engineering/Phase2/**'
       - 'Data-Engineering/Phase3/**'
@@ -41,6 +49,19 @@ jobs:
         run: |
           sh -n installer.sh
           bash -n Scripts/pnwc_install_tools.sh
+          bash -n Scripts/lib/safe_install.sh
+          bash -n OSINT/Playbook/install_dependencies.sh
+          bash -n OSINT/Playbook/osint_investigator.sh
+      - name: ShellCheck (warnings and above)
+        # shellcheck is preinstalled on GitHub's ubuntu runners.
+        run: |
+          shellcheck -S warning \
+            Scripts/lib/safe_install.sh \
+            Scripts/pnwc_install_tools.sh \
+            OSINT/Playbook/install_dependencies.sh \
+            OSINT/Playbook/osint_investigator.sh
+      - name: Installer, case-state and evidence regressions
+        run: python3 -B -m unittest discover -s tests/hardening -v
       - name: Local failure regressions
         run: python3 -B -m unittest discover -s tools/tests -v
       - name: NanoVNA fixtures

@@ -31,20 +31,21 @@ in this document, GitHub issues, pull requests, or CI artifacts.
 - OPEN: implementation or investigation remains necessary.
 - VERIFIED: use only after attaching a commit and relevant test evidence.
 - CONTAINED: exposure is temporarily restricted; the underlying defect is not closed.
+- IMPLEMENTED: committed on `security/fix-review-findings` with passing local tests (`python3 -B -m unittest discover -s tests/hardening`) and clean `shellcheck -S warning`; not VERIFIED until merged with CI green.
 
 ## 2. Findings and current progress
 
 | ID | Area | Conversation status | Closure condition |
 |---|---|---|---|
-| R1 | Root installers and unverified downloads | OPEN | Least-privilege, pinned, verified installation paths pass failure tests |
-| R2 | ELK deployment defaults | Lab labeling/network edits REPORTED; secret edits PROVIDED; production design OPEN | Lab changes validated; production claims withheld until TLS/identity/secret tests pass |
-| R3 | Wrong Sherlock package | REPORTED | Both installation paths corrected; expected executable verified in an isolated environment |
-| R4 | Missing-tool counter under set -e | REPORTED | Zero/one/multiple-missing-tool tests pass |
-| R5 | Executable case-state files | OPEN | JSON state and safe migration/refusal implemented across affected consumers |
+| R1 | Root installers and unverified downloads | PARTIAL: shared verified-install library, SHA-256/HTTPS checks, safe extraction, required pins in data-only `Scripts/tool_pins.conf` IMPLEMENTED for both installers. NOT closed: `pnwc_install_tools.sh` still needs root for system paths; only pip pins are populated (git/go/dl/gem/cargo pins are empty, so those tools are skipped and reported unless `--allow-unpinned` is used in a lab); transitive Python dependencies are not hash-locked; third-party apt repositories unchanged | Least-privilege, pinned, verified installation paths pass failure tests |
+| R2 | ELK deployment defaults | Lab labeling/network edits REPORTED; secret handling IMPLEMENTED in `elk_stack.md` (required `${VAR:?}` secrets, generated 0600 `.env`, least-privilege `logstash_writer`, `kibana_system` password via API on stdin, no sample passwords); compose rendering checked with `docker compose config`, full stack NOT started; role privileges may need adjusting per pipeline; production design OPEN | Lab changes validated; production claims withheld until TLS/identity/secret tests pass |
+| R3 | Wrong Sherlock package | IMPLEMENTED (`sherlock-project` in an isolated per-tool venv; tested with shims, not against the live package) | Both installation paths corrected; expected executable verified in an isolated environment |
+| R4 | Missing-tool counter under set -e | IMPLEMENTED (zero/one/multiple-missing tests; nonzero exit on any missing tool or failure) | Zero/one/multiple-missing-tool tests pass |
+| R5 | Executable case-state files | IMPLEMENTED: `OSINT/Playbook/lib/case_state.py` (schema-validated, atomic, 0600 JSON; never sourced); legacy `.case_state` is refused, not migrated; API/branding configs load only if owner-only. `toolkit_integration.sh` and `scripts/*.sh` not audited | JSON state and safe migration/refusal implemented across affected consumers |
 | R6 | Ambiguous object-authorization advice | REPORTED | Correct wording and validation instructions confirmed in the branch |
 | R7 | CIS, Sysmon and Zeek guidance | REPORTED | Correct mappings, prerequisites and supporting references confirmed |
-| R8 | Truncated/suppressed evidence | OPEN | Full raw output, errors and failure status preserved across collection paths |
-| R9 | CI and repository controls | OPEN | Workflow hardening and tests implemented; owner-only settings verified |
+| R8 | Truncated/suppressed evidence | PARTIAL: `lib/collect_evidence.py` + the investigation functions in `osint_investigator.sh` keep full stdout/stderr, exit code, timestamps, SHA-256 and partial/not_run status. NOT covered: `scripts/*.sh`, `abuse_report_generator.sh`, integrated-tool wrappers, `web_interface.py` | Full raw output, errors and failure status preserved across collection paths |
+| R9 | CI and repository controls | PARTIAL: `guide-tests.yml` runs `bash -n`, ShellCheck and hardening tests; `.gitignore` covers case data; secret-literal regression test added. NOT done: action SHA pinning (no verified SHAs available), `auto_changelog.yml` write permissions, owner-side settings (rulesets, secret scanning, push protection) | Workflow hardening and tests implemented; owner-only settings verified |
 
 Nothing in this table certifies the entire repository as secure.
 
