@@ -466,14 +466,19 @@ run_theharvester() {
     fi
     
     info "Running theHarvester on: ${domain}"
-    
+
     mkdir -p "$output_dir"
     local output_base; output_base="${output_dir}/harvester_$(echo "$domain" | tr '.' '_')_$(date +%Y%m%d_%H%M%S)"
-    
+
+    local rc=0
     if [[ "$THEHARVESTER_PATH" == *.py ]]; then
-        python3 "$THEHARVESTER_PATH" -d "$domain" -l "$limit" -b all -f "$output_base" 2>&1
+        python3 "$THEHARVESTER_PATH" -d "$domain" -l "$limit" -b all -f "$output_base" 2>&1 || rc=$?
     else
-        "$THEHARVESTER_PATH" -d "$domain" -l "$limit" -b all -f "$output_base" 2>&1
+        "$THEHARVESTER_PATH" -d "$domain" -l "$limit" -b all -f "$output_base" 2>&1 || rc=$?
+    fi
+    if (( rc != 0 )); then
+        error "theHarvester FAILED (exit ${rc})"
+        return "$rc"
     fi
     
     if [[ -f "${output_base}.html" ]] || [[ -f "${output_base}.xml" ]]; then
@@ -509,8 +514,13 @@ run_threat_feed_check() {
     info "Running threat feed check on: ${ioc}"
     mkdir -p "$output_dir"
     local out_subdir; out_subdir="${output_dir}/threat_feed_$(echo "$ioc" | tr './:' '_')_$(date +%Y%m%d_%H%M%S)"
-    "$THREAT_FEED_SCRIPT" -i "$ioc" -o "$out_subdir" 2>&1
-    success "Threat feed check complete: ${out_subdir}"
+    if "$THREAT_FEED_SCRIPT" -i "$ioc" -o "$out_subdir" 2>&1; then
+        success "Threat feed check complete: ${out_subdir}"
+    else
+        local rc=$?
+        error "Threat feed check FAILED (exit ${rc}): ${out_subdir}"
+        return "$rc"
+    fi
 }
 
 # Investigate cryptocurrency wallet addresses
@@ -526,8 +536,13 @@ run_crypto_audit() {
     info "Running crypto audit on: ${address}"
     mkdir -p "$output_dir"
     local out_subdir; out_subdir="${output_dir}/crypto_$(echo "$address" | tr '/' '_')_$(date +%Y%m%d_%H%M%S)"
-    "$CRYPTO_AUDIT_SCRIPT" -a "$address" -o "$out_subdir" 2>&1
-    success "Crypto audit complete: ${out_subdir}"
+    if "$CRYPTO_AUDIT_SCRIPT" -a "$address" -o "$out_subdir" 2>&1; then
+        success "Crypto audit complete: ${out_subdir}"
+    else
+        local rc=$?
+        error "Crypto audit FAILED (exit ${rc}): ${out_subdir}"
+        return "$rc"
+    fi
 }
 
 # Initialize domain monitoring baseline
@@ -540,8 +555,13 @@ run_domain_monitor_init() {
     fi
 
     info "Initializing domain monitor baseline for: ${domain}"
-    "$DOMAIN_MONITOR_SCRIPT" --init "$domain" 2>&1
-    success "Domain monitor baseline set for: ${domain}"
+    if "$DOMAIN_MONITOR_SCRIPT" --init "$domain" 2>&1; then
+        success "Domain monitor baseline set for: ${domain}"
+    else
+        local rc=$?
+        error "Domain monitor baseline init FAILED (exit ${rc}) for: ${domain}"
+        return "$rc"
+    fi
 }
 
 # Run username OSINT investigation
@@ -557,8 +577,13 @@ run_username_audit() {
     info "Running username audit on: ${username}"
     mkdir -p "$output_dir"
     local out_subdir; out_subdir="${output_dir}/username_${username}_$(date +%Y%m%d_%H%M%S)"
-    "$USERNAME_AUDIT_SCRIPT" -u "$username" -o "$out_subdir" 2>&1
-    success "Username audit complete: ${out_subdir}"
+    if "$USERNAME_AUDIT_SCRIPT" -u "$username" -o "$out_subdir" 2>&1; then
+        success "Username audit complete: ${out_subdir}"
+    else
+        local rc=$?
+        error "Username audit FAILED (exit ${rc}): ${out_subdir}"
+        return "$rc"
+    fi
 }
 
 # Run SSL certificate deep-dive on a domain
@@ -574,8 +599,13 @@ run_ssl_cert_audit() {
     info "Running SSL cert audit on: ${domain}"
     mkdir -p "$output_dir"
     local out_subdir; out_subdir="${output_dir}/ssl_$(echo "$domain" | tr './' '_')_$(date +%Y%m%d_%H%M%S)"
-    "$SSL_CERT_SCRIPT" -d "$domain" -o "$out_subdir" 2>&1
-    success "SSL cert audit complete: ${out_subdir}"
+    if "$SSL_CERT_SCRIPT" -d "$domain" -o "$out_subdir" 2>&1; then
+        success "SSL cert audit complete: ${out_subdir}"
+    else
+        local rc=$?
+        error "SSL cert audit FAILED (exit ${rc}): ${out_subdir}"
+        return "$rc"
+    fi
 }
 
 # Generate a consolidated case report
@@ -589,10 +619,15 @@ run_case_report() {
     fi
 
     info "Generating case report for: ${case_id}"
+    local rc=0
     if [[ "$pdf" == "true" ]]; then
-        "$CASE_REPORT_SCRIPT" -c "$case_id" --pdf 2>&1
+        "$CASE_REPORT_SCRIPT" -c "$case_id" --pdf 2>&1 || rc=$?
     else
-        "$CASE_REPORT_SCRIPT" -c "$case_id" 2>&1
+        "$CASE_REPORT_SCRIPT" -c "$case_id" 2>&1 || rc=$?
+    fi
+    if (( rc != 0 )); then
+        error "Case report generation FAILED (exit ${rc}) for: ${case_id}"
+        return "$rc"
     fi
     success "Case report generated for: ${case_id}"
 }
@@ -609,8 +644,13 @@ run_whois_bulk() {
 
     info "Running bulk WHOIS on list: ${domain_list}"
     mkdir -p "$output_dir"
-    "$WHOIS_BULK_SCRIPT" -f "$domain_list" -o "$output_dir" 2>&1
-    success "Bulk WHOIS complete: ${output_dir}"
+    if "$WHOIS_BULK_SCRIPT" -f "$domain_list" -o "$output_dir" 2>&1; then
+        success "Bulk WHOIS complete: ${output_dir}"
+    else
+        local rc=$?
+        error "Bulk WHOIS FAILED (exit ${rc}): ${output_dir}"
+        return "$rc"
+    fi
 }
 
 # Strip metadata from evidence files before sharing
@@ -625,10 +665,15 @@ run_metadata_strip() {
 
     info "Stripping metadata from: ${target}"
     mkdir -p "$output_dir"
+    local rc=0
     if [[ -d "$target" ]]; then
-        "$METADATA_STRIP_SCRIPT" -d "$target" -o "$output_dir" 2>&1
+        "$METADATA_STRIP_SCRIPT" -d "$target" -o "$output_dir" 2>&1 || rc=$?
     else
-        "$METADATA_STRIP_SCRIPT" -f "$target" -o "$output_dir" 2>&1
+        "$METADATA_STRIP_SCRIPT" -f "$target" -o "$output_dir" 2>&1 || rc=$?
+    fi
+    if (( rc != 0 )); then
+        error "Metadata strip FAILED (exit ${rc}): ${output_dir}"
+        return "$rc"
     fi
     success "Metadata strip complete: ${output_dir}"
 }
@@ -645,8 +690,13 @@ run_screenshot_archive() {
 
     info "Archiving screenshot of: ${url}"
     mkdir -p "$output_dir"
-    "$SCREENSHOT_SCRIPT" -u "$url" -o "$output_dir" 2>&1
-    success "Screenshot archived: ${output_dir}"
+    if "$SCREENSHOT_SCRIPT" -u "$url" -o "$output_dir" 2>&1; then
+        success "Screenshot archived: ${output_dir}"
+    else
+        local rc=$?
+        error "Screenshot archive FAILED (exit ${rc}): ${output_dir}"
+        return "$rc"
+    fi
 }
 
 #-------------------------------------------------------------------------------
