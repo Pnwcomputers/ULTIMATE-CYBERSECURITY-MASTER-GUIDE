@@ -35,7 +35,7 @@ jobs:
 
       - name: Run markdownlint-cli2
         if: steps.files.outputs.list != ''
-        uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20.0.0
+        uses: DavidAnson/markdownlint-cli2-action@21c1be1b93ad9ed58fa840aacc3f279cde2a72ff # v24.2.0
         with:
           config: '.markdownlint.jsonc'
           globs: ${{ steps.files.outputs.list }}
