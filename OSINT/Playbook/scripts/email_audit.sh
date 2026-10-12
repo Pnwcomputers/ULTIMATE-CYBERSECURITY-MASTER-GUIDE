@@ -13,6 +13,10 @@
 #############################################
 
 # Colors for output
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -37,8 +41,7 @@ ABSTRACTAPI_EMAIL_KEY="${ABSTRACTAPI_EMAIL_KEY:-}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
+        source_trusted "$API_CONFIG" || true
         HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-${hibp_key:-${haveibeenpwned_api_key:-}}}}"
         HUNTER_KEY="${HUNTER_KEY:-${HUNTER_API_KEY:-${hunter_key:-${hunter_api_key:-}}}}"
         LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_key:-${leaklookup_api_key:-}}}}"

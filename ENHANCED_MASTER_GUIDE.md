@@ -2576,7 +2576,7 @@ output.elasticsearch:
   hosts: ["elasticsearch:9200"]
   index: "winlogbeat-%{+yyyy.MM.dd}"
   username: "elastic"
-  password: "changeme"
+  password: "${ES_PASSWORD}"   # from the Beats keystore or environment; never a literal
 
 processors:
   - add_host_metadata:
@@ -2718,7 +2718,7 @@ output {
     hosts => ["elasticsearch:9200"]
     index => "%{log_type}-%{+YYYY.MM.dd}"
     user => "elastic"
-    password => "changeme"
+    password => "${ES_PASSWORD}"   # from the Logstash keystore or environment; prefer a least-privilege user
   }
   
   # Send high severity alerts to separate index

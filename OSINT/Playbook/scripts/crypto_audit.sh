@@ -11,6 +11,10 @@
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
 
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 set -o pipefail
 
 # ---------------------------------------------------------------------------
@@ -75,8 +79,7 @@ section() {
 load_api_keys() {
     local key_file="${HOME}/.config/osint-investigator/api_keys.conf"
     if [[ -f "$key_file" ]]; then
-        # shellcheck source=/dev/null
-        source "$key_file"
+        source_trusted "$key_file" || true
         ETHERSCAN_API_KEY="${ETHERSCAN_API_KEY:-${ES_API_KEY:-}}"
         BLOCKCYPHER_API_KEY="${BLOCKCYPHER_API_KEY:-}"
         info "API keys loaded from $key_file"

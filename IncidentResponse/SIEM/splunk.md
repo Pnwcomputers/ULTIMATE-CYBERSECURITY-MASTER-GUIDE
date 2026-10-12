@@ -172,6 +172,11 @@ sudo systemctl status Splunkd
 
 ### Method 2: Docker Installation
 
+Create a `.env` file next to it containing a unique, randomly generated
+`SPLUNK_PASSWORD=...` (at least 8 characters; for example
+`(umask 077; python3 -c "import secrets; print('SPLUNK_PASSWORD=' + secrets.token_urlsafe(24))" > .env)`),
+and never commit it. Compose refuses to start if the variable is missing.
+
 Create `docker-compose.yml`:
 
 ```yaml
@@ -183,7 +188,7 @@ services:
     container_name: splunk
     environment:
       - SPLUNK_START_ARGS=--accept-license
-      - SPLUNK_PASSWORD=YourStrongPassword123!
+      - SPLUNK_PASSWORD=${SPLUNK_PASSWORD:?Set SPLUNK_PASSWORD in .env}
       - SPLUNK_LICENSE_URI=Free
     ports:
       - "8000:8000"
@@ -374,6 +379,8 @@ Start-Process msiexec.exe -ArgumentList "/i $env:TEMP\splunkforwarder.msi AGREET
 **Silent Installation with Pre-configuration:**
 
 ```powershell
+# Prompt for the forwarder admin password (not echoed, not stored in the script)
+$env:SPLUNK_FWD_PASSWORD = [System.Net.NetworkCredential]::new('', (Read-Host -AsSecureString 'Forwarder admin password')).Password
 # Install with deployment server or direct indexer configuration
 $msiArgs = @(
     "/i"
@@ -381,13 +388,14 @@ $msiArgs = @(
     "AGREETOLICENSE=Yes"
     "RECEIVING_INDEXER=<SPLUNK-SERVER-IP>:9997"
     "SPLUNKUSERNAME=admin"
-    "SPLUNKPASSWORD=YourForwarderPassword123!"
+    "SPLUNKPASSWORD=$env:SPLUNK_FWD_PASSWORD"   # set just before running; never hard-code
     "WINEVENTLOG_SEC_ENABLE=1"
     "WINEVENTLOG_SYS_ENABLE=1"
     "WINEVENTLOG_APP_ENABLE=1"
     "/quiet"
 )
 Start-Process msiexec.exe -ArgumentList $msiArgs -Wait
+Remove-Item Env:SPLUNK_FWD_PASSWORD
 ```
 
 ### Step 6.3: Configure Inputs

@@ -143,8 +143,11 @@ Graylog requires a `password_secret` (for encryption) and a `root_password_sha2`
 # Generate password secret (minimum 16 characters)
 pwgen -N 1 -s 96
 
-# Generate SHA256 hash of your admin password
-echo -n "YourAdminPassword123!" | sha256sum | cut -d" " -f1
+# Hash your admin password. The prompt does not echo and nothing is written to
+# shell history. Choose a long, unique password; never reuse a sample value.
+read -rsp "Graylog admin password: " GL_ADMIN_PW; echo
+printf '%s' "$GL_ADMIN_PW" | sha256sum | cut -d" " -f1
+unset GL_ADMIN_PW
 ```
 
 Save both values for the next step.
@@ -215,7 +218,7 @@ services:
       # - GRAYLOG_TRANSPORT_EMAIL_PORT=587
       # - GRAYLOG_TRANSPORT_EMAIL_USE_AUTH=true
       # - GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME=user@example.com
-      # - GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD=password
+      # - GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD=<smtp-app-password>
     entrypoint: /usr/bin/tini -- wait-for-it opensearch:9200 -- /docker-entrypoint.sh
     volumes:
       - graylog_data:/usr/share/graylog/data
@@ -254,9 +257,10 @@ networks:
 Instead of inline environment variables, create `.env`:
 
 ```bash
-# Graylog Configuration
-GRAYLOG_PASSWORD_SECRET=yourverylongsecretatleast16characters1234567890
-GRAYLOG_ROOT_PASSWORD_SHA2=5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+# Graylog Configuration - use the values you generated in Step 2.1.
+# Do not copy sample values: a published password hash is a published password.
+GRAYLOG_PASSWORD_SECRET=<output of: pwgen -N 1 -s 96>
+GRAYLOG_ROOT_PASSWORD_SHA2=<sha256 hash of YOUR admin password>
 GRAYLOG_HTTP_EXTERNAL_URI=http://192.168.1.50:9000/
 GRAYLOG_ROOT_TIMEZONE=America/Los_Angeles
 ```
@@ -790,7 +794,7 @@ Add fields to include in the alert.
 - GRAYLOG_TRANSPORT_EMAIL_USE_AUTH=true
 - GRAYLOG_TRANSPORT_EMAIL_USE_TLS=true
 - GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME=your@gmail.com
-- GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD=yourapppassword
+- GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD=<smtp-app-password>
 - GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL=graylog@yourdomain.com
 ```
 
@@ -858,11 +862,14 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -out ~/graylog/certs/graylog.crt \
   -subj "/CN=graylog.local"
 
-# Create PKCS12 keystore
+# Create PKCS12 keystore (the export password is read from the environment so
+# it does not appear in the process list or shell history)
+read -rsp "Keystore export password: " P12_PASSWORD; echo; export P12_PASSWORD
 openssl pkcs12 -export -in ~/graylog/certs/graylog.crt \
   -inkey ~/graylog/certs/graylog.key \
   -out ~/graylog/certs/graylog.p12 \
-  -name graylog -password pass:changeme
+  -name graylog -passout env:P12_PASSWORD
+unset P12_PASSWORD
 ```
 
 #### Update Docker Compose
@@ -1008,7 +1015,7 @@ Content Packs bundle inputs, extractors, streams, and dashboards:
 Example API call:
 
 ```bash
-curl -u admin:password "http://localhost:9000/api/system/overview"
+curl --user admin "http://localhost:9000/api/system/overview"   # prompts for the password
 ```
 
 ### Input Ports Reference

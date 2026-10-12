@@ -10,6 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 TARGETS = [
     "IncidentResponse/SIEM/elk_stack.md",
+    "IncidentResponse/SIEM/graylog.md",
+    "IncidentResponse/SIEM/splunk.md",
+    "ENHANCED_MASTER_GUIDE.md",
     "OSINT/Playbook/osint_investigator.sh",
     "OSINT/Playbook/install_dependencies.sh",
     "Scripts/pnwc_install_tools.sh",
@@ -19,8 +22,11 @@ RULES = {
     "sample password literal": re.compile(r"YourStrongPassword|YourKibanaPassword|AnalystPassword|Password123!?"),
     "insecure ${VAR:-default} secret": re.compile(r"\$\{(?:[A-Z_]*(?:PASSWORD|KEY|SECRET|TOKEN)[A-Z_]*):-[^}]+\}"),
     "literal password in curl -u": re.compile(r"-u\s+[A-Za-z_]+:(?![\"'$]|\$)[^\s\\\"']+"),
+    "literal openssl pass:": re.compile(r"-pass(?:word|out|in)\s+pass:\S+"),
+    "published sample hash of a weak password": re.compile(r"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"),
+    "literal password in config": re.compile(r"""(?i)\bpassword\s*(?:=>|:)\s*["']changeme["']"""),
     "literal KEY=value secret assignment": re.compile(
-        r"^\s*(?:export\s+)?[A-Z_]*(?:PASSWORD|SECRET|TOKEN|ENCRYPTION_KEY)\s*=\s*(?![\"']?[\"']?\s*(?:#.*)?$)(?![\"']?\$)[^\s#]{6,}",
+        r"^\s*(?:export\s+)?[A-Z_]*(?:PASSWORD|SECRET|TOKEN|ENCRYPTION_KEY)\s*=\s*(?![\"']?[\"']?\s*(?:#.*)?$)(?![\"']?[$<])[^\s#]{6,}",
         re.M),
 }
 
