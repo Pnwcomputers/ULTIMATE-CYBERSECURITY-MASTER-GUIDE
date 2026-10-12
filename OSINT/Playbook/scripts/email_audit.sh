@@ -472,7 +472,7 @@ query_gravatar() {
     PROFILE_URL="https://www.gravatar.com/$HASH.json"
     
     # Check if avatar exists
-    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$GRAVATAR_URL")
+    HTTP_CODE=$(curl -s --max-time 20 -o /dev/null -w "%{http_code}" "$GRAVATAR_URL")
     
     if [ "$HTTP_CODE" = "200" ]; then
         log "${GREEN}    [+] Gravatar avatar found!${NC}"
@@ -481,7 +481,7 @@ query_gravatar() {
         echo "{\"has_avatar\": true, \"avatar_url\": \"$GRAVATAR_URL\", \"hash\": \"$HASH\"}" > "$OUTPUT_DIR/gravatar.json"
         
         # Try to get profile
-        curl -s "$PROFILE_URL" | pretty_json > "$OUTPUT_DIR/gravatar_profile.json" 2>&1
+        curl -sS --max-time 20 "$PROFILE_URL" 2>"$OUTPUT_DIR/gravatar_profile.err" | pretty_json > "$OUTPUT_DIR/gravatar_profile.json"
         
         if [ -s "$OUTPUT_DIR/gravatar_profile.json" ]; then
             DISPLAY_NAME=$(jq -r '.entry[0].displayName // empty' "$OUTPUT_DIR/gravatar_profile.json" 2>/dev/null)

@@ -238,6 +238,22 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# query_api OUTPUT LABEL CURL_ARGS... — fetch JSON evidence. On a transport failure (network
+# error, timeout) or an empty body, OUTPUT is left empty and the failure is logged and saved
+# to OUTPUT.err, so a dead/unreachable API is never mistaken for "nothing found" (the prior
+# code piped curl straight into `jq || cat`, so a failed curl just produced a silently empty
+# evidence file indistinguishable from a clean negative result).
+query_api() {
+    local output="$1" label="$2" rc=0 body; shift 2
+    body="$(curl -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    : > "$output"
+    if (( rc != 0 )) || [ -z "$body" ]; then
+        log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
+        return 1
+    fi
+    printf '%s' "$body" | pretty_json > "$output"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -261,9 +277,8 @@ query_criminalip() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying CriminalIP...${NC}"
-    curl -s "https://api.criminalip.io/v1/ip/data?ip=$IP" \
-        -H "x-api-key: $CRIMINALIP_KEY" | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" CriminalIP "https://api.criminalip.io/v1/ip/data?ip=$IP" -H "x-api-key: $CRIMINALIP_KEY" || return
+
     # Check for malicious score
     if command -v jq &> /dev/null && [ -s "$OUTPUT" ]; then
         SCORE=$(jq -r '(.data.score.inbound // .data.score // .score // empty)' "$OUTPUT" 2>/dev/null)
@@ -280,7 +295,7 @@ query_hibp() {
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for breaches...${NC}"
     local HTTP_CODE
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
+    HTTP_CODE=$(curl -s --max-time 20 -w "%{http_code}" -o "$OUTPUT" \
         "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL" \
         -H "hibp-api-key: $HIBP_KEY" \
         -H "user-agent: PNWC-Scammer-Audit")
@@ -306,7 +321,7 @@ query_hibp_pastes() {
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for pastes...${NC}"
     local HTTP_CODE_PASTES
-    HTTP_CODE_PASTES=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
+    HTTP_CODE_PASTES=$(curl -s --max-time 20 -w "%{http_code}" -o "$OUTPUT" \
         "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
         -H "hibp-api-key: $HIBP_KEY" \
         -H "user-agent: PNWC-Scammer-Audit")
@@ -329,9 +344,8 @@ query_leaklookup() {
     local TYPE="$2"  # email_address, username, ip_address, domain, password, hash
     local OUTPUT="$3"
     log "${GREEN}[*] Querying LeakLookup ($TYPE)...${NC}"
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" LeakLookup "https://leak-lookup.com/api/search" -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" || return
+
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
         if [ "$ERROR" = "none" ] || [ "$ERROR" = "null" ]; then
@@ -350,9 +364,8 @@ query_netlas() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying Netlas...${NC}"
-    curl -s "https://app.netlas.io/api/hosts/$IP/" \
-        -H "X-API-Key: $NETLAS_KEY" | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] Netlas complete${NC}"
+    query_api "$OUTPUT" Netlas "https://app.netlas.io/api/hosts/$IP/" -H "X-API-Key: $NETLAS_KEY" \
+        && log "${GREEN}    [+] Netlas complete${NC}"
 }
 
 # ipinfo.io - Geolocation
@@ -360,8 +373,8 @@ query_ipinfo() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying ipinfo.io...${NC}"
-    curl -s "https://ipinfo.io/$IP" | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] ipinfo.io complete${NC}"
+    query_api "$OUTPUT" ipinfo.io "https://ipinfo.io/$IP" \
+        && log "${GREEN}    [+] ipinfo.io complete${NC}"
 }
 
 # ip-api.com - Geolocation & ISP
@@ -369,9 +382,8 @@ query_ipapi() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying ip-api.com...${NC}"
-    curl -s "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" \
-        | pretty_json > "$OUTPUT" 2>&1
-    
+    query_api "$OUTPUT" ip-api.com "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" || return
+
     # Check for proxy/hosting flags
     if command -v jq &> /dev/null; then
         IS_PROXY=$(jq -r '.proxy // false' "$OUTPUT" 2>/dev/null)
@@ -410,9 +422,7 @@ query_urlscan() {
     local -a CURL_ARGS=(-s -H "Content-Type: application/json")
     [ -n "$URLSCAN_KEY" ] && CURL_ARGS+=(-H "API-Key: ${URLSCAN_KEY}")
 
-    curl "${CURL_ARGS[@]}" \
-        "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" \
-        | pretty_json > "$OUTPUT" 2>&1
+    query_api "$OUTPUT" URLScan.io "${CURL_ARGS[@]}" "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" || return
 
     if command -v jq &>/dev/null; then
         local TOTAL
@@ -434,11 +444,8 @@ query_dnsdumpster() {
     fi
 
     log "${GREEN}    [*] Querying DNSDumpster...${NC}"
-    curl -s \
-        -H "Authorization: Bearer ${DNSDUMPSTER_KEY}" \
-        "https://api.dnsdumpster.com/domain/${DOMAIN}" \
-        | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] DNSDumpster complete${NC}"
+    query_api "$OUTPUT" DNSDumpster -H "Authorization: Bearer ${DNSDUMPSTER_KEY}" "https://api.dnsdumpster.com/domain/${DOMAIN}" \
+        && log "${GREEN}    [+] DNSDumpster complete${NC}"
 }
 
 # ZoomEye - Cyberspace search engine
@@ -463,11 +470,8 @@ query_zoomeye() {
     local ENCODED_QUERY
     ENCODED_QUERY=$(OSINT_QUERY="${QUERY}" python3 -c "import os,urllib.parse; print(urllib.parse.quote(os.environ['OSINT_QUERY']))" 2>/dev/null || printf '%s' "$QUERY" | sed 's/:/%3A/g;s/ /+/g')
 
-    curl -s \
-        -H "API-KEY: ${ZOOMEYE_KEY}" \
-        "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
-        | pretty_json > "$OUTPUT" 2>&1
-    log "${GREEN}    [+] ZoomEye complete${NC}"
+    query_api "$OUTPUT" ZoomEye -H "API-KEY: ${ZOOMEYE_KEY}" "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
+        && log "${GREEN}    [+] ZoomEye complete${NC}"
 }
 
 # FullHunt - attack surface and subdomain discovery
@@ -481,10 +485,7 @@ query_fullhunt() {
     fi
 
     log "${GREEN}    [*] Querying FullHunt...${NC}"
-    curl -s \
-        -H "X-API-KEY: ${FULLHUNT_KEY}" \
-        "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains" \
-        | pretty_json > "$OUTPUT" 2>&1
+    query_api "$OUTPUT" FullHunt -H "X-API-KEY: ${FULLHUNT_KEY}" "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains"
 
     if command -v jq &>/dev/null; then
         local SUB_COUNT

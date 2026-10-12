@@ -173,14 +173,14 @@ check_abuseipdb() {
 
     info "AbuseIPDB: querying $ioc ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -G "https://api.abuseipdb.com/api/v2/check" \
         --data-urlencode "ipAddress=${ioc}" \
         -d "maxAgeInDays=90" \
         -H "Key: ${ABUSEIPDB_API_KEY}" \
         -H "Accept: application/json")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local score
         score=$(grep -o '"abuseConfidenceScore":[0-9]*' "$out_file" | grep -o '[0-9]*' || echo "0")
         local flagged
@@ -221,11 +221,11 @@ check_urlhaus() {
     esac
 
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -X POST "https://urlhaus-api.abuse.ch/v1/" \
         -d "$post_field")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
         query_status=$(grep -o '"query_status":"[^"]*"' "$out_file" | cut -d'"' -f4 || echo "unknown")
         data "URLhaus: query_status=${query_status}"
@@ -250,12 +250,12 @@ check_threatfox() {
 
     info "ThreatFox: querying $ioc ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -X POST "https://threatfox-api.abuse.ch/api/v1/" \
         -H "Content-Type: application/json" \
         -d "{\"query\":\"search_ioc\",\"search_term\":\"${ioc}\"}")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
         query_status=$(grep -o '"query_status":"[^"]*"' "$out_file" | cut -d'"' -f4 || echo "unknown")
         data "ThreatFox: query_status=${query_status}"
@@ -284,11 +284,11 @@ check_malwarebazaar() {
 
     info "MalwareBazaar: querying $ioc ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -X POST "https://mb-api.abuse.ch/api/v1/" \
         -d "query=get_info&hash=${ioc}")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
         query_status=$(grep -o '"query_status":"[^"]*"' "$out_file" | cut -d'"' -f4 || echo "unknown")
         data "MalwareBazaar: query_status=${query_status}"
@@ -331,11 +331,11 @@ check_virustotal() {
 
     info "VirusTotal: querying $ioc ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -H "x-apikey: ${VIRUSTOTAL_API_KEY}" \
         "$vt_url")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local malicious
         malicious=$(grep -o '"malicious":[0-9]*' "$out_file" | head -1 | grep -o '[0-9]*' || echo "0")
         local suspicious
@@ -378,11 +378,11 @@ check_otx() {
 
     info "OTX AlienVault: querying $ioc ..."
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -H "X-OTX-API-KEY: ${OTX_API_KEY}" \
         "$otx_url")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local pulse_count
         pulse_count=$(grep -o '"count":[0-9]*' "$out_file" | head -1 | grep -o '[0-9]*' || echo "0")
         data "OTX AlienVault: pulse_count=${pulse_count}"
@@ -415,11 +415,11 @@ check_phishtank() {
     fi
 
     local http_code
-    http_code=$(curl -s -o "$out_file" -w "%{http_code}" \
+    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
         -X POST "https://checkurl.phishtank.com/checkurl/" \
         -d "$post_data")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local in_database
         in_database=$(grep -o '"in_database":[^,}]*' "$out_file" | cut -d: -f2 | tr -d ' ' || echo "false")
         local valid
@@ -461,7 +461,7 @@ check_urlscan() {
     http_code=$(curl "${curl_args[@]}" \
         "https://urlscan.io/api/v1/search/?q=$(printf '%s' "$query" | jq -sRr @uri 2>/dev/null || printf '%s' "$query")&size=5")
 
-    if [[ "$http_code" -eq 200 ]]; then
+    if [[ "${http_code:-000}" == "200" ]]; then
         local total
         total=$(grep -o '"total":[0-9]*' "$out_file" | cut -d: -f2 || echo "0")
         data "URLScan.io: ${total} existing scan(s) found"
