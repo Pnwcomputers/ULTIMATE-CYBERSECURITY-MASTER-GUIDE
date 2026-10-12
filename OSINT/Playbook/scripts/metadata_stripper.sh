@@ -7,8 +7,8 @@
 # DESCRIPTION: Extract and report metadata from evidence files (images, PDFs, documents),
 #              then create clean stripped copies for safe sharing. Originals are always
 #              preserved — only copies are stripped.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
@@ -241,12 +241,31 @@ strip_metadata() {
 
     mkdir -p "$stripped_dir"
 
-    exiftool -all= -o "$stripped_path" "$filepath" -overwrite_original 2>&1 | tee -a "$LOG_FILE" >/dev/null
+    # Keep the exiftool exit status: a failed strip must not be reported as a clean one.
+    local strip_rc
+    strip_rc=0
+    exiftool -all= -o "$stripped_path" "$filepath" -overwrite_original >"${stripped_path}.exiftool.log" 2>&1 || strip_rc=$?
+    tee -a "$LOG_FILE" <"${stripped_path}.exiftool.log" >/dev/null
+    rm -f "${stripped_path}.exiftool.log"
+
+    if (( strip_rc != 0 )); then
+        [[ -f "$stripped_path" ]] && mv -f "$stripped_path" "${stripped_path}.INCOMPLETE"
+        log "  ${RED}[STRIP FAILED]${NC} exiftool exit ${strip_rc}: ${filepath} (any partial output kept as ${stripped_path}.INCOMPLETE — do NOT share it)"
+        echo "STRIP FAILED (exiftool exit ${strip_rc}): ${filepath}" >> "$REPORT_FILE"
+        return 0
+    fi
 
     if [[ -f "$stripped_path" ]]; then
-        # Verify strip
-        local remaining
-        remaining=$(exiftool "$stripped_path" 2>/dev/null | grep -v -e "^File " -e "^MIME" \
+        # Verify strip. If the verification read itself fails, the result is UNVERIFIED —
+        # an empty listing from a failed exiftool run must not look like "nothing remains".
+        local remaining verify_out verify_rc=0
+        verify_out=$(exiftool "$stripped_path" 2>&1) || verify_rc=$?
+        if (( verify_rc != 0 )) || [[ -z "$verify_out" ]]; then
+            log "  ${YELLOW}[UNVERIFIED]${NC} could not re-read ${stripped_path} to confirm the strip (exiftool exit ${verify_rc}); do not assume it is clean"
+            echo "STRIP UNVERIFIED: ${stripped_path}" >> "$REPORT_FILE"
+            return 0
+        fi
+        remaining=$(printf '%s\n' "$verify_out" | grep -v -e "^File " -e "^MIME" \
             -e "^Directory" -e "^ExifTool" -e "^Image Size" -e "^Megapixels" \
             -e "^Bits Per" -e "^Color " -e "^Compression" \
             -e "^X Resolution" -e "^Y Resolution" -e "^Resolution Unit" \

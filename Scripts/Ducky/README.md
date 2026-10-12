@@ -215,9 +215,7 @@ When submitting payloads to this repository:
 
 ---
 
-**Pacific NW Computers**  
-Email: jon@pnwcomputers.com  
-Phone: 360-624-7379
+**Pacific NW Computers**
 
 *Always use these tools ethically and legally.*
 

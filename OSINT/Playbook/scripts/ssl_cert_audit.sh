@@ -5,8 +5,8 @@
 # DESCRIPTION: Deep TLS/SSL certificate investigation for a domain or IP.
 #              Extracts cert details, checks certificate history via crt.sh,
 #              detects suspicious patterns common to scam infrastructure.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

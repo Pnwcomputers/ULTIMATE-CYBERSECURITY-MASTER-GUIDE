@@ -2,7 +2,7 @@
 
 #############################################
 #  EMAIL OSINT INVESTIGATION SCRIPT v1.0
-#  Jon-Eric Pienkowski ~ PNW Computers
+#  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #  
 #  Usage: ./email_audit.sh -e <email>
 #         ./email_audit.sh -e <email1,email2,email3>

@@ -18,7 +18,6 @@ Ensure consistent, authorized, and evidence-tracked execution of mobile pentesti
 
 **Platform:** OnePlus 6 (`enchilada`, model A6000/A6003) - Full NetHunter Edition (custom kernel)
 **Maintained by:** Pacific Northwest Computers (PNWC)
-**Contact:** jon@pnwcomputers.com · 360-624-7379
 **Version:** 1.0
 **Classification:** Internal - Field Operations Reference
 

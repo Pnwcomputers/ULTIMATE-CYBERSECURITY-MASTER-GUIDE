@@ -8,7 +8,7 @@
 #   DESCRIPTION: Generate draft abuse report emails for various providers
 #                Creates ready-to-send abuse reports for registrars, hosts, ISPs
 #
-#        AUTHOR: Jon-Eric Pienkowski ~ PNW Computers (jon@pnwcomputers.com)
+#        AUTHOR: Pacific Northwest Computers (PNWC) — github.com/Pnwcomputers
 #       VERSION: 1.0
 #
 #===============================================================================
@@ -42,11 +42,12 @@ CONFIG_DIR="${HOME}/.config/osint-investigator"
 REPORTER_CONFIG="${CONFIG_DIR}/reporter_info.conf"
 CASE_BASE_DIR="${HOME}/OSINT_Cases"
 
-# Default reporter info (will be overridden by config)
-REPORTER_NAME="Jon-Eric Pienkowski"
-REPORTER_EMAIL="support@pnwcomputers.com"
-REPORTER_ORG="Pacific NW Computers"
-REPORTER_PHONE="360-624-7379"
+# Default reporter info (will be overridden by config) — placeholders only;
+# set your own values in $REPORTER_CONFIG, never commit real contact info here.
+REPORTER_NAME="Your Name"
+REPORTER_EMAIL="you@example.com"
+REPORTER_ORG="Your Organization"
+REPORTER_PHONE="555-0100"
 
 #-------------------------------------------------------------------------------
 # LOAD/SAVE REPORTER INFO

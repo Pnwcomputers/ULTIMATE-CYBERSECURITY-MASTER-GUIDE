@@ -2,7 +2,7 @@
 #
 # Title:         Windows Migration Data Collection
 # Description:   Comprehensive system data for migration planning
-# Author:        Jon-Eric Pienkowski ~ Pacific NW Computers
+# Author:        Pacific NW Computers
 # Version:       1.0
 # Category:      Migration
 # Target:        Windows 10/11
@@ -262,7 +262,7 @@ Q STRING if(Test-Path \$e){Get-Content \$e \| Out-File \$combined -Append\; "" \
 Q ENTER
 Q DELAY 500
 
-Q STRING "=" * 80 \| Out-File \$combined -Append\; "Pacific NW Computers \| jon@pnwcomputers.com \| 360-624-7379" \| Out-File \$combined -Append
+Q STRING "=" * 80 \| Out-File \$combined -Append\; "Pacific NW Computers" \| Out-File \$combined -Append
 Q ENTER
 Q DELAY 500
 

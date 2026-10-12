@@ -19,7 +19,8 @@ Security concerns fall into two categories:
 If you find something in this repo that poses a genuine security risk - a script behaving
 dangerously, accidentally committed sensitive data, or similar - please report it privately:
 
-**Email:** jon@pnwcomputers.com  
+**Preferred:** open a [GitHub Security Advisory](../../security/advisories/new) on this repo (private to maintainers).
+**Alternative:** email the address listed on the maintainer's GitHub profile ([@Pnwcomputers](https://github.com/Pnwcomputers)).
 **Subject line:** `[SECURITY] ULTIMATE-CYBERSECURITY-MASTER-GUIDE - brief description`
 
 Include:
@@ -40,7 +41,7 @@ use only. If you believe a script could be made safer or better documented witho
 its legitimate utility, that's a welcome contribution - open an Issue or PR.
 
 If you believe a specific script crosses the line into pure malware with no legitimate use,
-report it via email above.
+report it via the channels above.
 
 ---
 
@@ -56,7 +57,5 @@ The following are **not** security vulnerabilities in this repo:
 
 ## 📬 Contact
 
-**Jon Pienkowski - Pacific Northwest Computers (PNWC)**  
-Email: jon@pnwcomputers.com  
-Website: [pnwcomputers.com](https://pnwcomputers.com)  
+**Pacific Northwest Computers (PNWC)**  
 GitHub: [@Pnwcomputers](https://github.com/Pnwcomputers)

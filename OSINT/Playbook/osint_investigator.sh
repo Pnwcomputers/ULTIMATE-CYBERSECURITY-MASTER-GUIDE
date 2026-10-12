@@ -8,8 +8,8 @@
 #   DESCRIPTION: Comprehensive OSINT Investigation Playbook for Scam/Fraud Cases
 #                Generates professional abuse reports for IC3/Law Enforcement
 #
-#        AUTHOR: Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-#       CONTACT: jon@pnwcomputers.com | (360) 624-7379
+#        AUTHOR: Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+#       CONTACT: see repo for current contact details
 #       VERSION: 2.1
 #       CREATED: 2024
 #      PLATFORM: Tsurugi Linux / Ubuntu / Debian

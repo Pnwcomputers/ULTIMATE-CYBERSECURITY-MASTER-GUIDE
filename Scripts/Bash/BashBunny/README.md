@@ -573,9 +573,7 @@ See individual payload files in this repository for:
 
 ---
 
-**Pacific NW Computers**  
-Email: jon@pnwcomputers.com  
-Phone: 360-624-7379
+**Pacific NW Computers**
 
 *Always use responsibly and legally.*
 

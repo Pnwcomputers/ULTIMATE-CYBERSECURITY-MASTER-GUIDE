@@ -45,4 +45,4 @@ assignees: Pnwcomputers
 
 - [ ] I checked that this isn't already reported in open Issues
 - [ ] I verified the correct information before submitting (e.g. confirmed the right URL)
-- [ ] This is not a security vulnerability (if it is, email jon@pnwcomputers.com instead)
+- [ ] This is not a security vulnerability (if it is, see SECURITY.md instead)

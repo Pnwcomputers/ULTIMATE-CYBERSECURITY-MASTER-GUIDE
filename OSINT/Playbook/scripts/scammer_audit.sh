@@ -2,7 +2,7 @@
 
 #############################################
 #  SCAMMER OSINT INVESTIGATION SCRIPT v3.1
-#  Jon-Eric Pienkowski ~ PNW Computers (PNWC)
+#  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #  
 #  Usage: ./scammer_audit.sh -d <domain>
 #         ./scammer_audit.sh -i <ip1,ip2,ip3>
@@ -513,7 +513,7 @@ run_nuclei() {
         log "${YELLOW}    (This may take a while...)${NC}"
         
         # Update templates silently
-        nuclei -ut -silent 2>/dev/null
+        nuclei -ut -silent 2>"${OUTPUT_DIR:-.}/nuclei_update.err" || log "${YELLOW}    [!] nuclei template update failed (see nuclei_update.err); templates may be stale${NC}"
 
         # Run nuclei
         nuclei -u "$TARGET" -severity low,medium,high,critical -silent -o "$OUTPUT_FILE" 2>&1
@@ -565,6 +565,21 @@ run_dirsearch() {
 #############################################
 # RustScan
 #############################################
+# run_scan LABEL OUTFILE CMD... — run a collector and keep its evidence. stdout goes to
+# OUTFILE.stdout, stderr to OUTFILE.err, exit status to OUTFILE.rc. A non-zero exit is
+# logged as FAILED and returned, so a failed scan can never be mistaken for "nothing found".
+run_scan() {
+    local label="$1" out="$2" rc=0; shift 2
+    "$@" >"${out}.stdout" 2>"${out}.err" || rc=$?
+    echo "$rc" > "${out}.rc"
+    if (( rc != 0 )); then
+        log "${RED}    [!] ${label} FAILED (exit ${rc}) — results incomplete/UNVERIFIED; see ${out}.err${NC}"
+    else
+        log "${GREEN}    [+] ${label} done${NC}"
+    fi
+    return "$rc"
+}
+
 run_rustscan() {
     local IP="$1"
     local OUTPUT="$2"
@@ -603,8 +618,8 @@ scan_ip() {
     # WHOIS
     if [[ ! "$IP" =~ ":" ]]; then
         log "${GREEN}    [*] Running WHOIS...${NC}"
-        whois -h whois.arin.net "$IP" > "$IP_DIR/whois_arin.txt" 2>&1
-        log "${GREEN}    [+] WHOIS complete${NC}"
+        run_scan "WHOIS" "$IP_DIR/whois_arin" whois -h whois.arin.net "$IP" || true
+        cat "$IP_DIR/whois_arin.stdout" "$IP_DIR/whois_arin.err" > "$IP_DIR/whois_arin.txt" 2>/dev/null || true
     fi
     
     #-----------------------------------------
@@ -631,29 +646,25 @@ scan_ip() {
     log "${GREEN}[*] Running Nmap scans...${NC}"
     
     # Basic Scan
-    nmap -sV -sC --host-timeout 300s "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" > /dev/null 2>&1
-    log "${GREEN}    [+] Basic scan done${NC}"
+    NMAP_BASIC_OK=true
+    run_scan "Basic scan" "$IP_DIR/nmap_basic" nmap -sV -sC --host-timeout 300s "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" || NMAP_BASIC_OK=false
 
     # Full port scan (skip in quick mode)
     if [ "$QUICK_MODE" = false ]; then
         log "${GREEN}    [*] Running full port scan (this takes a while)...${NC}"
-        nmap -p- -T4 --host-timeout 600s "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
-        log "${GREEN}    [+] Full port scan done${NC}"
+        run_scan "Full port scan" "$IP_DIR/nmap_fullport" nmap -p- -T4 --host-timeout 600s "$IP" -oN "$IP_DIR/nmap_fullport.txt" || true
     fi
-    
+
     # DNS NSID
-    nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] DNS scan done${NC}"
-    
+    run_scan "DNS scan" "$IP_DIR/nmap_dns" nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" || true
+
     # Extra ports
-    nmap -Pn -sV -p 443,8080,8443,3389,22,21,25,3306,5432,27017,6379 "$IP" -oN "$IP_DIR/nmap_extra.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] Extra ports scan done${NC}"
-    
+    run_scan "Extra ports scan" "$IP_DIR/nmap_extra" nmap -Pn -sV -p 443,8080,8443,3389,22,21,25,3306,5432,27017,6379 "$IP" -oN "$IP_DIR/nmap_extra.txt" || true
+
     # Vuln scripts
     log "${GREEN}    [*] Running Nmap vuln scripts...${NC}"
-    nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" > /dev/null 2>&1
-    log "${GREEN}    [+] Vuln scan done${NC}"
-    
+    run_scan "Vuln scan" "$IP_DIR/nmap_vuln" nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" || true
+
     #-----------------------------------------
     # Banner Grab
     #-----------------------------------------
@@ -668,9 +679,12 @@ scan_ip() {
     #-----------------------------------------
     PORT80_OPEN=0
     PORT443_OPEN=0
-    if [ -f "$IP_DIR/nmap_basic.txt" ]; then
-        PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null) || PORT80_OPEN=0
-        PORT443_OPEN=$(grep -c "443/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null) || PORT443_OPEN=0
+    if [ "$NMAP_BASIC_OK" = true ] && [ -f "$IP_DIR/nmap_basic.txt" ]; then
+        # grep -c exits 1 when the count is 0; that is a valid "closed" answer here
+        PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt") || PORT80_OPEN=0
+        PORT443_OPEN=$(grep -c "443/tcp.*open" "$IP_DIR/nmap_basic.txt") || PORT443_OPEN=0
+    else
+        log "${YELLOW}[!] Basic nmap scan failed — port state is UNVERIFIED (not 'closed'); skipping automatic web recon. Check ${IP_DIR}/nmap_basic.err${NC}"
     fi
     
     if [ "$PORT80_OPEN" -gt 0 ] 2>/dev/null || [ "$PORT443_OPEN" -gt 0 ] 2>/dev/null; then
@@ -694,7 +708,7 @@ scan_ip() {
         
         # Dirsearch
         run_dirsearch "$WEB_TARGET" "$IP_DIR/dirsearch_results.txt"
-    else
+    elif [ "$NMAP_BASIC_OK" = true ]; then
         log "${YELLOW}[!] No web ports (80/443) detected, skipping web recon${NC}"
     fi
     

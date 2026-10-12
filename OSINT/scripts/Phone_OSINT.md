@@ -44,7 +44,7 @@ Run one command against a suspected scammer's phone number and get back carrier/
 
 #############################################
 #  PHONE NUMBER OSINT INVESTIGATION SCRIPT v1.0
-#  Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
+#  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 #  
 #  Usage: ./phone_audit.sh -p <phone_number>
 #         ./phone_audit.sh -p <phone1,phone2,phone3>

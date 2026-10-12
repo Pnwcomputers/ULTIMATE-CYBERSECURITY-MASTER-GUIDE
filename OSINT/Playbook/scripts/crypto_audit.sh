@@ -5,8 +5,8 @@
 #              Detects coin type from address format, queries blockchain APIs, and checks
 #              against scam databases. Produces per-address reports formatted for
 #              IC3/FTC submission (dollar amounts, transaction dates, connected addresses).
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
@@ -550,7 +550,7 @@ audit_address() {
         printf "=%.0s" {1..70}; printf "\n"
         printf "PNWC CRYPTO AUDIT REPORT\n"
         printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
-        printf "Investigator Contact: jon@pnwcomputers.com\n"
+        printf "Investigator Contact: (set in case notes)\n"
         printf "Chain: %s\n" "$chain"
         printf "=%.0s" {1..70}; printf "\n\n"
     } > "$report_file"
@@ -611,8 +611,8 @@ build_summary() {
         printf "=%.0s" {1..70}; printf "\n"
         printf "PNWC CRYPTOCURRENCY AUDIT SUMMARY\n"
         printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
-        printf "Investigator: Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)\n"
-        printf "Contact: jon@pnwcomputers.com\n"
+        printf "Investigator: (set in case notes)\n"
+        printf "Contact: (set in case notes)\n"
         printf "=%.0s" {1..70}; printf "\n\n"
         printf "Addresses audited: %d\n\n" "${#ADDRESSES[@]}"
     } > "$summary_file"

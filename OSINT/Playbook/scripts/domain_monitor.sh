@@ -8,8 +8,8 @@
 # DESCRIPTION: Cron-friendly domain change monitoring for ongoing fraud/scam cases.
 #              Takes a baseline snapshot of a domain's DNS/WHOIS/cert state, then
 #              on subsequent runs detects and logs any changes.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

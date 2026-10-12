@@ -159,8 +159,6 @@ Use the issue templates provided - they keep reports consistent and actionable.
 
 For anything that doesn't fit a GitHub Issue:
 
-- **Email:** jon@pnwcomputers.com
-- **Website:** [pnwcomputers.com](https://pnwcomputers.com)
 - **GitHub:** [@Pnwcomputers](https://github.com/Pnwcomputers)
 
 ---

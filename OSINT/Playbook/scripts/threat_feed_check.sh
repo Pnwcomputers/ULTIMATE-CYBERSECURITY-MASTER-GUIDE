@@ -5,8 +5,8 @@
 #              threat intelligence feeds simultaneously. Autodetects IOC type and
 #              runs all feed checks in parallel. Produces per-feed result files and
 #              a consolidated threat_summary.txt with a risk score.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian

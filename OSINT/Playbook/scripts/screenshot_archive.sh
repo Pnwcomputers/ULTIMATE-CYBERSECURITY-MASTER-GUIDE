@@ -6,8 +6,8 @@
 # DESCRIPTION: Capture and archive timestamped screenshots of web evidence (domains, URLs,
 #              admin panels). Generates SHA256 integrity hashes and an HTML gallery index
 #              for evidence preservation before scam sites go down.
-# AUTHOR:      Jon-Eric Pienkowski ~ Pacific Northwest Computers (PNWC)
-# CONTACT:     jon@pnwcomputers.com
+# AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
+# CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
