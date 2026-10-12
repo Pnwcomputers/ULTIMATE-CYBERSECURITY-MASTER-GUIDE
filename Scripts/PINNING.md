@@ -58,8 +58,9 @@ library that is a symlink or is group/world-writable.
   documentation clone of this repository (a pin would go stale on every merge).
 * Go versions come from git tags; availability on the Go proxy is checked when
   `go install` runs, and the checksum database verifies the content.
-* Ghidra is pinned at 11.1.2, the version the installer is written for; it is
-  not the newest release, so bump it deliberately.
+* Ghidra is pinned at 12.1.4 (latest stable as of 2026-10-12); bump it
+  deliberately when a newer release comes out — the installer's folder-name
+  check (`ghidra_${GHIDRA_VER}_PUBLIC`) needs updating along with the pin.
 * Pinning a top-level Python package does not hash-lock its dependencies.
   For stronger guarantees generate a hash-locked requirements file per tool
   (`pip-compile --generate-hashes`) and install with `--require-hashes`.

@@ -785,8 +785,8 @@ install_forensics() {
     # a pinned SHA-256 (dl:ghidra:sha256:any) before it is extracted.
     if ! command -v ghidra &>/dev/null && [[ ! -d /opt/ghidra ]]; then
         info "Installing Ghidra (pinned SHA-256 required)…"
-        local GHIDRA_VER="11.1.2" gh
-        local GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20240709.zip"
+        local GHIDRA_VER="12.1.4" gh
+        local GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20260921.zip"
         safe_mktemp_dir gh
         if fetch_pinned ghidra any "$GHIDRA_URL" "$gh/ghidra.zip" \
             && mkdir "$gh/x" && safe_extract_all "$gh/ghidra.zip" "$gh/x" \
