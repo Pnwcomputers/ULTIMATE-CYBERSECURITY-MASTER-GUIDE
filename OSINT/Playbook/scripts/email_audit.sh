@@ -476,7 +476,8 @@ query_gravatar() {
     
     if [ "$HTTP_CODE" = "200" ]; then
         log "${GREEN}    [+] Gravatar avatar found!${NC}"
-        curl -s "$GRAVATAR_URL" -o "$OUTPUT_DIR/gravatar_avatar.jpg" 2>/dev/null
+        curl -sS --fail --max-time 20 "$GRAVATAR_URL" -o "$OUTPUT_DIR/gravatar_avatar.jpg" 2>"$OUTPUT_DIR/gravatar_avatar.err" \
+            || log "${YELLOW}    [!] Gravatar avatar download FAILED (see gravatar_avatar.err)${NC}"
         echo "{\"has_avatar\": true, \"avatar_url\": \"$GRAVATAR_URL\", \"hash\": \"$HASH\"}" > "$OUTPUT_DIR/gravatar.json"
         
         # Try to get profile
@@ -542,21 +543,27 @@ check_domain_dns() {
     
     log "${GREEN}    [*] Checking domain DNS records...${NC}"
     
+    # A failed lookup (timeout, SERVFAIL, no resolver) must never read as "no record".
+    # dig exits 0 on an empty-but-successful answer and non-zero when it got no answer.
+    dns_section() {  # dns_section TITLE TYPE NAME [grep-filter]
+        local title="$1" rtype="$2" name="$3" filter="${4:-}" out rc=0
+        echo "=== ${title} ==="
+        out=$(dig +short +time=5 +tries=2 "$rtype" "$name" 2>&1) || rc=$?
+        if (( rc != 0 )); then
+            echo "LOOKUP FAILED (dig exit ${rc}): ${out:-no output} — result UNVERIFIED"
+            return
+        fi
+        [[ -n "$filter" ]] && out=$(printf '%s\n' "$out" | grep -i -- "$filter" || true)
+        if [[ -n "$out" ]]; then printf '%s\n' "$out"; else echo "None found (query succeeded, empty answer)"; fi
+    }
     {
-        echo "=== MX Records ==="
-        dig +short MX "$DOMAIN" 2>/dev/null || echo "No MX records"
-        
+        dns_section "MX Records" MX "$DOMAIN"
         echo ""
-        echo "=== SPF Record ==="
-        dig +short TXT "$DOMAIN" 2>/dev/null | grep -i spf || echo "No SPF record"
-        
+        dns_section "SPF Record" TXT "$DOMAIN" spf
         echo ""
-        echo "=== DMARC Record ==="
-        dig +short TXT "_dmarc.$DOMAIN" 2>/dev/null || echo "No DMARC record"
-        
+        dns_section "DMARC Record" TXT "_dmarc.$DOMAIN"
         echo ""
-        echo "=== A Record ==="
-        dig +short A "$DOMAIN" 2>/dev/null || echo "No A record"
+        dns_section "A Record" A "$DOMAIN"
     } > "$OUTPUT" 2>&1
     
     log "${GREEN}    [+] DNS check complete${NC}"

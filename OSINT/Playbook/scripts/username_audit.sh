@@ -305,13 +305,29 @@ PYEOF
 # API-based lookups (no dedicated tool required — just curl)
 # ---------------------------------------------------------------------------
 
+# api_fetch URL LABEL OUTPUT_DIR — prints the body on HTTP 200/404. Any other outcome
+# (timeout, 403/429 rate limit, 5xx, DNS failure) is recorded in api_errors.txt and
+# warned about, and returns 1 so the caller can't mistake it for "username not found".
+api_fetch() {
+    local url="$1" label="$2" dir="$3" body code rc=0 tmp
+    tmp="$(mktemp)" || return 1
+    code="$(curl -sS --max-time 10 -o "$tmp" -w '%{http_code}' "$url" 2>>"${dir}/api_errors.txt")" || rc=$?
+    if (( rc != 0 )) || [[ ! "$code" =~ ^(200|404)$ ]]; then
+        echo "${label}: lookup FAILED (curl exit ${rc}, HTTP ${code:-none}) — UNVERIFIED, not 'not found'" >> "${dir}/api_errors.txt"
+        warn "${label} lookup failed (curl exit ${rc}, HTTP ${code:-none}) — result UNVERIFIED" >&2
+        rm -f "$tmp"; return 1
+    fi
+    body="$(cat "$tmp")"; rm -f "$tmp"
+    printf '%s' "$body"
+}
+
 check_github() {
     local username="$1"
     local output_dir="$2"
     command -v curl &>/dev/null || { warn "curl not found, skipping GitHub lookup"; return; }
 
     local response
-    response="$(curl -s --max-time 10 "https://api.github.com/users/${username}" 2>/dev/null)"
+    response="$(api_fetch "https://api.github.com/users/${username}" GitHub "$output_dir")" || return 0
     local login
     login="$(echo "$response" | grep '"login"' | head -1 | sed 's/.*: *"//;s/".*//')"
 
@@ -327,7 +343,7 @@ check_gitlab() {
     command -v curl &>/dev/null || { warn "curl not found, skipping GitLab lookup"; return; }
 
     local response
-    response="$(curl -s --max-time 10 "https://gitlab.com/api/v4/users?username=${username}" 2>/dev/null)"
+    response="$(api_fetch "https://gitlab.com/api/v4/users?username=${username}" GitLab "$output_dir")" || return 0
     if echo "$response" | grep -q '"username"'; then
         echo "https://gitlab.com/${username}|api_direct" >> "${output_dir}/api_found.txt"
         log "${GREEN}[GITLAB]${NC} Found: https://gitlab.com/${username}"
@@ -340,7 +356,7 @@ check_npm() {
     command -v curl &>/dev/null || { warn "curl not found, skipping npm lookup"; return; }
 
     local response
-    response="$(curl -s --max-time 10 "https://registry.npmjs.org/-/user/org.couchdb.user:${username}" 2>/dev/null)"
+    response="$(api_fetch "https://registry.npmjs.org/-/user/org.couchdb.user:${username}" npm "$output_dir")" || return 0
     if echo "$response" | grep -q '"name"'; then
         echo "https://www.npmjs.com/~${username}|api_direct" >> "${output_dir}/api_found.txt"
         log "${GREEN}[NPM]${NC} Found: https://www.npmjs.com/~${username}"
@@ -357,8 +373,11 @@ check_gravatar() {
     hash="$(md5_string "$(echo "$email" | tr '[:upper:]' '[:lower:]' | xargs)")"
     local gravatar_url="https://www.gravatar.com/${hash}"
     local http_code
-    http_code="$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "https://www.gravatar.com/avatar/${hash}?d=404" 2>/dev/null)"
+    http_code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 10 "https://www.gravatar.com/avatar/${hash}?d=404" 2>>"${output_dir}/api_errors.txt")" || http_code=""
 
+    if [[ -z "$http_code" || ! "$http_code" =~ ^(200|404)$ ]]; then
+        warn "Gravatar lookup failed (HTTP ${http_code:-none}) — result UNVERIFIED"
+    fi
     if [[ "$http_code" == "200" ]]; then
         echo "${gravatar_url}|api_direct" >> "${output_dir}/api_found.txt"
         log "${GREEN}[GRAVATAR]${NC} Profile found: ${gravatar_url}"
