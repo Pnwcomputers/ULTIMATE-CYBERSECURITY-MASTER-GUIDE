@@ -128,10 +128,7 @@ install_python_tools() {
     python3 -m pip install --upgrade pip
     
     # Core OSINT tools
-    # Sherlock's published PyPI name is just "sherlock"; the previous
-    # sherlock-project entry failed to install and left the UI unable to
-    # detect the tool. Use the correct package name for both the main and
-    # The Sherlock OSINT package is sherlock-project; its executable is sherlock
+    # The Sherlock OSINT package is sherlock-project; its executable is sherlock.
     pip3 install --break-system-packages \
         holehe \
         h8mail \

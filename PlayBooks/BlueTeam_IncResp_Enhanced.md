@@ -106,7 +106,7 @@ Covers any incident impacting on-prem or cloud systems-including malware, data e
   Preserve the original capture and record its SHA-256 hash.
 - **Zeek logs:** preserve the original logs separately. Use `zeek-cut`
   to extract fields from Zeek TSV logs, or a JSON-aware parser for JSON
-  lot export PCAP, and Zeek connection logs do not
+  logs. `zeek-cut` does not export PCAP, and Zeek connection logs do not
   contain the original packet payloads.
 - Query Suricata EVE JSON logs for matching `sid` or `threshold`.
 

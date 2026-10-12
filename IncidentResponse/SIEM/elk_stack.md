@@ -59,7 +59,7 @@ Elastic (the company) offers **Elastic Security** (formerly SIEM) as part of the
 | CPU | 4 vCPUs | 8 vCPUs |
 | Storage | 100 GB | 500 GB+ SSD |
 
-> **Note:**  is memory-intensive. For production, allocate 50% of system RAM to the JVM heap (up to 32 GB).
+> **Note:** Elasticsearch is memory-intensive. For production, allocate 50% of system RAM to the JVM heap (up to 32 GB).
 
 ### Software Requirements
 
