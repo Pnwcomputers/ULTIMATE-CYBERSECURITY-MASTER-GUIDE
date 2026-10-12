@@ -1,8 +1,8 @@
 # 🔄 Change Log - October 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1494
-- **Files Modified**: 1886
+- **Commits Analyzed**: 1495
+- **Files Modified**: 1889
 - **New Files**: 730
 - **Deleted Files**: 121
 
@@ -484,6 +484,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(installers): bump Ghidra pin from 11.1.2 to latest (12.1.4) (#125) (`a0486df`)
 - fix(osint): toolkit_integration.sh wrappers no longer report success on failure (R8) (#123) (`bb2a6d0`)
 - Security/fix review findings (#113) (`2bff323`)
 - Fix Sherlock package name in install_dependencies.sh (`88489db`)
@@ -1518,10 +1519,12 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Scripts/PINNING.md`
+- `Scripts/pnwc_install_tools.sh`
+- `CHANGELOG.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `SECURITY_REMEDIATION_PLAN.md`
 - `tests/hardening/test_toolkit_integration.py`
-- `CHANGELOG.md`
 - `.github/workflows/markdownlint.yml`
 - `.github/workflows/auto_changelog.yml`
 - `.github/workflows/cm5-parrot-checks.yml`
@@ -1557,9 +1560,7 @@
 - `tests/hardening/test_scammer_crypto_threat_apis.py`
 - `tests/hardening/test_scan_evidence.py`
 - `.github/dependabot.yml`
-- `Scripts/PINNING.md`
 - `Scripts/lib/safe_install.sh`
-- `Scripts/pnwc_install_tools.sh`
 - `tests/hardening/test_collector_failures.py`
 - `tests/hardening/test_domain_monitor.py`
 - `tests/hardening/test_installer_checks.py`
