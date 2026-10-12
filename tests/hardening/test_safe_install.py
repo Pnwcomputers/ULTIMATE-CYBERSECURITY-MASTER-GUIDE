@@ -205,6 +205,78 @@ class ExtractTests(unittest.TestCase):
         self.assertNotIn("rc=0", self.extract(p, "tool").stdout)
 
 
+class ExtractAllTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        self.out = self.root / "out"
+        self.out.mkdir()
+
+    def run_extract(self, archive):
+        return bash(f'safe_extract_all "{archive}" "{self.out}"; echo "rc=$?"')
+
+    def test_clean_tar_extracts_tree(self):
+        p = self.root / "t.tar.gz"
+        src = self.root / "src"
+        (src / "bin").mkdir(parents=True)
+        (src / "bin" / "tool").write_text("x")
+        with tarfile.open(p, "w:gz") as t:
+            t.add(src, arcname="pkg")
+        r = self.run_extract(p)
+        self.assertIn("rc=0", r.stdout, r.stderr)
+        self.assertEqual((self.out / "pkg" / "bin" / "tool").read_text(), "x")
+
+    def test_tar_with_symlink_rejected_and_nothing_extracted(self):
+        p = self.root / "t.tar.gz"
+        with tarfile.open(p, "w:gz") as t:
+            import io
+            ti = tarfile.TarInfo("ok"); ti.size = 1
+            t.addfile(ti, io.BytesIO(b"x"))
+            ln = tarfile.TarInfo("evil"); ln.type = tarfile.SYMTYPE; ln.linkname = "/etc/passwd"
+            t.addfile(ln)
+        r = self.run_extract(p)
+        self.assertNotIn("rc=0", r.stdout)
+        self.assertEqual(list(self.out.iterdir()), [])
+
+    def test_tar_traversal_rejected(self):
+        p = self.root / "t.tar.gz"
+        with tarfile.open(p, "w:gz") as t:
+            import io
+            ti = tarfile.TarInfo("../escape"); ti.size = 1
+            t.addfile(ti, io.BytesIO(b"x"))
+        r = self.run_extract(p)
+        self.assertNotIn("rc=0", r.stdout)
+        self.assertFalse((self.root / "escape").exists())
+
+    def test_zip_clean_and_traversal(self):
+        good = self.root / "g.zip"
+        with zipfile.ZipFile(good, "w") as z:
+            z.writestr("pkg/bin/tool", b"ok")
+        self.assertIn("rc=0", self.run_extract(good).stdout)
+        self.assertEqual((self.out / "pkg" / "bin" / "tool").read_bytes(), b"ok")
+
+        evil = self.root / "e.zip"
+        with zipfile.ZipFile(evil, "w") as z:
+            z.writestr("../escape", b"no")
+        out2 = self.root / "out2"
+        out2.mkdir()
+        r = bash(f'safe_extract_all "{evil}" "{out2}"; echo "rc=$?"')
+        self.assertNotIn("rc=0", r.stdout)
+        self.assertFalse((self.root / "escape").exists())
+
+    def test_zip_symlink_rejected(self):
+        p = self.root / "s.zip"
+        with zipfile.ZipFile(p, "w") as z:
+            zi = zipfile.ZipInfo("link")
+            zi.create_system = 3
+            zi.external_attr = (stat.S_IFLNK | 0o777) << 16
+            z.writestr(zi, "/etc/passwd")
+        r = self.run_extract(p)
+        self.assertNotIn("rc=0", r.stdout)
+        self.assertEqual(list(self.out.iterdir()), [])
+
+
 class ArchTests(unittest.TestCase):
     def test_supported(self):
         for m, want in (("x86_64", "amd64"), ("amd64", "amd64"),

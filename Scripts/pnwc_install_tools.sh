@@ -25,10 +25,35 @@
 #    --wordlists    Wordlists & reference data only
 #    --pnwc         PNWC custom scripts only
 #    --dev          Development dependencies only
+#    --allow-unpinned  LAB ONLY: permit pip/go/git/gem installs that have no pin
+#    --print-pins   After installing, print proposed pins for unpinned items
 #    --help         Show this help
 # =============================================================================
 
 set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+# trusted_file FILE — this script runs as root and reads these helper files, so
+# refuse symlinks and anything writable by group/others.
+trusted_file() {
+    local f="$1" mode
+    [[ -f "$f" && ! -L "$f" ]] || return 1
+    mode=$(stat -c '%a' -- "$f") || return 1
+    (( (8#$mode & 8#022) == 0 ))
+}
+
+if ! trusted_file "$SCRIPT_DIR/lib/safe_install.sh"; then
+    echo "[-] Scripts/lib/safe_install.sh is missing, is a symlink, or is writable by others; refusing to continue." >&2
+    exit 1
+fi
+# shellcheck source=lib/safe_install.sh
+source "$SCRIPT_DIR/lib/safe_install.sh"
+
+PINS_FILE="${PNWC_PINS_FILE:-$SCRIPT_DIR/tool_pins.conf}"
+# shellcheck disable=SC2034  # appended to by lib/safe_install.sh
+UNPINNED_USED=()   # items installed without a pin (only with --allow-unpinned)
+PRINT_PINS=0
 
 # ── Colours ──────────────────────────────────────────────────────────────────
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
@@ -156,63 +181,19 @@ pkg_install() {
     done
 }
 
-# pipx install — isolated per-tool virtualenv; avoids system package conflicts
-pipx_install() {
-    for pkg in "$@"; do
-        info "  pipx install: $pkg"
-        if pipx install "$pkg" >> "$LOGFILE" 2>&1; then
-            ok "  $pkg (pipx) installed"
-        else
-            warn "  pipx failed for $pkg"
-            FAILED_TOOLS+=("pipx:$pkg")
-        fi
-    done
-}
-
-# Python tools and libraries use a dedicated environment, never system pip.
-pip_install() {
-    for pkg in "$@"; do
-        info "  pip install: $pkg"
-        if "$INSTALL_DIR/venv/bin/python" -m pip install --quiet "$pkg" >> "$LOGFILE" 2>&1; then
-            ok "  $pkg (pip) installed"
-        else
-            warn "  pip failed for $pkg"
-            FAILED_TOOLS+=("pip:$pkg")
-        fi
-    done
-}
-
-# go install — requires go in PATH
-go_install() {
-    local pkg="$1"
-    if ! command -v go &>/dev/null; then
-        warn "Go not in PATH — skipping $pkg"
-        SKIPPED_TOOLS+=("go:$pkg")
-        return
-    fi
-    info "  go install: $pkg"
-    if GOPATH=/opt/go go install "$pkg" >> "$LOGFILE" 2>&1; then
-        ok "  $pkg (go) installed"
+# fetch_rockyou — install rockyou.txt only if its SHA-256 is pinned.
+fetch_rockyou() {
+    local d
+    safe_mktemp_dir d
+    mkdir -p /usr/share/wordlists
+    if fetch_pinned rockyou any \
+        "https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" \
+        "$d/rockyou.txt"; then
+        install -m 0644 "$d/rockyou.txt" /usr/share/wordlists/rockyou.txt && ok "rockyou.txt installed"
     else
-        warn "  go install failed for $pkg"
-        FAILED_TOOLS+=("go:$pkg")
+        warn "rockyou.txt not installed (pin its SHA-256, or install your distro's wordlists package)"
     fi
-}
-
-# git clone a tool into $INSTALL_DIR
-git_clone_tool() {
-    local name="$1"
-    local url="$2"
-    local target="$INSTALL_DIR/$name"
-    if [[ -d "$target" ]]; then
-        info "  $name already cloned — pulling latest"
-        git -C "$target" pull -q >> "$LOGFILE" 2>&1 || true
-    else
-        info "  Cloning $name from $url"
-        git clone --depth=1 -q "$url" "$target" >> "$LOGFILE" 2>&1 \
-            && ok "  $name cloned to $target" \
-            || { warn "  Failed to clone $name"; FAILED_TOOLS+=("git:$name"); }
-    fi
+    return 0
 }
 
 # Create a symlink in /usr/local/bin for a python script
@@ -301,7 +282,12 @@ install_dev() {
         return 1
     }
     export PATH="$INSTALL_DIR/venv/bin:$PATH"
-    "$INSTALL_DIR/venv/bin/python" -m pip install --upgrade pip setuptools wheel pipx >> "$LOGFILE" 2>&1 || {
+    local bootstrap=() b
+    for b in pip setuptools wheel pipx; do
+        resolve_pip "$b" || { error "Cannot prepare isolated Python tooling: no usable pin for $b"; return 1; }
+        bootstrap+=("$PIP_SPEC")
+    done
+    "$INSTALL_DIR/venv/bin/python" -m pip install --upgrade "${bootstrap[@]}" >> "$LOGFILE" 2>&1 || {
         error "Cannot prepare isolated Python tooling"
         return 1
     }
@@ -359,40 +345,30 @@ install_recon() {
         make_symlink "spiderfoot" "$INSTALL_DIR/spiderfoot/sf.py"
     fi
 
-    # PhoneInfoga — go install fails (web assets not bundled); download prebuilt binary
-    local phoneinfoga_ver
-    phoneinfoga_ver=$(curl -s "https://api.github.com/repos/sundowndev/phoneinfoga/releases/latest" \
-        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
-    if [[ -n "$phoneinfoga_ver" ]]; then
-        local arch; arch=$(uname -m)
-        local os; os=$(uname -s)   # keep original case: Linux, Darwin
-        [[ "$arch" == "aarch64" ]] && arch="arm64"
-        local url="https://github.com/sundowndev/phoneinfoga/releases/download/${phoneinfoga_ver}/phoneinfoga_${os}_${arch}.tar.gz"
-        curl -sL "$url" -o /tmp/phoneinfoga.tar.gz >> "$LOGFILE" 2>&1 \
-            && tar -xzf /tmp/phoneinfoga.tar.gz -C /usr/local/bin phoneinfoga >> "$LOGFILE" 2>&1 \
-            && chmod +x /usr/local/bin/phoneinfoga \
-            && ok "phoneinfoga installed" \
-            || warn "phoneinfoga binary download failed"
-        rm -f /tmp/phoneinfoga.tar.gz
-    else
-        warn "Could not determine phoneinfoga release version"
-        FAILED_TOOLS+=("bin:phoneinfoga")
+    # PhoneInfoga — go install fails (web assets not bundled); use a prebuilt release
+    # binary, verified against a pinned SHA-256 before it is unpacked or installed.
+    if ! command -v phoneinfoga &>/dev/null && release_prereqs phoneinfoga; then
+        local pi_arch="x86_64"
+        [[ "$REL_ARCH" == arm64 ]] && pi_arch="arm64"
+        install_release_member phoneinfoga \
+            "https://github.com/sundowndev/phoneinfoga/releases/download/${REL_VER}/phoneinfoga_Linux_${pi_arch}.tar.gz" \
+            "$REL_ARCH" phoneinfoga /usr/local/bin
     fi
 
     # Amass (Go)
-    go_install "github.com/owasp-amass/amass/v4/cmd/amass@latest"
+    go_install "github.com/owasp-amass/amass/v4/cmd/amass"
 
     # Subfinder (Go — ProjectDiscovery)
-    go_install "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
+    go_install "github.com/projectdiscovery/subfinder/v2/cmd/subfinder"
 
     # httpx (Go — ProjectDiscovery; no v2 module prefix)
-    go_install "github.com/projectdiscovery/httpx/cmd/httpx@latest"
+    go_install "github.com/projectdiscovery/httpx/cmd/httpx"
 
     # dnsx (Go — ProjectDiscovery)
-    go_install "github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
+    go_install "github.com/projectdiscovery/dnsx/cmd/dnsx"
 
     # katana (Go — ProjectDiscovery web crawler)
-    go_install "github.com/projectdiscovery/katana/cmd/katana@latest"
+    go_install "github.com/projectdiscovery/katana/cmd/katana"
 
     # Recon-ng
     git_clone_tool "recon-ng" "https://github.com/lanmaster53/recon-ng.git"
@@ -431,7 +407,7 @@ install_network() {
 
     # Bettercap (Go)
     if ! command -v bettercap &>/dev/null; then
-        go_install "github.com/bettercap/bettercap@latest"
+        go_install "github.com/bettercap/bettercap"
     fi
 
     # Responder
@@ -443,19 +419,32 @@ install_network() {
         if [[ "$PKG_MGR" == "apt" ]] && apt-get install -y -qq netexec >> "$LOGFILE" 2>&1; then
             ok "NetExec installed via apt"
         elif [[ ! -x /opt/netexec-env/bin/nxc ]]; then
-            python3 -m venv --clear /opt/netexec-env >> "$LOGFILE" 2>&1 \
-                && /opt/netexec-env/bin/pip install -q netexec >> "$LOGFILE" 2>&1 \
-                && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
-                && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
-                && ok "NetExec installed via pip" || { warn "NetExec install failed"; FAILED_TOOLS+=("NetExec"); }
+            if resolve_pip netexec; then
+                python3 -m venv --clear /opt/netexec-env >> "$LOGFILE" 2>&1 \
+                    && /opt/netexec-env/bin/pip install -q "$PIP_SPEC" >> "$LOGFILE" 2>&1 \
+                    && ln -sf /opt/netexec-env/bin/nxc /usr/local/bin/nxc \
+                    && ln -sf /opt/netexec-env/bin/netexec /usr/local/bin/netexec \
+                    && ok "NetExec installed via pip" || { warn "NetExec install failed"; FAILED_TOOLS+=("NetExec"); }
+            else
+                MANUAL_TOOLS+=("NetExec (no pinned PyPI release; see https://github.com/Pennyw0rth/NetExec)")
+            fi
         fi
     fi
     git_clone_tool "NetExec" "https://github.com/Pennyw0rth/NetExec.git"
 
     # Evil-WinRM
     if command -v gem &>/dev/null; then
-        gem install evil-winrm --quiet >> "$LOGFILE" 2>&1 && ok "evil-winrm installed" \
-            || warn "evil-winrm gem install failed"
+        local ew_ver ew_rc
+        ew_ver=$(pin_get "gem:evil-winrm") && ew_rc=0 || ew_rc=1
+        if (( ew_rc == 0 )) && ! safe_is_version "$ew_ver"; then
+            error "  invalid pin for gem:evil-winrm"; FAILED_TOOLS+=("gem:evil-winrm (invalid pin)")
+        elif (( ew_rc == 0 )); then
+            gem install evil-winrm -v "$ew_ver" --quiet >> "$LOGFILE" 2>&1 && ok "evil-winrm installed" \
+                || { warn "evil-winrm gem install failed"; FAILED_TOOLS+=("gem:evil-winrm"); }
+        elif unpinned_ok "gem:evil-winrm"; then
+            gem install evil-winrm --quiet >> "$LOGFILE" 2>&1 && ok "evil-winrm installed (unpinned)" \
+                || { warn "evil-winrm gem install failed"; FAILED_TOOLS+=("gem:evil-winrm"); }
+        fi
     fi
 
     ok "Network tools installed"
@@ -472,13 +461,13 @@ install_web() {
     esac
 
     # Gobuster (Go)
-    go_install "github.com/OJ/gobuster/v3@latest"
+    go_install "github.com/OJ/gobuster/v3"
 
     # ffuf (Go)
-    go_install "github.com/ffuf/ffuf/v2@latest"
+    go_install "github.com/ffuf/ffuf/v2"
 
     # Nuclei (Go — ProjectDiscovery)
-    go_install "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"
+    go_install "github.com/projectdiscovery/nuclei/v3/cmd/nuclei"
 
     # Update Nuclei templates
     if command -v nuclei &>/dev/null; then
@@ -486,25 +475,16 @@ install_web() {
     fi
 
     # dalfox (XSS scanner — Go)
-    go_install "github.com/hahwul/dalfox/v2@latest"
+    go_install "github.com/hahwul/dalfox/v2"
 
     # feroxbuster (Rust-based dir buster — prebuilt binary; cargo install is too slow/fragile)
-    local ferox_ver
-    ferox_ver=$(curl -s "https://api.github.com/repos/epi052/feroxbuster/releases/latest" \
-        | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
-    if [[ -n "$ferox_ver" ]]; then
-        local ferox_arch; ferox_arch=$(uname -m)
-        [[ "$ferox_arch" == "aarch64" ]] && ferox_arch="aarch64" || ferox_arch="x86_64"
-        curl -sL "https://github.com/epi052/feroxbuster/releases/download/${ferox_ver}/${ferox_arch}-linux-feroxbuster.zip" \
-            -o /tmp/feroxbuster.zip >> "$LOGFILE" 2>&1 \
-            && unzip -qo /tmp/feroxbuster.zip feroxbuster -d /usr/local/bin >> "$LOGFILE" 2>&1 \
-            && chmod +x /usr/local/bin/feroxbuster \
-            && ok "feroxbuster installed" \
-            || warn "feroxbuster binary download failed"
-        rm -f /tmp/feroxbuster.zip
-    else
-        warn "Could not determine feroxbuster release version"
-        FAILED_TOOLS+=("bin:feroxbuster")
+    # Installed only from a pinned version whose archive matches a pinned SHA-256.
+    if ! command -v feroxbuster &>/dev/null && release_prereqs feroxbuster; then
+        local ferox_arch="x86_64"
+        [[ "$REL_ARCH" == arm64 ]] && ferox_arch="aarch64"
+        install_release_member feroxbuster \
+            "https://github.com/epi052/feroxbuster/releases/download/${REL_VER}/${ferox_arch}-linux-feroxbuster.zip" \
+            "$REL_ARCH" feroxbuster /usr/local/bin
     fi
 
     # Python web tools (sqlmap/wfuzz already installed via pkg_install above)
@@ -539,17 +519,24 @@ install_exploit() {
             ;;
     esac
 
-    # Metasploit installer (universal fallback)
+    # Metasploit installer (universal fallback). The downloaded script is executed
+    # only if its content matches a pinned SHA-256; otherwise set it up manually.
     if ! command -v msfconsole &>/dev/null; then
-        info "Installing Metasploit Framework via rapid7 installer…"
-        if curl -qs https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb \
-             -o /tmp/msfinstall >> "$LOGFILE" 2>&1; then
-            chmod +x /tmp/msfinstall
-            /tmp/msfinstall >> "$LOGFILE" 2>&1 && ok "Metasploit installed" \
-                || warn "Metasploit install failed — install manually from https://metasploit.com"
-            rm -f /tmp/msfinstall
+        local msf_dir
+        safe_mktemp_dir msf_dir
+        info "Installing Metasploit Framework via the Rapid7 installer (pinned SHA-256 required)…"
+        if fetch_pinned msfinstall any \
+            "https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb" \
+            "$msf_dir/msfinstall"; then
+            chmod 700 "$msf_dir/msfinstall"
+            if "$msf_dir/msfinstall" >> "$LOGFILE" 2>&1; then
+                ok "Metasploit installed"
+            else
+                warn "Metasploit install failed — install manually from https://metasploit.com"
+                FAILED_TOOLS+=("msfinstall")
+            fi
         else
-            warn "Metasploit download failed — install manually from https://metasploit.com"
+            MANUAL_TOOLS+=("metasploit-framework (use your distro package, or pin the installer SHA-256: dl:msfinstall:sha256:any)")
         fi
     else
         ok "Metasploit already installed"
@@ -622,12 +609,8 @@ install_password() {
     # Rockyou wordlist
     if [[ ! -f /usr/share/wordlists/rockyou.txt ]] && \
        [[ ! -f /usr/share/wordlists/rockyou.txt.gz ]]; then
-        info "Downloading rockyou.txt…"
-        mkdir -p /usr/share/wordlists
-        curl -qs -L \
-            "https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" \
-            -o /usr/share/wordlists/rockyou.txt >> "$LOGFILE" 2>&1 \
-            && ok "rockyou.txt downloaded" || warn "rockyou.txt download failed"
+        info "Installing rockyou.txt (requires a pinned SHA-256)…"
+        fetch_rockyou
     else
         ok "rockyou.txt already present"
     fi
@@ -638,10 +621,14 @@ install_password() {
         pacman) pkg_install python-wxpython ;;
         *) ;;
     esac
-    pip_install "git+https://github.com/sc0tfree/mentalist.git"
+    git_clone_tool "mentalist" "https://github.com/sc0tfree/mentalist.git"
+    if [[ -d "$INSTALL_DIR/mentalist/.git" ]]; then
+        "$INSTALL_DIR/venv/bin/python" -m pip install -q "$INSTALL_DIR/mentalist" >> "$LOGFILE" 2>&1 \
+            || { warn "Mentalist install failed"; FAILED_TOOLS+=("mentalist"); }
+    fi
 
     # Sprayhound / kerbrute
-    go_install "github.com/ropnop/kerbrute@latest"
+    go_install "github.com/ropnop/kerbrute"
 
     # Default credential scanner
     pip_install defaultcreds-cheat-sheet
@@ -719,65 +706,70 @@ install_forensics() {
             ;;
     esac
 
-    # jadx — not in standard apt repos; download release zip
-    if ! command -v jadx &>/dev/null; then
-        local jadx_ver
-        jadx_ver=$(curl -s "https://api.github.com/repos/skylot/jadx/releases/latest" \
-            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
-        if [[ -n "$jadx_ver" ]]; then
-            curl -sL "https://github.com/skylot/jadx/releases/download/${jadx_ver}/jadx-${jadx_ver#v}.zip" \
-                -o /tmp/jadx.zip >> "$LOGFILE" 2>&1 \
-                && unzip -qo /tmp/jadx.zip -d /opt/jadx >> "$LOGFILE" 2>&1 \
-                && ln -sf /opt/jadx/bin/jadx /usr/local/bin/jadx \
-                && ok "jadx installed" || warn "jadx download failed"
-            rm -f /tmp/jadx.zip
+    # jadx — not in standard apt repos; pinned release zip, verified before extraction
+    if ! command -v jadx &>/dev/null && release_prereqs jadx any; then
+        if [[ -e /opt/jadx ]]; then
+            warn "/opt/jadx already exists; not overwriting it"
         else
-            warn "Could not determine jadx version"; FAILED_TOOLS+=("jadx")
+            local jd
+            safe_mktemp_dir jd
+            if fetch_pinned jadx any \
+                "https://github.com/skylot/jadx/releases/download/${REL_VER}/jadx-${REL_VER#v}.zip" "$jd/jadx.zip" \
+                && mkdir "$jd/x" && safe_extract_all "$jd/jadx.zip" "$jd/x" \
+                && mv "$jd/x" /opt/jadx \
+                && ln -sf /opt/jadx/bin/jadx /usr/local/bin/jadx; then
+                ok "jadx installed"
+            else
+                warn "jadx installation failed"; FAILED_TOOLS+=("jadx")
+            fi
         fi
     fi
 
-    # dex2jar — not in standard apt repos; download release zip
-    if ! command -v d2j-dex2jar.sh &>/dev/null; then
-        local d2j_ver
-        d2j_ver=$(curl -s "https://api.github.com/repos/pxb1988/dex2jar/releases/latest" \
-            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\(.*\)".*/\1/')
-        if [[ -n "$d2j_ver" ]]; then
-            curl -sL "https://github.com/pxb1988/dex2jar/releases/download/${d2j_ver}/dex-tools-${d2j_ver}.zip" \
-                -o /tmp/dex2jar.zip >> "$LOGFILE" 2>&1 \
-                && unzip -qo /tmp/dex2jar.zip -d /opt/ >> "$LOGFILE" 2>&1 \
-                && ln -sf /opt/dex-tools-${d2j_ver}/d2j-dex2jar.sh /usr/local/bin/d2j-dex2jar.sh \
-                && chmod +x /opt/dex-tools-${d2j_ver}/*.sh \
-                && ok "dex2jar installed" || warn "dex2jar download failed"
-            rm -f /tmp/dex2jar.zip
+    # dex2jar — pinned release zip, verified before extraction
+    if ! command -v d2j-dex2jar.sh &>/dev/null && release_prereqs dex2jar any; then
+        if [[ -e "/opt/dex-tools-${REL_VER}" ]]; then
+            warn "/opt/dex-tools-${REL_VER} already exists; not overwriting it"
         else
-            warn "Could not determine dex2jar version"; FAILED_TOOLS+=("dex2jar")
+            local dj
+            safe_mktemp_dir dj
+            if fetch_pinned dex2jar any \
+                "https://github.com/pxb1988/dex2jar/releases/download/${REL_VER}/dex-tools-${REL_VER}.zip" "$dj/d2j.zip" \
+                && mkdir "$dj/x" && safe_extract_all "$dj/d2j.zip" "$dj/x" \
+                && [[ -d "$dj/x/dex-tools-${REL_VER}" ]] \
+                && mv "$dj/x/dex-tools-${REL_VER}" "/opt/dex-tools-${REL_VER}" \
+                && ln -sf "/opt/dex-tools-${REL_VER}/d2j-dex2jar.sh" /usr/local/bin/d2j-dex2jar.sh \
+                && chmod +x "/opt/dex-tools-${REL_VER}"/*.sh; then
+                ok "dex2jar installed"
+            else
+                warn "dex2jar installation failed"; FAILED_TOOLS+=("dex2jar")
+            fi
         fi
     fi
 
-    # apktool — fallback download for non-Kali apt systems
-    if ! command -v apktool &>/dev/null; then
-        local apk_ver
-        apk_ver=$(curl -s "https://api.github.com/repos/iBotPeaches/Apktool/releases/latest" \
-            | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"v\(.*\)".*/\1/')
-        if [[ -n "$apk_ver" ]]; then
-            curl -sL "https://github.com/iBotPeaches/Apktool/releases/download/v${apk_ver}/apktool_${apk_ver}.jar" \
-                -o /usr/local/bin/apktool.jar >> "$LOGFILE" 2>&1 \
-                && printf '#!/bin/sh\nexec java -jar /usr/local/bin/apktool.jar "$@"\n' \
-                    > /usr/local/bin/apktool \
-                && chmod +x /usr/local/bin/apktool \
-                && ok "apktool installed" || warn "apktool download failed"
+    # apktool — fallback for non-Kali apt systems; pinned jar verified before install
+    if ! command -v apktool &>/dev/null && release_prereqs apktool any; then
+        local ak
+        safe_mktemp_dir ak
+        if fetch_pinned apktool any \
+            "https://github.com/iBotPeaches/Apktool/releases/download/v${REL_VER#v}/apktool_${REL_VER#v}.jar" "$ak/apktool.jar" \
+            && install -m 0644 "$ak/apktool.jar" /usr/local/bin/apktool.jar \
+            && printf '#!/bin/sh\nexec java -jar /usr/local/bin/apktool.jar "$@"\n' > /usr/local/bin/apktool \
+            && chmod 755 /usr/local/bin/apktool; then
+            ok "apktool installed"
         else
-            warn "Could not determine apktool version"; FAILED_TOOLS+=("apktool")
+            warn "apktool installation failed"; FAILED_TOOLS+=("apktool")
         fi
     fi
 
     # Volatility 3 — isolated venv avoids Python 3.14 dep conflicts
     # Check venv binary directly; command -v vol3 may be a stale symlink from a prior broken run
     if [[ ! -x /opt/volatility3-env/bin/vol3 ]]; then
-        python3 -m venv --clear /opt/volatility3-env >> "$LOGFILE" 2>&1 \
-            && /opt/volatility3-env/bin/pip install -q volatility3 >> "$LOGFILE" 2>&1 \
-            && ln -sf /opt/volatility3-env/bin/vol3 /usr/local/bin/vol3 \
-            && ok "Volatility3 installed" || warn "Volatility3 install failed"
+        if resolve_pip volatility3; then
+            python3 -m venv --clear /opt/volatility3-env >> "$LOGFILE" 2>&1 \
+                && /opt/volatility3-env/bin/pip install -q "$PIP_SPEC" >> "$LOGFILE" 2>&1 \
+                && ln -sf /opt/volatility3-env/bin/vol3 /usr/local/bin/vol3 \
+                && ok "Volatility3 installed" || { warn "Volatility3 install failed"; FAILED_TOOLS+=("volatility3"); }
+        fi
     fi
 
     # pwndbg — GDB plugin; requires GDB with Python support and manual gdbinit config
@@ -785,20 +777,23 @@ install_forensics() {
         MANUAL_TOOLS+=("pwndbg (see https://github.com/pwndbg/pwndbg#installation)")
     fi
 
-    # Ghidra (if not installed via package manager)
+    # Ghidra (if not installed via package manager). The archive is verified against
+    # a pinned SHA-256 (dl:ghidra:sha256:any) before it is extracted.
     if ! command -v ghidra &>/dev/null && [[ ! -d /opt/ghidra ]]; then
-        info "Downloading Ghidra…"
-        GHIDRA_VER="11.1.2"
-        GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20240709.zip"
-        if curl -qs -L "$GHIDRA_URL" -o /tmp/ghidra.zip >> "$LOGFILE" 2>&1 \
-            && unzip -q /tmp/ghidra.zip -d /opt/ >> "$LOGFILE" 2>&1; then
-            mv /opt/ghidra_${GHIDRA_VER}_PUBLIC /opt/ghidra 2>/dev/null || true
-            ln -sf /opt/ghidra/ghidraRun /usr/local/bin/ghidra
+        info "Installing Ghidra (pinned SHA-256 required)…"
+        local GHIDRA_VER="11.1.2" gh
+        local GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20240709.zip"
+        safe_mktemp_dir gh
+        if fetch_pinned ghidra any "$GHIDRA_URL" "$gh/ghidra.zip" \
+            && mkdir "$gh/x" && safe_extract_all "$gh/ghidra.zip" "$gh/x" \
+            && [[ -d "$gh/x/ghidra_${GHIDRA_VER}_PUBLIC" ]] \
+            && mv "$gh/x/ghidra_${GHIDRA_VER}_PUBLIC" /opt/ghidra \
+            && ln -sf /opt/ghidra/ghidraRun /usr/local/bin/ghidra; then
             ok "Ghidra installed to /opt/ghidra"
         else
-            warn "Ghidra download failed — install manually from https://ghidra-sre.org"
+            warn "Ghidra not installed — pin its SHA-256 or install manually from https://ghidra-sre.org"
+            MANUAL_TOOLS+=("ghidra (https://ghidra-sre.org, or pin dl:ghidra:sha256:any)")
         fi
-        rm -f /tmp/ghidra.zip
     else
         ok "Ghidra already installed"
     fi
@@ -856,14 +851,18 @@ install_defense() {
     # Wazuh agent (requires a Wazuh manager — provide guided install)
     if ! command -v wazuh-agent &>/dev/null; then
         if [[ "$PKG_MGR" == "apt" ]]; then
-            curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH \
-                | gpg --dearmor -o /usr/share/keyrings/wazuh.gpg >> "$LOGFILE" 2>&1 || true
-            echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" \
-                > /etc/apt/sources.list.d/wazuh.list 2>/dev/null || true
-            apt-get update -qq >> "$LOGFILE" 2>&1
-            export WAZUH_MANAGER="127.0.0.1"
-            pkg_install wazuh-agent
-            unset WAZUH_MANAGER
+            # Trust the repository key only if it matches a pinned SHA-256.
+            local wz
+            safe_mktemp_dir wz
+            if fetch_pinned wazuh-gpg-key any "https://packages.wazuh.com/key/GPG-KEY-WAZUH" "$wz/GPG-KEY-WAZUH" \
+               && gpg --dearmor -o /usr/share/keyrings/wazuh.gpg "$wz/GPG-KEY-WAZUH" >> "$LOGFILE" 2>&1; then
+                echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" \
+                    > /etc/apt/sources.list.d/wazuh.list
+                apt-get update -qq >> "$LOGFILE" 2>&1 || warn "apt update failed after adding the Wazuh repository"
+                WAZUH_MANAGER="127.0.0.1" pkg_install wazuh-agent
+            else
+                MANUAL_TOOLS+=("wazuh-agent (repository key not verified; pin dl:wazuh-gpg-key:sha256:any or follow https://documentation.wazuh.com/current/installation-guide/)")
+            fi
         else
             info "Wazuh agent — install manually from https://documentation.wazuh.com/current/installation-guide/"
             MANUAL_TOOLS+=("wazuh-agent (manual: https://documentation.wazuh.com/current/installation-guide/)")
@@ -910,10 +909,14 @@ install_hardware() {
 
     # ChipWhisperer — requires numpy<=1.26.4 which conflicts with system numpy; use dedicated venv
     git_clone_tool "chipwhisperer" "https://github.com/newaetech/chipwhisperer.git"
-    python3 -m venv /opt/chipwhisperer-env >> "$LOGFILE" 2>&1 \
-        && /opt/chipwhisperer-env/bin/pip install -q -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
-        && ok "ChipWhisperer installed in /opt/chipwhisperer-env (use: /opt/chipwhisperer-env/bin/python)" \
-        || warn "ChipWhisperer install failed"
+    if [[ -d "$INSTALL_DIR/chipwhisperer/.git" ]]; then
+        python3 -m venv /opt/chipwhisperer-env >> "$LOGFILE" 2>&1 \
+            && /opt/chipwhisperer-env/bin/pip install -q -e "$INSTALL_DIR/chipwhisperer/" >> "$LOGFILE" 2>&1 \
+            && ok "ChipWhisperer installed in /opt/chipwhisperer-env (use: /opt/chipwhisperer-env/bin/python)" \
+            || { warn "ChipWhisperer install failed"; FAILED_TOOLS+=("chipwhisperer"); }
+    else
+        warn "ChipWhisperer checkout not available (no pin); skipping its install"
+    fi
 
     # Bus Pirate scripts / pyserial tools
     pip_install pyserial bitstring
@@ -934,11 +937,7 @@ install_wordlists() {
     mkdir -p /usr/share/wordlists
 
     # RockYou (already handled in password section, but idempotent)
-    [[ ! -f /usr/share/wordlists/rockyou.txt ]] && {
-        curl -qs -L \
-            "https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" \
-            -o /usr/share/wordlists/rockyou.txt >> "$LOGFILE" 2>&1 || true
-    }
+    [[ -f /usr/share/wordlists/rockyou.txt ]] || fetch_rockyou
 
     # SecLists (large — already handled in exploit section)
     [[ ! -d /usr/share/seclists ]] && [[ ! -d "$INSTALL_DIR/SecLists" ]] && {
@@ -975,9 +974,15 @@ install_pnwc_scripts() {
 # =============================================================================
 print_summary() {
     echo ""
-    echo -e "${BOLD}${GREEN}══════════════════════════════════════════════════${RESET}"
-    echo -e "${BOLD}${GREEN}  INSTALLATION COMPLETE — PNWC MASTER GUIDE TOOLS${RESET}"
-    echo -e "${BOLD}${GREEN}══════════════════════════════════════════════════${RESET}"
+    if [[ ${#FAILED_TOOLS[@]} -gt 0 ]]; then
+        echo -e "${BOLD}${RED}══════════════════════════════════════════════════${RESET}"
+        echo -e "${BOLD}${RED}  INSTALLATION FINISHED WITH ${#FAILED_TOOLS[@]} FAILURE(S)${RESET}"
+        echo -e "${BOLD}${RED}══════════════════════════════════════════════════${RESET}"
+    else
+        echo -e "${BOLD}${GREEN}══════════════════════════════════════════════════${RESET}"
+        echo -e "${BOLD}${GREEN}  INSTALLATION FINISHED — PNWC MASTER GUIDE TOOLS${RESET}"
+        echo -e "${BOLD}${GREEN}══════════════════════════════════════════════════${RESET}"
+    fi
     echo ""
     echo -e "  Tool install dir: ${CYAN}$INSTALL_DIR${RESET}"
     echo -e "  Full log:         ${CYAN}$LOGFILE${RESET}"
@@ -992,7 +997,7 @@ print_summary() {
     fi
 
     if [[ ${#SKIPPED_TOOLS[@]} -gt 0 ]]; then
-        echo -e "${YELLOW}  Skipped / not in repos (${#SKIPPED_TOOLS[@]}):${RESET}"
+        echo -e "${YELLOW}  Skipped: not in repos, no pin, or unsupported (${#SKIPPED_TOOLS[@]}):${RESET}"
         for t in "${SKIPPED_TOOLS[@]}"; do
             echo -e "    ${YELLOW}→${RESET} $t"
         done
@@ -1026,16 +1031,40 @@ print_summary() {
 #  ENTRYPOINT
 # =============================================================================
 main() {
-    # Parse args
+    # Parse args (options may appear in any order; at most one category)
     MODE="all"
-    [[ $# -gt 0 ]] && MODE="${1//--/}"
-    [[ "$MODE" == "help" ]] && usage
+    local arg mode_set=0
+    for arg in "$@"; do
+        case "$arg" in
+            --help|-h)        usage ;;
+            --allow-unpinned) export PNWC_ALLOW_UNPINNED=1 ;;
+            --print-pins)     PRINT_PINS=1 ;;
+            --*)
+                if (( mode_set )); then
+                    error "Only one category may be selected (got '$arg' after '--$MODE')"
+                    usage
+                fi
+                MODE="${arg#--}"; mode_set=1
+                ;;
+            *) error "Unknown argument: $arg"; usage ;;
+        esac
+    done
 
     banner
     check_root
+    trap safe_cleanup EXIT
 
-    # Init log
-    touch "$LOGFILE"
+    if [[ -e "$PINS_FILE" ]] && ! trusted_file "$PINS_FILE"; then
+        error "$PINS_FILE is a symlink or writable by others; refusing to use it"
+        return 1
+    fi
+    [[ -e "$PINS_FILE" ]] || warn "No pins file at $PINS_FILE — every pin-dependent item will be skipped"
+    if safe_allow_unpinned; then
+        warn "LAB-ONLY MODE: unpinned pip/go/git/gem sources are allowed. Do not use this on production machines."
+    fi
+
+    # Init log (private)
+    ( umask 077; touch "$LOGFILE" )
     info "Log file: $LOGFILE"
     info "Mode: $MODE"
 
@@ -1079,6 +1108,9 @@ main() {
     esac
 
     print_summary
+    (( PRINT_PINS )) && print_proposed_pins
+    # A run that had failures must not look successful to callers or CI.
+    (( ${#FAILED_TOOLS[@]} == 0 ))
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
