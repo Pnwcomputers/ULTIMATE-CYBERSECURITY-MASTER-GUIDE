@@ -1,14 +1,16 @@
-# 🔄 Change Log - October 09, 2026
+# 🔄 Change Log - October 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1478
-- **Files Modified**: 1798
-- **New Files**: 706
+- **Commits Analyzed**: 1486
+- **Files Modified**: 1812
+- **New Files**: 717
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add security remediation and staging plan (#111) (`628803a`)
+- Add sanitized OSINT investigation toolkit to OSINT/Playbook (#109) (`b53d445`)
 - Add sanitized OSINT investigation toolkit to OSINT/Playbook (#107) (`ebdaea4`)
 - Add OPSEC anonymity-layering guide for OSINT & active engagements (`c0f2da9`)
 - Add vx-underground malware research library guide (#104) (`757cf17`)
@@ -481,6 +483,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Security/fix review findings (#113) (`2bff323`)
+- Fix Sherlock package name in install_dependencies.sh (`88489db`)
 - docs: fix deleted review references and stale section anchors (#96) (`7020111`)
 - docs: correct Whonix installer, flavor naming and KVM guidance (#94) (`aea16e4`)
 - Fix filename reference for Tails USB setup guide (`fad81c4`)
@@ -642,6 +646,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update elk_stack.md (`a89caab`)
+- Update BlueTeam_IncResp_Enhanced.md (`f7f9032`)
 - Update .gitignore (`df022c5`)
 - Update README.md (`dab4ccf`)
 - Update README.md (`026a287`)
@@ -1402,6 +1408,8 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Revise defense and validation sections in OWASP top 10 (#112) (`6a7d341`)
+- Revise authorization defense and validation details (`278846e`)
 - Expand ReverseEngineering section index, part hub, and IDA appendix (`7bea757`)
 - Enhance Purpose section header with emoji (`56f17e3`)
 - Revise HackRF Audit Playbook references and date (`8a862f9`)
@@ -1502,11 +1510,29 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.github/workflows/guide-tests.yml`
 - `.gitignore`
+- `IncidentResponse/SIEM/elk_stack.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/install_dependencies.sh`
+- `OSINT/Playbook/lib/case_state.py`
+- `OSINT/Playbook/lib/collect_evidence.py`
+- `OSINT/Playbook/osint_investigator.sh`
+- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
+- `SECURITY_REMEDIATION_PLAN.md`
+- `Scripts/PINNING.md`
+- `Scripts/lib/safe_install.sh`
+- `Scripts/pnwc_install_tools.sh`
+- `tests/hardening/test_installer_checks.py`
+- `tests/hardening/test_no_embedded_secrets.py`
+- `tests/hardening/test_osint_installer.py`
+- `tests/hardening/test_osint_investigator.py`
+- `tests/hardening/test_osint_state_evidence.py`
+- `tests/hardening/test_safe_install.py`
+- `WebAppSecurity/owasp-top-10.md`
+- `CHANGELOG.md`
 - `OSINT/Playbook/abuse_report_generator.sh`
 - `OSINT/Playbook/branding.conf.example`
-- `OSINT/Playbook/install_dependencies.sh`
-- `OSINT/Playbook/osint_investigator.sh`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/Playbook/scripts/case_report_generator.sh`
 - `OSINT/Playbook/scripts/crypto_audit.sh`
@@ -1527,7 +1553,6 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
-- `CHANGELOG.md`
 - `OPSEC/README.md`
 - `OPSEC/anonymity-layering.md`
 - `README.md`
@@ -1583,7 +1608,6 @@
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
 - `.github/workflows/cm5-parrot-checks.yml`
-- `.github/workflows/guide-tests.yml`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Data-Engineering/Phase2/data_storage_file_formats.md`
 - `Data-Engineering/Phase2/streaming_cdc.md`
@@ -1604,13 +1628,11 @@
 - `IncidentResponse/IDS&IPS/fail2ban.md`
 - `IncidentResponse/IDS&IPS/security-onion.md`
 - `IncidentResponse/IDS&IPS/snort.md`
-- `OSINT/Playbook/README.md`
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
 - `Scripts/README.md`
-- `Scripts/pnwc_install_tools.sh`
 - `installer.sh`
 - `tools/run_data_labs.py`
 - `tools/tests/test_review_fixes.py`
@@ -1686,7 +1708,6 @@
 - `Cloud/gcp.md`
 - `WebAppSecurity/README.md`
 - `WebAppSecurity/methodology.md`
-- `WebAppSecurity/owasp-top-10.md`
 - `advanced_techniques_part2.md`
 - `Documentation/wireshark.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
@@ -1784,7 +1805,6 @@
 - `Checklists/Lateral-Movement.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Phone_OSINT.md`
-- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
@@ -1808,7 +1828,6 @@
 - `Checklists/Windows-Privilege-Escalation.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
-- `IncidentResponse/SIEM/elk_stack.md`
 - `IncidentResponse/SIEM/graylog.md`
 - `IncidentResponse/network_intrusion.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
