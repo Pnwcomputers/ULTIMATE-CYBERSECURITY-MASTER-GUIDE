@@ -1,14 +1,15 @@
 # 🔄 Change Log - October 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1489
-- **Files Modified**: 1873
-- **New Files**: 729
+- **Commits Analyzed**: 1494
+- **Files Modified**: 1886
+- **New Files**: 730
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- ci: bump peter-evans/create-pull-request from 7.0.11 to 8.1.1 (#118) (`7fe93dd`)
 - docs: add security remediation and staging plan (#111) (`628803a`)
 - Add sanitized OSINT investigation toolkit to OSINT/Playbook (#109) (`b53d445`)
 - Add sanitized OSINT investigation toolkit to OSINT/Playbook (#107) (`ebdaea4`)
@@ -483,6 +484,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(osint): toolkit_integration.sh wrappers no longer report success on failure (R8) (#123) (`bb2a6d0`)
 - Security/fix review findings (#113) (`2bff323`)
 - Fix Sherlock package name in install_dependencies.sh (`88489db`)
 - docs: fix deleted review references and stale section anchors (#96) (`7020111`)
@@ -1408,6 +1410,9 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- ci: bump DavidAnson/markdownlint-cli2-action from 20.0.0 to 24.2.0 (#120) (`4eaf794`)
+- ci: bump actions/setup-python from 5.6.0 to 7.0.0 (#121) (`0278b13`)
+- ci: bump actions/checkout from 4.4.0 to 7.0.1 (#119) (`dd0043c`)
 - Security/r8 remaining (#122) (`88e157c`)
 - Security/complete hardening (#116) (`a90a7b9`)
 - Security/followup hardening (#114) (`9fd362d`)
@@ -1513,6 +1518,15 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OSINT/Playbook/toolkit_integration.sh`
+- `SECURITY_REMEDIATION_PLAN.md`
+- `tests/hardening/test_toolkit_integration.py`
+- `CHANGELOG.md`
+- `.github/workflows/markdownlint.yml`
+- `.github/workflows/auto_changelog.yml`
+- `.github/workflows/cm5-parrot-checks.yml`
+- `.github/workflows/guide-tests.yml`
+- `.github/workflows/link-check.yml`
 - `.github/CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `.github/SECURITY.md`
@@ -1534,9 +1548,7 @@
 - `OSINT/Playbook/scripts/threat_feed_check.sh`
 - `OSINT/Playbook/scripts/username_audit.sh`
 - `OSINT/Playbook/scripts/whois_bulk.sh`
-- `OSINT/Playbook/toolkit_integration.sh`
 - `OSINT/scripts/Phone_OSINT.md`
-- `SECURITY_REMEDIATION_PLAN.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Bash/BashBunny/windows_exfil.txt`
 - `Scripts/Ducky/README.md`
@@ -1545,11 +1557,6 @@
 - `tests/hardening/test_scammer_crypto_threat_apis.py`
 - `tests/hardening/test_scan_evidence.py`
 - `.github/dependabot.yml`
-- `.github/workflows/auto_changelog.yml`
-- `.github/workflows/cm5-parrot-checks.yml`
-- `.github/workflows/guide-tests.yml`
-- `.github/workflows/link-check.yml`
-- `.github/workflows/markdownlint.yml`
 - `Scripts/PINNING.md`
 - `Scripts/lib/safe_install.sh`
 - `Scripts/pnwc_install_tools.sh`
@@ -1566,7 +1573,6 @@
 - `OSINT/Playbook/lib/trusted_conf.sh`
 - `tests/hardening/test_no_embedded_secrets.py`
 - `tests/hardening/test_osint_consumers.py`
-- `CHANGELOG.md`
 - `.gitignore`
 - `IncidentResponse/SIEM/elk_stack.md`
 - `OSINT/Playbook/README.md`
