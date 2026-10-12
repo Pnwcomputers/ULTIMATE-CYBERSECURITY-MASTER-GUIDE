@@ -1,5 +1,17 @@
 # 🦌 ELK Stack SIEM Deployment Guide
 
+> **SECURITY STATUS — ISOLATED LAB ONLY**
+>
+> This walkthrough is undergoing security remediation. Existing examples
+> include plaintext connections, sample credentials, and privileged service
+> accounts. Do not deploy them unchanged, expose them to the internet, or
+> use real incident data.
+>
+> Production use requires separately validated TLS, least-privilege service
+> identities, protected secrets, supported versions, network restrictions,
+> and operational testing. A warning banner or loopback binding alone
+> does not satisfy those requirements.
+
 ## 🎯 Purpose
 ELK Stack SIEM deployment guide - covering Elasticsearch, Logstash, and Kibana installation, Beats configuration, index templates, dashboards, and detection rule setup for a self-hosted security operations platform.
 
@@ -15,9 +27,9 @@ Deploy a fully functional self-hosted SIEM on the ELK Stack that ingests Sysmon,
 - Learning SIEM operations for professional development
 - Centralizing security logs from multiple endpoints and network devices
 
-**The ELK Stack** (Elasticsearch, Logstash, Kibana) is a powerful open-source platform for log aggregation, search, and visualization. Combined with Beats agents, it forms a complete SIEM solution capable of ingesting data from endpoints, network devices, and applications.
+**The ELK Stack** (, Logstash, Kibana) is a powerful open-source platform for log aggregation, search, and visualization. Combined with Beats agents, it forms a complete SIEM solution capable of ingesting data from endpoints, network devices, and applications.
 
-This guide covers deploying a production-ready ELK Stack using Docker and configuring agents to forward security telemetry.
+This guide provides an isolated-lab ELK example for learning deployment and telemetry workflows. It is not a validated production deployment.
 
 ---
 
@@ -25,9 +37,9 @@ This guide covers deploying a production-ready ELK Stack using Docker and config
 
 | Component | Purpose |
 |-----------|---------|
-| **Elasticsearch** | Distributed search and analytics engine; stores and indexes logs |
+| **** | Distributed search and analytics engine; stores and indexes logs |
 | **Logstash** | Data processing pipeline; parses, transforms, and enriches logs |
-| **Kibana** | Visualization and dashboarding; query interface for Elasticsearch |
+| **Kibana** | Visualization and dashboarding; query interface for  |
 | **Beats** | Lightweight data shippers; collect and forward logs to the stack |
 
 ### ELK vs Elastic Security
@@ -47,11 +59,13 @@ Elastic (the company) offers **Elastic Security** (formerly SIEM) as part of the
 | CPU | 4 vCPUs | 8 vCPUs |
 | Storage | 100 GB | 500 GB+ SSD |
 
-> **Note:** Elasticsearch is memory-intensive. For production, allocate 50% of system RAM to the JVM heap (up to 32 GB).
+> **Note:**  is memory-intensive. For production, allocate 50% of system RAM to the JVM heap (up to 32 GB).
 
 ### Software Requirements
 
-- Docker Engine 20.10+
+- A supported, security-patched Docker Engine release, version 28.0.0
+  or newer. Older releases have a documented limitation where peers on
+  the same Layer-2 network can reach ports published to localhost.
 - Docker Compose 2.0+
 - Git
 
@@ -59,8 +73,8 @@ Elastic (the company) offers **Elastic Security** (formerly SIEM) as part of the
 
 | Port | Service | Purpose |
 |------|---------|---------|
-| 9200 | Elasticsearch | REST API |
-| 9300 | Elasticsearch | Node communication |
+| 9200 |  | REST API |
+| 9300 |  | Node communication |
 | 5601 | Kibana | Web interface |
 | 5044 | Logstash | Beats input |
 | 5000 | Logstash | TCP/UDP syslog input |
@@ -99,7 +113,7 @@ newgrp docker
 
 ### Step 1.3: Configure System Limits
 
-Elasticsearch requires increased system limits:
+ requires increased system limits:
 
 ```bash
 # Increase virtual memory
@@ -117,7 +131,7 @@ sudo sysctl -p
 ### Step 1.4: Create Directory Structure
 
 ```bash
-mkdir -p ~/elk-stack/{elasticsearch,logstash,kibana,filebeat}
+mkdir -p ~/elk-stack/{,logstash,kibana,filebeat}
 mkdir -p ~/elk-stack/logstash/{config,pipeline}
 mkdir -p ~/elk-stack/elasticsearch/data
 cd ~/elk-stack
@@ -159,8 +173,8 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
     networks:
       - elk-network
     healthcheck:
@@ -180,10 +194,10 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
     ports:
-      - "5044:5044"
-      - "5000:5000/tcp"
-      - "5000:5000/udp"
-      - "9600:9600"
+      - "127.0.0.1:5044:5044"
+      - "127.0.0.1:5000:5000/tcp"
+      - "127.0.0.1:5000:5000/udp"
+      - "127.0.0.1:9600:9600"
     networks:
       - elk-network
     depends_on:
@@ -200,7 +214,7 @@ services:
       - xpack.security.enabled=true
       - xpack.encryptedSavedObjects.encryptionKey=${ENCRYPTION_KEY:-a]V@e3~:zK7L!mP9$fGhT2wX5yB8nC4q}
     ports:
-      - "5601:5601"
+      - "127.0.0.1:5601:5601"
     networks:
       - elk-network
     depends_on:
@@ -398,8 +412,12 @@ curl -I http://localhost:5601
 Open your browser:
 
 ```
-http://<SERVER-IP>:5601
+http://127.0.0.1:5601
 ```
+
+Open this address in a browser running on the Docker host.
+On another computer, 127.0.0.1 refers to that computer, not the ELK host.
+Remote administrative access requires a separately secured access method.
 
 **Login:**
 - Username: `elastic`
@@ -409,27 +427,17 @@ http://<SERVER-IP>:5601
 
 ## 🔥 Part 3: Firewall Configuration
 
-### UFW (Ubuntu)
+This lab example intentionally binds published ports to the Docker host's
+loopback interface. Do not add broad firewall allowances, router port
+forwards, or public reverse-proxy access for these plaintext examples.
 
-```bash
-sudo ufw allow 9200/tcp comment "Elasticsearch API"
-sudo ufw allow 5601/tcp comment "Kibana Web UI"
-sudo ufw allow 5044/tcp comment "Logstash Beats"
-sudo ufw allow 5000/tcp comment "Logstash Syslog TCP"
-sudo ufw allow 5000/udp comment "Logstash Syslog UDP"
-sudo ufw reload
-```
+Validate the actual Docker networking and host firewall behavior before
+using the lab. Do not enable direct routing to the container network.
 
-### Firewalld (RHEL/CentOS)
-
-```bash
-sudo firewall-cmd --permanent --add-port=9200/tcp
-sudo firewall-cmd --permanent --add-port=5601/tcp
-sudo firewall-cmd --permanent --add-port=5044/tcp
-sudo firewall-cmd --permanent --add-port=5000/tcp
-sudo firewall-cmd --permanent --add-port=5000/udp
-sudo firewall-cmd --reload
-```
+Remote Windows/Linux agents cannot use these loopback-only host mappings.
+The remote-agent sections below require a separately designed and tested
+TLS-protected ingestion path; they are not ready-to-run instructions for
+this local-only configuration.
 
 ---
 
