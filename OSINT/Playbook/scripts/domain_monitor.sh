@@ -65,7 +65,8 @@ section() {
     local title="$1"
     local width=70
     local line
-    line="$(printf '%*s' "$width" '' | tr ' ' '─')"
+    line="$(printf '%*s' "$width" '')"
+    line="${line// /─}"   # tr is not multibyte-aware and would emit invalid UTF-8
     log ""
     log "${CYAN}┌${line}┐${NC}"
     log "${CYAN}│${NC}  ${BLUE}${title}${NC}"
@@ -91,98 +92,135 @@ sanitise_domain() {
 
 # ---------------------------------------------------------------------------
 # Snapshot helpers — each writes one text file inside baseline/
+#
+# A failed collection must never look like "no records": every snapshot keeps the
+# tool's stderr in FILE.err and its exit status in FILE.rc, and the helper returns
+# non-zero. compare_file() treats a failed baseline or current snapshot as
+# UNVERIFIED instead of diffing an empty file against real data.
+#   0 = collected   1 = tool failed (see FILE.err)   2 = required tool not installed
 # ---------------------------------------------------------------------------
 
-snapshot_dns_a() {
-    local domain="$1"
-    local outfile="$2"
-    command -v dig &>/dev/null || { warn "dig not found, skipping DNS A"; return; }
-    dig +short A "$domain" 2>/dev/null > "$outfile"
+# capture OUT CMD... : stdout -> OUT, stderr -> OUT.err, exit status -> OUT.rc
+capture() {
+    local out="$1" rc=0
+    shift
+    "$@" > "$out" 2> "${out}.err" || rc=$?
+    echo "$rc" > "${out}.rc"
+    return "$rc"
 }
 
-snapshot_dns_aaaa() {
-    local domain="$1"
-    local outfile="$2"
-    command -v dig &>/dev/null || { warn "dig not found, skipping DNS AAAA"; return; }
-    dig +short AAAA "$domain" 2>/dev/null > "$outfile"
+need_tool() {  # need_tool TOOL LABEL OUT
+    command -v "$1" &>/dev/null && return 0
+    warn "$1 not found, skipping $2"
+    : > "$3"
+    echo "tool-missing:$1" > "${3}.rc"
+    return 1
 }
+
+# sort_snapshot OUT : sort in place, but only if the collection succeeded
+sort_snapshot() { [[ "$(cat "${1}.rc" 2>/dev/null)" == 0 ]] && sort -o "$1" "$1"; }
+
+dig_snapshot() {  # dig_snapshot LABEL OUT NAME TYPE
+    need_tool dig "$1" "$2" || return 2
+    capture "$2" dig +short +time=5 +tries=2 "$4" "$3"
+}
+
+snapshot_dns_a()    { dig_snapshot "DNS A" "$2" "$1" A; }
+snapshot_dns_aaaa() { dig_snapshot "DNS AAAA" "$2" "$1" AAAA; }
 
 snapshot_dns_mx() {
-    local domain="$1"
-    local outfile="$2"
-    command -v dig &>/dev/null || { warn "dig not found, skipping DNS MX"; return; }
-    dig +short MX "$domain" 2>/dev/null | sort > "$outfile"
+    dig_snapshot "DNS MX" "$2" "$1" MX; local rc=$?
+    sort_snapshot "$2"
+    return "$rc"
 }
 
 snapshot_dns_ns() {
-    local domain="$1"
-    local outfile="$2"
-    command -v dig &>/dev/null || { warn "dig not found, skipping DNS NS"; return; }
-    dig +short NS "$domain" 2>/dev/null | sort > "$outfile"
+    dig_snapshot "DNS NS" "$2" "$1" NS; local rc=$?
+    sort_snapshot "$2"
+    return "$rc"
 }
 
 snapshot_dns_txt() {
-    local domain="$1"
-    local outfile="$2"
-    command -v dig &>/dev/null || { warn "dig not found, skipping DNS TXT"; return; }
+    local domain="$1" outfile="$2" rc=0
+    need_tool dig "DNS TXT" "$outfile" || return 2
+    capture "${outfile}.a" dig +short +time=5 +tries=2 TXT "$domain" || rc=1
+    capture "${outfile}.b" dig +short +time=5 +tries=2 TXT "_dmarc.${domain}" || rc=1
     {
-        dig +short TXT "$domain" 2>/dev/null | sort
-        dig +short TXT "_dmarc.${domain}" 2>/dev/null | sort
+        sort "${outfile}.a"
+        sort "${outfile}.b"
     } > "$outfile"
+    cat "${outfile}.a.err" "${outfile}.b.err" > "${outfile}.err"
+    rm -f "${outfile}".a "${outfile}".b "${outfile}".a.err "${outfile}".b.err "${outfile}".a.rc "${outfile}".b.rc
+    echo "$rc" > "${outfile}.rc"
+    return "$rc"
 }
 
 snapshot_whois() {
-    local domain="$1"
-    local outfile="$2"
-    command -v whois &>/dev/null || { warn "whois not found, skipping WHOIS"; return; }
-    whois "$domain" 2>/dev/null \
-        | grep -iE '(registrar:|nameserver:|name server:|creation date:|expir|registrant org|updated date)' \
-        | sort -u > "$outfile"
+    local domain="$1" outfile="$2" rc=0
+    need_tool whois "WHOIS" "$outfile" || return 2
+    capture "${outfile}.raw" whois "$domain" || rc=1
+    grep -iE '(registrar:|nameserver:|name server:|creation date:|expir|registrant org|updated date)' \
+        "${outfile}.raw" | sort -u > "$outfile"
+    # An empty extract from a successful query is a real (empty) answer; a failed query is not.
+    mv "${outfile}.raw.err" "${outfile}.err"
+    rm -f "${outfile}.raw" "${outfile}.raw.rc"
+    echo "$rc" > "${outfile}.rc"
+    return "$rc"
 }
 
 snapshot_ssl() {
-    local domain="$1"
-    local outfile="$2"
-    command -v openssl &>/dev/null || { warn "openssl not found, skipping SSL"; return; }
-    local cert_text
-    cert_text="$(echo "" | openssl s_client -connect "${domain}:443" -servername "$domain" 2>/dev/null \
-        | openssl x509 -noout -subject -issuer -dates -fingerprint -ext subjectAltName 2>/dev/null)"
-    echo "$cert_text" > "$outfile"
+    local domain="$1" outfile="$2" rc=0
+    need_tool openssl "SSL" "$outfile" || return 2
+    : > "${outfile}.empty"
+    capture "${outfile}.pem" openssl s_client -connect "${domain}:443" -servername "$domain" -showcerts < "${outfile}.empty" || rc=1
+    if (( rc == 0 )); then
+        openssl x509 -noout -subject -issuer -dates -fingerprint -ext subjectAltName \
+            < "${outfile}.pem" > "$outfile" 2> "${outfile}.err" || rc=1
+    else
+        : > "$outfile"
+        mv "${outfile}.pem.err" "${outfile}.err"
+    fi
+    rm -f "${outfile}.empty" "${outfile}.pem" "${outfile}.pem.err" "${outfile}.pem.rc"
+    echo "$rc" > "${outfile}.rc"
+    return "$rc"
 }
 
 snapshot_http_redirect() {
-    local domain="$1"
-    local outfile="$2"
-    command -v curl &>/dev/null || { warn "curl not found, skipping HTTP redirect chain"; return; }
-    local effective_url
-    effective_url="$(curl -Ls -o /dev/null -w "%{url_effective}" --max-time 15 "http://${domain}" 2>/dev/null)"
-    echo "$effective_url" > "$outfile"
+    need_tool curl "HTTP redirect chain" "$2" || return 2
+    capture "$2" curl -sS -L -o /dev/null -w "%{url_effective}\n" --max-time 15 "http://${1}"
 }
 
 snapshot_http_headers() {
-    local domain="$1"
-    local outfile="$2"
-    command -v curl &>/dev/null || { warn "curl not found, skipping HTTP headers"; return; }
-    local http_code server_header
-    http_code="$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://${domain}" 2>/dev/null)"
-    server_header="$(curl -sI --max-time 15 "https://${domain}" 2>/dev/null \
-        | grep -i '^server:' | head -1 | tr -d '\r')"
+    local domain="$1" outfile="$2" rc=0
+    need_tool curl "HTTP headers" "$outfile" || return 2
+    capture "${outfile}.hdr" curl -sS -I --max-time 15 -w "HTTP_CODE=%{http_code}\n" "https://${domain}" || rc=1
     {
-        echo "HTTP_CODE=${http_code}"
-        echo "SERVER_HEADER=${server_header}"
+        grep '^HTTP_CODE=' "${outfile}.hdr" | tail -1
+        echo "SERVER_HEADER=$(grep -i '^server:' "${outfile}.hdr" | head -1 | tr -d '\r')"
     } > "$outfile"
+    mv "${outfile}.hdr.err" "${outfile}.err"
+    rm -f "${outfile}.hdr" "${outfile}.hdr.rc"
+    echo "$rc" > "${outfile}.rc"
+    return "$rc"
 }
 
 snapshot_crtsh() {
-    local domain="$1"
-    local outfile="$2"
-    command -v curl &>/dev/null || { warn "curl not found, skipping crt.sh"; return; }
-    local count
-    count="$(curl -s --max-time 20 \
-        "https://crt.sh/?q=${domain}&output=json" 2>/dev/null \
-        | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d))" 2>/dev/null \
-        || echo "0")"
-    echo "CERT_COUNT=${count}" > "$outfile"
+    local domain="$1" outfile="$2" rc=0 count
+    need_tool curl "crt.sh" "$outfile" || return 2
+    capture "${outfile}.json" curl -sS --fail --max-time 20 "https://crt.sh/?q=${domain}&output=json" || rc=1
+    if (( rc == 0 )); then
+        if count="$(python3 -c "import sys,json; print(len(json.load(sys.stdin)))" < "${outfile}.json" 2>> "${outfile}.json.err")"; then
+            echo "CERT_COUNT=${count}" > "$outfile"
+        else
+            rc=1; : > "$outfile"   # unparsable reply is a failure, not "0 certificates"
+        fi
+    else
+        : > "$outfile"
+    fi
+    mv "${outfile}.json.err" "${outfile}.err"
+    rm -f "${outfile}.json" "${outfile}.json.rc"
+    echo "$rc" > "${outfile}.rc"
+    return "$rc"
 }
 
 # ---------------------------------------------------------------------------
@@ -200,46 +238,47 @@ take_baseline() {
     section "Initialising baseline for: ${domain}"
     log "${GREEN}[INIT]${NC} Timestamp: ${ts}"
 
-    snapshot_dns_a       "$domain" "${base_dir}/dns_a.txt"
-    log "${GREEN}[OK]${NC}  DNS A record"
-
-    snapshot_dns_aaaa    "$domain" "${base_dir}/dns_aaaa.txt"
-    log "${GREEN}[OK]${NC}  DNS AAAA record"
-
-    snapshot_dns_mx      "$domain" "${base_dir}/dns_mx.txt"
-    log "${GREEN}[OK]${NC}  DNS MX records"
-
-    snapshot_dns_ns      "$domain" "${base_dir}/dns_ns.txt"
-    log "${GREEN}[OK]${NC}  DNS NS records"
-
-    snapshot_dns_txt     "$domain" "${base_dir}/dns_txt.txt"
-    log "${GREEN}[OK]${NC}  DNS TXT records (SPF/DKIM/DMARC)"
-
-    snapshot_whois       "$domain" "${base_dir}/whois.txt"
-    log "${GREEN}[OK]${NC}  WHOIS"
-
-    snapshot_ssl         "$domain" "${base_dir}/ssl.txt"
-    log "${GREEN}[OK]${NC}  SSL certificate"
-
-    snapshot_http_redirect "$domain" "${base_dir}/http_redirect.txt"
-    log "${GREEN}[OK]${NC}  HTTP redirect chain"
-
-    snapshot_http_headers  "$domain" "${base_dir}/http_headers.txt"
-    log "${GREEN}[OK]${NC}  HTTP response code and server header"
-
-    snapshot_crtsh       "$domain" "${base_dir}/crtsh.txt"
-    log "${GREEN}[OK]${NC}  crt.sh certificate count"
+    local failed=()
+    baseline_step() {  # baseline_step LABEL FUNC FILE
+        local label="$1" fn="$2" file="$3" rc=0
+        "$fn" "$domain" "${base_dir}/${file}" || rc=$?
+        case $rc in
+            0) log "${GREEN}[OK]${NC}  ${label}" ;;
+            2) log "${YELLOW}[SKIP]${NC} ${label} (required tool not installed)"; failed+=("$label") ;;
+            *) log "${RED}[FAILED]${NC} ${label} — see ${base_dir}/${file}.err"; failed+=("$label") ;;
+        esac
+    }
+    baseline_step "DNS A record"                          snapshot_dns_a        dns_a.txt
+    baseline_step "DNS AAAA record"                       snapshot_dns_aaaa     dns_aaaa.txt
+    baseline_step "DNS MX records"                        snapshot_dns_mx       dns_mx.txt
+    baseline_step "DNS NS records"                        snapshot_dns_ns       dns_ns.txt
+    baseline_step "DNS TXT records (SPF/DKIM/DMARC)"      snapshot_dns_txt      dns_txt.txt
+    baseline_step "WHOIS"                                 snapshot_whois        whois.txt
+    baseline_step "SSL certificate"                       snapshot_ssl          ssl.txt
+    baseline_step "HTTP redirect chain"                   snapshot_http_redirect http_redirect.txt
+    baseline_step "HTTP response code and server header"  snapshot_http_headers  http_headers.txt
+    baseline_step "crt.sh certificate count"              snapshot_crtsh        crtsh.txt
 
     # Record when baseline was taken
     echo "$ts" > "${MONITOR_DIR}/${domain}/baseline_ts.txt"
 
     log ""
+    if (( ${#failed[@]} > 0 )); then
+        printf '%s\n' "${failed[@]}" > "${MONITOR_DIR}/${domain}/baseline_incomplete.txt"
+        log "${RED}[INCOMPLETE]${NC} Baseline saved to ${base_dir} but ${#failed[@]} item(s) could not be collected:"
+        printf '  - %s\n' "${failed[@]}" | tee -a "$LOG_FILE"
+        log "Those items will be reported as UNVERIFIED on every check until a complete baseline is taken."
+        return 1
+    fi
+    rm -f "${MONITOR_DIR}/${domain}/baseline_incomplete.txt"
     log "${GREEN}[DONE]${NC} Baseline saved to: ${base_dir}"
 }
 
 # ---------------------------------------------------------------------------
 # Compare a single snapshot file against its baseline
 # ---------------------------------------------------------------------------
+# Returns 0 = identical, 1 = changed, 2 = UNVERIFIED (a collection failed, so no
+# conclusion can be drawn - this is never reported as "no change").
 compare_file() {
     local label="$1"
     local baseline_file="$2"
@@ -251,15 +290,26 @@ compare_file() {
         return 0
     fi
 
-    if [[ ! -f "$current_file" ]]; then
-        warn "Cannot check ${label}: current snapshot not written (is the required tool installed?)"
-        return 1
+    local side
+    for side in "$baseline_file" "$current_file"; do
+        if [[ ! -f "$side" || "$(cat "${side}.rc" 2>/dev/null)" != 0 ]]; then
+            {
+                echo "=== UNVERIFIED: ${label} ==="
+                echo "A collection failed ($( [[ "$side" == "$baseline_file" ]] && echo baseline || echo current ): $(cat "${side}.rc" 2>/dev/null || echo 'no snapshot written')); no comparison was made."
+                echo ""
+            } | tee -a "$changes_log"
+            return 2
+        fi
+    done
+
+    local diff_output rc=0
+    diff_output="$(diff "$baseline_file" "$current_file")" || rc=$?
+    if (( rc > 1 )); then
+        echo "=== UNVERIFIED: ${label} === (diff failed, rc=${rc})" | tee -a "$changes_log"
+        return 2
     fi
 
-    local diff_output
-    diff_output="$(diff "$baseline_file" "$current_file" 2>/dev/null)"
-
-    if [[ -n "$diff_output" ]]; then
+    if (( rc == 1 )); then
         {
             echo "=== CHANGE: ${label} ==="
             echo "--- baseline"
@@ -321,19 +371,33 @@ run_check() {
     LABELS["http_headers.txt"]="HTTP Response / Server Header"
     LABELS["crtsh.txt"]="crt.sh Certificate Count"
 
+    local unverified=0 crc
     for fname in "${!LABELS[@]}"; do
-        if ! compare_file "${LABELS[$fname]}" \
+        crc=0
+        compare_file "${LABELS[$fname]}" \
                 "${base_dir}/${fname}" \
                 "${tmp_dir}/${fname}" \
-                "$changes_log"; then
-            any_changes=1
-        fi
+                "$changes_log" || crc=$?
+        case $crc in
+            1) any_changes=1 ;;
+            2) unverified=$((unverified + 1)) ;;
+        esac
     done
+
+    # Keep the tools' stderr from this run: the temp dir is removed below.
+    cat "${tmp_dir}"/*.err > "${domain_dir}/check_errors_${ts}.log" 2>/dev/null
+    [[ -s "${domain_dir}/check_errors_${ts}.log" ]] || rm -f "${domain_dir}/check_errors_${ts}.log"
 
     # Update last-checked timestamp
     echo "$human_ts" > "${domain_dir}/last_checked.txt"
 
     rm -rf "$tmp_dir"
+
+    if [[ "$any_changes" -eq 0 && "$unverified" -gt 0 ]]; then
+        log "${YELLOW}[INCOMPLETE]${NC} ${unverified} item(s) for ${domain} could not be verified at ${human_ts}; this is NOT a clean result."
+        log "             Details: ${changes_log}"
+        return 2
+    fi
 
     if [[ "$any_changes" -eq 1 ]]; then
         log ""
@@ -343,6 +407,7 @@ run_check() {
         log "${RED}║  Domain    : ${domain}${NC}"
         log "${RED}║  Timestamp : ${human_ts}${NC}"
         log "${RED}║  Changes   : see ${changes_log}${NC}"
+        [[ "$unverified" -gt 0 ]] && log "${RED}║  Unverified: ${unverified} item(s) could not be collected${NC}"
         log "${RED}╚══════════════════════════════════════════════════════════════════╝${NC}"
         return 1
     else
@@ -387,7 +452,9 @@ check_all() {
         local domain
         domain="$(basename "$domain_dir")"
         if [[ -d "${domain_dir}/baseline" ]]; then
-            run_check "$domain" || any_fail=1
+            local crc=0
+            run_check "$domain" || crc=$?
+            (( crc > any_fail )) && any_fail=$crc
         fi
     done
     return "$any_fail"
@@ -533,4 +600,6 @@ main() {
     esac
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi
