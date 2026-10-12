@@ -91,7 +91,7 @@ section() { echo -e "\n${BOLD}${YELLOW}══ $* ══${RESET}\n" | tee -a "$LO
 usage() {
     echo -e "${BOLD}Usage:${RESET} sudo $0 [OPTIONS]"
     grep '^#    --' "$0" | sed 's/#/   /'
-    exit 0
+    exit "${1:-0}"
 }
 
 check_root() {
@@ -1042,13 +1042,18 @@ main() {
             --*)
                 if (( mode_set )); then
                     error "Only one category may be selected (got '$arg' after '--$MODE')"
-                    usage
+                    usage 2
                 fi
                 MODE="${arg#--}"; mode_set=1
                 ;;
-            *) error "Unknown argument: $arg"; usage ;;
+            *) error "Unknown argument: $arg"; usage 2 ;;
         esac
     done
+
+    case "$MODE" in
+        all|recon|web|network|exploit|password|wireless|forensics|defense|hardware|wordlists|pnwc|dev) ;;
+        *) error "Unknown option: --$MODE"; usage 2 ;;
+    esac
 
     banner
     check_root
