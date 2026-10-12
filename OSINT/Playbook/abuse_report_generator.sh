@@ -13,6 +13,10 @@
 #
 #===============================================================================
 
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 set -o pipefail
 
 #-------------------------------------------------------------------------------
@@ -49,8 +53,7 @@ REPORTER_PHONE="360-624-7379"
 #-------------------------------------------------------------------------------
 load_reporter_info() {
     if [[ -f "$REPORTER_CONFIG" ]]; then
-        # shellcheck source=/dev/null
-        source "$REPORTER_CONFIG"
+        source_trusted "$REPORTER_CONFIG" || true
     fi
 }
 
@@ -780,10 +783,8 @@ generate_all_reports() {
     echo ""
     
     # Load case data if available
-    if [[ -f "${case_dir}/.case_state" ]]; then
-        # shellcheck source=/dev/null
-        source "${case_dir}/.case_state"
-    fi
+    # JSON, validated by lib/case_state.py; a legacy shell .case_state is never executed
+    case_state_load "$case_dir" || echo -e "${YELLOW}[!] No usable case state; indicator lists are empty.${NC}" >&2
     
     local timestamp
     timestamp=$(date +%Y%m%d_%H%M%S)
@@ -966,4 +967,6 @@ main() {
     esac
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

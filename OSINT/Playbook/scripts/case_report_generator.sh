@@ -13,6 +13,10 @@
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
 
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 set -o pipefail
 
 # ─── Colors ───────────────────────────────────────────────────────────────────
@@ -38,14 +42,12 @@ INVESTIGATOR_NAME="Investigator Name"
 INVESTIGATOR_ORG="Your Company Name"
 INVESTIGATOR_CONTACT="investigator@example.com"
 BRANDING_CONF="${BRANDING_CONF:-${HOME}/.config/osint-investigator/branding.conf}"
-# shellcheck source=/dev/null
-[[ -f "$BRANDING_CONF" ]] && source "$BRANDING_CONF"
+[[ -f "$BRANDING_CONF" ]] && { source_trusted "$BRANDING_CONF" || true; }
 
 # ─── API Keys (optional for future enrichment) ────────────────────────────────
 API_CONF="${HOME}/.config/osint-investigator/api_keys.conf"
 if [[ -f "$API_CONF" ]]; then
-    # shellcheck source=/dev/null
-    source "$API_CONF"
+    source_trusted "$API_CONF" || true
 fi
 
 # ─── Logging ──────────────────────────────────────────────────────────────────

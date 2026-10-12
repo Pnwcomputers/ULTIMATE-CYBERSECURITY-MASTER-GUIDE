@@ -17,6 +17,10 @@
 #-------------------------------------------------------------------------------
 # CONFIGURATION
 #-------------------------------------------------------------------------------
+_PNWC_TK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/trusted_conf.sh
+source "${_PNWC_TK_DIR}/lib/trusted_conf.sh" || { echo "Missing helper library in ${_PNWC_TK_DIR}/lib" >&2; return 1 2>/dev/null || exit 1; }
+
 INTEGRATION_CONFIG="${HOME}/.config/osint-investigator/integration.conf"
 CASE_BASE_DIR="${HOME}/OSINT_Cases"
 
@@ -217,8 +221,7 @@ load_integration_config() {
     mkdir -p "$(dirname "$INTEGRATION_CONFIG")"
     
     if [[ -f "$INTEGRATION_CONFIG" ]]; then
-        # shellcheck source=/dev/null
-        source "$INTEGRATION_CONFIG"
+        source_trusted "$INTEGRATION_CONFIG" || return 1
         return 0
     fi
     
@@ -658,16 +661,9 @@ run_integrated_investigation() {
         return 1
     }
     
-    # Load case state — validate before sourcing to prevent shell injection
-    if [[ -f "${case_dir}/.case_state" ]]; then
-        if grep -Pq '\$\(|`|;\s*eval|;\s*source' "${case_dir}/.case_state" 2>/dev/null; then
-            error ".case_state contains unsafe content (command substitution or eval), refusing to load"
-            return 1
-        fi
-        # shellcheck source=/dev/null
-        source "${case_dir}/.case_state"
-    else
-        error "No case state found in: ${case_dir}"
+    # Case state is validated JSON (lib/case_state.py); it is never sourced.
+    if ! case_state_load "$case_dir"; then
+        error "No valid case state found in: ${case_dir}"
         return 1
     fi
     

@@ -14,6 +14,10 @@
 # CREATED:     2024
 # PLATFORM:    Tsurugi Linux / Ubuntu / Debian
 
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 set -o pipefail
 
 # ---------------------------------------------------------------------------
@@ -39,8 +43,7 @@ LOG_FILE="${CONFIG_DIR}/domain_monitor.log"
 # Load API keys if present
 # ---------------------------------------------------------------------------
 if [[ -f "${API_KEYS_FILE}" ]]; then
-    # shellcheck source=/dev/null
-    source "${API_KEYS_FILE}"
+    source_trusted "${API_KEYS_FILE}" || true
 fi
 
 # ---------------------------------------------------------------------------

@@ -15,6 +15,10 @@
 #############################################
 
 # Colors for output
+_PNWC_LIB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/trusted_conf.sh"
+# shellcheck source=lib/trusted_conf.sh
+source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; }
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -42,8 +46,7 @@ LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
+        source_trusted "$API_CONFIG" || true
 
         NUMVERIFY_KEY="${NUMVERIFY_KEY:-${NUMVERIFY_API_KEY:-${NV_API_KEY:-${numverify_api_key:-}}}}"
         VERIPHONE_KEY="${VERIPHONE_KEY:-${VERIPHONE_API_KEY:-${VP_API_KEY:-${veriphone_api_key:-}}}}"
