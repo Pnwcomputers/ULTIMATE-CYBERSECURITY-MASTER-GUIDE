@@ -75,9 +75,22 @@ what an authenticated user is allowed to do.
   as the other (Burp's *Autorize*/*Auth Analyzer* extensions help); enumerate
   object IDs; request admin routes directly; verify server-side enforcement rather
   than hidden-in-the-UI controls.
-- **How to defend:** deny by default; enforce authorization **server-side** on
-  every request against the authenticated principal; use opaque/unguessable
-  references or ownership checks; centralize access-control logic; log failures.
+- **How to defend:** deny access by default and enforce authorization
+  **server-side on every request**. Verify that the authenticated principal
+  is permitted to perform the requested action on the specific object,
+  including applicable ownership, role, and tenant-boundary checks.
+  Use opaque or unpredictable identifiers only as **defense in depth**,
+  never as a substitute for authorization. Centralize access-control
+  logic and log authorization failures without recording credentials
+  or unnecessary sensitive data.
+- **Validation:** in an authorized test environment, create two ordinary
+  users with separate private objects. Confirm that each user can perform
+  permitted actions on their own objects but cannot read, modify, delete,
+  or export the other user's private objects, even when the identifier
+  is known. Also test administrative functions with an ordinary account
+  and cross-tenant access where applicable. Verify both the response and
+  resulting data state; an error response alone does not prove that an
+  unauthorized change was prevented.
 - **CWE:** CWE-284, CWE-639, CWE-862. **Cheat sheet:** [Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
 
 ---
