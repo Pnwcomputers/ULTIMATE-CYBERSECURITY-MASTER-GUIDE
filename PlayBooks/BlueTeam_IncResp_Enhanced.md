@@ -72,11 +72,25 @@ Covers any incident impacting on-prem or cloud systems-including malware, data e
 
 **Dashboard Prioritization:**
 - Splunk ES risk-based alerts, QRadar Offense severity, Elastic Security DETECTION_ENGINE_RULE severity.
-- Investigate all High/Critical alerts within 15 minutes (per CIS Control 19).
+- **Example organizational SLA:** begin triage of High/Critical alerts
+  within 15 minutes of receipt. Obtain approval for this target and define
+  coverage hours, escalation paths, and how response time is measured.
+  This is a proposed local service target, not a CIS-mandated deadline.
+  For CIS Controls v8/v8.1, map incident-response procedures to
+  **Control 17: Incident Response Management** and document the
+  applicable safeguards.
 
 **Common SIGs:**
 - Windows Event 4625 spikes (failed logons)
-- Creation of new/unsigned services or scheduled tasks (Sysmon Event 1/7)
+- **Unexpected services or scheduled tasks:** investigate Windows
+  Security Event 4697 for service installation and Event 4698 for
+  scheduled-task creation, where supported and the relevant auditing
+  is enabled. Correlate these with service/task configuration, executable
+  paths, initiating accounts, and approved change records.
+  Sysmon Event 1 records process creation; Event 7 records image loading.
+  Use these as supporting telemetry, not as direct service/task
+  registration events. Event 7 requires explicit configuration.
+  Validate event generation and SIEM ingestion with benign lab tests.
 - Outbound to known C2 IPs/domains (using MISP/AlienVault OTX feeds)
 
 ### 4.2 Initial Data Collection
@@ -86,7 +100,14 @@ Covers any incident impacting on-prem or cloud systems-including malware, data e
 - Memory snapshot with FTK Imager or Magnet RAM Capture.
 
 **Network:**
-- PCAP export via Zeek (`zeek-cut`) or Security Onion's CapME.
+- **Packet captures:** export available PCAP from the organization's
+  authorized packet-capture platform. Record the capture source,
+  interface, time range, timezone, filters, and known collection gaps.
+  Preserve the original capture and record its SHA-256 hash.
+- **Zeek logs:** preserve the original logs separately. Use `zeek-cut`
+  to extract fields from Zeek TSV logs, or a JSON-aware parser for JSON
+  lot export PCAP, and Zeek connection logs do not
+  contain the original packet payloads.
 - Query Suricata EVE JSON logs for matching `sid` or `threshold`.
 
 ---
