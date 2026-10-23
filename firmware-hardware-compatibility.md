@@ -17,6 +17,9 @@ Prevent hardware/firmware mismatch issues when setting up DIY security tools - p
 
 ## Wireless Security Testing Devices
 
+**ESP32-C5 / Flipper wardriving hardware and firmware pairings:** see the dedicated [Wardriving index](./Wardriving/README.md), [SigRoam / Scout Lite](./Wardriving/sigroam-scout-lite.md), [Marauder](./Wardriving/esp32-marauder.md), [Biscuit](./Wardriving/biscuit.md) and [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md). Their image targets, GPS source and log location differ by operating mode.
+
+
 **Last Updated:** October 2025  
 **Purpose:** Quick reference guide for firmware compatibility across common penetration testing hardware
 
