@@ -1,14 +1,15 @@
-# 🔄 Change Log - October 12, 2026
+# 🔄 Change Log - October 23, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1495
-- **Files Modified**: 1889
-- **New Files**: 730
+- **Commits Analyzed**: 1496
+- **Files Modified**: 1898
+- **New Files**: 739
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Wardriving hub with SigRoam, Marauder, Biscuit, AWOK, Wardrive Go and Kismet (#128) (`1948c94`)
 - ci: bump peter-evans/create-pull-request from 7.0.11 to 8.1.1 (#118) (`7fe93dd`)
 - docs: add security remediation and staging plan (#111) (`628803a`)
 - Add sanitized OSINT investigation toolkit to OSINT/Playbook (#109) (`b53d445`)
@@ -1519,9 +1520,26 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/flipper_zero_guide.md`
+- `HardwareHacking/README.md`
+- `OPSEC/README.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `README.md`
+- `SDR/README.md`
+- `START_HERE.md`
+- `Wardriving/README.md`
+- `Wardriving/awok-dual-c5-biscuit.md`
+- `Wardriving/biscuit.md`
+- `Wardriving/data-handling.md`
+- `Wardriving/esp32-marauder.md`
+- `Wardriving/field-workflow.md`
+- `Wardriving/kismet.md`
+- `Wardriving/sigroam-scout-lite.md`
+- `Wardriving/wardrive-go.md`
+- `firmware-hardware-compatibility.md`
+- `CHANGELOG.md`
 - `Scripts/PINNING.md`
 - `Scripts/pnwc_install_tools.sh`
-- `CHANGELOG.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `SECURITY_REMEDIATION_PLAN.md`
 - `tests/hardening/test_toolkit_integration.py`
@@ -1534,7 +1552,6 @@
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `.github/SECURITY.md`
 - `AI/OpenClaw/agent_skill_config.md`
-- `Documentation/flipper_zero_guide.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `OSINT/Playbook/abuse_report_generator.sh`
 - `OSINT/Playbook/install_dependencies.sh`
@@ -1592,12 +1609,9 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
-- `OPSEC/README.md`
 - `OPSEC/anonymity-layering.md`
-- `README.md`
 - `ReverseEngineering/README.md`
 - `ReverseEngineering/vx-underground.md`
-- `START_HERE.md`
 - `Tradecraft/osint-threat-intel.md`
 - `Cryptography/Classical/README.md`
 - `Cryptography/Classical/ciphers.md`
@@ -1624,7 +1638,6 @@
 - `AI/AnythingLLM/README.md`
 - `AI/OpenClaw/README.md`
 - `Documentation/README.md`
-- `HardwareHacking/README.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
 - `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
@@ -1674,7 +1687,6 @@
 - `tools/tests/test_review_fixes.py`
 - `uConsole/PARROT-CM5.md`
 - `uConsole/scripts/README.md`
-- `SDR/README.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/03-calibration.md`
@@ -1750,7 +1762,6 @@
 - `Mobile/OnePlus_A6003/Rooting.md`
 - `Mobile/README.md`
 - `Mobile/mobile_pentest_sop.md`
-- `PlayBooks/NetworkAuditPlayBook.md`
 - `SDR/sdr_hacking.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `Tradecraft/active-directory.md`
@@ -1821,7 +1832,6 @@
 - `Tradecraft/c2-frameworks.md`
 - `assets/i2c.jpg`
 - `assets/md`
-- `firmware-hardware-compatibility.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/blackarch.md`
 - `Documentation/ArchLinux_CheatSheet.md`
