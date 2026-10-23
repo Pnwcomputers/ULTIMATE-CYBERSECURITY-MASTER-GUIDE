@@ -18,7 +18,7 @@ _Last reviewed: 2026-10-22_
 - Adequate power and secured disk location for logs.
 - Permission to operate within the proposed area.
 
-For installation choose the maintained [Kismet Linux install guidance](https://www.kismetwireless.net/docs/readme/linux/) for the *exact distribution* (including interface capabilities, `kismet` group permissions and package availability). Do not blindly assume `apt install kismet` supplies a modern version on every distro.
+For installation choose the maintained [Kismet Linux install guidance](https://www.kismetwireless.net/docs/readme/installing/linux/) for the *exact distribution* (including interface capabilities, `kismet` group permissions and package availability). Do not blindly assume `apt install kismet` supplies a modern version on every distro.
 
 ## 1. Identify interfaces and GPS
 
