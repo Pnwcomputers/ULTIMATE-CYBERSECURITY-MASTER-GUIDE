@@ -57,6 +57,9 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 ## Guides in This Section
 
+> **Looking specifically for GPS-tagged Wi-Fi/BLE mapping?** The dedicated [Wardriving index](../Wardriving/README.md) includes [Kismet wardrive mode](../Wardriving/kismet.md), [ESP32 Marauder](../Wardriving/esp32-marauder.md), and a [field checklist](../Wardriving/field-workflow.md). RF spectrum measurements and Wi-Fi AP mapping are complementary but different workflows.
+
+
 | Guide | Level | Focus |
 |---|---|---|
 | **[SDR Fundamentals](sdr.md)** | 🟢 Foundational | IQ sampling, SDR hardware, antennas, GNU Radio, demodulation, and application chapters on wireless and satellite signals. |
@@ -128,7 +131,7 @@ Tool roles below describe their intended function. They do not guarantee support
 | **[Gqrx](https://gqrx.dk/) / [SDR#](https://airspy.com/download/)** | Spectrum display and supported audio demodulation | SDR# is the receiver application; SpyServer is a separate remote-server component. |
 | **[rtl_433](https://github.com/merbanan/rtl_433)** | Supported sensor, remote, and telemetry decoding | Supports several bands and radio backends; not limited to 433 MHz. |
 | **[dump1090](https://github.com/flightaware/dump1090)** | 1090 MHz Mode S / ADS-B reception | Does not decode 978 MHz UAT; use a suitable UAT decoder for that link. |
-| **[Kismet](https://www.kismetwireless.net/docs/)** | Discovery and monitoring through supported data sources | Wi-Fi, Bluetooth, and SDR-related support depend on source hardware and helpers. |
+| **[Kismet](../Wardriving/kismet.md)** | Discovery and monitoring through supported data sources | Wi-Fi, Bluetooth, and SDR-related support depend on source hardware and helpers. |
 | **[Kalibrate-RTL](https://github.com/steve-m/kalibrate-rtl)** | Estimate receiver frequency error using GSM signals | Requires suitable local signals and compatible software; not a general precision calibration guarantee. |
 | **[gr-gsm](https://github.com/ptrkrysik/gr-gsm)** | GSM reception and analysis tools | Verify the chosen branch/package and GNU Radio compatibility. It is not accurately described as a turnkey IMSI catcher. |
 
