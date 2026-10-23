@@ -102,10 +102,10 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ### Operational Sections
 
-| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
-
 | Section | Description |
 |---|---|
+| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
+
 | 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
 | 📋 [Checklists](./Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | ☁️ [Cloud Security](./Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
@@ -139,10 +139,10 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ### Subsection Indexes & Focused Entry Points
 
-| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
-
 | Parent Area | Subsection / Guide | Coverage |
 |---|---|---|
+| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
+
 | AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
 | AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
 | Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
