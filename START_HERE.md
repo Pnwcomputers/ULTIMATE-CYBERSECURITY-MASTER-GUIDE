@@ -32,6 +32,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Cryptography?** → [Cryptography](Cryptography/) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/))
 - **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
+- **Wardriving / Wireless Surveys?** → [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have.
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
 - **Reverse Engineering / Binary Analysis?** → [Reverse Engineering](ReverseEngineering/README.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md)
 - **Privacy Workstation / USB Setup?** → [OPSEC](OPSEC/README.md) + [Whonix + Kicksecure USB](OPSEC/whonix-kicksecure-usb-guide.md) or [Tails USB](OPSEC/tails-usb-setup-guide.md); choose the workflow before installation
@@ -89,6 +90,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 ---
 
 ### 🗂️ OPERATIONAL SECTIONS
+
+| 📍 **[Wardriving](Wardriving/README.md)** | Authorized wireless mapping, GPS inventory, firmware compatibility, phone-based and Kismet collection |
 
 | Section | Description |
 |---------|-------------|
