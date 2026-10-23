@@ -63,6 +63,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🛡️ **Defensive & Incident Response** | [IncidentResponse/](./IncidentResponse/) | [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) · [SIEM](./IncidentResponse/SIEM/) · [IDS & IPS](./IncidentResponse/IDS%26IPS/) · [Honeypots](./IncidentResponse/HoneyPot/) · [Digital Forensics](./IncidentResponse/Digital-Forensics/) · [Homelab/](./Homelab/) |
 | 🗄️ **Data Engineering & Automation** | [Data Engineering](./Data-Engineering/README.md) | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) · [Scripts](./Scripts/README.md) |
 | 🔍 **OSINT & Recon** | [OSINT/](./OSINT/) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
+| 📍 **Wireless Surveying & Wardriving** | [Wardriving/](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI/](./AI/) · [SDR/](./SDR/) · [HardwareHacking/](./HardwareHacking/) · [HardwareTesting/](./HardwareTesting/) · [SpaceSecurity/](./SpaceSecurity/) · [Mobile/](./Mobile/) · [uConsole/](./uConsole/) |
 | 🔐 **Governance, Crypto & Reference** | [Compliance/](./Compliance/) | [Cryptography/](./Cryptography/) · [Documentation/](./Documentation/) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC/](./OPSEC/) |
 | ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) · [Security Policy](./.github/SECURITY.md) |
@@ -103,6 +104,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Section | Description |
 |---|---|
+| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
+
 | 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
 | 📋 [Checklists](./Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | ☁️ [Cloud Security](./Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
@@ -138,6 +141,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Parent Area | Subsection / Guide | Coverage |
 |---|---|---|
+| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
+
 | AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
 | AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
 | Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |

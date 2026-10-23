@@ -64,6 +64,9 @@ Ensure every network/wireless penetration test produces (1) legally defensible e
 
 ## SECTION 2: WIRELESS-SPECIFIC TESTING PROCEDURES
 
+For a focused GPS-tagged **AP inventory** before any separately authorized active testing, follow the [Wardriving Field Workflow](../Wardriving/field-workflow.md) and select a tool in the [Wardriving Index](../Wardriving/README.md). The [Kismet guide](../Wardriving/kismet.md) documents its lightweight wardrive overlay; [Data Handling](../Wardriving/data-handling.md) distinguishes private records from public WiGLE uploads.
+
+
 ### 2.1 PASSIVE RECONNAISSANCE PHASE
 
 **Objective:** Identify wireless networks, access points, clients, and security configurations without actively engaging targets.
