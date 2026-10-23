@@ -100,6 +100,9 @@ Experienced practitioner?
 
 ## 📟 Device Setup & Usage Guides
 
+For ESP32/Flipper radio accessories used specifically for authorized mapping, see the [Wardriving platform index](../Wardriving/README.md), [Scout Lite + SigRoam](../Wardriving/sigroam-scout-lite.md), [Marauder](../Wardriving/esp32-marauder.md), and [AWOK Dual C5 + Biscuit](../Wardriving/awok-dual-c5-biscuit.md). These cover board revisions, firmware roles and GPS/log locations.
+
+
 Detailed documentation, reference links, and step-by-step usage tutorials for specific hardware hacking tools on your bench:
 
 | Device Guide | Description |
