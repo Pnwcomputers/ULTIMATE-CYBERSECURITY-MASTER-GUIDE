@@ -351,6 +351,10 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 ---
 
 <a id="verification"></a>
+## 📍 Location Privacy During Wireless Surveys
+
+Wardriving records may couple wireless device identifiers with operator routes, client buildings and timestamps. Review the [Wardriving collection and data-handling guide](../Wardriving/data-handling.md) before uploading to WiGLE or disclosing GNSS-tagged observations; see the [Wardriving index](../Wardriving/README.md) for individual tools. VPNs do **not** remove GPS coordinates deliberately embedded in uploads.
+
 ## ✅ Verification Checklist
 
 Use the detailed tests in the selected setup guide. These are acceptance checks, not certification of anonymity.
