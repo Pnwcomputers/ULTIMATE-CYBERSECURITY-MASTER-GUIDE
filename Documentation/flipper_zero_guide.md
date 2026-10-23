@@ -50,6 +50,9 @@ Enable IT professionals and penetration testers to use the Flipper Zero effectiv
 
 ## 1. Hardware Overview
 
+> **Wi-Fi wardriving requires an external scanner:** A Flipper Zero does not include a native Wi-Fi survey radio. For the PINGEQUA Scout Lite ESP32-C5 board, compatible SigRoam Flipper app/board firmware and microSD/GNSS workflow, see [SigRoam Wardriving](../Wardriving/sigroam-scout-lite.md). For alternate board firmware see [ESP32 Marauder](../Wardriving/esp32-marauder.md) and the [Wardriving overview](../Wardriving/README.md).
+
+
 ### Physical Layout
 
 ```
