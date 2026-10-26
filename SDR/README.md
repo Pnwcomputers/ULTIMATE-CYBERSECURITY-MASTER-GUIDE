@@ -47,6 +47,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 - [Choose a Starting Point](#choose-a-starting-point)
 - [Hardware Ecosystem](#hardware-ecosystem)
 - [Software and Tool Categories](#software-and-tool-categories)
+- [Starred SDR and antenna projects](#starred-sdr-and-antenna-projects)
 - [Target Frequencies and Protocols](#target-frequencies-and-protocols)
 - [Safe Workflows](#safe-workflows)
 - [Security and Legal Boundaries](#security-and-legal-boundaries)
