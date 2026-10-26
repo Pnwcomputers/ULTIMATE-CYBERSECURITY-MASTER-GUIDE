@@ -79,6 +79,13 @@ Instrument hosts as a **SQL-queryable** surface. Covers installation (with the m
 
 ---
 
+### Starred companion tools for one-time Windows audits
+
+- [DAT — dag's Audit Tool](https://github.com/dagnazty/DAT) — PowerShell inventory of Windows hardware, accounts, services, networking, updates, Defender and event-log information. Check the script, permissions and sensitive output handling before using it on a client machine.
+- [PNWC SystemTester](https://github.com/Pnwcomputers/SystemTester) — your portable Windows/Sysinternals diagnostic and malware-triage toolkit; useful for technician baselines and pre/post-repair reports. A clean diagnostic run does **not** prove the absence of compromise.
+
+These produce **point-in-time** observations; Sysmon, auditd, osquery and a SIEM still provide the continuous telemetry described below.
+
 ## 🚀 Deployment Workflow
 
 ```text
