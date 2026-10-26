@@ -54,7 +54,7 @@ Get a low-resource honeypot running and logging real attacker interaction — re
 
 A honeypot isn't a detector for *your* network's real traffic — it's a decoy with no legitimate reason to ever be touched. Any connection attempt against it is, by definition, either a misconfiguration or an attacker/scanner. That makes its signal-to-noise ratio far better than almost any other detection source: a honeypot alert doesn't need tuning the way a Suricata ruleset or a wireless IDS alert does, because there's no legitimate baseline traffic to distinguish it from.
 
-This makes it a strong **complement** to (not a replacement for) the detection layers covered elsewhere in this repo — see the [IDS/IPS guides](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/IDS%26IPS/README.md) for signature/protocol-based detection on real production traffic.
+This makes it a strong **complement** to (not a replacement for) the detection layers covered elsewhere in this repo — see the [IDS/IPS guides](../IDS%26IPS/readme.md) for signature/protocol-based detection on real production traffic.
 
 ---
 
@@ -339,6 +339,10 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 
 ---
 
+### Starred companion: OpenCanary log review
+
+[OpenCanaryChecker](https://github.com/7h30th3r0n3/OpenCanaryChecker) is a community script for parsing OpenCanary logs into more accessible activity summaries. Review the script and its dependencies before introducing it into an investigation; preserve original logs, timestamps and hashes as the evidence of record. Use the **upstream [OpenCanary](https://github.com/thinkst/opencanary)** documentation for current sensor configuration.
+
 ## 🩹 Common Gotchas
 
 | Symptom | Cause | Fix |
@@ -386,10 +390,6 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 ```
 
 ---
-
-### Starred companion: OpenCanary log review
-
-[OpenCanaryChecker](https://github.com/7h30th3r0n3/OpenCanaryChecker) is a community script for parsing OpenCanary logs into more accessible activity summaries. Review the script and its dependencies before introducing it into an investigation; preserve original logs, timestamps and hashes as the evidence of record. Use the **upstream [OpenCanary](https://github.com/thinkst/opencanary)** documentation for current sensor configuration.
 
 ## 📚 Resources
 
