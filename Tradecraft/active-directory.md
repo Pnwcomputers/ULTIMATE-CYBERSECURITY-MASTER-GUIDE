@@ -870,6 +870,10 @@ Infrastructure
 - [Pingcastle AD Health Check](https://www.pingcastle.com/)
 - [Purple Knight](https://www.semperis.com/purple-knight/) - Free AD assessment tool
 
+## Cloud identity is a separate assessment scope
+
+[GraphSpy](https://github.com/RedByte1337/GraphSpy) is a Microsoft Graph-oriented platform for **Microsoft Entra ID / Microsoft 365** assessments. It is relevant to a hybrid identity engagement, but **not** a drop-in replacement for on-premises Active Directory tools in this chapter. Evaluate tenant-specific consent, Graph permissions and audit visibility separately; keep tokens and customer data out of logs and public issues, and obtain explicit scope authorization.
+
 ## Related Files
 - [README.md](README.md) - Tradecraft section index
 - [c2-frameworks.md](c2-frameworks.md) - C2 that executes AD post-exploitation
