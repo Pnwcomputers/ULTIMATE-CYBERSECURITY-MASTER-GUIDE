@@ -673,6 +673,8 @@ Ragnar is worth knowing about because:
 
 **Pwnagotchi.** Different tool, similar autonomous-on-Pi concept. Pwnagotchi targets Wi-Fi (WPA handshake capture and offline crack) using an AI-themed autonomous loop. Where Bjorn is a network-service attacker that runs on a Pi, Pwnagotchi is a Wi-Fi attacker that runs on a Pi. They are complementary; some operators run both on different devices in the same kit.
 
+**RaspyJack.** [RaspyJack](https://github.com/dagnazty/Raspyjack) is a separate portable Raspberry Pi security-testing toolkit with a small display, web UI and optional assessment modules. It is **not a Bjorn firmware build or compatible drop-in module**. Because its upstream release includes active network tests and payload functions, use it only in a deliberately isolated environment and never enable intrusive features during inventory-only work.
+
 **bjorn-detector.** The official companion utility from infinition for finding Bjorn devices on a local network. Useful during initial setup; available at `github.com/infinition/bjorn-detector`.
 
 **Custom action modules.** The `r/Bjorn_CyberViking` subreddit and the Discord regularly publish new Python modules. As of late 2025, community-maintained modules include: VNC connectors, additional dictionary sources, HTTP service fingerprinting, basic web-app credential-stuffing connectors, and various exfiltration enhancements.
@@ -712,4 +714,8 @@ Ragnar is worth knowing about because:
 
 ---
 
-*This chapter is provided for educational and authorized red-team use only. Bjorn, like any offensive security tool, is a felony to operate against systems you do not own or are not explicitly authorized to test. The author of this chapter, the Bjorn developer (infinition), the Raspberry Pi Foundation, and Waveshare bear no responsibility for misuse. Unlike the wireless-protocol tools in the previous two chapters, Bjorn's normal operation falls within the express prohibitions of the Computer Fraud and Abuse Act and the Stored Communications Act. Treat the laboratory-isolation requirement as inviolable. The technical interest of the tool is genuine; the legal risk of operating it outside a properly-scoped lab or signed engagement is also genuine, and is the more important of the two.*
+*This chapter is provided for educational and authorized red-team use only. Bjorn, like any offensive security tool, is a felony to operate against systems you do not own or are not explicitly authorized to test. The author of this chapter, the Bjorn developer (infinition), the Raspberry Pi Foundation, and Waveshare bear no responsibility for misuse. Unapproved access, interception, credential use or service disruption can implicate the Computer Fraud and Abuse Act, Stored Communications Act, state laws and contractual restrictions; legal exposure depends on the specific facts and authorization. Treat the laboratory-isolation requirement as inviolable. The technical interest of the tool is genuine; the legal risk of operating it outside a properly-scoped lab or signed engagement is also genuine, and is the more important of the two.*
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
