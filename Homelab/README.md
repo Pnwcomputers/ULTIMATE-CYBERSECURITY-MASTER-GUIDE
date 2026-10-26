@@ -251,3 +251,7 @@ To contribute to the Homelab section:
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+---
+
+[Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)
