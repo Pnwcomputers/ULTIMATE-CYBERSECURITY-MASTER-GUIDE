@@ -140,7 +140,6 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Parent Area | Subsection / Guide | Coverage |
 |---|---|---|
-| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 | AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
 | AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
 | Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
@@ -161,6 +160,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
 | Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
 | uConsole | [Automated Setup Scripts](./uConsole/scripts/README.md) | CM4/CM5 setup and repair automation |
+| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
 ---
 
