@@ -105,7 +105,6 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Section | Description |
 |---|---|
 | 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
-
 | 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
 | 📋 [Checklists](./Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | ☁️ [Cloud Security](./Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
@@ -142,7 +141,6 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Parent Area | Subsection / Guide | Coverage |
 |---|---|---|
 | Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
-
 | AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
 | AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
 | Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
@@ -196,15 +194,18 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 ### 📘 Team Playbooks
 
 **Purple Team**
+
 - [Purple Team - Simple](./PlayBooks/PurpleTeam_Simple.md)
 - [Purple Team - Detailed](./PlayBooks/PurpleTeam_Detailed.md)
 - [Purple Team - Multi-Script](./PlayBooks/PurpleTeam_Multi-Scrip.md)
 
 **Blue Team**
+
 - [Blue Team - Incident Response Simple](./PlayBooks/BlueTeam_IncResp_Simple.md)
 - [Blue Team - Incident Response Enhanced](./PlayBooks/BlueTeam_IncResp_Enhanced.md)
 
 **Data Engineering, Detection Pipelines & SIEM**
+
 - [Data Engineering Section](./Data-Engineering/README.md)
 - [Secure Data Pipelines & Security Automation](./Data-Engineering/data_pipelines.md)
 - [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md)
@@ -243,10 +244,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 📟 uConsole & Portable Operations
 
-Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations. 
-* **OS & Toolkit Optimization:** Customizing Kali Linux, Parrot OS, or custom Debian builds for the uConsole's unique form factor.
-* **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
-* **Hardware Interfacing:** Using the uConsole for serial connections, hardware debugging, and local network audits.
+Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations.
+
+- **OS & Toolkit Optimization:** Customizing Kali Linux, Parrot OS, or custom Debian builds for the uConsole's unique form factor.
+- **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
+- **Hardware Interfacing:** Using the uConsole for serial connections, hardware debugging, and local network audits.
 
 **Hak5 Suite:** [Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky) · [Bash Bunny](https://shop.hak5.org/products/bash-bunny) · [LAN Turtle](https://shop.hak5.org/products/lan-turtle) · [Packet Squirrel](https://shop.hak5.org/products/packet-squirrel) · [Shark Jack](https://shop.hak5.org/products/shark-jack) · [O.MG Cable](https://shop.hak5.org/products/omg-cable)
 
@@ -305,6 +307,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 ### 🛠️ Key Tools & Frameworks
 
 **Exploitation & Post-Exploitation**
+
 - [Metasploit Framework](https://www.rapid7.com/) - Rapid7
 - [Impacket](https://github.com/fortra/impacket) - Fortra
 - [BloodHound](https://github.com/SpecterOps/BloodHound) - SpecterOps
@@ -315,6 +318,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Responder](https://github.com/lgandx/Responder) - Laurent Gaffié
 
 **OSINT**
+
 - [theHarvester](https://github.com/laramies/theHarvester) · [Sherlock](https://github.com/sherlock-project/sherlock) · [Maltego](https://www.maltego.com/)
 - [SpiderFoot](https://github.com/smicallef/spiderfoot) · [Recon-ng](https://github.com/lanmaster53/recon-ng) · [Amass](https://github.com/owasp-amass/amass)
 - [Maigret](https://github.com/soxoj/maigret) · [Holehe](https://github.com/megadose/holehe) · [H8mail](https://github.com/khast3x/h8mail)
@@ -322,6 +326,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) · [Trace Labs](https://tracelabs.org/)
 
 **Network & Web Security**
+
 - [Nmap](https://nmap.org/) · [Wireshark](https://www.wireshark.org/) · [Burp Suite](https://portswigger.net/burp) · [OWASP ZAP](https://www.zaproxy.org/)
 - [Nikto](https://github.com/sullo/nikto) · [SQLmap](https://sqlmap.org/) · [Gobuster](https://github.com/OJ/gobuster) · [ffuf](https://github.com/ffuf/ffuf)
 - [Nuclei](https://github.com/projectdiscovery/nuclei) · [Subfinder](https://github.com/projectdiscovery/subfinder) · [httpx](https://github.com/projectdiscovery/httpx) - ProjectDiscovery
@@ -329,16 +334,19 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) · [SecLists](https://github.com/danielmiessler/SecLists) · [ExploitDB](https://www.exploit-db.com/)
 
 **Password & Credentials**
+
 - [Hashcat](https://hashcat.net/hashcat/) · [John the Ripper](https://www.openwall.com/john/) · [Hydra](https://github.com/vanhauser-thc/thc-hydra)
 - [Mimikatz](https://github.com/gentilkiwi/mimikatz) - Benjamin Delpy
 
 **Wireless & RF**
+
 - [Aircrack-ng](https://www.aircrack-ng.org/) · [Kismet](https://www.kismetwireless.net/) · [Wifite2](https://github.com/derv82/wifite2)
 - [Bettercap](https://www.bettercap.org/) - Simone Margaritelli
 - [ChipWhisperer](https://github.com/newaetech/chipwhisperer) - NewAE Technology
 - [OpenOCD](https://openocd.org/) · [Bus Pirate](https://docs.buspirate.com/)
 
 **Forensics & Reverse Engineering**
+
 - [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
 - [radare2](https://rada.re/) - pancake · [IDA Pro](https://hex-rays.com/ida-pro/) - Hex-Rays
 - [Binwalk](https://github.com/ReFirmLabs/binwalk) · [YARA](https://github.com/VirusTotal/yara)
@@ -346,11 +354,13 @@ This guide stands on the shoulders of the global cybersecurity community.
 - [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) - Mark Russinovich
 
 **Monitoring & Defense**
+
 - [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
 - [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://graylog.org/)
 - [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/) · [nzyme](https://nzyme.org/)
 
 **Honeypots & Deception**
+
 - [OpenCanary](https://github.com/thinkst/opencanary) - Thinkst
 - [Cowrie](https://github.com/cowrie/cowrie) - Michel Oosterhof
 - [Dionaea](https://github.com/DinoTools/dionaea) - DinoTools
@@ -360,6 +370,7 @@ This guide stands on the shoulders of the global cybersecurity community.
 ### 📚 Book Authors & Publishers
 
 **No Starch Press** *(primary reference publisher)*
+
 - David Kennedy et al. - *Metasploit: The Penetration Tester's Guide*
 - Georgia Weidman - *Penetration Testing: A Hands-On Introduction*
 - OccupyTheWeb - *Linux Basics for Hackers*
