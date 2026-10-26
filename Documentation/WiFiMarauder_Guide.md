@@ -167,6 +167,17 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - **[Tindie Store](https://www.tindie.com/stores/justcallmekoko/)**
 ---
 
+### Related ESP32 assessment platforms (separate firmware)
+
+The following starred upstream projects are useful when selecting a **different platform** for an isolated wireless-security lab:
+
+- [GhostESP](https://github.com/GhostESP-Revival/GhostESP) — ESP-IDF-based ESP32 Wi-Fi/BLE research firmware.
+- [projectZero](https://github.com/C5Lab/projectZero) — ESP32-C5/Flipper wireless testing with active assessment features; verify board-specific firmware.
+- [Adversary](https://github.com/Isonimus/adversary) — ESP32-oriented multiradio/security research, with supported hardware determining which RF capabilities actually exist.
+- [WiFiForge](https://github.com/blackhillsinfosec/WifiForge) — a wireless training environment for practicing and detecting Wi-Fi attacks in a controlled lab.
+
+These are **not Marauder installation sources**: never cross-flash a binary without checking the exact board, flash layout, firmware documentation and recovery path. Keep transmission-based tests isolated and explicitly authorized. For inventory-only work, follow [Wardriving](../Wardriving/README.md).
+
 ## Firmware Installation & Setup
 
 ### Prerequisites
