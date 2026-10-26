@@ -229,3 +229,7 @@ When submitting payloads to this repository:
 - [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
 - [../../Mobile/mobile_pentest_sop.md](../../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (NetHunter DuckHunter runs DuckyScript from your phone)
 - [../../Mobile/OnePlus_A6003/Nethunter_SOP.md](../../Mobile/OnePlus_A6003/Nethunter_SOP.md) - NetHunter DuckHunter HID module SOP
+
+---
+
+[Section Index](../README.md) | [Master Index](../../README.md) | [Legal Notice](../../LEGAL.md)
