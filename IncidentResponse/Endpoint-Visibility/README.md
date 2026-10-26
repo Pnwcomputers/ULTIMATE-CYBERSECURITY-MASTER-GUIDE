@@ -86,6 +86,10 @@ Instrument hosts as a **SQL-queryable** surface. Covers installation (with the m
 
 These produce **point-in-time** observations; Sysmon, auditd, osquery and a SIEM still provide the continuous telemetry described below.
 
+### Post-assessment workstation provisioning (different phase)
+
+[PNWC DeployWorkstation](https://github.com/Pnwcomputers/DeployWorkstation) automates Windows application provisioning, updates and removal of selected preinstalled software. It belongs in an **approved deployment or rebuild workflow after** investigation, required evidence preservation and recovery planning—not in live malware triage. Test change lists on a disposable VM, obtain customer approval for removals and keep rollback/restore options available.
+
 ## 🚀 Deployment Workflow
 
 ```text
