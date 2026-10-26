@@ -387,6 +387,10 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 
 ---
 
+### Starred companion: OpenCanary log review
+
+[OpenCanaryChecker](https://github.com/7h30th3r0n3/OpenCanaryChecker) is a community script for parsing OpenCanary logs into more accessible activity summaries. Review the script and its dependencies before introducing it into an investigation; preserve original logs, timestamps and hashes as the evidence of record. Use the **upstream [OpenCanary](https://github.com/thinkst/opencanary)** documentation for current sensor configuration.
+
 ## 📚 Resources
 
 - **OpenCanary GitHub:** [github.com/thinkst/opencanary](https://github.com/thinkst/opencanary)
