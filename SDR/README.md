@@ -172,6 +172,13 @@ See [rfid.md](rfid.md) for the detailed workflows and [the master list](target_f
 
 ---
 
+## Starred SDR and antenna projects
+
+- [LakeShark](https://github.com/SAMS0N1TE/LakeShark) — a handheld SDR and radio-analysis research platform for selected ESP32-P4/LILYGO hardware with documented integrations including RTL-SDR, LoRa/MeshCore and common receive-only signal applications. Hardware modules, build support and licensed radio reception vary by configuration; confirm the **current upstream hardware matrix** before building.
+- [Mobile-Whip](https://github.com/skuep/Mobile-Whip) — a Mini-Whip-style active antenna design for low-power/battery-friendly RF receive experiments. Pair it with the [NanoVNA antenna guide](./nanovna/README.md) for measurement concepts, while recognizing that active receive antennas and passive antenna matching need different test setups.
+
+These are complementary **projects**, not required parts of a HackRF or NanoVNA installation. Use only permitted receive/transmit configurations; do not intercept or disclose protected communications.
+
 ## Target Frequencies and Protocols
 
 ### [📡 Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)
