@@ -87,6 +87,10 @@ The lightest-weight tool in this section — a log watcher that bans brute-forci
 
 ---
 
+### Complementary inventory and detection projects
+
+[NetAlertX](https://github.com/netalertx/NetAlertX) provides continuous network-device discovery and change visibility. It can help establish a device baseline and flag unfamiliar assets, but **it is not a replacement for packet-based IDS/IPS or a wireless intrusion detection sensor**. Correlate its findings with this section's [nzyme WIDS](./nzyme_wids.md), switch/AP logs, DHCP leases and authorized inventory before treating a device as hostile.
+
 ## 🤔 Which Guide Do I Need?
 
 ```text
