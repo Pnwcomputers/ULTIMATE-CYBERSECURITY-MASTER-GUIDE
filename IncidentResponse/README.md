@@ -289,3 +289,7 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+---
+
+[Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)
