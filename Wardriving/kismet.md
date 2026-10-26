@@ -20,6 +20,10 @@ _Last reviewed: 2026-10-22_
 
 For installation choose the maintained [Kismet Linux install guidance](https://www.kismetwireless.net/docs/readme/installing/linux/) for the *exact distribution* (including interface capabilities, `kismet` group permissions and package availability). Do not blindly assume `apt install kismet` supplies a modern version on every distro.
 
+### Selecting a Linux Wi-Fi capture adapter
+
+The maintained [USB-WiFi Linux adapter reference](https://github.com/morrownr/USB-WiFi) is a useful starting point for checking **in-kernel driver support and chipset-specific limitations** before buying or assigning an adapter. Verify monitor mode, capture behavior, antenna needs and your *actual Linux kernel*; advertised chipset support or ordinary client connectivity does not prove Kismet source compatibility. Use Kismet's own [supported capture-source documentation](https://www.kismetwireless.net/docs/readme/datasources/) for the final decision.
+
 ## 1. Identify interfaces and GPS
 
 On a Linux host:
