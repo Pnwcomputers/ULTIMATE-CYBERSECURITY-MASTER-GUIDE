@@ -55,3 +55,7 @@ The starred [ESP32 Bit Pirate firmware](https://github.com/geo-tp/ESP32-Bit-Pira
 - [JTAGulator.md](JTAGulator.md) - Identifies which pins are UART/JTAG before connecting a Bit Pirate or Bus Pirate
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify TX/RX signals and identify baud rate before connecting
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: UART signal levels, voltage compatibility, and baud rate concepts
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
