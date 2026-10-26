@@ -141,6 +141,11 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**AbstractAPI**](https://app.abstractapi.com/): Look up domain, phone and IP address information from AbstractAPI. *(Free · key optional)*
 * [**Veriphone**](https://veriphone.io/): Global Phone Lookup
 
+### Additional starred OSINT references
+
+- [Blackbird](https://github.com/antoniaci/blackbird) can search for public username/email associations across services. Treat matches as leads, not proof of identity; validate findings manually and obey terms, privacy and rate limits.
+- [OUI Master Database](https://github.com/Ringmast4r/OUI-Master-Database) helps enrich a MAC address with publicly documented vendor-prefix allocations. Use it with [authorized Wi-Fi survey evidence](../Wardriving/README.md); randomized or locally administered MAC addresses make vendor attribution unreliable.
+
 ### 8. SOCIAL MEDIA & IDENTITY
 * [**Social Media Profile Finder**](https://developers.google.com/custom-search): Tries to discover the social media profiles for human names identified. *(Free tier · key)*
 
