@@ -553,3 +553,7 @@ Key management is where most real deployments fail. See
 - [Classical/](Classical/) - Classical ciphers, leetspeak, homoglyphs, and cryptanalysis
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Applied transport encryption
 - [../WebAppSecurity/owasp-top-10.md](../WebAppSecurity/owasp-top-10.md) - A04 Cryptographic Failures
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
