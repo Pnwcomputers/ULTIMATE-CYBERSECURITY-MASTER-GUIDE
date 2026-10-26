@@ -457,6 +457,13 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 - [Unsafe Browser](https://tails.net/doc/anonymous_internet/unsafe_browser/index.en.html)
 - [Upgrading Tails](https://tails.net/doc/upgrade/index.en.html)
 
+### Off-grid secure messaging (separate from Tor anonymity)
+
+- [Reticulum](https://github.com/markqvist/Reticulum) is a cryptography-based transport/network stack for experimenting with resilient low-bandwidth links.
+- [Sideband](https://github.com/markqvist/Sideband) is an LXMF-compatible messaging client for supported platforms, useful for explicitly scoped off-grid communications exercises.
+
+Neither is a substitute for Whonix/Tails identity separation, nor does encryption alone guarantee anonymity, metadata protection or uncompromised endpoints. Read the **original author's** documentation, licensing and device-support notices; test with non-sensitive accounts and traffic before any operational use. See the [homelab](../Homelab/README.md) for isolated lab planning.
+
 ### Broader References
 
 - [Tor Browser manual](https://tb-manual.torproject.org/)
@@ -487,6 +494,6 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 
 </div>
 
-_Documentation reviewed: 2026-09-30. Comparison checked against official project documentation; hardware installation and isolation tests were not performed for this README update._
+_Whonix/Tails comparison reviewed: 2026-09-30. Off-grid project references checked: 2026-10-26. Hardware installation and isolation tests were not performed for this README update._
 
 [⬅️ Back to Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)
