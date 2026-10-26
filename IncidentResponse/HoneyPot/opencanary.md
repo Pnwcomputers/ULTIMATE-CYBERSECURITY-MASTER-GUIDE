@@ -422,3 +422,7 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+---
+
+[Section Index](readme.md) | [Master Index](../../README.md) | [Legal Notice](../../LEGAL.md)
