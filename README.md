@@ -104,7 +104,6 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Section | Description |
 |---|---|
-| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
 | 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
 | 📋 [Checklists](./Checklists/) | Pre-engagement, testing, and post-engagement checklists |
 | ☁️ [Cloud Security](./Cloud/) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
@@ -134,6 +133,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🗡️ [Tradecraft](./Tradecraft/) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
 | 📟 [uConsole](./uConsole/) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
 | 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
+| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
 | 🕸️ [Web Application Security](./WebAppSecurity/) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
 
 ### Subsection Indexes & Focused Entry Points
