@@ -68,7 +68,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**Microsoft Defender Threat Intelligence**](https://ti.defender.microsoft.com/): Passive DNS and Passive SSL data formerly served by RiskIQ / PassiveTotal. *(RiskIQ was acquired by Microsoft in 2021; the community.riskiq.com portal was retired and its data folded into Defender TI.)* *(Paid · key)*
 * [**Host.io**](https://host.io): Obtain information about domain names from host.io. *(Free tier · key)*
 * [**Zetalytics**](https://zetalytics.com/): Query the Zetalytics database for hosts on your target domain(s). *(Free tier · key)*
-* **ZoneFile.io**: Domain zone-file query API. *(⚠️ Service appears defunct as of 2026-08 — zonefiles.io no longer resolves. For bulk zone-file / newly-registered-domain data, consider [WhoisXML API](https://www.whoisxmlapi.com/) or [Whoisds](https://whoisds.com/newly-registered-domains) instead.)*
+* [**NetAPI**](https://netapi.com/zonefiles-io-api/): Domain query API compatible with the former ZoneFile.io API (zonefiles.io was shut down in August 2025). *(Free tier · key)*
 * [**CertSpotter**](https://sslmate.com/certspotter/): Gather information about SSL certificates from SSLMate CertSpotter API. *(Free tier · key)*
 * [**ViewDNS.info**](https://viewdns.info/): Identify co-hosted websites and perform reverse Whois lookups using ViewDNS.info. *(Free tier · key)*
 * [**JsonWHOIS.com**](https://jsonwhois.com): Search JsonWHOIS.com for WHOIS records associated with a domain. *(Free tier · key)*
