@@ -164,3 +164,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 - [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick command reference for these tools
 - [Playbook/README.md](Playbook/README.md) - Playbook that orchestrates these tools
 - [argus_osint.md](argus_osint.md) - Argus toolkit installation
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
