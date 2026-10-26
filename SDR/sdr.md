@@ -1620,7 +1620,7 @@ pip install urh
 urh  # Full GUI for signal capture, demodulation, and protocol analysis
 ```
 
-**Universal Radio Hacker (URH)** is the premier tool for ISM band protocol analysis - combines signal capture, bit decoding, and protocol structure analysis in a single application.
+**Universal Radio Hacker (URH)** combines compatible SDR signal capture, bit decoding and protocol structure analysis in one application. [Its original repository](https://github.com/jopohl/urh) is **archived as of October 2026**; regard these commands as a historical workflow, test dependencies in a pinned lab environment and independently verify modern device/OS compatibility before relying on it.
 
 ---
 
