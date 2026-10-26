@@ -476,3 +476,7 @@ Clones a legitimate AP's SSID to lure clients into connecting to a controlled ac
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: autonomous passive WiFi capture on Pi
 
 ---
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
