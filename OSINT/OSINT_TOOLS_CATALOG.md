@@ -141,13 +141,10 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**AbstractAPI**](https://app.abstractapi.com/): Look up domain, phone and IP address information from AbstractAPI. *(Free · key optional)*
 * [**Veriphone**](https://veriphone.io/): Global Phone Lookup
 
-### Additional starred OSINT references
-
-- [Blackbird](https://github.com/antoniaci/blackbird) can search for public username/email associations across services. Treat matches as leads, not proof of identity; validate findings manually and obey terms, privacy and rate limits.
-- [OUI Master Database](https://github.com/Ringmast4r/OUI-Master-Database) helps enrich a MAC address with publicly documented vendor-prefix allocations. Use it with [authorized Wi-Fi survey evidence](../Wardriving/README.md); randomized or locally administered MAC addresses make vendor attribution unreliable.
-
 ### 8. SOCIAL MEDIA & IDENTITY
 * [**Social Media Profile Finder**](https://developers.google.com/custom-search): Tries to discover the social media profiles for human names identified. *(Free tier · key)*
+
+* [**Blackbird**](https://github.com/antoniaci/blackbird): Public username/email association research; verify every identity match manually and respect site terms. *(Open source)*
 
 ### 9. CRYPTOCURRENCY & BLOCKCHAIN
 * [**Etherscan**](https://etherscan.io): Queries etherscan.io to find the balance of identified ethereum wallet addresses. *(Free · key optional)*
@@ -158,6 +155,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 ### 10. TORRENT, P2P & WIRELESS
 * [**Iknowwhatyoudownload.com**](https://iknowwhatyoudownload.com/en/peer/): Check iknowwhatyoudownload.com for IP addresses that have been using torrents. *(Free tier · key)*
 * [**WiGLE**](https://wigle.net/): Query WiGLE to identify nearby WiFi access points. *(Free · key)*
+* [**OUI Master Database**](https://github.com/Ringmast4r/OUI-Master-Database): Enrich observed MAC addresses with vendor prefixes; randomized/local MACs are unreliable for attribution. Use with [authorized surveying](../Wardriving/README.md). *(Open source)*
 
 ---
 
