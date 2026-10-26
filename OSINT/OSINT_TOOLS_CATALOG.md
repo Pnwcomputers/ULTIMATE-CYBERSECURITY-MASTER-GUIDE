@@ -30,6 +30,7 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | [**Holehe**](https://github.com/megadose/holehe) | Verification | Email-to-account registration enumeration. |
 | [**PhoneInfoga**](https://github.com/sundowndev/phoneinfoga) | Phone | Phone number intelligence and carrier tracking. |
 | [**Maigret**](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
+| [**Blackbird**](https://github.com/antoniaci/blackbird) | Enumeration | Username and public email-account association research; independently confirm identity matches. |
 | [**WhatsMyName**](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
 | [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
 | [**gallery-dl**](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
