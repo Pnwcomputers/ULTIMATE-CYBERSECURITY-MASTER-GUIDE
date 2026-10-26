@@ -233,3 +233,7 @@ See the API/GraphQL phase above, and record authorization, inputs, impact and re
 - [owasp-top-10.md](owasp-top-10.md) - the risk classes this methodology tests for
 - [../OSINT/scripts/Domain_IP_Recon.md](../OSINT/scripts/Domain_IP_Recon.md) - recon that feeds Phase 1
 - [../IncidentResponse/SIEM/README.md](../IncidentResponse/SIEM/README.md) - the defensive/detection side
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
