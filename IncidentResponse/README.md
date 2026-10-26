@@ -34,6 +34,7 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 
 - [Overview](#-overview)
 - [Tool & Infrastructure Categories](#️-tool--infrastructure-categories)
+- [PNWC field-response toolkit](#pnwc-field-response-toolkit-jwrapper-and-screenconnect-abuse)
 - [Deployment & Operations Workflow](#-deployment--operations-workflow)
 - [⚠️ CRITICAL Security, Privacy & Legal Warning](#️-critical-security-privacy--legal-warning)
 - [Contributing](#-contributing)
