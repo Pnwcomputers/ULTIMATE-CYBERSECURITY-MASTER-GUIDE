@@ -95,6 +95,14 @@ The routing, switching, and boundary protection of the lab.
 
 ---
 
+### Useful starred projects for isolated lab exercises
+
+- [WiFiForge](https://github.com/blackhillsinfosec/WifiForge) — a **virtual, sandboxed** wireless-security training environment built on Mininet-WiFi; ideal for rehearsing wireless attack/detection concepts without transmitting on real radio channels. Do not assume its virtual behavior reproduces every physical RF condition.
+- [Reticulum](https://github.com/markqvist/Reticulum) — a cryptography-oriented networking stack for experimentation with resilient, low-bandwidth networks and transports such as LoRa or IP. Test with non-sensitive messages first; it is **not an automatic guarantee of anonymity or operational security**. Review upstream design and supported interfaces before pairing devices.
+- [NetAlertX](https://github.com/netalertx/NetAlertX) — optional baseline discovery/change monitoring for your *authorized* lab subnets, complementing (rather than replacing) the [IDS/IPS guides](../IncidentResponse/IDS%26IPS/readme.md).
+
+Keep experiments on test VLANs with clear ownership, explicit routing/firewall rules, and separate credentials. Use the [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) to document scope.
+
 ## 🚀 Getting Started: Lab Architecture
 
 ### 1. Hardware Requirements
