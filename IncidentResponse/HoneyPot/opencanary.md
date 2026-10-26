@@ -403,7 +403,7 @@ For centralizing these logs into a SIEM alongside your other detection sources, 
 <div align="center">
 
 ## Related Files
-- [IncidentResponse/IDS&IPS/README.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/IDS%26IPS/README.md) - Signature/protocol-based detection on real traffic, the complement to this deception-based approach
+- [IDS & IPS Deployment Guides](../IDS%26IPS/readme.md) - Signature/protocol-based detection on real traffic, the complement to this deception-based approach
 - [IncidentResponse/log_agg.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/log_agg.md) - Centralized log collection, including wireless IDS forwarding patterns applicable here too
 - [IncidentResponse/SIEM/README.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/README.md) - Forward honeypot alerts into a SIEM for correlation with other detection sources
 - [PlayBooks/unauth_access.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/PlayBooks/unauth_access.md) - Unauthorized-access investigation playbook; a honeypot trigger is explicitly a low-severity classification there
