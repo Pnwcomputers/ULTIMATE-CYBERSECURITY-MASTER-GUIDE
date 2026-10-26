@@ -881,3 +881,7 @@ Infrastructure
 - [../Checklists/ActiveDirectory.md](../Checklists/ActiveDirectory.md) - AD attack checklist
 - [../Checklists/Domain-Escalation.md](../Checklists/Domain-Escalation.md) - Domain escalation checklist
 - [../Checklists/Domain-Persistence.md](../Checklists/Domain-Persistence.md) - Domain persistence checklist
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
