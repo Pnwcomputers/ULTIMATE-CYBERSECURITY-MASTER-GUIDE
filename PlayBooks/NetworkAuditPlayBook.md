@@ -904,3 +904,7 @@ For questions or suggestions, contact: [Your Contact Information]
 - [README.md](README.md) - PlayBooks section index
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile platform variant of this SOP (NetHunter as primary attack platform)
 - [../Mobile/OnePlus_A6003/Nethunter_SOP.md](../Mobile/OnePlus_A6003/Nethunter_SOP.md) - Per-module NetHunter field procedures
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)
