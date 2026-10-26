@@ -18,28 +18,8 @@ Enable security professionals to select the right Marauder hardware variant, fla
 ## Professional Wireless Security Testing with ESP32 Hardware
 
 > **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
-> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
-> **Skill Level:** Intermediate to Advanced wireless security
-
-## 🎯 Purpose
-Full deep-dive on the ESP32 Marauder firmware and hardware ecosystem - hardware selection, firmware installation, the complete feature set, and defensive/legal guidance. This is the reference document; [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) is the quick on-device command lookup once you already own and understand the hardware.
-
-## ⚙️ Function
-Fourteen sections covering hardware options and comparison against competing tools (WiFi Pineapple, HackRF, Flipper Zero, Pwnagotchi), firmware installation/flashing, the full menu/feature inventory, advanced attack scenarios, and detection/defense strategies. Unlike the cheat sheet, this file explains *why* and *when*, not just menu paths - read it once when evaluating or first setting up the hardware.
-
-## 🏆 Goal
-Choose the right Marauder hardware variant, get it flashed and configured, and understand the full attack/defense surface well enough to run an authorized wireless assessment and brief a client on findings.
-
-## 📋 When to Use
-- Evaluating which ESP32 Marauder hardware variant to buy
-- First-time firmware flash/setup on new hardware
-- Building the defensive/detection section of a wireless assessment deliverable
-
-## Professional Wireless Security Testing with ESP32 Hardware
-
-> **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
+> **Original guide baseline:** November 2025  
+> **Companion project links checked:** October 26, 2026  
 > **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
 > **Skill Level:** Intermediate to Advanced wireless security
 
@@ -474,8 +454,6 @@ Clones a legitimate AP's SSID to lure clients into connecting to a controlled ac
 - [flipper_zero_guide.md](flipper_zero_guide.md) - Flipper Zero + ESP32 Dev Board running Marauder firmware
 - [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5Project: alternative ESP32 WiFi attack platform
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: autonomous passive WiFi capture on Pi
-
----
 
 ---
 
