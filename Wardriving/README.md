@@ -93,7 +93,7 @@ Wardriving/
 - [Wardrive Go for Android](https://play.google.com/store/apps/details?id=com.rocketgod.wardrive) / [iOS](https://apps.apple.com/us/app/wardrive-go/id6783390938)
 - [Kismet wardrive mode](https://www.kismetwireless.net/docs/readme/configuring/wardrive/) / [WiGLE](https://wigle.net/)
 
-_Last verified against linked upstream documentation on 2026-10-22. Specific releases and UI labels can change. No hardware tests are claimed by these documents._
+_Core platform guides last verified on 2026-10-22; additional upstream repository references checked on 2026-10-26. Specific releases and UI labels can change. No hardware tests are claimed by these documents._
 
 ---
 
