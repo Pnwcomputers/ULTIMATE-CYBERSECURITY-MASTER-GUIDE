@@ -126,6 +126,10 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 
 ---
 
+## Related wireless assessment projects
+
+[AngryOxide](https://github.com/Ragnt/AngryOxide) is an actively developed Rust 802.11 assessment tool that can combine surveying with **active Wi-Fi attack/capture features**. It is a distinct toolchain, not part of the `hcxdumptool`/`hcxtools` command examples above. Use a deliberately isolated, authorized RF lab, confirm adapter support and firmware before testing, and avoid active interference during ordinary [wardriving](../Wardriving/README.md).
+
 ## Security and Ethical Considerations ⚠️
 
 **IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
@@ -147,3 +151,7 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive PMKID/handshake capture using hcxtools output
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32-based WiFi attacks (different hardware path)
 - [../Cryptography/Classical/security.md](../Cryptography/Classical/security.md) - Leet substitutions and hashcat leet rule files
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

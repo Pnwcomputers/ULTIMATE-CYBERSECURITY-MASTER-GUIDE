@@ -188,6 +188,13 @@ APIs are a major modern attack surface (see the OWASP API Security Top 10).
 
 ---
 
+### Starred references for authorized web/API assessments
+
+- [GraphQLmap](https://github.com/swisskyrepo/GraphQLmap) — scriptable GraphQL endpoint exploration and field testing for the approved target scope; use test accounts, non-destructive queries, and rate limits.
+- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) and [HackTricks](https://github.com/HackTricks-wiki/hacktricks) — technique references for planning test cases and finding corresponding mitigations. These contain potentially disruptive examples; **review and adapt**, rather than copying or executing them against production services.
+
+See the API/GraphQL phase above, and record authorization, inputs, impact and reproduction requirements before conducting tests.
+
 ## Phase 9: Reporting
 
 - Each finding: title, severity (with CVSS where useful), affected endpoint,
@@ -226,3 +233,7 @@ APIs are a major modern attack surface (see the OWASP API Security Top 10).
 - [owasp-top-10.md](owasp-top-10.md) - the risk classes this methodology tests for
 - [../OSINT/scripts/Domain_IP_Recon.md](../OSINT/scripts/Domain_IP_Recon.md) - recon that feeds Phase 1
 - [../IncidentResponse/SIEM/README.md](../IncidentResponse/SIEM/README.md) - the defensive/detection side
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

@@ -32,6 +32,16 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 
 **The Flipper Zero itself does not contain a Wi-Fi scanning radio.** It needs suitable external wireless hardware. ESP32-C5 can scan 2.4 and 5 GHz, but a *single* C5 Wi-Fi radio does not observe both bands simultaneously.
 
+## Additional starred field-survey platforms
+
+These are **alternatives**, not interchangeable firmware images or extra steps required by the six workflows above:
+
+- [ESP32 DualBand Wardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) — a dedicated ESP32-C5 wardriving project worth evaluating for a compact dual-band-capable survey build. Verify the exact board, GNSS source, logging format and release requirements; dual-band support does not imply simultaneous scanning.
+- [Piglet Wardriver](https://github.com/Hamspiced/piglet) — GPS-tagged Wi-Fi inventory with SD-card WiGLE-format CSV and a local web interface. A useful comparison when an ESP32 and local log review are preferable to a Flipper-driven workflow.
+- [OUI Master Database](https://github.com/Ringmast4r/OUI-Master-Database) — optional **post-collection** manufacturer enrichment for MAC addresses observed in a permitted survey. OUI matches are estimates, not proof of a device maker or identity; randomized and locally administered MACs may not resolve.
+
+Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-handling.md) in force regardless of platform. Do not activate transmit, deauthentication, credential-collection or captive-portal functions during a passive survey.
+
 ## Selecting a workflow
 
 | Your primary objective | Start with |
@@ -83,7 +93,7 @@ Wardriving/
 - [Wardrive Go for Android](https://play.google.com/store/apps/details?id=com.rocketgod.wardrive) / [iOS](https://apps.apple.com/us/app/wardrive-go/id6783390938)
 - [Kismet wardrive mode](https://www.kismetwireless.net/docs/readme/configuring/wardrive/) / [WiGLE](https://wigle.net/)
 
-_Last verified against linked upstream documentation on 2026-10-22. Specific releases and UI labels can change. No hardware tests are claimed by these documents._
+_Core platform guides last verified on 2026-10-22; additional upstream repository references checked on 2026-10-26. Specific releases and UI labels can change. No hardware tests are claimed by these documents._
 
 ---
 

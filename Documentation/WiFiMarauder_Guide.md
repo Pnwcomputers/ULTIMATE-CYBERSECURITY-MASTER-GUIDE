@@ -18,28 +18,8 @@ Enable security professionals to select the right Marauder hardware variant, fla
 ## Professional Wireless Security Testing with ESP32 Hardware
 
 > **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
-> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
-> **Skill Level:** Intermediate to Advanced wireless security
-
-## 🎯 Purpose
-Full deep-dive on the ESP32 Marauder firmware and hardware ecosystem - hardware selection, firmware installation, the complete feature set, and defensive/legal guidance. This is the reference document; [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) is the quick on-device command lookup once you already own and understand the hardware.
-
-## ⚙️ Function
-Fourteen sections covering hardware options and comparison against competing tools (WiFi Pineapple, HackRF, Flipper Zero, Pwnagotchi), firmware installation/flashing, the full menu/feature inventory, advanced attack scenarios, and detection/defense strategies. Unlike the cheat sheet, this file explains *why* and *when*, not just menu paths - read it once when evaluating or first setting up the hardware.
-
-## 🏆 Goal
-Choose the right Marauder hardware variant, get it flashed and configured, and understand the full attack/defense surface well enough to run an authorized wireless assessment and brief a client on findings.
-
-## 📋 When to Use
-- Evaluating which ESP32 Marauder hardware variant to buy
-- First-time firmware flash/setup on new hardware
-- Building the defensive/detection section of a wireless assessment deliverable
-
-## Professional Wireless Security Testing with ESP32 Hardware
-
-> **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
+> **Original guide baseline:** November 2025  
+> **Companion project links checked:** October 26, 2026  
 > **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
 > **Skill Level:** Intermediate to Advanced wireless security
 
@@ -166,6 +146,17 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - **[Main Online Store](https://justcallmekokollc.com/)**
 - **[Tindie Store](https://www.tindie.com/stores/justcallmekoko/)**
 ---
+
+### Related ESP32 assessment platforms (separate firmware)
+
+The following starred upstream projects are useful when selecting a **different platform** for an isolated wireless-security lab:
+
+- [GhostESP](https://github.com/GhostESP-Revival/GhostESP) — ESP-IDF-based ESP32 Wi-Fi/BLE research firmware.
+- [projectZero](https://github.com/C5Lab/projectZero) — ESP32-C5/Flipper wireless testing with active assessment features; verify board-specific firmware.
+- [Adversary](https://github.com/Isonimus/adversary) — ESP32-oriented multiradio/security research, with supported hardware determining which RF capabilities actually exist.
+- [WiFiForge](https://github.com/blackhillsinfosec/WifiForge) — a wireless training environment for practicing and detecting Wi-Fi attacks in a controlled lab.
+
+These are **not Marauder installation sources**: never cross-flash a binary without checking the exact board, flash layout, firmware documentation and recovery path. Keep transmission-based tests isolated and explicitly authorized. For inventory-only work, follow [Wardriving](../Wardriving/README.md).
 
 ## Firmware Installation & Setup
 
@@ -465,3 +456,5 @@ Clones a legitimate AP's SSID to lure clients into connecting to a controlled ac
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Pwnagotchi: autonomous passive WiFi capture on Pi
 
 ---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

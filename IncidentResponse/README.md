@@ -34,6 +34,7 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 
 - [Overview](#-overview)
 - [Tool & Infrastructure Categories](#️-tool--infrastructure-categories)
+- [PNWC field-response toolkit](#pnwc-field-response-toolkit-jwrapper-and-screenconnect-abuse)
 - [Deployment & Operations Workflow](#-deployment--operations-workflow)
 - [⚠️ CRITICAL Security, Privacy & Legal Warning](#️-critical-security-privacy--legal-warning)
 - [Contributing](#-contributing)
@@ -126,6 +127,12 @@ Post-incident artifact extraction and timeline reconstruction.
 | **[Live Response](./Digital-Forensics/LiveData/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
 
 ---
+
+## PNWC field-response toolkit: JWrapper and ScreenConnect abuse
+
+The [PNWC JWrapper & ScreenConnect RAT Remediation Toolkit](https://github.com/Pnwcomputers/JWrapper-ScreenConnect-RAT-Remediation-Toolkit) documents investigation and remediation of a specific remote-access-software abuse pattern observed in PNWC field cases. Use its **read-only detection workflow first** and preserve evidence before considering the state-changing remediation functions. A ScreenConnect installation alone is not evidence of malware; validate the installer, publisher, customer authorization, persistence mechanisms, timeline and network indicators. Verify the current IOCs and attribution independently rather than treating a dated campaign description as a current threat advisory.
+
+Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data_collection.md) for evidence acquisition, and the [phishing analysis SOP](../PlayBooks/sop_phishing_analysis.md) for initial delivery-vector triage.
 
 ## 🚀 Deployment & Operations Workflow
 
@@ -283,3 +290,7 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 ⭐ **Star this repo if you find it useful!** ⭐
 
 </div>
+
+---
+
+[Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)

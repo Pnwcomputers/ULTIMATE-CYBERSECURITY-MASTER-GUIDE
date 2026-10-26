@@ -189,6 +189,10 @@ For legitimate IT/security work:
 3. **Secure** payloads and results appropriately
 4. **Follow** responsible disclosure practices
 
+## Companion USB HID research (different firmware and build process)
+
+[Pico WiFi Duck](https://github.com/majdsassi/Pico-WIFI-Duck) explores Wi-Fi-controlled HID emulation using a Raspberry Pi Pico W. It is **not Hak5 USB Rubber Ducky hardware**; this guide's DuckyScript, `inject.bin`, device setup and supported commands cannot be assumed compatible. Use a disposable test host, restrict wireless access, and do not reuse old linked firmware downloads without verifying the source and release integrity.
+
 ## Resources
 
 - **Hak5 Forums**: https://forums.hak5.org/
@@ -225,3 +229,7 @@ When submitting payloads to this repository:
 - [../../Documentation/LinuxCheatSheet.md](../../Documentation/LinuxCheatSheet.md) - Linux commands used in payloads
 - [../../Mobile/mobile_pentest_sop.md](../../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (NetHunter DuckHunter runs DuckyScript from your phone)
 - [../../Mobile/OnePlus_A6003/Nethunter_SOP.md](../../Mobile/OnePlus_A6003/Nethunter_SOP.md) - NetHunter DuckHunter HID module SOP
+
+---
+
+[Section Index](../README.md) | [Master Index](../../README.md) | [Legal Notice](../../LEGAL.md)

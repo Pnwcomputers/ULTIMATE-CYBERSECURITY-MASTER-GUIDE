@@ -880,8 +880,16 @@ Remove-Item -Recurse "$env:USERPROFILE\.autopsy"
 
 *Part of the Incident Response & Log Aggregation Branch*
 
+## Adjacent PNWC recovery workflow — separate from forensics
+
+[PNWC Fix-DriveAccess](https://github.com/Pnwcomputers/Fix-DriveAccess) helps technicians assess and rescue customer data from Windows volumes with orphaned file-owner SIDs and inaccessible ACLs. Its read-only assessment and copy-to-another-volume approach are useful for a **consented repair/recovery job**, but this is **not forensic acquisition**: ownership/permission repair writes metadata to the source and can alter evidence. For investigations, acquire and verify a protected image before applying any ACL changes, follow chain-of-custody procedures and never mistake NTFS permissions for BitLocker decryption.
+
 ## Related Files
 - [../../../README.md](../../../README.md) - IncidentResponse section index
 - [../Memory/volatility_cheatsheet.md](../Memory/volatility_cheatsheet.md) - Memory forensics to pair with disk analysis
 - [../LiveData/live_data_collection.md](../LiveData/live_data_collection.md) - Live response before disk imaging
 - [../../SIEM/splunk.md](../../SIEM/splunk.md) - SIEM for correlating disk forensics findings
+
+---
+
+[Section Index](../README.md) | [Master Index](../../../README.md) | [Legal Notice](../../../LEGAL.md)

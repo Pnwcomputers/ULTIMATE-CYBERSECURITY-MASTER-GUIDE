@@ -79,6 +79,15 @@ Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Auto
 
 ---
 
+### Specialized starred projects to evaluate
+
+- [Linux Write Blocker](https://github.com/msuhanov/Linux-write-blocker) — kernel patch and utilities illustrating why a read-only filesystem mount is not always sufficient to prevent writes. This is **older, kernel-specific research** and is not a validated replacement for a hardware write blocker.
+- [Digler](https://github.com/ostafen/digler) — Go-based disk analysis and file carving with CLI/GUI interfaces. Its upstream README calls it **early development**; test using duplicate images and never save recovered files to the evidence device.
+- [FastFinder](https://github.com/codeyourweb/fastfinder) — tool for triaging suspicious files during response; record the version, search criteria and hashes for repeatability.
+- [Awesome Forensics](https://github.com/cugu/awesome-forensics) — curated discovery list for forensic tools and resources; evaluate linked projects individually before relying on them for evidence.
+
+Use these as companions to [Autopsy/KAPE](./Disks/autopsy_kape.md) and [live-data collection](./LiveData/live_data_collection.md), not substitutes for authorization, write protection, forensic imaging or chain of custody.
+
 ## 🧭 Order of Volatility
 
 ```text

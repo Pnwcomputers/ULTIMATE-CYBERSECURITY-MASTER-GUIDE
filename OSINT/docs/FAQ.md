@@ -16,10 +16,10 @@ A: Run `./playbook/osint_investigator.sh` — it's an interactive menu that walk
 ## Installation
 
 **Q: What Linux distros are supported?**
-A: Tsurugi Linux (recommended), Kali, Ubuntu 22.04+, Debian 12+, Parrot OS, and Arch/Manjaro. See [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
+A: Tsurugi Linux (recommended), Kali, Ubuntu 22.04+, Debian 12+, Parrot OS, and Arch/Manjaro. See [docs/COMPATIBILITY.md](COMPATIBILITY.md).
 
 **Q: The installer fails on my system — what do I do?**
-A: Run `./playbook/osint_investigator.sh --status` to see which tools are missing, then install them manually. The [Installation Guide](docs/INSTALLATION.md) has per-tool instructions.
+A: Run `./playbook/osint_investigator.sh --status` to see which tools are missing, then install them manually. The [Installation Guide](INSTALLATION.md) has per-tool instructions.
 
 **Q: Do I need all the tools installed?**
 A: No. The scripts gracefully skip tools that aren't installed and warn you. At minimum you need `nmap`, `whois`, `curl`, and `jq` for basic recon. The more tools you have, the richer the output.
@@ -61,7 +61,7 @@ A: Case data saves to `~/OSINT_Cases/<CASE_ID>/`. Raw API/tool output goes in `r
 A: Holehe checks account registration via password-reset flows. Many platforms now block or rate-limit these checks. Results are best-effort — a negative result doesn't mean the account doesn't exist.
 
 **Q: `theHarvester` says "Missing API key."**
-A: theHarvester reads from `~/.theHarvester/api-keys.yaml`. See [docs/INSTALLATION.md](docs/INSTALLATION.md) for setup instructions.
+A: theHarvester reads from `~/.theHarvester/api-keys.yaml`. See [docs/INSTALLATION.md](INSTALLATION.md) for setup instructions.
 
 **Q: nmap scans fail without root.**
 A: Some nmap scan types (SYN scan, OS detection) require root. Run with `sudo`, or use the investigator's built-in sudo handling.

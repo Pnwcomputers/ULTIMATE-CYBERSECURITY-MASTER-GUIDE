@@ -765,6 +765,15 @@ References:
 
 ---
 
+### Report-building and quality review references
+
+- [PwnDoc](https://github.com/pwndoc/pwndoc) supports reusable findings, audit review, CVSS v3/v4, collaborative authoring and configurable DOCX report templates. It is a **report-authoring option**, not an automated substitute for evidence validation, severity review, client-specific remediation or secure storage of engagement data.
+- [Public Penetration Testing Reports](https://github.com/juliocesarfort/public-pentesting-reports) provides publicly released examples for studying structure, scope statements, evidence presentation and executive summaries. Treat third-party report formats as examples, not reusable client data or permission to copy protected content.
+
+Before delivery, review redactions, attachments, timestamps, scope and finding ownership; retain the final signed-off version and evidence manifest under the engagement retention policy.
+
+---
+
 ## SECTION 8: TOOL REFERENCE GUIDE
 
 ### 8.1 PWNAGOTCHI
@@ -895,3 +904,7 @@ For questions or suggestions, contact: [Your Contact Information]
 - [README.md](README.md) - PlayBooks section index
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile platform variant of this SOP (NetHunter as primary attack platform)
 - [../Mobile/OnePlus_A6003/Nethunter_SOP.md](../Mobile/OnePlus_A6003/Nethunter_SOP.md) - Per-module NetHunter field procedures
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

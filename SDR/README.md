@@ -47,6 +47,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 - [Choose a Starting Point](#choose-a-starting-point)
 - [Hardware Ecosystem](#hardware-ecosystem)
 - [Software and Tool Categories](#software-and-tool-categories)
+- [Starred SDR and antenna projects](#starred-sdr-and-antenna-projects)
 - [Target Frequencies and Protocols](#target-frequencies-and-protocols)
 - [Safe Workflows](#safe-workflows)
 - [Security and Legal Boundaries](#security-and-legal-boundaries)
@@ -171,6 +172,14 @@ Use the host-tool documentation and the [controlled bench procedure](../PlayBook
 See [rfid.md](rfid.md) for the detailed workflows and [the master list](target_frequencies_protocols.md) for LF/HF/UHF distinctions.
 
 ---
+
+## Starred SDR and antenna projects
+
+- [LakeShark](https://github.com/SAMS0N1TE/LakeShark) — a handheld SDR and radio-analysis research platform for selected ESP32-P4/LILYGO hardware with documented integrations including RTL-SDR, LoRa/MeshCore and common receive-only signal applications. Hardware modules, build support and licensed radio reception vary by configuration; confirm the **current upstream hardware matrix** before building.
+- [CatSniffer](https://github.com/ElectronicCats/CatSniffer) — a hardware platform for **selected low-power IoT radio protocols** using board-specific radios and firmware (including CC1352/SX1262 configurations). Useful for Zigbee/Thread/LoRa-type protocol labs when supported by the exact hardware/firmware build; it is **not** a generic Wi-Fi monitor-mode adapter or a universal SDR. Follow the [hardware hacking basics](../HardwareHacking/README.md) for power, pin and target-ownership checks.
+- [Mobile-Whip](https://github.com/skuep/Mobile-Whip) — a Mini-Whip-style active antenna design for low-power/battery-friendly RF receive experiments. Pair it with the [NanoVNA antenna guide](./nanovna/README.md) for measurement concepts, while recognizing that active receive antennas and passive antenna matching need different test setups.
+
+These are complementary **projects**, not required parts of a HackRF or NanoVNA installation. Use only permitted receive/transmit configurations; do not intercept or disclose protected communications.
 
 ## Target Frequencies and Protocols
 
@@ -333,3 +342,7 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE) · [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
 </div>
+
+---
+
+[Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)

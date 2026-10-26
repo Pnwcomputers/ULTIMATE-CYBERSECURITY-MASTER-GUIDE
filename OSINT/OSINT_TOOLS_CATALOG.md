@@ -30,6 +30,7 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | [**Holehe**](https://github.com/megadose/holehe) | Verification | Email-to-account registration enumeration. |
 | [**PhoneInfoga**](https://github.com/sundowndev/phoneinfoga) | Phone | Phone number intelligence and carrier tracking. |
 | [**Maigret**](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
+| [**Blackbird**](https://github.com/antoniaci/blackbird) | Enumeration | Username and public email-account association research; independently confirm identity matches. |
 | [**WhatsMyName**](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
 | [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
 | [**gallery-dl**](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
@@ -144,6 +145,8 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 ### 8. SOCIAL MEDIA & IDENTITY
 * [**Social Media Profile Finder**](https://developers.google.com/custom-search): Tries to discover the social media profiles for human names identified. *(Free tier · key)*
 
+* [**Blackbird**](https://github.com/antoniaci/blackbird): Public username/email association research; verify every identity match manually and respect site terms. *(Open source)*
+
 ### 9. CRYPTOCURRENCY & BLOCKCHAIN
 * [**Etherscan**](https://etherscan.io): Queries etherscan.io to find the balance of identified ethereum wallet addresses. *(Free · key optional)*
 * [**BitcoinAbuse**](https://www.bitcoinabuse.com/): Check Bitcoin addresses against the bitcoinabuse.com database of suspect/malicious addresses. *(Free · key)*
@@ -153,6 +156,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 ### 10. TORRENT, P2P & WIRELESS
 * [**Iknowwhatyoudownload.com**](https://iknowwhatyoudownload.com/en/peer/): Check iknowwhatyoudownload.com for IP addresses that have been using torrents. *(Free tier · key)*
 * [**WiGLE**](https://wigle.net/): Query WiGLE to identify nearby WiFi access points. *(Free · key)*
+* [**OUI Master Database**](https://github.com/Ringmast4r/OUI-Master-Database): Enrich observed MAC addresses with vendor prefixes; randomized/local MACs are unreliable for attribution. Use with [authorized surveying](../Wardriving/README.md). *(Open source)*
 
 ---
 
@@ -161,3 +165,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 - [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) - Quick command reference for these tools
 - [Playbook/README.md](Playbook/README.md) - Playbook that orchestrates these tools
 - [argus_osint.md](argus_osint.md) - Argus toolkit installation
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

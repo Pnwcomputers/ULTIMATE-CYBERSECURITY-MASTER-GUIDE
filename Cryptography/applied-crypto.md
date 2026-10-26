@@ -542,6 +542,10 @@ Key management is where most real deployments fail. See
 
 ---
 
+## Applied encryption hardware research
+
+[PNWC ESP32-S3 Encrypted Vault](https://github.com/Pnwcomputers/esp32-s3-encrypted-vault) is a practical development project using AES-256-GCM encrypted microSD storage and a local ESP32-S3 unlock workflow. Read its current threat model, key derivation, firmware build notes and recovery limitations before testing. **The upstream README labels it a development build for disposable test data; do not rely on it for production secrets or irreplaceable files.** This provides a useful case study in authenticated encryption, key handling, USB exposure and embedded-device attack surfaces—not a certification of storage security.
+
 ## Related Files
 
 - [README.md](README.md) - Cryptography section index
@@ -549,3 +553,7 @@ Key management is where most real deployments fail. See
 - [Classical/](Classical/) - Classical ciphers, leetspeak, homoglyphs, and cryptanalysis
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Applied transport encryption
 - [../WebAppSecurity/owasp-top-10.md](../WebAppSecurity/owasp-top-10.md) - A04 Cryptographic Failures
+
+---
+
+[Section Index](README.md) | [Master Index](../README.md) | [Legal Notice](../LEGAL.md)

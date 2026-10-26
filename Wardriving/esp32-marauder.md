@@ -80,6 +80,10 @@ Current documented firmware imports the files on boot and removes them. Never as
 | No WiGLE upload | Service approval, Wi-Fi join, imported credentials, limits and response |
 | Flash failure | Exact target image/bootloader/USB port; **never** use a generic C5 binary without target compatibility |
 
+## Related firmware: choose deliberately
+
+[GhostESP](https://github.com/GhostESP-Revival/GhostESP) and [projectZero](https://github.com/C5Lab/projectZero) are separate ESP32 wireless-security firmware projects, **not Marauder extensions or drop-in images**. Compare their supported chipsets, boards, bootloaders, export formats and radio capabilities against this Marauder procedure before using either. Their active-testing capabilities belong only in a scoped, authorized wireless assessment, never in the passive wardriving workflow described above.
+
 ## Official references
 
 - [Marauder source](https://github.com/justcallmekoko/ESP32Marauder)

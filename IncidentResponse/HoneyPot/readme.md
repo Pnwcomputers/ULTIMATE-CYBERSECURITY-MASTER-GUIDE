@@ -88,6 +88,10 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 ---
 
+### Small embedded deception sensors
+
+[NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
+
 ## 🤔 How This Fits With IDS/IPS and SIEM
 
 ```text
