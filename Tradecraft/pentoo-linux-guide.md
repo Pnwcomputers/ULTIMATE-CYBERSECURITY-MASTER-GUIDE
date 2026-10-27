@@ -4,7 +4,7 @@
 > **Authorized testing only.** Conduct reconnaissance, vulnerability testing, wireless assessment, and exploitation only against systems explicitly included in a written scope or a controlled lab. A tool being available in Pentoo does not authorize using it. See [LEGAL.md](../LEGAL.md) and [the operational playbooks](../PlayBooks/README.md).
 
 **Platform:** Pentoo Linux (Gentoo-based live distribution and Gentoo security-tool overlay) · **Last reviewed:** 2026-10-26  
-**Position in repository:** [Tradecraft](README.md) → authorized penetration testing; companion to [network audit](../PlayBooks/NetworkAuditPlayBook.md), [web assessment](../WebAppSecurity/methodology.md), [wireless surveying](../Wardriving/README.md), and [OPSEC](../OPSEC/README.md).
+**Position in repository:** [Tradecraft](./README.md) → authorized penetration testing; companion to [network audit](../PlayBooks/NetworkAuditPlayBook.md), [web assessment](../WebAppSecurity/methodology.md), [wireless surveying](../Wardriving/README.md), and [OPSEC](../OPSEC/README.md).
 
 ## 🎯 Purpose
 
@@ -167,9 +167,9 @@ Pentoo's overlay includes penetration-testing packages across **network analysis
 | Asset discovery and services | Nmap, Wireshark/TShark | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) |
 | Web application assessment | Burp Suite, OWASP ZAP, curl | [Web methodology](../WebAppSecurity/methodology.md) |
 | Wi-Fi surveys | Aircrack-ng suite, Kismet, iw | [Wardriving](../Wardriving/README.md) |
-| Infrastructure review | dig, whois, SSL/TLS inspection utilities | [OSINT/threat intelligence](osint-threat-intel.md) |
+| Infrastructure review | dig, whois, SSL/TLS inspection utilities | [OSINT/threat intelligence](./osint-threat-intel.md) |
 | Binary inspection | Ghidra, objdump, file | [Reverse Engineering](../ReverseEngineering/README.md) |
-| Exploit validation (advanced) | Metasploit and other authorized validation tools | [Tradecraft](README.md) and [Playbooks](../PlayBooks/README.md) |
+| Exploit validation (advanced) | Metasploit and other authorized validation tools | [Tradecraft](./README.md) and [Playbooks](../PlayBooks/README.md) |
 
 ~~~bash
 # Inventory only; tool availability must be verified on the actual host.
@@ -217,7 +217,7 @@ nmap --help | head -35
 
 The commented command performs **active** TCP connection and service-version probing; it is not passive OSINT. Before enabling, confirm authorization includes port/service scanning, verify the exact target and rate limits, and consider the effect on fragile devices.
 
-Afterward correlate **confirmed** open ports with asset owners, firewall rules, exposed management services and software versions. A banner alone is not proof of a vulnerability. Use [the network-detection guide](network-detection.md) to design complementary blue-team validation.
+Afterward correlate **confirmed** open ports with asset owners, firewall rules, exposed management services and software versions. A banner alone is not proof of a vulnerability. Use [the network-detection guide](./network-detection.md) to design complementary blue-team validation.
 
 ### 6.3 Web assessment (test app, staging or production by authorization)
 
@@ -242,7 +242,7 @@ Map a suspected weakness to its prerequisites, affected version/configuration, c
 
 ### 6.5 Blue/purple-team follow-through
 
-Pair confirmed exposures with a defense and detection check: identify expected DNS, flow, IDS, HTTP, authentication, host or EDR signals; verify those logs actually existed during the approved test; record false negatives. Refer to [Incident Response](../IncidentResponse/README.md), [Network Detection](network-detection.md), and [SIEM](../IncidentResponse/SIEM/README.md).
+Pair confirmed exposures with a defense and detection check: identify expected DNS, flow, IDS, HTTP, authentication, host or EDR signals; verify those logs actually existed during the approved test; record false negatives. Refer to [Incident Response](../IncidentResponse/README.md), [Network Detection](./network-detection.md), and [SIEM](../IncidentResponse/SIEM/README.md).
 
 ## 7. Wireless assessment considerations
 
@@ -294,7 +294,7 @@ Save native tool outputs plus command, UTC time, tool version, target, authoriza
 
 **Primary sources:** [Pentoo website](https://www.pentoo.ch/) · [Downloads](https://www.pentoo.ch/downloads/) · [Pentoo overlay README](https://github.com/pentoo/pentoo-overlay) · [Pentoo overlay repository](https://github.com/pentoo/pentoo-overlay/tree/master/pentoo) · [Gentoo Handbook](https://wiki.gentoo.org/wiki/Handbook:Main_Page). Historical Pentoo wiki articles may predate the move from layman to eselect-repository.
 
-**PNWC:** [Tradecraft index](README.md) · [Network Audit](../PlayBooks/NetworkAuditPlayBook.md) · [Web App Security](../WebAppSecurity/README.md) · [Wardriving](../Wardriving/README.md) · [Digital Forensics](../IncidentResponse/Digital-Forensics/README.md) · [OPSEC](../OPSEC/README.md) · [Main guide](../README.md).
+**PNWC:** [Tradecraft index](./README.md) · [Network Audit](../PlayBooks/NetworkAuditPlayBook.md) · [Web App Security](../WebAppSecurity/README.md) · [Wardriving](../Wardriving/README.md) · [Digital Forensics](../IncidentResponse/Digital-Forensics/README.md) · [OPSEC](../OPSEC/README.md) · [Main guide](../README.md).
 
 ---
 
