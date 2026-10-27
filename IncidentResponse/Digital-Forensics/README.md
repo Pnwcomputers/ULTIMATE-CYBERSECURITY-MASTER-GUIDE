@@ -62,11 +62,16 @@ This sub-section covers the three domains you will use most: **memory**, **disk*
 |--------|-------|----------|---------------|
 | 🧠 **Memory** | **[Memory/volatility_cheatsheet.md](./Memory/volatility_cheatsheet.md)** | RAM dump (volatile) | Volatility 3 |
 | 🚨 **Live Response** | **[LiveData/live_data_collection.md](./LiveData/live_data_collection.md)** | Running-system state | WinPmem, DumpIt, avml |
+| 🧰 **Portable DFIR** | **[Tsurugi Bento Field Guide](./tsurugi-bento-portable-dfir-guide.md)** | Live triage and verified acquisitions on running Windows endpoints | Bento, SyMenu, Sysinternals, FTK/WinPmem (if available) |
 | 💽 **Disk** | **[Disks/autopsy_kape.md](./Disks/autopsy_kape.md)** | Disk image (non-volatile) | Autopsy, KAPE, FTK Imager |
 
 ---
 
 ## 📚 Analysis Guides
+
+### 🧰 [Tsurugi Bento — Portable DFIR Field Guide](./tsurugi-bento-portable-dfir-guide.md)
+Build a SyMenu-based field USB, preserve evidence on a separate encrypted device, and follow worked Windows live-response procedures for process/network snapshots, persistence, EVTX, RAM, imaging, artifact triage, hashing, and reports. **Bento is a Windows-first live triage toolbox, not a read-only OS or full analysis platform.**
+
 
 ### 🧠 [Memory Forensics — Volatility 3](./Memory/volatility_cheatsheet.md)
 The full analysis workflow for Windows and Linux memory dumps. Covers the Volatility 3 plugin taxonomy (`windows.pslist`, `windows.cmdline`, `windows.netscan`, `windows.malfind`, `windows.dlllist`), process and network-connection analysis, injected-code detection, registry-hive extraction, and artifact recovery — the fastest route to malware and IoCs that never touch disk.
