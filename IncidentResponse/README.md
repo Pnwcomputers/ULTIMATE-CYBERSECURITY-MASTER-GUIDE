@@ -125,6 +125,7 @@ Post-incident artifact extraction and timeline reconstruction.
 | **[Memory Analysis](./Digital-Forensics/Memory)** | Cheatsheets for extracting malware, processes, and keys from RAM. | Volatility, Rekall |
 | **[Disk Forensics](./Digital-Forensics/Disks)** | Guides for parsing NTFS artifacts, registry hives, and event logs. | Autopsy, KAPE, FTK Imager |
 | **[Live Response](./Digital-Forensics/LiveData/live_data_collection.md)** | Scripts for gathering volatile data safely from a compromised host. | KAPE, Custom Scripts |
+| **[Tsurugi Bento Portable DFIR](./Digital-Forensics/tsurugi-bento-portable-dfir-guide.md)** | Windows-first field response USB, triage workflows, evidence export and verification. | Bento / SyMenu, Sysinternals, imaging and hashing tools |
 
 ---
 
