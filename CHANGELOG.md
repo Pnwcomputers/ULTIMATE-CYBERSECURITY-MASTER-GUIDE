@@ -1,14 +1,15 @@
-# 🔄 Change Log - October 26, 2026
+# 🔄 Change Log - October 27, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1502
-- **Files Modified**: 1930
-- **New Files**: 739
+- **Commits Analyzed**: 1503
+- **Files Modified**: 1934
+- **New Files**: 740
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs(OSINT): add Tsurugi Linux 26.03 deployment and practical investigation guide (#133) (`3af3e34`)
 - docs: add Wardriving hub with SigRoam, Marauder, Biscuit, AWOK, Wardrive Go and Kismet (#128) (`1948c94`)
 - ci: bump peter-evans/create-pull-request from 7.0.11 to 8.1.1 (#118) (`7fe93dd`)
 - docs: add security remediation and staging plan (#111) (`628803a`)
@@ -1526,7 +1527,11 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/README.md`
+- `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
 - `README.md`
+- `CHANGELOG.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `.github/workflows/auto_changelog.yml`
 - `.github/workflows/cm5-parrot-checks.yml`
@@ -1565,7 +1570,6 @@
 - `Wardriving/sigroam-scout-lite.md`
 - `Wardriving/wardrive-go.md`
 - `firmware-hardware-compatibility.md`
-- `CHANGELOG.md`
 - `Scripts/PINNING.md`
 - `Scripts/pnwc_install_tools.sh`
 - `OSINT/Playbook/toolkit_integration.sh`
@@ -1628,7 +1632,6 @@
 - `OSINT/Playbook/branding.conf.example`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/Playbook/tools_api.md`
-- `OSINT/README.md`
 - `OSINT/docs/COMPATIBILITY.md`
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
@@ -1818,7 +1821,6 @@
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
-- `OSINT/OSINT_GUIDE.md`
 - `PDF/.gitirnore`
 - `PDF/docker-pen-test.pdf`
 - `PDF/ssh-pen-testing.pdf`
