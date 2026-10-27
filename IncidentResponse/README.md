@@ -99,7 +99,7 @@ Visibility into East/West and North/South traffic flows.
 |---|---|
 | [OpenBSD PF Firewall](./Firewalls/openbsd_pf.md) | PF rulesets, NAT, network-edge deployments, high availability, and logging |
 
-Pair firewall enforcement with [network intrusion response](./network_intrusion.md) and [log aggregation](./log_agg.md). For analysis of an acquired binary, use the [Reverse Engineering index](../ReverseEngineering/README.md) after the sample is contained.
+Pair firewall enforcement with [network intrusion response](./network_intrusion.md) and [log aggregation](./log_agg.md). For analysis of an acquired binary, use the [Reverse Engineering index](../ReverseEngineering/README.md) after the sample is contained. For a dedicated, isolated malware-triage workstation, see the [REMnux Malware Analysis Guide](../ReverseEngineering/remnux-malware-analysis-guide.md).
 
 ---
 

@@ -420,13 +420,13 @@ Use a **throwaway Windows test VM you own**, with a known-good Bento copy and se
 
 **Scenario:** "A lab user noticed a new application and wants a concise system snapshot before troubleshooting."
 
-1. **Preflight:** record date, VM name, OS build, tool and evidence volumes, authorization (your lab), and create the case folder using `5.
+1. **Preflight:** record date, VM name, OS build, tool and evidence volumes, authorization (your lab), and create the case folder using [section 5](#5-create-a-case-and-safely-select-the-evidence-destination).
 2. **Generate benign activity:** launch Notepad and create a non-sensitive text file (e.g. `C:\Lab\benign-training.txt`).
-3. **System snapshot:** execute `6 commands; note that Notepad was running during collection.
-4. **Persistence check:** in `7 run the Windows startup commands. Use **Autoruns in observation-only mode** if available; don't disable a single entry.
-5. **Event logs:** export System and Application as in `8; expect they may contain other unrelated entries—minimize what goes in the final report.
-6. **File-level acquisition:** copy the harmless training file to your **separate evidence disk**. Run the source/copy validation from `10.2; it should report `Match=True` if contents are unchanged.
-7. **Manifest:** create a SHA-256 manifest of **raw/** as in `13. Confirm all intended evidence files exist, and document failures.
+3. **System snapshot:** execute the commands in [section 6](#6-procedure-a-live-windows-system-and-network-snapshot); note that Notepad was running during collection.
+4. **Persistence check:** in [section 7](#7-procedure-b-persistence-processes-and-suspicious-executables), run the Windows startup commands. Use **Autoruns in observation-only mode** if available; don't disable a single entry.
+5. **Event logs:** export System and Application as in [section 8](#8-procedure-c-collect-original-windows-event-logs); expect they may contain other unrelated entries—minimize what goes in the final report.
+6. **File-level acquisition:** copy the harmless training file to your **separate evidence disk**. Run the source/copy validation from [section 10.2](#102-focused-file-level-collection-when-full-imaging-is-not-necessary); it should report `Match=True` if contents are unchanged.
+7. **Manifest:** create a SHA-256 manifest of **raw/** as in [section 13](#13-preserve-verify-and-report). Confirm all intended evidence files exist, and document failures.
 8. **Report:** write a timeline of "started VM → created test file → captured state → exported logs → verified file", including UTC timestamps and any limitations.
 9. **Handoff:** mount a **copy** of the evidence disk to the analysis VM, verify hashes again and inspect only the copy.
 10. **Post-lab review:** track which tools were missing/required downloading, which actions changed the live host, and whether the collected artifacts can actually answer the test question.

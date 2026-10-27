@@ -100,6 +100,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | **Geolocation_OSINT.md** | Image analysis and geolocation | 🔨 Planned |
 | **People_Search.md** | Person investigation methodologies | 🔨 Planned |
 | **[argus_osint.md](./argus_osint.md)** | How-to for installing the Argus OSINT Python Utility | ✅ Complete |
+| **[Tsurugi Linux OSINT Guide](./TSURUGI_LINUX_OSINT_GUIDE.md)** | Verified Tsurugi LAB setup, OSINT profile, native tools, case and evidence workflows | ✅ Complete |
 
 ### Scripts & Automation
 
@@ -147,7 +148,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 1. **Start Here**: Read the [OSINT_GUIDE.md](./OSINT_GUIDE.md) introduction
 2. **Learn the Methodology**: Understand the OSINT intelligence cycle
-3. **Set Up Your Environment**: Follow the VM setup guide
+3. **Set Up Your Environment**: Follow the VM setup guide; for Tsurugi LAB use the [Tsurugi Linux OSINT Guide](./TSURUGI_LINUX_OSINT_GUIDE.md)
 4. **Practice**: Try the investigation workflows on authorized targets
 5. **Stay Legal**: Review the legal and ethical considerations section
 

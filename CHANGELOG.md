@@ -1,14 +1,16 @@
-# 🔄 Change Log - October 26, 2026
+# 🔄 Change Log - October 27, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1502
-- **Files Modified**: 1930
-- **New Files**: 739
+- **Commits Analyzed**: 1504
+- **Files Modified**: 1940
+- **New Files**: 742
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Pentoo Linux and REMnux platform-specific field guides (#134) (`769adf8`)
+- docs(OSINT): add Tsurugi Linux 26.03 deployment and practical investigation guide (#133) (`3af3e34`)
 - docs: add Wardriving hub with SigRoam, Marauder, Biscuit, AWOK, Wardrive Go and Kismet (#128) (`1948c94`)
 - ci: bump peter-evans/create-pull-request from 7.0.11 to 8.1.1 (#118) (`7fe93dd`)
 - docs: add security remediation and staging plan (#111) (`628803a`)
@@ -1526,7 +1528,18 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/README.md`
 - `README.md`
+- `ReverseEngineering/README.md`
+- `ReverseEngineering/remnux-malware-analysis-guide.md`
+- `START_HERE.md`
+- `Tradecraft/README.md`
+- `Tradecraft/pentoo-linux-guide.md`
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/README.md`
+- `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
+- `CHANGELOG.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `.github/workflows/auto_changelog.yml`
 - `.github/workflows/cm5-parrot-checks.yml`
@@ -1538,12 +1551,10 @@
 - `HardwareHacking/BitPirate.md`
 - `Homelab/README.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
-- `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Endpoint-Visibility/README.md`
 - `IncidentResponse/HoneyPot/opencanary.md`
 - `IncidentResponse/HoneyPot/readme.md`
 - `IncidentResponse/IDS&IPS/readme.md`
-- `IncidentResponse/README.md`
 - `OPSEC/README.md`
 - `OSINT/docs/FAQ.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
@@ -1557,7 +1568,6 @@
 - `WebAppSecurity/methodology.md`
 - `Documentation/flipper_zero_guide.md`
 - `HardwareHacking/README.md`
-- `START_HERE.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
 - `Wardriving/data-handling.md`
@@ -1565,7 +1575,6 @@
 - `Wardriving/sigroam-scout-lite.md`
 - `Wardriving/wardrive-go.md`
 - `firmware-hardware-compatibility.md`
-- `CHANGELOG.md`
 - `Scripts/PINNING.md`
 - `Scripts/pnwc_install_tools.sh`
 - `OSINT/Playbook/toolkit_integration.sh`
@@ -1628,12 +1637,10 @@
 - `OSINT/Playbook/branding.conf.example`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/Playbook/tools_api.md`
-- `OSINT/README.md`
 - `OSINT/docs/COMPATIBILITY.md`
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
 - `OPSEC/anonymity-layering.md`
-- `ReverseEngineering/README.md`
 - `ReverseEngineering/vx-underground.md`
 - `Tradecraft/osint-threat-intel.md`
 - `Cryptography/Classical/README.md`
@@ -1664,7 +1671,6 @@
 - `PlayBooks/README.md`
 - `ReverseEngineering/ghidra-guide-index.md`
 - `STYLE_GUIDE.md`
-- `Tradecraft/README.md`
 - `Tradecraft/evasion.md`
 - `AUDIT_FINDINGS.md`
 - `AUDIT_REPORT.md`
@@ -1818,7 +1824,6 @@
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
-- `OSINT/OSINT_GUIDE.md`
 - `PDF/.gitirnore`
 - `PDF/docker-pen-test.pdf`
 - `PDF/ssh-pen-testing.pdf`

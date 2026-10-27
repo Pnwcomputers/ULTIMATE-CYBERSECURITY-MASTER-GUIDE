@@ -505,9 +505,11 @@ curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | s
 - **Website**: https://csilinux.com
 
 #### **Tsurugi Linux**
-- **Focus**: DFIR (Digital Forensics and Incident Response)
-- **OSINT Tools**: Comprehensive suite included
+- **Focus**: DFIR (Digital Forensics and Incident Response), with a dedicated OSINT profile
+- **Current documented release (checked 2026-10-26)**: LAB 26.03, based on Ubuntu 24.04.3 LTS
+- **OSINT Tools**: Comprehensive suite included; confirm the current installed versions before use
 - **Website**: https://tsurugi-linux.org
+- **Platform-specific setup and practical workflows**: [Tsurugi Linux OSINT Guide](TSURUGI_LINUX_OSINT_GUIDE.md)
 
 ### DIY OSINT VM Build
 
