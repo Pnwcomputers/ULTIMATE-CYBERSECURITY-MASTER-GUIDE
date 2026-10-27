@@ -149,6 +149,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Incident Response | [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and wired intrusion detection guides |
 | Incident Response | [Honeypots](./IncidentResponse/HoneyPot/readme.md) | Deception-system deployment guides |
 | Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
+| Incident Response | [Tsurugi Bento Portable DFIR](./IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Windows field-response toolkit, live triage, Sysinternals, evidence export, RAM/disk acquisition decisions and integrity verification |
 | Incident Response | [OpenBSD PF Firewall](./IncidentResponse/Firewalls/openbsd_pf.md) | Rulesets, network-edge deployment, monitoring, and lab validation |
 | Reverse Engineering | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) | Isolated malware-analysis workstation, Proxmox installation, offline triage, PE/PDF and network evidence workflows |
 | Tradecraft | [Pentoo Linux](./Tradecraft/pentoo-linux-guide.md) | Gentoo-based penetration-testing platform, scoped assessments and wireless tool workflows |

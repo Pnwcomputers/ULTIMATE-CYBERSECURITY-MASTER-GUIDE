@@ -22,7 +22,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
 - **Preparing for OSCP?** → [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Advanced Techniques Part 2](advanced_techniques_part2.md) (Buffer Overflows; CRITICAL) + [Playbooks](PlayBooks/cybersecurity_playbooks.md)
 - **Professional Pentester?** → [Pentoo Linux workstation and assessment workflow](Tradecraft/pentoo-linux-guide.md) + [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) + the other master guides as reference
-- **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
+- **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
 - **Red Team Operator?** → [Tradecraft](Tradecraft/) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/)
 - **Web App Pentester?** → [Web Application Security](WebAppSecurity/) ([OWASP Top 10](WebAppSecurity/owasp-top-10.md) + [Methodology](WebAppSecurity/methodology.md))
