@@ -68,6 +68,9 @@ This sub-section covers the three domains you will use most: **memory**, **disk*
 
 ## 📚 Analysis Guides
 
+### 🧪 [REMnux — Malware Analysis Workstation](../../ReverseEngineering/remnux-malware-analysis-guide.md)
+Dedicated Ubuntu-based REMnux VM and Proxmox deployment for offline malware triage, suspicious documents, PE/ELF analysis, captured network traffic, memory artifacts and evidence handling. Use this **after authorized acquisition**; isolate samples and never detonate malware on the analyst host.
+
 ### 🧠 [Memory Forensics — Volatility 3](./Memory/volatility_cheatsheet.md)
 The full analysis workflow for Windows and Linux memory dumps. Covers the Volatility 3 plugin taxonomy (`windows.pslist`, `windows.cmdline`, `windows.netscan`, `windows.malfind`, `windows.dlllist`), process and network-connection analysis, injected-code detection, registry-hive extraction, and artifact recovery — the fastest route to malware and IoCs that never touch disk.
 

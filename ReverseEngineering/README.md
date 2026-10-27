@@ -61,6 +61,7 @@ Practice only in an isolated lab: [Homelab](../Homelab/).
 
 | If you need… | Open |
 | --- | --- |
+| Build a malware-analysis and DFIR lab with REMnux | [REMnux Malware Analysis Guide](./remnux-malware-analysis-guide.md) |
 | The full standalone guide | [ghidra-guide-index.md](./ghidra-guide-index.md) |
 | Official release zip only | [Ghidra Releases](https://github.com/NationalSecurityAgency/ghidra/releases) (`ghidra_<version>_PUBLIC_<date>.zip`) |
 | Current JDK / launch / server notes | [GettingStarted.md](https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md) |
@@ -118,6 +119,8 @@ Need a pipeline, not a GUI?
 | [GLOSSARY.md](../GLOSSARY.md) | Shared terms |
 
 ## See also
+
+- [REMnux — Malware Analysis & DFIR Workstation](./remnux-malware-analysis-guide.md) (VMs, static triage, PCAPs, documents and evidence handling)
 
 - [vx-underground: Malware Research Library](./vx-underground.md)
 - [LEGAL.md](../LEGAL.md)

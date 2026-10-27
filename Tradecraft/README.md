@@ -51,6 +51,7 @@ As the entry point into the Tradecraft/ folder, or when looking up which file co
 
 | File | Description |
 |---|---|
+| [pentoo-linux-guide.md](./pentoo-linux-guide.md) | Pentoo Linux Live/overlay deployment, Gentoo tool maintenance, authorized network/web/wireless assessments, evidence collection |
 | [c2-frameworks.md](c2-frameworks.md) | Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec, malleable C2, infrastructure, and detection |
 | [lolbins-lolbas.md](lolbins-lolbas.md) | Living off the land - Windows LOLBins for execution, download, lateral movement, persistence, and credential access |
 | [osint-threat-intel.md](osint-threat-intel.md) | OSINT methodology, passive recon, DNS/infra enumeration, people intelligence, threat intel platforms, and operationalization |
@@ -111,6 +112,7 @@ These references are structured for **dual-use** - each file covers both offensi
 ---
 
 ## Related Files
+- [pentoo-linux-guide.md](./pentoo-linux-guide.md) - Gentoo/Pentoo platform setup and field test workflow
 - [active-directory.md](active-directory.md) - AD attacks, Kerberos abuse, BloodHound, persistence
 - [av-edr-evasion.md](av-edr-evasion.md) - AV/EDR evasion: AMSI bypass, process injection, obfuscation
 - [c2-frameworks.md](c2-frameworks.md) - Cobalt Strike, Sliver, Havoc: deployment and detection
