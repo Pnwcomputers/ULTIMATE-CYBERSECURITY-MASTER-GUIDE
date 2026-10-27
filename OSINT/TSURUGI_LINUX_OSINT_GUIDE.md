@@ -171,10 +171,10 @@ Start each investigation with a case ID, question, authority, authorized targets
 
 ```bash
 # Example case identifier; replace with your own non-sensitive ID.
+umask 077
 CASE="$HOME/OSINT_Cases/CASE-2026-001"
 mkdir -p "$CASE"/{evidence,working,logs,reports}
 chmod 700 "$CASE"
-umask 077
 date -u '+%Y-%m-%dT%H:%M:%SZ' | tee "$CASE/logs/case_started_utc.txt"
 cat > "$CASE/reports/case_notes.md" <<'EOF'
 # Case notes
@@ -262,7 +262,7 @@ for name in ("Date", "From", "To", "Reply-To", "Return-Path",
 PY
 ```
 
-Further procedure: [Email OSINT](scripts/Email_OSINT.md) and the [phishing analysis SOP](../Playbooks/) (browse the playbooks index for the current phishing path).
+Further procedure: [Email OSINT](scripts/Email_OSINT.md) and the [phishing analysis SOP](../PlayBooks/sop_phishing_analysis.md).
 
 ### 7.3 Username and social-media correlation
 
