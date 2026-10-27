@@ -17,6 +17,8 @@ Collect the maximum volatile evidence from a live system before it is powered do
 
 **Live Response** is the process of collecting volatile and non-volatile data from a running system during an incident. This data can be lost when a system is powered off, making timely collection critical. Live response captures the current state of a potentially compromised system before forensic imaging or remediation.
 
+For a **portable Windows-first field toolkit** with SyMenu, validated collection boundaries, concrete PowerShell examples, and preservation/reporting steps, see [Tsurugi Bento Portable DFIR Field Guide](../tsurugi-bento-portable-dfir-guide.md). Bento is **not** a forensic write blocker or a replacement for validated offline acquisitions.
+
 This guide covers live response methodology, tools, and scripts for Windows and Linux systems.
 
 ---
