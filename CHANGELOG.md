@@ -1,14 +1,15 @@
 # 🔄 Change Log - October 27, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1504
-- **Files Modified**: 1940
-- **New Files**: 742
+- **Commits Analyzed**: 1505
+- **Files Modified**: 1946
+- **New Files**: 743
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs(DFIR): add Tsurugi Bento portable toolkit setup and live-response procedures (#135) (`bfcb5c8`)
 - docs: add Pentoo Linux and REMnux platform-specific field guides (#134) (`769adf8`)
 - docs(OSINT): add Tsurugi Linux 26.03 deployment and practical investigation guide (#133) (`3af3e34`)
 - docs: add Wardriving hub with SigRoam, Marauder, Biscuit, AWOK, Wardrive Go and Kismet (#128) (`1948c94`)
@@ -1528,18 +1529,20 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `IncidentResponse/README.md`
 - `README.md`
+- `START_HERE.md`
+- `CHANGELOG.md`
 - `ReverseEngineering/README.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
-- `START_HERE.md`
 - `Tradecraft/README.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/OSINT_GUIDE.md`
 - `OSINT/README.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
-- `CHANGELOG.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `.github/workflows/auto_changelog.yml`
 - `.github/workflows/cm5-parrot-checks.yml`
@@ -1875,7 +1878,6 @@
 - `Checklists/VoIP Checklist.md`
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
-- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `IncidentResponse/network_intrusion.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
