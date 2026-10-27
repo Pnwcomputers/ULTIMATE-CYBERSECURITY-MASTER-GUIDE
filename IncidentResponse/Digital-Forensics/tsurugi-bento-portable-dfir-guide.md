@@ -4,7 +4,7 @@
 > **Authorized incident response and evidence handling only.** Running portable applications on a live computer **changes that computer** (USB/PnP artifacts, process execution, memory, logs, timestamps, potentially Defender alerts). Bento is **not** a forensic write blocker, a read-only boot environment, a full forensic workstation or a guarantee of court-admissible evidence. Before using it, obtain authorization, define scope, record your actions, and plan safe evidence storage. See [LEGAL.md](../../LEGAL.md) and [Live Response Collection](./LiveData/live_data_collection.md).
 
 **Product:** [Tsurugi Bento portable DFIR toolkit](https://tsurugi-linux.org/documentation_bento_toolkit.php)  
-**Official latest downloadable archive checked:** `bento_2025.8.7z` (released August 25, 2025; optional in-app updates)  
+**Latest official download verified:** `bento_2026.10.7z` (released October 19, 2026; optional in-app updates). **Documentation caveat:** the official tool inventory and changelog still show 2025.8, so inspect actual installed app versions.  
 **Last reviewed:** October 26, 2026  
 **Location:** [Incident Response](../README.md) → [Digital Forensics](./README.md)  
 **Role:** First-response collection, incident triage and preservation; **not deep post-acquisition forensic analysis**.
@@ -74,7 +74,7 @@ Although the project lists some **Linux and macOS utilities**, Bento is **primar
 ### 2.1 Get the official archive
 
 1. Open the [Tsurugi downloads](https://tsurugi-linux.org/downloads.php) page and **choose a listed official mirror**.
-2. Identify the current **Bento** archive. When checked on **2026-10-26**, that page still showed **`bento_2025.8.7z`** (August 25, 2025), with automatic update capability. **Do not confuse the 26.03 Tsurugi LAB release with the Bento archive version.**
+2. Identify the current **Bento** archive. When checked on **2026-10-26**, the live downloads page showed **`bento_2026.10.7z`** (October 19, 2026), with an automatic-update capability. Its separate *tools listing and changelog pages* still describe **2025.8**, so do not equate their catalog with a verified 2026.10 executable inventory. **Do not confuse the 26.03 Tsurugi LAB release with the Bento archive version.**
 3. The project publishes a **signed `signed_hashes.sha512`** manifest and a PGP public key (short key ID `0x116AD57C`). Independently confirm the full signing-key fingerprint through a trusted channel, verify the manifest signature, then check the digest for **your exact downloaded archive**. Do not accept a mismatch.
 4. On a **trusted preparation workstation**, extract the 7z archive with a reputable archiver. Don't execute unknown files before verification.
 5. Record kit archive name, date obtained, URL/mirror, manifest/signature verification result, SHA-512, preparation machine, and operator.
@@ -83,7 +83,7 @@ Although the project lists some **Linux and macOS utilities**, Bento is **primar
 
 ~~~powershell
 # Compute, then compare with the digest from the VERIFIED signed manifest.
-Get-FileHash -LiteralPath 'C:\Downloads\bento_2025.8.7z' -Algorithm SHA512 |
+Get-FileHash -LiteralPath 'C:\Downloads\bento_2026.10.7z' -Algorithm SHA512 |
     Format-List Algorithm, Hash, Path
 
 # Hashing alone DOES NOT verify the identity of the publisher.
@@ -111,16 +111,16 @@ Keep the **toolkit itself** out of the original evidence folder. Back up the kno
 
 1. Extract the archive on a clean preparation system and read any bundled README and application licenses.
 2. Find and launch the **SyMenu launcher included in that archive**. Do not assume the launcher's path or executable name without checking the extracted release.
-3. Review the **Bento menus**. The [official 2025.8 tool inventory](https://tsurugi-linux.org/documentation_bento_toolkit_tools_listing.php) lists categories including **Imaging, Hashing, Sys Info, Live IR, Artifacts Analysis, Network, Wi-Fi/Bluetooth, and Other Tools**.
+3. Review the **Bento menus**. The [official tool inventory (still labeled 2025.8 as of this review)](https://tsurugi-linux.org/documentation_bento_toolkit_tools_listing.php) lists categories including **Imaging, Hashing, Sys Info, Live IR, Artifacts Analysis, Network, Wi-Fi/Bluetooth, and Other Tools**.
 4. Several applications are **listed but not bundled** because of copyright/licensing restrictions. **A menu item is not proof that an app is present or usable.** Test launch and identify each selected tool's publisher, license, version and OS compatibility.
 5. On a **trusted online preparation machine**, use SyMenu's **Get new apps** feature to obtain missing tools according to the project's instructions; check vendor download/licensing requirements. Do not update or download during an active evidence collection.
 6. Record and re-hash any toolkit modifications. Re-test the menu and procedures in a VM.
 
-**Important:** Official version 2025.8 notes that **Sysinternals tools can be retrieved through the update process**; don't assume they already exist in the archive. Anti-malware software may flag some digital forensic tools; verify provenance and investigate alerts **rather than disabling endpoint protection or adding blanket exclusions**.
+**Important:** The official **2025.8 changelog** notes that **Sysinternals tools can be retrieved through the update process**; don't assume they already exist in the archive. Anti-malware software may flag some digital forensic tools; verify provenance and investigate alerts **rather than disabling endpoint protection or adding blanket exclusions**.
 
 ### 3.2 Choose tools by forensic objective
 
-This table is based on the official **2025.8 menu inventory**; actual bundled binaries depend on what you've installed.
+This table is based on the official menu inventory **still labeled 2025.8**, not a confirmed 2026.10 package manifest; actual bundled binaries depend on what you've installed.
 
 | Field goal | Menu category / candidate tools | Use and important restriction |
 |---|---|---|
@@ -535,8 +535,8 @@ Report:
 ### Official Bento and vendor references
 - [Tsurugi Bento documentation and scope](https://tsurugi-linux.org/documentation_bento_toolkit.php)
 - [Official Bento download/release information](https://tsurugi-linux.org/downloads.php)
-- [Bento 2025.8 tool inventory](https://tsurugi-linux.org/documentation_bento_toolkit_tools_listing.php)
-- [Bento changelog and Sysinternals update note](https://tsurugi-linux.org/documentation_bento_toolkit_changelog.php)
+- [Bento menu inventory (published page labeled 2025.8)](https://tsurugi-linux.org/documentation_bento_toolkit_tools_listing.php)
+- [Bento changelog (last entry currently shown: 2025.8) and Sysinternals update note](https://tsurugi-linux.org/documentation_bento_toolkit_changelog.php)
 - [Microsoft Sysinternals: Autoruns](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns)
 - [Microsoft: Get-FileHash](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1)
 - [Microsoft: Get-NetTCPConnection](https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection)
