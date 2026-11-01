@@ -1,0 +1,4 @@
+{"honeypot":{"integration":"diy_http","event":"http_probe","sensor":"synthetic-pi","observed_at":"2026-10-31T21:00:00+00:00","src_ip":"192.0.2.15","src_port":51514,"method":"GET","path":"/test","user_agent":"lab-probe","assessment":"requires_corroboration"}}
+{"node_id":"synthetic-opencanary","src_host":"192.0.2.16","dst_host":"192.0.2.20","dst_port":21,"logtype":2000,"local_time":"2026-10-31 21:00:01.000000","logdata":{"USERNAME":"synthetic","PASSWORD":"REDACTED"}}
+{"eventid":"cowrie.session.connect","src_ip":"192.0.2.17","src_port":51515,"dst_ip":"192.0.2.20","dst_port":2222,"session":"synthetic-session","timestamp":"2026-10-31T21:00:02Z"}
+{"eventid":"cowrie.session.file_download","src_ip":"192.0.2.17","session":"synthetic-session","shasum":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","timestamp":"2026-10-31T21:00:03Z"}
