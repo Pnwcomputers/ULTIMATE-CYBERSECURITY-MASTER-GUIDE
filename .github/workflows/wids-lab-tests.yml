@@ -5,6 +5,7 @@ on:
     paths:
       - 'IncidentResponse/IDS&IPS/kismet-wazuh/**'
       - 'IncidentResponse/IDS&IPS/nzyme-wazuh/**'
+      - 'IncidentResponse/HoneyPot/**'
       - 'IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md'
       - 'IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md'
       - '.github/workflows/wids-lab-tests.yml'
@@ -13,6 +14,7 @@ on:
     paths:
       - 'IncidentResponse/IDS&IPS/kismet-wazuh/**'
       - 'IncidentResponse/IDS&IPS/nzyme-wazuh/**'
+      - 'IncidentResponse/HoneyPot/**'
       - 'IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md'
       - 'IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md'
 
@@ -35,11 +37,17 @@ jobs:
             'IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py' \
             'IncidentResponse/IDS&IPS/kismet-wazuh/test_detection.py' \
             'IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_webhook_bridge.py' \
-            'IncidentResponse/IDS&IPS/nzyme-wazuh/test_nzyme_webhook.py'
+            'IncidentResponse/IDS&IPS/nzyme-wazuh/test_nzyme_webhook.py' \
+            'IncidentResponse/HoneyPot/lab/diy_http_decoy.py' \
+            'IncidentResponse/HoneyPot/lab/esp32_serial_bridge.py' \
+            'IncidentResponse/HoneyPot/lab/test_honeypot.py'
       - name: Unit tests and Wazuh XML structure
         run: |
           python -m unittest discover \
             -s 'IncidentResponse/IDS&IPS/kismet-wazuh' \
+            -p 'test_*.py' -v
+          python -m unittest discover \
+            -s 'IncidentResponse/HoneyPot/lab' \
             -p 'test_*.py' -v
           python -m unittest discover \
             -s 'IncidentResponse/IDS&IPS/nzyme-wazuh' \
