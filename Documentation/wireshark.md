@@ -78,6 +78,10 @@ This reference serves as:
 
 ---
 
+### Focused Wi-Fi deauthentication analysis
+
+For a protocol-level explanation of legitimate 802.11 disconnects versus forged deauthentication/disassociation, PMF, monitor-mode requirements, and passive detection filters, see the [Wi-Fi Deauthentication Detection Guide](./wifi-deauthentication-detection.md). An Ethernet or managed-mode capture typically cannot show raw 802.11 management frames.
+
 ## 📂 Capture Methods
 
 Before filtering, choose the right capture mode for your scenario.
