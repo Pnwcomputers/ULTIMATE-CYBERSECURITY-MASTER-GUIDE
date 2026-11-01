@@ -21,11 +21,11 @@ A fully working CM4-based uConsole with all HackerGadgets hardware functional an
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.
 
-> **Want to automate this?** Every step in this guide is implemented in [`uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh). Run it on a fresh Rex image and it handles all six phases for you - including reboots.
+> **Want a safe preflight?** The [CM4 v2.0 script](./scripts/uconsole-cm4-setup.sh) now only **audits by default** and optionally installs *reviewed* packages when explicitly selected. It **does not** automate all 14 hardware steps, modify boot configuration, or reboot. Review its [usage and limits](./scripts/README.md).
 > ```bash
-> wget https://raw.githubusercontent.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/main/uConsole/scripts/uconsole-cm4-setup.sh
-> chmod +x uconsole-cm4-setup.sh
-> sudo ./uconsole-cm4-setup.sh
+> Download or clone the **current reviewed repository branch**, inspect the script, then start without sudo:
+> `bash uConsole/scripts/uconsole-cm4-setup.sh --help`
+> `bash uConsole/scripts/uconsole-cm4-setup.sh --status`
 > ```
 > See [`scripts/README.md`](./scripts/README.md) for flags and options.
 
@@ -65,7 +65,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 Step-by-step build instructions for the CM4 variant of the uConsole + AIO v2 platform specifically - GPIO pin numbers, `config.txt` overlays, package names, and known failure modes here are CM4-specific and will not match the CM5. Use this file (not [CM5-SETUP.md](./CM5-SETUP.md)) when your board is a Raspberry Pi Compute Module 4.
 
 ## ⚙️ Function
-Organized as 14 sequential numbered steps (flash OS → pre-flight hardening → system update → Kali tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables (hardware pinout, `aiov2_ctl` command reference), a Troubleshooting section with 10+ named failure modes and fixes, and a Resources/Links section. Differs from [CM5-SETUP.md](./CM5-SETUP.md) in package names, device-tree overlays, and the CM4-only NVMe/battery board step; differs from [README.md](./README.md), which is the folder-level index and hardware overview rather than a build walkthrough. Every step is also implemented as an idempotent shell script in [`scripts/uconsole-cm4-setup.sh`](./scripts/uconsole-cm4-setup.sh) (see [scripts/README.md](./scripts/README.md)).
+Organized as 14 staged sections (flash OS → preserve image → review updates → distro-native tools → `aiov2_ctl` install → AIO v2 board package → GPS/LoRa/RTC/SDR configuration → GPIO power control → WiFi/LAN pentesting setup → NVMe battery board), followed by reference tables (hardware pinout, `aiov2_ctl` command reference), a Troubleshooting section with 10+ named failure modes and fixes, and a Resources/Links section. Differs from [CM5-SETUP.md](./CM5-SETUP.md) in package names, device-tree overlays, and the CM4-only NVMe/battery board step; differs from [README.md](./README.md), which is the folder-level index and hardware overview rather than a build walkthrough. The [CM4 v2.0 script](./scripts/uconsole-cm4-setup.sh) implements only read-only preflight and opt-in package steps; manual hardware and boot tasks remain documented here (see [scripts/README.md](./scripts/README.md)).
 
 ## 🏆 Goal
 A working CM4-based uConsole with the AIO v2 board fully configured - RTL-SDR, LoRa/Meshtastic, GPS, and RTC all functioning, GPIO power control operational, and WiFi/LAN pentesting tooling installed - without bricking the board or fighting the dependency issues this guide's troubleshooting section already documents.
