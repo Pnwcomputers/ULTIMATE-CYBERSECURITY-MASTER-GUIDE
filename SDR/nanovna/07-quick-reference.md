@@ -2,6 +2,9 @@
 
 # 📋 07 — Quick Reference Card
 
+> [!NOTE]
+> **Selected formula and usage audit: October 31, 2026.** Numeric values are rounded; dynamic range, resonance, calibration and band limits depend on exact NanoVNA hardware, clones, firmware and test fixtures. Do not assume a calibration at one sweep range is valid across arbitrary spans. See the [NanoVNA index](./README.md) and [calibration procedures](./03-calibration.md) for required prerequisites.
+
 <div align="center">
 
 **Keep the common procedures, display choices, and diagnostic checks close at hand.**
@@ -120,13 +123,13 @@ better). `S11 LOGMAG = −(return loss)`. Never say "−20 dB return loss."
 ## Smith chart — instant diagnosis
 
 ```
-         INDUCTIVE  (+jX)  →  TOO LONG, shorten
+         INDUCTIVE  (+jX)  →  diagnose: may be too long for simple resonant wire
        ┌────────────────────┐
       ╱                      ╲
 SHORT│          ● 50Ω         │OPEN
  0Ω   ╲       (center)       ╱  ∞Ω
        └────────────────────┘
-         CAPACITIVE (−jX)  →  TOO SHORT, lengthen
+         CAPACITIVE (−jX)  →  diagnose: may be too short for simple resonant wire
 
   Left of center on centerline  → R < 50Ω, needs step-up
   Right of center on centerline → R > 50Ω, needs step-down
@@ -157,7 +160,9 @@ Coax λ/4 (m)  = (75 × VF) / f(MHz)
 Coax λ/2 (m)  = (150 × VF) / f(MHz)
 VF            = (L(m) × f₁(MHz)) / 75     from first open-stub dip
 
-Length trim:  shorten by X%  →  frequency rises X%.  Cut HALF, re-measure.
+Length trim: if resonant length decreases by fraction x, f_new ≈ f_old / (1 − x)
+             (so 10% shorter raises frequency ≈11.1%, not exactly 10%).
+             Make SMALL incremental trims; measure after each adjustment.
 
 L-network:    Q  = √(R_high/R_low − 1)
               X_series = Q × R_low        (low-R side)
