@@ -182,6 +182,8 @@ In Wazuh Dashboard use the existing **wireless_wids** rule group for both source
 
 Response sequence: nzyme alert → nzyme Disconnection Activity and network-monitoring details → Kismet fixed-channel and optional PCAP evidence → access-point/controller and client logs → verify PMF negotiation and maintenance history → assign confidence and disposition. Prevent false positives from routine reboots, roaming and signal instability; **never** respond by transmitting deauth frames.
 
+**Deception correlation:** [Wazuh honeypot event guide](../HoneyPot/wazuh-honeypot-integration.md) provides complementary OpenCanary/Cowrie signals. An nzyme monitoring alert and a decoy session in the same timeframe still require AP/controller/endpoint corroboration.
+
 ## References and reciprocal links
 
 - [nzyme network monitoring / threshold configuration](https://docs.nzyme.org/wifi/monitoring/network-monitoring/)
