@@ -17,7 +17,7 @@ The [replaced CM4 script](./scripts/uconsole-cm4-setup.sh) now follows the conse
 - **`--dry-run`:** does not modify files or update/download packages; it checks the proposed intent but is **not a full APT transaction simulation** because package indexes could be missing or stale. The real opt-in path performs its own APT simulation after refreshing indexes.
 - **Never automated:** `full-upgrade`, APT source/pin changes, forced overwrite, shell-piped downloads, LightDM/AccountsService/cryptsetup modifications, GPIO power changes, DKMS/EEPROM/boot overlays, SD/NVMe cloning, and system reboots.
 
-The prior v1.x script is not retained as an executable repository file; it remains accessible through Git history strictly for incident comparison. The new v2.0 script is intentionally **not a full one-click deployment**.
+The prior v1.x script is not retained as an executable repository file; it remains accessible through Git history strictly for incident comparison. Separately, [`uconsole-repair.sh`](./scripts/uconsole-repair.sh) now defaults to a **read-only diagnosis** and requires explicit `--apply` before it can modify boot or desktop settings. `--yes` alone does not enable writes. The new v2.0 script is intentionally **not a full one-click deployment**.
 
 ## Safe device-first procedure
 
