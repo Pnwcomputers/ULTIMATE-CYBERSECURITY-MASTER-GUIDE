@@ -5,6 +5,8 @@ _Last reviewed: 2026-10-31 · Passive detection only · Python 3.10+ · Wazuh 4.
 > [!CAUTION]
 > Monitor only infrastructure you own or are authorized to assess. This lab **does not** transmit deauthentication frames, collect credentials, or automatically retaliate. An alert is evidence to investigate, not proof of an attack. First review the [deauthentication packet guide](../../Documentation/wifi-deauthentication-detection.md) and [legal terms](../../LEGAL.md).
 
+**Optional embedded context:** [ESP32-S3 honeypots](../HoneyPot/esp32-s3-honeypots.md) include ShadowSentry's device-level Wi-Fi disconnect monitor and HoneyMire's SSH/Telnet decoy. They do not replace a fixed-channel Kismet sensor and need separately validated telemetry before Wazuh correlation.
+
 ## Outcome and architecture
 
 Install a fixed-channel Kismet Wi-Fi sensor. A small **read-only** bridge converts Kismet REST alerts into newline-delimited JSON; a Wazuh agent forwards these to the manager, which applies custom severity and recurring-alert rules. Optional **offline** tools count deauth/disassociation frames from an existing PCAP and correlate the frame counts with Kismet alerts by claimed BSSID and time.
