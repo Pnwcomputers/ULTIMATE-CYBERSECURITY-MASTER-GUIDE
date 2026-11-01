@@ -267,7 +267,14 @@ Avoid equating arbitrary OUI, signal strength, sequence numbers, or any one disc
 | WIDS alert during legitimate reboot | Correlate change window, AP uptime and all-station effects |
 | Proxmox/Ubuntu Snort sees no deauth | Wired IDS sensor has no Wi-Fi management layer; use Wi-Fi sensor or controller events |
 
+**Separate decoy evidence:** [Honeypot → Wazuh reporting](../IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) adds service-interaction telemetry to an incident investigation, but does not authenticate the source of Wi-Fi deauthentication traffic.
+
 ## Related guides and authoritative references
+
+For a second wireless detector that baselines disconnect-frame volume per protected network, see [nzyme + Wazuh integration](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) and the [nzyme WIDS deployment guide](../IncidentResponse/IDS%26IPS/nzyme_wids.md). nzyme's webhook events are grouped detections, not authenticated proofs of a transmitter or packet-by-packet records.
+
+
+For a hands-on, defensive **Kismet + Wazuh implementation** with alert ingestion, Wazuh XML rules, dashboard panels and optional passive packet-burst correlation, follow the [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
 
 **In this repository:**
 - [Wardriving / passive survey principles](../Wardriving/README.md)

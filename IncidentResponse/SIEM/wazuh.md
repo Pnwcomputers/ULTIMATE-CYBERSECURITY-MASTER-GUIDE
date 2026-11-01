@@ -1,5 +1,9 @@
 # 🦁 Wazuh Deployment Guide
 
+**Wireless monitoring integration:** For a practical end-to-end Kismet WIDS → Wazuh agent → custom severity rules → dashboards lab, see the [Kismet + Wazuh Wireless IDS Lab](../IDS%26IPS/kismet-wazuh-wireless-lab.md). It includes example scripts, JSON log paths and correlation tests; a wired VM interface cannot directly capture Wi-Fi management frames. For a complementary nzyme wireless sensor with native webhook forwarding, custom Wazuh rules and shared dashboards, see [nzyme + Wazuh Integration](../IDS%26IPS/nzyme-wazuh-integration.md).
+
+**Deception sensor integration:** [OpenCanary/Cowrie/DIY → Wazuh](../HoneyPot/wazuh-honeypot-integration.md) supplies native JSON log sources, custom severity rules and dashboard guidance. Includes [Pi](../HoneyPot/raspberry-pi-honeypot-lab.md), [Proxmox](../HoneyPot/proxmox-vm-honeynet.md), and [ESP32-S3](../HoneyPot/esp32-s3-honeypots.md) deployment options. Correlate with wireless Kismet/nzyme using independent AP/client evidence.
+
 ## 🎯 Purpose
 Wazuh SIEM and XDR deployment guide - covering Wazuh manager installation, agent deployment across Windows/Linux, built-in detection rules, vulnerability assessment, compliance modules, and integration with ELK/OpenSearch.
 

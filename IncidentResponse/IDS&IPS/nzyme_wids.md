@@ -1,5 +1,7 @@
 # 📡 DIY WiFi Intrusion Detection with Nzyme
 
+**Alternative wireless SIEM integration:** [Kismet + Wazuh Wireless IDS Lab](./kismet-wazuh-wireless-lab.md) provides fixed-channel passive deauthentication detection, customized Wazuh rules, offline PCAP burst analysis and dashboard steps. It complements this nzyme deployment.
+
 <div align="center">
 
 **Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real**
@@ -13,6 +15,8 @@
 </div>
 
 ---
+
+**Complementary deception:** [ESP32-S3 ShadowSentry/HoneyMire](../HoneyPot/esp32-s3-honeypots.md) provides low-power service honeypots, whereas nzyme taps monitor RF/network behavior. Compare detections in [Wazuh honeypot reporting](../HoneyPot/wazuh-honeypot-integration.md); treat claimed single-frame detection cautiously and corroborate AP/controller logs.
 
 ## 🎯 Purpose
 Guide for deploying [nzyme](https://nzyme.org), an open-source WiFi/network defense platform, as a self-hosted Wireless Intrusion Detection System (WIDS) — node on a VM, sensors on Raspberry Pi taps with USB adapters.
@@ -319,6 +323,17 @@ No kernel trace interrupting it, "Node hello submitted" at the end. **WiFi → A
 | **Cluster** of alert types together (unexpected BSSID + unexpected fingerprint + signal anomaly, close in time) | Treat as a real rogue-AP/evil-twin event |
 
 **Principle:** tune thresholds around clustering, not individual blips. A lone alert of one type on a confirmed-owned BSSID is noise far more often than it's an attack.
+
+---
+
+## 📊 Forwarding nzyme Alerts to Wazuh
+
+The [nzyme + Wazuh integration lab](./nzyme-wazuh-integration.md) builds on this deployment with a **localhost-only webhook-to-JSONL receiver**, service template, custom Wazuh severity rules, synthetic tests and a shared dashboard alongside [Kismet](./kismet-wazuh-wireless-lab.md). It uses native nzyme **Actions / Subscriptions**, so the existing nzyme-node/taps require no replacement or unsupported patched binaries.
+
+Before forwarding alerts, configure **WiFi → Monitoring** for authorized networks, review **Disconnection Activity** and establish a realistic **Static Threshold** based on a 24-hour or longer baseline. nzyme groups alerts and may re-trigger them every five minutes; **each event is not a deauthentication packet**. The documented webhook format does not guarantee a BSSID, so verify alert details and AP/controller telemetry before source-specific correlation.
+
+- [Official nzyme threshold and monitored network documentation](https://docs.nzyme.org/wifi/monitoring/network-monitoring/)
+- [Official nzyme Webhook/Syslog Action formats](https://docs.nzyme.org/configuration/alerting/action_types/)
 
 ---
 

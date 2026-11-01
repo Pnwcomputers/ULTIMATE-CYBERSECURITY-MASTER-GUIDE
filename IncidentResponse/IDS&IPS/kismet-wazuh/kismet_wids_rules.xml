@@ -1,0 +1,99 @@
+<!-- Install as /var/ossec/etc/rules/kismet_wids_rules.xml on the Wazuh manager.
+     Validate IDs do not collide with existing custom rules.
+     These are candidate/triage severities, NOT attack attribution. -->
+<group name="wireless_wids,">
+  <rule id="100300" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="wids.integration">^kismet$</field>
+    <description>WIDS: Kismet wireless telemetry ($(wids.event))</description>
+    <group>wireless_wids,kismet,  <rule id="100340" level="12">
+    <decoded_as>json</decoded_as>
+    <field name="wids.integration">^correlator$</field>
+    <field name="wids.event">^KISMET_PCAP_CORRELATED$</field>
+    <description>WIDS: Kismet alert and observed PCAP burst align; urgently verify AP logs</description>
+    <group>wireless_wids,correlated_signals,</group>
+  </rule>
+</group>
+  </rule>
+  <rule id="100301" level="10">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^DEAUTHFLOOD$</field>
+    <description>WIDS: Kismet suspects deauthentication flood; verify AP logs and PMF</description>
+    <group>wireless_wids,wifi_dos,</group>
+  </rule>
+  <rule id="100302" level="7">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^BCASTDISCON$</field>
+    <description>WIDS: broadcast/multicast disconnect anomaly; confirm maintenance</description>
+    <group>wireless_wids,wifi_disconnect,</group>
+  </rule>
+  <rule id="100303" level="7">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^DISASSOCTRAFFIC$</field>
+    <description>WIDS: traffic after disassociation reported by Kismet</description>
+    <group>wireless_wids,wifi_disconnect,</group>
+  </rule>
+  <rule id="100304" level="5">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^NOCLIENTMFP$</field>
+    <description>WIDS: client did not advertise PMF support; exposure indicator</description>
+    <group>wireless_wids,pmf,</group>
+  </rule>
+  <rule id="100305" level="10">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^APSPOOF$</field>
+    <description>WIDS: Kismet suspicious AP identity; needs verification</description>
+    <group>wireless_wids,rogue_ap,</group>
+  </rule>
+  <rule id="100306" level="7">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^CRYPTODROP$</field>
+    <description>WIDS: possible change or downgrade in advertised AP crypto</description>
+    <group>wireless_wids,rogue_ap,</group>
+  </rule>
+  <rule id="100307" level="5">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^DISCONCODEINVALID$</field>
+    <description>WIDS: invalid 802.11 reason code; can be firmware noise</description>
+    <group>wireless_wids,protocol_anomaly,</group>
+  </rule>
+  <rule id="100308" level="5">
+    <if_sid>100300</if_sid>
+    <field name="wids.event">^CHANCHANGE$</field>
+    <description>WIDS: AP channel changed; compare auto-channel and maintenance logs</description>
+    <group>wireless_wids,rf_change,</group>
+  </rule>
+  <!-- Repeated *Kismet alerts* for one BSSID, NOT raw packet frequency. -->
+  <rule id="100309" level="12" frequency="3" timeframe="120">
+    <if_matched_sid>100301</if_matched_sid>
+    <same_field>wids.bssid</same_field>
+    <description>WIDS: recurrent Kismet deauth flood alerts for one BSSID in 120 seconds</description>
+    <group>wireless_wids,repeated_alerts,</group>
+  </rule>
+
+  <rule id="100330" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="wids.integration">^pcap$</field>
+    <field name="wids.event">^DISCONNECT_BURST$</field>
+    <description>WIDS: passive capture observed disconnect-frame burst</description>
+    <group>wireless_wids,pcap_summary,</group>
+  </rule>
+  <rule id="100331" level="7">
+    <if_sid>100330</if_sid>
+    <field name="wids.tier">^medium$</field>
+    <description>WIDS: medium observed disconnect-frame burst (heuristic)</description>
+    <group>wireless_wids,observed_burst,</group>
+  </rule>
+  <rule id="100332" level="10">
+    <if_sid>100330</if_sid>
+    <field name="wids.tier">^high$</field>
+    <description>WIDS: high observed disconnect-frame burst (heuristic)</description>
+    <group>wireless_wids,observed_burst,</group>
+  </rule>
+  <rule id="100333" level="12">
+    <if_sid>100330</if_sid>
+    <field name="wids.tier">^critical$</field>
+    <description>WIDS: critical-volume disconnect-frame burst; immediate investigation</description>
+    <group>wireless_wids,observed_burst,</group>
+  </rule>
+</group>

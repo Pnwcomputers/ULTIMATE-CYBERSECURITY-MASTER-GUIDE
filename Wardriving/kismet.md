@@ -107,6 +107,11 @@ For a **WiGLE-only** survey with minimal retention, set an explicit `log_types=w
 
 ## See also
 
+For a complementary stationary WIDS using nzyme's monitored-network disconnect thresholds and Wazuh alert forwarding, see [nzyme + Wazuh Integration](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md). nzyme and Kismet have different collection and event schemas; do not substitute one system's event counts for the other's.
+
+
+For an entirely separate **fixed-channel wireless intrusion detection** deployment forwarding Kismet alerts to Wazuh, including severity classification, packet-burst evidence and dashboards, see [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md). Do not confuse the wardrive overlay above with a stationary WIDS.
+
 For fixed-channel Kismet wireless IDS use, including **DEAUTHFLOOD**, **BCASTDISCON**, PMF interpretation, Wireshark verification, and incident triage, see [Wi-Fi Deauthentication Detection](../Documentation/wifi-deauthentication-detection.md). The wardrive configuration described above is for inventory, not a substitute for fixed-channel attack monitoring.
 
 [Field workflow](./field-workflow.md) · [Data handling](./data-handling.md) · [SDR](../SDR/README.md) · [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md)

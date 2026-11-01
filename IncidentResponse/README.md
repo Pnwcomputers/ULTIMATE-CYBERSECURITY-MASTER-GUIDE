@@ -14,6 +14,8 @@
 
 ---
 
+**Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
+
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
@@ -82,6 +84,8 @@ Instrumentation for host-level telemetry.
 ---
 
 ### 🕸️ Network Security Monitoring (NSM)
+
+**[Kismet + Wazuh Wireless IDS Lab](./IDS%26IPS/kismet-wazuh-wireless-lab.md):** Deploy a fixed-channel 802.11 intrusion sensor, forward alerts into Wazuh, classify deauthentication events and build correlation/timeline dashboards. This is complementary to Ethernet-layer Snort/Suricata. The [nzyme + Wazuh integration](./IDS%26IPS/nzyme-wazuh-integration.md) adds per-network disconnection thresholds, webhook/syslog forwarding and multi-sensor investigation guidance.
 
 Visibility into East/West and North/South traffic flows.
 
