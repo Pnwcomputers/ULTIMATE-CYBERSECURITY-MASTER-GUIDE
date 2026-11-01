@@ -5,6 +5,7 @@ on:
     paths:
       - 'uConsole/scripts/uconsole-cm5*.sh'
       - 'uConsole/scripts/uconsole-cm4-setup.sh'
+      - 'uConsole/scripts/uconsole-repair.sh'
       - 'uConsole/CM4-SETUP.md'
       - 'uConsole/CM5-SETUP.md'
       - 'uConsole/README.md'
@@ -15,6 +16,7 @@ on:
     paths:
       - 'uConsole/scripts/uconsole-cm5*.sh'
       - 'uConsole/scripts/uconsole-cm4-setup.sh'
+      - 'uConsole/scripts/uconsole-repair.sh'
       - 'uConsole/CM4-SETUP.md'
       - 'uConsole/CM5-SETUP.md'
       - 'uConsole/README.md'
