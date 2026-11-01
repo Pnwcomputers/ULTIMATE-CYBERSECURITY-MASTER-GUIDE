@@ -103,6 +103,9 @@ See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme +
 
 ### DIY hardware labs and centralized Wazuh reporting
 
+**[Security and accuracy review (2026-10-31)](./REVIEW-2026-10-31.md):** CI results, source and link verification scope, runtime prerequisites, and the existing installer pinning issue discovered during the wider audit.
+
+
 | Guide | Purpose |
 | --- | --- |
 | [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) | Pi 3/4/5, OpenCanary, Cowrie and lightweight decoys |
