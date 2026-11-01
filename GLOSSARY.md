@@ -1,17 +1,17 @@
 # 📖 Glossary
 
-_Last reviewed: 2026-07-30_
+_Last reviewed: 2026-10-31 (selected tooling definitions)_
 
 A quick reference for acronyms and terms used across this repository. Terms are grouped by domain; within each group they are alphabetical. Link to a term with an anchor, e.g. `[C2](GLOSSARY.md#c2--command-and-control)`.
 
 ## General & Governance
 
-- **APT — Advanced Persistent Threat:** A well-resourced adversary (often nation-state) that maintains long-term, stealthy access to a target.
+- **APT — Advanced Persistent Threat:** A sustained, typically well-resourced threat actor or campaign; attribution and sophistication vary.
 - **CIA Triad:** Confidentiality, Integrity, Availability — the three core goals of information security.
 - **CVE — Common Vulnerabilities and Exposures:** A public identifier for a specific known vulnerability (e.g., `CVE-2024-3094`).
 - **CVSS — Common Vulnerability Scoring System:** A 0–10 severity score for a vulnerability.
 - **IoC — Indicator of Compromise:** An artifact (hash, IP, domain, filename) that suggests a breach.
-- **OPSEC — Operational Security:** Practices that prevent an adversary (or a target) from observing your activity or attribution.
+- **OPSEC — Operations Security:** A process for identifying and protecting sensitive information about an operation from adversarial observation and analysis.
 - **PoC — Proof of Concept:** Minimal code/steps demonstrating that a vulnerability is exploitable.
 - **RoE — Rules of Engagement:** The agreed scope, timing, and constraints of an authorized security engagement.
 - **TTP — Tactics, Techniques, and Procedures:** The behavioral patterns of an adversary, as catalogued by MITRE ATT&CK.
@@ -69,13 +69,22 @@ A quick reference for acronyms and terms used across this repository. Terms are 
 Repo-wide status notes for tools that appear across multiple guides. Where a guide
 still shows the old command, treat it per the note below.
 
-- **CrackMapExec (CME) → NetExec (`nxc`):** CrackMapExec was archived in 2023 and
-  continues as the maintained, **drop-in** NetExec — same syntax (run any
-  `crackmapexec …` example as `nxc …`).
+- **CrackMapExec (CME) → NetExec (`nxc`):** NetExec is an actively maintained successor/fork with broadly similar workflows, **not guaranteed to be a command-for-command drop-in**. Validate flags and protocol syntax with `nxc --help` and [upstream docs](https://www.netexec.wiki/) before migrating scripts.
 - **twint — broken:** stopped working after X/Twitter's 2023 API lockdown. Use
   `snscrape` (non-Twitter modules) or official APIs instead.
 - **gr-gsm — unmaintained:** does not build on GNU Radio 3.10+. For cellular
   research prefer `srsRAN` (srsLTE) or a maintained fork.
+
+## Modern Networking & Detection Terms
+
+- **BPF — Berkeley Packet Filter:** Capture-filter syntax used by `tcpdump` and capture filters in Wireshark; differs from Wireshark's display-filter grammar.
+- **PCAP / PCAPNG:** Packet-capture file formats; filtering a view does not remove sensitive data from the underlying file.
+- **PMF — Protected Management Frames:** IEEE 802.11w management-frame protection where negotiated and keys are established; not every wireless disconnect indicates spoofing.
+- **QUIC:** UDP-based encrypted transport widely used for HTTP/3; TCP port 443 filters may not show it.
+- **SIEM — Security Information and Event Management:** Central log aggregation, querying and detection/correlation, e.g. [Wazuh](./IncidentResponse/SIEM/wazuh.md).
+- **WIDS — Wireless Intrusion Detection System:** Uses wireless sensor and controller telemetry; deauth alerts need independent context.
+
+See the [Wireshark filter catalog](./Documentation/wireshark-master-filters.md) and [deauthentication guide](./Documentation/wifi-deauthentication-detection.md) for field examples.
 
 ## Frameworks & Standards
 
