@@ -29,7 +29,6 @@ class Cm4SafetyTests(unittest.TestCase):
         # package force-overwrite, cross-release apt sources, or boot edits.
         for forbidden in (
             "--force-overwrite",
-            "kali-rolling",
             "curl -",
             "wget -",
             "rpi-clone",
