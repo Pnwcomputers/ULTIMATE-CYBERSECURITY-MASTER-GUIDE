@@ -42,7 +42,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
 - [Step 4: Security Tools for Your Distribution](#step-4-security-tools-for-your-distribution)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
-- [Step 6: Install the AIO v2 Board Package](#step-6-install-the-aio-v2-board-package)
+- [Step 6: Install the AIO v2 Board Package (Optional, Hardware Fitted)](#step-6-install-the-aio-v2-board-package-optional-hardware-fitted)
 - [Step 7: Configure GPS (CM4)](#step-7-configure-gps-cm4)
 - [Step 8: Configure LoRa / Meshtastic](#step-8-configure-lora--meshtastic)
 - [Step 9: Configure RTC](#step-9-configure-rtc)
