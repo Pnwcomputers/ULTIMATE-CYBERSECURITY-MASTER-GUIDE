@@ -8,7 +8,7 @@
 </p>
 
 ## 🎯 Purpose & Function
-Routes readers by role and objective (beginner, pentester, OSCP candidate, blue team, red team, OSINT investigator, hardware hacker) straight to the relevant subset of guides. Differs from [README.md](README.md) (flat catalog) by curating a structured path rather than listing everything.
+Routes readers by role and objective (beginner, pentester, OSCP candidate, blue team, red team, OSINT investigator, hardware hacker) straight to the relevant subset of **human-readable section indexes and guides**. Differs from [README.md](README.md) (flat catalog) by curating a structured path rather than listing everything.
 
 ## 📋 When to Use
 - **First Visit:** Start here to find your role-specific reading list.
@@ -20,7 +20,6 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 **Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
 
 **Popular hands-on Blue Team path:** [Incident Response index](IncidentResponse/README.md) → [Wazuh/SIEM](IncidentResponse/SIEM/README.md) → [Kismet/nzyme IDS](IncidentResponse/IDS%26IPS/readme.md) → [Honeypot lab](IncidentResponse/HoneyPot/readme.md) → [Honeypot → Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md).
-
 
 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
