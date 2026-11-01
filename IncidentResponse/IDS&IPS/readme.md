@@ -14,6 +14,8 @@
 
 ---
 
+**Packet analysis:** [Wireshark master filters](../../Documentation/wireshark-master-filters.md) · [Wireshark field cheat sheet](../../Documentation/wireshark-cheatsheet.md) · [802.11 deauth/disassoc](../../Documentation/wifi-deauthentication-detection.md). Use a correctly positioned capture sensor and corroborate telemetry before labeling incidents.
+
 **Deception complement:** [Honeypot labs](../HoneyPot/readme.md) cover Raspberry Pi, ESP32-S3, VMs and [Wazuh reporting](../HoneyPot/wazuh-honeypot-integration.md). Decoys only see attempts aimed at them and do not replace actual Wi-Fi management-frame monitoring.
 
 ## 🎯 Purpose
