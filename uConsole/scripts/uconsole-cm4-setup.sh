@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Safe-by-default uConsole CM4 setup v2.0 (legacy v1.x was unsafe).
 set -uo pipefail
-DRY=no; AIO=no; KALI=no; YES=no; SNAP=no; META=kali-tools-top10
+DRY=no; AIO=no; KALI=no; YES=no; SNAP=no; STATUS=no; META=kali-tools-top10
 say() { printf '%s\n' "$*"; }
 die() { printf 'ERROR: %s\n' "$*" >&2; return 1; }
 usage() {
@@ -42,8 +42,7 @@ backup_configs() {
   umask 077
   mkdir -p /var/backups/uconsole-cm4 || return 1
   chmod 700 /var/backups/uconsole-cm4 || return 1
-  tar -czf "$name" -C / --etc 2>/dev/null && return 0
-  # Explicit known paths, not whole /etc or any user secrets:
+  # Explicit known paths, not all user homes or storage devices:
   tar -czf "$name" -C / etc/os-release etc/apt boot/firmware/config.txt boot/firmware/cmdline.txt \
     2>/dev/null || { rm -f "$name"; return 1; }
   chmod 600 "$name"
@@ -61,7 +60,7 @@ main() {
   while (($#)); do
     case "$1" in
       --help|-h) usage; return 0;;
-      --status) ;;
+      --status) STATUS=yes;;
       --dry-run) DRY=yes;;
       --snapshot) SNAP=yes;;
       --with-aio) AIO=yes;;
@@ -84,6 +83,7 @@ main() {
   if [[ "$AIO" != yes && "$KALI" != yes && "$SNAP" != yes ]]; then
     say "Read-only preflight complete; no files or packages changed."; return 0
   fi
+  if [[ "$STATUS" == yes ]]; then die "--status must not be combined with opt-in writes"; return 2; fi
   say "Requested: AIO=$AIO Kali=$KALI Snapshot=$SNAP"
   if [[ "$DRY" == yes ]]; then say "DRY RUN: no writes or downloads."; return 0; fi
   [[ "$EUID" -eq 0 ]] || { die "Root required for opt-in changes"; return 1; }
