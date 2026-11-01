@@ -101,6 +101,19 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) guides for **complementary wireless detections**. Correlation requires shared time/site context and trusted AP/client telemetry.
 
+### DIY hardware labs and centralized Wazuh reporting
+
+| Guide | Purpose |
+| --- | --- |
+| [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) | Pi 3/4/5, OpenCanary, Cowrie and lightweight decoys |
+| [Proxmox VM Honeynet](./proxmox-vm-honeynet.md) | VLAN segmentation, independent VMs and safe monitoring |
+| [Minimal DIY HTTP Decoy](./diy-sensor-lab.md) | Small Python JSONL sensor with no credential collection |
+| [ESP32 DIY Sensors](./esp32-diy-honeypots.md) | Embedded limits and optional custom serial telemetry |
+| [ESP32-S3 ShadowSentry / HoneyMire](./esp32-s3-honeypots.md) | Two independently documented S3 honeypot projects |
+| [Honeypot → Wazuh Integration](./wazuh-honeypot-integration.md) | Native OpenCanary/Cowrie JSON and Wazuh rules |
+
+Compare and correlate with [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md); correlation alone does not authenticate a Wi-Fi transmitter.
+
 ### Small embedded deception sensors
 
 [NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
