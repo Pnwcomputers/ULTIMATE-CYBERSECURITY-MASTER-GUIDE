@@ -84,7 +84,7 @@ still shows the old command, treat it per the note below.
 - **SIEM — Security Information and Event Management:** Central log aggregation, querying and detection/correlation, e.g. [Wazuh](./IncidentResponse/SIEM/wazuh.md).
 - **WIDS — Wireless Intrusion Detection System:** Uses wireless sensor and controller telemetry; deauth alerts need independent context.
 
-See the [Wireshark filter catalog](./Documentation/wireshark-master-filters.md) and [deauthentication guide](./Documentation/wifi-deauthentication-detection.md) for field examples.
+See the [Wireshark filters](./Documentation/wireshark.md) and [deauthentication guide](./Documentation/wifi-deauthentication-detection.md) for field examples.
 
 ## Frameworks & Standards
 
