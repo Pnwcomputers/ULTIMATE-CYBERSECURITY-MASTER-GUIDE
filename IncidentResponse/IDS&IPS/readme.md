@@ -62,6 +62,7 @@ This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc
 |---|---|---|---|---|
 | 📶 **[Kismet + Wazuh Wireless IDS Lab](./kismet-wazuh-wireless-lab.md)** | Wireless (802.11) + SIEM | Kismet + Wazuh | Detection only | Medium |
 | 📡 **[nzyme_wids.md](./nzyme_wids.md)** | Wireless (802.11) | nzyme | ❌ Detection only | 🟡 MEDIUM |
+| 📶 **[nzyme + Wazuh Integration](./nzyme-wazuh-integration.md)** | Wireless WIDS → SIEM | nzyme + Wazuh | Detection only | 🟡 MEDIUM |
 | 🛡️ **[suricata+zeek.md](./suricata+zeek.md)** | Wired/Network | Suricata + Zeek | ✅ Suricata supports inline blocking | 🟡 MEDIUM |
 | 🐷 **[snort.md](./snort.md)** | Wired/Network | Snort | ✅ Native inline (NFQUEUE) | 🟡 MEDIUM (packaging can be the hard part) |
 | 🧅 **[security-onion.md](./security-onion.md)** | Wired/Network (turnkey NSM stack) | Suricata + Zeek + Elastic Stack, pre-integrated | ✅ Suricata component supports inline blocking | 🔴 HIGH (dedicated hardware, appliance-style install) |
@@ -75,6 +76,9 @@ This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc
 Hands-on fixed-channel Kismet deauthentication monitoring, read-only API to JSONL, Wazuh custom severity/repetition rules, synthetic validation, offline packet-burst analysis, correlation, and dashboard build. Complements nzyme and wired Snort/Suricata; it does not inject or block Wi-Fi traffic.
 
 
+
+### 📶 [nzyme + Wazuh Wireless Integration](./nzyme-wazuh-integration.md)
+Configure per-network disconnection thresholds, forward nzyme native detection events to Wazuh by secure localhost webhook JSONL, and compare nzyme's grouped alerts with Kismet and independent AP/controller evidence. Includes sample code, service unit, Wazuh rules and synthetic tests.
 
 ### 📡 [nzyme WIDS](./nzyme_wids.md)
 Wireless Intrusion Detection System — a Proxmox VM node plus Raspberry Pi tap sensors with USB adapters. Covers node install on Ubuntu Server + PostgreSQL, the 2.4/5 GHz band-split sensor strategy, out-of-tree DKMS driver fixes for adapter chipsets that crash under channel hopping, and alert-tuning heuristics for telling a real rogue AP from RF noise. Detection-only — nzyme does not block wireless traffic.
