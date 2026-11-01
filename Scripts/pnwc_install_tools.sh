@@ -570,7 +570,7 @@ install_exploit() {
     fi
 
     # PEASS-ng (LinPEAS / WinPEAS)
-    git_clone_tool "PEASS-ng" "https://github.com/carlospolop/PEASS-ng.git"
+    git_clone_tool "PEASS-ng" "https://github.com/peass-ng/PEASS-ng.git"
 
     # BloodHound
     case "$PKG_MGR" in

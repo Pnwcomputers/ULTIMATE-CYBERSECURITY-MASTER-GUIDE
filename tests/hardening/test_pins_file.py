@@ -53,19 +53,25 @@ class PinsFile(unittest.TestCase):
                 missing.append(f"go:{m.group(1)}")
         self.assertEqual(sorted(set(missing)), [])
 
-    def test_downloads_have_version_where_urls_use_it_and_hash_per_arch(self):
+    def test_downloads_pin_only_verified_artifact_hashes(self):
         p = pins()
-        for tool in ("phoneinfoga", "feroxbuster"):
-            for arch in ("amd64", "arm64"):
-                self.assertIn(f"dl:{tool}:sha256:{arch}", p)
-        for tool in ("jadx", "dex2jar", "apktool"):
+        # These values come from GitHub's SHA-256 release-asset digest metadata.
+        # An absent, unverifiable digest is safer than a fabricated one.
+        for arch in ("amd64", "arm64"):
+            self.assertRegex(p.get(f"dl:feroxbuster:sha256:{arch}", ""),
+                             r"^[0-9a-f]{64}$")
+        for tool in ("jadx", "apktool", "ghidra"):
+            self.assertRegex(p.get(f"dl:{tool}:sha256:any", ""),
+                             r"^[0-9a-f]{64}$", tool)
+        for tool in ("phoneinfoga", "feroxbuster", "jadx", "dex2jar", "apktool"):
             self.assertIn(f"dl:{tool}:version", p)
-            self.assertIn(f"dl:{tool}:sha256:any", p)
-        for tool in ("msfinstall", "asn"):  # raw files: pinned by commit, not by moving branch
-            self.assertRegex(p.get(f"dl:{tool}:commit", ""), r"^[0-9a-f]{40}$")
-            self.assertIn(f"dl:{tool}:sha256:any", p)
-        for tool in ("ghidra", "rockyou"):
-            self.assertIn(f"dl:{tool}:sha256:any", p)
+        for tool in ("msfinstall", "asn"):
+            self.assertRegex(p.get(f"dl:{tool}:commit", ""),
+                             r"^[0-9a-f]{40}$")
+        # No SHA for some legacy assets is available from verified release data.
+        # Missing digests are acceptable only because fetch_pinned fails closed.
+        # See test_installer_checks.FetchPinnedTests for executable regressions.
+
         # moving-branch URLs must not come back
         src = (ROOT / "OSINT/Playbook/install_dependencies.sh").read_text() + (ROOT / "Scripts/pnwc_install_tools.sh").read_text()
         self.assertNotRegex(src, r"raw\.githubusercontent\.com/[^\s\"]+/(master|main)/")
