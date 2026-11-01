@@ -16,6 +16,8 @@ Antenna testing, impedance matching, cable fault location, and defensible RF mea
 
 ---
 
+**Quick references:** [NanoVNA field card](./07-quick-reference.md) · [cross-repository review index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Confirm calibration, cable fixture and usable frequency range for the actual instrument before using formula results.
+
 ## 🎯 Purpose
 
 This README is the entry point for the NanoVNA subsection. It connects **twelve companion documents** plus a Python toolchain covering instrument setup, RF fundamentals, calibration, antenna testing and tuning, cable and filter measurement, worked examples, and measurement scope.

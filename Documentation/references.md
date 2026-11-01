@@ -1,5 +1,10 @@
 # 📖 Security & Networking Reference Guide
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
+> [!NOTE]
+> **Reviewed October 31, 2026.** Port numbers are *conventions*, not proof of the service listening or its purpose. Applications routinely use non-default ports, TLS and QUIC; identify services using packet decoding, authenticated inventory, and endpoint logs. Regex samples are **detection heuristics**, not full validators for complex formats. See [IANA Service Name and Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml), [IANA HTTP Status Codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml), and [Wireshark filter reference](./wireshark.md).
+
 ## 🎯 Purpose
 Quick-reference tables for port numbers (well-known, registered, dynamic), HTTP status codes, and regex patterns used in cybersecurity operations, penetration testing, network administration, and log analysis.
 
@@ -42,10 +47,10 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 | ---: | :---: | :--- | :--- |
 | 20 | TCP | FTP Data | Active mode data transfer |
 | 21 | TCP | FTP Control | Command channel - often targeted |
-| 22 | TCP | SSH | Secure shell - default, change in prod |
+| 22 | TCP | SSH | Secure Shell default; enforce strong authentication, patching, access restrictions and monitoring. Port changes alone are not security. |
 | 23 | TCP | Telnet | Cleartext - never use in prod |
 | 69 | UDP | TFTP | Trivial FTP - no auth, common in IoT |
-| 115 | TCP | SFTP | Simple FTP (not SSH SFTP) |
+| 115 | TCP | SFTP (historical Simple File Transfer Protocol) | **Not** SSH File Transfer Protocol (which normally runs over SSH, often TCP 22) |
 | 139 | TCP | NetBIOS | SMB over NetBIOS |
 | 445 | TCP | SMB | Direct SMB - EternalBlue target |
 | 3389 | TCP | RDP | Remote Desktop - high-value attack surface |
@@ -138,7 +143,8 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 
 ### Common C2 & Attack Framework Ports
 
-> ⚠️ These ports are commonly used by attack frameworks - useful for detection rules and firewall analysis.
+> [!CAUTION]
+> These ports are **examples and configurable defaults**, not reliable malware/C2 signatures. Legitimate systems can use the same numbers, and adversaries can use arbitrary ports. Avoid detection rules based on a port alone.
 
 | Port | Tool / Framework | Direction | Notes |
 | ---: | :--- | :--- | :--- |
@@ -264,14 +270,18 @@ proxychains4 nmap -sT -Pn <target>
 ## 🔍 Regex Patterns
 
 ### Network & Infrastructure
+
+> [!WARNING]
+> Patterns below often accept invalid values or reject valid edge cases. For IP addresses, network prefixes and URLs, prefer a standards-aware parser (e.g. Python's `ipaddress.ip_address` / `ipaddress.ip_network`, or a maintained URL parser) after matching. Do not use naive patterns to make access-control decisions.
+
 ~~~
-# IPv4 address
+# IPv4 address (lexical shape only; may match octets above 255)
 ^(\d{1,3}\.){3}\d{1,3}$
 
 # IPv4 with CIDR
 ^(\d{1,3}\.){3}\d{1,3}\/([0-9]|[1-2][0-9]|3[0-2])$
 
-# IPv6 address (simplified)
+# IPv6 address (simplified; rejects :: compression and other valid forms)
 ^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$
 
 # MAC address (colon-separated)
@@ -280,7 +290,7 @@ proxychains4 nmap -sT -Pn <target>
 # MAC address (hyphen-separated)
 ^([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}$
 
-# Port number (0–65535)
+# Port number (0–65535; verify boundaries in the consuming parser)
 ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$
 
 # Domain name
@@ -304,7 +314,7 @@ https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0
 # AWS Access Key ID
 AKIA[0-9A-Z]{16}
 
-# AWS Secret Access Key
+# AWS Secret Access Key (pattern is generic; do not log matched secret values)
 [0-9a-zA-Z/+]{40}
 
 # Generic API key (common pattern)
@@ -382,7 +392,7 @@ EventID\s*[=:]\s*(\d{4})
 # US ZIP code
 ^\d{5}(-\d{4})?$
 
-# Credit card number (basic Luhn-check pattern, no spaces)
+# Credit card candidate number (regex cannot verify Luhn checksum)
 ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})$
 
 # SSN (for detection/masking - US)

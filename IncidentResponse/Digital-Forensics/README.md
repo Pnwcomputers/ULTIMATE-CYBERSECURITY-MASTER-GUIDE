@@ -14,6 +14,8 @@
 
 ---
 
+**Memory reference:** [Volatility 3 cheat sheet](./Memory/volatility_cheatsheet.md) · [cheat-sheet audit index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Keep original memory evidence immutable; confirm supported plugin names, dependencies and symbols locally.
+
 ## 🎯 Purpose
 Index for the Digital Forensics sub-section — guides for acquiring and analyzing evidence after an incident: memory forensics, disk forensics, and volatile live-response collection.
 

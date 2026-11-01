@@ -1,5 +1,10 @@
 # Cybersecurity Comprehensive Cliff Notes
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
+> [!NOTE]
+> **Selected reference audit: October 31, 2026.** This is a historical multi-topic compendium, not a guarantee every pasted command works with the latest tool release. Some sections are intentionally preserved as legacy demonstrations; use the [official OWASP Top 10:2025](https://top10.owasp.org/2025/) for current categories, [Arch/Debian cheat sheets](Documentation/ArchLinux_CheatSheet.md) for safe system commands, and [Wireshark reference](Documentation/wireshark.md) for protocol investigations.
+
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
 > testing, education, and defensive research. Using them against systems you do
@@ -215,7 +220,12 @@ ettercap -T -M arp:remote /gateway_ip// /victim_ip//
 
 ## Web Application Security
 
-### OWASP Top 10 (Latest)
+### OWASP Top 10:2025 — current reference (the numbered examples below reflect older categories)
+
+The **current OWASP Top 10:2025**, as published by OWASP, is: **A01 Broken Access Control; A02 Security Misconfiguration; A03 Software Supply Chain Failures; A04 Cryptographic Failures; A05 Injection; A06 Insecure Design; A07 Authentication Failures; A08 Software or Data Integrity Failures; A09 Security Logging and Alerting Failures; A10 Mishandling of Exceptional Conditions.**
+
+> [!WARNING]
+> The older numbered examples that follow are **historical examples, not the official 2025 ordering or a complete current taxonomy**. Use [OWASP's current list](https://top10.owasp.org/2025/) for teaching, audits, report mappings and findings.
 
 #### 1. Broken Access Control
 - **Description**: Users can act outside intended permissions
@@ -806,8 +816,8 @@ use auxiliary/fuzzers/http/http_form_field
 ### Wi-Fi Protocols
 - **WEP**: Deprecated, easily crackable
 - **WPA**: Better than WEP, still vulnerable
-- **WPA2**: Current standard, vulnerable to KRACK
-- **WPA3**: Latest, most secure
+- **WPA2**: Widely deployed; patch vulnerabilities, enforce strong PSKs or enterprise authentication, validate PMF and client updates
+- **WPA3**: Modern security suite with SAE/enterprise modes; not equivalent to WPA2-PSK capture/cracking and still requires secure configuration
 
 ### Wireless Reconnaissance
 ```bash
@@ -821,7 +831,8 @@ airodump-ng wlan0mon
 # Capture handshake
 airodump-ng -c channel --bssid AP_MAC -w capture wlan0mon
 
-# Deauthentication attack (force handshake)
+# ACTIVE DEAUTH - lab-only and disruptive. PMF can block forged disconnects.
+# For passive monitoring see Documentation/wifi-deauthentication-detection.md
 aireplay-ng --deauth 10 -a AP_MAC wlan0mon
 ```
 
@@ -1385,7 +1396,7 @@ This comprehensive guide covers the essential topics in cybersecurity and penetr
 - [README.md](README.md) - Full repo index
 - [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) - Full methodology context
 - [Documentation/LinuxCheatSheet.md](Documentation/LinuxCheatSheet.md) - Linux commands context
-- [Checklists/](Checklists/) - Structured checklists for each phase
+- [Checklists index](Checklists/README.md) - Structured checklists for each phase
 
 ---
 [⬅️ Back to Master Index](README.md) | [🎯 Role Navigation](START_HERE.md) | [Legal Notice](LEGAL.md)

@@ -1,5 +1,10 @@
 # 🐧 Arch Linux Command Cheat Sheet and Reference
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
+> [!IMPORTANT]
+> **Reviewed October 31, 2026.** This is a quick reference, not a safe-to-run installation script. Review package changes, back up important data, check [Arch News](https://archlinux.org/news/) and the [Arch system-maintenance guidance](https://wiki.archlinux.org/title/System_maintenance). **Partial upgrades are unsupported** on Arch. For Manjaro, prefer Manjaro-specific repository/keyring instructions where they differ. See also [Debian/Ubuntu reference](./LinuxCheatSheet.md), [security and networking references](./references.md) and the [Wireshark capture reference](./wireshark.md).
+
 ## 🎯 Purpose
 Quick reference for common Linux system administration, networking, security auditing, and hardware interface commands — Arch/Manjaro/EndeavourOS focused, using pacman, AUR helpers, and Arch-native tooling throughout.
 
@@ -42,10 +47,10 @@ Arch uses a **rolling release** model — packages are always up-to-date rather 
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `ssh-keygen -R 192.168.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Use this if the remote server key changes. |
+| `ssh-keygen -R 192.168.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Use only after independently verifying that the new host key/fingerprint is legitimate; unexpected key changes may indicate an attack. |
 | `sudo chmod u+x my_script.sh` | **Allow Execution** | Adds the **e**xecute permission (`+x`) for the **u**ser (`u+`) who owns the file, making a script runnable. |
-| `sudo chmod 644` | **File Permissions** | Owner can read/write; Group/Others can only read (standard file permission). |
-| `sudo chmod 755` | **Script/Directory Permissions** | Owner can read/write/execute; Group/Others can read/execute (standard directory/script permission). |
+| `chmod 644 path/to/file` | **File Permissions** | Owner can read/write; Group/Others can only read (standard file permission). |
+| `chmod 755 path/to/script-or-dir` | **Script/Directory Permissions** | Owner can read/write/execute; Group/Others can read/execute (standard directory/script permission). |
 
 ---
 
@@ -53,10 +58,10 @@ Arch uses a **rolling release** model — packages are always up-to-date rather 
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `sudo pacman -Syu --overwrite '*'` | **Fix File Conflicts** | Forces an upgrade, overwriting files that conflict between packages. Use when pacman refuses to install due to file ownership conflicts. |
-| `sudo pacman -Rdd <pkg>` | **Force Remove (Ignore Deps)** | Removes a package while ignoring dependency checks. Use when a package is blocking an update. |
+| `pacman -Qo /path/to/conflicting-file` | **Investigate file conflicts** | Check which package owns the specific file. Do **not** run blanket `--overwrite '*'`; consult the [pacman troubleshooting procedure](https://wiki.archlinux.org/title/Pacman#%22Failed_to_commit_transaction_(conflicting_files)%22_error). |
+| `pacman -Qi package-name` | **Inspect a blocking package** | Review dependencies/ownership before taking action. Avoid `pacman -Rdd` because bypassing dependency checks can break the OS. |
 | `sudo pacman -Rns <pkg>` | **Remove Package Cleanly** | Removes the package, its configuration files, and any now-orphaned dependencies. |
-| `sudo pacman -Rns $(pacman -Qdtq)` | **Remove All Orphans** | Bulk-removes all orphaned packages in one pass. Run `pacman -Qdt` first to preview. |
+| `pacman -Qdt` | **Review orphans first** | Check the candidate list manually; only then remove selected packages. Empty command substitution must not trigger an unintended `pacman -Rns` invocation. |
 | `sudo pacman -Sc` | **Clean Old Cache** | Removes cached package files for packages that are no longer installed. |
 | `sudo pacman -Scc` | **Clear Entire Cache** | Removes all cached packages including those currently installed. Frees maximum disk space. |
 
@@ -218,7 +223,7 @@ sudo systemctl enable --now smb nmb
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
 | `sudo pacman -Rns <pkg>` | **Remove Package Cleanly** | Removes the package, its config files, and orphaned dependencies. Standard removal command. |
-| `sudo pacman -Rns $(pacman -Qdtq)` | **Remove All Orphans** | Removes all packages that are no longer required by anything. |
+| `pacman -Qdt  # review first; remove confirmed orphans by package name` | **Remove All Orphans** | Removes all packages that are no longer required by anything. |
 | `sudo pacman -Rdd <pkg>` | **Force Remove** | Removes package ignoring dependency checks. Use when removing conflicting packages before updates. |
 
 **Common pre-update conflict removal (BlackArch):**
@@ -328,7 +333,7 @@ pipx install nomadnet && \
 pipx install lxmf && \
 pipx install unblob && \
 pipx install rfcat && \
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Review the verified uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ ; avoid piping unreviewed downloads to a shell
 ```
 
 ### 11.4 Build-from-Source Tools (Arch)
@@ -342,7 +347,7 @@ cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
 
 **`arduino-cli`** — official installer:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+# Use the official Arduino CLI package/release instructions at https://arduino.github.io/arduino-cli/latest/installation/ ; review the script before execution
 ```
 
 **`Ghidra`** — manual download (needs JDK 17+):
@@ -456,15 +461,15 @@ sudo systemctl enable --now reflector.timer
 ### 12.5 Fix Broken Keyring
 
 ```bash
-# Nuclear fix for pacman GPG errors
-sudo rm -rf /etc/pacman.d/gnupg
-sudo pacman-key --init
-sudo pacman-key --populate archlinux
-sudo pacman -Sy archlinux-keyring
+# First check time, trust database, repository mirror freshness, and exact errors.
+timedatectl status
+pacman -Qi archlinux-keyring
+sudo pacman -Syu archlinux-keyring
 
-# If BlackArch is installed
-sudo pacman-key --populate blackarch
-sudo pacman -Sy blackarch-keyring
+# Do not delete /etc/pacman.d/gnupg or run a standalone 'pacman -Sy'
+# as a routine fix. Follow the exact ArchWiki recovery procedure:
+# https://wiki.archlinux.org/title/Pacman/Package_signing
+# For Manjaro / BlackArch, use their distribution-specific keyring guidance.
 ```
 
 ### 12.6 Kernel Management
@@ -604,7 +609,7 @@ Quick descriptions of what each tool does, organized by category.
 | Full system update | `sudo pacman -Syu` |
 | Update incl. AUR | `yay -Syu` or `paru -Syu` |
 | Check for orphans | `pacman -Qdt` |
-| Remove all orphans | `sudo pacman -Rns $(pacman -Qdtq)` |
+| Remove all orphans | `pacman -Qdt  # review first; remove confirmed orphans by package name` |
 | Find `.pacnew` configs to merge | `sudo find /etc -name "*.pacnew" -o -name "*.pacsave" 2>/dev/null` |
 | List AUR-installed packages | `pacman -Qm` |
 | Which package owns a file | `pacman -Qo /path/to/file` |
@@ -624,7 +629,7 @@ sudo pacman -Syu
 yay -Syu --devel        # Also update AUR git-tracking packages
 
 # 2. Remove orphans
-sudo pacman -Rns $(pacman -Qdtq)
+pacman -Qdt  # review first; remove confirmed orphans by package name
 
 # 3. Clean cache (keep last 3 versions per package)
 sudo paccache -r

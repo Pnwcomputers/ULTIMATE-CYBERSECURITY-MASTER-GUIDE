@@ -1,5 +1,10 @@
 # 🐧 Linux Command Cheat Sheet & Reference _(Debian Based)_
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
+> [!IMPORTANT]
+> **Reviewed October 31, 2026.** These commands depend on the distribution version, actual hardware, privileges and package availability; do not paste large installation blocks without checking their changes. Debian 12+/recent Ubuntu often implement [externally managed Python environments](https://pipx.pypa.io/latest/how-to/install-pipx.html): prefer system packages, `pipx` for applications or `python3 -m venv` for projects, not global `pip3 install`. See [Arch reference](./ArchLinux_CheatSheet.md), [network reference](./references.md), and [Wireshark capture and filter reference](./wireshark.md).
+
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
 ## 🎯 Purpose
@@ -34,16 +39,16 @@ Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for secur
 
 # Debian/General Linux Reference Guide:
 
-[Debian](https://www.debian.org/) Linux maintains massive, heavily vetted official [repositories](https://github.com/InfoSecWarrior/Linux-Essentials/blob/main/Package-Management/Understanding-Repositories.md). If a piece of software isn't in the official repos (short for repositories), users typically add third-party repositories or PPAs [(Personal Package Archives)](https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/). Debian Linux uses [`apt`](https://linuxize.com/post/how-to-use-apt-command/) for it's package installation and management. For a graphical interface, users can also use the [Synaptic Package Manager](https://www.nongnu.org/synaptic/) to easily find and install applications on their system.
+[Debian](https://www.debian.org/) Linux maintains massive, heavily vetted official [repositories](https://github.com/InfoSecWarrior/Linux-Essentials/blob/main/Package-Management/Understanding-Repositories.md). If a piece of software isn't in the official repos (short for repositories), check package availability and distribution support before adding any third-party repositories or PPAs [(Personal Package Archives)](https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/). Debian Linux uses [`apt`](https://linuxize.com/post/how-to-use-apt-command/) for its package installation and management. For a graphical interface, users can also use the [Synaptic Package Manager](https://www.nongnu.org/synaptic/) to easily find and install applications on their system.
 
 ## 1. SSH and File Permissions
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `ssh-keygen -R 192.168.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Use this if the remote server key changes. |
+| `ssh-keygen -R 192.168.0.1` | **Remove SSH Key** | Removes the host key for the specified IP from your `known_hosts` file. Do this only after independently confirming the changed remote SSH host-key fingerprint. |
 | `sudo chmod u+x my_script.sh` | **Allow Execution** | Adds the **e**xecute permission (`+x`) for the **u**ser (`u+`) who owns the file, making a script runnable. |
-| `sudo chmod 644` | **File Permissions** | Owner can read/write; Group/Others can only read (standard file permission). |
-| `sudo chmod 755` | **Script/Directory Permissions** | Owner can read/write/execute; Group/Others can read/execute (standard directory/script permission). |
+| `chmod 644 path/to/file` | **File Permissions** | Owner can read/write; Group/Others can only read (standard file permission). |
+| `chmod 755 path/to/script-or-dir` | **Script/Directory Permissions** | Owner can read/write/execute; Group/Others can read/execute (standard directory/script permission). |
 
 ---
 
@@ -53,7 +58,7 @@ Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for secur
 | :--- | :--- | :--- |
 | `sudo apt --fix-broken install` | **Fix Broken Dependencies** | Attempts to correct a system where packages have unmet dependencies. |
 | `sudo apt remove [package_name]` | **Remove Package** | Basic command to uninstall a specified package (requires a package name). |
-| `sudo apt autoremove -y` | **Remove Unused Packages** | Removes packages that were installed as dependencies but are no longer required. |
+| `sudo apt autoremove` | **Review removable dependencies** | Examine the proposed removals and confirm before proceeding; avoid automatic confirmation in a recovery scenario. |
 | `sudo apt clean` | **Clean Package Cache** | Clears out the local repository of retrieved package files. |
 
 ---
@@ -97,7 +102,7 @@ Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for secur
 | `iw dev` | **Wireless Info** | Shows detailed information about wireless devices. |
 | `sudo iwconfig` | **Wireless Config** | Displays/sets basic wireless interface parameters. |
 | `sudo ip link set wlan1 down` | **Disable Interface** | Brings down the specified wireless interface. |
-| `sudo ip link set wlan1 name wlan1mon` | **Rename Interface** | Renames the wireless interface (useful for monitor mode setup). |
+| `sudo ip link set wlan1 name wlan1mon` | **Rename Interface only** | Changing an interface name does **not** enable monitor mode. Monitor mode requires a supported driver and explicit interface-type configuration. |
 | `airmon-ng` | **Monitor Mode** | Puts a wireless card into monitor mode for security auditing. |
 | `sudo arp-scan -l` | **ARP Scan** | Scans the local network segment using ARP packets to discover active hosts. |
 
@@ -246,7 +251,7 @@ pipx install nomadnet && \
 pipx install lxmf && \
 pipx install unblob && \
 pipx install rfcat && \
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Review the current uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ and inspect the chosen installer rather than piping it into a shell
 ```
 
 ### 11.4 Build-from-Source Tools (Bare-Metal)
@@ -260,7 +265,7 @@ cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
 
 **`arduino-cli`** - official installer:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+# Consult https://arduino.github.io/arduino-cli/latest/installation/ and verify the installer/version before executing
 ```
 
 **`Ghidra`** - manual download (needs JDK 17+):
@@ -401,7 +406,7 @@ pipx install nomadnet && \
 pipx install lxmf && \
 pipx install unblob && \
 pipx install rfcat && \
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Review the current uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ and inspect the chosen installer rather than piping it into a shell
 ```
 
 ### 12.8 Build-from-Source for WSL
@@ -628,7 +633,7 @@ recon-ng
 ```bash
 pipx install sherlock-project
 pipx install maigret
-pip3 install h8mail holehe
+pipx install h8mail && pipx install holehe
 ```
 
 **Git-based installs:**

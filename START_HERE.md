@@ -79,6 +79,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | Resource | Description |
 |----------|-------------|
 | **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
+| **[Cheat Sheet & Reference Index](Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | One readable index for reviewed Linux/Arch, network, wireless, Bash, OSINT, IR, SDR and general reference material |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
 | **[Wireshark Field Cheat Sheet](Documentation/wireshark-cheatsheet.md)** | Quick GUI/CLI packet analysis, 802.11, DNS/DHCP, TCP and TLS filter examples |
 | **[Wireshark Master Filter List](Documentation/wireshark-master-filters.md)** | Searchable reference and 133 tested display filters for detailed investigations |
