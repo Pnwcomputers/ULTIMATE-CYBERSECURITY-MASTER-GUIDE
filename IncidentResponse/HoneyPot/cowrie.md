@@ -14,6 +14,8 @@
 
 ---
 
+**Wazuh reporting:** [Cowrie JSON event rules](./wazuh-honeypot-integration.md) · [Raspberry Pi lab](./raspberry-pi-honeypot-lab.md) · [Proxmox honeynet](./proxmox-vm-honeynet.md). Shell-emulation mode is preferable for a simple low-risk lab; backend proxy mode has an expanded attack surface. Logs can include passwords, commands and samples—restrict access.
+
 ## 🎯 Purpose
 Guide for deploying [Cowrie](https://github.com/cowrie/cowrie), a medium-to-high interaction SSH and Telnet honeypot that emulates a full UNIX shell in Python, logs brute-force attempts, and records the complete interactive session an attacker has once they're "in" — commands typed, files downloaded via wget/curl, and files uploaded via SFTP/SCP.
 
