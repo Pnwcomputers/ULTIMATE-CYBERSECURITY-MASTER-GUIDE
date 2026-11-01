@@ -36,6 +36,7 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 - [Overview](#-overview)
 - [Platform Comparison](#️-platform-comparison)
 - [Deployment Guides](#-deployment-guides)
+- [DIY Hardware and Wazuh Reporting](#diy-hardware-and-wazuh-reporting)
 - [How This Fits With IDS/IPS and SIEM](#-how-this-fits-with-idsips-and-siem)
 - [Deployment Workflow](#-deployment-workflow)
 - [⚠️ Security Notes](#️-security-notes)
@@ -90,6 +91,8 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 ### DIY hardware and Wazuh reporting
 
+**[Security and accuracy review (October 31, 2026)](./REVIEW-2026-10-31.md):** methods, limitations, CI results and the separate installer pinning issue.
+
 | Guide | Deployment | What it adds |
 | --- | --- | --- |
 | [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) | Pi 3/4/5, Zero 2 W | OpenCanary, Cowrie and lightweight decoys with safe port/network design |
@@ -101,22 +104,6 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) guides for **complementary wireless detections**. Correlation requires shared time/site context and trusted AP/client telemetry.
 
-### DIY hardware labs and centralized Wazuh reporting
-
-**[Security and accuracy review (2026-10-31)](./REVIEW-2026-10-31.md):** CI results, source and link verification scope, runtime prerequisites, and the existing installer pinning issue discovered during the wider audit.
-
-
-| Guide | Purpose |
-| --- | --- |
-| [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) | Pi 3/4/5, OpenCanary, Cowrie and lightweight decoys |
-| [Proxmox VM Honeynet](./proxmox-vm-honeynet.md) | VLAN segmentation, independent VMs and safe monitoring |
-| [Minimal DIY HTTP Decoy](./diy-sensor-lab.md) | Small Python JSONL sensor with no credential collection |
-| [ESP32 DIY Sensors](./esp32-diy-honeypots.md) | Embedded limits and optional custom serial telemetry |
-| [ESP32-S3 ShadowSentry / HoneyMire](./esp32-s3-honeypots.md) | Two independently documented S3 honeypot projects |
-| [Honeypot → Wazuh Integration](./wazuh-honeypot-integration.md) | Native OpenCanary/Cowrie JSON and Wazuh rules |
-
-Compare and correlate with [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md); correlation alone does not authenticate a Wi-Fi transmitter.
-
 ### Small embedded deception sensors
 
 [NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
@@ -125,15 +112,15 @@ Compare and correlate with [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-l
 
 ```text
 Want to detect attacks against your REAL production traffic?
-  └─> ../IDS&IPS/ — Suricata/Zeek (wired) or nzyme (wireless).
+  └─> Follow the linked IDS & IPS index above for wired and wireless sensing.
       These need tuning to separate real threats from normal traffic.
 
-Want an almost-zero-false-positive tripwire for anyone poking
+Want a dedicated detection tripwire for unusual connections
 around where they shouldn't be?
   └─> A honeypot (this folder). Classify hits against authorized scanning and maintenance; not every hit is an attacker.
 
 Want to correlate honeypot hits with everything else?
-  └─> Forward the honeypot's logs into a SIEM — see ../SIEM/README.md.
+  └─> Follow the linked Honeypot → Wazuh guide above.
 ```
 
 A honeypot is a **complement**, not a substitute, for traffic-based detection — it only sees traffic aimed directly at it, not the rest of your network. Confirm suspicious contacts against inventory and scan schedules before escalating.
