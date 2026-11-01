@@ -14,6 +14,8 @@
 
 ---
 
+**Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
+
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
