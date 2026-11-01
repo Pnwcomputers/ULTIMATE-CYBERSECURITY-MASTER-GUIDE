@@ -1,5 +1,7 @@
 # Pwnagotchi Commands and Configuration 🤖
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!WARNING]
 > **Reviewed October 31, 2026.** The actively developed [jayofelony fork](https://github.com/jayofelony/pwnagotchi/releases) has newer images than the older v2.9.5.4 example below; **v2.9.5.8** was the most recent reviewed release. Recent releases changed image support, plugin behavior and `.pcapng` storage. Consult the [maintained wiki](https://github.com/jayofelony/pwnagotchi/wiki) for the exact image and config on your hardware, verify the checksum where published, **back up data** and do not assume old paths or plugins work unchanged. This is **not a passive-only device by default**: some modes can transmit/deauthenticate; use explicitly authorized passive modes only where required.
 
