@@ -1,5 +1,8 @@
 # 🧠 Volatility 3 Memory Forensics Guide
 
+> [!IMPORTANT]
+> **Reviewed October 31, 2026 (reference corrections, not a live dump validation).** Prefer the [upstream Volatility 3 documentation](https://volatility3.readthedocs.io/en/latest/) and [official source](https://github.com/volatilityfoundation/volatility3). Exact plugin names/flags and symbol requirements can vary by release and OS build; use `vol --help` and `vol <plugin> --help` for **your version**. Collect memory only with authorization and preserve hash, acquisition time, tool version, custody, and original bytes. Unknown Docker images are **not** official merely because they contain Volatility.
+
 ## 🎯 Purpose
 Volatility 3 memory forensics cheat sheet - covering the full analysis workflow for Windows and Linux memory dumps captured during incident response.
 
@@ -23,18 +26,18 @@ This guide covers Volatility 3 installation, memory acquisition, and comprehensi
 
 ## 🎯 Why Memory Forensics?
 
-Memory analysis reveals artifacts that disk forensics cannot:
+Memory analysis can reveal artifacts not always recoverable from disk; capture timing, memory acquisition quality, paging, encryption and symbol compatibility limit what can be recovered:
 
 | Artifact | Disk Forensics | Memory Forensics |
 |----------|----------------|------------------|
 | Running processes | ❌ | ✅ Full details including hidden |
 | Network connections | Limited (logs) | ✅ Active at capture time |
-| Encryption keys | ❌ | ✅ In cleartext |
+| Encryption keys | Sometimes | Potentially recoverable, not guaranteed or necessarily plaintext |
 | Injected code/shellcode | ❌ | ✅ Detectable |
 | Malware in memory-only | ❌ | ✅ Capturable |
 | Command history | Limited | ✅ Console buffers |
 | Clipboard contents | ❌ | ✅ Recoverable |
-| Decrypted data | ❌ | ✅ Before encryption |
+| Decrypted data | Sometimes | May be present in RAM depending on process/OS and timing |
 | Deleted/hidden processes | ❌ | ✅ Via pool scanning |
 
 ---
@@ -46,13 +49,13 @@ Memory analysis reveals artifacts that disk forensics cannot:
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
 | OS | Windows/Linux/macOS | Linux (Ubuntu 22.04) |
-| Python | 3.7+ | 3.10+ |
+| Python | Check installed Volatility release requirements | Use a currently supported Python and isolated environment |
 | RAM | 8 GB | 16 GB+ |
 | Storage | 2x size of memory dump | SSD recommended |
 
 ### Required Software
 
-- Python 3.7 or higher
+- A Python version supported by the installed Volatility 3 release; current versions may reject old Python runtimes
 - pip (Python package manager)
 - Git (for installation from source)
 
@@ -64,7 +67,10 @@ Memory analysis reveals artifacts that disk forensics cannot:
 
 ```bash
 # Install Volatility 3
-pip3 install volatility3
+# Isolated installation; avoid modifying system-managed Python
+python3 -m venv .venv-volatility
+. .venv-volatility/bin/activate
+python -m pip install volatility3
 
 # Verify installation (pip installs the binary as 'vol', not 'vol3')
 vol --help
@@ -78,25 +84,21 @@ git clone https://github.com/volatilityfoundation/volatility3.git
 cd volatility3
 
 # Install dependencies
-pip3 install -r requirements.txt
+python3 -m venv .venv && . .venv/bin/activate
+python -m pip install -r requirements.txt
 
 # Run directly
 python3 vol.py --help
 ```
 
-### Method 3: Docker Installation
+### Method 3: Containerized Analysis (Verify Image Provenance)
 
-```bash
-# Pull the official image
-docker pull sk4la/volatility3
-
-# Run with a memory dump
-docker run -v /path/to/dumps:/dumps sk4la/volatility3 -f /dumps/memory.dmp windows.pslist
-```
+> [!WARNING]
+> Older examples referred to `sk4la/volatility3` as an **official image**. That claim was not established and has been removed. Build a reviewed image from upstream source or choose a provenance-verified package; do not mount confidential memory dumps into unknown or outdated third-party containers. Prefer an isolated, offline forensic VM when practicable.
 
 ### Installing Symbol Tables
 
-Volatility 3 requires symbol tables (ISF files) to analyze memory dumps. These are downloaded automatically but can be pre-installed:
+Volatility 3 may require matching symbols for specific layers/plugins and can acquire some symbols automatically when network access is permitted. Offline analysis needs a previously verified, compatible symbol cache:
 
 ```bash
 # Create symbols directory
@@ -229,7 +231,7 @@ sudo ./avml memory.lime
 
 ```bash
 # Standard syntax
-python3 vol.py -f <MEMORY_DUMP> <PLUGIN> [OPTIONS]
+vol -f <MEMORY_DUMP> <PLUGIN> [OPTIONS]  # installed in venv; from source use python3 vol.py
 
 # With output file
 python3 vol.py -f memory.dmp windows.pslist > processes.txt
