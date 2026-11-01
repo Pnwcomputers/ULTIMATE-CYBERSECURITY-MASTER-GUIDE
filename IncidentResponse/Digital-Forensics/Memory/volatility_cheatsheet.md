@@ -1,5 +1,7 @@
 # 🧠 Volatility 3 Memory Forensics Guide
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](../../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!IMPORTANT]
 > **Reviewed October 31, 2026 (reference corrections, not a live dump validation).** Prefer the [upstream Volatility 3 documentation](https://volatility3.readthedocs.io/en/latest/) and [official source](https://github.com/volatilityfoundation/volatility3). Exact plugin names/flags and symbol requirements can vary by release and OS build; use `vol --help` and `vol <plugin> --help` for **your version**. Collect memory only with authorization and preserve hash, acquisition time, tool version, custody, and original bytes. Unknown Docker images are **not** official merely because they contain Volatility.
 
