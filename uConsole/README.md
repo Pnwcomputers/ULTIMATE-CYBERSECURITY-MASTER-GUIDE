@@ -13,7 +13,7 @@
 </div>
 
 > [!IMPORTANT]
-> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The current CM5 v1.4 workflow preserves the working desktop by default; device testing is pending. **CM4 legacy automation was replaced with the v2.0 read-only-by-default script**, and its dangerous cross-distribution/forced-overwrite behavior has been retired. See [CM4 safety review](./CM4-SAFETY-REVIEW.md). Physical CM4/CM5 hardware validation remains necessary.
+> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The current CM5 v1.4 workflow preserves the working desktop by default; device testing is pending. **CM4 legacy automation was replaced with the v2.0 read-only-by-default script** and **the repair utility now requires explicit `--apply`**, and its dangerous cross-distribution/forced-overwrite behavior has been retired. See [CM4 safety review](./CM4-SAFETY-REVIEW.md). Physical CM4/CM5 hardware validation remains necessary.
 
 ## 🎯 Purpose
 Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a
