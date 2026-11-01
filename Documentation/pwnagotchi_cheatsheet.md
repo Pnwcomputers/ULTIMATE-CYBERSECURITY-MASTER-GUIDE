@@ -1,7 +1,10 @@
 # Pwnagotchi Commands and Configuration 🤖
 
+> [!WARNING]
+> **Reviewed October 31, 2026.** The actively developed [jayofelony fork](https://github.com/jayofelony/pwnagotchi/releases) has newer images than the older v2.9.5.4 example below; **v2.9.5.8** was the most recent reviewed release. Recent releases changed image support, plugin behavior and `.pcapng` storage. Consult the [maintained wiki](https://github.com/jayofelony/pwnagotchi/wiki) for the exact image and config on your hardware, verify the checksum where published, **back up data** and do not assume old paths or plugins work unchanged. This is **not a passive-only device by default**: some modes can transmit/deauthenticate; use explicitly authorized passive modes only where required.
+
 ## 🎯 Purpose
-Quick-reference for deploying, configuring, and operating a Pwnagotchi - an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that passively collects WPA/WPA2 handshakes using hcxtools and bettercap.
+Quick-reference for deploying, configuring, and operating a Pwnagotchi - an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that can capture WPA/WPA2 traffic using bettercap; features/modes may include **active packet injection** and require authorization.
 
 ## ⚙️ Function
 Covers installation and flashing, essential config.toml settings, service management, plugin configuration, handshake processing for offline cracking with Hashcat, performance tuning, and troubleshooting. Focuses on the field-capture side of the passive WiFi audit workflow; pair with hcxtoolshashcat.md for the conversion and cracking steps.
@@ -10,7 +13,7 @@ Covers installation and flashing, essential config.toml settings, service manage
 Deploy a set-and-forget passive handshake capture device that autonomously improves its channel-selection strategy via reinforcement learning, outputting .pcap files ready for hcxpcapngtool conversion and Hashcat cracking.
 
 ## 📋 When to Use
-- Long-duration passive WiFi reconnaissance without active deauth or interference
+- Long-duration authorized observation **only after disabling active transmit/deauth features and validating the firmware mode**
 - Authorized wardriving and site surveys requiring hands-free capture
 - Lab exercises demonstrating WPA2 handshake exposure
 - Supplementing active tools (Marauder, Evil-M5) with continuous passive capture in the background
@@ -19,6 +22,9 @@ Deploy a set-and-forget passive handshake capture device that autonomously impro
 
 ### Basic Setup
 
+> [!CAUTION]
+> **Flashing erases the selected storage device**. The commands below are intentionally illustrative because filenames, architecture (32/64-bit), boot paths, and default accounts have changed. Never flash `/dev/sdX` as a literal or assume `pi/raspberry` remains appropriate.
+
 **Install Pwnagotchi (on Raspberry Pi Zero W/2W)**
 ```bash
 # The jayofelony fork is the actively maintained release (evilsocket's original is archived)
@@ -26,16 +32,21 @@ Deploy a set-and-forget passive handshake capture device that autonomously impro
 # pick the correct architecture for your Pi. wget can't glob a wildcard against a remote
 # URL, so grab the exact filename from the releases page (or the GitHub API) first:
 # curl -s https://api.github.com/repos/jayofelony/pwnagotchi/releases/latest | grep browser_download_url
-wget https://github.com/jayofelony/pwnagotchi/releases/download/v2.9.5.4/pwnagotchi-32bit-2.9.5.4.img.xz
-unxz pwnagotchi-32bit-2.9.5.4.img.xz
-sudo dd if=pwnagotchi-32bit-2.9.5.4.img of=/dev/sdX bs=4M status=progress
+# Legacy v2.9.5.4 example only: do NOT blindly flash this.
+# Select an exact compatible 64-bit image from the upstream release assets.
+# Confirm SHA-256 and the destination with: lsblk -o NAME,SIZE,MODEL,TRAN
+# Only after verifying both, use an explicit image name in the dd example below.
+# Decompress the exact reviewed image; prefer xz -dk <release-image>.img.xz
+# DESTRUCTIVE: flashing overwrites /dev/sdX; replace only after checking lsblk
+# sudo dd if=<reviewed-image>.img of=/dev/<verified-device> bs=4M status=progress conv=fsync
 ```
 
 **Initial Configuration**
 ```bash
 # SSH into pwnagotchi (USB connection)
 ssh pi@10.0.0.2
-# Default password: raspberry
+# Never assume default credentials: consult the selected release image wizard,
+# change default passwords immediately and avoid exposing the Web UI to the LAN.
 
 # Edit config file
 sudo nano /etc/pwnagotchi/config.toml
@@ -53,12 +64,14 @@ main.whitelist = []
 ui.display.enabled = true
 ui.display.type = "waveshare_2"  # or "waveshare_1", "oled", etc.
 
-# Enable web UI
+# Enable web UI only behind trusted management access
 ui.web.enabled = true
-ui.web.username = "changeme"
-ui.web.password = "changeme"
+ui.web.username = "your-unique-admin-name"
+ui.web.password = "SET_A_LONG_UNIQUE_PASSWORD"
 
 # Bluetooth tethering
+# Bluetooth tethering changed in recent jayofelony releases; check version-specific docs.
+# Legacy plugin example (do not assume this still works):
 main.plugins.bt-tether.enabled = true
 main.plugins.bt-tether.devices.android-phone.enabled = true
 main.plugins.bt-tether.devices.android-phone.search_order = 1
@@ -118,7 +131,9 @@ main.plugins.memtemp.enabled = true
 # Download individual plugin .py files by raw URL (jayofelony fork is actively maintained)
 # Example: download a single plugin from the jayofelony fork
 cd /usr/local/share/pwnagotchi/custom-plugins/
-sudo wget https://raw.githubusercontent.com/jayofelony/pwnagotchi/master/pwnagotchi/plugins/default/example.py
+# Do not download a moving-branch .py directly into a privileged plugin path.
+# Use the maintained pwnagotchi plugin manager and review the plugin source.
+# See https://github.com/jayofelony/pwnagotchi/wiki/Step-4-Customization
 
 # Add to config.toml
 main.plugins.plugin-name.enabled = true
@@ -154,13 +169,13 @@ sudo pwnagotchi --ai --debug
 cd /root/handshakes/
 
 # List captured handshakes
-ls -lah *.pcap
+ls -lah /home/pi/handshakes/  # recent images; check /root/handshakes/ on legacy images
 
 # Copy handshakes to local machine
-scp pi@10.0.0.2:/root/handshakes/*.pcap ./handshakes/
+scp 'pi@10.0.0.2:/home/pi/handshakes/*.pcapng' ./handshakes/  # adjust per image
 
 # Convert to Hashcat unified format (mode 22000 - replaces deprecated 16800/2500)
-hcxpcapngtool -o hashes.hc22000 -E essid_list.txt handshake.pcap
+hcxpcapngtool -o hashes.hc22000 -E essid_list.txt authorized-capture.pcapng
 
 # Crack with Hashcat (GPU-accelerated, faster than aircrack-ng's CPU cracker)
 hashcat -m 22000 hashes.hc22000 /usr/share/wordlists/rockyou.txt
@@ -174,9 +189,9 @@ aircrack-ng -w wordlist.txt handshake.pcap
 ```bash
 # Manual update
 cd /usr/local/src/pwnagotchi
-sudo git pull
-sudo pip3 install .
-sudo systemctl restart pwnagotchi
+# Avoid git-pull + global pip installation on prebuilt images.
+# Review the upstream release notes and use the fork's supported update/reflash path.
+# Back up your configuration and capture evidence first.
 
 # Or use auto-update plugin
 # Enable in config.toml: main.plugins.auto-update.enabled = true
@@ -207,8 +222,8 @@ sudo systemctl status pwnagotchi-display
 curl http://10.0.0.2:8080
 
 # Reset to factory settings
-sudo rm -rf /root/brain.nn /root/.pwnagotchi-auto
-sudo systemctl restart pwnagotchi
+# DESTRUCTIVE reset omitted; take a backup and follow the version-specific
+# upstream factory-reset/reflash procedure instead.
 ```
 
 ### Optimization Tips
