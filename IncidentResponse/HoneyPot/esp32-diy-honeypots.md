@@ -2,6 +2,8 @@
 
 _Last reviewed: 2026-10-31 · ESP32/ESP32-C5/C6, isolated IoT lab_
 
+**ESP32-S3-specific projects:** [ShadowSentry S3 and HoneyMire](./esp32-s3-honeypots.md) cover two open-source hardware honeypots with different capabilities and important management/privacy caveats. See that guide before selecting firmware or assuming direct Wazuh compatibility.
+
 ## What an ESP32 can and cannot do
 
 An ESP32 can present a low-interaction decoy TCP listener, simulated Telnet/HTTP service, or log unauthorized connection attempts with modest power usage. It cannot safely replace a full Cowrie shell emulator, a high-interaction malware sandbox, or a production WIDS. Choose firmware **specifically for your board and radio**; GPIO, flash partitioning and Wi-Fi bands differ by model.
