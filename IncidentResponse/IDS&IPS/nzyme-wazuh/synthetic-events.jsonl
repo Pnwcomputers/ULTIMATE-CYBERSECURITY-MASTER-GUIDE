@@ -1,0 +1,2 @@
+{"event_type":"MONITOR_TRIGGERED","event_type_subsystem":"GENERIC","event_type_human_readable":"Monitor triggered","details":"SYNTHETIC WiFi Monitor Example triggered","event_supertype":"detection","timestamp":"2026-10-31T22:00:00Z"}
+{"event_type":"SYNTHETIC_WIDS_DISCONNECT_ANOMALY","event_type_subsystem":"WIFI","event_type_human_readable":"Synthetic disconnection threshold exceeded","details":"SYNTHETIC lab event only; not from a real nzyme release","event_supertype":"detection","timestamp":"2026-10-31T22:00:01Z"}
