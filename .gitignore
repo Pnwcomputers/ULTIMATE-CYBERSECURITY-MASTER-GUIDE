@@ -11,6 +11,8 @@ local_notes.md
 .env
 *.ovpn
 *.conf
+# This reviewed, data-only manifest is intentionally version-controlled.
+!Scripts/tool_pins.conf
 *.key
 *.pem
 secrets/
