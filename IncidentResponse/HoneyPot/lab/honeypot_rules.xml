@@ -1,0 +1,54 @@
+<!-- Wazuh custom rules: honeypot context + severity. IDs 100400-100429.
+     No automatic blocking or attribution. Test with wazuh-logtest. -->
+<group name="honeypot,">
+  <rule id="100400" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="honeypot.integration">^diy_http$</field>
+    <field name="honeypot.event">^http_probe$</field>
+    <description>DIY HTTP decoy: connection observed</description>
+    <group>honeypot,diy_http,deception,</group>
+  </rule>
+  <rule id="100401" level="7">
+    <if_sid>100400</if_sid>
+    <field name="honeypot.method">^(POST|PUT|PATCH|DELETE)$</field>
+    <description>DIY HTTP decoy: non-read-only request method</description>
+    <group>honeypot,diy_http,interaction,</group>
+  </rule>
+  <rule id="100410" level="5">
+    <decoded_as>json</decoded_as>
+    <field name="node_id">.+</field>
+    <field name="logtype">^[0-9]+$</field>
+    <description>OpenCanary: decoy service event</description>
+    <group>honeypot,opencanary,deception,</group>
+  </rule>
+  <rule id="100411" level="7">
+    <if_sid>100410</if_sid>
+    <field name="logtype">^(4002|6001|2000|8001|9001|9002)$</field>
+    <description>OpenCanary: credential-related service interaction</description>
+    <group>honeypot,opencanary,authentication,</group>
+  </rule>
+  <rule id="100420" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="eventid">^cowrie[.]</field>
+    <description>Cowrie: honeypot session event</description>
+    <group>honeypot,cowrie,deception,</group>
+  </rule>
+  <rule id="100421" level="7">
+    <if_sid>100420</if_sid>
+    <field name="eventid">^cowrie[.]login[.](failed|success)$</field>
+    <description>Cowrie: emulated SSH/Telnet authentication event</description>
+    <group>honeypot,cowrie,authentication,</group>
+  </rule>
+  <rule id="100422" level="10">
+    <if_sid>100420</if_sid>
+    <field name="eventid">^cowrie[.]session[.]file_(download|upload)$</field>
+    <description>Cowrie: file transferred into decoy; preserve and quarantine artifact</description>
+    <group>honeypot,cowrie,artifact,</group>
+  </rule>
+  <rule id="100423" level="7">
+    <if_sid>100420</if_sid>
+    <field name="eventid">^cowrie[.]command[.]input$</field>
+    <description>Cowrie: emulated shell command observed</description>
+    <group>honeypot,cowrie,command,</group>
+  </rule>
+</group>
