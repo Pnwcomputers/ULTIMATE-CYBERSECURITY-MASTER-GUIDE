@@ -80,6 +80,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 |----------|-------------|
 | **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
+| **[Wireshark Field Cheat Sheet](Documentation/wireshark-cheatsheet.md)** | Quick GUI/CLI packet analysis, 802.11, DNS/DHCP, TCP and TLS filter examples |
+| **[Wireshark Master Filter List](Documentation/wireshark-master-filters.md)** | Searchable reference and 133 tested display filters for detailed investigations |
 | **[Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md)** | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot/Arch |
 | **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
 
