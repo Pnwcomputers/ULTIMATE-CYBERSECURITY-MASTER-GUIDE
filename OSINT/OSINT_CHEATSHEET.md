@@ -1,5 +1,8 @@
 # 🔍 Comprehensive OSINT Investigator Cheat Sheet
 
+> [!IMPORTANT]
+> **Reviewed October 31, 2026.** These are starting points, not guarantees that every external service/API is reachable or offers the same data today. Verify current flags with `tool --help` and follow rate limits, privacy law, written authorization and provider terms. Avoid uploading private evidence, credentials or confidential identifiers to unknown lookup services. Use the [OSINT playbook](./Playbook/README.md) for case setup, [full methodology](./OSINT_GUIDE.md) for context and [privacy/OPSEC](../OPSEC/README.md) before collecting.
+
 ## 🎯 Purpose
 Quick-reference OSINT cheat sheet covering tools, commands, and services integrated into the OSINT Investigator Playbook for rapid investigation lookup.
 
@@ -14,20 +17,7 @@ Serve as a working reference during an active investigation - covering what tool
 - Preparing for a recon engagement and reviewing available tools
 - Quick reference for Google dork syntax or API endpoint formats
 
-A quick-reference guide for the tools, services, and commands integrated into the **OSINT Investigator Playbook**. 
-
-## 🎯 Purpose
-Quick-command lookup organized by investigation phase (identity, infrastructure, web crawling, phone, analysis/automation), tied directly to the tools used in [Playbook/investigation_guide.md](Playbook/investigation_guide.md). Distinct from [OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) (full methodology/background) and [OSINT_TOOLS_CATALOG.md](OSINT_TOOLS_CATALOG.md) (exhaustive tool directory) - this file is just the commands, phase-ordered.
-
-## ⚙️ Function
-Five investigation phases (identity/social, infrastructure/domain, web crawling/historical, communication/phone, analysis/automation) each with a tool table and copy-paste commands, plus an evidence-preservation section (hashing, archiving) and essential Linux one-liners.
-
-## 🏆 Goal
-Have the exact command syntax on hand for each investigation phase without re-deriving flags from tool documentation mid-investigation.
-
-## 📋 When to Use
-- Mid-investigation command lookup once you already know your methodology (see OSINT_GUIDE.md if you don't)
-- Preserving evidence with proper hashing/archiving before compiling a final report
+This page is the **quick-command index** for the five investigation phases; detailed methodologies and tool catalogs live in the links above. Preserve raw results, source URLs, capture times and case IDs before filtering or exporting.
 
 ---
 
@@ -37,17 +27,17 @@ Have the exact command syntax on hand for each investigation phase without re-de
 ### Tool Overview
 | Tool | Purpose |
 | :--- | :--- |
-| **[Sherlock](https://github.com/sherlock-project/sherlock)** | Finds accounts on 400+ social networks. |
+| **[Sherlock](https://github.com/sherlock-project/sherlock)** | Searches supported websites for username matches; false positives and website breakage are common. |
 | **[Maigret](https://bellingcat.gitbook.io/toolkit/more/all-tools/maigret)** | Advanced username OSINT (extracts profile data). |
 | **[Blackbird](https://github.com/p1ngul1n0/blackbird)** | Additional username coverage across platforms. |
-| **[Holehe](https://github.com/megadose/holehe)** | Checks if an email is registered on various sites (IG, Twitter, etc). |
-| **[h8mail](https://github.com/khast3x/h8mail)** | Finds passwords/breach data associated with an email. |
+| **[Holehe](https://github.com/megadose/holehe)** | Tries to infer account existence through service responses; may be unreliable, rate-limited or privacy sensitive. |
+| **[h8mail](https://github.com/khast3x/h8mail)** | Queries supported breach-related sources; availability and lawful access vary. Never publish recovered personal data. |
 | **[theHarvester](https://github.com/laramies/theharvester)** | Scrapes emails and names from public search engines. |
 
 ### Quick Commands
 ```bash
 # --- Email Investigation ---
-theHarvester -d target.com -b all          # General email harvesting
+theHarvester -d example.com -b all          # General email harvesting
 holehe target@example.com --only-used      # Email registration check
 h8mail -t target@example.com               # Breach hunting
 
@@ -74,10 +64,10 @@ blackbird -u username                      # Additional coverage search
 ### Quick Commands
 ```bash
 # --- Domain Reconnaissance ---
-amass enum -d target.com                   # Comprehensive subdomain enumeration
-subfinder -d target.com                    # Fast subdomain discovery
-subfinder -d target.com -silent | httpx -td -server -title -asn # Subfinder → httpx pipeline
-theHarvester -d target.com -b google       # Domain emails & subdomains via Google
+amass enum -d example.com                   # Comprehensive subdomain enumeration
+subfinder -d example.com                    # Fast subdomain discovery
+subfinder -d example.com -silent | httpx -td -server -title -asn # Subfinder → httpx pipeline
+theHarvester -d example.com -b google       # Domain emails & subdomains via Google
 
 # Certificate transparency via crt.sh
 curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq '.[].name_value' | sort -u
@@ -144,7 +134,7 @@ spiderfoot -s target.com                   # Auto OSINT execution against a targ
 ### Investigator Playbook Configuration
 *   **Initialize Case:** Select `[1]` in the main menu to set up forensic directories.
 *   **Log Location:** `${HOME}/.config/osint-investigator/logs/`
-*   **API Config:** Edit `api_keys.conf` to enable Shodan, VirusTotal (VT), and HIBP.
+*   **API Config:** Confirm the playbook's current configuration method; store keys in private, permission-restricted files or environment variables. Never commit API keys or raw investigation data.
 *   **Evidence Export:** Move all critical findings to `${CASE_DIR}/evidence/` for the final report.
 
 ### Preservation Commands
@@ -166,13 +156,13 @@ sha256sum evidence_*.html screenshot_*.png > evidence_hashes.txt
 
 ## 🛠️ Essential Linux Commands for OSINT
 Native utilities that are invaluable during an investigation:
-*   **[DNS Lookup:](https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/)** `dig <domain> ANY`
+*   **[DNS Lookup:](https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/)** `dig example.com A +short`
 *   **[Owner Lookup:](https://www.kali.org/tools/whois/)** `whois <domain>`
 *   **[File Extraction:](https://developers.redhat.com/articles/2022/09/14/beginners-guide-regular-expressions-grep)** `grep -r "regex" ./raw_data/`
 *   **[Metadata Check:](https://exiftool.org/)** `exiftool image.jpg`
 
 ---
-> **⚠️ Disclaimer:** Ensure all research is conducted securely (via a VPN/Tor) and strictly follows the legal guidelines and regulations for your jurisdiction.
+> **⚠️ Disclaimer:** Use network privacy tools when appropriate, but a VPN or Tor connection does **not** grant authorization, erase service logs, or override lawful processing and access requirements.
 
 ## Related Files
 - [README.md](README.md) - OSINT section index
