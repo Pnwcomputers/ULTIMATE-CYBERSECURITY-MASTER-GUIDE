@@ -1,7 +1,7 @@
 # 🐧 Linux Command Cheat Sheet & Reference _(Debian Based)_
 
 > [!IMPORTANT]
-> **Reviewed October 31, 2026.** These commands depend on the distribution version, actual hardware, privileges and package availability; do not paste large installation blocks without checking their changes. Debian 12+/recent Ubuntu often implement [externally managed Python environments](https://pipx.pypa.io/latest/how-to/install-pipx.html): prefer system packages, `pipx` for applications or `python3 -m venv` for projects, not global `pip3 install`. See [Arch reference](./ArchLinux_CheatSheet.md), [network reference](./references.md), and [Wireshark filters](./wireshark-master-filters.md).
+> **Reviewed October 31, 2026.** These commands depend on the distribution version, actual hardware, privileges and package availability; do not paste large installation blocks without checking their changes. Debian 12+/recent Ubuntu often implement [externally managed Python environments](https://pipx.pypa.io/latest/how-to/install-pipx.html): prefer system packages, `pipx` for applications or `python3 -m venv` for projects, not global `pip3 install`. See [Arch reference](./ArchLinux_CheatSheet.md), [network reference](./references.md), and [Wireshark capture and filter reference](./wireshark.md).
 
 This document serves as a quick reference for common system administration, networking, security auditing, and hardware hacking commands on Debian/Ubuntu-based systems. It covers both **bare-metal/VM Linux** and **WSL2 (Windows Subsystem for Linux)** environments, including the differences between them.
 
