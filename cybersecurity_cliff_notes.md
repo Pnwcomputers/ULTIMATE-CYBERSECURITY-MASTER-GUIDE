@@ -1,5 +1,7 @@
 # Cybersecurity Comprehensive Cliff Notes
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!NOTE]
 > **Selected reference audit: October 31, 2026.** This is a historical multi-topic compendium, not a guarantee every pasted command works with the latest tool release. Some sections are intentionally preserved as legacy demonstrations; use the [official OWASP Top 10:2025](https://top10.owasp.org/2025/) for current categories, [Arch/Debian cheat sheets](Documentation/ArchLinux_CheatSheet.md) for safe system commands, and [Wireshark reference](Documentation/wireshark.md) for protocol investigations.
 
