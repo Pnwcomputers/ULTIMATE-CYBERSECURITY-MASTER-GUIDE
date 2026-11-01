@@ -14,6 +14,8 @@
 
 ---
 
+**Operational integration:** [Proxmox Honeynet](./proxmox-vm-honeynet.md) covers segmentation and resource planning. [Honeypot → Wazuh](./wazuh-honeypot-integration.md) explains why T-Pot's own Elastic pipeline should not be blindly duplicated. Review installers before execution and avoid blanket passwordless sudo on internet-exposed sensor hosts.
+
 ## 🎯 Purpose
 Guide for deploying [T-Pot](https://github.com/telekom-security/tpotce), a community-driven, multiarch (amd64/arm64) all-in-one honeypot platform that bundles 20+ individual honeypots (Cowrie, Dionaea, Honeytrap, and more) plus Elastic Stack dashboards, an animated attack map, and supporting security tools, all orchestrated via Docker.
 
