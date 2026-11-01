@@ -14,6 +14,8 @@
 
 ---
 
+**Current SIEM extension:** [OpenCanary → Wazuh native JSON rules](./wazuh-honeypot-integration.md), [Raspberry Pi deployment](./raspberry-pi-honeypot-lab.md) and [Proxmox decoy VM isolation](./proxmox-vm-honeynet.md). OpenCanary events can be created by legitimate asset scans and monitoring; investigate context before attributing intent.
+
 ## 🎯 Purpose
 Guide for deploying [OpenCanary](https://github.com/thinkst/opencanary), a lightweight open-source honeypot, as an early-warning deception layer that emulates real services (SSH, FTP, HTTP, Telnet, MySQL, SMB) and alerts the moment anyone touches them — because nothing legitimate should ever talk to a honeypot.
 
