@@ -14,7 +14,7 @@ Post-flash setup and recovery references for ClockworkPi uConsole systems. Choos
 | [uconsole-cm5-parrot-setup.sh](./uconsole-cm5-parrot-setup.sh) | Experimental Parrot CM5 post-flash setup; requires existing Parrot. [Usage and limits](../PARROT-CM5.md) |
 | [uconsole-cm5-setup.sh](./uconsole-cm5-setup.sh) | Conservative CM5 setup, proposed v1.4; preserves the image's desktop and boot configuration |
 | [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | **CM4 v2.0** read-only preflight by default; optional AIO package on Debian or toolkit on native Kali, with configuration backup and APT simulation |
-| [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay repair; not a general desktop recovery tool |
+| [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay and historical desktop diagnosis **read-only by default**; explicit `--apply` required for changes, not a general desktop recovery tool |
 
 ## ⚙️ CM5 v1.4 Behavior
 
@@ -107,12 +107,26 @@ The new installer runs selected operations in one invocation rather than automat
 reboots. Reboot manually when appropriate after optional package installations; test login, orientation, panel and
 input before adding more software.
 
+## 🩺 CM4/CM5 repair tool: diagnose first
+
+~~~bash
+# Read-only by default; must currently be run as root for full diagnosis
+sudo bash uConsole/scripts/uconsole-repair.sh
+sudo bash uConsole/scripts/uconsole-repair.sh --diagnose
+
+# Only after reviewing exact diagnosis, backups and restore plan:
+sudo bash uConsole/scripts/uconsole-repair.sh --apply
+~~~
+
+`--yes` alone **does not permit writes**. With `--apply`, the repair script can still modify boot overlays, APT preferences and desktop state, so it is **not** a safe substitute for restoring a known-good image or the [CM5 display recovery procedure](../CM5-DISPLAY-RECOVERY.md). Do not use it as an automatic fix for an unexplained display problem.
+
 ## ✅ Verification
 
 From the repository root:
 
 ```bash
 bash -n uConsole/scripts/uconsole-cm4-setup.sh
+bash -n uConsole/scripts/uconsole-repair.sh
 bash -n uConsole/scripts/uconsole-cm5-setup.sh
 python3 -m unittest discover -s uConsole/tests -v
 ```
