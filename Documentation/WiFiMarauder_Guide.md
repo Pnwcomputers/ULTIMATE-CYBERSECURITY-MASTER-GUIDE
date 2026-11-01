@@ -3,6 +3,8 @@
 ## 🎯 Purpose
 Comprehensive guide for ESP32 Marauder firmware covering hardware selection, installation, all core attack and detection features, integration with external tools (Hashcat, Wireshark, Kismet), and detection/defense strategies.
 
+For identifying **legitimate versus spoofed** deauthentication/disassociation frames using passive captures, PMF analysis and corroborating wireless IDS logs, see the separate [Wi-Fi Deauthentication Detection Guide](./wifi-deauthentication-detection.md). Ordinary wireless surveys do not authorize disruptive testing.
+
 ## ⚙️ Function
 Organized as a reference guide from hardware selection through advanced attack scenarios: WiFi scanning, deauthentication, beacon spam, PMKID capture, evil twin, BLE operations, GPS wardriving, and post-capture Hashcat cracking. For the condensed on-device cheat sheet, see [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md).
 
