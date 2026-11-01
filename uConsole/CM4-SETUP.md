@@ -1,5 +1,8 @@
 # uConsole Setup Guide: CM4 Configuration
 
+> [!CAUTION]
+> **CM4 setup safety review — October 31, 2026.** The original CM4 instructions mixed Kali Rolling into Debian Trixie, forced package overwrites, deleted Python's `EXTERNALLY-MANAGED` marker and launched unchecked online installers. Those steps are **retired**, not recommended. The [CM4 v2.0 setup script](./scripts/uconsole-cm4-setup.sh) now performs **read-only checks by default**; optional installation requires explicit flags and a private configuration snapshot. Make a separate full SD/eMMC/NVMe image backup first. See the [uConsole safety review](./CM4-SAFETY-REVIEW.md), [CM5 guide](./CM5-SETUP.md) and [root uConsole index](./README.md).
+
 ## 🎯 Purpose
 Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM4 module - covering Rex's Kali/Trixie community image, HackerGadgets AIO v2 board configuration, Battery/NVMe expansion board, and all driver setup.
 
@@ -124,13 +127,13 @@ Rex's images include several conveniences that this guide relies on:
 
 The full Kali toolchain comes pre-installed: aircrack-ng, bettercap, responder, impacket, crackmapexec, nmap, Wireshark, Metasploit, Burp, etc.
 **Pros:** Everything pre-installed, familiar to pentesters.
-**Cons:** Kali rolling upgrades have a history of replacing the RPi-specific LightDM session/greeter without updating `lightdm.conf`, breaking the login screen. Step 2 of this guide pre-empts that.
+**Cons:** Rolling updates can affect the uConsole-specific desktop/kernel stack. Back up the known-good image and follow the image maintainer's guidance; the safe setup script never changes the desktop or updates core packages.
 
 ### Path B: Rex's Trixie Image + Kali Tools (Recommended)
 
-Debian 13 (Trixie) base with the newest upstream packages, plus the Kali rolling repo added on top for pentesting tools.
+Debian 13 (Trixie) base with packages from **the image's compatible Debian/Raspberry Pi repositories only**. Install compatible security tools from those repositories, trusted virtual environments or isolated native Kali systems.
 **Pros:** Newest packages, cleaner base, better trackball behavior, fewer initramfs/package conflicts.
-**Cons:** Extra step to add Kali tools. Mixing Kali rolling with Trixie creates dependency-version conflicts unless APT pinning is set up correctly (this guide handles that in Step 2).
+**Cons:** Some Kali-specific tools/metapackages are unavailable natively. Do **not** add Kali Rolling repositories to Debian; APT pinning cannot guarantee cross-distribution ABI compatibility.
 
 ### Other Rex Images
 
@@ -179,150 +182,65 @@ Power on. Rex's images auto-expand the root filesystem on first boot and then re
 
 ---
 
-## Step 2: First Boot - Pre-Flight Hardening
+## Step 2: First Boot — Preserve and Audit the Working Image
 
-This step pre-empts the three issues that historically break a fresh uConsole install on its first upgrade. We fix all three before any `apt full-upgrade` runs.
+Record the module model, kernel, operating system, desktop session, boot configuration and battery board before installing anything:
 
-### 2.1 - Disable the cryptsetup-initramfs hook
+~~~bash
+cat /etc/os-release
+uname -a
+cat /proc/device-tree/model
+lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,MODEL
+findmnt /
+dpkg -l lightdm labwc raspberrypi-sys-mods 2>/dev/null || true
+grep -nE '^(enable_uart|dtoverlay|dtparam)' /boot/firmware/config.txt
+bash ./scripts/uconsole-cm4-setup.sh --status
+~~~
 
-The `cryptsetup-initramfs` hook fails on Pi systems (it can't resolve `/dev/root` from `PARTUUID=` cmdlines), which kills dpkg triggers and can corrupt the initramfs mid-upgrade. Unless you're using LUKS (you aren't, on a fresh Rex image), disable the hook:
+Commands above are read-only. A working desktop is an asset worth preserving. Do **not** replace LightDM greeters, remove `raspberrypi-sys-mods`, disable cryptsetup-initramfs or delete the Python `EXTERNALLY-MANAGED` marker as generic preflight steps. Preserve the image's existing UART/RTC/SPI configuration until hardware-specific evidence shows a change is needed.
 
-```bash
-sudo mkdir -p /etc/cryptsetup-initramfs
-echo "CRYPTSETUP=n" | sudo tee /etc/cryptsetup-initramfs/conf-hook
-```
+Before any package action, **image the whole storage device** and record a recovery path. A configuration snapshot (below) is supplementary, not a recovery image.
 
-### 2.2 - Pin LightDM to sessions that survive upgrades
+~~~bash
+bash ./scripts/uconsole-cm4-setup.sh --help
+bash ./scripts/uconsole-cm4-setup.sh --dry-run --with-aio
+sudo bash ./scripts/uconsole-cm4-setup.sh --snapshot
+~~~
 
-Rex's images ship with `user-session=rpd-labwc` and `greeter-session=pi-greeter-labwc` in `/etc/lightdm/lightdm.conf`. Some upgrade paths replace those packages and remove the session files, leaving LightDM pointing at nothing - "Failed to start session" on next login.
-
-Swap the references now to session names that are stable across Rex's images and Kali rolling:
-
-```bash
-# Make sure the fallback compositor, greeter, and RT daemon are installed
-sudo apt update
-sudo apt install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0
-
-# Repoint lightdm.conf
-sudo sed -i \
-  -e 's/^user-session=rpd-labwc/user-session=labwc/' \
-  -e 's/^autologin-session=rpd-labwc/autologin-session=labwc/' \
-  -e 's/^greeter-session=pi-greeter-labwc/greeter-session=lightdm-gtk-greeter/' \
-  /etc/lightdm/lightdm.conf
-
-# Fix any AccountsService entry that still references rpd-labwc
-for f in /var/lib/AccountsService/users/*; do
-  [ -f "$f" ] && sudo sed -i 's/rpd-labwc/labwc/g' "$f"
-done
-
-# Confirm the session/greeter files exist
-ls /usr/share/wayland-sessions/labwc.desktop \
-   /usr/share/xgreeters/lightdm-gtk-greeter.desktop
-```
-If either `ls` line errors out, stop and resolve it before continuing - the upgrade will not install them for you.
-
-### 2.3 - (Trixie path only) Remove raspberrypi-sys-mods
-
-*Kali users: Skip 2.3 and 2.4. Your image doesn't ship raspberrypi-sys-mods and isn't layering Kali on top of Trixie.*
-
-`raspberrypi-sys-mods` (preinstalled on Rex's Trixie image) will collide with `kali-defaults` and `libpython3.13-stdlib` once you add the Kali repo. Remove it now so the first full-upgrade doesn't fight it later:
-
-```bash
-# Dry-run to see what would be removed
-sudo apt -s remove raspberrypi-sys-mods
-
-# If nothing critical (kernels, device-tree packages) is listed, proceed:
-sudo apt remove raspberrypi-sys-mods -y
-
-# Clean up any stale diversion / file
-EXTMGD=$(ls /usr/lib/python3.*/EXTERNALLY-MANAGED 2>/dev/null | head -1)
-if [ -n "$EXTMGD" ]; then
-  sudo rm -f "$EXTMGD"
-  sudo dpkg-divert --package raspberrypi-sys-mods --remove --rename "$EXTMGD" 2>/dev/null
-fi
-```
-
-### 2.4 - (Trixie path only) Add Kali rolling and pin it
-
-Pinning Kali as the primary repo before the first big upgrade prevents the dependency-mismatch storm that hits when Kali's newer `libssl3t64`, `libbluetooth3`, `libcurl3t64-gnutls`, `Qt6` etc. land on a half-Trixie system:
-
-```bash
-# Add Kali rolling repo
-echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" \
-  | sudo tee /etc/apt/sources.list.d/kali.list
-
-# Import the Kali signing key
-curl -fsSL https://archive.kali.org/archive-key.asc \
-  | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
-
-# Pin Kali as primary
-sudo tee /etc/apt/preferences.d/kali-pin <<'EOF'
-Package: *
-Pin: release o=Kali
-Pin-Priority: 900
-EOF
-
-sudo apt update
-```
-After this, Kali rolling is the primary package source. Trixie and Rex's repo fill in anything Kali doesn't carry (uConsole kernel, AIO board package).
-
----
+If `--status` reports wrong/unknown hardware or mixed Kali sources on Debian, **stop**. Do not bypass the check or run the old installer.
 
 ## Step 3: System Update and Initial Configuration
 
-With Step 2 complete, it is now safe to update the system:
+Check the image vendor's exact update notes, repository origins and package resolver plan **before** deciding on upgrades:
 
-```bash
-# First full system upgrade - Step 2 made this safe
-sudo apt update
-sudo apt full-upgrade -y
+~~~bash
+apt-cache policy
+sudo apt-get update
+apt-get -s upgrade
+~~~
 
-# If you see file-ownership collisions, force overwrite once:
-sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
+`apt-get update` refreshes package metadata; `apt-get -s upgrade` is a **simulation**, not an upgrade. Inspect proposed kernel, firmware, session, desktop and AIO changes. The v2.0 CM4 setup script deliberately **does not perform an upgrade**, force overwrites, reboot or change the hostname. Do not add Kali Rolling APT sources to Debian, and do not rely on a global `Dpkg::Options::=--force-overwrite` workaround.
 
-# Basic config
-sudo dpkg-reconfigure tzdata
-passwd
-sudo hostnamectl set-hostname uconsole
+Use `sudo dpkg-reconfigure tzdata` and `passwd` only when needed and when the local session is working. If update simulations suggest removing critical dependencies, correct the repository situation first. [Kali official repository warning](https://www.kali.org/docs/general-use/kali-apt-sources/) · [Debian repository mixing warning](https://wiki.debian.org/DontBreakDebian).
 
-sudo reboot
-```
-*Note: Rex's images already auto-expanded the root filesystem on first boot. `raspi-config --expand-rootfs` is not needed. Confirm with `df -h /` if you're curious - it should show the SD card's full capacity.*
+## Step 4: Security Tools for Your Distribution
 
-After the reboot, log back in. If LightDM hands you a working desktop, Step 2 did its job. If not, see **Troubleshooting → "Failed to start session"**.
+**Debian / Rex Trixie:** install only compatible Debian or Rex-provided tools. A Kali metapackage is not a safe way to add tools to Debian. For a full Kali environment, use a native Kali-supported uConsole image or an isolated Kali virtual/lab host.
 
----
+**Native Kali image only:** preview an optional metapackage using the v2.0 script; changes require a separate explicit invocation and confirmation:
 
-## Step 4: Add Kali Tools (Trixie Only)
+~~~bash
+bash ./scripts/uconsole-cm4-setup.sh --kali-tools --dry-run
+sudo bash ./scripts/uconsole-cm4-setup.sh --kali-tools
+~~~
 
-*Skip this step on Rex's Kali image - the tools are already installed.*
-
-The Kali repo and pin were added in Step 2.4. Now install the toolkit:
-
-| Meta-Package | What You Get |
-|---|---|
-| `kali-tools-top10` | Core 10 tools: nmap, Metasploit, Burp, aircrack-ng, John, sqlmap, etc. |
-| `kali-linux-headless` | Larger headless set: good for SSH-only or lightweight desktop use |
-| `kali-linux-default` | Full default Kali desktop toolkit - everything you'd get from a Kali ISO |
-
-```bash
-# Pick one
-sudo apt install kali-tools-top10 -y
-# or
-sudo apt install kali-linux-headless -y
-# or
-sudo apt install kali-linux-default -y
-
-# If any file-ownership collisions occur during install:
-sudo apt -o Dpkg::Options::="--force-overwrite" --fix-broken install -y
-sudo apt full-upgrade -y
-```
+The script checks the CM4 model, OS family and APT sources and refuses package removals in its simulation. Package maintainer scripts and compatible dependency updates can still modify the system; keep a full backup. Nothing here guarantees that every package is available for the image's architecture.
 
 ---
 
 ## Step 5: Install aiov2_ctl (GPIO Control Tool)
 
-`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It must be installed *before* the main AIO board package to resolve pathing correctly.
+`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It can be installed and verified independently; verify the currently documented vendor sequence for optional companion packages.
 
 ```bash
 # Install build/runtime dependencies
@@ -351,7 +269,8 @@ The install enables the `aiov2-rails-boot.service` so boot-rail settings persist
 sudo chown -R $USER:$USER ~/.pygpsclient
 
 # Install PyQt6 inside the venv (not the system Python)
-~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
+# Use the existing virtual environment's own pip only after checking ownership;
+# never use --break-system-packages as a routine repair.
 
 # Verify
 aiov2_ctl --status
@@ -366,44 +285,19 @@ aiov2_ctl --autostart
 
 ---
 
-## Step 6: Install the AIO v2 Board Package
+## Step 6: Install the AIO v2 Board Package (Optional, Hardware Fitted)
 
-The `hackergadgets-uconsole-aio-board` package is what does the heavy lifting: it installs and automatically configures SDR++, tar1090, PyGPSClient, Meshtasticd, the OpenSUSE Meshtastic APT repo, the RTC service, GPIO helpers, and desktop menu entries.
+Only install the HackerGadgets board package if your **actual uConsole has the AIO v2 hardware**, and its package candidate is present in the image's compatible Debian/Rex sources. Current official vendor instructions recommend `hackergadgets-uconsole-aio-board` and optionally `aiov2_ctl` companion apps. The control utility can be used independently; do not presume your chosen image requires a particular install order.
 
-To prevent Debian dependency drift and hardware crashes during installation, we inject legacy libraries and boot the SDR rail before running the APT commands.
+~~~bash
+apt-cache policy hackergadgets-uconsole-aio-board
+bash ./scripts/uconsole-cm4-setup.sh --with-aio --dry-run
+sudo bash ./scripts/uconsole-cm4-setup.sh --with-aio
+~~~
 
-```bash
-# 1. Inject missing legacy dependencies for Meshtasticd (Trixie drift)
-wget -q -O /tmp/libgpiod2.deb http://ftp.us.debian.org/debian/pool/main/libg/libgpiod/libgpiod2_1.6.3-1+b3_arm64.deb
-wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/yaml-cpp/libyaml-cpp0.7_0.7.0+dfsg-8+b1_arm64.deb
-sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
+The script backs up selected configuration and simulates APT first; it does not install an unchecked script, fetch incompatible Bookworm `.deb` files over HTTP, purge/retry packages automatically or reconfigure boot overlays. Review any APT result before confirming the proposed installation. The package **may** add services and runtime dependencies; inspect the final desktop and board operation after installation. For additional apps, follow the [current HackerGadgets control utility instructions](https://github.com/hackergadgets/aiov2_ctl) and [official AIO v2 board setup](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) instead of executing moving GitHub installer scripts from a shell pipeline.
 
-# 2. Power on SDR LIVE so readsb/tar1090 don't crash during configuration
-aiov2_ctl --sdr on
-sleep 3
-
-# 3. Install the AIO ecosystem and Web UI
-sudo apt update
-sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y
-sudo apt install meshtastic-mui -y
-
-# 4. Install backend decoders explicitly to ensure aircraft.json generation
-sudo bash -c "$(wget -q -O - https://github.com/wiedehopf/adsb-scripts/raw/master/readsb-install.sh)"
-sudo bash -c "$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)"
-
-sudo reboot
-```
-
-### What This Package Installs and Configures
-
-| Component | Function | Configured By Package? |
-|---|---|---|
-| `hackergadgets-uconsole-aio-board` | Core AIO v2 integration: GPIO, power rails, RTC, services | Yes |
-| `meshtastic-mui` | Meshtastic graphical UI | Yes |
-| `sdrpp-brown` | Preconfigured SDR++ build for the uConsole | Yes |
-| `tar1090` | ADS-B aircraft tracking web UI | Yes |
-| `pygpsclient` | GPS monitoring and diagnostics GUI | Yes |
-| `meshtasticd` | Meshtastic daemon | Yes - repo added, config.yaml written |
+Do not perform vendor/boot/RTC changes if using an unmodified stock board, a different AIO revision, or unknown image.
 
 ---
 
@@ -636,15 +530,19 @@ lsblk                          # Should show nvme0n1
 sudo fdisk -l /dev/nvme0n1     # Full partition info
 ```
 
-### Cloning SD Card to NVMe (Method 1: rpi-clone)
-```bash
-git clone https://github.com/billw2/rpi-clone.git
-cd rpi-clone
-sudo cp rpi-clone /usr/local/sbin/
+### NVMe boot and backups: check EEPROM capability first
 
-sudo rpi-clone nvme0n1
-```
-Remove the SD card and the CM4 will fall through to NVMe (most modern CM4 EEPROMs default to SD -> NVMe boot order).
+**Detection is not bootability.** A visible `/dev/nvme0n1` indicates a PCIe/NVMe device, not that the Compute Module's boot EEPROM is configured to try it. CM4 Lite/microSD and eMMC variants also have different boot arrangements. Do not assume an SD-to-NVMe fall-through boot order and do not run `rpi-clone nvme0n1` without validating the clone utility, exact source/target device and a recoverable bootloader configuration.
+
+Read-only assessment:
+
+~~~bash
+lsblk -o NAME,SIZE,MODEL,SERIAL,FSTYPE,MOUNTPOINTS
+lspci
+sudo rpi-eeprom-config  # if installed on your image; inspect BOOT_ORDER
+~~~
+
+Consult [Raspberry Pi's official Compute Module boot/EEPROM documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) for the **specific CM4 carrier board** and boot order. Updating EEPROM, enabling PCIe and cloning a root filesystem are **separate procedures** with data-loss/brick risks. Image and test a spare storage device first; retain the original boot media until a full power-cycle boot and restore are proven.
 
 ---
 
@@ -781,6 +679,9 @@ And in `/boot/firmware/cmdline.txt`:
 
 ---
 
+> [!WARNING]
+> **Historical troubleshooting recipes below require individual review.** In particular, do not use forced-overwrite APT recovery, unverified cross-release `.deb` downloads, or Kali repositories on Debian. See the [uConsole safety review](./CM4-SAFETY-REVIEW.md) and [CM5 display recovery approach](./CM5-DISPLAY-RECOVERY.md) for evidence-first diagnostics.
+
 ## Troubleshooting
 
 ### "Failed to start session" at LightDM login
@@ -803,7 +704,7 @@ for f in /var/lib/AccountsService/users/*; do
 done
 
 # Make sure the fallback packages are installed
-sudo apt install -y lightdm-gtk-greeter labwc rtkit libxcb-cursor0
+# Preserve working desktop sessions; install only proven missing dependencies.
 
 # Restart LightDM
 sudo systemctl restart lightdm
@@ -813,10 +714,10 @@ sudo systemctl restart lightdm
 Symptoms - postinst script can't find `/tmp/readsb-install.sh` or `/tmp/config.yaml`. Fix:
 
 ```bash
-sudo apt purge hackergadgets-uconsole-aio-board -y
+# Do not purge the AIO package as a blind recovery step; inspect package logs.
 sudo apt update
-sudo apt --install-recommends install hackergadgets-uconsole-aio-board -y
-sudo apt install meshtastic-mui -y
+# See Step 6 for opt-in, simulated, reviewed vendor package installation.
+# Verify Meshtastic compatibility and vendor-supported package before install.
 ```
 
 ### GPS shows no data on `/dev/ttyS0`
@@ -849,7 +750,7 @@ sudo apt install meshtastic-mui -y
 Install affected packages from Kali explicitly:
 
 ```bash
-sudo apt install -t kali-rolling <packages> -y
+# Retired: do not install Kali repository packages into Debian.
 ```
 To make the pin permanent:
 ```bash
@@ -866,10 +767,10 @@ sudo apt update
 If you skipped Step 6 and are trying to install manually:
 
 ```bash
-wget -q -O /tmp/libgpiod2.deb http://ftp.us.debian.org/debian/pool/main/libg/libgpiod/libgpiod2_1.6.3-1+b3_arm64.deb
-wget -q -O /tmp/libyaml-cpp0.7.deb http://ftp.us.debian.org/debian/pool/main/y/yaml-cpp/libyaml-cpp0.7_0.7.0+dfsg-8+b1_arm64.deb
+# Retired: do not inject cross-release libgpiod2 package from HTTP.
+# Retired: do not inject cross-release libyaml-cpp0.7 package from HTTP.
 sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
-sudo apt --fix-broken install -y
+# First inspect APT simulation and package conflicts; do not force an automatic repair.
 ```
 
 ### `aiov2_ctl --gui` fails: "PyQt6 is not installed"
@@ -881,7 +782,7 @@ sudo apt --fix-broken install -y
 sudo chown -R $USER:$USER ~/.pygpsclient
 
 # Install PyQt6 inside the venv
-~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
+# Verify an isolated venv and compatibility; do not bypass Python protections.
 
 # Now try the GUI
 aiov2_ctl --gui
