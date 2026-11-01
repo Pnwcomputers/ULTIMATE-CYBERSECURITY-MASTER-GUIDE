@@ -1,14 +1,17 @@
 # 🔄 Change Log - November 01, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1512
-- **Files Modified**: 2013
-- **New Files**: 781
+- **Commits Analyzed**: 1515
+- **Files Modified**: 2014
+- **New Files**: 792
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add files via upload (`36e5777`)
+- Create imageplacement.md (`0dab94c`)
+- Add files via upload (`d990c88`)
 - docs(DFIR): add Tsurugi Bento portable toolkit setup and live-response procedures (#135) (`bfcb5c8`)
 - docs: add Pentoo Linux and REMnux platform-specific field guides (#134) (`769adf8`)
 - docs(OSINT): add Tsurugi Linux 26.03 deployment and practical investigation guide (#133) (`3af3e34`)
@@ -1536,6 +1539,18 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `assets/advnacedflows.jpg`
+- `assets/imageplacement.md`
+- `assets/ad_attack_paths.png`
+- `assets/ai_agent_arch.png`
+- `assets/hardware_diagnostics.png`
+- `assets/jwrapper_attack.png`
+- `assets/network_security_arch.png`
+- `assets/pentest_lifecycle.png`
+- `assets/ram_vs_storage.png`
+- `assets/vm_compartmentalization.png`
+- `assets/wireless_auditing.png`
+- `CHANGELOG.md`
 - `.github/workflows/cm5-parrot-checks.yml`
 - `README.md`
 - `START_HERE.md`
@@ -1620,7 +1635,6 @@
 - `IncidentResponse/SIEM/wazuh.md`
 - `Wardriving/kismet.md`
 - `Documentation/WiFiMarauder_Guide.md`
-- `CHANGELOG.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `ReverseEngineering/README.md`
