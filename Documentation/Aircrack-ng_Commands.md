@@ -1,7 +1,10 @@
 # Advanced Aircrack-ng Commands 📡
 
+> [!WARNING]
+> **Reviewed October 31, 2026.** This is a legacy/professional lab command reference. Injection, deauthentication, WEP replay and WPS tests are **active transmissions**, not passive monitoring, and can disrupt networks. Require a written scope and lab AP; do not treat default interface names, driver support, PMF negotiation or WPA3-SAE behavior as interchangeable. Prefer the [Wi-Fi detection and PMF reference](./wifi-deauthentication-detection.md) for passive incident analysis, the [Wardriving index](../Wardriving/README.md) for surveying and the [official aircrack-ng documentation](https://www.aircrack-ng.org/documentation.html) for supported command syntax.
+
 ## 🎯 Purpose
-Command reference for the aircrack-ng suite covering the full traditional WiFi auditing workflow: monitor mode → network scanning → deauth-forced handshake capture → WPA/WEP/WPS cracking. This is the active-deauth approach, as opposed to the passive PMKID method covered in [hcxtoolshashcat.md](hcxtoolshashcat.md).
+Command reference for the aircrack-ng suite covering the full traditional Wi-Fi lab auditing workflows, including passive monitoring and separately authorized active deauthentication/WEP/WPS testing. This is the active-deauth approach, as opposed to the passive PMKID method covered in [hcxtoolshashcat.md](hcxtoolshashcat.md).
 
 ## ⚙️ Function
 Organized by workflow phase and attack type: basic WPA/WPA2 handshake workflow, advanced deauth options, WEP cracking, WPS attacks, airodump/aireplay advanced flags, and file format conversion. Unlike hcxtoolshashcat.md (which uses hcxtools for passive capture and Hashcat mode 22000), this file uses aircrack-ng's own cracking engine and covers legacy formats including WEP and WPS PIN attacks that hcxtools does not address.
@@ -10,7 +13,7 @@ Organized by workflow phase and attack type: basic WPA/WPA2 handshake workflow, 
 Capture a WPA handshake or recover a WEP/WPS key using the aircrack-ng toolkit, then crack the resulting hash via dictionary attack.
 
 ## 📋 When to Use
-- When a client is actively associated and you can force a handshake via deauth
+- When evaluating AP/client response to active disconnection **in an explicitly authorized isolated lab**, not routine troubleshooting
 - When targeting **WEP** networks (aircrack-ng is the standard tool for IV-based WEP cracking)
 - When running **WPS PIN attacks** with Reaver/Pixiedust
 - When hcxtools is unavailable or the target network has no PMKID
@@ -89,7 +92,9 @@ sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv -K
 **PMKID Attack (Clientless - No Deauth Needed)**
 ```bash
 # Capture PMKID passively
-sudo hcxdumptool -i wlan1mon -o pmkid.pcapng --enable_status=1
+# hcxdumptool options have changed by version; verify `hcxdumptool --help`.
+# Use approved passive capture (dumpcap/Kismet) rather than assuming this
+# command is passive or compatible with every build.
 
 # Convert to Hashcat unified format (mode 22000)
 hcxpcapngtool -o pmkid.hc22000 pmkid.pcapng
@@ -150,7 +155,8 @@ wpaclean cleaned.cap capture-01.cap
 
 **Cracking with Hashcat (mode 22000)**
 ```bash
-# WPA/WPA2/WPA3 - unified mode (replaces deprecated 2500 and 16800)
+# Compatible WPA-PBKDF2 PMKID/EAPOL captures use Hashcat mode 22000;
+# WPA3-SAE is NOT covered by a generic WPA2 dictionary-cracking workflow.
 hashcat -m 22000 output.hc22000 wordlist.txt
 
 # With rules
