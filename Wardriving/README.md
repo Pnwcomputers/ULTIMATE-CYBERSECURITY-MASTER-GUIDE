@@ -83,6 +83,7 @@ Wardriving/
 
 - [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md): stationary authorized wireless attack monitoring and centralized SIEM correlation, not passive GPS inventory.
 
+- [Wireshark master filters and field cheat sheet](../Documentation/wireshark-master-filters.md): post-capture analysis of authorized packet traces; raw 802.11 management frames require an appropriate radio and fixed-channel collection.
 - [Wi-Fi Deauthentication & Disassociation Analysis](../Documentation/wifi-deauthentication-detection.md): a **separate, authorized wireless intrusion-monitoring workflow** for interpreting disconnect frames and distinguishing spoofing from normal management traffic; unlike passive AP inventory, it needs an 802.11-capable sensor and corroborating logs.
 - [SDR and RF](../SDR/README.md): radio fundamentals, spectrum measurements and antenna diagnostics—not a substitute for Wi-Fi MAC-layer logging.
 - [Flipper Zero](../Documentation/flipper_zero_guide.md) and [hardware hacking](../HardwareHacking/README.md): UART, GPIO, power and device compatibility.

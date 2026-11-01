@@ -1,5 +1,8 @@
 
-# 🦈 Wireshark Filters Reference
+# 🦈 Wireshark Advanced Capture & Protocol Reference
+
+> [!IMPORTANT]
+> **Canonical filter library:** [Wireshark Master Filter List](./wireshark-master-filters.md) · [Field Cheat Sheet](./wireshark-cheatsheet.md) · [133-entry validated filter catalog](./wireshark-filter-catalog.tsv). This existing page remains the **advanced capture/hardware reference**. The examples below contain explanatory comments inside some fenced blocks; paste only the actual filter expression, **not** a comment or a complete block. Filter matches do not prove that an attack occurred. Verify remote capture commands and hardware features before use.
 
 ## 🎯 Purpose
 Comprehensive Wireshark display and capture filter reference for network analysis, security operations, threat hunting, and protocol-specific capture (Bluetooth/BLE, Zigbee, WiFi, remote SSH streaming).
@@ -115,7 +118,7 @@ arp                    # ARP (address resolution, network mapping)
 
 ```wireshark
 dns                    # DNS queries and responses
-bootp                  # DHCP traffic (BOOTP/DHCP)
+dhcp                   # DHCPv4 traffic (legacy versions may use bootp)
 http                   # HTTP (cleartext web traffic)
 tls                    # TLS/HTTPS (encrypted; metadata only)
 ftp                    # FTP control channel
@@ -155,7 +158,7 @@ tcp.dstport == 8080
 tcp.srcport == 443
 
 # Port range
-tcp.port >= 8000 && tcp.port <= 9000
+(tcp.srcport >= 8000 && tcp.srcport <= 9000) || (tcp.dstport >= 8000 && tcp.dstport <= 9000)
 ```
 
 ### Common Port Reference
@@ -165,7 +168,7 @@ tcp.port >= 8000 && tcp.port <= 9000
 | 22 | SSH | `tcp.port == 22` |
 | 25 | SMTP | `tcp.port == 25` |
 | 53 | DNS | `udp.port == 53 \|\| tcp.port == 53` |
-| 67/68 | DHCP | `bootp` |
+| 67/68 | DHCP | `dhcp` |
 | 80 | HTTP | `http` |
 | 110 | POP3 | `tcp.port == 110` |
 | 143 | IMAP | `tcp.port == 143` |
@@ -199,7 +202,7 @@ ip.src == 192.168.1.0/24
 # Traffic between two specific hosts
 ip.addr == 192.168.1.10 && ip.addr == 192.168.1.20
 
-# External (non-RFC1918) traffic only
+# Sources not inside three RFC1918 ranges (still includes loopback, link-local, multicast, etc.)
 !(ip.src == 10.0.0.0/8) && !(ip.src == 172.16.0.0/12) && !(ip.src == 192.168.0.0/16)
 ```
 
@@ -220,7 +223,7 @@ tcp.flags.reset == 1
 # FIN - connection teardowns
 tcp.flags.fin == 1
 
-# PSH+ACK - actual data payload traffic
+# PSH+ACK - push flag set (does not guarantee useful application payload)
 tcp.flags.push == 1 && tcp.flags.ack == 1
 
 # Retransmissions - packet loss / congestion indicator
@@ -238,13 +241,13 @@ tcp.analysis.zero_window
 ## 🛡️ Security & Threat Detection Filters
 
 ```wireshark
-# Port scan indicator - SYN flood or half-open connections
+# TCP SYN without ACK - often a routine handshake; rate/context needed for scan triage
 tcp.flags.syn == 1 && tcp.flags.ack == 0
 
-# Failed connections - RST flood
+# TCP resets - ordinary refusals and tear-downs also produce these
 tcp.flags.reset == 1
 
-# Large packets - potential data exfiltration
+# Large frames - common for ordinary data transfer, not evidence of exfiltration
 frame.len > 1400
 
 # Fragmented IP packets - possible evasion technique
@@ -253,22 +256,22 @@ ip.flags.mf == 1 || ip.frag_offset > 0
 # Broadcast traffic - network discovery or flood
 eth.dst == ff:ff:ff:ff:ff:ff
 
-# ICMP echo flood - DoS indicator
+# ICMP echo request - normal ping and monitoring traffic
 icmp.type == 8
 
-# DNS over non-standard port - possible DNS tunneling
+# Decoded DNS over an unusual port (not a general tunneling detector)
 dns && !(udp.port == 53) && !(tcp.port == 53)
 
-# HTTP on non-standard port - C2 traffic indicator
+# Decoded HTTP on a non-default port (common in legitimate services)
 http && !(tcp.port == 80)
 
-# TLS on non-standard port - possible C2 or evasion
+# Decoded TLS on non-default port (common in legitimate services)
 tls && !(tcp.port == 443) && !(tcp.port == 8443)
 
-# ARP reply with no prior request - ARP spoofing indicator
+# All ARP replies - independently validate claimed sender; not proof of spoofing
 arp.opcode == 2
 
-# Long DNS query names - possible DNS exfiltration
+# Long DNS query names - weak heuristic; legitimate names may be long
 dns.qry.name.len > 50
 ```
 
@@ -282,11 +285,11 @@ Use these to strip background chatter and focus on relevant traffic.
 # Exclude ARP and ICMP (noisy on busy LANs)
 !(arp || icmp)
 
-# Exclude broadcast and multicast
-!(eth.dst[0] & 1)
+# Exclude Ethernet broadcast only (multicast is a separate category)
+!(eth.dst == ff:ff:ff:ff:ff:ff)
 
-# Exclude DHCP renewal noise
-!(bootp)
+# Exclude DHCPv4 noise
+!(dhcp)
 
 # Exclude LLMNR, mDNS, SSDP (Windows/IoT background noise)
 !(udp.port == 5355 || udp.port == 5353 || udp.port == 1900)
@@ -301,12 +304,15 @@ Use these to strip background chatter and focus on relevant traffic.
 ip.src == 192.168.1.0/24 && !(ip.dst == 192.168.1.0/24)
 
 # Clean view - application traffic only, no management noise
-(tcp || udp) && !(bootp || nbns || ssdp || mdns || stp || arp)
+(tcp || udp) && !(dhcp || nbns || ssdp || mdns || stp || arp)
 ```
 
 ---
 
 ## 🖥️ Remote Capture via SSH
+
+> [!WARNING]
+> Redirected SSH PCAP streams must stay **byte-for-byte binary**, and remote shell startup messages can corrupt them. **PowerShell 7.4+** has different native-command byte-stream behavior than Windows PowerShell 5.1; do not rely on a legacy PowerShell text pipeline for binary PCAP capture. Prefer supported extcap/SSH remote capture, or collect with tcpdump on the sensor and transfer the file as a binary artifact. Pin the interface, exclude only *appropriate* management traffic, and limit duration and file size.
 
 Stream live captures from a remote device directly into your local Wireshark instance.
 
@@ -533,7 +539,7 @@ Ready-to-paste filters for common scenarios.
 |----------|--------|
 | **General troubleshooting** | `tcp \|\| udp.port == 53` |
 | **Threat hunting** | `tcp.flags.syn == 1 \|\| tcp.flags.reset == 1 \|\| icmp \|\| dns` |
-| **Isolate one device** | `ip.addr == 192.168.1.XX` |
+| **Isolate one device** | `ip.addr == 192.0.2.10` |
 | **Reduce noise** | `!(arp \|\| icmp \|\| stp \|\| bootp \|\| mdns \|\| ssdp \|\| nbns)` |
 | **Outbound internet only** | `ip.src == 192.168.1.0/24 && !(ip.dst == 192.168.0.0/16 \|\| ip.dst == 10.0.0.0/8 \|\| ip.dst == 172.16.0.0/12)` |
 | **WPA handshake capture** | `eapol` |

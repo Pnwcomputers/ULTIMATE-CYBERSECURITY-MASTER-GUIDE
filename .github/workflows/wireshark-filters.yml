@@ -1,0 +1,41 @@
+name: Wireshark filter catalog checks
+
+on:
+  push:
+    paths:
+      - 'Documentation/wireshark-filter-catalog.tsv'
+      - 'Documentation/wireshark-master-filters.md'
+      - 'Documentation/wireshark-cheatsheet.md'
+      - 'Documentation/wireshark.md'
+      - 'tools/check_wireshark_filters.py'
+      - '.github/workflows/wireshark-filters.yml'
+  pull_request:
+    paths:
+      - 'Documentation/wireshark-filter-catalog.tsv'
+      - 'Documentation/wireshark-master-filters.md'
+      - 'Documentation/wireshark-cheatsheet.md'
+      - 'Documentation/wireshark.md'
+      - 'tools/check_wireshark_filters.py'
+      - '.github/workflows/wireshark-filters.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-display-filters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate catalog structure
+        run: python3 -B tools/check_wireshark_filters.py --structure-only
+      - name: Install TShark syntax validator
+        run: |
+          echo 'wireshark-common wireshark-common/install-setuid boolean false' | sudo debconf-set-selections
+          sudo apt-get update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq tshark
+      - name: Verify every display filter expression
+        run: python3 -B tools/check_wireshark_filters.py
