@@ -42,7 +42,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Reverse Engineering / Binary Analysis?** → [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md)
 - **Privacy Workstation / USB Setup?** → [OPSEC](OPSEC/README.md) + [Whonix + Kicksecure USB](OPSEC/whonix-kicksecure-usb-guide.md) or [Tails USB](OPSEC/tails-usb-setup-guide.md); choose the workflow before installation
 - **Data Engineering / Pipelines?** → [Data Engineering](Data-Engineering/README.md) + its phased learning path and [secure pipeline guide](Data-Engineering/data_pipelines.md)
-- **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/README.md)
+- **uConsole Setup?** → [uConsole index](uConsole/README.md) · [CM4 safety review](uConsole/CM4-SAFETY-REVIEW.md) · [CM5 recovery](uConsole/CM5-DISPLAY-RECOVERY.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md)
 - **Mobile Platform Pentesting?** → [Mobile Security](Mobile/README.md) + [Mobile Pentest SOP](Mobile/mobile_pentest_sop.md) + [NetHunter Setup](Mobile/OnePlus_A6003/Kali_NetHunter.md)
 
 ---
