@@ -4,12 +4,16 @@ on:
   pull_request:
     paths:
       - 'IncidentResponse/IDS&IPS/kismet-wazuh/**'
+      - 'IncidentResponse/IDS&IPS/nzyme-wazuh/**'
+      - 'IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md'
       - 'IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md'
       - '.github/workflows/wids-lab-tests.yml'
   push:
     branches: [main]
     paths:
       - 'IncidentResponse/IDS&IPS/kismet-wazuh/**'
+      - 'IncidentResponse/IDS&IPS/nzyme-wazuh/**'
+      - 'IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md'
       - 'IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md'
 
 permissions:
@@ -29,9 +33,14 @@ jobs:
             'IncidentResponse/IDS&IPS/kismet-wazuh/kismet_alert_bridge.py' \
             'IncidentResponse/IDS&IPS/kismet-wazuh/pcap_burst_detector.py' \
             'IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py' \
-            'IncidentResponse/IDS&IPS/kismet-wazuh/test_detection.py'
+            'IncidentResponse/IDS&IPS/kismet-wazuh/test_detection.py' \
+            'IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_webhook_bridge.py' \
+            'IncidentResponse/IDS&IPS/nzyme-wazuh/test_nzyme_webhook.py'
       - name: Unit tests and Wazuh XML structure
         run: |
           python -m unittest discover \
             -s 'IncidentResponse/IDS&IPS/kismet-wazuh' \
+            -p 'test_*.py' -v
+          python -m unittest discover \
+            -s 'IncidentResponse/IDS&IPS/nzyme-wazuh' \
             -p 'test_*.py' -v
