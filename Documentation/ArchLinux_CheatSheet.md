@@ -1,5 +1,7 @@
 # 🐧 Arch Linux Command Cheat Sheet and Reference
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!IMPORTANT]
 > **Reviewed October 31, 2026.** This is a quick reference, not a safe-to-run installation script. Review package changes, back up important data, check [Arch News](https://archlinux.org/news/) and the [Arch system-maintenance guidance](https://wiki.archlinux.org/title/System_maintenance). **Partial upgrades are unsupported** on Arch. For Manjaro, prefer Manjaro-specific repository/keyring instructions where they differ. See also [Debian/Ubuntu reference](./LinuxCheatSheet.md), [security and networking references](./references.md) and the [Wireshark capture reference](./wireshark.md).
 
