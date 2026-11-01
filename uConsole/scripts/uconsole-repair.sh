@@ -19,10 +19,11 @@
 #   5. Recommends reboot
 #
 # Usage:
-#   sudo ./uconsole-repair.sh             # diagnose + interactive repair
+#   sudo ./uconsole-repair.sh             # read-only diagnosis (default)
 #   sudo ./uconsole-repair.sh --dry-run   # show what would change, change nothing
 #   sudo ./uconsole-repair.sh --diagnose  # report only, never modify
-#   sudo ./uconsole-repair.sh --yes       # skip confirmation
+#   sudo ./uconsole-repair.sh --apply     # explicit repair after backup
+#   sudo ./uconsole-repair.sh --apply --yes # skip prompt only with --apply
 #   sudo ./uconsole-repair.sh --help
 
 set -uo pipefail
