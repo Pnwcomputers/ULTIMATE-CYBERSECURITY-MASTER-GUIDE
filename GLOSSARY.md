@@ -1,5 +1,7 @@
 # 📖 Glossary
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 _Last reviewed: 2026-10-31 (selected tooling definitions)_
 
 A quick reference for acronyms and terms used across this repository. Terms are grouped by domain; within each group they are alphabetical. Link to a term with an anchor, e.g. `[C2](GLOSSARY.md#c2--command-and-control)`.
