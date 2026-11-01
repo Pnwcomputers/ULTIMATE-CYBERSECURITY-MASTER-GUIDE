@@ -101,4 +101,4 @@ main() {
   fi
   say "Complete. Verify desktop, keyboard, battery, AIO hardware manually."
 }
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then main "$@"; fi
