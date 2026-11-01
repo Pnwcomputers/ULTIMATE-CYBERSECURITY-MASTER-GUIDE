@@ -2,6 +2,8 @@
 
 # 📋 07 — Quick Reference Card
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!NOTE]
 > **Selected formula and usage audit: October 31, 2026.** Numeric values are rounded; dynamic range, resonance, calibration and band limits depend on exact NanoVNA hardware, clones, firmware and test fixtures. Do not assume a calibration at one sweep range is valid across arbitrary spans. See the [NanoVNA index](./README.md) and [calibration procedures](./03-calibration.md) for required prerequisites.
 
