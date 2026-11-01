@@ -84,17 +84,19 @@ Get familiar with T-Pot in a VM first before exposing anything to the internet �
 
 ## 🔧 Installation
 
-### One-liner (fastest path)
+### Avoid piping a mutable remote installer directly into a shell
 
-```bash
-env bash -c "$(curl -sL https://github.com/telekom-security/tpotce/raw/master/install.sh)"
-```
+Do **not** execute a network-fetched script in one command. Clone the official source, review the version-specific installation procedure and installer contents, then install on a dedicated isolated VM. Pin a vetted release or commit for repeatability.
 
-### Or, git clone first
+### Clone and inspect first
 
 ```bash
 git clone https://github.com/telekom-security/tpotce
 cd tpotce
+git log -1 --format='%H %cs %s'
+less install.sh
+# Choose and check a release/commit matching the upstream supported-OS guide.
+# Then, only after review on an isolated test VM:
 ./install.sh
 ```
 
@@ -121,14 +123,7 @@ For automated/cloud provisioning:
 ./install.sh -s -t <type> [-u <webuser>] [-p <password>]
 ```
 
-`-t` accepts: `h` (hive), `s` (sensor), `l` (llm), `i` (mini), `m` (mobile), `t` (tarpit). `-s` requires passwordless `sudo` for the installing user — grant it first:
-
-```bash
-echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$(whoami)
-sudo chmod 440 /etc/sudoers.d/$(whoami)
-```
-
-Remove that sudoers file after installation if you don't want to keep it.
+Available `-t` presets and unattended `-s` behavior can change by release: verify with the *reviewed, pinned installer* before using these flags. **Do not grant unrestricted NOPASSWD:ALL sudo** on a honeypot just to make unattended installation work. Use an approved, least-privilege provisioning process and review upstream installation requirements instead.
 
 ---
 
