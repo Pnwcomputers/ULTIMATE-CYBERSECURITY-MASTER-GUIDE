@@ -269,6 +269,8 @@ Avoid equating arbitrary OUI, signal strength, sequence numbers, or any one disc
 
 ## Related guides and authoritative references
 
+For a hands-on, defensive **Kismet + Wazuh implementation** with alert ingestion, Wazuh XML rules, dashboard panels and optional passive packet-burst correlation, follow the [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
+
 **In this repository:**
 - [Wardriving / passive survey principles](../Wardriving/README.md)
 - [Kismet on Linux](../Wardriving/kismet.md)
