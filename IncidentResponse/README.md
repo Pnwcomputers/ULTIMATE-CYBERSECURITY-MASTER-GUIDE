@@ -83,6 +83,8 @@ Instrumentation for host-level telemetry.
 
 ### 🕸️ Network Security Monitoring (NSM)
 
+**[Kismet + Wazuh Wireless IDS Lab](./IDS%26IPS/kismet-wazuh-wireless-lab.md):** Deploy a fixed-channel 802.11 intrusion sensor, forward alerts into Wazuh, classify deauthentication events and build correlation/timeline dashboards. This is complementary to Ethernet-layer Snort/Suricata.
+
 Visibility into East/West and North/South traffic flows.
 
 | Technology | Focus Area | Common Tools |
