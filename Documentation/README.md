@@ -72,7 +72,10 @@ This documentation serves as a reference material for security implementations, 
 | [bruce_firmware.md](./bruce_firmware.md) | Comprehensive guide for Bruce Firmware usage | Guide |
 | [evil_m5.md](./evil_m5.md) | Guide for operations using the Evil-M5 Firmware | Guide |
 | [flipper_zero_guide.md](./flipper_zero_guide.md) | Reference guide for analysis and operations using a Flipper Zero | Guide |
-| [wireshark.md](./wireshark.md) | Wireshark filters and reference for network analysis and security operations | Guide |
+| **[Wireshark Master Filter List](./wireshark-master-filters.md)** | 133 display-filter examples, capture BPF distinctions, TShark, Wi-Fi and security triage | Master reference |
+| **[Wireshark Field Cheat Sheet](./wireshark-cheatsheet.md)** | Quick copyable filters and GUI/CLI troubleshooting workflow | Cheat sheet |
+| [Wireshark filter catalog TSV](./wireshark-filter-catalog.tsv) | Machine-readable, syntax-tested list with caveats | Data/reference |
+| [wireshark.md](./wireshark.md) | Advanced router, remote, BLE, Zigbee, hardware capture and protocol reference | Advanced guide |
 | [hcxtoolshashcat.md](./hcxtoolshashcat.md) | HCX tools and Hashcat for WiFi password cracking | Guide |
 | [microcontroller_wifi_testing.md](./microcontroller_wifi_testing.md) | Reference for using Pwnagotchi, Wifi-Marauder & Flipper Zero together for wifi testing | Guide |
 
@@ -124,7 +127,7 @@ This documentation serves as a reference material for security implementations, 
 * **Aircrack-ng:** Packet capture, WEP/WPA cracking, and deauthentication attacks.
 * **WiFi Marauder:** ESP32-based beacon spam, sniffing, and reconnaissance.
 * **Pwnagotchi:** AI-powered handshake collection and plugin management.
-* **Wireshark:** Network packet capture, filter reference, and traffic analysis.
+* **Wireshark:** [Master filters](./wireshark-master-filters.md), [field cheat sheet](./wireshark-cheatsheet.md), [advanced capture reference](./wireshark.md), and packet-analysis workflows.
 * **[Deauthentication detection](./wifi-deauthentication-detection.md):** Understand legitimate disconnects, spoofing indicators, PMF, wireless IDS, and incident triage.
 * **HCX Tools & Hashcat:** Hash extraction and dictionary/brute-force attacks.
 
