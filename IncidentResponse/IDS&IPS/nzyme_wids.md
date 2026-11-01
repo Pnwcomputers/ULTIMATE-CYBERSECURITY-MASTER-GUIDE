@@ -324,6 +324,17 @@ No kernel trace interrupting it, "Node hello submitted" at the end. **WiFi → A
 
 ---
 
+## 📊 Forwarding nzyme Alerts to Wazuh
+
+The [nzyme + Wazuh integration lab](./nzyme-wazuh-integration.md) builds on this deployment with a **localhost-only webhook-to-JSONL receiver**, service template, custom Wazuh severity rules, synthetic tests and a shared dashboard alongside [Kismet](./kismet-wazuh-wireless-lab.md). It uses native nzyme **Actions / Subscriptions**, so the existing nzyme-node/taps require no replacement or unsupported patched binaries.
+
+Before forwarding alerts, configure **WiFi → Monitoring** for authorized networks, review **Disconnection Activity** and establish a realistic **Static Threshold** based on a 24-hour or longer baseline. nzyme groups alerts and may re-trigger them every five minutes; **each event is not a deauthentication packet**. The documented webhook format does not guarantee a BSSID, so verify alert details and AP/controller telemetry before source-specific correlation.
+
+- [Official nzyme threshold and monitored network documentation](https://docs.nzyme.org/wifi/monitoring/network-monitoring/)
+- [Official nzyme Webhook/Syslog Action formats](https://docs.nzyme.org/configuration/alerting/action_types/)
+
+---
+
 ## ⚠️ Security Note on Third-Party Fixes
 
 ```
