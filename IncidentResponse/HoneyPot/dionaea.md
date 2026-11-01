@@ -16,6 +16,8 @@
 
 **SIEM and safety:** [Wazuh honeypot reporting](./wazuh-honeypot-integration.md) documents the need to verify Dionaea's selected log handler/output before ingestion. Quarantine captured binaries; do not run them. For dedicated VM isolation, see [Proxmox Honeynet](./proxmox-vm-honeynet.md).
 
+**SIEM caution:** [Honeypot → Wazuh reporting](./wazuh-honeypot-integration.md) requires confirming Dionaea's configured log handler and field schema before ingestion. Preserve captured samples in quarantine; never execute them on your analysis/production network. See [Proxmox decoy isolation](./proxmox-vm-honeynet.md).
+
 ## 🎯 Purpose
 Guide for deploying [Dionaea](https://github.com/DinoTools/dionaea), a low-interaction honeypot purpose-built to capture the actual malware **payloads** dropped by automated exploit attempts against network services (SMB, FTP, MySQL, TFTP, MQTT, and more) — not just a record that someone connected.
 
