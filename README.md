@@ -169,7 +169,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup for authorized physical-access assessments |
 | Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
 | Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
-| uConsole | [Automated Setup Scripts](./uConsole/scripts/README.md) | CM4/CM5 setup and repair automation |
+| uConsole | [CM4 / CM5 Setup Scripts](./uConsole/scripts/README.md) · [CM4 Safety Review](./uConsole/CM4-SAFETY-REVIEW.md) | Conservative CM4 preflight, CM5/Parrot setup and display recovery; explicit hardware validation required |
 | Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
 ---
@@ -254,7 +254,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 📟 uConsole & Portable Operations
 
-Field-side cybersecurity requires reliable, highly-portable hardware. This new section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations.
+Field-side cybersecurity requires reliable, highly-portable hardware. This section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations.
 
 - **OS & Toolkit Optimization:** Customizing Kali Linux, Parrot OS, or custom Debian builds for the uConsole's unique form factor.
 - **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.

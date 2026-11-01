@@ -19,17 +19,20 @@
 #   5. Recommends reboot
 #
 # Usage:
-#   sudo ./uconsole-repair.sh             # diagnose + interactive repair
+#   sudo ./uconsole-repair.sh             # read-only diagnosis (default)
 #   sudo ./uconsole-repair.sh --dry-run   # show what would change, change nothing
 #   sudo ./uconsole-repair.sh --diagnose  # report only, never modify
-#   sudo ./uconsole-repair.sh --yes       # skip confirmation
+#   sudo ./uconsole-repair.sh --apply     # explicit repair after backup
+#   sudo ./uconsole-repair.sh --apply --yes # skip prompt only with --apply
 #   sudo ./uconsole-repair.sh --help
 
 set -uo pipefail
 
-VERSION="1.2"
-DRY_RUN="${DRY_RUN:-no}"
-DIAGNOSE_ONLY="${DIAGNOSE_ONLY:-no}"
+VERSION="1.3"
+# Read-only diagnosis is the safe default; --apply is required for changes.
+APPLY_REPAIR=no
+DRY_RUN=yes
+DIAGNOSE_ONLY=yes
 ASSUME_YES="${ASSUME_YES:-no}"
 
 CONFIG_TXT="/boot/firmware/config.txt"
@@ -737,12 +740,13 @@ usage() {
 uconsole-repair.sh v$VERSION — fix a uConsole that had the wrong CM script run
 
 USAGE:
-    sudo $0 [OPTIONS]
+    sudo $0 [OPTIONS]  # defaults to read-only diagnosis
 
 OPTIONS:
     --dry-run        Show what would change, change nothing
+    --apply          Explicitly permit repair after diagnostics and confirmation
     --diagnose       Report findings only, never modify (same as --dry-run with no prompt)
-    --yes, -y        Skip confirmation prompt before making changes
+    --yes, -y        Skip confirmation prompt ONLY when combined with --apply
     --help, -h       This help
 
 WHAT IT REPAIRS:
@@ -785,7 +789,8 @@ WHAT IT WON'T TOUCH:
     - cmdline.txt (no hardware-specific edit was made there)
     - aiov2_ctl, AIO board package, Kali tools (those work on both CMs)
 
-Run --diagnose first to see what it found before letting it write anything.
+Default is --diagnose. Changes require --apply; --yes alone never performs repairs.
+Review a verified backup and the exact diff before using --apply.
 
 LOG: $LOG_FILE
 EOF
@@ -794,7 +799,8 @@ EOF
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            --dry-run)   DRY_RUN=yes ;;
+            --dry-run)   DRY_RUN=yes; DIAGNOSE_ONLY=yes; APPLY_REPAIR=no ;;
+            --apply)     DRY_RUN=no; DIAGNOSE_ONLY=no; APPLY_REPAIR=yes ;;
             --diagnose)  DRY_RUN=yes; DIAGNOSE_ONLY=yes; ASSUME_YES=yes ;;
             --yes|-y)    ASSUME_YES=yes ;;
             --help|-h)   usage; exit 0 ;;
@@ -807,8 +813,12 @@ parse_args() {
 main() {
     parse_args "$@"
 
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
+    if [[ "$APPLY_REPAIR" != "yes" ]]; then
+        LOG_FILE=/dev/null  # read-only diagnostics leave no log artifact
+    else
+        mkdir -p "$(dirname "$LOG_FILE")"
+        touch "$LOG_FILE"
+    fi
 
     header "uConsole Repair v$VERSION — $(date)"
     [[ "$DRY_RUN" == "yes" ]] && warn "DRY-RUN MODE: no changes will be made"
@@ -832,11 +842,12 @@ main() {
 
     if [[ "$DIAGNOSE_ONLY" == "yes" ]]; then
         info "Diagnose-only mode — no changes will be made."
-        info "Re-run without --diagnose to apply the repair."
+        info "Review the diagnosis and backups; re-run with --apply to authorize changes."
         exit 0
     fi
 
     echo ""
+    [[ "$APPLY_REPAIR" == yes ]] || die "Explicit --apply is required."
     confirm "Apply the repair listed above?" || die "Aborted by user."
 
     repair "$hw"

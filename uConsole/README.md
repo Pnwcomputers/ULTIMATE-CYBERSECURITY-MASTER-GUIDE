@@ -6,14 +6,14 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
-![CM4](https://img.shields.io/badge/CM4-Supported-blue?style=for-the-badge)
+![CM4](https://img.shields.io/badge/CM4-Conservative_Review-blue?style=for-the-badge)
 ![CM5](https://img.shields.io/badge/CM5-Validation_Pending-yellow?style=for-the-badge)
 ![AIO v2](https://img.shields.io/badge/AIO_v2-RTL--SDR_%7C_LoRa_%7C_GPS_%7C_RTC-red?style=for-the-badge)
 
 </div>
 
 > [!IMPORTANT]
-> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The proposed CM5 v1.4 revision preserves the desktop; device testing is pending. CM4 automation has not been audited by this fix.
+> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The current CM5 v1.4 workflow preserves the working desktop by default; device testing is pending. **CM4 legacy automation was replaced with the v2.0 read-only-by-default script** and **the repair utility now requires explicit `--apply`**, and its dangerous cross-distribution/forced-overwrite behavior has been retired. See [CM4 safety review](./CM4-SAFETY-REVIEW.md). Physical CM4/CM5 hardware validation remains necessary.
 
 ## 🎯 Purpose
 Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a
@@ -84,7 +84,7 @@ These guides serve as:
 
 | Guide | Compute Module | Description |
 |-------|---------------|-------------|
-| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Complete CM4 setup - Most mature and community-tested configuration and features the `uconsole-cm4-setup.sh` automated installer. |
+| **[CM4-SETUP.md](./CM4-SETUP.md)** | Raspberry Pi CM4 | Safer staged CM4 setup. [v2.0 setup script](./scripts/uconsole-cm4-setup.sh) is read-only by default; AIO and native Kali installs are opt-in. |
 | **[CM5-SETUP.md](./CM5-SETUP.md)** | Raspberry Pi CM5 | Complete CM5 setup - Features the `uconsole-cm5-setup.sh` automated installer, USB 3.0, and native PCIe configurations. |
 | **[ParrotOS Guide](./PARROT-CM5.md)** | Raspberry Pi CM5 | Guide for installation on ParrotOS vs Kali; use at your own risk! _*This is a work in progress*_ |
 
@@ -140,7 +140,7 @@ These guides serve as:
 
 ## 🐧 Kali OS Options
 
-These setup guides cover two primary OS paths; both running different "flavors" of Kali Linux:
+These guides cover **two distinct operating-system families**, not two flavors of Kali. Avoid cross-distribution APT source mixing:
 
 ### Path A: Rex's Kali Image
 
@@ -197,11 +197,21 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 ---
 
+## 🛡️ CM4 review and safest starting point
+
+The [CM4 safety and migration review](./CM4-SAFETY-REVIEW.md) explains why the old CM4 installer was retired. For an existing CM4, start with:
+
+~~~bash
+bash uConsole/scripts/uconsole-cm4-setup.sh --help
+bash uConsole/scripts/uconsole-cm4-setup.sh --status
+~~~
+
+These actions do not change package sources, the display manager, EEPROM, storage or radio power. When adding actual AIO hardware, follow the [CM4 setup guide](./CM4-SETUP.md) and confirm with the [vendor's AIO v2 documentation](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide).
+
 ## 🔧 Common Setup Sequence (The 6-Phase Approach)
 
 For CM5 v1.4, the defaults preserve the working image and optional installations require flags. See [script
-usage](./scripts/README.md) and [recovery instructions](./CM5-DISPLAY-RECOVERY.md). This sequence does not describe
-the unchanged CM4 installer.
+usage](./scripts/README.md) and [recovery instructions](./CM5-DISPLAY-RECOVERY.md). The CM4 v2.0 procedure is **different**: read-only preflight by default with optional reviewed package installations. See the [CM4 script reference](./scripts/README.md).
 
 | Phase | CM5 v1.4 behavior |
 |---|---|
@@ -318,9 +328,9 @@ USERS ACKNOWLEDGE:
 ## 📊 Repository Statistics
 
 ```text
-📁 Setup Guides: 2 (CM4, CM5) + 2 Automation Scripts
+📁 Setup Guides: CM4, CM5, CM5 recovery and experimental Parrot + multiple setup/repair scripts
 📖 Covers: OS setup, AIO v2 board, NVMe, WiFi, LoRa, GPS, SDR, RTC
-🔄 Last Updated: June 2026
+🔄 Section reviewed: October 31, 2026 (physical deployment validation outstanding)
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active & Growing
 ```

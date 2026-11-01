@@ -1,14 +1,26 @@
-name: CM5 setup checks
+name: uConsole setup checks
 
 on:
   push:
     paths:
       - 'uConsole/scripts/uconsole-cm5*.sh'
+      - 'uConsole/scripts/uconsole-cm4-setup.sh'
+      - 'uConsole/scripts/uconsole-repair.sh'
+      - 'uConsole/CM4-SETUP.md'
+      - 'uConsole/CM5-SETUP.md'
+      - 'uConsole/README.md'
+      - 'uConsole/CM4-SAFETY-REVIEW.md'
       - 'uConsole/tests/**'
       - '.github/workflows/cm5-parrot-checks.yml'
   pull_request:
     paths:
       - 'uConsole/scripts/uconsole-cm5*.sh'
+      - 'uConsole/scripts/uconsole-cm4-setup.sh'
+      - 'uConsole/scripts/uconsole-repair.sh'
+      - 'uConsole/CM4-SETUP.md'
+      - 'uConsole/CM5-SETUP.md'
+      - 'uConsole/README.md'
+      - 'uConsole/CM4-SAFETY-REVIEW.md'
       - 'uConsole/tests/**'
       - '.github/workflows/cm5-parrot-checks.yml'
   workflow_dispatch:
@@ -29,6 +41,8 @@ jobs:
           python-version: '3.12'
       - name: Check Bash syntax
         run: |
+          bash -n uConsole/scripts/uconsole-cm4-setup.sh
+          bash -n uConsole/scripts/uconsole-repair.sh
           bash -n uConsole/scripts/uconsole-cm5-setup.sh
           bash -n uConsole/scripts/uconsole-cm5-parrot-setup.sh
       - name: Run isolated regression tests
