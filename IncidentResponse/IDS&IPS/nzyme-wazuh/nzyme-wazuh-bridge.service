@@ -1,0 +1,25 @@
+# Example deployment when nzyme node, webhook receiver, and Wazuh agent
+# run on the SAME Linux host. Store token only in root-owned env file.
+[Unit]
+Description=nzyme webhook to Wazuh JSONL receiver (loopback only)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+DynamicUser=true
+EnvironmentFile=/etc/nzyme-wazuh/receiver.env
+ExecStart=/usr/bin/python3 /opt/nzyme-wazuh/nzyme_webhook_bridge.py --port 8787
+Restart=on-failure
+RestartSec=5
+UMask=0077
+LogsDirectory=nzyme-wazuh
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
