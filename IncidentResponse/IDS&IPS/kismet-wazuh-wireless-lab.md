@@ -254,6 +254,14 @@ The editor depends on Wazuh version. Follow [official custom-dashboard instructi
 | Dashboard | Panels filter only intended WIDS alerts |
 | Investigation | Legitimate disconnects and known maintenance distinguished |
 
+## Optional: add nzyme as a second wireless WIDS
+
+**nzyme is another native wireless detection engine**, not a replacement for Kismet. It counts observed deauth/disassoc frames per monitored network, supports configurable disconnection thresholds, and adds expected BSSID, fingerprint, channel, security-suite and signal-track checks. Its native detection events can be forwarded to Wazuh by **webhook** (the included lab receiver) or **UDP RFC 5424 syslog** (with a separate normalized relay). Both sources share the wireless_wids Wazuh rule group, but keep separate event types and ingestion pipelines.
+
+Follow the dedicated [nzyme + Wazuh integration guide](./nzyme-wazuh-integration.md) and the existing [nzyme node/tap installation guide](./nzyme_wids.md). The companion files include a loopback-only Bearer-authenticated webhook receiver, systemd unit, synthetic events, custom Wazuh rule IDs **100350–100354**, and unit tests.
+
+For a combined dashboard, add a **data.wids.integration** terms panel showing **kismet**, **nzyme**, **pcap**, and **correlator**. nzyme webhooks do not promise a BSSID; correlate by event time, location and independently verified AP/controller records before joining individual assets. nzyme events may be **grouped and re-triggered after five minutes**, so they are not raw packet counts. Do not score nzyme events solely from their UDP syslog PRI (fixed 133).
+
 ## Troubleshooting
 
 | Symptom | Check |
