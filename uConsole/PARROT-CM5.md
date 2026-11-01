@@ -1,4 +1,7 @@
-# uConsole CM5 Parrot Setup 
+# uConsole CM5 Parrot Setup
+
+> [!IMPORTANT]
+> **Selected documentation review: October 31, 2026.** This remains an **experimental** Parrot CM5 path and is not proof that a stock Parrot image supports the uConsole screen, keypad, battery or AIO board. See [uConsole section index](./README.md), [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) and [CM4 safety review](./CM4-SAFETY-REVIEW.md). Do not mix Parrot, Kali and Rex Debian APT sources. 
 ### _*Experimental; Use at your OWN RISK!_
 
 ## 🎯 Purpose
