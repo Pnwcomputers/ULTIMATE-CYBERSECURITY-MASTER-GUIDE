@@ -262,6 +262,8 @@ Follow the dedicated [nzyme + Wazuh integration guide](./nzyme-wazuh-integration
 
 For a combined dashboard, add a **data.wids.integration** terms panel showing **kismet**, **nzyme**, **pcap**, and **correlator**. nzyme webhooks do not promise a BSSID; correlate by event time, location and independently verified AP/controller records before joining individual assets. nzyme events may be **grouped and re-triggered after five minutes**, so they are not raw packet counts. Do not score nzyme events solely from their UDP syslog PRI (fixed 133).
 
+**Honeypot correlation:** [OpenCanary/Cowrie/DIY → Wazuh](../HoneyPot/wazuh-honeypot-integration.md) can add decoy-service contacts as a separate signal in the wireless incident timeline. Do not infer attacker identity from temporal proximity, a spoofable BSSID or an IP address alone.
+
 ## Troubleshooting
 
 | Symptom | Check |
