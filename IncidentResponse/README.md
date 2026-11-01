@@ -90,6 +90,7 @@ Visibility into East/West and North/South traffic flows.
 | **Zeek (Bro)** | Connection logging, protocol analysis, and metadata extraction. | Zeek, RITA |
 | **IDS / IPS** | Signature-based network threat detection and prevention. | Suricata, Snort |
 | **Packet Capture** | Workflows for capturing and analyzing raw `.pcap` files. | Wireshark, TShark, TCPDump |
+| **[Wi-Fi Deauthentication Detection](../Documentation/wifi-deauthentication-detection.md)** | Analyze legitimate vs spoofed 802.11 disconnects; PMF, monitor-mode capture, Kismet WIDS alerts and SIEM triage | Kismet, Wireshark, TShark, AP/controller logs |
 
 ---
 

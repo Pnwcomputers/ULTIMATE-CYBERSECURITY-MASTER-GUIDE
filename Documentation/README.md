@@ -64,6 +64,7 @@ This documentation serves as a reference material for security implementations, 
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [Aircrack-ng_Commands.md](./Aircrack-ng_Commands.md) | Complete Aircrack-ng command reference | Reference |
+| [wifi-deauthentication-detection.md](./wifi-deauthentication-detection.md) | Legitimate 802.11 disconnects vs spoofing, PMF interpretation, Wireshark/TShark and Kismet detection | Defensive guide |
 | [WiFiMarauder_Guide.md](./WiFiMarauder_Guide.md) | Comprehensive guide for WiFi Marauder tool usage | Guide |
 | [WifiMarauder_CheatSheet.md](./WifiMarauder_CheatSheet.md) | Quick reference for WiFi Marauder commands | Cheat Sheet |
 | [pwnagotchi_cheatsheet.md](./pwnagotchi_cheatsheet.md) | Pwnagotchi setup and command reference | Cheat Sheet |
@@ -124,6 +125,7 @@ This documentation serves as a reference material for security implementations, 
 * **WiFi Marauder:** ESP32-based beacon spam, sniffing, and reconnaissance.
 * **Pwnagotchi:** AI-powered handshake collection and plugin management.
 * **Wireshark:** Network packet capture, filter reference, and traffic analysis.
+* **[Deauthentication detection](./wifi-deauthentication-detection.md):** Understand legitimate disconnects, spoofing indicators, PMF, wireless IDS, and incident triage.
 * **HCX Tools & Hashcat:** Hash extraction and dictionary/brute-force attacks.
 
 ### 2. Privacy & Anonymity Tools
