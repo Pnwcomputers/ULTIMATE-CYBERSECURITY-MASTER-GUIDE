@@ -11,6 +11,7 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 from diy_http_decoy import EventWriter, build_handler
+from esp32_serial_bridge import parse_line
 
 
 HERE = Path(__file__).parent
@@ -60,6 +61,16 @@ class HoneypotTests(unittest.TestCase):
         self.assertEqual(len(records), 4)
         self.assertIn("node_id", records[1])
         self.assertEqual(records[2]["eventid"], "cowrie.session.connect")
+
+    def test_custom_esp32_serial_contract(self):
+        example = 'HONEYPOT_JSON:{"event":"tcp_connection","src_ip":"192.0.2.30","port":23}'
+        normalized = parse_line(example, "s3-decoy")
+        self.assertEqual(normalized["honeypot"]["integration"], "esp32_serial")
+        self.assertEqual(normalized["honeypot"]["src_ip"], "192.0.2.30")
+        self.assertEqual(normalized["honeypot"]["dst_port"], 23)
+        self.assertIsNone(parse_line('HONEYPOT_JSON:{"event":"cmd","src_ip":"192.0.2.30","port":23}', "s3"))
+        self.assertIsNone(parse_line('HONEYPOT_JSON:{"event":"tcp_connection","src_ip":"bad","port":23}', "s3"))
+        self.assertIsNone(parse_line("unrelated serial banner", "s3"))
 
 
 if __name__ == "__main__":
