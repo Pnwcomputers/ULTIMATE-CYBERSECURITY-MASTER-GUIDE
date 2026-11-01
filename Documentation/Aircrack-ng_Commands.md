@@ -1,5 +1,7 @@
 # Advanced Aircrack-ng Commands 📡
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!WARNING]
 > **Reviewed October 31, 2026.** This is a legacy/professional lab command reference. Injection, deauthentication, WEP replay and WPS tests are **active transmissions**, not passive monitoring, and can disrupt networks. Require a written scope and lab AP; do not treat default interface names, driver support, PMF negotiation or WPA3-SAE behavior as interchangeable. Prefer the [Wi-Fi detection and PMF reference](./wifi-deauthentication-detection.md) for passive incident analysis, the [Wardriving index](../Wardriving/README.md) for surveying and the [official aircrack-ng documentation](https://www.aircrack-ng.org/documentation.html) for supported command syntax.
 
