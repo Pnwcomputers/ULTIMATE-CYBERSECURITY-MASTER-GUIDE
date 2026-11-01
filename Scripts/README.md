@@ -3,6 +3,8 @@
 # 💻 Security Scripts & Tools
 
 
+**Scripting reference:** [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) · [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) · [tool pinning policy](./PINNING.md). Do not execute downloaded scripts before inspecting source and verifying provenance.
+
 ## 🎯 Purpose
 Index of security scripts and automation tools organized by language - bash, Python, PowerShell, C, Go, SQL, YAML, and specialized payloads (Bash Bunny, USB Rubber Ducky) - plus the main cross-distro installer for all guide tools.
 
