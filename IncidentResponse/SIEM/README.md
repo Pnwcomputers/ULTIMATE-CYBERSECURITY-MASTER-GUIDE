@@ -14,6 +14,8 @@
 
 ---
 
+**Deception reporting:** [Honeypot → Wazuh native JSON integration](../HoneyPot/wazuh-honeypot-integration.md) connects OpenCanary, Cowrie and DIY decoy metadata; [Kismet](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme](../IDS%26IPS/nzyme-wazuh-integration.md) contribute independent wireless alert streams.
+
 ## 🎯 Purpose
 Index for the SIEM sub-section — self-hosted deployment guides for the four most common security log-aggregation platforms (ELK Stack, Wazuh, Splunk, Graylog), so a blue teamer can pick a platform and stand it up for a homelab or small SOC.
 
