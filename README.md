@@ -63,7 +63,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🛡️ **Defensive & Incident Response** | [IncidentResponse/](./IncidentResponse/) | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) · [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) · [SIEM](./IncidentResponse/SIEM/) · [IDS & IPS](./IncidentResponse/IDS%26IPS/) · [Honeypots](./IncidentResponse/HoneyPot/) · [Digital Forensics](./IncidentResponse/Digital-Forensics/) · [Homelab/](./Homelab/) |
 | 🗄️ **Data Engineering & Automation** | [Data Engineering](./Data-Engineering/README.md) | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) · [Scripts](./Scripts/README.md) |
 | 🔍 **OSINT & Recon** | [OSINT/](./OSINT/) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Tsurugi Linux OSINT](./OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
-| 📍 **Wireless Surveying & Wardriving** | [Wardriving/](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) |
+| 📍 **Wireless Surveying & Wardriving** | [Wardriving/](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) · [Deauthentication Analysis](./Documentation/wifi-deauthentication-detection.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI/](./AI/) · [SDR/](./SDR/) · [HardwareHacking/](./HardwareHacking/) · [HardwareTesting/](./HardwareTesting/) · [SpaceSecurity/](./SpaceSecurity/) · [Mobile/](./Mobile/) · [uConsole/](./uConsole/) |
 | 🔐 **Governance, Crypto & Reference** | [Compliance/](./Compliance/) | [Cryptography/](./Cryptography/) · [Documentation/](./Documentation/) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC/](./OPSEC/) |
 | ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) · [Security Policy](./.github/SECURITY.md) |
@@ -163,7 +163,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
 | Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
 | uConsole | [Automated Setup Scripts](./uConsole/scripts/README.md) | CM4/CM5 setup and repair automation |
-| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
+| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
 ---
 
