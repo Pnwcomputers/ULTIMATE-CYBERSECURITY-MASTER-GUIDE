@@ -29,7 +29,7 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 > ```
 > See [`scripts/README.md`](./scripts/README.md) for flags and options.
 
-> **About this revision (v1.2):** The order of operations is "harden first, upgrade second, then install." This revision includes automated fixes for Trixie dependency drift (Meshtastic), Wayland GDBus errors (`rtkit`), and ADS-B SDR sequencing. Every step that used to break a fresh install has been pre-empted before the first `apt full-upgrade`. 
+> **Revision note (CM4 v2.0):** Previous v1.2 setup behavior was retired after review. The recommended sequence is **capture baseline → full backup → read-only preflight → simulate any optional changes → perform only approved installation steps → test and document**. A firmware/kernel/desktop update is deliberately not automated.
 
 ---
 
@@ -38,9 +38,9 @@ A complete setup guide for building a field-deployable hacking and SIGINT platfo
 - [Hardware Overview](#hardware-overview)
 - [Choosing Your OS: Kali vs Trixie](#choosing-your-os-kali-vs-trixie)
 - [Step 1: Flash the OS](#step-1-flash-the-os)
-- [Step 2: First Boot; Pre-Flight Hardening](#step-2-first-boot---pre-flight-hardening)
+- [Step 2: First Boot — Preserve and Audit the Working Image](#step-2-first-boot--preserve-and-audit-the-working-image)
 - [Step 3: System Update and Initial Configuration](#step-3-system-update-and-initial-configuration)
-- [Step 4: Add Kali Tools (Trixie Only)](#step-4-add-kali-tools-trixie-only)
+- [Step 4: Security Tools for Your Distribution](#step-4-security-tools-for-your-distribution)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
 - [Step 6: Install the AIO v2 Board Package](#step-6-install-the-aio-v2-board-package)
 - [Step 7: Configure GPS (CM4)](#step-7-configure-gps-cm4)
@@ -476,10 +476,11 @@ aiov2_ctl --boot-rails-status
 The CM4's onboard WiFi does not support monitor mode. You need an external USB WiFi adapter.
 
 ### Install the DKMS Driver
-RTL8812AU/RTL8814AU chipsets are not in the mainline Linux kernel - they need a DKMS module. Rex's images ship with `linux-headers` already included:
+Driver support is **chipset, USB ID, kernel and distro-specific**. First inspect `lsusb`, `uname -r`, `modinfo` and the candidate package; do not assume every CM4/Rex image has compatible headers, or every adapter uses the same DKMS module:
 
 ```bash
-sudo apt install realtek-rtl88xxau-dkms -y
+# Only if a compatible package exists and the adapter really needs it:
+# sudo apt install realtek-rtl88xxau-dkms
 sudo dkms status | grep rtl88
 ```
 Plug in the adapter - `iwconfig` should now list it.
@@ -769,7 +770,8 @@ If you skipped Step 6 and are trying to install manually:
 ```bash
 # Retired: do not inject cross-release libgpiod2 package from HTTP.
 # Retired: do not inject cross-release libyaml-cpp0.7 package from HTTP.
-sudo dpkg -i /tmp/libgpiod2.deb /tmp/libyaml-cpp0.7.deb
+# Unsafe cross-release installation retired. Resolve dependencies using
+# supported packages built for this OS/image; do not dpkg -i old Bookworm .debs.
 # First inspect APT simulation and package conflicts; do not force an automatic repair.
 ```
 
