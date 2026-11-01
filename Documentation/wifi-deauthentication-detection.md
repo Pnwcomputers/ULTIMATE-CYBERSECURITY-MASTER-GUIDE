@@ -269,6 +269,9 @@ Avoid equating arbitrary OUI, signal strength, sequence numbers, or any one disc
 
 ## Related guides and authoritative references
 
+For a second wireless detector that baselines disconnect-frame volume per protected network, see [nzyme + Wazuh integration](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) and the [nzyme WIDS deployment guide](../IncidentResponse/IDS%26IPS/nzyme_wids.md). nzyme's webhook events are grouped detections, not authenticated proofs of a transmitter or packet-by-packet records.
+
+
 For a hands-on, defensive **Kismet + Wazuh implementation** with alert ingestion, Wazuh XML rules, dashboard panels and optional passive packet-burst correlation, follow the [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
 
 **In this repository:**
