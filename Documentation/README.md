@@ -14,6 +14,8 @@
 
 ---
 
+**Curated cheat sheet/reference index:** [October 2026 Review & Navigation](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Covers Debian, Arch, ports/HTTP/regex, Aircrack-ng, Marauder, Pwnagotchi, Wireshark, OSINT, Volatility, NanoVNA, Bash, glossary and general cliff notes. PDF references retain separate provenance and currency caveats.
+
 ## 🎯 Purpose
 Index and navigation hub for all documentation in the `Documentation/` directory - covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
 
@@ -92,8 +94,8 @@ This documentation serves as a reference material for security implementations, 
 ### System Administration
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
-| [LinuxCheatSheet.md](./LinuxCheatSheet.md) | Essential Linux commands, system administration, hardware hacking toolkit, WSL2, SDR/RF, and OSINT tools | Cheat Sheet |
-| [ArchLinux_CheatSheet.md](./ArchLinux_CheatSheet.md) | Arch-specific deep reference: pacman, AUR helpers (yay/paru/pamac), makepkg/PKGBUILD, kernel/module management, systemd, mirrors, security tooling setup | Cheat Sheet |
+| [LinuxCheatSheet.md](./LinuxCheatSheet.md) | Reviewed Linux commands, system administration, hardware hacking toolkit, WSL2, SDR/RF, and OSINT tools | Cheat Sheet |
+| [ArchLinux_CheatSheet.md](./ArchLinux_CheatSheet.md) | Reviewed Arch-specific deep reference: pacman, AUR helpers (yay/paru/pamac), makepkg/PKGBUILD, kernel/module management, systemd, mirrors, security tooling setup | Cheat Sheet |
 | [blackarch.md](./blackarch.md) | BlackArch repository setup (strap.sh), keyring management, tool category installation, mirror configuration, and system maintenance | Guide |
 | [virtualmachines.md](./virtualmachines.md) | Virtual machine setup and management guide | Guide |
 
@@ -108,7 +110,8 @@ This documentation serves as a reference material for security implementations, 
 | [SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf](./SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf) | Static Application Security Testing scanners reference | PDF |
 | [Ethical.Hacking.MindMap.pdf](./Ethical.Hacking.MindMap.pdf) | Ethical hacking methodology and concepts mind map | PDF |
 | [subdomains.txt](./subdomains.txt) | Subdomain wordlist for enumeration and discovery | Wordlist |
-| [references.md](./references.md) | Quick-reference tables for port numbers, HTTP status codes, etc. | Reference Guide |
+| [references.md](./references.md) | Port/service conventions, HTTP status and regex patterns with validation caveats | Reference Guide |
+| **[Cheat Sheet / Reference Review Index](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Direct links to every reviewed quick reference and its validation/provenance status | Master index |
 
 ### Other Resources
 | Site | Description |
