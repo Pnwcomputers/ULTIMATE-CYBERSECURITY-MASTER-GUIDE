@@ -1,5 +1,7 @@
 # ⚡ WiFi Marauder (Firmware-Dependent) Cheat Sheet 📡
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!NOTE]
 > **Reviewed October 31, 2026.** Menu names and features vary by Marauder firmware, ESP32 variant, display/Flipper companion and radio support. See [upstream ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) and the repo's [hardware-specific Wardriving guide](../Wardriving/esp32-marauder.md). Start with an isolated test AP and verify scan/channel/GPS/logging functionality before use. The following *active* functions require separate explicit authorization and cause interference.
 
