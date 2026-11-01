@@ -1,5 +1,7 @@
 # 📡 DIY WiFi Intrusion Detection with Nzyme
 
+**Alternative wireless SIEM integration:** [Kismet + Wazuh Wireless IDS Lab](./kismet-wazuh-wireless-lab.md) provides fixed-channel passive deauthentication detection, customized Wazuh rules, offline PCAP burst analysis and dashboard steps. It complements this nzyme deployment.
+
 <div align="center">
 
 **Proxmox VM node + Raspberry Pi tap sensors, built and debugged for real**
