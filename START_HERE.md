@@ -1,7 +1,7 @@
 # 🛡️ START HERE - Your Complete Cybersecurity Guide Collection
 
 > **Role- and Goal-Based Navigation Guide**  
-> Direct paths for every practitioner role (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
+> Direct paths to readable guide pages for every practitioner role (Red Team, Blue Team, OSINT, Forensics, Homelab, Career), without browsing GitHub's Code file list.
 
 <p align="center">
   <img src="assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
@@ -17,28 +17,34 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ## 🎯 QUICK START
 
+**Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
+
+**Popular hands-on Blue Team path:** [Incident Response index](IncidentResponse/README.md) → [Wazuh/SIEM](IncidentResponse/SIEM/README.md) → [Kismet/nzyme IDS](IncidentResponse/IDS%26IPS/readme.md) → [Honeypot lab](IncidentResponse/HoneyPot/readme.md) → [Honeypot → Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md).
+
+
+
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
 - **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations)
 - **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
 - **Preparing for OSCP?** → [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Advanced Techniques Part 2](advanced_techniques_part2.md) (Buffer Overflows; CRITICAL) + [Playbooks](PlayBooks/cybersecurity_playbooks.md)
 - **Professional Pentester?** → [Pentoo Linux workstation and assessment workflow](Tradecraft/pentoo-linux-guide.md) + [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) + the other master guides as reference
-- **Blue Team / SOC?** → [Incident Response](IncidentResponse/) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/) + [SIEM Guides](IncidentResponse/SIEM/)
+- **Blue Team / SOC?** → [Incident Response](IncidentResponse/README.md) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/README.md) + [SIEM Guides](IncidentResponse/SIEM/README.md)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
-- **Red Team Operator?** → [Tradecraft](Tradecraft/) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/)
-- **Web App Pentester?** → [Web Application Security](WebAppSecurity/) ([OWASP Top 10](WebAppSecurity/owasp-top-10.md) + [Methodology](WebAppSecurity/methodology.md))
-- **Cloud Security?** → [Cloud Security](Cloud/) ([AWS](Cloud/aws.md) · [Azure/Entra ID](Cloud/azure.md) · [GCP](Cloud/gcp.md))
-- **Compliance / Auditor?** → [Compliance & GRC](Compliance/) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
-- **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
-- **Cryptography?** → [Cryptography](Cryptography/) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/))
+- **Red Team Operator?** → [Tradecraft](Tradecraft/README.md) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/README.md)
+- **Web App Pentester?** → [Web Application Security](WebAppSecurity/README.md) ([OWASP Top 10](WebAppSecurity/owasp-top-10.md) + [Methodology](WebAppSecurity/methodology.md))
+- **Cloud Security?** → [Cloud Security](Cloud/README.md) ([AWS](Cloud/aws.md) · [Azure/Entra ID](Cloud/azure.md) · [GCP](Cloud/gcp.md))
+- **Compliance / Auditor?** → [Compliance & GRC](Compliance/README.md) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
+- **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
+- **Cryptography?** → [Cryptography](Cryptography/README.md) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/README.md))
 - **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **Wardriving / Wireless Surveys?** → [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have.
-- **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/) + [SpaceSecurity](SpaceSecurity/)
+- **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/README.md) + [SpaceSecurity](SpaceSecurity/README.md)
 - **Reverse Engineering / Binary Analysis?** → [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md)
 - **Privacy Workstation / USB Setup?** → [OPSEC](OPSEC/README.md) + [Whonix + Kicksecure USB](OPSEC/whonix-kicksecure-usb-guide.md) or [Tails USB](OPSEC/tails-usb-setup-guide.md); choose the workflow before installation
 - **Data Engineering / Pipelines?** → [Data Engineering](Data-Engineering/README.md) + its phased learning path and [secure pipeline guide](Data-Engineering/data_pipelines.md)
-- **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/)
-- **Mobile Platform Pentesting?** → [Mobile Security](Mobile/) + [Mobile Pentest SOP](Mobile/mobile_pentest_sop.md) + [NetHunter Setup](Mobile/OnePlus_A6003/Kali_NetHunter.md)
+- **uConsole Setup?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part IV) + [uConsole](uConsole/README.md)
+- **Mobile Platform Pentesting?** → [Mobile Security](Mobile/README.md) + [Mobile Pentest SOP](Mobile/mobile_pentest_sop.md) + [NetHunter Setup](Mobile/OnePlus_A6003/Kali_NetHunter.md)
 
 ---
 
@@ -94,24 +100,23 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | Section | Description |
 |---------|-------------|
 | 📍 **[Wardriving](Wardriving/README.md)** | Authorized wireless mapping, GPS inventory, firmware compatibility, phone-based and Kismet collection |
-
 | 📋 **[Operational Playbooks](PlayBooks/cybersecurity_playbooks.md)** | Field-ready playbooks for professional network & WiFi security audits and pentests |
 | 🔍 **[OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md)** | Comprehensive OSINT methodology; 400+ categorized tools, investigation workflows |
-| 🕵️ **[Tradecraft](Tradecraft/)** | Offensive tradecraft; AD attacks, C2 frameworks, AV/EDR evasion, LOLBins, network detection evasion, threat intel |
-| 🕸️ **[Web Application Security](WebAppSecurity/)** | OWASP Top 10 deep-dive and web app pentest methodology (Burp workflow, injection/access-control/API testing) |
-| ☁️ **[Cloud Security](Cloud/)** | AWS, Azure/Entra ID, and GCP - shared responsibility, misconfigurations, attack surface, and hardening |
-| 📋 **[Compliance & GRC](Compliance/)** | Frameworks (NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS) and regulations (GDPR, HIPAA, CCPA) with control mapping |
-| 📦 **[Container & Kubernetes Security](ContainerSecurity/)** | Image/runtime security, container escape, and Kubernetes hardening (RBAC, Pod Security Standards) |
-| 🔐 **[Cryptography](Cryptography/)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum, classical ciphers & leetspeak |
-| 🔴 **[OPSEC](OPSEC/)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
-| 🏠 **[Homelab Guides](Homelab/)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
-| 🚨 **[Incident Response](IncidentResponse/)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
-| 💻 **[Scripts](Scripts/)** | Security automation; Bash, Python, PowerShell, C, Go, Ducky scripts |
-| 📋 **[Checklists](Checklists/)** | Pre-engagement, testing, and post-engagement checklists |
+| 🕵️ **[Tradecraft](Tradecraft/README.md)** | Offensive tradecraft; AD attacks, C2 frameworks, AV/EDR evasion, LOLBins, network detection evasion, threat intel |
+| 🕸️ **[Web Application Security](WebAppSecurity/README.md)** | OWASP Top 10 deep-dive and web app pentest methodology (Burp workflow, injection/access-control/API testing) |
+| ☁️ **[Cloud Security](Cloud/README.md)** | AWS, Azure/Entra ID, and GCP - shared responsibility, misconfigurations, attack surface, and hardening |
+| 📋 **[Compliance & GRC](Compliance/README.md)** | Frameworks (NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS) and regulations (GDPR, HIPAA, CCPA) with control mapping |
+| 📦 **[Container & Kubernetes Security](ContainerSecurity/README.md)** | Image/runtime security, container escape, and Kubernetes hardening (RBAC, Pod Security Standards) |
+| 🔐 **[Cryptography](Cryptography/README.md)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum, classical ciphers & leetspeak |
+| 🔴 **[OPSEC](OPSEC/README.md)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
+| 🏠 **[Homelab Guides](Homelab/README.md)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
+| 🚨 **[Incident Response](IncidentResponse/README.md)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
+| 💻 **[Scripts](Scripts/README.md)** | Security automation; Bash, Python, PowerShell, C, Go, Ducky scripts |
+| 📋 **[Checklists](Checklists/README.md)** | Pre-engagement, testing, and post-engagement checklists |
 | 🔬 **[Reverse Engineering](ReverseEngineering/README.md)** | Ghidra binary analysis, scripting, headless processing, and comparison workflows |
 | 🗄️ **[Data Engineering](Data-Engineering/README.md)** | Phased learning path, ingestion, storage, orchestration, observability, testing, and recovery |
-| 📄 **[PDF Resources](PDF/)** | Curated PDF references and guides |
-| 📚 **[Documentation](Documentation/)** | Supplemental technical documentation and cheat sheets |
+| 📄 **[PDF Resources](PDF/README.md)** | Curated PDF references and guides |
+| 📚 **[Documentation](Documentation/README.md)** | Supplemental technical documentation and cheat sheets |
 
 ---
 
@@ -126,11 +131,11 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 ### 💼 PROFESSIONAL PENTESTER PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Foundations
 2. [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md); Operational context
-3. [Tradecraft](Tradecraft/); AD, C2, evasion, LOLBins
+3. [Tradecraft](Tradecraft/README.md); AD, C2, evasion, LOLBins
 4. [Operational Playbooks](PlayBooks/cybersecurity_playbooks.md); Field procedures
 5. [Advanced Techniques; Part 1](advanced_techniques_supplement.md)
 6. [Advanced Techniques; Part 2](advanced_techniques_part2.md)
-7. [Scripts](Scripts/); Automate everything
+7. [Scripts](Scripts/README.md); Automate everything
 8. Use entire repo as daily reference
 
 ### 🎓 OSCP CERTIFICATION PATH
@@ -142,23 +147,23 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ### 🛡️ BLUE TEAM / SOC ANALYST PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part VI (Network Defense)
-2. [Incident Response](IncidentResponse/); Detection, triage, response procedures
-3. [Incident Response/SIEM](IncidentResponse/SIEM/); ELK, Wazuh, Splunk, Graylog setup
-4. [Blue Team Playbooks](PlayBooks/); Incident response, phishing analysis, unauthorized access
-5. [Tradecraft](Tradecraft/); Understanding what you're defending against
+2. [Incident Response](IncidentResponse/README.md); Detection, triage, response procedures
+3. [Incident Response/SIEM](IncidentResponse/SIEM/README.md); ELK, Wazuh, Splunk, Graylog setup
+4. [Blue Team Playbooks](PlayBooks/README.md); Incident response, phishing analysis, unauthorized access
+5. [Tradecraft](Tradecraft/README.md); Understanding what you're defending against
 
 ### 🔴 RED TEAM OPERATOR PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part IV (Exploitation)
-2. [Tradecraft](Tradecraft/); AD attacks, C2 frameworks, AV/EDR evasion, LOLBins
+2. [Tradecraft](Tradecraft/README.md); AD attacks, C2 frameworks, AV/EDR evasion, LOLBins
 3. [Advanced Techniques; Part 1 & 2](advanced_techniques_supplement.md)
-4. [OPSEC](OPSEC/); Stay invisible
-5. [Scripts](Scripts/); Offensive automation
+4. [OPSEC](OPSEC/README.md); Stay invisible
+5. [Scripts](Scripts/README.md); Offensive automation
 
 ### 🔍 OSINT INVESTIGATOR PATH
 1. [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology, 400+ tools
 2. [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md); IOC operationalization, threat intel platforms
 3. [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md); OSINT section
-4. [Scripts/Python](Scripts/); OSINT automation
+4. [Scripts/Python](Scripts/README.md); OSINT automation
 
 ### 🔧 HARDWARE HACKER PATH
 1. [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part V (IoT & Hardware)
@@ -201,11 +206,11 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - Complete Master Guide Parts I–II
 - Practice commands from [Cliff Notes](cybersecurity_cliff_notes.md)
 - Join [HackTheBox](https://hackthebox.com) or [TryHackMe](https://tryhackme.com/)
-- Explore your [Homelab Guides](Homelab/) and setup a lab
+- Explore your [Homelab Guides](Homelab/README.md) and setup a lab
 
 ### This Month
 - Finish Master Guide
-- Work through [Tradecraft](Tradecraft/) section
+- Work through [Tradecraft](Tradecraft/README.md) section
 - Complete 5 CTF machines
 - Start certification study
 
