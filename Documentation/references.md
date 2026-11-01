@@ -1,7 +1,7 @@
 # 📖 Security & Networking Reference Guide
 
 > [!NOTE]
-> **Reviewed October 31, 2026.** Port numbers are *conventions*, not proof of the service listening or its purpose. Applications routinely use non-default ports, TLS and QUIC; identify services using packet decoding, authenticated inventory, and endpoint logs. Regex samples are **detection heuristics**, not full validators for complex formats. See [IANA Service Name and Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml), [IANA HTTP Status Codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml), and [Wireshark filters](./wireshark-master-filters.md).
+> **Reviewed October 31, 2026.** Port numbers are *conventions*, not proof of the service listening or its purpose. Applications routinely use non-default ports, TLS and QUIC; identify services using packet decoding, authenticated inventory, and endpoint logs. Regex samples are **detection heuristics**, not full validators for complex formats. See [IANA Service Name and Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml), [IANA HTTP Status Codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml), and [Wireshark filter reference](./wireshark.md).
 
 ## 🎯 Purpose
 Quick-reference tables for port numbers (well-known, registered, dynamic), HTTP status codes, and regex patterns used in cybersecurity operations, penetration testing, network administration, and log analysis.
