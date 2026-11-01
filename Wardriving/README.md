@@ -79,6 +79,8 @@ Wardriving/
 
 ## Related repository areas
 
+- [ESP32-S3 DIY honeypots](../IncidentResponse/HoneyPot/esp32-s3-honeypots.md): ShadowSentry/HoneyMire service decoys are separate from passive wardriving inventory; no automatic RF attack attribution.
+
 - [Kismet + Wazuh Wireless IDS Lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md): stationary authorized wireless attack monitoring and centralized SIEM correlation, not passive GPS inventory.
 
 - [Wi-Fi Deauthentication & Disassociation Analysis](../Documentation/wifi-deauthentication-detection.md): a **separate, authorized wireless intrusion-monitoring workflow** for interpreting disconnect frames and distinguishing spoofing from normal management traffic; unlike passive AP inventory, it needs an 802.11-capable sensor and corroborating logs.
