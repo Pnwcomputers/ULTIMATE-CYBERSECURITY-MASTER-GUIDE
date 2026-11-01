@@ -16,6 +16,8 @@
 
 ---
 
+**Complementary deception:** [ESP32-S3 ShadowSentry/HoneyMire](../HoneyPot/esp32-s3-honeypots.md) provides low-power service honeypots, whereas nzyme taps monitor RF/network behavior. Compare detections in [Wazuh honeypot reporting](../HoneyPot/wazuh-honeypot-integration.md); treat claimed single-frame detection cautiously and corroborate AP/controller logs.
+
 ## 🎯 Purpose
 Guide for deploying [nzyme](https://nzyme.org), an open-source WiFi/network defense platform, as a self-hosted Wireless Intrusion Detection System (WIDS) — node on a VM, sensors on Raspberry Pi taps with USB adapters.
 
