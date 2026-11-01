@@ -1,5 +1,7 @@
 # 🦁 Wazuh Deployment Guide
 
+**Wireless monitoring integration:** For a practical end-to-end Kismet WIDS → Wazuh agent → custom severity rules → dashboards lab, see the [Kismet + Wazuh Wireless IDS Lab](../IDS%26IPS/kismet-wazuh-wireless-lab.md). It includes example scripts, JSON log paths and correlation tests; a wired VM interface cannot directly capture Wi-Fi management frames.
+
 ## 🎯 Purpose
 Wazuh SIEM and XDR deployment guide - covering Wazuh manager installation, agent deployment across Windows/Linux, built-in detection rules, vulnerability assessment, compliance modules, and integration with ELK/OpenSearch.
 
