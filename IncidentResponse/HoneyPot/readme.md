@@ -46,7 +46,7 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 
 ## 🎯 Overview
 
-A **honeypot** is a decoy vulnerable "fake service or system" with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because there is no normal traffic: any interaction with it is by definition a scan, a misconfiguration, or an attacker. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
+A **honeypot** is a decoy vulnerable "fake service or system" with no legitimate reason to ever be touched. Unlike a signature-based IDS or a wireless sensor, it doesn't need tuning against a baseline of normal traffic, because it has no intended business traffic. **However, asset inventory, vulnerability scanners, health checks and authorized tests can still contact a decoy**, so every hit deserves classification rather than being assumed malicious. That makes it one of the highest signal-to-noise detection sources available, for very little compute.
 
 This sub-section favors **hands-on, from-a-real-build detail** where it exists; the OpenCanary and HoneyPi guides document actual installer/dependency failures hit during a real deployment, including a genuine "HoneyPi" name collision with an unrelated project that explains one of them. The Cowrie, Dionaea, and T-Pot guides are sourced from current official documentation rather than a live build log, and are marked as such internally; they're no less accurate, just a different provenance.
 
@@ -88,6 +88,19 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 ---
 
+### DIY hardware and Wazuh reporting
+
+| Guide | Deployment | What it adds |
+| --- | --- | --- |
+| [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) | Pi 3/4/5, Zero 2 W | OpenCanary, Cowrie and lightweight decoys with safe port/network design |
+| [Proxmox VM Honeynet](./proxmox-vm-honeynet.md) | VM isolation | Honeypot VLAN design, Wazuh agents, safe captures and T-Pot resource planning |
+| [Minimal DIY HTTP Sensor](./diy-sensor-lab.md) | Pi, mini PC, Linux VM | Python HTTP decoy with no credential/body collection, JSONL and tests |
+| [ESP32/IoT Honeypots](./esp32-diy-honeypots.md) | ESP32 / C5 / C6 | Real hardware constraints and custom serial metadata-to-Wazuh bridge |
+| [ESP32-S3: ShadowSentry & HoneyMire](./esp32-s3-honeypots.md) | ESP32-S3 | Device-specific firmware features, source links and safe export caveats |
+| [Wazuh Honeypot Integration](./wazuh-honeypot-integration.md) | Any enrolled Linux collector | Native OpenCanary/Cowrie JSON, custom rule IDs and dashboards |
+
+See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) guides for **complementary wireless detections**. Correlation requires shared time/site context and trusted AP/client telemetry.
+
 ### Small embedded deception sensors
 
 [NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
@@ -101,13 +114,13 @@ Want to detect attacks against your REAL production traffic?
 
 Want an almost-zero-false-positive tripwire for anyone poking
 around where they shouldn't be?
-  └─> A honeypot (this folder). No tuning needed — every hit is real.
+  └─> A honeypot (this folder). Classify hits against authorized scanning and maintenance; not every hit is an attacker.
 
 Want to correlate honeypot hits with everything else?
   └─> Forward the honeypot's logs into a SIEM — see ../SIEM/README.md.
 ```
 
-A honeypot is a **complement**, not a substitute, for traffic-based detection — it only sees traffic aimed directly at it, not the rest of your network.
+A honeypot is a **complement**, not a substitute, for traffic-based detection — it only sees traffic aimed directly at it, not the rest of your network. Confirm suspicious contacts against inventory and scan schedules before escalating.
 
 ---
 
@@ -139,8 +152,8 @@ A honeypot is a **complement**, not a substitute, for traffic-based detection �
    └─> Forward logs to a SIEM for correlation with other sources.
 
 6. Monitor:
-   └─> Treat every log entry as a real event — there's no
-       legitimate baseline to filter it against.
+   └─> Preserve every event as evidence; classify authorized scans,
+       tests and misconfigurations before alleging malicious intent.
 ```
 
 ---
@@ -219,7 +232,7 @@ Contributions from blue teamers and deception-technology practitioners are welco
 
 <div align="center">
 
-**🛡️ Every hit is real — there's no legitimate reason to touch a honeypot.**
+**🛡️ Every decoy hit is a signal to investigate, not automatic proof of an attacker.**
 
 *Maintained by [Pacific Northwest Computers (PNWC)](https://github.com/Pnwcomputers)*
 
