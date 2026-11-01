@@ -1,0 +1,134 @@
+category	name	display_filter	notes
+Fundamentals	IPv4 traffic	ip	Show IPv4 packets; does not include IPv6
+Fundamentals	IPv6 traffic	ipv6	Show IPv6 packets
+Fundamentals	TCP	tcp	All dissected TCP
+Fundamentals	UDP	udp	All dissected UDP
+Fundamentals	ICMPv4	icmp	ICMP over IPv4
+Fundamentals	ICMPv6	icmpv6	ICMP over IPv6
+Fundamentals	ARP	arp	Local IPv4 address resolution
+Fundamentals	VLAN-tagged	vlan	802.1Q when tags are present in capture
+Fundamentals	DNS	dns	Decoded DNS over visible transport
+Fundamentals	DHCPv4	dhcp	Modern Wireshark field for DHCPv4; legacy bootp appears in older versions
+Fundamentals	DHCPv6	dhcpv6	IPv6 DHCP traffic
+Fundamentals	HTTP	http	Only traffic dissected as HTTP; usually plaintext or decrypted
+Fundamentals	HTTP/2	http2	Requires recognized or decrypted HTTP/2
+Fundamentals	TLS	tls	TLS metadata when dissected
+Fundamentals	QUIC	quic	QUIC where dissected; typically UDP
+Fundamentals	SSH	ssh	Recognized SSH protocol messages
+Fundamentals	SMB2	smb2	SMB2 and SMB3 messages decoded as SMB2
+Fundamentals	Wi-Fi frames	wlan	Requires raw 802.11 frame capture
+Fundamentals	802.1X EAPOL	eapol	Key exchange/authentication frames when visible
+Endpoints	Either endpoint IPv4	ip.addr == 192.0.2.10	Use an actual address from the authorized network
+Endpoints	IPv4 source	ip.src == 192.0.2.10	Source address only
+Endpoints	IPv4 destination	ip.dst == 198.51.100.20	Destination address only
+Endpoints	Two hosts either direction	ip.addr == 192.0.2.10 && ip.addr == 198.51.100.20	Both endpoint addresses present
+Endpoints	Exclude IPv4 host	!(ip.addr == 192.0.2.10)	IPv6/non-IP packets are not necessarily excluded
+Endpoints	IPv4 subnet	ip.addr == 10.0.0.0/8	Either endpoint is within a private IPv4 range
+Endpoints	Traffic leaving private range	ip.src == 10.0.0.0/8 && !(ip.dst == 10.0.0.0/8)	Not necessarily public internet; routed/private/VPN destinations exist
+Endpoints	IPv6 endpoint	ipv6.addr == 2001:db8::1	Example documentation IPv6 address
+Endpoints	TCP port 443	tcp.port == 443	TCP only; excludes QUIC over UDP
+Endpoints	TCP destination 443	tcp.dstport == 443	TCP destination port
+Endpoints	UDP port 53	udp.port == 53	DNS may also use TCP; DoH/DoT use others
+Endpoints	DNS traditional transport	udp.port == 53 || tcp.port == 53	Port match; does not guarantee DNS
+Endpoints	TCP port range	tcp.port >= 8000 && tcp.port <= 9000	Either endpoint port in inclusive range
+Endpoints	TCP stream 0	tcp.stream == 0	Example index assigned by current capture
+Endpoints	UDP stream 0	udp.stream == 0	Example index assigned by current capture
+Endpoints	Frame number 42	frame.number == 42	For bookmarked evidence
+Endpoints	Frames over 1400 bytes	frame.len > 1400	Size only; not an indicator of exfiltration
+Endpoints	After 10 seconds	frame.time_relative > 10	Relative to start of capture
+TCP health	SYN without ACK	tcp.flags.syn == 1 && tcp.flags.ack == 0	Connection attempts; not automatically scanning
+TCP health	SYN ACK	tcp.flags.syn == 1 && tcp.flags.ack == 1	TCP handshake reply
+TCP health	Reset	tcp.flags.reset == 1	Resets can be legitimate
+TCP health	FIN	tcp.flags.fin == 1	Graceful close sequence
+TCP health	TCP payload	tcp.len > 0	TCP segment contains application bytes
+TCP health	Retransmission	tcp.analysis.retransmission	Analysis flag affected by trace completeness
+TCP health	Fast retransmission	tcp.analysis.fast_retransmission	Possible loss recovery
+TCP health	Spurious retransmission	tcp.analysis.spurious_retransmission	Possible duplicate capture or reordering
+TCP health	Duplicate ACK	tcp.analysis.duplicate_ack	Possible loss/reordering
+TCP health	Out of order	tcp.analysis.out_of_order	Reordering indicator; captures can distort
+TCP health	Lost segment reported	tcp.analysis.lost_segment	Wireshark analysis heuristic; not confirmed packet loss
+TCP health	Zero window	tcp.analysis.zero_window	Receiver advertises inability to accept data
+TCP health	Window full	tcp.analysis.window_full	Receiver window may be limiting throughput
+TCP health	Zero window probe	tcp.analysis.zero_window_probe	Sender checks whether peer window reopened
+TCP health	High observed ACK RTT	tcp.analysis.ack_rtt > 0.2	200 ms measured in current capture; perspective dependent
+TCP health	TCP relative time gap	tcp.time_delta > 1	Greater than 1 second between TCP packets on a flow
+DNS DHCP	DNS query	dns.flags.response == 0	Query rather than answer
+DNS DHCP	DNS answer	dns.flags.response == 1	Response rather than query
+DNS DHCP	DNS error response	dns.flags.response == 1 && dns.flags.rcode != 0	All non-success codes including NXDOMAIN
+DNS DHCP	DNS NXDOMAIN	dns.flags.rcode == 3	Name does not exist; common benign reasons
+DNS DHCP	DNS A query	dns.qry.type == 1	IPv4 address question
+DNS DHCP	DNS AAAA query	dns.qry.type == 28	IPv6 address question
+DNS DHCP	DNS name contains example	dns.qry.name contains "example"	Case/label semantics depend on dissected name
+DNS DHCP	Long DNS question name	dns.qry.name.len > 50	Triage heuristic; legitimate domains can be long
+DNS DHCP	DNS on unexpected port	dns && !(udp.port == 53 || tcp.port == 53)	Decoder must recognize it; DoH generally not visible as dns
+DNS DHCP	DHCP discover	dhcp.option.dhcp == 1	Request for DHCP address allocation
+DNS DHCP	DHCP offer	dhcp.option.dhcp == 2	Server offer
+DNS DHCP	DHCP request	dhcp.option.dhcp == 3	Client selects/renews
+DNS DHCP	DHCP ACK	dhcp.option.dhcp == 5	Address assignment acknowledgement
+DNS DHCP	DHCP NAK	dhcp.option.dhcp == 6	Negative response
+DNS DHCP	ARP requests	arp.opcode == 1	Address resolution requests
+DNS DHCP	ARP replies	arp.opcode == 2	All replies; not proof of ARP poisoning
+DNS DHCP	Router advertisements	icmpv6.type == 134	Neighbor discovery RA; verify authorized router
+DNS DHCP	Neighbor solicitations	icmpv6.type == 135	IPv6 neighbor discovery
+DNS DHCP	Neighbor advertisements	icmpv6.type == 136	IPv6 neighbor discovery
+TLS web	TLS ClientHello	tls.handshake.type == 1	TLS handshake from client; SNI not always visible
+TLS web	TLS ServerHello	tls.handshake.type == 2	TLS handshake from server
+TLS web	TLS alerts	tls.record.content_type == 21	TLS alert record; may be encrypted
+TLS web	TLS SNI contains example	tls.handshake.extensions_server_name contains "example"	SNI may be hidden by ECH or unavailable
+TLS web	HTTP requests	http.request	Requires dissected HTTP
+TLS web	HTTP responses	http.response	Requires dissected HTTP
+TLS web	HTTP GET	http.request.method == "GET"	Plaintext or decrypted HTTP/1.x
+TLS web	HTTP POST	http.request.method == "POST"	POST is normal; not by itself suspicious
+TLS web	HTTP 4xx and 5xx	http.response.code >= 400	HTTP errors; not necessarily attacks
+TLS web	HTTP host contains example	http.host contains "example"	Visible HTTP host only
+TLS web	HTTP URI contains login	http.request.uri contains "login"	Visible HTTP request path only
+TLS web	QUIC/HTTP3 transport candidate	udp.port == 443	Many QUIC flows use UDP 443; not exclusive to QUIC
+LAN enterprise	LLMNR	llmnr	Windows local multicast name resolution
+LAN enterprise	mDNS	mdns	Multicast DNS service discovery
+LAN enterprise	SSDP	ssdp	UPnP discovery traffic
+LAN enterprise	NetBIOS names	nbns	Legacy broadcast name service
+LAN enterprise	Kerberos	kerberos	Active Directory authentication exchanges
+LAN enterprise	LDAP	ldap	Directory protocol; may be encrypted
+LAN enterprise	NTLMSSP	ntlmssp	NTLM challenge-response when decoded
+LAN enterprise	DCE/RPC	dcerpc	RPC layer
+LAN enterprise	SMB TCP 445	tcp.port == 445	Port heuristic, independent of protocol decoding
+LAN enterprise	RDP port 3389	tcp.port == 3389	Port only; not an indicator of unauthorized access
+LAN enterprise	SSH TCP 22	tcp.port == 22	SSH control traffic and data when visible
+LAN enterprise	Unencrypted Telnet port	tcp.port == 23	Port-based indication only
+LAN enterprise	MQTT	mqtt	IoT publish/subscribe if decoded
+LAN enterprise	CoAP	coap	Constrained IoT devices
+LAN enterprise	Modbus TCP	modbus	OT/ICS where dissected
+LAN enterprise	Zigbee NWK	zbee_nwk	Requires compatible IEEE 802.15.4 capture
+LAN enterprise	802.15.4 frame	wpan	Requires compatible radio/capture
+LAN enterprise	Bluetooth Low Energy	btle	Requires BLE-capable capture
+LAN enterprise	BLE attribute operations	btatt	GATT/ATT operations after BLE decode
+Security triage	Possible SYN reconnaissance	tcp.flags.syn == 1 && tcp.flags.ack == 0 && tcp.dstport < 1024	Only candidate pattern; validate rate/host context
+Security triage	Connection resets	tcp.flags.reset == 1	A single reset is normal
+Security triage	IPv4 fragments	ip.flags.mf == 1 || ip.frag_offset > 0	Some fragmentation is normal
+Security triage	Low TTL IPv4	ip.ttl <= 2	Common in routing diagnostics; not an intrusion proof
+Security triage	ICMP echo requests	icmp.type == 8	Potential ping/health checks; not a flood by itself
+Security triage	HTTP off common port	http && !(tcp.port == 80)	Can be normal, e.g. proxies and admin apps
+Security triage	TLS off common ports	tls && !(tcp.port == 443 || tcp.port == 8443)	Can be normal enterprise service
+Security triage	Broadcast Ethernet	eth.dst == ff:ff:ff:ff:ff:ff	Local broadcast frames
+Security triage	Non-initial IPv4 fragments	ip.frag_offset > 0	May be intentionally fragmented or standard
+Security triage	TCP SYN destined to SSH	tcp.dstport == 22 && tcp.flags.syn == 1 && tcp.flags.ack == 0	Investigate bursts by source; no payload/credential insight
+Wi-Fi and RF	802.11 management frames	wlan.fc.type == 0	Monitor-mode/raw 802.11 required
+Wi-Fi and RF	Beacon	wlan.fc.type_subtype == 0x08	Beacon management frames
+Wi-Fi and RF	Probe request	wlan.fc.type_subtype == 0x04	Passive observation only
+Wi-Fi and RF	Probe response	wlan.fc.type_subtype == 0x05	Passive observation only
+Wi-Fi and RF	Authentication	wlan.fc.type_subtype == 0x0b	802.11 authentication; not an EAPOL message
+Wi-Fi and RF	Association request	wlan.fc.type_subtype == 0x00	Association request
+Wi-Fi and RF	Association response	wlan.fc.type_subtype == 0x01	Association response
+Wi-Fi and RF	Disassociation	wlan.fc.type_subtype == 0x0a	Context and PMF are required for interpretation
+Wi-Fi and RF	Deauthentication	wlan.fc.type_subtype == 0x0c	Not proof of spoofing or successful disconnect
+Wi-Fi and RF	Deauth and disassoc	wlan.fc.type_subtype == 0x0c || wlan.fc.type_subtype == 0x0a	For packet counts on a fixed channel with known capture gaps
+Wi-Fi and RF	Claimed BSSID	wlan.bssid == aa:bb:cc:dd:ee:ff	MAC values can be spoofed
+Wi-Fi and RF	802.11 source address	wlan.sa == aa:bb:cc:dd:ee:ff	Reported source address; not guaranteed origin
+Wi-Fi and RF	Protected flag	wlan.fc.protected == 1	Do not treat alone as evidence of negotiated PMF
+Wi-Fi and RF	EAPOL handshake frames	eapol	Not proof of authentication success or captured credentials
+Noise control	Exclude ARP	!arp	Do not hide ARP while investigating spoofing
+Noise control	Exclude mDNS SSDP LLMNR	!(mdns || ssdp || llmnr)	Keep for discovery/security investigations
+Noise control	Only TCP/UDP	tcp || udp	Excludes ICMP/ARP/management traffic
+Noise control	Exclude local discovery	!(mdns || ssdp || nbns || llmnr)	Use only after collecting full PCAP
+Noise control	Hide DHCP	!dhcp	Would conceal address assignment issues
+Noise control	Only DNS and TLS	dns || tls	May miss encrypted DNS and QUIC
