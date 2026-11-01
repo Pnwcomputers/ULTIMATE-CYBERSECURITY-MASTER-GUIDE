@@ -30,7 +30,7 @@ Endpoints	TCP port 443	tcp.port == 443	TCP only; excludes QUIC over UDP
 Endpoints	TCP destination 443	tcp.dstport == 443	TCP destination port
 Endpoints	UDP port 53	udp.port == 53	DNS may also use TCP; DoH/DoT use others
 Endpoints	DNS traditional transport	udp.port == 53 || tcp.port == 53	Port match; does not guarantee DNS
-Endpoints	TCP port range	tcp.port >= 8000 && tcp.port <= 9000	Either endpoint port in inclusive range
+Endpoints	TCP port range	(tcp.srcport >= 8000 && tcp.srcport <= 9000) || (tcp.dstport >= 8000 && tcp.dstport <= 9000)	Either endpoint port in inclusive range
 Endpoints	TCP stream 0	tcp.stream == 0	Example index assigned by current capture
 Endpoints	UDP stream 0	udp.stream == 0	Example index assigned by current capture
 Endpoints	Frame number 42	frame.number == 42	For bookmarked evidence
