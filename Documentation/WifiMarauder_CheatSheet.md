@@ -1,4 +1,7 @@
-# ⚡ WiFi Marauder (v1.8.9+) Cheat Sheet 📡
+# ⚡ WiFi Marauder (Firmware-Dependent) Cheat Sheet 📡
+
+> [!NOTE]
+> **Reviewed October 31, 2026.** Menu names and features vary by Marauder firmware, ESP32 variant, display/Flipper companion and radio support. See [upstream ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) and the repo's [hardware-specific Wardriving guide](../Wardriving/esp32-marauder.md). Start with an isolated test AP and verify scan/channel/GPS/logging functionality before use. The following *active* functions require separate explicit authorization and cause interference.
 
 ## 🎯 Purpose
 On-device command reference for ESP32 Marauder firmware - the pocket-sized WiFi and Bluetooth security testing platform. Covers the capture workflow (on-device) and the post-capture processing pipeline (on Kali/Linux).
@@ -16,6 +19,9 @@ Capture WPA2 handshakes and PMKIDs from target networks (authorized testing only
 - Quick deauth/beacon demonstrations for client security awareness
 
 ### Basic Workflow: On-Device Capture
+
+> [!CAUTION]
+> Deauthentication, beacon spam and other transmission/injection commands are **not passive**. They can disrupt nearby devices and may fail against properly protected management frames (PMF). Do not run on networks outside the written test scope. The [Wi-Fi deauth detection guide](./wifi-deauthentication-detection.md) covers observation and verification without sending disconnects.
 
 The Marauder handles the packet capture and attack functions directly via its menu.
 
@@ -35,8 +41,8 @@ Menu: WiFi -> Scan / Sniff -> Scan APs
 ```text
 Menu: WiFi -> Scan / Sniff -> PMKID
 ```
-### Primary capture mode: Tries to grab PMKID (WPA3/WPA2) and 4-way EAPOL handshakes.
-### File is saved to SD card as YYYYMMDD_TIME.pcapng
+### Primary capture mode: May collect some WPA2-PSK PMKID/EAPOL evidence, depending on AP, client and firmware. **WPA3-SAE is not equivalent to a WPA2-PSK handshake and cannot simply be cracked as Hashcat 22000.**
+### Verify actual file naming, storage path and PCAP/PCAPNG format in your firmware build before processing.
 
 **4. Deauth Attack (Force Handshake Capture)**
 ```text
@@ -85,7 +91,8 @@ After capturing the `.pcapng` file on the Marauder's SD card, transfer it to a L
 **1. Convert Marauder PCAPNG to Hashcat Format**
 ```bash
 # hcxpcapngtool replaced hcxpcaptool in hcxtools ≥5.3.0
-# Mode 22000 is the unified WPA/WPA2/WPA3 format (replaces deprecated modes 16800 and 2500)
+# Hashcat 22000 is the WPA-PBKDF2-PMKID+EAPOL format for compatible captures,
+# NOT a general password recovery method for WPA3-SAE.
 # -o: output file, -E: create ESSID list for targeted cracking
 hcxpcapngtool -o marauder_hash.hc22000 -E essid_list.txt /path/to/marauder/capture.pcapng
 ```
