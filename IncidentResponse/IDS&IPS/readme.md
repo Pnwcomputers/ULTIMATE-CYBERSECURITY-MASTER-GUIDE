@@ -14,6 +14,8 @@
 
 ---
 
+**Deception complement:** [Honeypot labs](../HoneyPot/readme.md) cover Raspberry Pi, ESP32-S3, VMs and [Wazuh reporting](../HoneyPot/wazuh-honeypot-integration.md). Decoys only see attempts aimed at them and do not replace actual Wi-Fi management-frame monitoring.
+
 ## 🎯 Purpose
 Index for the IDS/IPS sub-section — self-hosted intrusion detection and prevention build guides covering both the wireless domain (nzyme) and the wired/network domain (Suricata + Zeek), so a blue teamer can stand up real-time threat visibility across an entire environment, not just one slice of it.
 
