@@ -28,6 +28,8 @@ Before anything else — **the name "HoneyPi" is genuinely ambiguous on GitHub**
 
 ---
 
+**Related deployment paths:** [Raspberry Pi Honeypot Lab](./raspberry-pi-honeypot-lab.md) compares HoneyPi with maintained OpenCanary/Cowrie alternatives; [Wazuh Reporting](./wazuh-honeypot-integration.md) explains that HoneyPi log ingestion depends on the precise installed fork and PSAD/syslog format. Validate the actual logs first.
+
 ## 🎯 Purpose
 Guide for deploying the original [mattymcfatty/HoneyPi](https://github.com/mattymcfatty/HoneyPi) (TrustFoundry, 2017) — a simple honeypot combining [PSAD](https://github.com/mrash/psad) (Port Scan Attack Detection) with a small Python script that opens enticing-looking ports, purpose-built for **internal**-network intrusion detection rather than internet-facing threat intelligence collection.
 
