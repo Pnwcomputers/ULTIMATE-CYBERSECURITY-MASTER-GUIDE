@@ -279,7 +279,7 @@ For a hands-on, defensive **Kismet + Wazuh implementation** with alert ingestion
 **In this repository:**
 - [Wardriving / passive survey principles](../Wardriving/README.md)
 - [Kismet on Linux](../Wardriving/kismet.md)
-- [Wireshark filters](./wireshark.md)
+- [Wireshark master display-filter list](./wireshark-master-filters.md) · [field cheat sheet](./wireshark-cheatsheet.md) · [advanced Wireshark capture guide](./wireshark.md)
 - [Wireless intrusion response](../IncidentResponse/network_intrusion.md)
 - [Incident Response index](../IncidentResponse/README.md)
 - [Wireless testing hardware](./WiFiMarauder_Guide.md)
