@@ -5,7 +5,7 @@
 Post-flash setup and recovery references for ClockworkPi uConsole systems. Choose the script for your compute module and read its current limitations before running it.
 
 > [!IMPORTANT]
-> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The CM5 v1.4 candidate removes risky desktop and cross-distribution changes. Hardware validation is pending. The CM4 script is unchanged and has not been audited by this fix.
+> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The CM5 v1.4 candidate removes risky desktop and cross-distribution changes. Hardware validation is pending. The legacy CM4 v1.x installer was replaced by a conservative **CM4 v2.0** script; old backup copies of v1.x must not be run. See [safety review](../CM4-SAFETY-REVIEW.md).
 
 ## 📂 Scripts
 
@@ -13,7 +13,7 @@ Post-flash setup and recovery references for ClockworkPi uConsole systems. Choos
 |---|---|
 | [uconsole-cm5-parrot-setup.sh](./uconsole-cm5-parrot-setup.sh) | Experimental Parrot CM5 post-flash setup; requires existing Parrot. [Usage and limits](../PARROT-CM5.md) |
 | [uconsole-cm5-setup.sh](./uconsole-cm5-setup.sh) | Conservative CM5 setup, proposed v1.4; preserves the image's desktop and boot configuration |
-| [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | Legacy CM4 automation; review independently before use |
+| [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | **CM4 v2.0** read-only preflight by default; optional AIO package on Debian or toolkit on native Kali, with configuration backup and APT simulation |
 | [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay repair; not a general desktop recovery tool |
 
 ## ⚙️ CM5 v1.4 Behavior
@@ -39,9 +39,34 @@ hardware. The candidate intentionally reduces the old installer's scope.
 
 APT installations use `--no-remove` and stop on failure. Dependency upgrades and package-maintainer script changes are still possible. Review on spare media before broad use.
 
-## 🚀 Usage
+## 🚀 CM4 v2.0 usage
 
-Download or check out the **reviewed candidate**, inspect it, and confirm that `--help` reports v1.4. Downloading from `main` still gives the old script until the change is merged.
+> [!CAUTION]
+> Earlier CM4 v1.x automation mixed Kali and Debian repositories, forced package overwrites and executed unchecked remote installers. **Do not run the old v1.x script.** The version below doesn't perform desktop, EEPROM, NVMe or GPIO changes, nor does it guarantee AIO hardware works on every image.
+
+~~~bash
+# From repository root; read-only checks
+bash uConsole/scripts/uconsole-cm4-setup.sh --help
+bash uConsole/scripts/uconsole-cm4-setup.sh --status
+
+# Optional dry-run: verifies hardware, OS and repository family
+bash uConsole/scripts/uconsole-cm4-setup.sh --with-aio --dry-run
+
+# If, and only if, the AIO v2 board is fitted to a supported Debian/RPi OS:
+sudo bash uConsole/scripts/uconsole-cm4-setup.sh --with-aio
+
+# On native Kali only (not on Debian Trixie):
+sudo bash uConsole/scripts/uconsole-cm4-setup.sh --kali-tools
+
+# Separate configuration-only backup, not a substitute for disk imaging
+sudo bash uConsole/scripts/uconsole-cm4-setup.sh --snapshot
+~~~
+
+The installer refuses hardware other than CM4 and Debian systems containing Kali sources. It requires confirmation for writes, snapshots selected configuration, simulates APT and refuses planned removals. It does not install `aiov2_ctl` from a moving Git branch or write `config.txt`. Follow [CM4 manual hardware steps](../CM4-SETUP.md), [review notes](../CM4-SAFETY-REVIEW.md) and current [HackerGadgets instructions](https://github.com/hackergadgets/aiov2_ctl) after verifying hardware/image compatibility.
+
+## 🚀 CM5 v1.4 usage
+
+Inspect the currently checked-out CM5 script and confirm `--help` reports v1.4. Do not use an older v1.3 script from a stale local copy.
 
 ```bash
 bash ./uconsole-cm5-setup.sh --help
@@ -87,6 +112,7 @@ input before adding more software.
 From the repository root:
 
 ```bash
+bash -n uConsole/scripts/uconsole-cm4-setup.sh
 bash -n uConsole/scripts/uconsole-cm5-setup.sh
 python3 -m unittest discover -s uConsole/tests -v
 ```
