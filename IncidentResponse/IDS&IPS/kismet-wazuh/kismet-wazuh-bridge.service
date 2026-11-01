@@ -1,0 +1,27 @@
+# Example deployment: Kismet AND Wazuh agent on this host.
+# Adjust User and ExecStart sensor label; token stored ONLY in root-owned env file.
+[Unit]
+Description=Kismet read-only alert forwarder for Wazuh
+After=network-online.target kismet.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kismet
+Group=kismet
+EnvironmentFile=/etc/kismet-wazuh/bridge.env
+ExecStart=/usr/bin/python3 /opt/kismet-wazuh/kismet_alert_bridge.py --sensor wifi-sensor-01 --url http://127.0.0.1:2501
+Restart=always
+RestartSec=5
+UMask=0027
+StateDirectory=kismet-wazuh
+LogsDirectory=kismet-wazuh
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
