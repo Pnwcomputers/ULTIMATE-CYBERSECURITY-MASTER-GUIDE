@@ -5,7 +5,7 @@
 Post-flash setup and recovery references for ClockworkPi uConsole systems. Choose the script for your compute module and read its current limitations before running it.
 
 > [!IMPORTANT]
-> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The CM5 v1.4 candidate removes risky desktop and cross-distribution changes. Hardware validation is pending. The legacy CM4 v1.x installer was replaced by a conservative **CM4 v2.0** script; old backup copies of v1.x must not be run. See [safety review](../CM4-SAFETY-REVIEW.md).
+> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The current CM5 v1.4 workflow avoids the risky cross-distribution and desktop changes by default. Hardware validation is pending. The legacy CM4 v1.x installer was replaced by a conservative **CM4 v2.0** script; old backup copies of v1.x must not be run. See [safety review](../CM4-SAFETY-REVIEW.md).
 
 ## 📂 Scripts
 
