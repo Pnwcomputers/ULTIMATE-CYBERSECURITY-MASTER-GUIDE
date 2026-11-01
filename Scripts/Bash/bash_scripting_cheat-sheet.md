@@ -1,5 +1,7 @@
 # Bash Scripting Cheat Sheet
 
+**Reference index and audit status:** [Reviewed cheat sheets and references](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+
 > [!IMPORTANT]
 > **Reviewed October 31, 2026.** Bash snippets are examples, not production-hardened scripts. Run `bash -n script.sh` and `shellcheck script.sh`; quote expansions, validate input and protect credentials. Do **not** execute remote scripts directly from an unreviewed URL. Offensive lab snippets further down are **not** general-purpose admin commands. Start with the [Linux cheat sheet](../../Documentation/LinuxCheatSheet.md) or [security script pinning policy](../PINNING.md) when building installers.
 
