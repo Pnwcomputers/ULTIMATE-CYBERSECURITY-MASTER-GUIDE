@@ -1,5 +1,8 @@
 # uConsole Setup Guide: CM5 Configuration
 
+> [!NOTE]
+> **Reviewed October 31, 2026.** The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
+
 ## 🎯 Purpose
 Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM5 module - the newer, faster CM5 variant
 covering Rex's Kali/Trixie image, HackerGadgets AIO v2 board, and CM5-specific driver differences from the CM4
@@ -202,7 +205,7 @@ images to fail to boot.
 
 Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once - let that complete. After the second boot:
 
-- Log in with the default credentials
+- Log in using the credentials supplied or established by the **exact trusted image**. Never assume a fixed factory password; change initial credentials promptly.
 - Open a terminal
 
 Record the working baseline and back up before package changes. Proceed to Step 2.
@@ -444,7 +447,7 @@ sudo responder -I eth0 -wrf
 ## Step 14: NVMe Battery Board Setup
 
 ### NVMe Software Configuration (CM5)
-CM5 features native PCIe lanes. Usually, no EEPROM update is required for basic NVMe recognition. Add to `/boot/firmware/config.txt`:
+CM5 exposes PCIe, but the **carrier and NVMe Battery Board must support it**, and the exact board/image configuration matters. Consult the board vendor before editing `config.txt`; for applicable images this overlay enables the PCIe controller:
 
 ```ini
 dtparam=pciex1=on
@@ -452,10 +455,14 @@ dtparam=pciex1=on
 Reboot and verify:
 
 ```bash
-lspci                          # Should show the NVMe controller
-lsblk                          # Should show nvme0n1
-sudo fdisk -l /dev/nvme0n1     # Full partition info
+lspci                          # Does PCIe enumerate the storage adapter?
+lsblk -o NAME,SIZE,MODEL,FSTYPE,MOUNTPOINTS  # Confirm the actual drive
+sudo rpi-eeprom-config           # If supported; inspect BOOT_ORDER, no edit
 ```
+
+---
+
+**Important:** `/dev/nvme0n1` appearing does not mean the bootloader will boot from it. **Do not clone/format NVMe or change EEPROM boot order without backups and a tested recovery route.** The [official Compute Module boot guide](https://www.raspberrypi.com/documentation/computers/compute-module.html) describes EEPROM boot configuration and its risks.
 
 ---
 
