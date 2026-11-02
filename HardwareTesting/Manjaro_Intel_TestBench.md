@@ -92,6 +92,10 @@ Use CPU tests to validate cooling, boost behavior, BIOS power limits, and basic 
 
 ## 5. Memory and Storage Diagnostics
 
+![Educational CPU RAM and persistent storage comparison](../assets/ram_vs_storage.png)
+
+*Conceptual comparison: CPU performs computation; RAM holds actively used data; persistent storage retains files across power loss. Actual cache, memory, swap and storage behavior is more nuanced.*
+
 Memory and storage problems can mimic CPU, GPU, or OS instability. Validate RAM and storage before blaming drivers or software.
 
 | Command                                                                                                                                                           | Purpose                | Explanation                                                                                        |
