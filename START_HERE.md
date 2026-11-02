@@ -263,4 +263,5 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Main comprehensive guide
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized topics guide
 - [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) - Reporter/source digital-security and duress preparation
+- [Diagram and Image Asset Index](assets/README.md) - Visual walkthroughs and section-specific diagrams
 - [LEGAL.md](LEGAL.md) - Legal terms before using any technique
