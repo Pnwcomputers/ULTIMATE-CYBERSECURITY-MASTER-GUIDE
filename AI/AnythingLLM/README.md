@@ -1,20 +1,5 @@
 # 🧠 AnythingLLM AgentFlow Documentation
 
-## 🎯 Purpose
-Index and guide for AnythingLLM AgentFlow configurations - custom automation flows for cybersecurity assessments, OSINT, breach checking, CVE research, nmap analysis, threat intelligence, and vulnerability report generation.
-
-## ⚙️ Function
-Documents all 8 AgentFlows (BreachChecker, CompanyOSINT, CVELookup, DomainRecon, EmailOSINT, NmapAnalyzer, ThreatIntelCheck, VulnReportGenerator), explains the AgentFlow architecture, and shows how to chain flows for complete security assessment workflows.
-
-## 🏆 Goal
-Automate repetitive security research tasks through configured AgentFlows rather than repeated manual LLM queries - saving time on engagements and standardizing output quality.
-
-## 📋 When to Use
-- Selecting which AgentFlow fits a given security task
-- Understanding how to chain flows for a complete recon-to-report pipeline
-- Setting up AnythingLLM automation for a penetration test engagement
-- Adding new custom flows to the collection
-
 <div align="center">
 
 **Custom AgentFlow configurations for cybersecurity assessments, penetration testing, and security automation**
