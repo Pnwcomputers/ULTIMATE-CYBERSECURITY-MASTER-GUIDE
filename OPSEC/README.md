@@ -41,6 +41,7 @@ Help practitioners protect client information, separate professional and persona
 - [Overview](#overview)
 - [What is OPSEC?](#what-is-opsec)
 - [Current Documentation](#documentation)
+- [Press Freedom, Source Protection and Duress Planning](#press-freedom)
 - [Whonix vs. Tails: How They Work](#whonix-vs-tails)
 - [Feature Comparison](#feature-comparison)
 - [Pros and Cons](#pros-and-cons)
@@ -115,7 +116,16 @@ This directory covers **operational security for authorized security work and pr
 | **[tails-usb-setup-guide.md](./tails-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
 | **[Encrypted USB Drives and Removable Storage](../Cryptography/encrypted-storage.md)** | Choose vetted encrypted storage, back up and validate recovery. | BitLocker, LUKS, VeraCrypt, hardware drives, PhantomDrive research limits, and client evidence handling. |
 | **[Hardware Security Keys and Passkeys](../Cryptography/security-keys-passkeys.md)** | Protect accounts used in portable field workflows. | FIDO2, SoloKeys, device-bound/synced passkeys, token custody and recovery. |
+| **[press-freedom/README.md](./press-freedom/README.md)** | Protect journalists, newsrooms and confidential sources. | [Computers/phones/networks](./press-freedom/device-network-protection.md), [retention/disposal](./press-freedom/data-retention-removal.md), and [duress/seizure response](./press-freedom/duress-seizure-response.md). |
 | **[anonymity-layering.md](./anonymity-layering.md)** | Layer non-attribution on top of a baseline VPN for OSINT and active engagements. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
+
+<a id="press-freedom"></a>
+### Press Freedom, Source Protection and Duress Planning
+
+For journalists, newsroom security and confidential sources, use the dedicated [Press Freedom & Source Protection hub](./press-freedom/README.md). It covers [desktop, laptop, cellphone and network security](./press-freedom/device-network-protection.md), [lawful data minimization, retention, media sanitization and legal holds](./press-freedom/data-retention-removal.md), and [personal safety, coercion, detention and device-seizure response](./press-freedom/duress-seizure-response.md). Pair these with [encrypted storage](../Cryptography/encrypted-storage.md) and [FIDO2 passkeys/security keys](../Cryptography/security-keys-passkeys.md).
+
+> [!IMPORTANT]
+> Establish retention and backup policies *before* an incident. Do not use emergency deletion to defeat legal preservation duties; seek local counsel for compelled access questions.
 
 ### Suggested Reading Order
 
@@ -492,7 +502,7 @@ Neither is a substitute for Whonix/Tails identity separation, nor does encryptio
 
 **Maintained by:** [Pacific Northwest Computers](https://github.com/Pnwcomputers)
 
-**Documentation:** Three setup and OPSEC guides, plus this directory index.
+**Documentation:** General OPSEC, portable-workstation, privacy and press-freedom guides, plus this directory index.
 
 </div>
 
