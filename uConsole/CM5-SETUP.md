@@ -3,25 +3,6 @@
 > [!NOTE]
 > **Reviewed October 31, 2026.** The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
 
-## 🎯 Purpose
-Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM5 module - the newer, faster CM5 variant
-covering Rex's Kali/Trixie image, HackerGadgets AIO v2 board, and CM5-specific driver differences from the CM4
-setup.
-
-## ⚙️ Function
-Post-flash configuration for CM5: WiFi adapter drivers (CM5-specific chipset differences), Bluetooth, audio,
-display brightness, RTL-SDR, LoRa, GPS, NVMe storage, and the HackerGadgets AIO v2 board - with attention to CM5 vs
-CM4 behavioral differences.
-
-## 🏆 Goal
-A fully working CM5-based uConsole with all HackerGadgets hardware functional, taking advantage of the CM5's
-improved CPU/RAM performance for compute-heavy tasks like SDR processing and AI inference.
-
-## 📋 When to Use
-- Initial setup after flashing Rex's Kali or Trixie image to a CM5 module
-- When upgrading from CM4 to CM5 and needing to account for driver differences
-- Troubleshooting CM5-specific hardware issues (USB, PCIe, WiFi chipset variants)
-
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole
