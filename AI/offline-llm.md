@@ -926,14 +926,11 @@ A: While this guide focuses on inference, you can fine-tune models using tools l
 - [ai_prompts.md](ai_prompts.md) - Prompt engineering techniques that apply directly to locally-hosted Dolphin models
 - [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab hardware this offline LLM stack is typically deployed on
 - [../OSINT/README.md](../OSINT/README.md) - OSINT work that benefits from air-gapped, no-data-leaves-the-machine AI assistance
+- [AnythingLLM/README.md](AnythingLLM/README.md) - AnythingLLM AgentFlows that run on top of this offline stack
+- [OpenClaw/README.md](OpenClaw/README.md) - OpenClaw can also route to local Ollama as a provider
+- [../SPECIALIZED_TOPICS_GUIDE.md](../SPECIALIZED_TOPICS_GUIDE.md) - Broader context for self-hosted AI in security labs
 
 ---
 
 **Happy local AI adventures! 🚀**
 
-## Related Files
-- [README.md](README.md) - AI section index
-- [AnythingLLM/README.md](AnythingLLM/README.md) - AnythingLLM AgentFlows that run on top of this offline stack
-- [ai_prompts.md](ai_prompts.md) - Prompt patterns optimized for Dolphin/Ollama models
-- [OpenClaw/README.md](OpenClaw/README.md) - OpenClaw can also route to local Ollama as a provider
-- [../SPECIALIZED_TOPICS_GUIDE.md](../SPECIALIZED_TOPICS_GUIDE.md) - Broader context for self-hosted AI in security labs
