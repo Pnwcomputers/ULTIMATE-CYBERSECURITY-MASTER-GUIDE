@@ -14,21 +14,6 @@
 
 ---
 
-## 🎯 Purpose
-Deep-dive tradecraft reference for red team, blue team, and purple team practitioners - covering offensive TTPs, detection logic, and defensive countermeasures across AD, C2, AV/EDR evasion, LOLBins, network detection, and OSINT.
-
-## ⚙️ Function
-Indexes six deep-dive guides plus companion evasion study notes: Active Directory attacks/defense, AV/EDR evasion techniques, C2 framework deployment and detection, LOLBins/LOLBAs, network detection methodology, and OSINT/threat intelligence tradecraft. Each file covers both offensive technique and defensive detection.
-
-## 🏆 Goal
-Provide a single reference for understanding attack techniques and the corresponding detection/hunting logic - useful for both red team planning and blue team detection engineering.
-
-## 📋 When to Use
-- Planning a red team engagement and selecting TTPs
-- Building detection rules (Sigma, Sysmon, EDR) for specific attack techniques
-- Purple team exercises where both sides need to understand the same technique
-- Understanding the defensive perspective on a specific attack method
-
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
 
 ---

@@ -70,14 +70,6 @@ board.
 - 🐧 **OS setup** for both Kali Linux and Debian Trixie (Rex's images)
 - ⚠️ **Known package conflicts and automated fixes** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch, `libxcb-cursor0` for Qt6 GUI, `.pygpsclient` venv ownership, PolKit agent conflict on Labwc)
 
-### Purpose
-
-These guides serve as:
-- **Step-by-step build documentation** - Flash to fully operational
-- **Hardware reference** - GPIO pinouts, SPI mappings, antenna connectors
-- **Troubleshooting playbook** - Every issue we've hit and fixed
-- **Pentest platform quick-start** - Kali tools, WiFi adapters, LAN drop box config
-
 ---
 
 ## 📂 Setup Guides

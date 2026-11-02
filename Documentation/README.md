@@ -55,9 +55,6 @@ This directory contains comprehensive technical documentation, operational proce
 * 💡 **Setup and configuration guides**
 * 🌐 **Network security documentation**
 
-### Purpose
-This documentation serves as a reference material for security implementations, training resources for skill development, operational guides for consistent procedures, and a knowledge repository for team collaboration.
-
 ---
 
 ## 📂 Current Documentation

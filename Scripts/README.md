@@ -5,20 +5,6 @@
 
 **Scripting reference:** [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) · [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) · [tool pinning policy](./PINNING.md). Do not execute downloaded scripts before inspecting source and verifying provenance.
 
-## 🎯 Purpose
-Index of security scripts and automation tools organized by language - bash, Python, PowerShell, C, Go, SQL, YAML, and specialized payloads (Bash Bunny, USB Rubber Ducky) - plus the main cross-distro installer for all guide tools.
-
-## ⚙️ Function
-Documents the pnwc_install_tools.sh cross-distro installer (apt/pacman/dnf), bash scripting cheat sheet, Bash Bunny payload compilation guide, USB Rubber Ducky DuckyScript compilation guide, and directories for Python, PowerShell, Go, C, SQL, and YAML scripts.
-
-## 🏆 Goal
-Provide ready-to-use security automation scripts and a single installer to set up all tools referenced in this guide across Debian/Ubuntu, Arch/Manjaro, and Fedora/RHEL systems.
-
-## 📋 When to Use
-- Running pnwc_install_tools.sh to bootstrap a new Kali/Arch/Fedora security workstation
-- Finding a script template for a specific security task
-- Setting up Bash Bunny or USB Rubber Ducky payloads for an authorized engagement
-
 <div align="center">
 
 **Collection of security automation scripts, exploitation tools, and utility programs**

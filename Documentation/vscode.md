@@ -1,20 +1,5 @@
 # Visual Studio Code: The Ultimate Developer Setup Guide
 
-## 🎯 Purpose
-Step-by-step VS Code setup guide for cybersecurity professionals and developers - covering core settings, essential extensions, GitHub integration, embedded hardware development (PlatformIO), and AI coding assistants.
-
-## ⚙️ Function
-Organized as a progressive setup: base installation and settings → general programming extensions → GitHub/version control integration → PlatformIO for embedded/Arduino/ESP32 development → AI assistant add-ons (Copilot, Gemini, Claude Code, Cline).
-
-## 🏆 Goal
-Transform VS Code into a multi-purpose workstation suitable for web development, Python scripting, embedded systems programming, and AI-assisted security research - all from one editor.
-
-## 📋 When to Use
-- Initial VS Code setup on a new machine or fresh OS install
-- Adding embedded development capability for ESP32/STM32/Arduino projects
-- Choosing and installing AI coding assistants for security scripting
-- Integrating GitHub PR review into the local editor workflow
-
 Visual Studio Code (VS Code) is the industry standard for modern software development. Whether you are building web applications, writing Python scripts, or managing embedded systems, a properly configured VS Code environment will exponentially increase your productivity.
 
 ## 🎯 Purpose

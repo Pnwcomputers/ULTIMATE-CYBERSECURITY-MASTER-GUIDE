@@ -61,16 +61,6 @@ This section provides a **comprehensive security reference** covering the entire
 - 📊 Historical incident analysis: Viasat KA-SAT wiper attack, Turla satellite C2, GNSS spoofing campaigns
 - 🧪 Testing methodology: legal frameworks, assessment approaches, lab setup for space security research
 
-### Purpose
-
-These materials serve as:
-- **Attack surface reference** for authorized space system security assessments
-- **Methodology guide** for ground, space, and user segment penetration testing
-- **Threat intelligence** on nation-state and criminal targeting of space infrastructure
-- **Hardening playbook** for satellite operators, ground system administrators, and SATCOM users
-- **Training material** for red/blue teams operating in the space domain
-- **Research resource** for CubeSat security, GNSS integrity, and SATCOM terminal analysis
-
 ---
 
 ## 📂 Section Guides

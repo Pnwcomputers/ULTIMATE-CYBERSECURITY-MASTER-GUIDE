@@ -1,20 +1,5 @@
 # ⚖️ Legal Disclaimer & Terms of Use
 
-## 🎯 Purpose
-Legal disclaimer and terms of use for the entire repository - covering authorized use requirements, jurisdiction-specific computer crime laws, liability limitations, and ethical obligations for all practitioners using this guide.
-
-## ⚙️ Function
-Documents: legal authorization requirements (written permission mandatory for any technique use), relevant US computer crime statutes (CFAA, state laws), international jurisdiction considerations, civil and criminal liability exposure, ethical guidelines, and the repo's educational use license.
-
-## 🏆 Goal
-Ensure all practitioners understand the legal framework before using any technique documented in this guide, and provide legal protection for the repository through clear terms of use.
-
-## 📋 When to Use
-- Before using any technique from this guide on any system you don't own
-- Understanding the legal requirements for a penetration testing engagement
-- Reviewing jurisdictional computer crime law applicability
-- Legal onboarding for new team members
-
 <div align="center">
 
 **CRITICAL LEGAL NOTICE FOR ULTIMATE CYBERSECURITY MASTER GUIDE REPOSITORY**

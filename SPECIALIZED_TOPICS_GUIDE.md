@@ -1,20 +1,5 @@
 # SPECIALIZED TOPICS GUIDE
 
-## 🎯 Purpose
-Third guide in the master series - deep-dive into specialized and emerging cybersecurity domains: AI/LLM security, hardware hacking, hardware testing, uConsole cyberdeck, space security, and SDR/RF security.
-
-## ⚙️ Function
-Covers specialized topics not fully addressed in the main guides: AI/LLM attack surfaces and defenses, hardware hacking techniques (JTAG, UART, SPI, fault injection), hardware testing methodology, uConsole operational workflows, space system security (ground/link/space segments), and SDR-based attacks and monitoring.
-
-## 🏆 Goal
-Extend the guide series into specialized domains that represent cutting-edge and emerging attack surfaces, giving practitioners a starting point for hardware, AI, space, and RF security work.
-
-## 📋 When to Use
-- Working on hardware hacking (embedded systems, IoT, SBCs)
-- Assessing AI/LLM security or prompt injection risks
-- Setting up SDR-based monitoring or RF security work
-- Space systems security research or assessment
-
 ## Advanced & Emerging Cybersecurity Domains
 
 *This guide is the third in the PNWC Master Guide series:*
@@ -28,7 +13,7 @@ Extend the guide series into specialized domains that represent cutting-edge and
 
 # TABLE OF CONTENTS
 
-## PART I: AI & SELF-HOSTED LLM SECURITY
+**[PART I: AI & SELF-HOSTED LLM SECURITY](#part-i-ai--self-hosted-llm-security)**
 1. [AI Threat Landscape & Attack Surface](#1-ai-threat-landscape--attack-surface)
 2. [Self-Hosted LLM Deployment - Ollama + Dolphin](#2-self-hosted-llm-deployment---ollama--dolphin)
 3. [AnythingLLM Security AgentFlows](#3-anythingllm-security-agentflows)
@@ -37,7 +22,7 @@ Extend the guide series into specialized domains that represent cutting-edge and
 6. [AI Prompt Engineering for Security Operations](#6-ai-prompt-engineering-for-security-operations)
 7. [AI Security Governance & Defensive Considerations](#7-ai-security-governance--defensive-considerations)
 
-## PART II: HARDWARE HACKING
+**[PART II: HARDWARE HACKING](#part-ii-hardware-hacking)**
 8. [Hardware Threat Modeling](#8-hardware-threat-modeling)
 9. [Electrical Fundamentals & Debug Interfaces](#9-electrical-fundamentals--debug-interfaces)
 10. [Fault Injection Attacks](#10-fault-injection-attacks)
@@ -45,18 +30,18 @@ Extend the guide series into specialized domains that represent cutting-edge and
 12. [Power Analysis Practicals](#12-power-analysis-practicals)
 13. [Hardware Hacking Tools & Bench Setup](#13-hardware-hacking-tools--bench-setup)
 
-## PART III: HARDWARE TESTING & BENCHMARKING
+**[PART III: HARDWARE TESTING & BENCHMARKING](#part-iii-hardware-testing--benchmarking)**
 14. [Test Bench Platform Setup - Manjaro + Intel](#14-test-bench-platform-setup---manjaro--intel)
 15. [Diagnostic Workflows](#15-diagnostic-workflows)
 16. [Python Automation Scripts](#16-python-automation-scripts)
 
-## PART IV: UCONSOLE PORTABLE CYBERDECK OPERATIONS
+**[PART IV: UCONSOLE PORTABLE CYBERDECK OPERATIONS](#part-iv-uconsole-portable-cyberdeck-operations)**
 17. [uConsole Hardware Overview](#17-uconsole-hardware-overview)
 18. [CM4 Setup & Configuration](#18-cm4-setup--configuration)
 19. [CM5 Setup & Configuration](#19-cm5-setup--configuration)
 20. [Field Operations Workflow](#20-field-operations-workflow)
 
-## PART V: SPACE SECURITY
+**[PART V: SPACE SECURITY](#part-v-space-security)**
 21. [Space Systems Architecture](#21-space-systems-architecture)
 22. [Space Threat Landscape](#22-space-threat-landscape)
 23. [Ground Segment Security](#23-ground-segment-security)
@@ -64,7 +49,7 @@ Extend the guide series into specialized domains that represent cutting-edge and
 25. [User Segment & Link Security](#25-user-segment--link-security)
 26. [Space Security Tools & Frameworks](#26-space-security-tools--frameworks)
 
-## PART VI: SDR & RF SECURITY
+**[PART VI: SDR & RF SECURITY](#part-vi-sdr--rf-security)**
 27. [SDR Fundamentals](#27-sdr-fundamentals)
 28. [SDR Hardware Ecosystem](#28-sdr-hardware-ecosystem)
 29. [Signal Capture, Analysis & Protocol Reversing](#29-signal-capture-analysis--protocol-reversing)

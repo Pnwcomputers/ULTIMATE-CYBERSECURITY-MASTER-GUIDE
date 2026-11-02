@@ -54,15 +54,6 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 - 📡 Wireless security and WiFi hacking
 - 🔐 SSH and remote access security
 
-### Purpose
-
-This PDF library serves as:
-- **Quick reference** during security assessments
-- **Study materials** for certification preparation
-- **Technical guides** for implementing security techniques
-- **Cheat sheets** for rapid command lookup
-- **Methodology references** for systematic testing
-
 ---
 
 ## 📂 PDF Library Contents

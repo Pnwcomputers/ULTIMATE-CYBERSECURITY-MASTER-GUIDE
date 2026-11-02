@@ -1,20 +1,5 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
 
-## 🎯 Purpose
-Firmware and hardware compatibility chart for SBC-based DIY pentesting devices - covering Flipper Zero, Raspberry Pi variants, ESP32 boards, uConsole, and other common security tool platforms.
-
-## ⚙️ Function
-Documents firmware compatibility, supported hardware variants, known issues, and installation paths for: Flipper Zero (official/Unleashed/Momentum), Raspberry Pi OS/Kali versions, ESP32 security firmwares (Ghost ESP, Bruce, Nemo), M5Stack variants, and HackerGadgets AIO board compatibility.
-
-## 🏆 Goal
-Prevent hardware/firmware mismatch issues when setting up DIY security tools - providing a single reference to check compatibility before flashing or purchasing hardware.
-
-## 📋 When to Use
-- Purchasing new DIY security hardware and checking firmware compatibility
-- Flashing a firmware update and verifying compatibility with the hardware variant
-- Troubleshooting a hardware/firmware incompatibility issue
-- Planning a new tool build and selecting the right hardware platform
-
 ## Wireless Security Testing Devices
 
 **ESP32-C5 / Flipper wardriving hardware and firmware pairings:** see the dedicated [Wardriving index](./Wardriving/README.md), [SigRoam / Scout Lite](./Wardriving/sigroam-scout-lite.md), [Marauder](./Wardriving/esp32-marauder.md), [Biscuit](./Wardriving/biscuit.md) and [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md). Their image targets, GPS source and log location differ by operating mode.

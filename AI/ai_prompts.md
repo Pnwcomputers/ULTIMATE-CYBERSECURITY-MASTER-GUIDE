@@ -1,20 +1,5 @@
 # 🚀 Ultimate AI Prompt Engineering (2026 Edition)
 
-## 🎯 Purpose
-Master prompt engineering cheat sheet for security practitioners - covering structured prompting, chain-of-thought, role-based prompts, and Fabric-style patterns synthesized from Anthropic, Google, OpenAI, and community frameworks.
-
-## ⚙️ Function
-Organized prompt templates and patterns for security-relevant tasks: incident response triage, threat hunting, log analysis, pentest report writing, code review, OSINT queries, and CTF assistance. Covers prompt anatomy, few-shot examples, constraint specification, and output format control.
-
-## 🏆 Goal
-Improve LLM output quality and consistency for security workflows through systematic prompting patterns rather than ad-hoc queries - making AI tools genuinely useful on engagements.
-
-## 📋 When to Use
-- Writing prompts for Claude, Gemini, GPT-4, or local Ollama models
-- Building AnythingLLM AgentFlows or OpenClaw skill descriptions
-- Training team members on effective AI tool use for security tasks
-- Debugging poor LLM output by diagnosing prompt structure issues
-
 A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
 
 ## 🎯 Purpose
@@ -71,6 +56,7 @@ Shift the AI from a generator to an autonomous worker:
 ## 🛠️ 3. The "Master System Prompt" Template
 *Copy the section below into the "System Instructions" field of your AI tool.*
 
+```text
 # IDENTITY
 You are a [Insert Role: e.g., Senior Software Engineer/Expert Copywriter]. 
 Your goal is to provide high-utility, accurate, and concise responses.
@@ -89,6 +75,7 @@ Your goal is to provide high-utility, accurate, and concise responses.
 2. <action>: Execute the task.
 3. <review>: Briefly verify that all constraints were met.
 
+```
 ---
 
 ## 📝 4. Platform-Specific Quick Tips
@@ -199,14 +186,9 @@ Begin.
 - [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the Master Template here
 - [offensive_ai.md](offensive_ai.md) - Prompt injection: the adversarial flip side of the prompting techniques in this file
 - [offline-llm.md](offline-llm.md) - Local LLM deployment these prompting techniques apply to just as well as cloud models
+- [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting
 
 ---
 
 *Created as a part of the ULTIMATE CYBERSECURITY MASTER GUIDE*
 
-## Related Files
-- [README.md](README.md) - AI section index
-- [offensive_ai.md](offensive_ai.md) - Adversarial prompting and jailbreaking context
-- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - 50+ ready-to-use OpenClaw prompt examples
-- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Skill descriptions that use these prompt patterns
-- [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting

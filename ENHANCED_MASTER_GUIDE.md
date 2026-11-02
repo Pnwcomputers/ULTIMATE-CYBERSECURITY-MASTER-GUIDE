@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Enhanced version of the Ultimate Cybersecurity Master Guide - layers 90+ PNWC internal documents, KB articles, and operational experience on top of the foundational content from 70+ professional security books.
-
-## ⚙️ Function
-Covers the complete penetration testing lifecycle with operational depth: reconnaissance (passive/active), exploitation, post-exploitation, lateral movement, persistence, reporting - plus defensive techniques, incident response integration, and PNWC operational lessons learned.
-
-## 🏆 Goal
-Serve as the definitive single-document cybersecurity reference that combines academic knowledge from expert books with real-world operational experience from PNWC engagements.
-
-## 📋 When to Use
-- Deep reference during a complex authorized engagement
-- Building comprehensive knowledge across multiple security domains
-- Study reference for professional certifications (OSCP, CEH, PNPT, etc.)
-- Onboarding experienced practitioners to the PNWC methodology
-
 ## Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books
 
 *This enhanced guide combines:*
@@ -40,7 +25,7 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 3. [Hardware & Device Arsenal](#hardware--device-arsenal)
 4. [Anonymity & Privacy Protection](#anonymity--privacy-protection)
 
-## OSINT MASTERY
+**[OSINT MASTERY](#osint-mastery)**
 
 > [!NOTE]
 > **Canonical reference:** the dedicated, maintained OSINT section is
@@ -56,7 +41,7 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 11. [Geolocation & Mapping](#geolocation--mapping)
 12. [Image & Metadata Analysis](#image--metadata-analysis)
 
-## REAL-WORLD ATTACK CASE STUDIES
+**[REAL-WORLD ATTACK CASE STUDIES](#real-world-attack-case-studies)**
 13. [Stuxnet Analysis](#stuxnet-analysis)
 14. [WannaCry Breakdown](#wannacry-breakdown)
 15. [EternalBlue Exploitation](#eternalblue-exploitation)
@@ -65,7 +50,7 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 18. [NotPetya Ransomware](#notpetya-ransomware)
 19. [Edward Snowden Revelations](#edward-snowden-revelations)
 
-## TEAM PLAYBOOKS
+**[TEAM PLAYBOOKS](#team-playbooks)**
 20. [Purple Team Playbook (Simple)](#purple-team-playbook-simple)
 21. [Purple Team Playbook (Detailed)](#purple-team-playbook-detailed)
 22. [Blue Team Playbook (Generic)](#blue-team-playbook-generic)
@@ -73,7 +58,7 @@ Serve as the definitive single-document cybersecurity reference that combines ac
 24. [Detection Rule Pipelines](#detection-rule-pipelines)
 25. [SIEM Ingestion](#siem-ingestion)
 
-## CUSTOM SCRIPTS & AUTOMATION
+**[CUSTOM SCRIPTS & AUTOMATION](#custom-scripts--automation)**
 26. [Black Hat Bash Lab Build](#black-hat-bash-lab-build)
 27. [Network Automation Scripts](#network-automation-scripts)
 28. [System Administration Scripts](#system-administration-scripts)

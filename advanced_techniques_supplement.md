@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Advanced cybersecurity techniques Part 1 - covering advanced Metasploit usage, cloud penetration testing, lateral movement techniques, and network pivoting for experienced practitioners.
-
-## ⚙️ Function
-Covers: advanced Metasploit modules and post-exploitation, AWS/Azure/GCP penetration testing methodology, lateral movement (Pass-the-Hash, Pass-the-Ticket, WMI, PSExec), network pivoting (SOCKS proxies, SSH tunneling, Chisel, ligolo-ng), and advanced persistence mechanisms.
-
-## 🏆 Goal
-Extend core penetration testing skills into advanced post-exploitation scenarios - cloud environments, multi-hop pivoting, and persistent access techniques used in authorized red team engagements.
-
-## 📋 When to Use
-- Advanced red team operations requiring network pivoting across segments
-- Cloud infrastructure penetration testing (AWS, Azure, GCP)
-- Post-exploitation lateral movement in Active Directory environments
-- Preparing for advanced certifications (CRTO, CRTE, OSEP)
-
 ## Enhanced Guide with Content from Leading Security Resources
 
 *Compiled from: Metasploit 2E, Black Hat Bash, Gray Hat Python, and many other additional professional resources*

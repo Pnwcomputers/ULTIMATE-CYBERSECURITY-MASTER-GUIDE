@@ -1,20 +1,5 @@
 # OpenClaw Use Cases & Real-World Examples
 
-## 🎯 Purpose
-50+ real-world OpenClaw prompt examples organized by domain - IT support, blue team, red team, purple team, OSINT, homelab, and business operations - demonstrating practical security and operations use cases.
-
-## ⚙️ Function
-Structured prompt examples showing what to say to OpenClaw to get useful security outputs: incident triage, log analysis, OSINT research, vulnerability assessment, threat hunting, network audit, and pentest report writing.
-
-## 🏆 Goal
-Reduce the learning curve for new OpenClaw users by demonstrating what the tool can actually do - move from "I installed it, now what?" to productive daily use within one reading.
-
-## 📋 When to Use
-- Learning OpenClaw's capabilities after initial setup
-- Finding a starting prompt for a specific security task
-- Building more complex agent workflows from proven examples
-- Training team members on how to interact with the security agent personas
-
 A practical guide to getting value out of OpenClaw across personal, professional, IT support, and cybersecurity workflows. These examples assume OpenClaw is running with Telegram or Discord configured as a chat channel so you can interact from anywhere.
 
 ## 🎯 Purpose

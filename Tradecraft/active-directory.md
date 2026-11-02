@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](../LEGAL.md).
 
-## 🎯 Purpose
-Complete Active Directory attack and defense reference - covering enumeration, Kerberos abuse (Kerberoasting, AS-REP, Golden/Silver tickets), lateral movement, persistence, DCSync, and corresponding detection logic with BloodHound integration.
-
-## ⚙️ Function
-Covers: AD enumeration (PowerView, BloodHound, LDAP), Kerberos attack taxonomy, privilege escalation paths (ACL abuse, delegation misconfigs), domain persistence (DSRM, AdminSDHolder, GPO abuse), DCSync, and defensive controls with detection queries for each technique.
-
-## 🏆 Goal
-Provide a complete dual-use AD reference: red team practitioners understand attack paths; blue team practitioners understand what to detect, hunt, and harden.
-
-## 📋 When to Use
-- Internal penetration test focusing on AD/domain compromise
-- Building SIEM/EDR detection rules for Kerberos and LDAP attacks
-- Purple team exercises against an AD environment
-- Post-compromise AD privilege escalation and persistence planning
-
 > **Scope:** Active Directory attack techniques, post-exploitation paths, Kerberos abuse, privilege escalation, and corresponding defensive controls and detection logic. Structured for both red and blue team reference.
 
 ✅ **Quick-reference checklists:** [Active Directory](../Checklists/ActiveDirectory.md) · [Domain Escalation](../Checklists/Domain-Escalation.md) · [Domain Persistence](../Checklists/Domain-Persistence.md) · [Lateral Movement](../Checklists/Lateral-Movement.md)

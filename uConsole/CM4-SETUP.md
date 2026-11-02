@@ -3,20 +3,6 @@
 > [!CAUTION]
 > **CM4 setup safety review — October 31, 2026.** The original CM4 instructions mixed Kali Rolling into Debian Trixie, forced package overwrites, deleted Python's `EXTERNALLY-MANAGED` marker and launched unchecked online installers. Those steps are **retired**, not recommended. The [CM4 v2.0 setup script](./scripts/uconsole-cm4-setup.sh) now performs **read-only checks by default**; optional installation requires explicit flags and a private configuration snapshot. Make a separate full SD/eMMC/NVMe image backup first. See the [uConsole safety review](./CM4-SAFETY-REVIEW.md), [CM5 guide](./CM5-SETUP.md) and [root uConsole index](./README.md).
 
-## 🎯 Purpose
-Complete setup guide for the ClockworkPi uConsole with Raspberry Pi CM4 module - covering Rex's Kali/Trixie community image, HackerGadgets AIO v2 board configuration, Battery/NVMe expansion board, and all driver setup.
-
-## ⚙️ Function
-Step-by-step post-flash configuration: WiFi adapter drivers, Bluetooth, audio, display brightness, RTL-SDR, LoRa, GPS, RTC, PoE HAT, Meshtastic, NVMe storage setup, and power board configuration specific to the CM4 compute module.
-
-## 🏆 Goal
-A fully working CM4-based uConsole with all HackerGadgets hardware functional and Kali or Trixie configured for field pentesting and SIGINT use.
-
-## 📋 When to Use
-- Initial setup after flashing Rex's Kali or Trixie image to a CM4 module
-- Driver troubleshooting for CM4-specific hardware (WiFi, audio, display)
-- Configuring the HackerGadgets AIO v2 board for the first time on CM4
-
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
 A complete setup guide for building a field-deployable hacking and SIGINT platform using the ClockworkPi uConsole with a Raspberry Pi CM4, Rex's community images (Kali Linux or Debian Trixie), and the HackerGadgets AIO v2 extension board.

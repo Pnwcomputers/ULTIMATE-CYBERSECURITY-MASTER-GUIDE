@@ -61,15 +61,6 @@ This directory contains **mobile security resources for penetration testers, for
 - 🔧 Mobile pentesting toolchain reference (MobSF, Frida, Objection, APKTool)
 - 📋 Assessment methodology for Android and iOS apps (OWASP MASTG-aligned)
 
-### Purpose
-
-These guides serve as:
-- **Platform setup references** for building and maintaining the NetHunter attack device
-- **Field SOPs** for operating NetHunter modules during authorized engagements
-- **Assessment methodology** for Android and iOS app security reviews
-- **Forensic references** for iOS backup extraction and analysis
-- **OSINT tools** for mobile device enumeration and investigation
-
 ---
 
 ## 📂 Current Content
