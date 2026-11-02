@@ -65,6 +65,8 @@
 29. [Python Security Toolkits](#python-security-toolkits)
 30. [PowerShell Security Tools](#powershell-security-tools)
 
+**[Current operational workflows (November 2026)](#current-operational-workflows-and-missing-page-routes-november-2026)**
+
 ## OPERATIONAL TRADECRAFT
 31. [Tradecraft Overview & Index](#tradecraft-overview)
 32. [C2 Frameworks - Cobalt Strike, Sliver, Havoc](#c2-frameworks)
@@ -87,6 +89,30 @@ A reader can run a full OSINT investigation, execute an OPSEC-compliant engageme
 
 ## 📋 When to Use
 When you need PNWC's actual operational procedure (not just book theory) for OPSEC, OSINT, playbooks, or case-study analysis, or as the bridge between the foundational master guide and the dedicated Tradecraft/ folder.
+
+
+## Current Operational Workflows and Missing-Page Routes (November 2026)
+
+The chapters below preserve the original PNWC operational knowledge. The live repository now has additional, dedicated procedures that should be used **instead of copying older commands out of this long-form overview**. The paths below join the scope, fieldwork, telemetry, evidence, and reporting stages while leaving each technical procedure in its maintained home.
+
+| Engagement stage | Maintained guides and checkpoints |
+| --- | --- |
+| 1. Authorization and preflight | Start with the [network and wireless audit playbook](PlayBooks/NetworkAuditPlayBook.md), [security assessment checklists](Checklists/README.md), and [legal-use terms](LEGAL.md). Record customer written permission, assets, dates, excluded systems, stop conditions, contacts, and reporting obligations **before** active testing. |
+| 2. Workstation and operator safety | Select an environment via [OPSEC](OPSEC/README.md), [Tails](OPSEC/tails-usb-setup-guide.md), [Whonix/Kicksecure](OPSEC/whonix-kicksecure-usb-guide.md), and [portable uConsole setup](uConsole/README.md). Keep customer data and credentials separated by engagement. |
+| 3. OSINT and initial exposure review | Follow the [OSINT investigator playbook](OSINT/Playbook/README.md), [Tsurugi OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md), and [domain/IP reconnaissance reference](OSINT/scripts/Domain_IP_Recon.md). Preserve provenance and account for permissible collection. |
+| 4. Field network and wireless survey | Use the [wardriving index](Wardriving/README.md), [SigRoam and Scout Lite](Wardriving/sigroam-scout-lite.md), [ESP32 Marauder](Wardriving/esp32-marauder.md), [Kismet survey reference](Wardriving/kismet.md), and [collection/retention rules](Wardriving/data-handling.md). Surveys must remain within agreed boundaries. |
+| 5. Packet analysis and intrusion telemetry | Begin with [Wireshark validated filters](Documentation/wireshark-master-filters.md), [IDS/IPS comparison](IncidentResponse/IDS%26IPS/readme.md), [Kismet + Wazuh deauthentication lab](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), [nzyme + Wazuh](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md), and [Wazuh SIEM](IncidentResponse/SIEM/wazuh.md). Validate sensor visibility and alert false positives. |
+| 6. Lab deception and detection exercises | Deploy only in an isolated, authorized test segment: [honeypot overview](IncidentResponse/HoneyPot/readme.md), [Raspberry Pi lab](IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md), [ESP32-S3 option](IncidentResponse/HoneyPot/esp32-s3-honeypots.md), [Proxmox honeynet](IncidentResponse/HoneyPot/proxmox-vm-honeynet.md), and [Wazuh integration](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md). |
+| 7. Incident response and forensics | Correlate logs with the [incident response index](IncidentResponse/README.md) and [forensic handling guide](IncidentResponse/Digital-Forensics/README.md); use [Tsurugi Bento portable DFIR](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md), [REMnux malware analysis](ReverseEngineering/remnux-malware-analysis-guide.md), and [Volatility memory reference](IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md) as applicable. |
+| 8. Findings, remediation, and delivery | Tie evidence to business impact with [team playbooks](PlayBooks/README.md), [hardening checklists](Checklists/README.md), [compliance frameworks](Compliance/README.md), and [data-pipeline observability](Data-Engineering/Phase3/pipeline_observability.md). Verify each finding before reporting and include clear retest criteria. |
+
+### Privacy, Authentication and Retention During Client Work
+
+These references fill gaps between an engagement's collection and handoff phases: [FIDO2/passkeys and recovery-key policy](Cryptography/security-keys-passkeys.md), [SoloKeys](Cryptography/solokeys-guide.md), [encrypted storage](Cryptography/encrypted-storage.md), and the [PhantomDrive **research-only** guide](Cryptography/phantomdrive-guide.md). Security keys authenticate identities; they do not automatically encrypt an arbitrary drive.
+
+For sensitive sources and seized or lost devices, use the [journalist/source-protection overview](OPSEC/press-freedom/README.md), [device/network protection](OPSEC/press-freedom/device-network-protection.md), [data retention and removal](OPSEC/press-freedom/data-retention-removal.md), and [duress and seizure planning](OPSEC/press-freedom/duress-seizure-response.md). Protect lawful evidence and respect preservation requirements; do not promise guaranteed deletion or resistance to coercion.
+
+**Maintenance note (November 2, 2026):** The paths above have been checked against the current repository. These are navigation and workflow updates, **not** a claim that every historical tool command, provider tier, or OS version embedded elsewhere in this large guide was retested.
 
 # PART 2: OPERATIONAL SECURITY & SETUP
 
@@ -4444,7 +4470,7 @@ Memory forensics?
 - ✅ Custom automation scripts
 - ✅ Detection rules & SIEM ingestion
 
-*All links have been corrected and tested for proper navigation throughout the document.*
+*November 2026: Current module links are checked; older embedded commands and external references require per-tool verification before use.*
 
 ## Related Files
 - [README.md](README.md) - Repo index and navigation
