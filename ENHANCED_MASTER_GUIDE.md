@@ -65,7 +65,7 @@
 29. [Python Security Toolkits](#python-security-toolkits)
 30. [PowerShell Security Tools](#powershell-security-tools)
 
-**[Current operational workflows (November 2026)](#current-operational-workflows-and-missing-page-routes-november-2026)**
+**[Current operational workflows (November 2026)](#current-operational-module-map-november-2026)**
 
 ## OPERATIONAL TRADECRAFT
 31. [Tradecraft Overview & Index](#tradecraft-overview)
@@ -91,7 +91,7 @@ A reader can run a full OSINT investigation, execute an OPSEC-compliant engageme
 When you need PNWC's actual operational procedure (not just book theory) for OPSEC, OSINT, playbooks, or case-study analysis, or as the bridge between the foundational master guide and the dedicated Tradecraft/ folder.
 
 
-## Current Operational Workflows and Missing-Page Routes (November 2026)
+## Current Operational Module Map (November 2026)
 
 The chapters below preserve the original PNWC operational knowledge. The live repository now has additional, dedicated procedures that should be used **instead of copying older commands out of this long-form overview**. The paths below join the scope, fieldwork, telemetry, evidence, and reporting stages while leaving each technical procedure in its maintained home.
 
