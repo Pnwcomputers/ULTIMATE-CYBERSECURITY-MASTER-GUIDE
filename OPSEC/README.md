@@ -113,6 +113,8 @@ This directory covers **operational security for authorized security work and pr
 | **[OPSEC_guide.md](./OPSEC_guide.md)** | General OPSEC and virtualized security environment guide. | Field and home-lab workflows, host security, VM architecture, network segmentation, and research practices. |
 | **[whonix-kicksecure-usb-guide.md](./whonix-kicksecure-usb-guide.md)** | Install Kicksecure on an encrypted external drive and run Whonix-Gateway and Whonix-Workstation in VirtualBox. | Trusted downloads, installation, encryption checks, VM routing, persistent/live modes, updates, and recovery. |
 | **[tails-usb-setup-guide.md](./tails-usb-setup-guide.md)** | Create a bootable Tails USB with optional encrypted Persistent Storage. | Installation from Windows/Linux/macOS, Tor connection, session reset, selective persistence, backups, and recovery. |
+| **[Encrypted USB Drives and Removable Storage](../Cryptography/encrypted-storage.md)** | Choose vetted encrypted storage, back up and validate recovery. | BitLocker, LUKS, VeraCrypt, hardware drives, PhantomDrive research limits, and client evidence handling. |
+| **[Hardware Security Keys and Passkeys](../Cryptography/security-keys-passkeys.md)** | Protect accounts used in portable field workflows. | FIDO2, SoloKeys, device-bound/synced passkeys, token custody and recovery. |
 | **[anonymity-layering.md](./anonymity-layering.md)** | Layer non-attribution on top of a baseline VPN for OSINT and active engagements. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
 
 ### Suggested Reading Order
