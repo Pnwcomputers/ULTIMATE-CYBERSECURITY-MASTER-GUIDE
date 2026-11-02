@@ -1,3 +1,9 @@
+# Visual Reference Notes and Original Captions
+
+_Last reviewed: 2026-11-01 (image paths and topic placements verified in repository)_
+
+These legacy notes explain five illustrations now embedded in their relevant chapters. For complete image usage, including newly added FIDO2, encryption, and journalist-security diagrams, see the [Diagram and Image Asset Index](./README.md).
+
 ## Active Directory Kerberos Attacks
 
 ![AD Attack Paths](./ad_attack_paths.png)
