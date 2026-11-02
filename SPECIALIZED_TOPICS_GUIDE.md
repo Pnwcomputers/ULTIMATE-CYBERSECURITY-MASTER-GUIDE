@@ -303,11 +303,11 @@ AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM r
 |---|---|---|---|
 | **CompanyOSINT** | Company profiling - email formats, tech stack, employees, social | Pre-Engagement | None |
 | **DomainRecon** | Subdomains, DNS records, certificates, security posture | Pre-Engagement | WhoisXML (optional) |
-| **EmailOSINT** | Breach history, social accounts, security awareness assessment | Pre-Engagement | HaveIBeenPwned ($3.50/mo) |
+| **EmailOSINT** | Breach history, social accounts, security awareness assessment | Pre-Engagement | HaveIBeenPwned (paid API plan; check current terms) |
 | **GitHubSecrets** | Exposed credentials, API keys, sensitive data in repos | Pre-Engagement | None |
 | **BreachChecker** | Domain/email breach assessment, exposed data types | Pre-Engagement | HaveIBeenPwned |
 | **NmapAnalyzer** | Parse Nmap output → prioritized risk table + next steps | Active Testing | None |
-| **ThreatIntelCheck** | IP/domain reputation → BLOCK/MONITOR/ALLOW | Active/IR | VirusTotal (free), AbuseIPDB (free) |
+| **ThreatIntelCheck** | IP/domain reputation → BLOCK/MONITOR/ALLOW | Active/IR | VirusTotal (commercial API terms apply), AbuseIPDB (plan-dependent) |
 | **CVELookup** | CVE details, CVSS, exploitability, remediation plan | Active Testing | None |
 | **VulnReportGenerator** | Professional vuln report - executive summary + technical findings | Reporting | None |
 
@@ -315,14 +315,16 @@ AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM r
 
 ```bash
 # HaveIBeenPwned - required for EmailOSINT + BreachChecker
-# https://haveibeenpwned.com/API/Key - $3.50/month
+# https://haveibeenpwned.com/subscription - select a current plan
 
-# VirusTotal - free tier (4 req/min, 500/day)
+# VirusTotal - public API quotas apply, but business workflows need authorized terms
 # https://www.virustotal.com/gui/join-us
 
-# AbuseIPDB - free tier (1,000 checks/day)
+# AbuseIPDB - check current quota and licensing for your use case
 # https://www.abuseipdb.com/register
 ```
+
+**Provider-terms check (November 2026):** The [Have I Been Pwned API plans](https://haveibeenpwned.com/subscription) vary by lookup and domain-monitoring privileges; do not rely on the legacy $3.50 price. [VirusTotal's public API](https://docs.virustotal.com/reference/public-vs-premium-api) has rate limits and expressly disallows commercial products or services on its public plan. For paid client assessments, verify the appropriate commercial API rights and avoid uploading confidential customer files without consent. Check [current HIBP API documentation](https://haveibeenpwned.com/API/v3) and [VirusTotal quotas](https://docs.virustotal.com/docs/consumption-quotas-handled) before automating calls.
 
 **Configure in AnythingLLM:** Settings → Agent Skills → add API keys per flow.
 
