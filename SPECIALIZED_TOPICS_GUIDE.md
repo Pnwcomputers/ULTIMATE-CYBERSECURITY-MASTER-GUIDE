@@ -49,6 +49,8 @@
 25. [User Segment & Link Security](#25-user-segment--link-security)
 26. [Space Security Tools & Frameworks](#26-space-security-tools--frameworks)
 
+**[Expanded specialized labs and references (November 2026)](#expanded-specialized-labs-and-reference-pages-november-2026)**
+
 **[PART VI: SDR & RF SECURITY](#part-vi-sdr--rf-security)**
 27. [SDR Fundamentals](#27-sdr-fundamentals)
 28. [SDR Hardware Ecosystem](#28-sdr-hardware-ecosystem)
@@ -59,7 +61,7 @@
 ---
 
 ## 🎯 Purpose
-The third guide in the master series - covers domains the other two guides only mention in passing: AI/LLM security, hardware hacking (fault injection, side-channel), hardware benchmarking, the uConsole cyberdeck, space security, and SDR/RF. Each Part is a condensed overview with "Deeper reference" pointers into the dedicated folders ([AI/](AI/), [HardwareHacking/](HardwareHacking/), [HardwareTesting/](HardwareTesting/), [uConsole/](uConsole/), [SpaceSecurity/](SpaceSecurity/), [SDR/](SDR/)) where the full technical depth lives.
+The third guide in the master series - covers domains the other two guides only mention in passing: AI/LLM security, hardware hacking (fault injection, side-channel), hardware benchmarking, the uConsole cyberdeck, space security, and SDR/RF. Each Part is a condensed overview with "Deeper reference" pointers into the dedicated folders ([AI/](AI/README.md), [HardwareHacking/](HardwareHacking/README.md), [HardwareTesting/](HardwareTesting/README.md), [uConsole/](uConsole/README.md), [SpaceSecurity/](SpaceSecurity/README.md), [SDR/](SDR/README.md)) where the full technical depth lives.
 
 ## ⚙️ Function
 6 parts (31 numbered sections) each opening with a "Deeper reference" callout linking to the corresponding folder's files, then summarizing that domain's core concepts inline. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), which cover the core pentest lifecycle - this file exists specifically because those domains (AI security, hardware fault injection, satellite security, RF exploitation) don't fit that lifecycle framing and needed their own guide.
@@ -70,9 +72,33 @@ A reader gets oriented in an emerging/specialized domain quickly, then knows exa
 ## 📋 When to Use
 When starting work in one of these six specialized domains for the first time, or as a map back to the detailed folder-level guides when you've forgotten where specific content lives.
 
+
+## Expanded Specialized Labs and Reference Pages (November 2026)
+
+The six numbered parts in this guide cover AI, hardware hacking, benchmarking, uConsole, space systems, and SDR. The following **additional specialties now have their own detailed sections**. They are intentionally linked here rather than copied into the six established parts.
+
+| Specialized field | Maintained starting points | Key distinction |
+| --- | --- | --- |
+| Hardware-backed authentication | [FIDO2/WebAuthn/passkeys and certification levels](Cryptography/security-keys-passkeys.md) · [SoloKeys / Solo 2](Cryptography/solokeys-guide.md) | Authenticator assurance levels and protocol support are different concepts; plan enrollment, backups, revocation, and account recovery. |
+| Encrypted and experimental storage | [Encrypted drives and key management](Cryptography/encrypted-storage.md) · [PhantomDrive research notes](Cryptography/phantomdrive-guide.md) | Prefer established encryption for real secrets; experimental hidden storage needs independent security review and backup testing. |
+| Privacy and source protection | [Press freedom and source safety](OPSEC/press-freedom/README.md) · [device/network safeguards](OPSEC/press-freedom/device-network-protection.md) · [retention and removal](OPSEC/press-freedom/data-retention-removal.md) · [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md) | Threat models, legal holds, and human safety determine procedures; technical controls have limits. |
+| Wireless surveys and portable field hardware | [Wardriving](Wardriving/README.md) · [SigRoam + Scout Lite](Wardriving/sigroam-scout-lite.md) · [Biscuit](Wardriving/biscuit.md) · [AWOK Dual C5](Wardriving/awok-dual-c5-biscuit.md) · [WardriveGo](Wardriving/wardrive-go.md) · [survey lifecycle](Wardriving/field-workflow.md) | Authorized surveys, mapping, provenance, and retention—not permission for deauthentication or interception. |
+| Wireless intrusion detection and correlation | [Kismet + Wazuh](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme WIDS](IncidentResponse/IDS%26IPS/nzyme_wids.md) · [nzyme + Wazuh](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) · [Wireshark deauthentication analysis](Documentation/wifi-deauthentication-detection.md) | Sensor placement, management-frame visibility, protected management frames, thresholds, and evidence-based correlation. |
+| Honeypot and DIY decoy labs | [Honeypot section](IncidentResponse/HoneyPot/readme.md) · [ESP32/embedded sensors](IncidentResponse/HoneyPot/esp32-diy-honeypots.md) · [ESP32-S3](IncidentResponse/HoneyPot/esp32-s3-honeypots.md) · [Raspberry Pi](IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox VM honeynet](IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) · [Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | Decoys are isolated monitoring assets, not a substitute for IDS/IPS or production hardening. |
+| Specialized investigation systems | [Tsurugi Linux OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) · [Tsurugi Bento portable DFIR](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) · [Pentoo Linux](Tradecraft/pentoo-linux-guide.md) · [REMnux for malware analysis](ReverseEngineering/remnux-malware-analysis-guide.md) | Match the distribution or toolkit to the job: investigation, field triage, pentest lab, or isolated malware analysis. |
+| RF engineering and protocol analysis | [NanoVNA antenna and cable measurements](SDR/nanovna/README.md) · [SDR target frequencies and protocols](SDR/target_frequencies_protocols.md) · [RFID](SDR/rfid.md) · [Sub-GHz](SDR/subghz.md) | Passive receiving and measuring differ from transmitting; RF rules and containment still apply. |
+| Cloud, containers, and secure data pipelines | [AWS/Azure/GCP cloud section](Cloud/README.md) · [container/Kubernetes security](ContainerSecurity/README.md) · [data-engineering learning path](Data-Engineering/README.md) · [data governance and lineage](Data-Engineering/Phase3/data_governance_lineage.md) | Treat data exposure, credential scope, provenance, and operational observability as independent controls. |
+| Field references and reusable visuals | [Wireshark filter master list](Documentation/wireshark-master-filters.md) · [reference/cheatsheet index](Documentation/README.md) · [image and diagram index](assets/README.md) · [assessment playbooks](PlayBooks/README.md) | Locate verified snippets and diagrams in their maintained topic sections instead of relying on outdated copies. |
+
+### Selecting a Specialized Lab
+
+Choose the domain first, then read its **prerequisites, supported hardware, safety constraints, and current verification status**. When you combine several systems (for example, Kismet → Wazuh → a honeypot), document the test network topology and which device can actually see the traffic; an unmanaged switch without SPAN or a network TAP will not reveal all traffic to a passive sensor.
+
+**Coverage review: November 2, 2026.** This is a repository-navigation update, not a fresh test of every firmware image, package version, cloud price, or tool instruction in the six original parts.
+
 # PART I: AI & SELF-HOSTED LLM SECURITY
 
-> **Deeper reference:** [`AI/offensive_ai.md`](AI/offensive_ai.md) · [`AI/offline-llm.md`](AI/offline-llm.md) · [`AI/AnythingLLM/`](AI/AnythingLLM/) · [`AI/OpenClaw/`](AI/OpenClaw/)
+> **Deeper reference:** [`AI/offensive_ai.md`](AI/offensive_ai.md) · [`AI/offline-llm.md`](AI/offline-llm.md) · [`AI/AnythingLLM/`](AI/AnythingLLM/README.md) · [`AI/OpenClaw/`](AI/OpenClaw/README.md)
 
 ---
 
@@ -269,7 +295,7 @@ For homelab/NAS-hosted LLMs (see [`AI/offline-llm.md`](AI/offline-llm.md)):
 
 ## 3. AnythingLLM Security AgentFlows
 
-AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM reasoning with web scraping and API calls. The following flows are documented in [`AI/AnythingLLM/`](AI/AnythingLLM/).
+AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM reasoning with web scraping and API calls. The following flows are documented in [`AI/AnythingLLM/`](AI/AnythingLLM/README.md).
 
 ### Available Security Flows
 
@@ -277,11 +303,11 @@ AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM r
 |---|---|---|---|
 | **CompanyOSINT** | Company profiling - email formats, tech stack, employees, social | Pre-Engagement | None |
 | **DomainRecon** | Subdomains, DNS records, certificates, security posture | Pre-Engagement | WhoisXML (optional) |
-| **EmailOSINT** | Breach history, social accounts, security awareness assessment | Pre-Engagement | HaveIBeenPwned ($3.50/mo) |
+| **EmailOSINT** | Breach history, social accounts, security awareness assessment | Pre-Engagement | HaveIBeenPwned (paid API plan; check current terms) |
 | **GitHubSecrets** | Exposed credentials, API keys, sensitive data in repos | Pre-Engagement | None |
 | **BreachChecker** | Domain/email breach assessment, exposed data types | Pre-Engagement | HaveIBeenPwned |
 | **NmapAnalyzer** | Parse Nmap output → prioritized risk table + next steps | Active Testing | None |
-| **ThreatIntelCheck** | IP/domain reputation → BLOCK/MONITOR/ALLOW | Active/IR | VirusTotal (free), AbuseIPDB (free) |
+| **ThreatIntelCheck** | IP/domain reputation → BLOCK/MONITOR/ALLOW | Active/IR | VirusTotal (commercial API terms apply), AbuseIPDB (plan-dependent) |
 | **CVELookup** | CVE details, CVSS, exploitability, remediation plan | Active Testing | None |
 | **VulnReportGenerator** | Professional vuln report - executive summary + technical findings | Reporting | None |
 
@@ -289,14 +315,16 @@ AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM r
 
 ```bash
 # HaveIBeenPwned - required for EmailOSINT + BreachChecker
-# https://haveibeenpwned.com/API/Key - $3.50/month
+# https://haveibeenpwned.com/subscription - select a current plan
 
-# VirusTotal - free tier (4 req/min, 500/day)
+# VirusTotal - public API quotas apply, but business workflows need authorized terms
 # https://www.virustotal.com/gui/join-us
 
-# AbuseIPDB - free tier (1,000 checks/day)
+# AbuseIPDB - check current quota and licensing for your use case
 # https://www.abuseipdb.com/register
 ```
+
+**Provider-terms check (November 2026):** The [Have I Been Pwned API plans](https://haveibeenpwned.com/subscription) vary by lookup and domain-monitoring privileges; do not rely on the legacy $3.50 price. [VirusTotal's public API](https://docs.virustotal.com/reference/public-vs-premium-api) has rate limits and expressly disallows commercial products or services on its public plan. For paid client assessments, verify the appropriate commercial API rights and avoid uploading confidential customer files without consent. Check [current HIBP API documentation](https://haveibeenpwned.com/API/v3) and [VirusTotal quotas](https://docs.virustotal.com/docs/consumption-quotas-handled) before automating calls.
 
 **Configure in AnythingLLM:** Settings → Agent Skills → add API keys per flow.
 
@@ -643,7 +671,7 @@ DATA POISONING DEFENSES:
 
 # PART II: HARDWARE HACKING
 
-> **Deeper reference:** [`HardwareHacking/`](HardwareHacking/) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
+> **Deeper reference:** [`HardwareHacking/`](HardwareHacking/README.md) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
 
 ---
 
@@ -1208,7 +1236,7 @@ U          # UART scan (finds TX, RX, baud)
 
 # PART III: HARDWARE TESTING & BENCHMARKING
 
-> **Deeper reference:** [`HardwareTesting/README.md`](HardwareTesting/README.md) · [`HardwareTesting/Manjaro_Intel_TestBench.md`](HardwareTesting/Manjaro_Intel_TestBench.md) · [`HardwareTesting/py/`](HardwareTesting/py/)
+> **Deeper reference:** [`HardwareTesting/README.md`](HardwareTesting/README.md) · [`HardwareTesting/Manjaro_Intel_TestBench.md`](HardwareTesting/Manjaro_Intel_TestBench.md) · [`HardwareTesting/README.md`](HardwareTesting/README.md)
 
 ---
 
@@ -1403,7 +1431,7 @@ sudo python3 HardwareTesting/py/stress_soak.py \
 
 ## 16. Python Automation Scripts
 
-All scripts are in [`HardwareTesting/py/`](HardwareTesting/py/). They stream CLI tool output live and generate Markdown reports.
+The testing scripts live under `HardwareTesting/py/`; start at the [Hardware Testing overview](HardwareTesting/README.md) for setup and usage. They stream CLI tool output live and generate Markdown reports.
 
 | Script | What It Does | Sudo | Primary Tools Used |
 |---|---|---|---|
@@ -1430,7 +1458,7 @@ All scripts are in [`HardwareTesting/py/`](HardwareTesting/py/). They stream CLI
 
 # PART IV: UCONSOLE PORTABLE CYBERDECK OPERATIONS
 
-> **Deeper reference:** [`uConsole/README.md`](uConsole/README.md) · [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) · [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) · [`uConsole/scripts/`](uConsole/scripts/)
+> **Deeper reference:** [`uConsole/README.md`](uConsole/README.md) · [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) · [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) · [`uConsole/scripts/`](uConsole/scripts/README.md)
 
 ---
 
@@ -1698,7 +1726,7 @@ hcitool scan
 
 # PART V: SPACE SECURITY
 
-> **Deeper reference:** [`SpaceSecurity/`](SpaceSecurity/) - PartI through PartIV + Appendices
+> **Deeper reference:** [`SpaceSecurity/`](SpaceSecurity/README.md) - PartI through PartIV + Appendices
 
 ---
 
@@ -2487,7 +2515,7 @@ pip install pyrtlsdr pyModeS
 |---|---|---|
 | AI red teaming | [§5](#5-offensive-ai-techniques) | [`AI/offensive_ai.md`](AI/offensive_ai.md) |
 | Offline LLM setup | [§2](#2-self-hosted-llm-deployment---ollama--dolphin) | [`AI/offline-llm.md`](AI/offline-llm.md) |
-| AnythingLLM flows | [§3](#3-anythingllm-security-agentflows) | [`AI/AnythingLLM/`](AI/AnythingLLM/) |
+| AnythingLLM flows | [§3](#3-anythingllm-security-agentflows) | [`AI/AnythingLLM/`](AI/AnythingLLM/README.md) |
 | OpenClaw setup | [§4](#4-openclaw-platform-setup) | [`AI/OpenClaw/README.md`](AI/OpenClaw/README.md) |
 | Hardware threat modeling | [§8](#8-hardware-threat-modeling) | [`HardwareHacking/Chapter1.md`](HardwareHacking/Chapter1.md) |
 | UART/SPI/JTAG interfaces | [§9](#9-electrical-fundamentals--debug-interfaces) | [`HardwareHacking/Chapter2.md`](HardwareHacking/Chapter2.md) |
@@ -2495,7 +2523,7 @@ pip install pyrtlsdr pyModeS
 | SPA/DPA/CPA | [§11](#11-side-channel-analysis) | [`HardwareHacking/Chapter4.md`](HardwareHacking/Chapter4.md) |
 | CPA implementation | [§12](#12-power-analysis-practicals) | [`HardwareHacking/Chapter5.md`](HardwareHacking/Chapter5.md) |
 | Bus Pirate | [§13](#13-hardware-hacking-tools--bench-setup) | [`HardwareHacking/BusPirate.md`](HardwareHacking/BusPirate.md) |
-| Hardware benchmarking | [§14–16](#part-iii-hardware-testing--benchmarking) | [`HardwareTesting/`](HardwareTesting/) |
+| Hardware benchmarking | [§14–16](#part-iii-hardware-testing--benchmarking) | [`HardwareTesting/`](HardwareTesting/README.md) |
 | uConsole hardware | [§17](#17-uconsole-hardware-overview) | [`uConsole/README.md`](uConsole/README.md) |
 | CM4 setup | [§18](#18-cm4-setup--configuration) | [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) |
 | CM5 setup | [§19](#19-cm5-setup--configuration) | [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) |
@@ -2538,14 +2566,14 @@ See [LEGAL.md](LEGAL.md) for complete terms.
 
 *Part of the PNWC ULTIMATE CYBERSECURITY MASTER GUIDE*  
 *Maintained by [Pacific Northwest Computers](https://pnwcomputers.com) · Vancouver, WA*  
-*Last Updated: June 2026*
+*Master-guide navigation reviewed: November 2, 2026 · Original deep-dive material retains its own verification requirements*
 
 ## Related Files
 - [README.md](README.md) - Repo index and navigation
 - [START_HERE.md](START_HERE.md) - Navigation guide for all sections
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Second guide in the series
 - [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) - First guide in the series
-- [HardwareHacking/](HardwareHacking/) - Hardware hacking tool guides
+- [HardwareHacking/](HardwareHacking/README.md) - Hardware hacking tool guides
 - [AI/README.md](AI/README.md) - AI security resources
 - [uConsole/README.md](uConsole/README.md) - uConsole cyberdeck section
 

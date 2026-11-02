@@ -14,31 +14,31 @@
 
 ## MASTER TABLE OF CONTENTS
 
-### PART I: FOUNDATIONS
+**[PART I: FOUNDATIONS](#part-i-foundations)**
 1. [Core Cybersecurity Concepts](#core-cybersecurity-concepts)
 2. [Linux Command Line Mastery](#linux-command-line-mastery)
 3. [Python for Security Professionals](#python-for-security-professionals)
 4. [Bash Scripting for Red Teams](#bash-scripting-for-red-teams)
 
-### PART II: RECONNAISSANCE & ENUMERATION
+**[PART II: RECONNAISSANCE & ENUMERATION](#part-ii-reconnaissance--enumeration)**
 5. [Information Gathering Techniques](#information-gathering-techniques)
 6. [Network Scanning & Discovery](#network-scanning--discovery)
 7. [Service Enumeration](#service-enumeration)
 8. [Web Application Reconnaissance](#web-application-reconnaissance)
 
-### PART III: VULNERABILITY ASSESSMENT
+**[PART III: VULNERABILITY ASSESSMENT](#part-iii-vulnerability-assessment)**
 9. [Automated Vulnerability Scanning](#automated-vulnerability-scanning)
 10. [Manual Testing Methodologies](#manual-vulnerability-testing)
 11. [Web Application Vulnerabilities](#web-application-vulnerabilities)
 
-### PART IV: EXPLOITATION
+**[PART IV: EXPLOITATION](#part-iv-exploitation)**
 12. [Metasploit Framework Mastery](#metasploit-framework-mastery)
 13. [Buffer Overflow Exploitation](#buffer-overflow-exploitation)
 14. [Web Exploitation Techniques](#sql-injection-testing)
 15. [Password Attacks](#password-attacks)
 16. [Client-Side Exploitation](#client-side-exploitation)
 
-### PART V: POST-EXPLOITATION
+**[PART V: POST-EXPLOITATION](#part-v-post-exploitation)**
 17. [Privilege Escalation](#privilege-escalation)
 18. [Lateral Movement](#lateral-movement)
 19. [Persistence Mechanisms](#persistence-mechanisms)
@@ -48,7 +48,7 @@
 23. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
 24. [Covering Tracks](#covering-tracks)
 
-### PART VI: ADVANCED TOPICS
+**[PART VI: ADVANCED TOPICS](#part-vi-advanced-topics)**
 22. [Active Directory Attacks](#active-directory-attacks)
 23. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
 24. [Cloud Security & Exploitation](#cloud-security--exploitation)
@@ -56,7 +56,7 @@
 26. [IoT & Hardware Hacking](#iot--hardware-hacking)
 27. [Wireless Network Security](#wireless-network-security)
 
-### PART VII: DEFENSIVE SECURITY
+**[PART VII: DEFENSIVE SECURITY](#part-vii-defensive-security)**
 27. [Network Security Architecture](#complete-network-hardening)
 28. [Firewall Configuration](#firewall-configuration)
 29. [Intrusion Detection Systems](#intrusion-detection-with-snort)
@@ -64,23 +64,25 @@
 31. [Incident Response](#incident-response)
 32. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
 
-### PART VIII: SPECIALIZED SKILLS
+**[PART VIII: SPECIALIZED SKILLS](#part-viii-specialized-skills)**
 33. [Malware Analysis](#malware-types--detection)
 34. [Digital Forensics](#digital-forensics)
 35. [Reverse Engineering](#reverse-engineering)
 36. [Social Engineering](#social-engineering-defense)
 
-### PART IX: AUTOMATION & TOOLING
+**[PART IX: AUTOMATION & TOOLING](#part-ix-automation--tooling)**
 37. [Python Automation Scripts](#python-automation-scripts)
 38. [Custom Tool Development](#custom-tool-development)
 39. [CI/CD for Security](#cicd-for-security)
 
-### PART X: PROFESSIONAL PRACTICE
+**[PART X: PROFESSIONAL PRACTICE](#part-x-professional-practice)**
 40. [Penetration Testing Methodology](#penetration-testing-methodology)
 41. [Report Writing](#report-writing)
 42. [Legal & Ethical Considerations](#legal--ethical-considerations)
 
-### PART XI: TRADECRAFT REFERENCE
+**[Current companion modules (November 2026)](#current-companion-modules-november-2026)**
+
+**[PART XI: TRADECRAFT REFERENCE](#part-xi-tradecraft-reference)**
 43. [Tradecraft Overview](Tradecraft/README.md)
 44. [C2 Frameworks](Tradecraft/c2-frameworks.md)
 45. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
@@ -95,13 +97,35 @@
 The foundational, book-derived technical reference - key takeaways from 70+ professional security books condensed into a single full-lifecycle guide (foundations through exploitation through defense). Unlike [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), this file contains no PNWC-specific operational/internal-KB content - it's the "textbook" layer, not the "field experience" layer.
 
 ## ⚙️ Function
-11 parts covering the complete pentest lifecycle: Foundations, Recon/Enumeration, Vulnerability Assessment, Exploitation, Post-Exploitation, Advanced Topics (AD, cloud, mobile, IoT, wireless), Defensive Security, Specialized Skills (malware/forensics/RE/social engineering), Automation/Tooling, Professional Practice, and a Tradecraft Reference part that links out to the dedicated [Tradecraft/](Tradecraft/) folder for the deepest offensive-tradecraft material (C2, evasion, LOLBins, AD attacks - kept in their own folder rather than duplicated here). Differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging/niche domains (AI security, hardware hacking, SDR, space security) not covered in this core lifecycle guide.
+11 parts covering the complete pentest lifecycle: Foundations, Recon/Enumeration, Vulnerability Assessment, Exploitation, Post-Exploitation, Advanced Topics (AD, cloud, mobile, IoT, wireless), Defensive Security, Specialized Skills (malware/forensics/RE/social engineering), Automation/Tooling, Professional Practice, and a Tradecraft Reference part that links out to the dedicated [Tradecraft/](Tradecraft/README.md) folder for the deepest offensive-tradecraft material (C2, evasion, LOLBins, AD attacks - kept in their own folder rather than duplicated here). Differs from [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md), which covers emerging/niche domains (AI security, hardware hacking, SDR, space security) not covered in this core lifecycle guide.
 
 ## 🏆 Goal
 A reader can execute a complete penetration test - from reconnaissance through reporting - using only the commands and methodology in this single file, escalating to ENHANCED_MASTER_GUIDE.md or Tradecraft/ only when they need PNWC-specific operational context or deep offensive tradecraft.
 
 ## 📋 When to Use
 As the primary technical reference during an engagement, when studying for OSCP/CEH/GPEN, or as the first stop before consulting the more specialized guides.
+
+
+## Current Companion Modules (November 2026)
+
+The eleven foundational parts above remain the **core learning sequence**. The repository also contains maintained, hands-on modules that extend this overview. Use the links below for current procedures, compatibility caveats, evidence handling, and platform-specific setup; this master guide is an orientation document, not a substitute for validating commands against the target system.
+
+| Topic | Canonical guides and relevant next steps |
+| --- | --- |
+| Cryptography and key management | [Applied cryptography](Cryptography/applied-crypto.md), [encrypted storage fundamentals](Cryptography/encrypted-storage.md), and [classical ciphers and cryptanalysis](Cryptography/Classical/README.md). Distinguish encryption at rest from authentication. |
+| Phishing-resistant account access | [FIDO2, WebAuthn, passkeys, and security-key certification](Cryptography/security-keys-passkeys.md) and [SoloKeys setup](Cryptography/solokeys-guide.md). Certification levels are not FIDO protocol versions; plan spare-key enrollment and account recovery. |
+| Experimental removable storage | [PhantomDrive research guide](Cryptography/phantomdrive-guide.md). Treat hidden-storage and deniability claims as a research topic, not a substitute for vetted encryption or verified backups. |
+| Operating-system privacy | [OPSEC index](OPSEC/README.md), [Tails USB](OPSEC/tails-usb-setup-guide.md), and [Whonix/Kicksecure setup](OPSEC/whonix-kicksecure-usb-guide.md). Select the operating model based on actual risk, persistence, and network needs. |
+| Safe device and data handling | [Press freedom and source protection](OPSEC/press-freedom/README.md), [retention and removal planning](OPSEC/press-freedom/data-retention-removal.md), and [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md). Respect legal holds and preserve required evidence; no technique guarantees recovery prevention. |
+| Authorized reconnaissance | [OSINT methodology](OSINT/README.md), [investigation playbook](OSINT/Playbook/README.md), and [network audit playbook](PlayBooks/NetworkAuditPlayBook.md). Confirm written scope and collection limits first. |
+| Wireless survey and visibility | [Wardriving guide](Wardriving/README.md), [field workflow](Wardriving/field-workflow.md), [Wireshark master filter catalog](Documentation/wireshark-master-filters.md), and [wireless deauthentication detection](Documentation/wifi-deauthentication-detection.md). Passive surveying is not authorization for interference. |
+| Detection and monitoring | [IDS/IPS catalog](IncidentResponse/IDS%26IPS/readme.md), [Kismet–Wazuh wireless lab](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), [nzyme–Wazuh integration](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md), and [SIEM reference](IncidentResponse/SIEM/README.md). |
+| Deception and incident response | [Honeypot deployment index](IncidentResponse/HoneyPot/readme.md), [Wazuh honeypot integration](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md), and [digital forensics index](IncidentResponse/Digital-Forensics/README.md). Use segmented, monitored lab resources. |
+| Software, infrastructure, and cloud | [Web application testing](WebAppSecurity/README.md), [cloud security](Cloud/README.md), [container and Kubernetes security](ContainerSecurity/README.md), and [compliance frameworks](Compliance/README.md). |
+| Evidence, logging, and reporting | [Data engineering and telemetry](Data-Engineering/README.md), [network assessment playbook](PlayBooks/NetworkAuditPlayBook.md), [security checklists](Checklists/README.md), and [practical cheat sheets](Documentation/README.md). |
+| Specialized devices and analysis | [Specialized topics guide](SPECIALIZED_TOPICS_GUIDE.md), [NanoVNA RF measurement](SDR/nanovna/README.md), [Tsurugi OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md), and [REMnux malware analysis](ReverseEngineering/remnux-malware-analysis-guide.md). |
+
+**Maintenance note (November 2, 2026):** This companion-module index was reconciled with the repository's current guide paths. Earlier command examples elsewhere in this long-form master document should still be checked against the relevant maintained topic page and current upstream documentation before use.
 
 # PART I: FOUNDATIONS
 
