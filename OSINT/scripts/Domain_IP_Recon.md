@@ -1,19 +1,5 @@
 # Domain / IP Recon Investigation Script
 
-## 🎯 Purpose
-Documentation for the Domain/IP Recon investigation script - automated OSINT combining theHarvester, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei, Dirsearch, and WhatWeb into a single command.
-
-## ⚙️ Function
-Covers: script usage (domain, IP, email, file input modes), API key setup for CriminalIP/Netlas/ipinfo/LeakLookup, output format, Nuclei template selection, RustScan/Nmap integration, and interpreting results for fraud investigation.
-
-## 🏆 Goal
-Enable investigators to run comprehensive domain and IP OSINT with a single command, generating structured output suitable for case documentation.
-
-## 📋 When to Use
-- Investigating a suspicious domain (phishing, fraud, C2 infrastructure)
-- Correlating multiple IPs or domains associated with a threat actor
-- Running automated recon as the first step in the OSINT Investigator Playbook domain workflow
-
 Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
 
 ## 🎯 Purpose
