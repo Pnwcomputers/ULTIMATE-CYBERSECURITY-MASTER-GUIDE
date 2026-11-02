@@ -184,14 +184,9 @@ Begin.
 - [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the Master Template here
 - [offensive_ai.md](offensive_ai.md) - Prompt injection: the adversarial flip side of the prompting techniques in this file
 - [offline-llm.md](offline-llm.md) - Local LLM deployment these prompting techniques apply to just as well as cloud models
+- [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting
 
 ---
 
 *Created as a part of the ULTIMATE CYBERSECURITY MASTER GUIDE*
 
-## Related Files
-- [README.md](README.md) - AI section index
-- [offensive_ai.md](offensive_ai.md) - Adversarial prompting and jailbreaking context
-- [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - 50+ ready-to-use OpenClaw prompt examples
-- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Skill descriptions that use these prompt patterns
-- [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting
