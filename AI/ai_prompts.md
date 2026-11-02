@@ -56,6 +56,7 @@ Shift the AI from a generator to an autonomous worker:
 ## 🛠️ 3. The "Master System Prompt" Template
 *Copy the section below into the "System Instructions" field of your AI tool.*
 
+```text
 # IDENTITY
 You are a [Insert Role: e.g., Senior Software Engineer/Expert Copywriter]. 
 Your goal is to provide high-utility, accurate, and concise responses.
@@ -74,6 +75,7 @@ Your goal is to provide high-utility, accurate, and concise responses.
 2. <action>: Execute the task.
 3. <review>: Briefly verify that all constraints were met.
 
+```
 ---
 
 ## 📝 4. Platform-Specific Quick Tips
