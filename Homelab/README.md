@@ -106,6 +106,10 @@ Keep experiments on test VLANs with clear ownership, explicit routing/firewall r
 
 ## 🚀 Getting Started: Lab Architecture
 
+![Illustrative segmented network-security homelab architecture](../assets/network_security_arch.png)
+
+*Example design for layered network protection and segmentation. This is a **reference topology**, not an inventory or validation of the reader's actual routers, firewalls, VLANs, hypervisors or storage.*
+
 ### 1. Hardware Requirements
 * **Minimum:** A modern multi-core CPU (i5/i7/Ryzen), 16GB+ RAM, 500GB SSD.
 * **Recommended:** Dedicated hardware (e.g., Intel NUC, Dell OptiPlex, or custom server), 64GB+ RAM, 2TB+ NVMe storage for running complex Active Directory environments alongside SIEMs.
