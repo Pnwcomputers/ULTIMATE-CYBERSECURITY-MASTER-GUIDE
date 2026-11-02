@@ -55,7 +55,10 @@ def audit(path: Path) -> list[tuple[int, str]]:
                                      "of order: " + str(previous_number) + " -> "
                                      + str(ordinal)))
             elif ordinal > 1 and not (
-                previous.startswith(("#", ">", "|", "<", "---", "***", "___"))
+                # Wrapped text indented under a preceding list item legitimately
+                # separates that item from the next numbered entry.
+                len(lines[i - 1]) - len(lines[i - 1].lstrip(" \t")) > indent
+                or previous.startswith(("#", ">", "|", "<", "---", "***", "___"))
                 or re.match(r"^[-*+]\s+", previous)
                 or previous.endswith("\\")
             ):
