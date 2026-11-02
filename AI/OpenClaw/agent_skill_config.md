@@ -1,20 +1,5 @@
 # OpenClaw Agent Configurations & Skill Setups
 
-## 🎯 Purpose
-Pre-built OpenClaw agent personas and skill configurations for IT support, security analyst, pentester, OSINT researcher, and homelab monitor roles - ready to drop into an existing OpenClaw deployment.
-
-## ⚙️ Function
-Contains JSON config blocks for each agent persona, skill descriptions, cron job examples for automated monitoring and reporting, and multi-agent workflow setups. Covers Field Tech, Security Analyst, Rex (pentest), OSINT Researcher, and Homelab Monitor personas.
-
-## 🏆 Goal
-Skip the trial-and-error of building OpenClaw skills from scratch - use proven configurations and customize for specific workflows without spending hours on system prompt engineering.
-
-## 📋 When to Use
-- Configuring a new OpenClaw agent after completing the initial setup in README.md
-- Adding specialized security skills to an existing OpenClaw instance
-- Setting up automated cron-based monitoring, alerting, or reporting tasks
-- Building multi-agent workflows where one agent delegates to another
-
 Pre-built agent configurations and skill setups for IT support, cybersecurity, homelab management, and business operations. Each configuration includes the OpenClaw JSON config block, setup instructions, and example prompts to test it.
 
 ## 🎯 Purpose
