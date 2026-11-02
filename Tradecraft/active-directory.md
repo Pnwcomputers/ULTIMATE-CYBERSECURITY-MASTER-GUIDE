@@ -310,6 +310,10 @@ python3 secretsdump.py corp/Administrator@DC01 -outputfile hashes.txt
 
 ## Kerberos Attacks
 
+![Active Directory attack paths and Kerberos-related attack surfaces](../assets/ad_attack_paths.png)
+
+*Illustrative Active Directory attack-path map. Use it with the Kerberos, privilege escalation and detection sections below; the diagram does not replace environment-specific validation.*
+
 ### Kerberoasting
 
 Request TGS tickets for service accounts (SPNs) - tickets are encrypted with the service account's NTLM hash and can be cracked offline.
