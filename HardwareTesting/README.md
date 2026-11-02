@@ -30,6 +30,10 @@ Provide a complete reference for hardware qualification testing on Linux, enabli
 
 ## Overview
 
+![Board-level hardware fault diagnosis workflow](../assets/hardware_diagnostics.png)
+
+*Reference fault-isolation sequence for hardware repair and test benches. Perform only measurements and rework within your training, equipment and electrical-safety limits; this is not a required step sequence for every device.*
+
 This section contains platform-specific cheat sheets and Python automation scripts for hardware diagnostics, benchmarking, stress testing, and reliability validation on dedicated PC test benches.
 
 While hardware testing is often treated as a general repair or homelab task, it directly applies to cybersecurity work in several important ways. Security labs, forensic workstations, password-cracking rigs, virtualization hosts, local AI systems, network monitoring boxes, and incident-response machines all depend on stable, trusted, and properly matched hardware. A system that is unstable, overheating, misconfigured, underpowered, or using unreliable used parts can create false positives, failed workloads, corrupted data, inaccurate benchmarks, or wasted investigation time.
