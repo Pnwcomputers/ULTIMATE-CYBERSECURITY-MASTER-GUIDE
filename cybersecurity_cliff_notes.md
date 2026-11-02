@@ -11,21 +11,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Quick command reference for the most essential cybersecurity tools and techniques - the key commands practitioners reach for most often during authorized engagements.
-
-## ⚙️ Function
-Covers: Nmap scanning, Metasploit basics, Burp Suite quick reference, common web exploitation commands, privilege escalation shortcuts, password cracking one-liners, pivoting commands, post-exploitation essentials, and common CTF tool invocations.
-
-## 🏆 Goal
-Provide a single-page fast lookup during an active authorized engagement where time matters and remembering exact command syntax is slower than checking a concise cheat sheet.
-
-## 📋 When to Use
-- Active authorized engagement needing a fast command syntax lookup
-- CTF competition requiring quick tool reference
-- Review/study of the most common security command patterns
-- Quick onboarding reference for practitioners new to a tool
-
 ## Compiled Study Guide from Professional Resource Library
 
 ---
