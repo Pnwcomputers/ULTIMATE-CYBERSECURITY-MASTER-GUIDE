@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Advanced cybersecurity techniques Part 2 - covering exploit development, buffer overflows, shellcode writing, and custom payload creation for experienced security practitioners.
-
-## ⚙️ Function
-Covers: x86/x64 buffer overflow exploitation, SEH-based overflows, return-oriented programming (ROP), shellcode development (Linux/Windows), custom payload generation, heap exploitation concepts, format string vulnerabilities, and exploit reliability techniques.
-
-## 🏆 Goal
-Extend practitioner skills into exploit development and low-level vulnerability research - bridging the gap between running existing exploits and understanding and creating custom attack code.
-
-## 📋 When to Use
-- Learning exploit development for OSCP/OSED or professional development
-- Developing a custom exploit for an authorized vulnerability assessment
-- Understanding the internals of exploits you use from Metasploit or exploit-db
-- Advanced CTF challenges involving binary exploitation
-
 ## Exploit Development, Mobile Hacking & Advanced Techniques
 
 *Compiled from: Penetration Testing (Georgia Weidman), Metasploit 2E, and many other professional security resources*
