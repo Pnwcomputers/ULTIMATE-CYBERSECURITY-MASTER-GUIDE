@@ -49,6 +49,8 @@
 25. [User Segment & Link Security](#25-user-segment--link-security)
 26. [Space Security Tools & Frameworks](#26-space-security-tools--frameworks)
 
+**[Expanded specialized labs and references (November 2026)](#expanded-specialized-labs-and-reference-pages-november-2026)**
+
 **[PART VI: SDR & RF SECURITY](#part-vi-sdr--rf-security)**
 27. [SDR Fundamentals](#27-sdr-fundamentals)
 28. [SDR Hardware Ecosystem](#28-sdr-hardware-ecosystem)
@@ -69,6 +71,30 @@ A reader gets oriented in an emerging/specialized domain quickly, then knows exa
 
 ## 📋 When to Use
 When starting work in one of these six specialized domains for the first time, or as a map back to the detailed folder-level guides when you've forgotten where specific content lives.
+
+
+## Expanded Specialized Labs and Reference Pages (November 2026)
+
+The six numbered parts in this guide cover AI, hardware hacking, benchmarking, uConsole, space systems, and SDR. The following **additional specialties now have their own detailed sections**. They are intentionally linked here rather than copied into the six established parts.
+
+| Specialized field | Maintained starting points | Key distinction |
+| --- | --- | --- |
+| Hardware-backed authentication | [FIDO2/WebAuthn/passkeys and certification levels](Cryptography/security-keys-passkeys.md) · [SoloKeys / Solo 2](Cryptography/solokeys-guide.md) | Authenticator assurance levels and protocol support are different concepts; plan enrollment, backups, revocation, and account recovery. |
+| Encrypted and experimental storage | [Encrypted drives and key management](Cryptography/encrypted-storage.md) · [PhantomDrive research notes](Cryptography/phantomdrive-guide.md) | Prefer established encryption for real secrets; experimental hidden storage needs independent security review and backup testing. |
+| Privacy and source protection | [Press freedom and source safety](OPSEC/press-freedom/README.md) · [device/network safeguards](OPSEC/press-freedom/device-network-protection.md) · [retention and removal](OPSEC/press-freedom/data-retention-removal.md) · [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md) | Threat models, legal holds, and human safety determine procedures; technical controls have limits. |
+| Wireless surveys and portable field hardware | [Wardriving](Wardriving/README.md) · [SigRoam + Scout Lite](Wardriving/sigroam-scout-lite.md) · [Biscuit](Wardriving/biscuit.md) · [AWOK Dual C5](Wardriving/awok-dual-c5-biscuit.md) · [WardriveGo](Wardriving/wardrive-go.md) · [survey lifecycle](Wardriving/field-workflow.md) | Authorized surveys, mapping, provenance, and retention—not permission for deauthentication or interception. |
+| Wireless intrusion detection and correlation | [Kismet + Wazuh](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme WIDS](IncidentResponse/IDS%26IPS/nzyme_wids.md) · [nzyme + Wazuh](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) · [Wireshark deauthentication analysis](Documentation/wifi-deauthentication-detection.md) | Sensor placement, management-frame visibility, protected management frames, thresholds, and evidence-based correlation. |
+| Honeypot and DIY decoy labs | [Honeypot section](IncidentResponse/HoneyPot/readme.md) · [ESP32/embedded sensors](IncidentResponse/HoneyPot/esp32-diy-honeypots.md) · [ESP32-S3](IncidentResponse/HoneyPot/esp32-s3-honeypots.md) · [Raspberry Pi](IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox VM honeynet](IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) · [Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | Decoys are isolated monitoring assets, not a substitute for IDS/IPS or production hardening. |
+| Specialized investigation systems | [Tsurugi Linux OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) · [Tsurugi Bento portable DFIR](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) · [Pentoo Linux](Tradecraft/pentoo-linux-guide.md) · [REMnux for malware analysis](ReverseEngineering/remnux-malware-analysis-guide.md) | Match the distribution or toolkit to the job: investigation, field triage, pentest lab, or isolated malware analysis. |
+| RF engineering and protocol analysis | [NanoVNA antenna and cable measurements](SDR/nanovna/README.md) · [SDR target frequencies and protocols](SDR/target_frequencies_protocols.md) · [RFID](SDR/rfid.md) · [Sub-GHz](SDR/subghz.md) | Passive receiving and measuring differ from transmitting; RF rules and containment still apply. |
+| Cloud, containers, and secure data pipelines | [AWS/Azure/GCP cloud section](Cloud/README.md) · [container/Kubernetes security](ContainerSecurity/README.md) · [data-engineering learning path](Data-Engineering/README.md) · [data governance and lineage](Data-Engineering/Phase3/data_governance_lineage.md) | Treat data exposure, credential scope, provenance, and operational observability as independent controls. |
+| Field references and reusable visuals | [Wireshark filter master list](Documentation/wireshark-master-filters.md) · [reference/cheatsheet index](Documentation/README.md) · [image and diagram index](assets/README.md) · [assessment playbooks](PlayBooks/README.md) | Locate verified snippets and diagrams in their maintained topic sections instead of relying on outdated copies. |
+
+### Selecting a Specialized Lab
+
+Choose the domain first, then read its **prerequisites, supported hardware, safety constraints, and current verification status**. When you combine several systems (for example, Kismet → Wazuh → a honeypot), document the test network topology and which device can actually see the traffic; an unmanaged switch without SPAN or a network TAP will not reveal all traffic to a passive sensor.
+
+**Coverage review: November 2, 2026.** This is a repository-navigation update, not a fresh test of every firmware image, package version, cloud price, or tool instruction in the six original parts.
 
 # PART I: AI & SELF-HOSTED LLM SECURITY
 
@@ -2538,7 +2564,7 @@ See [LEGAL.md](LEGAL.md) for complete terms.
 
 *Part of the PNWC ULTIMATE CYBERSECURITY MASTER GUIDE*  
 *Maintained by [Pacific Northwest Computers](https://pnwcomputers.com) · Vancouver, WA*  
-*Last Updated: June 2026*
+*Master-guide navigation reviewed: November 2, 2026 · Original deep-dive material retains its own verification requirements*
 
 ## Related Files
 - [README.md](README.md) - Repo index and navigation
