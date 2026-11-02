@@ -138,6 +138,10 @@ Post-incident artifact extraction and timeline reconstruction.
 
 ## PNWC field-response toolkit: JWrapper and ScreenConnect abuse
 
+![Illustrative JWrapper remote access abuse attack path](../assets/jwrapper_attack.png)
+
+*Case-study attack-path diagram illustrating a possible remote-access software abuse chain. This is **not** proof that a JWrapper or ScreenConnect installation is malicious; verify the installation and client authorization using read-only triage first.*
+
 The [PNWC JWrapper & ScreenConnect RAT Remediation Toolkit](https://github.com/Pnwcomputers/JWrapper-ScreenConnect-RAT-Remediation-Toolkit) documents investigation and remediation of a specific remote-access-software abuse pattern observed in PNWC field cases. Use its **read-only detection workflow first** and preserve evidence before considering the state-changing remediation functions. A ScreenConnect installation alone is not evidence of malware; validate the installer, publisher, customer authorization, persistence mechanisms, timeline and network indicators. Verify the current IOCs and attribution independently rather than treating a dated campaign description as a current threat advisory.
 
 Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data_collection.md) for evidence acquisition, and the [phishing analysis SOP](../PlayBooks/sop_phishing_analysis.md) for initial delivery-vector triage.
