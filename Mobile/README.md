@@ -257,6 +257,8 @@ To contribute to the Mobile section:
 - [../Scripts/Python/iphone_messages.py](../Scripts/Python/iphone_messages.py) - iOS backup message extractor
 - [../Scripts/Python/iphone_finder.py](../Scripts/Python/iphone_finder.py) - iPhone WiFi/Bluetooth detection script
 - [../OPSEC/OPSEC_guide.md](../OPSEC/OPSEC_guide.md) - OPSEC practices relevant to mobile usage
+- [../OPSEC/press-freedom/device-network-protection.md](../OPSEC/press-freedom/device-network-protection.md) - protective mobile and laptop settings for journalists and confidential sources
+- [../OPSEC/press-freedom/duress-seizure-response.md](../OPSEC/press-freedom/duress-seizure-response.md) - safe preparation for detention, device seizure and loss
 - [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking (overlaps with mobile hardware attacks)
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for Bluetooth/WiFi capture used in mobile testing
 - [../Scripts/Bash/BashBunny/README.md](../Scripts/Bash/BashBunny/README.md) - Bash Bunny / DuckyScript payloads (DuckHunter-compatible)
