@@ -70,6 +70,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 📍 **Wireless Surveying & Wardriving** | [Wardriving](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) · [Wireshark Filters](./Documentation/wireshark-master-filters.md) · [Deauthentication Analysis](./Documentation/wifi-deauthentication-detection.md) · [Kismet + Wazuh Lab](./IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme + Wazuh](./IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI](./AI/README.md) · [SDR](./SDR/README.md) · [HardwareHacking](./HardwareHacking/README.md) · [HardwareTesting](./HardwareTesting/README.md) · [SpaceSecurity](./SpaceSecurity/README.md) · [Mobile](./Mobile/README.md) · [uConsole](./uConsole/README.md) |
 | 🔐 **Governance, Crypto & Reference** | [Compliance](./Compliance/README.md) | [Cryptography](./Cryptography/README.md) · [Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) · [Encrypted Storage](./Cryptography/encrypted-storage.md) · [Documentation](./Documentation/README.md) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC](./OPSEC/README.md) |
+| 📰 **Press Freedom & Source Safety** | [Press Freedom](./OPSEC/press-freedom/README.md) | [Device & Mobile Protection](./OPSEC/press-freedom/device-network-protection.md) · [Data Retention](./OPSEC/press-freedom/data-retention-removal.md) · [Duress & Seizure Response](./OPSEC/press-freedom/duress-seizure-response.md) |
 | ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) · [Security Policy](./.github/SECURITY.md) |
 
 ---
@@ -130,6 +131,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by [Sébastien Damaye](https://github.com/sebastiendamaye) |
 | 🔬 [Network Audit Playbook](./PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
 | 📋 [Operational Playbooks](./PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
+| 📰 [Press Freedom, Source Protection & Digital Safety](./OPSEC/press-freedom/README.md) | Journalist computer, cellphone, network and confidential-source security; lawful retention and disposal; duress and device seizure preparation |
 | 🔴 [OPSEC](./OPSEC/README.md) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
 | 🔍 [OSINT Guide, Tools & Techniques](./OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
 | 📄 [PDF Resources](./PDF/README.md) | Curated PDF references and guides |
@@ -607,6 +609,7 @@ Want to help the community?
 - [START_HERE.md](./START_HERE.md) - Quick navigation guide to all sections
 - [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) - Enhanced deep-dive guide
 - [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) - Third guide in the series
+- [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) - Journalist device, source confidentiality and retention / duress planning
 - [LEGAL.md](./LEGAL.md) - Legal disclaimer and terms of use
 - [CHANGELOG.md](./CHANGELOG.md) - Repository change history
 
