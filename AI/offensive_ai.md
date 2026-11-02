@@ -1511,14 +1511,11 @@ Commercial implementations: Garak (open-source LLM vulnerability scanner), Adver
 - [ai_prompts.md](ai_prompts.md) - Prompt engineering techniques; the defensive-use counterpart to this file's prompt injection chapter
 - [../Tradecraft/README.md](../Tradecraft/README.md) - General offensive tradecraft methodology this file's AI-specific attack graph model extends
 - [../Checklists/README.md](../Checklists/README.md) - Engagement checklists for scoping and reporting patterns referenced in Part III
+- [AnythingLLM/README.md](AnythingLLM/README.md) - Self-hosted LLM target for authorized testing
+- [../Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md) - AI-assisted evasion techniques context
+- [../OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) - AI-augmented OSINT workflows
 
 ---
 
 *Document maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. For corrections or contributions, submit a PR to the repository.*
 
-## Related Files
-- [README.md](README.md) - AI section index
-- [ai_prompts.md](ai_prompts.md) - Prompt engineering patterns (context for prompt injection research)
-- [AnythingLLM/README.md](AnythingLLM/README.md) - Self-hosted LLM target for authorized testing
-- [../Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md) - AI-assisted evasion techniques context
-- [../OSINT/OSINT_GUIDE.md](../OSINT/OSINT_GUIDE.md) - AI-augmented OSINT workflows
