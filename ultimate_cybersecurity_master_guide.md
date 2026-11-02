@@ -15,23 +15,27 @@
 ## MASTER TABLE OF CONTENTS
 
 **[PART I: FOUNDATIONS](#part-i-foundations)**
+
 1. [Core Cybersecurity Concepts](#core-cybersecurity-concepts)
 2. [Linux Command Line Mastery](#linux-command-line-mastery)
 3. [Python for Security Professionals](#python-for-security-professionals)
 4. [Bash Scripting for Red Teams](#bash-scripting-for-red-teams)
 
 **[PART II: RECONNAISSANCE & ENUMERATION](#part-ii-reconnaissance--enumeration)**
+
 5. [Information Gathering Techniques](#information-gathering-techniques)
 6. [Network Scanning & Discovery](#network-scanning--discovery)
 7. [Service Enumeration](#service-enumeration)
 8. [Web Application Reconnaissance](#web-application-reconnaissance)
 
 **[PART III: VULNERABILITY ASSESSMENT](#part-iii-vulnerability-assessment)**
+
 9. [Automated Vulnerability Scanning](#automated-vulnerability-scanning)
 10. [Manual Testing Methodologies](#manual-vulnerability-testing)
 11. [Web Application Vulnerabilities](#web-application-vulnerabilities)
 
 **[PART IV: EXPLOITATION](#part-iv-exploitation)**
+
 12. [Metasploit Framework Mastery](#metasploit-framework-mastery)
 13. [Buffer Overflow Exploitation](#buffer-overflow-exploitation)
 14. [Web Exploitation Techniques](#sql-injection-testing)
@@ -39,6 +43,7 @@
 16. [Client-Side Exploitation](#client-side-exploitation)
 
 **[PART V: POST-EXPLOITATION](#part-v-post-exploitation)**
+
 17. [Privilege Escalation](#privilege-escalation)
 18. [Lateral Movement](#lateral-movement)
 19. [Persistence Mechanisms](#persistence-mechanisms)
@@ -49,47 +54,53 @@
 24. [Covering Tracks](#covering-tracks)
 
 **[PART VI: ADVANCED TOPICS](#part-vi-advanced-topics)**
-22. [Active Directory Attacks](#active-directory-attacks)
-23. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
-24. [Cloud Security & Exploitation](#cloud-security--exploitation)
-25. [Mobile Device Security](#mobile-device-security)
-26. [IoT & Hardware Hacking](#iot--hardware-hacking)
-27. [Wireless Network Security](#wireless-network-security)
+
+25. [Active Directory Attacks](#active-directory-attacks)
+26. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
+27. [Cloud Security & Exploitation](#cloud-security--exploitation)
+28. [Mobile Device Security](#mobile-device-security)
+29. [IoT & Hardware Hacking](#iot--hardware-hacking)
+30. [Wireless Network Security](#wireless-network-security)
 
 **[PART VII: DEFENSIVE SECURITY](#part-vii-defensive-security)**
-27. [Network Security Architecture](#complete-network-hardening)
-28. [Firewall Configuration](#firewall-configuration)
-29. [Intrusion Detection Systems](#intrusion-detection-with-snort)
-30. [Security Monitoring & SIEM](#security-monitoring-with-ossec--wazuh)
-31. [Incident Response](#incident-response)
-32. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
+
+31. [Network Security Architecture](#complete-network-hardening)
+32. [Firewall Configuration](#firewall-configuration)
+33. [Intrusion Detection Systems](#intrusion-detection-with-snort)
+34. [Security Monitoring & SIEM](#security-monitoring-with-ossec--wazuh)
+35. [Incident Response](#incident-response)
+36. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
 
 **[PART VIII: SPECIALIZED SKILLS](#part-viii-specialized-skills)**
-33. [Malware Analysis](#malware-types--detection)
-34. [Digital Forensics](#digital-forensics)
-35. [Reverse Engineering](#reverse-engineering)
-36. [Social Engineering](#social-engineering-defense)
+
+37. [Malware Analysis](#malware-types--detection)
+38. [Digital Forensics](#digital-forensics)
+39. [Reverse Engineering](#reverse-engineering)
+40. [Social Engineering](#social-engineering-defense)
 
 **[PART IX: AUTOMATION & TOOLING](#part-ix-automation--tooling)**
-37. [Python Automation Scripts](#python-automation-scripts)
-38. [Custom Tool Development](#custom-tool-development)
-39. [CI/CD for Security](#cicd-for-security)
+
+41. [Python Automation Scripts](#python-automation-scripts)
+42. [Custom Tool Development](#custom-tool-development)
+43. [CI/CD for Security](#cicd-for-security)
 
 **[PART X: PROFESSIONAL PRACTICE](#part-x-professional-practice)**
-40. [Penetration Testing Methodology](#penetration-testing-methodology)
-41. [Report Writing](#report-writing)
-42. [Legal & Ethical Considerations](#legal--ethical-considerations)
+
+44. [Penetration Testing Methodology](#penetration-testing-methodology)
+45. [Report Writing](#report-writing)
+46. [Legal & Ethical Considerations](#legal--ethical-considerations)
 
 **[Current companion modules (November 2026)](#current-companion-modules-november-2026)**
 
 **[PART XI: TRADECRAFT REFERENCE](#part-xi-tradecraft-reference)**
-43. [Tradecraft Overview](Tradecraft/README.md)
-44. [C2 Frameworks](Tradecraft/c2-frameworks.md)
-45. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
-46. [Living Off the Land](Tradecraft/lolbins-lolbas.md)
-47. [OSINT & Threat Intelligence](Tradecraft/osint-threat-intel.md)
-48. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
-49. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
+
+47. [Tradecraft Overview](Tradecraft/README.md)
+48. [C2 Frameworks](Tradecraft/c2-frameworks.md)
+49. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
+50. [Living Off the Land](Tradecraft/lolbins-lolbas.md)
+51. [OSINT & Threat Intelligence](Tradecraft/osint-threat-intel.md)
+52. [Network Detection & Packet Analysis](Tradecraft/network-detection.md)
+53. [Active Directory - Attacks & Defense](Tradecraft/active-directory.md)
 
 ---
 

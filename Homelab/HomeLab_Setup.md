@@ -3036,6 +3036,7 @@ Signature: _____________________ Date: _________
 ### Books from Your ULTIMATE-CYBERSECURITY-MASTER-GUIDE
 
 **Must-Read (Available in Your Guide)**:
+
 1. ✅ Metasploit: The Penetration Tester's Guide (2nd Edition)
 2. ✅ Penetration Testing: A Hands-On Introduction to Hacking
 3. ✅ The Hacker Playbook 3
@@ -3045,6 +3046,7 @@ Signature: _____________________ Date: _________
 7. ✅ The Web Application Hacker's Handbook
 
 **Advanced Reading**:
+
 8. ✅ Advanced Penetration Testing: Hacking the World's Most Secure Networks
 9. ✅ Practical Reverse Engineering
 10. ✅ Black Hat Python

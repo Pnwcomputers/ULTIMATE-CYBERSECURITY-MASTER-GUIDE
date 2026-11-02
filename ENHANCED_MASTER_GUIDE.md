@@ -19,7 +19,8 @@
 
 # TABLE OF CONTENTS - ENHANCED EDITION
 
-## PART 1: OPERATIONAL SECURITY & SETUP
+**[OPERATIONAL SECURITY & SETUP](#part-2-operational-security--setup)**
+
 1. [OPSEC Fundamentals](#opsec-fundamentals)
 2. [Virtual Machine Setup](#virtual-machine-setup)
 3. [Hardware & Device Arsenal](#hardware--device-arsenal)
@@ -32,6 +33,7 @@
 > [OSINT/](OSINT/README.md) (tools catalog, cheat sheet, per-platform guides,
 > investigator playbook). Keep major OSINT updates there; this is an embedded
 > summary.
+
 5. [Comprehensive OSINT Resources](#comprehensive-osint-resources)
 6. [OSINT Virtual Machines](#osint-vm-setup)
 7. [OSINT Tools & Software](#part-3-osint-tools--software)
@@ -42,6 +44,7 @@
 12. [Image & Metadata Analysis](#image--metadata-analysis)
 
 **[REAL-WORLD ATTACK CASE STUDIES](#real-world-attack-case-studies)**
+
 13. [Stuxnet Analysis](#stuxnet-analysis)
 14. [WannaCry Breakdown](#wannacry-breakdown)
 15. [EternalBlue Exploitation](#eternalblue-exploitation)
@@ -51,6 +54,7 @@
 19. [Edward Snowden Revelations](#edward-snowden-revelations)
 
 **[TEAM PLAYBOOKS](#team-playbooks)**
+
 20. [Purple Team Playbook (Simple)](#purple-team-playbook-simple)
 21. [Purple Team Playbook (Detailed)](#purple-team-playbook-detailed)
 22. [Blue Team Playbook (Generic)](#blue-team-playbook-generic)
@@ -59,6 +63,7 @@
 25. [SIEM Ingestion](#siem-ingestion)
 
 **[CUSTOM SCRIPTS & AUTOMATION](#custom-scripts--automation)**
+
 26. [Black Hat Bash Lab Build](#black-hat-bash-lab-build)
 27. [Network Automation Scripts](#network-automation-scripts)
 28. [System Administration Scripts](#system-administration-scripts)
@@ -67,7 +72,8 @@
 
 **[Current operational workflows (November 2026)](#current-operational-module-map-november-2026)**
 
-## OPERATIONAL TRADECRAFT
+**[OPERATIONAL TRADECRAFT](#part-6-operational-tradecraft)**
+
 31. [Tradecraft Overview & Index](#tradecraft-overview)
 32. [C2 Frameworks - Cobalt Strike, Sliver, Havoc](#c2-frameworks)
 33. [AV/EDR Evasion - Recognition & Defense](#avedr-evasion---recognition--defense)
