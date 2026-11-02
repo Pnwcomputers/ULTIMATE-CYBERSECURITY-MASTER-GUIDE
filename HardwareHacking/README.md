@@ -58,16 +58,6 @@ This section provides a **comprehensive reference** for hardware security assess
 - 🛡️ Countermeasures: Silicon-level, firmware-level, and physical protections
 - 📟 **Device-specific guides**: Setup, connection, and usage tutorials for common hardware hacking tools.
 
-### Purpose
-
-These materials serve as:
-- **Assessment methodology** for authorized hardware security testing
-- **Bench reference** for measurement setup, probing, and signal capture
-- **Attack technique guide** for fault injection and side-channel campaigns
-- **Implementation reference** with working Python code for CPA, filtering, alignment, and visualization
-- **Training material** for hardware security researchers and red teams
-- **Countermeasure guide** for embedded systems designers and security architects
-
 ---
 
 ## 📂 Chapter Guides
