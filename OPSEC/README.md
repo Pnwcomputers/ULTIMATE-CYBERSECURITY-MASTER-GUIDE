@@ -274,6 +274,10 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 
 ### 1. Compartmentalization
 
+![Illustrative virtual machine workload compartmentalization boundaries](../assets/vm_compartmentalization.png)
+
+*Example VM compartment boundaries. A VM does not guarantee containment or anonymity: host compromise, shared folders, USB passthrough, clipboard sharing, bridging and shared identities can connect environments.*
+
 - Separate personal, client, and research accounts and files.
 - Use a dedicated workspace for each sensitive context.
 - Treat clipboard sharing, shared folders, USB passthrough, and file transfers as deliberate connections between compartments.
