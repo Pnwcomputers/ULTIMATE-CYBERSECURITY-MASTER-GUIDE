@@ -13,6 +13,10 @@ Select, set up, and evaluate encrypted drives for portable workflows, secure bac
 
 ## Choose the right design
 
+![Locked versus unlocked encrypted storage and its limits](../assets/encrypted-storage-protection-boundaries.svg)
+
+*Encryption is strongest against offline access to **locked** data. Once mounted, the trusted host and its applications can access plaintext; use independently protected backups and test recovery.*
+
 | Approach | Common examples | Strengths | Important limitations |
 |---|---|---|---|
 | Operating-system disk encryption | BitLocker, FileVault, Linux LUKS2/dm-crypt | Mature OS integration, practical full-disk protection | Depends on boot security, configuration, recovery-key custody and endpoint trust |
