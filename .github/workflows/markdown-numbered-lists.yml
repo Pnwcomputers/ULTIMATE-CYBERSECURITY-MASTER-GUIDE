@@ -20,4 +20,4 @@ jobs:
         with:
           persist-credentials: false
       - name: Audit all Markdown numbered lists and navigation
-        run: python3 -B tools/check_markdown_numbered_lists.py --report-only
+        run: python3 -B tools/check_markdown_numbered_lists.py
