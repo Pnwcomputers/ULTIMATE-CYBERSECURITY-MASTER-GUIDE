@@ -64,6 +64,10 @@ Ensure every network/wireless penetration test produces (1) legally defensible e
 
 ## SECTION 2: WIRELESS-SPECIFIC TESTING PROCEDURES
 
+![Wireless security audit workflow](../assets/wireless_auditing.png)
+
+*Illustrative wireless assessment workflow; execute only phases explicitly authorized in the engagement. Passive observation and active tests have different authorization and evidence-handling requirements.*
+
 For a focused GPS-tagged **AP inventory** before any separately authorized active testing, follow the [Wardriving Field Workflow](../Wardriving/field-workflow.md) and select a tool in the [Wardriving Index](../Wardriving/README.md). The [Kismet guide](../Wardriving/kismet.md) documents its lightweight wardrive overlay; [Data Handling](../Wardriving/data-handling.md) distinguishes private records from public WiGLE uploads.
 
 
