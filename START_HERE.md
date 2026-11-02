@@ -81,6 +81,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 | Resource | Description |
 |----------|-------------|
+| **[Image and Diagram Index](assets/README.md)** | Maps explanatory diagrams to their respective guides, including new FIDO2, encrypted-storage, and source-protection illustrations |
 | **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
 | **[Cheat Sheet & Reference Index](Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | One readable index for reviewed Linux/Arch, network, wireless, Bash, OSINT, IR, SDR and general reference material |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
