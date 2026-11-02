@@ -25,7 +25,7 @@
 3. [Hardware & Device Arsenal](#hardware--device-arsenal)
 4. [Anonymity & Privacy Protection](#anonymity--privacy-protection)
 
-## OSINT MASTERY
+**[OSINT MASTERY](#osint-mastery)**
 
 > [!NOTE]
 > **Canonical reference:** the dedicated, maintained OSINT section is
@@ -41,7 +41,7 @@
 11. [Geolocation & Mapping](#geolocation--mapping)
 12. [Image & Metadata Analysis](#image--metadata-analysis)
 
-## REAL-WORLD ATTACK CASE STUDIES
+**[REAL-WORLD ATTACK CASE STUDIES](#real-world-attack-case-studies)**
 13. [Stuxnet Analysis](#stuxnet-analysis)
 14. [WannaCry Breakdown](#wannacry-breakdown)
 15. [EternalBlue Exploitation](#eternalblue-exploitation)
@@ -50,7 +50,7 @@
 18. [NotPetya Ransomware](#notpetya-ransomware)
 19. [Edward Snowden Revelations](#edward-snowden-revelations)
 
-## TEAM PLAYBOOKS
+**[TEAM PLAYBOOKS](#team-playbooks)**
 20. [Purple Team Playbook (Simple)](#purple-team-playbook-simple)
 21. [Purple Team Playbook (Detailed)](#purple-team-playbook-detailed)
 22. [Blue Team Playbook (Generic)](#blue-team-playbook-generic)
@@ -58,7 +58,7 @@
 24. [Detection Rule Pipelines](#detection-rule-pipelines)
 25. [SIEM Ingestion](#siem-ingestion)
 
-## CUSTOM SCRIPTS & AUTOMATION
+**[CUSTOM SCRIPTS & AUTOMATION](#custom-scripts--automation)**
 26. [Black Hat Bash Lab Build](#black-hat-bash-lab-build)
 27. [Network Automation Scripts](#network-automation-scripts)
 28. [System Administration Scripts](#system-administration-scripts)
