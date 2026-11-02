@@ -47,6 +47,10 @@ Enable a responder to capture the right evidence in the right order, analyze it 
 
 ## 🎯 Overview
 
+![Digital forensics evidence collection verification and custody](../../assets/diagrams/dfir-evidence-custody.svg)
+
+*Apply case-specific legal authority and custody requirements.*
+
 **Digital forensics** is the disciplined recovery and analysis of evidence from computer systems. In an IR context it answers *what happened, how, when, and what was affected* — and, when a case may involve legal action, it does so in a way that preserves the evidence's admissibility.
 
 This sub-section covers the three domains you will use most: **memory**, **disk**, and **live volatile data**. Capture is governed by the *order of volatility* — the most transient evidence (RAM, network state) must be collected before it is lost.

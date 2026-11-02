@@ -50,6 +50,10 @@ Enable a practitioner to go from bare hardware to a validated, alert-tuned detec
 
 ## 🎯 Overview
 
+![Wireless intrusion detection correlation and triage workflow](../../assets/diagrams/wireless-ids-correlation.svg)
+
+*Sensor position and channel coverage affect detection reliability.*
+
 **IDS** (Intrusion Detection) passively watches traffic and alerts on suspicious activity. **IPS** (Intrusion Prevention) sits inline and can actively block it. Both terms apply equally to wireless (RF/802.11) and wired (Ethernet/IP) traffic — but the hardware, software, and failure modes involved are different enough that they're covered as separate guides here.
 
 This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc summaries. Where a build hit a genuine gotcha (a driver crashing under load, an interface name that doesn't match what the config expects, a ruleset that needs validation before it's trusted to block traffic), that gotcha is documented explicitly rather than glossed over.

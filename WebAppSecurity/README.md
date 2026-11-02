@@ -74,6 +74,10 @@ it), mirroring the [Tradecraft](../Tradecraft/) convention.
 
 ## 🧭 Testing Approach
 
+![Authorized web application testing lifecycle](../assets/diagrams/webapp-assessment-cycle.svg)
+
+*Use written rules of engagement and validate scanner findings.*
+
 A web assessment generally proceeds in phases (detailed in
 [methodology.md](./methodology.md)):
 
