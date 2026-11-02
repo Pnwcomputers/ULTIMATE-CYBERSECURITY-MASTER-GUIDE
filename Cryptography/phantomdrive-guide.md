@@ -9,6 +9,8 @@ _Last reviewed: 2026-11-01 (upstream documentation reviewed; build and hardware 
 
 ## Purpose and architecture
 
+For the difference between **locked ciphertext**, **mounted plaintext**, and the host's remaining attack surface, review the [encrypted-storage protection-boundary diagram](../assets/encrypted-storage-protection-boundaries.svg) before experimenting with firmware variants.
+
 PhantomDrive is an open-source encrypted USB drive experiment with a decoy or visible volume and a second encrypted area that can remain hidden until unlocked.
 
 - Main project: [o7-machinehum/phantomdrive](https://github.com/o7-machinehum/phantomdrive)
