@@ -72,7 +72,7 @@
 
 **[Current operational workflows (November 2026)](#current-operational-module-map-november-2026)**
 
-**[OPERATIONAL TRADECRAFT](#operational-tradecraft)**
+**[OPERATIONAL TRADECRAFT](#part-6-operational-tradecraft)**
 
 31. [Tradecraft Overview & Index](#tradecraft-overview)
 32. [C2 Frameworks - Cobalt Strike, Sliver, Havoc](#c2-frameworks)
