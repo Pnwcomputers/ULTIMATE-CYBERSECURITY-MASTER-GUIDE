@@ -103,6 +103,10 @@ Experienced practitioner?
 
 ## 🌍 Space System Segments
 
+![Space security ground transport spacecraft and users](../assets/diagrams/space-security-segments.svg)
+
+*Conceptual space-system boundaries; real missions have diverse topologies and safety constraints.*
+
 Every space system consists of three interdependent segments. A compromise of any one segment can cascade across the others.
 
 | Segment | Description | Key Attack Surface | Primary Risk |
