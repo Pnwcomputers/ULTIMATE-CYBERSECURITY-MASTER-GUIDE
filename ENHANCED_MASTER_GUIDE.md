@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Enhanced version of the Ultimate Cybersecurity Master Guide - layers 90+ PNWC internal documents, KB articles, and operational experience on top of the foundational content from 70+ professional security books.
-
-## ⚙️ Function
-Covers the complete penetration testing lifecycle with operational depth: reconnaissance (passive/active), exploitation, post-exploitation, lateral movement, persistence, reporting - plus defensive techniques, incident response integration, and PNWC operational lessons learned.
-
-## 🏆 Goal
-Serve as the definitive single-document cybersecurity reference that combines academic knowledge from expert books with real-world operational experience from PNWC engagements.
-
-## 📋 When to Use
-- Deep reference during a complex authorized engagement
-- Building comprehensive knowledge across multiple security domains
-- Study reference for professional certifications (OSCP, CEH, PNPT, etc.)
-- Onboarding experienced practitioners to the PNWC methodology
-
 ## Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books
 
 *This enhanced guide combines:*
