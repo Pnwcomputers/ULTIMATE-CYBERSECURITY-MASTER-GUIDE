@@ -84,6 +84,10 @@ Core labs require Python 3.10+; database labs require the Python `sqlite3` modul
 
 ## 🧪 Lab Workflow
 
+![Reliable data pipeline ingestion validation transformation storage and recovery](../../assets/diagrams/data-pipeline-reliability.svg)
+
+*Successful ingestion is not proof of trustworthy data; verify contracts and replay.*
+
 1. Read the guide's assumptions and Verification Record.
 2. Save its complete Python block under the filename shown.
 3. Run with `python3 filename.py` from a practice directory, without `-O`.

@@ -55,6 +55,10 @@ Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-
 
 ## Collection principles
 
+![Authorized passive wireless survey workflow](../assets/diagrams/wardriving-collection-lifecycle.svg)
+
+*Wireless location identifiers can be sensitive; assess collection and disclosure separately.*
+
 - **Observe, don't interfere.** Avoid deauthentication, impersonation, beacon injection, credential collection or capture of third-party data as part of an ordinary wardrive.
 - **Fix GPS first.** A row without a trustworthy fix cannot reliably support a spatial inventory; a low satellite count or sudden coordinate jump should be annotated.
 - **Beware limitations.** Channel hopping misses brief transmissions; apparent unique-device counts vary by MAC randomization and deduplication; RSSI is not calibrated distance.

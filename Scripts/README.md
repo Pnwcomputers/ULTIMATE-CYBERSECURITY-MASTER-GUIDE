@@ -368,6 +368,10 @@ ONLY use on systems you own or have explicit written permission to test.
 
 ## 📖 How to Use These Scripts
 
+![Authorized script review execution and rollback workflow](../assets/diagrams/safe-script-execution.svg)
+
+*Do not run unreviewed or out-of-scope automation on client systems.*
+
 ### ⚠️ BEFORE RUNNING ANY SCRIPT
 
 ```

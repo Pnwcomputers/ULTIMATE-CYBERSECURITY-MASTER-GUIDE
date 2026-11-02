@@ -48,6 +48,10 @@ Enable a practitioner to deploy a working SIEM that ingests endpoint, server, an
 
 ## 🎯 Overview
 
+![Security telemetry pipeline from collection to analysis](../../assets/diagrams/siem-telemetry-correlation.svg)
+
+*Conceptual telemetry pipeline; a detection must be corroborated.*
+
 A **SIEM** (Security Information and Event Management) platform is the central nervous system of a blue-team operation: it ingests logs from endpoints, servers, and network devices, normalizes them, and lets you search, correlate, alert, and hunt across the whole environment.
 
 This sub-section provides **hands-on, self-hosted build guides** for the four platforms you are most likely to run in a homelab or small SOC. Each guide is standalone — server preparation, deployment, firewalling, agent enrollment, and initial detections — and each pins known-good versions so the walkthrough stays internally consistent.

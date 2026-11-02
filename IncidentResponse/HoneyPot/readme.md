@@ -110,6 +110,10 @@ See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme +
 
 ## 🤔 How This Fits With IDS/IPS and SIEM
 
+![Isolated honeypot sensors and SIEM ingestion](../../assets/diagrams/honeypot-segmented-logging.svg)
+
+*A honeypot must be segmented and treated as untrusted.*
+
 ```text
 Want to detect attacks against your REAL production traffic?
   └─> Follow the linked IDS & IPS index above for wired and wireless sensing.

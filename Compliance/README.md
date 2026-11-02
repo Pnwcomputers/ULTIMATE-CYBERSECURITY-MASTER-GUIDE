@@ -95,6 +95,10 @@ CCPA) are **not optional** and apply based on data and jurisdiction - see
 
 ## 🔗 Control Mapping (Do It Once, Satisfy Many)
 
+![Governance risk controls and evidence verification workflow](../assets/diagrams/grc-controls-evidence.svg)
+
+*A framework mapping supports audits but does not establish compliance or certification.*
+
 The frameworks overlap heavily. Rather than implement each in isolation:
 
 1. **Pick a primary framework** (often NIST CSF 2.0 or ISO 27001) as the backbone.

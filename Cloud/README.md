@@ -65,6 +65,10 @@ estate is enumerated and abused) with hardening and detection.
 
 ## 🔀 Shared Responsibility Model
 
+![Cloud provider and customer security responsibilities](../assets/diagrams/cloud-shared-responsibility.svg)
+
+*Responsibilities vary by service model, offering, and contractual terms.*
+
 The provider secures the cloud; the customer secures what they put **in** it. The
 boundary shifts by service model:
 

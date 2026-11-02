@@ -48,6 +48,10 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 
 ## 🎯 Overview
 
+![Incident response preparation detection containment recovery and improvement](../assets/diagrams/incident-response-cycle.svg)
+
+*Coordinate containment with business needs and preserve evidence before destructive changes.*
+
 Welcome to the **Incident Response (IR)** and Digital Forensics section. This directory focuses strictly on **visibility, detection, and defense**. It provides the architecture, configurations, and standard operating procedures (SOPs) required to ingest telemetry, hunt for adversaries, and respond to active threats systematically.
 
 **Core Objectives:**

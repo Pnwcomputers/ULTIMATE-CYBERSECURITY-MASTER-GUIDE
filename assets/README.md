@@ -1,6 +1,6 @@
 # Diagram and Image Asset Index
 
-_Last reviewed: 2026-11-01 (repository path and placement review; visual content not re-authenticated against live equipment)_
+_Last reviewed: 2026-11-02 (repository path and placement review; visual content not re-authenticated against live equipment)_
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -22,6 +22,34 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [FIDO2 / passkey authentication](./fido2-passkey-authentication-flow.svg) | [Hardware keys and passkeys](../Cryptography/security-keys-passkeys.md#what-is-a-security-key) | **New accessible vector figure**, showing registration and sign-in |
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
+
+## Expanded topical SVG diagrams (November 2026)
+
+These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
+
+| Diagram | Embedded guide | Purpose |
+|---|---|---|
+| [SIEM telemetry correlation](./diagrams/siem-telemetry-correlation.svg) | [IncidentResponse/SIEM/README.md](../IncidentResponse/SIEM/README.md) | Collect, normalize, correlate and validate events |
+| [Honeypot sensor isolation](./diagrams/honeypot-segmented-logging.svg) | [IncidentResponse/HoneyPot/readme.md](../IncidentResponse/HoneyPot/readme.md) | Decoy isolation, log ingestion and safe triage |
+| [Cloud shared responsibility](./diagrams/cloud-shared-responsibility.svg) | [Cloud/README.md](../Cloud/README.md) | Provider/customer security responsibilities |
+| [Container trust boundaries](./diagrams/container-security-boundaries.svg) | [ContainerSecurity/README.md](../ContainerSecurity/README.md) | Supply chain and shared-kernel risks |
+| [DFIR evidence lifecycle](./diagrams/dfir-evidence-custody.svg) | [IncidentResponse/Digital-Forensics/README.md](../IncidentResponse/Digital-Forensics/README.md) | Authorize, collect, verify, analyze and preserve |
+| [OSINT verification](./diagrams/osint-verification-workflow.svg) | [OSINT/README.md](../OSINT/README.md) | Scope, corroborate, protect sources and report |
+| [Wireless IDS correlation](./diagrams/wireless-ids-correlation.svg) | [IncidentResponse/IDS&IPS/readme.md](../IncidentResponse/IDS&IPS/readme.md) | Kismet/nzyme event correlation and evidence checks |
+| [Web application testing](./diagrams/webapp-assessment-cycle.svg) | [WebAppSecurity/README.md](../WebAppSecurity/README.md) | Scope through retest with safe validation |
+| [GRC control evidence](./diagrams/grc-controls-evidence.svg) | [Compliance/README.md](../Compliance/README.md) | Risk, mapping, control implementation and testing |
+| [Reverse engineering](./diagrams/reverse-engineering-workflow.svg) | [ReverseEngineering/README.md](../ReverseEngineering/README.md) | Sample intake to defensible findings |
+| [Space system segments](./diagrams/space-security-segments.svg) | [SpaceSecurity/README.md](../SpaceSecurity/README.md) | Ground, comms, spacecraft and user trust boundaries |
+| [Wardriving data handling](./diagrams/wardriving-collection-lifecycle.svg) | [Wardriving/README.md](../Wardriving/README.md) | Passive survey quality, privacy and disclosure |
+| [Data pipeline reliability](./diagrams/data-pipeline-reliability.svg) | [Data-Engineering/Phase2/README.md](../Data-Engineering/Phase2/README.md) | Contract, transformations, security and replay |
+| [NanoVNA calibration](./diagrams/nanovna-calibration-plane.svg) | [SDR/nanovna/README.md](../SDR/nanovna/README.md) | Measurement reference plane and uncertainty |
+| [Mobile security layers](./diagrams/mobile-security-boundaries.svg) | [Mobile/README.md](../Mobile/README.md) | Device, account, app, network and backups |
+| [Incident response stages](./diagrams/incident-response-cycle.svg) | [IncidentResponse/README.md](../IncidentResponse/README.md) | Preparation through recovery and improvement |
+| [Assessment checklist lifecycle](./diagrams/checklist-assessment-quality.svg) | [Checklists](../Checklists/README.md) | Authorization, coverage, evidence, QA and closure |
+| [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
+| [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
+
+For an auditable record of the visual coverage review and remaining improvements, see [Visual Audit — 2026-11-02](./VISUAL-AUDIT-2026-11-02.md).
 
 ## Already embedded in hardware chapters
 

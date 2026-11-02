@@ -65,6 +65,10 @@ escaped) with hardening and detection.
 
 ## 🎯 The Container Threat Model
 
+![Container supply chain and runtime trust boundaries](../assets/diagrams/container-security-boundaries.svg)
+
+*Conceptual security layers; actual containment depends on the runtime and host.*
+
 Attack surface spans four layers:
 
 | Layer | Example risks |

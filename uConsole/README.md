@@ -210,6 +210,10 @@ These actions do not change package sources, the display manager, EEPROM, storag
 
 ## 🔧 Common Setup Sequence (The 6-Phase Approach)
 
+![uConsole CM5 six phase safe optional installation workflow](../assets/diagrams/uconsole-six-phase-setup.svg)
+
+*Conceptual CM5 setup summary; CM4 and different boards require their own preflight and documentation.*
+
 For CM5 v1.4, the defaults preserve the working image and optional installations require flags. See [script
 usage](./scripts/README.md) and [recovery instructions](./CM5-DISPLAY-RECOVERY.md). The CM4 v2.0 procedure is **different**: read-only preflight by default with optional reviewed package installations. See the [CM4 script reference](./scripts/README.md).
 

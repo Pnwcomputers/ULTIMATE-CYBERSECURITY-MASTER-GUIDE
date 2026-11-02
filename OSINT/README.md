@@ -61,6 +61,10 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 ## 🔎 What is OSINT?
 
+![Responsible OSINT collection verification and reporting](../assets/diagrams/osint-verification-workflow.svg)
+
+*Verify provenance and distinguish facts from inference.*
+
 **Open Source Intelligence (OSINT)** is the collection and analysis of information gathered from publicly available sources. OSINT is used for:
 
 - **Cybersecurity**: Threat intelligence, vulnerability research, attack surface mapping

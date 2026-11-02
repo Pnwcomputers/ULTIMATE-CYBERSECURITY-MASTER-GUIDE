@@ -46,6 +46,10 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 
 ## 🎯 Overview
 
+![Mobile device application identity and cloud security layers](../assets/diagrams/mobile-security-boundaries.svg)
+
+*Mobile device security varies by OS model and account backup settings.*
+
 This directory contains **mobile security resources for penetration testers, forensic investigators, and security researchers** - from device preparation and platform setup through offensive tooling, app security assessment, and forensic analysis.
 
 **What You'll Find Here:**

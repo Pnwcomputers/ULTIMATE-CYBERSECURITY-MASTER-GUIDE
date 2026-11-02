@@ -59,6 +59,10 @@ Practice only in an isolated lab: [Homelab](../Homelab/).
 
 ## Start here
 
+![Reverse engineering safe sample intake and analysis workflow](../assets/diagrams/reverse-engineering-workflow.svg)
+
+*Use controlled lab environments and retain original sample hashes.*
+
 | If you need… | Open |
 | --- | --- |
 | Build a malware-analysis and DFIR lab with REMnux | [REMnux Malware Analysis Guide](./remnux-malware-analysis-guide.md) |

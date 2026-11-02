@@ -137,6 +137,10 @@ Record the sweep span, point count, calibration plane, cables, adapters, and fir
 
 ## Safe Workflows
 
+![NanoVNA measurement workflow and calibration reference plane](../../assets/diagrams/nanovna-calibration-plane.svg)
+
+*Reference-plane changes and cabling can invalidate measurements; recalibrate as needed.*
+
 ### Before Connecting the Instrument
 
 - [ ] Physically disconnect every transmitter. Not "PTT locked out" — disconnected.
