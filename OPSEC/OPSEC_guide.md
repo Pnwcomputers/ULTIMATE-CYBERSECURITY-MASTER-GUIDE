@@ -320,5 +320,8 @@ This mode is for **full home lab deployments**, learning, testing networks, SOC 
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup
 - [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous access
 - [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization setup
+- [press-freedom/README.md](press-freedom/README.md) - journalists, confidential-source protection, device seizure and duress planning
+- [../Cryptography/encrypted-storage.md](../Cryptography/encrypted-storage.md) - portable drive encryption and recovery
+- [../Cryptography/security-keys-passkeys.md](../Cryptography/security-keys-passkeys.md) - FIDO2/passkey account safeguards
 - [../Mobile/README.md](../Mobile/README.md) - Mobile security section (mobile OPSEC, device hardening)
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (MAC randomization, covert operation procedures)
