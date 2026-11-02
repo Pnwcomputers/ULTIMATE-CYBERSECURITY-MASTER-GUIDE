@@ -559,6 +559,7 @@ See [Encrypted Drives and Removable Storage](./encrypted-storage.md) for product
 - [encrypted-storage.md](encrypted-storage.md) - removable drive encryption and recovery
 - [phantomdrive-guide.md](phantomdrive-guide.md) - experimental hidden encrypted USB
 - [Classical/](Classical/) - Classical ciphers, leetspeak, homoglyphs, and cryptanalysis
+- [../OPSEC/press-freedom/README.md](../OPSEC/press-freedom/README.md) - source confidentiality and press-freedom protection
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Applied transport encryption
 - [../WebAppSecurity/owasp-top-10.md](../WebAppSecurity/owasp-top-10.md) - A04 Cryptographic Failures
 
