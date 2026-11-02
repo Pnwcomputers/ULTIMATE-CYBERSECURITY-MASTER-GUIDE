@@ -14,21 +14,6 @@
 
 ---
 
-## 🎯 Purpose
-Index and entry point for AI/ML cybersecurity resources covering self-hosted agent frameworks, prompt engineering, offensive AI techniques, and offline LLM deployments - all oriented around practical security operations.
-
-## ⚙️ Function
-Documents OpenClaw (multi-provider AI agent on TrueNAS SCALE), AnythingLLM AgentFlows for automated security tasks, offline Ollama/Dolphin deployment, prompt engineering patterns for security workflows, and adversarial ML / offensive AI methodology.
-
-## 🏆 Goal
-Enable security practitioners to integrate AI tooling into blue team, red team, OSINT, and SOC workflows using self-hosted or privacy-preserving infrastructure - without requiring cloud API calls for sensitive work.
-
-## 📋 When to Use
-- Choosing an AI agent framework for homelab or SOC automation
-- Setting up offline LLM inference for air-gapped or sensitive environments
-- Automating repetitive security tasks (recon, triage, reporting) via AgentFlows
-- Red teaming LLM-integrated applications or studying adversarial ML
-
 ---
 
 ## 📋 Table of Contents
