@@ -58,15 +58,6 @@ This directory contains **resources, configurations, guides, and methodologies**
 - AgentFlow configurations for automating incident response, OSINT collection, and security audits
 - Offline/air-gapped LLM deployment guides for sensitive environments
 
-### Purpose
-
-These resources are designed to:
-- Provide **practical, deployable configurations** for integrating AI into cybersecurity workflows - not just theory
-- Enable **cost-effective AI operations** using free tiers (Groq, Gemini) and local inference (Ollama) while reserving paid APIs for complex tasks
-- Offer **reusable agent personas and skill configurations** for IT support, pentesting, and SOC work
-- Encourage **responsible and privacy-conscious** use of AI with self-hosted infrastructure
-- Serve as **training and reference material** for cybersecurity practitioners expanding into AI/ML
-
 ---
 
 ## 📂 Folder Contents
