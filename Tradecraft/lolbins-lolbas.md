@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](../LEGAL.md).
 
-## 🎯 Purpose
-LOLBins and LOLBAs reference - legitimate Windows binaries, libraries, and scripts that can be abused for execution, download, lateral movement, and defense evasion without dropping traditional malware.
-
-## ⚙️ Function
-Covers key LOLBins by capability category: execution (mshta, wscript, regsvr32, certutil), download (certutil, bitsadmin, powershell), lateral movement (wmic, psexec equivalents), persistence (schtasks, reg), and application control bypass - with detection guidance for each.
-
-## 🏆 Goal
-Enable defenders to build application allowlist policies and detection rules that flag LOLBin abuse; give red teamers an operational reference for chaining LOLBins when traditional malware would be detected.
-
-## 📋 When to Use
-- Red team: chaining living-off-the-land techniques in an environment with strict EDR/AV
-- Blue team: building AppLocker/WDAC policies to restrict LOLBin abuse
-- Detection engineering: creating Sigma rules for LOLBin behavioral patterns
-- Purple team: testing which LOLBin executions fire EDR alerts
-
 > **Scope:** Using legitimate Windows binaries, libraries, and scripts for offensive operations. Includes enumeration, execution, download, lateral movement, and detection/hunting guidance.
 
 ✅ **Quick-reference checklists:** [AppLocker Bypass](../Checklists/AppLocker.md) · [Environment Breakout](../Checklists/Environment-Breakout-Checklist.md)
