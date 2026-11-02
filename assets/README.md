@@ -25,7 +25,7 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 
 ## Expanded topical SVG diagrams (November 2026)
 
-These 16 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
+These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
 
 | Diagram | Embedded guide | Purpose |
 |---|---|---|
@@ -45,6 +45,9 @@ These 16 newly authored diagrams provide short conceptual overviews beside the r
 | [NanoVNA calibration](./diagrams/nanovna-calibration-plane.svg) | [SDR/nanovna/README.md](../SDR/nanovna/README.md) | Measurement reference plane and uncertainty |
 | [Mobile security layers](./diagrams/mobile-security-boundaries.svg) | [Mobile/README.md](../Mobile/README.md) | Device, account, app, network and backups |
 | [Incident response stages](./diagrams/incident-response-cycle.svg) | [IncidentResponse/README.md](../IncidentResponse/README.md) | Preparation through recovery and improvement |
+| [Assessment checklist lifecycle](./diagrams/checklist-assessment-quality.svg) | [Checklists](../Checklists/README.md) | Authorization, coverage, evidence, QA and closure |
+| [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
+| [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
 
 For an auditable record of the visual coverage review and remaining improvements, see [Visual Audit — 2026-11-02](./VISUAL-AUDIT-2026-11-02.md).
 

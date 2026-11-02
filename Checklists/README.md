@@ -242,6 +242,10 @@ These checklists serve as:
 
 ## 📖 How to Use These Checklists
 
+![Security assessment checklist lifecycle from authorization to closure](../assets/diagrams/checklist-assessment-quality.svg)
+
+*A checklist helps ensure consistent coverage but is not proof of complete security.*
+
 ### For Penetration Testers
 
 ```

@@ -11,7 +11,7 @@ This is a **repository-wide visual-content audit**, **not** a line-by-line accur
 - Inspected the Git tree across all top-level sections and inventoried **302 Markdown files** on the pre-expansion reference branch.
 - Cross-checked prior asset usage and selected representative section indexes and operational guides for places where a picture or flow diagram would help explain a trust boundary, evidence lifecycle, system architecture, or assessment process.
 - Preserved existing diagrams: hardware interface/electrical measurements, existing PNWC figures, and the previously introduced FIDO2, storage and press-freedom illustrations.
-- Added **16 new original static SVG diagrams**, each embedded near the relevant section, with Markdown alt text and a caption describing its conceptual scope.
+- Added **19 new original static SVG diagrams**, each embedded near the relevant section, with Markdown alt text and a caption describing its conceptual scope.
 - Kept an [indexed asset inventory](./README.md) so readers can reach all new visuals without browsing GitHub's Code file list.
 - Prefer complete, accurate prose and tested procedures to excessive decorative images. An illustration must not imply a certification, tool compatibility or network deployment that has not been verified.
 
@@ -35,6 +35,9 @@ This is a **repository-wide visual-content audit**, **not** a line-by-line accur
 | [Space Security](../SpaceSecurity/README.md) | [System segments](./diagrams/space-security-segments.svg) | Conceptual; not a mission flight configuration |
 | [Wardriving](../Wardriving/README.md) | [Collection lifecycle](./diagrams/wardriving-collection-lifecycle.svg) | Authorized passive collection and privacy |
 | [Web App Security](../WebAppSecurity/README.md) | [Assessment lifecycle](./diagrams/webapp-assessment-cycle.svg) | Written scope and independently verified findings |
+| [Checklists](../Checklists/README.md) | [Assessment quality](./diagrams/checklist-assessment-quality.svg) | Scope, evidence and completeness |
+| [Scripts](../Scripts/README.md) | [Safe execution](./diagrams/safe-script-execution.svg) | Approve, test, log and rollback |
+| [uConsole](../uConsole/README.md) | [Six-phase CM5 setup](./diagrams/uconsole-six-phase-setup.svg) | Preserving working images and opt-in installs |
 
 ## Previously integrated figures — preserved
 
