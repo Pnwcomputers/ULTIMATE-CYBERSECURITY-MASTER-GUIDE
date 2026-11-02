@@ -6,6 +6,8 @@ _Last reviewed: 2026-11-01 (official documentation reviewed; device firmware not
 
 ## What SoloKeys are (and are not)
 
+For the browser–relying-party–authenticator trust boundaries, see the [FIDO2/WebAuthn visual walkthrough](./security-keys-passkeys.md#what-is-a-security-key) and its [authentication diagram](../assets/fido2-passkey-authentication-flow.svg).
+
 [SoloKeys](https://solokeys.com/) produces open-source security authenticators. Solo and Solo 2 support FIDO protocols for phishing-resistant account sign-in. **They are not conventional encrypted USB flash drives**; their FIDO functionality protects authentication credentials, not a mounted USB data volume.
 
 The [Solo 2 upstream project](https://github.com/solokeys/solo2) documents **FIDO2/WebAuthn**, and separate application support for **OATH (TOTP/HOTP), PIV, and OpenPGP**. Specific capabilities, host software and support depend on model and firmware. Do not equate the availability of an app in source code with certification or successful operation on every shipping device.
