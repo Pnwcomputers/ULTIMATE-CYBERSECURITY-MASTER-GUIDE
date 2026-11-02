@@ -9,6 +9,10 @@ Part of [OPSEC](../README.md) and the [Ultimate Cybersecurity Master Guide](../.
 
 ## Mission
 
+![Journalist source-protection lifecycle from risk assessment to legal-hold-aware retention or disposal](../../assets/journalist-source-data-lifecycle.svg)
+
+*Plan for minimal collection, protected handling and a retention decision made under newsroom policy and legal advice. A duress or seizure event calls for safety and counsel, not improvised data destruction.*
+
 Protect the human beings first, then confidential sources, records, communications and devices. Security controls should make information harder to expose **before** a dangerous incident, not depend on a risky last-minute action.
 
 ## Begin here
