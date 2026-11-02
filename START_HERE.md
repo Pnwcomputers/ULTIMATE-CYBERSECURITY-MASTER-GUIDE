@@ -35,6 +35,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Compliance / Auditor?** → [Compliance & GRC](Compliance/README.md) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
 - **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
 - **Cryptography?** → [Cryptography](Cryptography/README.md) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/README.md))
+- **Security Keys / FIDO2 / Passkeys?** → [Hardware Keys & Passkeys](Cryptography/security-keys-passkeys.md) → [SoloKeys](Cryptography/solokeys-guide.md) for enrollment and device verification.
+- **Encrypted USB / Hardware Storage?** → [Encrypted Storage](Cryptography/encrypted-storage.md) → [PhantomDrive research](Cryptography/phantomdrive-guide.md) for an experimental hidden-volume example.
 - **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **Wardriving / Wireless Surveys?** → [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have.
@@ -110,6 +112,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | 📋 **[Compliance & GRC](Compliance/README.md)** | Frameworks (NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS) and regulations (GDPR, HIPAA, CCPA) with control mapping |
 | 📦 **[Container & Kubernetes Security](ContainerSecurity/README.md)** | Image/runtime security, container escape, and Kubernetes hardening (RBAC, Pod Security Standards) |
 | 🔐 **[Cryptography](Cryptography/README.md)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum, classical ciphers & leetspeak |
+| 🔑 **[FIDO2 & Security Keys](Cryptography/security-keys-passkeys.md)** | FIDO certification levels, synced/device-bound passkeys, SoloKeys enrollment and account recovery |
+| 💾 **[Encrypted Drives](Cryptography/encrypted-storage.md)** | BitLocker, VeraCrypt, LUKS and experimental PhantomDrive USB study |
 | 🔴 **[OPSEC](OPSEC/README.md)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 **[Homelab Guides](Homelab/README.md)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 **[Incident Response](IncidentResponse/README.md)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
