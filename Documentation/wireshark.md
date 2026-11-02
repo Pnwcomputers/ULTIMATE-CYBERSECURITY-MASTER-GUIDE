@@ -70,15 +70,6 @@ This document provides a **comprehensive Wireshark filter reference** compiled f
 - 🔧 MikroTik RouterOS and OpenWRT sniffer configs
 - ⚡ Ready-to-paste minimum starter filter sets
 
-### Purpose
-
-This reference serves as:
-- **Field reference** for active packet analysis sessions
-- **Security operations** tool for threat hunting and incident response
-- **Training resource** for understanding protocol behavior
-- **Quick reference** for authorized wireless and IoT assessments
-- **Lab documentation** for homelab network monitoring
-
 ---
 
 ### Focused Wi-Fi deauthentication analysis
