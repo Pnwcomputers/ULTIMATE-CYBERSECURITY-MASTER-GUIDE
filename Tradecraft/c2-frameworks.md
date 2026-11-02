@@ -1,21 +1,6 @@
 # C2 Frameworks - Deep Dive
 
 
-## 🎯 Purpose
-C2 framework deep-dive covering Cobalt Strike, Sliver, and Havoc - architecture, deployment, malleable profiles, OpSec considerations, detection signatures, and defensive countermeasures.
-
-## ⚙️ Function
-Per-framework coverage: deployment setup, listener configuration, payload generation, staging vs stageless, malleable C2 profiles (Cobalt Strike), OPSEC-safe operations, traffic signatures, JA3/JA3S fingerprints, and Sigma/Sysmon detection rules for each framework's behaviors.
-
-## 🏆 Goal
-Give red teamers an operational reference for deploying C2 infrastructure safely, and blue teamers the signatures and behavioral indicators to detect and attribute C2 activity in their environments.
-
-## 📋 When to Use
-- Setting up Cobalt Strike, Sliver, or Havoc infrastructure for an authorized engagement
-- Building C2 traffic detections for a SOC or SIEM
-- Evaluating C2 framework selection for a specific engagement profile
-- Purple team: emulating C2 behavior and testing network detections
-
 > **Scope:** Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
 
 ✅ **Quick-reference checklist:** [Command and Control](../Checklists/command-and-control.md)
