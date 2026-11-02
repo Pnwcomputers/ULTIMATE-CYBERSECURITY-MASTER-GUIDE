@@ -550,9 +550,7 @@ suppressing an authentication agent is a universal fix.
 
 ### `libfm` ABI Mismatch (symbol lookup error)
 
-Use [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) to identify the selected session, package changes and startup
-errors. Restore the matching image configuration; do not assume generic Labwc, a forced package version, or
-suppressing an authentication agent is a universal fix.
+For this ABI mismatch, follow the [CM5 display recovery procedure](./CM5-DISPLAY-RECOVERY.md) and restore the compatible image packages; avoid forcing an unrelated library version.
 
 ### `aiov2_ctl --gui` fails: "PyQt6 is not installed"
 
@@ -586,9 +584,7 @@ sudo reboot
 
 ### GDBus error: polkit-mate agent conflict on Labwc
 
-Use [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) to identify the selected session, package changes and startup
-errors. Restore the matching image configuration; do not assume generic Labwc, a forced package version, or
-suppressing an authentication agent is a universal fix.
+For this PolKit error, inspect the session's authentication-agent configuration using [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md); do not disable the agent indiscriminately.
 
 ## Resources and Links
 
