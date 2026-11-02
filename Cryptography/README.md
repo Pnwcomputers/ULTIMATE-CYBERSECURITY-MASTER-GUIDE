@@ -175,6 +175,7 @@ For storage confidentiality, start with [Encrypted Drives and Removable Storage]
 - [encrypted-storage.md](encrypted-storage.md) - encrypted drive comparisons and safe handling
 - [phantomdrive-guide.md](phantomdrive-guide.md) - experimental USB research
 - [Classical/](Classical/) - classical ciphers, leetspeak, alternative alphabets, cryptanalysis
+- [../OPSEC/press-freedom/README.md](../OPSEC/press-freedom/README.md) - journalist and source protection, retention, and device seizure planning
 - [../Documentation/VPN.md](../Documentation/VPN.md) - applied transport encryption
 - [../GLOSSARY.md](../GLOSSARY.md) - acronyms (AEAD, KDF, PKI…)
 
