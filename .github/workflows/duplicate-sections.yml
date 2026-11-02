@@ -20,4 +20,4 @@ jobs:
         with:
           persist-credentials: false
       - name: Scan every Markdown file for same-page repetition
-        run: python3 -B tools/check_duplicate_sections.py --report-only
+        run: python3 -B tools/check_duplicate_sections.py
