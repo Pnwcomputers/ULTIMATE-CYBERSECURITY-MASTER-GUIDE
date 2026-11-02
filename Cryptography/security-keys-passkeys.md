@@ -6,6 +6,10 @@ Part of [Cryptography](./README.md). Related: [SoloKeys hands-on guide](./soloke
 
 ## What is a security key?
 
+![FIDO2/WebAuthn registration and challenge-response sign-in across service, browser and authenticator](../assets/fido2-passkey-authentication-flow.svg)
+
+*FIDO2 overview: the authenticator protects a credential's private key while the service uses public-key challenge verification. Browser origin binding and user presence/verification are separate checks. This is a conceptual diagram, not a certification of any device.*
+
 A **hardware security key** (roaming authenticator) can hold or derive cryptographic credentials used to prove account possession. In a standard FIDO/WebAuthn sign-in, a service verifies a signed challenge using a **public key**; a corresponding private credential secret remains protected by the authenticator's design. Browser origin binding helps resist look-alike login sites.
 
 A key's **touch/user presence** is not necessarily the same as **user verification** (PIN or biometric). Confirm what the service enforces. A hardware key is not inherently a general-purpose encrypted flash drive.
