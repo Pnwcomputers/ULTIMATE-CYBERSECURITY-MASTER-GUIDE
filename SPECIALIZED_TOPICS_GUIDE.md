@@ -61,7 +61,7 @@
 ---
 
 ## 🎯 Purpose
-The third guide in the master series - covers domains the other two guides only mention in passing: AI/LLM security, hardware hacking (fault injection, side-channel), hardware benchmarking, the uConsole cyberdeck, space security, and SDR/RF. Each Part is a condensed overview with "Deeper reference" pointers into the dedicated folders ([AI/](AI/), [HardwareHacking/](HardwareHacking/), [HardwareTesting/](HardwareTesting/), [uConsole/](uConsole/), [SpaceSecurity/](SpaceSecurity/), [SDR/](SDR/)) where the full technical depth lives.
+The third guide in the master series - covers domains the other two guides only mention in passing: AI/LLM security, hardware hacking (fault injection, side-channel), hardware benchmarking, the uConsole cyberdeck, space security, and SDR/RF. Each Part is a condensed overview with "Deeper reference" pointers into the dedicated folders ([AI/](AI/README.md), [HardwareHacking/](HardwareHacking/README.md), [HardwareTesting/](HardwareTesting/README.md), [uConsole/](uConsole/README.md), [SpaceSecurity/](SpaceSecurity/README.md), [SDR/](SDR/README.md)) where the full technical depth lives.
 
 ## ⚙️ Function
 6 parts (31 numbered sections) each opening with a "Deeper reference" callout linking to the corresponding folder's files, then summarizing that domain's core concepts inline. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md), which cover the core pentest lifecycle - this file exists specifically because those domains (AI security, hardware fault injection, satellite security, RF exploitation) don't fit that lifecycle framing and needed their own guide.
@@ -98,7 +98,7 @@ Choose the domain first, then read its **prerequisites, supported hardware, safe
 
 # PART I: AI & SELF-HOSTED LLM SECURITY
 
-> **Deeper reference:** [`AI/offensive_ai.md`](AI/offensive_ai.md) · [`AI/offline-llm.md`](AI/offline-llm.md) · [`AI/AnythingLLM/`](AI/AnythingLLM/) · [`AI/OpenClaw/`](AI/OpenClaw/)
+> **Deeper reference:** [`AI/offensive_ai.md`](AI/offensive_ai.md) · [`AI/offline-llm.md`](AI/offline-llm.md) · [`AI/AnythingLLM/`](AI/AnythingLLM/README.md) · [`AI/OpenClaw/`](AI/OpenClaw/README.md)
 
 ---
 
@@ -295,7 +295,7 @@ For homelab/NAS-hosted LLMs (see [`AI/offline-llm.md`](AI/offline-llm.md)):
 
 ## 3. AnythingLLM Security AgentFlows
 
-AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM reasoning with web scraping and API calls. The following flows are documented in [`AI/AnythingLLM/`](AI/AnythingLLM/).
+AnythingLLM's **AgentFlows** are automated multi-step workflows that chain LLM reasoning with web scraping and API calls. The following flows are documented in [`AI/AnythingLLM/`](AI/AnythingLLM/README.md).
 
 ### Available Security Flows
 
@@ -671,7 +671,7 @@ DATA POISONING DEFENSES:
 
 # PART II: HARDWARE HACKING
 
-> **Deeper reference:** [`HardwareHacking/`](HardwareHacking/) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
+> **Deeper reference:** [`HardwareHacking/`](HardwareHacking/README.md) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
 
 ---
 
@@ -1431,7 +1431,7 @@ sudo python3 HardwareTesting/py/stress_soak.py \
 
 ## 16. Python Automation Scripts
 
-All scripts are in [`HardwareTesting/py/`](HardwareTesting/py/). They stream CLI tool output live and generate Markdown reports.
+The testing scripts live under `HardwareTesting/py/`; start at the [Hardware Testing overview](HardwareTesting/README.md) for setup and usage. They stream CLI tool output live and generate Markdown reports.
 
 | Script | What It Does | Sudo | Primary Tools Used |
 |---|---|---|---|
@@ -1458,7 +1458,7 @@ All scripts are in [`HardwareTesting/py/`](HardwareTesting/py/). They stream CLI
 
 # PART IV: UCONSOLE PORTABLE CYBERDECK OPERATIONS
 
-> **Deeper reference:** [`uConsole/README.md`](uConsole/README.md) · [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) · [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) · [`uConsole/scripts/`](uConsole/scripts/)
+> **Deeper reference:** [`uConsole/README.md`](uConsole/README.md) · [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) · [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) · [`uConsole/scripts/`](uConsole/scripts/README.md)
 
 ---
 
@@ -1726,7 +1726,7 @@ hcitool scan
 
 # PART V: SPACE SECURITY
 
-> **Deeper reference:** [`SpaceSecurity/`](SpaceSecurity/) - PartI through PartIV + Appendices
+> **Deeper reference:** [`SpaceSecurity/`](SpaceSecurity/README.md) - PartI through PartIV + Appendices
 
 ---
 
@@ -2515,7 +2515,7 @@ pip install pyrtlsdr pyModeS
 |---|---|---|
 | AI red teaming | [§5](#5-offensive-ai-techniques) | [`AI/offensive_ai.md`](AI/offensive_ai.md) |
 | Offline LLM setup | [§2](#2-self-hosted-llm-deployment---ollama--dolphin) | [`AI/offline-llm.md`](AI/offline-llm.md) |
-| AnythingLLM flows | [§3](#3-anythingllm-security-agentflows) | [`AI/AnythingLLM/`](AI/AnythingLLM/) |
+| AnythingLLM flows | [§3](#3-anythingllm-security-agentflows) | [`AI/AnythingLLM/`](AI/AnythingLLM/README.md) |
 | OpenClaw setup | [§4](#4-openclaw-platform-setup) | [`AI/OpenClaw/README.md`](AI/OpenClaw/README.md) |
 | Hardware threat modeling | [§8](#8-hardware-threat-modeling) | [`HardwareHacking/Chapter1.md`](HardwareHacking/Chapter1.md) |
 | UART/SPI/JTAG interfaces | [§9](#9-electrical-fundamentals--debug-interfaces) | [`HardwareHacking/Chapter2.md`](HardwareHacking/Chapter2.md) |
@@ -2523,7 +2523,7 @@ pip install pyrtlsdr pyModeS
 | SPA/DPA/CPA | [§11](#11-side-channel-analysis) | [`HardwareHacking/Chapter4.md`](HardwareHacking/Chapter4.md) |
 | CPA implementation | [§12](#12-power-analysis-practicals) | [`HardwareHacking/Chapter5.md`](HardwareHacking/Chapter5.md) |
 | Bus Pirate | [§13](#13-hardware-hacking-tools--bench-setup) | [`HardwareHacking/BusPirate.md`](HardwareHacking/BusPirate.md) |
-| Hardware benchmarking | [§14–16](#part-iii-hardware-testing--benchmarking) | [`HardwareTesting/`](HardwareTesting/) |
+| Hardware benchmarking | [§14–16](#part-iii-hardware-testing--benchmarking) | [`HardwareTesting/`](HardwareTesting/README.md) |
 | uConsole hardware | [§17](#17-uconsole-hardware-overview) | [`uConsole/README.md`](uConsole/README.md) |
 | CM4 setup | [§18](#18-cm4-setup--configuration) | [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) |
 | CM5 setup | [§19](#19-cm5-setup--configuration) | [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) |
@@ -2573,7 +2573,7 @@ See [LEGAL.md](LEGAL.md) for complete terms.
 - [START_HERE.md](START_HERE.md) - Navigation guide for all sections
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Second guide in the series
 - [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) - First guide in the series
-- [HardwareHacking/](HardwareHacking/) - Hardware hacking tool guides
+- [HardwareHacking/](HardwareHacking/README.md) - Hardware hacking tool guides
 - [AI/README.md](AI/README.md) - AI security resources
 - [uConsole/README.md](uConsole/README.md) - uConsole cyberdeck section
 
