@@ -9,6 +9,8 @@ _Last reviewed: 2026-11-01 (journalist safety and platform guidance reviewed; no
 
 ## Before an assignment: design for safe failure
 
+See the [journalist and source-data lifecycle diagram](../../assets/journalist-source-data-lifecycle.svg) for the distinction between **ordinary policy-approved disposal** and **emergency safety/evidence-preservation response**.
+
 Set up protective defaults **well before** an unexpected confrontation.
 
 1. **Minimize sensitive local data.** Carry only the documents essential for the assignment and use a separate, fully encrypted field device when possible.
