@@ -44,6 +44,7 @@ choices and recognizing the recurring mistakes - grounded in NIST guidance.
 - [Current vs Deprecated (Quick Reference)](#-current-vs-deprecated-quick-reference)
 - [Post-Quantum Cryptography](#-post-quantum-cryptography)
 - [Folder Contents](#-folder-contents)
+- [Hardware keys and encrypted storage](#-hardware-keys-and-encrypted-storage)
 - [Important Notice](#-important-notice)
 - [Resources](#-resources)
 
@@ -111,12 +112,24 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 
 ---
 
+## 🔑 Hardware keys and encrypted storage
+
+Use the [Hardware Security Keys and Passkeys](./security-keys-passkeys.md) guide for FIDO2, WebAuthn, synced vs device-bound passkeys, and authenticator certification levels (L1, L1+, L2, L3, L3+). Its [SoloKeys guide](./solokeys-guide.md) covers the Solo 2 Secure/Hacker distinction and safe enrollment.
+
+For storage confidentiality, start with [Encrypted Drives and Removable Storage](./encrypted-storage.md) and use [PhantomDrive](./phantomdrive-guide.md) only as an experimental hardware/firmware research example. Hardware login tokens are **not** encrypted USB drives; supported OpenPGP/PIV features are separate from FIDO authentication.
+
+---
+
 ## 📂 Folder Contents
 
 | File | Description | Status |
 |------|-------------|--------|
 | **[algorithms.md](./algorithms.md)** | Algorithm reference by primitive - symmetric, asymmetric, hashing, KDFs, and PQC, with key sizes and deprecations | ✅ Complete |
 | **[applied-crypto.md](./applied-crypto.md)** | Applied cryptography - TLS, password storage, key management, randomness, and common mistakes | ✅ Complete |
+| **[encrypted-storage.md](./encrypted-storage.md)** | Removable drive encryption, technology comparisons, recovery and safe client evidence handling | ✅ Reference |
+| **[phantomdrive-guide.md](./phantomdrive-guide.md)** | Experimental PhantomDrive CH569W hidden encrypted USB, testing and risk limits | ✅ Research guide |
+| **[security-keys-passkeys.md](./security-keys-passkeys.md)** | FIDO2, WebAuthn, passkey types, authenticator security certification levels and audits | ✅ Reference |
+| **[solokeys-guide.md](./solokeys-guide.md)** | Solo 2 Secure/Hacker, key enrollment, verification, firmware and OpenPGP/PIV boundaries | ✅ Device guide |
 | **[Mary, Queen of Scots](./Classical/mary-queen-of-scots.md)** | Historical cipher case study, intercepted correspondence, and a worked teaching example | ✅ Complete |
 | **[Deciphering workbook](./Classical/deciphering-workbook.md)** | Cipher comparisons, worked decryption, unknown-key methods, practice exercises, and a MIT Press reading connection | ✅ Complete |
 | **[Classical/](./Classical/)** | Classical ciphers, leetspeak, Unicode alphabets and homoglyphs, cryptanalysis (frequency analysis, Kasiski, IC), and a Python toolkit | ✅ Complete |
@@ -157,6 +170,10 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 ## Related Files
 - [algorithms.md](algorithms.md) - algorithm reference by primitive
 - [applied-crypto.md](applied-crypto.md) - TLS, password storage, key management
+- [security-keys-passkeys.md](security-keys-passkeys.md) - FIDO2 and passkey fundamentals, levels and deployment
+- [solokeys-guide.md](solokeys-guide.md) - SoloKeys hardware walkthrough
+- [encrypted-storage.md](encrypted-storage.md) - encrypted drive comparisons and safe handling
+- [phantomdrive-guide.md](phantomdrive-guide.md) - experimental USB research
 - [Classical/](Classical/) - classical ciphers, leetspeak, alternative alphabets, cryptanalysis
 - [../Documentation/VPN.md](../Documentation/VPN.md) - applied transport encryption
 - [../GLOSSARY.md](../GLOSSARY.md) - acronyms (AEAD, KDF, PKI…)
