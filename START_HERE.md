@@ -42,6 +42,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Wardriving / Wireless Surveys?** → [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have.
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/README.md) + [SpaceSecurity](SpaceSecurity/README.md)
 - **Reverse Engineering / Binary Analysis?** → [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md)
+- **Journalist / Confidential Sources / Press Freedom?** → [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) → [Device & Network Protection](OPSEC/press-freedom/device-network-protection.md) → [Data Retention](OPSEC/press-freedom/data-retention-removal.md) → [Duress & Seizure Plan](OPSEC/press-freedom/duress-seizure-response.md).
 - **Privacy Workstation / USB Setup?** → [OPSEC](OPSEC/README.md) + [Whonix + Kicksecure USB](OPSEC/whonix-kicksecure-usb-guide.md) or [Tails USB](OPSEC/tails-usb-setup-guide.md); choose the workflow before installation
 - **Data Engineering / Pipelines?** → [Data Engineering](Data-Engineering/README.md) + its phased learning path and [secure pipeline guide](Data-Engineering/data_pipelines.md)
 - **uConsole Setup?** → [uConsole index](uConsole/README.md) · [CM4 safety review](uConsole/CM4-SAFETY-REVIEW.md) · [CM5 recovery](uConsole/CM5-DISPLAY-RECOVERY.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md)
@@ -114,6 +115,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | 🔐 **[Cryptography](Cryptography/README.md)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum, classical ciphers & leetspeak |
 | 🔑 **[FIDO2 & Security Keys](Cryptography/security-keys-passkeys.md)** | FIDO certification levels, synced/device-bound passkeys, SoloKeys enrollment and account recovery |
 | 💾 **[Encrypted Drives](Cryptography/encrypted-storage.md)** | BitLocker, VeraCrypt, LUKS and experimental PhantomDrive USB study |
+| 📰 **[Press Freedom & Source Protection](OPSEC/press-freedom/README.md)** | Journalists and newsrooms: source confidentiality, device security, lawful retention, coercion and seizure response |
 | 🔴 **[OPSEC](OPSEC/README.md)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 **[Homelab Guides](Homelab/README.md)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 **[Incident Response](IncidentResponse/README.md)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
@@ -259,4 +261,5 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 - [README.md](README.md) - Full repo index
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Main comprehensive guide
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized topics guide
+- [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) - Reporter/source digital-security and duress preparation
 - [LEGAL.md](LEGAL.md) - Legal terms before using any technique
