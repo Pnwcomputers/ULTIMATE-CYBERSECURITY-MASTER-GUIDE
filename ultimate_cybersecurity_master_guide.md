@@ -80,6 +80,8 @@
 41. [Report Writing](#report-writing)
 42. [Legal & Ethical Considerations](#legal--ethical-considerations)
 
+**[Current companion modules (November 2026)](#current-companion-modules-november-2026)**
+
 ### PART XI: TRADECRAFT REFERENCE
 43. [Tradecraft Overview](Tradecraft/README.md)
 44. [C2 Frameworks](Tradecraft/c2-frameworks.md)
@@ -102,6 +104,28 @@ A reader can execute a complete penetration test - from reconnaissance through r
 
 ## 📋 When to Use
 As the primary technical reference during an engagement, when studying for OSCP/CEH/GPEN, or as the first stop before consulting the more specialized guides.
+
+
+## Current Companion Modules (November 2026)
+
+The eleven foundational parts above remain the **core learning sequence**. The repository also contains maintained, hands-on modules that extend this overview. Use the links below for current procedures, compatibility caveats, evidence handling, and platform-specific setup; this master guide is an orientation document, not a substitute for validating commands against the target system.
+
+| Topic | Canonical guides and relevant next steps |
+| --- | --- |
+| Cryptography and key management | [Applied cryptography](Cryptography/applied-crypto.md), [encrypted storage fundamentals](Cryptography/encrypted-storage.md), and [classical ciphers and cryptanalysis](Cryptography/Classical/README.md). Distinguish encryption at rest from authentication. |
+| Phishing-resistant account access | [FIDO2, WebAuthn, passkeys, and security-key certification](Cryptography/security-keys-passkeys.md) and [SoloKeys setup](Cryptography/solokeys-guide.md). Certification levels are not FIDO protocol versions; plan spare-key enrollment and account recovery. |
+| Experimental removable storage | [PhantomDrive research guide](Cryptography/phantomdrive-guide.md). Treat hidden-storage and deniability claims as a research topic, not a substitute for vetted encryption or verified backups. |
+| Operating-system privacy | [OPSEC index](OPSEC/README.md), [Tails USB](OPSEC/tails-usb-setup-guide.md), and [Whonix/Kicksecure setup](OPSEC/whonix-kicksecure-usb-guide.md). Select the operating model based on actual risk, persistence, and network needs. |
+| Safe device and data handling | [Press freedom and source protection](OPSEC/press-freedom/README.md), [retention and removal planning](OPSEC/press-freedom/data-retention-removal.md), and [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md). Respect legal holds and preserve required evidence; no technique guarantees recovery prevention. |
+| Authorized reconnaissance | [OSINT methodology](OSINT/README.md), [investigation playbook](OSINT/Playbook/README.md), and [network audit playbook](PlayBooks/NetworkAuditPlayBook.md). Confirm written scope and collection limits first. |
+| Wireless survey and visibility | [Wardriving guide](Wardriving/README.md), [field workflow](Wardriving/field-workflow.md), [Wireshark master filter catalog](Documentation/wireshark-master-filters.md), and [wireless deauthentication detection](Documentation/wifi-deauthentication-detection.md). Passive surveying is not authorization for interference. |
+| Detection and monitoring | [IDS/IPS catalog](IncidentResponse/IDS%26IPS/readme.md), [Kismet–Wazuh wireless lab](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), [nzyme–Wazuh integration](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md), and [SIEM reference](IncidentResponse/SIEM/README.md). |
+| Deception and incident response | [Honeypot deployment index](IncidentResponse/HoneyPot/readme.md), [Wazuh honeypot integration](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md), and [digital forensics index](IncidentResponse/Digital-Forensics/README.md). Use segmented, monitored lab resources. |
+| Software, infrastructure, and cloud | [Web application testing](WebAppSecurity/README.md), [cloud security](Cloud/README.md), [container and Kubernetes security](ContainerSecurity/README.md), and [compliance frameworks](Compliance/README.md). |
+| Evidence, logging, and reporting | [Data engineering and telemetry](Data-Engineering/README.md), [network assessment playbook](PlayBooks/NetworkAuditPlayBook.md), [security checklists](Checklists/README.md), and [practical cheat sheets](Documentation/README.md). |
+| Specialized devices and analysis | [Specialized topics guide](SPECIALIZED_TOPICS_GUIDE.md), [NanoVNA RF measurement](SDR/nanovna/README.md), [Tsurugi OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md), and [REMnux malware analysis](ReverseEngineering/remnux-malware-analysis-guide.md). |
+
+**Maintenance note (November 2, 2026):** This companion-module index was reconciled with the repository's current guide paths. Earlier command examples elsewhere in this long-form master document should still be checked against the relevant maintained topic page and current upstream documentation before use.
 
 # PART I: FOUNDATIONS
 
