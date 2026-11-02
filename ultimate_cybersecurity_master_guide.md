@@ -6,21 +6,6 @@
 > not own or lack explicit written permission to test is illegal. See
 > [LEGAL.md](LEGAL.md).
 
-## 🎯 Purpose
-Foundational cybersecurity master guide compiled from 70+ professional security books - covering the complete penetration testing lifecycle with expert-sourced methodology and key takeaways.
-
-## ⚙️ Function
-Covers: reconnaissance (OSINT, active scanning), exploitation (web, network, AD), post-exploitation (privilege escalation, lateral movement, persistence, data exfil), defensive techniques, incident response basics, and professional reporting - all synthesized from expert literature.
-
-## 🏆 Goal
-Distill 70+ expert cybersecurity books into a single actionable reference that captures methodology, key techniques, and professional standards for authorized security assessments.
-
-## 📋 When to Use
-- Learning systematic penetration testing methodology
-- Referencing expert-sourced best practices during an assessment
-- Study for professional certifications (OSCP, CEH, Security+)
-- Building a mental framework for offensive and defensive security
-
 ## Complete Professional Resource Compilation
 
 *Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books*
