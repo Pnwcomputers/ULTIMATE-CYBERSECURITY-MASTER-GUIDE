@@ -37,6 +37,14 @@ Set up protective defaults **well before** an unexpected confrontation.
 - [Apple temporary Face ID disable](https://support.apple.com/guide/iphone/set-up-face-id-iph6d162927a/ios) — separate from Apple's Lockdown Mode.
 - [Apple Lockdown Mode](https://support.apple.com/en-us/105120) — targeted-spyware protection on compatible Apple systems.
 
+## Remote wiping, shutdown triggers, and retention limits
+
+A newsroom may evaluate **remote-wipe management** for a genuinely lost or stolen device as part of a previously approved, legally compliant incident-response policy. Its use must be considered against the risks to people, evidence and preservation duties. Remote wiping is **not reliable after a seizure**: a device may be isolated from networks, and wiping during a legal process may create additional hazards.
+
+For a safety-oriented automatic response, consider **lock or shutdown-only** behavior on supported laptops rather than an irreversible wiping trigger; test it in a controlled setting so accidental disconnections do not cause data loss. A device that powers off with strong full-disk encryption still requires a secure backup and may remain vulnerable to forensic, legal or physical coercion.
+
+The [Freedom of the Press Foundation's guide on raids](https://freedom.press/digisec/blog/safeguarding-sources-and-sensitive-information-in-the-event-of-a-raid/) explains the limits of remote wiping, pre-incident minimization and safer encryption practices. Seek legal advice before configuring any destructive response, and do not rely on a panic mechanism to protect a source during confrontation.
+
 ## During detention, threat or seizure
 
 1. **Prioritize your personal safety and de-escalation.** Do not physically resist or put anyone at risk to protect a phone or laptop.
@@ -75,6 +83,7 @@ Do not store source identities or private legal advice in a broadly accessible i
 
 ## Source support and professional help
 
+- [FPF: Safeguarding sources and sensitive information in the event of a raid](https://freedom.press/digisec/blog/safeguarding-sources-and-sensitive-information-in-the-event-of-a-raid/)
 - [CPJ Safety Kit](https://cpj.org/safety-kit/) — press safety resources and emergency assistance.
 - [CPJ Digital Safety Kit](https://cpj.org/2019/07/digital-safety-kit-journalists/) — device, account, travel and confiscation guidance.
 - [Freedom of the Press Foundation 2026 checklist](https://freedom.press/digisec/blog/journalists-digital-security-checklist/)
