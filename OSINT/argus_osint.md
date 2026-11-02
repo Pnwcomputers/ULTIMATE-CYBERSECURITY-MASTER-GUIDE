@@ -1,19 +1,5 @@
 # Argus Recon Toolkit - Installation Guide
 
-## 🎯 Purpose
-Installation guide for the Argus Recon OSINT Toolkit on modern Linux systems (Ubuntu/Debian, Python 3.12+) - a Python-based information gathering and reconnaissance tool.
-
-## ⚙️ Function
-Covers: prerequisites, Python 3.12 venv setup, Argus cloning and dependency installation, API key configuration (Shodan, VirusTotal, etc.), launch verification, and troubleshooting common Python 3.12 installation issues.
-
-## 🏆 Goal
-Get Argus running on a modern Debian/Ubuntu system without the typical Python version conflict issues that affect older install guides.
-
-## 📋 When to Use
-- Setting up a fresh OSINT workstation with the Argus toolkit
-- Troubleshooting Argus installation on Python 3.12+
-- Adding another automated recon tool to the OSINT Investigator Playbook workflow
-
 This guide provides a streamlined path for installing and running the [The Argus Recon OSINT Toolkit](https://github.com/jasonxtn/argus) by [Jason13](https://github.com/jasonxtn) on a modern Linux system (Ubuntu/Debian) using Python 3.12+. Argus is a Python-based toolkit for Information Gathering & Reconnaissance
 
 ## 🎯 Purpose
