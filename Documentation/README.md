@@ -225,6 +225,8 @@ We welcome contributions from security professionals and researchers.
 ---
 
 ## 🔗 Related Files
+- [Diagram and Image Asset Index](../assets/README.md) - Topic-specific visual workflows and diagrams across the repository
+- [Repository Visual Coverage Review](../assets/VISUAL-AUDIT-2026-11-02.md) - Placement audit, validation limits, and future screenshot requirements
 - [../Homelab/README.md](../Homelab/README.md) - Homelab build guides and network architecture
 - [../OSINT/README.md](../OSINT/README.md) - OSINT methodology and tools guide
 - [../Checklists/README.md](../Checklists/README.md) - Security assessment checklists
