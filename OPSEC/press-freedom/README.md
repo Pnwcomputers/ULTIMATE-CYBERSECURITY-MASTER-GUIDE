@@ -80,6 +80,8 @@ Protecting journalism and sources is an important purpose, but this guide **does
 - [Electronic Frontier Foundation — Surveillance Self-Defense](https://ssd.eff.org/)
 - [Access Now Digital Security Helpline](https://www.accessnow.org/help/)
 - [NIST SP 800-88 Revision 2, media sanitization](https://csrc.nist.gov/pubs/sp/800/88/r2/final)
+- [Freedom of the Press Foundation — safeguarding sources in a raid](https://freedom.press/digisec/blog/safeguarding-sources-and-sensitive-information-in-the-event-of-a-raid/)
+- [Reporters Committee for Freedom of the Press — Reporter's Privilege Compendium](https://www.rcfp.org/introduction-to-the-reporters-privilege-compendium/)
 
 ## See also
 
