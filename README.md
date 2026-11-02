@@ -611,5 +611,6 @@ Want to help the community?
 - [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) - Third guide in the series
 - [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) - Journalist device, source confidentiality and retention / duress planning
 - [LEGAL.md](./LEGAL.md) - Legal disclaimer and terms of use
+- [Diagram and Image Asset Index](./assets/README.md) - All embedded figures, topic placements, accessible new SVG diagrams and unassigned-asset review
 - [CHANGELOG.md](./CHANGELOG.md) - Repository change history
 
