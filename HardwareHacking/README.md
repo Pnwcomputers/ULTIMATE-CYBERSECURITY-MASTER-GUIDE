@@ -382,6 +382,8 @@ To contribute to the Hardware Hacking section:
 - [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: RFID/NFC/sub-GHz tool for the RF-adjacent attack surface of embedded devices
 - [../SDR/](../SDR/) - SDR guides: RF analysis of wireless-enabled embedded targets
 - [../IncidentResponse/](../IncidentResponse/) - Incident response: detecting hardware-level attacks and evidence collection from embedded devices
+- [../Cryptography/phantomdrive-guide.md](../Cryptography/phantomdrive-guide.md) - experimental CH569W hidden encrypted USB firmware research; not audited for client data
+- [../Cryptography/solokeys-guide.md](../Cryptography/solokeys-guide.md) - Solo 2 Secure/Hacker firmware-security boundary and authentication use
 - [../Mobile/README.md](../Mobile/README.md) - Mobile security section (HID/BadUSB via NetHunter is a mobile hardware attack vector)
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (HID and BadUSB attack procedures)
 
