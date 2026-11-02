@@ -13,7 +13,7 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [AD attack paths](./ad_attack_paths.png) | [AD attacks and defenses](../Tradecraft/active-directory.md#kerberos-attacks) | Kerberos and AD risk-path illustration |
 | [AI agent architecture](./ai_agent_arch.png) | [AI section](../AI/README.md) | Conceptual file-system-first agent/tool boundaries |
 | [Hardware diagnostics](./hardware_diagnostics.png) | [Hardware Testing](../HardwareTesting/README.md) | Reference board-level diagnostic workflow |
-| [Network architecture](./network_security_arch.png) | [Homelab](../Homelab/README.md#getting-started-lab-architecture) | Example segmented design, not a verified live topology |
+| [Network architecture](./network_security_arch.png) | [Homelab](../Homelab/README.md) | Example segmented design, not a verified live topology |
 | [RAM versus storage](./ram_vs_storage.png) | [Manjaro test bench](../HardwareTesting/Manjaro_Intel_TestBench.md#5-memory-and-storage-diagnostics) | Introductory CPU/RAM/storage mental model |
 | [VM compartmentalization](./vm_compartmentalization.png) | [OPSEC guide](../OPSEC/README.md#principles) | Boundary illustration with important host/guest limitations |
 | [Wireless auditing](./wireless_auditing.png) | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md#section-2-wireless-specific-testing-procedures) | Wireless engagement workflow |
