@@ -1,20 +1,5 @@
 # SPECIALIZED TOPICS GUIDE
 
-## 🎯 Purpose
-Third guide in the master series - deep-dive into specialized and emerging cybersecurity domains: AI/LLM security, hardware hacking, hardware testing, uConsole cyberdeck, space security, and SDR/RF security.
-
-## ⚙️ Function
-Covers specialized topics not fully addressed in the main guides: AI/LLM attack surfaces and defenses, hardware hacking techniques (JTAG, UART, SPI, fault injection), hardware testing methodology, uConsole operational workflows, space system security (ground/link/space segments), and SDR-based attacks and monitoring.
-
-## 🏆 Goal
-Extend the guide series into specialized domains that represent cutting-edge and emerging attack surfaces, giving practitioners a starting point for hardware, AI, space, and RF security work.
-
-## 📋 When to Use
-- Working on hardware hacking (embedded systems, IoT, SBCs)
-- Assessing AI/LLM security or prompt injection risks
-- Setting up SDR-based monitoring or RF security work
-- Space systems security research or assessment
-
 ## Advanced & Emerging Cybersecurity Domains
 
 *This guide is the third in the PNWC Master Guide series:*
