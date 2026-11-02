@@ -1,19 +1,5 @@
 # OSINT (Open Source Intelligence) Basic/General Guide
 
-## 🎯 Purpose
-Basic and general OSINT guide covering foundational methodology, core tools, and standard recon workflows for investigative and reconnaissance work.
-
-## ⚙️ Function
-Covers: OSINT methodology (passive vs active recon), OPSEC for investigators, domain/IP/email/person enumeration, social media OSINT, Google dorks, Maltego, Shodan, theHarvester, and building an OSINT investigation workflow.
-
-## 🏆 Goal
-Provide a complete beginner-to-intermediate OSINT reference that builds systematic investigation habits while pointing to the advanced guide for deep threat intelligence workflows.
-
-## 📋 When to Use
-- Starting OSINT work and needing a structured methodology reference
-- Running a basic domain or person investigation
-- Learning OSINT tools and workflows for professional development
-
 ### [Click Here For The Advanced OSINT Guide](../Tradecraft/osint-threat-intel.md) 
 
 ## 🎯 Purpose
