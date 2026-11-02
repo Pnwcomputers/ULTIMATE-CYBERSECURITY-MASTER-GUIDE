@@ -59,6 +59,10 @@ Get a self-hosted AI agent running (OpenClaw or AnythingLLM) with role-appropria
 
 ## 🎯 Overview
 
+![Conceptual file-system-first AI agent architecture](../assets/ai_agent_arch.png)
+
+*Conceptual AI agent architecture showing the orchestration and data/tool boundaries. Specific OpenClaw and AnythingLLM deployments may use different components, permissions and isolation.*
+
 This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity - with an emphasis on **self-hosted, privacy-respecting deployments** that keep your data on your own hardware.
 
 **What You'll Find Here:**

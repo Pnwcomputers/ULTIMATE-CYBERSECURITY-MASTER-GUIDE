@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 676" role="img" aria-labelledby="title desc">
+<title id="title">Encrypted storage protection boundaries</title><desc id="desc">Locked encrypted drive data is protected at rest. Unlocking on a trusted computer allows the operating system to read plaintext. Compromised hosts, backups, cloud copies and legal disclosure lie outside the protection that disk encryption alone offers. Independent backups and recovery tests are required.</desc>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#38bdf8"/></marker></defs>
+<rect width="1220" height="676" rx="20" fill="#0b1223"/>
+<g font-family="Arial,sans-serif">
+<text x="38" y="54" fill="#f8fafc" font-size="32" font-weight="700">Encrypted storage: where protection begins and ends</text>
+<text x="38" y="85" fill="#a7b9d4" font-size="17">Use vetted encryption, a trustworthy endpoint and a separately protected restore path</text>
+<rect x="40" y="122" width="340" height="235" rx="17" fill="#17382e" stroke="#34d399" stroke-width="2"/>
+<text x="65" y="162" fill="#a7f3d0" font-size="25" font-weight="700">LOCKED</text>
+<text x="65" y="200" fill="#e2e8f0" font-size="20" font-weight="700">Encrypted drive</text>
+<text x="65" y="231" fill="#cbd5e1" font-size="17">Data at rest: ciphertext</text>
+<text x="65" y="261" fill="#cbd5e1" font-size="17">Loss/theft resistance depends</text>
+<text x="65" y="286" fill="#cbd5e1" font-size="17">on configuration and keys</text>
+<text x="65" y="330" fill="#a7f3d0" font-size="16">Protect the unlock secret</text>
+<rect x="437" y="122" width="340" height="235" rx="17" fill="#1c304d" stroke="#38bdf8" stroke-width="2"/>
+<text x="462" y="162" fill="#7dd3fc" font-size="25" font-weight="700">UNLOCK</text>
+<text x="462" y="200" fill="#e2e8f0" font-size="20" font-weight="700">Trusted computer</text>
+<text x="462" y="231" fill="#cbd5e1" font-size="17">Credential / device policy</text>
+<text x="462" y="261" fill="#cbd5e1" font-size="17">Authorizes volume mount</text>
+<text x="462" y="286" fill="#cbd5e1" font-size="17">Review access and logging</text>
+<text x="462" y="330" fill="#7dd3fc" font-size="16">Check encryption is active</text>
+<rect x="834" y="122" width="340" height="235" rx="17" fill="#443025" stroke="#f59e0b" stroke-width="2"/>
+<text x="860" y="162" fill="#fcd34d" font-size="25" font-weight="700">UNLOCKED</text>
+<text x="860" y="200" fill="#e2e8f0" font-size="20" font-weight="700">Mounted plaintext</text>
+<text x="860" y="231" fill="#e2e8f0" font-size="17">Apps and OS can read files</text>
+<text x="860" y="261" fill="#e2e8f0" font-size="17">Malware, swap and sharing</text>
+<text x="860" y="286" fill="#e2e8f0" font-size="17">may expose sensitive data</text>
+<text x="860" y="330" fill="#fcd34d" font-size="16">Lock/unmount when finished</text>
+<path d="M380 235H430" fill="none" stroke="#38bdf8" stroke-width="4" marker-end="url(#a)"/>
+<path d="M777 235H827" fill="none" stroke="#38bdf8" stroke-width="4" marker-end="url(#a)"/>
+<rect x="40" y="401" width="554" height="154" rx="15" fill="#142338" stroke="#475569"/>
+<text x="64" y="437" font-size="22" font-weight="700" fill="#e2e8f0">Recovery &amp; continuity</text>
+<text x="64" y="469" font-size="17" fill="#cbd5e1">Separately secured recovery keys / backup media</text>
+<text x="64" y="498" font-size="17" fill="#cbd5e1">Test restoring without the original drive</text>
+<text x="64" y="526" font-size="17" fill="#cbd5e1">Include snapshots, replicas and cloud copies in policy</text>
+<rect x="626" y="401" width="548" height="154" rx="15" fill="#3d2130" stroke="#fb7185"/>
+<text x="650" y="437" font-size="22" font-weight="700" fill="#fda4af">Outside disk-encryption guarantees</text>
+<text x="650" y="469" font-size="17" fill="#ffe4e6">Compromised endpoint or unlocked session</text>
+<text x="650" y="498" font-size="17" fill="#ffe4e6">Copies held by other people and online services</text>
+<text x="650" y="526" font-size="17" fill="#ffe4e6">Physical coercion, legal process and data integrity</text>
+<text x="40" y="600" font-size="18" fill="#a7b9d4">Cryptographic mode matters: XTS protects sector confidentiality; it is not authenticated encryption.</text>
+<text x="40" y="631" font-size="18" fill="#a7b9d4">A FIDO2 hardware key signs authentication challenges; it does not automatically encrypt a USB drive.</text>
+</g></svg>

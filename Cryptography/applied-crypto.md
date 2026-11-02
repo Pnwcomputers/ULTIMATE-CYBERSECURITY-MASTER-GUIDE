@@ -190,6 +190,8 @@ Account recovery must not become an easier way to bypass MFA.
 
 ## Hardware Security Keys
 
+For a dedicated current overview of **FIDO2, WebAuthn, passkeys, L1/L2/L3 certification levels** and SoloKeys, see [Security Keys and Passkeys](./security-keys-passkeys.md) and [SoloKeys](./solokeys-guide.md). Hardware FIDO authentication is not itself a removable-drive encryption method; see [Encrypted Storage](./encrypted-storage.md).
+
 Hardware security keys, including YubiKeys, Google Titan Security Keys, FEITIAN
 keys, and other FIDO-certified authenticators, store cryptographic credentials
 in dedicated hardware.
@@ -544,13 +546,20 @@ Key management is where most real deployments fail. See
 
 ## Applied encryption hardware research
 
+See [Encrypted Drives and Removable Storage](./encrypted-storage.md) for production tool categories and recovery controls. [PhantomDrive](./phantomdrive-guide.md) is a separate CH569W hidden-volume experiment with unaudited firmware and configurable AES-XTS/CTR builds; use only synthetic test files. Neither DIY project should be represented as an independently validated client-data storage product.
+
 [PNWC ESP32-S3 Encrypted Vault](https://github.com/Pnwcomputers/esp32-s3-encrypted-vault) is a practical development project using AES-256-GCM encrypted microSD storage and a local ESP32-S3 unlock workflow. Read its current threat model, key derivation, firmware build notes and recovery limitations before testing. **The upstream README labels it a development build for disposable test data; do not rely on it for production secrets or irreplaceable files.** This provides a useful case study in authenticated encryption, key handling, USB exposure and embedded-device attack surfaces—not a certification of storage security.
 
 ## Related Files
 
 - [README.md](README.md) - Cryptography section index
 - [algorithms.md](algorithms.md) - Algorithm reference by primitive
+- [security-keys-passkeys.md](security-keys-passkeys.md) - FIDO2, passkeys, assurance levels
+- [solokeys-guide.md](solokeys-guide.md) - SoloKeys setup and safe evaluation
+- [encrypted-storage.md](encrypted-storage.md) - removable drive encryption and recovery
+- [phantomdrive-guide.md](phantomdrive-guide.md) - experimental hidden encrypted USB
 - [Classical/](Classical/) - Classical ciphers, leetspeak, homoglyphs, and cryptanalysis
+- [../OPSEC/press-freedom/README.md](../OPSEC/press-freedom/README.md) - source confidentiality and press-freedom protection
 - [../Documentation/VPN.md](../Documentation/VPN.md) - Applied transport encryption
 - [../WebAppSecurity/owasp-top-10.md](../WebAppSecurity/owasp-top-10.md) - A04 Cryptographic Failures
 

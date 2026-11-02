@@ -35,11 +35,14 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Compliance / Auditor?** → [Compliance & GRC](Compliance/README.md) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
 - **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
 - **Cryptography?** → [Cryptography](Cryptography/README.md) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/README.md))
+- **Security Keys / FIDO2 / Passkeys?** → [Hardware Keys & Passkeys](Cryptography/security-keys-passkeys.md) → [SoloKeys](Cryptography/solokeys-guide.md) for enrollment and device verification.
+- **Encrypted USB / Hardware Storage?** → [Encrypted Storage](Cryptography/encrypted-storage.md) → [PhantomDrive research](Cryptography/phantomdrive-guide.md) for an experimental hidden-volume example.
 - **Hardware Hacker?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)
 - **AI / LLM Security?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Part I) + [AI Resources](AI/README.md)
 - **Wardriving / Wireless Surveys?** → [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have.
 - **SDR / RF / Space?** → [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/README.md) + [SpaceSecurity](SpaceSecurity/README.md)
 - **Reverse Engineering / Binary Analysis?** → [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md)
+- **Journalist / Confidential Sources / Press Freedom?** → [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) → [Device & Network Protection](OPSEC/press-freedom/device-network-protection.md) → [Data Retention](OPSEC/press-freedom/data-retention-removal.md) → [Duress & Seizure Plan](OPSEC/press-freedom/duress-seizure-response.md).
 - **Privacy Workstation / USB Setup?** → [OPSEC](OPSEC/README.md) + [Whonix + Kicksecure USB](OPSEC/whonix-kicksecure-usb-guide.md) or [Tails USB](OPSEC/tails-usb-setup-guide.md); choose the workflow before installation
 - **Data Engineering / Pipelines?** → [Data Engineering](Data-Engineering/README.md) + its phased learning path and [secure pipeline guide](Data-Engineering/data_pipelines.md)
 - **uConsole Setup?** → [uConsole index](uConsole/README.md) · [CM4 safety review](uConsole/CM4-SAFETY-REVIEW.md) · [CM5 recovery](uConsole/CM5-DISPLAY-RECOVERY.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md)
@@ -78,6 +81,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 | Resource | Description |
 |----------|-------------|
+| **[Image and Diagram Index](assets/README.md)** | Maps explanatory diagrams to their respective guides, including new FIDO2, encrypted-storage, and source-protection illustrations |
 | **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
 | **[Cheat Sheet & Reference Index](Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | One readable index for reviewed Linux/Arch, network, wireless, Bash, OSINT, IR, SDR and general reference material |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
@@ -110,6 +114,9 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 | 📋 **[Compliance & GRC](Compliance/README.md)** | Frameworks (NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS) and regulations (GDPR, HIPAA, CCPA) with control mapping |
 | 📦 **[Container & Kubernetes Security](ContainerSecurity/README.md)** | Image/runtime security, container escape, and Kubernetes hardening (RBAC, Pod Security Standards) |
 | 🔐 **[Cryptography](Cryptography/README.md)** | Current vs deprecated algorithms, applied crypto (TLS, password storage, key management), post-quantum, classical ciphers & leetspeak |
+| 🔑 **[FIDO2 & Security Keys](Cryptography/security-keys-passkeys.md)** | FIDO certification levels, synced/device-bound passkeys, SoloKeys enrollment and account recovery |
+| 💾 **[Encrypted Drives](Cryptography/encrypted-storage.md)** | BitLocker, VeraCrypt, LUKS and experimental PhantomDrive USB study |
+| 📰 **[Press Freedom & Source Protection](OPSEC/press-freedom/README.md)** | Journalists and newsrooms: source confidentiality, device security, lawful retention, coercion and seizure response |
 | 🔴 **[OPSEC](OPSEC/README.md)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
 | 🏠 **[Homelab Guides](Homelab/README.md)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 **[Incident Response](IncidentResponse/README.md)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
@@ -255,4 +262,5 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 - [README.md](README.md) - Full repo index
 - [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Main comprehensive guide
 - [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized topics guide
+- [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) - Reporter/source digital-security and duress preparation
 - [LEGAL.md](LEGAL.md) - Legal terms before using any technique

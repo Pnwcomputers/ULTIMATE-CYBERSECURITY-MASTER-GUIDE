@@ -1,6 +1,12 @@
+# Visual Reference Notes and Original Captions
+
+_Last reviewed: 2026-11-01 (image paths and topic placements verified in repository)_
+
+These legacy notes explain five illustrations now embedded in their relevant chapters. For complete image usage, including newly added FIDO2, encryption, and journalist-security diagrams, see the [Diagram and Image Asset Index](./README.md).
+
 ## Active Directory Kerberos Attacks
 
-![AD Attack Paths](assets/ad_attack_paths.png)
+![AD Attack Paths](./ad_attack_paths.png)
 
 Understanding the Kerberos authentication flow is critical for both attacking and defending Active Directory environments. The diagram above maps out the primary points of exploitation within the Ticket Granting Ticket (TGT) and Ticket Granting Service (TGS) exchanges:
 * **AS-REP Roasting:** If a user account does not require Kerberos pre-authentication, an attacker can request an authentication ticket (AS-REQ) on their behalf. The Domain Controller (KDC) responds with an AS-REP containing a piece of the user's password hash encrypted with their key, which can be extracted and cracked offline.
@@ -11,7 +17,7 @@ Understanding the Kerberos authentication flow is critical for both attacking an
 
 ## File-System-First AI Agent Architecture
 
-![AI Agent Architecture](assets/ai_agent_arch.png)
+![AI Agent Architecture](./ai_agent_arch.png)
 
 This framework relies on a local, file-system-first approach to manage agent state and context memory. Rather than relying entirely on ephemeral LLM context windows, the architecture utilizes standard Python execution and Markdown files.
 * **Python Orchestrator:** Acts as the central logic loop, receiving user input and determining the necessary sequence of actions.
@@ -22,7 +28,7 @@ This framework relies on a local, file-system-first approach to manage agent sta
 
 ## Board-Level Diagnostic Workflow
 
-![Hardware Diagnostics](assets/hardware_diagnostics.png)
+![Hardware Diagnostics](./hardware_diagnostics.png)
 
 When addressing component-level motherboard failures, follow this linear diagnostic path before applying heat or attempting component replacement:
 1. **Visual Inspection:** Check for obvious physical damage, burnt components, liquid ingress, or blown capacitors.
@@ -35,7 +41,7 @@ When addressing component-level motherboard failures, follow this linear diagnos
 
 ## Network Security Architecture
 
-![Network Security Architecture](assets/network_security_arch.png)
+![Network Security Architecture](./network_security_arch.png)
 
 This homelab and operational network topology is designed around compartmentalization, utilizing strict firewall rules and Zero Trust Network Access (ZTNA).
 * **OPNsense / UniFi Edge:** All incoming WAN traffic is heavily filtered through OPNsense, handling VLAN routing and strict firewall enforcement to keep vulnerable lab environments isolated.
@@ -47,7 +53,7 @@ This homelab and operational network topology is designed around compartmentaliz
 
 ## Hardware Fundamentals: CPU, RAM, and Storage
 
-![RAM vs Storage](assets/ram_vs_storage.png)
+![RAM vs Storage](./ram_vs_storage.png)
 
 When diagnosing slow computer performance, it is helpful to visualize the hardware as a physical workspace:
 * **The Brain (CPU):** The processor does the actual "thinking" and calculating. It is incredibly fast but cannot store information on its own.
