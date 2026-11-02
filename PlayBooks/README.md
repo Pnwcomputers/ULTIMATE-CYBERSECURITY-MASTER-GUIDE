@@ -53,6 +53,10 @@ These playbooks serve as:
 
 ## 📂 Playbook Collection
 
+![Penetration testing engagement lifecycle flow](../assets/pentest_lifecycle.png)
+
+*Reference lifecycle from scope/authorization to testing, analysis, reporting and remediation review. Always follow the approved rules of engagement and document evidence custody.*
+
 ### Blue Team & Incident Response
 
 | Playbook | Description | Complexity |
