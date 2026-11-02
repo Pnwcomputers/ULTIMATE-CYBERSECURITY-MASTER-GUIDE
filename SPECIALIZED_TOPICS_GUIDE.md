@@ -1236,7 +1236,7 @@ U          # UART scan (finds TX, RX, baud)
 
 # PART III: HARDWARE TESTING & BENCHMARKING
 
-> **Deeper reference:** [`HardwareTesting/README.md`](HardwareTesting/README.md) · [`HardwareTesting/Manjaro_Intel_TestBench.md`](HardwareTesting/Manjaro_Intel_TestBench.md) · [`HardwareTesting/py/`](HardwareTesting/py/)
+> **Deeper reference:** [`HardwareTesting/README.md`](HardwareTesting/README.md) · [`HardwareTesting/Manjaro_Intel_TestBench.md`](HardwareTesting/Manjaro_Intel_TestBench.md) · [`HardwareTesting/README.md`](HardwareTesting/README.md)
 
 ---
 
