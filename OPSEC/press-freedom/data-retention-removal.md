@@ -98,6 +98,7 @@ The command inventories Linux block devices; it **does not** delete files or est
 - [Encrypted storage and backups](../../Cryptography/encrypted-storage.md)
 - [NIST SP 800-88 Revision 2](https://csrc.nist.gov/pubs/sp/800/88/r2/final)
 - [Freedom of the Press Foundation — source risk](https://freedom.press/digisec/blog/threat-modeling-sources-module/)
+- [FPF: Safeguarding sources and sensitive material in the event of a raid](https://freedom.press/digisec/blog/safeguarding-sources-and-sensitive-information-in-the-event-of-a-raid/)
 - [CPJ Digital Safety Kit](https://cpj.org/2019/07/digital-safety-kit-journalists/)
 
 ---
