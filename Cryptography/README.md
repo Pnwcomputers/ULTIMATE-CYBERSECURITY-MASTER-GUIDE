@@ -118,6 +118,8 @@ Use the [Hardware Security Keys and Passkeys](./security-keys-passkeys.md) guide
 
 For storage confidentiality, start with [Encrypted Drives and Removable Storage](./encrypted-storage.md) and use [PhantomDrive](./phantomdrive-guide.md) only as an experimental hardware/firmware research example. Hardware login tokens are **not** encrypted USB drives; supported OpenPGP/PIV features are separate from FIDO authentication.
 
+For OpenPGP key inspection, file encryption, detached signatures and verification commands, see the [GnuPG CLI quick reference](../Documentation/devhints-cli-field-reference.md#6-gnupg-keys-encryption-and-signature-verification).
+
 ---
 
 ## 📂 Folder Contents
