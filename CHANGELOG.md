@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 03, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1524
-- **Files Modified**: 2153
-- **New Files**: 833
+- **Commits Analyzed**: 1526
+- **Files Modified**: 2184
+- **New Files**: 847
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -664,6 +664,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update section title for defensive security paths (`5d49af5`)
 - docs(reference): audit and update cheat sheets, command safety and navigation (#146) (`cdea87d`)
 - docs(navigation): reader-first README links and clean section indexes (#143) (`5957ff9`)
 - Update README.md (`b50865a`)
@@ -1292,6 +1293,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: integrate curated security assessment, detection, DFIR and supply-chain projects (#160) (`c60ce2c`)
 - docs: integrate curated Public APIs across security guides (#157) (`200f544`)
 - docs: synchronize three master guides with current security and field modules (#153) (`43eff93`)
 - docs(visuals): repository-wide diagram expansion and image coverage audit (#151) (`d1f8a3c`)
@@ -1548,13 +1550,52 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `README.md`
+- `AI/AnythingLLM/README.md`
+- `AI/README.md`
+- `AI/llm-security-evaluation-promptfoo.md`
 - `Cloud/README.md`
+- `Cloud/azure.md`
+- `Cloud/m365-scuba-assessment.md`
+- `Compliance/README.md`
 - `ContainerSecurity/README.md`
 - `ContainerSecurity/containers.md`
-- `ContainerSecurity/docker-cli-operations-reference.md`
-- `ContainerSecurity/kubernetes.md`
+- `ContainerSecurity/software-supply-chain-assessment.md`
 - `Data-Engineering/README.md`
 - `Documentation/README.md`
+- `Documentation/upstream-security-projects-register.md`
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
+- `IncidentResponse/Endpoint-Visibility/README.md`
+- `IncidentResponse/README.md`
+- `IncidentResponse/SIEM/README.md`
+- `IncidentResponse/SIEM/detection-content-validation.md`
+- `Mobile/README.md`
+- `Mobile/mobile_pentest_sop.md`
+- `Mobile/mvt-forensic-triage.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/README.md`
+- `OSINT/bellingcat-source-verification.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `PlayBooks/PurpleTeam_Detailed.md`
+- `PlayBooks/README.md`
+- `PlayBooks/assessment-findings-lifecycle.md`
+- `PlayBooks/assessment-service-integration-map.md`
+- `PlayBooks/purple-team-detection-validation.md`
+- `ReverseEngineering/README.md`
+- `ReverseEngineering/remnux-malware-analysis-guide.md`
+- `ReverseEngineering/yara-x-rule-lab.md`
+- `SDR/README.md`
+- `SDR/rtl433-passive-telemetry-lab.md`
+- `SDR/subghz.md`
+- `START_HERE.md`
+- `Scripts/README.md`
+- `WebAppSecurity/README.md`
+- `WebAppSecurity/methodology.md`
+- `WebAppSecurity/owasp-assessment-and-nuclei.md`
+- `CHANGELOG.md`
+- `ContainerSecurity/docker-cli-operations-reference.md`
+- `ContainerSecurity/kubernetes.md`
 - `Documentation/TOR.md`
 - `Documentation/VPN.md`
 - `Documentation/curated-technical-docs.md`
@@ -1562,32 +1603,22 @@
 - `Documentation/virtualmachines.md`
 - `Homelab/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
-- `IncidentResponse/SIEM/README.md`
 - `OPSEC/OPSEC_guide.md`
 - `OPSEC/README.md`
 - `OPSEC/anonymity-layering.md`
 - `OPSEC/press-freedom/device-network-protection.md`
 - `OPSEC/proxy-reference-froxy.md`
-- `OSINT/README.md`
-- `README.md`
-- `START_HERE.md`
 - `STYLE_GUIDE.md`
-- `Scripts/README.md`
-- `WebAppSecurity/README.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
-- `AI/README.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Documentation/references.md`
 - `Documentation/security-public-api-catalog.md`
-- `IncidentResponse/README.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/Playbook/tools_api.md`
 - `Cryptography/README.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/LinuxCheatSheet.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
-- `CHANGELOG.md`
 - `.github/workflows/markdown-numbered-lists.yml`
 - `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/HomeLab_Setup.md`
@@ -1596,7 +1627,6 @@
 - `ultimate_cybersecurity_master_guide.md`
 - `.github/workflows/markdownlint.yml`
 - `.github/workflows/duplicate-sections.yml`
-- `AI/AnythingLLM/README.md`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/OpenClaw/use_cases.md`
@@ -1610,7 +1640,6 @@
 - `HardwareHacking/README.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `LEGAL.md`
-- `Mobile/README.md`
 - `OSINT/OSINT_GUIDE.md`
 - `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
@@ -1633,11 +1662,8 @@
 - `uConsole/CM5-SETUP.md`
 - `uConsole/README.md`
 - `Checklists/README.md`
-- `Compliance/README.md`
 - `Data-Engineering/Phase2/README.md`
-- `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/IDS&IPS/readme.md`
-- `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `Wardriving/README.md`
 - `assets/README.md`
@@ -1671,8 +1697,6 @@
 - `OPSEC/press-freedom/README.md`
 - `OPSEC/press-freedom/data-retention-removal.md`
 - `OPSEC/press-freedom/duress-seizure-response.md`
-- `PlayBooks/NetworkAuditPlayBook.md`
-- `PlayBooks/README.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
 - `assets/fido2-passkey-authentication-flow.svg`
 - `assets/imageplacement.md`
@@ -1752,7 +1776,6 @@
 - `Documentation/WiFiMarauder_Guide.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
-- `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
 - `.github/workflows/auto_changelog.yml`
@@ -1761,13 +1784,10 @@
 - `Documentation/hcxtoolshashcat.md`
 - `HardwareHacking/BitPirate.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
-- `IncidentResponse/Endpoint-Visibility/README.md`
 - `OSINT/docs/FAQ.md`
-- `SDR/README.md`
 - `SDR/sdr.md`
 - `Scripts/Ducky/README.md`
 - `Wardriving/esp32-marauder.md`
-- `WebAppSecurity/methodology.md`
 - `Documentation/flipper_zero_guide.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
@@ -1925,17 +1945,14 @@
 - `Mobile/UserLAnd/alpinelinux.md`
 - `Mobile/UserLAnd/readme.md`
 - `SDR/rfid.md`
-- `SDR/subghz.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
 - `Compliance/frameworks.md`
 - `Compliance/regulations.md`
 - `Cloud/aws.md`
-- `Cloud/azure.md`
 - `Cloud/gcp.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
-- `Mobile/mobile_pentest_sop.md`
 - `SDR/sdr_hacking.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/network-detection.md`
@@ -1987,7 +2004,6 @@
 - `Scripts/Python/ssh_brute.py`
 - `Checklists/Command&Control.md`
 - `Checklists/Lateral-Movement.md`
-- `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
 - `Documentation/bruce_firmware.md`
