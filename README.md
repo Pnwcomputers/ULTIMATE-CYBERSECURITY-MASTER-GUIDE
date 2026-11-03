@@ -97,6 +97,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 |---|---|
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
+| **[Curated Technical Documentation](./Documentation/curated-technical-docs.md)** | Links to relevant documentation from Beautiful Docs: GitHub, Git, FreeBSD, FastAPI, Django, PostgreSQL, Redis, Packer and writing standards |
+| **[Proxy Types, Froxy & DNS Leak Reference](./OPSEC/proxy-reference-froxy.md)** | Proxy trust comparison, SOCKS5/SSH and public-list risks; Froxy is for isolated research, not high-sensitivity traffic |
+| **[Docker Operations & Security Cheat Sheet](./ContainerSecurity/docker-cli-operations-reference.md)** | Inspection-first Docker CLI/Compose commands, daemon/security boundaries, image/volume inventories and destructive-operation cautions |
 | [Cybersecurity Cliff Notes](./cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
 | [Advanced Techniques - Part 1](./advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](./advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
@@ -317,6 +320,35 @@ Original compilation figures such as the number of internal PNWC documents are p
 ## 🙏 CREDITS & ACKNOWLEDGMENTS
 
 This guide stands on the shoulders of the global cybersecurity community.
+
+### 📎 Cited Sources for Curated Reference Additions
+
+The following external resources informed **selected, original PNWC reference
+pages**; their content is not bulk mirrored. Links point to the source projects
+and their own license terms. Specific command or installation instructions
+should be checked against the linked maintainers' current documentation before
+use.
+
+| Original source and license | Where its ideas/links are used | Scope and cautions |
+| --- | --- | --- |
+| [Beautiful Docs — matheusfelipeog](https://github.com/matheusfelipeog/beautiful-docs) ([MIT](https://github.com/matheusfelipeog/beautiful-docs/blob/master/LICENSE)) | [Curated technical documentation](./Documentation/curated-technical-docs.md), [style conventions](./STYLE_GUIDE.md), and topic-specific learning links | Inspiration and links to independent docs, not a guarantee that their version-specific instructions are current |
+| [Froxy — matheusfelipeog](https://github.com/matheusfelipeog/froxy) ([MIT](https://github.com/matheusfelipeog/froxy/blob/master/LICENSE)); underlying [proxy-list — clarketm](https://github.com/clarketm/proxy-list) | [Proxy types, Froxy and DNS-leak reference](./OPSEC/proxy-reference-froxy.md) in [OPSEC](./OPSEC/README.md) | Python free-proxy directory interface only; not vetted egress or a promise of anonymity; never send confidential client information through unknown proxies |
+| [Docker Cheat Sheet — wsargent](https://github.com/wsargent/docker-cheat-sheet) ([CC BY 4.0](https://github.com/wsargent/docker-cheat-sheet/blob/master/LICENSE)) | [Docker operations and diagnostics](./ContainerSecurity/docker-cli-operations-reference.md) and [container security](./ContainerSecurity/README.md) | Third-party historical command collection; this guide uses independently written examples and prioritizes [official Docker CLI](https://docs.docker.com/reference/cli/docker/) and [Engine security](https://docs.docker.com/engine/security/) documentation |
+
+**Review scope (November 2, 2026):** source READMEs and licensing were
+inspected; new cross-references were checked for repository path correctness.
+External tool behavior, every older upstream link and production Docker/Froxy
+execution were **not** exhaustively tested. The documentation does not authorize
+active probing, anonymous-proxy use with client data, or unapproved Docker
+changes. See [legal terms](./LEGAL.md).
+
+**Related independent contributions under review:** [Devhints-informed CLI
+reference (PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156)
+([original Devhints source](https://github.com/rstacruz/cheatsheets)) and
+[Public APIs catalog (PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157)
+([public-apis source](https://github.com/public-apis/public-apis)). These are
+separate changes; their proposed content is **not represented as merged** by
+this README.
 
 ### 🛠️ Key Tools & Frameworks
 
