@@ -16,6 +16,8 @@
 
 ---
 
+**External enrichment and privacy:** The [Security API Catalog](../Documentation/security-public-api-catalog.md) documents threat feeds, provenance and safer handling of API responses for agent workflows. Check customer-data transfer restrictions before feeding third-party services or LLMs.
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)

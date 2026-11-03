@@ -1,5 +1,7 @@
 # ThreatIntelCheck AgentFlow
 
+**Provider validation:** See the [Security API Catalog](../../Documentation/security-public-api-catalog.md) for API access, privacy and quota notes before deploying this flow. API errors, empty results and unavailable quotas are not `clean` evidence; avoid sending sensitive customer indicators to hosted AI/third-party providers without approval.
+
 ## 🎯 Purpose
 AnythingLLM AgentFlow for threat intelligence lookups - accepts an IP, domain, hash, or indicator of compromise (IoC) and queries public threat intel sources for malicious activity associations.
 

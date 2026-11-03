@@ -18,6 +18,8 @@
 
 **Container deployment support:** [Docker CLI / Compose operations reference](../../ContainerSecurity/docker-cli-operations-reference.md) provides safe diagnostics for containerized SIEM services, volume inventories, log exposure and privilege boundaries. Check the SIEM-specific installation guide for its supported platform and storage requirements.
 
+**External enrichment for SIEM workflows:** [Security API Catalog](../../Documentation/security-public-api-catalog.md) identifies candidate threat-intelligence and vulnerability feeds and recommends normalized, time-stamped events with explicit error states. No third-party API connector or production automation is installed by that document.
+
 ## 🎯 Purpose
 Index for the SIEM sub-section — self-hosted deployment guides for the four most common security log-aggregation platforms (ELK Stack, Wazuh, Splunk, Graylog), so a blue teamer can pick a platform and stand it up for a homelab or small SOC.
 

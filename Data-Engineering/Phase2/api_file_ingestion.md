@@ -25,6 +25,8 @@ _Reviewed: 2026-09-11. The local lab was executed with Python 3.12.14 and SQLite
 
 <a id="purpose"></a>
 
+**External security API examples:** [Security API Catalog](../../Documentation/security-public-api-catalog.md) lists suitable read-only feeds (CISA KEV, NVD, GitHub advisories, OSINT providers) for applying this page's source contract, pagination, rate-limit and recovery requirements. Treat errors/throttling as unknown rather than clean results.
+
 ## 🎯 Purpose, Function & Goal
 
 **Purpose:** Make ingestion complete, restartable, and accountable when APIs and file producers fail or change.

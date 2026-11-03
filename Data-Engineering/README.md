@@ -26,6 +26,8 @@ production deployment or new execution of the existing Phase 1 labs._
 
 **Data-store documentation:** [Curated external technical docs](../Documentation/curated-technical-docs.md) includes [PostgreSQL](https://www.postgresql.org/docs/current/) and [Redis](https://redis.io/docs/latest/) for reliable query/telemetry references. For containerized lab services, use the [Docker operational cheat sheet](../ContainerSecurity/docker-cli-operations-reference.md).
 
+**Suggested data-source practice:** [Security API Catalog & Cookbook](../Documentation/security-public-api-catalog.md) provides authorized read-only security feeds and example JSON lookups for ingestion, contract validation, provenance and SIEM enrichment labs.
+
 ## 🎯 Purpose
 
 Provide a central learning and reference section for building systems that collect, move, transform, store, and deliver useful data. The scope includes application records, API responses, database extracts, operational metrics, and security logs.

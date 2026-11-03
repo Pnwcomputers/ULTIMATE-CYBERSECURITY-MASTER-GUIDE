@@ -32,6 +32,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Professional Pentester?** → [Pentoo Linux workstation and assessment workflow](Tradecraft/pentoo-linux-guide.md) + [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) + the other master guides as reference
 - **Blue Team / SOC?** → [Incident Response](IncidentResponse/README.md) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/README.md) + [SIEM Guides](IncidentResponse/SIEM/README.md)
 - **OSINT Investigator?** → [OSINT Guide](OSINT/OSINT_GUIDE.md) + [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md)
+- **Security API and threat-feed references?** → [Security API Catalog](Documentation/security-public-api-catalog.md) → [OSINT API toolkit](OSINT/Playbook/tools_api.md) → [API ingestion guidance](Data-Engineering/Phase2/api_file_ingestion.md)
 - **Red Team Operator?** → [Tradecraft](Tradecraft/README.md) + [Advanced Techniques](advanced_techniques_supplement.md) + [Scripts](Scripts/README.md)
 - **Web App Pentester?** → [Web Application Security](WebAppSecurity/README.md) ([OWASP Top 10](WebAppSecurity/owasp-top-10.md) + [Methodology](WebAppSecurity/methodology.md))
 - **Cloud Security?** → [Cloud Security](Cloud/README.md) ([AWS](Cloud/aws.md) · [Azure/Entra ID](Cloud/azure.md) · [GCP](Cloud/gcp.md))

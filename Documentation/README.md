@@ -14,6 +14,8 @@
 
 ---
 
+**Security API reference:** [Public APIs security catalog and read-only cookbook](./security-public-api-catalog.md) lists relevant providers, authentication caveats, privacy controls and integration status.
+
 **Curated cheat sheet/reference index:** [October 2026 Review & Navigation](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Covers Debian, Arch, ports/HTTP/regex, Aircrack-ng, Marauder, Pwnagotchi, Wireshark, OSINT, Volatility, NanoVNA, Bash, glossary and general cliff notes. Also see the [November 2026 Devhints-informed CLI field reference](./devhints-cli-field-reference.md) for practical command examples. PDF references retain separate provenance and currency caveats.
 
 ## 🎯 Purpose
@@ -114,6 +116,7 @@ This directory contains comprehensive technical documentation, operational proce
 | [Ethical.Hacking.MindMap.pdf](./Ethical.Hacking.MindMap.pdf) | Ethical hacking methodology and concepts mind map | PDF |
 | [subdomains.txt](./subdomains.txt) | Subdomain wordlist for enumeration and discovery | Wordlist |
 | [references.md](./references.md) | Port/service conventions, HTTP status and regex patterns with validation caveats | Reference Guide |
+| **[Security API Catalog & Cookbook](./security-public-api-catalog.md)** | Curated provider API references, NVD/CISA KEV, URLhaus auth caveat, and read-only CLI examples | API reference |
 | **[Cheat Sheet / Reference Review Index](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Direct links to every reviewed quick reference and its validation/provenance status | Master index |
 
 ### Other Resources

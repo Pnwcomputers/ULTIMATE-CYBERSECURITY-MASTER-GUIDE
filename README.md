@@ -97,6 +97,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 |---|---|
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
+| **[Security API Catalog & Cookbook](./Documentation/security-public-api-catalog.md)** | Curated Public APIs resources for OSINT, threat intelligence, NVD/CISA KEV, supply-chain and web/API assessment |
 | **[Curated Technical Documentation](./Documentation/curated-technical-docs.md)** | Links to relevant documentation from Beautiful Docs: GitHub, Git, FreeBSD, FastAPI, Django, PostgreSQL, Redis, Packer and writing standards |
 | **[Proxy Types, Froxy & DNS Leak Reference](./OPSEC/proxy-reference-froxy.md)** | Proxy trust comparison, SOCKS5/SSH and public-list risks; Froxy is for isolated research, not high-sensitivity traffic |
 | **[Docker Operations & Security Cheat Sheet](./ContainerSecurity/docker-cli-operations-reference.md)** | Inspection-first Docker CLI/Compose commands, daemon/security boundaries, image/volume inventories and destructive-operation cautions |
