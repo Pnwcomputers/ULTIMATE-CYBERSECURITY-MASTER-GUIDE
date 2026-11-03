@@ -24,7 +24,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
 - **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations)
-- **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
+- **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md) for security concepts or the [CLI Field Cheat Sheet](Documentation/devhints-cli-field-reference.md) for everyday Linux, transfer, GPG, Git and Docker commands
 - **Preparing for OSCP?** → [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Advanced Techniques Part 2](advanced_techniques_part2.md) (Buffer Overflows; CRITICAL) + [Playbooks](PlayBooks/cybersecurity_playbooks.md)
 - **Professional Pentester?** → [Pentoo Linux workstation and assessment workflow](Tradecraft/pentoo-linux-guide.md) + [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) + the other master guides as reference
 - **Blue Team / SOC?** → [Incident Response](IncidentResponse/README.md) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/README.md) + [SIEM Guides](IncidentResponse/SIEM/README.md)
