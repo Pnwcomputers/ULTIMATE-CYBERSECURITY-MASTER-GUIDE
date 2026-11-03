@@ -101,6 +101,7 @@ weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape
 | File | Description | Status |
 |------|-------------|--------|
 | **[containers.md](./containers.md)** | Image and runtime security, container escape vectors, and hardening (Docker/OCI) | ✅ Complete |
+| **[Docker Operations Cheat Sheet](./docker-cli-operations-reference.md)** | Inspect-first Docker CLI/Compose, images, networks, volumes, secure runtime settings, and destructive cleanup cautions | ✅ Reference |
 | **[kubernetes.md](./kubernetes.md)** | RBAC, Pod Security Standards, secrets, network policy, attack paths, and hardening | ✅ Complete |
 
 ---
