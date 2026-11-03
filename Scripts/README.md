@@ -1,6 +1,9 @@
 > **Runtime status:** The [historical collection](GO/README.md) includes Python 2 examples and an unfinished Go sketch. Listing a script here does not certify that it runs on a current system.
 
 # 💻 Security Scripts & Tools
+**Legacy script collection:** [Cypherpunk toolkit review](../Documentation/cypherpunk-pentesting-toolkit-review.md) provides safe source attribution and Python 2 → Python 3 modernization cautions. It does not add third-party executables or payloads.
+
+
 
 
 **Documentation references:** [Curated technical docs](../Documentation/curated-technical-docs.md) links to GitHub Docs, Git tutorials, and Go by Example for script review and maintenance; prefer vendor docs for current syntax.
