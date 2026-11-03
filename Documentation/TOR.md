@@ -1,5 +1,7 @@
 # 🧅 Tor: Connection & Browser Guide
 
+**Related proxy guidance:** [OPSEC proxy reference and Froxy research](../OPSEC/proxy-reference-froxy.md). A public HTTP/SOCKS proxy or proxy-list tool is **not a replacement** for Tor Browser/Whonix. Keep Tor's own proxy/DNS routing and app-isolation guidance authoritative.
+
 ## 🎯 Purpose
 Reference guide for deploying and operating Tor for anonymous network access - covering both Tor Browser (GUI) and the Tor daemon (system-level SOCKS5 proxy via port 9050) for OSINT investigations, anonymous reconnaissance, and privacy-sensitive incident response work.
 
