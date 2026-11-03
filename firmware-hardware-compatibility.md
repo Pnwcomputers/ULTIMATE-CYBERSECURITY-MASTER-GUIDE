@@ -1,6 +1,9 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
 
 ## Wireless Security Testing Devices
+**Plus2 clarification:** [M5StickC Plus2 / HackStarterPack source review](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) notes the separate hardware/accessories. Generic M5Stick-family checkmarks below are not proof of compatibility with a specific firmware version or USB HID.
+
+
 
 **ESP32-C5 / Flipper wardriving hardware and firmware pairings:** see the dedicated [Wardriving index](./Wardriving/README.md), [SigRoam / Scout Lite](./Wardriving/sigroam-scout-lite.md), [Marauder](./Wardriving/esp32-marauder.md), [Biscuit](./Wardriving/biscuit.md) and [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md). Their image targets, GPS source and log location differ by operating mode.
 

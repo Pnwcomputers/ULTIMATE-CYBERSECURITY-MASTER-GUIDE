@@ -51,6 +51,9 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 
 ## 🧭 Navigate by Area
 
+
+**New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) — model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources.
+
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
 
 **Quick Paths for Defensive Security:** [Incident Response](./IncidentResponse/README.md) · [Honeypot platforms and DIY sensors](./IncidentResponse/HoneyPot/readme.md) · [Kismet/nzyme IDS and IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Wazuh and other SIEMs](./IncidentResponse/SIEM/README.md) · [Wireless/wardriving](./Wardriving/README.md).

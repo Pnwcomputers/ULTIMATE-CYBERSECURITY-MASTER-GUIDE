@@ -17,6 +17,9 @@
 
 **Passive IoT telemetry:** [rtl_433 receive-only lab](rtl433-passive-telemetry-lab.md) explains supported-band sensors, privacy controls, JSON event normalization and detection limitations.
 
+
+**M5StickC Plus2 + CC1101:** [Starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers module prerequisites, receive-only RF observation and upstream file provenance.
+
 ## 🎯 Purpose
 
 This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents and the NanoVNA guide collection** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, frequency/protocol references, and antenna/RF measurements.

@@ -32,6 +32,9 @@ cross-linked**, NOT installed, synchronized or production tested.
 | [Falco rules](https://github.com/falcosecurity/rules) and [osquery defense kit](https://github.com/chainguard-dev/osquery-defense-kit) | [Additional detection content](../IncidentResponse/SIEM/detection-content-validation.md) | Apache-2.0 |
 
 ## What is and is not delivered
+| [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5StickCPlus2) | [Hardware-specific IR, Sub-GHz, BLE/HID and portal lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) | No root license found; sourced files credit other authors. Linked only, not mirrored. |
+
+
 
 - **Delivered:** original, focused PNWC instructions; use-case decisions;
   safety limits; local navigation; outbound citations and source/license notes.

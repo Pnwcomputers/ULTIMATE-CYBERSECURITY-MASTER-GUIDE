@@ -104,6 +104,9 @@ The Lilygo T-Embed CC1101 includes the CC1101 on the same PCB as the ESP32-S3, e
 ---
 
 ## 4. The software, in brief
+**M5StickC Plus2 source companion:** [HackStarterPack reviewed lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers model-specific external CC1101/CH9329 and safe use of IR/BLE/portal references. The upstream repo is not a Bruce firmware distribution.
+
+
 
 ### 4.1 Feature inventory (Cardputer + full module set)
 
