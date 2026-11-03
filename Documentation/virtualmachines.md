@@ -1,4 +1,5 @@
 # Cybersecurity Virtual Machines and Lab Environments
+**Container lab companion:** [Docker operations/diagnostics reference](../ContainerSecurity/docker-cli-operations-reference.md) and [container runtime security](../ContainerSecurity/containers.md). Container namespaces share the host kernel; use disposable VMs for stronger separation when studying untrusted targets.
 
 ## 🎯 Purpose
 Reference catalog of purpose-built cybersecurity virtual machines and lab environments - covering privacy/anonymity OSes, OSINT VMs, penetration testing distributions, forensics workstations, malware analysis environments, and threat-hunting platforms.
