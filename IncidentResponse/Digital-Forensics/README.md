@@ -16,6 +16,8 @@
 
 **Memory reference:** [Volatility 3 cheat sheet](./Memory/volatility_cheatsheet.md) · [cheat-sheet audit index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Keep original memory evidence immutable; confirm supported plugin names, dependencies and symbols locally.
 
+**Targeted forensic collection:** [Velociraptor + ForensicArtifacts triage](velociraptor-artifact-triage.md) covers consent, collection selection, UTC evidence hashes and custody; it complements existing [KAPE/Autopsy](Disks/autopsy_kape.md) and [Volatility](Memory/volatility_cheatsheet.md) workflows.
+
 ## 🎯 Purpose
 Index for the Digital Forensics sub-section — guides for acquiring and analyzing evidence after an incident: memory forensics, disk forensics, and volatile live-response collection.
 

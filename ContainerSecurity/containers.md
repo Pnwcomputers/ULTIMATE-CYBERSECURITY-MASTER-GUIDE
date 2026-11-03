@@ -7,6 +7,8 @@
 
 **Operational CLI companion:** [Docker operations, diagnostics and hardening reference](./docker-cli-operations-reference.md), informed by [wsargent/docker-cheat-sheet](https://github.com/wsargent/docker-cheat-sheet) and the [current Docker manuals](https://docs.docker.com/reference/cli/docker/). This page remains the authoritative threat-model/hardening guide; the companion supplies short, non-destructive inspection commands.
 
+**Supply-chain extension:** [SBOMs, dependency advisories, secret scanning and signature checks](software-supply-chain-assessment.md) expand the image/runtime risk discussion; record source commits and exact image digests.
+
 ## 🎯 Purpose
 Container (Docker/OCI) security reference - image and runtime risks, container
 escape vectors, and hardening.

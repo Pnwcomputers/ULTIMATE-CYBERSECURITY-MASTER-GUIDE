@@ -14,6 +14,8 @@
 
 ---
 
+**Forensic triage companion:** [MVT mobile verification workflow](mvt-forensic-triage.md) addresses owner consent, iOS/Android backup/artifact limitations and uncertainty; it does not guarantee spyware detection.
+
 ## 🎯 Purpose
 Mobile security reference covering device preparation (rooting, custom ROM), mobile pentesting platforms (Kali NetHunter), Android/iOS app security assessment, mobile forensics, and device OSINT. Currently focused on the OnePlus 6 A6003 as the primary NetHunter attack platform.
 

@@ -1,5 +1,7 @@
 # Purple Team Playbook (Detailed)
 
+**Repeatable detection lab:** [Atomic Red Team/Sigma/Wazuh validation guide](purple-team-detection-validation.md) defines safe test selection, positive/negative evidence and cleanup; [SIEM rule verification](../IncidentResponse/SIEM/detection-content-validation.md) covers platform-specific conversion, false positives and alert coverage.
+
 ## 🎯 Purpose
 
 Bring Red-Team attack techniques and Blue-Team detections together in repeatable, measurable exercises-leveraging Python, PowerShell, Batch, and dedicated frameworks-to harden your environment against real adversaries.

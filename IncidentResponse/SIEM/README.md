@@ -20,6 +20,8 @@
 
 **External enrichment for SIEM workflows:** [Security API Catalog](../../Documentation/security-public-api-catalog.md) identifies candidate threat-intelligence and vulnerability feeds and recommends normalized, time-stamped events with explicit error states. No third-party API connector or production automation is installed by that document.
 
+**Detection engineering:** [Sigma, Elastic and native Wazuh validation](detection-content-validation.md) details rule provenance, decoder/field mapping and positive/negative synthetic tests; [Atomic Red Team exercises](../../PlayBooks/purple-team-detection-validation.md) add controlled, explicitly authorized behavioral validation.
+
 ## 🎯 Purpose
 Index for the SIEM sub-section — self-hosted deployment guides for the four most common security log-aggregation platforms (ELK Stack, Wazuh, Splunk, Graylog), so a blue teamer can pick a platform and stand it up for a homelab or small SOC.
 

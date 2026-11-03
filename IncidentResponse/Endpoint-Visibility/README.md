@@ -14,6 +14,8 @@
 
 ---
 
+**Collection and detection links:** [Velociraptor evidence-triage workflow](../Digital-Forensics/velociraptor-artifact-triage.md) and [Sigma/osquery/Elastic rule validation](../SIEM/detection-content-validation.md) complement Sysmon, auditd and osquery. Agent telemetry alone is not evidence of full detection coverage.
+
 ## 🎯 Purpose
 Index for the Endpoint Visibility sub-section — deployment and configuration guides for the host-level instrumentation that feeds a SIEM: Windows Sysmon, Linux auditd/syslog, and cross-platform Osquery.
 

@@ -15,6 +15,8 @@
 
 ---
 
+**Receive-only reference:** [rtl_433 passive telemetry](rtl433-passive-telemetry-lab.md) provides bounded, legal observation and synthetic SIEM events, not signal replay or transmission.
+
 ## 🎯 Purpose
 
 Comprehensive bench manual for SubGhz RF exploration - covering educational theory, multi-band signal capture procedures, laboratory logging documentation, software processing pipelines, and protocol architecture breakdowns for embedded, IoT, and access-control systems.

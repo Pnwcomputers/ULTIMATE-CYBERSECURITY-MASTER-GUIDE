@@ -97,6 +97,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 |---|---|
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
+| **[Staged Client Security Assessment Blueprint](./PlayBooks/assessment-service-integration-map.md)** | Consent, OWASP/SCuBA checks, endpoint/DFIR collection, Atomic/Sigma validation, supply-chain checks, findings and retests |
+| **[Upstream Security Project Source Register](./Documentation/upstream-security-projects-register.md)** | Verified project links, license considerations, workflow ownership, integration status and maintenance process |
 | **[Security API Catalog & Cookbook](./Documentation/security-public-api-catalog.md)** | Curated Public APIs resources for OSINT, threat intelligence, NVD/CISA KEV, supply-chain and web/API assessment |
 | **[Curated Technical Documentation](./Documentation/curated-technical-docs.md)** | Links to relevant documentation from Beautiful Docs: GitHub, Git, FreeBSD, FastAPI, Django, PostgreSQL, Redis, Packer and writing standards |
 | **[Proxy Types, Froxy & DNS Leak Reference](./OPSEC/proxy-reference-froxy.md)** | Proxy trust comparison, SOCKS5/SSH and public-list risks; Froxy is for isolated research, not high-sensitivity traffic |
@@ -344,13 +346,30 @@ execution were **not** exhaustively tested. The documentation does not authorize
 active probing, anonymous-proxy use with client data, or unapproved Docker
 changes. See [legal terms](./LEGAL.md).
 
-**Related independent contributions under review:** [Devhints-informed CLI
-reference (PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156)
-([original Devhints source](https://github.com/rstacruz/cheatsheets)) and
-[Public APIs catalog (PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157)
-([public-apis source](https://github.com/public-apis/public-apis)). These are
-separate changes; their proposed content is **not represented as merged** by
-this README.
+**Other already-integrated references:** [Devhints commands (merged PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156) from [rstacruz/cheatsheets](https://github.com/rstacruz/cheatsheets), [Public APIs catalog (merged PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157) from [public-apis/public-apis](https://github.com/public-apis/public-apis), and [Beautiful Docs/Froxy/Docker references (merged PR #158)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/158).
+
+### 📎 Additional Sourced Assessment, Detection and Research Workflows
+
+New PNWC guides are original summaries and procedural checklists with direct
+links to upstream source repositories. **Documentation-only integration does
+not imply installation, third-party content mirroring or production testing.**
+The complete source and license register is [here](./Documentation/upstream-security-projects-register.md).
+
+| Original GitHub resources | Where their guidance is integrated |
+| --- | --- |
+| [OWASP WSTG](https://github.com/OWASP/wstg) and [OWASP ASVS](https://github.com/OWASP/ASVS) (CC BY-SA 4.0); [Nuclei templates](https://github.com/projectdiscovery/nuclei-templates) (MIT) | [Versioned web/API verification and safe template review](./WebAppSecurity/owasp-assessment-and-nuclei.md) |
+| [Red Canary Atomic Red Team](https://github.com/redcanaryco/atomic-red-team) (MIT); [SigmaHQ](https://github.com/SigmaHQ/sigma); [Elastic detection rules](https://github.com/elastic/detection-rules) | [Purple Team test procedures](./PlayBooks/purple-team-detection-validation.md) and [detection rule validation](./IncidentResponse/SIEM/detection-content-validation.md). Check individual rule licensing. |
+| [Velociraptor](https://github.com/Velocidex/velociraptor) and [ForensicArtifacts](https://github.com/ForensicArtifacts/artifacts) (Apache-2.0 for ForensicArtifacts) | [Consent-first endpoint and DFIR evidence acquisition](./IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md) |
+| [CISA ScubaGear](https://github.com/cisagov/ScubaGear) (CC0-1.0) | [Microsoft 365/Entra configuration baseline assessment](./Cloud/m365-scuba-assessment.md) |
+| [DefectDojo](https://github.com/DefectDojo/django-DefectDojo) (BSD-3-Clause) | [Issue management, evidence, remediation and retests](./PlayBooks/assessment-findings-lifecycle.md) |
+| [OpenSSF Scorecard](https://github.com/ossf/scorecard), [Syft](https://github.com/anchore/syft), [OSV-Scanner](https://github.com/google/osv-scanner), [Trivy](https://github.com/aquasecurity/trivy), [Cosign](https://github.com/sigstore/cosign) (Apache-2.0); [Gitleaks](https://github.com/gitleaks/gitleaks) (MIT) | [Software supply-chain / SBOM assurance](./ContainerSecurity/software-supply-chain-assessment.md) |
+| [Bellingcat Toolkit](https://github.com/bellingcat/toolkit) and [MVT](https://github.com/mvt-project/mvt) | [OSINT source verification](./OSINT/bellingcat-source-verification.md) and [consensual mobile forensic triage](./Mobile/mvt-forensic-triage.md). Review source-specific licenses and data practices. |
+| [YARA-X](https://github.com/VirusTotal/yara-x) (BSD-3-Clause), [Promptfoo](https://github.com/promptfoo/promptfoo) (MIT), and [rtl_433](https://github.com/merbanan/rtl_433) (GPL-2.0) | [Malware rule lab](./ReverseEngineering/yara-x-rule-lab.md), [LLM/agent evaluations](./AI/llm-security-evaluation-promptfoo.md), and [receive-only IoT telemetry](./SDR/rtl433-passive-telemetry-lab.md) |
+
+**Verification boundary:** References, methodology and internal paths were
+reviewed; upstream code execution, customer scans, Microsoft tenant access,
+radio capture and automated deployment were not undertaken. Confirm source
+release, file license and legal scope before operational reuse.
 
 ### 🛠️ Key Tools & Frameworks
 

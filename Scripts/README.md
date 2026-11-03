@@ -5,6 +5,8 @@
 
 **Documentation references:** [Curated technical docs](../Documentation/curated-technical-docs.md) links to GitHub Docs, Git tutorials, and Go by Example for script review and maintenance; prefer vendor docs for current syntax.
 
+**Secret and dependency checks:** [OpenSSF Scorecard, Gitleaks, Syft and OSV supply-chain workflow](../ContainerSecurity/software-supply-chain-assessment.md) explains versioned inspection and evidence handling for the scripts collection; source code is not automatically safe because it is published.
+
 **Scripting reference:** [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) · [CLI field commands](../Documentation/devhints-cli-field-reference.md) · [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) · [tool pinning policy](./PINNING.md). Do not execute downloaded scripts before inspecting source and verifying provenance.
 
 <div align="center">

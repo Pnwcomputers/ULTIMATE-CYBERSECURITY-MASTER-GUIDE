@@ -18,6 +18,8 @@
 
 **Cloud API and supply-chain references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) covers Cloudflare's managed API, GitHub advisories, NVD and CISA KEV for risk triage. Cloud/API tokens must remain least-privilege and outside committed files.
 
+**Additional assessment paths:** [CISA ScubaGear for Microsoft 365/Entra](m365-scuba-assessment.md) evaluates configuration against SCuBA baselines; [software supply-chain and SBOM checks](../ContainerSecurity/software-supply-chain-assessment.md) apply to cloud artifacts, with credentials and tenant approval handled separately.
+
 ## 🎯 Purpose
 Dedicated home for cloud security - the shared-responsibility model, the recurring
 misconfiguration classes, assessment tooling, and per-provider attack surface and

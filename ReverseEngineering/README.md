@@ -19,6 +19,8 @@ Last reviewed: 2026-10-07
 
 ---
 
+**Detection engineering lab:** [YARA-X rule authoring and synthetic positive/negative fixtures](yara-x-rule-lab.md) complements Ghidra and [REMnux](remnux-malware-analysis-guide.md). External signature libraries require rule-by-rule license and compatibility review.
+
 ## 🎯 Purpose
 
 Index and entry point for software reverse engineering (SRE) in this repository.

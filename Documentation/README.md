@@ -117,6 +117,7 @@ This directory contains comprehensive technical documentation, operational proce
 | [subdomains.txt](./subdomains.txt) | Subdomain wordlist for enumeration and discovery | Wordlist |
 | [references.md](./references.md) | Port/service conventions, HTTP status and regex patterns with validation caveats | Reference Guide |
 | **[Security API Catalog & Cookbook](./security-public-api-catalog.md)** | Curated provider API references, NVD/CISA KEV, URLhaus auth caveat, and read-only CLI examples | API reference |
+| **[Security Project Source Register](./upstream-security-projects-register.md)** | Source attribution, licenses, integrated guides, lab-only status and update process for 20+ selected projects | Reference index |
 | **[Cheat Sheet / Reference Review Index](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Direct links to every reviewed quick reference and its validation/provenance status | Master index |
 
 ### Other Resources

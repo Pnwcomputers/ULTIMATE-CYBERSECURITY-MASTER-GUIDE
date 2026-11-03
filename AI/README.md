@@ -30,6 +30,8 @@
 
 ---
 
+**Security evals:** [Promptfoo LLM and agent security testing](llm-security-evaluation-promptfoo.md) adds synthetic prompt-injection, retrieval and privileged-tool boundary testing, plus provider privacy cautions.
+
 ## 🎯 Purpose
 Index and entry point for AI/ML resources applied to cybersecurity - self-hosted agent frameworks (OpenClaw, AnythingLLM), prompt engineering, offline/air-gapped LLM deployment, and adversarial AI (`offensive_ai.md`). Distinct from `offensive_ai.md`'s narrow scope (attacking AI systems as a target) - this README indexes the broader "use AI as a tool" side: agents, prompting, and self-hosted deployment.
 

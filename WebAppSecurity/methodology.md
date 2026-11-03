@@ -6,6 +6,8 @@
 > **explicit written permission** and a signed scope to assess. See
 > [LEGAL.md](../LEGAL.md).
 
+**Standards and reporting companion:** [OWASP ASVS 5.0.0, WSTG scenarios and reviewed Nuclei templates](owasp-assessment-and-nuclei.md) provide versioned controls and source provenance for the testing phases below; [findings workflow](../PlayBooks/assessment-findings-lifecycle.md) tracks verification and retests.
+
 ## 🎯 Purpose
 A repeatable, phase-by-phase methodology for authorized web application assessments -
 from scoping through reporting - aligned with the OWASP Web Security Testing Guide.

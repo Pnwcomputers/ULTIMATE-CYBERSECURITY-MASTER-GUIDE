@@ -14,6 +14,8 @@
 
 ---
 
+**Versioned assurance:** [ASVS/WSTG requirements and tests](../WebAppSecurity/owasp-assessment-and-nuclei.md) and [CISA SCuBA baselines](../Cloud/m365-scuba-assessment.md) produce evidence IDs, exceptions and remedial work tracked via [client findings](../PlayBooks/assessment-findings-lifecycle.md).
+
 ## 🎯 Purpose
 Dedicated home for Governance, Risk, and Compliance - the major security control
 frameworks, the data-protection regulations, and a practical approach to mapping
