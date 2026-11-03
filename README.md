@@ -90,6 +90,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 <a id="supporting-guides"></a>
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
+**Curated OSINT expansions:** [Awesome OSINT List integration](./OSINT/awesome-osint-list-curated.md) connects public company registries, satellite/map verification, transport data and ethical identity/breach checking with existing PNWC investigation guides.
+
+
 
 ### Core References
 

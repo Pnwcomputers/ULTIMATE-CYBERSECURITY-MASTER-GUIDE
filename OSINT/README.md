@@ -22,6 +22,9 @@
 
 **Evidence provenance:** [Bellingcat Toolkit and source-verification workflow](bellingcat-source-verification.md) covers independent corroboration, UTC capture, integrity and uncertainty; see the [OSINT case playbook](Playbook/README.md).
 
+
+**Expanded curated sources:** [Awesome OSINT List investigation guide](awesome-osint-list-curated.md) integrates company/beneficial-ownership, imagery, geolocation, transport, domain intelligence, evidence preservation and training sources without duplicating the core catalog.
+
 ## 🎯 Purpose
 OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
 

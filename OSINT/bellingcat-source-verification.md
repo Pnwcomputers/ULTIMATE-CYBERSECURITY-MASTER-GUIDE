@@ -10,6 +10,9 @@ _Last reviewed: 2026-11-02 (reference review; no live case collection)_
 **Prerequisites:** [OSINT hub](README.md) · [Investigator playbook](Playbook/investigation_guide.md) · [OPSEC](../OPSEC/README.md).
 
 ## Source context
+**Related verified-source directory:** [Awesome OSINT List curation](awesome-osint-list-curated.md) organizes mapping, satellite imagery, image/video provenance and public records; its third-party listings still require independent verification.
+
+
 
 [Bellingcat Toolkit 2.0](https://github.com/bellingcat/toolkit) is an actively curated inventory of open-source research tools, with content synced from its online documentation. It can help find tools for page archives, visual verification, geolocation, historical records and media research. A directory listing is **not** an endorsement of the legality, reliability, privacy, continued availability or integrity of each third-party provider.
 

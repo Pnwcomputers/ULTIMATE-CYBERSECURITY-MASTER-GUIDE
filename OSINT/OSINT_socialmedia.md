@@ -19,6 +19,9 @@ Serve as the authoritative social media reference for the OSINT Investigator Pla
 ---
 
 ## ⚠️ Read This First
+**Cross-source corroboration:** [Awesome OSINT List curated workflow](awesome-osint-list-curated.md) adds reverse-media searches, date-aware geolocation and company verification. Do not infer identity from a shared handle or reused profile image alone.
+
+
 
 Social media OSINT is the most volatile discipline in this guide. Platforms actively fight enumeration and scraping, kill undocumented endpoints without notice, and rotate URL structures. **Assume any platform-specific trick below has a shelf life measured in months.** The *methodology* is durable; the *implementation details* are not.
 
