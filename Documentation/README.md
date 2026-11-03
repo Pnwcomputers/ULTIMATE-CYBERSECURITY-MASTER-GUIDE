@@ -83,6 +83,7 @@ This directory contains comprehensive technical documentation, operational proce
 | :--- | :--- | :--- |
 | [TOR.md](./TOR.md) | Tor Browser and Tor daemon setup, proxychains integration, bridges, .onion services, and OPSEC | Guide |
 | [VPN.md](./VPN.md) | Mullvad VPN deep-dive: kill switch, multi-hop, DNS leak prevention, CLI usage, and operational security workflows | Guide |
+| [OPSEC proxy types / Froxy](../OPSEC/proxy-reference-froxy.md) | HTTP/HTTPS/SOCKS5 comparisons, DNS leaks and warnings for public proxy lists | Companion |
 
 ### Programming & Scripting
 | File | Description | Size/Type |
