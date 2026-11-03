@@ -113,7 +113,11 @@ curl -fsS -G -H 'Accept: application/vnd.github+json' \
 ### Authenticated, read-only indicator context
 
 Provide keys through an approved secrets manager/environment, **never**
-include real values in committed files, logs or screenshots. Both queries
+include real values in committed files, logs or screenshots. **Caution:**
+interpolating keys into `curl -H` arguments can expose them to local process
+inspection on some systems; for production use, prefer a protected
+`curl --config` file (mode `0600`), a credential-aware client library or a
+secret-injection mechanism that avoids command-line arguments. Both queries
 below use Google's public resolver IP only as a **synthetic example**.
 
 ```bash
