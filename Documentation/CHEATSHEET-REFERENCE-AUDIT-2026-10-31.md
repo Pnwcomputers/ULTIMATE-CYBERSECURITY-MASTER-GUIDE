@@ -4,6 +4,8 @@ _Review date: October 31, 2026 (Pacific time). This is a targeted content and sa
 
 [Main guide](../README.md) · [Start here](../START_HERE.md) · [Documentation index](./README.md) · [Legal terms](../LEGAL.md)
 
+**November 2 addition:** [CLI Field Cheat Sheet (Devhints-informed)](./devhints-cli-field-reference.md) — a new, independently written reference. It was not part of the October 31 audit and its commands have not been run on every supported platform.
+
 ## Reader-first quick reference collection
 
 | Topic | Reference | Status / intended use |
@@ -19,6 +21,7 @@ _Review date: October 31, 2026 (Pacific time). This is a targeted content and sa
 | Memory forensics | [Volatility 3 Cheat Sheet](../IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md) | Removed unsupported claim of official third-party container image; isolated Python and symbol cautions |
 | NanoVNA | [Quick Reference](../SDR/nanovna/07-quick-reference.md) | Clarified approximate formulas and antenna-length guidance |
 | Bash scripting | [Bash Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Removed direct remote script execution and fixed some unsafe admin examples; adversarial lab sections remain marked |
+| CLI field operations (new November 2) | [Devhints-informed CLI Field Cheat Sheet](./devhints-cli-field-reference.md) | Added after this October 31 audit; original examples with official-doc links, not comprehensively runtime tested |
 | General security | [Cybersecurity Cliff Notes](../cybersecurity_cliff_notes.md) | Clarified 2025 OWASP taxonomy versus historical examples; updated WPA2/WPA3 caveats |
 | Wireshark and packets | [Advanced Wireshark Reference](./wireshark.md) | Existing indexed reference; separate [PR #145](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/145) adds a master filter catalog and field quick sheet; merge separately |
 | Wireless incident investigation | [Deauth/PMF Guide](./wifi-deauthentication-detection.md) | Previously reviewed Kismet/nzyme cross-linked guide |

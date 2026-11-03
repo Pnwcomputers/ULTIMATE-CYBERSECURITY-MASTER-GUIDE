@@ -1,6 +1,6 @@
 # 🐧 Linux Command Cheat Sheet & Reference _(Debian Based)_
 
-**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
+**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). For `find`, `grep`, `curl`, `rsync`, GnuPG and Docker quick commands, see the [CLI Field Cheat Sheet](./devhints-cli-field-reference.md).
 
 > [!IMPORTANT]
 > **Reviewed October 31, 2026.** These commands depend on the distribution version, actual hardware, privileges and package availability; do not paste large installation blocks without checking their changes. Debian 12+/recent Ubuntu often implement [externally managed Python environments](https://pipx.pypa.io/latest/how-to/install-pipx.html): prefer system packages, `pipx` for applications or `python3 -m venv` for projects, not global `pip3 install`. See [Arch reference](./ArchLinux_CheatSheet.md), [network reference](./references.md), and [Wireshark capture and filter reference](./wireshark.md).

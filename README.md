@@ -97,6 +97,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 |---|---|
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
+| **[CLI Field Cheat Sheet (Devhints-informed)](./Documentation/devhints-cli-field-reference.md)** | Original command examples for shell, logs, curl/TLS, rsync, GnuPG, Git, Docker and session management |
 | [Cybersecurity Cliff Notes](./cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
 | [Advanced Techniques - Part 1](./advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](./advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
