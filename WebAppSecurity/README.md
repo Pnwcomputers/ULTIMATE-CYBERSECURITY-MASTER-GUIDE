@@ -14,6 +14,8 @@
 
 ---
 
+**API inventory and safe testing references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) includes APIs.guru, Postman Echo, GitGuardian and disclosure-management services. Use synthetic data and written scope; public OpenAPI specifications do not confer testing authorization.
+
 ## 🎯 Purpose
 Dedicated home for web application security - the OWASP Top 10, a repeatable
 assessment methodology, and the tooling (Burp Suite, API/GraphQL testing) used to
