@@ -14,6 +14,8 @@
 
 ---
 
+**Security API companion:** [Curated Public APIs catalog](../Documentation/security-public-api-catalog.md) distinguishes existing OSINT providers from future integrations, with authentication, quota and client-data cautions.
+
 **Field quick references:** [OSINT investigator cheat sheet](./OSINT_CHEATSHEET.md) · [cross-repository cheat sheet/reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). The OSINT sheet covers fast syntax; the investigation playbook covers safe storage, audit and case evidence.
 
 ## 🎯 Purpose
