@@ -143,6 +143,7 @@ weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape
 - [containers.md](containers.md) - Container image & runtime security
 - [kubernetes.md](kubernetes.md) - Kubernetes security
 - [../Cloud/README.md](../Cloud/README.md) - Cloud security (managed K8s: EKS/AKS/GKE)
+- [CLI field commands](../Documentation/devhints-cli-field-reference.md#8-docker-and-compose-inspection) - Inspection-first Docker and Compose quick reference
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
 
 ---

@@ -24,7 +24,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
 - **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations)
-- **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
+- **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md) for security concepts or the [CLI Field Cheat Sheet](Documentation/devhints-cli-field-reference.md) for everyday Linux, transfer, GPG, Git and Docker commands
 - **Need Docker or Compose diagnostics?** → [Docker Operations Cheat Sheet](ContainerSecurity/docker-cli-operations-reference.md) → [Container Runtime Security](ContainerSecurity/containers.md) for host/socket risks and hardening.
 - **Comparing proxies, SOCKS, VPNs or Tor?** → [Proxy Types and Froxy Research](OPSEC/proxy-reference-froxy.md) → [Anonymity Layering](OPSEC/anonymity-layering.md). Do not use unknown public proxies for client data.
 - **Looking for authoritative software or API documentation?** → [Curated Technical Docs](Documentation/curated-technical-docs.md) → [Writing conventions](STYLE_GUIDE.md).

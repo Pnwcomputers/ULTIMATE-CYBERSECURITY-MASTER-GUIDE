@@ -100,6 +100,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | **[Curated Technical Documentation](./Documentation/curated-technical-docs.md)** | Links to relevant documentation from Beautiful Docs: GitHub, Git, FreeBSD, FastAPI, Django, PostgreSQL, Redis, Packer and writing standards |
 | **[Proxy Types, Froxy & DNS Leak Reference](./OPSEC/proxy-reference-froxy.md)** | Proxy trust comparison, SOCKS5/SSH and public-list risks; Froxy is for isolated research, not high-sensitivity traffic |
 | **[Docker Operations & Security Cheat Sheet](./ContainerSecurity/docker-cli-operations-reference.md)** | Inspection-first Docker CLI/Compose commands, daemon/security boundaries, image/volume inventories and destructive-operation cautions |
+| **[CLI Field Cheat Sheet (Devhints-informed)](./Documentation/devhints-cli-field-reference.md)** | Original command examples for shell, logs, curl/TLS, rsync, GnuPG, Git, Docker and session management |
 | [Cybersecurity Cliff Notes](./cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
 | [Advanced Techniques - Part 1](./advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](./advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
