@@ -16,6 +16,8 @@
 
 **Deception reporting:** [Honeypot → Wazuh native JSON integration](../HoneyPot/wazuh-honeypot-integration.md) connects OpenCanary, Cowrie and DIY decoy metadata; [Kismet](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme](../IDS%26IPS/nzyme-wazuh-integration.md) contribute independent wireless alert streams.
 
+**Container deployment support:** [Docker CLI / Compose operations reference](../../ContainerSecurity/docker-cli-operations-reference.md) provides safe diagnostics for containerized SIEM services, volume inventories, log exposure and privilege boundaries. Check the SIEM-specific installation guide for its supported platform and storage requirements.
+
 ## 🎯 Purpose
 Index for the SIEM sub-section — self-hosted deployment guides for the four most common security log-aggregation platforms (ELK Stack, Wazuh, Splunk, Graylog), so a blue teamer can pick a platform and stand it up for a homelab or small SOC.
 
