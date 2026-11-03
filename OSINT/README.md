@@ -1,4 +1,7 @@
 # 🔍 OSINT (Open Source Intelligence) Resources
+**Historical OSINT/CTF recon reading:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) flags outdated people-search links and separates public challenge research from live-person targeting.
+
+
 
 <div align="center">
 

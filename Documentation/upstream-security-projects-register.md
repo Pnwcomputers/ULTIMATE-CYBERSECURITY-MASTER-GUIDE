@@ -11,7 +11,9 @@ cross-linked**, NOT installed, synchronized or production tested.
 
 | Upstream source | PNWC integration | License/reuse note |
 | --- | --- | --- |
-| [OWASP/WSTG](https://github.com/OWASP/wstg) | [Web testing and mapping](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0 |
+| [OWASP/WSTG]
+| [Cypherpunk Symposium security-pentesting-toolkit](https://github.com/cypherpunk-symposium/security-pentesting-toolkit) | [Archival CTF/crypto/DFIR/network/web curation](cypherpunk-pentesting-toolkit-review.md) | Archived historical repository (last pushed March 29, 2026); no repo license metadata, no code mirrored |
+(https://github.com/OWASP/wstg) | [Web testing and mapping](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0 |
 | [OWASP/ASVS](https://github.com/OWASP/ASVS) | [Versioned security requirements](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0; pin 5.0.0 IDs when using that version |
 | [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates) | [Template selection and verification](../WebAppSecurity/owasp-assessment-and-nuclei.md) | MIT at repository level; review individual files |
 | [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team) | [Purple Team test workflow](../PlayBooks/purple-team-detection-validation.md) | MIT |

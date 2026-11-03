@@ -16,6 +16,9 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 
 ## 🎯 QUICK START
+**CTF, forensics and security history:** [Cypherpunk Symposium toolkit curation](Documentation/cypherpunk-pentesting-toolkit-review.md) routes older notes to current PNWC guides and identifies outdated technical claims.
+
+
 
 **Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
 

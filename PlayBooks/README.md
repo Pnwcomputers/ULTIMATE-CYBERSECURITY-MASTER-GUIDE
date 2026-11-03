@@ -54,6 +54,9 @@ These playbooks serve as:
 ---
 
 ## 📂 Playbook Collection
+**CTF practice companion:** [Cypherpunk Symposium archived toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) gives source-backed lessons for legal CTF, memory, cryptography and packet-analysis drills without importing attack scripts.
+
+
 
 ![Penetration testing engagement lifecycle flow](../assets/pentest_lifecycle.png)
 

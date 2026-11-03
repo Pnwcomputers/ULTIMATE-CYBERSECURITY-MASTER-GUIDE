@@ -90,6 +90,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 <a id="supporting-guides"></a>
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
+**Historical security-research curation:** [Cypherpunk Symposium pentesting toolkit review](./Documentation/cypherpunk-pentesting-toolkit-review.md) provides topic routing, current replacements, and accuracy warnings for this archived CTF/security archive.
+
+
 
 ### Core References
 

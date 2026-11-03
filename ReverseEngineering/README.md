@@ -1,4 +1,7 @@
 # 🔬 Reverse Engineering
+**Historical x86/CTF source:** [Cypherpunk Symposium curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) routes its older debugger and assembly notes into current Ghidra/binary-analysis references and documents decompilation limitations.
+
+
 
 Last reviewed: 2026-10-07
 

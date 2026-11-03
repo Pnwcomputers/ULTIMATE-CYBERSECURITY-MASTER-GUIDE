@@ -15,6 +15,9 @@
 ---
 
 ## 🎯 Purpose
+**Historical crypto cross-reference:** [Cypherpunk Symposium collection review](../Documentation/cypherpunk-pentesting-toolkit-review.md) covers classical cipher learning and corrects outdated MD5/SHA-1 collision claims. Do not use legacy Python 2 examples for production cryptography.
+
+
 Dedicated home for cryptography; which algorithms to use (and avoid), how to apply
 them correctly (TLS, password storage, key management), and where the field is
 heading (post-quantum).
