@@ -24,6 +24,8 @@ Phase 2 and Phase 3 documentation has been prepared with local verification reco
 this index; links to newly prepared documents become live when they are uploaded. This index does not assert a tested
 production deployment or new execution of the existing Phase 1 labs._
 
+**Suggested data-source practice:** [Security API Catalog & Cookbook](../Documentation/security-public-api-catalog.md) provides authorized read-only security feeds and example JSON lookups for ingestion, contract validation, provenance and SIEM enrichment labs.
+
 ## 🎯 Purpose
 
 Provide a central learning and reference section for building systems that collect, move, transform, store, and deliver useful data. The scope includes application records, API responses, database extracts, operational metrics, and security logs.
