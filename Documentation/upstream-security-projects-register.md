@@ -11,6 +11,9 @@ cross-linked**, NOT installed, synchronized or production tested.
 
 | Upstream source | PNWC integration | License/reuse note |
 | --- | --- | --- |
+| [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5StickCPlus2) | [Hardware-specific IR, Sub-GHz, BLE/HID and portal lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) | No root license found; sourced files credit other authors. Linked only, not mirrored. |
+| [Cypherpunk Symposium security-pentesting-toolkit](https://github.com/cypherpunk-symposium/security-pentesting-toolkit) | [Archival CTF/crypto/DFIR/network/web curation](cypherpunk-pentesting-toolkit-review.md) | Archived historical repository (last pushed March 29, 2026); no repo license metadata, no code mirrored |
+| [Astrosp/Awesome-OSINT-List](https://github.com/Astrosp/Awesome-OSINT-List) | [Curated OSINT reference and evidence-first workflows](../OSINT/awesome-osint-list-curated.md) | GPL-3.0 at repository root; no bulk mirroring of upstream content or provider datasets |
 | [OWASP/WSTG](https://github.com/OWASP/wstg) | [Web testing and mapping](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0 |
 | [OWASP/ASVS](https://github.com/OWASP/ASVS) | [Versioned security requirements](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0; pin 5.0.0 IDs when using that version |
 | [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates) | [Template selection and verification](../WebAppSecurity/owasp-assessment-and-nuclei.md) | MIT at repository level; review individual files |
