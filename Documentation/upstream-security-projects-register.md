@@ -31,6 +31,10 @@ cross-linked**, NOT installed, synchronized or production tested.
 | [rtl_433](https://github.com/merbanan/rtl_433) | [Passive IoT telemetry](../SDR/rtl433-passive-telemetry-lab.md) | GPL-2.0 |
 | [Falco rules](https://github.com/falcosecurity/rules) and [osquery defense kit](https://github.com/chainguard-dev/osquery-defense-kit) | [Additional detection content](../IncidentResponse/SIEM/detection-content-validation.md) | Apache-2.0 |
 
+| [Hack-with-Github/Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) | [Curated cybersecurity collections](awesome-hacking-collections-integration.md) | CC0-1.0 for root index; downstream links have independent licensing |
+| [The-Art-of-Hacking/h4cker](https://github.com/The-Art-of-Hacking/h4cker) | [Source map](awesome-hacking-collections-integration.md), [Proxmox sensor lab](../Homelab/proxmox-security-monitoring-visibility.md), [training pathways](../PlayBooks/security-training-lab-pathways.md) | MIT at root; lab configurations must be validated for current equipment |
+| [vitalysim/Awesome-Hacking-Resources](https://github.com/vitalysim/Awesome-Hacking-Resources) | [Historical training, OSINT, AI and tools mapping](awesome-hacking-collections-integration.md) | GPL-3.0 at root; no scripts/binaries copied |
+
 ## What is and is not delivered
 
 - **Delivered:** original, focused PNWC instructions; use-case decisions;

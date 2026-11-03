@@ -91,6 +91,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
 
+**Curated cybersecurity GitHub ecosystems:** [Awesome-Hacking, h4cker and Awesome-Hacking-Resources](./Documentation/awesome-hacking-collections-integration.md) connects relevant projects to existing PNWC chapters; also see [ethical CTF pathways](./PlayBooks/security-training-lab-pathways.md).
+
 ### Core References
 
 | Resource | Description |

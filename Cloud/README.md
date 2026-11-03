@@ -14,6 +14,8 @@
 
 ---
 
+**Cloud research references:** [h4cker cloud/container security](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/cloud-container-security) and [PNWC's source map](../Documentation/awesome-hacking-collections-integration.md). Verify current AWS/Azure/GCP APIs before deployment.
+
 **External documentation:** [Curated technical docs](../Documentation/curated-technical-docs.md) includes infrastructure references such as [Linode/Akamai](https://www.linode.com/docs/), and the [Docker operations guide](../ContainerSecurity/docker-cli-operations-reference.md) covers local Engine diagnostics; cloud-native workload hardening still requires provider-specific controls.
 
 **Cloud API and supply-chain references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) covers Cloudflare's managed API, GitHub advisories, NVD and CISA KEV for risk triage. Cloud/API tokens must remain least-privilege and outside committed files.

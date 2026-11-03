@@ -14,6 +14,8 @@
 
 ---
 
+**DevSecOps and source-analysis references:** [Awesome DevSecOps](https://github.com/devsecops/awesome-devsecops), [static-analysis tools](https://github.com/analysis-tools-dev/static-analysis) and [the curated project map](../Documentation/awesome-hacking-collections-integration.md).
+
 **Vulnerability intelligence:** Use the [Security API Catalog](../Documentation/security-public-api-catalog.md) to prioritize image/runtime findings with NVD, GHSA and CISA KEV; verify package/version applicability before remediation.
 
 **Software supply-chain workflow:** [OpenSSF Scorecard, Syft SBOM, OSV-Scanner, Trivy, Gitleaks and Cosign](software-supply-chain-assessment.md) complement the [Docker/OCI runtime security](containers.md) and [Docker CLI](docker-cli-operations-reference.md) guides.

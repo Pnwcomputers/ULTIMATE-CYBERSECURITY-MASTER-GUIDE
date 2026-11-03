@@ -17,6 +17,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ## 🎯 QUICK START
 
+**Learn with sourced labs:** [Security training and CTF pathways](PlayBooks/security-training-lab-pathways.md) · [Curated security research projects](Documentation/awesome-hacking-collections-integration.md).
+
 **Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
 
 **Popular hands-on Blue Team path:** [Incident Response index](IncidentResponse/README.md) → [Wazuh/SIEM](IncidentResponse/SIEM/README.md) → [Kismet/nzyme IDS](IncidentResponse/IDS%26IPS/readme.md) → [Honeypot lab](IncidentResponse/HoneyPot/readme.md) → [Honeypot → Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md).

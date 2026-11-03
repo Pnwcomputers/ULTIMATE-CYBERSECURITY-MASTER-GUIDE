@@ -14,6 +14,8 @@
 
 ---
 
+**More defensive resources:** [Curated detection, DFIR, Suricata and YARA research](../Documentation/awesome-hacking-collections-integration.md) maps external source projects to existing PNWC field guides.
+
 **Packet capture triage:** [Wireshark master filter list](../Documentation/wireshark-master-filters.md) · [field cheat sheet](../Documentation/wireshark-cheatsheet.md) · [advanced capture guide](../Documentation/wireshark.md). Capture scope and evidence interpretation are separate from Wazuh detections.
 
 **Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
