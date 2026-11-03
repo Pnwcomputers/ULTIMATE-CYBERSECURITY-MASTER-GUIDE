@@ -14,6 +14,8 @@
 
 ---
 
+**External developer docs:** [Beautiful Docs-derived reference index](../Documentation/curated-technical-docs.md) links to [FastAPI](https://fastapi.tiangolo.com/) and [Django](https://docs.djangoproject.com/en/) documentation for owned API labs. Pair implementation details with [OWASP API Security](https://owasp.org/API-Security/), not framework docs alone.
+
 ## 🎯 Purpose
 Dedicated home for web application security - the OWASP Top 10, a repeatable
 assessment methodology, and the tooling (Burp Suite, API/GraphQL testing) used to
