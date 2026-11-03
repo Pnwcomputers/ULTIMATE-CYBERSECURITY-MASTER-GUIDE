@@ -14,6 +14,9 @@
 
 ---
 
+**Cryptography learning:** [Cryptopals](https://cryptopals.com/) and [curated challenge pathways](../PlayBooks/security-training-lab-pathways.md) cover exercises; distinguish classical puzzles from production-grade encryption.
+
+
 ## 🎯 Purpose
 Dedicated home for cryptography; which algorithms to use (and avoid), how to apply
 them correctly (TLS, password storage, key management), and where the field is

@@ -14,6 +14,9 @@
 
 ---
 
+**Hardening and security governance source lists:** [Awesome Security](https://github.com/sbilly/awesome-security), [annual reports](https://github.com/jacobdjwilson/awesome-annual-security-reports), and [PNWC's curated source map](../Documentation/awesome-hacking-collections-integration.md).
+
+
 **Versioned assurance:** [ASVS/WSTG requirements and tests](../WebAppSecurity/owasp-assessment-and-nuclei.md) and [CISA SCuBA baselines](../Cloud/m365-scuba-assessment.md) produce evidence IDs, exceptions and remedial work tracked via [client findings](../PlayBooks/assessment-findings-lifecycle.md).
 
 ## 🎯 Purpose

@@ -14,6 +14,9 @@
 
 ---
 
+**Adjacent research ecosystems:** [h4cker OSINT, threat-intelligence and security collections](../Documentation/awesome-hacking-collections-integration.md); use [the curated Awesome OSINT reference](awesome-osint-list-curated.md) for evidence-first collection.
+
+
 **Outbound proxy choices:** [Proxy trust, Froxy and DNS-leak reference](../OPSEC/proxy-reference-froxy.md) distinguishes disposable public-proxy research from vetted, contractual OSINT egress. For active client tests use stable, auditable and authorized source addresses; see [anonymity layering](../OPSEC/anonymity-layering.md).
 
 **Security API companion:** [Curated Public APIs catalog](../Documentation/security-public-api-catalog.md) distinguishes existing OSINT providers from future integrations, with authentication, quota and client-data cautions.

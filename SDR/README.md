@@ -15,6 +15,9 @@
 
 ---
 
+**RF/IoT source collections:** [RFSec Toolkit](https://github.com/cn0xroot/RFSec-ToolKit), [cellular research](https://github.com/W00t3k/Awesome-Cellular-Hacking), and [curated external sources](../Documentation/awesome-hacking-collections-integration.md).
+
+
 **Passive IoT telemetry:** [rtl_433 receive-only lab](rtl433-passive-telemetry-lab.md) explains supported-band sensors, privacy controls, JSON event normalization and detection limitations.
 
 ## 🎯 Purpose

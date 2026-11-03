@@ -107,4 +107,7 @@ _Core platform guides last verified on 2026-10-22; additional upstream repositor
 
 ---
 
+**Radio/packet source lists:** [PCAP Tools](https://github.com/caesar0301/awesome-pcaptools) and [the cross-domain index](../Documentation/awesome-hacking-collections-integration.md) complement controlled surveys; PCAP analysis alone does not authorize live RF operations.
+
+
 [Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)

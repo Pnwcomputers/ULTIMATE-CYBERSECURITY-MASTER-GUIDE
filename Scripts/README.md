@@ -24,6 +24,9 @@
 
 ---
 
+**External script sourcing:** [Curated security GitHub collections](../Documentation/awesome-hacking-collections-integration.md) describe useful upstream projects; no linked payload is automatically vetted or installed.
+
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)

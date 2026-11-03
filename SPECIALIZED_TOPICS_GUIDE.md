@@ -11,6 +11,9 @@
 
 ---
 
+**Current specialized resource map:** [Awesome-Hacking, h4cker, Awesome-Hacking-Resources](Documentation/awesome-hacking-collections-integration.md) and the [Proxmox sensor-visibility checklist](Homelab/proxmox-security-monitoring-visibility.md) supplement existing in-depth hardware and software chapters.
+
+
 # TABLE OF CONTENTS
 
 **[PART I: AI & SELF-HOSTED LLM SECURITY](#part-i-ai--self-hosted-llm-security)**
