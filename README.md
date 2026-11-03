@@ -53,7 +53,7 @@ Your complete navigation guide with quick paths for every role and purpose (Red 
 
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
 
-**Quick paths for defensive homelabs:** [Incident Response](./IncidentResponse/README.md) · [Honeypot platforms and DIY sensors](./IncidentResponse/HoneyPot/readme.md) · [Kismet/nzyme IDS and IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Wazuh and other SIEMs](./IncidentResponse/SIEM/README.md) · [Wireless/wardriving](./Wardriving/README.md).
+**Quick Paths for Defensive Security:** [Incident Response](./IncidentResponse/README.md) · [Honeypot platforms and DIY sensors](./IncidentResponse/HoneyPot/readme.md) · [Kismet/nzyme IDS and IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Wazuh and other SIEMs](./IncidentResponse/SIEM/README.md) · [Wireless/wardriving](./Wardriving/README.md).
 
 A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 [START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
