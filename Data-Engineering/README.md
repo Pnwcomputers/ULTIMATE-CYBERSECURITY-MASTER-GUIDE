@@ -24,6 +24,8 @@ Phase 2 and Phase 3 documentation has been prepared with local verification reco
 this index; links to newly prepared documents become live when they are uploaded. This index does not assert a tested
 production deployment or new execution of the existing Phase 1 labs._
 
+**Data-store documentation:** [Curated external technical docs](../Documentation/curated-technical-docs.md) includes [PostgreSQL](https://www.postgresql.org/docs/current/) and [Redis](https://redis.io/docs/latest/) for reliable query/telemetry references. For containerized lab services, use the [Docker operational cheat sheet](../ContainerSecurity/docker-cli-operations-reference.md).
+
 ## 🎯 Purpose
 
 Provide a central learning and reference section for building systems that collect, move, transform, store, and deliver useful data. The scope includes application records, API responses, database extracts, operational metrics, and security logs.
