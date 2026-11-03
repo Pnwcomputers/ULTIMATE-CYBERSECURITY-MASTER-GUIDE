@@ -192,6 +192,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ### Maintenance & Historical Reviews
 
+**Current integration/CI review:** [November 3, 2026 quality report](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) describes today's merged updates, verified checks, corrections and runtime limitations.
+
 | Resource | Purpose |
 |---|---|
 | [Audit Findings Register](./AUDIT_FINDINGS.md) | Historical August assessment and remediation register; read its scope notice |

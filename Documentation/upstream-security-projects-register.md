@@ -1,6 +1,6 @@
 # Security Project Source Register and Integration Coverage
 
-_Last reviewed: 2026-11-02 (source repository review; external tools not deployed)_
+_Last reviewed: 2026-11-03 (source/documentation review; external tools and firmware not deployed)_
 
 This is a provenance and maintenance register for the **newly curated GitHub
 projects** woven into the Ultimate Cybersecurity Master Guide. The referenced
