@@ -95,6 +95,7 @@ This directory contains comprehensive technical documentation, operational proce
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [LinuxCheatSheet.md](./LinuxCheatSheet.md) | Reviewed Linux commands, system administration, hardware hacking toolkit, WSL2, SDR/RF, and OSINT tools | Cheat Sheet |
+| [devhints-cli-field-reference.md](./devhints-cli-field-reference.md) | Original field commands for Bash, find/grep, curl/TLS, rsync/SCP, GnuPG, Git, Docker and tmux/screen | Cheat Sheet |
 | [ArchLinux_CheatSheet.md](./ArchLinux_CheatSheet.md) | Reviewed Arch-specific deep reference: pacman, AUR helpers (yay/paru/pamac), makepkg/PKGBUILD, kernel/module management, systemd, mirrors, security tooling setup | Cheat Sheet |
 | [blackarch.md](./blackarch.md) | BlackArch repository setup (strap.sh), keyring management, tool category installation, mirror configuration, and system maintenance | Guide |
 | [virtualmachines.md](./virtualmachines.md) | Virtual machine setup and management guide | Guide |
