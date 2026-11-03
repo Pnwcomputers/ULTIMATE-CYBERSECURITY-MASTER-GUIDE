@@ -4,6 +4,8 @@ _Review date: October 31, 2026 (Pacific time). This is a targeted content and sa
 
 [Main guide](../README.md) · [Start here](../START_HERE.md) · [Documentation index](./README.md) · [Legal terms](../LEGAL.md)
 
+**November 2 addition:** [CLI Field Cheat Sheet (Devhints-informed)](./devhints-cli-field-reference.md) — a new, independently written reference. It was not part of the October 31 audit and its commands have not been run on every supported platform.
+
 ## Reader-first quick reference collection
 
 | Topic | Reference | Status / intended use |
