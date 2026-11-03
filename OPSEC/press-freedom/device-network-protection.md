@@ -53,6 +53,8 @@ A well-encrypted message is still exposed to someone controlling either endpoint
 5. Audit shared drives, mobile photo sync, contact backups, communications metadata, secondary devices and account recovery. Encryption in transit does not remove stored copies.
 6. Use an editor-approved source-submission channel when receiving documents; isolate unknown files and consider document metadata before circulating.
 
+**Proxy caution:** Do not transmit confidential-source communications, login sessions or documents through unknown public proxies or [Froxy-discovered proxy lists](../proxy-reference-froxy.md). Use vetted privacy tooling and the newsroom's approved threat model; IP masking alone is not source protection.
+
 ## Network protections and travel
 
 - Upgrade router and access-point firmware, disable remote administration unless needed, use WPA2-AES/WPA3 and unique credentials, and place guest/IoT devices on separate networks.
