@@ -14,6 +14,8 @@
 
 ---
 
+**External developer docs:** [Beautiful Docs-derived reference index](../Documentation/curated-technical-docs.md) links to [FastAPI](https://fastapi.tiangolo.com/) and [Django](https://docs.djangoproject.com/en/) documentation for owned API labs. Pair implementation details with [OWASP API Security](https://owasp.org/API-Security/), not framework docs alone.
+
 **API inventory and safe testing references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) includes APIs.guru, Postman Echo, GitGuardian and disclosure-management services. Use synthetic data and written scope; public OpenAPI specifications do not confer testing authorization.
 
 ## 🎯 Purpose

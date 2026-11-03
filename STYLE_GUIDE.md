@@ -1,6 +1,7 @@
 # 📏 ULTIMATE CYBERSECURITY MASTER GUIDE - Style & Maintenance Guide
 
 ## 1. Documentation & Heading Standards
+**External writing references:** [Curated technical docs](./Documentation/curated-technical-docs.md) links to [Diátaxis](https://diataxis.fr/) for tutorials/how-tos/references/explanations, the [Google Developer Documentation Style Guide](https://developers.google.com/style) and other examples collected in [Beautiful Docs](https://github.com/matheusfelipeog/beautiful-docs). Treat these as inspiration; repository conventions below take precedence.
 
 - **Title & Headers:** Every Markdown file must begin with a single Level 1 Heading (`# Title`).
 - **Section Headers:** Use Level 2 (`##`) and Level 3 (`###`) headings logically. Do not skip levels (e.g. going from `#` straight to `####`).

@@ -6,6 +6,8 @@
 > written permission** to assess (and follow the cloud provider's pentest policy
 > for managed clusters). See [LEGAL.md](../LEGAL.md).
 
+**Runtime distinction:** The [Docker operations cheat sheet](docker-cli-operations-reference.md) documents Docker Engine/Compose, **not** Kubernetes administration. For Kubernetes-native workloads use the cluster/RBAC controls below, and review your actual container runtime (often containerd) before applying Docker-specific commands.
+
 ## 🎯 Purpose
 Kubernetes security reference - the cluster attack surface, RBAC and Pod Security,
 common attack paths, and hardening.

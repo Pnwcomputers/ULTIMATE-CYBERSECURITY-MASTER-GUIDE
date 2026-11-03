@@ -119,6 +119,8 @@ This directory covers **operational security for authorized security work and pr
 | **[press-freedom/README.md](./press-freedom/README.md)** | Protect journalists, newsrooms and confidential sources. | [Computers/phones/networks](./press-freedom/device-network-protection.md), [retention/disposal](./press-freedom/data-retention-removal.md), and [duress/seizure response](./press-freedom/duress-seizure-response.md). |
 | **[anonymity-layering.md](./anonymity-layering.md)** | Layer non-attribution on top of a baseline VPN for OSINT and active engagements. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
 
+| **[Proxy types and Froxy research](./proxy-reference-froxy.md)** | Understand HTTP/HTTPS/SOCKS, DNS leaks and free-list discovery risks. | Lab-only Froxy library review; why untrusted proxies are inappropriate for client evidence and source protection. |
+
 <a id="press-freedom"></a>
 ### Press Freedom, Source Protection and Duress Planning
 

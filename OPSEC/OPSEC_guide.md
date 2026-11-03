@@ -1,5 +1,7 @@
 # Cybersecurity OPSEC Guide (2025)
 
+**Proxy risk companion:** [Proxy types, leak checks and Froxy research](./proxy-reference-froxy.md). Public proxies are untrusted intermediaries; prefer explicit, approved network routing and Tor/Whonix where appropriate for the threat model.
+
 ## 🎯 Purpose
 Practical OPSEC guide for cybersecurity professionals - covering the specific virtualized environment setup, identity management, and operational discipline needed for pentesting, malware research, and privacy-sensitive security work.
 

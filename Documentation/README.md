@@ -85,11 +85,13 @@ This directory contains comprehensive technical documentation, operational proce
 | :--- | :--- | :--- |
 | [TOR.md](./TOR.md) | Tor Browser and Tor daemon setup, proxychains integration, bridges, .onion services, and OPSEC | Guide |
 | [VPN.md](./VPN.md) | Mullvad VPN deep-dive: kill switch, multi-hop, DNS leak prevention, CLI usage, and operational security workflows | Guide |
+| [OPSEC proxy types / Froxy](../OPSEC/proxy-reference-froxy.md) | HTTP/HTTPS/SOCKS5 comparisons, DNS leaks and warnings for public proxy lists | Companion |
 
 ### Programming & Scripting
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [python.md](./python.md) | Python programming reference for security applications | Reference |
+| **[curated-technical-docs.md](./curated-technical-docs.md)** | Select links from Beautiful Docs for software, security labs, writing and documentation tooling | Curated links |
 | [arduinoIDE.md](./arduinoIDE.md) | Arduino IDE general setup & configuration guide | Guide |
 | [vscode.md](./vscode.md) | Visual Studio Code general setup & configuration guide | Guide |
 

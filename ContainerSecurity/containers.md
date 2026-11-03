@@ -5,6 +5,8 @@
 > education, and defensive research. Test only images and hosts you own or have
 > **explicit written permission** to assess. See [LEGAL.md](../LEGAL.md).
 
+**Operational CLI companion:** [Docker operations, diagnostics and hardening reference](./docker-cli-operations-reference.md), informed by [wsargent/docker-cheat-sheet](https://github.com/wsargent/docker-cheat-sheet) and the [current Docker manuals](https://docs.docker.com/reference/cli/docker/). This page remains the authoritative threat-model/hardening guide; the companion supplies short, non-destructive inspection commands.
+
 ## 🎯 Purpose
 Container (Docker/OCI) security reference - image and runtime risks, container
 escape vectors, and hardening.

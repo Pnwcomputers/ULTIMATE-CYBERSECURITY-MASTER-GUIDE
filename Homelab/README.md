@@ -12,6 +12,8 @@
 
 </div>
 
+**Additional operating references:** [Docker CLI, Compose and hardening cheat sheet](../ContainerSecurity/docker-cli-operations-reference.md) for self-hosted container labs; [curated technical documentation](../Documentation/curated-technical-docs.md) links to Packer for reproducible VM image workflows. Docker containers are not the same isolation boundary as VMs.
+
 ## 🎯 Purpose
 Index and entry point for the Homelab section - covering the hardware, software, and network architecture needed to build an isolated cybersecurity lab for offensive and defensive research.
 

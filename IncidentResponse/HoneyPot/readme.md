@@ -14,6 +14,8 @@
 
 ---
 
+**Containerized honeypot operations:** Review [Docker/Compose diagnostics and cleanup precautions](../../ContainerSecurity/docker-cli-operations-reference.md) before changing T-Pot or other Docker-backed deception deployments. Persistent alert/data volumes need a tested backup and recovery plan.
+
 ## 🎯 Purpose
 Index for the Honeypots sub-section for self-hosted deception-technology build guides, so a blue teamer can deploy a low-noise, high-signal decoy layer alongside the traffic-based detection covered elsewhere in this repo.
 

@@ -2,6 +2,8 @@
 
 _Last reviewed: 2026-07-30_
 
+**Compare proxy layers:** [Proxy types, Froxy and DNS leak limitations](../OPSEC/proxy-reference-froxy.md). A free open proxy does not provide a VPN's system-level tunnel or any guarantee of safe handling of sensitive client traffic.
+
 ## 🎯 Purpose
 Operational guide for VPN selection, configuration, and use by security professionals - focused on Mullvad VPN as the top recommendation, with coverage of kill switch setup, DNS leak prevention, multi-hop, split tunneling, browser hardening, and VPN+Tor stacking strategies.
 
