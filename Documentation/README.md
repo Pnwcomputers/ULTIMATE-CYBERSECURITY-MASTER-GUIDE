@@ -88,6 +88,7 @@ This directory contains comprehensive technical documentation, operational proce
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [python.md](./python.md) | Python programming reference for security applications | Reference |
+| **[curated-technical-docs.md](./curated-technical-docs.md)** | Select links from Beautiful Docs for software, security labs, writing and documentation tooling | Curated links |
 | [arduinoIDE.md](./arduinoIDE.md) | Arduino IDE general setup & configuration guide | Guide |
 | [vscode.md](./vscode.md) | Visual Studio Code general setup & configuration guide | Guide |
 
