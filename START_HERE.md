@@ -25,6 +25,9 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
 - **New to Cybersecurity?** → Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations)
 - **Need Quick Commands?** → Use [Cliff Notes](cybersecurity_cliff_notes.md)
+- **Need Docker or Compose diagnostics?** → [Docker Operations Cheat Sheet](ContainerSecurity/docker-cli-operations-reference.md) → [Container Runtime Security](ContainerSecurity/containers.md) for host/socket risks and hardening.
+- **Comparing proxies, SOCKS, VPNs or Tor?** → [Proxy Types and Froxy Research](OPSEC/proxy-reference-froxy.md) → [Anonymity Layering](OPSEC/anonymity-layering.md). Do not use unknown public proxies for client data.
+- **Looking for authoritative software or API documentation?** → [Curated Technical Docs](Documentation/curated-technical-docs.md) → [Writing conventions](STYLE_GUIDE.md).
 - **Preparing for OSCP?** → [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Advanced Techniques Part 2](advanced_techniques_part2.md) (Buffer Overflows; CRITICAL) + [Playbooks](PlayBooks/cybersecurity_playbooks.md)
 - **Professional Pentester?** → [Pentoo Linux workstation and assessment workflow](Tradecraft/pentoo-linux-guide.md) + [Network Audit Playbook](PlayBooks/NetworkAuditPlayBook.md) + the other master guides as reference
 - **Blue Team / SOC?** → [Incident Response](IncidentResponse/README.md) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/README.md) + [SIEM Guides](IncidentResponse/SIEM/README.md)
@@ -33,7 +36,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 - **Web App Pentester?** → [Web Application Security](WebAppSecurity/README.md) ([OWASP Top 10](WebAppSecurity/owasp-top-10.md) + [Methodology](WebAppSecurity/methodology.md))
 - **Cloud Security?** → [Cloud Security](Cloud/README.md) ([AWS](Cloud/aws.md) · [Azure/Entra ID](Cloud/azure.md) · [GCP](Cloud/gcp.md))
 - **Compliance / Auditor?** → [Compliance & GRC](Compliance/README.md) ([Frameworks](Compliance/frameworks.md) · [Regulations](Compliance/regulations.md))
-- **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
+- **Container / Kubernetes Security?** → [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Docker CLI/Compose](ContainerSecurity/docker-cli-operations-reference.md) · [Kubernetes](ContainerSecurity/kubernetes.md))
 - **Cryptography?** → [Cryptography](Cryptography/README.md) ([Algorithms](Cryptography/algorithms.md) · [Applied](Cryptography/applied-crypto.md) · [Classical & Leetspeak](Cryptography/Classical/README.md))
 - **Security Keys / FIDO2 / Passkeys?** → [Hardware Keys & Passkeys](Cryptography/security-keys-passkeys.md) → [SoloKeys](Cryptography/solokeys-guide.md) for enrollment and device verification.
 - **Encrypted USB / Hardware Storage?** → [Encrypted Storage](Cryptography/encrypted-storage.md) → [PhantomDrive research](Cryptography/phantomdrive-guide.md) for an experimental hidden-volume example.
