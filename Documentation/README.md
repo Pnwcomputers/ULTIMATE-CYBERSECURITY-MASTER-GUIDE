@@ -14,7 +14,7 @@
 
 ---
 
-**Curated cheat sheet/reference index:** [October 2026 Review & Navigation](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Covers Debian, Arch, ports/HTTP/regex, Aircrack-ng, Marauder, Pwnagotchi, Wireshark, OSINT, Volatility, NanoVNA, Bash, glossary and general cliff notes. PDF references retain separate provenance and currency caveats.
+**Curated cheat sheet/reference index:** [October 2026 Review & Navigation](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Covers Debian, Arch, ports/HTTP/regex, Aircrack-ng, Marauder, Pwnagotchi, Wireshark, OSINT, Volatility, NanoVNA, Bash, glossary and general cliff notes. Also see the [November 2026 Devhints-informed CLI field reference](./devhints-cli-field-reference.md) for practical command examples. PDF references retain separate provenance and currency caveats.
 
 ## 🎯 Purpose
 Index and navigation hub for all documentation in the `Documentation/` directory - covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
