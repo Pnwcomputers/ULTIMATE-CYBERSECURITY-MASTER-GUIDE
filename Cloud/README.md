@@ -14,6 +14,8 @@
 
 ---
 
+**Cloud API and supply-chain references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) covers Cloudflare's managed API, GitHub advisories, NVD and CISA KEV for risk triage. Cloud/API tokens must remain least-privilege and outside committed files.
+
 ## 🎯 Purpose
 Dedicated home for cloud security - the shared-responsibility model, the recurring
 misconfiguration classes, assessment tooling, and per-provider attack surface and
