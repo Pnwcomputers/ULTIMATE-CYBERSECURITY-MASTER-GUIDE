@@ -12,6 +12,9 @@ Wardriving is the systematic observation and mapping of wireless infrastructure 
 This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**, GPS quality, hardware/firmware compatibility, log integrity, and authorized sharing. It does **not** require connecting to detected networks or attempting to access them.
 
 ## Start here
+**Pocket platform companion:** [M5StickC Plus2 starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) for Wi-Fi/BLE observation and external-GNSS requirements. This is not an onboard-GPS logger.
+
+
 
 1. Learn [field planning, safe operation and verification](./field-workflow.md).
 2. Select a platform by its **radio hardware, firmware, GPS source, controller and log location**—these are not interchangeable.

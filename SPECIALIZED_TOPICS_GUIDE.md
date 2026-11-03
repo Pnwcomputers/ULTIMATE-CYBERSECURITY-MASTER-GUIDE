@@ -679,6 +679,9 @@ DATA POISONING DEFENSES:
 ---
 
 # PART II: HARDWARE HACKING
+**Pocket-device companion:** [M5StickC Plus2 / HackStarterPack integration](HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers hardware prerequisites and non-disruptive learning exercises.
+
+
 
 > **Deeper reference:** [`HardwareHacking/`](HardwareHacking/README.md) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
 
