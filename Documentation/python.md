@@ -1,5 +1,7 @@
 # Python Pen Testing Cheat Sheet
 
+**Related references:** [Curated Python and API documentation](./curated-technical-docs.md) (FastAPI, Django) · [Proxy trust / Froxy Python library](../OPSEC/proxy-reference-froxy.md) (lab-only public-list research; never route client credentials through unknown proxies).
+
 ## 🎯 Purpose
 Quick-reference for Python scripting in security contexts - covering socket programming, packet crafting with Scapy, web automation, subprocess use for tool integration, ctypes/WinAPI bindings, and reverse engineering automation.
 
