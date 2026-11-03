@@ -17,16 +17,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ## 🎯 QUICK START
 
-**Learn with sourced labs:** [Security training and CTF pathways](PlayBooks/security-training-lab-pathways.md) · [Curated security research projects](Documentation/awesome-hacking-collections-integration.md).
-**Hardware practice:** [M5StickC Plus2 / HackStarterPack safe lab](HardwareHacking/m5stickc-plus2-hackstarterpack.md) provides IR, CC1101, BLE/HID and portal exercises with source attribution.
-
-
-**CTF, forensics and security history:** [Cypherpunk Symposium toolkit curation](Documentation/cypherpunk-pentesting-toolkit-review.md) routes older notes to current PNWC guides and identifies outdated technical claims.
-
-
-**Cross-source OSINT investigations:** [Awesome OSINT List curated guide](OSINT/awesome-osint-list-curated.md) adds corporate, geospatial, imagery, transport and verification sources with evidence rules.
-
-
+**New source-backed routes:** [M5StickC Plus2 lab](HardwareHacking/m5stickc-plus2-hackstarterpack.md) · [Cypherpunk research history](Documentation/cypherpunk-pentesting-toolkit-review.md) · [Awesome OSINT List](OSINT/awesome-osint-list-curated.md) · [Curated security GitHub ecosystems](Documentation/awesome-hacking-collections-integration.md) · [ethical training/CTFs](PlayBooks/security-training-lab-pathways.md). Choose a role and use the section's authoritative procedures for the actual work.
 
 **Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
 

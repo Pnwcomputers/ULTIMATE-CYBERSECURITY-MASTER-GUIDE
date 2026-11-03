@@ -94,13 +94,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
 
-**Curated cybersecurity GitHub ecosystems:** [Awesome-Hacking, h4cker and Awesome-Hacking-Resources](./Documentation/awesome-hacking-collections-integration.md) connects relevant projects to existing PNWC chapters; also see [ethical CTF pathways](./PlayBooks/security-training-lab-pathways.md).
-**Historical security-research curation:** [Cypherpunk Symposium pentesting toolkit review](./Documentation/cypherpunk-pentesting-toolkit-review.md) provides topic routing, current replacements, and accuracy warnings for this archived CTF/security archive.
-
-
-**Curated OSINT expansions:** [Awesome OSINT List integration](./OSINT/awesome-osint-list-curated.md) connects public company registries, satellite/map verification, transport data and ethical identity/breach checking with existing PNWC investigation guides.
-
-
+**Curated research and practice:** [M5StickC Plus2 hardware lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) · [Cypherpunk historical toolkit review](./Documentation/cypherpunk-pentesting-toolkit-review.md) · [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) · [Awesome-Hacking / h4cker / training ecosystems](./Documentation/awesome-hacking-collections-integration.md) · [ethical CTF pathways](./PlayBooks/security-training-lab-pathways.md). These are source-attributed references, not claims that every upstream tool is installed or tested.
 
 ### Core References
 

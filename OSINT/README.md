@@ -38,7 +38,7 @@ OSINT section index - covering open source intelligence tools, methodologies, an
 Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
 
 ## 🏆 Goal
-Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
+Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with documented manual procedures and selected scripts; the linked case-directory shell menu is a **prototype**, not a finished automated investigator.
 
 ## 📋 When to Use
 - Starting an OSINT investigation and navigating to the right sub-guide
@@ -105,7 +105,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **[OSINT Playbook](./Playbook/README.md)** | Menu-driven `osint_investigator.sh` + automated audit scripts + case management | ✅ Toolkit |
+| **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus a prototype case-directory menu; automated investigation modules, evidence hashing and reporting are not yet implemented | Prototype |
 | **[Toolkit Docs](./docs/)** | FAQ, installation, compatibility, troubleshooting | ✅ Complete |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |

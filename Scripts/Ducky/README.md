@@ -34,34 +34,15 @@ The easiest way to compile DuckyScript payloads.
 4. **Click** "Compile"
 5. **Download** the `inject.bin` file
 
-### Method 2: Hak5 Encoder (Command Line)
-For offline compilation or automation.
+### Method 2: Legacy offline encoders (model-specific)
 
-**Installation:**
-```bash
-# Download from Hak5
-wget https://payloadstudio.com/
+Some original USB Rubber Ducky generations used the Java-based `duckencoder.jar`. This is **not** a general installer for all models and may not compile modern DuckyScript features. For any legacy device, get the correct encoder from a verified vendor-maintained release and check its checksum, language/layout support and documentation. Use the official [Hak5 Payload Studio](https://payloadstudio.hak5.org/) for contemporary devices.
 
-# Or install via package manager (if available)
-```
+Do **not** use `wget https://payloadstudio.com/` as an installation command; that is a website URL, not a verified encoder binary. Do not assume a text script can be deployed as `inject.bin` to a different HID platform, including the external CH9329 accessory for M5StickC Plus2.
 
-**Compile:**
-```bash
-java -jar duckencoder.jar -i payload.txt -o inject.bin
-```
+### Verify a harmless payload before deployment
 
-**Options:**
-- `-i` : Input DuckyScript file (.txt)
-- `-o` : Output compiled file (inject.bin)
-- `-l` : Keyboard layout (default: US)
-
-### Method 3: Duck Toolkit
-Alternative online encoder.
-
-1. **Visit**: https://payloadstudio.com/login/
-2. **Paste** your DuckyScript
-3. **Select** keyboard layout
-4. **Download** `inject.bin`
+Use a **sacrificial offline device** with a blank editor and a short fixed phrase, not a shell command. Confirm firmware/model, payload syntax generation, keyboard layout, expected execution time, consent and cleanup. Avoid importing unreviewed payloads or using third-party script-conversion websites for client data.
 
 ## Deployment
 
