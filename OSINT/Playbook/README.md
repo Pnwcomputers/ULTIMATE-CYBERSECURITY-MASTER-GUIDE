@@ -1,6 +1,9 @@
 # OSINT Investigator Playbook — prototype
 
 ## Purpose
+**Investigator reference:** [Curated Awesome OSINT List](../awesome-osint-list-curated.md) gives optional external resources for company, geospatial, media and exposure checks. The prototype script **does not automate** any of these lookups.
+
+
 
 This folder contains a manual [investigation guide](investigation_guide.md) and
 an experimental Bash menu, `osint_investigator.sh`. Use the manual guide for

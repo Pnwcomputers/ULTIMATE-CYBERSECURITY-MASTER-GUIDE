@@ -17,6 +17,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ## 🎯 QUICK START
 
+**New source-backed routes:** [M5StickC Plus2 lab](HardwareHacking/m5stickc-plus2-hackstarterpack.md) · [Cypherpunk research history](Documentation/cypherpunk-pentesting-toolkit-review.md) · [Awesome OSINT List](OSINT/awesome-osint-list-curated.md) · [Curated security GitHub ecosystems](Documentation/awesome-hacking-collections-integration.md) · [ethical training/CTFs](PlayBooks/security-training-lab-pathways.md). Choose a role and use the section's authoritative procedures for the actual work.
+
 **Prefer reading over file browsing?** Every section link on this page leads to an actual `README.md` or guide. Start with a topic, open its chapter, and use its related-guide links and return-to-index navigation.
 
 **Popular hands-on Blue Team path:** [Incident Response index](IncidentResponse/README.md) → [Wazuh/SIEM](IncidentResponse/SIEM/README.md) → [Kismet/nzyme IDS](IncidentResponse/IDS%26IPS/readme.md) → [Honeypot lab](IncidentResponse/HoneyPot/readme.md) → [Honeypot → Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md).

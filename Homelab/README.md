@@ -30,6 +30,8 @@ Help practitioners build a legally-safe, network-isolated lab environment where 
 
 ---
 
+**Proxmox IDS sensor coverage:** [Traffic visibility checklist](proxmox-security-monitoring-visibility.md) adapts the [h4cker Proxmox lab](https://github.com/The-Art-of-Hacking/h4cker/blob/master/build-your-own-lab/security-onion-proxmox.md) without assuming that an unmanaged switch can mirror packets.
+
 ## 📋 Table of Contents
 
 - [Overview](#-overview)

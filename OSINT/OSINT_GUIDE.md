@@ -2,6 +2,9 @@
 
 ### [Click Here For The Advanced OSINT Guide](../Tradecraft/osint-threat-intel.md) 
 
+
+**Companion directory:** [Curated Awesome OSINT List](awesome-osint-list-curated.md) maps additional public-record, imagery, geographic, transport and evidence services into scoped investigation workflows.
+
 ## 🎯 Purpose
 Master reference for OSINT - methodology, a categorized tool reference, investigation VM setup, per-identifier investigation procedures, evidence handling, and legal/OPSEC guidance. This is the foundational/general guide; [../Tradecraft/osint-threat-intel.md](../Tradecraft/osint-threat-intel.md) (linked above) is the advanced, threat-intelligence-focused counterpart. Within this folder, [OSINT_CHEATSHEET.md](OSINT_CHEATSHEET.md) is the condensed command-only version of this same material.
 

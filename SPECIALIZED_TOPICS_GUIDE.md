@@ -11,6 +11,9 @@
 
 ---
 
+**Current specialized resource map:** [Awesome-Hacking, h4cker, Awesome-Hacking-Resources](Documentation/awesome-hacking-collections-integration.md) and the [Proxmox sensor-visibility checklist](Homelab/proxmox-security-monitoring-visibility.md) supplement existing in-depth hardware and software chapters.
+
+
 # TABLE OF CONTENTS
 
 **[PART I: AI & SELF-HOSTED LLM SECURITY](#part-i-ai--self-hosted-llm-security)**
@@ -676,6 +679,9 @@ DATA POISONING DEFENSES:
 ---
 
 # PART II: HARDWARE HACKING
+**Pocket-device companion:** [M5StickC Plus2 / HackStarterPack integration](HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers hardware prerequisites and non-disruptive learning exercises.
+
+
 
 > **Deeper reference:** [`HardwareHacking/`](HardwareHacking/README.md) - Chapter1–5, device guides (BusPirate, JTAGulator, etc.)
 

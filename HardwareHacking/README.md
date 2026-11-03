@@ -14,6 +14,8 @@
 
 ---
 
+**Adjacent embedded-security research:** [Awesome Embedded and IoT](https://github.com/fkie-cad/awesome-embedded-and-iot-security), [h4cker hardware](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/hardware-embedded-security) and [project routing](../Documentation/awesome-hacking-collections-integration.md).
+
 ## 🎯 Purpose
 Index and navigation hub for the Hardware Hacking section - covering physical and electronic attack techniques against embedded systems: JTAG/SWD/UART debug access, fault injection (voltage, clock, EM, laser), side-channel analysis (SPA, DPA, CPA), firmware extraction, and the hardware tools used in each category.
 
@@ -89,6 +91,9 @@ Experienced practitioner?
 ---
 
 ## 📟 Device Setup & Usage Guides
+
+**M5StickC Plus2:** [HackStarterPack integration and safe lab](./m5stickc-plus2-hackstarterpack.md) covers the exact board, CC1101 pinout, benign IR/BLE/HID tests and source review.
+
 
 For ESP32/Flipper radio accessories used specifically for authorized mapping, see the [Wardriving platform index](../Wardriving/README.md), [Scout Lite + SigRoam](../Wardriving/sigroam-scout-lite.md), [Marauder](../Wardriving/esp32-marauder.md), and [AWOK Dual C5 + Biscuit](../Wardriving/awok-dual-c5-biscuit.md). These cover board revisions, firmware roles and GPS/log locations.
 

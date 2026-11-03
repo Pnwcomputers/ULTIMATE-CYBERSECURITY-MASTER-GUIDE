@@ -1,4 +1,7 @@
 # 🔍 OSINT (Open Source Intelligence) Resources
+**Historical OSINT/CTF recon reading:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) flags outdated people-search links and separates public challenge research from live-person targeting.
+
+
 
 <div align="center">
 
@@ -14,6 +17,9 @@
 
 ---
 
+**Adjacent research ecosystems:** [h4cker OSINT, threat-intelligence and security collections](../Documentation/awesome-hacking-collections-integration.md); use [the curated Awesome OSINT reference](awesome-osint-list-curated.md) for evidence-first collection.
+
+
 **Outbound proxy choices:** [Proxy trust, Froxy and DNS-leak reference](../OPSEC/proxy-reference-froxy.md) distinguishes disposable public-proxy research from vetted, contractual OSINT egress. For active client tests use stable, auditable and authorized source addresses; see [anonymity layering](../OPSEC/anonymity-layering.md).
 
 **Security API companion:** [Curated Public APIs catalog](../Documentation/security-public-api-catalog.md) distinguishes existing OSINT providers from future integrations, with authentication, quota and client-data cautions.
@@ -22,6 +28,9 @@
 
 **Evidence provenance:** [Bellingcat Toolkit and source-verification workflow](bellingcat-source-verification.md) covers independent corroboration, UTC capture, integrity and uncertainty; see the [OSINT case playbook](Playbook/README.md).
 
+
+**Expanded curated sources:** [Awesome OSINT List investigation guide](awesome-osint-list-curated.md) integrates company/beneficial-ownership, imagery, geolocation, transport, domain intelligence, evidence preservation and training sources without duplicating the core catalog.
+
 ## 🎯 Purpose
 OSINT section index - covering open source intelligence tools, methodologies, and investigative playbooks for cybersecurity professionals, investigators, and threat intelligence analysts.
 
@@ -29,7 +38,7 @@ OSINT section index - covering open source intelligence tools, methodologies, an
 Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
 
 ## 🏆 Goal
-Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with ready-to-run automation scripts.
+Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with documented manual procedures and selected scripts; the linked case-directory shell menu is a **prototype**, not a finished automated investigator.
 
 ## 📋 When to Use
 - Starting an OSINT investigation and navigating to the right sub-guide
@@ -96,7 +105,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **[OSINT Playbook](./Playbook/README.md)** | Menu-driven `osint_investigator.sh` + automated audit scripts + case management | ✅ Toolkit |
+| **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus a prototype case-directory menu; automated investigation modules, evidence hashing and reporting are not yet implemented | Prototype |
 | **[Toolkit Docs](./docs/)** | FAQ, installation, compatibility, troubleshooting | ✅ Complete |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |

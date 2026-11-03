@@ -1,4 +1,7 @@
 # 📦 Container & Kubernetes Security
+**Older container-security ecosystem:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) cross-references legacy scanners and emphasizes current supply-chain and Kubernetes policy verification.
+
+
 
 <div align="center">
 
@@ -13,6 +16,8 @@
 </div>
 
 ---
+
+**DevSecOps and source-analysis references:** [Awesome DevSecOps](https://github.com/devsecops/awesome-devsecops), [static-analysis tools](https://github.com/analysis-tools-dev/static-analysis) and [the curated project map](../Documentation/awesome-hacking-collections-integration.md).
 
 **Vulnerability intelligence:** Use the [Security API Catalog](../Documentation/security-public-api-catalog.md) to prioritize image/runtime findings with NVD, GHSA and CISA KEV; verify package/version applicability before remediation.
 

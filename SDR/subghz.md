@@ -300,6 +300,8 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
 
 ---
 
+**Related compact RF guide:** [M5StickC Plus2 / HackStarterPack](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) documents the required CC1101 add-on and unverified upstream RF files. Do not treat the file collection as approved replay vectors.
+
 ## 🛠️ 5. Entry-Level GNU Radio Flowgraph Guide (HackRF)
 
 GNU Radio Companion (GRC) allows you to build custom visual processing blocks to interact with your HackRF. Below is the blueprint for a baseline **Sub-GHz OOK Signal Recorder Flowgraph**.

@@ -14,6 +14,9 @@
 
 ---
 
+**Training-to-field progression:** [Safe CTF and cybersecurity learning pathways](security-training-lab-pathways.md) maps exercises into scoped PNWC assessment and reporting workflows.
+
+
 **New source-backed assessment workflows:** [Staged client assessment map](assessment-service-integration-map.md) · [Atomic Red Team, Sigma and Wazuh validation](purple-team-detection-validation.md) · [DefectDojo findings and retesting](assessment-findings-lifecycle.md). Each is a documentation/runbook integration, not a deployed scanner, SIEM rule or customer automation.
 
 ## 📋 Table of Contents
@@ -54,6 +57,9 @@ These playbooks serve as:
 ---
 
 ## 📂 Playbook Collection
+**CTF practice companion:** [Cypherpunk Symposium archived toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) gives source-backed lessons for legal CTF, memory, cryptography and packet-analysis drills without importing attack scripts.
+
+
 
 ![Penetration testing engagement lifecycle flow](../assets/pentest_lifecycle.png)
 

@@ -17,6 +17,9 @@
 
 ---
 
+**Additional current research and lab references:** [Curated Github security ecosystems](Documentation/awesome-hacking-collections-integration.md) · [Proxmox IDS packet visibility](Homelab/proxmox-security-monitoring-visibility.md).
+
+
 # TABLE OF CONTENTS - ENHANCED EDITION
 
 **[OPERATIONAL SECURITY & SETUP](#part-2-operational-security--setup)**

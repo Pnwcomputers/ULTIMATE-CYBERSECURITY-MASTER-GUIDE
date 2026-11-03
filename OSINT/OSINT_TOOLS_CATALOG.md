@@ -2,14 +2,17 @@
 
 **Additional OSINT catalogue:** [Bellingcat Toolkit and evidence verification](bellingcat-source-verification.md) helps select research tools and distinguish independent sources from reposts; listed providers are not automatically vetted.
 
+
+**Source expansion:** [Awesome OSINT List curated workflows](awesome-osint-list-curated.md) add ICIJ/OCCRP records, geolocation/imagery, ADS-B/maritime context and verification tools not already in this install-focused catalog.
+
 ## 🎯 Purpose
-Comprehensive catalog of core OSINT tools integrated into the OSINT Investigator Playbook - with descriptions, installation, and use cases for each tool.
+Reference catalog of OSINT tools relevant to the Investigator Playbook. The current shell menu is a **prototype** and does not automatically run or integrate these tools; verify each tool's current support, license and installation guidance separately.
 
 ## ⚙️ Function
 Documents each tool in the OSINT toolkit: theHarvester, Maltego, Shodan CLI, Recon-ng, SpiderFoot, OSINT Framework, Sherlock, Holehe, PhotonCrawler, and domain/IP/email/phone-specific tools - with installation commands and primary use cases.
 
 ## 🏆 Goal
-Serve as the authoritative tool reference for the OSINT Investigator Playbook, ensuring practitioners can install and use each tool correctly within the investigation workflow.
+Serve as a starting point for manual tool selection and verification. Listing installation examples does not certify current compatibility, enabled APIs or an automated investigator workflow.
 
 ## 📋 When to Use
 - Installing the OSINT toolkit on a new system

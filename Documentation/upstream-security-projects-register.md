@@ -1,6 +1,6 @@
 # Security Project Source Register and Integration Coverage
 
-_Last reviewed: 2026-11-02 (source repository review; external tools not deployed)_
+_Last reviewed: 2026-11-03 (source/documentation review; external tools and firmware not deployed)_
 
 This is a provenance and maintenance register for the **newly curated GitHub
 projects** woven into the Ultimate Cybersecurity Master Guide. The referenced
@@ -11,6 +11,9 @@ cross-linked**, NOT installed, synchronized or production tested.
 
 | Upstream source | PNWC integration | License/reuse note |
 | --- | --- | --- |
+| [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5StickCPlus2) | [Hardware-specific IR, Sub-GHz, BLE/HID and portal lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) | No root license found; sourced files credit other authors. Linked only, not mirrored. |
+| [Cypherpunk Symposium security-pentesting-toolkit](https://github.com/cypherpunk-symposium/security-pentesting-toolkit) | [Archival CTF/crypto/DFIR/network/web curation](cypherpunk-pentesting-toolkit-review.md) | Archived historical repository (last pushed March 29, 2026); no repo license metadata, no code mirrored |
+| [Astrosp/Awesome-OSINT-List](https://github.com/Astrosp/Awesome-OSINT-List) | [Curated OSINT reference and evidence-first workflows](../OSINT/awesome-osint-list-curated.md) | GPL-3.0 at repository root; no bulk mirroring of upstream content or provider datasets |
 | [OWASP/WSTG](https://github.com/OWASP/wstg) | [Web testing and mapping](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0 |
 | [OWASP/ASVS](https://github.com/OWASP/ASVS) | [Versioned security requirements](../WebAppSecurity/owasp-assessment-and-nuclei.md) | CC BY-SA 4.0; pin 5.0.0 IDs when using that version |
 | [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates) | [Template selection and verification](../WebAppSecurity/owasp-assessment-and-nuclei.md) | MIT at repository level; review individual files |
@@ -30,6 +33,9 @@ cross-linked**, NOT installed, synchronized or production tested.
 | [Promptfoo](https://github.com/promptfoo/promptfoo) | [AI agent evals](../AI/llm-security-evaluation-promptfoo.md) | MIT |
 | [rtl_433](https://github.com/merbanan/rtl_433) | [Passive IoT telemetry](../SDR/rtl433-passive-telemetry-lab.md) | GPL-2.0 |
 | [Falco rules](https://github.com/falcosecurity/rules) and [osquery defense kit](https://github.com/chainguard-dev/osquery-defense-kit) | [Additional detection content](../IncidentResponse/SIEM/detection-content-validation.md) | Apache-2.0 |
+| [Hack-with-Github/Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) | [Curated cybersecurity collections](awesome-hacking-collections-integration.md) | CC0-1.0 for root index; downstream links have independent licensing |
+| [The-Art-of-Hacking/h4cker](https://github.com/The-Art-of-Hacking/h4cker) | [Source map](awesome-hacking-collections-integration.md), [Proxmox sensor lab](../Homelab/proxmox-security-monitoring-visibility.md), [training pathways](../PlayBooks/security-training-lab-pathways.md) | MIT at root; lab configurations must be validated for current equipment |
+| [vitalysim/Awesome-Hacking-Resources](https://github.com/vitalysim/Awesome-Hacking-Resources) | [Historical training, OSINT, AI and tools mapping](awesome-hacking-collections-integration.md) | GPL-3.0 at root; no scripts/binaries copied |
 
 ## What is and is not delivered
 

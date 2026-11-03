@@ -12,6 +12,9 @@ Wardriving is the systematic observation and mapping of wireless infrastructure 
 This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**, GPS quality, hardware/firmware compatibility, log integrity, and authorized sharing. It does **not** require connecting to detected networks or attempting to access them.
 
 ## Start here
+**Pocket platform companion:** [M5StickC Plus2 starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) for Wi-Fi/BLE observation and external-GNSS requirements. This is not an onboard-GPS logger.
+
+
 
 1. Learn [field planning, safe operation and verification](./field-workflow.md).
 2. Select a platform by its **radio hardware, firmware, GPS source, controller and log location**—these are not interchangeable.
@@ -106,5 +109,8 @@ Wardriving/
 _Core platform guides last verified on 2026-10-22; additional upstream repository references checked on 2026-10-26. Specific releases and UI labels can change. No hardware tests are claimed by these documents._
 
 ---
+
+**Radio/packet source lists:** [PCAP Tools](https://github.com/caesar0301/awesome-pcaptools) and [the cross-domain index](../Documentation/awesome-hacking-collections-integration.md) complement controlled surveys; PCAP analysis alone does not authorize live RF operations.
+
 
 [Master Index](../README.md) | [Start Here](../START_HERE.md) | [Legal Notice](../LEGAL.md)

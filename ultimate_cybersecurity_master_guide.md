@@ -12,6 +12,9 @@
 
 ---
 
+**Curated practice and research sources:** [Topic-mapped GitHub security collections](Documentation/awesome-hacking-collections-integration.md) · [CTF/ethical lab pathways](PlayBooks/security-training-lab-pathways.md).
+
+
 ## MASTER TABLE OF CONTENTS
 
 **[PART I: FOUNDATIONS](#part-i-foundations)**

@@ -14,6 +14,8 @@
 
 ---
 
+**Related research:** [h4cker AI-security resources](https://github.com/The-Art-of-Hacking/h4cker/tree/master/ai/ai-security), [prompt-injection research](https://github.com/Joe-B-Security/awesome-prompt-injection) and [PNWC's curated project map](../Documentation/awesome-hacking-collections-integration.md).
+
 ---
 
 **External enrichment and privacy:** The [Security API Catalog](../Documentation/security-public-api-catalog.md) documents threat feeds, provenance and safer handling of API responses for agent workflows. Check customer-data transfer restrictions before feeding third-party services or LLMs.

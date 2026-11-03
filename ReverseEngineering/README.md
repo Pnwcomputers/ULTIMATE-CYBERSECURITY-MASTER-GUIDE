@@ -1,4 +1,7 @@
 # 🔬 Reverse Engineering
+**Historical x86/CTF source:** [Cypherpunk Symposium curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) routes its older debugger and assembly notes into current Ghidra/binary-analysis references and documents decompilation limitations.
+
+
 
 Last reviewed: 2026-10-07
 
@@ -18,6 +21,9 @@ Last reviewed: 2026-10-07
 </div>
 
 ---
+
+**Reverse engineering and CTF study:** [RPISEC MBE](https://github.com/RPISEC/MBE), [Awesome Reversing](https://github.com/HACKE-RC/awesome-reversing), and [structured PNWC training](../PlayBooks/security-training-lab-pathways.md).
+
 
 **Detection engineering lab:** [YARA-X rule authoring and synthetic positive/negative fixtures](yara-x-rule-lab.md) complements Ghidra and [REMnux](remnux-malware-analysis-guide.md). External signature libraries require rule-by-rule license and compatibility review.
 

@@ -107,6 +107,9 @@ The firmware runs on several M5Stack devices, but feature parity is highest on t
 ---
 
 ## 4. The software, in brief
+**Separate hardware family:** the [Plus2 HackStarterPack lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) is for an ESP32-PICO board. Do not use M5Cardputer firmware binaries, native USB HID assumptions or GPIO maps interchangeably.
+
+
 
 Evil-M5Project began as a port of the author's earlier M5Core2-based "Evil-M5Core2" tool and has grown into a multi-device wireless security framework. It is open source under the MIT License and hosted at `https://github.com/7h30th3r0n3/Evil-M5Project`. Active development is rapid; expect new features and breaking SD-card layout changes every few months.
 

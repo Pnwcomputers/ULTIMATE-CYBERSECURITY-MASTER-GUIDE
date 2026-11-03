@@ -14,6 +14,8 @@
 
 ---
 
+**Additional detection references:** [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook), [awesome-detection-engineering](https://github.com/infosecB/awesome-detection-engineering) and [curated source mapping](../../Documentation/awesome-hacking-collections-integration.md). Validate rules before production use.
+
 **Deception reporting:** [Honeypot → Wazuh native JSON integration](../HoneyPot/wazuh-honeypot-integration.md) connects OpenCanary, Cowrie and DIY decoy metadata; [Kismet](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme](../IDS%26IPS/nzyme-wazuh-integration.md) contribute independent wireless alert streams.
 
 **Container deployment support:** [Docker CLI / Compose operations reference](../../ContainerSecurity/docker-cli-operations-reference.md) provides safe diagnostics for containerized SIEM services, volume inventories, log exposure and privilege boundaries. Check the SIEM-specific installation guide for its supported platform and storage requirements.

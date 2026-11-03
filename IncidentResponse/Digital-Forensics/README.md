@@ -19,6 +19,9 @@
 **Targeted forensic collection:** [Velociraptor + ForensicArtifacts triage](velociraptor-artifact-triage.md) covers consent, collection selection, UTC evidence hashes and custody; it complements existing [KAPE/Autopsy](Disks/autopsy_kape.md) and [Volatility](Memory/volatility_cheatsheet.md) workflows.
 
 ## 🎯 Purpose
+**Legacy forensic teaching material:** [Cypherpunk toolkit curation](../../Documentation/cypherpunk-pentesting-toolkit-review.md) maps historical memory/IOC resources to modern Volatility 3 and evidence-handling practices.
+
+
 Index for the Digital Forensics sub-section — guides for acquiring and analyzing evidence after an incident: memory forensics, disk forensics, and volatile live-response collection.
 
 ## ⚙️ Function

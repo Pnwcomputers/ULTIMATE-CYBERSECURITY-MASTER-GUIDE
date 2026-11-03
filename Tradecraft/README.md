@@ -1,4 +1,7 @@
 # 🗡️ Tradecraft
+**Historical tradecraft and CTF perspective:** [Cypherpunk Symposium source review](../Documentation/cypherpunk-pentesting-toolkit-review.md) preserves educational context while excluding unverified exploitation and botnet tooling.
+
+
 
 <div align="center">
 
