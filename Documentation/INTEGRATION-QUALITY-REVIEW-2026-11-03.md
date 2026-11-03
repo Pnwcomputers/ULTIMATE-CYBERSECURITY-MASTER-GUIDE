@@ -22,7 +22,7 @@ _Review scope: `main` at `5d49af59186a` and the documentation consolidation prop
 | Markdown lint | **Passed** on `011e535b28` | Syntax/style check, not technical fact verification |
 | Duplicate Markdown sections | **Passed** on `011e535b28` | Detects CI-defined repeated headings, not semantically redundant prose |
 | Numbered list integrity | **Passed** on `011e535b28` | Catches configured navigation formatting patterns |
-| Guide tool and lab tests | **Passed** on `011e535b28` | Only covered scripts/checks, not all of the approximately 800 repository files |
+| Guide tool and lab tests | **Passed** on `011e535b28` | Only covered scripts/checks, not all repository files or commands |
 | Vendor M5StickC Plus2 identity and Bruce CC1101 wiring | Checked against [M5Stack board docs](https://docs.m5stack.com/en/core/StickC-Plus2) and [Bruce SPI variants](https://wiki.bruce.computer/wiring-diagrams/m5stickc/cc1101-nrf24/) | Documentation validation, **not** a power-on test of user hardware |
 
 CI checks re-run after each later commit; consult the [PR checks tab](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/165/checks) for the **current** final revision before merging.
