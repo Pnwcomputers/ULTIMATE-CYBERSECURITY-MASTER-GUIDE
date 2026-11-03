@@ -14,6 +14,8 @@
 
 ---
 
+**Security API reference:** [Public APIs security catalog and read-only cookbook](./security-public-api-catalog.md) lists relevant providers, authentication caveats, privacy controls and integration status.
+
 **Curated cheat sheet/reference index:** [October 2026 Review & Navigation](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Covers Debian, Arch, ports/HTTP/regex, Aircrack-ng, Marauder, Pwnagotchi, Wireshark, OSINT, Volatility, NanoVNA, Bash, glossary and general cliff notes. PDF references retain separate provenance and currency caveats.
 
 ## 🎯 Purpose
