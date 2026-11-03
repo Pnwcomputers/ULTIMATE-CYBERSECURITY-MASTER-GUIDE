@@ -17,6 +17,8 @@ The playbook integrates the following industry-standard tools for deep reconnais
 ---
 
 # 🔑 Configuration & APIs
+
+For provider-specific HTTP examples, privacy warnings, access models and the current URLhaus Auth-Key caveat, see the [curated Security API Catalog](../../Documentation/security-public-api-catalog.md). This page lists OSINT services; listing a provider is not proof that the current script authenticates successfully.
 The framework leverages several high-authority databases. Ensure your API keys are configured in `${HOME}/.config/osint-investigator/api_keys.conf`:
 
 ## 1. PRIMARY INTELLIGENCE & THREAT RECON

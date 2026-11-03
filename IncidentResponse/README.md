@@ -18,6 +18,8 @@
 
 **Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
 
+**Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
+
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
