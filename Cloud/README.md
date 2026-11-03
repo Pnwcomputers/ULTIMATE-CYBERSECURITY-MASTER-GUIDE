@@ -14,6 +14,8 @@
 
 ---
 
+**External documentation:** [Curated technical docs](../Documentation/curated-technical-docs.md) includes infrastructure references such as [Linode/Akamai](https://www.linode.com/docs/), and the [Docker operations guide](../ContainerSecurity/docker-cli-operations-reference.md) covers local Engine diagnostics; cloud-native workload hardening still requires provider-specific controls.
+
 ## 🎯 Purpose
 Dedicated home for cloud security - the shared-responsibility model, the recurring
 misconfiguration classes, assessment tooling, and per-provider attack surface and
