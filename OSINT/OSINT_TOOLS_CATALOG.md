@@ -43,6 +43,8 @@ The playbook integrates the following industry-standard tools for deep reconnais
 ---
 
 # 🔑 Configuration & APIs
+
+**Additional provider references:** [Security API Catalog and Integration Cookbook](../Documentation/security-public-api-catalog.md) maps documented services to authorized OSINT, incident response and vulnerability workflows. The upstream directory's free-tier tags may be stale; verify official access and rate limits. In particular, [URLhaus now documents Auth-Key requirements](https://urlhaus.abuse.ch/api/) even though the existing threat-feed script uses an unauthenticated request.
 The framework leverages several high-authority databases. Ensure your API keys are configured in `${HOME}/.config/osint-investigator/api_keys.conf`:
 
 ## API-Key Providers — _Free Only_
