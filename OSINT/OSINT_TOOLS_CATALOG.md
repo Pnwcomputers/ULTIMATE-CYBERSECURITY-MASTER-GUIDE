@@ -1,5 +1,7 @@
 # 🛠️ Core OSINT Toolkit
 
+**Additional OSINT catalogue:** [Bellingcat Toolkit and evidence verification](bellingcat-source-verification.md) helps select research tools and distinguish independent sources from reposts; listed providers are not automatically vetted.
+
 ## 🎯 Purpose
 Comprehensive catalog of core OSINT tools integrated into the OSINT Investigator Playbook - with descriptions, installation, and use cases for each tool.
 

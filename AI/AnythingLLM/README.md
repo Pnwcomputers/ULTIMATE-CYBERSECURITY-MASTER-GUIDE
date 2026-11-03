@@ -15,6 +15,8 @@
 
 ---
 
+**Agent acceptance tests:** [Promptfoo security evaluation workflow](../llm-security-evaluation-promptfoo.md) covers synthetic data, tool permissions and instruction boundaries before connecting customer data.
+
 ## 🎯 Purpose
 Index and full technical documentation for 9 custom AnythingLLM AgentFlows covering OSINT/recon, scanning analysis, and vulnerability reporting. Complements [anything_llm_agentflows.md](anything_llm_agentflows.md), which shows how to chain these flows together into multi-step workflows rather than documenting each flow's internal block configuration.
 

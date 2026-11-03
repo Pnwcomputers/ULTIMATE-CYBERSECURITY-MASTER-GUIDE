@@ -7,6 +7,8 @@
 > [Microsoft penetration testing rules of engagement](https://www.microsoft.com/en-us/msrc/pentest-rules-of-engagement).
 > See [LEGAL.md](../LEGAL.md).
 
+**M365 companion:** [CISA ScubaGear + SCuBA assessment](m365-scuba-assessment.md) covers consent, baseline deviations and retesting; Microsoft 365/Entra tenant assessments differ from Azure subscription checks.
+
 ## 🎯 Purpose
 Microsoft Azure and **Entra ID** (formerly Azure AD) security reference - the
 identity model, the recurring attack paths, assessment tooling, and hardening.
