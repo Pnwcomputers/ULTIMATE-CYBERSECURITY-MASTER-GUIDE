@@ -16,6 +16,9 @@ Enable authorized red team practitioners to compile and deploy DuckyScript paylo
 - Troubleshooting payload timing issues (DELAY adjustments for slow targets)
 
 ## Overview
+**Different HID hardware:** [M5StickC Plus2 / HackStarterPack](../../HardwareHacking/m5stickc-plus2-hackstarterpack.md) requires a compatible external HID accessory and untrusted script review; it is not a Hak5 inject.bin substitute.
+
+
 These DuckyScript payloads are designed for the USB Rubber Ducky by Hak5. They must be compiled into `inject.bin` format before deployment.
 
 ## Compilation Methods

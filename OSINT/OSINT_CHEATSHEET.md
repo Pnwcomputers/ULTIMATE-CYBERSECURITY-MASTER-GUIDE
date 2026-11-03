@@ -2,6 +2,9 @@
 
 **Reference index and audit status:** [Reviewed cheat sheets and references](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
 
+
+**Additional OSINT lookup categories:** [Awesome OSINT List curated reference](awesome-osint-list-curated.md) for ICIJ/OCCRP corporate archives, historical imagery, transit feeds and source verification. Use the case playbook for evidence collection.
+
 > [!IMPORTANT]
 > **Reviewed October 31, 2026.** These are starting points, not guarantees that every external service/API is reachable or offers the same data today. Verify current flags with `tool --help` and follow rate limits, privacy law, written authorization and provider terms. Avoid uploading private evidence, credentials or confidential identifiers to unknown lookup services. Use the [OSINT playbook](./Playbook/README.md) for case setup, [full methodology](./OSINT_GUIDE.md) for context and [privacy/OPSEC](../OPSEC/README.md) before collecting.
 
