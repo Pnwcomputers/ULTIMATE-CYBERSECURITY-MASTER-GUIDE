@@ -6,6 +6,8 @@
 
 ---
 
+**Broader assessment workflow:** [Staged client audit blueprint](assessment-service-integration-map.md) connects the scope and evidence rules below to [OWASP web/API checks](../WebAppSecurity/owasp-assessment-and-nuclei.md), [M365 SCuBA](../Cloud/m365-scuba-assessment.md), [SBOM checks](../ContainerSecurity/software-supply-chain-assessment.md) and [findings/retesting](assessment-findings-lifecycle.md) where explicitly included in customer authorization.
+
 ## 🎯 Purpose
 Provide a complete, engagement-ready procedure for auditing an organization's wireless and network security posture - from pre-engagement paperwork through evidence collection to final reporting - so that nothing gets skipped under time pressure and every finding is defensible.
 

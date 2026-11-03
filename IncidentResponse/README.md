@@ -20,6 +20,8 @@
 
 **Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
 
+**Evidence and detection companion guides:** [Velociraptor/ForensicArtifacts triage](Digital-Forensics/velociraptor-artifact-triage.md) · [Sigma/Elastic/Wazuh detection content validation](SIEM/detection-content-validation.md) · [Atomic Red Team lab verification](../PlayBooks/purple-team-detection-validation.md). Scope collection and simulated behavior before using any client environment.
+
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
 
