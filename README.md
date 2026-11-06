@@ -40,12 +40,12 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 ---
 ## 🎯 Start Here
 
-### 🆕 New To IT/Computers/Networks In General? - Read Our [IT Manual](https://pnw-computers.github.io/IT-Manual/) To Get Yourself Started!
-
-### ⭐ **[START_HERE.md](./START_HERE.md) - Start Here If You Are Ready To Jump In!**
-
-Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
-
+| I Want To... | Start Here |
+|---|---|
+| Learn basic computer & network concepts | [IT Manual](https://pnw-computers.github.io/IT-Manual/) |
+| Choose a learning path by role | [Start Here: Choose Your Path](./START_HERE.md#-choose-your-path) |
+| Find a guide by goal or task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
+| Browse every section | [Navigate By Area](#-navigate-by-area) |
 
 ---
 

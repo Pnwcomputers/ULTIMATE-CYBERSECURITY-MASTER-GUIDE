@@ -153,6 +153,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 ## 🎯 Choose Your Path
 
 ### 🌱 Beginner Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Foundations (Parts I–II) |
@@ -161,6 +162,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 4 | Setup Kali Linux VM → Join [HackTheBox](https://hackthebox.com) or [TryHackMe](https://tryhackme.com/) |
 
 ### 💼 Professional Pentester Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Foundations |
@@ -173,6 +175,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 8 | Use entire repo as daily reference |
 
 ### 🎓 OSCP Certification Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Foundations |
@@ -182,6 +185,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 5 | [Practice with PWK Labs](https://www.offsec.com/blog/pwk-labs-success/) |
 
 ### 🛡️ Blue Team / SOC Analyst Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part VI (Network Defense) |
@@ -191,6 +195,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 5 | [Tradecraft](Tradecraft/README.md); Understanding what you're defending against |
 
 ### 🔴 Red Team Operator Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part IV (Exploitation) |
@@ -200,6 +205,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 5 | [Scripts](Scripts/README.md); Offensive automation |
 
 ### 🔍 OSINT Investigator Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology, 400+ tools |
@@ -208,6 +214,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 4 | [Scripts/Python](Scripts/README.md); OSINT automation |
 
 ### 🔧 Hardware Hacker Path
+
 | Step | Guide / Activity |
 |---|---|
 | 1 | [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md); Part V (IoT & Hardware) |
@@ -293,9 +300,12 @@ See [LEGAL.md](LEGAL.md) for full terms of use.
 *Built by [Pacific Northwest Computers](https://www.pnwcomputers.com) | [pnwcomputers.com](https://www.pnwcomputers.com)*
 
 ## Related Files
-- [README.md](README.md) - Full repo index
-- [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) - Main comprehensive guide
-- [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) - Specialized topics guide
-- [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) - Reporter/source digital-security and duress preparation
-- [Diagram and Image Asset Index](assets/README.md) - Visual walkthroughs and section-specific diagrams
-- [LEGAL.md](LEGAL.md) - Legal terms before using any technique
+
+| Resource | Description |
+|---|---|
+| [README.md](README.md) | Full repo index |
+| [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) | Main comprehensive guide |
+| [SPECIALIZED_TOPICS_GUIDE.md](SPECIALIZED_TOPICS_GUIDE.md) | Specialized topics guide |
+| [Press Freedom & Source Safety](OPSEC/press-freedom/README.md) | Reporter/source digital-security and duress preparation |
+| [Diagram and Image Asset Index](assets/README.md) | Visual walkthroughs and section-specific diagrams |
+| [LEGAL.md](LEGAL.md) | Legal terms before using any technique |

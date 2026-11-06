@@ -16,6 +16,8 @@
 
 **More defensive resources:** [Curated detection, DFIR, Suricata and YARA research](../Documentation/awesome-hacking-collections-integration.md) maps external source projects to existing PNWC field guides.
 
+**Packet Capture & Triage**
+
 | Reference | Description |
 |---|---|
 | [Wireshark Master Filter List](../Documentation/wireshark-master-filters.md) | Indexed display/capture filters for packet triage |
@@ -23,6 +25,8 @@
 | [Advanced Capture Guide](../Documentation/wireshark.md) | Deeper packet capture analysis and troubleshooting |
 
 Capture scope and evidence interpretation are separate from Wazuh detection rules.
+
+**Honeypots & Wireless Monitoring**
 
 | Reference | Description |
 |---|---|
@@ -35,6 +39,8 @@ Capture scope and evidence interpretation are separate from Wazuh detection rule
 | [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Wireless monitoring and log correlation |
 
 **Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
+
+**Evidence Collection & Detection Validation**
 
 | Reference | Description |
 |---|---|

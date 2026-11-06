@@ -24,6 +24,8 @@
 
 **Security API companion:** [Curated Public APIs catalog](../Documentation/security-public-api-catalog.md) distinguishes existing OSINT providers from future integrations, with authentication, quota and client-data cautions.
 
+**Quick Reference Resources**
+
 | Reference | Description |
 |---|---|
 | [OSINT Investigator Cheat Sheet](./OSINT_CHEATSHEET.md) | Fast syntax and field references |

@@ -23,6 +23,7 @@
 ## 📋 Table Of Contents
 
 - [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
+- [Recommended Reading Flow](#recommended-reading-flow)
 - [Overview](#-overview)
 - [Folder Contents](#-folder-contents)
 - [Resource Categories](#️-resource-categories)
@@ -78,6 +79,15 @@ This directory contains **resources, configurations, guides, and methodologies**
 | **[ai-workspaces-notebooks-and-assistants.md](ai-workspaces-notebooks-and-assistants.md)** | Choose and organize projects, notebooks, custom GPTs, plugins, reusable assistants, and multi-step agents |
 
 ---
+
+## Recommended Reading Flow
+
+| Goal | Suggested Sequence |
+|---|---|
+| Get useful, verifiable AI answers | [AI Usage](ai-usage-interaction-guide.md) → [Prompt Engineering](ai_prompts.md) |
+| Build a long-running AI project | [Project/Agent Workflows](agent-project-workflows.md) → [Projects & Notebooks](ai-workspaces-notebooks-and-assistants.md) |
+| Review AI claims and behavior | [Fact-Checking & AI Audits](verification-and-ai-audits.md) → [LLM Security Evaluation](llm-security-evaluation-promptfoo.md) |
+| Host or deploy an AI assistant | [Offline LLMs](offline-llm.md) → [AnythingLLM](AnythingLLM/README.md) or [OpenClaw](OpenClaw/README.md) |
 
 ## 📂 Folder Contents
 
