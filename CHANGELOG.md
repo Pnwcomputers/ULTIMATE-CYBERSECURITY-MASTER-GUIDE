@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 06, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1531
-- **Files Modified**: 2230
+- **Commits Analyzed**: 1535
+- **Files Modified**: 2289
 - **New Files**: 858
 - **Deleted Files**: 121
 
@@ -1295,6 +1295,10 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(nav): goal-based routes, reading paths and consistent README navigation (#174) (`90a5a46`)
+- docs: improve reader navigation with route & contents tables (#173) (`2e72247`)
+- docs: standardize README navigation tables & heading styles (#172) (`dd2f680`)
+- docs: standardize README navigation tables, titles and links (#170) (`5fded87`)
 - docs(ai): display practical usage guides in folder-style table (#168) (`79ce937`)
 - docs(ai): practical usage, project/agent lanes, verification and notebooks (#166) (`b38d466`)
 - docs: consolidate M5StickC Plus2, OSINT and curated cybersecurity sources (#165) (`a656d90`)
@@ -1556,64 +1560,88 @@
 <summary>Click to view full file list</summary>
 
 - `AI/README.md`
+- `IncidentResponse/README.md`
+- `OSINT/README.md`
+- `README.md`
+- `START_HERE.md`
+- `STYLE_GUIDE.md`
+- `AI/AnythingLLM/README.md`
+- `AI/OpenClaw/README.md`
+- `Checklists/README.md`
+- `Cloud/README.md`
+- `Compliance/README.md`
+- `ContainerSecurity/README.md`
+- `Cryptography/Classical/README.md`
+- `Cryptography/README.md`
+- `Data-Engineering/Phase1/README.md`
+- `Data-Engineering/Phase2/README.md`
+- `Data-Engineering/Phase3/README.md`
+- `Data-Engineering/README.md`
+- `Documentation/README.md`
+- `HardwareHacking/README.md`
+- `HardwareTesting/README.md`
+- `HardwareTesting/py/README.md`
+- `Homelab/README.md`
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/Endpoint-Visibility/README.md`
+- `IncidentResponse/HoneyPot/readme.md`
+- `IncidentResponse/IDS&IPS/readme.md`
+- `IncidentResponse/SIEM/README.md`
+- `Mobile/README.md`
+- `Mobile/UserLAnd/readme.md`
+- `OPSEC/README.md`
+- `OPSEC/press-freedom/README.md`
+- `OSINT/Playbook/README.md`
+- `PDF/README.md`
+- `PlayBooks/README.md`
+- `ReverseEngineering/README.md`
+- `SDR/README.md`
+- `SDR/nanovna/README.md`
+- `SDR/nanovna/tools/README.md`
+- `Scripts/Bash/BashBunny/README.md`
+- `Scripts/Ducky/README.md`
+- `Scripts/GO/README.md`
+- `Scripts/GO/shells/README.md`
+- `Scripts/README.md`
+- `SpaceSecurity/README.md`
+- `Tradecraft/README.md`
+- `Wardriving/README.md`
+- `WebAppSecurity/README.md`
+- `assets/README.md`
+- `uConsole/README.md`
+- `uConsole/scripts/README.md`
 - `CHANGELOG.md`
 - `AI/agent-project-workflows.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
 - `AI/ai_prompts.md`
 - `AI/verification-and-ai-audits.md`
-- `README.md`
-- `START_HERE.md`
-- `Cloud/README.md`
-- `Compliance/README.md`
-- `ContainerSecurity/README.md`
-- `Cryptography/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
-- `Documentation/README.md`
 - `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/bruce_firmware.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
 - `Documentation/evil_m5.md`
 - `Documentation/upstream-security-projects-register.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `HardwareHacking/README.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
-- `Homelab/README.md`
 - `Homelab/proxmox-security-monitoring-visibility.md`
-- `IncidentResponse/Digital-Forensics/README.md`
-- `IncidentResponse/README.md`
-- `IncidentResponse/SIEM/README.md`
-- `Mobile/README.md`
 - `OSINT/OSINT_CHEATSHEET.md`
 - `OSINT/OSINT_GUIDE.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
-- `OSINT/Playbook/README.md`
-- `OSINT/README.md`
 - `OSINT/awesome-osint-list-curated.md`
 - `OSINT/bellingcat-source-verification.md`
-- `PlayBooks/README.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `ReverseEngineering/README.md`
-- `SDR/README.md`
 - `SDR/subghz.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
-- `Scripts/Ducky/README.md`
-- `Scripts/README.md`
-- `Tradecraft/README.md`
-- `Wardriving/README.md`
-- `WebAppSecurity/README.md`
 - `firmware-hardware-compatibility.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `AI/AnythingLLM/README.md`
 - `AI/llm-security-evaluation-promptfoo.md`
 - `Cloud/azure.md`
 - `Cloud/m365-scuba-assessment.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/software-supply-chain-assessment.md`
-- `Data-Engineering/README.md`
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
-- `IncidentResponse/Endpoint-Visibility/README.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
 - `Mobile/mobile_pentest_sop.md`
 - `Mobile/mvt-forensic-triage.md`
@@ -1634,13 +1662,10 @@
 - `Documentation/curated-technical-docs.md`
 - `Documentation/python.md`
 - `Documentation/virtualmachines.md`
-- `IncidentResponse/HoneyPot/readme.md`
 - `OPSEC/OPSEC_guide.md`
-- `OPSEC/README.md`
 - `OPSEC/anonymity-layering.md`
 - `OPSEC/press-freedom/device-network-protection.md`
 - `OPSEC/proxy-reference-froxy.md`
-- `STYLE_GUIDE.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Documentation/references.md`
@@ -1655,7 +1680,6 @@
 - `tools/check_markdown_numbered_lists.py`
 - `.github/workflows/markdownlint.yml`
 - `.github/workflows/duplicate-sections.yml`
-- `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/OpenClaw/use_cases.md`
 - `AI/offensive_ai.md`
@@ -1671,9 +1695,7 @@
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `OSINT/scripts/Phone_OSINT.md`
-- `PDF/README.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
-- `SpaceSecurity/README.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/lolbins-lolbas.md`
@@ -1683,12 +1705,6 @@
 - `tools/check_duplicate_sections.py`
 - `uConsole/CM4-SETUP.md`
 - `uConsole/CM5-SETUP.md`
-- `uConsole/README.md`
-- `Checklists/README.md`
-- `Data-Engineering/Phase2/README.md`
-- `IncidentResponse/IDS&IPS/readme.md`
-- `SDR/nanovna/README.md`
-- `assets/README.md`
 - `assets/VISUAL-AUDIT-2026-11-02.md`
 - `assets/diagrams/checklist-assessment-quality.svg`
 - `assets/diagrams/cloud-shared-responsibility.svg`
@@ -1715,8 +1731,6 @@
 - `Cryptography/security-keys-passkeys.md`
 - `Cryptography/solokeys-guide.md`
 - `HardwareTesting/Manjaro_Intel_TestBench.md`
-- `HardwareTesting/README.md`
-- `OPSEC/press-freedom/README.md`
 - `OPSEC/press-freedom/data-retention-removal.md`
 - `OPSEC/press-freedom/duress-seizure-response.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
@@ -1736,7 +1750,6 @@
 - `.github/workflows/cm5-parrot-checks.yml`
 - `uConsole/CM4-SAFETY-REVIEW.md`
 - `uConsole/PARROT-CM5.md`
-- `uConsole/scripts/README.md`
 - `uConsole/scripts/uconsole-cm4-setup.sh`
 - `uConsole/scripts/uconsole-repair.sh`
 - `uConsole/tests/test_cm4_setup.py`
@@ -1838,7 +1851,6 @@
 - `OSINT/Playbook/scripts/threat_feed_check.sh`
 - `OSINT/Playbook/scripts/username_audit.sh`
 - `OSINT/Playbook/scripts/whois_bulk.sh`
-- `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Bash/BashBunny/windows_exfil.txt`
 - `tests/hardening/test_metadata_stripper.py`
 - `tests/hardening/test_phone_audit.py`
@@ -1872,7 +1884,6 @@
 - `OSINT/docs/TROUBLESHOOTING.md`
 - `ReverseEngineering/vx-underground.md`
 - `Tradecraft/osint-threat-intel.md`
-- `Cryptography/Classical/README.md`
 - `Cryptography/Classical/ciphers.md`
 - `Cryptography/Classical/cryptanalysis.md`
 - `Cryptography/Classical/deciphering-workbook.md`
@@ -1892,14 +1903,12 @@
 - `Tradecraft/evasion.md`
 - `AUDIT_FINDINGS.md`
 - `AUDIT_REPORT.md`
-- `Scripts/GO/README.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
 - `Data-Engineering/Phase2/data_storage_file_formats.md`
 - `Data-Engineering/Phase2/streaming_cdc.md`
 - `Data-Engineering/Phase2/workflow_orchestration.md`
-- `Data-Engineering/Phase3/README.md`
 - `Data-Engineering/Phase3/data_governance_lineage.md`
 - `Data-Engineering/Phase3/data_recovery_replay.md`
 - `Data-Engineering/Phase3/pipeline_observability.md`
@@ -1909,7 +1918,6 @@
 - `IncidentResponse/IDS&IPS/security-onion.md`
 - `IncidentResponse/IDS&IPS/snort.md`
 - `SDR/hackrf.md`
-- `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
 - `installer.sh`
@@ -1944,7 +1952,6 @@
 - `uConsole/tests/test_cm5_parrot_setup.py`
 - `Data-Engineering/Phase3/readme.md`
 - `Data-Engineering/Phase2/readme.md`
-- `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
 - `Data-Engineering/Phase1/sql_data_modeling.md`
@@ -1962,7 +1969,6 @@
 - `IncidentResponse/IDS_IPS/nzyme_wids.md`
 - `IncidentResponse/IDS_IPS/nzymewids.md`
 - `Mobile/UserLAnd/alpinelinux.md`
-- `Mobile/UserLAnd/readme.md`
 - `SDR/rfid.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
@@ -1991,7 +1997,6 @@
 - `Checklists/voip-checklist.md`
 - `HardwareHacking/BusPirate.md`
 - `HardwareHacking/Chapter2.md`
-- `HardwareTesting/py/README.md`
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
@@ -2008,7 +2013,6 @@
 - `Scripts/Bash/nmap_OS_detect.sh`
 - `Scripts/Bash/nuclei-notifier.sh`
 - `Scripts/Bash/ping_w_argument.sh`
-- `Scripts/GO/shells/README.md`
 - `Scripts/GO/shells/bypass.exe`
 - `Scripts/GO/shells/ishell.exe`
 - `Scripts/Python/python-webshell-check.py`
