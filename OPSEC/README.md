@@ -82,7 +82,7 @@ This directory covers **operational security for authorized security work and pr
 
 **Operational Security (OPSEC)** is a process for identifying sensitive information, understanding how it could be exposed, and applying proportionate safeguards.
 
-### The Five-Step OPSEC Process
+### The Five-step OPSEC Process
 
 | Step | Question | Example |
 |------|----------|---------|
@@ -150,7 +150,7 @@ For journalists, newsroom security and confidential sources, use the dedicated [
 **Comparison scope:** The Whonix column below describes this repository's **Kicksecure host on an encrypted external USB drive with VirtualBox**. The Tails column describes **Tails booted directly from USB**. Whonix also supports other deployments; these are not universal claims about every Whonix platform.
 
 <a id="whonix--kicksecure-a-host-and-two-vms"></a>
-### Whonix + Kicksecure: A Host & Two VMs
+### Whonix + Kicksecure: A Host & Two VMS
 
 - **Kicksecure** is the physical computer's host operating system in this setup. It runs VirtualBox and manages physical networking and storage.
 - **Whonix-Gateway** runs Tor and provides the Workstation's network path.
@@ -164,7 +164,7 @@ The host is installed onto the external drive; this is a full installation with 
 
 The separate Gateway helps contain direct IP leaks from Workstation applications. This assumes the isolation remains intact: host, hypervisor, or Gateway compromise can undermine it. Malware can still steal documents or account credentials through the permitted Tor connection.
 
-### Tails: A Live OS Booted Directly From USB
+### Tails: A Live Os Booted Directly From USB
 
 Tails starts directly on compatible hardware, independently of the installed everyday operating system. It does not need a separate desktop host and hypervisor for this setup.
 
@@ -310,7 +310,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - Treat NAT as a networking mode, not as proof that a VM cannot contact the host, LAN, or Internet. [^virtualbox]
 
 <a id="5-need-to-know-and-data-minimization"></a>
-### 5. Need-to-Know & Data Minimization
+### 5. Need-to-know & Data Minimization
 
 - Grant access only to people who need the information.
 - Keep client material out of unrelated accounts and devices.
@@ -340,7 +340,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - [ ] Preserve required evidence; dispose of remaining data under the agreed retention policy.
 
 <a id="osint-and-privacy-focused-research"></a>
-### OSINT & Privacy-Focused Research
+### OSINT & Privacy-focused Research
 
 - Keep research accounts, recovery contacts, and browser state separate from personal identities.
 - Select Tails, Whonix, or an ordinary isolated research VM based on the task.

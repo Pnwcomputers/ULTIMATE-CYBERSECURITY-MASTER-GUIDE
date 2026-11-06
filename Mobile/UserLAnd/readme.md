@@ -1,4 +1,4 @@
-# 📱 UserLAnd - Linux On Android
+# 📱 Userland - Linux On Android
 
 <div align="center">
 
@@ -194,7 +194,7 @@ Replace `package_name` with the actual Python package required. Keep system pack
 
 ---
 
-## 🧰 UserLAnd Toolchain
+## 🧰 Userland Toolchain
 
 This is a task-oriented reference. Installation commands belong in the relevant distribution guide so package availability can be checked there.
 
@@ -328,7 +328,7 @@ To contribute to this subsection:
 ## 📚 Resources
 
 <a id="userland-and-proot"></a>
-### UserLAnd & PRoot
+### Userland & Proot
 
 - [UserLAnd official repository](https://github.com/CypherpunkArmory/UserLAnd)
 - [UserLAnd getting started](https://github.com/CypherpunkArmory/UserLAnd/wiki/Getting-Started-in-UserLAnd)

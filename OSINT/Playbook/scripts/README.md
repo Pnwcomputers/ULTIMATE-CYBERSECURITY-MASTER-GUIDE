@@ -21,7 +21,7 @@ These scripts are automatically detected by `toolkit_integration.sh` and can be 
 
 ## Script Details
 
-### scammer_audit.Sh
+### scammer_audit.sh
 Full domain/IP reconnaissance including:
 - theHarvester integration
 - CriminalIP, HIBP, LeakLookup, Netlas APIs
@@ -35,7 +35,7 @@ Full domain/IP reconnaissance including:
 ./scammer_audit.sh -q -d example.com                 # Quick mode
 ```
 
-### email_audit.Sh
+### email_audit.sh
 Email OSINT including:
 - HaveIBeenPwned breach checks
 - Hunter.io verification
@@ -48,7 +48,7 @@ Email OSINT including:
 ./email_audit.sh -f emails.txt                       # From file
 ```
 
-### phone_audit.Sh
+### phone_audit.sh
 Phone number intelligence including:
 - NumVerify/Veriphone validation
 - Carrier and line type detection
@@ -61,7 +61,7 @@ Phone number intelligence including:
 ./phone_audit.sh -f phones.txt                       # From file
 ```
 
-### full_nmap_scan.Sh
+### full_nmap_scan.sh
 Comprehensive nmap reconnaissance:
 - Basic service detection + default scripts
 - Full 65535 port scan
