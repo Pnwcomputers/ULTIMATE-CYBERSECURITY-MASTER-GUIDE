@@ -191,12 +191,12 @@ This directory contains comprehensive technical documentation, operational proce
 ## ⚠️ Security & Legal Disclaimer
 
 <a id="-critical-authorized-and-responsible-use"></a>
-### 🔴 CRITICAL: Authorized & Responsible Use
+### 🔴 Critical: Authorized & Responsible Use
 **IMPORTANT: AUTHORIZED USE ONLY**
 
 This documentation is provided for educational purposes in controlled environments and authorized security assessments with written permission.
 
-### 🚫 STRICTLY PROHIBITED:
+### 🚫 Strictly Prohibited:
 * Unauthorized wireless network testing or access.
 * Cracking passwords for networks you do not own.
 * Intercepting communications without authorization.
