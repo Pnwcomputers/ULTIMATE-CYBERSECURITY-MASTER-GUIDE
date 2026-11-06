@@ -9,7 +9,7 @@ Documents the Python test suite: automated CPU/memory/storage/GPU test orchestra
 ## 🏆 Goal
 Automate the full hardware qualification test suite so results are reproducible, logged, and comparable across systems without manual command-by-command execution.
 
-## 📋 When to Use
+## 📋 When To Use
 - Running a full automated hardware qualification suite on a new system
 - Comparing test results across multiple systems for consistency
 - Generating documented test reports for hardware procurement or RMA
@@ -23,7 +23,7 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `m
 
 ---
 
-## Scripts in this directory
+## Scripts In This Directory
 
 | Script | Purpose | Requires sudo |
 | :--- | :--- | :---: |
@@ -42,7 +42,7 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `m
 
 ## Prerequisites
 
-### Step 1 - Core tools (official Manjaro/Arch repos)
+### Step 1 - Core Tools (Official Manjaro/Arch Repos)
 
 ```bash
 sudo pacman -Syu --needed \
@@ -60,11 +60,11 @@ Notes:
 - `cuda` is large (~3 GB) and is only needed if you plan to run CUDA/`gpu-burn` compute stress. Drop it on AMD/Intel-only benches.
 - Install the cross-vendor set above only on a universal bench. Otherwise install just the GPU tools that match your hardware (see Step 3).
 
-### Or install everything at once
+### Or Install Everything At Once
 
 You can install the full AMD + NVIDIA + Intel tool set in one shot using the [`install_testbench_tools.sh`](../install_testbench_tools.sh) script.
 
-### Step 2 - Sensor detection (run once after install)
+### Step 2 - Sensor Detection (Run Once After Install)
 
 ```bash
 sudo sensors-detect --auto
@@ -72,7 +72,7 @@ sudo sensors-detect --auto
 
 Without this, `sensors` returns no data and post-load thermal snapshots will be empty.
 
-### Step 3 - GPU tools (install what matches your hardware)
+### Step 3 - GPU Tools (Install What Matches Your Hardware)
 
 **Intel iGPU** (all Z790/i9 systems - already covered by `intel-gpu-tools` above)
 
@@ -90,7 +90,7 @@ Verify the NVIDIA tools are present:
 nvidia-smi --version
 ```
 
-### Step 4 - Verify everything is on PATH
+### Step 4 - Verify Everything Is On PATH
 
 ```bash
 for bin in inxi dmidecode sysbench memtester fio stress-ng \
@@ -104,7 +104,7 @@ Any `❌ NOT FOUND` line means that tool needs to be installed before running th
 
 ---
 
-## `full_hw_suite.py` (v2.1)
+## `full_hw_suite.py` (V2.1)
 
 Runs a complete diagnostic pass sequentially: System info → CPU benchmark → RAM (bandwidth + stability) → Storage (SMART + fio IOPS) → GPU benchmark. Produces a single Markdown report with a report-level verdict.
 
@@ -127,7 +127,7 @@ sudo python3 full_hw_suite.py --client "Client Name"
 
 ---
 
-## `standalone_gpu_tester.py` (v2.1)
+## `standalone_gpu_tester.py` (V2.1)
 
 Tests the GPU in isolation. This is an excellent **general first-pass GPU script** for any vendor (Intel, AMD, NVIDIA). For a serious suspected AMD or NVIDIA card failure, run the vendor-specific AMD/NVIDIA script afterward - those collect richer per-second telemetry.
 
@@ -164,7 +164,7 @@ python3 standalone_gpu_tester.py --no-memtest --no-vkmark --client "Client Name"
 
 ---
 
-## Vendor GPU testers: `amd_gpu_tester.py` & `nvidia_gpu_tester.py`
+## Vendor GPU Testers: `amd_gpu_tester.py` & `nvidia_gpu_tester.py`
 
 Dedicated, vendor-specific diagnostic paths for deep GPU telemetry.
 
@@ -197,7 +197,7 @@ python3 amd_gpu_tester.py --list-gpus
 
 ---
 
-## `standalone_ram_tester.py` (v2.1)
+## `standalone_ram_tester.py` (V2.1)
 
 Tests RAM only. Reads hardware topology from `dmidecode`, runs `sysbench` memory bandwidth, then `memtester` for bit-pattern stability. Output streams live so you can watch for `FAILED` lines in real time.
 
@@ -216,11 +216,11 @@ sudo python3 standalone_ram_tester.py --client "Client Name" --memtester-size 4G
 
 ---
 
-## `stress_soak.py` (v1.1)
+## `stress_soak.py` (V1.1)
 
 Reliability burn-in tester. Fundamentally different from the diagnostic scripts - it exists to answer the question *"will this machine hold up under real sustained load?"* not just *"is this machine functional right now?"*
 
-### Why the diagnostic scripts aren't enough for reliability testing
+### Why The Diagnostic Scripts Aren't Enough For Reliability Testing
 
 The diagnostic scripts run each subsystem **sequentially** and for **seconds at a time**. A machine can pass all of them and still fail 45 minutes into a real workload when:
 
@@ -253,7 +253,7 @@ sudo python3 stress_soak.py --mode overnight --client "Client Name"
 sudo python3 stress_soak.py --mode standard --client "Client Name" --skip-gpu
 ```
 
-### Duration modes
+### Duration Modes
 
 | Mode | Total | memtester | Stress | Cooldown |
 | :--- | :--- | :--- | :--- | :--- |
@@ -263,7 +263,8 @@ sudo python3 stress_soak.py --mode standard --client "Client Name" --skip-gpu
 | `extended` | ~8 hr | 16G × 5 passes | 7 hr | 30 min |
 | `overnight` | ~24 hr | 16G × 10 passes | 23 hr | 60 min |
 
-### What it tests and how (v1.1 improvements)
+<a id="what-it-tests-and-how-v11-improvements"></a>
+### What It Tests & How (V1.1 Improvements)
 
 **Phase 1 - RAM validation (memtester)**
 Runs first with dedicated RAM. Any `FAILED` line is flagged immediately. If `memtester` finds errors, you know within the first few minutes rather than at the end of a 4-hour run.
@@ -290,7 +291,7 @@ Post-stress thermal monitoring. A slow cooldown with still-elevated temps indica
 ~/soak_temps_YYYYMMDD_HHMMSS.csv   - complete thermal log, one row per 5-second sample
 ```
 
-### Report verdict table
+### Report Verdict Table
 
 The report opens with a verdict table - one row per check. A single ❌ flags the machine as unreliable for client deployment.
 
@@ -303,13 +304,13 @@ The report opens with a verdict table - one row per check. A single ❌ flags th
 | ✅ | stress-ng Stability | Completed full duration |
 | ✅ | GPU Stability (glmark2) | FPS stable (max drop: 3.1%) |
 
-### Interrupt handling
+### Interrupt Handling
 
 `Ctrl+C` at any point terminates all stress child processes cleanly (v1.1 adds better process cleanup), stops monitoring threads, and writes a partial report marked `⚠️ INCOMPLETE`. Thermal CSV data collected up to the interrupt point is preserved.
 
 ---
 
-## Thresholds (configurable at top of `stress_soak.py`)
+## Thresholds (Configurable At Top Of `stress_soak.py`)
 
 | Constant | Default | Meaning |
 | :--- | :--- | :--- |

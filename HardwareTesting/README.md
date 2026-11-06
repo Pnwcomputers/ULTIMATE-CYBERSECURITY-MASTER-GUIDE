@@ -21,7 +21,7 @@ Indexes the HardwareTesting section: the dedicated Intel test bench setup guide 
 ## 🏆 Goal
 Provide a complete reference for hardware qualification testing on Linux, enabling repeatable diagnostics and benchmarks for system validation before production deployment.
 
-## 📋 When to Use
+## 📋 When To Use
 - Qualifying hardware for a dedicated security lab or test bench system
 - Running reliability stress tests on a new Linux system
 - Diagnosing intermittent hardware failures with structured testing
@@ -97,7 +97,7 @@ Includes:
 
 ---
 
-## Python Scripts - [`py/`](./py/)
+## Python Scripts - [`Py/`](./py/)
 
 Modular Python scripts that orchestrate CLI tools, stream output live, and compile results into clean Markdown reports.
 
@@ -118,7 +118,8 @@ See [`py/README.md`](./py/README.md) for full installation instructions, usage, 
 
 ## Quick Start
 
-### 1. Install base diagnostics and system tools
+<a id="1-install-base-diagnostics-and-system-tools"></a>
+### 1. Install Base Diagnostics & System Tools
 
 Run this on every Manjaro / Arch-based test bench:
 
@@ -136,7 +137,7 @@ sudo pacman -S --needed \
   intel-gpu-tools nvtop
 ```
 
-### 2. Detect motherboard sensors
+### 2. Detect Motherboard Sensors
 
 Run once after installing the base tools:
 
@@ -153,7 +154,7 @@ Without sensor detection, thermal reporting may be incomplete or empty.
 
 Install the GPU block that matches the hardware being tested.
 
-### AMD Radeon test environments
+### AMD Radeon Test Environments
 
 ```bash
 sudo pacman -S --needed \
@@ -174,7 +175,7 @@ amd-smi metric --gpu 0
 amdgpu_top --dump
 ```
 
-### NVIDIA test environments
+### NVIDIA Test Environments
 
 ```bash
 sudo pacman -S --needed \
@@ -211,7 +212,7 @@ pamac install phoronix-test-suite
 
 ## Source-Built GPU Diagnostic Tools
 
-### `memtest_vulkan` - cross-vendor Vulkan VRAM stability test
+### `memtest_vulkan` - Cross-vendor Vulkan VRAM Stability Test
 
 `memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
 
@@ -238,7 +239,7 @@ memtest_vulkan
 
 Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
 
-### `gpu-burn` - NVIDIA CUDA stress test
+### `gpu-burn` - NVIDIA CUDA Stress Test
 
 `gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
 
@@ -272,7 +273,8 @@ gpu-burn 60
 
 ---
 
-## Verify Required and Optional Tools
+<a id="verify-required-and-optional-tools"></a>
+## Verify Required & Optional Tools
 
 Run this after installing the base tools, GPU tools, optional benchmark tools, `memtest_vulkan`, and `gpu-burn`.
 
@@ -309,21 +311,21 @@ done
 
 ---
 
-## Run the Scripts
+## Run The Scripts
 
-### Universal GPU diagnostic - first pass
+### Universal GPU Diagnostic - First Pass
 
 ```bash
 python3 py/standalone_gpu_tester.py --client "Client Name"
 ```
 
-### Dedicated AMD GPU diagnostic
+### Dedicated AMD GPU Diagnostic
 
 ```bash
 python3 py/amd_gpu_tester.py --client "Client Name"
 ```
 
-### Dedicated NVIDIA GPU diagnostic
+### Dedicated NVIDIA GPU Diagnostic
 
 ```bash
 python3 py/nvidia_gpu_tester.py --client "Client Name"
@@ -335,19 +337,19 @@ Optional NVIDIA CUDA stress path:
 python3 py/nvidia_gpu_tester.py --client "Client Name" --gpu-burn
 ```
 
-### Full system diagnostic
+### Full System Diagnostic
 
 ```bash
 sudo python3 py/full_hw_suite.py --client "Client Name"
 ```
 
-### RAM-only diagnostic
+### RAM-only Diagnostic
 
 ```bash
 sudo python3 py/standalone_ram_tester.py --client "Client Name" --memtester-size 4G --passes 3
 ```
 
-### Reliability soak before returning hardware to a client
+### Reliability Soak Before Returning Hardware To A Client
 
 ```bash
 sudo python3 py/stress_soak.py --mode standard --client "Client Name"

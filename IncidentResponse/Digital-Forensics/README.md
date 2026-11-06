@@ -30,7 +30,7 @@ Links to a guide per forensic domain — memory analysis with Volatility 3, disk
 ## 🏆 Goal
 Enable a responder to capture the right evidence in the right order, analyze it to establish a timeline and indicators of compromise (IoCs), and do so without destroying the evidentiary value of what they collect.
 
-## 📋 When to Use
+## 📋 When To Use
 - Investigating a compromised host after detection (see [Endpoint Visibility](../Endpoint-Visibility/README.md) / [SIEM](../SIEM/README.md) alerts)
 - Deciding **what to collect first** from a running system before power-down
 - Extracting malware, injected code, or IoCs from a memory image
@@ -38,7 +38,7 @@ Enable a responder to capture the right evidence in the right order, analyze it 
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Forensic Domains](#️-forensic-domains)
@@ -97,7 +97,7 @@ Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Auto
 
 ---
 
-### Specialized starred projects to evaluate
+### Specialized Starred Projects To Evaluate
 
 - [Linux Write Blocker](https://github.com/msuhanov/Linux-write-blocker) — kernel patch and utilities illustrating why a read-only filesystem mount is not always sufficient to prevent writes. This is **older, kernel-specific research** and is not a validated replacement for a hardware write blocker.
 - [Digler](https://github.com/ostafen/digler) — Go-based disk analysis and file carving with CLI/GUI interfaces. Its upstream README calls it **early development**; test using duplicate images and never save recovered files to the evidence device.
@@ -106,7 +106,7 @@ Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Auto
 
 Use these as companions to [Autopsy/KAPE](./Disks/autopsy_kape.md) and [live-data collection](./LiveData/live_data_collection.md), not substitutes for authorization, write protection, forensic imaging or chain of custody.
 
-## 🧭 Order of Volatility
+## 🧭 Order Of Volatility
 
 ```text
 Collect most-volatile first (adapted from RFC 3227):
