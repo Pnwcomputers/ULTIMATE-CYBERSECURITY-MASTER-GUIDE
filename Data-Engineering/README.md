@@ -42,7 +42,7 @@ Organize data engineering knowledge across the full data lifecycle, link to rele
 
 Help practitioners build understandable, reliable, secure, and maintainable data pipelines—and explain where data came from, how it changed, whether it is complete, and how to recover when processing fails.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Learning data engineering fundamentals alongside cybersecurity and infrastructure work.
 - Moving data from files, APIs, applications, or databases into a central destination.
@@ -55,7 +55,7 @@ Help practitioners build understandable, reliable, secure, and maintainable data
 
 <a id="contents"></a>
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview & Scope](#overview)
 - [Start Here: Choose Your Entry Point](#start-here)
@@ -126,7 +126,8 @@ Five published guides in [`Phase1/`](./Phase1/). Each is self-contained, states 
 | 4 | 🔄 [ETL & ELT Pipeline Design](./Phase1/etl_elt_pipeline_design.md) | ETL versus ELT, staging layers, watermarks, overlap windows, merge writes, checkpoints, backfills | Incremental pipeline demonstrating idempotent reruns, a backfill repair, and reconciliation |
 | 5 | ✅ [Data Quality & Schema Contracts](./Phase1/data_quality_schema_contracts.md) | Quality dimensions, record and batch validation, nulls, duplicates, schema evolution, quarantine, producer/consumer obligations | Contract-driven validator and a compatibility gate that fails a build on breaking changes |
 
-### 📘 Reading order and dependencies
+<a id="-reading-order-and-dependencies"></a>
+### 📘 Reading Order & Dependencies
 
 ```mermaid
 flowchart TD
@@ -139,7 +140,7 @@ flowchart TD
 
 Guides 2 and 3 can be read in either order. Guide 4 assumes both. Guide 5 assumes guide 4's load structure.
 
-### 🧰 Shared characteristics
+### 🧰 Shared Characteristics
 
 | Property | Detail |
 | --- | --- |

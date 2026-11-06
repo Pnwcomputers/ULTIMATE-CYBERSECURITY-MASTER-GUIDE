@@ -30,7 +30,7 @@ Links to a guide per forensic domain — memory analysis with Volatility 3, disk
 ## 🏆 Goal
 Enable a responder to capture the right evidence in the right order, analyze it to establish a timeline and indicators of compromise (IoCs), and do so without destroying the evidentiary value of what they collect.
 
-## 📋 When to Use
+## 📋 When To Use
 - Investigating a compromised host after detection (see [Endpoint Visibility](../Endpoint-Visibility/README.md) / [SIEM](../SIEM/README.md) alerts)
 - Deciding **what to collect first** from a running system before power-down
 - Extracting malware, injected code, or IoCs from a memory image
@@ -38,7 +38,7 @@ Enable a responder to capture the right evidence in the right order, analyze it 
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Forensic Domains](#️-forensic-domains)
@@ -83,7 +83,7 @@ This sub-section covers the three domains you will use most: **memory**, **disk*
 ### 🧰 [Tsurugi Bento — Portable DFIR Field Guide](./tsurugi-bento-portable-dfir-guide.md)
 Build a SyMenu-based field USB, preserve evidence on a separate encrypted device, and follow worked Windows live-response procedures for process/network snapshots, persistence, EVTX, RAM, imaging, artifact triage, hashing, and reports. **Bento is a Windows-first live triage toolbox, not a read-only OS or full analysis platform.**
 
-### 🧪 [REMnux — Malware Analysis Workstation](../../ReverseEngineering/remnux-malware-analysis-guide.md)
+### 🧪 [Remnux — Malware Analysis Workstation](../../ReverseEngineering/remnux-malware-analysis-guide.md)
 Dedicated Ubuntu-based REMnux VM and Proxmox deployment for offline malware triage, suspicious documents, PE/ELF analysis, captured network traffic, memory artifacts and evidence handling. Use this **after authorized acquisition**; isolate samples and never detonate malware on the analyst host.
 
 ### 🧠 [Memory Forensics — Volatility 3](./Memory/volatility_cheatsheet.md)
@@ -92,12 +92,12 @@ The full analysis workflow for Windows and Linux memory dumps. Covers the Volati
 ### 🚨 [Live Response Collection](./LiveData/live_data_collection.md)
 Capturing **volatile** evidence from a running system before power-down. Covers the volatile-data priority order, memory acquisition (WinPmem, DumpIt, `avml` on Linux), network state (`netstat`/`ss`, active connections), process listing with hash verification, prefetch/amcache, registry-hive export, browser artifacts, and chain-of-custody documentation.
 
-### 💽 [Disk Forensics — Autopsy & KAPE](./Disks/autopsy_kape.md)
+### 💽 [Disk Forensics — Autopsy & Kape](./Disks/autopsy_kape.md)
 Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Autopsy case workflow (full forensic platform), **KAPE** targets/modules for rapid triage collection, timeline analysis, file carving, hash verification, and report generation.
 
 ---
 
-### Specialized starred projects to evaluate
+### Specialized Starred Projects To Evaluate
 
 - [Linux Write Blocker](https://github.com/msuhanov/Linux-write-blocker) — kernel patch and utilities illustrating why a read-only filesystem mount is not always sufficient to prevent writes. This is **older, kernel-specific research** and is not a validated replacement for a hardware write blocker.
 - [Digler](https://github.com/ostafen/digler) — Go-based disk analysis and file carving with CLI/GUI interfaces. Its upstream README calls it **early development**; test using duplicate images and never save recovered files to the evidence device.
@@ -106,7 +106,7 @@ Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Auto
 
 Use these as companions to [Autopsy/KAPE](./Disks/autopsy_kape.md) and [live-data collection](./LiveData/live_data_collection.md), not substitutes for authorization, write protection, forensic imaging or chain of custody.
 
-## 🧭 Order of Volatility
+## 🧭 Order Of Volatility
 
 ```text
 Collect most-volatile first (adapted from RFC 3227):

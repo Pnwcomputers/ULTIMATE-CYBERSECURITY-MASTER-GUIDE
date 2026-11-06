@@ -1,4 +1,4 @@
-# 👁️ Endpoint Visibility (EDR / Telemetry)
+# 👁️ Endpoint Visibility (Edr / Telemetry)
 
 <div align="center">
 
@@ -25,7 +25,7 @@ Links to a guide per instrumentation source — installation, configuration, the
 ## 🏆 Goal
 Enable a defender to instrument Windows and Linux hosts so that process, network, file, and authentication activity is captured with enough fidelity to detect and reconstruct an attack.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up endpoint telemetry before (or alongside) a [SIEM](../SIEM/README.md)
 - Deciding what to log on Windows (Sysmon) vs Linux (auditd) hosts
 - Adding SQL-based, on-demand host inspection with Osquery for threat hunting
@@ -33,7 +33,7 @@ Enable a defender to instrument Windows and Linux hosts so that process, network
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Instrumentation Sources](#️-instrumentation-sources)
@@ -81,14 +81,14 @@ Instrument hosts as a **SQL-queryable** surface. Covers installation (with the m
 
 ---
 
-### Starred companion tools for one-time Windows audits
+### Starred Companion Tools For One-time Windows Audits
 
 - [DAT — dag's Audit Tool](https://github.com/dagnazty/DAT) — PowerShell inventory of Windows hardware, accounts, services, networking, updates, Defender and event-log information. Check the script, permissions and sensitive output handling before using it on a client machine.
 - [PNWC SystemTester](https://github.com/Pnwcomputers/SystemTester) — your portable Windows/Sysinternals diagnostic and malware-triage toolkit; useful for technician baselines and pre/post-repair reports. A clean diagnostic run does **not** prove the absence of compromise.
 
 These produce **point-in-time** observations; Sysmon, auditd, osquery and a SIEM still provide the continuous telemetry described below.
 
-### Post-assessment workstation provisioning (different phase)
+### Post-assessment Workstation Provisioning (Different Phase)
 
 [PNWC DeployWorkstation](https://github.com/Pnwcomputers/DeployWorkstation) automates Windows application provisioning, updates and removal of selected preinstalled software. It belongs in an **approved deployment or rebuild workflow after** investigation, required evidence preservation and recovery planning—not in live malware triage. Test change lists on a disposable VM, obtain customer approval for removals and keep rollback/restore options available.
 

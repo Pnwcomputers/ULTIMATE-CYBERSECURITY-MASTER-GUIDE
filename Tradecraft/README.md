@@ -32,7 +32,7 @@ Lists all 6 Tradecraft files with descriptions, explains the dual-use (offense +
 ## 🏆 Goal
 A reader can find the right tradecraft file for a given ATT&CK tactic or technique and understands upfront that every file pairs offensive technique with matching detection/defense guidance.
 
-## 📋 When to Use
+## 📋 When To Use
 As the entry point into the Tradecraft/ folder, or when looking up which file covers a specific ATT&CK tactic.
 
 ## Contents
@@ -60,7 +60,7 @@ These references are structured for **dual-use** - each file covers both offensi
 
 ---
 
-## MITRE ATT&CK Coverage
+## MITRE Att&Ck Coverage
 
 | File | Primary ATT&CK Tactics |
 |---|---|

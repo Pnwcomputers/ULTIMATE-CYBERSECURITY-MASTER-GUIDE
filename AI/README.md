@@ -20,9 +20,9 @@
 
 **External enrichment and privacy:** The [Security API Catalog](../Documentation/security-public-api-catalog.md) documents threat feeds, provenance and safer handling of API responses for agent workflows. Check customer-data transfer restrictions before feeding third-party services or LLMs.
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
-- [Practical AI usage, project planning and independent verification](#practical-ai-usage-project-planning-and-independent-verification)
+- [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
 - [Overview](#-overview)
 - [Folder Contents](#-folder-contents)
 - [Resource Categories](#️-resource-categories)
@@ -44,7 +44,7 @@ Six resource categories (self-hosted agent frameworks, GenAI/LLM security applic
 ## 🏆 Goal
 Get a self-hosted AI agent running (OpenClaw or AnythingLLM) with role-appropriate personas and skills, and know which file to reference for prompt engineering, offline deployment, or adversarial AI security work.
 
-## 📋 When to Use
+## 📋 When To Use
 - Deploying a self-hosted AI agent (OpenClaw/AnythingLLM) for IT support, blue team, red team, or OSINT automation
 - Setting up an air-gapped LLM for sensitive engagement work (`offline-llm.md`)
 - Red-teaming an AI/ML system itself, as opposed to using AI as a tool (`offensive_ai.md`)
@@ -67,6 +67,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
+<a id="practical-ai-usage-project-planning-and-independent-verification"></a>
 ## Practical AI Usage, Project Planning/Management & Provided Data Verification
 
 | File/Folder | Description |
@@ -94,7 +95,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ## 🗂️ Resource Categories
 
-### 1. 🦞 Self-Hosted AI Agent Frameworks
+### 1. 🦞 Self-hosted AI Agent Frameworks
 
 **Purpose**: Deploy persistent AI agents on your own hardware that connect to messaging platforms, tools, and services.
 
@@ -110,7 +111,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-### 2. 🧠 GenAI / LLM Applications for Security
+### 2. 🧠 GenAI / LLM Applications For Security
 
 **Purpose**: Apply large language models to security operations tasks - report generation, log analysis, threat hunting, and SOC automation.
 
@@ -127,7 +128,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-### 3. 📴 Offline & Air-Gapped AI Deployment
+### 3. 📴 Offline & Air-gapped AI Deployment
 
 **Purpose**: Run AI inference in environments where internet connectivity is restricted or prohibited - classified networks, air-gapped labs, sensitive client engagements.
 
@@ -191,7 +192,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-## 📖 How to Use These Resources
+## 📖 How To Use These Resources
 
 ### For IT & Security Practitioners
 1. Start with **OpenClaw README.md** to deploy a self-hosted AI agent on TrueNAS SCALE
@@ -211,7 +212,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 - Reference `use_cases.md` red team section for methodology, reporting, and tool reference
 - Use local Ollama models (`@ollama`) for sensitive engagement data
 
-### For Sensitive / Air-Gapped Environments
+### For Sensitive / Air-gapped Environments
 - Follow `offline-llm.md` for fully offline deployment
 - Use Ollama as the sole inference backend - no data leaves the machine
 - Apply the `agent_skill_config.md` homelab agent (Homer) for infrastructure management

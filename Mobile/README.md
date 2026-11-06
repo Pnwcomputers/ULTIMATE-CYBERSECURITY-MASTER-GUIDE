@@ -28,7 +28,7 @@ Covers: OnePlus 6 rooting workflow (bootloader unlock, LineageOS, TWRP, Magisk),
 ## 🏆 Goal
 Enable practitioners to build and operate a capable mobile pentesting platform (NetHunter on OnePlus 6), conduct authorized Android and iOS app assessments, and perform forensic or OSINT tasks against mobile devices.
 
-## 📋 When to Use
+## 📋 When To Use
 - Setting up or maintaining the OnePlus 6 NetHunter device
 - Running a NetHunter-based engagement (HID, Evil AP, Wardriving, etc.)
 - Conducting an authorized Android or iOS app penetration test
@@ -36,7 +36,7 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Current Content](#-current-content)
@@ -70,14 +70,14 @@ This directory contains **mobile security resources for penetration testers, for
 
 ## 📂 Current Content
 
-### Engagement SOPs
+### Engagement Sops
 
 | File | Description | Status |
 |------|-------------|--------|
 | **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Full engagement-level SOP for pentesting with the NetHunter device: pre-engagement legal/device prep, passive recon, active recon, exploitation (Evil AP, HID, BadUSB, LLMNR, Metasploit), post-exploitation, evidence handling, teardown, and report structure | ✅ Complete |
 | **[Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests. From pre-engagement setup through post-engagement teardown and evidence handling. | ✅ Complete |
 
-### OnePlus 6 / Kali NetHunter (Device-Specific)
+### Oneplus 6 / Kali Nethunter (Device-specific)
 
 | File | Description | Status |
 |------|-------------|--------|
@@ -127,7 +127,7 @@ This directory contains **mobile security resources for penetration testers, for
 
 ## 🔬 Testing Methodology Overview
 
-### Android App Assessment (OWASP MASTG Order)
+### Android App Assessment (OWASP Mastg Order)
 
 ```
 1. Reconnaissance
@@ -157,7 +157,7 @@ This directory contains **mobile security resources for penetration testers, for
    - Provide PoC screenshots/Burp captures
 ```
 
-### iOS App Assessment (OWASP MASTG Order)
+### iOS App Assessment (OWASP Mastg Order)
 
 ```
 1. Reconnaissance
@@ -267,7 +267,7 @@ To contribute to the Mobile section:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️
@@ -295,7 +295,7 @@ This section contains attack techniques and tools for:
 
 ---
 
-### Legal Requirements for Mobile Security Testing
+### Legal Requirements For Mobile Security Testing
 
 #### Written Authorization Requirements
 

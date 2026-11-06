@@ -1,4 +1,4 @@
-# Historical script collection
+# Historical Script Collection
 
 This directory contains archived examples in several languages, despite its name.
 It is not a supported Go module or a maintained Python 3 application. Dependencies

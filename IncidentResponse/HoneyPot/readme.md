@@ -25,7 +25,7 @@ Links to a full build guide per platform; full install, real dependency/installe
 ## 🏆 Goal
 Enable a practitioner to stand up a working honeypot that reliably logs attacker interaction, on hardware as modest as a Raspberry Pi, without repeating the installer dead-ends a real build already ran into.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up a honeypot for the first time and deciding which platform to use
 - An installer "succeeds" but nothing is actually running or logging
 - Deciding what to do with a spare device on your network
@@ -33,7 +33,7 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Platform Comparison](#️-platform-comparison)
@@ -74,7 +74,7 @@ This sub-section favors **hands-on, from-a-real-build detail** where it exists; 
 
 ## 📚 Deployment Guides
 
-### 🐍 [OpenCanary](./opencanary.md)
+### 🐍 [Opencanary](./opencanary.md)
 A lightweight, pure-Python low-interaction honeypot. Covers why it was the platform that actually worked after two other honeypots (HoneyPi, Cowrie) hit dead ends on the same hardware, the real dependency-resolution chain on modern Debian/Ubuntu (PEP 668, `pkg_resources`, `simplejson`, `twisted`), safely freeing port 22 for the honeypot without losing real SSH access, multi-service configuration, email alerting, and log analysis one-liners.
 
 ### 🐚 [Cowrie](./cowrie.md)
@@ -83,15 +83,16 @@ A medium-to-high interaction SSH/Telnet honeypot that emulates a full fake shell
 ### 🕷️ [Dionaea](./dionaea.md)
 A low-interaction honeypot purpose-built to let automated exploit attempts complete far enough to deliver their actual payload, which Dionaea then captures to disk. Covers the officially-recommended Docker deployment, the considerably longer from-source alternative, port planning across its wide service footprint, and handling captured samples safely.
 
-### 🍯🐝 [HoneyPi](./honeypi.md)
+### 🍯🐝 [Honeypi](./honeypi.md)
 A PSAD-based honeypot purpose-built for **internal**-network intrusion detection; catching an attacker already past the perimeter, rather than collecting internet-wide threat intelligence. **Opens with a name-collision warning:** "HoneyPi" also refers to a completely unrelated IoT beehive-monitoring project on GitHub, which is almost certainly what caused a real "installer succeeded but nothing was created" failure during an actual deployment attempt.
 
-### 🐳 [T-Pot](./tpot.md)
+### 🐳 [T-pot](./tpot.md)
 The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) running as Docker containers under one orchestration layer, with Elastic Stack dashboards and an animated attack map out of the box. Covers sizing, the Hive/Sensor distributed-deployment model, customizing which honeypots run, and the update/backup maintenance model.
 
 ---
 
-### DIY hardware and Wazuh reporting
+<a id="diy-hardware-and-wazuh-reporting"></a>
+### Diy Hardware & Wazuh Reporting
 
 **[Security and accuracy review (October 31, 2026)](./REVIEW-2026-10-31.md):** methods, limitations, CI results and the separate installer pinning issue.
 
@@ -106,11 +107,12 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) guides for **complementary wireless detections**. Correlation requires shared time/site context and trusted AP/client telemetry.
 
-### Small embedded deception sensors
+### Small Embedded Deception Sensors
 
 [NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
 
-## 🤔 How This Fits With IDS/IPS and SIEM
+<a id="-how-this-fits-with-idsips-and-siem"></a>
+## 🤔 How This Fits With IDS/IPS & SIEM
 
 ![Isolated honeypot sensors and SIEM ingestion](../../assets/diagrams/honeypot-segmented-logging.svg)
 

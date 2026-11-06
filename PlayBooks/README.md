@@ -17,9 +17,15 @@
 **Training-to-field progression:** [Safe CTF and cybersecurity learning pathways](security-training-lab-pathways.md) maps exercises into scoped PNWC assessment and reporting workflows.
 
 
-**New source-backed assessment workflows:** [Staged client assessment map](assessment-service-integration-map.md) · [Atomic Red Team, Sigma and Wazuh validation](purple-team-detection-validation.md) · [DefectDojo findings and retesting](assessment-findings-lifecycle.md). Each is a documentation/runbook integration, not a deployed scanner, SIEM rule or customer automation.
+| Reference | Description |
+|---|---|
+| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
+| [Atomic Red Team, Sigma & Wazuh Validation](purple-team-detection-validation.md) | Repeatable defensive detection testing |
+| [DefectDojo Findings & Retesting](assessment-findings-lifecycle.md) | Report, triage, remediate and retest findings |
 
-## 📋 Table of Contents
+These are documentation/workflow references, not deployed scanners or customer automation.
+
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Playbook Collection](#-playbook-collection)
@@ -326,7 +332,7 @@ These playbooks serve as:
 
 ---
 
-## 📖 How to Use These Playbooks
+## 📖 How To Use These Playbooks
 
 ### For Security Operations Centers (SOC)
 
@@ -411,7 +417,7 @@ Post-Assessment:
    └─> Archive assessment documentation
 ```
 
-### For DevSecOps Teams
+### For Devsecops Teams
 
 ```
 Repository Security:
@@ -470,7 +476,7 @@ Incident Response:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Operations Only
+### 🔴 Critical: Authorized Operations Only
 
 ```
 ⚠️ IMPORTANT: AUTHORIZED USE ONLY ⚠️
@@ -502,7 +508,7 @@ These security playbooks contain operational procedures for:
 
 ### Authorization Requirements
 
-#### Written Authorization is MANDATORY
+#### Written Authorization Is Mandatory
 
 **Before executing any playbook procedures that involve:**
 - Network scanning or vulnerability assessment
@@ -549,7 +555,7 @@ These security playbooks contain operational procedures for:
 
 ---
 
-### Playbook-Specific Warnings
+### Playbook-specific Warnings
 
 #### Blue Team & Incident Response
 
@@ -636,7 +642,7 @@ PENALTIES FOR UNAUTHORIZED TESTING:
 
 ### Professional Standards
 
-#### Code of Ethics for Playbook Execution
+#### Code Of Ethics For Playbook Execution
 
 **Core Principles:**
 
@@ -795,7 +801,7 @@ the amount paid for these playbooks (zero for free distribution).
 
 ## 🤝 Contributing
 
-### How to Contribute Playbooks
+### How To Contribute Playbooks
 
 We welcome contributions from security professionals to improve and expand this collection.
 
@@ -931,7 +937,7 @@ We welcome contributions from security professionals to improve and expand this 
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review playbook procedures thoroughly
 - Consult with your security team

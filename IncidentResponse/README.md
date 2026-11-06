@@ -16,13 +16,33 @@
 
 **More defensive resources:** [Curated detection, DFIR, Suricata and YARA research](../Documentation/awesome-hacking-collections-integration.md) maps external source projects to existing PNWC field guides.
 
-**Packet capture triage:** [Wireshark master filter list](../Documentation/wireshark-master-filters.md) · [field cheat sheet](../Documentation/wireshark-cheatsheet.md) · [advanced capture guide](../Documentation/wireshark.md). Capture scope and evidence interpretation are separate from Wazuh detections.
+| Reference | Description |
+|---|---|
+| [Wireshark Master Filter List](../Documentation/wireshark-master-filters.md) | Indexed display/capture filters for packet triage |
+| [Wireshark Field Cheat Sheet](../Documentation/wireshark-cheatsheet.md) | Protocol-focused display filter reference |
+| [Advanced Capture Guide](../Documentation/wireshark.md) | Deeper packet capture analysis and troubleshooting |
 
-**Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
+Capture scope and evidence interpretation are separate from Wazuh detection rules.
+
+| Reference | Description |
+|---|---|
+| [Honeypot Index](./HoneyPot/readme.md) | Select a deception platform and review deployment constraints |
+| [Raspberry Pi Lab](./HoneyPot/raspberry-pi-honeypot-lab.md) | Small dedicated decoy sensor |
+| [Proxmox Lab](./HoneyPot/proxmox-vm-honeynet.md) | Isolated virtualized decoys |
+| [ESP32-S3 Lab](./HoneyPot/esp32-s3-honeypots.md) | Microcontroller-based deception examples |
+| [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md) | Export decoy telemetry to SIEM |
+| [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) | Correlate wireless findings with SIEM alerts |
+| [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Wireless monitoring and log correlation |
 
 **Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
 
-**Evidence and detection companion guides:** [Velociraptor/ForensicArtifacts triage](Digital-Forensics/velociraptor-artifact-triage.md) · [Sigma/Elastic/Wazuh detection content validation](SIEM/detection-content-validation.md) · [Atomic Red Team lab verification](../PlayBooks/purple-team-detection-validation.md). Scope collection and simulated behavior before using any client environment.
+| Reference | Description |
+|---|---|
+| [Velociraptor/ForensicArtifacts Triage](Digital-Forensics/velociraptor-artifact-triage.md) | Authorized evidence collection and triage |
+| [Sigma/Elastic/Wazuh Validation](SIEM/detection-content-validation.md) | Verify detection rules and event mappings |
+| [Atomic Red Team Lab Verification](../PlayBooks/purple-team-detection-validation.md) | Confirm detections with controlled simulations |
+
+Scope collection and simulations before using any client environment.
 
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
@@ -33,14 +53,14 @@ Links to log aggregation and visibility setup (log_agg.md), wireless/network int
 ## 🏆 Goal
 Enable blue team operators to quickly find the right IR procedure, log source configuration, or detection rule for an active or suspected incident.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting incident response work: find the right playbook or log configuration file
 - Setting up a new SIEM or log aggregation infrastructure from scratch
 - Responding to a wireless intrusion, rogue AP, or physical plant hack scenario
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Tool & Infrastructure Categories](#️-tool--infrastructure-categories)
@@ -146,7 +166,8 @@ Post-incident artifact extraction and timeline reconstruction.
 
 ---
 
-## PNWC field-response toolkit: JWrapper and ScreenConnect abuse
+<a id="pnwc-field-response-toolkit-jwrapper-and-screenconnect-abuse"></a>
+## PNWC Field-response Toolkit: JWrapper & ScreenConnect Abuse
 
 ![Illustrative JWrapper remote access abuse attack path](../assets/jwrapper_attack.png)
 
@@ -158,7 +179,7 @@ Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data
 
 ## 🚀 Deployment & Operations Workflow
 
-### Building the Lab & Testing
+### Building The Lab & Testing
 
 ```text
 1. Infrastructure Standup:
@@ -181,9 +202,9 @@ Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data
 
 ---
 
-## ⚠️ CRITICAL Security, Privacy & Legal Warning
+## ⚠️ Critical Security, Privacy & Legal Warning
 
-### 🔴 BLUE TEAM LEGAL & ETHICAL GUIDELINES
+### 🔴 Blue Team Legal & Ethical Guidelines
 
 ```
 ═══════════════════════════════════════════════════════════════

@@ -9,7 +9,7 @@ Indexes categorized PDFs covering: penetration testing methodology, CTF referenc
 ## 🏆 Goal
 Provide reliable offline access to critical security reference materials that would otherwise require internet connectivity, ensuring availability during air-gapped engagements or unreliable network conditions.
 
-## 📋 When to Use
+## 📋 When To Use
 - Preparing for an engagement and downloading relevant offline references
 - Finding a specific technical PDF (protocol specs, exploit technique papers, tool manuals)
 - Building an offline security library for training or certification preparation
@@ -28,7 +28,7 @@ Provide reliable offline access to critical security reference materials that wo
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [PDF Library Contents](#-pdf-library-contents)
@@ -135,7 +135,11 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 - AD_Attacks_.pdf - Attack vectors and techniques
 - AD_Post_Exploitation.pdf - Post-compromise operations
 
-**Quick-reference checklists:** [Active Directory](../Checklists/ActiveDirectory.md) · [Domain Escalation](../Checklists/Domain-Escalation.md) · [Domain Persistence](../Checklists/Domain-Persistence.md)
+| Resource | Description |
+|---|---|
+| [Active Directory Checklist](../Checklists/ActiveDirectory.md) | Directory service assessment |
+| [Domain Escalation Checklist](../Checklists/Domain-Escalation.md) | Domain escalation assessment |
+| [Domain Persistence Checklist](../Checklists/Domain-Persistence.md) | Domain persistence assessment |
 
 **Use Cases:**
 - Internal penetration testing
@@ -310,7 +314,7 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 
 ---
 
-## 📖 How to Use These Resources
+## 📖 How To Use These Resources
 
 ### For Penetration Testers
 
@@ -404,7 +408,7 @@ Security Hardening:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ IMPORTANT: EDUCATIONAL AND AUTHORIZED USE ONLY ⚠️
@@ -436,7 +440,8 @@ These PDF reference materials contain security testing techniques for:
 
 ### Legal Requirements
 
-#### Computer Fraud and Abuse Act (CFAA) - United States
+<a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
+#### Computer Fraud & Abuse Act (Cfaa) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -487,7 +492,7 @@ in virtually every jurisdiction worldwide.
 
 ---
 
-### Content-Specific Warnings
+### Content-specific Warnings
 
 #### Active Directory Attacks
 
@@ -629,7 +634,7 @@ PROHIBITED:
 
 ### Professional Standards
 
-#### Code of Ethics
+#### Code Of Ethics
 
 **Core Principles:**
 
@@ -761,7 +766,7 @@ the amount paid for these materials (zero for free distribution).
 
 ## 🤝 Contributing
 
-### How to Contribute PDF Resources
+### How To Contribute PDF Resources
 
 We welcome high-quality PDF contributions from security professionals.
 
@@ -888,7 +893,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review legal warnings thoroughly before using
 - Ensure you have proper authorization

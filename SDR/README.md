@@ -37,7 +37,7 @@ Use this index to select a guide, identify suitable hardware and software, find 
 
 Move from an RF question to a documented result: identify the relevant band and protocol, validate the receive chain, capture evidence, analyze it with compatible tools, and report conclusions supported by measurements.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Learning IQ sampling, antennas, demodulation, or GNU Radio.
 - Selecting a receiver, protocol sniffer, RFID reader, or analysis tool.
@@ -49,7 +49,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 ---
 
-## Table of Contents
+## Table Of Contents
 
 - [Guides in This Section](#guides-in-this-section)
 - [Choose a Starting Point](#choose-a-starting-point)
@@ -64,7 +64,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 - [Related Repository Material](#related-repository-material)
 - [Section Inventory and Maintenance](#section-inventory-and-maintenance)
 
-## Guides in This Section
+## Guides In This Section
 
 > **Looking specifically for GPS-tagged Wi-Fi/BLE mapping?** The dedicated [Wardriving index](../Wardriving/README.md) includes [Kismet wardrive mode](../Wardriving/kismet.md), [ESP32 Marauder](../Wardriving/esp32-marauder.md), and a [field checklist](../Wardriving/field-workflow.md). RF spectrum measurements and Wi-Fi AP mapping are complementary but different workflows.
 
@@ -81,7 +81,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 > **Companion playbook:** [HackRFAuditPlayBook.md](../PlayBooks/HackRFAuditPlayBook.md) provides the engagement procedure in the PlayBooks section. Related HackRF material also exists in [hackrf.md](hackrf.md); contributors should keep shared procedures and references consistent.
 
-## Choose a Starting Point
+## Choose A Starting Point
 
 | What you need to do | Start here | Follow with |
 |---|---|---|
@@ -98,7 +98,8 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 ## Hardware Ecosystem
 
-### SDR and RF Devices
+<a id="sdr-and-rf-devices"></a>
+### SDR & RF Devices
 
 | Device / family | Capabilities | Practical role and limits |
 |---|---|---|
@@ -114,7 +115,8 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 **Tuning range is not decoding capability.** Seeing energy at a frequency does not mean the receiver can capture the whole waveform or that software can decode it. HackRF One's 20 MS/s limit represents approximately 20 MHz of nominal instantaneous complex-IQ span, with less useful bandwidth near filter edges. A sweeping survey is not simultaneous recording of the entire sweep range. See the [hardware and capture reference](target_frequencies_protocols.md).
 
-### NFC and RFID Devices
+<a id="nfc-and-rfid-devices"></a>
+### NFC & RFID Devices
 
 | Device | Role | Limits to check |
 |---|---|---|
@@ -129,11 +131,13 @@ Move from an RF question to a documented result: identify the relevant band and 
 
 ---
 
-## Software and Tool Categories
+<a id="software-and-tool-categories"></a>
+## Software & Tool Categories
 
 Tool roles below describe their intended function. They do not guarantee support for a particular signal, operating system, software version, or hardware combination.
 
-### 1. Signal Capture and Discovery
+<a id="1-signal-capture-and-discovery"></a>
+### 1. Signal Capture & Discovery
 
 | Tool | Role | Notes |
 |---|---|---|
@@ -144,7 +148,8 @@ Tool roles below describe their intended function. They do not guarantee support
 | **[Kalibrate-RTL](https://github.com/steve-m/kalibrate-rtl)** | Estimate receiver frequency error using GSM signals | Requires suitable local signals and compatible software; not a general precision calibration guarantee. |
 | **[gr-gsm](https://github.com/ptrkrysik/gr-gsm)** | GSM reception and analysis tools | Verify the chosen branch/package and GNU Radio compatibility. It is not accurately described as a turnkey IMSI catcher. |
 
-### 2. Waveform and Protocol Analysis
+<a id="2-waveform-and-protocol-analysis"></a>
+### 2. Waveform & Protocol Analysis
 
 | Tool | Role |
 |---|---|
@@ -156,7 +161,8 @@ Tool roles below describe their intended function. They do not guarantee support
 
 Record the sample rate, center frequency, signed/unsigned representation, bit depth, I/Q order, gain, and software versions with each capture. Incorrect import settings can produce misleading results.
 
-### 3. Controlled RF and Cellular Research
+<a id="3-controlled-rf-and-cellular-research"></a>
+### 3. Controlled RF & Cellular Research
 
 | Resource | Actual role | Assessment boundary |
 |---|---|---|
@@ -168,7 +174,8 @@ Record the sample rate, center frequency, signed/unsigned representation, bit de
 
 Use the host-tool documentation and the [controlled bench procedure](../PlayBooks/HackRFAuditPlayBook.md) to distinguish firmware components from the commands used for capture and testing.
 
-### 4. NFC and RFID Analysis
+<a id="4-nfc-and-rfid-analysis"></a>
+### 4. NFC & RFID Analysis
 
 | Tool / family | Role | Important qualification |
 |---|---|---|
@@ -181,7 +188,8 @@ See [rfid.md](rfid.md) for the detailed workflows and [the master list](target_f
 
 ---
 
-## Starred SDR and antenna projects
+<a id="starred-sdr-and-antenna-projects"></a>
+## Starred SDR & Antenna Projects
 
 - [LakeShark](https://github.com/SAMS0N1TE/LakeShark) — a handheld SDR and radio-analysis research platform for selected ESP32-P4/LILYGO hardware with documented integrations including RTL-SDR, LoRa/MeshCore and common receive-only signal applications. Hardware modules, build support and licensed radio reception vary by configuration; confirm the **current upstream hardware matrix** before building.
 - [CatSniffer](https://github.com/ElectronicCats/CatSniffer) — a hardware platform for **selected low-power IoT radio protocols** using board-specific radios and firmware (including CC1352/SX1262 configurations). Useful for Zigbee/Thread/LoRa-type protocol labs when supported by the exact hardware/firmware build; it is **not** a generic Wi-Fi monitor-mode adapter or a universal SDR. Follow the [hardware hacking basics](../HardwareHacking/README.md) for power, pin and target-ownership checks.
@@ -189,9 +197,10 @@ See [rfid.md](rfid.md) for the detailed workflows and [the master list](target_f
 
 These are complementary **projects**, not required parts of a HackRF or NanoVNA installation. Use only permitted receive/transmit configurations; do not intercept or disclose protected communications.
 
-## Target Frequencies and Protocols
+<a id="target-frequencies-and-protocols"></a>
+## Target Frequencies & Protocols
 
-### [📡 Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)
+### [📡 Target Frequencies & Protocols Master List](target_frequencies_protocols.md)
 
 The completed master reference contains:
 
@@ -209,7 +218,8 @@ The list marks NOAA-15/18/19 APT entries as historical following their 2025 reti
 
 ## Safe Workflows
 
-### Receive and Analyze
+<a id="receive-and-analyze"></a>
+### Receive & Analyze
 
 1. Define the question, authorized scope, and permitted data handling before capturing.
 2. Match the receiver, antenna, filters, bandwidth, and decoder to the signal.
@@ -220,7 +230,7 @@ The list marks NOAA-15/18/19 APT entries as historical following their 2025 reti
 
 No decoded output can mean the wrong channel, unsupported PHY, weak signal, overload, or a missed burst. It does not establish that the device was silent.
 
-### Before Any Transmission or Active Device Test
+### Before Any Transmission Or Active Device Test
 
 - [ ] Confirm the exact device/system, permitted actions, test window, and responsible owner.
 - [ ] Identify the applicable regulatory basis, equipment requirements, band, power, bandwidth, and operating conditions.
@@ -244,7 +254,8 @@ An ISM band, low transmit power, device ownership, or a Faraday bag does not by 
 
 Read-only memory access can still involve RF transmissions or sensitive information. Do not assume it is appropriate merely because the tool can perform it.
 
-## Security and Legal Boundaries
+<a id="security-and-legal-boundaries"></a>
+## Security & Legal Boundaries
 
 **Regulatory baseline: United States.** Other jurisdictions can have different reception, transmission, equipment, privacy, and access-control requirements.
 
@@ -261,7 +272,8 @@ Sources: [FCC Part 15 rules](https://www.ecfr.gov/current/title-47/chapter-I/sub
 
 This README does not assign blanket criminal classifications, fine amounts, or prison terms to technical activities. Legal consequences depend on the conduct, applicable law, authorization, and other facts. Wi-Fi deauthentication is a protocol-layer action and is not technically identical to RF noise jamming, although either can cause disruption.
 
-### Repository Terms and Warranty Notice
+<a id="repository-terms-and-warranty-notice"></a>
+### Repository Terms & Warranty Notice
 
 See [LEGAL.md](../LEGAL.md) for repository-wide terms. The materials are provided **as is**, without a guarantee of compatibility, accuracy, hardware safety, or suitability for an engagement. Documentation is not a substitute for current regulations or qualified advice on a specific legal question. This README's review does not validate every legal claim elsewhere in the repository.
 
@@ -292,7 +304,8 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 
 ## Resources
 
-### RF Rules and Specifications
+<a id="rf-rules-and-specifications"></a>
+### RF Rules & Specifications
 
 - [FCC radio spectrum allocation guidance](https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation).
 - [FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15) and [Part 97](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97).
@@ -301,7 +314,8 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 - [GS1 EPC Gen2 specification](https://ref.gs1.org/standards/gen2/).
 - [Master-list primary references](target_frequencies_protocols.md#17-primary-references) for protocol-specific authorities.
 
-### Learning and Implementation References
+<a id="learning-and-implementation-references"></a>
+### Learning & Implementation References
 
 - [Great Scott Gadgets SDR course](https://greatscottgadgets.com/sdr/).
 - [HackRF documentation](https://hackrf.readthedocs.io/en/latest/).
@@ -326,7 +340,8 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 | [Flipper Zero guide](../Documentation/flipper_zero_guide.md) | Supported Sub-GHz and LF/HF device workflows. |
 | [Repository terms](../LEGAL.md) | Repository-wide terms and use requirements. |
 
-## Section Inventory and Maintenance
+<a id="section-inventory-and-maintenance"></a>
+## Section Inventory & Maintenance
 
 | Item | Current inventory |
 |---|---|

@@ -14,7 +14,13 @@
 
 ---
 
-**Packet analysis:** [Wireshark master filters](../../Documentation/wireshark-master-filters.md) · [Wireshark field cheat sheet](../../Documentation/wireshark-cheatsheet.md) · [802.11 deauth/disassoc](../../Documentation/wifi-deauthentication-detection.md). Use a correctly positioned capture sensor and corroborate telemetry before labeling incidents.
+| Reference | Description |
+|---|---|
+| [Wireshark Master Filters](../../Documentation/wireshark-master-filters.md) | Indexed packet inspection filters |
+| [Wireshark Field Cheat Sheet](../../Documentation/wireshark-cheatsheet.md) | Common protocol and frame fields |
+| [802.11 Deauthentication/Disassociation](../../Documentation/wifi-deauthentication-detection.md) | Observe suspicious management-frame bursts |
+
+Position your sensor correctly and corroborate telemetry before labeling an incident.
 
 **Deception complement:** [Honeypot labs](../HoneyPot/readme.md) cover Raspberry Pi, ESP32-S3, VMs and [Wazuh reporting](../HoneyPot/wazuh-honeypot-integration.md). Decoys only see attempts aimed at them and do not replace actual Wi-Fi management-frame monitoring.
 
@@ -27,7 +33,7 @@ Links to a full build guide per domain — hardware/platform requirements, insta
 ## 🏆 Goal
 Enable a practitioner to go from bare hardware to a validated, alert-tuned detection stack covering both RF/wireless and wired network traffic, without re-discovering the same driver, interface-naming, and false-positive-tuning problems each build runs into.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up wireless or wired intrusion detection from scratch in a homelab or small network
 - Deciding whether a given alert needs the wireless guide (rogue APs, deauth, evil twins) or the wired guide (network-based signatures, protocol anomalies)
 - Choosing between IDS-only (passive/alerting) and IPS (inline/blocking) deployment
@@ -35,7 +41,7 @@ Enable a practitioner to go from bare hardware to a validated, alert-tuned detec
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Guide Comparison](#️-guide-comparison)
@@ -88,7 +94,7 @@ Hands-on fixed-channel Kismet deauthentication monitoring, read-only API to JSON
 ### 📶 [nzyme + Wazuh Wireless Integration](./nzyme-wazuh-integration.md)
 Configure per-network disconnection thresholds, forward nzyme native detection events to Wazuh by secure localhost webhook JSONL, and compare nzyme's grouped alerts with Kismet and independent AP/controller evidence. Includes sample code, service unit, Wazuh rules and synthetic tests.
 
-### 📡 [nzyme WIDS](./nzyme_wids.md)
+### 📡 [nzyme Wids](./nzyme_wids.md)
 Wireless Intrusion Detection System — a Proxmox VM node plus Raspberry Pi tap sensors with USB adapters. Covers node install on Ubuntu Server + PostgreSQL, the 2.4/5 GHz band-split sensor strategy, out-of-tree DKMS driver fixes for adapter chipsets that crash under channel hopping, and alert-tuning heuristics for telling a real rogue AP from RF noise. Detection-only — nzyme does not block wireless traffic.
 
 ### 🛡️ [Suricata & Zeek](./suricata+zeek.md)
@@ -100,12 +106,13 @@ The original signature-based IDS/IPS, now maintained by Cisco. Covers all four r
 ### 🧅 [Security Onion](./security-onion.md)
 A free, turnkey Linux distro that pre-integrates Suricata, Zeek, and a full Elastic Stack (plus Wazuh, CyberChef, and more) into one appliance-style NSM platform. The wired-network equivalent of what T-Pot is for honeypots — covers sizing, the ISO-based install, node types (standalone vs. distributed), and where the pieces you already know from the standalone guides live inside it.
 
-### 🚫 [Fail2Ban](./fail2ban.md)
+### 🚫 [Fail2ban](./fail2ban.md)
 The lightest-weight tool in this section — a log watcher that bans brute-forcing IPs at the firewall automatically. Not a NIDS replacement, but the highest-value-for-effort entry here: covers the jail/filter/action model, protecting SSH (the default use case) and other services, and the operational commands for checking and manually unbanning.
 
 ---
 
-### Complementary inventory and detection projects
+<a id="complementary-inventory-and-detection-projects"></a>
+### Complementary Inventory & Detection Projects
 
 [NetAlertX](https://github.com/netalertx/NetAlertX) provides continuous network-device discovery and change visibility. It can help establish a device baseline and flag unfamiliar assets, but **it is not a replacement for packet-based IDS/IPS or a wireless intrusion detection sensor**. Correlate its findings with this section's [nzyme WIDS](./nzyme_wids.md), switch/AP logs, DHCP leases and authorized inventory before treating a device as hostile.
 

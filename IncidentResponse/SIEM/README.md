@@ -14,9 +14,19 @@
 
 ---
 
-**Additional detection references:** [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook), [awesome-detection-engineering](https://github.com/infosecB/awesome-detection-engineering) and [curated source mapping](../../Documentation/awesome-hacking-collections-integration.md). Validate rules before production use.
+| Resource | Description |
+|---|---|
+| [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook) | Community threat-hunting and detection research |
+| [Awesome Detection Engineering](https://github.com/infosecB/awesome-detection-engineering) | Detection engineering resources |
+| [Curated Source Mapping](../../Documentation/awesome-hacking-collections-integration.md) | How external projects relate to local guides |
 
-**Deception reporting:** [Honeypot → Wazuh native JSON integration](../HoneyPot/wazuh-honeypot-integration.md) connects OpenCanary, Cowrie and DIY decoy metadata; [Kismet](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme](../IDS%26IPS/nzyme-wazuh-integration.md) contribute independent wireless alert streams.
+Validate source content and rules before production use.
+
+| Reference | Description |
+|---|---|
+| [Honeypot → Wazuh JSON Integration](../HoneyPot/wazuh-honeypot-integration.md) | Forward OpenCanary, Cowrie and DIY decoy metadata |
+| [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) | Wireless alert telemetry and SIEM correlation |
+| [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) | Additional wireless event source and correlation |
 
 **Container deployment support:** [Docker CLI / Compose operations reference](../../ContainerSecurity/docker-cli-operations-reference.md) provides safe diagnostics for containerized SIEM services, volume inventories, log exposure and privilege boundaries. Check the SIEM-specific installation guide for its supported platform and storage requirements.
 
@@ -33,7 +43,7 @@ Links to a full build guide per platform — server prep, Docker/package deploym
 ## 🏆 Goal
 Enable a practitioner to deploy a working SIEM that ingests endpoint, server, and network telemetry and surfaces security-relevant events through dashboards and alerts — without wading through four separate vendor doc sites.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up a SIEM or centralized log server from scratch in a homelab or small environment
 - Choosing between ELK, Wazuh, Splunk, and Graylog for a given use case
 - Enrolling Windows (Winlogbeat/Sysmon) or Linux (Filebeat/auditd) agents into a log pipeline
@@ -41,7 +51,7 @@ Enable a practitioner to deploy a working SIEM that ingests endpoint, server, an
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Platform Comparison](#️-platform-comparison)

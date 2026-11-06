@@ -46,7 +46,7 @@ Get an authorized analyst from "I extracted a zip" to a repeatable workflow:
 classify the file, import it honestly, repair the listing, type the data,
 automate what repeats, and compare versions.
 
-## When to use
+## When To Use
 
 - First Ghidra install, or a JDK mismatch after a Ghidra upgrade
 - Malware or unknown-binary triage after the sample is contained
@@ -65,7 +65,7 @@ Practice only in an isolated lab: [Homelab](../Homelab/).
 
 ---
 
-## Start here
+## Start Here
 
 ![Reverse engineering safe sample intake and analysis workflow](../assets/diagrams/reverse-engineering-workflow.svg)
 
@@ -85,7 +85,7 @@ the runnable release.
 
 ---
 
-## Guide map
+## Guide Map
 
 All chapter text is in [ghidra-guide-index.md](./ghidra-guide-index.md). Use
 the anchors below, or scroll the file's own table of contents.
@@ -99,7 +99,7 @@ the anchors below, or scroll the file's own table of contents.
 | V. Applications | 21–23 Obfuscation, patching, BSim and other diffs | [Part V](./ghidra-guide-index.md#part-v-real-world-applications) |
 | Appendix | IDA keymap and first-session checklist | [Appendix](./ghidra-guide-index.md#appendix-ghidra-for-ida-users) |
 
-### Reading order
+### Reading Order
 
 ```
 New to SRE?
@@ -120,7 +120,7 @@ Need a pipeline, not a GUI?
 
 ---
 
-## Neighboring sections
+## Neighboring Sections
 
 | Section | Why it sits next to this one |
 | --- | --- |
@@ -130,7 +130,7 @@ Need a pipeline, not a GUI?
 | [Tradecraft](../Tradecraft/) | Capability questions the listing is often asked to confirm |
 | [GLOSSARY.md](../GLOSSARY.md) | Shared terms |
 
-## See also
+## See Also
 
 - [REMnux — Malware Analysis & DFIR Workstation](./remnux-malware-analysis-guide.md) (VMs, static triage, PCAPs, documents and evidence handling)
 

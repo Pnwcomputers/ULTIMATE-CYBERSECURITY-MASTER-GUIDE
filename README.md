@@ -1,4 +1,4 @@
-# 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE
+# 🛡️ Ultimate Cybersecurity Master Guide
 
 <p align="center">
   <img src="./assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
@@ -38,25 +38,33 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 <h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
 
 ---
-## 🎯 START HERE
+## 🎯 Start Here
 
-### 🆕 New to IT/Computers/Networks in General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
+### 🆕 New To IT/Computers/Networks In General? - Read Our [IT Manual](https://pnw-computers.github.io/IT-Manual/) To Get Yourself Started!
 
-### ⭐ **[START_HERE.md](./START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
+### ⭐ **[START_HERE.md](./START_HERE.md) - Start Here If You Are Ready To Jump In!**
 
 Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
 
 
 ---
 
-## 🧭 Navigate by Area
+## 🧭 Navigate By Area
 
 
 **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) — model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources.
 
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
 
-**Quick Paths for Defensive Security:** [Incident Response](./IncidentResponse/README.md) · [Honeypot platforms and DIY sensors](./IncidentResponse/HoneyPot/readme.md) · [Kismet/nzyme IDS and IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Wazuh and other SIEMs](./IncidentResponse/SIEM/README.md) · [Wireless/wardriving](./Wardriving/README.md).
+### Defensive Security Quick Paths
+
+| Resource | Description |
+|---|---|
+| [Incident Response](./IncidentResponse/README.md) | Blue Team triage and incident response |
+| [Honeypot Platforms & DIY Sensors](./IncidentResponse/HoneyPot/readme.md) | Defensive deception labs and reporting |
+| [Kismet/nzyme IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and network intrusion detection |
+| [Wazuh & Other SIEMs](./IncidentResponse/SIEM/README.md) | Centralized logs, detections and alerts |
+| [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |
 
 A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 [START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
@@ -80,7 +88,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="primary-master-guides"></a>
 
-## 📚 PRIMARY MASTER GUIDES
+## 📚 Primary Master Guides
 
 | Guide | Description |
 |---|---|
@@ -92,17 +100,28 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="supporting-guides"></a>
 
-## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
+## 📖 Supporting Guides & Reference Material
 
-**Curated research and practice:** [M5StickC Plus2 hardware lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) · [Cypherpunk historical toolkit review](./Documentation/cypherpunk-pentesting-toolkit-review.md) · [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) · [Awesome-Hacking / h4cker / training ecosystems](./Documentation/awesome-hacking-collections-integration.md) · [ethical CTF pathways](./PlayBooks/security-training-lab-pathways.md). These are source-attributed references, not claims that every upstream tool is installed or tested.
-
-### Core References
-
-**AI operation and verification:** [Practical AI Usage](./AI/ai-usage-interaction-guide.md) · [Agent/Project Lanes and Milestones](./AI/agent-project-workflows.md) · [Fact-Checking and AI Audits](./AI/verification-and-ai-audits.md) · [Notebooks, GPTs and Plugins](./AI/ai-workspaces-notebooks-and-assistants.md).
-
+### Curated Research & Practice
 
 | Resource | Description |
 |---|---|
+| [M5StickC Plus2 Hardware Lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Portable, model-specific hardware lab guidance |
+| [Cypherpunk Historical Toolkit Review](./Documentation/cypherpunk-pentesting-toolkit-review.md) | Historical tools and their modern relevance |
+| [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) | Curated OSINT discovery and research resources |
+| [Awesome-Hacking / h4cker / Training Ecosystems](./Documentation/awesome-hacking-collections-integration.md) | Curated security-project and learning references |
+| [Ethical CTF Pathways](./PlayBooks/security-training-lab-pathways.md) | Controlled lab and training progression |
+
+These are source-attributed references, not claims that every upstream tool is installed or tested.
+
+### Core References
+
+| Resource | Description |
+|---|---|
+| **[Practical AI Usage](./AI/ai-usage-interaction-guide.md)** | Prompts, instructions, context, privacy and verifying results |
+| **[Agent/Project Lanes & Milestones](./AI/agent-project-workflows.md)** | Goals, milestones, role-based agents, reviews and resume checkpoints |
+| **[Fact-Checking & AI Audits](./AI/verification-and-ai-audits.md)** | Evidence-based checking of claims, sources and agent actions |
+| **[Notebooks, GPTs & Plugins](./AI/ai-workspaces-notebooks-and-assistants.md)** | Projects, notebooks, reusable assistants and integrations |
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
 | **[Staged Client Security Assessment Blueprint](./PlayBooks/assessment-service-integration-map.md)** | Consent, OWASP/SCuBA checks, endpoint/DFIR collection, Atomic/Sigma validation, supply-chain checks, findings and retests |
@@ -206,7 +225,7 @@ These records describe their dated review scope; they do not certify the current
 
 ---
 
-## 🆕 UNIQUE & PERSONAL CONTENT
+## 🆕 Unique & Personal Content
 
 Content sourced from PNWC's internal Notion knowledge base and real-world operations - not found in textbooks.
 
@@ -271,7 +290,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 🔧 Hardware Arsenal Documented
 
-**Multi-tools:** [Flipper Zero](https://flipper.net/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
+| Multi-Tool | Reference |
+|---|---|
+| Flipper Zero | [Project](https://flipper.net/) |
+| WiFi Pineapple | [Product](https://shop.hak5.org/products/wifi-pineapple) |
+| Proxmark3 | [Project](https://proxmark.com/) |
 
 ### 📟 uConsole & Portable Operations
 
@@ -281,15 +304,25 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This secti
 - **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
 - **Hardware Interfacing:** Using the uConsole for serial connections, hardware debugging, and local network audits.
 
-**Hak5 Suite:** [Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky) · [Bash Bunny](https://shop.hak5.org/products/bash-bunny) · [LAN Turtle](https://shop.hak5.org/products/lan-turtle) · [Packet Squirrel](https://shop.hak5.org/products/packet-squirrel) · [Shark Jack](https://shop.hak5.org/products/shark-jack) · [O.MG Cable](https://shop.hak5.org/products/omg-cable)
-
-**RF / SDR:** [HackRF One](https://greatscottgadgets.com/hackrf/) · [RTL-SDR](https://www.rtl-sdr.com/) · [Ubertooth One](https://greatscottgadgets.com/ubertoothone/) · [YardStick One](https://greatscottgadgets.com/yardstickone/)
-
-**WiFi Adapters:** Alfa AWUS036ACH · Alfa AWUS036NHA · TP-Link TL-WN722N
+| Category | Device | Reference |
+|---|---|---|
+| Hak5 Suite | Rubber Ducky | [Product](https://shop.hak5.org/products/usb-rubber-ducky) |
+| Hak5 Suite | Bash Bunny | [Product](https://shop.hak5.org/products/bash-bunny) |
+| Hak5 Suite | LAN Turtle | [Product](https://shop.hak5.org/products/lan-turtle) |
+| Hak5 Suite | Packet Squirrel | [Product](https://shop.hak5.org/products/packet-squirrel) |
+| Hak5 Suite | Shark Jack | [Product](https://shop.hak5.org/products/shark-jack) |
+| Hak5 Suite | O.MG Cable | [Product](https://shop.hak5.org/products/omg-cable) |
+| RF / SDR | HackRF One | [Project](https://greatscottgadgets.com/hackrf/) |
+| RF / SDR | RTL-SDR | [Project](https://www.rtl-sdr.com/) |
+| RF / SDR | Ubertooth One | [Project](https://greatscottgadgets.com/ubertoothone/) |
+| RF / SDR | YardStick One | [Project](https://greatscottgadgets.com/yardstickone/) |
+| Wi-Fi Adapter | Alfa AWUS036ACH | Hardware reference |
+| Wi-Fi Adapter | Alfa AWUS036NHA | Hardware reference |
+| Wi-Fi Adapter | TP-Link TL-WN722N | Hardware reference |
 
 ---
 
-## 📊 REPOSITORY STATISTICS
+## 📊 Repository Statistics
 
 **Historical snapshot (September 11, 2026):** counts below are retained for provenance and should not be interpreted as the current live inventory after subsequent additions. They are not claims that every example has been deployment-tested.
 
@@ -306,7 +339,7 @@ Original compilation figures such as the number of internal PNWC documents are p
 
 ---
 
-## 🚀 WHAT YOU CAN DO WITH THIS GUIDE
+## 🚀 What You Can Do With This Guide
 
 ### Learning & Practice
 
@@ -331,11 +364,11 @@ Original compilation figures such as the number of internal PNWC documents are p
 
 ---
 
-## 🙏 CREDITS & ACKNOWLEDGMENTS
+## 🙏 Credits & Acknowledgments
 
 This guide stands on the shoulders of the global cybersecurity community.
 
-### 📎 Cited Sources for Curated Reference Additions
+### 📎 Cited Sources For Curated Reference Additions
 
 The following external resources informed **selected, original PNWC reference
 pages**; their content is not bulk mirrored. Links point to the source projects
@@ -358,7 +391,7 @@ changes. See [legal terms](./LEGAL.md).
 
 **Other already-integrated references:** [Devhints commands (merged PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156) from [rstacruz/cheatsheets](https://github.com/rstacruz/cheatsheets), [Public APIs catalog (merged PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157) from [public-apis/public-apis](https://github.com/public-apis/public-apis), and [Beautiful Docs/Froxy/Docker references (merged PR #158)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/158).
 
-### 📎 Additional Sourced Assessment, Detection and Research Workflows
+### 📎 Additional Sourced Assessment, Detection & Research Workflows
 
 New PNWC guides are original summaries and procedural checklists with direct
 links to upstream source repositories. **Documentation-only integration does
@@ -383,66 +416,118 @@ release, file license and legal scope before operational reuse.
 
 ### 🛠️ Key Tools & Frameworks
 
-**Exploitation & Post-Exploitation**
+#### Exploitation & Post-exploitation
 
-- [Metasploit Framework](https://www.rapid7.com/) - Rapid7
-- [Impacket](https://github.com/fortra/impacket) - Fortra
-- [BloodHound](https://github.com/SpecterOps/BloodHound) - SpecterOps
-- [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) *(archived)* / [NetExec](https://github.com/Pennyw0rth/NetExec)
-- [Empire](https://github.com/BC-SECURITY/Empire) - BC Security
-- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) *(archived)* · [Nishang](https://github.com/samratashok/nishang)
-- [PEASS-ng](https://github.com/peass-ng/PEASS-ng) - Carlos Polop
-- [Responder](https://github.com/lgandx/Responder) - Laurent Gaffié
+| Resource | Notes |
+|---|---|
+| [Metasploit Framework](https://www.rapid7.com/) | Rapid7 |
+| [Impacket](https://github.com/fortra/impacket) | Fortra |
+| [BloodHound](https://github.com/SpecterOps/BloodHound) | SpecterOps |
+| [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) | *(archived)* |
+| [NetExec](https://github.com/Pennyw0rth/NetExec) | — |
+| [Empire](https://github.com/BC-SECURITY/Empire) | BC Security |
+| [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) | *(archived)* |
+| [Nishang](https://github.com/samratashok/nishang) | — |
+| [PEASS-ng](https://github.com/peass-ng/PEASS-ng) | Carlos Polop |
+| [Responder](https://github.com/lgandx/Responder) | Laurent Gaffié |
 
-**OSINT**
+#### OSINT
 
-- [theHarvester](https://github.com/laramies/theHarvester) · [Sherlock](https://github.com/sherlock-project/sherlock) · [Maltego](https://www.maltego.com/)
-- [SpiderFoot](https://github.com/smicallef/spiderfoot) · [Recon-ng](https://github.com/lanmaster53/recon-ng) · [Amass](https://github.com/owasp-amass/amass)
-- [Maigret](https://github.com/soxoj/maigret) · [Holehe](https://github.com/megadose/holehe) · [H8mail](https://github.com/khast3x/h8mail)
-- [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) · [Photon](https://github.com/s0md3v/Photon)
-- [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) · [Trace Labs](https://tracelabs.org/)
+| Resource | Notes |
+|---|---|
+| [theHarvester](https://github.com/laramies/theHarvester) | — |
+| [Sherlock](https://github.com/sherlock-project/sherlock) | — |
+| [Maltego](https://www.maltego.com/) | — |
+| [SpiderFoot](https://github.com/smicallef/spiderfoot) | — |
+| [Recon-ng](https://github.com/lanmaster53/recon-ng) | — |
+| [Amass](https://github.com/owasp-amass/amass) | — |
+| [Maigret](https://github.com/soxoj/maigret) | — |
+| [Holehe](https://github.com/megadose/holehe) | — |
+| [H8mail](https://github.com/khast3x/h8mail) | — |
+| [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) | — |
+| [Photon](https://github.com/s0md3v/Photon) | — |
+| [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) | — |
+| [Trace Labs](https://tracelabs.org/) | — |
 
-**Network & Web Security**
+#### Network & Web Security
 
-- [Nmap](https://nmap.org/) · [Wireshark](https://www.wireshark.org/) · [Burp Suite](https://portswigger.net/burp) · [OWASP ZAP](https://www.zaproxy.org/)
-- [Nikto](https://github.com/sullo/nikto) · [SQLmap](https://sqlmap.org/) · [Gobuster](https://github.com/OJ/gobuster) · [ffuf](https://github.com/ffuf/ffuf)
-- [Nuclei](https://github.com/projectdiscovery/nuclei) · [Subfinder](https://github.com/projectdiscovery/subfinder) · [httpx](https://github.com/projectdiscovery/httpx) - ProjectDiscovery
-- [AutoRecon](https://github.com/AutoRecon/AutoRecon) - Tib3rius
-- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) · [SecLists](https://github.com/danielmiessler/SecLists) · [ExploitDB](https://www.exploit-db.com/)
+| Resource | Notes |
+|---|---|
+| [Nmap](https://nmap.org/) | — |
+| [Wireshark](https://www.wireshark.org/) | — |
+| [Burp Suite](https://portswigger.net/burp) | — |
+| [OWASP ZAP](https://www.zaproxy.org/) | — |
+| [Nikto](https://github.com/sullo/nikto) | — |
+| [SQLmap](https://sqlmap.org/) | — |
+| [Gobuster](https://github.com/OJ/gobuster) | — |
+| [ffuf](https://github.com/ffuf/ffuf) | — |
+| [Nuclei](https://github.com/projectdiscovery/nuclei) | — |
+| [Subfinder](https://github.com/projectdiscovery/subfinder) | — |
+| [httpx](https://github.com/projectdiscovery/httpx) | ProjectDiscovery |
+| [AutoRecon](https://github.com/AutoRecon/AutoRecon) | Tib3rius |
+| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) | — |
+| [SecLists](https://github.com/danielmiessler/SecLists) | — |
+| [ExploitDB](https://www.exploit-db.com/) | — |
 
-**Password & Credentials**
+#### Password & Credentials
 
-- [Hashcat](https://hashcat.net/hashcat/) · [John the Ripper](https://www.openwall.com/john/) · [Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Mimikatz](https://github.com/gentilkiwi/mimikatz) - Benjamin Delpy
+| Resource | Notes |
+|---|---|
+| [Hashcat](https://hashcat.net/hashcat/) | — |
+| [John the Ripper](https://www.openwall.com/john/) | — |
+| [Hydra](https://github.com/vanhauser-thc/thc-hydra) | — |
+| [Mimikatz](https://github.com/gentilkiwi/mimikatz) | Benjamin Delpy |
 
-**Wireless & RF**
+#### Wireless & RF
 
-- [Aircrack-ng](https://www.aircrack-ng.org/) · [Kismet](https://www.kismetwireless.net/) · [Wifite2](https://github.com/derv82/wifite2)
-- [Bettercap](https://www.bettercap.org/) - Simone Margaritelli
-- [ChipWhisperer](https://github.com/newaetech/chipwhisperer) - NewAE Technology
-- [OpenOCD](https://openocd.org/) · [Bus Pirate](https://docs.buspirate.com/)
+| Resource | Notes |
+|---|---|
+| [Aircrack-ng](https://www.aircrack-ng.org/) | — |
+| [Kismet](https://www.kismetwireless.net/) | — |
+| [Wifite2](https://github.com/derv82/wifite2) | — |
+| [Bettercap](https://www.bettercap.org/) | Simone Margaritelli |
+| [ChipWhisperer](https://github.com/newaetech/chipwhisperer) | NewAE Technology |
+| [OpenOCD](https://openocd.org/) | — |
+| [Bus Pirate](https://docs.buspirate.com/) | — |
 
-**Forensics & Reverse Engineering**
+#### Forensics & Reverse Engineering
 
-- [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
-- [radare2](https://rada.re/) - pancake · [IDA Pro](https://hex-rays.com/ida-pro/) - Hex-Rays
-- [Binwalk](https://github.com/ReFirmLabs/binwalk) · [YARA](https://github.com/VirusTotal/yara)
-- [vx-underground](https://vx-underground.org) · [MalwareBazaar](https://bazaar.abuse.ch/) - malware sample and research libraries
-- [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) - Mark Russinovich
+| Resource | Notes |
+|---|---|
+| [Volatility](https://volatilityfoundation.org/) | — |
+| [Autopsy](https://www.autopsy.com/) | — |
+| [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) | NSA |
+| [radare2](https://rada.re/) | pancake |
+| [IDA Pro](https://hex-rays.com/ida-pro/) | Hex-Rays |
+| [Binwalk](https://github.com/ReFirmLabs/binwalk) | — |
+| [YARA](https://github.com/VirusTotal/yara) | — |
+| [vx-underground](https://vx-underground.org) | — |
+| [MalwareBazaar](https://bazaar.abuse.ch/) | malware sample and research libraries |
+| [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) | Mark Russinovich |
 
-**Monitoring & Defense**
+#### Monitoring & Defense
 
-- [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
-- [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://graylog.org/)
-- [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/) · [nzyme](https://nzyme.org/)
+| Resource | Notes |
+|---|---|
+| [Snort](https://www.snort.org/) | — |
+| [Suricata](https://suricata.io/) | — |
+| [Zeek](https://zeek.org/) | — |
+| [OSSEC](https://www.ossec.net/) | — |
+| [Elastic Stack](https://www.elastic.co/) | — |
+| [Splunk](https://www.splunk.com/) | — |
+| [Graylog](https://graylog.org/) | — |
+| [Wazuh](https://wazuh.com/) | — |
+| [Security Onion](https://securityonionsolutions.com/) | — |
+| [nzyme](https://nzyme.org/) | — |
 
-**Honeypots & Deception**
+#### Honeypots & Deception
 
-- [OpenCanary](https://github.com/thinkst/opencanary) - Thinkst
-- [Cowrie](https://github.com/cowrie/cowrie) - Michel Oosterhof
-- [Dionaea](https://github.com/DinoTools/dionaea) - DinoTools
-- [T-Pot](https://github.com/telekom-security/tpotce) - Deutsche Telekom Security
-
+| Resource | Notes |
+|---|---|
+| [OpenCanary](https://github.com/thinkst/opencanary) | Thinkst |
+| [Cowrie](https://github.com/cowrie/cowrie) | Michel Oosterhof |
+| [Dionaea](https://github.com/DinoTools/dionaea) | DinoTools |
+| [T-Pot](https://github.com/telekom-security/tpotce) | Deutsche Telekom Security |
 
 ### 📚 Book Authors & Publishers
 
@@ -460,24 +545,53 @@ release, file license and legal scope before operational reuse.
 
 ### 🐧 Security Linux Distributions
 
-[Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.net/) · [Whonix](https://www.whonix.org/)
+| Distribution | Reference |
+|---|---|
+| Kali Linux | [Official Site](https://www.kali.org/) |
+| BlackArch | [Official Site](https://blackarch.org/) |
+| Parrot Security OS | [Official Site](https://www.parrotsec.org/) |
+| BackBox | [Official Site](https://www.backbox.org/) |
+| Tails | [Official Site](https://tails.net/) |
+| Whonix | [Official Site](https://www.whonix.org/) |
 
 ### 🌐 Knowledge Frameworks & Communities
 
-[MITRE ATT&CK](https://attack.mitre.org/) · [OWASP](https://owasp.org/) · [NIST NVD](https://nvd.nist.gov/) · [CVE](https://www.cve.org/) · [CISA](https://www.cisa.gov/) · [SANS](https://www.sans.org/)
-
-[HackTheBox](https://www.hackthebox.com/) · [TryHackMe](https://tryhackme.com/) · [VulnHub](https://www.vulnhub.com/) · [OverTheWire](https://overthewire.org/) · [PentesterLab](https://pentesterlab.com/)
-
-**[TryHackMe FREE Roadmap](https://github.com/uttambodara/TryHackMeRoadmap)** - 350+ free rooms, beginner → advanced, curated by [Uttambodara](https://github.com/uttambodara)
+| Resource | Type / Notes |
+|---|---|
+| [MITRE ATT&CK](https://attack.mitre.org/) | Adversary tactics and techniques |
+| [OWASP](https://owasp.org/) | Application security |
+| [NIST NVD](https://nvd.nist.gov/) | Vulnerability records |
+| [CVE](https://www.cve.org/) | Vulnerability identifier program |
+| [CISA](https://www.cisa.gov/) | Cybersecurity advisories and guidance |
+| [SANS](https://www.sans.org/) | Security training and research |
+| [Hack The Box](https://www.hackthebox.com/) | Practical security training |
+| [TryHackMe](https://tryhackme.com/) | Guided security labs |
+| [VulnHub](https://www.vulnhub.com/) | Practice machines |
+| [OverTheWire](https://overthewire.org/) | Interactive security exercises |
+| [PentesterLab](https://pentesterlab.com/) | Web security training |
+| [TryHackMe FREE Roadmap](https://github.com/uttambodara/TryHackMeRoadmap) | Community-curated learning roadmap, by [Uttambodara](https://github.com/uttambodara); availability and room counts may change |
 
 ### 🔐 Privacy & Anonymity Tools
 
-[Tor Project](https://www.torproject.org/) · [Mullvad VPN](https://mullvad.net/) · [ProtonVPN](https://protonvpn.com/) · [IVPN](https://www.ivpn.net/)
-[VeraCrypt](https://veracrypt.io/) · [ProtonMail](https://proton.me/mail) · [Signal](https://signal.org/)
+| Resource | Type |
+|---|---|
+| [Tor Project](https://www.torproject.org/) | Anonymity network |
+| [Mullvad VPN](https://mullvad.net/) | VPN service |
+| [ProtonVPN](https://protonvpn.com/) | VPN service |
+| [IVPN](https://www.ivpn.net/) | VPN service |
+| [VeraCrypt](https://veracrypt.io/) | Encrypted storage |
+| [Proton Mail](https://proton.me/mail) | Email service |
+| [Signal](https://signal.org/) | Encrypted messaging |
 
 ### 🎓 Certification Bodies
 
-[OffSec](https://www.offsec.com/) (training and certifications) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
+| Organization | Training / Certification Examples |
+|---|---|
+| [OffSec](https://www.offsec.com/) | Security training and certifications |
+| [EC-Council](https://www.eccouncil.org/) | CEH, CHFI |
+| [GIAC](https://www.giac.org/) | GPEN, GWAPT, GCIH |
+| [CompTIA](https://www.comptia.org/) | Security+, PenTest+, CySA+ |
+| [(ISC)²](https://www.isc2.org/) | CISSP |
 
 ### 👥 Notable Security Researchers
 
@@ -567,7 +681,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 56. **Reverse Engineering for Beginners** - Dennis Yurichev · Creative Commons · 2016
 57. **Reverse Engineering for Beginners (Lite)** - Dennis Yurichev · Creative Commons
 
-### VIII. Programming & Data Science for Security
+### VIII. Programming & Data Science For Security
 
 58. **Black Hat Python** - Justin Seitz · No Starch Press · 2014 · ISBN 978-1593275907
 59. **Violent Python** - TJ O'Connor · Syngress · 2012 · ISBN 978-1597499576

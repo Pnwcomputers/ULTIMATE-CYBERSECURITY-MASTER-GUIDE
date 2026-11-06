@@ -16,7 +16,12 @@ Antenna testing, impedance matching, cable fault location, and defensible RF mea
 
 ---
 
-**Quick references:** [NanoVNA field card](./07-quick-reference.md) · [cross-repository review index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Confirm calibration, cable fixture and usable frequency range for the actual instrument before using formula results.
+| Resource | Description |
+|---|---|
+| [NanoVNA Field Card](./07-quick-reference.md) | Compact measurement workflow reference |
+| [Cheat Sheet & Reference Index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Related technical quick-reference material |
+
+Confirm calibration, cables, fixtures and model frequency limits before measurements.
 
 ## 🎯 Purpose
 
@@ -32,7 +37,7 @@ Use this index to select a document, calibrate correctly at a known reference pl
 
 Move from an RF symptom to a documented, defensible result: calibrate at a stated plane, measure the antenna system, distinguish an antenna fault from a feedline fault, make one controlled change at a time, and produce before/after evidence a customer can act on.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Commissioning, tuning, or accepting any antenna installation.
 - Validating the receive chain before blaming a capture on the SDR or the band.
@@ -45,7 +50,7 @@ Move from an RF symptom to a documented, defensible result: calibrate at a state
 
 ---
 
-## Table of Contents
+## Table Of Contents
 
 - [Guides in This Subsection](#guides-in-this-subsection)
 - [Choose a Starting Point](#choose-a-starting-point)
@@ -59,7 +64,7 @@ Move from an RF symptom to a documented, defensible result: calibrate at a state
 - [Related Repository Material](#related-repository-material)
 - [Subsection Inventory and Maintenance](#subsection-inventory-and-maintenance)
 
-## Guides in This Subsection
+## Guides In This Subsection
 
 | Guide | Level | Focus |
 |---|---|---|
@@ -78,7 +83,7 @@ Move from an RF symptom to a documented, defensible result: calibrate at a state
 
 > **Included tooling:** [`tools/s1pdiff.py`](tools/README.md) analyses a Touchstone `.s1p` sweep and compares one against an archived baseline, with scriptable exit codes for unattended monitoring.
 
-## Choose a Starting Point
+## Choose A Starting Point
 
 | What you need to do | Start here | Follow with |
 |---|---|---|
@@ -101,7 +106,8 @@ Move from an RF symptom to a documented, defensible result: calibrate at a state
 6. **Resonance low = element too long; resonance high = element too short.** Cut half of what the arithmetic says, then re-measure.
 7. **Reactance and resistance are separate problems.** Cancelling reactance does not match an impedance.
 
-## Hardware and Coverage
+<a id="hardware-and-coverage"></a>
+## Hardware & Coverage
 
 | Unit | Role | Limits to check on your own hardware |
 |---|---|---|
@@ -141,7 +147,7 @@ Record the sweep span, point count, calibration plane, cables, adapters, and fir
 
 *Reference-plane changes and cabling can invalidate measurements; recalibrate as needed.*
 
-### Before Connecting the Instrument
+### Before Connecting The Instrument
 
 - [ ] Physically disconnect every transmitter. Not "PTT locked out" — disconnected.
 - [ ] Check center-to-shield for DC; fit an inline DC block on any unknown or powered system.
@@ -152,7 +158,8 @@ Record the sweep span, point count, calibration plane, cables, adapters, and fir
 
 The receive path has no protection circuitry. An ISM band, a low-power device, or a receive-only installation does not by itself establish that a feedline is safe to connect.
 
-### Measure and Analyze
+<a id="measure-and-analyze"></a>
+### Measure & Analyze
 
 1. Define the question, the target frequency, and the acceptance requirement before sweeping.
 2. Set the span, then calibrate on that span at the plane you want the truth about.
@@ -173,7 +180,8 @@ No dip means the wrong span, insufficient resolution, a disconnected element, or
 - [ ] Record the starting dimension before changing it.
 - [ ] Recheck after locking and weatherproofing; both change the result.
 
-## Scope and Legal Boundaries
+<a id="scope-and-legal-boundaries"></a>
+## Scope & Legal Boundaries
 
 **These procedures characterize input impedance match at low test power.** That boundary matters when results reach a customer report.
 
@@ -217,7 +225,8 @@ Contributions should be reproducible, sourced, and suitable for education or aut
 
 ## Resources
 
-### Project and Firmware
+<a id="project-and-firmware"></a>
+### Project & Firmware
 
 - [NanoVNA project overview](https://nanovna.com/) — hardware revisions and model identity.
 - [Measurement architecture](https://nanovna.com/?page_id=60) — harmonic extension and performance across the range.
@@ -251,7 +260,8 @@ Contributions should be reproducible, sourced, and suitable for education or aut
 | [Hardware Hacking](../../HardwareHacking/README.md) | Embedded and PCB antenna work referenced in [10](10-antenna-types-and-special-cases.md). |
 | [Repository terms](../../LEGAL.md) | Repository-wide terms and use requirements. |
 
-## Subsection Inventory and Maintenance
+<a id="subsection-inventory-and-maintenance"></a>
+## Subsection Inventory & Maintenance
 
 | Item | Current inventory |
 |---|---|

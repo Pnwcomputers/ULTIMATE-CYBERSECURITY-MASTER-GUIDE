@@ -1,4 +1,4 @@
-# OSINT Investigator Playbook — prototype
+# OSINT Investigator Playbook — Prototype
 
 ## Purpose
 **Investigator reference:** [Curated Awesome OSINT List](../awesome-osint-list-curated.md) gives optional external resources for company, geospatial, media and exposure checks. The prototype script **does not automate** any of these lookups.
@@ -9,7 +9,7 @@ This folder contains a manual [investigation guide](investigation_guide.md) and
 an experimental Bash menu, `osint_investigator.sh`. Use the manual guide for
 investigations; the menu is a case-directory prototype.
 
-## Implemented functionality
+## Implemented Functionality
 
 - Creates a case directory under `~/OSINT_Cases` and writes basic case metadata.
 - Creates a local API-key configuration template.
@@ -20,7 +20,7 @@ phone, IP, username, and crypto modules, evidence hashing, chain-of-custody logs
 and report generation are **not implemented**. The script does not support
 `--config` or `--install` flags. Its outputs are not a verified evidence package.
 
-## Try the prototype
+## Try The Prototype
 
 Run as a regular user in a disposable lab with Bash and Python 3:
 
@@ -38,7 +38,7 @@ without a pin are skipped and reported. The installer exits non-zero if any
 expected tool is missing. Review its package changes before running it. Only
 investigate systems and data within your authority.
 
-### Changes that affect existing users
+### Changes That Affect Existing Users
 
 - **Do not run the installer with `sudo`.** Re-run it as your normal user.
 - **Case state is now `.case_state.json`**, validated and never executed.
@@ -53,7 +53,7 @@ investigate systems and data within your authority.
 - **The web interface needs the installer's Flask environment**; the script no
   longer runs `pip install` at runtime.
 
-## Development priorities
+## Development Priorities
 
 Add tested case persistence and input validation before connecting investigation
 modules. Define evidence integrity and reporting requirements before advertising

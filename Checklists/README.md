@@ -14,7 +14,7 @@
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Current Checklists](#-current-checklists)
@@ -240,7 +240,7 @@ These checklists serve as:
 
 ---
 
-## 📖 How to Use These Checklists
+## 📖 How To Use These Checklists
 
 ![Security assessment checklist lifecycle from authorization to closure](../assets/diagrams/checklist-assessment-quality.svg)
 
@@ -350,7 +350,7 @@ These checklists serve as:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️
@@ -380,7 +380,7 @@ These security checklists contain attack techniques and methodologies for:
 
 ---
 
-### Legal Requirements for Security Testing
+### Legal Requirements For Security Testing
 
 #### Written Authorization Requirements
 
@@ -413,7 +413,7 @@ These security checklists contain attack techniques and methodologies for:
    • Techniques not approved (e.g., DoS, destructive)
 ```
 
-#### Rules of Engagement
+#### Rules Of Engagement
 
 **Essential Guidelines for Attack Technique Testing:**
 
@@ -430,9 +430,10 @@ These security checklists contain attack techniques and methodologies for:
 
 ---
 
-### Attack Technique Legal Considerations
+### ATTACK Technique Legal Considerations
 
-#### Computer Fraud and Abuse Act (CFAA) - United States
+<a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
+#### Computer Fraud & Abuse Act (Cfaa) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -469,7 +470,7 @@ without proper authorization.
 
 ---
 
-### Technique-Specific Warnings
+### Technique-specific Warnings
 
 #### Credential Dumping & Theft
 
@@ -519,7 +520,7 @@ PROHIBITED:
    🚫 Modifying system security settings
 ```
 
-#### Defense Evasion & AV Bypass
+#### Defense Evasion & Av Bypass
 
 ```
 ⚠️ WARNING: Defense Evasion Techniques
@@ -547,7 +548,7 @@ PROHIBITED:
 
 ### Professional Standards
 
-#### Code of Ethics for Security Testing
+#### Code Of Ethics For Security Testing
 
 **Core Principles:**
 
@@ -587,7 +588,7 @@ PROHIBITED:
 
 ### Risk Considerations
 
-#### Technical Risks of Using These Checklists
+#### Technical Risks Of Using These Checklists
 
 **System Impact:**
 - Exploitation attempts may cause system instability
@@ -683,7 +684,7 @@ Professional Practices:
 9. Update procedures to prevent recurrence
 ```
 
-#### Critical Finding or System Compromise
+#### Critical Finding Or System Compromise
 
 ```
 🔴 CRITICAL VULNERABILITY PROTOCOL:
@@ -770,7 +771,7 @@ consequences, and any other damages that may result.
 
 ## 🤝 Contributing
 
-### How to Contribute Checklists
+### How To Contribute Checklists
 
 We welcome contributions from security professionals to improve and expand this collection.
 
@@ -819,7 +820,7 @@ We welcome contributions from security professionals to improve and expand this 
 - **OSSTMM**: Open Source Security Testing Methodology Manual
 - **NIST SP 800-115**: Technical Guide to Information Security Testing
 
-### Attack Technique Databases
+### ATTACK Technique Databases
 
 - **MITRE ATT&CK Enterprise**: https://attack.mitre.org/matrices/enterprise/
 - **LOLBAS Project**: Living Off The Land Binaries and Scripts
@@ -901,7 +902,7 @@ We welcome contributions from security professionals to improve and expand this 
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review documentation and warnings thoroughly first
 - Provide specific context about your situation

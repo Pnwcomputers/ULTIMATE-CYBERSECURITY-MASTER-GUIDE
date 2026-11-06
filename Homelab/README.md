@@ -23,7 +23,7 @@ Links to HomeLab_Setup.md (comprehensive build guide) and provides a quick-refer
 ## 🏆 Goal
 Help practitioners build a legally-safe, network-isolated lab environment where every other technique in this guide can be practiced without risk to production systems.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting point for anyone building their first security homelab
 - Reference for lab architecture decisions (hardware, hypervisor, VLAN isolation)
 - Cross-referencing which lab tools correspond to which Documentation/ guides
@@ -32,7 +32,7 @@ Help practitioners build a legally-safe, network-isolated lab environment where 
 
 **Proxmox IDS sensor coverage:** [Traffic visibility checklist](proxmox-security-monitoring-visibility.md) adapts the [h4cker Proxmox lab](https://github.com/The-Art-of-Hacking/h4cker/blob/master/build-your-own-lab/security-onion-proxmox.md) without assuming that an unmanaged switch can mirror packets.
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Infrastructure & Directory Contents](#️-infrastructure--directory-contents)
@@ -75,7 +75,7 @@ Physical tools, edge devices, and radio frequency hardware.
 | **Hak5 Gear** | Payloads and physical access tooling setup. | Rubber Ducky, Bash Bunny, WiFi Pineapple, LAN Turtle |
 | **SBCs** | DIY pentesting rigs and embedded systems configurations. | Raspberry Pi, Pwnagotchi, ClockworkPi uConsole |
 
-### 🛡️ Network & OpSec
+### 🛡️ Network & OPSEC
 The routing, switching, and boundary protection of the lab.
 
 | Category | Description | Examples / Tools |
@@ -85,7 +85,7 @@ The routing, switching, and boundary protection of the lab.
 
 ---
 
-## 📚 Guides & Standard Operating Procedures (SOPs)
+## 📚 Guides & Standard Operating Procedures (Sops)
 
 **This is a living library.** This section contains detailed guides and SOPs covering essential lab administration tasks to ensure your environment remains stable, recoverable, and secure.
 
@@ -99,7 +99,7 @@ The routing, switching, and boundary protection of the lab.
 
 ---
 
-### Useful starred projects for isolated lab exercises
+### Useful Starred Projects For Isolated Lab Exercises
 
 - [WiFiForge](https://github.com/blackhillsinfosec/WifiForge) — a **virtual, sandboxed** wireless-security training environment built on Mininet-WiFi; ideal for rehearsing wireless attack/detection concepts without transmitting on real radio channels. Do not assume its virtual behavior reproduces every physical RF condition.
 - [Project NOMAD](https://github.com/Crosstalk-Solutions/project-nomad) — offline-first, self-hostable reference library and education server. Useful for isolated training networks that cannot depend on cloud lookups. Verify local content licensing, update packages before disconnecting, and keep any AI model/data stores within the lab's storage and access-control policy.
@@ -122,16 +122,16 @@ Keep experiments on test VLANs with clear ownership, explicit routing/firewall r
 * **Type-1 (Bare Metal):** Best for dedicated hardware. Install Proxmox VE or VMware ESXi.
 * **Type-2 (Hosted):** Best for running a lab on your daily-driver laptop. Install VMware Workstation Pro or VirtualBox.
 
-### 3. Network Segregation (CRITICAL STEP)
+### 3. Network Segregation (Critical Step)
 Before spinning up vulnerable VMs or executing malware, you must architect the network:
 * **Host-Only / Internal Networks:** Configure your hypervisor's virtual switches so that Target VMs can *only* talk to the Attack VM, and cannot reach your physical home network or the internet.
 * **Virtual Router:** Deploy a pfSense/OPNsense VM with dual NICs (one connected to your home network for internet access, one connected to the isolated lab LAN) to strictly control ingress/egress traffic.
 
 ---
 
-## ⚠️ CRITICAL Security & Isolation Warning
+## ⚠️ Critical Security & Isolation Warning
 
-### 🔴 LAB CONTAINMENT & LEGAL WARNING
+### 🔴 Lab Containment & Legal Warning
 
 ```
 ═══════════════════════════════════════════════════════════════

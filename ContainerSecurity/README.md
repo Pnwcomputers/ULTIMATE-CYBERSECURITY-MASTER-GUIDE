@@ -39,7 +39,7 @@ Give practitioners a single reference for how containerized and orchestrated
 workloads are attacked and how to harden them, complementing the
 [Cloud](../Cloud/README.md) section.
 
-## 📋 When to Use
+## 📋 When To Use
 - Assessing or hardening a container image, runtime, or Kubernetes cluster
 - Looking up container-escape vectors or Kubernetes attack paths
 - Selecting scanning/runtime-security tooling
@@ -47,7 +47,7 @@ workloads are attacked and how to harden them, complementing the
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [The Container Threat Model](#-the-container-threat-model)

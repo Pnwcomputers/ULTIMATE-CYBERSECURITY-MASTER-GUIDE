@@ -10,7 +10,14 @@
 
 **Secret and dependency checks:** [OpenSSF Scorecard, Gitleaks, Syft and OSV supply-chain workflow](../ContainerSecurity/software-supply-chain-assessment.md) explains versioned inspection and evidence handling for the scripts collection; source code is not automatically safe because it is published.
 
-**Scripting reference:** [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) · [CLI field commands](../Documentation/devhints-cli-field-reference.md) · [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) · [tool pinning policy](./PINNING.md). Do not execute downloaded scripts before inspecting source and verifying provenance.
+| Resource | Description |
+|---|---|
+| [Bash Cheat Sheet](./Bash/bash_scripting_cheat-sheet.md) | Shell syntax and reusable patterns |
+| [CLI Field Commands](../Documentation/devhints-cli-field-reference.md) | Everyday command-line reference |
+| [Reviewed Reference Index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Cross-section cheat sheets |
+| [Tool Pinning Policy](./PINNING.md) | Version and dependency controls |
+
+Inspect provenance and source before running downloaded scripts.
 
 <div align="center">
 
@@ -30,7 +37,7 @@
 **External script sourcing:** [Curated security GitHub collections](../Documentation/awesome-hacking-collections-integration.md) describe useful upstream projects; no linked payload is automatically vetted or installed.
 
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Script Categories](#️-script-categories)
@@ -51,14 +58,14 @@ Covers directory structure, script categories by language, usage instructions, t
 ## 🏆 Goal
 A reader can find the right script for a task by category/language and understands the legal authorization requirement before running anything.
 
-## 📋 When to Use
+## 📋 When To Use
 When looking for an existing script before writing a new one, or when unsure what legal/usage constraints apply to this folder's contents.
 
 ## 🎯 Overview
 
 This directory contains **security automation scripts, penetration testing tools, and utility programs** written in multiple programming languages. These scripts are designed for authorized security testing, research, and educational purposes.
 
-### 🔴 CRITICAL WARNING
+### 🔴 Critical Warning
 
 ```
 ⚠️ THESE ARE OFFENSIVE SECURITY TOOLS ⚠️
@@ -159,7 +166,7 @@ MUST be compiled and tested in isolated environments before use.
 
 ---
 
-### 3. PowerShell Scripts
+### 3. Powershell Scripts
 
 **Location**: `/Scripts/PowerShell/`
 
@@ -188,7 +195,11 @@ MUST be compiled and tested in isolated environments before use.
 - SMB/CIFS protocol testing
 - Remote access establishment
 
-**Quick-reference checklists these scripts support:** [Active Directory](../Checklists/ActiveDirectory.md) · [Credential Access](../Checklists/Credential-Access.md) · [Windows Privilege Escalation](../Checklists/Windows-Privilege-Escalation.md)
+| Resource | Description |
+|---|---|
+| [Active Directory Checklist](../Checklists/ActiveDirectory.md) | Directory service assessment |
+| [Credential Access Checklist](../Checklists/Credential-Access.md) | Authorized credential testing boundaries |
+| [Windows Privilege Escalation Checklist](../Checklists/Windows-Privilege-Escalation.md) | Windows privilege investigation |
 
 **Security Considerations:**
 ```
@@ -362,13 +373,13 @@ ONLY use on systems you own or have explicit written permission to test.
 
 ---
 
-## 📖 How to Use These Scripts
+## 📖 How To Use These Scripts
 
 ![Authorized script review execution and rollback workflow](../assets/diagrams/safe-script-execution.svg)
 
 *Do not run unreviewed or out-of-scope automation on client systems.*
 
-### ⚠️ BEFORE RUNNING ANY SCRIPT
+### ⚠️ Before Running Any Script
 
 ```
 MANDATORY CHECKLIST:
@@ -445,7 +456,7 @@ Safe Learning Environments ONLY:
 
 ### Script Usage Guidelines
 
-#### PowerShell Scripts
+#### Powershell Scripts
 
 ```powershell
 # EXAMPLE: Running in authorized test environment
@@ -503,9 +514,9 @@ cat results.txt
 
 ---
 
-## ⚠️ CRITICAL Security & Legal Warning
+## ⚠️ Critical Security & Legal Warning
 
-### 🔴 FEDERAL CRIME WARNING
+### 🔴 Federal Crime Warning
 
 ```
 ═══════════════════════════════════════════════════════════════
@@ -549,7 +560,7 @@ International Laws:
 ═══════════════════════════════════════════════════════════════
 ```
 
-### Script-Specific Legal Warnings
+### Script-specific Legal Warnings
 
 #### Credential Harvesting Tools
 
@@ -687,7 +698,7 @@ PENALTIES:
    • Regulatory fines (GDPR: up to 4% global revenue)
 ```
 
-#### Industrial Control Systems (ICS/SCADA) Tools
+#### Industrial Control Systems (Ics/Scada) Tools
 
 ```
 🔴 EXTREME DANGER: Critical Infrastructure Attacks
@@ -1061,7 +1072,7 @@ We welcome contributions from security professionals, but all scripts must meet 
 
 ## 🎓 Critical Reminders
 
-### ALWAYS REMEMBER
+### Always Remember
 
 ```
 1. AUTHORIZATION IS MANDATORY
@@ -1131,7 +1142,7 @@ We welcome contributions from security professionals, but all scripts must meet 
 - [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky DuckyScript guide
 - [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch tool installation context
 
-### Python environment used by the tool installer
+### Python Environment Used By The Tool Installer
 
 `pnwc_install_tools.sh` keeps pip-managed libraries and commands in
 `/opt/pnwc-tools/venv`, separate from the system interpreter. After installation,

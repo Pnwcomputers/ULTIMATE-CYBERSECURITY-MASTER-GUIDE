@@ -24,7 +24,12 @@
 
 **Security API companion:** [Curated Public APIs catalog](../Documentation/security-public-api-catalog.md) distinguishes existing OSINT providers from future integrations, with authentication, quota and client-data cautions.
 
-**Field quick references:** [OSINT investigator cheat sheet](./OSINT_CHEATSHEET.md) · [cross-repository cheat sheet/reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). The OSINT sheet covers fast syntax; the investigation playbook covers safe storage, audit and case evidence.
+| Reference | Description |
+|---|---|
+| [OSINT Investigator Cheat Sheet](./OSINT_CHEATSHEET.md) | Fast syntax and field references |
+| [Cheat Sheet & Reference Index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Cross-section reference inventory |
+
+For evidence handling, verification and case files, use the investigation playbook.
 
 **Evidence provenance:** [Bellingcat Toolkit and source-verification workflow](bellingcat-source-verification.md) covers independent corroboration, UTC capture, integrity and uncertainty; see the [OSINT case playbook](Playbook/README.md).
 
@@ -40,14 +45,14 @@ Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog
 ## 🏆 Goal
 Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with documented manual procedures and selected scripts; the linked case-directory shell menu is a **prototype**, not a finished automated investigator.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting an OSINT investigation and navigating to the right sub-guide
 - Onboarding to the OSINT Investigator Playbook for scam/fraud investigations
 - Reviewing what tools and scripts are available before a recon engagement
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [What is OSINT?](#-what-is-osint)
@@ -74,7 +79,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 ---
 
-## 🔎 What is OSINT?
+## 🔎 What Is OSINT?
 
 ![Responsible OSINT collection verification and reporting](../assets/diagrams/osint-verification-workflow.svg)
 
@@ -135,7 +140,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | **[Playbook/branding.conf.example](./Playbook/branding.conf.example)** | Operator branding template (copy to local config) | ✅ |
 | **templates** | Report templates and investigation forms | 🔨 Planned |
 
-#### Audit scripts (`Playbook/scripts/`)
+#### Audit Scripts (`Playbook/scripts/`)
 
 | Script | Purpose |
 |--------|---------|
@@ -180,7 +185,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 3. **Automation**: Check the scripts directory for time-saving tools
 4. **Cheat Sheets**: Use quick reference guides for common commands
 
-### Essential Tools to Install First
+### Essential Tools To Install First
 
 ```bash
 # Core OSINT toolkit (Top 10)
@@ -202,7 +207,7 @@ See [OSINT_GUIDE.md - VM Setup](./OSINT_GUIDE.md#osint-vm-setup) for complete in
 
 ## ⚖️ Legal & Ethical Notice
 
-### 🔴 CRITICAL: Read Before Using Any OSINT Techniques
+### 🔴 Critical: Read Before Using Any OSINT Techniques
 
 ```
 ⚠️ LEGAL USE ONLY ⚠️
@@ -307,7 +312,7 @@ ALWAYS:
 
 This OSINT knowledge base is continuously growing. Contributions are welcome!
 
-### How to Contribute
+### How To Contribute
 
 1. **Tools**: Submit new OSINT tools with descriptions and examples
 2. **Techniques**: Share investigation methodologies and workflows
@@ -407,7 +412,7 @@ This OSINT collection supports:
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Check existing documentation first
 - Be specific about your use case
@@ -515,9 +520,11 @@ This OSINT collection wouldn't exist without:
 
 ***
 
-## Security, Legal, and Ethical Considerations ⚠️
+<a id="security-legal-and-ethical-considerations-️"></a>
+## Security, Legal, & Ethical Considerations ⚠️
 
-### 🔴 CRITICAL: Legal and Ethical OSINT Use Only
+<a id="-critical-legal-and-ethical-osint-use-only"></a>
+### 🔴 Critical: Legal & Ethical OSINT Use Only
 
 **OSINT involves collecting publicly available information - but "public" does NOT mean "unrestricted use."**
 
@@ -542,7 +549,7 @@ This OSINT collection wouldn't exist without:
 - Some countries restrict OSINT activities more strictly than others
 - Cross-border investigations may trigger multiple legal frameworks
 
-### Terms of Service (ToS) Compliance
+### Terms Of Service (Tos) Compliance
 ```
 ⚠️ Violating website Terms of Service can result in:
 - Legal action from the website operator
@@ -561,7 +568,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### ✅ Legal Use Cases for OSINT
+### ✅ Legal Use Cases For OSINT
 
 **Authorized and Legitimate Uses:**
 
@@ -582,7 +589,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### 🚫 PROHIBITED Uses - Zero Tolerance
+### 🚫 Prohibited Uses - Zero Tolerance
 
 **The following activities are ILLEGAL and UNETHICAL:**
 
@@ -601,7 +608,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### Ethical Guidelines for OSINT Practitioners
+### Ethical Guidelines For OSINT Practitioners
 
 #### Core Principles
 
@@ -667,7 +674,7 @@ This OSINT collection wouldn't exist without:
 - 📝 Maintain detailed investigation notes
 - 📝 Preserve metadata where relevant
 
-#### Chain of Custody
+#### Chain Of Custody
 - Maintain unbroken documentation of evidence handling
 - Use write-blockers for forensic data
 - Store multiple copies in different locations
@@ -687,7 +694,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### Red Lines - NEVER Cross These Boundaries
+### Red Lines - Never Cross These Boundaries
 ```
 🔴 Automated actions that violate ToS
 🔴 Circumventing authentication or security measures
@@ -758,7 +765,7 @@ WHEN IN DOUBT, CONSULT LEGAL COUNSEL.
 
 ---
 
-### Zero Tolerance for Abuse
+### Zero Tolerance For Abuse
 
 This OSINT resource collection has **zero tolerance** for misuse. We strongly condemn:
 - Stalking, harassment, and doxxing
