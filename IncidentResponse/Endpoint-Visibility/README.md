@@ -1,4 +1,4 @@
-# 👁️ Endpoint Visibility (EDR / Telemetry)
+# 👁️ Endpoint Visibility (Edr / Telemetry)
 
 <div align="center">
 

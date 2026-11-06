@@ -99,7 +99,7 @@ Central nervous systems for security telemetry.
 
 ---
 
-### 👁️ Endpoint Visibility (EDR)
+### 👁️ Endpoint Visibility (Edr)
 
 Instrumentation for host-level telemetry.
 
@@ -111,7 +111,7 @@ Instrumentation for host-level telemetry.
 
 ---
 
-### 🕸️ Network Security Monitoring (NSM)
+### 🕸️ Network Security Monitoring (Nsm)
 
 **[Kismet + Wazuh Wireless IDS Lab](./IDS%26IPS/kismet-wazuh-wireless-lab.md):** Deploy a fixed-channel 802.11 intrusion sensor, forward alerts into Wazuh, classify deauthentication events and build correlation/timeline dashboards. This is complementary to Ethernet-layer Snort/Suricata. The [nzyme + Wazuh integration](./IDS%26IPS/nzyme-wazuh-integration.md) adds per-network disconnection thresholds, webhook/syslog forwarding and multi-sensor investigation guidance.
 
@@ -136,7 +136,7 @@ Pair firewall enforcement with [network intrusion response](./network_intrusion.
 
 ---
 
-### 📘 IR Playbooks & SOPs
+### 📘 Ir Playbooks & Sops
 
 Step-by-step containment, eradication, and recovery guides.
 
@@ -163,7 +163,7 @@ Post-incident artifact extraction and timeline reconstruction.
 ---
 
 <a id="pnwc-field-response-toolkit-jwrapper-and-screenconnect-abuse"></a>
-## PNWC Field-response Toolkit: JWrapper & ScreenConnect Abuse
+## PNWC Field-response Toolkit: Jwrapper & Screenconnect Abuse
 
 ![Illustrative JWrapper remote access abuse attack path](../assets/jwrapper_attack.png)
 
@@ -198,9 +198,9 @@ Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data
 
 ---
 
-## ⚠️ CRITICAL Security, Privacy & Legal Warning
+## ⚠️ Critical Security, Privacy & Legal Warning
 
-### 🔴 BLUE TEAM LEGAL & ETHICAL GUIDELINES
+### 🔴 Blue Team Legal & Ethical Guidelines
 
 ```
 ═══════════════════════════════════════════════════════════════

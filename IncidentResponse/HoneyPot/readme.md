@@ -74,7 +74,7 @@ This sub-section favors **hands-on, from-a-real-build detail** where it exists; 
 
 ## 📚 Deployment Guides
 
-### 🐍 [OpenCanary](./opencanary.md)
+### 🐍 [Opencanary](./opencanary.md)
 A lightweight, pure-Python low-interaction honeypot. Covers why it was the platform that actually worked after two other honeypots (HoneyPi, Cowrie) hit dead ends on the same hardware, the real dependency-resolution chain on modern Debian/Ubuntu (PEP 668, `pkg_resources`, `simplejson`, `twisted`), safely freeing port 22 for the honeypot without losing real SSH access, multi-service configuration, email alerting, and log analysis one-liners.
 
 ### 🐚 [Cowrie](./cowrie.md)
@@ -83,16 +83,16 @@ A medium-to-high interaction SSH/Telnet honeypot that emulates a full fake shell
 ### 🕷️ [Dionaea](./dionaea.md)
 A low-interaction honeypot purpose-built to let automated exploit attempts complete far enough to deliver their actual payload, which Dionaea then captures to disk. Covers the officially-recommended Docker deployment, the considerably longer from-source alternative, port planning across its wide service footprint, and handling captured samples safely.
 
-### 🍯🐝 [HoneyPi](./honeypi.md)
+### 🍯🐝 [Honeypi](./honeypi.md)
 A PSAD-based honeypot purpose-built for **internal**-network intrusion detection; catching an attacker already past the perimeter, rather than collecting internet-wide threat intelligence. **Opens with a name-collision warning:** "HoneyPi" also refers to a completely unrelated IoT beehive-monitoring project on GitHub, which is almost certainly what caused a real "installer succeeded but nothing was created" failure during an actual deployment attempt.
 
-### 🐳 [T-Pot](./tpot.md)
+### 🐳 [T-pot](./tpot.md)
 The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) running as Docker containers under one orchestration layer, with Elastic Stack dashboards and an animated attack map out of the box. Covers sizing, the Hive/Sensor distributed-deployment model, customizing which honeypots run, and the update/backup maintenance model.
 
 ---
 
 <a id="diy-hardware-and-wazuh-reporting"></a>
-### DIY Hardware & Wazuh Reporting
+### Diy Hardware & Wazuh Reporting
 
 **[Security and accuracy review (October 31, 2026)](./REVIEW-2026-10-31.md):** methods, limitations, CI results and the separate installer pinning issue.
 
