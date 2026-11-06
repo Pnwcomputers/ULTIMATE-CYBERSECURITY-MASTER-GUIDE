@@ -42,7 +42,7 @@ Give practitioners a single canonical web-AppSec reference: understand each risk
 class, test for it methodically, and remediate it - rather than the web content
 being scattered across the master guides.
 
-## 📋 When to Use
+## 📋 When To Use
 - Scoping or executing an authorized web application penetration test
 - Looking up a specific OWASP Top 10 category (how it works, how to test, how to fix)
 - Building a repeatable methodology / Burp workflow for web assessments
@@ -50,7 +50,7 @@ being scattered across the master guides.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Folder Contents](#-folder-contents)

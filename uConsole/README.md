@@ -28,7 +28,7 @@ for reproducible deployments.
 A fully configured, field-ready uConsole running on Kali or Trixie with all hardware working: RTL-SDR, LoRa, GPS,
 external WiFi adapter, NVMe storage, and the HackerGadgets power board.
 
-## 📋 When to Use
+## 📋 When To Use
 - Initial uConsole build after flashing Kali or Trixie to the CM4/CM5 module
 - Rebuilding a uConsole after a failed update or storage wipe
 - Configuring a new HackerGadgets AIO v2 board with battery and NVMe expansion
@@ -36,7 +36,7 @@ external WiFi adapter, NVMe storage, and the HackerGadgets power board.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Setup Guides](#-setup-guides)
@@ -106,7 +106,7 @@ board.
 
 ---
 
-## ⚖️ CM4 vs CM5 - Quick Reference
+## ⚖️ CM4 Vs CM5 - Quick Reference
 
 | Feature | CM4 | CM5 |
 |---|---|---|
@@ -153,7 +153,7 @@ guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 
 ---
 
-## 📡 AIO v2 Board Capabilities
+## 📡 AIO V2 Board Capabilities
 
 ### Integrated Peripherals
 
@@ -189,7 +189,8 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 ---
 
-## 🛡️ CM4 review and safest starting point
+<a id="️-cm4-review-and-safest-starting-point"></a>
+## 🛡️ CM4 Review & Safest Starting Point
 
 The [CM4 safety and migration review](./CM4-SAFETY-REVIEW.md) explains why the old CM4 installer was retired. For an existing CM4, start with:
 
@@ -251,7 +252,8 @@ This platform includes tools and capabilities for:
    • Any illegal or unethical activities
 ```
 
-### RF and Radio Compliance
+<a id="rf-and-radio-compliance"></a>
+### RF & Radio Compliance
 
 - **LoRa / Meshtastic**: Operates on ISM band (915 MHz US). No license required for low-power operation within FCC Part 15 limits.
 - **RTL-SDR**: Receive-only device. Legal to receive in most jurisdictions, but intercepting certain communications (cellular, encrypted, private) may violate wiretapping laws.

@@ -1,4 +1,5 @@
-# Diagram and Image Asset Index
+<a id="diagram-and-image-asset-index"></a>
+# Diagram & Image Asset Index
 
 _Last reviewed: 2026-11-02 (repository path and placement review; visual content not re-authenticated against live equipment)_
 
@@ -6,7 +7,8 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
-## Integrated PNG and SVG diagrams
+<a id="integrated-png-and-svg-diagrams"></a>
+## Integrated PNG & SVG Diagrams
 
 | Image | Used in | Explanation |
 |---|---|---|
@@ -23,7 +25,7 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
 
-## Expanded topical SVG diagrams (November 2026)
+## Expanded Topical SVG Diagrams (November 2026)
 
 These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
 
@@ -51,7 +53,7 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 
 For an auditable record of the visual coverage review and remaining improvements, see [Visual Audit — 2026-11-02](./VISUAL-AUDIT-2026-11-02.md).
 
-## Already embedded in hardware chapters
+## Already Embedded In Hardware Chapters
 
 | Asset | Chapter |
 |---|---|
@@ -62,11 +64,11 @@ For an auditable record of the visual coverage review and remaining improvements
 | [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
 
-## Additional asset awaiting placement
+## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.
 
-## Image guidelines
+## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
 2. Provide meaningful Markdown alt text and a short caption, including whether the image is *conceptual* or based on verified deployment/test data.
