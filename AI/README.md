@@ -69,7 +69,14 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ## Practical AI usage, project planning and independent verification
 
-New to using AI effectively? Start with [AI Usage and Interaction](ai-usage-interaction-guide.md), then [Project/Agent Lanes, Goals and Resume](agent-project-workflows.md), [Fact-Checking and AI Audits](verification-and-ai-audits.md), and [Projects, Notebooks, GPTs and Plugins](ai-workspaces-notebooks-and-assistants.md). These guides cover practical interaction, durable state, evidence and human oversight; deployment-specific guides below remain separate.
+| File/Folder | Description |
+|-------------|-------------|
+| **[ai-usage-interaction-guide.md](ai-usage-interaction-guide.md)** | Practical AI interaction guide covering effective prompts, instruction structure, context, privacy, and verifying completed work |
+| **[agent-project-workflows.md](agent-project-workflows.md)** | Organize goals, milestones, agent and project lanes, review responsibilities, progress tracking, and resume checkpoints |
+| **[verification-and-ai-audits.md](verification-and-ai-audits.md)** | Fact-check AI responses and supplied information; independently audit sources, claims, tool actions, security boundaries, and agent results |
+| **[ai-workspaces-notebooks-and-assistants.md](ai-workspaces-notebooks-and-assistants.md)** | Choose and organize projects, notebooks, custom GPTs, plugins, reusable assistants, and multi-step agents |
+
+---
 
 ## 📂 Folder Contents
 
