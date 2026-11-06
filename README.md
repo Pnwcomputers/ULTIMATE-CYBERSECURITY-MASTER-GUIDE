@@ -781,14 +781,15 @@ Want to help the community?
 
 ## Related Files
 
-- [Data Engineering](./Data-Engineering/README.md) - Data infrastructure and learning roadmap
-- [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) - TLS, SSH, Git, parsing, enrichment, Kafka, and Ansible
-- [START_HERE.md](./START_HERE.md) - Quick navigation guide to all sections
-- [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) - Enhanced deep-dive guide
-- [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) - Third guide in the series
-- [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) - Journalist device, source confidentiality and retention / duress planning
-- [LEGAL.md](./LEGAL.md) - Legal disclaimer and terms of use
-- [Diagram and Image Asset Index](./assets/README.md) - Existing figures and 19 new diagrams across SIEM, DFIR, OSINT, cloud, mobile, compliance, RF, and more
-- [Visual Coverage Review](./assets/VISUAL-AUDIT-2026-11-02.md) - Repository-wide image inventory, integration results, verification limits and future needs
-- [CHANGELOG.md](./CHANGELOG.md) - Repository change history
-
+| Guide | Description |
+|---|---|
+| [Data Engineering](./Data-Engineering/README.md) | Data infrastructure and learning roadmap |
+| [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | TLS, SSH, Git, parsing, enrichment, Kafka, and Ansible |
+| [START_HERE.md](./START_HERE.md) | Quick navigation guide to all sections |
+| [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) | Enhanced deep-dive guide |
+| [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | Third guide in the series |
+| [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) | Journalist device, source confidentiality and retention / duress planning |
+| [LEGAL.md](./LEGAL.md) | Legal disclaimer and terms of use |
+| [Diagram and Image Asset Index](./assets/README.md) | Existing figures and 19 new diagrams across SIEM, DFIR, OSINT, cloud, mobile, compliance, RF, and more |
+| [Visual Coverage Review](./assets/VISUAL-AUDIT-2026-11-02.md) | Repository-wide image inventory, integration results, verification limits and future needs |
+| [CHANGELOG.md](./CHANGELOG.md) | Repository change history |
