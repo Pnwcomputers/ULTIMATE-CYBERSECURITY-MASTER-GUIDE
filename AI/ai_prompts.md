@@ -2,6 +2,9 @@
 
 A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
 
+> [!IMPORTANT]
+> For long-running or consequential work, use [AI Usage and Interaction](ai-usage-interaction-guide.md), [Project and Agent Workflows](agent-project-workflows.md), [Independent Fact-Checking and AI Audits](verification-and-ai-audits.md), and [Projects, Notebooks, GPTs and Plugins](ai-workspaces-notebooks-and-assistants.md). Prompt wording cannot guarantee accuracy, security or execution.
+
 ## 🎯 Purpose
 Platform-agnostic prompt engineering reference - templates, patterns, and psychology for getting better output from any LLM. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md` (which are security-workflow-specific prompt examples): this file is technique-level, applicable to any prompting task regardless of domain.
 
@@ -44,8 +47,8 @@ Shift the AI from a generator to an autonomous worker:
 - **Iterative Planning:** "Before responding, outline the 3 steps you will take to solve this request."
 
 ### ⛓️ Chain-of-Thought (Advanced Reasoning)
-- **Zero-Shot CoT:** Append *"Let's think step-by-step"* to force logical sequencing.
-- **XML Thinking Blocks:** (Best for Claude) Direct the AI to use `<thinking>` tags to brainstorm before providing the `<answer>`.
+- **Concise plan:** Request a brief, checkable plan and source-backed explanation, not hidden model reasoning.
+- **Structured output:** Use explicit sections for assumptions, actions, evidence and unknowns; do not demand private reasoning transcripts.
 - **Chain of Verification (CoVe):** Instruct the AI to:
     1. Draft an initial answer.
     2. Fact-check its own statements.
@@ -65,15 +68,15 @@ Your goal is to provide high-utility, accurate, and concise responses.
 [Describe the primary objective of this session]
 
 # GUIDELINES & CONSTRAINTS
-- Use Chain of Thought: Always think through the problem step-by-step.
+- Provide verifiable reasoning summaries and citations; do not ask for hidden chain-of-thought.
 - Tone: [Insert Tone: e.g., Direct, Academic, Creative].
 - Formatting: Use Markdown (bolding, lists, tables) to make responses scannable.
 - No Fluff: Avoid "As an AI language model" or "Sure, I can help with that."
 
 # OUTPUT STRUCTURE
-1. <thinking>: Analyze the request and plan the response.
-2. <action>: Execute the task.
-3. <review>: Briefly verify that all constraints were met.
+1. PLAN: Briefly name verifiable steps.
+2. EXECUTION: Produce artifacts and report actual tool results.
+3. VERIFICATION: State tests, evidence, uncertainty and required approvals.
 
 ```
 ---
@@ -83,7 +86,7 @@ Your goal is to provide high-utility, accurate, and concise responses.
 | Platform | Key Tactic | Reason |
 | :--- | :--- | :--- |
 | **Anthropic** | **XML Tags** | Helps the model distinguish between instructions, examples, and user data. |
-| **OpenAI** | **Delimiters** | Uses `"""` or `---` to prevent "prompt injection" or confusion with user text. |
+| **OpenAI** | **Structured inputs** | Delimiters help distinguish text, but do not prevent prompt injection or enforce permissions. |
 | **Gemini** | **Groundedness** | Excels when told to "Only use the provided documents" to avoid hallucinations. |
 | **Fabric** | **Patterns** | Uses headers like `# IDENTITY` to give the model a clear structural roadmap. |
 
@@ -94,7 +97,7 @@ Before writing a single word, a master prompter understands two psychological co
 
 * **Context Steering:** Think of the AI as a world-class actor. If you don't give it a "script" (Identity), it reverts to its "average" training data. By providing a specific persona, you steer it into a niche area of its knowledge base.
 * **The "Wall of Text" Fallacy:** AI models suffer from "Lost in the Middle" syndrome. They pay most attention to the **beginning** and the **end** of a prompt.
-* **Teacher's Tip:** Put your most critical instructions at the **very bottom** of the prompt, right before the data it needs to process.
+* **Instruction placement:** Put stable behavioral rules in the correct instruction layer and keep task-specific context close to its data. Position alone is no guarantee.
 
 ---
 
@@ -116,7 +119,7 @@ Even the best prompts can fail. Fix a hallucinating or stubborn AI with these th
 | Symptom | Diagnosis | Treatment |
 | :--- | :--- | :--- |
 | **Hallucination** | "Groundedness" failure | Add: "If you do not know the answer, state that you don't know. Do not guess." |
-| **Laziness** | Context Window fatigue | Use **Incentive Prompting**: "I will tip you $200 for a perfect solution." |
+| **Incomplete work** | Missing context, scope or verification | Set milestones, acceptance tests, and evidence requirements rather than offering monetary incentives. |
 | **Logic Errors** | Lack of "Compute Time" | Add a **Reflection Step**: "Review your own math. Point out any errors before showing the final result." |
 
 ---
@@ -136,15 +139,15 @@ Instead of asking for an answer, ask the AI to teach you.
 
 ---
 
-## 📝 9. Updated: The "God-Mode" Prompt Template
-*Use this when the task is high-stakes and requires zero errors.*
+## 📝 9. High-Assurance Task Template
+*Use for higher-risk work with independent validation. No prompt guarantees zero errors.*
 
 ```markdown
 # MISSION
 You are [Expert Persona]. Your task is to [Primary Goal].
 
 # CONTEXT
-Current Date: January 2026. 
+Current date: [verify the actual date and timezone] 
 Background: [Insert 2-3 sentences of context].
 
 # CONSTRAINTS & RULES
@@ -158,11 +161,9 @@ A successful response will be:
 - [Criterion 2]
 
 # EXECUTION STEPS
-<thinking>
-1. Analyze the user's intent.
-2. Cross-reference [Specific Source].
-3. Draft a preliminary structure.
-</thinking>
+1. Create a checkable plan and identify authoritative sources.
+2. Execute only within authorized scope; capture actual results.
+3. Independently verify outputs; report failures and unknowns.
 
 Begin.
 
