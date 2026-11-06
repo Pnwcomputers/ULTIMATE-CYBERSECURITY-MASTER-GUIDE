@@ -41,7 +41,7 @@ Give practitioners a single canonical cloud-security reference: understand what 
 cloud provider secures vs. what you must, how cloud environments are commonly
 assessed and attacked, and how to harden and monitor each platform.
 
-## 📋 When to Use
+## 📋 When To Use
 - Scoping or executing an authorized cloud configuration review / penetration test
 - Looking up a provider's IAM model, common misconfigurations, or hardening baseline
 - Selecting assessment tooling (Prowler, ScoutSuite, Pacu, ROADtools)
@@ -49,7 +49,7 @@ assessed and attacked, and how to harden and monitor each platform.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Shared Responsibility Model](#-shared-responsibility-model)

@@ -26,7 +26,7 @@ A categorized flow catalog (OSINT/Recon, Scanning/Analysis, Vulnerability Manage
 ## 🏆 Goal
 Recreate any of the 9 documented AgentFlows in your own AnythingLLM instance from the block-level configuration, and know which flow to use for a given engagement phase (pre-engagement, active testing, reporting).
 
-## 📋 When to Use
+## 📋 When To Use
 - Setting up AnythingLLM AgentFlows for the first time (start here, then open the specific `flow-*.md`)
 - Deciding which flow fits a given engagement phase (see "By Use Case" table)
 - Troubleshooting a flow that isn't producing expected output (see "Common Issues & Solutions")
@@ -185,7 +185,7 @@ This directory contains complete technical documentation for creating custom Age
 
 ---
 
-## How to Use This Documentation
+## How To Use This Documentation
 
 ### For Recreation
 

@@ -14,7 +14,7 @@
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Current Checklists](#-current-checklists)
@@ -240,7 +240,7 @@ These checklists serve as:
 
 ---
 
-## 📖 How to Use These Checklists
+## 📖 How To Use These Checklists
 
 ![Security assessment checklist lifecycle from authorization to closure](../assets/diagrams/checklist-assessment-quality.svg)
 
@@ -380,7 +380,7 @@ These security checklists contain attack techniques and methodologies for:
 
 ---
 
-### Legal Requirements for Security Testing
+### Legal Requirements For Security Testing
 
 #### Written Authorization Requirements
 
@@ -413,7 +413,7 @@ These security checklists contain attack techniques and methodologies for:
    • Techniques not approved (e.g., DoS, destructive)
 ```
 
-#### Rules of Engagement
+#### Rules Of Engagement
 
 **Essential Guidelines for Attack Technique Testing:**
 
@@ -432,7 +432,8 @@ These security checklists contain attack techniques and methodologies for:
 
 ### Attack Technique Legal Considerations
 
-#### Computer Fraud and Abuse Act (CFAA) - United States
+<a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
+#### Computer Fraud & Abuse Act (CFAA) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -547,7 +548,7 @@ PROHIBITED:
 
 ### Professional Standards
 
-#### Code of Ethics for Security Testing
+#### Code Of Ethics For Security Testing
 
 **Core Principles:**
 
@@ -587,7 +588,7 @@ PROHIBITED:
 
 ### Risk Considerations
 
-#### Technical Risks of Using These Checklists
+#### Technical Risks Of Using These Checklists
 
 **System Impact:**
 - Exploitation attempts may cause system instability
@@ -683,7 +684,7 @@ Professional Practices:
 9. Update procedures to prevent recurrence
 ```
 
-#### Critical Finding or System Compromise
+#### Critical Finding Or System Compromise
 
 ```
 🔴 CRITICAL VULNERABILITY PROTOCOL:
@@ -770,7 +771,7 @@ consequences, and any other damages that may result.
 
 ## 🤝 Contributing
 
-### How to Contribute Checklists
+### How To Contribute Checklists
 
 We welcome contributions from security professionals to improve and expand this collection.
 
@@ -901,7 +902,7 @@ We welcome contributions from security professionals to improve and expand this 
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review documentation and warnings thoroughly first
 - Provide specific context about your situation

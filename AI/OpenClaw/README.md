@@ -1,4 +1,4 @@
-# 🦞 OpenClaw on TrueNAS SCALE - Complete Setup Guide
+# 🦞 OpenClaw On TrueNAS SCALE - Complete Setup Guide
 
 <div align="center">
 
@@ -24,11 +24,11 @@ Eight parts covering app-catalog installation, the provider onboarding wizard (A
 ## 🏆 Goal
 Get OpenClaw running on TrueNAS SCALE with all four LLM providers verified working, HTTPS access configured via NPMplus, and a paired device connected to the dashboard.
 
-## 📋 When to Use
+## 📋 When To Use
 - First-time OpenClaw deployment on TrueNAS SCALE
 - Diagnosing a specific OpenClaw/TrueNAS app failure (config service exit 1, WebSocket disconnects, provider not showing in `models list`) - check Troubleshooting first
 
-## What is OpenClaw?
+## What Is OpenClaw?
 
 OpenClaw is a free, open-source AI agent framework that runs on your own hardware. Think of it as a personal AI assistant - like having a local version of ChatGPT that you control completely, connected to your messaging apps, files, and services.
 
@@ -60,7 +60,7 @@ This repository includes three guides. Start here, then refer to the others once
 
 ---
 
-## Table of Contents
+## Table Of Contents
 
 - [Prerequisites](#prerequisites)
 - [Part 1: Install OpenClaw from App Catalog](#part-1-install-openclaw-from-app-catalog)
@@ -88,13 +88,13 @@ This repository includes three guides. Start here, then refer to the others once
 
 ---
 
-## Part 1: Install OpenClaw from App Catalog
+## Part 1: Install OpenClaw From App Catalog
 
-### 1.1 Find the App
+### 1.1 Find The App
 
 Go to **Apps → Discover** in the TrueNAS UI and search for **OpenClaw** (Community train).
 
-### 1.2 Generate a Gateway Token
+### 1.2 Generate A Gateway Token
 
 Before installing, generate a strong random token:
 
@@ -158,7 +158,7 @@ Click **Install** and wait for the app to show as Running (green) in Apps → In
 
 ---
 
-## Part 2: Run the Setup Wizard
+## Part 2: Run The Setup Wizard
 
 ### 2.1 Anthropic
 
@@ -256,7 +256,7 @@ The Ollama wizard sets the API key to the literal string `"OLLAMA_API_KEY"` inst
 sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set models.providers.ollama.apiKey "ollama-local"
 ```
 
-### 3.3 Add Ollama Models to Allowlist
+### 3.3 Add Ollama Models To Allowlist
 
 Check what models you have available:
 
@@ -307,7 +307,8 @@ All four providers should be listed. If any are missing, revisit the relevant se
 
 ---
 
-## Part 5: Set Default Model and Tools Profile
+<a id="part-5-set-default-model-and-tools-profile"></a>
+## Part 5: Set Default Model & Tools Profile
 
 Set Groq as the default model to minimize API costs:
 
@@ -345,9 +346,9 @@ Restart the app from the TrueNAS UI to apply changes.
 
 ---
 
-## Part 7: NPMplus Reverse Proxy with HTTPS
+## Part 7: NPMplus Reverse Proxy With HTTPS
 
-### 7.1 Create a Proxy Host
+### 7.1 Create A Proxy Host
 
 In the NPMplus UI go to **Hosts → Proxy Hosts → Add Proxy Host**.
 
@@ -421,11 +422,11 @@ sudo docker ps | grep npmplus
 
 ## Part 8: Device Pairing
 
-### 8.1 Access the Web UI
+### 8.1 Access The Web UI
 
 Open `https://openclaw.yourdomain.duckdns.org` in your browser.
 
-### 8.2 Connect to the Gateway
+### 8.2 Connect To The Gateway
 
 On the Gateway Dashboard enter:
 - **WebSocket URL:** `wss://openclaw.yourdomain.duckdns.org`
@@ -433,7 +434,7 @@ On the Gateway Dashboard enter:
 
 Click **Connect**. The dashboard will show "pairing required".
 
-### 8.3 Approve the Pairing Request
+### 8.3 Approve The Pairing Request
 
 ```bash
 # List pending pairing requests
@@ -465,13 +466,13 @@ http://YOUR_TRUENAS_IP:30262/#token=YOUR_GATEWAY_TOKEN
 
 ## Troubleshooting
 
-### App fails to start: `config service exit 1`
+### App Fails To Start: `config service exit 1`
 
 This is a known bug in OpenClaw 2026.3.2+ triggered by Host Path storage.
 
 **Fix:** Delete the app and reinstall using **ixVolume** storage (the default). Do not change the storage type to Host Path.
 
-### App fails to start after editing config file
+### App Fails To Start After Editing Config File
 
 The config file has invalid JSON or failed schema validation.
 
@@ -491,31 +492,31 @@ sudo python3 -c "import json; json.load(open('/mnt/.ix-apps/app_mounts/openclaw/
 
 Then start the app from the TrueNAS UI.
 
-### `config set` fails with schema validation error
+### `config set` Fails With Schema Validation Error
 
 OpenClaw requires all fields of a provider entry to be present simultaneously. Setting nested provider objects one field at a time always fails validation.
 
 **Fix:** Use the Python direct-edit method from Part 3.
 
-### Ollama shows "could not be reached at 127.0.0.1:11434"
+### Ollama Shows "Could Not Be Reached At 127.0.0.1:11434"
 
 The `OLLAMA_HOST` environment variable is not supported by this version.
 
 **Fix:** In the TrueNAS app environment variables, use `OLLAMA_BASE_URL` instead of `OLLAMA_HOST`.
 
-### WebSocket disconnected (1006) through NPMplus
+### WebSocket Disconnected (1006) Through NPMplus
 
 HTTP/2 or HTTP/3 is being negotiated, which breaks WebSocket upgrades.
 
 **Fix:** Ensure `proxy_http_version 1.1` is in the NPMplus advanced config, and that HTTP/2 and HTTP/3 are disabled in the TLS tab. Also ensure your Unbound DNS override is resolving the domain to your local TrueNAS IP - if the domain resolves to your WAN IP, traffic hairpins through NAT and the connection fails.
 
-### Certificate request fails with Internal Error in NPMplus
+### Certificate Request Fails With Internal Error In NPMplus
 
 Port 80 is not accessible from the internet for the HTTP-01 ACME challenge.
 
 **Fix:** Use the **DNS Challenge** option in NPMplus TLS settings with your DuckDNS token.
 
-### `devices list` fails with gateway closed (1006)
+### `devices list` Fails With Gateway Closed (1006)
 
 The gateway process isn't running inside the container.
 
