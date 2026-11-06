@@ -98,7 +98,7 @@ CCPA) are **not optional** and apply based on data and jurisdiction - see
 
 ---
 
-## 🔗 Control Mapping (Do It Once, Satisfy Many)
+## 🔗 Control Mapping (Do IT Once, Satisfy Many)
 
 ![Governance risk controls and evidence verification workflow](../assets/diagrams/grc-controls-evidence.svg)
 

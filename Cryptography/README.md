@@ -100,7 +100,7 @@ is being retired. Details in [algorithms.md](./algorithms.md).
 
 ---
 
-## 🔮 Post-Quantum Cryptography
+## 🔮 Post-quantum Cryptography
 
 A sufficiently large quantum computer would break RSA and ECC. The threat is
 already relevant via **"harvest now, decrypt later"** - adversaries capturing
