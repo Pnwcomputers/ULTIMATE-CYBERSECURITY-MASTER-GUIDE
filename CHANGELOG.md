@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 06, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1535
-- **Files Modified**: 2289
+- **Commits Analyzed**: 1536
+- **Files Modified**: 2291
 - **New Files**: 858
 - **Deleted Files**: 121
 
@@ -664,6 +664,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Refactor table of contents in README.md (`910944f`)
 - Update README.md (`9fa0007`)
 - Update README.md (`532df28`)
 - Update section title for defensive security paths (`5d49af5`)
@@ -1560,6 +1561,7 @@
 <summary>Click to view full file list</summary>
 
 - `AI/README.md`
+- `CHANGELOG.md`
 - `IncidentResponse/README.md`
 - `OSINT/README.md`
 - `README.md`
@@ -1610,7 +1612,6 @@
 - `assets/README.md`
 - `uConsole/README.md`
 - `uConsole/scripts/README.md`
-- `CHANGELOG.md`
 - `AI/agent-project-workflows.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
