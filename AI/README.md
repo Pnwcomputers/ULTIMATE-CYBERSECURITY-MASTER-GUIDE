@@ -22,14 +22,16 @@
 
 ## 📋 Table Of Contents
 
-- [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
-- [Overview](#-overview)
-- [Folder Contents](#-folder-contents)
-- [Resource Categories](#️-resource-categories)
-- [How to Use These Resources](#-how-to-use-these-resources)
-- [Security & Legal Disclaimer](#️-security--legal-disclaimer)
-- [Contributing](#-contributing)
-- [Resources](#-resources)
+| Section | Navigation |
+|---|---|
+| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planningmanagement--provided-data-verification) | Section link |
+| [Overview](#-overview) | Section link |
+| [Folder Contents](#-folder-contents) | Section link |
+| [Resource Categories](#️-resource-categories) | Section link |
+| [How to Use These Resources](#-how-to-use-these-resources) | Section link |
+| [Security & Legal Disclaimer](#️-security--legal-disclaimer) | Section link |
+| [Contributing](#-contributing) | Section link |
+| [Resources](#-resources) | Section link |
 
 ---
 
