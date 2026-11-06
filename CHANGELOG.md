@@ -1,9 +1,9 @@
-# 🔄 Change Log - November 03, 2026
+# 🔄 Change Log - November 06, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1526
-- **Files Modified**: 2184
-- **New Files**: 847
+- **Commits Analyzed**: 1528
+- **Files Modified**: 2226
+- **New Files**: 858
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -1293,6 +1293,8 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(ai): practical usage, project/agent lanes, verification and notebooks (#166) (`b38d466`)
+- docs: consolidate M5StickC Plus2, OSINT and curated cybersecurity sources (#165) (`a656d90`)
 - docs: integrate curated security assessment, detection, DFIR and supply-chain projects (#160) (`c60ce2c`)
 - docs: integrate curated Public APIs across security guides (#157) (`200f544`)
 - docs: synchronize three master guides with current security and field modules (#153) (`43eff93`)
@@ -1550,50 +1552,78 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `README.md`
-- `AI/AnythingLLM/README.md`
 - `AI/README.md`
-- `AI/llm-security-evaluation-promptfoo.md`
+- `AI/agent-project-workflows.md`
+- `AI/ai-usage-interaction-guide.md`
+- `AI/ai-workspaces-notebooks-and-assistants.md`
+- `AI/ai_prompts.md`
+- `AI/verification-and-ai-audits.md`
+- `README.md`
+- `START_HERE.md`
+- `CHANGELOG.md`
 - `Cloud/README.md`
-- `Cloud/azure.md`
-- `Cloud/m365-scuba-assessment.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
+- `Cryptography/README.md`
+- `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
+- `Documentation/README.md`
+- `Documentation/awesome-hacking-collections-integration.md`
+- `Documentation/bruce_firmware.md`
+- `Documentation/cypherpunk-pentesting-toolkit-review.md`
+- `Documentation/evil_m5.md`
+- `Documentation/upstream-security-projects-register.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `HardwareHacking/README.md`
+- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
+- `Homelab/README.md`
+- `Homelab/proxmox-security-monitoring-visibility.md`
+- `IncidentResponse/Digital-Forensics/README.md`
+- `IncidentResponse/README.md`
+- `IncidentResponse/SIEM/README.md`
+- `Mobile/README.md`
+- `OSINT/OSINT_CHEATSHEET.md`
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/OSINT_socialmedia.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/README.md`
+- `OSINT/awesome-osint-list-curated.md`
+- `OSINT/bellingcat-source-verification.md`
+- `PlayBooks/README.md`
+- `PlayBooks/security-training-lab-pathways.md`
+- `ReverseEngineering/README.md`
+- `SDR/README.md`
+- `SDR/subghz.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `Scripts/Ducky/README.md`
+- `Scripts/README.md`
+- `Tradecraft/README.md`
+- `Wardriving/README.md`
+- `WebAppSecurity/README.md`
+- `firmware-hardware-compatibility.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `AI/AnythingLLM/README.md`
+- `AI/llm-security-evaluation-promptfoo.md`
+- `Cloud/azure.md`
+- `Cloud/m365-scuba-assessment.md`
 - `ContainerSecurity/containers.md`
 - `ContainerSecurity/software-supply-chain-assessment.md`
 - `Data-Engineering/README.md`
-- `Documentation/README.md`
-- `Documentation/upstream-security-projects-register.md`
-- `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `IncidentResponse/Endpoint-Visibility/README.md`
-- `IncidentResponse/README.md`
-- `IncidentResponse/SIEM/README.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
-- `Mobile/README.md`
 - `Mobile/mobile_pentest_sop.md`
 - `Mobile/mvt-forensic-triage.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
-- `OSINT/README.md`
-- `OSINT/bellingcat-source-verification.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
-- `PlayBooks/README.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `PlayBooks/assessment-service-integration-map.md`
 - `PlayBooks/purple-team-detection-validation.md`
-- `ReverseEngineering/README.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `ReverseEngineering/yara-x-rule-lab.md`
-- `SDR/README.md`
 - `SDR/rtl433-passive-telemetry-lab.md`
-- `SDR/subghz.md`
-- `START_HERE.md`
-- `Scripts/README.md`
-- `WebAppSecurity/README.md`
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-assessment-and-nuclei.md`
-- `CHANGELOG.md`
 - `ContainerSecurity/docker-cli-operations-reference.md`
 - `ContainerSecurity/kubernetes.md`
 - `Documentation/TOR.md`
@@ -1601,7 +1631,6 @@
 - `Documentation/curated-technical-docs.md`
 - `Documentation/python.md`
 - `Documentation/virtualmachines.md`
-- `Homelab/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
 - `OPSEC/OPSEC_guide.md`
 - `OPSEC/README.md`
@@ -1614,33 +1643,26 @@
 - `Documentation/references.md`
 - `Documentation/security-public-api-catalog.md`
 - `OSINT/Playbook/tools_api.md`
-- `Cryptography/README.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/LinuxCheatSheet.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
 - `.github/workflows/markdown-numbered-lists.yml`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/HomeLab_Setup.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `tools/check_markdown_numbered_lists.py`
-- `ultimate_cybersecurity_master_guide.md`
 - `.github/workflows/markdownlint.yml`
 - `.github/workflows/duplicate-sections.yml`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/OpenClaw/use_cases.md`
-- `AI/ai_prompts.md`
 - `AI/offensive_ai.md`
 - `AI/offline-llm.md`
 - `Documentation/Locksport.md`
 - `Documentation/arduinoIDE.md`
 - `Documentation/vscode.md`
 - `Documentation/wireshark.md`
-- `HardwareHacking/README.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `LEGAL.md`
-- `OSINT/OSINT_GUIDE.md`
 - `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
@@ -1649,14 +1671,12 @@
 - `PDF/README.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
 - `SpaceSecurity/README.md`
-- `Tradecraft/README.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `advanced_techniques_part2.md`
 - `advanced_techniques_supplement.md`
 - `cybersecurity_cliff_notes.md`
-- `firmware-hardware-compatibility.md`
 - `tools/check_duplicate_sections.py`
 - `uConsole/CM4-SETUP.md`
 - `uConsole/CM5-SETUP.md`
@@ -1665,7 +1685,6 @@
 - `Data-Engineering/Phase2/README.md`
 - `IncidentResponse/IDS&IPS/readme.md`
 - `SDR/nanovna/README.md`
-- `Wardriving/README.md`
 - `assets/README.md`
 - `assets/VISUAL-AUDIT-2026-11-02.md`
 - `assets/diagrams/checklist-assessment-quality.svg`
@@ -1725,7 +1744,6 @@
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `GLOSSARY.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
-- `OSINT/OSINT_CHEATSHEET.md`
 - `SDR/nanovna/07-quick-reference.md`
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wifi-deauthentication-detection.md`
@@ -1786,7 +1804,6 @@
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `OSINT/docs/FAQ.md`
 - `SDR/sdr.md`
-- `Scripts/Ducky/README.md`
 - `Wardriving/esp32-marauder.md`
 - `Documentation/flipper_zero_guide.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
@@ -1838,7 +1855,6 @@
 - `tests/hardening/test_no_embedded_secrets.py`
 - `tests/hardening/test_osint_consumers.py`
 - `IncidentResponse/SIEM/elk_stack.md`
-- `OSINT/Playbook/README.md`
 - `OSINT/Playbook/lib/case_state.py`
 - `OSINT/Playbook/lib/collect_evidence.py`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
@@ -1959,7 +1975,6 @@
 - `IncidentResponse/log_agg.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `HardwareHacking/LA1010.md`
-- `OSINT/OSINT_socialmedia.md`
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `PlayBooks/PurpleTeam_Simple.md`
@@ -2006,7 +2021,6 @@
 - `Checklists/Lateral-Movement.md`
 - `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
-- `Documentation/bruce_firmware.md`
 - `Checklists/Android-Applications-Checklist.md`
 - `Mobile/OnePlus_A3006/Kali_NetHunter.md`
 - `Mobile/OnePlus_A3006/Rooting.md`
@@ -2046,7 +2060,6 @@
 - `SpaceSecurity/PartIV.md`
 - `osint`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
-- `Documentation/evil_m5.md`
 - `HardwareHacking/Chapter1.md`
 - `HardwareHacking/Chapter3.md`
 - `HardwareHacking/Chapter4.md`
