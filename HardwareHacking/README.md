@@ -126,7 +126,7 @@ Introduce controlled transient errors to bypass security checks, skip instructio
 | **[Laser FI](https://www.keysight.com/us/en/cmp/device-security.html)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
 | **[Body Biasing](https://link.springer.com/chapter/10.1007/978-3-030-68487-7_11)** | Probe + pulse generator | Medium | Medium | $$ |
 
-### Side-Channel Analysis (Passive)
+### Side-channel Analysis (Passive)
 
 Extract secrets by observing physical emissions during normal operation.
 
@@ -206,7 +206,7 @@ Extract secrets by observing physical emissions during normal operation.
 | [**Sigrok / PulseView**](https://sigrok.org/) | Open-source logic analyzer frontend | Free/OSS |
 | [**ChipWhisperer Software**](https://chipwhisperer.readthedocs.io/) | Jupyter-based SCA/FI tutorials | Free/OSS |
 
-### Python Libraries For Side-Channel Analysis
+### Python Libraries For Side-channel Analysis
 
 | Library | Purpose | URL |
 |---------|---------|-----|
@@ -219,7 +219,7 @@ Extract secrets by observing physical emissions during normal operation.
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️

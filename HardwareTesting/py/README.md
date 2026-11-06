@@ -90,7 +90,7 @@ Verify the NVIDIA tools are present:
 nvidia-smi --version
 ```
 
-### Step 4 - Verify Everything Is On PATH
+### Step 4 - Verify Everything Is On Path
 
 ```bash
 for bin in inxi dmidecode sysbench memtester fio stress-ng \
@@ -264,7 +264,7 @@ sudo python3 stress_soak.py --mode standard --client "Client Name" --skip-gpu
 | `overnight` | ~24 hr | 16G × 10 passes | 23 hr | 60 min |
 
 <a id="what-it-tests-and-how-v11-improvements"></a>
-### What It Tests & How (V1.1 Improvements)
+### What IT Tests & How (V1.1 Improvements)
 
 **Phase 1 - RAM validation (memtester)**
 Runs first with dedicated RAM. Any `FAILED` line is flagged immediately. If `memtester` finds errors, you know within the first few minutes rather than at the end of a 4-hour run.

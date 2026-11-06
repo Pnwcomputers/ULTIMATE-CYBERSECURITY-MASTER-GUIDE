@@ -85,7 +85,7 @@ The routing, switching, and boundary protection of the lab.
 
 ---
 
-## 📚 Guides & Standard Operating Procedures (SOPs)
+## 📚 Guides & Standard Operating Procedures (Sops)
 
 **This is a living library.** This section contains detailed guides and SOPs covering essential lab administration tasks to ensure your environment remains stable, recoverable, and secure.
 
@@ -122,16 +122,16 @@ Keep experiments on test VLANs with clear ownership, explicit routing/firewall r
 * **Type-1 (Bare Metal):** Best for dedicated hardware. Install Proxmox VE or VMware ESXi.
 * **Type-2 (Hosted):** Best for running a lab on your daily-driver laptop. Install VMware Workstation Pro or VirtualBox.
 
-### 3. Network Segregation (CRITICAL STEP)
+### 3. Network Segregation (Critical Step)
 Before spinning up vulnerable VMs or executing malware, you must architect the network:
 * **Host-Only / Internal Networks:** Configure your hypervisor's virtual switches so that Target VMs can *only* talk to the Attack VM, and cannot reach your physical home network or the internet.
 * **Virtual Router:** Deploy a pfSense/OPNsense VM with dual NICs (one connected to your home network for internet access, one connected to the isolated lab LAN) to strictly control ingress/egress traffic.
 
 ---
 
-## ⚠️ CRITICAL Security & Isolation Warning
+## ⚠️ Critical Security & Isolation Warning
 
-### 🔴 LAB CONTAINMENT & LEGAL WARNING
+### 🔴 Lab Containment & Legal Warning
 
 ```
 ═══════════════════════════════════════════════════════════════

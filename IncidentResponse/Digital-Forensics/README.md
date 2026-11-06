@@ -83,7 +83,7 @@ This sub-section covers the three domains you will use most: **memory**, **disk*
 ### 🧰 [Tsurugi Bento — Portable DFIR Field Guide](./tsurugi-bento-portable-dfir-guide.md)
 Build a SyMenu-based field USB, preserve evidence on a separate encrypted device, and follow worked Windows live-response procedures for process/network snapshots, persistence, EVTX, RAM, imaging, artifact triage, hashing, and reports. **Bento is a Windows-first live triage toolbox, not a read-only OS or full analysis platform.**
 
-### 🧪 [REMnux — Malware Analysis Workstation](../../ReverseEngineering/remnux-malware-analysis-guide.md)
+### 🧪 [Remnux — Malware Analysis Workstation](../../ReverseEngineering/remnux-malware-analysis-guide.md)
 Dedicated Ubuntu-based REMnux VM and Proxmox deployment for offline malware triage, suspicious documents, PE/ELF analysis, captured network traffic, memory artifacts and evidence handling. Use this **after authorized acquisition**; isolate samples and never detonate malware on the analyst host.
 
 ### 🧠 [Memory Forensics — Volatility 3](./Memory/volatility_cheatsheet.md)
@@ -92,7 +92,7 @@ The full analysis workflow for Windows and Linux memory dumps. Covers the Volati
 ### 🚨 [Live Response Collection](./LiveData/live_data_collection.md)
 Capturing **volatile** evidence from a running system before power-down. Covers the volatile-data priority order, memory acquisition (WinPmem, DumpIt, `avml` on Linux), network state (`netstat`/`ss`, active connections), process listing with hash verification, prefetch/amcache, registry-hive export, browser artifacts, and chain-of-custody documentation.
 
-### 💽 [Disk Forensics — Autopsy & KAPE](./Disks/autopsy_kape.md)
+### 💽 [Disk Forensics — Autopsy & Kape](./Disks/autopsy_kape.md)
 Acquiring and analyzing disk images. Covers imaging (FTK Imager, `dd`), the Autopsy case workflow (full forensic platform), **KAPE** targets/modules for rapid triage collection, timeline analysis, file carving, hash verification, and report generation.
 
 ---

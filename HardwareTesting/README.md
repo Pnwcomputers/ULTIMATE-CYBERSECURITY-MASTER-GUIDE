@@ -154,7 +154,7 @@ Without sensor detection, thermal reporting may be incomplete or empty.
 
 Install the GPU block that matches the hardware being tested.
 
-### AMD Radeon Test Environments
+### Amd Radeon Test Environments
 
 ```bash
 sudo pacman -S --needed \
@@ -175,7 +175,7 @@ amd-smi metric --gpu 0
 amdgpu_top --dump
 ```
 
-### NVIDIA Test Environments
+### Nvidia Test Environments
 
 ```bash
 sudo pacman -S --needed \
@@ -210,9 +210,9 @@ pamac install phoronix-test-suite
 
 ---
 
-## Source-Built GPU Diagnostic Tools
+## Source-built GPU Diagnostic Tools
 
-### `memtest_vulkan` - Cross-vendor Vulkan VRAM Stability Test
+### `memtest_vulkan` - Cross-vendor Vulkan Vram Stability Test
 
 `memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
 
@@ -239,7 +239,7 @@ memtest_vulkan
 
 Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
 
-### `gpu-burn` - NVIDIA CUDA Stress Test
+### `gpu-burn` - Nvidia Cuda Stress Test
 
 `gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
 
@@ -319,13 +319,13 @@ done
 python3 py/standalone_gpu_tester.py --client "Client Name"
 ```
 
-### Dedicated AMD GPU Diagnostic
+### Dedicated Amd GPU Diagnostic
 
 ```bash
 python3 py/amd_gpu_tester.py --client "Client Name"
 ```
 
-### Dedicated NVIDIA GPU Diagnostic
+### Dedicated Nvidia GPU Diagnostic
 
 ```bash
 python3 py/nvidia_gpu_tester.py --client "Client Name"
@@ -343,7 +343,7 @@ python3 py/nvidia_gpu_tester.py --client "Client Name" --gpu-burn
 sudo python3 py/full_hw_suite.py --client "Client Name"
 ```
 
-### RAM-only Diagnostic
+### Ram-only Diagnostic
 
 ```bash
 sudo python3 py/standalone_ram_tester.py --client "Client Name" --memtester-size 4G --passes 3
@@ -363,7 +363,7 @@ sudo python3 py/stress_soak.py --mode quick --client "Client Name"
 
 ---
 
-## Manjaro Linux - AMD CPU Platform 🔜
+## Manjaro Linux - Amd CPU Platform 🔜
 
 > **Status:** Planned
 
@@ -393,7 +393,7 @@ Will cover Z790/i9 hardware running Debian stable. Key differences from the Manj
 
 ---
 
-## Debian - AMD CPU Platform 🔜
+## Debian - Amd CPU Platform 🔜
 
 > **Status:** Planned
 
