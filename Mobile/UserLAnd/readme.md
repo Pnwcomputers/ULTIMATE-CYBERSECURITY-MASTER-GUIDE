@@ -1,4 +1,4 @@
-# 📱 UserLAnd - Linux on Android
+# 📱 UserLAnd - Linux On Android
 
 <div align="center">
 
@@ -26,7 +26,7 @@ Covers Linux filesystem and session setup, package management, terminal access, 
 
 Build a useful mobile Linux workspace that can support field diagnostics and repeatable technical work, with clear instructions about which tasks work through ordinary userspace access and which require another host, additional privileges, or specialized hardware.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Setting up or maintaining a Linux session in UserLAnd.
 - Running Linux command-line tools from an Android phone or tablet.
@@ -39,7 +39,7 @@ Build a useful mobile Linux workspace that can support field diagnostics and rep
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Current Content](#-current-content)
@@ -98,7 +98,8 @@ Their source is embedded in `alpinelinux.md`; they are not listed here as separa
 
 ---
 
-## 🧭 Capabilities and Limitations
+<a id="-capabilities-and-limitations"></a>
+## 🧭 Capabilities & Limitations
 
 | Task | Typical suitability in unrooted UserLAnd | Key consideration |
 | --- | --- | --- |
@@ -122,11 +123,12 @@ For a task that requires direct hardware or kernel access, use an appropriately 
 
 ## 🚀 Getting Started
 
-### 1. Create a Filesystem and Session
+<a id="1-create-a-filesystem-and-session"></a>
+### 1. Create A Filesystem & Session
 
 Install UserLAnd from a distribution source linked by the [official project](https://github.com/CypherpunkArmory/UserLAnd). Choose a distribution or application offered by your installed version and create its filesystem and session. Allow the initial assets to download, then connect using the configured terminal or graphical access method. Exact menus and available distributions can vary by release.
 
-### 2. Identify the Environment
+### 2. Identify The Environment
 
 Inside the Linux session:
 
@@ -139,7 +141,8 @@ pwd
 
 Use the distribution information to choose package commands. An apparent UID of `0` inside the session is not proof of Android root access.
 
-### 3. Update and Install the Basics
+<a id="3-update-and-install-the-basics"></a>
+### 3. Update & Install The Basics
 
 Use the matching package manager in the next section. Start with a text editor, Python, an SSH client, Git, and the diagnostic tools needed for your task.
 
@@ -240,13 +243,15 @@ Retain output and errors. Distinguish completed checks from skipped, failed, or 
 
 Record what was tested, the observed result, supporting evidence, coverage limits, and any recommended follow-up. Keep customer-facing summaries separate from raw credentials or sensitive captures.
 
-### Export and Close
+<a id="export-and-close"></a>
+### Export & Close
 
 Copy the required files to the intended destination, verify the transfer, stop temporary listeners or background processes, and retain or remove local copies according to the working arrangement.
 
 ---
 
-## 💾 Files, Reports, and Backups
+<a id="-files-reports-and-backups"></a>
+## 💾 Files, Reports, & Backups
 
 Use a consistent workspace organization:
 
@@ -322,7 +327,8 @@ To contribute to this subsection:
 
 ## 📚 Resources
 
-### UserLAnd and PRoot
+<a id="userland-and-proot"></a>
+### UserLAnd & PRoot
 
 - [UserLAnd official repository](https://github.com/CypherpunkArmory/UserLAnd)
 - [UserLAnd getting started](https://github.com/CypherpunkArmory/UserLAnd/wiki/Getting-Started-in-UserLAnd)
@@ -330,7 +336,7 @@ To contribute to this subsection:
 - [UserLAnd importing and exporting files](https://github.com/CypherpunkArmory/UserLAnd/wiki/Importing-and-exporting-files-in-UserLAnd)
 - [PRoot project documentation](https://proot-me.github.io/)
 
-### Tools Used in the Current Guide
+### Tools Used In The Current Guide
 
 - [Alpine package-management documentation](https://docs.alpinelinux.org/user-handbook/0.1a/Working/apk.html)
 - [Nmap scanning techniques](https://nmap.org/book/man-port-scanning-techniques.html)
@@ -349,7 +355,8 @@ To contribute to this subsection:
 
 ---
 
-## ⚠️ Authorized Use and Data Handling
+<a id="️-authorized-use-and-data-handling"></a>
+## ⚠️ Authorized Use & Data Handling
 
 Use active auditing tools only against devices and networks covered by the owner's explicit authorization. Keep the approved targets, time window, methods, and exclusions clear before testing. Credential checks and intrusive scripts need particular care because they can affect accounts or services.
 

@@ -1,4 +1,5 @@
-# Press Freedom, Journalist Safety, Source Protection and Digital Security
+<a id="press-freedom-journalist-safety-source-protection-and-digital-security"></a>
+# Press Freedom, Journalist Safety, Source Protection & Digital Security
 
 _Last reviewed: 2026-11-01 (documentation and primary-source review; not a legal opinion or hands-on device audit)_
 
@@ -15,7 +16,7 @@ Part of [OPSEC](../README.md) and the [Ultimate Cybersecurity Master Guide](../.
 
 Protect the human beings first, then confidential sources, records, communications and devices. Security controls should make information harder to expose **before** a dangerous incident, not depend on a risky last-minute action.
 
-## Begin here
+## Begin Here
 
 | Topic | Focus |
 |---|---|
@@ -25,7 +26,8 @@ Protect the human beings first, then confidential sources, records, communicatio
 | [Cryptography: Encrypted Storage](../../Cryptography/encrypted-storage.md) | Storage choices, backups and recovery checks |
 | [Cryptography: FIDO2, Passkeys and Security Keys](../../Cryptography/security-keys-passkeys.md) | Phishing-resistant login protection for newsroom and journalist accounts |
 
-## Risk assessment and source confidentiality
+<a id="risk-assessment-and-source-confidentiality"></a>
+## Risk Assessment & Source Confidentiality
 
 Before starting a story or assignment, ask:
 
@@ -38,7 +40,7 @@ Before starting a story or assignment, ask:
 
 Write a story-specific risk register and review it with the editor, source-protection lead or counsel when appropriate. Do not promise a source secrecy or anonymity you cannot actually guarantee.
 
-## Protection layers
+## Protection Layers
 
 - **Human safety:** independent check-ins, trusted emergency contact, travel plan, access to local counsel; avoid risky operations while threatened.
 - **Identity and account security:** unique credentials, password manager, hardware-backed FIDO2/passkeys, two independently registered authenticators, hardened recovery.
@@ -48,7 +50,7 @@ Write a story-specific risk register and review it with the editor, source-prote
 - **Storage and retention:** small data footprint, encrypted segregation and backups, classification, documented retention and defensible sanitization at the end of authorized retention.
 - **Response:** pre-agreed check-ins, legal and editorial escalation, incident recording, credential/session revocation after compromise and careful preservation of necessary evidence.
 
-## What different controls protect
+## What Different Controls Protect
 
 | Control | Helps with | Does **not** reliably prevent |
 |---|---|---|
@@ -59,7 +61,7 @@ Write a story-specific risk register and review it with the editor, source-prote
 | Encrypted backup with tested restore | Theft-related data exposure and operational recovery | Bad retention policy, backup key loss or unauthorized decrypted access |
 | Minimal retention + approved disposal | Unnecessary data exposure | Existing cloud copies, third-party records, legal duties to preserve |
 
-## A minimal field checklist
+## A Minimal Field Checklist
 
 - [ ] Risk assessment and editor/legal contact established
 - [ ] Strong passcode, automatic lock, OS updates and full-disk encryption confirmed
@@ -71,11 +73,13 @@ Write a story-specific risk register and review it with the editor, source-prote
 - [ ] Emergency check-in and missing-device response agreed
 - [ ] Device and communications security rechecked after high-risk encounter
 
-## Legal and ethical boundaries
+<a id="legal-and-ethical-boundaries"></a>
+## Legal & Ethical Boundaries
 
 Protecting journalism and sources is an important purpose, but this guide **does not recommend destroying or concealing records in response to a subpoena, seizure, legal hold, preservation obligation or ongoing investigation**. Routine data-minimization and disposal schedules should be established **before** an incident and paused when preservation is required. When a person is threatened, prioritize physical safety and legal advice—not a device trick that may escalate danger.
 
-## Primary sources and assistance
+<a id="primary-sources-and-assistance"></a>
+## Primary Sources & Assistance
 
 - [Freedom of the Press Foundation — 2026 digital security checklist](https://freedom.press/digisec/blog/journalists-digital-security-checklist/)
 - [Freedom of the Press Foundation — threat modeling on behalf of sources](https://freedom.press/digisec/blog/threat-modeling-sources-module/)
@@ -87,7 +91,7 @@ Protecting journalism and sources is an important purpose, but this guide **does
 - [Freedom of the Press Foundation — safeguarding sources in a raid](https://freedom.press/digisec/blog/safeguarding-sources-and-sensitive-information-in-the-event-of-a-raid/)
 - [Reporters Committee for Freedom of the Press — Reporter's Privilege Compendium](https://www.rcfp.org/introduction-to-the-reporters-privilege-compendium/)
 
-## See also
+## See Also
 
 - [OPSEC fundamentals](../README.md)
 - [Tails portable workstation guide](../tails-usb-setup-guide.md)

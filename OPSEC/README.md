@@ -24,7 +24,7 @@ Organize controls across five layers: **identity**, **network**, **endpoint**, *
 
 Help practitioners protect client information, separate professional and personal activities, and reduce exposure from operational mistakes. Select controls according to the information being protected and the capabilities of the expected adversary.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Preparing an authorized engagement requiring client confidentiality and operational separation.
 - Building an isolated research environment or reviewing an existing lab.
@@ -36,7 +36,7 @@ Help practitioners protect client information, separate professional and persona
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#overview)
 - [What is OPSEC?](#what-is-opsec)
@@ -78,7 +78,7 @@ This directory covers **operational security for authorized security work and pr
 ---
 
 <a id="what-is-opsec"></a>
-## 🔎 What is OPSEC?
+## 🔎 What Is OPSEC?
 
 **Operational Security (OPSEC)** is a process for identifying sensitive information, understanding how it could be exposed, and applying proportionate safeguards.
 
@@ -122,7 +122,8 @@ This directory covers **operational security for authorized security work and pr
 | **[Proxy types and Froxy research](./proxy-reference-froxy.md)** | Understand HTTP/HTTPS/SOCKS, DNS leaks and free-list discovery risks. | Lab-only Froxy library review; why untrusted proxies are inappropriate for client evidence and source protection. |
 
 <a id="press-freedom"></a>
-### Press Freedom, Source Protection and Duress Planning
+<a id="press-freedom-source-protection-and-duress-planning"></a>
+### Press Freedom, Source Protection & Duress Planning
 
 For journalists, newsroom security and confidential sources, use the dedicated [Press Freedom & Source Protection hub](./press-freedom/README.md). It covers [desktop, laptop, cellphone and network security](./press-freedom/device-network-protection.md), [lawful data minimization, retention, media sanitization and legal holds](./press-freedom/data-retention-removal.md), and [personal safety, coercion, detention and device-seizure response](./press-freedom/duress-seizure-response.md). Pair these with [encrypted storage](../Cryptography/encrypted-storage.md) and [FIDO2 passkeys/security keys](../Cryptography/security-keys-passkeys.md).
 
@@ -142,13 +143,14 @@ For journalists, newsroom security and confidential sources, use the dedicated [
 ---
 
 <a id="whonix-vs-tails"></a>
-## 🧭 Whonix vs. Tails: How They Work
+## 🧭 Whonix Vs. Tails: How They Work
 
 **Tails emphasizes temporary live sessions. Whonix separates applications from the Tor gateway and supports an ongoing workspace.** Both use Tor, but their operating models differ.
 
 **Comparison scope:** The Whonix column below describes this repository's **Kicksecure host on an encrypted external USB drive with VirtualBox**. The Tails column describes **Tails booted directly from USB**. Whonix also supports other deployments; these are not universal claims about every Whonix platform.
 
-### Whonix + Kicksecure: A Host and Two VMs
+<a id="whonix--kicksecure-a-host-and-two-vms"></a>
+### Whonix + Kicksecure: A Host & Two VMs
 
 - **Kicksecure** is the physical computer's host operating system in this setup. It runs VirtualBox and manages physical networking and storage.
 - **Whonix-Gateway** runs Tor and provides the Workstation's network path.
@@ -162,7 +164,7 @@ The host is installed onto the external drive; this is a full installation with 
 
 The separate Gateway helps contain direct IP leaks from Workstation applications. This assumes the isolation remains intact: host, hypervisor, or Gateway compromise can undermine it. Malware can still steal documents or account credentials through the permitted Tor connection.
 
-### Tails: A Live OS Booted Directly from USB
+### Tails: A Live OS Booted Directly From USB
 
 Tails starts directly on compatible hardware, independently of the installed everyday operating system. It does not need a separate desktop host and hypervisor for this setup.
 
@@ -170,7 +172,7 @@ Ordinary session changes are temporary. **Persistent Storage** is an optional en
 
 Tails uses Tor for normal Internet application activity. The **Unsafe Browser is an explicit exception**: it connects without Tor and exposes the connection's public IP address to websites. Use it only for its documented captive-portal or trusted local-network purpose, then close it. [^unsafe-browser]
 
-### Persistent vs. Live Is a Separate Choice
+### Persistent Vs. Live Is A Separate Choice
 
 Whonix normally retains changes. Optional live modes exist at the **guest** and **host** layers; guest-only live mode does not establish that the host leaves no artifacts. The Gateway requires an initial persistent boot for Tor entry-guard setup. Updates and baseline maintenance must also survive restart. [^whonix-live]
 
@@ -205,7 +207,8 @@ Architecture and retention details: [Whonix design](https://www.whonix.org/wiki/
 ---
 
 <a id="pros-and-cons"></a>
-## ⚖️ Pros and Cons
+<a id="️-pros-and-cons"></a>
+## ⚖️ Pros & Cons
 
 | Setup | ✅ Pros | ⚠️ Cons and Tradeoffs |
 |-------|---------|----------------------|
@@ -235,7 +238,7 @@ Architecture and retention details: [Whonix design](https://www.whonix.org/wiki/
 ---
 
 <a id="vpn-recommendations"></a>
-## 🌐 VPN Recommendations by Environment
+## 🌐 VPN Recommendations By Environment
 
 **Keep a trusted VPN connected at all times when practical and compatible with the task.** This is the repository's operational preference for ordinary operating systems, research workstations, and the Kicksecure host in this guide. It is not a claim that Whonix or Tails requires a VPN or that adding one guarantees stronger anonymity.
 
@@ -250,7 +253,7 @@ A correctly configured full-tunnel VPN encrypts traffic between the device and t
 | **Client and business environments** | Use the organization's approved VPN and routing policy. | A commercial privacy VPN must not conflict with required access, monitoring, or approved testing source IPs. |
 | **Malware labs** | Consider an approved VPN only at controlled egress when Internet access is authorized. | Keep samples isolated from the host, LAN, and business VPN; containment takes priority over tunnel availability. |
 
-### Whonix: Put the VPN Before Tor
+### Whonix: Put The VPN Before Tor
 
 The intended external connection order is **your computer → VPN server → Tor network → destination**. Configure the VPN on Kicksecure, outside the VMs. Host applications use the VPN; Whonix application traffic still uses Tor. Follow the [Whonix VPN-before-Tor documentation](https://www.whonix.org/wiki/Tunnels/Connecting_to_a_VPN_before_Tor), which is community-supported guidance.
 
@@ -260,7 +263,7 @@ The ISP sees the VPN connection; the VPN provider can associate your source conn
 
 Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does not work with VPNs directly. Do not retrofit a VPN client or alter its firewall to force this recommendation. A separately configured upstream VPN router can provide the VPN-before-Tor layer, but Tails cannot verify or enforce that router's tunnel. Tor bridges are another documented option when direct Tor access is blocked.
 
-### Verify the VPN Layer
+### Verify The VPN Layer
 
 - Check provider trust, supported clients, security maintenance, and configuration documentation. Treat logging claims as claims to evaluate, not guarantees.
 - Prefer full-tunnel routing for the intended coverage. Document any split-tunnel or LAN-access exceptions.
@@ -285,7 +288,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - Treat clipboard sharing, shared folders, USB passthrough, and file transfers as deliberate connections between compartments.
 - Remember that logging into a known personal account identifies that activity even when the connection uses Tor.
 
-### 2. Defense in Depth
+### 2. Defense In Depth
 
 - Combine verified software, supported updates, encryption, restricted networking, and secure communications.
 - Keep a trusted VPN connected whenever practical, following the [environment-specific recommendations](#vpn-recommendations). Configure automatic connection and a tested kill switch where supported.
@@ -306,7 +309,8 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - Use supported browser security levels for script restrictions rather than accumulating custom tweaks.
 - Treat NAT as a networking mode, not as proof that a VM cannot contact the host, LAN, or Internet. [^virtualbox]
 
-### 5. Need-to-Know and Data Minimization
+<a id="5-need-to-know-and-data-minimization"></a>
+### 5. Need-to-Know & Data Minimization
 
 - Grant access only to people who need the information.
 - Keep client material out of unrelated accounts and devices.
@@ -316,7 +320,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 ---
 
 <a id="activities"></a>
-## 🗂️ OPSEC Guidelines by Activity
+## 🗂️ OPSEC Guidelines By Activity
 
 ### Penetration Testing
 
@@ -335,7 +339,8 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - [ ] Deliver findings securely and revoke temporary access.
 - [ ] Preserve required evidence; dispose of remaining data under the agreed retention policy.
 
-### OSINT and Privacy-Focused Research
+<a id="osint-and-privacy-focused-research"></a>
+### OSINT & Privacy-Focused Research
 
 - Keep research accounts, recovery contacts, and browser state separate from personal identities.
 - Select Tails, Whonix, or an ordinary isolated research VM based on the task.
@@ -399,7 +404,7 @@ Use these practices for personal privacy, authorized research, education, and le
 
 Privacy tools do not create permission to access systems or remove accountability. Legal obligations depend on jurisdiction and circumstances; consult the [repository legal notice](../LEGAL.md) and qualified advice where needed.
 
-### Technical Limits to Plan Around
+### Technical Limits To Plan Around
 
 - **Physical access:** An unlocked system exposes data regardless of storage encryption.
 - **Hardware and firmware:** Booting from USB does not neutralize a hardware keylogger or compromised firmware.
@@ -411,7 +416,7 @@ Privacy tools do not create permission to access systems or remove accountabilit
 ---
 
 <a id="incident-response"></a>
-## 🚨 Incident Response for OPSEC Breaches
+## 🚨 Incident Response For OPSEC Breaches
 
 1. **Stop affected activity** and avoid entering new credentials on the suspect system.
 2. **Isolate the affected environment** according to the response plan.
@@ -444,7 +449,8 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 ---
 
 <a id="resources"></a>
-## 📚 Resources and Related Files
+<a id="-resources-and-related-files"></a>
+## 📚 Resources & Related Files
 
 ### Repository Navigation
 
@@ -455,7 +461,8 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 - [Tradecraft](../Tradecraft/)
 - [Master Index](../README.md)
 
-### Official Whonix and Kicksecure Documentation
+<a id="official-whonix-and-kicksecure-documentation"></a>
+### Official Whonix & Kicksecure Documentation
 
 - [Whonix technical design](https://www.whonix.org/wiki/Technical_Introduction)
 - [Whonix USB installation](https://www.whonix.org/wiki/USB_Installation)
@@ -475,7 +482,7 @@ Avoid guarantees such as “untraceable,” “zero leaks,” or “leaves no ev
 - [Unsafe Browser](https://tails.net/doc/anonymous_internet/unsafe_browser/index.en.html)
 - [Upgrading Tails](https://tails.net/doc/upgrade/index.en.html)
 
-### Off-grid secure messaging (separate from Tor anonymity)
+### Off-grid Secure Messaging (Separate From Tor Anonymity)
 
 - [Reticulum](https://github.com/markqvist/Reticulum) is a cryptography-based transport/network stack for experimenting with resilient low-bandwidth links.
 - [Sideband](https://github.com/markqvist/Sideband) is an LXMF-compatible messaging client for supported platforms, useful for explicitly scoped off-grid communications exercises.
