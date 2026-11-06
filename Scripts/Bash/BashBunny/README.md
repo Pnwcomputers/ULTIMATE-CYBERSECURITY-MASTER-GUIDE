@@ -20,7 +20,7 @@ The Bash Bunny is a multi-function USB attack platform that can emulate keyboard
 
 ## Initial Bash Bunny Setup
 
-### First-Time Configuration
+### First-time Configuration
 
 1. **Connect Bash Bunny in Arming Mode**
    - Set switch to position closest to USB connector (Switch 3)
@@ -52,7 +52,7 @@ The Bash Bunny is a multi-function USB attack platform that can emulate keyboard
 
 ## Payload Deployment
 
-### Switch-Based Operation
+### Switch-based Operation
 
 The Bash Bunny has a **3-position switch**:
 
@@ -131,9 +131,9 @@ ATTACKMODE ETHERNET               # Network adapter
 ATTACKMODE HID STORAGE ETHERNET   # All three
 ```
 
-## LED Status Indicators
+## Led Status Indicators
 
-### LED Colors
+### Led Colors
 ```bash
 LED R           # Red
 LED G           # Green  
@@ -144,7 +144,7 @@ LED M           # Magenta
 LED W           # White
 ```
 
-### LED Patterns
+### Led Patterns
 ```bash
 LED R           # Solid red
 LED R SLOW      # Slow blinking red
@@ -155,7 +155,7 @@ LED R DOUBLE    # Double blink
 LED R TRIPLE    # Triple blink
 ```
 
-### Standard LED Usage
+### Standard Led Usage
 ```bash
 LED SETUP       # Magenta - Setup/initialization
 LED ATTACK      # Yellow - Active attack
@@ -164,7 +164,7 @@ LED FAIL        # Red - Failure/error
 LED FINISH      # Green - Success/complete
 ```
 
-## HID (Keyboard) Commands
+## Hid (Keyboard) Commands
 
 ### Keystroke Injection
 
@@ -245,7 +245,7 @@ sync
     └── found_creds.txt
 ```
 
-## Platform-Specific Payloads
+## Platform-specific Payloads
 
 ### Windows Payloads
 ```bash
@@ -369,7 +369,7 @@ LED ATTACK
 
 ## Configuration Files
 
-### Config.Txt (Optional)
+### Config.txt (Optional)
 
 Create `/root/udisk/config.txt` for global settings:
 ```bash
@@ -455,7 +455,7 @@ cp /payloads/library/example_payload/payload.txt /payloads/switch1/
 
 ## Best Practices
 
-### 1. LED Feedback
+### 1. Led Feedback
 Always use LED indicators to show payload status:
 ```bash
 LED SETUP     # Starting
@@ -507,7 +507,7 @@ fi
 
 ## Security & Legal
 
-### ⚠️ LEGAL NOTICE
+### ⚠️ Legal Notice
 
 **Authorized use only:**
 - ✓ Personal systems you own

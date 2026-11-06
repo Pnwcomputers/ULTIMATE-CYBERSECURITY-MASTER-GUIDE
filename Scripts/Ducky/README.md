@@ -147,7 +147,7 @@ REM =============================================
 
 ## Security & Ethics
 
-### ⚠️ IMPORTANT LEGAL NOTICE
+### ⚠️ Important Legal Notice
 
 **These tools are for AUTHORIZED use only:**
 - ✓ Personal systems you own
@@ -174,7 +174,7 @@ For legitimate IT/security work:
 4. **Follow** responsible disclosure practices
 
 <a id="companion-usb-hid-research-different-firmware-and-build-process"></a>
-## Companion USB HID Research (Different Firmware & Build Process)
+## Companion USB Hid Research (Different Firmware & Build Process)
 
 [Pico WiFi Duck](https://github.com/majdsassi/Pico-WIFI-Duck) explores Wi-Fi-controlled HID emulation using a Raspberry Pi Pico W. It is **not Hak5 USB Rubber Ducky hardware**; this guide's DuckyScript, `inject.bin`, device setup and supported commands cannot be assumed compatible. Use a disposable test host, restrict wireless access, and do not reuse old linked firmware downloads without verifying the source and release integrity.
 

@@ -209,7 +209,7 @@ Every space system consists of three interdependent segments. A compromise of an
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️

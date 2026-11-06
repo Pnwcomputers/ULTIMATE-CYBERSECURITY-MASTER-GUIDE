@@ -63,7 +63,7 @@ When looking for an existing script before writing a new one, or when unsure wha
 
 This directory contains **security automation scripts, penetration testing tools, and utility programs** written in multiple programming languages. These scripts are designed for authorized security testing, research, and educational purposes.
 
-### 🔴 CRITICAL WARNING
+### 🔴 Critical Warning
 
 ```
 ⚠️ THESE ARE OFFENSIVE SECURITY TOOLS ⚠️
@@ -164,7 +164,7 @@ MUST be compiled and tested in isolated environments before use.
 
 ---
 
-### 3. PowerShell Scripts
+### 3. Powershell Scripts
 
 **Location**: `/Scripts/PowerShell/`
 
@@ -377,7 +377,7 @@ ONLY use on systems you own or have explicit written permission to test.
 
 *Do not run unreviewed or out-of-scope automation on client systems.*
 
-### ⚠️ BEFORE RUNNING ANY SCRIPT
+### ⚠️ Before Running Any Script
 
 ```
 MANDATORY CHECKLIST:
@@ -454,7 +454,7 @@ Safe Learning Environments ONLY:
 
 ### Script Usage Guidelines
 
-#### PowerShell Scripts
+#### Powershell Scripts
 
 ```powershell
 # EXAMPLE: Running in authorized test environment
@@ -512,9 +512,9 @@ cat results.txt
 
 ---
 
-## ⚠️ CRITICAL Security & Legal Warning
+## ⚠️ Critical Security & Legal Warning
 
-### 🔴 FEDERAL CRIME WARNING
+### 🔴 Federal Crime Warning
 
 ```
 ═══════════════════════════════════════════════════════════════
@@ -558,7 +558,7 @@ International Laws:
 ═══════════════════════════════════════════════════════════════
 ```
 
-### Script-Specific Legal Warnings
+### Script-specific Legal Warnings
 
 #### Credential Harvesting Tools
 
@@ -696,7 +696,7 @@ PENALTIES:
    • Regulatory fines (GDPR: up to 4% global revenue)
 ```
 
-#### Industrial Control Systems (ICS/SCADA) Tools
+#### Industrial Control Systems (Ics/Scada) Tools
 
 ```
 🔴 EXTREME DANGER: Critical Infrastructure Attacks
@@ -1070,7 +1070,7 @@ We welcome contributions from security professionals, but all scripts must meet 
 
 ## 🎓 Critical Reminders
 
-### ALWAYS REMEMBER
+### Always Remember
 
 ```
 1. AUTHORIZATION IS MANDATORY

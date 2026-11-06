@@ -16,7 +16,7 @@ Post-flash setup and recovery references for ClockworkPi uConsole systems. Choos
 | [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | **CM4 v2.0** read-only preflight by default; optional AIO package on Debian or toolkit on native Kali, with configuration backup and APT simulation |
 | [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay and historical desktop diagnosis **read-only by default**; explicit `--apply` required for changes, not a general desktop recovery tool |
 
-## ⚙️ CM5 V1.4 Behavior
+## ⚙️ Cm5 V1.4 Behavior
 
 | Phase | Behavior |
 |---|---|
@@ -39,7 +39,7 @@ hardware. The candidate intentionally reduces the old installer's scope.
 
 APT installations use `--no-remove` and stop on failure. Dependency upgrades and package-maintainer script changes are still possible. Review on spare media before broad use.
 
-## 🚀 CM4 V2.0 Usage
+## 🚀 Cm4 V2.0 Usage
 
 > [!CAUTION]
 > Earlier CM4 v1.x automation mixed Kali and Debian repositories, forced package overwrites and executed unchecked remote installers. **Do not run the old v1.x script.** The version below doesn't perform desktop, EEPROM, NVMe or GPIO changes, nor does it guarantee AIO hardware works on every image.
@@ -64,7 +64,7 @@ sudo bash uConsole/scripts/uconsole-cm4-setup.sh --snapshot
 
 The installer refuses hardware other than CM4 and Debian systems containing Kali sources. It requires confirmation for writes, snapshots selected configuration, simulates APT and refuses planned removals. It does not install `aiov2_ctl` from a moving Git branch or write `config.txt`. Follow [CM4 manual hardware steps](../CM4-SETUP.md), [review notes](../CM4-SAFETY-REVIEW.md) and current [HackerGadgets instructions](https://github.com/hackergadgets/aiov2_ctl) after verifying hardware/image compatibility.
 
-## 🚀 CM5 V1.4 Usage
+## 🚀 Cm5 V1.4 Usage
 
 Inspect the currently checked-out CM5 script and confirm `--help` reports v1.4. Do not use an older v1.3 script from a stale local copy.
 
@@ -107,7 +107,7 @@ The new installer runs selected operations in one invocation rather than automat
 reboots. Reboot manually when appropriate after optional package installations; test login, orientation, panel and
 input before adding more software.
 
-## 🩺 CM4/CM5 Repair Tool: Diagnose First
+## 🩺 Cm4/Cm5 Repair Tool: Diagnose First
 
 ~~~bash
 # Read-only by default; must currently be run as root for full diagnosis

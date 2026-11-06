@@ -1,4 +1,4 @@
-# Shells & AV-Bypass Stagers
+# Shells & Av-bypass Stagers
 
 > ⚠️ **AUTHORIZED USE ONLY.** The code in this folder is offensive tradecraft — reverse
 > shells, shellcode stagers, and AV-bypass delivery helpers. Use it strictly against

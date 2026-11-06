@@ -8,7 +8,7 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
 <a id="integrated-png-and-svg-diagrams"></a>
-## Integrated PNG & SVG Diagrams
+## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
 |---|---|---|
@@ -25,7 +25,7 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
 
-## Expanded Topical SVG Diagrams (November 2026)
+## Expanded Topical Svg Diagrams (November 2026)
 
 These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
 

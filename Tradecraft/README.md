@@ -60,7 +60,7 @@ These references are structured for **dual-use** - each file covers both offensi
 
 ---
 
-## MITRE ATT&CK Coverage
+## MITRE Att&Ck Coverage
 
 | File | Primary ATT&CK Tactics |
 |---|---|

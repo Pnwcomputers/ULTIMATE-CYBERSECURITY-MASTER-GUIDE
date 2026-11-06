@@ -106,7 +106,7 @@ board.
 
 ---
 
-## ⚖️ CM4 Vs CM5 - Quick Reference
+## ⚖️ Cm4 Vs Cm5 - Quick Reference
 
 | Feature | CM4 | CM5 |
 |---|---|---|
@@ -130,7 +130,7 @@ board.
 
 ---
 
-## 🐧 Kali OS Options
+## 🐧 Kali Os Options
 
 These guides cover **two distinct operating-system families**, not two flavors of Kali. Avoid cross-distribution APT source mixing:
 
@@ -153,7 +153,7 @@ guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 
 ---
 
-## 📡 AIO V2 Board Capabilities
+## 📡 Aio V2 Board Capabilities
 
 ### Integrated Peripherals
 
@@ -174,7 +174,7 @@ guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 | **LoRa** | SX1262 transceiver | 433 or 915 MHz (region-dependent) |
 | **GPS** | GPS/BDS/GNSS receiver | Active or passive GPS antenna |
 
-### GPIO Control Tool - aiov2_ctl
+### Gpio Control Tool - aiov2_ctl
 
 All peripherals are controlled via GPIO using `aiov2_ctl` ([GitHub](https://github.com/hackergadgets/aiov2_ctl)):
 
@@ -190,7 +190,7 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 ---
 
 <a id="️-cm4-review-and-safest-starting-point"></a>
-## 🛡️ CM4 Review & Safest Starting Point
+## 🛡️ Cm4 Review & Safest Starting Point
 
 The [CM4 safety and migration review](./CM4-SAFETY-REVIEW.md) explains why the old CM4 installer was retired. For an existing CM4, start with:
 
