@@ -22,6 +22,7 @@
 
 ## 📋 Table of Contents
 
+- [Practical AI usage, project planning and independent verification](#practical-ai-usage-project-planning-and-independent-verification)
 - [Overview](#-overview)
 - [Folder Contents](#-folder-contents)
 - [Resource Categories](#️-resource-categories)
@@ -65,6 +66,10 @@ This directory contains **resources, configurations, guides, and methodologies**
 - Offline/air-gapped LLM deployment guides for sensitive environments
 
 ---
+
+## Practical AI usage, project planning and independent verification
+
+New to using AI effectively? Start with [AI Usage and Interaction](ai-usage-interaction-guide.md), then [Project/Agent Lanes, Goals and Resume](agent-project-workflows.md), [Fact-Checking and AI Audits](verification-and-ai-audits.md), and [Projects, Notebooks, GPTs and Plugins](ai-workspaces-notebooks-and-assistants.md). These guides cover practical interaction, durable state, evidence and human oversight; deployment-specific guides below remain separate.
 
 ## 📂 Folder Contents
 
