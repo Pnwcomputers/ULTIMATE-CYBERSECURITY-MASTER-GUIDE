@@ -22,7 +22,7 @@
 
 ## 📋 Table Of Contents
 
-- [Practical AI usage, project planning and independent verification](#practical-ai-usage-project-planning-and-independent-verification)
+- [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
 - [Overview](#-overview)
 - [Folder Contents](#-folder-contents)
 - [Resource Categories](#️-resource-categories)
@@ -67,6 +67,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
+<a id="practical-ai-usage-project-planning-and-independent-verification"></a>
 ## Practical AI Usage, Project Planning/Management & Provided Data Verification
 
 | File/Folder | Description |
@@ -110,7 +111,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-### 2. 🧠 Genai / LLM Applications For Security
+### 2. 🧠 GenAI / LLM Applications For Security
 
 **Purpose**: Apply large language models to security operations tasks - report generation, log analysis, threat hunting, and SOC automation.
 

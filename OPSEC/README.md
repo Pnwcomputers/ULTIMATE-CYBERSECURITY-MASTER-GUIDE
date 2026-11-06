@@ -164,7 +164,7 @@ The host is installed onto the external drive; this is a full installation with 
 
 The separate Gateway helps contain direct IP leaks from Workstation applications. This assumes the isolation remains intact: host, hypervisor, or Gateway compromise can undermine it. Malware can still steal documents or account credentials through the permitted Tor connection.
 
-### Tails: A Live Os Booted Directly From USB
+### Tails: A Live OS Booted Directly From USB
 
 Tails starts directly on compatible hardware, independently of the installed everyday operating system. It does not need a separate desktop host and hypervisor for this setup.
 

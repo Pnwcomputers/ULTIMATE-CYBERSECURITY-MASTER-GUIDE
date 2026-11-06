@@ -98,7 +98,7 @@ Unified **SIEM/XDR** on a single open-source platform. Covers all-in-one install
 ### 🔷 [Splunk](./splunk.md)
 Deploys **Splunk Free (500 MB/day)** or Enterprise trial. Covers indexer/search-head install, **Universal Forwarder** setup for Windows/Linux, index and sourcetype design, **SPL** query writing (`stats`, `eval`, `transaction`, `lookup`), Splunk Security Essentials, saved searches/alerts, and BOSS of the SOC (BOTS) training data. Lowest barrier to a first working search.
 
-### 🦌 [Elk Stack](./elk_stack.md)
+### 🦌 [ELK Stack](./elk_stack.md)
 The classic **Elasticsearch + Logstash + Kibana** stack via Docker Compose. Covers cluster setup, **Beats** deployment (Filebeat/Winlogbeat/Auditbeat), Logstash pipelines, index lifecycle management, Kibana Lens dashboards, Elastic SIEM detection rules, and performance tuning. Most flexible, most assembly required.
 
 ### 🟢 [Graylog](./graylog.md)

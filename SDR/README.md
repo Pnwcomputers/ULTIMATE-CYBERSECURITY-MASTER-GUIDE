@@ -1,4 +1,4 @@
-# 📻 Software Defined Radio (SDR), RF, NFC/RFID, Sub-ghz Security
+# 📻 Software Defined Radio (SDR), RF, NFC/RFID, Sub-GHz Security
 
 <div align="center">
 

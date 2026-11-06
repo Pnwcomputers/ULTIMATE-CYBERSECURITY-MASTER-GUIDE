@@ -275,7 +275,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
 - **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
-### 🎯 ATTACK Case Studies (10+ Analyzed)
+### 🎯 Attack Case Studies (10+ Analyzed)
 
 | Incident | Type |
 |---|---|
@@ -617,7 +617,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 10. **Ethical Hacking MindMap** - Educational material
 11. **Introduction to Ethical Hacking** - Chinni Diwakar · Educational material
 
-### Ii. Penetration Testing & Operations
+### II. Penetration Testing & Operations
 
 12. **Penetration Testing: A Hands-On Introduction to Hacking** - Georgia Weidman · No Starch Press · 2014 · ISBN 978-1593275648
 13. **The Hacker Playbook 3: Red Team Edition** - Peter Kim · Secure Planet · 2018 · ISBN 978-1980901754
@@ -630,14 +630,14 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 20. **Pentest in Office365 and Security** - Joas Antonio · Educational material
 21. **Exploiting Misconfigurations (CSP Bypass)** - Jamy Casteel · GIAC/SANS Gold Paper · 2021
 
-### Iii. Defense & Team Strategies
+### III. Defense & Team Strategies
 
 22. **RTFM: Red Team Field Manual** - Ben Clark · CreateSpace · 2014 · ISBN 978-1494295509
 23. **Blue Team Field Manual (BTFM)** - Alan J. White, Ben Clark · CreateSpace · 2017 · ISBN 978-1541216044
 24. **Purple Team Field Manual (PTFM)** - Tim Bryant · Self-published · 2020
 25. **Jump-start Your SOC Analyst Career** - Tyler Wall, Jarrett Rodrick · Apress · 2021 · ISBN 978-1484269039
 
-### Iv. Operating Systems, Tools & Frameworks
+### IV. Operating Systems, Tools & Frameworks
 
 26. **Kali Linux Revealed** - Raphaël Hertzog, Jim O'Gorman, Mati Aharoni · Offsec Press · 2017 · ISBN 978-0-9976402-0-2
 27. **Mastering Kali Linux for Advanced Penetration Testing** - Robert W. Beggs · Packt · 2014 · ISBN 978-1782169735
@@ -666,7 +666,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 47. **SQL Injection - Comprehensive Guide** - Educational material
 48. **Learn SQL Using Squid Game** - @codechips (Cody) · Educational material
 
-### Vi. Wireless & Mobile Hacking
+### VI. Wireless & Mobile Hacking
 
 49. **WiFi Hacking for Beginners** - James Wells · Self-published
 50. **Kali Linux Wireless Pentesting and Security for Beginners** - Hardeep Singh · 2017
@@ -674,14 +674,14 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 52. **Hacking HLR, HSS and MME Core Network Elements** - Philippe Langlois · Black Hat USA 2014
 53. **Hacking LTE Public Warning Systems** - Weiguang Li · HAXPO Conference
 
-### Vii. Reverse Engineering & Exploit Development
+### VII. Reverse Engineering & Exploit Development
 
 54. **Practical Reverse Engineering** - Dang, Gazet, Bachaalany · Wiley · 2014 · ISBN 978-1118787311
 55. **Mastering Reverse Engineering** - Reginald Wong · Packt · 2018 · ISBN 978-1788832918
 56. **Reverse Engineering for Beginners** - Dennis Yurichev · Creative Commons · 2016
 57. **Reverse Engineering for Beginners (Lite)** - Dennis Yurichev · Creative Commons
 
-### Viii. Programming & Data Science For Security
+### VIII. Programming & Data Science For Security
 
 58. **Black Hat Python** - Justin Seitz · No Starch Press · 2014 · ISBN 978-1593275907
 59. **Violent Python** - TJ O'Connor · Syngress · 2012 · ISBN 978-1597499576
@@ -694,7 +694,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 66. **Long Short-Term Memory Networks with Python** - Jason Brownlee · Machine Learning Mastery · 2017
 67. **Machine Learning with Python for Everyone** - Mark E. Fenner · Addison-Wesley
 
-### Ix. Social Engineering & Forensics
+### IX. Social Engineering & Forensics
 
 68. **Social Engineering: The Science of Human Hacking** - Christopher Hadnagy · Wiley · 2018 · ISBN 978-1119433385
 69. **The Art of Invisibility** - Kevin Mitnick · Little, Brown & Company · 2017 · ISBN 978-0316380492
