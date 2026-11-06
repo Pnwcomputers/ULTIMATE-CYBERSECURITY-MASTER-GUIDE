@@ -16,13 +16,29 @@
 
 **More defensive resources:** [Curated detection, DFIR, Suricata and YARA research](../Documentation/awesome-hacking-collections-integration.md) maps external source projects to existing PNWC field guides.
 
-**Packet capture triage:** [Wireshark master filter list](../Documentation/wireshark-master-filters.md) · [field cheat sheet](../Documentation/wireshark-cheatsheet.md) · [advanced capture guide](../Documentation/wireshark.md). Capture scope and evidence interpretation are separate from Wazuh detections.
+| Reference | Context |
+|---|---|
+| [Wireshark master filter list](../Documentation/wireshark-master-filters.md) | Packet Capture Triage |
+| [field cheat sheet](../Documentation/wireshark-cheatsheet.md) | Packet Capture Triage |
+| [advanced capture guide](../Documentation/wireshark.md) | Capture scope and evidence interpretation are separate from Wazuh detections |
 
-**Honeypot & Wazuh labs:** [Honeypot index](./HoneyPot/readme.md) · [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) · [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md). Compare against [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md).
+| Reference | Context |
+|---|---|
+| [Honeypot index](./HoneyPot/readme.md) | Honeypot & Wazuh Labs |
+| [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) | Honeypot & Wazuh Labs |
+| [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) | Honeypot & Wazuh Labs |
+| [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) | Honeypot & Wazuh Labs |
+| [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md) | Compare with wireless detection guides below |
+| [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) | Honeypot & Wazuh Labs |
+| [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Honeypot & Wazuh Labs |
 
 **Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
 
-**Evidence and detection companion guides:** [Velociraptor/ForensicArtifacts triage](Digital-Forensics/velociraptor-artifact-triage.md) · [Sigma/Elastic/Wazuh detection content validation](SIEM/detection-content-validation.md) · [Atomic Red Team lab verification](../PlayBooks/purple-team-detection-validation.md). Scope collection and simulated behavior before using any client environment.
+| Reference | Context |
+|---|---|
+| [Velociraptor/ForensicArtifacts triage](Digital-Forensics/velociraptor-artifact-triage.md) | Evidence & Detection Companion Guides |
+| [Sigma/Elastic/Wazuh detection content validation](SIEM/detection-content-validation.md) | Evidence & Detection Companion Guides |
+| [Atomic Red Team lab verification](../PlayBooks/purple-team-detection-validation.md) | Scope collection and simulated behavior before using any client environment |
 
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.
