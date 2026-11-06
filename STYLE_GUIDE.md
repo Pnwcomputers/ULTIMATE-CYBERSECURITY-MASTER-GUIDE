@@ -4,6 +4,7 @@
 **External writing references:** [Curated technical docs](./Documentation/curated-technical-docs.md) links to [Diátaxis](https://diataxis.fr/) for tutorials/how-tos/references/explanations, the [Google Developer Documentation Style Guide](https://developers.google.com/style) and other examples collected in [Beautiful Docs](https://github.com/matheusfelipeog/beautiful-docs). Treat these as inspiration; repository conventions below take precedence.
 
 - **Title & Headers:** Every Markdown file must begin with a single Level 1 Heading (`# Title`).
+- **Heading Title Case:** Capitalize the first letter of each significant word in Markdown headings and use `&` instead of the standalone word `and`. Preserve legitimate casing of technical acronyms and product names (for example, OSINT, SIEM, Wireshark, nzyme, uConsole, IoT, and README.md). Do not modify source code, link destinations, file names, or literal identifiers to enforce display style.
 - **Section Headers:** Use Level 2 (`##`) and Level 3 (`###`) headings logically. Do not skip levels (e.g. going from `#` straight to `####`).
 - **GitHub Alerts:** Use standard GitHub markdown alerts for notes, tips, warnings, and disclaimers:
   ```markdown
@@ -68,6 +69,10 @@ boundary near the top. It **adds** context; it never replaces or removes content
 
 ## 5. Cross-Referencing & Navigation
 
+- **Resource Navigation Tables:** Use two-column Markdown tables (`Resource | Description` or `Goal | Recommended Route`) for collections of navigation links rather than dense inline link paragraphs. Keep one clearly named entry per row and a useful description; for longer task routes, use a numbered `Step | Guide / Activity` table. Keep actual checklists and commands in their appropriate list or code formats.
+- **Mobile Readability:** Prefer short labels and two columns in navigation tables; avoid long unbroken URL strings and excessive links in a single cell. Do not convert every instructional list into a table.
+- **Anchor Compatibility:** If renaming a heading changes the GitHub-generated fragment, preserve old incoming links with a unique explicit `<a id="old-fragment"></a>` anchor and update local table-of-contents text and targets.
+- **Navigation QA:** Check that every new guide is reachable from its nearest section index, that root/role navigation reaches each section, and that all relative paths and in-page fragments resolve before merging.
 - **Navigation Footer:** Long guides should end with a standard navigation footer:
   ```markdown
   ---
