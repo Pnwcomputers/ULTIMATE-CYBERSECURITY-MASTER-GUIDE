@@ -98,6 +98,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ### Core References
 
+**AI operation and verification:** [Practical AI Usage](./AI/ai-usage-interaction-guide.md) · [Agent/Project Lanes and Milestones](./AI/agent-project-workflows.md) · [Fact-Checking and AI Audits](./AI/verification-and-ai-audits.md) · [Notebooks, GPTs and Plugins](./AI/ai-workspaces-notebooks-and-assistants.md).
+
+
 | Resource | Description |
 |---|---|
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
