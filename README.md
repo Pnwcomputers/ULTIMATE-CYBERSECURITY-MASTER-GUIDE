@@ -40,23 +40,31 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 ---
 ## 🎯 START HERE
 
-### 🆕 New to IT/Computers/Networks in General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
+### 🆕 New To IT/Computers/Networks In General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
 
-### ⭐ **[START_HERE.md](./START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
+### ⭐ **[START_HERE.Md](./START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
 
 Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
 
 
 ---
 
-## 🧭 Navigate by Area
+## 🧭 Navigate By Area
 
 
 **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) — model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources.
 
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
 
-**Quick Paths for Defensive Security:** [Incident Response](./IncidentResponse/README.md) · [Honeypot platforms and DIY sensors](./IncidentResponse/HoneyPot/readme.md) · [Kismet/nzyme IDS and IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Wazuh and other SIEMs](./IncidentResponse/SIEM/README.md) · [Wireless/wardriving](./Wardriving/README.md).
+### Defensive Security Quick Paths
+
+| Resource | Description |
+|---|---|
+| [Incident Response](./IncidentResponse/README.md) | Blue Team triage and incident response |
+| [Honeypot Platforms & DIY Sensors](./IncidentResponse/HoneyPot/readme.md) | Defensive deception labs and reporting |
+| [Kismet/nzyme IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and network intrusion detection |
+| [Wazuh & Other SIEMs](./IncidentResponse/SIEM/README.md) | Centralized logs, detections and alerts |
+| [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |
 
 A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 [START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
@@ -94,15 +102,26 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
 
-**Curated research and practice:** [M5StickC Plus2 hardware lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) · [Cypherpunk historical toolkit review](./Documentation/cypherpunk-pentesting-toolkit-review.md) · [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) · [Awesome-Hacking / h4cker / training ecosystems](./Documentation/awesome-hacking-collections-integration.md) · [ethical CTF pathways](./PlayBooks/security-training-lab-pathways.md). These are source-attributed references, not claims that every upstream tool is installed or tested.
-
-### Core References
-
-**AI operation and verification:** [Practical AI Usage](./AI/ai-usage-interaction-guide.md) · [Agent/Project Lanes and Milestones](./AI/agent-project-workflows.md) · [Fact-Checking and AI Audits](./AI/verification-and-ai-audits.md) · [Notebooks, GPTs and Plugins](./AI/ai-workspaces-notebooks-and-assistants.md).
-
+### Curated Research & Practice
 
 | Resource | Description |
 |---|---|
+| [M5StickC Plus2 Hardware Lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Portable, model-specific hardware lab guidance |
+| [Cypherpunk Historical Toolkit Review](./Documentation/cypherpunk-pentesting-toolkit-review.md) | Historical tools and their modern relevance |
+| [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) | Curated OSINT discovery and research resources |
+| [Awesome-Hacking / h4cker / Training Ecosystems](./Documentation/awesome-hacking-collections-integration.md) | Curated security-project and learning references |
+| [Ethical CTF Pathways](./PlayBooks/security-training-lab-pathways.md) | Controlled lab and training progression |
+
+These are source-attributed references, not claims that every upstream tool is installed or tested.
+
+### Core References
+
+| Resource | Description |
+|---|---|
+| **[Practical AI Usage](./AI/ai-usage-interaction-guide.md)** | Prompts, instructions, context, privacy and verifying results |
+| **[Agent/Project Lanes & Milestones](./AI/agent-project-workflows.md)** | Goals, milestones, role-based agents, reviews and resume checkpoints |
+| **[Fact-Checking & AI Audits](./AI/verification-and-ai-audits.md)** | Evidence-based checking of claims, sources and agent actions |
+| **[Notebooks, GPTs & Plugins](./AI/ai-workspaces-notebooks-and-assistants.md)** | Projects, notebooks, reusable assistants and integrations |
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
 | **[Staged Client Security Assessment Blueprint](./PlayBooks/assessment-service-integration-map.md)** | Consent, OWASP/SCuBA checks, endpoint/DFIR collection, Atomic/Sigma validation, supply-chain checks, findings and retests |
@@ -271,7 +290,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 🔧 Hardware Arsenal Documented
 
-**Multi-tools:** [Flipper Zero](https://flipper.net/) · [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple) · [Proxmark3](https://proxmark.com/)
+| Multi-Tool | Reference |
+|---|---|
+| Flipper Zero | [Project](https://flipper.net/) |
+| WiFi Pineapple | [Product](https://shop.hak5.org/products/wifi-pineapple) |
+| Proxmark3 | [Project](https://proxmark.com/) |
 
 ### 📟 uConsole & Portable Operations
 
@@ -281,11 +304,21 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This secti
 - **SDR & Wireless Assessments:** Configurations for running Wireshark, Kismet, and RTL-SDR in the field.
 - **Hardware Interfacing:** Using the uConsole for serial connections, hardware debugging, and local network audits.
 
-**Hak5 Suite:** [Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky) · [Bash Bunny](https://shop.hak5.org/products/bash-bunny) · [LAN Turtle](https://shop.hak5.org/products/lan-turtle) · [Packet Squirrel](https://shop.hak5.org/products/packet-squirrel) · [Shark Jack](https://shop.hak5.org/products/shark-jack) · [O.MG Cable](https://shop.hak5.org/products/omg-cable)
-
-**RF / SDR:** [HackRF One](https://greatscottgadgets.com/hackrf/) · [RTL-SDR](https://www.rtl-sdr.com/) · [Ubertooth One](https://greatscottgadgets.com/ubertoothone/) · [YardStick One](https://greatscottgadgets.com/yardstickone/)
-
-**WiFi Adapters:** Alfa AWUS036ACH · Alfa AWUS036NHA · TP-Link TL-WN722N
+| Category | Device | Reference |
+|---|---|---|
+| Hak5 Suite | Rubber Ducky | [Product](https://shop.hak5.org/products/usb-rubber-ducky) |
+| Hak5 Suite | Bash Bunny | [Product](https://shop.hak5.org/products/bash-bunny) |
+| Hak5 Suite | LAN Turtle | [Product](https://shop.hak5.org/products/lan-turtle) |
+| Hak5 Suite | Packet Squirrel | [Product](https://shop.hak5.org/products/packet-squirrel) |
+| Hak5 Suite | Shark Jack | [Product](https://shop.hak5.org/products/shark-jack) |
+| Hak5 Suite | O.MG Cable | [Product](https://shop.hak5.org/products/omg-cable) |
+| RF / SDR | HackRF One | [Project](https://greatscottgadgets.com/hackrf/) |
+| RF / SDR | RTL-SDR | [Project](https://www.rtl-sdr.com/) |
+| RF / SDR | Ubertooth One | [Project](https://greatscottgadgets.com/ubertoothone/) |
+| RF / SDR | YardStick One | [Project](https://greatscottgadgets.com/yardstickone/) |
+| Wi-Fi Adapter | Alfa AWUS036ACH | Hardware reference |
+| Wi-Fi Adapter | Alfa AWUS036NHA | Hardware reference |
+| Wi-Fi Adapter | TP-Link TL-WN722N | Hardware reference |
 
 ---
 
@@ -335,7 +368,7 @@ Original compilation figures such as the number of internal PNWC documents are p
 
 This guide stands on the shoulders of the global cybersecurity community.
 
-### 📎 Cited Sources for Curated Reference Additions
+### 📎 Cited Sources For Curated Reference Additions
 
 The following external resources informed **selected, original PNWC reference
 pages**; their content is not bulk mirrored. Links point to the source projects
@@ -358,7 +391,7 @@ changes. See [legal terms](./LEGAL.md).
 
 **Other already-integrated references:** [Devhints commands (merged PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156) from [rstacruz/cheatsheets](https://github.com/rstacruz/cheatsheets), [Public APIs catalog (merged PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157) from [public-apis/public-apis](https://github.com/public-apis/public-apis), and [Beautiful Docs/Froxy/Docker references (merged PR #158)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/158).
 
-### 📎 Additional Sourced Assessment, Detection and Research Workflows
+### 📎 Additional Sourced Assessment, Detection & Research Workflows
 
 New PNWC guides are original summaries and procedural checklists with direct
 links to upstream source repositories. **Documentation-only integration does
@@ -567,7 +600,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 56. **Reverse Engineering for Beginners** - Dennis Yurichev · Creative Commons · 2016
 57. **Reverse Engineering for Beginners (Lite)** - Dennis Yurichev · Creative Commons
 
-### VIII. Programming & Data Science for Security
+### VIII. Programming & Data Science For Security
 
 58. **Black Hat Python** - Justin Seitz · No Starch Press · 2014 · ISBN 978-1593275907
 59. **Violent Python** - TJ O'Connor · Syngress · 2012 · ISBN 978-1597499576
