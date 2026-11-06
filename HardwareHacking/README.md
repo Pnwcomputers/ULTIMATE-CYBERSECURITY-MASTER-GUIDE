@@ -25,14 +25,14 @@ Links to five chapter guides (threat modeling, electrical fundamentals, fault in
 ## 🏆 Goal
 Serve as the entry point for hardware security work - helping practitioners find the right chapter or tool guide for their current task without reading the full guide linearly.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting a hardware security assessment: choose the right chapter and tool for your target
 - Identifying which hardware tool to use for a given protocol or attack type
 - Onboarding to hardware hacking: read chapters in order, then reference tool files for specific devices
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Chapter Guides](#-chapter-guides)
@@ -206,7 +206,7 @@ Extract secrets by observing physical emissions during normal operation.
 | [**Sigrok / PulseView**](https://sigrok.org/) | Open-source logic analyzer frontend | Free/OSS |
 | [**ChipWhisperer Software**](https://chipwhisperer.readthedocs.io/) | Jupyter-based SCA/FI tutorials | Free/OSS |
 
-### Python Libraries for Side-Channel Analysis
+### Python Libraries For Side-Channel Analysis
 
 | Library | Purpose | URL |
 |---------|---------|-----|
@@ -331,7 +331,8 @@ To contribute to the Hardware Hacking section:
 | DEF CON Hardware Hacking Village | [https://dchhv.org/](https://dchhv.org/) |
 | Wrong Baud (hardware RE blog) | [https://wrongbaud.github.io/](https://wrongbaud.github.io/) |
 
-### Conferences and Communities
+<a id="conferences-and-communities"></a>
+### Conferences & Communities
 
 | Conference | Focus |
 |-----------|-------|

@@ -32,7 +32,7 @@ Compare storage patterns and formats, build restartable ingestion policies, sepa
 
 Help practitioners make a defensible statement about completeness, freshness, replay, and failure recovery without confusing a local demonstration with a tested distributed deployment.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Designing raw and analytical storage for an inventory, telemetry, or application dataset.
 - Importing recurring files or paginated API results.
@@ -43,7 +43,7 @@ Help practitioners make a defensible statement about completeness, freshness, re
 
 <a id="contents"></a>
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Guide Index](#guides)
 - [Prerequisites & Learning Path](#learning-path)

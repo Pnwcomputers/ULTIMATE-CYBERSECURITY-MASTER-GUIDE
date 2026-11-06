@@ -33,7 +33,7 @@ to verified replay. Each guide includes a local exercise, failure cases, self-ch
 Help practitioners support a dataset with evidence: who owns it, what a healthy outcome means, what changed,
 who may access it, and which recovery procedure actually worked.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Preparing an existing pipeline for ongoing operation.
 - Responding to stale, incomplete, or incorrect results.
@@ -44,7 +44,7 @@ who may access it, and which recovery procedure actually worked.
 
 <a id="contents"></a>
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Guide Index](#guides)
 - [Prerequisites & Reading Order](#prerequisites)

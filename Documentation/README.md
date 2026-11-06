@@ -34,14 +34,14 @@ Catalogs 22+ documents by category with descriptions and links, explains the doc
 ## 🏆 Goal
 Enable readers to quickly find the right documentation file for their current task - whether that's a wireless engagement, OSINT operation, lab setup, or scripting reference - without browsing the entire directory.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting point for any Documentation/ section: find the right file for your current task
 - Onboarding new team members to the repo structure
 - Checking what documentation exists before writing a new guide (avoid duplication)
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 * [Overview](#-overview)
 * [Current Documentation](#-current-documentation)
 * [Documentation Categories](#️-documentation-categories)
@@ -170,7 +170,7 @@ This directory contains comprehensive technical documentation, operational proce
 
 ---
 
-## 📖 How to Use This Documentation
+## 📖 How To Use This Documentation
 
 ### For Security Professionals
 1.  **Wireless Security Assessments:** Review Aircrack-ng and use Pwnagotchi for handshakes.
@@ -190,7 +190,8 @@ This directory contains comprehensive technical documentation, operational proce
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized and Responsible Use
+<a id="-critical-authorized-and-responsible-use"></a>
+### 🔴 CRITICAL: Authorized & Responsible Use
 **IMPORTANT: AUTHORIZED USE ONLY**
 
 This documentation is provided for educational purposes in controlled environments and authorized security assessments with written permission.
