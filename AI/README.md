@@ -14,7 +14,7 @@
 
 ---
 
-**Related research:** [h4cker AI-security resources](https://github.com/The-Art-of-Hacking/h4cker/tree/master/ai/ai-security), [prompt-injection research](https://github.com/Joe-B-Security/awesome-prompt-injection) and [PNWC's curated project map](../Documentation/awesome-hacking-collections-integration.md).
+**Related Research:** [h4cker AI-security resources](https://github.com/The-Art-of-Hacking/h4cker/tree/master/ai/ai-security), [prompt-injection research](https://github.com/Joe-B-Security/awesome-prompt-injection) and [PNWC's curated project map](../Documentation/awesome-hacking-collections-integration.md).
 
 ---
 
