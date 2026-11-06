@@ -408,7 +408,7 @@ Security Hardening:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ IMPORTANT: EDUCATIONAL AND AUTHORIZED USE ONLY ⚠️
@@ -441,7 +441,7 @@ These PDF reference materials contain security testing techniques for:
 ### Legal Requirements
 
 <a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
-#### Computer Fraud & Abuse Act (CFAA) - United States
+#### Computer Fraud & Abuse Act (Cfaa) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -492,7 +492,7 @@ in virtually every jurisdiction worldwide.
 
 ---
 
-### Content-Specific Warnings
+### Content-specific Warnings
 
 #### Active Directory Attacks
 

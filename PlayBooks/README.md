@@ -415,7 +415,7 @@ Post-Assessment:
    └─> Archive assessment documentation
 ```
 
-### For DevSecOps Teams
+### For Devsecops Teams
 
 ```
 Repository Security:
@@ -474,7 +474,7 @@ Incident Response:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Operations Only
+### 🔴 Critical: Authorized Operations Only
 
 ```
 ⚠️ IMPORTANT: AUTHORIZED USE ONLY ⚠️
@@ -506,7 +506,7 @@ These security playbooks contain operational procedures for:
 
 ### Authorization Requirements
 
-#### Written Authorization Is MANDATORY
+#### Written Authorization Is Mandatory
 
 **Before executing any playbook procedures that involve:**
 - Network scanning or vulnerability assessment
@@ -553,7 +553,7 @@ These security playbooks contain operational procedures for:
 
 ---
 
-### Playbook-Specific Warnings
+### Playbook-specific Warnings
 
 #### Blue Team & Incident Response
 

@@ -205,7 +205,7 @@ See [OSINT_GUIDE.md - VM Setup](./OSINT_GUIDE.md#osint-vm-setup) for complete in
 
 ## ⚖️ Legal & Ethical Notice
 
-### 🔴 CRITICAL: Read Before Using Any OSINT Techniques
+### 🔴 Critical: Read Before Using Any OSINT Techniques
 
 ```
 ⚠️ LEGAL USE ONLY ⚠️
@@ -522,7 +522,7 @@ This OSINT collection wouldn't exist without:
 ## Security, Legal, & Ethical Considerations ⚠️
 
 <a id="-critical-legal-and-ethical-osint-use-only"></a>
-### 🔴 CRITICAL: Legal & Ethical OSINT Use Only
+### 🔴 Critical: Legal & Ethical OSINT Use Only
 
 **OSINT involves collecting publicly available information - but "public" does NOT mean "unrestricted use."**
 
@@ -547,7 +547,7 @@ This OSINT collection wouldn't exist without:
 - Some countries restrict OSINT activities more strictly than others
 - Cross-border investigations may trigger multiple legal frameworks
 
-### Terms Of Service (ToS) Compliance
+### Terms Of Service (Tos) Compliance
 ```
 ⚠️ Violating website Terms of Service can result in:
 - Legal action from the website operator
@@ -587,7 +587,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### 🚫 PROHIBITED Uses - Zero Tolerance
+### 🚫 Prohibited Uses - Zero Tolerance
 
 **The following activities are ILLEGAL and UNETHICAL:**
 
@@ -692,7 +692,7 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-### Red Lines - NEVER Cross These Boundaries
+### Red Lines - Never Cross These Boundaries
 ```
 🔴 Automated actions that violate ToS
 🔴 Circumventing authentication or security measures

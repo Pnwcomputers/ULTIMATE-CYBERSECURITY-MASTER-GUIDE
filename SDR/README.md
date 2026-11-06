@@ -1,4 +1,4 @@
-# 📻 Software Defined Radio (SDR), RF, NFC/RFID, Sub-GHz Security
+# 📻 Software Defined Radio (SDR), RF, NFC/RFID, Sub-ghz Security
 
 <div align="center">
 
@@ -200,7 +200,7 @@ These are complementary **projects**, not required parts of a HackRF or NanoVNA 
 <a id="target-frequencies-and-protocols"></a>
 ## Target Frequencies & Protocols
 
-### [📡 Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)
+### [📡 Target Frequencies & Protocols Master List](target_frequencies_protocols.md)
 
 The completed master reference contains:
 
