@@ -416,66 +416,118 @@ release, file license and legal scope before operational reuse.
 
 ### 🛠️ Key Tools & Frameworks
 
-**Exploitation & Post-Exploitation**
+#### Exploitation & Post-Exploitation
 
-- [Metasploit Framework](https://www.rapid7.com/) - Rapid7
-- [Impacket](https://github.com/fortra/impacket) - Fortra
-- [BloodHound](https://github.com/SpecterOps/BloodHound) - SpecterOps
-- [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) *(archived)* / [NetExec](https://github.com/Pennyw0rth/NetExec)
-- [Empire](https://github.com/BC-SECURITY/Empire) - BC Security
-- [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) *(archived)* · [Nishang](https://github.com/samratashok/nishang)
-- [PEASS-ng](https://github.com/peass-ng/PEASS-ng) - Carlos Polop
-- [Responder](https://github.com/lgandx/Responder) - Laurent Gaffié
+| Resource | Notes |
+|---|---|
+| [Metasploit Framework](https://www.rapid7.com/) | Rapid7 |
+| [Impacket](https://github.com/fortra/impacket) | Fortra |
+| [BloodHound](https://github.com/SpecterOps/BloodHound) | SpecterOps |
+| [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) | *(archived)* |
+| [NetExec](https://github.com/Pennyw0rth/NetExec) | — |
+| [Empire](https://github.com/BC-SECURITY/Empire) | BC Security |
+| [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) | *(archived)* |
+| [Nishang](https://github.com/samratashok/nishang) | — |
+| [PEASS-ng](https://github.com/peass-ng/PEASS-ng) | Carlos Polop |
+| [Responder](https://github.com/lgandx/Responder) | Laurent Gaffié |
 
-**OSINT**
+#### OSINT
 
-- [theHarvester](https://github.com/laramies/theHarvester) · [Sherlock](https://github.com/sherlock-project/sherlock) · [Maltego](https://www.maltego.com/)
-- [SpiderFoot](https://github.com/smicallef/spiderfoot) · [Recon-ng](https://github.com/lanmaster53/recon-ng) · [Amass](https://github.com/owasp-amass/amass)
-- [Maigret](https://github.com/soxoj/maigret) · [Holehe](https://github.com/megadose/holehe) · [H8mail](https://github.com/khast3x/h8mail)
-- [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) · [Photon](https://github.com/s0md3v/Photon)
-- [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) · [Trace Labs](https://tracelabs.org/)
+| Resource | Notes |
+|---|---|
+| [theHarvester](https://github.com/laramies/theHarvester) | — |
+| [Sherlock](https://github.com/sherlock-project/sherlock) | — |
+| [Maltego](https://www.maltego.com/) | — |
+| [SpiderFoot](https://github.com/smicallef/spiderfoot) | — |
+| [Recon-ng](https://github.com/lanmaster53/recon-ng) | — |
+| [Amass](https://github.com/owasp-amass/amass) | — |
+| [Maigret](https://github.com/soxoj/maigret) | — |
+| [Holehe](https://github.com/megadose/holehe) | — |
+| [H8mail](https://github.com/khast3x/h8mail) | — |
+| [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) | — |
+| [Photon](https://github.com/s0md3v/Photon) | — |
+| [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) | — |
+| [Trace Labs](https://tracelabs.org/) | — |
 
-**Network & Web Security**
+#### Network & Web Security
 
-- [Nmap](https://nmap.org/) · [Wireshark](https://www.wireshark.org/) · [Burp Suite](https://portswigger.net/burp) · [OWASP ZAP](https://www.zaproxy.org/)
-- [Nikto](https://github.com/sullo/nikto) · [SQLmap](https://sqlmap.org/) · [Gobuster](https://github.com/OJ/gobuster) · [ffuf](https://github.com/ffuf/ffuf)
-- [Nuclei](https://github.com/projectdiscovery/nuclei) · [Subfinder](https://github.com/projectdiscovery/subfinder) · [httpx](https://github.com/projectdiscovery/httpx) - ProjectDiscovery
-- [AutoRecon](https://github.com/AutoRecon/AutoRecon) - Tib3rius
-- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) · [SecLists](https://github.com/danielmiessler/SecLists) · [ExploitDB](https://www.exploit-db.com/)
+| Resource | Notes |
+|---|---|
+| [Nmap](https://nmap.org/) | — |
+| [Wireshark](https://www.wireshark.org/) | — |
+| [Burp Suite](https://portswigger.net/burp) | — |
+| [OWASP ZAP](https://www.zaproxy.org/) | — |
+| [Nikto](https://github.com/sullo/nikto) | — |
+| [SQLmap](https://sqlmap.org/) | — |
+| [Gobuster](https://github.com/OJ/gobuster) | — |
+| [ffuf](https://github.com/ffuf/ffuf) | — |
+| [Nuclei](https://github.com/projectdiscovery/nuclei) | — |
+| [Subfinder](https://github.com/projectdiscovery/subfinder) | — |
+| [httpx](https://github.com/projectdiscovery/httpx) | ProjectDiscovery |
+| [AutoRecon](https://github.com/AutoRecon/AutoRecon) | Tib3rius |
+| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) | — |
+| [SecLists](https://github.com/danielmiessler/SecLists) | — |
+| [ExploitDB](https://www.exploit-db.com/) | — |
 
-**Password & Credentials**
+#### Password & Credentials
 
-- [Hashcat](https://hashcat.net/hashcat/) · [John the Ripper](https://www.openwall.com/john/) · [Hydra](https://github.com/vanhauser-thc/thc-hydra)
-- [Mimikatz](https://github.com/gentilkiwi/mimikatz) - Benjamin Delpy
+| Resource | Notes |
+|---|---|
+| [Hashcat](https://hashcat.net/hashcat/) | — |
+| [John the Ripper](https://www.openwall.com/john/) | — |
+| [Hydra](https://github.com/vanhauser-thc/thc-hydra) | — |
+| [Mimikatz](https://github.com/gentilkiwi/mimikatz) | Benjamin Delpy |
 
-**Wireless & RF**
+#### Wireless & RF
 
-- [Aircrack-ng](https://www.aircrack-ng.org/) · [Kismet](https://www.kismetwireless.net/) · [Wifite2](https://github.com/derv82/wifite2)
-- [Bettercap](https://www.bettercap.org/) - Simone Margaritelli
-- [ChipWhisperer](https://github.com/newaetech/chipwhisperer) - NewAE Technology
-- [OpenOCD](https://openocd.org/) · [Bus Pirate](https://docs.buspirate.com/)
+| Resource | Notes |
+|---|---|
+| [Aircrack-ng](https://www.aircrack-ng.org/) | — |
+| [Kismet](https://www.kismetwireless.net/) | — |
+| [Wifite2](https://github.com/derv82/wifite2) | — |
+| [Bettercap](https://www.bettercap.org/) | Simone Margaritelli |
+| [ChipWhisperer](https://github.com/newaetech/chipwhisperer) | NewAE Technology |
+| [OpenOCD](https://openocd.org/) | — |
+| [Bus Pirate](https://docs.buspirate.com/) | — |
 
-**Forensics & Reverse Engineering**
+#### Forensics & Reverse Engineering
 
-- [Volatility](https://volatilityfoundation.org/) · [Autopsy](https://www.autopsy.com/) · [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) - NSA
-- [radare2](https://rada.re/) - pancake · [IDA Pro](https://hex-rays.com/ida-pro/) - Hex-Rays
-- [Binwalk](https://github.com/ReFirmLabs/binwalk) · [YARA](https://github.com/VirusTotal/yara)
-- [vx-underground](https://vx-underground.org) · [MalwareBazaar](https://bazaar.abuse.ch/) - malware sample and research libraries
-- [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) - Mark Russinovich
+| Resource | Notes |
+|---|---|
+| [Volatility](https://volatilityfoundation.org/) | — |
+| [Autopsy](https://www.autopsy.com/) | — |
+| [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) | NSA |
+| [radare2](https://rada.re/) | pancake |
+| [IDA Pro](https://hex-rays.com/ida-pro/) | Hex-Rays |
+| [Binwalk](https://github.com/ReFirmLabs/binwalk) | — |
+| [YARA](https://github.com/VirusTotal/yara) | — |
+| [vx-underground](https://vx-underground.org) | — |
+| [MalwareBazaar](https://bazaar.abuse.ch/) | malware sample and research libraries |
+| [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) | Mark Russinovich |
 
-**Monitoring & Defense**
+#### Monitoring & Defense
 
-- [Snort](https://www.snort.org/) · [Suricata](https://suricata.io/) · [Zeek](https://zeek.org/) · [OSSEC](https://www.ossec.net/)
-- [Elastic Stack](https://www.elastic.co/) · [Splunk](https://www.splunk.com/) · [Graylog](https://graylog.org/)
-- [Wazuh](https://wazuh.com/) · [Security Onion](https://securityonionsolutions.com/) · [nzyme](https://nzyme.org/)
+| Resource | Notes |
+|---|---|
+| [Snort](https://www.snort.org/) | — |
+| [Suricata](https://suricata.io/) | — |
+| [Zeek](https://zeek.org/) | — |
+| [OSSEC](https://www.ossec.net/) | — |
+| [Elastic Stack](https://www.elastic.co/) | — |
+| [Splunk](https://www.splunk.com/) | — |
+| [Graylog](https://graylog.org/) | — |
+| [Wazuh](https://wazuh.com/) | — |
+| [Security Onion](https://securityonionsolutions.com/) | — |
+| [nzyme](https://nzyme.org/) | — |
 
-**Honeypots & Deception**
+#### Honeypots & Deception
 
-- [OpenCanary](https://github.com/thinkst/opencanary) - Thinkst
-- [Cowrie](https://github.com/cowrie/cowrie) - Michel Oosterhof
-- [Dionaea](https://github.com/DinoTools/dionaea) - DinoTools
-- [T-Pot](https://github.com/telekom-security/tpotce) - Deutsche Telekom Security
-
+| Resource | Notes |
+|---|---|
+| [OpenCanary](https://github.com/thinkst/opencanary) | Thinkst |
+| [Cowrie](https://github.com/cowrie/cowrie) | Michel Oosterhof |
+| [Dionaea](https://github.com/DinoTools/dionaea) | DinoTools |
+| [T-Pot](https://github.com/telekom-security/tpotce) | Deutsche Telekom Security |
 
 ### 📚 Book Authors & Publishers
 
@@ -493,24 +545,53 @@ release, file license and legal scope before operational reuse.
 
 ### 🐧 Security Linux Distributions
 
-[Kali Linux](https://www.kali.org/) · [BlackArch](https://blackarch.org/) · [Parrot Security OS](https://www.parrotsec.org/) · [BackBox](https://www.backbox.org/) · [Tails](https://tails.net/) · [Whonix](https://www.whonix.org/)
+| Distribution | Reference |
+|---|---|
+| Kali Linux | [Official Site](https://www.kali.org/) |
+| BlackArch | [Official Site](https://blackarch.org/) |
+| Parrot Security OS | [Official Site](https://www.parrotsec.org/) |
+| BackBox | [Official Site](https://www.backbox.org/) |
+| Tails | [Official Site](https://tails.net/) |
+| Whonix | [Official Site](https://www.whonix.org/) |
 
 ### 🌐 Knowledge Frameworks & Communities
 
-[MITRE ATT&CK](https://attack.mitre.org/) · [OWASP](https://owasp.org/) · [NIST NVD](https://nvd.nist.gov/) · [CVE](https://www.cve.org/) · [CISA](https://www.cisa.gov/) · [SANS](https://www.sans.org/)
-
-[HackTheBox](https://www.hackthebox.com/) · [TryHackMe](https://tryhackme.com/) · [VulnHub](https://www.vulnhub.com/) · [OverTheWire](https://overthewire.org/) · [PentesterLab](https://pentesterlab.com/)
-
-**[TryHackMe FREE Roadmap](https://github.com/uttambodara/TryHackMeRoadmap)** - 350+ free rooms, beginner → advanced, curated by [Uttambodara](https://github.com/uttambodara)
+| Resource | Type / Notes |
+|---|---|
+| [MITRE ATT&CK](https://attack.mitre.org/) | Adversary tactics and techniques |
+| [OWASP](https://owasp.org/) | Application security |
+| [NIST NVD](https://nvd.nist.gov/) | Vulnerability records |
+| [CVE](https://www.cve.org/) | Vulnerability identifier program |
+| [CISA](https://www.cisa.gov/) | Cybersecurity advisories and guidance |
+| [SANS](https://www.sans.org/) | Security training and research |
+| [Hack The Box](https://www.hackthebox.com/) | Practical security training |
+| [TryHackMe](https://tryhackme.com/) | Guided security labs |
+| [VulnHub](https://www.vulnhub.com/) | Practice machines |
+| [OverTheWire](https://overthewire.org/) | Interactive security exercises |
+| [PentesterLab](https://pentesterlab.com/) | Web security training |
+| [TryHackMe FREE Roadmap](https://github.com/uttambodara/TryHackMeRoadmap) | Community-curated learning roadmap, by [Uttambodara](https://github.com/uttambodara); availability and room counts may change |
 
 ### 🔐 Privacy & Anonymity Tools
 
-[Tor Project](https://www.torproject.org/) · [Mullvad VPN](https://mullvad.net/) · [ProtonVPN](https://protonvpn.com/) · [IVPN](https://www.ivpn.net/)
-[VeraCrypt](https://veracrypt.io/) · [ProtonMail](https://proton.me/mail) · [Signal](https://signal.org/)
+| Resource | Type |
+|---|---|
+| [Tor Project](https://www.torproject.org/) | Anonymity network |
+| [Mullvad VPN](https://mullvad.net/) | VPN service |
+| [ProtonVPN](https://protonvpn.com/) | VPN service |
+| [IVPN](https://www.ivpn.net/) | VPN service |
+| [VeraCrypt](https://veracrypt.io/) | Encrypted storage |
+| [Proton Mail](https://proton.me/mail) | Email service |
+| [Signal](https://signal.org/) | Encrypted messaging |
 
 ### 🎓 Certification Bodies
 
-[OffSec](https://www.offsec.com/) (training and certifications) · [EC-Council](https://www.eccouncil.org/) (CEH, CHFI) · [GIAC](https://www.giac.org/) (GPEN, GWAPT, GCIH) · [CompTIA](https://www.comptia.org/) (Security+, PenTest+, CySA+) · [(ISC)²](https://www.isc2.org/) (CISSP)
+| Organization | Training / Certification Examples |
+|---|---|
+| [OffSec](https://www.offsec.com/) | Security training and certifications |
+| [EC-Council](https://www.eccouncil.org/) | CEH, CHFI |
+| [GIAC](https://www.giac.org/) | GPEN, GWAPT, GCIH |
+| [CompTIA](https://www.comptia.org/) | Security+, PenTest+, CySA+ |
+| [(ISC)²](https://www.isc2.org/) | CISSP |
 
 ### 👥 Notable Security Researchers
 
