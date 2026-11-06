@@ -25,6 +25,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 
 - **Abide by the [Legal Terms of Use / Disclaimer & Legal Ramifications](LEGAL.md) for the *Use* & *Misuse* of this Repository's Contents**
+
 | Goal | Recommended Route |
 |---|---|
 | **New to Cybersecurity?** | Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations) |
