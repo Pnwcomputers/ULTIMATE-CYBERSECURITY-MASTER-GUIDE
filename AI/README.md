@@ -24,14 +24,14 @@
 
 | Section | Navigation |
 |---|---|
-| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification) | Jump to section |
-| [Overview](#-overview) | Jump to section |
-| [Folder Contents](#-folder-contents) | Jump to section |
-| [Resource Categories](#️-resource-categories) | Jump to section |
-| [How to Use These Resources](#-how-to-use-these-resources) | Jump to section |
-| [Security & Legal Disclaimer](#️-security--legal-disclaimer) | Jump to section |
-| [Contributing](#-contributing) | Jump to section |
-| [Resources](#-resources) | Jump to section |
+| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planningmanagement--provided-data-verification) | Section link |
+| [Overview](#-overview) | Section link |
+| [Folder Contents](#-folder-contents) | Section link |
+| [Resource Categories](#️-resource-categories) | Section link |
+| [How to Use These Resources](#-how-to-use-these-resources) | Section link |
+| [Security & Legal Disclaimer](#️-security--legal-disclaimer) | Section link |
+| [Contributing](#-contributing) | Section link |
+| [Resources](#-resources) | Section link |
 
 ---
 
