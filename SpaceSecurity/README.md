@@ -26,14 +26,14 @@ Links to four content parts (Foundations, Ground Segment, Space Segment, User Se
 ## 🏆 Goal
 Serve as the starting point for space security work - directing practitioners to the right Part file for their current focus area (ground infrastructure, flight software, or SATCOM terminal attacks).
 
-## 📋 When to Use
+## 📋 When To Use
 - Choosing which Part to read based on assessment focus (ground vs. space vs. user segment)
 - Legal/regulatory reference: ITAR/EAR controls, RF transmission authorization requirements
 - Understanding how SDR techniques apply specifically to satellite communication systems
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Section Guides](#-section-guides)
@@ -166,7 +166,8 @@ Every space system consists of three interdependent segments. A compromise of an
 
 ## 🔧 Tools Reference
 
-### SDR and RF Analysis
+<a id="sdr-and-rf-analysis"></a>
+### SDR & RF Analysis
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
@@ -178,7 +179,8 @@ Every space system consists of three interdependent segments. A compromise of an
 | [**USRP B210**](https://www.ettus.com/all-products/ub210-kit/) | High-performance SDR (70 MHz – 6 GHz) | Research-grade wideband analysis |
 | [**RTL-SDR**](https://www.rtl-sdr.com/) | Receive-only SDR (500 kHz – 1.75 GHz) | Passive monitoring, entry-level |
 
-### Ground System and Network
+<a id="ground-system-and-network"></a>
+### Ground System & Network
 
 | Tool | Purpose | Notes |
 |------|---------|-------|
@@ -233,7 +235,8 @@ This section contains attack techniques targeting space systems infrastructure.
    • Any illegal or unethical activities
 ```
 
-### Applicable Laws and Regulations
+<a id="applicable-laws-and-regulations"></a>
+### Applicable Laws & Regulations
 
 | Law / Regulation | Scope |
 |-----------------|-------|
@@ -269,7 +272,8 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 ## 📚 Resources
 
-### Standards and Guidance
+<a id="standards-and-guidance"></a>
+### Standards & Guidance
 
 | Resource | Description |
 |----------|-------------|
@@ -280,7 +284,8 @@ USERS EXPLICITLY ACKNOWLEDGE:
 | CISA Guidance | *Space Systems Critical Infrastructure Security and Resilience* |
 | Aerospace Corp | *Defending Space Systems from Cyber Threats* |
 
-### Research and Competitions
+<a id="research-and-competitions"></a>
+### Research & Competitions
 
 | Resource | Description |
 |----------|-------------|

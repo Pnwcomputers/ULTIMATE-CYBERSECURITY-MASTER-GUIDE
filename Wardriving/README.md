@@ -1,4 +1,5 @@
-# Wardriving and Wireless Surveying
+<a id="wardriving-and-wireless-surveying"></a>
+# Wardriving & Wireless Surveying
 
 _Last reviewed: 2026-10-22_
 
@@ -11,7 +12,7 @@ Wardriving is the systematic observation and mapping of wireless infrastructure 
 
 This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**, GPS quality, hardware/firmware compatibility, log integrity, and authorized sharing. It does **not** require connecting to detected networks or attempting to access them.
 
-## Start here
+## Start Here
 **Pocket platform companion:** [M5StickC Plus2 starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) for Wi-Fi/BLE observation and external-GNSS requirements. This is not an onboard-GPS logger.
 
 
@@ -22,7 +23,7 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 4. Validate results against your own/authorized test AP and a known location before collecting in the field.
 5. Read [data handling, privacy and WiGLE exports](./data-handling.md) before uploading or publishing.
 
-## Platform guides
+## Platform Guides
 
 | Guide | Controller / interface | Radio and positioning model | Primary record / transfer |
 | --- | --- | --- | --- |
@@ -35,7 +36,7 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 
 **The Flipper Zero itself does not contain a Wi-Fi scanning radio.** It needs suitable external wireless hardware. ESP32-C5 can scan 2.4 and 5 GHz, but a *single* C5 Wi-Fi radio does not observe both bands simultaneously.
 
-## Additional starred field-survey platforms
+## Additional Starred Field-survey Platforms
 
 These are **alternatives**, not interchangeable firmware images or extra steps required by the six workflows above:
 
@@ -45,7 +46,7 @@ These are **alternatives**, not interchangeable firmware images or extra steps r
 
 Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-handling.md) in force regardless of platform. Do not activate transmit, deauthentication, credential-collection or captive-portal functions during a passive survey.
 
-## Selecting a workflow
+## Selecting A Workflow
 
 | Your primary objective | Start with |
 | --- | --- |
@@ -56,7 +57,7 @@ Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-
 | Smartphone-centric collection / iosESP expansion | [Wardrive Go](./wardrive-go.md) |
 | Linux-based professional survey, heterogeneous adapters and auditable source logs | [Kismet](./kismet.md) |
 
-## Collection principles
+## Collection Principles
 
 ![Authorized passive wireless survey workflow](../assets/diagrams/wardriving-collection-lifecycle.svg)
 
@@ -69,7 +70,7 @@ Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-
 - **Respect versions.** A Flipper `.fap` is not ESP32 scanner firmware; a firmware image for one C5 board/port is not automatically correct for another.
 - **Protect data.** BSSID + timestamp + coordinates can reveal sensitive sites or movements. A WiGLE upload is a separate disclosure decision.
 
-## Suggested documentation layout
+## Suggested Documentation Layout
 
 ```text
 Wardriving/
@@ -84,7 +85,7 @@ Wardriving/
 └── kismet.md
 ```
 
-## Related repository areas
+## Related Repository Areas
 
 - [ESP32-S3 DIY honeypots](../IncidentResponse/HoneyPot/esp32-s3-honeypots.md): ShadowSentry/HoneyMire service decoys are separate from passive wardriving inventory; no automatic RF attack attribution.
 
@@ -98,7 +99,8 @@ Wardriving/
 - [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md): define assessment scope and reporting.
 - [Incident response](../IncidentResponse/README.md): contextualize rogue AP findings; a new SSID is not by itself proof of maliciousness.
 
-## Project and format references
+<a id="project-and-format-references"></a>
+## Project & Format References
 
 - [SigRoam](https://github.com/pingequalab/sigroam-wardriving) / [Scout Lite](https://github.com/pingequalab/scout-lite)
 - [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder)

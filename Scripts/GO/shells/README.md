@@ -22,7 +22,7 @@ AV. Build them yourself from the source below.
 | `stealth.go` | Go | Generates Go executables that work with Metasploit's `smb_delivery` / `web_delivery` modules for AV bypass. |
 | `insert_encoder.go` | Go | Encoder-insertion helper used alongside `stealth.go`. |
 
-## 🏗️ Building from source
+## 🏗️ Building From Source
 
 Before building, edit the hard-coded connect-back address/port in the source (e.g.
 `IP_ADDRESS` / `PORT` in `bypass.c`, `HOST` / `PORT` in `ishell.py`) to match your
@@ -62,7 +62,7 @@ Original C/Python/Go sources are Copyright (c) 2012–2017 Stephen Haywood
 each source file). Background write-up:
 <https://averagesecurityguy.github.io/2017/01/06/bypassing-av-with-golang/>
 
-## 🔗 See also
+## 🔗 See Also
 - [../../README.md](../../README.md) — Scripts index
 - [../../../Tradecraft/av-edr-evasion.md](../../../Tradecraft/av-edr-evasion.md) — AV/EDR evasion techniques
 - [../../../LEGAL.md](../../../LEGAL.md) — Legal and authorization requirements

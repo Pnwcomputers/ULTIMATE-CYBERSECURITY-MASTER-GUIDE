@@ -30,7 +30,7 @@
 **External script sourcing:** [Curated security GitHub collections](../Documentation/awesome-hacking-collections-integration.md) describe useful upstream projects; no linked payload is automatically vetted or installed.
 
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Script Categories](#️-script-categories)
@@ -51,7 +51,7 @@ Covers directory structure, script categories by language, usage instructions, t
 ## 🏆 Goal
 A reader can find the right script for a task by category/language and understands the legal authorization requirement before running anything.
 
-## 📋 When to Use
+## 📋 When To Use
 When looking for an existing script before writing a new one, or when unsure what legal/usage constraints apply to this folder's contents.
 
 ## 🎯 Overview
@@ -362,7 +362,7 @@ ONLY use on systems you own or have explicit written permission to test.
 
 ---
 
-## 📖 How to Use These Scripts
+## 📖 How To Use These Scripts
 
 ![Authorized script review execution and rollback workflow](../assets/diagrams/safe-script-execution.svg)
 
@@ -1131,7 +1131,7 @@ We welcome contributions from security professionals, but all scripts must meet 
 - [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky DuckyScript guide
 - [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch tool installation context
 
-### Python environment used by the tool installer
+### Python Environment Used By The Tool Installer
 
 `pnwc_install_tools.sh` keeps pip-managed libraries and commands in
 `/opt/pnwc-tools/venv`, separate from the system interpreter. After installation,
