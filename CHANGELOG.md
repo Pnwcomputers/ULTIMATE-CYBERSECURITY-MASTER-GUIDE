@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 06, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1528
-- **Files Modified**: 2226
+- **Commits Analyzed**: 1531
+- **Files Modified**: 2230
 - **New Files**: 858
 - **Deleted Files**: 121
 
@@ -664,6 +664,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`9fa0007`)
+- Update README.md (`532df28`)
 - Update section title for defensive security paths (`5d49af5`)
 - docs(reference): audit and update cheat sheets, command safety and navigation (#146) (`cdea87d`)
 - docs(navigation): reader-first README links and clean section indexes (#143) (`5957ff9`)
@@ -1293,6 +1295,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(ai): display practical usage guides in folder-style table (#168) (`79ce937`)
 - docs(ai): practical usage, project/agent lanes, verification and notebooks (#166) (`b38d466`)
 - docs: consolidate M5StickC Plus2, OSINT and curated cybersecurity sources (#165) (`a656d90`)
 - docs: integrate curated security assessment, detection, DFIR and supply-chain projects (#160) (`c60ce2c`)
@@ -1553,6 +1556,7 @@
 <summary>Click to view full file list</summary>
 
 - `AI/README.md`
+- `CHANGELOG.md`
 - `AI/agent-project-workflows.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
@@ -1560,7 +1564,6 @@
 - `AI/verification-and-ai-audits.md`
 - `README.md`
 - `START_HERE.md`
-- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `ContainerSecurity/README.md`
