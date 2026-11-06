@@ -14,7 +14,11 @@
 
 ---
 
-**Additional detection references:** [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook), [awesome-detection-engineering](https://github.com/infosecB/awesome-detection-engineering) and [curated source mapping](../../Documentation/awesome-hacking-collections-integration.md). Validate rules before production use.
+| Resource | Context |
+|---|---|
+| [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook) | Additional Detection References |
+| [awesome-detection-engineering](https://github.com/infosecB/awesome-detection-engineering) | Additional Detection References |
+| [curated source mapping](../../Documentation/awesome-hacking-collections-integration.md) | Validate rules before production use |
 
 | Reference | Context |
 |---|---|

@@ -10,7 +10,12 @@
 
 **Secret and dependency checks:** [OpenSSF Scorecard, Gitleaks, Syft and OSV supply-chain workflow](../ContainerSecurity/software-supply-chain-assessment.md) explains versioned inspection and evidence handling for the scripts collection; source code is not automatically safe because it is published.
 
-**Scripting reference:** [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) · [CLI field commands](../Documentation/devhints-cli-field-reference.md) · [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) · [tool pinning policy](./PINNING.md). Do not execute downloaded scripts before inspecting source and verifying provenance.
+| Resource | Context |
+|---|---|
+| [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) | Scripting Reference |
+| [CLI field commands](../Documentation/devhints-cli-field-reference.md) | Scripting Reference |
+| [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Scripting Reference |
+| [tool pinning policy](./PINNING.md) | Do not execute downloaded scripts before inspecting source and verifying provenance |
 
 <div align="center">
 
@@ -188,7 +193,11 @@ MUST be compiled and tested in isolated environments before use.
 - SMB/CIFS protocol testing
 - Remote access establishment
 
-**Quick-reference checklists these scripts support:** [Active Directory](../Checklists/ActiveDirectory.md) · [Credential Access](../Checklists/Credential-Access.md) · [Windows Privilege Escalation](../Checklists/Windows-Privilege-Escalation.md)
+| Resource | Context |
+|---|---|
+| [Active Directory](../Checklists/ActiveDirectory.md) | Quick-Reference Checklists These Scripts Support |
+| [Credential Access](../Checklists/Credential-Access.md) | Quick-Reference Checklists These Scripts Support |
+| [Windows Privilege Escalation](../Checklists/Windows-Privilege-Escalation.md) | Quick-Reference Checklists These Scripts Support |
 
 **Security Considerations:**
 ```
