@@ -9,7 +9,7 @@ Indexes categorized PDFs covering: penetration testing methodology, CTF referenc
 ## 🏆 Goal
 Provide reliable offline access to critical security reference materials that would otherwise require internet connectivity, ensuring availability during air-gapped engagements or unreliable network conditions.
 
-## 📋 When to Use
+## 📋 When To Use
 - Preparing for an engagement and downloading relevant offline references
 - Finding a specific technical PDF (protocol specs, exploit technique papers, tool manuals)
 - Building an offline security library for training or certification preparation
@@ -28,7 +28,7 @@ Provide reliable offline access to critical security reference materials that wo
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [PDF Library Contents](#-pdf-library-contents)
@@ -310,7 +310,7 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 
 ---
 
-## 📖 How to Use These Resources
+## 📖 How To Use These Resources
 
 ### For Penetration Testers
 
@@ -436,7 +436,8 @@ These PDF reference materials contain security testing techniques for:
 
 ### Legal Requirements
 
-#### Computer Fraud and Abuse Act (CFAA) - United States
+<a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
+#### Computer Fraud & Abuse Act (CFAA) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -629,7 +630,7 @@ PROHIBITED:
 
 ### Professional Standards
 
-#### Code of Ethics
+#### Code Of Ethics
 
 **Core Principles:**
 
@@ -761,7 +762,7 @@ the amount paid for these materials (zero for free distribution).
 
 ## 🤝 Contributing
 
-### How to Contribute PDF Resources
+### How To Contribute PDF Resources
 
 We welcome high-quality PDF contributions from security professionals.
 
@@ -888,7 +889,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review legal warnings thoroughly before using
 - Ensure you have proper authorization

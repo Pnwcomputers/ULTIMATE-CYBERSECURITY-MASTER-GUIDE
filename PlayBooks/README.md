@@ -19,7 +19,7 @@
 
 **New source-backed assessment workflows:** [Staged client assessment map](assessment-service-integration-map.md) · [Atomic Red Team, Sigma and Wazuh validation](purple-team-detection-validation.md) · [DefectDojo findings and retesting](assessment-findings-lifecycle.md). Each is a documentation/runbook integration, not a deployed scanner, SIEM rule or customer automation.
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Playbook Collection](#-playbook-collection)
@@ -326,7 +326,7 @@ These playbooks serve as:
 
 ---
 
-## 📖 How to Use These Playbooks
+## 📖 How To Use These Playbooks
 
 ### For Security Operations Centers (SOC)
 
@@ -502,7 +502,7 @@ These security playbooks contain operational procedures for:
 
 ### Authorization Requirements
 
-#### Written Authorization is MANDATORY
+#### Written Authorization Is MANDATORY
 
 **Before executing any playbook procedures that involve:**
 - Network scanning or vulnerability assessment
@@ -636,7 +636,7 @@ PENALTIES FOR UNAUTHORIZED TESTING:
 
 ### Professional Standards
 
-#### Code of Ethics for Playbook Execution
+#### Code Of Ethics For Playbook Execution
 
 **Core Principles:**
 
@@ -795,7 +795,7 @@ the amount paid for these playbooks (zero for free distribution).
 
 ## 🤝 Contributing
 
-### How to Contribute Playbooks
+### How To Contribute Playbooks
 
 We welcome contributions from security professionals to improve and expand this collection.
 
@@ -931,7 +931,7 @@ We welcome contributions from security professionals to improve and expand this 
 
 ## 💬 Feedback & Support
 
-### Questions or Issues?
+### Questions Or Issues?
 - Open an issue on GitHub
 - Review playbook procedures thoroughly
 - Consult with your security team
