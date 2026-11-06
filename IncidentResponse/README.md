@@ -16,29 +16,33 @@
 
 **More defensive resources:** [Curated detection, DFIR, Suricata and YARA research](../Documentation/awesome-hacking-collections-integration.md) maps external source projects to existing PNWC field guides.
 
-| Reference | Context |
+| Reference | Description |
 |---|---|
-| [Wireshark master filter list](../Documentation/wireshark-master-filters.md) | Packet Capture Triage |
-| [field cheat sheet](../Documentation/wireshark-cheatsheet.md) | Packet Capture Triage |
-| [advanced capture guide](../Documentation/wireshark.md) | Capture scope and evidence interpretation are separate from Wazuh detections |
+| [Wireshark Master Filter List](../Documentation/wireshark-master-filters.md) | Indexed display/capture filters for packet triage |
+| [Wireshark Field Cheat Sheet](../Documentation/wireshark-cheatsheet.md) | Protocol-focused display filter reference |
+| [Advanced Capture Guide](../Documentation/wireshark.md) | Deeper packet capture analysis and troubleshooting |
 
-| Reference | Context |
+Capture scope and evidence interpretation are separate from Wazuh detection rules.
+
+| Reference | Description |
 |---|---|
-| [Honeypot index](./HoneyPot/readme.md) | Honeypot & Wazuh Labs |
-| [Pi](./HoneyPot/raspberry-pi-honeypot-lab.md) | Honeypot & Wazuh Labs |
-| [Proxmox](./HoneyPot/proxmox-vm-honeynet.md) | Honeypot & Wazuh Labs |
-| [ESP32-S3](./HoneyPot/esp32-s3-honeypots.md) | Honeypot & Wazuh Labs |
-| [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md) | Compare with wireless detection guides below |
-| [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) | Honeypot & Wazuh Labs |
-| [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Honeypot & Wazuh Labs |
+| [Honeypot Index](./HoneyPot/readme.md) | Select a deception platform and review deployment constraints |
+| [Raspberry Pi Lab](./HoneyPot/raspberry-pi-honeypot-lab.md) | Small dedicated decoy sensor |
+| [Proxmox Lab](./HoneyPot/proxmox-vm-honeynet.md) | Isolated virtualized decoys |
+| [ESP32-S3 Lab](./HoneyPot/esp32-s3-honeypots.md) | Microcontroller-based deception examples |
+| [Honeypot → Wazuh](./HoneyPot/wazuh-honeypot-integration.md) | Export decoy telemetry to SIEM |
+| [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) | Correlate wireless findings with SIEM alerts |
+| [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Wireless monitoring and log correlation |
 
 **Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
 
-| Reference | Context |
+| Reference | Description |
 |---|---|
-| [Velociraptor/ForensicArtifacts triage](Digital-Forensics/velociraptor-artifact-triage.md) | Evidence & Detection Companion Guides |
-| [Sigma/Elastic/Wazuh detection content validation](SIEM/detection-content-validation.md) | Evidence & Detection Companion Guides |
-| [Atomic Red Team lab verification](../PlayBooks/purple-team-detection-validation.md) | Scope collection and simulated behavior before using any client environment |
+| [Velociraptor/ForensicArtifacts Triage](Digital-Forensics/velociraptor-artifact-triage.md) | Authorized evidence collection and triage |
+| [Sigma/Elastic/Wazuh Validation](SIEM/detection-content-validation.md) | Verify detection rules and event mappings |
+| [Atomic Red Team Lab Verification](../PlayBooks/purple-team-detection-validation.md) | Confirm detections with controlled simulations |
+
+Scope collection and simulations before using any client environment.
 
 ## 🎯 Purpose
 Index for the Incident Response section - covering blue team operations, log aggregation infrastructure, network intrusion detection and response, DFIR processes, and SIEM integration guides.

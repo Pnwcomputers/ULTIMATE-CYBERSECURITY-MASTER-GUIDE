@@ -10,12 +10,14 @@
 
 **Secret and dependency checks:** [OpenSSF Scorecard, Gitleaks, Syft and OSV supply-chain workflow](../ContainerSecurity/software-supply-chain-assessment.md) explains versioned inspection and evidence handling for the scripts collection; source code is not automatically safe because it is published.
 
-| Resource | Context |
+| Resource | Description |
 |---|---|
-| [Bash cheat sheet](./Bash/bash_scripting_cheat-sheet.md) | Scripting Reference |
-| [CLI field commands](../Documentation/devhints-cli-field-reference.md) | Scripting Reference |
-| [reviewed reference index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Scripting Reference |
-| [tool pinning policy](./PINNING.md) | Do not execute downloaded scripts before inspecting source and verifying provenance |
+| [Bash Cheat Sheet](./Bash/bash_scripting_cheat-sheet.md) | Shell syntax and reusable patterns |
+| [CLI Field Commands](../Documentation/devhints-cli-field-reference.md) | Everyday command-line reference |
+| [Reviewed Reference Index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Cross-section cheat sheets |
+| [Tool Pinning Policy](./PINNING.md) | Version and dependency controls |
+
+Inspect provenance and source before running downloaded scripts.
 
 <div align="center">
 
@@ -193,11 +195,11 @@ MUST be compiled and tested in isolated environments before use.
 - SMB/CIFS protocol testing
 - Remote access establishment
 
-| Resource | Context |
+| Resource | Description |
 |---|---|
-| [Active Directory](../Checklists/ActiveDirectory.md) | Quick-Reference Checklists These Scripts Support |
-| [Credential Access](../Checklists/Credential-Access.md) | Quick-Reference Checklists These Scripts Support |
-| [Windows Privilege Escalation](../Checklists/Windows-Privilege-Escalation.md) | Quick-Reference Checklists These Scripts Support |
+| [Active Directory Checklist](../Checklists/ActiveDirectory.md) | Directory service assessment |
+| [Credential Access Checklist](../Checklists/Credential-Access.md) | Authorized credential testing boundaries |
+| [Windows Privilege Escalation Checklist](../Checklists/Windows-Privilege-Escalation.md) | Windows privilege investigation |
 
 **Security Considerations:**
 ```

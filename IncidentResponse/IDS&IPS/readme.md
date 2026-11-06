@@ -14,11 +14,13 @@
 
 ---
 
-| Reference | Context |
+| Reference | Description |
 |---|---|
-| [Wireshark master filters](../../Documentation/wireshark-master-filters.md) | Packet Analysis |
-| [Wireshark field cheat sheet](../../Documentation/wireshark-cheatsheet.md) | Packet Analysis |
-| [802.11 deauth/disassoc](../../Documentation/wifi-deauthentication-detection.md) | Use a correctly positioned capture sensor and corroborate telemetry before labeling incidents |
+| [Wireshark Master Filters](../../Documentation/wireshark-master-filters.md) | Indexed packet inspection filters |
+| [Wireshark Field Cheat Sheet](../../Documentation/wireshark-cheatsheet.md) | Common protocol and frame fields |
+| [802.11 Deauthentication/Disassociation](../../Documentation/wifi-deauthentication-detection.md) | Observe suspicious management-frame bursts |
+
+Position your sensor correctly and corroborate telemetry before labeling an incident.
 
 **Deception complement:** [Honeypot labs](../HoneyPot/readme.md) cover Raspberry Pi, ESP32-S3, VMs and [Wazuh reporting](../HoneyPot/wazuh-honeypot-integration.md). Decoys only see attempts aimed at them and do not replace actual Wi-Fi management-frame monitoring.
 

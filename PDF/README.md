@@ -135,11 +135,11 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 - AD_Attacks_.pdf - Attack vectors and techniques
 - AD_Post_Exploitation.pdf - Post-compromise operations
 
-| Resource | Context |
+| Resource | Description |
 |---|---|
-| [Active Directory](../Checklists/ActiveDirectory.md) | Quick-Reference Checklists |
-| [Domain Escalation](../Checklists/Domain-Escalation.md) | Quick-Reference Checklists |
-| [Domain Persistence](../Checklists/Domain-Persistence.md) | Quick-Reference Checklists |
+| [Active Directory Checklist](../Checklists/ActiveDirectory.md) | Directory service assessment |
+| [Domain Escalation Checklist](../Checklists/Domain-Escalation.md) | Domain escalation assessment |
+| [Domain Persistence Checklist](../Checklists/Domain-Persistence.md) | Domain persistence assessment |
 
 **Use Cases:**
 - Internal penetration testing

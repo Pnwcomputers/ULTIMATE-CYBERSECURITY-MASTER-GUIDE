@@ -14,17 +14,19 @@
 
 ---
 
-| Resource | Context |
+| Resource | Description |
 |---|---|
-| [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook) | Additional Detection References |
-| [awesome-detection-engineering](https://github.com/infosecB/awesome-detection-engineering) | Additional Detection References |
-| [curated source mapping](../../Documentation/awesome-hacking-collections-integration.md) | Validate rules before production use |
+| [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook) | Community threat-hunting and detection research |
+| [Awesome Detection Engineering](https://github.com/infosecB/awesome-detection-engineering) | Detection engineering resources |
+| [Curated Source Mapping](../../Documentation/awesome-hacking-collections-integration.md) | How external projects relate to local guides |
 
-| Reference | Context |
+Validate source content and rules before production use.
+
+| Reference | Description |
 |---|---|
-| [Honeypot → Wazuh native JSON integration](../HoneyPot/wazuh-honeypot-integration.md) | connects OpenCanary, Cowrie and DIY decoy metadata |
-| [Kismet](../IDS%26IPS/kismet-wazuh-wireless-lab.md) | Deception Reporting |
-| [nzyme](../IDS%26IPS/nzyme-wazuh-integration.md) | contribute independent wireless alert streams |
+| [Honeypot → Wazuh JSON Integration](../HoneyPot/wazuh-honeypot-integration.md) | Forward OpenCanary, Cowrie and DIY decoy metadata |
+| [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) | Wireless alert telemetry and SIEM correlation |
+| [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) | Additional wireless event source and correlation |
 
 **Container deployment support:** [Docker CLI / Compose operations reference](../../ContainerSecurity/docker-cli-operations-reference.md) provides safe diagnostics for containerized SIEM services, volume inventories, log exposure and privilege boundaries. Check the SIEM-specific installation guide for its supported platform and storage requirements.
 

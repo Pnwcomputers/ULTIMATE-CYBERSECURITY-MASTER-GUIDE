@@ -17,11 +17,13 @@
 **Training-to-field progression:** [Safe CTF and cybersecurity learning pathways](security-training-lab-pathways.md) maps exercises into scoped PNWC assessment and reporting workflows.
 
 
-| Reference | Context |
+| Reference | Description |
 |---|---|
-| [Staged client assessment map](assessment-service-integration-map.md) | New Source-backed Assessment Workflows |
-| [Atomic Red Team, Sigma and Wazuh validation](purple-team-detection-validation.md) | New Source-backed Assessment Workflows |
-| [DefectDojo findings and retesting](assessment-findings-lifecycle.md) | Each is a documentation/runbook integration, not a deployed scanner, SIEM rule or customer automation |
+| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
+| [Atomic Red Team, Sigma & Wazuh Validation](purple-team-detection-validation.md) | Repeatable defensive detection testing |
+| [DefectDojo Findings & Retesting](assessment-findings-lifecycle.md) | Report, triage, remediate and retest findings |
+
+These are documentation/workflow references, not deployed scanners or customer automation.
 
 ## 📋 Table Of Contents
 

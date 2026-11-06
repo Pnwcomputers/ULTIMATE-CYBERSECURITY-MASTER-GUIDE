@@ -16,10 +16,12 @@ Antenna testing, impedance matching, cable fault location, and defensible RF mea
 
 ---
 
-| Resource | Context |
+| Resource | Description |
 |---|---|
-| [NanoVNA field card](./07-quick-reference.md) | Quick References |
-| [cross-repository review index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Confirm calibration, cable fixture and usable frequency range for the actual instrument before using formula results |
+| [NanoVNA Field Card](./07-quick-reference.md) | Compact measurement workflow reference |
+| [Cheat Sheet & Reference Index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Related technical quick-reference material |
+
+Confirm calibration, cables, fixtures and model frequency limits before measurements.
 
 ## 🎯 Purpose
 
