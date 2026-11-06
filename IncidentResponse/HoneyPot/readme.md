@@ -25,7 +25,7 @@ Links to a full build guide per platform; full install, real dependency/installe
 ## 🏆 Goal
 Enable a practitioner to stand up a working honeypot that reliably logs attacker interaction, on hardware as modest as a Raspberry Pi, without repeating the installer dead-ends a real build already ran into.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up a honeypot for the first time and deciding which platform to use
 - An installer "succeeds" but nothing is actually running or logging
 - Deciding what to do with a spare device on your network
@@ -33,7 +33,7 @@ Enable a practitioner to stand up a working honeypot that reliably logs attacker
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Platform Comparison](#️-platform-comparison)
@@ -91,7 +91,8 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 ---
 
-### DIY hardware and Wazuh reporting
+<a id="diy-hardware-and-wazuh-reporting"></a>
+### DIY Hardware & Wazuh Reporting
 
 **[Security and accuracy review (October 31, 2026)](./REVIEW-2026-10-31.md):** methods, limitations, CI results and the separate installer pinning issue.
 
@@ -106,11 +107,12 @@ The "go big" option: 20+ individual honeypots (including Cowrie and Dionaea) run
 
 See the [Kismet + Wazuh](../IDS%26IPS/kismet-wazuh-wireless-lab.md) and [nzyme + Wazuh](../IDS%26IPS/nzyme-wazuh-integration.md) guides for **complementary wireless detections**. Correlation requires shared time/site context and trusted AP/client telemetry.
 
-### Small embedded deception sensors
+### Small Embedded Deception Sensors
 
 [NanoC6 ESP32 Honeypot](https://github.com/7h30th3r0n3/NanoC6-ESP32-Honeypot) is a small-device option for learning about emulated services, persistent local records and webhook-based alerting. Consider it for a **segmented lab or tightly controlled low-interaction sensor**, not as a replacement for maintained full-system honeypots or a hardened SIEM feed. Restrict management access, isolate the network and verify event timestamps and delivery before relying on alerts.
 
-## 🤔 How This Fits With IDS/IPS and SIEM
+<a id="-how-this-fits-with-idsips-and-siem"></a>
+## 🤔 How This Fits With IDS/IPS & SIEM
 
 ![Isolated honeypot sensors and SIEM ingestion](../../assets/diagrams/honeypot-segmented-logging.svg)
 

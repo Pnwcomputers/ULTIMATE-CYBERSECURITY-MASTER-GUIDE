@@ -33,7 +33,7 @@ Links to a full build guide per platform — server prep, Docker/package deploym
 ## 🏆 Goal
 Enable a practitioner to deploy a working SIEM that ingests endpoint, server, and network telemetry and surfaces security-relevant events through dashboards and alerts — without wading through four separate vendor doc sites.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up a SIEM or centralized log server from scratch in a homelab or small environment
 - Choosing between ELK, Wazuh, Splunk, and Graylog for a given use case
 - Enrolling Windows (Winlogbeat/Sysmon) or Linux (Filebeat/auditd) agents into a log pipeline
@@ -41,7 +41,7 @@ Enable a practitioner to deploy a working SIEM that ingests endpoint, server, an
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Platform Comparison](#️-platform-comparison)

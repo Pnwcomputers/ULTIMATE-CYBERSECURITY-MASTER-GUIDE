@@ -27,7 +27,7 @@ Links to a full build guide per domain — hardware/platform requirements, insta
 ## 🏆 Goal
 Enable a practitioner to go from bare hardware to a validated, alert-tuned detection stack covering both RF/wireless and wired network traffic, without re-discovering the same driver, interface-naming, and false-positive-tuning problems each build runs into.
 
-## 📋 When to Use
+## 📋 When To Use
 - Standing up wireless or wired intrusion detection from scratch in a homelab or small network
 - Deciding whether a given alert needs the wireless guide (rogue APs, deauth, evil twins) or the wired guide (network-based signatures, protocol anomalies)
 - Choosing between IDS-only (passive/alerting) and IPS (inline/blocking) deployment
@@ -35,7 +35,7 @@ Enable a practitioner to go from bare hardware to a validated, alert-tuned detec
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Guide Comparison](#️-guide-comparison)
@@ -105,7 +105,8 @@ The lightest-weight tool in this section — a log watcher that bans brute-forci
 
 ---
 
-### Complementary inventory and detection projects
+<a id="complementary-inventory-and-detection-projects"></a>
+### Complementary Inventory & Detection Projects
 
 [NetAlertX](https://github.com/netalertx/NetAlertX) provides continuous network-device discovery and change visibility. It can help establish a device baseline and flag unfamiliar assets, but **it is not a replacement for packet-based IDS/IPS or a wireless intrusion detection sensor**. Correlate its findings with this section's [nzyme WIDS](./nzyme_wids.md), switch/AP logs, DHCP leases and authorized inventory before treating a device as hostile.
 

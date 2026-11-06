@@ -28,7 +28,7 @@ Covers: OnePlus 6 rooting workflow (bootloader unlock, LineageOS, TWRP, Magisk),
 ## 🏆 Goal
 Enable practitioners to build and operate a capable mobile pentesting platform (NetHunter on OnePlus 6), conduct authorized Android and iOS app assessments, and perform forensic or OSINT tasks against mobile devices.
 
-## 📋 When to Use
+## 📋 When To Use
 - Setting up or maintaining the OnePlus 6 NetHunter device
 - Running a NetHunter-based engagement (HID, Evil AP, Wardriving, etc.)
 - Conducting an authorized Android or iOS app penetration test
@@ -36,7 +36,7 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Current Content](#-current-content)
@@ -295,7 +295,7 @@ This section contains attack techniques and tools for:
 
 ---
 
-### Legal Requirements for Mobile Security Testing
+### Legal Requirements For Mobile Security Testing
 
 #### Written Authorization Requirements
 

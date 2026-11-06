@@ -33,14 +33,14 @@ Links to log aggregation and visibility setup (log_agg.md), wireless/network int
 ## 🏆 Goal
 Enable blue team operators to quickly find the right IR procedure, log source configuration, or detection rule for an active or suspected incident.
 
-## 📋 When to Use
+## 📋 When To Use
 - Starting incident response work: find the right playbook or log configuration file
 - Setting up a new SIEM or log aggregation infrastructure from scratch
 - Responding to a wireless intrusion, rogue AP, or physical plant hack scenario
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [Tool & Infrastructure Categories](#️-tool--infrastructure-categories)
@@ -146,7 +146,8 @@ Post-incident artifact extraction and timeline reconstruction.
 
 ---
 
-## PNWC field-response toolkit: JWrapper and ScreenConnect abuse
+<a id="pnwc-field-response-toolkit-jwrapper-and-screenconnect-abuse"></a>
+## PNWC Field-response Toolkit: JWrapper & ScreenConnect Abuse
 
 ![Illustrative JWrapper remote access abuse attack path](../assets/jwrapper_attack.png)
 
@@ -158,7 +159,7 @@ Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data
 
 ## 🚀 Deployment & Operations Workflow
 
-### Building the Lab & Testing
+### Building The Lab & Testing
 
 ```text
 1. Infrastructure Standup:
