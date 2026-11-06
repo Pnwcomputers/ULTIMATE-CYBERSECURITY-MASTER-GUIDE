@@ -33,7 +33,7 @@ Connect five foundation guides into a learning path: define the pipeline's requi
 
 Help practitioners build pipelines whose results can be explained and checked: where records came from, how they changed, why some were rejected, what happens on a rerun, and whether the destination is complete.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Beginning data engineering study from an IT, security, or analytics background.
 - Converting manual file processing into a repeatable workflow.
@@ -45,7 +45,7 @@ Help practitioners build pipelines whose results can be explained and checked: w
 
 <a id="contents"></a>
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Audience & Prerequisites](#prerequisites)
 - [Published Guides](#guides)

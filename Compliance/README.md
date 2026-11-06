@@ -36,7 +36,7 @@ frameworks relate, and how to implement controls once and satisfy multiple
 requirements - tying governance back to the technical controls elsewhere in this
 repo.
 
-## 📋 When to Use
+## 📋 When To Use
 - Choosing a framework for an organization or a customer requirement
 - Preparing for an audit or certification (SOC 2, ISO 27001, PCI DSS)
 - Mapping existing technical controls to compliance requirements
@@ -44,7 +44,7 @@ repo.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [What GRC Is](#-what-grc-is)
@@ -81,7 +81,7 @@ matter most**; governance ensures they are **owned and maintained**.
 
 ---
 
-## 🧭 Choosing a Framework
+## 🧭 Choosing A Framework
 
 | If you need to… | Consider |
 |-----------------|----------|

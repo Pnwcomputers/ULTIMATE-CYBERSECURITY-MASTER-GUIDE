@@ -35,7 +35,7 @@ storage, key management, and common mistakes ([applied-crypto.md](./applied-cryp
 Give practitioners a single reference for making correct, current cryptographic
 choices and recognizing the recurring mistakes - grounded in NIST guidance.
 
-## 📋 When to Use
+## 📋 When To Use
 - Choosing an algorithm, key size, or mode for a design or review
 - Reviewing password storage, TLS config, or key management
 - Understanding the post-quantum transition and crypto-agility
@@ -43,7 +43,7 @@ choices and recognizing the recurring mistakes - grounded in NIST guidance.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [Overview](#-overview)
 - [The One Rule](#-the-one-rule)
@@ -84,7 +84,7 @@ The three primitive families:
 
 ---
 
-## 📊 Current vs Deprecated (Quick Reference)
+## 📊 Current Vs Deprecated (Quick Reference)
 
 | Use | ✅ Use | 🚫 Avoid / Deprecated |
 |-----|--------|------------------------|
@@ -118,7 +118,8 @@ with long-lived secrets and hybrid (classical + PQC) key exchange.
 
 ---
 
-## 🔑 Hardware keys and encrypted storage
+<a id="-hardware-keys-and-encrypted-storage"></a>
+## 🔑 Hardware Keys & Encrypted Storage
 
 Use the [Hardware Security Keys and Passkeys](./security-keys-passkeys.md) guide for FIDO2, WebAuthn, synced vs device-bound passkeys, and authenticator certification levels (L1, L1+, L2, L3, L3+). Its [SoloKeys guide](./solokeys-guide.md) covers the Solo 2 Secure/Hacker distinction and safe enrollment.
 

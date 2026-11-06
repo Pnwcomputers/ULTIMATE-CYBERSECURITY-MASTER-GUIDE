@@ -13,7 +13,7 @@ Charts for every alphabet and cipher covered, methods for building new ones, the
 ## 🏆 Goal
 Recognize, decode, and explain obfuscated or classically encrypted text (CTFs, OSINT, phishing analysis, filter evasion), and understand the limits of historical ciphers and the strict assumptions behind one-time-pad secrecy.
 
-## 📋 When to Use
+## 📋 When To Use
 - Decoding puzzle, CTF, or OSINT text that uses leet, Morse, Braille, Polybius, etc.
 - Analyzing homoglyph phishing domains or filter-evasion attempts
 - Teaching the history and fundamentals of cryptanalysis
