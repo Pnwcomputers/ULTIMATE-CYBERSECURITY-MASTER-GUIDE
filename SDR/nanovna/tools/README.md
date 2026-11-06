@@ -1,6 +1,7 @@
 <a id="top"></a>
 
-# 🧰 s1pdiff — Touchstone Sweep Analysis and Baseline Comparison
+<a id="-s1pdiff--touchstone-sweep-analysis-and-baseline-comparison"></a>
+# 🧰 S1pdiff — Touchstone Sweep Analysis & Baseline Comparison
 
 <div align="center">
 
@@ -29,14 +30,14 @@ Analyze individual Touchstone files or compare a current sweep with a baseline a
 
 Report measurement changes with the input data and comparison assumptions available for review.
 
-## 📋 When to Use
+## 📋 When To Use
 
 - Analyzing an exported .s1p file.
 - Comparing repeat measurements and producing a report or machine-readable output.
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table Of Contents
 
 - [What it's for](#what-its-for)
 - [Install](#install)
@@ -59,7 +60,7 @@ for the workflow it's built around.
 
 ---
 
-## What it's for
+## What It's For
 
 You sweep an antenna system, export `.s1p`, and archive it. Months later you
 sweep the same system and want an objective answer to **"has anything changed?"**
@@ -85,7 +86,7 @@ sudo ln -s "$(pwd)/tools/s1pdiff.py" /usr/local/bin/s1pdiff
 
 ## Usage
 
-### Analyse one sweep
+### Analyse One Sweep
 
 ```bash
 s1pdiff.py analyze antenna.s1p
@@ -108,14 +109,14 @@ At 146.0000 MHz:
   Character   : resonant (X ~ 0)
 ```
 
-### Compare against a baseline
+### Compare Against A Baseline
 
 ```bash
 s1pdiff.py diff baseline.s1p current.s1p
 s1pdiff.py diff baseline.s1p current.s1p --band 902 928 --warn-db 1.5 --fail-db 3
 ```
 
-### Machine-readable output
+### Machine-readable Output
 
 ```bash
 s1pdiff.py diff base.s1p curr.s1p --format json
@@ -127,7 +128,7 @@ The **markdown** output is meant to paste straight into a customer report.
 
 ---
 
-## Exit codes
+## Exit Codes
 
 | Code | Meaning |
 |---|---|
@@ -162,7 +163,7 @@ s1pdiff.py diff baselines/site7_2m.s1p today.s1p --format json \
 | `--res-warn-pct PCT` | 0.5 | Resonance shift that triggers WARN |
 | `--rl-ceiling-db DB` | 20.0 | Return loss better than this counts as "well matched" — see below |
 
-### Why `--rl-ceiling-db` exists
+### Why `--rl-ceiling-db` Exists
 
 Inside a deep null, dB figures swing wildly for physically trivial differences.
 A 1.03:1 match reads 36 dB return loss; a 1.04:1 match reads 34 dB. Differencing
@@ -180,7 +181,7 @@ lower it to make the tool less twitchy on marginal installations.
 
 ---
 
-## File format support
+## File Format Support
 
 Touchstone 1.0 one-port files:
 
@@ -200,7 +201,7 @@ card exports.
 
 ---
 
-## Interpretation caveats
+## Interpretation Caveats
 
 The tool sees only the S11 data it was given. It has no way to know:
 
@@ -233,7 +234,7 @@ series-RLC antenna model — regenerate or extend them freely.
 
 ---
 
-## Naming convention for archived sweeps
+## Naming Convention For Archived Sweeps
 
 ```
 2026-09-18_sitename_2m-base_system-shackend.s1p
@@ -252,7 +253,8 @@ name means you never have to guess later which sweep is comparable to which.
 
 </div>
 
-### Invalid input and JSON results
+<a id="invalid-input-and-json-results"></a>
+### Invalid Input & JSON Results
 
 Nonfinite measurements, duplicate frequencies, invalid reference impedance, and
 malformed data rows are rejected with exit code 3. Unordered unique frequencies

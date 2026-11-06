@@ -10,7 +10,7 @@ Covers: Bash Bunny modes (arming vs attack), DuckyScript payload syntax, payload
 ## 🏆 Goal
 Enable authorized red team practitioners to write, compile, and deploy Bash Bunny payloads for physical access security assessments.
 
-## 📋 When to Use
+## 📋 When To Use
 - Writing new Bash Bunny payloads for an authorized physical access engagement
 - Setting up a Bash Bunny for the first time (arming mode, payload structure)
 - Troubleshooting payload execution issues
@@ -64,7 +64,7 @@ The Bash Bunny has a **3-position switch**:
 - **Switch 1**: Runs `/payloads/switch1/payload.txt`
 - **Switch 2**: Runs `/payloads/switch2/payload.txt`
 
-### Installing a Payload
+### Installing A Payload
 
 1. **Set to Arming Mode** (Switch 3)
 2. **Connect** to computer
@@ -212,7 +212,7 @@ Q DELAY 500                  # Wait 500ms
 
 ## Data Exfiltration (Loot)
 
-### Saving Data to Bash Bunny
+### Saving Data To Bash Bunny
 ```bash
 # Set attack mode with storage
 ATTACKMODE HID STORAGE
@@ -369,7 +369,7 @@ LED ATTACK
 
 ## Configuration Files
 
-### config.txt (Optional)
+### Config.Txt (Optional)
 
 Create `/root/udisk/config.txt` for global settings:
 ```bash

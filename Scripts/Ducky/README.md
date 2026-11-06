@@ -10,7 +10,7 @@ Covers: DuckyScript syntax (DELAY, STRING, ENTER, CTRL, ALT, GUI, MOD), payload 
 ## 🏆 Goal
 Enable authorized red team practitioners to compile and deploy DuckyScript payloads for physical access security assessments using the USB Rubber Ducky.
 
-## 📋 When to Use
+## 📋 When To Use
 - Writing DuckyScript payloads for an authorized physical access engagement
 - Compiling existing payload scripts into inject.bin format
 - Troubleshooting payload timing issues (DELAY adjustments for slow targets)
@@ -34,13 +34,13 @@ The easiest way to compile DuckyScript payloads.
 4. **Click** "Compile"
 5. **Download** the `inject.bin` file
 
-### Method 2: Legacy offline encoders (model-specific)
+### Method 2: Legacy Offline Encoders (Model-specific)
 
 Some original USB Rubber Ducky generations used the Java-based `duckencoder.jar`. This is **not** a general installer for all models and may not compile modern DuckyScript features. For any legacy device, get the correct encoder from a verified vendor-maintained release and check its checksum, language/layout support and documentation. Use the official [Hak5 Payload Studio](https://payloadstudio.hak5.org/) for contemporary devices.
 
 Do **not** use `wget https://payloadstudio.com/` as an installation command; that is a website URL, not a verified encoder binary. Do not assume a text script can be deployed as `inject.bin` to a different HID platform, including the external CH9329 accessory for M5StickC Plus2.
 
-### Verify a harmless payload before deployment
+### Verify A Harmless Payload Before Deployment
 
 Use a **sacrificial offline device** with a blank editor and a short fixed phrase, not a shell command. Confirm firmware/model, payload syntax generation, keyboard layout, expected execution time, consent and cleanup. Avoid importing unreviewed payloads or using third-party script-conversion websites for client data.
 
@@ -173,7 +173,8 @@ For legitimate IT/security work:
 3. **Secure** payloads and results appropriately
 4. **Follow** responsible disclosure practices
 
-## Companion USB HID research (different firmware and build process)
+<a id="companion-usb-hid-research-different-firmware-and-build-process"></a>
+## Companion USB HID Research (Different Firmware & Build Process)
 
 [Pico WiFi Duck](https://github.com/majdsassi/Pico-WIFI-Duck) explores Wi-Fi-controlled HID emulation using a Raspberry Pi Pico W. It is **not Hak5 USB Rubber Ducky hardware**; this guide's DuckyScript, `inject.bin`, device setup and supported commands cannot be assumed compatible. Use a disposable test host, restrict wireless access, and do not reuse old linked firmware downloads without verifying the source and release integrity.
 
