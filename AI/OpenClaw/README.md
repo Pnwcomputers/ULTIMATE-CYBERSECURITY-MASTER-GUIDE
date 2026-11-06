@@ -1,4 +1,4 @@
-# 🦞 OpenClaw On TrueNAS SCALE - Complete Setup Guide
+# 🦞 OpenClaw On Truenas Scale - Complete Setup Guide
 
 <div align="center">
 
@@ -346,7 +346,7 @@ Restart the app from the TrueNAS UI to apply changes.
 
 ---
 
-## Part 7: NPMplus Reverse Proxy With HTTPS
+## Part 7: Npmplus Reverse Proxy With HTTPS
 
 ### 7.1 Create A Proxy Host
 
@@ -389,7 +389,7 @@ proxy_connect_timeout 60s;
 
 Enable **Use DNS Challenge** and enter your DuckDNS token from `https://www.duckdns.org`.
 
-### 7.2 Local DNS Override (OPNsense Unbound)
+### 7.2 Local DNS Override (Opnsense Unbound)
 
 To access the HTTPS domain locally without hairpin NAT issues, add a host override in OPNsense:
 
@@ -422,7 +422,7 @@ sudo docker ps | grep npmplus
 
 ## Part 8: Device Pairing
 
-### 8.1 Access The Web UI
+### 8.1 Access The Web Ui
 
 Open `https://openclaw.yourdomain.duckdns.org` in your browser.
 
@@ -504,13 +504,13 @@ The `OLLAMA_HOST` environment variable is not supported by this version.
 
 **Fix:** In the TrueNAS app environment variables, use `OLLAMA_BASE_URL` instead of `OLLAMA_HOST`.
 
-### WebSocket Disconnected (1006) Through NPMplus
+### Websocket Disconnected (1006) Through Npmplus
 
 HTTP/2 or HTTP/3 is being negotiated, which breaks WebSocket upgrades.
 
 **Fix:** Ensure `proxy_http_version 1.1` is in the NPMplus advanced config, and that HTTP/2 and HTTP/3 are disabled in the TLS tab. Also ensure your Unbound DNS override is resolving the domain to your local TrueNAS IP - if the domain resolves to your WAN IP, traffic hairpins through NAT and the connection fails.
 
-### Certificate Request Fails With Internal Error In NPMplus
+### Certificate Request Fails With Internal Error In Npmplus
 
 Port 80 is not accessible from the internet for the HTTP-01 ACME challenge.
 

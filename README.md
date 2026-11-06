@@ -1,4 +1,4 @@
-# 🛡️ ULTIMATE CYBERSECURITY MASTER GUIDE
+# 🛡️ Ultimate Cybersecurity Master Guide
 
 <p align="center">
   <img src="./assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
@@ -38,11 +38,11 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 <h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
 
 ---
-## 🎯 START HERE
+## 🎯 Start Here
 
-### 🆕 New To IT/Computers/Networks In General? - READ OUR [IT MANUAL](https://pnw-computers.github.io/IT-Manual/) TO GET YOURSELF STARTED!
+### 🆕 New To IT/Computers/Networks In General? - Read Our [IT Manual](https://pnw-computers.github.io/IT-Manual/) To Get Yourself Started!
 
-### ⭐ **[START_HERE.Md](./START_HERE.md) - START HERE IF YOU ARE READY TO JUMP IN!**
+### ⭐ **[START_HERE.md](./START_HERE.md) - Start Here If You Are Ready To Jump In!**
 
 Your complete navigation guide with quick paths for every role and purpose (Red Team, Blue Team, OSINT, Forensics, Homelab, Career).
 
@@ -88,7 +88,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="primary-master-guides"></a>
 
-## 📚 PRIMARY MASTER GUIDES
+## 📚 Primary Master Guides
 
 | Guide | Description |
 |---|---|
@@ -100,7 +100,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="supporting-guides"></a>
 
-## 📖 SUPPORTING GUIDES & REFERENCE MATERIAL
+## 📖 Supporting Guides & Reference Material
 
 ### Curated Research & Practice
 
@@ -225,7 +225,7 @@ These records describe their dated review scope; they do not certify the current
 
 ---
 
-## 🆕 UNIQUE & PERSONAL CONTENT
+## 🆕 Unique & Personal Content
 
 Content sourced from PNWC's internal Notion knowledge base and real-world operations - not found in textbooks.
 
@@ -275,7 +275,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
 - **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
-### 🎯 Attack Case Studies (10+ Analyzed)
+### 🎯 ATTACK Case Studies (10+ Analyzed)
 
 | Incident | Type |
 |---|---|
@@ -322,7 +322,7 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This secti
 
 ---
 
-## 📊 REPOSITORY STATISTICS
+## 📊 Repository Statistics
 
 **Historical snapshot (September 11, 2026):** counts below are retained for provenance and should not be interpreted as the current live inventory after subsequent additions. They are not claims that every example has been deployment-tested.
 
@@ -339,7 +339,7 @@ Original compilation figures such as the number of internal PNWC documents are p
 
 ---
 
-## 🚀 WHAT YOU CAN DO WITH THIS GUIDE
+## 🚀 What You Can Do With This Guide
 
 ### Learning & Practice
 
@@ -364,7 +364,7 @@ Original compilation figures such as the number of internal PNWC documents are p
 
 ---
 
-## 🙏 CREDITS & ACKNOWLEDGMENTS
+## 🙏 Credits & Acknowledgments
 
 This guide stands on the shoulders of the global cybersecurity community.
 
@@ -416,7 +416,7 @@ release, file license and legal scope before operational reuse.
 
 ### 🛠️ Key Tools & Frameworks
 
-#### Exploitation & Post-Exploitation
+#### Exploitation & Post-exploitation
 
 | Resource | Notes |
 |---|---|
@@ -617,7 +617,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 10. **Ethical Hacking MindMap** - Educational material
 11. **Introduction to Ethical Hacking** - Chinni Diwakar · Educational material
 
-### II. Penetration Testing & Operations
+### Ii. Penetration Testing & Operations
 
 12. **Penetration Testing: A Hands-On Introduction to Hacking** - Georgia Weidman · No Starch Press · 2014 · ISBN 978-1593275648
 13. **The Hacker Playbook 3: Red Team Edition** - Peter Kim · Secure Planet · 2018 · ISBN 978-1980901754
@@ -630,14 +630,14 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 20. **Pentest in Office365 and Security** - Joas Antonio · Educational material
 21. **Exploiting Misconfigurations (CSP Bypass)** - Jamy Casteel · GIAC/SANS Gold Paper · 2021
 
-### III. Defense & Team Strategies
+### Iii. Defense & Team Strategies
 
 22. **RTFM: Red Team Field Manual** - Ben Clark · CreateSpace · 2014 · ISBN 978-1494295509
 23. **Blue Team Field Manual (BTFM)** - Alan J. White, Ben Clark · CreateSpace · 2017 · ISBN 978-1541216044
 24. **Purple Team Field Manual (PTFM)** - Tim Bryant · Self-published · 2020
 25. **Jump-start Your SOC Analyst Career** - Tyler Wall, Jarrett Rodrick · Apress · 2021 · ISBN 978-1484269039
 
-### IV. Operating Systems, Tools & Frameworks
+### Iv. Operating Systems, Tools & Frameworks
 
 26. **Kali Linux Revealed** - Raphaël Hertzog, Jim O'Gorman, Mati Aharoni · Offsec Press · 2017 · ISBN 978-0-9976402-0-2
 27. **Mastering Kali Linux for Advanced Penetration Testing** - Robert W. Beggs · Packt · 2014 · ISBN 978-1782169735
@@ -666,7 +666,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 47. **SQL Injection - Comprehensive Guide** - Educational material
 48. **Learn SQL Using Squid Game** - @codechips (Cody) · Educational material
 
-### VI. Wireless & Mobile Hacking
+### Vi. Wireless & Mobile Hacking
 
 49. **WiFi Hacking for Beginners** - James Wells · Self-published
 50. **Kali Linux Wireless Pentesting and Security for Beginners** - Hardeep Singh · 2017
@@ -674,14 +674,14 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 52. **Hacking HLR, HSS and MME Core Network Elements** - Philippe Langlois · Black Hat USA 2014
 53. **Hacking LTE Public Warning Systems** - Weiguang Li · HAXPO Conference
 
-### VII. Reverse Engineering & Exploit Development
+### Vii. Reverse Engineering & Exploit Development
 
 54. **Practical Reverse Engineering** - Dang, Gazet, Bachaalany · Wiley · 2014 · ISBN 978-1118787311
 55. **Mastering Reverse Engineering** - Reginald Wong · Packt · 2018 · ISBN 978-1788832918
 56. **Reverse Engineering for Beginners** - Dennis Yurichev · Creative Commons · 2016
 57. **Reverse Engineering for Beginners (Lite)** - Dennis Yurichev · Creative Commons
 
-### VIII. Programming & Data Science For Security
+### Viii. Programming & Data Science For Security
 
 58. **Black Hat Python** - Justin Seitz · No Starch Press · 2014 · ISBN 978-1593275907
 59. **Violent Python** - TJ O'Connor · Syngress · 2012 · ISBN 978-1597499576
@@ -694,7 +694,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 66. **Long Short-Term Memory Networks with Python** - Jason Brownlee · Machine Learning Mastery · 2017
 67. **Machine Learning with Python for Everyone** - Mark E. Fenner · Addison-Wesley
 
-### IX. Social Engineering & Forensics
+### Ix. Social Engineering & Forensics
 
 68. **Social Engineering: The Science of Human Hacking** - Christopher Hadnagy · Wiley · 2018 · ISBN 978-1119433385
 69. **The Art of Invisibility** - Kevin Mitnick · Little, Brown & Company · 2017 · ISBN 978-0316380492

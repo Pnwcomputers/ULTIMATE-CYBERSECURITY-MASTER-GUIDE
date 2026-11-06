@@ -94,7 +94,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ## 🗂️ Resource Categories
 
-### 1. 🦞 Self-Hosted AI Agent Frameworks
+### 1. 🦞 Self-hosted AI Agent Frameworks
 
 **Purpose**: Deploy persistent AI agents on your own hardware that connect to messaging platforms, tools, and services.
 
@@ -110,7 +110,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-### 2. 🧠 GenAI / LLM Applications For Security
+### 2. 🧠 Genai / LLM Applications For Security
 
 **Purpose**: Apply large language models to security operations tasks - report generation, log analysis, threat hunting, and SOC automation.
 
@@ -127,7 +127,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
-### 3. 📴 Offline & Air-Gapped AI Deployment
+### 3. 📴 Offline & Air-gapped AI Deployment
 
 **Purpose**: Run AI inference in environments where internet connectivity is restricted or prohibited - classified networks, air-gapped labs, sensitive client engagements.
 
@@ -211,7 +211,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 - Reference `use_cases.md` red team section for methodology, reporting, and tool reference
 - Use local Ollama models (`@ollama`) for sensitive engagement data
 
-### For Sensitive / Air-Gapped Environments
+### For Sensitive / Air-gapped Environments
 - Follow `offline-llm.md` for fully offline deployment
 - Use Ollama as the sole inference backend - no data leaves the machine
 - Apply the `agent_skill_config.md` homelab agent (Homer) for infrastructure management

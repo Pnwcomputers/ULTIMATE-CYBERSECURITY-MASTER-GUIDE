@@ -350,7 +350,7 @@ These checklists serve as:
 
 ## ⚠️ Security & Legal Disclaimer
 
-### 🔴 CRITICAL: Authorized Use Only
+### 🔴 Critical: Authorized Use Only
 
 ```
 ⚠️ LEGAL AND ETHICAL USE ONLY ⚠️
@@ -430,10 +430,10 @@ These security checklists contain attack techniques and methodologies for:
 
 ---
 
-### Attack Technique Legal Considerations
+### ATTACK Technique Legal Considerations
 
 <a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
-#### Computer Fraud & Abuse Act (CFAA) - United States
+#### Computer Fraud & Abuse Act (Cfaa) - United States
 
 ```
 ⚠️ CRITICAL LEGAL WARNING:
@@ -470,7 +470,7 @@ without proper authorization.
 
 ---
 
-### Technique-Specific Warnings
+### Technique-specific Warnings
 
 #### Credential Dumping & Theft
 
@@ -520,7 +520,7 @@ PROHIBITED:
    🚫 Modifying system security settings
 ```
 
-#### Defense Evasion & AV Bypass
+#### Defense Evasion & Av Bypass
 
 ```
 ⚠️ WARNING: Defense Evasion Techniques
@@ -820,7 +820,7 @@ We welcome contributions from security professionals to improve and expand this 
 - **OSSTMM**: Open Source Security Testing Methodology Manual
 - **NIST SP 800-115**: Technical Guide to Information Security Testing
 
-### Attack Technique Databases
+### ATTACK Technique Databases
 
 - **MITRE ATT&CK Enterprise**: https://attack.mitre.org/matrices/enterprise/
 - **LOLBAS Project**: Living Off The Land Binaries and Scripts
