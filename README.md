@@ -51,6 +51,15 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 ## 🧭 Navigate By Area
 
+### Hardware & Firmware Quick Reference
+
+| Resource | Description |
+|---|---|
+| [Device & Hardware Firmware List](./HardwareHacking/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
+| [Security Firmware Master Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
+| [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
+| [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
+
 
 **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) — model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources.
 
