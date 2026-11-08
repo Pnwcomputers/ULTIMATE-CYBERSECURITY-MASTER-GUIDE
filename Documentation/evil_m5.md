@@ -1,5 +1,19 @@
 # The M5Cardputer & Evil-M5Project
 
+## Official Web Installation & Companion Workflows
+
+The current [Evil-M5Project README](https://github.com/7h30th3r0n3/Evil-M5Project)
+provides [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/) as a browser
+installation route. Use a supported desktop browser, select the exact board and
+verify required SD assets. This route complements the desktop/source methods
+below; it does not make every model's feature set identical.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./ghostesp-revival.md) | Alternative wireless observation/capture firmware; use its own official installer and board matrix. |
+| [NEMO](./nemo-firmware.md) | Separate compact M5Stack toolkit with its own publisher, SD and USB constraints. |
+| [Pico-Ducky Lab](../HardwareHacking/pico-ducky-lab.md) | Dedicated harmless USB HID setup; CircuitPython files and payload.dd are not Evil-M5 install artifacts. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

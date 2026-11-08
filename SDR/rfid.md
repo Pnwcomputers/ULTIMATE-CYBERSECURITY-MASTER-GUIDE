@@ -15,6 +15,20 @@
 
 ---
 
+## Firmware & Client Pairing For Current Platforms
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Proxmark3 RRG](https://github.com/RfidResearchGroup/proxmark3) | Match client and firmware release/build and exact hardware platform; generic/RDV4 configurations differ. |
+| [ChameleonUltra](https://github.com/RfidResearchGroup/ChameleonUltra) | Use upstream-supported GUI/CLI update and identify Ultra versus Lite hardware; a web console alone is not a verified firmware updater. |
+| [Bruce](../Documentation/bruce_firmware.md) | Reader functions require the documented PN532 or other compatible frontend; ESP32 alone is not an LF/HF reader. |
+| [GhostESP Revival](../Documentation/ghostesp-revival.md) | NFC support depends on target/frontend and selected build; validate with owned test tags. |
+| [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Separate interface/tooling workflow with external reader requirements; verify voltage and protocol before connection. |
+
+Keep firmware files, card dumps and keys separate. Preserve a read-only original
+and use sacrificial owned tags for write validation. A shared extension or a UID
+match does not establish complete card emulation or permission to use a credential.
+
 ## 🎯 Purpose
 
 Comprehensive bench manual for RFID/NFC access-control exploration - covering educational theory, low- and high-frequency card capture procedures, laboratory logging documentation, key-recovery software pipelines, and transponder architecture breakdowns for physical access, contactless payment, and asset-tracking systems.
@@ -507,7 +521,7 @@ When analyzing credentials from the reference matrix above, use this operational
 
 To maintain reproducibility across access-control audits, document every read, recovery, or clone session using the following standardized Markdown format. Copy the block below into a new file for each session:
 
-~~~markdown
+````markdown
 # RFID CREDENTIAL CAPTURE MATRIX LOG: [LOG_ID_NUM]
 
 ## 1. Environment Metadata
@@ -555,7 +569,7 @@ To maintain reproducibility across access-control audits, document every read, r
 
 [Document read clarity, coupling issues, whether the card was hardened, and
 whether the emulated/cloned credential was accepted by an OWNED bench reader.]
-~~~
+````
 
 ---
 

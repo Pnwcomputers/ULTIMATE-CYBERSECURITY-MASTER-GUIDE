@@ -4,6 +4,16 @@
 
 The [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5StickCPlus2) gathers IR signal files, Sub-GHz samples, BLE/USB keyboard scripts, captive-portal templates and tutorials. It is a **collection of untrusted references**, not a firmware release or a preapproved set of penetration-testing payloads. This guide integrates the useful concepts with the existing PNWC chapters **without copying third-party scripts, radio files or brand assets**.
 
+## Choose Firmware For The Exact Board
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Bruce](../Documentation/bruce_firmware.md) | Use the Plus2 target and its documented external-module/HID wiring; preserve assets and configuration. |
+| [NEMO](../Documentation/nemo-firmware.md) | Separate M5Stack observation toolkit; SD on StickC can require an external reader/build changes. |
+| [Evil-M5](../Documentation/evil_m5.md) | Current web installer lists supported targets, but per-device functions and SD assets differ. |
+| [ESP32 Bit Pirate](./esp32-bit-pirate.md) | Requires a supported ESP32-S3 board; the original ESP32-based StickC Plus2 is not an S3 target. |
+| [Pico-Ducky](./pico-ducky-lab.md) | Separate Pico USB HID lab, useful when a dedicated native USB device is required. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

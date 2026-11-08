@@ -1,6 +1,19 @@
 # USB Rubber Ducky Script Compilation Guide
 
 
+## Other HID Firmware: Select A Separate Workflow
+
+The compilation instructions in this guide apply to the named Hak5 platform.
+Choose a separate install/script workflow for other hardware; a text script,
+CircuitPython project and compiled `inject.bin` are different artifacts.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Pico-Ducky Lab](../../HardwareHacking/pico-ducky-lab.md) | Pico-family CircuitPython setup, setup jumper, payload.dd and fixed-text validation. |
+| [ESP32 Bit Pirate](../../HardwareHacking/esp32-bit-pirate.md) | Supported S3 USB functions and protocol bench work; use project-specific commands. |
+| [Bruce](../../Documentation/bruce_firmware.md) | Native USB or external-HID path depends on board; StickC USB-to-UART alone is not keyboard emulation. |
+| [NEMO](../../Documentation/nemo-firmware.md) | USB interface analysis is distinct from scripted HID output and is not a malware verdict. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

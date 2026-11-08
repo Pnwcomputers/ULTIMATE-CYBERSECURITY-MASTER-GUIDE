@@ -501,5 +501,66 @@
       "status": 200,
       "method": "Separate Firecrawl retrieval; local TLS verification failed; did not disable certificate verification."
     }
-  ]
+  ],
+  "dedicated_guide_review": {
+    "date": "2026-11-07",
+    "method": "Primary GitHub README fetches; blob hashes identify reviewed documents, not firmware release commits. No build or device test.",
+    "sources": [
+      {
+        "repository": "GhostESP-Revival/GhostESP",
+        "readme_blob_sha": "891827d49e29c539212fcff106f008abea8d4995",
+        "source": "https://github.com/GhostESP-Revival/GhostESP/blob/Development-deki/README.md"
+      },
+      {
+        "repository": "geo-tp/ESP32-Bit-Pirate",
+        "readme_blob_sha": "0208e630b9ac0d4378a7ac8104b20f21c63df9f6",
+        "source": "https://github.com/geo-tp/ESP32-Bit-Pirate/blob/pioarduino/README.md"
+      },
+      {
+        "repository": "justcallmekoko/ESP32DualBandWardriver",
+        "readme_blob_sha": "7019541ee403e416a4cea5c8be2049a9082dafb1",
+        "source": "https://github.com/justcallmekoko/ESP32DualBandWardriver/blob/main/README.md"
+      },
+      {
+        "repository": "Hamspiced/piglet",
+        "readme_blob_sha": "35abea34640ad6f6b8d4f6c035f3142e2c36b974",
+        "source": "https://github.com/Hamspiced/piglet/blob/main/README.md"
+      },
+      {
+        "repository": "nccgroup/Sniffle",
+        "readme_blob_sha": "3d08e9170ab3ee041fc087c66824e95668d8f749",
+        "source": "https://github.com/nccgroup/Sniffle/blob/master/README.md"
+      },
+      {
+        "repository": "joelsernamoreno/EvilCrowRF-V2",
+        "readme_blob_sha": "33b4288ee061d3fb228b799ae1dc27c824e4ed71",
+        "source": "https://github.com/joelsernamoreno/EvilCrowRF-V2/blob/main/README.md"
+      },
+      {
+        "repository": "dbisu/pico-ducky",
+        "readme_blob_sha": "208938b6b37f8606760ff6d0bfc43cf93bc4b588",
+        "source": "https://github.com/dbisu/pico-ducky/blob/main/README.md"
+      },
+      {
+        "repository": "n0xa/m5stick-nemo",
+        "readme_blob_sha": "74f9bf4ba23061d3d6dd783dc2d74e94a0978de7",
+        "source": "https://github.com/n0xa/m5stick-nemo/blob/main/README.md"
+      },
+      {
+        "repository": "7h30th3r0n3/Evil-M5Project",
+        "readme_blob_sha": "889123b9b931c3d058ed07f6946d450c1d550abb",
+        "source": "https://github.com/7h30th3r0n3/Evil-M5Project/blob/main/README.md"
+      },
+      {
+        "repository": "BruceDevices/firmware",
+        "readme_blob_sha": "e87968ed231027caf93a59b5eeeca1cc2d91710d",
+        "source": "https://github.com/BruceDevices/firmware/blob/main/README.md"
+      },
+      {
+        "repository": "justcallmekoko/ESP32Marauder",
+        "readme_blob_sha": "c4c3beaf37920cba38308ab33f8dc34f5fec3ab5",
+        "source": "https://github.com/justcallmekoko/ESP32Marauder/blob/master/README.md"
+      }
+    ]
+  }
 }

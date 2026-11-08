@@ -1,5 +1,19 @@
 # Bruce Firmware: A Multi-Radio Offensive Platform for ESP32 Hardware
 
+## Current Installation & Alternative Firmware
+
+For an initial Bruce install, use the [official flasher](https://bruce.computer/flasher)
+and the exact board target from [upstream](https://github.com/BruceDevices/firmware).
+Review erase behavior and SD assets before switching firmware families. A matching
+chip alone does not validate display pins, USB HID or an attached radio module.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./ghostesp-revival.md) | Wi-Fi/BLE observation and capture workflow; distinct ESP-IDF targets and supported interfaces. |
+| [NEMO](./nemo-firmware.md) | Compact M5Stack observation/IR alternative; its SD and USB behavior differs by board. |
+| [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Wired UART/SPI/I2C protocol bench work on supported S3 targets, with separate radio-module requirements. |
+| [Evil Crow RF V2](../SDR/evil-crow-rf-v2.md) | Dedicated dual-CC1101/NRF hardware and matched web assets; not an interchangeable Bruce image. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

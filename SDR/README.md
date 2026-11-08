@@ -23,6 +23,12 @@
 
 **M5StickC Plus2 + CC1101:** [Starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers module prerequisites, receive-only RF observation and upstream file provenance.
 
+## Dedicated Firmware Labs
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Evil Crow RF V2](./evil-crow-rf-v2.md) | Matched firmware/web assets and narrowband receiver validation. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

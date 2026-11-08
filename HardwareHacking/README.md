@@ -16,6 +16,13 @@
 
 **Adjacent embedded-security research:** [Awesome Embedded and IoT](https://github.com/fkie-cad/awesome-embedded-and-iot-security), [h4cker hardware](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/hardware-embedded-security) and [project routing](../Documentation/awesome-hacking-collections-integration.md).
 
+## Dedicated Firmware Labs
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [ESP32 Bit Pirate](./esp32-bit-pirate.md) | S3 firmware install and a read-only UART bench baseline; distinct from Bus Pirate hardware. |
+| [Pico-Ducky Lab](./pico-ducky-lab.md) | Pico setup mode and a fixed-text offline HID demonstration. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |
