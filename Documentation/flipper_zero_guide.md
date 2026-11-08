@@ -1,5 +1,14 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
 
+## FlipperHTTP Network Companion
+
+[FlipperHTTP](https://github.com/jblanked/FlipperHTTP) supplies target-specific
+network-bridge firmware and a library used by separate Flipper applications.
+It is not Flipper OS and does not add Wi-Fi hardware to the Flipper itself. Use
+the exact board-directory installation/wiring instructions, match the companion
+app, and keep network credentials out of shared backups. It is a different role
+from Marauder or GhostESP survey/capture firmware.
+
 ## Firmware & Accessory Update Boundaries
 
 Update the Flipper and its radio accessory as separate devices. The Flipper

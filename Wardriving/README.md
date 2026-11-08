@@ -6,6 +6,13 @@ _Last reviewed: 2026-10-22_
 > [!CAUTION]
 > **Authorized surveying only.** Define the permitted area, types of collection, device owners, disclosure rules and any transmit-capable features *before* starting. Passive reception is not a blanket permission for active interference, interception or publishing location data. Read the [repository legal notice](../LEGAL.md).
 
+## Expanded Device & Firmware Coverage
+
+| Resource | Description / Boundary |
+|---|---|
+| [Additional Survey Firmware](./additional-survey-firmware.md) | PORKCHOP, wardriver.uk Rev3 and historical wardriver3000. |
+| [Biscuit Firmware Routes](./biscuit.md#current-firmware-distribution--recovery) | Vendor browser, raw release and product-specific desktop recovery paths. |
+
 ## Additional Dedicated Survey Guides
 
 | Resource | Role & Compatibility Boundary |
@@ -17,8 +24,8 @@ _Last reviewed: 2026-10-22_
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
-| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [ESP32 & Related Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../Documentation/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
 
 ## Purpose
 

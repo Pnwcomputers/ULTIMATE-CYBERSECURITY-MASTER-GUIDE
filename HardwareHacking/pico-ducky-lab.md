@@ -72,7 +72,7 @@ ENTER
 |---|---|
 | [USB Rubber Ducky Guide](../Scripts/Ducky/README.md) | Separate Hak5 compilation/deployment workflow |
 | [Plus2 Lab](./m5stickc-plus2-hackstarterpack.md) | BLE/USB accessory differences on M5Stick hardware |
-| [Firmware Catalog](./esp32-security-firmware-catalog.md) | WiFi Duck, Pico WiFi Duck, BLE Keyboard and other distinct projects |
+| [Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | WiFi Duck, Pico WiFi Duck, BLE Keyboard and other distinct projects |
 | [Hardware Hacking Index](./README.md) | Bench and platform navigation |
 
 ## Review Scope

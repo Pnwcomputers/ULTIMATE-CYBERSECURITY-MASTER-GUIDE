@@ -70,7 +70,7 @@ current-limited power where appropriate, a meter and the exact board pin map.
 |---|---|
 | [Hardware Hacking Index](./README.md) | Bench tools and learning sequence |
 | [Bus Pirate](./BusPirate.md) | Separate dedicated multi-protocol hardware |
-| [Firmware Catalog](./esp32-security-firmware-catalog.md) | Alternative firmware and target boundaries |
+| [Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Alternative firmware and target boundaries |
 | [GhostESP](../Documentation/ghostesp-revival.md) | Wireless observation rather than wired bus analysis |
 
 ## Review Scope

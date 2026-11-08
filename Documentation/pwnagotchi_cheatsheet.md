@@ -5,6 +5,15 @@
 > [!WARNING]
 > **Reviewed October 31, 2026.** The actively developed [jayofelony fork](https://github.com/jayofelony/pwnagotchi/releases) has newer images than the older v2.9.5.4 example below; **v2.9.5.8** was the most recent reviewed release. Recent releases changed image support, plugin behavior and `.pcapng` storage. Consult the [maintained wiki](https://github.com/jayofelony/pwnagotchi/wiki) for the exact image and config on your hardware, verify the checksum where published, **back up data** and do not assume old paths or plugins work unchanged. This is **not a passive-only device by default**: some modes can transmit/deauthenticate; use explicitly authorized passive modes only where required.
 
+## Current Fork & FancyGotchi Compatibility
+
+The [jayofelony upstream](https://github.com/jayofelony/pwnagotchi) currently
+uses a `noai` default branch; legacy AI/training descriptions below are not
+universal to current Pwnagotchi images. Select Pi model/architecture, image fork
+and display explicitly. [FancyGotchi](./fancygotchi-pwnagotchi.md) is a separate
+theme-manager compatibility decision; the independent CYD project is different
+firmware. A UI/theme does not make active radio behavior passive.
+
 ## 🎯 Purpose
 Quick-reference for deploying, configuring, and operating a Pwnagotchi - an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that can capture WPA/WPA2 traffic using bettercap; features/modes may include **active packet injection** and require authorization.
 

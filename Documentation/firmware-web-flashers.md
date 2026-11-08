@@ -7,6 +7,13 @@
 
 _Last reviewed: 2026-11-07_
 
+## Biscuit Release & Recovery Routes
+
+| Resource | Description / Boundary |
+|---|---|
+| [Biscuit Release Downloads](https://github.com/CodeHedge/diy_node_web_flasher/releases) | Vendor docs link raw DIY/Node images and layouts here. Installer repository is archived; prefer current vendor flasher and verify release provenance. |
+| [Biscuit Desktop Recovery Utility](https://github.com/CodeHedge/biscuit_flasher) | Python utility for named Pro/Ultra/Crumb products; not a browser flasher or the DIY workflow. |
+
 ## After Installation: Validate The Selected Firmware
 
 A successful write only verifies part of the setup. Use the
@@ -53,6 +60,10 @@ project READMEs, project wiki installation pages or vendor documentation.
 | [ExpressLRS Web Flasher](https://expresslrs.github.io/web-flasher/) | [ExpressLRS upstream](https://github.com/ExpressLRS/ExpressLRS). Only supported TX/RX targets and update paths; not every ExpressLRS board uses an ESP serial workflow. |
 | [Momentum Web Updater](https://momentum-fw.dev/update/) | [Momentum upstream](https://github.com/Next-Flip/Momentum-Firmware). Flipper Zero updater, not an ESP32 uploader or a flasher for its external Wi-Fi module. |
 | [Unleashed Web Installer](https://web.unleashedflip.com/) | [Unleashed upstream](https://github.com/DarkFlippers/unleashed-firmware) links this installer. Updates Flipper Zero itself; the ESP accessory flasher below is a separate service. |
+| [HaleHound Installer](https://flash.halehound.com/) | Dedicated project installer linked by [upstream](https://github.com/JesseCHale/HaleHound-CYD); exact CYD/RF-Hat target and peripherals matter. |
+| [nyanBOX Installer](https://nyandevices.com/flasher) | Dedicated device installer linked by [upstream](https://github.com/jbohack/nyanBOX); not a generic NRF24 or ESP32 image. |
+| [SquachWatch Installer](https://squachwatch.com/) | Dedicated project installer linked by [upstream](https://github.com/skizzophrenic/SquachWatch-CYD); distinguish display controllers and beta targets. |
+| [MeshCore Installer](https://meshcore.io/flasher) | Dedicated ecosystem installer linked by [upstream](https://github.com/meshcore-dev/MeshCore); role, LoRa module and region settings differ from Meshtastic. |
 
 ## Multi-Device / Multi-Firmware Web Flashers
 
@@ -63,6 +74,7 @@ None offers universal firmware-to-board compatibility.
 
 | Tool / Primary Source | Type, Device Scope & Firmware Selection |
 |---|---|
+| [ESP Terminator](https://espterminator.com/) — [author site](https://dagnazty.dev/) | Multi-device catalog/uploader with ESP, Flipper and other target-specific workflows. [Usage guide](./esp-terminator.md); verify each image against upstream, not only the catalog label. |
 | [Unleashed ESP Flasher](https://espflasher.unleashedflip.com/) — [upstream association](https://github.com/DarkFlippers/unleashed-firmware) | Multi-firmware catalog for specified WROOM, S2 Flipper Wi-Fi Dev Board and C5 modules. Lists Marauder, GhostESP, FlipperHTTP and target-dependent Blackmagic. Unleashed's endorsement does not establish endorsement by each firmware author; prefer GhostESP's own installer. |
 | [ESP Web Tool](https://esptool.spacehuhn.com/) — [Spacehuhn source](https://github.com/SpacehuhnTech/espwebtool) | General uploader for supported ESP32/ESP8266 targets. Supply upstream binaries and correct offsets. The older `esp.huhn.me` address redirects here; do not count it as a second service. |
 | [ESPHome Web](https://web.esphome.io/) — [ESPHome Web Tools source](https://github.com/esphome/esp-web-tools) | Browser upload/install interface for supported ESP devices, including local firmware preparation/upload workflows. Not a catalog of all security firmware; verify accepted binary format before use. |
@@ -146,7 +158,7 @@ validated links.
 | [Firmware Master Catalog](./esp32-security-firmware-catalog.md) | Projects, supported target examples, use-cases & maintenance signals |
 | [Firmware Compatibility](../firmware-hardware-compatibility.md) | Existing matrix; confirm each legacy claim against upstream |
 | [Wardriving](../Wardriving/README.md) | Hardware/controller pairing, GPS & data handling |
-| [Hardware Hacking](./README.md) | Electronics, debug interfaces & bench foundations |
+| [Hardware Hacking](../HardwareHacking/README.md) | Electronics, debug interfaces & bench foundations |
 
 ---
 

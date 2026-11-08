@@ -18,8 +18,8 @@ CircuitPython project and compiled `inject.bin` are different artifacts.
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](../../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
-| [Firmware Web Flashers](../../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [ESP32 & Related Firmware Catalog](../../Documentation/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../../Documentation/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
 
 ## 🎯 Purpose
 USB Rubber Ducky DuckyScript compilation guide - covers writing, compiling, and deploying DuckyScript payloads for the Hak5 USB Rubber Ducky keyboard emulation attack platform for authorized red team engagements.

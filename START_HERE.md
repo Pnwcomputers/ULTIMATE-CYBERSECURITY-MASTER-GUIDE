@@ -109,8 +109,9 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | **[Wireshark Field Cheat Sheet](Documentation/wireshark-cheatsheet.md)** | Quick GUI/CLI packet analysis, 802.11, DNS/DHCP, TCP and TLS filter examples |
 | **[Wireshark Master Filter List](Documentation/wireshark-master-filters.md)** | Searchable reference and 133 tested display filters for detailed investigations |
 | **[Linux Command Cheat Sheet](Documentation/LinuxCheatSheet.md)** | Most-used Linux CLI commands for Debian/Ubuntu/Kali/Parrot/Arch |
-| [ESP32 & Related Firmware Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
-| [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
+| [Device Firmware List](./Documentation/device-firmware-list.md) | Hardware-first firmware and installation choices |
+| [ESP32 & Related Firmware Catalog](./Documentation/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
+| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
 | **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
 
 ---

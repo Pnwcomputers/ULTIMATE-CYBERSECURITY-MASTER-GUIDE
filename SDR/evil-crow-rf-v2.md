@@ -74,7 +74,7 @@ suitable antennas, a controlled RF bench and an owned test transmitter.
 | [Sub-GHz](./subghz.md) | Narrowband protocols and radio-module boundaries |
 | [Bruce](../Documentation/bruce_firmware.md) | Separate ESP32 toolkit with external CC1101/NRF modules |
 | [HackRF Playbook](../PlayBooks/HackRFAuditPlayBook.md) | Independent spectrum/IQ evidence and RF bench validation |
-| [Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary projects, activity notes and install routes |
+| [Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Primary projects, activity notes and install routes |
 
 ## Review Scope
 

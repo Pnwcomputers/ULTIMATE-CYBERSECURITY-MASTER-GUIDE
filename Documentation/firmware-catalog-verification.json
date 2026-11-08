@@ -562,5 +562,182 @@
         "source": "https://github.com/justcallmekoko/ESP32Marauder/blob/master/README.md"
       }
     ]
+  },
+  "coverage_gap_review": {
+    "date": "2026-11-07",
+    "method": "Project-name searches, ESP Terminator library discovery, primary README/metadata and official Biscuit docs; no build or device test.",
+    "sources": [
+      {
+        "repository": "0ct0sec/M5PORKCHOP",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-10-06T09:58:50Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "c4d5c35ae077a10025a72ec43040aa2adf2438ff",
+        "readme_url": "https://github.com/0ct0sec/M5PORKCHOP/blob/main/README.md"
+      },
+      {
+        "repository": "MatthewKuKanich/ChimeraBLE",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-07-07T20:31:21Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "edd4777a1221e684e566059f754b28a635e0d5c8",
+        "readme_url": "https://github.com/MatthewKuKanich/ChimeraBLE/blob/main/README.md"
+      },
+      {
+        "repository": "JosephHewitt/wardriver_rev3",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-05-25T13:22:51Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "3492ac207b6339ce90b78a7ff4679e2eefab15a0",
+        "readme_url": "https://github.com/JosephHewitt/wardriver_rev3/blob/main/README.md"
+      },
+      {
+        "repository": "cifertech/wardriver3000",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2024-04-28T11:09:09Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "ca2d6826e89c75beae5b70bf7014d2984a818e2e",
+        "readme_url": "https://github.com/cifertech/wardriver3000/blob/main/README.md"
+      },
+      {
+        "repository": "CodeHedge/diy_node_web_flasher",
+        "default_branch": "main",
+        "archived": true,
+        "pushed_at": "2026-07-16T04:48:39Z",
+        "fork": true,
+        "parent": "Fr4nkFletcher/Adafruit_WebSerial_ESPTool",
+        "readme_blob_sha": "a986b22a60ecdb0fdfeecb27c39397181465d240",
+        "readme_url": "https://github.com/CodeHedge/diy_node_web_flasher/blob/main/README.md"
+      },
+      {
+        "repository": "CodeHedge/biscuit_flasher",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-10-18T14:48:47Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "b0fb4ae0b6ef7d12eb5bc6bfc525f14b4a8a6243",
+        "readme_url": "https://github.com/CodeHedge/biscuit_flasher/blob/main/README.md"
+      },
+      {
+        "repository": "jblanked/FlipperHTTP",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-06-04T14:06:24Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "ab9e516178426c515cd71b8fe414026cb534a38a",
+        "readme_url": "https://github.com/jblanked/FlipperHTTP/blob/main/README.md"
+      },
+      {
+        "repository": "skizzophrenic/SquachWatch-CYD",
+        "default_branch": "master",
+        "archived": false,
+        "pushed_at": "2026-11-07T18:02:48Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "37e2c2b7c72f9dede11af9477c7852d0de0c9fd4",
+        "readme_url": "https://github.com/skizzophrenic/SquachWatch-CYD/blob/master/README.md"
+      },
+      {
+        "repository": "JesseCHale/HaleHound-CYD",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-10-26T12:48:43Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "3a3858c44fffd05c74e2838ab76d1a3dfc775609",
+        "readme_url": "https://github.com/JesseCHale/HaleHound-CYD/blob/main/README.md"
+      },
+      {
+        "repository": "jbohack/nyanBOX",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-10-25T20:04:09Z",
+        "fork": true,
+        "parent": "cifertech/nRFBox",
+        "readme_blob_sha": "ea313af556f686787de2eaf398305e2922174620",
+        "readme_url": "https://github.com/jbohack/nyanBOX/blob/main/README.md"
+      },
+      {
+        "repository": "V0r-T3x/Fancygotchi",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2025-10-26T21:39:31Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "cc5970c3a31993e424fb1fe6d845f8a075532d18",
+        "readme_url": "https://github.com/V0r-T3x/Fancygotchi/blob/main/README.md"
+      },
+      {
+        "repository": "jayofelony/pwnagotchi",
+        "default_branch": "noai",
+        "archived": false,
+        "pushed_at": "2026-09-28T06:04:40Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "332b2ce5cdda67773602ad18ffc44d76a64d30a2",
+        "readme_url": "https://github.com/jayofelony/pwnagotchi/blob/noai/README.md"
+      },
+      {
+        "repository": "infinition/Bjorn",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-07-20T13:09:12Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "e8aa67cdf1c08e8a101c686e77d8c68ff793a944",
+        "readme_url": "https://github.com/infinition/Bjorn/blob/main/README.md"
+      },
+      {
+        "repository": "Xombi3/Fancygotchi-cyd-port",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-03-19T02:56:29Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "87b60e5dd58ee0b54c2f6ebf2f85853714a594aa",
+        "readme_url": "https://github.com/Xombi3/Fancygotchi-cyd-port/blob/main/README.md"
+      },
+      {
+        "repository": "meshcore-dev/MeshCore",
+        "default_branch": "main",
+        "archived": false,
+        "pushed_at": "2026-11-07T19:57:38Z",
+        "fork": false,
+        "parent": null,
+        "readme_blob_sha": "6cc45d7f43d662ce0587113c28e05307d802f577",
+        "readme_url": "https://github.com/meshcore-dev/MeshCore/blob/main/README.md"
+      }
+    ],
+    "web_sources": [
+      "https://espterminator.com/",
+      "https://dagnazty.dev/",
+      "https://codehedge.github.io/Biscuit-Wiki/devices/diy.html"
+    ],
+    "unresolved_names": [
+      "WardriveSP / wardrivesp: no primary project resolved under supplied spelling; not equated to wardriver.uk or C5 Wardriver."
+    ],
+    "url_checks": {
+      "method": "lychee 0.24.2 online GET checks; did not connect hardware or validate image download/serial flash",
+      "new_guides": {
+        "occurrences": 96,
+        "unique": 64,
+        "errors": 0
+      },
+      "new_installer_endpoints": {
+        "tested": 5,
+        "errors": 0,
+        "redirects": 1
+      }
+    }
   }
 }

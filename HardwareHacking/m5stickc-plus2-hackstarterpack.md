@@ -18,8 +18,8 @@ The [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](./esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
-| [Firmware Web Flashers](./firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [ESP32 & Related Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../Documentation/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
 
 ## Confirm exact hardware and firmware
 

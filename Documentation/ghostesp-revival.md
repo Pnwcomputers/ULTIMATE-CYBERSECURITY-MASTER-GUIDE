@@ -66,7 +66,7 @@ verification; broad functionality does not imply every build has every feature.
 | [Marauder](../Wardriving/esp32-marauder.md) | Alternative wireless toolkit with a different target/client model |
 | [Bruce](./bruce_firmware.md) | Alternative multi-radio module workflow |
 | [Wardriving Data Handling](../Wardriving/data-handling.md) | Location identifiers, retention and deliberate sharing |
-| [Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Activity notes and broader platform selection |
+| [Firmware Catalog](./esp32-security-firmware-catalog.md) | Activity notes and broader platform selection |
 | [Documentation Index](./README.md) | Return to section navigation |
 
 ## Review Scope
