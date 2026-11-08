@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 06, 2026
+# 🔄 Change Log - November 08, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1536
-- **Files Modified**: 2291
-- **New Files**: 858
+- **Commits Analyzed**: 1538
+- **Files Modified**: 2324
+- **New Files**: 869
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add firmware setup labs and update related platform guides (#178) (`324963d`)
+- docs: add verified ESP32 firmware catalog and web flasher references (#176) (`db6c28a`)
 - docs: add Beautiful Docs, Froxy proxy research, Docker reference and README citations (#158) (`a2567c7`)
 - docs: add Devhints-informed cybersecurity CLI field cheat sheet (#156) (`8e1c33e`)
 - docs: remove all detected same-page duplicate sections and add CI guard (#152) (`243220c`)
@@ -1560,12 +1562,40 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `AI/README.md`
-- `CHANGELOG.md`
-- `IncidentResponse/README.md`
-- `OSINT/README.md`
+- `Documentation/README.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/ble-capture-sniffle.md`
+- `Documentation/bruce_firmware.md`
+- `Documentation/evil_m5.md`
+- `Documentation/flipper_zero_guide.md`
+- `Documentation/ghostesp-revival.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `Documentation/nemo-firmware.md`
+- `HardwareHacking/BitPirate.md`
+- `HardwareHacking/README.md`
+- `HardwareHacking/esp32-bit-pirate.md`
+- `HardwareHacking/esp32-security-firmware-catalog.md`
+- `HardwareHacking/firmware-catalog-verification.json`
+- `HardwareHacking/firmware-web-flashers.md`
+- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
+- `HardwareHacking/pico-ducky-lab.md`
+- `SDR/README.md`
+- `SDR/evil-crow-rf-v2.md`
+- `SDR/rfid.md`
+- `SDR/subghz.md`
+- `Scripts/Ducky/README.md`
+- `Wardriving/README.md`
+- `Wardriving/esp32-c5-wardriver.md`
+- `Wardriving/esp32-marauder.md`
+- `Wardriving/piglet.md`
+- `firmware-hardware-compatibility.md`
+- `Mobile/UserLAnd/readme.md`
 - `README.md`
 - `START_HERE.md`
+- `CHANGELOG.md`
+- `AI/README.md`
+- `IncidentResponse/README.md`
+- `OSINT/README.md`
 - `STYLE_GUIDE.md`
 - `AI/AnythingLLM/README.md`
 - `AI/OpenClaw/README.md`
@@ -1579,8 +1609,6 @@
 - `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/Phase3/README.md`
 - `Data-Engineering/README.md`
-- `Documentation/README.md`
-- `HardwareHacking/README.md`
 - `HardwareTesting/README.md`
 - `HardwareTesting/py/README.md`
 - `Homelab/README.md`
@@ -1590,24 +1618,20 @@
 - `IncidentResponse/IDS&IPS/readme.md`
 - `IncidentResponse/SIEM/README.md`
 - `Mobile/README.md`
-- `Mobile/UserLAnd/readme.md`
 - `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
 - `OSINT/Playbook/README.md`
 - `PDF/README.md`
 - `PlayBooks/README.md`
 - `ReverseEngineering/README.md`
-- `SDR/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
 - `Scripts/Bash/BashBunny/README.md`
-- `Scripts/Ducky/README.md`
 - `Scripts/GO/README.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
 - `Tradecraft/README.md`
-- `Wardriving/README.md`
 - `WebAppSecurity/README.md`
 - `assets/README.md`
 - `uConsole/README.md`
@@ -1619,12 +1643,9 @@
 - `AI/verification-and-ai-audits.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/awesome-hacking-collections-integration.md`
-- `Documentation/bruce_firmware.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
-- `Documentation/evil_m5.md`
 - `Documentation/upstream-security-projects-register.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `Homelab/proxmox-security-monitoring-visibility.md`
 - `OSINT/OSINT_CHEATSHEET.md`
 - `OSINT/OSINT_GUIDE.md`
@@ -1633,9 +1654,7 @@
 - `OSINT/awesome-osint-list-curated.md`
 - `OSINT/bellingcat-source-verification.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `SDR/subghz.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
-- `firmware-hardware-compatibility.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `AI/llm-security-evaluation-promptfoo.md`
 - `Cloud/azure.md`
@@ -1808,7 +1827,6 @@
 - `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `IncidentResponse/SIEM/wazuh.md`
 - `Wardriving/kismet.md`
-- `Documentation/WiFiMarauder_Guide.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
@@ -1817,12 +1835,9 @@
 - `.github/workflows/guide-tests.yml`
 - `Documentation/bjorn_pi.md`
 - `Documentation/hcxtoolshashcat.md`
-- `HardwareHacking/BitPirate.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `OSINT/docs/FAQ.md`
 - `SDR/sdr.md`
-- `Wardriving/esp32-marauder.md`
-- `Documentation/flipper_zero_guide.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
 - `Wardriving/data-handling.md`
@@ -1970,8 +1985,6 @@
 - `IncidentResponse/IDS_IPS/nzyme_wids.md`
 - `IncidentResponse/IDS_IPS/nzymewids.md`
 - `Mobile/UserLAnd/alpinelinux.md`
-- `SDR/rfid.md`
-- `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
 - `Compliance/frameworks.md`
 - `Compliance/regulations.md`
