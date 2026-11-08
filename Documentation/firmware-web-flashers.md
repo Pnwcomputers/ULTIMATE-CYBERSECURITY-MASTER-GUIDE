@@ -158,7 +158,7 @@ validated links.
 | [Firmware Master Catalog](./esp32-security-firmware-catalog.md) | Projects, supported target examples, use-cases & maintenance signals |
 | [Firmware Compatibility](../firmware-hardware-compatibility.md) | Existing matrix; confirm each legacy claim against upstream |
 | [Wardriving](../Wardriving/README.md) | Hardware/controller pairing, GPS & data handling |
-| [Hardware Hacking](./README.md) | Electronics, debug interfaces & bench foundations |
+| [Hardware Hacking](../HardwareHacking/README.md) | Electronics, debug interfaces & bench foundations |
 
 ---
 

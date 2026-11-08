@@ -88,7 +88,7 @@ python sniff_receiver.py -m 12:34:56:78:9A:BC -a -o owned-beacon.pcap
 | Resource | Use |
 |---|---|
 | [Documentation Index](./README.md) | Section navigation |
-| [Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Source/activity notes and hardware boundaries |
+| [Firmware Catalog](./esp32-security-firmware-catalog.md) | Source/activity notes and hardware boundaries |
 | [Wardriving Data Handling](../Wardriving/data-handling.md) | BLE identifiers, privacy and retention |
 | [Wireshark Filters](./wireshark-master-filters.md) | Analysis context; verify protocol fields in the actual capture |
 

@@ -35,9 +35,9 @@ Generic development libraries require a build; they are not complete appliance i
 
 | Device | Radio / Architecture | Documented Firmware Choices | Selection Limits |
 |---|---|---|---|
-| M5StickC / Plus / Plus2 | Original ESP32 family, 2.4 GHz Wi-Fi/BLE | [Bruce](../Documentation/bruce_firmware.md), [NEMO](../Documentation/nemo-firmware.md); selected [Evil-M5](../Documentation/evil_m5.md) installer targets | Verify exact model and per-device features. USB bridge alone cannot emulate a keyboard. [Plus2 lab](./m5stickc-plus2-hackstarterpack.md). |
-| Original M5Cardputer | ESP32-S3, 2.4 GHz Wi-Fi/BLE, native USB | Bruce, NEMO, Evil-M5, [GhostESP](../Documentation/ghostesp-revival.md), [Marauder](../Wardriving/esp32-marauder.md), [ESP32 Bit Pirate](./esp32-bit-pirate.md), [PORKCHOP](../Wardriving/additional-survey-firmware.md) | Follow exact target/SD/partition configuration. PORKCHOP's reviewed 5 GHz workflow requires a separate C5 radio. |
-| M5Cardputer ADV | S3-based, different board/peripheral revision | Bruce, Evil-M5, GhostESP, Marauder, Bit Pirate, PORKCHOP, [ChimeraBLE](../Documentation/chimerable.md), [FlipperHTTP](https://github.com/jblanked/FlipperHTTP) | Use ADV-specific build where supplied. Original Cardputer support does not automatically establish ADV support or vice versa. |
+| M5StickC / Plus / Plus2 | Original ESP32 family, 2.4 GHz Wi-Fi/BLE | [Bruce](./bruce_firmware.md), [NEMO](./nemo-firmware.md); selected [Evil-M5](./evil_m5.md) installer targets | Verify exact model and per-device features. USB bridge alone cannot emulate a keyboard. [Plus2 lab](../HardwareHacking/m5stickc-plus2-hackstarterpack.md). |
+| Original M5Cardputer | ESP32-S3, 2.4 GHz Wi-Fi/BLE, native USB | Bruce, NEMO, Evil-M5, [GhostESP](./ghostesp-revival.md), [Marauder](../Wardriving/esp32-marauder.md), [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md), [PORKCHOP](../Wardriving/additional-survey-firmware.md) | Follow exact target/SD/partition configuration. PORKCHOP's reviewed 5 GHz workflow requires a separate C5 radio. |
+| M5Cardputer ADV | S3-based, different board/peripheral revision | Bruce, Evil-M5, GhostESP, Marauder, Bit Pirate, PORKCHOP, [ChimeraBLE](./chimerable.md), [FlipperHTTP](https://github.com/jblanked/FlipperHTTP) | Use ADV-specific build where supplied. Original Cardputer support does not automatically establish ADV support or vice versa. |
 | M5Core2 | Original ESP32, 2.4 GHz Wi-Fi/BLE | Bruce, Evil-M5 named Core2 build | Native S3 USB assumptions do not apply. Confirm exact Core2 and external-module wiring. |
 | M5CoreS3 / SE | ESP32-S3 | Bruce, Evil-M5 named CoreS3 builds | Match SE/revision, USB connector and attached hardware; do not flash a Core2 image. |
 | AtomS3 Lite / StampS3 | ESP32-S3 | Bit Pirate named targets; other M5 projects only where exact target is listed | Lite versus screen-equipped Atom and Stamp carrier pins differ. |
@@ -66,21 +66,21 @@ Generic development libraries require a build; they are not complete appliance i
 
 | Device | Software Choices | Installation Format | Limits |
 |---|---|---|---|
-| Pi Zero 2 W / Pi 3 / 4 / 5 | [jayofelony Pwnagotchi](https://github.com/jayofelony/pwnagotchi), documented [Bjorn](../Documentation/bjorn_pi.md) hardware/OS combinations | Selected SD image or Linux application setup | Projects have separate OS/architecture/display requirements. Current Pwnagotchi `noai` differs from legacy AI descriptions; not inherently passive. |
+| Pi Zero 2 W / Pi 3 / 4 / 5 | [jayofelony Pwnagotchi](https://github.com/jayofelony/pwnagotchi), documented [Bjorn](./bjorn_pi.md) hardware/OS combinations | Selected SD image or Linux application setup | Projects have separate OS/architecture/display requirements. Current Pwnagotchi `noai` differs from legacy AI descriptions; not inherently passive. |
 | Original Pi Zero W | Legacy Pwnagotchi builds; supported Bjorn setup as documented | 32-bit legacy image/application dependencies | Current Pwnagotchi upstream does not promise new releases for the old Zero W. Do not install a 64-bit Zero 2 W image. |
-| Pi running a compatible Pwnagotchi fork | [FancyGotchi 2.0](../Documentation/fancygotchi-pwnagotchi.md) | Theme/plugin manager on an existing OS | Not a standalone firmware image. Check fork, display and Python compatibility; Pi Zero W/Pi 4 caveats remain. |
-| Pico / Pico W / Pico 2 / Pico 2 W | [pico-ducky](./pico-ducky-lab.md); named FlipperHTTP Pico variants | Matching CircuitPython UF2 plus files, or project-specific image | USB HID, runtime Wi-Fi UI and an ESP browser flasher are different workflows. |
+| Pi running a compatible Pwnagotchi fork | [FancyGotchi 2.0](./fancygotchi-pwnagotchi.md) | Theme/plugin manager on an existing OS | Not a standalone firmware image. Check fork, display and Python compatibility; Pi Zero W/Pi 4 caveats remain. |
+| Pico / Pico W / Pico 2 / Pico 2 W | [pico-ducky](../HardwareHacking/pico-ducky-lab.md); named FlipperHTTP Pico variants | Matching CircuitPython UF2 plus files, or project-specific image | USB HID, runtime Wi-Fi UI and an ESP browser flasher are different workflows. |
 | ESP8266 + ATmega32U4 WiFi Duck | [Spacehuhn WiFi Duck](https://github.com/SpacehuhnTech/WiFiDuck) | Separate firmware/build for each MCU | ESP8266 supplies Wi-Fi; 32U4 supplies USB HID. Not pico-ducky or a native ESP32 HID build. |
 
 ## Dedicated Radio Hardware
 
 | Device | Firmware / Software | Installation Route | Limits |
 |---|---|---|---|
-| Sniffle-supported TI boards | [Sniffle](../Documentation/ble-capture-sniffle.md) | TI/device-specific flashing plus matching host release | TI target/bridge baud variant matters; not an ESP32 image. |
+| Sniffle-supported TI boards | [Sniffle](./ble-capture-sniffle.md) | TI/device-specific flashing plus matching host release | TI target/bridge baud variant matters; not an ESP32 image. |
 | Ubertooth One | [Ubertooth](https://github.com/greatscottgadgets/ubertooth) | Matching host/firmware and documented DFU | Distinct radio hardware and PHY capabilities. |
 | Evil Crow RF V2 | [Vendor/custom firmware](../SDR/evil-crow-rf-v2.md) | Matched source/binary + SD web assets | CC1101/NRF narrowband hardware; not a HackRF IQ stream. |
 | HackRF + supported PortaPack | [HackRF / Mayhem](../PlayBooks/HackRFAuditPlayBook.md) | Upstream update/recovery plus matching assets | Half duplex; firmware and SD application assets must match hardware revision. |
-| Flipper Zero | [Official / Momentum / Unleashed](../Documentation/flipper_zero_guide.md) | Firmware-specific updater/qFlipper route | STM32WB device; no onboard Wi-Fi scanner. Accessory firmware is a separate installation. |
+| Flipper Zero | [Official / Momentum / Unleashed](./flipper_zero_guide.md) | Firmware-specific updater/qFlipper route | STM32WB device; no onboard Wi-Fi scanner. Accessory firmware is a separate installation. |
 | Proxmark3 RDV4 / supported generic variants | [RRG/Iceman](https://github.com/RfidResearchGroup/proxmark3) | Matched platform build and client flasher | Generic versus RDV4 settings differ. |
 | ChameleonUltra / Lite | [Upstream device firmware](https://github.com/RfidResearchGroup/ChameleonUltra) | Supported GUI/CLI update | Ultra and Lite feature sets differ; not an ESP32 NFC image. |
 | Supported Heltec / RAK / other LoRa boards | [Meshtastic](https://github.com/meshtastic/firmware) or [MeshCore](https://github.com/meshcore-dev/MeshCore) | Each project's exact target/role installer | Different protocols and images; region, RF module and role matter. Do not infer both projects support every model from a vendor name. |
@@ -104,4 +104,4 @@ established in this review, not that the project cannot support it.
 
 ---
 
-[Hardware Hacking Index](./README.md) | [Master Index](../README.md) | [Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)
+[Documentation Index](./README.md) | [Master Index](../README.md) | [Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)

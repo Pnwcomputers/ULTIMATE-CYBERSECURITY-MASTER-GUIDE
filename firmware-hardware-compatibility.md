@@ -2,7 +2,7 @@
 
 ## Device-First Current Selection
 
-Use the [device firmware list](./HardwareHacking/device-firmware-list.md) for named boards, verified project choices and install formats. It complements the project catalog and avoids treating a broad chip-family checkmark as exact board support.
+Use the [device firmware list](./Documentation/device-firmware-list.md) for named boards, verified project choices and install formats. It complements the project catalog and avoids treating a broad chip-family checkmark as exact board support.
 
 ## New Firmware Target Notes
 
@@ -19,8 +19,8 @@ Use the [device firmware list](./HardwareHacking/device-firmware-list.md) for na
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Current upstream target examples, activity notes & compatibility boundaries |
-| [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated installers & multi-device upload tools |
+| [ESP32 & Related Firmware Catalog](./Documentation/esp32-security-firmware-catalog.md) | Current upstream target examples, activity notes & compatibility boundaries |
+| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated installers & multi-device upload tools |
 
 > [!WARNING]
 > The legacy matrix below includes broad chip-family checkmarks and historical

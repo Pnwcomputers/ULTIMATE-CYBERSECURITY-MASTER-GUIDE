@@ -62,7 +62,7 @@ and owned-device metadata inspection, not cloning or interception.
 |---|---|
 | [Sniffle / BLE Capture](./ble-capture-sniffle.md) | Distinguish active GATT inspection from protocol capture |
 | [GhostESP](./ghostesp-revival.md) | Broader Wi-Fi/BLE platform |
-| [Device Firmware List](../HardwareHacking/device-firmware-list.md) | Board-first selection |
+| [Device Firmware List](./device-firmware-list.md) | Board-first selection |
 | [Documentation Index](./README.md) | Section navigation |
 
 ## Verification Scope

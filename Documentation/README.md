@@ -42,8 +42,12 @@
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
-| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [ESP32 & Related Firmware Catalog](./esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](./firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [Device & Hardware Firmware List](./device-firmware-list.md) | Start with named hardware, then select verified firmware and installer routes |
+| [ESP Terminator Guide](./esp-terminator.md) | Multi-device/multi-firmware catalog use and recovery checks |
+| [Firmware Verification Record](./firmware-catalog-verification.json) | Source metadata, reviewed documents and link-check limitations |
+
 
 ## 🎯 Purpose
 

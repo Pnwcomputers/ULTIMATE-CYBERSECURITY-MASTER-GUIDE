@@ -56,8 +56,8 @@ This guide does not reproduce its automated deauthentication or cracking workflo
 | Resource | Use |
 |---|---|
 | [Pwnagotchi Cheatsheet](./pwnagotchi_cheatsheet.md) | Existing reference; legacy AI/default statements may not match the selected current fork |
-| [Device Firmware List](../HardwareHacking/device-firmware-list.md) | Pi versus ESP32/CYD installation paths |
-| [Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Source/activity records and broader scope |
+| [Device Firmware List](./device-firmware-list.md) | Pi versus ESP32/CYD installation paths |
+| [Firmware Catalog](./esp32-security-firmware-catalog.md) | Source/activity records and broader scope |
 | [Documentation Index](./README.md) | Section navigation |
 
 ## Verification Scope

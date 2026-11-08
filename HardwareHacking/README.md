@@ -20,8 +20,8 @@
 
 | Resource | Description / Boundary |
 |---|---|
-| [Device Firmware List](./device-firmware-list.md) | Board-first choices and target limitations. |
-| [ESP Terminator](./esp-terminator.md) | General catalog/uploader selection and recovery checks. |
+| [Device Firmware List](../Documentation/device-firmware-list.md) | Board-first choices and target limitations. |
+| [ESP Terminator](../Documentation/esp-terminator.md) | General catalog/uploader selection and recovery checks. |
 
 ## Dedicated Firmware Labs
 
@@ -34,8 +34,8 @@
 
 | Resource | Description |
 |---|---|
-| [ESP32 & Related Firmware Catalog](./esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
-| [Firmware Web Flashers](./firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+| [ESP32 & Related Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../Documentation/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
 
 ## 🎯 Purpose
 Index and navigation hub for the Hardware Hacking section - covering physical and electronic attack techniques against embedded systems: JTAG/SWD/UART debug access, fault injection (voltage, clock, EM, laser), side-channel analysis (SPA, DPA, CPA), firmware extraction, and the hardware tools used in each category.

@@ -21,7 +21,7 @@ ownership and was not used as its source.
 | Firmware library | At review, listed families included Marauder, Bruce, GhostESP, Biscuit, JCMK Wardriver, Piglet, M5PORKCHOP, ChimeraBLE and Flipper firmware. Listings can change independently of upstream. |
 | Device types | UI advertises ESP, Flipper, BW16 and M1 device families. Select the exact target and its supported connection method; these are not interchangeable ESP images. |
 | File / analysis / terminal tools | Host-side utilities, not proof of installed firmware support. Logs, backups and wardrive files can contain secrets or location data. |
-| Ducky tooling | Separate payload tooling; a flasher catalog entry is not approval to execute scripts. Use only the fixed-text [Pico lab](./pico-ducky-lab.md) for a first HID test. |
+| Ducky tooling | Separate payload tooling; a flasher catalog entry is not approval to execute scripts. Use only the fixed-text [Pico lab](../HardwareHacking/pico-ducky-lab.md) for a first HID test. |
 
 ## Select & Install A Known Image
 
@@ -62,7 +62,7 @@ publish support bundles containing identifiers, Wi-Fi credentials or private log
 | [Web Flasher Reference](./firmware-web-flashers.md) | Dedicated installers versus general uploaders/catalogs |
 | [Device Firmware List](./device-firmware-list.md) | Start with hardware and narrow the choices |
 | [Project Catalog](./esp32-security-firmware-catalog.md) | Primary upstreams and dated activity signals |
-| [Hardware Hacking Index](./README.md) | Section navigation |
+| [Documentation Index](./README.md) | Section navigation |
 
 ## Verification Scope
 

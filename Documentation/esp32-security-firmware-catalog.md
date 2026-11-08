@@ -12,13 +12,13 @@ _Last reviewed: 2026-11-07_
 
 | Resource | Role & Compatibility Boundary |
 |---|---|
-| [GhostESP Revival](../Documentation/ghostesp-revival.md) | Install, owned-device observations and capture interpretation. |
-| [ESP32 Bit Pirate](./esp32-bit-pirate.md) | Board/pin map selection and receive-first UART exercise. |
-| [NEMO](../Documentation/nemo-firmware.md) | Exact M5Stack build, storage and benign discovery checks. |
+| [GhostESP Revival](./ghostesp-revival.md) | Install, owned-device observations and capture interpretation. |
+| [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Board/pin map selection and receive-first UART exercise. |
+| [NEMO](./nemo-firmware.md) | Exact M5Stack build, storage and benign discovery checks. |
 | [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Standalone and coordinator roles with log provenance. |
 | [Piglet](../Wardriving/piglet.md) | Local collection, mesh forwarding and automatic-upload review. |
-| [BLE Capture / Sniffle](../Documentation/ble-capture-sniffle.md) | Packet capture hardware, matching host and advertisement-only lab. |
-| [Pico-Ducky](./pico-ducky-lab.md) | Setup jumper, CircuitPython and harmless HID validation. |
+| [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Packet capture hardware, matching host and advertisement-only lab. |
+| [Pico-Ducky](../HardwareHacking/pico-ducky-lab.md) | Setup jumper, CircuitPython and harmless HID validation. |
 | [Evil Crow RF V2](../SDR/evil-crow-rf-v2.md) | Default/custom firmware distinction and receiver-only baseline. |
 
 ## Device-First Selection & Coverage Review
@@ -28,8 +28,8 @@ _Last reviewed: 2026-11-07_
 | [Device Firmware List](./device-firmware-list.md) | Hardware model to verified project/install choices, without broad compatibility checkmarks |
 | [ESP Terminator](./esp-terminator.md) | Multi-device/multi-firmware host tool, not a firmware image |
 | [Additional Survey Firmware](../Wardriving/additional-survey-firmware.md) | PORKCHOP, wardriver.uk and historical wardriver3000 |
-| [ChimeraBLE](../Documentation/chimerable.md) | Board-specific BLE setup and active-scan limits |
-| [FancyGotchi / Pwnagotchi](../Documentation/fancygotchi-pwnagotchi.md) | Pi image/theme versus independent CYD port |
+| [ChimeraBLE](./chimerable.md) | Board-specific BLE setup and active-scan limits |
+| [FancyGotchi / Pwnagotchi](./fancygotchi-pwnagotchi.md) | Pi image/theme versus independent CYD port |
 
 The first catalog pass missed several independently maintained projects. The
 follow-up compared primary project searches with ESP Terminator's live library,
@@ -47,7 +47,7 @@ projects, supported target examples, legitimate use, activity signals and instal
 routes. It is not a flashing tutorial or a claim of hardware testing.
 
 **Prerequisites:** Identify your exact MCU, board revision, flash/PSRAM size, USB
-port and peripherals. Start with the [hardware fundamentals](./Chapter2.md).
+port and peripherals. Start with the [hardware fundamentals](../HardwareHacking/Chapter2.md).
 HID means Human Interface Device; BLE means Bluetooth Low Energy; SDR means
 software-defined radio; RF means radio frequency.
 
@@ -140,7 +140,7 @@ established from the reviewed primary sources, not proof that none exists.
 | [Ubertooth](https://github.com/greatscottgadgets/ubertooth) | Ubertooth One dedicated hardware | Bluetooth radio research; not ESP32 or a complete universal Bluetooth 5 sniffer | Recent push: 2026-11-05 | Upstream firmware + matching host tools; DFU workflow |
 | [Btlejack Firmware](https://github.com/virtualabs/btlejack-firmware) | BBC micro:bit v1 / nRF51822 targets | Legacy BLE connection research; limited PHY support; companion host tool required | Quiet: 2021-01-27 | Upstream HEX; micro:bit mass storage or SWD, target dependent |
 | [InternalBlue](https://github.com/seemoo-lab/internalblue) | Supported Broadcom/Cypress Bluetooth chips in listed phones/SBCs | Firmware instrumentation framework; exact chip/ROM/OS matters; not ESP32 | Quiet: 2024-08-21 | Host framework & chip-specific patches; no generic flashable image |
-| [ChimeraBLE](https://github.com/MatthewKuKanich/ChimeraBLE) | ESP32 WROOM, XIAO C5, Cardputer ADV targets | BLE GATT/advertisement research; active scan and filesystem provisioning need review | Recent push: 2026-07-07 | Upstream PlatformIO; [dedicated guide](../Documentation/chimerable.md) |
+| [ChimeraBLE](https://github.com/MatthewKuKanich/ChimeraBLE) | ESP32 WROOM, XIAO C5, Cardputer ADV targets | BLE GATT/advertisement research; active scan and filesystem provisioning need review | Recent push: 2026-07-07 | Upstream PlatformIO; [dedicated guide](./chimerable.md) |
 | [SquachWatch-CYD](https://github.com/skizzophrenic/SquachWatch-CYD) | CYD display variants; selected S3/C5/watch builds | Wireless signature detection; a heuristic match is not proof of a camera/tracker or operator | Recent push: 2026-11-07 | [Official web flasher](https://squachwatch.com/) |
 
 ## Sub-GHz RF & SDR
@@ -181,10 +181,10 @@ theming does not turn off the underlying image's active wireless behavior.
 
 | Project / Upstream | Supported Targets & Extras | Authorized Use / Limits | Activity | Installation |
 |---|---|---|---|---|
-| [Pwnagotchi (jayofelony)](https://github.com/jayofelony/pwnagotchi) | Listed 64-bit Pi Zero 2 W / 3 / 4 / 5; legacy Zero W images separate | Wi-Fi research appliance; reviewed noai branch removes old AI; not inherently passive | Recent push: 2026-09-28 | Selected upstream SD image/wiki; [companion guide](../Documentation/fancygotchi-pwnagotchi.md) |
+| [Pwnagotchi (jayofelony)](https://github.com/jayofelony/pwnagotchi) | Listed 64-bit Pi Zero 2 W / 3 / 4 / 5; legacy Zero W images separate | Wi-Fi research appliance; reviewed noai branch removes old AI; not inherently passive | Recent push: 2026-09-28 | Selected upstream SD image/wiki; [companion guide](./fancygotchi-pwnagotchi.md) |
 | [FancyGotchi 2.0](https://github.com/V0r-T3x/Fancygotchi) | Compatible Pwnagotchi Pi fork/display/Python combination | Theme manager; Zero W and Pi 4 caveats; not an independent attack firmware | Quiet: 2025-10-26 | Project wiki/plugin files; no browser firmware flasher verified |
-| [Bjorn](https://github.com/infinition/Bjorn) | Raspberry Pi with documented OS/display setup | Autonomous network-service assessment; existing closed-lab guide applies | Recent push: 2026-07-20 | Upstream application install; [existing guide](../Documentation/bjorn_pi.md) |
-| [FancyGotchi CYD Port](https://github.com/Xombi3/Fancygotchi-cyd-port) | Independent ESP32-2432S028R project | Experimental capture firmware; active behavior and display/wiring claims need validation; not the Pi theme | Quiet: 2026-03-19 | Upstream build files; [project distinction](../Documentation/fancygotchi-pwnagotchi.md) |
+| [Bjorn](https://github.com/infinition/Bjorn) | Raspberry Pi with documented OS/display setup | Autonomous network-service assessment; existing closed-lab guide applies | Recent push: 2026-07-20 | Upstream application install; [existing guide](./bjorn_pi.md) |
+| [FancyGotchi CYD Port](https://github.com/Xombi3/Fancygotchi-cyd-port) | Independent ESP32-2432S028R project | Experimental capture firmware; active behavior and display/wiring claims need validation; not the Pi theme | Quiet: 2026-03-19 | Upstream build files; [project distinction](./fancygotchi-pwnagotchi.md) |
 
 ## Vendor Survey Ecosystems
 
@@ -212,7 +212,7 @@ These names are not verified firmware entries and are excluded from verified-pro
 |---|---|
 | [Original GhostESP](https://github.com/Spooks4576/Ghost_ESP) | Archived; last push 2025-04-22. Preserved for lineage; use the separately maintained Revival project when evaluating current support. |
 | [ESP32 Sour Apple](https://github.com/RapierXbox/ESP32-Sour-Apple) | Historical BLE availability-impact demonstration; last push 2026-06-03, not archived. Included only to identify the project and its disruption risk. No crash instructions, payloads or flasher recommendation. OS mitigation status requires separate verification. |
-| Payload packs & third-party firmware mirrors | Excluded as authoritative firmware sources. [HackStarterPack integration](./m5stickc-plus2-hackstarterpack.md) already covers source review and benign lab selection. |
+| Payload packs & third-party firmware mirrors | Excluded as authoritative firmware sources. [HackStarterPack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) already covers source review and benign lab selection. |
 | Host-only software | Kismet, Wireshark, GNU Radio, rtl_433 and phone apps are valuable companions, not ESP32 firmware. Use the linked repository guides. |
 
 ## Safety & Flashing Review
@@ -268,12 +268,12 @@ Installer checks and unresolved link limitations are recorded in the
 
 | Resource | Use This For |
 |---|---|
-| [Hardware Hacking](./README.md) | Electrical fundamentals, interfaces & hardware lab progression |
+| [Hardware Hacking](../HardwareHacking/README.md) | Electrical fundamentals, interfaces & hardware lab progression |
 | [Firmware Compatibility](../firmware-hardware-compatibility.md) | Existing hardware matrix; validate legacy cells against current upstream targets |
-| [Bruce](../Documentation/bruce_firmware.md) | Existing module-specific Bruce guide |
-| [Evil-M5](../Documentation/evil_m5.md) | Existing Evil-M5 operational guide |
+| [Bruce](./bruce_firmware.md) | Existing module-specific Bruce guide |
+| [Evil-M5](./evil_m5.md) | Existing Evil-M5 operational guide |
 | [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Hardware, GPS & survey logging |
-| [Marauder Reference](../Documentation/WiFiMarauder_Guide.md) | Existing Marauder documentation |
+| [Marauder Reference](./WiFiMarauder_Guide.md) | Existing Marauder documentation |
 | [Wardriving Index](../Wardriving/README.md) | Field workflow, Biscuit, Scout Lite, GPS & privacy |
 | [USB HID Lab](../Scripts/Ducky/README.md) | Safe HID demonstration & script compatibility boundaries |
 | [SDR Index](../SDR/README.md) | SDR/RF learning paths & radio-specific guides |
