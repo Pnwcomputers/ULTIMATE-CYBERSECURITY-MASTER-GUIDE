@@ -23,6 +23,14 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
+## Dedicated Firmware Labs
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./ghostesp-revival.md) | Board-specific install and owned Wi-Fi/BLE observation/capture validation. |
+| [NEMO](./nemo-firmware.md) | M5Stack setup, benign discovery and USB/SD interpretation limits. |
+| [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Scanner selection, TI firmware/client matching and advertisement-only PCAP validation. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

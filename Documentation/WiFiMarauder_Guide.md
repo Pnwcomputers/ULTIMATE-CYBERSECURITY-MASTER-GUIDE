@@ -1,5 +1,19 @@
 # WiFi Marauder Guide
 
+## Current Installer & Survey Alternatives
+
+Use the [upstream install/update wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/update-firmware)
+and [JCMK installer](https://justcallmekoko.github.io/MarauderInstaller/) for the
+exact hardware revision. A Flipper FAP is a separate artifact from its accessory's
+ESP firmware. Do not infer supported bands or GPS/SD locations from a family name.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./ghostesp-revival.md) | Alternative multi-function wireless platform; different configuration, capture and export paths. |
+| [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Dedicated standalone/Node/Core survey firmware; separate installer and role-dependent logger. |
+| [Piglet](../Wardriving/piglet.md) | Standalone and mesh collection with explicit boot/upload automation review. |
+| [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Choose advertisement inventory versus connection/PHY-aware BLE packet capture. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

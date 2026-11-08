@@ -17,6 +17,19 @@
 
 **Receive-only reference:** [rtl_433 passive telemetry](rtl433-passive-telemetry-lab.md) provides bounded, legal observation and synthetic SIEM events, not signal replay or transmission.
 
+## Firmware Choices & Radio Boundaries
+
+Select the radio frontend before selecting firmware. A controller firmware
+cannot supply a missing band, modulation or IQ-sampling path. Use the dedicated
+guide to establish a receiver baseline before any separately authorized transmit test.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Evil Crow RF V2](./evil-crow-rf-v2.md) | Dual CC1101 plus NRF24L01 protocol tool; default and custom firmware need independent build/asset checks. |
+| [Bruce](../Documentation/bruce_firmware.md) | External CC1101/NRF module workflow; verify board wiring and actual module. |
+| [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Multi-protocol S3 bench platform; RF modes require documented external hardware. |
+| [HackRF / Mayhem](../PlayBooks/HackRFAuditPlayBook.md) | Separate half-duplex SDR/IQ ecosystem, not an ESP32 image or CC1101 replacement. |
+
 ## 🎯 Purpose
 
 Comprehensive bench manual for SubGhz RF exploration - covering educational theory, multi-band signal capture procedures, laboratory logging documentation, software processing pipelines, and protocol architecture breakdowns for embedded, IoT, and access-control systems.
@@ -487,7 +500,7 @@ When analyzing signals from the reference matrix above, use this operational dic
 
 To maintain reproducibility across hardware security audits, document every successful or unparsed capture session using the following standardized Markdown format. Copy the block below into a new file for each session:
 
-~~~markdown
+````markdown
 # RF SIGNAL CAPTURE MATRIX LOG: [LOG_ID_NUM]
 
 ## 1. Environment Metadata
@@ -531,7 +544,7 @@ To maintain reproducibility across hardware security audits, document every succ
 [Document waveform visual clarity here. Note if clipping occurred, if DC offset
 masked elements, or if pulse widths remained identical across sequential
 transmission instances.]
-~~~
+````
 
 ---
 

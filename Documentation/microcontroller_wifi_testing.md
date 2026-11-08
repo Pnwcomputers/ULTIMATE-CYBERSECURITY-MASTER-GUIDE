@@ -1,5 +1,19 @@
 # 📡 Microcontroller-Assisted Wireless Assessment Workflow
 
+## Firmware Selection For The Lab
+
+Choose the firmware by the required observation and its evidence output before
+introducing controlled activity. Use owned APs/beacons and confirm any scan or
+management interface that transmits; none of these names guarantees passive operation.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./ghostesp-revival.md) | Wi-Fi/BLE observation and target-dependent capture; preserve originals before conversion. |
+| [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | GPS/SD survey sessions; distinguish scanning Nodes from the Core logger. |
+| [Piglet](../Wardriving/piglet.md) | Local survey and mesh workflows; review boot, home-return and live upload settings. |
+| [NEMO](./nemo-firmware.md) | Compact M5Stack lab; verify board-specific SD and USB functions. |
+| [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Independent owned-beacon BLE packet evidence; ESP device discovery is not equivalent. |
+
 ## 🎯 Purpose
 Provide a practical field and lab reference for using Pwnagotchi, ESP32 Marauder-compatible hardware, Flipper Zero, CC1101 radios, MikroTik RouterOS, and a Linux workstation together during authorized wireless-security assessments.
 

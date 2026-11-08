@@ -5,6 +5,19 @@ _Last reviewed: 2026-10-22_
 > [!CAUTION]
 > **Authorized wireless observation only for this workflow.** Marauder has transmit-capable testing features (including disruptive modes) that are **not required** to make an AP inventory. Do not turn those on during a standard wardrive. See [LEGAL.md](../LEGAL.md).
 
+## Dedicated Survey Firmware Alternatives
+
+Keep Marauder when its documented UI, Flipper integration or broader wireless
+functions meet the engagement. If selecting a dedicated collector, compare these
+workflows before erasing a working device; logs/settings and compatible firmware
+layouts can differ.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [ESP32 C5 Wardriver](./esp32-c5-wardriver.md) | Known C5 hardware; Normal, Node and Core roles have different collection/logging responsibilities. |
+| [Piglet](./piglet.md) | XIAO/T-Dongle builds; local CSV versus coordinator logging and automatic upload settings. |
+| [GhostESP Revival](../Documentation/ghostesp-revival.md) | Multi-function alternative; establish exact board, capture format and permitted scan behavior. |
+
 ## Purpose and architecture
 
 [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) is firmware for supported ESP32 hardware. Features differ by **chip, board revision, display, serial build, connected GNSS and microSD**. Classic ESP32 boards do **not** universally support 5 GHz; ESP32-C5 builds on suitable boards can cover 2.4 and 5 GHz. The Flipper Zero can act as its controller with suitable external Marauder hardware and a compatible companion app.

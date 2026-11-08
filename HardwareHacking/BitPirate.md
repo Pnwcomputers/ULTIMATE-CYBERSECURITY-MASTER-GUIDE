@@ -1,5 +1,12 @@
 # 🏴‍☠️ Bit Pirate
 
+## Looking For ESP32 Bit Pirate?
+
+Use the dedicated [ESP32 Bit Pirate firmware guide](./esp32-bit-pirate.md) for
+the geo-tp project, formerly ESP32 Bus Pirate. The legacy adapter discussion below
+does not identify a particular hardware product and must not be used as that
+firmware's pin map, voltage specification or command reference.
+
 ## 🎯 Purpose
 Generic USB-to-UART/SPI bridge for accessing embedded device debug ports - typically referring to CH340/FTDI-based adapters or Bus Pirate firmware forks used as UART console interfaces for IoT device exploitation.
 
@@ -41,7 +48,7 @@ Gain interactive shell access to an embedded device's OS via its exposed UART de
    ```
 * Power on the IP camera.
 * Watch the terminal screen. You should see the bootloader (like U-Boot) scrolling text as the device initializes.
-* When it finishes booting, press `Enter`. If a `#` or `$` prompt appears, you have successfully dropped into a root hardware shell!
+* When it finishes booting, press `Enter`. If a `#` or `$` prompt appears, a console prompt may be available; verify identity and privileges before drawing any conclusion.
 
 ---
 

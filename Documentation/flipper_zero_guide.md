@@ -1,5 +1,20 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
 
+## Firmware & Accessory Update Boundaries
+
+Update the Flipper and its radio accessory as separate devices. The Flipper
+itself has no Wi-Fi scanning radio; a firmware change on the Flipper does not add
+one. Preserve logs and match companion applications to the accessory firmware.
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Official Flipper Firmware](https://github.com/flipperdevices/flipperzero-firmware) | Baseline vendor firmware and documented update/recovery workflow. |
+| [Momentum Updater](https://momentum-fw.dev/update/) | Community Flipper firmware; does not flash the external ESP radio. |
+| [Unleashed Installer](https://web.unleashedflip.com/) | Community Flipper firmware; separate from its ESP web-flasher catalog. |
+| [GhostESP Revival](./ghostesp-revival.md) | Alternative ESP accessory/standalone firmware; verify board and companion-interface support. |
+| [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Existing ESP accessory targets, GPS and evidence workflow. |
+| [Scout Lite / SigRoam](../Wardriving/sigroam-scout-lite.md) | Vendor-specific scanner/controller pairing; never write a FAP as an ESP image. |
+
 ## 🎯 Purpose
 Field guide for the Flipper Zero multi-tool device covering all built-in radios and interfaces for authorized physical penetration testing, IT administration, and security assessment workflows.
 

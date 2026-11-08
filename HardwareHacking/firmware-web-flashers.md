@@ -7,6 +7,14 @@
 
 _Last reviewed: 2026-11-07_
 
+## After Installation: Validate The Selected Firmware
+
+A successful write only verifies part of the setup. Use the
+[dedicated firmware lab routes](./esp32-security-firmware-catalog.md#dedicated-setup--validation-guides)
+to confirm the board, runtime interface, log destination and a harmless expected
+result. In particular, GhostESP capture, C5/Piglet coordinator modes, Pico-Ducky
+setup mode and Evil Crow web assets require checks beyond the flash progress bar.
+
 ## Purpose
 
 Companion to the [firmware master catalog](./esp32-security-firmware-catalog.md).

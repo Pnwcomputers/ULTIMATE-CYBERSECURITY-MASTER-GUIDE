@@ -8,6 +8,19 @@
 
 _Last reviewed: 2026-11-07_
 
+## Dedicated Setup & Validation Guides
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](../Documentation/ghostesp-revival.md) | Install, owned-device observations and capture interpretation. |
+| [ESP32 Bit Pirate](./esp32-bit-pirate.md) | Board/pin map selection and receive-first UART exercise. |
+| [NEMO](../Documentation/nemo-firmware.md) | Exact M5Stack build, storage and benign discovery checks. |
+| [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Standalone and coordinator roles with log provenance. |
+| [Piglet](../Wardriving/piglet.md) | Local collection, mesh forwarding and automatic-upload review. |
+| [BLE Capture / Sniffle](../Documentation/ble-capture-sniffle.md) | Packet capture hardware, matching host and advertisement-only lab. |
+| [Pico-Ducky](./pico-ducky-lab.md) | Setup jumper, CircuitPython and harmless HID validation. |
+| [Evil Crow RF V2](../SDR/evil-crow-rf-v2.md) | Default/custom firmware distinction and receiver-only baseline. |
+
 ## Purpose
 
 A source-verified reference for selecting ESP32 security firmware and closely

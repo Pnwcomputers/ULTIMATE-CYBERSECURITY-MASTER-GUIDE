@@ -1,5 +1,16 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
 
+## New Firmware Target Notes
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [GhostESP Revival](./Documentation/ghostesp-revival.md) | Upstream lists multiple ESP variants, but target configuration determines display, SD, USB and radio support; S2 lacks BLE. |
+| [ESP32 Bit Pirate](./HardwareHacking/esp32-bit-pirate.md) | S3-specific documented builds; do not infer compatibility from the unrelated generic BitPirate adapter note. |
+| [C5 Wardriver](./Wardriving/esp32-c5-wardriver.md) | C5 DevKit/host-board and T-Dongle are distinct targets despite identical MCU family. |
+| [Piglet](./Wardriving/piglet.md) | XIAO S3/C3/C6/C5 and T-Dongle build/profile requirements differ; 5 GHz requires C5. |
+| [Pico-Ducky](./HardwareHacking/pico-ducky-lab.md) | Pico-family CircuitPython images and files; not an ESP firmware or Hak5 inject.bin target. |
+| [Evil Crow RF V2](./SDR/evil-crow-rf-v2.md) | Dedicated ESP32 + dual-CC1101/NRF board; not a generic board solely because the MCU is ESP32. |
+
 ## Current Firmware References
 
 | Resource | Description |

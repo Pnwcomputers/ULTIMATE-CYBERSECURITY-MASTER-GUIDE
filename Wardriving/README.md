@@ -6,6 +6,13 @@ _Last reviewed: 2026-10-22_
 > [!CAUTION]
 > **Authorized surveying only.** Define the permitted area, types of collection, device owners, disclosure rules and any transmit-capable features *before* starting. Passive reception is not a blanket permission for active interference, interception or publishing location data. Read the [repository legal notice](../LEGAL.md).
 
+## Additional Dedicated Survey Guides
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [C5 Wardriver](./esp32-c5-wardriver.md) | Official installer, board-specific power/wiring, Normal/Node/Core roles and SD log checks. |
+| [Piglet](./piglet.md) | XIAO/T-Dongle builds, standalone versus node logs and opt-in upload configuration. |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |
@@ -47,8 +54,8 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 
 These are **alternatives**, not interchangeable firmware images or extra steps required by the six workflows above:
 
-- [ESP32 DualBand Wardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) — a dedicated ESP32-C5 wardriving project worth evaluating for a compact dual-band-capable survey build. Verify the exact board, GNSS source, logging format and release requirements; dual-band support does not imply simultaneous scanning.
-- [Piglet Wardriver](https://github.com/Hamspiced/piglet) — GPS-tagged Wi-Fi inventory with SD-card WiGLE-format CSV and a local web interface. A useful comparison when an ESP32 and local log review are preferable to a Flipper-driven workflow.
+- [ESP32 DualBand Wardriver guide](./esp32-c5-wardriver.md) — a dedicated ESP32-C5 wardriving project worth evaluating for a compact dual-band-capable survey build. Verify the exact board, GNSS source, logging format and release requirements; dual-band support does not imply simultaneous scanning.
+- [Piglet Wardriver guide](./piglet.md) — GPS-tagged Wi-Fi inventory with SD-card WiGLE-format CSV and a local web interface. A useful comparison when an ESP32 and local log review are preferable to a Flipper-driven workflow.
 - [OUI Master Database](https://github.com/Ringmast4r/OUI-Master-Database) — optional **post-collection** manufacturer enrichment for MAC addresses observed in a permitted survey. OUI matches are estimates, not proof of a device maker or identity; randomized and locally administered MACs may not resolve.
 
 Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-handling.md) in force regardless of platform. Do not activate transmit, deauthentication, credential-collection or captive-portal functions during a passive survey.
