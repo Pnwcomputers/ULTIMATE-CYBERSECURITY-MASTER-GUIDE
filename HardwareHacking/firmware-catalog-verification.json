@@ -1,0 +1,505 @@
+{
+  "review_date": "2026-11-07",
+  "method": "GitHub repository metadata and upstream README retrieval; no build or hardware test. pushed_at is repository activity, not a release date.",
+  "repositories": [
+    {
+      "full_name": "BruceDevices/firmware",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-07T12:28:40Z",
+      "readme_url": "https://raw.githubusercontent.com/BruceDevices/firmware/main/README.md"
+    },
+    {
+      "full_name": "justcallmekoko/ESP32Marauder",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-10-29T03:14:58Z",
+      "readme_url": "https://raw.githubusercontent.com/justcallmekoko/ESP32Marauder/master/README.md"
+    },
+    {
+      "full_name": "GhostESP-Revival/GhostESP",
+      "default_branch": "Development-deki",
+      "archived": false,
+      "pushed_at": "2026-11-06T17:32:16Z",
+      "readme_url": "https://raw.githubusercontent.com/GhostESP-Revival/GhostESP/Development-deki/README.md"
+    },
+    {
+      "full_name": "7h30th3r0n3/Evil-M5Project",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-04T10:19:51Z",
+      "readme_url": "https://raw.githubusercontent.com/7h30th3r0n3/Evil-M5Project/main/README.md"
+    },
+    {
+      "full_name": "n0xa/m5stick-nemo",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-07-15T03:25:58Z",
+      "readme_url": "https://raw.githubusercontent.com/n0xa/m5stick-nemo/main/README.md"
+    },
+    {
+      "full_name": "geo-tp/ESP32-Bit-Pirate",
+      "default_branch": "pioarduino",
+      "archived": false,
+      "pushed_at": "2026-11-01T10:11:18Z",
+      "readme_url": "https://raw.githubusercontent.com/geo-tp/ESP32-Bit-Pirate/pioarduino/README.md"
+    },
+    {
+      "full_name": "justcallmekoko/ESP32DualBandWardriver",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-06T17:34:50Z",
+      "readme_url": "https://raw.githubusercontent.com/justcallmekoko/ESP32DualBandWardriver/main/README.md"
+    },
+    {
+      "full_name": "Hamspiced/piglet",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-06T02:42:05Z",
+      "readme_url": "https://raw.githubusercontent.com/Hamspiced/piglet/main/README.md"
+    },
+    {
+      "full_name": "cyberman54/ESP32-Paxcounter",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-10-04T15:16:15Z",
+      "readme_url": "https://raw.githubusercontent.com/cyberman54/ESP32-Paxcounter/master/README.md"
+    },
+    {
+      "full_name": "SpacehuhnTech/esp8266_deauther",
+      "default_branch": "v2",
+      "archived": false,
+      "pushed_at": "2024-08-14T17:38:08Z",
+      "readme_url": "https://raw.githubusercontent.com/SpacehuhnTech/esp8266_deauther/v2/README.md"
+    },
+    {
+      "full_name": "risinek/esp32-wifi-penetration-tool",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2024-02-18T18:40:05Z",
+      "readme_url": "https://raw.githubusercontent.com/risinek/esp32-wifi-penetration-tool/master/README.md"
+    },
+    {
+      "full_name": "esp32-open-mac/esp32-open-mac",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2025-03-07T19:56:51Z",
+      "readme_url": "https://raw.githubusercontent.com/esp32-open-mac/esp32-open-mac/main/README.md"
+    },
+    {
+      "full_name": "SpacehuhnTech/WiFiDuck",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2023-06-02T14:03:39Z",
+      "readme_url": "https://raw.githubusercontent.com/SpacehuhnTech/WiFiDuck/master/README.md"
+    },
+    {
+      "full_name": "dbisu/pico-ducky",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-03-18T16:10:55Z",
+      "readme_url": "https://raw.githubusercontent.com/dbisu/pico-ducky/main/README.md"
+    },
+    {
+      "full_name": "majdsassi/Pico-WIFI-Duck",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2024-08-20T22:11:11Z",
+      "readme_url": "https://raw.githubusercontent.com/majdsassi/Pico-WIFI-Duck/main/README.md"
+    },
+    {
+      "full_name": "RoganDawes/P4wnP1_aloa",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2023-10-26T09:01:24Z",
+      "readme_url": "https://raw.githubusercontent.com/RoganDawes/P4wnP1_aloa/master/README.md"
+    },
+    {
+      "full_name": "T-vK/ESP32-BLE-Keyboard",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2024-08-07T17:01:45Z",
+      "readme_url": "https://raw.githubusercontent.com/T-vK/ESP32-BLE-Keyboard/master/README.md"
+    },
+    {
+      "full_name": "tobozo/ESP32-BLECollector",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2024-09-04T10:51:05Z",
+      "readme_url": "https://raw.githubusercontent.com/tobozo/ESP32-BLECollector/master/README.md"
+    },
+    {
+      "full_name": "nccgroup/Sniffle",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2025-09-25T01:32:09Z",
+      "readme_url": "https://raw.githubusercontent.com/nccgroup/Sniffle/master/README.md"
+    },
+    {
+      "full_name": "greatscottgadgets/ubertooth",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-11-05T23:59:10Z",
+      "readme_url": "https://raw.githubusercontent.com/greatscottgadgets/ubertooth/master/README.md"
+    },
+    {
+      "full_name": "virtualabs/btlejack-firmware",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2021-01-27T16:40:09Z",
+      "readme_url": "https://raw.githubusercontent.com/virtualabs/btlejack-firmware/master/README.md"
+    },
+    {
+      "full_name": "seemoo-lab/internalblue",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2024-08-21T15:45:36Z",
+      "readme_url": "https://raw.githubusercontent.com/seemoo-lab/internalblue/master/README.md"
+    },
+    {
+      "full_name": "joelsernamoreno/EvilCrowRF-V2",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2025-10-18T16:04:53Z",
+      "readme_url": "https://raw.githubusercontent.com/joelsernamoreno/EvilCrowRF-V2/main/README.md"
+    },
+    {
+      "full_name": "h-RAT/EvilCrowRF_Custom_Firmware_CC1101_FlipperZero",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2024-01-18T01:42:47Z",
+      "readme_url": "https://raw.githubusercontent.com/h-RAT/EvilCrowRF_Custom_Firmware_CC1101_FlipperZero/main/README.md"
+    },
+    {
+      "full_name": "greatscottgadgets/hackrf",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-06T00:29:36Z",
+      "readme_url": null
+    },
+    {
+      "full_name": "portapack-mayhem/mayhem-firmware",
+      "default_branch": "next",
+      "archived": false,
+      "pushed_at": "2026-11-07T09:32:00Z",
+      "readme_url": "https://raw.githubusercontent.com/portapack-mayhem/mayhem-firmware/next/README.md"
+    },
+    {
+      "full_name": "LSatan/SmartRC-CC1101-Driver-Lib",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-05-18T17:53:47Z",
+      "readme_url": "https://raw.githubusercontent.com/LSatan/SmartRC-CC1101-Driver-Lib/master/README.md"
+    },
+    {
+      "full_name": "RfidResearchGroup/proxmark3",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-11-08T00:23:00Z",
+      "readme_url": "https://raw.githubusercontent.com/RfidResearchGroup/proxmark3/master/README.md"
+    },
+    {
+      "full_name": "RfidResearchGroup/ChameleonUltra",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-02T13:22:11Z",
+      "readme_url": "https://raw.githubusercontent.com/RfidResearchGroup/ChameleonUltra/main/README.md"
+    },
+    {
+      "full_name": "flipperdevices/flipperzero-firmware",
+      "default_branch": "dev",
+      "archived": false,
+      "pushed_at": "2026-11-07T23:50:13Z",
+      "readme_url": null
+    },
+    {
+      "full_name": "Next-Flip/Momentum-Firmware",
+      "default_branch": "dev",
+      "archived": false,
+      "pushed_at": "2026-08-18T20:42:11Z",
+      "readme_url": null
+    },
+    {
+      "full_name": "DarkFlippers/unleashed-firmware",
+      "default_branch": "dev",
+      "archived": false,
+      "pushed_at": "2026-11-07T11:46:58Z",
+      "readme_url": "https://raw.githubusercontent.com/DarkFlippers/unleashed-firmware/dev/ReadMe.md"
+    },
+    {
+      "full_name": "meshtastic/firmware",
+      "default_branch": "develop",
+      "archived": false,
+      "pushed_at": "2026-11-07T16:19:22Z",
+      "readme_url": "https://raw.githubusercontent.com/meshtastic/firmware/develop/README.md"
+    },
+    {
+      "full_name": "ExpressLRS/ExpressLRS",
+      "default_branch": "master",
+      "archived": false,
+      "pushed_at": "2026-10-31T18:53:25Z",
+      "readme_url": "https://raw.githubusercontent.com/ExpressLRS/ExpressLRS/master/README.md"
+    },
+    {
+      "full_name": "espressif/esp-zigbee-sdk",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-04T12:19:06Z",
+      "readme_url": "https://raw.githubusercontent.com/espressif/esp-zigbee-sdk/main/README.md"
+    },
+    {
+      "full_name": "espressif/esp-thread-br",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-02T07:20:33Z",
+      "readme_url": "https://raw.githubusercontent.com/espressif/esp-thread-br/main/README.md"
+    },
+    {
+      "full_name": "Spooks4576/Ghost_ESP",
+      "default_branch": "main",
+      "archived": true,
+      "pushed_at": "2025-04-22T01:54:18Z",
+      "readme_url": "https://raw.githubusercontent.com/Spooks4576/Ghost_ESP/main/README.md"
+    },
+    {
+      "full_name": "RapierXbox/ESP32-Sour-Apple",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-06-03T11:00:03Z",
+      "readme_url": "https://raw.githubusercontent.com/RapierXbox/ESP32-Sour-Apple/main/README.md"
+    },
+    {
+      "full_name": "pingequalab/sigroam-wardriving",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-24T09:43:36Z",
+      "readme_url": "https://raw.githubusercontent.com/pingequalab/sigroam-wardriving/main/README.md"
+    },
+    {
+      "full_name": "bmorcelli/Launcher",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-07T14:42:43Z",
+      "readme_url": "https://raw.githubusercontent.com/bmorcelli/Launcher/main/README.md"
+    },
+    {
+      "full_name": "SpacehuhnTech/espwebtool",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-04T12:28:34Z",
+      "readme_url": "https://raw.githubusercontent.com/SpacehuhnTech/espwebtool/main/README.md"
+    },
+    {
+      "full_name": "esphome/esp-web-tools",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-02T04:10:58Z",
+      "readme_url": "https://raw.githubusercontent.com/esphome/esp-web-tools/main/README.md"
+    },
+    {
+      "full_name": "espressif/esptool-js",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-11-02T08:18:58Z",
+      "readme_url": "https://raw.githubusercontent.com/espressif/esptool-js/main/README.md"
+    },
+    {
+      "full_name": "thelastoutpostworkshop/ESPConnect",
+      "default_branch": "main",
+      "archived": false,
+      "pushed_at": "2026-10-15T15:29:27Z",
+      "readme_url": "https://raw.githubusercontent.com/thelastoutpostworkshop/ESPConnect/main/README.md"
+    }
+  ],
+  "web_checks": [
+    {
+      "url": "https://bruce.computer/flasher",
+      "final": "https://bruce.computer/flasher",
+      "status": 200,
+      "title": [
+        "Bruce Firmware"
+      ]
+    },
+    {
+      "url": "https://justcallmekoko.github.io/MarauderInstaller/",
+      "final": "https://justcallmekoko.github.io/MarauderInstaller/",
+      "status": 200,
+      "title": [
+        "ESP32 Marauder Installer"
+      ]
+    },
+    {
+      "url": "https://ghostesp.net/flasher",
+      "final": "https://ghostesp.net/flasher",
+      "status": 200,
+      "title": [
+        "GhostESP ESP32 Web Flasher for Firmware",
+        "Google Chrome",
+        "Microsoft Edge",
+        "Firefox",
+        "Opera"
+      ]
+    },
+    {
+      "url": "https://7h30th3r0n3.github.io/Evil-Flasher/",
+      "final": "https://7h30th3r0n3.github.io/Evil-Flasher/",
+      "status": 200,
+      "title": [
+        "Evil-Flasher"
+      ]
+    },
+    {
+      "url": "https://justcallmekoko.github.io/C5WardriverInstaller/",
+      "final": "https://justcallmekoko.github.io/C5WardriverInstaller/",
+      "status": 200,
+      "title": [
+        "ESP32 C5 Wardriver Installer"
+      ]
+    },
+    {
+      "url": "https://flasher.biscuitshop.us/",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)>"
+    },
+    {
+      "url": "https://flash.pingequa.com/devices/scout-lite",
+      "final": "https://flash.pingequa.com/devices/scout-lite",
+      "status": 200,
+      "title": [
+        "Flash Scout Lite firmware on the PINGEQUA Scout Lite | flash.pingequa.com"
+      ]
+    },
+    {
+      "url": "https://flasher.meshtastic.org/",
+      "final": "https://flasher.meshtastic.org/",
+      "status": 200,
+      "title": []
+    },
+    {
+      "url": "https://expresslrs.github.io/web-flasher/",
+      "final": "https://expresslrs.github.io/web-flasher/",
+      "status": 200,
+      "title": [
+        "ExpressLRS Web Flasher"
+      ]
+    },
+    {
+      "url": "https://bmorcelli.github.io/Launcher/webflasher.html",
+      "final": "https://bmorcelli.github.io/Launcher/webflasher.html",
+      "status": 200,
+      "title": [
+        "Launcher Web Flasher"
+      ]
+    },
+    {
+      "url": "https://bmorcelli.github.io/Launcher/catalog.html",
+      "final": "https://bmorcelli.github.io/Launcher/catalog.html",
+      "status": 200,
+      "title": [
+        "Launcher Firmware Catalog"
+      ]
+    },
+    {
+      "url": "https://esptool.spacehuhn.com/",
+      "final": "https://esptool.spacehuhn.com/",
+      "status": 200,
+      "title": [
+        "ESP Web Tool - Flash ESP32 &amp; ESP8266 from Your Browser"
+      ]
+    },
+    {
+      "url": "https://web.esphome.io/",
+      "final": "https://web.esphome.io/",
+      "status": 200,
+      "title": [
+        "ESPHome Web"
+      ]
+    },
+    {
+      "url": "https://esphome.github.io/esp-web-tools/",
+      "final": "https://esphome.github.io/esp-web-tools/",
+      "status": 200,
+      "title": [
+        "ESP Web Tools"
+      ]
+    },
+    {
+      "url": "https://espressif.github.io/esptool-js/",
+      "final": "https://espressif.github.io/esptool-js/",
+      "status": 200,
+      "title": [
+        "ESP Tool"
+      ]
+    },
+    {
+      "url": "https://thelastoutpostworkshop.github.io/ESPConnect/",
+      "final": "https://thelastoutpostworkshop.github.io/ESPConnect/",
+      "status": 200,
+      "title": [
+        "ESPConnect"
+      ]
+    },
+    {
+      "url": "https://esp.huhn.me/",
+      "final": "https://esptool.spacehuhn.com/",
+      "status": 200,
+      "title": [
+        "ESP Web Tool - Flash ESP32 &amp; ESP8266 from Your Browser"
+      ]
+    },
+    {
+      "url": "https://updater.flipperzero.one/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "url": "https://momentum-fw.dev/update/",
+      "final": "https://momentum-fw.dev/update/",
+      "status": 200,
+      "title": [
+        "Web Updater | Momentum Firmware"
+      ]
+    },
+    {
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/usb_device.html",
+      "final": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/usb_device.html",
+      "status": 200,
+      "title": []
+    },
+    {
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://codehedge.github.io/Biscuit-Wiki/devices/diy.html",
+      "final": "https://codehedge.github.io/Biscuit-Wiki/devices/diy.html",
+      "status": 200,
+      "title": [
+        "Biscuit DIY | Biscuit Wiki"
+      ]
+    },
+    {
+      "url": "https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/",
+      "final": "https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/",
+      "status": 200
+    },
+    {
+      "url": "https://web.unleashedflip.com/",
+      "final": "https://web.unleashedflip.com/",
+      "status": 200
+    },
+    {
+      "url": "https://espflasher.unleashedflip.com/",
+      "final": "https://espflasher.unleashedflip.com/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.m5stack.com/en/download",
+      "final": "https://docs.m5stack.com/en/download",
+      "status": 200
+    },
+    {
+      "url": "https://flasher.biscuitshop.us/",
+      "status": 200,
+      "method": "Separate Firecrawl retrieval; local TLS verification failed; did not disable certificate verification."
+    }
+  ]
+}

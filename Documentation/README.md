@@ -23,6 +23,13 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## 🎯 Purpose
 
 **Curated third-party GitHub resources:** [Awesome-Hacking + h4cker + Awesome-Hacking-Resources](awesome-hacking-collections-integration.md) with topic routing, license notes and safe adoption decisions.

@@ -356,6 +356,7 @@ To contribute to this subsection:
 ---
 
 <a id="️-authorized-use-and-data-handling"></a>
+<a id="-authorized-use-and-data-handling"></a>
 ## ⚠️ Authorized Use & Data Handling
 
 Use active auditing tools only against devices and networks covered by the owner's explicit authorization. Keep the approved targets, time window, methods, and exclusions clear before testing. Credential checks and intrusive scripts need particular care because they can affect accounts or services.

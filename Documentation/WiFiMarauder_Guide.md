@@ -1,5 +1,12 @@
 # WiFi Marauder Guide
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## 🎯 Purpose
 Comprehensive guide for ESP32 Marauder firmware covering hardware selection, installation, all core attack and detection features, integration with external tools (Hashcat, Wireshark, Kismet), and detection/defense strategies.
 

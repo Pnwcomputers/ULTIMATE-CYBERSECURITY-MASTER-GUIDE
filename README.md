@@ -106,6 +106,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Resource | Description |
 |---|---|
+| [ESP32 & Related Firmware Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
+| [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
 | [M5StickC Plus2 Hardware Lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Portable, model-specific hardware lab guidance |
 | [Cypherpunk Historical Toolkit Review](./Documentation/cypherpunk-pentesting-toolkit-review.md) | Historical tools and their modern relevance |
 | [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) | Curated OSINT discovery and research resources |
@@ -396,7 +398,7 @@ changes. See [legal terms](./LEGAL.md).
 New PNWC guides are original summaries and procedural checklists with direct
 links to upstream source repositories. **Documentation-only integration does
 not imply installation, third-party content mirroring or production testing.**
-The complete source and license register is [here](./Documentation/upstream-security-projects-register.md).
+The complete source and license register is [available in the upstream project register](./Documentation/upstream-security-projects-register.md).
 
 | Original GitHub resources | Where their guidance is integrated |
 | --- | --- |
