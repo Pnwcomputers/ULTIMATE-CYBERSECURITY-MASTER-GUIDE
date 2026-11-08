@@ -5,6 +5,22 @@ _Last reviewed: 2026-10-22_
 > [!CAUTION]
 > Biscuit is a multi-function wireless security platform. This guide covers **observation and mapping only**; avoid transmit/injection features during routine inventory. [Legal notice](../LEGAL.md).
 
+## Current Firmware Distribution & Recovery
+
+| Resource | Description / Boundary |
+|---|---|
+| [Official Browser Flasher](https://flasher.biscuitshop.us/) | Choose exact Pro/Ultra/Crumb/DIY/Node target. Full install and app-only update differ; some devices require both MCUs flashed. |
+| [Official DIY Wiki](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html) | Documents 8 MB flash C5 DIY requirements, named boards, SD caveats, app exports and Node Manager limits. |
+| [Raw DIY/Node Releases](https://github.com/CodeHedge/diy_node_web_flasher/releases) | Official docs link this distribution, but its archived web-installer source is not evidence of complete current firmware source. |
+| [Desktop Recovery Tool](https://github.com/CodeHedge/biscuit_flasher) | Named scripts for Pro, Ultra and Crumb; Crumb is single C5, Pro/Ultra have C5 plus WROOM. This utility explicitly redirects DIY users to the browser flasher. |
+| [Other Survey Firmware](./additional-survey-firmware.md) | Compare PORKCHOP, wardriver.uk, C5 Wardriver and Piglet before switching a working device. |
+
+Back up sessions/settings first. Review erase and pairing-reset prompts; remove
+stale phone bonds when the selected install resets pairing. For a first test use
+an owned AP, phone GPS and inspected app export. SD support for PCAP/portal files
+does not imply every DIY build logs wardrive CSV locally. A generic multi-firmware
+catalog does not replace vendor-specific multi-MCU instructions.
+
 ## Purpose
 
 [Biscuit](https://biscuitshop.us/) uses compatible ESP32 hardware with the **Biscuit Manager** mobile app. Phone GPS, Bluetooth permissions, firmware model and scanning roles determine what the saved wardrive means.

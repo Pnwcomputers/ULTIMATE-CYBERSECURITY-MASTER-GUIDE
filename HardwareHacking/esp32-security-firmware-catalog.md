@@ -21,6 +21,24 @@ _Last reviewed: 2026-11-07_
 | [Pico-Ducky](./pico-ducky-lab.md) | Setup jumper, CircuitPython and harmless HID validation. |
 | [Evil Crow RF V2](../SDR/evil-crow-rf-v2.md) | Default/custom firmware distinction and receiver-only baseline. |
 
+## Device-First Selection & Coverage Review
+
+| Resource | Description |
+|---|---|
+| [Device Firmware List](./device-firmware-list.md) | Hardware model to verified project/install choices, without broad compatibility checkmarks |
+| [ESP Terminator](./esp-terminator.md) | Multi-device/multi-firmware host tool, not a firmware image |
+| [Additional Survey Firmware](../Wardriving/additional-survey-firmware.md) | PORKCHOP, wardriver.uk and historical wardriver3000 |
+| [ChimeraBLE](../Documentation/chimerable.md) | Board-specific BLE setup and active-scan limits |
+| [FancyGotchi / Pwnagotchi](../Documentation/fancygotchi-pwnagotchi.md) | Pi image/theme versus independent CYD port |
+
+The first catalog pass missed several independently maintained projects. The
+follow-up compared primary project searches with ESP Terminator's live library,
+then verified author READMEs and repository metadata for additions. A library
+listing alone is discovery evidence, not proof of supported hardware or endorsement.
+Desk companions, e-readers and unrelated app categories are outside this security
+catalog. Names not resolved to a primary project remain unverified rather than
+being silently mapped to a similarly named project. Coverage remains open-ended.
+
 ## Purpose
 
 A source-verified reference for selecting ESP32 security firmware and closely
@@ -44,6 +62,7 @@ software-defined radio; RF means radio frequency.
 | [RF & SDR](#sub-ghz-rf--sdr) | Narrowband transceivers versus IQ-based SDR platforms |
 | [RFID & Flipper](#rfid-nfc--flipper-platforms) | Dedicated LF/HF hardware & Flipper firmware families |
 | [Other Protocols](#lora-mesh--other-protocols) | LoRa, RC links, Zigbee & Thread |
+| [Pi Images & Themes](#raspberry-pi-images--companion-interfaces) | Pwnagotchi, FancyGotchi and related device software |
 | [Vendor Survey Ecosystems](#vendor-survey-ecosystems) | Biscuit & Scout Lite firmware/controller distinctions |
 | [Web Flasher Reference](./firmware-web-flashers.md) | Dedicated installers & a separate multi-device/multi-firmware list |
 | [Verification & Maintenance](#verification--maintenance) | Evidence, status definitions, limitations & updates |
@@ -85,6 +104,9 @@ established from the reviewed primary sources, not proof that none exists.
 | [Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project) | Cardputer/ADV, Core2/CoreS3, AtomS3 & other listed targets | Wireless assessment, portal-awareness & HID labs; feature matrix differs per device | Recent push: 2026-11-04 | [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/) |
 | [NEMO](https://github.com/n0xa/m5stick-nemo) | M5StickC/Plus/Plus2, Cardputer & documented ports | Wi-Fi/BLE/IR lab toolkit; Cardputer USB analysis is not a guarantee a device is safe | Recent push: 2026-07-15 | M5Burner desktop or upstream source/binaries; no dedicated browser installer verified |
 | [ESP32 Bit Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | ESP32-S3 DevKit/SuperMini, AtomS3 Lite, Cardputer/ADV, StampS3; >=4 MB flash | UART/SPI/I2C/JTAG/SWD, USB & radio protocol research; formerly ESP32 Bus Pirate | Recent push: 2026-11-01 | [Official web flasher](https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/) |
+| [M5PORKCHOP](https://github.com/0ct0sec/M5PORKCHOP) | Cardputer/ADV S3; GPS/SD; external C5 for reviewed dual-band workflow | Wireless research and survey modes; not the Piglet project | Recent push: 2026-10-06 | Upstream PlatformIO; [survey setup notes](../Wardriving/additional-survey-firmware.md) |
+| [HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD) | Named CYD/NM-RF-Hat variants; external CC1101/NRF/NFC/GPS as required | Multi-radio toolkit; verify power budget, exact display and module configuration | Recent push: 2026-10-26 | [Official web flasher](https://flash.halehound.com/) |
+| [nyanBOX](https://github.com/jbohack/nyanBOX) | Dedicated ESP32 + triple NRF24/OLED hardware | Wireless research; distinct maintained nRFBox derivative; fingerprint claims need corroboration | Recent push: 2026-10-25 | [Project web flasher](https://nyandevices.com/flasher) |
 
 ## Wi-Fi Surveying & Research
 
@@ -96,6 +118,8 @@ established from the reviewed primary sources, not proof that none exists.
 | [ESP8266 Deauther](https://github.com/SpacehuhnTech/esp8266_deauther) | ESP8266 NodeMCU/Wemos/DSTIKE variants | Legacy 2.4 GHz Wi-Fi resilience research; not an ESP32 image; disruptive modes restricted | Quiet: 2024-08-14 | Upstream binary/build instructions; generic ESP uploader only with correct image/layout |
 | [ESP32 Wi-Fi Penetration Tool](https://github.com/risinek/esp32-wifi-penetration-tool) | Original ESP32 ESP-IDF project; check pinned toolchain | Research PoC for Wi-Fi security behavior; older dependencies, isolated lab only | Quiet: 2024-02-18 | Source/build; no dedicated web flasher verified |
 | [ESP32 Open MAC](https://github.com/esp32-open-mac/esp32-open-mac) | Original ESP32 only; Rust/ESP-IDF development setup | Experimental open Wi-Fi MAC implementation; not a turnkey pentest appliance | Quiet: 2025-03-07 | Source/build; no dedicated web flasher verified |
+| [wardriver.uk Rev3](https://github.com/JosephHewitt/wardriver_rev3) | Dual WROOM-32U ESP32 boards; A/B programs; GPS/SD | 2.4 GHz Wi-Fi/Bluetooth survey; stable release differs from alpha main | Recent push: 2026-05-25 | Arduino/source or beta binary path; [setup notes](../Wardriving/additional-survey-firmware.md) |
+| [wardriver3000](https://github.com/cifertech/wardriver3000) | ESP32 + SSD1306 OLED + GPS + microSD design | Historical Wi-Fi survey design; known PCB caveats; BLE listed as future work | Quiet: 2024-04-28 | Upstream code/schematic; no dedicated web flasher verified |
 
 ## USB HID & Keyboard Research
 
@@ -116,6 +140,8 @@ established from the reviewed primary sources, not proof that none exists.
 | [Ubertooth](https://github.com/greatscottgadgets/ubertooth) | Ubertooth One dedicated hardware | Bluetooth radio research; not ESP32 or a complete universal Bluetooth 5 sniffer | Recent push: 2026-11-05 | Upstream firmware + matching host tools; DFU workflow |
 | [Btlejack Firmware](https://github.com/virtualabs/btlejack-firmware) | BBC micro:bit v1 / nRF51822 targets | Legacy BLE connection research; limited PHY support; companion host tool required | Quiet: 2021-01-27 | Upstream HEX; micro:bit mass storage or SWD, target dependent |
 | [InternalBlue](https://github.com/seemoo-lab/internalblue) | Supported Broadcom/Cypress Bluetooth chips in listed phones/SBCs | Firmware instrumentation framework; exact chip/ROM/OS matters; not ESP32 | Quiet: 2024-08-21 | Host framework & chip-specific patches; no generic flashable image |
+| [ChimeraBLE](https://github.com/MatthewKuKanich/ChimeraBLE) | ESP32 WROOM, XIAO C5, Cardputer ADV targets | BLE GATT/advertisement research; active scan and filesystem provisioning need review | Recent push: 2026-07-07 | Upstream PlatformIO; [dedicated guide](../Documentation/chimerable.md) |
+| [SquachWatch-CYD](https://github.com/skizzophrenic/SquachWatch-CYD) | CYD display variants; selected S3/C5/watch builds | Wireless signature detection; a heuristic match is not proof of a camera/tracker or operator | Recent push: 2026-11-07 | [Official web flasher](https://squachwatch.com/) |
 
 ## Sub-GHz RF & SDR
 
@@ -145,6 +171,20 @@ established from the reviewed primary sources, not proof that none exists.
 | [ExpressLRS](https://github.com/ExpressLRS/ExpressLRS) | Supported RC TX/RX targets (ESP32/ESP8285/STM32 variants) | Owned RC-link testbeds; not generic SDR; bench with propulsion disabled | Recent push: 2026-10-31 | [Official web flasher](https://expresslrs.github.io/web-flasher/); supported targets only |
 | [Espressif Zigbee SDK](https://github.com/espressif/esp-zigbee-sdk) | ESP32-C6/H2 native 802.15.4 targets; other host/RCP designs per SDK | Zigbee protocol/device testbeds; SDK examples, not an attack firmware | Recent push: 2026-11-04 | Source/build; no dedicated web flasher verified |
 | [Espressif Thread Border Router](https://github.com/espressif/esp-thread-br) | Documented ESP host + 802.15.4 radio co-processor combinations | Thread/IPv6 border-router testbeds; host and RCP firmware must match | Recent push: 2026-11-02 | Source/build; no dedicated web flasher verified |
+| [FlipperHTTP](https://github.com/jblanked/FlipperHTTP) | Target-specific ESP32/S2/S3/C3/C5/C6, BW16 and Pi/Pico implementations | Network bridge/library + device firmware; not Flipper OS or a universal scanner | Recent push: 2026-06-04 | Upstream target-directory instructions; companion app separately |
+| [MeshCore](https://github.com/meshcore-dev/MeshCore) | Supported Heltec/RAK/other LoRa boards; target and role specific | LoRa mesh testbeds; different protocol/roles from Meshtastic | Recent push: 2026-11-07 | [Official flasher](https://meshcore.io/flasher) |
+
+## Raspberry Pi Images & Companion Interfaces
+
+These are related device software, not interchangeable ESP32 firmware. FancyGotchi
+theming does not turn off the underlying image's active wireless behavior.
+
+| Project / Upstream | Supported Targets & Extras | Authorized Use / Limits | Activity | Installation |
+|---|---|---|---|---|
+| [Pwnagotchi (jayofelony)](https://github.com/jayofelony/pwnagotchi) | Listed 64-bit Pi Zero 2 W / 3 / 4 / 5; legacy Zero W images separate | Wi-Fi research appliance; reviewed noai branch removes old AI; not inherently passive | Recent push: 2026-09-28 | Selected upstream SD image/wiki; [companion guide](../Documentation/fancygotchi-pwnagotchi.md) |
+| [FancyGotchi 2.0](https://github.com/V0r-T3x/Fancygotchi) | Compatible Pwnagotchi Pi fork/display/Python combination | Theme manager; Zero W and Pi 4 caveats; not an independent attack firmware | Quiet: 2025-10-26 | Project wiki/plugin files; no browser firmware flasher verified |
+| [Bjorn](https://github.com/infinition/Bjorn) | Raspberry Pi with documented OS/display setup | Autonomous network-service assessment; existing closed-lab guide applies | Recent push: 2026-07-20 | Upstream application install; [existing guide](../Documentation/bjorn_pi.md) |
+| [FancyGotchi CYD Port](https://github.com/Xombi3/Fancygotchi-cyd-port) | Independent ESP32-2432S028R project | Experimental capture firmware; active behavior and display/wiring claims need validation; not the Pi theme | Quiet: 2026-03-19 | Upstream build files; [project distinction](../Documentation/fancygotchi-pwnagotchi.md) |
 
 ## Vendor Survey Ecosystems
 
@@ -153,9 +193,18 @@ neither is an interchangeable generic ESP32 binary.
 
 | Resource | Targets, Use & Install Route |
 |---|---|
-| [Biscuit Official Flasher](https://flasher.biscuitshop.us/) | Pro/Ultra dual-MCU devices, Crumb, selected C5 DIY/AWOK targets and nodes. Use the [official DIY matrix](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html). Vendor-distributed survey firmware; this review did not establish a primary public firmware-source repository or source maintenance date. Select production/beta deliberately and flash each applicable MCU. |
+| [Biscuit Official Flasher](https://flasher.biscuitshop.us/) | Pro/Ultra dual-MCU devices, Crumb, selected C5 DIY/AWOK targets and nodes. Use the [official DIY matrix](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html). Vendor-distributed survey firmware; [official release distribution](https://github.com/CodeHedge/diy_node_web_flasher/releases) is publicly linked, but that archived installer repository does not establish a complete/current firmware source tree or maintenance date. Select production/beta deliberately and flash each applicable MCU. |
 | [Scout Lite](https://github.com/pingequalab/scout-lite) | ESP32-C5 + GPS + microSD accessory; vendor docs last pushed 2026-10-24, not archived. [Vendor installer](https://flash.pingequa.com/devices/scout-lite) supplies target-specific firmware options. The documentation repository is not proof that all distributed firmware source is present. |
 | [SigRoam](https://github.com/pingequalab/sigroam-wardriving) | Flipper controller app, not an ESP32 image. Repository last pushed 2026-10-24, not archived. Pair the app with the documented Scout Lite firmware/mode; see the [existing pairing guide](../Wardriving/sigroam-scout-lite.md). |
+
+## Unresolved Discovery Candidates
+
+These names are not verified firmware entries and are excluded from verified-project counts.
+
+| Candidate | What Remains Unresolved |
+|---|---|
+| WardriveSP / wardrivesp | No primary upstream resolved under the supplied spelling; not silently equated to wardriver.uk, Piglet or JCMK. |
+| Cheap YellowMonster / AxD / Sticks & Stones | Names observed in the [ESP Terminator library](https://espterminator.com/); primary ownership, exact targets, source/release provenance and support status still need verification. |
 
 ## Historical Projects & Exclusions
 

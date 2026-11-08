@@ -106,6 +106,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Resource | Description |
 |---|---|
+| [Device Firmware List](./HardwareHacking/device-firmware-list.md) | Start with exact hardware, then choose firmware and installer |
 | [ESP32 & Related Firmware Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
 | [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
 | [M5StickC Plus2 Hardware Lab](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Portable, model-specific hardware lab guidance |

@@ -7,6 +7,14 @@
 
 _Last reviewed: 2026-11-07_
 
+## Additional BLE Firmware
+
+| Resource | Description / Boundary |
+|---|---|
+| [ChimeraBLE](./chimerable.md) | Active discovery/GATT research; distinct from receive-only Sniffle capture. |
+| [SquachWatch](https://github.com/skizzophrenic/SquachWatch-CYD) | Signature-based detection; confirm suspected device identity independently. |
+| [nyanBOX](https://github.com/jbohack/nyanBOX) | Device-specific wireless toolkit; NRF24 hardware is not a universal BLE decoder. |
+
 ## Purpose
 
 Choose between advertisement inventory and protocol packet capture, then validate

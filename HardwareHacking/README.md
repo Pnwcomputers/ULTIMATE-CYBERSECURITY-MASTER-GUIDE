@@ -16,6 +16,13 @@
 
 **Adjacent embedded-security research:** [Awesome Embedded and IoT](https://github.com/fkie-cad/awesome-embedded-and-iot-security), [h4cker hardware](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/hardware-embedded-security) and [project routing](../Documentation/awesome-hacking-collections-integration.md).
 
+## Expanded Device & Firmware Coverage
+
+| Resource | Description / Boundary |
+|---|---|
+| [Device Firmware List](./device-firmware-list.md) | Board-first choices and target limitations. |
+| [ESP Terminator](./esp-terminator.md) | General catalog/uploader selection and recovery checks. |
+
 ## Dedicated Firmware Labs
 
 | Resource | Role & Compatibility Boundary |

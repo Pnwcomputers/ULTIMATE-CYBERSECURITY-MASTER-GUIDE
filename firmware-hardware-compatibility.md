@@ -1,5 +1,9 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
 
+## Device-First Current Selection
+
+Use the [device firmware list](./HardwareHacking/device-firmware-list.md) for named boards, verified project choices and install formats. It complements the project catalog and avoids treating a broad chip-family checkmark as exact board support.
+
 ## New Firmware Target Notes
 
 | Resource | Role & Compatibility Boundary |

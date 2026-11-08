@@ -23,6 +23,13 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
+## Expanded Device & Firmware Coverage
+
+| Resource | Description / Boundary |
+|---|---|
+| [ChimeraBLE](./chimerable.md) | BLE active-scan setup and owned-device metadata inspection. |
+| [FancyGotchi / Pwnagotchi](./fancygotchi-pwnagotchi.md) | Theme versus image versus independent ESP32 CYD firmware. |
+
 ## Dedicated Firmware Labs
 
 | Resource | Role & Compatibility Boundary |
