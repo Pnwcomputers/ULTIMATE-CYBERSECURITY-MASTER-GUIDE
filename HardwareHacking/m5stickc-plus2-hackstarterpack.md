@@ -4,6 +4,13 @@
 
 The [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5StickCPlus2) gathers IR signal files, Sub-GHz samples, BLE/USB keyboard scripts, captive-portal templates and tutorials. It is a **collection of untrusted references**, not a firmware release or a preapproved set of penetration-testing payloads. This guide integrates the useful concepts with the existing PNWC chapters **without copying third-party scripts, radio files or brand assets**.
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](./esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](./firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## Confirm exact hardware and firmware
 
 [M5Stack's StickC-Plus2 specification](https://docs.m5stack.com/en/core/StickC-Plus2) identifies SKU **K016-P2**, ESP32-PICO-V3-02, a built-in **IR transmitter**, 2.4 GHz Wi-Fi, USB-C and exposed GPIO. The Plus2 is **not** the original StickC Plus, M5Cardputer or ESP32-S3. It has **no onboard CC1101, NRF24, GPS, or native USB HID peripheral**. Feature menus and radio compatibility depend on installed firmware.

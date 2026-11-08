@@ -23,6 +23,13 @@
 
 **M5StickC Plus2 + CC1101:** [Starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) covers module prerequisites, receive-only RF observation and upstream file provenance.
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## 🎯 Purpose
 
 This README is the entry point for the SDR, RF, and contactless section. It connects **six companion documents and the NanoVNA guide collection** covering SDR fundamentals, HackRF surveys, advanced signal research, Sub-GHz protocols, RFID/NFC, frequency/protocol references, and antenna/RF measurements.

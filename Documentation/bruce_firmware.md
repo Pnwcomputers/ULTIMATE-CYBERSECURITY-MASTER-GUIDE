@@ -1,5 +1,12 @@
 # Bruce Firmware: A Multi-Radio Offensive Platform for ESP32 Hardware
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## 🎯 Purpose
 Operational guide to Bruce firmware - the multi-radio ESP32 platform covering sub-GHz (CC1101), NFC/RFID (PN532), IR, FM, NRF24, BLE/HID, and WiFi attack capabilities across M5Cardputer, LilyGo, and Bruce open-hardware boards.
 

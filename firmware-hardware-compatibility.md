@@ -1,5 +1,17 @@
 # FIRMWARE & HARDWARE COMPATIBILITY CHART
 
+## Current Firmware References
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](./HardwareHacking/esp32-security-firmware-catalog.md) | Current upstream target examples, activity notes & compatibility boundaries |
+| [Firmware Web Flashers](./HardwareHacking/firmware-web-flashers.md) | Dedicated installers & multi-device upload tools |
+
+> [!WARNING]
+> The legacy matrix below includes broad chip-family checkmarks and historical
+> claims. They are not confirmation of a specific board, release or feature.
+> Verify the exact target with upstream before buying hardware or flashing.
+
 ## Wireless Security Testing Devices
 **Plus2 clarification:** [M5StickC Plus2 / HackStarterPack source review](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) notes the separate hardware/accessories. Generic M5Stick-family checkmarks below are not proof of compatibility with a specific firmware version or USB HID.
 
@@ -14,7 +26,7 @@
 ---
 
 ## 🎯 Purpose
-The only file in the repo that answers "does firmware X run on hardware Y?" - a compatibility matrix for DIY wireless-pentest devices (ESP32 variants, LilyGO boards, M5Stack devices, Raspberry Pi models, Flipper Zero, nRF52840) against the firmware projects that target them (Marauder, Bruce, Nemo, Pwnagotchi, Bjorn, P4wnP1, Deauther, etc).
+A legacy comparison that addresses "does firmware X run on hardware Y?" - a compatibility matrix for DIY wireless-pentest devices (ESP32 variants, LilyGO boards, M5Stack devices, Raspberry Pi models, Flipper Zero, nRF52840) against the firmware projects that target them (Marauder, Bruce, Nemo, Pwnagotchi, Bjorn, P4wnP1, Deauther, etc).
 
 ## ⚙️ Function
 A compatibility matrix table (firmware × hardware, ✅/⚠️/❌) followed by detailed per-chip hardware specs, per-firmware capability breakdowns, recommended-hardware-by-use-case, purchase links, and a firmware installation quick reference. Differs from [Documentation/](Documentation/) firmware-specific files (e.g., `WifiMarauder_Guide.md`, `bjorn_pi.md`), which document how to *use* one specific firmware - this file only answers what hardware it *runs on*.

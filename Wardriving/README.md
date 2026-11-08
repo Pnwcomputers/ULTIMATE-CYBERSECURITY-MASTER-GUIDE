@@ -6,6 +6,13 @@ _Last reviewed: 2026-10-22_
 > [!CAUTION]
 > **Authorized surveying only.** Define the permitted area, types of collection, device owners, disclosure rules and any transmit-capable features *before* starting. Passive reception is not a blanket permission for active interference, interception or publishing location data. Read the [repository legal notice](../LEGAL.md).
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## Purpose
 
 Wardriving is the systematic observation and mapping of wireless infrastructure while moving (by foot, bicycle, vehicle or another safe route). A typical *wireless inventory* records access point identifiers, frequency/channel, received signal strength, observed security configuration, time and optional Global Navigation Satellite System (GNSS) coordinates. Bluetooth Low Energy (BLE) and cellular observations require source-specific capabilities.

@@ -1,5 +1,12 @@
 # The M5Cardputer & Evil-M5Project
 
+## Firmware Catalog & Installers
+
+| Resource | Description |
+|---|---|
+| [ESP32 & Related Firmware Catalog](../HardwareHacking/esp32-security-firmware-catalog.md) | Primary upstream projects, supported targets, use-cases & dated activity notes |
+| [Firmware Web Flashers](../HardwareHacking/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
+
 ## 🎯 Purpose
 Technical guide for the M5Cardputer running Evil-M5Project firmware - a pocket-sized, keyboard-driven wireless security workstation for authorized WiFi penetration testing, captive portal attacks, and network reconnaissance.
 
