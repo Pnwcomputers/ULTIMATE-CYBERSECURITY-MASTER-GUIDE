@@ -85,17 +85,6 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ---
 
-### DIY Hardware & Firmware Quick Reference: *(ESP32, RaspberryPi, etc)*
-
-| Resource | Description |
-|---|---|
-| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
-| [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
-| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
-| [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
-
----
-
 <a id="primary-master-guides"></a>
 
 ## 📚 Primary Master Guides
@@ -160,6 +149,19 @@ These are source-attributed references, not claims that every upstream tool is i
 | **[Wireshark Master Filter List](./Documentation/wireshark-master-filters.md)** | 133 indexed display filters, safe capture/BPF examples, TShark and defensive packet triage |
 | **[Wireshark Field Cheat Sheet](./Documentation/wireshark-cheatsheet.md)** | Fast reference for TCP/DNS/DHCP/TLS/QUIC/802.11 and troubleshooting |
 | [OSINT Cheat Sheet](./OSINT/OSINT_CHEATSHEET.md) | Quick-reference OSINT cheat sheet |
+
+---
+
+### DIY Hardware & Firmware Quick Reference: *(ESP32, RaspberryPi, etc)*
+
+| Resource | Description |
+|---|---|
+| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
+| [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
+| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
+| [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
+
+---
 
 ### Operational Sections
 
