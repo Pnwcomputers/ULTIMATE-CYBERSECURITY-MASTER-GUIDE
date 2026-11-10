@@ -4,7 +4,7 @@ _Last reviewed: 2026-11-05_
 
 Use a few authoritative files to make AI-assisted projects reproducible and resumable. This works with a single assistant or multiple specialist agents.
 
-## Separate stable instructions from current status
+## Separate Stable Instructions From Current Status
 
 | File | Responsibility |
 |---|---|
@@ -17,7 +17,7 @@ Use a few authoritative files to make AI-assisted projects reproducible and resu
 
 These are example filenames, not required platform features. Keep one active source of truth and archive old handoffs; do not paste long transcripts into instructions.
 
-## Charter and milestones
+## Charter & Milestones
 
 ```text
 MISSION: [measurable desired outcome]
@@ -35,7 +35,44 @@ ESCALATE BEFORE: [sends, secrets, destructive and production changes].
 
 Local tests do not prove production behavior. A clean narrow run does not clear unresolved broad audit gaps.
 
-## Agent and project lanes
+## How to Operate Milestones (Not Just Name Them)
+
+A useful milestone has an **observable outcome**, precise acceptance criteria, owned deliverables, evidence and approval requirements. Writing `M3 VERIFY` in a prompt is only the beginning.
+
+| Field | Example for a Lab Wazuh Detection Project |
+|---|---|
+| ID & Outcome | M3 — Detection Tests Pass |
+| Owner / Reviewer | Builder owns rules; verifier independently checks fixtures |
+| Prerequisites | M0 authorized lab and M1 approved synthetic test matrix |
+| Deliverables | Rule diff, synthetic fixtures, expected/actual results |
+| Positive Criterion | Expected SSH test fixture creates the specified alert |
+| Negative Criterion | Agreed benign fixtures do not create high-severity findings |
+| Resilience Criterion | Duplicate/malformed inputs handled as documented |
+| Proof | Test commands, tool output and source commit recorded in `EVIDENCE.md` |
+| Stop Condition | Unexpected production target, sensitive-data exposure, failed negative check |
+| Gate | No production rollout until owner signs off on M3 and M4 |
+
+### Work One Criterion at a Time
+
+1. **Inspect:** Recheck authorization, current commit, environment and criteria.
+2. **Assign:** Select one bounded task and name its responsible lane.
+3. **Execute:** Collect the actual output rather than a narrative success claim.
+4. **Validate:** Compare expected and actual behavior; include negative cases.
+5. **Log:** Update evidence and record `PASS`, `FAIL`, `BLOCKED` or `NOT TESTED`.
+6. **Review:** Only the designated authority accepts the milestone; a model's self-review does not substitute.
+7. **Resume:** Update `STATUS.md` / `HANDOFF.md` with the next unmet criterion.
+
+If a task fails, leave the milestone open even if earlier criteria pass. A successful build does not prove safe operation, and a locally passing test does not prove production behavior. The [full Milestones & Acceptance Criteria guide](milestones-and-acceptance-criteria.md) provides a six-stage lifecycle, cybersecurity project worked example, reusable charter/status/evidence templates, rollback plan and GitHub milestone distinction.
+
+## How Notes & Hooks Support Progress
+
+Use **notes** to record evidence and decisions, **hooks** to react to supported application events, **schedules** for periodic checks, and **milestones** to decide whether the resulting work meets the project standard. This is a division of responsibilities, not interchangeable terminology.
+
+**Example:** A post-edit hook invokes a syntax check after the builder changes a rule. The hook can log its own exit status, but it cannot establish that a detection scenario passed unless the correct test was run and evidence captured. The verifier links that evidence to the milestone criterion, and the project owner approves advancing to the next stage.
+
+Onboarding a new agent/session requires explicitly loading approved context; writing `HANDOFF.md` does not guarantee the next model will see it. Event hooks also require host-specific configuration and trusted execution permissions. See [Notes, Memory, Hooks & Automation](notes-hooks-and-automation.md) for complete setup and troubleshooting procedures.
+
+## Agent & Project Lanes
 
 | Lane | Owns | Must deliver |
 |---|---|---|
@@ -48,7 +85,7 @@ Local tests do not prove production behavior. A clean narrow run does not clear 
 
 A single model simulating different lanes does **not** constitute independent review. Parallel workers should own separate files or branches. Integrate changes carefully, resolve conflicts and rerun combined tests.
 
-### Agent lane contract
+### Agent Lane Contract
 
 ```text
 TASK ID: [ID]    LANE: [research/builder/reviewer/verifier]
@@ -61,7 +98,7 @@ STOP IF: [missing authorization, identity or evidence].
 HANDOFF: [diff, test receipts, unknowns and next step].
 ```
 
-## Execute and resume
+## Execute & Resume
 
 1. Read charter, agent rules, current status and latest handoff.
 2. Inspect actual repository or service state before trusting older reports.
@@ -71,7 +108,7 @@ HANDOFF: [diff, test receipts, unknowns and next step].
 6. Review independently and record failures with reproduction steps.
 7. Update status and handoff; obtain approval before sensitive release.
 
-### Status checkpoint template
+### Status Checkpoint Template
 
 ```text
 UPDATED: [date/time/timezone]    CURRENT MILESTONE: [M#]
@@ -88,9 +125,26 @@ NEXT SAFE ACTION: [one bounded task]
 
 Use least-privilege tools, source-linked identities, dry-run previews, bounded retries, human approval gates, confirmed API results and post-write readbacks. An AI cannot authorize its own production actions through prompt text.
 
-## Related guides
+## Build the Integration, Not Only the Plan
 
-[AI Usage](ai-usage-interaction-guide.md) · [Independent AI Audits](verification-and-ai-audits.md) · [Workspaces](ai-workspaces-notebooks-and-assistants.md) · [Assessment Findings](../PlayBooks/assessment-findings-lifecycle.md)
+Once milestones and role assignments are defined, implement bounded execution in this order:
+
+| Stage | Owner | Deep-Dive |
+|---|---|---|
+| Load trusted current context | Coordinator | [Context Engineering](context-engineering-and-memory.md) |
+| Define tool identities and allowed operations | Platform owner | [MCP & Permissions](mcp-tooling-and-permissions.md) |
+| Assign worker dependencies and handoff contracts | Planner | [Multi-Agent Orchestration](multi-agent-orchestration.md) |
+| Validate typed results and target identity | Builder | [Structured Outputs](structured-outputs-and-data-contracts.md) |
+| Handle timeouts, duplicates and interruption | Operator | [Reliability & Recovery](agent-reliability-and-recovery.md) |
+| Collect trace and end-state evidence | Verifier | [Observability](ai-observability-and-auditing.md) |
+| Test behavior, safety, and rollback | Independent reviewer | [Evaluations](ai-evaluation-and-regression-testing.md) · [Agent Security](agent-threat-modeling-and-security.md) |
+| Review cost and data destination | Owner | [Model Routing](model-routing-and-cost-management.md) |
+
+For an applied security scenario, follow [AI-Augmented Security Operations](ai-security-operations-workflows.md). These operations are not performed merely by adding links to a charter: they require actual tool configuration, running tests and independently checking outcomes.
+
+## Related Guides
+
+[AI Usage](ai-usage-interaction-guide.md) · [Milestones & Acceptance](milestones-and-acceptance-criteria.md) · [Notes & Hooks](notes-hooks-and-automation.md) · [Independent AI Audits](verification-and-ai-audits.md) · [Workspaces](ai-workspaces-notebooks-and-assistants.md) · [Assessment Findings](../PlayBooks/assessment-findings-lifecycle.md)
 
 ---
 

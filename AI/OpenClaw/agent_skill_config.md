@@ -1077,39 +1077,78 @@ print('Done - restart app to apply cron jobs')
 
 ## Hooks & Triggers
 
-Hooks run automatically when specific OpenClaw events occur.
+OpenClaw separates **internal Gateway event hooks**, **typed plugin hooks**, **HTTP webhooks** and **scheduled cron jobs**. They are different facilities. An event hook is not a daily schedule, and a prompt string placed in configuration is not automatically executable code.
+
+| Need | Correct Mechanism | Verification |
+|---|---|---|
+| React to session reset or a recognized command | Internal hook using a supported `HOOK.md` and handler | Inspect registry and test authorized event |
+| Intercept tool or message lifecycle | Typed plugin hook, e.g. `api.on("before_tool_call", ...)` | Check plugin activation, event contract and handler result |
+| Receive a Wazuh/ticketing HTTP signal | Authenticated Gateway webhook or external integration | Verify sender, replay protection and event IDs |
+| Run a daily security digest | OpenClaw scheduler / cron job | Check schedule, timezone, task result and delivery |
+| Persist investigation state | Explicitly written workspace note + safe loader | Confirm content, provenance and access controls |
+
+### Step 1 — Inspect the Current Gateway
+
+Run on the actual **Gateway host** (or through the correctly targeted CLI), beginning with read-only checks:
 
 ```bash
-sudo python3 -c "
-import json
-path = '/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json'
-with open(path) as f:
-    config = json.load(f)
-
-if 'hooks' not in config:
-    config['hooks'] = {'internal': []}
-
-config['hooks']['internal'] = [
-
-    {
-        'event': 'session.new',
-        'prompt': 'A new chat session has started. Briefly remind me which agent is active and its primary purpose in one sentence.',
-        'enabled': True
-    },
-
-    {
-        'event': 'session.reset',
-        'prompt': 'Session was reset. Save a brief summary of the previous session to workspace memory before clearing context.',
-        'enabled': True
-    }
-
-]
-
-with open(path, 'w') as f:
-    json.dump(config, f, indent=2)
-print('Done')
-"
+openclaw hooks list
+openclaw hooks info command-logger
+openclaw hooks check
 ```
+
+Verify the exact gateway/profile, current installation, available hooks, and log destination. CLI selection and configuration of local versus remote Gateways differ; **do not** assume a local enable command will update a remote service.
+
+### Step 2 — Test a Bundled Internal Hook
+
+Only after reviewing its content and data-retention behavior, on a **test Gateway**:
+
+```bash
+openclaw hooks enable command-logger
+openclaw hooks list
+# In a disposable, authorized session, trigger a relevant command and inspect
+# the actual hook output in the documented Gateway log/handler destination.
+openclaw hooks disable command-logger
+```
+
+Command logging may record sensitive metadata. Avoid testing with production messages, credentials or client identifiers.
+
+### Step 3 — Understand the Correct Internal Configuration Shape
+
+For supported versions, named internal hook selection is configured using `hooks.internal.entries`, **not** an array of `{event, prompt, enabled}` objects. This excerpt illustrates the documented shape and is **not a complete replacement configuration file**:
+
+```json
+{
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}
+```
+
+Preserve other existing configuration keys and use official CLI/configuration procedures rather than overwriting a working OpenClaw configuration with a sample. A custom internal hook needs a real, reviewed event handler and its `HOOK.md` metadata; the Gateway runs trusted code with its own permissions, so sandbox/limit it appropriately. When handlers should apply to only one agent, filter by agent/session within the handler. Hook selection may be Gateway-wide.
+
+### Step 4 — Validate Failure & Disable Paths
+
+1. Confirm the intended event invokes the expected handler exactly once.
+2. Confirm unrelated messages do not invoke it.
+3. Test a failed handler, repeated event and sensitive-input case with synthetic data.
+4. Verify errors are visible and event IDs can be correlated without exposing payloads.
+5. Document owner, rollback, log retention and expected configuration reload behavior.
+6. Disable the handler if it behaves unexpectedly.
+
+**Do not use** a fabricated `session.new` / `session.reset` prompt array to create session-memory behavior. Use the current supported event names and handler contract in the OpenClaw docs. To preserve a summary, write a reviewed, sanitized note through an explicit approved workflow; do not assume a reset can retroactively save everything.
+
+See [Notes, Memory, Hooks & Automation](../notes-hooks-and-automation.md) for a full comparison with Git hooks and Claude Code, security boundaries, examples and a troubleshooting checklist. See [Milestones & Acceptance Criteria](../milestones-and-acceptance-criteria.md) to track whether the automation has actually met its test gates.
+
+**Primary References:** [OpenClaw Internal Hooks](https://docs.openclaw.ai/automation/hooks) · [Configuration & Discovery](https://docs.openclaw.ai/automation/hooks/configuration) · [Plugin Hooks](https://docs.openclaw.ai/plugins/hooks) · [Hooks CLI](https://docs.openclaw.ai/cli/hooks).
+
 
 ---
 
