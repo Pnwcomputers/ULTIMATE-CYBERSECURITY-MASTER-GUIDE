@@ -570,12 +570,22 @@ Review it for anything dangerous, unintended side effects,
 or edge cases I should know about before running it: [paste script]"
 ```
 
-### Save Recurring Prompts as Skills or Hooks
-Set up OpenClaw hooks to run automatically:
-- Daily security digest at 8am
-- Weekly summary of open service tickets
-- Alert when Wazuh fires a critical rule
-- Morning weather + calendar brief on weekdays
+### Reuse a Prompt, Schedule a Job, or Trigger a Hook?
+
+These mechanisms are **not** interchangeable. Use a reusable **skill** when you want consistent triage instructions; use **cron/scheduled jobs** for fixed-time work; use an **event hook** when a supported session/tool event fires; use an **authenticated webhook/integration** for an external Wazuh alert.
+
+| Example | Recommended Mechanism | Verification & Boundary |
+|---|---|---|
+| Daily security digest at 8:00 AM | Scheduled job / cron | Check timezone, source freshness, actual run and destination |
+| Weekly summary of open service tickets | Scheduled job reading permitted records | Check data access, filter out stale/closed tickets, verify coverage |
+| Wazuh critical alert from another service | Authenticated integration/webhook, then bounded triage | Validate sender, event ID, duplicate handling and severity |
+| Save a summary before an agent lifecycle event | Supported internal hook with reviewed handler | Test actual event behavior; restrict stored data and permissions |
+| Repeated vulnerability-triage checklist | Reusable skill or prompt template | Test with synthetic positive/negative samples |
+
+**Setup order:** (1) define a bounded task and authorized sources, (2) select the correct triggering mechanism, (3) validate input/authentication and privacy, (4) test dry-run and failure cases, (5) inspect the actual result and record it, (6) only then enable it within the intended environment.
+
+A hook firing or scheduled job running does **not** prove that the final report is correct. Track the deliverable with measurable acceptance criteria and evidence. See [Notes, Memory, Hooks & Automation](../notes-hooks-and-automation.md), [Milestones & Acceptance Criteria](../milestones-and-acceptance-criteria.md) and [OpenClaw Hooks & Triggers](agent_skill_config.md#hooks--triggers).
+
 
 ### Keep Sensitive Data Local
 For anything involving:
