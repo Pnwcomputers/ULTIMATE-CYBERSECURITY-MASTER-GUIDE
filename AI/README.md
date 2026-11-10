@@ -24,7 +24,7 @@
 
 | Section |
 |---|
-| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planningmanagement--provided-data-verification)
+| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
 | [Recommended Reading Flow](#recommended-reading-flow)
 | [Overview](#-overview)
 | [Folder Contents](#-folder-contents)
@@ -75,19 +75,31 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 | File/Folder | Description |
 |-------------|-------------|
-| **[ai-usage-interaction-guide.md](ai-usage-interaction-guide.md)** | Practical AI interaction guide covering effective prompts, instruction structure, context, privacy, and verifying completed work |
-| **[agent-project-workflows.md](agent-project-workflows.md)** | Organize goals, milestones, agent and project lanes, review responsibilities, progress tracking, and resume checkpoints |
+| **[ai-usage-interaction-guide.md](ai-usage-interaction-guide.md)** | Practical AI interaction guide with prompt templates, how to operate a project, context loading, privacy, approval boundaries and completion checks |
+| **[notes-hooks-and-automation.md](notes-hooks-and-automation.md)** | Full practical guide to notes vs memory vs instructions vs hooks, skills, cron and webhooks; note templates, Git pre-commit / Claude Code / OpenClaw hook setup, audit and troubleshooting |
+| **[milestones-and-acceptance-criteria.md](milestones-and-acceptance-criteria.md)** | End-to-end milestone methodology with acceptance criteria, approvals, evidence, status/handoff templates, a complete defensive-security example, progress, rollback and resuming work |
+| **[agent-project-workflows.md](agent-project-workflows.md)** | Apply goals, milestones and evidence to project and agent lanes, delegate scoped tasks, track blockers, review and resume checkpoints |
 | **[verification-and-ai-audits.md](verification-and-ai-audits.md)** | Fact-check AI responses and supplied information; independently audit sources, claims, tool actions, security boundaries, and agent results |
 | **[ai-workspaces-notebooks-and-assistants.md](ai-workspaces-notebooks-and-assistants.md)** | Choose and organize projects, notebooks, custom GPTs, plugins, reusable assistants, and multi-step agents |
 
 ---
 
+### Working Example: Build & Resume a Verifiable AI Project
+
+1. **Define the mission and permission boundaries:** Create `PROJECT.md` with assets in scope, authorized actions, exclusions and approval requirements.
+2. **Plan evidence-backed milestones:** Use `MILESTONES.md` to specify outputs, tests, owner and release gate. Work from the [milestone tutorial](milestones-and-acceptance-criteria.md).
+3. **Capture context:** Record verified sources, observed notes, decisions, status and the next safe step using the [notes guide](notes-hooks-and-automation.md).
+4. **Add automation only where justified:** Choose a hook for a supported event, cron for a scheduled action, or a secured webhook for an external event. Begin in observe-only mode and test failure cases.
+5. **Execute, verify and review:** Separate an AI's claims from real file diffs, tool results, test logs and approved actions.
+6. **Record the handoff:** Update `STATUS.md` / `HANDOFF.md` with the exact commit, gaps and active milestone; recheck live state on resume.
+
 ## Recommended Reading Flow
 
 | Goal | Suggested Sequence |
 |---|---|
-| Get useful, verifiable AI answers | [AI Usage](ai-usage-interaction-guide.md) → [Prompt Engineering](ai_prompts.md) |
-| Build a long-running AI project | [Project/Agent Workflows](agent-project-workflows.md) → [Projects & Notebooks](ai-workspaces-notebooks-and-assistants.md) |
+| Get useful, verifiable AI answers | [AI Usage](ai-usage-interaction-guide.md) → [Prompt Engineering](ai_prompts.md) → [AI Audits](verification-and-ai-audits.md) |
+| Understand notes, memory, hooks and automation | [Notes, Memory, Hooks & Automation](notes-hooks-and-automation.md) → [OpenClaw Hooks](OpenClaw/agent_skill_config.md#hooks--triggers) |
+| Build a long-running AI project | [Milestones & Acceptance Criteria](milestones-and-acceptance-criteria.md) → [Project & Agent Workflows](agent-project-workflows.md) → [Projects & Notebooks](ai-workspaces-notebooks-and-assistants.md) |
 | Review AI claims and behavior | [Fact-Checking & AI Audits](verification-and-ai-audits.md) → [LLM Security Evaluation](llm-security-evaluation-promptfoo.md) |
 | Host or deploy an AI assistant | [Offline LLMs](offline-llm.md) → [AnythingLLM](AnythingLLM/README.md) or [OpenClaw](OpenClaw/README.md) |
 
