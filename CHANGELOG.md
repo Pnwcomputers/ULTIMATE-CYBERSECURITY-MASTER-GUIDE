@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 08, 2026
+# 🔄 Change Log - November 10, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1538
-- **Files Modified**: 2324
-- **New Files**: 869
+- **Commits Analyzed**: 1541
+- **Files Modified**: 2357
+- **New Files**: 887
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- ci: bump peter-evans/create-pull-request from 8.1.1 to 8.1.2 (#181) (`4c342da`)
+- docs: expand firmware catalog and add device references in Documentation (#179) (`1d8d1c8`)
 - docs: add firmware setup labs and update related platform guides (#178) (`324963d`)
 - docs: add verified ESP32 firmware catalog and web flasher references (#176) (`db6c28a`)
 - docs: add Beautiful Docs, Froxy proxy research, Docker reference and README citations (#158) (`a2567c7`)
@@ -1298,6 +1300,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(ai): Complete AI Engineering, Agents, Security & Operations Handbook (#182) (`820c5a9`)
 - docs(nav): goal-based routes, reading paths and consistent README navigation (#174) (`90a5a46`)
 - docs: improve reader navigation with route & contents tables (#173) (`2e72247`)
 - docs: standardize README navigation tables & heading styles (#172) (`dd2f680`)
@@ -1562,43 +1565,75 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `AI/OpenClaw/README.md`
+- `AI/OpenClaw/agent_skill_config.md`
+- `AI/OpenClaw/use_cases.md`
+- `AI/README.md`
+- `AI/agent-project-workflows.md`
+- `AI/agent-reliability-and-recovery.md`
+- `AI/agent-threat-modeling-and-security.md`
+- `AI/ai-evaluation-and-regression-testing.md`
+- `AI/ai-observability-and-auditing.md`
+- `AI/ai-security-operations-workflows.md`
+- `AI/ai-usage-interaction-guide.md`
+- `AI/ai-workspaces-notebooks-and-assistants.md`
+- `AI/ai_prompts.md`
+- `AI/context-engineering-and-memory.md`
+- `AI/llm-security-evaluation-promptfoo.md`
+- `AI/mcp-tooling-and-permissions.md`
+- `AI/milestones-and-acceptance-criteria.md`
+- `AI/model-routing-and-cost-management.md`
+- `AI/multi-agent-orchestration.md`
+- `AI/notes-hooks-and-automation.md`
+- `AI/rag-and-knowledge-engineering.md`
+- `AI/structured-outputs-and-data-contracts.md`
+- `AI/verification-and-ai-audits.md`
+- `README.md`
+- `.github/workflows/auto_changelog.yml`
 - `Documentation/README.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/ble-capture-sniffle.md`
 - `Documentation/bruce_firmware.md`
+- `Documentation/chimerable.md`
+- `Documentation/device-firmware-list.md`
+- `Documentation/esp-terminator.md`
+- `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
+- `Documentation/fancygotchi-pwnagotchi.md`
+- `Documentation/firmware-catalog-verification.json`
+- `Documentation/firmware-web-flashers.md`
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/ghostesp-revival.md`
-- `Documentation/microcontroller_wifi_testing.md`
-- `Documentation/nemo-firmware.md`
-- `HardwareHacking/BitPirate.md`
+- `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/README.md`
 - `HardwareHacking/esp32-bit-pirate.md`
-- `HardwareHacking/esp32-security-firmware-catalog.md`
-- `HardwareHacking/firmware-catalog-verification.json`
-- `HardwareHacking/firmware-web-flashers.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `HardwareHacking/pico-ducky-lab.md`
 - `SDR/README.md`
 - `SDR/evil-crow-rf-v2.md`
-- `SDR/rfid.md`
-- `SDR/subghz.md`
+- `START_HERE.md`
 - `Scripts/Ducky/README.md`
 - `Wardriving/README.md`
+- `Wardriving/additional-survey-firmware.md`
+- `Wardriving/biscuit.md`
+- `firmware-hardware-compatibility.md`
+- `CHANGELOG.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `Documentation/nemo-firmware.md`
+- `HardwareHacking/BitPirate.md`
+- `HardwareHacking/esp32-security-firmware-catalog.md`
+- `HardwareHacking/firmware-catalog-verification.json`
+- `HardwareHacking/firmware-web-flashers.md`
+- `SDR/rfid.md`
+- `SDR/subghz.md`
 - `Wardriving/esp32-c5-wardriver.md`
 - `Wardriving/esp32-marauder.md`
 - `Wardriving/piglet.md`
-- `firmware-hardware-compatibility.md`
 - `Mobile/UserLAnd/readme.md`
-- `README.md`
-- `START_HERE.md`
-- `CHANGELOG.md`
-- `AI/README.md`
 - `IncidentResponse/README.md`
 - `OSINT/README.md`
 - `STYLE_GUIDE.md`
 - `AI/AnythingLLM/README.md`
-- `AI/OpenClaw/README.md`
 - `Checklists/README.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
@@ -1636,11 +1671,6 @@
 - `assets/README.md`
 - `uConsole/README.md`
 - `uConsole/scripts/README.md`
-- `AI/agent-project-workflows.md`
-- `AI/ai-usage-interaction-guide.md`
-- `AI/ai-workspaces-notebooks-and-assistants.md`
-- `AI/ai_prompts.md`
-- `AI/verification-and-ai-audits.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
@@ -1656,7 +1686,6 @@
 - `PlayBooks/security-training-lab-pathways.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `AI/llm-security-evaluation-promptfoo.md`
 - `Cloud/azure.md`
 - `Cloud/m365-scuba-assessment.md`
 - `ContainerSecurity/containers.md`
@@ -1700,8 +1729,6 @@
 - `tools/check_markdown_numbered_lists.py`
 - `.github/workflows/markdownlint.yml`
 - `.github/workflows/duplicate-sections.yml`
-- `AI/OpenClaw/agent_skill_config.md`
-- `AI/OpenClaw/use_cases.md`
 - `AI/offensive_ai.md`
 - `AI/offline-llm.md`
 - `Documentation/Locksport.md`
@@ -1777,7 +1804,6 @@
 - `Documentation/Aircrack-ng_Commands.md`
 - `Documentation/ArchLinux_CheatSheet.md`
 - `Documentation/WifiMarauder_CheatSheet.md`
-- `Documentation/pwnagotchi_cheatsheet.md`
 - `GLOSSARY.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `SDR/nanovna/07-quick-reference.md`
@@ -1831,7 +1857,6 @@
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
-- `.github/workflows/auto_changelog.yml`
 - `.github/workflows/guide-tests.yml`
 - `Documentation/bjorn_pi.md`
 - `Documentation/hcxtoolshashcat.md`
@@ -1839,7 +1864,6 @@
 - `OSINT/docs/FAQ.md`
 - `SDR/sdr.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
-- `Wardriving/biscuit.md`
 - `Wardriving/data-handling.md`
 - `Wardriving/field-workflow.md`
 - `Wardriving/sigroam-scout-lite.md`
