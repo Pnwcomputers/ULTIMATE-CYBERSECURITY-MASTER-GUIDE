@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 10, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1541
-- **Files Modified**: 2357
+- **Commits Analyzed**: 1544
+- **Files Modified**: 2361
 - **New Files**: 887
 - **Deleted Files**: 121
 
@@ -668,6 +668,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update section title for hardware reference (`dbb3c35`)
+- Update README.md (`ad09bf9`)
 - Refactor table of contents in README.md (`910944f`)
 - Update README.md (`9fa0007`)
 - Update README.md (`532df28`)
@@ -1453,6 +1455,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Restore DIY Hardware & Firmware Quick Reference section (`486f900`)
 - ci: bump DavidAnson/markdownlint-cli2-action from 24.2.0 to 25.0.0 (#154) (`70fe614`)
 - feat(blue-team): Kismet, nzyme and DIY honeypots reporting to Wazuh (#141) (`2c0582d`)
 - OSINT catalog: replace the defunct ZoneFile.io entry with NetAPI (its successor) (#127) (`1c4c92a`)
@@ -1565,6 +1568,8 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `README.md`
+- `CHANGELOG.md`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/OpenClaw/use_cases.md`
@@ -1588,7 +1593,6 @@
 - `AI/rag-and-knowledge-engineering.md`
 - `AI/structured-outputs-and-data-contracts.md`
 - `AI/verification-and-ai-audits.md`
-- `README.md`
 - `.github/workflows/auto_changelog.yml`
 - `Documentation/README.md`
 - `Documentation/WiFiMarauder_Guide.md`
@@ -1617,7 +1621,6 @@
 - `Wardriving/additional-survey-firmware.md`
 - `Wardriving/biscuit.md`
 - `firmware-hardware-compatibility.md`
-- `CHANGELOG.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/nemo-firmware.md`
 - `HardwareHacking/BitPirate.md`
