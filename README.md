@@ -51,16 +51,6 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 ## 🧭 Navigate By Area
 
-### Hardware & Firmware Quick Reference
-
-| Resource | Description |
-|---|---|
-| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
-| [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
-| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
-| [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
-
-
 **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) — model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources.
 
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
@@ -92,6 +82,17 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔐 **Governance, Crypto & Reference** | [Compliance](./Compliance/README.md) | [Cryptography](./Cryptography/README.md) · [Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) · [Encrypted Storage](./Cryptography/encrypted-storage.md) · [Documentation](./Documentation/README.md) · [GLOSSARY.md](./GLOSSARY.md) · [OPSEC](./OPSEC/README.md) |
 | 📰 **Press Freedom & Source Safety** | [Press Freedom](./OPSEC/press-freedom/README.md) | [Device & Mobile Protection](./OPSEC/press-freedom/device-network-protection.md) · [Data Retention](./OPSEC/press-freedom/data-retention-removal.md) · [Duress & Seizure Response](./OPSEC/press-freedom/duress-seizure-response.md) |
 | ⚖️ **Legal & Contributing** | [LEGAL.md](./LEGAL.md) | [STYLE_GUIDE.md](./STYLE_GUIDE.md) · [Contributing](./.github/CONTRIBUTING.md) · [Security Policy](./.github/SECURITY.md) |
+
+---
+
+### Hardware & Firmware Quick Reference
+
+| Resource | Description |
+|---|---|
+| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
+| [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
+| [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
+| [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
 
 ---
 
