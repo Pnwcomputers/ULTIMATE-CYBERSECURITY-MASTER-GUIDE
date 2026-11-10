@@ -85,7 +85,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ---
 
-### Hardware & Firmware Quick Reference
+### DIY Hardware & Firmware Quick Reference: *(ESP32, RaspberryPi, etc)*
 
 | Resource | Description |
 |---|---|
