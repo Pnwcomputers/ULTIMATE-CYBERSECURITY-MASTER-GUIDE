@@ -589,6 +589,22 @@ The **Adaptive** model mode in the dashboard automatically routes to a stronger 
 
 ---
 
+## Operational Engineering & Safe Integration Path
+
+After basic installation, treat this Gateway as a **tool-using production application**, not only a chat interface. Use these independent procedures before connecting sensitive accounts or enabling automatic actions:
+
+| Next Capability | Practical Guide | Gate Before Enabling |
+|---|---|---|
+| Durable notes and session recovery | [Context Engineering](../context-engineering-and-memory.md) · [Notes & Hooks](../notes-hooks-and-automation.md) | Approved project records load correctly; stale context is detected |
+| Tool/MCP integrations | [MCP & Permissions](../mcp-tooling-and-permissions.md) | Server identity, scopes, tenant ACLs and denied-call tests |
+| Agent workflows | [Orchestration](../multi-agent-orchestration.md) · [Reliability](../agent-reliability-and-recovery.md) | One owner for each write, idempotency, bounded retries and rollback |
+| Model/provider routing | [Model Routing & Cost](../model-routing-and-cost-management.md) | Privacy-compliant fallback and measured quality/cost |
+| Alert or ticket automation | [Security Operations](../ai-security-operations-workflows.md) | Synthetic events, authenticated ingress and human review |
+| Security hardening | [Agent Threat Model](../agent-threat-modeling-and-security.md) | Least privilege, secrets isolation and prompt-injection tests |
+| Operations & evaluation | [Observability](../ai-observability-and-auditing.md) · [Evaluations](../ai-evaluation-and-regression-testing.md) | Sanitized traces, real test results, release approval |
+
+The OpenClaw guides contain historical, environment-specific commands. **Inspect your installed version and official CLI/configuration schema before applying them**; a successful JSON parse alone cannot prove a configuration is supported. Neither OpenClaw nor a local Ollama backend automatically ensures that every tool, logger or fallback is offline.
+
 ## Next Steps
 
 - **Set up Telegram** for mobile access from anywhere:

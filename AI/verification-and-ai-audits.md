@@ -71,15 +71,30 @@ Return findings with severity, reproduction, evidence, remedy and unknowns.
 Do not change production systems as part of the audit.
 ```
 
-## Honest result categories
+## Reproducible Agent Audit & Regression Procedure
+
+Use this when auditing a **tool-using workflow**, not just a written answer:
+
+1. Fix the audit scope: task ID, source commit, model and tool version, authorization and expected end state.
+2. Reconstruct the actual timeline from sanitized [trace events](ai-observability-and-auditing.md), API receipts and target-state readbacks.
+3. Check identity/resource authorization using the [MCP permissions checklist](mcp-tooling-and-permissions.md). Separate valid tool arguments from genuine permission.
+4. Verify claimed facts against original authorized evidence; review the [RAG retrieval path](rag-and-knowledge-engineering.md) for stale citations and wrong-tenant sources.
+5. Compare tool choices, outputs, errors and retry behavior with [agent reliability contracts](agent-reliability-and-recovery.md).
+6. Run the relevant [evaluation/regression suite](ai-evaluation-and-regression-testing.md), including hostile source text, false-positive and authorization-denial fixtures.
+7. Mark criteria `PASS`, `FAIL`, `NOT TESTED` or `BLOCKED`; preserve source IDs, test outputs and reviewer.
+8. Report unresolved limitations and require the named owner before a production release or sensitive action.
+
+**Audit trap:** A perfectly formatted final answer may hide an unauthorized tool call, while a trace of permitted calls may still end in the wrong state. Both tool-level and outcome-level verification are required.
+
+## Honest Result Categories
 
 **Source verified** means a dated authoritative reference supports a precise claim. **Locally tested** describes only a specific test environment. **Live observed** requires a real runtime observation. **Accepted** requires the defined review/approval. **Unknown** and **blocked** must remain explicit.
 
 For AI security threats, start with [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) and [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework). Use actual access controls, sandboxing, scoped tools, deterministic checks and approval gates: prompt formatting alone cannot prevent injection. For CVEs consult [NVD](https://nvd.nist.gov/), [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) and vendor advisories.
 
-## Related guides
+## Related Guides
 
-[AI Usage](ai-usage-interaction-guide.md) · [Agent Lanes](agent-project-workflows.md) · [Promptfoo Evaluation](llm-security-evaluation-promptfoo.md) · [Assessment Findings](../PlayBooks/assessment-findings-lifecycle.md)
+[AI Usage](ai-usage-interaction-guide.md) · [Agent Lanes](agent-project-workflows.md) · [Evals & Regression](ai-evaluation-and-regression-testing.md) · [Tracing & Auditing](ai-observability-and-auditing.md) · [Agent Security](agent-threat-modeling-and-security.md) · [Promptfoo](llm-security-evaluation-promptfoo.md) · [Assessment Findings](../PlayBooks/assessment-findings-lifecycle.md)
 
 ---
 

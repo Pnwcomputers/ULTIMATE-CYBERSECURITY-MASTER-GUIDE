@@ -61,7 +61,25 @@ sending mail, calling external APIs, modifying calendars, changing code,
 and executing privileged shell operations. Test not only the response text
 but whether host tools prevented an unauthorized action.
 
-## Sources and limitations
+## From Security Probe to Release Gate
+
+The security scenarios above should feed a larger [AI Evaluation & Regression Testing](ai-evaluation-and-regression-testing.md) suite, rather than stand alone as a one-time scan.
+
+| Validation Layer | Evidence | Gate |
+|---|---|---|
+| Configuration & model target | Pinned config, model/provider and SDK versions | Exact target known; no unexpected remote data route |
+| Positive functionality | Source-backed valid answers and allowed tool calls | Expected tasks succeed |
+| Negative safety cases | Forbidden tool, wrong tenant, injected source, malformed request | Critical authorization violations = zero |
+| Failure behavior | Timeout, replay, provider denial and partial write | No repeated or unauthorized side effects |
+| Grader reliability | Known-good and known-bad samples reviewed independently | No uncalibrated "pass all" grader |
+| Coverage | Cases executed, successes, failures, errors, exclusions | No zero-case or incomplete suite marked passed |
+| Final deployment | Target-state readback and human approval | Release remains blocked until approved |
+
+For a connected agent, inspect [tool authorization](mcp-tooling-and-permissions.md), [agent threat model](agent-threat-modeling-and-security.md) and [sanitized traces](ai-observability-and-auditing.md) alongside promptfoo results. The right outcome is **observable denial of an unsafe action**, not merely a model refusal that may have arrived after the tool ran.
+
+**Privacy:** Disabling result sharing does not necessarily disable third-party target calls, generation or grading. Inspect every configured endpoint and the installed tool version before evaluating anything sensitive.
+
+## Sources & Limitations
 
 - [Promptfoo repository](https://github.com/promptfoo/promptfoo) (MIT).
 - [Official red-team configuration guide](https://www.promptfoo.dev/docs/red-team/configuration/).

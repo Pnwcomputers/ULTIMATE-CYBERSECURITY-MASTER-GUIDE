@@ -130,6 +130,10 @@ These are source-attributed references, not claims that every upstream tool is i
 
 | Resource | Description |
 |---|---|
+| **[AI Engineering & Agent Operations Handbook](./AI/README.md#ai-engineering--agent-operations-handbook)** | Organized learning path through 10 comprehensive architecture, tooling, security, testing, and operations guides |
+| **[Authorized AI Security Operations](./AI/ai-security-operations-workflows.md)** | Wazuh-style lab workflow with written scope, event intake, least-privilege agents, verification, human approval and reporting |
+| **[MCP & Secure Agent Tooling](./AI/mcp-tooling-and-permissions.md)** | Tool integration, scopes, OAuth, host permissions, consent and safe execution contracts |
+| **[AI Agent Evaluations & Regression Tests](./AI/ai-evaluation-and-regression-testing.md)** | Evidence-backed quality gates, deterministic checks, model evaluations, security fixtures and CI |
 | **[Practical AI Usage](./AI/ai-usage-interaction-guide.md)** | Bounded prompts, context loading, privacy, evidence and repeatable work |
 | **[Notes, Memory, Hooks & Automation](./AI/notes-hooks-and-automation.md)** | Detailed setup and comparison of persistent notes, skills, Git/AI hooks, cron and webhooks; testing, failure handling and security controls |
 | **[Milestones & Acceptance Criteria](./AI/milestones-and-acceptance-criteria.md)** | Measurable project gates, complete worked cybersecurity example, evidence, reusable templates, handoffs and safe release |

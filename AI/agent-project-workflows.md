@@ -125,6 +125,23 @@ NEXT SAFE ACTION: [one bounded task]
 
 Use least-privilege tools, source-linked identities, dry-run previews, bounded retries, human approval gates, confirmed API results and post-write readbacks. An AI cannot authorize its own production actions through prompt text.
 
+## Build the Integration, Not Only the Plan
+
+Once milestones and role assignments are defined, implement bounded execution in this order:
+
+| Stage | Owner | Deep-Dive |
+|---|---|---|
+| Load trusted current context | Coordinator | [Context Engineering](context-engineering-and-memory.md) |
+| Define tool identities and allowed operations | Platform owner | [MCP & Permissions](mcp-tooling-and-permissions.md) |
+| Assign worker dependencies and handoff contracts | Planner | [Multi-Agent Orchestration](multi-agent-orchestration.md) |
+| Validate typed results and target identity | Builder | [Structured Outputs](structured-outputs-and-data-contracts.md) |
+| Handle timeouts, duplicates and interruption | Operator | [Reliability & Recovery](agent-reliability-and-recovery.md) |
+| Collect trace and end-state evidence | Verifier | [Observability](ai-observability-and-auditing.md) |
+| Test behavior, safety, and rollback | Independent reviewer | [Evaluations](ai-evaluation-and-regression-testing.md) · [Agent Security](agent-threat-modeling-and-security.md) |
+| Review cost and data destination | Owner | [Model Routing](model-routing-and-cost-management.md) |
+
+For an applied security scenario, follow [AI-Augmented Security Operations](ai-security-operations-workflows.md). These operations are not performed merely by adding links to a charter: they require actual tool configuration, running tests and independently checking outcomes.
+
 ## Related Guides
 
 [AI Usage](ai-usage-interaction-guide.md) · [Milestones & Acceptance](milestones-and-acceptance-criteria.md) · [Notes & Hooks](notes-hooks-and-automation.md) · [Independent AI Audits](verification-and-ai-audits.md) · [Workspaces](ai-workspaces-notebooks-and-assistants.md) · [Assessment Findings](../PlayBooks/assessment-findings-lifecycle.md)

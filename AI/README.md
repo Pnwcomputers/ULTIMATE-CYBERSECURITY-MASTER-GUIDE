@@ -25,6 +25,7 @@
 | Section |
 |---|
 | [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
+| [AI Engineering & Agent Operations Handbook](#ai-engineering--agent-operations-handbook)
 | [Recommended Reading Flow](#recommended-reading-flow)
 | [Overview](#-overview)
 | [Folder Contents](#-folder-contents)
@@ -67,6 +68,7 @@ This directory contains **resources, configurations, guides, and methodologies**
 - Prompt engineering cheat sheets and templates for security practitioners
 - AgentFlow configurations for automating incident response, OSINT collection, and security audits
 - Offline/air-gapped LLM deployment guides for sensitive environments
+- End-to-end agent engineering covering context, MCP, orchestration, security, evaluations, observability, cost, and authorized security operations
 
 ---
 
@@ -84,6 +86,36 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ---
 
+
+## AI Engineering & Agent Operations Handbook
+
+These detailed chapters turn a working AI chat or self-hosted model into a **measurable, permissioned, maintainable system**. Read by stage, or use the task-focused table to navigate directly. Every guide contains workflows, implementation examples, verification, failure modes and related references.
+
+| Learning Stage | Detailed Guide | What You Will Build or Verify |
+|---|---|---|
+| **1. Foundations** | [Context Engineering & Memory Management](context-engineering-and-memory.md) | Trusted source hierarchy, durable notes, retrieval budgets, safe context compaction, session resume and memory-poisoning defenses |
+| **1. Foundations** | [RAG & Knowledge Engineering](rag-and-knowledge-engineering.md) | Authorized ingestion, semantic/keyword retrieval, versioned chunks, ACL-aware search, citation checking and freshness testing |
+| **2. Agent Execution** | [MCP, Tool Integration & Secure Permissions](mcp-tooling-and-permissions.md) | Tool/server contracts, OAuth and credentials, approval gates, least privilege, denied-call tests and safe integrations |
+| **2. Agent Execution** | [Structured Outputs & Data Contracts](structured-outputs-and-data-contracts.md) | JSON Schema, typed tool requests, versioned payloads, independent server-side authorization and readback |
+| **2. Agent Execution** | [Multi-Agent Orchestration & Delegation](multi-agent-orchestration.md) | Coordinator/worker patterns, scoped lanes, dependency graphs, conflict resolution, acceptance handoffs and loop control |
+| **2. Agent Execution** | [Agent Reliability & Failure Recovery](agent-reliability-and-recovery.md) | Timeouts, retry budgets, idempotency, partial writes, checkpoints, reconciliation, rollback and failure-state handling |
+| **3. Verification & Security** | [AI Evaluation, Regression Testing & Quality Gates](ai-evaluation-and-regression-testing.md) | Versioned fixtures, pass/fail scoring, security test cases, trace grading, CI release gates and test coverage |
+| **3. Verification & Security** | [AI Agent Threat Modeling & Security](agent-threat-modeling-and-security.md) | Prompt-injection defense, identity boundaries, memory poisoning, tool misuse prevention and incident response |
+| **3. Verification & Security** | [AI Observability, Tracing & Auditing](ai-observability-and-auditing.md) | Structured traces, evidence records, metrics, privacy-safe telemetry and Wazuh/SIEM detection integration |
+| **4. Deployment & Operations** | [Model Selection, Routing & Cost Management](model-routing-and-cost-management.md) | Local vs cloud selection, privacy-safe fallback, quality benchmarks, usage measurement and cost per accepted task |
+| **4. Deployment & Operations** | [AI-Augmented Security Operations](ai-security-operations-workflows.md) | Complete authorized Wazuh-style intake → source-linked triage → evaluation → human approval → reporting → handoff workflow |
+
+### How to Apply the Handbook
+
+1. **Choose an authorized use case.** Define assets, users, data classes, owner and acceptance criteria before connecting tools.
+2. **Build the context layer.** Register sources and create the smallest approved RAG or document-loading process that retrieves relevant evidence.
+3. **Constrain execution.** Select MCP/tools with least privilege, typed contracts, agent roles and human approvals. Test denial paths.
+4. **Make it resilient.** Add stable task IDs, idempotency keys, bounded retries, checkpoints and actual target readbacks.
+5. **Prove behavior.** Run deterministic validation plus model/agent evaluations with positive, benign, malformed and adversarial cases.
+6. **Operate safely.** Capture sanitized traces and metrics, define rollback, and gate any rollout on verified milestones and owner acceptance.
+
+**Suggested first lab:** follow [AI-Augmented Security Operations](ai-security-operations-workflows.md) with **synthetic** Wazuh events and a read-only triage identity. This connects all four stages without exposing production client data or giving a model unsupervised response powers.
+
 ### Working Example: Build & Resume a Verifiable AI Project
 
 1. **Define the mission and permission boundaries:** Create `PROJECT.md` with assets in scope, authorized actions, exclusions and approval requirements.
@@ -97,8 +129,10 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 | Goal | Suggested Sequence |
 |---|---|
+| Build a complete AI security-operations workflow | [Engineering Handbook](#ai-engineering--agent-operations-handbook) → [Security Operations](ai-security-operations-workflows.md) → [Testing & Evals](ai-evaluation-and-regression-testing.md) |
 | Get useful, verifiable AI answers | [AI Usage](ai-usage-interaction-guide.md) → [Prompt Engineering](ai_prompts.md) → [AI Audits](verification-and-ai-audits.md) |
 | Understand notes, memory, hooks and automation | [Notes, Memory, Hooks & Automation](notes-hooks-and-automation.md) → [OpenClaw Hooks](OpenClaw/agent_skill_config.md#hooks--triggers) |
+| Develop a secure agent integration | [MCP Permissions](mcp-tooling-and-permissions.md) → [Structured Outputs](structured-outputs-and-data-contracts.md) → [Agent Security](agent-threat-modeling-and-security.md) |
 | Build a long-running AI project | [Milestones & Acceptance Criteria](milestones-and-acceptance-criteria.md) → [Project & Agent Workflows](agent-project-workflows.md) → [Projects & Notebooks](ai-workspaces-notebooks-and-assistants.md) |
 | Review AI claims and behavior | [Fact-Checking & AI Audits](verification-and-ai-audits.md) → [LLM Security Evaluation](llm-security-evaluation-promptfoo.md) |
 | Host or deploy an AI assistant | [Offline LLMs](offline-llm.md) → [AnythingLLM](AnythingLLM/README.md) or [OpenClaw](OpenClaw/README.md) |

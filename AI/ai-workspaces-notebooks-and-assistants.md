@@ -89,6 +89,10 @@ workspace/
 
 These are general conventions, not platform requirements.
 
+### Architecture Extensions for Long-Running Agents
+
+Workspace files supply project context, but a reliable agent also needs the surrounding runtime. See [Context Engineering](context-engineering-and-memory.md) for loading and freshness; [RAG & Knowledge Engineering](rag-and-knowledge-engineering.md) for access-controlled source lookup; [MCP & Permissions](mcp-tooling-and-permissions.md) for privileged tools; [Reliability & Recovery](agent-reliability-and-recovery.md) for retries and checkpoints; and [Observability](ai-observability-and-auditing.md) for evidence-backed auditing. An attached note cannot independently guarantee any of these controls.
+
 ## Related Guides
 
 [AI Usage](ai-usage-interaction-guide.md) · [Notes & Hooks](notes-hooks-and-automation.md) · [Milestones & Acceptance](milestones-and-acceptance-criteria.md) · [Agent Projects](agent-project-workflows.md) · [Independent Audits](verification-and-ai-audits.md) · [Prompt Engineering](ai_prompts.md)
