@@ -130,8 +130,10 @@ These are source-attributed references, not claims that every upstream tool is i
 
 | Resource | Description |
 |---|---|
-| **[Practical AI Usage](./AI/ai-usage-interaction-guide.md)** | Prompts, instructions, context, privacy and verifying results |
-| **[Agent/Project Lanes & Milestones](./AI/agent-project-workflows.md)** | Goals, milestones, role-based agents, reviews and resume checkpoints |
+| **[Practical AI Usage](./AI/ai-usage-interaction-guide.md)** | Bounded prompts, context loading, privacy, evidence and repeatable work |
+| **[Notes, Memory, Hooks & Automation](./AI/notes-hooks-and-automation.md)** | Detailed setup and comparison of persistent notes, skills, Git/AI hooks, cron and webhooks; testing, failure handling and security controls |
+| **[Milestones & Acceptance Criteria](./AI/milestones-and-acceptance-criteria.md)** | Measurable project gates, complete worked cybersecurity example, evidence, reusable templates, handoffs and safe release |
+| **[Agent/Project Lanes & Milestones](./AI/agent-project-workflows.md)** | Apply goals, acceptance gates, role-based agents, reviews and resume checkpoints |
 | **[Fact-Checking & AI Audits](./AI/verification-and-ai-audits.md)** | Evidence-based checking of claims, sources and agent actions |
 | **[Notebooks, GPTs & Plugins](./AI/ai-workspaces-notebooks-and-assistants.md)** | Projects, notebooks, reusable assistants and integrations |
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
