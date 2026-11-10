@@ -138,7 +138,7 @@ Use four synthetic runbooks (two versions of the same Wazuh procedure, one unrel
 
 [Context Engineering](context-engineering-and-memory.md) · [Agent Security](agent-threat-modeling-and-security.md) · [Evaluations](ai-evaluation-and-regression-testing.md) · [Structured Outputs](structured-outputs-and-data-contracts.md)
 
-References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OWASP LLM Security](https://genai.owasp.org/llm-top-10/) · [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
+References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OWASP LLM Security](https://genai.owasp.org/llm-top-10/) · [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md).
 
 ---
 

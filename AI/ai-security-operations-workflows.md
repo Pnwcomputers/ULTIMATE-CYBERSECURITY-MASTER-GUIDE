@@ -252,7 +252,7 @@ Before controlled rollout:
 | Detection quality and trace evidence | [Evaluations](ai-evaluation-and-regression-testing.md) · [Observability](ai-observability-and-auditing.md) |
 | Prompt injection and governance | [Agent Security](agent-threat-modeling-and-security.md) · [AI Audits](verification-and-ai-audits.md) |
 
-Primary references: [Wazuh Documentation](https://documentation.wazuh.com/) · [MITRE ATT&CK](https://attack.mitre.org/) · [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OpenTelemetry GenAI](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
+Primary references: [Wazuh Documentation](https://documentation.wazuh.com/) · [MITRE ATT&CK](https://attack.mitre.org/) · [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OpenTelemetry GenAI](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md).
 
 ---
 

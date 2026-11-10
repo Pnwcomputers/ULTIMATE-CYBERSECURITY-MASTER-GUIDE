@@ -155,7 +155,7 @@ Instrument a synthetic triage workflow. Trigger a normal read, denied unauthoriz
 
 [Security Operations](ai-security-operations-workflows.md) · [Reliability](agent-reliability-and-recovery.md) · [Evaluations](ai-evaluation-and-regression-testing.md) · [Agent Security](agent-threat-modeling-and-security.md)
 
-References: [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) · [OpenAI Agents Tracing](https://openai.github.io/openai-agents-js/guides/tracing/) · [OpenAI Integrations & Observability](https://developers.openai.com/api/docs/guides/agents/integrations-observability) · [Wazuh Docs](https://documentation.wazuh.com/).
+References: [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md) · [OpenAI Agents Tracing](https://openai.github.io/openai-agents-js/guides/tracing/) · [OpenAI Integrations & Observability](https://developers.openai.com/api/docs/guides/agents/integrations-observability) · [Wazuh Docs](https://documentation.wazuh.com/).
 
 ---
 
