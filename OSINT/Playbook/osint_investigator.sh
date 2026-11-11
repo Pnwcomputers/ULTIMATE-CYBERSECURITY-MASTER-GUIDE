@@ -502,6 +502,968 @@ save_case_state() {
     }
 }
 
+edit_indicator_group() {
+    local kind="$1" label="$2" value
+    local -a candidates=()
+    local -n existing="$kind"
+
+    if (( ${#existing[@]} > 0 )) && ! confirm "Replace the saved ${label} indicators?"; then
+        return 0
+    fi
+    prompt_array candidates "Enter approved ${label} indicators"
+    for value in "${candidates[@]}"; do
+        if [[ -z "$value" || "$value" == -* || "${#value}" -gt 254 ||
+              "$value" == *
+    print_section "Existing Cases"
+    [[ ! -d "$CASE_BASE_DIR" ]] && { info "No cases found."; return; }
+    
+    printf "${WHITE}%-30s %-20s %s${NC}\n" "Case ID" "Created" "Status"
+    echo "─────────────────────────────────────────────────────────────"
+    
+    for case_dir in "${CASE_BASE_DIR}"/*/; do
+        [[ ! -d "$case_dir" ]] && continue
+        local case_id; case_id=$(basename "$case_dir")
+        local created; created=$(grep -oP '"created":\s*"\K[^"]+' "${case_dir}/case_info.json" 2>/dev/null | cut -d'T' -f1)
+        local status; status=$(grep -oP '"status":\s*"\K[^"]+' "${case_dir}/case_info.json" 2>/dev/null)
+        printf "%-30s %-20s %s\n" "$case_id" "${created:-Unknown}" "${status:-active}"
+    done
+}
+
+select_case() {
+    list_cases
+    echo ""
+    read -rp "Enter Case ID to load: " selected_case
+    [[ -n "$selected_case" ]] && load_case "$selected_case"
+}
+
+#-------------------------------------------------------------------------------
+# INVESTIGATION FUNCTIONS
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# EVIDENCE COLLECTION
+#
+# Every external command runs through lib/collect_evidence.py, which keeps the
+# COMPLETE stdout and stderr, the exit code, UTC timestamps and SHA-256 hashes,
+# and marks a run "partial" (non-zero exit, timeout, size cap) or "not_run"
+# (tool missing). Nothing is truncated or silenced in the stored evidence;
+# only the on-screen preview is shortened.
+#-------------------------------------------------------------------------------
+safe_name() { printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '_' | cut -c1-80; }
+
+# collect LABEL BASE -- CMD [ARGS...]
+# Prints a short preview, returns 0 complete / 3 partial / 4 not run / other failure.
+collect() {
+    local label="$1" base="$2" rc=0
+    shift 2
+    [[ "${1:-}" == "--" ]] && shift
+    if [[ -z "$CASE_DIR" ]]; then error "No active case"; return 1; fi
+    python3 -I "$EVIDENCE_PY" --out "$base" --label "$label" \
+        --log "${CASE_DIR}/evidence_log.md" --timeout "${COLLECT_TIMEOUT:-300}" -- "$@" || rc=$?
+    case $rc in
+        0) ;;
+        3) warn "PARTIAL evidence for '${label}' (non-zero exit, timeout or size cap) - see ${base}.meta.json" ;;
+        4) warn "NOT RUN: '${label}' could not be started - see ${base}.meta.json" ;;
+        *) error "Evidence collection for '${label}' failed (rc=${rc})" ;;
+    esac
+    if [[ -s "${base}.stdout" ]]; then
+        head -n 15 -- "${base}.stdout" | sed 's/\x1b/?/g'
+        [[ $(wc -l < "${base}.stdout") -gt 15 ]] && echo -e "${DIM}  ... full output: ${base}.stdout${NC}"
+    fi
+    return "$rc"
+}
+
+# run_step REPORT LABEL BASE -- CMD...   (collect + one line in the human report)
+run_step() {
+    local report="$1" label="$2" base="$3" rc=0 status sha
+    shift 3
+    collect "$label" "$base" "$@" || rc=$?
+    case $rc in 0) status="complete" ;; 3) status="PARTIAL" ;; 4) status="NOT RUN" ;; *) status="FAILED" ;; esac
+    sha="n/a"
+    [[ -f "${base}.stdout" ]] && sha="$(sha256sum -- "${base}.stdout" | cut -d' ' -f1)"
+    printf -- '- **%s**: %s (stdout sha256 `%s`)\n  - files: `%s.stdout`, `%s.stderr`, `%s.meta.json`\n' \
+        "$label" "$status" "$sha" "$(basename "$base")" "$(basename "$base")" "$(basename "$base")" >> "$report"
+    return "$rc"
+}
+
+new_report() {  # new_report DIR TITLE STEM -> prints path
+    local report="$1/$3.md"
+    { printf '# %s\n' "$2"; printf 'Generated: %s\n\n' "$(date -u '+%Y-%m-%d %H:%M:%S UTC')"; } > "$report"
+    printf '%s' "$report"
+}
+
+investigate_email() {
+    local email="$1" output_dir="${RAW_DIR}/email" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Email Investigation: ${email}"
+    stem="$(safe_name "$email")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Email Investigation: ${email}" "$stem")"
+
+    if check_tool holehe; then
+        run_step "$report" "holehe" "${output_dir}/${stem}.holehe" -- holehe "$email" --only-used
+    else echo "- holehe: skipped (not installed)" >> "$report"; fi
+    if check_tool h8mail; then
+        run_step "$report" "h8mail" "${output_dir}/${stem}.h8mail" -- h8mail -t "$email"
+    else echo "- h8mail: skipped (not installed)" >> "$report"; fi
+    success "Email report: ${report}"
+}
+
+investigate_phone() {
+    local phone="$1" output_dir="${RAW_DIR}/phone" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Phone Investigation: ${phone}"
+    stem="$(safe_name "${phone//[^0-9+]/}")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Phone Investigation" "$stem")"
+    if check_tool phoneinfoga; then
+        run_step "$report" "phoneinfoga" "${output_dir}/${stem}.phoneinfoga" -- phoneinfoga scan -n "$phone"
+    else
+        echo "- phoneinfoga: skipped (not installed)" >> "$report"
+        warn "PhoneInfoga not installed"
+    fi
+    success "Phone report: ${report}"
+}
+
+investigate_domain() {
+    local domain="$1" output_dir="${RAW_DIR}/domain" stem report rtype
+    mkdir -p "$output_dir"
+    print_subsection "Domain Investigation: ${domain}"
+    stem="$(safe_name "$domain")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Domain Investigation: ${domain}" "$stem")"
+
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$domain"
+    for rtype in A AAAA MX NS TXT; do
+        run_step "$report" "dig ${rtype}" "${output_dir}/${stem}.dig-${rtype}" -- dig +noall +answer "$domain" "$rtype"
+    done
+    if check_tool subfinder; then
+        run_step "$report" "subfinder" "${output_dir}/${stem}.subfinder" -- subfinder -d "$domain" -silent
+    else echo "- subfinder: skipped (not installed)" >> "$report"; fi
+    success "Domain report: ${report}"
+}
+
+investigate_ip() {
+    local ip="$1" output_dir="${RAW_DIR}/ip" stem report
+    # Reject malformed data before using it as a URL path or evidence identifier.
+    if ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$ip" >/dev/null 2>&1; then
+        error "Invalid IP address; provide a single IPv4 or IPv6 address"
+        return 2
+    fi
+    mkdir -p "$output_dir"
+    print_subsection "IP Investigation: ${ip}"
+    stem="$(safe_name "$ip")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "IP Investigation: ${ip}" "$stem")"
+
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$ip"
+    # RDAP is HTTPS registration/network-allocation metadata, NOT physical geolocation.
+    # rdap.org redirects to the relevant registry; disallow HTTP downgrade.
+    # The lookup discloses the queried IP to the registry/bootstrap provider.
+    run_step "$report" "RDAP network registration (HTTPS)" "${output_dir}/${stem}.rdap" -- \
+        curl -sS --fail --location --proto '=https' --proto-redir '=https' \
+             --max-redirs 5 --max-time 30 -- "https://rdap.org/ip/${ip}"
+    run_step "$report" "reverse DNS" "${output_dir}/${stem}.rdns" -- dig -x "$ip" +short
+    success "IP report saved (review every step's COMPLETE/PARTIAL/NOT RUN status): ${report}"
+}
+
+investigate_username() {
+    local username="$1" output_dir="${RAW_DIR}/username" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Username Investigation: ${username}"
+    stem="$(safe_name "$username")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Username Investigation" "$stem")"
+
+    if check_tool maigret; then
+        info "Running Maigret..."
+        run_step "$report" "maigret" "${output_dir}/${stem}.maigret" -- \
+            maigret "$username" -o "${output_dir}/${stem}.maigret-out" --pdf
+    elif check_tool sherlock; then
+        info "Running Sherlock..."
+        run_step "$report" "sherlock" "${output_dir}/${stem}.sherlock" -- \
+            sherlock "$username" --output "${output_dir}/${stem}.sherlock.txt"
+    else
+        echo "- username tools: skipped (neither maigret nor sherlock installed)" >> "$report"
+        warn "Neither Maigret nor Sherlock installed"
+    fi
+    success "Username report: ${report}"
+}
+
+investigate_all() {
+    [[ ${#EMAILS[@]} -gt 0 ]] && for e in "${EMAILS[@]}"; do investigate_email "$e"; done
+    [[ ${#PHONES[@]} -gt 0 ]] && for p in "${PHONES[@]}"; do investigate_phone "$p"; done
+    [[ ${#DOMAINS[@]} -gt 0 ]] && for d in "${DOMAINS[@]}"; do investigate_domain "$d"; done
+    [[ ${#IPS[@]} -gt 0 ]] && for i in "${IPS[@]}"; do investigate_ip "$i"; done
+    [[ ${#USERNAMES[@]} -gt 0 ]] && for u in "${USERNAMES[@]}"; do investigate_username "$u"; done
+}
+
+#-------------------------------------------------------------------------------
+# MENUS
+#-------------------------------------------------------------------------------
+show_investigation_menu() {
+    while true; do
+        print_banner
+        [[ -n "$CASE_ID" ]] && echo -e "  ${WHITE}Active Case:${NC} ${CYAN}${CASE_ID}${NC}"
+        echo ""
+        echo -e "  ${GREEN}[1]${NC}  📧 Email Investigation"
+        echo -e "  ${GREEN}[2]${NC}  📱 Phone Investigation"
+        echo -e "  ${GREEN}[3]${NC}  🌐 Domain Investigation"
+        echo -e "  ${GREEN}[4]${NC}  🔢 IP Address Investigation"
+        echo -e "  ${GREEN}[5]${NC}  👤 Username Investigation"
+        echo ""
+        echo -e "  ${CYAN}[A]${NC}  🚀 Run All Investigations"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) [[ -n "$CASE_ID" ]] && { for e in "${EMAILS[@]}"; do investigate_email "$e"; done; } || warn "Load case first"; press_enter ;;
+            2) [[ -n "$CASE_ID" ]] && { for p in "${PHONES[@]}"; do investigate_phone "$p"; done; } || warn "Load case first"; press_enter ;;
+            3) [[ -n "$CASE_ID" ]] && { for d in "${DOMAINS[@]}"; do investigate_domain "$d"; done; } || warn "Load case first"; press_enter ;;
+            4) [[ -n "$CASE_ID" ]] && { for i in "${IPS[@]}"; do investigate_ip "$i"; done; } || warn "Load case first"; press_enter ;;
+            5) [[ -n "$CASE_ID" ]] && { for u in "${USERNAMES[@]}"; do investigate_username "$u"; done; } || warn "Load case first"; press_enter ;;
+            [Aa]) [[ -n "$CASE_ID" ]] && investigate_all || warn "Load case first"; press_enter ;;
+            0) return ;;
+        esac
+    done
+}
+
+show_reports_menu() {
+    while true; do
+        print_banner
+        print_section "Reports & Abuse Reports"
+        
+        echo -e "  ${GREEN}[1]${NC}  📄 Generate Final Investigation Report"
+        echo -e "  ${GREEN}[2]${NC}  📝 Generate Abuse Report (Domain Registrar)"
+        echo -e "  ${GREEN}[3]${NC}  📝 Generate Abuse Report (Hosting Provider)"
+        echo -e "  ${GREEN}[4]${NC}  📝 Generate Abuse Report (Email Provider)"
+        echo -e "  ${GREEN}[5]${NC}  📝 Generate IC3 Worksheet"
+        echo ""
+        echo -e "  ${CYAN}[A]${NC}  🚀 Launch Abuse Report Generator"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            [Aa])
+                local abuse_script="${SCRIPT_DIR}/abuse_report_generator.sh"
+                if [[ -x "$abuse_script" ]]; then
+                    "$abuse_script"
+                else
+                    warn "Abuse report generator not found"
+                fi
+                press_enter
+                ;;
+            0) return ;;
+            *) warn "Use [A] to launch abuse report generator"; press_enter ;;
+        esac
+    done
+}
+
+show_integration_menu() {
+    local integration_script="${SCRIPT_DIR}/toolkit_integration.sh"
+    # shellcheck source=/dev/null
+    [[ -f "$integration_script" ]] && source "$integration_script"
+    
+    while true; do
+        print_banner
+        print_section "Integrated Tools (scripts/ folder)"
+        
+        echo -e "  ${GREEN}[1]${NC}  🔍 Run scammer_audit.sh"
+        echo -e "  ${GREEN}[2]${NC}  📧 Run email_audit.sh"
+        echo -e "  ${GREEN}[3]${NC}  📱 Run phone_audit.sh"
+        echo -e "  ${GREEN}[4]${NC}  🌐 Run full_nmap_scan.sh"
+        echo -e "  ${GREEN}[5]${NC}  🌿 Run theHarvester"
+        echo ""
+        echo -e "  ${GREEN}[S]${NC}  📊 Show Integration Status"
+        echo -e "  ${GREEN}[C]${NC}  ⚙️  Configure Integration"
+        echo -e "  ${GREEN}[D]${NC}  🔄 Auto-Detect Scripts"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter target (domain/IP): " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_scammer_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "scammer_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            2)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter email address: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_email_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "email_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            3)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter phone number: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_phone_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "phone_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            4)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter target IP address: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_full_nmap "$target" "${RAW_DIR}/integrated" || \
+                            warn "full_nmap_scan.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            5)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter domain: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_theharvester "$target" "${RAW_DIR}/integrated" || \
+                            warn "theHarvester not configured"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            [Ss]) show_integration_status 2>/dev/null || warn "Integration module not loaded"; press_enter ;;
+            [Cc]) configure_integration 2>/dev/null; press_enter ;;
+            [Dd]) 
+                detect_existing_scripts 2>/dev/null && save_integration_config 2>/dev/null
+                press_enter 
+                ;;
+            0) return ;;
+            *) warn "Invalid option"; press_enter ;;
+        esac
+    done
+}
+
+show_settings_menu() {
+    while true; do
+        print_banner
+        print_section "Settings"
+        
+        echo -e "  ${GREEN}[1]${NC}  🔑 Configure API Keys"
+        echo -e "  ${GREEN}[2]${NC}  📊 View API Status"
+        echo -e "  ${GREEN}[3]${NC}  🔧 Check Tool Status"
+        echo -e "  ${GREEN}[4]${NC}  📦 Install Dependencies"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) configure_apis; press_enter ;;
+            2) show_api_status; press_enter ;;
+            3) show_tool_status; press_enter ;;
+            4)
+                local installer="${SCRIPT_DIR}/install_dependencies.sh"
+                if [[ -x "$installer" ]]; then
+                    "$installer"
+                else
+                    warn "Installer not found"
+                fi
+                press_enter
+                ;;
+            0) return ;;
+        esac
+    done
+}
+
+show_main_menu() {
+    while true; do
+        print_banner
+        
+        [[ -n "$CASE_ID" ]] && {
+            echo -e "  ${WHITE}Active Case:${NC} ${CYAN}${CASE_ID}${NC}"
+            echo -e "  ${WHITE}Directory:${NC} ${DIM}${CASE_DIR}${NC}"
+        }
+        echo ""
+        
+        echo -e "  ${GREEN}[1]${NC}  📁 Create New Case"
+        echo -e "  ${GREEN}[2]${NC}  📂 Load Existing Case"
+        echo -e "  ${GREEN}[3]${NC}  📋 List Cases"
+        echo ""
+        echo -e "  ${GREEN}[4]${NC}  🔍 Investigation Menu"
+        echo -e "  ${GREEN}[5]${NC}  📄 Reports & Abuse Reports"
+        echo -e "  ${GREEN}[6]${NC}  🔗 Integrated Tools"
+        echo -e "  ${GREEN}[7]${NC}  ⚙️  Settings"
+        echo -e "  ${GREEN}[8]${NC}  📝 Edit Case Indicators"
+        echo ""
+        echo -e "  ${CYAN}[W]${NC}  🌐 Launch Web Interface"
+        echo ""
+        echo -e "  ${RED}[0]${NC}  Exit"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) create_new_case; press_enter ;;
+            2) select_case; press_enter ;;
+            3) list_cases; press_enter ;;
+            4) show_investigation_menu ;;
+            5) show_reports_menu ;;
+            6) show_integration_menu ;;
+            7) show_settings_menu ;;
+            8) edit_case_indicators; press_enter ;;
+            [Ww]) launch_web_interface; press_enter ;;
+            0)
+                [[ -n "$CASE_ID" ]] && { save_case_state; success "Case saved"; }
+                info "Goodbye!"
+                exit 0
+                ;;
+        esac
+    done
+}
+
+#-------------------------------------------------------------------------------
+# MAIN
+#-------------------------------------------------------------------------------
+main() {
+    init_config
+    
+    case "${1:-}" in
+        --install|-i) "${SCRIPT_DIR}/install_dependencies.sh"; exit $? ;;
+        --config|-c) configure_apis; exit ;;
+        --status|-s) show_tool_status; show_api_status; exit ;;
+        --web|-w) launch_web_interface; exit ;;
+        --help|-h)
+            echo "OSINT Investigator Playbook"
+            echo ""
+            echo "Usage: $0 [OPTIONS]"
+            echo ""
+            echo "  --install    Install dependencies (run as your normal user, not root)"
+            echo "  --config     Configure API keys"
+            echo "  --status     Show tool/API status"
+            echo "  --web        Launch web interface"
+            echo "  --help       Show this help"
+            exit 0
+            ;;
+    esac
+    
+    show_main_menu
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi
+\n'* || "$value" == *
+    print_section "Existing Cases"
+    [[ ! -d "$CASE_BASE_DIR" ]] && { info "No cases found."; return; }
+    
+    printf "${WHITE}%-30s %-20s %s${NC}\n" "Case ID" "Created" "Status"
+    echo "─────────────────────────────────────────────────────────────"
+    
+    for case_dir in "${CASE_BASE_DIR}"/*/; do
+        [[ ! -d "$case_dir" ]] && continue
+        local case_id; case_id=$(basename "$case_dir")
+        local created; created=$(grep -oP '"created":\s*"\K[^"]+' "${case_dir}/case_info.json" 2>/dev/null | cut -d'T' -f1)
+        local status; status=$(grep -oP '"status":\s*"\K[^"]+' "${case_dir}/case_info.json" 2>/dev/null)
+        printf "%-30s %-20s %s\n" "$case_id" "${created:-Unknown}" "${status:-active}"
+    done
+}
+
+select_case() {
+    list_cases
+    echo ""
+    read -rp "Enter Case ID to load: " selected_case
+    [[ -n "$selected_case" ]] && load_case "$selected_case"
+}
+
+#-------------------------------------------------------------------------------
+# INVESTIGATION FUNCTIONS
+#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# EVIDENCE COLLECTION
+#
+# Every external command runs through lib/collect_evidence.py, which keeps the
+# COMPLETE stdout and stderr, the exit code, UTC timestamps and SHA-256 hashes,
+# and marks a run "partial" (non-zero exit, timeout, size cap) or "not_run"
+# (tool missing). Nothing is truncated or silenced in the stored evidence;
+# only the on-screen preview is shortened.
+#-------------------------------------------------------------------------------
+safe_name() { printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '_' | cut -c1-80; }
+
+# collect LABEL BASE -- CMD [ARGS...]
+# Prints a short preview, returns 0 complete / 3 partial / 4 not run / other failure.
+collect() {
+    local label="$1" base="$2" rc=0
+    shift 2
+    [[ "${1:-}" == "--" ]] && shift
+    if [[ -z "$CASE_DIR" ]]; then error "No active case"; return 1; fi
+    python3 -I "$EVIDENCE_PY" --out "$base" --label "$label" \
+        --log "${CASE_DIR}/evidence_log.md" --timeout "${COLLECT_TIMEOUT:-300}" -- "$@" || rc=$?
+    case $rc in
+        0) ;;
+        3) warn "PARTIAL evidence for '${label}' (non-zero exit, timeout or size cap) - see ${base}.meta.json" ;;
+        4) warn "NOT RUN: '${label}' could not be started - see ${base}.meta.json" ;;
+        *) error "Evidence collection for '${label}' failed (rc=${rc})" ;;
+    esac
+    if [[ -s "${base}.stdout" ]]; then
+        head -n 15 -- "${base}.stdout" | sed 's/\x1b/?/g'
+        [[ $(wc -l < "${base}.stdout") -gt 15 ]] && echo -e "${DIM}  ... full output: ${base}.stdout${NC}"
+    fi
+    return "$rc"
+}
+
+# run_step REPORT LABEL BASE -- CMD...   (collect + one line in the human report)
+run_step() {
+    local report="$1" label="$2" base="$3" rc=0 status sha
+    shift 3
+    collect "$label" "$base" "$@" || rc=$?
+    case $rc in 0) status="complete" ;; 3) status="PARTIAL" ;; 4) status="NOT RUN" ;; *) status="FAILED" ;; esac
+    sha="n/a"
+    [[ -f "${base}.stdout" ]] && sha="$(sha256sum -- "${base}.stdout" | cut -d' ' -f1)"
+    printf -- '- **%s**: %s (stdout sha256 `%s`)\n  - files: `%s.stdout`, `%s.stderr`, `%s.meta.json`\n' \
+        "$label" "$status" "$sha" "$(basename "$base")" "$(basename "$base")" "$(basename "$base")" >> "$report"
+    return "$rc"
+}
+
+new_report() {  # new_report DIR TITLE STEM -> prints path
+    local report="$1/$3.md"
+    { printf '# %s\n' "$2"; printf 'Generated: %s\n\n' "$(date -u '+%Y-%m-%d %H:%M:%S UTC')"; } > "$report"
+    printf '%s' "$report"
+}
+
+investigate_email() {
+    local email="$1" output_dir="${RAW_DIR}/email" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Email Investigation: ${email}"
+    stem="$(safe_name "$email")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Email Investigation: ${email}" "$stem")"
+
+    if check_tool holehe; then
+        run_step "$report" "holehe" "${output_dir}/${stem}.holehe" -- holehe "$email" --only-used
+    else echo "- holehe: skipped (not installed)" >> "$report"; fi
+    if check_tool h8mail; then
+        run_step "$report" "h8mail" "${output_dir}/${stem}.h8mail" -- h8mail -t "$email"
+    else echo "- h8mail: skipped (not installed)" >> "$report"; fi
+    success "Email report: ${report}"
+}
+
+investigate_phone() {
+    local phone="$1" output_dir="${RAW_DIR}/phone" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Phone Investigation: ${phone}"
+    stem="$(safe_name "${phone//[^0-9+]/}")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Phone Investigation" "$stem")"
+    if check_tool phoneinfoga; then
+        run_step "$report" "phoneinfoga" "${output_dir}/${stem}.phoneinfoga" -- phoneinfoga scan -n "$phone"
+    else
+        echo "- phoneinfoga: skipped (not installed)" >> "$report"
+        warn "PhoneInfoga not installed"
+    fi
+    success "Phone report: ${report}"
+}
+
+investigate_domain() {
+    local domain="$1" output_dir="${RAW_DIR}/domain" stem report rtype
+    mkdir -p "$output_dir"
+    print_subsection "Domain Investigation: ${domain}"
+    stem="$(safe_name "$domain")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Domain Investigation: ${domain}" "$stem")"
+
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$domain"
+    for rtype in A AAAA MX NS TXT; do
+        run_step "$report" "dig ${rtype}" "${output_dir}/${stem}.dig-${rtype}" -- dig +noall +answer "$domain" "$rtype"
+    done
+    if check_tool subfinder; then
+        run_step "$report" "subfinder" "${output_dir}/${stem}.subfinder" -- subfinder -d "$domain" -silent
+    else echo "- subfinder: skipped (not installed)" >> "$report"; fi
+    success "Domain report: ${report}"
+}
+
+investigate_ip() {
+    local ip="$1" output_dir="${RAW_DIR}/ip" stem report
+    # Reject malformed data before using it as a URL path or evidence identifier.
+    if ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$ip" >/dev/null 2>&1; then
+        error "Invalid IP address; provide a single IPv4 or IPv6 address"
+        return 2
+    fi
+    mkdir -p "$output_dir"
+    print_subsection "IP Investigation: ${ip}"
+    stem="$(safe_name "$ip")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "IP Investigation: ${ip}" "$stem")"
+
+    run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$ip"
+    # RDAP is HTTPS registration/network-allocation metadata, NOT physical geolocation.
+    # rdap.org redirects to the relevant registry; disallow HTTP downgrade.
+    # The lookup discloses the queried IP to the registry/bootstrap provider.
+    run_step "$report" "RDAP network registration (HTTPS)" "${output_dir}/${stem}.rdap" -- \
+        curl -sS --fail --location --proto '=https' --proto-redir '=https' \
+             --max-redirs 5 --max-time 30 -- "https://rdap.org/ip/${ip}"
+    run_step "$report" "reverse DNS" "${output_dir}/${stem}.rdns" -- dig -x "$ip" +short
+    success "IP report saved (review every step's COMPLETE/PARTIAL/NOT RUN status): ${report}"
+}
+
+investigate_username() {
+    local username="$1" output_dir="${RAW_DIR}/username" stem report
+    mkdir -p "$output_dir"
+    print_subsection "Username Investigation: ${username}"
+    stem="$(safe_name "$username")_$(date -u +%Y%m%dT%H%M%S%N)"
+    report="$(new_report "$output_dir" "Username Investigation" "$stem")"
+
+    if check_tool maigret; then
+        info "Running Maigret..."
+        run_step "$report" "maigret" "${output_dir}/${stem}.maigret" -- \
+            maigret "$username" -o "${output_dir}/${stem}.maigret-out" --pdf
+    elif check_tool sherlock; then
+        info "Running Sherlock..."
+        run_step "$report" "sherlock" "${output_dir}/${stem}.sherlock" -- \
+            sherlock "$username" --output "${output_dir}/${stem}.sherlock.txt"
+    else
+        echo "- username tools: skipped (neither maigret nor sherlock installed)" >> "$report"
+        warn "Neither Maigret nor Sherlock installed"
+    fi
+    success "Username report: ${report}"
+}
+
+investigate_all() {
+    [[ ${#EMAILS[@]} -gt 0 ]] && for e in "${EMAILS[@]}"; do investigate_email "$e"; done
+    [[ ${#PHONES[@]} -gt 0 ]] && for p in "${PHONES[@]}"; do investigate_phone "$p"; done
+    [[ ${#DOMAINS[@]} -gt 0 ]] && for d in "${DOMAINS[@]}"; do investigate_domain "$d"; done
+    [[ ${#IPS[@]} -gt 0 ]] && for i in "${IPS[@]}"; do investigate_ip "$i"; done
+    [[ ${#USERNAMES[@]} -gt 0 ]] && for u in "${USERNAMES[@]}"; do investigate_username "$u"; done
+}
+
+#-------------------------------------------------------------------------------
+# MENUS
+#-------------------------------------------------------------------------------
+show_investigation_menu() {
+    while true; do
+        print_banner
+        [[ -n "$CASE_ID" ]] && echo -e "  ${WHITE}Active Case:${NC} ${CYAN}${CASE_ID}${NC}"
+        echo ""
+        echo -e "  ${GREEN}[1]${NC}  📧 Email Investigation"
+        echo -e "  ${GREEN}[2]${NC}  📱 Phone Investigation"
+        echo -e "  ${GREEN}[3]${NC}  🌐 Domain Investigation"
+        echo -e "  ${GREEN}[4]${NC}  🔢 IP Address Investigation"
+        echo -e "  ${GREEN}[5]${NC}  👤 Username Investigation"
+        echo ""
+        echo -e "  ${CYAN}[A]${NC}  🚀 Run All Investigations"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) [[ -n "$CASE_ID" ]] && { for e in "${EMAILS[@]}"; do investigate_email "$e"; done; } || warn "Load case first"; press_enter ;;
+            2) [[ -n "$CASE_ID" ]] && { for p in "${PHONES[@]}"; do investigate_phone "$p"; done; } || warn "Load case first"; press_enter ;;
+            3) [[ -n "$CASE_ID" ]] && { for d in "${DOMAINS[@]}"; do investigate_domain "$d"; done; } || warn "Load case first"; press_enter ;;
+            4) [[ -n "$CASE_ID" ]] && { for i in "${IPS[@]}"; do investigate_ip "$i"; done; } || warn "Load case first"; press_enter ;;
+            5) [[ -n "$CASE_ID" ]] && { for u in "${USERNAMES[@]}"; do investigate_username "$u"; done; } || warn "Load case first"; press_enter ;;
+            [Aa]) [[ -n "$CASE_ID" ]] && investigate_all || warn "Load case first"; press_enter ;;
+            0) return ;;
+        esac
+    done
+}
+
+show_reports_menu() {
+    while true; do
+        print_banner
+        print_section "Reports & Abuse Reports"
+        
+        echo -e "  ${GREEN}[1]${NC}  📄 Generate Final Investigation Report"
+        echo -e "  ${GREEN}[2]${NC}  📝 Generate Abuse Report (Domain Registrar)"
+        echo -e "  ${GREEN}[3]${NC}  📝 Generate Abuse Report (Hosting Provider)"
+        echo -e "  ${GREEN}[4]${NC}  📝 Generate Abuse Report (Email Provider)"
+        echo -e "  ${GREEN}[5]${NC}  📝 Generate IC3 Worksheet"
+        echo ""
+        echo -e "  ${CYAN}[A]${NC}  🚀 Launch Abuse Report Generator"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            [Aa])
+                local abuse_script="${SCRIPT_DIR}/abuse_report_generator.sh"
+                if [[ -x "$abuse_script" ]]; then
+                    "$abuse_script"
+                else
+                    warn "Abuse report generator not found"
+                fi
+                press_enter
+                ;;
+            0) return ;;
+            *) warn "Use [A] to launch abuse report generator"; press_enter ;;
+        esac
+    done
+}
+
+show_integration_menu() {
+    local integration_script="${SCRIPT_DIR}/toolkit_integration.sh"
+    # shellcheck source=/dev/null
+    [[ -f "$integration_script" ]] && source "$integration_script"
+    
+    while true; do
+        print_banner
+        print_section "Integrated Tools (scripts/ folder)"
+        
+        echo -e "  ${GREEN}[1]${NC}  🔍 Run scammer_audit.sh"
+        echo -e "  ${GREEN}[2]${NC}  📧 Run email_audit.sh"
+        echo -e "  ${GREEN}[3]${NC}  📱 Run phone_audit.sh"
+        echo -e "  ${GREEN}[4]${NC}  🌐 Run full_nmap_scan.sh"
+        echo -e "  ${GREEN}[5]${NC}  🌿 Run theHarvester"
+        echo ""
+        echo -e "  ${GREEN}[S]${NC}  📊 Show Integration Status"
+        echo -e "  ${GREEN}[C]${NC}  ⚙️  Configure Integration"
+        echo -e "  ${GREEN}[D]${NC}  🔄 Auto-Detect Scripts"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter target (domain/IP): " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_scammer_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "scammer_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            2)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter email address: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_email_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "email_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            3)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter phone number: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_phone_audit "$target" "${RAW_DIR}/integrated" || \
+                            warn "phone_audit.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            4)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter target IP address: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_full_nmap "$target" "${RAW_DIR}/integrated" || \
+                            warn "full_nmap_scan.sh not configured - run [D] to detect or [C] to configure"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            5)
+                if [[ -n "$CASE_ID" ]]; then
+                    read -rp "Enter domain: " target
+                    if [[ -n "$target" ]]; then
+                        mkdir -p "${RAW_DIR}/integrated"
+                        run_theharvester "$target" "${RAW_DIR}/integrated" || \
+                            warn "theHarvester not configured"
+                    fi
+                else
+                    warn "Load a case first"
+                fi
+                press_enter
+                ;;
+            [Ss]) show_integration_status 2>/dev/null || warn "Integration module not loaded"; press_enter ;;
+            [Cc]) configure_integration 2>/dev/null; press_enter ;;
+            [Dd]) 
+                detect_existing_scripts 2>/dev/null && save_integration_config 2>/dev/null
+                press_enter 
+                ;;
+            0) return ;;
+            *) warn "Invalid option"; press_enter ;;
+        esac
+    done
+}
+
+show_settings_menu() {
+    while true; do
+        print_banner
+        print_section "Settings"
+        
+        echo -e "  ${GREEN}[1]${NC}  🔑 Configure API Keys"
+        echo -e "  ${GREEN}[2]${NC}  📊 View API Status"
+        echo -e "  ${GREEN}[3]${NC}  🔧 Check Tool Status"
+        echo -e "  ${GREEN}[4]${NC}  📦 Install Dependencies"
+        echo ""
+        echo -e "  ${YELLOW}[0]${NC}  Back"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) configure_apis; press_enter ;;
+            2) show_api_status; press_enter ;;
+            3) show_tool_status; press_enter ;;
+            4)
+                local installer="${SCRIPT_DIR}/install_dependencies.sh"
+                if [[ -x "$installer" ]]; then
+                    "$installer"
+                else
+                    warn "Installer not found"
+                fi
+                press_enter
+                ;;
+            0) return ;;
+        esac
+    done
+}
+
+show_main_menu() {
+    while true; do
+        print_banner
+        
+        [[ -n "$CASE_ID" ]] && {
+            echo -e "  ${WHITE}Active Case:${NC} ${CYAN}${CASE_ID}${NC}"
+            echo -e "  ${WHITE}Directory:${NC} ${DIM}${CASE_DIR}${NC}"
+        }
+        echo ""
+        
+        echo -e "  ${GREEN}[1]${NC}  📁 Create New Case"
+        echo -e "  ${GREEN}[2]${NC}  📂 Load Existing Case"
+        echo -e "  ${GREEN}[3]${NC}  📋 List Cases"
+        echo ""
+        echo -e "  ${GREEN}[4]${NC}  🔍 Investigation Menu"
+        echo -e "  ${GREEN}[5]${NC}  📄 Reports & Abuse Reports"
+        echo -e "  ${GREEN}[6]${NC}  🔗 Integrated Tools"
+        echo -e "  ${GREEN}[7]${NC}  ⚙️  Settings"
+        echo ""
+        echo -e "  ${CYAN}[W]${NC}  🌐 Launch Web Interface"
+        echo ""
+        echo -e "  ${RED}[0]${NC}  Exit"
+        echo ""
+        
+        read -rp "Select: " choice
+        case $choice in
+            1) create_new_case; press_enter ;;
+            2) select_case; press_enter ;;
+            3) list_cases; press_enter ;;
+            4) show_investigation_menu ;;
+            5) show_reports_menu ;;
+            6) show_integration_menu ;;
+            7) show_settings_menu ;;
+            [Ww]) launch_web_interface; press_enter ;;
+            0)
+                [[ -n "$CASE_ID" ]] && { save_case_state; success "Case saved"; }
+                info "Goodbye!"
+                exit 0
+                ;;
+        esac
+    done
+}
+
+#-------------------------------------------------------------------------------
+# MAIN
+#-------------------------------------------------------------------------------
+main() {
+    init_config
+    
+    case "${1:-}" in
+        --install|-i) "${SCRIPT_DIR}/install_dependencies.sh"; exit $? ;;
+        --config|-c) configure_apis; exit ;;
+        --status|-s) show_tool_status; show_api_status; exit ;;
+        --web|-w) launch_web_interface; exit ;;
+        --help|-h)
+            echo "OSINT Investigator Playbook"
+            echo ""
+            echo "Usage: $0 [OPTIONS]"
+            echo ""
+            echo "  --install    Install dependencies (run as your normal user, not root)"
+            echo "  --config     Configure API keys"
+            echo "  --status     Show tool/API status"
+            echo "  --web        Launch web interface"
+            echo "  --help       Show this help"
+            exit 0
+            ;;
+    esac
+    
+    show_main_menu
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi
+\r'* ]]; then
+            error "Invalid indicator (empty, option-like, control characters or too long)"
+            return 2
+        fi
+        if [[ "$kind" == IPS ]] &&
+           ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$value" >/dev/null 2>&1; then
+            error "Invalid IP indicator: ${value}"
+            return 2
+        fi
+    done
+    local -a before=("${existing[@]}")
+    existing=("${candidates[@]}")
+    if ! save_case_state; then
+        existing=("${before[@]}")
+        error "Input not saved; original in-memory indicators restored."
+        return 1
+    fi
+    success "${label} indicators saved (count: ${#existing[@]})"
+}
+
+edit_case_indicators() {
+    [[ -n "$CASE_ID" && -n "$CASE_DIR" ]] || {
+        warn "Create or load a case before editing indicators."
+        return 1
+    }
+    while true; do
+        print_section "Edit Authorized Case Indicators"
+        echo "  [1] Email addresses"
+        echo "  [2] Phone numbers"
+        echo "  [3] Domains"
+        echo "  [4] IP addresses"
+        echo "  [5] Usernames"
+        echo "  [0] Back"
+        local choice
+        read -rp "Select: " choice || return 0
+        case "$choice" in
+            1) edit_indicator_group EMAILS "email" ;;
+            2) edit_indicator_group PHONES "phone" ;;
+            3) edit_indicator_group DOMAINS "domain" ;;
+            4) edit_indicator_group IPS "IP" ;;
+            5) edit_indicator_group USERNAMES "username" ;;
+            0) return 0 ;;
+            *) warn "Choose a listed indicator category." ;;
+        esac
+    done
+}
+
 list_cases() {
     print_section "Existing Cases"
     [[ ! -d "$CASE_BASE_DIR" ]] && { info "No cases found."; return; }
