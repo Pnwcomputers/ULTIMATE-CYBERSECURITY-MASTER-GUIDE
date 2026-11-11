@@ -142,10 +142,10 @@ The scripts use temporary directories and clean up their generated artifacts. Th
 | Folder | Role |
 | --- | --- |
 | `Data-Engineering/Phase1/` | Foundation documents |
-| `Data-Engineering/Phase2/` | These Storage & Integration documents and `readme.md` |
-| `Data-Engineering/Phase3/` | Reserved for the next phase; no Phase 3 documents are supplied here |
+| `Data-Engineering/Phase2/` | This Storage & Integration index (`README.md`) and four guides |
+| `Data-Engineering/Phase3/` | [Published Phase 3 index](../Phase3/README.md), with four Operations & Governance guides |
 
-All four Phase 2 guides use sibling links for one another and `../Phase1/` for prerequisites. The index uses lowercase `readme.md` to replace the existing placeholder without introducing a second README with different capitalization.
+All four Phase 2 guides use sibling links and `../Phase1/` for prerequisites. This directory's canonical index is `README.md` (case-sensitive on Linux). Phase 3 is already published; see [Pipeline Observability](../Phase3/pipeline_observability.md), [Testing & CI/CD](../Phase3/pipeline_testing_cicd.md), [Governance & Lineage](../Phase3/data_governance_lineage.md), and [Backup & Replay](../Phase3/data_recovery_replay.md).
 
 ---
 
@@ -155,6 +155,6 @@ All four Phase 2 guides use sibling links for one another and `../Phase1/` for p
 
 Contribute reproducible corrections with synthetic inputs, runtime versions, expected behavior, and observed output. Keep claims in the Verification Record limited to checks actually executed.
 
-Apply these patterns to [Secure Data Pipelines & Security Automation](../data_pipelines.md), or return to the [Data Engineering overview](../README.md) for the broader roadmap. That parent index may need its proposed/published status updated when these documents are added to the repository.
+Apply these patterns to [Secure Data Pipelines & Security Automation](../data_pipelines.md), or return to the [Data Engineering overview](../README.md) for the broader roadmap. The parent index now links all three published phases; verify cross-links whenever a phase guide changes.
 
 **[⬆ Back to Contents](#contents) · [← Data Engineering Overview](../README.md) · [Repository Home](../../README.md)**
