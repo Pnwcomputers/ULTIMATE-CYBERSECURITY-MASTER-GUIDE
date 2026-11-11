@@ -677,15 +677,23 @@ Extract the email's domain and proceed to the Domain Investigation Procedure.
 asn 1.2.3.4
 ~~~
 
-#### Step 2: Geolocation
-~~~bash
-# Free, no API key
-curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' "https://rdap.org/ip/8.8.8.8" | jq
-# RDAP returns registration and allocation data, NOT physical geolocation or proxy detection.
+#### Step 2: Network Registration & Approximate Geolocation
 
-# Cleaner output, free tier
-curl -s "https://ipinfo.io/1.2.3.4" | jq
+Use these as **distinct** sources: RDAP is registration/allocation metadata; any commercial geolocation provider supplies an **estimate**, not a device's physical location. These examples use a public demonstration IP, not a customer asset.
+
+~~~bash
+# RDAP registration information; HTTPS bootstrap redirects, not geolocation.
+curl --fail --silent --show-error --location \
+  --proto '=https' --proto-redir '=https' --max-redirs 5 --max-time 30 \
+  'https://rdap.org/ip/8.8.8.8' | jq
+
+# Optional provider geolocation estimate; access, quotas, license and fields may vary.
+# The queried address is disclosed to the provider.
+curl --fail --silent --show-error --max-time 30 \
+  'https://ipinfo.io/8.8.8.8/json' | jq
 ~~~
+
+If a lookup fails or returns no result, record the error as **unverified**, not "no registration" or "no location". Check vendor terms before client use, and enable Bash `pipefail` when adapting these pipelines into automated evidence collection.
 
 #### Step 3: Reputation Check
 ~~~bash
