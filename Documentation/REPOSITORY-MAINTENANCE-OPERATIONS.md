@@ -103,7 +103,7 @@ Severity priority: **P0** exposed secrets, data loss or risky default; **P1** in
 7. Separate safe documentation changes from code with deployment effects where useful.
 8. Do not merge with new failed required gates or unresolved conflicts. If code-owner reviews are enabled, obtain them.
 
-The CI check names and job requirements are configured in GitHub's branch ruleset, **not** created merely by adding CODEOWNERS or YAML. Enable protected main, required PRs, required checks, code-owner review where appropriate, secret scanning and push protection from repository settings with admin access. The exact available controls depend on repository plan and settings.
+The CI check names and job requirements are configured in GitHub's branch ruleset, **not** created merely by adding CODEOWNERS or YAML. Enable protected main, required PRs, required checks, and available secret scanning/push protection from repository settings with admin access. **Important for a solo-owned repository:** requiring a separate code-owner approval can block your own PRs because GitHub does not accept self-approval. Turn on required code-owner review only when another eligible reviewer is available. CODEOWNERS alone remains useful for ownership routing. The exact available controls depend on repository plan and settings.
 
 ## Safe Automated Updates
 
