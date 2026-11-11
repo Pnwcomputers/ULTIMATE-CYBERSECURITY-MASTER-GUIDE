@@ -14,7 +14,7 @@ By submitting a contribution you confirm:
 - The content is for **educational and authorized security testing purposes only**
 - You have the right to contribute the material (no plagiarism, no stolen code)
 - You are not submitting malware, backdoors, or tools designed solely for malicious use
-- You understand that misuse of tools in this repo is a federal crime
+- You understand that unauthorized activity may violate applicable laws, contracts or provider terms; consequences depend on the facts and jurisdiction
 
 ---
 
@@ -100,11 +100,11 @@ Every script must include at the top:
 ```
 
 Scripts must also:
-- Handle errors gracefully (`set -euo pipefail` for bash)
+- Handle errors explicitly; use `set -euo pipefail` where appropriate for Bash, and compatible error handling for POSIX `sh`
 - Include a `--help` flag
 - Never hardcode IPs, credentials, or targets
 - Include prominent legal warning in the output when run
-- Be tested in an isolated lab environment before submission
+- Include evidence of isolated lab tests, or be clearly labeled as an untested/historical example rather than a supported executable
 
 ### Tool Entries
 
@@ -123,6 +123,8 @@ Always link to the **official homepage or official GitHub repo** - not forks, mi
 - If referencing your own original work: note it as such
 
 ---
+
+For repeatable local checks, use [Maintainer Operations](../Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md) and the [Verification Protocol](../Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md). Pull request checks and Markdown lint are not substitutes for source verification or safe runtime testing.
 
 ## 🗂️ Where Things Go
 
