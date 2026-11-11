@@ -87,6 +87,8 @@ boundary near the top. It **adds** context; it never replaces or removes content
 
 ## 6. Review Metadata
 
+For actionable validation criteria, evidence statuses, safe placeholders, and closure records, use the [Repository Verification & Content Completeness Protocol](Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md). A heading/date is editorial metadata; it must not imply hardware, production or external API testing that did not take place.
+
 - **Last-Reviewed Line:** Reference and install/tool docs should carry a review date near the top, immediately under the H1 (or under any badge/image block):
 
   ```markdown
