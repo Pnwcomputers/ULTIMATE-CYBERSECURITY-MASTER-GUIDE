@@ -53,7 +53,7 @@ Inspect provenance and source before running downloaded scripts.
 The folder-level index for every automation script in the repository (Bash, C, Go, PowerShell, Python, SQL, YAML) - the only file that explains directory layout and legal warnings once, instead of repeating them in every language subfolder's own README.
 
 ## ⚙️ Function
-Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. Note: only these 4 `.md` files are checked out in this local clone (the executable script payloads in Bash/PowerShell/Python/C/SQL/GO are intentionally excluded from disk here per a local antivirus constraint, though they exist in the repository).
+Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
 
 ## 🏆 Goal
 A reader can find the right script for a task by category/language and understands the legal authorization requirement before running anything.
@@ -93,7 +93,7 @@ Using these tools without authorization violates:
 Scripts/
 ├── Bash/           # Bash shell scripts
 ├── C/              # C programs and utilities
-├── GO/             # Go language scripts
+├── GO/             # Historical mixed-language collection; many Python 2 examples
 ├── PowerShell/     # PowerShell scripts (Windows)
 ├── Python/         # Python scripts and tools
 ├── SQL/            # SQL scripts and queries

@@ -302,8 +302,9 @@ nikto -h https://target.com -ssl
 ### Web Archive & Historical Data
  
 ```bash
-# Wayback Machine
-curl "http://timetravel.mementoweb.org/api/json/20230101000000/https://target.com"
+# Wayback Machine CDX index (public capture metadata, illustrative example)
+curl --fail --show-error --location --proto '=https' --proto-redir '=https' \
+  'https://web.archive.org/cdx/search/cdx?url=example.com&output=json&limit=20'
  
 # Waybackurls - extract all historical URLs
 waybackurls target.com | sort -u > wayback_urls.txt
@@ -315,6 +316,8 @@ cat wayback_urls.txt | grep -i "admin\|login\|backup\|config\|\.env\|\.git"
 gau target.com | sort -u
 ```
  
+The [Internet Archive CDX reference](https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md) explains query parameters and JSON output. API responses may be unavailable, incomplete or rate-limited; missing results do not establish that a resource was never archived. Review archived URLs before making any active requests.
+
 ### Git & Source Code Exposure
  
 ```bash
