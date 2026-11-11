@@ -1,0 +1,12 @@
+# Maintainer routing. CODEOWNERS does not enable required reviews;
+# activate 'Require review from Code Owners' in the branch ruleset.
+* @Pnwcomputers
+
+/.github/ @Pnwcomputers
+/tools/ @Pnwcomputers
+/tests/ @Pnwcomputers
+/Scripts/ @Pnwcomputers
+/AI/ @Pnwcomputers
+/Documentation/ @Pnwcomputers
+/IncidentResponse/ @Pnwcomputers
+/OSINT/ @Pnwcomputers
