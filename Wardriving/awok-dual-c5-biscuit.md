@@ -66,7 +66,7 @@ The **white** and **orange** USB ports address different C5 sides, not alternati
 
 ## See also
 
-[Biscuit](./biscuit.md) · [Marauder](./esp32-marauder.md) · [Firmware compatibility](../firmware-hardware-compatibility.md) · [Data handling](./data-handling.md)
+[Biscuit](./biscuit.md) · [Marauder](./esp32-marauder.md) · [Device-first firmware references](../firmware-hardware-compatibility.md) · [Data handling](./data-handling.md)
 
 ---
 
