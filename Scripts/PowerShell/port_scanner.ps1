@@ -50,7 +50,7 @@ $openPorts = @()
     }
     
     # Progress indicator
-    if (($port -mod 50) -eq 0) {
+    if (($port % 50) -eq 0) {
         Write-Host "[*] Scanned up to port $port..." -ForegroundColor Yellow
     }
 }
