@@ -133,7 +133,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 |---------|-------------|
 | 📍 **[Wardriving](Wardriving/README.md)** | Authorized wireless mapping, GPS inventory, firmware compatibility, phone-based and Kismet collection |
 | 📋 **[Operational Playbooks](PlayBooks/cybersecurity_playbooks.md)** | Field-ready playbooks for professional network & WiFi security audits and pentests |
-| 🔍 **[OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md)** | Comprehensive OSINT methodology; 400+ categorized tools, investigation workflows |
+| 🔍 **[OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md)** | OSINT methodology, categorized discovery tools and investigation workflows |
 | 🕵️ **[Tradecraft](Tradecraft/README.md)** | Offensive tradecraft; AD attacks, C2 frameworks, AV/EDR evasion, LOLBins, network detection evasion, threat intel |
 | 🕸️ **[Web Application Security](WebAppSecurity/README.md)** | OWASP Top 10 deep-dive and web app pentest methodology (Burp workflow, injection/access-control/API testing) |
 | ☁️ **[Cloud Security](Cloud/README.md)** | AWS, Azure/Entra ID, and GCP - shared responsibility, misconfigurations, attack surface, and hardening |
