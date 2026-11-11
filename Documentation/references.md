@@ -85,12 +85,12 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 #### DNS & Network Services
 | Port | Protocol | Service | Notes |
 | ---: | :---: | :--- | :--- |
-| 53 | TCP/UDP | DNS | UDP for queries, TCP for zone transfers |
-| 67 | UDP | DHCP Server | |
-| 68 | UDP | DHCP Client | |
+| 53 | TCP/UDP | DNS | UDP and TCP are both used for ordinary queries; TCP also carries zone transfers |
+| 67 | UDP | DHCP Server | DHCPv4 server listens for client discovery/requests |
+| 68 | UDP | DHCP Client | DHCPv4 client receives server offers/acknowledgments |
 | 123 | UDP | NTP | Time sync - spoof/amplification target |
 | 161 | UDP | SNMP | Community strings often default |
-| 162 | UDP | SNMP Trap | |
+| 162 | UDP | SNMP Trap | Receives asynchronous SNMP notifications; verify version and access controls |
 | 500 | UDP | IKE | IPsec key exchange |
 | 4500 | UDP | IPsec NAT-T | IPsec through NAT |
 
@@ -131,7 +131,7 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 | 8009 | TCP | AJP | Apache JServ - Ghostcat (CVE-2020-1938) |
 | 8161 | TCP | ActiveMQ Web | ActiveMQ admin console |
 | 8500 | TCP | Consul | HashiCorp Consul |
-| 9000 | TCP | SonarQube/PHP-FPM | |
+| 9000 | TCP | SonarQube/PHP-FPM | Common application/service port, not unique to either product; fingerprint the actual listener |
 | 9200 | TCP | Elasticsearch | Often unauthenticated - data exposure risk |
 | 9300 | TCP | Elasticsearch | Node communication |
 | 11211 | TCP/UDP | Memcached | Cache - DDoS amplification target |
@@ -234,7 +234,7 @@ proxychains4 nmap -sT -Pn <target>
 | 404 | Not Found | Resource missing - directory brute-force indicator |
 | 405 | Method Not Allowed | Try other HTTP verbs (PUT, DELETE, OPTIONS) |
 | 406 | Not Acceptable | Content negotiation failure |
-| 408 | Request Timeout | |
+| 408 | Request Timeout | Server did not receive a complete request within its allowed time; not proof of network compromise |
 | 409 | Conflict | State conflict - useful in race condition testing |
 | 410 | Gone | Permanently removed |
 | 413 | Payload Too Large | File upload size limit - tune for bypass |
@@ -252,7 +252,7 @@ proxychains4 nmap -sT -Pn <target>
 | 502 | Bad Gateway | Upstream failure - proxy/LB misconfiguration |
 | 503 | Service Unavailable | Overloaded or maintenance - DoS indicator |
 | 504 | Gateway Timeout | Upstream timeout |
-| 505 | HTTP Version Not Supported | |
+| 505 | HTTP Version Not Supported | Server cannot support the HTTP version requested; inspect client/server negotiation |
 
 ### HTTP Methods Quick Reference
 | Method | Purpose | Security Notes |
