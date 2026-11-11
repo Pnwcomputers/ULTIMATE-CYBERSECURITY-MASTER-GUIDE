@@ -45,7 +45,7 @@ OSINT section index - covering open source intelligence tools, methodologies, an
 Indexes the OSINT section: basic guide, comprehensive cheat sheet, tools catalog, Argus toolkit setup, the OSINT Investigator Playbook, and recon scripts for domain/IP, email, and phone investigation.
 
 ## 🏆 Goal
-Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with documented manual procedures and selected scripts; the linked case-directory shell menu is a **prototype**, not a finished automated investigator.
+Provide a complete OSINT reference hub that takes practitioners from initial reconnaissance through structured investigation workflows, with documented manual procedures and selected scripts; the linked case-directory shell menu is a **partially implemented operator toolkit**, not a finished automated investigator. It can manage cases and run selected evidence-preserving collectors, but its numbered report submenu and web UI are incomplete; see the [feature matrix](Playbook/README.md).
 
 ## 📋 When To Use
 - Starting an OSINT investigation and navigating to the right sub-guide
@@ -112,7 +112,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
-| **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus a prototype case-directory menu; automated investigation modules, evidence hashing and reporting are not yet implemented | Prototype |
+| **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus case management, selected evidence-preserving lookup modules and optional integrations; unfinished report submenu and missing web UI are documented in the feature matrix | Prototype |
 | **[Toolkit Docs](./docs/)** | FAQ, installation, compatibility, troubleshooting | ✅ Complete |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
