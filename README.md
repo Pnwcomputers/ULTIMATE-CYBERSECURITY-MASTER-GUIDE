@@ -341,9 +341,9 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This secti
 | RF / SDR | RTL-SDR | [Project](https://www.rtl-sdr.com/) |
 | RF / SDR | Ubertooth One | [Project](https://greatscottgadgets.com/ubertoothone/) |
 | RF / SDR | YardStick One | [Project](https://greatscottgadgets.com/yardstickone/) |
-| Wi-Fi Adapter | Alfa AWUS036ACH | Hardware reference |
-| Wi-Fi Adapter | Alfa AWUS036NHA | Hardware reference |
-| Wi-Fi Adapter | TP-Link TL-WN722N | Hardware reference |
+| Wi-Fi Adapter | Alfa AWUS036ACH | [ALFA documentation](https://docs.alfa.com.tw/Product/AWUS036ACH/); dual-band 802.11ac USB adapter; verify Linux driver compatibility |
+| Wi-Fi Adapter | Alfa AWUS036NHA | [ALFA product reference](https://www.alfa.com.tw/products/awus036nha); legacy 2.4 GHz 150 Mbps adapter (EOL) |
+| Wi-Fi Adapter | TP-Link TL-WN722N | [TP-Link product & support](https://www.tp-link.com/us/home-networking/usb-adapter/tl-wn722n/); 2.4 GHz 150 Mbps adapter; check hardware revision and matching drivers |
 
 ---
 
@@ -449,10 +449,10 @@ release, file license and legal scope before operational reuse.
 | [Impacket](https://github.com/fortra/impacket) | Fortra |
 | [BloodHound](https://github.com/SpecterOps/BloodHound) | SpecterOps |
 | [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) | *(archived)* |
-| [NetExec](https://github.com/Pennyw0rth/NetExec) | — |
+| [NetExec](https://github.com/Pennyw0rth/NetExec) | Network assessment and administration tool for authorized internal security testing |
 | [Empire](https://github.com/BC-SECURITY/Empire) | BC Security |
 | [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) | *(archived)* |
-| [Nishang](https://github.com/samratashok/nishang) | — |
+| [Nishang](https://github.com/samratashok/nishang) | PowerShell scripts for authorized penetration testing and red-team labs |
 | [PEASS-ng](https://github.com/peass-ng/PEASS-ng) | Carlos Polop |
 | [Responder](https://github.com/lgandx/Responder) | Laurent Gaffié |
 
@@ -460,73 +460,73 @@ release, file license and legal scope before operational reuse.
 
 | Resource | Notes |
 |---|---|
-| [theHarvester](https://github.com/laramies/theHarvester) | — |
-| [Sherlock](https://github.com/sherlock-project/sherlock) | — |
-| [Maltego](https://www.maltego.com/) | — |
-| [SpiderFoot](https://github.com/smicallef/spiderfoot) | — |
-| [Recon-ng](https://github.com/lanmaster53/recon-ng) | — |
-| [Amass](https://github.com/owasp-amass/amass) | — |
-| [Maigret](https://github.com/soxoj/maigret) | — |
-| [Holehe](https://github.com/megadose/holehe) | — |
-| [H8mail](https://github.com/khast3x/h8mail) | — |
-| [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) | — |
-| [Photon](https://github.com/s0md3v/Photon) | — |
-| [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) | — |
-| [Trace Labs](https://tracelabs.org/) | — |
+| [theHarvester](https://github.com/laramies/theHarvester) | Collects public email addresses, names and subdomains |
+| [Sherlock](https://github.com/sherlock-project/sherlock) | Finds social-network profiles associated with a username |
+| [Maltego](https://www.maltego.com/) | Visual link analysis and OSINT investigation platform |
+| [SpiderFoot](https://github.com/smicallef/spiderfoot) | Automates OSINT collection and attack-surface mapping |
+| [Recon-ng](https://github.com/lanmaster53/recon-ng) | Modular framework for collecting and organizing open-source intelligence |
+| [Amass](https://github.com/owasp-amass/amass) | OWASP project for asset discovery and attack-surface mapping |
+| [Maigret](https://github.com/soxoj/maigret) | Builds username-based profiles across public websites |
+| [Holehe](https://github.com/megadose/holehe) | Checks whether an email address is associated with supported online services |
+| [H8mail](https://github.com/khast3x/h8mail) | Email OSINT and breach-data research; supports local data and external services |
+| [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) | Phone-number OSINT and public-source information gathering |
+| [Photon](https://github.com/s0md3v/Photon) | Web crawler for OSINT data collection |
+| [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) | OSINT and privacy books, training and investigation resources |
+| [Trace Labs](https://tracelabs.org/) | Nonprofit coordinating crowdsourced OSINT searches for missing people |
 
 #### Network & Web Security
 
 | Resource | Notes |
 |---|---|
-| [Nmap](https://nmap.org/) | — |
-| [Wireshark](https://www.wireshark.org/) | — |
-| [Burp Suite](https://portswigger.net/burp) | — |
-| [OWASP ZAP](https://www.zaproxy.org/) | — |
-| [Nikto](https://github.com/sullo/nikto) | — |
-| [SQLmap](https://sqlmap.org/) | — |
-| [Gobuster](https://github.com/OJ/gobuster) | — |
-| [ffuf](https://github.com/ffuf/ffuf) | — |
-| [Nuclei](https://github.com/projectdiscovery/nuclei) | — |
-| [Subfinder](https://github.com/projectdiscovery/subfinder) | — |
+| [Nmap](https://nmap.org/) | Network discovery, port scanning and service identification |
+| [Wireshark](https://www.wireshark.org/) | Packet capture and network-protocol analysis |
+| [Burp Suite](https://portswigger.net/burp) | PortSwigger web application security testing platform |
+| [OWASP ZAP](https://www.zaproxy.org/) | Zed Attack Proxy; web application scanning and testing |
+| [Nikto](https://github.com/sullo/nikto) | Web server scanner for known issues and configuration weaknesses |
+| [SQLmap](https://sqlmap.org/) | Automated SQL injection detection and database security testing |
+| [Gobuster](https://github.com/OJ/gobuster) | Enumerates web paths, DNS names and virtual hosts |
+| [ffuf](https://github.com/ffuf/ffuf) | Web fuzzing for discovering paths, parameters and other application inputs |
+| [Nuclei](https://github.com/projectdiscovery/nuclei) | ProjectDiscovery template-based vulnerability scanner |
+| [Subfinder](https://github.com/projectdiscovery/subfinder) | ProjectDiscovery passive subdomain discovery tool |
 | [httpx](https://github.com/projectdiscovery/httpx) | ProjectDiscovery |
 | [AutoRecon](https://github.com/AutoRecon/AutoRecon) | Tib3rius |
-| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) | — |
-| [SecLists](https://github.com/danielmiessler/SecLists) | — |
-| [ExploitDB](https://www.exploit-db.com/) | — |
+| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) | Reference collection of web security payloads and testing techniques |
+| [SecLists](https://github.com/danielmiessler/SecLists) | Wordlists and test data for security assessments |
+| [ExploitDB](https://www.exploit-db.com/) | Public archive of exploit references, proof-of-concept code and security papers |
 
 #### Password & Credentials
 
 | Resource | Notes |
 |---|---|
-| [Hashcat](https://hashcat.net/hashcat/) | — |
-| [John the Ripper](https://www.openwall.com/john/) | — |
-| [Hydra](https://github.com/vanhauser-thc/thc-hydra) | — |
+| [Hashcat](https://hashcat.net/hashcat/) | CPU/GPU password recovery and offline hash auditing |
+| [John the Ripper](https://www.openwall.com/john/) | Openwall password recovery and offline password-strength auditing |
+| [Hydra](https://github.com/vanhauser-thc/thc-hydra) | THC tool for authorized network login and password auditing |
 | [Mimikatz](https://github.com/gentilkiwi/mimikatz) | Benjamin Delpy |
 
 #### Wireless & RF
 
 | Resource | Notes |
 |---|---|
-| [Aircrack-ng](https://www.aircrack-ng.org/) | — |
-| [Kismet](https://www.kismetwireless.net/) | — |
-| [Wifite2](https://github.com/derv82/wifite2) | — |
+| [Aircrack-ng](https://www.aircrack-ng.org/) | Wi-Fi capture, analysis and security auditing suite |
+| [Kismet](https://www.kismetwireless.net/) | Wireless discovery, packet collection and intrusion detection |
+| [Wifite2](https://github.com/derv82/wifite2) | Automates wireless network security auditing |
 | [Bettercap](https://www.bettercap.org/) | Simone Margaritelli |
 | [ChipWhisperer](https://github.com/newaetech/chipwhisperer) | NewAE Technology |
-| [OpenOCD](https://openocd.org/) | — |
-| [Bus Pirate](https://docs.buspirate.com/) | — |
+| [OpenOCD](https://openocd.org/) | On-chip debugging, programming and boundary-scan support |
+| [Bus Pirate](https://docs.buspirate.com/) | Hardware interface tool for interacting with embedded serial buses |
 
 #### Forensics & Reverse Engineering
 
 | Resource | Notes |
 |---|---|
-| [Volatility](https://volatilityfoundation.org/) | — |
-| [Autopsy](https://www.autopsy.com/) | — |
+| [Volatility](https://volatilityfoundation.org/) | Memory-forensics framework for investigating RAM captures |
+| [Autopsy](https://www.autopsy.com/) | Digital-forensics platform for examining disks and file-system evidence |
 | [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) | NSA |
 | [radare2](https://rada.re/) | pancake |
 | [IDA Pro](https://hex-rays.com/ida-pro/) | Hex-Rays |
-| [Binwalk](https://github.com/ReFirmLabs/binwalk) | — |
-| [YARA](https://github.com/VirusTotal/yara) | — |
-| [vx-underground](https://vx-underground.org) | — |
+| [Binwalk](https://github.com/ReFirmLabs/binwalk) | Firmware inspection and embedded-file extraction |
+| [YARA](https://github.com/VirusTotal/yara) | Pattern-based rules for identifying and classifying files and malware |
+| [vx-underground](https://vx-underground.org) | Malware research archive with source code, samples and papers |
 | [MalwareBazaar](https://bazaar.abuse.ch/) | malware sample and research libraries |
 | [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/) | Mark Russinovich |
 
@@ -534,16 +534,16 @@ release, file license and legal scope before operational reuse.
 
 | Resource | Notes |
 |---|---|
-| [Snort](https://www.snort.org/) | — |
-| [Suricata](https://suricata.io/) | — |
-| [Zeek](https://zeek.org/) | — |
-| [OSSEC](https://www.ossec.net/) | — |
-| [Elastic Stack](https://www.elastic.co/) | — |
-| [Splunk](https://www.splunk.com/) | — |
-| [Graylog](https://graylog.org/) | — |
-| [Wazuh](https://wazuh.com/) | — |
-| [Security Onion](https://securityonionsolutions.com/) | — |
-| [nzyme](https://nzyme.org/) | — |
+| [Snort](https://www.snort.org/) | Rule-based network intrusion detection and prevention |
+| [Suricata](https://suricata.io/) | Network intrusion detection, prevention and security monitoring |
+| [Zeek](https://zeek.org/) | Network traffic analysis with structured logs for security investigations |
+| [OSSEC](https://www.ossec.net/) | Host intrusion detection, log analysis and file-integrity monitoring |
+| [Elastic Stack](https://www.elastic.co/) | Search, ingestion and visualization tools for logs and security analytics |
+| [Splunk](https://www.splunk.com/) | Machine-data search, log analysis and security monitoring platform |
+| [Graylog](https://graylog.org/) | Centralized log collection, search and security analytics |
+| [Wazuh](https://wazuh.com/) | Open-source SIEM and XDR platform for endpoint and security monitoring |
+| [Security Onion](https://securityonionsolutions.com/) | Integrated platform for network security monitoring and threat hunting |
+| [nzyme](https://nzyme.org/) | Network defense platform for traffic visibility and threat detection |
 
 #### Honeypots & Deception
 
