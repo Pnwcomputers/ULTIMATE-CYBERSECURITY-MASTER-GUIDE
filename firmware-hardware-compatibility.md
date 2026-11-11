@@ -23,9 +23,10 @@ Use the [device firmware list](./Documentation/device-firmware-list.md) for name
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated installers & multi-device upload tools |
 
 > [!WARNING]
-> The legacy matrix below includes broad chip-family checkmarks and historical
-> claims. They are not confirmation of a specific board, release or feature.
-> Verify the exact target with upstream before buying hardware or flashing.
+> This page no longer contains a compatibility matrix. The retired chart's broad
+> checkmarks and historical claims were not confirmation of a specific board,
+> release or feature. Use the device-first links below and verify the exact
+> target with upstream before buying hardware or flashing.
 
 ## Wireless Security Testing Devices
 **Plus2 clarification:** [M5StickC Plus2 / HackStarterPack source review](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) notes the separate hardware/accessories. Generic M5Stick-family checkmarks below are not proof of compatibility with a specific firmware version or USB HID.
