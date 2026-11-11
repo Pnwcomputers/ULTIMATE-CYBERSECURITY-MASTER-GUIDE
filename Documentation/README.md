@@ -25,6 +25,8 @@
 
 **Operational verification:** [Lab & SIEM/EDR Validation Matrix](LAB-VERIFICATION-MATRIX.md) records procedure-specific evidence, test blockers and non-production fixture boundaries. [Main Branch Ruleset Setup](BRANCH-PROTECTION-SETUP.md) lists the admin-only checks and safe PR enforcement settings. [Legacy Archive Dispositions](../Scripts/GO/ARCHIVE-INVENTORY.md) identifies older Python examples without claiming modern runtime support.
 
+**November 11, 2026 source audits:** [Complete 167-Cell Disposition](MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md) (with [machine-readable manifest](MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.json)) distinguishes corrected missing table headings from intentionally empty case/measurement templates. [External Link Sweep](EXTERNAL-LINK-AUDIT-2026-11-11.md) and [full 205-outcome JSON](EXTERNAL-LINK-AUDIT-2026-11-11.json) identify concrete 404 repairs separately from 403/429/timeout uncertainties.
+
 **Repository-wide quality review:** [Verification & Content Completeness Protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) covers source provenance, technical claims, testable examples, placeholders, external links, confidence levels, and evidence retention. [Maintenance, Workers & Automation](REPOSITORY-MAINTENANCE-OPERATIONS.md) covers the CI jobs, local setup, scheduled triage, source-control protections and task lifecycle.
 
 ## Expanded Device & Firmware Coverage

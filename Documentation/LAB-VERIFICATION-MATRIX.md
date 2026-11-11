@@ -8,19 +8,33 @@ _Opened: November 11, 2026 · This is an evidence ledger and reproducible accept
 
 This matrix inventories high-use **canonical guides** and separates observed, supported evidence from still-required experiments. Dates below refer to *inventory review*, not runtime verification. For a live test to count, use the record template below and link the sanitized evidence **only** if it contains no private deployment details. Keep client names, internal IPs, raw alerts and credentials in secure engagement records.
 
+## Observed Automated Fixture Evidence — November 11, 2026
+
+The [Wireless IDS CI workflow](../.github/workflows/wids-lab-tests.yml) and [Guide Fixture CI workflow](../.github/workflows/guide-tests.yml) exercise **offline Python unit tests, synthetic event normalization, a localhost-only HTTP decoy/webhook, and structural/regex-only Wazuh rule contracts** on an ephemeral GitHub-hosted Ubuntu runner. The full [PR #195 CI results](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/195/checks) are the record for the actual commit, runner and success/failure outcomes; do not transfer these claims to a different Wazuh version or device.
+
+The audit identified and corrected malformed Wazuh XML: rule `100340` had been placed inside the grouping label of rule `100300`, and `100402` inside the grouping label of `100400`. The [new offline tests](../tools/tests/test_wazuh_rule_contracts.py) assert root-level rule structure, unique IDs, local ancestry, and **synthetic positive and benign-negative field patterns**; they explicitly do **not** run `/var/ossec/bin/wazuh-logtest` or simulate Wazuh frequency/timeframe/grouping logic.
+
+| Scope | Positive Synthetic Expectation | Benign/Negative Expectation | Actual Evidence Available |
+|---|---|---|---|
+| Kismet normalizer + Wazuh candidate rules | `wids.integration=kismet`, `DEAUTHFLOOD` => structural candidate `100301`; correlation => `100340` | `CHANCHANGE` must not match the deauth child; other integration must not match | GitHub Python fixture result only — no actual manager alert |
+| nzyme webhook + candidate rules | `disconnect_anomaly` => structural candidate `100352` | `system_event` must not match `100352`; instead `100354` | Loopback webhook status/JSONL and regex fixture tests; actual nzyme provider API not exercised |
+| DIY HTTP honeypot + candidate rules | `GET` => `100400`; `POST` => `100400` + `100401`; ESP32 serial => `100402` | GET must not match elevated write-method `100401` | Localhost-only HTTP and schema fixtures; actual Pi/ESP32 and Wazuh ingestion not exercised |
+
+**Observed detection score:** Not available. A passing code fixture demonstrates test-contract consistency, not actual sensor visibility, analyst detection, low false-positive rates, or an approved deployment. Log the real manager's match/level and non-match results with `wazuh-logtest` on a separately authorized Wazuh 4.x environment; record the exact installed release and ruleset commit, then check event ingestion and dashboard alert correlation. **Do not deploy candidate rules directly to production from CI.**
+
 ## Initial Procedure Inventory
 
 | Canonical Procedure | Evidence Available | Unverified Condition / Acceptance Experiment | Current Status |
 |---|---|---|---|
 | [OSINT Case Investigator](../OSINT/Playbook/README.md) | Isolated shell fixtures in [hardening tests](../tests/hardening/test_osint_investigator.py) cover named behavior | Current registry/API network response, rate limits, actual report quality and consent | Static fixture only |
-| [Kismet → Wazuh Wireless Alerts](../IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md) | Source/configuration and synthetic bridge fixtures exist | Kismet release, capture chipset, firmware, monitor mode, real 802.11 frames, end-to-end Wazuh ingestion and rule firing | Lab blocked |
+| [Kismet → Wazuh Wireless Alerts](../IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md) | Source/configuration, synthetic bridge fixtures and XML group/regex contract tests exist | Kismet release, capture chipset, firmware, monitor mode, real 802.11 frames, end-to-end Wazuh ingestion and rule firing | Lab blocked |
 | [nzyme → Wazuh](../IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md) | Guide and local adapter/config content | nzyme version, webhook semantics, signature, TLS, observed source/destination timestamps, false-positive handling | External provider / lab blocked |
 | [Suricata & Zeek](../IncidentResponse/IDS&IPS/suricata+zeek.md) | Documentation and example detection configuration | Verified TAP/SPAN visibility, sensor interface, IDS ruleset revision, PCAP replay and actual alert + Zeek log correlation | Lab blocked |
 | [Wi-Fi Disconnect Detection](wifi-deauthentication-detection.md) | Defensive detection guidance and filter examples | 802.11 frame capture, PMF state, negative benign disconnect fixtures, severity fidelity in SIEM | Lab blocked |
 | [Graylog Deployment](../IncidentResponse/SIEM/graylog.md) | Historical Docker example (Graylog 5.2; OpenSearch 2.12.0) | Supported version/migration, TLS, secrets, inputs, index writes, alert-to-notification chain | Historical; not deployment-verified |
 | [Elastic SIEM/ELK](../IncidentResponse/SIEM/elk_stack.md) | Example compose/health check procedure | Current image compatibility, secure account setup, ingestion, query/rule results and recovery after restart | Lab blocked |
 | [Snort/IDS Integration](../IncidentResponse/IDS&IPS/readme.md) | Architectural guides | Actual mirrored traffic reaching monitored interface; rule and SIEM event chain with timestamped capture | Lab blocked |
-| [DIY Sensor Honeypot](../IncidentResponse/HoneyPot/diy-sensor-lab.md) | Local-only demonstration instructions | Isolated canary health-check, synthetic hit, JSONL/event schema validation, Wazuh intake, cleanup | Lab blocked |
+| [DIY Sensor Honeypot](../IncidentResponse/HoneyPot/diy-sensor-lab.md) | Local-only demo, loopback HTTP fixture and repaired XML rule group with synthetic positive/negative contract tests | Isolated canary health-check, synthetic hit, JSONL/event schema validation, Wazuh intake, cleanup | Lab blocked |
 | [Raspberry Pi Honeypot](../IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) | Hardware setup procedure | Specific Pi model, OS kernel, network segmentation, capture, watchdog and SIEM correlation | Hardware blocked |
 | [NanoVNA](../SDR/nanovna/README.md) | [Fixture test runner](../SDR/nanovna/testdata/run_tests.sh) for lab files | Actual model, calibration standards, firmware, connection, measured sweep against known reference and RF safe handling | Fixtures only; hardware blocked |
 | [ESP32 Security Firmware](esp32-security-firmware-catalog.md) | Catalog/source metadata only | Exact board revision, bootloader/flasher release, backup/recovery, passive receive test, approved RF scope | Hardware blocked |
