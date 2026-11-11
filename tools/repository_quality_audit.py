@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 SKIP = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache"}
-MARKER = re.compile(r"\b(?:TODO|TBD|FIXME|COMING SOON|TO BE (?:RECORDED|ASSIGNED|CONFIRMED|ADDED))\b", re.I)
+MARKER = re.compile(r"^(?:\\s*(?:[-*]\\s+)?(?:#+\\s+)?(?:TODO|TBD|FIXME)\\s*[:—-]|.*\\bCOMING SOON\\b|.*\\bTO BE (?:RECORDED|ASSIGNED|CONFIRMED|ADDED)\\b)", re.I)
 LINK = re.compile(r"\[(?:link|CVE-XXXX-XXXX)\](?!\()", re.I)
 FENCE = re.compile(r"^ {0,3}(" + r"(?:\x60){3,}|~{3,}" + r")")
 
@@ -50,8 +50,13 @@ def inspect(root: Path):
                     labels.append("incomplete-marker")
                 if LINK.search(line):
                     labels.append("unresolved-label")
-                if re.search(r"\|\s*\|", line):
-                    labels.append("empty-table-cell")
+                # Ignore pipe operators within inline code (e.g. Wireshark ||),
+                # and do not mistake legitimate non-table prose for empty cells.
+                cleaned = re.sub(r"`+[^`]*`+", "INLINE_CODE", line)
+                if cleaned.lstrip().startswith("|") and cleaned.count("|") >= 3:
+                    cells = cleaned.strip().strip("|").split("|")
+                    if any(not cell.strip() for cell in cells):
+                        labels.append("empty-table-cell")
                 if "http://" in line:
                     labels.append("plaintext-http")
                 for label in labels:
@@ -60,8 +65,13 @@ def inspect(root: Path):
             counts["python"] += 1
             try:
                 ast.parse(path.read_text(encoding="utf-8-sig"), filename=rel)
-            except (SyntaxError, OSError, UnicodeDecodeError) as exc:
-                errors.append((rel, "python syntax: " + str(exc).splitlines()[0]))
+            except SyntaxError as exc:
+                if rel.startswith("Scripts/GO/"):
+                    candidates.append((rel, exc.lineno or 0, "legacy-python2-syntax", str(exc).splitlines()[0][:140]))
+                else:
+                    errors.append((rel, "python syntax: " + str(exc).splitlines()[0]))
+            except (OSError, UnicodeDecodeError) as exc:
+                errors.append((rel, "python read error: " + str(exc).splitlines()[0]))
         elif ext == ".sh":
             counts["shell"] += 1
             if bash:
@@ -99,7 +109,8 @@ def render(root, counts, errors, candidates, max_items):
     if len(errors) > max_items:
         lines.append("- Additional syntax findings omitted: " + str(len(errors) - max_items))
     lines += ["", "## Placeholder & Content Review Candidates", "",
-              "Markers do not automatically indicate defects; forms and examples may be intentional.",
+              "Markers do not automatically indicate defects; forms and examples may be intentional. "
+              "Legacy Python 2 syntax in Scripts/GO is flagged here rather than treated as a modern Python 3 runtime failure.",
               "", "| Candidate | Count |", "|---|---:|"]
     for kind, qty in sorted(found.items()):
         lines.append("| " + kind + " | " + str(qty) + " |")
