@@ -42,10 +42,10 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 | I Want To... | Start Here |
 |---|---|
-| Learn basic computer & network concepts | [IT Manual](https://pnw-computers.github.io/IT-Manual/) |
-| Choose a learning path by role | [Start Here: Choose Your Path](./START_HERE.md#-choose-your-path) |
-| Find a guide by goal or task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
-| Browse every section | [Navigate By Area](#-navigate-by-area) |
+| Learn Basic Computer & Network Concepts & Technician SOP's | [IT Manual](https://pnw-computers.github.io/IT-Manual/) |
+| Choose A Learning Path By Role | [Start Here: Choose Your Path](./START_HERE.md#-choose-your-path) |
+| Find A Guide By Goal Or Task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
+| Browse Every Section | [Navigate By Area](#-navigate-by-area) |
 
 ---
 
