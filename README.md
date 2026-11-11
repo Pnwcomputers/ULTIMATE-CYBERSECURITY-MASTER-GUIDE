@@ -292,7 +292,11 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
 - **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
-### 🎯 Attack Case Studies (10+ Analyzed):
+### 🎯 Attack Case Studies & Verified Hardware Research:
+
+The [Case Studies Index](./CaseStudies/README.md) organizes sourced hardware, RFID, key-fob and side-channel disclosures with defensive takeaways. Start with [Unsaflok (three million hotel doors)](./CaseStudies/hardware/unsaflok-3m-hotel-locks.md), [Onity](./CaseStudies/hardware/onity-locks-2012.md), [Tesla Key Fob](./CaseStudies/hardware/tesla-model-s-key-fob-2018.md), or [EUCLEAK](./CaseStudies/hardware/eucleak-yubikey-2024.md).
+
+### 🎯 Attack Case Studies (Historical References):
 
 | Incident | Type |
 |---|---|

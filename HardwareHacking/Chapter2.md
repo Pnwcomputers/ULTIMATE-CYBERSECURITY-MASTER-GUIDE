@@ -250,6 +250,7 @@ Poor signal integrity is the most common cause of failed hardware hacking attemp
 ---
 
 ## Related Files
+- [Onity Locks (2012) — Service Interface Case Study](../CaseStudies/hardware/onity-locks-2012.md) - Service-port trust boundaries and fleet remediation
 - [BusPirate.md](BusPirate.md) - Implements the UART/SPI/I2C protocols described in this chapter
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer for capturing the digital signals described in this chapter
 - [LA1010.md](LA1010.md) - Higher-speed logic analyzer for protocols requiring >24MHz capture rate

@@ -80,6 +80,8 @@ Enable blue team operators to quickly find the right IR procedure, log source co
 
 ## 🎯 Overview
 
+For incident interpretation and source-backed historical research, see [Case Studies](../CaseStudies/README.md), including physical access control and security-token incidents.
+
 ![Incident response preparation detection containment recovery and improvement](../assets/diagrams/incident-response-cycle.svg)
 
 *Coordinate containment with business needs and preserve evidence before destructive changes.*
