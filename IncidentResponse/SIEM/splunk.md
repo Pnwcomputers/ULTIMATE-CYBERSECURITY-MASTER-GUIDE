@@ -172,10 +172,15 @@ sudo systemctl status Splunkd
 
 ### Method 2: Docker Installation
 
-Create a `.env` file next to it containing a unique, randomly generated
-`SPLUNK_PASSWORD=...` (at least 8 characters; for example
-`(umask 077; python3 -c "import secrets; print('SPLUNK_PASSWORD=' + secrets.token_urlsafe(24))" > .env)`),
-and never commit it. Compose refuses to start if the variable is missing.
+**Isolated localhost-only lab example (not a production template).** Before running Docker Compose, select and review a supported, explicit Splunk Docker image tag from the [official Splunk Docker images](https://hub.docker.com/r/splunk/splunk/tags); do not rely on an implicit `latest` update. Put `SPLUNK_TAG=YOUR_VERIFIED_TAG` in a private `.env` file, replacing the placeholder with the actual supported tag after checking release notes. Generate a separate unique `SPLUNK_PASSWORD` (at least eight characters) without writing it to terminal history:
+
+```bash
+(umask 077; python3 -c "import secrets; print('SPLUNK_PASSWORD=' + secrets.token_urlsafe(24))" > .env)
+# Add SPLUNK_TAG=<verified image tag> to .env, then protect and never commit it.
+chmod 600 .env
+```
+
+Compose refuses to start if either required value is missing. **This local example cannot be used for remote forwarders or browsers without a separate, reviewed TLS/network configuration.**
 
 Create `docker-compose.yml`:
 
@@ -184,18 +189,20 @@ version: '3.8'
 
 services:
   splunk:
-    image: splunk/splunk:latest
+    image: splunk/splunk:${SPLUNK_TAG:?Set vetted SPLUNK_TAG in .env}
     container_name: splunk
     environment:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=${SPLUNK_PASSWORD:?Set SPLUNK_PASSWORD in .env}
       - SPLUNK_LICENSE_URI=Free
     ports:
-      - "8000:8000"
-      - "8089:8089"
-      - "9997:9997"
-      - "8088:8088"
-      - "514:514/udp"
+      # Loopback-only educational lab. No remote clients, management or ingest
+      # can reach these published ports until separately designed and approved.
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8089:8089"
+      - "127.0.0.1:9997:9997"
+      - "127.0.0.1:8088:8088"
+      - "127.0.0.1:514:514/udp"
     volumes:
       - splunk-var:/opt/splunk/var
       - splunk-etc:/opt/splunk/etc
@@ -215,39 +222,26 @@ docker compose logs -f
 
 ### Step 2.6: Access Splunk Web
 
-Open your browser:
+On the **Docker host only**, open `http://127.0.0.1:8000` for this isolated lab. Because plaintext HTTP is used here, do not put credentials on an untrusted network, forward the port to the internet, or use this URL remotely. For remote management, enable supported Splunk Web TLS with a trusted certificate and use a restricted management path (for example, a reviewed VPN or SSH tunnel). See [Splunk Web HTTPS configuration](https://help.splunk.com/en/splunk-enterprise/administer/manage-users-and-security/9.2/secure-communications-between-splunk-web-and-your-browser/turn-on-https-encryption-for-splunk-web-using-the-web.conf-configuration-file) and [Docker Compose port binding behavior](https://docs.docker.com/reference/compose-file/services/).
 
-```
-http://<SERVER-IP>:8000
-```
-
-Login with the credentials you created during installation.
+This demonstration binds all listed host ports to loopback. If you need real forwarders, syslog or HEC clients, design **separate** limited ingress with source-IP restrictions, TLS, explicit credentials and data-retention controls before changing any bind addresses.
 
 ---
 
 ## 🔥 Part 3: Firewall Configuration
 
-### UFW (Ubuntu)
+**Default: no inbound rules are needed for the localhost-only Docker example.** Do not apply blanket allow rules to TCP 8000/8089/9997/8088 or UDP 514. Publishing Docker ports on all interfaces can bypass assumptions about host firewalls.
+
+For an approved **non-lab** deployment, create a narrowly scoped ingress plan and validate it with a separate authorized client. On a host with UFW, a scoped forwarder rule can look like this **only after substituting an actual approved source**:
 
 ```bash
-sudo ufw allow 8000/tcp comment "Splunk Web UI"
-sudo ufw allow 8089/tcp comment "Splunk Management"
-sudo ufw allow 9997/tcp comment "Splunk Forwarder Receiving"
-sudo ufw allow 8088/tcp comment "Splunk HEC"
-sudo ufw allow 514/udp comment "Syslog"
-sudo ufw reload
+# Example documentation address: replace 192.0.2.20 with an approved forwarder IP.
+# Apply only after changing the Docker binding and enabling supported TLS.
+sudo ufw allow from 192.0.2.20 to any port 9997 proto tcp comment "Approved Splunk forwarder"
+sudo ufw status numbered
 ```
 
-### Firewalld (RHEL/CentOS)
-
-```bash
-sudo firewall-cmd --permanent --add-port=8000/tcp
-sudo firewall-cmd --permanent --add-port=8089/tcp
-sudo firewall-cmd --permanent --add-port=9997/tcp
-sudo firewall-cmd --permanent --add-port=8088/tcp
-sudo firewall-cmd --permanent --add-port=514/udp
-sudo firewall-cmd --reload
-```
+For firewalld, use an appropriate source-restricted zone or rich rule instead of broad `--add-port` on the public zone. Splunk Web (8000) and management (8089) should normally stay on a restricted administration path; HEC (8088) requires authenticated HTTPS and explicit clients, and syslog (514) needs its own trusted-source and encryption plan. Do not assume firewall changes alone override Docker-published port behavior.
 
 ---
 
@@ -264,7 +258,8 @@ sudo firewall-cmd --reload
 Or via CLI:
 
 ```bash
-sudo -u splunk /opt/splunk/bin/splunk enable listen 9997 -auth admin:YourPassword
+# Use interactive authentication; avoid placing passwords in shell arguments/history.
+sudo -u splunk /opt/splunk/bin/splunk enable listen 9997
 ```
 
 ### Step 4.2: Configure Syslog Input

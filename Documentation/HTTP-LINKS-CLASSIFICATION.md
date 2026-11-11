@@ -2,7 +2,7 @@
 
 _Reviewed November 11, 2026 · This document describes classifications and corrected examples. It does **not** claim that every public URL was reachable or content-verified._
 
-The [Link Check workflow](../.github/workflows/link-check.yml) verifies relative paths and anchors on pull requests. Its online job runs on schedule/manual dispatch, accepts selected bot-blocking HTTP statuses, and is **informational**. A green PR therefore does not certify vendor uptime, firmware maintenance, safe installer binaries, or current terms.
+The [Link Check workflow](../.github/workflows/link-check.yml) verifies relative paths and anchors on pull requests. Its online job runs on schedule/manual dispatch, flags 401/403/429 for follow-up instead of treating them as passing, and is **informational**. A green PR therefore does not certify vendor uptime, firmware maintenance, safe installer binaries, or current terms.
 
 ## HTTP Reference Dispositions
 

@@ -29,7 +29,7 @@ As of the baseline commit: **857 tracked paths**, including **361 Markdown**, **
 | Gate | What it does | What it does **not** prove |
 |---|---|---|
 | Internal link workflow | Offline relative paths and heading fragments across Markdown | External sites still exist, are trustworthy, or explain current versions |
-| External link workflow | Scheduled/manual online link sweep; currently **informational** | A green push/PR means that external resources passed; 401/403/429 are explicitly accepted |
+| External link workflow | Scheduled/manual online link sweep; currently **informational** | A green push/PR means that external resources passed; 401/403/429 are marked unresolved for review and the online job remains informational |
 | Markdown lint | Markdown formatting of files selected by the workflow | An embedded command is executable or operationally safe |
 | ShellCheck / `bash -n` | Shell syntax and selected warning-level patterns for selected scripts | Third-party binaries, package availability, network success, correct runtime output |
 | Python hardening fixtures | Known OSINT/installer regressions for test-specified cases | Every Python file or every external service integration |

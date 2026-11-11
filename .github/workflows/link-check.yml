@@ -43,6 +43,7 @@ jobs:
   external-links:
     # Full online sweep. Informational only (external hosts rate-limit / block
     # bots), so it never fails the build - review the summary in the run log.
+    # Responses 401/403/429 are now REVIEW REQUIRED rather than false passes.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     name: External links (online, informational)
@@ -56,6 +57,6 @@ jobs:
           args: >-
             --no-progress
             --max-retries 2
-            --accept 200,201,202,206,301,302,401,403,429
+            --accept 200,201,202,206,301,302
             './**/*.md'
           fail: false
