@@ -250,15 +250,22 @@ We welcome contributions from security professionals and researchers.
 ---
 
 ## 📊 Repository Statistics
-* **Current Files:** 22 documents
-* **Last Updated:** June 2026
+* **Inventory status:** Dynamic; use this index and the GitHub directory listing rather than a stale hard-coded document count.
+* **Index reviewed:** November 11, 2026 (navigation and editorial status, not every external URL or command).
 * **Maintained by:** Pacific Northwest Computers (PNWC)
-* **Status:** Active & Growing
+* **Status:** Actively maintained; see the [verification protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) for evidence levels.
 
 ---
 
-## 🔨 Future Documents (Coming Soon)
-* **Architecture:** Zero Trust, DMZ Design, Security Architecture.
+## 🏗️ Architecture & Future Coverage
+
+| Topic | Available starting point | Remaining validation or expansion |
+|---|---|---|
+| Zero Trust | [NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final) and [Cloud Security](../Cloud/README.md) | Add a vendor-neutral, end-to-end identity/device/policy lab before claiming a complete implementation. |
+| DMZ & Network Segmentation | [Homelab](../Homelab/README.md) and [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) | Add an example ruleset with explicit trust boundaries, default-deny verification, and rollback evidence. |
+| Security Architecture | [Container Security](../ContainerSecurity/README.md), [Compliance](../Compliance/README.md), and [Incident Response](../IncidentResponse/README.md) | Add a threat-model-to-control mapping and an independently reviewed architectural decision record. |
+
+These are scoped coverage gaps, not nonexistent documents or promises of completed labs.
 
 ---
 
