@@ -114,7 +114,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | [Device Firmware List](./Documentation/device-firmware-list.md) | Hardware-first firmware and installation choices |
 | [ESP32 & Related Firmware Catalog](./Documentation/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
-| **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
+| **[Device-First Firmware References](firmware-hardware-compatibility.md)** | Current source links; check exact board and release support upstream |
 
 ---
 
