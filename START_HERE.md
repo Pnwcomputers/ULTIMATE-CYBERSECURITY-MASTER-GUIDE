@@ -213,7 +213,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 
 | Step | Guide / Activity |
 |---|---|
-| 1 | [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology, 400+ tools |
+| 1 | [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology and a categorized tool catalog |
 | 2 | [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md); IOC operationalization, threat intel platforms |
 | 3 | [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md); OSINT section |
 | 4 | [Scripts/Python](Scripts/README.md); OSINT automation |
