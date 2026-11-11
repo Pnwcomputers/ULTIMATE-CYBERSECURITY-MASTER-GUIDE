@@ -1,0 +1,3 @@
+{"test_id":"synthetic-positive","source":"fixture-wazuh","kind":"telemetry","timestamp":"2026-11-11T16:00:01Z"}
+{"test_id":"synthetic-positive","source":"fixture-wazuh","kind":"alert","timestamp":"2026-11-11T16:00:02Z","rule_id":"100301"}
+{"test_id":"synthetic-benign","source":"fixture-wazuh","kind":"telemetry","timestamp":"2026-11-11T16:00:01Z"}
