@@ -305,11 +305,21 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 
 ### 🔧 Hardware Arsenal Documented:
 
-| Multi-Tool | Reference |
+| Device | Reference |
 |---|---|
 | Flipper Zero | [Project](https://flipper.net/) |
 | WiFi Pineapple | [Product](https://shop.hak5.org/products/wifi-pineapple) |
 | Proxmark3 | [Project](https://proxmark.com/) |
+| Bus Pirate | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/BusPirate.md) |
+| GreatFET One | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/GreatFETone.md) |
+| JTAGulator | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/JTAGulator.md) |
+| Bit Pirate | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/BitPirate.md) |
+| ESP32 Bit Pirate | [Lab Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/esp32-bit-pirate.md) |
+| Innomaker LA1010 Logic Analyzer | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/LA1010.md) |
+| HiLetgo USB Logic Analyzer | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/HiLetgo.md) |
+| T48 / TL866-3G IC Programmer | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/T48_TL866-3G.md) |
+| M5StickC Plus2 | [HackStarterPack Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/m5stickc-plus2-hackstarterpack.md) |
+| Raspberry Pi Pico / Pico-Ducky | [Lab Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/pico-ducky-lab.md) |
 
 ### 📟 uConsole & Portable Operations:
 
