@@ -7,6 +7,8 @@ _Last reviewed: 2026-10-31 · Passive detection only · Python 3.10+ · Wazuh 4.
 
 **Optional embedded context:** [ESP32-S3 honeypots](../HoneyPot/esp32-s3-honeypots.md) include ShadowSentry's device-level Wi-Fi disconnect monitor and HoneyMire's SSH/Telnet decoy. They do not replace a fixed-channel Kismet sensor and need separately validated telemetry before Wazuh correlation.
 
+> **Rule integrity correction (2026-11-11):** Previously a Wazuh `<rule>` was inadvertently nested inside a `<group>` label. The source files are repaired and covered by offline structural/synthetic-fixture tests. If you deployed an earlier copy, review your manager's installed rule files. Offline tests **do not** prove Wazuh manager success. Use the [Wazuh Synthetic Rule Validation Runbook](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) before approved deployment.
+
 ## Outcome and architecture
 
 Install a fixed-channel Kismet Wi-Fi sensor. A small **read-only** bridge converts Kismet REST alerts into newline-delimited JSON; a Wazuh agent forwards these to the manager, which applies custom severity and recurring-alert rules. Optional **offline** tools count deauth/disassociation frames from an existing PCAP and correlate the frame counts with Kismet alerts by claimed BSSID and time.

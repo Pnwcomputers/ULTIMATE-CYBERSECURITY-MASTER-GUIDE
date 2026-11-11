@@ -8,6 +8,8 @@ The [minimal HTTP decoy](./lab/diy_http_decoy.py) supplies a tiny, inspectable, 
 
 Use [OpenCanary](./opencanary.md) instead for multiple believable simulated services, and [Cowrie](./cowrie.md) for SSH/Telnet session emulation. This deliberately simple source is useful for teaching log capture, access control and Wazuh event decoding without adding a large dependency stack.
 
+> **Rule integrity correction (2026-11-11):** Previously a Wazuh `<rule>` was inadvertently nested inside a `<group>` label. The source files are repaired and covered by offline structural/synthetic-fixture tests. If you deployed an earlier copy, review your manager's installed rule files. Offline tests **do not** prove Wazuh manager success. Use the [Wazuh Synthetic Rule Validation Runbook](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) before approved deployment.
+
 ## Isolation
 
 ~~~text
