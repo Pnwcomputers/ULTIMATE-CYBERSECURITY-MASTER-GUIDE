@@ -57,6 +57,8 @@ to learn in the field.
 
 ## Part 1 — Measurement worksheet
 
+Every blank Entry cell is **intentional private operator input**, not a missing instrument specification or an example of an actual result. Supply readings and metadata from the device you used, with units, firmware and observation time; write **Not measured** for skipped measurements and **Not recorded** for unknown history. Never copy a worked-example sweep into a client record as if it came from an analyzer.
+
 Copy this section for each test. The metadata block is not bureaucracy: a sweep
 without its calibration plane, cable set and antenna geometry recorded is not
 comparable to anything, which means it cannot serve as a baseline, which was

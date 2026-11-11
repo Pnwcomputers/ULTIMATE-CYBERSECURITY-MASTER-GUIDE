@@ -237,6 +237,8 @@ curl -s "https://www.virustotal.com/api/v3/ip_addresses/185.234.72.19" \
 
 #### Step 2: Document IP Intelligence
 
+Fill this table from actual time-stamped, source-attributed lookups. Write **Not assessed** for missing fields; do not equate registration country or rough geolocation with an individual's location or identity. Do not query external reputation APIs with sensitive client indicators without approval.
+
 | Field | Finding |
 |-------|---------|
 | IP Address | |
@@ -775,6 +777,8 @@ AzureActivity
 | Was data exfiltrated? | DLP logs, network egress |
 
 ### 5.3 Impact Assessment Matrix
+
+Mark each box **only** after checking access and audit logs. For unknown outcomes, leave the checkbox unselected and write **Not assessed** in Impact with evidence needed; a blank is not proof that data was protected or exfiltrated. Keep case-specific evidence confidential.
 
 | Data Type | Accessed | Downloaded | Sent Externally | Impact |
 |-----------|----------|------------|-----------------|--------|

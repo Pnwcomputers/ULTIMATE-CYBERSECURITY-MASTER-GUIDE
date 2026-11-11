@@ -65,7 +65,9 @@ The [Freedom of the Press Foundation's guide on raids](https://freedom.press/dig
 - **Record chain of custody, legal notices and actions taken.** Preserve originals when required; use clean replacement devices and documented restoration.
 - **Review the risk model.** Determine whether additional spyware triage, travel policy, device segmentation or source-protection training is necessary.
 
-## Incident response record template
+## Incident Response Record Template
+
+**Private operator-fill record:** Record an authorized incident number, actual dates, actions and responsible contacts. Use **Not known** or **Not recorded** where evidence is missing; do not imply a person is safe, device is recovered or a source was contacted without confirmation. Keep legal advice, source identities and custody records in secured case storage.
 
 | Field | Fill in |
 |---|---|
