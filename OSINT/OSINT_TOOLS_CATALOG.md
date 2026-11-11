@@ -60,7 +60,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 ### 1. INTERNET SCANNING & ATTACK SURFACE
 * [**SHODAN**](https://www.shodan.io/): Obtain information from SHODAN about identified IP addresses. *(Free tier · key)*
 * [**Censys**](https://censys.com/): Obtain host information from Censys.io. *(Free tier · key)*
-* [**BinaryEdge**](https://www.binaryedge.io/): Obtain information on breaches, vulnerabilities, torrents and passive DNS. *(Free tier · key)*
+* [**BinaryEdge**](https://app.binaryedge.io): Obtain information on breaches, vulnerabilities, torrents and passive DNS. *(Free tier · key)*
 * [**Onyphe**](https://www.onyphe.io): Check Onyphe data (threat list, geo-location, pastries, vulnerabilities)  about a given IP. *(Free tier · key)*
 * [**LeakIX**](https://leakix.net/): Search LeakIX for host data leaks, open ports, software and geoip. *(Free · key)*
 * [**FullHunt**](https://fullhunt.io/): Identify domain attack surface using FullHunt API. *(Free tier · key)*
@@ -79,7 +79,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**CertSpotter**](https://sslmate.com/certspotter/): Gather information about SSL certificates from SSLMate CertSpotter API. *(Free tier · key)*
 * [**ViewDNS.info**](https://viewdns.info/): Identify co-hosted websites and perform reverse Whois lookups using ViewDNS.info. *(Free tier · key)*
 * [**JsonWHOIS.com**](https://jsonwhois.com): Search JsonWHOIS.com for WHOIS records associated with a domain. *(Free tier · key)*
-* [**SpyOnWeb**](http://spyonweb.com/): Search SpyOnWeb for hosts sharing the same IP address, Google Analytics code, or Google Adsense code. *(Free tier · key)*
+* **SpyOnWeb (historical reference; unavailable/unverified):** Previous service URL is insecure and could not be verified. Use [ViewDNS](https://viewdns.info/) or another approved provider for co-host research; corroborate results independently.
 * [**WhoisXML API**](https://www.whoisxmlapi.com/): WHOIS Data & Domain Research
 * [**DNSDumpster**](https://dnsdumpster.com/): DNS Mapping
 * [**URLScan.io**](https://urlscan.io/): Website Analysis

@@ -382,7 +382,7 @@ suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
 - **Zeek docs:** [docs.zeek.org](https://docs.zeek.org)
 - **Emerging Threats rules:** [rules.emergingthreats.net](https://rules.emergingthreats.net)
 - **OPNsense IDS/IPS documentation:** [docs.opnsense.org](https://docs.opnsense.org)
-- **NIDS test endpoint:** [testmynids.org](http://testmynids.org)
+- **Historical optional NIDS test endpoint:** `http://testmynids.org` (availability timed out in the November 11, 2026 online audit; not mandatory proof). Prefer an offline, approved PCAP with a matching rule.
 
 ---
 
@@ -393,7 +393,7 @@ suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
 - [IncidentResponse/SIEM/wazuh.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/wazuh.md) - Forward Suricata/Zeek alerts into a SIEM for correlation and dashboards
 - [IncidentResponse/log_agg.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/log_agg.md) - Centralized log collection, including firewall log forwarding
 - [Homelab/HomeLab_Setup.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Homelab/HomeLab_Setup.md) - VLAN segmentation and firewall placement context for a lab deployment
-- [IncidentResponse/IDS/nzyme_wids.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/IDS/nzyme_wids.md) - The wireless-domain counterpart to this wired/network IDS/IPS guide
+- [IncidentResponse/IDS/nzyme_wids.md](nzyme-wazuh-integration.md) - The wireless-domain counterpart to this wired/network IDS/IPS guide
 
 ---
 

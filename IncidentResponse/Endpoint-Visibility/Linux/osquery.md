@@ -105,7 +105,7 @@ sudo yum install -y osquery
 
 #### Method 1: MSI Installer
 
-Download from [osquery.io/downloads](https://osquery.io/downloads/):
+Download from [osquery.io/downloads](https://github.com/osquery/osquery/releases):
 
 ```powershell
 # Download installer

@@ -203,7 +203,7 @@ Every space system consists of three interdependent segments. A compromise of an
 |------|---------|-------|
 | [**binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction | Standard first step for terminal analysis |
 | [**QEMU**](https://www.qemu.org/) | Firmware emulation | Dynamic analysis of extracted binaries |
-| [**Ghidra**](https://github.com/NationalSecurityAgency/ghidra/) / [**IDA**](https://hex-rays.com/ida-pro/) | Reverse engineering | Static analysis of FSW and terminal firmware |
+| [**Ghidra**](https://github.com/NationalSecurityAgency/ghidra/) / [**IDA**](https://hex-rays.com/ida-pro) | Reverse engineering | Static analysis of FSW and terminal firmware |
 
 ---
 
@@ -293,7 +293,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 | [DEF CON Aerospace Village](https://aerospacevillage.org/) | Aerospace security community and talks |
 | [IOActive: SATCOM Security](https://ioactive.com/resources/white-papers/) | Pre-auth RCE research across major SATCOM vendors (2014, 2020) |
 | [Black Hat 2020: Ruben Santamarta](https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511) | Revisited SATCOM vulnerabilities; aviation implications |
-| [DEFCON 30 (2022): Starlink](https://www.youtube.com/watch?v=UJgnFSsV2bY) | Physical fault injection; custom firmware execution |
+| DEF CON 30 (2022): Starlink (original video unavailable on 2026-11-11) | Historical physical fault-injection research; locate verified original recording before citing playback |
 
 ### Online Resources
 
