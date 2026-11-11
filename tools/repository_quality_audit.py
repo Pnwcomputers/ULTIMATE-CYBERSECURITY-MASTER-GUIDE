@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 SKIP = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache"}
-MARKER = re.compile(r"^(?:\\s*(?:[-*]\\s+)?(?:#+\\s+)?(?:TODO|TBD|FIXME)\\s*[:—-]|.*\\bCOMING SOON\\b|.*\\bTO BE (?:RECORDED|ASSIGNED|CONFIRMED|ADDED)\\b)", re.I)
+MARKER = re.compile(r"^(?:\s*(?:[-*]\s+)?(?:#+\s+)?(?:TODO|TBD|FIXME)\s*[:—-]|.*\bCOMING SOON\b|.*\bTO BE (?:RECORDED|ASSIGNED|CONFIRMED|ADDED)\b)", re.I)
 LINK = re.compile(r"\[(?:link|CVE-XXXX-XXXX)\](?!\()", re.I)
 FENCE = re.compile(r"^ {0,3}(" + r"(?:\x60){3,}|~{3,}" + r")")
 
