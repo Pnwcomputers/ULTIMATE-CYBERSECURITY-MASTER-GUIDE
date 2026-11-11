@@ -680,7 +680,8 @@ asn 1.2.3.4
 #### Step 2: Geolocation
 ~~~bash
 # Free, no API key
-curl -s "http://ip-api.com/json/1.2.3.4" | jq
+curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' "https://rdap.org/ip/8.8.8.8" | jq
+# RDAP returns registration and allocation data, NOT physical geolocation or proxy detection.
 
 # Cleaner output, free tier
 curl -s "https://ipinfo.io/1.2.3.4" | jq
