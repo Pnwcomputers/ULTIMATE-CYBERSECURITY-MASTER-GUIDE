@@ -230,7 +230,7 @@ This documentation is provided for educational purposes in controlled environmen
 * Intercepting communications without authorization.
 * Using anonymity tools for illegal activities.
 
-> **Legal Note:** Wireless network testing without authorization is **ILLEGAL** under the Computer Fraud and Abuse Act (CFAA) and the Wiretap Act. Penalties include up to 10 years imprisonment and heavy fines.
+> **Legal Note:** Unauthorized access to networks or interception of communications can violate federal, state and local laws, including the CFAA and applicable wiretap laws. The legal consequences depend on jurisdiction and conduct. Obtain written authorization and an agreed scope before testing; see [Legal Notice](../LEGAL.md).
 
 ---
 
