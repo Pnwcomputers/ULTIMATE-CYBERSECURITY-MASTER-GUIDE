@@ -3,9 +3,9 @@
 Repository: Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE
 Working branch: security/review-remediation
 Prepared: 2026-10-12
-Status: DRAFT — implementation and validation tracking
-Base commit: TO BE RECORDED
-Review owner: TO BE ASSIGNED
+Status: HISTORICAL DRAFT — this October 2026 review is not a certification of the current tree
+Historical base commit: Not recorded at the time; cannot safely infer it now
+Historical review sign-off: Not recorded; current repository maintainer should re-evaluate before closure
 
 ## 1. Scope and limitations
 
