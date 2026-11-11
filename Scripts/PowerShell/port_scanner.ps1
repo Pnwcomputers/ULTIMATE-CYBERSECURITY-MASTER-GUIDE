@@ -4,16 +4,24 @@
 
 param(
     [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
     [string]$Target,
     
     [Parameter(Mandatory=$true)]
+    [ValidateRange(1, 65535)]
     [int]$StartPort,
     
     [Parameter(Mandatory=$true)]
+    [ValidateRange(1, 65535)]
     [int]$EndPort,
     
+    [ValidateRange(1, 30000)]
     [int]$Timeout = 1000
 )
+
+if ($StartPort -gt $EndPort) {
+    throw 'StartPort must be less than or equal to EndPort.'
+}
 
 Write-Host "=== PowerShell Port Scanner ===" -ForegroundColor Cyan
 Write-Host "[+] Target: $Target" -ForegroundColor Green
@@ -22,7 +30,7 @@ Write-Host "[+] Timeout: $Timeout ms`n" -ForegroundColor Green
 
 $openPorts = @()
 
-$StartPort..$EndPort | ForEach-Object {
+($StartPort..$EndPort) | ForEach-Object {
     $port = $_
     $socket = New-Object System.Net.Sockets.TcpClient
     
@@ -42,7 +50,7 @@ $StartPort..$EndPort | ForEach-Object {
     }
     
     # Progress indicator
-    if ($port % 50 == 0) {
+    if (($port -mod 50) -eq 0) {
         Write-Host "[*] Scanned up to port $port..." -ForegroundColor Yellow
     }
 }
