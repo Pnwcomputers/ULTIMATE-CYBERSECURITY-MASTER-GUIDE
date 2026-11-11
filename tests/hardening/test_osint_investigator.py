@@ -107,6 +107,29 @@ class CaseStateIntegration(Base):
         self.assertTrue((self.home / "OSINT_Cases" / "NEW-1" / ".case_state.json").exists())
 
 
+class IndicatorInputIntegration(Base):
+    def test_interactive_domain_input_persists_in_case_state(self):
+        r = self.sh('''
+            CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/I1"
+            CASE_ID=I1; CASE_DIR="$CASE_BASE_DIR/I1"
+            printf '3\\nexample.org\\n\\n0\\n' | edit_case_indicators >/dev/null
+            DOMAINS=(); load_case I1 >/dev/null
+            printf 'domain=%s\\n' "${DOMAINS[0]}"
+        ''')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("domain=example.org", r.stdout)
+        self.assertTrue((self.home / "OSINT_Cases" / "I1" / ".case_state.json").exists())
+
+    def test_invalid_ip_indicator_is_refused_before_save(self):
+        r = self.sh('''
+            CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/I2"
+            CASE_ID=I2; CASE_DIR="$CASE_BASE_DIR/I2"
+            printf '4\\nnot-an-ip\\n\\n0\\n' | edit_case_indicators
+        ''')
+        self.assertIn("Invalid IP indicator", r.stdout + r.stderr)
+        self.assertFalse((self.home / "OSINT_Cases" / "I2" / ".case_state.json").exists())
+
+
 class EvidenceIntegration(Base):
     def prepare_case(self):
         return ('CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/E1"; '
