@@ -1,78 +1,89 @@
-# Frequently Asked Questions
+# OSINT Investigator — Frequently Asked Questions
 
-## General
+_Reviewed: 2026-11-11 against the current source tree. This is a feature/usage review, not a live API or compatibility certification._
 
-**Q: What is PNWC-OSINT for?**
-A: It's a toolkit for investigating scam operations, phishing infrastructure, and fraudulent domains. Primary use cases are generating abuse reports for IC3, domain registrars, and hosting providers.
+## General & Scope
 
-**Q: Is this legal to use?**
-A: The toolkit is for authorized security research and fraud investigation only. You must have authorization before scanning any system or using API data for targets. See the Legal Disclaimer in the README.
+**What is the PNWC OSINT toolkit for?**
 
-**Q: Where do I start?**
-A: Run `./playbook/osint_investigator.sh` — it's an interactive menu that walks you through creating a case, adding targets, running investigations, and generating reports.
+It is a collection of manual and partially automated investigation workflows for authorized research into domains, IP allocations, public technical records, emails, usernames, and possible scam infrastructure. The main menu is **not** an autonomous investigator or a forensic evidence certification system. Start with the [Investigator Playbook feature matrix](../Playbook/README.md) and the [manual investigation guide](../Playbook/investigation_guide.md).
 
----
+**Is the toolkit legal to use?**
 
-## Installation
+Lawful use depends on the activity, jurisdiction, data, provider terms, and authorization. Passive public research, queries that transmit information to outside providers, active scans, interception, and testing third-party infrastructure have different requirements. Do not scan or retrieve personal data outside an approved scope. See [LEGAL.md](../../LEGAL.md).
 
-**Q: What Linux distros are supported?**
-A: Tsurugi Linux (recommended), Kali, Ubuntu 22.04+, Debian 12+, Parrot OS, and Arch/Manjaro. See [docs/COMPATIBILITY.md](COMPATIBILITY.md).
+**Where do I start?**
 
-**Q: The installer fails on my system — what do I do?**
-A: Run `./playbook/osint_investigator.sh --status` to see which tools are missing, then install them manually. The [Installation Guide](INSTALLATION.md) has per-tool instructions.
+From the repository root, run `cd OSINT/Playbook && bash osint_investigator.sh --help`. For the interactive menu, run `bash osint_investigator.sh`. Create or load a case, use **Edit Case Indicators** to enter approved values, then run a selected investigation. Review metadata and any failed or skipped lookups before drawing conclusions.
 
-**Q: Do I need all the tools installed?**
-A: No. The scripts gracefully skip tools that aren't installed and warn you. At minimum you need `nmap`, `whois`, `curl`, and `jq` for basic recon. The more tools you have, the richer the output.
+## Installation & Compatibility
 
----
+**Which Linux distributions are supported?**
 
-## API Keys
+The [Compatibility Guide](COMPATIBILITY.md) documents intended distributions. Treat platform lists as compatibility targets, not proof that every external program was installed and run on each currently available release. Check the individual tool's system requirements and versions.
 
-**Q: Which APIs are required?**
-A: None are strictly required — the toolkit degrades gracefully. However, Shodan, VirusTotal, and AbuseIPDB provide the most value and all have free tiers.
+**Must I install every optional tool?**
 
-**Q: Where do I put my API keys?**
-A: Copy `playbook/api_keys.conf` to `~/.config/osint-investigator/api_keys.conf`, fill in your keys, and `chmod 600` the file. Or run `./playbook/osint_investigator.sh --config` for an interactive prompt.
+No. The main case menu requires Bash and Python 3; optional collectors such as Holehe, PhoneInfoga, Maigret, Sherlock, WHOIS, and `dig` require their respective binaries. Missing tools are skipped or recorded as `not_run`. `nmap` is not a required prerequisite merely to create a case or run a passive DNS collection.
 
-**Q: I'm hitting API rate limits — what should I do?**
-A: Use `-q` (quick mode) with `scammer_audit.sh` to reduce API calls. The script already includes 1-second delays between requests. If limits persist, check your API plan tier.
+**How should I install dependencies?**
 
----
+Review [Installation](INSTALLATION.md), [PINNING.md](../../Scripts/PINNING.md), and the [installer source](../Playbook/install_dependencies.sh). Run the installer as an ordinary user, **not** with `sudo`; package operations may request approval. Avoid unreviewed third-party install commands, and do not assume a pinned top-level package locks all transitive dependencies.
 
-## Usage
+## API Keys & Data Sharing
 
-**Q: What's the difference between `osint_investigator.sh` and `scammer_audit.sh`?**
-A: `osint_investigator.sh` is the main interactive playbook — it manages cases, runs all investigation types, and generates reports. `scammer_audit.sh` is a standalone domain/IP audit script you can pipe into other workflows.
+**Are API keys required?**
 
-**Q: How do I investigate a scam email?**
-A: Create a case in `osint_investigator.sh`, add the email under "Email Investigation", and add the sending domain/IP under "Domain" and "IP". Run all investigations, then use Reports → Generate Abuse Report to get a ready-to-submit document.
+They are optional for some workflows and essential for others. The available providers, quotas, terms, and subscription requirements may change. A missing key, rate limit, blocked provider, or nonzero exit must be recorded as unavailable or incomplete, **not** as a negative finding.
 
-**Q: Can I scan multiple targets at once?**
-A: Yes — use `scammer_audit.sh -i ip1,ip2,ip3 -p` for parallel IP scanning, or add multiple targets in the investigator playbook and use "Run All Investigations."
+**Where are API keys stored?**
 
-**Q: Where is the output saved?**
-A: Case data saves to `~/OSINT_Cases/<CASE_ID>/`. Raw API/tool output goes in `raw_data/`, processed reports in `reports/`.
+The main script supports `bash osint_investigator.sh --config` and a private local `~/.config/osint-investigator/api_keys.conf`. Keep the file user-owned and private (`chmod 600`) and do not commit it. Follow the actual installer/help output rather than older references to a `playbook/api_keys.conf` template.
 
----
+**What information is shared externally?**
+
+Any API call can disclose the submitted domain, IP address, email, phone, username, and request metadata to the provider. The main IP workflow now uses HTTPS RDAP for **network registration**, not geolocation, and still shares the queried IP with the provider. Check provider terms and engagement permissions before a lookup.
+
+## Investigation Workflow
+
+**What's the difference between `osint_investigator.sh` and `scammer_audit.sh`?**
+
+The first is a case-oriented interactive menu with selected evidence-preserving lookups and JSON state. The separate `scammer_audit.sh` script can run broader investigations and active scans with different prerequisites and risks. Treat the latter as a **separate assessment tool** requiring its own authorization, target validation, and test results.
+
+**How do I investigate a suspicious email?**
+
+Create a case, use the **Edit Case Indicators** menu to save the address (and any separately authorized domain/IP indicators), then choose Email Investigation. Optional provider commands may be absent or incomplete. Verify every result independently; do not infer that a person controls an account solely from an automated match.
+
+**Can I enter multiple targets?**
+
+Yes, in the case indicator editor. It accepts multiple entries per category and saves the validated case state. The independent `scammer_audit.sh` offers its own command-line options; check `--help` and **do not** run active network scans against unapproved addresses.
+
+**Where is output stored?**
+
+Case-specific metadata, reports, raw tool stdout/stderr, checksums and run statuses are kept under `~/OSINT_Cases/<CASE_ID>/`. Restrict access and retention according to the investigation. Check the `complete`, `partial`, and `not_run` statuses before describing a collection as finished.
+
+**Does the Reports menu generate all displayed reports?**
+
+No. Its **A** option launches the separate abuse-report generator if present and executable. The numbered report actions are not wired up in the current main script. Generated reports require human review; never present them as automatically verified or accepted by a registry or agency.
 
 ## Troubleshooting
 
-**Q: `holehe` returns no results for a known email.**
-A: Holehe checks account registration via password-reset flows. Many platforms now block or rate-limit these checks. Results are best-effort — a negative result doesn't mean the account doesn't exist.
+**Why did Holehe or another lookup return nothing?**
 
-**Q: `theHarvester` says "Missing API key."**
-A: theHarvester reads from `~/.theHarvester/api-keys.yaml`. See [docs/INSTALLATION.md](INSTALLATION.md) for setup instructions.
+The provider might block enumeration, be rate-limited or unavailable, or the tool may fail. Inspect stderr, exit status, and evidence metadata. A non-result is not proof of account absence.
 
-**Q: nmap scans fail without root.**
-A: Some nmap scan types (SYN scan, OS detection) require root. Run with `sudo`, or use the investigator's built-in sudo handling.
+**How do I fix a missing tool?**
 
-**Q: The web interface won't start.**
-A: Ensure Flask is installed (`pip3 install flask`), then run `./playbook/osint_investigator.sh --web`. It binds to `http://localhost:5000` by default.
+Use `bash osint_investigator.sh --status`, then check the specific installer and the corresponding vendor's supported installation process. Do not install obsolete interpreters merely to run an archived sample.
 
----
+**Do I need root for Nmap?**
 
-## Contact & Support
+Some Nmap modes require elevated privileges or capabilities; the OSINT case menu does not grant general sudo permission automatically. Choose a compatible unprivileged scan or obtain separately approved privileges when warranted.
 
-- **Bugs / Issues**: Open a GitHub issue
-- **Security issues**: Email [support@pnwcomputers.com](mailto:support@pnwcomputers.com) — do not open a public issue
-- **General support**: [support@pnwcomputers.com](mailto:support@pnwcomputers.com)
+**Why won't the web UI launch?**
+
+`--web` is recognized, but `web_interface.py` is **not included** in the current repository. Installing Flask alone will not create it. Use the terminal menu until an actual, secured web interface has been implemented and tested.
+
+## Related References
+
+[OSINT Index](../README.md) · [Investigator Playbook](../Playbook/README.md) · [Verification Protocol](../../Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) · [Main Index](../../README.md)
