@@ -68,7 +68,7 @@ Frequency is a clue—not a protocol identification. Several unrelated protocols
 | **BLE / 802.15.4 / Z-Wave sniffer** | Protocol-aware capture | Verify PHY, firmware, channel-following, and decryption support. One receiver may miss other channels. |
 | **UHF RFID reader / UWB development kit** | Backscatter inventory or wideband ranging analysis | Dedicated hardware is generally required for practical protocol work. |
 
-Sources: [HackRF One specifications](https://hackrf.readthedocs.io/en/latest/hackrf_one.html), [RTL-SDR Blog V4](https://www.rtl-sdr.com/rtl-sdr-blog-v4-dongle-initial-release/), [TI CC1101](https://www.ti.com/product/CC1101), [NXP PN532](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN).
+Sources: [HackRF One specifications](https://hackrf.readthedocs.io/en/latest/hackrf_one.html), [RTL-SDR Blog V4](https://www.rtl-sdr.com/rtl-sdr-blog-v4-dongle-initial-release/), [TI CC1101](https://www.ti.com/product/CC1101), [NXP PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf).
 
 **Protect the receiver:** Verify the device's maximum RF input and any bias-tee voltage before connecting equipment. A nearby transmitter or RFID reader can overload a front end. Direct cable connections require a calculated attenuation arrangement, not just an SMA cable.
 
@@ -116,7 +116,7 @@ Protocol references: [NFC Forum technology](https://nfc-forum.org/learn/nfc-tech
 | **144.390 — North American example center** | APRS terrestrial packet | Commonly 1200 baud AFSK AX.25 over FM | Dire Wolf; other regions use other frequencies |
 | **144.800 — European example center** | APRS terrestrial packet | Commonly 1200 baud AFSK AX.25 over FM | Verify local band plan |
 
-Sources: [NIST station reference](https://www.nist.gov/pml/time-and-frequency-division/popular-links/time-frequency-z/time-and-frequency-z-u-w), [FCC allocations](https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation), [US amateur rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97), [ARRL band plans](https://www.arrl.org/band-plan), [WorldDAB technical information](https://www.worlddab.org/dab/technical-specifications), [ATSC standards](https://www.atsc.org/atsc-documents/).
+Sources: [NIST station reference](https://www.nist.gov/pml/time-and-frequency-division/popular-links/time-frequency-z/time-and-frequency-z-u-w), [FCC allocations](https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation), [US amateur rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97), [ARRL band plans](https://www.arrl.org/band-plan), [WorldDAB technical information](https://www.worlddab.org/standards/specifications/technical-specifications), [ATSC standards](https://www.atsc.org/atsc-documents/).
 
 ## 5. Aviation, marine, weather, and land mobile
 
@@ -224,7 +224,7 @@ Source: [LoRaWAN Regional Parameters RP002-1.0.5](https://resources.lora-allianc
 
 The current documentation gives **906.875 MHz** for the US factory-default LongFast configuration and **869.525 MHz** for EU868 LongFast. Other presets, firmware, overrides, and channel-slot settings can change the center. Record the device configuration rather than treating a default as permanent. Source: [Meshtastic radio settings](https://meshtastic.org/docs/overview/radio-settings/).
 
-Additional references: [Silicon Labs Z-Wave](https://www.silabs.com/wireless/z-wave), [Z-Wave Alliance LR](https://z-wavealliance.org/what-is-z-wave-long-range-and-how-does-it-differ-from-z-wave/), [EnOcean technical documentation](https://www.enocean.com/en/support/), [Wi-SUN Alliance](https://wi-sun.org/), [Sigfox radio configurations](https://build.sigfox.com/sigfox-radio-configurations-rc), [mioty Alliance technology](https://mioty-alliance.com/technology/).
+Additional references: [Silicon Labs Z-Wave](https://www.silabs.com/wireless/z-wave), [Z-Wave Alliance LR](https://z-wavealliance.org/what-is-z-wave-long-range-and-how-does-it-differ-from-z-wave/), [EnOcean technical documentation](https://www.enocean.com/en/support/), [Wi-SUN Alliance](https://wi-sun.org/), [Sigfox radio configurations](https://build.sigfox.com/sigfox-radio-configurations-rc), [mioty Alliance technology](https://mioty-alliance.com/).
 
 ## 8. Wi-Fi, Bluetooth, and 2.4 GHz protocols
 

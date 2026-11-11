@@ -734,7 +734,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ### Learning RFID & NFC
 
 - **Proxmark3 Iceman Wiki**: [RfidResearchGroup/proxmark3](https://github.com/RfidResearchGroup/proxmark3/wiki)
-- **Proxmark Forum**: [proxmark.org](http://www.proxmark.org/forum/index.php)
+- **Proxmark Forum**: [RRG Proxmark3 GitHub & Documentation](https://github.com/RfidResearchGroup/proxmark3)
 - **NFC / MIFARE background**: [nfc-tools.org](https://nfc-tools.org/)
 - **Flipper Zero Docs**: [docs.flipper.net](https://docs.flipper.net/)
 

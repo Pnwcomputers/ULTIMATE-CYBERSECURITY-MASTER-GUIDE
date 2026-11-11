@@ -1281,7 +1281,7 @@ int main(int argc, char **argv) {
 
 ### Learning Resources
 - **Exploit Database** - https://www.exploit-db.com
-- **Phrack Magazine** - http://phrack.org
+- **Phrack Magazine** - https://phrack.org
 - **Corelan Team** - Exploit development tutorials
 - **FuzzySecurity** - Windows exploit tutorials
 - **LiveOverflow** - YouTube channel

@@ -2822,7 +2822,12 @@ virt-install \
   --disk size=20 \
   --network bridge=br-hacklab \
   --graphics vnc \
-  --location http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/
+  --import  # Historical placeholder; not valid without an existing prepared disk
+
+# The Ubuntu 20.04 HTTP netboot source formerly shown here is obsolete.
+# Do not treat the DVWA fragment above as executable; follow a current official
+# DVWA deployment on an isolated lab VM with a verified, supported OS image.
+# No guest image was downloaded or installed by this documentation review.
 
 # VulnHub machines
 echo "[*] Downloading VulnHub machines..."

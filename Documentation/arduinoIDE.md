@@ -32,7 +32,7 @@ By default, the IDE only knows about official Arduino boards. To add ESP32, STM3
 ```text
 https://espressif.github.io/arduino-esp32/package_esp32_index.json
 https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
-http://arduino.esp8266.com/stable/package_esp8266com_index.json
+https://arduino.esp8266.com/stable/package_esp8266com_index.json
 https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
 ```
 
