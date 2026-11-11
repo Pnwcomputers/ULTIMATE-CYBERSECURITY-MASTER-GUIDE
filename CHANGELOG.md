@@ -1,14 +1,15 @@
-# 🔄 Change Log - November 10, 2026
+# 🔄 Change Log - November 11, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1544
-- **Files Modified**: 2361
+- **Commits Analyzed**: 1550
+- **Files Modified**: 2368
 - **New Files**: 887
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Enhance hardware arsenal documentation with new devices (`c7362b1`)
 - ci: bump peter-evans/create-pull-request from 8.1.1 to 8.1.2 (#181) (`4c342da`)
 - docs: expand firmware catalog and add device references in Documentation (#179) (`1d8d1c8`)
 - docs: add firmware setup labs and update related platform guides (#178) (`324963d`)
@@ -498,6 +499,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix formatting and update section headers in README (`4607f1e`)
 - fix(docs): correct numbered Part navigation across master guides and repo (#155) (`f678e1d`)
 - fix(uConsole): safe CM4 installer, current hardware guides and regression checks (#147) (`dbf870f`)
 - fix(supply-chain): restore verified installer pin manifest (closes #142) (#144) (`57f8d74`)
@@ -668,6 +670,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Refactor DIY hardware references and remove duplicates (`2f211cf`)
+- Update README.md (`7833c9b`)
 - Update section title for hardware reference (`dbb3c35`)
 - Update README.md (`ad09bf9`)
 - Refactor table of contents in README.md (`910944f`)
@@ -1302,6 +1306,8 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: fill missing tool notes and Wi-Fi adapter references (`59249bb`)
+- Revise M5StickC Plus2 lab entry format in README (`3f40e56`)
 - docs(ai): Complete AI Engineering, Agents, Security & Operations Handbook (#182) (`820c5a9`)
 - docs(nav): goal-based routes, reading paths and consistent README navigation (#174) (`90a5a46`)
 - docs: improve reader navigation with route & contents tables (#173) (`2e72247`)
