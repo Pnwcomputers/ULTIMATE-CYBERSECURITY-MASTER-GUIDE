@@ -23,6 +23,8 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
+**Repository-wide quality review:** [Verification & Content Completeness Protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) covers source provenance, technical claims, testable examples, placeholders, external links, confidence levels, and evidence retention.
+
 ## Expanded Device & Firmware Coverage
 
 | Resource | Description / Boundary |
