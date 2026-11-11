@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-11",
+  "evidence": "Header inspection plus Python 3 AST-only compatibility baseline; no execution, full dependency audit, or redistribution-rights certification",
+  "entries": [
+    {
+      "path": "bruteforce/brute_http_basic.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/brute_http_form.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/brute_http_ntlm.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/brute_ssh_keyboard.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/cassbrute.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/firewarebf.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/multi_ssh.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "bruteforce/sw_ike.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "database/mysql_search.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/ad_self_service_miner.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/dnsbrute.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/resolve.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/resolve_mt.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/smtp_enum.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/texttable.py",
+      "attribution_from_file_header": "Tenable Network Security",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "modernize-only-with-fixtures",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "enumeration/usernames.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "exploit/ssh_pwn.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "exploit/ssh_super_virus.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "osint/gravatar.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "osint/shodan_ip.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "passwords/passfilter.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "modernize-only-with-fixtures",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "passwords/type7.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "passwords/weak_passwords.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/do_proxy_chains.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/do_ssh_proxy.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/gnmap2md.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "modernize-only-with-fixtures",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/lhf.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/masscan_parse.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "modernize-only-with-fixtures",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/plugin.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "scan/scan.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "shells/ishell.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "shells/shell.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/dirb.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/discover.py",
+      "attribution_from_file_header": "AverageSecurityGuy",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/http_upload.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/rails_find.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/rails_secret_token.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/servers_to_burp.py",
+      "attribution_from_file_header": "Unattributed in file header",
+      "python3_ast": "fails-legacy-syntax",
+      "disposition": "historical-only",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    },
+    {
+      "path": "webapp/web_discover.py",
+      "attribution_from_file_header": "LCI Technology Group",
+      "python3_ast": "no-legacy-syntax-finding",
+      "disposition": "retire-from-active-index",
+      "validation": "not-executed; third-party dependencies and permissions not verified"
+    }
+  ]
+}
