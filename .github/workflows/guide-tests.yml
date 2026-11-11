@@ -16,19 +16,6 @@ on:
       - 'tools/**'
       - '.github/workflows/guide-tests.yml'
   pull_request:
-    paths:
-      - 'HardwareTesting/py/full_hw_suite.py'
-      - 'installer.sh'
-      - 'Scripts/pnwc_install_tools.sh'
-      - 'Scripts/**'
-      - 'OSINT/Playbook/**'
-      - 'IncidentResponse/SIEM/elk_stack.md'
-      - 'tests/hardening/**'
-      - 'SDR/nanovna/**'
-      - 'Data-Engineering/Phase2/**'
-      - 'Data-Engineering/Phase3/**'
-      - 'tools/**'
-      - '.github/workflows/guide-tests.yml'
   workflow_dispatch:
 
 permissions:
@@ -36,6 +23,7 @@ permissions:
 
 jobs:
   fixtures:
+    name: Guide fixtures (isolated)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

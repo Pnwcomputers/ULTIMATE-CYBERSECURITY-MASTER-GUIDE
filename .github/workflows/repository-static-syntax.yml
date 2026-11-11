@@ -2,12 +2,6 @@ name: Repository Static Syntax
 
 on:
   pull_request:
-    paths:
-      - '**/*.py'
-      - '**/*.sh'
-      - '**/*.ps1'
-      - 'tools/repository_quality_audit.py'
-      - '.github/workflows/repository-static-syntax.yml'
   push:
     branches: [main]
     paths:
@@ -23,6 +17,7 @@ permissions:
 
 jobs:
   maintained-source:
+    name: Repository syntax (static only)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
