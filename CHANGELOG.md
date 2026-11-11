@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 11, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1550
-- **Files Modified**: 2368
-- **New Files**: 887
+- **Commits Analyzed**: 1552
+- **Files Modified**: 2395
+- **New Files**: 899
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -499,6 +499,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(ci): preserve historical CRLF and changelog PR generation (#191) (`2286cd2`)
+- audit: technical corrections and repository maintenance automation (#185) (`9731173`)
 - Fix formatting and update section headers in README (`4607f1e`)
 - fix(docs): correct numbered Part navigation across master guides and repo (#155) (`f678e1d`)
 - fix(uConsole): safe CM4 installer, current hardware guides and regression checks (#147) (`dbf870f`)
@@ -1574,12 +1576,46 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.gitattributes`
+- `.github/workflows/auto_changelog.yml`
+- `.editorconfig`
+- `.github/CODEOWNERS`
+- `.github/CONTRIBUTING.md`
+- `.github/ISSUE_TEMPLATE/verification_finding.md`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/workflows/maintenance-triage.yml`
+- `.github/workflows/repository-quality-inventory.yml`
+- `.github/workflows/repository-static-syntax.yml`
+- `AI/AnythingLLM/flow-cve_lookup.md`
+- `AI/OpenClaw/use_cases.md`
+- `AI/README.md`
+- `Data-Engineering/Phase2/README.md`
+- `Data-Engineering/README.md`
+- `Documentation/README.md`
+- `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md`
+- `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
+- `Documentation/references.md`
+- `Makefile`
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/osint_investigator.sh`
+- `OSINT/Playbook/scripts/scammer_audit.sh`
+- `OSINT/README.md`
+- `OSINT/docs/FAQ.md`
+- `OSINT/scripts/Domain_IP_Recon.md`
+- `PlayBooks/cybersecurity_playbooks.md`
 - `README.md`
+- `SECURITY_REMEDIATION_PLAN.md`
+- `START_HERE.md`
+- `STYLE_GUIDE.md`
+- `Scripts/GO/README.md`
+- `Scripts/PowerShell/port_scanner.ps1`
+- `tests/hardening/test_osint_investigator.py`
+- `tools/repository_quality_audit.py`
+- `tools/tests/test_repository_quality_audit.py`
 - `CHANGELOG.md`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
-- `AI/OpenClaw/use_cases.md`
-- `AI/README.md`
 - `AI/agent-project-workflows.md`
 - `AI/agent-reliability-and-recovery.md`
 - `AI/agent-threat-modeling-and-security.md`
@@ -1599,8 +1635,6 @@
 - `AI/rag-and-knowledge-engineering.md`
 - `AI/structured-outputs-and-data-contracts.md`
 - `AI/verification-and-ai-audits.md`
-- `.github/workflows/auto_changelog.yml`
-- `Documentation/README.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/ble-capture-sniffle.md`
 - `Documentation/bruce_firmware.md`
@@ -1621,7 +1655,6 @@
 - `HardwareHacking/pico-ducky-lab.md`
 - `SDR/README.md`
 - `SDR/evil-crow-rf-v2.md`
-- `START_HERE.md`
 - `Scripts/Ducky/README.md`
 - `Wardriving/README.md`
 - `Wardriving/additional-survey-firmware.md`
@@ -1640,8 +1673,6 @@
 - `Wardriving/piglet.md`
 - `Mobile/UserLAnd/readme.md`
 - `IncidentResponse/README.md`
-- `OSINT/README.md`
-- `STYLE_GUIDE.md`
 - `AI/AnythingLLM/README.md`
 - `Checklists/README.md`
 - `Cloud/README.md`
@@ -1650,9 +1681,7 @@
 - `Cryptography/Classical/README.md`
 - `Cryptography/README.md`
 - `Data-Engineering/Phase1/README.md`
-- `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/Phase3/README.md`
-- `Data-Engineering/README.md`
 - `HardwareTesting/README.md`
 - `HardwareTesting/py/README.md`
 - `Homelab/README.md`
@@ -1664,14 +1693,12 @@
 - `Mobile/README.md`
 - `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
-- `OSINT/Playbook/README.md`
 - `PDF/README.md`
 - `PlayBooks/README.md`
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
 - `Scripts/Bash/BashBunny/README.md`
-- `Scripts/GO/README.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/README.md`
 - `SpaceSecurity/README.md`
@@ -1687,7 +1714,6 @@
 - `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/proxmox-security-monitoring-visibility.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_GUIDE.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
@@ -1726,7 +1752,6 @@
 - `OPSEC/proxy-reference-froxy.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
-- `Documentation/references.md`
 - `Documentation/security-public-api-catalog.md`
 - `OSINT/Playbook/tools_api.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
@@ -1748,7 +1773,6 @@
 - `LEGAL.md`
 - `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
-- `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `OSINT/scripts/Phone_OSINT.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
@@ -1870,7 +1894,6 @@
 - `Documentation/bjorn_pi.md`
 - `Documentation/hcxtoolshashcat.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
-- `OSINT/docs/FAQ.md`
 - `SDR/sdr.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/data-handling.md`
@@ -1878,23 +1901,19 @@
 - `Wardriving/sigroam-scout-lite.md`
 - `Wardriving/wardrive-go.md`
 - `OSINT/Playbook/toolkit_integration.sh`
-- `SECURITY_REMEDIATION_PLAN.md`
 - `tests/hardening/test_toolkit_integration.py`
 - `.github/workflows/link-check.yml`
-- `.github/CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `.github/SECURITY.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `OSINT/Playbook/abuse_report_generator.sh`
 - `OSINT/Playbook/install_dependencies.sh`
-- `OSINT/Playbook/osint_investigator.sh`
 - `OSINT/Playbook/scripts/case_report_generator.sh`
 - `OSINT/Playbook/scripts/crypto_audit.sh`
 - `OSINT/Playbook/scripts/domain_monitor.sh`
 - `OSINT/Playbook/scripts/email_audit.sh`
 - `OSINT/Playbook/scripts/metadata_stripper.sh`
 - `OSINT/Playbook/scripts/phone_audit.sh`
-- `OSINT/Playbook/scripts/scammer_audit.sh`
 - `OSINT/Playbook/scripts/screenshot_archive.sh`
 - `OSINT/Playbook/scripts/ssl_cert_audit.sh`
 - `OSINT/Playbook/scripts/threat_feed_check.sh`
@@ -1922,7 +1941,6 @@
 - `OSINT/Playbook/lib/case_state.py`
 - `OSINT/Playbook/lib/collect_evidence.py`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
-- `tests/hardening/test_osint_investigator.py`
 - `tests/hardening/test_osint_state_evidence.py`
 - `tests/hardening/test_safe_install.py`
 - `WebAppSecurity/owasp-top-10.md`
@@ -1945,7 +1963,6 @@
 - `Cryptography/Classical/cipher_toolkit.py`
 - `Cryptography/Classical/leetspeak.md`
 - `OPSEC/whonix-kicksecure-usb-guide.md`
-- `.github/PULL_REQUEST_TEMPLATE.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `ReverseEngineering/ghidra-guide-index.md`
@@ -2034,7 +2051,6 @@
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `PlayBooks/PurpleTeam_Simple.md`
-- `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
 - `.lycheeignore`
@@ -2102,7 +2118,6 @@
 - `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
 - `AI/AnythingLLM/flow-company_osint.md`
-- `AI/AnythingLLM/flow-cve_lookup.md`
 - `AI/AnythingLLM/flow-email_osint.md`
 - `AI/AnythingLLM/flow-nmap_analyzer.md`
 - `AI/AnythingLLM/flow-vulnreport_gen.md`
@@ -2454,7 +2469,6 @@
 - `Scripts/Bash/recursive_search_backup.sh`
 - `Scripts/PowerShell/rev_shell.ps1`
 - `Scripts/PowerShell/cred_hunt.ps1`
-- `Scripts/PowerShell/port_scanner.ps1`
 - `Scripts/PowerShell/System_enum.ps1`
 - `Scripts/Bash/OS_command_inj.sh`
 - `Scripts/Bash/http_status_code.sh`
