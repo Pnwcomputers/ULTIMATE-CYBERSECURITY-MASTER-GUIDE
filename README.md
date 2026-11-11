@@ -229,6 +229,8 @@ These are source-attributed references, not claims that every upstream tool is i
 
 ### Maintenance & Historical Reviews:
 
+**Current verification process:** [Repository Verification & Content Completeness Protocol](./Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) documents evidence grades, executable-code and dependency review, placeholder disposition, limitations of CI, and November 11, 2026 sampled findings. A passing CI job is not an end-to-end technical certification.
+
 **Current integration/CI review:** [November 3, 2026 quality report](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) describes today's merged updates, verified checks, corrections and runtime limitations.
 
 | Resource | Purpose |
@@ -802,7 +804,7 @@ Want to help the community?
 
 ---
 
-*Last Updated: November 2, 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
+*Main index editorial review: November 11, 2026 (not a whole-repository code or external-link certification) · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
 
 ## Related Files
 
