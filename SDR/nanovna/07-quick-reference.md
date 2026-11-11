@@ -188,13 +188,17 @@ TDR, sweep bandwidth B and step Δf, c = 299,792,458 m/s:
 
 ## Velocity factors
 
-| Cable | VF | | Cable | VF |
-|---|---|---|---|---|
-| RG-58 / RG-213 / RG-59 | 0.66 | | RG-8X (foam) | 0.82 |
-| RG-174 | 0.66 | | RG-6 (foam) | 0.83 |
-| RG-316 | 0.695 | | LMR-240/400 | 0.84–0.85 |
-| Semi-rigid PTFE | 0.70 | | Hardline | 0.88 |
-| | | | Ladder line | 0.90–0.95 |
+| Cable / Construction | Approximate VF |
+|---|---:|
+| RG-58 / RG-213 / RG-59 (solid polyethylene dielectric) | 0.66 |
+| RG-8X (foam dielectric) | 0.82 |
+| RG-174 | 0.66 |
+| RG-6 (foam dielectric) | 0.83 |
+| RG-316 | 0.695 |
+| LMR-240 / LMR-400 | 0.84–0.85 |
+| Semi-rigid PTFE | 0.70 |
+| Hardline | 0.88 |
+| Ladder line | 0.90–0.95 |
 
 ---
 

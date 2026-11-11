@@ -96,7 +96,7 @@ generator for anything meaningful.
 
 ## 1.2 Model comparison
 
-| | **NanoVNA-H (HW 3.7)** | **NanoVNA-H4 (V4.4)** |
+| Feature | **NanoVNA-H (HW 3.7)** | **NanoVNA-H4 (V4.4)** |
 |---|---|---|
 | Display | 2.8" resistive touch, 320×240 | 4.0" resistive touch, 480×320 |
 | MCU | STM32F072 | STM32F303 (more RAM/flash) |

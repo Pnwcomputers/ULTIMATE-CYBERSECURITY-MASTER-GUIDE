@@ -26,9 +26,9 @@ Make it fast to go from "we want to validate detection for TTP X" to an actual r
 
 | Type | Tool | Example |
 |------|------|---------|
-| Python | Custom scripts, Atomic Red Team helpers | |
-| PowerShell | Live TTP emulation, Windows-native | |
-| Batch | Simple persistence, process spawners | |
+| Python | Custom scripts, Atomic Red Team helpers | Parse synthetic JSONL detections in an isolated fixture |
+| PowerShell | Windows-native canary event generation | Emit a harmless, uniquely tagged test event on an owned Windows VM |
+| Batch | Batch wrappers in a disconnected lab | Write a tagged benign command-output file, then verify expected logs |
 
 ---
 

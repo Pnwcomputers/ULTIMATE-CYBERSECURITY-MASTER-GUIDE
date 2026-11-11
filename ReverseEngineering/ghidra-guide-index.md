@@ -886,7 +886,7 @@ Official path: the **GhidraDev** Eclipse plugin, documented under
 
 ### Modules vs. scripts
 
-| | Script | Module / extension |
+| Feature | Script | Module / extension |
 | --- | --- | --- |
 | Lifetime | Run once | Loaded as a plugin |
 | UI | Dialogs you call | Windows, actions, analyzers |

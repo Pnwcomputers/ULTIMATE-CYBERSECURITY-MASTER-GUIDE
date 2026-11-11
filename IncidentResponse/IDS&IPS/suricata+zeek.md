@@ -249,7 +249,7 @@ pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense
 
 Once installed, the menu path is also different from OPNsense:
 
-| | OPNsense | pfSense |
+| Feature | OPNsense | pfSense |
 |---|---|---|
 | Package install | Built in, nothing to install | **System → Package Manager → Available Packages** first |
 | Configuration menu | Services → Intrusion Detection | **Services → Suricata** |

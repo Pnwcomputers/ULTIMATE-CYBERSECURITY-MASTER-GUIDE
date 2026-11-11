@@ -73,8 +73,8 @@ Elastic (the company) offers **Elastic Security** (formerly SIEM) as part of the
 
 | Port | Service | Purpose |
 |------|---------|---------|
-| 9200 |  | REST API |
-| 9300 |  | Node communication |
+| 9200 | Elasticsearch HTTP API | REST API |
+| 9300 | Elasticsearch transport interface | Node communication |
 | 5601 | Kibana | Web interface |
 | 5044 | Logstash | Beats input |
 | 5000 | Logstash | TCP/UDP syslog input |
