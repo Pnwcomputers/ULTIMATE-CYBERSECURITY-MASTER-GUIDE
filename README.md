@@ -525,7 +525,7 @@ release, file license and legal scope before operational reuse.
 | [Autopsy](https://www.autopsy.com/) | Digital-forensics platform for examining disks and file-system evidence |
 | [Ghidra](https://github.com/NationalSecurityAgency/ghidra/) | NSA |
 | [radare2](https://rada.re/) | pancake |
-| [IDA Pro](https://hex-rays.com/ida-pro/) | Hex-Rays |
+| [IDA Pro](https://hex-rays.com/ida-pro) | Hex-Rays |
 | [Binwalk](https://github.com/ReFirmLabs/binwalk) | Firmware inspection and embedded-file extraction |
 | [YARA](https://github.com/VirusTotal/yara) | Pattern-based rules for identifying and classifying files and malware |
 | [vx-underground](https://vx-underground.org) | Malware research archive with source code, samples and papers |

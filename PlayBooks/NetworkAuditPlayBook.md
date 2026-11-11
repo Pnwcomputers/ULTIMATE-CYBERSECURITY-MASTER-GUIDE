@@ -857,7 +857,7 @@ Maintain a tools manifest for each engagement:
 | Kali Linux | 2024.3 | 2024-09-15 | Primary testing platform |
 | Nmap | 7.94 | 2024-08-01 | Network scanning |
 | Wireshark | 4.2.0 | 2024-07-20 | Packet analysis |
-| [etc.] | | | |
+| Additional approved tool (engagement-specific) | Record installed version | Record actual verification date | Describe authorized purpose |
 
 ---
 

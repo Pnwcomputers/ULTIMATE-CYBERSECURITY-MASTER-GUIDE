@@ -80,7 +80,9 @@ The final hash command is for a **local dummy test file**. Compare it with the h
 - What is actually tested: encryption round trips, repeated-sector rewrites, corrupted sectors, power cycling, and filesystem recovery?
 - Does a claimed decoy partition withstand the specific forensic adversary in your threat model? **Do not assume so.**
 
-## Lab evidence template
+## Lab Evidence Template
+
+**Operator input only:** Record real measurements, revision, sources and timestamps in a private lab record. For a skipped or unavailable test write **Not tested** with a reason; for unknown device provenance write **Not recorded**. Blank cells are not a successful unlock/cryptographic validation.
 
 | Field | Record |
 |---|---|

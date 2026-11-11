@@ -23,6 +23,10 @@ _Review baseline: November 11, 2026 · The offline audit reported roughly 166 em
 
 **Configuration examples:** placeholders such as `YOUR_KEY`, `HOST_IP`, `example.com`, `CVE-YYYY-NNNN` remain deliberately incomplete. Explain substitution, bounds, privileges, secure storage and expected errors; do not use real API keys or customer targets in examples.
 
+## Completed Baseline Review
+
+The [November 11, 2026 complete 167-candidate review](MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md) and [line-by-line manifest](MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.json) record **51 structural documentation defects corrected** and **116 intentional operator-entry cells preserved**. All entries retain their baseline location, classification, and reason. This is not evidence of hardware or client testing.
+
 ## Machine-Readable Review Queue
 
 Run from a checked-out repository:

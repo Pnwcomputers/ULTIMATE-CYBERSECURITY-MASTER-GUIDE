@@ -1503,7 +1503,7 @@ The **ClockworkPi uConsole** is a palmtop computer with a keyboard, small displa
 
 ### CM4 vs CM5: Key Differences
 
-| | CM4 | CM5 |
+| Feature | CM4 | CM5 |
 |---|---|---|
 | CPU | Cortex-A72 (4-core) | Cortex-A76 (4-core) - significantly faster |
 | GPIO SDR default | OFF (must enable) | HIGH (SDR on by default) |

@@ -1,0 +1,1350 @@
+{
+  "review_type": "line-level-empty-markdown-cell-disposition",
+  "baseline_main_commit": "c0fe77c3c1b3c95ac3cb168949735181a5645e6b",
+  "baseline_pr_revision": "95c89771b27551c12848cdd5b07b1d215fa3853e",
+  "review_date_utc": "2026-11-11",
+  "scope": "All 167 empty-table-cell candidates from tools/maintenance_candidate_triage.py on baseline branch; line numbers are BASELINE positions and intentionally shift after corrections.",
+  "method": "Review original table excerpts plus nearby sections; classify intentionally blank private/operator fields separately from empty structural headers and unexplained public facts; no execution or false completion claims.",
+  "summary": {
+    "intentional-operator-input": 116,
+    "documentation-defect-corrected": 51
+  },
+  "entries": [
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 11,
+      "baseline_excerpt": "| Affected files and canonical guide | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 13,
+      "baseline_excerpt": "| Risk & rollback | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 21,
+      "baseline_excerpt": "| Baseline and change commit | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 22,
+      "baseline_excerpt": "| Primary vendor/standards sources + review date | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 23,
+      "baseline_excerpt": "| Interpreter, package, firmware & OS revisions | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 24,
+      "baseline_excerpt": "| Local commands run | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 25,
+      "baseline_excerpt": "| Observed stdout, stderr, exit codes | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "baseline_line": 28,
+      "baseline_excerpt": "| Known failures and unresolved questions | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/Classical/ciphers.md",
+      "baseline_line": 154,
+      "baseline_excerpt": "| | | | | | | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 87,
+      "baseline_excerpt": "| Date/operator | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 88,
+      "baseline_excerpt": "| Board revision and serial | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 89,
+      "baseline_excerpt": "| Upstream URL and exact commit | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 90,
+      "baseline_excerpt": "| Build mode / KDF rounds | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 91,
+      "baseline_excerpt": "| Test-media model and size | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 92,
+      "baseline_excerpt": "| Test-file SHA-256 before / after | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 93,
+      "baseline_excerpt": "| Lock/unlock observations | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 94,
+      "baseline_excerpt": "| Wrong-password outcome | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 95,
+      "baseline_excerpt": "| Power-cycle and recovery result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Cryptography/phantomdrive-guide.md",
+      "baseline_line": 96,
+      "baseline_excerpt": "| Known limitations / follow-up issues | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "IncidentResponse/IDS&IPS/snort.md",
+      "baseline_line": 52,
+      "baseline_excerpt": "| | Snort | Suricata |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "IncidentResponse/IDS&IPS/suricata+zeek.md",
+      "baseline_line": 252,
+      "baseline_excerpt": "| | OPNsense | pfSense |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "IncidentResponse/SIEM/elk_stack.md",
+      "baseline_line": 76,
+      "baseline_excerpt": "| 9200 |  | REST API |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing public service name in port reference",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "IncidentResponse/SIEM/elk_stack.md",
+      "baseline_line": 77,
+      "baseline_excerpt": "| 9300 |  | Node communication |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing public service name in port reference",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "Mobile/mobile_pentest_sop.md",
+      "baseline_line": 487,
+      "baseline_excerpt": "| Nmap full scan | full-scan.xml | `<hash>` | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Mobile/mobile_pentest_sop.md",
+      "baseline_line": 488,
+      "baseline_excerpt": "| WPA2 handshake | handshake-<ssid>.cap | `<hash>` | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Mobile/mobile_pentest_sop.md",
+      "baseline_line": 489,
+      "baseline_excerpt": "| Captured credentials | responder-logs/ | `<hash>` | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "Mobile/mobile_pentest_sop.md",
+      "baseline_line": 490,
+      "baseline_excerpt": "| Screenshots | screenshots/ | `<hash>` | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 72,
+      "baseline_excerpt": "| Incident ID and start/end times | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 73,
+      "baseline_excerpt": "| Person safe? Immediate help needed? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 74,
+      "baseline_excerpt": "| Trusted contacts / lawyer notified | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 75,
+      "baseline_excerpt": "| Device type, serial, OS, last known secure state | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 76,
+      "baseline_excerpt": "| Last known custody and access | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 77,
+      "baseline_excerpt": "| Communications or account exposure suspected | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 78,
+      "baseline_excerpt": "| Legal process or hold relevant? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 79,
+      "baseline_excerpt": "| Evidence preserved and chain of custody | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 80,
+      "baseline_excerpt": "| Post-incident containment authorized by | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 81,
+      "baseline_excerpt": "| Sources potentially affected (stored in restricted annex) | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/press-freedom/duress-seizure-response.md",
+      "baseline_line": 82,
+      "baseline_excerpt": "| Follow-up and support resources | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 547,
+      "baseline_excerpt": "| Installation date | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 548,
+      "baseline_excerpt": "| Tails version after update | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 549,
+      "baseline_excerpt": "| Download verification method/result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 550,
+      "baseline_excerpt": "| Computer and USB model | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 551,
+      "baseline_excerpt": "| Enabled persistence features | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 552,
+      "baseline_excerpt": "| Temporary-file test result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 553,
+      "baseline_excerpt": "| Persistent-file test result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 554,
+      "baseline_excerpt": "| Tor connection test result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 555,
+      "baseline_excerpt": "| Backup boot/file-open test date | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "OPSEC/tails-usb-setup-guide.md",
+      "baseline_line": 556,
+      "baseline_excerpt": "| Known hardware limitations | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/NetworkAuditPlayBook.md",
+      "baseline_line": 860,
+      "baseline_excerpt": "| [etc.] | | | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unexplained placeholder tracking row",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Multi-Scrip.md",
+      "baseline_line": 29,
+      "baseline_excerpt": "| Python | Custom scripts, Atomic Red Team helpers | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing example in tool-use table",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Multi-Scrip.md",
+      "baseline_line": 30,
+      "baseline_excerpt": "| PowerShell | Live TTP emulation, Windows-native | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing example in tool-use table",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Multi-Scrip.md",
+      "baseline_line": 31,
+      "baseline_excerpt": "| Batch | Simple persistence, process spawners | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing example in tool-use table",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 219,
+      "baseline_excerpt": "| TTP ID | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 220,
+      "baseline_excerpt": "| Tactic | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 221,
+      "baseline_excerpt": "| Goal | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 222,
+      "baseline_excerpt": "| Method | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 223,
+      "baseline_excerpt": "| Tools | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 224,
+      "baseline_excerpt": "| Log Source | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 225,
+      "baseline_excerpt": "| SIEM Rule | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 226,
+      "baseline_excerpt": "| Expected Result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 227,
+      "baseline_excerpt": "| Actual Result | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 228,
+      "baseline_excerpt": "| Improvement | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/PurpleTeam_Simple.md",
+      "baseline_line": 229,
+      "baseline_excerpt": "| Next Steps | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 242,
+      "baseline_excerpt": "| IP Address | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 243,
+      "baseline_excerpt": "| Country/City | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 244,
+      "baseline_excerpt": "| ISP/ASN | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 245,
+      "baseline_excerpt": "| Known VPN/Proxy? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 246,
+      "baseline_excerpt": "| Known Tor Exit? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 247,
+      "baseline_excerpt": "| Abuse Reports | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 248,
+      "baseline_excerpt": "| Threat Intel Match | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 249,
+      "baseline_excerpt": "| Historical Activity | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 781,
+      "baseline_excerpt": "| Email | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 782,
+      "baseline_excerpt": "| Documents | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 783,
+      "baseline_excerpt": "| Customer data | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 784,
+      "baseline_excerpt": "| Financial data | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 785,
+      "baseline_excerpt": "| Source code | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 786,
+      "baseline_excerpt": "| Credentials | ☐ | ☐ | ☐ | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "ReverseEngineering/ghidra-guide-index.md",
+      "baseline_line": 889,
+      "baseline_excerpt": "| | Script | Module / extension |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/01-hardware-and-setup.md",
+      "baseline_line": 99,
+      "baseline_excerpt": "| | **NanoVNA-H (HW 3.7)** | **NanoVNA-H4 (V4.4)** |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 191,
+      "baseline_excerpt": "| Cable | VF | | Cable | VF |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 193,
+      "baseline_excerpt": "| RG-58 / RG-213 / RG-59 | 0.66 | | RG-8X (foam) | 0.82 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 194,
+      "baseline_excerpt": "| RG-174 | 0.66 | | RG-6 (foam) | 0.83 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 195,
+      "baseline_excerpt": "| RG-316 | 0.695 | | LMR-240/400 | 0.84–0.85 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 196,
+      "baseline_excerpt": "| Semi-rigid PTFE | 0.70 | | Hardline | 0.88 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/07-quick-reference.md",
+      "baseline_line": 197,
+      "baseline_excerpt": "| | | | Ladder line | 0.90–0.95 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Decorative empty spacer and row breaks wrongly represented as empty cells",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 97,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 131,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 154,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 171,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 201,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 223,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 256,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 269,
+      "baseline_excerpt": "| | Trunk lip | Roof centre |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 297,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 315,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 329,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 349,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 370,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 404,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 425,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 439,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 453,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 472,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 487,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 515,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 537,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 546,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 594,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 614,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 654,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 687,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 711,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 733,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 760,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 785,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 829,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 848,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/09-worked-examples-by-band.md",
+      "baseline_line": 872,
+      "baseline_excerpt": "| | |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Unlabeled measurement table header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    },
+    {
+      "path": "SDR/nanovna/10-antenna-types-and-special-cases.md",
+      "baseline_line": 284,
+      "baseline_excerpt": "| 0 | baseline | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/10-antenna-types-and-special-cases.md",
+      "baseline_line": 285,
+      "baseline_excerpt": "| 1 | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/10-antenna-types-and-special-cases.md",
+      "baseline_line": 286,
+      "baseline_excerpt": "| 2 | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 69,
+      "baseline_excerpt": "| Date / time / timezone | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 70,
+      "baseline_excerpt": "| Operator | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 71,
+      "baseline_excerpt": "| Site / customer | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 72,
+      "baseline_excerpt": "| Job or ticket reference | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 73,
+      "baseline_excerpt": "| Analyzer model (H / H4) | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 74,
+      "baseline_excerpt": "| Hardware revision (`CONFIG → VERSION`) | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 75,
+      "baseline_excerpt": "| Firmware version | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 76,
+      "baseline_excerpt": "| Antenna / DUT make, model or design | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 77,
+      "baseline_excerpt": "| Intended frequency range | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 79,
+      "baseline_excerpt": "| Goal / acceptance requirement | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 85,
+      "baseline_excerpt": "| **Reference plane — exact connector and location** | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 86,
+      "baseline_excerpt": "| Feedpoint test, or complete-system test? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 87,
+      "baseline_excerpt": "| Test leads and adapters in the path | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 88,
+      "baseline_excerpt": "| Calibration standards used / identifying marks | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 89,
+      "baseline_excerpt": "| Calibration slot number and date | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 90,
+      "baseline_excerpt": "| Sweep start / stop / points | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 91,
+      "baseline_excerpt": "| Averaging or bandwidth settings, if available | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 92,
+      "baseline_excerpt": "| Electrical delay / transform settings | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 94,
+      "baseline_excerpt": "| Correction indicator present? (`C`, not `c`) | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 95,
+      "baseline_excerpt": "| Mounting height and orientation | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 96,
+      "baseline_excerpt": "| Radials / counterpoise / ground plane | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 97,
+      "baseline_excerpt": "| Balun or choke, and its location | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 98,
+      "baseline_excerpt": "| Coax type, length, velocity factor | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 99,
+      "baseline_excerpt": "| Nearby objects / vehicle state / enclosure state | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 100,
+      "baseline_excerpt": "| Battery-only or USB-connected? | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 106,
+      "baseline_excerpt": "| SWR at low required edge | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 107,
+      "baseline_excerpt": "| SWR at target | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 108,
+      "baseline_excerpt": "| SWR at high required edge | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 109,
+      "baseline_excerpt": "| Minimum SWR, and its frequency | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 110,
+      "baseline_excerpt": "| S11 LOGMAG at target (dB) | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 111,
+      "baseline_excerpt": "| R + jX at target | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 112,
+      "baseline_excerpt": "| Zero-reactance frequency near target | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 113,
+      "baseline_excerpt": "| Chosen SWR threshold | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 114,
+      "baseline_excerpt": "| Lower threshold crossing | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 115,
+      "baseline_excerpt": "| Upper threshold crossing | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 116,
+      "baseline_excerpt": "| **Matching bandwidth** | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 117,
+      "baseline_excerpt": "| Complete-system SWR at radio connection | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 118,
+      "baseline_excerpt": "| Repeatability check (stable / shifts) | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 128,
+      "baseline_excerpt": "| Known load rechecked after testing | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 136,
+      "baseline_excerpt": "| 0 | Baseline | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 137,
+      "baseline_excerpt": "| 1 | | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 138,
+      "baseline_excerpt": "| 2 | | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 139,
+      "baseline_excerpt": "| 3 | | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 140,
+      "baseline_excerpt": "| 4 | | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SDR/nanovna/11-worksheet-and-exercises.md",
+      "baseline_line": 141,
+      "baseline_excerpt": "| 5 | Final secured assembly | | | | | |",
+      "classification": "intentional-operator-input",
+      "rationale": "Engagement, device, evidence or lab fields cannot be populated without actual authorized observations; leave editable and use Not recorded/Not tested where unknown.",
+      "resolution": "Retain blank template cells; operator instructions added or already present near table."
+    },
+    {
+      "path": "SPECIALIZED_TOPICS_GUIDE.md",
+      "baseline_line": 1506,
+      "baseline_excerpt": "| | CM4 | CM5 |",
+      "classification": "documentation-defect-corrected",
+      "rationale": "Missing or empty comparison header",
+      "resolution": "Corrected the publication table in PR #195 without fabricating measurement or customer data."
+    }
+  ]
+}

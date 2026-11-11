@@ -277,7 +277,7 @@ describe the RF path. See §10.13.
 The two bands interact. One adjustment will frequently improve one and degrade
 the other.
 
-**Method:** build a table and fill in **both** bands after **every** change.
+**Method:** build a table and fill in **both** bands after **every** change. These rows are an unmeasured worksheet, not actual antenna measurements; record **Not measured** for any band or step not tested, and include the analyzer's calibration reference plane and firmware in the case record.
 
 | Step | Change made | VHF resonance | VHF SWR | UHF resonance | UHF SWR |
 |---|---|---|---|---|---|

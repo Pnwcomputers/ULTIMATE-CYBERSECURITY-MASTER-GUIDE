@@ -36,7 +36,7 @@ Related: [OSINT toolkit](../OSINT/OSINT_TOOLS_CATALOG.md) · [Threat intelligenc
 | --- | --- | --- | --- |
 | Shodan | Internet-visible services and in-scope device inventory | Existing catalog; key / plan | [API](https://developer.shodan.io/) |
 | Censys | Hosts, certificates and exposed services | Existing catalog; key / plan | [API](https://search.censys.io/api) |
-| BinaryEdge | Supplemental attack surface and host context | Existing catalog; key / plan | [API v2](https://docs.binaryedge.io/api-v2.html) |
+| BinaryEdge | Supplemental attack surface and host context | Existing catalog; key / plan | [API v2](https://docs.dev.binaryedge.io/api-v2/) |
 | SecurityTrails | Current/historical DNS and domain relationships | Existing catalog; key / plan | [Documentation](https://securitytrails.com/corp/apidocs) |
 | EmailRep | Email reputation context (not identity proof) | Existing catalog; check current quota/access | [Documentation](https://docs.emailrep.io/) |
 | Have I Been Pwned | Breach-awareness and authorized domain exposure auditing | Existing catalog; key/eligibility by endpoint | [API v3](https://haveibeenpwned.com/API/v3) |
@@ -54,7 +54,7 @@ Related: [domain/IP recon](../OSINT/scripts/Domain_IP_Recon.md) · [email OSINT]
 | National Vulnerability Database (NVD) | CVE/CPE queries and severity/product context | Official API 2.0; anonymous low-rate / optional key | [CVE API](https://nvd.nist.gov/developers/vulnerabilities) |
 | CISA Known Exploited Vulnerabilities | Prioritize known-exploited CVEs over score-only queues | **Official public JSON feed**, not the directory's third-party RapidAPI wrapper | [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
 | GitHub Global Security Advisories | Package/ecosystem vulnerabilities (GHSA) | Official companion; public read API | [GitHub REST](https://docs.github.com/en/rest/security-advisories/global-advisories) |
-| GitGuardian | Detect exposed secrets in repositories you may inspect | Reference; credentials and data-handling review | [API docs](https://api.gitguardian.com/doc) |
+| GitGuardian | Detect exposed secrets in repositories you may inspect | Reference; credentials and data-handling review | [API docs](https://docs.gitguardian.com/api-docs/api-reference) |
 | CRXcavator | Risk review for browser extensions | Reference; key | [API docs](https://crxcavator.io/apidocs) |
 
 **Decision workflow:** verify installed product/version and exposure → read vendor guidance → correlate NVD/GHSA → mark KEV where present → determine patch/mitigation priority and ownership. KEV inclusion means exploitation has been observed somewhere, **not** that this particular asset was compromised.

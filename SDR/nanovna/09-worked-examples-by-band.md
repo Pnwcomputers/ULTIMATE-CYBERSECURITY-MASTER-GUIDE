@@ -84,6 +84,8 @@ Two rules apply throughout:
 
 ---
 
+**Evidence label:** All numerical sweeps and before/after adjustments in this chapter are worked examples, not device measurements performed for this review. Obtain actual NanoVNA sweep and calibration evidence before applying a result to a client or a live antenna.
+
 ## 9.1 — 40 m wire dipole @ 7.150 MHz
 
 **Setup:** 14 AWG wire inverted-V, apex 12 m, legs at ~35°, 1:1 current balun at
@@ -94,7 +96,7 @@ the feedpoint, 20 m of RG-213. Calibrated at the feedpoint connector, span
 
 ### Initial sweep
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance (SWR min) | **6.985 MHz** |
 | SWR at resonance | 1.42:1 |
@@ -128,7 +130,7 @@ leg.** This time cut the full amount.
 
 ### Final — total 19.49 m
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **7.149 MHz** |
 | SWR at resonance | 1.21:1 |
@@ -151,7 +153,7 @@ Done. No matching network — 60 Ω into 50 Ω is 1.2:1 and not worth chasing.
 
 ### Initial sweep — no choke
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | 14.05 MHz |
 | SWR at resonance | 1.60:1 |
@@ -168,7 +170,7 @@ changes.
 
 ### After installing a 1:1 current balun at the feedpoint
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **13.92 MHz** (moved 130 kHz down) |
 | SWR at resonance | 1.31:1 |
@@ -198,7 +200,7 @@ Remaining: +0.996% → 9.9 cm total → **5 cm per leg.**
 
 ### Final — total 9.87 m
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **14.19 MHz** |
 | SWR at resonance | 1.12:1 |
@@ -220,7 +222,7 @@ delay compensation applied. Span 25–29 MHz.
 
 ### Initial sweep
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **26.62 MHz** |
 | SWR @ 27.205 MHz | 2.80:1 |
@@ -253,7 +255,7 @@ Remaining: +0.985% → 2.5 cm. Trim it.
 
 ### Iteration 2 — 2.535 m
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **27.21 MHz** ✓ |
 | Z @ 27.205 MHz | **24 + j2 Ω** |
@@ -266,7 +268,7 @@ Resonant, still mismatched. Now fix the resistance.
 Bonding braid from the mount base to the vehicle body, and moving the mount from
 the trunk lip to the roof:
 
-| | Trunk lip | Roof centre |
+| Measurement | Trunk lip | Roof centre |
 |---|---|---|
 | R at resonance | 24 Ω | 34 Ω |
 | SWR | 2.08:1 | 1.47:1 |
@@ -294,7 +296,7 @@ Tune the trimmer while watching the Smith marker walk to centre.
 
 ### Final (roof mount + L-network)
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | SWR @ 27.205 MHz | **1.15:1** |
 | Z | 48.9 − j2.6 Ω |
@@ -312,7 +314,7 @@ Tune the trimmer while watching the Smith marker walk to centre.
 
 ### Initial sweep — horizontal radials
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | 51.4 MHz |
 | SWR at resonance | 1.55:1 |
@@ -326,7 +328,7 @@ broken — the geometry is just producing the wrong resistance.
 
 ### After sloping the four radials to 45° downward
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **51.6 MHz** |
 | SWR at resonance | 1.07:1 |
@@ -346,7 +348,7 @@ Trim 10 mm.
 
 ### Final — element 1.361 m
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **51.98 MHz** |
 | SWR at resonance | 1.05:1 |
@@ -367,7 +369,7 @@ before you design a network.
 
 ### Initial sweep
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **143.2 MHz** |
 | SWR at resonance | 1.18:1 |
@@ -401,7 +403,7 @@ Close. Remaining 0.7 mm — file it off.
 
 ### Final — element 49.04 cm
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **146.05 MHz** |
 | SWR at resonance | 1.09:1 |
@@ -422,7 +424,7 @@ better across **118–137 MHz** (a 15% bandwidth).
 
 **Attempt 1:** 8 mm brass rod, cut to 71.3/125 = **57.0 cm**.
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | 124.3 MHz |
 | SWR at resonance | 1.14:1 |
@@ -436,7 +438,7 @@ length-to-diameter ratio.
 
 ### Attempt 2 — 16 mm aluminium tube, same 57.0 cm
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **121.0 MHz** (fatter element resonates lower for the same length) |
 | 2:1 SWR bandwidth | 112.4 – 134.5 MHz — **22.1 MHz wide** vs 14.5 MHz before |
@@ -450,7 +452,7 @@ The bandwidth problem is solved; now re-centre.
 
 ### Final — 16 mm tube at 55.1 cm
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **124.9 MHz** |
 | SWR at resonance | 1.11:1 |
@@ -469,7 +471,7 @@ inputs and outputs). Span 420–500 MHz.
 
 ### Initial — mounted on the trunk lid
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **448 MHz** |
 | SWR @ 465 MHz | 2.60:1 |
@@ -484,7 +486,7 @@ shield is carrying return current.
 
 ### Relocated to the centre of the roof
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **455.5 MHz** |
 | SWR @ 465 MHz | 1.90:1 |
@@ -512,7 +514,7 @@ Remaining: +0.802% → 1.25 mm. Trim 1.2 mm.
 
 ### Final — 15.48 cm
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **464.9 MHz** |
 | SWR at resonance | 1.14:1 |
@@ -534,7 +536,7 @@ measurement and the assembled-product measurement are very different animals.
 
 ### Bare antenna on the bench, on a test ground plane
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | 434.6 MHz |
 | SWR @ 433.92 | 1.30:1 |
@@ -543,7 +545,7 @@ Looks great. Ship it, right?
 
 ### Assembled: PCB, battery, and ABS enclosure
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **411 MHz** |
 | SWR @ 433.92 | **3.40:1** |
@@ -591,7 +593,7 @@ Shunt element (capacitive, to pair with the inductive series branch):
 
 ### Result
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | SWR @ 433.92 MHz | **1.11:1** |
 | Z @ 433.92 | 50.9 − j5.2 Ω |
@@ -611,7 +613,7 @@ U.FL test point, **with the final enclosure closed**. ω = 2π × 868e6 = **5.45
 
 ### Initial
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Z @ 868 MHz | **18 − j40 Ω** |
 | SWR | 4.7:1 |
@@ -651,7 +653,7 @@ Shunt element (capacitive):
 
 ### Result
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Z @ 868 MHz | 52.6 + j6.1 Ω |
 | SWR @ 868 MHz | **1.15:1** |
@@ -684,7 +686,7 @@ feedpoint transforms the low resistance up to 50 Ω.
 
 ### Initial
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Z @ 915 MHz | **22 − j28 Ω** |
 | SWR | 2.9:1 |
@@ -708,7 +710,7 @@ Adjust driven element length until X = −24.8 Ω at 915 MHz.
 
 ### After lengthening the driven element 1.5 mm per side
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Z @ 915 MHz | **22.1 − j24.9 Ω** ✓ |
 
@@ -730,7 +732,7 @@ At 915 MHz, 7.7 nH is a **shorted two-wire hairpin roughly 7–8 mm long** with
 
 ### Final
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Z @ 915 MHz | 49.4 + j2.1 Ω |
 | SWR | **1.05:1** |
@@ -757,7 +759,7 @@ wire in an SO-239. Span 950–1250 MHz.
 
 ### Initial sweep
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **1032 MHz** |
 | SWR at resonance | 1.24:1 |
@@ -782,7 +784,7 @@ Remaining: +2.73% → 1.8 mm. Trim 1.7 mm.
 
 ### Final — element 6.53 cm
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **1089 MHz** |
 | SWR at resonance | 1.11:1 |
@@ -826,7 +828,7 @@ Or use **NanoVNA-Saver with 20+ segments** for ~2000 effective points.
 
 ### Initial sweep
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **14.118 MHz** |
 | SWR at resonance | **3.60:1** |
@@ -845,7 +847,7 @@ resonance off frequency.
 
 Adjust the vacuum cap until resonance sits at 14.201 MHz.
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | **14.201 MHz** ✓ |
 | SWR at resonance | 3.40:1 ✗ |
@@ -869,7 +871,7 @@ back out. Watch the Smith marker cross the centre and stop there.
 
 ### Final
 
-| | |
+| Measurement | Illustrative Value |
 |---|---|
 | Resonance | 14.201 MHz |
 | SWR at resonance | 1.25:1 |

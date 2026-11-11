@@ -23,7 +23,7 @@ The Bus Pirate is an open-source hacker multi-tool that talks to electronic comp
 ## 🔗 Reference Links
 * **Product Link:** [Bus Pirate 5 (buspirate.com)](https://buspirate.com/get/) — current version; v3.6/v4 are discontinued
 * **Reference Material:** [Bus Pirate 5 Documentation](https://firmware.buspirate.com/)
-* **Legacy Docs (v3.6/v4):** [Dangerous Prototypes Archive](http://dangerousprototypes.com/docs/Bus_Pirate)
+* **Legacy Docs (v3.6/v4):** [Bus Pirate Documentation (check your hardware revision)](https://docs.buspirate.com/)
 
 ## 🚀 Step-by-Step Example: Setup, Connect, and Use
 **Scenario: Extracting firmware from an SPI EEPROM chip.**

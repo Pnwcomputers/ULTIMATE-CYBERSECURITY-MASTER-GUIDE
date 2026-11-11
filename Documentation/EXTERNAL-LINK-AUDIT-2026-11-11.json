@@ -1,0 +1,1886 @@
+{
+  "source_run": "https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/actions/runs/43053899677",
+  "source_job_id": 130638123094,
+  "scan_completed_utc": "2026-11-11T16:05:44Z",
+  "baseline_commit": "95c89771b27551c12848cdd5b07b1d215fa3853e",
+  "scan_tool": "lychee-action v2.9.0 / online; accepted 200,201,202,206,301,302; 401/403/429 not accepted",
+  "scope": "Entire Markdown tree at baseline branch snapshot; status only, no authenticated provider access",
+  "occurrences": 205,
+  "distinct_failed_urls": 148,
+  "status_counts": {
+    "400": 2,
+    "401": 1,
+    "403": 126,
+    "404": 17,
+    "429": 32,
+    "502": 3,
+    "503": 17,
+    "521": 1,
+    "TIMEOUT": 6
+  },
+  "unsolved_status_is_not_proof_of_dead_link": true,
+  "records": [
+    {
+      "path": "AI/ai-workspaces-notebooks-and-assistants.md",
+      "baseline_line": 23,
+      "url": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/ai-workspaces-notebooks-and-assistants.md",
+      "baseline_line": 31,
+      "url": "https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/AnythingLLM/flow-threat_intel.md",
+      "baseline_line": 427,
+      "url": "https://www.abuseipdb.com/register",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/AnythingLLM/README.md",
+      "baseline_line": 161,
+      "url": "https://www.abuseipdb.com/register",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/offline-llm.md",
+      "baseline_line": 28,
+      "url": "https://pnwcomputers.blogspot.com/2025/11/offline-llm-system-truenas-hosted.html",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/offline-llm.md",
+      "baseline_line": 26,
+      "url": "https://pnwcomputers.blogspot.com/2025/11/offline-llm-system.html",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "AI/OpenClaw/README.md",
+      "baseline_line": 85,
+      "url": "https://www.cloudflare.com/learning/dns/glossary/dynamic-dns/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Cloud/README.md",
+      "baseline_line": 22,
+      "url": "https://www.linode.com/docs/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Compliance/frameworks.md",
+      "baseline_line": 148,
+      "url": "https://www.iso.org/standard/27001",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Compliance/README.md",
+      "baseline_line": 147,
+      "url": "https://www.iso.org/standard/27001",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Compliance/regulations.md",
+      "baseline_line": 127,
+      "url": "https://www.hhs.gov/hipaa/for-professionals/index.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Cryptography/Classical/deciphering-workbook.md",
+      "baseline_line": 383,
+      "url": "https://mitpress.mit.edu/9780262549028/cryptography/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Cryptography/Classical/deciphering-workbook.md",
+      "baseline_line": 385,
+      "url": "https://thereader.mitpress.mit.edu/a-history-of-cryptography-from-the-spartans-to-the-fbi/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Cryptography/Classical/mary-queen-of-scots.md",
+      "baseline_line": 191,
+      "url": "https://doi.org/10.1080/01611194.2022.2160677",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Cryptography/Classical/mary-queen-of-scots.md",
+      "baseline_line": 188,
+      "url": "https://www.nms.ac.uk/discover-catalogue/life-and-deathline-of-mary-queen-of-scots",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Data-Engineering/Phase2/data_storage_file_formats.md",
+      "baseline_line": 123,
+      "url": "https://arrow.apache.org/docs/python/parquet.html",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://arrow.apache.org/docs/python/parquet/"
+    },
+    {
+      "path": "Data-Engineering/Phase2/data_storage_file_formats.md",
+      "baseline_line": 305,
+      "url": "https://arrow.apache.org/docs/python/parquet.html",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://arrow.apache.org/docs/python/parquet/"
+    },
+    {
+      "path": "Documentation/ArchLinux_CheatSheet.md",
+      "baseline_line": 780,
+      "url": "https://shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/arduinoIDE.md",
+      "baseline_line": 77,
+      "url": "https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/curated-technical-docs.md",
+      "baseline_line": 32,
+      "url": "https://www.linode.com/docs/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/devhints-cli-field-reference.md",
+      "baseline_line": 39,
+      "url": "https://www.gnu.org/software/bash/manual/",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/devhints-cli-field-reference.md",
+      "baseline_line": 245,
+      "url": "https://www.gnu.org/software/coreutils/manual/",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/devhints-cli-field-reference.md",
+      "baseline_line": 63,
+      "url": "https://www.gnu.org/software/findutils/manual/html_mono/find.html",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/esp32-security-firmware-catalog.md",
+      "baseline_line": 235,
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/evil_m5.md",
+      "baseline_line": 46,
+      "url": "https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/LinuxCheatSheet.md",
+      "baseline_line": 665,
+      "url": "https://shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/LinuxCheatSheet.md",
+      "baseline_line": 42,
+      "url": "https://www.nongnu.org/synaptic/",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/security-public-api-catalog.md",
+      "baseline_line": 57,
+      "url": "https://api.gitguardian.com/doc",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://docs.gitguardian.com/api-docs/api-reference"
+    },
+    {
+      "path": "Documentation/security-public-api-catalog.md",
+      "baseline_line": 39,
+      "url": "https://docs.binaryedge.io/api-v2.html",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://docs.dev.binaryedge.io/api-v2/"
+    },
+    {
+      "path": "Documentation/security-public-api-catalog.md",
+      "baseline_line": 41,
+      "url": "https://docs.emailrep.io/",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/security-public-api-catalog.md",
+      "baseline_line": 38,
+      "url": "https://search.censys.io/api",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/security-public-api-catalog.md",
+      "baseline_line": 40,
+      "url": "https://securitytrails.com/corp/apidocs",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/virtualmachines.md",
+      "baseline_line": 65,
+      "url": "https://www.tracelabs.org/initiatives/osint-vm",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/WiFiMarauder_Guide.md",
+      "baseline_line": 170,
+      "url": "https://www.tindie.com/stores/justcallmekoko/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/wireshark.md",
+      "baseline_line": 659,
+      "url": "https://infocenter.nordicsemi.com/topic/ug_sniffer_ble/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 264,
+      "url": "https://flipper.net/products/wifi-devboard?srsltid=AfmBOoodVfsOS-PxVsuAIlZTy2OBBL-GZVEaUKO8wfSDX0_cjwzY6pjR",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 165,
+      "url": "https://lilygo.cc/products/lora3?srsltid=AfmBOopW3FsRCY-HULS-AGxePYBtQjLDAjV3AOfmCZ4zgS7sZYzI_Q6j",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 154,
+      "url": "https://lilygo.cc/products/t-display-s3?srsltid=AfmBOopvyeg18D0x7mmG2BEMPIczTk9WktU94wkUevkYZJHZDAiNncQ8",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 143,
+      "url": "https://lilygo.cc/products/t-display?srsltid=AfmBOop1immLTuQ0fiTlq6z96bzBxwSPu4LXlo4IGu0U-YjuCdMmmAWg",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 397,
+      "url": "https://shop.m5stack.com/products/m5stack-cardputer-kit-w-m5stamps3?srsltid=AfmBOorSX9HD917H33iyOuy3r_mU6J5wU1E0NmX9IUG95sl0SpLHlWLu",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 336,
+      "url": "https://shop.m5stack.com/products/m5stack-core2-esp32-iot-development-kit?srsltid=AfmBOoqDf_EC8aMGxVZvQA0g_dOatdDrsKGuPYvC6T9j7FM1oG-f6gK_",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 365,
+      "url": "https://shop.m5stack.com/products/m5stickc-plus-esp32-pico-mini-iot-development-kit?srsltid=AfmBOorBrNiVTXGsSB_-_E3OSaLoIIMlxmgF4_68nUJIz4lkwRFVb-uj",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 379,
+      "url": "https://shop.m5stack.com/products/m5stickc-plus2-esp32-mini-iot-development-kit?srsltid=AfmBOooBRwBJHMSxYmk2zpcb4cczzSWL4R4eQ_oIzQIXy_PhJiEGRYNG",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 349,
+      "url": "https://shop.m5stack.com/products/stick-c?srsltid=AfmBOoqrwQL9_kMCObQ6FqllSwoZKnAj25_JwGTzf93LvkjaIFENoiCY&variant=43982750843137",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 231,
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 179,
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-4-model-b/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 218,
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 206,
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-zero-w/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "firmware-hardware-compatibility.md",
+      "baseline_line": 191,
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-zero/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/BusPirate.md",
+      "baseline_line": 26,
+      "url": "http://dangerousprototypes.com/docs/Bus_Pirate",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/HiLetgo.md",
+      "baseline_line": 22,
+      "url": "https://www.amazon.com/s?k=HiLetgo+USB+Logic+Analyzer",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 350,
+      "url": "https://ches.iacr.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 169,
+      "url": "https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 225,
+      "url": "https://hex-rays.com/ida-pro/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://hex-rays.com/ida-pro"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 167,
+      "url": "https://www.amazon.com/s?k=24MHz+8CH+USB+Logic+Analyzer",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 170,
+      "url": "https://www.amazon.com/s?k=CH341A+SPI+Programmer",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 184,
+      "url": "https://www.amazon.com/s?k=CP2102+USB+to+TTL",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 183,
+      "url": "https://www.amazon.com/s?k=digital+multimeter",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 182,
+      "url": "https://www.amazon.com/s?k=DSLogic+Plus",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 144,
+      "url": "https://www.amazon.com/s?k=FPGA+development+board",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 145,
+      "url": "https://www.amazon.com/s?k=FPGA+development+board",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 184,
+      "url": "https://www.amazon.com/s?k=FTDI+FT232RL+USB+to+TTL",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 167,
+      "url": "https://www.amazon.com/s?k=FTDI+USB+UART+Adapter",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 187,
+      "url": "https://www.amazon.com/s?k=Hakko+FX-888D",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 188,
+      "url": "https://www.amazon.com/s?k=Quick+957DW+hot+air+rework",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 181,
+      "url": "https://www.amazon.com/s?k=Rigol+DS1054Z",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 168,
+      "url": "https://www.amazon.com/s?k=SEGGER+J-Link+EDU",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 181,
+      "url": "https://www.amazon.com/s?k=Siglent+SDS1204X-E",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 169,
+      "url": "https://www.amazon.com/s?k=ST-Link+V2",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 185,
+      "url": "https://www.amazon.com/s?k=ST-Link+V2",
+      "response": "503",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 198,
+      "url": "https://www.crowdsupply.com/1bitsquared/glasgow",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 147,
+      "url": "https://www.keysight.com/us/en/cmp/device-security.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareHacking/README.md",
+      "baseline_line": 351,
+      "url": "https://www.riscure.com/security-tools/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "HardwareTesting/README.md",
+      "baseline_line": 460,
+      "url": "https://01.org/linuxgraphics",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md",
+      "baseline_line": 82,
+      "url": "https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor-kape",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/Digital-Forensics/README.md",
+      "baseline_line": 181,
+      "url": "https://www.kroll.com/kape",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md",
+      "baseline_line": 876,
+      "url": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/auditing-the-system_security-hardening",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/Endpoint-Visibility/Linux/osquery.md",
+      "baseline_line": 108,
+      "url": "https://osquery.io/downloads/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://github.com/osquery/osquery/releases"
+    },
+    {
+      "path": "IncidentResponse/Endpoint-Visibility/Linux/osquery.md",
+      "baseline_line": 1079,
+      "url": "https://osquery.slack.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/IDS&IPS/suricata+zeek.md",
+      "baseline_line": 396,
+      "url": "https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/IDS/nzyme_wids.md",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md"
+    },
+    {
+      "path": "IncidentResponse/SIEM/README.md",
+      "baseline_line": 207,
+      "url": "https://docs.splunk.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 915,
+      "url": "https://community.splunk.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 909,
+      "url": "https://docs.splunk.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 910,
+      "url": "https://docs.splunk.com/Documentation/Splunk/latest/SearchReference",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 911,
+      "url": "https://docs.splunk.com/Documentation/SSE/latest",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 63,
+      "url": "https://www.splunk.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 356,
+      "url": "https://www.splunk.com/en_us/download/universal-forwarder.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/SIEM/splunk.md",
+      "baseline_line": 476,
+      "url": "https://www.splunk.com/en_us/download/universal-forwarder.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OPSEC/OPSEC_guide.md",
+      "baseline_line": 269,
+      "url": "https://offgrid.co/products/usb-data-blocker",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 17,
+      "url": "https://crt.sh/",
+      "response": "502",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 17,
+      "url": "https://search.censys.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 17,
+      "url": "https://securitytrails.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 15,
+      "url": "https://tineye.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 16,
+      "url": "https://viz.greynoise.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/awesome-osint-list-curated.md",
+      "baseline_line": 17,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/bellingcat-source-verification.md",
+      "baseline_line": 48,
+      "url": "https://www.ohchr.org/en/publications/policy-and-methodological-publications/berkeley-protocol-digital-open-source",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 166,
+      "url": "https://developers.redhat.com/articles/2022/09/14/beginners-guide-regular-expressions-grep",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 97,
+      "url": "https://osintteam.blog/master-real-world-web-app-enumeration-with-curl-wget-and-bash-a-step-by-step-guide-5f74ab34e795",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 108,
+      "url": "https://tryhackme.com/room/googledorking",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 67,
+      "url": "https://www.abuseipdb.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 164,
+      "url": "https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_CHEATSHEET.md",
+      "baseline_line": 65,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 377,
+      "url": "https://crt.sh/",
+      "response": "502",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 468,
+      "url": "https://etherscan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 1444,
+      "url": "https://perma.cc/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 373,
+      "url": "https://securitytrails.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 361,
+      "url": "https://shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 372,
+      "url": "https://www.abuseipdb.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 1365,
+      "url": "https://www.tracelabs.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_GUIDE.md",
+      "baseline_line": 489,
+      "url": "https://www.tracelabs.org/initiatives/osint-vm",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_socialmedia.md",
+      "baseline_line": 44,
+      "url": "https://whatsmyname.app/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 124,
+      "url": "https://emailrep.io/",
+      "response": "400",
+      "assessment": "error_requires_manual_recheck",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 158,
+      "url": "https://etherscan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 72,
+      "url": "https://securitytrails.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 39,
+      "url": "https://whatsmyname.app/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 89,
+      "url": "https://www.abuseipdb.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 63,
+      "url": "https://www.binaryedge.io/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://app.binaryedge.io"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 61,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 40,
+      "url": "https://emailrep.io/",
+      "response": "400",
+      "assessment": "error_requires_manual_recheck",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 55,
+      "url": "https://etherscan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 13,
+      "url": "https://github.com/khast3ze/h8mail",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://github.com/khast3x/h8mail"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 28,
+      "url": "https://securitytrails.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 57,
+      "url": "https://www.abuseipdb.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 25,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/Playbook/tools_api.md",
+      "baseline_line": 29,
+      "url": "https://www.zoomeye.org/",
+      "response": "521",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/README.md",
+      "baseline_line": 286,
+      "url": "https://www.tracelabs.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/scripts/Phone_OSINT.md",
+      "baseline_line": 22,
+      "url": "https://apilayer.net/marketplace/number_verification-api",
+      "response": "401",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/TSURUGI_LINUX_OSINT_GUIDE.md",
+      "baseline_line": 216,
+      "url": "https://crt.sh/",
+      "response": "502",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/HackRFAuditPlayBook.md",
+      "baseline_line": 121,
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/HackRFAuditPlayBook.md",
+      "baseline_line": 993,
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/README.md",
+      "baseline_line": 859,
+      "url": "https://www.mitre.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 232,
+      "url": "https://www.abuseipdb.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 235,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "PlayBooks/unauth_access.md",
+      "baseline_line": 474,
+      "url": "https://www.timeanddate.com/worldclock/distanceresult.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 528,
+      "url": "https://hex-rays.com/ida-pro/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://hex-rays.com/ida-pro"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 338,
+      "url": "https://shop.hak5.org/products/lan-turtle",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 341,
+      "url": "https://shop.hak5.org/products/omg-cable",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 339,
+      "url": "https://shop.hak5.org/products/packet-squirrel",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 340,
+      "url": "https://shop.hak5.org/products/shark-jack",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 313,
+      "url": "https://shop.hak5.org/products/wifi-pineapple",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 477,
+      "url": "https://tracelabs.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 531,
+      "url": "https://vx-underground.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 347,
+      "url": "https://www.alfa.com.tw/products/awus036nha",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "README.md",
+      "baseline_line": 544,
+      "url": "https://www.splunk.com/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "ReverseEngineering/vx-underground.md",
+      "baseline_line": 237,
+      "url": "https://vx-underground.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "ReverseEngineering/vx-underground.md",
+      "baseline_line": 26,
+      "url": "https://vx-underground.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "ReverseEngineering/vx-underground.md",
+      "baseline_line": 79,
+      "url": "https://vx-underground.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "ReverseEngineering/vx-underground.md",
+      "baseline_line": 66,
+      "url": "https://x.com/vxunderground",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "ReverseEngineering/vx-underground.md",
+      "baseline_line": 81,
+      "url": "https://x.com/vxunderground",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Scripts/Bash/BashBunny/README.md",
+      "baseline_line": 534,
+      "url": "https://forums.hak5.org/forum/94-bash-bunny/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Scripts/Ducky/README.md",
+      "baseline_line": 203,
+      "url": "https://forums.hak5.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/hackrf.md",
+      "baseline_line": 121,
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/hackrf.md",
+      "baseline_line": 993,
+      "url": "https://www.fcc.gov/general/jammer-enforcement",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 284,
+      "url": "https://uscode.house.gov/view.xhtml?req=%28title%3A18%20section%3A2511%29",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://uscode.house.gov/us/usc/119-136/t18/s2511/"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 335,
+      "url": "https://wiki.gnuradio.org/index.php/Tutorials",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 124,
+      "url": "https://www.crowdsupply.com/lime-micro",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 186,
+      "url": "https://www.fcc.gov/enforcement/areas/jammers",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 284,
+      "url": "https://www.fcc.gov/enforcement/areas/jammers",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 323,
+      "url": "https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/README.md",
+      "baseline_line": 138,
+      "url": "https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    },
+    {
+      "path": "SDR/rfid.md",
+      "baseline_line": 730,
+      "url": "https://www.iso.org/standard/73596.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/rfid.md",
+      "baseline_line": 731,
+      "url": "https://www.iso.org/standard/73602.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/subghz.md",
+      "baseline_line": 718,
+      "url": "https://wiki.gnuradio.org/index.php/Guided_Tutorials",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/subghz.md",
+      "baseline_line": 712,
+      "url": "https://www.fcc.gov/oet/ea/rfdevice",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 248,
+      "url": "https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/protocols/esb/index.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 227,
+      "url": "https://mioty-alliance.com/technology/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://mioty-alliance.com/"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 119,
+      "url": "https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 54,
+      "url": "https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 567,
+      "url": "https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 166,
+      "url": "https://www.navcen.uscg.gov/ais-frequently-asked-questions",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 166,
+      "url": "https://www.navcen.uscg.gov/us-vhf-channel-information",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 71,
+      "url": "https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 391,
+      "url": "https://www.qorvo.com/products/p/DW3110",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 227,
+      "url": "https://www.silabs.com/wireless/z-wave",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 119,
+      "url": "https://www.worlddab.org/dab/technical-specifications",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://www.worlddab.org/standards/specifications/technical-specifications"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 206,
+      "url": "https://hex-rays.com/ida-pro/",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "https://hex-rays.com/ida-pro"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 189,
+      "url": "https://search.censys.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 307,
+      "url": "https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 295,
+      "url": "https://www.blackhat.com/us-20/briefings/schedule/#a-decade-after-stuxnet-satcom-is-still-broken-20511",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 19,
+      "url": "https://www.everythingrf.com/community/what-are-tt-c-telemetry-tracking-and-command-systems",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 24,
+      "url": "https://www.fcc.gov/space",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 189,
+      "url": "https://www.shodan.io/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 198,
+      "url": "https://www.spirent.com/products/gnss-simulator-gss7000",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SpaceSecurity/README.md",
+      "baseline_line": 296,
+      "url": "https://www.youtube.com/watch?v=UJgnFSsV2bY",
+      "response": "404",
+      "assessment": "replacement_or_retirement_committed_in_pr_195",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification",
+      "proposed_replacement": "Retired dead video reference; preserved historical event attribution"
+    },
+    {
+      "path": "Tradecraft/osint-threat-intel.md",
+      "baseline_line": 1118,
+      "url": "https://vx-underground.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Tradecraft/osint-threat-intel.md",
+      "baseline_line": 1107,
+      "url": "https://www.tracelabs.org/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM4-SAFETY-REVIEW.md",
+      "baseline_line": 35,
+      "url": "https://www.raspberrypi.com/documentation/computers/compute-module.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM4-SAFETY-REVIEW.md",
+      "baseline_line": 52,
+      "url": "https://www.raspberrypi.com/documentation/computers/compute-module.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM4-SETUP.md",
+      "baseline_line": 532,
+      "url": "https://www.raspberrypi.com/documentation/computers/compute-module.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM4-SETUP.md",
+      "baseline_line": 153,
+      "url": "https://www.raspberrypi.com/software/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM5-SETUP.md",
+      "baseline_line": 446,
+      "url": "https://www.raspberrypi.com/documentation/computers/compute-module.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM5-SETUP.md",
+      "baseline_line": 4,
+      "url": "https://www.raspberrypi.com/documentation/computers/compute-module.html",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/CM5-SETUP.md",
+      "baseline_line": 174,
+      "url": "https://www.raspberrypi.com/software/",
+      "response": "403",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/README.md",
+      "baseline_line": 309,
+      "url": "https://hackergadgets.com/products/nvme",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/README.md",
+      "baseline_line": 307,
+      "url": "https://hackergadgets.com/products/uconsole-aio-v2",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "uConsole/README.md",
+      "baseline_line": 308,
+      "url": "https://hackergadgets.com/products/uconsole-upgrade-kit",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Wardriving/awok-dual-c5-biscuit.md",
+      "baseline_line": 10,
+      "url": "https://awokdynamics.com/products/dual-c5-mini",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Wardriving/awok-dual-c5-biscuit.md",
+      "baseline_line": 62,
+      "url": "https://awokdynamics.com/products/dual-c5-mini",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Wardriving/README.md",
+      "baseline_line": 128,
+      "url": "https://awokdynamics.com/products/dual-c5-mini",
+      "response": "429",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "Documentation/LinuxCheatSheet.md",
+      "baseline_line": 42,
+      "url": "https://documentation.ubuntu.com/launchpad/user/reference/packaging/ppas/ppa/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/IDS&IPS/readme.md",
+      "baseline_line": 224,
+      "url": "http://testmynids.org/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "IncidentResponse/IDS&IPS/suricata+zeek.md",
+      "baseline_line": 385,
+      "url": "http://testmynids.org/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "OSINT/OSINT_TOOLS_CATALOG.md",
+      "baseline_line": 103,
+      "url": "https://abusix.org/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/rfid.md",
+      "baseline_line": 738,
+      "url": "https://nfc-tools.org/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    },
+    {
+      "path": "SDR/target_frequencies_protocols.md",
+      "baseline_line": 376,
+      "url": "https://docs.satdump.org/",
+      "response": "TIMEOUT",
+      "assessment": "unconfirmed_bot_or_host_restriction",
+      "reviewed_on": "2026-11-11",
+      "evidence": "lychee online URL response, not semantic content certification"
+    }
+  ]
+}

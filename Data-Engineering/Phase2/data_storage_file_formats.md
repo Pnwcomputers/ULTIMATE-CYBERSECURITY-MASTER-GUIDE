@@ -120,7 +120,7 @@ Example object key: `telemetry/schema_v1/event_date=2026-09-10/part-000.parquet`
 
 Choose file and row-group sizes from measurements: query latency, file count, metadata overhead, compression ratio, and writer memory. Compact small files into new dataset versions. Do not compact by overwriting files that active readers are using.
 
-Compression exchanges CPU work for reduced bytes. Gzip is convenient for sequential text scans, but do not assume an ordinary `.gz` text file can be split or randomly accessed efficiently. Parquet compresses within its columnar structure; choose a supported internal codec rather than wrapping the whole file in gzip. Test the actual reader and codec combination. [Arrow Parquet guide](https://arrow.apache.org/docs/python/parquet.html)
+Compression exchanges CPU work for reduced bytes. Gzip is convenient for sequential text scans, but do not assume an ordinary `.gz` text file can be split or randomly accessed efficiently. Parquet compresses within its columnar structure; choose a supported internal codec rather than wrapping the whole file in gzip. Test the actual reader and codec combination. [Arrow Parquet guide](https://arrow.apache.org/docs/python/parquet/)
 
 Partitioning and sorting solve different problems. A date partition limits candidate files; sorting within those files can help supported readers skip smaller regions. Neither replaces an index for every workload.
 
@@ -302,7 +302,7 @@ with TemporaryDirectory() as folder:
     print('Parquet round trip and projection passed')
 ```
 
-The example demonstrates explicit schema, a null value, and column projection using Arrow's documented Parquet API. It does not test partition discovery, predicate pruning, multi-engine interoperability, encryption, or performance. [Arrow Parquet reading and writing](https://arrow.apache.org/docs/python/parquet.html)
+The example demonstrates explicit schema, a null value, and column projection using Arrow's documented Parquet API. It does not test partition discovery, predicate pruning, multi-engine interoperability, encryption, or performance. [Arrow Parquet reading and writing](https://arrow.apache.org/docs/python/parquet/)
 
 ---
 

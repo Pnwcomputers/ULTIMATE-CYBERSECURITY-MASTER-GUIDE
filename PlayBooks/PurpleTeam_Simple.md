@@ -212,7 +212,7 @@ Record:
 
 ## 📎 Template: New Playbook Entry
 
-Use this for each new TTP test:
+Use this for each new TTP test. The empty cells are engagement-specific and must be completed **only from the authorized exercise plan and observed telemetry**. Enter **Not tested**, **Not observed** or **Unknown** where appropriate. An expected SIEM alert is not evidence of a detected technique; use synthetic fixtures before performing any approved canary activity.
 
 | Field | Example |
 |-------|---------|

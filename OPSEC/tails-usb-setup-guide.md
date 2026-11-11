@@ -540,7 +540,9 @@ These are starting points, not confirmed diagnoses. Change one variable at a tim
 - [ ] Personal/business identities separated from intended anonymous activity.
 - [ ] Hardware, account, metadata, and network-analysis limitations understood.
 
-### Optional private build record
+### Optional Private Build Record
+
+The table below is intentionally empty for an operator's **actual** hardware and Tails installation. Enter the version displayed on the running device and the real verification method/date. Write **Not tested** rather than implying Tor connectivity, persistent data recovery or verified backups. Keep the entire record private.
 
 | Field | Your record |
 |---|---|

@@ -6,14 +6,16 @@
     <decoded_as>json</decoded_as>
     <field name="wids.integration">^kismet$</field>
     <description>WIDS: Kismet wireless telemetry ($(wids.event))</description>
-    <group>wireless_wids,kismet,  <rule id="100340" level="12">
+    <group>wireless_wids,kismet,</group>
+  </rule>
+
+  <!-- Correlation is based on related signals, NOT independent attribution. -->
+  <rule id="100340" level="12">
     <decoded_as>json</decoded_as>
     <field name="wids.integration">^correlator$</field>
     <field name="wids.event">^KISMET_PCAP_CORRELATED$</field>
-    <description>WIDS: Kismet alert and observed PCAP burst align; urgently verify AP logs</description>
+    <description>WIDS: Kismet alert and observed PCAP burst align; verify independent AP logs</description>
     <group>wireless_wids,correlated_signals,</group>
-  </rule>
-</group>
   </rule>
   <rule id="100301" level="10">
     <if_sid>100300</if_sid>

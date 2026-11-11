@@ -49,7 +49,7 @@ Get a working decision, not just a working install: know which install path is w
 
 ## 🎯 Snort vs. Suricata — The Honest Comparison
 
-| | Snort | Suricata |
+| Comparison | Snort | Suricata |
 |---|---|---|
 | Detection engine | Single-threaded (Snort 2) / limited multi-threading (Snort 3) | Native multi-threading throughout |
 | Rule language | Its own, large community rule ecosystem (Talos/Snort rules) | Compatible with Snort-style rules, plus its own extensions (`http.uri`, `dns.query`, etc.) |

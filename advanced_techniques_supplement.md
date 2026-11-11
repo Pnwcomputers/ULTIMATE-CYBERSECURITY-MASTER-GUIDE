@@ -938,7 +938,8 @@ class VulnScanner:
 
 # Usage
 if __name__ == "__main__":
-    scanner = VulnScanner("http://testphp.vulnweb.com/")
+    # Use only an intentionally started, authorized local web lab target.
+    scanner = VulnScanner("http://127.0.0.1:8080/")
     scanner.scan()
 ```
 

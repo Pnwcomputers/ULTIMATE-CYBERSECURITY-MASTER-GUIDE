@@ -151,7 +151,7 @@ The Vigenère cipher encrypts using a series of interwoven Caesar ciphers chosen
 
 **Example:**
 
-| | | | | | | |
+| Role | Position 1 | Position 2 | Position 3 | Position 4 | Position 5 | Position 6 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Plaintext** | H | I | D | D | E | N |
 | **Keyword** | K | E | Y | K | E | Y |

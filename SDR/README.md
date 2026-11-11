@@ -135,7 +135,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 |---|---|---|
 | **[Proxmark3 / RRG firmware](https://github.com/RfidResearchGroup/proxmark3)** | LF/HF identification, capture, supported reading/writing, and emulation | Hardware revision, antenna tuning, firmware/client match, and exact protocol support. |
 | **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | Supported LF/HF credential emulation and reader-side functions | Features depend on firmware and card type; do not assume universal tag support. |
-| **[PN532](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN) + [libnfc](https://github.com/nfc-tools/libnfc)** | Selected 13.56 MHz NFC/ISO 14443/FeliCa workflows | Not an LF or UHF reader; do not assume ISO 15693 support. NXP marks PN532 not recommended for new designs. |
+| **[PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) + [libnfc](https://github.com/nfc-tools/libnfc)** | Selected 13.56 MHz NFC/ISO 14443/FeliCa workflows | Not an LF or UHF reader; do not assume ISO 15693 support. NXP marks PN532 not recommended for new designs. |
 | **[Flipper Zero](https://docs.flipper.net/)** | Supported LF credential and HF/NFC identification/emulation | Supported protocol and memory/authentication features vary by card. |
 | **[iCopy-X](https://icopy-x.com/)** | Integrated workflows for supported credentials | Product/firmware-specific compatibility; not a guarantee of cloning arbitrary credentials. |
 | **Regional UHF EPC reader** | Passive UHF tag inventory and interaction | Required regional channel plan, antenna, and EPC/ISO protocol support; LF/HF tools do not substitute for it. |
@@ -281,7 +281,7 @@ Read-only memory access can still involve RF transmissions or sensitive informat
 | Testing credentials or access systems | Authorization must cover the credential, relevant system, and intended operation. Possession of a card does not necessarily authorize duplication or access-system testing. |
 | Aviation, GNSS, emergency, medical, or other operational systems | Do not introduce disruptive signals. Specialist research requires appropriate authorization and an engineered test environment. |
 
-Sources: [FCC Part 15 rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15), [amateur service rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97), [FCC jammer guidance](https://www.fcc.gov/enforcement/areas/jammers), and [18 USC § 2511](https://uscode.house.gov/view.xhtml?req=%28title%3A18%20section%3A2511%29).
+Sources: [FCC Part 15 rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15), [amateur service rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-97), [FCC jammer guidance](https://www.fcc.gov/enforcement/areas/jammers), and [18 USC § 2511](https://uscode.house.gov/us/usc/119-136/t18/s2511/).
 
 This README does not assign blanket criminal classifications, fine amounts, or prison terms to technical activities. Legal consequences depend on the conduct, applicable law, authorization, and other facts. Wi-Fi deauthentication is a protocol-layer action and is not technically identical to RF noise jamming, although either can cause disruption.
 
