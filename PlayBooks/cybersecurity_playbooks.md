@@ -923,6 +923,9 @@ document.cookie
 ```
 
 ### Test Report Template
+
+The fields in this fenced example are **intentional fill-in values**, not completed findings. Replace each bracketed field with evidence from an authorized assessment. If no CVE or CWE applies, write **Not applicable / not established** rather than inventing an identifier. Never publish real client URLs, credentials, or screenshots in this repository. Validate severity against the relevant CVSS version and the environment's actual impact.
+
 ```markdown
 # Vulnerability Title
 
