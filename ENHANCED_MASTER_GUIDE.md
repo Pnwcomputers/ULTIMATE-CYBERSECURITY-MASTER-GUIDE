@@ -2814,20 +2814,14 @@ virt-install \
   --network bridge=br-hacklab \
   --graphics vnc
 
-# DVWA
-virt-install \
-  --name dvwa \
-  --memory 1024 \
-  --vcpus 1 \
-  --disk size=20 \
-  --network bridge=br-hacklab \
-  --graphics vnc \
-  --import  # Historical placeholder; not valid without an existing prepared disk
-
-# The Ubuntu 20.04 HTTP netboot source formerly shown here is obsolete.
-# Do not treat the DVWA fragment above as executable; follow a current official
-# DVWA deployment on an isolated lab VM with a verified, supported OS image.
-# No guest image was downloaded or installed by this documentation review.
+# DVWA (deliberately vulnerable web application) — do not run on a
+# production, household or client LAN. The legacy Ubuntu 20.04 netboot
+# virt-install command was invalid and has been removed, not "repaired"
+# with a guessed image URL. Provision a supported, isolated guest from
+# a vendor-checksummed image before installing the current DVWA project
+# according to https://github.com/digininja/DVWA .
+# Verify published port bindings and isolation before starting it.
+# There is intentionally no executable DVWA VM command in this sketch.
 
 # VulnHub machines
 echo "[*] Downloading VulnHub machines..."
