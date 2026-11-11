@@ -1,17 +1,13 @@
-# Consistent cross-platform source checkout; no automatic rewriting of old files.
+# Preserve already-tracked historical CRLF files until a separate
+# reviewed, explicit normalization change can update their Git blobs.
+# Forcing eol=lf across existing *.ps1 and Markdown paths makes the
+# working tree dirty on checkout and breaks create-pull-request.
+# Use .editorconfig for the preferred LF behavior in newly edited files.
 * text=auto
-*.md text eol=lf
-*.py text eol=lf
-*.sh text eol=lf
-*.ps1 text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.json text eol=lf
-*.jsonc text eol=lf
-*.tsv text eol=lf
+
+# Never let Git transform binary assets.
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.webp binary
 *.pdf binary
-*.s1p text eol=lf
