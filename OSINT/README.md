@@ -394,21 +394,19 @@ This OSINT collection supports:
 
 ---
 
-## ⚡ Recent Updates
+## 📈 Published Coverage & Remaining Gaps
 
-### November 2024
-- ✅ Created comprehensive OSINT Master Guide (27KB)
-- ✅ Documented 400+ OSINT tools with examples
-- ✅ Added complete methodology and workflows
-- ✅ Included VM setup guides and scripts
-- ✅ Established folder structure for future content
+_Editorial status checked November 11, 2026. Individual commands, APIs and target websites require their own verification._
 
-### Coming Soon
-- 🔨 Individual tool deep-dive guides
-- 🔨 Investigation workflow templates
-- 🔨 Automation script collection
-- 🔨 Video tutorials and demonstrations
-- 🔨 Case study examples
+| Area | Published Resource | Current Limitation |
+|---|---|---|
+| Structured Investigation & Evidence | [Investigator Playbook](Playbook/README.md) | Case management and selected collectors exist, but not all report-menu actions or the web interface |
+| Methodology & Verification | [OSINT Master Guide](OSINT_GUIDE.md) and [Source Verification](bellingcat-source-verification.md) | Validate source provenance, rights, dates and provider restrictions for each case |
+| Curated External Resources | [Tools Catalog](OSINT_TOOLS_CATALOG.md) and [Awesome OSINT Curation](awesome-osint-list-curated.md) | Third-party tools and service availability change; index inclusion is not live testing |
+| Automation & Scripts | [OSINT Scripts](scripts/) and [Playbook Scripts](Playbook/scripts/) | Some examples and adapters are historical or incomplete; inspect before running |
+| Toolkit Installation | [Installation Guidance](docs/INSTALLATION.md), [Compatibility](docs/COMPATIBILITY.md) | Lab validation, dependencies and target distribution versions vary |
+
+**Open development priorities:** implement/report the unfinished numbered reports menu, design and test a secured local web UI *if needed*, improve input and provider adapter validation, add reproducible offline fixtures for third-party integrations, and capture independent verification results. Avoid declaring these complete before tests exist.
 
 ---
 
