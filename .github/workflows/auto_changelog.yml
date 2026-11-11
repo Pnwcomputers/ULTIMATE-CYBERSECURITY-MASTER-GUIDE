@@ -31,6 +31,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verify Git checkout is clean before generating
+        run: |
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "::error::Tracked files changed during checkout; check .gitattributes and legacy CRLF blobs."
+            git status --short
+            exit 1
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
