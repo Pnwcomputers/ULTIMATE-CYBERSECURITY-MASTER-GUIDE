@@ -23,6 +23,8 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
+**Operational verification:** [Lab & SIEM/EDR Validation Matrix](LAB-VERIFICATION-MATRIX.md) records procedure-specific evidence, test blockers and non-production fixture boundaries. [Main Branch Ruleset Setup](BRANCH-PROTECTION-SETUP.md) lists the admin-only checks and safe PR enforcement settings. [Legacy Archive Dispositions](../Scripts/GO/ARCHIVE-INVENTORY.md) identifies older Python examples without claiming modern runtime support.
+
 **Repository-wide quality review:** [Verification & Content Completeness Protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) covers source provenance, technical claims, testable examples, placeholders, external links, confidence levels, and evidence retention. [Maintenance, Workers & Automation](REPOSITORY-MAINTENANCE-OPERATIONS.md) covers the CI jobs, local setup, scheduled triage, source-control protections and task lifecycle.
 
 ## Expanded Device & Firmware Coverage

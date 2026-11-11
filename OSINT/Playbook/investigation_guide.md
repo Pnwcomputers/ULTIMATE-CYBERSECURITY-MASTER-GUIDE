@@ -302,17 +302,19 @@ asn 1.2.3.4
 
 **Document:** Abuse email for reporting
 
-#### Step 2: Geolocation
+#### Step 2: Registered Network Details (HTTPS RDAP)
 
 ```bash
-curl -s "http://ip-api.com/json/1.2.3.4" | jq
+# Read-only lookup. Replace the illustrative address with a permitted IP.
+IP="8.8.8.8"
+curl --fail --silent --show-error --location \
+  --proto '=https' --proto-redir '=https' \
+  "https://rdap.org/ip/$IP" | jq '{name,handle,startAddress,endAddress,entities}'
 ```
 
-**What to look for:**
-- Country and city
-- ISP name
-- Organization
-- Proxy/VPN/hosting detection
+**Interpretation:** RDAP reports registry allocation details and possibly contact entities. It does **not** establish the IP's physical location, the end user's identity, whether the host is reachable, or that any address belongs to a malicious actor. Review [RDAP.org's bootstrap documentation](https://about.rdap.org/) and the [ARIN RDAP guide](https://www.arin.net/resources/rdap.html); responses vary by registry.
+
+If city/country or proxy/VPN classifications are necessary, obtain them separately from an approved, HTTPS-enabled geolocation/reputation provider under the applicable license. Record the source, query date, precision, uncertainty and disclosure of the investigated address to the provider. Never substitute registry country for confirmed geolocation.
 
 #### Step 3: Reputation Check
 
@@ -335,8 +337,10 @@ curl -s "https://api.abuseipdb.com/api/v2/check?ipAddress=1.2.3.4&maxAgeInDays=9
 
 #### Step 4: Port Scan (Quick)
 
+**Active testing requires written authorization and an explicitly in-scope target.** Do not scan a third-party address simply because it appeared in an OSINT result. Replace the illustrative placeholder before running.
+
 ```bash
-nmap -F -T4 --open 1.2.3.4
+nmap -F -T2 --open AUTHORIZED_TARGET_IP
 ```
 
 **What to look for:**

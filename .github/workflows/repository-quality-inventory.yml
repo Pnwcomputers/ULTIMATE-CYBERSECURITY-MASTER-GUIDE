@@ -11,6 +11,9 @@ on:
       - '**/*.sh'
       - '**/*.ps1'
       - 'tools/repository_quality_audit.py'
+      - 'tools/maintenance_candidate_triage.py'
+      - 'tools/tests/**'
+      - 'Scripts/GO/archive_manifest.json'
       - '.github/workflows/repository-quality-inventory.yml'
 
 permissions:
@@ -31,3 +34,22 @@ jobs:
             --output "$RUNNER_TEMP/repository-quality-report.md" \
             --max-items 120
           cat "$RUNNER_TEMP/repository-quality-report.md" | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Generate classified HTTP and blank-cell review queue
+        run: |
+          python3 -B tools/maintenance_candidate_triage.py \
+            --format json --output "$RUNNER_TEMP/markdown-triage.json"
+          python3 -B tools/maintenance_candidate_triage.py \
+            --format markdown --max-items 60 \
+            --output "$RUNNER_TEMP/markdown-triage-summary.md"
+          cat "$RUNNER_TEMP/markdown-triage-summary.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Preserve complete candidate inventories (not live verification)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: repository-triage-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/repository-quality-report.md
+            ${{ runner.temp }}/markdown-triage.json
+            ${{ runner.temp }}/markdown-triage-summary.md
+          if-no-files-found: error
+          retention-days: 30

@@ -1,5 +1,7 @@
 # 🟢 Graylog SIEM Deployment Guide
 
+> **Historical lab configuration — not a current production deployment recipe (reviewed November 11, 2026).** The Docker example below uses Graylog 5.2 and OpenSearch 2.12.0. Compatibility, vendor support status, images, credentials, and plugin configuration have **not** been revalidated for current releases. Consult the [official Graylog documentation](https://go2docs.graylog.org/) and vendor release/support matrix before adopting or upgrading. The example exposes port 9000 over plaintext HTTP; only use this on an isolated, trusted test network. For a real deployment, terminate HTTPS with a trusted reverse proxy (or supported native TLS), tightly restrict management access, and never forward port 9000 to the public internet. Internal HTTP service-to-service URLs in the isolated Docker network are not public external links.
+
 ## 🎯 Purpose
 Graylog SIEM deployment guide - covering installation, input configuration, stream processing, alerting, dashboards, and log management for a self-hosted open-source SIEM alternative.
 

@@ -2,10 +2,6 @@ name: Duplicate Markdown sections
 
 on:
   pull_request:
-    paths:
-      - '**/*.md'
-      - 'tools/check_duplicate_sections.py'
-      - '.github/workflows/duplicate-sections.yml'
   workflow_dispatch:
 
 permissions:
@@ -13,6 +9,7 @@ permissions:
 
 jobs:
   duplicate-sections:
+    name: Duplicate sections
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

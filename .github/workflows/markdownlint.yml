@@ -2,8 +2,6 @@ name: Markdown Lint
 
 on:
   pull_request:
-    paths:
-      - '**/*.md'
   workflow_dispatch:   # manual full-repo run
 
 permissions:

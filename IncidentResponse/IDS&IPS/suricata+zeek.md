@@ -287,16 +287,31 @@ For writing custom rules, tuning performance (CPU affinity, `af-packet` ring siz
 Zeek doesn't block anything. It turns raw traffic into structured, high-fidelity protocol logs (`conn.log`, `dns.log`, `http.log`, `ssl.log` with JA3/JA3S fingerprints, `files.log` with hashes) that are far more useful for hunting and forensics than either a signature match alone or a raw pcap. Run it on the same tap/mirror interface as Suricata; they don't conflict, since both just read a copy of the traffic.
 
 ```bash
-sudo apt install -y zeek
-# or, for the latest release:
-echo 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/ /' | \
-  sudo tee /etc/apt/sources.list.d/security:zeek.list
-curl -fsSL https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key | \
-  gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
-sudo apt update && sudo apt install -y zeek
+# Option 1: distribution-provided package, if supported and available
+sudo apt update
+apt-cache policy zeek
+# sudo apt install -y zeek  # Use only after confirming version and platform
+
+# Option 2: Zeek project's OBS packages, Ubuntu 24.04 only
+# See https://docs.zeek.org/en/lts/install.html (reviewed 2026-11-11)
+curl --fail --show-error --silent --location \
+  --proto '=https' --proto-redir '=https' \
+  'https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/Release.key' \
+  --output /tmp/zeek-obs-Release.key
+gpg --show-keys --with-fingerprint /tmp/zeek-obs-Release.key
+# STOP and independently verify the repository key fingerprint with its publisher.
+# Only after verification:
+gpg --dearmor --output /tmp/zeek-obs.gpg /tmp/zeek-obs-Release.key
+sudo install -m 0644 /tmp/zeek-obs.gpg /usr/share/keyrings/zeek-obs.gpg
+printf '%s\n' 'deb [signed-by=/usr/share/keyrings/zeek-obs.gpg] https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/ /' | \
+  sudo tee /etc/apt/sources.list.d/security-zeek.list
+sudo apt update
+apt-cache policy zeek-8.0
+sudo apt install -y zeek-8.0
+rm -f /tmp/zeek-obs-Release.key /tmp/zeek-obs.gpg
 ```
 
-Set the capture interface in `/opt/zeek/etc/node.cfg` (standalone mode), same interface-name-verification caution as Suricata applies here too.
+The Ubuntu 24.04 snippet chooses the **Zeek 8.0 LTS package family** rather than an unpinned rolling `zeek` package; confirm support and exact available revision before deployment. Installing from OBS grants package-signing trust, so obtain the repository fingerprint independently and stop if it does not match. On a different distribution or release, follow [official Zeek installation guidance](https://docs.zeek.org/en/lts/install.html) rather than reusing this repository path. The package typically installs under `/opt/zeek`; confirm the actual path, then set the capture interface in its `etc/node.cfg`. Interface-name verification is as important here as for Suricata.
 
 If you only have a single NIC on a VM/appliance and no mirror port available, running Zeek directly on a firewall VM that already sees all routed traffic (rather than trying to mirror to a separate box) avoids needing extra port-mirroring infrastructure.
 
@@ -312,7 +327,7 @@ For the full log reference table, `zeek-cut` analysis one-liners, JA3/JA3S finge
 curl http://testmynids.org/uid/index.html
 ```
 
-Expected: the page returns `uid=0(root) gid=0(root) groups=0(root)`, and a corresponding alert (commonly named something like *"GPL ATTACK_RESPONSE id check returned root"*) should appear in **Services → Intrusion Detection → Alerts** (OPNsense/pfSense) or your Suricata log (standalone). If the alert shows up, detection is working end-to-end.
+Expected: the page returns `uid=0(root) gid=0(root) groups=0(root)`, and a corresponding alert (commonly named something like *"GPL ATTACK_RESPONSE id check returned root"*) should appear in **Services → Intrusion Detection → Alerts** (OPNsense/pfSense) or your Suricata log (standalone). If the alert shows up, **that particular signature and capture-to-alert path** were observed for this test; this does not prove coverage of other traffic, other rules, false-positive behavior or any SIEM forwarding. Record timestamp, sensor interface, rule/SID, expected and observed fields, and a benign negative test using the [Lab Validation Matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md).
 
 **Pcap replay** is the other reliable check, useful for validating custom rules before they ever see live traffic:
 
