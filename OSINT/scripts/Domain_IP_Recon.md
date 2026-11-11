@@ -335,11 +335,12 @@ query_ipinfo() {
     curl -s "https://ipinfo.io/$IP" | pretty_json > "$OUTPUT" 2>&1
 }
 
-query_ipapi() {
+query_rdap() {
     local IP="$1"
     local OUTPUT="$2"
-    log "${GREEN}    [*] Querying ip-api.com...${NC}"
-    curl -s "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" \
+    log "${GREEN}    [*] Querying HTTPS RDAP network registration (not geolocation)...${NC}"
+    curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
+        --max-redirs 5 --max-time 30 "https://rdap.org/ip/$IP" \
         | pretty_json > "$OUTPUT" 2>&1
 }
 
@@ -408,7 +409,7 @@ scan_ip() {
     ip_section "$IP"
     
     query_ipinfo "$IP" "$IP_DIR/ipinfo.json"
-    query_ipapi "$IP" "$IP_DIR/ipapi.json"
+    query_rdap "$IP" "$IP_DIR/rdap.json"
     
     if [[ ! "$IP" =~ ":" ]]; then
         whois -h whois.arin.net "$IP" > "$IP_DIR/whois_arin.txt" 2>&1
@@ -431,7 +432,7 @@ scan_ip() {
     nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" > /dev/null 2>&1
     
     # Banner Grab
-    timeout 5 bash -c "echo '' | nc -v $IP 80" > "$IP_DIR/banner_80.txt" 2>&1
+    printf '' | timeout 5 nc -v "$IP" 80 > "$IP_DIR/banner_80.txt" 2>&1
     
     # Web Recon
     PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null || echo 0)
@@ -466,7 +467,7 @@ fi
 if [ -n "$DOMAIN" ]; then
     section "2) Additional Domain Intelligence"
     query_leaklookup "$DOMAIN" "domain" "$OUTPUT_DIR/domain/leaklookup.json"
-    [ command -v whatweb &> /dev/null ] && whatweb "http://$DOMAIN" --log-json="$OUTPUT_DIR/domain/whatweb_http.json" > "$OUTPUT_DIR/domain/whatweb_http.txt" 2>&1
+    command -v whatweb >/dev/null 2>&1 && whatweb "http://$DOMAIN" --log-json="$OUTPUT_DIR/domain/whatweb_http.json" > "$OUTPUT_DIR/domain/whatweb_http.txt" 2>&1
     run_nuclei "https://$DOMAIN" "$OUTPUT_DIR/domain/nuclei_results.txt"
 fi
 
