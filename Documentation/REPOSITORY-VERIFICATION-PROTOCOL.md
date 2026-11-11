@@ -34,8 +34,19 @@ As of the baseline commit: **857 tracked paths**, including **361 Markdown**, **
 | ShellCheck / `bash -n` | Shell syntax and selected warning-level patterns for selected scripts | Third-party binaries, package availability, network success, correct runtime output |
 | Python hardening fixtures | Known OSINT/installer regressions for test-specified cases | Every Python file or every external service integration |
 | Other focused workflows | Selected Wireshark, network and documentation checks | End-to-end SIEM, EDR, SDR, physical hardware, or production behavior |
+| Repository Quality Inventory | All-file offline Python AST and Bash syntax, plus Markdown candidate placeholders in workflow summaries | Runtime accuracy, PowerShell parsing, external status, safe deployments, or all content claims |
 
 **A green check must never be cited as a global security certification.**
+
+### Run The Automated Review Queue
+
+~~~bash
+python3 -B tools/repository_quality_audit.py --max-items 200
+# Optional: fail on parse-only syntax problems (will not execute project scripts)
+python3 -B tools/repository_quality_audit.py --strict-syntax
+~~~
+
+The [Repository Quality Inventory workflow](../.github/workflows/repository-quality-inventory.yml) runs on relevant PRs, weekly, and on demand. Its warnings are informational by design; many README templates, example credentials, and practice targets are intentionally incomplete until an engagement. Review each candidate in context, and only mark an issue fixed when supported by test evidence.
 
 ## Required Review Sequence
 
@@ -82,6 +93,9 @@ For hardware/firmware: cite the precise board revision, chip, tool build and fla
 | NOV11-06 | Historical remediation plan contains unrecorded original base/owner fields | `SECURITY_REMEDIATION_PLAN.md` | Mark unknown historical values; do not invent history |
 | NOV11-07 | Playbook contains literal report placeholders | `PlayBooks/cybersecurity_playbooks.md` | Keep as a clearly labeled fill-in template |
 | NOV11-08 | No comprehensive offline execution of every sample or external-link success proof in this audit | Entire repository | **OPEN**; scope must be recorded per topic and tests never implied |
+| NOV11-09 | Broader OSINT examples retained plaintext HTTP geolocation and option-injection-prone command interpolation | `OSINT/Playbook/scripts/scammer_audit.sh` and `OSINT/scripts/Domain_IP_Recon.md` | Disable the HTTP-only service in the collector; use TLS RDAP instead of treating registration as geolocation in examples |
+| NOV11-10 | Local AI model use was described as guaranteed never to leave the network | `AI/OpenClaw/use_cases.md` | Qualified by network egress and agent-tool settings |
+| NOV11-11 | Static checks were scoped to selected scripts, leaving no full-file candidate inventory | `tools/`, `.github/workflows/` | Add read-only repository quality inventory and tests; findings remain human-reviewed |
 
 ## Minimum PR Review Record
 
