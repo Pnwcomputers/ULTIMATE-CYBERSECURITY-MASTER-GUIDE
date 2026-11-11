@@ -23,7 +23,7 @@
 
 **Current verification record:** [November 3 integration and recent push quality review](INTEGRATION-QUALITY-REVIEW-2026-11-03.md) distinguishes passing internal CI from untested external tools and hardware.
 
-**Repository-wide quality review:** [Verification & Content Completeness Protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) covers source provenance, technical claims, testable examples, placeholders, external links, confidence levels, and evidence retention.
+**Repository-wide quality review:** [Verification & Content Completeness Protocol](REPOSITORY-VERIFICATION-PROTOCOL.md) covers source provenance, technical claims, testable examples, placeholders, external links, confidence levels, and evidence retention. [Maintenance, Workers & Automation](REPOSITORY-MAINTENANCE-OPERATIONS.md) covers the CI jobs, local setup, scheduled triage, source-control protections and task lifecycle.
 
 ## Expanded Device & Firmware Coverage
 
@@ -57,7 +57,7 @@
 Index and navigation hub for all documentation in the `Documentation/` directory - covering wireless security tools, privacy/anonymity, programming references, system administration, and hardware platform guides.
 
 ## ⚙️ Function
-Catalogs 22+ documents by category with descriptions and links, explains the documentation conventions, provides usage guidance for security professionals, IT administrators, and students, and lists related directories (Homelab, OSINT) within the master guide.
+Catalogs a growing documentation library by category, explains the writing and verification conventions, provides usage guidance for security professionals, IT administrators and students, and routes readers to related sections such as Homelab, OSINT, AI and Incident Response. Use the repository inventory for current counts.
 
 ## 🏆 Goal
 Enable readers to quickly find the right documentation file for their current task - whether that's a wireless engagement, OSINT operation, lab setup, or scripting reference - without browsing the entire directory.
