@@ -377,25 +377,16 @@ query_ipinfo() {
         && log "${GREEN}    [+] ipinfo.io complete${NC}"
 }
 
-# ip-api.com - Geolocation & ISP
+# ip-api.com - Legacy adapter; free endpoint disabled for commercial and transport safety.
 query_ipapi() {
     local IP="$1"
     local OUTPUT="$2"
-    log "${GREEN}    [*] Querying ip-api.com...${NC}"
-    query_api "$OUTPUT" ip-api.com "http://ip-api.com/json/$IP?fields=status,message,continent,country,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query" || return
-
-    # Check for proxy/hosting flags
-    if command -v jq &> /dev/null; then
-        IS_PROXY=$(jq -r '.proxy // false' "$OUTPUT" 2>/dev/null)
-        IS_HOSTING=$(jq -r '.hosting // false' "$OUTPUT" 2>/dev/null)
-        if [ "$IS_PROXY" = "true" ]; then
-            log "${YELLOW}    [!] IP flagged as PROXY${NC}"
-        fi
-        if [ "$IS_HOSTING" = "true" ]; then
-            log "${YELLOW}    [!] IP flagged as HOSTING/DATACENTER${NC}"
-        fi
-    fi
-    log "${GREEN}    [+] ip-api.com complete${NC}"
+    # The free ip-api endpoint is HTTP-only and disallows commercial usage.
+    # Do not send an investigation target or client IP over an unencrypted API.
+    # Keep this stub for compatibility with existing report layouts; no query occurs.
+    log "${YELLOW}    [!] ip-api.com lookup SKIPPED: HTTP-only free tier / commercial restrictions.${NC}"
+    log "${YELLOW}        Proxy/hosting values remain Unknown; use an approved licensed HTTPS provider.${NC}"
+    return 0
 }
 
 # URLScan.io - search existing domain/IP scans
@@ -771,7 +762,7 @@ IPINFO.IO
 $(cat "$IP_DIR/ipinfo.json" 2>/dev/null)
 
 ═══════════════════════════════════════════════════════════════════════════
-IP-API.COM
+IP-API.COM (NOT QUERIED — free endpoint uses HTTP and restricts commercial use)
 ═══════════════════════════════════════════════════════════════════════════
 $(cat "$IP_DIR/ipapi.json" 2>/dev/null)
 
@@ -1051,7 +1042,7 @@ Additional APIs (this script):
   - LeakLookup      (Credential leak search)
   - Netlas          (Internet scan data)
   - ipinfo.io       (IP geolocation)
-  - ip-api.com      (IP intelligence + proxy detection)
+  - ip-api.com      (DISABLED by default; proxy/hosting values unavailable)
 
 Scanning Tools:
   - Nmap            (Port scanning, service detection, vuln scripts)
