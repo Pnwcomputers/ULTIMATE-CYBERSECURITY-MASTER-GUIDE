@@ -1,14 +1,15 @@
 # 🔄 Change Log - November 11, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1552
-- **Files Modified**: 2395
-- **New Files**: 899
+- **Commits Analyzed**: 1556
+- **Files Modified**: 2467
+- **New Files**: 925
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- lab: validate synthetic detection evidence and add sourced hardware case studies (#196) (`be29a98`)
 - Enhance hardware arsenal documentation with new devices (`c7362b1`)
 - ci: bump peter-evans/create-pull-request from 8.1.1 to 8.1.2 (#181) (`4c342da`)
 - docs: expand firmware catalog and add device references in Documentation (#179) (`1d8d1c8`)
@@ -499,6 +500,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- audit: complete blank-cell triage, repair link references & Wazuh rule contracts (#195) (`9b38540`)
+- chore: refresh CHANGELOG for November 11 audit and CI fix (#192) (`84acfb4`)
 - fix(ci): preserve historical CRLF and changelog PR generation (#191) (`2286cd2`)
 - audit: technical corrections and repository maintenance automation (#185) (`9731173`)
 - Fix formatting and update section headers in README (`4607f1e`)
@@ -1463,6 +1466,7 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- audit: improve legacy script triage, link safety and lab review workflows (#193) (`c0fe77c`)
 - Restore DIY Hardware & Firmware Quick Reference section (`486f900`)
 - ci: bump DavidAnson/markdownlint-cli2-action from 24.2.0 to 25.0.0 (#154) (`70fe614`)
 - feat(blue-team): Kismet, nzyme and DIY honeypots reporting to Wazuh (#141) (`2c0582d`)
@@ -1576,6 +1580,94 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `CaseStudies/README.md`
+- `CaseStudies/hardware/eucleak-yubikey-2024.md`
+- `CaseStudies/hardware/onity-locks-2012.md`
+- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
+- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
+- `Cryptography/security-keys-passkeys.md`
+- `Documentation/CANARY-DETECTION-VALIDATOR.md`
+- `Documentation/LAB-VERIFICATION-MATRIX.md`
+- `Documentation/README.md`
+- `Documentation/fixtures/lab-canary-cases.jsonl`
+- `Documentation/fixtures/lab-canary-observations.jsonl`
+- `HardwareHacking/Chapter1.md`
+- `HardwareHacking/Chapter2.md`
+- `HardwareHacking/Chapter4.md`
+- `HardwareHacking/README.md`
+- `IncidentResponse/README.md`
+- `README.md`
+- `SDR/rfid.md`
+- `tools/lab_detection_validator.py`
+- `tools/tests/test_lab_detection_validator.py`
+- `.github/workflows/repository-quality-inventory.yml`
+- `Cryptography/Classical/ciphers.md`
+- `Cryptography/phantomdrive-guide.md`
+- `Data-Engineering/Phase2/data_storage_file_formats.md`
+- `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.json`
+- `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md`
+- `Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md`
+- `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.json`
+- `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md`
+- `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md`
+- `Documentation/arduinoIDE.md`
+- `Documentation/bruce_firmware.md`
+- `Documentation/security-public-api-catalog.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `HardwareHacking/BusPirate.md`
+- `HardwareHacking/T48_TL866-3G.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
+- `IncidentResponse/HoneyPot/diy-sensor-lab.md`
+- `IncidentResponse/HoneyPot/lab/honeypot_rules.xml`
+- `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md`
+- `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
+- `IncidentResponse/IDS&IPS/snort.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `IncidentResponse/SIEM/elk_stack.md`
+- `Mobile/mobile_pentest_sop.md`
+- `OPSEC/press-freedom/duress-seizure-response.md`
+- `OPSEC/tails-usb-setup-guide.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/Playbook/tools_api.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `PlayBooks/PurpleTeam_Multi-Scrip.md`
+- `PlayBooks/PurpleTeam_Simple.md`
+- `PlayBooks/unauth_access.md`
+- `ReverseEngineering/ghidra-guide-index.md`
+- `SDR/README.md`
+- `SDR/nanovna/01-hardware-and-setup.md`
+- `SDR/nanovna/07-quick-reference.md`
+- `SDR/nanovna/09-worked-examples-by-band.md`
+- `SDR/nanovna/10-antenna-types-and-special-cases.md`
+- `SDR/nanovna/11-worksheet-and-exercises.md`
+- `SDR/target_frequencies_protocols.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `SpaceSecurity/README.md`
+- `advanced_techniques_part2.md`
+- `advanced_techniques_supplement.md`
+- `tools/tests/test_audit_manifests.py`
+- `tools/tests/test_wazuh_rule_contracts.py`
+- `.github/workflows/duplicate-sections.yml`
+- `.github/workflows/guide-tests.yml`
+- `.github/workflows/link-check.yml`
+- `.github/workflows/markdown-numbered-lists.yml`
+- `.github/workflows/markdownlint.yml`
+- `.github/workflows/repository-static-syntax.yml`
+- `Documentation/BRANCH-PROTECTION-SETUP.md`
+- `Documentation/HTTP-LINKS-CLASSIFICATION.md`
+- `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
+- `IncidentResponse/SIEM/graylog.md`
+- `IncidentResponse/SIEM/splunk.md`
+- `OSINT/Playbook/investigation_guide.md`
+- `Scripts/GO/ARCHIVE-INVENTORY.md`
+- `Scripts/GO/README.md`
+- `Scripts/GO/archive_manifest.json`
+- `Scripts/README.md`
+- `Tradecraft/osint-threat-intel.md`
+- `tools/maintenance_candidate_triage.py`
+- `tools/tests/test_legacy_archive_manifest.py`
+- `tools/tests/test_maintenance_candidate_triage.py`
+- `CHANGELOG.md`
 - `.gitattributes`
 - `.github/workflows/auto_changelog.yml`
 - `.editorconfig`
@@ -1584,16 +1676,12 @@
 - `.github/ISSUE_TEMPLATE/verification_finding.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/workflows/maintenance-triage.yml`
-- `.github/workflows/repository-quality-inventory.yml`
-- `.github/workflows/repository-static-syntax.yml`
 - `AI/AnythingLLM/flow-cve_lookup.md`
 - `AI/OpenClaw/use_cases.md`
 - `AI/README.md`
 - `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/README.md`
-- `Documentation/README.md`
 - `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md`
-- `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
 - `Documentation/references.md`
 - `Makefile`
 - `OSINT/OSINT_GUIDE.md`
@@ -1604,16 +1692,13 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `PlayBooks/cybersecurity_playbooks.md`
-- `README.md`
 - `SECURITY_REMEDIATION_PLAN.md`
 - `START_HERE.md`
 - `STYLE_GUIDE.md`
-- `Scripts/GO/README.md`
 - `Scripts/PowerShell/port_scanner.ps1`
 - `tests/hardening/test_osint_investigator.py`
 - `tools/repository_quality_audit.py`
 - `tools/tests/test_repository_quality_audit.py`
-- `CHANGELOG.md`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/agent-project-workflows.md`
@@ -1637,7 +1722,6 @@
 - `AI/verification-and-ai-audits.md`
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/ble-capture-sniffle.md`
-- `Documentation/bruce_firmware.md`
 - `Documentation/chimerable.md`
 - `Documentation/device-firmware-list.md`
 - `Documentation/esp-terminator.md`
@@ -1649,11 +1733,9 @@
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/ghostesp-revival.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
-- `HardwareHacking/README.md`
 - `HardwareHacking/esp32-bit-pirate.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `HardwareHacking/pico-ducky-lab.md`
-- `SDR/README.md`
 - `SDR/evil-crow-rf-v2.md`
 - `Scripts/Ducky/README.md`
 - `Wardriving/README.md`
@@ -1666,13 +1748,11 @@
 - `HardwareHacking/esp32-security-firmware-catalog.md`
 - `HardwareHacking/firmware-catalog-verification.json`
 - `HardwareHacking/firmware-web-flashers.md`
-- `SDR/rfid.md`
 - `SDR/subghz.md`
 - `Wardriving/esp32-c5-wardriver.md`
 - `Wardriving/esp32-marauder.md`
 - `Wardriving/piglet.md`
 - `Mobile/UserLAnd/readme.md`
-- `IncidentResponse/README.md`
 - `AI/AnythingLLM/README.md`
 - `Checklists/README.md`
 - `Cloud/README.md`
@@ -1700,8 +1780,6 @@
 - `SDR/nanovna/tools/README.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/GO/shells/README.md`
-- `Scripts/README.md`
-- `SpaceSecurity/README.md`
 - `Tradecraft/README.md`
 - `WebAppSecurity/README.md`
 - `assets/README.md`
@@ -1711,15 +1789,12 @@
 - `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
 - `Documentation/upstream-security-projects-register.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/proxmox-security-monitoring-visibility.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
 - `OSINT/bellingcat-source-verification.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `ultimate_cybersecurity_master_guide.md`
 - `Cloud/azure.md`
 - `Cloud/m365-scuba-assessment.md`
@@ -1727,9 +1802,7 @@
 - `ContainerSecurity/software-supply-chain-assessment.md`
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
-- `Mobile/mobile_pentest_sop.md`
 - `Mobile/mvt-forensic-triage.md`
-- `PlayBooks/NetworkAuditPlayBook.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `PlayBooks/assessment-service-integration-map.md`
@@ -1752,35 +1825,25 @@
 - `OPSEC/proxy-reference-froxy.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
-- `Documentation/security-public-api-catalog.md`
-- `OSINT/Playbook/tools_api.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/LinuxCheatSheet.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
-- `.github/workflows/markdown-numbered-lists.yml`
 - `Homelab/HomeLab_Setup.md`
 - `tools/check_markdown_numbered_lists.py`
-- `.github/workflows/markdownlint.yml`
-- `.github/workflows/duplicate-sections.yml`
 - `AI/offensive_ai.md`
 - `AI/offline-llm.md`
 - `Documentation/Locksport.md`
-- `Documentation/arduinoIDE.md`
 - `Documentation/vscode.md`
 - `Documentation/wireshark.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `LEGAL.md`
-- `OSINT/Playbook/investigation_guide.md`
 - `OSINT/argus_osint.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `OSINT/scripts/Phone_OSINT.md`
-- `PlayBooks/PurpleTeam_Multi-Scrip.md`
 - `Tradecraft/active-directory.md`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/lolbins-lolbas.md`
-- `advanced_techniques_part2.md`
-- `advanced_techniques_supplement.md`
 - `cybersecurity_cliff_notes.md`
 - `tools/check_duplicate_sections.py`
 - `uConsole/CM4-SETUP.md`
@@ -1807,12 +1870,9 @@
 - `assets/diagrams/wireless-ids-correlation.svg`
 - `Cryptography/applied-crypto.md`
 - `Cryptography/encrypted-storage.md`
-- `Cryptography/phantomdrive-guide.md`
-- `Cryptography/security-keys-passkeys.md`
 - `Cryptography/solokeys-guide.md`
 - `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `OPSEC/press-freedom/data-retention-removal.md`
-- `OPSEC/press-freedom/duress-seizure-response.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
 - `assets/fido2-passkey-authentication-flow.svg`
 - `assets/imageplacement.md`
@@ -1839,7 +1899,6 @@
 - `Documentation/WifiMarauder_CheatSheet.md`
 - `GLOSSARY.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
-- `SDR/nanovna/07-quick-reference.md`
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wifi-deauthentication-detection.md`
 - `Documentation/wireshark-cheatsheet.md`
@@ -1855,13 +1914,11 @@
 - `IncidentResponse/HoneyPot/REVIEW-2026-10-31.md`
 - `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/HoneyPot/dionaea.md`
-- `IncidentResponse/HoneyPot/diy-sensor-lab.md`
 - `IncidentResponse/HoneyPot/esp32-diy-honeypots.md`
 - `IncidentResponse/HoneyPot/esp32-s3-honeypots.md`
 - `IncidentResponse/HoneyPot/honeypi.md`
 - `IncidentResponse/HoneyPot/lab/diy_http_decoy.py`
 - `IncidentResponse/HoneyPot/lab/esp32_serial_bridge.py`
-- `IncidentResponse/HoneyPot/lab/honeypot_rules.xml`
 - `IncidentResponse/HoneyPot/lab/synthetic-events.jsonl`
 - `IncidentResponse/HoneyPot/lab/test_honeypot.py`
 - `IncidentResponse/HoneyPot/opencanary.md`
@@ -1869,11 +1926,9 @@
 - `IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md`
 - `IncidentResponse/HoneyPot/tpot.md`
 - `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md`
-- `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet-wazuh-bridge.service`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_alert_bridge.py`
-- `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/pcap_burst_detector.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/synthetic-events.jsonl`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/test_detection.py`
@@ -1890,7 +1945,6 @@
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
-- `.github/workflows/guide-tests.yml`
 - `Documentation/bjorn_pi.md`
 - `Documentation/hcxtoolshashcat.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
@@ -1902,7 +1956,6 @@
 - `Wardriving/wardrive-go.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `tests/hardening/test_toolkit_integration.py`
-- `.github/workflows/link-check.yml`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `.github/SECURITY.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
@@ -1932,12 +1985,9 @@
 - `tests/hardening/test_osint_installer.py`
 - `tests/hardening/test_ssl_cert_audit.py`
 - `tests/hardening/test_workflow_pins.py`
-- `IncidentResponse/SIEM/graylog.md`
-- `IncidentResponse/SIEM/splunk.md`
 - `OSINT/Playbook/lib/trusted_conf.sh`
 - `tests/hardening/test_no_embedded_secrets.py`
 - `tests/hardening/test_osint_consumers.py`
-- `IncidentResponse/SIEM/elk_stack.md`
 - `OSINT/Playbook/lib/case_state.py`
 - `OSINT/Playbook/lib/collect_evidence.py`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
@@ -1950,8 +2000,6 @@
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
 - `ReverseEngineering/vx-underground.md`
-- `Tradecraft/osint-threat-intel.md`
-- `Cryptography/Classical/ciphers.md`
 - `Cryptography/Classical/cryptanalysis.md`
 - `Cryptography/Classical/deciphering-workbook.md`
 - `Cryptography/Classical/mary-queen-of-scots.md`
@@ -1964,15 +2012,11 @@
 - `Cryptography/Classical/leetspeak.md`
 - `OPSEC/whonix-kicksecure-usb-guide.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
-- `ReverseEngineering/ghidra-guide-index.md`
 - `Tradecraft/evasion.md`
 - `AUDIT_FINDINGS.md`
 - `AUDIT_REPORT.md`
-- `OPSEC/tails-usb-setup-guide.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
-- `Data-Engineering/Phase2/data_storage_file_formats.md`
 - `Data-Engineering/Phase2/streaming_cdc.md`
 - `Data-Engineering/Phase2/workflow_orchestration.md`
 - `Data-Engineering/Phase3/data_governance_lineage.md`
@@ -1982,23 +2026,18 @@
 - `HardwareTesting/py/full_hw_suite.py`
 - `IncidentResponse/IDS&IPS/fail2ban.md`
 - `IncidentResponse/IDS&IPS/security-onion.md`
-- `IncidentResponse/IDS&IPS/snort.md`
 - `SDR/hackrf.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
 - `installer.sh`
 - `tools/run_data_labs.py`
 - `tools/tests/test_review_fixes.py`
-- `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/03-calibration.md`
 - `SDR/nanovna/04-antenna-testing.md`
 - `SDR/nanovna/05-antenna-tuning.md`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
 - `SDR/nanovna/08-pc-software-and-firmware.md`
-- `SDR/nanovna/09-worked-examples-by-band.md`
-- `SDR/nanovna/10-antenna-types-and-special-cases.md`
-- `SDR/nanovna/11-worksheet-and-exercises.md`
 - `SDR/nanovna/12-sources-and-scope.md`
 - `SDR/nanovna/testdata/base_2m.s1p`
 - `SDR/nanovna/testdata/base_2m_ma.s1p`
@@ -2009,7 +2048,6 @@
 - `SDR/nanovna/testdata/same_2m.s1p`
 - `SDR/nanovna/testdata/uhf_70cm.s1p`
 - `SDR/nanovna/testdata/wet_2m.s1p`
-- `SDR/target_frequencies_protocols.md`
 - `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
 - `uConsole/ParrotOS/README.md`
@@ -2046,20 +2084,15 @@
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/network-detection.md`
 - `IncidentResponse/log_agg.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `HardwareHacking/LA1010.md`
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
-- `PlayBooks/PurpleTeam_Simple.md`
-- `PlayBooks/unauth_access.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
 - `.lycheeignore`
 - `Checklists/Persistence.md`
 - `Checklists/command-and-control.md`
 - `Checklists/microsoft-exchange.md`
 - `Checklists/voip-checklist.md`
-- `HardwareHacking/BusPirate.md`
-- `HardwareHacking/Chapter2.md`
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
@@ -2123,15 +2156,12 @@
 - `AI/AnythingLLM/flow-vulnreport_gen.md`
 - `HardwareHacking/GreatFETone.md`
 - `HardwareHacking/JTAGulator.md`
-- `HardwareHacking/T48_TL866-3G.md`
 - `SpaceSecurity/PartII.md`
 - `SpaceSecurity/PartIII.md`
 - `SpaceSecurity/PartIV.md`
 - `osint`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
-- `HardwareHacking/Chapter1.md`
 - `HardwareHacking/Chapter3.md`
-- `HardwareHacking/Chapter4.md`
 - `HardwareHacking/Chapter5.md`
 - `SpaceSecurity/Appendices.md`
 - `SpaceSecurity/PartI.md`
