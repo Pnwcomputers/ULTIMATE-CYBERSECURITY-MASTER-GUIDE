@@ -8,11 +8,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained-Yes-green" alt="Maintained"/>
-  <img src="https://img.shields.io/badge/Books%20Referenced-70%2B-blue" alt="Books"/>
-  <img src="https://img.shields.io/badge/PNWC%20Internal%20Docs-90%2B-orange" alt="Docs"/>
-  <img src="https://img.shields.io/badge/OSINT%20Tools-400%2B-purple" alt="OSINT"/>
-  <img src="https://img.shields.io/badge/Scripts-Source_Collection-red" alt="Scripts"/>
-  <img src="https://img.shields.io/badge/License-Educational%20Use-yellow" alt="License"/>
   <img src="https://img.shields.io/github/last-commit/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE" alt="Last Commit"/>
 </p>
 
