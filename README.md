@@ -38,7 +38,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 <h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
 
 ---
-## 🎯 Start Here
+## 🎯 Start Here:
 
 | I Want To... | Start Here |
 |---|---|
@@ -49,7 +49,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 ---
 
-## 🧭 Navigate By Area
+## 🧭 Navigate By Area:
 
 **Browse without opening the GitHub Code file list:** choose a subject in the table below, then select a linked guide from that section's README. For a reader-first route, [START HERE](./START_HERE.md).
 
@@ -85,7 +85,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="primary-master-guides"></a>
 
-## 📚 Primary Master Guides
+## 📚 Primary Master Guides:
 
 | Guide | Description |
 |---|---|
@@ -97,9 +97,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 <a id="supporting-guides"></a>
 
-## 📖 Supporting Guides & Reference Material
+## 📖 Supporting Guides & Reference Material:
 
-### Curated Research & Practice
+### Curated Research & Practice:
 
 | Resource | Description |
 |---|---|
@@ -121,7 +121,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 These are source-attributed references, not claims that every upstream tool is installed or tested.
 
-### Core References
+### Core References:
 
 | Resource | Description |
 |---|---|
@@ -157,11 +157,7 @@ These are source-attributed references, not claims that every upstream tool is i
 
 ---
 
-
-
----
-
-### Operational Sections
+### Operational Sections:
 
 | Section | Description |
 |---|---|
@@ -231,7 +227,7 @@ These are source-attributed references, not claims that every upstream tool is i
 
 ---
 
-### Maintenance & Historical Reviews
+### Maintenance & Historical Reviews:
 
 **Current integration/CI review:** [November 3, 2026 quality report](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) describes today's merged updates, verified checks, corrections and runtime limitations.
 
@@ -244,23 +240,23 @@ These records describe their dated review scope; they do not certify the current
 
 ---
 
-## 🆕 Unique & Personal Content
+## 🆕 Unique & Personal Content:
 
 Content sourced from PNWC's internal Notion knowledge base and real-world operations - not found in textbooks.
 
-### 🔴 OPSEC & Operations
+### 🔴 OPSEC & Operations:
 
 - Personal field rules (*"ALWAYS use a 3rd-party network!"*)
 - VM isolation and compartmentalization procedures
 - Anonymity and identity-separation workflows
 
-### 🔍 OSINT Arsenal
+### 🔍 OSINT Arsenal:
 
 - 400+ tools organized by category
 - Automated OSINT VM build scripts
 - Full investigation methodology (target profiling → pivot → report)
 
-### 📘 Team Playbooks
+### 📘 Team Playbooks:
 
 **Purple Team**
 
@@ -284,7 +280,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - [Graylog SIEM Deployment](./IncidentResponse/SIEM/graylog.md)
 - [Log Aggregation Guide](./IncidentResponse/log_agg.md)
 
-### 💻 Custom Scripts & Tools
+### 💻 Custom Scripts & Tools:
 
 - **[`pnwc_install_tools.sh`](./Scripts/pnwc_install_tools.sh)** - Cross-distro Linux tool installer (apt · pacman · dnf)
 - **[PowerShell](./Scripts/PowerShell)** - 12 scripts: AD testing, SMB auth, brute force, port scanning, reverse shells, system enumeration
@@ -294,7 +290,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
 - **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
-### 🎯 Attack Case Studies (10+ Analyzed)
+### 🎯 Attack Case Studies (10+ Analyzed):
 
 | Incident | Type |
 |---|---|
@@ -307,7 +303,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 | [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
 | + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
 
-### 🔧 Hardware Arsenal Documented
+### 🔧 Hardware Arsenal Documented:
 
 | Multi-Tool | Reference |
 |---|---|
@@ -315,7 +311,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 | WiFi Pineapple | [Product](https://shop.hak5.org/products/wifi-pineapple) |
 | Proxmark3 | [Project](https://proxmark.com/) |
 
-### 📟 uConsole & Portable Operations
+### 📟 uConsole & Portable Operations:
 
 Field-side cybersecurity requires reliable, highly-portable hardware. This section is dedicated to the **ClockworkPi uConsole**. It includes step-by-step documentation on turning the uConsole into a dedicated cyberdeck for mobile operations.
 
