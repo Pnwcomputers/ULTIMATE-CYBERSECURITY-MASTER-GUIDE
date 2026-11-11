@@ -1,0 +1,34 @@
+name: One-Time External Link Verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/external-link-on-demand.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-link-audit:
+    name: External URLs (online, informational)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Online link availability review, no code execution
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress
+            --max-retries 1
+            --accept 200,201,202,206,301,302
+            './**/*.md'
+          fail: false
+      - name: Show limits
+        if: always()
+        run: |
+          echo 'Online status only; verify destinations, content, release and terms manually.' >> "$GITHUB_STEP_SUMMARY"
+          echo '401/403/429, timeouts and skipped targets are NOT verified.' >> "$GITHUB_STEP_SUMMARY"
