@@ -30,4 +30,4 @@ jobs:
           python3 -B tools/repository_quality_audit.py \
             --output "$RUNNER_TEMP/repository-quality-report.md" \
             --max-items 120
-          cat "$RUNNER_TEMP/repository-quality-report.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/repository-quality-report.md" | tee -a "$GITHUB_STEP_SUMMARY"
