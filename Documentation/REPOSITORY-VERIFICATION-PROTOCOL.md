@@ -35,6 +35,8 @@ As of the baseline commit: **857 tracked paths**, including **361 Markdown**, **
 | Python hardening fixtures | Known OSINT/installer regressions for test-specified cases | Every Python file or every external service integration |
 | Other focused workflows | Selected Wireshark, network and documentation checks | End-to-end SIEM, EDR, SDR, physical hardware, or production behavior |
 | Repository Quality Inventory | All-file offline Python AST and Bash syntax, plus Markdown candidate placeholders in workflow summaries | Runtime accuracy, PowerShell parsing, external status, safe deployments, or all content claims |
+| Repository Static Syntax | Python 3 AST/Bash parse gate for maintained files and PowerShell parse check | Does not execute scans, check external APIs, or certify archive compatibility |
+| Monthly Maintenance Triage | Scheduled issue with a fresh static candidate list | Does not autonomously fix code or evaluate all facts |
 
 **A green check must never be cited as a global security certification.**
 
@@ -46,7 +48,7 @@ python3 -B tools/repository_quality_audit.py --max-items 200
 python3 -B tools/repository_quality_audit.py --strict-syntax
 ~~~
 
-The [Repository Quality Inventory workflow](../.github/workflows/repository-quality-inventory.yml) runs on relevant PRs, weekly, and on demand. Its warnings are informational by design; many README templates, example credentials, and practice targets are intentionally incomplete until an engagement. Review each candidate in context, and only mark an issue fixed when supported by test evidence.
+The [Repository Quality Inventory workflow](../.github/workflows/repository-quality-inventory.yml) runs on relevant PRs, weekly, and on demand. The [Maintenance Operations Guide](REPOSITORY-MAINTENANCE-OPERATIONS.md) defines the CI worker roles and the monthly issue-triage cadence. Its warnings are informational by design; many README templates, example credentials, and practice targets are intentionally incomplete until an engagement. Review each candidate in context, and only mark an issue fixed when supported by test evidence.
 
 ## Required Review Sequence
 
@@ -96,6 +98,9 @@ For hardware/firmware: cite the precise board revision, chip, tool build and fla
 | NOV11-09 | Broader OSINT examples retained plaintext HTTP geolocation and option-injection-prone command interpolation | `OSINT/Playbook/scripts/scammer_audit.sh` and `OSINT/scripts/Domain_IP_Recon.md` | Disable the HTTP-only service in the collector; use TLS RDAP instead of treating registration as geolocation in examples |
 | NOV11-10 | Local AI model use was described as guaranteed never to leave the network | `AI/OpenClaw/use_cases.md` | Qualified by network egress and agent-tool settings |
 | NOV11-11 | Static checks were scoped to selected scripts, leaving no full-file candidate inventory | `tools/`, `.github/workflows/` | Add read-only repository quality inventory and tests; findings remain human-reviewed |
+| NOV11-12 | PowerShell port scanner used an invalid equality operator in its progress expression | `Scripts/PowerShell/port_scanner.ps1` | Corrected comparison and added bounds; PowerShell parser check added; network functionality not independently tested |
+| NOV11-13 | Legacy Python syntax in archived examples | `Scripts/GO/` | 21 files failed modern AST parse in this intentionally historical collection; tracked separately from maintained code checks |
+| NOV11-14 | Current main ruleset lacks required PR reviews and required status checks | GitHub ruleset [Protect main branch](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/rules/10087669), checked November 11, 2026 | **OPEN owner setting:** edit main ruleset to require PRs and named checks; avoid code-owner approval that would deadlock solo maintenance |
 
 ## Minimum PR Review Record
 
