@@ -1,5 +1,6 @@
 # Maintainer routing. CODEOWNERS does not enable required reviews;
-# activate 'Require review from Code Owners' in the branch ruleset.
+# enable a required code-owner review only when a separate eligible reviewer exists.
+# For solo ownership, require protected branches and static checks instead.
 * @Pnwcomputers
 
 /.github/ @Pnwcomputers
