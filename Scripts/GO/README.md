@@ -4,6 +4,8 @@ This directory contains archived examples in several languages, despite its name
 It is not a supported Go module or a maintained Python 3 application. Dependencies
 and tool APIs have not been validated for current runtimes.
 
+The November 11, 2026 static inventory flagged **21 Python files** in this archived directory with Python 3 AST syntax failures, predominantly legacy Python 2 print syntax. This is a *parse incompatibility count*, not a runtime test or a declaration that the original scripts are malicious. See [Quality Inventory](../../tools/repository_quality_audit.py) and [Maintenance Operations](../../Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md). 
+
 Python 2 print syntax remains in several examples. `cloud/s3browse.go` is an
 unfinished sketch (including an incomplete search function), not a runnable tool.
 Do not treat these examples as installation-ready utilities or install obsolete

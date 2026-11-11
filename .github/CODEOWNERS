@@ -1,0 +1,13 @@
+# Maintainer routing. CODEOWNERS does not enable required reviews;
+# enable a required code-owner review only when a separate eligible reviewer exists.
+# For solo ownership, require protected branches and static checks instead.
+* @Pnwcomputers
+
+/.github/ @Pnwcomputers
+/tools/ @Pnwcomputers
+/tests/ @Pnwcomputers
+/Scripts/ @Pnwcomputers
+/AI/ @Pnwcomputers
+/Documentation/ @Pnwcomputers
+/IncidentResponse/ @Pnwcomputers
+/OSINT/ @Pnwcomputers

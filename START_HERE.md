@@ -104,6 +104,8 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 |----------|-------------|
 | **[Image and Diagram Index](assets/README.md)** | Maps explanatory diagrams to their respective guides, including new FIDO2, encrypted-storage, and source-protection illustrations |
 | **[Glossary](GLOSSARY.md)** | Acronyms and terms used across the repository |
+| **[Repository Maintenance & Automation](Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md)** | CI workers, issues/tasks, contributor setup, periodic checks and reviewed updates |
+| **[Repository Verification Protocol](Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md)** | Technical source evidence, code/links verification and honest handling of untested examples |
 | **[Cheat Sheet & Reference Index](Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | One readable index for reviewed Linux/Arch, network, wireless, Bash, OSINT, IR, SDR and general reference material |
 | **[Cybersecurity Cliff Notes](cybersecurity_cliff_notes.md)** | Quick command reference; the essentials at a glance |
 | **[Wireshark Field Cheat Sheet](Documentation/wireshark-cheatsheet.md)** | Quick GUI/CLI packet analysis, 802.11, DNS/DHCP, TCP and TLS filter examples |

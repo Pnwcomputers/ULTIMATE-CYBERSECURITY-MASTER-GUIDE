@@ -19,9 +19,8 @@
 
 ---
 
-_Index reviewed: 2026-09-11. The learning path contains 13 guides organized in `Phase1/`, `Phase2/`, and `Phase3/`.
-Phase 2 and Phase 3 documentation has been prepared with local verification records. Add those phase packages alongside
-this index; links to newly prepared documents become live when they are uploaded. This index does not assert a tested
+_Index reviewed: 2026-11-11 for directory and navigation presence; individual lab verification dates remain in each guide. The learning path contains 13 guides organized in `Phase1/`, `Phase2/`, and `Phase3/`.
+All three phase indexes and their linked guides are present in the current repository. Their local verification records do not establish live-service or production deployment testing. This index does not assert a tested
 production deployment or new execution of the existing Phase 1 labs._
 
 **Data-store documentation:** [Curated external technical docs](../Documentation/curated-technical-docs.md) includes [PostgreSQL](https://www.postgresql.org/docs/current/) and [Redis](https://redis.io/docs/latest/) for reliable query/telemetry references. For containerized lab services, use the [Docker operational cheat sheet](../ContainerSecurity/docker-cli-operations-reference.md).

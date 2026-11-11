@@ -524,7 +524,7 @@ Knowing which model to use for which task saves money and gets better results.
 | Web research summaries | Gemini 3.1 Pro | Built-in Google Search integration |
 | Complex security analysis | Claude Opus | Best reasoning for nuanced tasks |
 | Report writing, professional docs | Claude Haiku or Sonnet | Good quality, lower cost than Opus |
-| Sensitive/private tasks | Ollama (local) | Never leaves your network |
+| Sensitive/private tasks | Ollama (local) | Model inference can remain local, but connected tools, web lookups, telemetry and agent actions may still send data externally; verify configuration and egress |
 | Offline/air-gapped work | Ollama (local) | No internet required |
 
 **In the OpenClaw dashboard:**

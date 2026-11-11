@@ -1,16 +1,31 @@
 # CVELookup AgentFlow
 
+_Reviewed: 2026-11-11 for source quality and risk-model accuracy. The configured AgentFlow has **not** been run against live NVD, CISA, or vendor APIs in this review._
+
 ## 🎯 Purpose
 AnythingLLM AgentFlow for CVE research and analysis - takes a CVE ID or affected software/version and returns structured vulnerability intelligence including CVSS score, affected versions, PoC availability, and patch status.
 
 ## ⚙️ Function
-Queries NVD, CVE.org, and ExploitDB for CVE details; summarizes technical impact, exploitation complexity, and known public exploits; flags whether a patch exists and whether in-the-wild exploitation has been observed.
+The flow as documented scrapes an NVD **web page** into an LLM input, then proposes analysis and remediation. The blocks shown below do **not** independently query CVE.org, ExploitDB, vendor advisories, or CISA KEV. Those sources require separate lookups and provenance checks. A generated statement about patches or active exploitation is **unverified** until an analyst checks an authoritative source.
 
 ## 🏆 Goal
 Rapidly contextualize a CVE during engagement scoping, vulnerability scanning triage, or threat intelligence research without manually navigating multiple databases.
 
 ## 📋 When to Use
-Triaging scanner output during a vulnerability assessment; researching a CVE found in a target's environment; building remediation priority recommendations.
+Triaging scanner output during a vulnerability assessment; researching a CVE found in a target's environment; building remediation priority recommendations. **Do not use an LLM-only flow as evidence of an affected product, available patch, or active exploitation.**
+
+## Evidence & Verification Gate
+
+| Question | Authoritative check | Reporting requirement |
+|---|---|---|
+| Is this a valid CVE with a reliable description? | CVE.org/CNA and [NVD CVE API 2.0](https://nvd.nist.gov/developers/vulnerabilities) | Record source URL, retrieved UTC time, status and source-provided published/modified fields |
+| Which CVSS score applies? | Vendor/CNA or NVD with [FIRST CVSS](https://www.first.org/cvss/v4.0/) | Preserve **version, score, vector and source**; v4.0 is different from v3.1; never infer a missing score |
+| Are we affected? | Vendor advisory, product edition/version, feature flags and deployed configuration | Confirm exact asset inventory and preconditions; state unknown when not established |
+| Is it exploited in the wild? | [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog), vendor incident advisories or separately corroborated reports | **KEV listed** is affirmative evidence; **not listed** is **not** proof of no exploitation |
+| Is a patch or mitigation available? | Vendor release note/security bulletin | Include exact fixed version/build, URL, date, restart/rollback requirements |
+| What is the urgency? | Business impact, exposure, affected assets, confirmed exploitation and existing controls | Distinguish CVSS severity from environmental risk and client-specific SLAs |
+
+Use [Repository Verification Protocol](../../Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) for unknown-data handling and proof levels.
 
 
 ## Flow Information
@@ -78,17 +93,14 @@ Extract and format:
 - **Status:** [ANALYZED/AWAITING ANALYSIS]
 
 ## CVSS Scoring
-- **CVSS v3.x Score:** [score] ([severity])
-- **CVSS Vector:** [vector string]
-- **Attack Vector:** [Network/Adjacent/Local/Physical]
-- **Attack Complexity:** [Low/High]
-- **Privileges Required:** [None/Low/High]
-- **User Interaction:** [None/Required]
-- **Scope:** [Unchanged/Changed]
-- **Impact:**
-  - Confidentiality: [None/Low/High]
-  - Integrity: [None/Low/High]
-  - Availability: [None/Low/High]
+- **CVSS Version:** [4.0, 3.1, 3.0, or not provided]
+- **Published Score/Severity:** [exact source value or not available]
+- **Published Vector:** [exact source vector or not available]
+- **Source:** [vendor/CNA/NVD URL and retrieval date]
+- **Attack Vector, Complexity, Privileges, Interaction:** [only the metrics actually defined by the cited CVSS version]
+- **CVSS v4 only:** [Attack Requirements; Vulnerable System and Subsequent System impact as published]
+- **CVSS v3.x only:** [Scope and v3.x CIA impact as published]
+- **Uncertainty:** [missing data, disputed severity, and applicability questions]
 
 ## Affected Systems
 - **Vendor:** [vendor name]
@@ -100,13 +112,14 @@ Extract and format:
 [Clear explanation of the vulnerability]
 
 ## Exploitability Assessment
-Based on CVSS and available information:
-- **Exploitability:** [CRITICAL/HIGH/MEDIUM/LOW]
+Based on **verified source evidence**, not CVSS alone:
+- **Evidence state:** [Confirmed / Unconfirmed / Unknown, with URL and timestamp]
+- **Environmental Risk:** [provisional rating only after exposure and asset context are known]
 - **Exploit Maturity:**
   - Public exploits available: [Yes/No]
   - Exploit frameworks (Metasploit/ExploitDB): [availability]
   - Proof of concept: [Yes/No]
-  - Active exploitation in wild: [Yes/No/Unknown]
+  - Active exploitation in wild: [Confirmed by named source with link / Not established (including no KEV entry) / Unknown]
 - **Technical Skill Required:** [Low/Medium/High]
 - **Special Conditions:** [any requirements for exploitation]
 
@@ -123,7 +136,9 @@ Analyze specific impact for the described system:
 - **Vulnerability Type:** [e.g., SQL Injection, RCE, XSS, etc.]
 - **Attack Complexity Details:** [technical explanation]
 
-Format clearly for security assessment report.
+Do not invent versions, advisory URLs, patches, scores, test results or exploitation evidence. For each material assertion include a source URL and retrieval date, and label missing fields \"Not verified\". Distinguish an example from actual observed output. Explain where a source conflicts with another.
+
+Format clearly for a **draft** security assessment report requiring analyst sign-off.
 ```
 
 **Result Variable:** `analysis`
@@ -281,6 +296,26 @@ Format as actionable remediation plan suitable for change management request.
 
 **Configuration:**
 - Flow will end here and return results
+
+---
+
+## Reproducible Source Lookup (Outside The AgentFlow)
+
+The web-scraping block may be blocked, summarized incorrectly or show outdated content. Use the documented NVD **2.0** JSON API for a machine-readable reference and independently compare CNA/vendor information. This command is an **example**, not a previously observed live result. It requires `curl` and `jq`, and still depends on provider availability and rate limits.
+
+~~~bash
+CVE_ID=CVE-2021-44228  # Real, publicly documented identifier used here as an example
+curl --fail --silent --show-error --retry 2 --max-time 30 --get \
+  --data-urlencode "cveId=${CVE_ID}" \
+  'https://services.nvd.nist.gov/rest/json/cves/2.0' \
+  | jq '.vulnerabilities[0].cve | {id, published, lastModified, vulnStatus, metrics, references}'
+~~~
+
+Do not treat a missing result as "no vulnerability"; NVD can have processing or availability delays. A `jq` pipeline can also mask an upstream HTTP failure unless the shell enables pipeline failure checking (for example, `set -o pipefail` under Bash). Validate the response's `vulnerabilities` array and its `id` before making decisions.
+
+For claims of real exploitation, consult the live [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog); for a fix, use the vendor's own affected/fixed version advisory. When comparing CVSS, **do not translate v3 Scope to v4**: CVSS v4 removes Scope and introduces Attack Requirements and differentiated impact to vulnerable/subsequent systems.
+
+**Deadline caution:** The relative timelines and severity-triggered actions in Block 3 are examples only. Set the real remediation deadline through confirmed exploitation, exposure, asset criticality, maintenance constraints, contractual obligations and applicable policy. A fixed "Critical = within 24 hours" is not a universal regulatory rule or safe substitute for triage.
 
 ---
 

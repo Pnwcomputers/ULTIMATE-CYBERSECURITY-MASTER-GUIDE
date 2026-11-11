@@ -1,0 +1,58 @@
+name: Repository Static Syntax
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'
+      - '**/*.sh'
+      - '**/*.ps1'
+      - 'tools/repository_quality_audit.py'
+      - '.github/workflows/repository-static-syntax.yml'
+  push:
+    branches: [main]
+    paths:
+      - '**/*.py'
+      - '**/*.sh'
+      - '**/*.ps1'
+      - 'tools/repository_quality_audit.py'
+      - '.github/workflows/repository-static-syntax.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  maintained-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Python AST & all shell script syntax (no execution)
+        run: |
+          python3 -B tools/repository_quality_audit.py --strict-syntax \
+            --output "$RUNNER_TEMP/repository-static-syntax.md" --max-items 35
+          cat "$RUNNER_TEMP/repository-static-syntax.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Parse PowerShell scripts (no execution)
+        shell: pwsh
+        run: |
+          $errorsFound = @()
+          Get-ChildItem -Path Scripts -Filter '*.ps1' -Recurse | ForEach-Object {
+            $tokens = $null
+            $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName, [ref]$tokens, [ref]$parseErrors
+            ) | Out-Null
+            foreach ($issue in $parseErrors) {
+              $errorsFound += "$($_.FullName): $($issue.Message)"
+            }
+          }
+          if ($errorsFound.Count -gt 0) {
+            $errorsFound | Write-Error
+            exit 1
+          }
+          Write-Host "PowerShell syntax parser passed; no scripts executed."

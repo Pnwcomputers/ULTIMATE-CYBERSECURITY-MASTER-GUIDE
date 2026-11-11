@@ -502,6 +502,63 @@ save_case_state() {
     }
 }
 
+edit_indicator_group() {
+    local kind="$1" label="$2" value
+    local -a candidates=() before=()
+    local -n existing="$kind"
+
+    if (( ${#existing[@]} > 0 )) && ! confirm "Replace the saved ${label} indicators?"; then
+        return 0
+    fi
+    prompt_array candidates "Enter approved ${label} indicators"
+    for value in "${candidates[@]}"; do
+        if [[ -z "$value" || "$value" == -* || ${#value} -gt 254 ]]; then
+            error "Invalid indicator (empty, option-like or too long)"
+            return 2
+        fi
+        if [[ "$kind" == IPS ]] &&
+           ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$value" >/dev/null 2>&1; then
+            error "Invalid IP indicator: ${value}"
+            return 2
+        fi
+    done
+    before=("${existing[@]}")
+    existing=("${candidates[@]}")
+    if ! save_case_state; then
+        existing=("${before[@]}")
+        error "Input not saved; original in-memory indicators restored."
+        return 1
+    fi
+    success "${label} indicators saved (count: ${#existing[@]})"
+}
+
+edit_case_indicators() {
+    [[ -n "$CASE_ID" && -n "$CASE_DIR" ]] || {
+        warn "Create or load a case before editing indicators."
+        return 1
+    }
+    while true; do
+        print_section "Edit Authorized Case Indicators"
+        echo "  [1] Email addresses"
+        echo "  [2] Phone numbers"
+        echo "  [3] Domains"
+        echo "  [4] IP addresses"
+        echo "  [5] Usernames"
+        echo "  [0] Back"
+        local choice
+        read -rp "Select: " choice || return 0
+        case "$choice" in
+            1) edit_indicator_group EMAILS "email" ;;
+            2) edit_indicator_group PHONES "phone" ;;
+            3) edit_indicator_group DOMAINS "domain" ;;
+            4) edit_indicator_group IPS "IP" ;;
+            5) edit_indicator_group USERNAMES "username" ;;
+            0) return 0 ;;
+            *) warn "Choose a listed indicator category." ;;
+        esac
+    done
+}
+
 list_cases() {
     print_section "Existing Cases"
     [[ ! -d "$CASE_BASE_DIR" ]] && { info "No cases found."; return; }
@@ -630,17 +687,25 @@ investigate_domain() {
 
 investigate_ip() {
     local ip="$1" output_dir="${RAW_DIR}/ip" stem report
+    # Reject malformed data before using it as a URL path or evidence identifier.
+    if ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$ip" >/dev/null 2>&1; then
+        error "Invalid IP address; provide a single IPv4 or IPv6 address"
+        return 2
+    fi
     mkdir -p "$output_dir"
     print_subsection "IP Investigation: ${ip}"
     stem="$(safe_name "$ip")_$(date -u +%Y%m%dT%H%M%S%N)"
     report="$(new_report "$output_dir" "IP Investigation: ${ip}" "$stem")"
 
     run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$ip"
-    # ip-api.com's free endpoint is HTTP only: the queried IP is sent in cleartext.
-    run_step "$report" "geolocation (ip-api.com)" "${output_dir}/${stem}.geo" -- \
-        curl -sS --fail --max-time 30 -- "http://ip-api.com/json/${ip}"
+    # RDAP is HTTPS registration/network-allocation metadata, NOT physical geolocation.
+    # rdap.org redirects to the relevant registry; disallow HTTP downgrade.
+    # The lookup discloses the queried IP to the registry/bootstrap provider.
+    run_step "$report" "RDAP network registration (HTTPS)" "${output_dir}/${stem}.rdap" -- \
+        curl -sS --fail --location --proto '=https' --proto-redir '=https' \
+             --max-redirs 5 --max-time 30 -- "https://rdap.org/ip/${ip}"
     run_step "$report" "reverse DNS" "${output_dir}/${stem}.rdns" -- dig -x "$ip" +short
-    success "IP report: ${report}"
+    success "IP report saved (review every step's COMPLETE/PARTIAL/NOT RUN status): ${report}"
 }
 
 investigate_username() {
@@ -889,6 +954,7 @@ show_main_menu() {
         echo -e "  ${GREEN}[5]${NC}  📄 Reports & Abuse Reports"
         echo -e "  ${GREEN}[6]${NC}  🔗 Integrated Tools"
         echo -e "  ${GREEN}[7]${NC}  ⚙️  Settings"
+        echo -e "  ${GREEN}[8]${NC}  📝 Edit Case Indicators"
         echo ""
         echo -e "  ${CYAN}[W]${NC}  🌐 Launch Web Interface"
         echo ""
@@ -904,6 +970,7 @@ show_main_menu() {
             5) show_reports_menu ;;
             6) show_integration_menu ;;
             7) show_settings_menu ;;
+            8) edit_case_indicators; press_enter ;;
             [Ww]) launch_web_interface; press_enter ;;
             0)
                 [[ -n "$CASE_ID" ]] && { save_case_state; success "Case saved"; }

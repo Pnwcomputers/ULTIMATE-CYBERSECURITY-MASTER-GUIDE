@@ -229,7 +229,9 @@ These are source-attributed references, not claims that every upstream tool is i
 
 ### Maintenance & Historical Reviews:
 
-**Current integration/CI review:** [November 3, 2026 quality report](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) describes today's merged updates, verified checks, corrections and runtime limitations.
+**Current verification process:** [Repository Verification & Content Completeness Protocol](./Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) documents evidence grades, executable-code and dependency review, placeholder disposition, limitations of CI, and November 11, 2026 sampled findings. [Repository Maintenance, Worker Roles & Automation](./Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md) explains CI runners, task lifecycle, release/review gates, monthly triage and safety boundaries. Run [offline quality inventory](./tools/repository_quality_audit.py) locally or consult the [CI inventory workflow](./.github/workflows/repository-quality-inventory.yml) for a continuously updated review queue. A passing CI job is not an end-to-end technical certification.
+
+**Current integration/CI review:** [November 3, 2026 quality report](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) describes the November 3 merged updates, verified checks, corrections and runtime limitations; it is not a current whole-repository audit.
 
 | Resource | Purpose |
 |---|---|
@@ -802,7 +804,7 @@ Want to help the community?
 
 ---
 
-*Last Updated: November 2, 2026 · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
+*Main index editorial review: November 11, 2026 (not a whole-repository code or external-link certification) · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
 
 ## Related Files
 

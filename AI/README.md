@@ -89,6 +89,8 @@ This directory contains **resources, configurations, guides, and methodologies**
 
 ## AI Engineering & Agent Operations Handbook
 
+For this repository's **actual GitHub Actions worker lanes, audit tasks, release checks, owner controls and monthly review**, follow [Repository Maintenance & Automation](../Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md) and [Verification Protocol](../Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md). These implemented CI tasks are distinct from conceptual autonomous-agent architectures.
+
 These detailed chapters turn a working AI chat or self-hosted model into a **measurable, permissioned, maintainable system**. Read by stage, or use the task-focused table to navigate directly. Every guide contains workflows, implementation examples, verification, failure modes and related references.
 
 | Learning Stage | Detailed Guide | What You Will Build or Verify |

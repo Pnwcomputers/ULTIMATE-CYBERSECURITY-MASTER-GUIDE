@@ -107,6 +107,29 @@ class CaseStateIntegration(Base):
         self.assertTrue((self.home / "OSINT_Cases" / "NEW-1" / ".case_state.json").exists())
 
 
+class IndicatorInputIntegration(Base):
+    def test_interactive_domain_input_persists_in_case_state(self):
+        r = self.sh('''
+            CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/I1"
+            CASE_ID=I1; CASE_DIR="$CASE_BASE_DIR/I1"
+            printf '3\\nexample.org\\n\\n0\\n' | edit_case_indicators >/dev/null
+            DOMAINS=(); load_case I1 >/dev/null
+            printf 'domain=%s\\n' "${DOMAINS[0]}"
+        ''')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("domain=example.org", r.stdout)
+        self.assertTrue((self.home / "OSINT_Cases" / "I1" / ".case_state.json").exists())
+
+    def test_invalid_ip_indicator_is_refused_before_save(self):
+        r = self.sh('''
+            CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/I2"
+            CASE_ID=I2; CASE_DIR="$CASE_BASE_DIR/I2"
+            printf '4\\nnot-an-ip\\n\\n0\\n' | edit_case_indicators
+        ''')
+        self.assertIn("Invalid IP indicator", r.stdout + r.stderr)
+        self.assertFalse((self.home / "OSINT_Cases" / "I2" / ".case_state.json").exists())
+
+
 class EvidenceIntegration(Base):
     def prepare_case(self):
         return ('CASE_BASE_DIR="$HOME/OSINT_Cases"; mkdir -p "$CASE_BASE_DIR/E1"; '
@@ -143,6 +166,29 @@ class EvidenceIntegration(Base):
         d = self.home / "OSINT_Cases" / "E1" / "raw_data" / "email"
         report = next(d.glob("*.md")).read_text()
         self.assertIn("skipped (not installed)", report, r.stderr)
+
+    def test_ip_lookup_rejects_malformed_address_without_network(self):
+        self.shim("curl", 'echo unexpected >&2; exit 99\n')
+        r = self.sh(self.prepare_case() + 'investigate_ip "not-an-ip"; printf "rc=%s\\n" "$?"')
+        self.assertIn("rc=2", r.stdout)
+        self.assertNotIn("unexpected", r.stdout + r.stderr)
+        self.assertFalse((self.home / "OSINT_Cases" / "E1" / "raw_data" / "ip").exists())
+
+    def test_ip_lookup_uses_https_rdap_and_records_result(self):
+        self.shim("whois", 'echo registration\n')
+        self.shim("dig", 'echo reverse.example.org\n')
+        self.shim("curl", 'printf "%s\\n" "$@" > "$HOME/curl_args"\necho "{\\"objectClassName\\":\\"ip network\\"}"\n')
+        r = self.sh(self.prepare_case() + 'investigate_ip 8.8.8.8')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        args = (self.home / "curl_args").read_text().splitlines()
+        self.assertIn("https://rdap.org/ip/8.8.8.8", args)
+        self.assertIn("--proto-redir", args)
+        self.assertIn("=https", args)
+        self.assertFalse(any("ip-api.com" in a or a.startswith("http://") for a in args))
+        folder = self.home / "OSINT_Cases" / "E1" / "raw_data" / "ip"
+        report = next(folder.glob("*.md")).read_text()
+        self.assertIn("RDAP network registration (HTTPS)", report)
+        self.assertIn("complete", report)
 
     def test_hostile_target_is_one_argument_and_safe_filename(self):
         self.shim("whois", 'printf "%s\\n" "$@" > "$HOME/whois_args"\n')
