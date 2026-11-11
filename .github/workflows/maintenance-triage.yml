@@ -1,0 +1,61 @@
+name: Monthly Maintenance Triage
+
+on:
+  schedule:
+    - cron: '30 8 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-maintenance-triage
+  cancel-in-progress: false
+
+jobs:
+  issue-review-queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Generate offline audit evidence
+        env:
+          REPORT: ${{ runner.temp }}/repo-audit-queue.md
+        run: |
+          python3 -B tools/repository_quality_audit.py --output "$REPORT" --max-items 60
+          echo "### Monthly Audit Candidate Summary" >> "$GITHUB_STEP_SUMMARY"
+          cat "$REPORT" >> "$GITHUB_STEP_SUMMARY"
+      - name: Open or update one review issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT: ${{ runner.temp }}/repo-audit-queue.md
+        run: |
+          set -euo pipefail
+          title='Automated Repository Audit Queue'
+          body="$RUNNER_TEMP/review-queue-body.md"
+          {
+            printf '## Automated Review Queue\n\n'
+            printf 'Generated from commit %s on %s.\n\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%d)"
+            printf 'This is a **review queue**, not an assertion that every candidate is defective or a security certificate.\n'
+            printf 'Work the items as separate, scoped PRs; retain operator input templates and historical examples.\n'
+            printf 'Never post private case data or auto-execute unfamiliar samples.\n\n'
+            printf 'Source: [Repository Verification Protocol](https://github.com/%s/blob/main/Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md)\n\n' "$GITHUB_REPOSITORY"
+            cat "$REPORT"
+          } > "$body"
+          issue=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search 'in:title "Automated Repository Audit Queue"' \
+            --json number,title \
+            --jq '.[] | select(.title == "Automated Repository Audit Queue") | .number' \
+            | head -n 1)
+          if [ -n "$issue" ]; then
+            gh issue edit "$issue" --repo "$GITHUB_REPOSITORY" --body-file "$body"
+            echo "Updated review issue #$issue" >> "$GITHUB_STEP_SUMMARY"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file "$body"
+            echo "Created one review issue." >> "$GITHUB_STEP_SUMMARY"
+          fi
