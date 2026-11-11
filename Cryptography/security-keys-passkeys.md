@@ -123,6 +123,8 @@ The FIDO2 function signs authentication challenges; it is **not** a disk encrypt
 
 ## See also
 
+- [EUCLEAK 2024 Case Study](../CaseStudies/hardware/eucleak-yubikey-2024.md) - Physical ECDSA side channel, affected token versions and vendor guidance
+
 - [SoloKeys and Solo 2 setup](./solokeys-guide.md)
 - [Encrypted storage and key protection](./encrypted-storage.md)
 - [Applied cryptography / MFA](./applied-crypto.md)

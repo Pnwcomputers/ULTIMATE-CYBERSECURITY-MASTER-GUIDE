@@ -1,0 +1,2 @@
+{"test_id":"synthetic-positive","source":"fixture-wazuh","event_time":"2026-11-11T16:00:00Z","expected_alert":true,"expected_rule_ids":["100301"]}
+{"test_id":"synthetic-benign","source":"fixture-wazuh","event_time":"2026-11-11T16:00:00Z","expected_alert":false,"expected_rule_ids":[]}

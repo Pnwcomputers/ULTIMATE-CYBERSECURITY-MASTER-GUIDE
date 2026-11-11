@@ -168,6 +168,7 @@ RESIDUAL RISK:
 ---
 
 ## Related Files
+- [Hardware Security Case Studies](../CaseStudies/README.md) - Onity, Unsaflok, Tesla key-fob and EUCLEAK research to inform physical-access threat models
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: the physical layer knowledge underlying every threat in this model
 - [JTAGulator.md](JTAGulator.md) - Primary tool for exploiting the JTAG/UART debug-interface threat identified in threat models
 - [T48_TL866-3G.md](T48_TL866-3G.md) - IC programmer for the firmware extraction threat vector

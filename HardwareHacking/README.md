@@ -83,6 +83,19 @@ This section provides a **comprehensive reference** for hardware security assess
 
 ---
 
+## High-Profile Hardware Security Case Studies
+
+The [Case Studies Index](../CaseStudies/README.md) gives sourced reports with research timelines, practical limitations and **defensive** responses. Use it alongside the bench guides; a disclosed flaw must not be treated as proof that the particular equipment in front of you is affected.
+
+| Case Study | Relevant Hardware Boundary | Complementary Guide |
+|---|---|---|
+| [Unsaflok — Three Million Hotel Locks](../CaseStudies/hardware/unsaflok-3m-hotel-locks.md) | RFID credential trust & room authorization | [RFID/NFC](../SDR/rfid.md) |
+| [Onity Locks, 2012](../CaseStudies/hardware/onity-locks-2012.md) | Accessible service ports & firmware authorization | [Electrical Interfaces](Chapter2.md) |
+| [Tesla Model S Key Fobs, 2018](../CaseStudies/hardware/tesla-model-s-key-fob-2018.md) | RF protocol and key lifecycle | [SDR & RF](../SDR/README.md) |
+| [EUCLEAK / YubiKey, 2024](../CaseStudies/hardware/eucleak-yubikey-2024.md) | EM side-channel cryptographic leakage | [Timing & Power Analysis](Chapter4.md) |
+
+---
+
 ## 📂 Chapter Guides
 
 | Chapter | Topic | Description |

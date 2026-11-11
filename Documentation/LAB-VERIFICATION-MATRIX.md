@@ -8,6 +8,10 @@ _Opened: November 11, 2026 · This is an evidence ledger and reproducible accept
 
 This matrix inventories high-use **canonical guides** and separates observed, supported evidence from still-required experiments. Dates below refer to *inventory review*, not runtime verification. For a live test to count, use the record template below and link the sanitized evidence **only** if it contains no private deployment details. Keep client names, internal IPs, raw alerts and credentials in secure engagement records.
 
+## Repeatable Positive/Negative Assessment Tool
+
+The [Offline Canary Detection Evidence Validator](CANARY-DETECTION-VALIDATOR.md) now provides a JSONL input contract, positive/benign-negative fixtures, and machine-readable true-positive/true-negative/false-positive/false-negative/unassessable outcomes. It checks case IDs, source, timezones, duplicate/missing telemetry, rule IDs and latency. The [Python tool](../tools/lab_detection_validator.py) **never contacts any SIEM**, and its `real_siem_validated` flag remains false even when user-supplied exports are accepted. It is a building block for **future** authorized hardware/manager evidence, not a substitute for that test.
+
 ## Observed Automated Fixture Evidence — November 11, 2026
 
 The [Wireless IDS CI workflow](../.github/workflows/wids-lab-tests.yml) and [Guide Fixture CI workflow](../.github/workflows/guide-tests.yml) exercise **offline Python unit tests, synthetic event normalization, a localhost-only HTTP decoy/webhook, and structural/regex-only Wazuh rule contracts** on an ephemeral GitHub-hosted Ubuntu runner. The full [PR #195 CI results](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/195/checks) are the record for the actual commit, runner and success/failure outcomes; do not transfer these claims to a different Wazuh version or device.

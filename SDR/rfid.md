@@ -796,6 +796,8 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 - [sdr_hacking.md](sdr_hacking.md) - Advanced SDR hacking: SIGINT, protocol reversing, LoRa, TEMPEST, baseband exploitation
 - [../Documentation/flipper_zero_guide.md](../Documentation/flipper_zero_guide.md) - Flipper Zero: LF/HF RFID reading and emulation on the same hardware
 - [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking: bench techniques that complement transponder analysis
+- [Unsaflok 2024 Case Study](../CaseStudies/hardware/unsaflok-3m-hotel-locks.md) - Three-million-door RFID/key-management disclosure; defensive context, not bypass instructions
+- [Onity Hotel-Lock Research](../CaseStudies/hardware/onity-locks-2012.md) - Contrast service-port trust failure with RFID credential weaknesses
 
 ---
 

@@ -36,6 +36,13 @@
 | [ChimeraBLE](./chimerable.md) | BLE active-scan setup and owned-device metadata inspection. |
 | [FancyGotchi / Pwnagotchi](./fancygotchi-pwnagotchi.md) | Theme versus image versus independent ESP32 CYD firmware. |
 
+## Detection Validation & Research
+
+| Guide | Focus |
+|---|---|
+| [Offline Canary Detection Evidence Validator](CANARY-DETECTION-VALIDATOR.md) | Synthetic positive/negative controls, strict evidence classification, latency and alert outcomes |
+| [Hardware Case Studies](../CaseStudies/README.md) | Source-backed incident/research reviews and hardware cross-links |
+
 ## Dedicated Firmware Labs
 
 | Resource | Role & Compatibility Boundary |

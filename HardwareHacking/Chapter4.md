@@ -216,6 +216,7 @@ print(f"Key byte 0: 0x{likely_key_byte:02X} (correlation: {result[likely_key_byt
 ---
 
 ## Related Files
+- [EUCLEAK / YubiKey 2024 Case Study](../CaseStudies/hardware/eucleak-yubikey-2024.md) - Real-world EM leakage and affected-implementation boundaries
 - [Chapter5.md](Chapter5.md) - Practical power analysis: hands-on measurement setup, trace acquisition, and TVLA analysis
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: shunt resistor measurement and oscilloscope techniques for trace collection
 - [Chapter3.md](Chapter3.md) - Fault injection: active attack complement to passive side-channel analysis
