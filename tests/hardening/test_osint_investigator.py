@@ -144,6 +144,29 @@ class EvidenceIntegration(Base):
         report = next(d.glob("*.md")).read_text()
         self.assertIn("skipped (not installed)", report, r.stderr)
 
+    def test_ip_lookup_rejects_malformed_address_without_network(self):
+        self.shim("curl", 'echo unexpected >&2; exit 99\n')
+        r = self.sh(self.prepare_case() + 'investigate_ip "not-an-ip"; printf "rc=%s\\n" "$?"')
+        self.assertIn("rc=2", r.stdout)
+        self.assertNotIn("unexpected", r.stdout + r.stderr)
+        self.assertFalse((self.home / "OSINT_Cases" / "E1" / "raw_data" / "ip").exists())
+
+    def test_ip_lookup_uses_https_rdap_and_records_result(self):
+        self.shim("whois", 'echo registration\n')
+        self.shim("dig", 'echo reverse.example.org\n')
+        self.shim("curl", 'printf "%s\\n" "$@" > "$HOME/curl_args"\necho "{\\"objectClassName\\":\\"ip network\\"}"\n')
+        r = self.sh(self.prepare_case() + 'investigate_ip 8.8.8.8')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        args = (self.home / "curl_args").read_text().splitlines()
+        self.assertIn("https://rdap.org/ip/8.8.8.8", args)
+        self.assertIn("--proto-redir", args)
+        self.assertIn("=https", args)
+        self.assertFalse(any("ip-api.com" in a or a.startswith("http://") for a in args))
+        folder = self.home / "OSINT_Cases" / "E1" / "raw_data" / "ip"
+        report = next(folder.glob("*.md")).read_text()
+        self.assertIn("RDAP network registration (HTTPS)", report)
+        self.assertIn("complete", report)
+
     def test_hostile_target_is_one_argument_and_safe_filename(self):
         self.shim("whois", 'printf "%s\\n" "$@" > "$HOME/whois_args"\n')
         self.shim("dig", "true\n")
