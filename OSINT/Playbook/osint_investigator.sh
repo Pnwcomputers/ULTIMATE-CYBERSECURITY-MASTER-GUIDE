@@ -630,17 +630,25 @@ investigate_domain() {
 
 investigate_ip() {
     local ip="$1" output_dir="${RAW_DIR}/ip" stem report
+    # Reject malformed data before using it as a URL path or evidence identifier.
+    if ! python3 -I -c 'import ipaddress,sys; ipaddress.ip_address(sys.argv[1])' "$ip" >/dev/null 2>&1; then
+        error "Invalid IP address; provide a single IPv4 or IPv6 address"
+        return 2
+    fi
     mkdir -p "$output_dir"
     print_subsection "IP Investigation: ${ip}"
     stem="$(safe_name "$ip")_$(date -u +%Y%m%dT%H%M%S%N)"
     report="$(new_report "$output_dir" "IP Investigation: ${ip}" "$stem")"
 
     run_step "$report" "whois" "${output_dir}/${stem}.whois" -- whois "$ip"
-    # ip-api.com's free endpoint is HTTP only: the queried IP is sent in cleartext.
-    run_step "$report" "geolocation (ip-api.com)" "${output_dir}/${stem}.geo" -- \
-        curl -sS --fail --max-time 30 -- "http://ip-api.com/json/${ip}"
+    # RDAP is HTTPS registration/network-allocation metadata, NOT physical geolocation.
+    # rdap.org redirects to the relevant registry; disallow HTTP downgrade.
+    # The lookup discloses the queried IP to the registry/bootstrap provider.
+    run_step "$report" "RDAP network registration (HTTPS)" "${output_dir}/${stem}.rdap" -- \
+        curl -sS --fail --location --proto '=https' --proto-redir '=https' \
+             --max-redirs 5 --max-time 30 -- "https://rdap.org/ip/${ip}"
     run_step "$report" "reverse DNS" "${output_dir}/${stem}.rdns" -- dig -x "$ip" +short
-    success "IP report: ${report}"
+    success "IP report saved (review every step's COMPLETE/PARTIAL/NOT RUN status): ${report}"
 }
 
 investigate_username() {
