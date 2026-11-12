@@ -334,6 +334,102 @@ Mitigation or follow-up:
 
 ---
 
+## OUI-SPY Unified Blue — Authorized Detection Labs
+
+**Where this belongs:** OUI-SPY is a specialized **defensive/observation** ESP32 platform and detection family, not a variant of Marauder, Bruce, Biscuit, or Raspberry Pi RaspyJack. Its primary references are [OUI-SPY project](https://github.com/colonelpanichacks/oui-spy) and [Unified Blue firmware](https://github.com/colonelpanichacks/oui-spy-unified-blue). Device names, firmware modes and AP credentials change with builds; verify the installed revision. The current Unified Blue upstream describes six numbered modes, including Detector, Foxhunter, Flock-You WiFi, PCAP, Sky Spy and BLE Sniff.
+
+> [!CAUTION]
+> Many OUI-SPY **sensor functions are receive-oriented**, but the selector and some dashboards host a **transmitting Wi-Fi access point**. Do not claim the entire device is RF-passive. Do not use it to infer individuals' locations, assert that an OUI alone proves the presence of a particular surveillance system, or collect unrelated personal data. **Remote-ID-Spoofer** and **UniPwn** are **separate projects**, not detection modes automatically bundled in Unified Blue.
+
+### Hardware, Flash & Secure First Boot
+
+1. Identify the exact board (official OUI-SPY / XIAO ESP32-S3 or a separately documented target), flash/PSRAM, buzzer/NeoPixel wiring, power supply and connected GPS if any. An ESP32-C5 build listed for a related project does **not** establish that all Unified Blue S3 features work on C5.
+2. Record the existing firmware and configuration. In an isolated operator environment, open the [official Unified Blue Web Flasher](https://colonelpanichacks.github.io/oui-spy-unified-blue/) in a compatible Web Serial desktop browser, or review and build from source if the browser install does not match the board.
+3. Inspect flasher prompts and selected target; use a data-capable USB-C cable and stable power. Do not blindly flash generic ESP32-S3 binaries onto a different layout.
+4. On first boot, connect only a dedicated operator device to the **mode-selector AP** and follow the upstream README to reach the local web dashboard. Upstream documents factory/default SSID/password pairs; **change configurable defaults** and isolate the AP from production networks.
+5. Select a mode, allow the device to reboot, and confirm the active mode via its expected LED/buzzer, serial output or dashboard. After a mode change the old AP may disappear and a **different mode's AP** may appear. Some modes have **no AP**.
+6. Record exact firmware commit/release, selected mode, management SSID state, scanner band/capture path and clock behavior. Disable audible indicators where required by the engagement.
+
+### Mode & Measurement Boundary
+
+| Unified Blue mode | Primary use | Important limitation |
+|---|---|---|
+| Detector | BLE advertisement filters by OUI, name, company identifier, service UUID (as supported) | A match is **candidate classification**, not manufacturer or threat proof |
+| Foxhunter | RSSI trend of a known owned BLE beacon | Relative signal strength ≠ reliable meters/location |
+| Flock-You WiFi | Observe selected Wi-Fi frame fingerprints and related telemetry | Signature heuristics can false-positive; may require USB-CDC rather than AP |
+| PCAP | Short buffered Wi-Fi capture and app download where supported | Memory limited; channel hop and local dashboard modes differ |
+| Sky Spy | Observe lawful broadcast drone Remote ID from test hardware | Absence does not prove absence of drones; receiver coverage matters |
+| BLE Sniff | BLE advertisement sampling and supported PCAP export | Advertisements only; **not** BLE connected-data-channel decryption/capture |
+
+For PCAP and BLE Sniff, check the build's current Save PCAP/CSV pathway instead of assuming an old USB binary streaming interface still exists. A WebUI-enabled scanner may transmit AP beacons even when sensor observation is passive.
+
+### Lab O1 — Firmware/Selector & Management Exposure
+
+1. Boot on a segregated bench, verify that the selector page opens from one test laptop and identify which Wi-Fi interface/AP is active.
+2. Change passwords/settings that are configurable; verify the management AP is unreachable from client production networks.
+3. Switch to Detector, then back to selector through the currently documented BOOT-button method. Avoid relying on an exact press duration across releases.
+4. Confirm any previously saved AP connection on the phone/laptop does not cause it to auto-connect to the wrong mode after reboot.
+5. Record accessible ports, displayed firmware version and exact mode. A test passes only if management access follows the approved network policy.
+
+### Lab O2 — Owned BLE Beacon Signature Calibration
+
+1. Configure an **owned** BLE beacon or development board to advertise a synthetic test name. Do not emulate a real person's tracked device.
+2. Add one narrowly scoped signature in Detector using a field actually supported by the installed build (name/OUI/company ID/service UUID).
+3. Observe the beacon's presence and first/last-seen/RSSI where exposed. Turn it off and measure stale-observation timeout.
+4. Introduce a second owned beacon with a similar name but not the full signature as a **negative control**.
+5. Save alert/match method, timestamps, known beacon identity and false-positive rate. Avoid labeling a generic OUI match as a verified surveillance device.
+
+### Lab O3 — BLE RSSI Proximity Demonstration
+
+1. Select your own tagged BLE beacon in Foxhunter and take a 10-second stationary baseline.
+2. Move the beacon between two measured locations in the same room while keeping antenna orientation and obstructions documented.
+3. Note whether RSSI trends upward/downward; repeat to demonstrate multipath effects.
+4. Avoid following unknown personal devices or reporting distance in meters based solely on RSSI.
+5. Restore the beacon and clear its training identity from saved configuration when done.
+
+### Lab O4 — Wi-Fi Fingerprint Verification & PCAP Export
+
+1. Use a dedicated test AP, known channel and short observation window. Confirm that PCAP mode is enabled for the installed target and note whether channel hop disables its management AP.
+2. Capture **only** brief, approved 802.11 management-frame data and avoid collecting unrelated payloads. Keep the device physically near the lab AP and away from neighboring sites where practical.
+3. Export the supported PCAP through the local dashboard or alternate documented path; verify an actual file was produced.
+4. Inspect its metadata on an evidence workstation using a read-only tool, e.g.:
+
+~~~bash
+file /path/to/authorized-lab.pcap
+sha256sum /path/to/authorized-lab.pcap
+~~~
+
+5. Compare the known AP's BSSID/channel to capture output. Preserve the original, redact other identifiers and record capture filter/limits.
+6. If using a Flock-You signature feature, treat results as candidate detections requiring independent physical/controller confirmation, not conclusive identification.
+
+### Lab O5 — Drone Remote ID Validation With Consented Test Source
+
+1. Confirm regional aviation/privacy rules and use a legitimate owned Remote ID emitter or an approved drone operating lawfully. **Do not spoof someone else's aircraft identity or transmit unauthorized Remote ID signals.**
+2. Run Sky Spy in the mode documented for the board. Record sensor position, observation window, distance/obstructions and any visible broadcast ID/type.
+3. Independently confirm the test drone's Remote ID output from the operator/controller. Note missing fields rather than fabricating position, altitude or identity.
+4. Stop and redact operator identifiers/location if reporting externally. The presence of a message does not alone establish airworthiness, safety or malicious behavior.
+
+### Lab O6 — Defensive Sensor Comparison & SIEM Intake
+
+1. Use a synthetically named BLE beacon and a separate owned Wi-Fi AP, each with documented baseline and on/off periods.
+2. Run one mode at a time (Detector, BLE Sniff or Wi-Fi observation). Record actual available output, mode, timestamp and identifiers.
+3. Compare with an independent BLE monitor or [Kismet sensor](../Wardriving/kismet.md). If sending results to Wazuh, validate the actual supported transport and parser before claiming integration; direct built-in Wazuh export is **not assumed**.
+4. Evaluate false positives by repeating with a nonmatching beacon; store source alert/evidence with stable test IDs.
+5. Remove training signatures, restore access-point credentials and retain only in-scope redacted data.
+
+### Triage & Reporting
+
+| Symptom | Check |
+|---|---|
+| Dashboard disappears after changing modes | Different per-mode SSID or no-AP mode; use USB serial where supported |
+| Phone says "no Internet" | Local-only AP is expected; keep phone on the right operator AP |
+| No BLE result | Board BLE capability, scan interval/window, advertisement type, RF coexistence |
+| No Wi-Fi capture | Selected channel/mode, actual PCAP feature, buffer/export limits |
+| Detection not confirmed | Randomized MACs, generic OUIs, wrong vendor fingerprint, stale source |
+| Remote ID absent | Receiver range, broadcast protocol/mode, drone emitter and local conditions |
+
+**Report:** board revision, firmware build, active mode, selector/AP state, scoped beacon/AP ID, source type, timestamp, signal limitations, matched signature and method, independent corroboration, file hash if any, false-positive notes, retention and remediation. Keep identifiers of bystanders out of shared reports.
+
 ## 8. Defensive Takeaways
 
 This workflow is most useful when each portable device has a clearly defined role:
