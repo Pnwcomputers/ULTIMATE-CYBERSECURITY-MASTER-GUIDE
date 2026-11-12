@@ -23,6 +23,7 @@ one. Preserve logs and match companion applications to the accessory firmware.
 | [GhostESP Revival](./ghostesp-revival.md) | Alternative ESP accessory/standalone firmware; verify board and companion-interface support. |
 | [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Existing ESP accessory targets, GPS and evidence workflow. |
 | [Scout Lite / SigRoam](../Wardriving/sigroam-scout-lite.md) | Vendor-specific scanner/controller pairing; never write a FAP as an ESP image. |
+| [CC1101, nRF24, AWOK, BW16 & Poltergeist Field Labs](#flipper-zero-expansion-boards-selection-setup--field-assessment-labs) | Board selection, GPIO/power safety, app/firmware distinctions and eight authorized labs. |
 
 ## 🎯 Purpose
 Field guide for the Flipper Zero multi-tool device covering all built-in radios and interfaces for authorized physical penetration testing, IT administration, and security assessment workflows.
