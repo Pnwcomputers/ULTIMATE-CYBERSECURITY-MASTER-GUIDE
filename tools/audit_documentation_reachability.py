@@ -89,6 +89,24 @@ def analyze(root: Path):
     return docs, references, candidates, no_inbound
 
 
+def section_index_gaps(docs: set[str], references: dict[str, set[str]]) -> list[tuple[str, str]]:
+    """Find nested README pages missing a direct link from the nearest parent index."""
+    gaps = []
+    for page in sorted(docs):
+        if not page.lower().endswith("/readme.md"):
+            continue
+        directory = page.split("/")[:-1]
+        parent = "README.md"
+        for depth in range(len(directory) - 1, 0, -1):
+            candidate = "/".join(directory[:depth]) + "/README.md"
+            if candidate in docs:
+                parent = candidate
+                break
+        if page not in references.get(parent, set()):
+            gaps.append((parent, page))
+    return gaps
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-per-section", type=int, default=12)
@@ -99,6 +117,10 @@ def main() -> int:
     print(f"Markdown pages: {len(docs)}, contextual link edges: {sum(len(v) for v in edges.values())}.")
     print(f"Pages not reachable from the five main entrypoints without the complete index: {len(unreachable)}.")
     print(f"Pages without inbound Markdown references (except the complete index): {len(no_inbound)}.")
+    gaps = section_index_gaps(docs, edges)
+    print(f"Subsection README pages without a direct parent-index link: {len(gaps)}.")
+    for parent, child in gaps:
+        print(f"  - {parent} -> {child}")
     print("These are review candidates; some archival, template, test, and policy pages may be intentionally unlisted.")
     grouped: dict[str, list[str]] = defaultdict(list)
     for path in no_inbound:
