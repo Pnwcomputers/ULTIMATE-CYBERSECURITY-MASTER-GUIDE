@@ -16,7 +16,7 @@
 
 **Training-to-field progression:** [Safe CTF and cybersecurity learning pathways](security-training-lab-pathways.md) maps exercises into scoped PNWC assessment and reporting workflows.
 
-**Field system:** [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) covers architecture, an authorization-first assessment process and evidence-handling examples. The private portal is not part of this public companion.
+**Field system:** [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) covers architecture, an authorization-first assessment process and evidence-handling examples. The new [Portable Wireless Device Workflow](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) covers Flipper, Pineapple, Bruce and Marauder as supervised field tools. The private portal is not part of this public companion.
 
 
 | Reference | Description |

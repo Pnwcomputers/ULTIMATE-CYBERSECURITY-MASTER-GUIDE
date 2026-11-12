@@ -1,6 +1,6 @@
 # Public Reference to Private Implementation
 
-[Cyberdeck Home](../README.md) · [Acceptance Matrix](ACCEPTANCE_TESTS.md) · [Publication Boundary](PUBLISHING_AND_RELEASE.md)
+[Cyberdeck Home](../README.md) · [Field Device Workflow](PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Acceptance Matrix](ACCEPTANCE_TESTS.md) · [Publication Boundary](PUBLISHING_AND_RELEASE.md)
 
 Use this public section as a design and qualification contract for the private setup. Public documentation can describe interfaces, expected behavior and synthetic examples without publishing private application code, live configurations or customer material. This roadmap does not assert access to or inspection of the private repository.
 
@@ -14,7 +14,7 @@ Use this public section as a design and qualification contract for the private s
 | M3: Proven network boundary | Zone objectives and visibility caveats | Actual firewall policy, cabling, IPv4/IPv6 checks and recovery | Q01–Q05 pass for enabled paths and sensors |
 | M4: Supervised tool execution | Method and output contracts described below | Scope gate, bounded inputs, timeout, process tracking, cancel, export review | Q08 and Q12 pass; failures cannot silently become successful findings |
 | M5: Portable reliability | Power and enclosure worksheet | Measured load, runtime reserve, thermal test, low-space and restart behavior | Q09 and Q10 pass within a documented operating envelope |
-| M6: Optional integrations | Synthetic adapter examples and limitations | Device-specific manual import first; separately qualify any live control | Each integration has tests, provenance, stop behavior and supported versions |
+| M6: Optional integrations | [Flipper/Pineapple/Bruce/Marauder field workflows](PORTABLE_WIRELESS_FIELD_DEVICES.md), synthetic adapter examples and limitations | Device-specific manual import first; separately qualify any live control | Each integration has tests, provenance, stop behavior and supported versions; Q15–Q18 as relevant |
 | M7: Optional external origin | Vantage requirements | Separately controlled runner, authenticated transport and case isolation | Source is independently verified; scope, cancellation and transfer gates pass |
 
 M0–M3 make a useful manual platform. M4, M6 and M7 add complexity and should not block documentation or offline evidence work. No task here authorizes exploitation, radio transmission or client testing.

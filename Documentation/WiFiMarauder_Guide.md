@@ -1,5 +1,7 @@
 # WiFi Marauder Guide
 
+**PNWC Cyberdeck field operations:** [Standalone/Flipper Marauder, Bruce & Pineapple integration](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) distinguishes radios, FAP controllers, logs, scope and safe manual import.
+
 ## Current Installer & Survey Alternatives
 
 Use the [upstream install/update wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/update-firmware)
