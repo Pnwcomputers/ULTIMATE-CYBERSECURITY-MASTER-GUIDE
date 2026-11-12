@@ -148,6 +148,8 @@ The existing [Bash Bunny payload guide](../Scripts/Bash/BashBunny/README.md#auth
 | **LAN Turtle** | [Hak5 LAN Turtle documentation](https://docs.hak5.org/) and firmware modules (check exact model) | Separate USB-Ethernet remote administration tooling; no assumption that Shark Jack payload scripts run here |
 | **Signal Owl / Screen Crab / Plunder Bug** | [Hak5 documentation index](https://documentation.hak5.org/) | Separate hardware and capture/runtime requirements. Not every Hak5 device has a community `payload.txt` library |
 
+**Popular GitHub collections (curated, not automatically runnable):** [Rubber Ducky projects ranked by relevance, stars & compatibility](../Scripts/Ducky/README.md#curated-github-payload-projects--popularity-compatibility--trust) and [Bash Bunny payload collections & maintenance review](../Scripts/Bash/BashBunny/README.md#curated-github-bash-bunny-payload-collections--compatibility). The guides identify original/archived repositories, distinguish Flipper/O.MG/Arduino references from Hak5 firmware, and explain pinning, code inspection, benign lab acceptance and rollback.
+
 **Important:** the upstream sample collections may include interception, credential harvesting, command-and-control, persistence or disruptive network activity. **Do not bulk-install, automatically run or endorse** all samples. Prefer a fixed-text HID marker, an owned test AP inventory, or an isolated dummy Ethernet link, and only approve more intrusive testing under a separate signed plan.
 
 #### Common Side-Load Review & Rollback Workflow

@@ -568,6 +568,45 @@ The [official Hak5 Bash Bunny payload library](https://github.com/hak5/bashbunny
 
 **Example-safe library use:** avoid copying a whole payload category to a switch. Select **one** reviewed source version and verify return-to-baseline. A community payload being listed by Hak5 is not evidence it is safe, maintained or appropriate to use on a customer host.
 
+## Curated GitHub Bash Bunny Payload Collections & Compatibility
+
+_Reviewed November 11, 2026. GitHub stars are approximate observation-time popularity signals, **not** a verification of technical quality, safe behavior or current firmware support. Many Bash Bunny community collections are old; the **official repository is by far the largest purpose-built source**._
+
+| GitHub Project | Approx. Stars | What It Contains | Maintenance, Compatibility & Selection |
+|---|---:|---|---|
+| [hak5/bashbunny-payloads](https://github.com/hak5/bashbunny-payloads) | **3,000** | **Official** Bash Bunny library, device helpers, Bash + Bunny DuckyScript and contributed payload categories | **Primary source.** Latest verified source push June 2026; examples are still AS-IS. Check original vs Mark II, firmware, tooling, host OS and every script before running. |
+| [atomiczsec/My-Payloads](https://github.com/atomiczsec/My-Payloads) | 410 | Cross-device **Bash Bunny**, Rubber Ducky, Flipper and O.MG collection | **Archived historical resource**; last pushed 2024. Separate scripts by **actual target**. No claim of Mark II compatibility or secure dependencies. |
+| [hak5/bashbunny-wiki](https://github.com/hak5/bashbunny-wiki) | 220 | Official legacy architecture/payload-development documentation, **not a payload collection** | Useful to explain `ATTACKMODE`, `QUACK` and setup concepts. Last source push in 2020: verify against current [Hak5 documentation](https://docs.hak5.org/bash-bunny/) and installed firmware. |
+| [xillwillx/BashBunny](https://github.com/xillwillx/BashBunny) | 160 | Independent older Hak5 Bash Bunny payload examples | **Historical/legacy.** README says the author moved to GitLab; last GitHub code push 2020. Use only as a source to study after reviewing every path, dependency, script and transport. |
+| [UberGuidoZ/OMG-Payloads](https://github.com/UberGuidoZ/OMG-Payloads) | 270 | Well-known O.MG cable/accessory examples, related USB HID scripting concepts | **Not a Bash Bunny payload library.** Distinct physical runtime and command set; use for concepts only, not direct `/payloads/switch1/payload.txt` installation. |
+| [I-Am-Jakoby/Flipper-Zero-BadUSB](https://github.com/I-Am-Jakoby/Flipper-Zero-BadUSB) | **7,200** | Popular Flipper BadUSB payload scripts and remote-host automation | **Not native Bunny payloads**; several call external scripts/services or access sensitive data. Treat only as source-review examples, never as Mark II-ready scripts. |
+
+**Selection decision:** for new client work, use the **official Hak5 library** and the existing [non-destructive Bunny field labs](#authorized-field-assessment-labs--deployment-examples). The other repositories are included to preserve historical techniques, compatibility research and provenance—not because they are equally maintained or safe. [Rubber Ducky's separately curated library](../../Ducky/README.md#curated-github-payload-projects--popularity-compatibility--trust) contains more current cross-HID examples. **Do not infer that large Flipper/O.MG collections are Bunny-compatible.**
+
+### Community Payload Review Checklist & Bench Acceptance
+
+1. Record the exact target (`Bash Bunny original` vs `Mark II`), current firmware, mounted **arming-mode** filesystem and payload switch. Source a pinned upstream commit, not the current tip of an unreviewed fork.
+2. Inspect **`payload.txt`, configuration, helper binaries, Bash libraries, Python/PowerShell files and external scripts** before copying anything. A Bunny script runs as a Bash process **on the Bunny**; any `QUACK` host input operates only in the host's current user/application context.
+3. Check all `ATTACKMODE` USB classes and network behaviors. Pay particular attention to `RNDIS_ETHERNET`/`ECM_ETHERNET`, potential route/DNS changes, scripts that wait for Windows dialogs, external network connections, privilege changes, storage mounts and host-file access.
+4. Evaluate every requested file path, destination and host command against written scope. Do not use scripts that collect passwords, cookies, browser tokens or client files in a routine device-control test. Use **synthetic** files and a disposable test user instead.
+5. Separate *source inspection*, *shell syntax checking*, *USB/OS compatibility validation* and *physical deployment*. Running `bash -n payload.txt` on a laptop checks Bash parsing only; Hak5-specific `LED`, `ATTACKMODE`, `QUACK` and helper commands are not validated by a generic shell.
+6. As an approved safe first execution, stage only the [known benign HID marker](#lab-1--non-destructive-hid-marker) in a single switch position; keep the other switch reserved for recovery. Use an offline test machine with a blank editor focused.
+7. Capture USB enumeration (VID/PID **as observed**, not guessed), EDR policy result, keyboard layout, LED states, timestamps and exact output. If an unexpected USB NIC appears, disconnect and compare routes/DNS with baseline.
+8. Safely return to arming mode, restore the pre-test switch contents and remove synthetic data. Retain only redacted evidence/source hashes and documented authorization.
+
+### Popularity Versus Real-World Deployment Quality
+
+| Signal | Usefulness | Why It Isn't Enough |
+|---|---|---|
+| High star count | Finds sources widely known to other researchers | Does not mean the code was independently audited or tested on Mark II |
+| Recent source push | Suggests someone maintained part of the repository | Can be documentation changes only; check relevant payload history |
+| Official Hak5 organization | Strongest provenance for device-specific format | Hak5 explicitly provides community payloads AS-IS |
+| Repository archived | Valuable for lineage and source analysis | No current maintenance or compatible dependencies implied |
+| Many submitted payloads | Useful reference breadth | More scripts means more review, not more safe client capabilities |
+| `payload.txt` file present | Expected shell-based Bunny source filename | Does not show the correct switch, USB mode, dependencies or target OS |
+
+**Scope boundaries:** links to credential collection, staged shells or invasive networking functions are **references to source libraries**, not authorization to deploy them. For client deliverables, report reproducible benign findings and validated EDR/USB controls. Avoid downloading the entirety of every third-party repository to a customer device or running a batch of unreviewed community payloads.
+
 ## Best Practices
 
 ### 1. Led Feedback
