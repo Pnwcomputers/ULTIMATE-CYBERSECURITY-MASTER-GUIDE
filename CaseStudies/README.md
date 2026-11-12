@@ -4,17 +4,17 @@ Documented security research and incidents, separated from operational attack tu
 
 ## Attack Case Studies (Historical References)
 
-Historical incident and disclosure references from the main repository index. These links point to external background sources; they are separate from the detailed hardware research entries below.
+Each incident title opens its analysis in the Enhanced Master Guide. The source links provide external background references; the detailed hardware research entries follow below.
 
 | Incident | Type |
 |---|---|
-| [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon - Iranian nuclear facilities |
-| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) | Global ransomware outbreak |
-| [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
-| [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
-| [Carbanak](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) | APT banking theft campaign |
-| [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
-| [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
+| [Stuxnet](../ENHANCED_MASTER_GUIDE.md#stuxnet-analysis) | Nation-state cyberweapon - Iranian nuclear facilities · [Source](https://en.wikipedia.org/wiki/Stuxnet) |
+| [WannaCry](../ENHANCED_MASTER_GUIDE.md#wannacry-breakdown) | Global ransomware outbreak · [Source](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) |
+| [EternalBlue / NSA Leak](../ENHANCED_MASTER_GUIDE.md#eternalblue-exploitation) | NSA exploit leaked by Shadow Brokers · [Source](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) |
+| [SolarWinds](../ENHANCED_MASTER_GUIDE.md#solarwinds-attack) | Software supply chain compromise · [Source](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) |
+| [Carbanak](../ENHANCED_MASTER_GUIDE.md#carbanak-apt-campaign) | APT banking theft campaign · [Source](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) |
+| [NotPetya](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) | Destructive malware disguised as ransomware · [Source](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) |
+| [Edward Snowden / NSA](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) | Mass surveillance program revelations · [Source](https://www.theguardian.com/world/edward-snowden) |
 
 ## Hardware, RFID & Embedded Security
 
@@ -35,4 +35,4 @@ The term **“3M hack”** is used here to mean the **approximately three millio
 4. Attribute dates and versions to the original source. An old patch-deployment percentage is **not** a current compliance rate.
 5. Link to related defensive and threat-modeling guides; never publish unauthorized entry techniques, live access credentials or card-cloning recipes.
 
-[Hardware Hacking Index](../HardwareHacking/README.md) · [Main Index](../README.md)
+[Hardware Hacking Index](../HardwareHacking/README.md) · [Role & Goal Navigation](../START_HERE.md) · [Main Index](../README.md)

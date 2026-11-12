@@ -28,6 +28,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | Goal | Recommended Route |
 |---|---|
 | **New to Cybersecurity** | Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations) |
+| **Study historical incidents & hardware disclosures** | [Case Studies Index](./CaseStudies/README.md) → [Historical Attack Analyses](./ENHANCED_MASTER_GUIDE.md#real-world-attack-case-studies) for incident details and defensive lessons. |
 | **Need Quick Commands** | Use [Cliff Notes](cybersecurity_cliff_notes.md) for security concepts or the [CLI Field Cheat Sheet](Documentation/devhints-cli-field-reference.md) for everyday Linux, transfer, GPG, Git and Docker commands |
 | **Researching source projects for this guide** | [Verified upstream source register](Documentation/upstream-security-projects-register.md) with license and integration status. |
 | **Looking for authoritative software or API documentation** | [Curated Technical Docs](Documentation/curated-technical-docs.md) → [Writing conventions](STYLE_GUIDE.md). |
