@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1567
-- **Files Modified**: 2560
+- **Commits Analyzed**: 1577
+- **Files Modified**: 2571
 - **New Files**: 941
 - **Deleted Files**: 121
 
@@ -501,6 +501,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix formatting issues in README.md (`b2c0e79`)
+- Fix wording in PNWC Cyberdeck project description (`2adfcdf`)
 - docs: expand existing Bash Bunny, USB Rubber Ducky & WiFi Pineapple workflows; fix duplicate sections (#199) (`e2ff4eb`)
 - docs: correct unsupported firmware and repository claims (#197) (`4e8d83e`)
 - audit: complete blank-cell triage, repair link references & Wazuh rule contracts (#195) (`9b38540`)
@@ -678,6 +680,14 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update title in README.md (`ea68a5b`)
+- Update README title formatting (`41f2f16`)
+- Update title in README for Cyberdeck project (`746fefb`)
+- Update project status wording in README (`caf0b5f`)
+- Update project status in README (`e1d090f`)
+- Update PNWC Cyberdeck project description (#213) (`691f0d8`)
+- Update PNWC Cyberdeck project description (`5192c6f`)
+- Update PNWC Cyberdeck project description (`c3f593c`)
 - Update title in README to 'Reference Edition' (`2df3179`)
 - Update README.md (`d65f75f`)
 - Refactor DIY hardware references and remove duplicates (`2f211cf`)
@@ -1592,8 +1602,8 @@
 <summary>Click to view full file list</summary>
 
 - `Cyberdeck/README.md`
-- `CHANGELOG.md`
 - `README.md`
+- `CHANGELOG.md`
 - `.github/CONTRIBUTING.md`
 - `.github/workflows/documentation-discoverability.yml`
 - `DOCUMENTATION_INDEX.md`
