@@ -315,16 +315,7 @@ The [Case Studies Index](./CaseStudies/README.md) organizes sourced hardware, RF
 
 ### 🎯 Attack Case Studies (Historical References):
 
-| Incident | Type |
-|---|---|
-| [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon - Iranian nuclear facilities |
-| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) | Global ransomware outbreak |
-| [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
-| [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
-| [Carbanak](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) | APT banking theft campaign |
-| [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
-| [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
-| + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
+Browse the [historical case study references](./CaseStudies/README.md#attack-case-studies-historical-references) in the Case Studies Index for Stuxnet, WannaCry, EternalBlue, SolarWinds, Carbanak, NotPetya, and the Snowden / NSA disclosures.
 
 ### 🔧 Hardware Arsenal Documented:
 
