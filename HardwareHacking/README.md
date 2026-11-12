@@ -29,6 +29,7 @@
 |---|---|
 | [ESP32 Bit Pirate](./esp32-bit-pirate.md) | S3 firmware install and a read-only UART bench baseline; distinct from Bus Pirate hardware. |
 | [Pico-Ducky Lab](./pico-ducky-lab.md) | Pico setup mode and a fixed-text offline HID demonstration. |
+| [Flipper Expansion Board Labs](../Documentation/flipper_zero_guide.md#flipper-zero-expansion-boards-selection-setup--field-assessment-labs) | CC1101, nRF24/Si24R1, AWOK Dual C5, Realtek BW16, Poltergeist, RF-safe wiring & eight validation labs. |
 
 ## Firmware Catalog & Installers
 
