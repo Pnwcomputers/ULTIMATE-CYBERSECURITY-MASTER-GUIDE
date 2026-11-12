@@ -112,19 +112,21 @@ This directory contains comprehensive technical documentation, operational proce
 | :--- | :--- | :--- |
 | [Aircrack-ng_Commands.md](./Aircrack-ng_Commands.md) | Complete Aircrack-ng command reference | Reference |
 | [wifi-deauthentication-detection.md](./wifi-deauthentication-detection.md) | Legitimate 802.11 disconnects vs spoofing, PMF interpretation, Wireshark/TShark and Kismet detection | Defensive guide |
-| [WiFiMarauder_Guide.md](./WiFiMarauder_Guide.md) | Comprehensive guide for WiFi Marauder tool usage | Guide |
+| [WiFiMarauder_Guide.md](./WiFiMarauder_Guide.md) | Standalone Marauder firmware selection, six field assessment labs & Flipper comparison | Guide |
 | [WifiMarauder_CheatSheet.md](./WifiMarauder_CheatSheet.md) | Quick reference for WiFi Marauder commands | Cheat Sheet |
 | [pwnagotchi_cheatsheet.md](./pwnagotchi_cheatsheet.md) | Pwnagotchi setup and command reference | Cheat Sheet |
 | [bjorn_pi.md](./bjorn_pi.md) | How-to scan, attack, and exfiltrate from a network that Bjorn is connected to | Guide |
-| [bruce_firmware.md](./bruce_firmware.md) | Comprehensive guide for Bruce Firmware usage | Guide |
+| [bruce_firmware.md](./bruce_firmware.md) | Bruce board setup, radio-specific modules, eight additional field exercises & defensive validation | Guide |
 | [evil_m5.md](./evil_m5.md) | Guide for operations using the Evil-M5 Firmware | Guide |
-| [flipper_zero_guide.md](./flipper_zero_guide.md) | Reference guide for analysis and operations using a Flipper Zero | Guide |
+| [flipper_zero_guide.md](./flipper_zero_guide.md) | Flipper Zero hardware & companion Marauder UART/ESP32 installation with five field labs | Guide |
 | **[Wireshark Master Filter List](./wireshark-master-filters.md)** | 133 display-filter examples, capture BPF distinctions, TShark, Wi-Fi and security triage | Master reference |
 | **[Wireshark Field Cheat Sheet](./wireshark-cheatsheet.md)** | Quick copyable filters and GUI/CLI troubleshooting workflow | Cheat sheet |
 | [Wireshark filter catalog TSV](./wireshark-filter-catalog.tsv) | Machine-readable, syntax-tested list with caveats | Data/reference |
 | [wireshark.md](./wireshark.md) | Advanced router, remote, BLE, Zigbee, hardware capture and protocol reference | Advanced guide |
 | [hcxtoolshashcat.md](./hcxtoolshashcat.md) | HCX tools and Hashcat for WiFi password cracking | Guide |
-| [microcontroller_wifi_testing.md](./microcontroller_wifi_testing.md) | Reference for using Pwnagotchi, Wifi-Marauder & Flipper Zero together for wifi testing | Guide |
+| [microcontroller_wifi_testing.md](./microcontroller_wifi_testing.md) | Wireless testbed procedures plus [OUI-SPY Unified Blue detection labs](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) | Guide |
+| [Biscuit Ecosystem](../Wardriving/biscuit.md#ecosystem-assessment-labs--deployment-examples) | Pro, Ultra, Crumb, DIY, Node & AWOK eight practical labs | Field workflow |
+| [RaspyJack Portable Pi](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) | Raspberry Pi install, WebUI isolation, network and logging lab exercises | Lab workflow |
 
 ### Privacy & Anonymity
 | File | Description | Size/Type |
