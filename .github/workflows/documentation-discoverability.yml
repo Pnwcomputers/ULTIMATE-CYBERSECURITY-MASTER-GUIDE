@@ -5,6 +5,8 @@ on:
     paths:
       - '**/*.md'
       - 'tools/generate_documentation_index.py'
+      - 'tools/audit_documentation_reachability.py'
+      - 'tools/audit_documentation_reachability.py'
       - '.github/workflows/documentation-discoverability.yml'
   push:
     branches: [main]
@@ -31,3 +33,5 @@ jobs:
           python-version: '3.12'
       - name: Validate the complete documentation index
         run: python tools/generate_documentation_index.py --check
+      - name: Identify contextually unlinked guide candidates
+        run: python tools/audit_documentation_reachability.py --max-per-section 20
