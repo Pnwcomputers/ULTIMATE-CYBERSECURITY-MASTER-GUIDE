@@ -15,6 +15,8 @@ _Last reviewed: 2026-11-07_
 | [GhostESP Revival](./ghostesp-revival.md) | Install, owned-device observations and capture interpretation. |
 | [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Board/pin map selection and receive-first UART exercise. |
 | [NEMO](./nemo-firmware.md) | Exact M5Stack build, storage and benign discovery checks. |
+| [Evil-M5 Field Exercises](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Eight new non-disruptive labs, Evil-Flasher, Cardputer image/SD and sensor validation. |
+| [LAB5 MonsterC5 JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Separate C5 firmware + Cardputer/Tab5/Flipper interfaces, evidence storage and eight labs. |
 | [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Standalone and coordinator roles with log provenance. |
 | [Piglet](../Wardriving/piglet.md) | Local collection, mesh forwarding and automatic-upload review. |
 | [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Packet capture hardware, matching host and advertisement-only lab. |
@@ -102,6 +104,7 @@ established from the reviewed primary sources, not proof that none exists.
 | [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) | Marauder boards; Flipper ESP32/S2/S3 accessories; Cardputer; selected C5/C6 targets | Wi-Fi/BLE inventory, capture & controlled resilience tests; build-specific radio functions | Recent push: 2026-10-29 | [Official installer](https://justcallmekoko.github.io/MarauderInstaller/) |
 | [GhostESP Revival](https://github.com/GhostESP-Revival/GhostESP) | ESP32, S2, S3, C3, C5/C6 targets; display & peripherals vary | Wireless research, captures, BLE & optional RF/NFC; select exact release target | Recent push: 2026-11-06 | [Official web flasher](https://ghostesp.net/flasher) |
 | [Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project) | Cardputer/ADV, Core2/CoreS3, AtomS3 & other listed targets | Wireless assessment, portal-awareness & HID labs; feature matrix differs per device | Recent push: 2026-11-04 | [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/) |
+| [LAB5 / projectZero JanOS](https://github.com/C5Lab/projectZero) | LAB5 ESP32-C5 Monster radio; separate M5Cardputer/ADV, Tab5 and Flipper controller apps | 2.4/5 GHz Wi-Fi research/wardriving and authorized monitoring; disruptive features **not** safe baseline tests | Upstream source checked 2026-11-11; no verified push-time classification | [Official JanOS flasher/FAP tools](https://c5lab.github.io/projectZero/) · [lab setup](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) |
 | [NEMO](https://github.com/n0xa/m5stick-nemo) | M5StickC/Plus/Plus2, Cardputer & documented ports | Wi-Fi/BLE/IR lab toolkit; Cardputer USB analysis is not a guarantee a device is safe | Recent push: 2026-07-15 | M5Burner desktop or upstream source/binaries; no dedicated browser installer verified |
 | [ESP32 Bit Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | ESP32-S3 DevKit/SuperMini, AtomS3 Lite, Cardputer/ADV, StampS3; >=4 MB flash | UART/SPI/I2C/JTAG/SWD, USB & radio protocol research; formerly ESP32 Bus Pirate | Recent push: 2026-11-01 | [Official web flasher](https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/) |
 | [M5PORKCHOP](https://github.com/0ct0sec/M5PORKCHOP) | Cardputer/ADV S3; GPS/SD; external C5 for reviewed dual-band workflow | Wireless research and survey modes; not the Piglet project | Recent push: 2026-10-06 | Upstream PlatformIO; [survey setup notes](../Wardriving/additional-survey-firmware.md) |
@@ -271,7 +274,8 @@ Installer checks and unresolved link limitations are recorded in the
 | [Hardware Hacking](../HardwareHacking/README.md) | Electrical fundamentals, interfaces & hardware lab progression |
 | [Device-First Firmware References](../firmware-hardware-compatibility.md) | Selection links; use the target list and upstream release for exact compatibility |
 | [Bruce](./bruce_firmware.md) | Existing module-specific Bruce guide |
-| [Evil-M5](./evil_m5.md) | Existing Evil-M5 operational guide |
+| [Evil-M5](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Existing Evil-M5 operational guide expanded with eight new safe labs |
+| [LAB5 MonsterC5 / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Existing microcontroller wireless workflow expanded with C5 board/companion deployment and eight labs |
 | [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Hardware, GPS & survey logging |
 | [Marauder Reference](./WiFiMarauder_Guide.md) | Existing Marauder documentation |
 | [Wardriving Index](../Wardriving/README.md) | Field workflow, Biscuit, Scout Lite, GPS & privacy |
