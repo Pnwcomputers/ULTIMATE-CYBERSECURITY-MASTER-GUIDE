@@ -19,7 +19,7 @@
 
 | Reference | Description |
 |---|---|
-| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
+| [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) | Portable network assessment architecture, staged authorization, evidence handling and offline-only hashing |\n| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
 | [Atomic Red Team, Sigma & Wazuh Validation](purple-team-detection-validation.md) | Repeatable defensive detection testing |
 | [DefectDojo Findings & Retesting](assessment-findings-lifecycle.md) | Report, triage, remediate and retest findings |
 

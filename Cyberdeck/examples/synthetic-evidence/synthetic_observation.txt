@@ -1,0 +1,3 @@
+SYNTHETIC TRAINING FIXTURE ONLY
+Case: TRAINING-DEMO-001
+No real network assessment, packet capture, IP address, customer data or device credential.
