@@ -1043,6 +1043,10 @@ analyze_image("suspicious_image.jpg")
 
 # REAL-WORLD ATTACK CASE STUDIES
 
+| Resource | Description |
+|---|---|
+| [Case Studies Index](./CaseStudies/README.md) | Historical incident references and hardware research, with links to related defensive guides |
+
 ## Stuxnet Analysis
 
 ### Overview
