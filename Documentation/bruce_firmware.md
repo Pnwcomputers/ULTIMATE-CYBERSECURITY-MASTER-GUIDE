@@ -607,6 +607,98 @@ Exercises 1-5 of the Evil-M5 chapter apply unchanged to Bruce (same Wi-Fi techni
 
 ---
 
+### Exercise B7 — Repeatable Bruce Board Qualification
+
+Bruce is a **firmware family**, not proof that a given GPIO module, radio or USB interface exists on every supported board. See [upstream BruceDevices/firmware](https://github.com/BruceDevices/firmware) and [official flasher](https://bruce.computer/flasher). Record the device identity and actual available hardware rather than copying the Cardputer example to a M5StickC Plus2 or T-Embed.
+
+1. Identify model and revision (for example M5StickC Plus2, Cardputer/ADV, T-Embed CC1101, supported CYD or RF Reaper), chip/flash/PSRAM, display, SD, battery and populated radio modules.
+2. Verify whether the firmware target has a native USB peripheral capable of HID. USB-UART bridge hardware **alone** does not create a native USB keyboard.
+3. Back up the existing configuration, SD content and any customized JavaScript apps. Download a build from the official target selector; confirm the image matches the board profile before erasing.
+4. Flash using the upstream recommended workflow; use the board's documented bootloader/recovery controls and a stable data cable. Do not reuse generic ESP32-S3 flash offsets or a different board's filesystem layout.
+5. After first boot, test display/buttons, battery, SD write/read, clock, Wi-Fi scan, BLE scan and *each physically present external module* separately.
+6. Record an explicit **not installed**, **not supported**, **not tested** or **passed** for each feature. These outcomes are not interchangeable.
+
+| Feature | Hardware prerequisite | Safe acceptance |
+|---|---|---|
+| 2.4 GHz Wi-Fi scan | Supported board and antenna | Owned lab AP observed and controller-confirmed |
+| BLE advertising scan | Bluetooth-capable ESP32 + supported build | Owned beacon observed |
+| Sub-GHz | Properly wired CC1101 or native supported module | Receive-only identification of owned sensor |
+| nRF24 | Correct nRF24 module/wiring | Harmless owned beacon/telemetry observation where supported |
+| RFID/NFC | Board/module specific (125 kHz coil, PN532 etc.) | Inventory only owned training tag |
+| IR | Supported transmit/receive LED/receiver | Test-only remote command with owner present |
+| BadUSB | Actual native USB HID capability & firmware support | Fixed marker in a blank text editor |
+| JS apps | Correct firmware & storage/runtime support | Local-only, non-network exercise reviewed before run |
+
+### Exercise B8 — Owned Wi-Fi Access Point Inventory
+
+**Goal:** verify the board's scanning and Wi-Fi configuration observations.
+
+1. Use an isolated AP with a dedicated synthetic SSID, and record its controller settings, BSSID, channel, WPA2/WPA3 and PMF configuration.
+2. Open Bruce's supported Wi-Fi **scan** feature and record the actual menu/build. Confirm the selected mode does not perform disconnection, impersonation, unsolicited captive portal, or broad active probing beyond the ROE.
+3. Capture the SSID/BSSID/channel/RSSI and compare to controller records. Retest after switching a test AP channel through its normal management UI.
+4. Label missing 5 GHz results as possible board/radio limitation; classic ESP32 M5StickC and many S3 targets are not 5 GHz scanners. Verify supported bands per chip and board.
+5. Retain a redacted screenshot and firmware version; do not publish neighbor BSSIDs or infer an exploitable issue from visibility alone.
+
+### Exercise B9 — BLE Advertisement & False-Positive Review
+
+1. Use two owned BLE advertising devices (or one beacon plus a second known test device); enable only ordinary BLE discovery.
+2. Record device name, address *type* (public/random when reported), RSSI, advertised service/manufacturer data and scan duration **only if shown by the build**.
+3. Turn off the test beacon and watch its observation age/absence. A rotating random address can prevent stable tracking; an OUI is not reliable identity for randomized BLE addresses.
+4. Repeat at two distances and note multipath and signal variability. **Do not report RSSI as calibrated meters.**
+5. Compare specialized privacy-detection workflows in the [OUI-SPY section](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs); Bruce's broad scanning is not a validated proprietary surveillance detector.
+
+### Exercise B10 — IR & Sub-GHz Owned-Equipment Validation
+
+1. Obtain permission to use a **noncritical** owned remote or test transmitter and receiver. Never select doors, alarms, emergency systems or vehicles for first tests.
+2. For IR, record the original remote protocol and one benign command on a spare device. Test reception first; if transmitting, use only an authorized command that cannot cause injury/service interruption.
+3. For a CC1101-equipped Bruce board, receive an owned fixed test transmitter signal; record center frequency, modulation *as actually reported* and region. Do not enable jamming or broad replay.
+4. Correlate observation with the test device's expected action/log, then turn off the transmitter. RF signal reception alone does not establish a functional bypass.
+5. Consult [Sub-GHz](../SDR/subghz.md) and [Flipper Zero](./flipper_zero_guide.md) for alternate hardware paths; they have different transceivers and recording formats.
+
+### Exercise B11 — Authorized RFID/NFC Tag Identification
+
+1. Choose a disposable test tag and document its frequency/type and permission to read. Do not use employee badges, building access cards, payment cards or production keys.
+2. Connect a compatible, electrically safe reader module if the chosen Bruce board requires one.
+3. Perform read-only tag detection, and capture only card type/capability information allowed by the exercise; redact any identifiers.
+4. Verify the tag type using a separate trusted reader when possible. A tag read **does not mean** protected sectors, cryptographic keys, or access permissions were recovered.
+5. Disconnect the module and record any wiring/peripheral limitations. Cross-reference [RFID & NFC](../SDR/rfid.md).
+
+### Exercise B12 — Safe BadUSB Marker & Endpoint Device Controls
+
+1. Confirm that the actual Bruce hardware supports **native USB HID** and the corresponding Bruce feature. An ESP32 board merely plugged in through USB-UART is not sufficient.
+2. Connect a dedicated offline test host, open an empty text editor, and ensure no terminal/login field is focused.
+3. Prepare a fixed, harmless text marker such as `PNWC-BRUCE-HID-TEST` using the firmware's documented syntax for **that** board. Do not copy a compiled Hak5 `inject.bin`, generic CircuitPython `payload.dd` or a Flipper BadUSB script without explicit compatibility checks.
+4. Trigger once under direct observation, then compare USB HID device-control events, actual marker output and expected policy.
+5. Remove the device, clear test data and record logs. A successfully typed marker is not an elevation or credential-access finding. See [USB Rubber Ducky guide](../Scripts/Ducky/README.md#authorized-hid-injection-field-exercises).
+
+### Exercise B13 — JavaScript Runtime Without External Effects
+
+1. Review Bruce's current [official firmware repository](https://github.com/BruceDevices/firmware) and JS runtime documentation for the exact installed release. Check whether JS APIs can access Wi-Fi, files, radios or network.
+2. Create a **local-only** example that performs arithmetic and prints a fixed marker; do not import third-party packages or execute downloaded scripts without review.
+3. Run from the supported local file/menu route, then verify output and memory use. Confirm it has not scanned, transmitted or written external data.
+4. Test a bad/unsupported API call in an isolated disposable environment to verify graceful failure, without modifying firmware settings.
+5. Save source and firmware version for reproducibility; compare with the existing JS automation Exercise B6, which may reference a different build.
+
+### Exercise B14 — Multi-Sensor Correlation & Incident Report
+
+1. Configure a unique owned Wi-Fi AP and BLE beacon, plus a noncritical IR/RF test item if the board includes the relevant peripherals.
+2. Collect short, individually labeled Bruce observation sessions. Independently verify Wi-Fi with an AP controller/Kismet and BLE with a second receiver.
+3. Correlate actual timestamps and sensor identifiers in the [wireless IDS/Wazuh lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), where supported by an explicit log-export process. Do not invent built-in Wazuh integration.
+4. Use a negative control (turn the test beacon off) to check stale UI entries and false alerts.
+5. Record findings with source, exact board, installed firmware, missing peripherals, evidence hashes, risk, remediation and cleanup.
+
+### Deployment Patterns, Safety Controls & Recovery
+
+| Deployment | Legitimate goal | Stop condition |
+|---|---|---|
+| Technician bench | Qualify an ESP32 target and attached modules | Wrong display/partition, power issue or unknown image |
+| Client wireless survey | Compare owned AP/beacon visibility to inventory | Out-of-scope identifiers persist in intended report |
+| Physical-access training | Measure endpoint USB HID policy with a fixed marker | Text lands outside an empty training editor |
+| RF/IR lab | Review owned signal behavior | Unexpected activation, interference or regulatory uncertainty |
+| Incident triage | Correlate visibility with known WIDS telemetry | Unsupported attribution or accidental third-party collection |
+
+**Firmware changes are a release/migration event:** changing Bruce to Marauder, GhostESP, NEMO or another project is **not an in-place profile switch**. Back up configuration and check both flash partitioning and physical peripherals before migrating. Restore only a matching known-good firmware image. For multiple boards, keep a per-board version/feature matrix.
+
 ## 10. Blue team - defenses against Bruce capabilities
 
 Building on the Evil-M5 defense matrix, the following addresses Bruce's expanded capability set:
