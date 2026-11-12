@@ -135,6 +135,107 @@ This section details every piece of hardware in your arsenal, its specific role,
 
 ---
 
+## RaspyJack — Raspberry Pi Portable Assessment Workflow
+
+**Project spelling and provenance:** the upstream project is **RaspyJack** (sometimes typed "RaspiJack"), maintained at [7h30th3r0n3/Raspyjack](https://github.com/7h30th3r0n3/Raspyjack), with a distinct [installation wiki](https://github.com/7h30th3r0n3/Raspyjack/wiki/Installation). It is a **Linux/Python application suite for Raspberry Pi**, not a flashable ESP32 binary, Hak5 Shark Jack firmware, or a Flipper Zero application. Integrate it into the lab as a scoped operator-controlled Raspberry Pi workstation, never as an unattended implant.
+
+### Hardware, Layout & Threat Model
+
+| Component | Role / boundary |
+|---|---|
+| Raspberry Pi Zero 2 W + stable power + microSD | Common reference target; a display is optional if using the WebUI |
+| Waveshare 1.44-inch ST7735 or 1.3-inch ST7789 LCD HAT | Supported portable menu controls; pick the right installer display profile |
+| USB Ethernet/HUB HAT or lab Ethernet adapter | Isolated management transport; some headless builds require wired connectivity |
+| External USB Wi-Fi adapter (optional) | Monitor-capable surveys depend on exact chipset/driver; never infer injection support from the Pi's built-in Wi-Fi |
+| Raspberry Pi OS Lite, pinned upstream revision | Host OS; installer changes packages, system services and network configuration |
+| WebUI & Payload IDE | **Privileged management surface**; accessible only from an isolated/admin-controlled network, not public Internet |
+| `/root/Raspyjack`, `payloads/`, `loot/`, `config/` | Project and evidence locations described upstream; do not put actual client secrets into git |
+
+RaspyJack includes payloads that can affect networks, collect credentials or launch remote-control processes. **Default scope here excludes those capabilities.** An installed toolkit does not authorize executing all included payloads. Review upstream code and each selected script; its feature availability is not guaranteed across versions, display models or optional modules.
+
+### Installation — Clean Disposable Lab First
+
+1. Image a spare SD card with the upstream-compatible Raspberry Pi OS Lite version for your specific Pi. Establish a local admin user, secure SSH, and an isolated lab management network. Never first-install it on a client's production Pi.
+2. Verify power, display SPI pinout, Ethernet connectivity and target architecture. Apply system updates and take an SD image or snapshot **before** running a third-party installer.
+3. Review the source install script for package repositories, services, root privileges, firewall/proxy changes and web listener bindings. Review the exact revision with `git log -1`.
+4. Follow the [upstream installer](https://github.com/7h30th3r0n3/Raspyjack/wiki/Installation) only after approval. The documented path is `/root/Raspyjack`; execute from a local console and select the correct display type. The upstream installer may set up SPI, I²C, systemd units, Wi-Fi/network tools and a WebUI.
+5. Reboot in the lab. Confirm expected screen/menu, network interface IDs and health checks; do **not** enable any offensive payloads. Run these read-only checks:
+
+~~~bash
+uname -a
+cat /etc/os-release
+ip -br link
+sudo ss -lntp
+systemctl --type=service --state=running | grep -Ei 'raspyjack|caddy' || true
+~~~
+
+6. Confirm the WebUI is reachable only through a management interface, close unexpected exposed ports, change all credentials/tokens, restrict access with firewall/VLAN rules and verify TLS if configured. Upstream documents `https://<device-ip>/` with an optional `http://<device-ip>:8080` fallback; a working HTTP fallback is **not** secure for untrusted networks.
+7. Back up the configured lab image and document the commit, dependency versions, screen/hat, authorized network, remote-access configuration and rollback procedure.
+
+### Lab RJ1 — Console, Services & Configuration Acceptance
+
+1. Start RaspyJack in the isolated lab with all network-invasive payloads disabled.
+2. Confirm LCD/joystick operation, device process status and read-only WebUI dashboard access. Identify any open remote management ports through `ss`.
+3. Compare installed services with the reviewed installer, and disable anything not needed for this exercise through normal host administration.
+4. Test a login failure and an approved login using synthetic credentials. Record authentication/session behavior without collecting real user credentials.
+5. Ensure the WebUI is unreachable from a deliberately isolated guest/test VLAN.
+
+**Pass:** a documented, restricted and recoverable management surface. **Fail:** unexpected root-accessible public listener or missing authentication.
+
+### Lab RJ2 — Local Inventory Without Network Scanning
+
+1. From the Pi's terminal, record its own hostname, OS release, interface names/IPs and default routes.
+2. Review `payloads/` directory names with `find`/`ls`; do not run them.
+3. Create a test folder with a dummy note, exercise the local files/loot browser only if its version supports read-only browsing, then remove the dummy note.
+4. Export a version/asset manifest. Use this as the baseline before enabling an optional Ethernet or monitor-mode Wi-Fi adapter.
+
+### Lab RJ3 — Approved Lab Host Discovery
+
+1. Obtain written scope for **one** synthetic lab host IP and approved rate/ports. Confirm the Raspberry Pi is on the right isolated VLAN.
+2. Use a low-impact TCP connection check from the Pi to a known service on the controlled test host (such as SSH you configured). For example, `nc -vz -w 2 192.0.2.10 22` is syntax illustration: replace the documentation-only IP with the approved test host.
+3. Compare observed reachability with the host firewall and switch/router logs. If blocked, do not broaden scanning without new approval.
+4. Record DNS/route changes and whether the Pi can reach excluded VLANs; verify that required segmentation is enforced.
+
+### Lab RJ4 — Read-Only Wireless Adapter Qualification
+
+1. Connect an independently supported Wi-Fi adapter to the Pi on a dedicated isolated lab AP environment.
+2. Record `lsusb`, `iw dev` and `ip -br link`. Identify whether **this driver** supports monitor mode; do not assume all branded adapters have identical chipset revisions.
+3. Verify owned AP visibility using a passive-capable sensor workflow and an independent AP/controller inventory. If the adapter requires interface reconfiguration, save/restore baseline networking and do not disconnect the management link.
+4. Correlate with [Marauder standalone survey](../../Documentation/WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook), [Flipper Marauder](../../Documentation/flipper_zero_guide.md#flipper-marauder-companion-deployment-labs), and [Biscuit](../../Wardriving/biscuit.md) as **different collection platforms**, not interchangeable firmware.
+
+### Lab RJ5 — WIDS/Endpoint Telemetry & Evidence Export
+
+1. Create a unique lab SSID on a separate owned AP and record its BSSID, channel, start time and intended security posture.
+2. Monitor appearance through a supported, non-disruptive receiver. Where a separate [Kismet sensor](../../Wardriving/kismet.md) and [Wazuh ingestion](../../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) exist, compare their **real logs** to RaspyJack inventory notes.
+3. Do not claim RaspyJack directly ships Wazuh alerts: inspect the installed source first, and use a documented external log ingestion path where needed.
+4. Turn the AP off, collect negative-control observations, and store only redacted evidence and hashes.
+
+### Lab RJ6 — Operational Recovery & Secure Handoff
+
+1. Save the verified SD image, installed commit, packages, service configuration and hostname; encrypt any assessment artifacts.
+2. Test a controlled reboot, management reconnect and restoration to the baseline image on a spare SD card.
+3. Ensure no scanning/portal/C2/credential services auto-start. Confirm firewall, routes and WebUI exposure.
+4. Delete synthetic data and rotate any temporary admin credentials before putting the Pi into storage or shipping it between job sites.
+
+### Evidence & Deployment Acceptance
+
+| Evidence | Minimum record |
+|---|---|
+| Host provenance | Pi model, HAT, adapter/chipset, SD image, OS and upstream commit |
+| Authorization | Scope, approved VLAN/host/SSID, operator, stop time |
+| Management | UI bound address/ports, authentication, firewall isolation |
+| Observation | In-scope asset, tool/mode, timestamps, independent confirmation |
+| Forensics | Redacted filename, SHA-256 digest, retention and secure transport |
+| Rollback | Services stopped, guest isolation confirmed, backup restore tested |
+
+**Failure conditions:** unexpected routes, unsolicited wireless transmissions, privileged remote UI exposure, installer modifying production network services, collection of genuine credentials, or traffic to out-of-scope IPs. Stop and restore the clean image.
+
+### Related Existing Guides
+
+[Portable cyberdeck design](../../PlayBooks/assessment-service-integration-map.md) · [Bjorn Pi](../../Documentation/bjorn_pi.md) · [Marauder](../../Documentation/WiFiMarauder_Guide.md) · [Bruce](../../Documentation/bruce_firmware.md) · [Wireless surveying](../../Wardriving/README.md) · [Network architecture](../README.md)
+
+---
+
 # PART 2: BLUE TEAM PLAYBOOK (Defensive / Authorized Assessment)
 
 This section focuses on **safe, defensive validation**: discovering what’s present, measuring exposure, and verifying that common *attack classes* are mitigated.
