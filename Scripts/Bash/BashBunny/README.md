@@ -542,6 +542,32 @@ The Bash Bunny comes with payloads in `/payloads/library/`:
 cp /payloads/library/example_payload/payload.txt /payloads/switch1/
 ```
 
+## Official & Third-Party Payload Library: Controlled Installation
+
+The [official Hak5 Bash Bunny payload library](https://github.com/hak5/bashbunny-payloads) contains Bash payload sources and bundled dependencies. Its original and Mark II hardware differ, and `payload.txt` is **interpreted on the Bunny**, not a compiled Ducky `inject.bin`. Consult the [cross-device Hak5 comparison](../../../HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code) and the [Pager's event-driven payload format](../../../Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs).
+
+### Side-Load One Reviewed, Harmless Payload
+
+1. Clone or download a **pinned source commit** on an offline technician laptop. Inspect the payload script, `config.txt`, binaries, `requirements`, network endpoints, dependencies, switch behavior and file paths. Reject unapproved downloads, host scripts, credentials, persistence or data transfers.
+2. Back up the Bunny's current arming-mode data. Inspect `/payloads/library/` if present; don't assume an arbitrary library example path exists or that built-in examples work unchanged on all firmware generations.
+3. Test only the **fixed-text HID marker** in [Lab 1](#lab-1--non-destructive-hid-marker) first. Copy the reviewed `payload.txt` and its **required** assets into the correct `/payloads/switch1/` or `/payloads/switch2/` directory while in arming mode.
+4. Safely eject, disconnect, select the intended switch, and attach to a **dedicated offline** workstation with a blank editor in focus. Log exact device enumeration, marker output, LED state and times.
+5. Return to arming mode; remove only the test payload and restore the prior switch payload. Confirm no `ATTACKMODE` introduced unwanted USB NIC, storage or serial classes.
+6. Record model, firmware, source commit, source hash and a reversible cleanup step.
+
+### Review Gates For Community Payloads
+
+| Finding | Policy |
+|---|---|
+| `QUACK` or host keystrokes | Check exact layout/focus and require benign offline tests before any privileged operation |
+| USB Ethernet, DNS/DHCP/route edits | Separate network-change authorization; verify adapter type and rollback |
+| Remote fetch or staged scripts | Demand offline source, exact hashes, no unreviewed `curl | sh` or live exfil endpoint |
+| Client file collection | Separate sensitive-data consent; synthetic files by default |
+| Persistent host change | Never part of a default survey; explicit risk/rollback approval |
+| Firmware mismatch | Match Mark II/original hardware, required helpers and script interpreter |
+
+**Example-safe library use:** avoid copying a whole payload category to a switch. Select **one** reviewed source version and verify return-to-baseline. A community payload being listed by Hak5 is not evidence it is safe, maintained or appropriate to use on a customer host.
+
 ## Best Practices
 
 ### 1. Led Feedback
