@@ -49,15 +49,17 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 | Guide | Controller / interface | Radio and positioning model | Primary record / transfer |
 | --- | --- | --- | --- |
 | [SigRoam + Scout Lite](./sigroam-scout-lite.md) | Flipper Zero app (FAP) + Scout Lite scanner | ESP32-C5, 2.4/5 GHz, Scout Lite onboard GNSS | Scout Lite microSD WiGLE CSV; optional SigRoam after-stop upload with **dedicated scanner firmware** |
-| [ESP32 Marauder](./esp32-marauder.md) | Board screen/CLI or Flipper companion | Hardware-dependent ESP32; GPS and 5 GHz **not universal** | Target-dependent SD or Flipper logging; separate Marauder upload actions |
-| [Biscuit](./biscuit.md) | Biscuit Manager phone app | ESP32-C5 variants; phone GPS in standard workflow | App session/map/export; firmware/hardware dependent |
+| [ESP32 Marauder](../Documentation/WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook) · [GPS/WiGLE](./esp32-marauder.md) · [Flipper companion](../Documentation/flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) | Board screen/CLI or Flipper companion | Hardware-dependent ESP32; GPS and 5 GHz **not universal** | Target-dependent SD or Flipper logging; separate Marauder upload actions |
+| [Biscuit Ecosystem Labs](./biscuit.md#ecosystem-assessment-labs--deployment-examples) | Biscuit Manager phone app | ESP32-C5 variants; phone GPS in standard workflow | App session/map/export; firmware/hardware dependent |
 | [AWOK Dual C5 + Biscuit](./awok-dual-c5-biscuit.md) | Dual-C5 board + phone app and/or Flipper | Two ESP32-C5 radios; select firmware **per USB port** | Biscuit Manager for Biscuit-side observations; other side independent |
 | [Wardrive Go](./wardrive-go.md) | Android/iOS app | Phone scanning capabilities; optional RocketGod iosESP Wi-Fi boards | App-local sessions/exports, deliberate upload |
 | [Kismet](./kismet.md) | Linux host, browser UI or remote sources | Compatible capture interfaces and GPS source (often gpsd) | KismetDB / optional WiGLE CSV / PCAP-NG according to mode |
 
 **The Flipper Zero itself does not contain a Wi-Fi scanning radio.** It needs suitable external wireless hardware. ESP32-C5 can scan 2.4 and 5 GHz, but a *single* C5 Wi-Fi radio does not observe both bands simultaneously.
 
-**Companion research platforms:** [Evil-M5](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) provides M5Stack observation exercises; [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) adds a separate ESP32-C5 radio and Cardputer/Tab5/Flipper controllers. JanOS's `/lab/wardrives/` storage, optional auto-upload and GNSS requirements **are not** Marauder/Biscuit/SigRoam defaults. Use the original GPS and data-handling checks before any public export.
+**Additional stationary/portable sensors:** [OUI-SPY Unified Blue](../Documentation/microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) supports specialized receive-focused Wi-Fi/BLE detection (some management modes transmit AP beacons); [Bruce firmware](../Documentation/bruce_firmware.md#exercise-b7--repeatable-bruce-board-qualification) covers board-specific radio labs; and [RaspyJack](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) is a Pi/Linux lab platform. None is a drop-in replacement for a GPS-validated wardrive logger.
+
+**Companion research platforms:** [Evil-M5](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) provides M5Stack observation exercises; [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) adds a separate ESP32-C5 radio and Cardputer/Tab5/Flipper controllers. JanOS's `/lab/wardrives/` storage, optional auto-upload and GNSS requirements **are not** Marauder/Biscuit/SigRoam defaults. Use original GPS and data-handling checks before public export.
 
 ## Additional Starred Field-survey Platforms
 

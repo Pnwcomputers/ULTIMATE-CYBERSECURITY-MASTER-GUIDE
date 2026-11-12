@@ -350,6 +350,8 @@ Connect the following blocks sequentially in GRC from top to bottom / left to ri
 
 ---
 
+**Practical Flipper expansion setup and validation:** [External CC1101 receive-only comparison](../Documentation/flipper_zero_guide.md#lab-a--external-cc1101-internal-vs-external-comparison), [nRF24 owned-telemetry test](../Documentation/flipper_zero_guide.md#lab-b--nrf24-owned-24-ghz-telemetry--channel-awareness) and [PINGEQUA CC1101+nRF24 combined board](../Documentation/flipper_zero_guide.md#lab-c--pingequa-cc1101--nrf24-two-in-one-module). These sections document board power/SPI selection, antenna compatibility, negative controls and reporting; they do not turn nRF24 into Wi-Fi/BLE or expand CC1101's regulatory permissions.
+
 ## 🔌 6. Dedicated Hardware Chips: CC1101 vs. nRF24L01+
 
 When building custom lab sniffers or low-power embedded modules, these physical transceiver breakouts serve distinct operational purposes.
