@@ -92,6 +92,7 @@ def analyze(root: Path):
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-per-section", type=int, default=12)
+    parser.add_argument("--require-discovery", action="store_true", help="Fail if any Markdown pages lack a contextual navigation path")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     docs, edges, unreachable, no_inbound = analyze(root)
@@ -110,7 +111,10 @@ def main() -> int:
             print("  - " + value)
         if len(values) > args.max_per_section:
             print(f"  ... and {len(values) - args.max_per_section} more")
-    return 0  # Informational; the generated catalog supplies the final discovery path.
+    if args.require_discovery and (unreachable or no_inbound):
+        print("Navigation gate failed: cross-link the pages listed above; the global catalog alone is insufficient.")
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
