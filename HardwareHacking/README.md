@@ -124,6 +124,10 @@ Experienced practitioner?
 
 ---
 
+## Hak5 USB & Wireless Assessment Workflows
+
+The existing [Bash Bunny payload guide](../Scripts/Bash/BashBunny/README.md#authorized-field-assessment-labs--deployment-examples), [USB Rubber Ducky compilation guide](../Scripts/Ducky/README.md#authorized-hid-injection-field-exercises), and [WiFi Pineapple Mark VII section](../Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) now include authorized deployment labs, detection, troubleshooting and reporting. They remain in their established sections to avoid duplicating instructions. [Pico-Ducky](./pico-ducky-lab.md) is distinct from Hak5 hardware.
+
 ## 📟 Device Setup & Usage Guides
 
 **M5StickC Plus2:** [HackStarterPack integration and safe lab](./m5stickc-plus2-hackstarterpack.md) covers the exact board, CC1101 pinout, benign IR/BLE/HID tests and source review.
