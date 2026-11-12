@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1562
-- **Files Modified**: 2526
+- **Commits Analyzed**: 1563
+- **Files Modified**: 2532
 - **New Files**: 925
 - **Deleted Files**: 121
 
@@ -1313,6 +1313,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: curate popular Rubber Ducky & Bash Bunny GitHub payload resources in existing guides (#205) (`5c960e9`)
 - docs: expand existing Pineapple Pager payloads, Mark VII campaign runbooks & Hak5 device workflows (#204) (`dc9efed`)
 - docs: expand Evil-M5 & LAB5 MonsterC5 JanOS field assessments in existing guides (#203) (`ee1618f`)
 - docs: expand existing Flipper Zero guide with CC1101, nRF24, AWOK, BW16 & Poltergeist labs (#202) (`456c31e`)
@@ -1587,12 +1588,13 @@
 <summary>Click to view full file list</summary>
 
 - `HardwareHacking/README.md`
-- `PlayBooks/assessment-service-integration-map.md`
 - `README.md`
-- `START_HERE.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/README.md`
+- `CHANGELOG.md`
+- `PlayBooks/assessment-service-integration-map.md`
+- `START_HERE.md`
 - `Wardriving/README.md`
 - `Documentation/README.md`
 - `Documentation/device-firmware-list.md`
@@ -1610,7 +1612,6 @@
 - `Documentation/bruce_firmware.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `firmware-hardware-compatibility.md`
-- `CHANGELOG.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `CaseStudies/README.md`
