@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1581
-- **Files Modified**: 2597
+- **Commits Analyzed**: 1583
+- **Files Modified**: 2601
 - **New Files**: 949
 - **Deleted Files**: 121
 
@@ -681,6 +681,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`7c7846a`)
+- docs: move historical case study references into CaseStudies index (#218) (`9ea62eb`)
 - Update title in README.md (`ea68a5b`)
 - Update README title formatting (`41f2f16`)
 - Update title in README for Cyberdeck project (`746fefb`)
@@ -1605,6 +1607,9 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `CaseStudies/README.md`
+- `README.md`
+- `CHANGELOG.md`
 - `Cyberdeck/README.md`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
@@ -1626,8 +1631,6 @@
 - `Cyberdeck/tests/test_verify_manifest.py`
 - `Cyberdeck/tools/evidence_manifest.py`
 - `Cyberdeck/tools/verify_manifest.py`
-- `CHANGELOG.md`
-- `README.md`
 - `.github/CONTRIBUTING.md`
 - `.github/workflows/documentation-discoverability.yml`
 - `ENHANCED_MASTER_GUIDE.md`
@@ -1672,7 +1675,6 @@
 - `firmware-hardware-compatibility.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
-- `CaseStudies/README.md`
 - `CaseStudies/hardware/eucleak-yubikey-2024.md`
 - `CaseStudies/hardware/onity-locks-2012.md`
 - `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
