@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1564
-- **Files Modified**: 2536
-- **New Files**: 937
+- **Commits Analyzed**: 1565
+- **Files Modified**: 2557
+- **New Files**: 941
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -1314,6 +1314,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: Make Cyberdeck and all documentation readily discoverable (#209) (`a31c891`)
 - docs: curate popular Rubber Ducky & Bash Bunny GitHub payload resources in existing guides (#205) (`5c960e9`)
 - docs: expand existing Pineapple Pager payloads, Mark VII campaign runbooks & Hak5 device workflows (#204) (`dc9efed`)
 - docs: expand Evil-M5 & LAB5 MonsterC5 JanOS field assessments in existing guides (#203) (`ee1618f`)
@@ -1588,8 +1589,32 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `.github/workflows/cyberdeck-public.yml`
+- `.github/CONTRIBUTING.md`
+- `.github/workflows/documentation-discoverability.yml`
 - `Cyberdeck/README.md`
+- `DOCUMENTATION_INDEX.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `Homelab/README.md`
+- `IncidentResponse/README.md`
+- `Mobile/README.md`
+- `Mobile/UserLAnd/readme.md`
+- `OSINT/Playbook/README.md`
+- `OSINT/Playbook/scripts/README.md`
+- `OSINT/README.md`
+- `OSINT/docs/FAQ.md`
+- `OSINT/docs/TROUBLESHOOTING.md`
+- `PlayBooks/README.md`
+- `README.md`
+- `SECURITY_REMEDIATION_PLAN.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `START_HERE.md`
+- `Scripts/GO/README.md`
+- `Scripts/GO/shells/README.md`
+- `tools/audit_documentation_reachability.py`
+- `tools/generate_documentation_index.py`
+- `ultimate_cybersecurity_master_guide.md`
+- `CHANGELOG.md`
+- `.github/workflows/cyberdeck-public.yml`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
 - `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
@@ -1600,16 +1625,11 @@
 - `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
 - `Cyberdeck/tests/test_evidence_manifest.py`
 - `Cyberdeck/tools/evidence_manifest.py`
-- `Homelab/README.md`
-- `PlayBooks/README.md`
-- `README.md`
-- `CHANGELOG.md`
 - `HardwareHacking/README.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/README.md`
 - `PlayBooks/assessment-service-integration-map.md`
-- `START_HERE.md`
 - `Wardriving/README.md`
 - `Documentation/README.md`
 - `Documentation/device-firmware-list.md`
@@ -1641,7 +1661,6 @@
 - `HardwareHacking/Chapter1.md`
 - `HardwareHacking/Chapter2.md`
 - `HardwareHacking/Chapter4.md`
-- `IncidentResponse/README.md`
 - `SDR/rfid.md`
 - `tools/lab_detection_validator.py`
 - `tools/tests/test_lab_detection_validator.py`
@@ -1657,7 +1676,6 @@
 - `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md`
 - `Documentation/arduinoIDE.md`
 - `Documentation/security-public-api-catalog.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `HardwareHacking/BusPirate.md`
 - `HardwareHacking/T48_TL866-3G.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
@@ -1685,7 +1703,6 @@
 - `SDR/nanovna/10-antenna-types-and-special-cases.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
 - `SDR/target_frequencies_protocols.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `SpaceSecurity/README.md`
 - `advanced_techniques_part2.md`
 - `advanced_techniques_supplement.md`
@@ -1704,7 +1721,6 @@
 - `IncidentResponse/SIEM/splunk.md`
 - `OSINT/Playbook/investigation_guide.md`
 - `Scripts/GO/ARCHIVE-INVENTORY.md`
-- `Scripts/GO/README.md`
 - `Scripts/GO/archive_manifest.json`
 - `Tradecraft/osint-threat-intel.md`
 - `tools/maintenance_candidate_triage.py`
@@ -1714,7 +1730,6 @@
 - `.github/workflows/auto_changelog.yml`
 - `.editorconfig`
 - `.github/CODEOWNERS`
-- `.github/CONTRIBUTING.md`
 - `.github/ISSUE_TEMPLATE/verification_finding.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/workflows/maintenance-triage.yml`
@@ -1727,14 +1742,10 @@
 - `Documentation/references.md`
 - `Makefile`
 - `OSINT/OSINT_GUIDE.md`
-- `OSINT/Playbook/README.md`
 - `OSINT/Playbook/osint_investigator.sh`
 - `OSINT/Playbook/scripts/scammer_audit.sh`
-- `OSINT/README.md`
-- `OSINT/docs/FAQ.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `PlayBooks/cybersecurity_playbooks.md`
-- `SECURITY_REMEDIATION_PLAN.md`
 - `STYLE_GUIDE.md`
 - `Scripts/PowerShell/port_scanner.ps1`
 - `tests/hardening/test_osint_investigator.py`
@@ -1778,7 +1789,6 @@
 - `HardwareHacking/firmware-web-flashers.md`
 - `Wardriving/esp32-c5-wardriver.md`
 - `Wardriving/piglet.md`
-- `Mobile/UserLAnd/readme.md`
 - `AI/AnythingLLM/README.md`
 - `Checklists/README.md`
 - `Cloud/README.md`
@@ -1795,14 +1805,12 @@
 - `IncidentResponse/HoneyPot/readme.md`
 - `IncidentResponse/IDS&IPS/readme.md`
 - `IncidentResponse/SIEM/README.md`
-- `Mobile/README.md`
 - `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
 - `PDF/README.md`
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
-- `Scripts/GO/shells/README.md`
 - `Tradecraft/README.md`
 - `WebAppSecurity/README.md`
 - `assets/README.md`
@@ -1818,7 +1826,6 @@
 - `OSINT/awesome-osint-list-curated.md`
 - `OSINT/bellingcat-source-verification.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `ultimate_cybersecurity_master_guide.md`
 - `Cloud/azure.md`
 - `Cloud/m365-scuba-assessment.md`
 - `ContainerSecurity/containers.md`
@@ -2015,10 +2022,8 @@
 - `tests/hardening/test_safe_install.py`
 - `WebAppSecurity/owasp-top-10.md`
 - `OSINT/Playbook/branding.conf.example`
-- `OSINT/Playbook/scripts/README.md`
 - `OSINT/docs/COMPATIBILITY.md`
 - `OSINT/docs/INSTALLATION.md`
-- `OSINT/docs/TROUBLESHOOTING.md`
 - `ReverseEngineering/vx-underground.md`
 - `Cryptography/Classical/cryptanalysis.md`
 - `Cryptography/Classical/deciphering-workbook.md`
