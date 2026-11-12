@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1557
-- **Files Modified**: 2477
+- **Commits Analyzed**: 1562
+- **Files Modified**: 2526
 - **New Files**: 925
 - **Deleted Files**: 121
 
@@ -500,6 +500,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: expand existing Bash Bunny, USB Rubber Ducky & WiFi Pineapple workflows; fix duplicate sections (#199) (`e2ff4eb`)
 - docs: correct unsupported firmware and repository claims (#197) (`4e8d83e`)
 - audit: complete blank-cell triage, repair link references & Wazuh rule contracts (#195) (`9b38540`)
 - chore: refresh CHANGELOG for November 11 audit and CI fix (#192) (`84acfb4`)
@@ -1312,6 +1313,10 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: expand existing Pineapple Pager payloads, Mark VII campaign runbooks & Hak5 device workflows (#204) (`dc9efed`)
+- docs: expand Evil-M5 & LAB5 MonsterC5 JanOS field assessments in existing guides (#203) (`ee1618f`)
+- docs: expand existing Flipper Zero guide with CC1101, nRF24, AWOK, BW16 & Poltergeist labs (#202) (`456c31e`)
+- docs: expand existing Biscuit & AWOK guides, integrate portable firmware navigation (#201) (`9e37250`)
 - docs: fill missing tool notes and Wi-Fi adapter references (`59249bb`)
 - Revise M5StickC Plus2 lab entry format in README (`3f40e56`)
 - docs(ai): Complete AI Engineering, Agents, Security & Operations Handbook (#182) (`820c5a9`)
@@ -1581,16 +1586,33 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Documentation/esp32-security-firmware-catalog.md`
-- `Documentation/firmware-web-flashers.md`
-- `Documentation/pwnagotchi_cheatsheet.md`
-- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
-- `Homelab/README.md`
+- `HardwareHacking/README.md`
+- `PlayBooks/assessment-service-integration-map.md`
 - `README.md`
 - `START_HERE.md`
+- `Scripts/Bash/BashBunny/README.md`
+- `Scripts/Ducky/README.md`
+- `Scripts/README.md`
+- `Wardriving/README.md`
+- `Documentation/README.md`
+- `Documentation/device-firmware-list.md`
+- `Documentation/esp32-security-firmware-catalog.md`
+- `Documentation/evil_m5.md`
+- `Documentation/firmware-web-flashers.md`
+- `Documentation/flipper_zero_guide.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `SDR/subghz.md`
+- `Homelab/README.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
+- `Wardriving/biscuit.md`
+- `Wardriving/esp32-marauder.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/bruce_firmware.md`
+- `Homelab/workflows/self-hosted_network_attacks.md`
 - `firmware-hardware-compatibility.md`
 - `CHANGELOG.md`
+- `Documentation/pwnagotchi_cheatsheet.md`
+- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `CaseStudies/README.md`
 - `CaseStudies/hardware/eucleak-yubikey-2024.md`
 - `CaseStudies/hardware/onity-locks-2012.md`
@@ -1599,13 +1621,11 @@
 - `Cryptography/security-keys-passkeys.md`
 - `Documentation/CANARY-DETECTION-VALIDATOR.md`
 - `Documentation/LAB-VERIFICATION-MATRIX.md`
-- `Documentation/README.md`
 - `Documentation/fixtures/lab-canary-cases.jsonl`
 - `Documentation/fixtures/lab-canary-observations.jsonl`
 - `HardwareHacking/Chapter1.md`
 - `HardwareHacking/Chapter2.md`
 - `HardwareHacking/Chapter4.md`
-- `HardwareHacking/README.md`
 - `IncidentResponse/README.md`
 - `SDR/rfid.md`
 - `tools/lab_detection_validator.py`
@@ -1621,7 +1641,6 @@
 - `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md`
 - `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md`
 - `Documentation/arduinoIDE.md`
-- `Documentation/bruce_firmware.md`
 - `Documentation/security-public-api-catalog.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `HardwareHacking/BusPirate.md`
@@ -1672,7 +1691,6 @@
 - `Scripts/GO/ARCHIVE-INVENTORY.md`
 - `Scripts/GO/README.md`
 - `Scripts/GO/archive_manifest.json`
-- `Scripts/README.md`
 - `Tradecraft/osint-threat-intel.md`
 - `tools/maintenance_candidate_triage.py`
 - `tools/tests/test_legacy_archive_manifest.py`
@@ -1728,32 +1746,22 @@
 - `AI/rag-and-knowledge-engineering.md`
 - `AI/structured-outputs-and-data-contracts.md`
 - `AI/verification-and-ai-audits.md`
-- `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/ble-capture-sniffle.md`
 - `Documentation/chimerable.md`
-- `Documentation/device-firmware-list.md`
 - `Documentation/esp-terminator.md`
-- `Documentation/evil_m5.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
 - `Documentation/firmware-catalog-verification.json`
-- `Documentation/flipper_zero_guide.md`
 - `Documentation/ghostesp-revival.md`
 - `HardwareHacking/esp32-bit-pirate.md`
 - `HardwareHacking/pico-ducky-lab.md`
 - `SDR/evil-crow-rf-v2.md`
-- `Scripts/Ducky/README.md`
-- `Wardriving/README.md`
 - `Wardriving/additional-survey-firmware.md`
-- `Wardriving/biscuit.md`
-- `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/nemo-firmware.md`
 - `HardwareHacking/BitPirate.md`
 - `HardwareHacking/esp32-security-firmware-catalog.md`
 - `HardwareHacking/firmware-catalog-verification.json`
 - `HardwareHacking/firmware-web-flashers.md`
-- `SDR/subghz.md`
 - `Wardriving/esp32-c5-wardriver.md`
-- `Wardriving/esp32-marauder.md`
 - `Wardriving/piglet.md`
 - `Mobile/UserLAnd/readme.md`
 - `AI/AnythingLLM/README.md`
@@ -1780,7 +1788,6 @@
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
-- `Scripts/Bash/BashBunny/README.md`
 - `Scripts/GO/shells/README.md`
 - `Tradecraft/README.md`
 - `WebAppSecurity/README.md`
@@ -1807,7 +1814,6 @@
 - `Mobile/mvt-forensic-triage.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
-- `PlayBooks/assessment-service-integration-map.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `ReverseEngineering/yara-x-rule-lab.md`
@@ -1838,7 +1844,6 @@
 - `Documentation/Locksport.md`
 - `Documentation/vscode.md`
 - `Documentation/wireshark.md`
-- `Homelab/workflows/self-hosted_network_attacks.md`
 - `LEGAL.md`
 - `OSINT/argus_osint.md`
 - `OSINT/scripts/Email_OSINT.md`
