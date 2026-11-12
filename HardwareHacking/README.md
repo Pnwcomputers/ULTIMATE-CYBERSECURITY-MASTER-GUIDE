@@ -29,6 +29,8 @@
 |---|---|
 | [ESP32 Bit Pirate](./esp32-bit-pirate.md) | S3 firmware install and a read-only UART bench baseline; distinct from Bus Pirate hardware. |
 | [Pico-Ducky Lab](./pico-ducky-lab.md) | Pico setup mode and a fixed-text offline HID demonstration. |
+| [Evil-M5 Field Labs](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Cardputer/ADV and other M5Stack target setup, eight safe RF/BLE/HID and defensive lab exercises. |
+| [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Distinct C5 radio, Cardputer/Tab5/Flipper apps, verified update path and eight tests. |
 
 ## Firmware Catalog & Installers
 
