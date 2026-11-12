@@ -1,298 +1,104 @@
-# Pwnagotchi Commands and Configuration 🤖
-
-**Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
-
-> [!WARNING]
-> **Reviewed October 31, 2026.** The actively developed [jayofelony fork](https://github.com/jayofelony/pwnagotchi/releases) has newer images than the older v2.9.5.4 example below; **v2.9.5.8** was the most recent reviewed release. Recent releases changed image support, plugin behavior and `.pcapng` storage. Consult the [maintained wiki](https://github.com/jayofelony/pwnagotchi/wiki) for the exact image and config on your hardware, verify the checksum where published, **back up data** and do not assume old paths or plugins work unchanged. This is **not a passive-only device by default**: some modes can transmit/deauthenticate; use explicitly authorized passive modes only where required.
-
-## Current Fork & FancyGotchi Compatibility
-
-The [jayofelony upstream](https://github.com/jayofelony/pwnagotchi) currently
-uses a `noai` default branch; legacy AI/training descriptions below are not
-universal to current Pwnagotchi images. Select Pi model/architecture, image fork
-and display explicitly. [FancyGotchi](./fancygotchi-pwnagotchi.md) is a separate
-theme-manager compatibility decision; the independent CYD project is different
-firmware. A UI/theme does not make active radio behavior passive.
-
-## 🎯 Purpose
-Quick-reference for deploying, configuring, and operating a Pwnagotchi - an autonomous AI-driven WiFi handshake capture device built on Raspberry Pi Zero W/2W that can capture WPA/WPA2 traffic using bettercap; features/modes may include **active packet injection** and require authorization.
-
-## ⚙️ Function
-Covers installation and flashing, essential config.toml settings, service management, plugin configuration, handshake processing for offline cracking with Hashcat, performance tuning, and troubleshooting. Focuses on the field-capture side of the passive WiFi audit workflow; pair with hcxtoolshashcat.md for the conversion and cracking steps.
-
-## 🏆 Goal
-Deploy a set-and-forget passive handshake capture device that autonomously improves its channel-selection strategy via reinforcement learning, outputting .pcap files ready for hcxpcapngtool conversion and Hashcat cracking.
-
-## 📋 When to Use
-- Long-duration authorized observation **only after disabling active transmit/deauth features and validating the firmware mode**
-- Authorized wardriving and site surveys requiring hands-free capture
-- Lab exercises demonstrating WPA2 handshake exposure
-- Supplementing active tools (Marauder, Evil-M5) with continuous passive capture in the background
-
-
-
-### Basic Setup
-
-> [!CAUTION]
-> **Flashing erases the selected storage device**. The commands below are intentionally illustrative because filenames, architecture (32/64-bit), boot paths, and default accounts have changed. Never flash `/dev/sdX` as a literal or assume `pi/raspberry` remains appropriate.
-
-**Install Pwnagotchi (on Raspberry Pi Zero W/2W)**
-```bash
-# The jayofelony fork is the actively maintained release (evilsocket's original is archived)
-# Releases ship as pwnagotchi-32bit-<version>.img.xz / pwnagotchi-64bit-<version>.img.xz -
-# pick the correct architecture for your Pi. wget can't glob a wildcard against a remote
-# URL, so grab the exact filename from the releases page (or the GitHub API) first:
-# curl -s https://api.github.com/repos/jayofelony/pwnagotchi/releases/latest | grep browser_download_url
-# Legacy v2.9.5.4 example only: do NOT blindly flash this.
-# Select an exact compatible 64-bit image from the upstream release assets.
-# Confirm SHA-256 and the destination with: lsblk -o NAME,SIZE,MODEL,TRAN
-# Only after verifying both, use an explicit image name in the dd example below.
-# Decompress the exact reviewed image; prefer xz -dk <release-image>.img.xz
-# DESTRUCTIVE: flashing overwrites /dev/sdX; replace only after checking lsblk
-# sudo dd if=<reviewed-image>.img of=/dev/<verified-device> bs=4M status=progress conv=fsync
-```
-
-**Initial Configuration**
-```bash
-# SSH into pwnagotchi (USB connection)
-ssh pi@10.0.0.2
-# Never assume default credentials: consult the selected release image wizard,
-# change default passwords immediately and avoid exposing the Web UI to the LAN.
-
-# Edit config file
-sudo nano /etc/pwnagotchi/config.toml
-```
-
-### Essential Config.toml Settings
-
-```toml
-# Basic settings
-main.name = "pwnagotchi"
-main.lang = "en"
-main.whitelist = []
-
-# Display settings
-ui.display.enabled = true
-ui.display.type = "waveshare_2"  # or "waveshare_1", "oled", etc.
-
-# Enable web UI only behind trusted management access
-ui.web.enabled = true
-ui.web.username = "your-unique-admin-name"
-ui.web.password = "SET_A_LONG_UNIQUE_PASSWORD"
-
-# Bluetooth tethering
-# Bluetooth tethering changed in recent jayofelony releases; check version-specific docs.
-# Legacy plugin example (do not assume this still works):
-main.plugins.bt-tether.enabled = true
-main.plugins.bt-tether.devices.android-phone.enabled = true
-main.plugins.bt-tether.devices.android-phone.search_order = 1
-main.plugins.bt-tether.devices.android-phone.mac = "AA:BB:CC:DD:EE:FF"
-main.plugins.bt-tether.devices.android-phone.ip = "192.168.44.1"
-
-# Grid connection (share handshakes)
-main.plugins.grid.enabled = true
-main.plugins.grid.report = true
-main.plugins.grid.exclude = []
-```
-
-### System Management
-
-**Service Control**
-```bash
-# Check pwnagotchi status
-sudo systemctl status pwnagotchi
-
-# Restart pwnagotchi
-sudo systemctl restart pwnagotchi
-
-# View logs
-sudo journalctl -u pwnagotchi -f
-
-# Check logs for errors
-sudo tail -f /var/log/pwnagotchi.log
-```
-
-**Backup and Restore**
-```bash
-# Backup handshakes
-rsync -avz pi@10.0.0.2:/root/handshakes/ ./pwnagotchi-backup/
-
-# Backup configuration
-scp pi@10.0.0.2:/etc/pwnagotchi/config.toml ./config-backup.toml
-
-# Backup brain (AI data)
-scp pi@10.0.0.2:/root/brain.nn ./brain-backup.nn
-```
-
-### Plugin Management
-
-**Popular Plugins**
-
-```bash
-# Enable essential plugins in config.toml
-main.plugins.auto-update.enabled = true
-main.plugins.webcfg.enabled = true
-main.plugins.grid.enabled = true
-main.plugins.session-stats.enabled = true
-main.plugins.memtemp.enabled = true
-```
-
-**Custom Plugin Installation**
-```bash
-# Download individual plugin .py files by raw URL (jayofelony fork is actively maintained)
-# Example: download a single plugin from the jayofelony fork
-cd /usr/local/share/pwnagotchi/custom-plugins/
-# Do not download a moving-branch .py directly into a privileged plugin path.
-# Use the maintained pwnagotchi plugin manager and review the plugin source.
-# See https://github.com/jayofelony/pwnagotchi/wiki/Step-4-Customization
-
-# Add to config.toml
-main.plugins.plugin-name.enabled = true
-```
-
-### Useful Plugins
-
-| Plugin | Purpose | Config |
-| :--- | :--- | :--- |
-| `bt-tether` | Bluetooth internet sharing | `main.plugins.bt-tether.enabled = true` |
-| `grid` | Share handshakes with pwngrid | `main.plugins.grid.enabled = true` |
-| `auto-update` | Auto update pwnagotchi | `main.plugins.auto-update.enabled = true` |
-| `memtemp` | Display memory and temp | `main.plugins.memtemp.enabled = true` |
-| `session-stats` | Show session statistics | `main.plugins.session-stats.enabled = true` |
-| `webcfg` | Web-based configuration | `main.plugins.webcfg.enabled = true` |
-| `wigle` | Upload to WiGLE database | `main.plugins.wigle.enabled = true` |
-| `gps` | GPS coordinates logging | `main.plugins.gps.enabled = true` |
-
-### Advanced Usage
-
-**Manual Mode (for testing)**
-```bash
-# Run in manual mode
-sudo pwnagotchi --manual --debug
-
-# Run specific AI mode
-sudo pwnagotchi --ai --debug
-```
-
-**Processing Handshakes**
-```bash
-# Access handshakes directory
-cd /root/handshakes/
-
-# List captured handshakes
-ls -lah /home/pi/handshakes/  # recent images; check /root/handshakes/ on legacy images
-
-# Copy handshakes to local machine
-scp 'pi@10.0.0.2:/home/pi/handshakes/*.pcapng' ./handshakes/  # adjust per image
-
-# Convert to Hashcat unified format (mode 22000 - replaces deprecated 16800/2500)
-hcxpcapngtool -o hashes.hc22000 -E essid_list.txt authorized-capture.pcapng
-
-# Crack with Hashcat (GPU-accelerated, faster than aircrack-ng's CPU cracker)
-hashcat -m 22000 hashes.hc22000 /usr/share/wordlists/rockyou.txt
-
-# Or crack directly with aircrack-ng (CPU only, slower)
-aircrack-ng -w wordlist.txt handshake.pcap
-```
-> See [hcxtoolshashcat.md](hcxtoolshashcat.md) for the full conversion and cracking workflow.
-
-**Update Pwnagotchi**
-```bash
-# Manual update
-cd /usr/local/src/pwnagotchi
-# Avoid git-pull + global pip installation on prebuilt images.
-# Review the upstream release notes and use the fork's supported update/reflash path.
-# Back up your configuration and capture evidence first.
-
-# Or use auto-update plugin
-# Enable in config.toml: main.plugins.auto-update.enabled = true
-```
-
-**Monitoring Performance**
-```bash
-# Check AI stats
-cat /root/.pwnagotchi-auto | jq
-
-# View epochs and training
-cat /root/brain.nn
-
-# Network interfaces
-iwconfig
-ifconfig
-```
-
-**Troubleshooting**
-```bash
-# Check for errors
-sudo journalctl -u pwnagotchi --no-pager | grep -i error
-
-# Verify display
-sudo systemctl status pwnagotchi-display
-
-# Test web UI
-curl http://10.0.0.2:8080
-
-# Reset to factory settings
-# DESTRUCTIVE reset omitted; take a backup and follow the version-specific
-# upstream factory-reset/reflash procedure instead.
-```
-
-### Optimization Tips
-
-**Performance Tuning**
-```bash
-# Disable unnecessary services
-sudo systemctl disable bluetooth  # If not using bt-tether
-sudo systemctl disable avahi-daemon
-
-# Overclock (Raspberry Pi Zero W)
-sudo nano /boot/config.txt
-# Add: arm_freq=1000 or arm_freq=1100
-
-# Increase swap (if needed)
-sudo nano /etc/dphys-swapfile
-# Change CONF_SWAPSIZE=512
-sudo systemctl restart dphys-swapfile
-```
-
-**Battery Optimization**
-```toml
-# In config.toml
-main.plugins.logtail.enabled = false  # Reduce disk writes
-ui.fps = 1  # Lower refresh rate to save power
-```
-
-*****
-
-## Additional Resources 📚
-
-**Documentation**
-- Pwnagotchi (jayofelony fork, active): https://github.com/jayofelony/pwnagotchi
-- Original evilsocket docs (archived): https://pwnagotchi.ai/
-
-*****
-
-## Security and Ethical Considerations ⚠️
-
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
-
-* **Pwnagotchi Use:** Get **written permission** before capturing from any network. Only target networks you own or have explicit authorization to test.
-* **Cracking Use:** All cracking attempts must be done in an **isolated lab environment** against hashes you are authorized to possess.
-* **Legal Compliance:** Strictly comply with all local laws and regulations.
-
-**Legal Use Cases:**
-* Penetration testing with client authorization.
-* Testing your own home or lab network security.
-* Security research in isolated lab environments.
-
----
+# Pwnagotchi Fork-Aware Setup & Capture Reference
+
+> **Source review: November 11, 2026.** This page compares project documentation;
+> it does not record a firmware build, flash, radio test or hardware test. Check
+> the release-specific documentation before installation because the original
+> project and its forks differ.
+
+## Identify The Project & Hardware First
+
+“Pwnagotchi” refers to multiple software lineages. Their supported boards,
+images, AI behavior, configuration and capture paths are not interchangeable.
+
+| Project lineage | What its upstream currently documents | Use |
+|---|---|---|
+| [Original evilsocket project](https://github.com/evilsocket/pwnagotchi) and [project documentation](https://pwnagotchi.ai/) | Raspberry Pi Zero W is the baseline; the installation guide describes Pi 3/4 and other Linux hosts as possible with configuration changes. The legacy docs describe MANU, AUTO and optional AI modes. | Historical reference for that lineage and its releases; do not apply its assumptions to forks. |
+| [jayofelony fork](https://github.com/jayofelony/pwnagotchi) and [maintained wiki](https://github.com/jayofelony/pwnagotchi/wiki) | The README lists the Zero W as a legacy 32-bit target and lists Zero 2 W, Pi 3, Pi 4 and Pi 5 for 64-bit builds. The reviewed `noai` default branch removes the legacy AI component. | Follow the fork wiki and exact release asset for the selected board. |
+| Other forks or images | Support and behavior depend on their own source, release and image. | Verify that project's own target list and instructions. |
+
+Do not call a board “supported” just because it shares a Raspberry Pi
+processor family. Select the exact model, image architecture, fork and release
+before flashing. The repository's [device-first firmware references](../firmware-hardware-compatibility.md)
+provide additional selection links.
+
+## Modes & Radio Behavior
+
+The original project's [usage guide](https://pwnagotchi.ai/usage/) documents
+MANU, AUTO and AI behavior for that lineage: MANU does not capture handshakes;
+AUTO uses configured behavior; AI is available only when enabled and supported
+by that image. The jayofelony `noai` branch is a separate lineage and does not
+have that legacy AI component.
+
+Pwnagotchi is **not inherently passive-only**. The jayofelony README describes
+both passive capture and active authentication/association behavior. Check the
+selected release's radio settings and mode before use. Only observe networks
+you own or have explicit authorization to assess, and avoid transmitting unless
+the authorization specifically covers it.
+
+## Displays, Plugins & Configuration
+
+Display types, plugin names, settings and configuration paths can vary by
+lineage and release. The original project's
+[configuration guide](https://pwnagotchi.ai/configuration/) lists specific
+supported e-ink and OLED implementations; a generic “OLED” or “Waveshare”
+label does not establish compatibility with a particular board.
+
+For a current fork:
+
+1. Use its own [installation wiki](https://github.com/jayofelony/pwnagotchi/wiki)
+   and release notes.
+2. Back up the image and configuration before changing settings or plugins.
+3. Use the fork's documented plugin manager or installation method. Do not
+   download a moving-branch plugin file into a privileged path without review.
+4. Use its current defaults and configuration examples. Do not copy legacy
+   plugin keys, service paths or commands from another fork.
+
+[FancyGotchi](./fancygotchi-pwnagotchi.md) is a separate theme/plugin project,
+not a Pwnagotchi image or radio stack. A theme does not change the device's
+radio behavior.
+
+## Capture Files & Offline Analysis
+
+The jayofelony README describes captures as **PCAPNG** and lists PMKIDs and
+full or half WPA handshakes among the supported material. Do not assume old
+`.pcap` paths or filenames; locate captures using the selected image's current
+documentation and inspect the actual file format.
+
+For authorized captures, use the repository's
+[hcxtools & Hashcat reference](./hcxtoolshashcat.md) for conversion and
+offline analysis. Capture possession and permission to analyze captured
+material must be within the same approved scope. Do not enable automatic
+third-party upload plugins unless the owner has explicitly approved the
+destination and data handling.
+
+## Install, Update & Recover
+
+- Download the image from the chosen project's official release page.
+- Match the image to the exact device and architecture; verify the published
+  checksum or signature when provided.
+- Confirm the destination device by model and capacity before writing. Flashing
+  erases the selected storage.
+- Follow the project's current first-boot and credential-change instructions.
+  Do not assume a default username, password, network address, file path or
+  service name from an older guide.
+- Back up the working image and configuration before updating. Use the
+  project's supported upgrade or reflash procedure rather than a blind
+  `git pull` or global package installation.
+- If boot or display fails, restore the known-good image and follow the
+  version-specific recovery guide before changing more variables.
+
+## Verification Status
+
+**Verified: source** means upstream pages were reviewed on the date above.
+No device was flashed and no capture was produced during this review. Any
+hardware or runtime claim requires a dated record of the exact board, image,
+release, configuration and observed result, as described in the
+[Repository Verification Protocol](./REPOSITORY-VERIFICATION-PROTOCOL.md).
 
 ## Related Files
-- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Full hcxtools + Hashcat mode 22000 workflow for converting and cracking Pwnagotchi captures
-- [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Aircrack-ng as alternative CPU-based cracker for .pcap files
-- [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder: active WiFi attack tool that complements Pwnagotchi's passive capture
-- [evil_m5.md](evil_m5.md) - M5Cardputer Evil-M5: interactive WiFi attack platform (active deauth + evil twin)
-- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: autonomous network-service attacker on Pi hardware (different attack surface)
 
-*Last Updated: 2025-11-03*
+- [Device-first firmware references](../firmware-hardware-compatibility.md)
+- [ESP32 & related firmware catalog](./esp32-security-firmware-catalog.md)
+- [FancyGotchi & Pwnagotchi project boundaries](./fancygotchi-pwnagotchi.md)
+- [hcxtools & Hashcat reference](./hcxtoolshashcat.md)
+- [Documentation index](./README.md)

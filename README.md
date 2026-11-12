@@ -8,15 +8,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained-Yes-green" alt="Maintained"/>
-  <img src="https://img.shields.io/badge/Books%20Referenced-70%2B-blue" alt="Books"/>
-  <img src="https://img.shields.io/badge/PNWC%20Internal%20Docs-90%2B-orange" alt="Docs"/>
-  <img src="https://img.shields.io/badge/OSINT%20Tools-400%2B-purple" alt="OSINT"/>
-  <img src="https://img.shields.io/badge/Scripts-Source_Collection-red" alt="Scripts"/>
-  <img src="https://img.shields.io/badge/License-Educational%20Use-yellow" alt="License"/>
   <img src="https://img.shields.io/github/last-commit/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE" alt="Last Commit"/>
 </p>
 
-> **Compiled from 70+ expert books · 90+ PNWC internal documents · custom tools & scripts**  
+> **A curated cybersecurity knowledge base with original guides, references and tools**  
 > *Abide by the [Legal Terms of Use & Disclaimer](./LEGAL.md) for the use and misuse of this repository.*
 
 > "Under pressure, you don't rise to the occasion; you fall to the level of your training."
@@ -147,7 +142,7 @@ These are source-attributed references, not claims that every upstream tool is i
 | [Cybersecurity Cliff Notes](./cybersecurity_cliff_notes.md) | Quick command reference; the essentials at a glance |
 | [Advanced Techniques - Part 1](./advanced_techniques_supplement.md) | Advanced Metasploit, cloud pentesting, lateral movement, pivoting, etc. |
 | [Advanced Techniques - Part 2](./advanced_techniques_part2.md) | Exploit development, buffer overflows, shellcode, custom payloads, etc. |
-| [DIY Hardware & Firmware Compatibility](./firmware-hardware-compatibility.md) | SBC-based DIY pentesting devices as well as compatibility & firmware guides |
+| [DIY Hardware & Firmware References](./firmware-hardware-compatibility.md) | Device-first links to current firmware sources; exact board support must be checked upstream |
 | [Debian Linux Command Cheat Sheet](./Documentation/LinuxCheatSheet.md) | Linux CLI commands for Debian/Ubuntu/Kali/Parrot |
 | [Arch Linux Command Cheat Sheet](./Documentation/ArchLinux_CheatSheet.md) | Linux CLI commands for Arch |
 | [BlackArch Linux Cheat Sheet](./Documentation/blackarch.md) | Linux CLI commands for BlackArch |

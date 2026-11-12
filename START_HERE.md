@@ -54,7 +54,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | **Need Docker or Compose diagnostics** | [Docker Operations Cheat Sheet](ContainerSecurity/docker-cli-operations-reference.md) → [Container Runtime Security](ContainerSecurity/containers.md) for host/socket risks and hardening. |
 | **Container / Kubernetes Security** | [Container & Kubernetes Security](ContainerSecurity/README.md) ([Containers](ContainerSecurity/containers.md) · [Docker CLI/Compose](ContainerSecurity/docker-cli-operations-reference.md) · [Kubernetes](ContainerSecurity/kubernetes.md)) |
 | **Encrypted USB / Hardware Storage** | [Encrypted Storage](Cryptography/encrypted-storage.md) → [PhantomDrive research](Cryptography/phantomdrive-guide.md) for an experimental hidden-volume example. |
-| **Hardware Hacker** | [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Firmware & Hardware Compatibility](firmware-hardware-compatibility.md) |
+| **Hardware Hacker** | [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts II–III) + [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md) + [Device-First Firmware References](firmware-hardware-compatibility.md) |
 | **Wardriving / Wireless Surveys** | [Wardriving](Wardriving/README.md) for tool selection → [Field Workflow](Wardriving/field-workflow.md) → [Data Handling](Wardriving/data-handling.md); choose SigRoam, Marauder, Biscuit, AWOK, Wardrive Go or Kismet for the hardware you actually have. |
 | **SDR / RF / Space** | [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/README.md) + [SpaceSecurity](SpaceSecurity/README.md) |
 | **Reverse Engineering / Binary Analysis** | [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md) |
@@ -114,7 +114,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | [Device Firmware List](./Documentation/device-firmware-list.md) | Hardware-first firmware and installation choices |
 | [ESP32 & Related Firmware Catalog](./Documentation/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated installers & multi-device/multi-firmware tools |
-| **[Firmware & Hardware Compatibility](firmware-hardware-compatibility.md)** | SBC-based DIY pentesting devices; compatibility & firmware guide |
+| **[Device-First Firmware References](firmware-hardware-compatibility.md)** | Current source links; check exact board and release support upstream |
 
 ---
 
@@ -133,7 +133,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 |---------|-------------|
 | 📍 **[Wardriving](Wardriving/README.md)** | Authorized wireless mapping, GPS inventory, firmware compatibility, phone-based and Kismet collection |
 | 📋 **[Operational Playbooks](PlayBooks/cybersecurity_playbooks.md)** | Field-ready playbooks for professional network & WiFi security audits and pentests |
-| 🔍 **[OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md)** | Comprehensive OSINT methodology; 400+ categorized tools, investigation workflows |
+| 🔍 **[OSINT Guide, Tools & Techniques](OSINT/OSINT_GUIDE.md)** | OSINT methodology, categorized discovery tools and investigation workflows |
 | 🕵️ **[Tradecraft](Tradecraft/README.md)** | Offensive tradecraft; AD attacks, C2 frameworks, AV/EDR evasion, LOLBins, network detection evasion, threat intel |
 | 🕸️ **[Web Application Security](WebAppSecurity/README.md)** | OWASP Top 10 deep-dive and web app pentest methodology (Burp workflow, injection/access-control/API testing) |
 | ☁️ **[Cloud Security](Cloud/README.md)** | AWS, Azure/Entra ID, and GCP - shared responsibility, misconfigurations, attack surface, and hardening |
@@ -213,7 +213,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 
 | Step | Guide / Activity |
 |---|---|
-| 1 | [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology, 400+ tools |
+| 1 | [OSINT Guide](OSINT/OSINT_GUIDE.md); Full methodology and a categorized tool catalog |
 | 2 | [Tradecraft/OSINT Threat Intel](Tradecraft/osint-threat-intel.md); IOC operationalization, threat intel platforms |
 | 3 | [Enhanced Master Guide](ENHANCED_MASTER_GUIDE.md); OSINT section |
 | 4 | [Scripts/Python](Scripts/README.md); OSINT automation |

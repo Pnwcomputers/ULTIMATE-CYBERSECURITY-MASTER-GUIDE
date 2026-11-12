@@ -174,7 +174,7 @@ vulnerable systems, and potent offensive tools.
 - [📄 PDF Resources](../PDF/README.md)
 - [📘 Playbooks](../PlayBooks/README.md)
 - [💻 Scripts & Tools](../Scripts/README.md)
-- [📻 Hardware & SBC Compatibility](../firmware-hardware-compatibility.md)
+- [📻 Hardware & Firmware References](../firmware-hardware-compatibility.md)
 
 ### Internal Core Links
 - [🏠 Main Repository](../README.md)

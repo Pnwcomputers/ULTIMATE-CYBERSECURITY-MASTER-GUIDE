@@ -64,4 +64,4 @@ The source includes disruptive keyboard loops, BLE spam, intentional GUI crashes
 
 For each lab record: **authorization ID · owned target · board/firmware · addon revision · pinout source · upstream artifact URL/hash · expected outcome · observed result · defensive logs · cleanup**.
 
-**Related guides:** [Bruce](../Documentation/bruce_firmware.md) · [Evil-M5 / Cardputer (different board)](../Documentation/evil_m5.md) · [SDR](../SDR/README.md) · [Wardriving](../Wardriving/README.md) · [USB HID](../Scripts/Ducky/README.md) · [Firmware compatibility](../firmware-hardware-compatibility.md) · [Legal](../LEGAL.md).
+**Related guides:** [Bruce](../Documentation/bruce_firmware.md) · [Evil-M5 / Cardputer (different board)](../Documentation/evil_m5.md) · [SDR](../SDR/README.md) · [Wardriving](../Wardriving/README.md) · [USB HID](../Scripts/Ducky/README.md) · [Device-first firmware references](../firmware-hardware-compatibility.md) · [Legal](../LEGAL.md).

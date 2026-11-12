@@ -269,7 +269,7 @@ Installer checks and unresolved link limitations are recorded in the
 | Resource | Use This For |
 |---|---|
 | [Hardware Hacking](../HardwareHacking/README.md) | Electrical fundamentals, interfaces & hardware lab progression |
-| [Firmware Compatibility](../firmware-hardware-compatibility.md) | Existing hardware matrix; validate legacy cells against current upstream targets |
+| [Device-First Firmware References](../firmware-hardware-compatibility.md) | Selection links; use the target list and upstream release for exact compatibility |
 | [Bruce](./bruce_firmware.md) | Existing module-specific Bruce guide |
 | [Evil-M5](./evil_m5.md) | Existing Evil-M5 operational guide |
 | [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Hardware, GPS & survey logging |
