@@ -398,6 +398,95 @@ Available in `/languages/`:
 DUCKY_LANG us
 ```
 
+## Authorized Field Assessment Labs & Deployment Examples
+
+This section extends the setup, switch positions, attack modes, and scripting reference above into **repeatable client-approved tests**, without replacing the existing instructions. Compare the [USB Rubber Ducky compilation guide](../../Ducky/README.md) and [staged assessment blueprint](../../../PlayBooks/assessment-service-integration-map.md).
+
+> [!IMPORTANT]
+> Identify original Bash Bunny versus Mark II and record installed firmware. Bash Bunny payloads are Bash shell scripts containing Bash Bunny commands; USB Rubber Ducky compiled `inject.bin` payloads are not interchangeable with `payload.txt`. DuckyScript 3 syntax is not automatically supported. Refer to [Hak5's original payload development reference](https://github.com/hak5/bashbunny-wiki/blob/master/payload_development.md).
+
+### Engagement Preparation
+
+1. Obtain written authorization specifying client, permitted host IDs, USB classes (HID, storage, serial, USB networking), time window, data retention, stop conditions, and physical observer.
+2. Use an offline/isolated lab workstation or disposable VM, a synthetic test user, and a blank text editor. Record USB baseline, device-control policy, active network adapters/routes, and EDR health before testing.
+3. Backup existing device contents and verify switch assignment, firmware-specific helper support, keyboard layout, and the exact payload source. Never trust an unreviewed community payload.
+4. Stop immediately if keystrokes reach an unexpected application, a privileged action occurs, a route/DNS setting changes unexpectedly, or an out-of-scope host enumerates the device.
+5. Preserve expected **and** actual observations, not just successful outcomes.
+
+### Lab 1 — Non-destructive HID Marker
+
+**Goal:** validate HID acceptance and monitoring without opening commands or collecting data.
+
+Stage this as `/payloads/switch1/payload.txt` in arming mode:
+
+~~~bash
+#!/bin/bash
+# PNWC authorized HID test; focus a blank editor manually
+LED SETUP
+ATTACKMODE HID
+sleep 3
+LED ATTACK
+QUACK STRING PNWC-BASH-BUNNY-LAB
+QUACK ENTER
+LED FINISH
+~~~
+
+1. On the dedicated target, open and focus a blank editor.
+2. Safely eject in arming mode, disconnect, move the switch to position 1, and reconnect.
+3. Verify only the exact marker was typed. Record USB insertion, HID class, and EDR/device-control alert, if any.
+4. Remove the device, capture host logs, and document whether the behavior conformed to written USB/physical security policy.
+
+**Interpretation:** this demonstrates keystroke input to a focused application, not elevated permissions, credential access, or a successful compromise. Repeat with the screen locked only if authorized; do not attempt lock bypass.
+
+### Lab 2 — Removable Storage Policy
+
+1. Capture the baseline removable-disk inventory and applicable allow/deny policy.
+2. Stage `ATTACKMODE STORAGE` alone on a test switch; verify the exposed data partition and do not modify the Bunny's system partition.
+3. Insert into the approved host. Observe Windows Device Manager and EDR or Linux `lsusb`, `lsblk`, and `journalctl -k`.
+4. If policy permits, manually copy a **synthetic** file such as `PNWC-USB-STORAGE-TEST.txt` onto the approved exposed volume; never read/copy arbitrary client folders.
+5. Record mount status, read/write restriction, detection and enforcement. Eject safely and remove the synthetic data according to the evidence policy.
+
+### Lab 3 — USB Network Adapter/Route Policy
+
+**Goal:** detect unexpected USB Ethernet interfaces, default routes or DNS changes.
+
+1. Use an isolated host. On Windows, record `Get-NetAdapter`, `Get-NetRoute`, and `Get-DnsClientServerAddress`; on Linux, record `ip -br addr` and `ip route`.
+2. Stage the model-appropriate `ATTACKMODE RNDIS_ETHERNET` for supported Windows environments or `ATTACKMODE ECM_ETHERNET` for supported Linux/macOS environments. **Support varies by host, OS and firmware.**
+3. Do not enable network interception, forwarding, unauthorized DHCP/DNS services, or scanning. Insert once and record driver/interface enumeration, routing metrics, DNS and alerts.
+4. Disconnect immediately if the default route unexpectedly changes; restore network state, compare to baseline, and report any policy mismatch.
+
+### Lab 4 — Serial Device Enumeration
+
+1. Record existing COM/serial interfaces using Device Manager or `ls /dev/ttyACM*` where appropriate.
+2. Stage `ATTACKMODE SERIAL` alone. Insert the device and check driver installation, permissions, detection and port disappearance after removal.
+3. Do not send commands to an external target or assume console parameters across device generations. Capture events and verify device-control policy.
+
+### Lab 5 — Composite USB Device & Wazuh/EDR Correlation
+
+1. In a disposable lab, define expected policy results for HID and storage independently.
+2. Run the HID-only and storage-only labs above, then stage the firmware-documented composite `ATTACKMODE HID STORAGE`.
+3. Observe per-interface enumeration. Run only the harmless text marker and synthetic storage-file check.
+4. Export real host/EDR telemetry into the approved monitoring system; map the observed source fields to Wazuh alerts instead of inventing event IDs. Record allowed/blocked results.
+5. Insert a legitimate keyboard as a **negative control** to evaluate false positives. Restore policies, disconnect, and verify no test device remains.
+
+### Test Result Template
+
+| Evidence Field | Required Record |
+|---|---|
+| Scope | Engagement ID, authorization, assets, operator, exact UTC times |
+| Hardware | Bunny model, firmware, switch position, mode, USB IDs as observed |
+| Payload | Source checksum, dependencies, approved test objective |
+| Detection | Host logs, EDR/Wazuh source event, expected policy, actual result |
+| Outcome | Verified observation versus inference, false-positive checks |
+| Closure | Removal, network/policy restoration, synthetic data handling |
+
+### Compatibility & Existing Example Caveats
+
+- A Bash command executed **on the Bunny** does not magically run in the attached Windows host. Injected keystrokes execute in the foreground host application and its current user context.
+- The existing Windows/Linux data-transfer examples above use illustrative mount paths and shell assumptions; verify host-specific commands, permissions, transports and filenames independently. They are **not verified drop-in client collection payloads**.
+- Earlier references to `ATTACKMODE ETHERNET` may be ambiguous for particular firmware. Use documented `RNDIS_ETHERNET` or `ECM_ETHERNET` when appropriate, and check observed enumeration rather than assuming networking works.
+- Device control should consider legitimate keyboards, accessibility devices, docking stations and service peripherals before applying class restrictions.
+
 ## Testing & Debugging
 
 ### Serial Console Access

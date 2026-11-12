@@ -95,6 +95,94 @@ DuckyScript supports multiple keyboard layouts. If your target system uses a non
 
 **Specify the keyboard layout in Payload Studio's language selector** when compiling (the standalone `duckencoder.jar` CLI referenced in older guides has been discontinued - see Method 2 above).
 
+## Authorized HID Injection Field Exercises
+
+This section expands the existing [compilation methods](#compilation-methods), [deployment steps](#deployment) and [syntax reference](#syntax-quick-reference) into repeatable, non-destructive exercises. Compare [Bash Bunny](../Bash/BashBunny/README.md) for USB composite-device testing and [Pico-Ducky](../../HardwareHacking/pico-ducky-lab.md) for a different CircuitPython implementation.
+
+> [!IMPORTANT]
+> The 2022 USB Rubber Ducky supports DuckyScript 3, which introduced control flow and device-specific features. Original/legacy hardware and encoders do **not** support every feature. These examples deliberately use simple commands supported by the basic DuckyScript workflow. The USB Rubber Ducky uses a **compiled** payload named `inject.bin`; do not deploy a raw Bash Bunny `payload.txt` as `inject.bin`. See the [official Hak5 DuckyScript 3 overview](https://shop.hak5.org/pages/duckyscript-3-0) and [Hak5 USB Rubber Ducky repository](https://github.com/hak5/usbrubberducky-payloads).
+
+### Safe Build, Compile & Approval Workflow
+
+1. Record hardware generation, firmware, compiler/encoder, keyboard layout, test-host OS, and an explicit written authorization. Limit testing to a designated host or disposable VM.
+2. Use a synthetic test account. Open an empty text editor manually; disable network access for initial trials. Capture baseline USB/HID and EDR telemetry.
+3. Write your payload in a tracked text file. Review **every** keystroke and consider what happens if application focus changes. Avoid arbitrary terminal launches, privilege prompts, password dialogs, and unattended execution.
+4. Open the [official Payload Studio](https://payloadstudio.hak5.org/) and compile using the correct device generation, language mapping and supported syntax. Where available, inspect compiler diagnostics and confirm the downloaded artifact is precisely `inject.bin`, not `inject.bin.bin`.
+5. Follow the appropriate device's **verified storage/arming workflow** before swapping files. Original devices commonly use removable microSD; contemporary models may expose storage through the device button and installed firmware. Do not assume the same process or optional `switch.txt` semantics applies to every generation.
+6. Insert only in the approved host after the editor is focused. Record exact output, timing and endpoint events; stop immediately if focus changes.
+7. Preserve script source, checksum of the compiled binary, evidence, and a cleanup note. Retest with a legitimate keyboard to evaluate false positives.
+
+### Exercise 1 — Fixed Marker (First Successful Payload)
+
+~~~text
+REM Dedicated test host; focus a blank editor before inserting
+DELAY 2000
+STRING PNWC-DUCKY-AUTHORIZED-LAB
+ENTER
+~~~
+
+**Procedure:** compile, stage, observe one insertion, compare the text exactly, and correlate insertion logs. If it is blocked, document the enforcement event. If it types, report HID acceptance only—not compromise or privilege escalation.
+
+### Exercise 2 — Locale & Timing Matrix
+
+~~~text
+REM Deliberately limited to ordinary alphanumeric characters
+DELAY 2500
+STRING Layout Test ABC abc 1234567890
+ENTER
+DELAY 1000
+STRING Second line after delay
+ENTER
+~~~
+
+Test on two authorized hosts with documented keyboard layouts. Record expected/actual characters, elapsed enumeration time, and whether initial delays are sufficient. These delays are **examples, not universal timing requirements**. Do not include special characters until the compiler's layout mapping is independently verified.
+
+### Exercise 3 — Application Focus & Failure Handling
+
+1. Start with an empty editor on a lab host. Confirm the editor has focus before connecting.
+2. Run Exercise 1 and record its exact text placement.
+3. In a second run, deliberately change focus to a *different empty test document* before insertion; do **not** aim the device at a browser, password field, chat, or terminal.
+4. Observe the dependency on foreground focus. Define the operator's stop procedure if any unapproved window has focus.
+5. Document why automated keystroke scripts require explicit controls and manual confirmation in production.
+
+**Success criterion:** the exercise demonstrates predictable handling within the isolated test desktop. Scripts containing destructive key combinations are out of scope.
+
+### Exercise 4 — Locked Screen / Physical Access Controls
+
+1. With an operator present, lock the lab workstation using normal OS controls, leaving no sensitive documents open.
+2. Insert a marker-only test device. Do **not** attempt to unlock, bypass, or run hidden commands.
+3. Record USB insertion/allow-deny event, whether any text appeared in an approved field, workstation lock policy, and any EDR alert.
+4. Unlock using the test user's normal credentials, open a blank editor and rerun Exercise 1.
+5. Compare results. HID acceptance at the lock screen does not itself prove unauthorized access to an authenticated session.
+
+### Exercise 5 — USB Device Control / SIEM Regression
+
+1. Record policy expected to block, audit or allow newly inserted HID. Note legitimate keyboard/accessibility-device exceptions.
+2. Run one marker test with policy in audit mode, and another under the approved enforcement mode.
+3. For Windows, collect device insertion and EDR policy events; for Linux, inspect `journalctl -k` and USB/udev telemetry where configured.
+4. Forward **observed** events to the client's SIEM/Wazuh pipeline. Correlate host ID, device instance, policy action, UTC timestamp, and test ID.
+5. Confirm a legitimate keyboard is not misidentified by a narrow rule. Record false positives, missing telemetry, and rollback.
+6. Return policy to baseline and remove temporary reports from the test desktop.
+
+### Exercise 6 — Employee Security Awareness Demonstration
+
+With written management and participant approval, show a supervised marker-only injection on an unlocked **training** workstation. Explain workstation locking, unknown-device reporting, and why USB keyboards can be accepted without software installation. Do not conduct covert employee monitoring, impersonate login portals, or collect credentials. Capture only the agreed demonstration outcome.
+
+### Evaluation & Results Table
+
+| Test | Expected Evidence | Interpretation / Remediation |
+|---|---|---|
+| Fixed marker | Visible typed text, USB insertion event | Verify HID policy and workstation lock practices |
+| Locale/timing | Exact characters, time stamps, repeatability | Match layout, use conservative controlled delays |
+| Focus change | Visible focus dependence | Human-in-the-loop and stop conditions |
+| Locked screen | USB enumeration & lock state | Do not equate enumeration with authentication bypass |
+| Device control | Block/allow/audit events & SIEM correlation | Tune controls with legitimate device exceptions |
+| Awareness | Training attendance & approved outcome | Update physical security procedures |
+
+### Delivery Checklist
+
+For each client test record: authorization ID, asset ID, operator, device model/firmware, encoder version, payload source hash, compiled binary hash, target OS/layout, exact UTC timestamps, observed keystrokes, EDR/device-control events, expected policy, actual result, and remediation. Clean synthetic artifacts and confirm the original policy is restored.
+
 ## Testing & Debugging
 
 ### Test Environment

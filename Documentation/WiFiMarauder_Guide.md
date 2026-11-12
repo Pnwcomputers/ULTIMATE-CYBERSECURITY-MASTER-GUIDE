@@ -337,6 +337,116 @@ Clones a legitimate AP's SSID to lure clients into connecting to a controlled ac
 
 ---
 
+## Dedicated Standalone Marauder Deployment Playbook
+
+_Last source review: November 2026. These are procedure designs, not a claim of hands-on firmware testing._
+
+**Architecture:** standalone Marauder runs directly on a supported ESP32 board with a touch display, 5-way control, or USB serial CLI. The [Flipper Zero companion workflow](./flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) uses **separate Flipper application firmware plus the Marauder ESP32 accessory**; the Flipper itself is not running Marauder or gaining an internal Wi-Fi radio. See also [Marauder GPS wardriving](../Wardriving/esp32-marauder.md).
+
+### Hardware, Image & Installer Decision Table
+
+| Owned device | Correct target / operational consideration |
+|---|---|
+| Marauder v4 | Legacy display variant; application image suffix `_old_hardware.bin` |
+| Marauder v6 | Confirm printed PCB revision; suffix `_v6.bin` |
+| Marauder v6.1/v6.2 | Revised hardware; suffix `_v6_1.bin` |
+| Marauder v7 | Dedicated `_marauder_v7.bin` |
+| Marauder v8 (ESP32-C5) | `_v8.bin`, dual-band capability with matching supported hardware |
+| Marauder Mini and Mini v3 | Separate `_mini.bin` / `_mini_v3.bin` targets |
+| DIY ESP32-C5 / XIAO C5 / T-Dongle C5 | Different build targets; no universal C5 binary |
+| Flipper Zero WiFi Dev Board | Use the [Flipper procedure](./flipper_zero_guide.md#flipper-marauder-companion-deployment-labs), suffix `_flipper.bin`, not a display-target binary |
+
+**Verification:** consult the live [Supported Hardware](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware), [Update Firmware](https://github.com/justcallmekoko/ESP32Marauder/wiki/Update-Firmware) and [release assets](https://github.com/justcallmekoko/ESP32Marauder/releases). The table is intentionally not a substitute for those pages. Some images, menus, storage interfaces, BLE support and 5 GHz functions are target-specific.
+
+1. Record chip, complete board model/PCB revision, flash/PSRAM capacity, radio, display type, SD wiring, existing version, and backup of logs.
+2. On a dedicated operator computer, launch the upstream [Marauder Installer](https://justcallmekoko.github.io/MarauderInstaller/) or follow that hardware's documented update path. Use a **data** USB cable and stable supply.
+3. Select the complete, matching hardware profile. An application `.bin` alone may **not** include the bootloader, partitions and OTA data required for first installation or a partition migration. Never guess flash offsets.
+4. Verify boot, menu/display/serial control, physical input, radio scan, SD write, and available GNSS **individually**. Failure to see 5 GHz on a classic ESP32 is not by itself a defect.
+5. Keep active radio transmission modes disabled until the test-specific authorization is recorded. Do not infer an observation-only feature is radio silent merely because its name contains "scan".
+6. Save a board profile with firmware release URL, binary hash, configuration backup, permitted channels, and operator notes.
+
+### Lab M1 — Known-AP Inventory & Channel Coverage
+
+**Objective:** discover an explicitly owned lab AP and independently confirm its configuration.
+
+1. Record the lab AP's SSID, BSSID, channel and intended WPA2/WPA3 configuration from the controller.
+2. Run Marauder's supported Wi-Fi AP scan, beginning with the default observe-only settings. Scan a bounded area and duration, noting if the selected mode sends probe requests.
+3. Compare results to the AP controller. Distinguish BSSID from SSID: one SSID may be broadcast from many radios and bands.
+4. Retest on a second channel/band **only when the board supports it**. Record missing-band capability rather than incorrectly reporting a missing AP.
+5. Capture screenshots or exported logs, scan settings, time, antenna orientation and firmware. An unfamiliar BSSID is **unverified**, not automatically rogue.
+
+**Acceptance:** at least one matching owned BSSID appears; results and exclusions are reproducible.
+
+### Lab M2 — SD Logging & Artifact Integrity
+
+1. Format/prepare the card as specified by the particular Marauder hardware; test the card on a non-client device first.
+2. Conduct one short scan of an owned AP, then stop using the firmware's documented controls. Wait for media writes to complete before removing power or SD.
+3. Enumerate actual files instead of assuming the board always uses a given directory. On a Linux evidence machine, calculate a digest for **the actual captured file**:
+
+~~~bash
+sha256sum /path/to/approved/scan-export.csv
+file /path/to/approved/scan-export.csv
+~~~
+
+4. Preserve the unmodified original; create redacted analysis copies. Log evidence source, collection time, firmware, path, digest, and chain of custody.
+5. If no output appears, check board SD support and scan-versus-save behavior before assuming collection failed.
+
+### Lab M3 — GPS Wardrive & Local-Only Export
+
+1. Verify that GPS is supported, wired and configured for the specific board; acquire an outdoor fix with plausible coordinates.
+2. Read the [dedicated wardriving procedure](../Wardriving/esp32-marauder.md#start-a-wi-fi-ap-wardrive) for `wardrive` / `stopscan`, geofence caveats and `wardrive_` output.
+3. Walk a short **authorized** route covering a known AP, then stop and verify the generated rows have timestamps, location and BSSID/channel information as expected.
+4. Label rows recorded with poor GNSS accuracy; record missing fixes instead of inventing coordinates.
+5. Keep sessions **local by default**. WiGLE/third-party upload is a separate data-disclosure authorization; check credentials and upload scope explicitly.
+
+### Lab M4 — BLE Advertisement Awareness (Target-Supported)
+
+1. Confirm the current ESP32 variant and firmware actually offer the BLE feature; an ESP32-S2 WiFi Dev Board is not interchangeable with BLE-capable ESP32 targets.
+2. Place an owned BLE beacon near the device. Start an ordinary BLE discovery mode; record advertising name/address type, RSSI, and first/last-seen time **if available**.
+3. Move the test beacon to multiple positions and compare RSSI trends, noting shielding and reflections. RSSI alone is not an accurate distance measurement.
+4. Clear and preserve only permitted data. A discovered BLE advertisement is neither proof of an exploitable vulnerability nor reliable proof of device ownership.
+
+### Lab M5 — Authorized Rogue-AP Recognition & WIDS Validation
+
+1. Obtain approval for a separate **unique** training SSID such as `PNWC-MARAUDER-LAB-01`, broadcast by an independently controlled test AP. Do **not** clone the customer's SSID.
+2. Record time, BSSID, band, channel and owner. Turn on the test AP without involving production clients.
+3. Observe it with Marauder; cross-check with [Kismet + Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) or [nzyme + Wazuh](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) monitoring.
+4. Compare actual WIDS alerts and AP-controller inventory. An absent alert may reflect sensor coverage, ingestion or rule configuration.
+5. Turn off the test AP, verify disappearance and record cleanup.
+
+### Lab M6 — Defensive Management-Frame Review
+
+1. On an isolated lab AP under administrative control, compare controller settings for WPA2/WPA3, Protected Management Frames (PMF/802.11w) and WPS.
+2. Observe security capabilities from Marauder where exposed; **verify settings in the controller** rather than inferring negotiated security from a scan alone.
+3. Use controller audit logs and client configuration to evaluate PMF requirements; avoid disruptive deauth or handshake-forcing tests on production systems.
+4. Document compatibility exceptions and recommend tested, appropriate controls.
+
+### Standalone vs Flipper Result Matrix
+
+| Question | Standalone Marauder | Flipper Companion + Marauder |
+|---|---|---|
+| What runs Marauder? | The device's ESP32 | The external ESP32 accessory |
+| UI | Supported onboard display/joystick or serial CLI | Flipper app communicates with accessory over UART |
+| Firmware artifact | Device-specific standalone image | Board-specific ESP32 image **plus** matching Flipper FAP |
+| Logs | Board SD/serial paths depend on firmware | Board SD or Flipper SD depending on build/app feature |
+| GNSS | Built-in or board-wired compatible receiver | Only if accessory/wiring/app support it |
+| 5 GHz | ESP32-C5 and supported hardware only | Only if the particular attached module/radio supports it |
+
+**Negative control:** scan an in-scope SSID that was deliberately disabled at the AP controller and compare with an enabled SSID. Do not report absence as definitive without coverage, timing and channel notes.
+
+### Evidence, Troubleshooting & Report Criteria
+
+| Symptom | First checks |
+|---|---|
+| Black/incorrect display after flash | Actual PCB revision, selected binary, display variant and flash layout |
+| AP shows on another tool but not Marauder | Band/channel compatibility, scan dwell, antenna and firmware mode |
+| BLE function absent | ESP32 chip support and build feature flags |
+| Empty GPS file | Fix quality, board wiring, logging state, card presence |
+| Flipper companion unavailable | Use the separate [Flipper guide](./flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) |
+| Scan results differ from AP controller | Multiple BSSIDs, hidden/roaming configurations, stale observations |
+
+Every delivered finding must include test ID, written scope, exact board/firmware, capture method, timestamp/time zone, observed versus inferred result, evidence hash where applicable, source configuration comparison, mitigation, and retest procedure. Avoid sharing third-party device identifiers, geolocation, or raw personal traffic.
+
 ## Advanced Attack Scenarios
 
 - **Corporate WiFi Assessment** - enumerate all SSIDs, identify open/WEP/WPA2-Personal networks, capture PMKIDs, assess 802.11w/PMF enforcement
@@ -401,7 +511,7 @@ Clones a legitimate AP's SSID to lure clients into connecting to a controlled ac
 
 ---
 
-## Appendix A - Updated Menu Map (v1.8.9)
+## Appendix A - Historical Menu Map (v1.8.9; Verify Against Installed Firmware)
 
 * **Main Menu**
     * **WiFi**

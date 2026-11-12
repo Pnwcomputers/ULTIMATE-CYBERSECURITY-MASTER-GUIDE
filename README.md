@@ -214,8 +214,8 @@ These are source-attributed references, not claims that every upstream tool is i
 | SDR | [NanoVNA Field Guide](./SDR/nanovna/README.md) · [HackRF Audit Playbook](./PlayBooks/HackRFAuditPlayBook.md) | Antenna/RF measurements and spectrum-survey engagement procedures |
 | Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
 | OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
-| Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup for authorized physical-access assessments |
-| Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation and setup |
+| Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup, USB device-control validation & five authorized labs |
+| Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation & six authorized HID assessment labs |
 | Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
 | uConsole | [CM4 / CM5 Setup Scripts](./uConsole/scripts/README.md) · [CM4 Safety Review](./uConsole/CM4-SAFETY-REVIEW.md) | Conservative CM4 preflight, CM5/Parrot setup and display recovery; explicit hardware validation required |
 | Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
@@ -309,7 +309,7 @@ The [Case Studies Index](./CaseStudies/README.md) organizes sourced hardware, RF
 | Device | Reference |
 |---|---|
 | Flipper Zero | [Project](https://flipper.net/) |
-| WiFi Pineapple | [Product](https://shop.hak5.org/products/wifi-pineapple) |
+| WiFi Pineapple Mark VII | [Authorized Wireless Assessment Guide](./Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) · [Product](https://shop.hak5.org/products/wifi-pineapple) |
 | Proxmark3 | [Project](https://proxmark.com/) |
 | Bus Pirate | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/BusPirate.md) |
 | GreatFET One | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/GreatFETone.md) |

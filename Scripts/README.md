@@ -1138,8 +1138,9 @@ We welcome contributions from security professionals, but all scripts must meet 
 - [../README.md](../README.md) - Main repo index
 - [pnwc_install_tools.sh](pnwc_install_tools.sh) - Cross-distro tool installer (apt/pacman/dnf)
 - [Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md) - Bash scripting reference
-- [Bash/BashBunny/README.md](Bash/BashBunny/README.md) - Bash Bunny payload guide
-- [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky DuckyScript guide
+- [Bash/BashBunny/README.md](Bash/BashBunny/README.md) - Bash Bunny payload setup & five authorized field assessment labs
+- [Ducky/README.md](Ducky/README.md) - USB Rubber Ducky compilation & six safe HID assessment exercises
+- [WiFi Pineapple Mark VII](../Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) - complementary wireless Recon & WIDS exercises
 - [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch tool installation context
 
 ### Python Environment Used By The Tool Installer

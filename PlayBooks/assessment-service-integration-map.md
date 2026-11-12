@@ -17,6 +17,7 @@ cybersecurity guide into an unmaintainable product catalogue.
 | 3. Software/software supply chain | [SBOM assessment](../ContainerSecurity/software-supply-chain-assessment.md) | Pinned image/SBOM, advisories, secret scan results |
 | 4. Endpoint / incident evidence | [Velociraptor and artifacts](../IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md) | Authorized minimal collection, hashes, custody |
 | 5. Detection testing | [Atomic/Sigma exercises](purple-team-detection-validation.md) | Positive and negative tests; Wazuh alerts/telemetry gaps |
+| 5a. Physical USB & wireless security | [Bash Bunny](../Scripts/Bash/BashBunny/README.md#authorized-field-assessment-labs--deployment-examples) · [USB Rubber Ducky](../Scripts/Ducky/README.md#authorized-hid-injection-field-exercises) · [WiFi Pineapple Mark VII](../Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) | Approved host/RF scope, synthetic test, device-control/WIDS alerts, rollback |
 | 6. Intelligence / privacy | [Bellingcat verification](../OSINT/bellingcat-source-verification.md) · [Mobile MVT](../Mobile/mvt-forensic-triage.md) | Defensible, minimal evidence and documented uncertainty |
 | 7. AI agent QA | [Promptfoo evaluations](../AI/llm-security-evaluation-promptfoo.md) | Synthetic injection/tool-boundary tests and regression |
 | 8. Findings and retest | [Findings lifecycle](assessment-findings-lifecycle.md) | Verified severity, owner, remediation, retest evidence |
