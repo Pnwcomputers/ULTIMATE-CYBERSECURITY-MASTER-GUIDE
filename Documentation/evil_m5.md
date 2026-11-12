@@ -43,7 +43,7 @@ Equip security professionals with a discreet, pocket-portable WiFi attack and de
 
 ## 1. Why this platform matters
 
-The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3) is, in physical terms, a $30 toy. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
+The [Cardputer](https://shop.m5stack.com/products/m5stack-cardputer-adv-version-esp32-s3) is a compact ESP32-S3 computer with a small integrated display and keyboard. It is the size of a credit card, has a 1.14-inch screen, a 56-key keyboard, an ESP32-S3 microcontroller, and a microSD slot. It does not look like a serious tool. That is precisely the point.
 
 Loaded with the **[Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project)** firmware by [7h30th3r0n3](https://github.com/7h30th3r0n3), that toy becomes a self-contained, battery-powered wireless security workstation that fits in a shirt pocket. It performs reconnaissance, evil-twin captive-portal attacks, deauthentication, handshake capture, wardriving with GPS, KARMA-style probe response, BadUSB host attacks, and dozens of other operations that; only a few years ago; required either a full Kali laptop with an external Atheros card, a dedicated Pwnagotchi, or a stack of hardware costing ten times as much.
 
@@ -79,7 +79,7 @@ You may **not** legally:
 - Capture WPA handshakes from networks you do not own.
 - Run KARMA or probe-response attacks in public, even passively.
 
-A blanket personal rule: **if the closest networks to your antenna are not yours and your ROE does not cover them, the radio stays off.** Use a Faraday bag or a shielded room (an unpowered microwave oven is, in a pinch, surprisingly effective for benchtop testing) when developing or rehearsing techniques.
+A blanket personal rule: **if the closest networks to your antenna are not yours and your ROE does not cover them, the radio stays off.** Use a purpose-built and verified RF shielded enclosure or controlled laboratory testbed when assessing any active RF behavior. **Do not use a household microwave oven as a test enclosure**.
 
 The firmware author publishes the project for educational and authorized red-team use and disclaims responsibility for misuse. So do I. So should you, in any deliverable you produce while using it.
 
@@ -115,7 +115,7 @@ The "Adv" version (the current SKU at time of writing; M5Stack lists the origina
 
 ### 3.2 Required accessories
 
-- **microSD card.** FAT32-formatted, 8–16 GB. The card holds the captive-portal site templates, wardriving logs, theme files, and SSID dictionaries. **The firmware will not function in any useful capacity without it.**
+- **microSD card.** FAT32-formatted, 8–16 GB. The card holds the captive-portal site templates, wardriving logs, theme files, and SSID dictionaries. **Many image, site-template, file and logging features require it; basic boot behavior depends on the selected build.**
 - **USB-C data cable** for flashing and BadUSB use. Confirm it is data-capable; charge-only cables will silently fail flashing.
 - **GPS unit (optional but recommended).** Either the M5Stack "GPS-BDS Unit with SMA antenna" (AT6668-based) or the "Atomic GPS Base" (M8030-based) plugs into the Grove port and enables wardriving with Wigle-compatible CSV output. Cheap third-party UART GPS modules also work with a Grove-to-Dupont wiring jumper.
 - **RFunit module (optional).** Required only for the Tesla / sub-GHz RF features. Sub-GHz transmission has its own legal considerations beyond the scope of this chapter.
@@ -123,7 +123,7 @@ The "Adv" version (the current SKU at time of writing; M5Stack lists the origina
 
 ### 3.3 The Evil-M5 family
 
-The firmware runs on several M5Stack devices, but feature parity is highest on the Cardputer. The author maintains separate builds for the M5Core2, M5Core3 (CoreS3), AtomS3, Fire, and Evil-Face, with progressively smaller feature sets as device capability declines. The M5StickC Plus 1.1, CYD1USB, and CYD2USB are listed as in-beta targets. The Cardputer build is the canonical target; the source file on the `main` branch is currently `Evil-Cardputer-v1-4-9.ino`, while the M5Burner-distributed build is tagged v1.5.1 (the project releases through M5Burner ahead of source commits). Any procedure in this chapter assumes the Cardputer build unless explicitly noted.
+The firmware runs on several M5Stack devices, but feature parity is highest on the Cardputer. The author maintains separate builds for the M5Core2, M5Core3 (CoreS3), AtomS3, Fire, and Evil-Face, with progressively smaller feature sets as device capability declines. The M5StickC Plus 1.1, CYD1USB, and CYD2USB are listed as in-beta targets. The Cardputer build is the canonical target; historical examples referenced `Evil-Cardputer-v1-4-9.ino`, while a November 2026 upstream tree includes `Evil-Cardputer-v1-5-8.ino`, but **source filenames and M5Burner/Evil-Flasher releases change independently**; verify the actual current release and exact board, rather than assuming a fixed version number. Any procedure in this chapter assumes the Cardputer build unless explicitly noted.
 
 ---
 
@@ -201,7 +201,16 @@ This is not exhaustive. The firmware also includes a SIP toolkit, CCTV toolkit, 
 
 ## 5. Installation
 
-There are two supported installation paths. Use M5Burner unless you have a specific reason to compile yourself.
+There are several upstream-documented installation methods. Start with the official Evil-Flasher for a **named supported target**, or use M5Burner/source compilation where those are specifically supported. **Do not treat one universal image or Arduino toolchain as appropriate for every board.**
+
+### Official Evil-Flasher (device-specific browser installer)
+
+1. On a desktop Chromium-based Web Serial browser, open [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/). Obtain the correct build for the **exact** board, including Cardputer vs Cardputer ADV, CoreS3/SE, AtomS3, and beta targets.
+2. Back up and stage the upstream `SD-Card-File` content in an `evil/` folder at the SD root before first boot. Save a checksum of any firmware image or SD archive you retain.
+3. Connect a reliable USB data cable, select the exact serial port, confirm the chosen target and follow the flasher's bootloader prompts. Review any erase setting first.
+4. Confirm UI boot, file assets, device identity and a harmless owned-AP scan. Restore your previous known-good image if firmware/hardware mapping is wrong.
+
+**Model note:** the supported **AWOK Dual ESP32 Mini v2** target is not the same as LAB5 MonsterC5 or AWOK Dual C5 Mini/Touch.
 
 ### 5.1 Path A; M5Burner (recommended)
 
@@ -231,7 +240,7 @@ Procedure:
    ```
    https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
    ```
-3. In **Tools → Board → Boards Manager**, install **esp32 by Espressif Systems**. The project documentation specifically requires version **2.1.4 or earlier** and warns that 3.x (including the `3.0.0-alpha3` revision) breaks the build on most non-M5 boards. Anything in the 2.x line up to 2.1.4 is safe.
+3. In **Tools → Board → Boards Manager**, install **esp32 by Espressif Systems**. The project documentation specifically requires version **2.1.4 or earlier** and warns that 3.x (including the `3.0.0-alpha3` revision) breaks the build on most non-M5 boards. Choose the **ESP32/M5Stack board package and library versions required by the exact upstream commit and selected board**. Older 2.x directions are historical guidance, not a universal compatibility guarantee.
 4. Install the M5Stack board package - see `https://docs.m5stack.com/en/arduino/arduino_board` (verify current URL; M5Stack docs restructure periodically) or search M5Stack's Arduino quickstart in their official docs.
 5. Install the following libraries via **Library Manager**:
    - `Adafruit_NeoPixel`
@@ -625,6 +634,132 @@ Run them in order; each builds on the previous.
 **Debrief.** Which controls; at any layer; would have broken the chain? Which of those controls are common in environments you have personally assessed? Which are not?
 
 ---
+
+## Evil-M5 Firmware Qualification & Authorized Deployment Labs
+
+_Source-checked against the [maintainer's Evil-M5Project README](https://github.com/7h30th3r0n3/Evil-M5Project) and [wiki](https://github.com/7h30th3r0n3/Evil-M5Project/wiki) on November 11, 2026. These are designed lab exercises, **not a claim of physical testing**._
+
+The original eight exercises above describe particular attack workflows. The following **non-disruptive deployments are the recommended starting point** for a new board, a firmware update, an endpoint assessment, and client-facing demonstrations. Do not assume earlier attacker-oriented examples are safe, necessary, or legal on production RF infrastructure.
+
+### Compatibility & Deployment Architecture
+
+| Hardware | Typical Evil-M5 role | Installation & feature boundary |
+|---|---|---|
+| M5Cardputer / Cardputer ADV | Keyboard/display-controlled Evil-Cardputer firmware | Match model, firmware build and `/evil/` SD assets; ADV does not grant native 5 GHz radio |
+| M5Core2 / Fire / CoreS3 / SE | Device-specific menu/GUI builds | Different displays, controls, storage and runtime features; not the same image as Cardputer |
+| M5AtomS3 | Compact device/control option | Requires applicable peripherals (e.g., GPS) for location features |
+| M5StickC Plus/Plus2; supported CYD variants | In-beta or model-specific implementations | Confirm exact vendor's build/flash target; no universal keyboard, native USB HID or 5 GHz claim |
+| AWOK Dual ESP32 Mini v2 | Separate target listed by the Evil-Flasher project | **Not** interchangeable with the AWOK Dual C5 Mini/Touch or LAB5 MonsterC5 |
+| LAB5 M5MonsterC5 / projectZero | **Separate** ESP32-C5 + JanOS ecosystem | See the [LAB5 field workflow](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) |
+
+**Radio fact check:** legacy ESP32 and ESP32-S3 M5 devices are generally 2.4 GHz Wi-Fi hardware. Their firmware cannot add an ESP32-C5's 5 GHz physical radio. Project feature matrices are **per board and build**, not a guarantee that every optional feature, CC1101, nRF24, NFC/IR, or USB HID exists.
+
+### Install/Update Workflow With Recovery (Recommended)
+
+1. Document **exact** PCB, display/keyboard, SoC, flash/PSRAM, power supply, SD slot, bootloader and any add-on antennas/GPS. Note current firmware source URL/version/hash and photograph cables/board before changes.
+2. Use a **spare FAT32 microSD** and preserve pre-existing data. Obtain the actual `SD-Card-File` resources from the same project revision as the firmware. Place their contents under the **`evil/` directory at the SD root**, not directly at the SD root; do not assume the layout of another project's SD files is compatible.
+3. Review the official [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/) device target list. On supported boards, choose the **exact** Cardputer, Cardputer ADV, Core2, Fire, CoreS3, AtomS3, Stick, CYD, or documented AWOK variant. Browser Web Serial generally requires compatible desktop Chrome/Edge and a USB data cable.
+4. Alternatively use the [M5Stack M5Burner](https://docs.m5stack.com/en/download) image for the **exact** product, or a reproducible upstream source build. When compiling, check the upstream README's current ESP32 core/Arduino library/partition guidance for that chosen commit; an older statement that all releases work with a particular toolchain is not a guarantee.
+5. Avoid modifying libraries to enable disruptive injection modes as part of installation qualification; such changes are **outside** baseline device validation and must be reviewed/authorized separately.
+6. After flashing, disconnect/reconnect only as documented, check boot/UI, SD read/write, keyboard/buttons, Wi-Fi and Bluetooth features **separately**. Note any missing capability as *not present*, *not configured* or *not tested*.
+7. Preserve the known-good binary or installer target and SD backup. Never erase or reflash a client device merely because a module menu appears different.
+
+### Deployment E1 — Board Identity, Controls & SD Asset Acceptance
+
+**Objective:** confirm that the board, image, UI and SD layout actually match.
+
+1. Power on the known-good test board with a prepared `/evil/` SD layout.
+2. Record the displayed release/build, boot warnings, supported controls and available menus. Test directional navigation, back/cancel and power settings without starting any active attack module.
+3. Create a **synthetic text file** through a documented local file manager (if supported); unmount/eject safely, read the file on a trusted PC and compute a SHA-256 checksum.
+4. Compare the installed `/evil/` assets with the selected revision's distribution. Do not assume that missing logos/sites means firmware installation failed—the filesystem and image are separate.
+5. Reboot and verify the UI remains usable. Record SD recognition, config persistence, any missing peripherals and recovery path.
+
+**Expected output:** model/revision + firmware/SD manifest, screenshot, hash and reversible setup notes.
+
+### Deployment E2 — Authorized AP Inventory & Radio Band Accuracy
+
+1. Configure an **owned lab AP** with a synthetic SSID, known BSSID/channel, documented security configuration, and an explicit start/stop time.
+2. Use the build's **Wi-Fi Scan** (observation) feature. Record whether that scan type sends probe requests; an interface named “scan” does not itself guarantee passive reception.
+3. Compare observed BSSID/channel/signal with the AP controller. Repeat after changing the AP channel using the controller's normal configuration.
+4. Record multiple-BSSID or guest SSID behavior and false negatives over at least three short scans. Keep out-of-scope neighboring networks out of exported reports.
+5. If a 5 GHz test AP is absent on an ESP32-S3 Cardputer, report that **the radio cannot survey 5 GHz directly**; contrast with a supported C5/BW16 sensor instead of mislabeling the AP as hidden or insecure.
+
+### Deployment E3 — Channel Occupancy & Security-Configuration Review
+
+1. Record 2.4 GHz APs on your lab/office controller, including 20/40 MHz bandwidth, channel, WPA2/WPA3 and PMF settings.
+2. Use Evil-M5's channel visualizer or equivalent observable scan mode if available for that firmware build; collect two identical-duration intervals at a stationary point.
+3. Compare channel trends with a dedicated Wi-Fi scanner or AP controller; **do not infer actual packet airtime, noise floor, spectrum interference, throughput or negotiated PMF from an SSID count alone**.
+4. Modify only your owned AP's channel or test SSID and repeat; leave other APs unchanged.
+5. Document which settings were verified through the controller and which were inferred from advertisements.
+
+### Deployment E4 — Own-Device Probe/Privacy Awareness
+
+1. Select one **test phone owned by the operator**, with permission to observe its Wi-Fi management behavior.
+2. Create two synthetic saved test SSIDs on your own AP, then disconnect the phone from Wi-Fi while leaving Wi-Fi enabled.
+3. Run the firmware's **receive-focused probe observation** for a short, bounded period. Record only a redacted list of any explicit SSID probes and whether addresses are randomized.
+4. Reconnect/disconnect under controlled conditions; contrast with an independent Kismet sensor where available.
+5. A phone that does not send named probes is **not a test failure**. Modern privacy controls reduce or randomize probe identifiers. Do not interpret passive probe data as a reliable complete Preferred Network List.
+
+### Deployment E5 — BLE Beacon Detection & Classification
+
+1. Confirm the selected ESP32 hardware/build supports BLE scans. Legacy Cardputer S3 and ESP32-S2 accessories have different radio capabilities.
+2. Configure a test BLE development board or beacon with a unique synthetic name; record its advertised service/identifier in the operator notebook.
+3. Run an ordinary BLE discovery menu (where supported) and record actual advertised fields and RSSI, **not** an invented distance.
+4. Turn the beacon off as a negative control, then on. Note stale UI entries, address rotation and false positives.
+5. Compare any “skimmer,” “AirTag,” or other branded detection heuristic to the owned hardware and independent verification; **a vendor name/OUI/advertisement match alone does not prove a malicious or specific device**. See [OUI-SPY labs](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs).
+
+### Deployment E6 — WebUI Exposure & Secure Management
+
+1. Keep the board and operator laptop on a **separate management VLAN or dedicated isolated lab AP**; never expose the firmware's admin UI to customers or the public Internet.
+2. Review which services, ports, passwords, API endpoints and radio APs the **selected firmware actually enables**. Do not assume the same WebUI behavior across Cardputer/CoreS3/Atom variants.
+3. Rotate or disable documented default credentials, limit the IP/interface binding where supported and firewall the management segment.
+4. Test reachability from the **authorized management host** and failed reachability from an excluded guest VLAN. Collect only synthetic test events and no real login submissions.
+5. Turn off the WebUI when not needed, verify it is no longer reachable, and restore any change to production lab routing.
+
+**Failure:** uncontrolled WebUI visibility, default credentials, unexpected Internet connectivity, or unauthorized auto-start of portal/tunnel modes. Do not enable reverse tunnels as part of this lab.
+
+### Deployment E7 — Harmless USB HID Marker (Board-Supported Only)
+
+1. Confirm the exact Cardputer/ADV firmware and **native USB HID** support; do not assume M5StickC, Core2 or a USB-UART adapter can enumerate as a USB keyboard.
+2. On a disposable Windows/Linux test host, open a **blank text editor and focus it manually**.
+3. Stage a compatible simple script only after checking the firmware's exact BadUSB syntax:
+
+~~~text
+REM Training-only: editor already open; no shell/privileged commands
+DELAY 2000
+STRING PNWC-EVILM5-HID-LAB
+ENTER
+~~~
+
+4. Trigger once under direct observation. Record whether the exact marker appears and any USB device-control/EDR event.
+5. If the marker goes elsewhere, immediately stop. Remove the board and restore the host; do not test credential prompts or app launch sequences.
+6. Compare with the [existing Rubber Ducky assessment](../Scripts/Ducky/README.md#authorized-hid-injection-field-exercises). Script syntax and compilation may differ; Evil-M5's files are not Hak5 `inject.bin` by default.
+
+**Interpretation:** typing harmless text is evidence of HID acceptance, not access bypass or privilege escalation.
+
+### Deployment E8 — WIDS Alert Regression With Synthetic SSID
+
+1. Configure a **unique, independently controlled lab AP** with a training SSID and record its BSSID, channel, time and controller owner.
+2. Observe its appearance and disappearance with Evil-M5's scan capability, plus a stationary [Kismet/Wazuh lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
+3. Compare real controller inventory and WIDS events. Do **not** activate Evil Twin, KARMA, deauth, beacon flooding or credential portals to produce the baseline alert.
+4. Turn off the training AP and confirm the sensor's record ages out. Check whether a normal authorized AP is not misclassified as rogue.
+5. Record missing detections, event timestamps, false positives, sensor coverage and changes required to reach the client's control requirements.
+
+### Delivery, Troubleshooting & Defensive Interpretation
+
+| Symptom | Check & documented limitation |
+|---|---|
+| Black screen/bootloop | Wrong hardware image, partition layout, PSRAM setting, power, SD separate from flash |
+| Menus/images missing | Correct build-matched `/evil/` SD assets and filesystem |
+| 5 GHz AP missing | ESP32/S3 legacy radio lacks direct 5 GHz; use compatible C5 or independent radio |
+| Wardrive has no coordinates | GNSS receiver, UART wiring, fix quality, real log field support; not every board has GPS |
+| BLE or HID menu unavailable | Chip/USB and firmware version capability; modules may be absent or beta |
+| WebUI reachable from guest | Network exposure: stop, isolate management, rotate credentials |
+| Device records differ from sensor | Channel dwell, bands, antenna, timestamp skew and data minimization |
+
+Capture **authorization ID, scope, exact device/firmware and SD revision, operator, approved mode, observed vs expected results, negative controls, logs/UTC times, actual file hashes, retention decision, recovery and customer remediation**. Resist translating “scan found a device” into an unsupported vulnerability claim.
+
+**Adjacent projects:** [Bruce firmware](./bruce_firmware.md), [Standalone Marauder](./WiFiMarauder_Guide.md), [Flipper add-ons](./flipper_zero_guide.md#flipper-zero-expansion-boards-selection-setup--field-assessment-labs), [LAB5 C5 Monster / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment), [Biscuit](../Wardriving/biscuit.md), [Wi-Fi IDS](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
 
 ## 10. Blue team; defenses that actually work
 
