@@ -112,6 +112,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
 | [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
+| [Evil-M5 Field Assessments](./Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | M5Cardputer/ADV and supported models, Evil-Flasher, eight new safe firmware/USB/Wi-Fi/BLE labs |
+| [LAB5 C5 Monster / JanOS](./Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | ESP32-C5 board with independent Cardputer/Tab5/Flipper controller, exact firmware & eight deployment labs |
 | **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources |
 
 These are source-attributed references, not claims that every upstream tool is installed or tested.
