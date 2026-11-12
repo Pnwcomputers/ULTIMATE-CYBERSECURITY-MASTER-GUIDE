@@ -26,6 +26,8 @@ cybersecurity guide into an unmaintainable product catalogue.
 All stages require legal/contract scope, approved test accounts and safe
 collection. Not every client needs every phase.
 
+**Optional portable radio verification:** [Flipper Zero expansion board procedures](../Documentation/flipper_zero_guide.md#flipper-zero-expansion-boards-selection-setup--field-assessment-labs) document bounded CC1101/nRF24 fixture tests, independent ESP32-C5/Realtek BW16 Wi-Fi observations, firmware provenance, operator approval and cleanup. Use independent WIDS/controller logs for a validated finding; no unattended or broad RF transmission is assumed.
+
 ## Portable cyberdeck / lab design
 
 - **Operator workstation / cyberdeck:** consent capture and secure project

@@ -18,6 +18,8 @@ layouts can differ.
 | [Piglet](./piglet.md) | XIAO/T-Dongle builds; local CSV versus coordinator logging and automatic upload settings. |
 | [GhostESP Revival](../Documentation/ghostesp-revival.md) | Multi-function alternative; establish exact board, capture format and permitted scan behavior. |
 
+**More detailed assessment labs:** [Standalone Marauder setup and six assessment labs](../Documentation/WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook) · [Flipper Zero companion setup and five labs](../Documentation/flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) · [Biscuit ecosystem comparison](./biscuit.md#ecosystem-assessment-labs--deployment-examples). These are different controller/firmware and GPS/storage workflows, not interchangeable images.
+
 ## Purpose and architecture
 
 [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) is firmware for supported ESP32 hardware. Features differ by **chip, board revision, display, serial build, connected GNSS and microSD**. Classic ESP32 boards do **not** universally support 5 GHz; ESP32-C5 builds on suitable boards can cover 2.4 and 5 GHz. The Flipper Zero can act as its controller with suitable external Marauder hardware and a compatible companion app.

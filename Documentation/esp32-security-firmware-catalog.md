@@ -13,8 +13,16 @@ _Last reviewed: 2026-11-07_
 | Resource | Role & Compatibility Boundary |
 |---|---|
 | [GhostESP Revival](./ghostesp-revival.md) | Install, owned-device observations and capture interpretation. |
+| [Standalone Marauder](./WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook) | Correct image/installer by board, six authorized deployment labs. |
+| [Flipper Marauder](./flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) | Separate Flipper FAP and ESP32 accessory, UART/SD and RF compatibility labs. |
+| [Bruce](./bruce_firmware.md#exercise-b7--repeatable-bruce-board-qualification) | Eight model- and module-dependent assessment exercises. |
+| [OUI-SPY Unified Blue](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) | Specialized BLE/Wi-Fi observation and six calibrated detection labs. |
+| [Biscuit Ecosystem](../Wardriving/biscuit.md#ecosystem-assessment-labs--deployment-examples) | Pro/Ultra/Crumb/DIY/Node/AWOK role distinctions and eight labs. |
+| [RaspyJack Pi](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) | Linux Pi install review, management isolation, six assessment labs. |
 | [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Board/pin map selection and receive-first UART exercise. |
 | [NEMO](./nemo-firmware.md) | Exact M5Stack build, storage and benign discovery checks. |
+| [Evil-M5 Field Exercises](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Eight new non-disruptive labs, Evil-Flasher, Cardputer image/SD and sensor validation. |
+| [LAB5 MonsterC5 JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Separate C5 firmware + Cardputer/Tab5/Flipper interfaces, evidence storage and eight labs. |
 | [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Standalone and coordinator roles with log provenance. |
 | [Piglet](../Wardriving/piglet.md) | Local collection, mesh forwarding and automatic-upload review. |
 | [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Packet capture hardware, matching host and advertisement-only lab. |
@@ -102,6 +110,7 @@ established from the reviewed primary sources, not proof that none exists.
 | [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) | Marauder boards; Flipper ESP32/S2/S3 accessories; Cardputer; selected C5/C6 targets | Wi-Fi/BLE inventory, capture & controlled resilience tests; build-specific radio functions | Recent push: 2026-10-29 | [Official installer](https://justcallmekoko.github.io/MarauderInstaller/) |
 | [GhostESP Revival](https://github.com/GhostESP-Revival/GhostESP) | ESP32, S2, S3, C3, C5/C6 targets; display & peripherals vary | Wireless research, captures, BLE & optional RF/NFC; select exact release target | Recent push: 2026-11-06 | [Official web flasher](https://ghostesp.net/flasher) |
 | [Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project) | Cardputer/ADV, Core2/CoreS3, AtomS3 & other listed targets | Wireless assessment, portal-awareness & HID labs; feature matrix differs per device | Recent push: 2026-11-04 | [Evil-Flasher](https://7h30th3r0n3.github.io/Evil-Flasher/) |
+| [LAB5 / projectZero JanOS](https://github.com/C5Lab/projectZero) | LAB5 ESP32-C5 Monster radio; separate M5Cardputer/ADV, Tab5 and Flipper controller apps | 2.4/5 GHz Wi-Fi research/wardriving and authorized monitoring; disruptive features **not** safe baseline tests | Upstream source checked 2026-11-11; no verified push-time classification | [Official JanOS flasher/FAP tools](https://c5lab.github.io/projectZero/) · [lab setup](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) |
 | [NEMO](https://github.com/n0xa/m5stick-nemo) | M5StickC/Plus/Plus2, Cardputer & documented ports | Wi-Fi/BLE/IR lab toolkit; Cardputer USB analysis is not a guarantee a device is safe | Recent push: 2026-07-15 | M5Burner desktop or upstream source/binaries; no dedicated browser installer verified |
 | [ESP32 Bit Pirate](https://github.com/geo-tp/ESP32-Bit-Pirate) | ESP32-S3 DevKit/SuperMini, AtomS3 Lite, Cardputer/ADV, StampS3; >=4 MB flash | UART/SPI/I2C/JTAG/SWD, USB & radio protocol research; formerly ESP32 Bus Pirate | Recent push: 2026-11-01 | [Official web flasher](https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/) |
 | [M5PORKCHOP](https://github.com/0ct0sec/M5PORKCHOP) | Cardputer/ADV S3; GPS/SD; external C5 for reviewed dual-band workflow | Wireless research and survey modes; not the Piglet project | Recent push: 2026-10-06 | Upstream PlatformIO; [survey setup notes](../Wardriving/additional-survey-firmware.md) |
@@ -114,6 +123,7 @@ established from the reviewed primary sources, not proof that none exists.
 |---|---|---|---|---|
 | [ESP32 Dual Band Wardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) | ESP32-C5-DevKitC-1 v1.2; T-Dongle C5 target; GPS/SD per build | 2.4/5 GHz Wi-Fi & BLE survey logging; dual-band does not mean simultaneous reception | Recent push: 2026-11-06 | [C5 installer](https://justcallmekoko.github.io/C5WardriverInstaller/) |
 | [Piglet](https://github.com/Hamspiced/piglet) | Seeed XIAO S3/C3/C6/C5; T-Dongle C5; GPS/SD/display as configured | GPS-tagged survey & mesh-node research; only capable C5 builds scan 5 GHz | Recent push: 2026-11-06 | Source/build; no dedicated web flasher verified |
+| [OUI-SPY Unified Blue](https://github.com/colonelpanichacks/oui-spy-unified-blue) | Official XIAO ESP32-S3; other variants must be verified from selected project | BLE signature, RSSI, Wi-Fi observation, Remote ID and short PCAP sessions; **AP management can transmit** | README checked 2026-11-11; pushed_at not assessed | [Project web flasher](https://colonelpanichacks.github.io/oui-spy-unified-blue/); [local field labs](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) |
 | [ESP32-Paxcounter](https://github.com/cyberman54/ESP32-Paxcounter) | Supported ESP32 LoRa boards, including LILYGO Paxcounter; optional sensors | Wi-Fi/BLE population-counting sensor; identifiers are not reliable unique-person counts | Recent push: 2026-10-04 | Source/build; no dedicated web flasher verified |
 | [ESP8266 Deauther](https://github.com/SpacehuhnTech/esp8266_deauther) | ESP8266 NodeMCU/Wemos/DSTIKE variants | Legacy 2.4 GHz Wi-Fi resilience research; not an ESP32 image; disruptive modes restricted | Quiet: 2024-08-14 | Upstream binary/build instructions; generic ESP uploader only with correct image/layout |
 | [ESP32 Wi-Fi Penetration Tool](https://github.com/risinek/esp32-wifi-penetration-tool) | Original ESP32 ESP-IDF project; check pinned toolchain | Research PoC for Wi-Fi security behavior; older dependencies, isolated lab only | Quiet: 2024-02-18 | Source/build; no dedicated web flasher verified |
@@ -184,6 +194,7 @@ theming does not turn off the underlying image's active wireless behavior.
 | [Pwnagotchi (jayofelony)](https://github.com/jayofelony/pwnagotchi) | Listed 64-bit Pi Zero 2 W / 3 / 4 / 5; legacy Zero W images separate | Wi-Fi research appliance; reviewed noai branch removes old AI; not inherently passive | Recent push: 2026-09-28 | Selected upstream SD image/wiki; [companion guide](./fancygotchi-pwnagotchi.md) |
 | [FancyGotchi 2.0](https://github.com/V0r-T3x/Fancygotchi) | Compatible Pwnagotchi Pi fork/display/Python combination | Theme manager; Zero W and Pi 4 caveats; not an independent attack firmware | Quiet: 2025-10-26 | Project wiki/plugin files; no browser firmware flasher verified |
 | [Bjorn](https://github.com/infinition/Bjorn) | Raspberry Pi with documented OS/display setup | Autonomous network-service assessment; existing closed-lab guide applies | Recent push: 2026-07-20 | Upstream application install; [existing guide](./bjorn_pi.md) |
+| [RaspyJack](https://github.com/7h30th3r0n3/Raspyjack) | Raspberry Pi Zero 2 W with compatible Waveshare LCD/Ethernet HAT; other upstream-supported Pi variants require separate setup | Portable Pi OS/Python assessment UI and web service; **privileged scripts not automatically approved for use** | README checked 2026-11-11; pushed_at not assessed | [Install wiki](https://github.com/7h30th3r0n3/Raspyjack/wiki/Installation); [isolated lab workflow](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) |
 | [FancyGotchi CYD Port](https://github.com/Xombi3/Fancygotchi-cyd-port) | Independent ESP32-2432S028R project | Experimental capture firmware; active behavior and display/wiring claims need validation; not the Pi theme | Quiet: 2026-03-19 | Upstream build files; [project distinction](./fancygotchi-pwnagotchi.md) |
 
 ## Vendor Survey Ecosystems
@@ -193,7 +204,7 @@ neither is an interchangeable generic ESP32 binary.
 
 | Resource | Targets, Use & Install Route |
 |---|---|
-| [Biscuit Official Flasher](https://flasher.biscuitshop.us/) | Pro/Ultra dual-MCU devices, Crumb, selected C5 DIY/AWOK targets and nodes. Use the [official DIY matrix](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html). Vendor-distributed survey firmware; [official release distribution](https://github.com/CodeHedge/diy_node_web_flasher/releases) is publicly linked, but that archived installer repository does not establish a complete/current firmware source tree or maintenance date. Select production/beta deliberately and flash each applicable MCU. |
+| [Biscuit Official Flasher](https://flasher.biscuitshop.us/) | Pro/Ultra dual-MCU devices, Crumb, selected C5 DIY/AWOK targets and nodes. Use the [official DIY matrix](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html). Vendor-distributed survey firmware; [official release distribution](https://github.com/CodeHedge/diy_node_web_flasher/releases) is publicly linked, but that archived installer repository does not establish a complete/current firmware source tree or maintenance date. Select production/beta deliberately and flash each applicable MCU; use the [eight ecosystem deployment labs](../Wardriving/biscuit.md#ecosystem-assessment-labs--deployment-examples) before field use. |
 | [Scout Lite](https://github.com/pingequalab/scout-lite) | ESP32-C5 + GPS + microSD accessory; vendor docs last pushed 2026-10-24, not archived. [Vendor installer](https://flash.pingequa.com/devices/scout-lite) supplies target-specific firmware options. The documentation repository is not proof that all distributed firmware source is present. |
 | [SigRoam](https://github.com/pingequalab/sigroam-wardriving) | Flipper controller app, not an ESP32 image. Repository last pushed 2026-10-24, not archived. Pair the app with the documented Scout Lite firmware/mode; see the [existing pairing guide](../Wardriving/sigroam-scout-lite.md). |
 
@@ -271,7 +282,8 @@ Installer checks and unresolved link limitations are recorded in the
 | [Hardware Hacking](../HardwareHacking/README.md) | Electrical fundamentals, interfaces & hardware lab progression |
 | [Device-First Firmware References](../firmware-hardware-compatibility.md) | Selection links; use the target list and upstream release for exact compatibility |
 | [Bruce](./bruce_firmware.md) | Existing module-specific Bruce guide |
-| [Evil-M5](./evil_m5.md) | Existing Evil-M5 operational guide |
+| [Evil-M5](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Existing Evil-M5 operational guide expanded with eight new safe labs |
+| [LAB5 MonsterC5 / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Existing microcontroller wireless workflow expanded with C5 board/companion deployment and eight labs |
 | [Marauder Survey Guide](../Wardriving/esp32-marauder.md) | Hardware, GPS & survey logging |
 | [Marauder Reference](./WiFiMarauder_Guide.md) | Existing Marauder documentation |
 | [Wardriving Index](../Wardriving/README.md) | Field workflow, Biscuit, Scout Lite, GPS & privacy |
