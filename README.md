@@ -35,7 +35,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 ---
 ## 🎯 Start Here:
 
-**Featured Project:** **[PNWC Cyberdeck — Public Reference Edition](./Cyberdeck/README.md)** brings the portable field-assessment architecture, network segmentation, hardware roles, authorization-first workflows and offline evidence helper together. This is a public reference—not the private operator portal.
+**Featured Project:** **[PNWC Cyberdeck — Public Reference Edition](./Cyberdeck/README.md)** brings the portable field-assessment architecture, network segmentation, hardware roles, authorization-first workflows and offline evidence helper together. This is a public reference; not our actual private operators portal.
 
 | I Want To... | Start Here |
 |---|---|
