@@ -1,0 +1,36 @@
+name: Cyberdeck public reference checks
+
+on:
+  pull_request:
+    paths:
+      - 'Cyberdeck/**'
+      - '.github/workflows/cyberdeck-public.yml'
+  push:
+    paths:
+      - 'Cyberdeck/**'
+      - '.github/workflows/cyberdeck-public.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-fixtures:
+    name: Offline manifest fixture tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Compile and unit test
+        run: |
+          python -m py_compile Cyberdeck/tools/evidence_manifest.py Cyberdeck/tests/test_evidence_manifest.py
+          python -m unittest discover -s Cyberdeck/tests -v
+      - name: Generate a synthetic-only demo manifest
+        run: |
+          python Cyberdeck/tools/evidence_manifest.py --input Cyberdeck/examples/synthetic-evidence --output "$RUNNER_TEMP/cyberdeck-fixture.json"
+          python -c 'import json,sys; d=json.load(open(sys.argv[1])); assert d["file_count"] == 1 and len(d["files"][0]["sha256"]) == 64' "$RUNNER_TEMP/cyberdeck-fixture.json"

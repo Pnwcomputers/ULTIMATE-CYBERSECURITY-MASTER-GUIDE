@@ -1,0 +1,14 @@
+{
+  "schema_version": "example-1",
+  "case_id": "TRAINING-DEMO-001",
+  "artifact": "synthetic_observation.txt",
+  "collector": "synthetic fixture",
+  "software_version": "example-only",
+  "acquisition_time_utc": "2026-01-01T00:00:00Z",
+  "vantage": "isolated local training lab",
+  "method_approval": "NOT AUTHORIZED FOR ACTIVE TESTING",
+  "scope": "fictional, no external targets",
+  "sha256": "RECALCULATE_FROM_REAL_LOCAL_FILE",
+  "review_status": "TRAINING EXAMPLE ONLY",
+  "notes": "No client records, captured traffic, credentials or actual scanner outputs."
+}
