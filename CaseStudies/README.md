@@ -15,7 +15,6 @@ Historical incident and disclosure references from the main repository index. Th
 | [Carbanak](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) | APT banking theft campaign |
 | [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
 | [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
-| + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
 
 ## Hardware, RFID & Embedded Security
 
