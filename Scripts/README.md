@@ -16,6 +16,9 @@
 | [CLI Field Commands](../Documentation/devhints-cli-field-reference.md) | Everyday command-line reference |
 | [Reviewed Reference Index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Cross-section cheat sheets |
 | [Tool Pinning Policy](./PINNING.md) | Version and dependency controls |
+| [Hak5 Payload Formats & Sideload Checks](../HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code) | Cross-device Pager, Mark VII, Bash Bunny, Ducky, Shark Jack, Packet Squirrel and Key Croc runtime distinctions |
+| [WiFi Pineapple Pager](../Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs) | User/Recon/Alert payloads, event handling, controlled installation and rollback |
+| [Mark VII Campaign Examples](../Wardriving/README.md#optimized-mark-vii-setup--campaign-configuration) | Five monitored/restricted client wireless assessment runbooks |
 
 Inspect provenance and source before running downloaded scripts.
 
