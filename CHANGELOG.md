@@ -1,14 +1,15 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1563
-- **Files Modified**: 2532
-- **New Files**: 925
+- **Commits Analyzed**: 1564
+- **Files Modified**: 2536
+- **New Files**: 937
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: Add public PNWC Cyberdeck reference edition (#207) (`3ef5ae3`)
 - lab: validate synthetic detection evidence and add sourced hardware case studies (#196) (`be29a98`)
 - Enhance hardware arsenal documentation with new devices (`c7362b1`)
 - ci: bump peter-evans/create-pull-request from 8.1.1 to 8.1.2 (#181) (`4c342da`)
@@ -1587,12 +1588,26 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `HardwareHacking/README.md`
+- `.github/workflows/cyberdeck-public.yml`
+- `Cyberdeck/README.md`
+- `Cyberdeck/docs/ARCHITECTURE.md`
+- `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
+- `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
+- `Cyberdeck/docs/HARDWARE_AND_STATUS.md`
+- `Cyberdeck/docs/PUBLISHING_AND_RELEASE.md`
+- `Cyberdeck/examples/synthetic-evidence/synthetic_observation.txt`
+- `Cyberdeck/templates/ENGAGEMENT_PLAN.example.md`
+- `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
+- `Cyberdeck/tests/test_evidence_manifest.py`
+- `Cyberdeck/tools/evidence_manifest.py`
+- `Homelab/README.md`
+- `PlayBooks/README.md`
 - `README.md`
+- `CHANGELOG.md`
+- `HardwareHacking/README.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/README.md`
-- `CHANGELOG.md`
 - `PlayBooks/assessment-service-integration-map.md`
 - `START_HERE.md`
 - `Wardriving/README.md`
@@ -1604,7 +1619,6 @@
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `SDR/subghz.md`
-- `Homelab/README.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
 - `Wardriving/esp32-marauder.md`
@@ -1785,7 +1799,6 @@
 - `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
 - `PDF/README.md`
-- `PlayBooks/README.md`
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
