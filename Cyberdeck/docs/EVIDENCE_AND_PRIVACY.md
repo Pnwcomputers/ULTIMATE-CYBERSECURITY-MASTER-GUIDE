@@ -34,3 +34,11 @@ A SHA-256 match indicates a particular file's bytes match the recorded digest. *
 Before publishing even a sample, remove or replace customer names, addresses, infrastructure identifiers, file paths, VPN names, public/private IP assignments, SSIDs, client MACs, service URLs, tokens, scan exports, internal reports, signatures and metadata embedded in images. A private Git history can retain old secrets even after deletion; use a **fresh** repository or curated tree rather than toggling a confidential repository to public.
 
 Use [publication and release checklist](PUBLISHING_AND_RELEASE.md) before moving any material from a confidential source.
+
+## Verify a Saved Inventory
+
+Use [verify_manifest.py](../tools/verify_manifest.py) with `--input` pointing at the evidence folder and `--manifest` pointing at a saved manifest outside it. See the [runbook](BUILD_AND_OPERATIONS.md) for cross-platform commands and exit codes. Verification reports added, missing and changed regular files without modifying evidence or the manifest. It validates the v1 inventory fields and rejects duplicate or unsafe relative paths.
+
+Both utilities exclude symlinks and are intended for quiescent, trusted local evidence copies. They are not filesystem snapshots or protection against hostile concurrent changes. An empty inventory may be valid but proves no collection occurred. A directory traversal error aborts creation rather than silently omitting an unreadable directory. The manifest creation timestamp is hashing time, not acquisition time.
+
+Preserve the baseline separately under access control. Compare after transfer and restore; keep mismatch records and investigate without overwriting originals. The original baseline and a derivative/redacted inventory are separate artifacts. Neither utility signs the manifest, validates case metadata, enforces retention or verifies encryption.

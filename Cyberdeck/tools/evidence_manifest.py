@@ -18,13 +18,18 @@ def hash_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def raise_walk_error(error: OSError) -> None:
+    """Fail a partial inventory instead of silently skipping unreadable directories."""
+    raise error
+
+
 def build_manifest(folder: Path) -> dict:
     root = folder.resolve(strict=True)
     if not root.is_dir():
         raise ValueError("Input must be a directory")
     records = []
     # Do not follow symlink directories or include symlink files in a manifest.
-    for current, dirs, names in os.walk(root, followlinks=False):
+    for current, dirs, names in os.walk(root, followlinks=False, onerror=raise_walk_error):
         dirs[:] = sorted(d for d in dirs if not (Path(current) / d).is_symlink())
         for name in sorted(names):
             path = Path(current) / name

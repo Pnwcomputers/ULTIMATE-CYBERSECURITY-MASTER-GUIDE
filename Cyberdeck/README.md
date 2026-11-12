@@ -12,6 +12,9 @@ Part of the [Ultimate Cybersecurity Master Guide](../README.md) by Pacific North
 
 | Resource | What It Provides |
 | --- | --- |
+| [Build & Operations Runbook](docs/BUILD_AND_OPERATIONS.md) | Minimum build, zone policy worksheet, bring-up, field closeout and troubleshooting |
+| [Acceptance & Qualification Matrix](docs/ACCEPTANCE_TESTS.md) | Measurable lab and field readiness gates without unverified hardware claims |
+| [Public-to-Private Implementation Roadmap](docs/IMPLEMENTATION_ROADMAP.md) | Milestones, private data contracts and completion criteria for expanding your own setup |
 | [Architecture & Network Zones](docs/ARCHITECTURE.md) | Portable layout, GL.iNet/MikroTik boundary and visibility limitations |
 | [Assessment Workflow](docs/ASSESSMENT_WORKFLOW.md) | Authorization-first staged field process and example engagement profiles |
 | [Evidence, Privacy & Custody](docs/EVIDENCE_AND_PRIVACY.md) | Local evidence handling, hashes, redaction, retention and limits |
@@ -20,7 +23,16 @@ Part of the [Ultimate Cybersecurity Master Guide](../README.md) by Pacific North
 | [Example Engagement Plan](templates/ENGAGEMENT_PLAN.example.md) | Fictional, editable scope and preflight outline; **not a signed authorization or legal agreement** |
 | [Example Evidence Record](templates/EVIDENCE_RECORD.example.json) | Synthetic metadata illustrating a single evidence entry |
 | [Offline Evidence Manifest Tool](tools/evidence_manifest.py) | Standard-library Python script to hash an already collected local evidence folder |
-| [Manifest Tests](tests/test_evidence_manifest.py) | Unit tests for basic local hashing behavior and output safeguards |
+| [Offline Manifest Verification](tools/verify_manifest.py) | Detect added, missing or changed regular files against a protected saved baseline |
+| [Qualification Record](templates/QUALIFICATION_RECORD.example.md) | Record actual hardware, procedure, result, evidence and reviewer |
+| [Assessment Report Template](templates/ASSESSMENT_REPORT.example.md) | Coverage, findings, limitations, delivery and retest structure |
+| [Generator Tests](tests/test_evidence_manifest.py) · [Verifier Tests](tests/test_verify_manifest.py) | Offline hashing, comparison, malformed baselines and output safeguards |
+
+## Use This Reference to Build Your Private Setup
+
+Follow the [implementation roadmap](docs/IMPLEMENTATION_ROADMAP.md) to connect public design requirements to private implementation work. Start with inventory, reliable evidence handling and a complete manual synthetic case; qualify segmentation before adding supervised integrations. Keep actual configurations, application code and case data in your private environment.
+
+The public reference includes operational worksheets and offline integrity tools. Hardware readiness and private prototype completion require actual [qualification records](templates/QUALIFICATION_RECORD.example.md); documentation alone does not complete those gates.
 
 ## Project Concept
 
@@ -71,6 +83,9 @@ From the root of the main Guide repository:
 python Cyberdeck/tools/evidence_manifest.py \
   --input Cyberdeck/examples/synthetic-evidence \
   --output /tmp/pnwc-demo-evidence-manifest.json
+python Cyberdeck/tools/verify_manifest.py \
+  --input Cyberdeck/examples/synthetic-evidence \
+  --manifest /tmp/pnwc-demo-evidence-manifest.json
 python -m unittest discover -s Cyberdeck/tests -v
 ```
 

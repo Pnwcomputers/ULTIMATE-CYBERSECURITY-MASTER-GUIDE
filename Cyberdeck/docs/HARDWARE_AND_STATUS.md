@@ -29,6 +29,10 @@ The roles below are derived from the documented design of a separate PNWC privat
 | Signature provider validation and production evidence vault | Not yet qualified end-to-end | **Not included** |
 | Read-only offline SHA-256 manifest of preexisting files | Public helper implemented here | **Included** |
 
+## Public Expansion Status
+
+The public edition also supplies [offline manifest verification](../tools/verify_manifest.py), a [build runbook](BUILD_AND_OPERATIONS.md), an [acceptance matrix](ACCEPTANCE_TESTS.md), qualification/report templates and a [private implementation roadmap](IMPLEMENTATION_ROADMAP.md). These additions qualify no physical equipment and do not update independently unverified private prototype status.
+
 ## No Implicit Claims
 
 Passing Python tests verifies only that the local manifest helper behaves as tested. It does not qualify a Wi-Fi chipset, hardware adapter, RouterOS configuration, customer scope, e-signature, IDS deployment, offsite runner or production security assessment.
