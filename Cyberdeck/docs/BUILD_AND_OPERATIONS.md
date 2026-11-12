@@ -2,7 +2,7 @@
 
 [Cyberdeck Home](../README.md) · [Acceptance Tests](ACCEPTANCE_TESTS.md) · [Private Implementation Roadmap](IMPLEMENTATION_ROADMAP.md)
 
-This runbook turns the reference architecture into a sequence of decisions and checks. It supplies no vendor configuration or private application code. Complete the inventory for the actual equipment before connecting a client interface.
+This runbook turns the reference architecture into a sequence of decisions and checks. It supplies no vendor configuration or private application code. For official links to the hardware and software mentioned in this project, see [Device & Platform References](../README.md#device--platform-references). Complete the inventory for the actual equipment before connecting a client interface.
 
 ## 1. Establish a Minimum Build
 

@@ -8,9 +8,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md) by Pacific Northwest Computers*
 
-![Architecture](https://img.shields.io/badge/Architecture-GL.iNet_%7C_MikroTik_%7C_Mini_PC-blue?style=for-the-badge)
-![Workflow](https://img.shields.io/badge/Workflow-Authorization_%7C_Evidence-green?style=for-the-badge)
-![Edition](https://img.shields.io/badge/Edition-Public_Reference_Only-orange?style=for-the-badge)
+[![Architecture](https://img.shields.io/badge/Architecture-GL.iNet_%7C_MikroTik_%7C_Mini_PC-blue?style=for-the-badge)](#device--platform-references)
+[![Workflow](https://img.shields.io/badge/Workflow-Authorization_%7C_Evidence-green?style=for-the-badge)](docs/ASSESSMENT_WORKFLOW.md)
+[![Edition](https://img.shields.io/badge/Edition-Public_Reference_Only-orange?style=for-the-badge)](docs/PUBLISHING_AND_RELEASE.md)
 
 </div>
 
@@ -67,7 +67,29 @@ A portable cyberdeck can combine an operator workstation, an upstream connectivi
         Client network test interface: ONLY WITH WRITTEN AUTHORIZATION
 ```
 
-This is a **logical reference topology**, not an assertion that any user's GL.iNet, MikroTik, ZimaBoard or downstream interfaces have been configured, hardened, wired or validated. A router only controls traffic that traverses it; an unmanaged switch does not magically give a passive sensor all network traffic.
+This is a **logical reference topology**, not an assertion that any user's GL.iNet, MikroTik, ZimaBoard or downstream interfaces have been configured, hardened, wired or validated. See [Device & Platform References](#device--platform-references) for the official hardware and software links. A router only controls traffic that traverses it; an unmanaged switch does not magically give a passive sensor all network traffic.
+
+## Device & Platform References
+
+The [architecture diagram](docs/ARCHITECTURE.md) and [hardware status matrix](docs/HARDWARE_AND_STATUS.md) use **device families and possible roles**, not a verified bill of materials. The links below go to manufacturer or project documentation; check the exact device model, hardware revision, firmware and interface support before following an installation guide.
+
+| Referenced Device or Platform | Intended Role | Official Product or Project Reference |
+| --- | --- | --- |
+| GL.iNet travel router | Approved upstream uplink, WISP/repeater or routed connection | [GL.iNet Travel Routers](https://www.gl-inet.com/pages/travel-routers) |
+| MikroTik router with RouterOS | Segmentation, firewall and downstream policy | [MikroTik RouterOS Manual](https://manual.mikrotik.com/docs/introduction/) |
+| Windows 11 mini PC / Linux operator computer | Local control interface and manual field workflow | **Mini PC manufacturer/model not specified**; select documentation after identifying the installed hardware |
+| ZimaBoard | Possible local evidence storage host | [Zima Hardware Overview](https://www.zimaspace.com/docs/hardware/) |
+| ZimaBlade (original hardware) | Optional small wired/edge sensor | [ZimaBlade Hardware Guide](https://www.zimaspace.com/docs/hardware/zimablade-overview) · [ZimaBoard SE Product Update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update) |
+| Raspberry Pi | Optional dedicated/portable sensor or lab host | [Raspberry Pi Product Family](https://www.raspberrypi.com/products/) |
+| ESP-KVM / IP-KVM | Optional out-of-band operator console | [ESP-KVM Project](https://espkvm.io/) — confirm your actual board and firmware match this project |
+| Flipper Zero | Optional supervised specialist device | [Flipper Zero Product](https://flipper.net/products/flipper-zero) · [Guide's Flipper References](../Documentation/flipper_zero_guide.md) |
+| ESP32-based boards | Optional supported wireless/embedded devices | [Espressif ESP32 SoC Families](https://www.espressif.com/en/products/socs) · [Board/Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) |
+| Hak5 devices, including WiFi Pineapple | Optional separately authorized specialist hardware | [Hak5 Official Gear Catalog](https://shop.hak5.org/pages/gear) · [Guide's Wireless Lab References](../Wardriving/README.md) |
+| Kismet, Snort, Wazuh & nzyme | **Software projects**, not additional devices; applicable only with supported sensors and feeds | [Kismet](https://www.kismetwireless.net/) · [Snort](https://www.snort.org/) · [Wazuh](https://wazuh.com/) · [nzyme](https://www.nzyme.org/) |
+
+**Zima naming update (October 2026):** The manufacturer announced that **new ZimaBlade products are becoming ZimaBoard SE**. Owners of earlier ZimaBlade models should continue using their actual hardware specifications; the new SE memory, storage and CPU configuration should not be assumed to apply to an older unit. See the [manufacturer's update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update).
+
+These are **official reference links, not verified device integrations**, endorsements or purchase recommendations. The topology diagram is plain text and cannot contain individual clickable device links; use this table to open each reference.
 
 ## Typical Field Sequence
 
@@ -122,7 +144,7 @@ Never put client data, case folders, credentials, signed authorization forms or 
 | Engagement assessment process | [Assessment Service Integration](../PlayBooks/assessment-service-integration-map.md) |
 | Authorized network audit | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) |
 | Wireless surveying | [Wardriving](../Wardriving/README.md) |
-| Hardware and firmware references | [Hardware Hacking](../HardwareHacking/README.md) |
+| Hardware and firmware references | [Hardware Hacking](../HardwareHacking/README.md) · [Device & Platform References](#device--platform-references) |
 | Defensive monitoring | [IDS & IPS](../IncidentResponse/IDS%26IPS/readme.md) |
 | Operating and legal terms for the parent guide | [Legal Terms](../LEGAL.md) |
 

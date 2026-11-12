@@ -26,7 +26,7 @@ This workflow is a **manual reference**, not a command queue, automated scanning
 
 ## Method-First, Not Device-First
 
-A Flipper, Kismet sensor, RouterOS read-only query, ordinary laptop or other tool is not permission by itself. Define the **approved method and effects** first; choose the least intrusive eligible tool and record what actually ran. If tool substitution changes the source network, action, risk or target behavior, obtain an amended approval before proceeding.
+A [Flipper Zero](https://flipper.net/products/flipper-zero), [Kismet](https://www.kismetwireless.net/) sensor, [RouterOS](https://manual.mikrotik.com/docs/introduction/) read-only query, ordinary laptop or other tool is not permission by itself. Define the **approved method and effects** first; choose the least intrusive eligible tool and record what actually ran. If tool substitution changes the source network, action, risk or target behavior, obtain an amended approval before proceeding.
 
 Do **not** turn a planning profile or downloaded payload into an automatically authorized operation. Specialist activities such as credential capture, deauthentication, HID execution, exploitation or RF transmission are outside the default passive workflow and require separate risk and legal review.
 

@@ -1,6 +1,6 @@
 # Hardware Roles & Implementation Status
 
-[Cyberdeck Home](../README.md) · [Architecture](ARCHITECTURE.md) · [Workflow](ASSESSMENT_WORKFLOW.md)
+[Cyberdeck Home](../README.md) · [Device & Platform References](../README.md#device--platform-references) · [Architecture](ARCHITECTURE.md) · [Workflow](ASSESSMENT_WORKFLOW.md)
 
 The roles below are derived from the documented design of a separate PNWC private prototype. **A listed device does not mean that a physical unit was verified, flashed, integrated or tested.**
 
@@ -8,14 +8,16 @@ The roles below are derived from the documented design of a separate PNWC privat
 
 | Component | Reference Role | Publication/Validation State |
 | --- | --- | --- |
-| Windows 11 mini PC or supported Linux host | Local operator UI and guided steps | Private prototype feature; **no UI code in this public edition** |
-| GL.iNet travel router | Upstream connectivity/repeater/WISP | Manual design; model/firmware/site mode must be established |
-| MikroTik RouterOS router | Routed policy and segmented interfaces | Manual design; verify hardware, RouterOS features and port maps |
-| ZimaBoard and attached storage | Proposed encrypted local evidence vault | Vault encryption, backup and restore **not proven by this edition** |
-| ZimaBlade and Raspberry Pi | Optional local or offline sensors | Manual export/collector roadmap; no autonomous field agents shipped here |
-| Kismet, Snort, Wazuh, nzyme | Monitoring and independent detection evidence | External products; no guaranteed packet visibility or integrated deployment |
-| Flipper Zero, ESP32, specialist RF boards and Hak5 devices | Optional supervised, scope-qualified observation devices | Manual planning and imported exports only; no payload execution or radio control provided |
+| Windows 11 mini PC (exact model unspecified) or supported Linux host | Local operator UI and guided steps | Private prototype feature; **no UI code in this public edition** |
+| [GL.iNet travel router](https://www.gl-inet.com/pages/travel-routers) | Upstream connectivity/repeater/WISP | Manual design; model/firmware/site mode must be established |
+| [MikroTik RouterOS router](https://manual.mikrotik.com/docs/introduction/) | Routed policy and segmented interfaces | Manual design; verify hardware, RouterOS features and port maps |
+| [ZimaBoard](https://www.zimaspace.com/docs/hardware/) and attached storage | Proposed encrypted local evidence vault | Vault encryption, backup and restore **not proven by this edition** |
+| [ZimaBlade](https://www.zimaspace.com/docs/hardware/zimablade-overview) and [Raspberry Pi](https://www.raspberrypi.com/products/) | Optional local or offline sensors | Manual export/collector roadmap; no autonomous field agents shipped here |
+| [Kismet](https://www.kismetwireless.net/), [Snort](https://www.snort.org/), [Wazuh](https://wazuh.com/), [nzyme](https://www.nzyme.org/) (software) | Monitoring and independent detection evidence | External products; no guaranteed packet visibility or integrated deployment |
+| [Flipper Zero](https://flipper.net/products/flipper-zero), [ESP32 boards](https://www.espressif.com/en/products/socs), [specialist RF boards](../../HardwareHacking/README.md) and [Hak5 devices](https://shop.hak5.org/pages/gear) | Optional supervised, scope-qualified observation devices | Manual planning and imported exports only; no payload execution or radio control provided |
 | Separate office/VPS sensor | Real outside-in origin | **Planned, not integrated here** |
+
+**Hardware identification:** Confirm the specific board, interface and firmware before applying instructions from a linked manufacturer. The [ZimaBlade-to-ZimaBoard SE product update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update) concerns newer configurations; earlier ZimaBlade owners should use their original specifications. These hyperlinks do **not** imply functional integrations.
 
 ## Capability Boundaries
 
