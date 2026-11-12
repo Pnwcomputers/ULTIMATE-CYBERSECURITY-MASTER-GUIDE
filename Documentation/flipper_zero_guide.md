@@ -862,9 +862,9 @@ The ESP32-S2-based WiFi Development Board attaches to the Flipper's GPIO header 
 > **Pentest use**: Demonstrate that anyone within radio range can forcibly disconnect clients. Effective for showing client why open/public WiFi is dangerous, and why 802.11w (Management Frame Protection) should be enabled.
 
 #### PMKID / Handshake Capture
-Captures WPA2 handshakes for offline cracking:
+On compatible targets and explicitly approved laboratory networks, certain capture modes may obtain WPA2-Personal authentication material. This is not equivalent to WPA3-SAE credential recovery:
 1. Scan APs → select target
-2. `attack -t pmkid` - captures PMKID from AP beacon (no client needed)
+2. `attack -t pmkid` - attempts PMKID collection where supported by AP/client exchange; **PMKIDs are not simply captured from beacons**
 3. Or: `attack -t wpa` - captures full 4-way handshake (requires client authentication)
 4. Save `.pcap` to SD card
 5. Transfer to Kali → `hashcat -m 22000 capture.hc22000 wordlist.txt`
@@ -873,7 +873,7 @@ Captures WPA2 handshakes for offline cracking:
 Hosts a fake WiFi login page:
 1. Configure SSID name in Marauder settings
 2. Start Evil Portal
-3. Flipper broadcasts the SSID
+3. The connected ESP32 accessory broadcasts the SSID when supported and deliberately enabled
 4. Connecting clients are redirected to captive portal
 5. Credentials captured to SD card log
 
@@ -896,10 +896,7 @@ Real-time channel-by-channel packet activity visualization. Useful for identifyi
 - Anomalous traffic patterns
 
 #### BLE Scanning (via Marauder)
-More detailed BLE scanning than the built-in BLE app:
-- Raw advertising packet capture
-- Device fingerprinting
-- Manufacturer data display
+BLE features require a **separate Bluetooth-capable ESP32 accessory and supported Marauder build**. The stock ESP32-S2 Flipper WiFi Dev Board has no Bluetooth support. On supported BLE hardware, observed advertisements may expose manufacturer/service data; availability and logging depend on firmware.
 
 ### Marauder Companion App (Flipper)
 
@@ -921,6 +918,71 @@ Marauder Companion
 ├── Packet Monitor
 └── Settings
 ```
+
+### Flipper Marauder Companion Deployment Labs
+
+**Critical separation:** the Flipper Zero runs its own firmware and the companion application (`.fap`), while a **compatible connected ESP32 board** runs Marauder. The Flipper does **not** contain a Wi-Fi radio. A Flipper Zero WiFi Dev Board (ESP32-S2) takes a Marauder image ending in `_flipper.bin`; a Marauder Dev Board Pro, BFFB, MultiBoard S3 or C5 expansion requires its **own** matching target, not the same image. See the [standalone Marauder field labs](./WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook) and [upstream Flipper instructions](https://github.com/justcallmekoko/ESP32Marauder/wiki/Flipper-Zero).
+
+#### F0 — Prepare Flipper & Expansion Separately
+
+1. Note Flipper firmware build, Marauder companion app version, expansion model/PCB revision, ESP32 chip and Marauder version. Photograph the board label without exposing serial numbers publicly.
+2. Backup the Flipper SD and any board SD logs. Update the Flipper through its own trusted update path; install a companion application compatible with the **installed Flipper firmware** using [Flipper Lab](https://lab.flipper.net/apps/esp32_wifi_marauder) or a maintained matching build.
+3. With the ESP32 expansion disconnected, identify its matching target from [Marauder supported hardware](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware) and use the [official Marauder updater](https://github.com/justcallmekoko/ESP32Marauder/wiki/Update-Firmware) or validated flasher. For the stock Flipper WiFi Dev Board, select `_flipper.bin`; do not use a standalone display image.
+4. Power off/reseat the accessory, connect it to the Flipper GPIO header and open the companion app. Confirm supported communication before any field survey. Keep SD/serial logging settings consistent with the installed build.
+5. Run **only the owned-test-AP scan** first, not an active attack menu. If the FAP cannot communicate, verify UART, companion/resources, firmware target, power and USB CLI separately.
+
+#### F1 — Companion-Link Acceptance
+
+1. Record the Flipper app and accessory firmware versions side by side.
+2. With a known lab AP powered on, open the companion's supported AP scan. Observe one matching BSSID/channel.
+3. Repeat after a deliberate app restart to distinguish transient UART errors from persistent firmware mismatch.
+4. Record scan result, timing, error messages and missing feature menus. Do not assume older Flipper app screenshots match a current build.
+
+**Pass:** an in-scope AP can be observed reproducibly with no unexpected transmissions, reboot, or loss of operator control.
+
+#### F2 — On-Device Logging & SD Storage Provenance
+
+1. Check whether the **specific app/build** writes to Flipper SD, the external ESP32 SD, or neither. Some boards need an added microSD circuit, and not all app functions save the same artifact.
+2. Make one short authorized observation of a synthetic SSID, then stop it and safely close logging.
+3. Verify actual filename and storage location. For supported GNSS wardriving, consult the [Marauder GPS guide](../Wardriving/esp32-marauder.md) and record fix status; Wi-Fi AP scans alone do not establish location.
+4. Export only the in-scope result, hash the original on the evidence workstation, and note whether a PCAP contains full frames or just summaries.
+5. If the Flipper SD remains empty, inspect companion settings and accessory SD support before repeating a scan.
+
+#### F3 — Wi-Fi Security Settings & WIDS Correlation
+
+1. Compare the accessory's observations of a **lab** SSID with the AP controller's WPA2/WPA3, channel and PMF configuration.
+2. Create a separate unique training SSID on a client-owned AP, record its BSSID, and observe its appearance from the Flipper app.
+3. Compare independent [Kismet + Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) observations to the Flipper/app log and AP controller. A successful match verifies visibility, not exploitability.
+4. Stop the test AP and confirm expected disappearance and SIEM alert disposition; preserve redacted evidence.
+
+#### F4 — Lab Wireless Coverage & Radio Capability Checks
+
+1. Place owned test APs on explicitly permitted 2.4 GHz and (when hardware supports it) 5 GHz channels.
+2. Use the Flipper companion to record **which** APs actually appear, along with band/channel, antenna orientation and dwell time.
+3. A stock ESP32-S2 WiFi Dev Board is **2.4 GHz only** and has **no Bluetooth radio**. Do not interpret failure to detect a 5 GHz AP or BLE tag as a missing network/device.
+4. On 5 GHz-capable C5 expansions, confirm the actual model, antenna and firmware build before claiming dual-band coverage.
+5. Use external sensors/controller inventory when a full site survey or throughput test is needed.
+
+#### F5 — Peripheral Compatibility & Recovery Drill
+
+1. While the test accessory is disconnected, preserve a known-working firmware image and identify the board's bootloader/recovery path.
+2. Install only a confirmed-compatible release, restart the Flipper app, and verify F1's known-AP test.
+3. If the connection fails, test the ESP32 directly via supported USB serial CLI; this separates ESP firmware/radio issues from the Flipper companion link.
+4. Avoid flashing the wrong partition table, board family or voltage domain. Power down before modifying a breakout. Never treat a failed firmware update as license to erase client data.
+5. Document successful rollback and any SD-card integrity warnings.
+
+#### Flipper-Specific Common Failure Matrix
+
+| Symptom | Likely cause & validation |
+|---|---|
+| "No Marauder" / serial timeout | Unsupported FAP, wrong ESP32 firmware target, loose GPIO connection, serial Log Device conflict or insufficient power |
+| Scan works, no stored PCAP | Missing SD, app export path mismatch or unsupported capture mode |
+| BLE menu missing on ESP32-S2 | Expected hardware limitation; the S2 cannot run BLE scanning |
+| 5 GHz SSID absent | ESP32-S2 cannot scan 5 GHz; check C5 expansion and firmware if applicable |
+| Scan data differs from standalone Marauder | Companion app feature coverage, serial transport, storage and build differ |
+| Failed reflash/boot loop | Restore exact board firmware and partition layout from the supported installer |
+
+**Reporting:** identify Flipper firmware/FAP and ESP32 firmware separately. Include authorization, BSSID/SSID redaction, timestamps, expected versus actual result, GNSS/storage provenance, USB/UART state, AP configuration evidence, WIDS corroboration and cleanup. Do not equate credential/handshake collection with ordinary reconnaissance or infer WPA3-Enterprise vulnerabilities from a scan.
 
 ### Post-Capture: Cracking WPA2
 
