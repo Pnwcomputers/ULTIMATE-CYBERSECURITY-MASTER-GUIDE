@@ -181,14 +181,13 @@ These are source-attributed references, not claims that every upstream tool is i
 | 📋 [Compliance & GRC](./Compliance/README.md) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
 | 📦 [Container & Kubernetes Security](./ContainerSecurity/README.md) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
 | 🔐 [Cryptography](./Cryptography/README.md) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205, plus classical ciphers, leetspeak, and cryptanalysis |
-| 🔑 [Hardware Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) | FIDO2/WebAuthn, L1-L3+ certification, [SoloKeys](./Cryptography/solokeys-guide.md), passkeys and recovery workflows |
-| 💾 [Encrypted Drives & USB Storage](./Cryptography/encrypted-storage.md) | BitLocker, LUKS, VeraCrypt, DIY vaults and [PhantomDrive](./Cryptography/phantomdrive-guide.md) research |
+| 🧳 [Cyberdeck: OTG CybSec Audit Platform](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |
 | 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
 | 📚 [Documentation](./Documentation/README.md) | Supplemental technical documentation, command references, and cheat sheets |
-| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
+| 💾 [Encrypted Drives & USB Storage](./Cryptography/encrypted-storage.md) | BitLocker, LUKS, VeraCrypt, DIY vaults and [PhantomDrive](./Cryptography/phantomdrive-guide.md) research |
 | 🥷 [Hardware Hacking](./HardwareHacking/README.md) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🔑 [Hardware Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) | FIDO2/WebAuthn, L1-L3+ certification, [SoloKeys](./Cryptography/solokeys-guide.md), passkeys and recovery workflows |
 | 🧰 [Hardware Testing](./HardwareTesting/README.md) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
-| 🧳 [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |
 | 🏠 [Homelab Guides](./Homelab/README.md) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
 | 🚨 [Incident Response](./IncidentResponse/README.md) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/readme.md) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
 | 📱 [Mobile Security](./Mobile/README.md) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
@@ -200,6 +199,7 @@ These are source-attributed references, not claims that every upstream tool is i
 | 🔍 [OSINT Guide, Tools & Techniques](./OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
 | 📄 [PDF Resources](./PDF/README.md) | Curated PDF references and guides |
 | 📚 [Playbooks Collection](./PlayBooks/README.md) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
+| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
 | 💻 [Scripts](./Scripts/README.md) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
 | 📻 [SDR](./SDR/README.md) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
 | 📊 [SIEM Deployment Guides](./IncidentResponse/SIEM/README.md) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
@@ -210,6 +210,7 @@ These are source-attributed references, not claims that every upstream tool is i
 | 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
 | 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
 | 🕸️ [Web Application Security](./WebAppSecurity/README.md) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
+
 
 ### Subsection Indexes & Focused Entry Points
 
