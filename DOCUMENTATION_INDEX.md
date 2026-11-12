@@ -354,14 +354,14 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [HoneyPot/readme.md](./IncidentResponse/HoneyPot/readme.md) | `IncidentResponse/HoneyPot/readme.md` |
 | [HoneyPot/tpot.md](./IncidentResponse/HoneyPot/tpot.md) | `IncidentResponse/HoneyPot/tpot.md` |
 | [HoneyPot/wazuh-honeypot-integration.md](./IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md` |
-| [IDS&IPS/fail2ban.md](./IncidentResponse/IDS&IPS/fail2ban.md) | `IncidentResponse/IDS&IPS/fail2ban.md` |
-| [IDS&IPS/kismet-wazuh-wireless-lab.md](./IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md) | `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md` |
-| [IDS&IPS/nzyme-wazuh-integration.md](./IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md) | `IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md` |
-| [IDS&IPS/nzyme_wids.md](./IncidentResponse/IDS&IPS/nzyme_wids.md) | `IncidentResponse/IDS&IPS/nzyme_wids.md` |
-| [IDS&IPS/readme.md](./IncidentResponse/IDS&IPS/readme.md) | `IncidentResponse/IDS&IPS/readme.md` |
-| [IDS&IPS/security-onion.md](./IncidentResponse/IDS&IPS/security-onion.md) | `IncidentResponse/IDS&IPS/security-onion.md` |
-| [IDS&IPS/snort.md](./IncidentResponse/IDS&IPS/snort.md) | `IncidentResponse/IDS&IPS/snort.md` |
-| [IDS&IPS/suricata+zeek.md](./IncidentResponse/IDS&IPS/suricata+zeek.md) | `IncidentResponse/IDS&IPS/suricata+zeek.md` |
+| [IDS&IPS/fail2ban.md](./IncidentResponse/IDS%26IPS/fail2ban.md) | `IncidentResponse/IDS&IPS/fail2ban.md` |
+| [IDS&IPS/kismet-wazuh-wireless-lab.md](./IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) | `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md` |
+| [IDS&IPS/nzyme-wazuh-integration.md](./IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) | `IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md` |
+| [IDS&IPS/nzyme_wids.md](./IncidentResponse/IDS%26IPS/nzyme_wids.md) | `IncidentResponse/IDS&IPS/nzyme_wids.md` |
+| [IDS&IPS/readme.md](./IncidentResponse/IDS%26IPS/readme.md) | `IncidentResponse/IDS&IPS/readme.md` |
+| [IDS&IPS/security-onion.md](./IncidentResponse/IDS%26IPS/security-onion.md) | `IncidentResponse/IDS&IPS/security-onion.md` |
+| [IDS&IPS/snort.md](./IncidentResponse/IDS%26IPS/snort.md) | `IncidentResponse/IDS&IPS/snort.md` |
+| [IDS&IPS/suricata+zeek.md](./IncidentResponse/IDS%26IPS/suricata%2Bzeek.md) | `IncidentResponse/IDS&IPS/suricata+zeek.md` |
 | [README — IncidentResponse](./IncidentResponse/README.md) | `IncidentResponse/README.md` |
 | [README — IncidentResponse/SIEM](./IncidentResponse/SIEM/README.md) | `IncidentResponse/SIEM/README.md` |
 | [SIEM/detection-content-validation.md](./IncidentResponse/SIEM/detection-content-validation.md) | `IncidentResponse/SIEM/detection-content-validation.md` |
