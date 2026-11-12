@@ -59,6 +59,8 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 
 **Additional stationary/portable sensors:** [OUI-SPY Unified Blue](../Documentation/microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) supports specialized receive-focused Wi-Fi/BLE detection (some management modes transmit AP beacons); [Bruce firmware](../Documentation/bruce_firmware.md#exercise-b7--repeatable-bruce-board-qualification) covers board-specific radio labs; and [RaspyJack](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) is a Pi/Linux lab platform. None is a drop-in replacement for a GPS-validated wardrive logger.
 
+**Companion research platforms:** [Evil-M5](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) provides M5Stack observation exercises; [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) adds a separate ESP32-C5 radio and Cardputer/Tab5/Flipper controllers. JanOS's `/lab/wardrives/` storage, optional auto-upload and GNSS requirements **are not** Marauder/Biscuit/SigRoam defaults. Use original GPS and data-handling checks before public export.
+
 ## Additional Starred Field-survey Platforms
 
 These are **alternatives**, not interchangeable firmware images or extra steps required by the six workflows above:

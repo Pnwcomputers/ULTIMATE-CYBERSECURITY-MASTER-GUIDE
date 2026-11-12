@@ -49,6 +49,8 @@
 |---|---|
 | [GhostESP Revival](./ghostesp-revival.md) | Board-specific install and owned Wi-Fi/BLE observation/capture validation. |
 | [NEMO](./nemo-firmware.md) | M5Stack setup, benign discovery and USB/SD interpretation limits. |
+| [Evil-M5 Field Labs](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Board-specific flasher, SD setup, safe Wi-Fi/BLE/HID and eight deployment labs. |
+| [LAB5 C5 Monster / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Independent ESP32-C5 firmware, Cardputer/Tab5/Flipper app roles, eight assessment labs. |
 | [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Scanner selection, TI firmware/client matching and advertisement-only PCAP validation. |
 
 ## Firmware Catalog & Installers
@@ -117,14 +119,14 @@ This directory contains comprehensive technical documentation, operational proce
 | [pwnagotchi_cheatsheet.md](./pwnagotchi_cheatsheet.md) | Pwnagotchi setup and command reference | Cheat Sheet |
 | [bjorn_pi.md](./bjorn_pi.md) | How-to scan, attack, and exfiltrate from a network that Bjorn is connected to | Guide |
 | [bruce_firmware.md](./bruce_firmware.md) | Bruce board setup, radio-specific modules, eight additional field exercises & defensive validation | Guide |
-| [evil_m5.md](./evil_m5.md) | Guide for operations using the Evil-M5 Firmware | Guide |
+| [evil_m5.md](./evil_m5.md) | Evil-M5 platform setup, eight original exercises plus eight device-qualification and defensive field labs | Guide |
 | [flipper_zero_guide.md](./flipper_zero_guide.md) | Flipper Zero hardware & companion Marauder UART/ESP32 installation with five field labs | Guide |
 | **[Wireshark Master Filter List](./wireshark-master-filters.md)** | 133 display-filter examples, capture BPF distinctions, TShark, Wi-Fi and security triage | Master reference |
 | **[Wireshark Field Cheat Sheet](./wireshark-cheatsheet.md)** | Quick copyable filters and GUI/CLI troubleshooting workflow | Cheat sheet |
 | [Wireshark filter catalog TSV](./wireshark-filter-catalog.tsv) | Machine-readable, syntax-tested list with caveats | Data/reference |
 | [wireshark.md](./wireshark.md) | Advanced router, remote, BLE, Zigbee, hardware capture and protocol reference | Advanced guide |
 | [hcxtoolshashcat.md](./hcxtoolshashcat.md) | HCX tools and Hashcat for WiFi password cracking | Guide |
-| [microcontroller_wifi_testing.md](./microcontroller_wifi_testing.md) | Wireless testbed procedures plus [OUI-SPY Unified Blue detection labs](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) | Guide |
+| [microcontroller_wifi_testing.md](./microcontroller_wifi_testing.md) | Wireless testbed, [OUI-SPY](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) and eight [LAB5 MonsterC5/JanOS labs](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Guide |
 | [Biscuit Ecosystem](../Wardriving/biscuit.md#ecosystem-assessment-labs--deployment-examples) | Pro, Ultra, Crumb, DIY, Node & AWOK eight practical labs | Field workflow |
 | [RaspyJack Portable Pi](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) | Raspberry Pi install, WebUI isolation, network and logging lab exercises | Lab workflow |
 

@@ -13,6 +13,8 @@ management interface that transmits; none of these names guarantees passive oper
 | [Piglet](../Wardriving/piglet.md) | Local survey and mesh workflows; review boot, home-return and live upload settings. |
 | [NEMO](./nemo-firmware.md) | Compact M5Stack lab; verify board-specific SD and USB functions. |
 | [BLE Capture / Sniffle](./ble-capture-sniffle.md) | Independent owned-beacon BLE packet evidence; ESP device discovery is not equivalent. |
+| [LAB5 C5 Monster / JanOS](#lab5-c5-monster--projectzero-janos-field-assessment) | Independent ESP32-C5 radio, Cardputer/Tab5/Flipper clients, SD and WebUI validation, eight labs. |
+| [Evil-M5](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Separate M5Stack firmware with board-specific SD and eight qualification labs; not JanOS. |
 
 ## 🎯 Purpose
 Provide a practical field and lab reference for using Pwnagotchi, ESP32 Marauder-compatible hardware, Flipper Zero, CC1101 radios, MikroTik RouterOS, and a Linux workstation together during authorized wireless-security assessments.
@@ -429,6 +431,152 @@ sha256sum /path/to/authorized-lab.pcap
 | Remote ID absent | Receiver range, broadcast protocol/mode, drone emitter and local conditions |
 
 **Report:** board revision, firmware build, active mode, selector/AP state, scoped beacon/AP ID, source type, timestamp, signal limitations, matched signature and method, independent corroboration, file hash if any, false-positive notes, retention and remediation. Keep identifiers of bystanders out of shared reports.
+
+## LAB5 C5 Monster & projectZero JanOS Field Assessment
+
+_Source-checked November 11, 2026 against the [LAB5 / C5Lab project list](https://github.com/C5Lab), [projectZero upstream](https://github.com/C5Lab/projectZero), [projectZero wiki](https://github.com/C5Lab/projectZero/wiki), [M5MonsterC5 Cardputer ADV](https://github.com/C5Lab/M5MonsterC5-CardputerADV) and [M5MonsterC5 Tab5](https://github.com/C5Lab/M5MonsterC5-Tab5). This is a repeatable **lab procedure**, not a claim that the hardware was physically tested._
+
+**Naming:** the user's “LAB5 C5 Monster” refers to LAB5 / C5Lab's **MonsterC5 / M5MonsterC5** ecosystem. The firmware project is **projectZero** (JanOS). LAB5 publishes controller integrations for **M5Cardputer / Cardputer ADV**, **M5Stack Tab5**, **Flipper Zero** and an optional **Mate** web client. This is **not** [Evil-M5Project](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs), [ESP32 Marauder](./WiFiMarauder_Guide.md), [Bruce](./bruce_firmware.md), or [Biscuit](../Wardriving/biscuit.md). Their binaries and accessory app protocols cannot be swapped without explicit upstream support.
+
+> [!CAUTION]
+> The project documents transmit-capable attack features including Wi-Fi impersonation, deauthentication, aggressive management-frame traffic, credential interception and **WPA3-SAE overflow/DoS**. **Do not run them as part of a normal wireless survey or on public/client infrastructure without a separate, impact-assessed ROE.** The labs below use owned APs, receive-oriented observations, synthetic identities, no credential capture, no disruption and offline analysis. A scan menu is not automatically transmit-free; verify the mode used.
+
+### Architecture & Exact Firmware Targets
+
+| Component | Where the code runs | Primary role & compatibility boundary |
+|---|---|---|
+| **MonsterC5 board** | ESP32-C5-WROOM-1U; **JanOS / projectZero** | Actual 2.4/5 GHz Wi-Fi receiver/transmitter; serial CLI and storage support depend on board revision |
+| **M5MonsterC5-CardputerADV** | Cardputer/ADV **controller application** on its own M5StampS3/ESP32-S3 | Display/keyboard UI communicating with **separate** C5 board. Older Cardputer may have separately offered app |
+| **M5MonsterC5-Tab5** | Tab5 controller application on Tab5 | Larger display and, for supported releases, offline packet-analysis UI. Not a Cardputer or C5 firmware image |
+| **Flipper Zero integration** | Flipper FAP (application) + JanOS on C5 board | Flipper has **no internal Wi-Fi radio**. FAP version/API and JanOS CLI must match |
+| **projectZero CLI/Web Serial** | Host browser/serial terminal talking to C5 | Useful for headless qualification and recovery without a working companion UI |
+| **LAB5 Mate/WebClient (optional)** | Separate supported ESP32 controller + browser | Management Wi-Fi AP + UART forwarding to Monster; **transmits management beacons** and has a security boundary |
+
+**Dual-band nuance:** ESP32-C5 hardware supports 2.4 and 5 GHz Wi-Fi on selected configurations; a **single radio** cannot observe both bands or all channels simultaneously. The **Cardputer itself remains 2.4 GHz-only**; 5 GHz observations come from the attached MonsterC5. A successful Bluetooth/Wi-Fi scan is not a full channel, throughput or security assessment. Wi-Fi 6 physical capabilities and firmware support vary with ESP-IDF and C5 revision.
+
+### Firmware/Companion Installation & Recovery — Three Separate Paths
+
+**A. JanOS on the ESP32-C5 Monster**
+
+1. Confirm exact LAB5 board PCB, flash size, antenna connection, SD/GNSS options, boot/USB serial port and previous firmware. Preserve existing `/lab/` files and obtain a known-good recovery route **before erase**.
+2. Use LAB5's [JanOS flasher](https://c5lab.github.io/projectZero/janos_flash.html), linked from the [projectZero tools](https://c5lab.github.io/projectZero/). Prefer **Main** for a client test fixture unless a development build is explicitly being validated. Note selected manifest, binary name, release/commit and hash when supplied.
+3. On an isolated desktop Chromium Web Serial browser, select the actual C5 port. Follow LAB5 instructions for BOOT/RESET and any erase prompt; do **not** use a generic Cardputer or Tab5 binary on the C5.
+4. Boot and validate serial output with [Web CLI](https://c5lab.github.io/projectZero/) or a trusted serial terminal **without executing active command presets**. Confirm board identification, firmware and help/info menus; the command syntax changes across JanOS releases. Record the actual version/available commands rather than using copied attack strings.
+5. Verify the board can identify an **owned AP** and return to an idle state. Don't flash again until checking serial/power and the controller handshake.
+
+**B. Controller application for M5Cardputer / Cardputer ADV or Tab5**
+
+1. Select the matching [Cardputer ADV app flasher](https://c5lab.github.io/M5MonsterC5-CardputerADV/janos_flash.html) **or** [Tab5 app flasher](https://c5lab.github.io/M5MonsterC5-Tab5/janos_flash.html). Those controller apps and JanOS have distinct project revisions, layouts and display drivers.
+2. Back up the controller and any SD logs. Flash the **app for the actual M5Stack target**, not JanOS; confirm installed revision and display/keyboard first.
+3. With all devices powered off, mount/connect the MonsterC5 accessory using **LAB5's device-specific power and serial wiring instructions**. Do not invent a UART pinout from a generic ESP32-C5 board; connect compatible voltage levels and common ground.
+4. Power on and verify the controller recognizes its separate JanOS device. A working Cardputer display with no C5 responses indicates a **companion transport or firmware version issue**, not necessarily failed JanOS RF hardware.
+5. Record controller model and app revision separately from the C5 firmware revision; changes in `show_sniffer_clients` and other commands can break older-client parsing.
+
+**C. Flipper Zero or optional Mate controller**
+
+1. For Flipper, install the **LAB5-specific `Lab_C5.fap`** through the [projectZero tools FAP uploader](https://c5lab.github.io/projectZero/) when compatible with the installed Flipper firmware. Upstream describes this uploader for **Unleashed/Momentum**; do not assume universal official-firmware support.
+2. Power down before inserting the correct Flipper adapter. Confirm UART TX/RX mapping and the configured Flipper serial/Log Device state; the FAP is **not** the C5 firmware and cannot add a built-in Wi-Fi radio.
+3. For LAB5 Mate/WebClient, review the [separate Mate source](https://github.com/C5Lab/Mate), its **supported boards and UART config**. The client can expose a Wi-Fi AP and browser API, which creates an additional attack surface. Do not put the default management AP on a customer network or enable remote access by default.
+4. Confirm controller communication using a version/status check and a short owned-AP scan. Stop/rollback if the wrong application controls an unintended radio or exposes an unsecured management surface.
+
+### LAB5 1 — Firmware, UART & Power Qualification
+
+**Goal:** identify the exact C5 firmware and UI/transport without starting a radio attack.
+
+1. Photograph model/revision (redact serials), record installed JanOS build and controller app version, plus test power supply, antenna, any SD and GNSS wiring.
+2. Connect the MonsterC5 by its documented native USB/serial path. Open the LAB5 Web CLI with **no automatic quick-action/attack buttons pressed**.
+3. Capture the text from the version/help/status menu if exposed; save a transcript and note **actual** port/baud from upstream. The project documents a UART CLI; **115200 baud** appears in supporting LAB5 Mate examples but may not represent every recovery/board mode.
+4. Disconnect/reconnect the controller (Cardputer, Tab5 or Flipper) and record whether the device is detected. Repeat after an approved reboot.
+5. **Pass:** correct version/board, readable status, supported control link, no spontaneous active RF modes. **Fail:** unknown firmware, mismatched UART, brownouts or unsolicited transmissions.
+
+### LAB5 2 — 2.4 GHz & 5 GHz Known-AP Inventory
+
+1. Prepare two client-owned test SSIDs with distinct names on supported **2.4 and 5 GHz** channels. Record BSSIDs/channel/security from the AP controller.
+2. With the C5 in a verified bounded observation mode, scan one band/channel range at a time as the firmware supports; log **actual CLI/UI mode names**, duration and whether active probes are sent.
+3. Compare results with controller data. Repeat at least three runs to account for channel dwell and changing signal propagation.
+4. Confirm which device performed the scanning: Monster C5, **not** Cardputer or Flipper. Disable the 5 GHz AP and observe the expected disappearance as a negative control.
+5. **Pass:** source-attributed results and documented coverage. **Do not infer** a successful WPA3 security audit from detection of the SSID.
+
+### LAB5 3 — SD Layout, GPS Provenance & Public Upload Safety
+
+The [projectZero wiki](https://github.com/C5Lab/projectZero/wiki) documents, for applicable configurations, `/lab/wardrives/wXXXX.log` WiGLE-style logs and optional `/lab/home.txt`, `/lab/wigle.txt`, `/lab/wdgwars.txt`, and `/lab/white.txt` files. These **are not** Evil-M5's `/evil/` assets, Biscuit app history, or Marauder `wardrive_` files.
+
+1. Verify that the **physical board/host** has a supported SD connection and a genuine GNSS fix; neither a serial C5 radio nor a controller keyboard alone establishes GPS or local storage.
+2. For an owned test AP, run a short approved wardrive. Inspect whether an actual `/lab/wardrives/` file exists and contains plausible coordinate/time fields.
+3. **Disable/omit automatic public upload and any home-SSID/password trigger files** for the first lab. Do not put real WiGLE API keys or production Wi-Fi passwords onto a shared SD image or public repo.
+4. Record where location came from (board GNSS, controller-provided fix, or none), the exact logfile name, and a SHA-256 hash of an unchanged original. Missing GPS does not justify fabricating coordinates.
+5. Redact neighboring APs and coordinates before delivering results; public WiGLE/other provider upload requires a separate explicit disclosure approval.
+
+### LAB5 4 — Controlled Sniffer Data & Offline PCAP Validation
+
+1. Use a known test AP and a synthetic lab client, physically separated from customer equipment. Configure a short receive-focused observation window and known channel.
+2. Confirm **whether the chosen JanOS build actually saves PCAP** and the exact file destination. Do not assume every UI has continuous PCAP storage or that Tab5 and Flipper save to the same device.
+3. Stop capture and preserve the unchanged source file. On a trusted Linux evidence workstation, verify actual file type and hash:
+
+~~~bash
+file /path/to/approved-test-capture.pcap
+sha256sum /path/to/approved-test-capture.pcap
+tshark -r /path/to/approved-test-capture.pcap -c 10
+~~~
+
+4. If frames are present, filter for **beacon frames** using `tshark -r /path/to/approved-test-capture.pcap -Y 'wlan.fc.type_subtype == 8'`; a file containing no 802.11 dissector fields may use a different link type or capture format.
+5. Compare observed BSSID/channel/times with the AP controller. Do not collect credentials, force reconnection, or crack captures for routine coverage acceptance.
+6. For Tab5, [upstream documents an ESPShark offline-analysis workflow](https://github.com/C5Lab/M5MonsterC5-Tab5); this **does not mean** the MonsterC5 radio offers Wireshark parity or access to all encrypted payloads.
+
+### LAB5 5 — Controller UI, Firmware-Skew & Recovery Regression
+
+1. On a disposable setup, record the known-good JanOS revision and corresponding Cardputer/Tab5/Flipper controller app.
+2. Validate a harmless status query, one owned-AP scan and stop/return-to-idle with that known-good pair. Save screenshots and serial transcript.
+3. Repeat after updating **only one component** during an approved maintenance window, with its matching rollback image preserved.
+4. If commands fail or parses differ, compare available JanOS commands with controller expectations. Upstream specifically describes new `show_sniffer_clients` / `start_deauth_station` support as release-dependent; **do not execute the latter active command** to test version alignment.
+5. Restore to the matching pair and confirm repeatability. Record exact app + JanOS revisions in the report, not simply “LAB5 current.”
+
+### LAB5 6 — Mate WebUI & Management Plane Isolation
+
+1. If Mate is in scope, deploy a supported **separate controller** on an isolated management segment; configure the documented UART and power appropriately.
+2. [Mate's upstream](https://github.com/C5Lab/Mate) describes a web client that broadcasts a management AP, communicates with MonsterC5 over UART and exposes HTTP/REST/WebSocket controls. **A receive-oriented JanOS scan does not make this management AP passive.**
+3. Replace defaults when configurable, disable unneeded services, and firewall access. Record port bindings and credentials securely.
+4. Verify the approved operator client can access **read-only status**, but a deliberately excluded guest VLAN cannot. Never make management APIs Internet-accessible.
+5. Disconnect the WebClient and confirm the MonsterC5 no longer exposes that management path. Restore configuration and rotate any temporary test credentials.
+
+### LAB5 7 — WIDS Correlation & False-Positive Controls
+
+1. Turn on a **unique synthetic SSID** from a client-owned AP for a short authorized window; record BSSID, band, channel and actual start time.
+2. Observe it with a C5 scan and, separately, a stationary [Kismet/Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) or [nzyme/Wazuh](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) sensor.
+3. Correlate real source events and alert IDs to AP/controller logs. LAB5 tools do **not** inherently provide a supported, always-on Wazuh integration.
+4. Stop the test AP; record whether the independent WIDS inventory ages out normally. A legitimate AP with a similar naming pattern is the negative control.
+5. Report signal/channel coverage, clock skew, detection/false-positive results and required improvements. No deauth, rogue AP or SAE overflow mode is required.
+
+### LAB5 8 — Combined Cardputer, Tab5 & Flipper Deployment Decision
+
+Choose a **single** operator UI for one assessment and document it, rather than assuming identical capabilities:
+
+| Operator environment | Suitable lab objective | Key acceptance test |
+|---|---|---|
+| Cardputer/ADV controller | Keyboard-driven C5 AP inventory and quick field notes | JanOS UART connection, display rendering, scan results and SD location |
+| Tab5 controller | Larger display, compatible logs and optional offline PCAP review | Correct Tab5 firmware, source capture import, read-only analysis |
+| Flipper with LAB5 FAP | Portable C5 receiver under Flipper control | Matching `Lab_C5.fap`, independent C5 firmware, UART and 2.4/5 GHz test |
+| USB serial host without companion | Baseline/recovery, help/status and small owned-AP scan | Correct serial target and exact available commands |
+| Optional Mate client | Management dashboard **only on isolated lab AP** | Credential policy, API exposure audit, reversible disable |
+
+**Boundary:** a LAB5 “WPA3 SAE overflow” or deauthentication feature is an **author-described disruptive test mode**, not a safe method of establishing WPA3 weakness in a client's network. Do not claim an available menu item proves an exploitable vulnerability, firmware support on another board, or an authorized test outcome.
+
+### Incident Evidence, Troubleshooting & Cleanup
+
+| Observation | Diagnose before further testing |
+|---|---|
+| Controller UI starts, radio absent | JanOS board power/UART mapping, mismatched app/firmware, wrong connector |
+| 5 GHz AP absent | C5 build/radio/channel/antenna support, timing, controller AP config |
+| Flipper FAP unavailable | Flipper firmware/API, documented FAP uploader compatibility, serial Log Device conflict |
+| No wardrive/SD output | Board SD hardware, path `/lab/wardrives/`, GPS fix and logging mode |
+| Capture cannot open in Wireshark | Link type, incomplete file, export path, old/new JanOS format |
+| Unexpected public upload | Stop, remove `/lab/home.txt` or other configured triggers, revoke exposed API keys |
+| Mate AP visible in production | Disconnect, isolate, disable access or reimage client controller |
+| Lab results disagree with WIDS | Sensor coverage, AP channel dwell, clock, false-positive rules |
+
+**Report record:** written consent, exact site/SSID/BSSID scope, C5 PCB/firmware and controller/FAP versions, SD/antenna/GNSS source, probe/transmit state, start/end UTC, capture path/hash, independent AP/WIDS confirmation, false-positive notes, data sharing approval, clean rollback and retest criteria.
+
+**Primary resources:** [LAB5 organization](https://github.com/C5Lab) · [projectZero / JanOS](https://github.com/C5Lab/projectZero) · [projectZero wiki](https://github.com/C5Lab/projectZero/wiki) · [JanOS + FAP flashers](https://c5lab.github.io/projectZero/) · [Cardputer ADV companion](https://github.com/C5Lab/M5MonsterC5-CardputerADV) · [Tab5 companion](https://github.com/C5Lab/M5MonsterC5-Tab5) · [Mate WebClient](https://github.com/C5Lab/Mate) · [Evil-M5](./evil_m5.md).
 
 ## 8. Defensive Takeaways
 
