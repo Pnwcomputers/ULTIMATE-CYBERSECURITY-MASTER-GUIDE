@@ -759,7 +759,7 @@ ENTER
 
 Capture **authorization ID, scope, exact device/firmware and SD revision, operator, approved mode, observed vs expected results, negative controls, logs/UTC times, actual file hashes, retention decision, recovery and customer remediation**. Resist translating “scan found a device” into an unsupported vulnerability claim.
 
-**Adjacent projects:** [Bruce firmware](./bruce_firmware.md), [Standalone Marauder](./WiFiMarauder_Guide.md), [Flipper add-ons](./flipper_zero_guide.md#flipper-zero-expansion-boards-selection-setup--field-assessment-labs), [LAB5 C5 Monster / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment), [Biscuit](../Wardriving/biscuit.md), [Wi-Fi IDS](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
+**Adjacent projects:** [Bruce firmware](./bruce_firmware.md), [Standalone Marauder](./WiFiMarauder_Guide.md), [Flipper add-ons](./flipper_zero_guide.md), [LAB5 C5 Monster / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment), [Biscuit](../Wardriving/biscuit.md), [Wi-Fi IDS](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
 
 ## 10. Blue team; defenses that actually work
 
