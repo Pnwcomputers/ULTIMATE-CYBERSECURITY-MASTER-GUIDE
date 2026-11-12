@@ -1,8 +1,18 @@
-# Field/OTG CybSec Audit Cyberdeck: Reference Edition
+# 🧳 Field/OTG CybSec Audit Cyberdeck: Reference Edition
 
-**Portable Network Security Assessment & Evidence Workflow | Public documentation and offline reference utility**
+<div align="center">
 
-Part of the [Ultimate Cybersecurity Master Guide](../README.md) by Pacific Northwest Computers.
+**Portable Network Security Assessment & Evidence Workflow**
+
+*Public documentation & offline reference utility*
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md) by Pacific Northwest Computers*
+
+![Architecture](https://img.shields.io/badge/Architecture-GL.iNet_%7C_MikroTik_%7C_Mini_PC-blue?style=for-the-badge)
+![Workflow](https://img.shields.io/badge/Workflow-Authorization_%7C_Evidence-green?style=for-the-badge)
+![Edition](https://img.shields.io/badge/Edition-Public_Reference_Only-orange?style=for-the-badge)
+
+</div>
 
 **Navigate:** [Main Guide](../README.md) · [Start Here](../START_HERE.md) · [Ultimate](../ultimate_cybersecurity_master_guide.md) · [Enhanced](../ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](../SPECIALIZED_TOPICS_GUIDE.md) · [All Documentation](../DOCUMENTATION_INDEX.md).
 
