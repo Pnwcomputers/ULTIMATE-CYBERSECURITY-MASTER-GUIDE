@@ -1,6 +1,6 @@
 # Cyberdeck Architecture & Network Zones
 
-[Cyberdeck Home](../README.md) · [Hardware & Status](HARDWARE_AND_STATUS.md) · [Evidence & Privacy](EVIDENCE_AND_PRIVACY.md)
+[Cyberdeck Home](../README.md) · [Device & Platform References](../README.md#device--platform-references) · [Hardware & Status](HARDWARE_AND_STATUS.md) · [Evidence & Privacy](EVIDENCE_AND_PRIVACY.md)
 
 ## Design Intent
 
@@ -8,10 +8,10 @@ A portable field system separates operator management from sensor work, a contro
 
 | Zone | Possible Components | Security & Verification Objective |
 | --- | --- | --- |
-| UPSTREAM | Approved hotspot or client-provided uplink; GL.iNet WISP/repeater | Know whether the uplink is NAT, routed or bridged; do not assume transparent packet visibility |
-| ROUTER | MikroTik RouterOS WAN & VLAN-capable downstream interfaces | Default-deny management exposure, restrict cross-zone routes, check IPv4 and IPv6 |
-| MGMT | Windows 11 mini PC or Linux laptop, out-of-band console such as ESPKVM | Local operator access, administrative isolation, explicit session security |
-| SENSOR | ZimaBoard/ZimaBlade, Pi/Kismet, wired inspection sensor | Manual logs/exports; only observe traffic actually presented to its interface |
+| UPSTREAM | Approved hotspot or client-provided uplink; [GL.iNet travel router](https://www.gl-inet.com/pages/travel-routers) in WISP/repeater mode | Know whether the uplink is NAT, routed or bridged; do not assume transparent packet visibility |
+| ROUTER | [MikroTik RouterOS router](https://manual.mikrotik.com/docs/introduction/) with suitable WAN/VLAN-capable interfaces | Default-deny management exposure, restrict cross-zone routes, check IPv4 and IPv6 |
+| MGMT | Windows 11 mini PC or Linux laptop (hardware model unspecified); optional [ESP-KVM project](https://espkvm.io/)-compatible out-of-band console | Local operator access, administrative isolation, explicit session security |
+| SENSOR | [ZimaBoard](https://www.zimaspace.com/docs/hardware/) / [ZimaBlade](https://www.zimaspace.com/docs/hardware/zimablade-overview), [Raspberry Pi](https://www.raspberrypi.com/products/) with [Kismet](https://www.kismetwireless.net/), or an approved wired sensor | Manual logs/exports; only observe traffic actually presented to its interface |
 | LAB | Isolated hosts, test fixtures and optionally a separate AP | Validate controls without using customer production systems |
 | CLIENT TEST | Dedicated interface for a named authorized customer environment | Written scope, interface approval, no unauthorized DHCP/RA or bridging |
 | STORAGE | Independently verified encrypted drive or vault | Distinct cases, access controls, integrity logs, tested backups and restores |
