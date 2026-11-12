@@ -17,6 +17,10 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 ## 🎯 Quick Start
 
+**Looking for the PNWC Cyberdeck?** Start at the **[Cyberdeck Public Reference & Project Index](Cyberdeck/README.md)** for the field hardware architecture, authorized assessment workflow, evidence guidance and current status. This companion does not distribute the private application.
+
+**Can't find a topic?** Browse the [Complete Documentation Index](DOCUMENTATION_INDEX.md), including all nested guides.
+
 Choose your goal, follow the linked guides, and return here for the next stage. Read the [Legal Terms & Disclaimer](LEGAL.md) before testing systems; client or third-party security testing requires clear authorization.
 
 ### 🎓 Learning, Research & Career
@@ -38,6 +42,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 
 | Goal | Recommended Route |
 |---|---|
+| **Explore the PNWC Cyberdeck field assessment project** | [Cyberdeck Project Index](Cyberdeck/README.md) → [Architecture](Cyberdeck/docs/ARCHITECTURE.md) → [Staged Workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) → [Evidence & Privacy](Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md). |
 | **Building a repeatable client assessment** | [Staged security assessment blueprint](PlayBooks/assessment-service-integration-map.md) → [OWASP verification](WebAppSecurity/owasp-assessment-and-nuclei.md) → [CISA SCuBA](Cloud/m365-scuba-assessment.md) → [Findings and retests](PlayBooks/assessment-findings-lifecycle.md). |
 | **Validating SIEM and endpoint detections** | [Atomic Red Team/Sigma lab](PlayBooks/purple-team-detection-validation.md) → [Wazuh detection rule verification](IncidentResponse/SIEM/detection-content-validation.md) → [DFIR triage](IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md). |
 | **Auditing code, dependencies or containers** | [SBOM, Scorecard, Gitleaks and signature workflow](ContainerSecurity/software-supply-chain-assessment.md). |
@@ -60,6 +65,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | **SDR / RF / Space** | [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) (Parts V–VI) + [SDR](SDR/README.md) + [SpaceSecurity](SpaceSecurity/README.md) |
 | **Reverse Engineering / Binary Analysis** | [Reverse Engineering](ReverseEngineering/README.md) + [REMnux Malware Analysis](ReverseEngineering/remnux-malware-analysis-guide.md) + [Ghidra Master Guide](ReverseEngineering/ghidra-guide-index.md) + [vx-underground samples](ReverseEngineering/vx-underground.md) + [Homelab](Homelab/README.md) |
 | **Data Engineering / Pipelines** | [Data Engineering](Data-Engineering/README.md) + its phased learning path and [secure pipeline guide](Data-Engineering/data_pipelines.md) |
+| **Portable Cyberdeck Network & Hardware Design** | [PNWC Cyberdeck Reference](Cyberdeck/README.md) → [Hardware & Feature Status](Cyberdeck/docs/HARDWARE_AND_STATUS.md). Separate from the ClockworkPi uConsole. |
 | **uConsole Setup** | [uConsole index](uConsole/README.md) · [CM4 safety review](uConsole/CM4-SAFETY-REVIEW.md) · [CM5 recovery](uConsole/CM5-DISPLAY-RECOVERY.md) · [Specialized Topics](SPECIALIZED_TOPICS_GUIDE.md) |
 | **Mobile Platform Pentesting** | [Mobile Security](Mobile/README.md) + [Mobile Pentest SOP](Mobile/mobile_pentest_sop.md) + [NetHunter Setup](Mobile/OnePlus_A6003/Kali_NetHunter.md) |
 
@@ -96,6 +102,8 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | [Ultimate Cybersecurity Master Guide](ultimate_cybersecurity_master_guide.md) | Fundamentals, methodology, testing lifecycle and foundational skills |
 | [Enhanced Cybersecurity Master Guide](ENHANCED_MASTER_GUIDE.md) | Practical workflows, operational considerations, OPSEC and case studies |
 | [Specialized Topics Guide](SPECIALIZED_TOPICS_GUIDE.md) | AI, hardware, uConsole, space security, SDR/RF and specialized labs |
+| [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) | Portable network assessment project with staged methods, architecture, and evidence workflows |
+| [Complete Documentation Index](DOCUMENTATION_INDEX.md) | All linked Markdown guides organized by repository section |
 
 ---
 
@@ -145,6 +153,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | 💾 **[Encrypted Drives](Cryptography/encrypted-storage.md)** | BitLocker, VeraCrypt, LUKS and experimental PhantomDrive USB study |
 | 📰 **[Press Freedom & Source Protection](OPSEC/press-freedom/README.md)** | Journalists and newsrooms: source confidentiality, device security, lawful retention, coercion and seizure response |
 | 🔴 **[OPSEC](OPSEC/README.md)** | Operational security; anonymity workflows, VM setup, personal rules for professionals |
+| 🧳 **[PNWC Cyberdeck Public Reference](Cyberdeck/README.md)** | Portable field-network reference, architecture, staged authorization and offline evidence utility |
 | 🏠 **[Homelab Guides](Homelab/README.md)** | Building and maintaining safe, isolated labs for offensive and defensive practice |
 | 🚨 **[Incident Response](IncidentResponse/README.md)** | Blue Team operations; threat detection, log aggregation, artifact analysis, SIEM setup |
 | 💻 **[Scripts](Scripts/README.md)** | Security automation; Bash, Python, PowerShell, C, Go, Ducky scripts |

@@ -35,8 +35,12 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 ---
 ## 🎯 Start Here:
 
+**Featured Project:** **[PNWC Cyberdeck — Public Reference Edition](./Cyberdeck/README.md)** brings the portable field-assessment architecture, network segmentation, hardware roles, authorization-first workflows and offline evidence helper together. This is a public reference—not the private operator portal.
+
 | I Want To... | Start Here |
 |---|---|
+| Explore The PNWC Cyberdeck Project | [Cyberdeck Public Reference & Project Index](./Cyberdeck/README.md) |
+| Browse Every Documentation Page | [Complete Documentation Index](./DOCUMENTATION_INDEX.md) |
 | Learn Basic Computer & Network Concepts & Technician SOP's | [IT Manual](https://pnw-computers.github.io/IT-Manual/) |
 | Choose A Learning Path By Role | [Start Here: Choose Your Path](./START_HERE.md#-choose-your-path) |
 | Find A Guide By Goal Or Task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
@@ -56,7 +60,8 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 | [Honeypot Platforms & DIY Sensors](./IncidentResponse/HoneyPot/readme.md) | Defensive deception labs and reporting |
 | [Kismet/nzyme IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and network intrusion detection |
 | [Wazuh & Other SIEMs](./IncidentResponse/SIEM/README.md) | Centralized logs, detections and alerts |
-| [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |\n| [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Portable assessment design, manual workflows and offline evidence inventory |
+| [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |
+| [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Portable assessment design, manual workflows and offline evidence inventory |
 
 A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 [START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
@@ -68,6 +73,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🗡️ **Offensive Security** | [Tradecraft](./Tradecraft/README.md) | [Pentoo Linux](./Tradecraft/pentoo-linux-guide.md) · [Advanced Techniques](./advanced_techniques_supplement.md) · [Part 2](./advanced_techniques_part2.md) · [PlayBooks](./PlayBooks/README.md) · [Checklists](./Checklists/README.md) |
 | 🕸️ **App, Cloud & Container** | [WebAppSecurity](./WebAppSecurity/README.md) | [Cloud](./Cloud/README.md) · [ContainerSecurity](./ContainerSecurity/README.md) |
 | 🛡️ **Defensive & Incident Response** | [IncidentResponse](./IncidentResponse/README.md) | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) · [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) · [SIEM](./IncidentResponse/SIEM/README.md) · [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Honeypots](./IncidentResponse/HoneyPot/readme.md) · [Raspberry Pi](./IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox VM](./IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./IncidentResponse/HoneyPot/esp32-s3-honeypots.md) · [Honeypots → Wazuh](./IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) · [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) · [Homelab](./Homelab/README.md) |
+| 🧳 **Portable Cyberdeck & Field Assessments** | [PNWC Cyberdeck](./Cyberdeck/README.md) | [Architecture](./Cyberdeck/docs/ARCHITECTURE.md) · [Assessment Workflow](./Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) · [Hardware & Status](./Cyberdeck/docs/HARDWARE_AND_STATUS.md) · [Evidence & Privacy](./Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md) |
 | 🗄️ **Data Engineering & Automation** | [Data Engineering](./Data-Engineering/README.md) | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) · [Scripts](./Scripts/README.md) |
 | 🔍 **OSINT & Recon** | [OSINT](./OSINT/README.md) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Tsurugi Linux OSINT](./OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
 | 📍 **Wireless Surveying & Wardriving** | [Wardriving](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) · [Wireshark Filters](./Documentation/wireshark-master-filters.md) · [Deauthentication Analysis](./Documentation/wifi-deauthentication-detection.md) · [Kismet + Wazuh Lab](./IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme + Wazuh](./IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) |
@@ -87,6 +93,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔥 **[Ultimate Cybersecurity Master Guide](./ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide - key takeaways from 70+ professional security books, full penetration testing lifecycle |
 | 🔥 **[Enhanced Cybersecurity Master Guide](./ENHANCED_MASTER_GUIDE.md)** | All of the above + 90+ PNWC internal docs, KB articles, and operational experience layered in |
 | 🔥 **[Specialized Topics Guide](./SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
+
+**Related PNWC Project:** [Portable Cyberdeck Public Reference](./Cyberdeck/README.md), distinct from the ClockworkPi uConsole setup.
 
 ---
 
@@ -142,7 +150,8 @@ These are source-attributed references, not claims that every upstream tool is i
 | **[Notebooks, GPTs & Plugins](./AI/ai-workspaces-notebooks-and-assistants.md)** | Projects, notebooks, reusable assistants and integrations |
 | [Glossary](./GLOSSARY.md) | Acronyms and terms used across the repository (C2, EDR, IoC, TTP, OPSEC, SIEM, etc.) |
 | **[Cheat Sheet & Reference Index](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md)** | Reviewed system administration, OSINT, wireless, forensics, Bash, SDR, ports and security quick references |
-| **[PNWC Cyberdeck Public Reference](./Cyberdeck/README.md)** | Public companion to the proprietary Cyberdeck prototype: network zones, consent-first workflows, hardware status and local-only evidence hashing |\n| **[Staged Client Security Assessment Blueprint](./PlayBooks/assessment-service-integration-map.md)** | Consent, OWASP/SCuBA checks, endpoint/DFIR collection, Atomic/Sigma validation, supply-chain checks, findings and retests |
+| **[PNWC Cyberdeck Public Reference](./Cyberdeck/README.md)** | Public companion to the proprietary Cyberdeck prototype: network zones, consent-first workflows, hardware status and local-only evidence hashing |
+| **[Staged Client Security Assessment Blueprint](./PlayBooks/assessment-service-integration-map.md)** | Consent, OWASP/SCuBA checks, endpoint/DFIR collection, Atomic/Sigma validation, supply-chain checks, findings and retests |
 | **[Upstream Security Project Source Register](./Documentation/upstream-security-projects-register.md)** | Verified project links, license considerations, workflow ownership, integration status and maintenance process |
 | **[Security API Catalog & Cookbook](./Documentation/security-public-api-catalog.md)** | Curated Public APIs resources for OSINT, threat intelligence, NVD/CISA KEV, supply-chain and web/API assessment |
 | **[Curated Technical Documentation](./Documentation/curated-technical-docs.md)** | Links to relevant documentation from Beautiful Docs: GitHub, Git, FreeBSD, FastAPI, Django, PostgreSQL, Redis, Packer and writing standards |
@@ -179,7 +188,8 @@ These are source-attributed references, not claims that every upstream tool is i
 | 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
 | 🥷 [Hardware Hacking](./HardwareHacking/README.md) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
 | 🧰 [Hardware Testing](./HardwareTesting/README.md) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
-| 🧳 [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |\n| 🏠 [Homelab Guides](./Homelab/README.md) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
+| 🧳 [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |
+| 🏠 [Homelab Guides](./Homelab/README.md) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
 | 🚨 [Incident Response](./IncidentResponse/README.md) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/readme.md) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
 | 📱 [Mobile Security](./Mobile/README.md) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
 | 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by [Sébastien Damaye](https://github.com/sebastiendamaye) |
@@ -822,6 +832,7 @@ Want to help the community?
 | [Data Engineering](./Data-Engineering/README.md) | Data infrastructure and learning roadmap |
 | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | TLS, SSH, Git, parsing, enrichment, Kafka, and Ansible |
 | [START_HERE.md](./START_HERE.md) | Quick navigation guide to all sections |
+| [Complete Documentation Index](./DOCUMENTATION_INDEX.md) | Grouped, linked catalog of every Markdown document in this repository |
 | [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) | Enhanced deep-dive guide |
 | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | Third guide in the series |
 | [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) | Journalist device, source confidentiality and retention / duress planning |

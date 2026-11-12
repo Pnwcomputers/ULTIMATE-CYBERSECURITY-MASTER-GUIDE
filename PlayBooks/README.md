@@ -16,10 +16,13 @@
 
 **Training-to-field progression:** [Safe CTF and cybersecurity learning pathways](security-training-lab-pathways.md) maps exercises into scoped PNWC assessment and reporting workflows.
 
+**Field system:** [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) covers architecture, an authorization-first assessment process and evidence-handling examples. The private portal is not part of this public companion.
+
 
 | Reference | Description |
 |---|---|
-| [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) | Portable network assessment architecture, staged authorization, evidence handling and offline-only hashing |\n| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
+| [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) | Portable network assessment architecture, staged authorization, evidence handling and offline-only hashing |
+| [Staged Client Assessment Map](assessment-service-integration-map.md) | Consent-first phases and tool integration |
 | [Atomic Red Team, Sigma & Wazuh Validation](purple-team-detection-validation.md) | Repeatable defensive detection testing |
 | [DefectDojo Findings & Retesting](assessment-findings-lifecycle.md) | Report, triage, remediate and retest findings |
 
@@ -90,6 +93,7 @@ These playbooks serve as:
 
 | Playbook | Description | Complexity |
 |----------|-------------|------------|
+| **[PNWC Cyberdeck Public Reference](../Cyberdeck/README.md)** | Portable hardware and seven-stage authorized network review workflow; no private app published | Reference |
 | **[NetworkAuditPlayBook.md](./NetworkAuditPlayBook.md)** | Comprehensive network security audit and penetration testing playbook | Intermediate |
 | **[HackRFAuditPlayBook.md](./HackRFAuditPlayBook.md)** | RF survey engagement, evidence collection, and controlled bench validation; pair with the [SDR index](../SDR/README.md) | Intermediate |
 | **[../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md)** | Full engagement SOP for pentesting with Kali NetHunter on OnePlus 6: pre-engagement, passive/active recon, Evil AP, HID, BadUSB, Metasploit, evidence handling, reporting | Intermediate |
