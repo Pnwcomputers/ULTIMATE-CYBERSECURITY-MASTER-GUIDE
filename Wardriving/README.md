@@ -67,6 +67,107 @@ These are **alternatives**, not interchangeable firmware images or extra steps r
 
 Keep the [field workflow](./field-workflow.md) and [data-handling rules](./data-handling.md) in force regardless of platform. Do not activate transmit, deauthentication, credential-collection or captive-portal functions during a passive survey.
 
+## WiFi Pineapple Mark VII — Authorized Wireless Security Assessment
+
+This expands the existing wireless inventory and survey workflows to include the Hak5 **WiFi Pineapple Mark VII** for client-approved wireless security validation. It is a complementary assessment platform, **not a substitute** for a GPS-focused wardriving logger or continuous Kismet/nzyme WIDS. For detailed roaming surveys and data hygiene, follow the [field workflow](./field-workflow.md) and [data handling](./data-handling.md).
+
+**Hardware boundary:** Hak5 lists the Mark VII with three role-based radios and native **2.4 GHz** capability; **5 GHz requires a compatible external 802.11ac adapter/module**. This is different from the WiFi Pineapple Enterprise and Pager. Confirm model, power, firmware, supported adapter and scan settings before deploying. Sources: [Hak5 WiFi Pineapple product specifications](https://shop.hak5.org/products/wifi-pineapple), [Mark VII firmware 2.0 notes](https://shop.hak5.org/pages/wifi-pineapple-mark-vii-2-0), [Mark VII features](https://shop.hak5.org/pages/wifi-pineapple-mark-vii-features).
+
+### Authorization & RF Safety
+
+1. Get written client permission for location, assets, SSIDs/BSSIDs, channels/bands, monitoring duration, expected impact, allowed active features, log contents, and stop contact.
+2. Obtain the controller's authorized AP list and deployment map. An SSID alone is not unique, and a detected BSSID is **not automatically in scope**.
+3. Record hardware revision, installed firmware, regional regulatory settings, power supply, external radio and management interface configuration.
+4. Use a dedicated administrative password and restrict the management UI. Backup configuration; obtain updates only through official Hak5 distribution and verify integrity as documented.
+5. Start with limited Recon observations. Confirm whether the specific scan action performs active probing or transmits; do not assume that every UI activity labelled Recon is passive.
+6. Treat PineAP, access-point impersonation, association manipulation, deauthentication, handshake capture and other active features as **separate authorization gates**. Do not activate on live or adjacent third-party networks without explicit legal and operational approval. Avoid collecting credentials or personal traffic.
+
+### Setup, Connectivity & Baseline
+
+1. Power the Mark VII using the device's specified power arrangement and connect to its supported local management interface. Follow the **current Mark VII** initialization wizard, not Enterprise/Pager directions.
+2. Set a strong admin credential, confirm management isolation, select the correct regulatory country and record the firmware build.
+3. Verify clock/time synchronization. Choose the expected Recon radio and approved channel/band scope; an absent or unsupported 5 GHz adapter means **no valid 5 GHz coverage claim**.
+4. Before scanning, record the approved SSID/BSSID list, site map, test ID, exact UTC start time and operator.
+5. Run a brief baseline Recon scan using the firmware's supported workflow. Inspect observed SSID, BSSID, channel, frequency/band, advertised security and signal where available.
+6. Export a report or save screenshots using the firmware's supported UI. Record whether the saved result is an actual export, screenshot or manually transcribed log rather than assuming a universal API/export format.
+
+### Exercise 1 — Authorized AP Inventory (Beginner)
+
+**Objective:** compare detected wireless infrastructure with the controller's intended configuration.
+
+1. Select a permitted office/lab area and scan duration, with transmit features disabled unless separately authorized.
+2. Run a short Recon survey, capturing timestamp, SSID, BSSID, channel, band, observed encryption indicators and signal.
+3. Compare each BSSID to the approved controller inventory, accounting for multi-BSSID APs, mesh/repeaters and guest networks.
+4. Mark unmatched devices **unverified** until owner, controller and physical-location evidence establishes whether they are rogue.
+5. Confirm scope exclusions and redact neighboring networks from client-facing reports.
+
+**Deliverable:** verified AP inventory, exceptions with independent evidence, and observed coverage limitations.
+
+### Exercise 2 — WPA2/WPA3 Advertisements & Configuration (Beginner)
+
+1. Configure two **client-owned** lab SSIDs with known WPA2-Personal and WPA3-Personal settings, if supported by the separate lab AP.
+2. Survey each with the Pineapple. Record which advertised AKM/cipher/security indicators the firmware actually displays.
+3. Compare results against the AP/controller's administrative configuration. Check whether WPA2/WPA3 transition mode exists and whether a guest/open network is deliberate.
+4. Do **not** infer that a network is fully secure from a beacon or a UI badge; controller settings, authenticated client tests and patch state require separate verification.
+5. Report actionable configuration differences and compatibility impact.
+
+### Exercise 3 — Dedicated Rogue AP Detection Drill (Intermediate)
+
+1. Obtain explicit approval to broadcast a **unique test SSID**, e.g. `PNWC-ROGUE-TRAINING-01`, from a separate controlled lab AP; do not copy the client's production SSID or lure unrelated clients.
+2. Record the test AP's BSSID, channel, power and planned start/end times.
+3. Turn on the test AP, observe it in Pineapple Recon, and simultaneously monitor with the existing [Kismet/Wazuh IDS lab](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) or [nzyme/Wazuh workflow](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md).
+4. Compare detection and SIEM alert timestamps, sensor identity, AP inventory matching, classification and false positives.
+5. Turn off the test AP and verify both the inventory and alert lifecycle. If the rule does not fire, diagnose sensor visibility and parsing before declaring the network unprotected.
+
+### Exercise 4 — Coverage & Channel Survey (Intermediate)
+
+1. Choose repeatable survey points, antenna orientation, height and scan intervals inside approved property boundaries.
+2. At each point, record observed BSSIDs/channels and signal indicators, including whether the needed bands were actually scanned.
+3. Compare repeated measurements with placement/coverage expectations and a dedicated survey tool if throughput, roaming or spectrum analysis is required.
+4. Distinguish received signal indicators from measured throughput, noise floor, and actual RF interference. Do not claim a passive AP inventory is a full site survey.
+
+### Exercise 5 — Client Isolation Verification (Intermediate)
+
+1. On a **dedicated test SSID**, connect two client-owned laptops and configure the AP's client isolation control.
+2. Test approved peer-to-peer reachability directly from these clients before and after enabling isolation; use only designated test IPs.
+3. Use the Pineapple to document the wireless environment and identify the SSID/BSSID under test. The isolation verdict should come from the clients and AP/controller logs, **not just an advertisement**.
+4. Restore the original AP configuration and attach before/after results to the assessment.
+
+### Exercise 6 — WIDS, Alert Triage & SIEM Regression (Advanced)
+
+1. Ensure Kismet or nzyme sensors and Wazuh ingestion are already operational. Establish real source log fields and synced clocks.
+2. Create the unique synthetic test AP from Exercise 3. Collect baseline and test-period events.
+3. Correlate `test_id`, sensor, BSSID, channel, SSID, first/last seen, Wazuh alert IDs **from actual logged events** and analyst disposition.
+4. Compare positive detection and negative-control behavior (an authorized AP with a similar name). Measure whether a rule produces meaningful alerts without excessive noise.
+5. Remove the test AP, archive limited evidence and update the client's detection playbook.
+
+### Active PineAP Features — Separate Go/No-Go Review
+
+Hak5 documents PineAP and rogue access point capabilities; their availability varies with firmware. For **any** active AP impersonation or client-interaction test, require a separately signed scenario defining exact lab devices, approved SSIDs/BSSIDs, permitted radio settings, management oversight, known collateral impact, stop triggers and rollback. The baseline exercises above do **not** require PineAP impersonation, WPA key collection, credential capture, client disruption or third-party packet interception.
+
+### Troubleshooting & Verification
+
+| Observation | Next Check |
+|---|---|
+| Missing 5 GHz APs | External compatible adapter present, radio selected, actual band/channel support |
+| Recon returns little data | Scan duration, antenna, permitted channel set, channel hopping, power |
+| Multiple BSSIDs for one SSID | Controller inventory, multi-radio/multi-BSSID and mesh configurations |
+| Unknown AP flagged as rogue | Verify physical/controller ownership; adjacent APs may be out of scope |
+| No Wazuh alert | Verify independent WIDS sensor saw the event, parser fields, rule and clock |
+| Management or update issue | Mark VII-specific firmware docs, local management connectivity, supply stability |
+
+### Evidence & Client Report Template
+
+| Field | Example Content |
+|---|---|
+| Authorization | Case ID, client, permitted site, device scope, RF exclusions |
+| Device & Firmware | Mark VII model, firmware build, external adapter, regulatory domain |
+| Survey | Exact UTC times, scan settings, observed channel/band, test location |
+| Observation | Redacted BSSID/SSID, advertised security, actual controller verification |
+| Detection | Independent Kismet/nzyme event and SIEM correlation |
+| Outcome | Observed versus inferred, out-of-scope exclusions, confidence |
+| Closeout | Active test SSID disabled, settings restored, evidence access/retention |
+
 ## Selecting A Workflow
 
 | Your primary objective | Start with |
