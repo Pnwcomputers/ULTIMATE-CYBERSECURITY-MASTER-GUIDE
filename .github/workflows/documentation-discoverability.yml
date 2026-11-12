@@ -34,4 +34,4 @@ jobs:
       - name: Validate the complete documentation index
         run: python tools/generate_documentation_index.py --check
       - name: Identify contextually unlinked guide candidates
-        run: python tools/audit_documentation_reachability.py --max-per-section 20
+        run: python tools/audit_documentation_reachability.py --max-per-section 20 --require-discovery
