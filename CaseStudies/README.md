@@ -2,6 +2,21 @@
 
 Documented security research and incidents, separated from operational attack tutorials. Each entry records original publication, affected product or sector, root cause, demonstrated scope, limitations, vendor response, defensive lessons and primary sources. These are **historical reports, not proof of current exploitability**; check vendor advisories and the actual installed firmware before making a present-day claim.
 
+## Attack Case Studies (Historical References)
+
+Historical incident and disclosure references from the main repository index. These links point to external background sources; they are separate from the detailed hardware research entries below.
+
+| Incident | Type |
+|---|---|
+| [Stuxnet](https://en.wikipedia.org/wiki/Stuxnet) | Nation-state cyberweapon - Iranian nuclear facilities |
+| [WannaCry](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) | Global ransomware outbreak |
+| [EternalBlue / NSA Leak](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) | NSA exploit leaked by Shadow Brokers |
+| [SolarWinds](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) | Software supply chain compromise |
+| [Carbanak](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) | APT banking theft campaign |
+| [NotPetya](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) | Destructive malware disguised as ransomware |
+| [Edward Snowden / NSA](https://www.theguardian.com/world/edward-snowden) | Mass surveillance program revelations |
+| + 3 additional major data breach case studies | Analysis of root cause, TTPs, and defensive lessons |
+
 ## Hardware, RFID & Embedded Security
 
 | Case Study | Published | Primary Failure | Related Guides |
