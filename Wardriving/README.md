@@ -57,6 +57,8 @@ This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**
 
 **The Flipper Zero itself does not contain a Wi-Fi scanning radio.** It needs suitable external wireless hardware. ESP32-C5 can scan 2.4 and 5 GHz, but a *single* C5 Wi-Fi radio does not observe both bands simultaneously.
 
+**Companion research platforms:** [Evil-M5](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) provides M5Stack observation exercises; [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) adds a separate ESP32-C5 radio and Cardputer/Tab5/Flipper controllers. JanOS's `/lab/wardrives/` storage, optional auto-upload and GNSS requirements **are not** Marauder/Biscuit/SigRoam defaults. Use the original GPS and data-handling checks before any public export.
+
 ## Additional Starred Field-survey Platforms
 
 These are **alternatives**, not interchangeable firmware images or extra steps required by the six workflows above:
