@@ -1,6 +1,6 @@
 # Staged Cyberdeck Assessment Workflow
 
-[Cyberdeck Home](../README.md) · [Architecture](ARCHITECTURE.md) · [Example Plan](../templates/ENGAGEMENT_PLAN.example.md)
+[Cyberdeck Home](../README.md) · [Portable Wireless Field Operations](PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Architecture](ARCHITECTURE.md) · [Example Plan](../templates/ENGAGEMENT_PLAN.example.md)
 
 This workflow is a **manual reference**, not a command queue, automated scanning orchestration service or legal authorization instrument. The operator must document exact authorization, assessed systems and results.
 
@@ -20,7 +20,7 @@ This workflow is a **manual reference**, not a command queue, automated scanning
 | External Network | Is observation truly from a separately authorized offsite location? | Vantage proof, precise targets, source and no-test reasons |
 | Internal Network | Which approved physical port, VLAN or local endpoint is used? | Asset mapping and factual, non-exploit observations |
 | Resilience | Is a separate method approved and safe to abort? | Actual source, synthetic test, expected alert, independent observer and measured outcome |
-| Specialist Wireless/Device | Is the proposed board/firmware qualified for this exact procedure? | Device and firmware version, receive/transmit mode, authorization and STOP state |
+| Specialist Wireless/Device | Is the proposed board/firmware qualified for this exact procedure? Start with the [portable device workflow](PORTABLE_WIRELESS_FIELD_DEVICES.md). | Device and firmware version, receive/transmit mode, controller/accessory, export and STOP state |
 | Evidence & Findings | What raw outputs exist? Are they attributable? Which statements remain hypotheses? | SHA-256, UTC time, acquisition origin, limitations and reviewer |
 | Report & Close | What was covered, failed or skipped? Was temporary equipment removed? | Redacted report, remediation/retest plan, secure transfer and retention decision |
 

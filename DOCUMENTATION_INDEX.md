@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**390 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**391 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -17,7 +17,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Compliance | 3 | [Open section](#compliance) |
 | ContainerSecurity | 5 | [Open section](#containersecurity) |
 | Cryptography | 16 | [Open section](#cryptography) |
-| Cyberdeck | 12 | [Open section](#cyberdeck) |
+| Cyberdeck | 13 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
 | Documentation | 53 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
@@ -207,6 +207,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [docs/EVIDENCE_AND_PRIVACY.md](./Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md) | `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md` |
 | [docs/HARDWARE_AND_STATUS.md](./Cyberdeck/docs/HARDWARE_AND_STATUS.md) | `Cyberdeck/docs/HARDWARE_AND_STATUS.md` |
 | [docs/IMPLEMENTATION_ROADMAP.md](./Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md) | `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md` |
+| [docs/PORTABLE_WIRELESS_FIELD_DEVICES.md](./Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) | `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md` |
 | [docs/PUBLISHING_AND_RELEASE.md](./Cyberdeck/docs/PUBLISHING_AND_RELEASE.md) | `Cyberdeck/docs/PUBLISHING_AND_RELEASE.md` |
 | [templates/ASSESSMENT_REPORT.example.md](./Cyberdeck/templates/ASSESSMENT_REPORT.example.md) | `Cyberdeck/templates/ASSESSMENT_REPORT.example.md` |
 | [templates/ENGAGEMENT_PLAN.example.md](./Cyberdeck/templates/ENGAGEMENT_PLAN.example.md) | `Cyberdeck/templates/ENGAGEMENT_PLAN.example.md` |

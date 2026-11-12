@@ -1,5 +1,7 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
 
+**PNWC Cyberdeck field operations:** [Flipper, WiFi Pineapple, Bruce & Marauder workflow](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) explains companion firmware, scoped surveys, evidence transfer and qualification, not hardware-hacking bench techniques.
+
 ## FlipperHTTP Network Companion
 
 [FlipperHTTP](https://github.com/jblanked/FlipperHTTP) supplies target-specific

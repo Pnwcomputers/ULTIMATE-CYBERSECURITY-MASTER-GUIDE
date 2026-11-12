@@ -1,6 +1,6 @@
 # Hardware Roles & Implementation Status
 
-[Cyberdeck Home](../README.md) · [Device & Platform References](../README.md#device--platform-references) · [Architecture](ARCHITECTURE.md) · [Workflow](ASSESSMENT_WORKFLOW.md)
+[Cyberdeck Home](../README.md) · [Portable Wireless Field Workflow](PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Device & Platform References](../README.md#device--platform-references) · [Architecture](ARCHITECTURE.md) · [Workflow](ASSESSMENT_WORKFLOW.md)
 
 The roles below are derived from the documented design of a separate PNWC private prototype. **A listed device does not mean that a physical unit was verified, flashed, integrated or tested.**
 
@@ -14,10 +14,14 @@ The roles below are derived from the documented design of a separate PNWC privat
 | [ZimaBoard](https://www.zimaspace.com/docs/hardware/) and attached storage | Proposed encrypted local evidence vault | Vault encryption, backup and restore **not proven by this edition** |
 | [ZimaBlade](https://www.zimaspace.com/docs/hardware/zimablade-overview) and [Raspberry Pi](https://www.raspberrypi.com/products/) | Optional local or offline sensors | Manual export/collector roadmap; no autonomous field agents shipped here |
 | [Kismet](https://www.kismetwireless.net/), [Snort](https://www.snort.org/), [Wazuh](https://wazuh.com/), [nzyme](https://www.nzyme.org/) (software) | Monitoring and independent detection evidence | External products; no guaranteed packet visibility or integrated deployment |
-| [Flipper Zero](https://flipper.net/products/flipper-zero), [ESP32 boards](https://www.espressif.com/en/products/socs), [specialist RF boards](../../HardwareHacking/README.md) and [Hak5 devices](https://shop.hak5.org/pages/gear) | Optional supervised, scope-qualified observation devices | Manual planning and imported exports only; no payload execution or radio control provided |
+| [Flipper Zero](https://flipper.net/products/flipper-zero), [WiFi Pineapple](https://shop.hak5.org/products/wifi-pineapple), [M5StickC Plus2](https://docs.m5stack.com/en/core/StickC-Plus2) with [Bruce](https://github.com/BruceDevices/firmware), and [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) | Optional supervised wireless/field inventory; [setup, exports and evidence procedure](PORTABLE_WIRELESS_FIELD_DEVICES.md) | **Manual** operation and reviewed exports only; no automatic device control, firmware interchangeability or completed hardware tests |
 | Separate office/VPS sensor | Real outside-in origin | **Planned, not integrated here** |
 
 **Hardware identification:** Confirm the specific board, interface and firmware before applying instructions from a linked manufacturer. The [ZimaBlade-to-ZimaBoard SE product update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update) concerns newer configurations; earlier ZimaBlade owners should use their original specifications. These hyperlinks do **not** imply functional integrations.
+
+### Portable Wireless Device Qualification
+
+The new [wireless field-device runbook](PORTABLE_WIRELESS_FIELD_DEVICES.md) documents Flipper/Marauder companion roles, standalone Marauder, Bruce on M5StickC Plus2, and Pineapple Mark VII/Pager. Every device has its **own** firmware, controller, collection mode, export location and stop action. See [Q15–Q18](ACCEPTANCE_TESTS.md) before any real deployment; nothing in the public release asserts those tests passed.
 
 ## Capability Boundaries
 

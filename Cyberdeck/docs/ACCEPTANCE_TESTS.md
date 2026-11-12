@@ -1,6 +1,6 @@
 # Acceptance & Qualification Matrix
 
-[Cyberdeck Home](../README.md) · [Bring-Up Runbook](BUILD_AND_OPERATIONS.md) · [Qualification Record](../templates/QUALIFICATION_RECORD.example.md)
+[Cyberdeck Home](../README.md) · [Field Device Qualification](PORTABLE_WIRELESS_FIELD_DEVICES.md#10-readiness-gates--failure-modes) · [Bring-Up Runbook](BUILD_AND_OPERATIONS.md) · [Qualification Record](../templates/QUALIFICATION_RECORD.example.md)
 
 These are manual qualification procedures for owned lab fixtures. No checks below have been performed on physical hardware by this public edition. Software tests qualify only the behaviors they exercise.
 
@@ -22,6 +22,10 @@ Use PASS, FAIL, BLOCKED or NOT TESTED. NOT APPLICABLE requires a reason and revi
 | Q12 | Simulate expired scope, excluded target and missing approval in a private implementation | Execution is refused before collection; reason is recorded | Private execution features |
 | Q13 | Transfer synthetic evidence and independently verify destination | Inventory and bytes match the separately protected baseline | Evidence delivery |
 | Q14 | Complete synthetic report and publication review | Each claim has evidence, limitation and review state; no real client information | Public reference release |
+| Q15 | Verify optional Flipper + Marauder expansion compatibility against owned AP | Exact Flipper FAP, ESP target, app-to-radio interface and independent STOP are evidenced | Flipper Marauder use |
+| Q16 | Verify M5StickC Plus2 exact firmware, data retention and export | Bruce/Marauder/NEMO build identified; claimed evidence file actually exists or documented manual-only output | Plus2 wireless use |
+| Q17 | Qualify optional WiFi Pineapple Mark VII/Pager in isolated lab | Management isolated, modes verified passive-first, test AP observed, reports reviewed and all sessions/payloads stopped | Pineapple use |
+| Q18 | Review all wireless artifacts and privacy handling before case import | Original hash/size, UTC/source, SSID/GPS minimization, redaction and permitted share destination recorded | Any wireless field collection |
 
 For deny tests, an unreachable destination alone is weak evidence: first show that the intended listener is healthy from an allowed path and corroborate enforcement with router/configuration evidence. For an IDS check, independently prove the event reached the sensor before interpreting a missing alert.
 

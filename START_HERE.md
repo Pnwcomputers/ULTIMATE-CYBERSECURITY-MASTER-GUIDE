@@ -42,7 +42,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 
 | Goal | Recommended Route |
 |---|---|
-| **Explore the PNWC Cyberdeck field assessment project** | [Cyberdeck Project Index](Cyberdeck/README.md) → [Architecture](Cyberdeck/docs/ARCHITECTURE.md) → [Staged Workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) → [Evidence & Privacy](Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md). |
+| **Explore the PNWC Cyberdeck field assessment project** | [Cyberdeck Project Index](Cyberdeck/README.md) → [Architecture](Cyberdeck/docs/ARCHITECTURE.md) → [Wireless Device Operations: Flipper/Pineapple/Marauder/Bruce](Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) → [Staged Workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) → [Evidence & Privacy](Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md). |
 | **Building a repeatable client assessment** | [Staged security assessment blueprint](PlayBooks/assessment-service-integration-map.md) → [OWASP verification](WebAppSecurity/owasp-assessment-and-nuclei.md) → [CISA SCuBA](Cloud/m365-scuba-assessment.md) → [Findings and retests](PlayBooks/assessment-findings-lifecycle.md). |
 | **Validating SIEM and endpoint detections** | [Atomic Red Team/Sigma lab](PlayBooks/purple-team-detection-validation.md) → [Wazuh detection rule verification](IncidentResponse/SIEM/detection-content-validation.md) → [DFIR triage](IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md). |
 | **Auditing code, dependencies or containers** | [SBOM, Scorecard, Gitleaks and signature workflow](ContainerSecurity/software-supply-chain-assessment.md). |

@@ -26,6 +26,7 @@
 | [Acceptance & Qualification Matrix](docs/ACCEPTANCE_TESTS.md) | Measurable lab and field readiness gates without unverified hardware claims |
 | [Public-to-Private Implementation Roadmap](docs/IMPLEMENTATION_ROADMAP.md) | Milestones, private data contracts and completion criteria for expanding your own setup |
 | [Architecture & Network Zones](docs/ARCHITECTURE.md) | Portable layout, GL.iNet/MikroTik boundary and visibility limitations |
+| **[Portable Wireless & Field Device Operations](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md)** | Field deployment and evidence workflows for Flipper Zero, WiFi Pineapple, Bruce, M5StickC Plus2 and standalone/Flipper Marauder, excluding hardware-hacking bench procedures |
 | [Assessment Workflow](docs/ASSESSMENT_WORKFLOW.md) | Authorization-first staged field process and example engagement profiles |
 | [Evidence, Privacy & Custody](docs/EVIDENCE_AND_PRIVACY.md) | Local evidence handling, hashes, redaction, retention and limits |
 | [Hardware & Feature Status](docs/HARDWARE_AND_STATUS.md) | What the private prototype reports as implemented versus planned, and what is actually in this public edition |
@@ -82,9 +83,9 @@ The [architecture diagram](docs/ARCHITECTURE.md) and [hardware status matrix](do
 | ZimaBlade (original hardware) | Optional small wired/edge sensor | [ZimaBlade Hardware Guide](https://www.zimaspace.com/docs/hardware/zimablade-overview) · [ZimaBoard SE Product Update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update) |
 | Raspberry Pi | Optional dedicated/portable sensor or lab host | [Raspberry Pi Product Family](https://www.raspberrypi.com/products/) |
 | ESP-KVM / IP-KVM | Optional out-of-band operator console | [ESP-KVM Project](https://espkvm.io/) — confirm your actual board and firmware match this project |
-| Flipper Zero | Optional supervised specialist device | [Flipper Zero Product](https://flipper.net/products/flipper-zero) · [Guide's Flipper References](../Documentation/flipper_zero_guide.md) |
-| ESP32-based boards | Optional supported wireless/embedded devices | [Espressif ESP32 SoC Families](https://www.espressif.com/en/products/socs) · [Board/Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) |
-| Hak5 devices, including WiFi Pineapple | Optional separately authorized specialist hardware | [Hak5 Official Gear Catalog](https://shop.hak5.org/pages/gear) · [Guide's Wireless Lab References](../Wardriving/README.md) |
+| Flipper Zero | [Portable Wireless Field Workflow](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md#4-flipper-zero--marauder-companion-procedure): optional supervised specialist device | [Flipper Zero Product](https://flipper.net/products/flipper-zero) · [Guide's Flipper References](../Documentation/flipper_zero_guide.md) |
+| ESP32-based boards | [Marauder & Bruce Field Workflow](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md): optional supported wireless/embedded devices | [Espressif ESP32 SoC Families](https://www.espressif.com/en/products/socs) · [Board/Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) |
+| Hak5 devices, including WiFi Pineapple | [Mark VII / Pager Operations](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md#7-wifi-pineapple-mark-vii--pager-procedure): optional separately authorized specialist hardware | [Hak5 Official Gear Catalog](https://shop.hak5.org/pages/gear) · [Guide's Wireless Lab References](../Wardriving/README.md) |
 | Kismet, Snort, Wazuh & nzyme | **Software projects**, not additional devices; applicable only with supported sensors and feeds | [Kismet](https://www.kismetwireless.net/) · [Snort](https://www.snort.org/) · [Wazuh](https://wazuh.com/) · [nzyme](https://www.nzyme.org/) |
 
 **Zima naming update (October 2026):** The manufacturer announced that **new ZimaBlade products are becoming ZimaBoard SE**. Owners of earlier ZimaBlade models should continue using their actual hardware specifications; the new SE memory, storage and CPU configuration should not be assumed to apply to an older unit. See the [manufacturer's update](https://shop.zimaspace.com/blogs/zima-campaign-hub/zimablade-is-now-zimaboard-se-product-update).
@@ -144,7 +145,8 @@ Never put client data, case folders, credentials, signed authorization forms or 
 | Engagement assessment process | [Assessment Service Integration](../PlayBooks/assessment-service-integration-map.md) |
 | Authorized network audit | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) |
 | Wireless surveying | [Wardriving](../Wardriving/README.md) |
-| Hardware and firmware references | [Hardware Hacking](../HardwareHacking/README.md) · [Device & Platform References](#device--platform-references) |
+| Portable wireless field operations | [Flipper, Pineapple, M5StickC Plus2, Bruce & Marauder](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Wireless Survey Guide](../Wardriving/README.md) |
+| Device and firmware references | [Device & Platform References](#device--platform-references) · [Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) |
 | Defensive monitoring | [IDS & IPS](../IncidentResponse/IDS%26IPS/readme.md) |
 | Operating and legal terms for the parent guide | [Legal Terms](../LEGAL.md) |
 

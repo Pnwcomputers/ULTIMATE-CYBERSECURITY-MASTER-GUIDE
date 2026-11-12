@@ -34,6 +34,9 @@ Wardriving is the systematic observation and mapping of wireless infrastructure 
 This section focuses on **repeatable, minimally invasive Wi-Fi/BLE inventories**, GPS quality, hardware/firmware compatibility, log integrity, and authorized sharing. It does **not** require connecting to detected networks or attempting to access them.
 
 ## Start Here
+
+**Portable Cyberdeck companion:** [PNWC Wireless Field Device Operations](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) maps Flipper, Marauder, Bruce/M5StickC Plus2 and WiFi Pineapple to a staged, **manual** client assessment and evidence workflow. It is not a universal firmware driver or a hardware-hacking bench guide.
+
 **Pocket platform companion:** [M5StickC Plus2 starter-pack integration](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) for Wi-Fi/BLE observation and external-GNSS requirements. This is not an onboard-GPS logger.
 
 
