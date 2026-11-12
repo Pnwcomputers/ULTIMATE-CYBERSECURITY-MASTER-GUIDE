@@ -2,6 +2,8 @@
 
 _Reviewed: 2026-11-11 against the current source tree. This is a feature/usage review, not a live API or compatibility certification._
 
+**Related Support:** [Troubleshooting](TROUBLESHOOTING.md) · [Installation](INSTALLATION.md) · [Compatibility](COMPATIBILITY.md) · [OSINT Index](../README.md) · [Playbook](../Playbook/README.md).
+
 ## General & Scope
 
 **What is the PNWC OSINT toolkit for?**

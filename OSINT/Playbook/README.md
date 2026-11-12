@@ -29,6 +29,8 @@ Work only on accounts, assets, people, and data you have lawful authorization to
 
 These statuses come from current source inspection plus the scope of existing local fixture tests; they do not establish service availability, safe target selection, or successful live runs.
 
+**Operator Support:** [FAQ](../docs/FAQ.md) · [Troubleshooting](../docs/TROUBLESHOOTING.md) · [Installation](../docs/INSTALLATION.md). Missing or failed lookups are not negative findings.
+
 ## Prerequisites & Safe Start
 
 Use Bash, Python 3, `curl`, and whichever optional tools you specifically require. The case menu can be explored without installing every OSINT tool. Run as a regular, non-root user in a disposable or carefully controlled workspace.

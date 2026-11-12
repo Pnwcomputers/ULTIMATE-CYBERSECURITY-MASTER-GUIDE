@@ -113,7 +113,10 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
 | **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus case management, selected evidence-preserving lookup modules and optional integrations; unfinished report submenu and missing web UI are documented in the feature matrix | Prototype |
-| **[Toolkit Docs](./docs/)** | FAQ, installation, compatibility, troubleshooting | ✅ Complete |
+| **[Toolkit FAQ](./docs/FAQ.md)** | Questions on scope, case state, provider and feature limits | Maintained |
+| **[Toolkit Installation](./docs/INSTALLATION.md)** | Dependencies and installation preflight | Check actual version |
+| **[Toolkit Compatibility](./docs/COMPATIBILITY.md)** | Platform targets and validation limitations | Not all lab-tested |
+| **[Toolkit Troubleshooting](./docs/TROUBLESHOOTING.md)** | Diagnostic steps for failed/partial collection, missing tools and unfinished features | Maintained |
 | **[OSINT Tools](./OSINT_TOOLS_CATALOG.md)** | 🛠️ Detailed tool catalog with installation guides | ✅ Complete |
 | **[OSINT Cheatsheet](./OSINT_CHEATSHEET.md)** | ⚡ Quick reference commands and techniques | ✅ Complete |
 
@@ -404,7 +407,7 @@ _Editorial status checked November 11, 2026. Individual commands, APIs and targe
 | Methodology & Verification | [OSINT Master Guide](OSINT_GUIDE.md) and [Source Verification](bellingcat-source-verification.md) | Validate source provenance, rights, dates and provider restrictions for each case |
 | Curated External Resources | [Tools Catalog](OSINT_TOOLS_CATALOG.md) and [Awesome OSINT Curation](awesome-osint-list-curated.md) | Third-party tools and service availability change; index inclusion is not live testing |
 | Automation & Scripts | [OSINT Scripts](scripts/) and [Playbook Scripts](Playbook/scripts/) | Some examples and adapters are historical or incomplete; inspect before running |
-| Toolkit Installation | [Installation Guidance](docs/INSTALLATION.md), [Compatibility](docs/COMPATIBILITY.md) | Lab validation, dependencies and target distribution versions vary |
+| Toolkit Installation & Support | [Installation](docs/INSTALLATION.md), [Compatibility](docs/COMPATIBILITY.md), [FAQ](docs/FAQ.md), [Troubleshooting](docs/TROUBLESHOOTING.md) | Confirm versions and inspect errors before calling a lookup completed |
 
 **Open development priorities:** implement/report the unfinished numbered reports menu, design and test a secured local web UI *if needed*, improve input and provider adapter validation, add reproducible offline fixtures for third-party integrations, and capture independent verification results. Avoid declaring these complete before tests exist.
 

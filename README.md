@@ -251,6 +251,7 @@ These are source-attributed references, not claims that every upstream tool is i
 | Resource | Purpose |
 |---|---|
 | [Audit Findings Register](./AUDIT_FINDINGS.md) | Historical August assessment and remediation register; read its scope notice |
+| [Repository Security Remediation & Staging Plan](./SECURITY_REMEDIATION_PLAN.md) | Historical October draft; re-verify claims and status against the current branch |
 | [Audit Report](./AUDIT_REPORT.md) | Historical planning proposals, linked to the findings register |
 
 These records describe their dated review scope; they do not certify the current repository.

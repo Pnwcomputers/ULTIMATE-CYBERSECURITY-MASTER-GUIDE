@@ -155,6 +155,15 @@ Use GitHub Issues for:
 
 Use the issue templates provided - they keep reports consistent and actionable.
 
+| Issue Template | When To Use |
+| --- | --- |
+| [Bug Report](ISSUE_TEMPLATE/bug_report.md) | Reproducible script, guide or automation defects |
+| [Content Suggestion](ISSUE_TEMPLATE/content_suggestion.md) | Coverage, discoverability and cross-reference improvements |
+| [Outdated Content](ISSUE_TEMPLATE/outdated_content.md) | Outdated versions, links or instructions |
+| [Verification Finding](ISSUE_TEMPLATE/verification_finding.md) | Evidence-backed errors in technical claims or commands |
+
+[Complete Documentation Index](../DOCUMENTATION_INDEX.md) · [Verification Protocol](../Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md).
+
 ---
 
 ## 📬 Contact
