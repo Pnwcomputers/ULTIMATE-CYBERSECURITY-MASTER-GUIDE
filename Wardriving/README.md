@@ -172,6 +172,247 @@ Hak5 documents PineAP and rogue access point capabilities; their availability va
 | Outcome | Observed versus inferred, out-of-scope exclusions, confidence |
 | Closeout | Active test SSID disabled, settings restored, evidence access/retention |
 
+### Optimized Mark VII Setup & Campaign Configuration
+
+**Reference implementation:** [Hak5 Mark VII Settings](https://documentation.hak5.org/wifi-pineapple/ui-overview/settings), [Campaigns](https://documentation.hak5.org/wifi-pineapple/ui-overview/campaigns), [PineAP](https://documentation.hak5.org/wifi-pineapple/ui-overview/pineap), [Recon](https://documentation.hak5.org/wifi-pineapple/ui-overview/recon). Firmware UI names may change; record the installed version before using an option. These are **ready-to-configure wizard recipes**, not unverified raw campaign scripts.
+
+> [!IMPORTANT]
+> **Default to Reconnaissance – Monitor Only.** Hak5's `Client Device Assessment – Passive` is **not necessarily RF-silent**: it can answer a direct client request and allow association if Open/WPA/Enterprise networks are enabled. Do not confuse this with receive-only Recon. Never broadcast the SSID pool, enable automatic association, deauth, handshake-forcing, or credential portals in the default client survey.
+
+#### Recommended Commissioning Profile
+
+1. **Written scope:** list approved site, test hours, SSIDs and BSSIDs, owned test clients, channels/bands, excluded neighboring radio devices, reporting limits and an emergency stop operator. Name each engagement (`PNWC-MK7-2026-LAB-A`).
+2. **Update and backup:** record exact Mark VII model, installed firmware and hash/source, antenna, power, storage and recovery procedure. Use [official Hak5 updates](https://documentation.hak5.org/wifi-pineapple/faq/wifi-pineapple-updates); backup local campaigns, original reports and settings before an update.
+3. **Management:** configure unique strong admin credentials, correct timezone/UTC, and use a dedicated USB-C or protected Management Wi-Fi path. In **Settings → Advanced → Management Access**, disable management UI/SSH access via the Open/Evil WPA interfaces or non-administrative Ethernet/uplink interfaces. Hak5 documents USB-C and Management Wi-Fi as persistent administrative paths. Verify that a guest/client laptop **cannot** open admin UI.
+4. **Radio roles:** preserve the management radio. Hak5's default Recon interface `wlan1` is built-in **2.4 GHz**. A supported MK7AC/802.11ac USB adapter may expose `wlan3` for **2.4/5 GHz**; inspect actual interface enumeration because names can change. No adapter means **no verified 5 GHz Recon**. One scan path cannot guarantee simultaneous all-channel capture.
+5. **Region and antennas:** configure the correct regulatory domain and approved channels. Treat DFS/5 GHz transmission as separately restricted by local rules. Use a stable USB-C supply, avoid unneeded simultaneous services, and monitor free disk, CPU and thermal conditions during long surveys.
+6. **PineAP safe state:** disable impersonation, SSID pool broadcasting, auto pool additions, the Open AP and Evil WPA/Enterprise, unless a separately approved campaign requires exactly one synthetic test SSID. Verify **allowlist** scope for both client MAC and SSID on a lab association drill; a broad denylist may permit unknown clients. Account for randomized client MAC addresses.
+7. **First Recon:** start with **three five-minute** observation passes at a stationary point and note antenna orientation. Compare observed BSSIDs, channel, security and time with AP controller exports; an unknown BSSID is not necessarily a rogue AP.
+8. **Reports:** Campaigns support **JSON/HTML** stored by default under `/root/loot/`, plus optional SMTP or Cloud C² delivery. Keep transmission off until specifically approved; HTML reports can contain embedded handshake data. Prefer a locally retained JSON original and sanitized HTML summary.
+9. **Baseline controls:** verify one owned AP is seen; verify a disabled synthetic SSID is absent, and a normal guest SSID is not falsely flagged. Export report(s), record source hash, then disable the campaign and restore configuration.
+10. **Avoid generic scripting:** Hak5 documents generated campaign files in `/etc/pineapple/campaigns/` with a `/etc/pineapple/campaign-template.sh` source. Prefer the supported wizard and report controls. Editing generated shell scripts without matching firmware/template verification is not an optimized default.
+
+#### Operational Profiles
+
+| Parameter | Client Baseline (Default) | Lab Client Association | RF-Isolated Active Drill |
+|---|---|---|---|
+| Campaign | **Reconnaissance – Monitor Only** | **Client Device Assessment – Passive** | **Client Device Assessment – Active** |
+| SSIDs | Owned inventory for analysis; no broadcast | Single **synthetic** saved SSID | Single **synthetic** training SSID |
+| Client filter | No client association test | One or two allowlisted test devices | One allowlisted test device |
+| Impersonation/pool | **Off / Off** | Generic broadcast off; allow only test fixture | Only approved test SSID; no dynamic pool |
+| Open/Evil WPA/EAP | Off | Only operator-approved synthetic fixture, no credentials | Synthetic-only test; no password capture |
+| Deauth/handshake forcing | Off | Off | Off for baseline; separate ROE otherwise |
+| Recon | 2.4 GHz; 5 GHz only with supported adapter | One verified test channel | Single approved lab channel |
+| Reporting | Local JSON/HTML only | Local and redacted | Local, plus independent WIDS/AP log |
+| Stop conditions | Unexpected collection/disclosure | Unknown client joins | Any non-test radio/association or interference |
+
+#### Campaign MK7-01 — Repeatable AP Inventory
+
+| Field | Value |
+|---|---|
+| Campaign name | `PNWC-MK7-01-AP-BASELINE` |
+| Wizard type | **Reconnaissance – Monitor Only** |
+| Duration | **15 minutes** (3 × 5 minute runs) |
+| Bands | `wlan1` 2.4 GHz; if required, **separate** supported external 5 GHz scan |
+| PineAP | No impersonation, Open/Evil WPA/Enterprise, or pool broadcast |
+| Deliverable | Redacted JSON inventory + controller comparison table |
+
+1. Export the authorized AP/controller inventory with BSSIDs, SSIDs, channels, band and configured WPA/PMF.
+2. Observe in the same three documented positions (or repeat the identical position to evaluate time consistency), recording exact scan setting, clock and orientation.
+3. Compare matched BSSIDs; account for multi-BSSID APs, mesh, guests and neighbor APs. Mark unknowns **unverified** until physical/controller evidence confirms ownership.
+4. Review false negatives against the controller and the radio's actual band coverage; report only grounded deviations.
+
+**Success:** all observed owned APs are correctly attributed and limits of detection are stated.
+
+#### Campaign MK7-02 — WPA2/WPA3/PMF Configuration Comparison
+
+| Field | Value |
+|---|---|
+| Campaign name | `PNWC-MK7-02-SECURITY-POSTURE` |
+| Wizard type | **Reconnaissance – Monitor Only** |
+| Duration | **10–20 minutes** |
+| Test APs | Two **owned**, synthetically named WPA2-Personal/WPA3-Personal networks |
+| Payload | No evil twin, client association, deauth or handshake forcing |
+| Evidence | Recon security/tagged-parameter view and actual AP-controller settings |
+
+1. Verify controller AKM/cipher, WPA2/WPA3 transition and PMF settings before observation.
+2. Scan the permitted channels/bands and note advertised security fields and any missed frames.
+3. Compare actual AP/controller settings and observed advertisements. **Advertised** WPA3/PMF is **not proof** of client negotiated protection, correct patching or a vulnerability.
+4. Deliver observed/configuration differences, retest plan and impact of mode changes on legacy clients.
+
+#### Campaign MK7-03 — Passive Client Auto-Join Check (Contained)
+
+| Field | Value |
+|---|---|
+| Campaign name | `PNWC-MK7-03-CLIENT-PASSIVE` |
+| Wizard type | **Client Device Assessment – Passive** |
+| Time | **5–10 minutes**, operator present |
+| Approved target | One owned phone with preconfigured synthetic open `PNWC-ROE-OPEN-01` test SSID |
+| Filters | Explicitly **allow only** the test client and approved synthetic SSID |
+| Exclusions | No production SSID copies, generic responder, portals or credentials |
+
+1. Save the synthetic open test SSID on an owned phone using an independent controlled AP; confirm MAC/privacy behavior.
+2. Configure the Mark VII to allow only that named SSID/client. Confirm pool broadcasting and unrelated associations are disabled; note that **passive PineAP can answer direct requests**.
+3. With independent monitoring, observe only whether the test phone requests or associates to the synthetic network. Do not coerce a reconnect with deauthentication.
+4. Stop immediately if any unknown device associates. A lack of association is valid evidence of this one device's behavior, **not** a failure of the exercise.
+5. Document OS/firmware, client privacy settings, exact event timestamps and recommended auto-join policy.
+
+#### Campaign MK7-04 — WIDS Detection of Synthetic Active Rogue AP
+
+| Field | Value |
+|---|---|
+| Campaign name | `PNWC-MK7-04-WIDS-TRAINING` |
+| Wizard type | **Client Device Assessment – Active** |
+| RF setting | Properly **RF-contained** or remote isolated client-owned testbed |
+| SSID | **Only** `PNWC-WIDS-TRAINING-01` |
+| Clients | One allowlisted, intentionally enrolled test phone/laptop |
+| Features | AP broadcast/association only; **no deauth, credential portal, EAP impersonation or handshake forcing** |
+| Observer | Independent [Kismet/Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), [nzyme/Wazuh](../IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) or AP controller |
+
+1. Explicitly approve **active RF** behavior and a containment plan; verify it cannot affect outside radios. Do not use a crowded site as a test enclosure.
+2. Configure a **single** unique training SSID and exact client/SSID allowlists. Disable all SSID auto-collection/pool expansion.
+3. Start independent WIDS sensor collection; enable the active campaign only for the approved duration and client, and record the synthetic AP's appearance.
+4. Correlate WIDS detection/alert timestamps, sensor identity, allowed client association and false positives using actual logs.
+5. Disable the campaign and verify no residual broadcast, unrecognized association or unaffected normal AP marked rogue. Restore all settings.
+6. **Success:** detection is visible and correctly classified. **Not success:** capturing client credentials, disconnecting other clients or claiming all rogue APs can be found.
+
+#### Campaign MK7-05 — Before/After Wireless Change Audit
+
+| Field | Value |
+|---|---|
+| Campaign names | `PNWC-MK7-05-BEFORE` and `PNWC-MK7-05-AFTER` |
+| Mode | **Reconnaissance – Monitor Only**, both runs |
+| Use case | Client AP/controller update, relocation or channel/security-policy change |
+| Comparison | Same scan time, point, antenna, firmware, interface, bands and known AP inventory |
+
+1. Record the change plan and run the first monitor-only campaign.
+2. After the legitimate infrastructure update, repeat the identical scan conditions. The Mark VII may not support the desired scheduled cadence; **manually run** the campaign where scheduling does not exist.
+3. Diff controller-confirmed BSSIDs, channels, advertised security and detection count. Received signal variation alone is not a calibrated coverage study.
+4. Retain local JSON originals and sanitized comparison output; avoid email/Cloud C² unless explicitly approved.
+5. Report which differences were expected, unexpected, unresolved or outside the actual radio coverage.
+
+#### Campaign Reporting & Cleanup Template
+
+| Field | Required documentation |
+|---|---|
+| Authorization | Case ID, permitted site/assets, client/SSID allowlists, RF impact limits and stop contact |
+| Device | Mark VII hardware, firmware, available Recon interfaces, MK7AC status, region and antenna |
+| Campaign | Exact mode, settings, synthetic SSID, duration, location and UTC timestamps |
+| Output | `/root/loot/` report path, JSON/HTML, SHA-256 of original, redacted client copy |
+| Evidence | Controller record, real WIDS IDs, null observations, false positives and other corroboration |
+| Finish | Campaign off, no unapproved AP, management isolated, upload approvals honored, secrets removed |
+
+## WiFi Pineapple Pager — Payloads, Sideloading & Defensive Labs
+
+The **Pager** is a separate platform from the Mark VII. Pager payloads are Bash plus **Pager-specific DuckyScript** in on-device `payload.sh` files, with a display, event-driven alerts and a Recon interface. The **Mark VII runs Campaigns and Modules**, not Pager payloads; a `payload.sh` is also not a USB Rubber Ducky `inject.bin` or Bash Bunny `payload.txt`.
+
+**Official sources:** [Pager documentation](https://documentation.hak5.org/wifi-pineapple-pager/), [Hak5 Pager payload library](https://github.com/hak5/wifipineapplepager-payloads), [Payload categories](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/introduction-to-payloads), [Command syntax](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/duckyscript-for-the-wifi-pineapple-pager), [Alert event variables](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/alert-payloads).
+
+### Payload Families & Trigger Safety
+
+| Type | Invocation | First safe test |
+|---|---|---|
+| **User** | Operator runs a payload from the on-device menu | Local-only `LOG` and `ALERT` test |
+| **Recon** | Launched on an operator-selected AP/client | Display metadata for an explicitly **owned** AP |
+| **Alert** | Background event, e.g. `deauth_flood_detected` or `pineapple_client_connected` | Brief defensive notification; corroborate with WIDS |
+
+Alert payloads run **without interactive operator input** and can trigger repeatedly; never open dialogs or start costly jobs from an Alert handler. Firmware-specific event variables differ by event. Do not equate an observed alert to a confirmed exploit or attributable attacker.
+
+### First-Time Setup, Update & Recovery
+
+1. Charge the Pager and connect by a **data-capable USB-C cable** to an isolated operator laptop. Follow [Hak5 Pager setup](https://shop.hak5.org/pages/pager-setup). The documented management address is often `172.16.52.1`; verify the actual address/interface before using SSH.
+2. Set a unique root/admin password and restrict management Wi-Fi, SSH and Virtual Pager to a trusted operator. Keep it off production networks during initial validation.
+3. Record firmware, clock, available radio/bands, storage space and optional GPS/USB Mods. Backup `/root/`, custom payloads and permitted `/root/loot/` **before updating**.
+4. Update only from the [Hak5 download portal](https://downloads.hak5.org) or the model-specific on-device [software update procedure](https://documentation.hak5.org/wifi-pineapple-pager/software-updates/software-updates). Hak5 describes persistence for `/root/`, but modified base packages and files elsewhere may not persist.
+5. Start with no automatically run third-party software, no cloud upload, no rogue AP impersonation, no credential collection, no deauth, and no unapproved networking.
+6. If a script fails after an update, inspect its actual directory, executable permissions and dependencies. Use vendor [recovery](https://documentation.hak5.org/wifi-pineapple-pager/firmware-recovery) rather than an unreviewed erase/install shortcut.
+
+### Sideloading a Harmless User Payload
+
+Hak5's [source library](https://github.com/hak5/wifipineapplepager-payloads) organizes payloads under `library/user/`, `library/recon/` and `library/alerts/`. The installed payload file is `payload.sh`, possibly with bundled dependencies. Verify the active installed directory **and the User category** against the device's firmware; copying the file alone does not confirm it is installed.
+
+On the operator laptop create `payload.sh`:
+
+~~~bash
+#!/bin/bash
+# Title: PNWC Pager Preflight
+# Author: PNWC
+# Description: Local-only UI and notification acceptance
+# Version: 1.0
+LOG blue "PNWC Pager preflight"
+LOG green "No RF tasks or uploads requested"
+ALERT "PNWC preflight complete"
+exit 0
+~~~
+
+Syntax-check `bash -n payload.sh`, capture `sha256sum payload.sh` and verify no extra files or network references. The local syntax check **does not** test the Pager's `LOG`/`ALERT` runtime.
+
+With **USB management connectivity already confirmed**, a common installed User path is `/root/payloads/user/general/pnwc_preflight/payload.sh`:
+
+~~~bash
+ssh root@172.16.52.1 'mkdir -p /root/payloads/user/general/pnwc_preflight'
+scp ./payload.sh root@172.16.52.1:/root/payloads/user/general/pnwc_preflight/payload.sh
+ssh root@172.16.52.1 'chmod 700 /root/payloads/user/general/pnwc_preflight/payload.sh'
+~~~
+
+**Do not run these commands until verifying the installed path.** In the Pager UI select the resulting User payload and verify the two log lines and single alert. If invisible, check directory/case, file extension, shebang, LF endings, permissions and menu refresh. Remove only the test directory after documenting successful validation.
+
+### Pager Lab P1 — Defensive Deauth-Event Alert
+
+The [official event example](https://github.com/hak5/wifipineapplepager-payloads/blob/master/library/alerts/deauth_flood_detected/example/payload.sh) documents `_ALERT` and `_ALERT_DENIAL_MESSAGE`. Review its current source and use a *minimal* no-radio handler:
+
+~~~bash
+#!/bin/bash
+# Title: PNWC Observed WiFi Disruption
+# Author: PNWC
+# Category: Alerts
+if [ "$_ALERT" = "deauth_flood_detected" ]; then
+    ALERT "Possible deauth flood: check independent WIDS"
+fi
+exit 0
+~~~
+
+1. Confirm the installed alert event tree; this belongs under `deauth_flood_detected`, **not** User payloads.
+2. Validate the conditional in a unit-test harness with mock variables and a **stubbed ALERT command**; no active RF flood is required or appropriate.
+3. For naturally observed events during authorized monitoring, correlate with [Kismet + Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) logs.
+4. Disable handlers that repeat excessively or cause resource issues; an event does not prove deliberate interference or device ownership.
+
+### Pager Lab P2 — Bounded Recon & Local Data Handling
+
+1. Use one owned test AP with a unique synthetic SSID and controller-verified BSSID/channel.
+2. Select the AP in Pager Recon and a receive-oriented workflow; verify whether that scan transmits any probes.
+3. Hak5's command `PINEAPPLE_RECON_NEW "PNWC-PAGER-LAB"` may create a named session on supported firmware; **that command by itself does not collect frames**.
+4. Export only permitted metadata, preserve original hash, redact neighboring identifiers and record GNSS source. Never assume a USB GPS automatically geotags every capture.
+5. Keep uploads to WiGLE and other external services off unless consent explicitly covers disclosure and retention.
+
+### Pager Lab P3 — Review a Sideload Without Executing It
+
+1. Pin the exact source commit, not only a community repo name. Inventory `payload.sh`, helper scripts, binaries, dependency manifests, network endpoints, start/stop routines and service modifications.
+2. Flag remote `curl`/`wget`/`eval`, `opkg` package changes, cron/init changes, root SSH exposure, hardcoded URLs or credentials, unauthorized uploads, captive portals, deauth modes or traffic interception.
+3. Check whether any binary matches the real device's `uname -m` architecture and dynamic dependencies. Hak5 warns that arbitrary x86/ARM binaries do not run on its platform. Do not assume package installs survive an update.
+4. Assign a review classification: **local read-only**, **receive-only in scope**, **active association**, **credential interception**, **persistent/system modification**. Only the first two are baseline candidates; all others need separate authorization and operational review.
+5. Install **one** approved low-risk utility in an isolated lab, record hashes and changed files/services, then demonstrate uninstall/restore. Never bulk-install an unknown collection.
+
+### Pager Lab P4 — Firmware Upgrade & Rollback Regression
+
+1. Backup `/root/`, payload directories, authorized reports, settings and package inventory on an **operator-controlled encrypted device**.
+2. After an official firmware update, run the harmless User payload once, check event/Recon handlers, package dependencies, available flash/storage and manager-only connectivity.
+3. Confirm no unexpected active APs, email/Cloud uploads or remote listeners are running. Check retained secrets and remove test credentials.
+4. Restore only reviewed custom files. On failure, disable the specific script and use the official firmware-recovery workflow rather than unreviewed system reconfiguration.
+
+### Official and Community Payload Sources
+
+| Source | Candidate role | Vetting needed |
+|---|---|---|
+| [Hak5 WiFi Pineapple Pager payloads](https://github.com/hak5/wifipineapplepager-payloads) | Official curated User, Recon and Alert code | **AS-IS**; verify scripts and binaries, review installed version |
+| [Pager Themes](https://github.com/hak5/wifipineapplepager-themes) · [Ringtones](https://github.com/hak5/wifipineapplepager-ringtones) | On-device UI assets, **not payload scripts** | Distinct file formats and storage |
+| [TheDadNerd payloads](https://github.com/TheDadNerd/payloads) | Survey convenience source-review candidate | Third-party dependencies, GPS, external endpoints |
+| [mobile2gps](https://github.com/ryanpohlner/mobile2gps) | Phone-assisted location feed candidate | Accuracy, binary provenance, data disclosure |
+| [Pager WDGoWars](https://github.com/LOCOSP/pineapple_pager_wdgwars) | Wardrive/session export candidate | Optional public upload, credentials, location retention |
+| [NullSec Pineapple Suite](https://github.com/bad-antics/nullsec-pineapple-suite) | **Review only**: broad collection, mixed-risk components | Intrusive functionality and service/persistence changes; never blind-install |
+
+**Evidence:** record case/ROE, board firmware, installed payload category/path, source URL/commit/hash, package/binary dependencies, approved events and radios, logs/time, exact export path, WIDS corroboration, data-sharing approval, and cleanup. Community payloads are **not guaranteed secure or compatible** because they appear in a repository.
+
 ## Selecting A Workflow
 
 | Your primary objective | Start with |

@@ -81,6 +81,19 @@ Use a **sacrificial offline device** with a blank editor and a short fixed phras
 └── switch.txt          # Multi-payload configuration (optional)
 ```
 
+## Official & Community Payload Audit Workflow
+
+The [official USB Rubber Ducky library](https://github.com/hak5/usbrubberducky-payloads) contains **source** `payload.txt`; current USB Rubber Ducky generations require a **compiled** `inject.bin`. The [Bash Bunny](../Bash/BashBunny/README.md#official--third-party-payload-library-controlled-installation) interprets its own Bash-based `payload.txt`, while the [WiFi Pineapple Pager](../../Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs) interprets its own `payload.sh`. **Do not cross-load files.** See [Hak5 format matrix](../../HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code).
+
+1. Pin the official/community payload source to an immutable commit and inspect every `DUCKY`, `GUI`, `STRING`, `DELAY`, keyboard-layout change, extension and staged command. Check that third-party payloads do **not** download unreviewed code or send client information.
+2. Select the **correct** device generation and DuckyScript language compiler. Use [Hak5 Payload Studio](https://payloadstudio.hak5.org/) or an explicitly compatible verified offline compiler. Preserve source **and** compiler version/output hash.
+3. Replace any imported script's effects with the harmless [fixed-marker exercise](#exercise-1--fixed-marker-first-successful-payload), and test only on an offline host with a blank text editor in focus. Check keyboard layout and initial delays.
+4. Copy the resulting `inject.bin` via the supported model-specific storage/arming process; **a raw uncompiled script does not replace the device binary**.
+5. On the client or lab host, record USB VID/PID **as observed**, device-control and EDR events, exact text emitted and any anomaly. Stop if unexpected app focus or privilege prompt appears.
+6. Remove the script from shared media and restore the approved payload/configuration; preserve redacted evidence and source hashes.
+
+**Example compatibility failure:** a legacy DuckyScript 1 encoder will not compile every modern DuckyScript 3 function. A configured keyboard layout may also change the meaning of punctuation or shortcuts. Successful compilation does not establish a safe payload—source review and isolated execution remain mandatory.
+
 ## Keyboard Layouts
 
 DuckyScript supports multiple keyboard layouts. If your target system uses a non-US keyboard:
