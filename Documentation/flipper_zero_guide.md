@@ -1512,6 +1512,7 @@ clearlist -s  Clear station list
 - [bruce_firmware.md](bruce_firmware.md) - Bruce firmware alternative for Cardputer: multi-radio (Sub-GHz, NFC, IR, BLE, FM)
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder cheat sheet (the firmware running on Flipper's WiFi Dev Board)
 - [WiFiMarauder_Guide.md](WiFiMarauder_Guide.md) - Full Marauder guide for WiFi pentesting workflows
+- [LAB5 MonsterC5 / projectZero](microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) - separate C5 JanOS image and `Lab_C5.fap` Flipper controller, **not** a Marauder or Evil-M5 payload
 - [hcxtoolshashcat.md](hcxtoolshashcat.md) - Converting Marauder .pcap captures to Hashcat format and cracking WPA2
 - [../HardwareHacking/BusPirate.md](../HardwareHacking/BusPirate.md) - Bus Pirate 5: deep hardware interface tool that complements Flipper's GPIO work
 - [../HardwareHacking/Chapter1.md](../HardwareHacking/Chapter1.md) - Hardware hacking foundations (UART, SPI, I2C, JTAG)
