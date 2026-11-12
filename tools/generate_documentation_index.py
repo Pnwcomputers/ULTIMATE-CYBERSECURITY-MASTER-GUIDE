@@ -2,6 +2,8 @@
 """Generate the complete Markdown documentation catalog, without network access."""
 from __future__ import annotations
 import argparse
+import difflib
+from itertools import islice
 from pathlib import Path
 from urllib.parse import quote
 
@@ -65,6 +67,9 @@ def main() -> int:
     if args.check:
         if not target.is_file() or target.read_text(encoding="utf-8") != result:
             print("DOCUMENTATION_INDEX.md is stale; run python tools/generate_documentation_index.py")
+            previous = target.read_text(encoding="utf-8") if target.is_file() else ""
+            for line in islice(difflib.unified_diff(previous.splitlines(), result.splitlines(), fromfile="committed", tofile="generated", lineterm=""), 60):
+                print(line)
             return 1
         print(f"Documentation catalog current: {len(paths(root))} Markdown files.")
         return 0
