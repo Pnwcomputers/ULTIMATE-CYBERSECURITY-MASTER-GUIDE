@@ -1,8 +1,8 @@
-# 🔄 Change Log - November 11, 2026
+# 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1556
-- **Files Modified**: 2467
+- **Commits Analyzed**: 1557
+- **Files Modified**: 2477
 - **New Files**: 925
 - **Deleted Files**: 121
 
@@ -500,6 +500,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: correct unsupported firmware and repository claims (#197) (`4e8d83e`)
 - audit: complete blank-cell triage, repair link references & Wazuh rule contracts (#195) (`9b38540`)
 - chore: refresh CHANGELOG for November 11 audit and CI fix (#192) (`84acfb4`)
 - fix(ci): preserve historical CRLF and changelog PR generation (#191) (`2286cd2`)
@@ -1580,6 +1581,16 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/esp32-security-firmware-catalog.md`
+- `Documentation/firmware-web-flashers.md`
+- `Documentation/pwnagotchi_cheatsheet.md`
+- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
+- `Homelab/README.md`
+- `README.md`
+- `START_HERE.md`
+- `Wardriving/awok-dual-c5-biscuit.md`
+- `firmware-hardware-compatibility.md`
+- `CHANGELOG.md`
 - `CaseStudies/README.md`
 - `CaseStudies/hardware/eucleak-yubikey-2024.md`
 - `CaseStudies/hardware/onity-locks-2012.md`
@@ -1596,7 +1607,6 @@
 - `HardwareHacking/Chapter4.md`
 - `HardwareHacking/README.md`
 - `IncidentResponse/README.md`
-- `README.md`
 - `SDR/rfid.md`
 - `tools/lab_detection_validator.py`
 - `tools/tests/test_lab_detection_validator.py`
@@ -1667,7 +1677,6 @@
 - `tools/maintenance_candidate_triage.py`
 - `tools/tests/test_legacy_archive_manifest.py`
 - `tools/tests/test_maintenance_candidate_triage.py`
-- `CHANGELOG.md`
 - `.gitattributes`
 - `.github/workflows/auto_changelog.yml`
 - `.editorconfig`
@@ -1693,7 +1702,6 @@
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `SECURITY_REMEDIATION_PLAN.md`
-- `START_HERE.md`
 - `STYLE_GUIDE.md`
 - `Scripts/PowerShell/port_scanner.ps1`
 - `tests/hardening/test_osint_investigator.py`
@@ -1725,23 +1733,18 @@
 - `Documentation/chimerable.md`
 - `Documentation/device-firmware-list.md`
 - `Documentation/esp-terminator.md`
-- `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
 - `Documentation/firmware-catalog-verification.json`
-- `Documentation/firmware-web-flashers.md`
 - `Documentation/flipper_zero_guide.md`
 - `Documentation/ghostesp-revival.md`
-- `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/esp32-bit-pirate.md`
-- `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
 - `HardwareHacking/pico-ducky-lab.md`
 - `SDR/evil-crow-rf-v2.md`
 - `Scripts/Ducky/README.md`
 - `Wardriving/README.md`
 - `Wardriving/additional-survey-firmware.md`
 - `Wardriving/biscuit.md`
-- `firmware-hardware-compatibility.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/nemo-firmware.md`
 - `HardwareHacking/BitPirate.md`
@@ -1764,7 +1767,6 @@
 - `Data-Engineering/Phase3/README.md`
 - `HardwareTesting/README.md`
 - `HardwareTesting/py/README.md`
-- `Homelab/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Endpoint-Visibility/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
@@ -1949,7 +1951,6 @@
 - `Documentation/hcxtoolshashcat.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `SDR/sdr.md`
-- `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/data-handling.md`
 - `Wardriving/field-workflow.md`
 - `Wardriving/sigroam-scout-lite.md`
