@@ -112,6 +112,9 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
 | [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
+| [WiFi Pineapple Mark VII Campaigns](./Wardriving/README.md#optimized-mark-vii-setup--campaign-configuration) | Recommended setup plus five scoped, reproducible wireless assessment campaigns |
+| [WiFi Pineapple Pager Payloads](./Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs) | User/Recon/Alert, payload.sh side-loading, review, monitoring and recovery |
+| [Hak5 Payload Platform Compatibility](./HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code) | Shark Jack, Packet Squirrel, Key Croc, Bash Bunny, Rubber Ducky and Pineapple format/safety matrix |
 | **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources |
 
 These are source-attributed references, not claims that every upstream tool is installed or tested.
