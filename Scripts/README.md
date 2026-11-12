@@ -16,6 +16,8 @@
 | [CLI Field Commands](../Documentation/devhints-cli-field-reference.md) | Everyday command-line reference |
 | [Reviewed Reference Index](../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | Cross-section cheat sheets |
 | [Tool Pinning Policy](./PINNING.md) | Version and dependency controls |
+| [Curated Rubber Ducky GitHub Projects](./Ducky/README.md#curated-github-payload-projects--popularity-compatibility--trust) | Popular official/community source libraries, GitHub popularity, firmware compatibility and code-review boundaries |
+| [Curated Bash Bunny GitHub Projects](./Bash/BashBunny/README.md#curated-github-bash-bunny-payload-collections--compatibility) | Official/legacy repositories, archived-status checks, helper compatibility and lab review workflow |
 | [Hak5 Payload Formats & Sideload Checks](../HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code) | Cross-device Pager, Mark VII, Bash Bunny, Ducky, Shark Jack, Packet Squirrel and Key Croc runtime distinctions |
 | [WiFi Pineapple Pager](../Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs) | User/Recon/Alert payloads, event handling, controlled installation and rollback |
 | [Mark VII Campaign Examples](../Wardriving/README.md#optimized-mark-vii-setup--campaign-configuration) | Five monitored/restricted client wireless assessment runbooks |
