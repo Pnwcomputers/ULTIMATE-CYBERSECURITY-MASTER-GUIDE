@@ -107,11 +107,14 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Resource | Description |
 |---|---|
-| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |+
+| [Device & Hardware Firmware List](./Documentation/device-firmware-list.md) | Start with your exact device, chip and radios to find documented firmware choices and installation limits |
 | [ESP32 & Related Firmware Catalog](./Documentation/esp32-security-firmware-catalog.md) | Verified upstream references, target examples & maintenance signals |
 | [Security Firmware Master Catalog](./Documentation/esp32-security-firmware-catalog.md) | Browse upstream projects by Wi-Fi, BLE, HID, RF/SDR, RFID, LoRa and related Pi software |
 | [Firmware Web Flashers](./Documentation/firmware-web-flashers.md) | Dedicated project installers and multi-device/multi-firmware tools, including ESP Terminator |
 | [Hardware Hacking Guides](./HardwareHacking/README.md) | Board setup, electronics, protocol interfaces and device-specific labs |
+| [Standalone Marauder](./Documentation/WiFiMarauder_Guide.md#dedicated-standalone-marauder-deployment-playbook) & [Flipper Marauder](./Documentation/flipper_zero_guide.md#flipper-marauder-companion-deployment-labs) | Separate ESP32 and Flipper firmware, safe assessment labs and supported radio/SD limitations |
+| [Bruce Firmware](./Documentation/bruce_firmware.md#exercise-b7--repeatable-bruce-board-qualification) & [OUI-SPY](./Documentation/microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) | ESP32 multi-radio board qualification and receive-focused detection labs |
+| [RaspyJack](./Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) & [Biscuit Ecosystem](./Wardriving/biscuit.md#ecosystem-assessment-labs--deployment-examples) | Raspberry Pi portable assessment and phone-managed C5/Node/dual-C5 labs |
 | **New portable hardware lab:** [M5StickC Plus2 / HackStarterPack](./HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Model-specific IR, Sub-GHz CC1101, BLE/HID and safe captive-portal exercises, with credited upstream sources |
 
 These are source-attributed references, not claims that every upstream tool is installed or tested.
