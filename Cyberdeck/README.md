@@ -1,4 +1,4 @@
-# PNWC Cyberdeck — Public Reference Edition
+# PNWC Cyberdeck — Reference Edition
 
 **Portable Network Security Assessment & Evidence Workflow | Public documentation and offline reference utility**
 
