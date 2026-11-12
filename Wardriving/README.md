@@ -298,6 +298,117 @@ Hak5 documents PineAP and rogue access point capabilities; their availability va
 | Evidence | Controller record, real WIDS IDs, null observations, false positives and other corroboration |
 | Finish | Campaign off, no unapproved AP, management isolated, upload approvals honored, secrets removed |
 
+## WiFi Pineapple Pager — Payloads, Sideloading & Defensive Labs
+
+The **Pager** is a separate platform from the Mark VII. Pager payloads are Bash plus **Pager-specific DuckyScript** in on-device `payload.sh` files, with a display, event-driven alerts and a Recon interface. The **Mark VII runs Campaigns and Modules**, not Pager payloads; a `payload.sh` is also not a USB Rubber Ducky `inject.bin` or Bash Bunny `payload.txt`.
+
+**Official sources:** [Pager documentation](https://documentation.hak5.org/wifi-pineapple-pager/), [Hak5 Pager payload library](https://github.com/hak5/wifipineapplepager-payloads), [Payload categories](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/introduction-to-payloads), [Command syntax](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/duckyscript-for-the-wifi-pineapple-pager), [Alert event variables](https://documentation.hak5.org/wifi-pineapple-pager/payloads-1/alert-payloads).
+
+### Payload Families & Trigger Safety
+
+| Type | Invocation | First safe test |
+|---|---|---|
+| **User** | Operator runs a payload from the on-device menu | Local-only `LOG` and `ALERT` test |
+| **Recon** | Launched on an operator-selected AP/client | Display metadata for an explicitly **owned** AP |
+| **Alert** | Background event, e.g. `deauth_flood_detected` or `pineapple_client_connected` | Brief defensive notification; corroborate with WIDS |
+
+Alert payloads run **without interactive operator input** and can trigger repeatedly; never open dialogs or start costly jobs from an Alert handler. Firmware-specific event variables differ by event. Do not equate an observed alert to a confirmed exploit or attributable attacker.
+
+### First-Time Setup, Update & Recovery
+
+1. Charge the Pager and connect by a **data-capable USB-C cable** to an isolated operator laptop. Follow [Hak5 Pager setup](https://shop.hak5.org/pages/pager-setup). The documented management address is often `172.16.52.1`; verify the actual address/interface before using SSH.
+2. Set a unique root/admin password and restrict management Wi-Fi, SSH and Virtual Pager to a trusted operator. Keep it off production networks during initial validation.
+3. Record firmware, clock, available radio/bands, storage space and optional GPS/USB Mods. Backup `/root/`, custom payloads and permitted `/root/loot/` **before updating**.
+4. Update only from the [Hak5 download portal](https://downloads.hak5.org) or the model-specific on-device [software update procedure](https://documentation.hak5.org/wifi-pineapple-pager/software-updates/software-updates). Hak5 describes persistence for `/root/`, but modified base packages and files elsewhere may not persist.
+5. Start with no automatically run third-party software, no cloud upload, no rogue AP impersonation, no credential collection, no deauth, and no unapproved networking.
+6. If a script fails after an update, inspect its actual directory, executable permissions and dependencies. Use vendor [recovery](https://documentation.hak5.org/wifi-pineapple-pager/firmware-recovery) rather than an unreviewed erase/install shortcut.
+
+### Sideloading a Harmless User Payload
+
+Hak5's [source library](https://github.com/hak5/wifipineapplepager-payloads) organizes payloads under `library/user/`, `library/recon/` and `library/alerts/`. The installed payload file is `payload.sh`, possibly with bundled dependencies. Verify the active installed directory **and the User category** against the device's firmware; copying the file alone does not confirm it is installed.
+
+On the operator laptop create `payload.sh`:
+
+~~~bash
+#!/bin/bash
+# Title: PNWC Pager Preflight
+# Author: PNWC
+# Description: Local-only UI and notification acceptance
+# Version: 1.0
+LOG blue "PNWC Pager preflight"
+LOG green "No RF tasks or uploads requested"
+ALERT "PNWC preflight complete"
+exit 0
+~~~
+
+Syntax-check `bash -n payload.sh`, capture `sha256sum payload.sh` and verify no extra files or network references. The local syntax check **does not** test the Pager's `LOG`/`ALERT` runtime.
+
+With **USB management connectivity already confirmed**, a common installed User path is `/root/payloads/user/general/pnwc_preflight/payload.sh`:
+
+~~~bash
+ssh root@172.16.52.1 'mkdir -p /root/payloads/user/general/pnwc_preflight'
+scp ./payload.sh root@172.16.52.1:/root/payloads/user/general/pnwc_preflight/payload.sh
+ssh root@172.16.52.1 'chmod 700 /root/payloads/user/general/pnwc_preflight/payload.sh'
+~~~
+
+**Do not run these commands until verifying the installed path.** In the Pager UI select the resulting User payload and verify the two log lines and single alert. If invisible, check directory/case, file extension, shebang, LF endings, permissions and menu refresh. Remove only the test directory after documenting successful validation.
+
+### Pager Lab P1 — Defensive Deauth-Event Alert
+
+The [official event example](https://github.com/hak5/wifipineapplepager-payloads/blob/master/library/alerts/deauth_flood_detected/example/payload.sh) documents `_ALERT` and `_ALERT_DENIAL_MESSAGE`. Review its current source and use a *minimal* no-radio handler:
+
+~~~bash
+#!/bin/bash
+# Title: PNWC Observed WiFi Disruption
+# Author: PNWC
+# Category: Alerts
+if [ "$_ALERT" = "deauth_flood_detected" ]; then
+    ALERT "Possible deauth flood: check independent WIDS"
+fi
+exit 0
+~~~
+
+1. Confirm the installed alert event tree; this belongs under `deauth_flood_detected`, **not** User payloads.
+2. Validate the conditional in a unit-test harness with mock variables and a **stubbed ALERT command**; no active RF flood is required or appropriate.
+3. For naturally observed events during authorized monitoring, correlate with [Kismet + Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) logs.
+4. Disable handlers that repeat excessively or cause resource issues; an event does not prove deliberate interference or device ownership.
+
+### Pager Lab P2 — Bounded Recon & Local Data Handling
+
+1. Use one owned test AP with a unique synthetic SSID and controller-verified BSSID/channel.
+2. Select the AP in Pager Recon and a receive-oriented workflow; verify whether that scan transmits any probes.
+3. Hak5's command `PINEAPPLE_RECON_NEW "PNWC-PAGER-LAB"` may create a named session on supported firmware; **that command by itself does not collect frames**.
+4. Export only permitted metadata, preserve original hash, redact neighboring identifiers and record GNSS source. Never assume a USB GPS automatically geotags every capture.
+5. Keep uploads to WiGLE and other external services off unless consent explicitly covers disclosure and retention.
+
+### Pager Lab P3 — Review a Sideload Without Executing It
+
+1. Pin the exact source commit, not only a community repo name. Inventory `payload.sh`, helper scripts, binaries, dependency manifests, network endpoints, start/stop routines and service modifications.
+2. Flag remote `curl`/`wget`/`eval`, `opkg` package changes, cron/init changes, root SSH exposure, hardcoded URLs or credentials, unauthorized uploads, captive portals, deauth modes or traffic interception.
+3. Check whether any binary matches the real device's `uname -m` architecture and dynamic dependencies. Hak5 warns that arbitrary x86/ARM binaries do not run on its platform. Do not assume package installs survive an update.
+4. Assign a review classification: **local read-only**, **receive-only in scope**, **active association**, **credential interception**, **persistent/system modification**. Only the first two are baseline candidates; all others need separate authorization and operational review.
+5. Install **one** approved low-risk utility in an isolated lab, record hashes and changed files/services, then demonstrate uninstall/restore. Never bulk-install an unknown collection.
+
+### Pager Lab P4 — Firmware Upgrade & Rollback Regression
+
+1. Backup `/root/`, payload directories, authorized reports, settings and package inventory on an **operator-controlled encrypted device**.
+2. After an official firmware update, run the harmless User payload once, check event/Recon handlers, package dependencies, available flash/storage and manager-only connectivity.
+3. Confirm no unexpected active APs, email/Cloud uploads or remote listeners are running. Check retained secrets and remove test credentials.
+4. Restore only reviewed custom files. On failure, disable the specific script and use the official firmware-recovery workflow rather than unreviewed system reconfiguration.
+
+### Official and Community Payload Sources
+
+| Source | Candidate role | Vetting needed |
+|---|---|---|
+| [Hak5 WiFi Pineapple Pager payloads](https://github.com/hak5/wifipineapplepager-payloads) | Official curated User, Recon and Alert code | **AS-IS**; verify scripts and binaries, review installed version |
+| [Pager Themes](https://github.com/hak5/wifipineapplepager-themes) · [Ringtones](https://github.com/hak5/wifipineapplepager-ringtones) | On-device UI assets, **not payload scripts** | Distinct file formats and storage |
+| [TheDadNerd payloads](https://github.com/TheDadNerd/payloads) | Survey convenience source-review candidate | Third-party dependencies, GPS, external endpoints |
+| [mobile2gps](https://github.com/ryanpohlner/mobile2gps) | Phone-assisted location feed candidate | Accuracy, binary provenance, data disclosure |
+| [Pager WDGoWars](https://github.com/LOCOSP/pineapple_pager_wdgwars) | Wardrive/session export candidate | Optional public upload, credentials, location retention |
+| [NullSec Pineapple Suite](https://github.com/bad-antics/nullsec-pineapple-suite) | **Review only**: broad collection, mixed-risk components | Intrusive functionality and service/persistence changes; never blind-install |
+
+**Evidence:** record case/ROE, board firmware, installed payload category/path, source URL/commit/hash, package/binary dependencies, approved events and radios, logs/time, exact export path, WIDS corroboration, data-sharing approval, and cleanup. Community payloads are **not guaranteed secure or compatible** because they appear in a repository.
+
 ## Selecting A Workflow
 
 | Your primary objective | Start with |
