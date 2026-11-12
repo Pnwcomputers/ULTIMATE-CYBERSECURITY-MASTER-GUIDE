@@ -128,6 +128,60 @@ Experienced practitioner?
 
 The existing [Bash Bunny payload guide](../Scripts/Bash/BashBunny/README.md#authorized-field-assessment-labs--deployment-examples), [USB Rubber Ducky compilation guide](../Scripts/Ducky/README.md#authorized-hid-injection-field-exercises), and [WiFi Pineapple Mark VII section](../Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) now include authorized deployment labs, detection, troubleshooting and reporting. They remain in their established sections to avoid duplicating instructions. [Pico-Ducky](./pico-ducky-lab.md) is distinct from Hak5 hardware.
 
+### Hak5 Payload Ecosystem: Official & Side-Loaded Code
+
+**Device formats are not interchangeable.** The [WiFi Pineapple Pager](../Wardriving/README.md#wifi-pineapple-pager--payloads-sideloading--defensive-labs) uses `payload.sh` and Pager-specific UI/events. The [Mark VII](../Wardriving/README.md#optimized-mark-vii-setup--campaign-configuration) uses Campaigns and Modules. [Bash Bunny](../Scripts/Bash/BashBunny/README.md) and [Rubber Ducky](../Scripts/Ducky/README.md) have different USB runtimes. Other Hak5 devices have separate official payload repositories and firmware; a matching command name is not sufficient for compatibility.
+
+| Platform | Official source / format | Safe first-use and sideload boundary |
+|---|---|---|
+| **WiFi Pineapple Pager** | [Official User/Recon/Alert payload library](https://github.com/hak5/wifipineapplepager-payloads); on-device `payload.sh` | Copy a single reviewed local script to the correct **Pager** payload type, start with a no-radio message; do not use Mark VII campaigns |
+| **WiFi Pineapple Mark VII** | [Campaigns](https://documentation.hak5.org/wifi-pineapple/ui-overview/campaigns) / [Modules](https://documentation.hak5.org/wifi-pineapple/ui-overview/modules) | Prefer built-in monitor-only campaign; validate module code, API version, package and UI support before third-party installs |
+| **Bash Bunny / Mark II** | [Hak5 Bash Bunny payload library](https://github.com/hak5/bashbunny-payloads); Bash `payload.txt` with `ATTACKMODE`, `QUACK` | Review full source/dependencies, copy a benign HID marker into a single staged switch; match device generation and firmware |
+| **USB Rubber Ducky (modern/legacy)** | [Official source library](https://github.com/hak5/usbrubberducky-payloads); source `payload.txt` compiled to `inject.bin` | Compile for the **actual** hardware/DuckyScript version and keyboard layout; verify a marker in a blank editor |
+| **Shark Jack** | [Official Shark Jack library](https://github.com/hak5/sharkjack-payloads); model-specific Bash/DuckyScript source | Use a spare isolated Ethernet test bench, not a client's switch; review DHCP, routing and any scan/transmit behavior |
+| **Shark Jack Display** | [Official Display library](https://github.com/hak5/sharkjackdisplay-payloads); `payload.txt` | Distinct display/menu and payload flow; check exact product revision and `NETMODE` handling before copying sources |
+| **Packet Squirrel** | [Official Packet Squirrel library](https://github.com/hak5/packetsquirrel-payloads); `payload.txt` | Inline Ethernet changes the traffic path; test with dedicated two-port lab link and rollback, **not** real production traffic |
+| **Key Croc** | [Official Key Croc library](https://github.com/hak5/keycroc-payloads); `payload.txt` | In-line keyboard hardware can capture sensitive input; baseline test only with a synthetic user and approved marker |
+| **LAN Turtle** | [Hak5 LAN Turtle documentation](https://docs.hak5.org/) and firmware modules (check exact model) | Separate USB-Ethernet remote administration tooling; no assumption that Shark Jack payload scripts run here |
+| **Signal Owl / Screen Crab / Plunder Bug** | [Hak5 documentation index](https://documentation.hak5.org/) | Separate hardware and capture/runtime requirements. Not every Hak5 device has a community `payload.txt` library |
+
+**Important:** the upstream sample collections may include interception, credential harvesting, command-and-control, persistence or disruptive network activity. **Do not bulk-install, automatically run or endorse** all samples. Prefer a fixed-text HID marker, an owned test AP inventory, or an isolated dummy Ethernet link, and only approve more intrusive testing under a separate signed plan.
+
+#### Common Side-Load Review & Rollback Workflow
+
+1. **Select exact platform/firmware and model.** Record payload interpreter, USB/network modes, switch position and the official source repository or versioned download.
+2. **Pin a commit/hash**, inspect the source (including bundled shell/PowerShell/Python executables and compressed archives), and verify license, external connections, credentials, dependencies, package installation, persistence, scheduled tasks and elevated operations.
+3. **Decide authorization class:** local benign, receive-only survey, active association/network traffic, credential/packet interception, persistent modification. Only benign exercises are default-approved.
+4. **Isolate on a known-good bench:** offline disposable workstation with blank editor for HID; lab AP/phone for Wi-Fi; two-device synthetic VLAN/link for network appliances. Snapshot or document rollback before execution.
+5. **Stage one payload** using the **device's verified deployment directory**. Do not assume a common root directory or file extension across Hak5 models. On USB devices, safely eject in arming/storage mode; avoid flashing the payload onto firmware partitions.
+6. **Observe once:** record USB enumeration, network/routes, emitted RF, local output, log timestamps, and intended versus actual destination. Stop on unexpected transmission, third-party interaction or changes to default route/DNS.
+7. **Corroborate:** use host endpoint events/EDR, AP-controller records, Kismet/Wazuh, test switch logs or known USB interface properties. A script exiting zero does not prove any vulnerability.
+8. **Rollback, inventory and redact:** stop payloads, disconnect, restore firmware/network configuration, rotate synthetic credentials, hash and securely store allowed artifacts, remove unnecessary copies from the device.
+
+#### Practical Safe Evaluation Examples For Other Hak5 Devices
+
+| Device | Controlled exercise | Expected evidence |
+|---|---|---|
+| Shark Jack / Shark Jack Display | Connect only to **your lab switch** and validate port link, DHCP address and local interface status without scanning other addresses | Port VLAN/link state, assigned lab IP, switch/host logs and restore |
+| Packet Squirrel | Place between two **owned** lab Ethernet endpoints; verify links work in pass-through mode and observe what a deliberate disconnect does | End-to-end link checks, physical link indicators, clean bypass/rollback |
+| Key Croc | Connect a **disposable keyboard** and test computer with a synthetic local-only username/marker; keep capture/matches disabled unless essential and approved | Host recognized keyboard, synthetic text, source review and no retained secrets |
+| Bunny / Ducky | Type a fixed harmless phrase into a focused blank editor with no terminal or browser open | USB class enumeration, marker, no privilege changes or network transfer |
+| Mark VII / Pager | Observe a single owned synthetic AP, then independently verify WIDS controller alert behavior without active impersonation | Correct BSSID/channel/security, actual source events and sanitized result |
+
+#### Model-Specific Troubleshooting
+
+| Symptom | Investigate |
+|---|---|
+| Payload ignored | Wrong hardware format, firmware interpreter, file path/case, permissions or wrong switch/category |
+| Payload appears but errors | Missing device helper functions, incompatible DuckyScript generation, OS/tool dependency or bad CRLF endings |
+| OS sees new keyboard unexpectedly | Wrong USB class / `ATTACKMODE` selected; disconnect and restore known-good switch |
+| LAN traffic changes | `NETMODE`/routing/bridge behaviour and link negotiation; stop inline device and restore direct cable |
+| Unexpected AP or upload | Disable PineAP/alert or event action, disconnect management uplink and audit all scripts |
+| Data not saved | Incorrect storage partition, missing media, no completed flush or script path assumption |
+| Firmware update breaks payload | Firmware/API changed, packages removed, library helpers changed; restore pinned compatible version |
+
+**Primary sources:** [Hak5 official payload repositories](https://github.com/hak5) · [Pager source](https://github.com/hak5/wifipineapplepager-payloads) · [Shark Jack](https://github.com/hak5/sharkjack-payloads) · [Packet Squirrel](https://github.com/hak5/packetsquirrel-payloads) · [Key Croc](https://github.com/hak5/keycroc-payloads). Do not confuse a source repository's approved pull request with a complete firmware or security certification.
+
 ## 📟 Device Setup & Usage Guides
 
 **M5StickC Plus2:** [HackStarterPack integration and safe lab](./m5stickc-plus2-hackstarterpack.md) covers the exact board, CC1101 pinout, benign IR/BLE/HID tests and source review.
