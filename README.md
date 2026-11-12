@@ -311,7 +311,7 @@ The [Case Studies Index](./CaseStudies/README.md) organizes sourced hardware, RF
 
 | Device | Reference |
 |---|---|
-| Flipper Zero | [Project](https://flipper.net/) |
+| Flipper Zero & Expansion Boards | [Flipper Zero Field Guide](./Documentation/flipper_zero_guide.md) · [CC1101 / nRF24 / AWOK / BW16 / Poltergeist Labs](./Documentation/flipper_zero_guide.md#flipper-zero-expansion-boards-selection-setup--field-assessment-labs) · [Project](https://flipper.net/) |
 | WiFi Pineapple Mark VII | [Authorized Wireless Assessment Guide](./Wardriving/README.md#wifi-pineapple-mark-vii--authorized-wireless-security-assessment) · [Product](https://shop.hak5.org/products/wifi-pineapple) |
 | Proxmark3 | [Project](https://proxmark.com/) |
 | Bus Pirate | [Guide](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/HardwareHacking/BusPirate.md) |
