@@ -94,6 +94,45 @@ The [official USB Rubber Ducky library](https://github.com/hak5/usbrubberducky-p
 
 **Example compatibility failure:** a legacy DuckyScript 1 encoder will not compile every modern DuckyScript 3 function. A configured keyboard layout may also change the meaning of punctuation or shortcuts. Successful compilation does not establish a safe payload—source review and isolated execution remain mandatory.
 
+### Curated GitHub Payload Projects — Popularity, Compatibility & Trust
+
+_Reviewed November 11, 2026. Popularity means **GitHub stars**, not a safety audit or an endorsement. Counts are rounded snapshots and can change. Links go to the original project, not a copied or modified payload._
+
+| GitHub Project | Approx. Stars | Relationship To Hak5 USB Rubber Ducky | Review & Deployment Decision |
+|---|---:|---|---|
+| [hak5/usbrubberducky-payloads](https://github.com/hak5/usbrubberducky-payloads) | **6,200** | **Primary official** DuckyScript source, payloads, extensions and keyboard layouts | **Start here.** Community submissions are still provided AS-IS. Compile a specifically reviewed script for the correct Ducky generation with Hak5 Payload Studio. |
+| [UndedInside/DuckyScriptPayloads](https://github.com/UndedInside/DuckyScriptPayloads) | 380 | Independent Windows/Linux/etc. DuckyScript examples; author primarily organized them for **Flipper Zero** | **Adapt and test.** Some syntax may compile on a compatible Ducky, but Flipper paths, delays, host assumptions and DuckyScript versions must be checked. |
+| [atomiczsec/My-Payloads](https://github.com/atomiczsec/My-Payloads) | 410 | Multi-device collection covering **Rubber Ducky, Bash Bunny, Flipper and O.MG** | **Archived historical reference** (archived on GitHub; last source push in 2024). Do not assume current DuckyScript 3 support or maintained remote dependencies. |
+| [UberGuidoZ/OMG-Payloads](https://github.com/UberGuidoZ/OMG-Payloads) | 270 | O.MG-cable payloads; author says some **might** work with Rubber Ducky | **Adapt only.** O.MG device commands, trigger/transport behavior and runtime are not interchangeable with a Ducky `inject.bin`. Source last pushed in 2023. |
+| [I-Am-Jakoby/Flipper-Zero-BadUSB](https://github.com/I-Am-Jakoby/Flipper-Zero-BadUSB) | **7,200** | Very popular **Flipper Zero** BadUSB collection, not a native Hak5 USB Rubber Ducky release | **Research/reference only.** Many entries call external URLs, PowerShell, Discord/webhooks or enable data collection. Do not copy unreviewed examples or claim plug-and-play Ducky support. |
+| [Dukweeno/Duckuino](https://github.com/Dukweeno/Duckuino) | 380 | Legacy DuckyScript-to-**Arduino** translator, **not a payload library for current Duckies** | **Historical portability tool**; project warns of unstable release behavior. Does not compile modern DuckyScript 3 to the Hak5 `inject.bin` format. |
+| [toxydose/Duckyspark](https://github.com/toxydose/Duckyspark) | 230 | DuckyScript-to-**Digispark/Arduino** translator; different board and language support | **Alternative-device teaching reference**, not current Hak5 firmware or a modern Payload Studio replacement. |
+| [dekuNukem/duckyPad](https://github.com/dekuNukem/duckyPad) | **1,300** | Open-source programmable **macropad** with its own duckyScript implementation | **Related HID ecosystem only**; own interpreter, firmware and keys. Do not expect duckyPad macros to compile unchanged for a Hak5 Rubber Ducky. |
+
+**Popularity criteria:** prioritize originals rather than forks, verify the upstream README **and actual repository ownership**, inspect GitHub archived status and most recent code push, and account for stars without using them as a security-quality rating. An active GitHub discussion or newly updated star count does **not** prove the payload code has been maintained. The highest-star community example in this table targets a **different device**, which is why direct compatibility is displayed independently from popularity.
+
+#### Inspect Before Selecting a Payload
+
+1. **Inventory:** record project owner, URL, fixed commit hash, actual file path, license and whether the folder targets DuckyScript 1, 2, 3, Flipper BadUSB, O.MG, Arduino or an unknown dialect.
+2. **Classify every action:** harmless text marker; authorized inventory; endpoint configuration; external download; file collection; credential/session access; security-control modification; persistence. **Do not install or run the latter categories as a routine first test.**
+3. **Review every dependency:** inspect bundled PowerShell/Bash, compressed files, URLs, remote stages, tokens, webhooks, encoded commands, expected admin rights and any destructive cleanup. Replace personal/user-specific settings with synthetic data and avoid remote services entirely in the initial lab.
+4. **Check compatibility:** modern Hak5 device generation, DuckyScript compiler version, keyboard layout, operating system, prompt state, delays and user privileges. A Flipper `/badusb/` text script is not a compiled Ducky image.
+5. **Compile and test safely:** build the **approved, reduced marker-only** payload in Payload Studio and verify the exact `inject.bin` artifact/hash. Run on an offline disposable host with a blank editor focused, then observe USB/EDR/device-control logs.
+6. **Decide evidence status:** label **source reviewed**, **syntax compiled**, **lab tested on model/firmware**, or **rejected/unsupported** separately. Never describe a link or successful compilation as proof of deployment success.
+7. **Retain provenance:** store only your assessment notes, pin/URL, original license attribution and a safe test fixture; **link to third-party source** instead of copying copyrighted collections wholesale.
+
+#### Safe Assessment Examples Inspired By the Collections
+
+| Exercise | Test Fixture | What It Actually Demonstrates |
+|---|---|---|
+| Fixed marker | Offline workstation with empty text editor | Whether USB keyboard input is accepted under current device-control policy |
+| Locale and timing | Two keyboard layouts with synthetic text | Keyboard mapping and enumeration-delay reliability, not exploitability |
+| Locked desktop | Deliberately locked disposable host; **no bypass attempt** | HID enumeration and endpoint telemetry in locked state |
+| Blue-team detection | Disposable host, expected USB HID policy, Wazuh/EDR | Actual allow/block/audit events, false positives and reporting |
+| Cross-device syntax review | Compiler/test environment only, no target | Which syntax in a Flipper/O.MG/Arduino script is incompatible with modern DuckyScript |
+
+**Repository policy:** the projects above are a *curated reference catalog*, not preapproved payloads or a script-execution list. For actual deployment, follow the [existing six non-destructive HID field exercises](#authorized-hid-injection-field-exercises), [Bash Bunny comparison](../Bash/BashBunny/README.md#curated-github-bash-bunny-payload-collections--compatibility) and [cross-Hak5 side-loading review](../../HardwareHacking/README.md#hak5-payload-ecosystem-official--side-loaded-code).
+
 ## Keyboard Layouts
 
 DuckyScript supports multiple keyboard layouts. If your target system uses a non-US keyboard:
