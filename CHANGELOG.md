@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 12, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1565
-- **Files Modified**: 2557
+- **Commits Analyzed**: 1567
+- **Files Modified**: 2560
 - **New Files**: 941
 - **Deleted Files**: 121
 
@@ -678,6 +678,8 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update title in README to 'Reference Edition' (`2df3179`)
+- Update README.md (`d65f75f`)
 - Refactor DIY hardware references and remove duplicates (`2f211cf`)
 - Update README.md (`7833c9b`)
 - Update section title for hardware reference (`dbb3c35`)
@@ -1589,9 +1591,11 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Cyberdeck/README.md`
+- `CHANGELOG.md`
+- `README.md`
 - `.github/CONTRIBUTING.md`
 - `.github/workflows/documentation-discoverability.yml`
-- `Cyberdeck/README.md`
 - `DOCUMENTATION_INDEX.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/README.md`
@@ -1604,7 +1608,6 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
 - `PlayBooks/README.md`
-- `README.md`
 - `SECURITY_REMEDIATION_PLAN.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `START_HERE.md`
@@ -1613,7 +1616,6 @@
 - `tools/audit_documentation_reachability.py`
 - `tools/generate_documentation_index.py`
 - `ultimate_cybersecurity_master_guide.md`
-- `CHANGELOG.md`
 - `.github/workflows/cyberdeck-public.yml`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
