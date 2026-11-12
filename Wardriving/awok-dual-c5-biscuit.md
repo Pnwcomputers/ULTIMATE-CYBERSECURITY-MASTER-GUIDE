@@ -46,6 +46,43 @@ The **white** and **orange** USB ports address different C5 sides, not alternati
 
 **Storage caveat:** Neither AWOK Dual C5 model has onboard microSD. Do not rely on instructions written for Scout Lite's or other boards' microSD-based GPS CSV workflows.
 
+## Dual-MCU Field Validation & Deployment Examples
+
+The [Biscuit ecosystem assessment labs](./biscuit.md#ecosystem-assessment-labs--deployment-examples) cover app pairing, BLE/Wi-Fi/GPS surveys, Node distinctions and WIDS correlation. These **AWOK-specific** steps focus on two independently programmable C5 chips, the separate USB ports and the absence of built-in SD.
+
+### AWOK 1 — Port/Chip Inventory Before Any Flash
+
+1. With the Flipper/backpack disconnected, label the actual physical **white/display** and **orange/secondary** USB connectors based on the board's vendor documentation.
+2. Connect only one port at a time to an isolated computer with a data cable. Record USB serial device ID, firmware boot output and build/version.
+3. Disconnect and repeat for the other port; capture separate photos/notes for both MCU identities.
+4. Check whether existing files, firmware images or settings must be preserved; do not overwrite a dual-radio product with the same generic image on both sides.
+5. Confirm a matching recovery image and flasher route for **each** MCU and exact Mini versus Touch hardware.
+
+### AWOK 2 — Biscuit DIY Firmware on Supported C5
+
+1. Use the **orange/secondary** interface with the Biscuit flasher's exact **AWOK Dual C5 Mini** or **AWOK Dual C5 Touch** target—not an unrelated DIY DevKit profile.
+2. Follow the documented BOOT/RESET flow and verify flash success only on that port. Reattach power and pair the **Biscuit side** with Biscuit Manager using phone Bluetooth/Location permissions.
+3. Start a brief WiFi Only scan of an owned AP, then stop and verify a corresponding **app history** session and local export.
+4. Confirm the other C5 still boots its separately intended firmware. A successful scan on the Biscuit side does not prove the display C5 is healthy.
+5. Restore saved app credentials/pairing state if needed. **Do not seek SD files:** neither AWOK Mini nor Touch provides built-in microSD.
+
+### AWOK 3 — Two Independent RF Observers, One AP
+
+1. Configure one test AP on a fixed channel, note BSSID, band and time.
+2. Collect one short observation from the Biscuit side and, if the other C5 supports a compatible **non-disruptive** scan, one from the display side.
+3. Log source MCU, firmware, scan mode, observed BSSID/channel and clock/GNSS provenance independently.
+4. Compare scan timestamps and signal levels without assuming simultaneous radio scheduling or sharing GPS. The Biscuit app's **phone GPS** is not automatically replaced by the board-wired GNSS.
+5. Deduplicate any merged result by BSSID/time and explain differences as possible scan duty/antenna/timing factors—not conclusively a vulnerability.
+
+### AWOK 4 — Recovery & Client Handoff
+
+1. Reboot each side separately and confirm its intended firmware identity. Do not initiate a second update just because a companion app cannot connect; verify port, power and phone pairing first.
+2. Perform a short Biscuit app reconnect, observe the known AP, and verify that the other MCU's display/control still works.
+3. Capture a safe firmware/board matrix and backup location. Avoid writing customer credentials or unredacted Wi-Fi scans to a public repo.
+4. Disconnect test devices, stop all active functions, restore config and record whether return-to-baseline succeeded.
+
+**Hardware distinction:** an AWOK dual C5 may be physically capable of two independent scans; this does not turn the secondary Biscuit DIY image into a Pro/Ultra **Node Manager**, and it does not add an SD slot or shared firmware state. Follow separate [Marauder hardware targets](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware) if choosing that firmware for the non-Biscuit side.
+
 ## Troubleshooting and recovery
 
 | Symptom | Check |
