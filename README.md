@@ -35,7 +35,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 ---
 ## 🎯 Start Here:
 
-**Featured Project:** **[PNWC Cyberdeck — Public Reference Edition](./Cyberdeck/README.md):** The goal for this sub-project is to help bring the portable field-assessment architecture, network segmentation, hardware roles, authorization-first workflows and offline evidence gathering all together into one automated platform. This is also a public reference to our own personal/private project; this is not our actual private operators portal. This project is also *NOT* a completed or finished project or system, and is still *A WORK IN PROGRESS*!!
+**Featured Project:** **[PNWC Cyberdeck — Public Reference Edition](./Cyberdeck/README.md):** The goal for this sub-project is to help bring the portable field-assessment architecture, network segmentation, hardware roles, authorization-first workflows and offline evidence gathering all together into one automated platform. This is also a public reference to our own personal/private project; this is not our actual private operators portal. This project is *NOT* a completed nor finished project or system, and is still *A WORK IN PROGRESS*!!
 
 | I Want To... | Start Here |
 |---|---|
