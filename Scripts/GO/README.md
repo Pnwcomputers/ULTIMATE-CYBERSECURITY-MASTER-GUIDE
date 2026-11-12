@@ -12,6 +12,8 @@ Do not treat these examples as installation-ready utilities or install obsolete
 interpreters to run them. Port and test an individual example in an isolated lab
 before considering it for use. Only test systems you own or are authorized to assess.
 
+**Subsection:** [Shells & Stagers — Source Review](shells/README.md) documents a separate historical collection of offensive source examples and their authorization and compatibility caveats.
+
 See the [per-file legacy archive disposition](ARCHIVE-INVENTORY.md) for all 39 Python examples, source-header attribution, Python 2 syntax classification, and safe preservation/retirement decisions. It is based on source inspection and AST inventory only, not execution or complete license validation.
 
 See the [script index](../README.md) and [archived review](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/de8f58798d20db4fb07f5a9e996ec41ce8f86d6a/REVIEW_2026-09-21.md).

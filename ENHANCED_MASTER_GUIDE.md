@@ -19,6 +19,8 @@
 
 **Additional current research and lab references:** [Curated Github security ecosystems](Documentation/awesome-hacking-collections-integration.md) · [Proxmox IDS packet visibility](Homelab/proxmox-security-monitoring-visibility.md).
 
+**Featured PNWC Field Project:** [Cyberdeck Public Reference](Cyberdeck/README.md) · [Complete Documentation Index](DOCUMENTATION_INDEX.md). Explore [hardware and network topology](Cyberdeck/docs/ARCHITECTURE.md), [field methods](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) and [current feature limitations](Cyberdeck/docs/HARDWARE_AND_STATUS.md). This is distinct from the private operator console.
+
 
 # TABLE OF CONTENTS - ENHANCED EDITION
 
@@ -106,6 +108,7 @@ The chapters below preserve the original PNWC operational knowledge. The live re
 
 | Engagement stage | Maintained guides and checkpoints |
 | --- | --- |
+| Portable Cyberdeck field platform | [PNWC Cyberdeck reference](Cyberdeck/README.md) → [GL.iNet/MikroTik architecture](Cyberdeck/docs/ARCHITECTURE.md) → [assessment workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) → [evidence guidance](Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md). No production automation is claimed. |
 | 1. Authorization and preflight | Start with the [network and wireless audit playbook](PlayBooks/NetworkAuditPlayBook.md), [security assessment checklists](Checklists/README.md), and [legal-use terms](LEGAL.md). Record customer written permission, assets, dates, excluded systems, stop conditions, contacts, and reporting obligations **before** active testing. |
 | 2. Workstation and operator safety | Select an environment via [OPSEC](OPSEC/README.md), [Tails](OPSEC/tails-usb-setup-guide.md), [Whonix/Kicksecure](OPSEC/whonix-kicksecure-usb-guide.md), and [portable uConsole setup](uConsole/README.md). Keep customer data and credentials separated by engagement. |
 | 3. OSINT and initial exposure review | Follow the [OSINT investigator playbook](OSINT/Playbook/README.md), [Tsurugi OSINT](OSINT/TSURUGI_LINUX_OSINT_GUIDE.md), and [domain/IP reconnaissance reference](OSINT/scripts/Domain_IP_Recon.md). Preserve provenance and account for permissible collection. |

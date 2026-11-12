@@ -14,6 +14,8 @@
 
 **Curated practice and research sources:** [Topic-mapped GitHub security collections](Documentation/awesome-hacking-collections-integration.md) · [CTF/ethical lab pathways](PlayBooks/security-training-lab-pathways.md).
 
+**Featured PNWC Field Project:** [Cyberdeck Public Reference](Cyberdeck/README.md) · [Complete Documentation Index](DOCUMENTATION_INDEX.md). The Cyberdeck companion covers a portable, consent-first assessment system but does **not** release the private operator portal.
+
 
 ## MASTER TABLE OF CONTENTS
 
@@ -131,6 +133,7 @@ The eleven foundational parts above remain the **core learning sequence**. The r
 | Experimental removable storage | [PhantomDrive research guide](Cryptography/phantomdrive-guide.md). Treat hidden-storage and deniability claims as a research topic, not a substitute for vetted encryption or verified backups. |
 | Operating-system privacy | [OPSEC index](OPSEC/README.md), [Tails USB](OPSEC/tails-usb-setup-guide.md), and [Whonix/Kicksecure setup](OPSEC/whonix-kicksecure-usb-guide.md). Select the operating model based on actual risk, persistence, and network needs. |
 | Safe device and data handling | [Press freedom and source protection](OPSEC/press-freedom/README.md), [retention and removal planning](OPSEC/press-freedom/data-retention-removal.md), and [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md). Respect legal holds and preserve required evidence; no technique guarantees recovery prevention. |
+| Portable Cyberdeck assessment system | [Cyberdeck project index](Cyberdeck/README.md), [field network design](Cyberdeck/docs/ARCHITECTURE.md), [authorized workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md), and [evidence handling](Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md). Public documentation only; no proprietary application released. |
 | Authorized reconnaissance | [OSINT methodology](OSINT/README.md), [investigation playbook](OSINT/Playbook/README.md), and [network audit playbook](PlayBooks/NetworkAuditPlayBook.md). Confirm written scope and collection limits first. |
 | Wireless survey and visibility | [Wardriving guide](Wardriving/README.md), [field workflow](Wardriving/field-workflow.md), [Wireshark master filter catalog](Documentation/wireshark-master-filters.md), and [wireless deauthentication detection](Documentation/wifi-deauthentication-detection.md). Passive surveying is not authorization for interference. |
 | Detection and monitoring | [IDS/IPS catalog](IncidentResponse/IDS%26IPS/readme.md), [Kismet–Wazuh wireless lab](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md), [nzyme–Wazuh integration](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md), and [SIEM reference](IncidentResponse/SIEM/README.md). |

@@ -30,7 +30,11 @@ Help practitioners build a legally-safe, network-isolated lab environment where 
 
 ---
 
-**Portable field lab companion:** [PNWC Cyberdeck Public Reference](../Cyberdeck/README.md) documents a segmented GL.iNet/MikroTik field topology, manually authorized assessment stages and safe offline evidence hashing. The proprietary local portal and live collectors are not published.\n\n**Proxmox IDS sensor coverage:** [Traffic visibility checklist](proxmox-security-monitoring-visibility.md) adapts the [h4cker Proxmox lab](https://github.com/The-Art-of-Hacking/h4cker/blob/master/build-your-own-lab/security-onion-proxmox.md) without assuming that an unmanaged switch can mirror packets.
+## PNWC Cyberdeck — Portable Field Assessments
+
+**[Open The PNWC Cyberdeck Public Reference](../Cyberdeck/README.md)** for the GL.iNet/MikroTik zone architecture, staged authorization and offline evidence workflow. The proprietary operator console and live collectors are not published.
+
+**Proxmox IDS sensor coverage:** [Traffic visibility checklist](proxmox-security-monitoring-visibility.md) adapts the [h4cker Proxmox lab](https://github.com/The-Art-of-Hacking/h4cker/blob/master/build-your-own-lab/security-onion-proxmox.md) without assuming that an unmanaged switch can mirror packets.
 
 ## 📋 Table Of Contents
 
@@ -91,6 +95,7 @@ The routing, switching, and boundary protection of the lab.
 
 | SOP / Guide | Focus Area | Description |
 |-------------|------------|-------------|
+| **[PNWC Cyberdeck Public Reference](../Cyberdeck/README.md)** | Portable Field Assessment | Hardware roles, segmented topology, staged procedures and evidence handling (private portal not included). |
 | **[Lab Setup & Maintenance](./HomeLab_Setup.md)** | Architecture | Core procedures for architecting, deploying, and maintaining homelab environments. |
 | **[Provisioning Workflows](./workflows/)** | Automation | Step-by-step guides for deployment workflows (Ansible/Terraform) and automation playbooks. |
 | **[Wireless Lab Security Assessment](./workflows/self-hosted_network_attacks.md)** | Authorized Testing | Master playbook with [RaspyJack Pi deployment & six labs](./workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow), network isolation and defensive validation. |

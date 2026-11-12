@@ -63,6 +63,7 @@ each source file). Background write-up:
 <https://averagesecurityguy.github.io/2017/01/06/bypassing-av-with-golang/>
 
 ## 🔗 See Also
+- [Historical GO Collection Index](../README.md) — context, unsupported runtimes and legacy source disposition
 - [../../README.md](../../README.md) — Scripts index
 - [../../../Tradecraft/av-edr-evasion.md](../../../Tradecraft/av-edr-evasion.md) — AV/EDR evasion techniques
 - [../../../LEGAL.md](../../../LEGAL.md) — Legal and authorization requirements

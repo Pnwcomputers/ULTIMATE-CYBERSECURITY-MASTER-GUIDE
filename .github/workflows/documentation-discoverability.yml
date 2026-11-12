@@ -1,0 +1,37 @@
+name: Documentation Discoverability
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - 'tools/generate_documentation_index.py'
+      - 'tools/audit_documentation_reachability.py'
+      - '.github/workflows/documentation-discoverability.yml'
+  push:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - 'tools/audit_documentation_reachability.py'
+      - 'tools/generate_documentation_index.py'
+      - '.github/workflows/documentation-discoverability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    name: All documentation indexed
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Validate the complete documentation index
+        run: python tools/generate_documentation_index.py --check
+      - name: Identify contextually unlinked guide candidates
+        run: python tools/audit_documentation_reachability.py --max-per-section 20 --require-discovery

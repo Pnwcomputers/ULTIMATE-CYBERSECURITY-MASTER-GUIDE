@@ -4,6 +4,8 @@ Repository: Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE
 Working branch: security/review-remediation
 Prepared: 2026-10-12
 Status: HISTORICAL DRAFT — this October 2026 review is not a certification of the current tree
+
+**Current guidance:** [Repository Verification Protocol](Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) and [Maintenance Operations](Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md). Preserve this document as a historical plan; recheck all claims and original branch status before reuse.
 Historical base commit: Not recorded at the time; cannot safely infer it now
 Historical review sign-off: Not recorded; current repository maintainer should re-evaluate before closure
 

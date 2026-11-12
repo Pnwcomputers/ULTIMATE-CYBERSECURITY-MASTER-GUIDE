@@ -4,7 +4,7 @@
 
 **Portable Linux environments, administration, scripting, and authorized security auditing on Android**
 
-*Part of the [Mobile Security section](../) in the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../)*
+*Part of the [Mobile Security section](../README.md) in the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
 ![UserLAnd](https://img.shields.io/badge/UserLAnd-Linux_on_Android-blue?style=for-the-badge)
 ![Android](https://img.shields.io/badge/Android-Userspace-green?style=for-the-badge)

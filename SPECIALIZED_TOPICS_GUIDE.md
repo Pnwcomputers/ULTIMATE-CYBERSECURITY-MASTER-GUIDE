@@ -13,6 +13,8 @@
 
 **Current specialized resource map:** [Awesome-Hacking, h4cker, Awesome-Hacking-Resources](Documentation/awesome-hacking-collections-integration.md) and the [Proxmox sensor-visibility checklist](Homelab/proxmox-security-monitoring-visibility.md) supplement existing in-depth hardware and software chapters.
 
+**Featured PNWC Field Project:** [Cyberdeck Public Reference](Cyberdeck/README.md) · [Complete Documentation Index](DOCUMENTATION_INDEX.md). The PNWC Cyberdeck uses a multi-device assessment architecture and is **not** the ClockworkPi uConsole project.
+
 
 # TABLE OF CONTENTS
 
@@ -91,6 +93,7 @@ The six numbered parts in this guide cover AI, hardware hacking, benchmarking, u
 | Hardware-backed authentication | [FIDO2/WebAuthn/passkeys and certification levels](Cryptography/security-keys-passkeys.md) · [SoloKeys / Solo 2](Cryptography/solokeys-guide.md) | Authenticator assurance levels and protocol support are different concepts; plan enrollment, backups, revocation, and account recovery. |
 | Encrypted and experimental storage | [Encrypted drives and key management](Cryptography/encrypted-storage.md) · [PhantomDrive research notes](Cryptography/phantomdrive-guide.md) | Prefer established encryption for real secrets; experimental hidden storage needs independent security review and backup testing. |
 | Privacy and source protection | [Press freedom and source safety](OPSEC/press-freedom/README.md) · [device/network safeguards](OPSEC/press-freedom/device-network-protection.md) · [retention and removal](OPSEC/press-freedom/data-retention-removal.md) · [duress/seizure response](OPSEC/press-freedom/duress-seizure-response.md) | Threat models, legal holds, and human safety determine procedures; technical controls have limits. |
+| PNWC Cyberdeck — portable field system | [Public project index](Cyberdeck/README.md) · [architecture](Cyberdeck/docs/ARCHITECTURE.md) · [hardware status](Cyberdeck/docs/HARDWARE_AND_STATUS.md) · [assessment workflow](Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) | Multi-device network assessment reference; distinct from the uConsole and not a release of the private application. |
 | Wireless surveys and portable field hardware | [Wardriving](Wardriving/README.md) · [SigRoam + Scout Lite](Wardriving/sigroam-scout-lite.md) · [Biscuit](Wardriving/biscuit.md) · [AWOK Dual C5](Wardriving/awok-dual-c5-biscuit.md) · [WardriveGo](Wardriving/wardrive-go.md) · [survey lifecycle](Wardriving/field-workflow.md) | Authorized surveys, mapping, provenance, and retention—not permission for deauthentication or interception. |
 | Wireless intrusion detection and correlation | [Kismet + Wazuh](IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme WIDS](IncidentResponse/IDS%26IPS/nzyme_wids.md) · [nzyme + Wazuh](IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) · [Wireshark deauthentication analysis](Documentation/wifi-deauthentication-detection.md) | Sensor placement, management-frame visibility, protected management frames, thresholds, and evidence-based correlation. |
 | Honeypot and DIY decoy labs | [Honeypot section](IncidentResponse/HoneyPot/readme.md) · [ESP32/embedded sensors](IncidentResponse/HoneyPot/esp32-diy-honeypots.md) · [ESP32-S3](IncidentResponse/HoneyPot/esp32-s3-honeypots.md) · [Raspberry Pi](IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox VM honeynet](IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) · [Wazuh reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | Decoys are isolated monitoring assets, not a substitute for IDS/IPS or production hardening. |
@@ -1469,6 +1472,8 @@ The testing scripts live under `HardwareTesting/py/`; start at the [Hardware Tes
 ---
 
 # PART IV: UCONSOLE PORTABLE CYBERDECK OPERATIONS
+
+> **Different project:** [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) documents a multi-device GL.iNet/MikroTik/mini-PC field assessment architecture. The following Part IV describes the ClockworkPi uConsole.
 
 > **Deeper reference:** [`uConsole/README.md`](uConsole/README.md) · [`uConsole/CM4-SETUP.md`](uConsole/CM4-SETUP.md) · [`uConsole/CM5-SETUP.md`](uConsole/CM5-SETUP.md) · [`uConsole/scripts/`](uConsole/scripts/README.md)
 
