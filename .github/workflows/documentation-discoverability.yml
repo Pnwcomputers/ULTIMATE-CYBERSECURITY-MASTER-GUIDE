@@ -6,12 +6,12 @@ on:
       - '**/*.md'
       - 'tools/generate_documentation_index.py'
       - 'tools/audit_documentation_reachability.py'
-      - 'tools/audit_documentation_reachability.py'
       - '.github/workflows/documentation-discoverability.yml'
   push:
     branches: [main]
     paths:
       - '**/*.md'
+      - 'tools/audit_documentation_reachability.py'
       - 'tools/generate_documentation_index.py'
       - '.github/workflows/documentation-discoverability.yml'
   workflow_dispatch:
