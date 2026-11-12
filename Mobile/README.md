@@ -17,6 +17,8 @@
 **Other mobile security references:** [Android Security](https://github.com/ashishb/android-security-awesome), [OSX and iOS Security](https://github.com/ashishb/osx-and-ios-security-awesome), and [curated source map](../Documentation/awesome-hacking-collections-integration.md).
 
 
+**Linux-on-Android companion:** [UserLAnd Setup & Operations](UserLAnd/readme.md) explains userspace Linux on Android, scope and platform limitations.
+
 **Forensic triage companion:** [MVT mobile verification workflow](mvt-forensic-triage.md) addresses owner consent, iOS/Android backup/artifact limitations and uncertainty; it does not guarantee spyware detection.
 
 ## 🎯 Purpose

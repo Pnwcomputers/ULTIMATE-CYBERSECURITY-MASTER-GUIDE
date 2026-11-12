@@ -30,6 +30,8 @@ Capture scope and evidence interpretation are separate from Wazuh detection rule
 
 | Reference | Description |
 |---|---|
+| [Endpoint Visibility Index](./Endpoint-Visibility/README.md) | Windows/Linux host telemetry, Sysmon, auditd and osquery |
+| [IDS & IPS Index](./IDS%26IPS/readme.md) | Wired and wireless detection setup, sensor visibility and verification |
 | [Honeypot Index](./HoneyPot/readme.md) | Select a deception platform and review deployment constraints |
 | [Raspberry Pi Lab](./HoneyPot/raspberry-pi-honeypot-lab.md) | Small dedicated decoy sensor |
 | [Proxmox Lab](./HoneyPot/proxmox-vm-honeynet.md) | Isolated virtualized decoys |

@@ -133,8 +133,8 @@ def main() -> int:
             print("  - " + value)
         if len(values) > args.max_per_section:
             print(f"  ... and {len(values) - args.max_per_section} more")
-    if args.require_discovery and (unreachable or no_inbound):
-        print("Navigation gate failed: cross-link the pages listed above; the global catalog alone is insufficient.")
+    if args.require_discovery and (unreachable or no_inbound or gaps):
+        print("Navigation gate failed: link every page and each subsection README from its parent index; the global catalog alone is insufficient.")
         return 1
     return 0
 

@@ -1,5 +1,7 @@
 # Scripts Directory
 
+**Navigate:** [OSINT Playbook](../README.md) · [OSINT Section](../../README.md) · [Main Guide](../../../README.md).
+
 This folder contains custom OSINT investigation scripts that integrate with the main playbook.
 
 ## Available Scripts

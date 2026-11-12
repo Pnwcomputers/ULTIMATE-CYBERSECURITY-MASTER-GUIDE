@@ -29,6 +29,8 @@ Work only on accounts, assets, people, and data you have lawful authorization to
 
 These statuses come from current source inspection plus the scope of existing local fixture tests; they do not establish service availability, safe target selection, or successful live runs.
 
+**Scripts Directory:** [Available OSINT Investigation Scripts](scripts/README.md) — use the script-specific prerequisites and authorization limits rather than assuming every script is part of the main interactive menu.
+
 **Operator Support:** [FAQ](../docs/FAQ.md) · [Troubleshooting](../docs/TROUBLESHOOTING.md) · [Installation](../docs/INSTALLATION.md). Missing or failed lookups are not negative findings.
 
 ## Prerequisites & Safe Start
