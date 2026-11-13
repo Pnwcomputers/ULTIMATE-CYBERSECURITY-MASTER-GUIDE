@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/cyberdeckandgear.png" alt="Field & OTG CybSec Audit Cyberdeck" width="600"/>
+</p>
+
 # 🧳 Field/OTG CybSec Audit Cyberdeck: Reference Edition
 
 <div align="center">
