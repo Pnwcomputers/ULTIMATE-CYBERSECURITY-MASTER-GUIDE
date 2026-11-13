@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 12, 2026
+# 🔄 Change Log - November 13, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1583
-- **Files Modified**: 2601
-- **New Files**: 949
+- **Commits Analyzed**: 1587
+- **Files Modified**: 2607
+- **New Files**: 950
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Update README.md with new header and image (`abc86c1`)
+- Add files via upload (`9003b93`)
 - docs: Add consistent badges to Cyberdeck README (#215) (`5150016`)
 - docs: Add public PNWC Cyberdeck reference edition (#207) (`3ef5ae3`)
 - lab: validate synthetic detection evidence and add sourced hardware case studies (#196) (`be29a98`)
@@ -681,6 +683,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update image path in README.md (`3412683`)
 - Update README.md (`7c7846a`)
 - docs: move historical case study references into CaseStudies index (#218) (`9ea62eb`)
 - Update title in README.md (`ea68a5b`)
@@ -1329,6 +1332,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: complete case study navigation and analysis crosslinks (#220) (`f120fed`)
 - docs: Integrate portable wireless field devices into Cyberdeck (#217) (`8c3d602`)
 - docs: Link official Cyberdeck device and software references (#216) (`d0de8f8`)
 - docs: Make Cyberdeck and all documentation readily discoverable (#209) (`a31c891`)
@@ -1607,10 +1611,13 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `CaseStudies/README.md`
-- `README.md`
-- `CHANGELOG.md`
 - `Cyberdeck/README.md`
+- `assets/cyberdeckandgear.png`
+- `CHANGELOG.md`
+- `CaseStudies/README.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `START_HERE.md`
+- `README.md`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
@@ -1623,7 +1630,6 @@
 - `Documentation/bruce_firmware.md`
 - `Documentation/flipper_zero_guide.md`
 - `PlayBooks/README.md`
-- `START_HERE.md`
 - `Wardriving/README.md`
 - `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
@@ -1633,7 +1639,6 @@
 - `Cyberdeck/tools/verify_manifest.py`
 - `.github/CONTRIBUTING.md`
 - `.github/workflows/documentation-discoverability.yml`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Homelab/README.md`
 - `IncidentResponse/README.md`
 - `Mobile/README.md`
