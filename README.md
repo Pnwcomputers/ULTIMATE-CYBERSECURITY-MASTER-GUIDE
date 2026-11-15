@@ -20,7 +20,7 @@
 
 ---
 
-**[Open the Project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki)** to browse the guides by topic or choose a learning path.
+**[Open the Project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki)** to browse this repository through the dedicated Wiki.
 
 ## 🧭 About This Index
 
