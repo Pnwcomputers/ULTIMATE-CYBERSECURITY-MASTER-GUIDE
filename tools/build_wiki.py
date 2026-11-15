@@ -70,6 +70,7 @@ def build(output, repository):
     assigned = {section for sections in areas.values() for section in sections}
     areas["Additional Topics"] = sorted(groups.keys() - assigned, key=str.casefold)
     topics = []
+    area_links = []
     for area, sections in areas.items():
         rows = []
         for section in sections:
@@ -107,21 +108,29 @@ def build(output, repository):
             lines.extend(["", f"[Back to All Topics]({wiki}Browse-by-Topic)"])
             pages[slug] = lines
         if rows:
-            topics.extend(["", f"## {area}", "", "| Topic | Documents |", "| --- | ---: |", *rows])
+            anchor = "area-" + "-".join(re.findall(r"[a-z]+", area.lower()))
+            area_links.append(f"[{area}]({wiki}Browse-by-Topic#{anchor})")
+            topics.extend(["", f'<a name="{anchor}"></a>', "", f"## {area}", "", "| Topic | Documents |", "| --- | ---: |", *rows])
 
     routes = [
         ("Choose a Learning Path", "START_HERE.md", "Follow a route for your role or experience level."),
         ("Read the Master Guide", "ultimate_cybersecurity_master_guide.md", "Work through the core material in sequence."),
         ("Look Up a Term", "GLOSSARY.md", "Check a definition while reading a guide."),
     ]
-    home = ["# Ultimate Cybersecurity Master Guide", "",
+    home = ['<h1 align="center">Ultimate Cybersecurity Master Guide Wiki</h1>', ""]
+    if "assets/cybersecurityguide.png" in tracked:
+        cover = f"https://raw.githubusercontent.com/{repository}/main/assets/cybersecurityguide.png"
+        home.extend([f'<p align="center"><img src="{cover}" width="300" alt="Pacific Northwest Computers guide cover"></p>', ""])
+    home.extend([
             "Pacific Northwest Computers’ guide collection for security practitioners, students, and field technicians.",
-            "", "## Start Here", "", "| Starting Point | When to Use It |", "| --- | --- |",
-            f"| [Browse by Topic]({wiki}Browse-by-Topic) | Find every guide in a subject area. |"]
+            "", "---", "", "## 🧭 Start Here", "", "| Starting Point | When to Use It |", "| --- | --- |",
+            f"| [Browse by Topic]({wiki}Browse-by-Topic) | Find every guide in a subject area. |"])
     for title, path, description in routes:
         if path in tracked:
             home.append(f"| [{title}]({blob}{quote(path)}) | {description} |")
-    home.extend(["", "## Common Tasks", ""])
+    home.extend(["", "---", "", "## 📚 Explore the Guide Collection", ""])
+    home.extend("- " + link for link in area_links)
+    home.extend(["", "---", "", "## 🛠️ Common Tasks", ""])
     for title, path in [
         ("Set Up a SIEM", "IncidentResponse/SIEM/README.md"),
         ("Build a Honeypot Lab", "IncidentResponse/HoneyPot/readme.md"),
@@ -139,6 +148,8 @@ def build(output, repository):
                         ("Complete Index", "DOCUMENTATION_INDEX.md")]:
         if path in tracked:
             pages["_Sidebar"].append(f"- [{title}]({blob}{quote(path)})")
+    pages["_Sidebar"].extend(["", "**Subject Areas**", "", *("- " + link for link in area_links)])
+    pages["_Footer"] = [f"[Wiki Home]({wiki}Home) · [Topic Directory]({wiki}Browse-by-Topic) · [Project Repository]({base})"]
     output.mkdir(parents=True, exist_ok=True)
     for slug, lines in pages.items():
         (output / (slug + ".md")).write_text("\n".join([MARKER, "", *lines, ""]), encoding="utf-8")
