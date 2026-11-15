@@ -1,0 +1,17 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "pla-default": {
+            "fit_gap": "0.3",
+            "max_strain": "0.025"
+        },
+        "loose-fit": {
+            "fit_gap": "0.45",
+            "sma_hole_d": "6.7"
+        },
+        "cable-right-sma-left": {
+            "port_side": "1",
+            "sma_side": "-1"
+        }
+    }
+}

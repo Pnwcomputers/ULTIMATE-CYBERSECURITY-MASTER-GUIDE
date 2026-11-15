@@ -1,193 +1,140 @@
-# OpenSCAD Functional Design & Prototyping Guide
+<p align="center">
+  <img src="./images/gps-cradle-assembly.png" alt="OpenSCAD GPS cradle example: sleeve, GPS pod, SMA bulkhead and snap-on lid around a ghosted T-Embed handset" width="600"/>
+</p>
 
-Welcome to the comprehensive guide for designing functional 3D-printable parts, mechanical assemblies, and hardware enclosures in OpenSCAD. This guide covers core syntax, configuration patterns, project organization, and a complete walkthrough for mocking up and building complex assemblies (such as custom device cradles, GPS modules, SMA antenna mounts, and snap-fit lids).
+# 🧩 OpenSCAD Functional Design & Prototyping Guide
+
+_Last reviewed: 2026-11-14_
+
+<div align="center">
+
+**Code-first CAD for printable cases, adapters, mounts, replacement parts and new gear**
+
+*Part of [CAD & 3D Printing](../README.md) in the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
+
+![OpenSCAD](https://img.shields.io/badge/CAD-OpenSCAD-yellow?style=for-the-badge)
+![Tested](https://img.shields.io/badge/Examples-Tested_on_2021.01-green?style=for-the-badge)
+![Workflow](https://img.shields.io/badge/Workflow-Mock_%7C_Check_%7C_Print-blue?style=for-the-badge)
+
+</div>
+
+**Navigate:** [Main Guide](../../README.md) · [Start Here](../../START_HERE.md) · [CAD Index](../README.md) · [All Documentation](../../DOCUMENTATION_INDEX.md)
+
+## 🎯 Purpose
+
+A practical path from "I need a bracket for this radio" to a part that fits the first time. You will learn the OpenSCAD language, how to structure a parametric project, how to **mock up the real hardware** (devices, boards, connectors, cables) and prove clearance before printing, and how to design features that print well, all anchored by a complete worked example: a T-Embed CC1101 sleeve with a GT-U7 GPS pod, SMA bulkhead, routed cable, PCB snap latches and a snap-on lid.
+
+> [!TIP]
+> **Why bother?** Design skills turn a 3D printer into a repair shop and prototyping lab: replacement clips and covers, protective cases, mounts, jigs and function-expanding accessories, plus your own inventions. See [Why CAD Skills & a Capable 3D Printer Belong Together](../README.md#-why-cad-skills--a-capable-3d-printer-belong-together).
+
+## 📋 When to Use
+
+- Designing a **case, cradle or holster** for field hardware (handhelds, SDRs, dev boards, battery packs)
+- Making an **adapter** (antenna bracket, mount plate, connector panel) or a **replacement part** (battery door, clip, knob)
+- Checking whether a new module, connector or cable **will physically fit** before you buy, cut or print
+- Building a reusable, **parametric** design others can adjust from the Customizer
 
 ---
 
-## 1. Core Syntax & Primitives
-OpenSCAD is code-first CAD. Every 3D model is built using geometric primitives manipulated through mathematical transformations and boolean logic.
+## Start Here
 
-* **Primitives:** 
-  * `cube([x, y, z], center=true/false);`
-  * `cylinder(h=height, r=radius, center=true);` (or `d=diameter`)
-  * `sphere(r=radius);`
-  * `polyhedron(points=[...], faces=[...]);`
-* **Resolution Control:** Always control curve smoothness using fragment variables:
-  ```openscad
-  $fn = 64; // Sets fixed number of fragments per circle (higher = smoother, lower = faster render)
-  ```
+| Resource | What It Provides |
+|---|---|
+| **[01 · Fundamentals](./01-fundamentals.md)** | Editor workflow, primitives, 2D extrusion, transforms, booleans, `hull()`/`offset()`, modules, functions, loops, modifiers, `assert()` |
+| **[02 · Project Structure & Parameters](./02-project-structure.md)** | Folder layout, Customizer annotations, `include` vs `use`, reusable libraries, part selector, parameter sets, command-line export |
+| **[03 · Mockups & Fit Checks](./03-mockups-and-fit-checks.md)** | Measuring, proxy models of devices/PCBs/connectors/cables, keep-outs, section views, automatic clash tests, test coupons |
+| **[04 · Tutorial: GPS Cradle](./04-tutorial-gps-cradle.md)** | 17-step (0–16) build of the example: sleeve, port window, pod, SMA hole, cable notch, PCB latches, snap lid, inlay, cable routing, checks, export |
+| **[05 · Design for Printing](./05-design-for-printing.md)** | Tolerances, line/layer math, holes, orientation & strength, overhangs, snap-fit strain, multi-color inlays, materials, troubleshooting |
+| **[06 · Keyboard & Mouse Cheat Sheet](./06-keyboard-shortcuts.md)** | Printable one-page sheet (SVG/PNG) plus tables of the most-used shortcuts, verified against the OpenSCAD source |
+
+## Example Projects
+
+| Project | Files | Highlights |
+|---|---|---|
+| [T-Embed CC1101 + GT-U7 GPS Cradle](./examples/gps-cradle/README.md) | `gps_cradle.scad`, `tutorial_steps.scad`, `lib/`, `check.sh` | Offset-ladder enclosure, hardware mockups, D-flat SMA hole, PCB side latches, snap lid, two-color inlay, clash test, gauges |
+
+## Learning Routes
+
+| Goal | Recommended Route |
+|---|---|
+| **Brand new to OpenSCAD** | [Fundamentals](./01-fundamentals.md) → open `tutorial_steps.scad` and step through the [Tutorial](./04-tutorial-gps-cradle.md) |
+| **Design a case for a device you own** | [Mockups & Fit Checks](./03-mockups-and-fit-checks.md) → Tutorial Steps [1–5](./04-tutorial-gps-cradle.md#step-1-measure--record-the-hardware) → [Design for Printing](./05-design-for-printing.md#tolerances--fits) |
+| **Add a connector, antenna or cable exit** | Tutorial Steps [6](./04-tutorial-gps-cradle.md#step-6-cut-the-port-window--cable-groove), [8](./04-tutorial-gps-cradle.md#step-8-sma-bulkhead-hole-with-a-d-flat), [9](./04-tutorial-gps-cradle.md#step-9-cable-entry-notch) and [13](./04-tutorial-gps-cradle.md#step-13-route-the-cables) |
+| **Hold a PCB or lid without screws** | [Snap Fits](./05-design-for-printing.md#snap-fits) → Tutorial Steps [10–11](./04-tutorial-gps-cradle.md#step-10-pcb-ledges--snap-latches) |
+| **Automate exports / checks** | [Command-Line Export](./02-project-structure.md#command-line-export--automation) → [`check.sh`](./examples/gps-cradle/check.sh) |
 
 ---
 
-## 2. Transformations & Boolean Operations
-Position and combine shapes using transformation wrappers and CSG (Constructive Solid Geometry) operators.
+## Quick Start
 
-### Transformations
-```openscad
-translate([x, y, z]) { ... } // Move in 3D space
-rotate([x, y, z]) { ... }    // Rotate in degrees around X, Y, Z axes
-scale([x, y, z]) { ... }     // Scale dimensions non-uniformly
-mirror([x, y, z]) { ... }    // Mirror geometry across a plane
+1. **Install OpenSCAD** from [openscad.org/downloads](https://openscad.org/downloads.html). The stable release is still 2021.01 (a 2026.11 release candidate was tagged in October 2026); development snapshots are much faster with the Manifold engine (Preferences → Advanced → 3D Rendering → Backend). The examples work on both.
+2. **Open** [`examples/gps-cradle/tutorial_steps.scad`](./examples/gps-cradle/tutorial_steps.scad), then **Window → Customizer**, and move the `step` slider.
+3. **Open** [`examples/gps-cradle/gps_cradle.scad`](./examples/gps-cradle/gps_cradle.scad) for the real design. Change `part` to `body`, `lid` or `gauge`, press **F6** (render) then **F7** (export STL).
+4. **Check from a terminal** (Linux/macOS/WSL):
+
+```bash
+cd CAD/OpenSCAD/examples/gps-cradle
+./check.sh            # design checks + STL export + clash test
 ```
 
-### Boolean Operations
-```openscad
-union() { ... }         // Combines multiple shapes (default behavior for multiple items)
-difference() {          // Subtracts all subsequent children from the first child
-    base_shape();
-    cutting_tool();
-}
-intersection() {        // Keeps only the overlapping volume of all children
-    shape_a();
-    shape_b();
-}
-```
-
 ---
 
-## 3. Managing Configurations & Variables in Larger Projects
-As OpenSCAD projects grow, separating configuration parameters into a dedicated file (`config.scad`) keeps your codebase maintainable.
+## The Core Workflow
 
-### Recommended Project Structure
 ```text
-my_project/
-├── config.scad         // All global variables, tolerances, and dimensions
-├── main.scad           // Assembly file that renders the final model
-└── modules/
-    ├── chassis.scad    // Individual component modules
-    └── lid.scad
+ measure ─► 2D plan ─► offset ladder ─► slabs ─► cutters ─► mockups ─► checks ─► coupons ─► print
+   │            │            │             │         │          │          │          │
+ calipers   hull()/      offset(r=)    linear_    difference  % ghosts   assert()  gauge,
+ + source   stadium()    walls, gaps   extrude    # debug     keep-outs  clash     hole
+ comments                lips                                            section   ladder
 ```
 
-### `config.scad` Example
-```openscad
-// ==========================================
-// PROJECT CONFIGURATION & CONSTANTS
-// ==========================================
-
-/* [Global Render Settings] */
-$fn = 100;
-
-/* [Manufacturing Tolerances] */
-PRINT_TOLERANCE = 0.25; // Gap for sliding or mating parts
-
-/* [Enclosure Core Dimensions] */
-BOX_WIDTH  = 120;
-BOX_LENGTH = 80;
-BOX_HEIGHT = 45;
-WALL_THICK = 1.8;
-```
+1. **Measure** the hardware and record the source of every number.
+2. **Draw a 2D plan** of the device and **grow/shrink** it with `offset()` into bores, walls and cavities.
+3. **Extrude** plans into slabs; **cut** windows, holes and recesses with overshooting tools.
+4. **Mock up** devices, boards, connectors and cables in the same coordinate frame.
+5. **Check** with assertions, an automatic clash test and section views.
+6. **Print coupons** (a gauge slice, a hole ladder) before the full part, then update parameters.
 
 ---
 
-## 4. Prototyping Workflow: Mocking Up Hardware for Fit & Clearance
-When designing enclosures or brackets that interface with real-world electronics (PCBs, GPS modules, connectors), follow these prototyping strategies:
+## Section Conventions
 
-1. **Simplified Bounding Envelopes:** Build digital proxy models of your target hardware using primitive cubes and cylinders to verify alignment and prevent collisions.
-2. **OpenSCAD Modifiers for Inspection:**
-   * `%` (Ghost / Background): Renders geometry in transparent gray to display target devices inside your enclosure.
-   * `#` (Debug / Transparent Red): Highlights cutting tools and intersecting geometry.
-   * `*` (Disable): Hides mockups during final mesh exports.
+| Convention | Detail |
+|---|---|
+| Units | Millimeters everywhere |
+| Clearances | Per side, named `*_gap` |
+| Libraries | Loaded with `use <lib/...>`; every module documents its local frame |
+| Parts | One `part` selector per project; printable branches apply their own print orientation |
+| Hardware | Mockups only in preview/clash branches; never in printable output |
+| Verification | Each example ships a `check.sh`; a doc's "Last reviewed" date means its examples were re-rendered and its links re-checked, **not** that a physical print was tested |
 
----
-
-## 5. Complete Tutorial: Designing a GPS Cradle with SMA Ports & Snap-Fit Lids
-
-Below is a complete, production-grade OpenSCAD script demonstrating how to build a hardware cradle (similar to the LilyGO T-Embed / GT-U7 GPS assembly) featuring internal board ledges, cable routing slots, an SMA antenna bulkhead hole, and a snap-fit lid.
-
-```openscad
-// LILYGO T-Embed & GPS Cradle Reference Design
-part = "preview"; // [body,lid,gauge,preview]
-show_inlay = true;
-lid_explode = 15; // Open rear pocket in assembly view
-
-// Core Parameters
-case_length = 97.5;
-case_width  = 38.5;
-case_depth  = 27.6;
-side_gap    = 0;
-sleeve_length = 58;
-wall        = 1.8;
-arm_wall    = 4.5;
-$fn         = 100;
-
-r = case_width / 2;
-outer = r + side_gap + wall;
-floor_z = -wall;
-pw = 2 * (r + side_gap + arm_wall);
-pl = sleeve_length;
-
-module device_plan() {
-    hull() for(y = [r, case_length - r]) translate([0, y]) circle(r = r);
-}
-
-module arm_outline() {
-    scale([(r + side_gap + arm_wall) / (r + side_gap + wall), 1]) device_plan();
-}
-
-module slab(z, h) {
-    translate([0, 0, z]) linear_extrude(h) children();
-}
-
-// Basic Enclosure Chassis Body
-module cradle() {
-    difference() {
-        slab(floor_z, case_depth + wall + 2) arm_outline();
-        // Hollow inner sleeve for device insertion
-        translate([0, 0, 0]) 
-            slab(-0.1, case_depth + 1) device_plan();
-            
-        // Cable routing slot
-        translate([-6, 25, -2]) cube([12, 10, 8]);
-    }
-}
-
-// GPS Module Mounting Ledges
-module board_mount() {
-    for(hand = [-1, 1]) {
-        translate([hand * 10, 30, -6.4])
-            cube([4, 15, 1.6]);
-    }
-}
-
-// SMA Antenna Hole Penetration
-module sma_cutout() {
-    translate([15, 43.5, -3])
-        rotate([0, 90, 0])
-        cylinder(d = 6.8, h = 10, center = true);
-}
-
-// Complete Assembly Body
-module body() {
-    difference() {
-        union() {
-            cradle();
-            board_mount();
-        }
-        sma_cutout();
-    }
-}
-
-// Snap-Fit Lid
-module lid() {
-    difference() {
-        cube([case_width + 6, sleeve_length, 1.6], center = true);
-        // Add decorative trace pocket
-        translate([0, 0, 0.5]) cube([case_width - 4, sleeve_length - 10, 0.4], center = true);
-    }
-}
-
-// Render Logic based on 'part' selector
-if (part == "body") body();
-if (part == "lid") lid();
-if (part == "preview") {
-    color("SteelBlue") body();
-    color("LightSteelBlue") translate([0, 29, -10 - lid_explode]) lid();
-}
-```
+> [!NOTE]
+> **Physical testing status:** the GPS cradle example is verified in software (renders, exports, passes its clash test and assertions). Dimensions marked "measure yours" are vendor or estimated values. Print the gauge coupons and record your results before relying on a fit.
 
 ---
 
-## 6. Best Practices for 3D Printing Functional Parts
-1. **Tolerances:** Always add `0.2mm` to `0.3mm` diametrical clearance for sliding or mating parts to account for 3D printer extrusion variations.
-2. **Orientation:** Print enclosures flat on their entry face or base bed to minimize support requirements.
-3. **Exporting STLs:** Switch your `part` variable to `"body"` or `"lid"` and comment out mockups before exporting to `.stl` for your slicer.
+## ✅ Verification Record (2026-11-14)
+
+| Item | How It Was Checked | Result |
+|---|---|---|
+| Example `.scad` files, all `part` outputs | Rendered and exported with OpenSCAD 2021.01 (`check.sh`), default + 3 presets + `fit_gap` / `wall` sweeps | Pass; clash test empty except deliberate `fit_gap ≤ 0` cases |
+| Assertions and strain echoes | Fed bad inputs (`pcb_y0=0`, `tab_len=4`) | Fail with the documented messages |
+| Language snippets in Fundamentals | Self-contained snippets executed in 2021.01 | Pass |
+| Keyboard and mouse shortcuts | Read from OpenSCAD source: tag `openscad-2021.01` and `master` (2026-11-14) | Version differences marked |
+| CLI options, Manifold default, empty-export behavior | `openscad --help` (2021.01) and `master` source (`openscad.cc`, `RenderSettings.cc`) | Documented as found |
+| Customizer rules | [OpenSCAD User Manual: Customizer](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Customizer) | Main-file literals only; description from the line above |
+| Hardware facts (T-Embed, GT-U7, SMA, Qwiic) | Vendor wiki, retail and data sheets, connector vendors, SparkFun Qwiic pages (linked in each page) | Starting points; measure your parts |
+| Snap-fit strain limits | Bayer/BASF cantilever equation; filament data sheets (elongation at yield) | Conservative starting points |
+| Physical prints | **Not yet performed** | Record printer, material and result here after test printing |
+
+---
+
+## See Also
+
+- [CAD & 3D Printing index](../README.md)
+- [Hardware Hacking](../../HardwareHacking/README.md) · [SDR & RF](../../SDR/README.md) · [Wardriving](../../Wardriving/README.md) · [PNWC Cyberdeck](../../Cyberdeck/README.md) · [uConsole](../../uConsole/README.md): the gear these designs carry
+- [OpenSCAD Cheat Sheet](https://openscad.org/cheatsheet/) · [OpenSCAD User Manual](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual)
+
+---
+[⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)
