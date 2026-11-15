@@ -20,6 +20,8 @@
 
 ---
 
+**[Open the Project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki)** to browse the guides by topic or choose a learning path.
+
 ## 🧭 About This Index
 
 This README is the repository's front door: it lists the main sections, subsection indexes, and selected guides. 

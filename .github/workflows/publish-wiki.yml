@@ -1,0 +1,45 @@
+name: Publish Project Wiki
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  gollum:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-project-wiki
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Refresh wiki navigation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh auth setup-git
+          wiki="$RUNNER_TEMP/project-wiki"
+          if ! git clone --depth 1 "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.wiki.git" "$wiki"; then
+            echo "::error::Check that Wikis is enabled, save the first Home page on GitHub, and rerun Publish Project Wiki."
+            exit 1
+          fi
+          python3 tools/build_wiki.py "$wiki" "$GITHUB_REPOSITORY"
+          git -C "$wiki" add -A
+          if git -C "$wiki" diff --cached --quiet; then
+            exit 0
+          fi
+          git -C "$wiki" -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "Refresh guide navigation from $(git rev-parse --short HEAD)"
+          git -C "$wiki" push origin HEAD
