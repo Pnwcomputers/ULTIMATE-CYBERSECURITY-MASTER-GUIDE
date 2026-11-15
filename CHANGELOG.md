@@ -1,14 +1,15 @@
-# 🔄 Change Log - November 13, 2026
+# 🔄 Change Log - November 15, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1587
-- **Files Modified**: 2607
-- **New Files**: 950
+- **Commits Analyzed**: 1602
+- **Files Modified**: 2643
+- **New Files**: 985
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Create CAD/OpenSCAD/README.md (`0efcd05`)
 - Update README.md with new header and image (`abc86c1`)
 - Add files via upload (`9003b93`)
 - docs: Add consistent badges to Cyberdeck README (#215) (`5150016`)
@@ -683,6 +684,17 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update README.md (`1b4fb39`)
+- Update README.md (`7306538`)
+- Update README.md (`8b650fc`)
+- Update README.md (`a8c3d55`)
+- Update README.md (`323b3e6`)
+- Update README.md (`34db5de`)
+- Update README.md (`fb563c8`)
+- Update README.md (`d808c03`)
+- Update README.md (`449be1d`)
+- Update README.md (`de6ab25`)
+- Publish an automatically updated GitHub Wiki for the guide collection (#222) (`a1c3a6a`)
 - Update image path in README.md (`3412683`)
 - Update README.md (`7c7846a`)
 - docs: move historical case study references into CaseStudies index (#218) (`9ea62eb`)
@@ -1332,6 +1344,9 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: cross-link CAD & 3D Printing guide from related sections (#226) (`95b44c9`)
+- docs(CAD): OpenSCAD design & prototyping guide, GPS cradle tutorial and shortcut cheat sheet (#225) (`6799e6d`)
+- Publish every guide as its own wiki page with an Evil-M5-style Home (#224) (`5f2a7dc`)
 - docs: complete case study navigation and analysis crosslinks (#220) (`f120fed`)
 - docs: Integrate portable wireless field devices into Cyberdeck (#217) (`8c3d602`)
 - docs: Link official Cyberdeck device and software references (#216) (`d0de8f8`)
@@ -1611,26 +1626,70 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `README.md`
+- `CAD/OpenSCAD/03-mockups-and-fit-checks.md`
+- `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
+- `CAD/OpenSCAD/05-design-for-printing.md`
+- `CAD/README.md`
 - `Cyberdeck/README.md`
-- `assets/cyberdeckandgear.png`
+- `Cyberdeck/docs/BUILD_AND_OPERATIONS.md`
+- `Documentation/README.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/bjorn_pi.md`
+- `Documentation/bruce_firmware.md`
+- `HardwareHacking/README.md`
+- `Mobile/README.md`
+- `SDR/README.md`
+- `SDR/nanovna/05-antenna-tuning.md`
+- `Wardriving/README.md`
+- `uConsole/README.md`
+- `CAD/OpenSCAD/01-fundamentals.md`
+- `CAD/OpenSCAD/02-project-structure.md`
+- `CAD/OpenSCAD/06-keyboard-shortcuts.md`
+- `CAD/OpenSCAD/README.md`
+- `CAD/OpenSCAD/examples/gps-cradle/README.md`
+- `CAD/OpenSCAD/examples/gps-cradle/check.sh`
+- `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.json`
+- `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.scad`
+- `CAD/OpenSCAD/examples/gps-cradle/lib/mockups.scad`
+- `CAD/OpenSCAD/examples/gps-cradle/lib/snapfit.scad`
+- `CAD/OpenSCAD/examples/gps-cradle/lib/utils.scad`
+- `CAD/OpenSCAD/examples/gps-cradle/tutorial_steps.scad`
+- `CAD/OpenSCAD/images/clash-view.png`
+- `CAD/OpenSCAD/images/gps-cradle-assembly-rear.png`
+- `CAD/OpenSCAD/images/gps-cradle-assembly.png`
+- `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.png`
+- `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg`
+- `CAD/OpenSCAD/images/print-orientation.png`
+- `CAD/OpenSCAD/images/section-view.png`
+- `CAD/OpenSCAD/images/step1-plans.png`
+- `CAD/OpenSCAD/images/step2-mockups.png`
+- `CAD/OpenSCAD/images/step3-sleeve.png`
+- `CAD/OpenSCAD/images/step4-port-window.png`
+- `CAD/OpenSCAD/images/step5-pod.png`
+- `CAD/OpenSCAD/images/step6-pod-holes.png`
+- `CAD/OpenSCAD/images/step7-board-mount.png`
+- `CAD/OpenSCAD/images/step8-lid-inlay.png`
+- `CAD/OpenSCAD/images/test-coupons.png`
+- `DOCUMENTATION_INDEX.md`
+- `GLOSSARY.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `START_HERE.md`
+- `tools/build_wiki.py`
+- `tools/tests/test_build_wiki.py`
+- `.github/workflows/publish-wiki.yml`
 - `CHANGELOG.md`
+- `assets/cyberdeckandgear.png`
 - `CaseStudies/README.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `START_HERE.md`
-- `README.md`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
-- `Cyberdeck/docs/BUILD_AND_OPERATIONS.md`
 - `Cyberdeck/docs/HARDWARE_AND_STATUS.md`
 - `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md`
 - `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md`
-- `DOCUMENTATION_INDEX.md`
-- `Documentation/WiFiMarauder_Guide.md`
-- `Documentation/bruce_firmware.md`
 - `Documentation/flipper_zero_guide.md`
 - `PlayBooks/README.md`
-- `Wardriving/README.md`
 - `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
 - `Cyberdeck/templates/QUALIFICATION_RECORD.example.md`
@@ -1641,7 +1700,6 @@
 - `.github/workflows/documentation-discoverability.yml`
 - `Homelab/README.md`
 - `IncidentResponse/README.md`
-- `Mobile/README.md`
 - `Mobile/UserLAnd/readme.md`
 - `OSINT/Playbook/README.md`
 - `OSINT/Playbook/scripts/README.md`
@@ -1649,7 +1707,6 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
 - `SECURITY_REMEDIATION_PLAN.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/GO/README.md`
 - `Scripts/GO/shells/README.md`
 - `tools/audit_documentation_reachability.py`
@@ -1661,12 +1718,10 @@
 - `Cyberdeck/templates/ENGAGEMENT_PLAN.example.md`
 - `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
 - `Cyberdeck/tests/test_evidence_manifest.py`
-- `HardwareHacking/README.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/README.md`
 - `PlayBooks/assessment-service-integration-map.md`
-- `Documentation/README.md`
 - `Documentation/device-firmware-list.md`
 - `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
@@ -1727,7 +1782,6 @@
 - `PlayBooks/PurpleTeam_Simple.md`
 - `PlayBooks/unauth_access.md`
 - `ReverseEngineering/ghidra-guide-index.md`
-- `SDR/README.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/07-quick-reference.md`
 - `SDR/nanovna/09-worked-examples-by-band.md`
@@ -1845,7 +1899,6 @@
 - `Tradecraft/README.md`
 - `WebAppSecurity/README.md`
 - `assets/README.md`
-- `uConsole/README.md`
 - `uConsole/scripts/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/awesome-hacking-collections-integration.md`
@@ -1956,7 +2009,6 @@
 - `Documentation/Aircrack-ng_Commands.md`
 - `Documentation/ArchLinux_CheatSheet.md`
 - `Documentation/WifiMarauder_CheatSheet.md`
-- `GLOSSARY.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wifi-deauthentication-detection.md`
@@ -2004,7 +2056,6 @@
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
-- `Documentation/bjorn_pi.md`
 - `Documentation/hcxtoolshashcat.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `SDR/sdr.md`
@@ -2091,7 +2142,6 @@
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/03-calibration.md`
 - `SDR/nanovna/04-antenna-testing.md`
-- `SDR/nanovna/05-antenna-tuning.md`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
 - `SDR/nanovna/08-pc-software-and-firmware.md`
 - `SDR/nanovna/12-sources-and-scope.md`
