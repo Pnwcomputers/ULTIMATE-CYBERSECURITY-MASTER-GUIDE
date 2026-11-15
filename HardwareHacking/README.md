@@ -478,6 +478,7 @@ To contribute to the Hardware Hacking section:
 - [../Cryptography/phantomdrive-guide.md](../Cryptography/phantomdrive-guide.md) - experimental CH569W hidden encrypted USB firmware research; not audited for client data
 - [../Cryptography/solokeys-guide.md](../Cryptography/solokeys-guide.md) - Solo 2 Secure/Hacker firmware-security boundary and authentication use
 - [../Mobile/README.md](../Mobile/README.md) - Mobile security section (HID/BadUSB via NetHunter is a mobile hardware attack vector)
+- [../CAD/README.md](../CAD/README.md) - CAD & 3D printing: design printed probe holders, test fixtures, PCB carriers and device enclosures; [mock up boards and connectors](../CAD/OpenSCAD/03-mockups-and-fit-checks.md) before printing
 - [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (HID and BadUSB attack procedures)
 
 ---

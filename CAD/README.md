@@ -71,6 +71,7 @@ A 3D printer on its own mostly prints other people's files. Pair it with the abi
 
 - [Hardware Hacking](../HardwareHacking/README.md) · [SDR & RF](../SDR/README.md) · [Wardriving](../Wardriving/README.md)
 - [PNWC Cyberdeck](../Cyberdeck/README.md) · [uConsole](../uConsole/README.md) · [Mobile](../Mobile/README.md)
+- [Bruce firmware (T-Embed CC1101)](../Documentation/bruce_firmware.md) · [Wi-Fi Marauder](../Documentation/WiFiMarauder_Guide.md) · [Bjorn on Raspberry Pi](../Documentation/bjorn_pi.md) · [NanoVNA antenna tuning](../SDR/nanovna/05-antenna-tuning.md)
 
 ---
 [⬅️ Back to Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)

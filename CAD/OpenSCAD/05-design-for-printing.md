@@ -180,7 +180,7 @@ The tutorial lid has a 0.4 mm recess and a matching `inlay` part, both exported 
 | Nylon / CF-filled | Strong, wear resistant | Moisture; abrasive (hardened nozzle); carbon fill can affect RF | Hinges, high-load brackets |
 
 > [!WARNING]
-> Keep **carbon-fiber and metal-filled** filaments away from antennas and RF paths. They can be conductive or lossy. Use plain polymers near SMA bulkheads, GPS patches and Sub-GHz antennas.
+> Keep **carbon-fiber and metal-filled** filaments away from antennas and RF paths. They can be conductive or lossy. Use plain polymers near SMA bulkheads, GPS patches and Sub-GHz antennas. Even plain plastic detunes nearby antennas slightly; re-measure with the part fitted ([NanoVNA antenna tuning](../../SDR/nanovna/05-antenna-tuning.md), [shielding & enclosure effectiveness](../../SDR/nanovna/06-cables-filters-other-uses.md#67-shielding-and-enclosure-effectiveness)).
 
 ---
 

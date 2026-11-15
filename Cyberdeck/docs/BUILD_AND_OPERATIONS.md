@@ -18,6 +18,8 @@ Start with an operator workstation, one segmentation router, an approved uplink 
 | Power system | Per-device input voltage/current, adapters, cable ratings | Stable under representative simultaneous load |
 | Enclosure/cabling | Airflow, strain relief, labels, spare cables | Ports accessible, no exposed contacts or obstructed cooling |
 
+For printed brackets, port covers, cable exits and strain relief, the [CAD & 3D Printing guide](../../CAD/README.md) shows how to mock up each device and [prove clearance before printing](../../CAD/OpenSCAD/03-mockups-and-fit-checks.md#clash-testing).
+
 Keep serial numbers, invoices, credentials and real configurations in the private inventory. Publish only generic roles and synthetic measurements. Model compatibility and prices must be checked against current manufacturer documentation before procurement.
 
 ## 2. Map Interfaces and Policy

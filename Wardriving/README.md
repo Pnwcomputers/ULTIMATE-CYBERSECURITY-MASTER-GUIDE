@@ -442,7 +442,7 @@ exit 0
 
 ## Suggested Documentation Layout
 
-```text
+~~~text
 Wardriving/
 ├── README.md
 ├── field-workflow.md
@@ -453,7 +453,7 @@ Wardriving/
 ├── awok-dual-c5-biscuit.md
 ├── wardrive-go.md
 └── kismet.md
-```
+~~~
 
 ## Related Repository Areas
 
@@ -466,6 +466,7 @@ Wardriving/
 - [SDR and RF](../SDR/README.md): radio fundamentals, spectrum measurements and antenna diagnostics—not a substitute for Wi-Fi MAC-layer logging.
 - [Flipper Zero](../Documentation/flipper_zero_guide.md) and [hardware hacking](../HardwareHacking/README.md): UART, GPIO, power and device compatibility.
 - [OPSEC](../OPSEC/README.md): identity, access controls and location-data minimization.
+- [CAD & 3D Printing](../CAD/README.md): design printed holders, mounts and antenna brackets for survey gear; the [GPS cradle tutorial](../CAD/OpenSCAD/04-tutorial-gps-cradle.md) adds a GNSS module and SMA antenna bulkhead to a handheld.
 - [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md): define assessment scope and reporting.
 - [Incident response](../IncidentResponse/README.md): contextualize rogue AP findings; a new SSID is not by itself proof of maliciousness.
 

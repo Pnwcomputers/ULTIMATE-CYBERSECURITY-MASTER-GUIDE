@@ -262,6 +262,7 @@ To contribute to the Mobile section:
 - [../OPSEC/press-freedom/device-network-protection.md](../OPSEC/press-freedom/device-network-protection.md) - protective mobile and laptop settings for journalists and confidential sources
 - [../OPSEC/press-freedom/duress-seizure-response.md](../OPSEC/press-freedom/duress-seizure-response.md) - safe preparation for detention, device seizure and loss
 - [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking (overlaps with mobile hardware attacks)
+- [../CAD/README.md](../CAD/README.md) - CAD & 3D printing: design printed phone cases, adapter and USB-hub holders, and antenna mounts for mobile field kits
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for Bluetooth/WiFi capture used in mobile testing
 - [../Scripts/Bash/BashBunny/README.md](../Scripts/Bash/BashBunny/README.md) - Bash Bunny / DuckyScript payloads (DuckHunter-compatible)
 

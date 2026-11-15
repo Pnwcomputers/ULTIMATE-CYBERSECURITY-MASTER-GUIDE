@@ -122,7 +122,7 @@ For the Cardputer running Bruce, beyond the items already needed for Evil-M5:
 - **NRF24L01+ module (for 2.4 GHz NRF24 features).** Off-the-shelf NRF24 modules wire to the Grove port. Used for the NRF24 jammer and 2.4 GHz spectrum visualizer. Power-sensitive - many cheap NRF24 modules need a decoupling cap or a dedicated regulator to behave.
 - **Faraday bag / shielded enclosure.** More important for Bruce than for Evil-M5 because sub-GHz signals propagate much farther than 2.4 GHz. A properly attenuated bench setup is strongly preferred over "I'll just do this in my office."
 
-The Lilygo T-Embed CC1101 includes the CC1101 on the same PCB as the ESP32-S3, eliminating the wiring step. No separate module needed.
+The Lilygo T-Embed CC1101 includes the CC1101 on the same PCB as the ESP32-S3, eliminating the wiring step. No separate module needed. For a printed sleeve that adds a GPS module and SMA antenna to this handset, see the [T-Embed + GPS cradle tutorial](../CAD/OpenSCAD/04-tutorial-gps-cradle.md).
 
 ---
 

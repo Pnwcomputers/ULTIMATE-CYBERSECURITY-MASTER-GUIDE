@@ -154,7 +154,7 @@ A keep-out is an invisible solid that says "nothing printed may be here". Exampl
 - The space around an SMA bulkhead's inner nut and flange, plus wrench room
 - The finger/plug volume in front of a USB-C or QWIIC socket
 - A cable bend envelope
-- An antenna's clearance zone (keep plastic and especially metal-filled filaments away)
+- An antenna's clearance zone (keep plastic and especially metal-filled filaments away; verify with a [NanoVNA](../../SDR/nanovna/05-antenna-tuning.md) once printed)
 
 In the tutorial the SMA keep-out is an 11 mm cylinder inside the pod wall. It is included in the clash test, so if you move the SMA hole too close to the board or the far wall, the test fails.
 
