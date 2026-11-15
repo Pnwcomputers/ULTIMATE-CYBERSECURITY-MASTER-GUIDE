@@ -4,6 +4,7 @@ import re
 import subprocess
 from collections import defaultdict
 from html import escape
+from itertools import groupby
 from pathlib import Path
 from urllib.parse import quote
 
@@ -27,6 +28,18 @@ def guide_title(path):
     return words(path.stem if path.stem.lower() != "readme" else path.parent.name)
 
 
+def sort_title(title):
+    return re.sub(r"^[^a-z0-9]+", "", title.casefold())
+
+
+def letter_band(title):
+    initial = sort_title(title)[:1]
+    for last, name in [("9", "0–9"), ("f", "A–F"), ("m", "G–M"), ("s", "N–S")]:
+        if initial <= last:
+            return name
+    return "T–Z"
+
+
 def build(output, repository):
     base = f"https://github.com/{repository}"
     wiki = f"{base}/wiki/"
@@ -39,39 +52,93 @@ def build(output, repository):
             groups[path.parts[0] if len(path.parts) > 1 else ""].append(path)
 
     pages = {}
-    topics = ["| Topic | Documents |", "| --- | ---: |"]
-    for section, paths in sorted(groups.items(), key=lambda item: item[0].casefold()):
-        title = words(section) or "Master Guides & Repository Reference"
-        # Include the UTF-8 bytes for a stable, collision-free page name.
-        slug = "Topic-" + (quote(section, safe="").replace("%", "~") or "~root")
-        topics.append(f"| [{label(title)}]({wiki}{quote(slug)}) | {len(paths)} |")
-        lines = [f"# {label(title)}", "", f"[Browse All Topics]({wiki}Browse-by-Topic)"]
-        folders = defaultdict(list)
-        for path in paths:
-            folders[path.parent].append(path)
-        for folder, documents in sorted(folders.items()):
-            lines.extend(["", "## " + label(" / ".join(folder.parts[1:]) or "Overview"), ""])
-            for path in sorted(documents, key=lambda p: (p.stem.lower() != "readme", p.name.lower())):
-                lines.append(f"- [{label(guide_title(path))}]({blob}{quote(path.as_posix())})")
-        pages[slug] = lines
+    areas = {
+        "Foundations & Learning": ["", "CaseStudies", "Cryptography", "Homelab"],
+        "Defense & Investigations": ["IncidentResponse", "OSINT", "ReverseEngineering", "OPSEC", "Compliance"],
+        "Platforms & Infrastructure": ["Cloud", "ContainerSecurity", "WebAppSecurity", "Mobile", "AI", "Data-Engineering"],
+        "Hardware, Wireless & Field Projects": ["Cyberdeck", "HardwareTesting", "HardwareHacking", "SDR", "Wardriving", "uConsole", "SpaceSecurity"],
+        "Assessment & Field Reference": ["Tradecraft", "PlayBooks", "Checklists", "Documentation", "Scripts"],
+        "Downloads & Project Resources": ["PDF", "assets"],
+    }
+    titles = {
+        "": "Master Guides & Repository Reference", "Documentation": "Technical Guides & Cheat Sheets",
+        "AI": "Artificial Intelligence", "OSINT": "Open Source Intelligence (OSINT)",
+        "OPSEC": "Operations Security (OPSEC)", "SDR": "Software-Defined Radio",
+        "assets": "Illustrations & Visual Resources", "PDF": "PDF Reference Library",
+        "PlayBooks": "Playbooks", "uConsole": "uConsole", "Cyberdeck": "PNWC Cyberdeck",
+    }
+    assigned = {section for sections in areas.values() for section in sections}
+    areas["Additional Topics"] = sorted(groups.keys() - assigned, key=str.casefold)
+    topics = []
+    for area, sections in areas.items():
+        rows = []
+        for section in sections:
+            if section not in groups:
+                continue
+            paths = groups[section]
+            title = titles.get(section, words(section))
+            slug = "Topic-" + (quote(section, safe="").replace("%", "~") or "~root")
+            rows.append(f"| [{label(title)}]({wiki}{quote(slug)}) | {len(paths)} |")
+            trail = f"[Home]({wiki}Home) › [Browse by Topic]({wiki}Browse-by-Topic) › {label(area)}"
+            lines = [trail, "", f"# {label(title)}", ""]
+            folders = defaultdict(list)
+            for path in paths:
+                if path.stem.lower() == "readme" and len(path.parts) == 2:
+                    lines.extend([f"**[Open the Section Guide]({blob}{quote(path.as_posix())})**", ""])
+                else:
+                    folders[path.parent].append(path)
+            blocks = []
+            for folder, documents in sorted(folders.items()):
+                heading = " / ".join(words(part) for part in folder.parts[1:]) or "Guides & Reference"
+                entries = [(guide_title(path), path) for path in documents]
+                entries.sort(key=lambda entry: sort_title(entry[0]))
+                if len(entries) <= 20:
+                    blocks.append((heading, entries))
+                    continue
+                for band, subset in groupby(entries, key=lambda entry: letter_band(entry[0])):
+                    blocks.append((f"{heading} · {band}", list(subset)))
+            if len(blocks) > 2:
+                lines.extend(["**On This Page**", ""])
+                lines.extend(f"- [{label(heading)}](#section-{i})" for i, (heading, _) in enumerate(blocks, 1))
+            for i, (heading, entries) in enumerate(blocks, 1):
+                lines.extend(["", f'<a name="section-{i}"></a>', "", "## " + label(heading), ""])
+                for name, path in entries:
+                    lines.append(f"- [{label(name)}]({blob}{quote(path.as_posix())})")
+            lines.extend(["", f"[Back to All Topics]({wiki}Browse-by-Topic)"])
+            pages[slug] = lines
+        if rows:
+            topics.extend(["", f"## {area}", "", "| Topic | Documents |", "| --- | ---: |", *rows])
 
     routes = [
-        ("Choose a learning path", "START_HERE.md"),
-        ("Read the primary master guide", "ultimate_cybersecurity_master_guide.md"),
-        ("Set up a SIEM", "IncidentResponse/SIEM/README.md"),
-        ("Build a honeypot lab", "IncidentResponse/HoneyPot/readme.md"),
-        ("Explore the PNWC Cyberdeck", "Cyberdeck/README.md"),
-        ("Look up a term", "GLOSSARY.md"),
-        ("Browse the complete documentation index", "DOCUMENTATION_INDEX.md"),
+        ("Choose a Learning Path", "START_HERE.md", "Follow a route for your role or experience level."),
+        ("Read the Master Guide", "ultimate_cybersecurity_master_guide.md", "Work through the core material in sequence."),
+        ("Look Up a Term", "GLOSSARY.md", "Check a definition while reading a guide."),
     ]
-    shortcuts = [f"- [{title}]({blob}{quote(path)})" for title, path in routes if path in tracked]
-    pages["Browse-by-Topic"] = ["# Browse by Topic", "", *topics]
-    pages["Home"] = ["# Ultimate Cybersecurity Master Guide", "",
-                     f"[Browse by Topic]({wiki}Browse-by-Topic) for the full guide directory, or choose a starting point below.",
-                     "", "## Start Here", "", *shortcuts]
-    pages["_Sidebar"] = ["**Ultimate Cybersecurity Master Guide**", "",
-                         f"- [Wiki Home]({wiki}Home)", f"- [Browse by Topic]({wiki}Browse-by-Topic)",
-                         *shortcuts]
+    home = ["# Ultimate Cybersecurity Master Guide", "",
+            "Pacific Northwest Computers’ guide collection for security practitioners, students, and field technicians.",
+            "", "## Start Here", "", "| Starting Point | When to Use It |", "| --- | --- |",
+            f"| [Browse by Topic]({wiki}Browse-by-Topic) | Find every guide in a subject area. |"]
+    for title, path, description in routes:
+        if path in tracked:
+            home.append(f"| [{title}]({blob}{quote(path)}) | {description} |")
+    home.extend(["", "## Common Tasks", ""])
+    for title, path in [
+        ("Set Up a SIEM", "IncidentResponse/SIEM/README.md"),
+        ("Build a Honeypot Lab", "IncidentResponse/HoneyPot/readme.md"),
+        ("Explore the PNWC Cyberdeck", "Cyberdeck/README.md"),
+    ]:
+        if path in tracked:
+            home.append(f"- [{title}]({blob}{quote(path)})")
+    pages["Home"] = home
+    pages["Browse-by-Topic"] = [f"[Home]({wiki}Home)", "", "# Browse by Topic", "",
+                                "Choose a topic to see its section guide and individual documents.", *topics]
+    pages["_Sidebar"] = ["**Guide Navigation**", "", f"- [Wiki Home]({wiki}Home)",
+                         f"- [Browse by Topic]({wiki}Browse-by-Topic)", "",
+                         "**Reference**", ""]
+    for title, path in [("Learning Paths", "START_HERE.md"), ("Glossary", "GLOSSARY.md"),
+                        ("Complete Index", "DOCUMENTATION_INDEX.md")]:
+        if path in tracked:
+            pages["_Sidebar"].append(f"- [{title}]({blob}{quote(path)})")
     output.mkdir(parents=True, exist_ok=True)
     for slug, lines in pages.items():
         (output / (slug + ".md")).write_text("\n".join([MARKER, "", *lines, ""]), encoding="utf-8")
