@@ -194,10 +194,10 @@ aiov2_ctl --sync-rtc                # Write system time to hardware RTC
 
 The [CM4 safety and migration review](./CM4-SAFETY-REVIEW.md) explains why the old CM4 installer was retired. For an existing CM4, start with:
 
-~~~bash
+```bash
 bash uConsole/scripts/uconsole-cm4-setup.sh --help
 bash uConsole/scripts/uconsole-cm4-setup.sh --status
-~~~
+```
 
 These actions do not change package sources, the display manager, EEPROM, storage or radio power. When adding actual AIO hardware, follow the [CM4 setup guide](./CM4-SETUP.md) and confirm with the [vendor's AIO v2 documentation](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide).
 
@@ -376,3 +376,4 @@ To contribute to the uConsole section:
 - [scripts/README.md](scripts/README.md) - Automated post-flash setup scripts for CM4 and CM5
 - [../SDR/sdr.md](../SDR/sdr.md) - SDR fundamentals for the RTL-SDR built into the uConsole
 - [../Documentation/blackarch.md](../Documentation/blackarch.md) - BlackArch repo for additional pentesting tools on the uConsole
+- [../CAD/README.md](../CAD/README.md) - CAD & 3D printing: design printed mounts, antenna brackets, port covers and carry accessories for the uConsole

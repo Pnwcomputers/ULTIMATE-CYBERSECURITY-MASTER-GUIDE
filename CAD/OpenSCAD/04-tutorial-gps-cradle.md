@@ -662,6 +662,8 @@ The same pattern (2D plan → offset ladder → slabs → cutters → mockups �
 - [Design for Printing](./05-design-for-printing.md)
 - [Example source: `examples/gps-cradle/`](./examples/gps-cradle/)
 - [SDR & RF guides](../../SDR/README.md) · [Wardriving & GNSS-tagged surveys](../../Wardriving/README.md) · [M5StickC Plus2 + CC1101 lab](../../HardwareHacking/m5stickc-plus2-hackstarterpack.md)
+- [Bruce firmware](../../Documentation/bruce_firmware.md): the firmware this handset commonly runs
+- [NanoVNA antenna tuning](../../SDR/nanovna/05-antenna-tuning.md): check the GPS antenna after the printed pod is fitted
 - [LILYGO T-Embed CC1101 wiki](https://wiki.lilygo.cc/products/t-embed-series/t-embed-cc1101/)
 
 ---

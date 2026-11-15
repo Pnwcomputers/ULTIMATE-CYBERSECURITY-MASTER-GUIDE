@@ -154,6 +154,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 
 **Option 4: ESP32 Marauder Kits ($100–$150+)**  
 - Adds **GPS module**, external antenna connectors, larger battery, case.  
+- To design your own case or antenna mount, see [CAD & 3D Printing](../CAD/README.md).  
 - Best for wardriving and professional assessments.
 
 **Option 5: ESP32-C5 DevKitC-1 (Dual-Band / Wi-Fi 6 capable)**  

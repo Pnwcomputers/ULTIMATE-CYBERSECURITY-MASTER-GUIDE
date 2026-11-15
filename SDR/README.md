@@ -348,6 +348,7 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md) | Network assessment context. |
 | [Hardware Hacking](../HardwareHacking/README.md) | Embedded systems, interfaces, and hardware investigation. |
 | [Space Security](../SpaceSecurity/README.md) | Satellite and navigation-security context. |
+| [CAD & 3D Printing](../CAD/README.md) | Printed radio cradles, antenna mounts and SMA bulkhead panels; see the [D-flat SMA hole](../CAD/OpenSCAD/04-tutorial-gps-cradle.md#step-8-sma-bulkhead-hole-with-a-d-flat) and [RF-safe filament choices](../CAD/OpenSCAD/05-design-for-printing.md#materials-for-field-gear). |
 | [Documentation index](../Documentation/README.md) | Additional tool and platform guides. |
 | [Bruce firmware](../Documentation/bruce_firmware.md) | Supported embedded RF workflows; external radio hardware determines capabilities. |
 | [Flipper Zero guide](../Documentation/flipper_zero_guide.md) | Supported Sub-GHz and LF/HF device workflows. |

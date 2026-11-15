@@ -531,6 +531,10 @@ making it look like 1.1:1, you're heating coax.
 5. Re-measure in the final enclosure. Plastic enclosures shift resonance
    downward — often by several percent.
 
+> Designing that enclosure yourself? The [CAD & 3D Printing guide](../../CAD/OpenSCAD/05-design-for-printing.md#materials-for-field-gear)
+> covers RF-friendly filament choices and [antenna keep-out volumes](../../CAD/OpenSCAD/03-mockups-and-fit-checks.md#keep-out-volumes);
+> re-tune with the printed part fitted, as above.
+
 ### Magnetic loop
 
 1. Extremely high Q — SWR bandwidth may be only a few kHz.

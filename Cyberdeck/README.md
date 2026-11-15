@@ -152,6 +152,7 @@ Never put client data, case folders, credentials, signed authorization forms or 
 | Portable wireless field operations | [Flipper, Pineapple, M5StickC Plus2, Bruce & Marauder](docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Wireless Survey Guide](../Wardriving/README.md) |
 | Device and firmware references | [Device & Platform References](#device--platform-references) · [Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) |
 | Defensive monitoring | [IDS & IPS](../IncidentResponse/IDS%26IPS/readme.md) |
+| Printed enclosures, mounts and cable strain relief | [CAD & 3D Printing](../CAD/README.md) · [Mockups & Fit Checks](../CAD/OpenSCAD/03-mockups-and-fit-checks.md) |
 | Operating and legal terms for the parent guide | [Legal Terms](../LEGAL.md) |
 
 Copyright © 2026 Pacific Northwest Computers. This public reference has **no separately granted open-source license**; visibility on GitHub must not be mistaken for permission to redistribute proprietary private project materials. See [publication notes](docs/PUBLISHING_AND_RELEASE.md).

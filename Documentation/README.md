@@ -294,6 +294,7 @@ These are scoped coverage gaps, not nonexistent documents or promises of complet
 - [../Checklists/README.md](../Checklists/README.md) - Security assessment checklists
 - [../Scripts/README.md](../Scripts/README.md) - Scripts that implement many documented techniques
 - [../HardwareHacking/README.md](../HardwareHacking/README.md) - Hardware hacking tools and techniques
+- [../CAD/README.md](../CAD/README.md) - CAD & 3D printing: OpenSCAD guides for printed cases, mounts, adapters and replacement parts
 
 ---
 

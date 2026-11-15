@@ -130,7 +130,7 @@ The HAT mounts to the Pi's 40-pin GPIO header. No soldering required; it plugs i
 
 - **microSD card, Class 10, 16 GB minimum.** Bjorn writes a lot during a run (scan results, captured files, SQL dumps), and slow cards bottleneck the orchestrator. Industrial-grade (Sandisk High Endurance, Samsung PRO Endurance) is worth the small premium if you're deploying continuously; Bjorn's logging is write-heavy and consumer-grade cards will fail in months.
 - **PiSugar 2 or PiSugar 3.** Battery HAT for the Pi Zero/Zero 2 form factor with integrated charging and runtime estimation. Turns Bjorn into a true drop-and-walk-away device with 6-12 hours of runtime depending on activity.
-- **Compact 3D-printed enclosure.** Community designs are abundant; printable from your Bambu X1C in a few hours. Make sure the e-Paper viewport is cut for the HAT's exposed display area.
+- **Compact 3D-printed enclosure.** Community designs are abundant; printable from your Bambu X1C in a few hours. Make sure the e-Paper viewport is cut for the HAT's exposed display area. To design or adapt one, see the [CAD & 3D Printing guide](../CAD/README.md) and [Mockups & Fit Checks](../CAD/OpenSCAD/03-mockups-and-fit-checks.md).
 - **microSD reader on the operator workstation.** You'll be writing the SD image, troubleshooting boot issues, and occasionally pulling logs off-device. A spare SD card pre-flashed with a known-good Bjorn build is useful for fast recovery.
 
 ### 3.4 A note on Wi-Fi adapters
