@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**391 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**400 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -11,6 +11,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Root Guides & Repository Documents | 16 | [Open section](#root-guides--repository-documents) |
 | .github | 7 | [Open section](#github) |
 | AI | 36 | [Open section](#ai) |
+| CAD | 9 | [Open section](#cad) |
 | CaseStudies | 5 | [Open section](#casestudies) |
 | Checklists | 18 | [Open section](#checklists) |
 | Cloud | 5 | [Open section](#cloud) |
@@ -112,6 +113,20 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [rag-and-knowledge-engineering.md](./AI/rag-and-knowledge-engineering.md) | `AI/rag-and-knowledge-engineering.md` |
 | [structured-outputs-and-data-contracts.md](./AI/structured-outputs-and-data-contracts.md) | `AI/structured-outputs-and-data-contracts.md` |
 | [verification-and-ai-audits.md](./AI/verification-and-ai-audits.md) | `AI/verification-and-ai-audits.md` |
+
+## CAD
+
+| Document | Repository Path |
+| --- | --- |
+| [OpenSCAD/01-fundamentals.md](./CAD/OpenSCAD/01-fundamentals.md) | `CAD/OpenSCAD/01-fundamentals.md` |
+| [OpenSCAD/02-project-structure.md](./CAD/OpenSCAD/02-project-structure.md) | `CAD/OpenSCAD/02-project-structure.md` |
+| [OpenSCAD/03-mockups-and-fit-checks.md](./CAD/OpenSCAD/03-mockups-and-fit-checks.md) | `CAD/OpenSCAD/03-mockups-and-fit-checks.md` |
+| [OpenSCAD/04-tutorial-gps-cradle.md](./CAD/OpenSCAD/04-tutorial-gps-cradle.md) | `CAD/OpenSCAD/04-tutorial-gps-cradle.md` |
+| [OpenSCAD/05-design-for-printing.md](./CAD/OpenSCAD/05-design-for-printing.md) | `CAD/OpenSCAD/05-design-for-printing.md` |
+| [OpenSCAD/06-keyboard-shortcuts.md](./CAD/OpenSCAD/06-keyboard-shortcuts.md) | `CAD/OpenSCAD/06-keyboard-shortcuts.md` |
+| [README — CAD/OpenSCAD](./CAD/OpenSCAD/README.md) | `CAD/OpenSCAD/README.md` |
+| [README — CAD/OpenSCAD/examples/gps-cradle](./CAD/OpenSCAD/examples/gps-cradle/README.md) | `CAD/OpenSCAD/examples/gps-cradle/README.md` |
+| [README — CAD](./CAD/README.md) | `CAD/README.md` |
 
 ## CaseStudies
 

@@ -66,6 +66,15 @@ A quick reference for acronyms and terms used across this repository. Terms are 
 - **SDR — Software-Defined Radio:** A radio whose signal processing is done in software (e.g., HackRF, RTL-SDR). See [SDR/](SDR/).
 - **Firmware:** The low-level software embedded in a device's non-volatile memory.
 
+## CAD & 3D Printing
+
+- **CSG — Constructive Solid Geometry:** Building solids by adding, subtracting and intersecting simpler shapes; the modeling method used by OpenSCAD. See [CAD/OpenSCAD/](CAD/OpenSCAD/README.md).
+- **FDM — Fused Deposition Modeling:** Filament-extrusion 3D printing; parts are strongest along printed lines and weakest between layers.
+- **STL / 3MF:** Mesh file formats sent to a slicer; 3MF also stores units and can hold multiple parts.
+- **SMA / RP-SMA:** Threaded (1/4"-36 UNS) RF coaxial connectors; RP-SMA reverses the center-contact gender.
+- **u.FL / IPEX:** Miniature snap-on RF connector used on small modules; usually adapted to SMA with a pigtail cable.
+- **QWIIC:** 4-pin JST-SH 1.0 mm expansion connector, normally carrying I²C and 3.3 V.
+
 ## Deprecated / Renamed Tooling
 
 Repo-wide status notes for tools that appear across multiple guides. Where a guide
