@@ -21,6 +21,7 @@
 | Resource | Description / Boundary |
 |---|---|
 | [Device Firmware List](../Documentation/device-firmware-list.md) | Board-first choices and target limitations. |
+| [The Black Wire Maker's Technical Reference Guide](https://valleytech-black-wire-guide.pages.dev/) | Board pinouts, GPIO diagrams, wiring references and manufacturer documentation for Raspberry Pi, ESP32, Arduino and related embedded boards. |
 | [ESP Terminator](../Documentation/esp-terminator.md) | General catalog/uploader selection and recovery checks. |
 
 ## Dedicated Firmware Labs

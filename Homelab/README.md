@@ -79,6 +79,10 @@ Physical tools, edge devices, and radio frequency hardware.
 | **Hak5 Gear** | Payloads and physical access tooling setup. | Rubber Ducky, Bash Bunny, WiFi Pineapple, LAN Turtle |
 | **SBCs** | DIY pentesting rigs and embedded systems configurations. | Raspberry Pi, Pwnagotchi, ClockworkPi uConsole |
 
+| Resource | Description |
+|---|---|
+| [The Black Wire Maker's Technical Reference Guide](https://valleytech-black-wire-guide.pages.dev/) | Raspberry Pi and other single-board computer (SBC) references: GPIO pinouts, connector diagrams, power data and manufacturer sources. |
+
 ### 🛡️ Network & OPSEC
 The routing, switching, and boundary protection of the lab.
 
