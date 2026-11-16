@@ -300,6 +300,10 @@ START: What's your budget and goals?
 - **Rock Pi 4**: $40-80
   - Similar to RPi with better specs
 
+| Resource | Description |
+|---|---|
+| [The Black Wire Maker's Technical Reference Guide](https://valleytech-black-wire-guide.pages.dev/) | Board pinouts, GPIO and connector diagrams, power references and manufacturer documentation for SBC projects; check the source and revision notes for your exact board. |
+
 **x86 Mini PCs**:
 - **ZimaBoard/ZimaBlade**: $150-300
   - Dual NIC, x86 architecture, compact
