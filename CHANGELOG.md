@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 15, 2026
+# 🔄 Change Log - November 16, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1602
-- **Files Modified**: 2643
+- **Commits Analyzed**: 1604
+- **Files Modified**: 2648
 - **New Files**: 985
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add Black Wire hardware and SBC references (#228) (`08f3504`)
+- ci: bump peter-evans/create-pull-request from 8.1.2 to 8.1.3 (#227) (`151fb62`)
 - Create CAD/OpenSCAD/README.md (`0efcd05`)
 - Update README.md with new header and image (`abc86c1`)
 - Add files via upload (`9003b93`)
@@ -1626,6 +1628,11 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `HardwareHacking/README.md`
+- `Homelab/HomeLab_Setup.md`
+- `Homelab/README.md`
+- `CHANGELOG.md`
+- `.github/workflows/auto_changelog.yml`
 - `README.md`
 - `CAD/OpenSCAD/03-mockups-and-fit-checks.md`
 - `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
@@ -1637,7 +1644,6 @@
 - `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
-- `HardwareHacking/README.md`
 - `Mobile/README.md`
 - `SDR/README.md`
 - `SDR/nanovna/05-antenna-tuning.md`
@@ -1678,7 +1684,6 @@
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
 - `.github/workflows/publish-wiki.yml`
-- `CHANGELOG.md`
 - `assets/cyberdeckandgear.png`
 - `CaseStudies/README.md`
 - `ENHANCED_MASTER_GUIDE.md`
@@ -1698,7 +1703,6 @@
 - `Cyberdeck/tools/verify_manifest.py`
 - `.github/CONTRIBUTING.md`
 - `.github/workflows/documentation-discoverability.yml`
-- `Homelab/README.md`
 - `IncidentResponse/README.md`
 - `Mobile/UserLAnd/readme.md`
 - `OSINT/Playbook/README.md`
@@ -1812,7 +1816,6 @@
 - `tools/tests/test_legacy_archive_manifest.py`
 - `tools/tests/test_maintenance_candidate_triage.py`
 - `.gitattributes`
-- `.github/workflows/auto_changelog.yml`
 - `.editorconfig`
 - `.github/CODEOWNERS`
 - `.github/ISSUE_TEMPLATE/verification_finding.md`
@@ -1942,7 +1945,6 @@
 - `Documentation/LinuxCheatSheet.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
-- `Homelab/HomeLab_Setup.md`
 - `tools/check_markdown_numbered_lists.py`
 - `AI/offensive_ai.md`
 - `AI/offline-llm.md`
