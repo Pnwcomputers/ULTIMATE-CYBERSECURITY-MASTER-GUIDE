@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Azure RBAC: role plus scope determines reach</title>
+<desc id="desc">A management group contains subscriptions, which contain resource groups and resources. Parent role permissions are inherited by descendants. The example assignment at resource group scope extends to its resources, not sibling groups; conditions and deny assignments still matter.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Azure RBAC: role plus scope determines reach</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual hierarchy • example assignment • not a list of effective permissions</text>
+<rect x="40" y="158" width="250" height="220" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="192" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Management group</text>
+<text x="58" y="231" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Broader scope</text>
+<text x="58" y="261" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Review inherited roles</text>
+<path d="M298 265 L319 265" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="330" y="158" width="250" height="220" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="192" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Subscription</text>
+<text x="348" y="231" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Broader scope</text>
+<text x="348" y="261" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Review inherited roles</text>
+<path d="M588 265 L609 265" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="620" y="158" width="250" height="220" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="192" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Resource group</text>
+<text x="638" y="231" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Example assignment</text>
+<text x="638" y="261" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Role + principal + scope</text>
+<path d="M878 265 L899 265" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="910" y="158" width="250" height="220" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="192" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Resource</text>
+<text x="928" y="231" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Child scope</text>
+<text x="928" y="261" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Inherited permissions</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Review direct and inherited assignments, conditions, deny assignments, and eligible versus active access.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Management actions and data actions are distinct; a familiar role name is not a complete access review.</text>
+</svg>

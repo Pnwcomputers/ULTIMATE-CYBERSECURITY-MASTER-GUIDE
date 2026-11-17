@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Entra roles and Azure RBAC govern different resources</title>
+<desc id="desc">Microsoft Entra roles administer directory objects. Azure RBAC roles apply to Azure resource scopes. Global Administrator is not automatically subscription Owner; a separately auditable elevation grants User Access Administrator at root scope.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Entra roles and Azure RBAC govern different resources</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual permission model • not a map of this tenant</text>
+<rect x="40" y="145" width="535" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Microsoft Entra roles</text>
+<text x="58" y="218" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Directory administration</text>
+<text x="58" y="248" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Users, groups, applications</text>
+<text x="58" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Example: Global Administrator</text>
+<rect x="625" y="145" width="535" height="260" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="643" y="179" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Azure RBAC roles</text>
+<text x="643" y="218" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Azure resource permissions</text>
+<text x="643" y="248" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Assignment includes a resource scope</text>
+<text x="643" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Examples: Owner, Reader</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Directory administration does not automatically imply Azure resource access.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Elevation and cross-plane relationships require explicit review; do not treat them as ordinary inheritance.</text>
+</svg>

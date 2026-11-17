@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Logging coverage has separate sources and permissions</title>
+<desc id="desc">Entra sign-in and audit logs, Azure Activity Log and resource logs are distinct sources. Routing and access require configuration and permissions; resource logs are not collected by default. A collector must validate delivery and coverage before relying on detections.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Logging coverage has separate sources and permissions</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual collection path • no log export or tenant configuration was performed</text>
+<rect x="40" y="139" width="330" height="102" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="173" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Entra sign-in / audit</text>
+<text x="58" y="212" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Tenant identity activity</text>
+<rect x="40" y="261" width="330" height="102" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="295" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Azure Activity Log</text>
+<text x="58" y="334" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Control-plane activity</text>
+<rect x="40" y="383" width="330" height="82" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="417" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Resource logs</text>
+<rect x="485" y="210" width="300" height="198" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="503" y="244" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Configured routing</text>
+<text x="503" y="283" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Selected categories</text>
+<text x="503" y="313" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Destination permissions</text>
+<text x="503" y="343" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Retention and access</text>
+<rect x="885" y="210" width="275" height="198" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="903" y="244" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Investigation</text>
+<text x="903" y="283" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Validate delivery</text>
+<text x="903" y="313" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Correlate evidence</text>
+<text x="903" y="343" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Document coverage</text>
+<path d="M382 190 L473 265" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M382 313 L473 313" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M382 420 L473 365" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M797 310 L873 310" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Resource logs need collection configuration; no single stream records every identity and resource operation.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Log viewing, routing configuration, and workspace access can require different privileges.</text>
+</svg>
