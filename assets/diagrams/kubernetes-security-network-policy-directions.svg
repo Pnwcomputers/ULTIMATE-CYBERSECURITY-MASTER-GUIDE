@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">NetworkPolicy: check both directions and enforcement</title>
+<desc id="desc">A selected source Pod's egress rules and a selected destination Pod's ingress rules both must permit traffic. Allowed rules are additive across policies. Namespace membership alone does not create network isolation.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">NetworkPolicy: check both directions and enforcement</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual Pod-to-Pod connection • selected isolated endpoints • plugin support required</text>
+<rect x="40" y="164" width="290" height="220" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="198" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Source Pod</text>
+<text x="58" y="236" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Egress isolation selected</text>
+<text x="58" y="266" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Allowed egress required</text>
+<rect x="455" y="164" width="290" height="220" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="473" y="198" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Network implementation</text>
+<text x="473" y="236" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Must support enforcement</text>
+<text x="473" y="266" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Verify actual traffic</text>
+<rect x="870" y="164" width="290" height="220" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="888" y="198" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Destination Pod</text>
+<text x="888" y="236" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Ingress isolation selected</text>
+<text x="888" y="266" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Allowed ingress required</text>
+<path d="M342 275 L443 275" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M757 275 L858 275" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Policies are additive: another allow rule can permit traffic. A namespace label is not a firewall.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Evaluate ingress and egress separately; a policy object alone does not prove that packets are blocked.</text>
+</svg>
