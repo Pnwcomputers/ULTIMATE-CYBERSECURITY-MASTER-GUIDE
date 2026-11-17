@@ -64,6 +64,17 @@ For an auditable record of the visual coverage review and remaining improvements
 | [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
 
+## Xerox DocuColor Case Study Visuals
+
+Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docucolor-machine-identification-code.md).
+
+| Asset | Purpose and provenance |
+|---|---|
+| [Printer dots](./printerdots.jpg) | Owner-supplied illustrative introduction; not authenticated as a physical capture. |
+| [MIC overview](./printerdotsbasic%20breakdown.jpg) | Owner-supplied conceptual breakdown; caption explains layout and lighting limitations. |
+| [DocuColor grid](./diagrams/xerox-docucolor-grid.svg) | Original synthetic grid and minute-decoding example based on EFF's format. |
+| [Evidence workflow](./diagrams/xerox-docucolor-evidence-flow.svg) | Original conceptual preservation, observation, decoding, and corroboration workflow. |
+
 ## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.
