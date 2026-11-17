@@ -85,6 +85,16 @@ Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docuc
 | [DocuColor grid](./diagrams/xerox-docucolor-grid.svg) | Original synthetic grid and minute-decoding example based on EFF's format. |
 | [Evidence workflow](./diagrams/xerox-docucolor-evidence-flow.svg) | Original conceptual preservation, observation, decoding, and corroboration workflow. |
 
+## GCP Security Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [gcp security policy inheritance](./diagrams/gcp-security-policy-inheritance.svg) | [Guide](../Cloud/gcp.md) |
+| [gcp security audit coverage](./diagrams/gcp-security-audit-coverage.svg) | [Guide](../Cloud/gcp.md) |
+| [gcp security service account routes](./diagrams/gcp-security-service-account-routes.svg) | [Guide](../Cloud/gcp.md) |
+
 ## Historical Case Study Diagrams
 
 These twelve original static vector diagrams explain mechanisms and evidence limits
