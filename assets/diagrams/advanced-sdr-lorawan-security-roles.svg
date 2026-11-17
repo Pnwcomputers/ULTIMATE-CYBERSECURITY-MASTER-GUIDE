@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">LoRaWAN: encryption and integrity serve different goals</title>
+<desc id="desc">A LoRa waveform is a physical layer. LoRaWAN framing includes security checks; payload encryption protects content while a message integrity code detects unauthorized message changes. Version-specific key and counter rules matter.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">LoRaWAN: encryption and integrity serve different goals</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual security roles • exact keys and processing depend on protocol version</text>
+<rect x="40" y="165" width="300" height="224" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="199" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">LoRa radio link</text>
+<text x="58" y="237" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Physical-layer transport</text>
+<text x="58" y="267" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Chirp ≠ network identity</text>
+<rect x="430" y="125" width="320" height="135" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="159" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Payload protection</text>
+<text x="448" y="197" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Confidentiality role</text>
+<rect x="430" y="290" width="320" height="135" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="324" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">MIC + state checks</text>
+<text x="448" y="362" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Integrity and freshness role</text>
+<rect x="845" y="165" width="315" height="224" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="863" y="199" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Accepted message</text>
+<text x="863" y="237" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Only after required checks</text>
+<text x="863" y="267" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Version-specific behavior</text>
+<path d="M352 230 L418 192" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M352 335 L418 357" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M762 192 L833 230" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M762 357 L833 335" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Changing ciphertext does not by itself bypass the MIC, including on unconfirmed uplinks.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Capture, decryption, key exposure and receiver acceptance are different findings.</text>
+</svg>

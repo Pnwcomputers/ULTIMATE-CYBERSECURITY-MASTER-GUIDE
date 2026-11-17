@@ -53,6 +53,17 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 
 For an auditable record of the visual coverage review and remaining improvements, see [Visual Audit — 2026-11-02](./VISUAL-AUDIT-2026-11-02.md).
 
+## Advanced SDR Research Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [advanced sdr lorawan security roles](./diagrams/advanced-sdr-lorawan-security-roles.svg) | [Guide](../SDR/sdr_hacking.md) |
+| [advanced sdr dsp branching](./diagrams/advanced-sdr-dsp-branching.svg) | [Guide](../SDR/sdr_hacking.md) |
+| [advanced sdr em inference](./diagrams/advanced-sdr-em-inference.svg) | [Guide](../SDR/sdr_hacking.md) |
+| [advanced sdr evidence ladder](./diagrams/advanced-sdr-evidence-ladder.svg) | [Guide](../SDR/sdr_hacking.md) |
+
 ## Already Embedded In Hardware Chapters
 
 | Asset | Chapter |
