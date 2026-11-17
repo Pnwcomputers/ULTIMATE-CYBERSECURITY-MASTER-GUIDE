@@ -140,6 +140,15 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [gcp security audit coverage](./diagrams/gcp-security-audit-coverage.svg) | [Guide](../Cloud/gcp.md) |
 | [gcp security service account routes](./diagrams/gcp-security-service-account-routes.svg) | [Guide](../Cloud/gcp.md) |
 
+## Argus Recon Toolkit Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [argus osint module scope](./diagrams/argus-osint-module-scope.svg) | [Guide](../OSINT/argus_osint.md) |
+| [argus osint environment selection](./diagrams/argus-osint-environment-selection.svg) | [Guide](../OSINT/argus_osint.md) |
+
 ## Historical Case Study Diagrams
 
 These twelve original static vector diagrams explain mechanisms and evidence limits

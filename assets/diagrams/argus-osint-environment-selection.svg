@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Use the selected interpreter for the whole setup</title>
+<desc id="desc">Select and record the upstream revision and Python version, create a virtual environment, install the chosen requirements with that environment's pip, and launch with the same interpreter. A virtual environment separates packages but does not sandbox code.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Use the selected interpreter for the whole setup</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual installation path • no software was installed or launched</text>
+<rect x="40" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Select source</text>
+<text x="58" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Review repository</text>
+<text x="58" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Record revision</text>
+<path d="M298 267 L319 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="330" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Create .venv</text>
+<text x="348" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Chosen Python version</text>
+<text x="348" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Separate packages</text>
+<path d="M588 267 L609 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="620" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Install in .venv</text>
+<text x="638" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Use its python -m pip</text>
+<text x="638" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Record dependencies</text>
+<path d="M878 267 L899 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="910" y="160" width="250" height="216" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Launch in .venv</text>
+<text x="928" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Same interpreter</text>
+<text x="928" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Review module behavior</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Activation is a shell convenience; directly invoking .venv/bin/python selects that environment.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A virtual environment is not a security sandbox or a guarantee of dependency compatibility.</text>
+</svg>
