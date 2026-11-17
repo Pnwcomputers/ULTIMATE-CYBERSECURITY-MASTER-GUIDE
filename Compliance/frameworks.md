@@ -1,5 +1,7 @@
 # 🏛️ Security Control Frameworks
 
+_Last reviewed: 2026-11-17 (primary-source documentation review; no assessment or certification performed)._
+
 > [!IMPORTANT]
 > Educational reference, **not** compliance advice. Framework versions change -
 > verify against the authoritative source and engage a qualified assessor before
@@ -11,8 +13,8 @@ A working reference to the major security control frameworks - what each is, whe
 it applies, how it is structured, and how they relate.
 
 ## ⚙️ Function
-Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8,
-and the NIST SP 800-53 / 800-171 baselines, with version notes verified against
+Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8/v8.1,
+and the NIST SP 800-53 control catalog / SP 800-171 requirements, with version notes verified against
 each authoritative source.
 
 ## 🏆 Goal
@@ -74,23 +76,23 @@ Management System (ISMS). The **2022** revision supersedes 2013.
 An **attestation report** (not a certification) under the AICPA's **Trust Services
 Criteria** - common for SaaS/service organizations to assure customers.
 
-- **Five Trust Services Criteria:** **Security** (the required "common criteria"),
+- **Five Trust Services categories:** **Security** (the required "common criteria"),
   plus optional **Availability, Processing Integrity, Confidentiality, Privacy**.
-- **Type I** - controls designed appropriately at a point in time; **Type II** -
-  controls operated effectively over a period (usually 3-12 months).
+- **Type I** - design assessed as of a specified date; **Type II** - design and operating effectiveness over a specified period. Read the report's actual scope, period, exceptions, and complementary user-entity controls; do not infer them from the label.
 - **Use it for:** demonstrating control effectiveness to customers/partners.
 
 ---
 
 ## PCI DSS 4.0.1
 
-**Mandatory** for organizations that store, process, or transmit payment card data.
-**v4.0.1** (2024) is the current version; **v3.2.1 was retired in 2024**.
+PCI DSS addresses entities that store, process, or transmit cardholder/sensitive authentication data, and systems that can affect the cardholder-data environment. Payment brands and acquirers administer compliance programs; it is not a universal statute. Outsourcing processing can reduce scope but does **not** remove a merchant's applicable responsibilities ([PCI SSC outsourcing FAQ](https://www.pcisecuritystandards.org/faqs/does-pci-dss-apply-to-merchants-who-outsource-all-payment-processing-operations-and-never-store-process-or-transmit-cardholder-data/)).
+
+**v4.0.1** (2024) is the active version in the linked PCI SSC material; verify the current library for the engagement. **v3.2.1 retired on 31 March 2024** and **v4.0 retired on 31 December 2024**.
 
 - **12 requirements** across 6 goals (network security, data protection, vulnerability
   management, access control, monitoring, and policy).
 - v4.x adds a **customized approach** option, more MFA, and stronger authentication
-  requirements; some future-dated requirements phased in over time.
+  requirements. The requirements originally future-dated to **31 March 2025** are now effective where applicable; the [v4.0.1 release notice](https://blog.pcisecuritystandards.org/just-published-pci-dss-v4-0-1) did not postpone that date.
 - **Use it for:** payment-card environments - compliance is contractually required.
   Validation scales from a Self-Assessment Questionnaire (SAQ) to a QSA audit.
 
@@ -98,9 +100,9 @@ Criteria** - common for SaaS/service organizations to assure customers.
 
 ## CIS Controls v8
 
-A **prioritized, prescriptive** set of **18 controls** (v8 consolidated the prior
+The current [CIS material](https://www.cisecurity.org/controls) covers **v8.1**; retain exact version IDs when reading older v8 mappings. It is a **prioritized, prescriptive** set of **18 controls** (v8 consolidated the prior
 20), each broken into safeguards and grouped into **Implementation Groups (IG1-IG3)**
-by organizational maturity/resources.
+by organizational risk profile and resources. IG2 includes IG1; IG3 includes all safeguards. They are implementation priorities, not certification or maturity scores ([CIS IG guidance](https://www.cisecurity.org/controls/implementation-groups)).
 
 - **IG1** is the "essential cyber hygiene" baseline every org should meet.
 - **Use it for:** a concrete, actionable starting point; maps to CSF, ISO, and others.
@@ -111,10 +113,8 @@ by organizational maturity/resources.
 
 ## NIST SP 800-53 & 800-171
 
-- **SP 800-53 (Rev 5)** - the comprehensive control catalog for **US federal**
-  systems (and the basis for FedRAMP); organized into control families.
-- **SP 800-171 (Rev 3)** - protecting **Controlled Unclassified Information (CUI)**
-  in non-federal systems; the basis for **CMMC** in the US defense supply chain.
+- **SP 800-53 (Rev 5)** - a comprehensive security/privacy **control catalog**, organized into families and used by federal and other organizations. **SP 800-53B** supplies control baselines; selection, tailoring, and assessment are separate tasks ([NIST RMF Select](https://csrc.nist.gov/projects/risk-management/about-rmf/select-step)).
+- **SP 800-171 (Rev 3)** - published requirements for protecting CUI confidentiality in nonfederal systems. A publication superseding an older NIST revision does **not** automatically change the revision incorporated into a contract or CMMC assessment. Check the governing rule, contract clauses, transition dates, and [official CMMC guidance](https://dodcio.defense.gov/CMMC/FAQs/); record the version actually applicable to the assessment.
 - **Use them for:** US government systems, federal contracting, and the defense
   industrial base.
 
@@ -122,13 +122,16 @@ by organizational maturity/resources.
 
 ## How They Relate
 
-They overlap far more than they differ - all require access control, logging,
-encryption, vulnerability management, and incident response. Practical guidance:
+These resources overlap in security objectives, but differ in scope, prescriptiveness, assessment method, and evidence. CSF describes outcomes; it does not prescribe a universal technical checklist. Certification, attestation, contractual validation, and a control catalog are different things. Practical guidance:
 
 - Choose **one backbone** (commonly NIST CSF 2.0 or ISO 27001).
-- Implement the **technical controls once** (see this repo's technical sections).
+- Reuse a control implementation and evidence **where the scopes and requirements actually match**. Additional configuration, testing, retention, and assessment may still be necessary.
 - **Map** them to every framework you must satisfy (see
   [Control Mapping](README.md#-control-mapping-do-it-once-satisfy-many)).
+
+![Control intent flows through scoped implementation, evidence, and framework-specific assessment](../assets/diagrams/frameworks-evidence-reuse.svg)
+
+*Evidence reuse: a common implementation can support several objectives, but each assessment still checks applicability, coverage, period, and exceptions. This original conceptual figure is not an authoritative crosswalk.*
 
 | Control area | CSF 2.0 | ISO 27001:2022 | SOC 2 | PCI DSS 4.0.1 |
 |--------------|---------|-----------------|-------|----------------|

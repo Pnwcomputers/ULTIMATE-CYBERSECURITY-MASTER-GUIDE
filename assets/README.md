@@ -94,6 +94,14 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
 | [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
 
+## Control Framework Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [frameworks evidence reuse](./diagrams/frameworks-evidence-reuse.svg) | [Guide](../Compliance/frameworks.md) |
+
 ## Kubernetes Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
