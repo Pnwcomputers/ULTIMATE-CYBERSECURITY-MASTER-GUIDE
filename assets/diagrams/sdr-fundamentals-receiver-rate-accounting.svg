@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc">
+<title id="title">Track the rate at every receiver block</title>
+<desc id="desc">An AM path can reduce 2.4 MS/s to 240 kS/s and demodulate with audio decimation five to 48 kS/s. A WBFM path can reduce to 480 kS/s and decimate ten to 48 kS/s. Do not decimate twice by accident.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="580" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Track the rate at every receiver block</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Illustrative mono receiver paths • not a hardware-tested flowgraph</text>
+<text x="40" y="147" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">AM example</text>
+<text x="40" y="296" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">WBFM mono example</text>
+<rect x="40" y="165" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="199" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">IQ input</text>
+<text x="58" y="238" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">2.4 MS/s</text>
+<path d="M392 215L418 215" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="430" y="165" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="199" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Filter + resample</text>
+<text x="448" y="238" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">240 kS/s</text>
+<path d="M782 215L808 215" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="820" y="165" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="199" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">AM Demod ÷5</text>
+<text x="838" y="238" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">48 kS/s audio</text>
+<rect x="40" y="315" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="349" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">IQ input</text>
+<text x="58" y="388" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">2.4 MS/s</text>
+<path d="M392 365L418 365" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="430" y="315" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="349" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Filter + resample</text>
+<text x="448" y="388" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">480 kS/s</text>
+<path d="M782 365L808 365" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="820" y="315" width="340" height="100" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="349" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">WBFM Receive ÷10</text>
+<text x="838" y="388" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">48 kS/s mono audio</text>
+<rect x="40" y="465" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="495" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Match the hardware source rate first; these numbers are not universal device defaults.</text>
+<text x="58" y="524" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Read hierarchical block behavior: a demodulator may already contain filtering and rate conversion.</text>
+</svg>

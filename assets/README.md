@@ -7,6 +7,18 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## SDR Fundamentals Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [sdr fundamentals evidence ladder](./diagrams/sdr-fundamentals-evidence-ladder.svg) | [Guide](../SDR/sdr.md) |
+| [sdr fundamentals receiver rate accounting](./diagrams/sdr-fundamentals-receiver-rate-accounting.svg) | [Guide](../SDR/sdr.md) |
+| [sdr fundamentals iq coordinates](./diagrams/sdr-fundamentals-iq-coordinates.svg) | [Guide](../SDR/sdr.md) |
+| [sdr fundamentals receiver boundaries](./diagrams/sdr-fundamentals-receiver-boundaries.svg) | [Guide](../SDR/sdr.md) |
+| [sdr fundamentals rate bandwidth](./diagrams/sdr-fundamentals-rate-bandwidth.svg) | [Guide](../SDR/sdr.md) |
+
 <a id="integrated-png-and-svg-diagrams"></a>
 ## Integrated Png & Svg Diagrams
 
