@@ -68,6 +68,17 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
 
+## Log Aggregation Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [log aggregation transport controls](./diagrams/log-aggregation-transport-controls.svg) | [Guide](../IncidentResponse/log_agg.md) |
+| [log aggregation pipeline contracts](./diagrams/log-aggregation-pipeline-contracts.svg) | [Guide](../IncidentResponse/log_agg.md) |
+| [log aggregation time provenance](./diagrams/log-aggregation-time-provenance.svg) | [Guide](../IncidentResponse/log_agg.md) |
+| [log aggregation end to end validation](./diagrams/log-aggregation-end-to-end-validation.svg) | [Guide](../IncidentResponse/log_agg.md) |
+
 ## Expanded Topical Svg Diagrams (November 2026)
 
 These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.

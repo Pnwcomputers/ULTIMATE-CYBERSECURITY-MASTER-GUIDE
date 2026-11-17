@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Log collection is a pipeline of separate contracts</title>
+<desc id="desc">A source emits records, a collector transports them, a parser normalizes fields, storage retains searchable events and detection rules interpret selected data. Reaching one stage does not prove the next is functioning.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Log collection is a pipeline of separate contracts</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual logging architecture • no deployed collector or measured coverage</text>
+<rect x="40" y="158" width="208" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="56" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Source</text>
+<text x="56" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Event production</text>
+<text x="56" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Coverage / format</text>
+<path d="M253 260 L262 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="268" y="158" width="208" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="284" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Transport</text>
+<text x="284" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Framing / identity</text>
+<text x="284" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Queues / loss</text>
+<path d="M481 260 L490 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="496" y="158" width="208" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="512" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Normalize</text>
+<text x="512" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Schema / parser</text>
+<text x="512" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Time and failures</text>
+<path d="M709 260 L718 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="724" y="158" width="208" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="740" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Store</text>
+<text x="740" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Index / retention</text>
+<text x="740" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Access / recovery</text>
+<path d="M937 260 L946 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="952" y="158" width="208" height="210" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="968" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Detect</text>
+<text x="968" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Rules / correlation</text>
+<text x="968" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Baseline / review</text>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Centralization does not automatically provide parsing, integrity, complete coverage or working detections.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Keep original records and stage-specific health evidence; monitor rejection, delay, duplicates and loss.</text>
+</svg>
