@@ -128,6 +128,15 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
 
+## Phishing Response Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [phishing response triage](./diagrams/phishing-response-triage.svg) | [Guide](../PlayBooks/sop_phishing_analysis.md) |
+| [phishing response control boundaries](./diagrams/phishing-response-control-boundaries.svg) | [Guide](../PlayBooks/sop_phishing_analysis.md) |
+
 ## Cryptographic Algorithm Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
