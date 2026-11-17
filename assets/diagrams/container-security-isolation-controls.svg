@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc">
+<title id="title">Isolation controls answer different questions</title>
+<desc id="desc">Namespaces scope views, cgroups account for and constrain resources, and security policies limit operations. None replaces patching or authorization. Host mounts or daemon control can cross boundaries without exploiting a kernel bug.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="580" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Isolation controls answer different questions</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual Linux controls • actual enforcement depends on host and runtime configuration</text>
+<rect x="40" y="145" width="340" height="240" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Namespaces</text>
+<text x="58" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Process / network views</text>
+<text x="58" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">User identity mappings</text>
+<text x="58" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Some sharing is configurable</text>
+<rect x="430" y="145" width="340" height="240" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Cgroups / resource limits</text>
+<text x="448" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Accounting and limits</text>
+<text x="448" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">CPU / memory / process budget</text>
+<text x="448" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not sender or code trust</text>
+<rect x="820" y="145" width="340" height="240" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Operation restrictions</text>
+<text x="838" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Capabilities and seccomp</text>
+<text x="838" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">LSM policy and permissions</text>
+<text x="838" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not a blanket escape proof</text>
+<rect x="40" y="465" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="495" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Privileged mode, host mounts and daemon API access can substantially widen authority.</text>
+<text x="58" y="524" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Non-root USER, user-namespace remapping and rootless Docker are different controls.</text>
+</svg>
