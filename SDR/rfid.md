@@ -119,29 +119,41 @@ RFID (Radio Frequency Identification) analysis is the systematic reading, record
 
 ### Why Is It Critical?
 
-A credential is only as strong as the transponder behind it. Unlike a password, a physical card is presented in the open and can be read at a distance by anyone with the right coil. Understanding how transponders are energized, addressed, authenticated, and parsed is the only path toward selecting and deploying access-control technology that actually resists duplication.
+Credential security depends on the transponder, reader, key management, and authorization policy together. Unlike a password, a physical card is presented in the open and can be read at a distance by anyone with the right coil. Understanding how transponders are energized, addressed, authenticated, and parsed is the only path toward selecting and deploying access-control technology that actually resists duplication.
 
 ---
 
 ## 📡 2. Core Principles of RFID & NFC
 
-- **Inductive Coupling:** Passive transponders have no battery. The reader's antenna generates an alternating field that energizes the tag's coil; the tag replies by load-modulating (backscattering) that same field. Read range is a function of coil tuning and field strength, not transmit power in the SDR sense.
+<a id="nfc-passive-tag-coupling"></a>
+
+![A reader coil supplies energy and commands to a passive HF tag; the tag responds by load modulation](../assets/diagrams/nfc-passive-tag-coupling.svg)
+
+*Figure 1 — Original conceptual diagram of a passive HF exchange, not a measured field map or range. Based on [NXP's PN532/C1 description](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) and [NFC Forum's technology overview](https://nfc-forum.org/learn/NFC-technology/). Reading can involve RF transmission even when tag memory is not written.*
+
+- **Inductive Coupling:** Passive transponders have no battery. The reader's antenna generates an alternating field that energizes the tag's coil; the tag replies by load-modulating (backscattering) that same field. Read range depends on coupling, antenna tuning, field strength, tag design, and nearby materials.
 - **Two Distinct Bands:** LF (125–134 kHz) offers short range and good penetration of non-metallic materials with simple, mostly unencrypted protocols. HF (13.56 MHz) offers higher data rates, sectored memory, and cryptographic options, but shorter range and more sensitivity to detuning by metal and the human body.
 - **Encoding & Modulation:** LF credentials typically use Manchester, Biphase, or PSK encoding on an ASK/OOK-modulated subcarrier. HF ISO 14443A uses Miller/Manchester coding with a 847.5 kHz subcarrier; ISO 15693 uses a longer-range "vicinity" scheme.
 - **Security Categories:** Credentials generally fall into three tiers:
   - **Fixed ID (read-only):** The transponder returns the same static identifier every time (e.g., EM4100, HID Prox). Trivially cloneable.
-  - **Broken Cipher:** A once-proprietary cryptographic scheme that has since been publicly defeated (e.g., MIFARE Classic Crypto1, legacy HID iCLASS). Keys are recoverable in seconds to minutes.
-  - **Strong Cipher:** Modern authenticated schemes using AES/3DES (e.g., MIFARE DESFire EV2/EV3, MIFARE Plus, SEOS). Not duplicable without the diversified keys.
+  - **Broken Cipher:** A once-proprietary cryptographic scheme that has since been publicly defeated (e.g., MIFARE Classic Crypto1, legacy HID iCLASS). Recovery prerequisites and feasibility depend on the exact chip, implementation, available authentication data, and tool support.
+  - **Strong Cipher:** Modern authenticated schemes using AES/3DES (e.g., MIFARE DESFire EV2/EV3, MIFARE Plus, SEOS). Security depends on correct protocol use, key provisioning, and the verifier; the chip name alone is not a deployment assessment.
 
 ---
 
 ## 🧩 3. Core RFID/NFC Protocol Concepts
 
+<a id="rfid-identification-authentication-authorization"></a>
+
+![Identification and selection, cryptographic authentication where required, and authorization policy are separate stages](../assets/diagrams/rfid-identification-authentication-authorization.svg)
+
+*Figure 2 — Original conceptual model. [NXP's UID application note](https://www.nxp.com/docs/en/application-note/AN10927.pdf) describes selection identifiers; the [DESFire EV3 short data sheet](https://www.nxp.com/docs/en/data-sheet/MF3D_H_X3_SDS.pdf) describes authentication and application access rights. The authorization box is an engineering model of the verifier, not a claim about a particular installed system.*
+
 To thoroughly analyze contactless credentials, it is essential to understand the memory layouts and authentication models running on target transponders.
 
 ### Fixed-ID Transponders (e.g., EM4100, HID Prox)
 
-Fixed-ID architectures broadcast a static identifier the instant they enter a reader's field. There is no memory to write, no key to present, and no challenge-response. Because the identifier never changes and there is no cryptographic verification, any ID read out of the field can be written to a blank writable transponder (like a T5577) and will be accepted indefinitely. They dominate legacy building access and many older parking and elevator systems.
+Fixed-ID architectures broadcast a static identifier the instant they enter a reader's field. There is no memory to write, no key to present, and no challenge-response. Because the identifier never changes and there is no cryptographic verification, a compatible writable transponder may reproduce the identifier. Whether a reader accepts it depends on its supported format, enrollment, revocation state, and authorization policy. They dominate legacy building access and many older parking and elevator systems.
 
 ### Sector-Authenticated Transponders (e.g., MIFARE Classic / Crypto1)
 
@@ -149,7 +161,7 @@ MIFARE Classic divides memory into sectors, each guarded by two 48-bit keys (A a
 
 ### Strongly-Authenticated Transponders (e.g., MIFARE DESFire, SEOS, iCLASS SE)
 
-Modern credentials use standardized, peer-reviewed ciphers - typically AES-128 or 3DES - with mutual authentication and per-card diversified keys. Applications live in isolated files with their own access rights. Without the master and application keys (which never leave the reader/HSM in a properly deployed system), the card cannot be authenticated to, read, or cloned. Reverse engineering here focuses on the *deployment* (weak key diversification, default keys left in place, keys leaked in reader firmware) rather than the cipher itself.
+Modern credential families can support cryptographic authentication and application-specific access rights. Exact algorithms, key diversification, and readable metadata depend on the product and configuration; do not assume every listed family has an identical architecture. A visible UID or an openly readable file does not reproduce a protected application. Review the *deployment*: key provisioning and storage, application permissions, reader trust, and the backend authorization decision. A failed authentication attempt alone does not certify that these controls are correctly deployed.
 
 ---
 
@@ -193,7 +205,7 @@ Modern credentials use standardized, peer-reviewed ciphers - typically AES-128 o
             |             v
             |      [ Determine Security Tier ]
             |             |
-            |             +---> (Strong Cipher) --> [ STOP: Not duplicable ]
+            |             +---> (Strong Cipher) --> [ STOP: Auth not validated ]
             |             |
             |             +---> (Broken Cipher) --> [ Recover keys -> dump ]
             |             |
@@ -210,7 +222,7 @@ Modern credentials use standardized, peer-reviewed ciphers - typically AES-128 o
 4. **Recover or Read:**
    - *Fixed ID (LF):* No keys needed - proceed to cloning.
    - *Broken cipher (MIFARE Classic):* Run `hf mf autopwn` to attempt the full key-recovery + dump chain automatically.
-5. **Security Tier Check:** If the card is DESFire/SEOS/MIFARE Plus (SL3) and authentication fails with no default keys, **stop** - the credential is not duplicable and any read attempt should be logged and reported, not brute-forced.
+5. **Security Tier Check:** If the card is DESFire/SEOS/MIFARE Plus (SL3) and authentication fails with no default keys, **stop** and record the failed authentication and test conditions. This observation does not prove that the credential cannot be duplicated or that the deployment is secure.
 
 ---
 
@@ -373,6 +385,12 @@ Run the following commands in sequence inside the `pm3>` client prompt:
 
 ## 🔌 6. Dedicated Reader Chips: PN532 vs. EM4095/LF Front-Ends
 
+<a id="rfid-band-and-reader-map"></a>
+
+![LF, HF and UHF require suitable frontends, and matching frequency alone does not establish protocol or application compatibility](../assets/diagrams/rfid-band-and-reader-map.svg)
+
+*Figure 3 — Original conceptual compatibility map. NFC operates at 13.56 MHz within HF; it does not cover LF or UHF RFID. See [NFC Forum](https://nfc-forum.org/learn/NFC-technology/) and [Proxmark3's hardware guidance](https://github.com/RfidResearchGroup/proxmark3). Exact reader, antenna, firmware, and protocol support still require verification.*
+
 When building custom lab readers or low-cost enrollment stations, these front-end chips serve distinct bands and purposes.
 
 ### 📡 PN532 (The 13.56 MHz HF Agile Front-End)
@@ -401,7 +419,13 @@ When building custom lab readers or low-cost enrollment stations, these front-en
 
 ## 🧯 7. Troubleshooting: Coupling, Detuning & Failed Reads
 
-When reading passive transponders, poor coupling and antenna detuning cause most failures - not "broken" cards. Use these baseline checks before concluding a card is unreadable.
+<a id="rfid-read-troubleshooting-evidence"></a>
+
+![Check compatibility, validate with a supported test tag, isolate coupling variables and record the actual read or authentication outcome](../assets/diagrams/rfid-read-troubleshooting-evidence.svg)
+
+*Figure 4 — Original conceptual troubleshooting workflow, informed by [Proxmark antenna guidance](https://github.com/Proxmark/proxmark3/wiki/Antennas) and the [RRG command reference](https://github.com/RfidResearchGroup/proxmark3/blob/master/doc/commands.md). It is not a tested sequence for every model; antenna measurements and expected values depend on hardware.*
+
+When reading passive transponders, check hardware compatibility, coupling, antenna condition, and client configuration before concluding a card is unreadable. A failed read alone does not identify the cause.
 
 ### ⚠️ Weak Coupling / No Read
 
@@ -580,8 +604,8 @@ Use this checklist to practice baseline RFID concepts safely on a credential **y
 ### Phase 1: Pre-Lab Setup & Authorization
 
 - [ ] **Confirm Ownership:** Use only a card you personally own or have written authorization to test. Set aside a blank T5577 (LF) or magic card (HF) as your write target.
-- [ ] **Identify System Type:** Look at the card's printed markings and thickness.
-  - **Thin, no chip visible, reads at a few cm:** Likely 125 kHz LF (EM4100/HID Prox) - a Fixed-ID system (safe for baseline cloning practice).
+- [ ] **Identify System Type:** Treat markings, thickness, and apparent range only as clues; verify the band and protocol using supported identification methods.
+  - **Thin card or short observed range:** Appearance and range do not establish LF/HF technology or credential security.
   - **"MIFARE", "DESFire", contactless-payment logo:** 13.56 MHz HF - determine the tier before proceeding; secure cards are read-only exercises.
 
 ### Phase 2: Identification
@@ -598,8 +622,8 @@ Use this checklist to practice baseline RFID concepts safely on a credential **y
 
 - [ ] **Clone to a Blank You Own:** For a Fixed-ID LF card, `lf em 410x clone --id <ID>` onto your T5577. For MIFARE Classic, `hf mf restore` onto a magic card.
 - [ ] **Apply the Validation Rule:**
-  - *If the card is Fixed-ID or MIFARE Classic:* You could clone it in seconds - which is exactly the finding to document. Verify the clone against a **bench reader you own**, never a production door.
-  - *If the card is DESFire / SEOS / MIFARE Plus SL3:* Authentication fails and there is nothing to clone. **STOP** and record it as a strong-tier credential - this is the good outcome, and the recommendation is to migrate legacy cards toward it.
+  - *If the credential is an applicable legacy type:* Record what was actually recovered and reproduced. Any authorized validation must use a **bench reader you own**; success and timing are not guaranteed by the card family.
+  - *If protected application authentication fails:* **STOP** and report that outcome with the identified interface, tool support, and test conditions. Do not infer a secure deployment or a particular card family from failure alone.
 
 ---
 
@@ -724,6 +748,8 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ---
 
 ## 📚 Resources
+
+**Visual provenance:** Figures 1–4 are original static vector teaching diagrams added November 17, 2026. They contain no measured RF traces, captured credentials, or reproduced access-control results. Sources and limits appear beside each figure; existing tool procedures require their own version and hardware validation.
 
 ### Legal & Standards
 

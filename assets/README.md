@@ -97,6 +97,19 @@ provenance appear in its embedding caption.
 | [NotPetya Ransomware](./diagrams/notpetya-parallel-propagation-paths.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
 | [Edward Snowden Revelations](./diagrams/snowden-prism-vs-upstream.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
 
+## RFID & NFC Guide Visuals
+
+Original conceptual diagrams embedded in the [RFID & NFC guide](../SDR/rfid.md).
+Captions link primary technical references; no device testing or measured RF
+data is claimed.
+
+| Diagram | What It Explains |
+|---|---|
+| [Passive HF coupling](./diagrams/nfc-passive-tag-coupling.svg) | Reader energy, commands, and tag load modulation. |
+| [Identification, authentication, authorization](./diagrams/rfid-identification-authentication-authorization.svg) | Why an identifier is only one part of a credential system. |
+| [Band and reader map](./diagrams/rfid-band-and-reader-map.svg) | LF, HF/NFC, and the separate UHF reader ecosystem. |
+| [Read troubleshooting](./diagrams/rfid-read-troubleshooting-evidence.svg) | Compatibility checks, controlled observations, and defensible conclusions. |
+
 ## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.

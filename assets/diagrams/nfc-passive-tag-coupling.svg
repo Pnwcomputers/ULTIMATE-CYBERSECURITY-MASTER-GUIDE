@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">How a passive HF tag communicates</title>
+<desc id="desc">The reader drives a coil and creates an alternating magnetic field. A passive tag harvests energy and the reader sends commands. The tag replies by changing its load. Coil position and nearby materials can affect coupling.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">How a passive HF tag communicates</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual reader–tag exchange • not to scale • not a measured field or range</text>
+<rect x="40" y="145" width="320" height="290" rx="18" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="60" y="180" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#16354b">Reader</text>
+<text x="60" y="212" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Drives the RF field</text>
+<rect x="90" y="245" width="200" height="138" rx="25" fill="none" stroke="#337b98" stroke-width="4"/>
+<rect x="102" y="257" width="176" height="114" rx="25" fill="none" stroke="#337b98" stroke-width="4"/>
+<rect x="114" y="269" width="152" height="90" rx="25" fill="none" stroke="#337b98" stroke-width="4"/>
+<rect x="126" y="281" width="128" height="66" rx="25" fill="none" stroke="#337b98" stroke-width="4"/>
+<rect x="840" y="145" width="320" height="290" rx="18" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="862" y="180" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#16354b">Passive tag</text>
+<text x="862" y="212" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">No battery in this example</text>
+<rect x="884" y="248" width="230" height="125" rx="15" fill="none" stroke="#337b98" stroke-width="3"/>
+<rect x="894" y="258" width="210" height="105" rx="15" fill="none" stroke="#337b98" stroke-width="3"/>
+<rect x="904" y="268" width="190" height="85" rx="15" fill="none" stroke="#337b98" stroke-width="3"/>
+<rect x="977" y="284" width="46" height="46" rx="5" fill="#c19b40"/>
+<text x="407" y="194" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Energy from reader field</text>
+<path d="M 388 220 L 812 220" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="407" y="269" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#16354b">Reader → tag commands</text>
+<path d="M 388 292 L 812 292" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="407" y="347" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#16354b">Tag → reader: load modulation</text>
+<path d="M 812 371 L 388 371" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="40" y="480" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="509" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A read operation can energize a tag and exchange commands even if no memory is written.</text>
+<text x="58" y="538" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Test alignment, spacing, nearby materials, and a known supported tag before interpreting a failed read.</text>
+</svg>

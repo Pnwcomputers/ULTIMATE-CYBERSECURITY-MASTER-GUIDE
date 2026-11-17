@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">A visible identifier is not the whole credential</title>
+<desc id="desc">Card activation and identification are distinct from application authentication and the final authorization decision. Protected applications can require keys and access rights. A readable identifier or a failed authentication attempt does not prove duplication or security.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">A visible identifier is not the whole credential</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual authenticated system • actual protocols and access policies vary</text>
+<rect x="40" y="156" width="330" height="230" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="190" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">1 · Identify / select</text>
+<text x="58" y="229" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">UID or other metadata</text>
+<text x="58" y="259" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Find an interface</text>
+<text x="58" y="289" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">May be openly readable</text>
+<rect x="435" y="156" width="330" height="230" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="453" y="190" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">2 · Authenticate</text>
+<text x="453" y="229" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Where required by protocol</text>
+<text x="453" y="259" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Validate a cryptographic proof</text>
+<text x="453" y="289" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Use the correct application</text>
+<rect x="830" y="156" width="330" height="230" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="848" y="190" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">3 · Authorize</text>
+<text x="848" y="229" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Apply configured policy</text>
+<text x="848" y="259" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Credential state / permissions</text>
+<text x="848" y="289" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Decide whether to allow</text>
+<path d="M 382 269 L 423 269" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M 777 269 L 818 269" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="40" y="450" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="479" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A UID match does not reproduce keys, protected files, counters, or the verifier’s policy.</text>
+<text x="58" y="508" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A failed authentication is an observation to investigate, not a certification that a deployment is secure.</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">RFID families: match the band, then the protocol</title>
+<desc id="desc">LF credentials commonly use 125 or 134.2 kilohertz; HF and NFC use 13.56 megahertz; passive UHF inventory is a separate regional reader ecosystem. Matching frequency is only the first compatibility check.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">RFID families: match the band, then the protocol</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual comparison • not a frequency scale or a universal compatibility chart</text>
+<rect x="40" y="145" width="340" height="248" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">LF · 125 / 134.2 kHz</text>
+<text x="58" y="218" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Common proximity tags</text>
+<text x="58" y="248" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Dedicated LF frontend</text>
+<text x="58" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Protocol-specific support</text>
+<rect x="430" y="145" width="340" height="248" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="179" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">HF · 13.56 MHz</text>
+<text x="448" y="218" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">NFC and other HF protocols</text>
+<text x="448" y="248" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Compatible HF frontend</text>
+<text x="448" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Not every HF protocol fits</text>
+<rect x="820" y="145" width="340" height="248" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="838" y="179" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">UHF · regional bands</text>
+<text x="838" y="218" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Passive inventory systems</text>
+<text x="838" y="248" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Separate UHF reader</text>
+<text x="838" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Outside this LF/HF guide</text>
+<text x="60" y="355" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#16354b">LF ≠ NFC</text>
+<text x="450" y="355" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#16354b">NFC operates within HF</text>
+<text x="840" y="355" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#16354b">Regional configuration</text>
+<rect x="40" y="450" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="479" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">MATCH IN ORDER: frequency → air protocol → command support → application / authentication.</text>
+<text x="58" y="508" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A dual-band credential may expose more than one interface; appearance alone does not identify it.</text>
+</svg>
