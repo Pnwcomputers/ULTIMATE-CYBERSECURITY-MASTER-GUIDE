@@ -6,6 +6,9 @@ on:
       - '**/*.md'
       - 'tools/generate_documentation_index.py'
       - 'tools/audit_documentation_reachability.py'
+      - 'tools/build_wiki.py'
+      - 'tools/tests/test_build_wiki.py'
+      - '.github/workflows/publish-wiki.yml'
       - '.github/workflows/documentation-discoverability.yml'
   push:
     branches: [main]
@@ -13,6 +16,9 @@ on:
       - '**/*.md'
       - 'tools/audit_documentation_reachability.py'
       - 'tools/generate_documentation_index.py'
+      - 'tools/build_wiki.py'
+      - 'tools/tests/test_build_wiki.py'
+      - '.github/workflows/publish-wiki.yml'
       - '.github/workflows/documentation-discoverability.yml'
   workflow_dispatch:
 
@@ -33,5 +39,9 @@ jobs:
           python-version: '3.12'
       - name: Validate the complete documentation index
         run: python tools/generate_documentation_index.py --check
+      - name: Test wiki conversion and completeness checks
+        run: python -m unittest discover -s tools/tests -p test_build_wiki.py
+      - name: Build and validate wiki navigation and all-file catalog
+        run: python tools/build_wiki.py "$RUNNER_TEMP/validated-wiki" "$GITHUB_REPOSITORY"
       - name: Identify contextually unlinked guide candidates
         run: python tools/audit_documentation_reachability.py --max-per-section 20 --require-discovery
