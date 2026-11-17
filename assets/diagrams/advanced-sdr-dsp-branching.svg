@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">A receive flowgraph branches into terminal sinks</title>
+<desc id="desc">A receive source feeds a filter and decimator. Its output branches to a waterfall display, a complex file sink and a magnitude-to-time-display path. Visualization sinks do not pass samples onward.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">A receive flowgraph branches into terminal sinks</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual DSP wiring • filter before decimation • actual block types must match</text>
+<rect x="40" y="215" width="250" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="249" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Receive source</text>
+<text x="58" y="287" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Complex IQ</text>
+<text x="58" y="317" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Hardware or recorded</text>
+<rect x="365" y="215" width="280" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="383" y="249" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Filter + decimate</text>
+<text x="383" y="287" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Preserve wanted bandwidth</text>
+<text x="383" y="317" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Update downstream rate</text>
+<path d="M302 290 L353 290" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="790" y="125" width="370" height="90" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="808" y="159" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Waterfall sink</text>
+<text x="808" y="197" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Terminal display</text>
+<rect x="790" y="250" width="370" height="90" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="808" y="284" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Complex File Sink</text>
+<text x="808" y="322" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Actual item type determines format</text>
+<rect x="790" y="375" width="370" height="62" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="808" y="409" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Magnitude → Time sink</text>
+<path d="M657 250 L778 170" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M657 290 L778 295" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M657 330 L778 405" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A GUI sink is an endpoint; branch the upstream stream instead of wiring through it.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Record hardware rate, working-copy rate, datatype and anti-alias filter settings.</text>
+</svg>

