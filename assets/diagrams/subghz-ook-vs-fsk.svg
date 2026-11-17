@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">OOK and FSK: different properties carry symbols</title>
+<desc id="desc">OOK changes carrier presence, shown as an envelope. Binary FSK changes between two carrier frequencies. Modulation identifies a signal property, not its packet fields or security.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">OOK and FSK: different properties carry symbols</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Idealized schematics • not RF captures • no protocol bit order is implied</text>
+<rect x="40" y="134" width="540" height="305" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="168" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">OOK · amplitude envelope</text>
+<text x="58" y="206" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Carrier present or absent</text>
+<rect x="620" y="134" width="540" height="305" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="168" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Binary FSK · frequency state</text>
+<text x="638" y="206" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Two frequency levels</text>
+<path d="M72 280 L72 280 L131 280 L131 365 L131 365 L190 365 L190 280 L190 280 L249 280 L249 280 L249 280 L308 280 L308 365 L308 365 L367 365 L367 365 L367 365 L426 365 L426 280 L426 280 L485 280 L485 365 L485 365 L544 365" fill="none" stroke="#337b98" stroke-width="4"/>
+<text x="72" y="407" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Time →</text>
+<path d="M652 280 L652 280 L711 280 L711 365 L711 365 L770 365 L770 280 L770 280 L829 280 L829 280 L829 280 L888 280 L888 365 L888 365 L947 365 L947 365 L947 365 L1006 365 L1006 280 L1006 280 L1065 280 L1065 365 L1065 365 L1124 365" fill="none" stroke="#337b98" stroke-width="4"/>
+<text x="652" y="407" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Time →</text>
+<text x="72" y="259" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#16354b">ON</text>
+<text x="72" y="390" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#16354b">OFF</text>
+<text x="652" y="259" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#16354b">Higher frequency</text>
+<text x="652" y="390" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#16354b">Lower frequency</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Pulse shape, symbol encoding, packet structure, and authentication are separate questions.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">An apparent gap in a recording is not proof that no RF energy was present.</text>
+</svg>

@@ -72,25 +72,10 @@ Serve as the practical, repeatable reference for authorized RF security testing 
 
 ### 🔴 CRITICAL WARNING
 
-```
-⚠️ RADIO FREQUENCY TRANSMISSION IS HEAVILY REGULATED ⚠️
-
-Many procedures in this manual can involve TRANSMITTING radio signals, emulating
-captured payloads, or replaying access-control codes. Unauthorized transmission is
-a FEDERAL OFFENSE.
-
-YOU MUST have explicit authorization, proper licensing (e.g., HAM Radio License),
-and appropriate containment (Faraday bags/cages, dummy loads) before transmitting.
-
-Improper use violates:
-• Federal Communications Commission (FCC) Regulations - Massive fines & imprisonment
-• Electronic Communications Privacy Act (ECPA) / Wiretap Act
-• Federal Aviation Administration (FAA) laws
-• Critical Infrastructure protection laws
-
-RECEIVE-ONLY analysis on hardware you own is the default. Do NOT transmit toward
-devices you do not own.
-```
+Work within explicit scope. Radio transmission, credential interactions and
+private communications require applicable operating authority and permission.
+Receive-only analysis does not automatically authorize collection of every signal.
+See [operating boundaries](#️-critical-security--legal-warning) and [LEGAL.md](../LEGAL.md).
 
 ---
 
@@ -100,7 +85,7 @@ devices you do not own.
 
 ### What Is It?
 
-SubGhz (Sub-Gigahertz) Radio Frequency (RF) scanning is the systematic monitoring, recording, and interpretation of electromagnetic waves travelling through free space. In the Sub-GHz spectrum (300 MHz to 928 MHz), signals are mostly comprised of short, bursting data packets transmitted by low-power embedded microcontrollers. In the 2.4 GHz spectrum, transmissions rely on complex, high-throughput channel-hopping network architectures.
+Sub-GHz means frequencies below 1 GHz; this guide focuses on selected short-range device bands and includes a separate 2.4 GHz comparison. Devices may send bursts or continuous signals and may use fixed channels or frequency hopping. Frequency alone does not identify a protocol or its security.
 
 ### Who Uses It?
 
@@ -118,38 +103,42 @@ SubGhz (Sub-Gigahertz) Radio Frequency (RF) scanning is the systematic monitorin
 
 ### Why Is It Critical?
 
-Wireless data is inherently public. Unlike hardwired networks, anyone with a cheap receiver can intercept an RF transmission. Understanding how signals are generated, formatted, and parsed is the only path toward developing robust, cryptographically sound wireless hardware defenses.
+RF energy can extend beyond a physical boundary. Reception depends on the receiver, antenna, propagation, and waveform; receiving energy is distinct from decoding or decrypting content. A broadcast is not automatically public data or authorization to collect it. Review protocol authentication, key handling, and receiver policy as well as the radio link.
 
 ---
 
 ## 📡 2. Core Principles of Sub-GHz RF
 
-- **Wavelength Advantage:** Sub-GHz frequencies feature longer wavelengths than 2.4 GHz or 5 GHz bands, allowing signals to travel farther and penetrate walls efficiently.
-- **Low Power Usage:** Ideal for small devices operating on coin-cell batteries for years, as the transmission requires less energy.
-- **Modulation Types:** Most legacy sub-GHz devices utilize simple digital modulation schemes:
-  - **ASK/OOK:** Amplitude Shift Keying / On-Off Keying (signal turns on and off like Morse code).
-  - **FSK/GFSK:** Frequency Shift Keying (signal shifts slightly between two frequencies to represent 1s and 0s).
-- **Security Protocols:** Signals generally fall into two security categories:
-  - **Fixed Code:** The device transmits the exact same data payload every time (vulnerable to replay attacks).
-  - **Rolling Code:** The payload changes with each press using a cryptographic counter (protected against simple replay).
+![Idealized OOK envelope and binary FSK frequency states show two different symbol-carrying properties](../assets/diagrams/subghz-ook-vs-fsk.svg)
+
+*Figure 1 — Original symbolic teaching diagram, not sampled RF. Modulation is separate from coding and authentication. Context: [TI's supported modulation descriptions](https://www.ti.com/product/CC1101) and [GNU Radio frequency demodulation](https://wiki.gnuradio.org/index.php/Quadrature_Demod).*
+
+- **Wavelength and propagation:** Lower frequencies have longer wavelengths. Range and penetration also depend on antennas, transmit power, materials, interference, and receiver sensitivity; a band alone does not guarantee range.
+- **Power budget:** Battery life depends on duty cycle, radio configuration, retries, and the rest of the device. Sub-GHz operation is not inherently lower-energy for every application.
+- **Modulation:** OOK changes carrier presence; FSK changes carrier frequency. Symbol encoding and packet structure are additional layers.
+- **Security:** Static and stateful messages are useful comparison models, not an exhaustive taxonomy. Authentication, freshness checks, key provisioning, and implementation determine what a receiver accepts.
 
 ---
 
 ## 🧩 3. Core Sub-GHz Protocol Concepts
 
+![Static repeated messages and stateful rolling-code validation require different receiver evidence](../assets/diagrams/subghz-fixed-vs-stateful-validation.svg)
+
+*Figure 2 — Original conceptual comparison informed by the [Microchip HCS301 data sheet](https://ww1.microchip.com/downloads/en/devicedoc/21143c.pdf). Message labels are synthetic. This illustrates a receiver-state principle, not a universal security result for code-hopping products.*
+
 To thoroughly analyze wireless transmissions, it is essential to understand the underlying code architectures running on target chips.
 
 ### Fixed-Code Protocols (e.g., Princeton PT2262/PT2272)
 
-Fixed-code architectures broadcast a static identifier bitstream every time the transmitter is triggered. Because the data structure never changes, any packet captured out of the air remains valid indefinitely. They are commonly found in low-security infrastructure like unencrypted wireless doorbells or older mains switches.
+Fixed-code architectures broadcast a static identifier bitstream every time the transmitter is triggered. A matching recording may be replayable when the receiver accepts a repeated message without freshness checks. Format, enrollment, command state, and receiver policy still matter; indefinite acceptance is not guaranteed. They are commonly found in low-security infrastructure like unencrypted wireless doorbells or older mains switches.
 
 ### Rolling-Code Protocols (e.g., Microchip KeeLoq)
 
-Rolling-code protocols use cryptographic algorithms to secure transmissions. Every time a button is pressed, a non-linear encoder alters a portion of the packet payload and increments a synchronized sequence counter. The receiver decrypts the payload and verifies the counter before acting. Replaying an older captured packet will fail because the receiver rejects expired counters.
+Rolling-code protocols use cryptographic algorithms to secure transmissions. Every time a button is pressed, a non-linear encoder alters a portion of the packet payload and increments a synchronized sequence counter. The receiver decrypts the payload and verifies the counter before acting. A correctly implemented receiver rejects previously accepted or otherwise out-of-window values. Synchronization windows, key handling, and implementation differ; a changing payload alone does not prove this protection.
 
 ### Proprietary Broadcast Protocols (e.g., Somfy RTS)
 
-Many industrial and consumer ecosystems deploy customized or proprietary wireless frameworks. These protocols utilize specific preamble patterns, specialized sync bit timings, and custom checksum calculations to isolate their ecosystems from standard commercial hardware. Reverse engineering them requires deep pulse-width analysis to determine payload layouts.
+Many industrial and consumer ecosystems deploy customized or proprietary wireless frameworks. A proprietary protocol can combine familiar modulation with custom framing and state. A checksum helps detect data errors but is not sender authentication. Infer field meanings from controlled comparisons and product documentation rather than branding or pulse shape alone.
 
 ---
 
@@ -197,36 +186,31 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
             |             |
             |             +---> (Rolling Code) --> [ STOP: Do Not Emulate ]
             |             |
-            +-------------+---> (Fixed Code)   --> [ Emulate via Faraday Bag ]
+            +-------------+---> (Fixed Code)   --> [ Document observed code ]
 ```
 
 #### Detailed Execution Steps
 
-1. **Determine the Center Frequency:** Open `Sub-GHz` -> `Frequency Analyzer`. Hold the target remote 2–3 inches from the left side of the Flipper and click the remote button. Note the strongest recurring frequency.
+1. **Determine the Center Frequency:** Open `Sub-GHz` -> `Frequency Analyzer`. Position the authorized lab remote near the Flipper as described in its documentation and click the remote button. Note the strongest recurring frequency.
 2. **Choose the Capture Mode:** Back out to the main Sub-GHz menu.
-   - *Choose `Read`:* For standard commercial protocols (e.g., Princeton, KeeLoq fixed, Came). The Flipper will attempt to decode the bytes live on screen.
-   - *Choose `Read RAW`:* For unknown or complex rolling-code protocols.
-3. **Configure Settings:** Click `Config` (Right arrow button) inside your chosen capture menu. Lock the frequency to your target measurement and select the most likely modulation (default to `AM270` or `AM650` for general ASK/OOK devices).
-4. **Isolate and Execute:** Move both devices inside an RF shielding container (Faraday bag). Tap the record function on the Flipper, press the remote button once, and stop the recording immediately.
-5. **Security Logic Check:** Inspect the file saved on the Flipper's SD card. If a rolling counter or lock icon appears, **do not press emulate** outside of controlled software-defined test environments.
+   - *Choose `Read`:* For standard commercial protocols (e.g., supported static-code protocols). The Flipper will attempt to decode the bytes live on screen.
+   - *Choose `Read RAW`:* For compatible demodulated pulse recordings from unknown protocols; this is not general IQ capture or decryption.
+3. **Configure Settings:** Click `Config` (Right arrow button) inside your chosen capture menu. Lock the frequency to your target measurement and select the most likely modulation (use a preset supported by the identified waveform; do not assume a universal default).
+4. **Prepare the Lab:** Use the approved test setup for the documented device. A bag's shielding effectiveness must be verified; its presence alone is not isolation. Tap the record function on the Flipper, press the remote button once, and stop the recording immediately.
+5. **Security Logic Check:** Inspect the file saved on the Flipper's SD card. A lock icon in the documented Read workflow indicates a rolling-code protocol whose save/playback is restricted. Record the result; a RAW recording does not establish replay acceptance. See [Flipper's reading guide](https://docs.flipper.net/zero/sub-ghz/read).
 
 ---
 
 ### 📌 HackRF One (Advanced Transceiver)
 
-**Best For:** Wideband spectrum monitoring, custom signal creation, and advanced transmission testing.
+**Best For:** Receive-chain validation and complex-IQ recording within the hardware's supported range.
 
-**Lab Procedures:**
+- **Spectrum view versus sweep:** A GUI spectrum view displays the current instantaneous span. A frequency sweep visits bands sequentially; it does not continuously record them all.
+- **Receive-only example:** `hackrf_transfer -r capture.cs8 -f 433920000 -s 8000000` records signed 8-bit interleaved I/Q. Confirm local scope, storage, gain, and device settings first; no particular capture quality is guaranteed.
+- **Processing:** Record the sample rate and format. Convert explicitly when a tool expects another representation; a filename extension does not perform conversion.
+- **Transmit work:** Keep it separate from capture analysis. A filename-only playback command lacks the frequency, sample-rate, gain, and containment decisions needed for a reviewable test.
 
-- **Wide Spectrum Sweep:** Pair the HackRF with a computer running GQRX. Set a wide bandwidth (up to 20 MHz) to monitor multiple sub-GHz channels simultaneously.
-- **IQ Data Capture:** Use the command line utility `hackrf_transfer -r capture.iq -f 433920000 -s 2000000` to stream pristine, uncompressed analog RF data straight to a file for URH analysis.
-- **Custom Transmission:** Load an edited or created IQ file into GNU Radio or URH and utilize `hackrf_transfer -t playback.iq` inside an RF enclosure to broadcast custom payloads.
-
-```
-⚠️ HackRF is a TRANSMIT-CAPABLE device. Any playback/Tx procedure must be
-   performed into a dummy load or inside a Faraday enclosure - never over the air
-   toward equipment you do not own.
-```
+Sources: [HackRF tools](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html), [sample-rate and filter guidance](https://hackrf.readthedocs.io/en/latest/sampling_rate.html). This example was source-reviewed, not run on hardware.
 
 ---
 
@@ -237,105 +221,63 @@ Many industrial and consumer ecosystems deploy customized or proprietary wireles
 **Lab Procedures:**
 
 - **Automated Data Harvesting:** Connect an RTL-SDR dongle to a dedicated machine or Raspberry Pi. Run `rtl_433` continuously with the `-F json` flag to pipe decoded sensor data straight into a spreadsheet or database.
-- **Signal Triage:** Run SDR# alongside a target remote control to visualize the modulation pattern. Look for clean, distinct on/off blocks to quickly verify an ASK/OOK modulation without needing expensive test gear.
+- **Signal Triage:** Use a compatible receiver application to inspect an in-scope recording. An apparent on/off envelope suggests OOK but does not by itself confirm protocol, symbol timing or security.
 
 ---
 
 ### 📌 ESP32 Marauder (Protocol Specialist)
 
-**Best For:** Localized 2.4 GHz traffic triage, asset discovery, and framework mapping.
-
-```text
-                           [ START ]
-                               |
-                1. Connect to Marauder (CLI/GUI)
-                               |
-                2. Set Mode (Wi-Fi or Bluetooth)
-                               |
-            +------------------+------------------+
-            v                                     v
-     [ A. Wi-Fi Path ]                    [ B. Bluetooth Path ]
-            |                                     |
-   3a. Run 'scan ap'                     3b. Run 'scan-sub' (BLE/BT)
-            |                                     |
-   4a. Run 'select ap <index>'           4b. Target specific beacon MAC
-            |                                     |
-   5a. Start raw packet sniff            5b. Monitor payload/RSSI telemetry
-   (e.g., 'sniff raw')                           |
-            |                                     v
-            v                              [ Save Data ]
-     [ Export PCAP ]                             |
-            |                                     v
-            v                             [ Post-Analysis in ]
-    [ Run Wireshark ]                     [ Wireshark/Tooling ]
-```
+**Best For:** Supported Wi-Fi/Bluetooth observation on compatible ESP32 hardware; not a general IQ SDR.
 
 #### Detailed Execution Steps
 
-1. **Interface Initialization:** Power on your Marauder hardware. Access the interface via the onboard touchscreen GUI or connect a USB-C cable and initialize a Serial Terminal (baud rate `115200`).
-2. **Environment Baseline Scan (Wi-Fi):** Execute `scan ap` to query all nearby Access Points. Once completed, run `list ap` to evaluate a ledger of indexed local systems, security configurations (e.g., WPA2/WPA3), and exact channel alignments.
-3. **Targeted Packet Interception:** Pinpoint the lab test router index number from the ledger list. Lock the interface down by typing `select ap <index_number>`. Start recording structural framework management frames using `sniff raw`. Ensure your external SD card is mounted securely.
-4. **Data Extraction:** Stop the capture process via the screen interface or by entering a carriage return in your serial window. Unmount the SD card and load the generated `.pcap` log file directly into your workstation computer running Wireshark for decoding.
+1. Identify the exact board and firmware build in the [upstream wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki).
+2. Select the documented receive/capture function for the authorized network and channel. Scan, selection, filtering, and saving behavior are build-specific.
+3. Verify storage and actual capture link type before opening an export in Wireshark. Do not assume every Bluetooth observation can be saved as a full decoded packet capture.
+4. Record the firmware, channel coverage, filters, and gaps with the evidence. The former generic CLI strings were not a validated procedure for a particular release.
 
 ---
 
 ### 📌 Bruce Firmware (Multi-Protocol Suite)
 
-**Best For:** Consolidation of multi-band diagnostic utilities onto a single, screen-driven operational menu.
-
-```text
-                           [ START ]
-                               |
-               1. Boot Device to Bruce Main Menu
-                               |
-               2. Select Peripheral Control Module
-                               |
-         +---------------------+---------------------+
-         v                     v                     v
-   [ A. RF Sub-GHz ]      [ B. Wi-Fi 2.4G ]     [ C. BLE / IR ]
-   (Requires CC1101)           |                     |
-         |             3b. Target SSID       3c. Open BLE Scanner /
-   3a. Set Frequency           |                 Infrared Receiver
-   (e.g., 433.92 MHz)  4b. Initialize Packet         |
-         |                 Monitor           4c. Capture / Map
-   4a. Open Rx / Signal        |                 Beacon Advertisements
-       Terminal                v                     |
-         |               [ Capture ]                 v
-         v                                    [ Output File ]
-   [ Save Payload ]
-```
+**Best For:** Supported radio/peripheral functions on an explicitly compatible board and firmware build.
 
 #### Detailed Execution Steps
 
-1. **Boot and Module Verification:** Power on the microcontroller host running Bruce firmware. Navigate to the `Settings` panel to verify that your attached physical expansions (e.g., an SPI-connected CC1101 chip or antenna array) are correctly mapped and reporting a "Ready" state.
-2. **Sub-GHz Monitoring via Bruce:** Scroll down the main display carousel and select the `Sub-GHz` module. Enter the frequency configuration view. Set the manual stepping target to match your lab environment baseline (e.g., `433.92 MHz`). Select `Receiver`. The terminal screen will output a real-time readout of parsed data packets and RSSI strength metrics.
-3. **Wi-Fi Packet Monitoring:** Back out to the main menu and enter the `Wi-Fi` diagnostic suite. Select `Packet Monitor`. This configuration commands the network controller to enter promiscuous mode across a specific radio channel. Observe the live graph tracking ambient frame traffic volume.
+1. Check the [official device matrix and documentation](https://bruce.computer/), then the [repository's Bruce guide](../Documentation/bruce_firmware.md).
+2. Verify the physical RF frontend, antenna, wiring, power, and selected pins against that board's documentation. ESP32 firmware alone cannot add a missing band.
+3. Use the documented receive function and validate it with a known in-scope source. Menu labels, RSSI display, decoder support, and file export vary; no universal "Ready" status is assumed.
+4. Record the board, modules, firmware and receive settings. Wi-Fi/BLE packet observation and CC1101 pulse capture are separate paths.
+
+**Related compact RF guide:** [M5StickC Plus2 / HackStarterPack](../HardwareHacking/m5stickc-plus2-hackstarterpack.md).
 
 ---
 
-**Related compact RF guide:** [M5StickC Plus2 / HackStarterPack](../HardwareHacking/m5stickc-plus2-hackstarterpack.md) documents the required CC1101 add-on and unverified upstream RF files. Do not treat the file collection as approved replay vectors.
-
 ## 🛠️ 5. Entry-Level GNU Radio Flowgraph Guide (HackRF)
+
+![An RF frontend produces IQ samples that are preserved with metadata, processed on a working copy and interpreted as candidate fields](../assets/diagrams/subghz-iq-to-evidence.svg)
+
+*Figure 3 — Original conceptual receive pipeline. See [HackRF's sample format](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html) and [GNU Radio File Sink documentation](https://wiki.gnuradio.org/index.php/File_Sink). The actual item type determines file representation; an extension alone does not.*
 
 GNU Radio Companion (GRC) allows you to build custom visual processing blocks to interact with your HackRF. Below is the blueprint for a baseline **Sub-GHz OOK Signal Recorder Flowgraph**.
 
 ### Block Architecture Setup
 
-Connect the following blocks sequentially in GRC from top to bottom / left to right:
+Options and Variable blocks configure the flowgraph; they are not sample-stream stages. Branch the Source output to both the GUI and File Sink:
 
 1. **Options Block:** Set `Id` to `sub_ghz_recorder`.
-2. **Variable Block (`samp_rate`):** Set `Value` to `2000000` (2 MHz sampling rate, ideal for capturing sub-GHz bursts cleanly).
+2. **Variable Block (`samp_rate`):** Set `Value` to `8000000` (8 MS/s hardware capture baseline; see [HackRF filter guidance](https://hackrf.readthedocs.io/en/latest/sampling_rate.html)).
 3. **Variable Block (`center_freq`):** Set `Value` to `433920000` (433.92 MHz).
 4. **Osmocom Source (Your HackRF):**
    - `Sample Rate (sps)`: `samp_rate`
    - `Ch0: Frequency (Hz)`: `center_freq`
    - `Ch0: RF Gain (dB)`: `0` (Keep low to prevent clipping)
-   - `Ch0: IF Gain (dB)`: `20`
-   - `Ch0: BB Gain (dB)`: `20`
+   - `Ch0: IF Gain (dB)`: `16`
+   - `Ch0: BB Gain (dB)`: `16`
 5. **QT GUI Sink:** Connect the output of the *Osmocom Source* to this block to visually monitor your waterfall and spectrum analyzer while recording.
 6. **File Sink:** Connect the output of the *Osmocom Source* here as well.
    - `File`: Choose a path (e.g., `/home/user/desktop/capture.iq`).
-   - `Unbuffered`: Set to `On` to guarantee data writes instantly.
+   - Choose buffering for measured host/storage throughput; unbuffered mode does not guarantee complete or instantly durable writes. Record the File Sink item type: a complex float32 stream differs from HackRF's signed-byte output.
 
 ### Running the Procedure
 
@@ -344,8 +286,9 @@ Connect the following blocks sequentially in GRC from top to bottom / left to ri
 - Click the **Stop** icon immediately after transmission to keep your output file size small and manageable.
 
 ```
-💡 TIP: Test your flowgraph with the SDR sink DISCONNECTED first to validate
-   block wiring before any radio hardware is engaged.
+💡 TIP: This receive-only graph uses an SDR SOURCE, not a transmit sink.
+   For an offline wiring check, replace the hardware source with a synthetic
+   source and verify output formats; this does not validate the RF hardware.
 ```
 
 ---
@@ -358,8 +301,8 @@ When building custom lab sniffers or low-power embedded modules, these physical 
 
 ### 📡 CC1101 (The Sub-GHz Agile Transceiver)
 
-- **Multi-Frequency Sniffing:** Can be dynamically programmed via an SPI bus to listen anywhere from 300 MHz to 928 MHz, matching various regional target devices on demand.
-- **Legacy Emulation:** Supports ASK, OOK, FSK, and GFSK modulation natively, allowing you to mimic raw analog structures for garage doors, wireless doorbells, and early IoT sensors.
+- **Multi-Frequency Sniffing:** Supports specified bands of 300–348, 387–464, and 779–928 MHz; matching network and antenna support can further constrain a module. It does not tune continuously across 300–928 MHz. [TI specifications](https://www.ti.com/product/CC1101).
+- **Legacy Emulation:** Supports ASK, OOK, FSK, and GFSK modulation natively, allowing you to implement compatible modulation and timing for garage doors, wireless doorbells, and early IoT sensors.
 - **Custom Sniffing Terminals:** Used by wiring a chip module to an Arduino or ESP32 using drivers like `SmartRC-CC1101-Driver-Lib` to spit raw timing pulses directly into a serial logging window.
 
 ### 📡 nRF24L01+ (The 2.4 GHz Protocol Specialist)
@@ -371,9 +314,9 @@ When building custom lab sniffers or low-power embedded modules, these physical 
 
 | Feature | CC1101 Module | nRF24L01+ Module |
 | :--- | :--- | :--- |
-| **Frequency Range** | 300 MHz – 928 MHz (Highly Flexible) | 2.400 GHz – 2.525 GHz (Fixed) |
+| **Frequency Range** | 300–348, 387–464, 779–928 MHz | Programmable 2.4 GHz channels; not every supported setting is permitted regionally |
 | **Modulation Support** | ASK, OOK, 2-FSK, GFSK, MSK | GFSK only |
-| **Signal Penetration** | **High** (Easily passes through structures) | **Low** (Blocked easily by walls and water/bodies) |
+| **Signal Penetration** | Depends on antenna, materials, power and link budget | Depends on antenna, materials, power and link budget |
 | **Primary Lab Target** | Smart home sensors, key fobs, garage doors | Wireless mice/keyboards, cheap drones, RC toys |
 | **Data Throughput** | Up to 600 kbps | Up to 2 Mbps |
 
@@ -381,48 +324,58 @@ When building custom lab sniffers or low-power embedded modules, these physical 
 
 ## 🧯 7. Troubleshooting: Clipping & Signal Distortion
 
-When capturing raw IQ data, poor signal quality will ruin software demodulation. Use these baseline checks to ensure pristine data captures:
+![Synthetic smooth and flattened amplitude traces illustrate clipping-related information loss](../assets/diagrams/subghz-capture-quality.svg)
+
+*Figure 4 — Original schematic with arbitrary units, not a measured capture. Compare actual recordings under controlled settings; waterfall color alone is not diagnostic. See [HackRF gain guidance](https://hackrf.readthedocs.io/en/latest/setting_gain.html).*
+
+When capturing raw IQ data, check quality before demodulation. The checks below help investigate artifacts; they do not guarantee an error-free capture:
 
 ### ⚠️ Clipping (Signal Over-Saturation)
 
 - **The Symptom:** The top and bottom of your signal waveforms look flattened or chopped off in URH, or the entire waterfall turns solid red/white.
 - **The Cause:** Your receiver gains are set too high, or your transmitter is physically too close to your SDR antenna.
-- **The Fix:** Move the transmitting remote at least 3 to 5 feet away from the SDR antenna. Drop the `RF Gain` or `IF Gain` values down by 10 dB increments until the waveform curves become smooth and distinct.
+- **The Fix:** Reduce coupling or add suitable attenuation, then adjust gain in hardware-supported steps and compare a fresh recording. HackRF RF gain is on/off; RX IF uses 8 dB steps and baseband uses 2 dB steps. Display colors alone do not diagnose overload. See [gain controls](https://hackrf.readthedocs.io/en/latest/setting_gain.html).
 
 ### ⚠️ DC Offset (The Center Spike)
 
 - **The Symptom:** A massive, permanent spike appears directly in the dead center of your waterfall display, masking nearby signals.
 - **The Cause:** An inherent hardware artifact common to zero-IF SDR architectures like the HackRF and RTL-SDR.
-- **The Fix:** Never set your hardware target frequency directly to the target device frequency. Instead, use an **Offset Tune**. If your device is at 433.92 MHz, set your SDR center frequency to 433.52 MHz (400 kHz away). Your target signal will now cleanly appear slightly to the right of the center spike, free from distortion.
+- **The Fix:** Offset tuning can move a target away from a center-frequency artifact. Keep the entire occupied signal within the usable filtered capture bandwidth and translate/filter it in processing. A 400 kHz offset is only an example, not a guarantee that an artifact or distortion disappears.
 
 ### ⚠️ Under-Sampling / Alias Signals
 
 - **The Symptom:** Signals appear mirrored or distorted, and parsing tools fail to calculate consistent data pulse widths.
 - **The Cause:** Your sample rate is lower than the actual bandwidth of the target signal.
-- **The Fix:** Ensure your sample rate is always set to at least `2000000` (2 MHz) for general sub-GHz exploration. This captures the signal and its sidebands with ample resolution.
+- **The Fix:** Choose rate and anti-alias filtering for the occupied bandwidth and frontend. HackRF discourages hardware rates below 8 MS/s; a filtered working copy can be decimated afterward. Mirrored features can also reflect IQ imbalance or import errors, so investigate rather than diagnose aliasing from appearance alone.
 
 ---
 
 ## 💻 8. Post-Processing Pipeline
 
-Once data is captured as a raw `.iq`, `.pcap`, or text log file, choose one of these software paths to extract meaningful protocol intelligence.
+![Three fictional frames contain repeated and changing byte groups whose meanings remain hypotheses](../assets/diagrams/subghz-frame-inference.svg)
+
+*Figure 5 — Original synthetic frame comparison, not a product's packet format. [URH](https://github.com/jopohl/urh) provides signal/interpretation tools, but field names require evidence beyond visual similarity; neither changing bytes nor a checksum proves authentication.*
+
+Choose processing from the actual data representation. IQ samples, demodulated pulse timings, packet captures, and decoded JSON are not interchangeable formats.
 
 | Pipeline | Best For | Risk Level |
 |----------|----------|------------|
 | **[Universal Radio Hacker (URH)](https://github.com/jopohl/urh)** | Custom, proprietary, or unknown OOK/FSK payloads | 🟡 MEDIUM |
 | **[Wireshark](https://www.wireshark.org/)** | 2.4 GHz 802.11 Wi-Fi, BLE beacons, Marauder `.pcap` exports | 🟢 LOW |
-| **[rtl_433](https://github.com/merbanan/rtl_433)** | Verifying known commercial telemetry streams instantly | 🟢 LOW |
+| **[rtl_433](https://github.com/merbanan/rtl_433)** | Decoding supported telemetry with validated input settings | 🟢 LOW |
 
 ### Pipeline 1: Universal Radio Hacker (Reverse Engineering Raw Sub-GHz)
+
+**Maintenance note:** The [upstream repository](https://github.com/jopohl/urh) is archived as of this review. Validate the installed build and dependencies; these UI steps are illustrative, not a current compatibility guarantee.
 
 **Best For:** Custom, proprietary, or unknown OOK/FSK payloads.
 
 **Process Flow:**
 
-1. **Import:** Select `File` -> `Open` -> Load your `.iq` file.
+1. **Import:** Select `File` -> `Open` -> Load the sample file with its actual type, sample rate, and I/Q order. Renaming `.cs8` to `.iq` does not convert it.
 2. **Isolate:** Adjust the visual sliders to select a single, strong pulse burst. Trim out silent background noise.
 3. **Demodulate:** Set the modulation type parameter (`ASK` or `FSK`). Adjust the bit length threshold until the waveform blocks map cleanly into uniform digital pulses.
-4. **Interpret:** In the *Analysis* window, look for patterns across sequential captures. Group identical rows to separate static device identifiers from volatile execution bytes.
+4. **Interpret:** In the *Analysis* window, look for patterns across sequential captures. Group aligned frames to find repeated and changing regions. Treat identifier, command, counter, and checksum meanings as hypotheses until independently tested.
 
 ### Pipeline 2: Wireshark (Network Data Processing)
 
@@ -433,68 +386,62 @@ Once data is captured as a raw `.iq`, `.pcap`, or text log file, choose one of t
 1. **Import:** Drag and drop your `.pcap` file directly into the Wireshark UI.
 2. **Filter:** Clean up background noise by applying strict display filter logic in the top navigation bar:
    - To view beacon frames: `wlan.fc.type_subtype == 0x08`
-   - To view BLE advertising channels: `btle.advertising_address`
+   - To view BLE advertising channels: `btle` (Bluetooth LE frames, when present in the capture)
 3. **Inspect:** Expand the middle packet layer menu to extract the exact hexadecimal hardware MAC address, peripheral capabilities flags, and manufacturer data fields.
 
 ### Pipeline 3: rtl_433 CLI Tool (Instant Standard Decoding)
 
-**Best For:** Verifying known commercial telemetry streams instantly.
+**Best For:** Decoding supported telemetry with validated input settings.
 
 **Process Flow:**
 
 1. **Verify:** Open a workstation command line console.
-2. **Execute:** Run the utility against a previously saved raw file:
+2. **Execute:** For an unsigned 8-bit IQ file actually captured at 250 kS/s, use this example; substitute the real capture rate and supported format:
 
    ```bash
-   rtl_433 -r raw_capture.cu8
+   rtl_433 -r raw_capture.cu8 -s 250000
    ```
 
-3. **Review:** The utility automatically reads the pulse timing array, references its internal database of common microchips, and yields parsed decimal telemetry values on screen.
+3. **Review:** For supported input formats and enabled protocol decoders, the utility may produce decoded fields. No output can mean incompatible import settings or an unsupported protocol; it is not proof of no signal. Record the input rate and format. See [upstream setup guidance](https://github.com/merbanan/rtl_433/blob/master/docs/STARTING.md).
 
 ---
 
 ## 🗂️ 9. Master Device & Protocol Reference Matrix
 
-The table below serves as a laboratory lookup guide to identify unknown target signals based on their detected center frequency and mapping to known protocol standard architectures.
+Use these as **candidate families**, not identification from frequency alone.
+Exact channels and supported decoders depend on product, region and revision.
+Consult the [frequency/protocol reference](./target_frequencies_protocols.md) and
+manufacturer documentation before assigning a protocol name.
 
-| Device Category | Target Device Example | Primary Radio Frequency | Primary Protocol Architecture |
-| :--- | :--- | :--- | :--- |
-| **Automotive Security** | Legacy Vehicle Key Fobs | 315.00 MHz | Princeton / Holtek Fixed Code |
-| **Automotive Security** | Modern Vehicle Key Fobs | 433.92 MHz | Microchip KeeLoq Rolling Code |
-| **Automotive Telemetry** | Tire Pressure Sensors (TPMS) | 315.00 MHz / 433.92 MHz | Schrader / FSK Telemetry Burst |
-| **Residential Access** | Dip-switch Garage Doors | 300.00 MHz – 310.00 MHz | Linear / Multi-Code Fixed Code |
-| **Residential Access** | Modern Garage Door Openers | 315.00 MHz / 390.00 MHz | Chamberlain Security+ 2.0 Rolling Code |
-| **Residential Access** | Motorized Blinds & Awnings | 433.42 MHz | Somfy RTS (Radio Technology Somfy) |
-| **Residential Access** | Commercial Entrance Gates | 868.30 MHz | Came / Nice OOK Fixed & Rolling Code |
-| **Smart Automation** | Wireless Doorbell Chimes | 433.92 MHz | Princeton (PT2262 Clone) Fixed Code |
-| **Smart Automation** | Legacy Smart Plugs & Relays | 433.92 MHz | Nexa / Intertechno Protocol Profiles |
-| **Smart Automation** | Perimeter Window/Door Sensors | 345.00 MHz | Honeywell / Ademco 5800 Series |
-| **Smart Automation** | Commercial Intrusion Alarms | 868.00 MHz | Visonic PowerCode / Jeweller Protocol |
-| **Environmental Infrastructure** | Backyard Weather Stations | 433.92 MHz / 915.00 MHz | Oregon Scientific / Ambient Weather FSK |
-| **Utility Infrastructure** | Smart Grid Power Meters | 915.00 MHz | Itron ERT (Encoder Receiver Transmitter) |
-| **Logistics Infrastructure** | Cargo Asset Tracking Tags | 915.00 MHz | EPC Gen2 / ISO 18000-6C RFID |
-| **Industrial Mesh** | Industrial IoT Sensor Nodes | 868.00 MHz / 915.00 MHz | LoRaWAN (Long Range Wide Area Network) |
-| **Smart Home Mesh** | Interconnected Lighting Arrays | 908.42 MHz / 868.42 MHz | Z-Wave / GFSK Mesh Framework |
-| **Peripherals** | Wireless Mice & Keyboards | 2.400 GHz – 2.4835 GHz | Nordic Enhanced ShockBurst (nRF24) |
-| **Aviation / Toys** | Commercial Toy RC Drones | 2.400 GHz – 2.4835 GHz | Futaba S-FHSS / FlySky FHSS Protocol |
+| Observed Device / Traffic | Candidate Family | What Still Needs Verification |
+|---|---|---|
+| Doorbell or switched outlet | Static pulse-coded or proprietary protocol | Model, complete frame timing, command state and receiver policy. |
+| Vehicle remote or garage opener | Static, rolling-code or challenge-response implementation | Exact generation; brand, age and center frequency do not determine the scheme. |
+| Tire sensor or weather station | Model-specific telemetry | Modulation, sensor fields, checksum and an applicable decoder. |
+| Blinds or gate controller | Vendor-specific signaling | Preamble, synchronization, state handling and supported region. |
+| Utility meter | Product-specific metering protocol | Authorized collection scope, exact model and data protection. |
+| Passive inventory tag | UHF RFID | Compatible interrogator and regional configuration; not an ordinary active sensor burst. |
+| LoRa-based device | LoRa physical layer; possibly LoRaWAN | A LoRa waveform does not establish LoRaWAN framing, keys or application meaning. |
+| Z-Wave device | Regional Z-Wave product / generation | Supported channel plan and security mode; do not infer either from a generic band label. |
+| 2.4 GHz peripheral or RC device | Vendor packet protocol, possibly Nordic-compatible | Matching radio and packet settings; not automatically Wi-Fi, BLE or nRF24. |
 
 ---
 
 ## 📖 10. Protocol Profiles Dictionary
 
-When analyzing signals from the reference matrix above, use this operational dictionary to understand what the specific protocol structure does.
+- **Princeton / Holtek-style fixed code:** Legacy pulse-coded implementations can repeat static message content. Device-specific symbol encodings and receiver acceptance still require confirmation.
+- **Microchip KeeLoq:** A code-hopping family. The [HCS301 data sheet](https://ww1.microchip.com/downloads/en/devicedoc/21143c.pdf) describes fixed and protected fields and receiver synchronization. This is not a blanket security assurance for every KeeLoq deployment.
+- **Schrader TPMS:** A product family, not one universal packet format. Match an exact sensor to documented fields and a supported decoder.
+- **Chamberlain Security+:** Product generations differ. Do not assume simultaneous transmission on two frequencies or infer the protocol from the brand alone.
+- **Somfy RTS:** Distinguish vendor framing and state from modulation. An apparent changing field is not enough to identify its security meaning.
+- **Honeywell / Ademco 5800:** Verify the exact device and decoder; message fields and supervision behavior are product-specific.
+- **Itron ERT:** Metering implementations differ. Do not assume every device periodically broadcasts unencrypted readings with identical fields.
+- **EPC Gen2 / ISO 18000-6C:** Passive UHF inventory is a reader–tag ecosystem. Tags can expose configurable memory and capabilities; the EPC is not necessarily immutable.
+- **LoRaWAN:** A network protocol distinct from the LoRa physical layer. Application-payload encryption does not hide all frame metadata; security also depends on keys and implementation. See the [LoRa Alliance security overview](https://lora-alliance.org/resource_hub/lorawan-is-secure-but-implementation-matters/).
+- **Z-Wave:** A regional radio/protocol ecosystem. Check the actual product generation, topology and configured security features.
+- **Nordic Enhanced ShockBurst:** Hardware-supported packet handling used by the [nRF24 family](https://www.nordicsemi.com/Products/nRF24-series). Compatible frequency alone does not provide packet interoperability or encryption.
 
-- **Princeton / Holtek (PT2262 Clones):** A foundational legacy fixed-code standard. It uses simple pulse-width modulation (PWM) to broadcast a static 12-bit or 24-bit payload. It features zero cryptographic verification, meaning any captured frame can be replayed instantly.
-- **Microchip KeeLoq:** A robust rolling-code standard designed for secure access. It encrypts a 32-bit hopping code block containing a sequence counter using a non-linear block cipher. Receivers track the counter and instantly reject identical or expired values to stop replay attempts.
-- **Schrader TPMS:** A localized telemetry protocol deployed inside automotive wheels. It relies on frequency-shift keying (FSK) to send brief packet bursts containing a fixed tire sensor hardware ID alongside sensor values like tire pressure, temperature, and battery life.
-- **Chamberlain Security+:** An upgraded residential rolling-code standard. It alternates data transmissions across multiple frequencies (e.g., 315 MHz and 390 MHz simultaneously) while incrementing rolling counters to resist targeted signal blocking or interception.
-- **Somfy RTS (Radio Technology Somfy):** A specialized consumer hardware protocol utilizing unencrypted rolling-code layouts. It relies on custom pulse-width patterns and precise bit-timing durations to communicate cleanly with automated window treatments and awnings.
-- **Honeywell / Ademco 5800:** A high-reliability security asset protocol. Sensors broadcast rapid, redundant fixed-code bursts containing a hardcoded device index flag, loop channel configurations, and sensor conditions (e.g., closed, open, low battery).
-- **Itron ERT:** A municipal utility logging protocol. Devices remain in low-power sleep states, periodically awakening to broadcast short, unencrypted data packets containing total consumption metrics, device indices, and tamper flags to passing utility vehicle receivers.
-- **EPC Gen2 / ISO 18000-6C:** An advanced inventory and tracking architecture. Readers emit continuous RF waves to energize nearby passive asset tags, which reply by modulating and backscattering their hardcoded Electronic Product Code (EPC) payloads.
-- **LoRaWAN:** A long-range, low-power digital infrastructure framework. It applies chirp spread spectrum (CSS) modulation to transmit sensor telemetry over extreme distances while encrypting all payload traffic behind distinct network and application session keys.
-- **Z-Wave:** A highly structured smart-home mesh system. Nodes route low-power control and state confirmation payloads using frequency-shift keying over dedicated sub-GHz bands, keeping home automation channels free from 2.4 GHz Wi-Fi interference.
-- **Nordic Enhanced ShockBurst:** A high-speed, proprietary 2.4 GHz payload structure. It offloads packet formatting, addressing, automatic acknowledgment receipts, and retransmission timing loops directly onto the transceiver silicon to preserve host processing resources.
+For supported telemetry examples, inspect the [rtl_433 decoder implementations](https://github.com/merbanan/rtl_433/tree/master/src/devices) rather than treating a product-category label as a decoded result.
 
 ---
 
@@ -514,7 +461,7 @@ To maintain reproducibility across hardware security audits, document every succ
 - **Device Manufacturer / Model:** [e.g., Acme Wireless Plug Gen 3]
 - **FCC Identifier (if visible):** [FCC ID String]
 - **Hardware Chipset (Internal):** [e.g., Texas Instruments CC1101 Breakout]
-- **Expected Security Category:** [ ] Fixed Code  |  [ ] Rolling Code  |  [ ] Encrypted
+- **Observed / Hypothesized Properties:** [ ] Repeated fields  |  [ ] Changing fields  |  [ ] Authentication verified  |  [ ] Unknown
 - **Associated Protocol Signature:** [e.g., Princeton PT2262 / KeeLoq / Somfy RTS]
 
 ## 3. Radio Frequency Parameters
@@ -528,6 +475,10 @@ To maintain reproducibility across hardware security audits, document every succ
 - **Hardware Antenna Variant:** [e.g., Telescopic Tuned 433MHz Whip]
 - **Software Center Frequency:** ___________ MHz (Offset applied: Yes/No)
 - **Configured Sample Rate:** ___________ Msps
+- **Sample Representation / I-Q Order:** ____________________
+- **Capture Duration / Dropped-Sample Indicators:** ____________________
+- **Software / Firmware Versions:** ____________________
+- **Original File Hash / Working Copy:** ____________________
 - **Receiver Attenuation/Gain Level:** IF Gain: ____ dB | BB Gain: ____ dB
 
 ## 5. Extracted Payload Intelligence
@@ -538,8 +489,8 @@ To maintain reproducibility across hardware security audits, document every succ
   3. 0x________________________________________________
 - **Protocol Structure Breakdown:**
   - [PREAMBLE BITS]     -> ____________________
-  - [STATIC DEVICE ID]  -> ____________________
-  - [EXECUTION STATE]   -> ____________________
+  - [CANDIDATE STATIC FIELD]  -> ____________________
+  - [CANDIDATE CHANGING FIELD]   -> ____________________
   - [CHECKSUM/CRC]      -> ____________________
 
 ## 6. Structural Observations & Integrity Validation
@@ -552,32 +503,33 @@ transmission instances.]
 
 ## 🚪 12. Example Project: Safe Garage Door Analysis
 
-Use this checklist to practice baseline exploration concepts safely on a standard residential garage door system **you own** - without accidentally breaking the remote pairing or breaking local laws.
+This is a **receive-only comparison exercise** using an explicitly authorized test
+remote and provided recordings or an approved lab setup. It is not a production
+opener replay procedure. Do not assume a shielding bag provides adequate isolation.
 
 ### Phase 1: Pre-Lab Setup & Safety
 
-- [ ] **Isolate the Receiver:** Place your SDR/Flipper and the garage remote inside your Faraday bag or shielded enclosure if you plan to hit transmit.
-- [ ] **Identify System Type:** Look at the back of the garage remote or overhead opener motor unit to check the model specifications.
-  - **Legacy (Pre-1995):** Dip-switches present inside the remote battery compartment indicate a Fixed Code system (safe for baseline testing).
-  - **Modern (Post-1995):** Brand names like Chamberlain Security+, LiftMaster, or Genie Intellicode indicate a Rolling Code system (requires strict compliance rules).
+- [ ] Record remote/receiver model, revision, documented frequency and scope.
+- [ ] Keep the operational receiver outside the exercise; even ordinary remote presses may advance transmitter state.
+- [ ] Use product documentation to identify the protocol; manufacture date, branding or DIP switches are clues, not a full security assessment.
 
 ### Phase 2: Signal Discovery
 
-- [ ] **Run GQRX/SDR#:** Set your center frequency to 315 MHz or 390 MHz (common US garage bands) or 433.92 MHz (EU / common ISM).
-- [ ] **Fire the Remote:** Tap the garage button briefly and watch for a sharp transmission spike on the waterfall. Document the exact peak frequency.
+- [ ] Select a compatible receive path and antenna for the documented band.
+- [ ] Observe a controlled event and a baseline; distinguish signal presence from a confirmed decoder result.
 
 ### Phase 3: Capturing the Transmission
 
-- [ ] **Open URH or Flipper Read:** Set the configuration to your newly discovered target frequency.
-- [ ] **Record the Payload:** Click record and click the remote button once. Stop the recording immediately.
-- [ ] **Identify Modulation:** Zoom into the captured wave blocks. Verify if it uses simple OOK (gaps of absolute silence between bursts) or FSK.
+- [ ] Preserve original recordings and settings, including format and sample rate.
+- [ ] Collect several labeled events without replaying them. Inspect quality before comparing frames.
+- [ ] Record modulation as a hypothesis until supported by demodulation and timing evidence.
 
 ### Phase 4: Analysis and Security Validation
 
-- [ ] **Inspect Code Persistence:** Record a second button press into a separate file and line them up side-by-side in your analysis software.
-- [ ] **Apply the Validation Rule:**
-  - *If the data strings match exactly:* The device is Fixed Code. You can safely emulate this payload into your test motor to complete your validation loop.
-  - *If the data strings are different:* The device uses Rolling Codes. **STOP.** Do not emulate or play back either file toward your actual garage door. Replaying an old counter packet can desynchronize your real remote from the receiver, locking you out of your garage until you manually re-pair the system hardware.
+- [ ] Align complete frames and identify repeated versus changing regions.
+- [ ] Identical strings do not prove indefinite replay acceptance; different strings do not prove rolling-code cryptography.
+- [ ] Report observations, uncertainty and documentation matches. Acceptance testing requires a separately scoped disposable receiver setup and product-specific recovery planning.
+- [ ] Do not claim that replaying an expired packet necessarily desynchronizes every receiver; synchronization behavior is implementation-specific.
 
 ---
 
@@ -585,134 +537,52 @@ Use this checklist to practice baseline exploration concepts safely on a standar
 
 ### 🔴 FEDERAL REGULATORY WARNING
 
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL LEGAL WARNING ⚠️
-═══════════════════════════════════════════════════════════════
-
-The tools and techniques in this manual govern the physical transmission
-and interception of Radio Frequency (RF) energy.
-
-UNAUTHORIZED TRANSMISSION OR INTERCEPTION IS A FEDERAL CRIME.
-
-Federal Communications Commission (FCC) Regulations:
-   ► Operating without a license: Fines up to $150,000+ per day.
-   ► Jamming Devices: STRICTLY PROHIBITED. Marketing, selling, or using
-     a jammer carries massive civil and criminal penalties.
-   ► Aviation Interference: Endangering aircraft navigation (GPS spoofing,
-     ADS-B injection) can result in federal terrorism charges.
-
-Electronic Communications Privacy Act (ECPA) & Wiretap Act:
-   ► Intercepting encrypted or private communications (Cellular, Pagers,
-     Private Land Mobile Radio) is a federal felony.
-   ► Up to 5 years imprisonment for unauthorized interception.
-
-State Laws:
-   ► Many states have distinct laws regarding eavesdropping, wiretapping,
-     and the possession of lock bypass tools (which can include SDRs loaded
-     with replay attack software).
-
-International Laws:
-   ► CEPT/ETSI regulations in Europe.
-   ► Ofcom regulations in the UK.
-   ► Telecommunications laws vary heavily by country. ALWAYS check local laws.
-═══════════════════════════════════════════════════════════════
-```
+Use the [repository legal notice](../LEGAL.md) and the rules for the actual
+jurisdiction and equipment. Device ownership is not RF operating authority.
+In the United States, qualifying Part 15 operation can occur without an individual
+license, subject to applicable requirements; an amateur license is not general
+permission to transmit arbitrary device protocols. See [FCC guidance](https://docs.fcc.gov/public/attachments/DA-15-575A1_Rcd.pdf)
+and [47 CFR 15.5](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-A/section-15.5).
 
 ### Attack-Specific Legal Warnings
 
 #### Signal Jamming
 
-```
-🔴 FEDERAL CRIME: Intentional Interference
-
-ILLEGAL ACTIVITIES:
-   • Jamming Wi-Fi networks (Deauth attacks via RF flooding)
-   • GPS Jamming
-   • Cellular network disruption
-   • Blocking security system heartbeats
-
-LAWS VIOLATED:
-   • Communications Act of 1934
-   • FCC Rules (47 CFR Part 15)
-
-PENALTIES:
-   • Seizure of all equipment
-   • Civil fines frequently exceeding $100,000
-   • Federal imprisonment
-```
+Do not conduct intentional interference against operational services. A shield,
+dummy load, selected frequency, or firmware setting does not by itself establish
+compliance or adequate isolation. Follow the applicable regulator's guidance.
 
 #### Replay Attacks (Access Control)
 
-```
-🔴 FEDERAL CRIME: Unauthorized Access & Trespassing
-
-ILLEGAL ACTIVITIES:
-   • Capturing and re-transmitting a neighbor's garage door signal
-   • Spoofing car key fobs (RollJam / RollBack)
-   • Bypassing physical RFID/Sub-GHz access control systems
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • State trespassing and burglary tool possession laws
-   • Auto theft statutes
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from the property/vehicle owner
-   ✓ Testing on hardware explicitly purchased for research
-```
+Credential and access-control testing requires explicit system-owner scope as
+well as an appropriate RF test setup. A successful capture does not authorize
+entry, retransmission or collection of unrelated communications.
 
 ### 📖 Before Transmitting Any Signal
 
-```
-MANDATORY CHECKLIST:
-☐ Am I using a Faraday cage/bag or an RF dummy load?
-☐ If transmitting over the air, do I have the appropriate FCC/local license?
-☐ Am I operating within the ISM (Industrial, Scientific, Medical) bands?
-☐ Am I adhering to the legal power limits (EIRP) for this frequency?
-☐ Have I verified I am NOT transmitting on Aviation, Emergency, or Cellular bands?
-☐ Do I OWN the target receiving device (e.g., the key fob and the car)?
-☐ Have I tested my GNU Radio flowgraph without the SDR sink connected first?
-☐ Am I prepared to document all transmission logs?
-
-If you answered NO to ANY question: DO NOT TRANSMIT. USE RECEIVE-ONLY.
-```
+- Confirm equipment, band, power, emission conditions, and operating authority.
+- Validate the complete containment or conducted test path; a dummy load must be appropriately connected and rated.
+- Use disposable in-scope test equipment with a documented stop and recovery plan.
+- Confirm capture/playback format and rate; inspect the full transmit path before enabling it.
+- If those conditions are unresolved, use recorded or synthetic input for analysis.
 
 ### Warranty Disclaimer
 
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
-═══════════════════════════════════════════════════════════════
-
-These RF procedures, flowgraphs, and templates are provided "AS IS" WITHOUT
-WARRANTY of any kind, either expressed or implied.
-
-THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-✗ Make NO guarantees about procedure functionality or RF safety
-✗ Are NOT responsible for damaged hardware (e.g., burnt out SDR amplifiers)
-✗ Do NOT warrant compliance with FCC or international RF emission laws
-✗ Are NOT liable for any legal consequences of misuse
-✗ Do NOT provide support for illegal activities
-✗ Disclaim ALL liability for unauthorized transmission or interception
-
-USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-► They use these RF techniques entirely at their own risk
-► They are solely responsible for ensuring RF containment and compliance
-► They understand that transmitting signals can interfere with critical infrastructure
-► They accept that unauthorized use is a FEDERAL CRIME
-► They will defend and indemnify authors from any claims
-═══════════════════════════════════════════════════════════════
-```
+The figures and revised examples were source-reviewed, not tested on RF hardware.
+They do not certify capture quality, isolation, regulatory compliance or receiver
+security. Record actual hardware, firmware, settings and observations for any lab
+result.
 
 ---
 
 ## 📚 Resources
 
+**Review scope — November 17, 2026:** Five original static vector figures and the surrounding guide were reviewed against upstream documentation. Incorrect continuous CC1101 coverage, HackRF rate/gain guidance, sample-format claims, generic firmware CLI instructions, guaranteed replay inferences and blanket licensing/penalty statements were corrected or replaced with bounded guidance. No radio, receiver acceptance, isolation, or firmware workflow was reproduced on hardware.
+
 ### Licensing & Legal
 
-- **FCC Part 15 Rules**: [Understanding Unlicensed RF](https://www.fcc.gov/oet/ea/rfdevice)
-- **ARRL**: [Get your Amateur Radio (HAM) License](https://www.arrl.org/getting-licensed) (Highly recommended for SDR practitioners)
+- **FCC / eCFR**: [Part 15 general operating conditions](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-A/section-15.5)
+- **ARRL**: [Amateur licensing information](https://www.arrl.org/getting-licensed) — relevant to amateur operation, not blanket authorization for device testing.
 
 ### Learning SDR & RF
 
@@ -746,12 +616,12 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ## 📊 Repository Statistics
 
 ```
-📁 Manual Sections: 13 (Theory, Hardware, Flowgraphs, Pipelines, Reference, Logging)
+📁 Numbered Manual Sections: 12 (Theory, Hardware, Flowgraphs, Pipelines, Reference, Logging)
 📻 Target Hardware: Flipper Zero, HackRF, RTL-SDR, ESP32 Marauder, Bruce (CC1101)
-📡 Spectrum Coverage: 300 MHz – 928 MHz Sub-GHz + 2.4 GHz ISM
+📡 Focus: Selected sub-GHz device bands + separate 2.4 GHz comparisons
 💻 Ecosystems: GNU Radio, URH, Wireshark, rtl_433
 ⚠️ Risk Level: MEDIUM to HIGH (Transmission-capable procedures)
-🔄 Last Updated: August 2026
+🔄 Source and Visual Review: November 17, 2026 (no hardware reproduction)
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active - Proceed with EXTREME CAUTION
 ```
@@ -762,7 +632,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 
 **⚠️ USE THESE RF TOOLS RESPONSIBLY AND LEGALLY ⚠️**
 
-*The airwaves are public, but transmitting on them is a privilege regulated by law.*
+*RF reach, data privacy, operating authority and device ownership are separate questions.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -782,7 +652,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 
 🔴 **RADIO TRANSMISSION IS FEDERALLY REGULATED** 🔴
 
-🔴 **UNAUTHORIZED TRANSMISSION = FEDERAL OFFENSE** 🔴
+**Follow the rules for the actual jurisdiction, equipment and test setup.**
 
 🔴 **NEVER INTERFERE WITH AVIATION OR EMERGENCY SERVICES** 🔴
 
