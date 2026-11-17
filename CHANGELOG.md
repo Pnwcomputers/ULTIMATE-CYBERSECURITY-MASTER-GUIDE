@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 16, 2026
+# 🔄 Change Log - November 17, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1604
-- **Files Modified**: 2648
-- **New Files**: 985
+- **Commits Analyzed**: 1607
+- **Files Modified**: 2656
+- **New Files**: 987
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add DSS smart-card and Xerox MIC case studies (#232) (`71faf95`)
+- Fix automatic wiki links and add complete repository file navigation (#230) (`1f71333`)
 - docs: add Black Wire hardware and SBC references (#228) (`08f3504`)
 - ci: bump peter-evans/create-pull-request from 8.1.2 to 8.1.3 (#227) (`151fb62`)
 - Create CAD/OpenSCAD/README.md (`0efcd05`)
@@ -686,6 +688,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Update section heading for project wiki link (`defe6ca`)
 - Update README.md (`1b4fb39`)
 - Update README.md (`7306538`)
 - Update README.md (`8b650fc`)
@@ -1628,12 +1631,19 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `CaseStudies/README.md`
+- `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
+- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
+- `DOCUMENTATION_INDEX.md`
 - `HardwareHacking/README.md`
+- `README.md`
+- `.github/workflows/documentation-discoverability.yml`
+- `tools/build_wiki.py`
+- `tools/tests/test_build_wiki.py`
+- `CHANGELOG.md`
 - `Homelab/HomeLab_Setup.md`
 - `Homelab/README.md`
-- `CHANGELOG.md`
 - `.github/workflows/auto_changelog.yml`
-- `README.md`
 - `CAD/OpenSCAD/03-mockups-and-fit-checks.md`
 - `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
 - `CAD/OpenSCAD/05-design-for-printing.md`
@@ -1677,15 +1687,11 @@
 - `CAD/OpenSCAD/images/step7-board-mount.png`
 - `CAD/OpenSCAD/images/step8-lid-inlay.png`
 - `CAD/OpenSCAD/images/test-coupons.png`
-- `DOCUMENTATION_INDEX.md`
 - `GLOSSARY.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `START_HERE.md`
-- `tools/build_wiki.py`
-- `tools/tests/test_build_wiki.py`
 - `.github/workflows/publish-wiki.yml`
 - `assets/cyberdeckandgear.png`
-- `CaseStudies/README.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
@@ -1702,7 +1708,6 @@
 - `Cyberdeck/tools/evidence_manifest.py`
 - `Cyberdeck/tools/verify_manifest.py`
 - `.github/CONTRIBUTING.md`
-- `.github/workflows/documentation-discoverability.yml`
 - `IncidentResponse/README.md`
 - `Mobile/UserLAnd/readme.md`
 - `OSINT/Playbook/README.md`
