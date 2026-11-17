@@ -138,6 +138,16 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [crypto algorithms primitive roles](./diagrams/crypto-algorithms-primitive-roles.svg) | [Guide](../Cryptography/algorithms.md) |
 | [crypto algorithms pqc roles](./diagrams/crypto-algorithms-pqc-roles.svg) | [Guide](../Cryptography/algorithms.md) |
 
+## AI Agent Security Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [agent security evaluation evidence](./diagrams/agent-security-evaluation-evidence.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
+| [agent security trust boundaries](./diagrams/agent-security-trust-boundaries.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
+| [agent security action gate](./diagrams/agent-security-action-gate.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
+
 ## AWS Security Guide Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
