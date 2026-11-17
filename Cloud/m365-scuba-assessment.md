@@ -1,6 +1,6 @@
 # Microsoft 365 and Entra Configuration Assessment with CISA ScubaGear
 
-_Last reviewed: 2026-11-02 (upstream configuration documentation; no tenant accessed)_
+_Last reviewed: 2026-11-17 (upstream documentation and visual review; no tenant accessed)_
 
 > [!CAUTION]
 > Obtain written permission from an authorized Microsoft 365 tenant
@@ -23,6 +23,10 @@ or vulnerability scanner. Review its
 products and current permissions.
 
 ## Pre-assessment record
+
+![Approved tenant configuration queries pass through OPA baseline evaluation and reporting](../assets/diagrams/scuba-configuration-assessment.svg)
+
+*Figure 1 — Original conceptual summary of [CISA's documented assessment process](https://github.com/cisagov/ScubaGear). Configuration collection, policy evaluation and reporting are distinct stages; no assessment was run here.*
 
 - Tenant ID and approved organization, contact, testing window, administrator
   and documented collection scope.
@@ -49,14 +53,22 @@ products and current permissions.
    checking the installed version. The guide does not include copied commands
    whose flags might change across releases.
 5. Preserve ScubaGear result files, tool version, baseline and collection
-   time. Keep raw exports private; share a redacted customer summary.
+   time, tenant context and configuration/exclusion file. Record exactly which
+   products were assessed; keep raw exports private and share a redacted summary.
 6. Triage each deviation as verified noncompliance, approved exception,
-   not applicable or inconclusive. Investigate dependencies and licensing
+   not applicable or inconclusive. Keep tool errors, omitted products, manual
+   checks and exclusions visible rather than treating them as passes. These
+   are reviewer dispositions, not guaranteed native result labels.
+   Investigate dependencies and licensing
    constraints before recommending enforcement.
 7. Recommend change control with rollback, admin/customer sign-off,
    validation of sign-in/availability, and a dated follow-up assessment.
 
 ## Client report fields
+
+![Verify a finding and its scope, document applicability and exceptions, then separately approve changes and retest](../assets/diagrams/scuba-findings-to-controlled-change.svg)
+
+*Figure 2 — Original review workflow for this guide. It distinguishes technical results, risk decisions and approved changes. Preserve the [underlying report artifacts](https://github.com/cisagov/ScubaGear/blob/main/docs/execution/reports.md); a summary CSV alone does not contain all exported evidence.*
 
 | Field | Example expectation |
 | --- | --- |
@@ -69,10 +81,12 @@ products and current permissions.
 | Validation | Tool run timestamp, evidence reference and retest outcome |
 
 Link issues to [DefectDojo/finding workflow](../PlayBooks/assessment-findings-lifecycle.md)
-without uploading tenant-wide exports to any third-party service absent a data
-processing agreement.
+using only approved storage and processing arrangements for tenant-wide exports.
+Keep the client's data-handling requirements and authorization with the report.
 
 ## References and limitations
+
+**Visual provenance:** Both static SVG figures are original teaching aids; they do not depict a tested tenant or collected report. Baseline and tool coverage must be checked for the installed release.
 
 - [CISA ScubaGear](https://github.com/cisagov/ScubaGear) (CC0-1.0).
 - [CISA SCuBA project](https://www.cisa.gov/resources-tools/services/secure-cloud-business-applications-scuba-project).

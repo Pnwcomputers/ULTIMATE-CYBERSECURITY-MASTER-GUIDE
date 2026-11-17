@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+<title id="title">ScubaGear: collect settings, evaluate policies, report</title>
+<desc id="desc">Approved product API queries produce settings. Open Policy Agent evaluates baseline rules. Reports record evaluation results; the assessment does not itself establish complete security.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#16354b}</style>
+<rect width="1200" height="510" fill="#f4f7fa"/>
+<text x="40" y="54" font-size="32" font-weight="700">ScubaGear: collect settings, evaluate policies, report</text>
+<text x="40" y="90" font-size="19">Conceptual workflow • no tenant connection, assessment, or change performed</text>
+<rect x="40" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="183" font-size="23" font-weight="700">Collect configuration</text>
+<text x="58" y="228" font-size="20">Approved tenant and products</text>
+<text x="58" y="260" font-size="20">Required permissions</text>
+<text x="58" y="292" font-size="20">Versioned run context</text>
+<path d="M392 250 h24 l-8 -8 m8 8 l-8 8" stroke="#337b98" stroke-width="3" fill="none"/>
+<rect x="430" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="183" font-size="23" font-weight="700">Evaluate baseline</text>
+<text x="448" y="228" font-size="20">Open Policy Agent / Rego</text>
+<text x="448" y="260" font-size="20">Configuration / exceptions</text>
+<text x="448" y="292" font-size="20">Policy-specific evidence</text>
+<path d="M782 250 h24 l-8 -8 m8 8 l-8 8" stroke="#337b98" stroke-width="3" fill="none"/>
+<rect x="820" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="183" font-size="23" font-weight="700">Report results</text>
+<text x="838" y="228" font-size="20">HTML / JSON / CSV</text>
+<text x="838" y="260" font-size="20">Preserve original artifacts</text>
+<text x="838" y="292" font-size="20">Triage gaps and uncertainty</text>
+<rect x="40" y="411" width="1120" height="65" rx="12" fill="#e0ebf1"/>
+<text x="58" y="449" font-size="19">A baseline assessment is not a penetration test, full risk assessment, or automatic remediation.</text>
+</svg>

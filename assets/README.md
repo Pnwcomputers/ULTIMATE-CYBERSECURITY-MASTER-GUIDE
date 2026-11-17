@@ -187,6 +187,15 @@ identifies its source context and evidence limits.
 | [Capture quality](./diagrams/subghz-capture-quality.svg) | Schematic clipping and the limits of visual diagnosis. |
 | [Frame inference](./diagrams/subghz-frame-inference.svg) | Distinguishing repeated/changing regions from verified field meanings. |
 
+## Microsoft 365 Assessment Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [scuba configuration assessment](./diagrams/scuba-configuration-assessment.svg) | [Guide](../Cloud/m365-scuba-assessment.md) |
+| [scuba findings to controlled change](./diagrams/scuba-findings-to-controlled-change.svg) | [Guide](../Cloud/m365-scuba-assessment.md) |
+
 ## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.
