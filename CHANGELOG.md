@@ -1,14 +1,15 @@
 # 🔄 Change Log - November 17, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1610
-- **Files Modified**: 2668
-- **New Files**: 1003
+- **Commits Analyzed**: 1611
+- **Files Modified**: 2671
+- **New Files**: 1007
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add RFID and NFC explanatory diagrams with evidence limits (#237) (`fe29fd3`)
 - Add files via upload (`459e5b9`)
 - docs: add DSS smart-card and Xerox MIC case studies (#232) (`71faf95`)
 - Fix automatic wiki links and add complete repository file navigation (#230) (`1f71333`)
@@ -1634,6 +1635,13 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `SDR/rfid.md`
+- `assets/README.md`
+- `assets/diagrams/nfc-passive-tag-coupling.svg`
+- `assets/diagrams/rfid-band-and-reader-map.svg`
+- `assets/diagrams/rfid-identification-authentication-authorization.svg`
+- `assets/diagrams/rfid-read-troubleshooting-evidence.svg`
+- `CHANGELOG.md`
 - `CaseStudies/README.md`
 - `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
 - `CaseStudies/hardware/eucleak-yubikey-2024.md`
@@ -1641,7 +1649,6 @@
 - `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
 - `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
 - `ENHANCED_MASTER_GUIDE.md`
-- `assets/README.md`
 - `assets/diagrams/carbanak-intrusion-to-financial-fraud.svg`
 - `assets/diagrams/directv-dss-authorization-boundary.svg`
 - `assets/diagrams/eternalblue-vulnerability-exploit-payload.svg`
@@ -1654,7 +1661,6 @@
 - `assets/diagrams/tesla-dst40-cloning-vs-relay.svg`
 - `assets/diagrams/unsaflok-system-trust-chain.svg`
 - `assets/diagrams/wannacry-worm-and-ransomware.svg`
-- `CHANGELOG.md`
 - `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
 - `assets/diagrams/xerox-docucolor-evidence-flow.svg`
 - `assets/diagrams/xerox-docucolor-grid.svg`
@@ -1776,7 +1782,6 @@
 - `HardwareHacking/Chapter1.md`
 - `HardwareHacking/Chapter2.md`
 - `HardwareHacking/Chapter4.md`
-- `SDR/rfid.md`
 - `tools/lab_detection_validator.py`
 - `tools/tests/test_lab_detection_validator.py`
 - `.github/workflows/repository-quality-inventory.yml`
