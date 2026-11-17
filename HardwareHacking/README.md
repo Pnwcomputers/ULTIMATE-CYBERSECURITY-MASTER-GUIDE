@@ -60,6 +60,7 @@ Serve as the entry point for hardware security work - helping practitioners find
 ## 📋 Table Of Contents
 
 - [Overview](#-overview)
+- [Hardware Security Case Studies](#high-profile-hardware-security-case-studies)
 - [Chapter Guides](#-chapter-guides)
 - [Device Setup & Usage Guides](#-device-setup--usage-guides)
 - [Attack Categories](#-attack-categories)
@@ -97,6 +98,8 @@ The [Case Studies Index](../CaseStudies/README.md) gives sourced reports with re
 | [Onity Locks, 2012](../CaseStudies/hardware/onity-locks-2012.md) | Accessible service ports & firmware authorization | [Electrical Interfaces](Chapter2.md) |
 | [Tesla Model S Key Fobs, 2018](../CaseStudies/hardware/tesla-model-s-key-fob-2018.md) | RF protocol and key lifecycle | [SDR & RF](../SDR/README.md) |
 | [EUCLEAK / YubiKey, 2024](../CaseStudies/hardware/eucleak-yubikey-2024.md) | EM side-channel cryptographic leakage | [Timing & Power Analysis](Chapter4.md) |
+| [DirecTV DSS Cards & Black Sunday](../CaseStudies/hardware/directv-dss-smart-card-black-sunday.md) | Smart-card authorization & countermeasure recovery | [Threat Modeling](Chapter1.md) |
+| [Xerox DocuColor Tracking Dots](../CaseStudies/hardware/xerox-docucolor-machine-identification-code.md) | Hidden physical-output metadata & privacy | [OPSEC](../OPSEC/README.md) |
 
 ---
 
