@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">An alert is a question to investigate</title>
+<desc id="desc">A telemetry anomaly may come from physical change, decoder/import errors, duplicate messages or a rule assumption. Corroboration is needed before calling it malicious.</desc>
+<rect width="1200" height="520" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">An alert is a question to investigate</text>
+<text x="40" y="90" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual lab architecture • no received data or deployed collector is implied</text>
+<rect x="40" y="148" width="330" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="182" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Observed event</text>
+<text x="58" y="223" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Unexpected value</text>
+<text x="58" y="253" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Missing or repeated message</text>
+<text x="58" y="283" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Unrecognized identifier</text>
+<path d="M382 245 h20 l-7 -7 m7 7 l-7 7" stroke="#337b98" fill="none" stroke-width="3"/>
+<rect x="435" y="148" width="330" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="453" y="182" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Check alternatives</text>
+<text x="453" y="223" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Units / sensor behavior</text>
+<text x="453" y="253" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Duplicates / capture gaps</text>
+<text x="453" y="283" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Parser / decoder changes</text>
+<path d="M777 245 h20 l-7 -7 m7 7 l-7 7" stroke="#337b98" fill="none" stroke-width="3"/>
+<rect x="830" y="148" width="330" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="848" y="182" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Corroborate</text>
+<text x="848" y="223" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Known test conditions</text>
+<text x="848" y="253" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Independent evidence</text>
+<text x="848" y="283" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Report remaining uncertainty</text>
+<rect x="40" y="390" width="1120" height="85" rx="12" fill="#fff3d7"/>
+<text x="58" y="421" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Decoded identifier ≠ authenticated device. Rule trigger ≠ confirmed attack.</text>
+<text x="58" y="450" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Synthetic rule tests establish only that the tested fixture triggered the expected logic.</text>
+</svg>
