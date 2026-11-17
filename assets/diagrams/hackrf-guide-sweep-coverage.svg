@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Swept coverage has gaps in time</title>
+<desc id="desc">A swept receiver visits one frequency segment at a time. A short event between visits can be missed. A focused recording observes one span continuously, subject to actual capture gaps.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Swept coverage has gaps in time</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Synthetic schedule • not a measured waterfall • equal blocks are illustrative</text>
+<text x="40" y="146" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Sweep visits</text>
+<text x="40" y="208" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Span A</text>
+<rect x="170" y="174" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="278" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="386" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="494" y="174" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="602" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="710" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="818" y="174" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="926" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="1034" y="174" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<text x="40" y="278" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Span B</text>
+<rect x="170" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="278" y="244" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="386" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="494" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="602" y="244" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="710" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="818" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="926" y="244" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="1034" y="244" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<text x="40" y="348" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Span C</text>
+<rect x="170" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="278" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="386" y="314" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="494" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="602" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="710" y="314" width="95" height="44" rx="6" fill="#337b98"/>
+<rect x="818" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="926" y="314" width="95" height="44" rx="6" fill="#e0ebf1"/>
+<rect x="1034" y="314" width="95" height="44" rx="6" fill="#337b98"/>
+<text x="40" y="425" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Focused A</text>
+<rect x="170" y="392" width="959" height="44" rx="6" fill="#337b98"/>
+<text x="170" y="463" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Time →</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Shared sweep timestamps do not make frequency segments simultaneous.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Choose focused IQ when the question depends on short bursts, event timing, or repeated packet structure.</text>
+</svg>

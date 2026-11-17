@@ -25,6 +25,18 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
 
+## HackRF Guide Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [hackrf guide iq representations](./diagrams/hackrf-guide-iq-representations.svg) | [Guide](../SDR/hackrf.md) |
+| [hackrf guide passband vs span](./diagrams/hackrf-guide-passband-vs-span.svg) | [Guide](../SDR/hackrf.md) |
+| [hackrf guide sweep coverage](./diagrams/hackrf-guide-sweep-coverage.svg) | [Guide](../SDR/hackrf.md) |
+| [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
+| [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
+
 ## Expanded Topical Svg Diagrams (November 2026)
 
 These 19 newly authored diagrams provide short conceptual overviews beside the relevant guide sections. Each SVG contains a built-in title and description, uses local fonts and shapes only, and deliberately avoids asserting that a particular device, network or lab was tested.
