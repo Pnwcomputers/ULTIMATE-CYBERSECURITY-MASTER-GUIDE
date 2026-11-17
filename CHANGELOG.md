@@ -1,14 +1,15 @@
 # 🔄 Change Log - November 17, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1607
-- **Files Modified**: 2656
-- **New Files**: 987
+- **Commits Analyzed**: 1609
+- **Files Modified**: 2659
+- **New Files**: 991
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add files via upload (`459e5b9`)
 - docs: add DSS smart-card and Xerox MIC case studies (#232) (`71faf95`)
 - Fix automatic wiki links and add complete repository file navigation (#230) (`1f71333`)
 - docs: add Black Wire hardware and SBC references (#228) (`08f3504`)
@@ -1349,6 +1350,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: illustrate Xerox MIC case study with supplied images and decoding diagrams (#234) (`be9c28d`)
 - docs: cross-link CAD & 3D Printing guide from related sections (#226) (`95b44c9`)
 - docs(CAD): OpenSCAD design & prototyping guide, GPS cradle tutorial and shortcut cheat sheet (#225) (`6799e6d`)
 - Publish every guide as its own wiki page with an Evil-M5-style Home (#224) (`5f2a7dc`)
@@ -1631,16 +1633,21 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
+- `assets/README.md`
+- `assets/diagrams/xerox-docucolor-evidence-flow.svg`
+- `assets/diagrams/xerox-docucolor-grid.svg`
+- `assets/printerdots.jpg`
+- `assets/printerdotsbasic breakdown.jpg`
+- `CHANGELOG.md`
 - `CaseStudies/README.md`
 - `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
-- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
 - `DOCUMENTATION_INDEX.md`
 - `HardwareHacking/README.md`
 - `README.md`
 - `.github/workflows/documentation-discoverability.yml`
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
-- `CHANGELOG.md`
 - `Homelab/HomeLab_Setup.md`
 - `Homelab/README.md`
 - `.github/workflows/auto_changelog.yml`
@@ -1906,7 +1913,6 @@
 - `SDR/nanovna/tools/README.md`
 - `Tradecraft/README.md`
 - `WebAppSecurity/README.md`
-- `assets/README.md`
 - `uConsole/scripts/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/awesome-hacking-collections-integration.md`
