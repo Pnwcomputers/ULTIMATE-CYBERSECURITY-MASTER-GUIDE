@@ -4,7 +4,7 @@
 Foundational SDR guide covering theory and practice from first principles through advanced signal intelligence - IQ sampling, GNU Radio flowgraph design, hardware selection, antenna fundamentals, and application chapters on Wi-Fi, Bluetooth, cellular, GPS, and satellite signal analysis.
 
 ## ⚙️ Function
-Organized in five parts: (I) Foundations (what is SDR, IQ sampling, hardware, antennas); (II) GNU Radio (flowgraph design, custom blocks, Python scripting); (III) Protocol analysis (Wi-Fi, Bluetooth, ADS-B, APRS, LoRa, 433MHz); (IV) Advanced applications (cellular IMSI/paging intercept, GPS, satellite); (V) Security (SIGINT ethics, legal framework, RF fingerprinting, wideband monitoring).
+Organized in five parts: (I) Foundations; (II) GNU Radio; (III) signal processing; (IV) protocol applications; and (V) advanced techniques. Examples distinguish illustrative mathematics, offline analysis, source-reviewed workflows and hardware-dependent procedures.
 
 ## 🏆 Goal
 Build the RF knowledge base needed to capture, decode, and analyze wireless signals across the spectrum - from 433MHz ISM band through cellular and satellite - for security research and authorized assessments.
@@ -17,9 +17,11 @@ Build the RF knowledge base needed to capture, decode, and analyze wireless sign
 
 > **Scope:** Software Defined Radio theory, practice, and applications - from building your first virtual receiver in GNU Radio through advanced signal intelligence, protocol reversing, wideband monitoring, and FPGA-accelerated DSP. Bridges foundational tutorials and advanced RF security applications including Wi-Fi, Bluetooth, cellular, GPS, and satellite systems.
 >
-> **Legal notice:** Transmitting on licensed frequencies without authorization violates FCC regulations (47 CFR) and equivalent international law. Receiving and analyzing signals is generally legal in most jurisdictions; decrypting communications you're not authorized to receive may not be. Always verify local law. This section is written for licensed radio operators, security researchers, and students with appropriate authorization.
+> **Operating scope:** Use synthetic input, provided recordings, public broadcasts where permitted, or explicitly authorized lab systems. Reception, privacy, device ownership and RF operating authority are separate questions. An amateur license is not general permission to transmit arbitrary protocols. Follow [LEGAL.md](../LEGAL.md) and applicable rules for the actual equipment, band and jurisdiction.
 
 ---
+
+**Review scope — November 17, 2026:** Original conceptual visuals and a source-based correction pass. Invalid generic recipes were replaced by bounded workflows; no hardware, RF capture, transmission, FPGA synthesis or isolation test is claimed.
 
 ## Table of Contents
 
@@ -56,13 +58,17 @@ Build the RF knowledge base needed to capture, decode, and analyze wireless sign
 
 ### Chapter 1: What is SDR?
 
+![Antenna, analog frontend, digitization and transport constrain the samples software can process](../assets/diagrams/sdr-fundamentals-receiver-boundaries.svg)
+
+*Original conceptual receiver diagram. Hardware limits must be checked separately; [HackRF's manual](https://hackrf.readthedocs.io/en/latest/hackrf_one.html) is one concrete example, not a specification for every SDR.*
+
 #### The Traditional Radio Problem
 
 A conventional radio receiver is a collection of discrete hardware components: tuned LC circuits for frequency selection, mixers for down-conversion, IF amplifiers, detectors, and audio stages. To receive a different frequency band or a different modulation type, you need different hardware - different capacitors, inductors, crystals, and filter networks.
 
 This is expensive, inflexible, and fundamentally limiting. A police scanner that handles P25 digital trunking cannot be repurposed to decode ADS-B aircraft transponders without different hardware.
 
-**SDR flips this model:** Move the analog-to-digital conversion as close to the antenna as possible, then do everything else - tuning, filtering, demodulation, decoding - in software running on a general-purpose computer. Changing what the radio does means changing the software, not the hardware.
+**SDR flips this model:** Move the analog-to-digital conversion as close to the antenna as possible, then do everything else - tuning, filtering, demodulation, decoding - in software running on a general-purpose computer. Software can change processing within the hardware's tuning, bandwidth, dynamic-range and interface limits.
 
 ```
 Traditional Radio:
@@ -71,7 +77,7 @@ Traditional Radio:
 
 Software Defined Radio:
   Antenna → [LNA] → [Mixer + ADC] → USB/PCIe → [Computer: everything else in software]
-  (Hardware only up to digitization; one hardware = infinite software radios)
+  (Hardware only up to digitization; software flexibility remains limited by the RF frontend and data path)
 ```
 
 #### What SDR Can Do
@@ -119,11 +125,15 @@ RF Environment
 
 ### Chapter 2: IQ Sampling and the Complex Signal Model
 
+![A synthetic IQ phasor illustrates I and Q coordinates, magnitude, phase and the importance of convention](../assets/diagrams/sdr-fundamentals-iq-coordinates.svg)
+
+*Original mathematical teaching schematic, not an RF capture. The adjacent-sample phase method is described in [GNU Radio's quadrature-demodulator reference](https://www.gnuradio.org/doc/doxygen/classgr_1_1analog_1_1quadrature__demod__cf.html).*
+
 Understanding IQ (In-phase / Quadrature) sampling is the single most important conceptual foundation for SDR work. Everything in the software domain operates on IQ data.
 
 #### Why Not Just Sample the RF Signal Directly?
 
-A 100 MHz FM signal, sampled directly, would require an ADC running at >200 MSa/s (Nyquist). A 2.4 GHz Wi-Fi signal would need >4.8 GSa/s. These sample rates are expensive and generate enormous data streams.
+Conventional first-Nyquist-zone sampling of a band extending to 100 MHz requires a real sample rate above 200 MS/s. Bandpass-sampling architectures can use other rates with suitable analog filtering; carrier frequency alone does not determine every valid sampling strategy. These sample rates are expensive and generate enormous data streams.
 
 Instead, SDR hardware **down-converts** the desired signal to near-DC (baseband) before sampling. The RF tuner acts as a mixer, multiplying the incoming RF signal by a local oscillator (LO) at the desired center frequency. The result is a baseband signal whose frequency is the offset between the original signal and the LO.
 
@@ -147,7 +157,7 @@ The key insight: **a complex (IQ) sample represents a rotating phasor in the com
        │ /
        │/ ← magnitude = √(I² + Q²) = amplitude
    ────┼────── I
-       │  ← angle = arctan(Q/I) = phase
+       │  ← angle = atan2(Q, I) = phase
        │
 ```
 
@@ -156,13 +166,15 @@ The key insight: **a complex (IQ) sample represents a rotating phasor in the com
 | Application | What IQ Tells You |
 |-------------|-------------------|
 | **AM demodulation** | Magnitude: `√(I² + Q²)` is the audio envelope |
-| **FM demodulation** | Phase derivative: `d/dt[arctan(Q/I)]` is audio |
+| **FM demodulation** | Phase derivative: `d/dt[atan2(Q, I)]` is audio |
 | **Phase modulation** | Phase angle directly encodes data |
 | **QAM** | Both I and Q encode symbols in the constellation |
-| **Frequency offset** | DC offset in spectrum = tuning error between LO and signal |
+| **Frequency offset** | Signal offset from baseband center indicates frequency offset; a DC spike may instead be a receiver artifact |
 | **Direction finding** | Phase difference between two antennas encodes angle of arrival |
 
 #### IQ Imbalance
+
+Phase sign and image orientation depend on the I/Q convention. Use known synthetic tones to validate a pipeline before inferring RF direction from a display.
 
 Real hardware has imperfect IQ components. Small amplitude or phase mismatches between I and Q paths create a **mirror image** artifact in the spectrum - a weaker copy of every signal reflected around the center frequency. This is a common source of confusion for new SDR users.
 
@@ -176,179 +188,97 @@ Correction: GNU Radio includes an IQ Balance block; RTL-SDR Blog's SDR# has auto
 
 #### Sampling Rate vs. Bandwidth
 
-The sample rate (samples per second) directly equals the observable bandwidth:
+![Nominal complex-IQ bandwidth includes edge margins around a retained signal and does not guarantee useful capture quality](../assets/diagrams/sdr-fundamentals-rate-bandwidth.svg)
+
+*Original conceptual interval, not a measured filter curve. See [HackRF's hardware-rate and filtering example](https://hackrf.readthedocs.io/en/latest/sampling_rate.html) for device-specific constraints.*
+
+For complex IQ, the nominal unaliased frequency interval has width equal to the complex sample rate. Analog filters, transition bands, hardware response and dropped samples reduce the usable span:
 
 ```
 Sample rate 2.4 MSa/s = 2.4 MHz bandwidth visible around center frequency
 Sample rate 20 MSa/s = 20 MHz bandwidth (HackRF, USRP at modest rates)
 ```
 
-To observe a 100 kHz FM station at 100.1 MHz: tune LO to 100.1 MHz; use sample rate of at least 200 kSa/s. The station appears as energy centered near 0 Hz in the baseband spectrum.
+Choose a rate and filter that retain the station's full occupied bandwidth plus transition margin; broadcast FM can require more than a narrow 100 kHz passband. The station appears as energy centered near 0 Hz in the baseband spectrum.
 
 ---
 
 ### Chapter 3: SDR Hardware
 
-#### Entry-Level: RTL-SDR Receivers
+Select by tuning range, **usable instantaneous bandwidth**, input limits,
+clocking and software support. Prices and bit depth alone do not establish
+sensitivity or overload performance. Historical price and generic dynamic-range
+tables have been removed because they were not comparable measurements.
 
-The RTL2832U USB TV tuner chipset, originally designed for DVB-T digital television, was discovered in 2012 to support raw IQ sample output - creating the RTL-SDR revolution.
+#### Entry-Level: RTL-SDR Receivers
 
 ##### RTL-SDR Blog V3 (Recommended Entry Point)
 
-The current reference standard for budget SDR.
+The V3 is a receive-only design. Its HF direct-sampling mode uses the existing
+antenna connector and the appropriate driver/mode; it is not a requirement to
+modify every unit. The [manufacturer's V3 guide](https://www.rtl-sdr.com/rtl-sdr-blog-v-3-dongles-user-guide/) describes
+approximately 500 kHz–28.8 MHz direct sampling and its image/filter limitations.
+Check [V4 documentation](https://www.rtl-sdr.com/v4/) separately; its architecture
+and driver requirements differ. Neither is a direct 2.4 GHz Wi-Fi receiver.
 
-| Specification | Value |
-|--------------|-------|
-| **Frequency range** | 500 kHz – 1.75 GHz (with direct sampling mod for HF) |
-| **Sample rate** | Up to 3.2 MSa/s (2.56 MSa/s reliable) |
-| **ADC resolution** | 8-bit |
-| **Dynamic range** | ~50 dB |
-| **LNA** | Built-in, software-controlled gain |
-| **Cost** | ~$30 |
-| **Interface** | USB 2.0 |
-| **Connector** | SMA |
-
-**Unique features of V3:**
-- Direct sampling mode: SW1/SW2 ports allow HF (below 24 MHz) reception via direct ADC sampling - bypasses the tuner for shortwave, MW, and LW
-- Bias tee (software-enabled): 4.5V DC on antenna connector to power inline LNAs
-- TCXO oscillator: temperature-compensated crystal for better frequency stability than earlier RTL-SDR sticks
-
-**Driver installation:**
-
-```bash
-# Linux (most distros)
-sudo apt install rtl-sdr
-sudo rtl_test -t          # Verify device detected; check for dropped samples
-
-# Windows: use Zadig to install WinUSB driver
-# https://zadig.akeo.ie - select RTL2838UHIDIR, install WinUSB
-
-# Test: receive and display FM spectrum
-rtl_fm -f 100.1M -M wbfm -s 200000 -r 48000 - | aplay -r 48k -f S16_LE
-```
+**Driver installation:** use the [manufacturer quick-start guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/),
+match the actual device, and confirm dropped-sample behavior with your host.
+Do not assume a maximum advertised rate is continuously reliable.
 
 ##### Nooelec NESDR Series
 
-Popular alternatives to the RTL-SDR Blog V3. Multiple variants:
-
-| Model | Notes |
-|-------|-------|
-| **NESDR Smart** | Standard RTL-SDR; aluminum enclosure; TCXO |
-| **NESDR Smart XTR** | Extended range to 2.2 GHz; different tuner (E4000) |
-| **NESDR SMArt Bundle** | Includes antennas, case; good starter kit |
-| **NESDR Mini 2+** | Compact; good for portable use |
-
-Nooelec also produces:
-- **Ham It Up Plus** - Upconverter for HF; shifts HF signals up into RTL-SDR's tuning range (100 MHz + HF input)
-- **Ham It Down** - Downconverter for microwave frequencies (2.4–6 GHz) down into receive range
-- **LaNA** - Low-noise amplifier (20 dB gain, 0.5–4 GHz) for weak signal work
-- **Flamingo FM filter** - Band-stop filter to reject 88–108 MHz FM broadcast; reduces overloading in wideband scans
-
----
+Model and tuner variants differ. Use the [manufacturer](https://www.nooelec.com/store/)
+to verify the exact tuner, supported modes, connectors and converters.
+Upconverters and downconverters require the correct frequency translation;
+they do not add instantaneous bandwidth.
 
 #### Mid-Range: Airspy
 
-Significant step up from RTL-SDR in dynamic range and sample rate.
-
 ##### Airspy R2
 
-| Specification | Value |
-|--------------|-------|
-| **Frequency range** | 24 – 1800 MHz |
-| **Sample rate** | 2.5 or 10 MSa/s (real); 10 MSPS IQ |
-| **ADC resolution** | 12-bit |
-| **Dynamic range** | ~80 dB (vs. ~50 dB for RTL-SDR) |
-| **Spurious-free dynamic range** | ~65 dB |
-| **Cost** | ~$109 |
-
-The 12-bit ADC is the key advantage: 4 additional bits over RTL-SDR's 8-bit = 24 dB more dynamic range. Strong signals no longer saturate the ADC and mask weaker signals in the same band.
+The [R2 specifications](https://airspy.com/airspy-r2/) distinguish the ADC architecture from
+the delivered IQ modes. Extra ADC bits do not guarantee that a strong input will
+never overload another frontend stage.
 
 ##### Airspy HF+ Discovery
 
-Specialized for HF and VHF reception; exceptional performance in its range.
-
-| Specification | Value |
-|--------------|-------|
-| **Frequency range** | 9 kHz – 31 MHz (HF), 60 – 260 MHz (VHF) |
-| **ADC resolution** | 18-bit sigma-delta |
-| **Dynamic range** | >110 dB in HF |
-| **Cost** | ~$169 |
-
-Best-in-class for shortwave, amateur HF, medium wave, and VHF air band. Not suitable for UHF or above.
+The [HF+ Discovery specifications](https://airspy.com/airspy-hf-discovery/) describe HF/VHF operation
+and a narrower usable channel span than a wideband survey receiver. Do not treat
+its quoted converter resolution as a direct cross-product dynamic-range test.
 
 ##### Airspy Accessories
 
-| Accessory | Purpose |
-|-----------|---------|
-| **SpyVerter** | Upconverter for HF; pairs with Airspy R2 |
-| **Airspy YouLoop** | Passive magnetic loop antenna; excellent for HF |
-| **Airspy Mini** | Budget version; 6 MHz bandwidth; 12-bit |
-
----
+Verify converter coverage, power, matching and frequency offsets for the exact
+accessory; a receive antenna and an active converter are different components.
 
 #### High Performance: HackRF One
 
-The benchmark open-source SDR platform for security research.
+[HackRF One](https://hackrf.readthedocs.io/en/latest/hackrf_one.html) is half-duplex: it receives or transmits, not both
+simultaneously. Its specified tuning range is 1 MHz–6 GHz, with 8-bit IQ and
+sample rates up to 20 MS/s. The same manual gives a **−5 dBm maximum input**
+and frequency-dependent TX output, rather than one universal power figure.
+Hardware support is not a certification of permitted RF operation.
 
-| Specification | Value |
-|--------------|-------|
-| **Frequency range** | 1 MHz – 6 GHz |
-| **Sample rate** | Up to 20 MSa/s |
-| **ADC/DAC resolution** | 8-bit |
-| **Duplex** | Half-duplex (TX or RX, not simultaneous) |
-| **TX capability** | Yes - 1 mW to ~10 mW output |
-| **Cost** | ~$340 (Great Scott Gadgets); ~$50-80 (clones - quality varies) |
-| **Interface** | USB 2.0 (bandwidth-limited at high sample rates) |
-| **Open source** | Fully open hardware and firmware |
-
-**Key advantage:** Transmit capability across 1 MHz – 6 GHz makes it essential for RF security testing, signal generation, replay attacks (authorized testing only), and custom protocol development.
-
-**Key limitation:** 8-bit ADC gives lower dynamic range than Airspy; USB 2.0 interface limits sustained high sample rate performance; half-duplex means no simultaneous TX/RX.
-
-**HackRF One accessories:**
-- **PortaPack H2** - Standalone operation without a PC; touchscreen; battery power; enables portable spectrum analysis and signal generation
-- **SMA antenna set** - Quarter-wave for various bands
-- **Clock reference input** - For GPS-disciplined or rubidium-locked timing
-
-**Common security research workflows:**
-
-```bash
-# Capture raw IQ to file (10 MHz around 433 MHz for ISM band analysis)
-hackrf_transfer -r capture_433.iq -f 433920000 -s 10000000 -g 40 -l 32 -n 100000000
-
-# Transmit from IQ file (authorized testing only)
-hackrf_transfer -t payload.iq -f 433920000 -s 10000000 -x 40
-
-# Sweep spectrum and output power vs. frequency
-hackrf_sweep -f 2400:2500 -g 40 -l 32 -w 100000 > wifi_sweep.csv
-```
-
----
+[HackRF filter guidance](https://hackrf.readthedocs.io/en/latest/sampling_rate.html) discourages hardware rates below
+8 MS/s; filter and decimate a working stream when a lower processing rate is
+needed. Confirm host throughput. Use [documented gain steps](https://hackrf.readthedocs.io/en/latest/setting_gain.html)
+and validate fresh captures instead of copying high-gain presets.
 
 #### Research Grade: USRP and Others
 
-| Platform | Range | Sample Rate | ADC | Cost | Notes |
-|----------|-------|------------|-----|------|-------|
-| **USRP B200mini** | 70 MHz – 6 GHz | 61.44 MSa/s | 12-bit | ~$700 | Full-duplex; USB 3.0 |
-| **USRP B210** | 70 MHz – 6 GHz | 61.44 MSa/s (2ch) | 12-bit | ~$1,100 | 2TX/2RX; MIMO |
-| **USRP N310** | 10 MHz – 6 GHz | 250 MSa/s | 14-bit | ~$8,000 | 4-channel; 10GbE |
-| **LimeSDR** | 100 kHz – 3.8 GHz | 61.44 MSa/s | 12-bit | ~$300 | Full-duplex; FPGA |
-| **LimeSDR Mini 2** | 10 MHz – 3.5 GHz | 30.72 MSa/s | 12-bit | ~$200 | Compact; USB 3.0 |
-| **Pluto SDR** | 325 MHz – 3.8 GHz | 61.44 MSa/s | 12-bit | ~$150 | Xilinx Zynq; hackable |
-
----
+USRP, LimeSDR, Pluto and RFSoC platforms have model-specific clocks, frontends,
+converter rates and transport limits. Consult their vendor manuals rather than
+equating converter rate with RF bandwidth or host transfer rate.
 
 #### SDR Hardware Comparison Matrix
 
-| Device | Freq Range | RX BW | TX | ADC | Dynamic Range | Best For |
-|--------|-----------|-------|-----|-----|--------------|---------|
-| RTL-SDR V3 | 500 kHz–1.75 GHz | 2.4 MHz | No | 8-bit | ~50 dB | Learning, ADS-B, FM, cheap scanning |
-| Nooelec NESDR Smart | 25 MHz–1.75 GHz | 2.4 MHz | No | 8-bit | ~50 dB | Same as RTL-SDR V3 |
-| Airspy R2 | 24–1800 MHz | 10 MHz | No | 12-bit | ~80 dB | FM DX, monitoring, better sensitivity |
-| Airspy HF+ Discovery | 0–31 MHz / 60–260 MHz | 660 kHz | No | 18-bit | >110 dB | HF/shortwave; best HF receiver |
-| HackRF One | 1 MHz–6 GHz | 20 MHz | Yes | 8-bit | ~50 dB | Security research; full spectrum TX/RX |
-| LimeSDR Mini 2 | 10 MHz–3.5 GHz | 30 MHz | Yes | 12-bit | ~65 dB | Full-duplex research |
-| USRP B210 | 70 MHz–6 GHz | 56 MHz | Yes | 12-bit | ~70 dB | Professional research; MIMO |
+| Decision | Evidence To Check |
+|---|---|
+| Can it tune the signal? | Exact frontend range, converter path and antenna. |
+| Can it capture the entire signal? | Usable bandwidth, filters, sample rate and interface throughput. |
+| Can it tolerate the environment? | Maximum input, blockers, gain distribution and attenuation. |
+| Can channels be compared coherently? | Shared clocks, phase calibration, timestamps and common trigger support. |
+| Can software use it? | Supported driver/backend, firmware, format and tested host rate. |
 
 ---
 
@@ -356,16 +286,16 @@ hackrf_sweep -f 2400:2500 -g 40 -l 32 -w 100000 > wifi_sweep.csv
 
 #### Antenna Fundamentals
 
-An antenna converts electromagnetic waves to electrical signals (and vice versa for TX). **No SDR setup performs better than its antenna.** A $300 SDR with a poor antenna will be outperformed by a $30 RTL-SDR with a well-chosen antenna.
+An antenna converts electromagnetic waves to electrical signals (and vice versa for TX). **No SDR setup performs better than its antenna.** A suitable antenna can matter more than an upgrade to a receiver whose frontend is already adequate.
 
 **Key antenna parameters:**
 
 | Parameter | Description | Impact |
 |-----------|-------------|--------|
-| **Gain (dBi)** | Signal amplification relative to isotropic radiator | Higher gain = more sensitive but narrower beam |
-| **Bandwidth** | Frequency range over which antenna is resonant | Must cover target frequency |
+| **Gain (dBi)** | Signal amplification relative to isotropic radiator | Directional gain redistributes response; receive performance also depends on pattern, loss and noise |
+| **Bandwidth** | Frequency range meeting a specified match or performance criterion | Must cover target frequency |
 | **Impedance** | Should match feed line (50 Ω for most SDR hardware) | Mismatch causes reflection loss (VSWR) |
-| **Polarization** | Orientation of E-field (horizontal, vertical, circular) | Must match signal polarization |
+| **Polarization** | Orientation of E-field (horizontal, vertical, circular) | Polarization mismatch introduces loss; linear/circular combinations require separate analysis |
 | **Directionality** | Omnidirectional vs. directional | Omni for scanning; directional for DXing/targeting |
 
 #### Quarter-Wave Monopole (Whip)
@@ -394,9 +324,9 @@ The **V-dipole** (elements in a V-shape, ~120° angle) provides good satellite s
 
 Wideband omnidirectional. A cone-shaped ground element with a disc-shaped top. Operates from approximately 25 MHz to 1.3 GHz with usable gain across the entire range.
 
-**Best general-purpose scanning antenna** for 25 MHz – 1.3 GHz. Essential for SDR kit.
+A candidate for wideband scanning when its actual design covers the band; it is not the best choice for every signal or site.
 
-Recommended: Tram 1411 or Diamond D-130J (~$60-90). Mount as high as possible; feed with low-loss coax (LMR-195 or LMR-400 for longer runs).
+Check the actual antenna's measured coverage, mounting pattern and feed-line loss. A model name or advertised frequency span does not establish site performance.
 
 #### Yagi-Uda
 
@@ -417,16 +347,14 @@ Flat, moderate-gain directional antennas. Common for 1.2 GHz, 1.575 GHz (GPS L1)
 
 #### Recommended Antenna Kit by Use Case
 
-| Use Case | Recommended Antenna | Approximate Cost |
-|----------|-------------------|-----------------|
-| **General scanning (25 MHz – 1.3 GHz)** | Discone (Tram 1411, Diamond D-130J) | $60–90 |
-| **ADS-B (1090 MHz)** | FlightAware 1090 MHz antenna or 1/4-wave with groundplane | $20–45 |
-| **NOAA/Meteor satellites** | V-dipole (DIY from coax) or turnstile | $0–20 |
-| **HF/shortwave** | Airspy YouLoop, random wire with 9:1 unun, magnetic loop | $30–150 |
-| **Wi-Fi/2.4 GHz monitoring** | 2.4 GHz patch panel or Yagi | $15–40 |
-| **Wideband scanning (1–6 GHz)** | HackRF stock antenna + SMA log-periodic | $20–80 |
-| **APRS/VHF** | J-pole or 5/8-wave ground plane for 144 MHz | $20–50 |
-| **Direction finding** | Yagi + rotator, or handheld directional | $50–200 |
+| Use Case | Selection Evidence |
+|---|---|
+| General scanning | Pattern and match over the actual bands, mounting and feed-line loss. |
+| ADS-B | Antenna/filter path matched to 1090 MHz, or a separate 978 MHz UAT design where relevant. |
+| Satellite recordings | Downlink frequency, polarization, pass geometry and current mission status. |
+| HF/shortwave | Noise environment, antenna size, matching and possible strong-signal filtering. |
+| Wi-Fi/2.4 GHz | Band-appropriate frontend; an RTL-SDR alone cannot receive this band. |
+| Direction finding | Calibrated directional pattern or coherent array, not gain alone. |
 
 ---
 
@@ -434,18 +362,13 @@ Flat, moderate-gain directional antennas. Common for 1.2 GHz, 1.575 GHz (GPS L1)
 
 **Low-Noise Amplifiers (LNA)**
 
-An LNA placed between the antenna and the SDR amplifies weak signals before the SDR's own noise figure degrades them. Effective only if placed close to the antenna (before coax loss).
+An LNA can help overcome downstream noise and cable loss, but can also overload
+in the presence of strong signals. Placement, filtering, bias voltage/current,
+input limits and the complete noise budget matter. Product-specific gain and
+noise-figure numbers must be read from the exact manufacturer's data sheet;
+the previous mixed-product specification table was not a validated comparison.
 
-The **Friis noise formula** explains why: the first component in the chain dominates total noise figure. A good LNA (NF < 1 dB) before a lossy coax run dramatically improves system sensitivity.
-
-| LNA | Frequency | Gain | NF | Notes |
-|-----|----------|------|-----|-------|
-| **RTL-SDR Blog Triple-Filtered LNA** | 0–2 GHz | 20 dB | <1 dB | Three filter stages; prevents FM/cellular overload |
-| **Nooelec LaNA** | 0.5–4 GHz | 20 dB | <0.5 dB | Excellent wideband LNA |
-| **Uputronics ADS-B LNA** | ~1 GHz | 20 dB | 0.8 dB | 1090 MHz bandpass + LNA combined |
-| **SAWbird+ NOAA** | 137–138 MHz | 20 dB | 0.8 dB | For NOAA weather satellite band |
-| **SAWbird+ GPS** | 1.575 GHz | 20 dB | <1 dB | GPS L1 band optimized |
-| **Mini-Circuits ZX60-P33ULN+** | DC–3.5 GHz | 14 dB | 0.47 dB | Research grade; low NF |
+---
 
 **Bandpass Filters**
 
@@ -462,18 +385,13 @@ Filters reject out-of-band signals that would otherwise overload or desensitize 
 
 **Coaxial Cable and Connectors**
 
-Loss in coax cable increases with frequency. At 1 GHz, even 10 feet of RG-58 introduces significant signal loss.
+Cable loss depends on the exact construction, length, frequency and connector
+condition. Generic RG names do not specify one universal attenuation curve.
+Use the cable manufacturer's data or measure insertion loss with a calibrated
+setup; do not reuse the former approximate table as a design specification.
 
-| Cable | Loss at 100 MHz | Loss at 1 GHz | Notes |
-|-------|----------------|--------------|-------|
-| RG-174 | 4 dB/100ft | ~14 dB/100ft | Thin, flexible; short runs only |
-| RG-58 | 2.5 dB/100ft | 9 dB/100ft | Common; usable to ~500 MHz |
-| RG-8X | 1.8 dB/100ft | 6 dB/100ft | Good balance of flexibility and loss |
-| **LMR-195** | 1.1 dB/100ft | 4.4 dB/100ft | Recommended for SDR antenna runs |
-| **LMR-400** | 0.6 dB/100ft | 2.2 dB/100ft | Low-loss; for longer runs |
-| LMR-600 | 0.4 dB/100ft | 1.5 dB/100ft | Large diameter; mast/tower use |
-
-**Rule:** Keep coax runs short. Place the LNA at the antenna end of any long coax run to amplify before cable loss occurs.
+**Design check:** minimize unnecessary loss before the first low-noise stage,
+while also protecting that stage against blockers and excessive input power.
 
 ---
 
@@ -488,7 +406,7 @@ GNU Radio is an open-source signal processing framework and visual programming e
 - A library of signal processing blocks (sources, sinks, filters, modulators, demodulators, etc.)
 - **GNU Radio Companion (GRC)** - a graphical flowgraph editor that connects blocks visually
 - Python and C++ APIs for programmatic use
-- Hardware abstraction (gr-osmosdr) supporting virtually all SDR hardware
+- Hardware abstraction (gr-osmosdr) supporting selected hardware through compatible drivers; other devices use UHD, SoapySDR or vendor-specific blocks
 
 Everything in GNU Radio is a **flowgraph**: data (streams of complex or real samples) flows from source blocks through processing blocks to sink blocks.
 
@@ -509,7 +427,7 @@ brew install gnuradio
 
 # Verify installation
 gnuradio-config-info --version
-python3 -c "import gnuradio; print(gnuradio.__version__)"
+python3 -c "from gnuradio import gr; print(gr.version())"
 
 # Launch GRC
 gnuradio-companion
@@ -571,10 +489,10 @@ A minimal flowgraph to display what your SDR is receiving:
 
 *osmocom Source:*
 - Device Arguments: `rtlsdr=0` (for RTL-SDR) or `hackrf=0`
-- Sample Rate: `samp_rate` (set variable to 2400000)
+- Sample Rate: `samp_rate` (for example 2400000 for a validated RTL-SDR path; use hardware-appropriate settings for another device)
 - Center Freq: `center_freq` (set variable, e.g., 100100000 for 100.1 MHz)
 - Gain: 30 dB
-- IF Gain: 20 dB (HackRF only)
+- HackRF-specific gain: use supported IF/baseband steps; do not assume this RTL-SDR example's rate or gains apply to HackRF
 
 *QT GUI Frequency Sink:*
 - Sample Rate: `samp_rate`
@@ -586,6 +504,10 @@ This produces a live spectrum display showing all signals within the SDR's curre
 ---
 
 ### Chapter 6: Building an AM Receiver
+
+![Rate-labeled AM and mono WBFM examples prevent accidental duplicate decimation](../assets/diagrams/sdr-fundamentals-receiver-rate-accounting.svg)
+
+*Original flowgraph schematic. The configured demodulator's audio decimation determines its output rate; [GNU Radio's WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is mono, not a complete stereo decoder.*
 
 #### How AM Works
 
@@ -631,10 +553,7 @@ Multiplies received signal by a phase-locked copy of the carrier; more noise-res
 [AGC]                      ← Automatic Gain Control for level normalization
      │ (complex, 240 kSa/s)
      ▼
-[AM Demod]                 ← Complex to magnitude (envelope detection)
-     │ (float, 240 kSa/s)
-     ▼
-[Rational Resampler]       ← Decimate to 48 kSa/s for audio output
+[AM Demod]                 ← Audio Decimation = 5
      │ (float, 48 kSa/s)
      ▼
 [Audio Sink]               ← Output to speakers
@@ -680,11 +599,11 @@ Where `k_f` is the frequency deviation constant. For wideband FM broadcast (WBFM
 **FM demodulation:** Extract instantaneous frequency from the baseband IQ signal:
 
 ```
-Instantaneous phase: φ(t) = arctan(Q(t)/I(t))
+Instantaneous phase: φ(t) = atan2(Q(t), I(t))
 Instantaneous frequency: f(t) = (1/2π) · dφ/dt
 ```
 
-In discrete form: `f[n] = angle(conj(s[n-1]) * s[n])` - the angle of the product of consecutive samples with one conjugated.
+In discrete form: `f_offset[n] = Fs/(2π) · angle(conj(s[n-1]) * s[n])` - the angle of the product of consecutive samples with one conjugated.
 
 #### WBFM (Broadcast FM) Receiver Flowgraph
 
@@ -695,16 +614,16 @@ In discrete form: `f[n] = angle(conj(s[n-1]) * s[n])` - the angle of the product
 [Rational Resampler]       ← Decimate to 480 kSa/s
      │ (complex, 480 kSa/s)
      ▼
-[WBFM Receive]             ← FM discriminator + stereo pilot decode
+[WBFM Receive]             ← Mono FM demodulation + de-emphasis
      │ (float, 48 kSa/s)
      ▼
 [Multiply Const]           ← Volume control (0.0 to 1.0)
      │ (float, 48 kSa/s)
      ▼
-[Audio Sink]               ← Output to speakers (stereo)
+[Audio Sink]               ← Output mono audio to speakers
 ```
 
-The `WBFM Receive` block in GNU Radio handles the complete FM demodulation including de-emphasis (75 μs for North America; 50 μs for Europe) and stereo pilot tone decoding.
+GNU Radio's [WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is a mono demodulator with de-emphasis. Stereo requires a separate compatible stereo decoder. Choose the de-emphasis time constant for the actual broadcast standard.
 
 **WBFM Receive parameters:**
 - Quadrature Rate: 480000 (must equal input sample rate)
@@ -772,50 +691,28 @@ WBFM RDS Decoder flow (extending the WBFM receiver):
 
 ### Chapter 8: Building a Transmitter
 
-> **⚠️ Legal warning:** Transmitting on any frequency without appropriate authorization (ham radio license, FCC license, or explicit test authorization) is illegal. Transmit only on frequencies you are authorized to use, at authorized power levels, in authorized modes. The following covers transmitter design for licensed amateur radio operators and authorized testing environments.
+Transmitter architecture is distinct from authority to radiate. A compliant test
+requires the actual band, equipment, emissions, power and jurisdiction to be
+reviewed; a license, ownership or shielding bag alone is not universal permission.
 
 #### FM Transmitter Flowgraph
 
-An NBFM transmitter for amateur radio (licensed operators only):
+Conceptual ordering:
 
-```
-[Audio Source / Microphone]     ← Input audio
-     │ (float, 48 kSa/s)
-     ▼
-[High Pass Filter]              ← Remove DC offset from microphone
-     │
-     ▼
-[Rational Resampler]            ← Upsample to 480 kSa/s
-     │
-     ▼
-[NBFM Transmit]                 ← FM modulation (±5 kHz deviation)
-     │ (complex, 480 kSa/s)
-     ▼
-[Rational Resampler]            ← Upsample to HackRF sample rate (2 MSa/s)
-     │ (complex, 2 MSa/s)
-     ▼
-[osmocom Sink]                  ← HackRF TX output
-```
+~~~text
+Audio source → audio filtering → NBFM modulator → interpolation/filtering → RF sink
+~~~
 
-**NBFM Transmit parameters:**
-- Audio Rate: 48000
-- Quadrature Rate: 480000
-- Max Deviation: 5000 Hz (NBFM standard)
-- Pre-emphasis: 75 μs (or 0 for flat response)
+Keep the audio rate at the modulator's audio input; the modulator produces its
+configured quadrature rate. Do not upsample audio to a different rate and leave
+the modulator configured for the original rate. The final rate must match the
+hardware sink. This is a block-order explanation, not a tested transmit recipe.
 
 #### Signal Generator (Test Tone)
 
-Useful for antenna range testing, filter characterization, and authorized transmitter testing:
-
-```
-[Signal Source]        ← Sine wave at desired frequency
-     │ (complex)
-     ▼
-[Multiply Const]       ← Amplitude control
-     │
-     ▼
-[osmocom Sink]         ← Transmit output
-```
+Validate a synthetic source into software displays or files first. A hardware
+sink is a separate transmit path; output amplitude, DAC scaling, gain, filtering
+and the conducted/contained test path require explicit review.
 
 ---
 
@@ -874,7 +771,7 @@ decimated = decimate(iq_samples, q=10, ftype='fir', zero_phase=True)
 resampled = resample_poly(iq_samples, up=1, down=10)
 ```
 
-**Decimation rule:** Always apply a low-pass filter before decimation to avoid aliasing. GNU Radio's `rational_resampler` does this automatically. If decimating manually, apply an LPF with cutoff = `new_sample_rate / 2` first.
+**Decimation rule:** Always apply a low-pass filter before decimation to avoid aliasing. GNU Radio's `rational_resampler` does this automatically. If decimating manually, apply an LPF with a passband and transition band that fit below `new_sample_rate / 2` first.
 
 #### Automatic Gain Control (AGC)
 
@@ -922,7 +819,7 @@ In GNU Radio: `AGC` block for single-channel, `AGC2` for faster attack/slower de
 | **OOK** | Amplitude | 1 | 433 MHz ISM devices, simple remotes |
 | **ASK** | Amplitude | 1+ | RFID, simple data links |
 | **FSK** | Frequency | 1 | APRS, POCSAG, AX.25 |
-| **GFSK** | Frequency | 1 | Bluetooth, ZigBee |
+| **GFSK** | Frequency | 1 for binary GFSK | Bluetooth and selected proprietary links; 2.4 GHz IEEE 802.15.4 uses a different PHY |
 | **BPSK** | Phase | 1 | GPS, satellite links |
 | **QPSK** | Phase | 2 | Satellite, some LTE |
 | **QAM-16** | Amp+Phase | 4 | Wi-Fi, LTE downlink |
@@ -955,7 +852,7 @@ BPSK uses two phases (0° and 180°) to encode binary data. A complete BPSK demo
 [Byte Output / Data]
 ```
 
-**Costas Loop** is the key block: it tracks and removes the carrier frequency and phase offset, bringing the BPSK constellation to a fixed orientation (0° and 180°) regardless of Doppler, oscillator error, or initial phase.
+**Costas Loop** is the key block: it tracks and removes the carrier frequency and phase offset, bringing the BPSK constellation to a fixed orientation (0° and 180°) within its acquisition/tracking limits. A differential decoder only resolves ambiguity if the transmitter uses the corresponding differential encoding.
 
 ---
 
@@ -974,6 +871,8 @@ from scipy.fft import fft, fftfreq, fftshift
 # RTL-SDR raw IQ file: interleaved uint8, range 0-255
 def load_rtlsdr_iq(filename):
     raw = np.fromfile(filename, dtype=np.uint8)
+    if raw.size % 2:
+        raise ValueError('Incomplete interleaved I/Q pair')
     # Convert uint8 to float, center on 0
     samples = raw.astype(np.float32) - 127.5
     # Combine I and Q
@@ -983,6 +882,8 @@ def load_rtlsdr_iq(filename):
 # HackRF raw IQ: interleaved int8
 def load_hackrf_iq(filename):
     raw = np.fromfile(filename, dtype=np.int8)
+    if raw.size % 2:
+        raise ValueError('Incomplete interleaved I/Q pair')
     iq = raw[0::2].astype(np.float32) + 1j * raw[1::2].astype(np.float32)
     return iq / 128.0
 
@@ -995,8 +896,10 @@ def load_gnuradio_iq(filename):
 
 ```python
 def plot_spectrum(iq_samples, sample_rate, center_freq=0, title="Spectrum"):
-    """Plot PSD of IQ data"""
+    """Plot a windowed relative FFT magnitude; not calibrated PSD or dBm."""
     # FFT with frequency shift so DC is in center
+    if len(iq_samples) == 0 or sample_rate <= 0:
+        raise ValueError('Need samples and a positive sample rate')
     N = min(len(iq_samples), 8192)  # FFT size
     spectrum = fftshift(fft(iq_samples[:N] * np.hanning(N)))
     
@@ -1006,7 +909,7 @@ def plot_spectrum(iq_samples, sample_rate, center_freq=0, title="Spectrum"):
     plt.figure(figsize=(12, 4))
     plt.plot(freqs / 1e6, power_db, linewidth=0.5)
     plt.xlabel('Frequency (MHz)')
-    plt.ylabel('Power (dB)')
+    plt.ylabel('Relative FFT amplitude (dB; uncalibrated)')
     plt.title(title)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -1014,6 +917,8 @@ def plot_spectrum(iq_samples, sample_rate, center_freq=0, title="Spectrum"):
 
 def plot_waterfall(iq_samples, sample_rate, fft_size=512, title="Waterfall"):
     """Plot spectrogram (time-frequency waterfall)"""
+    if sample_rate <= 0 or fft_size < 2 or len(iq_samples) < fft_size:
+        raise ValueError('Need a positive rate and at least one complete FFT frame')
     n_ffts = len(iq_samples) // fft_size
     waterfall = np.zeros((n_ffts, fft_size))
     
@@ -1024,49 +929,26 @@ def plot_waterfall(iq_samples, sample_rate, fft_size=512, title="Waterfall"):
     
     plt.figure(figsize=(12, 6))
     plt.imshow(waterfall, aspect='auto', cmap='plasma',
-               extent=[0, sample_rate/1e6, n_ffts/sample_rate*fft_size, 0])
+               extent=[-sample_rate/(2e6), sample_rate/(2e6), n_ffts/sample_rate*fft_size, 0])
     plt.xlabel('Frequency offset (MHz)')
     plt.ylabel('Time (s)')
     plt.title(title)
-    plt.colorbar(label='Power (dB)')
+    plt.colorbar(label='Relative FFT amplitude (dB; uncalibrated)')
     plt.tight_layout()
     plt.show()
 ```
 
 #### Manual FM Demodulation
 
-```python
-def demodulate_fm(iq_samples, sample_rate, audio_rate=48000):
-    """Demodulate WBFM signal from complex baseband IQ"""
-    from scipy.signal import decimate, firwin, lfilter
-    
-    # FM discriminator: d/dt of instantaneous phase
-    # Efficient form: angle(conj(s[n-1]) * s[n])
-    discriminated = np.angle(np.conj(iq_samples[:-1]) * iq_samples[1:])
-    
-    # De-emphasis filter (75 μs for North America)
-    # H(s) = 1 / (1 + s·τ), τ = 75e-6
-    tau = 75e-6
-    dt = 1 / sample_rate
-    alpha = dt / (tau + dt)
-    deemph = np.zeros_like(discriminated)
-    deemph[0] = discriminated[0]
-    for i in range(1, len(discriminated)):
-        deemph[i] = alpha * discriminated[i] + (1 - alpha) * deemph[i-1]
-    
-    # Decimate to audio rate
-    decimation_factor = int(sample_rate / audio_rate)
-    audio = decimate(deemph, decimation_factor, ftype='fir', zero_phase=True)
-    
-    # Normalize
-    audio = audio / np.max(np.abs(audio))
-    return audio.astype(np.float32)
+The phase difference of adjacent complex samples is in radians per sample;
+multiply by the sample rate divided by (2\pi) for frequency offset in hertz.
+See [GNU Radio's quadrature demodulator](https://www.gnuradio.org/doc/doxygen/classgr_1_1analog_1_1quadrature__demod__cf.html).
 
-# Save as WAV
-import scipy.io.wavfile as wavfile
-audio = demodulate_fm(iq_samples, sample_rate=2_400_000)
-wavfile.write('output.wav', 48000, (audio * 32767).astype(np.int16))
-```
+A complete mono-audio path also needs channel filtering, appropriate deviation
+scaling, de-emphasis, anti-alias filtering and exact output-rate conversion.
+The previous short Python routine lacked channel/audio filtering and silently
+rounded rate ratios; it was not a complete WBFM receiver. Use the rate-explicit
+Chapter 7 flowgraph and test it with a known recording before hardware input.
 
 ---
 
@@ -1091,63 +973,20 @@ Trunked radio systems dynamically assign radio channels from a pool rather than 
 
 #### SDR-Trunk
 
-The primary open-source tool for trunked radio decoding on SDR hardware.
-
-```bash
-# Install SDR-Trunk (Java application)
-# Download from: https://github.com/DSheirer/sdrtrunk/releases
-
-# Alternatively:
-sudo apt install default-jre
-# Download .zip release, extract, run start script
-```
-
-**Configuration workflow:**
-1. Add SDR device (RTL-SDR, HackRF, Airspy, etc.)
-2. Import RadioReference.com database for local area (requires free account)
-3. SDR-Trunk automatically maps control channels and follows traffic
-4. Configure audio output per talkgroup
-
-**RR Playlist import:** SDR-Trunk can import RadioReference CSV exports for automated channel setup. Create a free RadioReference account, navigate to your county, export the system data.
+Use the [sdrtrunk project](https://github.com/DSheirer/sdrtrunk) for supported
+tuners, Java/runtime requirements, decoder capabilities and installation.
+Do not assume every SDR driver or encrypted voice mode is supported. Database
+import features can require a provider subscription; check current access terms.
 
 #### Scanning Workflow with SDR
 
-For non-trunked scanning:
+A frequency sweep or retuning loop observes different bands at different times.
+Allow tuner settling, record coverage gaps and avoid labeling uncalibrated
+sample magnitudes as dBm. The former broad-FFT peak threshold did not measure
+power solely within a specified channel and has been removed.
 
-```
-Useful SDR# plugins:
-  - DSD+ FastLane: Digital voice decoding (P25, DMR, D-STAR)
-  - Scanner (built-in): Frequency scanning with squelch
-  - Frequency Manager: Organize frequencies by category
-  - IF Recorder: Record raw IQ for later analysis
-```
-
-```python
-# Python scanning script using rtlsdr library
-from rtlsdr import RtlSdr
-import numpy as np
-from scipy.signal import welch
-
-sdr = RtlSdr()
-sdr.sample_rate = 2.4e6
-sdr.gain = 'auto'
-
-scan_frequencies = np.arange(144e6, 148e6, 25e3)  # 2m amateur band in 25 kHz steps
-power_threshold_db = -60  # Signal detection threshold
-
-for freq in scan_frequencies:
-    sdr.center_freq = freq
-    samples = sdr.read_samples(256 * 1024)
-    
-    # Calculate power in channel
-    freqs_psd, psd = welch(samples, sdr.sample_rate, nperseg=1024)
-    peak_power = 10 * np.log10(np.max(psd))
-    
-    if peak_power > power_threshold_db:
-        print(f"Signal detected at {freq/1e6:.3f} MHz: {peak_power:.1f} dB")
-
-sdr.close()
-```
+Preserve channel configuration and timestamps. A signal's presence, system type,
+content access and lawful collection scope require separate evidence.
 
 ---
 
@@ -1165,67 +1004,24 @@ APRS application data
 
 #### Receiving APRS
 
-```bash
-# Method 1: Direwolf (software modem + APRS decoder)
-sudo apt install direwolf
-
-# Configure: /etc/direwolf.conf
-# ADEVICE plughw:1,0    (audio device from RTL-SDR pipe)
-# CHANNEL 0
-# MYCALL N0CALL         (your callsign or N0CALL for receive-only)
-# MODEM 1200
-
-# Pipe RTL-SDR audio into Direwolf
-rtl_fm -f 144.39M -M fm -s 200000 -r 48000 -g 50 - | \
-  direwolf -c direwolf.conf -r 48000 -D 1 -
-
-# Method 2: GNU Radio + gr-ax25
-# Use NBFM receiver flowgraph → audio output → Direwolf STDIN
-
-# Method 3: GQRX → virtual audio → Direwolf
-# Set GQRX to NBFM on 144.390 MHz; route audio to virtual cable; connect to Direwolf
-```
+[Dire Wolf](https://github.com/wb2osz/direwolf) provides documented sound-card,
+file and stdin workflows. Match mono PCM rate/type and configuration to the
+installed version; an SDR application's filename or pipe does not by itself
+supply WAV framing.
 
 #### APRS Data Types
 
-| Symbol | Data | Example |
-|--------|------|---------|
-| `/` + char | Position + timestamp | `/092345z4903.50N/07201.75W>` |
-| `!` | Position without timestamp | `!4903.50N/07201.75W>` |
-| `@` | Position + time + messaging | Mobile tracker |
-| `>` | Status message | Software version, activity |
-| `:` | Message | Point-to-point text |
-| `_` | Weather data | Wind, temperature, humidity, rain |
-| `T` | Telemetry | Analog/digital sensor data |
+APRS includes position, status, message, weather and telemetry formats.
+Parsing must account for compressed versus uncompressed positions, timestamps,
+symbol-table identifiers and invalid data. The former tiny regular expression
+was not a complete APRS parser.
 
 #### Plotting APRS Data
 
-```python
-# Parse Direwolf output and plot positions
-import re
-import folium  # pip install folium
-
-def parse_aprs_position(packet_text):
-    """Extract lat/lon from APRS position packet"""
-    # Matches !DDmm.mmN/DDDmm.mmW format
-    pattern = r'(\d{2})(\d{2}\.\d+)([NS])/(\d{3})(\d{2}\.\d+)([EW])'
-    m = re.search(pattern, packet_text)
-    if m:
-        lat_deg, lat_min, lat_dir = int(m[1]), float(m[2]), m[3]
-        lon_deg, lon_min, lon_dir = int(m[4]), float(m[5]), m[6]
-        lat = lat_deg + lat_min/60
-        lon = lon_deg + lon_min/60
-        if lat_dir == 'S': lat = -lat
-        if lon_dir == 'W': lon = -lon
-        return lat, lon
-    return None
-
-# Create interactive map
-m = folium.Map(location=[45.5, -122.6], zoom_start=10)
-# Add markers for each decoded position
-folium.Marker([lat, lon], popup=callsign).add_to(m)
-m.save('aprs_map.html')
-```
+Use synthetic positions or explicitly authorized records for classroom maps.
+Validate coordinates and provenance before plotting; protect identifiers and
+locations. A map marker is not independent verification of a transmitter's
+position or identity.
 
 ---
 
@@ -1233,183 +1029,88 @@ m.save('aprs_map.html')
 
 #### Wi-Fi (802.11) Monitoring
 
-Wi-Fi operates on 2.4 GHz (channels 1–14, 20 MHz each) and 5 GHz (many channels). Modulation is OFDM with variable QAM order (BPSK through QAM-256).
+Wi-Fi uses multiple bands and PHYs; channel width and modulation depend on
+generation, band and configuration. Not every 2.4 GHz frame is OFDM.
 
-**Passive monitoring with SDR:**
+A standard RTL-SDR tuner does **not** directly tune 2.4 GHz. HackRF can survey
+energy there, but a sweep is sequential and its limited instantaneous bandwidth
+does not establish complete Wi-Fi-channel capture. Use a compatible monitor-mode
+Wi-Fi adapter and the [Wireshark documentation](https://www.wireshark.org/docs/)
+when packet evidence is required. Spectrum energy is not a decoded frame.
 
-```bash
-# Spectrum analysis of 2.4 GHz ISM band
-# HackRF sweep across Wi-Fi channels
-hackrf_sweep -f 2400:2500 -g 32 -l 16 -w 1000000 | \
-  python3 -c "
-import sys, csv
-reader = csv.reader(sys.stdin)
-for row in reader:
-    # row: date, time, hz_low, hz_high, hz_bin_width, num_samples, *powers
-    print(f'{float(row[2])/1e9:.3f}-{float(row[3])/1e9:.3f} GHz: {max(float(p) for p in row[6:])} dBm')
-"
+The old RTL-SDR 2.4 GHz channel-power script and uncalibrated dBm report were
+invalid and have been removed.
 
-# Channel occupancy measurement
-python3 << 'EOF'
-import numpy as np
-from rtlsdr import RtlSdr
-
-WIFI_CHANNELS_2_4 = {
-    1: 2412e6, 6: 2437e6, 11: 2462e6  # Non-overlapping channels
-}
-
-sdr = RtlSdr()
-sdr.sample_rate = 2.4e6
-sdr.gain = 40
-
-for channel, freq in WIFI_CHANNELS_2_4.items():
-    sdr.center_freq = freq
-    samples = sdr.read_samples(512*1024)
-    power = 10 * np.log10(np.mean(np.abs(samples)**2))
-    print(f"Ch {channel:2d} ({freq/1e6:.0f} MHz): {power:.1f} dBm")
-
-sdr.close()
-EOF
-```
-
-**For deep 802.11 packet capture:** Use a dedicated Wi-Fi adapter in monitor mode (`iw dev wlan0 set type monitor`). SDR-based Wi-Fi packet decode is theoretically possible but challenging - OFDM requires tight synchronization that most SDR hardware doesn't easily provide.
+---
 
 #### Bluetooth Analysis
 
-Bluetooth Classic (BT Classic) hops across 79 channels in the 2.402–2.480 GHz band at up to 1600 hops/second. BLE (Bluetooth Low Energy) uses 40 channels, 3 of which are advertising channels.
+Classic Bluetooth and BLE have different channel structures and connection
+tracking requirements. BLE advertising observation is distinct from following a
+connection; hardware, PHY, firmware and capture format matter.
 
-**Ubertooth One** is the purpose-built Bluetooth SDR tool:
+Use the [Ubertooth project documentation](https://github.com/greatscottgadgets/ubertooth)
+or a supported BLE sniffer's vendor guide for exact options. The previous generic
+commands mixed option meanings and were not validated against a release.
+A 2.4 GHz-capable receiver is not automatically a full-band hopping sniffer.
 
-```bash
-# Install Ubertooth tools
-sudo apt install ubertooth
-
-# Sniff BLE advertising packets
-ubertooth-btle -f -A 37  # Advertising channel 37
-
-# Follow a BLE connection (requires clock recovery)
-ubertooth-btle -f -c [access address]
-
-# Capture Bluetooth Classic (hopping - requires clock + offset recovery)
-ubertooth-rx -c [clock] -n [LAP]
-
-# Specan: spectrum analyzer mode (shows 2.4 GHz occupancy)
-ubertooth-specan
-```
-
-**With HackRF and GNU Radio:**
-
-```python
-# BLE advertising channel detection at 2.402 GHz (channel 37)
-# BLE uses GFSK with 250 kHz deviation, 1 Mbit/s
-# Channel 37: 2402 MHz, Channel 38: 2426 MHz, Channel 39: 2480 MHz
-```
-
-`gr-bluetooth` is the GNU Radio module for Bluetooth signal processing.
+---
 
 #### ISM Band (433 MHz, 868 MHz, 915 MHz) Analysis
 
-The ISM bands contain a dense population of consumer devices: weather stations, garage door openers, tire pressure monitors, smart meters, wireless doorbells, keyfobs, and sensors.
+[rtl_433](https://github.com/merbanan/rtl_433) supports selected telemetry
+protocols and multiple backends. Match the region, device and decoder; its name
+does not mean it is limited to 433 MHz. Use the [dedicated receive-only lab](rtl433-passive-telemetry-lab.md).
 
-**rtl_433** is the essential tool for decoding ISM band sensor data:
+~~~bash
+# Source-reviewed examples; use the installed build's help before any capture.
+rtl_433 -V
+rtl_433 -R help
+# For an already authorized 433.92 MHz lab source:
+rtl_433 -f 433.92M -s 250000 -F json:lab-events.json
+~~~
 
-```bash
-# Install
-sudo apt install rtl-433
-# or: pip install rtl-433
-
-# Run continuously decoding all known protocols
-rtl_433 -f 433.92M -s 250000
-
-# Output to JSON for logging
-rtl_433 -f 433.92M -F json -o /tmp/rtl433.json
-
-# Output to MQTT for home automation integration
-rtl_433 -f 433.92M -F "mqtt://localhost:1883,retain=1,devices=rtl433/[model]"
-
-# List all supported protocols (~200+)
-rtl_433 -R list
-
-# Force specific protocol
-rtl_433 -R 40 -f 433.92M  # Protocol 40 = LaCrosse weather station
-```
+This is a compiled project; the previous `pip install rtl-433`, `-o` JSON
+output option and `-R list` examples were not the documented invocation.
+Decoder IDs and available outputs must be read from the installed version.
+Do not enable network outputs or feed sharing as a side effect of a local lab.
 
 ---
 
 ### Chapter 14: Cellular Communications
 
-> **⚠️ Legal note:** Intercepting cellular communications is illegal under the Electronic Communications Privacy Act and equivalent laws worldwide. Passive monitoring of unencrypted control channels for research purposes exists in a gray area - consult applicable law. Active attacks against cellular networks are illegal without explicit authorization.
+Cellular observation requires explicit scope and a jurisdiction-specific review.
+Broadcast system information, subscriber identifiers, protected traffic and
+active base-station operation are different activities.
 
 #### 2G GSM (Legacy, Research Value)
 
-GSM uses TDMA on 900 MHz (GSM-900) and 1800 MHz (GSM-1800). Partially unencrypted control channels allow passive monitoring.
-
-> [!NOTE]
-> `gr-gsm` is no longer actively maintained upstream and does not build from
-> source against GNU Radio 3.10+ (an open PR tracks 3.10/3.11 support). The
-> Kali/Debian `apt` package below still works because it is built against the
-> distro's GNU Radio version; to build from source on a modern system, use a
-> community fork that adds 3.10 support.
-
-```bash
-# gr-gsm: GNU Radio-based GSM receiver
-sudo apt install gr-gsm
-
-# Live capture of GSM control channel (BCCH)
-grgsm_livemon_headless -f 939.4M -g 40
-
-# Decode captured GSM frames
-grgsm_decode -c /tmp/gsm_capture.cfile -f 939.4M --cch
-
-# Kalibrate-rtl: find local GSM base station frequencies
-sudo apt install kalibrate-rtl
-kal -s GSM900 -g 40    # Scan for GSM-900 towers
-kal -c [channel] -g 40  # Lock to specific channel; measure frequency offset
-```
+GSM deployments and bands vary by region. Historical `gr-gsm` examples are
+not a current compatibility guarantee. Check [upstream](https://github.com/ptrkrysik/gr-gsm)
+and the chosen distribution's package build rather than assuming every package
+works with every GNU Radio release. Use provided recordings or an authorized
+test network; no subscriber collection workflow is established here.
 
 #### LTE / 4G (Modern)
 
-LTE uses OFDM, multiple frequency bands, and mandatory encryption. Passive control channel monitoring (cell broadcast, system information) is possible; user data is encrypted.
-
-```bash
-# srsRAN: open-source 4G/5G software radio suite
-# Useful for lab environments with your own base station (srsENB)
-sudo apt install srsran
-
-# LTE cell scanner
-sudo srsran_cell_search  # Scans for LTE cells; reports MCC, MNC, EARFCN
-
-# Monitor LTE downlink (system information, broadcast)
-sudo srsran_pdsch_ue -f [earfcn_freq]
-```
+Distinguish [srsRAN 4G](https://github.com/srsran/srsRAN_4G) from
+[srsRAN Project](https://github.com/srsran/srsRAN_Project). Their components and
+generation support differ. Public system information is not equivalent to
+protected user data, and "mandatory encryption" is not a precise description of
+every channel or configuration. The former generic `srsran_*` commands were
+not verified installed binaries and have been removed.
 
 #### ADS-B (Aircraft Transponders)
 
-ADS-B is the most common SDR "first application" - aircraft broadcast their position, altitude, speed, and ID on 1090 MHz in the clear.
+1090 MHz extended squitter is distinct from 978 MHz UAT. Use the appropriate
+receiver and decoder for each. [dump1090-fa](https://github.com/flightaware/dump1090)
+provides a supported 1090 MHz path; its modern web display uses separate web
+serving components, not the former assumed built-in HTTP flag.
 
-```bash
-# dump1090: THE standard ADS-B decoder
-sudo apt install dump1090-fa
-
-# Run with web display
-dump1090-fa --interactive --net --net-http-port 8080 --gain 50
-# Open http://localhost:8080 for live map
-
-# FlightAware integration (feed sharing)
-sudo apt install piaware
-
-# With RTL-SDR optimized settings
-dump1090-fa --device-index 0 --gain 49.6 --ppm 0 \
-  --net --net-ro-port 30002 --net-sbs-port 30003 \
-  --lat [your_lat] --lon [your_lon] --interactive
-
-# Python ADS-B parser
-pip install pyModeS
-import pyModeS as pms
-msg = "8D4B17E5F8210002004BB8B1F1"
-print(pms.adsb.callsign(msg))   # Aircraft callsign
-print(pms.adsb.altitude(msg))   # Altitude in feet
-```
+For offline parsing, select the message's actual type before requesting fields.
+A single example message need not contain both callsign and altitude. Treat
+reported position/identity as received claims, not authenticated truth. Do not
+enable remote feed sharing without explicit authorization.
 
 ---
 
@@ -1417,79 +1118,43 @@ print(pms.adsb.altitude(msg))   # Altitude in feet
 
 #### GNSS Reception with SDR
 
-Receiving and decoding GPS/GNSS signals is technically demanding but achievable:
+GNSS acquisition uses correlation and tracking of specified signal structures,
+not ordinary audio demodulation. Signal bandwidth, sample representation,
+antenna supply requirements and oscillator behavior must match the receiver
+configuration. Antenna bias voltage/current must be checked before enabling it.
 
-- GPS L1: 1575.42 MHz, BPSK with 1.023 MHz C/A code chip rate
-- Requires ~2 MHz bandwidth minimum; 4 MHz recommended
-- Signal is 20 dB below noise floor - requires code correlation
-- Active GPS patch antenna with bias tee power strongly recommended
-
-```bash
-# GNSS-SDR: open-source GNSS software receiver
-sudo apt install gnss-sdr
-
-# Configure for GPS L1 with RTL-SDR (gnss-sdr config file)
-cat > gps_l1.conf << 'EOF'
-[GNSS-SDR]
-GNSS-SDR.internal_fs_sps=2000000
-
-[SignalSource]
-implementation=Osmosdr_Signal_Source
-item_type=gr_complex
-sampling_frequency=2000000
-freq=1575420000
-gain=40
-AGC_enabled=true
-
-[Channels_1C]
-count=8
-
-[Channel0]
-signal=1C
-EOF
-
-gnss-sdr --config_file=gps_l1.conf
-```
+Use a complete, version-matched configuration from [GNSS-SDR](https://gnss-sdr.org/docs/).
+The previous short configuration mixed incomplete settings and was not a
+validated running receiver.
 
 #### Weather Satellites: NOAA APT
 
-NOAA weather satellites (15, 18, 19) transmit analog APT images on 137.620 MHz, 137.9125 MHz, and 137.100 MHz respectively. The easiest satellite image project:
+**Historical example only:** NOAA-15, -18 and -19 were decommissioned in 2025;
+they are not current live APT targets. See [NOAA's status record](https://ospo.noaa.gov/operations/poes/status.html).
+Use archived recordings for an APT exercise.
 
-```bash
-# Receive and decode NOAA APT
-# Step 1: Get pass prediction
-sudo apt install predict
-predict -p "NOAA 19"  # Shows next pass time, max elevation
-
-# Step 2: Record IQ during pass
-rtl_fm -f 137.100M -M fm -s 60000 -r 11025 -E deemp noaa19.wav &
-# Wait for pass and stop recording
-
-# Step 3: Decode
-sudo apt install noaa-apt  # or WXtoImg (legacy)
-noaa-apt noaa19.wav -o image.png
-
-# Automated full pipeline
-# gr-satellites handles pass scheduling + decode
-```
+The former `rtl_fm` command wrote raw PCM under a WAV suffix; a suffix does
+not create a WAV header. A decoder requires the actual documented audio format,
+rate and conditioning. Pass prediction and decoding are separate functions;
+`gr-satellites` is not a universal scheduling service.
 
 #### Meteor-M LRPT (Higher Quality)
 
-Russian Meteor-M N2-3 satellite transmits digital LRPT images on 137.100 MHz - higher quality than NOAA APT.
-
-```bash
-# Receive as FM, decode with LRPTofflineDecoder or SatDump
-# SatDump handles full pipeline from IQ to georeferenced image
-satdump live meteor_m2-x_lrpt baseband \
-  --source rtlsdr --samplerate 1e6 --frequency 137.1e6 \
-  --gain 49 --biast 0
-```
+Check current mission status and the exact satellite/downlink before receiving.
+LRPT processing requires the appropriate complex-IQ/digital receiver chain;
+recording an FM-demodulated audio stream is not a generic substitute.
+Use the matching [SatDump documentation](https://docs.satdump.org/) and an
+archived test recording before live reception.
 
 ---
 
 ## Part V: Advanced Techniques
 
 ### Chapter 16: SIGINT and Signal Reversal
+
+![Observation, decoding, assessment and attribution are separate evidentiary steps](../assets/diagrams/sdr-fundamentals-evidence-ladder.svg)
+
+*Original conceptual evidence model. It is an engineering interpretation guide, not an automated identification algorithm or a reproduced incident.*
 
 #### Signal Identification Workflow
 
@@ -1544,7 +1209,8 @@ def estimate_symbol_rate(iq_samples, sample_rate):
     pos_freqs = freqs[pos_mask]
     pos_spectrum = spectrum[pos_mask]
     
-    # Peak frequency = symbol rate
+    # Candidate periodic feature; not proof of symbol rate (harmonics/other structure may dominate)
+    symbol_rate = None
     from scipy.signal import find_peaks
     peaks, props = find_peaks(pos_spectrum, height=np.max(pos_spectrum)*0.3)
     
@@ -1567,6 +1233,8 @@ def analyze_bit_stream(bits, name="unknown"):
     # Convert to bytes
     # Ensure length is multiple of 8
     bits = bits[:len(bits)//8*8]
+    if len(bits) == 0:
+        raise ValueError('Need at least one complete byte')
     byte_array = np.packbits(bits)
     
     print(f"\n=== {name} Analysis ===")
@@ -1588,7 +1256,7 @@ def analyze_bit_stream(bits, name="unknown"):
     from scipy.stats import entropy
     byte_freqs = np.bincount(byte_array, minlength=256) / len(byte_array)
     byte_entropy = entropy(byte_freqs + 1e-12, base=2)
-    print(f"Byte entropy: {byte_entropy:.2f} bits (8.0 = encrypted/random)")
+    print(f"Byte entropy: {byte_entropy:.2f} bits (high entropy does not prove encryption)")
     
     # Find repeated patterns
     for pattern_len in [2, 4, 8]:
@@ -1602,25 +1270,18 @@ def analyze_bit_stream(bits, name="unknown"):
 
 #### Replay Attack Analysis
 
-For ISM band devices (garage doors, keyfobs, weather sensors):
+A recording demonstrates received samples, not the receiving system's acceptance
+policy. Static-looking and changing frames both need controlled interpretation.
+See [Sub-GHz analysis](subghz.md) for the receive-only comparison exercise.
 
-```bash
-# Capture a transmission
-hackrf_transfer -r keyfob_capture.iq -f 433920000 -s 2000000 -g 40 -l 32 -n 2000000
+The former high-gain transmit command and 2 MS/s HackRF presets have been
+removed. Any receiver-acceptance test needs a separately reviewed scope,
+appropriate hardware rate, exact sample format, attenuation/containment and
+recovery plan.
 
-# Analyze with inspectrum (visual tool for binary analysis)
-sudo apt install inspectrum
-inspectrum keyfob_capture.iq  # Opens GUI for visual analysis
-
-# Replay capture (AUTHORIZED TESTING ONLY)
-hackrf_transfer -t keyfob_capture.iq -f 433920000 -s 2000000 -x 47 -a 1
-
-# More sophisticated: use Universal Radio Hacker (URH)
-pip install urh
-urh  # Full GUI for signal capture, demodulation, and protocol analysis
-```
-
-**Universal Radio Hacker (URH)** combines compatible SDR signal capture, bit decoding and protocol structure analysis in one application. [Its original repository](https://github.com/jopohl/urh) is **archived as of October 2026**; regard these commands as a historical workflow, test dependencies in a pinned lab environment and independently verify modern device/OS compatibility before relying on it.
+[URH](https://github.com/jopohl/urh) offers signal interpretation tools, but its
+original repository is archived. Validate a pinned build against your inputs
+rather than assuming current driver or OS support.
 
 ---
 
@@ -1633,8 +1294,8 @@ Simultaneous monitoring across wide frequency ranges requires either multiple SD
 **Multi-SDR approach:**
 
 ```python
-# Synchronize multiple RTL-SDRs for wideband coverage
-# Each SDR covers ~2.4 MHz; multiple cover wider bands
+# Collect independent RTL-SDR streams; this does NOT synchronize their clocks
+# Nominal spans can cover different bands; timing and frequency offsets remain
 import rtlsdr
 import threading
 import numpy as np
@@ -1667,48 +1328,23 @@ class MultiSDRMonitor:
         return self.data
 ```
 
-**HackRF Sweep for fast spectrum coverage:**
+**HackRF Sweep for spectrum coverage:**
 
-```bash
-# Sweep 0–6 GHz in ~1 second
-hackrf_sweep -f 0:6000 -g 40 -l 24 -w 1000000 -1 | \
-  python3 plot_sweep.py
-
-# Real-time sweep with SDR Angel
-# Or: GQRX's SDR Play/HackRF mode at 20 MHz bandwidth
-```
+~~~bash
+# Source-reviewed sequential scan, not simultaneous IQ or calibrated channel power.
+hackrf_sweep -f 1:6000 -g 16 -l 16 -w 1000000 -1 > sweep.csv
+~~~
 
 #### High-Speed ADC Platforms
 
-For professional wideband coverage requiring simultaneous capture across many MHz or GHz:
+Compare specified analog input bandwidth, converter sample rate, digital
+decimation, clocking, FPGA resources and host transport separately. A board's
+ADC rate is not automatically its usable RF tuning range or host IQ bandwidth.
+DIFI is a digital-IF transport standard, not a converter platform.
 
-| Platform | Bandwidth | ADC | Interface | Notes |
-|----------|----------|-----|-----------|-------|
-| **USRP X310** | 160 MHz (dual) | 14-bit | 10 GbE | Research standard |
-| **Ettus N321** | 250 MHz | 14-bit | 10 GbE | Up to 6 GHz |
-| **Epiq Solutions Sidekiq** | 60 MHz | 12-bit | PCIe/USB | Compact; commercial |
-| **Difi (Digital IF)** | Varies | Varies | 10 GbE | Standard for EW |
-| **Analog Devices ADRV9009** | 200 MHz | 14-bit | JESD204B | FPGA-based system |
-| **Xilinx RFSoC** | DC–6 GHz | 12-bit | Built-in FPGA | 8 ADC channels; state of art |
-
-**Xilinx RFSoC** (e.g., ZCU111, RFSoC4x2) represents the current state of the art for wideband SDR research: an FPGA with built-in multi-GSa/s ADCs and DACs, enabling 100+ MHz instantaneous bandwidth with FPGA processing close to the ADC.
-
-```python
-# RFSoC deployment with PYNQ framework
-# pip install pynq
-import pynq
-import numpy as np
-
-# Access RF data converter
-from pynq.lib import dma
-overlay = pynq.Overlay("rfsoc_design.bit")  # Custom bitstream
-adc = overlay.radio.receiver.channel[0]
-
-# Capture IQ samples from ADC
-adc.transfer.start()
-samples = np.array(adc.dma.recvchannel.buf, dtype=np.complex64)
-adc.transfer.stop()
-```
+RFSoC/PYNQ APIs depend on the loaded hardware design and matching software.
+The previous generic overlay properties were not a validated board API and have
+been removed. Use the exact platform reference design and driver documentation.
 
 #### Electronic Warfare (EW) Applications
 
@@ -1722,7 +1358,7 @@ SDR at scale forms the foundation of modern EW systems:
 | **SIGINT** | Intercept communications | Multi-channel SDR |
 | **Direction Finding** | Locate signal sources | Phase-coherent SDR array |
 
-**TDOA (Time Difference of Arrival) direction finding:**
+**TDOA (Time Difference of Arrival) localization:** The following is a geometric sketch, not a calibrated measurement pipeline. It assumes common coordinate units, synchronized arrival-time measurements and a suitable receiver geometry; check optimizer success and uncertainty before interpreting a result.
 
 ```python
 def tdoa_localization(positions, timestamps, c=3e8):
@@ -1762,8 +1398,8 @@ General-purpose CPUs process data sequentially. FPGAs implement parallel logic -
 
 | DSP Task | CPU Limitation | FPGA Advantage |
 |----------|---------------|---------------|
-| FFT at 100 MSa/s | High CPU load; latency | Pipelined 1024-pt FFT in single clock cycle |
-| FIR filter (1000 taps) | Sequential; too slow | 1000 multiply-accumulates in parallel |
+| FFT at 100 MSa/s | High CPU load; latency | Pipelined FFT with architecture-dependent latency and throughput |
+| FIR filter (1000 taps) | Sequential; too slow | Parallel/pipelined MAC architecture, subject to resource and timing constraints |
 | Matched filter | Cross-correlation; compute-intensive | Parallel correlator banks |
 | Protocol decode | Real-time constraint hard to meet | Dedicated decode logic |
 | Multi-channel processing | Single CPU overwhelmed | Per-channel parallel logic |
@@ -1780,28 +1416,17 @@ General-purpose CPUs process data sequentially. FPGAs implement parallel logic -
 
 #### GNU Radio with FPGA Acceleration (RFNoC)
 
-Ettus Research's **RFNoC (RF Network on Chip)** framework allows custom FPGA blocks to appear as GNU Radio blocks:
+[RFNoC](https://files.ettus.com/manual/page_rfnoc.html) uses supported USRP FPGA
+images, UHD graph control and compatible host integration. It is not an arbitrary
+`osmocom Source → RFNoC block` host-stream connection. Discover available blocks
+and commands from the installed UHD release and loaded image; the former generic
+graph and CLI were not a validated setup.
 
-```
-GNU Radio flowgraph:
-  [osmocom Source] → [RFNoC FFT Block*] → [RFNoC Filter Block*] → [Python Sink]
-                                          ↑
-                          * Running in FPGA hardware on USRP X310
-```
-
-```bash
-# Check for RFNoC blocks
-uhd_rfnoc_graph --list-blocks
-
-# Typical RFNoC blocks available
-# DDC (Digital Down Converter) - frequency shifting + decimation
-# DUC (Digital Up Converter) - interpolation + frequency shifting  
-# FFT - fast Fourier transform
-# FIR Filter - programmable FIR
-# Replay - circular buffer for waveform replay
-```
+---
 
 #### HLS (High-Level Synthesis) for Custom DSP Blocks
+
+**Illustrative code only:** no synthesis, timing closure, fixed-point overflow or RF integration validation is claimed. Pragma placement and attainable initiation interval depend on the target toolchain.
 
 Write C/C++ code; synthesize to FPGA logic:
 
@@ -1819,6 +1444,7 @@ void fir_filter(
     const sample_t coeffs[64],      // 64-tap filter
     int N_taps
 ) {
+    if (N_taps < 1 || N_taps > 64) return; // illustrative bound; no synthesis validation
     #pragma HLS PIPELINE II=1       // Process one sample per clock cycle
     #pragma HLS INTERFACE axis port=in
     #pragma HLS INTERFACE axis port=out
@@ -1850,189 +1476,43 @@ void fir_filter(
 
 #### What is Cognitive Radio?
 
-Cognitive Radio (CR) is an SDR that **senses its RF environment** and **autonomously adapts** its operating parameters to optimize performance while avoiding interference.
-
-The cognitive cycle:
-```
-┌─────────────────────────────────────────────────────┐
-│                 COGNITIVE CYCLE                      │
-│                                                      │
-│  ┌──────────┐    ┌──────────┐    ┌──────────────┐  │
-│  │   SENSE   │───▶│ ANALYZE  │───▶│    DECIDE    │  │
-│  │ RF environ│    │ spectrum │    │ adapt params │  │
-│  │           │◀───│ activity │◀───│              │  │
-│  └──────────┘    └──────────┘    └──────────────┘  │
-│                                          │           │
-│                                          ▼           │
-│                                   ┌──────────┐      │
-│                                   │   ACT    │      │
-│                                   │ change   │      │
-│                                   │ freq/mod │      │
-│                                   │ power    │      │
-│                                   └──────────┘      │
-└─────────────────────────────────────────────────────┘
-```
-
-Adaptable parameters: frequency, bandwidth, modulation, power level, spreading code, antenna beam, protocol.
+A conceptual adaptive radio senses, analyzes and changes configured parameters.
+Sensing a quiet band is not proof that a primary user is absent, nor operating
+authority for a secondary transmission. A regulator-approved mechanism and
+deployment-specific constraints remain necessary.
 
 #### Spectrum Sensing
 
-The core cognitive radio capability - detecting whether a frequency band is occupied:
+Energy detection reports a measurement relative to a defined scale and threshold.
+Without calibration, normalized SDR sample power is not dBm. A broad-band
+threshold does not identify a transmitter or prove the absence of weak,
+intermittent or hidden users.
 
-```python
-import numpy as np
-from scipy.signal import welch
-from rtlsdr import RtlSdr
-
-class SpectrumSensor:
-    def __init__(self, device_index=0, sample_rate=2.4e6):
-        self.sdr = RtlSdr(device_index)
-        self.sdr.sample_rate = sample_rate
-        self.sdr.gain = 40
-        self.sample_rate = sample_rate
-    
-    def energy_detection(self, freq, n_samples=256*1024, 
-                          threshold_db=-60):
-        """Simple energy detection - occupied if power > threshold"""
-        self.sdr.center_freq = freq
-        samples = self.sdr.read_samples(n_samples)
-        
-        power_db = 10 * np.log10(np.mean(np.abs(samples)**2))
-        occupied = power_db > threshold_db
-        return occupied, power_db
-    
-    def cyclostationary_detection(self, freq, n_samples=512*1024):
-        """
-        Cyclostationary feature detection - more reliable than energy
-        detection; exploits periodicity inherent in modulated signals.
-        """
-        self.sdr.center_freq = freq
-        samples = self.sdr.read_samples(n_samples)
-        
-        # Spectral correlation function
-        N = len(samples)
-        alpha_test = np.arange(-5, 5) / N * self.sample_rate
-        
-        features = {}
-        for alpha in alpha_test:
-            # Cyclic autocorrelation at cyclic frequency alpha
-            n = np.arange(N)
-            shifted = samples * np.exp(-2j * np.pi * alpha * n / self.sample_rate)
-            correlation = np.abs(np.correlate(samples, shifted[:N//2]))
-            features[alpha] = np.max(correlation)
-        
-        # Strong feature at non-zero alpha indicates modulated signal
-        max_feature = max(features.values())
-        return max_feature, features
-    
-    def scan_band(self, freq_start, freq_end, freq_step, threshold_db=-60):
-        """Scan a frequency band and report occupied channels"""
-        occupied_channels = []
-        
-        for freq in np.arange(freq_start, freq_end, freq_step):
-            occupied, power = self.energy_detection(freq, threshold_db=threshold_db)
-            if occupied:
-                occupied_channels.append((freq, power))
-                print(f"Occupied: {freq/1e6:.3f} MHz ({power:.1f} dBm)")
-        
-        return occupied_channels
-    
-    def close(self):
-        self.sdr.close()
-```
+The former "cyclostationary" correlation code was not a validated spectral
+correlation estimator. Use a published estimator with synthetic positive/negative
+controls before making a detection claim.
 
 #### Dynamic Spectrum Access (DSA)
 
-Cognitive radio enables secondary users to opportunistically use spectrum when primary users are absent:
-
-```python
-class DynamicSpectrumAccessRadio:
-    def __init__(self, candidate_frequencies, primary_user_threshold_db=-70):
-        self.candidates = candidate_frequencies
-        self.threshold = primary_user_threshold_db
-        self.sensor = SpectrumSensor()
-        self.current_freq = None
-        self.channel_history = {f: [] for f in candidate_frequencies}
-    
-    def find_available_channel(self):
-        """Return first unoccupied channel from candidate list"""
-        for freq in self.candidates:
-            occupied, power = self.sensor.energy_detection(freq, 
-                threshold_db=self.threshold)
-            self.channel_history[freq].append(power)
-            
-            if not occupied:
-                return freq, power
-        
-        return None, None  # No channel available
-    
-    def adaptive_frequency_hop(self, data_to_send):
-        """
-        Continuously monitor current channel; hop if primary user appears.
-        """
-        while True:
-            # Check current channel
-            if self.current_freq:
-                occupied, power = self.sensor.energy_detection(
-                    self.current_freq, threshold_db=self.threshold)
-                
-                if occupied:
-                    print(f"Primary user detected on {self.current_freq/1e6:.3f} MHz, "
-                          f"power={power:.1f} dBm - vacating")
-                    self.current_freq = None
-            
-            # Find new channel if needed
-            if self.current_freq is None:
-                new_freq, power = self.find_available_channel()
-                if new_freq:
-                    self.current_freq = new_freq
-                    print(f"Hopped to {new_freq/1e6:.3f} MHz")
-                    # Transmit data on new_freq
-                    self.transmit(data_to_send, new_freq)
-    
-    def transmit(self, data, frequency):
-        """Placeholder for actual transmission"""
-        pass  # Implement with GNU Radio/HackRF for authorized operation
-```
+Evaluate spectrum-access policy offline first. Detection probabilities, false
+alarms, sensing gaps and channel-occupancy history must be assessed independently.
+The previous endless-loop transmitter placeholder was not an operational DSA
+implementation and has been removed.
 
 #### Adaptive Modulation and Coding (AMC)
 
-Select modulation order and coding rate based on measured channel quality:
-
-```python
-def select_modulation(snr_db):
-    """
-    Select modulation scheme based on measured SNR.
-    Returns (modulation, code_rate, bits_per_symbol, threshold).
-    """
-    AMC_TABLE = [
-        # (min_snr_db, modulation, code_rate, spectral_efficiency)
-        (25,  'QAM-256', '5/6', 6.67),
-        (20,  'QAM-64',  '3/4', 4.50),
-        (15,  'QAM-16',  '1/2', 2.00),
-        (10,  'QPSK',    '3/4', 1.50),
-        (5,   'QPSK',    '1/2', 1.00),
-        (-5,  'BPSK',    '1/2', 0.50),
-        (-99, 'BPSK',    '1/3', 0.33),  # Minimum viable
-    ]
-    
-    for min_snr, modulation, code_rate, efficiency in AMC_TABLE:
-        if snr_db >= min_snr:
-            return modulation, code_rate, efficiency
-    
-    return 'BPSK', '1/3', 0.33
-
-def measure_snr(received_samples, noise_floor_db):
-    """Estimate SNR from received IQ samples"""
-    signal_power_db = 10 * np.log10(np.mean(np.abs(received_samples)**2))
-    return signal_power_db - noise_floor_db
-```
+Modulation/coding thresholds depend on channel, receiver and target error rate;
+there is no universal SNR lookup table. A difference between total received power
+and a noise estimate is not automatically signal-only SNR. Calibrate the estimator
+and validate error-rate behavior for the actual link.
 
 ---
 
 ## Appendix A: Frequency Reference
 
 ### Frequency Allocations by Band
+
+This is a regional orientation table, not operating authority or a complete channel plan. Use the [maintained frequency reference](target_frequencies_protocols.md) and current regulator/product information for the actual region.
 
 | Frequency | Band | Common Uses |
 |-----------|------|------------|
@@ -2041,17 +1521,18 @@ def measure_snr(received_samples, noise_floor_db):
 | 3.5–4.0 MHz | 80m amateur | Amateur HF; regional comms |
 | 7.0–7.3 MHz | 40m amateur | Amateur HF; international |
 | 14.0–14.35 MHz | 20m amateur | Most active amateur HF band |
-| 26–28 MHz | CB / 10m | CB radio; amateur 10m |
+| 26.965–27.405 MHz | US CB channel centers | Region-specific channel/service rules |
+| 28.0–29.7 MHz | 10m amateur | Amateur allocation; privileges vary |
 | 29.7–50 MHz | VHF low | Land mobile; some broadcast |
 | 88–108 MHz | FM broadcast | Commercial FM radio |
 | 108–137 MHz | VHF air | Aviation navigation (VOR/ILS) |
 | 118–136 MHz | VHF air voice | Aviation voice (AM) |
-| 136–138 MHz | VHF Met | NOAA/Meteor weather satellites |
+| 136–138 MHz | Historical / mission-specific satellite examples | Verify active mission and downlink; legacy NOAA APT satellites are retired |
 | 144–148 MHz | 2m amateur | Most active VHF amateur band; APRS 144.390 |
 | 156–174 MHz | VHF marine/land | Marine VHF (Ch. 16: 156.800); public safety |
 | 222–225 MHz | 1.25m amateur | Less common amateur VHF |
 | 433.050–434.790 MHz | ISM (EU/ROW) | Consumer devices; FSK sensors |
-| 420–450 MHz | 70cm amateur + UHF | Amateur UHF; GMRS; FRS |
+| 420–450 MHz | US 70cm amateur | GMRS/FRS use other channel assignments, not this amateur range |
 | 450–512 MHz | UHF business | LMR public safety and commercial |
 | 902–928 MHz | ISM (US) | US consumer devices; LoRa |
 | 960–1215 MHz | UHF aeronautical | DME; TACAN |
@@ -2108,57 +1589,21 @@ def measure_snr(received_samples, noise_floor_db):
 
 ### Installation Script (Ubuntu/Debian)
 
-```bash
-#!/bin/bash
-# SDR software stack installation
+Use the version-matched upstream installation guidance and distribution packages.
+A single script cannot guarantee compatible GNU Radio, drivers, out-of-tree
+modules and Python environments across releases. The previous installer mixed
+unverified package names, global pip installation and incomplete source builds.
 
-set -e
+| Component | Primary Installation Reference |
+|---|---|
+| GNU Radio | [Official installation guidance](https://wiki.gnuradio.org/index.php/InstallingGR) |
+| HackRF | [Official host software](https://hackrf.readthedocs.io/en/latest/installing_hackrf_software.html) |
+| rtl_433 | [Upstream build instructions](https://github.com/merbanan/rtl_433/blob/master/docs/BUILDING.md) |
+| gr-satellites | [Upstream project](https://github.com/daniestevez/gr-satellites) |
+| SatDump | [Official documentation](https://docs.satdump.org/) |
 
-echo "[*] Installing SDR software stack..."
-
-# RTL-SDR support
-sudo apt install -y rtl-sdr librtlsdr-dev
-
-# GNU Radio
-sudo apt install -y gnuradio gnuradio-dev gr-osmosdr
-
-# Decoders
-sudo apt install -y dump1090-fa direwolf rtl-433
-
-# gr-satellites
-pip3 install gnuradio-satellites
-
-# HackRF
-sudo apt install -y hackrf libhackrf-dev
-
-# Airspy
-sudo apt install -y airspy libairspy-dev
-
-# SatDump
-sudo apt install -y libairspy-dev libsdrplay-dev
-git clone https://github.com/SatDump/SatDump.git
-cd SatDump && mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4
-sudo make install
-
-# Universal Radio Hacker
-pip3 install urh
-
-# PySDR library
-pip3 install pyrtlsdr scipy matplotlib numpy
-
-# Gqrx
-sudo apt install -y gqrx-sdr
-
-# SDR-Trunk (Java)
-sudo apt install -y default-jre
-echo "[*] Download SDR-Trunk from: https://github.com/DSheirer/sdrtrunk/releases"
-
-# Add user to plugdev group for USB access
-sudo usermod -aG plugdev $USER
-
-echo "[*] Installation complete. Log out and back in for USB permissions to take effect."
-```
+Record versions, use a suitable isolated environment and verify device permissions
+against the installed package rather than assuming a group change is always needed.
 
 ---
 
@@ -2195,7 +1640,7 @@ echo "[*] Installation complete. Log out and back in for USB permissions to take
 
 ---
 
-*Document maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. For corrections or contributions, submit a PR to the repository. Amateur radio callsign references and RF transmission examples assume appropriate licensing - obtain your amateur radio license (Technician class and above) for legal transmit privileges.*
+*Document maintained as part of the ULTIMATE-CYBERSECURITY-MASTER-GUIDE. Source and visual review: November 17, 2026. No RF hardware, isolation, reception or transmission procedure was reproduced in this review. Operating authority depends on the actual equipment, band, mode and jurisdiction.*
 
 ---
 

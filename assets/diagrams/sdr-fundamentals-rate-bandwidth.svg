@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc">
+<title id="title">Sample rate is a budget, not a quality guarantee</title>
+<desc id="desc">A complex sample rate Fs gives a nominal interval from negative Fs over two to positive Fs over two. Analog and digital filter transitions leave less usable span. Filtering must precede rate reduction.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="580" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Sample rate is a budget, not a quality guarantee</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual complex-IQ span • not a measured filter response</text>
+<rect x="40" y="143" width="1120" height="255" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="177" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Nominal IQ interval and retained signal</text>
+<rect x="160" y="240" width="880" height="70" fill="#e0ebf1"/>
+<rect x="420" y="240" width="360" height="70" fill="#a6cbdc"/>
+<text x="168" y="287" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">edge margin</text>
+<text x="450" y="283" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Retained channel</text>
+<text x="870" y="287" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">edge margin</text>
+<text x="146" y="348" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">−Fs/2</text>
+<text x="584" y="348" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">0</text>
+<text x="1008" y="348" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">+Fs/2</text>
+<rect x="40" y="465" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="495" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Keep channel + filter transition inside the usable span; suppress aliasing before decimation.</text>
+<text x="58" y="524" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Nominal data rate = complex samples/s × bytes/complex sample; record the actual type and layout.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc">
+<title id="title">A complex sample carries two coordinates</title>
+<desc id="desc">I is horizontal and Q vertical. The point has magnitude sqrt(I squared plus Q squared) and phase atan2(Q,I). Successive phase changes describe frequency offset.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="580" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">A complex sample carries two coordinates</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Synthetic phasor • not a captured constellation or calibrated amplitude</text>
+<path d="M90 330H540M290 425V140" stroke="#7595aa" stroke-width="2"/>
+<text x="544" y="335" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#16354b">I</text>
+<text x="281" y="132" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#16354b">Q</text>
+<path d="M290 330L460 205" stroke="#337b98" stroke-width="5" marker-end="url(#arrow)"/>
+<path d="M460 205V330H290" stroke="#c19b40" stroke-width="2" stroke-dasharray="7 6" fill="none"/>
+<text x="470" y="202" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">I + jQ</text>
+<rect x="650" y="145" width="510" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="668" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Interpret with the right convention</text>
+<text x="668" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Magnitude: √(I² + Q²)</text>
+<text x="668" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Phase: atan2(Q, I)</text>
+<text x="668" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Frequency: phase change / time</text>
+<text x="668" y="305" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">I/Q sign and order affect orientation</text>
+<rect x="40" y="465" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="495" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Use atan2, not a simple ratio arctangent, to retain quadrant information.</text>
+<text x="58" y="524" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A DC spike can be a hardware artifact; it is not automatically the desired carrier or a tuning error.</text>
+</svg>
