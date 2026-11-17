@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Respond through verified, controlled infrastructure</title>
+<desc id="desc">Preserve evidence and confirm the scope, select controlled containment with the network owner, remediate confirmed in-scope access, and validate recovery while monitoring for recurrence. Removing a device alone does not prove endpoint or credential safety.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Respond through verified, controlled infrastructure</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual incident workflow • no live containment actions</text>
+<rect x="40" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Preserve + confirm</text>
+<text x="58" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Record trigger and scope</text>
+<text x="58" y="260" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Check topology and impact</text>
+<path d="M298 260 L319 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="330" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Contain</text>
+<text x="348" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Owner-approved controls</text>
+<text x="348" y="260" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Verify actual attachment</text>
+<path d="M588 260 L609 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="620" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Remediate</text>
+<text x="638" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Confirmed access only</text>
+<text x="638" y="260" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Review exposed access</text>
+<path d="M878 260 L899 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="910" y="158" width="250" height="210" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Recover + monitor</text>
+<text x="928" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Validate service health</text>
+<text x="928" y="260" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Watch for recurrence</text>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Do not select a switch port from a single transient MAC/IP mapping or assume WIPS means safe RF blocking.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Keep evidence, decisions, impact and validation results together in the incident timeline.</text>
+</svg>
