@@ -159,6 +159,15 @@ Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docuc
 | [DocuColor grid](./diagrams/xerox-docucolor-grid.svg) | Original synthetic grid and minute-decoding example based on EFF's format. |
 | [Evidence workflow](./diagrams/xerox-docucolor-evidence-flow.svg) | Original conceptual preservation, observation, decoding, and corroboration workflow. |
 
+## OSINT Source Verification Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [source verification preservation vs claim](./diagrams/source-verification-preservation-vs-claim.svg) | [Guide](../OSINT/bellingcat-source-verification.md) |
+| [source verification provenance independence](./diagrams/source-verification-provenance-independence.svg) | [Guide](../OSINT/bellingcat-source-verification.md) |
+
 ## GCP Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.

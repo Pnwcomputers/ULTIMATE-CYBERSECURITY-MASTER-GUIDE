@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Preserving an item and verifying a claim are different</title>
+<desc id="desc">Preserve the exact acquired bytes with retrieval context and a hash. Analyze a working copy, test the source and content, and report a bounded claim. Integrity of the preserved bytes is separate from authenticity and accuracy.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Preserving an item and verifying a claim are different</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual evidence workflow • fictional case • no online evidence collected</text>
+<rect x="40" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Acquire context</text>
+<text x="58" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">URL + retrieval time</text>
+<text x="58" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Acquisition method</text>
+<path d="M298 267 L319 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="330" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Preserve original</text>
+<text x="348" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Exact bytes + hash</text>
+<text x="348" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Access / custody record</text>
+<path d="M588 267 L609 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="620" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Verify working copy</text>
+<text x="638" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Source + content checks</text>
+<text x="638" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Alternative accounts</text>
+<path d="M878 267 L899 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="910" y="160" width="250" height="216" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Report claim</text>
+<text x="928" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Evidence and inference</text>
+<text x="928" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Limits and reviewer</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A matching file hash supports unchanged bytes; it does not prove the depicted event, author, date, or location.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Keep acquisition, publication, archive-capture, and claimed event times distinct.</text>
+</svg>
