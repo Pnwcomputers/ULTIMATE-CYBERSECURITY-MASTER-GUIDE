@@ -31,9 +31,17 @@ This was **reverse engineering of a hidden encoding**, not a demonstrated crypto
 | Decode | Publish a readable interpretation for the studied DocuColor format. |
 | Evaluate | Consider what the metadata reveals and what still requires corroboration. |
 
+![User-supplied illustration of a sheet with enlarged yellow dots under blue-purple illumination](../../assets/printerdots.jpg)
+
+*Figure 1 — User-supplied visual introduction. Treat this as an illustration, not an authenticated microscope capture or a decoded sample. Dot size, color, and lighting do not establish a printer model or identity.*
+
 The 2005 announcement explicitly limited the decoded format to DocuColor. It was not a universal decoder for every Xerox copier or every manufacturer's printer. [1]
 
 ## The Published Dot Format
+
+![User-supplied overview of machine identification codes, a dot grid, magnification, and decoding](../../assets/printerdotsbasic%20breakdown.jpg)
+
+*Figure 2 — User-supplied overview, retained as a conceptual aid. Its filled grid, field arrows, and magnification label are not a decoding template. Use the column table and Figure 3 for the documented layout. Blue light and ultraviolet (UV) are different; EFF describes blue illumination making yellow dots appear dark. [2]*
 
 EFF documented a repeated **15-column × 8-row** grid, more visible with magnification or blue illumination. In EFF's orientation, the top row supplies column parity; the left column supplies row parity. Columns and non-top rows use odd parity. The seven data rows have weights **64, 32, 16, 8, 4, 2, 1** from top to bottom. [2]
 
@@ -53,11 +61,19 @@ The serial may have six or eight digits; the printer clock can be inaccurate or 
 
 ## Worked Example: Decode & Check Separately
 
+![Synthetic 15-column by 8-row DocuColor grid with parity and column labels; minute dots at weights 32, 16, and 2 sum to 50](../../assets/diagrams/xerox-docucolor-grid.svg)
+
+*Figure 3 — Original teaching diagram based on EFF's format. Filled circles represent present dots; small gray marks identify absent positions. The pattern is synthetic and is not extracted from Figures 1 or 2. [2]*
+
 **Synthetic teaching example, not an observed print:** if minute-column data dots occupy weights 32, 16, and 2, their sum is 50. Three data dots already satisfy odd parity, so that column needs no additional parity dot. A transcription with only weights 32 and 16 has two dots; a missing or unread parity dot must be investigated before accepting the value.
 
 Parity checks consistency, not provenance. A valid codeword does not prove that a page is genuine, that its clock was correct, or that a named person operated the printer. Those are separate evidentiary questions. A successful decode should therefore report both the interpreted fields and the assumptions used to obtain them.
 
 ## Controlled Observation Exercise
+
+![Preserve original evidence, observe complete patterns, decode matching fields and parity, then corroborate against independent records](../../assets/diagrams/xerox-docucolor-evidence-flow.svg)
+
+*Figure 4 — Original conceptual workflow. Decoding supports a finding only within the limits of the sample and corroborating evidence.*
 
 This suggested workflow uses your own non-sensitive test pages. It is an evidence-handling exercise, not a claim of compatibility with an untested printer.
 
@@ -81,6 +97,15 @@ EFF's response was to publish its findings and a decoding guide, bringing a prev
 | A machine is identified | Does not by itself identify the document's author or operator. |
 
 **Assessment lessons:** include printed output in a data-flow review; protect collected pages and serial numbers as potentially identifying evidence; corroborate attribution with independent records. Keep output-format decoding distinct from [network or firmware compromise](../../HardwareHacking/README.md). This assessment does not establish a current inventory of affected products or a guaranteed method of producing anonymous documents.
+
+## Image Provenance & Further Viewing
+
+| Visual | Provenance and limits |
+|---|---|
+| Figures 1–2 | Supplied by the repository owner for this case study; original creator and capture conditions not independently verified. |
+| Figures 3–4 | Original static vector diagrams authored for this guide; teaching aids, not laboratory results. |
+| [EFF microscope image under blue light](https://w2.eff.org/Privacy/printers/docucolor/docucolor4.jpg) | External reference for comparison; see EFF's guide for capture conditions and context. |
+| [EFF annotated decoding image](https://w2.eff.org/Privacy/printers/docucolor/guide.png) | External reference for the published layout; credit EFF and its named research team. |
 
 ## Primary Sources
 
