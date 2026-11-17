@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 17, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1609
-- **Files Modified**: 2659
-- **New Files**: 991
+- **Commits Analyzed**: 1610
+- **Files Modified**: 2668
+- **New Files**: 1003
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -1350,6 +1350,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: illustrate remaining case studies and standardize section README (#235) (`357b2db`)
 - docs: illustrate Xerox MIC case study with supplied images and decoding diagrams (#234) (`be9c28d`)
 - docs: cross-link CAD & 3D Printing guide from related sections (#226) (`95b44c9`)
 - docs(CAD): OpenSCAD design & prototyping guide, GPS cradle tutorial and shortcut cheat sheet (#225) (`6799e6d`)
@@ -1633,15 +1634,32 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
+- `CaseStudies/README.md`
+- `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
+- `CaseStudies/hardware/eucleak-yubikey-2024.md`
+- `CaseStudies/hardware/onity-locks-2012.md`
+- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
+- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
+- `ENHANCED_MASTER_GUIDE.md`
 - `assets/README.md`
+- `assets/diagrams/carbanak-intrusion-to-financial-fraud.svg`
+- `assets/diagrams/directv-dss-authorization-boundary.svg`
+- `assets/diagrams/eternalblue-vulnerability-exploit-payload.svg`
+- `assets/diagrams/eucleak-intended-output-vs-em-leakage.svg`
+- `assets/diagrams/notpetya-parallel-propagation-paths.svg`
+- `assets/diagrams/onity-maintenance-trust-boundary.svg`
+- `assets/diagrams/snowden-prism-vs-upstream.svg`
+- `assets/diagrams/solarwinds-update-trust-and-follow-on.svg`
+- `assets/diagrams/stuxnet-it-to-physical-process.svg`
+- `assets/diagrams/tesla-dst40-cloning-vs-relay.svg`
+- `assets/diagrams/unsaflok-system-trust-chain.svg`
+- `assets/diagrams/wannacry-worm-and-ransomware.svg`
+- `CHANGELOG.md`
+- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
 - `assets/diagrams/xerox-docucolor-evidence-flow.svg`
 - `assets/diagrams/xerox-docucolor-grid.svg`
 - `assets/printerdots.jpg`
 - `assets/printerdotsbasic breakdown.jpg`
-- `CHANGELOG.md`
-- `CaseStudies/README.md`
-- `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
 - `DOCUMENTATION_INDEX.md`
 - `HardwareHacking/README.md`
 - `README.md`
@@ -1699,7 +1717,6 @@
 - `START_HERE.md`
 - `.github/workflows/publish-wiki.yml`
 - `assets/cyberdeckandgear.png`
-- `ENHANCED_MASTER_GUIDE.md`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
@@ -1751,10 +1768,6 @@
 - `firmware-hardware-compatibility.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
-- `CaseStudies/hardware/eucleak-yubikey-2024.md`
-- `CaseStudies/hardware/onity-locks-2012.md`
-- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
-- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
 - `Cryptography/security-keys-passkeys.md`
 - `Documentation/CANARY-DETECTION-VALIDATOR.md`
 - `Documentation/LAB-VERIFICATION-MATRIX.md`
