@@ -46,6 +46,15 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
 
+## OPSEC Workstation Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [opsec vm network choices](./diagrams/opsec-vm-network-choices.svg) | [Guide](../OPSEC/OPSEC_guide.md) |
+| [opsec malware lab boundaries](./diagrams/opsec-malware-lab-boundaries.svg) | [Guide](../OPSEC/OPSEC_guide.md) |
+
 ## Docker Operations Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
