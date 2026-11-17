@@ -51,6 +51,16 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
 | [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
 
+## Kubernetes Security Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [kubernetes security control boundaries](./diagrams/kubernetes-security-control-boundaries.svg) | [Guide](../ContainerSecurity/kubernetes.md) |
+| [kubernetes security secret lifecycle](./diagrams/kubernetes-security-secret-lifecycle.svg) | [Guide](../ContainerSecurity/kubernetes.md) |
+| [kubernetes security network policy directions](./diagrams/kubernetes-security-network-policy-directions.svg) | [Guide](../ContainerSecurity/kubernetes.md) |
+
 For an auditable record of the visual coverage review and remaining improvements, see [Visual Audit — 2026-11-02](./VISUAL-AUDIT-2026-11-02.md).
 
 ## Already Embedded In Hardware Chapters
