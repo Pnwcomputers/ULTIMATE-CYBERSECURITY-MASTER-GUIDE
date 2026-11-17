@@ -43,15 +43,19 @@ mapped to AWS-native controls and the CIS AWS Benchmark.
 
 ## Identity & Access Management
 
-IAM is the heart of AWS security. Key concepts:
+![Request context and applicable policy types lead to a per-request authorization decision](../assets/diagrams/aws-request-policy-evaluation.svg)
 
-- **Users / Groups** - long-lived identities; access keys are a common leak/risk.
+*Figure 1 — Based on [AWS policy evaluation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html). Original conceptual review model, not an exhaustive decision tree.*
+
+Review the principal, request context and all applicable policy types. Key concepts:
+
+- **Users / Groups** - users can have credentials; groups organize user permissions and are not principals that can sign in or assume roles.
 - **Roles** - assumable identities with temporary credentials (preferred over keys).
 - **Policies** - JSON permission documents; `"Action": "*"` / `"Resource": "*"` and
   `iam:*` are red flags.
 - **STS** - issues temporary credentials via `AssumeRole`.
 
-The most common IAM problems: over-broad policies, long-lived access keys, no MFA,
+Common IAM problems: over-broad policies, long-lived access keys, no MFA,
 unused privileged roles, and policies that allow a principal to **escalate** (edit
 policies, create keys, or pass a privileged role).
 
@@ -59,9 +63,13 @@ policies, create keys, or pass a privileged role).
 
 ## S3 Storage Exposure
 
+![Access controls, stored-data protection and selected logging address separate S3 risks](../assets/diagrams/aws-s3-independent-controls.svg)
+
+*Figure 2 — Original conceptual control map. See [S3 Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) and [CloudTrail data events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html).*
+
 - **Public buckets/objects** - the classic breach; check bucket policy, ACLs, and
   the account-level **Block Public Access** setting.
-- **Test (authorized):** `aws s3 ls s3://BUCKET` / `aws s3api get-bucket-policy`.
+- **Review (authorized):** `aws s3 ls s3://BUCKET` uses the caller's credentials by default; success does not prove public access, and bucket listing differs from object reading. Evaluate bucket/access-point policy, Object Ownership, applicable Block Public Access settings, and intended principals.
 - **Defend:** enable Block Public Access account-wide; use bucket policies over
   ACLs (disable ACLs); enable default encryption and versioning; log access.
 
@@ -69,12 +77,14 @@ policies, create keys, or pass a privileged role).
 
 ## Instance Metadata (IMDS) & Credential Theft
 
-An EC2 instance's role credentials are reachable at the metadata endpoint
-`169.254.169.254`. An **SSRF** in an app on the instance can steal them.
+![IMDSv2 session token acquisition precedes token-bearing metadata requests; AWS role credentials are a separate artifact](../assets/diagrams/aws-imdsv2-token-boundary.svg)
 
-- **IMDSv1** (request/response) is exploitable via simple SSRF.
-- **IMDSv2** (session/token, `PUT` then `GET`) mitigates most SSRF and should be
-  **required**.
+*Figure 3 — Original conceptual exchange based on [EC2 metadata documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html). No tokens or credentials were collected.*
+
+When an EC2 instance has an IAM role attached, IMDS can provide its temporary role credentials. The IPv4 endpoint is `169.254.169.254`; availability and access depend on instance metadata options. SSRF may expose metadata if the application's request capabilities and environment allow it.
+
+- **IMDSv1** uses request/response without the IMDSv2 session token; compatible SSRF can expose its metadata.
+- **IMDSv2** uses a session token (`PUT` then token-bearing `GET`). Require it where supported, but do not treat it as a universal SSRF fix. Patch the application and scope role permissions too.
 
 ```bash
 # On an instance (authorized) - IMDSv2 flow
@@ -92,8 +102,9 @@ scope instance-role permissions tightly.
 ## Enumeration & Assessment
 
 ```bash
-# Who am I / what can this identity do
+# Identify the caller; this does not enumerate effective permissions
 aws sts get-caller-identity
+# For an actual IAM user only: one subset of its policies
 aws iam list-attached-user-policies --user-name NAME
 
 # Configuration assessment (CIS / best practice)
@@ -110,35 +121,34 @@ scout aws                         # https://github.com/nccgroup/ScoutSuite
 
 ## Privilege Escalation Paths
 
-Rhino Security Labs catalogued ~20 IAM privesc primitives. Common ones:
+Potential privilege-escalation paths depend on resource scope, policy conditions, trust relationships, applicable limits, and additional service permissions. Examples to review:
 
-- `iam:CreatePolicyVersion` / `iam:SetDefaultPolicyVersion` - rewrite a policy you're attached to.
-- `iam:AttachUserPolicy` / `AttachRolePolicy` - attach `AdministratorAccess`.
+- `iam:CreatePolicyVersion` / `iam:SetDefaultPolicyVersion` - create or select a permissive version of a managed policy that affects a principal, if the relevant resource/action is allowed.
+- `iam:AttachUserPolicy` / `AttachRolePolicy` - potentially attach a more permissive managed policy, subject to allowed targets and constraints.
 - `iam:CreateAccessKey` - mint keys for a more privileged user.
 - `iam:PassRole` + a compute service (`lambda:CreateFunction`, `ec2:RunInstances`) -
-  pass a privileged role to a resource you control.
+  potentially pass a privileged role to a resource. Service execution permissions and the role's trust policy also matter; `iam:PassRole` alone is not sufficient.
 
-**Test:** enumerate the current principal's permissions (Pacu's `iam__privesc_scan`)
-and look for these primitives. **Defend:** deny these actions except for break-glass
-admins; use permission boundaries and SCPs.
+**Assess:** collect identity, resource, trust, session and organization policy evidence for specific candidate actions; a scanner's permission enumeration may be incomplete. **Defend:** restrict privileged actions and `PassRole` to justified targets/conditions. Use boundaries and organization controls where applicable without assuming they grant permissions or cover every principal identically.
 
 ---
 
 ## Hardening & Detection
 
-- **Logging:** enable **CloudTrail** (all regions, log-file validation) and centralize;
-  enable Config for resource history.
+- **Logging:** configure multi-Region **CloudTrail** coverage, log-file validation and protected centralized storage; select required data events explicitly. S3 object-level activity is not logged by default merely by creating a trail. Enable appropriate Config recording for resource history.
 - **Threat detection:** **GuardDuty** (anomaly/threat detection), **Security Hub**
   (aggregated findings + CIS score).
 - **IAM:** enforce MFA, rotate/eliminate long-lived keys, least privilege, use
   **IAM Access Analyzer** to find external/over-broad access; apply **SCPs** at the org.
-- **Data:** default encryption (KMS), Block Public Access, versioning.
+- **Data:** verify encryption choice and key policy (SSE-S3 and SSE-KMS differ), public-access controls and recovery/versioning requirements; encryption does not replace authorization.
 - **Network:** least-privilege security groups; no management ports to `0.0.0.0/0`.
 - Benchmark against the [CIS AWS Foundations Benchmark](https://www.cisecurity.org/benchmark/amazon_web_services).
 
 ---
 
 ## 📚 Resources
+
+**Source and visual review:** November 17, 2026. Three original conceptual diagrams; no AWS API calls, account assessment, scanner execution or exploit reproduction performed. Tool versions and deployment-specific policy behavior require separate validation.
 
 - [AWS Penetration Testing Policy](https://aws.amazon.com/security/penetration-testing/) - what is allowed without prior approval
 - [AWS Well-Architected - Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)

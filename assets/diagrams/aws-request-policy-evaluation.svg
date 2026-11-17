@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">AWS authorization depends on the request and its policies</title>
+<desc id="desc">Request context determines which identity, resource, session and organization policies apply. Policies can grant or constrain permissions. A user-policy list alone is not effective-permission analysis.</desc>
+<rect width="1200" height="540" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">AWS authorization depends on the request and its policies</text>
+<text x="40" y="90" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual architecture • no AWS account or deployed configuration tested</text>
+<rect x="40" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Request context</text>
+<text x="58" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Principal / session</text>
+<text x="58" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Action and resource</text>
+<text x="58" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Conditions and account scope</text>
+<rect x="430" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Applicable policy types</text>
+<text x="448" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Identity / resource grants</text>
+<text x="448" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Boundaries / session limits</text>
+<text x="448" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Organization controls</text>
+<rect x="820" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Evaluation result</text>
+<text x="838" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Apply AWS evaluation rules</text>
+<text x="838" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Account for explicit denies</text>
+<text x="838" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Allow or deny this request</text>
+<rect x="40" y="430" width="1120" height="80" rx="12" fill="#e0ebf1"/>
+<text x="58" y="460" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">These are review stages, not one universal intersection formula for all policy combinations.</text>
+<text x="58" y="488" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">An SCP or permissions boundary does not itself grant an identity permission.</text>
+</svg>

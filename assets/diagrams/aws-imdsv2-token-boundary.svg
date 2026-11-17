@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">IMDSv2 adds a token exchange at the instance boundary</title>
+<desc id="desc">A local instance client requests an IMDSv2 session token, then supplies it with metadata requests. Instance-role credentials are distinct from this token. This protection does not replace application security or least privilege.</desc>
+<rect width="1200" height="540" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">IMDSv2 adds a token exchange at the instance boundary</text>
+<text x="40" y="90" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual architecture • no AWS account or deployed configuration tested</text>
+<rect x="40" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">1 · Instance client</text>
+<text x="58" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Requests session token</text>
+<text x="58" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">HTTP PUT to IMDS</text>
+<text x="58" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Configured token lifetime</text>
+<rect x="430" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">2 · Metadata request</text>
+<text x="448" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">GET with token header</text>
+<text x="448" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Session scoped to instance</text>
+<text x="448" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Metadata options apply</text>
+<rect x="820" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">3 · Role context</text>
+<text x="838" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Only if a role is attached</text>
+<text x="838" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Temporary role credentials</text>
+<text x="838" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Permissions still matter</text>
+<rect x="40" y="430" width="1120" height="80" rx="12" fill="#e0ebf1"/>
+<text x="58" y="460" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">The IMDSv2 session token is not an AWS STS credential. Token-required mode blocks IMDSv1 requests.</text>
+<text x="58" y="488" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">SSRF impact depends on request capabilities, metadata configuration, and the application's environment.</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">S3: access, encryption, and evidence solve different problems</title>
+<desc id="desc">S3 access controls govern requests. Encryption protects stored data according to its key configuration. Logging records selected activity. These controls are complementary, not substitutes.</desc>
+<rect width="1200" height="540" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">S3: access, encryption, and evidence solve different problems</text>
+<text x="40" y="90" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual architecture • no AWS account or deployed configuration tested</text>
+<rect x="40" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Access controls</text>
+<text x="58" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Policies / Object Ownership</text>
+<text x="58" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Block Public Access</text>
+<text x="58" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Applicable access points</text>
+<rect x="430" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Stored-data protection</text>
+<text x="448" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Encryption configuration</text>
+<text x="448" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">KMS policy when used</text>
+<text x="448" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Version / recovery planning</text>
+<rect x="820" y="150" width="340" height="225" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="188" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Visibility</text>
+<text x="838" y="230" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Management activity</text>
+<text x="838" y="262" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Selected object data events</text>
+<text x="838" y="294" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Retention and investigation</text>
+<rect x="40" y="430" width="1120" height="80" rx="12" fill="#e0ebf1"/>
+<text x="58" y="460" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Encrypted objects can still be exposed by an access policy. Encryption is not an authorization decision.</text>
+<text x="58" y="488" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A normal authenticated bucket listing does not test anonymous object access or prove public exposure.</text>
+</svg>

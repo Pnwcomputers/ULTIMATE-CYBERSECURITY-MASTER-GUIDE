@@ -64,6 +64,16 @@ For an auditable record of the visual coverage review and remaining improvements
 | [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
 
+## AWS Security Guide Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [aws request policy evaluation](./diagrams/aws-request-policy-evaluation.svg) | [Guide](../Cloud/aws.md) |
+| [aws s3 independent controls](./diagrams/aws-s3-independent-controls.svg) | [Guide](../Cloud/aws.md) |
+| [aws imdsv2 token boundary](./diagrams/aws-imdsv2-token-boundary.svg) | [Guide](../Cloud/aws.md) |
+
 ## Xerox DocuColor Case Study Visuals
 
 Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docucolor-machine-identification-code.md).
