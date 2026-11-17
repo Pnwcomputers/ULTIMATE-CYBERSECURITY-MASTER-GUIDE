@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">IAM review includes inherited and local policy</title>
+<desc id="desc">Organization, folder, project and resource policies form a hierarchy. Effective allow permissions include inherited and local grants; conditions and deny policies also affect evaluation. A project policy listing alone does not show every effective permission.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">IAM review includes inherited and local policy</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual hierarchy • not an effective-access result for an organization</text>
+<rect x="40" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Organization</text>
+<text x="58" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Organization policy</text>
+<text x="58" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Grants to principals</text>
+<path d="M298 267 L319 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="330" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Folder</text>
+<text x="348" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Inherited allow grants</text>
+<text x="348" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Plus local grants</text>
+<path d="M588 267 L609 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="620" y="160" width="250" height="216" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Project</text>
+<text x="638" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Inherited allow grants</text>
+<text x="638" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Plus local grants</text>
+<path d="M878 267 L899 267" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="910" y="160" width="250" height="216" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="194" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Resource</text>
+<text x="928" y="233" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Inherited allow grants</text>
+<text x="928" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Local resource grants</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Review the relevant ancestor and resource policies; broad roles at a parent can affect many descendants.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A role binding is evidence of a grant, not a complete verdict about every request or service.</text>
+</svg>
