@@ -222,6 +222,17 @@ Original conceptual figures; source links and evidence limits appear in the guid
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.
 
+## rtl_433 Telemetry Lab Visuals
+
+Two original conceptual figures embedded in the [receive-only telemetry lab](../SDR/rtl433-passive-telemetry-lab.md).
+
+| Diagram | Purpose |
+|---|---|
+| [Decoder to collector](./diagrams/rtl433-decoder-to-collector.svg) | Separate native decoder output, normalization and collector validation. |
+| [Alert evidence limits](./diagrams/rtl433-alert-evidence-limits.svg) | Investigate benign alternatives and corroborate anomalies. |
+
+These illustrate a proposed lab; no live sensor data or deployed detection results are claimed.
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">Decoded events still need normalization and provenance</title>
+<desc id="desc">Compatible RF input reaches a decoder, whose varying output is mapped to a normalized lab event before ingestion. Synthetic fixtures can enter normalization without any RF receiver.</desc>
+<rect width="1200" height="520" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Decoded events still need normalization and provenance</text>
+<text x="40" y="90" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual lab architecture • no received data or deployed collector is implied</text>
+<rect x="40" y="150" width="250" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="184" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Receive / file input</text>
+<text x="58" y="225" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Known capture settings</text>
+<text x="58" y="255" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Or a saved test file</text>
+<path d="M298 248 h20 l-7 -7 m7 7 l-7 7" stroke="#337b98" fill="none" stroke-width="3"/>
+<rect x="330" y="150" width="250" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="184" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Decoder output</text>
+<text x="348" y="225" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Protocol-specific fields</text>
+<text x="348" y="255" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">JSON is not one schema</text>
+<path d="M588 248 h20 l-7 -7 m7 7 l-7 7" stroke="#337b98" fill="none" stroke-width="3"/>
+<rect x="620" y="150" width="250" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="184" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Normalize</text>
+<text x="638" y="225" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Units, aliases, time</text>
+<text x="638" y="255" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Preserve provenance</text>
+<path d="M878 248 h20 l-7 -7 m7 7 l-7 7" stroke="#337b98" fill="none" stroke-width="3"/>
+<rect x="910" y="150" width="250" height="195" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="928" y="184" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Lab collector</text>
+<text x="928" y="225" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Check event contract</text>
+<text x="928" y="255" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Reject / flag bad input</text>
+<rect x="40" y="390" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="421" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Synthetic normalized events exercise parsing and rules; they do not validate RF reception or decoder accuracy.</text>
+<text x="58" y="450" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Keep native output distinct from the lab schema. No native confidence field or authenticated sender is assumed.</text>
+</svg>
