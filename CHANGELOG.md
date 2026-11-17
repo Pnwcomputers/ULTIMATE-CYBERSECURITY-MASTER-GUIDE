@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 17, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1611
-- **Files Modified**: 2671
-- **New Files**: 1007
+- **Commits Analyzed**: 1638
+- **Files Modified**: 2726
+- **New Files**: 1086
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -511,6 +511,29 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: illustrate security-key recovery and correct protocol assumptions (#258) (`d3c67d0`)
+- docs: illustrate OPSEC lab boundaries and correct isolation claims (#259) (`ef245be`)
+- docs: illustrate framework evidence reuse and correct scope assumptions (#260) (`3f59157`)
+- docs: illustrate applied cryptography and correct authentication and key-lifecycle guidance (#261) (`666026d`)
+- docs: illustrate log ingestion and correct collection and transport guidance (#262) (`b617a19`)
+- docs: illustrate OSINT investigation and correct tool and evidence guidance (#263) (`94ba8d1`)
+- docs: illustrate agent security boundaries and correct evaluation guarantees (#265) (`27c5300`)
+- docs: illustrate YARA-X rule validation and correct result interpretation (#266) (`ed54076`)
+- docs: illustrate phishing response and correct containment and submission guidance (#264) (`342532f`)
+- docs: illustrate intrusion evidence and correct containment assumptions (#252) (`04abc35`)
+- docs: illustrate cryptographic roles and correct algorithm guidance (#254) (`18b5669`)
+- docs: illustrate storage recovery and correct protection-state assumptions (#255) (`58d1b30`)
+- docs: illustrate Docker operation boundaries and correct lifecycle guidance (#256) (`f0df774`)
+- docs: illustrate Argus setup and correct repository and environment guidance (#257) (`b5d39dc`)
+- docs: illustrate rtl_433 telemetry and correct synthetic evidence claims (#241) (`6d40771`)
+- docs: illustrate AWS controls and correct permission assumptions (#242) (`82db2c1`)
+- docs: illustrate HackRF observations and correct integrated guide references (#243) (`38716b1`)
+- docs: illustrate Azure roles, scopes, logging and correct access claims (#246) (`200fdcb`)
+- docs: illustrate SDR fundamentals and correct receiver examples (#247) (`0f54ba4`)
+- docs: illustrate GCP identity routes and correct access and logging claims (#248) (`d14309c`)
+- docs: illustrate container trust boundaries and correct runtime guarantees (#249) (`205fd79`)
+- docs: illustrate Kubernetes controls and correct policy assumptions (#250) (`c4229df`)
+- docs: illustrate Sub-GHz analysis and correct RF guidance (#239) (`3f216c9`)
 - Fix formatting issues in README.md (`b2c0e79`)
 - Fix wording in PNWC Cyberdeck project description (`2adfcdf`)
 - docs: expand existing Bash Bunny, USB Rubber Ducky & WiFi Pineapple workflows; fix duplicate sections (#199) (`e2ff4eb`)
@@ -1351,6 +1374,10 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: illustrate supply-chain evidence and clarify signature checks (#251) (`d4c381c`)
+- docs: illustrate source provenance and clarify OSINT evidence limits (#253) (`f858832`)
+- docs: illustrate ScubaGear assessment and finding decisions (#244) (`0b19630`)
+- docs: illustrate advanced SDR and replace invalid research sketches (#245) (`28dc4d6`)
 - docs: illustrate remaining case studies and standardize section README (#235) (`357b2db`)
 - docs: illustrate Xerox MIC case study with supplied images and decoding diagrams (#234) (`be9c28d`)
 - docs: cross-link CAD & 3D Printing guide from related sections (#226) (`95b44c9`)
@@ -1635,13 +1662,119 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `SDR/rfid.md`
+- `Cryptography/security-keys-passkeys.md`
 - `assets/README.md`
+- `assets/diagrams/security-key-protocol-boundaries.svg`
+- `assets/diagrams/security-key-recovery-paths.svg`
+- `OPSEC/OPSEC_guide.md`
+- `assets/diagrams/opsec-malware-lab-boundaries.svg`
+- `assets/diagrams/opsec-vm-network-choices.svg`
+- `Compliance/frameworks.md`
+- `assets/diagrams/frameworks-evidence-reuse.svg`
+- `Cryptography/applied-crypto.md`
+- `assets/diagrams/applied-crypto-authentication-records.svg`
+- `assets/diagrams/applied-crypto-envelope-rotation.svg`
+- `assets/diagrams/applied-crypto-presence-verification.svg`
+- `assets/diagrams/applied-crypto-tls-boundaries.svg`
+- `IncidentResponse/log_agg.md`
+- `assets/diagrams/log-aggregation-end-to-end-validation.svg`
+- `assets/diagrams/log-aggregation-pipeline-contracts.svg`
+- `assets/diagrams/log-aggregation-time-provenance.svg`
+- `assets/diagrams/log-aggregation-transport-controls.svg`
+- `OSINT/OSINT_GUIDE.md`
+- `assets/diagrams/osint-investigation-cycle.svg`
+- `assets/diagrams/osint-investigation-evidence-handling.svg`
+- `assets/diagrams/osint-investigation-identity-evidence.svg`
+- `assets/diagrams/osint-investigation-request-scope.svg`
+- `AI/agent-threat-modeling-and-security.md`
+- `assets/diagrams/agent-security-action-gate.svg`
+- `assets/diagrams/agent-security-evaluation-evidence.svg`
+- `assets/diagrams/agent-security-trust-boundaries.svg`
+- `ReverseEngineering/yara-x-rule-lab.md`
+- `assets/diagrams/yara-rule-detection-interpretation.svg`
+- `assets/diagrams/yara-rule-lifecycle.svg`
+- `PlayBooks/sop_phishing_analysis.md`
+- `assets/diagrams/phishing-response-control-boundaries.svg`
+- `assets/diagrams/phishing-response-triage.svg`
+- `ContainerSecurity/software-supply-chain-assessment.md`
+- `assets/diagrams/supply-chain-complementary-evidence.svg`
+- `assets/diagrams/supply-chain-subject-binding.svg`
+- `IncidentResponse/network_intrusion.md`
+- `assets/diagrams/network-intrusion-containment-recovery.svg`
+- `assets/diagrams/network-intrusion-evidence-correlation.svg`
+- `assets/diagrams/network-intrusion-filter-vs-aggregation.svg`
+- `OSINT/bellingcat-source-verification.md`
+- `assets/diagrams/source-verification-preservation-vs-claim.svg`
+- `assets/diagrams/source-verification-provenance-independence.svg`
+- `Cryptography/algorithms.md`
+- `assets/diagrams/crypto-algorithms-aead-contract.svg`
+- `assets/diagrams/crypto-algorithms-pqc-roles.svg`
+- `assets/diagrams/crypto-algorithms-primitive-roles.svg`
+- `Cryptography/encrypted-storage.md`
+- `assets/diagrams/encrypted-storage-recovery-components.svg`
+- `assets/diagrams/encrypted-storage-status-questions.svg`
+- `ContainerSecurity/docker-cli-operations-reference.md`
+- `assets/diagrams/docker-operations-context-control.svg`
+- `assets/diagrams/docker-operations-data-lifetimes.svg`
+- `assets/diagrams/docker-operations-image-review.svg`
+- `OSINT/argus_osint.md`
+- `assets/diagrams/argus-osint-environment-selection.svg`
+- `assets/diagrams/argus-osint-module-scope.svg`
+- `SDR/rtl433-passive-telemetry-lab.md`
+- `assets/diagrams/rtl433-alert-evidence-limits.svg`
+- `assets/diagrams/rtl433-decoder-to-collector.svg`
+- `Cloud/aws.md`
+- `assets/diagrams/aws-imdsv2-token-boundary.svg`
+- `assets/diagrams/aws-request-policy-evaluation.svg`
+- `assets/diagrams/aws-s3-independent-controls.svg`
+- `SDR/hackrf.md`
+- `assets/diagrams/hackrf-guide-bench-observation.svg`
+- `assets/diagrams/hackrf-guide-evidence-ladder.svg`
+- `assets/diagrams/hackrf-guide-iq-representations.svg`
+- `assets/diagrams/hackrf-guide-passband-vs-span.svg`
+- `assets/diagrams/hackrf-guide-sweep-coverage.svg`
+- `Cloud/m365-scuba-assessment.md`
+- `assets/diagrams/scuba-configuration-assessment.svg`
+- `assets/diagrams/scuba-findings-to-controlled-change.svg`
+- `SDR/sdr_hacking.md`
+- `assets/diagrams/advanced-sdr-dsp-branching.svg`
+- `assets/diagrams/advanced-sdr-em-inference.svg`
+- `assets/diagrams/advanced-sdr-evidence-ladder.svg`
+- `assets/diagrams/advanced-sdr-lorawan-security-roles.svg`
+- `Cloud/azure.md`
+- `assets/diagrams/azure-security-logging-coverage.svg`
+- `assets/diagrams/azure-security-rbac-scope.svg`
+- `assets/diagrams/azure-security-role-planes.svg`
+- `SDR/sdr.md`
+- `assets/diagrams/sdr-fundamentals-evidence-ladder.svg`
+- `assets/diagrams/sdr-fundamentals-iq-coordinates.svg`
+- `assets/diagrams/sdr-fundamentals-rate-bandwidth.svg`
+- `assets/diagrams/sdr-fundamentals-receiver-boundaries.svg`
+- `assets/diagrams/sdr-fundamentals-receiver-rate-accounting.svg`
+- `Cloud/gcp.md`
+- `assets/diagrams/gcp-security-audit-coverage.svg`
+- `assets/diagrams/gcp-security-policy-inheritance.svg`
+- `assets/diagrams/gcp-security-service-account-routes.svg`
+- `ContainerSecurity/containers.md`
+- `assets/diagrams/container-security-image-runtime-host.svg`
+- `assets/diagrams/container-security-isolation-controls.svg`
+- `assets/diagrams/container-security-secrets-lifecycle.svg`
+- `ContainerSecurity/kubernetes.md`
+- `assets/diagrams/kubernetes-security-control-boundaries.svg`
+- `assets/diagrams/kubernetes-security-network-policy-directions.svg`
+- `assets/diagrams/kubernetes-security-secret-lifecycle.svg`
+- `SDR/subghz.md`
+- `assets/diagrams/subghz-capture-quality.svg`
+- `assets/diagrams/subghz-fixed-vs-stateful-validation.svg`
+- `assets/diagrams/subghz-frame-inference.svg`
+- `assets/diagrams/subghz-iq-to-evidence.svg`
+- `assets/diagrams/subghz-ook-vs-fsk.svg`
+- `CHANGELOG.md`
+- `SDR/rfid.md`
 - `assets/diagrams/nfc-passive-tag-coupling.svg`
 - `assets/diagrams/rfid-band-and-reader-map.svg`
 - `assets/diagrams/rfid-identification-authentication-authorization.svg`
 - `assets/diagrams/rfid-read-troubleshooting-evidence.svg`
-- `CHANGELOG.md`
 - `CaseStudies/README.md`
 - `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
 - `CaseStudies/hardware/eucleak-yubikey-2024.md`
@@ -1766,7 +1899,6 @@
 - `Documentation/evil_m5.md`
 - `Documentation/firmware-web-flashers.md`
 - `Documentation/microcontroller_wifi_testing.md`
-- `SDR/subghz.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
 - `Wardriving/esp32-marauder.md`
@@ -1774,7 +1906,6 @@
 - `firmware-hardware-compatibility.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `HardwareHacking/m5stickc-plus2-hackstarterpack.md`
-- `Cryptography/security-keys-passkeys.md`
 - `Documentation/CANARY-DETECTION-VALIDATOR.md`
 - `Documentation/LAB-VERIFICATION-MATRIX.md`
 - `Documentation/fixtures/lab-canary-cases.jsonl`
@@ -1859,7 +1990,6 @@
 - `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md`
 - `Documentation/references.md`
 - `Makefile`
-- `OSINT/OSINT_GUIDE.md`
 - `OSINT/Playbook/osint_investigator.sh`
 - `OSINT/Playbook/scripts/scammer_audit.sh`
 - `OSINT/scripts/Domain_IP_Recon.md`
@@ -1873,7 +2003,6 @@
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/agent-project-workflows.md`
 - `AI/agent-reliability-and-recovery.md`
-- `AI/agent-threat-modeling-and-security.md`
 - `AI/ai-evaluation-and-regression-testing.md`
 - `AI/ai-observability-and-auditing.md`
 - `AI/ai-security-operations-workflows.md`
@@ -1940,12 +2069,7 @@
 - `OSINT/OSINT_CHEATSHEET.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
-- `OSINT/bellingcat-source-verification.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `Cloud/azure.md`
-- `Cloud/m365-scuba-assessment.md`
-- `ContainerSecurity/containers.md`
-- `ContainerSecurity/software-supply-chain-assessment.md`
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
 - `Mobile/mvt-forensic-triage.md`
@@ -1953,18 +2077,13 @@
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
-- `ReverseEngineering/yara-x-rule-lab.md`
-- `SDR/rtl433-passive-telemetry-lab.md`
 - `WebAppSecurity/methodology.md`
 - `WebAppSecurity/owasp-assessment-and-nuclei.md`
-- `ContainerSecurity/docker-cli-operations-reference.md`
-- `ContainerSecurity/kubernetes.md`
 - `Documentation/TOR.md`
 - `Documentation/VPN.md`
 - `Documentation/curated-technical-docs.md`
 - `Documentation/python.md`
 - `Documentation/virtualmachines.md`
-- `OPSEC/OPSEC_guide.md`
 - `OPSEC/anonymity-layering.md`
 - `OPSEC/press-freedom/device-network-protection.md`
 - `OPSEC/proxy-reference-froxy.md`
@@ -1981,7 +2100,6 @@
 - `Documentation/vscode.md`
 - `Documentation/wireshark.md`
 - `LEGAL.md`
-- `OSINT/argus_osint.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `OSINT/scripts/Phone_OSINT.md`
 - `Tradecraft/active-directory.md`
@@ -2011,8 +2129,6 @@
 - `assets/diagrams/wardriving-collection-lifecycle.svg`
 - `assets/diagrams/webapp-assessment-cycle.svg`
 - `assets/diagrams/wireless-ids-correlation.svg`
-- `Cryptography/applied-crypto.md`
-- `Cryptography/encrypted-storage.md`
 - `Cryptography/solokeys-guide.md`
 - `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `OPSEC/press-freedom/data-retention-removal.md`
@@ -2089,7 +2205,6 @@
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
 - `Documentation/hcxtoolshashcat.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
-- `SDR/sdr.md`
 - `Wardriving/data-handling.md`
 - `Wardriving/field-workflow.md`
 - `Wardriving/sigroam-scout-lite.md`
@@ -2143,7 +2258,6 @@
 - `Cryptography/Classical/mary-queen-of-scots.md`
 - `Cryptography/Classical/alphabets.md`
 - `Cryptography/Classical/security.md`
-- `Cryptography/algorithms.md`
 - `Data-Engineering/Phase1/python_data_processing.md`
 - `Cryptography/Classical/build-your-own.md`
 - `Cryptography/Classical/cipher_toolkit.py`
@@ -2164,7 +2278,6 @@
 - `HardwareTesting/py/full_hw_suite.py`
 - `IncidentResponse/IDS&IPS/fail2ban.md`
 - `IncidentResponse/IDS&IPS/security-onion.md`
-- `SDR/hackrf.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
 - `installer.sh`
@@ -2211,16 +2324,11 @@
 - `IncidentResponse/IDS_IPS/nzymewids.md`
 - `Mobile/UserLAnd/alpinelinux.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
-- `Compliance/frameworks.md`
 - `Compliance/regulations.md`
-- `Cloud/aws.md`
-- `Cloud/gcp.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
-- `SDR/sdr_hacking.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/network-detection.md`
-- `IncidentResponse/log_agg.md`
 - `HardwareHacking/LA1010.md`
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
@@ -2259,7 +2367,6 @@
 - `Scripts/Python/ssh_brute.py`
 - `Checklists/Command&Control.md`
 - `Checklists/Lateral-Movement.md`
-- `PlayBooks/sop_phishing_analysis.md`
 - `Scripts/Python/vuln_scanner.py`
 - `Checklists/Android-Applications-Checklist.md`
 - `Mobile/OnePlus_A3006/Kali_NetHunter.md`
@@ -2278,7 +2385,6 @@
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
-- `IncidentResponse/network_intrusion.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
 - `AI/AnythingLLM/flow-domain_recon.md`
