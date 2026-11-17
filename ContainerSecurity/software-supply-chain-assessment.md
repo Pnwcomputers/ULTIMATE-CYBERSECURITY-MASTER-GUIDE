@@ -1,6 +1,6 @@
 # Software Supply-Chain Assessment and SBOM Workflow
 
-_Last reviewed: 2026-11-02 (upstream reference review; no artifacts scanned)_
+_Last reviewed: 2026-11-17 (upstream and visual review; no artifacts scanned)_
 
 **Prerequisites:** [Container security](containers.md) · [Docker diagnostics](docker-cli-operations-reference.md) · [Script index](../Scripts/README.md).
 
@@ -19,13 +19,17 @@ These checks complement one another. A Scorecard result is not a security certif
 
 ## Inspect-first engagement workflow
 
-1. Define source, repo commit, image digest, registry, scope, owner and asset criticality. Confirm permitted scanning.
+![Repository practices, artifact contents and release-origin verification are complementary evidence sources](../assets/diagrams/supply-chain-complementary-evidence.svg)
+
+*Figure 1 — Original conceptual map. [Scorecard](https://github.com/ossf/scorecard) evaluates repository practices; [Syft](https://github.com/anchore/syft) inventories supported software; [Cosign](https://docs.sigstore.dev/cosign/verifying/verify/) verifies signatures under configured trust expectations. These are separate assessment questions.*
+
+1. Define source, repo commit, image digest, target platform, registry, scope, owner and asset criticality. Confirm permitted scanning.
 2. Pin and record tool releases, vulnerability database timestamps, data-handling policies and any required API credentials.
 3. Assess repository security hygiene with Scorecard using documented read-only privileges.
 4. Generate an SBOM from a **pinned, approved** artifact using Syft; prefer standard CycloneDX or SPDX format and hash the result.
 5. Evaluate dependency issues using OSV-Scanner and/or Trivy with supported source formats; document advisory IDs, affected versions, false positives and available mitigations.
 6. Run secrets detection against only authorized repository history. Store candidate secrets confidentially; do not paste into a public issue. Coordinate rotation of confirmed exposed credentials.
-7. Verify build provenance and signatures with Cosign when applicable; compare signer identity and attestation policy to expected release origin.
+7. Verify signatures and, separately, relevant attestations when applicable. Bind the artifact digest to the expected signing identity/key and issuer, then evaluate attestation content under policy; successful signature verification alone does not validate every provenance claim.
 8. Deduplicate, risk-rank, assign remediation and retest through [client findings](../PlayBooks/assessment-findings-lifecycle.md).
 
 ## Safe read-only local version queries
@@ -42,11 +46,17 @@ These fail normally if tools are not installed. No packages or CI workflows were
 
 ## Controls and deliverables
 
-Produce a source/digest inventory, SBOM hash and format, vulnerability status, verified secret exposure status (never the secret value), signing policy outcomes, remediation owner and retest date. Recheck lockfile and build metadata; SBOMs and advisories can be incomplete.
+![Record a precise assessment subject, retain versioned results and gaps, then decide and retest against that subject](../assets/diagrams/supply-chain-subject-binding.svg)
+
+*Figure 2 — Original evidence-management workflow for this guide. It is not a deployed CI pipeline or a software-safety certificate. A new build or changed dependency inventory can require a new assessment.*
+
+Produce a source/digest inventory, SBOM hash and format, vulnerability status, verified secret exposure status (never the secret value), signing policy outcomes, remediation owner and retest date. Recheck lockfile and build metadata; SBOMs and advisories can be incomplete. Keep failed and skipped checks visible; do not convert a lack of matches into proof of safety. Hashing an SBOM protects its identity for comparison, not its completeness.
 
 ## Sources
 
-[Syft](https://github.com/anchore/syft) · [OSV-Scanner](https://github.com/google/osv-scanner) · [OpenSSF Scorecard](https://github.com/ossf/scorecard) · [Trivy](https://github.com/aquasecurity/trivy) · [Gitleaks](https://github.com/gitleaks/gitleaks) · [Cosign](https://github.com/sigstore/cosign). Verify license terms before copying code: OpenSSF, Syft, OSV-Scanner, Trivy and Cosign are Apache-2.0 projects; Gitleaks uses MIT.
+[Syft](https://github.com/anchore/syft) · [OSV-Scanner](https://github.com/google/osv-scanner) · [OpenSSF Scorecard](https://github.com/ossf/scorecard) · [Trivy](https://github.com/aquasecurity/trivy) · [Gitleaks](https://github.com/gitleaks/gitleaks) · [Cosign](https://github.com/sigstore/cosign). Verify the license and notices for the exact project revision and any copied files before reuse.
+
+**Visual provenance:** Both figures are original static teaching diagrams with no measured scan or verification results. Existing version queries are illustrative; no tool was installed or invoked during this update.
 
 ---
 

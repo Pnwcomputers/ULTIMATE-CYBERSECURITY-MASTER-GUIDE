@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+<title id="title">Bind every result to the artifact actually reviewed</title>
+<desc id="desc">An assessment subject is recorded as a commit or artifact digest and platform. Each tool result retains this context and limitations; policy review determines the next action.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#16354b}</style>
+<rect width="1200" height="510" fill="#f4f7fa"/>
+<text x="40" y="54" font-size="32" font-weight="700">Bind every result to the artifact actually reviewed</text>
+<text x="40" y="90" font-size="19">Conceptual assessment model • no artifact scanned or signature verified</text>
+<rect x="40" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="183" font-size="23" font-weight="700">Identify the subject</text>
+<text x="58" y="228" font-size="20">Source commit / digest</text>
+<text x="58" y="260" font-size="20">Image platform and scope</text>
+<text x="58" y="292" font-size="20">Approved release context</text>
+<rect x="430" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="183" font-size="23" font-weight="700">Record each result</text>
+<text x="448" y="228" font-size="20">Tool / database versions</text>
+<text x="448" y="260" font-size="20">SBOM and result hashes</text>
+<text x="448" y="292" font-size="20">Failed / skipped checks</text>
+<rect x="820" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="183" font-size="23" font-weight="700">Make the decision</text>
+<text x="838" y="228" font-size="20">Evidence and applicability</text>
+<text x="838" y="260" font-size="20">Exception or remediation</text>
+<text x="838" y="292" font-size="20">Rebuild and retest scope</text>
+<rect x="40" y="411" width="1120" height="65" rx="12" fill="#e0ebf1"/>
+<text x="58" y="449" font-size="19">A matching digest identifies bytes; a verified signature establishes policy-specific origin, not harmless contents.</text>
+</svg>

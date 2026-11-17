@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+<title id="title">Supply-chain checks answer different questions</title>
+<desc id="desc">Repository practice evidence, artifact inventory and findings, and signature/provenance verification are distinct evidence sources. No single passing result establishes complete software security.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#16354b}</style>
+<rect width="1200" height="510" fill="#f4f7fa"/>
+<text x="40" y="54" font-size="32" font-weight="700">Supply-chain checks answer different questions</text>
+<text x="40" y="90" font-size="19">Conceptual assessment model • no artifact scanned or signature verified</text>
+<rect x="40" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="183" font-size="23" font-weight="700">Repository practices</text>
+<text x="58" y="228" font-size="20">Scorecard heuristics</text>
+<text x="58" y="260" font-size="20">Source-history secrets</text>
+<text x="58" y="292" font-size="20">Commit and permissions</text>
+<rect x="430" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="183" font-size="23" font-weight="700">Artifact contents</text>
+<text x="448" y="228" font-size="20">SBOM package inventory</text>
+<text x="448" y="260" font-size="20">Supported advisory matches</text>
+<text x="448" y="292" font-size="20">Digest and target platform</text>
+<rect x="820" y="145" width="340" height="215" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="183" font-size="23" font-weight="700">Release origin</text>
+<text x="838" y="228" font-size="20">Signature / attestation</text>
+<text x="838" y="260" font-size="20">Expected identity and issuer</text>
+<text x="838" y="292" font-size="20">Policy and artifact binding</text>
+<rect x="40" y="411" width="1120" height="65" rx="12" fill="#e0ebf1"/>
+<text x="58" y="449" font-size="19">Keep the subject, tool version, policy, coverage gaps and result time with each finding.</text>
+</svg>
