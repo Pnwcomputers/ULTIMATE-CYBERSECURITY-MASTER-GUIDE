@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="570" viewBox="0 0 1220 570" role="img" aria-labelledby="title desc">
+<title id="title">Encrypted, protected and locked are separate status questions</title>
+<desc id="desc">Encryption conversion status, protector status and lock state answer different questions. BitLocker suspension can leave data encrypted while making a clear-key path available. A percentage-encrypted field alone is not proof of offline protection.</desc>
+<rect width="1220" height="570" rx="20" fill="#0b1223"/>
+<text x="38" y="54" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#f8fafc">Encrypted, protected and locked are separate status questions</text>
+<text x="38" y="85" font-family="Arial,sans-serif" font-size="17" font-weight="400" fill="#a7b9d4">Conceptual assessment map • BitLocker example • not measured drive output</text>
+<rect x="40" y="132" width="340" height="270" rx="17" fill="#1c304d" stroke="#38bdf8" stroke-width="2"/>
+<text x="63" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#7dd3fc">1 · Conversion state</text>
+<text x="63" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">What data was converted?</text>
+<text x="63" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Which encryption method?</text>
+<text x="63" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Scope / percentage</text>
+<text x="63" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Not the whole assessment</text>
+<rect x="437" y="132" width="340" height="270" rx="17" fill="#443025" stroke="#f59e0b" stroke-width="2"/>
+<text x="460" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#fcd34d">2 · Protector state</text>
+<text x="460" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Which unlock paths exist?</text>
+<text x="460" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Is protection suspended?</text>
+<text x="460" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Where is recovery held?</text>
+<text x="460" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Review effective policy</text>
+<rect x="834" y="132" width="340" height="270" rx="17" fill="#1c304d" stroke="#38bdf8" stroke-width="2"/>
+<text x="857" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#7dd3fc">3 · Current access</text>
+<text x="857" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Locked or unlocked now?</text>
+<text x="857" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Auto-unlock / mounted state</text>
+<text x="857" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Host and application trust</text>
+<text x="857" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Record the test conditions</text>
+<text x="40" y="465" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">BitLocker suspension can retain ciphertext while weakening key protection.</text>
+<text x="40" y="506" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#a7b9d4">Review all relevant status fields and recovery paths; one label is not a protection guarantee.</text>
+</svg>
