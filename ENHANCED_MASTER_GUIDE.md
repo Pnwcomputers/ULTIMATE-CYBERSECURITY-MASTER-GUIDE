@@ -1049,6 +1049,10 @@ analyze_image("suspicious_image.jpg")
 
 ## Stuxnet Analysis
 
+![Windows propagation reaches an engineering host, then a matching PLC, where concealed code changes can affect physical equipment](./assets/diagrams/stuxnet-it-to-physical-process.svg)
+
+*Original conceptual mechanism summary based on [Symantec's W32.Stuxnet Dossier, version 1.4, pages 2–3 and 36 onward](https://nsarchive.gwu.edu/sites/default/files/documents/2700124/Document-44.pdf). Not every infected Windows host reached the industrial-payload stage. The dossier treats original target ingress as a possible scenario, not a proved USB-delivery account.*
+
 ### Overview
 **Target:** Iranian nuclear facilities (specifically Natanz)  
 **Year:** 2010 (discovered)  
@@ -1056,8 +1060,8 @@ analyze_image("suspicious_image.jpg")
 **Attribution:** US & Israel (alleged)
 
 ### Attack Vector
-1. **Initial Infection:** USB drive with malicious payload
-2. **Privilege Escalation:** Four zero-day exploits
+1. **Propagation:** Removable media and network mechanisms; original target ingress is not established by this summary
+2. **Exploitation:** Multiple Windows flaws supported propagation and privilege escalation
 3. **Lateral Movement:** Network propagation
 4. **Payload Delivery:** PLC (Programmable Logic Controller) manipulation
 
@@ -1065,7 +1069,7 @@ analyze_image("suspicious_image.jpg")
 
 ```
 Stuxnet Attack Chain:
-├── Zero-Day Exploits Used:
+├── Exploits Used (includes a previously patched flaw):
 │   ├── MS10-046 (Shell LNK vulnerability)
 │   ├── MS10-073 (Keyboard layout vulnerability)
 │   ├── MS10-061 (Print Spooler vulnerability)
@@ -1107,6 +1111,10 @@ Stuxnet Attack Chain:
 ---
 
 ## WannaCry Breakdown
+
+![A worm spreads through reachable vulnerable SMBv1 hosts, while its ransomware payload encrypts files locally](./assets/diagrams/wannacry-worm-and-ransomware.svg)
+
+*Original conceptual diagram based on [Microsoft's May 2017 analysis](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/). Read propagation and encryption as separate functions. The diagram omits variant-specific domain checks and does not establish the initial entry point of every outbreak.*
 
 ### Overview
 **Target:** Global ransomware attack  
@@ -1161,6 +1169,10 @@ netsh advfirewall set allprofiles state on
 ---
 
 ## EternalBlue Exploitation
+
+![The SMBv1 vulnerability, EternalBlue exploit, resulting code execution and chosen payload are distinct layers](./assets/diagrams/eternalblue-vulnerability-exploit-payload.svg)
+
+*Original conceptual diagram based on [Microsoft's MS17-010 bulletin](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010) and [WannaCry analysis](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/). The bulletin covers multiple flaws. EternalBlue is an exploit, not the ransomware itself; port reachability alone does not prove exploitability.*
 
 ### Vulnerability Details
 **CVE:** CVE-2017-0144  
@@ -1242,6 +1254,10 @@ check_ms17_010("192.168.1.100")
 ---
 
 ## SolarWinds Attack
+
+![A malicious Orion binary passes through legitimate signing and distribution; only selected environments receive follow-on attacker activity](./assets/diagrams/solarwinds-update-trust-and-follow-on.svg)
+
+*Original conceptual diagram based on [CISA's AA20-352A advisory](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a). Delivery, backdoor communications, and interactive follow-on activity require separate evidence. A valid signature does not demonstrate harmless code, and receiving an affected update does not establish the same outcome for every organization.*
 
 ### Overview
 **Target:** SolarWinds Orion platform  
@@ -1346,6 +1362,10 @@ netsh advfirewall firewall show rule name=all | findstr SolarWinds
 
 ## Carbanak APT Campaign
 
+![Spear-phishing establishes access, observation reveals bank workflows, and lateral movement can enable financial fraud](./assets/diagrams/carbanak-intrusion-to-financial-fraud.svg)
+
+*Original conceptual campaign summary based on [Kaspersky's 2015 investigation](https://securelist.com/the-great-bank-robbery-the-carbanak-apt/68732/). It connects technical intrusion with business-process abuse. Payment and ATM methods varied across cases; the boxes are not one measured timeline or a universal sequence.*
+
 ### Overview
 **Target:** Financial institutions worldwide  
 **Year:** 2013-2015 (primary activity)  
@@ -1443,6 +1463,10 @@ echo "[!] This is a simulation for educational purposes only"
 ---
 
 ## NotPetya Ransomware
+
+![A compromised update seeds infection; SMB exploitation and stolen-credential remote execution provide separate propagation routes](./assets/diagrams/notpetya-parallel-propagation-paths.svg)
+
+*Original conceptual diagram based on [Mandiant's June 2017 analysis](https://cloud.google.com/blog/topics/threat-intelligence/petya-ransomware-spreading-via-eternalblue-exploit/). The parallel paths matter: patching an SMB flaw does not remove a credential-based route. The figure summarizes destructive impact, not an executable attack or recovery procedure.*
 
 ### Overview
 **Target:** Ukraine (primary), Global (collateral)  
@@ -1585,6 +1609,10 @@ Set-SmbServerConfiguration -EnableSMB1Protocol $false
 
 ## Edward Snowden Revelations
 
+![Historical PRISM provider delivery and upstream backbone collection are separate acquisition pathways](./assets/diagrams/snowden-prism-vs-upstream.svg)
+
+*Original conceptual diagram of the [PCLOB's July 2014 report, printed pages 32–35](https://www.intelligence.gov/assets/documents/702-documents/702-Report-2_OCR.pdf). PRISM involved compelled provider delivery associated with tasked selectors, rather than unrestricted direct server access. This figure covers two historical pathways, not all disclosed programs or today's legal framework.*
+
 ### Overview
 **Source:** NSA contractor Edward Snowden  
 **Year:** June 2013  
@@ -1596,7 +1624,7 @@ Set-SmbServerConfiguration -EnableSMB1Protocol $false
 ```
 NSA Surveillance Programs:
 ├── PRISM
-│   ├── Direct access to tech company servers
+│   ├── Compelled provider delivery for tasked selectors
 │   ├── Companies: Google, Facebook, Microsoft, Apple, Yahoo
 │   └── Content collection: emails, chats, videos, photos
 ├── XKeyscore

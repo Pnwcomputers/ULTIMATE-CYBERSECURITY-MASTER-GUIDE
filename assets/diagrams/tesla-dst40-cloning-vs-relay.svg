@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">Tesla DST40 research: cloning is different from relaying</title>
+<desc id="desc">The historical DST40 authentication links a paired key fob and vehicle. Key recovery can enable impersonation, whereas a relay forwards live traffic to the genuine fob. These are separate mechanisms.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Tesla DST40 research: cloning is different from relaying</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">2018 Model S study • conceptual distinction • no radio capture or cloning procedure</text>
+<rect x="40" y="140" width="310" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="174" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Paired key fob</text>
+<text x="58" y="210" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Holds authentication secret</text>
+<rect x="445" y="140" width="310" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="463" y="174" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Radio authentication</text>
+<text x="463" y="210" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">DST40-based design</text>
+<rect x="850" y="140" width="310" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="868" y="174" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Vehicle verifier</text>
+<text x="868" y="210" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Accepts a valid response</text>
+<path d="M 362 214 L 433 214" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 767 214 L 838 214" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="40" y="338" width="535" height="142" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="58" y="372" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Cloning: recover a key</text>
+<text x="58" y="408" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Impersonate the fob using the recovered secret.</text>
+<text x="58" y="437" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">This is the mechanism in the 2018 case.</text>
+<rect x="625" y="338" width="535" height="142" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="643" y="372" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Relay: forward live exchanges</text>
+<text x="643" y="408" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Extend communication to the genuine fob.</text>
+<text x="643" y="437" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A separate threat; no key recovery is implied.</text>
+<rect x="40" y="510" width="1120" height="58" rx="12" fill="#e0ebf1"/>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Scope: the studied DST40 implementation; later DST80 research is a separate assessment.</text>
+</svg>

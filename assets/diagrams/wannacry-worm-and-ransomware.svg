@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">WannaCry: a worm carries a ransomware payload</title>
+<desc id="desc">WannaCry uses its worm component to spread to reachable vulnerable SMBv1 hosts, where infection can continue and ransomware encrypts files. Restricting exposure and fixing the vulnerability interrupt propagation; backup recovery addresses damage.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">WannaCry: a worm carries a ransomware payload</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">May 2017 outbreak • conceptual propagation • no exploit instructions</text>
+<rect x="40" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Infected host</text>
+<text x="58" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Worm component</text>
+<text x="58" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Searches for peers</text>
+<path d="M 298 260 L 319 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="330" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Reachable SMB</text>
+<text x="348" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Network path exists</text>
+<text x="348" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Vulnerable SMBv1 host</text>
+<path d="M 588 260 L 609 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="620" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Further infection</text>
+<text x="638" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Exploit-based spread</text>
+<text x="638" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Repeat across peers</text>
+<path d="M 878 260 L 899 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="910" y="158" width="250" height="208" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="928" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Local impact</text>
+<text x="928" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">File encryption</text>
+<text x="928" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Ransom demand</text>
+<rect x="40" y="420" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="449" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Propagation and encryption are distinct functions of the malware.</text>
+<text x="58" y="478" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Patch the SMB vulnerability and restrict network paths; recovery also requires usable backups.</text>
+</svg>

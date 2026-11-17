@@ -8,6 +8,11 @@ At Black Hat USA 2012, researcher Cody Brocious presented security problems in w
 
 Do not confuse the Onity research with the unrelated 2024 **Unsaflok** RFID/key-management disclosures. The attack prerequisites and vendor remediation paths differ.
 
+
+![An external servicing interface crosses into lock maintenance functions and the protected door-authorization decision](../../assets/diagrams/onity-maintenance-trust-boundary.svg)
+
+*Original conceptual diagram: physical proximity is not authorization. It shows the trust boundary, not connector details or a tested lock. Context: [2014 court opinion, factual allegations on PDF pages 2–3](https://www.govinfo.gov/content/pkg/USCOURTS-mnd-0_13-cv-02847/pdf/USCOURTS-mnd-0_13-cv-02847-0.pdf); this record is not an independent laboratory test.*
+
 ## Defensive Analysis
 
 | Architectural Area | Failure Mode | Protective Review |

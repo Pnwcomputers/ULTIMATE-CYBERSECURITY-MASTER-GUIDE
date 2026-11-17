@@ -8,6 +8,11 @@ In September 2018, KU Leuven/imec researchers published a demonstration against 
 
 An important technical distinction: subsequent Tesla key-fob revisions used **DST80**; researchers later analyzed those systems separately. A 2018 demonstration does **not** prove that current Tesla vehicles or all DST80 deployments share the exact issue.
 
+
+![Historical DST40 fob authentication compared with two distinct threats: key recovery for cloning and forwarding live traffic for relaying](../../assets/diagrams/tesla-dst40-cloning-vs-relay.svg)
+
+*Original conceptual diagram based on [imec/KU Leuven's 2018 announcement](https://www.imec-int.com/en/articles/security-flaws-in-passive-keyless-entry-and-start-systems). Cloning recovers a secret to impersonate the fob; relaying forwards live exchanges. These mechanisms and their mitigations differ. The figure does not describe every later Tesla system.*
+
 ## Defensive Implications
 
 | Risk | Architecture & Fleet Review |

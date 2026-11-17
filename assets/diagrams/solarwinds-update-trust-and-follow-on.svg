@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">SolarWinds: a trusted update can carry a backdoor</title>
+<desc id="desc">The attacker introduced a malicious Orion binary that was legitimately signed and distributed. Backdoor delivery to customers is distinct from selective interactive follow-on operations; investigation must establish each stage.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">SolarWinds: a trusted update can carry a backdoor</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">2020 Orion compromise • delivery and follow-on activity are separate findings</text>
+<rect x="40" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Software lifecycle</text>
+<text x="58" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Malicious binary inserted</text>
+<text x="58" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">SUNBURST backdoor</text>
+<path d="M 298 260 L 319 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="330" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Signed distribution</text>
+<text x="348" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Legitimate signing cert</text>
+<text x="348" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Compromised update</text>
+<path d="M 588 260 L 609 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="620" y="158" width="250" height="208" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Customer deployment</text>
+<text x="638" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Backdoored Orion</text>
+<text x="638" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Initial communications</text>
+<path d="M 878 260 L 899 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="910" y="158" width="250" height="208" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="928" y="192" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Selected follow-on</text>
+<text x="928" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Interactive activity</text>
+<text x="928" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Further investigation</text>
+<rect x="40" y="420" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="449" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Code signing authenticates a signing relationship; it does not certify that software is harmless.</text>
+<text x="58" y="478" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Receiving the backdoor does not establish that the actor conducted follow-on activity.</text>
+</svg>

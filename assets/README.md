@@ -75,6 +75,28 @@ Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docuc
 | [DocuColor grid](./diagrams/xerox-docucolor-grid.svg) | Original synthetic grid and minute-decoding example based on EFF's format. |
 | [Evidence workflow](./diagrams/xerox-docucolor-evidence-flow.svg) | Original conceptual preservation, observation, decoding, and corroboration workflow. |
 
+## Historical Case Study Diagrams
+
+These twelve original static vector diagrams explain mechanisms and evidence limits
+in the other case studies. They contain no measured traces or reproduced exploit
+results. Each figure has an accessible title and description; source links and
+provenance appear in its embedding caption.
+
+| Diagram | Embedded Analysis |
+|---|---|
+| [onity maintenance trust boundary](./diagrams/onity-maintenance-trust-boundary.svg) | [onity-locks-2012](../CaseStudies/hardware/onity-locks-2012.md) |
+| [unsaflok system trust chain](./diagrams/unsaflok-system-trust-chain.svg) | [unsaflok-3m-hotel-locks](../CaseStudies/hardware/unsaflok-3m-hotel-locks.md) |
+| [tesla dst40 cloning vs relay](./diagrams/tesla-dst40-cloning-vs-relay.svg) | [tesla-model-s-key-fob-2018](../CaseStudies/hardware/tesla-model-s-key-fob-2018.md) |
+| [eucleak intended output vs em leakage](./diagrams/eucleak-intended-output-vs-em-leakage.svg) | [eucleak-yubikey-2024](../CaseStudies/hardware/eucleak-yubikey-2024.md) |
+| [directv dss authorization boundary](./diagrams/directv-dss-authorization-boundary.svg) | [directv-dss-smart-card-black-sunday](../CaseStudies/hardware/directv-dss-smart-card-black-sunday.md) |
+| [Stuxnet Analysis](./diagrams/stuxnet-it-to-physical-process.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#stuxnet-analysis) |
+| [WannaCry Breakdown](./diagrams/wannacry-worm-and-ransomware.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#wannacry-breakdown) |
+| [EternalBlue Exploitation](./diagrams/eternalblue-vulnerability-exploit-payload.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#eternalblue-exploitation) |
+| [SolarWinds Attack](./diagrams/solarwinds-update-trust-and-follow-on.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#solarwinds-attack) |
+| [Carbanak APT Campaign](./diagrams/carbanak-intrusion-to-financial-fraud.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#carbanak-apt-campaign) |
+| [NotPetya Ransomware](./diagrams/notpetya-parallel-propagation-paths.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
+| [Edward Snowden Revelations](./diagrams/snowden-prism-vs-upstream.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
+
 ## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.

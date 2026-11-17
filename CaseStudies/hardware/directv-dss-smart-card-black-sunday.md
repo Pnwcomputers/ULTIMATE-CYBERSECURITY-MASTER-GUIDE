@@ -33,6 +33,11 @@ The historical system used a dish, integrated receiver/decoder (IRD), and microp
 
 In these records, **ECM means electronic countermeasure**. Do not silently substitute the separate conditional-access term *entitlement control message* simply because it has the same abbreviation.
 
+
+![A removable DSS access card controls receiver descrambling; an inset summarizes altered cards, Black Sunday and later counterdevices](../../assets/diagrams/directv-dss-authorization-boundary.svg)
+
+*Original conceptual diagram of the architecture and event sequence described in court records [1], [2]. The authorization module sits in a customer-controlled physical environment. The figure is not a circuit diagram or proof that a broadcast cipher was mathematically broken.*
+
 ## What Was Actually Broken?
 
 The supported finding is compromise of the **access-control implementation around programmable cards**, followed by operator countermeasures and circumvention devices. These sources do not establish a mathematical break of the broadcast encryption algorithm, nor one identical vulnerability across every card generation.
