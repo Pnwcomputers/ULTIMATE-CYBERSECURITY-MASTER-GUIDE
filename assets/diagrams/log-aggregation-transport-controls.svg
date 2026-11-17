@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Encryption, identity and delivery are separate controls</title>
+<desc id="desc">TLS encryption protects transport confidentiality. Peer authentication verifies a configured identity. Queue and retry design affect delivery behavior. None alone guarantees that message contents are true or that events are indexed.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Encryption, identity and delivery are separate controls</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual syslog transport review • not a complete TLS configuration</text>
+<rect x="40" y="155" width="340" height="245" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="56" y="189" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Encrypt the channel</text>
+<text x="56" y="227" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Intended TLS driver</text>
+<text x="56" y="257" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Configured cipher policy</text>
+<text x="56" y="287" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Keys and lifecycle</text>
+<rect x="430" y="155" width="340" height="245" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="446" y="189" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Authenticate the peer</text>
+<text x="446" y="227" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Trusted chain and name</text>
+<text x="446" y="257" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Permitted identities</text>
+<text x="446" y="287" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Test rejection behavior</text>
+<rect x="820" y="155" width="340" height="245" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="836" y="189" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Plan delivery failures</text>
+<text x="836" y="227" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Queues / capacity / retry</text>
+<text x="836" y="257" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Overflow and crash behavior</text>
+<text x="836" y="287" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Observe loss and backlog</text>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Anonymous TLS mode is not peer identity verification. A trusted relay can still forward incorrect fields.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">TCP and disk-assisted queues do not by themselves guarantee durable, exactly-once ingestion.</text>
+</svg>

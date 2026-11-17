@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Keep event time and collection time distinct</title>
+<desc id="desc">Source event time, collector observation time and indexing time can differ because of clock error, buffering and processing. Keep source timezone and clock evidence; preserve raw timestamps and record delay instead of overwriting all times with arrival time.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Keep event time and collection time distinct</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual chronology • synthetic labels • not a measured latency chart</text>
+<rect x="40" y="160" width="340" height="235" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="56" y="194" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Event time</text>
+<text x="56" y="232" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">What the source reports</text>
+<text x="56" y="262" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Timezone / clock drift</text>
+<text x="56" y="292" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Original timestamp</text>
+<rect x="430" y="160" width="340" height="235" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="446" y="194" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Collection time</text>
+<text x="446" y="232" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">When collector sees it</text>
+<text x="446" y="262" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Buffer / network delay</text>
+<text x="446" y="292" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Relay provenance</text>
+<rect x="820" y="160" width="340" height="235" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="836" y="194" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Searchable time</text>
+<text x="836" y="232" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">When storage exposes it</text>
+<text x="836" y="262" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Parsing / index delay</text>
+<text x="836" y="292" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Time-field selection</text>
+<path d="M392 275 L418 275" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M782 275 L808 275" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Clock synchronization helps, but does not prove clocks agree or that timestamps were interpreted correctly.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Choose query windows and correlation tolerances from observed delay and known time uncertainty.</text>
+</svg>

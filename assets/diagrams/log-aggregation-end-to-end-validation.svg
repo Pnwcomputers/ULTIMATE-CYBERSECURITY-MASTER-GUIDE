@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Prove the path with a unique synthetic marker</title>
+<desc id="desc">Verify a synthetic marker at source generation, collector receipt, parsing and searchable storage, then test the intended detection behavior. A listening socket, one logtest result or a fixed sleep is not an end-to-end assertion.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Prove the path with a unique synthetic marker</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual verification sequence • no test messages sent or rules executed</text>
+<rect x="40" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="56" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Generate</text>
+<text x="56" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Unique non-secret marker</text>
+<text x="56" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Known source and time</text>
+<path d="M298 260 L319 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="330" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="346" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Collect</text>
+<text x="346" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Receipt and identity</text>
+<text x="346" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Check duplicates / delay</text>
+<path d="M588 260 L609 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="620" y="158" width="250" height="210" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="636" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Parse + store</text>
+<text x="636" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Required fields / time</text>
+<text x="636" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Find exact marker</text>
+<path d="M878 260 L899 260" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="910" y="158" width="250" height="210" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="926" y="192" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Evaluate</text>
+<text x="926" y="230" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Positive / negative cases</text>
+<text x="926" y="260" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Rule and alert path</text>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A successful parser/rule unit test does not prove that the real collector or index received the event.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Test planned interruptions and recovery separately; keep every stage’s observation in the result.</text>
+</svg>
