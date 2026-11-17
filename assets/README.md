@@ -129,6 +129,16 @@ provenance appear in its embedding caption.
 | [NotPetya Ransomware](./diagrams/notpetya-parallel-propagation-paths.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
 | [Edward Snowden Revelations](./diagrams/snowden-prism-vs-upstream.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
 
+## Azure And Entra Security Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [azure security rbac scope](./diagrams/azure-security-rbac-scope.svg) | [Guide](../Cloud/azure.md) |
+| [azure security logging coverage](./diagrams/azure-security-logging-coverage.svg) | [Guide](../Cloud/azure.md) |
+| [azure security role planes](./diagrams/azure-security-role-planes.svg) | [Guide](../Cloud/azure.md) |
+
 ## RFID & NFC Guide Visuals
 
 Original conceptual diagrams embedded in the [RFID & NFC guide](../SDR/rfid.md).

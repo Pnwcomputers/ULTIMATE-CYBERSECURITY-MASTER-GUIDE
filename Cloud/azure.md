@@ -9,6 +9,8 @@
 
 **M365 companion:** [CISA ScubaGear + SCuBA assessment](m365-scuba-assessment.md) covers consent, baseline deviations and retesting; Microsoft 365/Entra tenant assessments differ from Azure subscription checks.
 
+**Source and visual review:** November 17, 2026. Original conceptual diagrams and documentation review only; no tenant enumeration, policy changes, or log export was performed.
+
 ## 🎯 Purpose
 Microsoft Azure and **Entra ID** (formerly Azure AD) security reference - the
 identity model, the recurring attack paths, assessment tooling, and hardening.
@@ -42,72 +44,103 @@ mapped to Microsoft-native controls and the CIS Microsoft Azure Benchmark.
 
 ## Entra ID vs Azure RBAC
 
-Azure has **two distinct permission planes** - a frequent source of confusion and
-misconfiguration:
+Microsoft Entra roles govern directory administration; Azure RBAC governs Azure
+resource access. A principal may be powerful in one system and limited in the
+other. [Microsoft's role comparison](https://learn.microsoft.com/en-us/azure/role-based-access-control/rbac-and-directory-admin-roles).
 
-- **Entra ID (formerly Azure AD)** - the identity provider: users, groups, service
-  principals, app registrations, and **directory roles** (e.g. Global Administrator).
-- **Azure RBAC** - permissions over **resources** (subscriptions, resource groups)
-  via roles like Owner/Contributor.
+![Entra directory roles and scoped Azure resource roles are separate permission systems](../assets/diagrams/azure-security-role-planes.svg)
 
-A principal can be powerful in one plane and not the other; **User Access
-Administrator** and **Owner** can grant themselves more, and the Entra **Global
-Administrator** can elevate to Azure RBAC via the "access management for Azure
-resources" toggle - a classic escalation bridge between the planes.
+*Figure 1 — Original conceptual model based on Microsoft's role comparison. It does not describe the effective permissions of an assessed tenant.*
+
+A Global Administrator does not automatically become subscription Owner. The
+documented elevation mechanism assigns **User Access Administrator at root scope
+(`/`)** to the elevating user. Review and remove that elevation when its task is
+complete; deactivating a PIM Global Administrator assignment does not itself reset
+the elevation setting. [Microsoft elevation guidance](https://learn.microsoft.com/en-us/azure/role-based-access-control/elevate-access-global-admin).
+
+Owner and access-administration roles can assign Azure roles within their
+effective scope, subject to applicable restrictions. Do not read “can grant
+access” as unlimited authority over unrelated tenants or scopes.
+
+### Review Azure RBAC Scope
+
+![Management group, subscription, resource group and resource scopes form an inheritance hierarchy](../assets/diagrams/azure-security-rbac-scope.svg)
+
+*Figure 2 — Original hierarchy schematic based on [Azure RBAC scope](https://learn.microsoft.com/en-us/azure/role-based-access-control/scope-overview). The highlighted assignment is fictional, not a tenant finding.*
+
+Record the principal, role definition and assignment scope. Inspect inherited
+assignments, conditions, deny assignments, and eligible versus currently active
+access. Separate control-plane `Actions` from data-plane `DataActions`; a
+management role does not directly describe every data permission or indirect
+access path. [Role definitions](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-definitions).
 
 ---
 
 ## Common Identity Attacks
 
-- **Illicit consent grant** - a malicious/over-scoped app tricks users into
-  consenting to OAuth permissions (e.g. `Mail.Read`), granting persistent access
-  without a password.
-- **Over-privileged app registrations / service principals** - apps with excessive
-  Microsoft Graph permissions or credentials that outlive their need.
-- **Directory role abuse** - standing Global Admin / Privileged Role Admin without PIM.
-- **Legacy authentication** - protocols that bypass modern MFA/Conditional Access.
-- **Device/PRT and token theft** - reuse of primary refresh tokens.
+- **Illicit consent grants:** A user or administrator may approve inappropriate app permissions. Delegated and application permissions have different consent and access models; a grant does not automatically confer every user's data. Review grants and app credentials as well as user sessions. [Microsoft guidance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-illicit-consent-grants).
+- **Over-privileged applications:** Review Microsoft Graph permissions, app-role assignments, ownership and credential lifetime. App registration presence alone does not establish exposure.
+- **Directory role abuse:** Reduce unnecessary standing privilege and validate activation controls. PIM is a control to configure and monitor, not automatic protection.
+- **Legacy authentication:** These clients do not support modern MFA/device signals; Conditional Access can block them. They do not universally bypass Conditional Access. [Blocking legacy clients](https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-block-legacy-authentication).
+- **Device/session compromise:** Evaluate token protection, device trust and recovery separately. A PRT is device-bound; do not assume simple transferable bearer-token replay in every scenario. [Microsoft PRT model](https://learn.microsoft.com/en-us/entra/identity/devices/concept-primary-refresh-token).
 
 ---
 
 ## Enumeration & Assessment
 
-```bash
-# Entra ID enumeration and analysis (authorized)
-roadrecon gather                  # https://github.com/dirkjanm/ROADtools
+Use the installed release's authentication and permission guidance before
+collection. The former bare commands omitted identity, tenant/subscription
+selection and prerequisites; they were not complete reproducible procedures.
 
-# Configuration assessment
-prowler azure                     # https://github.com/prowler-cloud/prowler
-scout azure                       # https://github.com/nccgroup/ScoutSuite
-```
+| Tool | Assessment Role | Preparation and Limits |
+|---|---|---|
+| [ROADtools / ROADrecon](https://github.com/dirkjanm/ROADtools) | Directory data collection and analysis | Verify authentication and API support in the chosen release; protect exported identity data. |
+| [AzureHound](https://github.com/SpecterOps/AzureHound) | Collect identity/resource relationships for BloodHound analysis | Match collector and analysis versions; collection permissions affect graph completeness. |
+| [Prowler](https://github.com/prowler-cloud/prowler) | Supported Azure configuration checks | Select authorized scopes and documented read permissions; a skipped check is not a passing control. |
+| [ScoutSuite](https://github.com/nccgroup/ScoutSuite/wiki/Setup) | Cloud configuration collection and reporting | Validate supported API/SDK versions and granted permissions before interpreting findings. |
 
-- **ROADtools** (`roadrecon`) - enumerates Entra ID (users, apps, service
-  principals, roles) into an explorable database. <https://github.com/dirkjanm/ROADtools>
-- **AzureHound** - the BloodHound collector for Azure; maps attack paths across
-  Entra and Azure RBAC. <https://github.com/SpecterOps/BloodHound>
-- **Prowler / ScoutSuite** - configuration assessment against CIS/best practice.
+Record tenant/subscription IDs, collector version, granted permissions, coverage,
+API failures and skipped checks. Keep “not assessed” distinct from “no issue
+found.” A configuration report is not a penetration test or proof of effective
+runtime enforcement.
 
 ---
 
 ## Hardening & Detection
 
-- **Identity:** enforce MFA; **Conditional Access** policies; block legacy auth;
-  use **Privileged Identity Management (PIM)** for just-in-time role activation.
-- **Applications:** review app consent (restrict user consent; use admin consent
-  workflow); audit service-principal credentials and Graph permissions.
-- **RBAC:** least privilege; limit Owner/User Access Administrator; separate
-  identity and resource admin duties.
-- **Monitoring:** **Microsoft Defender for Cloud** (secure score + threat
-  protection); ship Entra sign-in/audit logs and Azure Activity logs to a
-  [SIEM](../IncidentResponse/SIEM/README.md) (or Microsoft Sentinel).
-- Benchmark against the [CIS Microsoft Azure Foundations Benchmark](https://www.cisecurity.org/benchmark/azure).
+- **Identity:** Prefer phishing-resistant authentication where supported. Scope and test Conditional Access before enforcing it; feature/licensing requirements vary. Review exclusions and emergency-access procedures. [Conditional Access overview](https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview).
+- **Privilege:** Use least privilege and appropriate PIM activation controls. Review both directory and resource roles; user MFA does not substitute for workload-identity credential controls.
+- **Applications:** Review user/admin consent, app permissions, credentials and owners; revoke grants and rotate credentials through an approved response plan.
+- **Resources:** Review Azure RBAC at the narrowest practical scope and inspect control/data permissions and inherited authority.
+- **Posture and threats:** Defender for Cloud capabilities depend on enabled plans, resource coverage and configuration. A score is a prioritization input, not evidence that all threats are prevented.
+- **Benchmarking:** Use the applicable [CIS Azure benchmark](https://www.cisecurity.org/benchmark/azure) version and record exceptions, evidence and retest criteria.
+
+### Validate Logging Coverage
+
+![Distinct identity, control-plane and resource log sources need configured routing and independently validated access](../assets/diagrams/azure-security-logging-coverage.svg)
+
+*Figure 3 — Original conceptual collection model. It is not a deployed architecture or proof that events reach a SIEM.*
+
+| Source / Requirement | What To Verify |
+|---|---|
+| Entra sign-in and audit activity | Required categories, reader permissions, license-dependent availability and retention. |
+| Azure Activity Log | Subscription control-plane coverage; it is not a record of every data operation. |
+| Resource logs | Enable the required diagnostic categories; these logs are not collected by default. |
+| Routing and destination | Configuration permissions, destination access, retention, delivery latency and sample-event arrival. |
+| Detection | Test expected benign events, correlating identity and resource evidence; document gaps and ingestion failures. |
+
+Use [Entra diagnostic settings](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-configure-diagnostic-settings),
+[Azure Activity Log](https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log)
+and [Azure Monitor diagnostic settings](https://learn.microsoft.com/en-us/azure/azure-monitor/data-collection/diagnostic-settings).
+Log viewing, export configuration and workspace querying can require different
+privileges. Never infer working collection merely from a visible dashboard.
 
 ---
 
 ## 📚 Resources
 
 - [Microsoft Penetration Testing Rules of Engagement](https://www.microsoft.com/en-us/msrc/pentest-rules-of-engagement)
-- [ROADtools (Entra ID)](https://github.com/dirkjanm/ROADtools) / [AzureHound](https://github.com/SpecterOps/BloodHound)
+- [ROADtools (Entra ID)](https://github.com/dirkjanm/ROADtools) / [AzureHound](https://github.com/SpecterOps/AzureHound)
 - [Microsoft Cloud Adoption Framework - Secure](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/secure/)
 - [Entra ID security operations guide](https://learn.microsoft.com/en-us/entra/architecture/security-operations-introduction)
 - [MITRE ATT&CK Cloud (Azure AD / Office 365)](https://attack.mitre.org/matrices/enterprise/cloud/)
@@ -119,3 +152,4 @@ scout azure                       # https://github.com/nccgroup/ScoutSuite
 - [aws.md](aws.md) - Amazon Web Services security
 - [gcp.md](gcp.md) - Google Cloud Platform security
 - [../Tradecraft/active-directory.md](../Tradecraft/active-directory.md) - on-prem AD (hybrid identity context)
+
