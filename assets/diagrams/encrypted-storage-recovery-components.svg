@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="570" viewBox="0 0 1220 570" role="img" aria-labelledby="title desc">
+<title id="title">Recovery credentials, headers and data backups do different jobs</title>
+<desc id="desc">An unlock credential, an encryption-header backup and a copy of the data address different failure modes. Header backups can retain historical unlock capability and cannot restore missing user data by themselves.</desc>
+<rect width="1220" height="570" rx="20" fill="#0b1223"/>
+<text x="38" y="54" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#f8fafc">Recovery credentials, headers and data backups do different jobs</text>
+<text x="38" y="85" font-family="Arial,sans-serif" font-size="17" font-weight="400" fill="#a7b9d4">Conceptual recovery inventory • not a restore procedure • no keys or data shown</text>
+<rect x="40" y="132" width="340" height="270" rx="17" fill="#1c304d" stroke="#38bdf8" stroke-width="2"/>
+<text x="63" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#7dd3fc">Unlock credential</text>
+<text x="63" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Password / recovery secret</text>
+<text x="63" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Authorizes an unlock path</text>
+<text x="63" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Does not repair lost files</text>
+<text x="63" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Custody and access matter</text>
+<rect x="437" y="132" width="340" height="270" rx="17" fill="#443025" stroke="#f59e0b" stroke-width="2"/>
+<text x="460" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#fcd34d">Header / key metadata</text>
+<text x="460" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Format-specific recovery</text>
+<text x="460" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">May repair metadata damage</text>
+<text x="460" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Not a backup of user files</text>
+<text x="460" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Historical unlock risk</text>
+<rect x="834" y="132" width="340" height="270" rx="17" fill="#1c304d" stroke="#38bdf8" stroke-width="2"/>
+<text x="857" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#7dd3fc">Data backup</text>
+<text x="857" y="216" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Independent copy of files</text>
+<text x="857" y="247" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Needs its own protection</text>
+<text x="857" y="278" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Needs matching recovery</text>
+<text x="857" y="309" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#e2e8f0">Test on spare media</text>
+<text x="40" y="465" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">A recovery exercise must identify the failure being tested and all required components.</text>
+<text x="40" y="506" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#a7b9d4">Protect recovery material separately; document version, scope and restore results.</text>
+</svg>

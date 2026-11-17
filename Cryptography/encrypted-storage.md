@@ -1,6 +1,6 @@
 # Encrypted Drives, Removable Storage, and Key Protection
 
-_Last reviewed: 2026-11-01 (documentation review; no hardware testing performed)_
+_Last reviewed: 2026-11-17 (primary-source and visual review; no hardware, mount, key, or encryption operations performed)_
 
 Part of [Cryptography](./README.md) in the [Ultimate Cybersecurity Master Guide](../README.md).
 
@@ -22,7 +22,7 @@ Select, set up, and evaluate encrypted drives for portable workflows, secure bac
 | Operating-system disk encryption | BitLocker, FileVault, Linux LUKS2/dm-crypt | Mature OS integration, practical full-disk protection | Depends on boot security, configuration, recovery-key custody and endpoint trust |
 | Portable encrypted container/volume | VeraCrypt | Cross-platform workflows, file-container option | Software must be available; mount state and host traces remain important |
 | Hardware-encrypted removable drive | Vendor-specific encrypted USB SSD/flash drive | May support on-device PIN/keypad, management policies | Claims differ by exact model; verify validation, firmware, unlocking and recovery behavior |
-| Experimental hidden encrypted USB | [PhantomDrive](./phantomdrive-guide.md) | Interesting open-source CH569W hardware and stealth-partition research | **Not professionally audited**; not for client secrets or irreplaceable data |
+| Experimental hidden encrypted USB | [PhantomDrive](./phantomdrive-guide.md) | Interesting open-source CH569W hardware and stealth-partition research | No independent professional audit is established by this guide; keep evaluation to disposable non-sensitive data |
 | Experimental DIY vault | [PNWC ESP32-S3 Encrypted Vault](https://github.com/Pnwcomputers/esp32-s3-encrypted-vault) | Hands-on embedded-storage cryptography lab | Development project; validate its threat model and tests; not production storage |
 | Hardware authentication / cryptographic token | [SoloKeys, YubiKey, Nitrokey](./security-keys-passkeys.md) | Protect authentication or signing keys; some models also support OpenPGP/PIV cryptographic operations | **Not a general-purpose storage drive**; FIDO2 itself does not encrypt disks |
 
@@ -31,7 +31,7 @@ Select, set up, and evaluate encrypted drives for portable workflows, secure bac
 - **Storage encryption:** a secret or key-encryption key controls access to drive contents.
 - **FIDO2/WebAuthn:** a private signing key authenticates to a service using origin-bound public-key challenges. It does **not** automatically unlock or encrypt a disk.
 - **OpenPGP/PIV on supported multi-protocol devices:** separate application functions can protect private keys for signing or encryption. This requires application-specific setup and backups.
-- **Recovery:** an account recovery code or FIDO backup key is not interchangeable with a disk recovery key, LUKS header backup, or VeraCrypt recovery procedure.
+- **Recovery:** an account recovery code or FIDO backup key is not interchangeable with a disk recovery key, LUKS header backup, or VeraCrypt recovery procedure. A header backup and a backup of user data also serve different purposes.
 
 Read [Security Keys and Passkeys](./security-keys-passkeys.md) before selecting a token to complement a storage workflow.
 
@@ -48,7 +48,7 @@ Before purchasing or initializing any drive, record:
 7. **Evidence integrity:** hash manifests, chain-of-custody records, write-protection where needed, and whether the encryption mode authenticates writes.
 
 > [!WARNING]
-> AES-XTS is a common disk encryption mode for confidentiality, **not authenticated encryption**. Do not infer tamper detection, integrity, or plausible deniability from an AES-256 label or the existence of a hidden partition.
+> AES-XTS is a common disk encryption mode for confidentiality, **not authenticated encryption**. [NIST SP 800-38E](https://csrc.nist.gov/pubs/sp/800/38/e/final) explicitly excludes data/source authentication. Do not infer tamper detection, integrity, or plausible deniability from an AES-256 label or a hidden partition.
 
 ## Safe inventory: identify a drive without altering it
 
@@ -62,7 +62,16 @@ Get-Volume | Select-Object DriveLetter,FileSystemLabel,FileSystem,Size
 manage-bde -status
 ~~~
 
-The BitLocker status command reports volume encryption state; it does not prove the effectiveness of an entire backup/recovery workflow.
+The [BitLocker status command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status) reports conversion, protection and lock status, among other fields. Inspect these separately: an encrypted volume can still have suspended protection or be unlocked.
+
+![Conversion state, key-protector state and current lock/access state answer different assessment questions](../assets/diagrams/encrypted-storage-status-questions.svg)
+
+*Original conceptual status map, matching this guide's existing vector style. [Microsoft's BitLocker operations guide](https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/operations-guide) distinguishes encrypted conversion state from active protection. It is not captured output from a tested drive.*
+
+BitLocker suspension can retain encrypted data while leaving a clear-key path
+available, as described in [Microsoft's FAQ](https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/faq).
+Do not infer offline protection from percentage encrypted alone, and do not
+change protectors as part of a read-only inventory.
 
 ### Linux (read-only inventory)
 
@@ -78,7 +87,7 @@ For a **verified** LUKS device only, optional header inspection (no passphrase e
 sudo cryptsetup luksDump /dev/disk/by-id/YOUR-VERIFIED-DEVICE
 ~~~
 
-Never infer the correct target from /dev/sdX lettering alone; identifiers can change as drives are attached.
+Never infer the correct target from /dev/sdX lettering alone; identifiers can change as drives are attached. Treat identifiers and header/keyslot metadata as sensitive assessment records; these inventory examples were not executed in this review.
 
 ## Operational procedure for a client engagement
 
@@ -86,24 +95,40 @@ Never infer the correct target from /dev/sdX lettering alone; identifiers can ch
 
 **During collection:** keep a validated evidence hash log; use known-clean workstations; minimize time spent unlocked; avoid placing credentials in screenshots, scripts, shared notes, swap, or shell history. For forensic acquisitions, use appropriate write-blocking and preserve originals.
 
-**After collection:** safely dismount and lock; verify the volume is not accessible without the expected credential; preserve recovery materials separately; move evidence into approved storage; test restoration on a spare device; log disposition and retention date.
+**After collection:** safely dismount and lock; verify the intended protection and lock state, including approved auto-unlock paths; preserve recovery materials separately; move evidence into approved storage; test restoration on a spare device; log disposition and retention date.
+
+### Recovery components and historical credentials
+
+![Unlock credentials, format-specific header metadata and independent data backups address different failure modes](../assets/diagrams/encrypted-storage-recovery-components.svg)
+
+*Original conceptual recovery inventory. [cryptsetup's header-backup documentation](https://gitlab.com/cryptsetup/cryptsetup/-/blob/main/man/cryptsetup-luksHeaderBackup.8.adoc) describes header/keyslot recovery; [VeraCrypt's program documentation](https://veracrypt.io/en/Program%20Menu.html) describes header backup and restore. Neither is a copy of all user files.*
+
+A LUKS header backup can retain access through a passphrase valid when that backup
+was made, even after it is removed from the current header, while the data still uses the corresponding volume key. VeraCrypt header
+restoration can likewise restore historical password/PIM/keyfile requirements.
+Protect and inventory old recovery material as part of a credential-change plan;
+do not treat changing a passphrase as proof that every old recovery path is revoked.
+
+Distinguish a credential-change operation from changing the volume's underlying
+data-encryption key. Follow the exact product/version recovery process and test
+on disposable copies; this guide does not supply a universal key-rotation command.
 
 ### Suggested acceptance tests (disposable dummy data only)
 
 - [ ] Device and firmware model identified accurately
-- [ ] Locked contents inaccessible on a second clean computer
+- [ ] Intended locked/protection state recorded, with auto-unlock and other approved paths accounted for
 - [ ] Correct unlock works after safe eject and power cycle
 - [ ] Incorrect unlock fails without disclosing meaningful information
 - [ ] Files survive normal unplug/reconnect *after safe ejection*
 - [ ] Backups can be restored independently of the original device
-- [ ] Changes and test files are validated with SHA-256 hashes
-- [ ] Recovery materials are not stored on the protected volume alone
+- [ ] Test-file changes are compared with SHA-256 against an independently trusted baseline; hashes alone do not authenticate the writer
+- [ ] Credentials, header metadata and data backups are inventoried separately; required recovery materials are not stored only on the protected volume
 - [ ] Applicable compliance and product certification claims independently verified
 
 ## Storage technology notes
 
 - **BitLocker / BitLocker To Go:** manage protectors and recovery information through supported Windows and enterprise policy; do not assume removable-drive settings mirror OS-drive defaults.
-- **LUKS2/dm-crypt:** securely retain recovery information and, where appropriate, a protected LUKS header backup; destroying or overwriting a header can make data unrecoverable.
+- **LUKS2/dm-crypt:** securely retain recovery information and, where appropriate, protected header backups. Loss of all usable metadata/key material can make data unrecoverable; metadata backups are not file backups and can preserve historical unlock capability.
 - **VeraCrypt:** evaluate encrypted containers and volume support on all intended platforms, plus backup, header recovery, and mount-time exposure.
 - **Hardware-encrypted USB:** investigate on-device PIN throttling, failure lockout, key destruction policy, supply-chain and firmware updates. Verify each specific model rather than trusting broad marketing terms.
 - **PhantomDrive:** see [the research-specific guide](./phantomdrive-guide.md) for its AES-XTS/CTR build variants and unlock caveats.
@@ -119,6 +144,11 @@ Never infer the correct target from /dev/sdX lettering alone; identifiers can ch
 - [PNWC ESP32-S3 Encrypted Vault](https://github.com/Pnwcomputers/esp32-s3-encrypted-vault)
 
 ## Official references
+
+- [Microsoft manage-bde status fields](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status)
+- [cryptsetup header-backup manual](https://gitlab.com/cryptsetup/cryptsetup/-/blob/main/man/cryptsetup-luksHeaderBackup.8.adoc)
+- [VeraCrypt header backup and password-change behavior](https://veracrypt.io/en/Program%20Menu.html)
+- [NIST SP 800-38E — XTS confidentiality, not authentication](https://csrc.nist.gov/pubs/sp/800/38/e/final)
 
 - [NIST SP 800-57 key management](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final)
 - [OWASP Cryptographic Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)
