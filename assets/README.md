@@ -162,6 +162,16 @@ provenance appear in its embedding caption.
 | [NotPetya Ransomware](./diagrams/notpetya-parallel-propagation-paths.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
 | [Edward Snowden Revelations](./diagrams/snowden-prism-vs-upstream.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
 
+## Network Intrusion Response Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [network intrusion evidence correlation](./diagrams/network-intrusion-evidence-correlation.svg) | [Guide](../IncidentResponse/network_intrusion.md) |
+| [network intrusion containment recovery](./diagrams/network-intrusion-containment-recovery.svg) | [Guide](../IncidentResponse/network_intrusion.md) |
+| [network intrusion filter vs aggregation](./diagrams/network-intrusion-filter-vs-aggregation.svg) | [Guide](../IncidentResponse/network_intrusion.md) |
+
 ## Azure And Entra Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
