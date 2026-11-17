@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Data lifetime depends on where the application writes</title>
+<desc id="desc">Container writable-layer data is removed with the container. Volumes can outlive containers but remain removable storage objects. Bind-mounted data belongs to a host path with an independent lifecycle. All need application-appropriate backup and recovery decisions.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="570" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Data lifetime depends on where the application writes</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual storage comparison • not a backup or cleanup procedure</text>
+<rect x="40" y="145" width="340" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Container writable layer</text>
+<text x="58" y="217" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Specific to that container</text>
+<text x="58" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Lost when it is removed</text>
+<text x="58" y="277" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Image ≠ current app data</text>
+<rect x="430" y="145" width="340" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Volume</text>
+<text x="448" y="217" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Can outlive a container</text>
+<text x="448" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Can be explicitly removed</text>
+<text x="448" y="277" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Unused ≠ unimportant</text>
+<rect x="820" y="145" width="340" height="260" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Bind-mounted host path</text>
+<text x="838" y="217" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Host filesystem data</text>
+<text x="838" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Independent host lifecycle</text>
+<text x="838" y="277" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Review path and access</text>
+<rect x="40" y="451" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="481" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A stopped container or unreferenced volume can still contain needed business data.</text>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Inspect mounts and verify application-consistent, restorable backups before removal.</text>
+</svg>
