@@ -6,7 +6,7 @@
 Incident response playbook for wireless intrusion scenarios - specifically detecting and responding to a Rogue Access Point (Evil Twin) broadcasting your SSID, or a physical plant device (LAN Turtle, Raspberry Pi, Bjorn Pi) plugged into a wall port.
 
 ## ⚙️ Function
-Structured by IR phase: (1) Log aggregation/preparation - required log sources and SIEM configuration; (2) Detection - IOCs, Wireshark/Zeek detection queries, alerting rules; (3) Containment - immediate network isolation steps; (4) Eradication - removing the rogue device; (5) KQL queries for pivot/lateral movement analysis; (6) Artifact collection checklist.
+Organizes preparation, detection and triage, controlled containment/recovery, and post-incident review. Connects wireless, identity and wired-attachment evidence to schema-explicit KQL examples, aggregation requirements and artifact preservation.
 
 ## 🏆 Goal
 Investigate suspected unauthorized access, limit exposure, establish whether credentials or systems were affected, and preserve evidence through recovery. Detection does not guarantee that prior credential theft or lateral movement was prevented.
@@ -161,8 +161,8 @@ and [Elastic threshold rule guidance](https://www.elastic.co/docs/solutions/secu
 - [README.md](README.md) - IncidentResponse section index: all IR and forensics guides
 - [log_agg.md](log_agg.md) - Log aggregation setup: configure the log sources required by this playbook before an incident occurs
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark filters for analyzing the PCAP captures referenced in the Artifact Collection section
-- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi: exactly the kind of physical "plant" device this playbook is written to detect and remove
-- [../Documentation/evil_m5.md](../Documentation/evil_m5.md) - Evil-M5: produces the Evil Twin/captive portal traffic this playbook detects
+- [../Documentation/bjorn_pi.md](../Documentation/bjorn_pi.md) - Bjorn Pi: context for investigating an unexpected wired device; appearance alone does not establish identity or intent
+- [../Documentation/evil_m5.md](../Documentation/evil_m5.md) - Evil-M5: related capability background; actual visibility and detection need validation
 
 ---
 *Part of the [Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)*
