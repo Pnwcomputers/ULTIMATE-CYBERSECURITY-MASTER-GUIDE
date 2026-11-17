@@ -109,6 +109,16 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
 
+## Cryptographic Algorithm Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [crypto algorithms aead contract](./diagrams/crypto-algorithms-aead-contract.svg) | [Guide](../Cryptography/algorithms.md) |
+| [crypto algorithms primitive roles](./diagrams/crypto-algorithms-primitive-roles.svg) | [Guide](../Cryptography/algorithms.md) |
+| [crypto algorithms pqc roles](./diagrams/crypto-algorithms-pqc-roles.svg) | [Guide](../Cryptography/algorithms.md) |
+
 ## AWS Security Guide Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
