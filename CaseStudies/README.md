@@ -24,6 +24,8 @@ Each incident title opens its analysis in the Enhanced Master Guide. The source 
 | [Onity Hotel-Lock Research](hardware/onity-locks-2012.md) | 2012 | Physical maintenance-port trust boundary | [Hardware Threat Modeling](../HardwareHacking/Chapter1.md) |
 | [Tesla Model S Key-Fob Cloning Research](hardware/tesla-model-s-key-fob-2018.md) | September 2018 | Weak proprietary RF immobilizer authentication | [SDR Security](../SDR/README.md) |
 | [EUCLEAK: YubiKey/Infineon Side Channel](hardware/eucleak-yubikey-2024.md) | September 2024 | Non-constant-time ECDSA processing | [Side Channels](../HardwareHacking/Chapter4.md), [Security Keys](../Cryptography/security-keys-passkeys.md) |
+| [DirecTV DSS Cards & Black Sunday](./hardware/directv-dss-smart-card-black-sunday.md) | January 2001 event | Altered smart-card authorization & operator countermeasures | [Threat Modeling](../HardwareHacking/Chapter1.md) |
+| [Xerox DocuColor MIC Decoding](./hardware/xerox-docucolor-machine-identification-code.md) | October 2005 | Undisclosed identifying metadata in physical output | [OPSEC](../OPSEC/README.md) |
 
 The term **“3M hack”** is used here to mean the **approximately three million Saflok doors** reported in Unsaflok research, **not a confirmed incident involving 3M Company**. If a different 3M incident was intended, that needs a separate verified case study.
 

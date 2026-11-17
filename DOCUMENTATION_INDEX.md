@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**400 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**402 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -12,7 +12,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | .github | 7 | [Open section](#github) |
 | AI | 36 | [Open section](#ai) |
 | CAD | 9 | [Open section](#cad) |
-| CaseStudies | 5 | [Open section](#casestudies) |
+| CaseStudies | 7 | [Open section](#casestudies) |
 | Checklists | 18 | [Open section](#checklists) |
 | Cloud | 5 | [Open section](#cloud) |
 | Compliance | 3 | [Open section](#compliance) |
@@ -133,10 +133,12 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Document | Repository Path |
 | --- | --- |
 | [README — CaseStudies](./CaseStudies/README.md) | `CaseStudies/README.md` |
+| [hardware/directv-dss-smart-card-black-sunday.md](./CaseStudies/hardware/directv-dss-smart-card-black-sunday.md) | `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md` |
 | [hardware/eucleak-yubikey-2024.md](./CaseStudies/hardware/eucleak-yubikey-2024.md) | `CaseStudies/hardware/eucleak-yubikey-2024.md` |
 | [hardware/onity-locks-2012.md](./CaseStudies/hardware/onity-locks-2012.md) | `CaseStudies/hardware/onity-locks-2012.md` |
 | [hardware/tesla-model-s-key-fob-2018.md](./CaseStudies/hardware/tesla-model-s-key-fob-2018.md) | `CaseStudies/hardware/tesla-model-s-key-fob-2018.md` |
 | [hardware/unsaflok-3m-hotel-locks.md](./CaseStudies/hardware/unsaflok-3m-hotel-locks.md) | `CaseStudies/hardware/unsaflok-3m-hotel-locks.md` |
+| [hardware/xerox-docucolor-machine-identification-code.md](./CaseStudies/hardware/xerox-docucolor-machine-identification-code.md) | `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md` |
 
 ## Checklists
 
