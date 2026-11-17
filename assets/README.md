@@ -110,6 +110,20 @@ data is claimed.
 | [Band and reader map](./diagrams/rfid-band-and-reader-map.svg) | LF, HF/NFC, and the separate UHF reader ecosystem. |
 | [Read troubleshooting](./diagrams/rfid-read-troubleshooting-evidence.svg) | Compatibility checks, controlled observations, and defensible conclusions. |
 
+## Sub-GHz RF Guide Visuals
+
+Five original conceptual diagrams embedded in the [Sub-GHz RF guide](../SDR/subghz.md).
+The waveform and packet examples are synthetic, not captured signals. Each caption
+identifies its source context and evidence limits.
+
+| Diagram | What It Explains |
+|---|---|
+| [OOK versus FSK](./diagrams/subghz-ook-vs-fsk.svg) | Amplitude-envelope versus frequency-state signaling. |
+| [Fixed versus stateful validation](./diagrams/subghz-fixed-vs-stateful-validation.svg) | Why repeated or changing messages do not alone establish replay security. |
+| [IQ to evidence](./diagrams/subghz-iq-to-evidence.svg) | Capture, metadata, working-copy processing, and interpretation. |
+| [Capture quality](./diagrams/subghz-capture-quality.svg) | Schematic clipping and the limits of visual diagnosis. |
+| [Frame inference](./diagrams/subghz-frame-inference.svg) | Distinguishing repeated/changing regions from verified field meanings. |
+
 ## Additional Asset Awaiting Placement
 
 - [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.

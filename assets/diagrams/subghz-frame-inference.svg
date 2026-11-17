@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">From repeated frames to testable field hypotheses</title>
+<desc id="desc">Three synthetic frames have a repeated prefix and changing middle and tail groups. These patterns are observations, not proof of an identifier, counter, checksum or encryption.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">From repeated frames to testable field hypotheses</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Fictional byte groups • not a real device format • no decoded secrets</text>
+<text x="40" y="178" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Frame 1</text>
+<rect x="180" y="142" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="202" y="178" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">A1 A1</text>
+<rect x="420" y="142" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="442" y="178" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">5C 20</text>
+<rect x="660" y="142" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="682" y="178" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">01</text>
+<rect x="900" y="142" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="922" y="178" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">7E</text>
+<text x="40" y="256" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Frame 2</text>
+<rect x="180" y="220" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="202" y="256" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">A1 A1</text>
+<rect x="420" y="220" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="442" y="256" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">5C 20</text>
+<rect x="660" y="220" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="682" y="256" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">02</text>
+<rect x="900" y="220" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="922" y="256" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">8B</text>
+<text x="40" y="334" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">Frame 3</text>
+<rect x="180" y="298" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="202" y="334" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">A1 A1</text>
+<rect x="420" y="298" width="217" height="56" rx="8" fill="#e0ebf1"/>
+<text x="442" y="334" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">5C 20</text>
+<rect x="660" y="298" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="682" y="334" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">03</text>
+<rect x="900" y="298" width="217" height="56" rx="8" fill="#fff3d7"/>
+<text x="922" y="334" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#16354b">14</text>
+<text x="180" y="419" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Repeated ≠ identified</text>
+<text x="660" y="419" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Changing ≠ explained</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Change one known input at a time and compare aligned frames before naming fields.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A checksum checks data consistency; it does not by itself authenticate the sender.</text>
+</svg>
