@@ -117,6 +117,17 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [advanced sdr em inference](./diagrams/advanced-sdr-em-inference.svg) | [Guide](../SDR/sdr_hacking.md) |
 | [advanced sdr evidence ladder](./diagrams/advanced-sdr-evidence-ladder.svg) | [Guide](../SDR/sdr_hacking.md) |
 
+## General OSINT Investigation Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [osint investigation evidence handling](./diagrams/osint-investigation-evidence-handling.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
+| [osint investigation cycle](./diagrams/osint-investigation-cycle.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
+| [osint investigation request scope](./diagrams/osint-investigation-request-scope.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
+| [osint investigation identity evidence](./diagrams/osint-investigation-identity-evidence.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
+
 ## Already Embedded In Hardware Chapters
 
 | Asset | Chapter |
