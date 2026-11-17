@@ -56,6 +56,17 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [docker operations image review](./diagrams/docker-operations-image-review.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 | [docker operations context control](./diagrams/docker-operations-context-control.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 
+## Applied Cryptography Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [applied crypto tls boundaries](./diagrams/applied-crypto-tls-boundaries.svg) | [Guide](../Cryptography/applied-crypto.md) |
+| [applied crypto envelope rotation](./diagrams/applied-crypto-envelope-rotation.svg) | [Guide](../Cryptography/applied-crypto.md) |
+| [applied crypto presence verification](./diagrams/applied-crypto-presence-verification.svg) | [Guide](../Cryptography/applied-crypto.md) |
+| [applied crypto authentication records](./diagrams/applied-crypto-authentication-records.svg) | [Guide](../Cryptography/applied-crypto.md) |
+
 ## HackRF Guide Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
