@@ -232,11 +232,11 @@ Step 3: Look at temporal behavior
 
 **Inspectrum** - Primary tool for visual binary analysis:
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+For inspectrum, confirm the capture representation and sample rate before measuring pulse timing. Save the selected interval and analysis notes with an unmodified original recording.
 
 **SigDigger** - Signal analyzer with demodulation:
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+For SigDigger, validate device/input support in the chosen build. Treat demodulated audio or decoded structure as an analysis result with recorded settings, not automatic signal attribution.
 
 **Universal Radio Hacker (URH)** - The primary protocol reversing tool:
 
@@ -244,7 +244,7 @@ Use a version-matched [URH build and documentation](https://github.com/jopohl/ur
 
 **Baudline** - High-resolution spectral analysis:
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+For Baudline, use a supported input representation and document spectral scaling. A visible feature alone does not identify its protocol or provide calibrated RF power.
 
 ---
 
@@ -260,7 +260,7 @@ A classifier requires matched training labels, normalization, sample length and 
 
 **gr-inspector** - GNU Radio module for automated signal detection and classification:
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+For gr-inspector, match the GNU Radio and module versions, then evaluate supported detector/classifier behavior on labeled recordings. Record misses and ambiguous classifications before applying it to an unknown signal.
 
 **SigMF (Signal Metadata Format)** - Standardized format for annotating IQ captures:
 
@@ -270,7 +270,7 @@ Record sample datatype and rate in SigMF global metadata; record tuning/time at 
 
 #### Building a SIGINT Analysis Environment
 
-Record sample datatype and rate in SigMF global metadata; record tuning/time at capture boundaries and labels/sample spans as annotations. Validate against the [SigMF schema](https://sigmf.org/); arbitrary `hw:` fields require a declared extension. Metadata describes the sample file and does not convert it.
+Build the environment around a preserved sample file, its validated SigMF metadata, a reproducible tool/version inventory and a separate results directory. Test importing a known sample before interpreting an unknown recording.
 
 ---
 
@@ -411,7 +411,7 @@ Use [rtl_433's upstream input/output documentation](https://github.com/merbanan/
 
 **URH automation - scripting protocol analysis:**
 
-Use a version-matched [URH build and documentation](https://github.com/jopohl/urh). The upstream project is archived as of this review; internal Python APIs and installation commands are not a compatibility guarantee. Preserve input format, rate and alignment when comparing decoded fields.
+An automation workflow must pin the installed URH version, identify its supported interface and verify results against known inputs. An internal Python method name copied from another build is not a stable API contract.
 
 #### Dumb Fuzzing of Communications
 
@@ -438,7 +438,7 @@ Dumb fuzzing applies random mutations to known-good packets and transmits them t
 (Crash? Different response? Error message on UART?)
 ```
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+Before any hardware fuzzing, define an offline parser harness, mutation boundaries, target reset strategy and independent behavior observation. The diagram above is an architecture sketch, not a validated transmitter or crash-reproduction recipe.
 
 **GNU Radio-based fuzzer flowgraph:**
 
@@ -478,7 +478,7 @@ An owned disposable remote/receiver pair can support a controlled study, but ope
 
 **Target characteristics:** Check the exact model, regional documentation and receiver configuration. Frequency and manufacture date alone do not establish fixed versus rolling-code behavior.
 
-Use [rtl_433's upstream input/output documentation](https://github.com/merbanan/rtl_433) and the [receive-only lab](./rtl433-passive-telemetry-lab.md). The analyzer can report candidate pulse structure, while decoded JSON depends on enabled supported decoders. A fixed protocol count or silent output is not an identification guarantee.
+For an owned garage remote, compare complete aligned frames across labeled button events and receiver state. Repeated fields and changing fields are hypotheses; use the receive-only exercise in [the Sub-GHz guide](./subghz.md) before considering separately scoped acceptance testing.
 
 **PWM (Pulse Width Modulation) decoding:**
 
@@ -626,11 +626,11 @@ Strategy 4: Known API patterns
 
 **Common vulnerability patterns in RF baseband code:**
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+Review length validation, buffer ownership, integer conversions and state transitions along an actual receive path. Demonstrate reachability and impact using a separately scoped harness rather than treating a suspicious copy operation as a confirmed vulnerability.
 
 **Ghidra Scripting to find vulnerable patterns:**
 
-Follow the Java and extension requirements bundled with the exact [Ghidra release](https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md). A string or library-call cross-reference is a starting point for data-flow review, not automatic taint analysis or proof of a vulnerability.
+A Ghidra script can locate candidate call sites or data references for manual review. Validate its processor/language assumptions and trace input lengths and control flow before reporting a reachable bug.
 
 ---
 
@@ -888,7 +888,7 @@ Beyond standard 802.11 protocol attacks (WPA2 cracking, PMKID, evil twin - cover
 
 **Management frame injection:**
 
-This section describes a research capability, not a validated executable procedure. The former generic command or code sketch depended on unspecified versions, hardware, mappings or test conditions and is omitted. Use the primary project documentation and a separately reviewed offline or contained lab harness.
+Management-frame behavior depends on the PHY, firmware, client and negotiated protections. Use supported capture tooling to inspect the actual exchange; this guide does not provide a validated injection sequence.
 
 **OFDM pilot tone analysis:**
 
