@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Choose a primitive for the required security property</title>
+<desc id="desc">AEAD protects confidential messages and their integrity. A MAC authenticates under a shared key, while signatures support public verification. Hashes, password functions and key establishment serve different roles.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Choose a primitive for the required security property</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual role map • not a protocol design or a compliance approval</text>
+<rect x="40" y="135" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="169" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Confidential messages</text>
+<text x="58" y="208" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">AEAD: AES-GCM or</text>
+<text x="58" y="237" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">ChaCha20-Poly1305</text>
+<rect x="430" y="135" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="169" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Shared-key authenticity</text>
+<text x="448" y="208" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">MAC, such as HMAC</text>
+<text x="448" y="237" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">No confidentiality by itself</text>
+<rect x="820" y="135" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="169" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Public verification</text>
+<text x="838" y="208" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Digital signature</text>
+<text x="838" y="237" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Requires trusted public key</text>
+<rect x="40" y="305" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="339" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Data fingerprint</text>
+<text x="58" y="378" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Cryptographic hash</text>
+<text x="58" y="407" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Expected digest must be trusted</text>
+<rect x="430" y="305" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="339" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Password verifier</text>
+<text x="448" y="378" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Salted, costly password KDF</text>
+<text x="448" y="407" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not a fast hash or generic HKDF</text>
+<rect x="820" y="305" width="340" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="339" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Establish key material</text>
+<text x="838" y="378" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Key agreement or KEM</text>
+<text x="838" y="407" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Authentication is separate</text>
+<rect x="40" y="485" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="515" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Primitive names are not interchangeable, and algorithms alone do not define a secure system.</text>
+<text x="58" y="544" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Use a reviewed protocol and implementation with the right parameters, key lifecycle and validation.</text>
+</svg>

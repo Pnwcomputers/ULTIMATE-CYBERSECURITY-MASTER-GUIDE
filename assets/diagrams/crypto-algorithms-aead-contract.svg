@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">AEAD protects data only when its contract is followed</title>
+<desc id="desc">A sender supplies a key, nonce, plaintext and associated data to AEAD. It returns ciphertext and a tag. The receiver must verify authentication before accepting plaintext; associated data is authenticated but not encrypted.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">AEAD protects data only when its contract is followed</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual interface • no real messages or keys • algorithm-specific limits apply</text>
+<rect x="40" y="155" width="300" height="250" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="189" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Sender inputs</text>
+<text x="58" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Key + valid nonce</text>
+<text x="58" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Plaintext</text>
+<text x="58" y="286" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Associated data</text>
+<rect x="440" y="155" width="320" height="250" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="458" y="189" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">AEAD operation</text>
+<text x="458" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Encrypt / authenticate</text>
+<text x="458" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Ciphertext + tag</text>
+<text x="458" y="286" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Nonce handling per scheme</text>
+<rect x="860" y="155" width="300" height="250" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="878" y="189" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Receiver</text>
+<text x="878" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Verify under correct key</text>
+<text x="878" y="257" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Reject on tag failure</text>
+<text x="878" y="286" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Accept only authenticated data</text>
+<path d="M352 280L428 280" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<path d="M772 280L848 280" stroke="#337b98" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="40" y="485" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="515" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">For AES-GCM and RFC 8439 ChaCha20-Poly1305, prevent nonce reuse under the same key.</text>
+<text x="58" y="544" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">AEAD does not by itself provide replay protection, peer identity, or security for compromised endpoints.</text>
+</svg>

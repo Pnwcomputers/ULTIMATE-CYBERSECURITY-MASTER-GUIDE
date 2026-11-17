@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Post-quantum key establishment is not a signature</title>
+<desc id="desc">ML-KEM establishes a shared secret using encapsulation and decapsulation. ML-DSA and SLH-DSA produce signatures. A protocol must bind roles, authenticate peers and derive usable keys; hybrid security depends on the construction.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0L10 5L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Post-quantum key establishment is not a signature</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual migration roles • choose a supported protocol, not a homemade combiner</text>
+<rect x="40" y="145" width="340" height="280" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">ML-KEM</text>
+<text x="58" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Encapsulate / decapsulate</text>
+<text x="58" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Shared secret material</text>
+<text x="58" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not bulk-data encryption</text>
+<text x="58" y="305" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not a signature</text>
+<rect x="430" y="145" width="340" height="280" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">ML-DSA / SLH-DSA</text>
+<text x="448" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Sign / verify</text>
+<text x="448" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Bind a message to a key</text>
+<text x="448" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not a shared-secret exchange</text>
+<text x="448" y="305" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Not encryption</text>
+<rect x="820" y="145" width="340" height="280" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Protocol integration</text>
+<text x="838" y="218" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Authentication + KDF</text>
+<text x="838" y="247" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Encoding and parameters</text>
+<text x="838" y="276" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Downgrade / failure behavior</text>
+<text x="838" y="305" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Migration and interoperability</text>
+<rect x="40" y="485" width="1120" height="85" rx="12" fill="#e0ebf1"/>
+<text x="58" y="515" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A hybrid combines mechanisms under a specified construction; concatenating names is not a guarantee.</text>
+<text x="58" y="544" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Inventory cryptographic uses and data lifetime before replacing a primitive or choosing a migration path.</text>
+</svg>
