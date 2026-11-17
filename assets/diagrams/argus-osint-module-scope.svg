@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">A recon toolkit can make different kinds of requests</title>
+<desc id="desc">Argus includes modules that can query third-party services or interact directly with target infrastructure. Identify destination, permissions, API requirements, collection limits and result uncertainty before using a module. A tool's OSINT label does not make every action passive.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">A recon toolkit can make different kinds of requests</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual module review • no targets, accounts or services were queried</text>
+<rect x="40" y="155" width="340" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="189" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Third-party data lookup</text>
+<text x="58" y="228" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Provider/API interaction</text>
+<text x="58" y="258" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Terms and credentials</text>
+<text x="58" y="288" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Data may be incomplete</text>
+<rect x="430" y="155" width="340" height="260" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="448" y="189" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Target interaction</text>
+<text x="448" y="228" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Direct requests or probes</text>
+<text x="448" y="258" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Explicit target scope</text>
+<text x="448" y="288" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Operational impact</text>
+<rect x="820" y="155" width="340" height="260" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="838" y="189" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#16354b">Result verification</text>
+<text x="838" y="228" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Record version / settings</text>
+<text x="838" y="258" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Corroborate observations</text>
+<text x="838" y="288" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#16354b">Keep errors distinct</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Review the chosen module and dependencies before execution; installing the toolkit is not an assessment.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A timeout, missing API key, empty result or heuristic label does not establish absence or compromise.</text>
+</svg>
