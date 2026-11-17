@@ -157,6 +157,15 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [aws s3 independent controls](./diagrams/aws-s3-independent-controls.svg) | [Guide](../Cloud/aws.md) |
 | [aws imdsv2 token boundary](./diagrams/aws-imdsv2-token-boundary.svg) | [Guide](../Cloud/aws.md) |
 
+## YARA-X Rule Lab Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [yara rule lifecycle](./diagrams/yara-rule-lifecycle.svg) | [Guide](../ReverseEngineering/yara-x-rule-lab.md) |
+| [yara rule detection interpretation](./diagrams/yara-rule-detection-interpretation.svg) | [Guide](../ReverseEngineering/yara-x-rule-lab.md) |
+
 ## Xerox DocuColor Case Study Visuals
 
 Embedded in the [Xerox DocuColor case study](../CaseStudies/hardware/xerox-docucolor-machine-identification-code.md).
