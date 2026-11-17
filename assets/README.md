@@ -120,6 +120,16 @@ data is claimed.
 | [Band and reader map](./diagrams/rfid-band-and-reader-map.svg) | LF, HF/NFC, and the separate UHF reader ecosystem. |
 | [Read troubleshooting](./diagrams/rfid-read-troubleshooting-evidence.svg) | Compatibility checks, controlled observations, and defensible conclusions. |
 
+## Container Security Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [container security image runtime host](./diagrams/container-security-image-runtime-host.svg) | [Guide](../ContainerSecurity/containers.md) |
+| [container security isolation controls](./diagrams/container-security-isolation-controls.svg) | [Guide](../ContainerSecurity/containers.md) |
+| [container security secrets lifecycle](./diagrams/container-security-secrets-lifecycle.svg) | [Guide](../ContainerSecurity/containers.md) |
+
 ## Sub-GHz RF Guide Visuals
 
 Five original conceptual diagrams embedded in the [Sub-GHz RF guide](../SDR/subghz.md).
