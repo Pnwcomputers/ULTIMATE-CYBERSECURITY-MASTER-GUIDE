@@ -37,6 +37,16 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [Encrypted storage boundaries](./encrypted-storage-protection-boundaries.svg) | [Encrypted storage](../Cryptography/encrypted-storage.md#choose-the-right-design) | **New accessible vector figure**, locked versus unlocked data and backup limitations |
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Press freedom / source protection](../OPSEC/press-freedom/README.md#mission) | **New accessible vector figure**, preservation holds and approved disposition |
 
+## Docker Operations Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [docker operations data lifetimes](./diagrams/docker-operations-data-lifetimes.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
+| [docker operations image review](./diagrams/docker-operations-image-review.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
+| [docker operations context control](./diagrams/docker-operations-context-control.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
+
 ## HackRF Guide Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
