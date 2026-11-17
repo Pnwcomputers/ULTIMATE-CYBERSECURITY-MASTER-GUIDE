@@ -1,8 +1,8 @@
 # HACKRF RF SPECTRUM & WIRELESS SECURITY AUDIT PLAYBOOK
 ## Field Surveys, Signal Analysis, Device Audits & Controlled Bench Testing
 
-**Version 1.1**  
-**Last Updated: September 15, 2026**
+**Version 1.2**  
+**Last Updated: November 17, 2026**
 
 ---
 
@@ -28,6 +28,8 @@ Produce a defensible RF inventory, reproducible measurements, confirmed findings
 - Comparing equipment before and after repair, relocation, or configuration changes.
 - Investigating proprietary protocols and testing an isolated development receiver.
 - Performing portable surveys using HackRF with PortaPack.
+
+**Visual review:** November 17, 2026. Figures are original conceptual diagrams, not measured RF data or hardware test results. Numerical storage examples are calculations from the documented sample representation.
 
 **Scope note:** This is a broad practical playbook, not a claim that one SDR can decode every protocol. All field command examples are receive-only. Frequencies are measurement examples, not permission to transmit or declarations of local spectrum allocation. Command syntax was checked against upstream documentation/source; no HackRF hardware was available to execute these procedures during authoring.
 
@@ -95,6 +97,10 @@ HackRF One covers **1 MHz–6 GHz**, provides **8-bit I/Q sampling**, and operat
 | Replay / input validation | Signal generation in isolated development bench | Approved DUT, verified containment, receiver observation, protocol expertise. |
 
 ### 1.3 Follow the Evidence Ladder
+
+![Energy detection, characterization, decoding, attribution and receiver security testing require separate evidence](../assets/diagrams/hackrf-guide-evidence-ladder.svg)
+
+*Figure 1 — Original conceptual claim ladder for this playbook. Each step needs its own observations and controls; the diagram is a reporting model, not a device measurement.*
 
 1. **Detected:** Energy appeared at a frequency and time.
 2. **Characterized:** Bandwidth, timing, and a plausible modulation were measured.
@@ -235,6 +241,10 @@ Some help commands exit nonzero after printing usage. Inspect their saved output
 
 ### 4.1 Broad Discovery
 
+![Sequential sweep visits leave time gaps for each span; a focused capture watches a selected span continuously when acquisition succeeds](../assets/diagrams/hackrf-guide-sweep-coverage.svg)
+
+*Figure 2 — Original synthetic observation schedule, not a real waterfall. [HackRF sweep documentation](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html) describes segmented sweep output; a shared timestamp does not imply simultaneous coverage.*
+
 **Objective:** Identify candidate activity in relevant bands before selecting focused captures.
 
 1. Review the asset inventory and expected operating bands.
@@ -349,6 +359,10 @@ Here the 1.75 MHz baseband filter is intentionally selected for a narrowband tar
 
 ### 5.2 Storage Planning
 
+![Signed-byte interleaved HackRF IQ uses two bytes per complex sample while complex float32 uses eight](../assets/diagrams/hackrf-guide-iq-representations.svg)
+
+*Figure 3 — Original conceptual format comparison. The native format follows [HackRF transfer documentation](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html); storage values are arithmetic, not measured disk throughput.*
+
 Raw HackRF files contain one signed byte for I and one for Q, interleaved. Each complex sample occupies two bytes.
 
 | Sample rate | Approximate bytes/second | 30 seconds | 5 minutes |
@@ -360,6 +374,10 @@ Raw HackRF files contain one signed byte for I and one for Q, interleaved. Each 
 Values use decimal MB/GB and exclude metadata. Nominal duration is `file_bytes / (2 × sample_rate)`, assuming a continuous recording. Transfer failures can invalidate that assumption. Float32 complex working files require four times the storage of signed 8-bit IQ.
 
 ### 5.3 Import Without Corrupting Interpretation
+
+![The selected useful filtered region may be narrower than the nominal sampled span and must contain the target signal](../assets/diagrams/hackrf-guide-passband-vs-span.svg)
+
+*Figure 4 — Original schematic, not a calibrated filter response. See [HackRF sampling and baseband-filter guidance](https://hackrf.readthedocs.io/en/latest/sampling_rate.html). Record filter settings and actual target bandwidth before decimation.*
 
 For the example above, set:
 
@@ -420,15 +438,17 @@ rtl_433 -V
 rtl_433 -h
 ```
 
-An example direct receive workflow is:
+**Preferred bounded workflow:** Preserve a finite HackRF capture, then use a documented low-pass filter and decimation step to make a decoder-rate working copy. Convert its sample representation explicitly and record the resulting rate. The [rtl_433 setup guide](https://github.com/merbanan/rtl_433/blob/master/docs/STARTING.md) recommends rates far below an 8 MS/s HackRF source for typical decoding; direct high-rate operation is not assumed validated.
+
+For a working file that is actually unsigned 8-bit interleaved IQ at 250 kS/s:
 
 ```bash
-rtl_433 -d 'driver=hackrf' -f 433920000 -s 8000000 \
+rtl_433 -r "$CASE_DIR/03_IQ/sensor433-filtered-250k.cu8" -s 250000 \
   -F "json:$CASE_DIR/04_Decoded/sensors433.jsonl" \
   2> "$CASE_DIR/06_Logs/rtl433.log"
 ```
 
-Stop with Ctrl+C after the planned observation period. At 8 MS/s, decoder CPU load and behavior must be checked on the actual build. Configure supported gain elements and antenna-power settings from the probe/help output and record them; the generic example does not establish a reproducible gain profile. If direct operation is unreliable, use a documented GNU Radio filtered/decimated conversion into a decoder-supported format. Do not silently fall back to an unsuitable low HackRF hardware sample rate. [rtl_433 support and options](https://github.com/merbanan/rtl_433).
+This file is an explicit prerequisite, not generated by the command above. Do not rename the native signed-byte capture to `.cu8`; the filtered conversion must be completed first. Verify supported input format, rate, decoder selection and units against the installed build. No particular signal is guaranteed to decode.
 
 **Findings to evaluate:** Stable identifying fields, sensitive plaintext telemetry, unexpected transmission intervals, or undocumented devices. An unencrypted outdoor temperature value is not automatically a high-severity issue.
 
@@ -649,7 +669,7 @@ HackRF can support troubleshooting and relative pre-compliance comparisons. Form
 4. Record desired-signal level, noise/background, and decode success where applicable.
 5. Include insertion loss, cable changes, orientation, and uncertainty.
 
-Do not use this method to claim antenna SWR, impedance, return loss, or absolute gain. Use a VNA or appropriate calibrated setup for those measurements.
+Do not use this method to claim antenna SWR, impedance, return loss, or absolute gain. A VNA can measure impedance, return loss and SWR with an appropriate calibration. Absolute antenna gain needs a suitable calibrated antenna-measurement method; a VNA alone does not establish it.
 
 ### 7.6 Repeated Monitoring & Baseline Drift
 
@@ -679,6 +699,10 @@ Suggested monitoring output: **new activity**, **persistent increase**, **expect
 ## SECTION 8: CONTROLLED BENCH SECURITY TESTS
 
 ### 8.1 Bench Preconditions
+
+![A finite test source reaches an isolated development receiver through a verified RF path; independent observation records the result](../assets/diagrams/hackrf-guide-bench-observation.svg)
+
+*Figure 5 — Original conceptual test-role diagram. It is not a wiring plan or a containment guarantee. [HackRF One's half-duplex limit](https://hackrf.readthedocs.io/en/latest/hackrf_one.html) requires an independent means to observe responses during transmission.*
 
 These procedures apply to an owned development/test device with an inert output, not operational access, vehicle, alarm, medical, or safety equipment.
 
@@ -994,18 +1018,19 @@ Retest result:
 
 ### Document Control
 
-- **Version:** 1.1
+- **Version:** 1.2
 - **Created:** September 15, 2026
 - **Next Review:** December 2026, or after material hardware/software changes.
 - **Owner:** Pacific Northwest Computers
 - **Primary platform:** HackRF One with a Linux host; optional PortaPack with Mayhem.
-- **Repository location:** `PlayBooks/HackRFAuditPlayBook.md`
+- **Repository location:** `SDR/hackrf.md` (companion: `PlayBooks/HackRFAuditPlayBook.md`)
 - **Validation:** Upstream documentation/source review and static example checks; hardware execution still required before operational adoption.
 - **Maintenance:** Recheck command help, distribution packages, decoder compatibility, firmware formats, and regulatory context before field use.
 
 ### Related Files
 
-- [README.md](README.md) — PlayBooks section index.
+- [SDR index](README.md) — RF and contactless section navigation.
+- [PlayBooks index](../PlayBooks/README.md) — Engagement-oriented playbooks.
 - [NetworkAuditPlayBook.md](../PlayBooks/NetworkAuditPlayBook.md) — Wireless & Network Security Audit Playbook (structural reference).
 - [../SDR/README.md](../SDR/README.md) — SDR / RF / NFC-RFID section index.
 - [../SDR/sdr.md](../SDR/sdr.md) — Foundational SDR guide: IQ sampling, GNU Radio, signal analysis.
@@ -1058,7 +1083,7 @@ Links below follow `main` for convenient navigation. The reviewed snapshot above
 
 ### 14.3 Corrections & Compatibility Notes
 
-These discrepancies were found in the reviewed source documents. This version of the playbook uses the corrected interpretation; the upstream repository files have not been edited as part of this deliverable.
+These discrepancies describe the fixed September 2026 snapshot linked below. They are historical review findings, not a current list of unresolved errors: companion guides may have since been corrected. This file's November visual review did not re-audit every external file.
 
 | Source location | Issue found | Interpretation to use |
 |---|---|---|
@@ -1083,7 +1108,7 @@ Other direct mentions appear in the root `README.md`, `ENHANCED_MASTER_GUIDE.md`
 
 The existing `AUDIT_FINDINGS.md` records broader maintenance concerns, including SDR software compatibility. Use it as an issue-tracking reference, not as proof that an installed decoder works. No dedicated PortaPack/Mayhem operational guide was found; Section 9 supplies that workflow and links to upstream firmware documentation.
 
-For repository integration, place this file at `PlayBooks/HackRFAuditPlayBook.md`. Add a link from `PlayBooks/README.md` and `SDR/README.md`, then optional reciprocal links from `SDR/sdr.md`, `SDR/subghz.md`, and `SDR/sdr_hacking.md`. Suggested description: **HackRF field audit playbook — spectrum surveys, IQ capture, interference analysis, protocol triage, evidence, and reporting.**
+This integrated copy lives at `SDR/hackrf.md`, alongside the [SDR index](README.md). The [companion engagement playbook](../PlayBooks/HackRFAuditPlayBook.md) is a separate file. Preserve the correct local path and reconcile substantive procedure changes between the two copies rather than treating them as one synchronized document.
 
 ### 14.5 Revision History
 
@@ -1091,6 +1116,7 @@ For repository integration, place this file at `PlayBooks/HackRFAuditPlayBook.md
 |---|---|
 | 1.0 | Initial standalone HackRF audit playbook. |
 | 1.1 | Repository-wide reference discovery, contextual companion links, proprietary 2.4 GHz and EM-research triage, evidence-template alignment, installer caveats, and source-discrepancy register. |
+| 1.2 | November 17, 2026: original diagrams, corrected integrated-copy navigation, bounded decoder handoff and antenna-measurement clarification; source review only. |
 
 ---
 
@@ -1104,9 +1130,10 @@ This playbook should be reviewed and updated periodically to reflect:
 - Updated regulatory context and repository cross-references
 
 **Document Control:**
-- **Version:** 1.1
+- **Version:** 1.2
 - **Created:** September 15, 2026
 - **Next Review:** December 2026, or after material hardware/software changes
 - **Owner:** Pacific Northwest Computers
 
 For questions or suggestions, contact: jon@pnwcomputers.com
+

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Keep RF evidence claims on separate steps</title>
+<desc id="desc">Energy detection, waveform characterization, decoding, asset attribution and security testing are distinct findings. Each step requires evidence; receiving energy alone does not demonstrate a vulnerable device.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M0 0 L10 5 L0 10Z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="600" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Keep RF evidence claims on separate steps</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Conceptual evidence ladder • advancing a claim requires new support</text>
+<rect x="40" y="155" width="200" height="154" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="190" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Detect</text>
+<text x="58" y="228" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Energy appeared</text>
+<path d="M247 230 L262 247" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="270" y="189" width="200" height="154" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="288" y="224" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Characterize</text>
+<text x="288" y="262" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Timing / bandwidth</text>
+<path d="M477 264 L492 281" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="500" y="223" width="200" height="154" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="518" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Decode</text>
+<text x="518" y="296" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Validated frames</text>
+<path d="M707 298 L722 315" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="730" y="257" width="200" height="154" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="748" y="292" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Attribute</text>
+<text x="748" y="330" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Controlled match</text>
+<path d="M937 332 L952 349" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="960" y="291" width="200" height="154" rx="16" fill="#fff3d7" stroke="#b5cbd7" stroke-width="2"/>
+<text x="978" y="326" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Test control</text>
+<text x="978" y="364" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Receiver outcome</text>
+<rect x="40" y="480" width="1120" height="86" rx="12" fill="#e0ebf1"/>
+<text x="58" y="510" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A decoder label is not proof of asset identity; repeat controlled comparisons.</text>
+<text x="58" y="539" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A valid waveform or repeated payload is not proof that a receiver accepted an unauthorized action.</text>
+</svg>
