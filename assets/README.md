@@ -185,6 +185,15 @@ data is claimed.
 | [Band and reader map](./diagrams/rfid-band-and-reader-map.svg) | LF, HF/NFC, and the separate UHF reader ecosystem. |
 | [Read troubleshooting](./diagrams/rfid-read-troubleshooting-evidence.svg) | Compatibility checks, controlled observations, and defensible conclusions. |
 
+## Software Supply-Chain Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [supply chain complementary evidence](./diagrams/supply-chain-complementary-evidence.svg) | [Guide](../ContainerSecurity/software-supply-chain-assessment.md) |
+| [supply chain subject binding](./diagrams/supply-chain-subject-binding.svg) | [Guide](../ContainerSecurity/software-supply-chain-assessment.md) |
+
 ## Container Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
