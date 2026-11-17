@@ -1,6 +1,6 @@
 # Hardware Security Keys, FIDO2, Passkeys, and Certification Levels
 
-_Last reviewed: 2026-11-01 (standards and official documentation reviewed; no device testing performed)_
+_Last reviewed: 2026-11-17 (standards and official documentation reviewed; no device testing performed)_
 
 Part of [Cryptography](./README.md). Related: [SoloKeys hands-on guide](./solokeys-guide.md), [Encrypted Storage](./encrypted-storage.md), and [Applied Cryptography](./applied-crypto.md).
 
@@ -31,6 +31,8 @@ A key's **touch/user presence** is not necessarily the same as **user verificati
 | AAGUID | Authenticator model/type identifier within FIDO metadata | Enterprise allowlisting with other checks |
 | PIV / OpenPGP / OATH | **Separate**, model-dependent cryptographic applications | Smart cards, file/SSH signing/encryption, TOTP/HOTP |
 
+A reported **AAGUID alone is not proof of device origin**. A relying party that restricts models must validate applicable attestation evidence against trusted metadata and its policy; self-reported identifiers do not establish certification. See the [WebAuthn attestation requirements](https://www.w3.org/TR/webauthn-3/#sctn-attestation).
+
 ### Passkeys: synced vs device-bound
 
 **Synced passkeys:** credential material is protected and synchronized by a passkey provider across user devices. They improve usability and are phishing-resistant, but organizational assurance depends on provider account security, recovery, device enrollment and sharing controls.
@@ -41,11 +43,11 @@ A key's **touch/user presence** is not necessarily the same as **user verificati
 
 ## FIDO Authenticator Certification Levels (not protocol versions)
 
-These levels build on each other. A device's **specific model, firmware and certification entry** determine its verified level.
+L1 is the baseline; L1+ addresses software hardening, while L2 through L3+ add hardware isolation and physical-attack assurance. These are not five interchangeable steps for every authenticator type. A device's **specific model, firmware and certification entry** determine its verified level.
 
 | Level | Description / main assurance distinction |
 |---|---|
-| **L1** | Baseline FIDO authenticator security and interoperability; safeguards against scalable remote attacks |
+| **L1** | Baseline authenticator security requirements against scalable remote attacks; functional/interoperability certification is a related, separate process |
 | **L1+** | Software-authenticator hardening and additional independent testing |
 | **L2** | Stronger isolation of authenticator operations in an allowed restricted operating environment; accredited-lab document review |
 | **L3** | Adds independently evaluated protection against physical attacks such as probing and certain fault/side-channel attacks |
@@ -74,7 +76,7 @@ Avoid assuming each vendor or product supports the same features, certification 
 
 1. Confirm the service supports **FIDO2/WebAuthn** and whether it permits security-key-only sign-in or passkey sign-in.
 2. Obtain **two trusted, independently identified keys** per high-value account where permitted: a daily key and a separately secured backup.
-3. Update the device and operating system through vendor-supported methods. Confirm model and FIDO certification status where required.
+3. Update the operating system and browser, and update key firmware **only when the exact model supports vendor-approved updates**. Some keys have fixed firmware and require replacement to address a firmware issue. Confirm the model and certification entry where required.
 4. Open the service's **Security / Passkeys / Security Keys** enrollment screen; do not follow links from unsolicited email.
 5. Register the primary authenticator, set a **device PIN** when required, and test sign-in from a clean second browser/session.
 6. Register and **test the backup key** independently. Record key identifier, custodian, account, enrollment date and revocation instructions without storing PINs.
@@ -83,6 +85,10 @@ Avoid assuming each vendor or product supports the same features, certification 
 
 > [!WARNING]
 > Even a phishing-resistant key cannot protect an already-compromised authenticated session, a malicious endpoint, or an account recovered through an easily phished fallback. TOTP generated on a hardware key is still phishable; FIDO U2F/WebAuthn is the origin-bound protection.
+
+![Account recovery paths showing independently enrolled daily and backup keys and service-controlled recovery](../assets/diagrams/security-key-recovery-paths.svg)
+
+*Recovery planning: the second key gets its own credential enrollment. A fallback or help-desk reset follows the service's recovery policy and needs separate scrutiny; possessing two physical keys does not establish that both are registered.*
 
 ## Enterprise security-key/passkey audit checklist
 
@@ -110,7 +116,13 @@ This enumerates supported authenticators. It does **not** verify certification, 
 
 ## Security keys and disk/file encryption
 
-The FIDO2 function signs authentication challenges; it is **not** a disk encryption key interface. Selected multi-protocol devices support **OpenPGP**, **PIV**, or integration with software that can use a protected private key; those use different protocols and recovery mechanisms. Verify the exact model and application support first. See [SoloKeys](./solokeys-guide.md) and [Encrypted Storage](./encrypted-storage.md).
+Standard WebAuthn sign-in uses a signed challenge; a normal account credential is not automatically a disk-unlock method. However, **FIDO2 extensions can support storage-unlock integrations**. For example, [systemd-cryptenroll](https://www.freedesktop.org/software/systemd/man/latest/systemd-cryptenroll.html) supports **LUKS2** enrollment with compatible FIDO2 tokens implementing **hmac-secret**. Host software uses the extension output in the unlock process; the token does not store the user's files.
+
+![Separate paths for WebAuthn signing, FIDO2 extension-based LUKS2 unlocking, and model-dependent PIV or OpenPGP](../assets/diagrams/security-key-protocol-boundaries.svg)
+
+*Protocol boundaries: standard account authentication, a supported secret-derivation extension, and PIV/OpenPGP are different integrations. Support for one does not imply support for the others. This conceptual figure is not an enrollment procedure.*
+
+Selected multi-protocol devices also support **OpenPGP** or **PIV**, with their own software, key-management, and recovery requirements. Check the token, host version, boot environment, PIN/touch policy, and recovery compatibility before enrollment. Test an independent disk-recovery method on a disposable volume before relying on a token; a backup key registered for a website is not automatically enrolled for disk unlock. See [SoloKeys](./solokeys-guide.md) and [Encrypted Storage](./encrypted-storage.md).
 
 ## References
 
@@ -120,6 +132,8 @@ The FIDO2 function signs authentication challenges; it is **not** a disk encrypt
 - [FIDO passkeys explanation](https://fidoalliance.org/passkeys-2/)
 - [NIST SP 800-63B-4](https://pages.nist.gov/800-63-4/sp800-63b.html)
 - [W3C WebAuthn](https://www.w3.org/TR/webauthn-3/)
+- [systemd-cryptenroll: supported tokens and LUKS2 requirements](https://www.freedesktop.org/software/systemd/man/latest/systemd-cryptenroll.html)
+- [Yubico firmware lifecycle and update limits](https://docs.yubico.com/hardware/yubikey/yk-tech-manual/yk5-firmware-overview.html)
 
 ## See also
 

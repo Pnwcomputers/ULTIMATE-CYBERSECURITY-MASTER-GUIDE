@@ -7,6 +7,15 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Security Key And Recovery Visuals
+
+Original conceptual figures; source links and evidence limits appear in the guide captions.
+
+| Diagram | Embedded guide |
+|---|---|
+| [security key recovery paths](./diagrams/security-key-recovery-paths.svg) | [Guide](../Cryptography/security-keys-passkeys.md) |
+| [security key protocol boundaries](./diagrams/security-key-protocol-boundaries.svg) | [Guide](../Cryptography/security-keys-passkeys.md) |
+
 ## Encrypted Storage Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
