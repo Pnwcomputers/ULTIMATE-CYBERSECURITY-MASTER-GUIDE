@@ -14,6 +14,11 @@ The research connected weaknesses in MIFARE Classic-based cards, manufacturer-sp
 
 This case study intentionally omits credential-writing commands, construction of forged cards and lock-opening sequences. No hotel room or access-control system should be tested without written authorization.
 
+
+![Property management, RFID credentials, key handling and lock authorization form a connected trust chain](../../assets/diagrams/unsaflok-system-trust-chain.svg)
+
+*Original conceptual diagram based on the [researchers' disclosure](https://unsaflok.com/). Read the chain as interacting trust assumptions, not an opening procedure. Remediation must cover the affected system; neither the diagram nor a lock's appearance establishes current patch status.*
+
 ## Disclosure & Response
 
 - Researchers began work in 2022 and reported the findings to dormakaba in September 2022.

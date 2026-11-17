@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">Unsaflok: connected weaknesses across the lock system</title>
+<desc id="desc">The property management system, issued RFID cards and lock authorization are linked. Card protection, key handling and authorization weaknesses interact. Remediation must span management, cards, readers and locks.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Unsaflok: connected weaknesses across the lock system</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">2024 disclosure • conceptual trust chain • affected configurations only</text>
+<rect x="40" y="145" width="250" height="180" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Management system</text>
+<text x="58" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Credential issuance</text>
+<text x="58" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Property configuration</text>
+<path d="M 298 235 L 319 235" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="330" y="145" width="250" height="180" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="348" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">RFID credential</text>
+<text x="348" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Card data protection</text>
+<text x="348" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">MIFARE Classic context</text>
+<path d="M 588 235 L 609 235" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="620" y="145" width="250" height="180" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="638" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Key handling</text>
+<text x="638" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Manufacturer-specific</text>
+<text x="638" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Trust assumptions</text>
+<path d="M 878 235 L 899 235" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="910" y="145" width="250" height="180" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="928" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Lock authorization</text>
+<text x="928" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Room access decision</text>
+<text x="928" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Affected configurations</text>
+<text x="40" y="378" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16354b">REMEDIATION MUST COVER THE WHOLE DEPLOYMENT</text>
+<rect x="40" y="410" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="439" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Management and integrations → credential reissuance → reader / lock update or replacement.</text>
+<text x="58" y="468" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">A lock’s exterior appearance does not establish upgrade status. Verify vendor deployment records.</text>
+</svg>

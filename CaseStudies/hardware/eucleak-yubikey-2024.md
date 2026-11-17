@@ -8,6 +8,11 @@ NinjaLab researchers reported an electromagnetic side-channel weakness in an Inf
 
 Yubico's YSA-2024-03 advisory lists YubiKey 5/Security Key Series firmware **before 5.7.0** and YubiHSM 2 firmware **before 2.4.0**. These are historical affected ranges; verify exact device model and firmware against the vendor's current notice. Firmware on some hardware tokens is not upgradeable in place; plan authorized replacement/migration.
 
+
+![ECDSA produces an intended signature while electromagnetic leakage during computation creates a separate information channel](../../assets/diagrams/eucleak-intended-output-vs-em-leakage.svg)
+
+*Original conceptual diagram based on [NinjaLab's EUCLEAK research](https://ninjalab.io/eucleak/). The unintended information channel is separate from the normal signature output. No plotted signal or measured trace is implied; physical access and specialist analysis remain prerequisites.*
+
 ## Threat Model & Defensive Response
 
 | Prerequisite or Concern | Interpretation |

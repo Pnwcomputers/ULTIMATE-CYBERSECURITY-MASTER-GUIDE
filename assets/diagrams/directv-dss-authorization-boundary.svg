@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">DirecTV DSS: the access card is an authorization boundary</title>
+<desc id="desc">Broadcast programming arrives at a receiver and decoder. A removable smart card governs which purchased programs it can descramble. Black Sunday on January 21 2001 disabled illegally altered cards; later counterdevices are described in court records.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">DirecTV DSS: the access card is an authorization boundary</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Historical architecture and Black Sunday • simplified • not a card-generation teardown</text>
+<rect x="40" y="145" width="290" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Broadcast programming</text>
+<text x="58" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Satellite transmission</text>
+<text x="58" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Encrypted content</text>
+<rect x="440" y="145" width="320" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="458" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Receiver / decoder</text>
+<text x="458" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">IRD descrambles</text>
+<text x="458" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Authorized programming</text>
+<rect x="870" y="145" width="290" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="888" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Viewer</text>
+<text x="888" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Permitted output</text>
+<path d="M 342 220 L 428 220" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 772 220 L 858 220" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="440" y="352" width="320" height="140" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="458" y="386" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Removable access card</text>
+<text x="458" y="422" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Purchased entitlements</text>
+<text x="458" y="451" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Customer-held module</text>
+<path d="M 600 340 L 600 307" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<text x="40" y="376" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700" fill="#16354b">EVENTS</text>
+<text x="40" y="412" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Before: altered cards</text>
+<text x="40" y="442" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">Jan 21, 2001: countermeasure</text>
+<text x="40" y="472" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#16354b">After: counterdevices</text>
+<rect x="40" y="520" width="1120" height="58" rx="12" fill="#e0ebf1"/>
+<text x="58" y="549" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Authorization-state compromise does not establish a mathematical break of the broadcast cipher.</text>
+</svg>

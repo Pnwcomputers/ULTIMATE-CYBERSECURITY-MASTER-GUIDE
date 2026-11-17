@@ -1,6 +1,66 @@
-# Cybersecurity Case Studies
+# 🧩 Cybersecurity Case Studies
 
-Documented security research and incidents, separated from operational attack tutorials. Each entry records original publication, affected product or sector, root cause, demonstrated scope, limitations, vendor response, defensive lessons and primary sources. These are **historical reports, not proof of current exploitability**; check vendor advisories and the actual installed firmware before making a present-day claim.
+<div align="center">
+
+**Historical incidents and security research, explained through evidence and diagrams**
+
+*Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
+
+</div>
+
+---
+
+**Visuals and navigation reviewed:** November 17, 2026. These are historical accounts and conceptual diagrams, not laboratory reproductions or proof of current exploitability.
+
+## 🎯 Purpose
+
+Provide a dedicated starting point for studying documented cybersecurity incidents
+and hardware-security research, from enterprise intrusions to physical-device trust
+boundaries.
+
+## ⚙️ Function
+
+Connect each case to its analysis, source material, explanatory visuals, and related
+defensive guides. Enterprise incident analyses live in the Enhanced Master Guide;
+the detailed hardware cases live in this section.
+
+## 🏆 Goal
+
+Help readers explain what failed, what the evidence actually establishes, and which
+engineering or operational lessons apply to a similar system.
+
+## 📋 When To Use
+
+- Learning how an intrusion moves between systems, identities, or physical components.
+- Comparing a disclosed vulnerability with a documented incident.
+- Preparing a threat-model discussion, security lesson, or defensive review.
+- Checking the limits of a historical claim before applying it to a current deployment.
+
+---
+
+## 📋 Table Of Contents
+
+- [Start Here](#start-here)
+- [Attack Case Studies](#attack-case-studies-historical-references)
+- [Hardware, RFID & Embedded Security](#hardware-rfid--embedded-security)
+- [Reading The Visuals](#reading-the-visuals)
+- [Case Study Review Checklist](#case-study-review-checklist)
+- [Related Guides](#related-guides)
+
+## Start Here
+
+| If You Want To Understand… | Open |
+|---|---|
+| Worm propagation versus a ransomware payload | [WannaCry](../ENHANCED_MASTER_GUIDE.md#wannacry-breakdown) and [EternalBlue](../ENHANCED_MASTER_GUIDE.md#eternalblue-exploitation) |
+| A trusted update becoming an intrusion path | [SolarWinds](../ENHANCED_MASTER_GUIDE.md#solarwinds-attack) and [NotPetya](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
+| Software changing a physical process | [Stuxnet](../ENHANCED_MASTER_GUIDE.md#stuxnet-analysis) |
+| A technical foothold becoming financial fraud | [Carbanak](../ENHANCED_MASTER_GUIDE.md#carbanak-apt-campaign) |
+| Historical surveillance collection pathways | [Snowden disclosures](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
+| Physical interfaces and credential trust | [Onity](./hardware/onity-locks-2012.md), [Unsaflok](./hardware/unsaflok-3m-hotel-locks.md), and [DirecTV DSS](./hardware/directv-dss-smart-card-black-sunday.md) |
+| Secret recovery and authentication boundaries | [Tesla key fobs](./hardware/tesla-model-s-key-fob-2018.md) and [EUCLEAK](./hardware/eucleak-yubikey-2024.md) |
+| Identifying information hidden in ordinary output | [Xerox printer dots](./hardware/xerox-docucolor-machine-identification-code.md) |
+
+---
 
 ## Attack Case Studies (Historical References)
 
@@ -29,6 +89,24 @@ Each incident title opens its analysis in the Enhanced Master Guide. The source 
 
 The term **“3M hack”** is used here to mean the **approximately three million Saflok doors** reported in Unsaflok research, **not a confirmed incident involving 3M Company**. If a different 3M incident was intended, that needs a separate verified case study.
 
+## Reading The Visuals
+
+Each case includes an original conceptual diagram beside the relevant explanation.
+The Xerox case also includes owner-supplied images. Captions identify provenance,
+source material, scope, and limits.
+
+| Visual Element | How To Read It |
+|---|---|
+| Boxes and arrows | A simplified relationship or mechanism; not measured timing or a universal attack sequence. |
+| Trust boundaries | Where authority or information crosses between components; not a guarantee about a product. |
+| Parallel routes | Different mechanisms that may require different defensive controls. |
+| Historical dates and versions | Scope of the cited research; verify the actual deployment before making a present-day claim. |
+| Illustrations and synthetic examples | Teaching aids, not incident evidence or laboratory measurements. |
+
+The [image asset index](../assets/README.md) records where these figures are used.
+For deeper study, follow each case's source links and distinguish researcher findings,
+vendor advisories, court records, and later reporting.
+
 ## Case Study Review Checklist
 
 1. Distinguish **disclosed research** from confirmed criminal exploitation; do not imply the latter unless evidence exists.
@@ -37,4 +115,16 @@ The term **“3M hack”** is used here to mean the **approximately three millio
 4. Attribute dates and versions to the original source. An old patch-deployment percentage is **not** a current compliance rate.
 5. Link to related defensive and threat-modeling guides; never publish unauthorized entry techniques, live access credentials or card-cloning recipes.
 
-[Hardware Hacking Index](../HardwareHacking/README.md) · [Role & Goal Navigation](../START_HERE.md) · [Main Index](../README.md)
+## Related Guides
+
+| Guide | Use It For |
+|---|---|
+| [Hardware Hacking](../HardwareHacking/README.md) | Device trust boundaries, physical interfaces, and side channels. |
+| [Incident Response](../IncidentResponse/README.md) | Containment, evidence handling, investigation, and recovery. |
+| [Reverse Engineering](../ReverseEngineering/README.md) | Understanding implementation behavior and analysis limits. |
+| [OPSEC](../OPSEC/README.md) | Identity exposure and information handling. |
+| [RFID & NFC](../SDR/rfid.md) | Credential systems and authorized access-control assessment context. |
+
+---
+
+[⬅️ Back To Master Index](../README.md) | [🎯 Role Navigation](../START_HERE.md) | [Legal Notice](../LEGAL.md)

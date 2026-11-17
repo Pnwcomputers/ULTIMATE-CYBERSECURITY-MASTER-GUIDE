@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">Snowden-era disclosures: separate collection pathways</title>
+<desc id="desc">PRISM collection involved compelled service-provider delivery of communications associated with tasked selectors. Upstream collection involved providers controlling backbone infrastructure. These historical pathways differ and do not imply unrestricted direct server access.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">Snowden-era disclosures: separate collection pathways</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Historical 2014 PCLOB description • one part of the wider disclosures • not a current legal summary</text>
+<rect x="40" y="145" width="290" height="148" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="179" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Tasked selectors</text>
+<text x="58" y="215" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">For example, an email</text>
+<text x="58" y="244" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Associated with a target</text>
+<rect x="440" y="130" width="330" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="458" y="164" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">PRISM: provider delivery</text>
+<text x="458" y="200" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Communications service</text>
+<text x="458" y="229" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">provider assistance</text>
+<rect x="440" y="325" width="330" height="150" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="458" y="359" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Upstream: backbone</text>
+<text x="458" y="395" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Telecommunications</text>
+<text x="458" y="424" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">provider assistance</text>
+<rect x="880" y="228" width="280" height="160" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="898" y="262" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Government collection</text>
+<text x="898" y="298" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Handling, querying</text>
+<text x="898" y="327" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Oversight and limits</text>
+<path d="M 342 200 L 428 200" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 342 262 L 428 393" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 782 205 L 868 268" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 782 398 L 868 345" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="40" y="520" width="1120" height="58" rx="12" fill="#e0ebf1"/>
+<text x="58" y="549" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">The 2014 report describes distinct acquisition and handling rules; this is not a map of every program.</text>
+</svg>

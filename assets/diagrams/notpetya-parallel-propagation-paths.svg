@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+<title id="title">NotPetya: more than one route across a network</title>
+<desc id="desc">A compromised software update seeds an infected host. The malware can spread through SMB exploits or stolen-credential remote execution, then disrupt systems. Patching SMB does not by itself remove the credential-based route.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#337b98"/>
+</marker>
+</defs>
+<rect width="1200" height="590" fill="#f4f7fa"/>
+<text x="40" y="54" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#16354b">NotPetya: more than one route across a network</text>
+<text x="40" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">June 2017 • conceptual spread • credential paths are distinct from SMB exploits</text>
+<rect x="40" y="160" width="255" height="200" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="58" y="194" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Compromised update</text>
+<text x="58" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">M.E.Doc context</text>
+<text x="58" y="259" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Initial distribution</text>
+<rect x="360" y="160" width="235" height="200" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="378" y="194" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Infected host</text>
+<text x="378" y="230" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Local execution</text>
+<text x="378" y="259" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Credential exposure</text>
+<path d="M 307 260 L 348 260" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="672" y="133" width="235" height="130" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="690" y="167" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">SMB exploits</text>
+<text x="690" y="203" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">EternalBlue / Romance</text>
+<rect x="672" y="310" width="235" height="130" rx="16" fill="#fff" stroke="#b5cbd7" stroke-width="2"/>
+<text x="690" y="344" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Credential route</text>
+<text x="690" y="380" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Remote execution</text>
+<path d="M 607 220 L 660 200" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 607 300 L 660 370" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="967" y="215" width="193" height="142" rx="16" fill="#fff3d7" stroke="#d3ac53" stroke-width="2"/>
+<text x="985" y="249" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Disruption</text>
+<text x="985" y="285" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Destructive</text>
+<text x="985" y="314" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">system impact</text>
+<path d="M 919 200 L 955 245" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<path d="M 919 375 L 955 315" stroke="#337b98" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+<rect x="40" y="490" width="1120" height="87" rx="12" fill="#e0ebf1"/>
+<text x="58" y="519" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Fixing one propagation route does not eliminate every route.</text>
+<text x="58" y="548" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#16354b">Combine patching, segmentation, credential controls, containment, and tested recovery.</text>
+</svg>
