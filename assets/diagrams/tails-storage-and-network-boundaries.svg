@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 700" role="img" aria-labelledby="title desc">
+<title id="title">Tails session, persistence, and network boundaries</title>
+<desc id="desc">A trusted computer boots a Tails USB. The USB contains the operating system and may contain a separate encrypted Persistent Storage partition. The live session runs in memory and is cleared at shutdown, while selected persistent data remains encrypted on the USB. Tor Browser traffic uses the Tor network. The optional Unsafe Browser connects directly for local captive portals and exposes the ordinary network address. Host hardware, remote services, and physical observation remain outside session-reset protection.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#315c7b"/></marker><style>
+.bg{fill:#f4f7fb}.panel{fill:#fff;stroke:#315b79;stroke-width:3;rx:20}.usb{fill:#eaf2f8;stroke:#406b89;stroke-width:3;rx:18}.memory{fill:#eef7f2;stroke:#47886f;stroke-width:3;rx:18}.persist{fill:#fff5df;stroke:#c38a2e;stroke-width:3;rx:18}.tor{fill:#edf0fb;stroke:#655da1;stroke-width:3;rx:18}.direct{fill:#fff0ed;stroke:#b55348;stroke-width:3;rx:18}.h{font:700 23px system-ui,sans-serif;fill:#1b3850}.t{font:17px system-ui,sans-serif;fill:#2d4355}.s{font:15px system-ui,sans-serif;fill:#4b6274}.arr{stroke:#315c7b;stroke-width:4;fill:none;marker-end:url(#arrow)}.dash{stroke:#88704b;stroke-width:3;stroke-dasharray:9 8;fill:none}.note{fill:#e8f0f6;stroke:#a5b8c8;stroke-width:2;rx:14}.warn{font:700 17px system-ui,sans-serif;fill:#9a483e}
+</style></defs>
+<rect class="bg" width="1240" height="700" rx="24"/>
+<text x="620" y="48" text-anchor="middle" class="h" font-size="30">Tails: what resets, what persists, and where traffic goes</text>
+<rect class="panel" x="30" y="88" width="1180" height="106"/>
+<text x="620" y="126" text-anchor="middle" class="h">Computer, firmware, network adapter, and physical environment</text>
+<text x="620" y="161" text-anchor="middle" class="s">These remain trusted boundaries; a live USB does not make the hardware or nearby network anonymous.</text>
+<path class="arr" d="M620 194V226"/>
+<rect class="usb" x="55" y="234" width="500" height="218"/>
+<text x="305" y="272" text-anchor="middle" class="h">Tails USB</text>
+<rect class="panel" x="87" y="298" width="205" height="116"/>
+<text x="190" y="334" text-anchor="middle" class="h">System area</text>
+<text x="190" y="368" text-anchor="middle" class="s">Bootable OS</text>
+<text x="190" y="393" text-anchor="middle" class="s">and supported upgrades</text>
+<rect class="persist" x="315" y="298" width="205" height="116"/>
+<text x="417" y="334" text-anchor="middle" class="h">Optional persistence</text>
+<text x="417" y="368" text-anchor="middle" class="s">Encrypted, separate data</text>
+<text x="417" y="393" text-anchor="middle" class="s">Discoverable; not hidden</text>
+<rect class="memory" x="610" y="234" width="245" height="218"/>
+<text x="732" y="277" text-anchor="middle" class="h">Live session</text>
+<text x="732" y="316" text-anchor="middle" class="t">Runs in memory</text>
+<text x="732" y="348" text-anchor="middle" class="s">Ordinary temporary</text>
+<text x="732" y="372" text-anchor="middle" class="s">changes are reset</text>
+<text x="732" y="417" text-anchor="middle" class="warn">at shutdown</text>
+<path class="arr" d="M555 343H600"/>
+<path class="dash" d="M417 416V487H732V456"/>
+<text x="565" y="480" text-anchor="middle" class="s">Selected retained data stays on USB, encrypted while locked</text>
+<rect class="tor" x="925" y="234" width="260" height="94"/>
+<text x="1055" y="273" text-anchor="middle" class="h">Tor Browser</text>
+<text x="1055" y="304" text-anchor="middle" class="s">Supported traffic → Tor</text>
+<path class="arr" d="M855 276H915"/>
+<rect class="tor" x="925" y="354" width="260" height="96"/>
+<text x="1055" y="394" text-anchor="middle" class="h">Tor network</text>
+<text x="1055" y="424" text-anchor="middle" class="s">Destination sees exit IP</text>
+<path class="arr" d="M1055 328V344"/>
+<rect class="direct" x="925" y="476" width="260" height="96"/>
+<text x="1055" y="516" text-anchor="middle" class="h">Unsafe Browser</text>
+<text x="1055" y="546" text-anchor="middle" class="warn">Direct network path</text>
+<path class="arr" d="M855 390C880 390 895 520 915 520"/>
+<text x="1055" y="609" text-anchor="middle" class="s">Use only for captive portals or approved local access.</text>
+<rect class="note" x="65" y="540" width="790" height="104"/>
+<text x="460" y="578" text-anchor="middle" class="h">Shutdown clears the live session, not everything else</text>
+<text x="460" y="609" text-anchor="middle" class="s">Persistent files remain encrypted; websites, accounts, network operators, and other people may retain records.</text>
+<text x="620" y="675" text-anchor="middle" class="s">Conceptual guide to documented boundaries; does not certify a device or guarantee anonymity.</text>
+</svg>
