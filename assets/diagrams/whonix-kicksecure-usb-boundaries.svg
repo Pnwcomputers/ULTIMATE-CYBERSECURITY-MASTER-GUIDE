@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">Kicksecure on encrypted USB with Whonix network path</title>
+<desc id="desc">A physical computer boots Kicksecure from an encrypted external drive and runs VirtualBox. The Kicksecure host has its own ordinary network route. Inside VirtualBox, Whonix-Gateway has an upstream adapter and a private adapter to Whonix-Workstation. The Workstation has only the private adapter and sends its traffic through Gateway to Tor. The diagram distinguishes persistent encrypted VM storage from optional live host sessions and notes that neither the host nor Tor makes a device anonymous.</desc>
+<defs>
+<marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#315b79"/></marker>
+<style>
+.bg{fill:#f4f7fb}.host{fill:#edf3f8;stroke:#355f7d;stroke-width:3;rx:18}.outer{fill:#fff;stroke:#315b79;stroke-width:3;rx:22}.vm{fill:#fff;stroke:#4a6e8b;stroke-width:2.5;rx:16}.gateway{fill:#fff2df;stroke:#c38a2e;stroke-width:3;rx:16}.work{fill:#eaf4f1;stroke:#478474;stroke-width:3;rx:16}.tor{fill:#eef0fb;stroke:#625a9c;stroke-width:3;rx:16}.warn{fill:#fff0ed;stroke:#b6554a;stroke-width:2;rx:14}.note{fill:#e7eff6;stroke:#a4b7c7;stroke-width:2;rx:14}.h{font:700 23px system-ui,sans-serif;fill:#1b3850}.t{font:17px system-ui,sans-serif;fill:#2d4355}.s{font:15px system-ui,sans-serif;fill:#4b6274}.arr{stroke:#315b79;stroke-width:4;fill:none;marker-end:url(#a)}.gate{stroke:#c38a2e;stroke-width:4;stroke-dasharray:10 8;fill:none}.direct{stroke:#bd574b;stroke-width:3;stroke-dasharray:8 8;fill:none}.warntext{font:700 16px system-ui,sans-serif;fill:#9b463d}
+</style></defs>
+<rect class="bg" width="1280" height="720" rx="24"/>
+<text x="640" y="44" text-anchor="middle" class="h" font-size="30">Encrypted Kicksecure host and Whonix VM route</text>
+<rect class="outer" x="34" y="78" width="1212" height="475"/>
+<text x="640" y="112" text-anchor="middle" class="h">Physical computer: firmware, hardware, and local network remain trusted boundaries</text>
+<rect class="host" x="58" y="142" width="245" height="340"/>
+<text x="180" y="181" text-anchor="middle" class="h">External USB</text>
+<text x="180" y="214" text-anchor="middle" class="t">Encrypted Kicksecure</text>
+<text x="180" y="248" text-anchor="middle" class="s">Host OS + VirtualBox</text>
+<rect class="note" x="82" y="285" width="198" height="76"/>
+<text x="181" y="316" text-anchor="middle" class="s">Host apps have their</text>
+<text x="181" y="342" text-anchor="middle" class="s">own network route</text>
+<rect class="note" x="82" y="380" width="198" height="76"/>
+<text x="181" y="411" text-anchor="middle" class="s">VM disks stored on</text>
+<text x="181" y="437" text-anchor="middle" class="s">encrypted USB volume</text>
+<rect class="vm" x="335" y="142" width="860" height="340"/>
+<text x="765" y="180" text-anchor="middle" class="h">VirtualBox network</text>
+<rect class="gateway" x="400" y="225" width="250" height="150"/>
+<text x="525" y="263" text-anchor="middle" class="h">Whonix-Gateway</text>
+<text x="525" y="296" text-anchor="middle" class="t">Upstream adapter</text>
+<text x="525" y="326" text-anchor="middle" class="s">Connects to Tor</text>
+<text x="525" y="353" text-anchor="middle" class="s">Private adapter</text>
+<rect class="work" x="745" y="225" width="270" height="150"/>
+<text x="880" y="263" text-anchor="middle" class="h">Whonix-Workstation</text>
+<text x="880" y="298" text-anchor="middle" class="t">Private adapter only</text>
+<text x="880" y="332" text-anchor="middle" class="s">Applications run here</text>
+<path class="arr" d="M745 295H660"/>
+<text x="700" y="275" text-anchor="middle" class="s">private VM network</text>
+<rect class="tor" x="1028" y="225" width="145" height="150"/>
+<text x="1100" y="267" text-anchor="middle" class="h">Tor</text>
+<text x="1100" y="302" text-anchor="middle" class="s">relay</text>
+<text x="1100" y="327" text-anchor="middle" class="s">network</text>
+<path class="arr" d="M650 294H1018"/>
+<path class="gate" d="M180 181C306 120 372 165 403 241"/>
+<text x="308" y="150" text-anchor="middle" class="s">host uplink feeds Gateway</text>
+<rect class="warn" x="1028" y="395" width="145" height="60"/>
+<text x="1100" y="421" text-anchor="middle" class="warntext">No direct</text>
+<text x="1100" y="443" text-anchor="middle" class="warntext">Workstation path</text>
+<path class="direct" d="M1015 300H1024V395"/>
+<rect class="note" x="65" y="580" width="530" height="94"/>
+<text x="330" y="616" text-anchor="middle" class="h">Persistent mode</text>
+<text x="330" y="646" text-anchor="middle" class="s">Host and VM changes are saved on encrypted USB storage.</text>
+<rect class="note" x="620" y="580" width="590" height="94"/>
+<text x="915" y="616" text-anchor="middle" class="h">Optional host live mode</text>
+<text x="915" y="646" text-anchor="middle" class="s">Temporary changes reset; persistent updates and Gateway state still need maintenance.</text>
+<text x="640" y="705" text-anchor="middle" class="s">Conceptual VirtualBox baseline. Verify real adapters, disk paths, and live-mode behavior; no anonymity guarantee.</text>
+</svg>

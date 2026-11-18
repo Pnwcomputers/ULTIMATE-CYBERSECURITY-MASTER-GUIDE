@@ -557,6 +557,14 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 |---|---|
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
+## Whonix And Kicksecure USB Boundaries Visual
+
+Original conceptual topology of an encrypted Kicksecure host, Whonix Gateway/Workstation routing, and persistent versus live session storage.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Whonix and Kicksecure USB boundaries](./diagrams/whonix-kicksecure-usb-boundaries.svg) | [Whonix + Kicksecure USB setup](../OPSEC/whonix-kicksecure-usb-guide.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
