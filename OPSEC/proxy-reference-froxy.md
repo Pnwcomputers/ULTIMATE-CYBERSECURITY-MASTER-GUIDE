@@ -1,6 +1,6 @@
 # Proxy Types, DNS Leaks and Froxy Research Reference
 
-_Last reviewed: 2026-11-02 (documentation and source-code review; no third-party proxy was tested)_
+_Last reviewed: 2026-11-18 (official project docs and protocol references checked; no third-party proxy was tested)_
 
 > [!CAUTION]
 > **Authorized use only.** This reference is for owned lab environments,
@@ -42,12 +42,20 @@ production scraping.
 
 | Layer | What it may do | Critical limitation / correct use |
 | --- | --- | --- |
-| HTTP forward proxy | Relay HTTP requests; may use CONNECT for HTTPS | Proxy sees source IP, destination and metadata; can read or alter plaintext HTTP; HTTPS relies on end-to-end certificate verification |
-| HTTPS proxy | Encrypt client-to-proxy connection on supported clients | Does not alone guarantee end-to-end destination privacy; proxy remains a trusted party |
-| SOCKS5 proxy | Relay TCP connections and sometimes UDP | DNS can still resolve locally; prefer remote-resolution mode such as `socks5h` where supported |
-| SSH dynamic tunnel | Give a trusted, authenticated SOCKS endpoint | VPS operator sees exit traffic/metadata; enforce client scope and egress logging for active testing |
-| VPN | Tunnel selected OS or device traffic to a VPN operator | VPN provider replaces ISP as an observer of some metadata; kill switch, DNS and app bypasses still matter |
-| Tor Browser / Whonix | Route supported traffic through Tor, with browser or gateway isolation | Logging in, fingerprinting, malicious endpoints and unsupported applications can still identify users; use supported Tor architecture |
+| HTTP forward proxy | Relay HTTP requests; may use CONNECT for HTTPS | Plain HTTP content is visible to the proxy. With CONNECT to a TLS site, it still sees the client address, requested host, and connection metadata; valid end-to-end TLS protects the page contents unless an interception certificate is trusted. |
+| HTTPS proxy | Protect the client-to-proxy hop with TLS | The proxy still sees connection and destination metadata. A CONNECT tunnel can carry separate client-to-site TLS; verify the destination certificate and understand any TLS interception. |
+| SOCKS5 proxy | Relay supported TCP connections; SOCKS5 also defines UDP association | SOCKS does not encrypt application data. DNS location depends on the client mode (`socks5h` sends the hostname to the proxy); use destination TLS separately. |
+| SSH dynamic tunnel | Forward supported client connections through an authenticated SSH session | The local-to-server hop is protected by SSH. The VPS still sees destination metadata and any non-TLS content; enforce client scope and egress logging for active testing. |
+| VPN | Tunnel traffic selected by the device or app configuration to the VPN operator | The local network sees the VPN endpoint and traffic patterns; the provider may see source and destination metadata. Apps outside the tunnel may bypass it; destination TLS remains separate. |
+| Tor Browser / Whonix | Route Tor Browser traffic or configured Workstation traffic through Tor | The guard sees the source network address; the exit reaches the destination. HTTPS separately protects page contents. Other apps are not automatically covered by Tor Browser; use documented architecture. |
+
+![Comparison of HTTP proxy, HTTPS CONNECT or SOCKS proxy, VPN, SSH tunnel, and Tor paths, with the metadata visible at each intermediary and where HTTPS protects content](../assets/diagrams/proxy-route-observer-visibility.svg)
+
+*Conceptual routes only: actual visibility depends on client and server configuration. A valid TLS connection protects application contents to the destination; intermediaries can still see some routing metadata.*
+
+![Comparison of HTTP proxy, HTTPS CONNECT or SOCKS proxy, VPN, SSH tunnel, and Tor paths, with the metadata visible at each intermediary and where HTTPS protects content](../assets/diagrams/proxy-route-observer-visibility.svg)
+
+*Conceptual routes only: actual visibility depends on client and server configuration. A valid TLS connection protects application contents to the destination; intermediaries can still see some routing metadata.*
 
 **Priority:** trusted system design and task separation first. A chain
 of arbitrary free proxies can **increase**, not reduce, the number of
@@ -154,6 +162,10 @@ No package or proxy has been installed or configured in this repo.
   ([MIT license](https://github.com/matheusfelipeog/froxy/blob/master/LICENSE)).
 - [clarketm/proxy-list](https://github.com/clarketm/proxy-list)
   (upstream feed; list health is unverified here).
+- [RFC 9110, CONNECT method](https://www.rfc-editor.org/rfc/rfc9110.html#name-connect) and [RFC 1928, SOCKS5](https://datatracker.ietf.org/doc/rfc1928/) — proxy tunneling protocols.
+- [Tor Browser traffic scope](https://support.torproject.org/tor-browser/features/managing-identities/) — only Tor Browser traffic is routed over Tor by default.
+- [RFC 9110, CONNECT method](https://www.rfc-editor.org/rfc/rfc9110.html#name-connect) and [RFC 1928, SOCKS5](https://datatracker.ietf.org/doc/rfc1928/) — proxy tunneling protocols.
+- [Tor Browser traffic scope](https://support.torproject.org/tor-browser/features/managing-identities/) — only Tor Browser traffic is routed over Tor by default.
 - [curl proxy options](https://curl.se/docs/manpage.html).
 - [Python Requests proxy guide](https://requests.readthedocs.io/en/latest/user/advanced/#proxies).
 - [Tor documentation](https://support.torproject.org/) and
