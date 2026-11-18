@@ -37,19 +37,28 @@ _Last reviewed: 2026-11-02 (source/API documentation review; no collection execu
    [Velociraptor's offline GUI workflow](https://docs.velociraptor.app/)
    and artifact explorer before considering a production server/client rollout.
 4. For a customer environment, choose a deployment approved by that customer,
-   apply agent enrollment and role-based access controls, secure server TLS and
-   isolate evidence storage.
+   apply enrollment and least-privilege roles, secure server TLS and isolate
+   evidence storage. Treat `COLLECT_CLIENT` as high-trust: hidden artifacts
+   remain callable, and sensitive client artifacts should declare
+   `required_permissions` that authorize their use.
 5. Build an artifact selection matrix: investigative question → OS version →
    collection artifact → expected event timestamps and file paths → privacy
    sensitivity → estimated data volume.
-6. Execute a **minimal** targeted collection, not every artifact. Record
-   endpoint identity, system time/time zone, collector version, artifact
-   definition/commit, query parameters, operator and result hashes.
+6. Execute a **minimal** targeted collection, not every artifact. Record the
+   Flow ID and final collection state as well as endpoint identity, system
+   time/time zone, collector version, artifact definition/commit, parameters,
+   operator and result hashes. If the client is offline, a scheduled flow may
+   not start until it reconnects; verify completion before treating results as
+   collected.
 7. Normalize timestamps and corroborate with memory, event logs, disk and
    network evidence. Distinguish a lack of an artifact from proof of absence.
 8. Export only necessary findings; store raw evidence access-controlled and
    encrypted, record access, and rehearse restoration/disposal according to
    legal retention obligations.
+
+![Conceptual Velociraptor triage path from authorization through collection, flow-status review and evidence reporting](../../assets/diagrams/velociraptor-triage-flow.svg)
+
+*Conceptual workflow only. A Flow ID identifies a collection; it does not prove complete coverage or prove that unobserved activity did not occur.*
 
 ## Evidence capture worksheet
 
@@ -76,8 +85,7 @@ client deployment, cloud connection, collection or VQL execution.
 
 ## Sources
 
-- [Velociraptor](https://github.com/Velocidex/velociraptor) /
-  [documentation](https://docs.velociraptor.app/).
+- Velociraptor official documentation: [artifact collection](https://docs.velociraptor.app/docs/clients/artifacts/) and [artifact security and permissions](https://docs.velociraptor.app/docs/artifacts/security/).
 - [ForensicArtifacts](https://github.com/ForensicArtifacts/artifacts)
   (Apache-2.0).
 - [Tsurugi Bento](tsurugi-bento-portable-dfir-guide.md) ·
