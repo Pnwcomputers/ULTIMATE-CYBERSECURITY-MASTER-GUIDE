@@ -63,9 +63,7 @@ Before paying for a second anonymity layer, confirm you're using what you have.
 A correctly configured VPN can hide destinations from the local network and replace the public IP address seen by destination sites with a VPN exit address. It moves trust to the VPN provider and does not protect identity-bearing logins, browser fingerprints, or traffic from apps outside the tunnel. Provider features, server availability, and settings change; consult the provider's current documentation. [Mullvad's current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) documents its own options, including DAITA and multihop, with configuration and availability caveats.
 
 > [!WARNING]
-> Mullvad **dropped port forwarding** — relevant if you ever need reverse
-> connections. Adding a second *commercial* VPN on top of this buys almost nothing
-> and just adds another logging party.
+A provider's port-forwarding support and other features can change; check current documentation when a task depends on them. Adding another VPN changes which providers and networks you trust, but does not by itself establish anonymity.
 
 ---
 
@@ -86,9 +84,7 @@ A correctly configured VPN can hide destinations from the local network and repl
 - Anonymity usually isn't the goal — **attribution management and scope compliance**
   are. Use a known, stable egress the client has whitelisted (your own VPS), not a
   rotating anonymizing layer.
-- Tor and random proxies through active tooling are slow, leaky (many tools ignore
-  proxy settings and leak real IP/DNS), and make engagements non-reproducible. See
-  [Build #4](#build-4--your-own-vps-exit-do-this-first).
+- Many active tools do not honor browser or system proxy settings. Confirm how each tool routes DNS and traffic before a test; otherwise the observed source may differ from the planned one. Tor also changes test attribution and can add latency, so use only client-approved egress. See [Build #4](#build-4--your-own-vps-exit-do-this-first).
 
 ### Tor's Place
 
@@ -133,21 +129,19 @@ software on the server at all.
 ```bash
 # -D 1080: SSH acts as a local SOCKS5 proxy on 127.0.0.1:1080
 # -N: no remote shell, just forward
-ssh -N -D 1080 user@your-vps-ip
+ssh -N -D 127.0.0.1:1080 user@your-vps-ip
 
 # Resilient version (auto-reconnect):
-autossh -M 0 -N -D 1080 user@your-vps-ip
+autossh -M 0 -N -D 127.0.0.1:1080 user@your-vps-ip
 ```
 
 ### Point proxychains-ng at It
 
-Install (`sudo apt install proxychains-ng`; the binary is `proxychains4`). Edit
-`/etc/proxychains4.conf`:
+Install Proxychains-NG from your distribution's trusted package repository; package names and default configuration paths vary. Copy the packaged example to a user-owned configuration file, such as `~/.proxychains/proxychains.conf`, and invoke it with `-f`:
 
 ```conf
 strict_chain
 proxy_dns
-remote_dns_subnet 224
 tcp_read_time_out 15000
 tcp_connect_time_out 8000
 
@@ -158,7 +152,7 @@ socks5 127.0.0.1 1080
 Run tools prefixed:
 
 ```bash
-proxychains4 curl https://api.myip.com/
+proxychains4 -f ~/.proxychains/proxychains.conf curl https://api.ipify.org/
 ```
 
 ### Leak Traps That Matter
@@ -201,7 +195,7 @@ exit IP (per-request, or a sticky session held for N minutes).
 
 ### Wiring It In
 
-Same proxychains config, swap the proxy line:
+In the same user-owned Proxychains-NG configuration, swap the proxy line. Protect the file because it may contain credentials (for example, restrict it to your account with `chmod 600 ~/.proxychains/proxychains.conf`):
 
 ```conf
 [ProxyList]
