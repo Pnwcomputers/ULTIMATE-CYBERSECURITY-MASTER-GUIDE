@@ -62,6 +62,14 @@ Original conceptual topology separating sniffing, sensor processing, event trans
 |---|---|
 | [Security Onion sensor-to-search data flow](./diagrams/security-onion-sensor-to-search-flow.svg) | [Security Onion guide](../IncidentResponse/IDS&IPS/security-onion.md) |
 
+## Kismet And Wazuh Wireless Lab Visuals
+
+Original conceptual figure separating passive live alerting from optional offline PCAP analysis and case correlation.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Kismet and Wazuh live and offline flows](./diagrams/kismet-wazuh-live-and-offline-flow.svg) | [Wireless intrusion detection lab](../IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
