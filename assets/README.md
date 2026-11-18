@@ -142,6 +142,14 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
 | [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
 
+## Web Application Assessment Visuals
+
+Original conceptual flow mapping authorization to versioned requirements, scoped tests, evidence and retesting.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Web assessment requirement-to-evidence flow](./diagrams/webapp-requirement-to-evidence-flow.svg) | [OWASP standards and Nuclei review](../WebAppSecurity/owasp-assessment-and-nuclei.md) |
+
 ## Control Framework Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.

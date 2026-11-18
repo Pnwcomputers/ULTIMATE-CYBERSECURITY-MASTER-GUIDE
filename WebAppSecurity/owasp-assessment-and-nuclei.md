@@ -22,8 +22,9 @@ _Last reviewed: 2026-11-02 (upstream references; no target scanning performed)_
 
 ASVS and WSTG are **not interchangeable**: requirements describe what a system
 should satisfy; tests describe how to evaluate it. ASVS 5.0.0 is a published
-stable reference, but WSTG development continues; pin the version or commit
-rather than calling a moving HEAD the latest released WSTG.
+stable reference. OWASP lists WSTG v4.2 as the current versioned release while
+v5.0 remains in development; pin a versioned test case or commit rather than
+calling the moving development content the latest released WSTG.
 
 ## Engagement workflow
 
@@ -43,6 +44,10 @@ rather than calling a moving HEAD the latest released WSTG.
    severity and avoid extracting actual customer records.
 7. Write remediation and retest evidence; link to the
    [findings lifecycle guide](../PlayBooks/assessment-findings-lifecycle.md).
+
+![Assessment workflow from written scope through versioned requirements, mapped test methods, controlled checks, evidence and retesting](../assets/diagrams/webapp-requirement-to-evidence-flow.svg)
+
+*Original conceptual workflow. ASVS requirement IDs, WSTG test cases and reviewed Nuclei templates serve different roles; a template match alone is not a confirmed finding.*
 
 ## Example reporting matrix
 
