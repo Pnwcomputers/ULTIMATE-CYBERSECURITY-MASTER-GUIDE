@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" role="img" aria-labelledby="title desc">
+<title id="title">Kismet and Wazuh wireless lab flows</title>
+<desc id="desc">Live path: an owned access point and client are observed passively by a monitor-mode adapter on a fixed channel. Kismet alert data passes through a read-only API bridge as JSON lines to a Wazuh Agent, then Wazuh Manager rules, Indexer, and Dashboard. Optional offline path: an existing authorized PCAP is counted by a burst detector and correlated with Kismet JSONL by claimed BSSID and time. This correlation is not live, not independent evidence when both inputs use the same sensor, and does not trigger a counterattack.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#1b2b3b}.title{font-size:28px;font-weight:700}.section{font-size:21px;font-weight:700}.h{font-size:17px;font-weight:700}.b{font-size:15px}.s{font-size:13px}.live{fill:#eaf4fb;stroke:#31719b;stroke-width:2}.sensor{fill:#eaf5ed;stroke:#53815d;stroke-width:2}.offline{fill:#f4effa;stroke:#765a9d;stroke-width:2}.note{fill:#fff5e5;stroke:#bb7b21;stroke-width:2}.arr{fill:none;stroke:#315b7d;stroke-width:3;marker-end:url(#arrow)}
+</style></defs>
+<rect width="1400" height="700" rx="16" fill="#fff"/>
+<text class="title" x="700" y="45" text-anchor="middle">Wireless WIDS: live alerting and offline case review</text>
+<text class="section" x="50" y="95">LIVE · passive monitoring only</text>
+<rect class="live" x="30" y="125" width="155" height="112" rx="12"/>
+<text class="h" x="107" y="162" text-anchor="middle">Owned AP</text><text class="b" x="107" y="188" text-anchor="middle">and client</text><text class="s" x="107" y="214" text-anchor="middle">authorized test traffic</text>
+<path class="arr" d="M188 181H210"/>
+<rect class="sensor" x="218" y="125" width="165" height="112" rx="12"/>
+<text class="h" x="300" y="159" text-anchor="middle">Monitor adapter</text><text class="b" x="300" y="186" text-anchor="middle">fixed channel</text><text class="s" x="300" y="213" text-anchor="middle">passive · no injection</text>
+<path class="arr" d="M386 181H408"/>
+<rect class="sensor" x="416" y="125" width="150" height="112" rx="12"/>
+<text class="h" x="491" y="164" text-anchor="middle">Kismet</text><text class="b" x="491" y="190" text-anchor="middle">WIDS alerts</text><text class="s" x="491" y="214" text-anchor="middle">deduplicated / limited</text>
+<path class="arr" d="M569 181H591"/>
+<rect class="live" x="599" y="125" width="165" height="112" rx="12"/>
+<text class="h" x="681" y="158" text-anchor="middle">Read-only bridge</text><text class="b" x="681" y="186" text-anchor="middle">API → JSONL</text><text class="s" x="681" y="213" text-anchor="middle">cursor + event IDs</text>
+<path class="arr" d="M767 181H789"/>
+<rect class="live" x="797" y="125" width="140" height="112" rx="12"/>
+<text class="h" x="867" y="164" text-anchor="middle">Wazuh Agent</text><text class="b" x="867" y="191" text-anchor="middle">JSON localfile</text>
+<path class="arr" d="M940 181H962"/>
+<rect class="live" x="970" y="125" width="170" height="112" rx="12"/>
+<text class="h" x="1055" y="158" text-anchor="middle">Wazuh Manager</text><text class="b" x="1055" y="186" text-anchor="middle">custom rules</text><text class="s" x="1055" y="213" text-anchor="middle">severity = triage priority</text>
+<path class="arr" d="M1143 181H1165"/>
+<rect class="live" x="1173" y="125" width="195" height="112" rx="12"/>
+<text class="h" x="1270" y="164" text-anchor="middle">Indexer + Dashboard</text><text class="b" x="1270" y="191" text-anchor="middle">search and review</text>
+<text class="section" x="50" y="300">OPTIONAL · offline analysis of saved evidence</text>
+<rect class="offline" x="62" y="333" width="238" height="110" rx="12"/>
+<text class="h" x="181" y="371" text-anchor="middle">Existing authorized PCAP</text><text class="b" x="181" y="399" text-anchor="middle">correct channel · preserved copy</text><text class="s" x="181" y="425" text-anchor="middle">input only; no live capture implied</text>
+<path class="arr" d="M303 388H350"/>
+<rect class="offline" x="358" y="333" width="220" height="110" rx="12"/>
+<text class="h" x="468" y="372" text-anchor="middle">Burst detector</text><text class="b" x="468" y="400" text-anchor="middle">counts observed frames</text><text class="s" x="468" y="425" text-anchor="middle">bucketed thresholds; not proof</text>
+<path class="arr" d="M581 388H628"/>
+<rect class="offline" x="636" y="333" width="250" height="110" rx="12"/>
+<text class="h" x="761" y="371" text-anchor="middle">Offline correlator</text><text class="b" x="761" y="399" text-anchor="middle">Kismet JSONL + PCAP JSONL</text><text class="s" x="761" y="425" text-anchor="middle">claimed BSSID + time window</text>
+<path class="arr" d="M889 388H936"/>
+<rect class="offline" x="944" y="333" width="202" height="110" rx="12"/>
+<text class="h" x="1045" y="371" text-anchor="middle">Case-events JSONL</text><text class="b" x="1045" y="399" text-anchor="middle">optional agent ingestion</text><text class="s" x="1045" y="425" text-anchor="middle">not continuous / not live</text>
+<path class="arr" d="M1149 388H1190"/>
+<rect class="live" x="1198" y="333" width="170" height="110" rx="12"/>
+<text class="h" x="1283" y="371" text-anchor="middle">Wazuh review</text><text class="b" x="1283" y="399" text-anchor="middle">separate signal</text><text class="s" x="1283" y="425" text-anchor="middle">verify independently</text>
+<path d="M491 245V275H761V328" fill="none" stroke="#765a9d" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<rect class="note" x="62" y="490" width="1306" height="150" rx="14"/>
+<text class="h" x="715" y="528" text-anchor="middle">Evidence limits and safety</text>
+<text class="b" x="715" y="559" text-anchor="middle">Kismet alert totals are not raw packet counts. A same-sensor PCAP is not independent corroboration; BSSID and timestamps can be wrong or spoofed.</text>
+<text class="b" x="715" y="589" text-anchor="middle">Confirm actual client/AP behavior and maintenance with independent records. Severity is triage priority, not probability of compromise.</text>
+<text class="b" x="715" y="619" text-anchor="middle">This lab observes and correlates only: no deauthentication injection and no automatic retaliation.</text>
+</svg>
