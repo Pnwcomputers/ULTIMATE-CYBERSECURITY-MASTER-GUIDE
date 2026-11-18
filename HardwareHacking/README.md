@@ -213,7 +213,7 @@ Detailed documentation, reference links, and step-by-step usage tutorials for sp
 | **[BitPirate.md](./BitPirate.md)** | Serial interface bridge for embedded systems recon, fuzzing, and debugging. |
 | **[LA1010.md](./LA1010.md)** | Setup and usage for the Innomaker LA1010 100MHz 16-channel USB Logic Analyzer. |
 | **[HiLetgo.md](./HiLetgo.md)** | Setup and usage for the HiLetgo 24MHz 8-channel USB Logic Analyzer (Saleae clone). |
-| **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Programmer guide; supported parts, packages, voltages, and adapters depend on the exact device entry. |
+| **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Programmer guide; supported parts, packages, voltages, and adapters depend on the exact [manufacturer device-list entry](https://www.xgecu.com/MiniPro/T48_List.txt). |
 
 ---
 
@@ -269,7 +269,7 @@ For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthed
 | **[Multimeter](https://en.wikipedia.org/wiki/Multimeter)** | [Any decent DMM](https://www.amazon.com/s?k=digital+multimeter) | $20–$50 | Voltage/continuity checks |
 | **[USB-UART Adapter](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)** | [FTDI FT232R](https://www.amazon.com/s?k=FTDI+FT232RL+USB+to+TTL) / [CP2102](https://www.amazon.com/s?k=CP2102+USB+to+TTL) | $5–$15 | Serial console access |
 | **[JTAG/SWD Probe](https://en.wikipedia.org/wiki/JTAG)** | [J-Link EDU](https://www.segger.com/products/debug-probes/j-link/models/j-link-edu/) / [ST-LINK V2](https://www.amazon.com/s?k=ST-Link+V2) | $20–$70 | Debug interface access |
-| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Programmer_(hardware))** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Flash chip read/write & component testing |
+| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Programmer_(hardware))** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Read/write supported parts only; verify the exact chip and required adapter |
 | **[Soldering Station](https://en.wikipedia.org/wiki/Soldering)** | [Hakko FX-888D](https://www.amazon.com/s?k=Hakko+FX-888D) | $100 | Component removal, wire attachment |
 | **[Hot Air Rework](https://en.wikipedia.org/wiki/Rework_(electronics))** | [Quick 957DW](https://www.amazon.com/s?k=Quick+957DW+hot+air+rework) or equivalent | $100–$200 | IC removal, BGA work |
 
@@ -298,7 +298,7 @@ For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthed
 | [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | FPGA-based scriptable interface explorer | ~$150 | N/A |
 | [**Bus Pirate**](https://buspirate.com/) | Interactive multi-protocol interface tool | ~$35 | [BusPirate.md](./BusPirate.md) |
 | [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | USB/Logic/Interface exploration | ~$100 | [GreatFETone.md](./GreatFETone.md) |
-| [**T48 TL866-3G**](https://www.amazon.com/dp/B0BFX9FXGV) | Universal IC Programmer | ~$65 | [T48_TL866-3G.md](./T48_TL866-3G.md) |
+| [**T48 TL866-3G support list**](https://www.xgecu.com/MiniPro/T48_List.txt) | Programmer for listed ICs; verify package, voltage, and adapter | ~$65 | [T48_TL866-3G.md](./T48_TL866-3G.md) |
 | [**LA1010 / HiLetgo**](https://www.amazon.com) | USB Logic Analyzers (100MHz / 24MHz) | $15–$50 | [LA1010.md](./LA1010.md) & [HiLetgo.md](./HiLetgo.md) |
 
 ### Software Tools
