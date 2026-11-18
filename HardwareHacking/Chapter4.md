@@ -34,6 +34,36 @@ A secret-dependent computation can produce ordinary functional output and, separ
 
 #### Concept
 
+If execution time depends on secret data, repeated measurements may reveal information about that data. A comparison that returns at the first mismatch is one possible source of timing variation, but a single slow request does not identify a correct character. Runtime noise, caching, network jitter, input length, scheduling, rate limits, and server behavior all confound measurements.
+
+For software under review, use a local test harness and a documented, authorized target. Do not send guesses to a live service; assess the implementation, threat model, measurement quality, and mitigations instead.
+
+**Mitigation:** Use vetted cryptographic libraries and constant-time comparison primitives for secret values. Python's hmac.compare_digest() is designed to avoid content-based short-circuiting; its documentation notes that type and length differences may still be observable. Constant-time behavior must be evaluated in the full implementation and environment.
+
+#### RSA Timing Attacks
+
+An exponentiation implementation that performs different work depending on private-exponent bits can create timing variation. This is an implementation-level leakage risk, not a universal property of RSA. Real attacks depend on the implementation, observable timing precision, attacker queries, noise, and countermeasures.
+
+Common defensive techniques include constant-time implementations and blinding where appropriate. No single algorithm name guarantees constant-time behavior; use a vetted cryptographic implementation and review its documented threat model. See Kocher's original [timing attacks paper](https://cr.yp.to/bib/1996/kocher.pdf).
+
+#### Cache Timing (Software Side-Channel)
+
+| Attack | Description | Example |
+|--------|-------------|---------|
+| **Flush+Reload** | Measure access time to a shared cache line after an operation | Can reveal whether victim code accessed a line |
+| **Prime+Probe** | Measure cache-set contention after victim activity | Can infer activity without shared memory |
+| **Transient execution** | Speculative or out-of-order effects leave measurable microarchitectural state | Cache timing is one common observation channel |
+
+Spectre and Meltdown refer to distinct vulnerability classes and should not be treated as synonyms for cache attacks. Cache behavior is one possible channel used to observe microarchitectural effects.
+
+---
+
+### Simple Power Analysis (SPA)
+
+SPA examines one or a small number of traces for visible structure associated with a computation. The trace is an observation; interpretation depends on the implementation and measurement setup.
+
+#### Concept
+
 Power measurements can reflect circuit activity, but there is no universal proportionality between trace amplitude and the number of 1 bits in a value. Hamming-weight and Hamming-distance models are hypotheses used in particular analyses; actual leakage depends on the implementation, transitions, measurement path, and noise.
 
 <p align="center">
@@ -45,8 +75,6 @@ Power measurements can reflect circuit activity, but there is no universal propo
 Some modular exponentiation implementations perform distinguishable operations depending on exponent bits. A sufficiently informative trace may reveal operation structure, but the waveform must be interpreted against the exact implementation and acquisition setup. It does not automatically expose key bits.
 
 A CSV plot is a visualization of exported samples, not a calibrated power measurement unless the probe, shunt, gain, and acquisition path are calibrated. Label the axis in the actual exported unit, such as ADC counts or volts, and record its provenance.
-
-Illustrative plotting only: use the sample columns and units documented by the instrument export. Plotting does not calibrate current or power.
 
 ### Differential and Correlation Power Analysis
 
