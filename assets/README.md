@@ -557,6 +557,14 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 |---|---|
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
+## Press Freedom Source Data Lifecycle Visual
+
+Original conceptual workflow for data minimization, protection, retention review, legal holds, and authorized disposal. It does not specify a legal retention period or sanitize media automatically.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Data retention, minimization and lawful disposal](../OPSEC/press-freedom/data-retention-removal.md) |
+
 ## Proxy Route And Observer Visibility Visual
 
 Original conceptual comparison of proxy, VPN, SSH, and Tor paths. It distinguishes routing metadata visible to intermediaries from page contents protected by valid destination TLS.
