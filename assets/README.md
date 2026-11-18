@@ -46,6 +46,14 @@ Original conceptual flow; actual coverage depends on the configured source, filt
 |---|---|
 | [Fail2Ban event-to-action flow](./diagrams/fail2ban-log-to-action-flow.svg) | [Fail2Ban guide](../IncidentResponse/IDS&IPS/fail2ban.md) |
 
+## Snort Guide Visuals
+
+Original conceptual map separating Snort 2 and Snort 3 configuration, then passive and inline traffic modes.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Snort generation and traffic modes](./diagrams/snort-generation-and-traffic-modes.svg) | [Snort guide](../IncidentResponse/IDS&IPS/snort.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
