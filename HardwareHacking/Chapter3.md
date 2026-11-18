@@ -38,62 +38,19 @@ A useful evaluation records the complete chain: the intended property, the obser
 
 #### Clock Glitching
 
-Introduce a glitch (shortened or extended clock pulse) into the target's clock line. The CPU executes an instruction in less time than it needs, producing incorrect results.
+A clock disturbance can violate timing margins or alter clock edges. Depending on the device and injection path, outcomes range from no observable effect to reset, detected fault, or incorrect computation; it does not simply make an instruction execute faster.
 
-```
-Normal clock:   _____|‾‾‾‾‾|_____|‾‾‾‾‾|_____|‾‾‾‾‾|_____
-Glitched clock: _____|‾‾‾‾‾|_____|‾|_____|‾‾‾‾‾|_____
-                                     ^
-                                 Short pulse (glitch)
-                                 CPU sees a "half cycle" -
-                                 flip-flops sample wrong data
-```
+Evaluation requires a target-specific, documented test fixture and instruments appropriate to the clock interface and electrical limits. A repeatable trigger and capture method are useful, but achievable timing resolution, pulse shape, and relation to the target clock depend on the hardware and clocking configuration.
 
-**Requirements:**
-- Access to the clock signal (external crystal, oscillator, or PCB clock trace)
-- FPGA or dedicated glitcher (ChipWhisperer, Glasgow, custom FPGA) to generate precisely timed narrow pulses
-- Triggering mechanism to fire glitch at the right moment
+Some instruments expose controls such as `offset`, `width`, and `repeat`. Their units, ranges, resolution, and effect are instrument- and target-specific. Record actual settings and observed behavior rather than assuming a parameter maps directly to a target clock cycle.
 
-**Practical setup:**
-
-```
-Crystal → [Mux / MOSFET switch] → Target CLK pin
-              ↑
-         FPGA glitch generator
-         (triggered by UART TX, GPIO, or internal counter)
-```
-
-**Key parameters to sweep:**
-- `offset` - clock cycles after trigger before firing glitch
-- `width` - duration of the glitch pulse (often sub-nanosecond)
-- `repeat` - number of consecutive glitch pulses
-
----
+See [ChipWhisperer's notes on glitch timing controls](https://chipwhisperer.readthedocs.io/en/sca101/cw_tips_tricks/advanced_usage/improving_glitch_precision.html).
 
 #### Voltage Glitching
 
-Briefly drop (or spike) the supply voltage. Creates setup/hold time violations and logic errors similar to clock glitching, but attacks the power supply instead of the clock.
+Supply-voltage fault injection perturbs a target rail. The transient that reaches the silicon depends on the power-distribution network, regulator, package, board layout, load, and measurement point; no generic amplitude or duration predicts the effect. Test only on a current-limited, replaceable development target using documented limits and suitable equipment.
 
-```
-Normal VCC: ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾‾‾‾‾‾
-                               ^
-                         Brief voltage drop
-                         (100–500 mV, 1–100 ns)
-```
-
-**Implementation options:**
-
-| Method | Equipment | Pros | Cons |
-|--------|-----------|------|------|
-| MOSFET crowbar | NMOS + FPGA | Simple, cheap | Hard to control glitch shape |
-| ChipWhisperer glitch module | ChipWhisperer Lite/Pro | Purpose-built; calibrated | Cost |
-| DAC-controlled power supply | Fast DAC + LDO | Precise control | Bandwidth limited |
-| Capacitor discharge | Cap + switch | Very fast edges | Less repeatable |
-
-**Critical:** The glitch must propagate through the target's power distribution network (PDN) to the sensitive logic. Bulk decoupling capacitors on the target board will absorb the glitch - **remove or bypass the nearest decoupling cap** to the target chip for best results.
-
----
+**Keep decoupling capacitors in place by default.** Capacitors can shape or attenuate transients, but removing or bypassing them changes the target and can cause instability or damage. Only make a board modification when the exact target documentation specifies it for the measurement path. For example, NewAE's [CW305 documentation](https://rtfm.newae.com/Targets/CW305%20Artix%20FPGA/) describes particular optional capacitors associated with its shunt measurement design; this is not a general instruction for other boards.
 
 <p align="center">
   <img src="../assets/ElectromagneticFaultInjection.jpg" alt="Figure 8: EMFI Probe Setup. An specialized injection coil (the probe) is held less than 1mm above the surface of the target chip." width="600"/>
@@ -101,25 +58,7 @@ Glitched:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|_|‾‾‾�
 
 #### Electromagnetic Fault Injection (EMFI)
 
-A focused EM pulse induces transient currents in the target IC through inductive coupling, causing localized bit flips or logic faults without requiring physical contact to the supply or clock.
-
-**Advantages over voltage/clock glitching:**
-- No electrical connection to target required - works on encapsulated or potted boards
-- Spatially selective - target specific regions of the die
-- Can fault through packaging material (up to several mm of plastic)
-
-**Equipment:**
-- **Riscure EM Fault Injector** - Professional; ~$15K+
-- **ChipSHOUTER** (NewAE Technology) - Affordable research EMFI tool; ~$1K
-- **DIY:** EMFI coil + high-voltage pulse generator + FPGA trigger; buildable for <$500 but requires careful tuning
-
-**Practical tips:**
-- Use an XY stage for repeatable positioning
-- Start with the coil perpendicular to the PCB surface; tilt for sensitivity
-- Sweep position across the IC surface systematically - optimal position is non-obvious
-- Higher voltage = stronger fault but higher crash probability; sweep the parameter
-
----
+EM fault injection applies a transient electromagnetic disturbance that can couple into a circuit without a direct electrical connection. The coupling path, affected region, repeatability, and resulting fault depend strongly on the target package, board, probe, and setup. Do not infer spatial precision or penetration through packaging from an illustrative image. Specialized equipment and controlled laboratory methods are typically required; prices and capabilities vary by current model.
 
 <p align="center">
   <img src="../assets/LaserFaultInjection.jpg" alt="Figure 9: LFI Laboratory Setup. The target chip must be mechanically 'decapped' to expose the silicon die." width="600"/>
@@ -127,36 +66,11 @@ A focused EM pulse induces transient currents in the target IC through inductive
 
 #### Laser Fault Injection (LFI)
 
-Focused laser light on the chip die generates electron-hole pairs in transistors, causing localized bit flips. Highest precision of all fault injection methods - can target individual cells.
-
-**Requirements:**
-- Decapped (delayered) chip - protective coating and packaging must be removed
-- IR laser (1064 nm penetrates silicon from backside) or visible laser (requires thinned front side)
-- Precision XY (optionally Z) stage
-- Trigger synchronization
-
-**Chip decapping:**
-1. **Chemical:** Hot fuming nitric or sulfuric acid etches epoxy (not suitable for copper wire bonds)
-2. **Mechanical:** Dremel + fine grinding; labor-intensive; risk of die damage
-3. **Laser ablation:** Expensive equipment; most precise
-
-| Approach | Laser | Requirements |
-|----------|-------|-------------|
-| Frontside | 532 nm / 660 nm green/red | Remove/thin passivation |
-| Backside | 1064 nm IR | Grind silicon to ~100 μm; flip chip |
-
----
+Optical fault injection uses focused light to perturb semiconductor behavior. Access to a suitable die surface, wavelength, and device construction are target-specific; achievable spatial resolution and effects must be established experimentally. Package opening, delayering, laser use, and chemical processing are specialist failure-analysis activities with serious equipment, eye, chemical, and device hazards. This guide does not provide a decapsulation procedure. Treat the supplied figure as illustrative, not as proof that a device must be opened or that a particular wavelength will work.
 
 #### Body Biasing Injection (BBI)
 
-A voltage pulse applied to the **substrate (body) contact** of the chip through the backside or exposed substrate. Modulates transistor threshold voltages, causing logic faults.
-
-**Advantages:**
-- Does not require decapping (works through thinned or backside-polished chip)
-- More spatially selective than voltage glitching, less equipment-intensive than laser
-- Effective on FD-SOI and bulk CMOS processes
-
----
+Body-bias fault injection is a specialized research technique that perturbs substrate or body bias where a device process and physical access make this possible. Its feasibility, coupling, and effects depend strongly on the semiconductor process and package. It is not a general board-level technique; avoid assuming that a commercial device exposes a usable body contact.
 
 ### Injection Point Identification
 
