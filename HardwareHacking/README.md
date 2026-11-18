@@ -209,11 +209,11 @@ Detailed documentation, reference links, and step-by-step usage tutorials for sp
 |--------------|-------------|
 | **[BusPirate.md](./BusPirate.md)** | Open-source hacker multi-tool for interfacing with I2C, SPI, UART, and JTAG. |
 | **[GreatFETone.md](./GreatFETone.md)** | Extensible open-source hardware tool for logic analysis, I2C/SPI manipulation, and USB RE. |
-| **[JTAGulator.md](./JTAGulator.md)** | Hardware tool to brute-force and discover on-chip debug (OCD) interfaces like JTAG/UART. |
+| **[JTAGulator.md](./JTAGulator.md)** | Tool for systematic pinout discovery on authorized hardware; possible results depend on target design and enabled interfaces. |
 | **[BitPirate.md](./BitPirate.md)** | Serial interface bridge for embedded systems recon, fuzzing, and debugging. |
 | **[LA1010.md](./LA1010.md)** | Setup and usage for the Innomaker LA1010 100MHz 16-channel USB Logic Analyzer. |
 | **[HiLetgo.md](./HiLetgo.md)** | Setup and usage for the HiLetgo 24MHz 8-channel USB Logic Analyzer (Saleae clone). |
-| **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Universal IC Programmer guide for dumping and flashing EPROM, MCU, SPI, and NAND Flash. |
+| **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Programmer guide; supported parts, packages, voltages, and adapters depend on the exact device entry. |
 
 ---
 
@@ -231,27 +231,29 @@ Introduce controlled transient errors to bypass security checks, skip instructio
 | **[Laser FI](https://www.keysight.com/us/en/cmp/device-security.html)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
 | **[Body Biasing](https://link.springer.com/chapter/10.1007/978-3-030-68487-7_11)** | Probe + pulse generator | Medium | Medium | $$ |
 
-### Side-channel Analysis (Passive)
+### Side-channel Analysis (Measurement-Based)
 
-Extract secrets by observing physical emissions during normal operation.
+Side-channel methods study physical or timing observations correlated with device behavior. Trace requirements are target- and test-dependent; the values below are not universal.
 
-| Technique | Observable | Traces Needed | Target |
-|-----------|-----------|---------------|--------|
-| **[SPA](https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis)** | Power (single trace) | 1–10 | RSA, ECC with visible square/multiply pattern |
-| **[DPA](https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis) / [CPA](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (statistical) | 100–100,000 | AES, DES, symmetric crypto |
-| **[Timing](https://en.wikipedia.org/wiki/Timing_attack)** | Execution time | 100–10,000 | Password comparison, RSA, cache-based |
-| **[SEMA](https://en.wikipedia.org/wiki/Electromagnetic_attack)** | EM emissions | 100–10,000 | Same as DPA but contactless |
-| **[Template](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (profiled) | 1–10 | Any: requires clone device for profiling |
-| **[TVLA](https://chipwhisperer.readthedocs.io/en/latest/)** | Power (assessment) | 1,000–10,000 | Leakage detection: not key recovery |
+| Method | Typical observation | What affects the evidence |
+|-----------|------------|---------------|
+| **[SPA](https://en.wikipedia.org/wiki/Power_analysis#Simple_power_analysis)** | Power or EM patterns in one or more operations | Algorithm, implementation, signal quality, and whether data-dependent steps are visible |
+| **[DPA](https://en.wikipedia.org/wiki/Power_analysis#Differential_power_analysis) / [CPA](https://chipwhisperer.readthedocs.io/en/latest/)** | Statistical relationship between a leakage hypothesis and repeated measurements | Leakage model, alignment, noise, input variation, and target implementation |
+| **[Timing](https://en.wikipedia.org/wiki/Timing_attack)** | Runtime differences across controlled operations | Input design, system noise, implementation, and measurement setup |
+| **SEMA / DEMA** | Single-trace or differential electromagnetic observations | Probe position, coupling, bandwidth, signal quality, and target implementation |
+| **[Template](https://chipwhisperer.readthedocs.io/en/latest/)** | Classification using a profiling set and attack observations | Quality and representativeness of profiling data, feature selection, and target similarity |
+| **[TVLA](https://chipwhisperer.readthedocs.io/en/latest/)** | Statistical evidence of data-dependent leakage | Test design, sample quality, group selection, and statistical analysis; a non-detection does not prove resistance |
+
+For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthedocs.io/en/latest/capture-api.html) and [analyzer API](https://chipwhisperer.readthedocs.io/en/latest/analyzer-api.html). Neither defines a universal number of traces required for a successful assessment.
 
 ### Interface Exploitation (Physical Access)
 
 | Interface | Wires | Attack Value | Common Tools |
 |-----------|-------|-------------|-------------|
-| **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs, root shell, U-Boot console | [USB-UART adapter](https://www.amazon.com/s?k=FTDI+USB+UART+Adapter), [logic analyzer](https://www.amazon.com/s?k=24MHz+8CH+USB+Logic+Analyzer) |
-| **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | CPU halt, memory dump, register access | [J-Link](https://www.amazon.com/s?k=SEGGER+J-Link+EDU), OpenOCD, [JTAGulator](./JTAGulator.md) |
-| **[SWD](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug)** | SWDCLK, SWDIO | Same as JTAG (ARM Cortex-M) | [ST-LINK](https://www.amazon.com/s?k=ST-Link+V2), CMSIS-DAP |
-| **[SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)** | SCLK, MOSI, MISO, CS | Flash dump (firmware extraction) | flashrom, [Bus Pirate](./BusPirate.md), [CH341A](https://www.amazon.com/s?k=CH341A+SPI+Programmer) |
+| **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs or console if exposed; a shell depends on target configuration | [USB-UART adapter](https://www.amazon.com/s?k=FTDI+USB+UART+Adapter), [logic analyzer](https://www.amazon.com/s?k=24MHz+8CH+USB+Logic+Analyzer) |
+| **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | Debug access where the interface is exposed, enabled, and authorized | [J-Link](https://www.amazon.com/s?k=SEGGER+J-Link+EDU), OpenOCD, [JTAGulator](./JTAGulator.md) |
+| **[SWD](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug)** | SWDCLK, SWDIO | ARM two-wire debug; distinct from JTAG and subject to target access controls | [ST-LINK](https://www.amazon.com/s?k=ST-Link+V2), CMSIS-DAP |
+| **[SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)** | SCLK, MOSI, MISO, CS | Read/write access only when a supported memory device is connected and accessible | flashrom, [Bus Pirate](./BusPirate.md), [CH341A](https://www.amazon.com/s?k=CH341A+SPI+Programmer) |
 | **[I²C](https://learn.sparkfun.com/tutorials/i2c/all)** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, [Bus Pirate](./BusPirate.md) |
 
 ---
