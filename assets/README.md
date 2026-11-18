@@ -532,6 +532,14 @@ Original conceptual diagram separating what the local network, VPN operator, and
 |---|---|
 | [VPN trust boundaries](./diagrams/vpn-trust-boundaries.svg) | [VPN Security Guide](../Documentation/VPN.md) |
 
+## Tor Circuit and Visibility Visuals
+
+Original conceptual diagram separating Tor Browser or explicitly configured client traffic from other device traffic, with relay roles and the independent role of HTTPS.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Tor circuit and relay visibility](./diagrams/tor-circuit-visibility.svg) | [Tor Browser and Tor Network Guide](../Documentation/TOR.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
