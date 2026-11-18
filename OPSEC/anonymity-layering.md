@@ -53,17 +53,16 @@ Match egress and isolation to the task, document the expected route, and validat
 | Passive OSINT (looking, not touching) | Reduce correlation and use a permitted access path | Separate browser profile or VM; consider a proxy only when allowed and needed |
 | Separate research identities | Reduce accidental cookie and history crossover | Separate standard browser profiles and clearly scoped accounts; profiles do not make identities anonymous |
 | Active authorized testing (scan, auth'd) | **Attribution management + scope compliance**, not anonymity | Your own VPS exit, whitelisted by the client |
-| Viewing a hostile/sketchy site | Defeat the site operator identifying you | Tor Browser (or [Whonix](./whonix-kicksecure-usb-guide.md)) |
+| Viewing a hostile/sketchy site | Reduce exposure of your network address while limiting fingerprint variation | Tor Browser (or [Whonix](./whonix-kicksecure-usb-guide.md)); avoid identity-bearing logins |
 
 ---
 
 ## Baseline: A VPN's role in the trust model
 
 Before adding another network provider, identify what your current VPN hides and what remains visible.
-A correctly configured VPN can hide destinations from the local network and replace the public IP address seen by destination sites with a VPN exit address. It moves trust to the VPN provider and does not protect identity-bearing logins, browser fingerprints, or traffic from apps outside the tunnel. Provider features, server availability, and settings change; consult the provider's current documentation. [Mullvad's current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) documents its own options, including DAITA and multihop, with configuration and availability caveats.
+A correctly configured VPN hides the direct connection to destination services from the local network; the network can still see the VPN endpoint and traffic patterns. Destination services see the VPN exit address. Trust shifts to the VPN provider, which can observe connection metadata; HTTPS separately protects web content in transit. A VPN does not protect identity-bearing logins, browser fingerprints, or traffic from apps outside the tunnel. Provider features, server availability, and settings change; consult the provider's current documentation. [Mullvad's current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) documents its own options, including DAITA and multihop, with configuration and availability caveats.
 
-> [!WARNING]
-A provider's port-forwarding support and other features can change; check current documentation when a task depends on them. Adding another VPN changes which providers and networks you trust, but does not by itself establish anonymity.
+Provider features, including port forwarding, can change; check current documentation when a task depends on them. Adding another VPN changes which providers and networks you trust, but does not by itself establish anonymity.
 
 ---
 
@@ -71,8 +70,7 @@ A provider's port-forwarding support and other features can change; check curren
 
 ### Passive OSINT
 
-- **Separate profiles or disposable VMs** when the task requires distinct cookie and history stores. A snapshot can restore prior state, but it does not guarantee a different or non-unique browser fingerprint. This may reduce accidental crossover; it does not make an identity anonymous.
-- **Browser compartmentalization.** Use separate standard browser profiles or disposable VMs when the task requires separate cookie and history stores. A profile does not conceal identity or guarantee a distinct fingerprint. Mullvad Browser is one privacy-focused option developed with the Tor Project; it is designed to reduce tracking and fingerprinting and is intended for use with a VPN, but it does not make a user anonymous. See [Mullvad Browser](https://mullvad.net/en/browser) and the [Tor Project's fingerprinting guidance](https://support.torproject.org/tor-browser/features/fingerprinting-protections/).
+- **Browser compartmentalization.** Use separate standard browser profiles or disposable VMs when the task requires distinct cookie and history stores. A snapshot can restore prior state, but it does not guarantee a different or non-unique browser fingerprint. This may reduce accidental crossover; it does not make an identity anonymous. Mullvad Browser is one privacy-focused option developed with the Tor Project; it is designed to reduce tracking and fingerprinting, and is intended for use with a trustworthy VPN. It does not make a user anonymous. See [Mullvad Browser](https://mullvad.net/en/browser) and the [Tor Project's fingerprinting guidance](https://support.torproject.org/tor-browser/features/fingerprinting-protections/).
 - **Residential/mobile egress** only when the source's terms allow it and the task requires it. Use a **paid, contracted** provider — never scraped free lists. See [Build #2](#build-2--paid-residential-proxy-contract).
 
 ### Active Engagements
@@ -114,9 +112,7 @@ One option is a VPS you control, an SSH dynamic tunnel, and a local SOCKS client
 
 - Pick a provider/region that fits the engagement. Use a **fresh instance per
   client** so egress is attributable to one engagement.
-- Harden it: key-only SSH, no password auth, firewall down to port 22 plus whatever
-  the engagement needs. This box's IP goes in the client's allowlist — treat it as
-  part of the deliverable.
+- Harden it: key-only SSH, no password authentication, and inbound access limited to SSH from approved management addresses. Restrict outbound traffic to the engagement scope when feasible, with a documented exception window if the authorized test requires broader egress. This box's IP goes in the client's allowlist — treat it as part of the deliverable.
 
 ### Open the SOCKS Tunnel From Your Workstation
 
@@ -143,7 +139,7 @@ tcp_connect_time_out 8000
 socks5 127.0.0.1 1080
 ```
 
-Run tools prefixed:
+For a basic egress check, use a low-sensitivity endpoint you trust. A public IP-check service learns the address it sees; this check does not prove every tool or protocol follows the same route:
 
 ```bash
 proxychains4 -f ~/.proxychains/proxychains.conf curl https://api.ipify.org/
@@ -168,8 +164,7 @@ For passive OSINT where a target geofences or flags VPS/VPN ranges.
 
 > [!WARNING]
 > **Do not** use this for active testing against a client — that's
-> [Build #4](#build-4--your-own-vps-exit-do-this-first). Residential pools are for
-> looking, not touching.
+> [Build #4](#build-4--your-own-vps-exit-do-this-first). This subsection covers only permitted, read-only access to public sources; a proxy does not override source terms or grant access.
 
 **What you're buying:** access to a pool of residential/mobile IPs via a gateway
 endpoint. You connect to one `host:port` with credentials; the provider rotates the
