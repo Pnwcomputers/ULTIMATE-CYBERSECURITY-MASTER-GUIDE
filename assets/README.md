@@ -158,6 +158,14 @@ Original conceptual flow mapping authorization to versioned requirements, scoped
 |---|---|
 | [Web assessment requirement-to-evidence flow](./diagrams/webapp-requirement-to-evidence-flow.svg) | [OWASP standards and Nuclei review](../WebAppSecurity/owasp-assessment-and-nuclei.md) |
 
+## Assessment Service Integration Visuals
+
+Original conceptual gates for approval, phase selection, evidence validation and closure.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Assessment integration evidence gates](./diagrams/assessment-integration-evidence-gates.svg) | [Staged security assessment integration map](../PlayBooks/assessment-service-integration-map.md) |
+
 ## Control Framework Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
