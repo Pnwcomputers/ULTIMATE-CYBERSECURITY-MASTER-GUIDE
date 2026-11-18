@@ -54,6 +54,14 @@ Original conceptual map separating Snort 2 and Snort 3 configuration, then passi
 |---|---|
 | [Snort generation and traffic modes](./diagrams/snort-generation-and-traffic-modes.svg) | [Snort guide](../IncidentResponse/IDS&IPS/snort.md) |
 
+## Security Onion Data Flow Visuals
+
+Original conceptual topology separating sniffing, sensor processing, event transport, search, packet capture, and analyst access.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Security Onion sensor-to-search data flow](./diagrams/security-onion-sensor-to-search-flow.svg) | [Security Onion guide](../IncidentResponse/IDS&IPS/security-onion.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
