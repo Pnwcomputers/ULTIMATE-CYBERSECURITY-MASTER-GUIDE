@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Security Onion sensor-to-search data flow</title>
+<desc id="desc">A TAP or SPAN copy enters a sensor through a dedicated sniffing interface. Suricata and Zeek create alerts and logs, while packet capture remains on the sensor. Elastic Agent forwards logs to Logstash on the manager or receiver, then Redis queues events for Elasticsearch on manager or search nodes. Analysts use Security Onion Console on the manager. Endpoint logs can also arrive from Elastic Agent or supported syslog sources.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#172b3a}.title{font-size:27px;font-weight:700}.h{font-size:20px;font-weight:700}.b{font-size:16px}.s{font-size:14px}.box{fill:#f2f7fb;stroke:#315b7d;stroke-width:2}.sensor{fill:#e8f4ec;stroke:#477451;stroke-width:2}.store{fill:#f1edfa;stroke:#71599a;stroke-width:2}.analyst{fill:#fff5e5;stroke:#b47b21;stroke-width:2}.line{fill:none;stroke:#315b7d;stroke-width:3;marker-end:url(#arrow)}.dash{fill:none;stroke:#748696;stroke-width:2;stroke-dasharray:7 6;marker-end:url(#arrow)}
+</style></defs>
+<rect width="1200" height="560" rx="16" fill="#fff"/>
+<text class="title" x="600" y="40" text-anchor="middle">From mirrored traffic to searchable events</text>
+<rect class="box" x="35" y="100" width="150" height="90" rx="12"/>
+<text class="h" x="110" y="136" text-anchor="middle">TAP / SPAN</text><text class="b" x="110" y="164" text-anchor="middle">traffic copy</text>
+<path class="line" d="M189 145H220"/>
+<rect class="sensor" x="228" y="75" width="310" height="190" rx="14"/>
+<text class="h" x="383" y="108" text-anchor="middle">Sensor node</text>
+<text class="b" x="383" y="139" text-anchor="middle">Dedicated sniffing NIC · no IP</text>
+<rect x="250" y="157" width="120" height="68" rx="9" fill="#fff" stroke="#477451" stroke-width="1.5"/>
+<text class="b" x="310" y="186" text-anchor="middle">Suricata</text><text class="s" x="310" y="209" text-anchor="middle">NIDS alerts</text>
+<rect x="390" y="157" width="125" height="68" rx="9" fill="#fff" stroke="#477451" stroke-width="1.5"/>
+<text class="b" x="452" y="186" text-anchor="middle">Zeek</text><text class="s" x="452" y="209" text-anchor="middle">protocol logs</text>
+<rect class="sensor" x="228" y="290" width="310" height="74" rx="12"/>
+<text class="h" x="383" y="322" text-anchor="middle">PCAP stays on sensor</text><text class="s" x="383" y="346" text-anchor="middle">retrieval / retention follows configuration</text>
+<path class="dash" d="M383 267V284"/>
+<path class="line" d="M540 190H578"/>
+<rect class="box" x="586" y="118" width="150" height="115" rx="12"/>
+<text class="h" x="661" y="157" text-anchor="middle">Elastic Agent</text><text class="b" x="661" y="188" text-anchor="middle">ships logs</text><text class="s" x="661" y="212" text-anchor="middle">not full PCAP</text>
+<path class="line" d="M738 175H778"/>
+<rect class="box" x="786" y="118" width="160" height="115" rx="12"/>
+<text class="h" x="866" y="157" text-anchor="middle">Logstash</text><text class="b" x="866" y="188" text-anchor="middle">manager /</text><text class="b" x="866" y="212" text-anchor="middle">receiver role</text>
+<path class="line" d="M948 175H979"/>
+<rect class="store" x="987" y="118" width="175" height="115" rx="12"/>
+<text class="h" x="1074" y="157" text-anchor="middle">Redis queue</text><text class="b" x="1074" y="188" text-anchor="middle">→ Elasticsearch</text><text class="s" x="1074" y="212" text-anchor="middle">manager / search</text>
+<rect class="analyst" x="786" y="291" width="376" height="82" rx="12"/>
+<text class="h" x="974" y="326" text-anchor="middle">Analyst access through SOC</text><text class="b" x="974" y="352" text-anchor="middle">alerts · hunt · cases · detections</text>
+<path class="line" d="M1074 235V284"/>
+<rect x="228" y="419" width="310" height="70" rx="12" fill="#f7f8fa" stroke="#7b8b99" stroke-width="2"/>
+<text class="h" x="383" y="449" text-anchor="middle">Optional endpoint logs</text><text class="s" x="383" y="474" text-anchor="middle">Elastic Agent / syslog · Sysmon optional</text>
+<path class="dash" d="M540 454H650V233"/>
+<rect class="analyst" x="586" y="505" width="576" height="34" rx="10"/>
+<text class="s" x="874" y="527" text-anchor="middle">Management and sniffing are separate paths; exact pipeline varies by node role and release.</text>
+</svg>
