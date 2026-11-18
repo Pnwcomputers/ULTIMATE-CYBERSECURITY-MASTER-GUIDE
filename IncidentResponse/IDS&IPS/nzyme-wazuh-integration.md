@@ -51,6 +51,10 @@ Example documented detection payload:
 
 **Frequency caution:** nzyme groups detections and may re-trigger them at **five-minute intervals**, not once per packet. Webhook and UDP syslog actions are attempted **once**, with no built-in retry. A receiver cannot recover events that were never delivered; add a durable queue/reconciliation step for higher-assurance operations. See [alert lifecycle](https://docs.nzyme.org/configuration/alerting/) and [subscriptions](https://docs.nzyme.org/configuration/alerting/subscriptions_actions/).
 
+![nzyme alert integration flow: grouped detection events are sent once by webhook to a local authenticated receiver or by UDP syslog to a local relay, then normalized events reach Wazuh through its agent. Exact event-type mappings determine triage rules; Kismet remains a separate source and is only correlated by site and time without assuming a shared BSSID.](../../assets/diagrams/nzyme-wazuh-event-ingestion.svg)
+
+*Conceptual paths only. Webhook/syslog delivery is not retried by nzyme, and no alert proves a device identity or attack by itself.*
+
 ## 3. Install a localhost-only webhook receiver
 
 This example assumes **nzyme-node, the receiver and a Wazuh agent run on the same Linux host**. The included Python code uses only the standard library, listens on **127.0.0.1:8787/nzyme**, verifies a 32+ character Bearer token, limits JSON to 16 KiB and appends normalized events to **/var/log/nzyme-wazuh/events.jsonl** before replying with HTTP 204.

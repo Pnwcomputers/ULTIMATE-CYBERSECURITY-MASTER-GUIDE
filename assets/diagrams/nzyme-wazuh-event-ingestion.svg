@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 610" role="img" aria-labelledby="title desc">
+<title id="title">nzyme event ingestion into Wazuh</title>
+<desc id="desc">nzyme detection events are grouped and actions are attempted once without retry. A webhook sends an HTTP JSON event to a local Bearer-authenticated receiver that appends normalized JSON lines. Alternatively, RFC 5424 syslog is sent over UDP to a local relay, which may queue and forward it. Wazuh Agent reads the local event file, and Wazuh Manager applies only verified event-type mappings before indexing and dashboard review. Kismet is a separate RF source; compare by site and time without assuming a shared BSSID.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#1b2d3d}.title{font-size:27px;font-weight:700}.h{font-size:19px;font-weight:700}.b{font-size:16px}.s{font-size:14px}.src{fill:#eaf4fb;stroke:#34739a;stroke-width:2}.path{fill:#f0f6fa;stroke:#52728a;stroke-width:2}.queue{fill:#eef5eb;stroke:#5c8052;stroke-width:2}.warn{fill:#fff5e5;stroke:#b77a20;stroke-width:2}.separate{fill:#f3eff9;stroke:#765d9a;stroke-width:2}.arr{fill:none;stroke:#315b7d;stroke-width:3;marker-end:url(#arrow)}.dash{fill:none;stroke:#765d9a;stroke-width:2.5;stroke-dasharray:7 6;marker-end:url(#arrow)}
+</style></defs>
+<rect width="1200" height="610" rx="16" fill="#fff"/>
+<text class="title" x="600" y="42" text-anchor="middle">From grouped nzyme alert to Wazuh investigation</text>
+<rect class="src" x="35" y="105" width="190" height="110" rx="13"/>
+<text class="h" x="130" y="146" text-anchor="middle">nzyme alert</text><text class="b" x="130" y="176" text-anchor="middle">grouped / re-triggered</text><text class="s" x="130" y="198" text-anchor="middle">not one event per frame</text>
+<path class="arr" d="M228 160H262"/>
+<rect class="warn" x="270" y="105" width="200" height="110" rx="13"/>
+<text class="h" x="370" y="145" text-anchor="middle">One delivery attempt</text><text class="b" x="370" y="176" text-anchor="middle">Webhook or UDP syslog</text><text class="s" x="370" y="198" text-anchor="middle">no built-in retry / queue</text>
+<path class="arr" d="M473 160H505"/>
+<rect class="path" x="513" y="79" width="255" height="110" rx="13"/>
+<text class="h" x="640" y="117" text-anchor="middle">Webhook path</text><text class="b" x="640" y="146" text-anchor="middle">HTTP JSON + Bearer token</text><text class="s" x="640" y="171" text-anchor="middle">local authenticated receiver</text>
+<rect class="path" x="513" y="207" width="255" height="110" rx="13"/>
+<text class="h" x="640" y="245" text-anchor="middle">Syslog path</text><text class="b" x="640" y="274" text-anchor="middle">RFC 5424 over UDP</text><text class="s" x="640" y="299" text-anchor="middle">local relay can queue / forward</text>
+<path class="arr" d="M772 134H808V183H830"/>
+<path class="arr" d="M772 262H808V183"/>
+<rect class="queue" x="838" y="105" width="165" height="155" rx="13"/>
+<text class="h" x="920" y="145" text-anchor="middle">Local event file</text><text class="b" x="920" y="176" text-anchor="middle">normalized JSONL</text><text class="s" x="920" y="202" text-anchor="middle">permissions +</text><text class="s" x="920" y="224" text-anchor="middle">durable storage</text>
+<path class="arr" d="M1006 182H1034"/>
+<rect class="path" x="1042" y="105" width="135" height="155" rx="13"/>
+<text class="h" x="1109" y="145" text-anchor="middle">Wazuh</text><text class="b" x="1109" y="176" text-anchor="middle">Agent → Manager</text><text class="s" x="1109" y="202" text-anchor="middle">verified event</text><text class="s" x="1109" y="224" text-anchor="middle">type → rule</text>
+<path class="arr" d="M1109 264V300"/>
+<rect class="queue" x="960" y="308" width="217" height="83" rx="13"/>
+<text class="h" x="1068" y="342" text-anchor="middle">Indexer + dashboard</text><text class="b" x="1068" y="369" text-anchor="middle">triage, then corroborate</text>
+<rect class="separate" x="65" y="352" width="245" height="92" rx="13"/>
+<text class="h" x="187" y="387" text-anchor="middle">Kismet (separate source)</text><text class="b" x="187" y="416" text-anchor="middle">own fixed-channel receiver</text>
+<path class="dash" d="M312 398H510"/>
+<rect class="separate" x="518" y="352" width="350" height="92" rx="13"/>
+<text class="h" x="693" y="387" text-anchor="middle">Contextual comparison only</text><text class="b" x="693" y="416" text-anchor="middle">same site + time; no assumed shared BSSID</text>
+<path class="dash" d="M872 398H940V375H954"/>
+<rect class="warn" x="65" y="478" width="1112" height="88" rx="13"/>
+<text class="h" x="621" y="512" text-anchor="middle">Interpret carefully</text>
+<text class="b" x="621" y="540" text-anchor="middle">A webhook may omit BSSID, client MAC, or packet count. Rule levels are investigation priority, not proof of compromise or identity.</text>
+<text class="s" x="621" y="560" text-anchor="middle">Confirm with AP/controller and client records; do not trigger an automatic wireless response.</text>
+</svg>

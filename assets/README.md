@@ -70,6 +70,14 @@ Original conceptual figure separating passive live alerting from optional offlin
 |---|---|
 | [Kismet and Wazuh live and offline flows](./diagrams/kismet-wazuh-live-and-offline-flow.svg) | [Wireless intrusion detection lab](../IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md) |
 
+## nzyme And Wazuh Integration Visuals
+
+Original conceptual diagram separating one-shot nzyme actions, local durable collection, Wazuh rule mapping, and optional contextual Kismet comparison.
+
+| Diagram | Embedded guide |
+|---|---|
+| [nzyme event ingestion into Wazuh](./diagrams/nzyme-wazuh-event-ingestion.svg) | [nzyme + Wazuh integration](../IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
