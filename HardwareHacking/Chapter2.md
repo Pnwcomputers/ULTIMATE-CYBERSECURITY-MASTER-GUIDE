@@ -210,21 +210,29 @@ openocd -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 - **Siglent SDS1204X-E** (~$400) - 200 MHz, 14 Mpts; better for RF work
 - **PicoScope 6000E** - 12-bit ADC; excellent for power analysis
 
-<p align="center">
-  <img src="../assets/ShuntSetup.jpg" alt="Figure 6: Shunt Measurement Schematic. Setup for power analysis. A low-value shunt resistor (e.g., 10Ω) is placed in series with the target MCU's VDD. The oscilloscope measures the small, differential voltage drop across the shunt, which represents instantaneous current draw (I = V/R)." width="600"/>
-</p>
+![Conceptual shunt-current measurement with a series resistor, differential voltage measurement, and target-dependent voltage-drop checks](../assets/diagrams/shunt-current-measurement.svg)
+
+*The figure shows the measurement relationship, not a fixed resistor value or tested circuit. Use the target and instrument documentation to select a safe topology and operating limits.*
+
+
 
 #### Shunt Resistors for Power Measurement
 
-The shunt resistor goes **in series** with the target's power supply. Tradeoffs:
+Place the shunt **in series** with the target supply and measure the voltage across it with an instrument/probe configuration suitable for the common-mode voltage and bandwidth. Estimate current using Ohm's law:
 
-| Resistance | Voltage Drop at 50mA | Signal Amplitude | Loading Effect |
-|------------|---------------------|-----------------|---------------|
-| 1 Ω | 50 mV | Low - needs amplification | Minimal |
-| 10 Ω | 500 mV | Good | Moderate - check target still operates |
-| 100 Ω | 5V - exceeds supply | Too high | Significant - device won't run |
+**I = ΔV_shunt / R_shunt**
 
-Rule of thumb: **R_shunt × I_max < 0.1 × V_supply**. For a 3.3V device drawing up to 100 mA, keep shunt below 3.3 Ω.
+The resistor value must be chosen for the target and measurement setup. A larger value increases signal amplitude but also increases the target's supply drop and resistor heating. Check both **V_drop = I_max × R_shunt** and **P = I_max² × R_shunt**, including the resistor's rating and the device's supply margin.
+
+| Example R_shunt | Voltage drop at 50 mA | Interpretation |
+|------------|------------------------|----------------|
+| 1 Ω | 50 mV | Smaller drop and signal |
+| 10 Ω | 500 mV | Larger drop; may disturb target operation |
+| 100 Ω | 5 V | Exceeds a 3.3 V supply |
+
+These are arithmetic examples, not recommendations for a particular target. As an illustration, if a 3.3 V target draws at most 100 mA and a 10% supply-drop budget is selected, the drop rule gives **R_shunt ≤ 3.3 Ω** before accounting for other rail losses. Measure the voltage at the target under its expected load.
+
+Some instruments AC-couple shunt measurements: NewAE documents that its ChipWhisperer measure port shows voltage drop across a board shunt and does not measure DC voltage. Check the instrument's coupling, input loading, and range before interpreting a trace ([ChipWhisperer power measurement notes](https://chipwhisperer.readthedocs.io/en/sca101/cw_tips_tricks/common_questions/power_measurement_units.html)).
 
 #### Logic Analyzers
 
