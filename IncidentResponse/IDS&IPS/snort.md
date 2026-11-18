@@ -51,7 +51,7 @@ Get a working decision, not just a working install: know which install path is w
 
 | Comparison | Snort | Suricata |
 |---|---|---|
-| Detection engine | Single-threaded (Snort 2) / limited multi-threading (Snort 3) | Native multi-threading throughout |
+| Packet processing | Snort 2 uses one packet thread per process; Snort 3 supports multiple packet threads per process | Multi-threaded engine |
 | Rule language | Its own, large community rule ecosystem (Talos/Snort rules) | Compatible with Snort-style rules, plus its own extensions (`http.uri`, `dns.query`, etc.) |
 | Official package availability | Inconsistent across distros/versions — see gotchas below | Available in standard Debian/Ubuntu repos, actively maintained |
 | Protocol-aware inspection | Present but less extensive | Deeper protocol decoders (TLS, HTTP/2, DNS) |
@@ -94,130 +94,92 @@ Both are legitimate, capable engines. The practical difference this repo's own e
 
 ## 🔧 Installation
 
-### Option 1: Default distro repos (try this first)
+Choose the engine generation and platform first. Snort 2 and Snort 3 use different configuration formats and DAQ generations; package names and supported binaries vary by operating system. Avoid mixing a Snort 2 tutorial with a Snort 3 package.
+
+### Snort 3 (recommended for new deployments)
+
+Use the [official Snort downloads and Snort 3 installation documentation](https://www.snort.org/downloads). Follow the instructions for the exact operating system and release you are running, including the required Snort 3 DAQ and dependencies. The official page lists current source releases and separate platform resources; it does not guarantee a matching prebuilt package for every distribution.
+
+After installation, check the version and available DAQ modules:
 
 ```bash
-sudo apt update
-sudo apt install snort
+snort -V
+snort --daq-list
 ```
 
-Whether this works — and how current the resulting version is — varies significantly by distro and release. If it fails or installs something too old for your needs, move to the next option.
+### Snort 2 (legacy compatibility)
 
-### Option 2: Snort's official repository
+Use Snort 2 only when a rule set, platform, or existing deployment specifically requires it. The official site keeps Snort 2 sources and releases separate from Snort 3. Confirm the release and its dependency documentation on the [official downloads page](https://www.snort.org/downloads); do not use a Snort 2 `snort.conf` as a Snort 3 configuration.
 
-```bash
-sudo apt install wget apt-transport-https
-sudo mkdir -p /etc/apt/keyrings
+### Repository and package caution
 
-# Modern, non-deprecated keyring method
-curl -fsSL https://www.snort.org/downloads/snort/snort.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/snort.gpg
-echo "deb [signed-by=/etc/apt/keyrings/snort.gpg] https://www.snort.org/downloads/snort/debian stable main" | sudo tee /etc/apt/sources.list.d/snort.list
-
-sudo apt update
-sudo apt install snort
-```
-
-> ⚠️ **This is the step most likely to fail.** See [Common Gotchas](#-common-gotchas) — the key URL has returned invalid/empty data during at least one real attempt. Don't sink much time here before falling back to Option 3 or 4.
-
-### Option 3: Build from source
-
-Only worth it if the packaged options above don't work for your platform:
-
-```bash
-sudo apt update
-sudo apt install build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev
-
-cd /tmp
-wget https://www.snort.org/downloads/snort/snort-2.9.20.tar.gz
-tar -xzf snort-2.9.20.tar.gz
-cd snort-2.9.20
-./configure --enable-sourcefire
-make
-sudo make install
-```
-
-Check [snort.org/downloads](https://www.snort.org/downloads) for the current version number before running this — `2.9.20` may not be current by the time you read this.
-
-### Option 4: Snort 3 release package (current major version)
-
-```bash
-wget https://github.com/snort3/snort3/releases/download/<current-version>/snort3-<current-version>-1.debian12.amd64.deb
-sudo dpkg -i snort3-<current-version>-1.debian12.amd64.deb
-sudo apt install -f   # resolve any dependency issues
-```
-
-Check the [Snort 3 releases page](https://github.com/snort3/snort3/releases) for the current version and matching Debian release before downloading.
+This guide previously included a fixed apt repository recipe, a specific 2.9.20 source build, and an example GitHub `.deb` filename. Those instructions are distribution- and release-dependent and are not a universal current install path. Check the official downloads for the current files and supported platforms before installing. A failed repository-key fetch is a report from one past attempt, not proof that the same endpoint is currently broken.
 
 ---
 
 ## ⚙️ Configuration
 
-Edit `/etc/snort/snort.conf`:
+Snort configuration and rule examples are version-specific.
+
+### Snort 3
+
+Snort 3 uses a Lua configuration file, commonly named `snort.lua`. Its location depends on how it was installed. Start by validating the installed configuration:
 
 ```bash
-# Set your network
-var HOME_NET 192.168.1.0/24
-var EXTERNAL_NET !$HOME_NET
-
-# Enable your local rules file
-include $RULE_PATH/local.rules
+snort -c /path/to/snort.lua -T
 ```
 
-Example custom rules in `/etc/snort/rules/local.rules`:
+Load a local Snort 3 rule file explicitly when testing it:
 
-```
-# Alert on port scan activity
-alert tcp any any -> $HOME_NET any (msg:"Port Scan Detected"; \
-  flags:S; detection_filter:track by_src, count 20, seconds 60; \
-  sid:1000001;)
-
-# Alert on a classic SQL injection pattern
-alert tcp any any -> $HOME_NET 80 (msg:"SQL Injection Attempt"; \
-  content:"' OR '1'='1"; nocase; sid:1000002;)
-
-# Alert on ICMP ping sweep activity
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Sweep"; \
-  itype:8; detection_filter:track by_src, count 10, seconds 10; \
-  sid:1000003;)
+```bash
+snort -c /path/to/snort.lua -R /path/to/local.rules -r sample.pcap
 ```
 
-For writing more advanced rules, tuning performance, and Zeek-complement detection logic, this repo's [Tradecraft/network-detection.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Tradecraft/network-detection.md) covers Suricata-flavored rule writing that maps closely onto Snort's own rule syntax — the underlying concepts (content matching, flow tracking, thresholding) transfer directly.
+A Snort 3 `snort.lua` can configure networks and rule loading. Consult the installed defaults and the [Snort 3 configuration guide](https://docs.snort.org/start/configuration) before copying settings between installations. If Snort 2 and Snort 3 are both installed, their DAQ modules can be separate; Snort 3 may need an explicit `--daq-dir`. Use `snort --daq-list` to confirm which modules are available.
+
+### Snort 2 compatibility
+
+Snort 2 uses the legacy `snort.conf` format and familiar `HOME_NET`, `EXTERNAL_NET`, and `include $RULE_PATH/local.rules` directives. Do not paste this file into a Snort 3 installation. Snort 3 provides `snort2lua` to help convert older configuration files, but review and validate the converted output before use.
+
+Rule syntax and supported options can differ across releases. Keep rules matched to the engine generation and validate against a packet capture and representative traffic before relying on alerts.
 
 ---
 
 ## ▶️ Running in IDS vs. IPS Mode
 
-**IDS (alert-only) — always start here:**
+Start with passive observation. For Snort 3, validate the configuration, then test against a packet capture or a monitored interface. The paths below are examples; use the configuration, DAQ module, and interface names from the local installation.
+
+**Snort 3 passive interface example:**
 
 ```bash
-snort -A console -q -c /etc/snort/snort.conf -i eth0
+snort -c /path/to/snort.lua -R /path/to/local.rules -i eth0 -A alert_fast
 ```
 
-**IPS (inline blocking) — only after validating in IDS mode:**
+Passive capture observes traffic and cannot block it. Snort 3 inline operation requires an inline-capable DAQ and traffic actually traversing the sensor. For example, the official guide shows AFPacket with a pair of interfaces:
 
 ```bash
-snort -Q -c /etc/snort/snort.conf -i eth0
+snort -Q --daq afpacket -i "eth0:eth1"
 ```
 
-The `-Q` flag switches Snort to inline/NFQUEUE mode, which requires the box to actually sit on the network path (traffic routed through it via `iptables`/`nftables` NFQUEUE rules) rather than just watching a copy of traffic. As with every IDS/IPS in this repo: **validate in alert-only mode for at least 1–2 weeks before enabling blocking** — see the general [IDS & IPS guide](readme.md) for why this matters.
+Do not add `-Q` to a one-interface monitoring command and assume that traffic will be blocked. Validate rules, interface pairing, fail-open/fail-closed behavior, and a recovery path in a controlled lab before putting inline blocking on a production path. See the [Snort 3 traffic inspection guide](https://docs.snort.org/start/inspection) and the general [IDS & IPS guide](readme.md).
 
 ---
 
 ## 🩹 Common Gotchas
 
-| Symptom | Cause | Fix |
+| Symptom | Likely cause | Next step |
 |---|---|---|
-| `sudo apt install snort` — package not found | Not all distro/release combinations carry a current Snort package | Try Option 2 (official repo), or skip straight to Option 3/4 |
-| `wget ... snort.gpg.key \| sudo apt-key add -` → `Warning: apt-key is deprecated` | `apt-key` is deprecated on current Debian/Ubuntu | Use the modern keyring method instead (`gpg --dearmor` into `/etc/apt/keyrings/`, referenced via `signed-by=` in the sources list) — shown in Option 2 above |
-| `curl ... snort.gpg.key \| gpg --dearmor` → `gpg: no valid OpenPGP data found` | The key URL returned invalid/empty data during a real attempt at this exact step — this is the actual real-world failure point, not a typo in the command | Don't sink much time retrying this specific URL; move to Option 3 (source build), Option 4 (Snort 3 `.deb`), or pivot to Suricata entirely — see below |
-| `./configure && make` from source takes a long time and/or fails on missing headers | The 2.9.x source build has a real, somewhat fragile native-dependency list | Confirm every package in the `apt install build-essential libpcap-dev ...` line actually installed before running `configure`; this path is inherently more fragile than a package manager install |
-| Snort 3 `.deb` fails with dependency errors | Downloaded a release built for a different Debian/Ubuntu version than what's running | Match the `.deb` filename's distro tag to `lsb_release -cs`/`cat /etc/os-release` before downloading |
+| `snort.conf` is rejected or missing | Snort 3 was installed but Snort 2 configuration instructions were followed | Locate the installed `snort.lua`; validate with `snort -c /path/to/snort.lua -T`. |
+| `snort --daq-list` shows no expected module | The DAQ module is absent, or Snort is looking in a different module directory | Follow the install instructions for the matching Snort generation; if both generations are installed, check Snort 3's `--daq-dir`. |
+| A rule does not load or alert | Rule syntax/options may not match the installed generation, or the test traffic did not exercise the rule | Validate the configuration and test the rule with a known packet capture; check the engine's diagnostics. |
+| Inline mode starts but does not block the expected path | The DAQ is not inline-capable or traffic is not traversing the paired sensor interfaces | Verify the DAQ mode, topology, and inline test in a controlled lab before relying on blocking. |
+| A package or download name from a guide is unavailable | Release assets and platform support change over time | Select the matching current release from the [official Snort downloads](https://www.snort.org/downloads) and follow its platform-specific instructions. |
 
 ---
 
 ## 🔀 When to Pivot to Suricata
 
-If you've hit the broken-repo-key gotcha above, or the source build isn't cooperating, it's worth being honest about the trade-off rather than burning more time: a real deployment attempt hit exactly this wall and successfully moved to Suricata instead, on the same hardware, for the same purpose (network IDS alongside an OPNsense-based home network). Suricata:
+If the current official instructions do not support your platform, or the install is not a good fit for the deployment, compare the options and consider Suricata. A prior attempt recorded in this guide moved to Suricata after package/repository friction on one setup; that report is specific to its date and environment, not proof that Snort's current download path is broken. Suricata:
 
 - Installs cleanly from standard Debian/Ubuntu repos with a single `apt install suricata`
 - Is natively multi-threaded, which matters more than it sounds on constrained hardware like a Raspberry Pi
