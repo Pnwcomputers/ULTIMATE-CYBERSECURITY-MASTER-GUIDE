@@ -13,7 +13,7 @@
 
 </div>
 
-_Documentation reviewed: 2026-09-29 — hardware testing and complete link-resolution verification remain pending._
+_Documentation reviewed: 2026-09-29; boundary diagram and routing terminology updated: 2026-11-18 — hardware testing and complete link-resolution verification remain pending._
 
 **Prerequisites:** Basic USB imaging and boot-menu skills; review the [Linux command reference](../Documentation/LinuxCheatSheet.md) and [OPSEC fundamentals](./README.md). Acronyms are defined below; see also the [repository glossary](../GLOSSARY.md).
 
@@ -89,9 +89,13 @@ Tails is the operating system you boot. This guide does not install Kicksecure, 
 | Physical computer | Executes Tails and provides keyboard, display, and networking | Firmware and hardware must still be trusted |
 | Tails USB system area | Holds the bootable OS and supported system upgrades | This is not the encrypted Persistent Storage |
 | Live session | Holds ordinary temporary session changes | Shutdown does not erase remote records or intentionally saved files |
-| Tor and Tor Browser | Provide anonymous network routing and browser privacy protections | Logging into a known account identifies the account holder |
+| Tor and Tor Browser | Route supported browser traffic through Tor, reducing exposure of the source network address | Accounts, content, timing, and endpoint risks can still identify or correlate activity |
 | Optional Persistent Storage | Encrypts selected retained data and settings | Encryption protects locked data; it is not a hidden volume |
 | Unsafe Browser | Allows direct access for captive portals and trusted local pages | It bypasses Tor |
+
+![Conceptual diagram of the Tails USB system area, live RAM session, optional encrypted Persistent Storage, Tor Browser route, and direct Unsafe Browser exception](../assets/diagrams/tails-storage-and-network-boundaries.svg)
+
+*Conceptual view of the documented boundaries. Session reset does not erase Persistent Storage or records held by remote services.*
 
 **Tails is not a promise that the whole USB is encrypted.** Its optional Persistent Storage is a separate passphrase-protected encrypted partition. Its presence can be detected. Leaving it locked on one boot does not delete anything stored there. [^persistence]
 
