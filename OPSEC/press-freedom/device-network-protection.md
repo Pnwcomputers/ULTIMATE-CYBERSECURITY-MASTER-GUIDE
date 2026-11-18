@@ -1,12 +1,16 @@
 # Journalist Device, Mobile, Account and Network Protection
 
-_Last reviewed: 2026-11-01 (documentation review; verify UI against actual OS release)_
+_Last reviewed: 2026-11-18 (official Apple and Google platform guidance checked; verify menus and capability against the device and OS release)_
 
 **Prerequisites:** [Press Freedom and Source Security](./README.md) · [Encrypted Drives](../../Cryptography/encrypted-storage.md) · [Security Keys](../../Cryptography/security-keys-passkeys.md)
 
 ## Why endpoints matter
 
 A well-encrypted message is still exposed to someone controlling either endpoint. A reporter's laptop or phone may disclose source identities through contacts, message previews, app backups, location metadata, synchronized photo libraries, browser histories and Wi-Fi association records. Assess **accounts and backups**, not just the phone.
+
+![Data flow from a source through a reporter device and accounts to newsroom recipients, with separate endpoint, account, backup, and network boundaries](../../assets/diagrams/journalist-device-account-network-boundaries.svg)
+
+*Conceptual map: device encryption, secure messaging, account protection, and network routing cover different parts of the workflow. Sync and backups create additional copies that need their own review.*
 
 ## Laptop and desktop protection
 
@@ -46,7 +50,7 @@ A well-encrypted message is still exposed to someone controlling either endpoint
 
 ## Account and communication hardening
 
-1. Place email, cloud storage, password managers, code repositories and newsroom identity providers behind **FIDO2/WebAuthn**, ideally with **two independently enrolled keys**.
+1. Use phishing-resistant **FIDO2/WebAuthn** where the service supports it, and enroll a second independent security key or recovery method when feasible for email, cloud storage, password managers, code repositories and newsroom identity providers.
 2. Use distinct personal, newsroom and source-contact identities where the reporting threat model requires separation.
 3. Limit push notifications and lock-screen message previews; verify endpoints when first establishing a sensitive encrypted conversation.
 4. Prefer end-to-end encrypted communication tools configured with appropriate disappearing-message and backup policies **only where compatible with legal/editorial preservation needs**.
