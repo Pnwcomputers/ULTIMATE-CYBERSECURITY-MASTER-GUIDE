@@ -230,24 +230,26 @@ Some instruments AC-couple shunt measurements: NewAE documents that its ChipWhis
 
 #### Logic Analyzers
 
-| Tool | Channels | Speed | Notes |
-|------|----------|-------|-------|
-| Saleae Logic 8 | 8 | 100 MHz | Best software ecosystem; protocol decoders |
-| Saleae Logic Pro 16 | 16 | 500 MHz analog | Analog + digital; excellent for mixed-signal |
-| DreamSourceLab DSLogic | 16 | 400 MHz | Lower cost; sigrok compatible |
-| Bus Pirate 5 | Multi | ~1 MHz | Protocol bridge with basic capture; not a standalone logic analyzer — use a dedicated tool for high-speed or multi-channel captures |
-| Glasgow Interface Explorer | Multi | ~100 MHz | FPGA-based; highly scriptable |
+| Tool | Typical role | What to verify |
+|------|--------------|----------------|
+| Saleae Logic 8 / Logic Pro models | Protocol decoding; some models also capture analog signals | Check the exact model datasheet. Maximum sample rate can depend on active channel count; digital sample rate, digital bandwidth, analog sample rate, and analog bandwidth are different specifications. |
+| DSLogic family | Digital capture with sigrok-compatible workflows on supported models | Confirm model-specific channel count, voltage limits, sample rate, and software support. |
+| Glasgow Interface Explorer | Configurable FPGA-based digital interface work | Confirm the selected applet, pin electrical limits, and achievable timing for the task. |
+| Bus Pirate 5 | Protocol bridge and basic capture | Not a substitute for a dedicated logic analyzer when capture depth, timing resolution, or channel count matters. |
+
+Use the current manufacturer documentation for the exact model and channel configuration. For example, Saleae publishes model datasheets and notes that sample rates can vary with the number of active channels ([datasheets](https://www.saleae.com/support/specifications-hardware/datasheets-and-compliance/datasheets), [sample-rate behavior](https://new.saleae.com/support/logic-software/capturing-data/what-sample-rate-settings-are-available)). Avoid comparing a sample-rate number from one device with a bandwidth number from another.
 
 ---
 
 ### Signal Integrity Basics
 
-Poor signal integrity is the most common cause of failed hardware hacking attempts (bad captures, missed glitches, corrupted data).
+Signal integrity problems can cause misleading captures, missed transitions, and unreliable measurements. The correct setup depends on the scope, probe, target, and measurement point.
 
-- **Ground loops:** Always connect probe ground to the target ground at the nearest point. Long ground leads act as antennas and inject noise.
-- **Probe loading:** A ×10 scope probe has 10 MΩ input impedance - fine for most digital work. Active probes (1 MΩ or 50 Ω matched) needed for high-frequency or sensitive measurements.
-- **Decoupling capacitors:** Target boards place decoupling caps (100nF ceramic) on power pins to suppress noise. For power analysis, you often **remove** the decoupling cap nearest the target IC to improve signal fidelity - the cap averages out the current transients you're trying to measure.
-- **50 Ω termination:** For signals above ~100 MHz, use 50 Ω terminated probing to prevent reflections. Scope inputs should be set to 50 Ω mode.
+- **Ground reference and safety:** First check whether the oscilloscope input and probe ground are earth-referenced and whether the target shares that reference. On a conventional grounded bench scope, the probe ground clip is connected to earth; attaching it to a non-ground node can short the circuit. For a floating or high-side measurement, use a correctly rated differential probe or an instrument specifically designed for that measurement. Never defeat the scope's protective earth or assume its channel grounds are isolated. For ordinary ground-referenced measurements, connect to the target's reference using the probe maker's instructions.
+- **Ground-lead length:** Keep the probe signal and ground connections short to reduce inductance, ringing, and pickup. A long ground lead can distort fast edges; it is not a safe substitute for a proper differential measurement. See [Tektronix's probing guidance](https://www.tek.com/en/documents/application-note/probing-techniques-accurate-voltage-measurements-power-converters-oscillos).
+- **Probe loading:** A probe changes the circuit being measured. Check the complete probe-and-scope input resistance, capacitance, bandwidth, attenuation, and voltage limits against the target and signal. A passive 10× probe may have a high DC input resistance, but its capacitance can still affect fast or high-impedance nodes; specifications vary by model. See [Tektronix's probe primer](https://www.tek.com/en/documents/whitepaper/abcs-probes-primer).
+- **Decoupling and power analysis:** Keep the target's decoupling capacitors in place unless the exact measurement design and target documentation call for a change. In a shunt-based power measurement, capacitors on the measured side of the shunt can divert fast current transients around the measurement resistor. Some purpose-built side-channel targets therefore specify which capacitors to omit or remove; this is a topology-specific modification, not a general rule. For example, [NewAE's CW305 documentation](https://rtfm.newae.com/Targets/CW305%20Artix%20FPGA/) identifies optional capacitors on a particular shunt measurement path.
+- **50 Ω termination:** Do not use a fixed frequency threshold. Termination depends on the interconnect, edge rise time, impedance, and source/probe/scope arrangement. A scope's 50 Ω input is a substantial load: select it only when the source, cable, probe, and test point are designed for that termination. Otherwise, use a suitable high-impedance probe/input and follow the instrument documentation. See [Tektronix's probe primer](https://www.tek.com/en/documents/whitepaper/abcs-probes-primer).
 
 ---
 
