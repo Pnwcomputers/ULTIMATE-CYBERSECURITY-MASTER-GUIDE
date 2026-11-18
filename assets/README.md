@@ -255,6 +255,14 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [source verification preservation vs claim](./diagrams/source-verification-preservation-vs-claim.svg) | [Guide](../OSINT/bellingcat-source-verification.md) |
 | [source verification provenance independence](./diagrams/source-verification-provenance-independence.svg) | [Guide](../OSINT/bellingcat-source-verification.md) |
 
+## Data Quality And Schema Contract Visuals
+
+Original conceptual flow separating per-record validation, batch handling and schema evolution compatibility checks.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Data contract validation and schema evolution](./diagrams/data-contract-validation-and-evolution.svg) | [Data Quality & Schema Contracts](../Data-Engineering/Phase1/data_quality_schema_contracts.md) |
+
 ## GCP Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
