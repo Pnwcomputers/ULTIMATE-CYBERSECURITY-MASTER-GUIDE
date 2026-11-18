@@ -17,7 +17,11 @@ Configure Sysmon on Windows endpoints to generate rich process, network, and fil
 
 **System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more-critical telemetry for threat detection and incident response.
 
-This guide covers installing, configuring, and maintaining Sysmon across your environment.
+This guide covers installing, configuring, and maintaining Sysmon across your environment. Supported Windows versions and command-line options change; consult the current [Microsoft Sysmon documentation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) and the schema printed by the installed binary before deployment.
+
+![Sysmon telemetry depends on configured events, the host event log, and the collection path; central delivery must be verified](../../../assets/diagrams/sysmon-telemetry-coverage-flow.svg)
+
+*Conceptual flow: Sysmon reports selected telemetry into the Windows event log; a collector forwards it for analysis. This does not imply every event is enabled or successfully collected.*
 
 ---
 
@@ -25,15 +29,14 @@ This guide covers installing, configuring, and maintaining Sysmon across your en
 
 Standard Windows logging misses critical security events. Sysmon fills these gaps:
 
-| Capability | Native Windows Logging | With Sysmon |
-|------------|----------------------|-------------|
-| Process command line arguments | Limited | ✅ Full capture |
-| Process GUID tracking | ❌ | ✅ Unique per process |
-| Network connections with process context | Limited | ✅ Full details |
-| File creation with hash | ❌ | ✅ MD5/SHA256/IMPHASH |
-| DLL loading | Limited | ✅ With signatures |
-| Registry persistence detection | Basic | ✅ Detailed |
-| Parent/child process relationships | Limited | ✅ Complete chain |
+| Telemetry | What Sysmon can provide | Important limit |
+|---|---|---|
+| Process creation | Command line, parent context and process GUID (Event ID 1) | Fields depend on OS and configuration |
+| Image hashes | Configured hashes for process images | Does not hash every file-creation event |
+| Network connections | Process-linked connection metadata (Event ID 3) | Disabled by default; enable and filter deliberately |
+| Image and driver loads | Module/driver metadata and signatures (Events 6–7) | Must be configured; image-load volume can be high |
+| File and registry activity | Selected event types | Coverage depends on filters and can be incomplete |
+| Central analysis | Can be collected by WEC or SIEM agents | Sysmon does not analyze events or guarantee delivery |
 
 ---
 
@@ -43,7 +46,7 @@ Standard Windows logging misses critical security events. Sysmon fills these gap
 
 | Component | Requirement |
 |-----------|-------------|
-| OS | Windows 7 SP1 / Server 2008 R2 or later |
+| OS | Current Microsoft documentation lists Windows 11+ clients and Windows Server 2019+ |
 | Architecture | x86 or x64 (use appropriate binary) |
 | Privileges | Local Administrator |
 | Disk Space | ~5 MB (plus log storage) |
@@ -197,16 +200,17 @@ sysmon64.exe -accepteula -i sysmonconfig.xml
 sysmon.exe -accepteula -i sysmonconfig.xml
 ```
 
-### Installation Options Reference
+### Common Command-Line Options
 
-| Flag | Purpose |
-|------|---------|
-| `-i <config>` | Install with specified configuration file |
-| `-accepteula` | Accept the EULA silently |
-| `-h md5,sha256,IMPHASH` | Specify hash algorithms |
-| `-n` | Log network connections |
-| `-l` | Log module (DLL) loading |
-| `-d <name>` | Custom driver name (anti-tampering) |
+| Option | Purpose |
+|---|---|
+| `-i [config.xml]` | Install service and driver; optionally load configuration |
+| `-c [config.xml]` | Update or display the active configuration |
+| `-m` | Install the event manifest |
+| `-s` | Print the configuration schema |
+| `-u [force]` | Uninstall the service and driver |
+
+Use the installed binary's `-?` help and `-? config` for the exact version. Configure event types and hashes in XML; do not assume a switch enables every event.
 
 ### Verify Installation
 
@@ -280,6 +284,8 @@ endlocal
 
 ### Method 2: PowerShell Remoting
 
+Create the destination directory before copying. If the remote block reads a UNC share, confirm the target computer can access it; remoting does not automatically forward operator credentials through a second network hop. Otherwise stage files through the remoting session.
+
 ```powershell
 $computers = Get-Content "C:\targets.txt"
 $sysmonPath = "\\fileserver\Sysmon$"
@@ -288,7 +294,8 @@ foreach ($computer in $computers) {
     Invoke-Command -ComputerName $computer -ScriptBlock {
         param($path)
         
-        # Copy files
+        # Create the destination before copying
+        New-Item -ItemType Directory -Path "C:\Windows\Sysmon" -Force | Out-Null
         Copy-Item "$path\Sysmon64.exe" -Destination "C:\Windows\Sysmon\" -Force
         Copy-Item "$path\sysmonconfig.xml" -Destination "C:\Windows\Sysmon\" -Force
         
@@ -317,13 +324,15 @@ Understanding Sysmon Event IDs is crucial for effective monitoring and threat hu
 
 ### Critical Events for Security Monitoring
 
+Event IDs identify telemetry types; they are not enabled uniformly and are not findings by themselves. Network Event ID 3 is disabled by default. Confirm each event's filter, platform support, log retention and collector coverage for the installed version before building detections.
+
 | Event ID | Name | Why It Matters |
 |----------|------|----------------|
 | **1** | Process Create | Full command line capture reveals encoded PowerShell, LOLBins, suspicious arguments |
 | **3** | Network Connect | Identifies C2 callbacks, lateral movement, data exfiltration |
 | **6** | Driver Load | Detects rootkit installation, vulnerable driver loading |
 | **7** | Image Load | DLL side-loading, injection detection |
-| **8** | CreateRemoteThread | Process injection indicator (Mimikatz, Cobalt Strike) |
+| **8** | CreateRemoteThread | Potential cross-process thread creation; investigate source, target, access context and corroborating telemetry. The event alone does not prove malicious injection. |
 | **10** | Process Access | Credential dumping (LSASS access) |
 | **11** | File Create | Malware drops, tool staging, webshells |
 | **12/13/14** | Registry Events | Persistence mechanisms, configuration changes |
@@ -431,9 +440,11 @@ ipconfig
 3. **PowerShell Query:**
 
 ```powershell
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 10 | 
-    Where-Object { $_.Id -eq 1 } | 
-    Format-List TimeCreated, Message
+Get-WinEvent -FilterHashtable @{
+    LogName = "Microsoft-Windows-Sysmon/Operational"
+    Id = 1
+    StartTime = (Get-Date).AddMinutes(-10)
+} | Format-List TimeCreated, Message
 ```
 
 ### Network Connection Test
@@ -570,10 +581,12 @@ Via Group Policy:
 ### Log Rotation and Archival
 
 ```powershell
-# Export and clear Sysmon logs
+# Export only under approved evidence-retention procedures
 $date = Get-Date -Format "yyyy-MM-dd"
 wevtutil epl "Microsoft-Windows-Sysmon/Operational" "C:\Logs\Sysmon-$date.evtx"
-wevtutil cl "Microsoft-Windows-Sysmon/Operational"
+# Clearing is destructive: verify the export, retention policy and incident status first.
+# Do not clear during an active investigation or before confirmed central collection.
+# wevtutil cl "Microsoft-Windows-Sysmon/Operational"
 ```
 
 ### Storage Estimation
@@ -664,15 +677,9 @@ Get-WmiObject Win32_SystemDriver | Where-Object { $_.PathName -like "*sysmon*" }
 
 ---
 
-## 🛡️ Part 11: Anti-Tampering Measures
+## 🛡️ Part 11: Protect and Monitor Sysmon
 
-### Use a Custom Driver Name
-
-Attackers often look for "Sysmon" to disable logging:
-
-```cmd
-sysmon64.exe -accepteula -i sysmonconfig.xml -d MySecurityDriver
-```
+Sysmon does not hide itself from attackers, and renaming its driver is not a substitute for endpoint protection or tamper monitoring. Use approved endpoint controls, restrict administrative access, centrally collect service/configuration events, and alert on unexpected stops or configuration changes. Test hardening against supported update and recovery procedures before broad deployment.
 
 ### Monitor Sysmon Service
 
@@ -684,19 +691,9 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" |
     Select-Object TimeCreated, Message
 ```
 
-### Protect the Sysmon Binary
+### Protect the Binary and Configuration
 
-Apply restrictive NTFS permissions:
-
-```powershell
-$acl = Get-Acl "C:\Windows\Sysmon64.exe"
-$acl.SetAccessRuleProtection($true, $false)
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("SYSTEM","FullControl","Allow")
-$acl.AddAccessRule($rule)
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("Administrators","ReadAndExecute","Allow")
-$acl.AddAccessRule($rule)
-Set-Acl "C:\Windows\Sysmon64.exe" $acl
-```
+Manage write permissions through endpoint-management and application-control policy. Do not apply an example ACL blindly: installed paths, service identity, update method and recovery requirements vary. Keep the binary and XML configuration versioned, verify their publisher/hash, and test update and rollback on a representative endpoint.
 
 ---
 
@@ -753,3 +750,4 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" | Where-Object {$_.
 - [../Linux/osquery.md](../Linux/osquery.md) - Cross-platform endpoint visibility
 - [../../SIEM/splunk.md](../../SIEM/splunk.md) - Splunk for Sysmon event analysis
 - [../../SIEM/wazuh.md](../../SIEM/wazuh.md) - Wazuh for Sysmon log ingestion
+
