@@ -338,6 +338,14 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [supply chain complementary evidence](./diagrams/supply-chain-complementary-evidence.svg) | [Guide](../ContainerSecurity/software-supply-chain-assessment.md) |
 | [supply chain subject binding](./diagrams/supply-chain-subject-binding.svg) | [Guide](../ContainerSecurity/software-supply-chain-assessment.md) |
 
+## Proxmox Sensor Visibility Visuals
+
+Original conceptual capture-path diagram; validate the expected test flow against packets received at the sensor.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Proxmox sensor visibility paths](./diagrams/proxmox-sensor-visibility.svg) | [Proxmox IDS / Security Onion checklist](../Homelab/proxmox-security-monitoring-visibility.md) |
+
 ## Container Security Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
