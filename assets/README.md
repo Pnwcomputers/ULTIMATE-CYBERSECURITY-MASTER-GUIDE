@@ -565,14 +565,6 @@ Original conceptual comparison of proxy, VPN, SSH, and Tor paths. It distinguish
 |---|---|
 | [Proxy routes and observer visibility](./diagrams/proxy-route-observer-visibility.svg) | [Proxy types, DNS leaks and Froxy](../OPSEC/proxy-reference-froxy.md) |
 
-## Proxy Route And Observer Visibility Visual
-
-Original conceptual comparison of proxy, VPN, SSH, and Tor paths. It distinguishes routing metadata visible to intermediaries from page contents protected by valid destination TLS.
-
-| Diagram | Embedded guide |
-|---|---|
-| [Proxy routes and observer visibility](./diagrams/proxy-route-observer-visibility.svg) | [Proxy types, DNS leaks and Froxy](../OPSEC/proxy-reference-froxy.md) |
-
 ## OPSEC Anonymity Layering Decision Visual
 
 Original conceptual decision map separating task intent, network-path choices, observer tradeoffs, and the limits of proxying and browser compartments.
