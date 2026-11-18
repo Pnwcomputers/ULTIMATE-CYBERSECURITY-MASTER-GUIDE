@@ -41,7 +41,7 @@ P = I² × R       (power through a resistor)
 P = V²/R         (power across a resistor)
 ```
 
-**Why it matters:** In power analysis, you insert a small shunt resistor (typically 0.1–10 Ω) in the power supply path and measure the voltage across it. By Ohm's Law, V_shunt = I × R_shunt - the voltage waveform across the shunt directly represents the instantaneous current draw of the target device.
+**Why it matters:** In power analysis, a shunt is selected for the target's expected current, allowed supply drop, resistor dissipation, and measurement circuit. Current can be estimated from the measured drop using I = ΔV_shunt / R_shunt; signal coupling and probe loading affect what the instrument displays. There is no universal shunt value. See [NewAE's measurement note](https://chipwhisperer.readthedocs.io/en/sca101/cw_tips_tricks/common_questions/power_measurement_units.html) and the target/instrument documentation.
 
 ---
 
@@ -49,15 +49,16 @@ P = V²/R         (power across a resistor)
 
 Different logic families use different voltage levels. Probing or injecting at the wrong level damages hardware or produces no result.
 
-| Logic Family | VCC | Logic High (min) | Logic Low (max) | Notes |
+| Example I/O standard | Supply | VIH (minimum) | VIL (maximum) | Notes |
 |-------------|-----|-----------------|----------------|-------|
-| 5V TTL | 5V | 2.0V | 0.8V | Legacy; common in older embedded |
-| 3.3V LVTTL | 3.3V | 2.0V | 0.8V | Most common modern MCU I/O |
-| 1.8V | 1.8V | 1.17V | 0.63V | Low-power SoCs, modern ARM |
-| 1.2V / 1.0V | 1.2V / 1.0V | ~0.8 × VCC | ~0.2 × VCC | High-speed DDR, advanced nodes |
-| CMOS | VCC | 0.7 × VCC | 0.3 × VCC | Rail-to-rail; noise margin = 0.2 × VCC |
+| 5V TTL | 5V | 2.0V | 0.8V | Check the receiving device's own specification |
+| 3.3V LVTTL | 3.3V | 2.0V | 0.8V | Example standard; not every 3.3V pin uses LVTTL thresholds |
+| 1.8V CMOS | 1.8V | 1.17V | 0.63V | Representative thresholds from the TI logic guide |
+| 1.2V CMOS | 1.2V | 0.78V | 0.42V | Representative thresholds from the TI logic guide |
 
-**Level shifting:** When probing a 1.8V device with a 3.3V logic analyzer, use a level shifter or verify your tool's input protection. Many cheap logic analyzers assume 3.3V/5V and can be damaged - or silently corrupt captures - on 1.8V signals.
+These are examples of named I/O standards, not universal voltage rules. Use the target and instrument datasheets for guaranteed VIH/VIL levels and absolute-maximum ratings. See [TI's Logic Guide](https://www.ti.com/lit/sg/sdyu001ac/sdyu001ac.pdf).
+
+**Level compatibility:** A 1.8V output may not meet a receiver's required high-level threshold, while an output above the probe's absolute-maximum rating may damage the probe. Check both sides before connecting; use a level translator when required.
 
 ---
 
@@ -69,7 +70,7 @@ Different logic families use different voltage levels. Probing or injecting at t
 
 #### UART (Universal Asynchronous Receiver/Transmitter)
 
-The most commonly found debug interface in embedded systems. Often provides a Linux shell or bootloader prompt.
+A serial interface found on some embedded boards for logs or maintenance. Whether a usable console is exposed depends on the device design and security configuration.
 
 ```
 Signal lines: TX, RX, GND (sometimes VCC)
@@ -84,7 +85,7 @@ Common baud rates: 9600, 38400, 57600, 115200, 230400, 921600
 - Use `baudrate.py` or manual baud rate detection against captured transitions
 - TX on the device = RX on your adapter (cross the connections)
 
-**Attack value:** Boot logs, root shell access, U-Boot console with `nand read`/`tftp` commands for firmware extraction.
+**Possible exposure:** Boot logs or a console may be available. Privilege, bootloader commands, and firmware access are device-specific; the presence of UART pins alone does not imply a shell.
 
 ---
 
@@ -132,17 +133,9 @@ Addressing: 7-bit or 10-bit device address (7-bit = 128 possible addresses)
 Speed: Standard (100 kHz), Fast (400 kHz), Fast-Plus (1 MHz), High-Speed (3.4 MHz)
 ```
 
-**Scanning and reading:**
+**Discovery and access:** Start with the board documentation and nonintrusive voltage or logic observation. Bus scans and register reads can have device-specific side effects; writes can alter configuration or disrupt operation. Use bus tools only on an owned or explicitly authorized isolated target, with the exact controller and device documentation.
 
-```bash
-# Linux i2ctools
-i2cdetect -y 1          # Scan bus 1 for devices
-i2cdump -y 1 0x50       # Dump all registers of device at 0x50
-i2cget -y 1 0x50 0x00   # Read single register
-i2cset -y 1 0x50 0x00 0xFF  # Write register (authorized testing only)
-```
-
-**Attack value:** EEPROM at 0x50–0x57 range often stores device configuration, keys, or calibration. PMIC at various addresses can be used for voltage fault injection via I²C commands on systems with software-controlled power rails.
+Some I²C EEPROM families use addresses in the 0x50–0x57 range, but address maps and stored data are board-specific; do not infer contents from the address alone. PMICs may expose writable power controls on some designs, but changing them can disrupt or damage a device and requires target-specific documentation and authorization.
 
 ---
 
@@ -152,7 +145,7 @@ i2cset -y 1 0x50 0x00 0xFF  # Write register (authorized testing only)
 
 #### JTAG (Joint Test Action Group)
 
-IEEE 1149.1 standard debug and test interface. Provides direct CPU register access, memory read/write, and hardware breakpoints. The most powerful debug interface when accessible.
+IEEE 1149.1 test interface that may also connect to a processor's debug architecture. Available operations depend on the target, debug configuration, authentication, and device lifecycle state; interface presence does not guarantee memory access or breakpoints.
 
 ```
 Signal lines: TCK (clock), TMS (mode select), TDI (data in), TDO (data out), TRST (reset, optional)
@@ -162,26 +155,27 @@ Protocol: State machine driven by TMS; TAP (Test Access Port) controller
 **Identification techniques:**
 - `JTAGulator` hardware tool - brute-forces JTAG pinout across candidate pins
 - `UART-JTAG` combo: many boards expose both in the same header
-- `OpenOCD` with probe (J-Link, ST-LINK, FTDI-based): auto-detect TAP chain
+- `OpenOCD` with a supported probe and matching interface, TAP, and target configuration; see the [OpenOCD configuration guide](https://openocd.org/doc/html/Debug-Adapter-Configuration.html)
 
 ```bash
-# OpenOCD - connect, halt, dump memory
+# TEMPLATE ONLY: use only with an owned/authorized target and its verified adapter/target configuration.
+# Debug commands can change target state or expose protected data.
 openocd -f interface/jlink.cfg -f target/stm32f4x.cfg
-# In telnet session:
+# In the OpenOCD session, only if permitted and supported by this exact target:
 halt
-dump_image firmware_extract.bin 0x08000000 0x100000   # Flash base, 1MB
+dump_image authorized_lab_dump.bin 0x08000000 0x100000   # Example address/length; verify the target memory map
 
 # JTAG boundary scan for hardware testing
 # Can toggle GPIO pins, read logic levels without CPU involvement
 ```
 
-**Security bypass:** On devices that "lock" JTAG via fuse or register, fault injection is sometimes used to skip the fuse-check routine at boot before the lock engages.
+Debug-lock enforcement and recovery behavior are device-specific. Do not assume a debug lock can be bypassed; use vendor documentation and authorized research scoped to the exact target.
 
 ---
 
 #### SWD (Serial Wire Debug)
 
-ARM's 2-wire alternative to JTAG (SWDCLK, SWDIO + GND). Functionally equivalent for most purposes - provides full CoreSight debug access on Cortex-M devices.
+ARM's two-wire debug protocol (SWDCLK and SWDIO, plus a ground reference). It is distinct from JTAG; available CoreSight features and access depend on the exact Cortex-M device, board, and debug-security configuration. See [Arm's SWD documentation](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug).
 
 ```bash
 # OpenOCD with SWD
