@@ -1,479 +1,181 @@
-# 🧅 Tor: Connection & Browser Guide
+# 🧅 Tor Browser and Tor Network Guide
 
-**Related proxy guidance:** [OPSEC proxy reference and Froxy research](../OPSEC/proxy-reference-froxy.md). A public HTTP/SOCKS proxy or proxy-list tool is **not a replacement** for Tor Browser/Whonix. Keep Tor's own proxy/DNS routing and app-isolation guidance authoritative.
+_Last reviewed: 2026-11-18_
 
-## 🎯 Purpose
-Reference guide for deploying and operating Tor for anonymous network access - covering both Tor Browser (GUI) and the Tor daemon (system-level SOCKS5 proxy via port 9050) for OSINT investigations, anonymous reconnaissance, and privacy-sensitive incident response work.
+Tor is a network and a set of applications that can reduce what a local network or destination learns about a user's network address. It does not provide perfect anonymity, protect every application on a device, or authorize an investigation.
 
-## ⚙️ Function
-Organized by deployment model: Tor Browser installation and hardening (security levels, about:config settings), Tor daemon setup and torrc configuration, proxychains integration for proxying any CLI tool, bridges and censorship circumvention (obfs4, Snowflake, meek-azure, WebTunnel), .onion service access and hosting, connection verification, and OPSEC checklists.
+**Related:** [VPN trust boundaries and safe use](VPN.md) · [Proxy types and DNS leak limitations](../OPSEC/proxy-reference-froxy.md)
 
-## 🏆 Goal
-Establish reliable, anonymous network connectivity that prevents IP/DNS leaks, survives adversarial ISP environments, and provides documented OPSEC procedures for security professionals conducting authorized investigations.
+## Purpose and scope
 
-## 📋 When to Use
-- OSINT investigations requiring IP anonymity (run from a dedicated VM)
-- Accessing .onion services or SecureDrop instances
-- Proxying CLI security tools (theHarvester, amass, sqlmap) through Tor via proxychains
-- Circumventing Tor censorship with bridges
-- Combining with Mullvad VPN for VPN→Tor stacking
+This guide explains Tor Browser, the optional Tor daemon SOCKS proxy, bridges, onion services, and verification. Use the [Tor Project documentation](https://support.torproject.org/) and [Tor Browser manual](https://tb-manual.torproject.org/) as the authority for current releases, interface labels, and supported configurations.
 
-This document covers both the **Tor daemon** (system-level, CLI) and **Tor Browser** (GUI) for use in OSINT investigations, anonymous reconnaissance, and privacy-sensitive incident response work.
+Use Tor only where it fits the task and organizational policy. A VPN is not a prerequisite for Tor, and the [Tor Project generally advises against combining Tor Browser with a VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/) unless the user understands the resulting trust and configuration risks.
 
-> **OPSEC Note**: Tor provides *anonymity*, not complete security. Combine with disciplined operational behavior. For OSINT work, always operate from a dedicated VM - never your daily-driver OS.
+> Tor does not protect applications that are not configured to use Tor. It does not erase account identity, browser behavior, endpoint compromise, or information intentionally sent to a service.
 
----
+## Table of contents
 
-## Table of Contents
-
-1. [What is Tor?](#1-what-is-tor)
-2. [Tor Browser - Installation & Setup](#2-tor-browser---installation--setup)
-3. [Tor Daemon (CLI) - System-Level Connection](#3-tor-daemon-cli---system-level-connection)
-4. [Proxychains + Tor](#4-proxychains--tor)
-5. [Bridges & Censorship Circumvention](#5-bridges--censorship-circumvention)
-6. [.onion Services](#6-onion-services)
-7. [Verifying Your Connection](#7-verifying-your-connection)
-8. [Tor Browser Security Settings](#8-tor-browser-security-settings)
-9. [Troubleshooting](#9-troubleshooting)
-10. [OPSEC Checklist](#10-opsec-checklist)
-11. [Quick Reference - Key URLs](#11-quick-reference---key-urls)
+1. [What Tor does and does not do](#1-what-tor-does-and-does-not-do)
+2. [Install and update Tor Browser](#2-install-and-update-tor-browser)
+3. [Tor Browser practices](#3-tor-browser-practices)
+4. [Bridges and connection problems](#4-bridges-and-connection-problems)
+5. [Optional Tor daemon and SOCKS use](#5-optional-tor-daemon-and-socks-use)
+6. [Onion services](#6-onion-services)
+7. [Verification and operational checklist](#7-verification-and-operational-checklist)
+8. [Further reading](#8-further-reading)
 
 ---
 
-## 1. What is Tor?
+## 1. What Tor does and does not do
 
-**Tor (The Onion Router)** routes traffic through a volunteer-operated relay network using layered encryption. Each relay decrypts one layer and forwards to the next - no single relay knows both origin and destination.
+![Conceptual Tor circuit showing the information visible to the local network, entry guard, middle relay, exit relay, and destination](../assets/diagrams/tor-circuit-visibility.svg)
 
-~~~
-[You] → [Guard/Entry Relay] → [Middle Relay] → [Exit Relay] → [Destination]
-          (knows your IP)                          (knows destination)
-~~~
+*Conceptual circuit: relay roles and the protected application depend on Tor Browser or a correctly configured client. HTTPS provides separate encryption from the browser to the destination.*
 
-**Two deployment models covered here:**
+Tor Browser sends its traffic through a circuit made from volunteer-operated relays. The entry guard sees the client's network address; the exit relay connects toward an ordinary internet destination. Each relay has a limited view, but traffic timing and other identifiers can still be correlated. For an onion service, the connection uses an onion-service rendezvous design rather than a normal exit relay.
 
-| Mode             | Use Case                                                      |
-| ---------------- | ------------------------------------------------------------- |
-| **Tor Browser**  | Anonymous web browsing, .onion sites, one-click GUI setup     |
-| **Tor Daemon**   | System-wide or per-tool proxying via SOCKS5 (127.0.0.1:9050)  |
+| Observer | What it may learn |
+|---|---|
+| Local network or ISP | That the device connects to Tor, plus timing and volume. A bridge may make Tor traffic less immediately identifiable, but cannot promise invisibility. |
+| Entry guard | The client's network address and that it is connecting into Tor; not the final destination from the circuit alone. |
+| Middle relay | Adjacent relay information and traffic timing; not both the origin and destination from a circuit layer alone. |
+| Exit relay | The destination address for ordinary web traffic and any application data not protected end-to-end. HTTPS protects the contents of a correctly validated HTTPS session, not all metadata. |
+| Destination | The exit relay address, request metadata, and information supplied by the user or application. |
 
----
+Tor Browser protects its own browser traffic. The Tor daemon exposes a local SOCKS proxy for applications that explicitly use it; it is not a system-wide tunnel or a general-purpose VPN. Apps can ignore proxy settings, make direct connections, or use protocols that do not work over SOCKS.
 
-## 2. Tor Browser - Installation & Setup
-
-### 2.1 Install on Linux (Debian/Ubuntu)
-
-**Method 1: Official tarball (recommended - always current)**
-
-~~~bash
-# Download the LATEST version from: https://www.torproject.org/download/
-# Replace VERSION with the current release (e.g., 14.5 - check the site)
-VERSION="14.5"
-wget "https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux-x86_64-${VERSION}.tar.xz"
-
-# Verify signature (recommended)
-gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-gpg --verify "tor-browser-linux-x86_64-${VERSION}.tar.xz.asc"
-
-# Extract and launch
-tar -xvJf "tor-browser-linux-x86_64-${VERSION}.tar.xz"
-cd tor-browser/
-./start-tor-browser.desktop
-~~~
-
-**Method 2: apt (Tor Project repo)**
-
-~~~bash
-# Add Tor Project repo
-sudo apt install -y apt-transport-https
-echo "deb [signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org $(lsb_release -cs) main" | \
-  sudo tee /etc/apt/sources.list.d/tor.list
-
-# Add signing key
-wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | \
-  gpg --dearmor | sudo tee /usr/share/keyrings/tor-archive-keyring.gpg > /dev/null
-
-sudo apt update && sudo apt install -y tor torbrowser-launcher deb.torproject.org-keyring
-torbrowser-launcher
-~~~
-
-### 2.2 Install on Windows / Mac
-
-1. Go to **https://www.torproject.org** - official site only
-2. Download for your OS
-3. Windows: run `.exe` installer | Mac: drag `.dmg` to Applications
-4. Launch Tor Browser
-
-### 2.3 Install on Android
-
-- **Google Play**: Search "Tor Browser" by The Tor Project
-- **F-Droid**: Preferred for privacy - no Google dependency
-
-> **iOS**: No official Tor Browser. Use **Onion Browser** (less hardened).
-
-### 2.4 First Launch & Connection
-
-~~~
-Launch Tor Browser
-  └─> "Connect"               ← direct connection, most users
-  └─> "Configure Connection"  ← if Tor is blocked in your country
-        └─> "Tor is censored in my country"
-              └─> Select bridge type (obfs4 recommended)
-              └─> Connect
-~~~
-
-**Connection time**: 10–30 seconds on first launch.
+Tor provides no guarantee against account correlation, tracking through identifying behavior, endpoint malware, traffic analysis, or a user disclosing their identity. Do not describe a Tor session as “untraceable.”
 
 ---
 
-## 3. Tor Daemon (CLI) - System-Level Connection
+## 2. Install and update Tor Browser
 
-The Tor daemon runs a **SOCKS5 proxy on 127.0.0.1:9050** that any tool can route through.
+- Download Tor Browser only from the [official Tor Project download page](https://www.torproject.org/download/) or a distribution channel linked by the Tor Project.
+- Follow the current [installation and signature verification instructions](https://tb-manual.torproject.org/installation/). Release filenames, signing keys, package methods, and verification steps change; do not copy a pinned version number or unverified mirror command from an old guide.
+- Keep automatic updates enabled where available and restart the browser when an update requires it.
+- On Android, use a distribution method linked from the Tor Project's current download page.
+- On iOS, use a Tor Project–recommended browser and understand that Apple's platform restrictions mean it is not the Tor Browser desktop application.
 
-### 3.1 Install
+Do not run an old Tor Browser because a particular website works better with it. If installation or signature verification fails, stop and resolve the issue through current official instructions.
 
-~~~bash
-sudo apt install -y tor
-~~~
+---
 
-### 3.2 Start / Stop / Status
+## 3. Tor Browser practices
 
-~~~bash
-sudo systemctl start tor
-sudo systemctl stop tor
-sudo systemctl enable tor       # start on boot
-sudo systemctl status tor
-sudo journalctl -u tor -f       # follow logs
-~~~
+### Security level
 
-### 3.3 torrc - Configuration File
+Use the shield icon in Tor Browser to choose a security level appropriate to the work. The labels and effects below follow the Tor Project's current guidance; check its [security-level page](https://support.torproject.org/tor-browser/features/security-levels/) for updated details.
 
-~~~bash
-sudo nano /etc/tor/torrc
-~~~
+| Level | General effect | Trade-off |
+|---|---|---|
+| **Standard** | Browser features remain enabled for compatibility. This is the default. | More active web content is available, so exposure to browser and site attacks is greater than at stricter levels. |
+| **Safer** | Disables some features that are often risky; JavaScript is disabled on non-HTTPS sites and some fonts/media are restricted. | Some sites may not work correctly. |
+| **Safest** | Disables more active features, including JavaScript by default on all sites, and restricts additional media and fonts. | Many modern sites will be partly or fully unusable. |
 
-**Useful torrc options:**
+Choose a level for the threat and content being handled. Do not claim that one level is right for every OSINT task. Tor Browser's fingerprint defenses depend in part on users sharing a common configuration; avoid custom window sizes, unusual settings, and unnecessary personalization.
 
-~~~
-# SOCKS5 proxy (default - usually already set)
-SocksPort 9050
+### Keep the browser profile ordinary
 
-# Control port (needed for circuit management tools)
-ControlPort 9051
-HashedControlPassword <hash>   # generate with: tor --hash-password yourpassword
+- Do not install additional extensions, themes, or plugins. The Tor Project warns these can weaken privacy, increase attack surface, or make a browser fingerprint more unique.
+- Avoid logging into accounts or submitting information that identifies you when identity separation matters.
+- Do not change advanced `about:config` settings based on generic “hardening” lists. Use Tor Browser's documented controls and security levels.
+- Use HTTPS and verify the correct destination before entering sensitive information.
+- Tor Browser's **New Identity** closes tabs and windows, clears browser state, and uses new circuits. It interrupts activity and downloads; it does not create a new human identity or make earlier actions disappear. **New Tor Circuit for this Site** changes the circuit for the current site and is not the same as clearing all browser state. See the [Tor Project explanation](https://support.torproject.org/tor-browser/features/managing-identities/).
+- Do not use torrent clients over Tor. They may ignore proxy settings, reveal an address, and impose load on the network.
+- Treat documents downloaded through Tor as untrusted. An external document reader may contact the internet outside Tor. Follow the Tor Project's [download guidance](https://support.torproject.org/tor-browser/security/using-tb-safely/); inspect files offline or in an approved isolated environment.
 
-# DNS resolution through Tor
-DNSPort 5353
-AutomapHostsOnResolve 1
+---
 
-# Logging
-Log notice file /var/log/tor/notices.log
+## 4. Bridges and connection problems
 
-# Exit node country restriction (use sparingly - reduces anonymity)
-# ExitNodes {us},{gb}
-# StrictNodes 1
+A bridge is an alternative way to connect to Tor when direct access is blocked. It can make simple network blocking harder; it does not guarantee that an observer cannot identify Tor use.
 
-# Exclude specific countries
-# ExcludeExitNodes {cn},{ru}
-~~~
+1. Open Tor Browser's connection settings.
+2. Use its built-in bridge options or obtain bridge information through the [official bridge service](https://bridges.torproject.org/) using the current supported method.
+3. Follow the Tor Project's [bridge setup guide](https://support.torproject.org/tor-browser/circumvention/using-bridges/). Bridge availability and supported transports can change.
+4. If a bridge stops working, request another using the official process rather than sharing private bridge details publicly.
 
-**Generate a hashed control password:**
+Do not assume a specific bridge type is best for a country or network. Choose from the options available to you, and consider the personal safety implications of attempting to circumvent censorship in your location.
 
-~~~bash
-tor --hash-password "yourpassword"
-# Copy output into torrc HashedControlPassword line
-sudo systemctl restart tor
-~~~
+---
 
-### 3.4 Use Tor SOCKS5 with curl / wget
+## 5. Optional Tor daemon and SOCKS use
 
-~~~bash
-# curl through Tor
+The Tor daemon is for applications that explicitly support a SOCKS proxy or have been carefully configured to use one. Installing the daemon does **not** redirect all device traffic through Tor.
+
+For package installation, SOCKS settings, authentication, control ports, and configuration syntax, follow the [Tor Project manual](https://community.torproject.org/onion-services/setup/) and your operating system's current package guidance. Avoid enabling a control port or exposing a SOCKS listener to the LAN unless a specific, reviewed design requires it; keep administrative interfaces local and authenticated.
+
+A minimal connectivity check for a daemon listening on the documented local SOCKS address is:
+
+```bash
 curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip
+```
 
-# wget through Tor (wget doesn't support SOCKS5 natively - use torsocks wrapper)
-torsocks wget https://example.com
+The `--socks5-hostname` option asks curl to resolve the destination through the SOCKS proxy. This command only routes that curl request through the local proxy; it does not prove that other apps use Tor. Confirm the daemon's actual listener and use Tor Project guidance for the installed package. Do not expose the SOCKS port publicly.
 
-# Test your exit IP
-curl --socks5-hostname 127.0.0.1:9050 https://api.ipify.org
-~~~
+### Proxy wrappers and assessment tools
 
-### 3.5 Use Tor with Python (requests)
+A proxy wrapper such as Proxychains may intercept some application traffic, but cannot guarantee that every protocol, subprocess, DNS request, or connection uses Tor. Test a specific tool in an isolated lab before relying on it.
 
-~~~python
-import requests
-
-proxies = {
-    'http':  'socks5h://127.0.0.1:9050',
-    'https': 'socks5h://127.0.0.1:9050',
-}
-
-r = requests.get('https://check.torproject.org/api/ip', proxies=proxies)
-print(r.json())
-~~~
-
-> `socks5h://` - the `h` means DNS resolution happens on the Tor side (prevents DNS leaks). Always use `socks5h`, not `socks5`.
+Do not route port scans, brute-force attempts, exploitation, or other unsolicited security tests through Tor. Tor is not an authorization mechanism, and abuse can affect volunteer relays and unrelated users. For an authorized assessment, use the source address and network path agreed with the system owner.
 
 ---
 
-## 4. Proxychains + Tor
+## 6. Onion services
 
-**Proxychains** forces any CLI tool through Tor's SOCKS5 proxy - useful for OSINT tools that don't natively support proxy settings.
+Onion services use the `.onion` namespace and are reached through Tor. Their addresses and availability can change. Do not copy long-lived onion-address tables into this guide: retrieve a current onion link from the organization's own official site or documentation and verify the organization's identity before using it. A familiar-looking address is not proof of authenticity.
 
-### 4.1 Install
-
-~~~bash
-sudo apt install -y proxychains4
-~~~
-
-### 4.2 Configure
-
-~~~bash
-sudo nano /etc/proxychains4.conf
-~~~
-
-~~~
-# Recommended settings
-strict_chain
-proxy_dns              # DNS through proxy - prevents leaks
-quiet_mode
-
-[ProxyList]
-socks5  127.0.0.1  9050
-~~~
-
-### 4.3 Usage
-
-~~~bash
-# Prefix any command with proxychains4
-proxychains4 curl https://api.ipify.org
-proxychains4 nmap -sT -Pn target.com
-proxychains4 theHarvester -d target.com -b google
-proxychains4 sherlock username
-proxychains4 amass enum -passive -d target.com
-proxychains4 sqlmap -u "http://target.com/page?id=1"
-~~~
-
-> **Note**: `nmap` SYN scans (`-sS`) do not work through SOCKS - use TCP connect scan (`-sT`) with `-Pn` to skip ping.
-
-### 4.4 Proxychains + Burp Suite (dual proxy chain)
-
-~~~
-# /etc/proxychains4.conf for Burp → Tor chain
-strict_chain
-[ProxyList]
-http    127.0.0.1  8080    # Burp Suite first
-socks5  127.0.0.1  9050    # then Tor
-~~~
+To host an onion service, use the Tor Project's current [onion-service setup guide](https://community.torproject.org/onion-services/setup/). Hosting an onion service makes the configured application reachable through Tor; it does not secure that application or guarantee that the host cannot be identified through mistakes. Restrict the service to the intended local application, harden it independently, and review logs, metadata, updates, authentication, and access controls before publishing it.
 
 ---
 
-## 5. Bridges & Censorship Circumvention
+## 7. Verification and operational checklist
 
-Use bridges when Tor is blocked or when you want to hide Tor usage from your ISP.
+### Check the browser
 
-### 5.1 Bridge Types
+Visit [check.torproject.org](https://check.torproject.org) in Tor Browser. This checks the browser connection to that service at that moment. It does not test other apps, every network transition, or the endpoint for compromise. Test sites receive requests and may record them, so use them only when that is acceptable for the work.
 
-| Bridge Type  | Description                                      | Best For                        |
-| ------------ | ------------------------------------------------ | ------------------------------- |
-| `obfs4`      | Obfuscates traffic to look random                | Most use cases, ISP blocking    |
-| `Snowflake`  | Routes through volunteer WebRTC proxies          | Heavy censorship (CN, IR, RU)   |
-| `meek-azure` | Domain-fronting via Azure — **fronting largely deprecated**, slow; prefer WebTunnel/Snowflake | Last resort only               |
-| `WebTunnel`  | Mimics HTTPS to a website                        | Deep packet inspection bypass   |
+For a local SOCKS client, use the curl example in Section 5 and confirm the request reaches the expected Tor check endpoint. Do not use an unrelated IP or DNS test as proof that all device traffic is routed through Tor.
 
-### 5.2 Get Bridges
+### Before use
 
-~~~
-# Option 1: Built into Tor Browser - Configure Connection → Get Bridges
-# Option 2: Email bridges@torproject.org from Gmail/Riseup
-# Option 3: https://bridges.torproject.org
-~~~
+- [ ] Tor Browser came from an official source and is current.
+- [ ] The task and network path comply with written scope and policy.
+- [ ] The security level matches the threat and usability needs.
+- [ ] No extra browser add-ons or custom fingerprint settings were added.
+- [ ] The account, form data, and downloaded files will not disclose an unintended identity.
+- [ ] Any bridge or daemon configuration follows current Tor Project documentation.
+- [ ] The specific application being tested is known to use Tor; no system-wide coverage is assumed.
 
-### 5.3 Add Bridges to torrc (Daemon)
+### During and after use
 
-~~~bash
-sudo nano /etc/tor/torrc
-~~~
-
-~~~
-UseBridges 1
-ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-Bridge obfs4 <IP>:<PORT> <FINGERPRINT> cert=<CERT> iat-mode=0
-~~~
-
-~~~bash
-sudo apt install -y obfs4proxy
-sudo systemctl restart tor
-~~~
+- [ ] Check destination identity and HTTPS before entering sensitive data.
+- [ ] Do not use torrenting or send unauthorized scanning/testing through Tor.
+- [ ] Handle downloaded files offline or in an approved isolated environment.
+- [ ] Record evidence according to the case process; do not claim that Tor activity is untraceable.
+- [ ] Close the browser when finished and preserve only authorized evidence.
 
 ---
 
-## 6. .onion Services
+## 8. Further reading
 
-**.onion** addresses are only accessible via Tor. Both client and server are anonymized.
+- [Tor Project Support](https://support.torproject.org/)
+- [Tor Browser Manual](https://tb-manual.torproject.org/)
+- [Tor Browser installation and verification](https://tb-manual.torproject.org/installation/)
+- [Tor Browser security levels](https://support.torproject.org/tor-browser/features/security-levels/)
+- [Using Tor Browser safely](https://support.torproject.org/tor-browser/security/using-tb-safely/)
+- [Using Tor Browser with a VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/)
+- [Tor bridges](https://support.torproject.org/tor-browser/circumvention/using-bridges/)
+- [Onion services](https://community.torproject.org/onion-services/setup/)
 
-### 6.1 Useful .onion Sites for OSINT / Security Work
+## Related files
 
-| Service              | .onion Address                                                                   |
-| -------------------- | -------------------------------------------------------------------------------- |
-| DuckDuckGo           | `https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion`        |
-| Tor Project          | `http://2gzyxa5ihm7nsggfxnu52rck2vv4rvmdlkiu3zzui5du4xyclen53wid.onion`         |
-| ProtonMail           | `https://protonmailrmez3lotccipshtkleegetolb73fuirgj7r4o4vfu7ozyd.onion`        |
-| Facebook             | `https://www.facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion`  |
-| SecureDrop (Freedom) | `http://sdolvtfhatvsysc6l34d65ymdwxcujausv7k5jk4cy5ttzhjoi6fzvyd.onion`        |
-
-### 6.2 Host an .onion Service (Tor Daemon)
-
-~~~bash
-sudo nano /etc/tor/torrc
-~~~
-
-~~~
-HiddenServiceDir /var/lib/tor/hidden_service/
-HiddenServicePort 80 127.0.0.1:8080
-~~~
-
-~~~bash
-sudo systemctl restart tor
-sudo cat /var/lib/tor/hidden_service/hostname   # your .onion address
-~~~
+- [Documentation index](README.md)
+- [VPN Security Guide](VPN.md)
+- [Virtual machines](virtualmachines.md)
+- [OSINT guide](../OSINT/OSINT_GUIDE.md)
 
 ---
 
-## 7. Verifying Your Connection
-
-### 7.1 Tor Browser
-
-~~~
-Visit: https://check.torproject.org
-Expected: "Congratulations. This browser is configured to use Tor."
-~~~
-
-### 7.2 CLI / Daemon
-
-~~~bash
-# Check exit IP (should NOT be your real IP)
-curl --socks5-hostname 127.0.0.1:9050 https://api.ipify.org
-
-# Check via Tor Project API
-curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org/api/ip
-# Expected: {"IsTor":true,"IP":"x.x.x.x"}
-
-# Check for DNS leaks - a true DNS leak test resolves unique subdomains,
-# so run the browser-based "Extended Test" at https://dnsleaktest.com
-# For a quick CLI check that traffic (incl. DNS) exits through Tor:
-curl --socks5-hostname 127.0.0.1:9050 https://am.i.mullvad.net/json
-~~~
-
-### 7.3 Verify Tor Process
-
-~~~bash
-# Confirm tor is listening
-ss -tlnp | grep 9050
-netstat -tlnp | grep tor
-
-# Check tor log for "Bootstrapped 100%"
-sudo journalctl -u tor | grep "Bootstrapped"
-~~~
-
----
-
-## 8. Tor Browser Security Settings
-
-### 8.1 Security Levels
-
-Access via: **Shield icon (top-right) → Change Security Settings**
-
-| Level        | JavaScript | Fonts/Media      | Recommended For                        |
-| ------------ | ---------- | ---------------- | -------------------------------------- |
-| **Standard** | Enabled    | All enabled      | General browsing                       |
-| **Safer**    | HTTP only  | Some restricted  | Most OSINT work - **recommended**      |
-| **Safest**   | Disabled   | Heavily restricted| High-risk investigations              |
-
-### 8.2 Key Settings & Behaviors
-
-~~~
-✅ Use DuckDuckGo (default) - not Google
-✅ New Identity (broom icon) - fresh circuits + clear state
-✅ New Circuit for this Site (lock icon → connection info)
-✅ Maximize window - prevents screen size fingerprinting
-✅ HTTPS-Only mode enabled by default
-
-❌ Do NOT install extensions
-❌ Do NOT resize window (fingerprinting risk)
-❌ Do NOT log into personal accounts
-❌ Do NOT open downloaded files while connected
-❌ Do NOT torrent over Tor
-~~~
-
-### 8.3 about:config Hardening (Advanced)
-
-~~~
-about:config in address bar
-
-privacy.resistFingerprinting         → true   (usually default)
-network.proxy.socks_remote_dns       → true   (DNS through Tor)
-javascript.enabled                   → false  (if using Safest manually)
-geo.enabled                          → false
-media.peerconnection.enabled         → false  (disables WebRTC - leak risk)
-~~~
-
----
-
-## 9. Troubleshooting
-
-| Problem                     | Cause                              | Fix                                                                 |
-| --------------------------- | ---------------------------------- | ------------------------------------------------------------------- |
-| Tor won't connect           | ISP blocking / firewall            | Use bridges - obfs4 or Snowflake                                    |
-| Very slow speeds            | Normal - 3 relay hops              | Use "New Circuit", avoid large downloads                            |
-| CAPTCHA on every site       | Exit node reputation               | "New Identity" or "New Circuit for this Site"                       |
-| Site blocks Tor             | Active Tor IP blocklist            | New circuit, or use .onion version if available                     |
-| `proxychains4` DNS leaking  | Missing `proxy_dns` in config      | Add `proxy_dns` to `/etc/proxychains4.conf`                         |
-| Tor daemon not starting     | Port conflict or config error      | `sudo journalctl -u tor -f` to read errors                          |
-| `curl` through Tor fails    | Wrong proxy flag                   | Use `--socks5-hostname`, NOT `--socks5` (prevents DNS leak)         |
-| Clock skew errors in torrc  | System time off                    | `sudo timedatectl set-ntp true`                                     |
-
----
-
-## 10. OPSEC Checklist
-
-~~~
-[ ] Operating from a dedicated OSINT VM - not daily-driver OS
-[ ] Tor Browser fully updated before starting
-[ ] Security level set to "Safer" or "Safest" for sensitive work
-[ ] DuckDuckGo used as default search - not Google
-[ ] Not logged into any personal accounts
-[ ] New Identity created at start of each new investigation target
-[ ] Downloaded files NOT opened while Tor is active
-[ ] No browser extensions installed
-[ ] Window maximized (not custom-resized)
-[ ] DNS verified routing through Tor (check.torproject.org)
-[ ] WebRTC disabled (media.peerconnection.enabled = false)
-[ ] VPN *not* stacked unless specifically required (VPN→Tor or Tor→VPN each have tradeoffs)
-[ ] Physical location considered (coffee shop Tor use still ties you to that location)
-~~~
-
----
-
-## 11. Quick Reference - Key URLs
-
-| Purpose                  | URL                                      |
-| ------------------------ | ---------------------------------------- |
-| Official download        | https://www.torproject.org               |
-| Verify Tor connection    | https://check.torproject.org             |
-| IP leak test             | https://ipleak.net                       |
-| DNS leak test            | https://dnsleaktest.com                  |
-| Get bridges              | https://bridges.torproject.org           |
-| Tor Browser manual       | https://support.torproject.org         |
-| Support                  | https://support.torproject.org           |
-| Tor metrics / relay list | https://metrics.torproject.org           |
-
----
-
-## Related Files
-- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [VPN.md](VPN.md) - Mullvad VPN guide: VPN→Tor stacking, kill switch, DNS leak prevention
-- [virtualmachines.md](virtualmachines.md) - Recommended OSINT VMs (Tails, Whonix, Trace Labs VM) for isolated Tor usage
-- [../OSINT/](../OSINT/) - OSINT techniques that should be run from behind Tor or VPN
-
-*Last Updated: 2026-06-08*
-*Maintained by: Pacific Northwest Computers (PNWC)*
+_Maintained by: Pacific Northwest Computers (PNWC)_
