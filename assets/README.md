@@ -557,6 +557,14 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 |---|---|
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
+## OPSEC Anonymity Layering Decision Visual
+
+Original conceptual decision map separating task intent, network-path choices, observer tradeoffs, and the limits of proxying and browser compartments.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Anonymity layering decision map](./diagrams/opsec-anonymity-layering-decisions.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) |
+
 ## Whonix And Kicksecure USB Boundaries Visual
 
 Original conceptual topology of an encrypted Kicksecure host, Whonix Gateway/Workstation routing, and persistent versus live session storage.
