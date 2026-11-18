@@ -73,9 +73,13 @@ Serve as the entry point for hardware security work - helping practitioners find
 
 ## 🎯 Overview
 
-Hardware security extends the attack surface beyond software and networks into the **physical domain**: where an attacker who can touch the device has capabilities unavailable over any network. Debug interfaces, power traces, clock signals, and electromagnetic emissions all become vectors for extraction, bypass, and exploitation.
+Hardware security assessment includes physical access, debug interfaces, firmware, power traces, timing, and electromagnetic emissions. Physical access may create opportunities that are unavailable through a remote network path, but actual risk depends on the target design, exposed interfaces, attacker resources, and existing controls.
 
-This section provides a **comprehensive reference** for hardware security assessment, from threat modeling and electrical fundamentals through advanced fault injection and side-channel analysis techniques.
+This section organizes study from threat modeling and electrical fundamentals through fault injection and side-channel analysis. Use the chapter and device-specific guides for detailed material, and check it against the exact target and documentation.
+
+![Controlled hardware-security bench workflow from authorization and baseline to method selection, evidence validation, and reporting](../assets/diagrams/hardware-security-bench-workflow.svg)
+
+*Conceptual overview: define scope and safety limits first, establish a non-destructive baseline, choose a method for the question, separate observation from inference, then report and restore under the owner's direction.*
 
 **What You'll Find Here:**
 - 🎯 Hardware threat modeling: Attacker profiles, asset mapping, countermeasure frameworks
