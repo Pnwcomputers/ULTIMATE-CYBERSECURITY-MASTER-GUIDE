@@ -57,14 +57,20 @@ nzyme splits into two components:
 | **nzyme-node** | Web UI, alerting/analysis engine, talks to PostgreSQL | Proxmox VM (Ubuntu Server 24.04) |
 | **nzyme-tap** | Lightweight Rust capture agent, ships summarized data upstream | Raspberry Pi + USB WiFi adapter |
 
-**Band-splitting, not redundancy.** A single adapter channel-hops and is blind to any given channel most of the time. Two identical taps fight over the same hopping gaps — dedicating one tap per band roughly doubles effective frame capture instead:
+**Band-splitting reduces time-sharing between bands, not channel gaps.** A radio tuned or hopping within one band does not continuously observe other channels. A second tap assigned to the other band increases the time available to that band, but cannot guarantee complete capture. Avoid duplicate tap coverage at the same collection point: nzyme documents that this can duplicate data. The example below is a coverage trade-off, not redundancy or a measured performance guarantee:
 
 | Tap | Band | Channels |
 |---|---|---|
-| `pi3b-wifi-1` | 2.4 GHz only | 1, 6, 11 (non-overlapping) |
-| `pi3b-wifi-2` | 5 GHz only | 36–165 (non-DFS range) |
+| `pi3b-wifi-1` | 2.4 GHz only | 1, 6, 11 example; verify local regulatory domain |
+| `pi3b-wifi-2` | 5 GHz only | 36–165 in the example config (mixed DFS status; verify local availability) |
 
-A spare, more capable board (e.g. a Pi 5) is better spent as an **Ethernet tap** off a mirror/SPAN port, or a second clustered node, than as a third WiFi tap — taps store nothing on disk, so extra CPU/SSD is wasted on that role.
+A channel plan must match the adapter's supported channels and the tap's local regulatory domain. The 5 GHz example list contains channels with mixed DFS status; this is not a non-DFS-only plan. Confirm local rules and the actual radio/driver behavior before enabling a channel list.
+
+A spare board (e.g. a Pi 5) could be used as an Ethernet tap off a mirror/SPAN port or as another node, depending on traffic and placement. nzyme taps normally do not persist captured traffic to disk, so additional storage alone does not increase wireless coverage.
+
+![nzyme architecture: separate 2.4 GHz and 5 GHz tap radios observe their assigned bands, send summarized data over HTTPS to the nzyme node, which stores state in PostgreSQL and serves the analyst web interface. Each radio still hops within its channel plan, so coverage is not continuous on every channel.](../../assets/diagrams/nzyme-band-split-tap-architecture.svg)
+
+*Conceptual topology based on nzyme's documented architecture and this guide's example band split; actual capture depends on adapter, driver, channel plan, and placement.*
 
 ---
 
@@ -85,7 +91,7 @@ A spare, more capable board (e.g. a Pi 5) is better spent as an **Ethernet tap**
 | 🟡 Community-confirmed | Alfa AWUS036ACS · CSL USB 2.0 300 Mbit |
 | ❌ Known bad | Nineplus AX1800 (rtl8832au) · EDUP AX5400M (rtw8852cu) — neither enters monitor mode |
 
-The MediaTek **AWUS036ACM** (`mt76` driver) is the safest "just works" pick if buying fresh. Realtek 8812AU/8821AU-chipset Alfas are common and usable but may need the driver swap in [Tap Driver & Config](#-tap-driver--config).
+The adapter list reflects the guide author's reported tests and current upstream compatibility notes; support depends on the exact chipset, kernel, driver, regulatory domain and nzyme-tap version. The MediaTek **AWUS036ACM** (`mt76` driver) is a reported plug-and-play option in this setup. Realtek 8812AU/8821AU adapters may need a driver change; see [Tap Driver & Config](#-tap-driver--config).
 
 ---
 
@@ -162,6 +168,8 @@ sudo nano /etc/nzyme/nzyme.conf
 | `interfaces.rest_listen_uri` | `https://0.0.0.0:22900/` |
 | `interfaces.http_external_uri` | `https://10.0.1.x:22900/` (VM's LAN IP) |
 
+If the database password contains reserved URL characters, percent-encode them in the connection URI; do not paste a literal password that changes how the URI is parsed.
+
 nzyme is **HTTPS-only** — it will not answer on plain HTTP. `/etc/default/nzyme` sets JVM heap to `-Xms1g -Xmx1g` by default; raise only if you see heap OOM under load.
 
 ### Migrate, Enable, Start
@@ -217,6 +225,8 @@ Repeated oopses clustered right after tap startup = driver instability under cha
 |---|---|---|
 | `rtl8xxxu` | 8812AU | [`8812au-20210820`](https://github.com/morrownr/8812au-20210820) |
 | `rtw88` | 8821AU | [`8821au-20210708`](https://github.com/morrownr/8821au-20210708) |
+
+Out-of-tree WiFi drivers execute in the kernel. Prefer a supported adapter using an in-kernel driver when practical. If a driver change is needed, review the project and exact source before installing, keep a rollback path, and expect to repeat compatibility checks after kernel upgrades.
 
 ```bash
 sudo apt update
@@ -365,6 +375,8 @@ are the right venue for bugs without a known fix.
 
 - **nzyme docs:** [docs.nzyme.org](https://docs.nzyme.org)
 - **nzyme downloads:** [go.nzyme.org/downloads](https://go.nzyme.org/downloads)
+- **nzyme architecture:** [Architecture](https://docs.nzyme.org/getting-started/architecture/)
+- **nzyme channel hopping:** [Channel Hopping](https://docs.nzyme.org/wifi/concepts/channel_hopping/)
 - **morrownr driver repos:** [github.com/morrownr](https://github.com/morrownr)
 
 ---
