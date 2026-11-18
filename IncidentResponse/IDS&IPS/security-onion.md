@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**Suricata + Zeek + Elastic Stack + Wazuh + CyberChef, pre-integrated into one appliance-style platform**
+**A network security monitoring platform that combines Suricata, Zeek, Elastic data services, and analyst workflows in managed node roles**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](readme.md) section*
 
@@ -15,10 +15,10 @@
 ---
 
 ## 🎯 Purpose
-Guide for deploying [Security Onion](https://securityonion.net/), a free, open-source Linux distro that pre-integrates network security monitoring (Suricata, Zeek), a full Elastic Stack for search and dashboards, host visibility (Elastic Agent, Sysmon), and analyst tooling (CyberChef, PCAP retrieval, case management) into a single ISO-based platform.
+Guide for deploying [Security Onion](https://securityonion.net/), a free and open-source platform for network security monitoring. It manages Suricata and Zeek sensors, Elastic-based log and search services, optional endpoint log collection, and analyst workflows through Security Onion Console (SOC). Available components and node roles depend on the selected installation type and release.
 
 ## ⚙️ Function
-Covers the node-type architecture (Standalone/Eval/Import vs. distributed Manager+Sensor+Search), hardware sizing per node type, the ISO installation flow, sniffing-interface planning, and where the pieces you already know from this repo's standalone [Suricata & Zeek](./suricata+zeek.md) guide live inside Security Onion's integrated setup.
+Covers representative node roles, hardware sizing, ISO installation, management and sniffing interface planning, and the data path from sensor capture to searchable events and analyst access. Role names and exact components vary by release.
 
 ## 🏆 Goal
 Give an informed sizing and architecture decision *before* burning a full ISO install cycle on hardware that turns out to be undersized — this is the single most common way people waste time with Security Onion.
@@ -48,12 +48,12 @@ Give an informed sizing and architecture decision *before* burning a full ISO in
 
 Security Onion isn't a new detection engine — it's the same Suricata and Zeek covered in this repo's [standalone guide](./suricata+zeek.md), plus:
 
-- **Elastic Stack** (Elasticsearch, Logstash, Kibana) for storage, search, and dashboards
-- **Elastic Agent** and **Sysmon** integration for host-level visibility alongside network data
-- **Strelka** for file scanning/extraction
-- **CyberChef**, **NetworkMiner**, and **Wireshark** bundled for analyst workflows
-- **Sigma** and **YARA** rule support layered on top of Suricata's own signature rules
-- **IDH (Intrusion Detection Honeypot)** nodes — a lightweight, purpose-built honeypot role baked into the platform, conceptually similar to this repo's [Honeypots](../HoneyPot/readme.md) guides but managed as part of the Security Onion grid
+- **Elastic services** including Elasticsearch, Logstash, Kibana, and Redis, used according to the selected node roles
+- **Elastic Agent** for transporting logs; Windows endpoints can optionally send Sysmon events through a supported collection configuration
+- **Strelka** for file analysis, including YARA-based detections
+- **Security Onion Console (SOC)** for alerts, hunt, cases, detections, and grid administration; the platform also provides analyst tools such as CyberChef
+- Separate detection types: NIDS rules load into Suricata, Sigma rules into ElastAlert, and YARA rules into Strelka
+- **IDH (Intrusion Detection Honeypot)** nodes, which use OpenCanary and must join a separate Security Onion deployment
 
 Think of it as: everything you'd otherwise assemble by hand from this repo's Suricata/Zeek and SIEM guides, pre-wired together and given a management console.
 
@@ -68,10 +68,16 @@ Security Onion supports everything from a single evaluation VM to a fully distri
 | **Import** | Minimal processes to import PCAP/EVTX files and review them | Forensic analysis of files you already have, not live monitoring |
 | **Eval** | Single machine sniffing live traffic, no Logstash/Redis (lower RAM) | Homelab, evaluation, temporary — **not for production** |
 | **Standalone** | Manager + sensor components on one box, production-capable | Small-to-medium single-sensor deployments |
-| **Distributed** (Manager + Sensor + Search nodes) | Roles split across multiple machines | Larger networks, higher traffic volumes, need to scale search/storage independently |
+| **Distributed** (Manager + Sensor + Search nodes) | Roles split across multiple machines | Larger networks or need to scale monitoring and search independently |
+
+Security Onion also documents additional roles such as ManagerSearch, Heavy, Fleet, Receiver, and Desktop. This summary is not an exhaustive role list; check the current [architecture documentation](https://docs.securityonion.net/en/3/main/architecture/) before sizing.
 | **IDH node** | Dedicated lightweight honeypot node | Very low resource requirement (1 GB RAM), complements the main grid |
 
-**Start with Eval or Standalone.** Distributed deployments only make sense once you actually need to scale search/storage independently of sniffing capacity — don't reach for it prematurely.
+**Start with Import for saved evidence, Eval for a temporary or homelab live sensor, or Standalone for a single-node deployment.** For distributed deployments, the manager should generally be configured first and sensor/search roles can be separated as needs grow. See upstream sizing and architecture guidance before choosing.
+
+![Security Onion data path: TAP/SPAN traffic reaches a sensor with a dedicated sniffing interface; Suricata and Zeek produce alerts and logs that flow through Elastic Agent to Logstash, Redis, and Elasticsearch on manager/search roles. Packet capture remains on the sensor, while SOC provides analyst access.](../../assets/diagrams/security-onion-sensor-to-search-flow.svg)
+
+*Conceptual distributed data path; exact services and storage placement depend on the selected node roles and release.*
 
 ---
 
@@ -93,9 +99,9 @@ This is where most first attempts go wrong — Security Onion is **not** lightwe
 
 **NIC planning:** you need one interface with an IP for management, and a **separate** interface with no IP dedicated to sniffing (fed by a TAP or SPAN port). Security Onion automatically disables NIC offload features (`tso`, `gso`, `gro`) on sniffing interfaces so Suricata/Zeek see accurate traffic — don't try to "fix" this yourself.
 
-**Storage for full packet capture** scales fast: a sustained 50 Mbps link works out to roughly 540 GB/day of raw PCAP. Size storage against your actual retention requirement, not just the OS install.
+**Storage for full packet capture** can grow quickly: a continuous 50 Mbps stream is about 540 GB/day using decimal units, before filesystem or capture overhead. Actual volume depends on monitored traffic and capture settings. Size storage against a defined retention requirement.
 
-**CPU architecture:** x86-64 only — Security Onion explicitly does not support ARM, so this rules out Raspberry Pi hardware entirely for the main grid (the IDH honeypot role is the exception, given its minimal footprint).
+**CPU architecture:** Security Onion supports x86-64 only; ARM devices such as Raspberry Pi are unsupported, including as IDH nodes. IDH has lower resource requirements but still needs to join a supported Security Onion grid.
 
 ---
 
@@ -125,8 +131,8 @@ For a distributed deployment, install and fully configure the **Manager** node f
 
 - **Security Onion Console (SOC)** is your main web UI — alerts, dashboards, hunt, cases, detections, PCAP retrieval, and grid administration all live here.
 - **Kibana** is available underneath SOC for deeper Elastic-native dashboarding.
-- Add host-level visibility via **Elastic Agent** (cross-platform) or **Sysmon** (Windows) — this is what correlates network alerts with endpoint activity.
-- Rule sources (Suricata/NIDS rules, **Sigma**, **YARA**) are managed centrally rather than per-engine, which is the main practical improvement over hand-rolling the same stack yourself.
+- Add host-level visibility with **Elastic Agent** or supported syslog sources. On Windows, Sysmon can add endpoint events that Elastic Agent transports to Security Onion.
+- Detections are managed centrally but run in different engines: NIDS rules in Suricata, Sigma in ElastAlert, and YARA in Strelka. Their configuration and update behavior differ.
 
 ---
 
@@ -138,9 +144,8 @@ If you've already worked through this repo's other guides, Security Onion's comp
 |---|---|
 | [Suricata & Zeek](./suricata+zeek.md) | The NIDS/NSM engine layer — same engines, centrally managed rules and config |
 | [SIEM: ELK Stack](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/elk_stack.md) | The Elasticsearch/Logstash/Kibana backend, pre-wired to ingest Suricata/Zeek output automatically |
-| [SIEM: Wazuh](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/wazuh.md) | Available as a host-visibility/EDR-style integration option |
 | [Honeypots](../HoneyPot/readme.md) | The IDH (Intrusion Detection Honeypot) node type — a purpose-built, low-resource honeypot role in the grid |
-| [Endpoint Visibility: Sysmon](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) | Ingested directly as a host-visibility source |
+| [Endpoint Visibility: Sysmon](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) | Sysmon event logs can be collected through a configured Elastic Agent; Sysmon itself is not the transport agent |
 
 This is the practical value proposition: if you understand Suricata, Zeek, and ELK from this repo's other guides already, you're not learning new detection concepts here — you're learning how Security Onion wires the pieces together and manages them centrally.
 
@@ -154,7 +159,7 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 | Suricata/Zeek show dropped packets or inaccurate traffic view | NIC offload features (`tso`/`gso`/`gro`) weren't disabled on the sniffing interface | The installer does this automatically on interfaces it identifies as sniffing-only (no IP) — confirm the interface has no IP assigned if this persists |
 | Can't change the hostname after a botched initial setup | Certificates were generated against the original hostname during install; this is explicitly unsupported to change later | Reinstall rather than fight it — this is a documented hard limitation, not a bug to work around |
 | Distributed sensor won't join the manager | Node approval step skipped | Check **Administration → Grid Members → Pending Members** on the Manager and explicitly Review/Accept the joining node |
-| Running out of disk far faster than expected | Full packet capture retention wasn't sized against actual traffic volume | Recalculate storage needs against your real average bandwidth (see the 50 Mbps → ~540 GB/day example above), not just the OS install size |
+| Running out of disk far faster than expected | Packet capture retention wasn't sized against traffic and capture settings | Recalculate from representative traffic and configured capture behavior, then add a safety margin |
 | Tried it on a Raspberry Pi or other ARM hardware | Security Onion is x86-64 only | Use x86-64 hardware for the main grid; ARM isn't supported at all (the lightweight IDH honeypot role is the only ARM-friendly-adjacent piece, and even that assumes an x86-64 grid it joins) |
 
 ---
@@ -193,6 +198,11 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 ## 📚 Resources
 
 - **Security Onion docs:** [docs.securityonion.net](https://docs.securityonion.net/en/3/main/)
+- **Architecture and event flow:** [Architecture](https://docs.securityonion.net/en/3/main/architecture/) and [Ingest](https://docs.securityonion.net/en/3/main/ingest/)
+- **Current minimum hardware:** [Hardware requirements](https://docs.securityonion.net/en/3/main/hardware/)
+- **Detection engine mapping:** [Rules overview](https://docs.securityonion.net/en/3/main/rules/)
+- **Sysmon collection:** [Sysmon](https://docs.securityonion.net/en/3/main/sysmon/)
+- **Intrusion Detection Honeypot:** [IDH](https://docs.securityonion.net/en/3/main/idh/)
 - **Security Onion GitHub:** [github.com/Security-Onion-Solutions/securityonion](https://github.com/Security-Onion-Solutions/securityonion)
 - **Security Onion Solutions (official appliances/support):** [securityonionsolutions.com](https://securityonionsolutions.com)
 - **Community support (GitHub Discussions):** linked from the official docs site
