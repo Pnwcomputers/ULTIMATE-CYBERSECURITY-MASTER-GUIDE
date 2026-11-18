@@ -47,53 +47,17 @@ CPU executes crypto operation
 
 #### Concept
 
-If a security-sensitive operation takes different amounts of time depending on the secret value or on secret-dependent branches, an attacker can recover the secret by measuring execution time.
+If execution time depends on secret data, repeated measurements may reveal information about that data. A comparison that returns at the first mismatch is one possible source of timing variation, but a single slow request does not identify a correct character. Runtime noise, caching, network jitter, input length, scheduling, rate limits, and server behavior all confound measurements.
 
-**Classic example - non-constant-time string comparison:**
+For software under review, use a local test harness and a documented, authorized target. Do not send guesses to a live service; assess the implementation, threat model, measurement quality, and mitigations instead.
 
-```c
-// VULNERABLE: returns early on first mismatch
-int check_password(const char *input, const char *stored) {
-    while (*input && *stored) {
-        if (*input++ != *stored++) return 0;  // Early return!
-    }
-    return (*input == *stored);
-}
-```
-
-An attacker can recover the password one character at a time - the correct first character takes slightly longer (comparison proceeds to byte 2).
-
-```python
-import time, requests
-
-def timing_attack_password(target_url, charset, known_prefix=""):
-    results = {}
-    for c in charset:
-        guess = known_prefix + c + "A" * (MAX_LEN - len(known_prefix) - 1)
-        start = time.perf_counter_ns()
-        requests.post(target_url, data={"password": guess})
-        elapsed = time.perf_counter_ns() - start
-        results[c] = elapsed
-    return max(results, key=results.get)  # Highest time = correct character
-```
-
-**Mitigation:** `hmac.compare_digest()` in Python, `crypto_verify_*` in libsodium, `timingsafe_bcmp()` in BSD libc - constant-time comparison regardless of data.
-
----
+**Mitigation:** Use vetted cryptographic libraries and constant-time comparison primitives for secret values. Python's hmac.compare_digest() is designed to avoid content-based short-circuiting; its documentation notes that type and length differences may still be observable. Constant-time behavior must be evaluated in the full implementation and environment.
 
 #### RSA Timing Attacks
 
-Early RSA implementations used square-and-multiply exponentiation:
+An exponentiation implementation that performs different work depending on private-exponent bits can create timing variation. This is an implementation-level leakage risk, not a universal property of RSA. Real attacks depend on the implementation, observable timing precision, attacker queries, noise, and countermeasures.
 
-```
-For each bit of the private exponent d:
-    square the accumulator
-    if bit == 1: multiply by base    ← extra operation when bit is 1
-```
-
-The total time correlates with the Hamming weight of `d`. Countermeasure: **Montgomery ladder** (always square and multiply, discard one result) or **blinding** (randomize inputs before exponentiation).
-
----
+Common defensive techniques include constant-time implementations and blinding where appropriate. No single algorithm name guarantees constant-time behavior; use a vetted cryptographic implementation and review its documented threat model. See Kocher's original timing attacks paper: https://cr.yp.to/bib/1996/kocher.pdf.
 
 #### Cache Timing (Software Side-Channel)
 
