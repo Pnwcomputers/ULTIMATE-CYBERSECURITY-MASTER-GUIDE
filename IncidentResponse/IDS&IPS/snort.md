@@ -18,7 +18,7 @@
 Guide for deploying [Snort](https://www.snort.org/), the original open-source signature-based IDS/IPS, now maintained by Cisco. Covers every install path people actually try, honestly documents where the official packaging currently falls short, and gives the informed choice between sticking with Snort and moving to [Suricata](./suricata+zeek.md) instead.
 
 ## ⚙️ Function
-Covers the four install paths (default repos, official Snort repo, from-source build, Snort 3 release package), rule configuration, running in IDS vs. IPS mode, and — because it's the honest outcome of a real attempt — when and why to pivot to Suricata instead.
+Covers version-aware installation choices, the Snort 2 and Snort 3 configuration split, rules, passive versus inline operation, and how to decide whether Suricata better fits the platform and deployment.
 
 ## 🏆 Goal
 Get a working decision, not just a working install: know which install path is worth trying first on your platform, and recognize quickly when Snort's current packaging friction means your time is better spent on Suricata.
