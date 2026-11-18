@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">Journalist device seizure and duress response priorities</title>
+<desc id="desc">A three-stage conceptual response plan. Before an incident, minimize field data, use encryption, establish check-ins, legal support, secure backups, and a tested plan. During a threat or seizure, prioritize physical safety, avoid improvised deletion or remote wiping, record details only when safe and lawful, and use the prearranged contact plan. After the incident, reach safety, contact the editor and counsel, preserve devices if required, assess source exposure, and contain accounts from a trusted separate device when appropriate.</desc>
+<defs>
+<style>
+.bg{fill:#f4f7fb}.header{fill:#17354f}.panel{fill:#fff;stroke:#b9c8d6;stroke-width:2}.prep{fill:#e8f3fb;stroke:#5e91b5;stroke-width:2}.during{fill:#fff2dc;stroke:#c08e38;stroke-width:2}.after{fill:#eaf5ed;stroke:#5b956c;stroke-width:2}.caution{fill:#fff0ef;stroke:#c56f65;stroke-width:2}.title{font:700 27px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.h{font:700 20px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.w{font:700 21px system-ui,Segoe UI,Arial,sans-serif;fill:#fff}.b{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.small{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.arrow{stroke:#496b85;stroke-width:3;fill:none;marker-end:url(#a)}.line{stroke:#cbd6e0;stroke-width:2}
+</style>
+<marker id="a" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#496b85"/></marker>
+</defs>
+<rect class="bg" width="1200" height="820" rx="20"/>
+<text class="title" x="44" y="49">Plan the response before a threat or device seizure</text>
+<rect class="header" x="40" y="72" width="1120" height="48" rx="11"/><text class="w" x="64" y="104">A people-first sequence for journalists and newsroom responders</text>
+<rect class="prep" x="40" y="145" width="350" height="388" rx="15"/>
+<text class="h" x="64" y="181">1  BEFORE: prepare</text>
+<text class="b" x="64" y="220"><tspan x="64" dy="0">Minimize sensitive local data.</tspan><tspan x="64" dy="28">Use encryption and strong unlock</tspan><tspan x="64" dy="23">credentials; test device behavior.</tspan><tspan x="64" dy="36">Set check-ins, trusted contacts,</tspan><tspan x="64" dy="23">and jurisdiction-specific legal support.</tspan><tspan x="64" dy="36">Keep encrypted, restorable backups</tspan><tspan x="64" dy="23">with an approved data custodian.</tspan><tspan x="64" dy="36">Agree who handles notices, preservation,</tspan><tspan x="64" dy="23">source risk, and account containment.</tspan></text>
+<path class="arrow" d="M390 330H423"/>
+<rect class="during" x="430" y="145" width="350" height="388" rx="15"/>
+<text class="h" x="454" y="181">2  DURING: protect people</text>
+<text class="b" x="454" y="220"><tspan x="454" dy="0">Prioritize physical safety and de-escalation.</tspan><tspan x="454" dy="36">Seek counsel as appropriate; rules vary</tspan><tspan x="454" dy="23">by jurisdiction and circumstances.</tspan><tspan x="454" dy="36">Do not improvise deletion or remote wiping.</tspan><tspan x="454" dy="36">Record events only when safe and lawful.</tspan><tspan x="454" dy="36">Use the prearranged human check-in plan</tspan><tspan x="454" dy="23">when it is safe; seek emergency help</tspan><tspan x="454" dy="23">through appropriate local services if needed.</tspan></text>
+<path class="arrow" d="M780 330H813"/>
+<rect class="after" x="820" y="145" width="340" height="388" rx="15"/>
+<text class="h" x="844" y="181">3  AFTER: contain and recover</text>
+<text class="b" x="844" y="220"><tspan x="844" dy="0">Reach safety; contact editor, newsroom</tspan><tspan x="844" dy="23">security lead, and counsel.</tspan><tspan x="844" dy="36">Treat seized or returned devices as</tspan><tspan x="844" dy="23">potentially compromised; preserve where</tspan><tspan x="844" dy="23">required and avoid blind reconnection.</tspan><tspan x="844" dy="36">From a separate trusted device, review</tspan><tspan x="844" dy="23">sessions and contain accounts when</tspan><tspan x="844" dy="23">authorized and legally appropriate.</tspan><tspan x="844" dy="36">Assess source exposure across cloud,</tspan><tspan x="844" dy="23">carrier, colleagues, and backups.</tspan></text>
+<rect class="caution" x="40" y="565" width="1120" height="94" rx="14"/>
+<text class="h" x="64" y="600">Do not depend on emergency wipe controls</text>
+<text class="b" x="64" y="630">A seized device may be isolated from networks; wiping can create safety, evidence, and legal risks. Build protection through minimization, encryption, secure backup, and a pre-agreed human response.</text>
+<rect class="panel" x="40" y="684" width="1120" height="92" rx="14"/>
+<text class="small" x="64" y="719">This is a conceptual planning aid, not legal advice or a universal incident procedure. Follow the newsroom plan, qualified local counsel,</text>
+<text class="small" x="64" y="746">and trusted safety support for the specific jurisdiction and circumstances.</text>
+</svg>

@@ -1,11 +1,15 @@
 # Duress, Detention, Device Seizure and Emergency Digital-Safety Plan
 
-_Last reviewed: 2026-11-01 (journalist safety and platform guidance reviewed; not legal advice)_
+_Last reviewed: 2026-11-18 (guidance cross-checked with FPF, CPJ and Access Now; not legal advice)_
 
 **Prerequisites:** [Press Freedom and Source Security](./README.md) · [Device and Network Security](./device-network-protection.md) · [Data Retention](./data-retention-removal.md)
 
 > [!WARNING]
 > **Physical safety comes first.** A confrontation is not the time to improvise technical countermeasures. This document does not recommend threatening behavior, resistance, covert evidence destruction, wiping on demand, or attempts to circumvent a lawful preservation obligation. Follow qualified local legal advice: the rules on search, compulsory unlocking, source privilege and border crossings are jurisdiction-specific.
+
+![Three-stage conceptual response plan: prepare before an incident, prioritize safety during threat or seizure, then preserve, assess exposure, and recover](../../assets/journalist-seizure-response.svg)
+
+*Conceptual flow: reduce data before an assignment; during a threat, protect people and avoid improvised deletion; afterward, follow the newsroom and legal process to preserve evidence, assess source exposure, and contain accounts.*
 
 ## Before an assignment: design for safe failure
 

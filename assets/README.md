@@ -573,6 +573,14 @@ Original conceptual workflow for data minimization, protection, retention review
 |---|---|
 | [Journalist source-data lifecycle](./journalist-source-data-lifecycle.svg) | [Data retention, minimization and lawful disposal](../OPSEC/press-freedom/data-retention-removal.md) |
 
+## Journalist Device Seizure And Duress Response Visual
+
+Original conceptual response sequence separating pre-incident preparation, immediate safety and counsel priorities, and post-incident preservation and account containment. It is not legal advice or a universal response procedure.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Journalist device seizure and duress response](./journalist-seizure-response.svg) | [Duress, device seizure and emergency response](../OPSEC/press-freedom/duress-seizure-response.md) |
+
 ## Proxy Route And Observer Visibility Visual
 
 Original conceptual comparison of proxy, VPN, SSH, and Tor paths. It distinguishes routing metadata visible to intermediaries from page contents protected by valid destination TLS.
