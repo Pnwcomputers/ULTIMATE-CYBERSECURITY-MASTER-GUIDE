@@ -13,7 +13,7 @@
 <rect class="band" x="48" y="362" width="1224" height="50" rx="12"/><text class="h" x="72" y="395">2  Network routing is a separate boundary</text>
 <rect class="box" x="72" y="442" width="245" height="100" rx="12"/><text class="t" x="98" y="479">Device and app</text><text class="b" x="98" y="510">Only configured traffic</text><path class="arrow" d="M317 492H400"/>
 <rect class="box" x="400" y="442" width="250" height="100" rx="12"/><text class="t" x="426" y="479">Wi-Fi / carrier / ISP</text><text class="b" x="426" y="510">Local network boundary</text><path class="dash" d="M650 492H735"/>
-<rect class="account" x="735" y="442" width="220" height="100" rx="12"/><text class="t" x="762" y="479">Optional VPN</text><text class="b" x="762" y="510">Trust shifts to provider</text><path class="arrow" d="M955 492H1030"/>
+<rect class="account" x="735" y="442" width="220" height="100" rx="12"/><text class="t" x="762" y="479">Optional VPN</text><text class="b" x="762" y="510">Encrypted tunnel; trust shifts</text><path class="arrow" d="M955 492H1030"/>
 <rect class="box" x="1030" y="442" width="242" height="100" rx="12"/><text class="t" x="1058" y="479">Online service</text><text class="b" x="1058" y="510">Account and content rules</text>
 <text class="b" x="72" y="570">A VPN changes which network operator sees the connection; it does not protect an unlocked device, account, or stored backup.</text>
 <rect class="band" x="48" y="598" width="1224" height="50" rx="12"/><text class="h" x="72" y="631">3  Match controls to the layer they protect</text>
