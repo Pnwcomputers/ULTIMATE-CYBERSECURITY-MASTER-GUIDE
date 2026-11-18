@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+<title id="title">Linux audit events move through independently configured collection stages</title>
+<desc id="desc">A conceptual flow from configured audit rules and kernel events through auditd, a configured local forwarder, and SIEM ingestion. A verification band calls out rule coverage, backlog and loss, forwarding, parsing, and retention.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker></defs>
+<rect width="1200" height="460" fill="#f6f9fc"/>
+<g font-family="Arial, sans-serif" fill="#16354b">
+<text x="40" y="48" font-size="30" font-weight="700">Audit visibility depends on every configured hop</text>
+<text x="40" y="78" font-size="18">Conceptual path • rule selection controls what is recorded; forwarding and retention control what analysts receive</text>
+<rect x="40" y="120" width="245" height="185" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="58" y="154" font-size="22" font-weight="700">Rule + kernel</text>
+<text x="58" y="190" font-size="17">Selected syscalls / watches</text>
+<text x="58" y="218" font-size="17">Architecture and rule load</text>
+<text x="58" y="260" font-size="16" fill="#476274">Example rules ≠ full coverage</text>
+<path d="M292 213h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="330" y="120" width="245" height="185" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="348" y="154" font-size="22" font-weight="700">auditd</text>
+<text x="348" y="190" font-size="17">Receives kernel records</text>
+<text x="348" y="218" font-size="17">Writes local audit log</text>
+<text x="348" y="260" font-size="16" fill="#476274">Check backlog and lost count</text>
+<path d="M582 213h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="620" y="120" width="245" height="185" rx="14" fill="#fff3d8" stroke="#8faebb" stroke-width="2"/>
+<text x="638" y="154" font-size="22" font-weight="700">Configured forwarder</text>
+<text x="638" y="190" font-size="17">Audit plugin / syslog route</text>
+<text x="638" y="218" font-size="17">Queues, filters, transport</text>
+<text x="638" y="260" font-size="16" fill="#476274">Verify destination and drops</text>
+<path d="M872 213h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="910" y="120" width="245" height="185" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="928" y="154" font-size="22" font-weight="700">SIEM / analysis</text>
+<text x="928" y="190" font-size="17">Ingest and parse records</text>
+<text x="928" y="218" font-size="17">Normalize source and time</text>
+<text x="928" y="260" font-size="16" fill="#476274">Confirm retention and searches</text>
+<rect x="40" y="345" width="1115" height="72" rx="12" fill="#dcebf1"/>
+<text x="58" y="375" font-size="18" font-weight="700">Validate end to end:</text>
+<text x="222" y="375" font-size="18">generate an authorized test event, match it by key/time at each hop, check loss counters and document gaps.</text>
+<text x="58" y="402" font-size="16" fill="#476274">A diagram or loaded ruleset does not establish observed coverage on a particular host.</text>
+</g></svg>
