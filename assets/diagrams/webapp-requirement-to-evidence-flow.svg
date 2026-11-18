@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">From web assessment scope to evidence and retesting</title>
+<desc id="desc">A five-step conceptual flow: authorize the environment and traffic, select versioned ASVS requirements, map them to WSTG methods, perform manual checks and only approved reviewed Nuclei templates, then document evidence and retest. A note distinguishes requirements, methods and tools.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker></defs>
+<rect width="1200" height="520" fill="#f6f9fc"/>
+<g font-family="Arial, sans-serif" fill="#16354b">
+<text x="40" y="50" font-size="29" font-weight="700">From authorized scope to defensible evidence</text>
+<text x="40" y="80" font-size="18">Requirements, test methods and scanner templates have distinct roles</text>
+<g>
+<rect x="40" y="125" width="205" height="230" rx="14" fill="#e5f1f6" stroke="#91b2c0" stroke-width="2"/>
+<text x="58" y="163" font-size="21" font-weight="700">1 · Authorize</text>
+<text x="58" y="202" font-size="17">Environment</text><text x="58" y="228" font-size="17">Hosts and paths</text><text x="58" y="254" font-size="17">Accounts / methods</text><text x="58" y="280" font-size="17">Exclusions / windows</text><text x="58" y="320" font-size="15">Written scope first</text>
+<rect x="280" y="125" width="205" height="230" rx="14" fill="#e5f1f6" stroke="#91b2c0" stroke-width="2"/>
+<text x="298" y="163" font-size="21" font-weight="700">2 · Choose</text>
+<text x="298" y="202" font-size="17">Versioned ASVS</text><text x="298" y="228" font-size="17">Requirement IDs</text><text x="298" y="254" font-size="17">Applicability</text><text x="298" y="280" font-size="17">Exceptions</text><text x="298" y="320" font-size="15">What should hold</text>
+<rect x="520" y="125" width="205" height="230" rx="14" fill="#e5f1f6" stroke="#91b2c0" stroke-width="2"/>
+<text x="538" y="163" font-size="21" font-weight="700">3 · Map</text>
+<text x="538" y="202" font-size="17">Versioned WSTG</text><text x="538" y="228" font-size="17">Manual procedures</text><text x="538" y="254" font-size="17">Many-to-many links</text><text x="538" y="280" font-size="17">Test accounts/data</text><text x="538" y="320" font-size="15">How to evaluate</text>
+<rect x="760" y="125" width="205" height="230" rx="14" fill="#fff1d4" stroke="#c9aa66" stroke-width="2"/>
+<text x="778" y="163" font-size="21" font-weight="700">4 · Check</text>
+<text x="778" y="202" font-size="17">Manual validation</text><text x="778" y="228" font-size="17">Optional reviewed</text><text x="778" y="254" font-size="17">Nuclei subset</text><text x="778" y="280" font-size="17">Controlled traffic</text><text x="778" y="320" font-size="15">Tool output ≠ proof</text>
+<rect x="1000" y="125" width="165" height="230" rx="14" fill="#e5f1f6" stroke="#91b2c0" stroke-width="2"/>
+<text x="1016" y="163" font-size="21" font-weight="700">5 · Report</text>
+<text x="1016" y="202" font-size="17">Sanitized</text><text x="1016" y="228" font-size="17">evidence</text><text x="1016" y="254" font-size="17">Result and</text><text x="1016" y="280" font-size="17">confidence</text><text x="1016" y="320" font-size="15">Retest / owner</text>
+</g>
+<path d="M249 240h25" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M489 240h25" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M729 240h25" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M969 240h25" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="40" y="395" width="1125" height="78" rx="12" fill="#dcebf1"/>
+<text x="60" y="428" font-size="18" font-weight="700">Keep references reproducible</text>
+<text x="60" y="455" font-size="17">Record ASVS release + requirement ID • WSTG versioned test ID • Nuclei template commit/hash + sanitized matcher evidence</text>
+<text x="40" y="500" font-size="15">Conceptual assessment workflow; authorization, confirmed exposure and severity require independent evidence.</text>
+</g></svg>
