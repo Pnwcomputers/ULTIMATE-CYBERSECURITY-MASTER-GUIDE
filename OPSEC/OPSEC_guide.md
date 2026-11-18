@@ -26,7 +26,7 @@ Plan a repeatable research environment with explicit host, network, identity, an
 # Table of Contents
 1. [Executive Overview](#executive-overview)
 2. [Host OS Setup](#host-os-setup)
-3. [Hypervisor Layer](#hypervisor-layer)
+3. [Host and Hypervisor Selection](#choose-a-host-os-and-hypervisor)
 4. [Network Architecture](#network-architecture)
 5. [VM Architecture](#vm-architecture)
 6. [OPSEC Rules](#opsec-rules)
