@@ -557,6 +557,14 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 |---|---|
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
+## Proxy Route And Observer Visibility Visual
+
+Original conceptual comparison of proxy, VPN, SSH, and Tor paths. It distinguishes routing metadata visible to intermediaries from page contents protected by valid destination TLS.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Proxy routes and observer visibility](./diagrams/proxy-route-observer-visibility.svg) | [Proxy types, DNS leaks and Froxy](../OPSEC/proxy-reference-froxy.md) |
+
 ## OPSEC Anonymity Layering Decision Visual
 
 Original conceptual decision map separating task intent, network-path choices, observer tradeoffs, and the limits of proxying and browser compartments.
