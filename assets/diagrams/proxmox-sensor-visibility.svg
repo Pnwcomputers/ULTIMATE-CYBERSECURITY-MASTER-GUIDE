@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">A Proxmox sensor sees only traffic delivered to its capture source</title>
+  <desc id="desc">Three conceptual capture paths compare a virtual bridge, a switch mirror or TAP, and a gateway capture. Each path shows its scope and blind spot. The diagram recommends testing authorized traffic and documenting coverage limits.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#16354b}.title{font-size:30px;font-weight:700}.sub{font-size:18px}.cardtitle{font-size:23px;font-weight:700}.body{font-size:18px}.foot{font-size:17px}</style>
+  </defs>
+  <rect width="1200" height="650" fill="#f6f9fc"/>
+  <text class="title" x="40" y="48">Sensor visibility follows the packet path</text>
+  <text class="sub" x="40" y="78">A running sensor sees only frames delivered to its configured monitoring source.</text>
+
+  <rect x="40" y="115" width="350" height="350" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+  <text class="cardtitle" x="62" y="154">Virtual bridge</text>
+  <rect x="66" y="180" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="84" y="207">VM / bridge-delivered</text><text class="body" x="84" y="231">traffic reaches sensor VM</text>
+  <path d="M215 247v32" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="66" y="289" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="84" y="317">Observed: own VM flows</text><text class="body" x="84" y="341">and delivered broadcasts</text>
+  <rect x="66" y="375" width="298" height="66" rx="10" fill="#fff3d8" stroke="#d6bd82"/>
+  <text class="body" x="84" y="403">Blind spot: unrelated physical</text><text class="body" x="84" y="427">unicast on a switched LAN</text>
+
+  <rect x="425" y="115" width="350" height="350" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+  <text class="cardtitle" x="447" y="154">Switch SPAN / physical TAP</text>
+  <rect x="451" y="180" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="469" y="207">Configured ports, VLANs,</text><text class="body" x="469" y="231">directions → monitor NIC</text>
+  <path d="M600 247v32" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="451" y="289" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="469" y="317">Observed: copied traffic</text><text class="body" x="469" y="341">within configured mirror scope</text>
+  <rect x="451" y="375" width="298" height="66" rx="10" fill="#fff3d8" stroke="#d6bd82"/>
+  <text class="body" x="469" y="403">Blind spot: omitted sources,</text><text class="body" x="469" y="427">directions, drops or overload</text>
+
+  <rect x="810" y="115" width="350" height="350" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+  <text class="cardtitle" x="832" y="154">Gateway capture</text>
+  <rect x="836" y="180" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="854" y="207">Only traffic routed through</text><text class="body" x="854" y="231">the observed gateway</text>
+  <path d="M985 247v32" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="836" y="289" width="298" height="64" rx="10" fill="#fff" stroke="#aac1cd"/>
+  <text class="body" x="854" y="317">Observed: traversing flows</text><text class="body" x="854" y="341">visible at that capture point</text>
+  <rect x="836" y="375" width="298" height="66" rx="10" fill="#fff3d8" stroke="#d6bd82"/>
+  <text class="body" x="854" y="403">Blind spot: same-LAN traffic</text><text class="body" x="854" y="427">that bypasses the gateway</text>
+
+  <rect x="40" y="495" width="1120" height="110" rx="14" fill="#dcebf1"/>
+  <text class="cardtitle" x="62" y="531">Validate the path, then state the limits</text>
+  <text class="body" x="62" y="562">Use authorized test endpoints; verify both directions at the sensor; check drops and mirror scope.</text>
+  <text class="foot" x="62" y="588">A successful test proves those tested flows arrived; it does not certify complete LAN coverage.</text>
+</svg>
