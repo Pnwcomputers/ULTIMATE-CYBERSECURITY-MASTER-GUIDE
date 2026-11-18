@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 690" role="img" aria-labelledby="title desc">
+<title id="title">Shunt current measurement depends on target and supply margin</title>
+<desc id="desc">A conceptual circuit places a shunt resistor in series with the target supply. A suitable differential measurement observes voltage across the resistor. Current is calculated as the measured shunt voltage divided by resistance. A checklist says select the resistor from maximum expected current, allowed voltage drop, resistor power rating, target voltage margin, and probe input and bandwidth limits; no single resistor value is universal.</desc>
+<defs><style>
+.bg{fill:#f4f7fb}.head{fill:#17354f}.box{fill:#fff;stroke:#b8c7d5;stroke-width:2}.source{fill:#e9f3fb;stroke:#5e91b5;stroke-width:2}.target{fill:#eaf5ed;stroke:#5b956b;stroke-width:2}.sense{fill:#fff2dc;stroke:#c08e38;stroke-width:2}.warn{fill:#fff0ef;stroke:#c56b60;stroke-width:2}.title{font:700 27px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.white{font:700 20px system-ui,Segoe UI,Arial,sans-serif;fill:#fff}.h{font:700 19px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.b{font:16px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.s{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.wire{stroke:#405970;stroke-width:4;fill:none}.meas{stroke:#8c5b16;stroke-width:3;fill:none;stroke-dasharray:8 6;marker-end:url(#a)}.arrow{stroke:#496b85;stroke-width:3;fill:none;marker-end:url(#b)}
+</style><marker id="a" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#8c5b16"/></marker><marker id="b" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#496b85"/></marker></defs>
+<rect class="bg" width="1180" height="690" rx="20"/>
+<text class="title" x="40" y="48">Measure a shunt drop without treating one resistor value as universal</text>
+<rect class="head" x="40" y="72" width="1100" height="46" rx="10"/><text class="white" x="64" y="103">Series shunt → differential measurement → calculate current → check target behavior</text>
+<rect class="source" x="58" y="190" width="185" height="110" rx="14"/><text class="h" x="88" y="232">Supply</text><text class="b" x="88" y="263">V_supply</text>
+<path class="wire" d="M243 245H316"/>
+<path class="wire" d="M316 245L330 227L348 263L366 227L384 263L402 227L420 263L438 245H472"/>
+<text class="h" x="330" y="196">R_shunt</text>
+<path class="wire" d="M472 245H521"/>
+<rect class="target" x="521" y="190" width="245" height="110" rx="14"/><text class="h" x="558" y="232">Target device</text><text class="b" x="558" y="263">Measure at target rail</text>
+<path class="wire" d="M766 245H1044V355H154V300"/>
+<text class="s" x="820" y="226">Return path</text>
+<path class="meas" d="M344 330V284"/><path class="meas" d="M424 330V284"/>
+<rect class="sense" x="298" y="338" width="170" height="74" rx="12"/><text class="h" x="323" y="368">ΔV_shunt</text><text class="s" x="318" y="393">measure across R</text>
+<rect class="box" x="521" y="338" width="245" height="74" rx="12"/><text class="h" x="553" y="370">I = ΔV_shunt / R_shunt</text><text class="s" x="552" y="394">Ohm's law</text>
+<path class="arrow" d="M468 375H512"/>
+<rect class="box" x="58" y="458" width="708" height="162" rx="14"/>
+<text class="h" x="84" y="494">Choose R_shunt from the actual limits</text>
+<text class="b" x="84" y="528"><tspan x="84">• R_shunt × I_max must fit the allowed supply drop at the target.</tspan><tspan x="84" dy="28">• Check resistor dissipation: P = I² × R_shunt.</tspan><tspan x="84" dy="28">• Confirm probe common-mode range, input loading, bandwidth, and coupling.</tspan><tspan x="84" dy="28">• Verify the target voltage and normal operation after measurement setup.</tspan></text>
+<rect class="warn" x="794" y="458" width="346" height="162" rx="14"/>
+<text class="h" x="818" y="494">No default 10 Ω</text>
+<text class="b" x="818" y="528"><tspan x="818">A larger shunt improves signal</tspan><tspan x="818" dy="25">amplitude but increases voltage</tspan><tspan x="818" dy="25">drop and heating. Values depend</tspan><tspan x="818" dy="25">on the target and instrument.</tspan></text>
+<text class="s" x="60" y="656">Conceptual high-side example. Follow the target and probe documentation; NewAE notes some shunt measurements are AC-coupled and may not show DC voltage.</text>
+</svg>
