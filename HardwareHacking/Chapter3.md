@@ -2,19 +2,19 @@
 # Chapter 3: Fault Injection Attacks
 
 ## 🎯 Purpose
-Practical guide to fault injection attacks - covering voltage glitching, clock glitching, EM fault injection, laser fault injection, and the parameter-space search methodology for finding exploitable fault windows in embedded security checks.
+Explain how transient hardware disturbances can affect device behavior, how to evaluate fault-injection resilience on authorized development targets, and how to interpret results without treating a single outcome as proof of exploitability.
 
 ## ⚙️ Function
-Covers: FI attack concept and goals (skipping security checks, corrupting comparisons), voltage glitch hardware setup, clock glitch circuit design, EM/laser injection, timing parameters (offset and width), parameter-space sweeping methodology, Python scripting for automated fault campaigns, and a matplotlib-based result visualization pattern.
+Covers clock, supply-voltage, electromagnetic, and optical fault-injection concepts; target-dependent timing and coupling; controlled evaluation; outcome classification; and defensive validation.
 
 ## 🏆 Goal
-Successfully inject a transient fault at the right CPU cycle to bypass a security check (secure boot, PIN verification, cryptographic key comparison) on a target embedded device.
+Assess whether a device detects, tolerates, or mishandles faults under a documented and authorized test scope, and produce repeatable evidence for remediation.
 
 ## 📋 When to Use
-- When a target device's firmware is encrypted or signed and cannot be dumped via JTAG
-- Testing secure boot bypass resistance on development hardware
-- Advanced hardware security assessments where passive methods are exhausted
-- Research on fault countermeasure effectiveness (masking, redundancy)
+- Evaluating a device or development board you own or are explicitly authorized to test
+- Reviewing secure-boot, authentication, or cryptographic fault countermeasures
+- Planning a specialist laboratory assessment and defining measurable outcomes
+- Documenting reset, detection, recovery, and unexpected-output behavior
 
 > *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -22,23 +22,11 @@ Successfully inject a transient fault at the right CPU cycle to bypass a securit
 
 ### Concept
 
-Fault injection (FI) introduces a transient error into a target system at a controlled moment to cause incorrect behavior - most commonly to skip a security check, corrupt a comparison, or force a branch taken/not-taken.
+Fault injection (FI) deliberately perturbs a device's operating conditions to study whether the resulting behavior is detected, safely contained, or incorrect. Faults can cause resets, corrupted data, timing errors, or security-relevant failures; the result depends on the target, disturbance, and countermeasures.
 
-The attacker's goal is **temporal and spatial precision**: the fault must hit the right logic, at the right clock cycle, to produce exploitable behavior rather than a crash.
+A useful evaluation records the complete chain: the intended property, the observed disturbance, the device response, and independently checked evidence. A crash or unexpected output alone does not prove that a security boundary was bypassed. The diagram below summarizes this evidence flow; it is conceptual and does not represent a tested circuit.
 
-```
-Normal execution:
-  Load compare value
-  Compare PIN input vs stored PIN   ← security check
-  Branch if not equal → REJECT
-  [Access granted]
-
-Faulted execution (skip the branch):
-  Load compare value
-  Compare PIN input vs stored PIN
-  [FAULT INJECTED HERE - branch skipped]
-  [Access granted]  ← attacker wins
-```
+![Conceptual fault-injection evaluation flow from authorized scope and disturbance class through target response to recorded evidence](../assets/diagrams/fault-injection-evaluation-flow.svg)
 
 ---
 
