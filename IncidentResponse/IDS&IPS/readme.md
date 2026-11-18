@@ -25,13 +25,13 @@ Position your sensor correctly and corroborate telemetry before labeling an inci
 **Deception complement:** [Honeypot labs](../HoneyPot/readme.md) cover Raspberry Pi, ESP32-S3, VMs and [Wazuh reporting](../HoneyPot/wazuh-honeypot-integration.md). Decoys only see attempts aimed at them and do not replace actual Wi-Fi management-frame monitoring.
 
 ## 🎯 Purpose
-Index for the IDS/IPS sub-section — self-hosted intrusion detection and prevention build guides covering both the wireless domain (nzyme) and the wired/network domain (Suricata + Zeek), so a blue teamer can stand up real-time threat visibility across an entire environment, not just one slice of it.
+Index for network and host intrusion detection/prevention guides, including wireless RF monitoring, wired packet inspection, turnkey NSM, and log-triggered host actions. These tools have different sensor placement, evidence, and response scopes; the guides do not guarantee complete environment coverage.
 
 ## ⚙️ Function
-Links to a full build guide per domain — hardware/platform requirements, install and configuration, driver and interface gotchas that actually cost time in real builds, alert tuning, and validation/testing — plus guidance on which guide covers which layer of the network.
+Links to platform-specific deployment and operations guides, with hardware, configuration, interface, validation and alert-triage guidance where applicable, plus notes on which traffic or event sources each tool can observe.
 
 ## 🏆 Goal
-Enable a practitioner to go from bare hardware to a validated, alert-tuned detection stack covering both RF/wireless and wired network traffic, without re-discovering the same driver, interface-naming, and false-positive-tuning problems each build runs into.
+Help practitioners choose and validate complementary sensors and response tools while understanding visibility gaps, deployment limits, and false-positive risks.
 
 ## 📋 When To Use
 - Standing up wireless or wired intrusion detection from scratch in a homelab or small network
@@ -78,9 +78,9 @@ This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc
 | 📡 **[nzyme_wids.md](./nzyme_wids.md)** | Wireless (802.11) | nzyme | ❌ Detection only | 🟡 MEDIUM |
 | 📶 **[nzyme + Wazuh Integration](./nzyme-wazuh-integration.md)** | Wireless WIDS → SIEM | nzyme + Wazuh | Detection only | 🟡 MEDIUM |
 | 🛡️ **[suricata+zeek.md](./suricata+zeek.md)** | Wired/Network | Suricata + Zeek | ✅ Suricata supports inline blocking | 🟡 MEDIUM |
-| 🐷 **[snort.md](./snort.md)** | Wired/Network | Snort | ✅ Native inline (NFQUEUE) | 🟡 MEDIUM (packaging can be the hard part) |
-| 🧅 **[security-onion.md](./security-onion.md)** | Wired/Network (turnkey NSM stack) | Suricata + Zeek + Elastic Stack, pre-integrated | ✅ Suricata component supports inline blocking | 🔴 HIGH (dedicated hardware, appliance-style install) |
-| 🚫 **[fail2ban.md](./fail2ban.md)** | Host-level (log-triggered) | Fail2Ban | ✅ Native (firewall ban) | 🟢 LOW |
+| 🐷 **[snort.md](./snort.md)** | Wired/Network | Snort 2 or Snort 3 | ✅ Inline with a supported DAQ and correct placement; commands vary by generation | 🟡 MEDIUM (platform support and packaging vary) |
+| 🧅 **[security-onion.md](./security-onion.md)** | Network NSM platform | Suricata + Zeek with Elastic services and SOC | ⚠️ Depends on sensor placement and configured Suricata mode | 🔴 HIGH for production roles; smaller eval/import options exist |
+| 🚫 **[fail2ban.md](./fail2ban.md)** | Host-level (log-triggered) | Fail2Ban | ⚠️ Runs configured actions; firewall bans are common | 🟢 LOW |
 
 ---
 
@@ -101,13 +101,13 @@ Wireless Intrusion Detection System — a Proxmox VM node plus Raspberry Pi tap 
 Wired/network Intrusion Detection **and** Prevention — Suricata for signature-based detection with native inline blocking, Zeek as a complementary protocol-level NSM layer. Covers standalone Suricata install on Debian/Ubuntu (both passive `af-packet` and inline NFQUEUE/bridge patterns), the OPNsense/pfSense built-in package path, rule management, and the validation steps to run before ever flipping on blocking mode.
 
 ### 🐷 [Snort](./snort.md)
-The original signature-based IDS/IPS, now maintained by Cisco. Covers all four real install paths, honestly documents a broken official-repo GPG key that a real attempt hit, and gives the informed choice between pushing through Snort's packaging friction or moving to Suricata instead.
+Version-aware Snort 2 and Snort 3 guidance, including their different configuration formats, installation paths, passive inspection, and inline prerequisites. A past repository-key failure is identified as specific to one attempt, not a current universal condition.
 
 ### 🧅 [Security Onion](./security-onion.md)
-A free, turnkey Linux distro that pre-integrates Suricata, Zeek, and a full Elastic Stack (plus Wazuh, CyberChef, and more) into one appliance-style NSM platform. The wired-network equivalent of what T-Pot is for honeypots — covers sizing, the ISO-based install, node types (standalone vs. distributed), and where the pieces you already know from the standalone guides live inside it.
+A free and open-source NSM platform that manages Suricata, Zeek, Elastic data services, and analyst workflows through SOC. Covers sizing, installation, node roles, sensor visibility, and how packet capture and events move through the system; exact components depend on deployment role and release.
 
 ### 🚫 [Fail2ban](./fail2ban.md)
-The lightest-weight tool in this section — a log watcher that bans brute-forcing IPs at the firewall automatically. Not a NIDS replacement, but the highest-value-for-effort entry here: covers the jail/filter/action model, protecting SSH (the default use case) and other services, and the operational commands for checking and manually unbanning.
+A lightweight host tool that matches configured logs or supported backends with filters, then runs configured actions when a jail threshold is met. Firewall bans are common, but coverage and response depend on the service, filter, backend, and action.
 
 ---
 
@@ -130,9 +130,10 @@ Want to actively block malicious traffic, not just alert on it?
   └─> suricata+zeek.md — nzyme is detection-only; Suricata supports IPS.
 
 Building complete coverage from scratch?
-  └─> Deploy both. They monitor different layers and don't overlap —
-      a wireless rogue AP won't show up in Suricata, and a wired C2
-      beacon won't show up in nzyme.
+  └─> Use complementary sensors where they add visibility. A wired
+      sensor generally does not receive raw 802.11 management frames;
+      controller logs or other sources may still expose related events.
+      A wireless tap and wired sensor can also share some IP-layer data.
 ```
 
 ---
@@ -150,19 +151,20 @@ Building complete coverage from scratch?
        IPS/blocking mode until this phase has been observed clean.
 
 3. Tune alerts
-   └─> Watch real traffic for at least 1-2 weeks.
-   └─> Distinguish real threats from environmental noise / false positives
-       (see each guide's alert-triage / common-gotchas section).
+   └─> Observe enough representative traffic to include normal peaks,
+       maintenance windows, and expected client behavior.
+   └─> Tune thresholds and review false positives using each guide's
+       alert-triage / common-gotchas section.
 
 4. Extend to prevention (optional, wired only)
-   └─> Once validated, enable Suricata's inline/IPS mode.
-   └─> Watch closely for the first 24-48 hours for legitimate traffic
-       getting dropped.
+   └─> If needed, pilot Suricata inline on a controlled path with a
+       tested rollback method; monitor drops and service health during
+       a staged rollout.
 
 5. Centralize
-   └─> Forward alerts from both domains into a SIEM — see
-       ../SIEM/README.md — for correlation across wireless and wired
-       events in one place.
+   └─> Where a guide supports forwarding, send selected events to a
+       SIEM — see ../SIEM/README.md — and preserve source and evidence
+       limits when correlating wireless, wired, and host records.
 ```
 
 ---
