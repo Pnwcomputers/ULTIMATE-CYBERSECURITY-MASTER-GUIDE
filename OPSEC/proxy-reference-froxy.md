@@ -53,10 +53,6 @@ production scraping.
 
 *Conceptual routes only: actual visibility depends on client and server configuration. A valid TLS connection protects application contents to the destination; intermediaries can still see some routing metadata.*
 
-![Comparison of HTTP proxy, HTTPS CONNECT or SOCKS proxy, VPN, SSH tunnel, and Tor paths, with the metadata visible at each intermediary and where HTTPS protects content](../assets/diagrams/proxy-route-observer-visibility.svg)
-
-*Conceptual routes only: actual visibility depends on client and server configuration. A valid TLS connection protects application contents to the destination; intermediaries can still see some routing metadata.*
-
 **Priority:** trusted system design and task separation first. A chain
 of arbitrary free proxies can **increase**, not reduce, the number of
 untrusted parties who can observe traffic.
