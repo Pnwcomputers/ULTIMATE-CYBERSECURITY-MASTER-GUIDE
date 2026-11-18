@@ -20,6 +20,8 @@ Configure Linux endpoints with comprehensive audit logging that feeds a SIEM, en
 
 This guide covers configuring both systems for security monitoring and forwarding logs to your SIEM.
 
+![Audit records pass through local collection and configured forwarding stages; verify each hop for loss](../../../assets/diagrams/linux-audit-event-flow.svg)
+
 ---
 
 ## 🎯 Auditd vs Syslog: Understanding the Difference
@@ -119,13 +121,15 @@ Audit rules define what activities to monitor. There are three types:
 
 Create `/etc/audit/rules.d/99-security.rules`:
 
+> **Review the existing ruleset before loading this example.** The `-D` auditctl option deletes all loaded rules and watches. This sample omits it so a routine example load does not silently clear the host's current policy. If a controlled replacement is intended, plan it explicitly, preserve required rules, and test the result on the target distribution first.
+
 ```bash
 ## ============================================
 ## Linux Audit Rules for Security Monitoring
 ## ============================================
 
-## First, clear existing rules
--D
+## Keep the existing loaded rules intact in this example.
+## Resolve duplicate or conflicting rules through the host's approved policy.
 
 ## Set buffer size (increase for busy systems)
 -b 8192
@@ -191,9 +195,11 @@ Create `/etc/audit/rules.d/99-security.rules`:
 ## Process Execution
 ## ============================================
 
-## Monitor all process execution (equivalent to Sysmon Event ID 1)
+## Record selected process-execution syscalls (partial overlap with endpoint telemetry)
 -a always,exit -F arch=b64 -S execve -k process_execution
 -a always,exit -F arch=b32 -S execve -k process_execution
+
+These rules record configured `execve` syscall events; they do not reproduce every field or event in Sysmon Event ID 1. Confirm syscall names and architecture support on the target host, and test the loaded rule set before relying on it.
 
 ## Monitor specific suspicious binaries
 -w /usr/bin/wget -p x -k suspicious_download
@@ -821,8 +827,9 @@ sudo augenrules --check
 # View auditd logs
 sudo journalctl -u auditd
 
-# Test rules manually
-sudo auditctl -R /etc/audit/rules.d/99-security.rules
+# Check the composed rules, then load them with the configured distro rule loader
+sudo augenrules --check
+sudo augenrules --load
 ```
 
 ### High CPU Usage
@@ -879,6 +886,11 @@ sudo journalctl --vacuum-time=7d
 - [ausearch Man Page](https://man7.org/linux/man-pages/man8/ausearch.8.html)
 
 ### Rule References
+
+- [auditctl manual](https://man7.org/linux/man-pages/man8/auditctl.8.html) - documents that `-D` deletes all rules and watches.
+- [Red Hat system auditing guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/auditing-the-system_security-hardening) - explains `/etc/audit/rules.d` and `augenrules --load`.
+- [Red Hat syscall audit guidance](https://access.redhat.com/solutions/36278) - describes the architecture field in syscall rules.
+
 
 - [STIG Audit Rules](https://github.com/linux-audit/audit-userspace/tree/master/rules)
 - [Neo23x0 Auditd Rules](https://github.com/Neo23x0/auditd)
