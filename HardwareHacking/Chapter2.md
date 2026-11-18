@@ -166,8 +166,7 @@ openocd -f interface/jlink.cfg -f target/stm32f4x.cfg
 halt
 dump_image authorized_lab_dump.bin 0x08000000 0x100000   # Example address/length; verify the target memory map
 
-# JTAG boundary scan for hardware testing
-# Can toggle GPIO pins, read logic levels without CPU involvement
+# Boundary scan only where supported and enabled by the exact device; verify its instruction set and pin behavior
 ```
 
 Debug-lock enforcement and recovery behavior are device-specific. Do not assume a debug lock can be bypassed; use vendor documentation and authorized research scoped to the exact target.
