@@ -386,6 +386,14 @@ Two original conceptual figures embedded in the [receive-only telemetry lab](../
 
 These illustrate a proposed lab; no live sensor data or deployed detection results are claimed.
 
+## Windows Build Review Visuals
+
+Original conceptual workflow; the checklist separates baseline selection, effective evidence and scoped follow-up.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Windows build review evidence flow](./diagrams/windows-build-review-evidence.svg) | [Windows Build Review checklist](../Checklists/Windows-Build-Review-Checklist.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
