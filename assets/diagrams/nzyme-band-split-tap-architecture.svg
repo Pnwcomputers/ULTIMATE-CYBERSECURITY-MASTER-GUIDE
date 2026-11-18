@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+<title id="title">nzyme band-split tap architecture</title>
+<desc id="desc">Two Raspberry Pi nzyme taps use separate monitor-mode radios, one assigned to a 2.4 GHz channel plan and one to a 5 GHz channel plan. Each radio hops within its configured channels and therefore does not continuously observe every channel. Taps send summarized observations over HTTPS to the nzyme node. The node stores state in PostgreSQL and serves the analyst web interface. The diagram shows a coverage trade-off, not redundancy or complete capture.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#1b2d3d}.title{font-size:27px;font-weight:700}.h{font-size:20px;font-weight:700}.b{font-size:16px}.s{font-size:14px}.tap{fill:#eaf4fb;stroke:#32769f;stroke-width:2}.node{fill:#eaf4ec;stroke:#50805a;stroke-width:2}.db{fill:#f3effa;stroke:#785e9e;stroke-width:2}.user{fill:#fff5e5;stroke:#b47a22;stroke-width:2}.note{fill:#f7f8fa;stroke:#8493a0;stroke-width:2}.arr{fill:none;stroke:#315b7d;stroke-width:3;marker-end:url(#arrow)}
+</style></defs>
+<rect width="1200" height="500" rx="16" fill="#fff"/>
+<text class="title" x="600" y="42" text-anchor="middle">nzyme node and band-split WiFi taps</text>
+<rect class="tap" x="52" y="95" width="275" height="125" rx="14"/>
+<text class="h" x="189" y="134" text-anchor="middle">Pi tap · 2.4 GHz</text>
+<text class="b" x="189" y="165" text-anchor="middle">monitor-mode radio</text>
+<text class="s" x="189" y="192" text-anchor="middle">hops only its configured channels</text>
+<rect class="tap" x="52" y="254" width="275" height="125" rx="14"/>
+<text class="h" x="189" y="293" text-anchor="middle">Pi tap · 5 GHz</text>
+<text class="b" x="189" y="324" text-anchor="middle">monitor-mode radio</text>
+<text class="s" x="189" y="351" text-anchor="middle">mixed DFS status; verify region</text>
+<path class="arr" d="M330 156H409"/>
+<path class="arr" d="M330 316H409"/>
+<text class="s" x="370" y="142" text-anchor="middle">HTTPS</text>
+<text class="s" x="370" y="302" text-anchor="middle">HTTPS</text>
+<rect class="node" x="417" y="131" width="315" height="210" rx="16"/>
+<text class="h" x="574" y="174" text-anchor="middle">nzyme-node</text>
+<text class="b" x="574" y="210" text-anchor="middle">receives tap summaries</text>
+<text class="b" x="574" y="239" text-anchor="middle">web UI · alerting · analysis</text>
+<text class="s" x="574" y="277" text-anchor="middle">no raw capture retention implied</text>
+<path class="arr" d="M735 235H800"/>
+<rect class="db" x="808" y="164" width="185" height="140" rx="14"/>
+<text class="h" x="900" y="207" text-anchor="middle">PostgreSQL</text>
+<text class="b" x="900" y="238" text-anchor="middle">persistent state</text>
+<text class="s" x="900" y="265" text-anchor="middle">node database</text>
+<rect class="user" x="1018" y="164" width="150" height="140" rx="14"/>
+<text class="h" x="1093" y="205" text-anchor="middle">Analyst</text>
+<text class="b" x="1093" y="236" text-anchor="middle">HTTPS web</text>
+<text class="b" x="1093" y="261" text-anchor="middle">interface</text>
+<path class="arr" d="M735 175H1008"/>
+<path class="note" d="M52 419H1168V476H52Z"/>
+<text class="b" x="610" y="445" text-anchor="middle">Separate taps reduce time-sharing between bands, but each radio still hops within its channel list.</text>
+<text class="s" x="610" y="468" text-anchor="middle">Coverage depends on regulatory domain, adapter/driver, configured channels, placement, and tap health; not full or redundant capture.</text>
+</svg>

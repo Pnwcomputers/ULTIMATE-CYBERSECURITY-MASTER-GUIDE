@@ -78,6 +78,14 @@ Original conceptual diagram separating one-shot nzyme actions, local durable col
 |---|---|
 | [nzyme event ingestion into Wazuh](./diagrams/nzyme-wazuh-event-ingestion.svg) | [nzyme + Wazuh integration](../IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md) |
 
+## nzyme Wireless Tap Architecture Visuals
+
+Original conceptual topology for two band-split WiFi taps sending summarized data to a node and PostgreSQL; channel hopping and regional channel limits remain.
+
+| Diagram | Embedded guide |
+|---|---|
+| [nzyme band-split tap architecture](./diagrams/nzyme-band-split-tap-architecture.svg) | [DIY WiFi intrusion detection with nzyme](../IncidentResponse/IDS&IPS/nzyme_wids.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
