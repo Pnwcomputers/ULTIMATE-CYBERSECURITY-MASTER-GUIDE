@@ -131,7 +131,7 @@ For a distributed deployment, install and fully configure the **Manager** node f
 
 - **Security Onion Console (SOC)** is your main web UI — alerts, dashboards, hunt, cases, detections, PCAP retrieval, and grid administration all live here.
 - **Kibana** is available underneath SOC for deeper Elastic-native dashboarding.
-- Add host-level visibility via **Elastic Agent** (cross-platform) or **Sysmon** (Windows) — this is what correlates network alerts with endpoint activity.
+- Add host-level visibility with **Elastic Agent** or supported syslog sources. On Windows, Sysmon can add endpoint events that Elastic Agent transports to Security Onion.
 - Detections are managed centrally but run in different engines: NIDS rules in Suricata, Sigma in ElastAlert, and YARA in Strelka. Their configuration and update behavior differ.
 
 ---
@@ -144,9 +144,8 @@ If you've already worked through this repo's other guides, Security Onion's comp
 |---|---|
 | [Suricata & Zeek](./suricata+zeek.md) | The NIDS/NSM engine layer — same engines, centrally managed rules and config |
 | [SIEM: ELK Stack](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/elk_stack.md) | The Elasticsearch/Logstash/Kibana backend, pre-wired to ingest Suricata/Zeek output automatically |
-| Endpoint logs | Elastic Agent or supported syslog sources; Windows Sysmon can optionally augment Windows event data |
 | [Honeypots](../HoneyPot/readme.md) | The IDH (Intrusion Detection Honeypot) node type — a purpose-built, low-resource honeypot role in the grid |
-| [Endpoint Visibility: Sysmon](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) | Ingested directly as a host-visibility source |
+| [Endpoint Visibility: Sysmon](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) | Sysmon event logs can be collected through a configured Elastic Agent; Sysmon itself is not the transport agent |
 
 This is the practical value proposition: if you understand Suricata, Zeek, and ELK from this repo's other guides already, you're not learning new detection concepts here — you're learning how Security Onion wires the pieces together and manages them centrally.
 
