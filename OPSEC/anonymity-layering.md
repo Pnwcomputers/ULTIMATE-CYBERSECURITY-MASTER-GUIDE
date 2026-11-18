@@ -57,9 +57,9 @@ Match egress and isolation to the task, document the expected route, and validat
 
 ---
 
-## Baseline: What a Good VPN Already Gives You
+## Baseline: A VPN's role in the trust model
 
-Before paying for a second anonymity layer, confirm you're using what you have.
+Before adding another network provider, identify what your current VPN hides and what remains visible.
 A correctly configured VPN can hide destinations from the local network and replace the public IP address seen by destination sites with a VPN exit address. It moves trust to the VPN provider and does not protect identity-bearing logins, browser fingerprints, or traffic from apps outside the tunnel. Provider features, server availability, and settings change; consult the provider's current documentation. [Mullvad's current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) documents its own options, including DAITA and multihop, with configuration and availability caveats.
 
 > [!WARNING]
@@ -154,7 +154,7 @@ proxychains4 -f ~/.proxychains/proxychains.conf curl https://api.ipify.org/
 > [!CAUTION]
 > **Name resolution and routing.** `proxy_dns` is a Proxychains-NG feature, not proof that every DNS request from the system or application is proxied. Proxychains-NG intercepts supported dynamically linked calls; unsupported code paths, other protocols, or apps that bypass those hooks can use another route. Its documentation describes the scope and known problems. Prefer a tool's native SOCKS support where available, and validate on a controlled endpoint before any authorized test. [Proxychains-NG documentation](https://github.com/rofl0r/proxychains-ng).
 
-- Proxychains-NG is not a system-wide tunnel. Do not assume a tool is proxied because a wrapper launches it. Its maintainers document limitations and Nmap-specific issues; the guide's earlier blanket `-sS` versus `-sT` distinction was too broad.
+- Proxychains-NG is not a system-wide tunnel. Do not assume a tool is proxied because a wrapper launches it. Its maintainers document limitations and Nmap-specific issues; do not rely on a scan-type rule of thumb to establish which path a tool used.
 - For a client-approved test, use a dedicated environment with outbound traffic restricted to the approved route, and corroborate egress using a controlled endpoint or client-side logs. Packet capture alone is not proof that no other path exists.
 
 > **Alternative:** run an approved tool on the VPS over SSH when the client has authorized that source address and the host has been configured for the test. This avoids local proxy-hook behavior; it does not remove DNS, host configuration, provider, logging, or scope risks. Verify the command's egress and disclose the VPS as the test source.
