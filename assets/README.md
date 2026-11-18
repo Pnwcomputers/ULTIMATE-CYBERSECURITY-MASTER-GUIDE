@@ -97,6 +97,14 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
 
+## Sysmon Telemetry Visuals
+
+Original conceptual flow of configured events through Windows Event Log to a collector; actual coverage depends on configuration and retention.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Sysmon telemetry coverage flow](./diagrams/sysmon-telemetry-coverage-flow.svg) | [Windows Sysmon Deployment Guide](../IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) |
+
 ## Log Aggregation Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.

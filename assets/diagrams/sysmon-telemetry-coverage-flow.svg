@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+<title id="title">Sysmon telemetry collection and coverage checks</title>
+<desc id="desc">Configured events flow from Sysmon through the Windows event log and a collector to a central analysis system. Each stage can limit coverage or lose events and must be verified.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker></defs>
+<rect width="1200" height="470" fill="#f6f9fc"/>
+<g font-family="Arial,sans-serif" fill="#17384d">
+<text x="40" y="50" font-size="30" font-weight="700">From configured events to central analysis</text>
+<text x="40" y="81" font-size="18">Every stage affects what responders can see</text>
+<rect x="40" y="125" width="245" height="160" rx="14" fill="#e6f1f6" stroke="#91b3c3" stroke-width="2"/>
+<text x="60" y="162" font-size="22" font-weight="700">Endpoint</text>
+<text x="60" y="198" font-size="18">Sysmon service + driver</text>
+<text x="60" y="228" font-size="18">XML event filters</text>
+<text x="60" y="258" font-size="16">Only selected telemetry</text>
+<path d="M290 205h35" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="335" y="125" width="245" height="160" rx="14" fill="#e6f1f6" stroke="#91b3c3" stroke-width="2"/>
+<text x="355" y="162" font-size="22" font-weight="700">Local event log</text>
+<text x="355" y="198" font-size="18">Sysmon / Operational</text>
+<text x="355" y="228" font-size="18">Retention + rollover</text>
+<text x="355" y="258" font-size="16">Check event IDs and time</text>
+<path d="M585 205h35" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="630" y="125" width="245" height="160" rx="14" fill="#e6f1f6" stroke="#91b3c3" stroke-width="2"/>
+<text x="650" y="162" font-size="22" font-weight="700">Collector</text>
+<text x="650" y="198" font-size="18">WEF or SIEM agent</text>
+<text x="650" y="228" font-size="18">Subscription + transport</text>
+<text x="650" y="258" font-size="16">Check delay and failures</text>
+<path d="M880 205h35" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="925" y="125" width="235" height="160" rx="14" fill="#fff1d5" stroke="#c7aa68" stroke-width="2"/>
+<text x="945" y="162" font-size="22" font-weight="700">Central analysis</text>
+<text x="945" y="198" font-size="18">Normalize + correlate</text>
+<text x="945" y="228" font-size="18">Queries + detections</text>
+<text x="945" y="258" font-size="16">Events are evidence, not verdicts</text>
+<rect x="40" y="330" width="1120" height="82" rx="12" fill="#dceaf0"/>
+<text x="62" y="365" font-size="18" font-weight="700">Validate end to end</text>
+<text x="62" y="394" font-size="17">Generate an authorized test event, then confirm it is configured, logged, forwarded, searchable and retained at each stage.</text>
+<text x="40" y="450" font-size="15">Conceptual flow only: no event type, collection path or delivery guarantee is enabled by this diagram.</text>
+</g></svg>
