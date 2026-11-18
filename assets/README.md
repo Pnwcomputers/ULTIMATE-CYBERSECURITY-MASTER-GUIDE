@@ -387,6 +387,14 @@ identifies its source context and evidence limits.
 | [Capture quality](./diagrams/subghz-capture-quality.svg) | Schematic clipping and the limits of visual diagnosis. |
 | [Frame inference](./diagrams/subghz-frame-inference.svg) | Distinguishing repeated/changing regions from verified field meanings. |
 
+## Windows Build Review Visuals
+
+Original conceptual workflow; the checklist separates baseline selection, effective evidence and scoped follow-up.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Windows build review evidence flow](./diagrams/windows-build-review-evidence.svg) | [Windows Build Review checklist](../Checklists/Windows-Build-Review-Checklist.md) |
+
 ## Microsoft 365 Assessment Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
