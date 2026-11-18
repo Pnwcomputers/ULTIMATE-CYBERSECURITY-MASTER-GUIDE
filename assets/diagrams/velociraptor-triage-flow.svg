@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Controlled endpoint artifact triage</title>
+  <desc id="desc">Authorize a specific question and endpoint scope, select a proportionate artifact set, collect and record the Velociraptor flow state, then review results with explicit coverage limits.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0 0L8 3L0 6Z" fill="#2b6f8a"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="520" fill="#f5f8fb"/>
+  <g font-family="Arial, sans-serif" fill="#17384c">
+    <text x="40" y="52" font-size="30" font-weight="700">Endpoint artifact triage</text>
+    <text x="40" y="82" font-size="18">A controlled workflow for targeted collection and evidence review</text>
+    <g stroke="#a9c4d1" stroke-width="2">
+      <rect x="40" y="125" width="250" height="205" rx="14" fill="#e5f1f6"/>
+      <rect x="340" y="125" width="250" height="205" rx="14" fill="#e5f1f6"/>
+      <rect x="640" y="125" width="250" height="205" rx="14" fill="#e5f1f6"/>
+      <rect x="940" y="125" width="220" height="205" rx="14" fill="#fff1d6"/>
+    </g>
+    <g font-size="21" font-weight="700">
+      <text x="60" y="163">1 · Authorize</text>
+      <text x="360" y="163">2 · Select</text>
+      <text x="660" y="163">3 · Collect</text>
+      <text x="960" y="163">4 · Review</text>
+    </g>
+    <g font-size="17">
+      <text x="60" y="201">Question + purpose</text>
+      <text x="60" y="228">Approved endpoints</text>
+      <text x="60" y="255">Operator + time window</text>
+      <text x="60" y="282">Retention + access plan</text>
+      <text x="360" y="201">OS + artifact version</text>
+      <text x="360" y="228">Minimal collection set</text>
+      <text x="360" y="255">Review query + parameters</text>
+      <text x="360" y="282">Check artifact permissions</text>
+      <text x="660" y="201">Record Flow ID</text>
+      <text x="660" y="228">Check start + completion</text>
+      <text x="660" y="255">Note offline / delayed clients</text>
+      <text x="660" y="282">Hash + protect results</text>
+      <text x="960" y="201">Corroborate sources</text>
+      <text x="960" y="228">Report errors + gaps</text>
+      <text x="960" y="255">Minimize exported data</text>
+      <text x="960" y="282">Apply retention plan</text>
+    </g>
+    <g stroke="#2b6f8a" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M294 227H329"/>
+      <path d="M594 227H629"/>
+      <path d="M894 227H929"/>
+    </g>
+    <rect x="40" y="375" width="1120" height="94" rx="12" fill="#dceaf0"/>
+    <text x="60" y="410" font-size="18" font-weight="700">Collection metadata supports traceability, not completeness.</text>
+    <text x="60" y="440" font-size="17">A Flow ID identifies one collection. It does not prove full coverage or absence of activity.</text>
+    <text x="40" y="502" font-size="15" fill="#3a596b">Conceptual only • no endpoint was enrolled or queried for this guide</text>
+  </g>
+</svg>
