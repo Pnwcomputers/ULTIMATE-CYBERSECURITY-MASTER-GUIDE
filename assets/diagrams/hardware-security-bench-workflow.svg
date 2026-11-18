@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" role="img" aria-labelledby="title desc">
+<title id="title">Hardware security assessment bench workflow</title>
+<desc id="desc">A conceptual five-stage workflow: define authorization, target, safety limits, and stop conditions; document the device and establish a non-destructive baseline; select an interface or measurement method matched to the question; analyze observations and validate any finding without exceeding scope; then document evidence, restore approved changes, and recommend mitigations. A loop returns to threat modeling when evidence changes assumptions.</desc>
+<defs><style>
+.bg{fill:#f4f7fb}.head{fill:#17354f}.scope{fill:#e8f3fb;stroke:#5e91b5;stroke-width:2}.baseline{fill:#edf5f1;stroke:#5b956b;stroke-width:2}.method{fill:#f1effb;stroke:#8179b4;stroke-width:2}.validate{fill:#fff2dc;stroke:#c08e38;stroke-width:2}.report{fill:#eaf5ed;stroke:#5b956b;stroke-width:2}.caution{fill:#fff0ef;stroke:#c56b60;stroke-width:2}.title{font:700 27px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.white{font:700 21px system-ui,Segoe UI,Arial,sans-serif;fill:white}.h{font:700 18px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.b{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.s{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.arrow{stroke:#496b85;stroke-width:3;fill:none;marker-end:url(#a)}
+</style><marker id="a" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#496b85"/></marker></defs>
+<rect class="bg" width="1280" height="820" rx="20"/>
+<text class="title" x="42" y="48">Hardware security work starts with the question and ends with evidence</text>
+<rect class="head" x="40" y="72" width="1200" height="48" rx="11"/><text class="white" x="64" y="104">A controlled bench workflow: plan → baseline → examine → validate → report</text>
+<rect class="scope" x="42" y="160" width="350" height="172" rx="15"/>
+<text class="h" x="66" y="198">1  Define scope and safety</text>
+<text class="b" x="66" y="232"><tspan x="66">Confirm written authorization, the</tspan><tspan x="66" dy="24">exact target, allowed methods, power</tspan><tspan x="66" dy="24">limits, data handling, and stop rules.</tspan><tspan x="66" dy="32">Map the attacker capability and assets.</tspan></text>
+<path class="arrow" d="M392 246H422"/>
+<rect class="baseline" x="430" y="160" width="350" height="172" rx="15"/>
+<text class="h" x="454" y="198">2  Record a safe baseline</text>
+<text class="b" x="454" y="232"><tspan x="454">Identify revision, power needs, exposed</tspan><tspan x="454" dy="24">connectors, firmware sources, and</tspan><tspan x="454" dy="24">normal behavior before changing state.</tspan><tspan x="454" dy="32">Preserve notes and approved evidence.</tspan></text>
+<path class="arrow" d="M780 246H810"/>
+<rect class="method" x="818" y="160" width="420" height="172" rx="15"/>
+<text class="h" x="842" y="198">3  Choose a method for the question</text>
+<text class="b" x="842" y="232"><tspan x="842">Debug interface, protocol capture, passive</tspan><tspan x="842" dy="24">measurement, or fault testing answer</tspan><tspan x="842" dy="24">different questions and carry different</tspan><tspan x="842" dy="24">risks. Follow exact device documentation.</tspan></text>
+<path class="arrow" d="M1028 332V398"/>
+<rect class="validate" x="818" y="408" width="420" height="172" rx="15"/>
+<text class="h" x="842" y="446">4  Analyze and validate</text>
+<text class="b" x="842" y="480"><tspan x="842">Separate observation from inference.</tspan><tspan x="842" dy="24">Repeat only within approved limits;</tspan><tspan x="842" dy="24">corroborate with independent evidence</tspan><tspan x="842" dy="24">and record uncertainty.</tspan></text>
+<path class="arrow" d="M818 494H788"/>
+<rect class="report" x="430" y="408" width="350" height="172" rx="15"/>
+<text class="h" x="454" y="446">5  Report and restore</text>
+<text class="b" x="454" y="480"><tspan x="454">Record evidence, limitations, impact,</tspan><tspan x="454" dy="24">and remediation. Restore or quarantine</tspan><tspan x="454" dy="24">the target as the owner directs; keep</tspan><tspan x="454" dy="24">approved evidence under policy.</tspan></text>
+<path class="arrow" d="M430 494H400"/>
+<rect class="caution" x="42" y="408" width="350" height="172" rx="15"/>
+<text class="h" x="66" y="446">Stop when conditions change</text>
+<text class="b" x="66" y="480"><tspan x="66">Unexpected power draw, heat, damage,</tspan><tspan x="66" dy="24">transmission, or a scope mismatch means</tspan><tspan x="66" dy="24">pause. Consult the owner and re-confirm</tspan><tspan x="66" dy="24">before continuing.</tspan></text>
+<rect class="head" x="42" y="632" width="1196" height="48" rx="11"/><text class="white" x="66" y="664">A finding is a supported statement about this target and test, not every device of its type</text>
+<rect class="scope" x="42" y="704" width="1196" height="72" rx="13"/>
+<text class="s" x="66" y="735">This overview is conceptual. Chapters cover threat modeling, electrical fundamentals, fault injection, timing/power analysis, and practical power analysis;</text>
+<text class="s" x="66" y="758">the separate device guides describe their own capabilities. Verify exact hardware revisions and safe electrical conditions before bench work.</text>
+</svg>

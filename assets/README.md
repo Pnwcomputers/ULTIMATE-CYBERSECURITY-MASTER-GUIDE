@@ -86,6 +86,14 @@ Original conceptual topology for two band-split WiFi taps sending summarized dat
 |---|---|
 | [nzyme band-split tap architecture](./diagrams/nzyme-band-split-tap-architecture.svg) | [DIY WiFi intrusion detection with nzyme](../IncidentResponse/IDS&IPS/nzyme_wids.md) |
 
+## Hardware Security Assessment Visuals
+
+Original conceptual workflow; the exact test method and safe limits depend on the authorized target and its documentation.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Hardware security bench workflow](./diagrams/hardware-security-bench-workflow.svg) | [Hardware Hacking overview](../HardwareHacking/README.md#-overview) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
