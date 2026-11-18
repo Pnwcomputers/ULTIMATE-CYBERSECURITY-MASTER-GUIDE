@@ -189,20 +189,20 @@ openocd -f interface/cmsis-dap.cfg -f target/nrf52.cfg
 
 #### Oscilloscope Selection for Hardware Hacking
 
-| Parameter | Minimum | Recommended | Notes |
-|-----------|---------|-------------|-------|
-| Bandwidth | 100 MHz | 200–500 MHz | Must exceed target clock × 5 for clean edges |
-| Sample rate | 1 GSa/s | 2–5 GSa/s | Nyquist: 2× bandwidth minimum |
-| Memory depth | 1M pts | 10M–1G pts | Deep memory essential for long glitch captures |
-| Channels | 2 | 4 | Trigger on one channel, measure on others |
-| Vertical resolution | 8-bit | 12–14 bit | Critical for power analysis - 8-bit often insufficient |
-| Triggering | Edge | Advanced (pattern, pulse width, serial decode) | Complex trigger conditions needed for glitch work |
+Choose a scope for the signal and measurement question, including the probe or differential front end. Clock rate by itself does not determine the required bandwidth or sample rate.
 
-**Recommended affordable options:**
-- **Rigol DS1054Z** (~$350) - 4-channel, 50 MHz (hackable to 100 MHz), good memory depth. Baseline bench scope.
-- **Rigol DS1104Z-S** - adds signal gen; useful for clock injection testing
-- **Siglent SDS1204X-E** (~$400) - 200 MHz, 14 Mpts; better for RF work
-- **PicoScope 6000E** - 12-bit ADC; excellent for power analysis
+| Selection factor | What to check |
+|-----------|------------|
+| Analog bandwidth and rise time | Compare the scope and probe response with the signal's fastest edge and frequency content of interest. |
+| Sample rate | Ensure enough samples for the feature being measured. Nyquist is a theoretical lower bound for band-limited signals, not a general practical setting for edge or transient measurements. |
+| Record length | Approximate capture duration is record length divided by sample rate; channel count and acquisition mode may affect available memory. |
+| Vertical performance | Check input range, noise floor, effective resolution, and dynamic range. Nominal ADC bits alone do not determine whether small changes are measurable. |
+| Channels and triggering | Select enough channels and trigger features for the signals and event window you need to capture. |
+| Probe and input loading | Check probe bandwidth, capacitance, attenuation, differential/common-mode limits, and safe connection method. |
+
+![Conceptual comparison of oscilloscope bandwidth and edge rise time, sample density, and record-length limits](../assets/diagrams/oscilloscope-bandwidth-sampling-record-length.svg)
+
+*Conceptual guide: these specifications describe different limits. See [Tektronix's scope performance primer](https://www.tek.com/en/documents/primer/evaluating-oscilloscopes) and the current datasheets for the exact scope and probe. Product models and prices change; avoid assuming an unofficial bandwidth modification or option is available.*
 
 ![Conceptual shunt-current measurement with a series resistor, differential voltage measurement, and target-dependent voltage-drop checks](../assets/diagrams/shunt-current-measurement.svg)
 

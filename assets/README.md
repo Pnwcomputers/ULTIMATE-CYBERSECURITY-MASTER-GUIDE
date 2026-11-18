@@ -86,6 +86,14 @@ Original conceptual topology for two band-split WiFi taps sending summarized dat
 |---|---|
 | [nzyme band-split tap architecture](./diagrams/nzyme-band-split-tap-architecture.svg) | [DIY WiFi intrusion detection with nzyme](../IncidentResponse/IDS&IPS/nzyme_wids.md) |
 
+## Oscilloscope Measurement Visuals
+
+Original conceptual comparison of analog bandwidth, sample rate, record length, and probe limits. It does not recommend a specific scope model or describe a tested setup.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Oscilloscope bandwidth, sampling, and record length](./diagrams/oscilloscope-bandwidth-sampling-record-length.svg) | [Electrical Fundamentals — Oscilloscope Selection](../HardwareHacking/Chapter2.md#oscilloscope-selection-for-hardware-hacking) |
+
 ## Electrical Measurement Visuals
 
 Original conceptual shunt-measurement figure; the resistor value depends on target current, allowable voltage drop, power dissipation, and instrument limits.

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Oscilloscope bandwidth, sample rate, and record length answer different questions</title>
+<desc id="desc">Three conceptual panels distinguish analog bandwidth and rise time, sample rate and waveform detail, and memory depth and capture duration. The first compares a fast signal edge with a slower measured edge when the instrument and probe do not have enough bandwidth. The second contrasts sparse samples with denser samples over the same waveform. The third shows that memory depth determines how long a trace can be recorded at a chosen sample rate. These specifications must be selected for the signal of interest and the probe, not from clock frequency alone.</desc>
+<defs><style>
+.bg{fill:#f4f7fb}.head{fill:#17354f}.panel{fill:#fff;stroke:#bdcbd8;stroke-width:2}.line{fill:none;stroke:#305c7a;stroke-width:4}.slow{fill:none;stroke:#cb7953;stroke-width:4;stroke-dasharray:9 6}.sample{fill:#b6523f}.axis{stroke:#607589;stroke-width:2}.title{font:700 27px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.white{font:700 20px system-ui,Segoe UI,Arial,sans-serif;fill:#fff}.h{font:700 18px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.b{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.s{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}
+</style></defs>
+<rect class="bg" width="1200" height="760" rx="20"/>
+<text class="title" x="40" y="48">Scope specifications describe different limits</text>
+<rect class="head" x="40" y="72" width="1120" height="46" rx="10"/><text class="white" x="64" y="103">Choose for the signal, probe, and capture window you need to observe</text>
+<rect class="panel" x="40" y="146" width="350" height="510" rx="15"/>
+<text class="h" x="64" y="182">1  Bandwidth / edge rise time</text>
+<text class="s" x="64" y="210">Insufficient bandwidth slows an edge</text>
+<path class="axis" d="M76 425H354M76 425V250"/>
+<path class="line" d="M78 405H190L204 275H350"/>
+<path class="slow" d="M78 405H155C184 405 195 393 204 367C213 341 220 305 244 288C265 273 289 275 350 275"/>
+<text class="s" x="78" y="454">Fast signal edge</text><line x1="210" y1="450" x2="246" y2="450" class="line"/><text class="s" x="250" y="454">Measured edge</text>
+<text class="b" x="64" y="505"><tspan x="64">Use signal rise time and frequency</tspan><tspan x="64" dy="23">content with the full probe path.</tspan><tspan x="64" dy="23">Clock rate alone is not enough.</tspan></text>
+<rect class="panel" x="425" y="146" width="350" height="510" rx="15"/>
+<text class="h" x="449" y="182">2  Sample rate / detail</text>
+<text class="s" x="449" y="210">Samples are discrete measurements</text>
+<path class="axis" d="M461 425H739M461 425V250"/>
+<path class="line" d="M463 405H575L589 275H735"/>
+<circle class="sample" cx="463" cy="405" r="6"/><circle class="sample" cx="555" cy="405" r="6"/><circle class="sample" cx="647" cy="275" r="6"/><circle class="sample" cx="735" cy="275" r="6"/>
+<text class="s" x="474" y="454">Sparse samples can miss edge shape</text>
+<path class="axis" d="M461 570H739"/>
+<path class="line" d="M463 550H575L589 420H735"/>
+<circle class="sample" cx="463" cy="550" r="5"/><circle class="sample" cx="520" cy="550" r="5"/><circle class="sample" cx="560" cy="550" r="5"/><circle class="sample" cx="578" cy="522" r="5"/><circle class="sample" cx="585" cy="462" r="5"/><circle class="sample" cx="594" cy="420" r="5"/><circle class="sample" cx="635" cy="420" r="5"/><circle class="sample" cx="690" cy="420" r="5"/><circle class="sample" cx="735" cy="420" r="5"/>
+<text class="s" x="449" y="610">More samples help resolve changes</text>
+<rect class="panel" x="810" y="146" width="350" height="510" rx="15"/>
+<text class="h" x="834" y="182">3  Record length / duration</text>
+<text class="s" x="834" y="210">Memory stores a finite number of points</text>
+<path class="axis" d="M844 425H1124M844 425V250"/>
+<path class="line" d="M846 405H930L944 275H1000L1014 405H1080L1094 275H1122"/>
+<rect x="845" y="240" width="165" height="200" fill="#cce0ef" opacity=".36"/>
+<rect x="1012" y="240" width="111" height="200" fill="#f6dfd4" opacity=".42"/>
+<text class="s" x="844" y="454">Capture window</text>
+<text class="b" x="834" y="505"><tspan x="834">At a chosen sample rate, memory depth</tspan><tspan x="834" dy="23">limits capture duration:</tspan><tspan x="834" dy="28">record length ≈ sample rate × duration.</tspan><tspan x="834" dy="28">Longer captures may require a lower rate</tspan><tspan x="834" dy="23">or segmented acquisition.</tspan></text>
+<rect class="head" x="40" y="684" width="1120" height="44" rx="10"/><text class="white" x="64" y="713">Also check probe bandwidth/loading, input range, noise floor, effective resolution, and trigger needs</text>
+</svg>
