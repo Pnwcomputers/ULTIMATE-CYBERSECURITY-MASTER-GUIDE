@@ -38,6 +38,14 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [sdr fundamentals rate bandwidth](./diagrams/sdr-fundamentals-rate-bandwidth.svg) | [Guide](../SDR/sdr.md) |
 
 <a id="integrated-png-and-svg-diagrams"></a>
+## Fail2Ban Event Response Visuals
+
+Original conceptual flow; actual coverage depends on the configured source, filter, jail thresholds, and action.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Fail2Ban event-to-action flow](./diagrams/fail2ban-log-to-action-flow.svg) | [Fail2Ban guide](../IncidentResponse/IDS&IPS/fail2ban.md) |
+
 ## Integrated Png & Svg Diagrams
 
 | Image | Used in | Explanation |
