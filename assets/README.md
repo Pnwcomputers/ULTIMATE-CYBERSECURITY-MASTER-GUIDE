@@ -316,6 +316,15 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [azure security logging coverage](./diagrams/azure-security-logging-coverage.svg) | [Guide](../Cloud/azure.md) |
 | [azure security role planes](./diagrams/azure-security-role-planes.svg) | [Guide](../Cloud/azure.md) |
 
+## Mobile Penetration Testing SOP Visuals
+
+Original conceptual diagrams that summarize authorization gates and evidence handling.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Mobile test scope gates](./diagrams/mobile-pentest-scope-gates.svg) | [Mobile penetration testing SOP](../Mobile/mobile_pentest_sop.md) |
+| [Mobile test evidence chain](./diagrams/mobile-pentest-evidence-chain.svg) | [Mobile penetration testing SOP](../Mobile/mobile_pentest_sop.md) |
+
 ## RFID & NFC Guide Visuals
 
 Original conceptual diagrams embedded in the [RFID & NFC guide](../SDR/rfid.md).
