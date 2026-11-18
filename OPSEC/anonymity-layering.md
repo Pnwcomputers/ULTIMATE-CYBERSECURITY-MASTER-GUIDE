@@ -29,7 +29,7 @@ Match egress and isolation to the task, document the expected route, and validat
 ## 📋 When to Use
 
 - Planning egress for an OSINT investigation or an authorized engagement.
-- A target geofences or blocks VPN/datacenter IPs and you need residential egress.
+- A permitted public source presents region-specific results that require an alternate, contract-compliant egress.
 - You need an attributable, client-whitelisted exit for active scanning.
 - Auditing an existing anonymity stack for leaks or over-engineering.
 
@@ -110,8 +110,7 @@ One option is a VPS you control, an SSH dynamic tunnel, and a local SOCKS client
 
 ### Stand Up the Exit
 
-- Pick a provider/region that fits the engagement. Use a **fresh instance per
-  client** so egress is attributable to one engagement.
+- Pick a provider/region that fits the engagement. A **separate instance per client** can make the source address easier to identify in logs; it does not by itself prove who operated it or authorize the activity.
 - Harden it: key-only SSH, no password authentication, and inbound access limited to SSH from approved management addresses. Restrict outbound traffic to the engagement scope when feasible, with a documented exception window if the authorized test requires broader egress. This box's IP goes in the client's allowlist — treat it as part of the deliverable.
 
 ### Open the SOCKS Tunnel From Your Workstation
@@ -127,7 +126,7 @@ autossh -M 0 -N -D 127.0.0.1:1080 user@your-vps-ip
 
 ### Point proxychains-ng at It
 
-Install Proxychains-NG from your distribution's trusted package repository; package names and default configuration paths vary. Copy the packaged example to a user-owned configuration file, such as `~/.proxychains/proxychains.conf`, and invoke it with `-f`:
+Install Proxychains-NG from your distribution's trusted package repository; package names and default configuration paths vary. Create `~/.proxychains` if needed, then copy the package's example configuration to a user-owned file such as `~/.proxychains/proxychains.conf` and invoke it with `-f`:
 
 ```conf
 strict_chain
