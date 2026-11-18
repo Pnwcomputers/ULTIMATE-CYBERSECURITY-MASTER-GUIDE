@@ -641,3 +641,12 @@ Original conceptual topology of an encrypted Kicksecure host, Whonix Gateway/Wor
 ---
 
 [Master README](../README.md) | [Role Navigation](../START_HERE.md) | [Visual reference notes](./imageplacement.md)
+
+
+## Fault Injection Evaluation Visual
+
+Original conceptual evidence flow for authorized, controlled assessments. It does not show circuit connections or claim a tested attack result.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Fault-injection evaluation evidence flow](./diagrams/fault-injection-evaluation-flow.svg) | [Fault Injection Attacks](../HardwareHacking/Chapter3.md#concept) |
