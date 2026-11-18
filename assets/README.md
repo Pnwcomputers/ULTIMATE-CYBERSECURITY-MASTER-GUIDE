@@ -304,6 +304,14 @@ provenance appear in its embedding caption.
 | [NotPetya Ransomware](./diagrams/notpetya-parallel-propagation-paths.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) |
 | [Edward Snowden Revelations](./diagrams/snowden-prism-vs-upstream.svg) | [Enhanced Master Guide](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) |
 
+## Suricata And Zeek Deployment Visuals
+
+Original conceptual diagram distinguishing mirrored sensor copies, alert/protocol logs and inline enforcement.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Suricata and Zeek visibility and blocking](./diagrams/suricata-zeek-visibility-and-blocking.svg) | [Suricata & Zeek deployment guide](../IncidentResponse/IDS&IPS/suricata+zeek.md) |
+
 ## Network Intrusion Response Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
