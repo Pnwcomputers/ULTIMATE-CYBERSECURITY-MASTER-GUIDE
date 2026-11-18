@@ -1,644 +1,245 @@
 # 🔒 VPN Security Guide
 
-_Last reviewed: 2026-07-30_
+_Last reviewed: 2026-11-18_
 
-**Compare proxy layers:** [Proxy types, Froxy and DNS leak limitations](../OPSEC/proxy-reference-froxy.md). A free open proxy does not provide a VPN's system-level tunnel or any guarantee of safe handling of sensitive client traffic.
+A VPN changes which network can observe your connection. It does not make activity anonymous, authorize testing, or protect traffic after it reaches the VPN exit. Use this guide to choose controls for a defined threat model and verify the behavior on your own device.
 
-## 🎯 Purpose
-Operational guide for VPN selection, configuration, and use by security professionals - focused on Mullvad VPN as the top recommendation, with coverage of kill switch setup, DNS leak prevention, multi-hop, split tunneling, browser hardening, and VPN+Tor stacking strategies.
+**Related:** [Proxy types and DNS leak limitations](../OPSEC/proxy-reference-froxy.md) · [Tor Browser guide](TOR.md)
 
-## ⚙️ Function
-Organized by use case: Mullvad app configuration and CLI commands, manual UFW-based kill switch, DNS leak prevention (systemd-resolved), multi-hop routing, Linux policy-based split tunneling, browser hardening (Firefox about:config, WebRTC), VPN→Tor and Tor→VPN stacking, and pre/during/post session operational checklists. Includes a VPN comparison table covering logging, jurisdiction, and open-source status.
+## Purpose and scope
 
-## 🏆 Goal
-Establish a verifiable, leak-free VPN posture for security operations - covering both routine OSINT work and penetration test recon where exit IP, DNS, and WebRTC leaks would compromise operational security.
+This guide covers VPN trust boundaries, provider evaluation, app kill-switch behavior, DNS, split tunneling, browser checks, Tor combinations, and safe use during authorized security work. Mullvad appears as an example because this guide previously contained Mullvad-specific commands and settings; it is not a blanket product recommendation.
 
-## 📋 When to Use
-- All OSINT investigations and penetration test recon (never from your home IP)
-- Any work on untrusted networks (client sites, hotels, conferences)
-- Hiding Tor usage from your ISP (VPN→Tor stack)
-- Bypassing Tor blocks on specific sites (Tor→VPN stack)
-- Incident response IOC lookups that must not tip off threat actors
+A VPN may protect traffic from local network observers on untrusted Wi-Fi, mask the subscriber IP from destination services, or provide a managed corporate route. Choose the service and configuration to match the actual requirement. Follow client rules and the written engagement scope first: a consumer VPN can change the source address and break allowlists or incident-response evidence collection.
 
-This guide covers VPN selection, configuration, operational usage, and integration with other privacy tools for both daily use and sensitive security work.
+> **Do not assume that a VPN is required or permitted for every OSINT, incident-response, or penetration-test task.** Confirm the approved network path with the system owner or engagement lead. Never access a client network or test target outside written authorization.
 
-> **For OSINT and penetration testing operations: ALWAYS use a third-party network. Never conduct security work from your home IP or client networks.**
+## Table of contents
 
----
-
-## Table of Contents
-
-1. [Why Mullvad](#1-why-mullvad)
-2. [Mullvad Setup & Configuration](#2-mullvad-setup--configuration)
-3. [Kill Switch & Leak Prevention](#3-kill-switch--leak-prevention)
-4. [DNS Security](#4-dns-security)
-5. [Multi-Hop Connections](#5-multi-hop-connections)
-6. [Split Tunneling](#6-split-tunneling)
-7. [Mullvad on Linux (CLI)](#7-mullvad-on-linux-cli)
-8. [Browser Hardening](#8-browser-hardening)
-9. [VPN + Tor - Stacking Strategies](#9-vpn--tor---stacking-strategies)
-10. [VPN for Security Operations](#10-vpn-for-security-operations)
-11. [Leak Testing & Verification](#11-leak-testing--verification)
-12. [Operational Checklist](#12-operational-checklist)
-13. [VPN Comparison - Quick Reference](#13-vpn-comparison---quick-reference)
+1. [How a VPN changes visibility](#1-how-a-vpn-changes-visibility)
+2. [Evaluate a provider](#2-evaluate-a-provider)
+3. [Mullvad as a documented example](#3-mullvad-as-a-documented-example)
+4. [Kill switch and firewall behavior](#4-kill-switch-and-firewall-behavior)
+5. [DNS handling](#5-dns-handling)
+6. [Multi-hop](#6-multi-hop)
+7. [Split tunneling](#7-split-tunneling)
+8. [Browser privacy](#8-browser-privacy)
+9. [VPN and Tor](#9-vpn-and-tor)
+10. [Authorized security work](#10-authorized-security-work)
+11. [Verification and checklist](#11-verification-and-checklist)
+12. [Further reading](#12-further-reading)
 
 ---
 
-## 1. Why Mullvad
+## 1. How a VPN changes visibility
 
-**Mullvad** is the top recommendation for privacy-conscious users and security professionals.
+![Conceptual VPN trust-boundary diagram showing what the local network, VPN provider, and destination can observe](../assets/diagrams/vpn-trust-boundaries.svg)
 
-| Feature                    | Mullvad                                              |
-| -------------------------- | ---------------------------------------------------- |
-| Logging policy             | No logs - independently audited                      |
-| Account system             | Random 16-digit number - no email, no name           |
-| Payment                    | Cash, Monero, Bitcoin, card (cash preferred)         |
-| Infrastructure             | Owned servers - not rented (reduces third-party risk)|
-| Client code                | Open source - auditable                              |
-| Protocol support           | WireGuard, OpenVPN                                   |
-| Multi-hop                  | ✅ Built-in                                          |
-| Kill switch                | ✅ Built-in ("Always require VPN")                   |
-| Split tunneling            | ✅ Built-in                                          |
-| DAITA (anti-fingerprinting)| ✅ Unique to Mullvad - pads traffic patterns          |
-| Port forwarding            | ❌ Removed in 2023 (improves anonymity)              |
-| Price                      | €5/month flat - no upsells, no tiers                 |
-| Audit history              | Cure53, Assured AB - public reports available        |
+*Conceptual diagram: actual visibility depends on the VPN client, DNS route, application protocol, and provider implementation. HTTPS continues to protect application content between the client and destination.*
+
+A VPN encrypts traffic between the device and a VPN server. It moves trust from the local access network to the VPN operator; it does not remove trust.
+
+| Observer | Typically can observe | Usually cannot see from the tunnel alone |
+|---|---|---|
+| Local Wi-Fi operator or ISP | That the device connects to a VPN endpoint, timing, volume, and connection failures | The destination IPs or DNS queries carried inside an encrypted tunnel |
+| VPN operator | The source network address, account or subscription metadata, tunnel timing/volume, and destinations or DNS it can observe at the exit | HTTPS-protected page content, passwords, and application data protected end-to-end |
+| Destination service | VPN exit IP, request metadata, and any information the application sends | The subscriber IP, unless it leaks through another path or is disclosed |
+| DNS resolver | Names queried through that resolver, plus the source address it receives | Encrypted application content |
+
+A VPN can reduce exposure to a local network, but it can still be correlated through account activity, cookies, browser fingerprints, endpoint telemetry, timing, or information deliberately sent to a service. HTTPS remains necessary.
 
 ---
 
-## 2. Mullvad Setup & Configuration
+## 2. Evaluate a provider
 
-### 2.1 Download
+Treat provider statements as claims to verify, not guarantees. Compare current documentation and independent evidence for the specific service, app version, platform, and plan.
 
-- **Official only**: https://mullvad.net/download
-- Verify the signature before installing on sensitive systems
+| Question | What to check |
+|---|---|
+| What data is collected? | Privacy policy, account/payment identifiers, diagnostics, crash reports, and retention periods |
+| What happens during a connection failure? | App kill switch, behavior before connection, behavior after disconnect, and any excluded apps |
+| How is the software delivered? | Signed releases, update mechanism, supported operating systems, and source availability for the relevant components |
+| What independent evidence exists? | Audit scope, date, version, methodology, unresolved findings, and whether results cover apps or infrastructure |
+| Can the service meet operational needs? | Stable exit locations, protocol support, DNS behavior, accessibility, support, and any client allowlisting requirement |
+| What are the legal and business risks? | Operator entity, infrastructure partners, ownership changes, and applicable legal process |
 
-### 2.2 Recommended App Settings
+Country membership labels alone are not a useful provider score. Legal process, provider architecture, evidence retention, ownership, and the user's own identifiers all matter. Avoid unsupported “best VPN” rankings, fixed-price tables, and blanket claims that a jurisdiction makes a provider safe or unsafe.
 
-~~~
-Settings → VPN Settings:
-  ✅ Always require VPN (kill switch)
-  ✅ Auto-connect on launch
-  ✅ Local network sharing → OFF (unless needed for LAN access)
-  ✅ Enable IPv6 → OFF (unless you've verified no leaks)
-
-Settings → Tunnel Protocol:
-  → WireGuard (preferred - faster, modern, smaller attack surface)
-  → OpenVPN (fallback for restricted networks)
-
-Settings → WireGuard Settings:
-  ✅ Multihop → configure entry/exit country pair
-  ✅ DAITA → ON (obfuscates traffic shape/timing patterns)
-  ✅ Quantum-resistant tunnels → ON (if available in your version)
-
-Settings → DNS:
-  → Use Mullvad's DNS (blocks ads + malware by category)
-  → Custom: 10.64.0.1 (Mullvad's in-tunnel DNS)
-~~~
-
-### 2.3 Server Selection
-
-~~~
-# Best practices for server selection:
-- Choose exit country appropriate to your activity
-- Avoid 5/9/14-Eyes countries for sensitive work
-  (US, UK, CA, AU, NZ, DE, FR, SE, NO, DK, NL, BE, IT, ES)
-- Use a country with strong privacy laws:
-  Switzerland, Iceland, Panama, Romania, Malaysia
-- For OSINT: pick an exit matching the target's region
-  (avoid looking like a foreign probe)
-~~~
+A free service is not automatically malicious, and a paid service is not automatically private. Evaluate funding, data practices, independent review, and technical behavior.
 
 ---
 
-## 3. Kill Switch & Leak Prevention
+## 3. Mullvad as a documented example
 
-The kill switch blocks all traffic if the VPN tunnel drops - prevents accidental deanonymization.
+Mullvad's current desktop app uses WireGuard. The provider completed its announced OpenVPN removal on **2026-01-15**; old guides or router profiles that depend on Mullvad OpenVPN should be migrated and verified before use. See [Mullvad's OpenVPN retirement notice](https://mullvad.net/en/blog/removing-openvpn-from-the-mullvad-vpn-app).
 
-### 3.1 Mullvad App Kill Switch
+Consult the [current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) for settings and platform differences. The app's built-in kill switch blocks traffic when a connected tunnel fails. Optional **Lockdown mode** also blocks internet access after you intentionally disconnect or quit. Split-tunneled apps remain an exception and can still reach the internet when Lockdown mode is enabled.
 
-~~~
-Settings → VPN Settings → Always require VPN → ON
-~~~
+DAITA, multihop, quantum-resistant tunnels, anti-censorship options, DNS content blockers, and split tunneling are configuration choices, not universal “turn everything on” recommendations. Check current app documentation for availability, prerequisites, performance impact, and what traffic each setting covers. A feature label is not proof that a particular risk has been addressed.
 
-This uses the OS firewall to block non-VPN traffic at the system level.
+For Linux installation and CLI syntax, use the provider's current [installation instructions](https://mullvad.net/en/download/vpn/linux) and [WireGuard CLI guide](https://mullvad.net/en/help/cli-command-wg). Commands and UI labels can change between releases. Avoid copying old commands into a production host without checking the current help output.
 
-### 3.2 Linux - UFW-Based Kill Switch (Manual / Backup)
+Basic status checks, when using the Mullvad CLI:
 
-Use this as a belt-and-suspenders layer or if running Mullvad CLI without the GUI:
-
-~~~bash
-# Flush existing rules
-sudo ufw reset
-sudo ufw default deny outgoing
-sudo ufw default deny incoming
-
-# Allow VPN tunnel only
-# WireGuard (UDP 51820)
-sudo ufw allow out on wg0
-sudo ufw allow out to any port 51820 proto udp
-
-# OpenVPN (UDP 1194 or TCP 443)
-# sudo ufw allow out to any port 1194 proto udp
-# sudo ufw allow out to any port 443 proto tcp
-
-# Allow local loopback
-sudo ufw allow out on lo
-sudo ufw allow in on lo
-
-# Allow LAN (optional - remove for strict isolation)
-# sudo ufw allow out to 192.168.0.0/16
-# sudo ufw allow in from 192.168.0.0/16
-
-sudo ufw enable
-sudo ufw status verbose
-~~~
-
-### 3.3 Verify Kill Switch is Working
-
-~~~bash
-# 1. Connect to Mullvad
-# 2. Kill the VPN tunnel manually (not disconnect - kill the process)
-sudo pkill mullvad-daemon   # or disconnect interface
-
-# 3. Try to reach the internet - should fail
-curl https://api.ipify.org   # should time out or refuse
-
-# 4. Reconnect and verify IP changed
-curl https://api.ipify.org
-~~~
-
----
-
-## 4. DNS Security
-
-Unencrypted or misdirected DNS is one of the most common VPN leak vectors.
-
-### 4.1 Mullvad DNS Options
-
-~~~
-Settings → DNS → Select content blockers:
-  ✅ Block ads
-  ✅ Block trackers
-  ✅ Block malware
-  ✅ Block gambling (optional)
-  ✅ Block social media (optional for high-security ops)
-
-Custom DNS (in-tunnel): 10.64.0.1
-~~~
-
-### 4.2 DNS Leak Prevention on Linux
-
-~~~bash
-# Check current DNS resolver
-resolvectl status
-cat /etc/resolv.conf
-
-# Lock DNS to VPN interface (systemd-resolved)
-sudo resolvectl dns wg0 10.64.0.1
-sudo resolvectl domain wg0 "~."    # route all DNS queries to this interface
-
-# Verify
-resolvectl status wg0
-~~~
-
-### 4.3 Encrypted DNS (When VPN is Off)
-
-| Provider         | Address                        | Protocol          |
-| ---------------- | ------------------------------ | ----------------- |
-| Mullvad          | `dns.mullvad.net` (`194.242.2.2`) | DoH, DoT      |
-| Cloudflare       | `1.1.1.1` / `1.0.0.1`         | DoH, DoT          |
-| NextDNS          | Custom per account             | DoH, DoT, DoQ     |
-| Quad9            | `9.9.9.9`                      | DoH, DoT (blocks malware)|
-
-~~~bash
-# Test DNS over HTTPS manually
-curl -H "accept: application/dns-json" \
-  "https://cloudflare-dns.com/dns-query?name=example.com&type=A"
-~~~
-
----
-
-## 5. Multi-Hop Connections
-
-Multi-hop routes your traffic through two servers in different countries - the entry server sees your IP, the exit server sees your traffic destination, and neither knows both.
-
-~~~
-[You] → [Entry Server (Country A)] → [Exit Server (Country B)] → [Destination]
-         (knows your real IP)         (sees the traffic)
-~~~
-
-### 5.1 Enable in Mullvad App
-
-~~~
-Settings → WireGuard Settings → Multihop → Enable
-Select:
-  Entry location: your region or a trusted country
-  Exit location: target region or privacy-friendly country
-~~~
-
-### 5.2 When to Use Multi-Hop
-
-~~~
-✅ High-sensitivity OSINT investigations
-✅ Penetration test recon (hides your true ISP/region from exit logs)
-✅ Accessing resources in countries with active surveillance
-✅ Any operation where single-server compromise is a concern
-
-❌ Not needed for routine privacy browsing (adds latency)
-❌ Avoid for latency-sensitive work (VoIP, real-time tools)
-~~~
-
----
-
-## 6. Split Tunneling
-
-Allows specific apps or IP ranges to bypass the VPN tunnel - useful when a work tool requires your real IP, or you need LAN access.
-
-### 6.1 Mullvad App Split Tunneling
-
-~~~
-Settings → Split Tunneling → Enable
-Add applications to exclude:
-  - Remote support tools that need your real IP
-  - Local network management tools
-  - Any app that actively blocks VPN connections
-~~~
-
-### 6.2 Linux - Policy-Based Routing (Manual)
-
-~~~bash
-# Route specific traffic outside VPN (example: exclude 192.168.1.0/24 from tunnel)
-sudo ip rule add to 192.168.1.0/24 lookup main priority 100
-
-# Route specific app outside VPN using cgroups (advanced)
-sudo cgcreate -g net_cls:/novpn
-sudo cgset -r net_cls.classid=0x100001 novpn
-sudo iptables -t mangle -A OUTPUT -m cgroup --cgroup 0x100001 -j MARK --set-mark 1
-sudo ip rule add fwmark 1 lookup main
-
-# Run an app outside VPN
-sudo cgexec -g net_cls:/novpn curl https://api.ipify.org
-~~~
-
-> **Security note**: Split tunneling creates a dual-path network state. Any app excluded from the tunnel can see and potentially expose your real IP. Use minimally.
-
----
-
-## 7. Mullvad on Linux (CLI)
-
-### 7.1 Install Mullvad CLI
-
-~~~bash
-# Add Mullvad repo (Debian/Ubuntu)
-curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc \
-  https://repository.mullvad.net/deb/mullvad-keyring.asc
-
-echo "deb [signed-by=/usr/share/keyrings/mullvad-keyring.asc arch=$( dpkg --print-architecture )] \
-  https://repository.mullvad.net/deb/stable $(lsb_release -cs) main" | \
-  sudo tee /etc/apt/sources.list.d/mullvad.list
-
-sudo apt update && sudo apt install -y mullvad-vpn
-~~~
-
-### 7.2 CLI Commands
-
-~~~bash
-# Account
-mullvad account login <ACCOUNT_NUMBER>
-mullvad account get
-
-# Connection
+```bash
+mullvad status
 mullvad connect
 mullvad disconnect
-mullvad reconnect
-mullvad status
+```
 
-# Server selection
-mullvad relay list
-mullvad relay set location us        # US exit
-mullvad relay set location se-got    # Gothenburg, Sweden
-mullvad relay set tunnel-protocol wireguard
-
-# Kill switch
-mullvad lockdown-mode set on         # block traffic when disconnected
-mullvad always-on-vpn set on         # auto-reconnect
-
-# Multi-hop
-mullvad relay set multihop enable
-mullvad relay set location us        # exit
-mullvad bridge set location se       # entry (bridge = entry for multihop)
-
-# DNS
-mullvad dns set default              # use Mullvad DNS
-mullvad dns set custom 10.64.0.1     # manual in-tunnel DNS
-
-# Auto-connect on boot
-sudo systemctl enable mullvad-daemon
-mullvad auto-connect set on
-~~~
+Use `disconnect` only when disconnecting is intended by the task and the chosen safety mode. Do not kill the daemon to test leakage: that can leave the machine in an unexpected state and does not validate the complete firewall policy.
 
 ---
 
-## 8. Browser Hardening
+## 4. Kill switch and firewall behavior
 
-A VPN protects your IP - browser fingerprinting and WebRTC can still expose you.
+A kill switch is a traffic-blocking policy that should prevent unintended direct internet access if the VPN tunnel fails. The exact behavior varies by app, operating system, startup state, and split-tunnel configuration.
 
-### 8.1 Recommended Browsers
+- Test the provider app's documented protection in a disposable lab or non-sensitive session.
+- Distinguish failure while connected from the period before the app connects and from an intentional disconnect.
+- Decide whether internet access should remain blocked after disconnect. A persistent lockdown can also block updates, local services, and remote access.
+- Check which excluded apps, local-network routes, IPv6 paths, and DNS requests remain allowed.
+- Keep an approved recovery path before changing firewall policy.
 
-| Browser      | Privacy Level | Notes                                                  |
-| ------------ | ------------- | ------------------------------------------------------ |
-| **Firefox**  | ⭐⭐⭐⭐       | Best extension support, highly configurable             |
-| **Brave**    | ⭐⭐⭐⭐       | Chromium-based, built-in shields, good for general use |
-| **Tor Browser** | ⭐⭐⭐⭐⭐  | Strongest anonymity, use for sensitive OSINT           |
-| Chrome       | ⭐             | Avoid - heavy Google telemetry                         |
-| Edge         | ⭐             | Avoid - Microsoft telemetry                            |
-
-### 8.2 Essential Extensions
-
-| Extension            | Purpose                                          |
-| -------------------- | ------------------------------------------------ |
-| **uBlock Origin**    | Ad/tracker blocking - use "hard mode" for ops    |
-| **Privacy Badger**   | Adaptive tracker blocking (EFF)                  |
-| **Canvas Blocker**   | Blocks canvas fingerprinting                     |
-| **LocalCDN**         | Serves CDN resources locally (reduces tracking)  |
-
-> Do NOT use HTTPS Everywhere - it's deprecated. Modern browsers handle HTTPS-first natively.
-
-### 8.3 Firefox about:config Hardening
-
-~~~
-# Open: about:config in Firefox address bar
-
-# WebRTC leak prevention (most important with VPN)
-media.peerconnection.enabled                    → false
-
-# Fingerprinting resistance
-privacy.resistFingerprinting                    → true
-privacy.fingerprintingProtection                → true
-
-# Tracking protection
-privacy.trackingprotection.enabled              → true
-privacy.trackingprotection.socialtracking.enabled → true
-
-# DNS
-network.trr.mode                                → 3   (DoH only)
-network.trr.uri                                 → https://dns.quad9.net/dns-query
-
-# Telemetry - all off
-toolkit.telemetry.enabled                       → false
-datareporting.healthreport.uploadEnabled        → false
-browser.crashReports.unsubmittedCheck.enabled   → false
-
-# Geolocation
-geo.enabled                                     → false
-
-# Safe browsing (sends URLs to Google - disable for air-gapped ops)
-browser.safebrowsing.malware.enabled            → false  # tradeoff - assess your risk
-browser.safebrowsing.phishing.enabled           → false
-~~~
-
-### 8.4 Disable WebRTC (Chrome/Brave)
-
-~~~
-# Brave: brave://flags/#disable-webrtc-encryption  (not recommended - use extension)
-# Better: Settings → Privacy → WebRTC IP handling → Disable non-proxied UDP
-# Or install: WebRTC Leak Shield or WebRTC Control extension
-~~~
+**Do not use a generic UFW “kill switch” recipe.** Rules depend on interface names, VPN endpoint addresses, transport ports, DNS, IPv6, boot ordering, and the existing firewall. A blanket reset or default-deny policy can remove existing protections and cut off SSH or other access. If a manually maintained firewall is required, derive a least-privilege policy from the current provider configuration and the host's existing firewall, save a rollback plan, and review it with the system owner before applying it. Never mix manual rules with an app-managed firewall without understanding which component owns them.
 
 ---
 
-## 9. VPN + Tor - Stacking Strategies
+## 5. DNS handling
 
-### 9.1 VPN → Tor (Recommended)
+A DNS request can reveal the queried hostname to the resolver even though HTTPS protects page content. A VPN may route DNS through its tunnel, but custom DNS, browser DNS-over-HTTPS, split tunneling, IPv6, or OS resolver policy can create a different path.
 
-~~~
-[You] → [VPN] → [Tor Entry] → [Tor Middle] → [Tor Exit] → [Destination]
-~~~
+1. Start with the VPN client's documented DNS behavior.
+2. Avoid adding a second resolver or changing system-wide resolver settings unless the use case requires it.
+3. Check browser DNS-over-HTTPS settings; a browser-configured resolver may differ from the OS or VPN resolver.
+4. Test from a normal session using a reputable leak-check service, then compare with the provider's own connection check.
+5. Treat the result as a snapshot, not proof for every application, network transition, or device state.
 
-- Your ISP sees encrypted VPN traffic - not that you're using Tor
-- Tor entry guard sees VPN exit IP - not your real IP
-- **Best for**: Hiding Tor usage from ISP, countries that block Tor
-
-~~~bash
-# Setup: Connect Mullvad first, then launch Tor Browser
-# Tor Browser automatically uses the VPN tunnel
-mullvad connect && tor-browser
-~~~
-
-### 9.2 Tor → VPN (Less Common)
-
-~~~
-[You] → [Tor] → [VPN] → [Destination]
-~~~
-
-- Destination sees VPN IP - not Tor exit
-- VPN provider sees Tor exit IP - not your real IP
-- **Best for**: Bypassing sites that block Tor exit nodes
-- **Requires**: VPN that accepts connections from Tor (Mullvad supports this)
-
-### 9.3 When NOT to Stack
-
-~~~
-❌ Routine browsing - unnecessary complexity, performance hit
-❌ When Tor's anonymity model is sufficient
-❌ When the VPN provider is untrusted (Tor → bad VPN = worse than Tor alone)
-✅ High-risk investigations where ISP-level Tor detection is a concern
-✅ Countries with active Tor blocking
-~~~
+Do not assign DNS manually to a guessed interface such as `wg0` or hard-code a provider address without verifying that the interface exists and that the provider supports this configuration. A command that explicitly queries a public resolver (for example, `dig @resolver.example`) tests that resolver; it does not establish which resolver ordinary applications use.
 
 ---
 
-## 10. VPN for Security Operations
+## 6. Multi-hop
 
-### 10.1 OSINT & Reconnaissance
+With multi-hop, traffic passes through two VPN relays before reaching the destination:
 
-~~~
-RULE: Never conduct OSINT from your home IP or client networks.
+```text
+Device → entry relay → exit relay → destination
+```
 
-Preferred stack for OSINT:
-  [OSINT VM] → [Mullvad VPN] → [Internet]
+The entry relay receives the source address; the exit relay handles traffic toward the destination. This can reduce the information visible to a single relay. It does not guarantee that separate relays have independent ownership, prevent provider-level correlation, hide activity from the VPN operator as a whole, or protect application identity. It usually adds latency and complexity.
 
-Enhanced stack for sensitive targets:
-  [OSINT VM] → [Mullvad Multihop] → [Tor Browser] → [Internet]
-
-Server selection for OSINT:
-  - Exit in the target's country/region (reduces "foreign probe" flags)
-  - Rotate exit servers between investigation sessions
-  - Use a fresh "New Identity" in Tor Browser per target
-~~~
-
-### 10.2 Penetration Testing & Red Team
-
-~~~
-RULE: ALWAYS document your VPN IP in your scope agreement and change logs.
-
-Pre-engagement:
-  [ ] Confirm VPN IP is in scope or pre-authorized
-  [ ] Log VPN server and IP used at start of each session
-  [ ] Rotate server if you need a different source IP
-
-During engagement:
-  [ ] Mullvad connected before any recon tooling starts
-  [ ] Kill switch confirmed ON
-  [ ] Verify exit IP before starting (curl api.ipify.org)
-  [ ] Log timestamped commands with exit IP for chain of custody
-
-Tools that respect proxy settings:
-  proxychains4 nmap -sT -Pn <target>
-  proxychains4 theHarvester -d <domain> -b all
-  proxychains4 nikto -h <target>
-~~~
-
-### 10.3 Client Network Considerations
-
-~~~
-✅ Use Mullvad on any untrusted or client-provided network
-✅ Use obfuscation if on a corporate network with DPI
-✅ Enable multi-hop if client network has logging
-✅ Separate browser profiles per client engagement
-✅ Use VMs for client work - snapshot before and after
-❌ Never conduct personal or other-client work on a client's network
-❌ Never trust hotel/conference/coffee shop Wi-Fi without VPN
-~~~
-
-### 10.4 Incident Response Work
-
-~~~
-- Connect Mullvad before accessing any external threat intel resources
-- Route all IOC lookups (VirusTotal, Shodan, Censys) through VPN
-  (prevents tipping off threat actors that their IOCs are being investigated)
-- Use different exit countries for different lookups to reduce correlation
-- Do NOT connect to C2 infrastructure directly - always through VPN + VM isolation
-~~~
+Use it only when the threat model explains what additional separation is gained. Confirm that the product actually supports the chosen route and understand whether the first and last relays are operated by the same provider.
 
 ---
 
-## 11. Leak Testing & Verification
+## 7. Split tunneling
 
-Run these checks at the start of every sensitive session.
+Split tunneling deliberately sends selected apps or destinations outside the VPN. Those paths can expose the ordinary public IP and use a different DNS resolver. Some apps may continue bypassing the VPN even when a “lockdown” mode is enabled.
 
-### 11.1 Quick Session Verification
-
-~~~bash
-# 1. Confirm VPN is connected
-mullvad status
-
-# 2. Verify exit IP (should NOT be your real IP)
-curl https://api.ipify.org
-
-# 3. Confirm Mullvad exit IP matches expected server
-curl https://am.i.mullvad.net/json | python3 -m json.tool
-
-# 4. Check DNS is routing through tunnel (dns.mullvad.net is Mullvad's public DoH endpoint)
-curl -H "accept: application/dns-json" \
-  "https://dns.mullvad.net/dns-query?name=whoami.akamai.net&type=A"
-~~~
-
-### 11.2 Leak Test Sites
-
-| Test                | URL                              | Checks                         |
-| ------------------- | -------------------------------- | ------------------------------ |
-| Mullvad check       | https://mullvad.net/check        | IP, DNS, WebRTC, IPv6 all-in-1 |
-| DNS leak test       | https://dnsleaktest.com          | DNS resolver origin            |
-| IP leak test        | https://ipleak.net               | IP, DNS, WebRTC, IPv6          |
-| BrowserLeaks        | https://browserleaks.com         | Full fingerprint suite         |
-| WebRTC leak         | https://browserleaks.com/webrtc  | WebRTC IP exposure             |
-| IPv6 leak           | https://ipv6leak.com             | IPv6 exposure check            |
-
-### 11.3 CLI Leak Tests
-
-~~~bash
-# IPv6 leak check (should fail or return VPN IPv6 if enabled)
-curl -6 https://api64.ipify.org 2>/dev/null || echo "No IPv6 (good if IPv6 disabled)"
-
-# DNS leak - verify resolver is Mullvad's
-dig +short myip.opendns.com @resolver1.opendns.com
-
-# WebRTC - no CLI equivalent, use browser test at browserleaks.com/webrtc
-
-# Full check via Mullvad API
-curl -s https://am.i.mullvad.net/json | python3 -c "
-import json, sys
-d = json.load(sys.stdin)
-print(f'IP:          {d[\"ip\"]}')
-print(f'Mullvad:     {d[\"mullvad_exit_ip\"]}')
-print(f'Country:     {d[\"country\"]}')
-print(f'City:        {d[\"city\"]}')
-print(f'ISP:         {d[\"organization\"]}')
-"
-~~~
+- Prefer a full tunnel for sensitive work unless a documented requirement needs an exception.
+- List every excluded application and destination, who approved the exception, and how it was tested.
+- Avoid excluding browsers, command shells, package managers, or assessment tools used for sensitive activity.
+- Recheck exceptions after app updates and when switching networks.
+- Use the VPN application's supported split-tunnel feature when appropriate; do not paste generic policy-routing or cgroup rules without a specific, reviewed design.
 
 ---
 
-## 12. Operational Checklist
+## 8. Browser privacy
 
-### Pre-Session
+A VPN does not prevent cookies, account logins, browser fingerprinting, malicious extensions, WebRTC behavior, or endpoint compromise from identifying or exposing the user.
 
-~~~
-[ ] Mullvad connected and verified (mullvad status)
-[ ] Exit IP confirmed - NOT your home IP (curl api.ipify.org)
-[ ] Kill switch ON (Settings → Always require VPN)
-[ ] DNS routing through Mullvad (dnsleaktest.com)
-[ ] WebRTC disabled in browser
-[ ] IPv6 confirmed not leaking
-[ ] Correct browser profile loaded (not personal profile)
-[ ] Correct VM snapshot loaded (if applicable)
-~~~
+- Keep the browser and operating system updated.
+- Use a separate browser profile or managed VM only when it meaningfully separates identities and data.
+- Review site permissions, extensions, proxy settings, DNS-over-HTTPS settings, and WebRTC behavior in the browser you actually use.
+- Prefer a browser's built-in privacy controls over a pile of extensions or copied `about:config` recipes.
+- Do not disable phishing or malware protections as a routine “hardening” step; disabling them trades away protection and should require an isolated environment and a written reason.
+- Test exposure with browser-specific tools only from a session where visiting those sites is acceptable. The test site itself receives requests and may log them.
 
-### During Session
-
-~~~
-[ ] Do not log into personal accounts
-[ ] Do not mix personal and operational browsing
-[ ] Rotate exit server between investigation targets
-[ ] Log your VPN exit IP and timestamp for chain of custody (pen tests)
-[ ] Monitor mullvad status if connection is unstable
-~~~
-
-### Post-Session
-
-~~~
-[ ] Disconnect Mullvad (or leave connected - do not go unprotected)
-[ ] Clear browser history/cache/cookies if on shared system
-[ ] Export/save evidence and notes before VM rollback
-[ ] Snapshot VM if state should be preserved
-[ ] Rotate to a different Mullvad server for next session
-~~~
+Extensions and browser internals change. Check the browser's current documentation before applying specific settings. Fingerprint spoofing can make a browser more distinctive rather than less.
 
 ---
 
-## 13. VPN Comparison - Quick Reference
+## 9. VPN and Tor
 
-| Provider     | Logs    | Jurisdiction  | Open Source | Price/mo | Notes                               |
-| ------------ | ------- | ------------- | ----------- | -------- | ----------------------------------- |
-| **Mullvad**  | No      | Sweden        | ✅ Full      | €5 flat  | **Top pick** - anonymous accounts   |
-| ProtonVPN    | No      | Switzerland   | ✅ Full      | $4–10    | Good alternative, free tier exists  |
-| IVPN         | No      | Gibraltar     | ✅ Full      | $6–10    | Privacy-focused, anonymous accounts |
-| ExpressVPN   | Claimed | BVI           | ❌ Partial  | $8–13    | Acquired by Kape - trust concerns   |
-| NordVPN      | Claimed | Panama        | ❌          | $4–12    | Past breach - use with caution      |
-| PIA          | Claimed | US (5-Eyes)   | ✅ Partial  | $2–7     | US jurisdiction - avoid for ops     |
-| Any "free"   | Yes     | Varies        | ❌          | $0       | Avoid - you are the product         |
+The Tor Project generally does **not** recommend combining Tor Browser with a VPN unless the user understands both systems and configures them correctly. VPN→Tor changes what the ISP and Tor entry relay observe; it does not automatically strengthen anonymity. Tor→VPN is a separate, advanced routing design and should not be represented as a normal Tor Browser setting or a way to “make Tor anonymous.”
 
-> **Jurisdiction note**: Sweden is technically 14-Eyes, but Mullvad's no-log policy has been validated under legal pressure - Swedish authorities have seized Mullvad servers and obtained nothing usable. Architecture matters more than jurisdiction.
+Use Tor Browser as documented by the Tor Project for the intended threat model. If a VPN is required by local policy or a specific access constraint, consult the [Tor Project guidance on using Tor Browser with a VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/) and assess the resulting trust and correlation risks. Do not treat a VPN/Tor stack as a shortcut around identity separation, endpoint safety, or authorization.
 
 ---
 
-## Additional Resources
+## 10. Authorized security work
 
-- **Mullvad Documentation**: https://mullvad.net/help
-- **Mullvad Privacy Guides**: https://mullvad.net/blog
-- **Privacy Guides (community)**: https://www.privacyguides.org
-- **PrivacyTests.org**: Browser privacy comparison matrix
-- **Audit reports**: https://mullvad.net/en/blog/tag/audits
+### OSINT and external lookups
+
+Before accessing a third-party service, consider what the service sees and retains: source IP, account, query, timing, and identifiers in the request. A VPN changes the network address observed by that service; it does not prevent the service from seeing the query or associating it with an account. Use an approved research account, isolated environment, and network path. Keep evidence and timestamps according to the case procedure.
+
+Do not rotate exit locations merely to evade rate limits, access controls, or attribution. Match a source region only when required by a legitimate, documented test plan; unexpected geography can trigger fraud controls or make findings less representative.
+
+### Penetration testing and red-team work
+
+- Confirm in writing that the source IP, VPN provider, and test path are allowed by the engagement scope.
+- Coordinate with the customer on allowlists and monitoring expectations. A consumer VPN may be prohibited or may obscure evidence needed by defenders.
+- Record the approved source address and timestamps in the engagement log. Do not assume the public exit address remains stable.
+- Test only the specified assets and methods. A VPN does not expand authorization.
+- If a proxy is required by a tool, verify that the tool's DNS and traffic paths also use it; do not assume that `proxychains` captures every protocol or child process.
+
+### Incident response
+
+Use the incident plan's approved egress and evidence-handling procedures. Public threat-intelligence services may retain submitted indicators, account identifiers, and query history; evaluate those risks before uploading client data. Do not send confidential indicators to a third party without authorization, and do not connect to suspected command-and-control infrastructure as a “VPN-protected” lookup.
 
 ---
 
-## Related Files
-- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [TOR.md](TOR.md) - Tor Browser and daemon guide: VPN→Tor stacking, proxychains, .onion services
-- [virtualmachines.md](virtualmachines.md) - Privacy VMs (Tails, Whonix, Qubes) that integrate with or replace VPN-based anonymity
-- [../OSINT/](../OSINT/) - OSINT workflows requiring Mullvad or Tor→VPN for anonymity
+## 11. Verification and checklist
 
-*Last Updated: 2026-06-08*
-*Maintained by: Pacific Northwest Computers (PNWC)*
+Leak tests are useful observations, not a guarantee. Run them only on a device and session where sending test requests to those services is acceptable. The VPN operator's own status page is useful, but it is not independent verification.
+
+### Session check
+
+1. Confirm the VPN app reports the expected connected state and relay.
+2. Check the visible public IP with a service approved for the activity.
+3. Run a DNS and IPv6 check; compare observed results with the chosen configuration.
+4. Check browser WebRTC behavior in the browser profile being used.
+5. If the network changes or the VPN reconnects, repeat relevant checks.
+6. For a kill-switch test, use a disposable system or non-sensitive test session and follow the vendor's test procedure. Do not terminate production daemons or alter firewall rules as an ad-hoc test.
+
+### Before work
+
+- [ ] Written scope/policy allows the selected egress path.
+- [ ] Correct device, VM, browser profile, and account are in use.
+- [ ] VPN state and public egress address are checked where required.
+- [ ] DNS, IPv6, browser proxy, and split-tunnel routes match the plan.
+- [ ] Kill-switch/lockdown behavior and exceptions are understood.
+- [ ] Third-party lookups are approved for the data being submitted.
+
+### During and after work
+
+- [ ] Keep target requests and evidence within the approved scope.
+- [ ] Record timestamps, source path, and relevant egress details as required by the case.
+- [ ] Do not rotate endpoints to evade monitoring or access controls.
+- [ ] Preserve notes and evidence before closing or reverting a lab VM.
+- [ ] Disconnect or keep the VPN connected according to the device's operating procedure; verify the expected state afterward.
+
+---
+
+## 12. Further reading
+
+- [Mullvad desktop app guide](https://mullvad.net/en/help/using-mullvad-vpn-app)
+- [Mullvad Linux installation](https://mullvad.net/en/download/vpn/linux)
+- [Mullvad WireGuard CLI guide](https://mullvad.net/en/help/cli-command-wg)
+- [Mullvad OpenVPN retirement notice](https://mullvad.net/en/blog/removing-openvpn-from-the-mullvad-vpn-app)
+- [Tor Project: Tor Browser with a VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/)
+- [EFF: Choosing the VPN That's Right for You](https://ssd.eff.org/module/choosing-vpn-thats-right-you)
+- [Privacy Guides: VPN overview](https://www.privacyguides.org/en/vpn/)
+
+## Related files
+
+- [Documentation index](README.md)
+- [TOR.md](TOR.md) — Tor Browser and daemon guidance
+- [Proxy types and DNS leak limitations](../OPSEC/proxy-reference-froxy.md)
+- [Virtual machines](virtualmachines.md) — isolation options that may suit a task better than a VPN
+
+---
+
+_Last reviewed: 2026-11-18_  
+_Maintained by: Pacific Northwest Computers (PNWC)_
