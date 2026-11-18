@@ -549,6 +549,14 @@ Original conceptual diagrams illustrating common VM network exposure and the Bla
 | [VM network isolation modes](./diagrams/vm-network-isolation-modes.svg) | [VM and lab environments](../Documentation/virtualmachines.md) |
 | [Black Hat Bash lab boundaries](./diagrams/black-hat-bash-lab-boundaries.svg) | [VM and lab environments](../Documentation/virtualmachines.md) |
 
+## Tails USB Session Boundary Visual
+
+Original conceptual diagram separating the Tails system area, volatile live session, optional encrypted Persistent Storage, Tor Browser traffic, and the Unsafe Browser's direct-network exception.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
