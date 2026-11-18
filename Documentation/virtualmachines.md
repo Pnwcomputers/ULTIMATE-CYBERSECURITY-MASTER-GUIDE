@@ -1,934 +1,165 @@
 # Cybersecurity Virtual Machines and Lab Environments
-**Container lab companion:** [Docker operations/diagnostics reference](../ContainerSecurity/docker-cli-operations-reference.md) and [container runtime security](../ContainerSecurity/containers.md). Container namespaces share the host kernel; use disposable VMs for stronger separation when studying untrusted targets.
 
-## 🎯 Purpose
-Reference catalog of purpose-built cybersecurity virtual machines and lab environments - covering privacy/anonymity OSes, OSINT VMs, penetration testing distributions, forensics workstations, malware analysis environments, and threat-hunting platforms.
+_Last reviewed: 2026-11-18_
 
-## ⚙️ Function
-Organized by use case category: Privacy and Anonymity (Tails, Whonix, Qubes), OSINT (Trace Labs, Buscador, Tsurugi), Penetration Testing (Kali, ParrotOS, BlackArch, Commando VM), Digital Forensics (SIFT, CAINE, CSI Linux), Reverse Engineering/Malware Analysis (FLARE-VM, REMnux), and Threat Hunting (Security Onion, RedHunt-OS). Also covers the Black Hat Bash Docker lab environment and Kali setup scripts (Pimp My Kali).
+A security distribution is a tool set, not a security boundary. Choose the guest, hypervisor, storage, and network together. A VM shares a host and hypervisor; it does not make untrusted malware safe to run on a personal computer.
 
-## 🏆 Goal
-Provide a curated list of download links and use-case descriptions so security professionals can quickly select and deploy the right VM for a given task without researching from scratch.
+**Related:** [Docker operations and diagnostics](../ContainerSecurity/docker-cli-operations-reference.md) · [Container security](../ContainerSecurity/containers.md) · [Whonix and Kicksecure setup notes](../OPSEC/whonix-kicksecure-usb-guide.md)
 
-## 📋 When to Use
-- Setting up a new security lab or rebuilding an existing one
-- Selecting the appropriate specialized VM for a specific discipline (forensics vs. OSINT vs. red team)
-- Deploying the Black Hat Bash Docker lab for hands-on penetration testing practice
-- Configuring a privacy-focused environment (Tails/Whonix) for sensitive OSINT work
+## Purpose and selection
 
-## Table of Contents
+This catalog groups project-maintained operating systems and lab environments by task. The links identify upstream project sources; they do not imply that every release was tested here or is currently maintained. Before downloading, check the release date, supported architecture, integrity-verification method, licensing, minimum hardware, and official installation notes.
 
-- [Specialized Virtual Machines](#specialized-virtual-machines)
-  - [Privacy and Anonymity](#privacy-and-anonymity)
-  - [OSINT (Open Source Intelligence)](#osint-open-source-intelligence)
-  - [Penetration Testing](#penetration-testing)
-  - [Digital Forensics](#digital-forensics)
-  - [Reverse Engineering and Malware Analysis](#reverse-engineering-and-malware-analysis)
-  - [Threat Hunting and Defense](#threat-hunting-and-defense)
-- [Black Hat Bash Lab Environment](#black-hat-bash-lab-environment)
-  - [Lab Architecture](#lab-architecture)
-  - [Installation Scripts](#installation-scripts)
-  - [Lab Management](#lab-management)
-- [VM Setup and Configuration](#vm-setup-and-configuration)
-  - [OSINT VM Setup](#osint-vm-setup)
-  - [Pimp My Kali](#pimp-my-kali)
+### Select by task
+
+| Need | Possible starting point | Key limitation to plan for |
+|---|---|---|
+| Compartmentalized desktop work | [Qubes OS](https://www.qubes-os.org/doc/) | Requires compatible hardware and a trusted host/hypervisor; a compromise within one domain can still affect that domain. |
+| Tor-routed workstation | [Whonix](https://www.whonix.org/wiki/Whonix) | Uses a Gateway and Workstation pair; changing the Workstation's network can bypass the design. |
+| Amnesic live environment | [Tails](https://tails.net/) | Running in a VM changes its hardware and host trust assumptions; “amnesic” does not mean no possible trace or guaranteed anonymity. |
+| OSINT training | [Trace Labs OSINT VM](https://docs.tracelabs.org/vm/vm-introduction), [Tsurugi Linux](https://tsurugi-linux.org/downloads.php) | Tool bundles can become stale; independently confirm sources, permissions, and current release status. |
+| Penetration-test lab | [Kali](https://www.kali.org/get-kali/), [Parrot](https://parrotsec.org/download/) | Tools do not grant authorization; isolate vulnerable targets and keep target egress scoped. |
+| Forensics | [SIFT Workstation](https://www.sans.org/tools/sift-workstation/), [CAINE](https://www.caine-live.net/), [CSI Linux](https://csilinux.com/) | Preserve originals and use write-blocking/acquisition procedures appropriate to the evidence. |
+| Malware analysis | [REMnux](https://remnux.org/), [FLARE-VM](https://github.com/mandiant/flare-vm) | An analysis guest can still reach the host, LAN, or internet unless networking and shared features are controlled. |
+| Network monitoring | [Security Onion](https://docs.securityonion.net/en/2.4/) | A sensor needs an intentional traffic feed; a VM on an ordinary virtual switch may see only its own traffic. |
+
+Other projects such as BlackArch, BackBox, Commando VM, CAINE, and other community images may be useful in a specific workflow. Check each project’s current release and provenance before use. Older catalog entries such as Buscador, RedHunt-OS, and ThreatPursuit VM should be treated as historical or availability-unverified until their upstream release and maintenance status are confirmed. Do not use old download instructions that embed credentials in URLs.
 
 ---
 
-## Specialized Virtual Machines
+## VM network modes and isolation
 
-### Privacy and Anonymity
+![Conceptual comparison of host-only, NAT, bridged, and isolated virtual machine networks](../assets/diagrams/vm-network-isolation-modes.svg)
 
-#### 💿 Tails (The Amnesic Incognito Live System)
-- **Purpose**: Privacy and Anonymity
-- **Description**: A portable operating system that protects against surveillance and censorship. All connections go through Tor, and it leaves no trace on the computer.
-- **Link**: https://tails.net/
+*Conceptual comparison. Hypervisor labels and behavior vary; inspect the actual virtual switch, firewall, host routes, and port-forwarding rules.*
 
-#### 💿 Whonix
-- **Purpose**: Privacy and Anonymity
-- **Description**: An operating system focused on anonymity, privacy, and security. It's based on Tor, Debian GNU/Linux, and the principle of security by isolation.
-- **Deployment**: Whonix-Gateway and Whonix-Workstation form a pair; the LXQt build flavors are `whonix-gateway-lxqt` and `whonix-workstation-lxqt`. See the [USB setup and installer distinctions](../OPSEC/whonix-kicksecure-usb-guide.md#guest-names), including the separate [KVM/libvirt route](../OPSEC/whonix-kicksecure-usb-guide.md#hypervisor-selection).
-- **Link**: https://www.whonix.org/wiki/Download
+- **Host-only:** guest networking is usually limited to the host and guests on that virtual network. The host can still reach the guest, and host routing can change the boundary.
+- **NAT:** guests can usually initiate outbound connections through the host. Port forwarding and hypervisor settings may permit inbound access.
+- **Bridged:** the guest joins the physical LAN as another device. It may be reachable by LAN peers and can expose vulnerable lab services.
+- **Internal/isolated switch:** can limit paths to selected guests, but the hypervisor host may still reach the guests. Verify that no host route or adapter supplies egress.
 
-#### 💿 Qubes OS
-- **Purpose**: Hypervisor-based Security
-- **Description**: A security-oriented operating system that uses virtualization to provide security through isolation. Different tasks are compartmentalized in separate VMs.
-- **Link**: https://www.qubes-os.org/
+Use the narrowest network needed. Do not bridge a vulnerable target VM to a home, office, or client LAN. Disable shared folders, clipboard, drag-and-drop, USB passthrough, and guest additions when the sample or target warrants stronger separation. Take snapshots before analysis, but remember a snapshot is rollback convenience, not a backup or a security control.
+
+Qubes OS, Whonix, and Tails have different designs and assumptions; use their own security documentation rather than applying generic hypervisor advice. See [Qubes security design goals](https://doc.qubes-os.org/en/latest/developer/system/security-design-goals.html), [Whonix architecture](https://www.whonix.org/wiki/Whonix), and [Tails virtualization documentation](https://tails.net/doc/advanced_topics/virtualization/).
 
 ---
 
-### OSINT (Open Source Intelligence)
+## Download and prepare an image
 
-#### 💿 Trace Labs OSINT VM
-- **Purpose**: OSINT to Find Missing Persons
-- **Description**: A VM specifically designed for OSINT investigations, with a focus on helping locate missing persons through ethical intelligence gathering.
-- **Link**: https://www.tracelabs.org/initiatives/osint-vm
+1. Navigate from the project's official site to the download or release page. Avoid third-party mirrors unless the project explicitly documents them.
+2. Verify signatures or checksums using the project's current instructions and a trusted key obtained independently from the image.
+3. Confirm the guest architecture and hypervisor format before importing.
+4. Create a clean baseline snapshot. Keep evidence, credentials, and personal accounts out of the analysis guest unless required.
+5. Set networking deliberately before first boot. A powered-off guest can still have configured bridge, shared-folder, and host-integration paths.
+6. Update the guest from its documented channel, then snapshot again if a repeatable lab baseline is needed.
+7. Record the source URL, release identifier, checksum, date, hypervisor, virtual network mode, and any configuration changes.
 
-#### 💿 Buscador OSINT VM
-- **Purpose**: OSINT Research and Investigation
-- **Description**: A Linux Virtual Machine pre-configured for online investigations. Created by Michael Bazzell (IntelTechniques).
-- **Link**: https://inteltechniques.com/blog/2019/01/25/buscador-2-0-osint-virtual-machine-released/
-
-#### 💿 Tsurugi Linux
-- **Purpose**: Digital Forensics and OSINT
-- **Description**: A DFIR (Digital Forensics and Incident Response) Linux distribution designed for live forensics, incident response, and open-source intelligence.
-- **Link**: https://tsurugi-linux.org/downloads.php
+For forensic acquisition, do not boot or update the evidence image unless the collection plan explicitly allows it. Work from verified copies and preserve the original evidence.
 
 ---
 
-### Penetration Testing
+## Project notes
 
-#### 💿 Kali Linux
-- **Purpose**: Penetration Testing
-- **Description**: The industry-standard Linux distribution for penetration testing and ethical hacking. Contains hundreds of security tools.
-- **Link**: https://www.kali.org/get-kali/#kali-virtual-machines
+### Privacy and compartmentalization
 
-#### 💿 Kali Purple
-- **Purpose**: SOC-in-a-box (Security Operations Center)
-- **Description**: A defensive security distribution that provides a complete SOC environment with various defensive and offensive tools integrated.
-- **Link**: https://www.kali.org/get-kali/#kali-installer-images
+- **Tails** is a live operating system designed around amnesia and Tor routing. Persistence is optional; host, firmware, network, and user behavior remain part of the threat model. Virtualizing Tails adds the host and hypervisor to the trusted computing base.
+- **Whonix** pairs a Whonix-Gateway with a Whonix-Workstation on a designed network. Keep the Workstation attached only to the intended internal network and follow the current [download guidance](https://www.whonix.org/wiki/Download).
+- **Qubes OS** uses security domains to separate activities. Isolation is not absolute: the host, hypervisor, shared clipboard/file-transfer paths, and activity within one domain still matter. Check hardware compatibility in the [official documentation](https://www.qubes-os.org/doc/).
 
-#### 💿 ParrotOS
-- **Purpose**: Red and Blue Team Operations
-- **Description**: A GNU/Linux distribution based on Debian and designed with Security, Development, and Privacy in mind. Suitable for both offensive and defensive security.
-- **Link**: https://parrotsec.org/
+### OSINT and security distributions
 
-#### 💿 BlackArch Linux
-- **Purpose**: Penetration Testing
-- **Description**: An Arch Linux-based distribution designed for penetration testers and security researchers with over 2,800 tools.
-- **Link**: https://blackarch.org/index.html
+- **Trace Labs OSINT VM** is maintained for OSINT training and Search Party events. Confirm the current release and event rules in the [official VM introduction](https://docs.tracelabs.org/vm/vm-introduction).
+- **Tsurugi Linux** combines digital-forensics and OSINT tooling; use its [official downloads](https://tsurugi-linux.org/downloads.php) and current project guidance.
+- **Kali Linux**, **Parrot OS**, and **BlackArch** are general security distributions. Select by workflow and package support, then verify the source image and isolate lab targets.
+- **Buscador** is referenced in older materials but should not be treated as a current maintained image without an upstream release to confirm. Do not use the historical authenticated URL or script shown in older copies of this guide.
 
-#### 💿 BackBox
-- **Purpose**: Penetration Testing
-- **Description**: An Ubuntu-based distribution designed for penetration testing and security assessments, focused on simplicity and minimalism.
-- **Link**: https://www.backbox.org/
+### Forensics, malware analysis, and defense
 
-#### 💿 Predator-OS
-- **Purpose**: Penetration Testing
-- **Description**: An Iranian penetration testing distribution with various security assessment tools pre-installed.
-- **Link**: https://predator-os.ir/
-
-#### 💿 Kookarai
-- **Purpose**: Penetration Testing
-- **Description**: A Docker-based penetration testing environment with web-based access for training and testing.
-- **Link**: https://kookarai.idocker.hacking-lab.com/
-
-#### 💿 Commando VM (Windows-based)
-- **Purpose**: Windows-based Penetration Testing and Red Teaming
-- **Description**: A Windows-based penetration testing distribution by Mandiant for security professionals working in Windows environments.
-- **Link**: https://github.com/mandiant/commando-vm
+- **SIFT Workstation**, **CAINE**, and **CSI Linux** are candidate forensic environments. Confirm version, acquisition support, and evidence-handling procedures from each project before use.
+- **REMnux** and **FLARE-VM** provide malware-analysis tooling. For live samples, disable shared folders and clipboard as appropriate, snapshot the environment, and use a controlled network with explicit DNS, egress, and sinkhole behavior.
+- **Security Onion** is a monitoring platform, not a generic desktop VM. Follow its current [installation and verification documentation](https://docs.securityonion.net/en/2.4/).
 
 ---
 
-### Digital Forensics
+## Container lab: Black Hat Bash
 
-#### 💿 SIFT Workstation
-- **Purpose**: Digital Forensics and Incident Response
-- **Description**: SANS Investigative Forensics Toolkit - A powerful forensics workstation built on Ubuntu with numerous forensics tools pre-installed.
-- **Link**: https://www.sans.org/tools/sift-workstation/
+[Black Hat Bash](https://github.com/dolevf/Black-Hat-Bash) is a Docker-based training lab, not a VM image. This guide no longer republishes its privileged installation and cleanup scripts. Those scripts can modify the host, install third-party tools, remove Docker volumes or images, and build or run vulnerable containers; review the current upstream source before using it.
 
-#### 💿 CSI Linux
-- **Purpose**: Digital Forensics
-- **Description**: A Linux distribution designed for Computer Security, Digital Forensics, and Open Source Intelligence gathering.
-- **Link**: https://csilinux.com/
+![Conceptual Black Hat Bash container lab boundaries showing the host, egress-capable public bridge, dual-homed jump and web containers, and internal corporate bridge](../assets/diagrams/black-hat-bash-lab-boundaries.svg)
 
-#### 💿 CAINE (Computer Aided INvestigative Environment)
-- **Purpose**: Digital Forensics
-- **Description**: An Italian Linux distribution created for digital forensics that offers a complete forensic environment with integrated tools.
-- **Link**: https://www.caine-live.net/page5/page5.html
+*Conceptual reconstruction of the network roles described by the upstream Compose example. It is not a verified current deployment. Docker bridges, host access, port publishing, and egress depend on the host and daemon configuration.*
 
----
+The example Compose topology uses a user-defined `public` bridge and a `corporate` bridge marked internal. A jump host and one web container attach to both networks. The name `public` does not itself publish a port to the internet: Docker bridge containers commonly have outbound connectivity through the host, while inbound access depends on published ports, host routing, and firewall rules. Docker documents that the host can communicate with containers on bridge networks, including internal networks.
 
-### Reverse Engineering and Malware Analysis
+Before deployment:
 
-#### 💿 FLARE-VM
-- **Purpose**: Reverse Engineering (Windows-based)
-- **Description**: A Windows-based security distribution for reverse engineers and malware analysts by Mandiant (formerly FireEye).
-- **Link**: https://github.com/mandiant/flare-vm
+- Use a disposable, dedicated host or a disposable Linux VM that contains no personal or client data.
+- Inspect Compose files, Dockerfiles, scripts, image tags, bind mounts, networks, and port mappings. Pin and verify dependencies when the project supports it.
+- Do not run unknown install scripts as root on a daily-use host. Avoid privileged containers and host-network mode unless the lab explicitly requires them and the isolated host is disposable.
+- Remove unrelated credentials, SSH keys, browser profiles, shared folders, and Docker socket access from the lab host.
+- Confirm the vulnerable target network cannot route to production, client, or other household devices. Test egress and published ports from outside the lab.
+- Do not reuse any demo passwords or accounts outside the lab. Values in examples and source repositories are public.
+- Prefer the upstream project's documented per-lab shutdown. Inspect what it will remove before cleanup; global prune commands with `--volumes` can destroy data belonging to other Docker projects.
 
-#### 💿 REMnux
-- **Purpose**: Reverse Engineering and Malware Analysis
-- **Description**: A Linux toolkit for reverse-engineering and analyzing malicious software. Maintained by Lenny Zeltser.
-- **Link**: https://remnux.org/
+See the [Docker bridge network documentation](https://docs.docker.com/engine/network/drivers/bridge/), [internal network behavior](https://docs.docker.com/reference/cli/docker/network/create/), and [port publishing](https://docs.docker.com/engine/network/port-publishing/).
 
----
-
-### Threat Hunting and Defense
-
-#### 💿 Security Onion
-- **Purpose**: Threat Hunting, Network Security Monitoring, and Log Management
-- **Description**: A free and open platform for threat hunting, network security monitoring, and log management. Includes Elasticsearch, Logstash, Kibana, Suricata, and many other tools.
-- **Link**: https://github.com/Security-Onion-Solutions/securityonion/blob/2.4/main/DOWNLOAD_AND_VERIFY_ISO.md
-
-#### 💿 RedHunt-OS Linux
-- **Purpose**: Adversary Emulation and Threat Hunting
-- **Description**: A virtual machine designed for adversary emulation and threat hunting with various tools for simulating attacks and hunting threats.
-- **Link**: https://github.com/redhuntlabs/RedHunt-OS
-
-#### 💿 Mandiant Threat Pursuit VM
-- **Purpose**: Windows-based Threat Intelligence and Hunting
-- **Description**: A Windows-based distribution designed for threat intelligence analysis and threat hunting operations by Mandiant.
-- **Link**: https://github.com/mandiant/ThreatPursuit-VM
-
----
-
-## Black Hat Bash Lab Environment
-
-The Black Hat Bash Lab is a Docker-based penetration testing lab environment featuring multiple vulnerable machines for practicing security assessments.
-
-### Lab Architecture
-
-The lab consists of two networks:
-- **Public Network** (172.16.10.0/24) - Internet-facing services
-- **Corporate Network** (10.1.0.0/24) - Internal corporate network
-
-#### Container Infrastructure
-
-```yaml
-services:
-  p-jumpbox-01:
-    container_name: p-jumpbox-01
-    hostname: p-jumpbox-01.acme-infinity-servers.com
-    build: 
-      context: machines/p-jumpbox-01
-      dockerfile: Dockerfile
-    networks:
-      public:
-        ipv4_address: 172.16.10.13
-      corporate:
-        ipv4_address: 10.1.0.12
-  
-  c-backup-01:
-    container_name: c-backup-01
-    hostname: c-backup-01.acme-infinity-servers.com
-    build: 
-      context: machines/c-backup-01
-      dockerfile: Dockerfile
-    networks:
-      corporate:
-        ipv4_address: 10.1.0.13
-    volumes:
-      - shared_vol:/mnt/scripts
-  
-  c-redis-01:
-    container_name: c-redis-01
-    hostname: c-redis-01.acme-infinity-servers.com
-    build: 
-      context: machines/c-redis-01
-      dockerfile: Dockerfile
-    networks:
-      corporate:
-        ipv4_address: 10.1.0.14
-  
-  p-ftp-01:
-    container_name: p-ftp-01
-    hostname: p-ftp-01.acme-infinity-servers.com
-    build: 
-      context: machines/
-      dockerfile: p-ftp-01/Dockerfile
-    networks:
-      public:
-        ipv4_address: 172.16.10.11
-  
-  p-web-01:
-    container_name: p-web-01
-    hostname: p-web-01.acme-infinity-servers.com
-    privileged: true
-    build: 
-      context: machines/p-web-01
-      dockerfile: Dockerfile
-    networks:
-      public:
-        ipv4_address: 172.16.10.10
-    volumes:
-      - shared_vol:/mnt/scripts/
-  
-  p-web-02:
-    container_name: p-web-02
-    privileged: true
-    hostname: p-web-02.acme-infinity-servers.com
-    build: 
-      context: machines/p-web-02
-      dockerfile: Dockerfile
-    volumes:
-      - p_web_02_vol:/var/www/html    
-    networks:
-      public:
-        ipv4_address: 172.16.10.12
-      corporate:
-        ipv4_address: 10.1.0.11
-    depends_on:
-      - c-db-02
-  
-  c-db-02:
-    container_name: c-db-02
-    hostname: c-db-02.acme-infinity-servers.com
-    build: 
-      context: machines/c-db-02
-      dockerfile: Dockerfile
-    volumes:
-      - c_db_02_vol:/var/lib/mysql
-    networks:
-      corporate:
-        ipv4_address: 10.1.0.16
-  
-  c-db-01:
-    container_name: c-db-01
-    hostname: c-db-01.acme-infinity-servers.com
-    build: 
-      context: machines/c-db-01
-      dockerfile: Dockerfile
-    volumes:
-      - c_db_01_vol:/var/lib/mysql
-    networks:
-      corporate:
-        ipv4_address: 10.1.0.15
-  
-volumes:
-  shared_vol:
-  c_db_01_vol:
-  c_db_02_vol:
-  p_web_02_vol: 
-networks:
-  public:
-    name: public
-    driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: br_public
-    ipam:
-      config:
-        - subnet: "172.16.10.0/24"
-  corporate:
-    internal: true
-    name: corporate
-    driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: br_corporate
-    ipam:
-      config:
-        - subnet: "10.1.0.0/24"
-```
-
-#### Lab Machines
-
-**Public Network Machines:**
-- `p-jumpbox-01` (172.16.10.13) - Jump box with access to both networks
-- `p-ftp-01` (172.16.10.11) - FTP server
-- `p-web-01` (172.16.10.10) - Web server
-- `p-web-02` (172.16.10.12) - WordPress server with corporate network access
-
-**Corporate Network Machines:**
-- `c-backup-01` (10.1.0.13) - Backup server
-- `c-redis-01` (10.1.0.14) - Redis database server
-- `c-db-01` (10.1.0.15) - Database server
-- `c-db-02` (10.1.0.16) - Database server
-
----
-
-### Installation Scripts
-
-#### Lab Installation Script
+For routine inspection, begin with read-only commands from the project directory:
 
 ```bash
-#!/bin/bash
-
-# shellcheck disable=SC2164
-
-# Black Hat Bash - Automated Lab Build Script
-
-# Script Checks system requirements
-  # - Running Kali
-  # - Minimum of 4 GB of RAM
-  # - Minimum of 40 GB disk space available
-  # - Internet connectivity
-
-USER_HOME_BASE="/home/${SUDO_USER}"
-BHB_TOOLS_FOLDER="/home/${SUDO_USER}/tools"
-
-BHB_BASE_FOLDER="$(pwd)"
-BHB_LAB_FOLDER="${BHB_BASE_FOLDER}/lab"
-BHB_INSTALL_LOG="/var/log/lab-install.log"
-
-check_prerequisites(){
-  # Checks if script is running as root
-  if [[ "$EUID" -ne 0 ]]; then
-    echo "Error: Please run with sudo permissions."
-    exit 1
-  fi
-
-  if [[ ! -f "${BHB_INSTALL_LOG}" ]]; then
-    touch "${BHB_INSTALL_LOG}"
-    chown "${SUDO_USER}:${SUDO_USER}" "${BHB_INSTALL_LOG}"
-  fi
-
-  # Check if Kali OS 
-  if ! grep -q "ID=kali" /etc/os-release; then
-    echo "Error: Operating system does not appear to be Kali."
-  fi
-
-  # Check internet connectivity (against Google)
-  if ! ping -c 1 -W 5 -w 5 "8.8.8.8" &> /dev/null; then
-    echo "Error: No internet connectivity."
-  fi
-
-  # Check if RAM +4 GB
-  local total_ram
-  total_ram=$(awk '/^MemTotal:/{print $2}' /proc/meminfo);
-  if [ "${total_ram}" -lt 4194304 ]; then
-    echo "Warning: System does not meet 4 GB RAM requirement."
-    echo "This may impact the performance of the lab."
-    read -p "Do you want to continue? [y/n] " -n 1 -r
-    echo
-    if [[ ! "${REPLY}" =~ ^[Yy]$ ]]; then
-      echo "Exiting..."
-      exit
-    fi
-  fi
-
-  # Check disk space
-  local free
-  free=$(df -k --output=size "${PWD}" | tail -n1)
-  if [[ "${free}" -lt 41943040 ]]; then
-    echo "Warning: System does not meet 40 GB disk space requirement."
-    echo "This may impact the performance of the lab."
-    read -p "Do you want to continue? [y/n] " -n 1 -r
-    echo
-    if [[ ! "${REPLY}" =~ ^[Yy]$ ]]; then
-      echo "Exiting..."
-      exit
-    fi
-  fi
-
-  if [[ ! -d "${BHB_TOOLS_FOLDER}" ]]; then
-    mkdir "${BHB_TOOLS_FOLDER}"
-  else
-    rm -rf "${BHB_TOOLS_FOLDER:?}/"*
-  fi
-
-  local nr_config
-  nr_config="/etc/needrestart/needrestart.conf"
-  if [[ -f "${nr_config}" ]]; then
-    if grep -q "#\$nrconf{restart}" "${nr_config}"; then
-      sed -i "s/#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/g" "${nr_config}"
-    fi
-  fi
-
-  if ! grep kali /etc/passwd | grep -q /bin/bash; then
-    usermod --shell /bin/bash kali
-  fi
-}
-
-install_docker(){
-  local docker_apt_src
-  local docker_keyring
-
-  docker_apt_src="/etc/apt/sources.list.d/docker-ce.list"
-  docker_keyring="/etc/apt/trusted.gpg.d/docker-ce-archive-keyring.gpg"
-
-  if ! docker compose version &> /dev/null; then 
-    if [[ ! -f "${docker_apt_src}" ]]; then
-      printf '%s\n' "deb https://download.docker.com/linux/debian bullseye stable" | tee "${docker_apt_src}"
-    fi
-    
-    if [[ ! -f "${docker_keyring}" ]]; then
-      curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "${docker_keyring}"
-    fi
-    apt update -y 
-    apt install docker-ce docker-ce-cli containerd.io -y
-    systemctl enable docker --now
-    usermod -aG docker "${SUDO_USER}"
-  fi
-}
-
-deploy_containers(){
-  make deploy
-}
-
-install_tools(){
-  install_whatweb
-  install_rustscan
-  install_nuclei
-  install_linux_exploit_suggester_2
-  install_gitjacker
-  install_linenum
-  install_dirsearch
-  install_sysutilities
-  install_unixprivesccheck
-}
-
-install_whatweb(){
-  apt install whatweb -y
-}
-
-install_rustscan(){
-  docker pull --quiet rustscan/rustscan:2.1.1
-  if ! grep -q rustscan "${USER_HOME_BASE}/.bashrc" ; then
-    echo "alias rustscan='docker run --network=host -it --rm --name rustscan rustscan/rustscan:2.1.1'" >> "${USER_HOME_BASE}/.bashrc"
-  fi
-} 
-
-install_nuclei(){
-  apt install nuclei -y 
-}
-
-install_linux_exploit_suggester_2(){
-  git clone https://github.com/jondonas/linux-exploit-suggester-2.git "${BHB_TOOLS_FOLDER}/linux-exploit-suggester-2"
-}
-
-install_gitjacker(){
-  curl "https://raw.githubusercontent.com/liamg/gitjacker/master/scripts/install.sh" | bash
-  if [[ -f "/usr/local/bin/gitjacker" ]]; then
-    mv "/usr/local/bin/gitjacker" "${BHB_TOOLS_FOLDER}/gitjacker"
-    rmdir bin
-  fi 
-
-  if ! grep -q gitjacker "${USER_HOME_BASE}/.bashrc"; then
-    echo "alias gitjacker=\"${BHB_TOOLS_FOLDER}/gitjacker\"" >> "${USER_HOME_BASE}/.bashrc"
-  fi
-}
-
-install_linenum(){
-  wget -q https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O "${BHB_TOOLS_FOLDER}/LinEnum.sh"
-  chmod u+x "${BHB_TOOLS_FOLDER}/LinEnum.sh"
-}
-
-install_dirsearch(){
-  apt install dirsearch -y
-}
-
-install_sysutilities(){
-  apt install jq -y
-  apt install ncat -y
-  apt install sshpass -y
-  pip3 install pwncat-cs
-}
-
-install_unixprivesccheck(){
-  if [[ ! -f "/usr/bin/unix-privesc-check" ]]; then
-    apt install unix-privesc-check -y
-  fi
-  
-  cp "/usr/bin/unix-privesc-check" "${BHB_TOOLS_FOLDER}/unix-privesc-check"
-}
-
-echo "This process may take a while, stay tuned..."
-
-echo "Checking prerequisities..."
-check_prerequisites 
-
-sleep 2
-
-echo "[1/3] Installing Docker..."
-install_docker &>> "${BHB_INSTALL_LOG}"
-
-echo "[2/3] Deploying containers..."
-deploy_containers
-
-echo "[3/3] Installing third party tools..."
-install_tools &>> "${BHB_INSTALL_LOG}"
-
-chown -R "${SUDO_USER}:${SUDO_USER}" "${BHB_TOOLS_FOLDER}"
-
-echo "Lab build completed." | tee -a "${BHB_INSTALL_LOG}"
-
-echo "NOTE: Log out and log back in for shell changes to take effect"
+docker compose config
+docker compose ps
+docker network ls
+docker volume ls
 ```
 
-#### Lab Provisioning Script
-
-```bash
-#!/bin/bash
-
-p_web_01() {
-  if ! sudo docker exec -it p-web-01 bash -c "iptables -I INPUT -s 10.1.0.0/24 -m comment --comment \"Block Network\" -j DROP"; then
-    return 1
-  fi
-  return 0
-}
-
-p_web_02() {
-  local result
-  # Provision WordPress (p-web-02)
-  result=$(curl -s -X POST \
-          -d 'weblog_title=ACME Impact Alliance&user_name=jtorres&first_name=Jane&last_name=Torres&admin_password=asfim2ne7asd7&admin_password2=asfim2ne7asd7&admin_email=jtorres@acme-impact-alliance.com&blog_public=0&Submit=Install WordPress&language=""' \
-          "http://172.16.10.12/wp-admin/install.php?step=2")
-  if ! echo "${result}" | grep -q -e "WordPress has been installed. Thank you" -e "already installed"; then
-    echo "Error provisioning WordPress (p-web-02)"
-    return 1
-  fi
-  
-  return 0
-}
-
-check_post_actions(){
-  p_web_01 || return 1
-  p_web_02 || return 1
-    
-  return 0
-}
-```
+Review the rendered Compose configuration for unintended exposed ports, host mounts, secrets, and egress. Treat output as sensitive if it contains interpolated credentials. Use the current project instructions to start or remove containers; avoid copying root scripts or global Docker cleanup commands from an old guide.
 
 ---
 
-### Lab Management
+## Third-party setup scripts
 
-#### Lab Run Script
+An old Buscador install command embedded a username and password in the URL. That method is removed: URL credentials can be recorded in shell history, logs, and process listings. Do not use that old command or run a replacement installer unless the upstream project currently publishes it and its source, integrity, and effects have been reviewed.
 
-```bash
-#!/bin/bash
-
-set -o pipefail
-source provision.sh
-
-CHOICE="${1}"
-LOG="/var/log/lab-install.log"
-
-if [[ -n "${DEBUG}" ]] && [[ "${DEBUG}" = "true" ]]; then
-  LOG=/dev/stderr
-fi
-
-if [[ "$(id -u)" -ne 0 ]]; then
-    echo "Error: Please run using sudo permissions."
-    exit 1
-fi
-
-if ! docker info > /dev/null 2>&1; then
-    echo "Docker service appears to not be running. Use the service command to start it manually."
-    echo "$ sudo service docker start"
-    exit 1
-fi
-
-if ! docker compose version &> /dev/null; then
-    echo "Docker Compose is not installed. Did you follow the Docker Compose setup instructions?"
-    echo "https://github.com/dolevf/Black-Hat-Bash/tree/master/lab#install-docker"
-    exit 1
-fi
-
-if [[ ! -f "${LOG}" ]]; then
-    touch "${LOG}"
-    chown "${SUDO_USER}:${SUDO_USER}" "${LOG}"
-fi
-
-wait() {
-    local pid
-    local counter
-    local spinner
-
-    pid=$1    
-    counter=1
-    spinner="/-\|"
-    
-    echo -n "$2"
-    echo -n " "
-    while ps -p "${pid}" &> /dev/null; do 
-        printf "\b${spinner:counter++%${#spinner}:1}"
-        sleep 0.5
-    done
-    echo
-}
-
-images_built(){
-    local total_expected_containers
-    local total_built_images
-
-    total_expected_containers="$(grep -c container_name docker-compose.yml)"
-    total_built_images="$(docker images | grep -c lab-)"
-    
-    if [[ "${total_built_images}" -eq "${total_expected_containers}" ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-status(){
-    local total_expected_containers
-    local actual_running_containers
-
-    total_expected_containers="$(grep -c container_name docker-compose.yml)"
-    actual_running_containers="$(docker ps | grep -c lab-)"
-
-    if [[ "${actual_running_containers}" -ne "${total_expected_containers}" ]]; then
-        return 1
-    else
-        return 0
-    fi
-}
-
-deploy(){
-    echo 
-    echo "==== Deployment Started ===="
-
-    if ! images_built; then
-        echo "This process can take a few minutes to complete."
-        echo "Start Time: $(date "+%T")" >> $LOG
-        
-        if [[ -z "${DEBUG}" ]]; then
-            echo "You may run \"tail -f $LOG\" from another terminal session to see the progress of the deployment."
-        fi
-        
-        docker build -f machines/Dockerfile-base -t lab_base . &>> $LOG
-        docker compose build --parallel &>> $LOG &
-        wait "$!" "Deploying the lab..."
-        docker compose up --detach &>> $LOG
-        
-        if status; then
-            echo "OK: all containers appear to be running. Performing a couple of post provisioning steps..."  | tee -a $LOG
-            sleep 25
-            if check_post_actions &>> $LOG; then
-                echo "OK: Lab is up and provisioned." | tee -a $LOG
-            else
-                echo "Error: something went wrong during provisioning." | tee -a $LOG
-            fi
-        else
-            echo "Error: not all containers are running. check the log file: $LOG"
-        fi
-    else
-        docker compose up --detach &>> $LOG
-        sleep 5
-        if status; then
-            echo "Lab is up."
-        else
-            echo "Lab is down. Try rebuilding the lab again."
-        fi
-    fi
-    echo "End Time: $(date "+%T")" >> $LOG
-}
-
-teardown(){
-    echo
-    echo "==== Shutdown Started ====" | tee -a $LOG
-    docker compose down --volumes
-    echo "OK: lab has shut down." 
-}
-
-clean(){
-    echo
-    echo "==== Cleanup Started ====" 
-    docker compose down --volumes --rmi all &> /dev/null &
-    wait "$!" "Shutting down the lab..."
-    
-    docker system prune -a --volumes -f &> /dev/null &
-    wait "$!" "Cleaning up..."
-    
-    [[ -f "${LOG}" ]] && > "${LOG}"
-    echo "OK: lab environment has been destroyed."
-}
-
-rebuild(){
-    clean
-    deploy
-}
-
-case "${CHOICE}" in
-    deploy)
-        deploy
-    ;;
-    teardown)
-        teardown
-    ;;
-    clean)
-        clean
-    ;;
-    rebuild)
-        rebuild
-    ;;
-    status)
-        if status; then
-            echo "Lab is up."
-        else
-            echo "Lab is down."
-            exit 1
-        fi
-    ;;
-    *)
-        echo "Usage: ./$(basename "$0") deploy | teardown | rebuild | clean | status"
-    ;;
-esac
-```
-
-#### Lab Commands
-
-**Deploy the lab:**
-```bash
-sudo ./run.sh deploy
-```
-
-**Check lab status:**
-```bash
-sudo ./run.sh status
-```
-
-**Teardown the lab:**
-```bash
-sudo ./run.sh teardown
-```
-
-**Clean and remove all lab components:**
-```bash
-sudo ./run.sh clean
-```
-
-**Rebuild the lab from scratch:**
-```bash
-sudo ./run.sh rebuild
-```
-
-#### Installed Security Tools
-
-The installation script includes the following tools:
-
-- **WhatWeb** - Web scanner
-- **Rustscan** - Fast port scanner (Docker-based)
-- **Nuclei** - Vulnerability scanner
-- **Linux Exploit Suggester 2** - Privilege escalation tool
-- **Gitjacker** - Git repository exposure tool
-- **LinEnum** - Linux enumeration script
-- **Dirsearch** - Web path scanner
-- **jq** - JSON processor
-- **ncat** - Network utility
-- **sshpass** - SSH password tool
-- **pwncat-cs** - Post-exploitation framework
-- **unix-privesc-check** - Unix privilege escalation checker
+[Pimp My Kali](https://github.com/Dewalt-arch/pimpmykali) is an independent, privileged maintenance script. Its repository documents operations that can change system settings, including boot mitigations and root-login behavior. It is not required for a fresh Kali VM and is not a universal hardening tool. Review the exact menu choice and code, take a snapshot, and confirm the effect is acceptable before running any function with elevated privileges. Do not use automated mode on a system you need to preserve.
 
 ---
 
-## VM Setup and Configuration
+## Requirements and management
 
-### OSINT VM Setup
+There is no reliable universal RAM, disk, or CPU minimum for “a cybersecurity VM.” Check current requirements from the selected distribution and hypervisor, then leave capacity for the host operating system, snapshots, memory analysis, and packet capture.
 
-#### Buscador OSINT VM Automated Installation
+- Use a dedicated lab network or virtual switch and document its allowed paths.
+- Keep snapshots and backups separate; snapshots can be lost with the host disk.
+- Update guest additions and hypervisor software from their official sources.
+- Avoid bridged networking for vulnerable machines. Use port forwarding only when needed and bind to a restricted host interface where possible.
+- For Docker labs, remember the Docker daemon and host remain trusted boundaries. Root-equivalent Docker access can affect the host.
+- Shut down using the project's per-lab procedure. Inspect volume removal before deleting data.
+- For evidence, follow the case's chain-of-custody and write-protection plan; do not snapshot or modify the original as a substitute.
 
-For setting up the Buscador OSINT VM with all tools and configurations:
+## Authorization and safety
 
-```bash
-# Download the installation script with authentication
-wget https://uvm:317@inteltechniques.com/osintvm/install.sh
+Use security tools only against systems you own or have explicit written authorization to test. A prebuilt toolkit does not authorize targets. Keep lab traffic inside the defined environment, do not scan public systems from Tor or a shared VPN exit, and do not upload client or forensic data to third-party services without approval.
 
-# Make the script executable
-chmod +x install.sh
+## Further reading
 
-# Run the installation script
-./install.sh
-```
+- [Qubes OS documentation](https://www.qubes-os.org/doc/)
+- [Whonix overview and security documentation](https://www.whonix.org/wiki/Whonix)
+- [Tails downloads and documentation](https://tails.net/)
+- [Trace Labs OSINT VM](https://docs.tracelabs.org/vm/vm-introduction)
+- [Kali downloads and verification](https://www.kali.org/get-kali/)
+- [Security Onion installation](https://docs.securityonion.net/en/2.4/)
+- [Docker bridge networking](https://docs.docker.com/engine/network/drivers/bridge/)
+- [Docker container security](https://docs.docker.com/engine/security/)
 
-**Note:** This script should be run **inside** the VM that you have already set up for OSINT work. It will configure and install all necessary OSINT tools and resources.
+## Related files
 
----
-
-### Pimp My Kali
-
-Pimp My Kali is a maintenance and hardening script for Kali Linux VMs that fixes common issues with newly imported VMs.
-
-#### Installation and Usage
-
-```bash
-# Remove any existing pimpmykali folder
-rm -rf pimpmykali/
-
-# Clone the pimpmykali repository
-git clone https://github.com/Dewalt-arch/pimpmykali
-
-# Enter the directory
-cd pimpmykali
-
-# Execute the script with root privileges
-# For a new Kali VM, run menu option 'N'
-sudo ./pimpmykali.sh
-```
-
-#### What Pimp My Kali Does
-
-- Fixes common issues with Kali VMs
-- Updates and upgrades system packages
-- Fixes broken dependencies
-- Configures proper DNS settings
-- Sets up correct repository sources
-- Resolves networking issues
-- Improves overall system stability
-
-#### Usage Notes
-
-- **Must be run with root/sudo privileges**
-- For new Kali VMs, select menu option **'N'** when prompted
-- Recommended for all fresh Kali Linux installations
-- Run after importing a new Kali VM or after system updates
+- [Documentation index](README.md)
+- [Tor Browser guide](TOR.md)
+- [VPN guide](VPN.md)
+- [Whonix and Kicksecure setup notes](../OPSEC/whonix-kicksecure-usb-guide.md)
+- [Docker operations and diagnostics](../ContainerSecurity/docker-cli-operations-reference.md)
+- [Homelab virtualization](../Homelab/README.md)
 
 ---
 
-## System Requirements
-
-### Black Hat Bash Lab Requirements
-
-- **Operating System**: Kali Linux (recommended)
-- **RAM**: Minimum 4 GB (more recommended for multiple containers)
-- **Disk Space**: Minimum 40 GB available
-- **Network**: Internet connectivity required
-- **Software**: Docker and Docker Compose
-
-### General VM Requirements
-
-Most cybersecurity VMs have similar requirements:
-
-- **Hypervisor**: VirtualBox, VMware Workstation/Player, or KVM
-- **RAM**: 4-8 GB minimum (more for analysis VMs)
-- **Disk Space**: 40-100 GB depending on the distribution
-- **CPU**: Multi-core processor recommended
-- **Network**: Bridged or NAT networking capability
-
----
-
-## Best Practices
-
-### Security Lab Setup
-
-1. **Isolate Lab Environments**: Run vulnerable machines in isolated networks
-2. **Snapshot Regularly**: Take VM snapshots before major changes
-3. **Update Tools**: Keep security tools and VMs updated
-4. **Document Findings**: Maintain detailed notes of discoveries and techniques
-5. **Legal Compliance**: Only test on systems you own or have permission to test
-
-### VM Management
-
-1. **Resource Allocation**: Don't over-allocate RAM/CPU to VMs
-2. **Network Segmentation**: Use host-only or isolated networks for labs
-3. **Backup Important Work**: Regular backups of custom configurations
-4. **Clean Shutdown**: Always shut down VMs properly to prevent corruption
-5. **Monitor Performance**: Keep an eye on host system resources
-
----
-
-## Additional Resources
-
-- **Black Hat Bash Lab**: https://github.com/dolevf/Black-Hat-Bash
-- **Kali Linux Documentation**: https://www.kali.org/docs/
-- **Docker Documentation**: https://docs.docker.com/
-- **OSINT Framework**: https://osintframework.com/
-- **Hack The Box**: https://www.hackthebox.com/
-- **TryHackMe**: https://tryhackme.com/
-
----
-
-## Security and Ethical Considerations ⚠️
-
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
-
-* **Testing:** Get **written permission** before testing any network or system. Only test systems you own or have explicit authorization to test.
-* **Lab Isolation:** Run vulnerable target VMs (Metasploitable, DVWA) in isolated networks with no route to production or the internet.
-* **Legal Compliance:** Strictly comply with all local laws and regulations.
-
-**Legal Use Cases:**
-* Penetration testing with client authorization.
-* Isolated lab environments with purpose-built vulnerable VMs.
-* Security research and training in controlled environments.
-
----
-
-**Unauthorized access to computer systems is illegal.** Always obtain proper authorization before conducting security testing on any systems you do not own.
-
-## Related Files
-- [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [TOR.md](TOR.md) - Tor Browser guide: used with Tails/Whonix OSINT VMs for anonymized investigations
-- [VPN.md](VPN.md) - Mullvad VPN guide: pairs with OSINT VMs for layered anonymity
-- [bjorn_pi.md](bjorn_pi.md) - Bjorn Pi: requires isolated lab VMs (Metasploitable2/3) for authorized testing
-- [../Homelab/](../Homelab/) - Proxmox/TrueNAS homelab setup for hosting these VMs in a proper lab environment
+_Maintained by: Pacific Northwest Computers (PNWC)_

@@ -540,6 +540,15 @@ Original conceptual diagram separating Tor Browser or explicitly configured clie
 |---|---|
 | [Tor circuit and relay visibility](./diagrams/tor-circuit-visibility.svg) | [Tor Browser and Tor Network Guide](../Documentation/TOR.md) |
 
+## Virtual Machine And Lab Boundary Visuals
+
+Original conceptual diagrams illustrating common VM network exposure and the Black Hat Bash container network roles. Actual reachability depends on the hypervisor, Docker Compose configuration, daemon, host routes, firewall, and published ports.
+
+| Diagram | Embedded guide |
+|---|---|
+| [VM network isolation modes](./diagrams/vm-network-isolation-modes.svg) | [VM and lab environments](../Documentation/virtualmachines.md) |
+| [Black Hat Bash lab boundaries](./diagrams/black-hat-bash-lab-boundaries.svg) | [VM and lab environments](../Documentation/virtualmachines.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.

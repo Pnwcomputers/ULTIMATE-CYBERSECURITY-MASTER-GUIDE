@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Black Hat Bash training lab network boundaries</title>
+<desc id="desc">A conceptual Docker lab diagram shows a host and Docker daemon, a public named bridge with outbound access, a jump host and web container connected to both public and internal corporate bridges, and internal services on the corporate network. The diagram highlights that the host can access bridges, the dual-homed nodes connect network zones, and published ports can expose containers. The arrangement is not a verified deployment.</desc>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#385e7a"/></marker><style>.bg{fill:#f5f8fc}.host{fill:#edf3f8;stroke:#315b79;stroke-width:3;rx:18}.pub{fill:#fff0e6;stroke:#c77638;stroke-width:3;rx:20}.corp{fill:#e9f4f1;stroke:#438474;stroke-width:3;rx:20}.node{fill:#fff;stroke:#355f7c;stroke-width:2.5;rx:14}.h{font:700 22px system-ui,sans-serif;fill:#1b3850}.t{font:16px system-ui,sans-serif;fill:#2d4355}.s{font:14px system-ui,sans-serif;fill:#4b6274}.line{stroke:#385e7a;stroke-width:3;fill:none;marker-end:url(#arr)}.risk{fill:#fff5da;stroke:#c89431;stroke-width:2;rx:14}</style></defs>
+<rect class="bg" width="1200" height="560" rx="22"/>
+<text x="600" y="42" text-anchor="middle" class="h" font-size="29">Example container lab: check every path</text>
+<rect class="host" x="35" y="82" width="1130" height="388"/>
+<text x="600" y="115" text-anchor="middle" class="h">Dedicated disposable host / VM · Docker daemon remains a trusted boundary</text>
+<rect class="pub" x="75" y="150" width="1050" height="122"/>
+<text x="600" y="180" text-anchor="middle" class="h">User-defined “public” bridge (typically egress via host; name does not publish an internet port)</text>
+<rect class="node" x="125" y="199" width="205" height="54"/><text x="227" y="233" text-anchor="middle" class="t">Jump host (dual-homed)</text>
+<rect class="node" x="405" y="199" width="205" height="54"/><text x="507" y="233" text-anchor="middle" class="t">Web container (dual-homed)</text>
+<rect class="node" x="855" y="199" width="205" height="54"/><text x="957" y="233" text-anchor="middle" class="t">Other public services</text>
+<rect class="corp" x="75" y="302" width="1050" height="122"/>
+<text x="600" y="334" text-anchor="middle" class="h">“corporate” bridge marked internal</text>
+<rect class="node" x="125" y="350" width="205" height="54"/><text x="227" y="384" text-anchor="middle" class="t">Jump host (dual-homed)</text>
+<rect class="node" x="405" y="350" width="205" height="54"/><text x="507" y="384" text-anchor="middle" class="t">Web container (dual-homed)</text>
+<rect class="node" x="730" y="350" width="145" height="54"/><text x="802" y="384" text-anchor="middle" class="t">Database</text>
+<rect class="node" x="930" y="350" width="145" height="54"/><text x="1002" y="384" text-anchor="middle" class="t">Redis</text>
+<path class="line" d="M227 253V340"/><path class="line" d="M507 253V340"/>
+<text x="600" y="452" text-anchor="middle" class="s">Host access, published ports, egress, volumes, and privileged mode depend on Compose + daemon + host configuration.</text>
+<rect class="risk" x="150" y="488" width="900" height="52"/>
+<text x="600" y="521" text-anchor="middle" class="t">Inspect routes and exposure; “internal” does not make the host unreachable.</text>
+</svg>

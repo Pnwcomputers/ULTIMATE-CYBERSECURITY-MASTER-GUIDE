@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+<title id="title">Virtual machine network modes and reachability</title>
+<desc id="desc">Four network mode cards compare host-only, NAT, bridged, and isolated virtual switches. Host-only usually connects guests and host, NAT usually allows outbound connections through the host, bridged joins the physical LAN, and an isolated switch limits guest connectivity but may still be reachable from the hypervisor host. Actual behavior depends on the hypervisor and host routing.</desc>
+<defs><style>.bg{fill:#f5f8fc}.card{fill:#fff;stroke:#2b5677;stroke-width:3;rx:18}.h{font:700 24px system-ui,sans-serif;fill:#193750}.t{font:17px system-ui,sans-serif;fill:#2b4254}.s{font:15px system-ui,sans-serif;fill:#40596d}.note{fill:#e7eff6;stroke:#a2b6c7;stroke-width:2;rx:14}.arr{stroke:#4a7694;stroke-width:3;fill:none;stroke-dasharray:8 6}</style></defs>
+<rect width="1200" height="500" rx="22" class="bg"/>
+<text x="600" y="46" text-anchor="middle" class="h" font-size="30">Virtual network choice changes exposure</text>
+<rect x="35" y="92" width="270" height="270" class="card"/>
+<text x="170" y="132" text-anchor="middle" class="h">Host-only</text>
+<rect x="70" y="160" width="200" height="62" class="note"/>
+<text x="170" y="198" text-anchor="middle" class="t">Host ↔ guest(s)</text>
+<text x="170" y="258" text-anchor="middle" class="s">Usually no external route</text>
+<text x="170" y="289" text-anchor="middle" class="s">Host can still reach guests</text>
+<text x="170" y="326" text-anchor="middle" class="s">Check host routing</text>
+<rect x="335" y="92" width="270" height="270" class="card"/>
+<text x="470" y="132" text-anchor="middle" class="h">NAT</text>
+<rect x="370" y="160" width="200" height="62" class="note"/>
+<text x="470" y="198" text-anchor="middle" class="t">Guest → host → Internet</text>
+<text x="470" y="258" text-anchor="middle" class="s">Outbound usually allowed</text>
+<text x="470" y="289" text-anchor="middle" class="s">Forwarding changes ingress</text>
+<text x="470" y="326" text-anchor="middle" class="s">Inspect firewall rules</text>
+<rect x="635" y="92" width="270" height="270" class="card"/>
+<text x="770" y="132" text-anchor="middle" class="h">Bridged</text>
+<rect x="670" y="160" width="200" height="62" class="note"/>
+<text x="770" y="198" text-anchor="middle" class="t">Guest ↔ physical LAN</text>
+<text x="770" y="258" text-anchor="middle" class="s">Guest joins the LAN</text>
+<text x="770" y="289" text-anchor="middle" class="s">Peers may reach vulnerable</text>
+<text x="770" y="315" text-anchor="middle" class="s">guest services</text>
+<rect x="935" y="92" width="230" height="270" class="card"/>
+<text x="1050" y="132" text-anchor="middle" class="h">Internal switch</text>
+<rect x="960" y="160" width="180" height="62" class="note"/>
+<text x="1050" y="198" text-anchor="middle" class="t">Selected guests</text>
+<text x="1050" y="258" text-anchor="middle" class="s">No external route intended</text>
+<text x="1050" y="289" text-anchor="middle" class="s">Host may still reach guests</text>
+<text x="1050" y="326" text-anchor="middle" class="s">Verify actual switch</text>
+<rect x="90" y="402" width="1020" height="64" class="note"/>
+<text x="600" y="441" text-anchor="middle" class="t">Names are conceptual. Hypervisor, host routes, firewall, and port forwarding determine real reachability.</text>
+</svg>
