@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Data contract validation and schema evolution</title>
+  <desc id="desc">Two related but separate checks. During ingestion, parse and validate each record, quarantine rejects with protected context, measure accepted data, and release or stop the batch at configured thresholds. During schema changes, compare contract versions, test both old and new readers against old and new data, then approve a compatible rollout or coordinate a migration.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker>
+    <marker id="warn-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#a35b14"/></marker>
+    <style>
+      text { font-family: Arial, sans-serif; fill: #17364b; }
+      .title { font-size: 30px; font-weight: 700; }
+      .section { font-size: 21px; font-weight: 700; }
+      .head { font-size: 18px; font-weight: 700; }
+      .body { font-size: 16px; }
+      .note { font-size: 15px; }
+      .box { stroke: #8faebb; stroke-width: 2; }
+      .flow { fill: none; stroke: #286585; stroke-width: 3; marker-end: url(#arrow); }
+      .warn { fill: none; stroke: #a35b14; stroke-width: 3; marker-end: url(#warn-arrow); }
+    </style>
+  </defs>
+  <rect width="1400" height="760" fill="#f6f9fc"/>
+  <text class="title" x="40" y="48">A contract creates two different safety gates</text>
+  <text class="section" x="40" y="98">1 · Validate the data that arrived</text>
+
+  <rect class="box" x="40" y="125" width="250" height="150" rx="14" fill="#e4f0f5"/>
+  <text class="head" x="60" y="158">Parse input</text>
+  <text class="body" x="60" y="190">JSON and record shape</text>
+  <text class="body" x="60" y="218">Reject malformed or empty</text>
+  <text class="body" x="60" y="246">input explicitly</text>
+
+  <path class="flow" d="M292 200H327"/>
+  <rect class="box" x="335" y="125" width="275" height="150" rx="14" fill="#e4f0f5"/>
+  <text class="head" x="355" y="158">Validate each record</text>
+  <text class="body" x="355" y="190">Required, null, type, range</text>
+  <text class="body" x="355" y="218">Key, duplicate and rules</text>
+  <text class="body" x="355" y="246">Keep every failure reason</text>
+
+  <path class="flow" d="M612 200H647"/>
+  <rect class="box" x="655" y="125" width="245" height="150" rx="14" fill="#e4f0f5"/>
+  <text class="head" x="675" y="158">Measure batch</text>
+  <text class="body" x="675" y="190">Reject and duplicate rates</text>
+  <text class="body" x="675" y="218">Null rates and freshness</text>
+  <text class="body" x="675" y="246">Mark unknown as unknown</text>
+
+  <path class="flow" d="M902 200H937"/>
+  <rect class="box" x="945" y="125" width="200" height="150" rx="14" fill="#e8f2e7"/>
+  <text class="head" x="965" y="158">Within limits?</text>
+  <text class="body" x="965" y="195">Release only when</text>
+  <text class="body" x="965" y="223">the declared gate</text>
+  <text class="body" x="965" y="251">passes</text>
+
+  <path class="warn" d="M475 278V330H307"/>
+  <rect class="box" x="40" y="340" width="470" height="112" rx="14" fill="#fff1d6"/>
+  <text class="head" x="60" y="373">Quarantine rejects carefully</text>
+  <text class="body" x="60" y="404">Keep source, line, version and reasons; restrict access</text>
+  <text class="body" x="60" y="432">Review, repair or expire under an explicit retention plan</text>
+
+  <path class="warn" d="M1045 278V330H842"/>
+  <rect class="box" x="540" y="340" width="605" height="112" rx="14" fill="#fff1d6"/>
+  <text class="head" x="560" y="373">Threshold breach or no valid denominator</text>
+  <text class="body" x="560" y="404">Stop or hold the batch and alert the owner; do not report</text>
+  <text class="body" x="560" y="432">an empty sample as a healthy null rate</text>
+
+  <line x1="40" y1="487" x2="1145" y2="487" stroke="#c7d5dd" stroke-width="2"/>
+  <text class="section" x="40" y="530">2 · Check a proposed schema change</text>
+
+  <rect class="box" x="40" y="557" width="260" height="125" rx="14" fill="#e4f0f5"/>
+  <text class="head" x="60" y="590">Compare versions</text>
+  <text class="body" x="60" y="622">Fields, meaning, constraints</text>
+  <text class="body" x="60" y="650">and compatibility policy</text>
+  <path class="flow" d="M302 620H347"/>
+
+  <rect class="box" x="355" y="557" width="370" height="125" rx="14" fill="#e4f0f5"/>
+  <text class="head" x="375" y="590">Test real readers and writers</text>
+  <text class="body" x="375" y="622">Old reader with new data; new reader</text>
+  <text class="body" x="375" y="650">with old data, for the chosen format</text>
+  <path class="flow" d="M727 620H772"/>
+
+  <rect class="box" x="780" y="557" width="365" height="125" rx="14" fill="#e8f2e7"/>
+  <text class="head" x="800" y="590">Roll out with owners</text>
+  <text class="body" x="800" y="622">Compatible path: staged deployment</text>
+  <text class="body" x="800" y="650">Breaking path: coordinate migration</text>
+
+  <text class="note" x="40" y="726">Conceptual guide: record quality checks do not prove producer identity, consumer safety, or business correctness on their own.</text>
+</svg>
