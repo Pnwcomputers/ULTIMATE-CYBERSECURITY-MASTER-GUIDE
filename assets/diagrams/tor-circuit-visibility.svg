@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Tor circuit and visibility by relay</title>
+<desc id="desc">An application configured for Tor sends traffic through an entry guard, middle relay, and exit relay to a website. The local network can see Tor use and timing. The guard knows the client's address but not the destination. The exit sees the destination but not the client's network address. HTTPS separately protects content between the application and website. Apps not configured for Tor may connect directly.</desc>
+<defs>
+<marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#315b7d"/></marker>
+<style>
+.bg{fill:#f5f8fc}.box{fill:#fff;stroke:#355d7b;stroke-width:3;rx:18}.head{font:700 23px system-ui,sans-serif;fill:#193750}.txt{font:17px system-ui,sans-serif;fill:#293f51}.small{font:15px system-ui,sans-serif;fill:#40596d}.line{stroke:#315b7d;stroke-width:4;fill:none;marker-end:url(#arr)}.https{stroke:#278074;stroke-width:7;stroke-dasharray:12 9;fill:none}.note{fill:#e8f0f7;stroke:#a3b7c8;stroke-width:2;rx:14}.warn{fill:#fff2df;stroke:#c4872d;stroke-width:2;rx:14}.red{font:700 16px system-ui,sans-serif;fill:#8c5215}
+</style></defs>
+<rect class="bg" width="1200" height="560" rx="24"/>
+<text x="600" y="47" text-anchor="middle" class="head" font-size="30">Tor limits what each relay can see</text>
+<rect class="box" x="35" y="115" width="185" height="142"/>
+<text class="head" x="127" y="154" text-anchor="middle">Configured app</text>
+<text class="txt" x="127" y="188" text-anchor="middle">Tor Browser</text>
+<text class="small" x="127" y="220" text-anchor="middle">or SOCKS client</text>
+<rect class="box" x="270" y="115" width="185" height="142"/>
+<text class="head" x="362" y="154" text-anchor="middle">Entry guard</text>
+<text class="txt" x="362" y="188" text-anchor="middle">Sees source IP</text>
+<text class="small" x="362" y="220" text-anchor="middle">Not final site</text>
+<rect class="box" x="515" y="115" width="185" height="142"/>
+<text class="head" x="607" y="154" text-anchor="middle">Middle relay</text>
+<text class="txt" x="607" y="188" text-anchor="middle">Forwards circuit</text>
+<text class="small" x="607" y="220" text-anchor="middle">Limited hop view</text>
+<rect class="box" x="760" y="115" width="185" height="142"/>
+<text class="head" x="852" y="154" text-anchor="middle">Exit relay</text>
+<text class="txt" x="852" y="188" text-anchor="middle">Sees destination</text>
+<text class="small" x="852" y="220" text-anchor="middle">Not source IP</text>
+<rect class="box" x="1000" y="115" width="165" height="142"/>
+<text class="head" x="1082" y="154" text-anchor="middle">Website</text>
+<text class="txt" x="1082" y="188" text-anchor="middle">Sees exit IP</text>
+<text class="small" x="1082" y="220" text-anchor="middle">Gets sent data</text>
+<path class="line" d="M220 185H260"/><path class="line" d="M455 185H505"/><path class="line" d="M700 185H750"/><path class="line" d="M945 185H990"/>
+<path class="https" d="M130 278C380 360 805 360 1080 278"/>
+<text x="605" y="337" text-anchor="middle" class="head" style="fill:#176a60">HTTPS separately protects app content to the website</text>
+<rect class="note" x="85" y="390" width="650" height="93"/>
+<text x="410" y="425" text-anchor="middle" class="txt">Local network / ISP sees a Tor connection and timing.</text>
+<text x="410" y="455" text-anchor="middle" class="small">A bridge may reduce simple identification, but cannot promise invisibility.</text>
+<rect class="warn" x="775" y="390" width="340" height="93"/>
+<text x="945" y="425" text-anchor="middle" class="red">Only configured apps use Tor</text>
+<text x="945" y="455" text-anchor="middle" class="small">Other device traffic may connect directly.</text>
+<text x="600" y="525" text-anchor="middle" class="small">Conceptual view for ordinary web destinations; onion services use a different rendezvous design.</text>
+</svg>
