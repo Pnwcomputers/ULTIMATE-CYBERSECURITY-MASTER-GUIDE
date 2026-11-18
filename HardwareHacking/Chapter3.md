@@ -33,7 +33,7 @@ A useful evaluation records the complete chain: the intended property, the obser
 ### Fault Injection Methods
 
 <p align="center">
-  <img src="../assets/ClockvsVoltage.jpg" alt="Figure 7: Fault Injection Comparison. (Top) Clock Glitching modifies a clock edge to violate internal setup time. (Bottom) Voltage Glitching briefly dips the supply voltage (crowbar fault) to cause propagation delays or memory corruption." width="600"/>
+  <img src="../assets/ClockvsVoltage.jpg" alt="Illustrative comparison of clock and supply-voltage fault injection; waveform shape and effects depend on the target and setup." width="600"/>
 </p>
 
 #### Clock Glitching
@@ -53,7 +53,7 @@ Supply-voltage fault injection perturbs a target rail. The transient that reache
 **Keep decoupling capacitors in place by default.** Capacitors can shape or attenuate transients, but removing or bypassing them changes the target and can cause instability or damage. Only make a board modification when the exact target documentation specifies it for the measurement path. For example, NewAE's [CW305 documentation](https://rtfm.newae.com/Targets/CW305%20Artix%20FPGA/) describes particular optional capacitors associated with its shunt measurement design; this is not a general instruction for other boards.
 
 <p align="center">
-  <img src="../assets/ElectromagneticFaultInjection.jpg" alt="Figure 8: EMFI Probe Setup. An specialized injection coil (the probe) is held less than 1mm above the surface of the target chip." width="600"/>
+  <img src="../assets/ElectromagneticFaultInjection.jpg" alt="Illustrative electromagnetic fault-injection probe near a circuit board; no distance or measured effect is implied." width="600"/>
 </p>
 
 #### Electromagnetic Fault Injection (EMFI)
@@ -61,7 +61,7 @@ Supply-voltage fault injection perturbs a target rail. The transient that reache
 EM fault injection applies a transient electromagnetic disturbance that can couple into a circuit without a direct electrical connection. The coupling path, affected region, repeatability, and resulting fault depend strongly on the target package, board, probe, and setup. Do not infer spatial precision or penetration through packaging from an illustrative image. Specialized equipment and controlled laboratory methods are typically required; prices and capabilities vary by current model.
 
 <p align="center">
-  <img src="../assets/LaserFaultInjection.jpg" alt="Figure 9: LFI Laboratory Setup. The target chip must be mechanically 'decapped' to expose the silicon die." width="600"/>
+  <img src="../assets/LaserFaultInjection.jpg" alt="Illustrative optical fault-injection laboratory concept; access requirements depend on package and device construction." width="600"/>
 </p>
 
 #### Laser Fault Injection (LFI)
@@ -74,63 +74,55 @@ Body-bias fault injection is a specialized research technique that perturbs subs
 
 ### Injection Point Identification
 
-Finding where and when to inject is often harder than the injection itself.
+Finding which operating conditions reveal a weakness is difficult, and observed effects may be intermittent. Treat the methods below as categories for authorized lab evaluation; do not assume a trigger aligns with a particular instruction.
 
 #### Temporal Targeting
 
 | Strategy | Method | When to Use |
 |----------|--------|------------|
 | **Fixed offset from trigger** | UART TX start bit, GPIO toggle, power-on reset | Deterministic code paths |
-| **Side-channel correlation** | Align fault offset with power/EM signature of target instruction | Variable-latency paths |
+| **Side-channel correlation** | Compare a separately captured power/EM trace with observed behavior | Requires an instrumented, authorized target and careful interpretation |
 | **Incremental sweep** | Automated sweep of offset in fine steps | Unknown target offset |
 | **Loop amplification** | Fault inside a repeated loop - each iteration is another attempt | Crypto operations |
 
-**Trigger sources:**
+**Possible synchronization references** include a documented GPIO marker, a protocol event, a reset event, or a measured power transition. These are timing references, not proof of internal instruction timing. Validate them against the exact device and record uncertainty.
 
-```
-Hardware trigger: GPIO from target (e.g., "auth check starting" LED)
-Power trigger: Sudden current change detected on shunt
-UART trigger: Specific byte sequence in target's output
-Time-after-reset: Fixed delay from VCC ramp (deterministic early boot)
-Logic analyzer: Decode serial comms; trigger on specific transaction
-```
+#### Spatial Effects (EMFI / Optical)
 
-#### Spatial Targeting (EMFI / LFI)
-
-- **Die photographs** from published datasheets or delayered samples
-- **Function mapping** - correlate die regions with observed fault effects
-- **Systematic XY raster scan** - grid sweep with fixed timing; map fault rate by position
+Physical coupling can vary across a package or board, but visible layout alone does not identify functional blocks or establish a fault location. Spatial mapping requires a specialist lab, defined authorization, suitable safety controls, and repeatable observations.
 
 ---
 
 ### Practical Injection Tips
 
-**Start with the easiest method first.** Voltage glitching requires minimal equipment; try it before investing in EMFI or laser setups.
+**Plan a bounded, repeatable evaluation** on an owned or explicitly authorized development target. Set operating limits, stop conditions, a finite test plan, and an independent way to verify the security property. Do not apply generic voltage, clock, optical, or EM settings to an unknown or production device.
 
-**Automate everything:** Manual parameter sweeps are untenable - write a Python script to iterate offset, width, and voltage parameters, reset the target between attempts, capture and classify the result.
+Automate capture and classification only within documented instrument and target limits. Log the target revision, environment, instrument configuration, timing reference, every trial, and any resets or anomalies.
 
 **Classify results carefully:**
 
 | Result | Meaning | Action |
 |--------|---------|--------|
-| **Normal (expected output)** | No fault or fault missed | Adjust offset/width |
-| **Crash / hang / no response** | Fault too strong or wrong location | Reduce width; adjust offset |
-| **Unexpected output / partial data** | Fault too early or too late | Fine-tune offset |
-| **Target behavior (e.g., auth bypass)** | Fault hit the right instruction | Record all parameters; repeat to confirm |
+| **Expected output** | No observed deviation in this trial | Record as a negative observation; it does not prove immunity |
+| **Reset / detected fault / safe shutdown** | Device reacted to the disturbance | Record detection and recovery behavior |
+| **Unexpected output or state** | Behavior differs from baseline | Preserve evidence and investigate with the system owner |
+| **Security property violated** | Independent verification confirms a scoped property failure | Stop, preserve evidence, and follow the assessment reporting process |
 
-**Build a fault map:** Plot fault type vs. (offset, width) as a 2D heatmap. Successful faults cluster - the "sweet spot" becomes visually clear.
+**Visualize trial outcomes:** A parameter heatmap can show where observed outcomes cluster, but it only summarizes recorded trials. It does not establish causality, repeatability, or exploitability; report trial counts and consistency alongside it.
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-# fault_results[offset_idx][width_idx] = 0 (normal), 1 (crash), 2 (success)
+# Illustrative only: fault_results is a rectangular array of documented trial classes.
+# Example labels: 0=expected output, 1=reset/detected, 2=unexpected output,
+# 3=independently verified scoped property failure.
 fault_map = np.array(fault_results)
 plt.imshow(fault_map, cmap='RdYlGn', aspect='auto')
 plt.xlabel('Glitch Width (ns)')
 plt.ylabel('Glitch Offset (cycles)')
-plt.title('Fault Injection Parameter Map')
-plt.colorbar(label='Result: 0=Normal, 1=Crash, 2=Success')
+plt.title('Observed Fault-Injection Outcomes (Illustrative)')
+plt.colorbar(label='Trial class (see labels above)')
 plt.show()
 ```
 
