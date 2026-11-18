@@ -105,6 +105,14 @@ Original conceptual flow of configured events through Windows Event Log to a col
 |---|---|
 | [Sysmon telemetry coverage flow](./diagrams/sysmon-telemetry-coverage-flow.svg) | [Windows Sysmon Deployment Guide](../IncidentResponse/Endpoint-Visibility/Windows/sysmon.md) |
 
+## Linux Auditd And Syslog Visuals
+
+Original conceptual flow from audit rules through local collection and configured forwarding; verify every hop and document losses.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Linux audit event flow](./diagrams/linux-audit-event-flow.svg) | [Linux Auditd & Syslog Hardening Guide](../IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md) |
+
 ## Log Aggregation Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
