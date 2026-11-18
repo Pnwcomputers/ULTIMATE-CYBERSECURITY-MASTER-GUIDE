@@ -6,7 +6,11 @@ _Last reviewed: 2026-11-01 (standards review; apply local legal/editorial policy
 
 ## Principle: protect fewer records, for a defensible period
 
-The [source-data lifecycle diagram](../../assets/journalist-source-data-lifecycle.svg) summarizes preventive minimization, preservation holds and approved end-of-retention disposal. The branches are **policy decisions**, not automatic device actions.
+The branches below are **policy decisions**, not automatic device actions.
+
+![Source-data plan, collection, protection, and retention review leading to either preservation or approved disposal](../../assets/journalist-source-data-lifecycle.svg)
+
+*Conceptual newsroom workflow. Apply the organization’s retention policy and consult qualified counsel about preservation holds and disposition authority.*
 
 Journalists and newsrooms should design source-data handling **before collection**. Keeping only necessary information for an appropriately documented period reduces harm from theft, compelled exposure, mistaken sharing and account compromise. Retention periods must reflect legitimate journalism, litigation, statutory, contractual, editorial and source-safety duties.
 
