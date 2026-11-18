@@ -47,7 +47,7 @@ P = V²/R         (power across a resistor)
 
 ### Logic Levels and Signaling
 
-Different logic families use different voltage levels. Probing or injecting at the wrong level damages hardware or produces no result.
+A logic-level mismatch can produce invalid captures; a voltage beyond an input's absolute-maximum rating can damage hardware. Check the target and instrument specifications before connecting or driving a signal.
 
 | Example I/O standard | Supply | VIH (minimum) | VIL (maximum) | Notes |
 |-------------|-----|-----------------|----------------|-------|
@@ -73,8 +73,8 @@ These are examples of named I/O standards, not universal voltage rules. Use the 
 A serial interface found on some embedded boards for logs or maintenance. Whether a usable console is exposed depends on the device design and security configuration.
 
 ```
-Signal lines: TX, RX, GND (sometimes VCC)
-Voltage: 3.3V most common; 5V on older hardware; 1.8V on newer SoCs
+Signal lines: TX, RX, and a shared ground reference; a header may also expose VCC
+Voltage: Common logic levels include 1.8V, 3.3V, and 5V; confirm the exact target before connecting
 Framing: Start bit | 8 data bits | [Parity] | Stop bit(s)
 Common baud rates: 9600, 38400, 57600, 115200, 230400, 921600
 ```
@@ -82,8 +82,9 @@ Common baud rates: 9600, 38400, 57600, 115200, 230400, 921600
 **Identification:**
 - Look for 3–4 pin headers (VCC, GND, TX, RX) - often unpopulated in production
 - Measure with oscilloscope or logic analyzer for periodic activity at boot
-- Use `baudrate.py` or manual baud rate detection against captured transitions
+- Estimate candidate baud rates from captured bit timing, then verify them against a valid frame
 - TX on the device = RX on your adapter (cross the connections)
+- Do not connect a header's VCC unless the documented setup requires it; avoid powering the target from two sources
 
 **Possible exposure:** Boot logs or a console may be available. Privilege, bootloader commands, and firmware access are device-specific; the presence of UART pins alone does not imply a shell.
 
@@ -103,7 +104,7 @@ Modes: CPOL/CPHA (0,0), (0,1), (1,0), (1,1) - set clock polarity and phase
 Speed: Up to tens of MHz; typically 1–25 MHz for flash
 ```
 
-**Flash chip targeting:**
+**Flash chip targeting:** Use only a supported flash part and adapter at the documented voltage. In-circuit reads may fail or disturb a powered board; isolate power and follow the board/programmer documentation.
 
 ```bash
 # Read SPI flash with flashrom (in-circuit or removed)
@@ -129,7 +130,7 @@ Two-wire synchronous bus. Common for configuration EEPROMs, sensors, real-time c
 
 ```
 Signal lines: SDA (data), SCL (clock) - both open-drain with pull-up resistors
-Addressing: 7-bit or 10-bit device address (7-bit = 128 possible addresses)
+Addressing: 7-bit or 10-bit device address; a 7-bit field has 128 encodings, including reserved values
 Speed: Standard (100 kHz), Fast (400 kHz), Fast-Plus (1 MHz), High-Speed (3.4 MHz)
 ```
 
@@ -154,7 +155,7 @@ Protocol: State machine driven by TMS; TAP (Test Access Port) controller
 
 **Identification techniques:**
 - `JTAGulator` hardware tool - brute-forces JTAG pinout across candidate pins
-- `UART-JTAG` combo: many boards expose both in the same header
+- Some boards route multiple debug signals to a shared or adjacent header; verify the pinout from target documentation before connecting
 - `OpenOCD` with a supported probe and matching interface, TAP, and target configuration; see the [OpenOCD configuration guide](https://openocd.org/doc/html/Debug-Adapter-Configuration.html)
 
 ```bash
@@ -178,9 +179,9 @@ Debug-lock enforcement and recovery behavior are device-specific. Do not assume 
 ARM's two-wire debug protocol (SWDCLK and SWDIO, plus a ground reference). It is distinct from JTAG; available CoreSight features and access depend on the exact Cortex-M device, board, and debug-security configuration. See [Arm's SWD documentation](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug).
 
 ```bash
-# OpenOCD with SWD
+# TEMPLATE ONLY: use an owned/authorized target and its verified adapter/target configuration.
 openocd -f interface/cmsis-dap.cfg -f target/nrf52.cfg
-# Same halt/dump commands as JTAG
+# Halt or read memory only where permitted and supported by the exact target.
 ```
 
 ---
