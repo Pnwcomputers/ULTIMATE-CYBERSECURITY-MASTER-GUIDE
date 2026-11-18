@@ -50,7 +50,7 @@ Match egress and isolation to the task, document the expected route, and validat
 
 | Scenario | Real objective | Right tool |
 |---|---|---|
-| Passive OSINT (looking, not touching) | Non-attribution; no correlation between you and the target | Dedicated VM + hardened browser; residential egress only when blocked |
+| Passive OSINT (looking, not touching) | Reduce correlation and use a permitted access path | Separate browser profile or VM; consider a proxy only when allowed and needed |
 | Separate research identities | Reduce accidental cookie and history crossover | Separate standard browser profiles and clearly scoped accounts; profiles do not make identities anonymous |
 | Active authorized testing (scan, auth'd) | **Attribution management + scope compliance**, not anonymity | Your own VPS exit, whitelisted by the client |
 | Viewing a hostile/sketchy site | Defeat the site operator identifying you | Tor Browser (or [Whonix](./whonix-kicksecure-usb-guide.md)) |
@@ -71,13 +71,9 @@ A provider's port-forwarding support and other features can change; check curren
 
 ### Passive OSINT
 
-- **One VM per investigation**, snapshotted and rolled back. Prevents
-  cookie/history/fingerprint bleed between targets and between a target and your
-  real life. This matters more than the exit IP.
+- **Separate profiles or disposable VMs** when the task requires distinct cookie and history stores. A snapshot can restore prior state, but it does not guarantee a different or non-unique browser fingerprint. This may reduce accidental crossover; it does not make an identity anonymous.
 - **Browser compartmentalization.** Use separate standard browser profiles or disposable VMs when the task requires separate cookie and history stores. A profile does not conceal identity or guarantee a distinct fingerprint. Mullvad Browser is one privacy-focused option developed with the Tor Project; it is designed to reduce tracking and fingerprinting and is intended for use with a VPN, but it does not make a user anonymous. See [Mullvad Browser](https://mullvad.net/en/browser) and the [Tor Project's fingerprinting guidance](https://support.torproject.org/tor-browser/features/fingerprinting-protections/).
-- **Residential/mobile egress** only when the target geofences or blocks datacenter
-  IPs. Use a **paid, contracted** provider — never scraped free lists. See
-  [Build #2](#build-2--paid-residential-proxy-contract).
+- **Residential/mobile egress** only when the source's terms allow it and the task requires it. Use a **paid, contracted** provider — never scraped free lists. See [Build #2](#build-2--paid-residential-proxy-contract).
 
 ### Active Engagements
 
@@ -104,8 +100,7 @@ A provider's port-forwarding support and other features can change; check curren
 1. Define the investigation's identity, account, and network boundary; use separate browser profiles or a disposable VM when useful. These controls reduce crossover but do not provide anonymity.
 2. A paid residential proxy contract for the few OSINT cases needing non-datacenter
    egress.
-3. Whonix (or Qubes) if OSINT work gets sensitive enough that one tool leak is a real
-   problem.
+3. Use Whonix when Gateway-based Tor routing is part of the requirement; use Qubes OS when compartmentalization between activities is the requirement. They solve different problems and neither removes the need to validate the chosen network route.
 4. Your own VPS exits for active engagements — never free proxies.
 
 ---
@@ -113,8 +108,7 @@ A provider's port-forwarding support and other features can change; check curren
 <a id="build-4--your-own-vps-exit-do-this-first"></a>
 ## Build #4 — Your Own VPS Exit (Do This First)
 
-Cleanest approach: a plain VPS + an SSH dynamic tunnel + proxychains-ng. No proxy
-software on the server at all.
+One option is a VPS you control, an SSH dynamic tunnel, and a local SOCKS client. This keeps proxy software off the server, while leaving the VPS, SSH configuration, host firewall, provider, and test scope in the trust boundary.
 
 ### Stand Up the Exit
 
@@ -213,11 +207,7 @@ If a documented workflow combines a VPN and a proxy, map which party observes th
 ## Legal / Ethical Note for Professional Work
 
 > [!CAUTION]
-> Strong anonymity shrinks **your own** forensic trail, which cuts both ways in
-> client work. For authorized engagements, keep **attributable, logged** egress on
-> the active side — it protects you when the client asks "was that you or a real
-> attacker?" Save the heavy anonymity stack for OSINT and recon where
-> non-attribution is the actual objective. See [LEGAL.md](../LEGAL.md).
+> Network egress affects both the client's view and your evidence trail. For authorized engagements, use **client-approved, attributable egress** and retain only logs permitted by the scope and applicable policy. Do not use residential proxy pools for active testing. For OSINT, choose a route that matches the source terms and threat model; extra layers do not establish non-attribution. See [LEGAL.md](../LEGAL.md).
 
 ---
 
