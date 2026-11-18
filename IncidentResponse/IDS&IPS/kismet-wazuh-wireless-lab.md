@@ -13,22 +13,9 @@ _Last reviewed: 2026-10-31 · Passive detection only · Python 3.10+ · Wazuh 4.
 
 Install a fixed-channel Kismet Wi-Fi sensor. A small **read-only** bridge converts Kismet REST alerts into newline-delimited JSON; a Wazuh agent forwards these to the manager, which applies custom severity and recurring-alert rules. Optional **offline** tools count deauth/disassociation frames from an existing PCAP and correlate the frame counts with Kismet alerts by claimed BSSID and time.
 
-~~~text
-Owned AP(s) + client(s) on known 802.11 channel
-        ↓ radio / passive monitor-mode adapter
-Linux sensor: Kismet WIDS (fixed channel, not wardrive overlay)
-        ↓ Kismet readonly alerts API
-kismet_alert_bridge.py → /var/log/kismet-wazuh/events.jsonl
-        ↓ Wazuh Agent (JSON localfile)
-Wazuh Manager (kismet_wids_rules.xml) → Wazuh Indexer
-                                            ↓
-                                    Wazuh Dashboard
+![Wireless lab architecture: Kismet passively monitors a fixed channel and sends read-only alerts through a bridge and Wazuh Agent to the Wazuh Manager and Dashboard. An optional offline path processes an existing PCAP and correlates it with Kismet events; it is not live and the two sources are not independent if captured by the same sensor.](../../assets/diagrams/kismet-wazuh-live-and-offline-flow.svg)
 
-Optional case review:
-Existing PCAP → pcap_burst_detector.py → pcap-events.jsonl
-Kismet JSONL + PCAP JSONL → correlate_offline.py → case-events.jsonl
-Optional files → Wazuh Agent → Dashboard
-~~~
+*Conceptual flow only. No packet injection or automatic response is shown; the optional PCAP and correlation path operates offline.*
 
 **Critical Proxmox caveat:** Wired Snort/Suricata on a virtual bridge cannot see raw 802.11 management frames. Use a compatible monitor-mode USB Wi-Fi adapter attached to a *dedicated sensor VM* (USB passthrough) or a separate Linux/Raspberry Pi sensor. Preserve another network interface for management/backhaul. Fixed-channel sensing catches more of a single AP's traffic, but will miss other channels without separate radios.
 
@@ -57,8 +44,7 @@ iw list
 kismet --version
 python3 --version
 systemctl status wazuh-agent --no-pager
-sudo apt update
-sudo apt install -y tshark
+# TShark is needed only for optional offline PCAP analysis; see section 6.
 ~~~
 
 For an **owned channel-6 AP** and a **dedicated** wlan1 monitor-capable adapter:
@@ -185,6 +171,8 @@ Rule **100309** applies Wazuh **frequency/timeframe/same_field** to recurring **
 ## 6. Optional PCAP burst counting (offline)
 
 Using a **saved authorized monitor-mode PCAP** on the correct channel (see [packet capture guide](../../Documentation/wifi-deauthentication-detection.md)):
+
+Install TShark from your distribution's trusted package source if it is not already present; it is not required for the live Kismet-to-Wazuh bridge.
 
 ~~~bash
 python3 'IncidentResponse/IDS&IPS/kismet-wazuh/pcap_burst_detector.py' \
