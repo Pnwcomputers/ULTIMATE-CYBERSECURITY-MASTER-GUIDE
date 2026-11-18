@@ -1,14 +1,18 @@
 # 🔄 Change Log - November 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1662
-- **Files Modified**: 2750
-- **New Files**: 1098
+- **Commits Analyzed**: 1671
+- **Files Modified**: 2756
+- **New Files**: 1100
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add Fail2Ban event flow diagram (`c1d69c0`)
+- docs: correct assessment phase order and add evidence gates (`930e5fd`)
+- docs: add assessment integration evidence diagram (`59df6af`)
+- docs: correct assessment phase order and add evidence gates (`ea7fdff`)
 - docs: clarify Linux audit rule loading and add event flow diagram (`e85e1e9`)
 - docs: add Linux audit event flow diagram (`5d855c5`)
 - docs: clarify OWASP WSTG release status and add diagram (`99c86a0`)
@@ -1389,6 +1393,9 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: index assessment integration diagram (`3438f48`)
+- docs: restore the missing README shields (`4e2a332`)
+- docs: restore repository README shields (`5f426a3`)
 - docs: index Linux audit event flow diagram (`fd0f53a`)
 - docs: clarify audit rule replacement and forwarding checks (`15b8e09`)
 - docs: index web assessment evidence diagram (`b9b84be`)
@@ -1571,6 +1578,8 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Index Fail2Ban event flow diagram (`2793098`)
+- Clarify Fail2Ban scope and backend behavior (`75ab300`)
 - Expand Cyberdeck build guidance and private implementation roadmap (`e7a8fba`)
 - audit: improve legacy script triage, link safety and lab review workflows (#193) (`c0fe77c`)
 - Restore DIY Hardware & Firmware Quick Reference section (`486f900`)
@@ -1687,6 +1696,12 @@
 <summary>Click to view full file list</summary>
 
 - `assets/README.md`
+- `assets/diagrams/fail2ban-log-to-action-flow.svg`
+- `IncidentResponse/IDS&IPS/fail2ban.md`
+- `assets/diagrams/assessment-integration-evidence-gates.svg`
+- `PlayBooks/assessment-service-integration-map.md`
+- `README.md`
+- `CHANGELOG.md`
 - `assets/diagrams/linux-audit-event-flow.svg`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `assets/diagrams/webapp-requirement-to-evidence-flow.svg`
@@ -1697,7 +1712,6 @@
 - `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `assets/diagrams/suricata-zeek-visibility-and-blocking.svg`
-- `CHANGELOG.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `assets/diagrams/windows-build-review-evidence.svg`
@@ -1847,7 +1861,6 @@
 - `assets/printerdotsbasic breakdown.jpg`
 - `DOCUMENTATION_INDEX.md`
 - `HardwareHacking/README.md`
-- `README.md`
 - `.github/workflows/documentation-discoverability.yml`
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
@@ -1939,7 +1952,6 @@
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
 - `Scripts/README.md`
-- `PlayBooks/assessment-service-integration-map.md`
 - `Documentation/device-firmware-list.md`
 - `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
@@ -2316,7 +2328,6 @@
 - `Data-Engineering/Phase3/pipeline_observability.md`
 - `Data-Engineering/Phase3/pipeline_testing_cicd.md`
 - `HardwareTesting/py/full_hw_suite.py`
-- `IncidentResponse/IDS&IPS/fail2ban.md`
 - `IncidentResponse/IDS&IPS/security-onion.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
