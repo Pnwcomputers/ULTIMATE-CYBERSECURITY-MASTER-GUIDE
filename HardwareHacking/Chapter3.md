@@ -128,6 +128,8 @@ plt.show()
 
 ---
 
+**References:** [ChipWhisperer's notes on glitch timing controls](https://chipwhisperer.readthedocs.io/en/sca101/cw_tips_tricks/advanced_usage/improving_glitch_precision.html) explain that timing controls depend on the glitch module clock. For a broader overview of fault methods and countermeasures, see the peer-reviewed [review of processor fault-injection countermeasures](https://www.mdpi.com/2078-2489/16/4/293).
+
 ## Related Files
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: voltage supply manipulation and oscilloscope setup required for fault injection
 - [Chapter4.md](Chapter4.md) - Power analysis: passive counterpart to active fault injection; complementary techniques
