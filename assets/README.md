@@ -90,6 +90,7 @@ Original conceptual topology for two band-split WiFi taps sending summarized dat
 
 | Image | Used in | Explanation |
 |---|---|---|
+| [Tradecraft scope-to-detection loop](./diagrams/tradecraft-scope-to-detection-loop.svg) | [Tradecraft index](../Tradecraft/README.md) | Conceptual flow from written authorization to controlled testing, observable telemetry, defensive validation, and reporting |
 | [AD attack paths](./ad_attack_paths.png) | [AD attacks and defenses](../Tradecraft/active-directory.md#kerberos-attacks) | Kerberos and AD risk-path illustration |
 | [AI agent architecture](./ai_agent_arch.png) | [AI section](../AI/README.md) | Conceptual file-system-first agent/tool boundaries |
 | [Hardware diagnostics](./hardware_diagnostics.png) | [Hardware Testing](../HardwareTesting/README.md) | Reference board-level diagnostic workflow |

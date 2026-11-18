@@ -19,15 +19,19 @@
 
 Operational security tradecraft for red team, blue team, and purple team practitioners. Each file is a deep-dive reference covering methodology, tooling, TTPs, detection logic, and defensive countermeasures.
 
----
+![Authorized tradecraft learning loop from written scope through controlled study and telemetry to defensive validation and reporting](../assets/diagrams/tradecraft-scope-to-detection-loop.svg)
+
+*Conceptual overview: every exercise begins with explicit scope and permission, uses controlled methods, and turns observable evidence into defensive improvements. Stop and reconfirm when the scope or conditions change.*
 
 ---
+
+_Last reviewed: 2026-11-18 (MITRE ATT&CK Enterprise taxonomy and U.S. computer-crime references checked; legal consequences vary by jurisdiction)_
 
 ## 🎯 Purpose
-The folder-level index for offensive tradecraft deep-dives - content too specialized/detailed to fit inline in the master guides, which instead link out to these 6 files (see e.g. [ultimate_cybersecurity_master_guide.md](../ultimate_cybersecurity_master_guide.md) Part XI and [ENHANCED_MASTER_GUIDE.md](../ENHANCED_MASTER_GUIDE.md) Part 6).
+The folder-level index for the eight specialized tradecraft guides that complement the master guides with deeper red-team, blue-team, and purple-team material.
 
 ## ⚙️ Function
-Lists all 6 Tradecraft files with descriptions, explains the dual-use (offense + defense) structure shared across every file in the folder, maps each file to its primary MITRE ATT&CK tactics, and cross-links to related folders (Checklists, HardwareHacking, Scripts, Documentation). Differs from those master guides by containing the actual deep technical content rather than a summary; differs from [Checklists/](../Checklists/), which provides quick-reference checklists rather than full methodology write-ups.
+Lists all eight Tradecraft guides, describes their topics, explains the shared dual-use structure, and links related folders. This index contains navigation and topic labels; use the linked guides for the technical content and [Checklists](../Checklists/) for quick-reference workflows.
 
 ## 🏆 Goal
 A reader can find the right tradecraft file for a given ATT&CK tactic or technique and understands upfront that every file pairs offensive technique with matching detection/defense guidance.
@@ -60,16 +64,20 @@ These references are structured for **dual-use** - each file covers both offensi
 
 ---
 
-## MITRE Att&Ck Coverage
+## Guide Topics
 
-| File | Primary ATT&CK Tactics |
+ATT&CK is a living knowledge base. Its tactics and technique relationships change over time; verify labels against the [current MITRE ATT&CK Enterprise tactics](https://attack.mitre.org/tactics/enterprise/) before using them in a report. The index below uses broad subject labels rather than fixed tactic IDs.
+
+| Guide | Main topic |
 |---|---|
-| C2 Frameworks | Command and Control (TA0011) |
-| LOLBins | Defense Evasion (TA0005), Execution (TA0002), Lateral Movement (TA0008) |
-| OSINT & Threat Intel | Reconnaissance (TA0043), Resource Development (TA0042) |
-| Network Detection | Exfiltration (TA0010), Command and Control (TA0011) |
-| Active Directory | Credential Access (TA0006), Privilege Escalation (TA0004), Lateral Movement (TA0008), Persistence (TA0003) |
-
+| [Pentoo Linux](./pentoo-linux-guide.md) | Authorized assessment platform setup and evidence handling |
+| [C2 Frameworks](./c2-frameworks.md) | Command-and-control architecture, operations, and detection |
+| [LOLBins / LOLBAS](./lolbins-lolbas.md) | Native-tool abuse patterns, monitoring, and hardening |
+| [OSINT & Threat Intelligence](./osint-threat-intel.md) | Public-source research, verification, and intelligence handling |
+| [Network Detection](./network-detection.md) | Traffic analysis, detection engineering, and forensics |
+| [Active Directory](./active-directory.md) | Directory security, identity abuse patterns, detection, and hardening |
+| [AV / EDR Evasion](./av-edr-evasion.md) | Defensive understanding of endpoint evasion behaviors and telemetry |
+| [Evasion Engineering Notes](./evasion.md) | Defensive analysis of evasion concepts and detection limitations |
 ---
 
 ## Related Sections
@@ -93,9 +101,7 @@ These references are structured for **dual-use** - each file covers both offensi
 
 🔴 **THESE ARE OFFENSIVE & DEFENSIVE SECURITY TACTICS** 🔴
 
-🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
-
-🔴 **UP TO 20 YEARS IMPRISONMENT** 🔴
+**Use only with explicit authorization for the systems, methods, time window, and impact covered by the engagement. Unauthorized access may carry criminal or civil consequences; applicable law and penalties depend on jurisdiction and facts.** See the [repository legal terms](../LEGAL.md) and [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/). This is general information, not legal advice.
 
 ---
 
