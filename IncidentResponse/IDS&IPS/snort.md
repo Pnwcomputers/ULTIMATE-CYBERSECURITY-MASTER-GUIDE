@@ -59,6 +59,10 @@ Get a working decision, not just a working install: know which install path is w
 
 Both are legitimate, capable engines. The practical difference this repo's own experience surfaced is **packaging friction**, not detection capability — see [Common Gotchas](#-common-gotchas).
 
+![Snort 2 and Snort 3 use different configuration formats; after validating the version-matched setup, traffic can be inspected passively or, with a supported inline DAQ and network placement, handled inline.](../../assets/diagrams/snort-generation-and-traffic-modes.svg)
+
+*Conceptual version and traffic-mode map; paths and module names depend on the installed release and platform.*
+
 ---
 
 ## 🚀 Deployment Workflow
@@ -222,6 +226,9 @@ This isn't a blanket "always use Suricata instead" — if you have an organizati
 - **Snort official site:** [snort.org](https://www.snort.org/)
 - **Snort 3 GitHub releases:** [github.com/snort3/snort3/releases](https://github.com/snort3/snort3/releases)
 - **Snort rule documentation (Talos):** [snort.org/documents](https://www.snort.org/documents)
+- **Snort 3 command line:** [Command line basics](https://docs.snort.org/start/help)
+- **Snort 3 configuration:** [Configuration guide](https://docs.snort.org/start/configuration)
+- **Snort 3 traffic modes:** [Reading traffic](https://docs.snort.org/start/inspection)
 
 ---
 
