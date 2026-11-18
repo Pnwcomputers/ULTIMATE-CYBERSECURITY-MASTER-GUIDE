@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 930" role="img" aria-labelledby="title desc">
+<title id="title">Proxy routes change who sees metadata; TLS protects a separate hop</title>
+<desc id="desc">Four conceptual lanes compare an HTTP forward proxy, an HTTPS CONNECT or SOCKS proxy, a VPN, and Tor Browser. The first lane shows plaintext HTTP visible to the proxy. The other lanes show which intermediary sees source and destination metadata and where valid end-to-end HTTPS can protect page contents. A footer explains that Froxy only retrieves candidate proxy listings and does not validate or create a trusted route.</desc>
+<defs>
+<style>
+.bg{fill:#f4f7fb}.header{fill:#14364f}.lane{fill:#fff;stroke:#b9c8d8;stroke-width:2}.plain{fill:#fff0e8;stroke:#cc7653;stroke-width:2}.secure{fill:#e7f3fb;stroke:#6094b8;stroke-width:2}.tor{fill:#eeeafa;stroke:#826db1;stroke-width:2}.label{font:700 18px system-ui,Segoe UI,Arial,sans-serif;fill:#153047}.body{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#294459}.small{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#354f64}.white{font:700 25px system-ui,Segoe UI,Arial,sans-serif;fill:white}.title{font:700 28px system-ui,Segoe UI,Arial,sans-serif;fill:#12324b}.arrow{stroke:#405f78;stroke-width:3;fill:none;marker-end:url(#arr)}.tls{stroke:#2b8355;stroke-width:5;stroke-dasharray:8 5;fill:none;marker-end:url(#arrGreen)}.note{font:600 16px system-ui,Segoe UI,Arial,sans-serif;fill:#154b35}
+</style>
+<marker id="arr" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#405f78"/></marker>
+<marker id="arrGreen" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#2b8355"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="1320" height="930" rx="20"/>
+<text class="title" x="48" y="48">A proxy changes the route; it does not replace end-to-end TLS</text>
+<rect class="header" x="48" y="68" width="1224" height="52" rx="12"/><text class="white" x="74" y="103">Intermediaries can see routing metadata. TLS determines whether page contents are protected.</text>
+
+<rect class="lane" x="48" y="140" width="1224" height="155" rx="14"/>
+<text class="label" x="72" y="174">HTTP forward proxy</text>
+<rect class="plain" x="72" y="194" width="150" height="62" rx="12"/><text class="label" x="106" y="232">Client</text>
+<path class="arrow" d="M222 225H350"/><text class="small" x="240" y="213">HTTP request</text>
+<rect class="plain" x="350" y="194" width="190" height="62" rx="12"/><text class="label" x="377" y="232">Forward proxy</text>
+<path class="arrow" d="M540 225H680"/><text class="small" x="564" y="213">plain HTTP</text>
+<rect class="plain" x="680" y="194" width="180" height="62" rx="12"/><text class="label" x="713" y="232">Web origin</text>
+<text class="body" x="900" y="205">Proxy can see client address, destination,</text><text class="body" x="900" y="230">and read or change plaintext HTTP.</text><text class="small" x="900" y="257">Destination sees the proxy's network address.</text>
+
+<rect class="lane" x="48" y="310" width="1224" height="155" rx="14"/>
+<text class="label" x="72" y="344">HTTPS CONNECT or SOCKS proxy</text>
+<rect class="secure" x="72" y="364" width="150" height="62" rx="12"/><text class="label" x="106" y="402">Client</text>
+<path class="arrow" d="M222 395H350"/><text class="small" x="229" y="382">CONNECT / SOCKS</text>
+<rect class="lane" x="350" y="364" width="190" height="62" rx="12"/><text class="label" x="377" y="402">Proxy relay</text>
+<path class="tls" d="M230 412H680"/><text class="note" x="336" y="451">valid client-to-site TLS inside tunnel</text>
+<rect class="secure" x="680" y="364" width="180" height="62" rx="12"/><text class="label" x="713" y="402">Web origin</text>
+<text class="body" x="900" y="375">Proxy can see client address, requested host,</text><text class="body" x="900" y="400">and connection metadata; TLS protects page</text><text class="body" x="900" y="425">contents if certificate checks succeed.</text><text class="small" x="900" y="449">SOCKS DNS depends on local/remote resolution mode.</text>
+
+<rect class="lane" x="48" y="480" width="1224" height="155" rx="14"/>
+<text class="label" x="72" y="514">VPN tunnel</text>
+<rect class="secure" x="72" y="534" width="150" height="62" rx="12"/><text class="label" x="106" y="572">Device</text>
+<path class="tls" d="M222 565H350"/><text class="small" x="236" y="553">encrypted tunnel</text>
+<rect class="lane" x="350" y="534" width="190" height="62" rx="12"/><text class="label" x="383" y="572">VPN provider</text>
+<path class="arrow" d="M540 565H680"/><rect class="secure" x="680" y="534" width="180" height="62" rx="12"/><text class="label" x="713" y="572">Web origin</text>
+<text class="body" x="900" y="545">Local network sees VPN endpoint and traffic patterns.</text><text class="body" x="900" y="570">Provider can see source/destination metadata;</text><text class="body" x="900" y="595">destination sees VPN exit. HTTPS protects contents.</text>
+
+<rect class="lane" x="48" y="650" width="1224" height="155" rx="14"/>
+<text class="label" x="72" y="684">Tor Browser</text>
+<rect class="tor" x="72" y="704" width="150" height="62" rx="12"/><text class="label" x="91" y="742">Tor Browser</text>
+<path class="arrow" d="M222 735H320"/>
+<rect class="tor" x="320" y="704" width="140" height="62" rx="12"/><text class="label" x="365" y="742">Guard</text>
+<path class="arrow" d="M460 735H515"/>
+<rect class="tor" x="515" y="704" width="140" height="62" rx="12"/><text class="label" x="555" y="742">Middle</text>
+<path class="arrow" d="M655 735H710"/>
+<rect class="tor" x="710" y="704" width="140" height="62" rx="12"/><text class="label" x="753" y="742">Exit</text>
+<path class="arrow" d="M850 735H900"/>
+<text class="body" x="925" y="706">Guard sees source; exit reaches destination.</text><text class="body" x="925" y="732">HTTPS protects contents to the site. Only Tor</text><text class="body" x="925" y="758">Browser traffic is routed over Tor by default.</text><text class="small" x="925" y="783">A login can still identify the user.</text>
+<rect class="header" x="48" y="825" width="1224" height="68" rx="12"/>
+<text class="white" x="74" y="854">Froxy retrieves proxy-list candidates; it does not create a trusted route</text><text class="body" x="74" y="879" fill="#e8f0f5">or verify ownership, consent, confidentiality, DNS behavior, or reachability.</text>
+</svg>
