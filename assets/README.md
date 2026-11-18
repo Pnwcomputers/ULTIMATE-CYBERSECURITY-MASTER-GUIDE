@@ -524,6 +524,14 @@ Original conceptual diagrams; MVT release behavior and evidence limits are docum
 | [MVT artifact coverage](./diagrams/mvt-triage-artifact-coverage.svg) | [MVT forensic triage](../Mobile/mvt-forensic-triage.md) |
 | [MVT consent and custody](./diagrams/mvt-triage-consent-custody.svg) | [MVT forensic triage](../Mobile/mvt-forensic-triage.md) |
 
+## VPN Trust Boundary Visuals
+
+Original conceptual diagram separating what the local network, VPN operator, and destination may observe. HTTPS remains an independent end-to-end protection.
+
+| Diagram | Embedded guide |
+|---|---|
+| [VPN trust boundaries](./diagrams/vpn-trust-boundaries.svg) | [VPN Security Guide](../Documentation/VPN.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
