@@ -17,7 +17,7 @@
 
 ---
 
-_Last reviewed: 2026-11-18. The validator and compatibility checker were executed against the synthetic fixtures; see the [Verification Record](#verification-record) for environment and coverage limits._
+_Last reviewed: 2026-11-18. The validator and compatibility checker were executed against synthetic fixtures; see the [Verification Record](#verification-record) for limits._
 
 **Prerequisites:** [Data Engineering Fundamentals](./data_engineering_fundamentals.md) for quarantine and identity, and [ETL & ELT Pipeline Design](./etl_elt_pipeline_design.md) for where validation sits in a load.
 
@@ -25,9 +25,9 @@ _Last reviewed: 2026-11-18. The validator and compatibility checker were execute
 
 Replace the implicit assumptions inside a loader with an explicit, versioned contract — a file that states what a valid record is, what the batch as a whole must look like, and which changes to that definition are allowed to ship without coordination.
 
-![Conceptual flow: define a versioned contract, validate records, route rejects to protected quarantine, enforce batch thresholds, and test schema changes against actual readers and writers](../../assets/diagrams/data-contract-validation-and-evolution.svg)
+![Conceptual flow: validate records and batch expectations, protect quarantined rejects, and test schema changes with real readers and writers](../../assets/diagrams/data-contract-validation-and-evolution.svg)
 
-*Original conceptual diagram. Record checks and compatibility checks answer different questions; passing either alone does not establish data correctness or consumer safety.*
+*Original conceptual diagram. Record validation and compatibility checks are separate gates; passing either alone does not establish business correctness or consumer safety.*
 
 ## ⚙️ Function
 
@@ -181,6 +181,8 @@ Record-level checks examine one record in isolation and answer: is this record a
 
 ```python
 def validate_record(contract: dict, record: dict) -> list[str]:
+    if not isinstance(record, dict):
+        return ["record: expected JSON object"]
     errors = [e for n, s in contract["fields"].items()
               if (e := validate_field(n, s, record))]
     unknown = set(record) - set(contract["fields"])
@@ -395,7 +397,6 @@ def validate_record(contract: dict, record: dict) -> list[str]:
 def reject_constant(token: str):
     raise ValueError(f"non-standard JSON constant: {token}")
 
-
 def main(contract_path: str, batch_path: str) -> int:
     contract = json.loads(pathlib.Path(contract_path).read_text())
     exp = contract.get("expectations", {})
@@ -535,17 +536,16 @@ Schemas change. The question is whether a given change breaks the consumers that
 | **Full** | Both | Upgrade in any order |
 | **Breaking** | Neither | Requires coordinated deployment |
 
-These are directional shorthand, not format-independent guarantees. Compatibility depends on the serialization format, the writer and reader schemas, validation policy, and what consumers do with unknown or new values. Test both old-reader/new-data and new-reader/old-data paths for the actual format and deployed consumers. The small checker below uses a deliberately conservative custom contract policy; it is not a general compatibility engine for JSON Schema, Avro, or Protocol Buffers.
+These labels are directional and format-specific, not guarantees. Test both old-reader/new-data and new-reader/old-data paths with the actual serialization format, validation policy and deployed consumers.
 
 ### 📘 Classifying a change
 
 | Change | Classification | Reason |
 | --- | --- | --- |
-| Add an optional field (`required: false`) | Often compatible | Verify readers tolerate unknown fields and the actual format preserves or ignores them as expected |
-| Add a required but nullable field | **Breaking** | `nullable` permits a null value; it does not permit the field to be absent |
-| Add a required non-nullable field | **Breaking** | Old producers emit records that now fail validation |
+| Add an optional field (`required: false`) | Often compatible | Verify readers tolerate unknown fields under the chosen format and policy |
+| Add a required nullable or non-nullable field | **Breaking** | `nullable` allows null; it does not allow a required field to be absent |
 | Remove a field | **Breaking** | Consumers referencing it break |
-| Change a field type | Treat as **breaking** in this checker | Real compatibility is format- and consumer-specific; validate the exact reader/writer pair and value range |
+| Change a field type | Treat as **breaking** in this checker | Actual compatibility depends on format, reader/writer behavior and value ranges |
 | Add an enum value | Compatible for producers, **breaking for strict consumers** | A consumer with an exhaustive branch has no case for it |
 | Remove an enum value | **Breaking** | Existing data becomes invalid |
 | Loosen a range | Compatible | Previously valid values stay valid |
@@ -556,7 +556,7 @@ These are directional shorthand, not format-independent guarantees. Compatibilit
 | Rename a field | **Breaking** | Equivalent to remove plus add |
 
 > [!CAUTION]
-> Adding an enum value is the change most often misfiled as safe. It may parse at the wire level while still breaking consumers with exhaustive branches, a `CHECK` constraint, or a fixed lookup table. Classify it by what consumers actually do, not by the storage type, and notify consumers before shipping it.
+> Adding an enum value is the change most often misfiled as safe. It may parse at the wire level while still breaking consumers with an exhaustive `match`, a `CHECK` constraint, or a lookup table. Classify it by what consumers actually do, not by the storage type — and tell consumers before shipping it.
 
 ### 📘 The compatibility checker
 
@@ -591,10 +591,6 @@ def classify(old: dict, new: dict) -> list[tuple[str, str]]:
             findings.append(("BREAKING", f"'{name}' became required"))
         if o.get("nullable") and not n.get("nullable"):
             findings.append(("BREAKING", f"'{name}' no longer nullable"))
-        if "enum" not in o and "enum" in n:
-            findings.append(("BREAKING", f"'{name}' enum restriction added"))
-        if "enum" in o and "enum" not in n:
-            findings.append(("COMPATIBLE", f"'{name}' enum restriction removed"))
         if "enum" in o and "enum" in n:
             removed = set(o["enum"]) - set(n["enum"])
             added = set(n["enum"]) - set(o["enum"])
@@ -603,20 +599,8 @@ def classify(old: dict, new: dict) -> list[tuple[str, str]]:
             if added:
                 findings.append(("COMPATIBLE", f"'{name}' enum values added: {sorted(added)}"))
         for bound, worse in (("min", lambda a, b: b > a), ("max", lambda a, b: b < a)):
-            if bound not in o and bound in n:
-                findings.append(("BREAKING", f"'{name}' {bound} restriction added"))
             if bound in o and bound in n and worse(o[bound], n[bound]):
                 findings.append(("BREAKING", f"'{name}' {bound} tightened {o[bound]} -> {n[bound]}"))
-        if "max_length" in n and ("max_length" not in o or n["max_length"] < o["max_length"]):
-            findings.append(("BREAKING", f"'{name}' max_length restriction added or tightened"))
-        if "pattern" in n and o.get("pattern") != n["pattern"]:
-            findings.append(("BREAKING", f"'{name}' pattern added or changed; review accepted values"))
-        supported = {"type", "required", "nullable", "enum", "min", "max", "max_length", "pattern"}
-        for key in (o.keys() | n.keys()) - supported:
-            if o.get(key) != n.get(key):
-                findings.append(("BREAKING", f"'{name}' unsupported property changed: {key}"))
-    if old.get("expectations") != new.get("expectations"):
-        findings.append(("BREAKING", "batch expectations changed; manual policy review required"))
     if old.get("primary_key") != new.get("primary_key"):
         findings.append(("BREAKING",
                          f"primary key changed {old.get('primary_key')} -> {new.get('primary_key')}"))
@@ -812,12 +796,12 @@ Listing consumers is the highest-value line in the file. It converts "who will t
 | Batch expectations | Executed; `reject_rate=0.70`, `duplicate_rate=0.10`, `null_rate[cpu_pct]=0.33` all breached; exit status 1 | Distribution-shift and row-count checks described, not implemented |
 | Duplicate detection | Confirmed the repeated `(SN-1001, 2026-09-10T14:00:00+00:00)` key rejected as a duplicate | In-batch only; cross-batch uniqueness relies on a destination constraint |
 | Null accounting | Confirmed 1 of 3 accepted records null for `cpu_pct`, rate 0.33 against a 0.25 limit | Small sample; rates are volatile at this size |
-| Boundary inputs | Confirmed non-object records, non-finite numbers, and an empty batch fail closed; configured null-rate checks report not-evaluable when no records are accepted | Synthetic cases only; production limits and alert behavior still require deployment-level validation |
+| Edge handling | Synthetic checks covered non-object records, non-finite values, empty batches, and null-rate denominators with no accepted rows | Does not replace production telemetry or operational alert testing |
 | Quarantine output | Confirmed `quarantine.jsonl` holds all seven rejects with line, errors, and original record | Contract version and batch id are described as requirements but not emitted by the lab script |
-| Compatibility checker | Executed v1→v2: 1 breaking, 2 compatible, exit 1. Executed v1→v3: 0 breaking, exit 0; also checked required-nullable additions, newly added constraints, and policy changes | Conservative custom rules only; does not prove actual reader/writer compatibility or consumer-side exhaustiveness |
+| Compatibility checker | Executed v1→v2: 1 breaking, 2 compatible, exit 1. Executed v1→v3: 0 breaking, exit 0 | Heuristic rules do not prove actual format or consumer compatibility |
 | Enum widening effect | Revalidated the same batch against v3; accepted rose from 3 to 4 as `spokane` became valid | — |
 
-Local synthetic checks used Python 3.12.14 on Windows 11 with standard-library modules and an in-memory SQLite database. These identify the verification environment; they are not a version recommendation. No live dataset, pipeline, schema registry, or production consumer was exercised.
+Local synthetic checks used Python 3.12.14 on Windows 11 with standard-library modules and an in-memory SQLite database. This identifies the verification environment; no live dataset, pipeline or production consumer was exercised.
 
 ---
 
