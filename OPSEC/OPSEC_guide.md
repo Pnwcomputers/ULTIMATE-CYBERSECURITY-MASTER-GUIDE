@@ -8,10 +8,10 @@ _Last reviewed: 2026-11-17 (documentation and architecture review; no lab contai
 Practical OPSEC guide for cybersecurity professionals - covering the specific virtualized environment setup, identity management, and operational discipline needed for pentesting, malware research, and privacy-sensitive security work.
 
 ## ⚙️ Function
-Documents a planning baseline for a virtualized security research setup: host OS hardening, VM compartmentalization by workload type (pentesting/malware/OSINT), Tor/VPN chaining, identity separation (accounts, payment, devices), storage encryption, and communications OPSEC.
+Documents planning considerations for a virtualized security research setup: supported hosts and hypervisors, VM compartmentalization, network boundaries, identity separation, storage, and communications. VPN/Tor combinations are treated as task-specific exceptions, not a default chain.
 
 ## 🏆 Goal
-Build a repeatable, compartmentalized research environment that separates professional security work from personal digital identity - reducing attribution risk from operational mistakes during authorized engagements.
+Plan a repeatable research environment with explicit host, network, identity, and evidence boundaries for authorized work. These controls reduce some accidental cross-use; they cannot guarantee anonymity or prevent attribution.
 
 ## 📋 When to Use
 - Initial setup of a new security research workstation
@@ -26,7 +26,7 @@ Build a repeatable, compartmentalized research environment that separates profes
 # Table of Contents
 1. [Executive Overview](#executive-overview)
 2. [Host OS Setup](#host-os-setup)
-3. [Hypervisor Layer](#hypervisor-layer)
+3. [Host and Hypervisor Selection](#choose-a-host-os-and-hypervisor)
 4. [Network Architecture](#network-architecture)
 5. [VM Architecture](#vm-architecture)
 6. [OPSEC Rules](#opsec-rules)
@@ -40,7 +40,7 @@ Build a repeatable, compartmentalized research environment that separates profes
 
 # Executive Overview
 
-This guide outlines workload separation for a cybersecurity environment. Suitability depends on the host, hypervisor, routing, and handling procedures; VM labels alone do not enforce separation. Workloads include:
+This guide outlines workload separation for a cybersecurity environment. Suitability depends on the host, hypervisor, routing, and handling procedures; VM labels alone do not enforce separation. This is a planning reference, not a validated host configuration. Workloads include:
 
 - Pentesting  
 - OSINT & reconnaissance  
@@ -60,43 +60,22 @@ Two modes are provided:
 
 Your host operating system and hypervisor are part of the trusted control plane. A compromised host can undermine every guest; higher-risk malware work may require a separate physical machine.
 
-## Recommended Host OS Options
+## Choose a host OS and hypervisor
 
-### **1. Windows 11 Pro (with VMware Workstation Pro)**
-- BitLocker full-disk encryption  
-- Keep supported Windows security features enabled; assess hypervisor compatibility for the exact versions  
-- Verify Core Isolation / Memory Integrity status; memory integrity uses virtualization-based security  
-- Use a separate, restricted lab host for malware execution; a Windows desktop is not inherently a containment boundary
+The host OS, firmware, hypervisor, and management network are part of the trusted control plane. A guest compromise may affect shared services, devices, or data; a host or hypervisor compromise can undermine every guest. For malware work with consequential risk, consider a dedicated physical analysis host and specialist review.
 
-[Microsoft documents memory integrity](https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity) as a VBS feature that depends on the Windows hypervisor. Do not follow blanket advice to disable Hyper-V while expecting those protections to remain active; select a supported combination and verify the resulting security state.
+| Decision | Review before choosing |
+|---|---|
+| Host operating system | Is it supported and patched? Can disk encryption, endpoint protection, secure boot, and recovery be managed under policy? |
+| Hypervisor | Does the current release support the host and guest architectures? What are the update channel, licensing terms, device-sharing defaults, and network controls? |
+| Hardware | Does firmware expose required virtualization and IOMMU features? Are the relevant guest OS releases supported? |
+| Management | Can administration be restricted to a trusted network and account? Are backups and recovery paths protected? |
 
-### **2. Proxmox VE (Bare-Metal)**
-- KVM + QEMU virtualization  
-- ZFS file system  
-- VLAN-aware networking  
-- Supports multi-VM labs; protect the management plane separately
+Examples include desktop hypervisors on supported Windows or Linux hosts and server-oriented platforms such as Proxmox VE. These are choices, not security guarantees; verify current upstream compatibility and licensing rather than relying on a fixed product/version recipe.
 
-### **3. Linux Host (Fedora or Debian)**
-- SELinux or AppArmor  
-- LUKS disk encryption  
-- Lightweight and stable
+On Windows, keep supported security features enabled where hardware, policy, and hypervisor compatibility allow. [Microsoft's memory integrity guidance](https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity) explains that Memory Integrity uses virtualization-based security. Do not disable the Windows hypervisor while expecting VBS protections that depend on it to remain active.
 
----
-
-# Hypervisor Layer
-
-Use one of the following:
-
-### **VMware Workstation Pro**
-- Snapshots support repeatable guest-state recovery  
-- Desktop virtualization option for supported Windows/Linux hosts  
-- Supports nested virtualization  
-- Isolation depends on configuration, patching, and device-sharing controls  
-
-### **Proxmox VE**
-- Server-oriented option for multi-VM home labs  
-- Advanced networking (bridges, VLANs, firewalls)  
-- Template cloning + cloud-init support
+For multi-VM platforms, protect the management plane separately from guest and analysis networks. Storage options such as ZFS can help with integrity and snapshots when configured and maintained correctly; they are not required for every deployment and do not replace backups or access controls.
 
 ---
 
@@ -128,8 +107,8 @@ Research VM → virtual NAT → host routing/firewall → optional VPN → desti
 | Defensive | ELK / Wazuh | SIEM + threat detection |
 | Network | Zeek / Suricata | Packet analysis IDS/IPS |
 | Research | Debian/Ubuntu OSINT | Recon, OSINT, documentation |
-| Malware | Win10/Win11 + REMnux | Malware detonation + reversing |
-| Anonymity | Whonix GW & WS | Tor-based anonymous browsing |
+| Malware | Supported Windows guest + REMnux | Scoped malware analysis in a controlled lab |
+| Tor-routed workload | Whonix Gateway + Workstation | Tor-routed applications with explicit limits; see upstream threat model |
 | Utility | Windows Admin VM | Windows-only tools |
 
 ---
@@ -150,20 +129,19 @@ Research VM → virtual NAT → host routing/firewall → optional VPN → desti
 
 ## Network OPSEC
 
-- VPN: host level when required by the task; a VPN is not a Whonix requirement. Review [Whonix tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction) before adding one.
-- Whonix:  
-  - Workstation → Gateway → Tor; an optional host VPN sits before Tor
-  - Workstation → Gateway only  
+Choose a network route from written scope and the task's threat model. A host VPN is optional and can change the source address, resolver path, and client allowlist behavior. See the [VPN guide](../Documentation/VPN.md) for trust-boundary limits.
 
-Compartmentalization reduces accidental cross-use; personal logins, browser fingerprinting, shared files, timing, and provider records can still link activity. Tor and a VPN address different observers and do not guarantee anonymity. Keep the Whonix gateway/workstation topology intact and follow its supported hypervisor instructions.
+For Whonix, keep the Workstation attached only to the supported private network to its Gateway and follow the [Whonix tunnel guidance](https://www.whonix.org/wiki/Tunnels/Introduction) before adding any other tunnel. Do not treat VPN/Tor stacking as a default privacy improvement.
+
+Compartmentalization can reduce accidental cross-use. Personal logins, browser behavior, shared files, endpoint telemetry, timing, and provider records can still link activity. Neither Tor nor a VPN guarantees anonymity.
 
 ## Identity Separation
 
-- Never log into personal accounts from research VMs  
-- Each operational identity gets:  
-  - its own VM  
-  - its own browser profile  
-  - an explicitly documented network route, where separation is required; a different VPN address does not prevent correlation  
+- Define the identities and data that must be separated before choosing controls.
+- Use distinct accounts, browser profiles, devices, or VMs only where the workflow requires them; sharing a host does not create independent identities.
+- Do not log into personal accounts in a work profile when identity separation matters.
+- Document the required network route and evidence handling. A different VPN exit IP alone does not prevent correlation.
+- Review reused usernames, recovery addresses, cookies, device identifiers, time patterns, and uploaded documents for cross-links.  
 
 ---
 
@@ -177,8 +155,8 @@ Compartmentalization reduces accidental cross-use; personal logins, browser fing
 
 Rules:
 
-- Start with no physical uplink, no host adapter on the analysis segment, and no default route to production networks.
-- Use a controlled simulation VM when network behavior must be observed; do not give that VM an unreviewed second route.
+- Keep the sample-analysis segment off physical uplinks and management/LAN bridges; verify that no default route reaches production or the public internet.
+- Use controlled simulation services when network behavior must be observed. Treat any gateway or second adapter as a high-risk exception with explicit egress rules and monitoring.
 - Permit any external access only through a separately designed, logged, destination-restricted gateway under the lab owner's policy.
 - Disable unnecessary shared folders, clipboard, USB and PCI passthrough. Virtual drivers and RAM settings are compatibility/resource decisions, not proof of isolation.
 - Test boundaries with benign traffic before introducing a sample; snapshots restore guest state but cannot undo host compromise or external communication.  
@@ -200,9 +178,9 @@ This mode is for **authorized work on the go**, at client sites, or during trave
 ## Setup
 
 ### Host:
-- Windows 11 Pro  
-- BitLocker enabled  
-- Verify the approved VPN's routing and failure behavior when a VPN is required  
+- A currently supported operating system with policy-approved storage encryption and recovery procedures.
+- Verify the selected hypervisor and VPN against current host security features and policy.
+- Restrict management access and document which local networks are reachable.  
 
 ### VMs:
 - 1 × OSINT VM (Debian minimal)  
@@ -229,12 +207,12 @@ An encrypted container protects stored contents while locked, within its threat 
 
 This mode is for **full home lab deployments**, learning, testing networks, SOC practice, and running a personal cyber range.
 
-## Recommended Architecture
+## Example Architecture
 
 ### Proxmox Node
-- CPU with VT-x/AMD-V  
-- 32–64GB RAM  
-- SSD or NVMe storage (ZFS recommended)
+- Confirm current Proxmox VE hardware and firmware requirements from upstream documentation.
+- Size CPU, memory, and storage for the selected guest count, packet-capture volume, and analysis tools; leave capacity for the host.
+- Select a supported storage layout and keep separate protected backups; ZFS is one option, not a universal requirement.
 
 ### VM Layout
 
@@ -274,11 +252,11 @@ These are **roles**, not security properties of bridge names. A Linux bridge beh
 # Recommended Tools
 
 ## Host Tools
-- [Mullvad](https://mullvad.net/en) / [IVPN](https://www.ivpn.net/en/)
-- [VeraCrypt](https://veracrypt.jp/en/Home.html)
+- A VPN service only when required by policy or threat model; compare current provider claims and trust boundaries in the [VPN guide](../Documentation/VPN.md).
+- [VeraCrypt](https://veracrypt.io/en/)
 - [KeepassXC](https://keepassxc.org/)
 - USB data-blocking adapters (check the exact connector and power/data behavior; these do not secure the endpoint)
-- [Wireshark (host mode passive only)](https://www.wireshark.org/faq)
+- [Wireshark](https://www.wireshark.org/faq) — capture only at approved interfaces and account for host traffic visibility.
 
 ## Offensive Tools
 - [Kali Linux tools](https://www.kali.org/tools/)
@@ -318,7 +296,7 @@ These are **roles**, not security properties of bridge names. A Linux bridge beh
  │    ├── whonix-gw/
  │    └── whonix-ws/
  ├── malware/
- │    ├── windows10/
+ │    ├── windows-analysis-guest/
  │    └── remnux/
  ├── research/
  │    ├── ubuntu-osint/
@@ -333,7 +311,7 @@ These are **roles**, not security properties of bridge names. A Linux bridge beh
 - [Microsoft: memory integrity and VBS](https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity)
 - [Broadcom: hosted VM networking types](https://knowledge.broadcom.com/external/article?legacyId=1006480)
 - [Proxmox: network configuration source](https://github.com/proxmox/pve-docs/blob/master/pve-network.adoc)
-- [REMnux: disposable analysis environments and isolation](https://docs.remnux.org/tips/using-ai)
+- [REMnux documentation](https://docs.remnux.org/) — verify current analysis environment and network-isolation guidance for the selected workflow.
 - [Whonix: supported VirtualBox baseline](https://www.whonix.org/wiki/VirtualBox/Recommended_Version)
 - [VeraCrypt: security requirements and precautions](https://veracrypt.io/en/Security%20Requirements%20and%20Precautions.html)
 
@@ -341,8 +319,8 @@ This revision checks documentation and explains trust boundaries. It does not ce
 
 ## Related Files
 - [README.md](README.md) - OPSEC section index
-- [../Documentation/VPN.md](../Documentation/VPN.md) - Mullvad VPN setup
-- [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser for anonymous access
+- [../Documentation/VPN.md](../Documentation/VPN.md) - VPN trust boundaries and task-dependent routing
+- [../Documentation/TOR.md](../Documentation/TOR.md) - Tor Browser, explicit app routing, and anonymity limits
 - [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM compartmentalization setup
 - [press-freedom/README.md](press-freedom/README.md) - journalists, confidential-source protection, device seizure and duress planning
 - [../Cryptography/encrypted-storage.md](../Cryptography/encrypted-storage.md) - portable drive encryption and recovery
