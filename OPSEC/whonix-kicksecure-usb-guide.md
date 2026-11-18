@@ -95,6 +95,10 @@ The official Whonix USB procedure supports installing Kicksecure on USB, booting
 | Whonix-Gateway | Connects to Tor and routes Workstation traffic | Tor configuration and maintenance |
 | Whonix-Workstation | Runs applications behind the Gateway | Browsing and privacy-sensitive work |
 
+![Conceptual topology of Kicksecure on encrypted USB running Whonix Gateway and Workstation, showing the Gateway-only Workstation route and separate persistent/live storage behavior](../assets/diagrams/whonix-kicksecure-usb-boundaries.svg)
+
+*Conceptual VirtualBox baseline derived from the project documentation; it is not a tested installation. Confirm actual adapters and disk paths on the host.*
+
 Normal Workstation network traffic passes through the Gateway to Tor. The host has its own network access: **installing Whonix does not automatically put every Kicksecure application behind the Gateway.** Keep the host minimal and perform the intended private activity in Workstation. [^15][^16]
 
 Tor does not erase the identity of an account you log into. A compromised host can observe or interfere with its VMs. A USB OS does not neutralize firmware malware or a physical keylogger. Local network operators may observe Tor use in the default configuration; bridges address connectivity/censorship needs without guaranteeing invisibility. [^12][^13]
