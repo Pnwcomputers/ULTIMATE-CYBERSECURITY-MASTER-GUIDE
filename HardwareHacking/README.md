@@ -260,6 +260,8 @@ For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthed
 
 ## 🔬 Bench Equipment Reference
 
+*Budget figures below are rough estimates, not current quotes. Prices vary by region and seller; confirm current pricing, included adapters, and exact target compatibility before purchase.*
+
 ### Essential Equipment
 
 | Equipment | Recommended | Budget | Purpose |
