@@ -107,7 +107,7 @@ Research VM → virtual NAT → host routing/firewall → optional VPN → desti
 | Defensive | ELK / Wazuh | SIEM + threat detection |
 | Network | Zeek / Suricata | Packet analysis IDS/IPS |
 | Research | Debian/Ubuntu OSINT | Recon, OSINT, documentation |
-| Malware | Win10/Win11 + REMnux | Malware detonation + reversing |
+| Malware | Supported Windows guest + REMnux | Scoped malware analysis in a controlled lab |
 | Tor-routed workload | Whonix Gateway + Workstation | Tor-routed applications with explicit limits; see upstream threat model |
 | Utility | Windows Admin VM | Windows-only tools |
 
@@ -207,7 +207,7 @@ An encrypted container protects stored contents while locked, within its threat 
 
 This mode is for **full home lab deployments**, learning, testing networks, SOC practice, and running a personal cyber range.
 
-## Recommended Architecture
+## Example Architecture
 
 ### Proxmox Node
 - Confirm current Proxmox VE hardware and firmware requirements from upstream documentation.
