@@ -386,6 +386,15 @@ Two original conceptual figures embedded in the [receive-only telemetry lab](../
 
 These illustrate a proposed lab; no live sensor data or deployed detection results are claimed.
 
+## MVT Forensic Visuals
+
+Original conceptual diagrams; MVT release behavior and evidence limits are documented in the guide.
+
+| Diagram | Embedded guide |
+|---|---|
+| [MVT artifact coverage](./diagrams/mvt-triage-artifact-coverage.svg) | [MVT forensic triage](../Mobile/mvt-forensic-triage.md) |
+| [MVT consent and custody](./diagrams/mvt-triage-consent-custody.svg) | [MVT forensic triage](../Mobile/mvt-forensic-triage.md) |
+
 ## Image Guidelines
 
 1. Use a **relative path from the embedding Markdown file**; for a root-level page use `./assets/image.png`, for a one-level-deep section use `../assets/image.png`, and for a two-level-deep section use `../../assets/image.svg`.
