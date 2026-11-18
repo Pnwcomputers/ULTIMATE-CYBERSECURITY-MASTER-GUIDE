@@ -86,6 +86,14 @@ Original conceptual topology for two band-split WiFi taps sending summarized dat
 |---|---|
 | [nzyme band-split tap architecture](./diagrams/nzyme-band-split-tap-architecture.svg) | [DIY WiFi intrusion detection with nzyme](../IncidentResponse/IDS&IPS/nzyme_wids.md) |
 
+## Electrical Measurement Visuals
+
+Original conceptual shunt-measurement figure; the resistor value depends on target current, allowable voltage drop, power dissipation, and instrument limits.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Shunt current measurement](./diagrams/shunt-current-measurement.svg) | [Electrical Fundamentals — Shunt Resistors](../HardwareHacking/Chapter2.md#shunt-resistors-for-power-measurement) |
+
 ## Hardware Security Assessment Visuals
 
 Original conceptual workflow; the exact test method and safe limits depend on the authorized target and its documentation.
