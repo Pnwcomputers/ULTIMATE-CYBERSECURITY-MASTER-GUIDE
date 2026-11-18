@@ -53,10 +53,10 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 
 | Mode | What it does | Failure behavior | Deployment |
 |---|---|---|---|
-| **IDS** (Intrusion *Detection*) | Passively inspects a copy of traffic, generates alerts | Fails safe for a crashed sensor that just stops alerting, traffic will keep flowing | Tap/SPAN/mirror port, or `af-packet` in IDS mode |
+| **IDS** (Intrusion *Detection*) | Passively inspects a copy of traffic, generates alerts | For a truly passive tap/SPAN copy, a sensor outage does not interrupt the observed forwarding path, but visibility is lost. A host or capture-path failure can still affect traffic if it is not actually passive. | Tap/SPAN/mirror port, or passive capture mode |
 | **IPS** (Intrusion *Prevention*) | Sits inline, actively drops/rejects matching traffic in real time | Fails differently depending on config; can fail open (bypass) or fail closed (outage) | Inline bridge, or `af-packet`/NFQUEUE in IPS mode |
 
-**The practical rule:** always start in IDS/alert-only mode, run it for at least 1–2 weeks against real traffic, review false positives, and only then flip to IPS/blocking. An aggressive ruleset in blocking mode on day one can take down legitimate traffic — DNS, software updates, VoIP, and anything using an uncommon-but-valid pattern are common false-positive sources.
+**The practical rule:** validate in passive or alert-only mode first. Move to blocking only after confirming capture coverage, ruleset behavior, expected and benign traffic, throughput, update and rollback procedures, and an explicit change window. There is no universal observation period; use representative traffic and risk-based acceptance criteria. Inline failure behavior depends on the capture method and firewall/bypass configuration.
 
 ---
 
@@ -66,11 +66,15 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 |---|---|---|---|---|
 | **Suricata** | Signature + protocol-aware | ✅ Yes (native) | Multi-threaded, deep packet inspection, large community ruleset (ET Open) | Signature-based; blind to genuinely novel traffic patterns |
 | **Snort** | Signature-based | ✅ Yes (native) | Mature, huge rule ecosystem, well documented | Historically single-threaded; scales worse on busy links than Suricata |
-| **Zeek** (formerly Bro) | Protocol/anomaly analysis | ❌ No. Detection/logging only | Rich structured logs (`conn.log`, `dns.log`, `ssl.log`, JA3/JA3S) for hunting and forensics | Not an inline blocker; steeper scripting learning curve |
+| **Zeek** | Protocol analysis and scripting | ❌ No. Not an inline traffic blocker | Structured protocol logs such as `conn.log`, `dns.log` and `ssl.log`; available fields depend on analyzers, traffic and configuration | Does not guarantee payload visibility or complete capture; steeper scripting learning curve |
 
-For a from-scratch build, **Suricata is the default choice** for the IDS/IPS role itself with native multi-threading and both detection and blocking in one engine. **Zeek runs alongside it**, not instead of it, for the deep protocol visibility Suricata's rule-matching doesn't give you. This mirrors how full NSM stacks (e.g. Security Onion) combine them rather than picking one.
+Suricata can provide signature-based IDS/IPS and protocol-aware outputs; Zeek provides complementary protocol analysis and structured logs. Whether to deploy one or both depends on coverage needs, capture capacity, privacy constraints, operational skill and storage. Neither replaces validation of sensor placement or packet loss.
 
 ---
+
+![Conceptual flow from copied traffic to independent Suricata events and Zeek protocol logs, with an inline path that can affect forwarding](../../assets/diagrams/suricata-zeek-visibility-and-blocking.svg)
+
+*Conceptual only: observed coverage depends on placement, traffic visibility, capture capacity, rules and analyzer configuration. Inline forwarding and bypass behavior are platform-specific.*
 
 ## 🚀 Deployment Workflow
 
@@ -94,12 +98,12 @@ For a from-scratch build, **Suricata is the default choice** for the IDS/IPS rol
 
 5. Validation:
    └─> testmynids.org test, or pcap replay against known-bad traffic.
-   └─> Watch alerts for 1-2 weeks; tune out false positives.
+   └─> Verify expected test events and benign traffic; record capture loss and alert-only behavior against agreed acceptance criteria.
 
 6. IPS Cutover (optional, once validated):
    └─> Enable inline/blocking mode.
-   └─> Watch closely for the first 24-48 hours for anything legitimate
-       getting dropped.
+   └─> Stage the change for a limited, monitored scope; confirm rollback and
+       test the configured bypass/failure behavior before wider deployment.
 
 7. Extend Visibility:
    └─> Add Zeek on the same tap/mirror for protocol-level logs.
@@ -284,7 +288,7 @@ For writing custom rules, tuning performance (CPU affinity, `af-packet` ring siz
 
 ## 🔍 Zeek as a Complementary NSM Layer
 
-Zeek doesn't block anything. It turns raw traffic into structured, high-fidelity protocol logs (`conn.log`, `dns.log`, `http.log`, `ssl.log` with JA3/JA3S fingerprints, `files.log` with hashes) that are far more useful for hunting and forensics than either a signature match alone or a raw pcap. Run it on the same tap/mirror interface as Suricata; they don't conflict, since both just read a copy of the traffic.
+Zeek is a passive network analysis platform, not an inline blocker. It can produce structured protocol logs such as `conn.log`, `dns.log`, `http.log`, `ssl.log` and `files.log`; the available fields depend on protocol visibility, analyzers, plugins and configuration. TLS encryption limits application payload visibility, while metadata can remain observable. Zeek does not extract every file merely because it logs a file-analysis event. If Suricata and Zeek share a mirror feed, confirm the switch and sensor can sustain the combined packet rate and monitor capture-loss indicators; shared placement does not guarantee full coverage.
 
 ```bash
 # Option 1: distribution-provided package, if supported and available
@@ -360,7 +364,7 @@ suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
   security control. A misfiring rule in inline mode can take
   down legitimate traffic — DNS, updates, VoIP, anything with an
   uncommon-but-valid pattern. Always validate in alert-only mode
-  first, for at least 1-2 weeks against real traffic.
+  first, for against representative traffic; use explicit acceptance checks and a rollback plan.
 
 ► An IDS/IPS box on a network path is a high-value target. Keep
   it patched, restrict management access, and don't expose its
@@ -378,6 +382,10 @@ suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
 
 ## 📚 Resources
 
+- **Suricata IPS concepts:** [IPS mode](https://docs.suricata.io/en/latest/ips/ips-concept.html) · [Linux inline setup](https://docs.suricata.io/en/latest/ips/setting-up-ipsinline-for-linux.html)
+- **Suricata EVE JSON:** [event output fields](https://docs.suricata.io/en/latest/output/eve/eve-json-format.html)
+- **Zeek log reference:** [current log files](https://docs.zeek.org/en/current/reference/zeekscript/log-files.html)
+- **Zeek monitoring and capture:** [monitoring](https://docs.zeek.org/en/current/about/monitoring.html) · [capture-loss logs](https://docs.zeek.org/en/current/reference/logs/capture-loss-and-reporter.html)
 - **Suricata docs:** [docs.suricata.io](https://docs.suricata.io)
 - **Zeek docs:** [docs.zeek.org](https://docs.zeek.org)
 - **Emerging Threats rules:** [rules.emergingthreats.net](https://rules.emergingthreats.net)
