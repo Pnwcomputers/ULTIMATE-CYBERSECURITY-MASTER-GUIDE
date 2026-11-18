@@ -83,7 +83,7 @@ Differential power analysis (DPA) and correlation power analysis (CPA) are relat
 - **DPA** groups traces according to a predicted bit or intermediate-value property, then compares group statistics, classically with a difference of means.
 - **CPA** assigns a predicted leakage value to each trace, often using a Hamming-weight or Hamming-distance model, then computes correlation with measured samples.
 
-The previous AES example used Pearson correlation against a Hamming-weight prediction, which is CPA. In either approach, the analysis depends on the leakage model, input data, trace alignment, acquisition quality, implementation, and countermeasures. A high peak alone is not proof of a correct key guess; confirm against known test vectors or an independent validation path on an authorized target.
+An AES analysis that uses Pearson correlation against a Hamming-weight prediction is CPA. In either approach, the analysis depends on the leakage model, input data, trace alignment, acquisition quality, implementation, and countermeasures. A high peak alone is not proof of a correct key guess; confirm against known test vectors or an independent validation path on an authorized target.
 
 #### Trace Counts and Evidence
 
