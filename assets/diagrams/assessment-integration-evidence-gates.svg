@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+<title id="title">Assessment phases stay within approved scope and evidence controls</title>
+<desc id="desc">Four conceptual steps: authorize the engagement, select relevant assessment phases, validate evidence and coverage, then assign findings, retest, deliver and apply retention. A human approval gate applies before privileged, network-invasive or data-sensitive work.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#286585"/></marker></defs>
+<rect width="1200" height="470" fill="#f6f9fc"/>
+<g font-family="Arial, sans-serif" fill="#16354b">
+<text x="40" y="46" font-size="30" font-weight="700">A staged assessment keeps scope and evidence under control</text>
+<text x="40" y="76" font-size="18">Choose only the phases needed for the engagement; keep approvals and evidence provenance attached.</text>
+<rect x="40" y="115" width="245" height="190" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="58" y="151" font-size="22" font-weight="700">1. Authorize</text>
+<text x="58" y="187" font-size="17">Scope and exclusions</text>
+<text x="58" y="215" font-size="17">Contacts and ROE</text>
+<text x="58" y="253" font-size="16" fill="#476274">Approved methods only</text>
+<path d="M292 210h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="330" y="115" width="245" height="190" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="348" y="151" font-size="22" font-weight="700">2. Select phases</text>
+<text x="348" y="187" font-size="17">Web / cloud / endpoint</text>
+<text x="348" y="215" font-size="17">Wireless / detection</text>
+<text x="348" y="253" font-size="16" fill="#476274">Skip irrelevant stages</text>
+<path d="M582 210h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="620" y="115" width="245" height="190" rx="14" fill="#fff3d8" stroke="#8faebb" stroke-width="2"/>
+<text x="638" y="151" font-size="22" font-weight="700">3. Validate evidence</text>
+<text x="638" y="187" font-size="17">Provenance and versions</text>
+<text x="638" y="215" font-size="17">Observed vs inferred</text>
+<text x="638" y="253" font-size="16" fill="#476274">Record uncertainty / gaps</text>
+<path d="M872 210h30" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="910" y="115" width="245" height="190" rx="14" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<text x="928" y="151" font-size="22" font-weight="700">4. Close the loop</text>
+<text x="928" y="187" font-size="17">Owner and remediation</text>
+<text x="928" y="215" font-size="17">Retest and delivery</text>
+<text x="928" y="253" font-size="16" fill="#476274">Retention and follow-up</text>
+<rect x="40" y="345" width="1115" height="80" rx="12" fill="#dcebf1"/>
+<text x="60" y="377" font-size="18" font-weight="700">Human approval gate:</text>
+<text x="254" y="377" font-size="18">confirm authorization before privileged, network-invasive, or data-sensitive work.</text>
+<text x="60" y="405" font-size="16" fill="#476274">Planning diagram only; it does not claim that tools are connected or a client environment was tested.</text>
+</g></svg>
