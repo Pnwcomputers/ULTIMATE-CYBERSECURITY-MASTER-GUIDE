@@ -15,17 +15,17 @@
 ---
 
 ## 🎯 Purpose
-Guide for deploying [Fail2Ban](https://github.com/fail2ban/fail2ban), a lightweight log-monitoring IPS that watches log files for patterns indicating brute-force or abusive behavior and automatically bans the offending IP via firewall rules; the simplest, lowest-overhead entry in this repo's IDS/IPS lineup.
+Guide for deploying [Fail2Ban](https://github.com/fail2ban/fail2ban), a lightweight host tool that monitors configured logs or a supported backend, matches failures with filters, and runs configured actions when a jail threshold is reached. Firewall rules are a common action; the selected action and platform determine the actual response.
 
 ## ⚙️ Function
 Covers install, the jail/filter/action configuration model, protecting SSH (the most common use case) plus other common services, testing a jail actually works, and the operational commands for inspecting and manually unbanning.
 
 ## 🏆 Goal
-Get automatic, log-driven banning running on any Linux box in minutes. This is the tool to reach for when a full Suricata/Snort deployment is overkill for the actual problem (SSH brute-forcing, web-login stuffing) you're trying to stop.
+Configure a jail for a service whose authentication failures are recorded in a supported source and matched by an appropriate filter. Fail2Ban can add a host-level response to repeated failures; it does not replace strong authentication, application rate limits, or network-level monitoring.
 
 ## 📋 When to Use
-- Any internet-facing Linux box with SSH exposed — this is close to a default-should-have for that alone
-- Protecting web app login forms (Apache/nginx auth), mail servers, or any other service with a parseable log of failed attempts
+- Consider it for exposed services when their logs or journal entries are available, a matching filter is appropriate, and the configured action fits the host.
+- Use service-specific jails only after confirming the application’s log format, filter, and supported backend on the installed Fail2Ban version.
 - You want *some* automatic response to brute-forcing without deploying a full network IDS/IPS stack
 - A honeypot or IDS from elsewhere in this repo flagged repeated brute-force attempts and you want the actual mitigation, not just visibility
 
@@ -48,7 +48,11 @@ Get automatic, log-driven banning running on any Linux box in minutes. This is t
 
 ## 🎯 Where This Fits
 
-Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Security Onion](./security-onion.md). It doesn't inspect packets or understand protocols. It's a **log watcher with a trigger finger**: it tails log files, matches known failure patterns via regex filters, and when a source IP crosses a threshold, it bans that IP at the firewall for a configured duration. That narrow scope is exactly its value; near-zero resource overhead, works on any box with a log file and a firewall, and covers the single most common real-world attack pattern (credential brute-forcing) that a full NIDS is arguably overkill for.
+Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Security Onion](./security-onion.md). It does not inspect packets or understand protocols. A jail connects a configured log or supported backend to a filter and one or more actions. When the filter records enough failures within the configured window, the action runs; a firewall ban is common, but behavior depends on the selected action and host. Fail2Ban is useful for targeted, host-level responses to events its filters can reliably identify. It does not provide universal application coverage or replace strong authentication, application controls, or network monitoring.
+
+![Fail2Ban event-to-action flow: a configured log source is matched by a filter, thresholded by a jail, and passed to a configured action; the action may ban and later unban an address.](../../assets/diagrams/fail2ban-log-to-action-flow.svg)
+
+*Conceptual flow only: the source, filter, thresholds, action, and ban duration depend on the service, installed version, and host configuration.*
 
 ---
 
@@ -67,8 +71,8 @@ Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Secur
        bantime, findtime, maxretry.
 
 4. Enable the jails you need:
-   └─> [sshd] first, always. Add others (apache-auth, nginx-http-auth,
-       postfix, etc.) as needed for services actually running.
+   └─> Enable only jails for services actually running, after confirming
+       the log source, filter, and action match the host.
 
 5. Restart and validate:
    └─> systemctl restart fail2ban
@@ -110,7 +114,7 @@ The pattern throughout Fail2Ban's config is the same as much of this repo's othe
 
 - A **jail** ties a service to a filter and a response — "watch this log, using this pattern, and do this when it matches."
 - A **filter** is the regex that recognizes a failure in that service's log format.
-- An **action** is what happens on a match — almost always an `iptables`/`nftables` ban, optionally combined with an email notification.
+- An **action** is the configured response for a ban or unban event. Firewall rules are common, but the action can vary by platform and configuration.
 
 Baseline `[DEFAULT]` section in `jail.local`:
 
@@ -154,7 +158,7 @@ bantime = 3600
 findtime = 600
 ```
 
-> **Distro-specific log path:** Ubuntu/Debian use `/var/log/auth.log`. RHEL/AlmaLinux/Rocky use `/var/log/secure` and typically need `backend = systemd` added to the jail since auth logging goes through journald by default rather than a flat file. Confirm which applies to your distro before assuming the Ubuntu path is universal.
+> **Distro-specific source:** Check the installed package’s defaults: authentication log locations and backends vary by distribution and version. Use the configured path for file-based monitoring. With the systemd backend, follow the installed filter’s journal matching configuration; upstream documents that `logpath` is not valid with this backend. Do not combine a guessed file path with a journald backend.
 
 If you moved SSH to a non-standard port (a pattern used elsewhere in this repo's honeypot guides — see [Cowrie](../HoneyPot/cowrie.md) and [OpenCanary](../HoneyPot/opencanary.md)), update `port` to match.
 

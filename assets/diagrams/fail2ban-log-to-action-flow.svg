@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Fail2Ban event-to-action flow</title>
+  <desc id="desc">A configured log file or supported journal source feeds a service-specific filter. A jail counts matching failures within a configured time window and invokes a configured action, which may ban an address for a set duration. Operators review events and may unban an address.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#315b7d"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b3a}
+      .head{font-size:22px;font-weight:700}.body{font-size:17px}.small{font-size:15px}
+      .box{fill:#f5f9fc;stroke:#315b7d;stroke-width:2}.note{fill:#fff7e6;stroke:#bd7b18;stroke-width:2}
+      .arrow{stroke:#315b7d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="420" rx="18" fill="#fff"/>
+  <text x="600" y="42" text-anchor="middle" font-size="28" font-weight="700">From observed failures to a configured response</text>
+  <g>
+    <rect class="box" x="28" y="94" width="205" height="136" rx="14"/>
+    <text class="head" x="130" y="132" text-anchor="middle">Event source</text>
+    <text class="body" x="130" y="165" text-anchor="middle">Configured log file</text>
+    <text class="body" x="130" y="191" text-anchor="middle">or supported journal</text>
+    <path class="arrow" d="M237 162H270"/>
+    <rect class="box" x="278" y="94" width="195" height="136" rx="14"/>
+    <text class="head" x="375" y="132" text-anchor="middle">Filter</text>
+    <text class="body" x="375" y="165" text-anchor="middle">Recognizes service-</text>
+    <text class="body" x="375" y="191" text-anchor="middle">specific failure records</text>
+    <path class="arrow" d="M477 162H510"/>
+    <rect class="box" x="518" y="94" width="200" height="136" rx="14"/>
+    <text class="head" x="618" y="132" text-anchor="middle">Jail threshold</text>
+    <text class="body" x="618" y="165" text-anchor="middle">Counts matches within</text>
+    <text class="body" x="618" y="191" text-anchor="middle">findtime / maxretry</text>
+    <path class="arrow" d="M722 162H755"/>
+    <rect class="box" x="763" y="94" width="195" height="136" rx="14"/>
+    <text class="head" x="860" y="132" text-anchor="middle">Configured action</text>
+    <text class="body" x="860" y="165" text-anchor="middle">For example, firewall</text>
+    <text class="body" x="860" y="191" text-anchor="middle">ban for bantime</text>
+    <path class="arrow" d="M962 162H995"/>
+    <rect class="box" x="1003" y="94" width="169" height="136" rx="14"/>
+    <text class="head" x="1087" y="132" text-anchor="middle">Review</text>
+    <text class="body" x="1087" y="165" text-anchor="middle">Monitor, expire,</text>
+    <text class="body" x="1087" y="191" text-anchor="middle">or unban</text>
+  </g>
+  <rect class="note" x="80" y="278" width="1040" height="96" rx="14"/>
+  <text x="600" y="312" text-anchor="middle" font-size="19" font-weight="700">Configuration determines what this flow covers</text>
+  <text class="small" x="600" y="340" text-anchor="middle">Verify the source, filter matches, allowlist, thresholds, and action before enabling a jail.</text>
+  <text class="small" x="600" y="362" text-anchor="middle">Conceptual only: available backends and actions vary by Fail2Ban version and host.</text>
+</svg>
