@@ -1,14 +1,22 @@
 # 🔄 Change Log - November 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1643
-- **Files Modified**: 2737
-- **New Files**: 1093
+- **Commits Analyzed**: 1662
+- **Files Modified**: 2750
+- **New Files**: 1098
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: clarify Linux audit rule loading and add event flow diagram (`e85e1e9`)
+- docs: add Linux audit event flow diagram (`5d855c5`)
+- docs: clarify OWASP WSTG release status and add diagram (`99c86a0`)
+- docs: add web assessment evidence flow diagram (`fa8855a`)
+- docs: clarify Velociraptor collection permissions and add flow diagram (`ee22aa9`)
+- docs: add Velociraptor triage flow diagram (`28a29c3`)
+- docs: correct Sysmon deployment and add telemetry diagram (`dbf2a6d`)
+- docs: add Sysmon telemetry coverage diagram (`e58100b`)
 - docs: clarify Windows build review and add evidence diagram (#268) (`f35cd48`)
 - docs: clarify schema compatibility and add validation diagram (#272) (`4e7cea1`)
 - docs: clarify mobile testing scope and add workflow diagrams (#271) (`280ab85`)
@@ -515,6 +523,9 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs: fix nested Velociraptor diagram link (`1045934`)
+- docs: correct Sysmon support and event handling guidance (`3517f56`)
+- docs: narrow schema-contract review to verified fixes (#273) (`1ad3dd4`)
 - docs: illustrate security-key recovery and correct protocol assumptions (#258) (`d3c67d0`)
 - docs: illustrate OPSEC lab boundaries and correct isolation claims (#259) (`ef245be`)
 - docs: illustrate framework evidence reuse and correct scope assumptions (#260) (`3f59157`)
@@ -1378,6 +1389,14 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: index Linux audit event flow diagram (`fd0f53a`)
+- docs: clarify audit rule replacement and forwarding checks (`15b8e09`)
+- docs: index web assessment evidence diagram (`b9b84be`)
+- docs: clarify OWASP WSTG release status and assessment flow (`47c73c6`)
+- docs: index Velociraptor triage diagram (`a674a44`)
+- docs: clarify Velociraptor artifact permissions and flow status (`21aa077`)
+- docs: index Sysmon telemetry diagram (`cea9cc6`)
+- docs: clarify Suricata and Zeek sensor behavior (#275) (`c52b2bd`)
 - docs: illustrate Proxmox sensor visibility and tighten validation (#269) (`7584c77`)
 - docs: illustrate supply-chain evidence and clarify signature checks (#251) (`d4c381c`)
 - docs: illustrate source provenance and clarify OSINT evidence limits (#253) (`f858832`)
@@ -1667,10 +1686,21 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Checklists/Windows-Build-Review-Checklist.md`
 - `assets/README.md`
-- `assets/diagrams/windows-build-review-evidence.svg`
+- `assets/diagrams/linux-audit-event-flow.svg`
+- `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
+- `assets/diagrams/webapp-requirement-to-evidence-flow.svg`
+- `WebAppSecurity/owasp-assessment-and-nuclei.md`
+- `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
+- `assets/diagrams/velociraptor-triage-flow.svg`
+- `assets/diagrams/sysmon-telemetry-coverage-flow.svg`
+- `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `assets/diagrams/suricata-zeek-visibility-and-blocking.svg`
+- `CHANGELOG.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
+- `Checklists/Windows-Build-Review-Checklist.md`
+- `assets/diagrams/windows-build-review-evidence.svg`
 - `assets/diagrams/data-contract-validation-and-evolution.svg`
 - `Mobile/mobile_pentest_sop.md`
 - `assets/diagrams/mobile-pentest-evidence-chain.svg`
@@ -1680,7 +1710,6 @@
 - `Mobile/mvt-forensic-triage.md`
 - `assets/diagrams/mvt-triage-artifact-coverage.svg`
 - `assets/diagrams/mvt-triage-consent-custody.svg`
-- `CHANGELOG.md`
 - `Cryptography/security-keys-passkeys.md`
 - `assets/diagrams/security-key-protocol-boundaries.svg`
 - `assets/diagrams/security-key-recovery-paths.svg`
@@ -1952,7 +1981,6 @@
 - `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
 - `IncidentResponse/IDS&IPS/snort.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `IncidentResponse/SIEM/elk_stack.md`
 - `OPSEC/press-freedom/duress-seizure-response.md`
 - `OPSEC/tails-usb-setup-guide.md`
@@ -2085,14 +2113,12 @@
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
 - `PlayBooks/security-training-lab-pathways.md`
-- `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `WebAppSecurity/methodology.md`
-- `WebAppSecurity/owasp-assessment-and-nuclei.md`
 - `Documentation/TOR.md`
 - `Documentation/VPN.md`
 - `Documentation/curated-technical-docs.md`
@@ -2396,12 +2422,10 @@
 - `Checklists/Microsoft Exchange.md`
 - `Checklists/VoIP Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
 - `AI/AnythingLLM/flow-domain_recon.md`
 - `FIRMWARE&HARDWARE_COMPATIBILITY.md`
-- `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
 - `AI/AnythingLLM/flow-github_secrets.md`
 - `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
