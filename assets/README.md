@@ -435,6 +435,14 @@ Two original conceptual figures embedded in the [receive-only telemetry lab](../
 
 These illustrate a proposed lab; no live sensor data or deployed detection results are claimed.
 
+## Velociraptor Endpoint Triage Visuals
+
+Original conceptual flow showing collection authorization, artifact selection and Flow ID/status review.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Velociraptor endpoint triage flow](./diagrams/velociraptor-triage-flow.svg) | [Velociraptor and ForensicArtifacts triage](../IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md) |
+
 ## MVT Forensic Visuals
 
 Original conceptual diagrams; MVT release behavior and evidence limits are documented in the guide.
