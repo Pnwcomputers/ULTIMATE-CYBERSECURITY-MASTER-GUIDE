@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 520" role="img" aria-labelledby="title desc">
+<title id="title">Snort generation and traffic mode map</title>
+<desc id="desc">Snort 2 uses legacy snort.conf configuration, while Snort 3 uses Lua snort.lua and its own DAQ modules. Both generations can inspect traffic passively. Snort 3 inline blocking needs a supported inline DAQ and traffic routed through the sensor. Validate configuration and rules before considering inline deployment.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#355c7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#182a3a}.title{font-size:27px;font-weight:700}.h{font-size:21px;font-weight:700}.b{font-size:17px}.s{font-size:15px}.v2{fill:#f1f5f9;stroke:#5d7185;stroke-width:2}.v3{fill:#e8f3fb;stroke:#2873a8;stroke-width:2}.mode{fill:#f7fbf7;stroke:#4b8060;stroke-width:2}.warn{fill:#fff6e5;stroke:#bc7a17;stroke-width:2}.arrow{stroke:#355c7d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+</style></defs>
+<rect width="1080" height="520" rx="16" fill="#fff"/>
+<text class="title" x="540" y="42" text-anchor="middle">Choose the generation, then choose the traffic mode</text>
+<rect class="v2" x="54" y="82" width="420" height="150" rx="14"/>
+<text class="h" x="264" y="119" text-anchor="middle">Snort 2 · legacy</text>
+<text class="b" x="264" y="153" text-anchor="middle">snort.conf configuration</text>
+<text class="b" x="264" y="183" text-anchor="middle">Snort 2 rules and DAQ</text>
+<rect class="v3" x="606" y="82" width="420" height="150" rx="14"/>
+<text class="h" x="816" y="119" text-anchor="middle">Snort 3</text>
+<text class="b" x="816" y="153" text-anchor="middle">Lua configuration, often snort.lua</text>
+<text class="b" x="816" y="183" text-anchor="middle">Snort 3 rules and DAQ modules</text>
+<path class="arrow" d="M264 234V270H420"/>
+<path class="arrow" d="M816 234V270H660"/>
+<rect class="mode" x="330" y="278" width="420" height="88" rx="14"/>
+<text class="h" x="540" y="312" text-anchor="middle">Validate configuration and rules</text>
+<text class="b" x="540" y="342" text-anchor="middle">Test against known traffic before relying on alerts</text>
+<path class="arrow" d="M540 369V394H292V413"/>
+<path class="arrow" d="M540 369V394H788V413"/>
+<rect class="mode" x="54" y="418" width="476" height="78" rx="14"/>
+<text class="h" x="292" y="449" text-anchor="middle">Passive observation</text>
+<text class="s" x="292" y="477" text-anchor="middle">Receives a copy or listens; does not block</text>
+<rect class="warn" x="550" y="418" width="476" height="78" rx="14"/>
+<text class="h" x="788" y="449" text-anchor="middle">Inline response</text>
+<text class="s" x="788" y="477" text-anchor="middle">Requires supported DAQ and traffic through sensor</text>
+</svg>
