@@ -25,7 +25,7 @@ Operational security tradecraft for red team, blue team, and purple team practit
 
 ---
 
----
+_Last reviewed: 2026-11-18 (MITRE ATT&CK Enterprise taxonomy and U.S. computer-crime references checked; legal consequences vary by jurisdiction)_
 
 ## 🎯 Purpose
 The folder-level index for the eight specialized tradecraft guides that complement the master guides with deeper red-team, blue-team, and purple-team material.
@@ -101,9 +101,7 @@ ATT&CK is a living knowledge base. Its tactics and technique relationships chang
 
 🔴 **THESE ARE OFFENSIVE & DEFENSIVE SECURITY TACTICS** 🔴
 
-🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
-
-🔴 **UP TO 20 YEARS IMPRISONMENT** 🔴
+**Use only with explicit authorization for the systems, methods, time window, and impact covered by the engagement. Unauthorized access may carry criminal or civil consequences; applicable law and penalties depend on jurisdiction and facts.** See the [repository legal terms](../LEGAL.md) and [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/). This is general information, not legal advice.
 
 ---
 
