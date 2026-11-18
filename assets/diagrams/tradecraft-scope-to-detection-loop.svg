@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 860" role="img" aria-labelledby="title desc">
+<title id="title">Authorized security tradecraft connects scoped testing to defensive learning</title>
+<desc id="desc">A conceptual five-step loop: define written authorization and scope, study or simulate a technique only within that scope, collect expected telemetry, validate detections and hardening, then report findings and restore the lab. A stop condition applies if activity reaches an out-of-scope system or scope expires. The MITRE ATT&CK mapping is a living reference and should be checked against the current Enterprise knowledge base.</desc>
+<defs><style>
+.bg{fill:#f4f7fb}.head{fill:#17354f}.box{fill:#fff;stroke:#bac9d7;stroke-width:2}.scope{fill:#e9f3fb;stroke:#568bb1;stroke-width:2}.study{fill:#f1effb;stroke:#8179b4;stroke-width:2}.observe{fill:#edf7f1;stroke:#5b9b70;stroke-width:2}.defend{fill:#eaf5ed;stroke:#5b956b;stroke-width:2}.report{fill:#fff5e7;stroke:#c39545;stroke-width:2}.stop{fill:#fff0ef;stroke:#c5685d;stroke-width:2}.title{font:700 27px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.white{font:700 20px system-ui,Segoe UI,Arial,sans-serif;fill:#fff}.h{font:700 19px system-ui,Segoe UI,Arial,sans-serif;fill:#17354f}.b{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.s{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#30485c}.arrow{stroke:#496b85;stroke-width:3;fill:none;marker-end:url(#a)}
+</style><marker id="a" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L9 4L0 8" fill="#496b85"/></marker></defs>
+<rect class="bg" width="1240" height="860" rx="20"/>
+<text class="title" x="42" y="48">Tradecraft is useful when scoped work produces defensive evidence</text>
+<rect class="head" x="38" y="72" width="1164" height="48" rx="11"/><text class="white" x="62" y="104">A controlled red / blue / purple learning loop</text>
+<rect class="scope" x="42" y="160" width="350" height="174" rx="15"/>
+<text class="h" x="66" y="198">1  Define scope and authority</text>
+<text class="b" x="66" y="234"><tspan x="66">Written permission, target list,</tspan><tspan x="66" dy="24">time window, allowed methods,</tspan><tspan x="66" dy="24">contacts, stop rules, and evidence</tspan><tspan x="66" dy="24">handling are explicit.</tspan></text>
+<path class="arrow" d="M392 247H426"/>
+<rect class="study" x="434" y="160" width="350" height="174" rx="15"/>
+<text class="h" x="458" y="198">2  Study within the boundary</text>
+<text class="b" x="458" y="234"><tspan x="458">Use an isolated lab or a specifically</tspan><tspan x="458" dy="24">authorized target. Keep activity</tspan><tspan x="458" dy="24">observable, reversible, and limited</tspan><tspan x="458" dy="24">to approved objectives.</tspan></text>
+<path class="arrow" d="M784 247H818"/>
+<rect class="observe" x="826" y="160" width="368" height="174" rx="15"/>
+<text class="h" x="850" y="198">3  Observe expected telemetry</text>
+<text class="b" x="850" y="234"><tspan x="850">Collect relevant endpoint, identity,</tspan><tspan x="850" dy="24">and network events; note what is</tspan><tspan x="850" dy="24">missing and preserve provenance</tspan><tspan x="850" dy="24">for the test record.</tspan></text>
+<path class="arrow" d="M1010 334V400"/>
+<rect class="defend" x="826" y="410" width="368" height="174" rx="15"/>
+<text class="h" x="850" y="448">4  Validate defensive controls</text>
+<text class="b" x="850" y="484"><tspan x="850">Tune detection, containment, and</tspan><tspan x="850" dy="24">hardening against observed evidence.</tspan><tspan x="850" dy="24">Check alert quality and operational</tspan><tspan x="850" dy="24">impact with the system owner.</tspan></text>
+<path class="arrow" d="M826 497H792"/>
+<rect class="report" x="434" y="410" width="350" height="174" rx="15"/>
+<text class="h" x="458" y="448">5  Report, restore, learn</text>
+<text class="b" x="458" y="484"><tspan x="458">Document scope, actions, evidence,</tspan><tspan x="458" dy="24">limitations, and remediation. Remove</tspan><tspan x="458" dy="24">temporary lab changes as approved;</tspan><tspan x="458" dy="24">record follow-up ownership.</tspan></text>
+<path class="arrow" d="M434 497H400"/>
+<rect class="stop" x="42" y="410" width="350" height="174" rx="15"/>
+<text class="h" x="66" y="448">Stop and re-confirm</text>
+<text class="b" x="66" y="484"><tspan x="66">If the target, method, or impact leaves</tspan><tspan x="66" dy="24">scope—or permission expires—pause</tspan><tspan x="66" dy="24">and contact the named owner. Do not</tspan><tspan x="66" dy="24">extend authorization by assumption.</tspan></text>
+<rect class="head" x="42" y="640" width="1152" height="48" rx="11"/><text class="white" x="66" y="672">Use ATT&amp;CK as a versioned vocabulary, not as authorization or a complete test plan</text>
+<rect class="box" x="42" y="710" width="1152" height="96" rx="14"/>
+<text class="s" x="66" y="746">Tactics and technique mappings evolve. Check MITRE ATT&amp;CK Enterprise for the current names and relationships; map only the behavior</text>
+<text class="s" x="66" y="772">observed in the authorized exercise. This diagram intentionally omits operational exploit steps and is not a substitute for a rules-of-engagement document.</text>
+</svg>
