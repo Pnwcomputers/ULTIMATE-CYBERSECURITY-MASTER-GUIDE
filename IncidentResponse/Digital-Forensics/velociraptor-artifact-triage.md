@@ -56,7 +56,7 @@ _Last reviewed: 2026-11-02 (source/API documentation review; no collection execu
    encrypted, record access, and rehearse restoration/disposal according to
    legal retention obligations.
 
-![Conceptual Velociraptor triage path from authorization through collection, flow-status review and evidence reporting](../assets/diagrams/velociraptor-triage-flow.svg)
+![Conceptual Velociraptor triage path from authorization through collection, flow-status review and evidence reporting](../../assets/diagrams/velociraptor-triage-flow.svg)
 
 *Conceptual workflow only. A Flow ID identifies a collection; it does not prove complete coverage or prove that unobserved activity did not occur.*
 
