@@ -1,14 +1,18 @@
-# 🔄 Change Log - November 17, 2026
+# 🔄 Change Log - November 18, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1638
-- **Files Modified**: 2726
-- **New Files**: 1086
+- **Commits Analyzed**: 1643
+- **Files Modified**: 2737
+- **New Files**: 1093
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: clarify Windows build review and add evidence diagram (#268) (`f35cd48`)
+- docs: clarify schema compatibility and add validation diagram (#272) (`4e7cea1`)
+- docs: clarify mobile testing scope and add workflow diagrams (#271) (`280ab85`)
+- docs: clarify MVT forensic triage and add diagrams (#267) (`09529cc`)
 - docs: add RFID and NFC explanatory diagrams with evidence limits (#237) (`fe29fd3`)
 - Add files via upload (`459e5b9`)
 - docs: add DSS smart-card and Xerox MIC case studies (#232) (`71faf95`)
@@ -1374,6 +1378,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: illustrate Proxmox sensor visibility and tighten validation (#269) (`7584c77`)
 - docs: illustrate supply-chain evidence and clarify signature checks (#251) (`d4c381c`)
 - docs: illustrate source provenance and clarify OSINT evidence limits (#253) (`f858832`)
 - docs: illustrate ScubaGear assessment and finding decisions (#244) (`0b19630`)
@@ -1662,8 +1667,21 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Cryptography/security-keys-passkeys.md`
+- `Checklists/Windows-Build-Review-Checklist.md`
 - `assets/README.md`
+- `assets/diagrams/windows-build-review-evidence.svg`
+- `Data-Engineering/Phase1/data_quality_schema_contracts.md`
+- `assets/diagrams/data-contract-validation-and-evolution.svg`
+- `Mobile/mobile_pentest_sop.md`
+- `assets/diagrams/mobile-pentest-evidence-chain.svg`
+- `assets/diagrams/mobile-pentest-scope-gates.svg`
+- `Homelab/proxmox-security-monitoring-visibility.md`
+- `assets/diagrams/proxmox-sensor-visibility.svg`
+- `Mobile/mvt-forensic-triage.md`
+- `assets/diagrams/mvt-triage-artifact-coverage.svg`
+- `assets/diagrams/mvt-triage-consent-custody.svg`
+- `CHANGELOG.md`
+- `Cryptography/security-keys-passkeys.md`
 - `assets/diagrams/security-key-protocol-boundaries.svg`
 - `assets/diagrams/security-key-recovery-paths.svg`
 - `OPSEC/OPSEC_guide.md`
@@ -1769,7 +1787,6 @@
 - `assets/diagrams/subghz-frame-inference.svg`
 - `assets/diagrams/subghz-iq-to-evidence.svg`
 - `assets/diagrams/subghz-ook-vs-fsk.svg`
-- `CHANGELOG.md`
 - `SDR/rfid.md`
 - `assets/diagrams/nfc-passive-tag-coupling.svg`
 - `assets/diagrams/rfid-band-and-reader-map.svg`
@@ -1937,7 +1954,6 @@
 - `IncidentResponse/IDS&IPS/snort.md`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `IncidentResponse/SIEM/elk_stack.md`
-- `Mobile/mobile_pentest_sop.md`
 - `OPSEC/press-freedom/duress-seizure-response.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
@@ -2065,14 +2081,12 @@
 - `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
 - `Documentation/upstream-security-projects-register.md`
-- `Homelab/proxmox-security-monitoring-visibility.md`
 - `OSINT/OSINT_CHEATSHEET.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
 - `PlayBooks/security-training-lab-pathways.md`
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
-- `Mobile/mvt-forensic-triage.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `PlayBooks/purple-team-detection-validation.md`
@@ -2306,7 +2320,6 @@
 - `uConsole/tests/test_cm5_parrot_setup.py`
 - `Data-Engineering/Phase3/readme.md`
 - `Data-Engineering/Phase2/readme.md`
-- `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
 - `Data-Engineering/Phase1/sql_data_modeling.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
@@ -2382,7 +2395,6 @@
 - `Checklists/Linux-Privilege-Escalation.md`
 - `Checklists/Microsoft Exchange.md`
 - `Checklists/VoIP Checklist.md`
-- `Checklists/Windows-Build-Review-Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
