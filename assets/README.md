@@ -557,6 +557,14 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 |---|---|
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
+## Journalist Device, Account And Network Boundaries Visual
+
+Original conceptual data-flow map emphasizing that device, account, copy/sync, and network protections address different boundaries.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Journalist device, account, and network boundaries](./diagrams/journalist-device-account-network-boundaries.svg) | [Journalist device and network protection](../OPSEC/press-freedom/device-network-protection.md) |
+
 ## Press Freedom Source Data Lifecycle Visual
 
 Original conceptual workflow for data minimization, protection, retention review, legal holds, and authorized disposal. It does not specify a legal retention period or sanitize media automatically.
