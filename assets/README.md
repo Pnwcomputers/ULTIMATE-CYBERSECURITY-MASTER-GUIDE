@@ -677,3 +677,11 @@ Original conceptual flow from attacker capability and reachable interfaces to as
 | Diagram | Embedded guide |
 |---|---|
 | [Hardware threat-model capability flow](./diagrams/hardware-threat-model-capability-flow.svg) | [Hardware Threat Modeling](../HardwareHacking/Chapter1.md#why-hardware-threat-modeling-differs) |
+
+## Bus Pirate SPI Visual
+
+Original conceptual wiring map. Pin labels depend on hardware revision and adapters; the optional VOUT path is separate and requires checking the target rail before connection.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Bus Pirate SPI signal mapping](./diagrams/buspirate-spi-signal-mapping.svg) | [Bus Pirate guide](../HardwareHacking/BusPirate.md#conceptual-spi-wiring) |
