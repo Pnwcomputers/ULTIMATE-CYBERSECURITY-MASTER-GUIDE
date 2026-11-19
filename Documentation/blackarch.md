@@ -227,7 +227,7 @@ pacman -Sl blackarch | grep '\[installed\]'
 | `sudo pacman -S <pkg>` | Install a package |
 | `sudo pacman -Syu` | Update all packages |
 | `sudo pacman -Rns <pkg>` | Remove package + config + orphan deps |
-| `sudo pacman -Rdd <pkg>` | Remove package ignoring dependencies |
+| `pacman -Q <pkg>` | Inspect whether a package is installed |
 | `pacman -Q <pkg>` | Check if package is installed |
 | `pacman -Qm` | List packages not in any repo (manually installed) |
 | `pacman -Ss <keyword>` | Search available packages |
