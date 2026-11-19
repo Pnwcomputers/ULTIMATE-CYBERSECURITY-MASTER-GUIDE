@@ -949,23 +949,11 @@ done
 
 ---
 
-## Covering Tracks
+## Audit Log Protection and Incident Response
 
-### Log Cleaning
-```bash
-# Clear bash history
-history -c
-cat /dev/null > ~/.bash_history
+Operational systems should preserve audit evidence. Restrict log-administration rights, forward important events to a separately administered collector, monitor changes to logging configuration, and retain records according to policy.
 
-# Clear system logs (requires root)
-echo "" > /var/log/auth.log
-echo "" > /var/log/syslog
-
-# Windows event logs
-wevtutil cl System
-wevtutil cl Security
-wevtutil cl Application
-```
+For an authorized disposable lab reset, restore a clean VM snapshot or rebuild the machine after preserving any evidence needed for the exercise. Do not erase or truncate host or domain-controller logs as a cleanup step. If logs are unexpectedly missing or altered, record the time and system state and investigate the change.
 
 [Return to Table of Contents](#master-table-of-contents)
 
