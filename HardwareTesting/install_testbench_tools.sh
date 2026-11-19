@@ -25,7 +25,7 @@ checkout_pinned_source() {
   local source_dir="$1"
   local repository="$2"
   local commit="$3"
-  local origin actual
+  local origin actual worktree_state
 
   if [ -e "$source_dir" ] && [ ! -d "$source_dir/.git" ]; then
     echo "ERROR: $source_dir exists but is not a Git checkout."
@@ -36,6 +36,12 @@ checkout_pinned_source() {
     origin="$(git -C "$source_dir" remote get-url origin)"
     if [ "$origin" != "$repository" ]; then
       echo "ERROR: unexpected origin for $source_dir: $origin"
+      return 1
+    fi
+    worktree_state="$(git -C "$source_dir" status --porcelain --untracked-files=all)"
+    if [ -n "$worktree_state" ]; then
+      echo "ERROR: refusing to build from a modified or untracked checkout: $source_dir"
+      echo "Review or remove local changes before retrying."
       return 1
     fi
   else
@@ -49,7 +55,12 @@ checkout_pinned_source() {
     echo "ERROR: checked out $actual instead of pinned $commit."
     return 1
   fi
-  echo "Verified upstream origin and pinned source commit: $repository @ $actual"
+  worktree_state="$(git -C "$source_dir" status --porcelain --untracked-files=all)"
+  if [ -n "$worktree_state" ]; then
+    echo "ERROR: pinned checkout is not clean; refusing to build: $source_dir"
+    return 1
+  fi
+  echo "Verified canonical origin, clean worktree, and pinned commit: $repository @ $actual"
 }
 
 # ── CUDA path detection ────────────────────────────────────────────
@@ -293,6 +304,11 @@ else
       echo "      The rest of the PNWC test bench tools are still usable."
       echo "      You can skip --gpu-burn and use memtest_vulkan, vkmark, and glmark2 instead."
     fi
+
+    # Remove only the compatibility patch created by this installer so the
+    # source checkout returns to its pinned, clean state for future runs.
+    git -C "$PNWC_SRC_DIR/gpu-burn" checkout -- Makefile
+    rm -f "$PNWC_SRC_DIR/gpu-burn/Makefile.pnwc-original"
   fi
 fi
 
