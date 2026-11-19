@@ -153,9 +153,10 @@ applicable regulation and framework - see
 ## 📚 Resources
 
 - [GDPR - official text (EUR-Lex)](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-- [HHS HIPAA for Professionals](https://www.hhs.gov/hipaa/for-professionals/index.html)
+- [HHS Breach Notification Rule](https://www.hhs.gov/hipaa/for-professionals/breach-notification/index.html)
 - [California CCPA (OAG)](https://oag.ca.gov/privacy/ccpa)
-- [California Privacy Protection Agency (CPPA)](https://cppa.ca.gov/)
+- [California Privacy Protection Agency regulations](https://cppa.ca.gov/regulations/)
+- [CPPA 2025 CCPA updates](https://www.cppa.ca.gov/regulations/ccpa_updates.html)
 
 ---
 
