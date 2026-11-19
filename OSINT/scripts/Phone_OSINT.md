@@ -276,6 +276,22 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Send query URLs to curl through a private temporary config file so API keys
+# are not exposed in curl's process arguments. Providers may still log URL keys.
+private_curl_url() {
+    local URL="$1"
+    local OUTPUT="$2"
+    local CURL_CONFIG
+    CURL_CONFIG=$(mktemp) || return 1
+    chmod 600 "$CURL_CONFIG"
+    printf 'url = "%s"\n' "$URL" > "$CURL_CONFIG"
+    curl --config "$CURL_CONFIG" --silent --show-error --fail --max-time 20 \
+        | pretty_json > "$OUTPUT" 2>&1
+    local CURL_STATUS=${PIPESTATUS[0]}
+    rm -f "$CURL_CONFIG"
+    return "$CURL_STATUS"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -306,8 +322,11 @@ query_numverify() {
         return
     fi
     
-    curl -s "https://api.apilayer.com/number_verification/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$NUMVERIFY_KEY" =~ ^[A-Za-z0-9._-]+$ ]] || [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        log "${YELLOW}[!] NumVerify key/number format invalid; request skipped.${NC}"
+        return
+    fi
+    private_curl_url "https://api.apilayer.com/number_verification/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
@@ -331,13 +350,19 @@ query_veriphone() {
     
     log "${GREEN}    [*] Checking Veriphone...${NC}"
     
+    if [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        log "${YELLOW}[!] Phone number format invalid; Veriphone request skipped.${NC}"
+        return
+    fi
     if [ -z "$VERIPHONE_KEY" ]; then
         # Veriphone has a free tier without key (limited)
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" \
-            | pretty_json > "$OUTPUT" 2>&1
+        private_curl_url "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" "$OUTPUT"
     else
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" \
-            | pretty_json > "$OUTPUT" 2>&1
+        if [[ ! "$VERIPHONE_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+            log "${YELLOW}[!] Veriphone key contains unsupported characters; request skipped.${NC}"
+            return
+        fi
+        private_curl_url "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" "$OUTPUT"
     fi
     
     if [ -s "$OUTPUT" ]; then
@@ -379,6 +404,11 @@ query_abstractapi() {
     local CURL_CONFIG
     CURL_CONFIG=$(mktemp) || return 1
     chmod 600 "$CURL_CONFIG"
+    if [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        rm -f "$CURL_CONFIG"
+        log "${YELLOW}[!] Phone number format invalid; AbstractAPI request skipped.${NC}"
+        return
+    fi
     printf 'url = "https://phonevalidation.abstractapi.com/v1/?api_key=%s&phone=%s"\n' "$ABSTRACTAPI_KEY" "$NORMALIZED" > "$CURL_CONFIG"
     curl --config "$CURL_CONFIG" --silent --show-error --fail --max-time 20 \
         | pretty_json > "$OUTPUT" 2>&1
