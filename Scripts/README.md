@@ -424,7 +424,7 @@ Review the selected script and its documented parameters first. Do not weaken ex
 The repository's `port_scanner.py` accepts a host and inclusive start/end ports as positional arguments. It prints results to the console and has no `--target` or `--output` options:
 
 ```console
-python port_scanner.py <authorized-hostname> 1 1024
+python port_scanner.py approved-host.example 1 1024  # replace only with a host in scope
 ```
 
 Use only a host and port range that are explicitly within scope. This repository does not provide a `requirements.txt` for this script; inspect its imports and obtain dependencies from trusted sources before installing them.
