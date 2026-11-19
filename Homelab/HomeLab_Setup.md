@@ -1096,7 +1096,19 @@ qm create 300 --name dc01-target --memory 16384 --cores 4 \
 qm start 300
 ```
 
-**Post-Installation** (via RDP from Management VLAN):
+> [!CAUTION]
+> The intentionally weak accounts, SMB1 setting, and Defender change below are for a disposable, isolated training domain only. Before enabling them, attach the lab VMs only to a host-only/internal virtual switch, verify there is no bridge, route, NAT, or DNS path to the Internet or production networks, and use test data and credentials only. Never use a production management VLAN for this exercise.
+
+```mermaid
+flowchart LR
+    Admin[Administrator console] -->|controlled management access| Host[Hypervisor]
+    Host --> Switch[Host-only / internal virtual switch]
+    Switch --> DC[Disposable lab domain controller]
+    Switch --> Client[Disposable lab client]
+    Prod[Production network / Internet] -. no route .- Switch
+```
+
+**Post-Installation** (use the isolated lab management path only):
 ```powershell
 # Set static IP
 New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 10.30.30.10 -PrefixLength 24 -DefaultGateway 10.30.30.1
@@ -1113,16 +1125,23 @@ Install-ADDSForest -DomainName "pnwlab.local" -DomainNetbiosName "PNWLAB" `
     -ForestMode "WinThreshold" -DomainMode "WinThreshold" `
     -InstallDns -Force
 
-# Create vulnerable AD configuration (for testing)
-# Add users with weak passwords
+# LAB ONLY: run only after confirming the isolation above.
+# Use disposable test identities and never reuse these passwords.
 New-ADUser -Name "John Doe" -SamAccountName "jdoe" -AccountPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force) -Enabled $true
-New-ADUser -Name "Admin User" -SamAccountName "admin" -AccountPassword (ConvertTo-SecureString "Admin@123" -AsPlainText -Force) -Enabled $true -MemberOf "Domain Admins"
+New-ADUser -Name "Admin User" -SamAccountName "admin" -AccountPassword (ConvertTo-SecureString "Admin@123" -AsPlainText -Force) -Enabled $true
+Add-ADGroupMember -Identity "Domain Admins" -Members "admin"
 
-# Enable legacy authentication protocols (for practice)
+# Optional lab-only legacy protocol setting. Revert after the exercise.
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "SMB1" -Value 1
 
-# Disable Windows Defender (for exploitation practice)
+# Temporarily disable real-time protection only in this disposable lab VM.
 Set-MpPreference -DisableRealtimeMonitoring $true
+
+# After the exercise, restore protections and remove test identities.
+Set-MpPreference -DisableRealtimeMonitoring $false
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "SMB1" -Value 0
+Remove-ADUser -Identity "jdoe" -Confirm:$false
+Remove-ADUser -Identity "admin" -Confirm:$false
 ```
 
 **SQL Server (SQL01)**:
