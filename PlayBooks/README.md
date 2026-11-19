@@ -510,29 +510,11 @@ These security playbooks contain operational procedures for:
 
 ---
 
-### Authorization Requirements
+### Authorization, Delegation & Scope
 
-#### Written Authorization Is Mandatory
+**Routine incident response and monitoring:** Staff should act under their organization's delegated role, incident-response runbook, and applicable policy. Preserve evidence and follow required change approvals and escalation paths. A separate written authorization is not a universal legal prerequisite for every routine monitoring or response action.
 
-**Before executing any playbook procedures that involve:**
-- Network scanning or vulnerability assessment
-- Penetration testing or security testing
-- Access to production systems
-- Incident response on organizational assets
-- Purple team testing or attack simulation
-- Security monitoring or log analysis
-
-**You MUST have:**
-```
-☐ Explicit written authorization from appropriate authority
-☐ Clear scope definition and boundaries
-☐ Defined rules of engagement
-☐ Emergency contact information
-☐ Authorization for specific procedures and techniques
-☐ Data handling and confidentiality requirements
-☐ Approved time windows and restrictions
-☐ Incident escalation procedures
-```
+**Active testing and simulation:** Before conducting penetration tests, vulnerability scans, red-team activity, or attack simulations, confirm that the accountable owner has approved the specific targets, techniques, timeframe, data handling, stop conditions, and contacts. Document the scope in the form required by policy, contract, and applicable law. Do not extend routine access into testing outside the delegated role.
 
 #### Organizational Policy Compliance
 
