@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1796" viewBox="0 0 1500 1796">
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1796" viewBox="0 0 1500 1796" role="img" aria-labelledby="title desc">
+<title id="title">OpenSCAD Keyboard, Mouse &amp; Code Modifier Cheat Sheet</title>
+<desc id="desc">Printable keyboard shortcuts reference for OpenSCAD 2021.01 and separately labeled development-snapshot shortcuts. Organized by building and exporting, camera views, editor actions, menus and mouse controls. Check the associated versioned guide before relying on a shortcut.</desc>
 <style>
  .bg{fill:#1E2229} .card{fill:#2A2F38;stroke:#3A404B;stroke-width:1.5}
  .cap{fill:#14171C} .captop{fill:#F4F1EA;stroke:#BFB9AC;stroke-width:1}
