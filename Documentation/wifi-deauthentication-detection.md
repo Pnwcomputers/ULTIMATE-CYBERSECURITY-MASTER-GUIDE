@@ -13,17 +13,9 @@ Learn to interpret 802.11 deauthentication and disassociation packets, separate 
 
 ## 1. How connection state works
 
-~~~text
-802.11 authentication (including SAE where appropriate)
-       ↓
-802.11 association or reassociation
-       ↓
-WPA/WPA2/WPA3 key establishment (e.g., EAPOL exchanges)
-       ↓
-Normal data and management traffic
-       ↓
-Disassociation and/or deauthentication when appropriate
-~~~
+![802.11 state flow from authentication and association through normal data to disassociation or deauthentication, with PMF applicability and independently reviewed AP/client telemetry](../assets/diagrams/wifi-deauth-disassoc-pmf-corroboration.svg)
+
+*Conceptual protocol state map.* [Cisco's 802.11w PMF reference](https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/26-1/configuration-guide/wl-26-1-cg/configuring-802-11-w/802-11w-pmf.html) explains protection of negotiated robust management frames. PMF does not prove all management packets or pre-key exchanges are authenticated; a captured deauthentication packet does not establish the transmitter's identity or malicious intent. Verify negotiated capabilities and corroborate with AP and client logs.
 
 - **Disassociation:** IEEE 802.11 management **subtype 10 (0x0a)**; ends association. Authentication state may remain.
 - **Deauthentication:** IEEE 802.11 management **subtype 12 (0x0c)**; ends 802.11 authentication state. To rejoin, a station must complete the required authentication and association procedure.
