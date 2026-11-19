@@ -19,7 +19,7 @@ Run authorized provider lookups and organize their returned metadata for human r
 **Usage:** Copy the fenced script into a file such as `phone_audit.sh`, then run `chmod +x phone_audit.sh`. Do not try to execute this Markdown document.
 
 **Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed. Phone numbers and queries are sent to the providers you enable; review their retention terms before use.
-- `NUMVERIFY_KEY` - [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
+- `NUMVERIFY_KEY` - [APILayer Number Verification API](https://marketplace.apilayer.com/number_verification-api)
 - `VERIPHONE_KEY` - [veriphone.io](https://veriphone.io/)
 - `ABSTRACTAPI_KEY` - [abstractapi.com](https://www.abstractapi.com/api/phone-validation-api)
 - `INTELX_KEY` - [intelx.io](https://intelx.io/)
@@ -279,10 +279,14 @@ pretty_json() {
 # Feed query URLs to curl on stdin so keys are not exposed in curl's process
 # arguments or left in a temporary file. Providers may still log URL keys.
 private_curl_url() {
-    local URL="$1"
-    local OUTPUT="$2"
+    local URL="$1" OUTPUT="$2" HEADER="${3:-}"
+    [[ "$URL" == https://* && "$URL" != *'"'* ]] || return 2
     {
         printf 'url = "%s"\n' "$URL"
+        if [ -n "$HEADER" ]; then
+            [[ "$HEADER" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || return 2
+            printf 'header = "%s"\n' "$HEADER"
+        fi
     } | curl --config - --silent --show-error --fail --max-time 20 \
         | pretty_json > "$OUTPUT" 2>&1
     local -a CURL_STATUSES=("${PIPESTATUS[@]}")
