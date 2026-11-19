@@ -12,15 +12,9 @@ Use [OpenCanary](./opencanary.md) instead for multiple believable simulated serv
 
 ## Isolation
 
-~~~text
-Authorized test client → dedicated decoy VLAN / isolated Proxmox network
-                                |
-                       Python HTTP decoy :8080
-                                |
-                      JSONL file + Wazuh agent
-                                |
-                     Wazuh manager / dashboard
-~~~
+![Minimal Python HTTP honeypot with approved test traffic, loopback-by-default listener, query-free bounded JSONL metadata and optional separately verified Wazuh agent forwarding](../../assets/diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg)
+
+*Source-checked against [the actual local decoy implementation](./lab/diy_http_decoy.py), which responds with 404, does not read bodies or record Authorization/cookie headers, and removes query components from logged paths.* Wazuh requires a separately configured [JSON localfile collector](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html). A local JSONL line or unit test does not establish manager ingestion or detection.
 
 Never advertise the decoy as a real production service or put it on a network from which it can reach confidential clients, PVE management or NAS. **Deny outbound** by default and narrowly allow the enrolled Wazuh-agent channel and approved management updates. Firewall segmentation, not the Python program, supplies network confinement.
 
