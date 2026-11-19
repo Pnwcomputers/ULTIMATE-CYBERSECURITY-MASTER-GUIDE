@@ -7,10 +7,10 @@ AnythingLLM AgentFlow for automated company-level OSINT - aggregates public info
 Accepts a company name or domain within an authorized assessment and summarizes public company-level information. Treat matches as unverified leads; avoid building profiles of individual employees.
 
 ## 🏆 Goal
-Build a comprehensive target profile for a company during the reconnaissance phase of an authorized engagement, without active probing.
+Summarize public, organization-level facts for scope review. Do not profile individual employees.
 
 ## 📋 When to Use
-Early-stage reconnaissance on an authorized target organization; scoping an engagement; building the target profile before active testing begins.
+Early-stage review of an authorized organization’s public information to support scope confirmation.
 
 
 ## Flow Information
@@ -202,37 +202,31 @@ Use professional security assessment language.
 
 ```
 @agent use CompanyOSINT flow
-company_name: Acme Corporation
-domain: acme.com
+company_name: Example Organization
+domain: example.invalid
 ```
 
 ### Example With Real Data
 
 ```
 @agent use CompanyOSINT flow
-company_name: Pacific Northwest Computers
-domain: pnwcomputers.com
+company_name: Example Organization
+domain: example.invalid
 ```
 
 ### Expected Output
 
-The flow will return `osint_report` containing:
-- Employee naming conventions and email formats
-- Key personnel identification
-- Technology stack analysis
-- Attack surface assessment
-- Social engineering opportunities
-- Recommended next steps
+The flow returns `osint_report` with source-linked, organization-level facts, unverified scope leads, and limitations. It does not identify individuals or generate targeting advice.
 
 ---
 
 ## Integration with Other Flows
 
-**Typical Workflow:**
+**Typical authorized workflow:**
 
 1. **CompanyOSINT** (this flow) - Gather initial intelligence
 2. **DomainRecon** - Map technical infrastructure
-3. **EmailOSINT** - Investigate key personnel emails
+3. **EmailOSINT** - Check only consented or explicitly authorized account addresses
 4. **GitHubSecrets** - Deep dive into code repositories
 5. **BreachChecker** - Check for compromised accounts
 
