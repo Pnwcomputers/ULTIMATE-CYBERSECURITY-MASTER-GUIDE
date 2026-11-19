@@ -51,6 +51,10 @@ fi
 source "$SCRIPT_DIR/lib/safe_install.sh"
 
 PINS_FILE="${PNWC_PINS_FILE:-$SCRIPT_DIR/tool_pins.conf}"
+if ! trusted_file "$PINS_FILE"; then
+    echo "[-] Pin file is missing, is a symlink, or is writable by group/others; refusing to continue." >&2
+    exit 1
+fi
 # shellcheck disable=SC2034  # appended to by lib/safe_install.sh
 UNPINNED_USED=()   # items installed without a pin (only with --allow-unpinned)
 PRINT_PINS=0
