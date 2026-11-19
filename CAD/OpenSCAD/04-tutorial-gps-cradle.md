@@ -12,6 +12,8 @@ _Last reviewed: 2026-11-14_
   <img src="./images/gps-cradle-assembly.png" alt="Finished GPS cradle assembly: blue sleeve holding a ghosted T-Embed handset, GPS pod below with an SMA bulkhead and an exploded snap-on lid" width="700"/>
 </p>
 
+![Conceptual side section showing the handset-back datum, sleeve above z = 0, GPS pod below it in negative Z, QWIIC cable route, board clips, SMA bulkhead, and separate lid; not to scale](./images/gps-cradle-coordinate-section.svg)
+
 ## 🎯 Purpose
 
 Build a complete, printable accessory from scratch: a sleeve that slides onto a **LILYGO T-Embed CC1101** handset and carries a **GT-U7 GPS receiver** in a pod behind it, with an **SMA** antenna bulkhead, a **QWIIC** cable routed from the handset's side port into the pod, spring latches that clip the GPS board in, and a snap-on lid with an optional two-color circuit-trace inlay.
