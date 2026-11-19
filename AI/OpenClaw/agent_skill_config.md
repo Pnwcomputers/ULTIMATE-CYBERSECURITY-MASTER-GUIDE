@@ -6,7 +6,7 @@ Pre-built agent configurations and skill setups for IT support, cybersecurity, h
 Ready-to-apply JSON configuration blocks for 6 role-specific OpenClaw agent personas (field tech, blue team, red team, OSINT, business ops, homelab) plus 5 automation skills and cron jobs. Complements [use_cases.md](use_cases.md) (example prompts assuming an agent already exists) and [README.md](README.md) (base install, before any of this applies).
 
 ## ⚙️ Function
-Six full agent configs (each with persona instructions, model routing, and tool profile), five skill configs with scheduling (daily security digest, incident responder, report generator, ticket triage, homelab health check), cron job and hook definitions, model-alias routing rules, and a multi-agent workflow example chaining four agents through a full pentest engagement.
+Six agent configs (each with persona instructions, model routing, and a minimal tool profile by default), five skill configs with scheduling (daily security digest, incident responder, report generator, ticket triage, homelab health check), cron job and hook definitions, model-alias routing rules, and a multi-agent workflow example chaining four agents through a full pentest engagement.
 
 ## 🏆 Goal
 Apply a specific agent persona or automation skill to an existing OpenClaw instance via the provided Python config-edit snippets, without hand-writing the JSON schema from scratch.
@@ -101,7 +101,7 @@ Context:
         'thinking': 'anthropic/claude-opus-4-7'
     },
     'tools': {
-        'profile': 'full',
+        'profile': 'minimal',
         'web': {'search': {'enabled': True, 'provider': 'gemini'}}
     },
     'memory': {
@@ -188,7 +188,7 @@ VirusTotal, AlienVault OTX, MITRE ATT&CK'''
         'thinking': 'anthropic/claude-opus-4-7'
     },
     'tools': {
-        'profile': 'full',
+        'profile': 'minimal',
         'web': {'search': {'enabled': True, 'provider': 'gemini'}}
     },
     'memory': {
@@ -280,7 +280,7 @@ Context:
         'fallback': 'anthropic/claude-haiku-4-5'
     },
     'tools': {
-        'profile': 'full',
+        'profile': 'minimal',
         'web': {'search': {'enabled': True, 'provider': 'gemini'}}
     },
     'memory': {
@@ -375,7 +375,7 @@ Preferred sources:
         'thinking': 'anthropic/claude-opus-4-7'
     },
     'tools': {
-        'profile': 'full',
+        'profile': 'minimal',
         'web': {'search': {'enabled': True, 'provider': 'gemini'}}
     },
     'memory': {
@@ -579,7 +579,7 @@ Behavior:
         'thinking': 'anthropic/claude-opus-4-7'
     },
     'tools': {
-        'profile': 'full',
+        'profile': 'minimal',
         'web': {'search': {'enabled': True, 'provider': 'gemini'}}
     },
     'memory': {
@@ -718,14 +718,13 @@ When an incident is reported, walk through:
 - Identify affected systems
 - Assess scope (single host vs lateral movement)
 - Containment decision: isolate or monitor?
-- Preserve evidence (do NOT power off without capturing memory)
+- Preserve volatile evidence only when safe, within your training and tools, and without delaying containment or personal safety; follow the incident plan.
 - Notify stakeholders if required
 
 ### Phase 2: CONTAINMENT
-- Network isolation steps for affected hosts
-- Block IOCs at firewall (OPNsense rules)
-- Preserve logs before they rotate
-- Capture running processes, network connections, memory if possible
+- Recommend containment options and identify affected hosts
+- Preserve logs and volatile evidence when safe and practical
+- Draft firewall or isolation changes for review; an authorized incident lead confirms scope, safety, evidence needs, and rollback before execution
 
 ### Phase 3: INVESTIGATION  
 - Timeline reconstruction
@@ -734,10 +733,8 @@ When an incident is reported, walk through:
 - Root cause analysis
 
 ### Phase 4: ERADICATION & RECOVERY
-- Remove malware/persistence mechanisms
-- Patch exploited vulnerability
-- Reset compromised credentials
-- Restore from known-good backup if needed
+- Recommend eradication and recovery steps
+- An authorized responder approves and performs changes to persistence, patches, credentials, and backups
 - Verify clean before reconnecting
 
 ### Phase 5: LESSONS LEARNED
