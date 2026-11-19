@@ -203,7 +203,7 @@ USERS SHOULD UNDERSTAND:
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 
-⚠️ **Unauthorized access to space systems is a FEDERAL CRIME** ⚠️
+⚠️ **Unauthorized access or transmission may violate applicable law and service rules; requirements depend on the system, spectrum, conduct, and jurisdiction.** ⚠️
 
 ⚠️ **ITAR/EAR export controls may apply to satellite security tools and techniques** ⚠️
 
