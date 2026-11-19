@@ -54,8 +54,11 @@ globally.
   portability, and objection.
 - **Security duty:** "appropriate technical and organizational measures" (Art. 32) -
   encryption, resilience, testing.
-- **Penalties:** up to **€20 million or 4% of global annual turnover**, whichever
-  is higher.
+- **Penalties:** Article 83 sets two maximum tiers, depending on the infringement:
+  up to **€10 million or 2% of global annual turnover**, and for higher-tier
+  infringements up to **€20 million or 4%**, whichever amount is higher. These are
+  statutory maxima, not automatic fines; the supervisory authority considers the
+  factors in Article 83(2).
 
 ---
 
