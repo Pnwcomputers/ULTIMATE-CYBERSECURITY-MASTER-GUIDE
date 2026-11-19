@@ -17,7 +17,7 @@ Deploy Graylog as a centralized log management and alerting platform for securit
 - Setting up alert-based detection for specific log patterns
 - Log management and retention for compliance requirements
 
-**Graylog** is an open-source log management platform designed for collecting, indexing, and analyzing log data. It combines the power of Elasticsearch (or OpenSearch) for storage with an intuitive web interface for search and visualization. Graylog is lighter weight than ELK and offers a more streamlined experience for log aggregation and SIEM use cases.
+**Graylog** provides log ingestion, processing, search and dashboards. Its search/index backend depends on the supported deployment architecture: current vendor guidance favors Graylog Data Node (which manages OpenSearch); this archived Compose example uses self-managed OpenSearch. Relative resource usage or operational simplicity versus Elastic deployments depends on workload, retention, and configuration, not a universal ranking.
 
 This guide covers deploying Graylog using Docker and configuring it to receive logs from various sources.
 
@@ -64,13 +64,17 @@ This guide covers deploying Graylog using Docker and configuring it to receive l
 
 ### Architecture Components
 
-Graylog requires three components:
+![Graylog logical architecture distinguishing event ingress and processing, recommended Data Node search indexing, optional self-managed OpenSearch, and MongoDB configuration metadata](../../assets/diagrams/graylog-data-node-ingest-architecture.svg)
+
+*Conceptual architecture, not the obsolete Compose deployment shown later in this historical guide.* The [current Graylog stack documentation](https://go2docs.graylog.org/current/planning_your_deployment/the_graylog_stack.htm) recommends **Graylog Data Node** as the managed search/index backend and lists **self-managed OpenSearch** as a version-dependent alternative. MongoDB stores configuration/metadata rather than indexed log events. Check the [official compatibility matrix](https://go2docs.graylog.org/current/downloading_and_installing_graylog/compatibility_matrix.htm) before selecting images or upgrading.
+
+The **historical Graylog 5.2 example** in this page uses the following three logical roles; current Graylog versions typically use Data Node to manage the search backend. Elasticsearch is **not** a universal current drop-in option, and all combinations require the version-specific support matrix.
 
 | Component | Purpose |
 |-----------|---------|
-| **MongoDB** | Stores configuration and metadata |
-| **OpenSearch/Elasticsearch** | Stores and indexes log messages |
-| **Graylog Server** | Processing, web interface, API |
+| **MongoDB** | Stores configuration and metadata, not event search indexes |
+| **Graylog Data Node (recommended for current versions), or supported self-managed OpenSearch** | Stores and indexes log messages |
+| **Graylog Server** | Inputs, parsing, processing, search, web interface and API |
 
 ### Network Requirements
 
