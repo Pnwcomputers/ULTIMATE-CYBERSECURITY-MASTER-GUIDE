@@ -103,7 +103,17 @@ def _kill_all():
     with _procs_lock:
         for p in _active_procs:
             try:
-                p.kill()
+                p.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                try:
+                    p.kill()
+                except Exception:
+                    pass
+            except Exception:
+                pass
+        for p in _active_procs:
+            try:
+                p.wait(timeout=3)
             except Exception:
                 pass
 
@@ -437,13 +447,13 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         "start_temp": poller.peak_cpu_temp(),
     }
 
-    cmd    = f"memtester {gb}G {passes}"
+    cmd    = ["memtester", f"{gb}G", str(passes)]
     lines: list[str] = []
     failed_detected   = False
 
     try:
         proc = _register(subprocess.Popen(
-            cmd, shell=True,
+            cmd,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
             text=True, bufsize=1,
         ))
@@ -550,16 +560,15 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     # --vm 2 --vm-bytes 60%:   two workers consuming 60% of RAM with bit-flip patterns
     # --metrics-brief:         print per-stressor metrics at end
     # --log-file:              redirect metrics to file (avoids polluting stdout)
-    stress_cmd = (
-        f"stress-ng "
-        f"--cpu {nproc} --cpu-method all "
-        f"--vm 2 --vm-bytes {VM_BYTES_PCT}% --vm-method all "
-        f"--metrics-brief --log-file {stress_ng_log} "
-        f"--timeout {stress_s}"
-    )
+    stress_cmd = [
+        "stress-ng", "--cpu", str(nproc), "--cpu-method", "all",
+        "--vm", "2", "--vm-bytes", f"{VM_BYTES_PCT}%", "--vm-method", "all",
+        "--metrics-brief", "--log-file", stress_ng_log,
+        "--timeout", str(stress_s),
+    ]
     try:
         stress_proc = _register(subprocess.Popen(
-            stress_cmd, shell=True,
+            stress_cmd,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         ))
     except Exception as exc:
@@ -569,15 +578,15 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     # ── Launch fio ───────────────────────────────────────────────────────────
     # --time_based --runtime N: run for exactly stress_s regardless of size
     # --rw=randrw:              mixed random read/write — most stressful for storage
-    fio_cmd = (
-        f"fio --name=soak --ioengine=libaio --iodepth=32 "
-        f"--rw=randrw --bs=4k --direct=1 --size={FIO_SIZE} --numjobs=2 "
-        f"--runtime={stress_s} --time_based --group_reporting "
-        f"--output={fio_log} --filename={fio_testfile}"
-    )
+    fio_cmd = [
+        "fio", "--name=soak", "--ioengine=libaio", "--iodepth=32",
+        "--rw=randrw", "--bs=4k", "--direct=1", f"--size={FIO_SIZE}",
+        "--numjobs=2", f"--runtime={stress_s}", "--time_based",
+        "--group_reporting", f"--output={fio_log}", f"--filename={fio_testfile}",
+    ]
     try:
         fio_proc = _register(subprocess.Popen(
-            fio_cmd, shell=True,
+            fio_cmd,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         ))
     except Exception as exc:
@@ -591,10 +600,10 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
 
     if glmark2_bin:
         result["gpu_ok"] = True   # assume pass until FPS drop detected
-        gpu_cmd = f"{glmark2_bin} -s 1920x1080 --run-forever"
+        gpu_cmd = [glmark2_bin, "-s", "1920x1080", "--run-forever"]
         try:
             gpu_proc = _register(subprocess.Popen(
-                gpu_cmd, shell=True,
+                gpu_cmd,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 text=True, bufsize=1,
             ))
@@ -639,17 +648,26 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     print()   # newline after progress bar
 
     # ── Graceful shutdown ─────────────────────────────────────────────────────
-    for proc in filter(None, [stress_proc, fio_proc, gpu_proc]):
+    active = list(filter(None, [stress_proc, fio_proc, gpu_proc]))
+    for proc in active:
         try:
             proc.terminate()
         except Exception:
             pass
 
-    time.sleep(3)
-
-    for proc in filter(None, [stress_proc, fio_proc, gpu_proc]):
+    for proc in active:
         try:
-            proc.kill()
+            proc.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            try:
+                proc.kill()
+            except Exception:
+                pass
+        except Exception:
+            pass
+    for proc in active:
+        try:
+            proc.wait(timeout=3)
         except Exception:
             pass
 
@@ -659,13 +677,21 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     )
 
     result["fio_ok"] = fio_proc is not None
-    fio_out = _run(f"cat {fio_log} 2>/dev/null", timeout=5)
+    try:
+        with open(fio_log, "r", encoding="utf-8", errors="replace") as stream:
+            fio_out = stream.read()
+    except OSError:
+        fio_out = ""
     result["fio_iops"] = "\n".join(
         l.strip() for l in fio_out.splitlines()
         if "IOPS=" in l or "bw=" in l or "err=" in l
     )
 
-    stress_out = _run(f"cat {stress_ng_log} 2>/dev/null", timeout=5)
+    try:
+        with open(stress_ng_log, "r", encoding="utf-8", errors="replace") as stream:
+            stress_out = stream.read()
+    except OSError:
+        stress_out = ""
     result["stress_ng_log"] = stress_out[:3000]
 
     # ── Parse GPU FPS for degradation ────────────────────────────────────────
