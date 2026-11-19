@@ -134,6 +134,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/tsurugi-osint-image-provenance-case-flow.svg": (
         "OSINT/TSURUGI_LINUX_OSINT_GUIDE.md",
     ),
+    "assets/diagrams/splunk-forwarder-indexer-search-head-data-flow.svg": (
+        "IncidentResponse/SIEM/splunk.md",
+    ),
+    "assets/diagrams/space-ground-command-telemetry-trust-boundaries.svg": (
+        "SpaceSecurity/PartII.md",
+    ),
+    "assets/diagrams/nanovna-s11-s21-calibration-plane.svg": (
+        "SDR/nanovna/03-calibration.md",
+    ),
+    "assets/diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg": (
+        "IncidentResponse/HoneyPot/diy-sensor-lab.md",
+    ),
 }
 
 
