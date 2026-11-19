@@ -86,6 +86,11 @@ board.
 
 ## 🖥️ Hardware Stack
 
+![uConsole hardware and operating-system preflight separating CM4/CM5 revisions, native OS packages, optional peripherals and actual device checks](../assets/diagrams/uconsole-hardware-os-preflight-paths.svg)
+
+*Conceptual selection and verification path, not a wiring diagram or tested CM4/CM5 deployment.* Check the board revision and vendor documentation before enabling radio hardware or changing a working image.
+
+
 ### Core Components
 
 | Component | Detail |

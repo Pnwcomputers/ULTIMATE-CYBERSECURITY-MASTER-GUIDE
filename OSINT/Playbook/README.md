@@ -10,6 +10,11 @@ Work only on accounts, assets, people, and data you have lawful authorization to
 
 ## Actual Feature Status
 
+![Authorized OSINT case proceeds through scoped indicators, controlled queries, preservation of raw results, and independent review](../../assets/diagrams/osint-case-evidence-provenance.svg)
+
+*Conceptual process illustration.* Collectors can be unavailable, time out or return incomplete output. Preserve the real status and verify every claim from source evidence; this figure does not represent a completed investigation.
+
+
 | Feature | Current source behavior | Boundary |
 |---|---|---|
 | New/load/list cases | Implemented in the interactive menu; creates private case directories and JSON case state | Existing cases must have valid state. Legacy executable `.case_state` is rejected, not executed or migrated |

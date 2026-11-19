@@ -14,6 +14,11 @@ This workflow is a **manual reference**, not a command queue, automated scanning
 
 ## Seven Stages & Deliverables
 
+![Seven operator-run Cyberdeck assessment stages grouped into authorization, network vantage, controlled specialist review, and evidence-based closure](../../assets/diagrams/cyberdeck-seven-stage-assessment-gates.svg)
+
+*Conceptual field workflow.* The four graphic groups summarize the **seven individual stages** in the table below. Each stage requires its own documented authorization and observations where applicable; no device or test is automatically approved.
+
+
 | Stage | Operator Questions | Minimum Record |
 | --- | --- | --- |
 | Intake & Authorization | Who owns the assets? Are cloud/ISP/tenant permissions covered? Which sources, methods, windows and exclusions apply? | Reviewed permission, approved plan, contacts and STOP process |

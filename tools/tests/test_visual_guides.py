@@ -32,6 +32,36 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/repository-evidence-gates.svg": (
         "Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md",
     ),
+    "assets/diagrams/osint-case-evidence-provenance.svg": (
+        "OSINT/Playbook/README.md",
+    ),
+    "assets/diagrams/wardrive-go-platform-collection-boundaries.svg": (
+        "Wardriving/wardrive-go.md",
+    ),
+    "assets/diagrams/cyberdeck-seven-stage-assessment-gates.svg": (
+        "Cyberdeck/docs/ASSESSMENT_WORKFLOW.md",
+    ),
+    "assets/diagrams/mcp-trust-and-approval-boundaries.svg": (
+        "AI/mcp-tooling-and-permissions.md",
+    ),
+    "assets/diagrams/wardriving-survey-data-privacy-gates.svg": (
+        "Wardriving/data-handling.md",
+    ),
+    "assets/diagrams/cyberdeck-evidence-and-redaction-lifecycle.svg": (
+        "Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md",
+    ),
+    "assets/diagrams/ai-evaluation-evidence-matrix.svg": (
+        "AI/ai-evaluation-and-regression-testing.md",
+    ),
+    "assets/diagrams/uconsole-hardware-os-preflight-paths.svg": (
+        "uConsole/README.md",
+    ),
+    "assets/diagrams/cryptography-primitive-decision-map.svg": (
+        "Cryptography/README.md",
+    ),
+    "assets/diagrams/homelab-passive-ids-visibility-mirror-tap.svg": (
+        "Homelab/README.md",
+    ),
 }
 
 

@@ -6,6 +6,11 @@ The **Model Context Protocol (MCP)** standardizes how an AI host/client discover
 
 ## 1. Architecture & Vocabulary
 
+![Trust boundaries between untrusted agent inputs, the policy-enforcing MCP host, the service API, and human approval of side effects](../assets/diagrams/mcp-trust-and-approval-boundaries.svg)
+
+*Conceptual permission model.* The host and the remote tool provider each enforce independent controls. A model's tool-call proposal, a server's description, or retrieved document text cannot grant privileges.
+
+
 ```text
 Human owner / administrator
        |

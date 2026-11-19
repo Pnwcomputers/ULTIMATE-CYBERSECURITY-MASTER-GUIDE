@@ -6,6 +6,11 @@ AI evaluations (**evals**) measure whether a model or agent meets a defined task
 
 ## 1. Choose What to Evaluate
 
+![AI evaluation quality gates from contract definitions and negative fixtures to live agent traces and independent state verification](../assets/diagrams/ai-evaluation-evidence-matrix.svg)
+
+*Conceptual evaluation workflow.* Deterministic fixtures, live model runs and actual external-system outcomes are different evidence levels. No production evaluation result is implied by this figure.
+
+
 | Level | Question | Example | Test Method |
 |---|---|---|---|
 | Input sanitation | Is unsafe input rejected or isolated? | Poisoned log contains commands | Deterministic validation |

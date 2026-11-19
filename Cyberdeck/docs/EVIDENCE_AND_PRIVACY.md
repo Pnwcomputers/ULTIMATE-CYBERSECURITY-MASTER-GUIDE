@@ -4,6 +4,11 @@
 
 ## Local-First Handling
 
+![Cyberdeck local-first evidence lifecycle from approved collection through encrypted originals, hash inventory, independent review and redacted sharing](../../assets/diagrams/cyberdeck-evidence-and-redaction-lifecycle.svg)
+
+*Conceptual evidence workflow.* SHA-256 verifies bytes against a recorded digest; it does not authenticate a collector or independently prove custody. Preserve originals separately from public-safe derivatives.
+
+
 Use one authorized case directory per engagement **outside** source control. Protect it with actual encryption-at-rest, least-privilege access, documented backups and pre-agreed retention. Raw captures, signed agreements and customer identifiers **never** belong in this public repository.
 
 | Field | Reason |

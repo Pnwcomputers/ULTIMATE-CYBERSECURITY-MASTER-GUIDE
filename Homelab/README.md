@@ -134,9 +134,14 @@ Keep experiments on test VLANs with clear ownership, explicit routing/firewall r
 * **Type-2 (Hosted):** Best for running a lab on your daily-driver laptop. Install VMware Workstation Pro or VirtualBox.
 
 ### 3. Network Segregation (Critical Step)
+
+![Passive IDS topology showing the visibility limitation of an unmanaged switch and a properly configured managed SPAN mirror, with an inline TAP as a separate physical alternative](../assets/diagrams/homelab-passive-ids-visibility-mirror-tap.svg)
+
+*Conceptual network-capture comparison.* A Snort, Zeek or Security Onion sensor cannot generally see unrelated switched unicast traffic just because its NIC is set to promiscuous mode. Use an appropriately configured [switch SPAN destination](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/mgmt/management-configuration-guide/span.html) or a properly placed inline TAP, document the exact mirrored interfaces/VLANs and direction, and test actual capture and loss with controlled traffic. A SPAN feed can drop packets under contention. See [Security Onion's sensor requirements](https://docs.securityonion.net/en/2.4/hardware.html) and [Snort 3's passive traffic inspection description](https://docs.snort.org/start/inspection).
+
 Before spinning up vulnerable VMs or executing malware, you must architect the network:
-* **Host-Only / Internal Networks:** Configure your hypervisor's virtual switches so that Target VMs can *only* talk to the Attack VM, and cannot reach your physical home network or the internet.
-* **Virtual Router:** Deploy a pfSense/OPNsense VM with dual NICs (one connected to your home network for internet access, one connected to the isolated lab LAN) to strictly control ingress/egress traffic.
+* **Internal / disconnected lab network:** Prefer a virtual switch with no physical uplink and explicitly verify that **no** alternate NIC, NAT, bridge or host route can reach production or the internet. **Host-only is not equivalent to internal-only**: on platforms such as VirtualBox, host-only networking also connects the host OS to the lab segment. Confirm the exact mode in the [VirtualBox network documentation](https://docs.oracle.com/en/virtualization/virtualbox/7.2/user/networkingdetails.html) or your chosen hypervisor's manual.
+* **Optional egress router:** If an authorized lab specifically needs updates or external access, a separate firewall/router VM may mediate traffic between lab and upstream networks, but **two NICs do not guarantee isolation**. Set default-deny policy, check IPv4/IPv6 and management paths, verify DNS/egress allowlists, and remove the upstream connection during malware or intentionally vulnerable-host experiments unless the isolation design has been reviewed and tested.
 
 ---
 
