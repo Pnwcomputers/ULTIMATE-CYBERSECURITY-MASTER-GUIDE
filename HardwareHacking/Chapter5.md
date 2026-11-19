@@ -2,19 +2,19 @@
 # Chapter 5: Power Analysis - Practical Techniques
 
 ## 🎯 Purpose
-Hands-on guide to real-world power analysis - covering measurement hardware setup, trace acquisition scripts, signal processing (filtering, alignment, PCA), CPA attack implementation in Python/NumPy, and Test Vector Leakage Assessment (TVLA) for validating leakage before committing to a full attack campaign.
+A practical overview of authorized power-analysis evaluation, including safe measurement setup, trace provenance, preprocessing limits, CPA interpretation, and leakage testing.
 
 ## ⚙️ Function
-Covers: oscilloscope/current probe hardware configuration, shunt resistor insertion, Python trace acquisition via scope API (Rigol/PicoScope), trigger synchronization, trace preprocessing (bandpass filter, cross-correlation alignment, PCA dimensionality reduction), CPA attack on AES SubBytes with NumPy, and TVLA Welch t-test leakage detection.
+Covers target-dependent shunt and probe selection, controlled trace collection, signal-processing cautions, correlation power analysis (CPA), visualization, and Test Vector Leakage Assessment (TVLA).
 
 ## 🏆 Goal
-Successfully acquire clean power traces, align them by trigger, and execute a CPA attack that recovers the AES key from a target microcontroller, or confirm via TVLA whether meaningful side-channel leakage exists before investing in a full trace campaign.
+Determine whether a documented implementation leaks information under a defined lab setup, preserve enough evidence to reproduce the result, and report both findings and limits.
 
 ## 📋 When to Use
-- After Chapter 4 theory: applying DPA/CPA concepts in a real lab setup
-- Setting up a power analysis testbed for a new target device
-- Validating whether a device leaks before investing in 10,000+ trace campaigns
-- Measuring the effectiveness of masking or other countermeasures
+- Evaluating a cryptographic implementation on owned or explicitly authorized development hardware
+- Planning measurement setup after reviewing the fundamentals in Chapter 2
+- Learning how collection and preprocessing choices affect leakage analysis
+- Checking countermeasures with documented statistical methods
 
 > *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -22,91 +22,36 @@ Successfully acquire clean power traces, align them by trigger, and execute a CP
 
 ### Measurement Setup
 
-A clean measurement setup is more important than sophisticated analysis. Poor signal quality cannot be rescued in software.
+A measurement must preserve the target's normal operating conditions closely enough for the stated experiment. Choose a documented, current-limited development target and follow its board and instrument manuals.
 
 #### Hardware Configuration
 
-```
-Target device power path (shunt insertion):
+The shunt value and placement depend on the target's current, allowable supply drop, resistor dissipation, power-distribution path, and measurement bandwidth. There is no universal value. Keep decoupling capacitors in place unless the exact target documentation specifies a topology-specific change.
 
-  Power Supply
-       │
-       ├── [Optional: remove nearest decoupling cap on target PCB]
-       │
-  [Shunt resistor: 10–33 Ω]
-       │
-  Target VDD pin
-       │
-  [Return path: clean GND to supply]
+Use the shunt calculation and conceptual figure in [Chapter 2](./Chapter2.md#shunt-resistors-for-power-measurement). That chapter explains why probe common-mode limits, scope grounding, loading, and 50 Ω termination must be checked before connecting instruments.
 
-Oscilloscope connection:
-  CH1: Differential across shunt (or single-ended with probe GND at shunt bottom)
-  CH2 (trigger): GPIO output from target (e.g., high during crypto operation)
-  Probe: ×1 setting (maximum sensitivity); 50 Ω termination if high frequency
-```
+![Conceptual shunt measurement with a series resistor and target-dependent voltage-drop checks](../assets/diagrams/shunt-current-measurement.svg)
 
-**Amplification:** For small current devices, the power signal may be only 1–5 mV. Add a low-noise amplifier (e.g., Stanford Research SR560) with 20–40 dB gain between the shunt and oscilloscope.
+Select a differential or single-ended measurement only after confirming the target reference, scope/probe grounding, common-mode range, and safe input limits. A ×1 probe is not automatically more suitable: attenuation, bandwidth, capacitance, input resistance, and voltage limits vary by probe and scope.
 
-**ChipWhisperer Lite setup:**
+Amplification is optional and target-dependent. Check amplifier noise, bandwidth, gain, input range, common-mode range, and risk of saturation. A larger displayed waveform is not necessarily a more faithful measurement.
 
-```python
-import chipwhisperer as cw
+#### ChipWhisperer Setup
 
-scope = cw.scope()
-target = cw.target(scope)
-
-scope.default_setup()
-scope.gain.gain = 45          # 45 dB amplification
-scope.adc.samples = 5000      # Sample count per trace
-scope.adc.offset = 0          # Offset from trigger
-scope.adc.basic_mode = "rising_edge"
-scope.clock.clkgen_freq = 7.37e6  # Target clock frequency
-scope.io.tio1 = "serial_rx"
-scope.io.tio2 = "serial_tx"
-scope.trigger.triggers = "tio4"  # Trigger on GPIO
-target.baud = 38400
-```
-
----
+ChipWhisperer hardware and API defaults vary by capture platform, firmware, target board, and software release. Do not copy fixed gain, sample count, clock, trigger, or serial settings into an unrelated target configuration. Start with the current [ChipWhisperer documentation and tutorials](https://chipwhisperer.readthedocs.io/en/latest/) for the exact capture hardware and target; record software versions and configuration in the experiment notes.
 
 ### Trace Acquisition
 
 #### Collection Best Practices
 
-- **Interleave plaintext randomization:** Use a CSPRNG for plaintext generation, not sequential values
-- **Temperature stability:** Let the bench warm up 15–30 minutes; temperature drift causes trace misalignment
-- **Capture sufficient traces:** Start with 1,000; increase if CPA peak is ambiguous
-- **Validate trigger consistency:** Check trigger-to-first-sample jitter - even 1 clock cycle of jitter significantly degrades DPA quality
+- **Define the experiment first:** Specify the security property, controlled inputs, expected operation, target revision, and stop conditions.
+- **Choose inputs to fit the test:** Fixed-versus-random TVLA and known-plaintext CPA use different input designs. Follow the method's documented requirements and preserve input/response metadata.
+- **Check trigger and capture behavior:** Confirm that captures contain the intended operation and that the trigger is stable enough for the planned analysis. Timing jitter and misalignment can weaken or distort results.
+- **Preserve raw traces:** Keep an unmodified copy with instrument settings, sample rate, target/environment details, trigger configuration, input data, output data, and software versions.
+- **Use repeatable conditions:** Record temperature, supply, clock, board state, and any changes during acquisition. Do not assume a fixed warm-up interval or trace count applies to all setups.
+- **Set collection size from evidence:** Start with a bounded pilot collection, examine quality and convergence, then justify any larger collection from the target and analysis rather than a universal number.
 
-```python
-import chipwhisperer as cw
-import numpy as np
-
-N_TRACES = 5000
-traces = np.zeros((N_TRACES, scope.adc.samples))
-plaintexts = np.zeros((N_TRACES, 16), dtype=np.uint8)
-ciphertexts = np.zeros((N_TRACES, 16), dtype=np.uint8)
-
-ktp = cw.ktp.Basic()
-
-for i in range(N_TRACES):
-    key, pt = ktp.next()
-    cw.capture_trace(scope, target, pt, key)
-    wave = scope.get_last_trace()
-    
-    if wave is not None:
-        traces[i] = wave
-        plaintexts[i] = list(pt)
-        ciphertexts[i] = list(target.simpleserial_read('r', 16))
-    
-    if i % 100 == 0:
-        print(f"Captured {i}/{N_TRACES}")
-
-np.save('traces.npy', traces)
-np.save('plaintexts.npy', plaintexts)
-```
-
----
+For an end-to-end example, use the [current ChipWhisperer SCA101 capture notebooks](https://chipwhisperer.readthedocs.io/en/sca101/). Their examples are tied to specified target and capture hardware; adapt only after checking the exact configuration.
 
 ### Filtering and Signal Processing
 
