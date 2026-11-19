@@ -799,7 +799,8 @@ curl -s "https://blockchain.info/rawaddr/ADDRESS?limit=50" | jq
 
 ~~~bash
 # Etherscan v2 uses chainid (1 = Ethereum mainnet); review access, pagination and response status.
-curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
+# Use Etherscan's current API docs with a protected client/configuration.
+# Keep credentials out of shell history and process arguments.
 ~~~
 
 **Examine:**
