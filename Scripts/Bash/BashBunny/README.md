@@ -1,6 +1,6 @@
 # Bash Bunny Payload Setup Guide
 
-> **Defensive lab guide:** the repository payloads `cred_harv.txt`, `network_recon.txt`, and `windows_exfil.txt` have been retired and replaced with inert notices. Do not use historical collection, credential, shell, or network examples from this guide on a live host. The supported hands-on exercise is the isolated, fixed-text marker lab below.
+> **Defensive lab guide:** the repository payloads `cred_harv.txt`, `network_recon.txt`, and `windows_exfil.txt` have been retired and replaced with inert notices. Do not use historical collection, credential, shell, or network examples from this guide on a live host. The fixed-text marker is the only keystroke payload; the other labs are observation-only device-policy checks in an isolated environment.
 
 
 ## 🎯 Purpose
@@ -169,7 +169,7 @@ LED FINISH
 ### Compatibility & Existing Example Caveats
 
 - A Bash command executed **on the Bunny** does not magically run in the attached Windows host. Injected keystrokes execute in the foreground host application and its current user context.
-- The existing Windows/Linux data-transfer examples above use illustrative mount paths and shell assumptions; verify host-specific commands, permissions, transports and filenames independently. They are **not verified drop-in client collection payloads**.
+- This guide no longer includes Windows/Linux data-transfer payloads. Any copied or third-party examples are untrusted and must not be treated as verified or safe.
 - Earlier references to `ATTACKMODE ETHERNET` may be ambiguous for particular firmware. Use documented `RNDIS_ETHERNET` or `ECM_ETHERNET` when appropriate, and check observed enumeration rather than assuming networking works.
 - Device control should consider legitimate keyboards, accessibility devices, docking stations and service peripherals before applying class restrictions.
 
