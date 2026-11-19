@@ -1,5 +1,7 @@
 # USB Rubber Ducky Script Compilation Guide
 
+> **Defensive lab guide:** `exfil_windowsPC.txt` in this repository has been retired and replaced with an inert notice. This guide’s exercises use fixed text in an offline blank editor; they do not collect credentials, launch shells, or transfer files.
+
 
 ## Other HID Firmware: Select A Separate Workflow
 
@@ -22,13 +24,13 @@ CircuitPython project and compiled `inject.bin` are different artifacts.
 | [Firmware Web Flashers](../../Documentation/firmware-web-flashers.md) | Dedicated installers plus a separate multi-device/multi-firmware reference |
 
 ## 🎯 Purpose
-USB Rubber Ducky DuckyScript compilation guide - covers writing, compiling, and deploying DuckyScript payloads for the Hak5 USB Rubber Ducky keyboard emulation attack platform for authorized red team engagements.
+A model-specific guide to safely compiling and validating a fixed-text HID marker on an isolated Hak5 USB Rubber Ducky.
 
 ## ⚙️ Function
-Covers: DuckyScript syntax (DELAY, STRING, ENTER, CTRL, ALT, GUI, MOD), payload compilation with PayloadStudio, inject.bin deployment to the device, common payload patterns (credential harvesting, reverse shell, data exfil), and multi-stage payload structuring.
+Covers device and firmware selection, source review, compilation, fixed-text validation, USB policy telemetry, and rollback. It does not provide credential harvesting, shell, or file-transfer payload patterns.
 
 ## 🏆 Goal
-Enable authorized red team practitioners to compile and deploy DuckyScript payloads for physical access security assessments using the USB Rubber Ducky.
+Help defenders validate USB keyboard-device controls with a harmless, observable marker exercise and document the result.
 
 ## 📋 When To Use
 - Writing DuckyScript payloads for an authorized physical access engagement
@@ -39,7 +41,7 @@ Enable authorized red team practitioners to compile and deploy DuckyScript paylo
 **Different HID hardware:** [M5StickC Plus2 / HackStarterPack](../../HardwareHacking/m5stickc-plus2-hackstarterpack.md) requires a compatible external HID accessory and untrusted script review; it is not a Hak5 inject.bin substitute.
 
 
-These DuckyScript payloads are designed for the USB Rubber Ducky by Hak5. They must be compiled into `inject.bin` format before deployment.
+The DuckyScript examples in this guide target the USB Rubber Ducky by Hak5. Current workflows require a model-compatible compiler and `inject.bin`; source scripts are untrusted input and must be reviewed before compilation.
 
 ## Compilation Methods
 
