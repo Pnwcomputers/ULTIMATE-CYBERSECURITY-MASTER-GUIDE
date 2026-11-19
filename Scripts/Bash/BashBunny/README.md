@@ -1,6 +1,6 @@
 # Bash Bunny Payload Setup Guide
 
-> **Defensive lab guide:** the repository payloads `cred_harv.txt`, `network_recon.txt`, and `windows_exfil.txt` have been retired and replaced with inert notices. Do not use historical collection, credential, shell, or network examples from this guide on a live host. The fixed-text marker is the only keystroke payload; the other labs are observation-only device-policy checks in an isolated environment.
+> **Defensive lab guide:** the repository payloads `cred_harv.txt`, `network_recon.txt`, `sys_prof.txt`, and `windows_exfil.txt` have been retired and replaced with inert notices. Do not use historical collection, credential, shell, or network examples from this guide on a live host. The fixed-text marker is the only keystroke payload; the other labs are observation-only device-policy checks in an isolated environment.
 
 
 ## 🎯 Purpose
@@ -179,6 +179,7 @@ The following bundled examples are inert retirement notices, not deployable payl
 
 - `cred_harv.txt`
 - `network_recon.txt`
+- `sys_prof.txt`
 - `windows_exfil.txt`
 
 Any older copy or third-party library entry should be treated as untrusted. Do not copy whole payload collections to a client device. The audit and isolated marker workflow below explain how to inspect a pinned source revision and validate USB policy without collecting data or changing network settings.
