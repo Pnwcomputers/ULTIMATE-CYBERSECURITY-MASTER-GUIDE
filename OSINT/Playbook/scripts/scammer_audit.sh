@@ -447,8 +447,13 @@ query_urlscan() {
     ENCODED_QUERY=$(OSINT_QUERY="${QUERY}" python3 -c "import os,urllib.parse; print(urllib.parse.quote(os.environ['OSINT_QUERY']))" 2>/dev/null || printf '%s' "$QUERY" | sed 's/:/%3A/g;s/ /+/g')
 
     if [ -n "$URLSCAN_KEY" ]; then
-        private_query_api "$OUTPUT" URLScan.io "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" \
-            "Content-Type: application/json" "API-Key: $URLSCAN_KEY" >/dev/null || return
+        local HTTP_CODE
+        HTTP_CODE=$(private_query_api "$OUTPUT" URLScan.io "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" \
+            "Content-Type: application/json" "API-Key: $URLSCAN_KEY") || return
+        if [[ "$HTTP_CODE" != 2* ]]; then
+            log "${YELLOW}    [!] URLScan.io API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"
+            return 1
+        fi
     else
         query_api "$OUTPUT" URLScan.io "https://urlscan.io/api/v1/search/?q=${ENCODED_QUERY}&size=10" \
             -H "Content-Type: application/json" || return
