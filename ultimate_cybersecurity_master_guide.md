@@ -349,9 +349,8 @@ tail -f /var/log/syslog | grep --line-buffered "ERROR"
 ## Python for Security Professionals
 
 > [!NOTE]
-> **Canonical reference:** advanced Python automation lives in
-> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#python-for-security-automation).
-> Keep major updates there; this section is a foundational summary.
+> **Safety reference:** for authorized validation boundaries and response practices, see
+> [Safe Validation Workflow](advanced_techniques_supplement.md#safe-validation-workflow).
 
 ### Python Basics for Security
 
@@ -479,9 +478,8 @@ def port_scanner(target, ports):
 ## Bash Scripting for Red Teams
 
 > [!NOTE]
-> **Canonical reference:** advanced offensive Bash lives in
-> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#bash-scripting-for-offensive-security).
-> Keep major updates there; this section is a foundational summary.
+> **Safety reference:** for authorized validation boundaries and response practices, see
+> [Safe Validation Workflow](advanced_techniques_supplement.md#safe-validation-workflow).
 
 ### Bash Script Fundamentals
 
@@ -744,8 +742,8 @@ sqlmap -u "http://target.com/page?id=1" -D database --tables
 ## Metasploit Framework Mastery
 
 > [!NOTE]
-> **Canonical reference:** the deepest Metasploit treatment lives in
-> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#advanced-metasploit-techniques).
+> **Defensive reference:** for monitoring and response guidance related to remote administration tools, see
+> [Metasploit and Remote Administration Tools](advanced_techniques_supplement.md#metasploit-and-remote-administration-tools).
 > Keep major updates there; this section is a foundational summary.
 
 ### Basic Metasploit Usage
