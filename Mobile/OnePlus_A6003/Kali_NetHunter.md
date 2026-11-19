@@ -164,7 +164,7 @@ For anything beyond the built-in service toggles - custom scripts, one-tap tool 
 
 ## 5. Quick Reference / Gotchas
 
-- **Change the default root password** (`toor`/`kali`) before enabling SSH or any other remote service.
+- **Verify the exact image's default account and change any default credential** before enabling SSH or another remote service.
 - **Update the NetHunter app right after flashing** - required workaround for Android scoped-storage issues on this device.
 - **Storage encryption:** follow the requirement for the exact OnePlus 6 image and ROM. The current image index flags the disabler for this device, but disabling force-encryption reduces at-rest protection and formatting data erases user files. Back up and verify the image-specific instructions before proceeding.
 - Wireless attack tools (injection, monitor mode) depend on your Wi-Fi chip's driver support - not every attack works out of the box on every device/kernel combo.
