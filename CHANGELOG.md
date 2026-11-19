@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 19, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1769
-- **Files Modified**: 2937
-- **New Files**: 1183
+- **Commits Analyzed**: 1779
+- **Files Modified**: 2999
+- **New Files**: 1224
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -557,6 +557,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- docs(visuals): embed NanoVNA, T-Pot & Tsurugi diagrams with measured corrections (#355) (`638efd7`)
 - audit: enforce whole-repository visual census and correct technical reference errors (#345) (`67ebb3a`)
 - fix: validate canary telemetry windows and illustrate AI SOC approval gates (#342) (`20fff91`)
 - Correct mobile authorization and legal guidance (#339) (`ea5a8e9`)
@@ -1445,6 +1446,15 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(visuals): embed SIP/RTP, Linux patch, Arduino & CTI provenance diagrams (#361) (`7cfc4ad`)
+- docs(visuals): embed sensor topology, locksport cutaway, WPA scope, C5 modes & bench safety (#360) (`1d31ec8`)
+- docs(visuals): embed 6 verified wireless, BLE, AD, Android, OSINT & CM5 diagrams (#359) (`9ccc7d6`)
+- docs(visuals): embed multi-agent, project handoff, DAG & API ingestion diagrams (#358) (`fb9e94c`)
+- docs(visuals): embed Elastic SIEM, cFS flight stack, UserLAnd & ETL/ELT diagrams (#357) (`03f8f16`)
+- docs(visuals): source-checked Splunk, spacecraft, NanoVNA calibration & HTTP decoy diagrams (#356) (`6618cc5`)
+- docs(visuals): embed RAG trust, AI action, retry & data observability diagrams (#354) (`501e851`)
+- docs(visuals): embed Proxmox honeynet, osquery telemetry & data-lineage diagrams (#353) (`779bba9`)
+- docs(visuals): embed honeypot telemetry, CDC, recovery and authorization diagrams (#351) (`23de826`)
 - docs(visuals): embed Graylog data-flow and live-response evidence diagrams (#350) (`9c971df`)
 - docs(visuals): illustrate AI notes/hooks, milestone gates, fraud OSINT & wireless field quality (#349) (`97d4aae`)
 - docs(visuals): implement 4 source-checked firmware, portable-device & VM architecture diagrams (#348) (`4f6f292`)
@@ -1793,12 +1803,95 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Checklists/Linux-Privilege-Escalation.md`
+- `Checklists/voip-checklist.md`
+- `Documentation/arduinoIDE.md`
+- `Tradecraft/osint-threat-intel.md`
+- `assets/README.md`
+- `assets/diagrams/arduino-ide-board-port-bootloader-diagnostics.svg`
+- `assets/diagrams/linux-privilege-risk-and-vendor-patch-triage.svg`
+- `assets/diagrams/osint-cti-source-quality-to-detection.svg`
+- `assets/diagrams/voip-sip-signaling-vs-rtp-media-security.svg`
+- `tools/tests/test_visual_guides.py`
+- `Documentation/Locksport.md`
+- `Documentation/hcxtoolshashcat.md`
+- `HardwareTesting/Manjaro_Intel_TestBench.md`
+- `Tradecraft/network-detection.md`
+- `Wardriving/esp32-c5-wardriver.md`
+- `assets/diagrams/esp32-c5-wardriver-normal-node-core.svg`
+- `assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg`
+- `assets/diagrams/locksport-pin-tumbler-shear-line.svg`
+- `assets/diagrams/network-detection-sensor-coverage-and-evidence.svg`
+- `assets/diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg`
+- `Checklists/ActiveDirectory.md`
+- `Checklists/Android-Applications-Checklist.md`
+- `Documentation/ble-capture-sniffle.md`
+- `Documentation/wifi-deauthentication-detection.md`
+- `OSINT/OSINT_socialmedia.md`
+- `assets/diagrams/ad-kerberos-ticket-trust-recovery.svg`
+- `assets/diagrams/android-app-static-runtime-backend-test-lanes.svg`
+- `assets/diagrams/ble-sniffle-advertising-connection-path.svg`
+- `assets/diagrams/social-osint-account-provenance-verification.svg`
+- `assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg`
+- `assets/diagrams/wifi-deauth-disassoc-pmf-corroboration.svg`
+- `uConsole/CM5-DISPLAY-RECOVERY.md`
+- `AI/agent-project-workflows.md`
+- `AI/multi-agent-orchestration.md`
+- `Data-Engineering/Phase2/api_file_ingestion.md`
+- `Data-Engineering/Phase2/workflow_orchestration.md`
+- `assets/diagrams/ai-multi-agent-fanout-review-integration.svg`
+- `assets/diagrams/ai-project-status-evidence-handoff-flow.svg`
+- `assets/diagrams/api-file-ingest-cursor-retry-reconciliation.svg`
+- `assets/diagrams/data-orchestrator-interval-dependency-publish-gates.svg`
+- `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
+- `IncidentResponse/SIEM/elk_stack.md`
+- `Mobile/UserLAnd/readme.md`
+- `SpaceSecurity/PartIII.md`
+- `assets/diagrams/elastic-stack-log-ingest-index-search.svg`
+- `assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg`
+- `assets/diagrams/spaceflight-fsw-cfs-security-layers.svg`
+- `assets/diagrams/userland-android-proot-capability-boundaries.svg`
+- `IncidentResponse/HoneyPot/diy-sensor-lab.md`
+- `IncidentResponse/SIEM/splunk.md`
+- `SDR/nanovna/03-calibration.md`
+- `SpaceSecurity/PartII.md`
+- `assets/diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg`
+- `assets/diagrams/nanovna-s11-s21-calibration-plane.svg`
+- `assets/diagrams/space-ground-command-telemetry-trust-boundaries.svg`
+- `assets/diagrams/splunk-forwarder-indexer-search-head-data-flow.svg`
+- `IncidentResponse/HoneyPot/tpot.md`
+- `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
+- `SDR/nanovna/05-antenna-tuning.md`
+- `assets/diagrams/nanovna-s11-resonance-vs-match.svg`
+- `assets/diagrams/tpot-hive-sensor-management-boundaries.svg`
+- `assets/diagrams/tsurugi-osint-image-provenance-case-flow.svg`
+- `AI/agent-reliability-and-recovery.md`
+- `AI/rag-and-knowledge-engineering.md`
+- `AI/structured-outputs-and-data-contracts.md`
+- `Data-Engineering/Phase3/pipeline_observability.md`
+- `assets/diagrams/ai-agent-ambiguous-write-reconciliation.svg`
+- `assets/diagrams/ai-structured-output-authorized-action-gates.svg`
+- `assets/diagrams/pipeline-observability-reconciliation-slo.svg`
+- `assets/diagrams/rag-ingestion-retrieval-permission-boundaries.svg`
+- `Data-Engineering/Phase3/data_governance_lineage.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
+- `IncidentResponse/HoneyPot/proxmox-vm-honeynet.md`
+- `assets/diagrams/data-lineage-job-run-access-boundaries.svg`
+- `assets/diagrams/osquery-interactive-scheduled-siem-flow.svg`
+- `assets/diagrams/proxmox-honeynet-vm-trust-boundaries.svg`
+- `Data-Engineering/Phase2/streaming_cdc.md`
+- `Data-Engineering/Phase3/data_recovery_replay.md`
+- `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md`
+- `WebAppSecurity/methodology.md`
+- `assets/diagrams/cdc-snapshot-offset-replay-boundary.svg`
+- `assets/diagrams/honeypot-wazuh-telemetry-evidence-path.svg`
+- `assets/diagrams/recovery-point-rpo-rto-replay-timeline.svg`
+- `assets/diagrams/webapp-object-authorization-role-matrix.svg`
+- `CHANGELOG.md`
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/SIEM/graylog.md`
-- `assets/README.md`
 - `assets/diagrams/graylog-data-node-ingest-architecture.svg`
 - `assets/diagrams/live-response-volatility-evidence-gates.svg`
-- `tools/tests/test_visual_guides.py`
 - `AI/milestones-and-acceptance-criteria.md`
 - `AI/notes-hooks-and-automation.md`
 - `OSINT/Playbook/investigation_guide.md`
@@ -1849,7 +1942,6 @@
 - `tools/audit_visual_coverage.py`
 - `tools/tests/test_source_formats.py`
 - `tools/tests/test_visual_coverage_audit.py`
-- `CHANGELOG.md`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `assets/diagrams/cti-to-approved-emulation-gates.svg`
 - `tools/tests/test_purple_playbook_mapping.py`
@@ -1876,8 +1968,6 @@
 - `assets/diagrams/purple-team-emulation-detection-loop.svg`
 - `assets/diagrams/wireshark-capture-display-boundaries.svg`
 - `Mobile/README.md`
-- `Checklists/ActiveDirectory.md`
-- `Checklists/Android-Applications-Checklist.md`
 - `Checklists/AppLocker.md`
 - `Checklists/Credential-Access.md`
 - `Checklists/Domain-Persistence.md`
@@ -1916,10 +2006,8 @@
 - `assets/diagrams/privacy-breach-notification-decision-path.svg`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `assets/diagrams/dfir-autopsy-kape-workflows.svg`
-- `WebAppSecurity/methodology.md`
 - `assets/diagrams/webapp-authorization-scope-gates.svg`
 - `assets/diagrams/cloud-shared-responsibility.svg`
-- `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
 - `assets/diagrams/etl-key-coverage-reconciliation-flow.svg`
 - `assets/diagrams/mobile-tls-proxy-trust-path.svg`
 - `HardwareHacking/LA1010.md`
@@ -2144,7 +2232,6 @@
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
 - `SDR/README.md`
-- `SDR/nanovna/05-antenna-tuning.md`
 - `Wardriving/README.md`
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/02-project-structure.md`
@@ -2189,7 +2276,6 @@
 - `Cyberdeck/tools/verify_manifest.py`
 - `.github/CONTRIBUTING.md`
 - `IncidentResponse/README.md`
-- `Mobile/UserLAnd/readme.md`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
@@ -2230,14 +2316,10 @@
 - `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.json`
 - `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md`
 - `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md`
-- `Documentation/arduinoIDE.md`
 - `Documentation/security-public-api-catalog.md`
 - `HardwareHacking/T48_TL866-3G.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
-- `IncidentResponse/HoneyPot/diy-sensor-lab.md`
 - `IncidentResponse/HoneyPot/lab/honeypot_rules.xml`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
-- `IncidentResponse/SIEM/elk_stack.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/Playbook/tools_api.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
@@ -2261,10 +2343,8 @@
 - `.github/workflows/markdownlint.yml`
 - `Documentation/BRANCH-PROTECTION-SETUP.md`
 - `Documentation/HTTP-LINKS-CLASSIFICATION.md`
-- `IncidentResponse/SIEM/splunk.md`
 - `Scripts/GO/ARCHIVE-INVENTORY.md`
 - `Scripts/GO/archive_manifest.json`
-- `Tradecraft/osint-threat-intel.md`
 - `tools/maintenance_candidate_triage.py`
 - `tools/tests/test_legacy_archive_manifest.py`
 - `tools/tests/test_maintenance_candidate_triage.py`
@@ -2293,8 +2373,6 @@
 - `tools/tests/test_repository_quality_audit.py`
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
-- `AI/agent-project-workflows.md`
-- `AI/agent-reliability-and-recovery.md`
 - `AI/ai-observability-and-auditing.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
@@ -2302,11 +2380,7 @@
 - `AI/context-engineering-and-memory.md`
 - `AI/llm-security-evaluation-promptfoo.md`
 - `AI/model-routing-and-cost-management.md`
-- `AI/multi-agent-orchestration.md`
-- `AI/rag-and-knowledge-engineering.md`
-- `AI/structured-outputs-and-data-contracts.md`
 - `AI/verification-and-ai-audits.md`
-- `Documentation/ble-capture-sniffle.md`
 - `Documentation/chimerable.md`
 - `Documentation/esp-terminator.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
@@ -2321,7 +2395,6 @@
 - `HardwareHacking/esp32-security-firmware-catalog.md`
 - `HardwareHacking/firmware-catalog-verification.json`
 - `HardwareHacking/firmware-web-flashers.md`
-- `Wardriving/esp32-c5-wardriver.md`
 - `Wardriving/piglet.md`
 - `AI/AnythingLLM/README.md`
 - `Checklists/README.md`
@@ -2347,7 +2420,6 @@
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
 - `Documentation/upstream-security-projects-register.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_socialmedia.md`
 - `OSINT/awesome-osint-list-curated.md`
 - `PlayBooks/security-training-lab-pathways.md`
 - `PlayBooks/assessment-findings-lifecycle.md`
@@ -2355,7 +2427,6 @@
 - `Documentation/curated-technical-docs.md`
 - `Documentation/python.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
-- `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/LinuxCheatSheet.md`
 - `Documentation/devhints-cli-field-reference.md`
@@ -2363,7 +2434,6 @@
 - `tools/check_markdown_numbered_lists.py`
 - `AI/offensive_ai.md`
 - `AI/offline-llm.md`
-- `Documentation/Locksport.md`
 - `Documentation/vscode.md`
 - `LEGAL.md`
 - `OSINT/scripts/Email_OSINT.md`
@@ -2395,7 +2465,6 @@
 - `assets/diagrams/webapp-assessment-cycle.svg`
 - `assets/diagrams/wireless-ids-correlation.svg`
 - `Cryptography/solokeys-guide.md`
-- `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
 - `assets/fido2-passkey-authentication-flow.svg`
 - `assets/journalist-source-data-lifecycle.svg`
@@ -2421,7 +2490,6 @@
 - `Documentation/WifiMarauder_CheatSheet.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `.github/workflows/wireshark-filters.yml`
-- `Documentation/wifi-deauthentication-detection.md`
 - `Documentation/wireshark-cheatsheet.md`
 - `Documentation/wireshark-filter-catalog.tsv`
 - `Documentation/wireshark-master-filters.md`
@@ -2443,10 +2511,7 @@
 - `IncidentResponse/HoneyPot/lab/synthetic-events.jsonl`
 - `IncidentResponse/HoneyPot/lab/test_honeypot.py`
 - `IncidentResponse/HoneyPot/opencanary.md`
-- `IncidentResponse/HoneyPot/proxmox-vm-honeynet.md`
 - `IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md`
-- `IncidentResponse/HoneyPot/tpot.md`
-- `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet-wazuh-bridge.service`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_alert_bridge.py`
@@ -2462,8 +2527,6 @@
 - `Wardriving/kismet.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
-- `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
-- `Documentation/hcxtoolshashcat.md`
 - `Wardriving/sigroam-scout-lite.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `tests/hardening/test_toolkit_integration.py`
@@ -2522,11 +2585,6 @@
 - `AUDIT_REPORT.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
-- `Data-Engineering/Phase2/streaming_cdc.md`
-- `Data-Engineering/Phase2/workflow_orchestration.md`
-- `Data-Engineering/Phase3/data_governance_lineage.md`
-- `Data-Engineering/Phase3/data_recovery_replay.md`
-- `Data-Engineering/Phase3/pipeline_observability.md`
 - `Data-Engineering/Phase3/pipeline_testing_cicd.md`
 - `HardwareTesting/py/full_hw_suite.py`
 - `SDR/nanovna/tools/s1pdiff.py`
@@ -2535,7 +2593,6 @@
 - `tools/run_data_labs.py`
 - `tools/tests/test_review_fixes.py`
 - `SDR/nanovna/02-rf-fundamentals.md`
-- `SDR/nanovna/03-calibration.md`
 - `SDR/nanovna/04-antenna-testing.md`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
 - `SDR/nanovna/08-pc-software-and-firmware.md`
@@ -2560,7 +2617,6 @@
 - `Data-Engineering/Phase1/sql_data_modeling.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/readme.md`
-- `uConsole/CM5-DISPLAY-RECOVERY.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
 - `Data-Engineering/data_pipelines.md`
@@ -2576,13 +2632,11 @@
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
 - `Tradecraft/av-edr-evasion.md`
-- `Tradecraft/network-detection.md`
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
 - `.lycheeignore`
 - `Checklists/microsoft-exchange.md`
-- `Checklists/voip-checklist.md`
 - `HardwareTesting/py/old/full_hw_suite.py`
 - `HardwareTesting/py/old/standalone_ram_tester.py`
 - `HardwareTesting/py/old/stress_soak.py`
@@ -2617,7 +2671,6 @@
 - `Mobile/Kali_NetHunter.md`
 - `Checklists/Defense-Evasion.md`
 - `Checklists/Environment-Breakout-Checklist.md`
-- `Checklists/Linux-Privilege-Escalation.md`
 - `Checklists/Microsoft Exchange.md`
 - `Checklists/VoIP Checklist.md`
 - `Checklists/Windows-Privilege-Escalation.md`
@@ -2632,8 +2685,6 @@
 - `AI/AnythingLLM/flow-email_osint.md`
 - `AI/AnythingLLM/flow-nmap_analyzer.md`
 - `AI/AnythingLLM/flow-vulnreport_gen.md`
-- `SpaceSecurity/PartII.md`
-- `SpaceSecurity/PartIII.md`
 - `osint`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
 - `OSINT/Playbook/api_keys.conf`
