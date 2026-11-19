@@ -682,7 +682,7 @@ Recommended configs:
 
 ## Purple Team Validation
 
-Validate one detection at a time in a disposable, isolated test environment. Use the repository's [purple-team detection validation workflow](purple-team-detection-validation.md) to select and pin a specific test definition, inspect its commands, prerequisites, expected telemetry, and cleanup steps, then obtain owner approval and record stop conditions.
+Validate one detection at a time in a disposable, isolated test environment. Use a written test plan to select and pin a specific test definition, inspect its commands, prerequisites, expected telemetry, and cleanup steps, then obtain owner approval and record stop conditions.
 
 Do not run a broad batch of AMSI bypass, process-injection, obfuscation, or credential-dumping tests from a generic command list. Prefer harmless vendor-provided test events or synthetic telemetry. After each approved validation, confirm expected alerts, restore the baseline, remove test artifacts, and document any collection gaps.
 
