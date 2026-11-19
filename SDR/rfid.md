@@ -70,25 +70,9 @@ Help defenders assess access-control design with synthetic test media, report pr
 ### 🔴 CRITICAL WARNING
 
 ```
-⚠️ CLONING ACCESS CREDENTIALS IS HEAVILY REGULATED ⚠️
+This guide is limited to synthetic test media and defensive reader-policy review. It does not provide credential recovery, cloning, or emulation procedures. Keep UIDs, raw IDs, card dumps, keys, payment data, and personal identifiers out of repository notes and screenshots.
 
-Many procedures in this manual can involve CLONING physical credentials,
-EMULATING captured card data, or WRITING recovered keys onto blank transponders.
-Using a cloned credential to enter premises you are not authorized to enter is a
-SERIOUS CRIME - regardless of how the card data was obtained.
-
-YOU MUST have explicit written authorization from the credential/property owner,
-work only on cards and readers you own or are contracted to test, and keep all
-cloning and emulation confined to your bench before you read, write, or emulate.
-
-Unauthorized activity may violate applicable computer-misuse, trespass, access-device,
-privacy, or payment rules, depending on the jurisdiction, facts, and statutory elements.
-For example, [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) defines specific access-device offenses with different
-conduct and intent requirements; it does not make every act of reading card data a
-federal crime.
-
-READ-ONLY analysis on credentials you own is the default. Do NOT read, clone, or
-emulate cards you do not own or are not explicitly authorized to test.
+Use device-specific vendor documentation for safe setup and compatibility details. Follow applicable access-control, privacy, payment, and computer-misuse rules; authorization and legal requirements depend on the activity, jurisdiction, and facts. The [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) statute defines specific access-device offenses and does not make every act of reading card data a federal crime.
 ```
 
 ---
@@ -234,31 +218,26 @@ When an approved lab tool displays an identifier, treat it as a credential: do n
 
 ![LF, HF and UHF require suitable frontends, and matching frequency alone does not establish protocol or application compatibility](../assets/diagrams/rfid-band-and-reader-map.svg)
 
-*Figure 3 — Original conceptual compatibility map. NFC operates at 13.56 MHz within HF; it does not cover LF or UHF RFID. See [NFC Forum](https://nfc-forum.org/learn/NFC-technology/) and [Proxmark3's hardware guidance](https://github.com/RfidResearchGroup/proxmark3). Exact reader, antenna, firmware, and protocol support still require verification.*
+*Figure 3 — Conceptual compatibility map. NFC operates at 13.56 MHz within HF; it does not cover LF or UHF RFID. Exact reader, antenna, firmware, and protocol support require verification.*
 
-When building custom lab readers or low-cost enrollment stations, these front-end chips serve distinct bands and purposes.
+Reader front-ends differ by frequency band and protocol. Use manufacturer documentation and synthetic fixtures; do not collect or rewrite data from issued credentials.
 
-### 📡 PN532 (The 13.56 MHz HF Agile Front-End)
+### PN532 (13.56 MHz HF)
 
-- **Multi-Protocol HF:** Handles ISO 14443A/B, FeliCa, and NFC peer-to-peer / card-emulation modes from a single module over I²C, SPI, or UART.
-- **libnfc Native:** First-class support in `libnfc`, making it the go-to for `nfc-list`, `mfoc`, `mfcuk`, and `nfc-mfclassic` on a workstation or Raspberry Pi.
-- **Custom Enrollment Terminals:** Wired to an Arduino/ESP32 with Adafruit or Elechouse drivers to build MIFARE/NTAG read-write stations and NDEF kiosks.
+Supports selected ISO 14443 and NFC modes; actual support depends on the module, firmware, and library. Use a synthetic tag to check compatibility and record only the protocol family and observed reader policy.
 
-### 📡 EM4095 / RDM6300 (The 125 kHz LF Read Specialist)
+### EM4095 / RDM6300 (125 kHz LF)
 
-- **Legacy Prox Reading:** The EM4095 is an analog LF front-end that couples to a 125 kHz coil and hands raw Manchester/Biphase pulses to a microcontroller; the RDM6300 is a cheap pre-baked EM4100 reader module.
-- **Fixed-ID Capture:** Ideal for reading EM4100/EM4102 and similar read-only tags into a serial logging window for inventory or enrollment.
-- **Custom LF Sniffers:** Wired to an Arduino/ESP32 to timestamp and log tag IDs as they enter the field - the basis of many DIY access loggers.
+These front-ends support specific LF tag and reader configurations. Verify their data sheets and output formats. Use synthetic test tags; do not log identifiers from issued credentials or build covert access logging devices.
 
 ### Reader Front-End Matrix
 
 | Feature | PN532 Module | EM4095 / RDM6300 Module |
 | :--- | :--- | :--- |
-| **Frequency** | 13.56 MHz (Fixed HF) | 125 kHz (Fixed LF) |
-| **Protocol Support** | ISO 14443A/B, FeliCa, NFC P2P/emulation | EM4100-class Manchester/Biphase read |
-| **Read/Write** | **Read + Write + Emulate** | **Read-only** (front-end) |
-| **Primary Lab Target** | MIFARE Classic/Ultralight/NTAG, DESFire (auth) | EM4100/EM4102 legacy prox tags |
-| **Toolchain** | libnfc (mfoc, mfcuk, nfc-mfclassic) | Arduino/ESP32 serial logging |
+| **Frequency** | 13.56 MHz (HF) | Typically 125 kHz (LF); confirm module specification |
+| **Protocol support** | Module/library-dependent HF modes | Module-dependent LF tag formats |
+| **Use in this guide** | Synthetic-tag compatibility and reader-policy review | Synthetic-tag compatibility and reader-policy review |
+| **Credential data** | Do not dump, retain, or rewrite issued-card data | Do not log identifiers from issued cards |
 
 ---
 
@@ -290,11 +269,11 @@ When reading passive transponders, check hardware compatibility, coupling, anten
 - **The Cause:** Presenting an LF (125 kHz) card to an HF (13.56 MHz) reader/app or vice-versa - the two bands are physically incompatible.
 - **The Fix:** Confirm the band before reading: try LF and HF searches in turn, and on multi-app tools (Flipper) select the matching `125 kHz RFID` vs `NFC` application. Dual-frequency cards contain two independent chips - read each on its own band.
 
-### ⚠️ Hardened Nonces (Nested Attack Fails)
+### ⚠️ Authentication or Identification Failure
 
-- **The Symptom:** `hf mf nested` / `mfoc` fails to recover keys on a card that is clearly MIFARE Classic.
-- **The Cause:** The card is a "hardened" MIFARE Classic EV1 (or clone) with fixed/filtered nonces that defeat the classic nested attack.
-- **The Fix:** Switch to `hf mf hardnested` (or `autopwn`, which selects it automatically). If even one key for one sector is known, the hardnested attack recovers the rest; if no key is known, capture a live reader transaction and recover a key with `mfkey32`/`mfkey64` first.
+- **Observation:** A synthetic tag is not identified or the lab reader rejects it.
+- **Possible causes:** Unsupported protocol, device/firmware mismatch, weak coupling, reader configuration, or incorrect test expectations.
+- **Defensive handling:** Verify compatibility with vendor documentation and the known synthetic fixture. Record conditions and outcome; do not attempt key recovery or infer that a credential deployment is secure from one failed test.
 
 ---
 
@@ -343,7 +322,7 @@ The table below serves as a laboratory lookup guide to identify an unknown crede
 
 ## 📖 10. Transponder Profiles Dictionary
 
-When analyzing credentials from the reference matrix above, use this operational dictionary to understand what each transponder architecture does.
+Use this high-level dictionary to understand the protocol families in the reference matrix; it is not an operational credential analysis guide.
 
 - **EM4100 / EM4102:** Legacy LF fixed-identifier technology. The common EM4100-compatible frame is 64 bits total, carrying a 40-bit identifier plus framing and parity bits; see the [EM4200 datasheet](https://www.emmicroelectronic.com/sites/default/files/products/datasheets/em4200_ds.pdf). Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
 - **HID Prox:** A legacy 125 kHz credential family that may encode a fixed facility/card value. Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
@@ -491,7 +470,7 @@ scope or handling rules are unclear. Consult qualified counsel for jurisdiction-
 specific advice.
 ```
 
-### 📖 Before Reading, Cloning, or Emulating Any Card
+### 📖 Before Reviewing Access-Control Policy
 
 ```
 MANDATORY CHECKLIST:
