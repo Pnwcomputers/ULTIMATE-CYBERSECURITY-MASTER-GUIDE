@@ -1087,8 +1087,9 @@ Install-Module -Name Empire -Force
 **Domain Controller (DC01)**:
 ```bash
 # Create Windows Server 2019 VM
+# vmbr1 must be a host-only/internal bridge with no physical uplink or route.
 qm create 300 --name dc01-target --memory 16384 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=30 \\  # vmbr1 must be host-only, with no uplink or route
+    --net0 virtio,bridge=vmbr1,tag=30
     --cdrom local:iso/WinServer2019_Eval.iso \
     --scsi0 local-lvm:80 --scsihw virtio-scsi-pci \
     --ostype win10
@@ -1101,7 +1102,7 @@ qm start 300
 
 ```mermaid
 flowchart LR
-    Admin[Administrator console] -->|controlled management access| Host[Hypervisor]
+    Admin[Administrator console] --> Host[Hypervisor]
     Host --> Switch[Host-only / internal virtual switch]
     Switch --> DC[Disposable lab domain controller]
     Switch --> Client[Disposable lab client]
