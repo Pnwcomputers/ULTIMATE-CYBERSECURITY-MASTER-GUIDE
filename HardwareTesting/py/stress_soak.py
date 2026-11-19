@@ -537,7 +537,7 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
 
     # tempfile creates a private (mode 0700) directory, preventing other local
     # users from pre-placing symlinks at the root-run fio target or log paths.
-    fio_tmpdir = tempfile.mkdtemp(prefix="pnwc-stress-soak-")
+    fio_tmpdir = tempfile.mkdtemp(prefix="pnwc-stress-soak-", dir="/tmp")
     os.chmod(fio_tmpdir, 0o700)
     fio_testfile = os.path.join(fio_tmpdir, "fio-target.bin")
     fio_log = os.path.join(fio_tmpdir, "fio.log")
