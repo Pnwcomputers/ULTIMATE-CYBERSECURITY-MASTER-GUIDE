@@ -1,8 +1,8 @@
 # WIRELESS & NETWORK SECURITY AUDIT PLAYBOOK
 ## Professional Penetration Testing Procedures
 
-**Version 1.0**  
-**Last Updated: October 2025**
+**Version 1.1**  
+**Last Reviewed: November 2026**
 
 ---
 
@@ -861,9 +861,9 @@ Maintain a tools manifest for each engagement:
 
 | Tool Name | Version | Last Updated | Purpose |
 |-----------|---------|--------------|---------|
-| Kali Linux | 2024.3 | 2024-09-15 | Primary testing platform |
-| Nmap | 7.94 | 2024-08-01 | Network scanning |
-| Wireshark | 4.2.0 | 2024-07-20 | Packet analysis |
+| Kali Linux | Record installed release | Record verification date | Approved, isolated test platform |
+| Nmap | Record installed version | Record verification date | Scope-limited network scanning |
+| Wireshark | Record installed version | Record verification date | Authorized packet analysis |
 | Additional approved tool (engagement-specific) | Record installed version | Record actual verification date | Describe authorized purpose |
 
 ---
@@ -898,7 +898,7 @@ Maintain a tools manifest for each engagement:
 
 ## END OF PLAYBOOK
 
-This playbook should be reviewed and updated quarterly to reflect:
+This playbook should be reviewed at least quarterly and updated to reflect:
 
 - New tools and techniques
 - Updated security standards
@@ -909,7 +909,7 @@ This playbook should be reviewed and updated quarterly to reflect:
 **Document Control:**
 - **Version:** 1.0
 - **Created:** October 2025
-- **Next Review:** January 2026
+- **Next Review:** February 2027
 - **Owner:** Pacific Northwest Computers
 
 For questions or suggestions, contact: [Your Contact Information]
