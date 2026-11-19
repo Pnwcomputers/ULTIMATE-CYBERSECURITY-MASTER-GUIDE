@@ -449,9 +449,16 @@ git_clone_tool() {
             FAILED_TOOLS+=("git:$name (invalid pin)")
             return 0
         fi
-        if [[ -d "$target/.git" && "$(git -C "$target" rev-parse HEAD 2>/dev/null)" == "$commit" ]]; then
-            ok "  $name already at pinned commit ${commit:0:12}"
-            return 0
+        if [[ -d "$target/.git" ]]; then
+            local existing_origin status
+            existing_origin="$(git -C "$target" remote get-url origin 2>/dev/null || true)"
+            status="$(git -C "$target" status --porcelain --untracked-files=all --ignored 2>/dev/null || true)"
+            if [[ "$(git -C "$target" rev-parse HEAD 2>/dev/null)" == "$commit" \
+                  && "$existing_origin" == "$url" \
+                  && -z "$status" ]]; then
+                ok "  $name already at pinned commit ${commit:0:12} with expected origin and clean tree"
+                return 0
+            fi
         fi
         if [[ -e "$target" ]]; then
             warn "  $target exists but is not at the pinned commit; not modifying it (remove it to reinstall)"
