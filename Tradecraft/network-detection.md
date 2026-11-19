@@ -87,8 +87,11 @@ Common stacks:
 # Capture on interface, write to file
 tcpdump -i eth0 -w capture.pcap
 
-# Capture with timestamps, verbose, no DNS resolution
-tcpdump -i eth0 -tttt -vv -n -w capture.pcap
+# Live display: timestamps, verbose decode, numeric addresses/ports (no DNS lookups)
+tcpdump -i eth0 -tttt -vv -n
+
+# Save packets for later analysis; packet timestamps are stored in the pcap
+tcpdump -i eth0 -w capture.pcap
 
 # Capture specific host
 tcpdump -i eth0 host 192.168.1.100 -w host.pcap
@@ -577,9 +580,12 @@ with open('dns.log') as f:
         if line.startswith('#'):
             continue
         fields = line.strip().split('\t')
-        if len(fields) < 9:
+        if len(fields) < 10:
+            print(f"[skip] malformed Zeek DNS row: expected at least 10 columns, got {len(fields)}")
             continue
         query = fields[9]
+        if query == "-":
+            continue
         if is_dga_candidate(query):
             print(f"[DGA?] {query}")
 ```
