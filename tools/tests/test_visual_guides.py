@@ -92,6 +92,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/live-response-volatility-evidence-gates.svg": (
         "IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md",
     ),
+    "assets/diagrams/honeypot-wazuh-telemetry-evidence-path.svg": (
+        "IncidentResponse/HoneyPot/wazuh-honeypot-integration.md",
+    ),
+    "assets/diagrams/cdc-snapshot-offset-replay-boundary.svg": (
+        "Data-Engineering/Phase2/streaming_cdc.md",
+    ),
+    "assets/diagrams/recovery-point-rpo-rto-replay-timeline.svg": (
+        "Data-Engineering/Phase3/data_recovery_replay.md",
+    ),
+    "assets/diagrams/webapp-object-authorization-role-matrix.svg": (
+        "WebAppSecurity/methodology.md",
+    ),
 }
 
 
