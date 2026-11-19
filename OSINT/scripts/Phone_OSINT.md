@@ -18,7 +18,7 @@ Run authorized provider lookups and organize their returned metadata for human r
 **Dependencies:** `jq`, `curl`  
 **Usage:** Copy the fenced script into a file such as `phone_audit.sh`, then run `chmod +x phone_audit.sh`. Do not try to execute this Markdown document.
 
-**Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
+**Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed. Phone numbers and queries are sent to the providers you enable; review their retention terms before use.
 - `NUMVERIFY_KEY` - [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
 - `VERIPHONE_KEY` - [veriphone.io](https://veriphone.io/)
 - `ABSTRACTAPI_KEY` - [abstractapi.com](https://www.abstractapi.com/api/phone-validation-api)
@@ -36,7 +36,8 @@ Run authorized provider lookups and organize their returned metadata for human r
 #         ./phone_audit.sh -p <phone1,phone2,phone3>
 #         ./phone_audit.sh -f <file_with_phones>
 #
-#  Phone format: Include country code (e.g., +1234567890 or 1234567890)
+#  Local formatting supports North American 10-digit numbers and +1 numbers.
+#  Other international numbers are passed through without inferred country metadata.
 #
 #  Dependencies:
 #    sudo apt install jq curl
@@ -71,14 +72,23 @@ LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
-
-        NUMVERIFY_KEY="${NUMVERIFY_KEY:-${NUMVERIFY_API_KEY:-${numverify_api_key:-}}}"
-        VERIPHONE_KEY="${VERIPHONE_KEY:-${VERIPHONE_API_KEY:-${veriphone_api_key:-}}}"
-        ABSTRACTAPI_KEY="${ABSTRACTAPI_KEY:-${abstractapi_key:-}}"
-        INTELX_KEY="${INTELX_KEY:-${INTELX_API_KEY:-${intelx_api_key:-}}}"
-        LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_api_key:-}}}"
+        # Parse simple KEY=value entries; never execute the config file as shell code.
+        while IFS= read -r entry || [ -n "$entry" ]; do
+            [[ "$entry" =~ ^[[:space:]]*(#|$) ]] && continue
+            if [[ "$entry" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+                key="${BASH_REMATCH[2]}"
+                value="${BASH_REMATCH[3]}"
+                value="${value%\"}"; value="${value#\"}"
+                value="${value%\'}"; value="${value#\'}"
+                case "$key" in
+                    NUMVERIFY_KEY|NUMVERIFY_API_KEY|numverify_api_key) [ -n "$NUMVERIFY_KEY" ] || NUMVERIFY_KEY="$value" ;;
+                    VERIPHONE_KEY|VERIPHONE_API_KEY|veriphone_api_key) [ -n "$VERIPHONE_KEY" ] || VERIPHONE_KEY="$value" ;;
+                    ABSTRACTAPI_KEY|abstractapi_key) [ -n "$ABSTRACTAPI_KEY" ] || ABSTRACTAPI_KEY="$value" ;;
+                    INTELX_KEY|INTELX_API_KEY|intelx_api_key) [ -n "$INTELX_KEY" ] || INTELX_KEY="$value" ;;
+                    LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key) [ -n "$LEAKLOOKUP_KEY" ] || LEAKLOOKUP_KEY="$value" ;;
+                esac
+            fi
+        done < "$API_CONFIG"
     else
         echo -e "${YELLOW}[!] API config not found at $API_CONFIG. Set keys via environment variables.${NC}" >&2
     fi
@@ -360,8 +370,19 @@ query_abstractapi() {
         return
     fi
     
-    curl -s "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" \
+    # Keep the key out of curl's process arguments. AbstractAPI still requires it
+    # in the URL, so the provider/proxy may retain it in request logs.
+    if [[ ! "$ABSTRACTAPI_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] AbstractAPI key contains unsupported characters; request skipped.${NC}"
+        return
+    fi
+    local CURL_CONFIG
+    CURL_CONFIG=$(mktemp) || return 1
+    chmod 600 "$CURL_CONFIG"
+    printf 'url = "https://phonevalidation.abstractapi.com/v1/?api_key=%s&phone=%s"\n' "$ABSTRACTAPI_KEY" "$NORMALIZED" > "$CURL_CONFIG"
+    curl --config "$CURL_CONFIG" --silent --show-error --fail --max-time 20 \
         | pretty_json > "$OUTPUT" 2>&1
+    rm -f "$CURL_CONFIG"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
@@ -490,7 +511,7 @@ detect_phone_type() {
 }
 EOF
 
-    log "${YELLOW}    [!] Local type: unclassified; review provider metadata cautiously.${NC}"
+    log "${YELLOW}    [!] Local type: $PHONE_TYPE; review provider metadata cautiously.${NC}"
     log "${YELLOW}    [!] $PHONE_NOTES${NC}"
 }
 
@@ -511,7 +532,7 @@ lookup_area_code() {
     # Fallback: use static lookup for common codes
     
     case "$AREA_CODE" in
-        983) LOCATION="Eastern North Carolina (VoIP overlay)" ;;
+        983) LOCATION="Eastern North Carolina (area-code lookup only; not a line-type signal)" ;;
         212) LOCATION="New York City, NY" ;;
         213) LOCATION="Los Angeles, CA" ;;
         312) LOCATION="Chicago, IL" ;;
