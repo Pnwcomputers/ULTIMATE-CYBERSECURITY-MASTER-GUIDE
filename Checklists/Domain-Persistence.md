@@ -2,11 +2,13 @@
 
 **Purpose:** Once Domain Admin (or equivalent) is achieved, this checklist covers ways to keep that access alive through password rotations, incident response, and partial remediation - the difference between a compromise that's fixed by resetting one password and one that requires a full domain rebuild to be certain it's gone. Every item here is specifically an AD-native persistence mechanism, not a general Windows backdoor.
 
-**Function:** Entries span a spectrum of stealth and durability: Golden Certificate and Golden Ticket forge Kerberos trust material directly from the krbtgt/CA keys, surviving individual password resets; AdminSDHolder and machine account abuse hijack legitimate AD protection mechanisms to silently maintain privileged group membership; Shadow Credentials and Diamond Ticket are newer, harder-to-detect variants specifically designed to evade the detection logic built for the older, well-known techniques (Diamond Ticket, for instance, exists because Golden Ticket's "TGS request with no matching AS request" detection is now standard).
+**Function:** Entries span a spectrum of stealth and durability: Golden Certificate and Golden Ticket forge Kerberos trust material directly from the krbtgt/CA keys, surviving individual password resets; AdminSDHolder and machine account abuse hijack legitimate AD protection mechanisms to silently maintain privileged group membership; Shadow Credentials and Diamond Ticket are additional paths defenders should inventory; detectability depends on implementation, telemetry, and environment, so validate detection notes against your own lab and data.
 
-**Goal:** Determine how many independent, hard-to-detect persistence mechanisms an attacker (or your red team) could plant in a domain, and - critically - whether your incident response process would actually catch and remove all of them. A common IR failure mode is resetting the krbtgt password once (defeats Golden Ticket) while missing AdminSDHolder ACL modifications or shadow credential entries that survive the reset entirely.
+**Goal:** Help defenders inventory domain persistence paths and validate recovery coverage. In an explicitly approved exercise, simulate only the minimum needed to test detection and remediation, preferably in an isolated lab or dedicated test domain, with a documented rollback and cleanup check.
 
-**When & how to use this:** Use once you already hold Domain Admin or equivalent rights, as the natural next step after [Domain Escalation](./Domain-Escalation.md). During a red team exercise, plant 2-3 independent mechanisms from different rows of this list (not just Golden Ticket) so the blue team's remediation is genuinely tested rather than solved by a single krbtgt reset. During defensive work, use this as your "did we actually get all of it" checklist after any AD compromise.
+**When & how to use this:** Use once you already hold Domain Admin or equivalent rights, as the natural next step after [Domain Escalation](./Domain-Escalation.md). For a red-team exercise, use an isolated lab or a specifically approved simulation with explicit target, technique, duration, rollback, and cleanup criteria. Do not treat deployment of multiple live persistence mechanisms as a default test step. During defensive work, use this as your "did we actually get all of it" checklist after any AD compromise.
+
+![Persistence control validation workflow: define scope, simulate one approved mechanism, observe controls, then remove it and verify restoration](../assets/diagrams/authorized-persistence-validation.svg)
 
 #### 📖 Full deep-dive with detection/defense guidance: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md)
 #### 📄 PDF references: [AD_Attacks_.pdf](../PDF/AD_Attacks_.pdf) · [AD_Post_Exploitation.pdf](../PDF/AD_Post_Exploitation.pdf)
@@ -35,11 +37,11 @@
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Authorized testing only: confirm authority and scope before active testing.** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Legal consequences depend on the conduct and applicable law; see [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **For systems you do not own or administer, confirm authorization in advance and document scope in writing where policy, law, or contract requires it.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
