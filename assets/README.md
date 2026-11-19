@@ -7,6 +7,17 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Honeypot, Streaming, Recovery & Authorization Illustrations
+
+These are editable SVG reference diagrams embedded within the relevant chapter. They distinguish source-supported architecture from unverified production operation.
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Wazuh Honeypot Telemetry Evidence Path](./diagrams/honeypot-wazuh-telemetry-evidence-path.svg) | [Wazuh Honeypot Integration](../IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | Separate logs, agent collection, manager rules, index and analyst review |
+| [CDC Snapshot/Offset Replay Boundary](./diagrams/cdc-snapshot-offset-replay-boundary.svg) | [Streaming & Change Data Capture](../Data-Engineering/Phase2/streaming_cdc.md) | Explain coordinated snapshot handoff, source positions, tombstones and idempotent replay |
+| [RPO/RTO & Recovery Timeline](./diagrams/recovery-point-rpo-rto-replay-timeline.svg) | [Backup, Replay & Disaster Recovery](../Data-Engineering/Phase3/data_recovery_replay.md) | Distinguish trusted backup point, retained changes, restore time and verified cutover |
+| [Web Application Authorization Matrix](./diagrams/webapp-object-authorization-role-matrix.svg) | [Web Application Testing Methodology](../WebAppSecurity/methodology.md) | Horizontal ownership checks, vertical privileges and server-side subject-object-action decisions |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
