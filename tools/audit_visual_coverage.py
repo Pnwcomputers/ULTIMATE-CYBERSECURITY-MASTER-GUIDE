@@ -190,7 +190,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--max-items", type=int, default=35)
     parser.add_argument("--strict", action="store_true",
-                        help="Fail on broken local image paths, malformed/unsafe SVGs and unreadable Markdown")
+                        help="Fail on broken local image paths, malformed/unsafe/inaccessible SVGs and unreadable Markdown")
     opts = parser.parse_args()
     if opts.max_items < 1:
         parser.error("--max-items must be positive")
@@ -207,7 +207,8 @@ def main() -> int:
         print(rendered)
     fails = report["counts"]
     return int(opts.strict and any(fails[k] for k in (
-        "broken_local_image_embeds", "svg_invalid_or_unsafe", "unreadable_markdown")))
+        "broken_local_image_embeds", "svg_invalid_or_unsafe",
+        "svg_missing_accessibility_metadata", "unreadable_markdown")))
 
 
 if __name__ == "__main__":
