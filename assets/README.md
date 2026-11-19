@@ -93,6 +93,15 @@ These original accessible diagrams are embedded in their canonical chapters and 
 | [ESP32-C5 Normal, Node & Core](./diagrams/esp32-c5-wardriver-normal-node-core.svg) | [ESP32-C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Device roles, GNSS/SD logging, Node observations and Core aggregation |
 | [Hardware Bench Diagnostic & Write Safety](./diagrams/hardware-bench-inventory-stress-storage-safety.svg) | [Manjaro Intel Hardware Test Bench](../HardwareTesting/Manjaro_Intel_TestBench.md) | Baseline, telemetry, bounded stress, write-test permission and reproducible results |
 
+## VoIP Call Paths, Linux Privilege Risk, Arduino IDE & Threat Intelligence
+
+| New Diagram | Embedded Guide | Fact-Checked Scope |
+|---|---|---|
+| [SIP Signaling vs RTP Media](./diagrams/voip-sip-signaling-vs-rtp-media-security.svg) | [VoIP Assessment Checklist](../Checklists/voip-checklist.md) | Asterisk TLS-protected signaling versus separately negotiated SRTP media and PBX/SBC routing |
+| [Linux Privilege & Vendor Patch Triage](./diagrams/linux-privilege-risk-and-vendor-patch-triage.svg) | [Linux Privilege Escalation Checklist](../Checklists/Linux-Privilege-Escalation.md) | Versioned vendor CVEs, distro backports, effective sudo/SUID/cron checks and safe remediation |
+| [Arduino Board, Port & Bootloader Diagnostics](./diagrams/arduino-ide-board-port-bootloader-diagnostics.svg) | [Arduino IDE Multi-Platform Setup](../Documentation/arduinoIDE.md) | Installed board core, physical USB interface and upload protocol must be diagnosed separately |
+| [OSINT/CTI Source Quality to Detection](./diagrams/osint-cti-source-quality-to-detection.svg) | [OSINT & Threat Intelligence Deep Dive](../Tradecraft/osint-threat-intel.md) | Source provenance, corroboration, time-sensitive IOCs, behavior mapping and detected-outcome evidence |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |

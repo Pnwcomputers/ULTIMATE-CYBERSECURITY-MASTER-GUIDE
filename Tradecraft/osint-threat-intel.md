@@ -37,19 +37,14 @@ Enable practitioners to build comprehensive target intelligence pictures using o
 ---
  
 ## OSINT Methodology
- 
+
 ### The Intelligence Cycle
+
+![Threat intelligence lifecycle from approved research requirements through source provenance, independent credibility checks, versioned indicators and evidence-based detection validation](../assets/diagrams/osint-cti-source-quality-to-detection.svg)
+
+*Conceptual analytical workflow.* [MITRE ATT&CK's Threat Intelligence Program mitigation](https://attack.mitre.org/mitigations/M1019/) and [ATT&CK's published research methodology](https://attack.mitre.org/resources/attack-design-and-philosophy/) distinguish evidence-supported behavior mapping from unsupported attribution. An indicator match is a lead, not proof of an actor or successful detection.
+
  
-```
- ┌─────────────────────────────────────────────────────┐
- │  1. Planning     → Define requirements, scope        │
- │  2. Collection   → Gather raw data from sources      │
- │  3. Processing   → Parse, deduplicate, normalize     │
- │  4. Analysis     → Extract meaning, identify gaps    │
- │  5. Dissemination → Report findings, act on intel    │
- │  6. Feedback     → Refine collection based on gaps   │
- └─────────────────────────────────────────────────────┘
-```
  
 ### Defining Requirements
  
@@ -74,7 +69,7 @@ Before starting any OSINT collection:
  
 ## Passive Reconnaissance
  
-Passive recon involves no direct contact with the target - no packets sent to target systems.
+Passive reconnaissance normally uses third-party datasets without directly querying target infrastructure. A search engine or archive can still log queries or disclose the investigated identifier; some so-called passive tools contact targets depending on their mode. Verify the actual behavior before classifying collection as passive.
  
 ### Google Dorking
  
@@ -94,8 +89,9 @@ site:target.com filetype:env OR filetype:config OR filetype:cfg
 # Find subdomains
 site:*.target.com -site:www.target.com
  
-# Cached pages (evades target logging)
-cache:target.com
+# For independently archived historical pages, consult a trusted archive's
+# published collections and document capture date and privacy implications.
+# Google's former cache: operator has been discontinued.
  
 # Find specific text on pages
 site:target.com "internal use only" OR "confidential"
@@ -107,6 +103,8 @@ site:target.com intitle:"index of"
 site:target.com intext:"powered by" OR intext:"built with"
 ```
  
+Google's [Search Central update log](https://developers.google.com/search/updates) confirms that the former `cache:` operator no longer works. Archive lookup can still disclose the searched URL or material to an archive provider; verify available captures and their actual dates rather than claiming such methods always evade target logging.
+
 ### Shodan
  
 ```bash
@@ -596,17 +594,22 @@ Collection → Validation → Enrichment → Scoring → Deployment → Expirati
 - Fidelity (high false-positive potential?)
 ### IOC Formats
  
-```xml
-<!-- STIX 2.1 (JSON) - standard for IOC exchange -->
+```json
 {
   "type": "indicator",
-  "id": "indicator--12345",
-  "pattern": "[ipv4-addr:value = '1.2.3.4']",
+  "spec_version": "2.1",
+  "id": "indicator--8f39257f-dcdb-4f1c-8e75-94c70c483990",
+  "created": "2026-01-01T00:00:00.000Z",
+  "modified": "2026-01-01T00:00:00.000Z",
+  "name": "Synthetic reserved-address teaching indicator",
+  "pattern": "[ipv4-addr:value = '198.51.100.5']",
   "pattern_type": "stix",
-  "valid_from": "2024-01-01T00:00:00Z",
-  "labels": ["malicious-activity"]
+  "valid_from": "2026-01-01T00:00:00Z",
+  "labels": ["test-indicator"]
 }
 ```
+
+*Illustrative STIX 2.1 indicator with a reserved documentation address, not a real IOC or actor attribution.* Validate required fields, UUIDs and timestamp types with the pinned [OASIS STIX 2.1 specification](https://docs.oasis-open.org/cti/stix/v2.1/os/stix-v2.1-os.html) before using this template in an integration. STIX is JSON, not XML.
  
 ```bash
 # TAXII - transport protocol for STIX feeds
@@ -655,7 +658,7 @@ References:
                 → [Target investigation]
 ```
  
-- Never investigate from your real IP
+- Select network egress based on the documented threat model, client authorization, provider rules and privacy implications; no route is inherently anonymous
 - Use dedicated VMs that can be snapshotted/restored
 - Separate browsers per investigation
 - Use temporary email/phone for account creation
@@ -678,9 +681,9 @@ References:
 ### Operational Security Checklist
  
 ```
-☐ Verified VPN/Tor is active before starting
+☐ Verify the chosen approved network route for the specific applications in use; VPN and Tor do not make every program anonymous
 ☐ Using dedicated VM, not host OS
-☐ Browser fingerprint randomized
+☐ Avoid unnecessary browser fingerprint changes; use the browser's supported privacy defaults and document the test context
 ☐ No personal accounts logged in
 ☐ Research VM isolated from production network
 ☐ Screen recording/logging is on for evidence chain

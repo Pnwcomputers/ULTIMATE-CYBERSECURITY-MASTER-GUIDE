@@ -6,10 +6,10 @@ Setting up the Arduino IDE to be a universal workstation for multiple microcontr
 One-time setup to turn a stock Arduino IDE 2.x install into a universal workstation covering Arduino, ESP32, ESP8266, STM32, and RP2040 (Pico) boards from a single install - the specific driver/board-package combination that trips people up on a fresh setup.
 
 ## ⚙️ Function
-Six steps: install IDE 2.x (not legacy 1.8.x), add third-party board manager URLs, install the actual board packages those URLs unlock, tune compiler/upload preferences for easier debugging, install cross-platform sensor/communication libraries, and install the USB-to-serial drivers (CH340/CP210x) that clone and third-party boards need but official Arduino boards don't.
+Six steps: install IDE 2.x (not legacy 1.8.x), add third-party board manager URLs, install the actual board packages those URLs unlock, tune compiler/upload preferences for easier debugging, install cross-platform sensor/communication libraries, and review USB interface drivers and OS permissions (such as CH34x/CP210x on supported third-party devices); which drivers are needed depends on the **specific device, USB interface and operating system**, not simply whether the board is official.
 
 ## 🏆 Goal
-Eliminate the most common first-time failure mode with multi-board Arduino IDE setups - a board not showing up in the ports list because of a missing USB driver, or a board not appearing in the boards list because its package URL was never added.
+Eliminate the most common first-time failure mode with multi-board Arduino IDE setups - a board absent from the target list because a core is not installed or a connection absent from the port list because of USB, cable, OS permissions, driver, native-USB mode or bootloader details.
 
 ## 📋 When to Use
 - Setting up a new machine for embedded/hardware hacking work spanning multiple microcontroller families
@@ -20,9 +20,15 @@ Eliminate the most common first-time failure mode with multi-board Arduino IDE s
 
 If you haven't already, download the latest **Arduino IDE 2.x** (not the legacy 1.8.x version). Version 2 brings a modern code editor, auto-completion, faster compile times, and a much better board/library manager.
 
+## Board, Port & Upload Diagnostics
+
+![Arduino IDE configuration separates installed board-platform packages from the physical USB data connection, OS serial driver and compatible bootloader/upload method](../assets/diagrams/arduino-ide-board-port-bootloader-diagnostics.svg)
+
+*Conceptual troubleshooting map.* [Arduino's official IDE 2 upload tutorial](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/) distinguishes board target and selected port. A board absent from the board menu usually concerns the installed platform/core, while a missing port may involve USB cable, host permissions or driver, bootloader state or the selected device. Confirm exact model/revision and backup any existing firmware before writing.
+
 ## Step 2: Configure Additional Boards Manager URLs
 
-By default, the IDE only knows about official Arduino boards. To add ESP32, STM32, and other popular architectures, you need to point the IDE to their core files.
+By default, the IDE only knows about official Arduino boards. To add supported target architectures, install the correct board core from the official Boards Manager catalog or the current upstream platform index. A third-party index URL is needed only when the relevant core is not already available from the configured sources.
 
 1. Open the Arduino IDE.
 2. Go to **File** > **Preferences** (Windows/Linux) or **Arduino** > **Settings** (macOS).

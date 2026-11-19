@@ -203,6 +203,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg": (
         "HardwareTesting/Manjaro_Intel_TestBench.md",
     ),
+    "assets/diagrams/voip-sip-signaling-vs-rtp-media-security.svg": (
+        "Checklists/voip-checklist.md",
+    ),
+    "assets/diagrams/linux-privilege-risk-and-vendor-patch-triage.svg": (
+        "Checklists/Linux-Privilege-Escalation.md",
+    ),
+    "assets/diagrams/arduino-ide-board-port-bootloader-diagnostics.svg": (
+        "Documentation/arduinoIDE.md",
+    ),
+    "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
+        "Tradecraft/osint-threat-intel.md",
+    ),
 }
 
 
