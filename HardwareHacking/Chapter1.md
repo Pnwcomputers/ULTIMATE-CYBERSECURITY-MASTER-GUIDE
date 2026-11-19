@@ -1,18 +1,19 @@
 # Chapter 1: Threat Modeling for Hardware Security
 
 ## 🎯 Purpose
-Framework for analyzing hardware security threats - covering physical access threat models, STRIDE applied to embedded systems, trust boundary identification, and the hardware security properties that software threat modeling ignores.
+A framework for scoping hardware security risks by identifying assets, reachable interfaces, attacker capabilities, lifecycle conditions, controls, and residual risk.
 
 ## ⚙️ Function
-Introduces hardware-specific threat modeling concepts: physical access attack vectors (JTAG, SWD, UART, voltage glitching, side-channel), asset identification on embedded systems, STRIDE table applied to hardware, countermeasures, and a structured threat model template for documenting findings.
+Applies threat-modeling questions to embedded systems, including physical access, debug interfaces, firmware, side channels, fault injection, supply chain, and manufacturing or service states.
 
 ## 🏆 Goal
-Produce a hardware threat model for a target device that identifies the physically accessible attack surfaces, the assets at risk, and appropriate countermeasures - before tool selection or hands-on work begins.
+Produce a documented, evidence-based threat model that guides authorized assessment and practical design or operational controls.
 
 ## 📋 When to Use
-- Starting a hardware security assessment: build the threat model before touching the device
-- Designing a new embedded product: identify security requirements before hardware is finalized
-- Scoping a hardware pen test engagement: determine which physical attack vectors are in scope
+- Scoping an authorized hardware security review
+- Designing or procuring an embedded product
+- Reviewing a device lifecycle, debug, update, service, or recovery process
+- Prioritizing controls against a stated attacker capability
 
 > *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -20,37 +21,26 @@ Produce a hardware threat model for a target device that identifies the physical
 
 ### Why Hardware Threat Modeling Differs
 
-Software threat modeling assumes the attacker is remote and logical. Hardware threat modeling must also account for **physical access** - an attacker who can touch the device has capabilities unavailable over any network:
+Hardware threat models include device-specific physical access, manufacturing, service, firmware, electrical, and side-channel conditions alongside ordinary software and network threats. Physical possession can create additional opportunities, but it does not by itself provide memory access, debug privileges, key extraction, or a successful bypass. Those outcomes depend on the design, lifecycle state, configuration, attacker capability, and evidence.
 
-- Direct memory reads via debug interfaces (JTAG, SWD, UART)
-- Signal probing on internal buses
-- Voltage and clock manipulation to bypass security checks
-- Chip decapping and microprobing
-- Side-channel observation of power, EM emissions, and timing
+Treat interfaces such as JTAG, SWD, UART, boot ROM, and external flash as possible exposure points to verify. Their presence does not establish that they are enabled, reachable, unauthenticated, or able to access protected assets.
 
-The classic security model of "inside the trust boundary = trusted" collapses when an attacker can physically manipulate the hardware. Hardware threat modeling rebuilds the trust boundary from the silicon up.
-
-<p align="center">
-  <img src="../assets/CollapsingtheTrustBoundary.jpg" alt="Figure 1: Threat Modeling Boundaries. (Left) The logical model, where a remote attacker is stopped by a network firewall. (Right) The hardware model, where an attacker with physical access uses techniques like probing and glitching to bypass the now-meaningless logical trust boundary." width="600"/>
-</p>
-
----
+![Conceptual hardware threat-model flow from defined capability and reachable interfaces to controls, residual risk, and evidence](../assets/diagrams/hardware-threat-model-capability-flow.svg)
 
 ### Attacker Profiles
 
-Defining a realistic attacker profile before assessment scopes the attack surface and prevents both under- and over-engineering of defenses.
+Describe capabilities directly instead of assigning universal cost or skill bands. Two useful scenarios for the same device may differ in access time, tools, expertise, allowed teardown, supply-chain access, and ability to retain or replace a device.
 
-| Profile | Access Level | Budget | Skill | Time | Example |
-|---------|-------------|--------|-------|------|---------|
-| **Script Kiddie** | Physical device | <$100 | Low | Hours | Running published exploit against consumer device |
-| **Motivated Hobbyist** | Physical device | $100–$1K | Medium | Days–weeks | Jailbreaking a game console |
-| **Security Researcher** | Physical device + teardown | $1K–$10K | High | Weeks | Academic fault injection work |
-| **Organized Criminal** | Physical device + supply chain | $10K–$100K | High | Months | Payment card skimming, ATM black-box attacks |
-| **Nation-State** | Any access including supply chain | Unlimited | Expert | Years | IC-level implants, foundry-level compromise |
+| Capability dimension | Questions to document |
+|----------------------|-----------------------|
+| Access | Remote, local, brief physical possession, prolonged possession, service access, or supply-chain access? |
+| Resources | What equipment, facilities, budget, and replacement devices are available? |
+| Expertise | Which hardware, firmware, cryptographic, or manufacturing skills are in scope? |
+| Time and scale | One device or a fleet? How much access time, repetition, and preparation? |
+| Constraints | Can the attacker open, modify, damage, or return the device? What detection or legal limits apply? |
+| Objective | Data access, service disruption, cloning, unauthorized updates, or compromise of a specific trust boundary? |
 
-Use these profiles to bound your analysis. A consumer IoT device likely needs defenses against the Motivated Hobbyist and below; a HSM or satellite payload needs to consider Nation-State capabilities.
-
----
+Use named profiles only as shorthand for an explicit set of assumptions. Do not infer a device's required defense level solely from broad labels such as hobbyist or nation-state.
 
 ### Assets
 
@@ -69,109 +59,110 @@ Hardware assets differ from software assets because they are often **physical ob
 
 #### Asset-Attack Surface Mapping
 
-```
-Asset: AES Root Key
-  └─> Stored in: OTP fuses / secure element / battery-backed SRAM
-  └─> Used by: Crypto accelerator / software AES
-  └─> Observable via: Power trace during encrypt/decrypt
-  └─> Extractable via: SPA/DPA on crypto operations
-                        Fault injection to skip key zeroization
-                        JTAG if debug not locked
-                        Glitching secure boot to unlock debug
-```
+Map each asset to its location, uses, trust boundaries, and potential observations or modification paths. A path is a hypothesis to validate, not a claim that the asset is practically extractable.
 
----
+| Asset example | Questions to investigate |
+|----------------|--------------------------|
+| Cryptographic key | Where is it generated, stored, used, backed up, and erased? Which components can access it? What documented debug or side-channel controls apply? |
+| Firmware or configuration | Which boot, update, recovery, and service paths can read or modify it? How are authorization and integrity checked? |
+| Runtime secret | Is it exposed in logs, memory, peripheral buses, crash dumps, or physical observables? For how long? |
+| Manufacturing or service data | Which factory modes, test interfaces, credentials, and lifecycle transitions exist, and how are they disabled or restricted in production? |
+
+For example, a device may store a key in a secure element and use it through a cryptographic API. A power side channel, debug interface, or fault path is in scope only if the relevant access and device behavior are established for that target.
 
 ### Objectives
 
-Map attacker objectives to the assets they require and the attacks that enable them:
+Translate each objective into a testable scenario with a defined precondition, asset, interface, security property, and observable success criterion.
 
-| Objective | Assets Required | Likely Attack Path |
-|-----------|---------------|-------------------|
-| **Clone device** | Firmware, device keys | JTAG extraction, SPI flash dump, fault injection to unlock |
-| **Extract secret key** | Cryptographic keys | DPA/SPA, SEMA, microprobing |
-| **Bypass authentication** | Auth logic, firmware | Fault injection (skip compare), UART console exploit |
-| **Unlock debug interface** | Security fuse state | Voltage glitching to bypass fuse check, laser fault injection |
-| **Persistent implant** | Firmware write access | Bootloader exploit, flash reprogramming after extraction |
-| **Forge signatures** | Signing keys | DPA against signing operation |
-| **Denial of service** | Power/clock inputs | Voltage spike, overclock |
+| Objective | Candidate paths to assess | Conditions and evidence |
+|-----------|---------------------------|-------------------------|
+| Firmware confidentiality or integrity | Debug, boot, update, recovery, or external storage paths | Verify interface state, authorization, signature checks, and whether altered firmware is accepted |
+| Key protection | Key-management API, debug state, power/EM leakage, backup or zeroization path | Establish key location, permitted operations, threat model, and independently verified leakage or exposure |
+| Authentication integrity | Protocol, firmware, debug, or fault-resilience paths | Test only a scoped development target; a fault or unexpected output alone is not proof of an authentication bypass |
+| Service availability | Power, clock, update, or physical tamper paths | Define recovery behavior, safe limits, and authorized disruption conditions |
+| Supply-chain assurance | Manufacturing access, component substitution, signing and provisioning systems | Identify trust anchors, custody steps, and available verification evidence |
 
----
+Avoid writing an attack path as a guaranteed result. For instance, a debug port or fault-injection method does not imply that a security fuse can be bypassed.
 
 ### Countermeasures
 
-Hardware countermeasures operate at multiple levels - silicon, firmware, and physical:
+Select controls for the documented threat model and verify them on the target design and lifecycle. No single physical, silicon, or firmware control covers every fault, probing, leakage, update, or supply-chain scenario.
 
-#### Silicon / Chip Level
+#### Silicon and Platform Controls
 
-| Countermeasure | Attacks Mitigated | Notes |
-|----------------|------------------|-------|
-| Active shield mesh | Microprobing, laser FI | Top-metal layer that triggers tamper on probe contact |
-| Glitch detectors (voltage/clock) | Voltage and clock FI | On-die sensors; trigger zeroization or reset |
-| PLL with frequency limits | Clock glitching | Reject CLK outside valid range |
-| True Random Number Generator | Fault injection timing, DPA | Randomizes operation timing; adds noise to power trace |
-| Redundant logic / dual-rail | Fault injection | Executing critical ops twice; comparison before acting |
-| Memory encryption | Cold boot, bus probing | Transparent encryption of SRAM/Flash |
+| Control | Potential contribution | Limits to assess |
+|---------|------------------------|------------------|
+| Debug authorization and lifecycle state | Restricts debug access on supported devices | Verify production provisioning, authenticated access, recovery, and failure behavior |
+| Secure boot and measured boot | Detects or blocks unauthorized firmware changes when correctly rooted | Does not by itself protect secrets in a running system or guarantee safe update/recovery |
+| Voltage, clock, and tamper monitoring | May detect specified abnormal conditions and trigger a response | Coverage depends on sensor thresholds, placement, response path, and tested fault models |
+| Redundant or diverse checks | Can detect some incorrect computation before acting | Common-mode faults, compiler behavior, and shared inputs can undermine redundancy |
+| Memory encryption | Protects specified data in particular memory or bus exposure scenarios | Does not automatically protect keys while in use, debug paths, or all physical attacks |
+| Side-channel-resistant implementation | Constant-time code, masking, or hiding may reduce selected leakage | Requires implementation-specific analysis; no technique guarantees absence of all leakage |
 
-#### Firmware Level
+A TRNG provides random values for designs that consume them; its presence alone does not randomize execution or prevent power-analysis leakage.
 
-| Countermeasure | Attacks Mitigated | Implementation |
-|----------------|------------------|---------------|
-| Secure boot chain | Firmware tampering | Cryptographic signature verification at each stage |
-| Debug lock | JTAG/SWD extraction | Burn fuses; disable SWD in firmware; JTAG authentication |
-| Key diversification | Key extraction | Derive device-unique keys from root + UID; limit blast radius |
-| Anti-timing (constant-time ops) | Timing side-channel | Avoid data-dependent branches and memory access patterns |
-| Masking | DPA | XOR sensitive intermediate values with random masks |
-| Instruction shuffling | SPA, DPA | Randomize non-dependent operation order |
-| Integrity checks | Fault injection | Verify results of critical operations; detect glitch artifacts |
+#### Firmware and Key Management
 
-#### Physical Level
+- **Authenticated updates and recovery:** Verify signatures, authorization, rollback policy, and recovery behavior across all update paths.
+- **Lifecycle-aware debug policy:** Restrict production debug access while preserving documented and controlled service or recovery mechanisms.
+- **Key isolation and provisioning:** Limit key use through defined interfaces; protect provisioning, backup, rotation, and zeroization.
+- **Constant-time cryptographic operations:** Use vetted implementations and review the full call path, compiler output, and target environment where relevant.
+- **Fault-aware checks:** Validate important results and fail safely, then assess the design against scoped fault models and common-mode behavior.
+- **Secure diagnostics:** Avoid exposing secrets or security state in logs, crash reports, test interfaces, or service tools.
 
-| Countermeasure | Attacks Mitigated |
-|----------------|------------------|
-| Epoxy potting | Decapping, probing |
-| Tamper-evident seals | Physical access detection |
-| Enclosure intrusion detect | Fault injection rigs |
-| PCB layer count increase | Bus probing complexity |
-| BGA packaging (no exposed pads) | Test point probing |
+#### Physical and Operational Controls
 
----
+| Control | Potential contribution | Limits to assess |
+|---------|------------------------|------------------|
+| Tamper-evident seals | May indicate that a device was opened or altered | Evidence can be missed, forged, or separated from device custody |
+| Potting, shields, and enclosure design | Can raise effort or obstruct some access paths | Do not treat as proof that probing, optical access, or fault coupling is prevented |
+| Intrusion sensing and response | May detect selected enclosure or environmental changes | Validate sensor coverage, bypass resistance, response timing, and false alarms |
+| Board and package design | Can reduce exposed test points or add protection layers | Adds cost and does not replace secure firmware, lifecycle controls, or verification |
+| Supply-chain and service procedures | Protects provisioning, components, credentials, and repair paths | Depends on custody, vendor controls, auditability, and key-management practices |
 
 ### Threat Model Template
 
-For each target device, document:
+For each target, record:
 
 ```
-TARGET: [Device name / model]
-ATTACKER PROFILE: [Relevant profiles and assumed capabilities]
+TARGET:
+  Device/model/revision:
+  Owner and authorized assessment scope:
+  Deployment and lifecycle state:
+  Safety, legal, and operational constraints:
 
-ASSETS:
-  - [Asset 1]: [Location] [Sensitivity]
-  - [Asset 2]: [Location] [Sensitivity]
+ATTACKER CAPABILITIES:
+  Access, time, equipment, expertise, scale:
+  Explicitly excluded assumptions:
 
-ATTACK SURFACE:
-  - External interfaces: [UART, SPI, I2C, JTAG, USB, RF, etc.]
-  - Power input: [Accessible? Filtering present?]
-  - Clock input: [External crystal / internal RC / PLL]
-  - Physical access: [Enclosure protection level]
+ASSETS AND TRUST BOUNDARIES:
+  Asset / sensitivity / location / authorized users:
+  Data and control paths:
+  External interfaces and reachable states:
 
-THREAT SCENARIOS:
-  [ID] [Threat] [Asset] [Attack Path] [Likelihood] [Impact]
+SCENARIOS:
+  ID / objective / preconditions / path / expected observable:
+  Likelihood rationale / impact / evidence confidence:
 
-COUNTERMEASURES:
-  [ID] [Control] [Threats Mitigated] [Implementation Status]
+CONTROLS:
+  Prevent / limit / detect / respond / recover:
+  Implementation and verification status:
+  Known gaps and common-mode considerations:
 
 RESIDUAL RISK:
-  [Threats not fully mitigated and accepted rationale]
+  Accepted or treated risk / owner / rationale / review date:
+  Evidence retained and limitations:
 ```
 
----
+Keep assumptions separate from observations. Mark an interface as reachable, a key as exposed, or a control as effective only when supported by target-specific documentation or authorized test evidence.
+
+**References:** [NIST SP 800-160 Vol. 1 Rev. 1](https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final) provides systems security engineering guidance. [NIST SP 800-193](https://csrc.nist.gov/pubs/sp/800/193/final) frames platform firmware resiliency around protection, detection, and recovery. For IoT device capability baselines, see [NISTIR 8259A](https://csrc.nist.gov/pubs/ir/8259/a/final).
 
 ## Related Files
 - [Hardware Security Case Studies](../CaseStudies/README.md) - Onity, Unsaflok, Tesla key-fob and EUCLEAK research to inform physical-access threat models
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: the physical layer knowledge underlying every threat in this model
-- [JTAGulator.md](JTAGulator.md) - Primary tool for exploiting the JTAG/UART debug-interface threat identified in threat models
-- [T48_TL866-3G.md](T48_TL866-3G.md) - IC programmer for the firmware extraction threat vector
+- [JTAGulator.md](JTAGulator.md) - Interface pin-discovery tool; results require verification and do not imply debug access
+- [T48_TL866-3G.md](T48_TL866-3G.md) - Device programmer whose supported parts and operations depend on the exact chip and security state
 - [Chapter3.md](Chapter3.md) - Fault injection: one of the key hardware attacks this chapter helps scope
 - [Chapter4.md](Chapter4.md) - Side-channel: the passive observation threat class this chapter introduces
 

@@ -668,3 +668,12 @@ Original conceptual workflow for authorized leakage assessment. It does not repr
 | Diagram | Embedded guide |
 |---|---|
 | [Power-analysis measurement and evidence flow](./diagrams/power-analysis-measurement-evidence-flow.svg) | [Power Analysis Practicals](../HardwareHacking/Chapter5.md#measurement-setup) |
+
+
+## Hardware Threat Modeling Visual
+
+Original conceptual flow from attacker capability and reachable interfaces to assessed controls, residual risk, and evidence. Physical possession does not guarantee interface access or secret extraction.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Hardware threat-model capability flow](./diagrams/hardware-threat-model-capability-flow.svg) | [Hardware Threat Modeling](../HardwareHacking/Chapter1.md#why-hardware-threat-modeling-differs) |
