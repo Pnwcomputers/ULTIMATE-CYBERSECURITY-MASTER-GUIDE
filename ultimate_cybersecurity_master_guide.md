@@ -1384,10 +1384,16 @@ defensive hardening guidance.
 ### Analysis Environment Quick Reference
  
 **Windows (FLARE VM)**
+
+> FLARE VM's upstream installer currently requires an Unrestricted execution policy. Apply its documented setup only in a fresh, disposable analysis VM; record and restore the pre-install policy during cleanup. Do not weaken policy on a personal or production workstation. See the [official FLARE VM setup guide](https://github.com/mandiant/flare-vm#installation).
+
 ```powershell
 # Install FLARE VM on clean Windows 10/11 VM
 # https://github.com/mandiant/flare-vm
-Set-ExecutionPolicy Unrestricted -Force
+# FLARE VM's current installer documents an Unrestricted execution-policy prerequisite.
+# Use only inside a fresh, disposable malware-analysis VM. Record the existing policy,
+# follow the official project setup steps, then restore the policy as part of VM cleanup.
+# Do not apply this setting on a personal or production workstation.
 .\install.ps1
 # Installs: x64dbg, Ghidra, PE-bear, CFF Explorer, Procmon, Process Hacker,
 #           Regshot, FakeNet-NG, CyberChef, dnSpy, de4dot, Wireshark
