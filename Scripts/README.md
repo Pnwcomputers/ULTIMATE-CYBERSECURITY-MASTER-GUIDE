@@ -24,10 +24,18 @@
 
 Inspect provenance and source before running downloaded scripts.
 
-> **Retired unsafe examples:** `Python/app.py` and `Python/web_shell_inj.py` are now
-> loopback-only upload references with no command-execution route or template hook.
-> `Bash/fake_sudo.sh` is disabled and exits without prompting for or transmitting a
-> password.
+> **Safer and retired examples:** `Python/app.py` and `Python/web_shell_inj.py`
+> are loopback-only upload references with no command-execution route or template hook.
+> `Bash/fake_sudo.sh` exits without prompting for or transmitting a password.
+> `Bash/hulkscanner.sh` requires an explicit authorization flag and limits checks to
+> ports 1–1024 on one IPv4 address. `Bash/nuclei_web_scanner.sh` requires interactive
+> scope confirmation, an explicitly selected local template, and a 5-request-per-second
+> cap; it prints findings locally and sends no email.
+>
+> The password-guessing examples `Bash/ssh_brute.sh`, `Python/ssh_brute.py`, and
+> `Python/ssh_brutekey.py` are retired. Their earlier versions exposed guessed or
+> valid credentials, guessed without a suitable rate/lockout bound, or bypassed SSH
+> host-key verification.
 
 <div align="center">
 
