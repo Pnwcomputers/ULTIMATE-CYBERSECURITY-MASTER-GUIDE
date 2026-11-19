@@ -6,6 +6,10 @@ When AI output controls scripts, tickets, databases or security actions, plain p
 
 ## 1. Output Format Versus Business Truth
 
+![Structured AI request passes independent JSON parsing, contract, factual context, caller authorization, actual write and post-action readback gates](../assets/diagrams/ai-structured-output-authorized-action-gates.svg)
+
+*Conceptual validation flow.* [JSON Schema's validation model](https://json-schema.org/understanding-json-schema/about) describes document structure and constraints, not whether claims are factually true or caller permissions are valid. Separate authorization and source-of-truth checks are mandatory before any tool side effect.
+
 | Layer | Question | Enforcement |
 |---|---|---|
 | Syntax | Is it parseable JSON/YAML? | Parser |
