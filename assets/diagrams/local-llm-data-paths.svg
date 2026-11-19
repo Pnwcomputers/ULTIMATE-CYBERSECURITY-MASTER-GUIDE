@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+<title id="title">Local LLM data paths and privacy controls</title>
+<desc id="desc">Prompts and documents flow into AnythingLLM, then to a local model, local embedding service, vector database, logs and backups. Optional telemetry, cloud models, web tools, plugins, and downloads can create outbound paths. Verify each path and apply network controls before calling a deployment offline or compliant.</desc>
+<defs><style>
+.bg{fill:#f5f8fc}.h{font:700 28px Arial,sans-serif;fill:#102a43}.t{font:18px Arial,sans-serif;fill:#243b53}.s{font:15px Arial,sans-serif;fill:#334e68}.box{fill:#fff;stroke:#486581;stroke-width:2;rx:14}.local{fill:#e5f6ed;stroke:#278457}.opt{fill:#fff4d6;stroke:#cc8b00;stroke-dasharray:8 6}.arrow{stroke:#486581;stroke-width:3;fill:none;marker-end:url(#a)}.dash{stroke:#cc8b00;stroke-width:3;stroke-dasharray:8 6;fill:none;marker-end:url(#b)}
+</style>
+<marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#486581" stroke-width="2"/></marker>
+<marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#cc8b00" stroke-width="2"/></marker></defs>
+<rect class="bg" width="1100" height="620" rx="20"/>
+<text class="h" x="550" y="45" text-anchor="middle">Local inference is only one part of the data path</text>
+<rect class="box" x="35" y="195" width="190" height="110"/><text class="h" x="130" y="235" text-anchor="middle">User</text><text class="t" x="130" y="267" text-anchor="middle">Prompts + documents</text>
+<rect class="box local" x="300" y="165" width="260" height="170"/><text class="h" x="430" y="205" text-anchor="middle">AnythingLLM</text><text class="t" x="430" y="240" text-anchor="middle">UI · chat logs · document store</text><text class="t" x="430" y="272" text-anchor="middle">agents · integrations · telemetry</text><text class="s" x="430" y="307" text-anchor="middle">Review settings and enabled tools</text>
+<rect class="box local" x="650" y="90" width="205" height="100"/><text class="h" x="752" y="128" text-anchor="middle">Local model</text><text class="t" x="752" y="158" text-anchor="middle">Ollama inference</text>
+<rect class="box local" x="650" y="220" width="205" height="100"/><text class="h" x="752" y="258" text-anchor="middle">Local RAG</text><text class="t" x="752" y="288" text-anchor="middle">Embeddings + vectors</text>
+<rect class="box local" x="650" y="350" width="205" height="100"/><text class="h" x="752" y="388" text-anchor="middle">Local storage</text><text class="t" x="752" y="418" text-anchor="middle">Logs · backups · files</text>
+<rect class="box opt" x="900" y="150" width="170" height="220"/><text class="h" x="985" y="190" text-anchor="middle">Optional egress</text><text class="t" x="985" y="226" text-anchor="middle">Telemetry</text><text class="t" x="985" y="257" text-anchor="middle">Cloud providers</text><text class="t" x="985" y="288" text-anchor="middle">Web tools/plugins</text><text class="t" x="985" y="319" text-anchor="middle">Updates/downloads</text>
+<path class="arrow" d="M225 250H290"/><path class="arrow" d="M560 205H640"/><path class="arrow" d="M560 250H640"/><path class="arrow" d="M560 295H640"/>
+<path class="dash" d="M560 178C710 25 870 40 920 145"/><path class="dash" d="M855 400C950 440 1010 410 1010 380"/>
+<text class="s" x="550" y="505" text-anchor="middle">Verify the complete path: configure telemetry/cloud features, restrict egress, and protect stored data.</text>
+<text class="s" x="550" y="540" text-anchor="middle">A local model does not by itself create an air gap or establish regulatory compliance.</text>
+</svg>

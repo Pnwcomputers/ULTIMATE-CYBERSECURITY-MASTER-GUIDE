@@ -1,13 +1,13 @@
-# Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
+# Build a Local LLM System with Dolphin, Ollama, and AnythingLLM
 
 ## 🎯 Purpose
-Complete guide for building a fully air-gapped LLM system using Ollama (inference engine), Dolphin models (uncensored GGUF variants), and AnythingLLM (local UI/RAG layer) - for environments where cloud API calls are prohibited or undesirable.
+Configuration guide for pursuing a local-only LLM deployment using Ollama, Dolphin models, and AnythingLLM. A local model does not by itself create an air gap: verify application telemetry, integrations, service bindings, storage, and network egress for the specific build.
 
 ## ⚙️ Function
 Covers hardware requirements by model size, Ollama installation and model management, Dolphin model selection trade-offs (7B/47B MoE/2.7B), AnythingLLM local setup and RAG configuration, system service hardening for localhost-only binding, and OPSEC considerations for sensitive deployments.
 
 ## 🏆 Goal
-A fully functional private LLM assistant running entirely on local hardware with zero external network calls - suitable for sensitive client engagements, air-gapped labs, or privacy-first personal AI workflows.
+A working local-inference assistant, plus a checklist for verifying whether the surrounding applications, data stores, and network controls meet a deployment's privacy and isolation requirements.
 
 ## 📋 When to Use
 - Preparing for an engagement where cloud tools are prohibited
@@ -17,7 +17,7 @@ A fully functional private LLM assistant running entirely on local hardware with
 
 ## Introduction
 
-Running a Large Language Model (LLM) completely offline gives you privacy, control, and independence from cloud services. In this comprehensive guide, I'll walk you through setting up a fully functional offline AI assistant using three powerful tools:
+Running a Large Language Model (LLM) locally can keep inference on your own hardware. Achieving a fully offline or air-gapped deployment takes additional configuration and verification: the UI, telemetry, plugins, embeddings, storage, model downloads, and network paths all matter. This guide uses three tools:
 
 - **Dolphin** - Uncensored, instruction-tuned language models
 - **Ollama** - Simple, efficient local LLM runtime
@@ -27,13 +27,13 @@ Running a Large Language Model (LLM) completely offline gives you privacy, contr
   
 **[Offline AI LLM System TrueNAS Hosted - Blog Article](https://pnwcomputers.blogspot.com/2025/11/offline-llm-system-truenas-hosted.html)**
 
-By the end of this guide, you'll have a ChatGPT-like experience running entirely on your own hardware with no internet connection required.
+This guide walks through a local-inference setup and the checks needed before describing a deployment as offline. Initial software and model downloads require network access unless supplied through a separately verified offline process.
 
 ## Why Choose This Stack?
 
-**Privacy First**: All your conversations and data stay on your local machine. No data is sent to external servers.
+**Local inference**: Prompts can be processed on-device when a local provider is selected. Verify telemetry, cloud features, plugins, vector stores, logs, and egress separately.
 
-**Offline Operation**: Once installed, the entire system works without an internet connection.
+**Offline option**: Local inference can continue without internet after models and dependencies are installed, if cloud features, telemetry, and optional network integrations are disabled and egress is controlled.
 
 **Uncensored Models**: Dolphin models are specifically trained to be helpful without unnecessary restrictions, making them ideal for technical work, creative writing, and research.
 
@@ -204,12 +204,12 @@ docker pull mintplexlabs/anythingllm
 # Run AnythingLLM container
 docker run -d \
   --name anythingllm \
-  -p 3001:3001 \
+  -p 127.0.0.1:3001:3001 \
   -v anythingllm_data:/app/server/storage \
   -v anythingllm_models:/app/server/storage/models \
   mintplexlabs/anythingllm
 
-# Access at http://localhost:3001
+# Local-host access at http://localhost:3001 (loopback-only port publishing)
 ```
 
 #### Method 3: From Source (Developers)
@@ -248,7 +248,7 @@ Now let's connect AnythingLLM to your local Ollama instance.
 
 2. **Configure Ollama Connection**:
    - **LLM Provider**: Select "Ollama"
-   - **Ollama Base URL**: `http://localhost:11434`
+   - **Ollama Base URL**: `http://localhost:11434` when the app and Ollama share a host/network namespace. In Docker, localhost refers to the AnythingLLM container; use the host/service address appropriate for that network and restrict access to the required path.
    - **Model**: Select your installed Dolphin model from the dropdown
    - Click "Save" or "Update"
 
@@ -256,9 +256,11 @@ Now let's connect AnythingLLM to your local Ollama instance.
    - AnythingLLM will test the connection
    - You should see a green checkmark if successful
 
+**Container networking note:** This Docker example publishes the UI only on host loopback. If Ollama runs on the host and AnythingLLM runs in a separate container, container-local `localhost` will not reach it. Configure a host/service address supported by your platform and restrict it to the required Docker network; do not expose port 11434 broadly. See the linked AnythingLLM localhost guidance below.
+
 ### Troubleshooting Connection Issues
 
-If AnythingLLM can't connect to Ollama:
+If AnythingLLM can't connect to Ollama, first confirm that the configured URL is reachable **from the AnythingLLM process**. In Docker, container-local `localhost` is not the host's Ollama service; see AnythingLLM's [Docker localhost guidance](https://docs.anythingllm.com/installation-docker/localhost).
 
 ```bash
 # Check if Ollama is running
@@ -638,22 +640,21 @@ Convert this technical specification into user-friendly documentation for non-te
 
 ## Part 11: Privacy and Security
 
-### Why Offline Matters
+### What Local Inference Does—and Does Not—Guarantee
 
-**Data Privacy**:
-- No conversation logs sent to external servers
-- No user tracking or analytics
-- Complete control over your data
+![Local LLM data paths: prompts move through the UI, model, embeddings, vector store, logs, and backups, with optional telemetry and cloud paths to verify](../assets/diagrams/local-llm-data-paths.svg)
 
-**Compliance**:
-- GDPR compliant (data stays local)
-- HIPAA considerations (healthcare)
-- SOC 2 / corporate security requirements
+**Data privacy**
+- A local model can process prompts on-device, but other components may communicate externally.
+- AnythingLLM documents anonymous telemetry and provides a setting to disable it. Review the current privacy setting and any plugins, agents, cloud providers, or external embedding/vector services.
+- Ollama can use cloud models and web search. For local-only Ollama behavior, disable cloud features with `OLLAMA_NO_CLOUD=1` (or `disable_ollama_cloud` in its server configuration), restart it, and verify its logs.
+- For an air-gap claim, also control and monitor egress, account for installation/model updates, and inspect the traffic paths for the exact release and deployment.
 
-**Intellectual Property**:
-- Safe to discuss proprietary information
-- No risk of data training on your inputs
-- Suitable for sensitive business use
+**Compliance**
+- Local storage alone does not establish GDPR, HIPAA, SOC 2, or other compliance. Assess the applicable legal and organizational requirements, access controls, retention, telemetry, subprocessors, audit evidence, and incident response.
+
+**Intellectual property**
+- Local inference may reduce exposure to cloud model providers, but it does not guarantee that data stays private. Protect local accounts, application logs, document stores, vector databases, and backups; review any enabled tools and integrations before uploading sensitive material.
 
 ### Security Best Practices
 
@@ -673,15 +674,21 @@ Convert this technical specification into user-friendly documentation for non-te
    - Secure physical access to servers
 
 4. **Network Isolation**:
-```bash
-# Bind Ollama to localhost only (Linux)
-# Edit: /etc/systemd/system/ollama.service
+
+For a host-local setup, Ollama's default loopback binding can be retained. Add a cloud-disable setting to the Ollama service to prevent its cloud features:
+
+```ini
+# systemd drop-in for ollama.service
+[Service]
+Environment="OLLAMA_NO_CLOUD=1"
 Environment="OLLAMA_HOST=127.0.0.1:11434"
 
 # Restart service
 sudo systemctl daemon-reload
 sudo systemctl restart ollama
 ```
+
+The loopback address is suitable when AnythingLLM shares the host network namespace. A Docker container cannot reach a host service through container-local `localhost`; use a restricted host/service route and firewall it to the required network. Verify the active configuration and egress policy before calling the deployment air-gapped.
 
 ## Part 12: Advanced Configuration
 
@@ -818,39 +825,31 @@ ollama pull llava              # Vision tasks
 
 | Feature | Offline Setup | ChatGPT Plus | Claude Pro |
 |---------|--------------|--------------|------------|
-| Monthly Cost | $0 (after hardware) | $20/month | $20/month |
-| Privacy | 100% private | Data sent to OpenAI | Data sent to Anthropic |
-| Internet Required | No | Yes | Yes |
+| Ongoing cost | Hardware, electricity, and administration | Current plan and usage pricing varies | Current plan and usage pricing varies |
+| Privacy | Can process locally; verify the full deployment and provider settings | Check provider-specific terms and controls | Check provider-specific terms and controls |
+| Internet Required | Not for local inference after setup; updates and optional integrations may need it | Service-dependent | Service-dependent |
 | Response Speed | Varies by hardware | Fast | Fast |
 | Model Updates | Manual | Automatic | Automatic |
-| Censorship | None (Dolphin) | Yes | Yes |
-| API Access | Free (local) | Pay per token | Pay per token |
+| Model behavior | Varies by model and configuration | Provider/model-specific | Provider/model-specific |
+| API access cost | No provider token bill for local inference; hardware and operations still cost money | Check current API pricing | Check current API pricing |
 | Customization | Full control | Limited | Limited |
 
 ### Cost Analysis
 
-**Year 1**:
-- Hardware (if needed): $500-2000
-- Software: $0
-- **Total**: $500-2000
-
-**Cloud Alternative (Year 1)**:
-- Subscription: $240 ($20/mo × 12)
-- API usage: $100-500 (varies)
-- **Total**: $340-740
-
-**Break-even**: 12-24 months depending on usage and existing hardware.
+Compare total ownership costs rather than a single price: hardware, electricity, administration,
+model/API usage, and the current subscription or API plan all matter. Provider plan limits,
+features, and prices change; consult the current [OpenAI pricing information](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus)
+and [Anthropic pricing page](https://www.anthropic.com/pricing) before making a comparison.
 
 ## Conclusion
 
-You now have a fully functional offline LLM system that respects your privacy while providing powerful AI assistance. This setup gives you:
+You now have a local-inference setup. Whether it operates offline or meets privacy and compliance requirements depends on the settings and data paths you verified.
 
-✅ Complete data privacy and control
-✅ Zero recurring costs after initial setup
-✅ Unlimited usage without API restrictions
+✅ Local model inference after setup
+✅ No recurring model API charge for local inference
 ✅ Customizable models and behavior
-✅ Works completely offline
-✅ Professional-grade AI capabilities
+✅ Can operate without internet when dependencies are present and all network paths are controlled
+✅ Use only after reviewing access, telemetry, logs, integrations, storage, and backups
 
 ### Next Steps
 
@@ -913,19 +912,25 @@ A: Check for updates monthly. Ollama and AnythingLLM release improvements regula
 A: Absolutely! Ollama supports Llama, Mistral, CodeLlama, Vicuna, and many others. Dolphin is recommended for its uncensored nature.
 
 **Q: Is this legal?**  
-A: Yes. Running open-source models locally is completely legal. Dolphin uses properly licensed base models.
+A: Model use is governed by the specific model's license and any applicable service terms. Verify the license and permitted use for the exact model/version you download; local hosting does not change those terms.
 
 **Q: Can I train or fine-tune models?**  
 A: While this guide focuses on inference, you can fine-tune models using tools like Axolotl or LLaMA Factory, then run them in Ollama.
 
 ---
 
+## Deployment References
+
+- [AnythingLLM privacy and data handling](https://docs.anythingllm.com/features/privacy-and-data-handling) - telemetry and document deletion behavior
+- [AnythingLLM Docker localhost guidance](https://docs.anythingllm.com/installation-docker/localhost) - host services are not reached through container-local `localhost`
+- [Ollama local FAQ](https://docs.ollama.com/faq) - disable cloud features and configure server binding
+
 ## Related Files
 - [README.md](README.md) - AI/ section index
 - [AnythingLLM/anything_llm_agentflows.md](AnythingLLM/anything_llm_agentflows.md) - AgentFlow automation built on top of the AnythingLLM instance this guide installs
 - [ai_prompts.md](ai_prompts.md) - Prompt engineering techniques that apply directly to locally-hosted Dolphin models
 - [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab hardware this offline LLM stack is typically deployed on
-- [../OSINT/README.md](../OSINT/README.md) - OSINT work that benefits from air-gapped, no-data-leaves-the-machine AI assistance
+- [../OSINT/README.md](../OSINT/README.md) - OSINT workflows that may benefit from verified local inference
 - [AnythingLLM/README.md](AnythingLLM/README.md) - AnythingLLM AgentFlows that run on top of this offline stack
 - [OpenClaw/README.md](OpenClaw/README.md) - OpenClaw can also route to local Ollama as a provider
 - [../SPECIALIZED_TOPICS_GUIDE.md](../SPECIALIZED_TOPICS_GUIDE.md) - Broader context for self-hosted AI in security labs
