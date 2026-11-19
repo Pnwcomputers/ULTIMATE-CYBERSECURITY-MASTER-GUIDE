@@ -162,7 +162,7 @@ Space Segment (Research/Lab Context)
 | **GNU Radio** | SDR signal processing framework | Core platform for RF analysis |
 | **SDR# / GQRX** | SDR receiver GUI | Spectrum monitoring |
 | **gr-satellites** | Satellite signal decoder | Supports dozens of amateur/CubeSat formats |
-| **HackRF One** | Full-duplex SDR (1 MHz – 6 GHz) | TX capability - use only in authorized lab context |
+| [HackRF One](https://greatscottgadgets.com/hackrf/one/) | Half-duplex transceiver (1 MHz – 6 GHz; cannot transmit and receive simultaneously) | TX capability - use only in authorized lab context |
 | **USRP** | High-performance SDR platform | Research-grade signal work |
 | **SatDump** | Satellite data decoder | NOAA, Meteor, MetOp, etc. |
 | **Wireshark** | Ground network traffic analysis | With custom CCSDS dissectors |
