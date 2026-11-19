@@ -210,10 +210,10 @@ MUST be compiled and tested in isolated environments before use.
 **Security Considerations:**
 ```
 ⚠️ CRITICAL: These PowerShell scripts include:
-   • Credential harvesting tools (ILLEGAL without authorization)
-   • Brute force attack scripts (ILLEGAL without authorization)
-   • Reverse shell utilities (ILLEGAL without authorization)
-   • Authentication bypass techniques
+   • Credential collection tools (sensitive-data handling risk)
+   • Password-testing scripts (lockout and access risk)
+   • Remote-shell utilities (system access and persistence risk)
+   • Authentication-testing techniques
 
 Use these scripts only on systems and accounts within your authority and documented scope. Legal consequences depend on the conduct, applicable statute and facts; see the authorization guidance above.
 ```
