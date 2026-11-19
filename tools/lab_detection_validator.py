@@ -8,6 +8,7 @@ import argparse
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 import json
+import math
 from pathlib import Path
 
 
@@ -39,10 +40,16 @@ def read_jsonl(path):
 
 
 def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
-    if evidence_origin not in ("fixture", "imported-unverified") or max_latency < 0:
-        raise ValueError("invalid origin or latency limit")
+    if (evidence_origin not in ("fixture", "imported-unverified")
+            or isinstance(max_latency, bool)
+            or not isinstance(max_latency, (int, float))
+            or not math.isfinite(max_latency)
+            or max_latency < 0):
+        raise ValueError("invalid origin or finite, nonnegative latency limit")
     defined = {}
     for case in cases:
+        if not isinstance(case, dict):
+            raise ValueError("each test case must be an object")
         key = case.get("test_id")
         if not isinstance(key, str) or not key or key in defined:
             raise ValueError("unique nonempty test_id required")
@@ -52,8 +59,10 @@ def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
         rules = case.get("expected_rule_ids")
         if not isinstance(expected, bool) or not isinstance(rules, list):
             raise ValueError(f"{key}: expected_alert boolean and expected_rule_ids list required")
-        if not all(isinstance(v, str) and v for v in rules) or bool(rules) != expected:
-            raise ValueError(f"{key}: rule IDs must be strings for positive cases only")
+        if (not all(isinstance(v, str) and v.strip() for v in rules)
+                or len(set(rules)) != len(rules)
+                or bool(rules) != expected):
+            raise ValueError(f"{key}: unique nonempty rule IDs required for positive cases only")
         timestamp(case.get("event_time"))
         defined[key] = case
     if not any(c["expected_alert"] for c in cases) or not any(not c["expected_alert"] for c in cases):
@@ -61,7 +70,11 @@ def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
 
     grouped = defaultdict(list)
     for event in observations:
+        if not isinstance(event, dict):
+            raise ValueError("each observation must be an object")
         key = event.get("test_id")
+        if not isinstance(key, str) or not key:
+            raise ValueError("observation requires a nonempty string test_id")
         if key not in defined:
             raise ValueError(f"unknown test_id: {key}")
         if event.get("source") != defined[key]["source"]:
@@ -69,8 +82,10 @@ def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
         if event.get("kind") not in ("telemetry", "alert"):
             raise ValueError(f"{key}: invalid kind")
         timestamp(event.get("timestamp"))
-        if event["kind"] == "alert" and not isinstance(event.get("rule_id"), str):
-            raise ValueError(f"{key}: alert must include rule_id")
+        if event["kind"] == "alert" and (
+                not isinstance(event.get("rule_id"), str)
+                or not event["rule_id"].strip()):
+            raise ValueError(f"{key}: alert must include nonempty rule_id")
         grouped[key].append(event)
 
     outcomes = []
@@ -82,8 +97,16 @@ def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
         correct = [x for x in alerts if x["rule_id"] in case["expected_rule_ids"]]
         event_time = timestamp(case["event_time"])
         latencies = [(timestamp(x["timestamp"]) - event_time).total_seconds() for x in correct]
-        # A missing/doubled telemetry event is a visibility problem, not evidence of a negative result.
-        telemetry_ok = len(telemetry) == 1 and timestamp(telemetry[0]["timestamp"]) >= event_time
+        # Missing, duplicate, early or stale telemetry cannot validate either control.
+        # max_latency bounds observed telemetry as well as the expected alert.
+        telemetry_latency = (
+            (timestamp(telemetry[0]["timestamp"]) - event_time).total_seconds()
+            if len(telemetry) == 1 else None
+        )
+        telemetry_ok = (
+            telemetry_latency is not None
+            and 0 <= telemetry_latency <= max_latency
+        )
         if not telemetry_ok:
             verdict = "unassessable"
         elif case["expected_alert"]:
@@ -93,6 +116,7 @@ def evaluate(cases, observations, evidence_origin="fixture", max_latency=120):
         counts[verdict] += 1
         outcomes.append({"test_id": key, "source": case["source"], "verdict": verdict,
                          "telemetry_count": len(telemetry), "alert_count": len(alerts),
+                         "telemetry_latency_seconds": telemetry_latency,
                          "matching_rule_count": len(correct),
                          "matching_alert_latency_seconds": latencies})
     return {"evidence_origin": evidence_origin, "real_siem_validated": False,
