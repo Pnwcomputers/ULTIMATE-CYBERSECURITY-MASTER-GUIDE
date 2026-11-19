@@ -77,8 +77,12 @@ load_api_keys() {
                 *) continue ;;
             esac
             case "$config_value" in
-                \"*\") config_value="${config_value%\"}"; config_value="${config_value#\"}" ;;
-                \'*\') config_value="${config_value%\\'}"; config_value="${config_value#\\'}" ;;
+                \"*\")
+                    config_value="${config_value:1:${#config_value}-2}"
+                    ;;
+                \'*\')
+                    config_value="${config_value:1:${#config_value}-2}"
+                    ;;
             esac
             [[ "$config_value" =~ ^[A-Za-z0-9._-]*$ ]] || continue
             printf -v "$config_name" '%s' "$config_value"
