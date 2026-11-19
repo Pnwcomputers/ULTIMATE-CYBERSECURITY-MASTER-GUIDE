@@ -242,13 +242,11 @@ and malware carries significant legal, regulatory, and operational risks.
    ► DO NOT use standard live-response scripts that overwrite volatile memory.
    ► Follow strict Chain of Custody (CoC) procedures.
    ► Ensure write-blockers are used for disk imaging.
-   ► Mishandling evidence renders it inadmissible in court.
+   ► Poor handling can undermine evidence integrity, authenticity, or reliability and may affect its admissibility or weight. Requirements depend on the jurisdiction and proceeding; follow the applicable rules and consult counsel.
 
 4. EDUCATIONAL USE ONLY
    ► These resources are for learning defensive security in authorized environments.
-   ► DO NOT use forensic tools on systems you do not own or lack explicit 
-     written permission to analyze. (Deploying EDR/Forensic tools without consent 
-     can be legally construed as unauthorized access/wiretapping).
+   ► Use forensic tools only under documented authority and within the approved scope. Monitoring and evidence collection may also raise privacy, interception, notice, or consent requirements depending on jurisdiction, system ownership, agreements, and the activity performed; obtain appropriate legal guidance.
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -276,7 +274,7 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 ## 📚 Resources
 
 ### Frameworks & Methodologies
-- **NIST SP 800-61 Rev. 2:** [Computer Security Incident Handling Guide](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final)
+- **NIST SP 800-61 Rev. 3:** [Incident Response Recommendations and Considerations for Cybersecurity Risk Management](https://csrc.nist.gov/pubs/sp/800/61/r3/final) (final, April 2025; supersedes Rev. 2).
 - **MITRE ATT&CK:** [Adversary Tactics, Techniques, and Common Knowledge](https://attack.mitre.org/)
 - **SANS IR Poster:** [Incident Response & Digital Forensics](https://www.sans.org/posters/)
 
