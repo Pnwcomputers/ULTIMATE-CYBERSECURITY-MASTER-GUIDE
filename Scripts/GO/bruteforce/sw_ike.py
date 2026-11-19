@@ -1,12 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+"""Retired unsafe legacy example.
 
-import sys
-import subprocess
+The former code attempted repeated remote IKE credential guessing. Use approved VPN configuration review and authentication telemetry.
+This path is retained only to explain the retirement; it contains no former
+payload, credential, or network code.
+"""
 
-if len(sys.argv) != 2:
-    print 'USAGE: sw_ike.py target_file'
-
-for line in open(sys.argv[1], 'r'):
-    target = line.strip()
-    cmd = 'ike-scan {0} -A -id GroupVPN -Ppsk_{0}.txt'.format(target)
-    subprocess.call(cmd)
+raise SystemExit("Retired unsafe legacy example; see the module notice.")
