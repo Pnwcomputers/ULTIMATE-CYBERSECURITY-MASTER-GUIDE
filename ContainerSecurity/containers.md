@@ -98,7 +98,10 @@ Possible paths include host-resource exposure, privileged device access, daemon
 authority and kernel/runtime defects. Some are direct configuration exposure,
 rather than exploitation of a software flaw. Report prerequisites and distinguish
 **possible impact**, **verified configuration** and **demonstrated compromise**.
-The former incomplete privileged-container command was not a validated test.
+
+![Direct host-authority exposure differs from a software isolation escape and requires different evidence](../assets/diagrams/container-escape-evidence-paths.svg)
+
+*Conceptual comparison. Docker daemon access, writable bind mounts, or broad runtime privileges can expose host authority through configuration; a software escape claim needs an applicable flaw and evidence for its prerequisites. See [Docker Engine security](https://docs.docker.com/engine/security/) and [runtime privilege options](https://docs.docker.com/engine/containers/run/).*
 
 ## Hardening
 

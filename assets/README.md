@@ -486,6 +486,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [container security image runtime host](./diagrams/container-security-image-runtime-host.svg) | [Guide](../ContainerSecurity/containers.md) |
+| [container escape evidence paths](./diagrams/container-escape-evidence-paths.svg) | [Guide](../ContainerSecurity/containers.md) | Distinguish direct authority exposure from software escape paths |
 | [container security isolation controls](./diagrams/container-security-isolation-controls.svg) | [Guide](../ContainerSecurity/containers.md) |
 | [container security secrets lifecycle](./diagrams/container-security-secrets-lifecycle.svg) | [Guide](../ContainerSecurity/containers.md) |
 

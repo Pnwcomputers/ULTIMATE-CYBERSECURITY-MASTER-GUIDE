@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 590" role="img" aria-labelledby="title desc">
+<title id="title">Container host exposure and software escape evidence paths</title>
+<desc id="desc">Two distinct paths from a container to host impact. Direct authority exposure through daemon access, writable host mounts, privileged devices, or broad capabilities is configuration-granted and may not require a kernel exploit. A software isolation escape requires an applicable vulnerable component and its prerequisites. Neither path alone proves compromise.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#9fb4cc"/></marker></defs>
+<rect width="1280" height="590" rx="20" fill="#0b1223"/><g font-family="Arial,Helvetica,sans-serif">
+<text x="38" y="55" fill="#f8fafc" font-size="30" font-weight="700">Two different paths to container host impact</text>
+<text x="38" y="87" fill="#b8cbe0" font-size="17">Configuration exposure and a software isolation flaw require different evidence.</text>
+<rect x="38" y="125" width="170" height="92" rx="14" fill="#172d41" stroke="#60a5fa" stroke-width="2"/>
+<text x="123" y="162" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Container</text><text x="123" y="188" text-anchor="middle" fill="#d1e1f0" font-size="15">process / identity</text>
+<path d="M209 171h76" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="300" y="115" width="420" height="210" rx="16" fill="#172d41" stroke="#fbbf24" stroke-width="2"/>
+<text x="328" y="153" fill="#fcd34d" font-size="20" font-weight="700">A. Direct authority exposure</text>
+<text x="328" y="190" fill="#f1f5f9" font-size="16">• Docker daemon socket/API access</text>
+<text x="328" y="220" fill="#f1f5f9" font-size="16">• Writable host bind mount</text>
+<text x="328" y="250" fill="#f1f5f9" font-size="16">• Privileged devices / excess capabilities</text>
+<text x="328" y="291" fill="#fde68a" font-size="15" font-weight="700">Authority may be granted by configuration;</text>
+<text x="328" y="313" fill="#fde68a" font-size="15">a kernel escape exploit may not be involved.</text>
+<path d="M721 171h76" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="812" y="125" width="170" height="92" rx="14" fill="#172d41" stroke="#f87171" stroke-width="2"/>
+<text x="897" y="162" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Host impact</text><text x="897" y="188" text-anchor="middle" fill="#d1e1f0" font-size="15">possible, not proven</text>
+<path d="M983 171h76" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="1074" y="125" width="168" height="92" rx="14" fill="#172d41" stroke="#f87171" stroke-width="2"/>
+<text x="1158" y="162" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Evidence review</text><text x="1158" y="188" text-anchor="middle" fill="#d1e1f0" font-size="15">scope and impact</text>
+<path d="M122 218v125h178" fill="none" stroke="#9fb4cc" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="300" y="350" width="420" height="155" rx="16" fill="#211c3a" stroke="#a78bfa" stroke-width="2"/>
+<text x="328" y="388" fill="#c4b5fd" font-size="20" font-weight="700">B. Software isolation escape</text>
+<text x="328" y="425" fill="#f1f5f9" font-size="16">Identify kernel/runtime flaw and exact affected version.</text>
+<text x="328" y="455" fill="#f1f5f9" font-size="16">Verify required configuration and exploit prerequisites.</text>
+<text x="328" y="485" fill="#ddd6fe" font-size="15">Potential path only until validated evidence shows impact.</text>
+<path d="M721 426h76" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="812" y="380" width="170" height="92" rx="14" fill="#172d41" stroke="#a78bfa" stroke-width="2"/>
+<text x="897" y="417" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Boundary flaw</text><text x="897" y="443" text-anchor="middle" fill="#d1e1f0" font-size="15">version + preconditions</text>
+<path d="M983 426h76" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="1074" y="380" width="168" height="92" rx="14" fill="#172d41" stroke="#f87171" stroke-width="2"/>
+<text x="1158" y="417" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Host impact</text><text x="1158" y="443" text-anchor="middle" fill="#d1e1f0" font-size="15">verify, don't infer</text>
+<rect x="38" y="530" width="1204" height="38" rx="10" fill="#20374b"/>
+<text x="58" y="556" fill="#e1edf6" font-size="15">Report separately: exposed authority • applicable flaw • demonstrated host effect. Inspect configurations and advisories; do not infer compromise from a possible path.</text>
+</g></svg>
