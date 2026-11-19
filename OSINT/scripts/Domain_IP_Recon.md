@@ -5,6 +5,19 @@ Script for domain and IP OSINT. Provider lookups run by default. Direct Nmap, Ru
 ## 🎯 Purpose
 Self-contained Bash script combining theHarvester and provider lookups with optional, explicitly enabled active scanning. Direct probes require `--active` and explicitly supplied IP targets; discovered IPs are reported only and are not passed to scanners. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
 
+## Passive-first workflow
+
+```mermaid
+flowchart LR
+    A[Domain or email] --> B[Provider lookups]
+    B --> C[Discovered IPs recorded for review]
+    C -. never auto-scanned .-> D[Operator validates written scope]
+    E[Explicit individual IPs from -i or -f] --> F{--active enabled?}
+    D --> F
+    F -- No --> G[No direct probes]
+    F -- Yes --> H[Nmap and optional web scans]
+```
+
 ## ⚙️ Function
 A single Bash script accepting a domain, email, or explicitly supplied IPs. It performs provider lookups and writes organized output; only IPs supplied with `-i` or `-f` are eligible for active scans, and only when `--active` is set.
 
