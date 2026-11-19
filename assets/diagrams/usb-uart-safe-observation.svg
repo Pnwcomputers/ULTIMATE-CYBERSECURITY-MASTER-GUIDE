@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="300" viewBox="0 0 1050 300" role="img" aria-labelledby="title desc">
+<title id="title">Safe USB-to-UART observation workflow</title>
+<desc id="desc">Verify authority, adapter and target logic levels and pinout, connect ground and crossed UART data lines while leaving VCC disconnected, then observe documented serial output without assuming a shell.</desc>
+<rect width="1050" height="300" rx="18" fill="#f4f7fb"/>
+<text x="525" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#17324d">USB-to-UART: verify before connecting</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="25" y="83" width="220" height="132" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><text x="135" y="118" font-size="18" font-weight="700" fill="#17324d">1 · Confirm authority</text><text x="135" y="151" font-size="14" fill="#234">Identify target pins,</text><text x="135" y="173" font-size="14" fill="#234">logic level and serial settings</text>
+<path d="M250 149h35m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="295" y="83" width="230" height="132" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/><text x="410" y="118" font-size="18" font-weight="700" fill="#17324d">2 · Cross data lines</text><text x="410" y="151" font-size="14" fill="#234">Adapter RX ← target TX</text><text x="410" y="173" font-size="14" fill="#234">Adapter TX → target RX</text>
+<path d="M530 149h35m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="575" y="83" width="210" height="132" rx="14" fill="#fce4e4" stroke="#bd5b5b" stroke-width="2"/><text x="680" y="118" font-size="18" font-weight="700" fill="#17324d">3 · Share ground</text><text x="680" y="151" font-size="14" fill="#234">GND to GND</text><text x="680" y="173" font-size="14" font-weight="700" fill="#823">Leave VCC disconnected</text>
+<path d="M790 149h35m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="835" y="83" width="190" height="132" rx="14" fill="#e4f2e8" stroke="#4c9a61" stroke-width="2"/><text x="930" y="118" font-size="18" font-weight="700" fill="#17324d">4 · Observe</text><text x="930" y="151" font-size="14" fill="#234">Record output; a shell</text><text x="930" y="173" font-size="14" fill="#234">is not guaranteed</text>
+</g>
+<text x="525" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">Stop if target voltage, pinout, or authorization is unclear. This UART adapter does not provide SPI.</text>
+</svg>
