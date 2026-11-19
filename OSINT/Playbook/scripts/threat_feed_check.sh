@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+umask 077
 # FILE:        threat_feed_check.sh
 # USAGE:       threat_feed_check.sh -i <IOC> [-t ip|domain|url|hash] [-o output_dir]
 # DESCRIPTION: Check a single IOC (IP, domain, URL, or file hash) against multiple
