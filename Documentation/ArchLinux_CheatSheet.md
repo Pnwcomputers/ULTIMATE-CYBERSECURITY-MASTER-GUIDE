@@ -30,7 +30,7 @@ This document serves as a quick reference for common system administration, netw
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `sudo pacman -Syu` | **System Update** | Syncs repos and upgrades all installed packages. Run before any testing session. |
+| `sudo pacman -Syu` | **System Update** | Syncs repositories and upgrades installed packages. Review Arch News and the maintenance plan first; do not change a test environment during an active assessment without approval. |
 | `sudo pacman -S <pkg>` | **Install Package** | Install from official repos or any enabled repo (BlackArch, multilib). |
 | `sudo pacman -Rns <pkg>` | **Remove Package Cleanly** | Removes the package, config files, and any now-orphaned dependencies. |
 | `pacman -Qdt` | **List Orphans** | Lists packages installed as dependencies that are no longer needed. |
@@ -352,18 +352,24 @@ sudo pacman -S jdk17-openjdk
 
 ### 11.5 AUR Helper Setup
 
-Install `yay` (most common AUR helper) if not already present:
+Install `yay` if not already present. First inspect the PKGBUILD and accompanying files. Build as a normal user, review the resulting package, then install it with pacman:
 
 ```bash
 sudo pacman -S base-devel git
 git clone https://aur.archlinux.org/yay.git
-cd yay && makepkg -si
+cd yay
+makepkg -s
+# Review the resulting package, then install its actual filename:
+sudo pacman -U ./package-version-architecture.pkg.tar.zst
 ```
 
-Or `paru` (Rust-based, stricter PKGBUILD review):
+Or `paru` (Rust-based):
 ```bash
 git clone https://aur.archlinux.org/paru.git
-cd paru && makepkg -si
+cd paru
+makepkg -s
+# Review the resulting package, then install its actual filename:
+sudo pacman -U ./package-version-architecture.pkg.tar.zst
 ```
 
 ---
