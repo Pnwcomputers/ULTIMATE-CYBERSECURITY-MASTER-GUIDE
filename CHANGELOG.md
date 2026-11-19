@@ -1,14 +1,15 @@
 # 🔄 Change Log - November 19, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1762
-- **Files Modified**: 2888
-- **New Files**: 1154
+- **Commits Analyzed**: 1764
+- **Files Modified**: 2898
+- **New Files**: 1157
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- fix: correct WinRM/SMB Purple Team evidence and add CTI safety diagram (#344) (`7ae92ff`)
 - docs: add PCI DSS 4.0.1 scope guidance and integrate visual index (#341) (`fe34c67`)
 - docs: add conceptual diagrams for purple team, evidence, cyberdeck and packet capture (#340) (`9497c48`)
 - Add AI threat-modeling lifecycle diagram (#326) (`4b63214`)
@@ -556,6 +557,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix: validate canary telemetry windows and illustrate AI SOC approval gates (#342) (`20fff91`)
 - Correct mobile authorization and legal guidance (#339) (`ea5a8e9`)
 - Correct checklist legal and persistence guidance (#338) (`974d8f9`)
 - Correct Scripts legal warnings and authorization guidance (#335) (`54f7960`)
@@ -1786,6 +1788,17 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `PlayBooks/PurpleTeam_Detailed.md`
+- `assets/README.md`
+- `assets/diagrams/cti-to-approved-emulation-gates.svg`
+- `tools/tests/test_purple_playbook_mapping.py`
+- `tools/tests/test_visual_guides.py`
+- `AI/ai-security-operations-workflows.md`
+- `Documentation/CANARY-DETECTION-VALIDATOR.md`
+- `assets/diagrams/ai-soc-trust-and-approval-boundaries.svg`
+- `tools/lab_detection_validator.py`
+- `tools/tests/test_lab_detection_validator.py`
+- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `Compliance/frameworks.md`
@@ -1794,20 +1807,16 @@
 - `DOCUMENTATION_INDEX.md`
 - `README.md`
 - `WebAppSecurity/README.md`
-- `assets/README.md`
 - `assets/diagrams/pci-dss-scoping-boundaries.svg`
 - `tools/tests/test_pci_scoping_docs.py`
 - `Cyberdeck/docs/ARCHITECTURE.md`
-- `Documentation/CANARY-DETECTION-VALIDATOR.md`
 - `Documentation/wireshark.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
-- `PlayBooks/PurpleTeam_Detailed.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `assets/diagrams/cyberdeck-policy-zones.svg`
 - `assets/diagrams/detection-evidence-verification-gates.svg`
 - `assets/diagrams/purple-team-emulation-detection-loop.svg`
 - `assets/diagrams/wireshark-capture-display-boundaries.svg`
-- `tools/tests/test_visual_guides.py`
 - `Mobile/README.md`
 - `Checklists/ActiveDirectory.md`
 - `Checklists/Android-Applications-Checklist.md`
@@ -1910,7 +1919,6 @@
 - `assets/diagrams/security-onion-sensor-to-search-flow.svg`
 - `assets/diagrams/snort-generation-and-traffic-modes.svg`
 - `IncidentResponse/IDS&IPS/snort.md`
-- `CHANGELOG.md`
 - `assets/diagrams/fail2ban-log-to-action-flow.svg`
 - `IncidentResponse/IDS&IPS/fail2ban.md`
 - `assets/diagrams/assessment-integration-evidence-gates.svg`
@@ -2167,8 +2175,6 @@
 - `Documentation/LAB-VERIFICATION-MATRIX.md`
 - `Documentation/fixtures/lab-canary-cases.jsonl`
 - `Documentation/fixtures/lab-canary-observations.jsonl`
-- `tools/lab_detection_validator.py`
-- `tools/tests/test_lab_detection_validator.py`
 - `.github/workflows/repository-quality-inventory.yml`
 - `Cryptography/Classical/ciphers.md`
 - `Cryptography/phantomdrive-guide.md`
@@ -2250,7 +2256,6 @@
 - `AI/agent-reliability-and-recovery.md`
 - `AI/ai-evaluation-and-regression-testing.md`
 - `AI/ai-observability-and-auditing.md`
-- `AI/ai-security-operations-workflows.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
 - `AI/ai_prompts.md`
