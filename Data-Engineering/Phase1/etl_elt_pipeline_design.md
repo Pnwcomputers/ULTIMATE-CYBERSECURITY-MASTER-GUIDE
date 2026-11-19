@@ -78,30 +78,26 @@ Enable a practitioner to build a repeatable scheduled pipeline and support its c
 
 ## ⚖️ 1. ETL, ELT, and How to Choose
 
+![ETL versus ELT side-by-side architecture: transformation before loading a curated destination versus controlled raw landing and transformation in destination, with privacy and replay checkpoints](../../assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg)
+
+*Conceptual design patterns, not a live pipeline trace.* ETL and ELT differ in **where transformation is performed**; they do not by themselves determine whether raw data is retained, which access controls apply, or whether a failed transformation can be replayed. The [data-recovery guide](../Phase3/data_recovery_replay.md) covers checkpoint consistency, and [data governance](../Phase3/data_governance_lineage.md) covers controlled sensitive data retention.
+
 Both patterns move data from a source to a destination. They differ in *where* the transformation runs and *what* is stored first.
-
-```text
-ETL:  Source ──extract──► Transform (in the pipeline) ──load──► Destination
-                                                                  └─ only transformed data stored
-
-ELT:  Source ──extract──► Load raw ──► Destination ──transform (in the destination)──► Models
-                                          └─ raw retained, models rebuildable
-```
 
 | Dimension | ETL | ELT |
 | --- | --- | --- |
 | Transformation engine | Pipeline process (Python, Spark) | The destination database |
-| Raw data retained | Often not | Yes, by design |
-| Fixing a transformation bug | Re-extract from the source | Rebuild models from stored raw |
-| Schema change tolerance | Breaks the run | Lands anyway; the model absorbs it |
-| Destination cost | Lower storage | Higher storage and compute |
+| Raw data retained | Depends on archive/source policy | Often retained in a controlled landing layer, but not guaranteed |
+| Fixing a transformation bug | Reprocess retained source/backup or re-extract if unavailable | Recompute from retained, valid raw data if available |
+| Schema change tolerance | Must validate change at preprocessing | Must validate the landing contract and downstream model; incompatible fields can still fail |
+| Destination cost | Depends on retained raw copies and transform engine | Depends on raw retention, destination compute and model complexity |
 | Fits when | Source access is expensive or fragile; sensitive fields must be dropped before landing | The destination is capable; history matters; models change often |
 
 ### 📘 The deciding question
 
 **"When the transformation logic turns out to be wrong, what does fixing it require?"**
 
-With ETL, it requires going back to the source — which may have already aged out, rate-limited you, or overwritten the row. With ELT, it requires re-running a query against data you already hold. That asymmetry is why ELT has become the default for analytical work, and it is the same reasoning behind retaining a raw layer in [Data Engineering Fundamentals](./data_engineering_fundamentals.md#3-the-data-lifecycle).
+With ETL, recovery may require reprocessing retained source data, an archive or re-extracting from the source if no reliable copy exists. With ELT, rebuilding models is possible only if appropriate raw history, schema versions and reference data were actually retained. That asymmetry is why ELT has become the default for analytical work, and it is the same reasoning behind retaining a raw layer in [Data Engineering Fundamentals](./data_engineering_fundamentals.md#3-the-data-lifecycle).
 
 ### 📘 Where ETL remains correct
 
