@@ -54,6 +54,13 @@ These original SVGs are embedded in the corresponding procedural chapter and dis
 | [OSINT Fraud Case Source Confidence](./diagrams/osint-fraud-investigation-source-confidence.svg) | [OSINT Investigation Procedures](../OSINT/Playbook/investigation_guide.md) | Registration is not geolocation; search output is not identity; reposts require provenance |
 | [Wardriving Field Quality & Acceptance](./diagrams/wardriving-field-quality-acceptance.svg) | [Wardriving Field Procedure](../Wardriving/field-workflow.md) | Calibration, passive behavior, GPS evidence, explicit STOP and per-case acceptance |
 
+## Live Forensics & SIEM Data-Flow Visuals
+
+| Diagram | Embedded Guide | Source-Checked Scope |
+|---|---|---|
+| [Graylog Ingest, Search & Metadata Roles](./diagrams/graylog-data-node-ingest-architecture.svg) | [Graylog SIEM Guide](../IncidentResponse/SIEM/graylog.md) | Graylog inputs/processing, recommended Data Node or compatible self-managed backend and MongoDB metadata |
+| [Live Response Volatility & Evidence Gates](./diagrams/live-response-volatility-evidence-gates.svg) | [Live Response Collection](../IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md) | Case-dependent volatility, operational safety, original preservation and independent analysis |
+
 ## New Workflow & Evidence Visuals
 
 Original, accessible SVGs for workflow comprehension. They are **conceptual only**: none certify a specific deployment, vendor rule, collection interface, or completed lab exercise.
