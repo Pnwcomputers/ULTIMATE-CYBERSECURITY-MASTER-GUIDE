@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 880" role="img" aria-labelledby="title desc">
+<title id="title">Privacy breach notification decision paths</title>
+<desc id="desc">A conceptual incident triage diagram that checks jurisdiction, data, roles, awareness and discovery, then separates GDPR controller and processor duties, HIPAA unsecured-PHI thresholds, and state-law review. A common evidence timeline records decisions and notices. This is not legal advice.</desc>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#9fb4cc"/></marker></defs>
+<rect width="1360" height="880" rx="20" fill="#0b1223"/><g font-family="Arial,Helvetica,sans-serif">
+<text x="38" y="56" fill="#f8fafc" font-size="31" font-weight="700">Breach notification: separate legal paths</text>
+<text x="38" y="90" fill="#b8cbe0" font-size="17">Triage framework only — verify the current rule and consult qualified counsel.</text>
+<rect x="400" y="118" width="560" height="84" rx="14" fill="#172d41" stroke="#60a5fa" stroke-width="2"/>
+<text x="680" y="151" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700">Incident identified</text>
+<text x="680" y="180" text-anchor="middle" fill="#d1e1f0" font-size="16">Confirm jurisdiction, data types, roles, awareness / discovery time</text>
+<path d="M680 203v35M228 238h904M228 238v25M680 238v25M1132 238v25" fill="none" stroke="#9fb4cc" stroke-width="2.5" marker-end="url(#arr)"/>
+<g fill="#172d41" stroke-width="2">
+<rect x="38" y="270" width="380" height="420" rx="16" stroke="#60a5fa"/>
+<rect x="490" y="270" width="380" height="420" rx="16" stroke="#a78bfa"/>
+<rect x="942" y="270" width="380" height="420" rx="16" stroke="#34d399"/>
+</g>
+<g fill="#f8fafc">
+<text x="65" y="312" fill="#93c5fd" font-size="21" font-weight="700">GDPR</text>
+<text x="65" y="349" font-size="17" font-weight="700">Controller / processor roles?</text>
+<text x="65" y="380" fill="#d1e1f0" font-size="15">Controller assesses risk to rights and</text>
+<text x="65" y="403" fill="#d1e1f0" font-size="15">freedoms; processor tells controller</text>
+<text x="65" y="436" font-size="17" font-weight="700">Authority notice</text>
+<text x="65" y="467" fill="#d1e1f0" font-size="15">Without undue delay; where feasible</text>
+<text x="65" y="490" fill="#d1e1f0" font-size="15">within 72 hours of awareness, unless</text>
+<text x="65" y="513" fill="#d1e1f0" font-size="15">unlikely to create a risk</text>
+<text x="65" y="548" font-size="17" font-weight="700">Individual communication</text>
+<text x="65" y="579" fill="#d1e1f0" font-size="15">If high risk likely; check Article 34</text>
+<text x="65" y="602" fill="#d1e1f0" font-size="15">exceptions and mitigations</text>
+<text x="517" y="312" fill="#c4b5fd" font-size="21" font-weight="700">HIPAA</text>
+<text x="517" y="349" font-size="17" font-weight="700">Unsecured PHI breach?</text>
+<text x="517" y="380" fill="#d1e1f0" font-size="15">Check exceptions or document the</text>
+<text x="517" y="403" fill="#d1e1f0" font-size="15">risk assessment; identify covered</text>
+<text x="517" y="426" fill="#d1e1f0" font-size="15">entity / business associate duties</text>
+<text x="517" y="460" font-size="17" font-weight="700">Notices by threshold</text>
+<text x="517" y="491" fill="#d1e1f0" font-size="15">Individuals: up to 60 days after discovery</text>
+<text x="517" y="514" fill="#d1e1f0" font-size="15">HHS: 500+ within 60 days; &lt;500 annual</text>
+<text x="517" y="537" fill="#d1e1f0" font-size="15">Media: more than 500 state residents</text>
+<text x="517" y="571" fill="#d1e1f0" font-size="15">Associate notifies covered entity without</text>
+<text x="517" y="594" fill="#d1e1f0" font-size="15">unreasonable delay, no later than 60 days</text>
+<text x="969" y="312" fill="#6ee7b7" font-size="21" font-weight="700">State / CCPA-CPRA</text>
+<text x="969" y="349" font-size="17" font-weight="700">Jurisdiction-specific review</text>
+<text x="969" y="380" fill="#d1e1f0" font-size="15">Confirm affected residents, data type,</text>
+<text x="969" y="403" fill="#d1e1f0" font-size="15">entity role, threshold, recipient, trigger,</text>
+<text x="969" y="426" fill="#d1e1f0" font-size="15">and deadline under current law</text>
+<text x="969" y="460" font-size="17" font-weight="700">California privacy rules</text>
+<text x="969" y="491" fill="#d1e1f0" font-size="15">Assess CCPA/CPRA duties separately</text>
+<text x="969" y="514" fill="#d1e1f0" font-size="15">from state breach-notification statutes</text>
+<text x="969" y="548" fill="#d1e1f0" font-size="15">Check current CPPA rules; scope and</text>
+<text x="969" y="571" fill="#d1e1f0" font-size="15">effective dates may differ by provision</text>
+</g>
+<rect x="38" y="727" width="1284" height="112" rx="14" fill="#20374b" stroke="#fbbf24" stroke-width="2"/>
+<text x="64" y="766" fill="#fcd34d" font-size="19" font-weight="700">Evidence record for every branch</text>
+<text x="64" y="800" fill="#e1edf6" font-size="16">Awareness / discovery • data and people affected • risk assessment • decisions and exceptions • notices, recipients, and timestamps • counsel review</text>
+<text x="64" y="825" fill="#cbd5e1" font-size="14">Triggers and deadlines are not interchangeable. The diagram does not determine whether a specific incident is reportable.</text>
+</g></svg>

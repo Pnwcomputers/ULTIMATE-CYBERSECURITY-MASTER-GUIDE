@@ -42,8 +42,12 @@ what security obligations follow - then route to counsel for specifics.
 The EU **General Data Protection Regulation** - the most influential privacy law
 globally.
 
-- **Applies to:** any organization processing the personal data of people in the
-  EU/EEA, **regardless of where the organization is** (extraterritorial).
+- **Applies to:** processing in the context of a controller's or processor's
+  establishment in the Union, regardless of where the processing occurs. For an
+  entity without a Union establishment, Article 3 can also apply when processing
+  relates to offering goods or services to people in the Union or monitoring
+  their behavior there. A person's EU residence or data location alone does not
+  decide territorial scope; assess the Article 3 criteria.
 - **Key principles:** lawfulness, purpose limitation, data minimization, accuracy,
   storage limitation, integrity/confidentiality, and accountability.
 - **Data-subject rights:** access, rectification, erasure ("right to be forgotten"),
@@ -65,8 +69,9 @@ information.
 - **Security Rule:** requires administrative, physical, and technical safeguards for
   electronic PHI (access control, audit controls, integrity, transmission security).
 - **Privacy Rule:** governs use and disclosure of PHI.
-- **Breach Notification Rule:** notify affected individuals, HHS, and (for large
-  breaches) the media.
+- **Breach Notification Rule:** applies to breaches of **unsecured PHI**, subject
+  to defined exceptions and a risk assessment. Notification duties and timing
+  vary by affected population and recipient.
 - **Penalties:** tiered civil penalties per violation, up to substantial annual caps.
 
 ---
@@ -82,6 +87,11 @@ Privacy Rights Act (CPRA)**.
   use of sensitive personal information.
 - **CPRA additions:** a dedicated enforcement agency (CPPA), a "sensitive personal
   information" category, and data-minimization/retention duties.
+- **Current rules:** California's 2025 CCPA regulatory package, effective January
+  1, 2026, added requirements for certain businesses covering cybersecurity
+  audits, risk assessments, and automated decisionmaking technology. Check the
+  [CPPA's current regulations](https://cppa.ca.gov/regulations/) and the
+  [update package](https://www.cppa.ca.gov/regulations/ccpa_updates.html).
 - **Note:** many other US states have since enacted comparable laws - check the
   specific state(s) where your users reside.
 
@@ -91,15 +101,31 @@ Privacy Rights Act (CPRA)**.
 
 Nearly every regime requires timely notification after a personal-data breach:
 
-- **GDPR:** notify the supervisory authority **within 72 hours** of becoming aware
-  (where feasible); notify individuals if high risk.
-- **HIPAA:** notify without unreasonable delay, and **no later than 60 days**;
-  large breaches also require HHS/media notice.
-- **US state laws:** timelines and thresholds vary by state.
+![Distinct GDPR, HIPAA, and state-law breach-notification decision paths with separate triggers, thresholds, exceptions, and evidence records](../assets/diagrams/privacy-breach-notification-decision-path.svg)
 
-This makes **detection and logging** (see [IncidentResponse](../IncidentResponse/README.md))
-a compliance requirement, not just good practice - you cannot notify about what you
-cannot detect, and the clock starts when you become aware.
+*Conceptual triage aid only; it is not a legal decision tool. Confirm the current law, jurisdiction, roles, facts, and deadlines with qualified counsel.*
+
+- **GDPR:** the controller notifies the supervisory authority without undue delay
+  and, where feasible, within 72 hours after becoming aware, unless the breach is
+  unlikely to result in a risk to people's rights and freedoms. A processor
+  notifies the controller without undue delay. Notify individuals without undue
+  delay when high risk is likely, subject to Article 34 exceptions.
+- **HIPAA:** for a breach of unsecured PHI, apply the rule's exceptions or document
+  the required risk assessment. Notify affected individuals without unreasonable
+  delay and no later than 60 days after discovery. Notify HHS within 60 days for
+  breaches affecting 500 or more individuals; breaches affecting fewer than 500
+  may be reported annually, within 60 days after year-end. Media notice applies
+  when more than 500 residents of a state or jurisdiction are affected.
+  Business associates notify the covered entity without unreasonable delay and
+  no later than 60 days after discovery.
+- **US state laws:** triggers, deadlines, thresholds, and recipients vary by
+  jurisdiction; CCPA/CPRA duties and other state breach laws should be assessed
+  separately.
+
+There is no universal breach-notification clock: GDPR uses awareness, HIPAA uses
+discovery, and state laws set their own triggers. Preserve a timeline of discovery
+or awareness, data types, affected people, risk findings, notices, and the
+rationale for each decision. See [IncidentResponse](../IncidentResponse/README.md).
 
 ---
 
@@ -110,7 +136,10 @@ controls:
 
 - **Data inventory & classification** - you must know what personal data you hold.
 - **Access control & MFA** - limit who can reach regulated data.
-- **Encryption** - in transit and at rest (often a safe-harbor factor for breaches).
+- **Encryption** - in transit and at rest. Encryption changes a notification
+  outcome only when the applicable law's conditions are met; GDPR Article 34 has
+  defined exceptions to individual communication, and HIPAA's breach rule applies
+  to PHI not rendered unusable, unreadable, or indecipherable under HHS guidance.
 - **Logging & monitoring** - to detect and evidence incidents within notification windows.
 - **Incident response** - a tested plan that meets the notification clocks.
 - **Data minimization & retention** - collect and keep less.
@@ -124,9 +153,10 @@ applicable regulation and framework - see
 ## 📚 Resources
 
 - [GDPR - official text (EUR-Lex)](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-- [HHS HIPAA for Professionals](https://www.hhs.gov/hipaa/for-professionals/index.html)
+- [HHS Breach Notification Rule](https://www.hhs.gov/hipaa/for-professionals/breach-notification/index.html)
 - [California CCPA (OAG)](https://oag.ca.gov/privacy/ccpa)
-- [California Privacy Protection Agency (CPPA)](https://cppa.ca.gov/)
+- [California Privacy Protection Agency regulations](https://cppa.ca.gov/regulations/)
+- [CPPA 2025 CCPA updates](https://www.cppa.ca.gov/regulations/ccpa_updates.html)
 
 ---
 
