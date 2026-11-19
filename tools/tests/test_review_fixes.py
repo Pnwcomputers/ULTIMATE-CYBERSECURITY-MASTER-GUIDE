@@ -1,4 +1,5 @@
 """Local fixtures only: no network, package installation, or hardware workloads."""
+import hashlib
 import importlib.util
 import json
 import os
