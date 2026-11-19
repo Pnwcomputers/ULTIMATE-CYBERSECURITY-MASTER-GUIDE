@@ -462,41 +462,35 @@ detect_phone_type() {
     local PHONE="$1"
     local OUTPUT="$2"
     local NATIONAL=$(get_national_number "$PHONE")
+    local COUNTRY=$(get_country_code "$PHONE")
     
     log "${GREEN}    [*] Analyzing phone number format...${NC}"
     
-    # US/Canada area code lookup (basic)
+    # Area-code labels apply only to NANP-style numbers and are historical metadata,
+    # not a current-location or line-type determination.
     local AREA_CODE="${NATIONAL:0:3}"
     local EXCHANGE="${NATIONAL:3:3}"
     
-    # Prefix-only heuristics cannot reliably identify VoIP or burner services.
-    
-    # Toll-free prefixes
-    TOLLFREE_PREFIXES=("800" "833" "844" "855" "866" "877" "888")
-    
-    # Premium rate
-    PREMIUM_PREFIXES=("900" "976")
-    
     PHONE_TYPE="Unclassified"
-    PHONE_NOTES="Local prefix heuristics are not used to infer line type, burner-app use, identity, or fraud."
+    PHONE_NOTES="Provider line-type metadata is approximate; local prefixes do not establish identity, burner-app use, or fraud."
     
-    # Check toll-free
-    for prefix in "${TOLLFREE_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Toll-Free"
-            PHONE_NOTES="Toll-free numbers are often used by businesses but also by scammers"
-            break
-        fi
-    done
-    
-    # Check premium
-    for prefix in "${PREMIUM_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Premium Rate"
-            PHONE_NOTES="WARNING: Premium rate numbers charge high fees. Often used in scams."
-            break
-        fi
-    done
+    if [ "$COUNTRY" = "1" ]; then
+        for prefix in 800 833 844 855 866 877 888; do
+            if [ "$AREA_CODE" = "$prefix" ]; then
+                PHONE_TYPE="Toll-Free NPA"
+                PHONE_NOTES="North American toll-free area code; this is not an identity or fraud signal."
+                break
+            fi
+        done
+        
+        for prefix in 900 976; do
+            if [ "$AREA_CODE" = "$prefix" ]; then
+                PHONE_TYPE="Premium-Rate NPA"
+                PHONE_NOTES="North American premium-rate area code; verify current carrier/provider details."
+                break
+            fi
+        done
+    fi
     
     
     # Output findings
@@ -521,9 +515,17 @@ lookup_area_code() {
     local OUTPUT="$2"
     local NATIONAL=$(get_national_number "$PHONE")
     local AREA_CODE="${NATIONAL:0:3}"
+    local COUNTRY=$(get_country_code "$PHONE")
     
-    log "${GREEN}    [*] Looking up area code $AREA_CODE...${NC}"
+    if [ "$COUNTRY" != "1" ]; then
+        LOCATION="Not available: local lookup supports NANP numbers only"
+        printf '{"area_code":"%s","location":"%s"}\n' "$AREA_CODE" "$LOCATION" > "$OUTPUT"
+        return
+    fi
     
+    log "${GREEN}    [*] Looking up NANP area code $AREA_CODE...${NC}"
+    
+    # Provider and area-code data can be stale; it reflects numbering-plan metadata, not a subscriber's present location.
     # Query free area code API
     curl -s "https://www.randomphonenumbers.com/api/area-code/$AREA_CODE" \
         | pretty_json > "$OUTPUT" 2>&1 || true
