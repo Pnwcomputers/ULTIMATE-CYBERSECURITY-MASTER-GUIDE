@@ -1,6 +1,6 @@
 # Historical Scripts: Provenance, Syntax & Disposition
 
-_Review date: November 19, 2026 · Coverage: all 39 archived Python files under `Scripts/GO/` · 6 remaining Python 3 AST parser failures after retiring 14 unsafe examples in place (not execution failures)._
+_Review date: November 19, 2026 · Coverage: all 39 archived Python files under `Scripts/GO/` · 6 remaining Python 3 AST parser failures after retiring 17 unsafe examples in place (not execution failures)._
 
 ## Scope & Safety
 
