@@ -70,23 +70,11 @@ When looking for an existing script before writing a new one, or when unsure wha
 
 This directory contains **security automation scripts, penetration testing tools, and utility programs** written in multiple programming languages. These scripts are designed for authorized security testing, research, and educational purposes.
 
-### 🔴 Critical Warning
+### ⚠️ Use and Scope
 
-```
-⚠️ THESE ARE OFFENSIVE SECURITY TOOLS ⚠️
+This collection includes read-only utilities, active scanners, and tools that can access or change systems. For active testing, use only targets and methods within your authority and documented scope. Written approval is useful evidence of scope, but the required form and legal rules depend on the engagement and jurisdiction.
 
-Many scripts in this collection are PENETRATION TESTING and EXPLOITATION tools.
-Unauthorized use is a FEDERAL CRIME with severe penalties including imprisonment.
-
-YOU MUST have explicit written authorization before running ANY of these scripts
-against systems you do not own or have explicit permission to test.
-
-Using these tools without authorization violates:
-• Computer Fraud and Abuse Act (CFAA) - Up to 10 years imprisonment
-• State computer crime laws
-• International cybercrime laws
-• Organizational policies
-```
+The [CFAA statute](https://uscode.house.gov/us/usc/119-134/t18/s1030/) defines multiple offenses with different elements and penalties; not every unauthorized or out-of-policy use of a script is automatically a federal crime. See the [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud), which guides federal prosecutors. Other laws, contracts, privacy obligations and organizational rules may also apply.
 
 ---
 
@@ -214,10 +202,7 @@ MUST be compiled and tested in isolated environments before use.
    • Reverse shell utilities (ILLEGAL without authorization)
    • Authentication bypass techniques
 
-Using these scripts without explicit written authorization is a FEDERAL CRIME
-under the Computer Fraud and Abuse Act (18 U.S.C. § 1030).
-
-PENALTIES: Up to 10 years imprisonment + significant fines
+Use these scripts only on systems and accounts within your authority and documented scope. Legal consequences depend on the conduct, applicable statute and facts; see the authorization guidance above.
 ```
 
 ---
@@ -519,439 +504,39 @@ cat results.txt
 
 ---
 
-## ⚠️ Critical Security & Legal Warning
+## ⚠️ Security, Authorization & Operational Risk
 
-### 🔴 Federal Crime Warning
+Scripts range from local utilities to active access, scanning, credential, remote-control and data-handling tools. A category or risk label in this index is a triage aid, not a legal classification or guarantee that a command is safe.
 
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL LEGAL WARNING ⚠️
-═══════════════════════════════════════════════════════════════
+### Establish scope before active testing
 
-These scripts contain OFFENSIVE SECURITY TOOLS including:
-   • Credential harvesting and theft tools
-   • Brute force attack utilities
-   • Reverse shells and backdoors
-   • Network attack frameworks
-   • Exploitation utilities
-   • Data exfiltration tools
-   • System manipulation programs
+For an engagement, record the approving authority, in-scope systems and accounts, allowed techniques, time window, data-handling limits, contacts, stop conditions and rollback plan. Confirm that the person granting permission can authorize the target and that the scope covers the specific method. Written approval is good practice; no single form is a universal legal requirement for every activity.
 
-USING THESE TOOLS WITHOUT AUTHORIZATION IS A FEDERAL CRIME
+The [CFAA statute (18 U.S.C. § 1030)](https://uscode.house.gov/us/usc/119-134/t18/s1030/) contains several distinct offenses and penalty provisions. Application depends on statutory elements and facts. The [DOJ charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud) is guidance for federal prosecutors, not a complete account of every federal, state, civil or international rule. Avoid relying on blanket claims such as “any unauthorized use is a federal crime” or one fixed prison term.
 
-Computer Fraud and Abuse Act (18 U.S.C. § 1030)
-   ► Unauthorized Access: Up to 10 years imprisonment
-   ► Repeat Offense: Up to 20 years imprisonment
-   ► Damage Exceeding $5,000: Enhanced penalties
-   ► Critical Infrastructure: Terrorism charges possible
+### Match precautions to the tool
 
-Additional Federal Laws:
-   • Wire Fraud Act (18 U.S.C. § 1343)
-   • Electronic Communications Privacy Act (18 U.S.C. § 2510)
-   • Identity Theft and Assumption Deterrence Act
-   • Stored Communications Act
+| Tool class | Main operational concern | Safer practice |
+|---|---|---|
+| Port scanners and discovery tools | Unexpected traffic, alerts or service load | Set a narrow approved target list, rate and time window; stop on instability |
+| Login or password testing | Account lockouts, alerts and access to real accounts | Use test accounts in a lab or an explicitly scoped engagement; agree on attempt limits |
+| Credential capture or data collection | Exposure of real secrets, personal or regulated data | Use synthetic test data; collect the minimum approved data and protect/delete it under the plan |
+| Remote shells or system changes | Persistence, outages or unintended host changes | Use isolated labs or a documented change/rollback procedure on specifically approved systems |
+| ICS/SCADA tools | Physical process and safety effects | Do not probe live control systems without owner authorization, engineering review and a safety-approved test plan |
 
-State Laws:
-   • All 50 states have computer crime statutes
-   • Penalties vary by state but often include imprisonment
-   • Civil liability in addition to criminal charges
+An authorized test can still cause outages or expose data. Use the [script execution workflow](../assets/diagrams/safe-script-execution.svg) to review inputs, target scope, expected effects, monitoring, rollback and output handling before execution.
 
-International Laws:
-   • UK Computer Misuse Act 1990
-   • EU Cybercrime Directive
-   • Council of Europe Convention on Cybercrime
-   • Varies by jurisdiction
+### Practical checklist
 
-═══════════════════════════════════════════════════════════════
-```
+**Before:** validate the target and scope, inspect the script and dependencies, test in an isolated lab where feasible, prepare monitoring and rollback, and identify an escalation contact.
 
-### Script-specific Legal Warnings
+**During:** use the minimum required privileges and activity, record timestamps and commands, monitor service health, and stop if scope is unclear, a control blocks the activity, or unexpected impact appears.
 
-#### Credential Harvesting Tools
+**After:** report results, protect captured data, remove temporary access or test artifacts as agreed, verify recovery, and retain only the records required by the engagement.
 
-```
-🔴 FEDERAL CRIME: Credential Theft & Unauthorized Access
+### Isolated practice
 
-Scripts: cred_hunt.ps1, credit_sniff.py, cred_sniff.py, ftp_sniff.py
-
-ILLEGAL ACTIVITIES:
-   • Capturing credentials without authorization
-   • Using captured credentials to access systems
-   • Trafficking in stolen passwords
-   • Accessing accounts you don't own
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • Identity Theft Act
-   • Wire Fraud Act
-   • State computer crime laws
-
-PENALTIES:
-   • 5-15 years imprisonment PER OFFENSE
-   • Fines up to $250,000 or more
-   • Restitution to victims
-   • Asset forfeiture
-   • Civil lawsuits
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from system owner
-   ✓ Test accounts created specifically for testing
-   ✓ Isolated test environment
-   ✓ Immediate secure deletion of captured data post-test
-```
-
-#### Brute Force Attack Tools
-
-```
-🔴 FEDERAL CRIME: Unauthorized Access Attempts
-
-Scripts: localbrute.ps1, smblogin.ps1, password_check.py
-
-ILLEGAL ACTIVITIES:
-   • Brute forcing authentication without permission
-   • Attempting unauthorized login
-   • Password guessing against live systems
-   • Account enumeration without authorization
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act
-   • Exceeding authorized access provisions
-   • State computer trespass laws
-
-PENALTIES:
-   • Up to 10 years imprisonment
-   • Fines and restitution
-   • Civil liability for damages
-   • Account lockouts may cause business disruption (aggravating factor)
-```
-
-#### Reverse Shell & Remote Access Tools
-
-```
-🔴 FEDERAL CRIME: Unauthorized Remote Access
-
-Scripts: rev_shell.ps1, rev_shell.py
-
-ILLEGAL ACTIVITIES:
-   • Installing backdoors without authorization
-   • Establishing command and control without permission
-   • Maintaining unauthorized access
-   • Creating persistent access without consent
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act
-   • Wire Fraud Act (using communications networks)
-   • Potentially terrorism statutes for critical infrastructure
-
-PENALTIES:
-   • 10-20 years imprisonment
-   • Enhanced penalties for critical infrastructure
-   • Terrorism charges possible in extreme cases
-   • Lifetime supervised release possible
-```
-
-#### Network Attack Tools
-
-```
-🔴 FEDERAL CRIME: Network Attacks & Disruption
-
-Scripts: network_attack.py, find_ddos.py, bsodshell.py
-
-ILLEGAL ACTIVITIES:
-   • Conducting denial of service attacks
-   • Network disruption or degradation
-   • Causing system crashes
-   • Interfering with authorized use
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (damage provisions)
-   • State laws against computer tampering
-   • Potentially terrorism laws for critical infrastructure
-
-PENALTIES:
-   • 10-20 years imprisonment
-   • Massive fines (proportional to damage caused)
-   • Restitution for business losses
-   • Enhanced penalties for critical infrastructure targets
-```
-
-#### Data Exfiltration Tools
-
-```
-🔴 FEDERAL CRIME: Data Theft & Exfiltration
-
-Scripts: dump_nmdbs.py, iphone_messages.py, print_cookies.py
-
-ILLEGAL ACTIVITIES:
-   • Stealing data from systems without authorization
-   • Accessing private communications
-   • Extracting sensitive information
-   • Violating privacy protections
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act
-   • Stored Communications Act
-   • Electronic Communications Privacy Act
-   • GDPR (if EU data involved)
-   • CCPA (if California data involved)
-   • HIPAA (if healthcare data)
-
-PENALTIES:
-   • 5-20 years imprisonment
-   • Fines up to $250,000+
-   • Civil liability under privacy laws
-   • Regulatory fines (GDPR: up to 4% global revenue)
-```
-
-#### Industrial Control Systems (Ics/Scada) Tools
-
-```
-🔴 EXTREME DANGER: Critical Infrastructure Attacks
-
-Scripts: ics_find.py
-
-ILLEGAL ACTIVITIES:
-   • Targeting industrial control systems
-   • Attacking critical infrastructure
-   • Potentially causing physical harm
-   • Endangering public safety
-
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (enhanced provisions)
-   • Critical Infrastructure Protection Act
-   • Potentially terrorism statutes
-   • Endangerment laws if physical harm results
-
-PENALTIES:
-   • 20+ years to LIFE imprisonment
-   • Terrorism charges and sentencing enhancements
-   • Federal investigation by FBI, DHS, etc.
-   • International prosecution possible
-   • No statute of limitations for some offenses
-
-⚠️ Attacking critical infrastructure can be prosecuted as TERRORISM
-```
-
----
-
-### Authorization Requirements
-
-#### What Constitutes Valid Authorization?
-
-```
-✅ VALID AUTHORIZATION Must Include:
-
-1. Written Documentation:
-   □ Signed letter or contract
-   □ From person with authority to grant permission
-   □ On official letterhead (if corporate)
-   □ Dated and current
-
-2. Explicit Scope:
-   □ Specific systems, IPs, and networks listed
-   □ Specific scripts/techniques authorized
-   □ Time windows defined
-   □ Out-of-scope items explicitly noted
-
-3. Legal Protection:
-   □ Indemnification clause
-   □ Liability limitations
-   □ Rules of engagement
-   □ Incident response procedures
-   □ Data handling requirements
-
-4. Contact Information:
-   □ Primary contact
-   □ Emergency contact (24/7)
-   □ Escalation procedures
-   □ Legal contact if needed
-
-5. Deliverables:
-   □ Reporting requirements
-   □ Documentation standards
-   □ Timeline for delivery
-   □ Confidentiality agreements
-
-🚫 NOT Valid Authorization:
-   ✗ Verbal permission only
-   ✗ Email without formal agreement
-   ✗ "Go ahead and test" messages
-   ✗ Implicit permission
-   ✗ After-the-fact approval
-   ✗ Permission from someone without authority
-   ✗ Expired or outdated authorization
-```
-
----
-
-### Risk Considerations
-
-#### Technical Risks
-
-**Running These Scripts Can Cause:**
-- System crashes and instability
-- Network congestion or outages
-- Data corruption or loss
-- Account lockouts
-- Service disruption
-- Detection and blocking by security systems
-- Triggering of incident response
-- Legal investigation
-
-#### Legal Risks
-
-**Unauthorized Use Results In:**
-- Federal criminal charges (CFAA violations)
-- State criminal charges
-- International prosecution
-- Civil lawsuits for damages
-- Professional license revocation
-- Employment termination
-- Industry blacklisting
-- Inability to work in technology field
-- Criminal record
-- Imprisonment
-
-#### Professional Risks
-
-**Career Consequences:**
-- Loss of security certifications
-- Professional reputation damage
-- Termination from current employment
-- Inability to pass background checks
-- Exclusion from security industry
-- Civil judgments affecting finances
-- Legal defense costs
-
----
-
-### Safe Usage Guidelines
-
-#### Create Isolated Test Environment
-
-```
-Recommended Lab Setup:
-
-1. Virtualization:
-   └─> VMware Workstation/Fusion
-   └─> VirtualBox
-   └─> Proxmox
-   └─> Hyper-V
-
-2. Network Isolation:
-   └─> Use host-only or internal networks
-   └─> NO internet connectivity for test VMs
-   └─> Separate physical network if possible
-   └─> Firewall rules preventing external access
-
-3. Target Systems:
-   └─> Intentionally vulnerable VMs (Metasploitable, DVWA)
-   └─> Your own purpose-built test systems
-   └─> CTF platform environments
-   └─> Cloud-based lab subscriptions (HTB, THM)
-
-4. Snapshots & Backups:
-   └─> Snapshot before testing
-   └─> Easy rollback if issues occur
-   └─> Keep clean baseline snapshots
-   └─> Regular backups of configurations
-```
-
-#### Professional Testing Protocol
-
-```
-Professional Security Testing Checklist:
-
-Pre-Test:
-   ☐ Written authorization obtained and verified
-   ☐ Scope reviewed and confirmed with client
-   ☐ Scripts tested in isolated lab first
-   ☐ Backup and rollback procedures prepared
-   ☐ Monitoring and logging configured
-   ☐ Emergency contacts documented
-   ☐ Insurance coverage verified (E&O policy)
-   ☐ Team briefed on scope and procedures
-
-During Test:
-   ☐ Follow authorized scope strictly
-   ☐ Document every action with timestamp
-   ☐ Monitor system health continuously
-   ☐ Communicate status to stakeholders
-   ☐ Stop immediately if unauthorized scope detected
-   ☐ Report critical findings promptly
-   ☐ Maintain evidence chain of custody
-
-Post-Test:
-   ☐ Compile comprehensive report
-   ☐ Provide detailed activity logs
-   ☐ Recommend prioritized remediation
-   ☐ Securely delete sensitive captured data
-   ☐ Archive project documentation
-   ☐ Conduct post-engagement review
-   ☐ Update methodology based on lessons learned
-```
-
----
-
-### Warranty Disclaimer
-
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
-═══════════════════════════════════════════════════════════════
-
-These security scripts are provided "AS IS" WITHOUT WARRANTY of any kind,
-either expressed or implied, including but not limited to:
-
-• Warranties of accuracy, completeness, or functionality
-• Warranties of non-malicious behavior
-• Warranties of compatibility or portability
-• Warranties of fitness for any particular purpose
-• Warranties of legal compliance
-• Warranties of safety or non-disruption
-
-THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-
-✗ Make NO guarantees about script functionality or safety
-✗ Are NOT responsible for any damages caused by script use
-✗ Do NOT warrant scripts are free from bugs or vulnerabilities
-✗ Are NOT liable for any legal consequences of misuse
-✗ Do NOT provide support for illegal activities
-✗ May modify or remove scripts without notice
-✗ Disclaim ALL liability for unauthorized use
-
-USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-
-► They use these scripts entirely at their own risk
-► They are solely responsible for obtaining proper authorization
-► They must comply with ALL applicable laws and regulations
-► They are liable for ALL consequences of script execution
-► They understand these are OFFENSIVE SECURITY TOOLS
-► They accept that unauthorized use is a FEDERAL CRIME
-► They waive any claims against authors/contributors
-► They will defend and indemnify authors from any claims
-
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL REMINDER ⚠️
-
-These scripts contain PENETRATION TESTING and EXPLOITATION tools.
-
-Unauthorized use will result in:
-   ✗ Federal criminal charges
-   ✗ State criminal charges  
-   ✗ Imprisonment (5-20+ years)
-   ✗ Massive fines
-   ✗ Civil lawsuits
-   ✗ Career destruction
-   ✗ Criminal record
-
-ALWAYS obtain explicit written authorization before use.
-
-═══════════════════════════════════════════════════════════════
-```
-
----
-
+Use intentionally vulnerable local VMs, CTF environments or systems specifically provided for training. Keep test networks isolated where practical, snapshot targets, and avoid connecting practice tools to unrelated or public systems.
 ## 🤝 Contributing
 
 ### Contributing Scripts
