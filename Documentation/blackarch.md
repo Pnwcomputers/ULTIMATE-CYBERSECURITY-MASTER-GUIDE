@@ -431,8 +431,8 @@ ParallelDownloads = 5
 # Edit pacman config
 sudo nvim /etc/pacman.conf
 
-# Sync after editing
-sudo pacman -Sy
+# Refresh packages with a full system upgrade after editing
+sudo pacman -Syu
 ```
 
 ---
