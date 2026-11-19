@@ -203,15 +203,16 @@ and available system memory, then record the exact tag used.
 
 ```bash
 # Replace placeholders with reviewed tags from the official library.
-ollama pull <model:tag>
-ollama pull <embedding-model:tag>
+ollama pull 'model:tag'
+ollama pull 'embedding-model:tag'
 ```
 
 ### Custom Security-Focused Modelfile
 
 ```bash
 cat > CyberDolphin <<'EOF'
-FROM <reviewed-model:tag>
+# Replace this placeholder with an installed tag from the official model library.
+FROM reviewed-model:tag
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.9
@@ -230,8 +231,8 @@ Use the current [official Docker deployment guide](https://docs.anythingllm.com/
 for supported storage mounts, runtime options and image tags. Bind the setup
 interface to loopback unless remote access is required, persist application data,
 and review the image version before starting the container. A bare
-`docker run -p 3001:3001` publishes on all host interfaces and is unsuitable
-for a default local-only lab.
+`docker run -p 3001:3001` publishes on all host interfaces. Restrict access to
+a trusted interface until authentication and network controls are configured.
 
 **Configure AnythingLLM → Ollama:**
 1. Settings → LLM Preference → Provider: **Ollama**
