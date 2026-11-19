@@ -701,3 +701,11 @@ Original conceptual workflow. Device specifications, input limits, supported dri
 | Diagram | Embedded guide |
 |---|---|
 | [Digital logic capture boundaries](./diagrams/digital-logic-capture-boundaries.svg) | [HiLetgo logic-analyzer guide](../HardwareHacking/HiLetgo.md#capture-and-interpretation-boundaries) |
+
+## LA1010 Sampling Visual
+
+Manufacturer-published sampling limits by active-channel count. Use the detailed model specifications and current manual; the diagram is not a measured capture.
+
+| Diagram | Embedded guide |
+|---|---|
+| [LA1010 active-channel sample-rate tradeoff](./diagrams/la1010-active-channel-sample-rate.svg) | [LA1010 guide](../HardwareHacking/LA1010.md#active-channel-tradeoff) |
