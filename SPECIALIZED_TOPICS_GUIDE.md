@@ -183,29 +183,27 @@ Running LLMs locally provides privacy, air-gap capability, and freedom from clou
 
 ### Installing Ollama
 
+Use the current [official Linux download and manual-install guide](https://ollama.com/download/linux)
+or the [upstream Linux documentation](https://github.com/ollama/ollama/blob/main/docs/linux.md).
+The convenience installer is a remote shell script; inspect it and confirm the
+artifact/source before running it with elevated privileges. For macOS, use the
+official download page or Homebrew. After installation, record the selected
+version and verify the local service according to the matching release docs.
+
 ```bash
-# Linux (one-liner)
-curl -fsSL https://ollama.com/install.sh | sh
-
-# macOS via Homebrew
-brew install ollama
-
-# Enable as a service (Linux)
-sudo systemctl enable --now ollama
-
-# Verify
 ollama --version
-curl http://localhost:11434/api/tags
+curl --fail --show-error http://127.0.0.1:11434/api/tags
 ```
 
 ### Model Selection & Download
 
-```bash
-# Recommended for most use cases
-ollama pull dolphin-mistral          # 7B - balanced, ~4 GB
+Model names, tags, quantization and resource requirements change. Choose from the
+[current Ollama model library](https://ollama.com/library), check the model card
+and available system memory, then record the exact tag used.
 
-# Higher quality (needs 32 GB RAM)
-ollama pull dolphin-mixtral          # 47B MoE - best quality
+```bash
+# Replace with a reviewed model and tag from the official library.
+ollama pull <model:tag>
 
 # Fast / lightweight
 ollama pull dolphin-phi              # 2.7B - fast responses
@@ -2464,13 +2462,17 @@ Study resources: [ARRL.org](https://www.arrl.org/getting-licensed) · HamStudy.o
 ## Tool Installation by Section
 
 ### AI Tools
-```bash
-# Ollama
-curl -fsSL https://ollama.com/install.sh | sh
-ollama pull dolphin-mistral
 
-# AnythingLLM (Docker)
-docker run -d -p 3001:3001 mintplexlabs/anythingllm
+Use the [official Ollama Linux installation guide](https://ollama.com/download/linux);
+review the convenience installer or use its documented manual-install path.
+For Dockerized AnythingLLM, follow the [official deployment guide](https://docs.anythingllm.com/installation-docker/overview).
+Bind the service to loopback unless remote access is intended, configure persistent
+storage, and choose a reviewed image tag. Avoid exposing the unauthenticated setup
+interface on a public network.
+
+```bash
+# Review the available model catalog before choosing a model.
+ollama list
 
 # AI red team tools
 pip install garak textattack
