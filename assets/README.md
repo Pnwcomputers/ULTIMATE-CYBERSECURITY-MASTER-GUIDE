@@ -43,6 +43,17 @@ New original technical reference diagrams appear **inside their canonical guides
 | [Portable Cyberdeck Device Roles & Artifacts](./diagrams/cyberdeck-portable-device-roles-and-artifacts.svg) | [Cyberdeck Portable Wireless Field Devices](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) | Flipper external Marauder, standalone boards, alternate Plus2 firmware and separate Pineapple interface |
 | [Virtual Lab Network Isolation Paths](./diagrams/homelab-virtual-network-isolation-paths.svg) | [Complete Homelab Setup](../Homelab/HomeLab_Setup.md) | Virtual internal versus host-only and routed networks; host access, egress and production-risk boundaries |
 
+## AI Project Operations, OSINT Investigations & Wireless Survey Quality
+
+These original SVGs are embedded in the corresponding procedural chapter and distinguish planned actions from completed, observed or independently accepted outcomes.
+
+| Diagram | Embedded Guide | Technical Boundary |
+|---|---|---|
+| [AI Notes, Hooks & Evidence](./diagrams/ai-notes-hooks-evidence-boundaries.svg) | [Notes, Memory, Hooks & Automation](../AI/notes-hooks-and-automation.md) | Reference context cannot execute; host events require permissions and independent result checks |
+| [AI Milestone Independent Acceptance](./diagrams/ai-milestone-independent-acceptance-gate.svg) | [Milestones & Acceptance Criteria](../AI/milestones-and-acceptance-criteria.md) | Tasks and commits are not accepted outcomes without real test evidence and review |
+| [OSINT Fraud Case Source Confidence](./diagrams/osint-fraud-investigation-source-confidence.svg) | [OSINT Investigation Procedures](../OSINT/Playbook/investigation_guide.md) | Registration is not geolocation; search output is not identity; reposts require provenance |
+| [Wardriving Field Quality & Acceptance](./diagrams/wardriving-field-quality-acceptance.svg) | [Wardriving Field Procedure](../Wardriving/field-workflow.md) | Calibration, passive behavior, GPS evidence, explicit STOP and per-case acceptance |
+
 ## New Workflow & Evidence Visuals
 
 Original, accessible SVGs for workflow comprehension. They are **conceptual only**: none certify a specific deployment, vendor rule, collection interface, or completed lab exercise.

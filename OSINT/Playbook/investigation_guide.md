@@ -9,7 +9,7 @@ Step-by-step scam/fraud investigation procedures (email, phone, domain, IP, user
 Ten sections following a single investigation from pre-investigation checklist through six identifier-specific procedures (email/phone/domain/IP/username/crypto), then evidence preservation, report generation, abuse reporting, and an IC3 submission checklist.
 
 ## 🏆 Goal
-Take a scam/fraud complaint from intake to a submitted abuse report or IC3 filing, with properly hashed and timestamped evidence at every step for chain-of-custody integrity.
+Prepare a well-supported scam/fraud complaint from intake through evidence preservation to a **human-reviewed** abuse or IC3 report when appropriate. Hashes and timestamps help document integrity but do **not** establish full chain of custody, authorship or attribution on their own; an actual submission requires operator action and a service receipt.
 
 ## 📋 When to Use
 - Investigating a specific scam/fraud case (phishing, romance scam, tech support scam, investment fraud) end-to-end
@@ -32,6 +32,10 @@ Take a scam/fraud complaint from intake to a submitted abuse report or IC3 filin
 ---
 
 ## Pre-Investigation Checklist
+
+![Scam and fraud OSINT evidence workflow from authorized case intake through scoped queries, provenance and corroboration to privacy-reviewed reporting](../../assets/diagrams/osint-fraud-investigation-source-confidence.svg)
+
+*Conceptual investigative flow, not an executed case or successful attribution.* [ARIN's RDAP guidance](https://www.arin.net/resources/registry/whois/) confirms network-registration addresses need not be the physical location of a resource; [Bellingcat's source-verification cautions](https://www.bellingcat.com/resources/2024/04/25/oshit-seven-deadly-sins-of-bad-open-source-research/) explain why repeated material and unsupported interpretations require corroboration. Check query authorization, source limitations and confidentiality before reporting.
 
 Before starting any investigation:
 
@@ -74,7 +78,7 @@ holehe target@email.com --only-used
 - Partial recovery emails/phone numbers
 - Account creation indicators
 
-**Document:** List of discovered accounts
+**Document:** Candidate service responses only. Holehe checks are heuristics and provider behavior may change; a positive response does not establish that the investigated person owns the account.
 
 #### Step 2: Breach Database Search
 
@@ -293,12 +297,12 @@ Identify the hosting provider, abuse contacts, and reputation of IP addresses.
 asn 1.2.3.4
 ```
 
-**This provides:**
+**Possible fields, depending on the installed lookup tool and data source:**
 - ASN number and name
 - Network range
-- Abuse contact email
-- Country
-- RPKI status
+- Published abuse contact (when available)
+- Registry country designation (not a device geolocation)
+- RPKI status if the lookup includes and correctly evaluates it
 
 **Document:** Abuse email for reporting
 
