@@ -42,113 +42,76 @@ Before any engagement, confirm and file:
 
 ## 1. Platform Baseline & Verification
 
-Perform once per device, and re-verify after any NetHunter/kernel update.
+Recheck after any operating-system, kernel, or NetHunter update.
 
-### 1.1 Confirm edition and kernel features
-1. Open the **NetHunter** app → **Home**. Confirm chroot is detected and shows a Kali version.
-2. Open **NetHunter Terminal** → `KALI` session → run:
-   ```bash
-   uname -a          # confirm NetHunter kernel string
-   id                # confirm root inside chroot
-   ip a              # confirm interfaces
-   ```
-3. Verify kernel capabilities expected on the OnePlus 6 full edition:
-   - **HID / USB gadget** (for HID + BadUSB)
-   - **OTG wireless** (external adapter support)
-   - **Monitor mode / injection** (internal chipset is limited - see Appendix A; use an external adapter for reliable injection)
+### 1.1 Device health
 
-### 1.2 Update the chroot
-```bash
-sudo apt update && sudo apt full-upgrade -y
-# Optional, if storage allows:
-sudo apt install -y kali-linux-default
-```
+1. Confirm the device model and supported Android/NetHunter version from the maintained project documentation.
+2. Review patch level, device encryption, screen lock, application permissions, and management state.
+3. Confirm only the interfaces required for the approved review are enabled.
+4. Do not enable HID emulation, packet injection, traffic interception, or payload features as part of routine preparation.
 
-### 1.3 Backup the rootfs (do before major changes)
-From a **Termux** session (not inside chroot), stop all NetHunter sessions first, then:
-```bash
-tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
-```
+### 1.2 Updates
+
+Install supported updates through the project's trusted distribution channel. Review release notes and test major changes on a spare device before an engagement. Avoid large untested updates immediately before field work.
+
+### 1.3 Backup and recovery
+
+Keep a verified, encrypted backup in an approved location. Do not store client evidence, passwords, or access tokens in the system backup. Record the recovery method and confirm it does not expose shared folders or credentials to a test environment.
 
 ### 1.4 Housekeeping
-- [ ] Hacker's Keyboard installed (needed for terminal/HID layouts).
-- [ ] NetHunter Store reachable; apps updated.
-- [ ] External Wi-Fi adapter(s) tested (Appendix A).
-- [ ] Device battery > 50% or Y-cable/power bank staged for long ops.
+
+- [ ] Remove unneeded apps and revoke unused permissions.
+- [ ] Confirm device encryption and a strong screen lock.
+- [ ] Check battery and storage capacity.
+- [ ] Confirm trusted update sources and application inventory.
+- [ ] Keep optional adapters disconnected unless an approved lab review requires them.
 
 ---
 
-## 2. Pre-Engagement Checklist (every job)
+## 2. Pre-Engagement Checklist
 
-- [ ] RoE confirmed (Section 0).
-- [ ] Device time/zone correct (matters for logs/evidence).
-- [ ] Clean working directory created for the engagement: `~/engagements/<client>-<YYYYMMDD>/`.
-- [ ] MAC randomized if operating covertly (Section 8).
-- [ ] Airplane mode + selective radios as needed to avoid stray connections.
-- [ ] Evidence capture plan (where captures/logs are written, how they're exfiltrated).
+- [ ] Written scope and owner contact are available.
+- [ ] Device time zone and clock are correct.
+- [ ] A minimized evidence folder is prepared with access limited to the engagement team.
+- [ ] Preserve the device's normal network identity; do not spoof addresses to evade monitoring.
+- [ ] Keep radios and network interfaces disabled unless specifically needed for an approved check.
+- [ ] The evidence manifest and retention location are approved.
+- [ ] Stop conditions and incident contacts are known.
 
 ---
 
 ## 3. NetHunter App - Home, Chroot Manager & Services
 
-**Purpose:** Central control for the Kali chroot and background services.
+Use the app to review device health, software version, and service status. Leave background services stopped by default. Start only a documented service required for an approved local task, restrict it to loopback where supported, and stop it immediately afterward.
 
-**Procedure**
-1. **Home** - status dashboard. Confirm chroot present and IP shown.
-2. **Kali Chroot Manager** - install/remove/update the chroot; switch minimal ↔ full; re-run `apt` from here or terminal.
-3. **Kali Services** - toggle services (SSH, PostgreSQL for Metasploit DB, Apache, VNC, etc.). Start only what the task needs; stop them at teardown.
-
-**Verification:** started services appear active; `ss -tlnp` in terminal shows expected listeners.
-
-**Cleanup:** stop all services you enabled. Leaving SSH/Apache running is an exposure risk.
+Review local listeners and permissions before the device leaves your control. Do not expose SSH, web, database, or remote-desktop services to a client or public network.
 
 ---
 
 ## 4. NetHunter Terminal
 
-**Purpose:** Shell access to Kali (`KALI`), Android (`ANDROID`), and root Android sessions.
+Use the terminal for local device administration and approved evidence review. Treat the chroot as a potentially privileged environment and avoid storing credentials or customer data there unnecessarily.
 
-**Procedure**
-- Launch **NetHunter Terminal** → pick session type.
-- `KALI` session = full Kali toolset. This is your primary workspace for Nmap, Metasploit, aircrack-ng suite, etc.
-- Use `tmux` for long-running captures so a dropped session doesn't kill the job:
-  ```bash
-  tmux new -s eng
-  # detach: Ctrl-b d   |   reattach: tmux attach -t eng
-  ```
+Safe local checks include:
 
-**Notes:** On non-root/rootless setups some tools (e.g., `top`) misbehave - full edition on the OnePlus 6 avoids most of these.
+    uname -a
+    ip address
+    ss -lnt
+
+Do not use this field guide to run scans, capture network traffic, execute payloads, or access systems outside the device owner's approved process.
 
 ---
 
 ## 5. Custom Commands
 
-**Purpose:** Pin frequently used commands/scripts to the NetHunter menu for one-tap launch in the field.
-
-**Procedure**
-1. NetHunter app → **Custom Commands** → add entry.
-2. Provide a label and the full command (absolute paths; specify the session/user context).
-3. Save; launch from the menu.
-
-**Use cases:** start a scoped Nmap sweep, launch a capture into the engagement folder, spin up a KeX session, kick off a recon script.
+Use custom menu entries only for reviewed, read-only status checks or local documentation shortcuts. Inspect the exact command and its permissions before saving it. Do not add unattended scans, credential collection, network listeners, file upload/download jobs, or payload launchers.
 
 ---
 
 ## 6. Kali NetHunter Desktop Experience (KeX Manager)
 
-**Purpose:** Full Kali desktop over VNC - HDMI/wireless casting for tools that need a GUI (Wireshark, Burp).
-
-**Procedure**
-1. NetHunter app → **KeX Manager** → set a VNC password (first run).
-2. **Start Server**, then connect with the KeX client (local loopback) or external VNC.
-3. For HDMI/monitor output, connect via USB-C → HDMI and mirror.
-4. Stop the server when done.
-
-**Verification:** desktop renders; clipboard/keyboard functional.
-
-**Cleanup:** stop KeX; clear/rotate the VNC password if the device leaves your control.
-
----
+If a desktop session is needed for report preparation or sanitized artifact review, use a strong, unique VNC password and bind access to the local device where possible. Do not expose the VNC service on a client, public, or shared network. Stop the server after use, verify it is no longer listening, and rotate the password if the device may have been observed or shared.
 
 ## 7. USB Peripheral Security Review
 
@@ -259,7 +222,7 @@ Install only maintained applications from a trusted distribution source after re
 
 ## Appendix A - External Wi-Fi Adapters (passive compatibility only)
 
-Internal OnePlus 6 Wi-Fi injection is limited/inconsistent. For reliable monitor mode + injection, use a known-good external adapter over OTG:
+The internal radio may not expose every passive diagnostic capability. Check manufacturer documentation and the adapter's supported receive-only features before use:
 
 - **Atheros AR9271** (2.4 GHz) - rock-solid, widely supported.
 - **Realtek RTL8812AU / RTL8811AU** (2.4/5 GHz) - needs the `8812au` driver; good dual-band.
@@ -274,9 +237,9 @@ Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapter
 ~/engagements/<client>-<YYYYMMDD>/
 ├── RoE.pdf
 ├── scope.txt              # in-scope IPs / SSIDs / BSSIDs / MACs
-├── nmap/
-├── captures/              # pcap, hashes
-├── payloads/
+├── approved-evidence/
+├── redacted-screenshots/
+├── notes/
 ├── loot/                  # creds, keys (encrypt!)
 ├── notes.md
 └── SHA256SUMS
