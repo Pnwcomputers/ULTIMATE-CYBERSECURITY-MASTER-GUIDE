@@ -54,7 +54,7 @@ Then import the BlackArch signing key:
 ```bash
 sudo pacman-key --recv-keys 4345771566D76038C7FEB43863EC0ADBEA87E4E3
 sudo pacman-key --lsign-key 4345771566D76038C7FEB43863EC0ADBEA87E4E3
-sudo pacman -Sy
+sudo pacman -Syu
 ```
 
 ---
@@ -89,19 +89,22 @@ sudo nmtui
 
 ## 4. Fix Pacman Keyring
 
-Run this before any updates on a new or broken install.
+Do not delete `/etc/pacman.d/gnupg` as a routine repair step, and do not install
+keyrings with a database-only sync (`-Sy`). First check that the system clock is
+correct. For a new repository setup, use the official BlackArch bootstrap and
+signature-verification instructions. If package signature verification still
+fails, stop and follow the current [Arch Linux package-signing recovery guidance](https://wiki.archlinux.org/title/Pacman/Package_signing)
+for the specific error; do not disable signature checks or blindly reset the keyring.
+
+Once package trust is working, perform a full system upgrade and include keyring
+updates in the same transaction when needed:
 
 ```bash
-# Clear existing keys
-sudo rm -rf /etc/pacman.d/gnupg
-
-# Re-initialize and populate keys
-sudo pacman-key --init
-sudo pacman-key --populate archlinux blackarch
-
-# Sync keyrings
-sudo pacman -Sy archlinux-keyring blackarch-keyring
+sudo pacman -Syu archlinux-keyring blackarch-keyring
 ```
+
+Arch-based distributions differ in their keyring recovery steps. Follow the
+instructions for the installed distribution and avoid partial upgrades.
 
 ---
 
