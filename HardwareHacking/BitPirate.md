@@ -33,6 +33,8 @@ A CH340- or FT232R-based USB adapter converts USB host communication to serial U
 
 Use this workflow only on hardware you own or are explicitly authorized to assess.
 
+![Safe UART observation: confirm authorization and voltage, cross TX/RX, share ground, leave VCC disconnected, then record the output](../assets/diagrams/usb-uart-safe-observation.svg)
+
 ### 1. Identify and check levels
 * Identify the adapter chipset and its documented signal voltage. Verify the target UART pins and logic level from board documentation or measurement.
 * Do not connect if the voltage or pinout is uncertain. USB-to-UART adapters can expose VCC pins; the target should remain separately powered unless its documentation explicitly requires otherwise.
