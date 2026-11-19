@@ -11,6 +11,8 @@ _Windows persistence techniques mapped to MITRE ATT&CK, covering registry, servi
 
 ---
 
+![Persistence control validation workflow: define scope, simulate one approved mechanism, observe controls, then remove it and verify restoration](../assets/diagrams/authorized-persistence-validation.svg)
+
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
 |PE-001   |[Winlogon Helper DLL](https://pentestlab.blog/2020/01/14/persistence-winlogon-helper-dll/)|[T1547.004](https://attack.mitre.org/techniques/T1547/004/)|
