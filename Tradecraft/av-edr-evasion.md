@@ -894,7 +894,7 @@ python3 vol.py -f memory.dmp windows.psscan      # Scan memory for EPROCESS bloc
 
 # Find injected code - the core evasion detection use case
 python3 vol.py -f memory.dmp windows.malfind     # Find MEM_PRIVATE executable regions with PE headers
-                                                  # This is the primary injection/hollowing detector
+                                                  # This is one memory-analysis signal; validate it with other evidence
 
 # Network connections
 python3 vol.py -f memory.dmp windows.netstat     # Active connections at time of capture
@@ -910,10 +910,11 @@ python3 vol.py -f memory.dmp windows.memmap --pid 4892 --dump
 python3 vol.py -f memory.dmp windows.dumpfiles --pid 4892
 
 # Detect process hollowing
-python3 vol.py -f memory.dmp windows.hollowprocesses
+python3 vol.py -f memory.dmp windows.malware.hollowprocesses
 
-# Dump LSASS for credential analysis (defender use: verify what's accessible)
-python3 vol.py -f memory.dmp windows.lsadump
+# Volatility 3 does not provide the Volatility 2 windows.lsadump plugin.
+# Use approved, version-supported analysis tools and protect any sensitive
+# memory artifacts under your incident-response evidence policy.
 
 # Volatility malfind output interpretation:
 # Process: svchost.exe  PID: 4892  Address: 0x1F4000000
