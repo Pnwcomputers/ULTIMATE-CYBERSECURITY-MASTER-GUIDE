@@ -34,10 +34,7 @@ Inspect provenance and source before running downloaded scripts.
 >
 > Additional retired and inert source files include `Bash/profile_hook.sh`, `Bash/web_shell_http_client.sh`, `Bash/BashBunny/cred_harv.txt`, `Bash/BashBunny/network_recon.txt`, `Bash/BashBunny/windows_exfil.txt`, `Ducky/exfil_windowsPC.txt`, and the credential, packet-sniffing, Bluetooth, private-message, process-injection, and password-testing files marked RETIRED below.
 >
-> The password-guessing examples `Bash/ssh_brute.sh`, `Python/ssh_brute.py`, and
-> `Python/ssh_brutekey.py` are retired. Their earlier versions exposed guessed or
-> valid credentials, guessed without a suitable rate/lockout bound, or bypassed SSH
-> host-key verification.
+> Retired in place during the whole-repository review: `Bash/ssh_brute.sh`, `Bash/gnupg_brute.sh`, `Bash/local_user_brute.sh`, `Bash/keylogger.sh`, `Bash/hack-gmail.sh`, `Bash/get-wifi-pass.sh`, `Bash/rev_shell_state_mon.sh`, `Bash/port_hopper.sh`, `Bash/os_command_inj.sh`, `Bash/attack.sh`, `Bash/start-wlan.sh`, `Bash/start-capture.sh`, `Bash/fakemail.sh`, `Bash/admin-panel-sniffer.sh`, `Bash/arp-spoofing-detect.sh`, `Bash/network-monitor.sh`, `Bash/shodan-api.sh`, `Bash/xss-vulnerability-finder.sh`, and the credential-dumping, cookie-reading, shellcode, spam, and unbounded password-guessing Python/GO examples. These paths now contain inert notices; their former code is not present. See [the historical GO archive inventory](GO/ARCHIVE-INVENTORY.md) for per-file dispositions.
 
 <div align="center">
 
@@ -103,8 +100,7 @@ Scripts/
 ├── C/              # C programs and utilities
 ├── GO/             # Historical mixed-language collection; many Python 2 examples
 ├── PowerShell/     # PowerShell scripts (Windows)
-├── Python/         # Python scripts and tools
-├── SQL/            # SQL scripts and queries
+├── Python/         # Python scripts and retired notices
 └── YAML/           # YAML configuration files
 ```
 
