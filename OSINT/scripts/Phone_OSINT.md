@@ -3,20 +3,20 @@
 Script for automated phone number OSINT - carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
 
 ## 🎯 Purpose
-Self-contained bash script automating phone-number investigation - carrier/line-type validation (Numverify, Veriphone, AbstractAPI), breach/leak correlation (IntelX, LeakLookup), and reverse-lookup URL generation. The phone-only counterpart to [Email_OSINT.md](Email_OSINT.md) and [Domain_IP_Recon.md](Domain_IP_Recon.md).
+Self-contained Bash script for phone-number provider lookups, leak correlation, and manually reviewed search links. Provider line-type data is approximate metadata; it does not establish identity, burner-app use, or fraud. The phone-only counterpart to [Email_OSINT.md](Email_OSINT.md) and [Domain_IP_Recon.md](Domain_IP_Recon.md).
 
 ## ⚙️ Function
 A single bash script accepting one or more phone numbers (or a file), querying multiple carrier-validation APIs for redundancy (since free tiers are rate-limited), correlating against breach/leak databases, and generating ready-to-click reverse-lookup URLs for manual services (Truecaller, etc.) that don't offer a public API.
 
 ## 🏆 Goal
-Run one command against a suspected scammer's phone number and get back carrier/line-type/VoIP indicators plus any breach correlation, without manually querying each validation service.
+Run authorized provider lookups and organize their returned metadata for human review. A line-type result is not proof of who controls a number or whether it was used fraudulently.
 
 ## 📋 When to Use
 - Phone-only investigation step in a scam/fraud case (see `../Playbook/investigation_guide.md`'s Phone Investigation Procedure)
-- Determining whether a number is VoIP/burner-app-issued (common scammer indicator) versus a genuine mobile/landline number
+- Reviewing provider-reported line-type metadata as an uncertain clue; it cannot prove burner-app use, identity, or fraud.
 
 **Dependencies:** `jq`, `curl`  
-**Usage:** `chmod +x Phone_OSINT.md` or copy the script below into a `.sh` file.
+**Usage:** Copy the fenced script into a file such as `phone_audit.sh`, then run `chmod +x phone_audit.sh`. Do not try to execute this Markdown document.
 
 **Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
 - `NUMVERIFY_KEY` - [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
@@ -154,7 +154,7 @@ normalize_phone() {
     echo "$PHONE" | tr -d '+−()-. ' | sed 's/^00//'
 }
 
-# Extract country code (basic - assumes US +1 if 10 digits)
+# Extract a country code only for NANP-style numbers; other lengths are ambiguous without a numbering-plan library.
 get_country_code() {
     local PHONE="$1"
     local NORMALIZED=$(normalize_phone "$PHONE")
@@ -165,8 +165,9 @@ get_country_code() {
     elif [ "$LEN" -eq 11 ] && [[ "$NORMALIZED" == 1* ]]; then
         echo "1"  # US with country code
     elif [ "$LEN" -gt 10 ]; then
-        # Try to extract country code (first 1-3 digits)
-        echo "${NORMALIZED:0:$((LEN-10))}"
+        # Do not guess: international calling codes have variable lengths and
+        # national number lengths vary by country.
+        echo "unknown"
     else
         echo "unknown"
     fi
@@ -183,7 +184,7 @@ get_national_number() {
     elif [ "$LEN" -eq 11 ] && [[ "$NORMALIZED" == 1* ]]; then
         echo "${NORMALIZED:1}"
     elif [ "$LEN" -gt 10 ]; then
-        echo "${NORMALIZED: -10}"
+        echo "$NORMALIZED"
     else
         echo "$NORMALIZED"
     fi
@@ -447,8 +448,7 @@ detect_phone_type() {
     local AREA_CODE="${NATIONAL:0:3}"
     local EXCHANGE="${NATIONAL:3:3}"
     
-    # Known VoIP/Virtual prefixes (incomplete list)
-    VOIP_PREFIXES=("456" "500" "521" "522" "523" "524" "525" "526" "527" "528" "529" "533" "544" "566" "577" "588")
+    # Prefix-only heuristics cannot reliably identify VoIP or burner services.
     
     # Toll-free prefixes
     TOLLFREE_PREFIXES=("800" "833" "844" "855" "866" "877" "888")
@@ -456,8 +456,8 @@ detect_phone_type() {
     # Premium rate
     PREMIUM_PREFIXES=("900" "976")
     
-    PHONE_TYPE="Unknown"
-    PHONE_NOTES=""
+    PHONE_TYPE="Unclassified"
+    PHONE_NOTES="Local prefix heuristics are not used to infer line type, burner-app use, identity, or fraud."
     
     # Check toll-free
     for prefix in "${TOLLFREE_PREFIXES[@]}"; do
@@ -477,20 +477,6 @@ detect_phone_type() {
         fi
     done
     
-    # Check VoIP indicators
-    for prefix in "${VOIP_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Likely VoIP/Virtual"
-            PHONE_NOTES="VoIP numbers are easy to obtain anonymously"
-            break
-        fi
-    done
-    
-    # 983 area code (mentioned in scam case)
-    if [ "$AREA_CODE" = "983" ]; then
-        PHONE_TYPE="VoIP/Virtual Number"
-        PHONE_NOTES="983 is a newer area code often associated with VoIP services. Common in scam operations."
-    fi
     
     # Output findings
     cat << EOF > "$OUTPUT"
@@ -504,12 +490,8 @@ detect_phone_type() {
 }
 EOF
 
-    if [ "$PHONE_TYPE" != "Unknown" ]; then
-        log "${YELLOW}    [!] Type detected: $PHONE_TYPE${NC}"
-        [ -n "$PHONE_NOTES" ] && log "${YELLOW}    [!] Note: $PHONE_NOTES${NC}"
-    else
-        log "${GREEN}    [+] Standard landline/mobile format${NC}"
-    fi
+    log "${YELLOW}    [!] Local type: unclassified; review provider metadata cautiously.${NC}"
+    log "${YELLOW}    [!] $PHONE_NOTES${NC}"
 }
 
 # Area code lookup (US/Canada)
@@ -901,11 +883,9 @@ APIs & SOURCES QUERIED
 ═══════════════════════════════════════════════════════════════════════════
 PHONE TYPE INDICATORS
 ═══════════════════════════════════════════════════════════════════════════
-- VoIP/Virtual: Often anonymous, easy to obtain, common in scams
-- Toll-Free (800, etc.): Business numbers, but also used by scammers
-- Premium (900, 976): WARNING - Charges apply, often scams
-- Mobile: Standard cell phone
-- Landline: Traditional phone line
+- Provider-reported line type is approximate and may be outdated or affected by number portability
+- A VoIP, mobile, or landline label does not establish identity, burner-app use, or fraud
+- Corroborate any lead with independent evidence and document uncertainty.
 
 EOF
 
@@ -923,8 +903,8 @@ cat << EOF >> "$SUMMARY_FILE"
 ═══════════════════════════════════════════════════════════════════════════
 RECOMMENDED ACTIONS
 ═══════════════════════════════════════════════════════════════════════════
-1. If VoIP/Virtual - Higher suspicion, commonly used in fraud
-2. If found in leaks - Associated with compromised accounts
+1. Treat line-type and carrier results as unverified leads, not attribution
+2. If an authorized source reports exposure, record only necessary redacted data
 3. Check spam databases manually using provided URLs
 4. Use reverse lookup to find potential owner information
 5. Report scam numbers to:
