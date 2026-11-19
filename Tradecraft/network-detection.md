@@ -355,9 +355,9 @@ alert http $HOME_NET any -> $EXTERNAL_NET any (
     rev:1;
 )
 
-# Detect DNS TXT record response (potential DNS tunnel)
+# Detect a query using one of these uncommon suffixes; this does not inspect TXT records or response size.
 alert dns any any -> any any (
-    msg:"Large DNS TXT Response - Possible Tunnel";
+    msg:"DNS Query for Listed Uncommon Suffix - Investigate";
     dns.query;
     pcre:"/\.(onion|bit|bazar|coin|lib|emc|cyb|fur|bbs|geek)$/i";
     classtype:policy-violation;
