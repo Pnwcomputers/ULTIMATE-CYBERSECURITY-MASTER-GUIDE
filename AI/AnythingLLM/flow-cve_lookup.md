@@ -613,3 +613,19 @@ Ubuntu: https://ubuntu.com/security/${cve_id}
 - [flow-nmap_analyzer.md](flow-nmap_analyzer.md) - Nmap findings that trigger CVE lookups
 - [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - CVE data feeds into vulnerability reports
 - [flow-threat_intel.md](flow-threat_intel.md) - Threat intel on active CVE exploitation
+
+## Evidence Path at a Glance
+
+The documented flow retrieves an NVD page and asks the model to draft an analysis. The model output is a research aid; confirm each consequential claim against authoritative advisories before using it.
+
+```mermaid
+flowchart LR
+    A[Analyst enters CVE or product/version] --> B{Input valid?}
+    B -- no --> C[Request correction]
+    B -- yes --> D[Fetch NVD page]
+    D --> E[LLM drafts structured summary]
+    D -- unavailable, throttled, or empty --> F[Mark evidence unavailable]
+    E --> G[Analyst checks NVD, CISA KEV, and vendor advisory]
+    F --> G
+    G --> H[Record sources, retrieval time, and verified findings]
+```
