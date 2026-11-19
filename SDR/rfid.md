@@ -2,14 +2,14 @@
 
 <div align="center">
 
-**Manual for LF/HF proximity card capture, transponder reverse engineering, and access-control security testing at 125 kHz and 13.56 MHz**
+**Defensive LF/HF access-control reference for protocol families, synthetic test media, reader policy, and credential protection**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ![RFID](https://img.shields.io/badge/Hardware-RFID_%26_NFC-blue?style=for-the-badge&logo=nfc)
 ![Frequencies](https://img.shields.io/badge/Frequencies-125kHz_%26_13.56MHz-green?style=for-the-badge&logo=contactlesspayment)
 ![Proxmark3](https://img.shields.io/badge/Software-Proxmark3-orange?style=for-the-badge)
-![Protocols](https://img.shields.io/badge/Focus-Card_Cloning_%26_Crypto1-red?style=for-the-badge)
+![Protocols](https://img.shields.io/badge/Focus-Defensive_Review-blue?style=for-the-badge)
 
 </div>
 
@@ -25,13 +25,11 @@
 | [GhostESP Revival](../Documentation/ghostesp-revival.md) | NFC support depends on target/frontend and selected build; validate with owned test tags. |
 | [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Separate interface/tooling workflow with external reader requirements; verify voltage and protocol before connection. |
 
-Keep firmware files, card dumps and keys separate. Preserve a read-only original
-and use sacrificial owned tags for write validation. A shared extension or a UID
-match does not establish complete card emulation or permission to use a credential.
+Use only synthetic test media in the workflows below. Do not put card dumps, identifiers, keys, or personal data in source control. A shared extension or UID match does not establish complete card emulation or permission to use a credential.
 
 ## 🎯 Purpose
 
-Comprehensive bench manual for RFID/NFC access-control exploration - covering educational theory, low- and high-frequency card capture procedures, laboratory logging documentation, key-recovery software pipelines, and transponder architecture breakdowns for physical access, contactless payment, and asset-tracking systems.
+Defensive reference for LF/HF/UHF fundamentals, credential design risks, supported reader capabilities, synthetic test procedures, privacy-safe logging, and access-control mitigations.
 
 ## ⚙️ Function
 
@@ -44,9 +42,9 @@ Help defenders assess access-control design with synthetic test media, report pr
 ## 📋 When to Use
 
 - Identifying an unknown proximity card by operating frequency and chipset
-- Choosing the right reader hardware and attack path for a target credential
-- Reverse engineering a fixed-ID vs. cryptographically-protected credential during an authorized assessment
-- Documenting a reproducible read/crack session for a physical-access security audit
+- Choosing compatible reader hardware for synthetic test media
+- Reviewing fixed-identifier versus authenticated credential designs
+- Recording a result-only lab policy review without credential secrets
 
 ---
 
@@ -348,14 +346,14 @@ The table below serves as a laboratory lookup guide to identify an unknown crede
 When analyzing credentials from the reference matrix above, use this operational dictionary to understand what each transponder architecture does.
 
 - **EM4100 / EM4102:** Legacy LF fixed-identifier technology. The common EM4100-compatible frame is 64 bits total, carrying a 40-bit identifier plus framing and parity bits; see the [EM4200 datasheet](https://www.emmicroelectronic.com/sites/default/files/products/datasheets/em4200_ds.pdf). Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
-- **HID Prox:** A 125 kHz format that FSK-encodes a fixed Wiegand data string (facility code + card number). Read-only and cloneable; the Wiegand payload, not just the raw ID, is what the access panel actually evaluates.
-- **Indala / AWID:** Additional legacy LF formats (PSK and FSK respectively) carrying fixed identifiers. Functionally equivalent in security terms to EM4100 - static, unauthenticated, cloneable to writable blanks.
+- **HID Prox:** A legacy 125 kHz credential family that may encode a fixed facility/card value. Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
+- **Indala / AWID:** Legacy LF formats with static identifiers. Assess reader configuration, enrollment, and revocation rather than assuming a reader accepts any reproduced identifier.
 - **HITAG2 / Megamos:** LF automotive immobilizer transponders using proprietary challenge-response crypto. Historically significant for the publicly-disclosed weaknesses that enabled key recovery - the reason modern vehicles moved to stronger schemes.
-- **T5577 / EM4305:** Not credentials but *writable* multi-protocol LF transponders. They can be configured to emulate EM4100, HID, Indala, and more - which is exactly why they are the standard clone target and enrollment blank.
+- **T5577 / EM4305:** Writable multi-protocol LF test transponders. Use synthetic fixtures only; do not reproduce an issued identifier.
 - **MIFARE Classic (Crypto1):** A legacy HF design with publicly documented cryptographic weaknesses. Organizations should inventory where it remains enabled, restrict fallback use, plan migration, and monitor reader configuration.
-- **MIFARE Ultralight/ / NTAG:** Low-cost HF chips with little or no cryptography. Ultralight is common in disposable transit tickets; NTAG carries NDEF for tap-to-launch and smart posters. Data is generally readable and, for NTAG, writable unless locked.
-- **MIFARE DESFire (EV1/EV2/EV3):** Modern HF smartcards with AES/3DES mutual authentication, isolated application files, and per-card diversified keys. Not duplicable without the deployment's keys - the security tier organizations migrate *to*.
-- **HID iCLASS:** A 13.56 MHz family. Legacy iCLASS (standard/elite) suffered from weak, sometimes shared default keys that were publicly recovered; iCLASS SE / SEOS moved to a secure element with strong AES and is not duplicable.
+- **MIFARE Ultralight / NTAG:** Low-cost HF chips with little or no cryptography. Ultralight is common in disposable transit tickets; NTAG carries NDEF for tap-to-launch and smart posters. Data is generally readable and, for NTAG, writable unless locked.
+- **MIFARE DESFire (EV1/EV2/EV3):** Modern HF smartcards can use AES/3DES mutual authentication, isolated application files, and diversified keys. Security depends on correct deployment and key management.
+- **HID iCLASS:** A 13.56 MHz family with multiple generations and security configurations. Distinguish legacy and modern variants, and verify the exact product and deployment rather than inferring security from the family name.
 - **Sony FeliCa:** A fast HF protocol dominant in Japanese transit and payments. Uses its own command set and mutual authentication; analysis focuses on the service/block structure rather than a broken cipher.
 - **EMV Contactless:** Payment credentials use transaction-specific cryptographic controls. This guide does not cover capturing or replaying payment data.
 
