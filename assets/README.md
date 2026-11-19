@@ -18,6 +18,7 @@ Original, accessible SVGs for workflow comprehension. They are **conceptual only
 | [Cyberdeck policy zones](./diagrams/cyberdeck-policy-zones.svg) | [Public Cyberdeck architecture](../Cyberdeck/docs/ARCHITECTURE.md) | Conceptual router/zone boundaries, field RF, evidence storage |
 | [Wireshark capture & display boundaries](./diagrams/wireshark-capture-display-boundaries.svg) | [Advanced Wireshark reference](../Documentation/wireshark.md) | Vantage point, optional BPF, PCAP, display filter, analyst validation |
 | [AI-SOC trust & approval boundaries](./diagrams/ai-soc-trust-and-approval-boundaries.svg) | [AI-augmented security operations](../AI/ai-security-operations-workflows.md) | Authenticated intake, schema/evidence boundary, read-only AI, independent review and privileged-action approval |
+| [CTI-to-approved-emulation gates](./diagrams/cti-to-approved-emulation-gates.svg) | [Detailed Purple Team playbook](../PlayBooks/PurpleTeam_Detailed.md) | Independently verify CTI, map ATT&CK, prepare benign controls, obtain human authorization, assess observed evidence |
 
 ## PCI DSS Scoping Visual
 

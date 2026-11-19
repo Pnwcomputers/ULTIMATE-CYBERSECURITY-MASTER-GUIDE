@@ -26,6 +26,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/ai-soc-trust-and-approval-boundaries.svg": (
         "AI/ai-security-operations-workflows.md",
     ),
+    "assets/diagrams/cti-to-approved-emulation-gates.svg": (
+        "PlayBooks/PurpleTeam_Detailed.md",
+    ),
 }
 
 

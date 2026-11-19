@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="565" viewBox="0 0 1450 565" role="img" aria-labelledby="title desc">
+<title id="title">CTI-to-emulation workflow: verification and authorization gates</title>
+<desc id="desc">A conceptual five-stage process: verify cyber threat intelligence source, independently map the behavior to MITRE ATTACK, prepare safe positive and negative controls, obtain explicit human authorization, and test sensor-to-alert evidence in an isolated canary. Generated commands never receive automatic execution approval.</desc>
+<defs><marker id="flow-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#67d6fd"/></marker></defs>
+<rect width="1450" height="565" rx="18" fill="#0c1525"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="35" y="52" font-size="31" font-weight="700" fill="#f8fafc">CTI to approved emulation: verify before executing</text>
+<text x="35" y="85" font-size="18" fill="#bbd1e8">A technique label suggests a test hypothesis, not a ready-to-run payload or a proven detection.</text>
+<rect x="35" y="148" width="250" height="219" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+<text x="49" y="191" font-size="19" font-weight="700" fill="#ffffff">1. Verify CTI source</text>
+<text x="49" y="239" font-size="16" fill="#d9e7f3">Report date and origin</text>
+<text x="49" y="273" font-size="16" fill="#d9e7f3">Document observed behavior</text>
+<text x="49" y="307" font-size="16" fill="#d9e7f3">Note confidence and limits</text>
+<rect x="315" y="148" width="250" height="219" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+<text x="329" y="191" font-size="19" font-weight="700" fill="#ffffff">2. Map technique</text>
+<text x="329" y="239" font-size="16" fill="#d9e7f3">Exact ATT&amp;CK sub-technique</text>
+<text x="329" y="273" font-size="16" fill="#d9e7f3">Validate source and version</text>
+<text x="329" y="307" font-size="16" fill="#d9e7f3">Do not map by keyword</text>
+<rect x="595" y="148" width="250" height="219" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+<text x="609" y="191" font-size="19" font-weight="700" fill="#ffffff">3. Prepare safe test</text>
+<text x="609" y="239" font-size="16" fill="#d9e7f3">Inert positive control</text>
+<text x="609" y="273" font-size="16" fill="#d9e7f3">Benign negative control</text>
+<text x="609" y="307" font-size="16" fill="#d9e7f3">Expected sensors and fields</text>
+<rect x="875" y="148" width="250" height="219" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+<text x="889" y="191" font-size="19" font-weight="700" fill="#ffffff">4. Authorize method</text>
+<text x="889" y="239" font-size="16" fill="#d9e7f3">Written scope and ROE</text>
+<text x="889" y="273" font-size="16" fill="#d9e7f3">Human command review</text>
+<text x="889" y="307" font-size="16" fill="#d9e7f3">Stop criteria and rollback</text>
+<rect x="1155" y="148" width="250" height="219" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+<text x="1169" y="191" font-size="19" font-weight="700" fill="#ffffff">5. Assess evidence</text>
+<text x="1169" y="239" font-size="16" fill="#d9e7f3">Disposable canary host</text>
+<text x="1169" y="273" font-size="16" fill="#d9e7f3">Sensor → native rule → alert</text>
+<text x="1169" y="307" font-size="16" fill="#d9e7f3">Compare actual vs expected</text>
+<path d="M288 257 L310 257" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#flow-arrow)"/>
+<path d="M568 257 L590 257" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#flow-arrow)"/>
+<path d="M848 257 L870 257" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#flow-arrow)"/>
+<path d="M1128 257 L1150 257" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#flow-arrow)"/>
+<rect x="35" y="410" width="1380" height="114" rx="14" fill="#453623" stroke="#e6b655" stroke-width="2"/>
+<text x="58" y="452" font-size="22" font-weight="700" fill="#ffedbb">Safety and validity gate: a human decides what may run</text>
+<text x="58" y="488" font-size="18" fill="#f6e7cb">No unreviewed LLM-generated scripts, real credentials, uncontrolled targets or automatic production rule changes.</text>
+<text x="35" y="550" font-size="15" fill="#b8cbe0">Conceptual diagram only. A fixture pass is not live SIEM/EDR verification; missing telemetry means no assessable detection outcome.</text>
+</g>
+</svg>
