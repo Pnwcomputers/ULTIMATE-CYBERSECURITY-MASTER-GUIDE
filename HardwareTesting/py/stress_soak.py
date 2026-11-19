@@ -212,6 +212,7 @@ class SensorPoller:
         self._pkg_label = ""           # detected label for CPU package sensor
 
         self._sample_count = 0
+        self._last_sample_monotonic: float | None = None
 
     # ── JSON parsing ──────────────────────────────────────────────────────────
 
@@ -290,6 +291,7 @@ class SensorPoller:
 
                 with self._lock:
                     self._sample_count += 1
+                    self._last_sample_monotonic = time.monotonic()
                     for label, val in data.items():
                         self._all.setdefault(label, []).append(val)
                     if self._pkg_label and self._pkg_label in data:
@@ -314,6 +316,14 @@ class SensorPoller:
     def sample_count(self) -> int:
         with self._lock:
             return self._sample_count
+
+    def has_fresh_temperature(self, max_age_s: int = 15) -> bool:
+        with self._lock:
+            return (
+                bool(self._pkg_temps)
+                and self._last_sample_monotonic is not None
+                and time.monotonic() - self._last_sample_monotonic <= max_age_s
+            )
 
     def peak_cpu_temp(self) -> float:
         with self._lock:
@@ -475,14 +485,31 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         reader = threading.Thread(target=_reader, daemon=True)
         reader.start()
 
-        # Wait with periodic interrupt checks
+        # Stop the RAM test if thermals cross the cutoff or sensor data goes stale.
         while proc.poll() is None and not _interrupted:
+            if not poller.has_fresh_temperature():
+                result["thermal_cutoff"] = True
+                result["thermal_cutoff_message"] = (
+                    "Temperature readings became unavailable; memtester was stopped."
+                )
+                break
+            peak = poller.peak_cpu_temp()
+            if peak >= CPU_TEMP_FAIL:
+                result["thermal_cutoff"] = True
+                result["thermal_cutoff_message"] = (
+                    f"CPU temperature reached {peak:.1f}°C (cutoff {CPU_TEMP_FAIL}°C); "
+                    "memtester was stopped."
+                )
+                break
             time.sleep(2)
 
-        if _interrupted:
+        if _interrupted or result.get("thermal_cutoff"):
             proc.terminate()
-            time.sleep(2)
-            proc.kill()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=3)
         else:
             reader.join(timeout=30)
 
@@ -490,7 +517,7 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         result["error"] = str(exc)
         result["ran"]   = False
 
-    result["passed"]      = not failed_detected
+    result["passed"]      = not failed_detected and not result.get("thermal_cutoff", False)
     result["output_tail"] = lines[-20:]
     return result
 
@@ -535,10 +562,10 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     }
 
     # A threshold cannot protect the machine if sensors produced no readings.
-    if poller.sample_count() == 0:
+    if not poller.has_fresh_temperature():
         result["thermal_monitor_ok"] = False
         result["thermal_monitor_message"] = (
-            "No valid temperature samples are available; combined stress was not started."
+            "No recent CPU temperature sample is available; combined stress was not started."
         )
         print(f"  STOP: {result['thermal_monitor_message']}")
         return result
@@ -626,6 +653,14 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     while time.time() < deadline and not _interrupted:
         elapsed = int(time.time() - start)
         pkg_t   = poller.peak_cpu_temp()
+        if not poller.has_fresh_temperature():
+            result["thermal_cutoff"] = True
+            result["thermal_monitor_ok"] = False
+            result["thermal_monitor_message"] = (
+                "Temperature readings became unavailable; all stress workloads were stopped."
+            )
+            print(f"\n  STOP: {result['thermal_monitor_message']}")
+            break
         if pkg_t >= CPU_TEMP_FAIL:
             result["thermal_cutoff"] = True
             result["thermal_monitor_message"] = (
@@ -1068,20 +1103,44 @@ def main():
     stress_result = {}
 
     try:
-        # Phase 1 — RAM validation
-        mt_result = run_memtester(mode_cfg["mt_gb"], mode_cfg["mt_passes"], poller)
+        # Wait briefly for a usable CPU sensor sample. Continuing without one
+        # would make the runtime cutoff ineffective.
+        sample_deadline = time.monotonic() + 2 * SENSOR_POLL_S
+        while not poller.has_fresh_temperature() and time.monotonic() < sample_deadline:
+            time.sleep(1)
 
-        if _interrupted:
-            raise KeyboardInterrupt
+        if not poller.has_fresh_temperature():
+            mt_result = {
+                "ran": False, "passed": False, "failed_lines": [],
+                "output_tail": [], "error": "No recent CPU temperature sample is available.",
+            }
+            stress_result = {
+                "thermal_monitor_ok": False,
+                "thermal_monitor_message": "No recent CPU temperature sample; tests were not started.",
+            }
+        else:
+            # Phase 1 — RAM validation
+            mt_result = run_memtester(mode_cfg["mt_gb"], mode_cfg["mt_passes"], poller)
 
-        # Phase 2 — Combined stress
-        stress_result = run_combined_stress(mode_cfg["stress_s"], poller, watcher)
+            if _interrupted:
+                raise KeyboardInterrupt
 
-        if _interrupted:
-            raise KeyboardInterrupt
+            if mt_result.get("thermal_cutoff"):
+                stress_result = {
+                    "thermal_monitor_ok": True,
+                    "thermal_cutoff": True,
+                    "thermal_monitor_message": mt_result["thermal_cutoff_message"],
+                }
+            else:
+                # Phase 2 — Combined stress
+                stress_result = run_combined_stress(mode_cfg["stress_s"], poller, watcher)
 
-        # Phase 3 — Cooldown
-        run_cooldown(mode_cfg["cooldown_s"], poller)
+                if _interrupted:
+                    raise KeyboardInterrupt
+
+                if not stress_result.get("thermal_cutoff"):
+                    # Phase 3 — Cooldown
+                    run_cooldown(mode_cfg["cooldown_s"], poller)
 
     except KeyboardInterrupt:
         pass
