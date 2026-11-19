@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 550" role="img" aria-labelledby="title desc">
+<title id="title">JTAGulator discovery and validation flow</title>
+<desc id="desc">Conceptual workflow for an authorized JTAGulator assessment: confirm scope, target ground and logic voltage, externally power the target, set VADJ for signal translation, scan selected points, independently validate any candidate pinout, and document results. VADJ is not a target power output and scan hits can be false positives.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365672"/></marker></defs>
+<rect width="1000" height="550" rx="24" fill="#f5f8fc"/>
+<text x="500" y="48" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#142b45">JTAGulator: Discovery Is a Lead, Not a Finding</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g fill="#e7eff9" stroke="#365672" stroke-width="2">
+<rect x="45" y="105" width="205" height="112" rx="16"/><rect x="280" y="105" width="205" height="112" rx="16"/><rect x="515" y="105" width="205" height="112" rx="16"/><rect x="750" y="105" width="205" height="112" rx="16"/>
+</g>
+<g fill="#142b45" font-size="18" font-weight="700">
+<text x="147" y="140">1 · Confirm scope</text><text x="382" y="140">2 · Establish reference</text><text x="617" y="140">3 · Set signal level</text><text x="852" y="140">4 · Scan candidates</text>
+</g>
+<g fill="#20364e" font-size="15">
+<text x="147" y="170"><tspan x="147">Authorized, externally</tspan><tspan x="147" dy="20">powered target</tspan></text>
+<text x="382" y="170"><tspan x="382">Identify GND and verify</tspan><tspan x="382" dy="20">logic voltage from docs</tspan></text>
+<text x="617" y="170"><tspan x="617">Set VADJ for level</tspan><tspan x="617" dy="20">translation; not power</tspan></text>
+<text x="852" y="170"><tspan x="852">Use documented channels</tspan><tspan x="852" dy="20">and supported scan</tspan></text>
+</g>
+<g stroke="#365672" stroke-width="3" marker-end="url(#arrow)">
+<path d="M253 160h22"/><path d="M488 160h22"/><path d="M723 160h22"/>
+</g>
+<rect x="170" y="290" width="285" height="115" rx="16" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="312" y="326" fill="#5b3510" font-size="19" font-weight="700">5 · Validate independently</text>
+<text x="312" y="356" fill="#5b3510" font-size="15"><tspan x="312">Repeat / compare evidence; account for</tspan><tspan x="312" dy="21">false positives and target side effects</tspan></text>
+<rect x="545" y="290" width="285" height="115" rx="16" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
+<text x="687" y="326" fill="#143b36" font-size="19" font-weight="700">6 · Document the result</text>
+<text x="687" y="356" fill="#143b36" font-size="15"><tspan x="687">Record revision, firmware, voltage,</tspan><tspan x="687" dy="21">channels, scan output, and limits</tspan></text>
+<path d="M852 222v24H312v39" fill="none" stroke="#365672" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M457 347h83" fill="none" stroke="#365672" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="455" width="800" height="54" rx="12" fill="#fde8e7" stroke="#a23d39" stroke-width="2"/>
+<text x="500" y="489" fill="#7a2420" font-size="17" font-weight="700">A detected pinout does not prove that debug access is enabled or that data is recoverable.</text>
+</g></svg>
