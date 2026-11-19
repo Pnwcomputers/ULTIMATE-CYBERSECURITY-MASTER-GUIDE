@@ -121,7 +121,7 @@ board.
 | **RTC Config** | `dtoverlay=i2c-rtc,pcf85063a` | `dtparam=rtc=off` + `dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0` |
 | **Serial Console** | Remove `console=serial0,115200` from cmdline.txt | Remove `console=serial0,115200` from cmdline.txt |
 | **SPI Conflict** | Disable `devterm-printer.service` | Disable `devterm-printer.service` |
-| **Onboard WiFi** | No monitor mode | No monitor mode |
+| **Onboard Wi-Fi** | Depends on image/driver; CM4 uConsole support unverified | Depends on image/driver; CM5 uConsole support unverified |
 | **Community Maturity** | Most tested, most stable | Newer, improving rapidly |
 | **PCIe** | Gen 2 (via adapter board) | Native PCIe support |
 | **NVMe EEPROM** | Usually fine, some older units need update | Native NVMe boot support |
