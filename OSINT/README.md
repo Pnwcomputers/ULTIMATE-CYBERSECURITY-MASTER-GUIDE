@@ -638,20 +638,22 @@ For an engagement, document permission, target scope, allowed methods, time wind
 
 ### Operational Security (OPSEC) Requirements
 
-**Protect yourself and your investigation:**
+Choose controls from the investigation's threat model, approved scope and organizational policy. A VPN shifts trust to its operator; Tor protects only applications configured to use it, and Tor Project recommends its own browser for web use. Neither tool authorizes access, defeats platform restrictions, nor guarantees anonymity.
 
 #### Network Security
-- ✅ **ALWAYS use VPN or Tor** for OSINT activities
-- ✅ Use dedicated networks separate from personal/corporate
-- ✅ Employ VM snapshots for clean investigative states
-- ✅ Rotate IP addresses and user agents regularly
+- ✅ Use an approved, patched and isolated environment appropriate to the investigation; record snapshots and network controls when they affect evidence.
+- ✅ Select direct organizational egress, a vetted VPN, or Tor only when permitted and suitable for the case.
+- 🚫 Do not rotate IP addresses, circuits or user-agent strings to evade rate limits, blocks or abuse controls. If authorized testing requires multiple source addresses, document the approved range and schedule.
 
 #### Identity Protection
-- ✅ Use burner accounts for social media reconnaissance
-- ✅ Never use personal accounts for investigations
-- ✅ Create detailed, believable sock puppet personas
-- ✅ Use separate email addresses for each persona
-- ✅ Use virtual phone numbers (never personal numbers)
+- ✅ Use only accounts and access methods allowed by the engagement and platform rules; document approval for any account activity.
+- ✅ Avoid personal-account use when possible, but do not create burner accounts or personas by default.
+- 🚫 Do not impersonate people or create sock-puppet identities without explicit approval, a defined purpose and review of platform rules.
+- ✅ Minimize identifiers shared with third-party services and record what information a provider receives.
+
+![OSINT OPSEC decision path for authorized network egress and identity use](../assets/diagrams/osint-opsec-scope-decision.svg)
+
+*Choose egress and account use from approved scope and the threat model. Stop or seek clarification when a platform blocks or challenges the activity; do not evade the control.*
 
 #### Data Security
 - ✅ Encrypt all collected investigation data
