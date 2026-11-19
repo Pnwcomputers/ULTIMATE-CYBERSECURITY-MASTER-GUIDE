@@ -6,22 +6,11 @@ An agent is reliable when it **does the intended work within its boundaries, det
 
 ## 1. Define the Runtime State Machine
 
-```text
-NEW -> VALIDATE_SCOPE -> PLAN -> READY
-                               |
-                               v
-                          EXECUTE_STEP
-                         /    |      \
-                  verified  uncertain  failed
-                      |         |         |
-                      v         v         v
-                 CHECKPOINT  RECONCILE  RETRY_OR_STOP
-                      |         |         |
-                      +---------+---------+
-                               |
-                               v
-                     REVIEW -> ACCEPT / BLOCK
-```
+![AI agent recovery workflow distinguishing scoped requests, attempted operations, confirmed writes, ambiguous side effects requiring reconciliation and blocked or failed steps](../assets/diagrams/ai-agent-ambiguous-write-reconciliation.svg)
+
+*Conceptual state and evidence boundaries.* A network timeout after a write attempt is an **unknown outcome**, not proof that no write occurred. Check the target state with a stable operation key before a repeat. Retrying without this readback can duplicate tickets, emails or permission changes.
+
+
 
 Use explicit statuses in a persistent store: `PENDING`, `RUNNING`, `WAITING_APPROVAL`, `VERIFYING`, `SUCCEEDED`, `FAILED`, `BLOCKED`, `CANCELLED`. State must be stored outside the model's transient reasoning.
 
