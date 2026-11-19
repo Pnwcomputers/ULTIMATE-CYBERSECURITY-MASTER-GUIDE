@@ -64,6 +64,10 @@ Orchestration](../Phase2/workflow_orchestration.md).
 
 ## 📐 1. Define the Signals Before the Dashboard
 
+![Pipeline observability flow linking producer and processing telemetry to actual consumer freshness, data reconciliation and service-level monitoring](../../assets/diagrams/pipeline-observability-reconciliation-slo.svg)
+
+*Conceptual service-reliability design.* [OpenTelemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) distinguishes traces, metrics and logs, while [Google's SRE service-level guidance](https://sre.google/workbook/implementing-slos/) ties SLOs to specific consumer-facing indicators and error budgets. A successful scheduler or healthy dashboard is not evidence that every event arrived correctly or on time.
+
 | Signal | Example definition | What it does not prove |
 | --- | --- | --- |
 | **Freshness** | Evaluation time minus newest valid event time in the published dataset | That all older events are present |
