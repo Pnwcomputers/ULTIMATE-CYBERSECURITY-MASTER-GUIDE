@@ -202,24 +202,16 @@ Model names, tags, quantization and resource requirements change. Choose from th
 and available system memory, then record the exact tag used.
 
 ```bash
-# Replace with a reviewed model and tag from the official library.
+# Replace placeholders with reviewed tags from the official library.
 ollama pull <model:tag>
-
-# Fast / lightweight
-ollama pull dolphin-phi              # 2.7B - fast responses
-
-# Code-focused
-ollama pull codellama                # 7B - code generation
-
-# Embedding model (required for RAG/document chat)
-ollama pull nomic-embed-text
+ollama pull <embedding-model:tag>
 ```
 
 ### Custom Security-Focused Modelfile
 
 ```bash
 cat > CyberDolphin <<'EOF'
-FROM dolphin-mistral
+FROM <reviewed-model:tag>
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.9
@@ -234,24 +226,18 @@ ollama run cyberdolphin
 
 ### AnythingLLM Setup (Web Interface + RAG)
 
-```bash
-# Docker deployment (recommended for servers)
-docker pull mintplexlabs/anythingllm
-
-docker run -d \
-  --name anythingllm \
-  -p 3001:3001 \
-  -v anythingllm_data:/app/server/storage \
-  mintplexlabs/anythingllm
-
-# Access at http://localhost:3001
-```
+Use the current [official Docker deployment guide](https://docs.anythingllm.com/installation-docker/overview)
+for supported storage mounts, runtime options and image tags. Bind the setup
+interface to loopback unless remote access is required, persist application data,
+and review the image version before starting the container. A bare
+`docker run -p 3001:3001` publishes on all host interfaces and is unsuitable
+for a default local-only lab.
 
 **Configure AnythingLLM → Ollama:**
 1. Settings → LLM Preference → Provider: **Ollama**
 2. Base URL: `http://localhost:11434`
-3. Model: select dolphin-mistral
-4. Settings → Embedding → Provider: Ollama → Model: nomic-embed-text
+3. Model: select an installed, reviewed tag shown by `ollama list`.
+4. Settings → Embedding: select a currently supported embedding model and record its tag.
 
 ### Ollama Environment Variables & Hardening
 
