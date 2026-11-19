@@ -943,7 +943,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ⚠️ **CRITICAL: These PDFs contain ATTACK TECHNIQUES - Written authorization REQUIRED** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Unauthorized activity may violate law, contract, or policy depending on conduct, authorization, and jurisdiction. Obtain the authorization required for your activity and follow the agreed scope.** ⚠️
 
 ⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
