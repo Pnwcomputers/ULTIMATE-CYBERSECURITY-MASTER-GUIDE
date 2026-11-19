@@ -23,6 +23,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/wireshark-capture-display-boundaries.svg": (
         "Documentation/wireshark.md",
     ),
+    "assets/diagrams/ai-soc-trust-and-approval-boundaries.svg": (
+        "AI/ai-security-operations-workflows.md",
+    ),
 }
 
 

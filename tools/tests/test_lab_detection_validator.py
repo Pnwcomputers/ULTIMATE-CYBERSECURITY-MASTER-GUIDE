@@ -61,6 +61,41 @@ class LabEvaluatorTests(unittest.TestCase):
                                     observation("negative-1", "telemetry", 1)])
         self.assertEqual(r["counts"], {"true-negative": 1, "unassessable": 1})
 
+    def test_stale_telemetry_does_not_pass_either_control(self):
+        events = [observation("positive-1", "telemetry", 8),
+                  observation("positive-1", "alert", 2, "100301"),
+                  observation("negative-1", "telemetry", 8)]
+        r = mod.evaluate(cases(), events, max_latency=5)
+        self.assertEqual(r["counts"], {"unassessable": 2})
+        self.assertEqual(r["cases"][0]["telemetry_latency_seconds"], 8)
+        self.assertEqual(r["cases"][1]["telemetry_latency_seconds"], 8)
+
+    def test_exact_latency_boundary_is_valid(self):
+        events = [observation("positive-1", "telemetry", 5),
+                  observation("positive-1", "alert", 5, "100301"),
+                  observation("negative-1", "telemetry", 5)]
+        r = mod.evaluate(cases(), events, max_latency=5)
+        self.assertEqual(r["counts"], {"true-negative": 1, "true-positive": 1})
+
+    def test_malformed_records_are_rejected_cleanly(self):
+        for bad_case in (None, [], "invalid"):
+            with self.subTest(case=repr(bad_case)), self.assertRaises(ValueError):
+                mod.evaluate([bad_case] + cases(), baseline())
+        for bad_event in (None, [], "invalid", {"test_id": ["positive-1"]}):
+            with self.subTest(event=repr(bad_event)), self.assertRaises(ValueError):
+                mod.evaluate(cases(), baseline() + [bad_event])
+        for bad_limit in (-1, float("inf"), float("nan"), True, "5"):
+            with self.subTest(limit=repr(bad_limit)), self.assertRaises(ValueError):
+                mod.evaluate(cases(), baseline(), max_latency=bad_limit)
+        bad_alert = observation("positive-1", "alert", 2, "100301")
+        bad_alert["rule_id"] = ""
+        with self.assertRaises(ValueError):
+            mod.evaluate(cases(), baseline() + [bad_alert])
+        duplicate_rules = cases()
+        duplicate_rules[0]["expected_rule_ids"] = ["100301", "100301"]
+        with self.assertRaises(ValueError):
+            mod.evaluate(duplicate_rules, baseline())
+
     def test_invalid_inputs_rejected(self):
         with self.assertRaises(ValueError):
             mod.evaluate(cases()[:1], baseline())
