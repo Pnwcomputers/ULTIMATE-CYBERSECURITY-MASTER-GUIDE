@@ -38,7 +38,7 @@ When triaging suspicious signed binaries, reviewing application-control coverage
 
 ## What is LOLB?
 
-Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed executables, DLLs, and scripts built into Windows that can be abused for malicious purposes.
+Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are legitimate or commonly available system utilities that can be abused for unintended purposes. Some are Microsoft-signed; verify the exact file, signer, version, and path.
 
 **Why they're effective:**
 - Already present on every Windows system
@@ -215,23 +215,11 @@ DeviceNetworkEvents
 
 ### Application Control (WDAC / AppLocker)
 
-```powershell
-# Block known LOLBin abuse via WDAC path rules
-# Example: Block regsvr32 from loading remote scriptlets
-# Configure via Group Policy: Computer Config > Windows Settings > Security Settings > Application Control Policies
+Create and test WDAC/AppLocker policies through your organization's managed policy workflow. Start in audit mode, pilot on representative devices, review compatibility, and document a signed rollback path before enforcement. A policy rule should target the risky behavior and context rather than broadly blocking a system binary.
 
-# Test WDAC policy with audit mode before enforcement
-ConvertFrom-CIPolicy -XmlFilePath policy.xml -BinaryFilePath policy.p7b
-CiTool --update-policy policy.p7b
-```
+### Restrict With Managed Policy
 
-### Block via Software Restriction
-
-```cmd
-:: Restrict access to specific LOLBins via GPO or ACLs
-icacls.exe "C:\Windows\System32\mshta.exe" /deny "Everyone:(X)"
-icacls.exe "C:\Windows\System32\regsvr32.exe" /deny "Everyone:(X)"
-```
+Do not change execute permissions on binaries under `C:\Windows\System32` with ad hoc ACLs. Such changes can break system components and may be difficult to reverse safely. Use centrally managed application-control policy in audit mode, review allowed administrative workflows, pilot the policy, and retain a tested rollback.
 
 ### PowerShell Hardening
 
