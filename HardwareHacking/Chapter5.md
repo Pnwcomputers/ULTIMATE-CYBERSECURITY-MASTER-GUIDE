@@ -55,140 +55,23 @@ For an end-to-end example, use the [current ChipWhisperer SCA101 capture noteboo
 
 ### Filtering and Signal Processing
 
-#### Low-Pass Filtering
+Preprocessing can make traces easier to compare, but it can also remove leakage, introduce artifacts, or create misleading correlations. Preserve raw data and record every transformation so results can be reproduced.
 
-Removes high-frequency noise above the target signal band:
+- Select filters from the measurement bandwidth, sample rate, probe response, and experiment question. A cutoff based only on the target clock is not sufficient.
+- Check that digital filtering parameters are valid for the actual sample rate and that filtering does not distort edges or points of interest.
+- Align traces only when the offset model is justified. Cross-correlation or sum-of-absolute-differences alignment can align unrelated features or leak selection bias into the analysis.
+- Apply the same documented preprocessing to comparison groups. Keep a raw-versus-processed comparison and report the transformation.
+- PCA and other dimensionality-reduction methods are exploratory; they can mix or discard leakage and should not be treated as proof of security or insecurity.
 
-```python
-from scipy.signal import butter, filtfilt
-import numpy as np
-
-def lowpass_filter(traces, cutoff_hz, sample_rate_hz, order=4):
-    nyq = sample_rate_hz / 2
-    normal_cutoff = cutoff_hz / nyq
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
-    return filtfilt(b, a, traces, axis=1)
-
-# Example: target at 7.37 MHz clock, captured at 100 MSa/s
-filtered_traces = lowpass_filter(traces, cutoff_hz=15e6, sample_rate_hz=100e6)
-```
-
-#### Band-Pass Filtering
-
-```python
-def bandpass_filter(traces, low_hz, high_hz, sample_rate_hz, order=4):
-    nyq = sample_rate_hz / 2
-    low = low_hz / nyq
-    high = high_hz / nyq
-    b, a = butter(order, [low, high], btype='band', analog=False)
-    return filtfilt(b, a, traces, axis=1)
-```
-
-#### Trace Alignment - SAD Method
-
-Timing jitter between traces destroys DPA correlation. Alignment corrects this.
-
-```python
-def align_traces_sad(traces, reference_trace, search_window=50):
-    aligned = np.zeros_like(traces)
-    ref_len = len(reference_trace)
-    
-    for i, trace in enumerate(traces):
-        best_offset = 0
-        best_sad = float('inf')
-        
-        for offset in range(-search_window, search_window + 1):
-            if offset >= 0:
-                candidate = trace[offset:offset + ref_len]
-                ref_segment = reference_trace[:len(candidate)]
-            else:
-                candidate = trace[:ref_len + offset]
-                ref_segment = reference_trace[-offset:-offset + len(candidate)]
-            
-            if len(candidate) == 0:
-                continue
-            sad = np.sum(np.abs(candidate - ref_segment))
-            if sad < best_sad:
-                best_sad = sad
-                best_offset = offset
-        
-        if best_offset >= 0:
-            aligned[i, :ref_len - best_offset] = trace[best_offset:ref_len]
-        else:
-            aligned[i, -best_offset:] = trace[:ref_len + best_offset]
-    
-    return aligned
-
-reference = np.mean(traces[:50], axis=0)
-aligned_traces = align_traces_sad(traces, reference, search_window=100)
-```
-
-#### Cross-Correlation Alignment (More Robust)
-
-```python
-from scipy.signal import correlate
-
-def align_traces_xcorr(traces, reference_trace):
-    aligned = np.zeros_like(traces)
-    for i, trace in enumerate(traces):
-        corr = correlate(trace, reference_trace, mode='full')
-        offset = np.argmax(corr) - (len(reference_trace) - 1)
-        if offset >= 0:
-            aligned[i, :len(trace)-offset] = trace[offset:]
-        else:
-            aligned[i, -offset:] = trace[:len(trace)+offset]
-    return aligned
-```
-
----
+Use manufacturer or research examples that match the exact data format and setup. The alignment routines formerly shown here had edge-case and truncation problems and have been removed.
 
 ### Correlation Power Analysis (CPA)
 
-<p align="center">
-  <img src="../assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack." width="600"/>
-</p>
+CPA compares measured traces with a predicted leakage model for candidate intermediate values. For an authorized lab exercise, use a documented, owned development target or a provided simulation dataset and verify results with known test vectors.
 
-CPA (Brier et al., 2004) is the modern standard - more efficient than original DPA's difference-of-means. Uses Pearson correlation coefficient.
+ChipWhisperer's maintained analyzer supports CPA for compatible projects. Its documented flow is to open the project, select a leakage model, run the analyzer, and inspect the key guess and convergence plots. See the [Analyzer API documentation](https://chipwhisperer.readthedocs.io/en/latest/analyzer-api.html) and the [SCA101 CPA tutorial](https://github.com/newaetech/chipwhisperer-tutorials/blob/master/courses_sca101_SOLN_Lab%204_2%20-%20CPA%20on%20Firmware%20Implementation%20of%20AES-CWNANO-CWNANO.rst).
 
-```python
-def cpa_attack(traces, plaintexts, byte_idx, poi_start=0, poi_end=None):
-    if poi_end is None:
-        poi_end = traces.shape[1]
-    
-    N = traces.shape[0]
-    T = poi_end - poi_start
-    traces_poi = traces[:, poi_start:poi_end]
-    
-    traces_mean = np.mean(traces_poi, axis=0)
-    traces_std = np.std(traces_poi, axis=0) + 1e-10
-    
-    correlation_matrix = np.zeros((256, T))
-    
-    for k_guess in range(256):
-        hw = np.array([
-            hamming_weight(SBOX[int(plaintexts[i, byte_idx]) ^ k_guess])
-            for i in range(N)
-        ])
-        
-        hw_mean = np.mean(hw)
-        hw_std = np.std(hw) + 1e-10
-        
-        centered_hw = hw - hw_mean
-        centered_traces = traces_poi - traces_mean
-        
-        numerator = np.dot(centered_hw, centered_traces) / N
-        correlation_matrix[k_guess] = numerator / (hw_std * traces_std)
-    
-    return correlation_matrix
-
-corr = cpa_attack(aligned_traces, plaintexts, byte_idx=0)
-max_corr_per_guess = np.max(np.abs(corr), axis=1)
-recovered_byte = np.argmax(max_corr_per_guess)
-print(f"Recovered key byte 0: 0x{recovered_byte:02X}")
-print(f"Correlation: {max_corr_per_guess[recovered_byte]:.4f}")
-```
-
----
+A Pearson-correlation peak is a candidate, not standalone confirmation. Review the leakage model, sampling/alignment choices, candidate ranking over traces, controls, and whether the guessed key correctly predicts outputs on independent test vectors. Report the target, software version, analysis settings, and limits. The chapter intentionally omits a generic copy-paste key-recovery script because the required project format, leakage model, and target configuration are specific to the lab.
 
 ### Visualization
 
