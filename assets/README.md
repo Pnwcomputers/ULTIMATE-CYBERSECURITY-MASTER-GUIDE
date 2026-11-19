@@ -25,6 +25,10 @@ These figures illustrate the actual decision points in their respective guides; 
 | [Wardrive Go Platform Collection Boundaries](./diagrams/wardrive-go-platform-collection-boundaries.svg) | [Wardrive Go Mobile Surveys](../Wardriving/wardrive-go.md) | Android and iOS radio paths, optional external receiver, GPS session review, privacy before upload |
 | [Cyberdeck Assessment Gates](./diagrams/cyberdeck-seven-stage-assessment-gates.svg) | [Cyberdeck Assessment Workflow](../Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) | Four visual groups summarizing the seven manual assessment stages |
 | [MCP Trust & Approval Gates](./diagrams/mcp-trust-and-approval-boundaries.svg) | [MCP Tooling & Secure Permissions](../AI/mcp-tooling-and-permissions.md) | Separate untrusted input, host policy, server-side permissions, and human approval of effects |
+| [Wireless Survey Data & Privacy Gates](./diagrams/wardriving-survey-data-privacy-gates.svg) | [Wardriving Data Handling](../Wardriving/data-handling.md) | Authorized survey records, protected originals, minimized derivatives and upload review |
+| [Cyberdeck Evidence & Redaction Lifecycle](./diagrams/cyberdeck-evidence-and-redaction-lifecycle.svg) | [Cyberdeck Evidence & Privacy](../Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md) | Offline case, SHA-256 integrity inventory, redacted derivative and controlled retention |
+| [AI Evaluation Evidence Matrix](./diagrams/ai-evaluation-evidence-matrix.svg) | [AI Evaluation & Regression Testing](../AI/ai-evaluation-and-regression-testing.md) | Separate deterministic tests, live agent behavior and independent end-state validation |
+| [uConsole Hardware & OS Preflight](./diagrams/uconsole-hardware-os-preflight-paths.svg) | [uConsole Setup](../uConsole/README.md) | CM4/CM5 distinction, native OS image, optional peripherals and physical readback |
 
 ## New Workflow & Evidence Visuals
 
