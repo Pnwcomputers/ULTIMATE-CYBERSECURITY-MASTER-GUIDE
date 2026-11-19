@@ -51,8 +51,8 @@
 
 17. [Privilege Escalation](#privilege-escalation)
 18. [Lateral Movement](#lateral-movement)
-19. [Persistence Mechanisms](#persistence-mechanisms)
-20. [Data Exfiltration](#data-exfiltration-via-dns)
+19. [Persistence Mechanisms](#persistence-mechanisms-detection-and-response)
+20. [Data Exfiltration](#dns-data-exfiltration-detection)
 21. [C2 Frameworks & Tradecraft](Tradecraft/c2-frameworks.md)
 22. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 23. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
