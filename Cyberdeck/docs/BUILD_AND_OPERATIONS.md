@@ -4,6 +4,8 @@
 
 This runbook turns the reference architecture into a sequence of decisions and checks. It supplies no vendor configuration or private application code. For official links to the hardware and software mentioned in this project, see [Device & Platform References](../README.md#device--platform-references). Complete the inventory for the actual equipment before connecting a client interface.
 
+![Five-stage Cyberdeck runbook flow from scope and inventory through zone mapping, bench checks, synthetic evidence rehearsal, and the field gate; failed or untested gates pause the workflow](./images/build-operations-flow.svg)
+
 ## 1. Establish a Minimum Build
 
 Start with an operator workstation, one segmentation router, an approved uplink and separately protected evidence storage. Add a passive sensor only after its traffic feed is demonstrated. Optional RF devices and an external runner are later milestones, not prerequisites for an offline workflow. For Flipper, Marauder, Bruce/M5StickC Plus2 and Pineapple, follow the [separate field-device setup, stop and export runbook](PORTABLE_WIRELESS_FIELD_DEVICES.md); never treat those gadgets as prewired Cyberdeck sensors.
