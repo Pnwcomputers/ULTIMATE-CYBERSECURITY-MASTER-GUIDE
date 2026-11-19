@@ -63,10 +63,11 @@ assessed and attacked, and how to harden and monitor each platform.
 
 ## 🎯 Overview
 
-Cloud is now the default deployment target, and cloud breaches are overwhelmingly
-caused by **customer-side misconfiguration and identity issues**, not provider
-failures. This section consolidates cloud security - previously scattered across
-the master guides - into shared fundamentals plus per-provider depth.
+Cloud incidents can involve customer configuration or identity, provider
+services or software, compromised credentials, and other factors. Attribute a
+cause only when incident-specific evidence supports it. This section consolidates
+cloud security - previously scattered across the master guides - into shared
+fundamentals plus per-provider depth.
 
 Like [Tradecraft](../Tradecraft/) and [WebAppSecurity](../WebAppSecurity/), the
 material is **dual-use**: each provider guide pairs the offensive view (how an
@@ -80,17 +81,26 @@ estate is enumerated and abused) with hardening and detection.
 
 *Responsibilities vary by service model, offering, and contractual terms.*
 
-The provider secures the cloud; the customer secures what they put **in** it. The
-boundary shifts by service model:
+The provider secures the infrastructure and service components it operates;
+the customer secures the workloads, data, identities, and settings assigned to
+them. The boundary shifts by service model and by the specific service:
 
-| Model | Provider secures | Customer secures |
-|-------|------------------|------------------|
-| **IaaS** (VMs) | Physical, network, hypervisor | OS, patching, apps, data, IAM, network config |
-| **PaaS** (managed services) | + OS and runtime | App config, data, IAM, access policies |
-| **SaaS** | + application | Data, user access, sharing, IAM |
+| Area | IaaS (typical) | PaaS (typical) | SaaS (typical) |
+|------|----------------|----------------|----------------|
+| Datacenter, physical hosts, physical network | Provider | Provider | Provider |
+| Underlying service platform and managed runtime | Provider | Provider | Provider |
+| Guest operating system and patching | Customer | Provider | Provider |
+| Application code and deployment | Customer | Customer / shared | Provider / shared |
+| Virtual network, firewall, and service access settings | Customer | Shared / service-specific | Provider service controls; customer sharing settings |
+| Customer data, identities, and access policy | Customer | Customer | Customer |
 
-**In every model the customer owns identity, data, and configuration** - which is
-exactly where most cloud incidents occur.
+This is a high-level guide, not a contract. “Shared” and service-specific rows
+depend on the cloud product, feature, configuration, and agreement. For example,
+a provider operates the physical network, while an IaaS customer configures
+virtual networks and firewall rules. In all service models, customers still need
+to manage their data, identities, and the settings exposed to them. Use the
+provider’s matrix for the exact service before assigning a control or incident
+cause.
 
 ---
 
