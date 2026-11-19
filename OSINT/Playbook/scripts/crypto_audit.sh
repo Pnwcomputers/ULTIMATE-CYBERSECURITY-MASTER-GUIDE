@@ -277,7 +277,7 @@ audit_btc() {
         bc2_url="${bc2_url}?key=${BLOCKCHAIR_API_KEY}"
     fi
     local http_code2
-    http_code2=$(curl -s --max-time 25 -o "$bc2_file" -w "%{http_code}" "$bc2_url")
+    http_code2=$(private_curl_status_url "$bc2_url" "$bc2_file")
     if [[ "${http_code2:-000}" == "200" ]]; then
         local first_seen last_seen
         first_seen=$(jq_or_grep "$bc2_file" ".data.\"${addr}\".address.first_seen_receiving" '"first_seen_receiving":"[^"]*"' "N/A")
@@ -521,7 +521,7 @@ audit_blockcypher() {
     [[ -n "$BLOCKCYPHER_API_KEY" ]] && url="${url}?token=${BLOCKCYPHER_API_KEY}"
 
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$url")
+    http_code=$(private_curl_status_url "$url" "$bc_file")
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local balance tx_count
