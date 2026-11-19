@@ -67,7 +67,7 @@ Preprocessing can make traces easier to compare, but it can also remove leakage,
 - Apply the same documented preprocessing to comparison groups. Keep a raw-versus-processed comparison and report the transformation.
 - PCA and other dimensionality-reduction methods are exploratory; they can mix or discard leakage and should not be treated as proof of security or insecurity.
 
-Use manufacturer or research examples that match the exact data format and setup. The alignment routines formerly shown here had edge-case and truncation problems and have been removed.
+Use documented, maintained routines that match the exact data format and setup. Check edge cases and compare processed results with the preserved raw traces.
 
 ### Correlation Power Analysis (CPA)
 
@@ -75,7 +75,7 @@ CPA compares measured traces with a predicted leakage model for candidate interm
 
 ChipWhisperer's maintained analyzer supports CPA for compatible projects. Its documented flow is to open the project, select a leakage model, run the analyzer, and inspect the key guess and convergence plots. See the [Analyzer API documentation](https://chipwhisperer.readthedocs.io/en/latest/analyzer-api.html) and the [SCA101 CPA tutorial](https://github.com/newaetech/chipwhisperer-tutorials/blob/master/courses_sca101_SOLN_Lab%204_2%20-%20CPA%20on%20Firmware%20Implementation%20of%20AES-CWNANO-CWNANO.rst).
 
-A Pearson-correlation peak is a candidate, not standalone confirmation. Review the leakage model, sampling/alignment choices, candidate ranking over traces, controls, and whether the guessed key correctly predicts outputs on independent test vectors. Report the target, software version, analysis settings, and limits. The chapter intentionally omits a generic copy-paste key-recovery script because the required project format, leakage model, and target configuration are specific to the lab.
+A Pearson-correlation peak is a candidate, not standalone confirmation. Review the leakage model, sampling/alignment choices, candidate ranking over traces, controls, and whether the guessed key correctly predicts outputs on independent test vectors. Report the target, software version, analysis settings, and limits. Follow the official analyzer workflow for the installed release because project formats, leakage models, and target configurations vary.
 
 ### Visualization
 
@@ -97,10 +97,10 @@ Test Vector Leakage Assessment (TVLA) commonly compares measurements from define
 
 Some protocols use an absolute t-statistic threshold of 4.5 as a screening heuristic. The threshold is not a universal boundary between secure and insecure behavior. Exceeding it indicates a leakage signal worth investigating, not proof of key recovery; failing to exceed it does not prove the absence of leakage. A first-order fixed-versus-random test can also miss leakage detectable by other test vectors or higher-order methods.
 
-TVLA assesses a statistical difference under a specific test. It does not directly measure key-recovery success or the effectiveness of every countermeasure. See the original [TVLA methodology paper](https://csrc.nist.gov/csrc/media/events/non-invasive-attack-testing-workshop/documents/08_goodwill.pdf) and the specialist discussion of [applying TVLA to public-key cryptography](https://eprint.iacr.org/2016/513.pdf).
+TVLA assesses a statistical difference under a specific test. It does not directly measure key-recovery success or the effectiveness of every countermeasure. See the [NIST workshop listing](https://csrc.nist.gov/events/2011/non-invasive-attack-testing-workshop) and the [TVLA methodology paper](https://www.rambus.com/wp-content/uploads/2015/08/a-testing-methodology-for-side-channel-resistance-validation.pdf), plus the specialist discussion of [applying TVLA to public-key cryptography](https://eprint.iacr.org/2016/513.pdf).
 
 ## Related Files
-- [Chapter4.md](Chapter4.md) - Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
+- [Chapter4.md](Chapter4.md) - Theory foundation: timing, DPA, CPA, and EM side-channel concepts used in this chapter
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: target-dependent shunt selection, probe loading, and safe measurement setup
 - [Chapter3.md](Chapter3.md) - Fault injection: a distinct active technique with different measurement and evaluation requirements
 
