@@ -625,6 +625,7 @@ Original conceptual decision map separating task intent, network-path choices, o
 | Diagram | Embedded guide |
 |---|---|
 | [Anonymity layering decision map](./diagrams/opsec-anonymity-layering-decisions.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) |
+| [VPS tunnel health checks](./diagrams/opsec-vps-tunnel-health-checks.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) | Separate listener, SSH, destination, and bypass checks |
 
 ## Whonix And Kicksecure USB Boundaries Visual
 
