@@ -209,7 +209,7 @@ docker run -d \
   -v anythingllm_models:/app/server/storage/models \
   mintplexlabs/anythingllm
 
-# Access at http://localhost:3001
+# Local-host access at http://localhost:3001 (loopback-only port publishing)
 ```
 
 #### Method 3: From Source (Developers)
@@ -255,6 +255,8 @@ Now let's connect AnythingLLM to your local Ollama instance.
 3. **Verify Connection**:
    - AnythingLLM will test the connection
    - You should see a green checkmark if successful
+
+**Container networking note:** This Docker example publishes the UI only on host loopback. If Ollama runs on the host and AnythingLLM runs in a separate container, container-local `localhost` will not reach it. Configure a host/service address supported by your platform and restrict it to the required Docker network; do not expose port 11434 broadly. See the linked AnythingLLM localhost guidance below.
 
 ### Troubleshooting Connection Issues
 
@@ -672,15 +674,21 @@ Convert this technical specification into user-friendly documentation for non-te
    - Secure physical access to servers
 
 4. **Network Isolation**:
-```bash
-# Bind Ollama to localhost only (Linux)
-# Edit: /etc/systemd/system/ollama.service
+
+For a host-local setup, Ollama's default loopback binding can be retained. Add a cloud-disable setting to the Ollama service to prevent its cloud features:
+
+```ini
+# systemd drop-in for ollama.service
+[Service]
+Environment="OLLAMA_NO_CLOUD=1"
 Environment="OLLAMA_HOST=127.0.0.1:11434"
 
 # Restart service
 sudo systemctl daemon-reload
 sudo systemctl restart ollama
 ```
+
+The loopback address is suitable when AnythingLLM shares the host network namespace. A Docker container cannot reach a host service through container-local `localhost`; use a restricted host/service route and firewall it to the required network. Verify the active configuration and egress policy before calling the deployment air-gapped.
 
 ## Part 12: Advanced Configuration
 
@@ -817,28 +825,21 @@ ollama pull llava              # Vision tasks
 
 | Feature | Offline Setup | ChatGPT Plus | Claude Pro |
 |---------|--------------|--------------|------------|
-| Monthly Cost | $0 (after hardware) | $20/month | $20/month |
+| Ongoing cost | Hardware, electricity, and administration | Current plan and usage pricing varies | Current plan and usage pricing varies |
 | Privacy | Can process locally; verify the full deployment and provider settings | Check provider-specific terms and controls | Check provider-specific terms and controls |
 | Internet Required | Not for local inference after setup; updates and optional integrations may need it | Service-dependent | Service-dependent |
 | Response Speed | Varies by hardware | Fast | Fast |
 | Model Updates | Manual | Automatic | Automatic |
-| Censorship | None (Dolphin) | Yes | Yes |
-| API Access | Free (local) | Pay per token | Pay per token |
+| Model behavior | Varies by model and configuration | Provider/model-specific | Provider/model-specific |
+| API access cost | No provider token bill for local inference; hardware and operations still cost money | Check current API pricing | Check current API pricing |
 | Customization | Full control | Limited | Limited |
 
 ### Cost Analysis
 
-**Year 1**:
-- Hardware (if needed): $500-2000
-- Software: $0
-- **Total**: $500-2000
-
-**Cloud Alternative (Year 1)**:
-- Subscription: $240 ($20/mo × 12)
-- API usage: $100-500 (varies)
-- **Total**: $340-740
-
-**Break-even**: 12-24 months depending on usage and existing hardware.
+Compare total ownership costs rather than a single price: hardware, electricity, administration,
+model/API usage, and the current subscription or API plan all matter. Provider plan limits,
+features, and prices change; consult the current [OpenAI pricing information](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus)
+and [Anthropic pricing page](https://www.anthropic.com/pricing) before making a comparison.
 
 ## Conclusion
 
@@ -911,7 +912,7 @@ A: Check for updates monthly. Ollama and AnythingLLM release improvements regula
 A: Absolutely! Ollama supports Llama, Mistral, CodeLlama, Vicuna, and many others. Dolphin is recommended for its uncensored nature.
 
 **Q: Is this legal?**  
-A: Yes. Running open-source models locally is completely legal. Dolphin uses properly licensed base models.
+A: Model use is governed by the specific model's license and any applicable service terms. Verify the license and permitted use for the exact model/version you download; local hosting does not change those terms.
 
 **Q: Can I train or fine-tune models?**  
 A: While this guide focuses on inference, you can fine-tune models using tools like Axolotl or LLaMA Factory, then run them in Ollama.
