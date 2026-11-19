@@ -717,3 +717,11 @@ Original conceptual comparison of Android and iOS trust gates for a controlled H
 | Diagram | Embedded guide |
 |---|---|
 | [Mobile TLS proxy trust path](./diagrams/mobile-tls-proxy-trust-path.svg) | [Mobile guide](../Mobile/README.md#-mobile-https-proxy-trust-flow) |
+
+## ETL Reconciliation Visual
+
+Original conceptual flow separating extraction and transactional checkpoints from post-commit validation. The diagram distinguishes key-coverage checks from optional row-content comparison and shows the bounded-lateness limitation of a fixed overlap window.
+
+| Diagram | Embedded guide |
+|---|---|
+| [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#-8-reconciliation) |
