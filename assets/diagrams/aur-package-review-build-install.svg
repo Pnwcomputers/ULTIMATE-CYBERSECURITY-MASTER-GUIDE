@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="290" viewBox="0 0 1100 290" role="img" aria-labelledby="title desc">
+<title id="title">AUR package review and installation workflow</title>
+<desc id="desc">Acquire the PKGBUILD and files, inspect scripts and sources, build as a normal user, review the package, and install using pacman.</desc>
+<rect width="1100" height="290" rx="18" fill="#f4f7fb"/>
+<text x="550" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#17324d">Review before installing an AUR package</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="28" y="82" width="190" height="138" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><text x="123" y="120" font-size="18" font-weight="700" fill="#17324d">1 · Acquire</text><text x="123" y="154" font-size="14" fill="#234">PKGBUILD, install</text><text x="123" y="176" font-size="14" fill="#234">files, patches</text>
+<path d="M220 151h25m-10-8 10 8-10 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="255" y="82" width="210" height="138" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/><text x="360" y="120" font-size="18" font-weight="700" fill="#17324d">2 · Inspect</text><text x="360" y="154" font-size="14" fill="#234">Scripts, sources, hashes,</text><text x="360" y="176" font-size="14" fill="#234">recent changes</text>
+<path d="M467 151h25m-10-8 10 8-10 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="502" y="82" width="190" height="138" rx="14" fill="#e8e4ff" stroke="#7666b3" stroke-width="2"/><text x="597" y="120" font-size="18" font-weight="700" fill="#17324d">3 · Build</text><text x="597" y="154" font-size="14" fill="#234">Run makepkg as a</text><text x="597" y="176" font-size="14" fill="#234">normal user</text>
+<path d="M694 151h25m-10-8 10 8-10 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="729" y="82" width="165" height="138" rx="14" fill="#fbe5e5" stroke="#be5b5b" stroke-width="2"/><text x="811" y="120" font-size="18" font-weight="700" fill="#17324d">4 · Review</text><text x="811" y="154" font-size="14" fill="#234">Check package</text><text x="811" y="176" font-size="14" fill="#234">contents and metadata</text>
+<path d="M896 151h25m-10-8 10 8-10 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="931" y="82" width="145" height="138" rx="14" fill="#e4f2e8" stroke="#4c9a61" stroke-width="2"/><text x="1003" y="120" font-size="18" font-weight="700" fill="#17324d">5 · Install</text><text x="1003" y="154" font-size="14" fill="#234">Use pacman</text><text x="1003" y="176" font-size="14" fill="#234">after review</text>
+</g>
+<text x="550" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">AUR build files are user-submitted. Inspect them carefully; building does not make a package trustworthy.</text>
+</svg>
