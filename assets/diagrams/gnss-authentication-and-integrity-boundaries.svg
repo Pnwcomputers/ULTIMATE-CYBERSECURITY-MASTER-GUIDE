@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" role="img" aria-labelledby="title desc">
+<title id="title">GNSS authentication and integrity coverage boundaries</title>
+<desc id="desc">Navigation messages and satellite ranging measurements both contribute to a GNSS position solution. Galileo OSNMA authenticates E1-B navigation-message data for compatible receivers but not ranging measurements or the entire solution. RAIM checks consistency with limitations; AGC and carrier-to-noise monitoring are receiver-specific interference indicators; independent sensors and time sources provide corroboration, not proof.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#9fb4cc"/></marker></defs>
+<rect width="1400" height="700" rx="20" fill="#0b1223"/><g font-family="Arial,Helvetica,sans-serif">
+<text x="40" y="56" fill="#f8fafc" font-size="31" font-weight="700">GNSS authentication and integrity are different checks</text>
+<text x="40" y="90" fill="#b8cbe0" font-size="17">A position/time solution combines signals and receiver processing; each safeguard covers only part of the path.</text>
+<rect x="40" y="130" width="365" height="112" rx="14" fill="#172d41" stroke="#60a5fa" stroke-width="2"/>
+<text x="66" y="171" fill="#93c5fd" font-size="19" font-weight="700">Navigation-message data</text>
+<text x="66" y="203" fill="#d1e1f0" font-size="16">Ephemeris, time and related fields</text>
+<rect x="40" y="270" width="365" height="112" rx="14" fill="#172d41" stroke="#a78bfa" stroke-width="2"/>
+<text x="66" y="311" fill="#c4b5fd" font-size="19" font-weight="700">Ranging measurements</text>
+<text x="66" y="343" fill="#d1e1f0" font-size="16">Signal timing / pseudorange / propagation</text>
+<path d="M406 186h118v68h65M406 326h118v-72h65" fill="none" stroke="#9fb4cc" stroke-width="2.5" marker-end="url(#a)"/>
+<rect x="595" y="195" width="260" height="118" rx="16" fill="#20374b" stroke="#34d399" stroke-width="2"/>
+<text x="725" y="238" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700">Receiver PVT solution</text>
+<text x="725" y="271" text-anchor="middle" fill="#d1e1f0" font-size="16">Position • velocity • time</text>
+<path d="M405 186H912V205H928" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a)"/><text x="690" y="176" fill="#6ee7b7" font-size="14">OSNMA: E1-B message data</text>
+<path d="M856 254h65" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
+<rect x="930" y="130" width="430" height="255" rx="16" fill="#172d41" stroke="#60a5fa" stroke-width="2"/>
+<text x="958" y="169" fill="#93c5fd" font-size="20" font-weight="700">Coverage checks</text>
+<text x="958" y="206" fill="#f8fafc" font-size="17" font-weight="700">Galileo OSNMA → navigation message only</text>
+<text x="958" y="233" fill="#d1e1f0" font-size="15">E1-B data authentication; compatible receiver required.</text>
+<text x="958" y="272" fill="#f8fafc" font-size="17" font-weight="700">RAIM → measurement consistency</text>
+<text x="958" y="299" fill="#d1e1f0" font-size="15">Limited against some coherent or misleading signals.</text>
+<text x="958" y="338" fill="#f8fafc" font-size="17" font-weight="700">AGC / C/N₀ → interference clues</text>
+<text x="958" y="365" fill="#d1e1f0" font-size="15">Device- and band-specific; baseline and corroboration needed.</text>
+<rect x="40" y="445" width="650" height="148" rx="16" fill="#211c3a" stroke="#a78bfa" stroke-width="2"/>
+<text x="68" y="484" fill="#c4b5fd" font-size="20" font-weight="700">Independent corroboration</text>
+<text x="68" y="521" fill="#f1f5f9" font-size="16">Inertial sensors, independent clocks, network timing, or other sources</text>
+<text x="68" y="550" fill="#d1e1f0" font-size="15">Provide context, but have their own trust and failure modes.</text>
+<path d="M691 519h115v-163h120" fill="none" stroke="#9fb4cc" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="740" y="445" width="620" height="148" rx="16" fill="#34251a" stroke="#fbbf24" stroke-width="2"/>
+<text x="768" y="484" fill="#fcd34d" font-size="20" font-weight="700">Interpret signals carefully</text>
+<text x="768" y="521" fill="#f1f5f9" font-size="16">An authenticated navigation message does not make every range measurement</text>
+<text x="768" y="550" fill="#f1f5f9" font-size="16">or the computed solution authentic; missing alerts do not prove safety.</text>
+<text x="40" y="646" fill="#b8cbe0" font-size="15">Conceptual coverage map only; no GNSS signal was received or tested.</text>
+</g></svg>

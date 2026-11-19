@@ -98,9 +98,9 @@ grep -r "admin\|root\|password\|default" rootfs/etc/ --include="*.conf"
 
 GNSS signals arrive at Earth's surface at approximately **-130 dBm** - roughly 20 dB below thermal noise. This extreme weakness makes them trivially susceptible to interference:
 
-- **Open signals** - Civilian GNSS signals (GPS L1 C/A, Galileo E1-B/C) are unencrypted and unauthenticated by design
-- **No uplink** - Receivers are passive; the signal cannot "respond" to verify authenticity
-- **Predictable structure** - PRN codes, nav message formats, and satellite ephemeris are all public
+- **Open signals and authentication** - GPS L1 C/A is an open civilian signal. Galileo's E1-B navigation message can carry OSNMA authentication data: the Initial Service became operational on July 24, 2025. OSNMA requires a compatible receiver implementation and authenticates navigation-message data; it does not by itself authenticate ranging measurements or guarantee the final position/time solution.
+- **Passive reception** - A receiver cannot challenge a satellite over the navigation signal, but lack of an uplink does not rule out broadcast-message authentication such as OSNMA.
+- **Public signal structure** - PRN codes and navigation-message formats are public; authentication and encryption are separate properties.
 
 #### Attack Types
 
@@ -110,7 +110,7 @@ Broadband noise or CW interference on GNSS frequencies. Low technical barrier - 
 
 - Effective range: meters to kilometers depending on power
 - Impact: loss of PNT - navigation, timing systems fail
-- Detection: GNSS receiver AGC spike; multiple receivers losing fix simultaneously
+- Detection: Receiver-specific AGC and carrier-to-noise ratio (C/N₀) changes can flag possible interference. Establish a receiver/band baseline and corroborate across independent sources; these indicators do not identify every jammer or attack.
 - Countermeasures: Antenna nulling (CRPA), inertial navigation fallback, multi-frequency receivers
 
 **Spoofing**
@@ -156,12 +156,19 @@ Spoofing attack progression:
 
 | Countermeasure | Description |
 |----------------|-------------|
-| **GPS Signal Authentication (NMA)** | Galileo OSNMA now live; GPS CHIPS-Message authentication in development |
-| **Multi-constellation / multi-frequency** | Spoofing all constellations simultaneously is far harder |
-| **Receiver Autonomous Integrity Monitoring (RAIM)** | Statistical consistency checks across visible satellites |
-| **IMU integration** | Inertial navigation cross-check; anomaly detection on PVT jumps |
-| **Signal strength monitoring** | Sudden AGC change indicates jamming; abnormally strong signal indicates spoofing |
-| **Clock anomaly detection** | Time jumps inconsistent with receiver dynamics indicate spoofing |
+| **Galileo OSNMA** | Operational service authenticates E1-B navigation-message data on compatible receivers; it does not by itself authenticate ranging measurements or guarantee a position solution |
+| **GPS civilian signal authentication research** | Chips-Message Robust Authentication (Chimera) is a research concept combining navigation-data and spreading-code authentication; do not infer operational deployment from the 2017 paper |
+| **Multi-constellation / multi-frequency** | Adds signal diversity, but is not proof of authenticity |
+| **Receiver Autonomous Integrity Monitoring (RAIM)** | Provides receiver integrity checks, but is only partially effective against some misleading signals; no alert does not prove signal authenticity |
+| **Signal strength / AGC / C/N₀ monitoring** | Receiver- and band-specific changes can indicate interference; baseline and corroboration are required, and detection is incomplete |
+| **IMU integration** | Inertial cross-checks can reveal some PVT inconsistencies; performance depends on the sensor and error growth |
+| **Clock anomaly detection** | Time disagreements can be a clue; corroborate with independently trusted time because network time may also be wrong or spoofed |
+
+![GNSS position solution sources and the different coverage limits of OSNMA, RAIM, AGC/CN0 monitoring, and independent sensor checks](../assets/diagrams/gnss-authentication-and-integrity-boundaries.svg)
+
+*Conceptual coverage map. OSNMA authenticates Galileo navigation-message data on E1-B; RAIM checks consistency; AGC/C/N₀ are receiver-specific interference indicators. No single check proves that the complete navigation solution is authentic.*
+
+Sources: [Galileo OSNMA service description](https://www.gsc-europa.eu/galileo/services/galileo-open-service-navigation-message-authentication-osnma), [OSNMA Service Definition Document](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo-OSNMA-SDD_v1.0.pdf), [Android GNSS spoof/jam detection limits](https://developer.android.com/develop/sensors-and-location/sensors/gnss-spoof-jam), [FAA RAIM advisory](https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part2_enr_section_4.1.html), and [Chimera research paper](https://www.ion.org/publications/abstract.cfm?articleID=15206).
 
 ---
 
