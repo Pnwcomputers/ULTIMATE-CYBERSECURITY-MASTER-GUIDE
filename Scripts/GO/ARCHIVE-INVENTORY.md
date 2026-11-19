@@ -1,6 +1,6 @@
 # Historical Scripts: Provenance, Syntax & Disposition
 
-_Review date: November 11, 2026 · Coverage: all 39 archived Python files under `Scripts/GO/` · 21 Python 3 AST parser failures (not execution failures)._
+_Review date: November 11, 2026 · Coverage: all 39 archived Python files under `Scripts/GO/` · 14 Python 3 AST parser failures after retiring six scripts (not execution failures)._
 
 ## Scope & Safety
 
@@ -16,22 +16,22 @@ A copyright or redistribution header indicates a notice exists in that file; it 
 |---|---|
 | **Historical Only** | Retain as research reference, never recommend as installation-ready or invoke from automation |
 | **Modernize Only With Fixtures** | May be worth a separate isolated Python 3 rewrite from reviewed source; require provenance, sanitized input/expected output, error-path tests and license compliance first |
-| **Retire From Active Index** | Preserve archival history, but do not route users to this as a working attack/credential/exploit/scanning tool; any educational replacement must undergo a new safety and maintenance review |
+| **Retired in place (inert)** | Preserve the path and disposition note, but remove the runnable attack/credential/exploit behavior; any educational replacement must undergo a new safety and maintenance review |
 
-The manifest is maintained at [archive_manifest.json](archive_manifest.json); a regression test checks file coverage and the 21 parser classifications. It does **not** run archived scripts.
+The manifest is maintained at [archive_manifest.json](archive_manifest.json); a regression test checks file coverage and parser classifications. It does **not** run archived scripts.
 
 ## Per-File Review
 
 | Archived Python File | Source Header Attribution | Python 3 AST | Disposition |
 |---|---|---|---|
-| [`bruteforce/brute_http_basic.py`](bruteforce/brute_http_basic.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
+| [`bruteforce/brute_http_basic.py`](bruteforce/brute_http_basic.py) | AverageSecurityGuy | Inert notice — former code removed | Retired in place (inert) |
 | [`bruteforce/brute_http_form.py`](bruteforce/brute_http_form.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
-| [`bruteforce/brute_http_ntlm.py`](bruteforce/brute_http_ntlm.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
+| [`bruteforce/brute_http_ntlm.py`](bruteforce/brute_http_ntlm.py) | AverageSecurityGuy | Inert notice — former code removed | Retired in place (inert) |
 | [`bruteforce/brute_ssh_keyboard.py`](bruteforce/brute_ssh_keyboard.py) | Unattributed in file header | Syntax parsed; runtime untested | Retire From Active Index |
-| [`bruteforce/cassbrute.py`](bruteforce/cassbrute.py) | Unattributed in file header | Syntax parsed; runtime untested | Retire From Active Index |
-| [`bruteforce/firewarebf.py`](bruteforce/firewarebf.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
-| [`bruteforce/multi_ssh.py`](bruteforce/multi_ssh.py) | Unattributed in file header | Legacy syntax — fails | Retire From Active Index |
-| [`bruteforce/sw_ike.py`](bruteforce/sw_ike.py) | Unattributed in file header | Legacy syntax — fails | Retire From Active Index |
+| [`bruteforce/cassbrute.py`](bruteforce/cassbrute.py) | Unattributed in file header | Inert notice — former code removed | Retired in place (inert) |
+| [`bruteforce/firewarebf.py`](bruteforce/firewarebf.py) | AverageSecurityGuy | Inert notice — former code removed | Retired in place (inert) |
+| [`bruteforce/multi_ssh.py`](bruteforce/multi_ssh.py) | Unattributed in file header | Inert notice — former code removed | Retired in place (inert) |
+| [`bruteforce/sw_ike.py`](bruteforce/sw_ike.py) | Unattributed in file header | Inert notice — former code removed | Retired in place (inert) |
 | [`database/mysql_search.py`](database/mysql_search.py) | Unattributed in file header | Syntax parsed; runtime untested | Historical Only |
 | [`enumeration/ad_self_service_miner.py`](enumeration/ad_self_service_miner.py) | Unattributed in file header | Legacy syntax — fails | Retire From Active Index |
 | [`enumeration/dnsbrute.py`](enumeration/dnsbrute.py) | Unattributed in file header | Syntax parsed; runtime untested | Historical Only |
@@ -40,8 +40,8 @@ The manifest is maintained at [archive_manifest.json](archive_manifest.json); a 
 | [`enumeration/smtp_enum.py`](enumeration/smtp_enum.py) | LCI Technology Group | Syntax parsed; runtime untested | Historical Only |
 | [`enumeration/texttable.py`](enumeration/texttable.py) | Tenable Network Security | Legacy syntax — fails | Modernize Only With Fixtures |
 | [`enumeration/usernames.py`](enumeration/usernames.py) | LCI Technology Group | Syntax parsed; runtime untested | Historical Only |
-| [`exploit/ssh_pwn.py`](exploit/ssh_pwn.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
-| [`exploit/ssh_super_virus.py`](exploit/ssh_super_virus.py) | AverageSecurityGuy | Legacy syntax — fails | Retire From Active Index |
+| [`exploit/ssh_pwn.py`](exploit/ssh_pwn.py) | AverageSecurityGuy | Inert notice — former code removed | Retired in place (inert) |
+| [`exploit/ssh_super_virus.py`](exploit/ssh_super_virus.py) | AverageSecurityGuy | Inert notice — former code removed | Retired in place (inert) |
 | [`osint/gravatar.py`](osint/gravatar.py) | LCI Technology Group | Legacy syntax — fails | Historical Only |
 | [`osint/shodan_ip.py`](osint/shodan_ip.py) | Unattributed in file header | Syntax parsed; runtime untested | Historical Only |
 | [`passwords/passfilter.py`](passwords/passfilter.py) | AverageSecurityGuy | Legacy syntax — fails | Modernize Only With Fixtures |
@@ -66,7 +66,7 @@ The manifest is maintained at [archive_manifest.json](archive_manifest.json); a 
 
 ## Critical Compatibility & Risk Notes
 
-- The **21 syntax-failing files** contain Python 2 patterns such as print statements; modernizing print alone is insufficient when libraries like `Queue`, `urllib2`, `BaseHTTPServer` or byte/string semantics changed. Python 2 is end-of-life and is not a recommended mitigation.
+- The **14 remaining syntax-failing files** contain Python 2 patterns such as print statements; modernizing print alone is insufficient when libraries like `Queue`, `urllib2`, `BaseHTTPServer` or byte/string semantics changed. Python 2 is end-of-life and is not a recommended mitigation.
 - Historical credential testing, active enumeration, exploitation, remote shells and file-serving examples must **not** run on customer networks merely because their source is present. `enumeration/ad_self_service_miner.py` explicitly disables certificate verification; do not treat that as a safe default.
 - `osint/shodan_ip.py` contains an empty API key placeholder. Do not embed real secrets in this public repository. Live providers and billing/terms remain unverified.
 - `cloud/s3browse.go` is also an unfinished Go sketch; it is not covered by the Python-only count.
