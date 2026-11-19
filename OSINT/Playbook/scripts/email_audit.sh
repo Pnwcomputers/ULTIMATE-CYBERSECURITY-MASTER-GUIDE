@@ -314,8 +314,9 @@ query_hunter_verify() {
 
     log "${GREEN}    [*] Verifying email with Hunter.io...${NC}"
     
-    curl -s "https://api.hunter.io/v2/email-verifier?email=$EMAIL&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/email-verifier?email=$EMAIL_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         STATUS=$(jq -r '.data.status // "unknown"' "$OUTPUT" 2>/dev/null)
@@ -340,8 +341,9 @@ query_abstractapi_email() {
 
     log "${GREEN}    [*] Validating email with AbstractAPI...${NC}"
     local HTTP_CODE
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
-        "https://emailvalidation.abstractapi.com/v1/?api_key=${ABSTRACTAPI_EMAIL_KEY}&email=${EMAIL}")
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_url "https://emailvalidation.abstractapi.com/v1/?api_key=${ABSTRACTAPI_EMAIL_KEY}&email=${EMAIL_ENCODED}" "$OUTPUT")
 
     if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         local deliverability is_valid_format is_disposable is_free
@@ -369,8 +371,9 @@ query_hunter_domain() {
 
     log "${GREEN}    [*] Searching Hunter.io for related emails on $DOMAIN...${NC}"
     
-    curl -s "https://api.hunter.io/v2/domain-search?domain=$DOMAIN&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local DOMAIN_ENCODED
+    DOMAIN_ENCODED=$(jq -rn --arg value "$DOMAIN" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/domain-search?domain=$DOMAIN_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         EMAIL_COUNT=$(jq -r '.meta.results // 0' "$OUTPUT" 2>/dev/null)
