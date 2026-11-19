@@ -12,7 +12,7 @@ Do not treat these examples as installation-ready utilities or install obsolete
 interpreters to run them. Port and test an individual example in an isolated lab
 before considering it for use. Only test systems you own or are authorized to assess.
 
-**Subsection:** [Shells & Stagers — Source Review](shells/README.md) documents a separate historical collection of offensive source examples and their authorization and compatibility caveats.
+**Subsection:** [Retired Shell and Stager Sources](shells/README.md) records the inert disposition of retired source files.
 
 See the [per-file legacy archive disposition](ARCHIVE-INVENTORY.md) for all 39 Python examples, source-header attribution, Python 2 syntax classification, and safe preservation/retirement decisions. It is based on source inspection and AST inventory only, not execution or complete license validation.
 
