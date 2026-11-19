@@ -493,17 +493,15 @@ detect_phone_type() {
     fi
     
     
-    # Output findings
-    cat << EOF > "$OUTPUT"
-{
-    "phone": "$PHONE",
-    "normalized": "$(normalize_phone "$PHONE")",
-    "area_code": "$AREA_CODE",
-    "exchange": "$EXCHANGE",
-    "detected_type": "$PHONE_TYPE",
-    "notes": "$PHONE_NOTES"
-}
-EOF
+    # jq safely escapes user-controlled values in JSON output.
+    jq -n \
+        --arg phone "$PHONE" \
+        --arg normalized "$(normalize_phone "$PHONE")" \
+        --arg area_code "$AREA_CODE" \
+        --arg exchange "$EXCHANGE" \
+        --arg detected_type "$PHONE_TYPE" \
+        --arg notes "$PHONE_NOTES" \
+        '{phone:$phone, normalized:$normalized, area_code:$area_code, exchange:$exchange, detected_type:$detected_type, notes:$notes}' > "$OUTPUT"
 
     log "${YELLOW}    [!] Local type: $PHONE_TYPE; review provider metadata cautiously.${NC}"
     log "${YELLOW}    [!] $PHONE_NOTES${NC}"
