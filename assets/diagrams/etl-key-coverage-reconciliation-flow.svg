@@ -23,7 +23,7 @@
 <path d="M550 386v31h265v26" fill="none" stroke="#287769" stroke-width="3" marker-end="url(#arrow2)"/>
 <rect x="75" y="445" width="420" height="112" rx="15" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
 <text x="285" y="477" fill="#5b3510" font-size="18" font-weight="700">Implemented lab check</text>
-<text x="285" y="507" fill="#5b3510" font-size="15"><tspan x="285">Row count + key-set difference</tspan><tspan x="285" dy="20">→ KEY_COVERAGE_MATCH / MISMATCH</tspan><tspan x="285" dy="20">Does not compare non-key field values</tspan></text>
+<text x="285" y="507" fill="#5b3510" font-size="15"><tspan x="285">Row count + key-set difference</tspan><tspan x="285" dy="20">→ KEY_COVERAGE_MATCH / KEY_COVERAGE_MISMATCH</tspan><tspan x="285" dy="20">Does not compare non-key field values</tspan></text>
 <rect x="605" y="445" width="420" height="112" rx="15" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
 <text x="815" y="477" fill="#143b36" font-size="18" font-weight="700">Optional content check</text>
 <text x="815" y="507" fill="#143b36" font-size="15"><tspan x="815">Compare selected columns by key, or use</tspan><tspan x="815" dy="20">canonical row hashes plus duplicate-aware</tspan><tspan x="815" dy="20">counts for stronger evidence</tspan></text>
