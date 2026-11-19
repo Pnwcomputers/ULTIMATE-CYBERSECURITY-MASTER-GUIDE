@@ -192,6 +192,17 @@ private_curl_json_url() {
     local -a statuses=("${PIPESTATUS[@]}")
     return "${statuses[1]}"
 }
+private_curl_hibp() {
+    local URL="$1" OUTPUT="$2"
+    [[ "$URL" =~ ^https://haveibeenpwned\\.com/api/v3/(breachedaccount|pasteaccount)/[A-Za-z0-9._%+-]+([?]truncateResponse=false)?$ ]] || return 2
+    [[ "$HIBP_KEY" =~ ^[A-Za-z0-9._-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\\n' "$URL"
+        printf 'header = "hibp-api-key: %s"\\n' "$HIBP_KEY"
+        printf 'header = "user-agent: PNWC-Email-Audit"\\n'
+    } | curl --config - --silent --show-error --max-time 20 --output "$OUTPUT" --write-out "%{http_code}"
+}
+
 private_curl_status_url() {
     local URL="$1" OUTPUT="$2"
     [[ "$URL" == https://* && "$URL" != *'"'* ]] || return 2
@@ -250,10 +261,9 @@ query_hibp_breaches() {
 
     log "${GREEN}    [*] Checking HaveIBeenPwned for breaches...${NC}"
     
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
-        "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL?truncateResponse=false" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: PNWC-Email-Audit")
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_hibp "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL_ENCODED?truncateResponse=false" "$OUTPUT")
     
     if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         BREACH_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
@@ -287,10 +297,9 @@ query_hibp_pastes() {
 
     log "${GREEN}    [*] Checking HaveIBeenPwned for pastes...${NC}"
     
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
-        "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: PNWC-Email-Audit")
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_hibp "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL_ENCODED" "$OUTPUT")
     
     if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         PASTE_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
