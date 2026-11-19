@@ -7,7 +7,7 @@ Index of the PDF reference library - curated security PDFs, cheat sheets, and re
 Indexes categorized PDFs covering: penetration testing methodology, CTF reference sheets, network protocols, exploit development, malware analysis, compliance frameworks (NIST, PCI-DSS, ISO 27001), tool manuals, and course materials - maintained as locally accessible offline references.
 
 ## 🏆 Goal
-Provide reliable offline access to critical security reference materials that would otherwise require internet connectivity, ensuring availability during air-gapped engagements or unreliable network conditions.
+Provide organized offline access to security references for study and reference. These PDFs are third-party or archival materials and may contain outdated commands, vulnerabilities, or legal guidance; verify important details against current primary sources before relying on them.
 
 ## 📋 When To Use
 - Preparing for an engagement and downloading relevant offline references
@@ -16,7 +16,7 @@ Provide reliable offline access to critical security reference materials that wo
 
 <div align="center">
 
-**Comprehensive collection of cybersecurity reference materials, cheat sheets, and technical guides**
+**Organized collection of cybersecurity reference materials, cheat sheets, and technical guides**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -758,7 +758,7 @@ We welcome high-quality PDF contributions from security professionals.
 - ✅ Legal and ethical warnings included
 - ✅ Organized and well-structured
 - ✅ Relevant to cybersecurity professionals
-- ✅ Current and up-to-date information
+- ✅ Archived and supplemental reference material
 
 #### What We're Looking For
 
@@ -825,9 +825,9 @@ We welcome high-quality PDF contributions from security professionals.
 ## 📊 Repository Statistics
 
 ```
-📁 Current PDFs: 18 reference documents
+📁 Listed PDFs: 18 reference documents
 📖 Categories: AD Security, Pentesting, Linux, Network, Web, Wireless, SSH, Docker
-🔄 Last Updated: November 2024
+🔄 Inventory reviewed: November 2026; document contents are not individually certified as current
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active Library
 ```

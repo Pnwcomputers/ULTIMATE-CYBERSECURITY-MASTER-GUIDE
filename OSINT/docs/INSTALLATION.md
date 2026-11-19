@@ -20,10 +20,10 @@
 ```bash
 git clone https://github.com/PNW-Computers/osint.git
 cd osint
-sudo bash playbook/install_dependencies.sh
+bash playbook/install_dependencies.sh
 ```
 
-The installer auto-detects your distro and handles apt, dnf, or pacman accordingly.
+Run the installer as your normal user; it refuses to run as root and may request only the specific administrative actions it needs. Review the script before use. It auto-detects supported package managers.
 
 ---
 
@@ -133,10 +133,11 @@ python -m pip install -r ~/.config/osint-investigator/tools/blackbird/requiremen
 ```
 
 **ASN Lookup**
-```bash
-curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn | sudo tee /usr/bin/asn > /dev/null
-sudo chmod +x /usr/bin/asn
-```
+
+The upstream project is [nitefood/asn](https://github.com/nitefood/asn). Follow its
+documented installation process and inspect the source before use. Do not pipe a
+moving branch directly into a privileged system path; verify a pinned release and
+its published checksums or signatures when available.
 
 ---
 

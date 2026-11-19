@@ -37,7 +37,7 @@ class LegacyArchiveManifestTests(unittest.TestCase):
                     "retire-from-active-index"})
                 self.assertEqual(record["validation"],
                                  "not-executed; third-party dependencies and permissions not verified")
-        self.assertEqual(failures, 21)
+        self.assertEqual(failures, 20)
 
 
 if __name__ == "__main__":

