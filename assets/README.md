@@ -81,6 +81,18 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [Social Account Source Provenance](./diagrams/social-osint-account-provenance-verification.svg) | [Social Media OSINT](../OSINT/OSINT_socialmedia.md) | Matching handles and profile images are leads until independently corroborated |
 | [uConsole CM5 Display Recovery](./diagrams/uconsole-cm5-display-diagnostic-recovery.svg) | [CM5 Display Recovery](../uConsole/CM5-DISPLAY-RECOVERY.md) | Exact image, session versus rotation diagnosis, package side effects and hardware validation |
 
+## Network Monitoring, Locksport, WPA Evidence, C5 Wardriving & Hardware Test Bench
+
+These original accessible diagrams are embedded in their canonical chapters and include explicit limitations on capture modes, physical measurements, protocol scope or test evidence.
+
+| Image | Embedded Guide | Visual Purpose |
+|---|---|---|
+| [Network Sensor Placement & Evidence](./diagrams/network-detection-sensor-coverage-and-evidence.svg) | [Network Detection & Packet Analysis](../Tradecraft/network-detection.md) | WAN/DMZ/east-west vantage points, packet acquisition, Zeek/Suricata processing, SIEM validation |
+| [Pin-Tumbler Shear Line Cutaway](./diagrams/locksport-pin-tumbler-shear-line.svg) | [Locksport Mechanical Fundamentals](../Documentation/Locksport.md) | Side-by-side locked/appropriately keyed pin-stack alignment |
+| [WPA-PBKDF2 PMKID/EAPOL Audit Boundaries](./diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg) | [HCXTools & Hashcat Reference](../Documentation/hcxtoolshashcat.md) | RF active/passive mode gates, original PCAPNG, offline conversion and Hashcat 22000 applicability |
+| [ESP32-C5 Normal, Node & Core](./diagrams/esp32-c5-wardriver-normal-node-core.svg) | [ESP32-C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Device roles, GNSS/SD logging, Node observations and Core aggregation |
+| [Hardware Bench Diagnostic & Write Safety](./diagrams/hardware-bench-inventory-stress-storage-safety.svg) | [Manjaro Intel Hardware Test Bench](../HardwareTesting/Manjaro_Intel_TestBench.md) | Baseline, telemetry, bounded stress, write-test permission and reproducible results |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |

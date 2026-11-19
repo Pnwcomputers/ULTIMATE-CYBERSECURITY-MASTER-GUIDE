@@ -16,6 +16,10 @@ It is separate from Marauder, Biscuit and the Flipper SigRoam application.
 
 ## Select Hardware & Mode
 
+![ESP32-C5 Wardriver in Normal mode logging GNSS-tagged observations locally, Node mode forwarding radio observations and Core mode receiving, geotagging and logging observations from nodes](../assets/diagrams/esp32-c5-wardriver-normal-node-core.svg)
+
+*Conceptual firmware roles.* The [upstream ESP32 Dual Band Wardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) documents Normal, Node and Core operation. Only the configured collection role produces RF observations; a Core is not automatically an extra sensor, and a Node is not assumed to save a standalone CSV. Validate the correct board build, radio-mode behavior, GPS/SD status and privacy defaults before deploying.
+
 | Item | Requirement / Consequence |
 |---|---|
 | Board | Documented C5 DevKit/host-board build or LilyGo T-Dongle C5 build. The MCU identifier cannot distinguish their pin maps. |

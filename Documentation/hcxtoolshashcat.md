@@ -1,19 +1,19 @@
 # HCXTools & Hashcat Cheat Sheet ⚡
 
 ## 🎯 Purpose
-Practical command reference for the modern passive WiFi capture workflow using hcxtools, and for cracking the resulting hashes with Hashcat. This covers PMKID capture (clientless - no deauth needed) and EAPOL handshake capture, then unified cracking with mode 22000.
+Practical reference for properly authorized WPA-PSK capture evidence, offline PMKID/EAPOL conversion and bounded password-strength validation with Hashcat. Capture behavior must be independently verified; this is not a passive-only hcxdumptool recipe.
 
 ## ⚙️ Function
-Organized by workflow phase: interface prep → passive capture → file conversion → hashcat cracking → advanced options. Focuses on the **hcxtools** suite (`hcxdumptool`, `hcxpcapngtool`), which differs from the classic aircrack-ng workflow in that it captures passively without sending deauth frames and outputs directly to Hashcat's modern unified format.
+Organized around authorization/mode review, preserved packet evidence, supported offline conversion and applicable PBKDF2 audit cases. The **hcxtools** utilities have different purposes: `hcxdumptool` operates a radio and may use active behavior, whereas `hcxpcapngtool` reads an existing capture offline.
 
 See [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) for the traditional active-deauth workflow, WEP attacks, and WPS attacks.
 
 ## 🏆 Goal
-Successfully capture PMKID or EAPOL frames from a target network, convert them to Hashcat's unified format, and recover the pre-shared key via dictionary or rule-based attack.
+Validate captured PSK-derived PMKID/EAPOL records from approved test systems and, where authorized, assess the resilience of known lab passphrases. Explicitly document cases where protocol, packet coverage or key-derivation assumptions prevent a meaningful test.
 
 ## 📋 When to Use
-- When you need a **clientless** attack (PMKID doesn't require waiting for a client to authenticate)
-- When you want **passive capture** without sending disruptive deauth frames
+- For an authorized PSK lab capture that includes an applicable PMKID record; availability depends on the AP and protocol
+- When comparing truly receive-only packet observation to active wireless testing, after confirming the chosen program's behavior
 - When integrating with a Pwnagotchi or similar automated passive capture rig (see [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md))
 - When you have a `.pcapng` from any source and need to convert it to Hashcat format
 
@@ -21,56 +21,49 @@ Successfully capture PMKID or EAPOL frames from a target network, convert them t
 
 ## Basic Workflow: PMKID & Handshake Capture
 
-**1. Prepare the Interface (Required for HCX Tools)**
+![Authorized Wi-Fi PSK audit separates radio active/passive behavior review, preserved PCAPNG evidence, validated PMKID/EAPOL conversion and applicable Hashcat 22000 PBKDF2 testing](../assets/diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg)
+
+*Conceptual format and authorization boundaries, not a live RF capture.* The upstream [hcxdumptool project](https://github.com/ZerBea/hcxdumptool) supports active monitoring and modes/settings change across releases. **Never assume a command is passive merely because it does not explicitly request deauthentication.** The [Hashcat 22000 source module](https://github.com/hashcat/hashcat/blob/master/src/modules/module_22000.c) handles WPA-PBKDF2-PMKID/EAPOL material; it does not automatically crack WPA3-SAE-only handshakes or enterprise EAP credentials.
+
+
+**1. Confirm capture policy and installed versions**
+
+Before operating a wireless receiver, check the exact adapter/driver, RF permissions, monitor capability, capture scope and installed program options. `hcxdumptool` is **not a passive-only tool**: some modes transmit or interact actively. Command-line switches in old blog posts have changed across releases; do not copy outdated `--filtermode`, `--bssid`, `--enable_status` or other RF options without validating `hcxdumptool --help` on the installed version.
+
+For a strictly passive lab observation, use a receive-only configuration verified against known owned equipment; capture may be produced separately by TShark or another appropriately configured packet receiver. Never use this guide to interfere with third-party clients.
+
+**2. Preserve and examine an existing, authorized capture**
+
+Save the raw PCAP/PCAPNG with source, device, UTC time, channel coverage, adapter mode and file checksum. Use Wireshark or TShark to check which frames were actually captured and whether the observation is relevant to the intended PSK network. Missing data cannot be interpreted as proof of strong security.
+
+**3. Convert eligible WPA-PSK material offline**
+
 ```bash
-sudo ip link set wlan1 down          # Bring interface down before hcxdumptool takes it
-sudo hcxdumptool -i wlan1 -o dump.pcapng --disable_deauthentication
-# hcxdumptool manages monitor mode internally - no airmon-ng needed
+# Read an existing, authorized PCAPNG only; do not operate a radio.
+# Confirm current syntax against hcxpcapngtool --help.
+hcxpcapngtool -o hash.hc22000 capture.pcapng
 ```
 
-**2. Capture Management Frames (PMKID & EAPOL)**
-```bash
-# Capture for 60 seconds; --enable_status=1 prints live status
-sudo hcxdumptool -i wlan1 -o capture.pcapng --max_time=60 --check_client_list --enable_status=1
-```
+An output file or a conversion success status does **not** establish that a valid, auditable PMKID/EAPOL exchange was present. Review tool warnings, protocol type and candidate suitability. On a WPA3-only SAE network, do **not** assume a WPA-PBKDF2 PMKID/EAPOL workflow applies. On mixed transition deployments, scope the PSK mode separately.
 
-**3. Convert to Hashcat Format (Mode 22000)**
-```bash
-# hcxpcapngtool replaced hcxpcaptool in hcxtools ≥5.3.0
-# Mode 22000 is the unified WPA/WPA2/WPA3 format (replaces deprecated 16800 and 2500)
-hcxpcapngtool -o hash.hc22000 -E essid_list.txt capture.pcapng
-# -E: writes an ESSID list alongside the hash file (useful for targeted cracking)
-```
+### Capture Mode & Version Compatibility
 
----
+| Scenario | Required check |
+|---|---|
+| Receive-only radio survey | Confirm the exact firmware/program version does not transmit in the selected mode |
+| hcxdumptool use | Inspect current project README/help; default behavior and options may include active interactions |
+| PMKID / EAPOL | Verify relevant exchange and PSK/PBKDF2 applicability before attempting an offline audit |
+| WPA3-SAE-only | Do not label it crackable by Hashcat WPA-PBKDF2 mode 22000 without a separate documented applicability proof |
+| Conversion/reporting | Preserve original capture, tool version, output warnings and authorization |
 
-## Advanced Capture Options
-
-**Targeting Specific Networks**
-```bash
-# Target only a specific BSSID on a single channel
-sudo hcxdumptool -i wlan1 -o target.pcapng --bssid AA:BB:CC:DD:EE:FF --channel 6 --enable_status=1
-```
-
-**Filtering the Output**
-```bash
-# Capture only PMKID (mode 4) and EAPOL (mode 1/3) packets - this is the default
-sudo hcxdumptool -i wlan1 -o filtered.pcapng --filtermode 4 --enable_status=1
-```
-
-**Capturing Only Beacons & Probe Requests**
-```bash
-# Non-EAPOL/PMKID frames for general reconnaissance
-sudo hcxdumptool -i wlan1 -o probes.pcapng --filtermode 3 --enable_status=1
-```
 
 ---
 
 # Hashcat Cracking (Mode 22000)
 
-Mode 22000 is the unified WPA/WPA2/WPA3 mode introduced in Hashcat 6.0. It supersedes both mode 2500 (WPA-EAPOL) and mode 16800 (WPA-PMKID-PBKDF2), which are no longer accepted in current Hashcat releases.
+Mode 22000 is identified by Hashcat as **WPA-PBKDF2-PMKID+EAPOL**. It consolidates legacy PBKDF2 PMKID and EAPOL formats (formerly 16800 and 2500); it is **not a generic WPA3-SAE password-recovery method**. Check the installed Hashcat release and the actual capture's key-derivation type.
 
-**WPA/WPA2/WPA3 - Dictionary Attack**
+**Authorized WPA/WPA2 PSK/PBKDF2 Offline Password Check**
 ```bash
 hashcat -m 22000 hash.hc22000 /path/to/wordlist.txt
 ```

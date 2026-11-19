@@ -41,39 +41,25 @@ Enable blue team practitioners to build an effective network detection stack, wr
 
 ## Detection Architecture
 
-### Sensor Placement
+![Network monitoring diagram distinguishing edge, DMZ and east-west capture points, source packet evidence, Zeek/Suricata event processing and SIEM review](../assets/diagrams/network-detection-sensor-coverage-and-evidence.svg)
 
-```
-Internet
-    │
-    ▼
-[Edge Firewall / IDS Sensor A]   ← North/south traffic
-    │
-    ▼
-[DMZ]
-    │
-    ▼
-[Internal Firewall / IDS Sensor B]  ← DMZ-to-internal
-    │
-    ▼
-[Core Switch SPAN Port / IDS Sensor C]  ← East/west (lateral movement)
-    │
-    ├──► [Server VLAN]
-    ├──► [Workstation VLAN]
-    └──► [OT/IoT VLAN]
-```
+*Conceptual visibility model.* A [managed switch SPAN configuration](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/mgmt/management-configuration-guide/span.html) or a properly installed physical TAP is necessary to observe selected unrelated switched traffic. Compare [Zeek's logging architecture](https://docs.zeek.org/en/current/tutorial/logs.html) with [Suricata EVE JSON output](https://docs.suricata.io/en/latest/output/eve/eve-json-output.html): an event log, an IDS alert and a PCAP are distinct evidence products. Test actual capture scope, packet drops and alert delivery before declaring coverage.
+
+### Sensor Placement
 
 **Capture methods:**
 
 | Method | Pros | Cons |
 |---|---|---|
 | SPAN/mirror port | No inline risk, flexible | Can drop packets at high throughput |
-| Network TAP | Hardware, lossless, passive | Physical install required |
+| Network TAP | Hardware observation of a defined inline link | Physical installation, speed/duplex and sensor capacity matter; not universally lossless |
 | Inline IPS | Active blocking possible | Single point of failure risk |
 | Agent-based (EDR) | Per-host visibility | Coverage gaps on unmanaged devices |
 | NetFlow/IPFIX | Low overhead, scalable | No payload - metadata only |
 
 ### NSM Stack Components
+
+Separate raw captures, Zeek protocol logs, Suricata detection events and indexed SIEM alerts. A detector can miss traffic because its tap, mirror feed or interface never saw the packet.
 
 ```
 Raw Packets → [Capture] → [Parser/Decoder] → [Detection Engine] → [Alert/Log]
@@ -82,6 +68,8 @@ Raw Packets → [Capture] → [Parser/Decoder] → [Detection Engine] → [Alert
                                 └──► [Flow Records for Trending]
                                 └──► [Protocol Logs (Zeek)]
 ```
+
+For output differences and version-dependent field availability, see the [official Zeek log catalog](https://docs.zeek.org/en/current/reference/logs/index.html). JA3/JA3S require appropriate version/package configuration and are not guaranteed default fields in every Zeek install. Packet metadata such as TLS SNI may also be absent or encrypted.
 
 Common stacks:
 - **Security Onion** - Zeek + Suricata + Elasticsearch + Kibana (full NSM)
@@ -124,8 +112,9 @@ tcpdump -i eth0 'tcp[tcpflags] == tcp-rst'        # RST only
 # Capture DNS
 tcpdump -i eth0 port 53 -nn
 
-# Rotate captures every 100MB
-tcpdump -i eth0 -C 100 -w capture_%Y%m%d_%H%M%S.pcap
+# Rotate by 100MB of recorded file size; tcpdump appends numeric suffixes
+# (e.g. capture.pcap, capture.pcap1). Set retention separately.
+tcpdump -i eth0 -C 100 -w capture.pcap
 
 # Read and filter existing PCAP
 tcpdump -r capture.pcap -n 'host 192.168.1.100 and port 443'
