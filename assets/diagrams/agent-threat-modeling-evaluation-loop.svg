@@ -28,7 +28,7 @@
 <rect x="38" y="435" width="1324" height="92" rx="14" fill="#20374b" stroke="#60a5fa" stroke-width="2"/>
 <text x="64" y="472" fill="#93c5fd" font-size="18" font-weight="700">Evidence record</text>
 <text x="64" y="503" fill="#e1edf6" font-size="16">Fixture and version • attempted calls • control decision • downstream state • sanitized telemetry • owner and follow-up date</text>
-<path d="M1260 393v86H160v-82" fill="none" stroke="#9fb4cc" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
+<path d="M1260 393v157H160v-157" fill="none" stroke="#9fb4cc" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
 <text x="500" y="574" fill="#b8cbe0" font-size="15">Re-scope after architecture, identity, data flow, tool, incident or threat changes.</text>
 <text x="38" y="618" fill="#cbd5e1" font-size="14">Conceptual workflow aligned with lifecycle risk-management functions; it is not a completed assessment or proof of safety.</text>
 </g></svg>
