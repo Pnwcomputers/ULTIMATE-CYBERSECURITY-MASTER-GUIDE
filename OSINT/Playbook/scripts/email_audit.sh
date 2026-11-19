@@ -194,12 +194,12 @@ private_curl_json_url() {
 }
 private_curl_hibp() {
     local URL="$1" OUTPUT="$2"
-    [[ "$URL" =~ ^https://haveibeenpwned\\.com/api/v3/(breachedaccount|pasteaccount)/[A-Za-z0-9._%+-]+([?]truncateResponse=false)?$ ]] || return 2
+    [[ "$URL" =~ ^https://haveibeenpwned\.com/api/v3/(breachedaccount|pasteaccount)/[A-Za-z0-9._%+-]+([?]truncateResponse=false)?$ ]] || return 2
     [[ "$HIBP_KEY" =~ ^[A-Za-z0-9._-]+$ ]] || return 2
     {
-        printf 'url = "%s"\\n' "$URL"
-        printf 'header = "hibp-api-key: %s"\\n' "$HIBP_KEY"
-        printf 'header = "user-agent: PNWC-Email-Audit"\\n'
+        printf 'url = "%s"\n' "$URL"
+        printf 'header = "hibp-api-key: %s"\n' "$HIBP_KEY"
+        printf 'header = "user-agent: PNWC-Email-Audit"\n'
     } | curl --config - --silent --show-error --max-time 20 --output "$OUTPUT" --write-out "%{http_code}"
 }
 
