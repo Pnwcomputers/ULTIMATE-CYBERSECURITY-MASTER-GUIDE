@@ -200,7 +200,7 @@ provide additional prevention guidance.
 
 - [Web Application Security](WebAppSecurity/README.md)
 - [Endpoint and EDR evasion defense](Tradecraft/av-edr-evasion.md)
-- [Master guide](ULTIMATE-CYBERSECURITY-MASTER-GUIDE.md)
+- [Master guide](ultimate_cybersecurity_master_guide.md)
 - [Repository index](README.md)
 - [Role navigation](START_HERE.md)
 - [Legal and responsible-use notice](LEGAL.md)
