@@ -1,7 +1,7 @@
 #!/bin/sh
 # This script installs AnythingLLMDesktop on Linux.
-# On systems with AppArmor enabled, the AppImage needs to also create a userspace
-# apparmor profile so that the AppImage can be run without SUID requirements due to root chromium ownership.
+# It does not generate AppArmor policy. Any policy for the AppImage must be
+# reviewed for the installed app and distribution before it is loaded.
 #
 # Todo: Detect the current location of the AppImage so that we can update the application
 # in-place without the user needed to manually move the application to the new location.
@@ -72,6 +72,7 @@ verify_vendor_sha256() {
     case "$expected" in
         ''|*[!0-9a-fA-F]*)
             warning "$label SHA-256 is missing or malformed."
+            warning "Set the corresponding ANYTHINGLLM_*_SHA256 variable from official vendor release metadata."
             return 1
             ;;
     esac
@@ -85,10 +86,11 @@ verify_vendor_sha256() {
     }
     actual=$(sha256sum "$artifact" | awk '{print $1}' | tr '[:upper:]' '[:lower:]') || return 1
     expected=$(printf '%s' "$expected" | tr '[:upper:]' '[:lower:]')
-    [ "$actual" = "$expected" ] || {
+    if [ "$actual" != "$expected" ]; then
         warning "$label SHA-256 mismatch; refusing to install."
         return 1
-    }
+    fi
+    return 0
 }
 
 # Stage downloads next to the destination so the final rename stays on one filesystem.
