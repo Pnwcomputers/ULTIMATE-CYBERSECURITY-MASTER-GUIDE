@@ -287,7 +287,7 @@ query_numverify() {
         return
     fi
     
-    query_api "$OUTPUT" NumVerify "http://apilayer.net/api/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" || return
+    query_api "$OUTPUT" NumVerify "https://api.apilayer.net/numverify/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" || return
 
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
