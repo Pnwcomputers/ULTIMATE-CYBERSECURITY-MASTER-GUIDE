@@ -32,6 +32,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/repository-evidence-gates.svg": (
         "Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md",
     ),
+    "assets/diagrams/osint-case-evidence-provenance.svg": (
+        "OSINT/Playbook/README.md",
+    ),
+    "assets/diagrams/wardrive-go-platform-collection-boundaries.svg": (
+        "Wardriving/wardrive-go.md",
+    ),
+    "assets/diagrams/cyberdeck-seven-stage-assessment-gates.svg": (
+        "Cyberdeck/docs/ASSESSMENT_WORKFLOW.md",
+    ),
+    "assets/diagrams/mcp-trust-and-approval-boundaries.svg": (
+        "AI/mcp-tooling-and-permissions.md",
+    ),
 }
 
 
