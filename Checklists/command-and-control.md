@@ -30,11 +30,11 @@ _C2 channel techniques and covert communication methods for red team infrastruct
 * [C2-015 - Website](https://pentestlab.blog/2017/11/14/command-and-control-website/)
 * [C2-016 - WMI](https://pentestlab.blog/2017/11/20/command-and-control-wmi/)
 * [C2-017 - WebSocket](https://pentestlab.blog/2017/12/06/command-and-control-websocket/)
-* [C2-017 - Images](https://pentestlab.blog/2018/01/02/command-and-control-images/)
-* [C2-018 - Web Interface](https://pentestlab.blog/2018/01/03/command-and-control-web-interface/)
-* [C2-019 - JavaScript](https://pentestlab.blog/2018/01/08/command-and-control-javascript/)
-* [C2-020 - Instagram ★](https://pentestlab.blog/category/red-team/command-and-control/)
-* [C2-021 - Browser](https://pentestlab.blog/2018/06/06/command-and-control-browser/)
+* [C2-018 - Images](https://pentestlab.blog/2018/01/02/command-and-control-images/)
+* [C2-019 - Web Interface](https://pentestlab.blog/2018/01/03/command-and-control-web-interface/)
+* [C2-020 - JavaScript](https://pentestlab.blog/2018/01/08/command-and-control-javascript/)
+* [C2-021 - Instagram ★](https://pentestlab.blog/category/red-team/command-and-control/)
+* [C2-022 - Browser](https://pentestlab.blog/2018/06/06/command-and-control-browser/)
 
 ---
 
