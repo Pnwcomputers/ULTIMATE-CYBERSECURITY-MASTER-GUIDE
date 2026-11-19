@@ -780,7 +780,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 - Homelab and educational practice on your own systems
 - Defensive security tooling and monitoring
 
-See the full [LEGAL.md](./LEGAL.md) for complete terms.
+See [LEGAL.md](./LEGAL.md) for general legal and responsible-use considerations.
 
 ---
 
