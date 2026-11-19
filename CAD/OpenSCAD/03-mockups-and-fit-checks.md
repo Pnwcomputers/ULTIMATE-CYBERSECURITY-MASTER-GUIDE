@@ -16,6 +16,8 @@ Cases, cradles, adapters and mounts fail for one reason: something real did not 
   <img src="./images/step2-mockups.png" alt="Hardware mockups for the GPS cradle: T-Embed body, GT-U7 board, QWIIC plug, SMA bulkhead, ribbon cable and coax pigtail" width="600"/>
 </p>
 
+![Four-stage hardware fit-check workflow: measure the real unit, choose a fixed datum, add clearance and keep-out volumes, then validate with a small test coupon](./images/fit-check-workflow.svg)
+
 ---
 
 ## Contents

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
+<title id="title">T-Embed sleeve and GPS pod coordinate concept</title>
+<desc id="desc">Conceptual side section: the handset back is z equals zero, sleeve surrounds the handset above that face, the GPS pod hangs below it in negative z, the pod board is retained by clips and closed by a separate lid, and a QWIIC cable routes from the side port to the GPS board. The SMA bulkhead passes through the pod wall. Not to scale.</desc>
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#4b6178"/></marker></defs>
+<rect width="1000" height="520" rx="20" fill="#f4f7fb"/>
+<text x="36" y="46" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#14324b">Coordinate and component relationship · conceptual side section · not to scale</text>
+<g font-family="Arial,sans-serif">
+<!-- handset and sleeve -->
+<rect x="330" y="115" width="315" height="150" rx="42" fill="#c7d7e6" stroke="#36546d" stroke-width="3"/>
+<text x="488" y="180" text-anchor="middle" font-size="21" font-weight="700" fill="#1c354b">T-Embed handset</text>
+<text x="488" y="208" text-anchor="middle" font-size="15" fill="#38546b">proxy body</text>
+<path d="M298 102Q300 85 322 85H650Q678 88 680 111V269Q675 286 650 288H321Q298 281 298 264Z" fill="none" stroke="#257ca1" stroke-width="10"/>
+<text x="490" y="78" text-anchor="middle" font-size="17" font-weight="700" fill="#176481">Sleeve wraps handset</text>
+<!-- datum -->
+<path d="M240 265H740" stroke="#d47c25" stroke-width="3" stroke-dasharray="9 6"/>
+<text x="754" y="271" font-size="17" font-weight="700" fill="#a55513">z = 0 · handset back datum</text>
+<!-- pod and board -->
+<path d="M360 287V410Q360 432 385 432H616Q641 432 641 410V287" fill="#d8ebe7" stroke="#238474" stroke-width="4"/>
+<rect x="404" y="344" width="192" height="28" rx="4" fill="#8fc9a5" stroke="#357451" stroke-width="3"/>
+<text x="500" y="364" text-anchor="middle" font-size="14" font-weight="700" fill="#183f2d">GT-U7 board</text>
+<path d="M390 331v-13h18v13M578 331v-13h18v13" fill="none" stroke="#c17830" stroke-width="5"/>
+<text x="500" y="458" text-anchor="middle" font-size="17" font-weight="700" fill="#17645b">GPS pod below back face (−Z)</text>
+<!-- lid -->
+<path d="M369 474H630" stroke="#536a7f" stroke-width="12" stroke-linecap="round"/>
+<path d="M500 459V445" stroke="#4b6178" stroke-width="2" marker-end="url(#arr)"/>
+<text x="500" y="502" text-anchor="middle" font-size="15" fill="#2f475c">Separate snap-on lid closes the pod</text>
+<!-- cable route -->
+<circle cx="645" cy="225" r="8" fill="#d88524" stroke="#8e541c" stroke-width="2"/>
+<path d="M653 225C710 225 710 337 605 354" fill="none" stroke="#d88524" stroke-width="5" stroke-dasharray="8 5"/>
+<text x="766" y="315" font-size="16" font-weight="700" fill="#9a5a17">QWIIC cable</text>
+<text x="766" y="337" font-size="14" fill="#435b70">side port → board</text>
+<path d="M749 321H707" stroke="#4b6178" stroke-width="2" marker-end="url(#arr)"/>
+<!-- SMA -->
+<path d="M641 398H706" stroke="#536a7f" stroke-width="10"/>
+<rect x="696" y="384" width="17" height="28" rx="5" fill="#e6b64f" stroke="#805f1a" stroke-width="2"/>
+<text x="756" y="398" font-size="16" font-weight="700" fill="#614c15">SMA bulkhead</text>
+<text x="756" y="419" font-size="14" fill="#435b70">passes through pod wall</text>
+<!-- axes -->
+<circle cx="120" cy="390" r="5" fill="#223e58"/><path d="M120 390V330" stroke="#335a78" stroke-width="3" marker-end="url(#arr)"/><path d="M120 390H185" stroke="#335a78" stroke-width="3" marker-end="url(#arr)"/><text x="108" y="322" font-size="16" fill="#24445f">+Z</text><text x="190" y="396" font-size="16" fill="#24445f">+Y</text><text x="82" y="425" font-size="14" fill="#435b70">X centered</text>
+<text x="49" y="483" font-size="14" fill="#5b6e80">The model uses z = 0 at the handset back;</text><text x="49" y="502" font-size="14" fill="#5b6e80">the pod occupies negative Z.</text>
+</g></svg>
