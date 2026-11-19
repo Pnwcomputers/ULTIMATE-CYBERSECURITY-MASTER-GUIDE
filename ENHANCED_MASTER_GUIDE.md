@@ -3466,17 +3466,37 @@ class SecurityToolkit:
         return None
     
     def network_sniffer(self, interface='eth0', count=10):
-        """Capture network packets"""
-        print(f"[*] Sniffing on {interface} ({count} packets)...")
-        
-        # Requires root/admin privileges
-        cmd = f"tcpdump -i {interface} -c {count} -w capture.pcap"
-        
+        """Capture a bounded number of packets on a validated interface."""
+        import os
+        import re
+        from pathlib import Path
+
+        if not isinstance(interface, str) or not re.fullmatch(r"[A-Za-z0-9_.:-]{1,32}", interface):
+            print("[-] Invalid interface name")
+            return
+        if isinstance(count, bool) or not isinstance(count, int) or not 1 <= count <= 1000:
+            print("[-] Packet count must be an integer from 1 to 1000")
+            return
+
+        output = Path("capture.pcap")
         try:
-            subprocess.run(cmd, shell=True, check=True)
-            print(f"[+] Captured packets saved to capture.pcap")
-        except subprocess.CalledProcessError:
-            print("[-] Error capturing packets (need root?)")
+            # Exclusive creation prevents overwriting a previous capture.
+            fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            os.close(fd)
+        except FileExistsError:
+            print("[-] capture.pcap already exists; preserve it and choose another name")
+            return
+
+        print(f"[*] Sniffing on {interface} ({count} packets)...")
+        try:
+            subprocess.run(
+                ["tcpdump", "-i", interface, "-c", str(count), "-w", str(output)],
+                check=True,
+                timeout=300,
+            )
+            print(f"[+] Captured packets saved to {output}")
+        except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired, PermissionError) as exc:
+            print(f"[-] Packet capture failed: {exc}")
     
     def dns_enumeration(self, domain):
         """Enumerate DNS records"""
@@ -4200,8 +4220,10 @@ dnstwist --registered target.com     # typosquatting domains
 **Windows install (pip-based):**
 ```powershell
 pip install shodan censys theHarvester dnstwist h8mail holehe maigret
-# TruffleHog v3 is a Go binary - not available via pip:
-# curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
+# TruffleHog is distributed through the official release page:
+# https://github.com/trufflesecurity/trufflehog/releases
+# Select a version/platform, then verify the release artifact against its
+# published checksum/signature and your organization's software policy.
 # Go tools: subfinder, amass, assetfinder, gau, waybackurls
 ```
  
