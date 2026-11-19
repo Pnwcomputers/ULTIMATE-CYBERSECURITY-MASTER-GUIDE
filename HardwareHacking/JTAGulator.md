@@ -1,57 +1,66 @@
 # 🕷️ JTAGulator
 
+_Last reviewed: 2026-11-18_
+
 ## 🎯 Purpose
-Open-source hardware tool by Joe Grand for automatically discovering JTAG and UART pin assignments on an unknown target PCB by brute-forcing all pin permutations - eliminating the need to manually trace PCB traces or read silkscreen labels.
+JTAGulator is an open-source tool that assists in identifying candidate on-chip debug interfaces on a target board. Current official materials describe scans for JTAG/IEEE 1149.1, ARM SWD, and UART. It automates pin-permutation checks; it does not guarantee a valid pinout, enable a locked interface, or extract firmware by itself.
 
 ## ⚙️ Function
-Connects to a target device's unknown debug header pins via a serial terminal interface. Voltage is set to match the target logic level, then automated IDCODE scan (`J` + `I` commands) or UART detection test cycles through all permutations and reports which pin is TDI/TDO/TCK/TMS or TX/RX.
+The tool connects selected target test points, vias, pads, or header pins to its channels and uses target-appropriate signal levels to test supported interface patterns. A scan result is a candidate that needs independent validation. Unknown pins may have other functions, and scan activity can alter target behavior or produce false positives.
+
+JTAGulator's VADJ configures I/O level translation. It is **not a target power output**: power the target through its normal, verified supply. Share ground and set VADJ to the target's documented/measured logic voltage. Hardware revisions differ; check the current documentation for supported range, pinout, and channel limits.
 
 ## 🏆 Goal
-Identify the correct pinout of an unknown JTAG or UART debug interface so a JTAG debugger or serial terminal can be connected to gain access to the CPU's debug port or boot console.
+Help an authorized assessor narrow down candidate debug-interface pins and record evidence carefully before using a separate, compatible debugger or serial tool.
 
 ## 📋 When to Use
-- When a target PCB has an unlabeled or mystery debug header
-- Before connecting a Bus Pirate or OpenOCD - need to know pin assignments first
-- Firmware extraction from a locked device via JTAG boundary scan
-- Physical red team assessment of embedded devices with unknown debug interfaces
+- Investigating documented or owner-approved test points and debug headers.
+- Finding candidate JTAG, SWD, or UART pin assignments before confirming them with compatible equipment.
+- Learning interface discovery on a known, dedicated lab board.
 
 ## 📖 Description
-The JTAGulator is an open-source hardware tool created by Joe Grand that simplifies the discovery of on-chip debug (OCD) interfaces, specifically JTAG and UART. It brute-forces all possible permutations to identify the correct pinout of a target device.
+Designed by Joe Grand, JTAGulator is now manufactured and maintained by EXPLIoT. Current official product information lists 24 channels and an adjustable I/O range of 1.4–3.3 V; confirm the exact hardware revision and its documentation before use. Input protection does not make unknown connections risk-free. The project documentation notes that channel circuitry can affect signal levels, and a candidate scan match can be a false positive.
+
+### Discovery and validation flow
+
+![Conceptual JTAGulator workflow from authorization and voltage checks through candidate scanning and independent validation](../assets/diagrams/jtagulator-discovery-validation-flow.svg)
+
+*Conceptual workflow. VADJ sets signal translation levels; the target is powered separately. A scan hit is a lead to verify, not proof that debug access is enabled.*
 
 ## 🔗 Reference Links
-* **Product Link:** [JTAGulator (Parallax / Grand Idea Studio)](https://grandideastudio.com/jtagulator/)
-* **Reference Material:** [JTAGulator GitHub & Documentation](https://github.com/grandideastudio/jtagulator)
+- [JTAGulator project information and documentation links](https://grandideastudio.com/portfolio/security/jtagulator/) — design and original project information
+- [EXPLIoT JTAGulator product and support page](https://expliot.io/jtagulator/) — current manufacturer, revision, feature, and documentation information
+- [Official quick start guide](https://github.com/grandideastudio/jtagulator/wiki/Quick-Start) — serial settings, VADJ, ground, channel connection, and cautions
+- [Official command reference](https://github.com/grandideastudio/jtagulator/wiki/Commands)
+- [Official firmware repository](https://github.com/grandideastudio/jtagulator)
 
-## 🚀 Step-by-Step Example: Setup, Connect, and Use
-**Scenario: Brute-forcing an unknown 5-pin header to find the JTAG debugging interface.**
+## 🚀 Step-by-Step Example: Candidate JTAG Pin Discovery
 
-### 1. Setup
-* **Software:** No custom drivers are usually needed; the device acts as a standard USB serial port. Use a terminal emulator like `screen`, `minicom`, or PuTTY.
+Use only on a target you own or have written authorization to assess. This example discovers candidate pins; it does not attempt to bypass protections or read target contents.
 
-### 2. Connect
-* **USB:** Connect the JTAGulator to your computer via mini-USB.
-* **Wiring to Target:** You have an unknown 5-pin row on a router's motherboard.
-  * Use a multimeter to find the `GND` pin on the target board and connect it to the JTAGulator's `GND`.
-  * Connect the remaining 4 unknown pins to the JTAGulator's `CH0`, `CH1`, `CH2`, and `CH3`.
+### 1. Prepare the bench
+- Identify the target model and revision. Review its board documentation and component datasheets for ground, test-point functions, and logic voltage.
+- Power the target from its normal supply. JTAGulator does not power the target.
+- Measure or verify target I/O voltage before connecting signals. Use JTAGulator's `V` command to set VADJ to the appropriate documented value for level translation; VADJ should not be connected to the target board.
+- Connect a shared ground. Confirm the target is stable and that the selected test points are appropriate. Do not probe power rails or pins whose functions and voltage are unknown.
+- Connect the selected candidate signal points to sequential JTAGulator channels, starting at CH0, following the current model's connector documentation.
 
-### 3. Use
-* Open your serial terminal to interface with the JTAGulator (115200 baud):
-   ```bash
-   screen /dev/ttyUSB0 115200
-   ```
-* **Set Voltage:** Type `V` to set the target voltage (VADJ). Enter the voltage of your target board (e.g., `3.3`). *Warning: Always verify target logic voltage with a multimeter first to avoid frying it!*
-* **Select Mode:** Type `J` to enter JTAG mode.
-* **Start Scan:** Type `I` to begin an IDCODE scan.
-* When prompted, enter the number of channels you are using (in this case, `4`).
-* Press Spacebar to begin. The JTAGulator will rapidly test permutations.
-* When it finds the correct JTAG configuration, it will output the mapping on your screen (e.g., `TDI: CH0, TDO: CH1, TCK: CH2, TMS: CH3`). You can now hook up a standard JTAG debugger to those pins.
+### 2. Run a documented scan
+- Connect JTAGulator to the host and open a serial terminal at **115200 baud, 8 data bits, no parity, 1 stop bit** (8N1), as specified by the official quick start.
+- Follow the prompt to the JTAG functions. An IDCODE scan tests candidate signal combinations; the exact menu and command flow can vary with firmware. Use `H` for the unit's command menu, then follow the current official guide. For firmware that uses the documented JTAG submenu, `I` runs an IDCODE scan; `J` combines scan functions.
+- Restrict the scan to the channels actually connected. Stop if the target behaves unexpectedly, heats, resets repeatedly, or shows other signs of electrical stress.
+
+### 3. Validate and report
+- Treat every detected mapping as provisional. Repeat the scan and compare with board or chip documentation. False positives and nonstandard or disabled debug implementations are possible.
+- Before attaching a debugger, verify the candidate pinout, voltage compatibility, reset requirements, and tool configuration. Debug access can remain locked or restricted even when pins are identified.
+- Record the hardware revision, firmware version, target state, measured voltage, channels used, command, and scan output. Report only what the evidence supports.
 
 ---
 
 ## Related Files
-- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
-- [BusPirate.md](BusPirate.md) - Use Bus Pirate to communicate on the JTAG/UART pins discovered by JTAGulator
-- [BitPirate.md](BitPirate.md) - Connect a UART adapter to the TX/RX pins found by JTAGulator's UART scan
-- [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify signal integrity on the pins JTAGulator identified
-- [Chapter1.md](Chapter1.md) - Threat modeling: JTAG/debug interface access is a primary physical attack vector
-- [Chapter2.md](Chapter2.md) - Electrical fundamentals: JTAG protocol, logic levels, and voltage compatibility
+- [README.md](README.md) - HardwareHacking section index and chapter guide
+- [BusPirate.md](BusPirate.md) - USB serial protocol tool; not a JTAG debugger
+- [BitPirate.md](BitPirate.md) - UART adapter guidance for a separately confirmed serial console
+- [HiLetgo.md](HiLetgo.md) - Logic analyzer reference for observing digital signals
+- [Chapter1.md](Chapter1.md) - Threat modeling for physical and debug-interface access
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals, logic levels, and interface basics
