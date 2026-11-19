@@ -35,4 +35,4 @@ trap 'rm -f -- "$tmp_output"' EXIT
 
 echo "Scanning TCP ports 1-1024 on authorized lab host $target (1-second per-port timeout)."
 nc -nvz -w 1 "$target" 1-1024 >"$tmp_output" 2>&1 || true
-tac -- "$tmp_output"
+cat -- "$tmp_output"
