@@ -29,6 +29,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/cti-to-approved-emulation-gates.svg": (
         "PlayBooks/PurpleTeam_Detailed.md",
     ),
+    "assets/diagrams/repository-evidence-gates.svg": (
+        "Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md",
+    ),
 }
 
 
