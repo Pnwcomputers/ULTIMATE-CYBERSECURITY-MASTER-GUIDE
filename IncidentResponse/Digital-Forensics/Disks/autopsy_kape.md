@@ -37,7 +37,7 @@ Together, these tools support targeted artifact triage and deeper image or logic
 
 ### Typical Workflow
 
-![Two evidence paths: image acquisition followed by Autopsy image analysis, and selective KAPE artifact collection followed by parsing or Autopsy logical-file analysis](../../assets/diagrams/dfir-autopsy-kape-workflows.svg)
+![Two evidence paths: image acquisition followed by Autopsy image analysis, and selective KAPE artifact collection followed by parsing or Autopsy logical-file analysis](../../../assets/diagrams/dfir-autopsy-kape-workflows.svg)
 
 *Conceptual workflows. KAPE collects selected artifacts; it does not create a complete disk image. Live collection can change the source depending on how tools, temporary files, and destinations are configured.*
 ---
