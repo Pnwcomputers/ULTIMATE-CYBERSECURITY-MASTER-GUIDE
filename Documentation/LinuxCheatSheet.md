@@ -141,7 +141,7 @@ sudo make dkms_install
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `systemctl reboot -i` | **Reboot System** | Initiates a system reboot. |
+| `sudo systemctl reboot` | **Reboot System** | Requests an orderly reboot. Save work first; ignoring inhibitors should be a deliberate, separately justified action. |
 | `sudo systemctl [command] [service]` | **Manage Services** | Standard format to control system services (e.g., start, stop, status, enable, disable). |
 | `sudo systemctl disable hciuart.service` | **Disable Bluetooth Console** | Stops the service managing serial communications for the onboard Bluetooth chip (common on Raspberry Pi). |
 | `sudo systemctl disable avahi-daemon.socket avahi-daemon.service` | **Disable Avahi** | Disables the Zeroconf/mDNS daemon used for local network discovery. |
@@ -241,17 +241,16 @@ sudo usermod -aG plugdev,dialout,wireshark,tty,uucp $USER
 These tools are not in apt or are too out-of-date there. Install in user space:
 
 ```bash
-pipx ensurepath && \
-pipx install platformio && \
-pipx install esptool && \
-pipx install urh && \
-pipx install meshtastic && \
-pipx install rns && \
-pipx install nomadnet && \
-pipx install lxmf && \
-pipx install unblob && \
-pipx install rfcat && \
-# Review the current uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ and inspect the chosen installer rather than piping it into a shell
+pipx ensurepath
+pipx install platformio
+pipx install esptool
+pipx install urh
+pipx install meshtastic
+pipx install rns
+pipx install nomadnet
+pipx install lxmf
+pipx install unblob
+pipx install rfcat
 ```
 
 ### 11.4 Build-from-Source Tools (Bare-Metal)
@@ -396,17 +395,16 @@ sudo update-alternatives --install /usr/local/bin/usbip usbip \
 Same as bare-metal - these are user-space and work identically:
 
 ```bash
-pipx ensurepath && \
-pipx install platformio && \
-pipx install esptool && \
-pipx install urh && \
-pipx install meshtastic && \
-pipx install rns && \
-pipx install nomadnet && \
-pipx install lxmf && \
-pipx install unblob && \
-pipx install rfcat && \
-# Review the current uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ and inspect the chosen installer rather than piping it into a shell
+pipx ensurepath
+pipx install platformio
+pipx install esptool
+pipx install urh
+pipx install meshtastic
+pipx install rns
+pipx install nomadnet
+pipx install lxmf
+pipx install unblob
+pipx install rfcat
 ```
 
 ### 12.8 Build-from-Source for WSL
@@ -541,7 +539,7 @@ Quick descriptions of what each tool does, organized by category.
 
 Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, and tool documentation see [`OSINT/OSINT_GUIDE.md`](../OSINT/OSINT_GUIDE.md) and [`OSINT/OSINT_CHEATSHEET.md`](../OSINT/OSINT_CHEATSHEET.md).
 
-> **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts - never your personal identity.
+ > **OPSEC:** Choose network routing and account use based on scope, target sensitivity, service rules, and threat model. A VPN or Tor is not universally appropriate; do not use alternate routing or identities to bypass access controls or service restrictions. Isolate research data where practical.
 
 ---
 
@@ -571,7 +569,7 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 | `photon`      | `python photon.py -u <url> -l 3`   | Crawls for endpoints, keys, emails, JS files.             |
 | `whatweb`     | `whatweb <target>`                 | Fingerprint web technologies and CMS.                     |
 | `whois`       | `whois <domain>`                   | Registrar, owner, nameserver lookup.                      |
-| `dig`         | `dig <domain> ANY`                 | DNS records - A, MX, NS, TXT, SOA.                        |
+| `dig`         | `dig <domain> A`                   | Query one DNS type. Repeat with `AAAA`, `MX`, `NS`, `TXT`, or `SOA` as needed; `ANY` is not a reliable way to retrieve every record. |
 | `shodan`      | `shodan host <IP>`                 | Open ports and running services on a target IP.           |
 
 **Google Dorking Quick Reference:**
@@ -629,7 +627,13 @@ recon-ng
 
 ### 15.6 OSINT Tool Installation (Quick Setup)
 
-**pip/pipx installs:**
+**Python CLI installs:**
+
+Use `pipx` only for packages that publish supported command-line entry points, or create a virtual environment for project-specific dependencies. Debian/Ubuntu may mark the system Python as externally managed; do not use system-wide `pip3 install`.
+
+To install uv, follow the [official instructions](https://docs.astral.sh/uv/getting-started/installation/) and review any installer before execution.
+
+**pipx installs:**
 ```bash
 pipx install sherlock-project
 pipx install maigret
@@ -640,14 +644,23 @@ pipx install h8mail && pipx install holehe
 ```bash
 mkdir -p ~/osint-tools && cd ~/osint-tools
 
-git clone https://github.com/laramies/theHarvester && \
-  cd theHarvester && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/laramies/theHarvester
+cd theHarvester
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 
-git clone https://github.com/smicallef/spiderfoot && \
-  cd spiderfoot && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/smicallef/spiderfoot
+cd spiderfoot
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 
-git clone https://github.com/s0md3v/Photon && \
-  cd Photon && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/s0md3v/Photon
+cd Photon
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 ```
 
 **Go-based installs:**
@@ -677,12 +690,14 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 ### 15.8 OSINT OPSEC Checklist
 
+![Scope-based OSINT operational security decision flow](../assets/diagrams/osint-opsec-scope-decision.svg)
+
 ```
-✅ Route all traffic through VPN or Tor before investigating
-✅ Use a dedicated OSINT VM (Tsurugi, Buscador, or DIY)
-✅ Never use personal accounts - create isolated sock puppet personas
-✅ Use burner email (ProtonMail/Tutanota) and virtual phone numbers
-✅ Screenshot and archive evidence as you go (archive.is, Wayback)
+✅ Choose routing and account use from approved scope, service rules, and threat model
+✅ Use an isolated research environment where appropriate
+✅ Use only accounts and contact details authorized for the investigation; do not impersonate or evade platform controls
+✅ Preserve local evidence with timestamps and provenance
+✅ Submit material to public archives only when scope permits and public disclosure is appropriate
 ✅ Log all commands, queries, and sources
 ✅ Cross-reference findings from at least two independent sources
 ✅ Respect ToS - unauthorized scraping can have legal consequences
@@ -692,8 +707,7 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized access to networks is illegal. Always:
-- Get written permission before testing
+**IMPORTANT**: Use these tools within applicable authority and scope. Before active testing, confirm target ownership/authorization, permitted methods, data handling, and stop conditions; document the scope where law, policy, contract, or engagement requirements call for it.
 - Only test networks you own or have explicit authorization to test
 - Follow responsible disclosure practices
 - Comply with local laws and regulations
