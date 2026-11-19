@@ -7,6 +7,10 @@ _Last reviewed: 2026-10-22_
 
 ## Purpose
 
+![Authorized wireless field procedure quality gates: scope, bench calibration, safe route observation, evidence preservation and individually verified acceptance tests](../assets/diagrams/wardriving-field-quality-acceptance.svg)
+
+*Conceptual field-workflow image.* An owned test AP and known GPS fix are calibration checks, not proof that every nearby AP was collected or accurately geolocated. A receiver's coordinates locate the observation, not the transmitter. Confirm receive-only versus active behavior using the exact firmware and radio configuration.
+
 Use a defensible and repeatable method for authorized wireless inventory collection across any supported tool. This workflow intentionally separates **operator safety**, **survey quality**, **evidence integrity**, and **publication**.
 
 ## 1. Plan and authorize
