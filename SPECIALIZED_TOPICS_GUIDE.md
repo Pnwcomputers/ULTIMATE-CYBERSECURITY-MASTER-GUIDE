@@ -1492,7 +1492,7 @@ The **ClockworkPi uConsole** is a palmtop computer with a keyboard, small displa
 | Compute Module | Raspberry Pi CM4 or CM5 (via adapter board) |
 | Extension Board | HackerGadgets AIO v2 |
 | OS | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
-| External WiFi | Monitor-mode adapter required (CM4 built-in WiFi does NOT support monitor mode) |
+| External Wi-Fi | External adapters are the dependable default. Built-in monitor/injection depends on chipset, image, driver, and firmware; uConsole CM4/CM5 support is not confirmed. |
 
 ### HackerGadgets AIO v2 Feature Set
 
@@ -1622,9 +1622,15 @@ rtl_power -f 88M:108M:200k -g 50 -i 1 scan.csv   # Scan FM band
 ```
 
 **Phase 8: WiFi Pentesting Setup**
+
+![Raspberry Pi onboard Wi-Fi support depends on the exact board and software; validate the setup or use an external adapter](assets/diagrams/raspberry-pi-onboard-wifi-support.svg)
+
+Kali documents Nexmon support for tested Raspberry Pi models, including Pi 4 and Pi 5.
+That list does not establish compatibility for uConsole CM4/CM5 carrier boards or
+community images. See [Kali's support notes](https://www.kali.org/blog/raspberry-pi-wi-fi-glow-up/).
 ```bash
-# Internal CM4 WiFi does NOT support monitor mode
-# Use external monitor-mode adapter (Alfa AWUS036ACH, TP-Link TL-WN722N v1)
+# Internal CM4/CM5 Wi-Fi: verify support for the exact build
+# Use a compatible external adapter as the dependable fallback (verify exact chipset/revision)
 sudo apt install -y aircrack-ng wireless-tools
 
 # Verify monitor mode capability
@@ -1682,7 +1688,7 @@ The repair script detects which CM is installed, identifies configuration mismat
 ### Recommended Tool Loadout
 
 **Wireless:**
-- Internal CM4/CM5 WiFi: management/client use only
+- Built-in CM4/CM5 Wi-Fi: management/client use is the baseline; monitor mode may be available on supported distro/chipset combinations. Kali Nexmon's tested list does not confirm the uConsole CM4/CM5 carrier/image combinations.
 - External adapter (Alfa AWUS036ACH): monitor mode, injection
 - RTL-SDR via AIO v2: passive spectrum monitoring
 

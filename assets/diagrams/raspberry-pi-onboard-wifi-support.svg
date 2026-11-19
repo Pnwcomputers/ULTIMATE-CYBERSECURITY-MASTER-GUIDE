@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
+  <title id="title">Raspberry Pi onboard Wi-Fi monitor-mode decision</title>
+  <desc id="desc">Identify the exact board, Wi-Fi chipset, operating system, kernel, driver, and firmware. Kali Nexmon supports tested Pi configurations including Pi 4 and Pi 5, but uConsole CM4 and CM5 combinations are unverified. Validate the interface and use a compatible external adapter if unsupported.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f4f7fb}.head{font:700 30px Arial,sans-serif;fill:#102a43}.text{font:20px Arial,sans-serif;fill:#243b53}.small{font:16px Arial,sans-serif;fill:#334e68}.box{fill:#fff;stroke:#486581;stroke-width:2;rx:16}.blue{fill:#e6f1ff;stroke:#2870b5}.amber{fill:#fff4d6;stroke:#cc8b00}.green{fill:#e5f6ed;stroke:#278457}.arrow{stroke:#486581;stroke-width:4;fill:none;marker-end:url(#arr)}
+    </style>
+    <marker id="arr" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M1,1 L10,6 L1,11" fill="none" stroke="#486581" stroke-width="2"/></marker>
+  </defs>
+  <rect class="bg" width="1100" height="560" rx="22"/>
+  <text class="head" x="550" y="52" text-anchor="middle">Can onboard Raspberry Pi Wi-Fi use monitor mode?</text>
+  <rect class="box blue" x="270" y="82" width="560" height="92"/>
+  <text class="head" x="550" y="119" text-anchor="middle">1 · Identify the actual setup</text>
+  <text class="text" x="550" y="151" text-anchor="middle">Board · Wi-Fi chipset · image · kernel · driver · firmware</text>
+  <path class="arrow" d="M550 176 V211"/>
+  <rect class="box amber" x="215" y="218" width="670" height="118"/>
+  <text class="head" x="550" y="257" text-anchor="middle">2 · Check distro-specific support</text>
+  <text class="text" x="550" y="289" text-anchor="middle">Kali Nexmon lists tested Pi 4 and Pi 5 configurations.</text>
+  <text class="small" x="550" y="316" text-anchor="middle">uConsole CM4/CM5 image and carrier combinations are not confirmed by that list.</text>
+  <path class="arrow" d="M550 338 V373"/>
+  <rect class="box green" x="70" y="382" width="445" height="108"/>
+  <text class="head" x="292" y="419" text-anchor="middle">Supported and validated?</text>
+  <text class="text" x="292" y="452" text-anchor="middle">Check interface mode and operation</text>
+  <rect class="box blue" x="585" y="382" width="445" height="108"/>
+  <text class="head" x="807" y="419" text-anchor="middle">Not supported or uncertain?</text>
+  <text class="text" x="807" y="452" text-anchor="middle">Use a compatible external adapter</text>
+  <path class="arrow" d="M430 490 C430 530 670 530 670 490"/>
+  <text class="small" x="550" y="544" text-anchor="middle">Treat monitor mode and frame injection as separate capabilities to verify.</text>
+</svg>

@@ -82,7 +82,7 @@ This guide assumes the following hardware stack:
 | **Compute Module** | Raspberry Pi CM5 (with HackerGadgets CM5 adapter board) |
 | **Extension Board** | HackerGadgets AIO v2 (RTL-SDR / LoRa / GPS / RTC / USB Hub) |
 | **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
-| **WiFi Adapter** | External monitor-mode capable adapter (CM5 onboard WiFi does NOT support monitor mode) |
+| **WiFi Adapter** | External adapter is the dependable default. Onboard monitor/injection support depends on image, chipset, driver, and firmware; CM5 uConsole compatibility is unverified. |
 
 ### What the AIO v2 Provides
 
@@ -394,7 +394,16 @@ aiov2_ctl --boot-rails-status
 
 ## Step 12: WiFi Pentesting Setup
 
-The CM5's onboard WiFi does not support monitor mode. Use an external USB WiFi adapter.
+The CM5 uConsole's onboard Wi-Fi capability depends on its exact module, carrier, image,
+kernel, driver, and firmware. Kali's Nexmon packages enable monitor mode and injection
+on listed/tested Raspberry Pi configurations, including Pi 5, but the Kali support list
+does not confirm this CM5 carrier and Rex's Kali/Trixie images may differ. Verify the
+exact combination before relying on onboard Wi-Fi; an external USB adapter supported
+by the image is the dependable fallback.
+
+![Identify the board and software, check supported Nexmon configurations, then validate onboard Wi-Fi or use an external adapter](../assets/diagrams/raspberry-pi-onboard-wifi-support.svg)
+
+See Kali's [Raspberry Pi Wi-Fi support notes](https://www.kali.org/blog/raspberry-pi-wi-fi-glow-up/) for tested models and setup details.
 
 ```bash
 # Install DKMS driver for RTL8812AU
