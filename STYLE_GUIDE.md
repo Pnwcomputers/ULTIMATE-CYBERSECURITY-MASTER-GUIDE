@@ -42,7 +42,7 @@
   # evaluation, and educational purposes in controlled lab environments.
   # ==============================================================================
   ```
-- **Preserve All Scripts:** Do not remove existing functional or legacy scripts; update disclaimers, comments, and python 3 compatibility as needed.
+- **Preserve useful examples where safe:** Do not remove scripts solely for style or preference. When code presents unacceptable risk (for example, credential theft, persistence, malware delivery, or unbounded disruptive activity), retire it in place with a clear inert notice, preserve the path where practical, and update inventories and links. Warnings alone do not make unsafe functionality appropriate to keep runnable.
 
 ---
 
