@@ -12,96 +12,18 @@ status() { echo "$*" >&2; }
 error() { echo "ERROR $*"; exit 1; }
 warning() { echo "WARNING: $*"; }
 
-# Detect AppArmor major version so we generate compatible profile syntax.
-# AppArmor 4.x (Ubuntu 24.04+) supports abi declarations and userns rules;
-# older versions (Ubuntu 20.04/22.04) need classic syntax only.
-get_apparmor_major_version() {
-    if command -v apparmor_parser >/dev/null 2>&1; then
-        apparmor_parser --version 2>/dev/null | grep -oE '[0-9]+' | head -1
-    else
-        echo "0"
-    fi
-}
-
-# Create an AppArmor profile for AnythingLLMDesktop for systems with AppArmor enabled
-# https://askubuntu.com/questions/1512287/obsidian-appimage-the-suid-sandbox-helper-binary-was-found-but-is-not-configu/1528215#1528215
-create_apparmor_profile() {
-    status "Checking for sudo privileges..."
-    sudo -v
-    if [ $? -ne 0 ]; then
-        error "Failed to get sudo privileges! Aborting..."
-        exit 1
-    fi
-
-    AA_MAJOR=$(get_apparmor_major_version)
-    status "Creating AppArmor profile for AnythingLLM (AppArmor version ${AA_MAJOR}.x detected)..."
-
-    if [ "${AA_MAJOR}" -ge 4 ] 2>/dev/null; then
-        APP_ARMOR_CONTENT=$(cat <<'EOF'
-# AnythingLLMDesktop AppArmor profile (4.x syntax)
-abi <abi/4.0>,
-include <tunables/global>
-
-profile anythingllmdesktop /**/AnythingLLMDesktop.AppImage flags=(unconfined) {
-  userns,
-}
-EOF
-)
-    else
-        APP_ARMOR_CONTENT=$(cat <<'EOF'
-# AnythingLLMDesktop AppArmor profile (classic syntax for AppArmor 2.x/3.x)
-#include <tunables/global>
-
-profile anythingllmdesktop /**/AnythingLLMDesktop.AppImage flags=(unconfined) {
-}
-EOF
-)
-    fi
-
-    echo "$APP_ARMOR_CONTENT" | sudo tee /etc/apparmor.d/anythingllmdesktop > /dev/null
-    status "Reloading AppArmor service..."
-    if sudo apparmor_parser -r /etc/apparmor.d/anythingllmdesktop 2>/dev/null; then
-        status "AppArmor profile created - you can now run AnythingLLMDesktop without SUID requirements."
-    elif sudo systemctl reload apparmor.service 2>/dev/null; then
-        status "AppArmor profile created - you can now run AnythingLLMDesktop without SUID requirements."
-    else
-        warning "AppArmor reload failed. The profile was written to /etc/apparmor.d/anythingllmdesktop"
-        warning "but could not be loaded. You may need to reboot or run:"
-        warning "  sudo apparmor_parser -r /etc/apparmor.d/anythingllmdesktop"
-        warning "If issues persist, you can disable the profile for this app only:"
-        warning "  sudo ln -sf /etc/apparmor.d/anythingllmdesktop /etc/apparmor.d/disable/"
-        warning "  sudo systemctl reload apparmor"
-    fi
-}
-
+# Do not create a profile that claims to confine the AppImage while using
+# flags=(unconfined). A real least-privilege profile needs application-specific
+# review and testing; this installer leaves AppArmor policy to the operator.
 check_to_create_apparmor_profile() {
-    # Check if the system has AppArmor enabled
     if [ -f /sys/kernel/security/apparmor/profiles ]; then
-        if ! [ -f /etc/apparmor.d/anythingllmdesktop ]; then
-            status "AppArmor is enabled on this system."
-            status "\e[31m[Warning]\e[0m You will get an error about SUID permission issues when running the AppImage without creating an AppArmor profile."
-            status "This requires sudo privileges. If you are unsure, you can create an AppArmor profile manually."
-            printf '%s' "Do you want to auto-create an AppArmor profile for AnythingLLM now? (y/n): "
-            read -r create_apparmor
-            case "$create_apparmor" in [yY]) create_apparmor="y" ;; esac
-            if [ "$create_apparmor" = "y" ]; then
-                create_apparmor_profile
-            else
-                status "AppArmor is enabled on this system."
-                status "AppArmor profile creation skipped. You may not be able to run AnythingLLMDesktop without it."
-            fi
-        else
-            status "AppArmor profile already exists."
-            printf '%s' "Do you want to overwrite it with the latest version? (y/n): "
-            read -r overwrite_apparmor
-            case "$overwrite_apparmor" in [yY]) overwrite_apparmor="y" ;; esac
-            if [ "$overwrite_apparmor" = "y" ]; then
-                create_apparmor_profile
-            fi
-        fi
+        status "AppArmor is enabled. No profile was installed: this installer does not"
+        status "claim confinement or disable the AppImage SUID sandbox."
+        status "If startup fails, follow current AnythingLLM and distribution guidance"
+        status "and review any proposed profile before loading it."
     else
-        status "AppArmor could not be automatically detected or does not exist. If you get an SUID error on startup, you may need to create an AppArmor profile for AnythingLLMDesktop.AppImage manually."
-    fi  
+        status "AppArmor was not detected; no AppArmor profile was created."
+    fi
 }
 
 check_or_create_desktop_profile() {
@@ -140,15 +62,45 @@ EOF
     fi
 }
 
+# Compare against a digest copied from the vendor's release metadata over a
+# separately trusted channel. A checksum downloaded beside the artifact would
+# not provide independent provenance.
+verify_vendor_sha256() {
+    expected=$1
+    artifact=$2
+    label=$3
+    case "$expected" in
+        ''|*[!0-9a-fA-F]*)
+            warning "$label SHA-256 is missing or malformed."
+            return 1
+            ;;
+    esac
+    [ "${#expected}" -eq 64 ] || {
+        warning "$label SHA-256 must contain exactly 64 hexadecimal characters."
+        return 1
+    }
+    command -v sha256sum >/dev/null 2>&1 || {
+        warning "sha256sum is required to verify $label."
+        return 1
+    }
+    actual=$(sha256sum "$artifact" | awk '{print $1}' | tr '[:upper:]' '[:lower:]') || return 1
+    expected=$(printf '%s' "$expected" | tr '[:upper:]' '[:lower:]')
+    [ "$actual" = "$expected" ] || {
+        warning "$label SHA-256 mismatch; refusing to install."
+        return 1
+    }
+}
+
 # Stage downloads next to the destination so the final rename stays on one filesystem.
 download_appimage() (
     stage=$(mktemp "$INSTALL_DIR/.anythingllm.XXXXXXXX") || exit 1
     trap 'rm -f "$stage"' EXIT
     trap 'exit 1' HUP INT TERM
     curl --fail --show-error --location --progress-bar -o "$stage" "$APPIMAGE_URL" || exit 1
-    # AppImages are ELF executables; reject empty/error-page downloads.
+    # ELF magic only identifies a file type; the vendor digest establishes the expected artifact.
     magic=$(od -An -tx1 -N4 "$stage" | tr -d ' \n')
     [ "$magic" = 7f454c46 ] || { warning "Download is not an ELF AppImage"; exit 1; }
+    verify_vendor_sha256 "$APPIMAGE_SHA256" "$stage" "AnythingLLM AppImage" || exit 1
     chmod +x "$stage" || exit 1
     mv -f "$stage" "$INSTALL_DIR/$APPIMAGE_FILE"
 )
@@ -182,6 +134,7 @@ install_ollama_engine() (
     trap 'exit 1' HUP INT TERM
     curl --fail --show-error --location --progress-bar -o "$stage/engine.tar.zst" \
         "https://cdn.anythingllm.com/support/ollama/$OLLAMA_VERSION/$archive" || exit 1
+    verify_vendor_sha256 "$OLLAMA_SHA256" "$stage/engine.tar.zst" "Ollama engine archive" || exit 1
     mkdir "$stage/new" || exit 1
     tar --zstd -xf "$stage/engine.tar.zst" -C "$stage/new" || exit 1
     [ -s "$stage/new/bin/ollama" ] || { warning "Archive lacks engine binary"; exit 1; }
@@ -224,6 +177,8 @@ else
     APPIMAGE_URL="https://cdn.anythingllm.com/latest/AnythingLLMDesktop.AppImage"
 fi
 APPIMAGE_FILE="AnythingLLMDesktop.AppImage"
+APPIMAGE_SHA256="${ANYTHINGLLM_APPIMAGE_SHA256:-}"
+OLLAMA_SHA256="${ANYTHINGLLM_OLLAMA_SHA256:-}"
 
 mkdir -p "$INSTALL_DIR"
 SHOULD_DOWNLOAD="true"
@@ -268,9 +223,8 @@ status "Documentation: https://docs.anythingllm.com"
 status "Issues: https://github.com/Mintplex-Labs/anything-llm"
 status "\e[36mThanks for using AnythingLLM!\e[0m\n\n"
 
-status "Next, we will create a desktop profile and AppArmor profile for AnythingLLMDesktop."
-status "This is required for the AppImage to be able to run without SUID requirements."
-status "You can manually create these profiles if you prefer."
+status "Next, we will create the desktop launcher. No AppArmor confinement profile"
+status "is generated; supply vendor-published SHA-256 values to verify downloads."
 
 check_or_create_desktop_profile
 check_to_create_apparmor_profile
