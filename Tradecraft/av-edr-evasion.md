@@ -892,9 +892,8 @@ python3 vol.py -f memory.dmp windows.pslist      # Standard process list
 python3 vol.py -f memory.dmp windows.pstree      # Process tree with parent-child
 python3 vol.py -f memory.dmp windows.psscan      # Scan memory for EPROCESS blocks (finds hidden)
 
-# Find injected code - the core evasion detection use case
-python3 vol.py -f memory.dmp windows.malfind     # Find MEM_PRIVATE executable regions with PE headers
-                                                  # This is one memory-analysis signal; validate it with other evidence
+# Review suspicious virtual address descriptors (VADs); results need context.
+python3 vol.py -f memory.dmp windows.malfind     # Heuristic findings; not proof of injection
 
 # Network connections
 python3 vol.py -f memory.dmp windows.netstat     # Active connections at time of capture
@@ -906,7 +905,8 @@ python3 vol.py -f memory.dmp windows.dlllist --pid 4892
 # Dump a suspicious process's memory for further analysis
 python3 vol.py -f memory.dmp windows.memmap --pid 4892 --dump
 
-# Extract all executables from memory (catches reflective loads)
+# Recover file contents cached in memory for a selected process.
+# This is not a general extractor for reflective or arbitrary memory-loaded code.
 python3 vol.py -f memory.dmp windows.dumpfiles --pid 4892
 
 # Detect process hollowing
