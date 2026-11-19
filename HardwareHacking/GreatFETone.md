@@ -10,7 +10,7 @@ Python-based host toolchain (`greatfet` pip package) communicates with the Great
 Programmatically interact with target hardware over I2C, SPI, JTAG, and USB from a Python script - enabling scripted, automated protocol reverse engineering without writing firmware.
 
 ## 📋 When to Use
-- Scanning an unknown I2C bus to enumerate hidden device addresses
+- Scanning an authorized I2C bus to identify addresses that acknowledge the scan
 - Scripting repeatable read/write sequences to a chip under test
 - USB protocol reverse engineering (using the GreatFET's Facedancer capability)
 - When Bus Pirate's interactive mode isn't enough and scripted automation is needed
@@ -18,12 +18,16 @@ Programmatically interact with target hardware over I2C, SPI, JTAG, and USB from
 ## 📖 Description
 The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets. It is an extensible, open-source hardware tool tailored for hardware hackers. With its add-on boards, it can be used for logic analysis, I2C/SPI manipulation, JTAG debugging, and advanced USB reverse engineering.
 
+![Authorized GreatFET I2C inspection workflow](../assets/diagrams/greatfet-authorized-i2c-workflow.svg)
+
+*An address response is not device identification. Confirm electrical conditions and device behavior before reading or writing.*
+
 ## 🔗 Reference Links
 * **Product Link:** [GreatFET One (Great Scott Gadgets)](https://greatscottgadgets.com/greatfet/one/)
 * **Reference Material:** [GreatFET Wiki & Documentation](https://github.com/greatscottgadgets/greatfet/wiki)
 
 ## 🚀 Step-by-Step Example: Setup, Connect, and Use
-**Scenario: Scanning an I2C bus to find hidden device addresses.**
+**Scenario: Inspecting an authorized I2C target whose electrical requirements and datasheet are known.**
 
 ### 1. Setup
 * **Prerequisites:** Ensure you have Python 3 and `pip` installed on your host machine.
@@ -38,7 +42,7 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
 
 ### 2. Connect
 * **USB:** Plug the GreatFET One into your PC.
-* **Wiring to Target:** Locate the I2C pins on the GreatFET (check the pinout reference on the board or wiki). Connect them to your target IoT device:
+* **Wiring to Target:** Confirm target ownership/authorization, board pinout, target I/O voltage, pull-up arrangement and whether the target can safely share the GreatFET's bus before connecting. Consult the board documentation and target datasheet. Then connect:
   * GreatFET `GND` ➡️ Target `GND`
   * GreatFET `I2C SDA` (Pin J2_P11) ➡️ Target `SDA`
   * GreatFET `I2C SCL` (Pin J2_P13) ➡️ Target `SCL`
@@ -49,14 +53,15 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
    ```bash
    greatfet_info
    ```
-* Run the I2C scan command to brute-force and list all responding I2C addresses on the bus:
+* The I2C scan command reports addresses that acknowledge its probes; it does **not** identify devices or prove that an address is safe to access. Scanning generates bus traffic, so check the target datasheet and use only on an authorized bus:
    ```bash
    greatfet_i2c -z
    ```
-* If a device is found (e.g., at address `0x50`), you can read 256 bytes of data from it using:
+* After confirming the address and read behavior in the target datasheet, the current `greatfet_i2c` CLI accepts `-a/--address` and `-r/--read`; it has no `-f` output-file option. A CLI read prints a Python bytes representation to standard output:
    ```bash
-   greatfet_i2c -a 0x50 -r 256 -f dump.bin
+   greatfet_i2c -a 0x50 -r 256 > i2c-read.txt
    ```
+  This captures text, not a raw binary dump, and the bytes read depend on the device's current protocol/state. Do not assume this is a memory dump or harmless on every device. See the [upstream CLI source](https://github.com/greatscottgadgets/greatfet/blob/main/host/greatfet/commands/greatfet_i2c.py) for supported options and behavior.
 
 ---
 
