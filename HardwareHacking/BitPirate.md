@@ -1,6 +1,6 @@
-# 🏴‍☠️ Bit Pirate
+# USB-to-UART Adapter (CH340 / FT232R)
 
-## Looking For ESP32 Bit Pirate?
+## Looking for ESP32 Bit Pirate?
 
 Use the dedicated [ESP32 Bit Pirate firmware guide](./esp32-bit-pirate.md) for
 the geo-tp project, formerly ESP32 Bus Pirate. The legacy adapter discussion below
@@ -8,13 +8,13 @@ does not identify a particular hardware product and must not be used as that
 firmware's pin map, voltage specification or command reference.
 
 ## 🎯 Purpose
-Generic USB-to-UART/SPI bridge for accessing embedded device debug ports - typically referring to CH340/FTDI-based adapters or Bus Pirate firmware forks used as UART console interfaces for IoT device exploitation.
+A USB-to-UART serial bridge for observing or communicating with an authorized target's documented UART console. Common CH340- and FT232R-based adapters provide serial/UART interfaces; they are not general-purpose SPI programmers.
 
 ## ⚙️ Function
-Provides a USB serial bridge to a target device's UART debug port. Primary use case: connecting to a device's bootloader (U-Boot) or shell prompt exposed over UART - often yielding a root shell on misconfigured IoT devices.
+Provides a USB serial connection to a target UART. It may expose boot messages, a diagnostic console, or no useful output. A shell and its privilege level depend on the target's configuration and are not guaranteed.
 
 ## 🏆 Goal
-Gain interactive shell access to an embedded device's OS via its exposed UART debug port without needing network-based exploitation.
+Identify and safely document UART output or an explicitly authorized console on a device you own or are approved to assess. Do not assume UART access bypasses authentication or grants a shell.
 
 ## 📋 When to Use
 - When a device exposes a UART header on its PCB (IP cameras, routers, smart home devices)
@@ -22,43 +22,42 @@ Gain interactive shell access to an embedded device's OS via its exposed UART de
 - Testing for improperly secured boot console access
 
 ## 📖 Description
-*(Note: "Bit Pirate" usually refers to either customized firmware forks of the Bus Pirate or proprietary UART/SPI debugging jigs). It operates similarly to other multi-protocol interfaces by providing a bridge between your computer and low-level hardware buses for embedded systems hacking.*
+A CH340- or FT232R-based USB adapter converts USB host communication to serial UART signals. It does not provide SPI mode by itself. A separate multi-protocol instrument such as the [Bus Pirate](BusPirate.md) supports UART, SPI, I²C, and other documented modes. The ESP32 Bit Pirate firmware project is a separate product (see the section below).
 
 ## 🔗 Reference Links
-* **Community Forums:** [Hackaday](https://hackaday.com/) / [EEVblog](https://www.eevblog.com/forum/)
+* [WCH CH340](https://www.wch.cn/products/CH340.html) — USB-to-serial bridge documentation.
+* [FTDI FT232R datasheet](https://ftdichip.com/wp-content/uploads/2020/08/DS_FT232R.pdf) — USB-to-UART interface.
+* [Bus Pirate command reference](https://docs.buspirate.com/docs/command-reference/) — multi-protocol tool modes including UART, SPI, and I²C.
 
-## 🚀 Step-by-Step Example: Setup, Connect, and Use
-**Scenario: Gaining a root shell via a UART debug port on an IP camera.**
+## UART Observation Workflow
 
-### 1. Setup
-* **Drivers:** Install CH340 or FTDI drivers depending on the chip used by your Bit Pirate interface.
-* **Software:** Install PuTTY (Windows) or `screen` (Linux/macOS).
+Use this workflow only on hardware you own or are explicitly authorized to assess.
+
+### 1. Identify and check levels
+* Identify the adapter chipset and its documented signal voltage. Verify the target UART pins and logic level from board documentation or measurement.
+* Do not connect if the voltage or pinout is uncertain. USB-to-UART adapters can expose VCC pins; the target should remain separately powered unless its documentation explicitly requires otherwise.
 
 ### 2. Connect
-* **USB:** Plug the device into your PC.
-* **Wiring to Target:** Use a multimeter to identify `GND`, `TX`, and `RX` on your target device's debug header. Connect them to the Bit Pirate:
-  * Bit Pirate `GND` ➡️ Target `GND`
-  * Bit Pirate `RX` ➡️ Target `TX` (Crucial: RX goes to TX!)
-  * Bit Pirate `TX` ➡️ Target `RX`
+* Connect common ground and cross the data lines: adapter `GND` to target `GND`, adapter `RX` to target `TX`, and adapter `TX` to target `RX`.
+* Leave adapter `VCC` disconnected unless both device and adapter documentation explicitly call for a power connection and the voltage/current plan is understood.
 
-### 3. Use
-* Open your serial terminal using the target device's expected baud rate (115200 is the most common for IoT devices):
+### 3. Observe
+* Open a serial terminal with the documented baud rate and framing settings; do not assume one baud rate works for all targets:
    ```bash
-   screen /dev/ttyUSB0 115200
+   screen /dev/ttyUSB0 <baud-rate>
    ```
-* Power on the IP camera.
-* Watch the terminal screen. You should see the bootloader (like U-Boot) scrolling text as the device initializes.
-* When it finishes booting, press `Enter`. If a `#` or `$` prompt appears, a console prompt may be available; verify identity and privileges before drawing any conclusion.
+* Power on the authorized test device and record the output and settings. A boot log may appear; no output can also result from incorrect pins, voltage, baud, or an inactive UART.
+* Do not attempt to bypass login controls. A prompt, if present, does not by itself establish authorization or privilege.
 
 ---
 
 ## Similar name, different platform: ESP32 Bit Pirate
 
-The starred [ESP32 Bit Pirate firmware](https://github.com/geo-tp/ESP32-Bit-Pirate) is a distinct ESP32-based, multi-protocol embedded analysis project with a serial/web command interface. **Do not assume that its pins, firmware, command syntax or supported buses match the hardware/tool described in this guide.** Start with the upstream board map and power requirements; use proper logic-level conversion and verify GND/reference voltage before connecting UART, SPI or I²C to any target.
+The [ESP32 Bit Pirate firmware](https://github.com/geo-tp/ESP32-Bit-Pirate) is a distinct ESP32-based project. **Do not assume that its pins, firmware, command syntax or supported buses match a generic USB-UART adapter.** Start with its upstream board map and power requirements; use appropriate logic-level conversion and verify the ground reference before connecting any signals.
 
 ## Related Files
 - [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
-- [BusPirate.md](BusPirate.md) - More capable multi-protocol tool (SPI/I2C/UART/JTAG) when UART access alone isn't enough
+- [BusPirate.md](BusPirate.md) - Multi-protocol instrument with documented SPI/I²C/UART modes
 - [JTAGulator.md](JTAGulator.md) - Identifies which pins are UART/JTAG before connecting a Bit Pirate or Bus Pirate
 - [HiLetgo.md](HiLetgo.md) - Logic analyzer to verify TX/RX signals and identify baud rate before connecting
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: UART signal levels, voltage compatibility, and baud rate concepts
