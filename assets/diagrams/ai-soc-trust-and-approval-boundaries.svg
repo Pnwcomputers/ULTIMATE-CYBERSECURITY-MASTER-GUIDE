@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="590" viewBox="0 0 1460 590" role="img" aria-labelledby="title desc">
+<title id="title">AI security operations: trust and approval boundaries</title>
+<desc id="desc">Four stages move left to right: authorized data intake, validation and evidence storage, read-only AI triage, and independent human review. Evidence storage is separated from AI output and all privileged actions remain behind an explicit human approval boundary.</desc>
+<defs>
+  <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#67d6fd"/></marker>
+</defs>
+<rect x="0" y="0" width="1460" height="590" rx="20" fill="#0c1525"/>
+<g font-family="Arial, Helvetica, sans-serif">
+ <text x="44" y="54" font-size="31" font-weight="700" fill="#f8fafc">AI-assisted security operations: trust &amp; approval boundaries</text>
+ <text x="44" y="89" font-size="18" fill="#bbd1e8">Untrusted events can inform analysis; they never grant tool permissions or authorize production actions.</text>
+ <rect x="44" y="152" width="304" height="212" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+ <text x="62" y="197" font-size="20" font-weight="700" fill="#ffffff">1  Authorized intake</text>
+ <text x="62" y="244" font-size="17" fill="#d9e7f3">Approved sources only</text>
+ <text x="62" y="276" font-size="17" fill="#d9e7f3">Tenant, asset &amp; event time</text>
+ <text x="62" y="308" font-size="17" fill="#d9e7f3">Declared data classification</text>
+ <rect x="400" y="152" width="304" height="212" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+ <text x="418" y="197" font-size="20" font-weight="700" fill="#ffffff">2  Validate &amp; store</text>
+ <text x="418" y="244" font-size="17" fill="#d9e7f3">Schema and source checks</text>
+ <text x="418" y="276" font-size="17" fill="#d9e7f3">Deduplication &amp; redaction</text>
+ <text x="418" y="308" font-size="17" fill="#d9e7f3">Preserve original evidence</text>
+ <rect x="756" y="152" width="304" height="212" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+ <text x="774" y="197" font-size="20" font-weight="700" fill="#ffffff">3  Read-only AI triage</text>
+ <text x="774" y="244" font-size="17" fill="#d9e7f3">Approved knowledge retrieval</text>
+ <text x="774" y="276" font-size="17" fill="#d9e7f3">Cited facts vs hypotheses</text>
+ <text x="774" y="308" font-size="17" fill="#d9e7f3">No privileged execution</text>
+ <rect x="1112" y="152" width="304" height="212" rx="14" fill="#172b43" stroke="#67d6fd" stroke-width="2"/>
+ <text x="1130" y="197" font-size="20" font-weight="700" fill="#ffffff">4  Independent review</text>
+ <text x="1130" y="244" font-size="17" fill="#d9e7f3">Validate record and sensor</text>
+ <text x="1130" y="276" font-size="17" fill="#d9e7f3">Check alternatives &amp; gaps</text>
+ <text x="1130" y="308" font-size="17" fill="#d9e7f3">Approve a draft or reject</text>
+ <path d="M350 258 L390 258" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#arrow)"/>
+ <path d="M706 258 L746 258" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#arrow)"/>
+ <path d="M1062 258 L1102 258" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#arrow)"/>
+ <path d="M552 366 L552 418" fill="none" stroke="#67d6fd" stroke-width="3" marker-end="url(#arrow)"/>
+ <path d="M1264 366 L1264 418" fill="none" stroke="#e6b655" stroke-width="3" marker-end="url(#arrow)"/>
+ <rect x="44" y="421" width="640" height="123" rx="13" fill="#19394a" stroke="#67d6fd" stroke-width="2"/>
+ <text x="64" y="462" font-size="21" font-weight="700" fill="#e9f8ff">Evidence boundary: controlled records</text>
+ <text x="64" y="497" font-size="17" fill="#e1edf8">Preserve provenance, timestamps, versions and access controls.</text>
+ <text x="64" y="523" font-size="16" fill="#bcd4e8">Public guides use synthetic or redacted data only.</text>
+ <rect x="730" y="421" width="686" height="123" rx="13" fill="#413322" stroke="#e6b655" stroke-width="2"/>
+ <text x="750" y="462" font-size="21" font-weight="700" fill="#ffe4a3">Action boundary: explicit human authorization</text>
+ <text x="750" y="497" font-size="17" fill="#f5e6c6">No endpoint isolation, rule deployment or external send by default.</text>
+ <text x="750" y="523" font-size="16" fill="#e4cda2">Changes require approval, scoped credentials, readback and rollback.</text>
+ <text x="44" y="574" font-size="15" fill="#b8cbe0">Conceptual architecture; not a claim of deployed integrations, sensor visibility or validated detections.</text>
+</g>
+</svg>
