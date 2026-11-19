@@ -316,7 +316,7 @@ On the Windows agent, trigger a test alert by creating a test file:
 
 ```powershell
 # File-integrity smoke test only: not the EICAR test string; it may not trigger an alert. Use only if this path is monitored.
-echo "test" > C:\Users\Public\eicar-test.txt
+echo "test" > C:\Users\Public\fim-smoke-test.txt
 ```
 
 On Linux:
