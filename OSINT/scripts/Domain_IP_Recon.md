@@ -28,8 +28,8 @@ Collect organized, passive-first OSINT findings. If a written scope authorizes d
 - Investigating a scam/phishing domain or its hosting infrastructure as part of the fraud investigation workflow
 - Active testing is optional and can affect third-party/shared infrastructure. Use `--active` only when written scope specifically authorizes the exact IPs supplied with `-i` or `-f`. A domain lookup or discovered address is not authorization to probe it.
 
-**Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
-**Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  
+**Required:** Bash, `curl`, and `jq`. `theHarvester` is optional for provider-based discovery. **Active-scan tools:** `nmap`, `whatweb`, `nuclei`, and `dirsearch`; RustScan additionally needs Docker and its pinned image.  
+**Install:** `sudo apt install jq curl`; install optional tools only for the lookups and expressly authorized active scans you plan to use.  
 **Usage:** Copy the script below into a `.sh` file and `chmod +x` it. Provider lookups run without direct probing. Add `--active` only for expressly authorized, explicitly supplied IP targets (`-i` or `-f`). Domain-discovered addresses are never scanned automatically.
 
 **Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed.
@@ -52,9 +52,10 @@ Collect organized, passive-first OSINT findings. If a written scope authorizes d
 #         ./scammer_audit.sh -f <file_with_ips>
 #         ./scammer_audit.sh -e <email>
 #
-#  Dependencies:
-#    sudo apt install whatweb nuclei dirsearch jq nmap curl netcat-openbsd
-#    sudo docker pull rustscan/rustscan:2.1.1
+#  Required dependencies: curl, jq
+#  Optional provider lookup: theHarvester
+#  Active-scan tools: install only when explicitly authorized to use --active
+#    nmap, whatweb, nuclei, dirsearch; RustScan additionally needs Docker
 #############################################
 
 # Colors for output
