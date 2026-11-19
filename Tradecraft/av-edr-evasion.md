@@ -1033,7 +1033,7 @@ Memory forensics on acquired dump?
 - [Moneta - in-memory IOC scanner](https://github.com/forrest-orr/moneta)
 - [FLARE VM - Windows malware analysis distro](https://github.com/mandiant/flare-vm)
 - [REMnux - Linux malware analysis distro](https://remnux.org/)
-- [Volatility 3](https://github.com/volatilityfoundation/volatility3)
+- [Volatility 3](https://github.com/volatilityfoundation/volatility3) · [release notes](https://github.com/volatilityfoundation/volatility3/releases) (plugin names can move between categories; check the installed release)
 - [CyberChef](https://gchq.github.io/CyberChef/)
 - [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/)
 - [Ghidra](https://github.com/NationalSecurityAgency/ghidra/)
