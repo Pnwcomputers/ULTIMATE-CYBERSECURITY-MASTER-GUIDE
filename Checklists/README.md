@@ -436,27 +436,17 @@ These security checklists contain attack techniques and methodologies for:
 #### Computer Fraud & Abuse Act (Cfaa) - United States
 
 ```
-⚠️ CRITICAL LEGAL WARNING:
+The Computer Fraud and Abuse Act (18 U.S.C. § 1030) contains multiple offenses
+with different elements and penalties. Whether conduct is covered depends on the
+specific subsection and facts, including authorization, intent, and impact. Do not
+infer a particular charge or sentence from this summary. Review the [statute](https://uscode.house.gov/us/usc/119-118/t18/s1030/)
+and [DOJ charging guidance](https://www.justice.gov/jm/jm-9-48000-computer-fraud),
+and obtain jurisdiction-specific legal advice.
 
-The Computer Fraud and Abuse Act (18 U.S.C. § 1030) criminalizes:
-   • Unauthorized access to protected computers
-   • Exceeding authorized access
-   • Damaging protected computers
-   • Trafficking in passwords
-   • Extortion involving computers
-
-PENALTIES:
-   • Up to 10 years imprisonment (first offense)
-   • Up to 20 years (repeat offense)
-   • Significant financial penalties
-   • Civil liability in addition to criminal charges
-
-CRITICAL: Authorization must be:
-   ✓ Explicit and in writing
-   ✓ From someone with authority to grant it
-   ✓ Specific about scope and techniques
-   ✓ Current and not expired
+For work involving another country, consult the applicable local law and counsel;
+UK, EU member-state, Canadian, and Australian rules have their own scope and elements.
 ```
+
 
 #### International Laws
 
@@ -465,8 +455,8 @@ CRITICAL: Authorization must be:
 - **Canada Criminal Code Section 342.1**: Unauthorized computer use
 - **Australia Cybercrime Act 2001**: Computer-related offenses
 
-**Key Point**: These laws apply even when using the techniques in these checklists
-without proper authorization.
+**Key Point**: Written authorization, precise scope, and local legal review are important;
+the applicable law and consequences depend on the jurisdiction and conduct.
 
 ---
 

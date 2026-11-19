@@ -34,7 +34,7 @@ _Exchange Server attack techniques covering authentication abuse, post-compromis
 
 ⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Unauthorized activity may violate applicable law, contracts, or policy depending on the conduct, authorization, and jurisdiction. Obtain written approval and follow the agreed scope.** ⚠️
 
 ⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
