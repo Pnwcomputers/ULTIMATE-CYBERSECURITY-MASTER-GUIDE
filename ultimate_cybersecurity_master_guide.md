@@ -1187,16 +1187,25 @@ If you specifically need vanilla OSSEC (e.g. an existing OSSEC deployment you're
 ## Digital Forensics
 
 ### Forensic Data Acquisition
+
+Acquire media only under documented authority and chain of custody. A live source can change during acquisition, so prefer an approved, powered-down source and a validated hardware write blocker when practical. Record the source make/model, serial number, capacity, condition, acquisition time, operator, tool/version, and any limitations.
+
+Before acquisition, verify the source identity against the case record and confirm the evidence destination is new, access-controlled, and has sufficient space. Use a validated forensic acquisition tool with the source and destination explicitly selected; never point an acquisition at an uncertain device or overwrite an existing evidence image. Preserve the original image and analyze a separate read-only working copy.
+
+Compute a SHA-256 checksum for the resulting image and record it in the evidence manifest. Use legacy hashes only when a documented compatibility requirement calls for them; MD5 is not a collision-resistant integrity choice. A checksum helps detect later changes but does not prove the acquisition itself was complete or correct.
+
 ```bash
-# Create disk image
-dd if=/dev/sda of=image.dd bs=4M status=progress
+# Example: checksum a known evidence image without changing it
+sha256sum -- "/cases/CASE001/images/disk-001.dd"
+```
 
-# Calculate hash
-md5sum image.dd
-sha256sum image.dd
-
-# Mount forensic image
-mount -o ro,loop image.dd /mnt/forensic
+```mermaid
+flowchart LR
+    Source[Verified source media] --> Blocker[Write-protected acquisition]
+    Blocker --> Image[New evidence image]
+    Image --> Hash[SHA-256 and custody manifest]
+    Image --> Working[Separate read-only working copy]
+    Working --> Analysis[Forensic analysis]
 ```
 
 [Return to Table of Contents](#master-table-of-contents)

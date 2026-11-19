@@ -1678,9 +1678,12 @@ mullvad connect
 
 # 6. Full disk encryption
 # Linux: LUKS
-cryptsetup luksFormat /dev/sdX
 # macOS: FileVault
 # Windows: BitLocker
+# Formatting a block device with a LUKS setup command initializes it and can
+# make existing data inaccessible. Follow current vendor documentation only
+# after verifying the exact target, confirming a tested backup, and approving
+# the change. This guide intentionally provides no device-formatting command.
 ```
 
 ### Lessons for Security Professionals
