@@ -306,16 +306,12 @@ If city/country or proxy/VPN classifications are necessary, obtain them separate
 
 #### Step 3: Reputation Check
 
-**Shodan (if API configured):**
-```bash
-curl -s "https://api.shodan.io/shodan/host/1.2.3.4?key=YOUR_KEY" | jq
-```
+**Shodan and AbuseIPDB (if authorized and configured):**
 
-**AbuseIPDB:**
-```bash
-curl -s "https://api.abuseipdb.com/api/v2/check?ipAddress=1.2.3.4&maxAgeInDays=90" \
-  -H "Key: YOUR_KEY" | jq
-```
+Use the toolkit's protected configuration or each provider's current official
+client. Do not place API keys in URLs, shell command lines, copied terminal
+history, or logs. Provider queries disclose the target identifier to that
+provider; review its terms and retain only the findings needed for the case.
 
 **What to look for:**
 - Previous abuse reports
@@ -443,8 +439,10 @@ Check:
 
 **Ethereum:**
 ```bash
-# Etherscan API v1 was fully deprecated 2025-08-15 - v2 requires a chainid parameter (1 = Ethereum mainnet)
-curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
+Etherscan API v1 is deprecated. For a required blockchain lookup, use
+the current Etherscan API v2 documentation and an approved client or protected
+configuration for credentials. Never copy an API key into a URL or shell
+command. Record only the transaction metadata relevant to the investigation.
 ```
 
 #### Step 4: Transaction Tracing
