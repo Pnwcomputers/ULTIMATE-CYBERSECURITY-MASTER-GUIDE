@@ -257,3 +257,22 @@ Client presentation preparation
 - [flow-domain_recon.md](flow-domain_recon.md) - First flow in the standard recon chain
 - [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Final output flow for report generation
 - [../ai_prompts.md](../ai_prompts.md) - Prompt patterns used within each flow
+
+## Analyst-Gated Workflow Map
+
+Chaining flows should not silently expand scope. Treat outputs from one flow as unverified inputs to the next; require a human scope and evidence review at each handoff.
+
+```mermaid
+flowchart LR
+    A[Written scope and approved data] --> B[DomainRecon]
+    B --> C[Analyst verifies ownership and asset scope]
+    C --> D[EmailOSINT or BreachChecker]
+    D --> E[Analyst reviews privacy and provider disclosures]
+    E --> F[ThreatIntelCheck]
+    F --> G[Vulnerability research]
+    G --> H[Analyst validates source claims and impact]
+    H --> I[Report with provenance, uncertainty, and evidence]
+    C -. out of scope .-> X[Stop and document]
+    E -. unapproved disclosure .-> X
+    H -. unverified claim .-> X
+```
