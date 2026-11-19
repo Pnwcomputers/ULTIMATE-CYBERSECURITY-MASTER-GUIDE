@@ -178,11 +178,14 @@ images to fail to boot.
    - Click **Write**. When prompted about custom settings, choose **No** / **Skip**.
 3. Insert the microSD card into the uConsole and boot.
 
-> **Destructive Linux/`dd` alternative:** Pi Imager is preferred. Writing to the wrong device irreversibly destroys its data. Before running `dd`, verify the image source and checksum where published, inspect the target with `lsblk -o NAME,SIZE,MODEL,SERIAL,TRAN,MOUNTPOINTS`, confirm its model/capacity and device path, unmount its partitions, and confirm it is not the host system disk. Replace `/dev/sdX` only after identifying the exact whole-card device. Stop if the identity is uncertain.
+> [!CAUTION]
+> Pi Imager is preferred. Writing to the wrong device irreversibly destroys its data. Before running `dd`, verify the image source and checksum where published, inspect the target with `lsblk -o NAME,SIZE,MODEL,SERIAL,TRAN,MOUNTPOINTS`, confirm its model/capacity and whole-device path, unmount its partitions, and confirm it is not the host system disk. Replace `/dev/sdX` only after identifying the exact card. Stop if the identity is uncertain.
 >
-> `xz -d <image>.xz`
-> `sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync`
-> `sync`
+> ```bash
+> xz -d <image>.xz
+> sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync
+> sync
+> ```
 
 > **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#troubleshooting) before getting frustrated - this is a known issue with a documented fix.
 
