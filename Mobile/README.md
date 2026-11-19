@@ -43,6 +43,7 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 - [Overview](#-overview)
 - [Current Content](#-current-content)
 - [Mobile Pentesting Toolchain](#️-mobile-pentesting-toolchain)
+- [Mobile HTTPS Proxy Trust Flow](#-mobile-https-proxy-trust-flow)
 - [Testing Methodology Overview](#-testing-methodology-overview)
 - [Suggested Future Content](#-suggested-future-content)
 - [Security & Legal Disclaimer](#️-security--legal-disclaimer)
@@ -312,9 +313,9 @@ This section contains attack techniques and tools for:
 
 ### Legal Requirements For Mobile Security Testing
 
-#### Written Authorization Requirements
+#### Scope and authorization planning
 
-**CRITICAL: ALWAYS obtain written authorization that explicitly includes:**
+Before testing systems or devices you do not own or administer, confirm authority, targets, permitted methods, timing, stop conditions, data handling, and recovery steps. Documenting scope in writing is good practice and may be required by law, contract, or organizational policy.
 - Specific devices, apps, networks, and SSIDs in scope
 - Testing methodology and techniques approved
 - Time windows for testing activities
@@ -329,7 +330,7 @@ This section contains attack techniques and tools for:
 Mobile security testing intersects multiple legal frameworks:
 
 - **Computer Fraud and Abuse Act (CFAA)** - unauthorized access to computers and networks
-- **Electronic Communications Privacy Act (ECPA)** - interception of wireless communications
+- **Electronic Communications Privacy Act (ECPA)** - some interception or access to stored or in-transit communications may implicate federal or state privacy laws; applicability depends on the facts and jurisdiction.
 - **FCC Regulations** - RF transmissions and interference with licensed spectrum
 - **State/Local Laws** - vary by jurisdiction; some states have stricter computer crime laws
 - **International Laws** - GDPR (EU), Computer Misuse Act (UK), and equivalents apply when testing crosses borders
@@ -362,11 +363,11 @@ Mobile security testing intersects multiple legal frameworks:
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Authorized testing only: confirm authority and scope before active testing.** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Legal consequences depend on the conduct and applicable law; see [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/), [18 U.S.C. §2511](https://uscode.house.gov/us/usc/t18/s2511/), and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **For systems you do not own or administer, confirm authorization in advance and document scope in writing where policy, law, or contract requires it.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
