@@ -35,33 +35,9 @@ This guide explains how to **retain context safely** and **react to events predi
 
 ### How These Pieces Fit Together
 
-```text
-Authoritative sources and approved scope
-                |
-                v
-Project instructions + verified reference notes
-                |
-                v
-       Agent performs bounded work
-                |
-          Event occurs
-                |
-                v
-   Hook / schedule / webhook handler
-     |        |               |
-   validate  log metadata   notify / queue
-     |        |               |
-     +--------+---------------+
-                |
-                v
-      Tests + evidence records
-                |
-                v
-     Milestone acceptance review
-                |
-                v
-   Status update + session handoff
-```
+![Separate AI notes/context and event-triggered hooks feeding independently checked evidence and milestone acceptance](../assets/diagrams/ai-notes-hooks-evidence-boundaries.svg)
+
+*Conceptual roles, not a universal application hook contract.* A note does not execute code; hooks are tied to supported, explicitly configured **host events**. A webhook additionally needs authenticated inbound handling, and a scheduler needs an enabled scheduling service. Refer to [GitHub Actions event documentation](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows) for platform-specific triggers and caveats.
 
 A hook can record an event, but a recorded event is **not** proof that the requested task succeeded. The task needs its own check, e.g. read back the edited file, inspect the real alert, or test a restored backup.
 
