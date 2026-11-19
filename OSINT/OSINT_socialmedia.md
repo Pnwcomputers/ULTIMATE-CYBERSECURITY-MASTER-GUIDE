@@ -110,7 +110,7 @@ Deletion on the client is not deletion everywhere.
 - Pull the numeric ID *before* content disappears; it's your anchor for archive lookups afterward.
 
 ### Contact-import enumeration
-Some mobile apps confirm whether a given email or phone maps to an account when you add it to a device's contacts and let the app "find friends." Powerful for tying a selector to an account, but **high-risk**: it can notify the target and can flag your account. Use a clean, single-contact device or emulator, understand the notification behavior for that specific app version, and never run it from an account you can't afford to lose.
+Some services may upload address-book data or notify contacts when using discovery features. Avoid uploading third-party contact lists to enumerate accounts. Use only documented, consent-based features for accounts and contacts you control, after reviewing what data is uploaded and who may be notified.
 
 ---
 
@@ -123,7 +123,7 @@ The highest-value, highest-friction ecosystem. Meta has spent years dismantling 
 - **Real names** - Facebook is the platform where targets most often use their real identity, tied to employer, school, and location, making filtered name search viable when it fails elsewhere.
 - **Numeric UIDs** are recoverable from profile page source and anchor deeper queries. Page, event, and group objects carry their own IDs; city/place IDs appear in place URLs.
 - **URL-addressable profile sections** (about, work, education, friends, photos, check-ins) let you methodically walk a profile rather than trusting the default view to surface everything.
-- **Selector confirmation** via the password-reset flow can confirm an email/phone maps to an account and may reveal a masked recovery selector. Run it logged-out, from non-attributable infrastructure - repeated attempts can flag the session or notify the account holder.
+- **Account-existence checks:** Do not use password-reset, recovery, or contact-import flows to test whether another person's identifier is registered. These flows can disclose account status, expose recovery metadata, trigger notifications, and create privacy or account-abuse risks.
 - **Threads** rides on Instagram credentials: same numeric ID as the paired Instagram account, so it's a free pivot, though many users never actively post there.
 - **Instagram** requires login for essentially everything useful. Numeric user IDs and an info endpoint let you translate an ID back into a current handle after a rename. Dev-tools Network capture is the clean path to full-res media and exact (Unix) post timestamps.
 
