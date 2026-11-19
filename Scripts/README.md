@@ -415,43 +415,19 @@ Safe Learning Environments ONLY:
 
 ### Script Usage Guidelines
 
-#### Powershell Scripts
+#### PowerShell Scripts
 
-```powershell
-# EXAMPLE: Running in authorized test environment
-
-# 1. Verify authorization
-Get-Content authorization.txt
-
-# 2. Do not weaken execution policy to run an unsigned script.
-# Follow the organization-approved signing and execution policy.
-
-# 3. Run script with appropriate parameters
-.\script.ps1 -Target "authorized-target.local" -Output "results.txt"
-
-# 4. Document results
-Get-Content results.txt | Out-File -FilePath "assessment-report.txt" -Append
-```
+Review the selected script and its documented parameters first. Do not weaken execution policy to run an unsigned script. Follow the organization-approved signing and execution policy, and record the approved command and output handling.
 
 #### Python Scripts
 
-```python
-# EXAMPLE: Running network scanner in authorized environment
+The repository's `port_scanner.py` accepts a host and inclusive start/end ports as positional arguments. It prints results to the console and has no `--target` or `--output` options:
 
-# 1. Verify you have authorization
-# 2. Activate virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate      # Windows
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Run script against authorized target only
-python port_scanner.py --target 192.168.1.100 --output scan_results.txt
-
-# 5. Document and secure results
+```console
+python port_scanner.py <authorized-hostname> 1 1024
 ```
+
+Use only a host and port range that are explicitly within scope. This repository does not provide a `requirements.txt` for this script; inspect its imports and obtain dependencies from trusted sources before installing them.
 
 #### Bash Scripts
 
