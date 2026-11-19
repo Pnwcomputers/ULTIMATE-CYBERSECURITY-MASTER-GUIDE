@@ -8,6 +8,27 @@ Keep technical explanations, source links, code samples, and client-facing proce
 
 **Use this protocol when adding, editing, reviewing, or running any guide or script.** Read [STYLE_GUIDE.md](../STYLE_GUIDE.md), [LEGAL.md](../LEGAL.md), and the relevant section index first.
 
+
+![Whole-repository audit evidence gates from complete inventory and static checks through source verification, lab evidence and reviewed publication](../assets/diagrams/repository-evidence-gates.svg)
+
+*Original conceptual process map.* Static checks, authoritative source research, synthetic fixtures, authorized lab experiments and observed production outcomes are **different evidence classes**. No inference about deployed security controls follows merely from a generated visual.
+
+### Full-Tree Inventory & Live Baseline Discipline
+
+The GitHub tree at commit `f0aace74fb74ccf3a1fea8b961f12c9551469138` contained **1,036 tracked files**, including **405 Markdown documents**, **186 SVG figures**, **181 Python files**, **96 shell scripts** and **12 PowerShell scripts**. These counts are a timestamped baseline, **not dynamic badges**, and exclude later audit changes. The existing November 11 baseline below must be read as historical, not as the current file count.
+
+The [Whole Repository Visual Coverage & Safety workflow](../.github/workflows/visual-coverage.yml) now scans **every Markdown document and SVG in the checkout**, creates a full inventory and rejects missing local image embeds, malformed SVG, embedded scripts and unsafe external SVG references. Its report also distinguishes **linked** figures from **actually embedded** figures and identifies missing accessibility fields. Reports are stored as CI artifacts; missing figure placements require a context-specific edit with an accurate caption, not an indiscriminate README insertion.
+
+Run the new scan locally with:
+
+~~~bash
+python3 -B -m unittest discover -s tools/tests -p 'test_visual_coverage_audit.py' -v
+python3 -B tools/audit_visual_coverage.py --strict
+python3 -B tools/audit_visual_coverage.py --format json --output /tmp/visual-coverage.json
+~~~
+
+This **does not** verify embedded commands, hardware limits, live links, external source integrity, figure semantics, software versions or production configuration. Keep a separate cited source check and an authorized execution record for each claim that needs that level of confidence.
+
 ## Evidence & Confidence Labels
 
 | Status | Meaning | Evidence required |

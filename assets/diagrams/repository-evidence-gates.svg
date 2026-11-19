@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="570" viewBox="0 0 1480 570" role="img" aria-labelledby="title desc">
+<title id="title">Whole-repository audit: evidence gates before publication</title>
+<desc id="desc">Five stages: inventory the entire repository, run structural and syntax checks, verify technical claims against primary sources, validate actual behavior in an isolated authorized lab, and merge reviewed repairs with reproducible evidence. Static checks are not a substitute for factual or live verification.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#76d7fa"/></marker></defs>
+<rect width="1480" height="570" rx="18" fill="#0c1525"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="35" y="55" font-size="30" font-weight="700" fill="#f8fafc">Whole-repository quality audit: proof before a claim</text>
+<text x="35" y="90" font-size="18" fill="#c0d3e9">One green CI check does not certify a source, device, detection, or live deployment.</text>
+<rect x="34" y="158" width="252" height="212" rx="14" fill="#172b43" stroke="#76d7fa" stroke-width="2"/>
+<text x="49" y="201" font-size="19" font-weight="700" fill="#f8fafc">1. Inventory full tree</text>
+<text x="49" y="248" font-size="16" fill="#e0ecf7">Files, versions &amp; owners</text>
+<text x="49" y="283" font-size="16" fill="#e0ecf7">Docs, scripts, firmware</text>
+<text x="49" y="318" font-size="16" fill="#e0ecf7">Images, PDFs &amp; binaries</text>
+<path d="M288 262 L314 262" stroke="#76d7fa" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="324" y="158" width="252" height="212" rx="14" fill="#172b43" stroke="#76d7fa" stroke-width="2"/>
+<text x="339" y="201" font-size="19" font-weight="700" fill="#f8fafc">2. Run static gates</text>
+<text x="339" y="248" font-size="16" fill="#e0ecf7">Syntax &amp; structure</text>
+<text x="339" y="283" font-size="16" fill="#e0ecf7">Local links &amp; headings</text>
+<text x="339" y="318" font-size="16" fill="#e0ecf7">SVG safety &amp; placement</text>
+<path d="M578 262 L604 262" stroke="#76d7fa" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="614" y="158" width="252" height="212" rx="14" fill="#172b43" stroke="#76d7fa" stroke-width="2"/>
+<text x="629" y="201" font-size="19" font-weight="700" fill="#f8fafc">3. Verify claims</text>
+<text x="629" y="248" font-size="16" fill="#e0ecf7">Primary source &amp; date</text>
+<text x="629" y="283" font-size="16" fill="#e0ecf7">Exact model and version</text>
+<text x="629" y="318" font-size="16" fill="#e0ecf7">Contradictions &amp; limits</text>
+<path d="M868 262 L894 262" stroke="#76d7fa" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="904" y="158" width="252" height="212" rx="14" fill="#172b43" stroke="#76d7fa" stroke-width="2"/>
+<text x="919" y="201" font-size="19" font-weight="700" fill="#f8fafc">4. Validate behavior</text>
+<text x="919" y="248" font-size="16" fill="#e0ecf7">Synthetic fixture first</text>
+<text x="919" y="283" font-size="16" fill="#e0ecf7">Isolated authorized lab</text>
+<text x="919" y="318" font-size="16" fill="#e0ecf7">Preserve observed output</text>
+<path d="M1158 262 L1184 262" stroke="#76d7fa" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+<rect x="1194" y="158" width="252" height="212" rx="14" fill="#172b43" stroke="#76d7fa" stroke-width="2"/>
+<text x="1209" y="201" font-size="19" font-weight="700" fill="#f8fafc">5. Review &amp; merge</text>
+<text x="1209" y="248" font-size="16" fill="#e0ecf7">Independent comparison</text>
+<text x="1209" y="283" font-size="16" fill="#e0ecf7">Repair code &amp; diagrams</text>
+<text x="1209" y="318" font-size="16" fill="#e0ecf7">Checks, PR &amp; rollback</text>
+<rect x="35" y="416" width="1410" height="109" rx="13" fill="#403326" stroke="#e6b655" stroke-width="2"/>
+<text x="58" y="457" font-size="21" font-weight="700" fill="#f9dfa8">Reopen a finding whenever source, environment or evidence changes</text>
+<text x="58" y="490" font-size="17" fill="#f6e6cb">Record static / source / fixture / lab / production as distinct evidence levels. Never promote an untested example to a verified result.</text>
+<text x="35" y="552" font-size="15" fill="#b7cce0">Conceptual process, not a record that all technical statements in this repository or all hardware/software assets have been verified.</text>
+</g>
+</svg>

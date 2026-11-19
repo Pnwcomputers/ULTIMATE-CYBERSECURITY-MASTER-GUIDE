@@ -1,0 +1,54 @@
+name: Whole Repository Visual Coverage & Safety
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '45 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-visual-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Verify scanner with isolated fixtures
+        run: python3 -B -m unittest discover -s tools/tests -p 'test_visual_coverage_audit.py' -v
+
+      - name: Inventory every Markdown page and SVG
+        run: |
+          python3 -B tools/audit_visual_coverage.py --format markdown \
+            --output "$RUNNER_TEMP/visual-coverage-report.md" --max-items 100
+          python3 -B tools/audit_visual_coverage.py --format json \
+            --output "$RUNNER_TEMP/visual-coverage-full.json"
+          cat "$RUNNER_TEMP/visual-coverage-report.md" >> "$GITHUB_STEP_SUMMARY"
+          sed -n '1,125p' "$RUNNER_TEMP/visual-coverage-report.md"
+
+      - name: Enforce valid local images and safe SVG markup
+        run: python3 -B tools/audit_visual_coverage.py --strict --format markdown --max-items 8 > "$RUNNER_TEMP/visual-validation-output.md"
+
+      - name: Show validator results when a problem exists
+        if: failure()
+        run: |
+          if [ -f "$RUNNER_TEMP/visual-validation-output.md" ]; then
+            grep -A 40 -E '^## Broken Local Image Embeds|^## Malformed Or Unsafe SVGs' "$RUNNER_TEMP/visual-validation-output.md" || true
+          fi
+
+      - name: Preserve complete machine-readable inventory
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: visual-coverage-inventory-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/visual-coverage-report.md
+            ${{ runner.temp }}/visual-coverage-full.json
+          retention-days: 30
+          if-no-files-found: error
