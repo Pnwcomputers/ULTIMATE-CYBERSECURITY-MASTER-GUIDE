@@ -303,6 +303,823 @@ audit_eth() {
         warn "ETH: ETHERSCAN_API_KEY not set — Etherscan queries will fail or be rate-limited"
     fi
 
+# Pass credential-bearing URLs to curl through stdin config so they do not
+# appear in curl's process arguments. The provider may still retain URL logs.
+private_curl_status_url() {
+    local url="$1" output="$2"
+    [[ "$url" == https://* && "$url" != *'"'* && "$url" != *
+    local http_code
+    http_code=$(private_curl_status_url "https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}" "$bal_file")
+
+    local eth_balance="N/A"
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local wei
+        wei=$(jq_or_grep "$bal_file" '.result' '"result":"[^"]*"' "0")
+        eth_balance=$(awk "BEGIN {printf \"%.8f\", ${wei}/1000000000000000000}" 2>/dev/null || echo "N/A")
+        data "ETH: balance=${eth_balance} ETH"
+    else
+        warn "ETH balance: HTTP $http_code"
+    fi
+
+    info "ETH: querying transactions for $addr ..."
+    local tx_file="${report_dir}/eth_txlist.json"
+    local http_code2
+    http_code2=$(private_curl_status_url "https://api.etherscan.io/api?module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}" "$tx_file")
+
+    {
+        printf "ETHEREUM ADDRESS AUDIT\n"
+        printf "Address:          %s\n" "$addr"
+        printf "Current Balance:  %s ETH\n" "$eth_balance"
+        printf "\nRECENT TRANSACTIONS (last 5):\n"
+    } >> "$report_file"
+
+    if [[ "${http_code2:-000}" == "200" ]]; then
+        local api_status
+        api_status=$(grep -o '"status":"[^"]*"' "$tx_file" | head -1 | cut -d'"' -f4 || echo "0")
+        if [[ "$api_status" != "1" ]]; then
+            local api_msg
+            api_msg=$(jq -r '.result // "API error"' "$tx_file" 2>/dev/null || grep -o '"result":"[^"]*"' "$tx_file" | head -1 | cut -d'"' -f4 || echo "unknown error")
+            warn "ETH txlist API error: ${api_msg}"
+            printf "Transaction list: %s\n" "$api_msg" >> "$report_file"
+        else
+            local tx_count
+            tx_count=$(jq_or_grep "$tx_file" '.result | length' '"hash"' "0")
+            data "ETH: transaction count (page 1)=${tx_count}"
+            printf "Transaction Count (visible): %s\n" "$tx_count" >> "$report_file"
+
+            if command -v jq &>/dev/null; then
+                jq -r '.result[]? | "  TxHash:   \(.hash)\n  Time:     \(.timeStamp | tonumber | todate)\n  From:     \(.from)\n  To:       \(.to)\n  Value:    \((.value | tonumber) / 1000000000000000000 | tostring) ETH\n  Status:   \(if .isError == "0" then "Success" else "Failed" end)\n  ---"' "$tx_file" 2>/dev/null >> "$report_file" || true
+            else
+                grep -o '"hash":"[^"]*"' "$tx_file" | head -5 | while IFS= read -r line; do
+                    printf "  TxHash: %s\n" "$(echo "$line" | cut -d'"' -f4)"
+                done >> "$report_file"
+            fi
+        fi
+    else
+        warn "ETH txlist: HTTP $http_code2"
+        printf "Transaction list query failed (HTTP %s)\n" "$http_code2" >> "$report_file"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Blockchair-based audit (LTC, DOGE, BCH)
+# ---------------------------------------------------------------------------
+audit_blockchair() {
+    local addr="$1"
+    local chain_slug="$2"
+    local chain_label="$3"
+    local report_dir="$4"
+    local report_file="${report_dir}/report.txt"
+
+    command -v curl &>/dev/null || { warn "curl not found, skipping ${chain_label} audit"; return; }
+
+    info "${chain_label}: querying blockchair for $addr ..."
+    local bc_file="${report_dir}/blockchair.json"
+    local bc_url="https://api.blockchair.com/${chain_slug}/dashboards/address/${addr}"
+    if [[ -n "$BLOCKCHAIR_API_KEY" ]]; then
+        bc_url="${bc_url}?key=${BLOCKCHAIR_API_KEY}"
+    fi
+
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$bc_url")
+
+    {
+        printf "%s ADDRESS AUDIT\n" "$chain_label"
+        printf "Address: %s\n" "$addr"
+    } >> "$report_file"
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local received sent balance tx_count first_seen last_seen
+        received=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.received" '"received":[0-9]*' "0")
+        sent=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.spent" '"spent":[0-9]*' "0")
+        balance=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.balance" '"balance":[0-9]*' "0")
+        tx_count=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.transaction_count" '"transaction_count":[0-9]*' "0")
+        first_seen=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.first_seen_receiving" '"first_seen_receiving":"[^"]*"' "N/A")
+        last_seen=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.last_seen_receiving" '"last_seen_receiving":"[^"]*"' "N/A")
+
+        data "${chain_label}: received=${received}, sent=${sent}, balance=${balance}, txs=${tx_count}"
+
+        {
+            printf "Total Received:   %s (satoshi units)\n" "$received"
+            printf "Total Sent:       %s (satoshi units)\n" "$sent"
+            printf "Current Balance:  %s (satoshi units)\n" "$balance"
+            printf "Transaction Count:%s\n" "$tx_count"
+            printf "First Transaction:%s\n" "$first_seen"
+            printf "Last Transaction: %s\n" "$last_seen"
+            printf "\nRECENT TRANSACTIONS (last 5):\n"
+        } >> "$report_file"
+
+        if command -v jq &>/dev/null; then
+            jq -r ".data.\"${addr}\".transactions[:5][]?" "$bc_file" 2>/dev/null >> "$report_file" || true
+        fi
+    else
+        warn "${chain_label} blockchair: HTTP $http_code"
+        printf "Blockchair query failed (HTTP %s)\n" "$http_code" >> "$report_file"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# XRP audit
+# ---------------------------------------------------------------------------
+audit_xrp() {
+    local addr="$1"
+    local report_dir="$2"
+    local report_file="${report_dir}/report.txt"
+
+    command -v curl &>/dev/null || { warn "curl not found, skipping XRP audit"; return; }
+
+    info "XRP: querying xrpscan for $addr ..."
+    local xrp_file="${report_dir}/xrpscan.json"
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$xrp_file" -w "%{http_code}" \
+        "https://api.xrpscan.com/api/v1/account/${addr}")
+
+    {
+        printf "XRP ADDRESS AUDIT\n"
+        printf "Address: %s\n" "$addr"
+    } >> "$report_file"
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local balance tx_count initial_balance
+        balance=$(jq_or_grep "$xrp_file" '.xrpBalance' '"xrpBalance":"[^"]*"' "N/A")
+        tx_count=$(jq_or_grep "$xrp_file" '.txCount' '"txCount":[0-9]*' "N/A")
+        initial_balance=$(jq_or_grep "$xrp_file" '.initial_funding_amount' '"initial_funding_amount":[^,}]*' "N/A")
+
+        data "XRP: balance=${balance} XRP, tx_count=${tx_count}"
+
+        {
+            printf "Current Balance:  %s XRP\n" "$balance"
+            printf "Transaction Count:%s\n" "$tx_count"
+            printf "Initial Funding:  %s drops\n" "$initial_balance"
+        } >> "$report_file"
+    else
+        warn "XRP xrpscan: HTTP $http_code"
+        printf "XRPScan query failed (HTTP %s)\n" "$http_code" >> "$report_file"
+    fi
+
+    info "XRP: querying recent transactions ..."
+    local tx_file="${report_dir}/xrpscan_txs.json"
+    local http_code2
+    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
+        "https://api.xrpscan.com/api/v1/account/${addr}/transactions?limit=5")
+
+    if [[ "${http_code2:-000}" == "200" ]]; then
+        printf "\nRECENT TRANSACTIONS (last 5):\n" >> "$report_file"
+        if command -v jq &>/dev/null; then
+            jq -r '.[]? | "  TxHash: \(.hash)\n  Time:   \(.date)\n  Type:   \(.TransactionType)\n  Amount: \(.Amount // "N/A")\n  ---"' "$tx_file" 2>/dev/null >> "$report_file" || true
+        else
+            grep -o '"hash":"[^"]*"' "$tx_file" | head -5 | while IFS= read -r line; do
+                printf "  TxHash: %s\n" "$(echo "$line" | cut -d'"' -f4)"
+            done >> "$report_file"
+        fi
+    else
+        warn "XRP transactions: HTTP $http_code2"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# XMR audit (limited — Monero is privacy-focused, minimal public data)
+# ---------------------------------------------------------------------------
+audit_xmr() {
+    local addr="$1"
+    local report_dir="$2"
+    local report_file="${report_dir}/report.txt"
+
+    {
+        printf "MONERO ADDRESS AUDIT\n"
+        printf "Address: %s\n" "$addr"
+        printf "\nNOTE: Monero (XMR) is a privacy coin. Blockchain data is not publicly\n"
+        printf "queryable. Address format validated as XMR (95-char, starts with 4).\n"
+        printf "For XMR tracing, contact a specialized blockchain analytics firm.\n"
+    } >> "$report_file"
+
+    warn "XMR: Monero blockchain is private; no public API data available"
+}
+
+# ---------------------------------------------------------------------------
+# BlockCypher cross-reference (BTC + ETH, optional enrichment)
+# ---------------------------------------------------------------------------
+audit_blockcypher() {
+    local addr="$1"
+    local chain_slug="$2"
+    local report_dir="$3"
+    local report_file="${report_dir}/report.txt"
+
+    [[ -z "$BLOCKCYPHER_API_KEY" ]] && return 0
+
+    command -v curl &>/dev/null || return 0
+
+    info "BlockCypher: querying ${chain_slug} for $addr ..."
+    local bc_file="${report_dir}/blockcypher.json"
+    local url="https://api.blockcypher.com/v1/${chain_slug}/main/addrs/${addr}/balance"
+    [[ -n "$BLOCKCYPHER_API_KEY" ]] && url="${url}?token=${BLOCKCYPHER_API_KEY}"
+
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$url")
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local balance tx_count
+        balance=$(jq_or_grep "$bc_file" '.balance' '"balance":[0-9]*' "N/A")
+        tx_count=$(jq_or_grep "$bc_file" '.n_tx' '"n_tx":[0-9]*' "N/A")
+        data "BlockCypher: balance=${balance} satoshis, tx_count=${tx_count}"
+        {
+            printf "\nBLOCKCYPHER CROSS-REFERENCE\n"
+            printf "Balance:           %s satoshis\n" "$balance"
+            printf "Transaction Count: %s\n" "$tx_count"
+        } >> "$report_file"
+    else
+        warn "BlockCypher: HTTP $http_code"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Per-address audit dispatcher
+# ---------------------------------------------------------------------------
+audit_address() {
+    local addr="$1"
+    local safe_addr
+    safe_addr=$(printf '%s' "$addr" | tr -cd '[:alnum:]_.-')
+    local report_dir="${OUTPUT_DIR}/${safe_addr}"
+    mkdir -p "$report_dir"
+
+    local chain
+    chain=$(detect_chain "$addr")
+    info "Address: $addr | Chain: $chain"
+
+    local report_file="${report_dir}/report.txt"
+    {
+        printf "=%.0s" {1..70}; printf "\n"
+        printf "PNWC CRYPTO AUDIT REPORT\n"
+        printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
+        printf "Investigator Contact: (set in case notes)\n"
+        printf "Chain: %s\n" "$chain"
+        printf "=%.0s" {1..70}; printf "\n\n"
+    } > "$report_file"
+
+    case "$chain" in
+        BTC)  audit_btc "$addr" "$report_dir"
+              audit_blockcypher "$addr" "btc" "$report_dir" ;;
+        ETH)  audit_eth "$addr" "$report_dir"
+              audit_blockcypher "$addr" "eth" "$report_dir" ;;
+        P2SH) warn "P2SH address — format is identical for BTC and LTC; auditing both chains"
+              printf "NOTE: P2SH addresses (3...) are format-identical for BTC and LTC.\n" >> "$report_file"
+              printf "Results from both chains shown below.\n\n" >> "$report_file"
+              audit_btc "$addr" "$report_dir"
+              audit_blockchair "$addr" "litecoin" "LITECOIN" "$report_dir"
+              audit_blockcypher "$addr" "btc" "$report_dir" ;;
+        LTC)  audit_blockchair "$addr" "litecoin"     "LITECOIN" "$report_dir" ;;
+        DOGE) audit_blockchair "$addr" "dogecoin"     "DOGECOIN" "$report_dir" ;;
+        BCH)  audit_blockchair "$addr" "bitcoin-cash" "BITCOIN CASH" "$report_dir" ;;
+        XRP)  audit_xrp "$addr" "$report_dir" ;;
+        XMR)  audit_xmr "$addr" "$report_dir" ;;
+        UNKNOWN)
+            warn "Could not detect chain for address: $addr"
+            printf "Chain: UNKNOWN — address format not recognized\n" >> "$report_file"
+            ;;
+    esac
+
+    # Scam database check (chain-agnostic)
+    check_cryptoscamdb "$addr" "$report_dir"
+
+    # Append scam flag to report
+    if [[ -f "${report_dir}/scam_flag.txt" ]]; then
+        {
+            printf "\n[!!! SCAM ALERT !!!]\n"
+            printf "This address has been flagged as a SCAM by CryptoScamDB.\n"
+            printf "IC3 report recommendation: HIGH PRIORITY\n"
+        } >> "$report_file"
+    fi
+
+    {
+        printf "\n%s\n" "$(printf '=%.0s' {1..70})"
+        printf "Raw API responses saved in: %s/\n" "$report_dir"
+        printf "For IC3 complaint: https://www.ic3.gov/\n"
+        printf "For FTC report:    https://reportfraud.ftc.gov/\n"
+    } >> "$report_file"
+
+    info "Report written: $report_file"
+}
+
+# ---------------------------------------------------------------------------
+# Summary across all addresses
+# ---------------------------------------------------------------------------
+build_summary() {
+    local summary_file="${OUTPUT_DIR}/audit_summary.txt"
+
+    section "Crypto Audit Summary"
+
+    {
+        printf "=%.0s" {1..70}; printf "\n"
+        printf "PNWC CRYPTOCURRENCY AUDIT SUMMARY\n"
+        printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
+        printf "Investigator: (set in case notes)\n"
+        printf "Contact: (set in case notes)\n"
+        printf "=%.0s" {1..70}; printf "\n\n"
+        printf "Addresses audited: %d\n\n" "${#ADDRESSES[@]}"
+    } > "$summary_file"
+
+    local flagged_count=0
+    for addr in "${ADDRESSES[@]}"; do
+        local safe_addr
+        safe_addr=$(printf '%s' "$addr" | tr -cd '[:alnum:]_.-')
+        local chain
+        chain=$(detect_chain "$addr")
+        printf "  %-60s  Chain: %s" "$addr" "$chain" >> "$summary_file"
+        if [[ -f "${OUTPUT_DIR}/${safe_addr}/scam_flag.txt" ]]; then
+            printf "  [SCAM FLAGGED]\n" >> "$summary_file"
+            (( flagged_count++ ))
+        else
+            printf "\n" >> "$summary_file"
+        fi
+    done
+
+    {
+        printf "\nScam-flagged addresses: %d / %d\n" "$flagged_count" "${#ADDRESSES[@]}"
+        printf "\nPer-address reports: %s/<address>/report.txt\n" "$OUTPUT_DIR"
+        printf "\nIC3 Complaint: https://www.ic3.gov/\n"
+        printf "FTC Report:    https://reportfraud.ftc.gov/\n"
+    } >> "$summary_file"
+
+    info "Summary written: $summary_file"
+}
+
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+parse_args() {
+    local OPTIND opt
+    while getopts ":a:f:o:h" opt; do
+        case "$opt" in
+            a) ADDRESSES+=("$OPTARG") ;;
+            f) ADDRESS_FILE="$OPTARG" ;;
+            o) OUTPUT_DIR="$OPTARG" ;;
+            h) usage ;;
+            :) error "Option -${OPTARG} requires an argument"; exit 1 ;;
+            \?) error "Unknown option: -${OPTARG}"; exit 1 ;;
+        esac
+    done
+
+    # Load addresses from file if provided
+    if [[ -n "$ADDRESS_FILE" ]]; then
+        if [[ ! -f "$ADDRESS_FILE" ]]; then
+            error "Address file not found: $ADDRESS_FILE"
+            exit 1
+        fi
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            line="${line%%#*}"   # strip inline comments
+            line="${line// /}"   # strip spaces
+            [[ -z "$line" ]] && continue
+            ADDRESSES+=("$line")
+        done < "$ADDRESS_FILE"
+    fi
+
+    if [[ "${#ADDRESSES[@]}" -eq 0 ]]; then
+        error "At least one address (-a) or an address file (-f) is required"
+        usage
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+main() {
+    parse_args "$@"
+
+    if [[ -z "$OUTPUT_DIR" ]]; then
+        OUTPUT_DIR="./crypto_audit_${TIMESTAMP}"
+    fi
+    mkdir -p "$OUTPUT_DIR"
+
+    LOG_FILE="${OUTPUT_DIR}/crypto_audit.log"
+    touch "$LOG_FILE"
+
+    section "PNWC Cryptocurrency Audit Tool"
+    info "Addresses to audit: ${#ADDRESSES[@]}"
+    info "Output directory: $OUTPUT_DIR"
+
+    load_api_keys
+
+    for addr in "${ADDRESSES[@]}"; do
+        section "Auditing: ${addr}"
+        audit_address "$addr"
+    done
+
+    build_summary
+
+    info "Audit complete. All results in: $OUTPUT_DIR"
+}
+
+main "$@"
+\\n'* && "$url" != *
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$bal_file" -w "%{http_code}" \
+        "https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}")
+
+    local eth_balance="N/A"
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local wei
+        wei=$(jq_or_grep "$bal_file" '.result' '"result":"[^"]*"' "0")
+        eth_balance=$(awk "BEGIN {printf \"%.8f\", ${wei}/1000000000000000000}" 2>/dev/null || echo "N/A")
+        data "ETH: balance=${eth_balance} ETH"
+    else
+        warn "ETH balance: HTTP $http_code"
+    fi
+
+    info "ETH: querying transactions for $addr ..."
+    local tx_file="${report_dir}/eth_txlist.json"
+    local http_code2
+    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
+        "https://api.etherscan.io/api?module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}")
+
+    {
+        printf "ETHEREUM ADDRESS AUDIT\n"
+        printf "Address:          %s\n" "$addr"
+        printf "Current Balance:  %s ETH\n" "$eth_balance"
+        printf "\nRECENT TRANSACTIONS (last 5):\n"
+    } >> "$report_file"
+
+    if [[ "${http_code2:-000}" == "200" ]]; then
+        local api_status
+        api_status=$(grep -o '"status":"[^"]*"' "$tx_file" | head -1 | cut -d'"' -f4 || echo "0")
+        if [[ "$api_status" != "1" ]]; then
+            local api_msg
+            api_msg=$(jq -r '.result // "API error"' "$tx_file" 2>/dev/null || grep -o '"result":"[^"]*"' "$tx_file" | head -1 | cut -d'"' -f4 || echo "unknown error")
+            warn "ETH txlist API error: ${api_msg}"
+            printf "Transaction list: %s\n" "$api_msg" >> "$report_file"
+        else
+            local tx_count
+            tx_count=$(jq_or_grep "$tx_file" '.result | length' '"hash"' "0")
+            data "ETH: transaction count (page 1)=${tx_count}"
+            printf "Transaction Count (visible): %s\n" "$tx_count" >> "$report_file"
+
+            if command -v jq &>/dev/null; then
+                jq -r '.result[]? | "  TxHash:   \(.hash)\n  Time:     \(.timeStamp | tonumber | todate)\n  From:     \(.from)\n  To:       \(.to)\n  Value:    \((.value | tonumber) / 1000000000000000000 | tostring) ETH\n  Status:   \(if .isError == "0" then "Success" else "Failed" end)\n  ---"' "$tx_file" 2>/dev/null >> "$report_file" || true
+            else
+                grep -o '"hash":"[^"]*"' "$tx_file" | head -5 | while IFS= read -r line; do
+                    printf "  TxHash: %s\n" "$(echo "$line" | cut -d'"' -f4)"
+                done >> "$report_file"
+            fi
+        fi
+    else
+        warn "ETH txlist: HTTP $http_code2"
+        printf "Transaction list query failed (HTTP %s)\n" "$http_code2" >> "$report_file"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Blockchair-based audit (LTC, DOGE, BCH)
+# ---------------------------------------------------------------------------
+audit_blockchair() {
+    local addr="$1"
+    local chain_slug="$2"
+    local chain_label="$3"
+    local report_dir="$4"
+    local report_file="${report_dir}/report.txt"
+
+    command -v curl &>/dev/null || { warn "curl not found, skipping ${chain_label} audit"; return; }
+
+    info "${chain_label}: querying blockchair for $addr ..."
+    local bc_file="${report_dir}/blockchair.json"
+    local bc_url="https://api.blockchair.com/${chain_slug}/dashboards/address/${addr}"
+    if [[ -n "$BLOCKCHAIR_API_KEY" ]]; then
+        bc_url="${bc_url}?key=${BLOCKCHAIR_API_KEY}"
+    fi
+
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$bc_url")
+
+    {
+        printf "%s ADDRESS AUDIT\n" "$chain_label"
+        printf "Address: %s\n" "$addr"
+    } >> "$report_file"
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local received sent balance tx_count first_seen last_seen
+        received=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.received" '"received":[0-9]*' "0")
+        sent=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.spent" '"spent":[0-9]*' "0")
+        balance=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.balance" '"balance":[0-9]*' "0")
+        tx_count=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.transaction_count" '"transaction_count":[0-9]*' "0")
+        first_seen=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.first_seen_receiving" '"first_seen_receiving":"[^"]*"' "N/A")
+        last_seen=$(jq_or_grep "$bc_file" ".data.\"${addr}\".address.last_seen_receiving" '"last_seen_receiving":"[^"]*"' "N/A")
+
+        data "${chain_label}: received=${received}, sent=${sent}, balance=${balance}, txs=${tx_count}"
+
+        {
+            printf "Total Received:   %s (satoshi units)\n" "$received"
+            printf "Total Sent:       %s (satoshi units)\n" "$sent"
+            printf "Current Balance:  %s (satoshi units)\n" "$balance"
+            printf "Transaction Count:%s\n" "$tx_count"
+            printf "First Transaction:%s\n" "$first_seen"
+            printf "Last Transaction: %s\n" "$last_seen"
+            printf "\nRECENT TRANSACTIONS (last 5):\n"
+        } >> "$report_file"
+
+        if command -v jq &>/dev/null; then
+            jq -r ".data.\"${addr}\".transactions[:5][]?" "$bc_file" 2>/dev/null >> "$report_file" || true
+        fi
+    else
+        warn "${chain_label} blockchair: HTTP $http_code"
+        printf "Blockchair query failed (HTTP %s)\n" "$http_code" >> "$report_file"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# XRP audit
+# ---------------------------------------------------------------------------
+audit_xrp() {
+    local addr="$1"
+    local report_dir="$2"
+    local report_file="${report_dir}/report.txt"
+
+    command -v curl &>/dev/null || { warn "curl not found, skipping XRP audit"; return; }
+
+    info "XRP: querying xrpscan for $addr ..."
+    local xrp_file="${report_dir}/xrpscan.json"
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$xrp_file" -w "%{http_code}" \
+        "https://api.xrpscan.com/api/v1/account/${addr}")
+
+    {
+        printf "XRP ADDRESS AUDIT\n"
+        printf "Address: %s\n" "$addr"
+    } >> "$report_file"
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local balance tx_count initial_balance
+        balance=$(jq_or_grep "$xrp_file" '.xrpBalance' '"xrpBalance":"[^"]*"' "N/A")
+        tx_count=$(jq_or_grep "$xrp_file" '.txCount' '"txCount":[0-9]*' "N/A")
+        initial_balance=$(jq_or_grep "$xrp_file" '.initial_funding_amount' '"initial_funding_amount":[^,}]*' "N/A")
+
+        data "XRP: balance=${balance} XRP, tx_count=${tx_count}"
+
+        {
+            printf "Current Balance:  %s XRP\n" "$balance"
+            printf "Transaction Count:%s\n" "$tx_count"
+            printf "Initial Funding:  %s drops\n" "$initial_balance"
+        } >> "$report_file"
+    else
+        warn "XRP xrpscan: HTTP $http_code"
+        printf "XRPScan query failed (HTTP %s)\n" "$http_code" >> "$report_file"
+    fi
+
+    info "XRP: querying recent transactions ..."
+    local tx_file="${report_dir}/xrpscan_txs.json"
+    local http_code2
+    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
+        "https://api.xrpscan.com/api/v1/account/${addr}/transactions?limit=5")
+
+    if [[ "${http_code2:-000}" == "200" ]]; then
+        printf "\nRECENT TRANSACTIONS (last 5):\n" >> "$report_file"
+        if command -v jq &>/dev/null; then
+            jq -r '.[]? | "  TxHash: \(.hash)\n  Time:   \(.date)\n  Type:   \(.TransactionType)\n  Amount: \(.Amount // "N/A")\n  ---"' "$tx_file" 2>/dev/null >> "$report_file" || true
+        else
+            grep -o '"hash":"[^"]*"' "$tx_file" | head -5 | while IFS= read -r line; do
+                printf "  TxHash: %s\n" "$(echo "$line" | cut -d'"' -f4)"
+            done >> "$report_file"
+        fi
+    else
+        warn "XRP transactions: HTTP $http_code2"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# XMR audit (limited — Monero is privacy-focused, minimal public data)
+# ---------------------------------------------------------------------------
+audit_xmr() {
+    local addr="$1"
+    local report_dir="$2"
+    local report_file="${report_dir}/report.txt"
+
+    {
+        printf "MONERO ADDRESS AUDIT\n"
+        printf "Address: %s\n" "$addr"
+        printf "\nNOTE: Monero (XMR) is a privacy coin. Blockchain data is not publicly\n"
+        printf "queryable. Address format validated as XMR (95-char, starts with 4).\n"
+        printf "For XMR tracing, contact a specialized blockchain analytics firm.\n"
+    } >> "$report_file"
+
+    warn "XMR: Monero blockchain is private; no public API data available"
+}
+
+# ---------------------------------------------------------------------------
+# BlockCypher cross-reference (BTC + ETH, optional enrichment)
+# ---------------------------------------------------------------------------
+audit_blockcypher() {
+    local addr="$1"
+    local chain_slug="$2"
+    local report_dir="$3"
+    local report_file="${report_dir}/report.txt"
+
+    [[ -z "$BLOCKCYPHER_API_KEY" ]] && return 0
+
+    command -v curl &>/dev/null || return 0
+
+    info "BlockCypher: querying ${chain_slug} for $addr ..."
+    local bc_file="${report_dir}/blockcypher.json"
+    local url="https://api.blockcypher.com/v1/${chain_slug}/main/addrs/${addr}/balance"
+    [[ -n "$BLOCKCYPHER_API_KEY" ]] && url="${url}?token=${BLOCKCYPHER_API_KEY}"
+
+    local http_code
+    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$url")
+
+    if [[ "${http_code:-000}" == "200" ]]; then
+        local balance tx_count
+        balance=$(jq_or_grep "$bc_file" '.balance' '"balance":[0-9]*' "N/A")
+        tx_count=$(jq_or_grep "$bc_file" '.n_tx' '"n_tx":[0-9]*' "N/A")
+        data "BlockCypher: balance=${balance} satoshis, tx_count=${tx_count}"
+        {
+            printf "\nBLOCKCYPHER CROSS-REFERENCE\n"
+            printf "Balance:           %s satoshis\n" "$balance"
+            printf "Transaction Count: %s\n" "$tx_count"
+        } >> "$report_file"
+    else
+        warn "BlockCypher: HTTP $http_code"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Per-address audit dispatcher
+# ---------------------------------------------------------------------------
+audit_address() {
+    local addr="$1"
+    local safe_addr
+    safe_addr=$(printf '%s' "$addr" | tr -cd '[:alnum:]_.-')
+    local report_dir="${OUTPUT_DIR}/${safe_addr}"
+    mkdir -p "$report_dir"
+
+    local chain
+    chain=$(detect_chain "$addr")
+    info "Address: $addr | Chain: $chain"
+
+    local report_file="${report_dir}/report.txt"
+    {
+        printf "=%.0s" {1..70}; printf "\n"
+        printf "PNWC CRYPTO AUDIT REPORT\n"
+        printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
+        printf "Investigator Contact: (set in case notes)\n"
+        printf "Chain: %s\n" "$chain"
+        printf "=%.0s" {1..70}; printf "\n\n"
+    } > "$report_file"
+
+    case "$chain" in
+        BTC)  audit_btc "$addr" "$report_dir"
+              audit_blockcypher "$addr" "btc" "$report_dir" ;;
+        ETH)  audit_eth "$addr" "$report_dir"
+              audit_blockcypher "$addr" "eth" "$report_dir" ;;
+        P2SH) warn "P2SH address — format is identical for BTC and LTC; auditing both chains"
+              printf "NOTE: P2SH addresses (3...) are format-identical for BTC and LTC.\n" >> "$report_file"
+              printf "Results from both chains shown below.\n\n" >> "$report_file"
+              audit_btc "$addr" "$report_dir"
+              audit_blockchair "$addr" "litecoin" "LITECOIN" "$report_dir"
+              audit_blockcypher "$addr" "btc" "$report_dir" ;;
+        LTC)  audit_blockchair "$addr" "litecoin"     "LITECOIN" "$report_dir" ;;
+        DOGE) audit_blockchair "$addr" "dogecoin"     "DOGECOIN" "$report_dir" ;;
+        BCH)  audit_blockchair "$addr" "bitcoin-cash" "BITCOIN CASH" "$report_dir" ;;
+        XRP)  audit_xrp "$addr" "$report_dir" ;;
+        XMR)  audit_xmr "$addr" "$report_dir" ;;
+        UNKNOWN)
+            warn "Could not detect chain for address: $addr"
+            printf "Chain: UNKNOWN — address format not recognized\n" >> "$report_file"
+            ;;
+    esac
+
+    # Scam database check (chain-agnostic)
+    check_cryptoscamdb "$addr" "$report_dir"
+
+    # Append scam flag to report
+    if [[ -f "${report_dir}/scam_flag.txt" ]]; then
+        {
+            printf "\n[!!! SCAM ALERT !!!]\n"
+            printf "This address has been flagged as a SCAM by CryptoScamDB.\n"
+            printf "IC3 report recommendation: HIGH PRIORITY\n"
+        } >> "$report_file"
+    fi
+
+    {
+        printf "\n%s\n" "$(printf '=%.0s' {1..70})"
+        printf "Raw API responses saved in: %s/\n" "$report_dir"
+        printf "For IC3 complaint: https://www.ic3.gov/\n"
+        printf "For FTC report:    https://reportfraud.ftc.gov/\n"
+    } >> "$report_file"
+
+    info "Report written: $report_file"
+}
+
+# ---------------------------------------------------------------------------
+# Summary across all addresses
+# ---------------------------------------------------------------------------
+build_summary() {
+    local summary_file="${OUTPUT_DIR}/audit_summary.txt"
+
+    section "Crypto Audit Summary"
+
+    {
+        printf "=%.0s" {1..70}; printf "\n"
+        printf "PNWC CRYPTOCURRENCY AUDIT SUMMARY\n"
+        printf "Generated: %s\n" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
+        printf "Investigator: (set in case notes)\n"
+        printf "Contact: (set in case notes)\n"
+        printf "=%.0s" {1..70}; printf "\n\n"
+        printf "Addresses audited: %d\n\n" "${#ADDRESSES[@]}"
+    } > "$summary_file"
+
+    local flagged_count=0
+    for addr in "${ADDRESSES[@]}"; do
+        local safe_addr
+        safe_addr=$(printf '%s' "$addr" | tr -cd '[:alnum:]_.-')
+        local chain
+        chain=$(detect_chain "$addr")
+        printf "  %-60s  Chain: %s" "$addr" "$chain" >> "$summary_file"
+        if [[ -f "${OUTPUT_DIR}/${safe_addr}/scam_flag.txt" ]]; then
+            printf "  [SCAM FLAGGED]\n" >> "$summary_file"
+            (( flagged_count++ ))
+        else
+            printf "\n" >> "$summary_file"
+        fi
+    done
+
+    {
+        printf "\nScam-flagged addresses: %d / %d\n" "$flagged_count" "${#ADDRESSES[@]}"
+        printf "\nPer-address reports: %s/<address>/report.txt\n" "$OUTPUT_DIR"
+        printf "\nIC3 Complaint: https://www.ic3.gov/\n"
+        printf "FTC Report:    https://reportfraud.ftc.gov/\n"
+    } >> "$summary_file"
+
+    info "Summary written: $summary_file"
+}
+
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+parse_args() {
+    local OPTIND opt
+    while getopts ":a:f:o:h" opt; do
+        case "$opt" in
+            a) ADDRESSES+=("$OPTARG") ;;
+            f) ADDRESS_FILE="$OPTARG" ;;
+            o) OUTPUT_DIR="$OPTARG" ;;
+            h) usage ;;
+            :) error "Option -${OPTARG} requires an argument"; exit 1 ;;
+            \?) error "Unknown option: -${OPTARG}"; exit 1 ;;
+        esac
+    done
+
+    # Load addresses from file if provided
+    if [[ -n "$ADDRESS_FILE" ]]; then
+        if [[ ! -f "$ADDRESS_FILE" ]]; then
+            error "Address file not found: $ADDRESS_FILE"
+            exit 1
+        fi
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            line="${line%%#*}"   # strip inline comments
+            line="${line// /}"   # strip spaces
+            [[ -z "$line" ]] && continue
+            ADDRESSES+=("$line")
+        done < "$ADDRESS_FILE"
+    fi
+
+    if [[ "${#ADDRESSES[@]}" -eq 0 ]]; then
+        error "At least one address (-a) or an address file (-f) is required"
+        usage
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+main() {
+    parse_args "$@"
+
+    if [[ -z "$OUTPUT_DIR" ]]; then
+        OUTPUT_DIR="./crypto_audit_${TIMESTAMP}"
+    fi
+    mkdir -p "$OUTPUT_DIR"
+
+    LOG_FILE="${OUTPUT_DIR}/crypto_audit.log"
+    touch "$LOG_FILE"
+
+    section "PNWC Cryptocurrency Audit Tool"
+    info "Addresses to audit: ${#ADDRESSES[@]}"
+    info "Output directory: $OUTPUT_DIR"
+
+    load_api_keys
+
+    for addr in "${ADDRESSES[@]}"; do
+        section "Auditing: ${addr}"
+        audit_address "$addr"
+    done
+
+    build_summary
+
+    info "Audit complete. All results in: $OUTPUT_DIR"
+}
+
+main "$@"
+\\r'* ]] || return 2
+    { printf 'url = "%s"\\n' "$url"; } |
+        curl --config - --silent --show-error --max-time 25 --output "$output" --write-out "%{http_code}"
+}
+
     info "ETH: querying balance for $addr ..."
     local bal_file="${report_dir}/eth_balance.json"
     local http_code
