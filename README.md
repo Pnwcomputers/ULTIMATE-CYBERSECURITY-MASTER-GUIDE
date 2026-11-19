@@ -12,12 +12,12 @@
   <img src="https://img.shields.io/badge/Resources-Guides_%26_Tools-orange" alt="Guides and tools"/>
   <img src="https://img.shields.io/badge/Focus-Cross_Domain-purple" alt="Cross-domain cybersecurity"/>
   <img src="https://img.shields.io/badge/Scripts-Source_Collection-red" alt="Scripts"/>
-  <img src="https://img.shields.io/badge/Use-See_LEGAL.md-yellow" alt="Review legal terms"/>
+  <img src="https://img.shields.io/badge/Use-See_LEGAL.md-yellow" alt="Review legal notice"/>
   <img src="https://img.shields.io/github/last-commit/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE" alt="Last Commit"/>
 </p>
 
 > **A curated cybersecurity knowledge base with original guides, references and tools**  
-> *Abide by the [Legal Terms of Use & Disclaimer](./LEGAL.md) for the use and misuse of this repository.*
+> *Review the [Legal and Responsible Use Notice](./LEGAL.md) before using the repository.*
 
 > "Under pressure, you don't rise to the occasion; you fall to the level of your training."
 >
@@ -435,7 +435,7 @@ inspected; new cross-references were checked for repository path correctness.
 External tool behavior, every older upstream link and production Docker/Froxy
 execution were **not** exhaustively tested. The documentation does not authorize
 active probing, anonymous-proxy use with client data, or unapproved Docker
-changes. See [legal terms](./LEGAL.md).
+changes. See the [legal notice](./LEGAL.md).
 
 **Other already-integrated references:** [Devhints commands (merged PR #156)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/156) from [rstacruz/cheatsheets](https://github.com/rstacruz/cheatsheets), [Public APIs catalog (merged PR #157)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/157) from [public-apis/public-apis](https://github.com/public-apis/public-apis), and [Beautiful Docs/Froxy/Docker references (merged PR #158)](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/pull/158).
 
@@ -838,7 +838,7 @@ Want to help the community?
 | [ENHANCED_MASTER_GUIDE.md](./ENHANCED_MASTER_GUIDE.md) | Enhanced deep-dive guide |
 | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | Third guide in the series |
 | [Press Freedom and Source Protection](./OPSEC/press-freedom/README.md) | Journalist device, source confidentiality and retention / duress planning |
-| [LEGAL.md](./LEGAL.md) | Legal disclaimer and terms of use |
+| [LEGAL.md](./LEGAL.md) | Legal and responsible-use notice |
 | [Diagram and Image Asset Index](./assets/README.md) | Existing figures and 19 new diagrams across SIEM, DFIR, OSINT, cloud, mobile, compliance, RF, and more |
 | [Visual Coverage Review](./assets/VISUAL-AUDIT-2026-11-02.md) | Repository-wide image inventory, integration results, verification limits and future needs |
 | [CHANGELOG.md](./CHANGELOG.md) | Repository change history |
