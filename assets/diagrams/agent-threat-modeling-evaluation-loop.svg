@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 650" role="img" aria-labelledby="title desc">
+<title id="title">AI agent threat-model and evaluation loop</title>
+<desc id="desc">A five-stage threat-model workflow: scope assets and map data flows; identify boundaries, entry points, capabilities and attack hypotheses; assign owner-enforced controls; test synthetic negative and positive cases while checking denied actions and downstream effects; then review residual risk, owners, exceptions and next validation date. Findings loop back to scope when systems or threats change.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#9fb4cc"/></marker></defs>
+<rect width="1400" height="650" rx="20" fill="#0b1223"/><g font-family="Arial,Helvetica,sans-serif">
+<text x="42" y="56" fill="#f8fafc" font-size="31" font-weight="700">Threat modeling is a review loop</text>
+<text x="42" y="91" fill="#b8cbe0" font-size="17">Scope the real system, verify controls against evidence, and revisit decisions when it changes.</text>
+<g fill="#172d41" stroke-width="2">
+<rect x="38" y="150" width="242" height="242" rx="15" stroke="#60a5fa"/>
+<rect x="320" y="150" width="242" height="242" rx="15" stroke="#a78bfa"/>
+<rect x="602" y="150" width="242" height="242" rx="15" stroke="#fbbf24"/>
+<rect x="884" y="150" width="242" height="242" rx="15" stroke="#34d399"/>
+<rect x="1166" y="150" width="196" height="242" rx="15" stroke="#fb7185"/>
+</g>
+<g fill="#f8fafc">
+<text x="62" y="189" fill="#93c5fd" font-size="18" font-weight="700">1. Scope &amp; map</text>
+<text x="62" y="227" font-size="15">Systems, accounts, data</text><text x="62" y="250" font-size="15">flows, trust boundaries,</text><text x="62" y="273" font-size="15">owners and entry points</text>
+<text x="344" y="189" fill="#c4b5fd" font-size="18" font-weight="700">2. Form hypotheses</text>
+<text x="344" y="227" font-size="15">Attacker-controlled inputs,</text><text x="344" y="250" font-size="15">tool capabilities and likely</text><text x="344" y="273" font-size="15">boundary failures</text>
+<text x="626" y="189" fill="#fcd34d" font-size="18" font-weight="700">3. Assign controls</text>
+<text x="626" y="227" font-size="15">Code, identity, service and</text><text x="626" y="250" font-size="15">network enforcement; name</text><text x="626" y="273" font-size="15">an accountable owner</text>
+<text x="908" y="189" fill="#6ee7b7" font-size="18" font-weight="700">4. Evaluate</text>
+<text x="908" y="227" font-size="15">Synthetic deny + positive</text><text x="908" y="250" font-size="15">cases; verify actual effect,</text><text x="908" y="273" font-size="15">telemetry and recovery</text>
+<text x="1190" y="189" fill="#fda4af" font-size="18" font-weight="700">5. Review</text>
+<text x="1190" y="227" font-size="15">Residual risk, exceptions,</text><text x="1190" y="250" font-size="15">owner and next validation</text><text x="1190" y="273" font-size="15">date</text>
+</g>
+<g stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"><path d="M282 271h34"/><path d="M564 271h34"/><path d="M846 271h34"/><path d="M1128 271h34"/></g>
+<rect x="38" y="435" width="1324" height="92" rx="14" fill="#20374b" stroke="#60a5fa" stroke-width="2"/>
+<text x="64" y="472" fill="#93c5fd" font-size="18" font-weight="700">Evidence record</text>
+<text x="64" y="503" fill="#e1edf6" font-size="16">Fixture and version • attempted calls • control decision • downstream state • sanitized telemetry • owner and follow-up date</text>
+<path d="M1260 393v157H160v-157" fill="none" stroke="#9fb4cc" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
+<text x="500" y="574" fill="#b8cbe0" font-size="15">Re-scope after architecture, identity, data flow, tool, incident or threat changes.</text>
+<text x="38" y="618" fill="#cbd5e1" font-size="14">Conceptual workflow aligned with lifecycle risk-management functions; it is not a completed assessment or proof of safety.</text>
+</g></svg>

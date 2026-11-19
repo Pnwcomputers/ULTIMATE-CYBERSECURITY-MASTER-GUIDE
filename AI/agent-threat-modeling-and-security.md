@@ -69,6 +69,10 @@ Cross-reference the current [OWASP Top 10 for Agentic Applications](https://gena
 9. **Telemetry:** Ensure denied actions and abnormal rates produce actionable sanitized events.
 10. **Review:** Record residual risks, owner, accepted exceptions and next validation date.
 
+![Five-stage AI threat-modeling loop from scoping and data-flow mapping through control testing, evidence review, and re-scoping](../assets/diagrams/agent-threat-modeling-evaluation-loop.svg)
+
+*Conceptual workflow, not an assessment result. It follows the risk-management lifecycle framing in [NIST AI 600-1](https://doi.org/10.6028/NIST.AI.600-1): map context and risks, measure controls, manage findings, and revisit scope as the system changes.*
+
 ### Example Abuse Case
 
 ```text
