@@ -41,6 +41,10 @@ The Arch User Repository (AUR) is a community-maintained collection of package b
 
 ## 2. Hardware Diagnostics and System Info
 
+![Hardware testing workflow from system inventory and temperature baseline through bounded CPU, RAM and GPU load, independently approved storage testing and evidence-based result reporting](../assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg)
+
+*Conceptual diagnostic workflow.* [fio's official documentation](https://fio.readthedocs.io/en/latest/fio_doc.html) distinguishes job I/O direction, target paths and destructive write operations. `fio` and especially `badblocks -w` can overwrite client data when configured against the wrong block device. Confirm the target, back up data, use read-only methods where sufficient and obtain explicit approval before any write-intensive or destructive test. Temperature and performance limits depend on the specific hardware and firmware.
+
 These commands are useful before running any benchmark. They establish the hardware baseline, firmware/BIOS details, RAM layout, PCIe topology, and obvious kernel-level hardware errors.
 
 | Command                                                                | Purpose                  | Explanation                                                                                      |
@@ -76,7 +80,7 @@ With high-end Intel CPUs, especially i9-class chips, thermal behavior and power-
 
 ## 4. CPU and System Stress Testing
 
-Use CPU tests to validate cooling, boost behavior, BIOS power limits, and basic CPU stability. For final client validation, use the Python `stress_soak.py` script because it applies simultaneous CPU, RAM, storage, and GPU load.
+Use CPU tests to validate cooling, boost behavior, BIOS power limits, and basic CPU stability. For a staged acceptance test, choose bounded CPU, memory, GPU and **separately approved** storage workloads appropriate to the specific unit. Review the Python `stress_soak.py` script's actual operations and resource limits before executing; simultaneous heavy load is **not** automatically the safest final test, especially on a customer system containing data.
 
 | Command                                                            | Purpose                     | Explanation                                                                           |
 | :----------------------------------------------------------------- | :-------------------------- | :------------------------------------------------------------------------------------ |
