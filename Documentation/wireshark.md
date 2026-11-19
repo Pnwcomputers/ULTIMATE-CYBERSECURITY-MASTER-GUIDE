@@ -317,13 +317,13 @@ Stream live captures from a remote device directly into your local Wireshark ins
 
 ```bash
 # Linux/macOS - stream from a remote Linux device
-ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" | wireshark -k -i -
+ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w -" | wireshark -k -i -
 
 # OpenWRT / GL.iNet router
-ssh root@192.168.8.1 "tcpdump -i br-lan -U -s0 -w -" | wireshark -k -i -
+ssh root@192.168.8.1 "tcpdump -i br-lan -U -s0 -c 1000 -w -" | wireshark -k -i -
 
 # Apply a capture filter at source to reduce bandwidth
-ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w - 'tcp port 80 or tcp port 443'" | wireshark -k -i -
+ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w - 'tcp port 80 or tcp port 443'" | wireshark -k -i -
 ```
 
 ### Windows
@@ -336,8 +336,9 @@ ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" | "C:\Program Files\Wireshark
 ### Save to File Instead
 
 ```bash
-# Save remote capture to local .pcap
-ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" > /tmp/capture.pcap
+# Save a bounded remote capture locally (maximum about 30 MiB total; collect only in authorized scope)
+ssh root@192.168.1.1 "timeout 300 tcpdump -i eth0 -s0 -C 10 -W 3 -w /tmp/capture.pcap"
+scp root@192.168.1.1:/tmp/capture.pcap* /tmp/
 ```
 
 > ✅ **Note:** `-U` flushes each packet immediately (required for live streaming). `-s0` captures the full packet without truncation.
@@ -689,9 +690,9 @@ Tips, caveats, hardware requirements
 ## 📊 Document Info
 
 ```
-📁 Document:     wireshark-filters.md
+📁 Document:     wireshark.md
 📖 Category:     Network Security / Packet Analysis
-🔄 Last Updated: April 2026
+🔄 Last Reviewed: November 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status:       Active
 ```
