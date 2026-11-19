@@ -125,6 +125,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/pipeline-observability-reconciliation-slo.svg": (
         "Data-Engineering/Phase3/pipeline_observability.md",
     ),
+    "assets/diagrams/nanovna-s11-resonance-vs-match.svg": (
+        "SDR/nanovna/05-antenna-tuning.md",
+    ),
+    "assets/diagrams/tpot-hive-sensor-management-boundaries.svg": (
+        "IncidentResponse/HoneyPot/tpot.md",
+    ),
+    "assets/diagrams/tsurugi-osint-image-provenance-case-flow.svg": (
+        "OSINT/TSURUGI_LINUX_OSINT_GUIDE.md",
+    ),
 }
 
 

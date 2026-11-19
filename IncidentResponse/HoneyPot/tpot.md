@@ -129,7 +129,11 @@ Available `-t` presets and unattended `-s` behavior can change by release: verif
 
 ## 🏗️ Hive vs. Sensor (Distributed) Deployment
 
-- **Standard / Hive** — everything (honeypots, tools, Elastic Stack) on one host. Install this first regardless of your end goal.
+![T-Pot Hive and Sensor role separation, with restricted honeypot traffic, native Elastic log pipeline and isolated trusted administration](../../assets/diagrams/tpot-hive-sensor-management-boundaries.svg)
+
+*Conceptual T-Pot deployment roles.* The [official T-Pot distributed guide](https://github.com/telekom-security/tpotce#distributed-deployment) describes provisioned Sensors sending collected events to a Hive. The [community submission section](https://github.com/telekom-security/tpotce#community-data-submission) describes an opt-out from submission. Verify release-specific Compose configuration, certificates and management exposure before setup; the diagram does not imply a tested deployment.
+
+- **Standard / Hive** — honeypots, tools and the Elastic Stack are hosted on the Hive. For distributed provisioning, follow the upstream order: provision the Hive and then its Sensors; single-host deployments do not require a separate Sensor.
 - **Distributed** — a **Hive** (install standard first) plus one or more **Sensors**, which run only the honeypots and forward logs to the Hive.
 
 Deploying a Sensor requires planning certificates *before* you start — the Hive's self-signed cert is only valid for the IP it was generated against, and Logstash validates it strictly. If your Hive needs to be reachable on multiple IPs (private + public NAT, or a domain name), regenerate the certificate with the correct SANs first (see the [official distributed deployment docs](https://github.com/telekom-security/tpotce#planning-and-certificates) for the exact `openssl` command). Skipping this planning step is the most common source of "Sensor won't connect to Hive" issues.
@@ -137,12 +141,15 @@ Deploying a Sensor requires planning certificates *before* you start — the Hiv
 Once planned:
 
 ```bash
-# On the Sensor, generate an SSH key and deploy it to the Hive
-ssh-keygen
-ssh-copy-id -p 64295 <sensor_ssh_user>@<sensor_ip>
-
-# On the Hive
+# On the Hive, using an approved administrator identity:
 cd ~/tpotce
+# Review the upstream deployment procedure before provisioning.
+# Generate or select an SSH identity authorized for Sensor provisioning.
+ssh-keygen
+# Verify the Sensor's host-key fingerprint through an independent channel.
+ssh-copy-id -p 64295 <sensor_ssh_user>@<sensor_ip>
+ssh -p 64295 <sensor_ssh_user>@<sensor_ip>
+# Run from the Hive after checking the release-specific script/targets:
 ./deploy.sh
 ```
 
