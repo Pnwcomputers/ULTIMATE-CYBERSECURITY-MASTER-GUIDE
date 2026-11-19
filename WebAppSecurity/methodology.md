@@ -137,8 +137,11 @@ Maps to [A07 Authentication Failures](owasp-top-10.md#a07-authentication-failure
 
 ## Phase 5: Authorization Testing
 
-Maps to [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) - the
-highest-prevalence risk, and the phase automation misses most.
+![Web authorization model contrasting authorized regular-user owned records, another user's records and privileged functions with a server-side subject-object-action decision](../assets/diagrams/webapp-object-authorization-role-matrix.svg)
+
+*Conceptual testing matrix for preapproved synthetic accounts.* [OWASP WSTG's authorization testing](https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/02-Bypassing_Authorization_Schema/) differentiates horizontal and vertical privilege checks. [OWASP API1:2023](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/) requires object-level authorization for each relevant operation. Do not infer a server-side denial from hidden navigation or the presence of login alone.
+
+Maps to [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) - a major risk class. Automated scanning alone cannot establish complete horizontal, vertical, and per-object authorization coverage.
 
 - **Horizontal:** with two same-role accounts, replay each user's requests as the
   other; increment/swap object identifiers (IDOR).
