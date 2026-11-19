@@ -709,3 +709,11 @@ Manufacturer-published sampling limits by active-channel count. Use the detailed
 | Diagram | Embedded guide |
 |---|---|
 | [LA1010 active-channel sample-rate tradeoff](./diagrams/la1010-active-channel-sample-rate.svg) | [LA1010 guide](../HardwareHacking/LA1010.md#active-channel-tradeoff) |
+
+## Mobile TLS Proxy Trust Visual
+
+Original conceptual comparison of Android and iOS trust gates for a controlled HTTPS proxy test. CA installation, platform trust, app-specific trust, and pinning are separate checks.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Mobile TLS proxy trust path](./diagrams/mobile-tls-proxy-trust-path.svg) | [Mobile guide](../Mobile/README.md#-mobile-https-proxy-trust-flow) |
