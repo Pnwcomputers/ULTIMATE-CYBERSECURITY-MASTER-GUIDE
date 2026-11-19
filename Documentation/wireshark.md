@@ -330,7 +330,7 @@ ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w - 'tcp port 80 or tcp po
 
 ```powershell
 # Via WSL or direct (Wireshark in PATH)
-ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -w -" | "C:\Program Files\Wireshark\Wireshark.exe" -k -i -
+ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w -" | "C:\Program Files\Wireshark\Wireshark.exe" -k -i -
 ```
 
 ### Save to File Instead
