@@ -703,14 +703,7 @@ If a lookup fails or returns no result, record the error as **unverified**, not 
 
 #### Step 3: Reputation Check
 
-~~~bash
-# AbuseIPDB
-curl -s "https://api.abuseipdb.com/api/v2/check?ipAddress=192.0.2.10&maxAgeInDays=90" \
-  -H "Key: YOUR_KEY" -H "Accept: application/json" | jq
-
-# Shodan host details
-curl -s "https://api.shodan.io/shodan/host/192.0.2.10?key=YOUR_KEY" | jq
-~~~
+Use the provider's current API documentation and an approved client that reads credentials from a protected credential store or private configuration. Avoid putting keys in URLs, shell history, logs or process arguments. Redact credentials and personal identifiers before saving request or response traces. Treat these reputation results as leads that require corroboration.
 
 #### Step 4: Reverse DNS & Port Discovery
 
