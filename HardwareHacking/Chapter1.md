@@ -156,11 +156,13 @@ RESIDUAL RISK:
 
 Keep assumptions separate from observations. Mark an interface as reachable, a key as exposed, or a control as effective only when supported by target-specific documentation or authorized test evidence.
 
+**References:** [NIST SP 800-160 Vol. 1 Rev. 1](https://csrc.nist.gov/pubs/sp/800/160/v1/r1/final) provides systems security engineering guidance. [NIST SP 800-193](https://csrc.nist.gov/pubs/sp/800/193/final) frames platform firmware resiliency around protection, detection, and recovery. For IoT device capability baselines, see [NISTIR 8259A](https://csrc.nist.gov/pubs/ir/8259/a/final).
+
 ## Related Files
 - [Hardware Security Case Studies](../CaseStudies/README.md) - Onity, Unsaflok, Tesla key-fob and EUCLEAK research to inform physical-access threat models
 - [Chapter2.md](Chapter2.md) - Electrical fundamentals: the physical layer knowledge underlying every threat in this model
-- [JTAGulator.md](JTAGulator.md) - Primary tool for exploiting the JTAG/UART debug-interface threat identified in threat models
-- [T48_TL866-3G.md](T48_TL866-3G.md) - IC programmer for the firmware extraction threat vector
+- [JTAGulator.md](JTAGulator.md) - Interface pin-discovery tool; results require verification and do not imply debug access
+- [T48_TL866-3G.md](T48_TL866-3G.md) - Device programmer whose supported parts and operations depend on the exact chip and security state
 - [Chapter3.md](Chapter3.md) - Fault injection: one of the key hardware attacks this chapter helps scope
 - [Chapter4.md](Chapter4.md) - Side-channel: the passive observation threat class this chapter introduces
 
