@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="610" viewBox="0 0 1240 610" role="img" aria-labelledby="title desc">
+  <title id="title">Authorization gates before space-related RF testing</title>
+  <desc id="desc">Before transmitting, confirm client/operator authority, FCC or applicable spectrum authorization for the specific service and equipment, engineering safety and interference controls, and approved time, location and power. If any gate is missing or unclear, do not transmit; use an approved receive-only or offline test path and review separate rules for passive reception.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#294862"/></marker><style>
+    .title{font:700 27px system-ui,sans-serif;fill:#102a43}.label{font:700 18px system-ui,sans-serif;fill:#102a43}.body{font:15px system-ui,sans-serif;fill:#243b53}.small{font:14px system-ui,sans-serif;fill:#334e68}.box{rx:15;stroke-width:2}.line{stroke:#294862;stroke-width:3.5;fill:none;marker-end:url(#arrow)}
+  </style></defs>
+  <rect width="1240" height="610" rx="24" fill="#f5f8fb"/>
+  <text x="45" y="50" class="title">No RF transmission until every authority and safety gate is clear</text>
+  <rect x="55" y="105" width="510" height="82" class="box" fill="#e6f0fa" stroke="#7aa7d3"/>
+  <text x="310" y="139" text-anchor="middle" class="label">1. Client/operator permission</text><text x="310" y="166" text-anchor="middle" class="small">Named target, method and approved test window</text>
+  <path d="M310 187 V220" class="line"/>
+  <rect x="55" y="225" width="510" height="82" class="box" fill="#fff3cd" stroke="#d6a638"/>
+  <text x="310" y="259" text-anchor="middle" class="label">2. Regulatory spectrum authority</text><text x="310" y="286" text-anchor="middle" class="small">Applicable license / authorization and its conditions</text>
+  <path d="M310 307 V340" class="line"/>
+  <rect x="55" y="345" width="510" height="82" class="box" fill="#e9e5f7" stroke="#9286c2"/>
+  <text x="310" y="379" text-anchor="middle" class="label">3. Engineering and interference review</text><text x="310" y="406" text-anchor="middle" class="small">Equipment, band, location, power, safety and stop plan</text>
+  <path d="M310 427 V460" class="line"/>
+  <rect x="55" y="465" width="510" height="78" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="310" y="499" text-anchor="middle" class="label">Transmit only within the approved envelope</text><text x="310" y="526" text-anchor="middle" class="small">Monitor and stop if conditions change</text>
+  <rect x="690" y="155" width="490" height="155" class="box" fill="#fde8e7" stroke="#d66b63"/>
+  <text x="935" y="199" text-anchor="middle" class="label">If any gate is absent or unclear</text><text x="935" y="237" text-anchor="middle" class="body">Do not transmit. Clarify authority or use</text><text x="935" y="265" text-anchor="middle" class="body">an approved receive-only / offline test path.</text>
+  <path d="M565 266 H680" class="line"/>
+  <rect x="690" y="360" width="490" height="125" class="box" fill="#f0f4f8" stroke="#91a4b7"/>
+  <text x="935" y="401" text-anchor="middle" class="label">Passive reception is a separate question</text><text x="935" y="438" text-anchor="middle" class="small">Review communications privacy, service rules</text><text x="935" y="462" text-anchor="middle" class="small">and jurisdiction before collecting or sharing.</text>
+  <text x="620" y="580" text-anchor="middle" class="small">Client permission does not itself grant spectrum authority; regulatory authorization does not itself define client scope.</text>
+</svg>

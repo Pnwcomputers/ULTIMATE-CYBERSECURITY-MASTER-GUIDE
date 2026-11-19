@@ -148,11 +148,12 @@ THE AUTHORS AND CONTRIBUTORS:
 • Are not liable for legal consequences of misuse
 • Disclaim all liability for disruption to space systems or services
 
-USERS EXPLICITLY ACKNOWLEDGE:
-• Space system attacks can disrupt critical infrastructure
-• RF transmission without authorization is a federal crime
-• ITAR/EAR restrictions may apply to tools and techniques
-• They accept all risks associated with using attack methodologies
+USERS SHOULD UNDERSTAND:
+• Space-system testing can affect critical services; operational impact depends on the target and method
+• RF operation must comply with the applicable service authorization and technical rules; license-by-rule and other exceptions exist
+• Unauthorized operation or harmful interference may trigger regulatory action, with criminal consequences depending on the applicable statute and facts
+• Export controls may apply to specific controlled items, software, technology or technical data
+• Testing plans should define authority, scope, safety controls, stop conditions and data handling
 ```
 
 ---
