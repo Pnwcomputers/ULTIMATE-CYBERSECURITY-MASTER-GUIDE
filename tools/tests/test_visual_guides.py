@@ -146,6 +146,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg": (
         "IncidentResponse/HoneyPot/diy-sensor-lab.md",
     ),
+    "assets/diagrams/elastic-stack-log-ingest-index-search.svg": (
+        "IncidentResponse/SIEM/elk_stack.md",
+    ),
+    "assets/diagrams/spaceflight-fsw-cfs-security-layers.svg": (
+        "SpaceSecurity/PartIII.md",
+    ),
+    "assets/diagrams/userland-android-proot-capability-boundaries.svg": (
+        "Mobile/UserLAnd/readme.md",
+    ),
+    "assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg": (
+        "Data-Engineering/Phase1/etl_elt_pipeline_design.md",
+    ),
 }
 
 
