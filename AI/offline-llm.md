@@ -1,4 +1,4 @@
-# Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
+# Build a Local LLM System with Dolphin, Ollama, and AnythingLLM
 
 ## 🎯 Purpose
 Configuration guide for pursuing a local-only LLM deployment using Ollama, Dolphin models, and AnythingLLM. A local model does not by itself create an air gap: verify application telemetry, integrations, service bindings, storage, and network egress for the specific build.
@@ -33,7 +33,7 @@ This guide walks through a local-inference setup and the checks needed before de
 
 **Local inference**: Prompts can be processed on-device when a local provider is selected. Verify telemetry, cloud features, plugins, vector stores, logs, and egress separately.
 
-**Offline Operation**: Once installed, the entire system works without an internet connection.
+**Offline option**: Local inference can continue without internet after models and dependencies are installed, if cloud features, telemetry, and optional network integrations are disabled and egress is controlled.
 
 **Uncensored Models**: Dolphin models are specifically trained to be helpful without unnecessary restrictions, making them ideal for technical work, creative writing, and research.
 
@@ -818,8 +818,8 @@ ollama pull llava              # Vision tasks
 | Feature | Offline Setup | ChatGPT Plus | Claude Pro |
 |---------|--------------|--------------|------------|
 | Monthly Cost | $0 (after hardware) | $20/month | $20/month |
-| Privacy | 100% private | Data sent to OpenAI | Data sent to Anthropic |
-| Internet Required | No | Yes | Yes |
+| Privacy | Can process locally; verify the full deployment and provider settings | Check provider-specific terms and controls | Check provider-specific terms and controls |
+| Internet Required | Not for local inference after setup; updates and optional integrations may need it | Service-dependent | Service-dependent |
 | Response Speed | Varies by hardware | Fast | Fast |
 | Model Updates | Manual | Automatic | Automatic |
 | Censorship | None (Dolphin) | Yes | Yes |
@@ -842,14 +842,13 @@ ollama pull llava              # Vision tasks
 
 ## Conclusion
 
-You now have a fully functional offline LLM system that respects your privacy while providing powerful AI assistance. This setup gives you:
+You now have a local-inference setup. Whether it operates offline or meets privacy and compliance requirements depends on the settings and data paths you verified.
 
-✅ Complete data privacy and control
-✅ Zero recurring costs after initial setup
-✅ Unlimited usage without API restrictions
+✅ Local model inference after setup
+✅ No recurring model API charge for local inference
 ✅ Customizable models and behavior
-✅ Works completely offline
-✅ Professional-grade AI capabilities
+✅ Can operate without internet when dependencies are present and all network paths are controlled
+✅ Use only after reviewing access, telemetry, logs, integrations, storage, and backups
 
 ### Next Steps
 
@@ -919,12 +918,18 @@ A: While this guide focuses on inference, you can fine-tune models using tools l
 
 ---
 
+## Deployment References
+
+- [AnythingLLM privacy and data handling](https://docs.anythingllm.com/features/privacy-and-data-handling) - telemetry and document deletion behavior
+- [AnythingLLM Docker localhost guidance](https://docs.anythingllm.com/installation-docker/localhost) - host services are not reached through container-local `localhost`
+- [Ollama local FAQ](https://docs.ollama.com/faq) - disable cloud features and configure server binding
+
 ## Related Files
 - [README.md](README.md) - AI/ section index
 - [AnythingLLM/anything_llm_agentflows.md](AnythingLLM/anything_llm_agentflows.md) - AgentFlow automation built on top of the AnythingLLM instance this guide installs
 - [ai_prompts.md](ai_prompts.md) - Prompt engineering techniques that apply directly to locally-hosted Dolphin models
 - [../Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) - Homelab hardware this offline LLM stack is typically deployed on
-- [../OSINT/README.md](../OSINT/README.md) - OSINT work that benefits from air-gapped, no-data-leaves-the-machine AI assistance
+- [../OSINT/README.md](../OSINT/README.md) - OSINT workflows that may benefit from verified local inference
 - [AnythingLLM/README.md](AnythingLLM/README.md) - AnythingLLM AgentFlows that run on top of this offline stack
 - [OpenClaw/README.md](OpenClaw/README.md) - OpenClaw can also route to local Ollama as a provider
 - [../SPECIALIZED_TOPICS_GUIDE.md](../SPECIALIZED_TOPICS_GUIDE.md) - Broader context for self-hosted AI in security labs
