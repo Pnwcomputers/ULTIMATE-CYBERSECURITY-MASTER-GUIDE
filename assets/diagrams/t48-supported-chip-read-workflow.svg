@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="300" viewBox="0 0 1050 300" role="img" aria-labelledby="title desc">
+<title id="title">T48 chip support and firmware read workflow</title>
+<desc id="desc">Identify the exact chip and package, verify the requested operation and adapter in the current supported-device list, select software that supports the operation, safely isolate and connect the chip, then read twice and compare output hashes.</desc>
+<rect width="1050" height="300" rx="18" fill="#f4f7fb"/>
+<text x="525" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#17324d">Verify before reading or programming a chip</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="24" y="83" width="210" height="132" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><text x="129" y="118" font-size="18" font-weight="700" fill="#17324d">1 · Identify</text><text x="129" y="151" font-size="14" fill="#234">Exact part, package,</text><text x="129" y="173" font-size="14" fill="#234">voltage and pin 1</text>
+<path d="M239 149h28m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="277" y="83" width="220" height="132" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/><text x="387" y="118" font-size="18" font-weight="700" fill="#17324d">2 · Verify support</text><text x="387" y="151" font-size="14" fill="#234">Check current list for</text><text x="387" y="173" font-size="14" fill="#234">chip and operation</text>
+<path d="M502 149h28m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="540" y="83" width="215" height="132" rx="14" fill="#e8e4ff" stroke="#7666b3" stroke-width="2"/><text x="647" y="118" font-size="18" font-weight="700" fill="#17324d">3 · Choose tool</text><text x="647" y="151" font-size="14" fill="#234">Xgpro or minipro;</text><text x="647" y="173" font-size="14" fill="#234">verify target support</text>
+<path d="M760 149h28m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="798" y="83" width="225" height="132" rx="14" fill="#e4f2e8" stroke="#4c9a61" stroke-width="2"/><text x="910" y="118" font-size="18" font-weight="700" fill="#17324d">4 · Read &amp; verify</text><text x="910" y="151" font-size="14" fill="#234">Power down target,</text><text x="910" y="173" font-size="14" fill="#234">read twice, compare hashes</text>
+</g>
+<text x="525" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">In-circuit clips can contend for signals or back-power a board. Never connect to a powered target.</text>
+</svg>
