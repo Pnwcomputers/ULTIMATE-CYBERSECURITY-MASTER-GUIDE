@@ -43,11 +43,11 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Authorized testing only: confirm authority and scope before active testing.** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Legal consequences depend on the conduct and applicable law; see [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **For systems you do not own or administer, confirm authorization in advance and document scope in writing where policy, law, or contract requires it.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
