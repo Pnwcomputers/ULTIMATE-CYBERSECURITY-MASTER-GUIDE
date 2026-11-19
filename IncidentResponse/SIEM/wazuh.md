@@ -315,7 +315,7 @@ systemctl status wazuh-agent
 On the Windows agent, trigger a test alert by creating a test file:
 
 ```powershell
-# This simulates suspicious activity that Wazuh will detect
+# File-integrity smoke test only: not the EICAR test string; it may not trigger an alert. Use only if this path is monitored.
 echo "test" > C:\Users\Public\eicar-test.txt
 ```
 
