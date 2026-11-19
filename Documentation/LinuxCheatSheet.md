@@ -24,7 +24,7 @@ Get a fresh Debian/Ubuntu, Arch, or WSL2 environment fully provisioned for secur
 ---
 
 # Arch Linux Quick Reference:
-[Arch](https://archlinux.org/) Linux: Unlike Debian based Linux, in Arch [`apt`](https://linuxize.com/post/how-to-use-apt-command/) is replaced by [`pacman`](https://wiki.archlinux.org/title/Pacman) (standard repositories) and [`pamac`](https://github.com/manjaro/pamac) (Manjaro's native package manager with [Arch User Repository / AUR support](https://aur.archlinux.org/)). Arch's killer feature is the AUR or the Arch User Repository. Instead of hunting down PPAs, users can use an [AUR helper](https://wiki.archlinux.org/title/AUR_helpers) (like Manjaro's pamac, or terminal tools like [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) to automatically compile and install virtually any Linux software in existence directly from source scripts!
+[Arch](https://archlinux.org/) Linux uses [`pacman`](https://wiki.archlinux.org/title/Pacman) for its official repositories; Manjaro also provides [`pamac`](https://github.com/manjaro/pamac), which can access the [Arch User Repository (AUR)](https://aur.archlinux.org/). The AUR is a community-maintained collection of build descriptions (`PKGBUILD`s), not an official repository or a guarantee that every Linux program is available. AUR helpers such as [yay](https://aur.archlinux.org/packages/yay) and [paru](https://github.com/Morganamilo/paru) automate package preparation, but they do not make build scripts trustworthy. Inspect the `PKGBUILD` and referenced files before building, and use official distribution packages when suitable.
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
