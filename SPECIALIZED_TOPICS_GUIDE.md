@@ -2389,12 +2389,12 @@ rtl_433 -f 315M -F csv | grep "TPMS"
 Required:
   - GPS-SDR-SIM software (github.com/osqzss/gps-sdr-sim)
   - HackRF One
-  - Faraday cage (MANDATORY - prevents inadvertent RF emission)
+  - Approved RF simulator or properly designed containment (reduces emissions; does not itself authorize transmission)
   - Written authorization from target owner
 
 Legal: Transmitting simulated GNSS signals may violate spectrum, aviation-safety, or
-       other rules depending on the jurisdiction and circumstances. A Faraday enclosure
-       can reduce emissions but does not by itself establish legal authorization or safety.
+       other rules depending on the jurisdiction and circumstances. An RF enclosure
+       can reduce emissions but does not by itself establish authorization or compliance.
 ```
 
 [Return to Table of Contents](#table-of-contents)
@@ -2406,31 +2406,25 @@ Legal: Transmitting simulated GNSS signals may violate spectrum, aviation-safety
 ### US Regulatory Framework
 
 ```
-FCC 47 CFR Part 15 (unlicensed devices):
-  - ISM bands (902-928 MHz, 2400-2483.5 MHz, 5725-5850 MHz) - allowed with power limits
-  - DOES NOT permit jamming or deliberate interference
-  - Receive-only is generally unrestricted
+Radio rules depend on the service, band, device, power, location, and activity.
+In the United States, some equipment may operate under [FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15)
+subject to technical conditions; Part 15 operation is not a general permission to
+jam or interfere. Amateur, satellite, cellular, aviation, and other services have
+their own requirements. Check the applicable rules before transmitting.
 
-Intentional Transmission (requires license or exemption):
-  - Amateur Radio (Part 97): HAM license required (Technician, General, Extra)
-    → Permitted: 70cm, 2m, HF bands and many others
-    → Prohibited: encryption of content, commercial use, retransmission of broadcast
-  - Commercial/land mobile (Part 90): FCC business license
-  - Cellular/LTE: Carrier licenses only
-
-FCC Enforcement:
-  - Jamming devices: ILLEGAL in ALL circumstances (§333 Communications Act)
-    Civil penalties: up to $112,500 per violation
-    Criminal penalties: up to $100,000 fine + 1 year imprisonment
-  - Aviation interference (GPS spoofing, ADS-B injection):
-    Can be charged as federal terrorism/air piracy
+The FCC generally prohibits unauthorized jamming; see [47 U.S.C. § 333](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title47-section333&num=0&edition=prelim)
+and the [FCC jamming guidance](https://www.fcc.gov/general/jammer-enforcement). Do not
+conduct over-the-air GNSS spoofing, cellular interception, or interference testing.
+A Faraday enclosure or dummy load can reduce emissions but is not a substitute for
+regulatory authorization, safe test design, or verification that RF is contained.
+Consult qualified counsel and the relevant regulator for jurisdiction-specific advice.
 ```
 
 ### Transmission Safety Checklist
 
 ```
 BEFORE ANY TRANSMISSION:
-☐ Faraday cage / RF dummy load in place (OR proper license + legal frequency)
+☐ Test is receive-only, or any transmission has specific regulatory authority and a verified test setup
 ☐ Target device is owned by me or I have written authorization
 ☐ Not transmitting on aviation bands (1090 MHz, 121.5 MHz, 406 MHz, GPS L1/L2)
 ☐ Not transmitting on cellular bands (700/850/1900/2100 MHz) without extreme isolation
@@ -2440,11 +2434,11 @@ BEFORE ANY TRANSMISSION:
 ☐ Activity logged (time, frequency, power, duration, purpose)
 
 NEVER:
-✗ Jam any signal - illegal regardless of reason
+✗ Jam or interfere with communications; U.S. rules generally prohibit unauthorized jamming
 ✗ Transmit on aircraft frequencies (extreme legal exposure)
-✗ Spoof GPS outside a Faraday-shielded test environment
+✗ Transmit simulated GNSS signals over the air without specific regulatory authorization
 ✗ Use IMSI catchers/Stingray without law enforcement authority
-✗ Intercept and decrypt cellular voice/data (ECPA violation)
+✗ Intercept or decrypt communications without confirming the applicable authorization and consent rules
 ```
 
 ### Amateur Radio (HAM) Licensing - Recommended
