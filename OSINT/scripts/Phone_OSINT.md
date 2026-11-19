@@ -282,7 +282,7 @@ private_curl_url() {
     local URL="$1"
     local OUTPUT="$2"
     {
-        printf 'url = "%s"\\n' "$URL"
+        printf 'url = "%s"\n' "$URL"
     } | curl --config - --silent --show-error --fail --max-time 20 \
         | pretty_json > "$OUTPUT" 2>&1
     local -a CURL_STATUSES=("${PIPESTATUS[@]}")
