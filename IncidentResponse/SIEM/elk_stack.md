@@ -35,11 +35,15 @@ This guide provides an isolated-lab ELK example for learning deployment and tele
 
 ## 🎯 What is the ELK Stack?
 
+![Elastic Stack ingestion flow with Beats/Elastic Agent on endpoints, optional Logstash transformations, Elasticsearch indexing and Kibana investigation, with independent validation](../../assets/diagrams/elastic-stack-log-ingest-index-search.svg)
+
+*Conceptual data path, not a secure deployment of this historical lab configuration.* [Elastic's Beats documentation](https://www.elastic.co/docs/reference/beats) confirms that supported shippers can forward to Elasticsearch directly or through optional Logstash. [Elastic's ingest-pipeline guide](https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines) describes additional parsing inside Elasticsearch. Verify event delivery, index selection, permissions, TLS and service compatibility rather than inferring coverage from an open Kibana dashboard.
+
 | Component | Purpose |
 |-----------|---------|
-| **** | Distributed search and analytics engine; stores and indexes logs |
+| **Elasticsearch** | Distributed search and analytics engine; stores and indexes logs |
 | **Logstash** | Data processing pipeline; parses, transforms, and enriches logs |
-| **Kibana** | Visualization and dashboarding; query interface for  |
+| **Kibana** | Visualization, search interface and security analytics for indexed Elasticsearch data |
 | **Beats** | Lightweight data shippers; collect and forward logs to the stack |
 
 ### ELK vs Elastic Security
@@ -59,7 +63,7 @@ Elastic (the company) offers **Elastic Security** (formerly SIEM) as part of the
 | CPU | 4 vCPUs | 8 vCPUs |
 | Storage | 100 GB | 500 GB+ SSD |
 
-> **Note:** Elasticsearch is memory-intensive. For production, allocate 50% of system RAM to the JVM heap (up to 32 GB).
+> **Note:** Elasticsearch is memory-intensive. For production, follow the current [Elasticsearch JVM settings](https://www.elastic.co/docs/reference/elasticsearch/jvm-settings) for the installed version. A blanket fixed 50% heap rule or universal 32 GB maximum is not correct for every host, runtime and supported release.
 
 ### Software Requirements
 
@@ -113,7 +117,7 @@ newgrp docker
 
 ### Step 1.3: Configure System Limits
 
- requires increased system limits:
+Elasticsearch requires host limits appropriate to the **installed version and deployment**:
 
 ```bash
 # Increase virtual memory

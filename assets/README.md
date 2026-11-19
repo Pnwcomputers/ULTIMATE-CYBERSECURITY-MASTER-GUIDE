@@ -52,6 +52,15 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [NanoVNA S11/S21 Calibration Planes](./diagrams/nanovna-s11-s21-calibration-plane.svg) | [NanoVNA Calibration & Reference Planes](../SDR/nanovna/03-calibration.md) | OPEN/SHORT/LOAD on S11 plane and separate instrument-specific S21 calibration |
 | [DIY HTTP Decoy JSONL → Wazuh](./diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg) | [Minimal HTTP Honeypot Lab](../IncidentResponse/HoneyPot/diy-sensor-lab.md) | Lab-only request metadata capture, 404 response, JSONL localfile and optional Wazuh forwarding |
 
+## Elastic, Flight Software, Mobile Linux & ETL/ELT Diagrams
+
+| Image | Embedded Guide | Verified Learning Objective |
+|---|---|---|
+| [Elastic Ingest, Index & Kibana](./diagrams/elastic-stack-log-ingest-index-search.svg) | [Elastic Stack SIEM](../IncidentResponse/SIEM/elk_stack.md) | Shows optional Logstash versus direct shipping, Elasticsearch processing, Kibana investigation and evidence validation |
+| [Space Flight Software Layers](./diagrams/spaceflight-fsw-cfs-security-layers.svg) | [Space Security: Flight Software](../SpaceSecurity/PartIII.md) | NASA cFS-like mission app, executive, OS abstraction, BSP/driver and onboard hardware boundary |
+| [UserLAnd Android Permission Boundary](./diagrams/userland-android-proot-capability-boundaries.svg) | [UserLAnd Linux on Android](../Mobile/UserLAnd/readme.md) | Distinguishes no-root Linux userspace tools from unavailable host kernel/raw-radio privileges |
+| [ETL Versus ELT Data Paths](./diagrams/etl-vs-elt-transform-privacy-and-replay.svg) | [ETL & ELT Pipeline Design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md) | Preload vs in-destination transforms, and why raw retention and security are independent choices |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
