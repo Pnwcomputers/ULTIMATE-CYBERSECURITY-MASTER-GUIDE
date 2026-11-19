@@ -240,13 +240,13 @@ This section contains attack techniques targeting space systems infrastructure.
 
 | Law / Regulation | Scope |
 |-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems: up to 10 years imprisonment |
-| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies: criminal offense |
-| **ITAR (22 CFR 120-130)** | Export control on satellite technology, tools, and techniques |
+| **CFAA (18 U.S.C. § 1030)** | Covers specified computer-access and damage offenses; elements and penalties vary by offense and facts. |
+| **FCC radio rules** | Required authority depends on the service, station, equipment and frequency. Some devices/services operate under general authorization or license-by-rule; unauthorized satellite or other radio operation can trigger FCC enforcement. |
+| **ITAR / EAR** | Export controls may apply to specifically controlled defense articles, software, technology or technical data and to certain releases or exports; classification and facts matter. |
 | **EAR (15 CFR 730-774)** | Additional export controls on dual-use space technology |
-| **ITU Radio Regulations** | International frequency coordination and harmful interference prohibition |
+| **ITU Radio Regulations** | International spectrum coordination framework implemented through national administrations; check the relevant regulator and service rules for operating authority. |
 | **UK Computer Misuse Act 1990** | Unauthorized access to space-related computer systems |
-| **EU Cybercrime Directives** | Harmonized computer crime laws covering ground infrastructure |
+| **EU cybercrime laws** | National implementation and territorial scope vary; determine applicable local law for the system and activity. |
 
 ### Warranty Disclaimer
 
