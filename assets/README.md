@@ -35,6 +35,14 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [Agent Ambiguous-Write Reconciliation](./diagrams/ai-agent-ambiguous-write-reconciliation.svg) | [AI Reliability & Failure Recovery](../AI/agent-reliability-and-recovery.md) | Durable state, verified outcome, uncertainty and safe retry with idempotency key |
 | [Pipeline Observability & Reconciliation](./diagrams/pipeline-observability-reconciliation-slo.svg) | [Pipeline Observability & Reliability](../Data-Engineering/Phase3/pipeline_observability.md) | Production/processing/consumer telemetry, reconciliation, actionable alerts and service objectives |
 
+## RF Measurement, Honeypot Deployment & OSINT Workstation Diagrams
+
+| Image | Embedded Guide | Source-Checked Boundary |
+|---|---|---|
+| [NanoVNA S11: Resonance & Match](./diagrams/nanovna-s11-resonance-vs-match.svg) | [NanoVNA Antenna Tuning & Matching](../SDR/nanovna/05-antenna-tuning.md) | Calibrated reference plane, complex impedance and distinction between VSWR and radiation efficiency |
+| [T-Pot Hive, Sensor & Administration](./diagrams/tpot-hive-sensor-management-boundaries.svg) | [T-Pot Deployment](../IncidentResponse/HoneyPot/tpot.md) | Decoy ingress and local sensor logs, optional Hive aggregation, isolated management and community sharing |
+| [Tsurugi OSINT Image & Evidence Flow](./diagrams/tsurugi-osint-image-provenance-case-flow.svg) | [Tsurugi Linux OSINT Workstation](../OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) | Official image, verified signed digest, isolated workstation, case-original evidence and reporting |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
