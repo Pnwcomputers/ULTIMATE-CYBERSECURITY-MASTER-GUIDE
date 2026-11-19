@@ -2,19 +2,19 @@
 # Chapter 5: Power Analysis - Practical Techniques
 
 ## 🎯 Purpose
-Hands-on guide to real-world power analysis - covering measurement hardware setup, trace acquisition scripts, signal processing (filtering, alignment, PCA), CPA attack implementation in Python/NumPy, and Test Vector Leakage Assessment (TVLA) for validating leakage before committing to a full attack campaign.
+A practical overview of authorized power-analysis evaluation, including safe measurement setup, trace provenance, preprocessing limits, CPA interpretation, and leakage testing.
 
 ## ⚙️ Function
-Covers: oscilloscope/current probe hardware configuration, shunt resistor insertion, Python trace acquisition via scope API (Rigol/PicoScope), trigger synchronization, trace preprocessing (bandpass filter, cross-correlation alignment, PCA dimensionality reduction), CPA attack on AES SubBytes with NumPy, and TVLA Welch t-test leakage detection.
+Covers target-dependent shunt and probe selection, controlled trace collection, signal-processing cautions, correlation power analysis (CPA), visualization, and Test Vector Leakage Assessment (TVLA).
 
 ## 🏆 Goal
-Successfully acquire clean power traces, align them by trigger, and execute a CPA attack that recovers the AES key from a target microcontroller, or confirm via TVLA whether meaningful side-channel leakage exists before investing in a full trace campaign.
+Determine whether a documented implementation leaks information under a defined lab setup, preserve enough evidence to reproduce the result, and report both findings and limits.
 
 ## 📋 When to Use
-- After Chapter 4 theory: applying DPA/CPA concepts in a real lab setup
-- Setting up a power analysis testbed for a new target device
-- Validating whether a device leaks before investing in 10,000+ trace campaigns
-- Measuring the effectiveness of masking or other countermeasures
+- Evaluating a cryptographic implementation on owned or explicitly authorized development hardware
+- Planning measurement setup after reviewing the fundamentals in Chapter 2
+- Learning how collection and preprocessing choices affect leakage analysis
+- Checking countermeasures with documented statistical methods
 
 > *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -22,382 +22,87 @@ Successfully acquire clean power traces, align them by trigger, and execute a CP
 
 ### Measurement Setup
 
-A clean measurement setup is more important than sophisticated analysis. Poor signal quality cannot be rescued in software.
+A measurement should preserve the target's normal operating conditions closely enough for the stated experiment. Choose a documented, current-limited development target and follow its board and instrument manuals.
 
 #### Hardware Configuration
 
-```
-Target device power path (shunt insertion):
+The shunt value and placement depend on the target's current, allowable supply drop, resistor dissipation, power-distribution path, and measurement bandwidth. There is no universal value. Keep decoupling capacitors in place unless the exact target documentation specifies a topology-specific change.
 
-  Power Supply
-       │
-       ├── [Optional: remove nearest decoupling cap on target PCB]
-       │
-  [Shunt resistor: 10–33 Ω]
-       │
-  Target VDD pin
-       │
-  [Return path: clean GND to supply]
+Use the shunt calculation and conceptual figure in [Chapter 2](./Chapter2.md#shunt-resistors-for-power-measurement). That chapter explains why probe common-mode limits, scope grounding, loading, and 50 Ω termination must be checked before connecting instruments.
 
-Oscilloscope connection:
-  CH1: Differential across shunt (or single-ended with probe GND at shunt bottom)
-  CH2 (trigger): GPIO output from target (e.g., high during crypto operation)
-  Probe: ×1 setting (maximum sensitivity); 50 Ω termination if high frequency
-```
+![Conceptual shunt measurement with a series resistor and target-dependent voltage-drop checks](../assets/diagrams/shunt-current-measurement.svg)
 
-**Amplification:** For small current devices, the power signal may be only 1–5 mV. Add a low-noise amplifier (e.g., Stanford Research SR560) with 20–40 dB gain between the shunt and oscilloscope.
+The trace workflow below separates safe setup, data collection, analysis, and independent validation.
 
-**ChipWhisperer Lite setup:**
+![Conceptual power-analysis workflow from scope and measurement setup through trace analysis and validation](../assets/diagrams/power-analysis-measurement-evidence-flow.svg)
 
-```python
-import chipwhisperer as cw
+Select a differential or single-ended measurement only after confirming the target reference, scope/probe grounding, common-mode range, and safe input limits. A ×1 probe is not automatically more suitable: attenuation, bandwidth, capacitance, input resistance, and voltage limits vary by probe and scope.
 
-scope = cw.scope()
-target = cw.target(scope)
+Amplification is optional and target-dependent. Check amplifier noise, bandwidth, gain, input range, common-mode range, and risk of saturation. A larger displayed waveform is not necessarily a more faithful measurement.
 
-scope.default_setup()
-scope.gain.gain = 45          # 45 dB amplification
-scope.adc.samples = 5000      # Sample count per trace
-scope.adc.offset = 0          # Offset from trigger
-scope.adc.basic_mode = "rising_edge"
-scope.clock.clkgen_freq = 7.37e6  # Target clock frequency
-scope.io.tio1 = "serial_rx"
-scope.io.tio2 = "serial_tx"
-scope.trigger.triggers = "tio4"  # Trigger on GPIO
-target.baud = 38400
-```
+#### ChipWhisperer Setup
 
----
+ChipWhisperer hardware and API defaults vary by capture platform, firmware, target board, and software release. Do not copy fixed gain, sample count, clock, trigger, or serial settings into an unrelated target configuration. Start with the current [ChipWhisperer documentation and tutorials](https://chipwhisperer.readthedocs.io/en/latest/) for the exact capture hardware and target; record software versions and configuration in the experiment notes.
 
 ### Trace Acquisition
 
 #### Collection Best Practices
 
-- **Interleave plaintext randomization:** Use a CSPRNG for plaintext generation, not sequential values
-- **Temperature stability:** Let the bench warm up 15–30 minutes; temperature drift causes trace misalignment
-- **Capture sufficient traces:** Start with 1,000; increase if CPA peak is ambiguous
-- **Validate trigger consistency:** Check trigger-to-first-sample jitter - even 1 clock cycle of jitter significantly degrades DPA quality
+- **Define the experiment first:** Specify the security property, controlled inputs, expected operation, target revision, and stop conditions.
+- **Choose inputs to fit the test:** Fixed-versus-random TVLA and known-plaintext CPA use different input designs. Follow the method's documented requirements and preserve input/response metadata.
+- **Check trigger and capture behavior:** Confirm that captures contain the intended operation and that the trigger is stable enough for the planned analysis. Timing jitter and misalignment can weaken or distort results.
+- **Preserve raw traces:** Keep an unmodified copy with instrument settings, sample rate, target/environment details, trigger configuration, input data, output data, and software versions.
+- **Use repeatable conditions:** Record temperature, supply, clock, board state, and any changes during acquisition. Do not assume a fixed warm-up interval or trace count applies to all setups.
+- **Set collection size from evidence:** Start with a bounded pilot collection, examine quality and convergence, then justify any larger collection from the target and analysis rather than a universal number.
 
-```python
-import chipwhisperer as cw
-import numpy as np
-
-N_TRACES = 5000
-traces = np.zeros((N_TRACES, scope.adc.samples))
-plaintexts = np.zeros((N_TRACES, 16), dtype=np.uint8)
-ciphertexts = np.zeros((N_TRACES, 16), dtype=np.uint8)
-
-ktp = cw.ktp.Basic()
-
-for i in range(N_TRACES):
-    key, pt = ktp.next()
-    cw.capture_trace(scope, target, pt, key)
-    wave = scope.get_last_trace()
-    
-    if wave is not None:
-        traces[i] = wave
-        plaintexts[i] = list(pt)
-        ciphertexts[i] = list(target.simpleserial_read('r', 16))
-    
-    if i % 100 == 0:
-        print(f"Captured {i}/{N_TRACES}")
-
-np.save('traces.npy', traces)
-np.save('plaintexts.npy', plaintexts)
-```
-
----
+For an end-to-end example, use the [current ChipWhisperer SCA101 capture notebooks](https://chipwhisperer.readthedocs.io/en/sca101/). Their examples are tied to specified target and capture hardware; adapt only after checking the exact configuration.
 
 ### Filtering and Signal Processing
 
-#### Low-Pass Filtering
+Preprocessing can make traces easier to compare, but it can also remove leakage, introduce artifacts, or create misleading correlations. Preserve raw data and record every transformation so results can be reproduced.
 
-Removes high-frequency noise above the target signal band:
+- Select filters from the measurement bandwidth, sample rate, probe response, and experiment question. A cutoff based only on the target clock is not sufficient.
+- Check that digital filtering parameters are valid for the actual sample rate and that filtering does not distort edges or points of interest.
+- Align traces only when the offset model is justified. Cross-correlation or sum-of-absolute-differences alignment can align unrelated features or leak selection bias into the analysis.
+- Apply the same documented preprocessing to comparison groups. Keep a raw-versus-processed comparison and report the transformation.
+- PCA and other dimensionality-reduction methods are exploratory; they can mix or discard leakage and should not be treated as proof of security or insecurity.
 
-```python
-from scipy.signal import butter, filtfilt
-import numpy as np
-
-def lowpass_filter(traces, cutoff_hz, sample_rate_hz, order=4):
-    nyq = sample_rate_hz / 2
-    normal_cutoff = cutoff_hz / nyq
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
-    return filtfilt(b, a, traces, axis=1)
-
-# Example: target at 7.37 MHz clock, captured at 100 MSa/s
-filtered_traces = lowpass_filter(traces, cutoff_hz=15e6, sample_rate_hz=100e6)
-```
-
-#### Band-Pass Filtering
-
-```python
-def bandpass_filter(traces, low_hz, high_hz, sample_rate_hz, order=4):
-    nyq = sample_rate_hz / 2
-    low = low_hz / nyq
-    high = high_hz / nyq
-    b, a = butter(order, [low, high], btype='band', analog=False)
-    return filtfilt(b, a, traces, axis=1)
-```
-
-#### Trace Alignment - SAD Method
-
-Timing jitter between traces destroys DPA correlation. Alignment corrects this.
-
-```python
-def align_traces_sad(traces, reference_trace, search_window=50):
-    aligned = np.zeros_like(traces)
-    ref_len = len(reference_trace)
-    
-    for i, trace in enumerate(traces):
-        best_offset = 0
-        best_sad = float('inf')
-        
-        for offset in range(-search_window, search_window + 1):
-            if offset >= 0:
-                candidate = trace[offset:offset + ref_len]
-                ref_segment = reference_trace[:len(candidate)]
-            else:
-                candidate = trace[:ref_len + offset]
-                ref_segment = reference_trace[-offset:-offset + len(candidate)]
-            
-            if len(candidate) == 0:
-                continue
-            sad = np.sum(np.abs(candidate - ref_segment))
-            if sad < best_sad:
-                best_sad = sad
-                best_offset = offset
-        
-        if best_offset >= 0:
-            aligned[i, :ref_len - best_offset] = trace[best_offset:ref_len]
-        else:
-            aligned[i, -best_offset:] = trace[:ref_len + best_offset]
-    
-    return aligned
-
-reference = np.mean(traces[:50], axis=0)
-aligned_traces = align_traces_sad(traces, reference, search_window=100)
-```
-
-#### Cross-Correlation Alignment (More Robust)
-
-```python
-from scipy.signal import correlate
-
-def align_traces_xcorr(traces, reference_trace):
-    aligned = np.zeros_like(traces)
-    for i, trace in enumerate(traces):
-        corr = correlate(trace, reference_trace, mode='full')
-        offset = np.argmax(corr) - (len(reference_trace) - 1)
-        if offset >= 0:
-            aligned[i, :len(trace)-offset] = trace[offset:]
-        else:
-            aligned[i, -offset:] = trace[:len(trace)+offset]
-    return aligned
-```
-
----
+Use documented, maintained routines that match the exact data format and setup. Check edge cases and compare processed results with the preserved raw traces.
 
 ### Correlation Power Analysis (CPA)
 
-<p align="center">
-  <img src="../assets/CPACorrelationProcess.jpg" alt="Figure 11: CPA Process Diagram. Summarizing the statistical key guessing attack." width="600"/>
-</p>
+CPA compares measured traces with a predicted leakage model for candidate intermediate values. For an authorized lab exercise, use a documented, owned development target or a provided simulation dataset and verify results with known test vectors.
 
-CPA (Brier et al., 2004) is the modern standard - more efficient than original DPA's difference-of-means. Uses Pearson correlation coefficient.
+ChipWhisperer's maintained analyzer supports CPA for compatible projects. Its documented flow is to open the project, select a leakage model, run the analyzer, and inspect the key guess and convergence plots. See the [Analyzer API documentation](https://chipwhisperer.readthedocs.io/en/latest/analyzer-api.html) and the [SCA101 CPA tutorial](https://github.com/newaetech/chipwhisperer-tutorials/blob/master/courses_sca101_SOLN_Lab%204_2%20-%20CPA%20on%20Firmware%20Implementation%20of%20AES-CWNANO-CWNANO.rst).
 
-```python
-def cpa_attack(traces, plaintexts, byte_idx, poi_start=0, poi_end=None):
-    if poi_end is None:
-        poi_end = traces.shape[1]
-    
-    N = traces.shape[0]
-    T = poi_end - poi_start
-    traces_poi = traces[:, poi_start:poi_end]
-    
-    traces_mean = np.mean(traces_poi, axis=0)
-    traces_std = np.std(traces_poi, axis=0) + 1e-10
-    
-    correlation_matrix = np.zeros((256, T))
-    
-    for k_guess in range(256):
-        hw = np.array([
-            hamming_weight(SBOX[int(plaintexts[i, byte_idx]) ^ k_guess])
-            for i in range(N)
-        ])
-        
-        hw_mean = np.mean(hw)
-        hw_std = np.std(hw) + 1e-10
-        
-        centered_hw = hw - hw_mean
-        centered_traces = traces_poi - traces_mean
-        
-        numerator = np.dot(centered_hw, centered_traces) / N
-        correlation_matrix[k_guess] = numerator / (hw_std * traces_std)
-    
-    return correlation_matrix
-
-corr = cpa_attack(aligned_traces, plaintexts, byte_idx=0)
-max_corr_per_guess = np.max(np.abs(corr), axis=1)
-recovered_byte = np.argmax(max_corr_per_guess)
-print(f"Recovered key byte 0: 0x{recovered_byte:02X}")
-print(f"Correlation: {max_corr_per_guess[recovered_byte]:.4f}")
-```
-
----
+A Pearson-correlation peak is a candidate, not standalone confirmation. Review the leakage model, sampling/alignment choices, candidate ranking over traces, controls, and whether the guessed key correctly predicts outputs on independent test vectors. Report the target, software version, analysis settings, and limits. Follow the official analyzer workflow for the installed release because project formats, leakage models, and target configurations vary.
 
 ### Visualization
 
-#### Trace Overlay Plot
+Useful review plots include raw trace overlays, candidate correlation over sample position, candidate rank or guessing entropy as traces accumulate, and fixed-versus-random TVLA statistics. Label axes with the actual instrument units and analysis settings. High variance, a large correlation peak, or visual similarity to a published trace does not by itself establish secret leakage.
 
-```python
-def plot_trace_overlay(traces, n_show=100, title="Power Traces"):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 8), sharex=True)
-    
-    for i in range(min(n_show, len(traces))):
-        ax1.plot(traces[i], alpha=0.05, color='blue', linewidth=0.5)
-    ax1.plot(np.mean(traces, axis=0), color='red', linewidth=1.5, label='Mean')
-    ax1.set_ylabel('Power (ADC units)')
-    ax1.set_title(f'{title} - Overlay ({n_show} traces)')
-    ax1.legend()
-    
-    ax2.plot(np.std(traces, axis=0), color='orange', linewidth=1)
-    ax2.set_xlabel('Sample index')
-    ax2.set_ylabel('Std Dev')
-    ax2.set_title('Trace Variance (high = potential POI)')
-    
-    plt.tight_layout()
-    plt.show()
-```
+### Higher-Order Analysis, Profiling, and TVLA
 
-#### CPA Correlation Map
+#### Higher-Order Analysis
 
-```python
-def plot_cpa_result(correlation_matrix, true_key_byte=None, byte_idx=0):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 8))
-    
-    im = ax1.imshow(np.abs(correlation_matrix), aspect='auto', cmap='hot', interpolation='nearest')
-    ax1.set_xlabel('Sample index')
-    ax1.set_ylabel('Key guess (0x00 – 0xFF)')
-    ax1.set_title(f'CPA Correlation Map - Key Byte {byte_idx}')
-    plt.colorbar(im, ax=ax1, label='|Pearson r|')
-    
-    if true_key_byte is not None:
-        ax1.axhline(y=true_key_byte, color='cyan', linewidth=1.5, linestyle='--',
-                   label=f'True key: 0x{true_key_byte:02X}')
-        ax1.legend()
-    
-    max_corr = np.max(np.abs(correlation_matrix), axis=1)
-    ax2.bar(range(256), max_corr, width=1, color='steelblue', alpha=0.7)
-    ax2.set_xlabel('Key guess')
-    ax2.set_ylabel('Max |correlation|')
-    ax2.set_title('Peak Correlation per Key Guess')
-    
-    recovered = np.argmax(max_corr)
-    ax2.axvline(x=recovered, color='red', linewidth=2, label=f'Recovered: 0x{recovered:02X}')
-    if true_key_byte is not None:
-        ax2.axvline(x=true_key_byte, color='green', linewidth=2, linestyle='--',
-                   label=f'True: 0x{true_key_byte:02X}')
-    ax2.legend()
-    
-    plt.tight_layout()
-    plt.show()
-    return recovered
-```
+Masking can redistribute information across multiple leakage points. Higher-order analysis requires a justified model of how observations combine, suitable preprocessing, and enough evidence to validate the method. Multiplying two centered sample columns is only a possible intermediate transformation; by itself it is not a complete second-order attack and does not establish that masking was defeated.
 
-#### Success Rate vs. Trace Count
+#### Profiling Attacks
 
-```python
-def plot_success_curve(traces, plaintexts, true_key, byte_idx=0, step=50, n_trials=10):
-    trace_counts = range(step, len(traces) + 1, step)
-    success_rates = []
-    
-    for n in trace_counts:
-        successes = 0
-        for trial in range(n_trials):
-            idx = np.random.choice(len(traces), n, replace=False)
-            corr = cpa_attack(traces[idx], plaintexts[idx], byte_idx)
-            max_corr = np.max(np.abs(corr), axis=1)
-            if np.argmax(max_corr) == true_key[byte_idx]:
-                successes += 1
-        success_rates.append(successes / n_trials)
-    
-    plt.figure(figsize=(10, 5))
-    plt.plot(trace_counts, success_rates, 'o-', color='steelblue')
-    plt.axhline(y=1.0, color='green', linestyle='--', alpha=0.5, label='100% success')
-    plt.xlabel('Number of traces')
-    plt.ylabel('Success rate')
-    plt.title(f'CPA Success Rate vs. Trace Count (Key Byte {byte_idx})')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.show()
-```
+Profiling methods build statistical models from a profiling device or dataset, then evaluate traces from a target. Results depend on how representative the profiling material is of the target, the leakage model, the measurement setup, and the attack traces. No profiling method guarantees key recovery from one trace.
 
----
+#### Leakage Assessment: TVLA
 
-### Advanced DPA Techniques
+Test Vector Leakage Assessment (TVLA) commonly compares measurements from defined input classes, such as fixed and random test vectors, using Welch's t-test at each sample. Follow a published protocol for the target and test order; document the number of observations, grouping, preprocessing, and statistical assumptions.
 
-#### Second-Order DPA
+Some protocols use an absolute t-statistic threshold of 4.5 as a screening heuristic. The threshold is not a universal boundary between secure and insecure behavior. Exceeding it indicates a leakage signal worth investigating, not proof of key recovery; failing to exceed it does not prove the absence of leakage. A first-order fixed-versus-random test can also miss leakage detectable by other test vectors or higher-order methods.
 
-When first-order masking is present, the secret value is split: `masked_val = secret XOR mask`. Neither value alone correlates with the key. Second-order DPA combines two leakage points:
-
-```python
-def second_order_dpa(traces, byte_idx, poi1, poi2):
-    t1 = traces[:, poi1] - np.mean(traces[:, poi1])
-    t2 = traces[:, poi2] - np.mean(traces[:, poi2])
-    combined = t1 * t2  # Product of centered leakages
-    return combined     # Run standard CPA on combined value
-```
-
-#### Template Attacks
-
-Template attacks (Chari et al., 2002) are the most powerful single-trace attacks. They require a training phase on a copy of the target device where the key is known, then a matching phase on the actual target.
-
-Template attacks can recover keys from a **single trace** against unprotected implementations - the theoretical optimum for passive side-channel attacks.
-
-#### Leakage Assessment: t-TVLA
-
-Before investing in full CPA, use **Test Vector Leakage Assessment (TVLA)** to determine whether a device leaks at all, and where:
-
-```python
-from scipy.stats import ttest_ind
-
-def tvla_assessment(traces_fixed, traces_random):
-    t_stats = np.zeros(traces_fixed.shape[1])
-    
-    for t in range(traces_fixed.shape[1]):
-        t_stat, _ = ttest_ind(
-            traces_fixed[:, t], traces_random[:, t], equal_var=False
-        )
-        t_stats[t] = t_stat
-    
-    plt.figure(figsize=(16, 4))
-    plt.plot(t_stats, linewidth=0.5, color='navy')
-    plt.axhline(y=4.5, color='red', linestyle='--', label='|t| = 4.5 threshold')
-    plt.axhline(y=-4.5, color='red', linestyle='--')
-    plt.fill_between(range(len(t_stats)), -4.5, 4.5, alpha=0.1, color='green',
-                     label='No leakage zone')
-    plt.xlabel('Sample index')
-    plt.ylabel('t-statistic')
-    plt.title('TVLA Leakage Assessment')
-    plt.legend()
-    plt.show()
-    
-    leakage_points = np.where(np.abs(t_stats) > 4.5)[0]
-    print(f"Significant leakage detected at {len(leakage_points)} sample points")
-    return t_stats, leakage_points
-```
-
-Use TVLA results to:
-- Confirm a device leaks before investing in full CPA
-- Identify the exact sample indices (POI) where leakage is strongest
-- Measure the effectiveness of countermeasures (compare TVLA before/after masking)
-
----
+TVLA assesses a statistical difference under a specific test. It does not directly measure key-recovery success or the effectiveness of every countermeasure. See the [NIST workshop listing](https://csrc.nist.gov/events/2011/non-invasive-attack-testing-workshop) and the [TVLA methodology paper](https://www.rambus.com/wp-content/uploads/2015/08/a-testing-methodology-for-side-channel-resistance-validation.pdf), plus the specialist discussion of [applying TVLA to public-key cryptography](https://eprint.iacr.org/2016/513.pdf).
 
 ## Related Files
-- [Chapter4.md](Chapter4.md) - Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
-- [Chapter2.md](Chapter2.md) - Electrical fundamentals: shunt resistor calculation, probe loading, and decoupling cap removal for clean power traces
-- [Chapter3.md](Chapter3.md) - Fault injection: the active attack complement; often combined with power analysis in advanced assessments
+- [Chapter4.md](Chapter4.md) - Theory foundation: timing, DPA, CPA, and EM side-channel concepts used in this chapter
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: target-dependent shunt selection, probe loading, and safe measurement setup
+- [Chapter3.md](Chapter3.md) - Fault injection: a distinct active technique with different measurement and evaluation requirements
 
 ---
 
