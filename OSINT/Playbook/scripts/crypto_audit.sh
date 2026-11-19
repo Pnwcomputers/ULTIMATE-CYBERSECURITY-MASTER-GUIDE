@@ -293,7 +293,8 @@ audit_btc() {
 # appear in curl's process arguments. The provider may still retain URL logs.
 private_curl_status_url() {
     local url="$1" output="$2"
-    local safe_url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+
+    local safe_url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+$'
+    [[ "$url" =~ $safe_url_pattern ]] || return 2
     { printf 'url = "%s"\n' "$url"; } |
         curl --config - --silent --show-error --max-time 25 --output "$output" --write-out "%{http_code}"
 }
