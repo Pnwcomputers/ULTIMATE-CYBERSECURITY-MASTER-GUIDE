@@ -86,72 +86,75 @@ Avoid writing an attack path as a guaranteed result. For instance, a debug port 
 
 ### Countermeasures
 
-Hardware countermeasures operate at multiple levels - silicon, firmware, and physical:
+Select controls for the documented threat model and verify them on the target design and lifecycle. No single physical, silicon, or firmware control covers every fault, probing, leakage, update, or supply-chain scenario.
 
-#### Silicon / Chip Level
+#### Silicon and Platform Controls
 
-| Countermeasure | Attacks Mitigated | Notes |
-|----------------|------------------|-------|
-| Active shield mesh | Microprobing, laser FI | Top-metal layer that triggers tamper on probe contact |
-| Glitch detectors (voltage/clock) | Voltage and clock FI | On-die sensors; trigger zeroization or reset |
-| PLL with frequency limits | Clock glitching | Reject CLK outside valid range |
-| True Random Number Generator | Fault injection timing, DPA | Randomizes operation timing; adds noise to power trace |
-| Redundant logic / dual-rail | Fault injection | Executing critical ops twice; comparison before acting |
-| Memory encryption | Cold boot, bus probing | Transparent encryption of SRAM/Flash |
+| Control | Potential contribution | Limits to assess |
+|---------|------------------------|------------------|
+| Debug authorization and lifecycle state | Restricts debug access on supported devices | Verify production provisioning, authenticated access, recovery, and failure behavior |
+| Secure boot and measured boot | Detects or blocks unauthorized firmware changes when correctly rooted | Does not by itself protect secrets in a running system or guarantee safe update/recovery |
+| Voltage, clock, and tamper monitoring | May detect specified abnormal conditions and trigger a response | Coverage depends on sensor thresholds, placement, response path, and tested fault models |
+| Redundant or diverse checks | Can detect some incorrect computation before acting | Common-mode faults, compiler behavior, and shared inputs can undermine redundancy |
+| Memory encryption | Protects specified data in particular memory or bus exposure scenarios | Does not automatically protect keys while in use, debug paths, or all physical attacks |
+| Side-channel-resistant implementation | Constant-time code, masking, or hiding may reduce selected leakage | Requires implementation-specific analysis; no technique guarantees absence of all leakage |
 
-#### Firmware Level
+A TRNG provides random values for designs that consume them; its presence alone does not randomize execution or prevent power-analysis leakage.
 
-| Countermeasure | Attacks Mitigated | Implementation |
-|----------------|------------------|---------------|
-| Secure boot chain | Firmware tampering | Cryptographic signature verification at each stage |
-| Debug lock | JTAG/SWD extraction | Burn fuses; disable SWD in firmware; JTAG authentication |
-| Key diversification | Key extraction | Derive device-unique keys from root + UID; limit blast radius |
-| Anti-timing (constant-time ops) | Timing side-channel | Avoid data-dependent branches and memory access patterns |
-| Masking | DPA | XOR sensitive intermediate values with random masks |
-| Instruction shuffling | SPA, DPA | Randomize non-dependent operation order |
-| Integrity checks | Fault injection | Verify results of critical operations; detect glitch artifacts |
+#### Firmware and Key Management
 
-#### Physical Level
+- **Authenticated updates and recovery:** Verify signatures, authorization, rollback policy, and recovery behavior across all update paths.
+- **Lifecycle-aware debug policy:** Restrict production debug access while preserving documented and controlled service or recovery mechanisms.
+- **Key isolation and provisioning:** Limit key use through defined interfaces; protect provisioning, backup, rotation, and zeroization.
+- **Constant-time cryptographic operations:** Use vetted implementations and review the full call path, compiler output, and target environment where relevant.
+- **Fault-aware checks:** Validate important results and fail safely, then assess the design against scoped fault models and common-mode behavior.
+- **Secure diagnostics:** Avoid exposing secrets or security state in logs, crash reports, test interfaces, or service tools.
 
-| Countermeasure | Attacks Mitigated |
-|----------------|------------------|
-| Epoxy potting | Decapping, probing |
-| Tamper-evident seals | Physical access detection |
-| Enclosure intrusion detect | Fault injection rigs |
-| PCB layer count increase | Bus probing complexity |
-| BGA packaging (no exposed pads) | Test point probing |
+#### Physical and Operational Controls
 
----
+| Control | Potential contribution | Limits to assess |
+|---------|------------------------|------------------|
+| Tamper-evident seals | May indicate that a device was opened or altered | Evidence can be missed, forged, or separated from device custody |
+| Potting, shields, and enclosure design | Can raise effort or obstruct some access paths | Do not treat as proof that probing, optical access, or fault coupling is prevented |
+| Intrusion sensing and response | May detect selected enclosure or environmental changes | Validate sensor coverage, bypass resistance, response timing, and false alarms |
+| Board and package design | Can reduce exposed test points or add protection layers | Adds cost and does not replace secure firmware, lifecycle controls, or verification |
+| Supply-chain and service procedures | Protects provisioning, components, credentials, and repair paths | Depends on custody, vendor controls, auditability, and key-management practices |
 
 ### Threat Model Template
 
-For each target device, document:
+For each target, record:
 
 ```
-TARGET: [Device name / model]
-ATTACKER PROFILE: [Relevant profiles and assumed capabilities]
+TARGET:
+  Device/model/revision:
+  Owner and authorized assessment scope:
+  Deployment and lifecycle state:
+  Safety, legal, and operational constraints:
 
-ASSETS:
-  - [Asset 1]: [Location] [Sensitivity]
-  - [Asset 2]: [Location] [Sensitivity]
+ATTACKER CAPABILITIES:
+  Access, time, equipment, expertise, scale:
+  Explicitly excluded assumptions:
 
-ATTACK SURFACE:
-  - External interfaces: [UART, SPI, I2C, JTAG, USB, RF, etc.]
-  - Power input: [Accessible? Filtering present?]
-  - Clock input: [External crystal / internal RC / PLL]
-  - Physical access: [Enclosure protection level]
+ASSETS AND TRUST BOUNDARIES:
+  Asset / sensitivity / location / authorized users:
+  Data and control paths:
+  External interfaces and reachable states:
 
-THREAT SCENARIOS:
-  [ID] [Threat] [Asset] [Attack Path] [Likelihood] [Impact]
+SCENARIOS:
+  ID / objective / preconditions / path / expected observable:
+  Likelihood rationale / impact / evidence confidence:
 
-COUNTERMEASURES:
-  [ID] [Control] [Threats Mitigated] [Implementation Status]
+CONTROLS:
+  Prevent / limit / detect / respond / recover:
+  Implementation and verification status:
+  Known gaps and common-mode considerations:
 
 RESIDUAL RISK:
-  [Threats not fully mitigated and accepted rationale]
+  Accepted or treated risk / owner / rationale / review date:
+  Evidence retained and limitations:
 ```
 
----
+Keep assumptions separate from observations. Mark an interface as reachable, a key as exposed, or a control as effective only when supported by target-specific documentation or authorized test evidence.
 
 ## Related Files
 - [Hardware Security Case Studies](../CaseStudies/README.md) - Onity, Unsaflok, Tesla key-fob and EUCLEAK research to inform physical-access threat models
