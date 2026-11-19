@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="270" viewBox="0 0 1050 270" role="img" aria-labelledby="title desc">
+<title id="title">PCI DSS scope and validation overview</title>
+<desc id="desc">Identify payment account data handling, include systems that can affect the cardholder data environment in scope analysis, then confirm validation and reporting requirements with the compliance accepting entity.</desc>
+<rect width="1050" height="270" rx="18" fill="#f4f7fb"/>
+<text x="525" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#17324d">PCI DSS: establish scope, then confirm validation</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="35" y="77" width="255" height="130" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/>
+<text x="162" y="112" font-size="18" font-weight="700" fill="#17324d">1 · Map payment data</text><text x="162" y="145" font-size="14" fill="#234">Where CHD/SAD is stored,</text><text x="162" y="167" font-size="14" fill="#234">processed, or transmitted</text>
+<path d="M296 142h37m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="345" y="77" width="320" height="130" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/>
+<text x="505" y="112" font-size="18" font-weight="700" fill="#17324d">2 · Trace CDE influence</text><text x="505" y="145" font-size="14" fill="#234">Include systems able to affect</text><text x="505" y="167" font-size="14" fill="#234">cardholder-data security</text>
+<path d="M671 142h37m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="720" y="77" width="295" height="130" rx="14" fill="#e4f2e8" stroke="#4c9a61" stroke-width="2"/>
+<text x="867" y="112" font-size="18" font-weight="700" fill="#17324d">3 · Confirm the program</text><text x="867" y="145" font-size="14" fill="#234">Ask the acquirer / payment</text><text x="867" y="167" font-size="14" fill="#234">brand for validation method</text>
+</g>
+<text x="525" y="239" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">Conceptual guide only. A qualified assessor validates scope; requirements vary by applicable program.</text>
+</svg>
