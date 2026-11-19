@@ -262,7 +262,7 @@ THE AUTHORS AND CONTRIBUTORS:
 
 USERS EXPLICITLY ACKNOWLEDGE:
 • Space system attacks can disrupt critical infrastructure affecting public safety
-• RF transmission without authorization is a federal crime
+• RF transmission requirements vary by service, band, device, and jurisdiction; verify the applicable authorization and technical rules before transmitting
 • ITAR/EAR export controls may apply to tools and techniques described herein
 • They accept all risks associated with using these attack methodologies
 • Authorization must be explicit, written, and from the spacecraft operator
