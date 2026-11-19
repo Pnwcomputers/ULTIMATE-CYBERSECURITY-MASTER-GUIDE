@@ -4,24 +4,15 @@ _Last reviewed: 2026-10-31 · Works conceptually with PVE 9 and current Linux gu
 
 ## Why start with VMs?
 
-VMs simplify isolated networking, disposable rebuilds, revertable configurations and separate log collectors. **Snapshots are not backups** and a compromised guest still has network connectivity unless the host/firewall prevents it. A honeypot must not share the management plane or trust boundary of a production VM.
+VMs simplify isolated networking, disposable rebuilds, revertible configurations and separate log collectors. **Snapshots are not backups** and a compromised guest still has network connectivity unless the host/firewall prevents it. A honeypot must not share the management plane or trust boundary of a production VM.
 
 ## Reference design
 
-~~~text
-Internet / authorized test client
-          |
-UniFi / router, explicit VLAN or firewall rules
-          |
-       vmbr-decoy (isolated, no direct management trust)
-         |                 |
-         |            VM-B: Cowrie SSH/Telnet
-         |
-     VM-A: OpenCanary, low-interaction ports
+![Proxmox honeynet trust-zone topology: explicitly permitted test ingress, quarantined OpenCanary and Cowrie guests, limited Wazuh telemetry egress and isolated management](../../assets/diagrams/proxmox-honeynet-vm-trust-boundaries.svg)
 
-Wazuh agent → narrowly permitted egress → Wazuh manager
-PVE management + backup storage live on separate trusted interface/VLAN
-~~~
+*Conceptual segmentation diagram.* [Proxmox's official network documentation](https://github.com/proxmox/pve-docs/blob/master/pve-network.adoc) distinguishes VLAN-aware bridges from actual policy enforcement, while its [firewall documentation](https://github.com/proxmox/pve-docs/blob/master/pve-firewall.adoc) describes separate host, node and guest policy layers. A bridge or VLAN label alone does not stop unwanted routing; test guest-to-management reachability, decoy-to-internet egress and IPv6 paths before attaching an exposed decoy.
+
+
 
 **Proxmox deployment notes:** Avoid assuming a Linux bridge is a firewall. Use correct VLAN awareness, PVE firewall rules and upstream gateway policies. Verify guest isolation *from inside the guest* before exposing decoy listeners. Avoid host USB passthrough for something unrelated unless the security boundary requires it. If using a dedicated internal-only bridge with no uplink, have an approved test VM on that bridge; do not expect internet traffic.
 
