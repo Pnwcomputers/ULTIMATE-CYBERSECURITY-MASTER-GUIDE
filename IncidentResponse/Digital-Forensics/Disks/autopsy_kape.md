@@ -40,6 +40,8 @@ Together, these tools support targeted artifact triage and deeper image or logic
 ![Two evidence paths: image acquisition followed by Autopsy image analysis, and selective KAPE artifact collection followed by parsing or Autopsy logical-file analysis](../../../assets/diagrams/dfir-autopsy-kape-workflows.svg)
 
 *Conceptual workflows. KAPE collects selected artifacts; it does not create a complete disk image. Live collection can change the source depending on how tools, temporary files, and destinations are configured.*
+
+Autopsy supports multiple source types, while its selected ingest modules determine which content is analyzed. Logical-file sources do not include unallocated space. See the [Autopsy data-source documentation](https://www.sleuthkit.org/autopsy/docs/user-docs/4.8.0/ds_page.html) and [ingest-module documentation](https://www.sleuthkit.org/autopsy/docs/user-docs/4.8.0/ingest_page.html).
 ---
 
 # Part A: KAPE (Kroll Artifact Parser and Extractor)
