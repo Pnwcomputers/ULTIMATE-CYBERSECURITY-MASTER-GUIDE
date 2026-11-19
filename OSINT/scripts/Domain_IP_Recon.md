@@ -171,9 +171,11 @@ check_dependencies() {
     echo -e "${BLUE}[*] Checking dependencies...${NC}"
     
     MISSING=()
-    command -v nmap &> /dev/null || MISSING+=("nmap")
     command -v curl &> /dev/null || MISSING+=("curl")
     command -v jq &> /dev/null || MISSING+=("jq")
+    if [ "$ACTIVE_SCAN" = true ]; then
+        command -v nmap &> /dev/null || MISSING+=("nmap (required for --active)")
+    fi
     
     OPTIONAL_MISSING=()
     command -v theHarvester &> /dev/null || OPTIONAL_MISSING+=("theHarvester")
@@ -181,6 +183,7 @@ check_dependencies() {
     command -v nuclei &> /dev/null || OPTIONAL_MISSING+=("nuclei")
     command -v dirsearch &> /dev/null || OPTIONAL_MISSING+=("dirsearch")
     command -v nc &> /dev/null || OPTIONAL_MISSING+=("netcat-openbsd")
+    command -v whois &> /dev/null || OPTIONAL_MISSING+=("whois")
     
     if command -v docker &> /dev/null; then
         docker image inspect rustscan/rustscan:2.1.1 &> /dev/null || OPTIONAL_MISSING+=("rustscan")
@@ -446,7 +449,7 @@ scan_ip() {
     query_ipinfo "$IP" "$IP_DIR/ipinfo.json"
     query_rdap "$IP" "$IP_DIR/rdap.json"
     
-    if [[ ! "$IP" =~ ":" ]]; then
+    if [[ ! "$IP" =~ ":" ]] && command -v whois &> /dev/null; then
         whois -h whois.arin.net "$IP" > "$IP_DIR/whois_arin.txt" 2>&1
     fi
     
@@ -467,7 +470,9 @@ scan_ip() {
     nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" > /dev/null 2>&1
     
     # Banner Grab
-    printf '' | timeout 5 nc -v "$IP" 80 > "$IP_DIR/banner_80.txt" 2>&1
+    if command -v nc &> /dev/null; then
+        printf '' | timeout 5 nc -v "$IP" 80 > "$IP_DIR/banner_80.txt" 2>&1
+    fi
     
     # Web Recon
     PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null || echo 0)
