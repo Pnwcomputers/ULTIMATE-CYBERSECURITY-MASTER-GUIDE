@@ -188,6 +188,21 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/network-detection-sensor-coverage-and-evidence.svg": (
+        "Tradecraft/network-detection.md",
+    ),
+    "assets/diagrams/locksport-pin-tumbler-shear-line.svg": (
+        "Documentation/Locksport.md",
+    ),
+    "assets/diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg": (
+        "Documentation/hcxtoolshashcat.md",
+    ),
+    "assets/diagrams/esp32-c5-wardriver-normal-node-core.svg": (
+        "Wardriving/esp32-c5-wardriver.md",
+    ),
+    "assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg": (
+        "HardwareTesting/Manjaro_Intel_TestBench.md",
+    ),
 }
 
 
