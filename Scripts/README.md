@@ -24,6 +24,11 @@
 
 Inspect provenance and source before running downloaded scripts.
 
+> **Retired unsafe examples:** `Python/app.py` and `Python/web_shell_inj.py` are now
+> loopback-only upload references with no command-execution route or template hook.
+> `Bash/fake_sudo.sh` is disabled and exits without prompting for or transmitting a
+> password.
+
 <div align="center">
 
 **Collection of security automation scripts, exploitation tools, and utility programs**

