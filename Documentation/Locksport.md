@@ -62,6 +62,10 @@ Every lock is a mechanical solution to a single problem: allowing authorized acc
 
 #### Pin Tumbler Locks
 
+![A pin-tumbler lock cutaway comparing driver and key pins crossing the shear line in a locked cylinder with correctly aligned driver/key interfaces after insertion of the matching key](../assets/diagrams/locksport-pin-tumbler-shear-line.svg)
+
+*Simplified conceptual cross-section.* Springs push driver pins toward the rotating plug; an appropriately cut key raises the key pins so the separation between each key pin and driver pin aligns with the shell/plug shear line. This is a generic mechanism, not a measurement drawing or depiction of a particular lock's pinning, tolerance or bypass method. Never practice on a lock currently securing property.
+
 The most common lock type worldwide. Found in residential deadbolts, padlocks, file cabinets, and most everyday applications.
 
 **Components:**
@@ -77,25 +81,9 @@ The most common lock type worldwide. Found in residential deadbolts, padlocks, f
 
 **How it works:**
 
-```
-Without key (locked):
-  Shell ──────────────────────
-  Driver pins ▼▼▼▼▼ (span shear line - lock blocked)
-  ─ ─ ─ ─ shear line ─ ─ ─ ─
-  Key pins   █████
-  Plug ───────────────────────
-
-With correct key:
-  Shell ──────────────────────
-  Driver pins  ▼▼▼▼▼  (all sitting above shear line)
-  ─ ─ ─ ─ shear line ─ ─ ─ ─  ← all gaps align here
-  Key pins   █████  (lifted by key bitting to exact height)
-  Plug ───────────────────────  ← plug can now rotate
-```
-
 The key's **bitting** - the pattern of cuts - lifts each key pin to a precise height so that every key-pin/driver-pin interface sits exactly at the shear line simultaneously.
 
-**Pin count:** Most consumer locks use 5 pins. High-security locks use 6–7. More pins = more possible key combinations and more picking difficulty.
+**Pin count:** Pin counts depend on cylinder design and product; five-pin and six-pin designs are common, but a count alone cannot determine a lock's resistance. Security also depends on tolerances, key control, driver-pin design, materials and the attack being considered.
 
 **Disassembly for practice:**
 
@@ -110,7 +98,7 @@ Tools needed: follower tool (same diameter as plug), plug follower block or pinn
 6. Reverse to reassemble; use plug follower to re-engage drivers without losing them
 ```
 
-**Practice lock recommendation:** Buy a transparent/cutaway lock (available on Amazon for $10–15) to watch pins set in real time. Also pick up 3–5 cheap Master Lock No. 3 or No. 140 padlocks for practice before moving to higher grades.
+**Training materials:** An owned cutaway training cylinder can make the shear line visible. Transparent teaching locks often have different tolerances and security from production locks. Practice only on dedicated non-service locks that you own and have permission to manipulate.
 
 ---
 
