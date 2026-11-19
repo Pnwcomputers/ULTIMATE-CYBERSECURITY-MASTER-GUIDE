@@ -678,11 +678,11 @@ We welcome contributions from security professionals, but all scripts must meet 
 ### Always Remember
 
 ```
-1. AUTHORIZATION IS MANDATORY
-   ✓ Written authorization required
-   ✓ From person with authority to grant
-   ✓ Explicitly covers scripts and scope
-   ✓ Current and not expired
+1. CONFIRM AUTHORITY AND SCOPE
+   ✓ Confirm permission from the system or account owner
+   ✓ Confirm the approval covers the exact systems, accounts, and methods
+   ✓ Follow the form of approval required by the owner, policy, and applicable rules
+   ✓ Keep scope current; written scope is useful evidence and good practice
 
 2. THESE ARE OFFENSIVE TOOLS
    ✓ Designed for penetration testing
@@ -690,11 +690,11 @@ We welcome contributions from security professionals, but all scripts must meet 
    ✓ Capable of unauthorized access
    ✓ Subject to strict legal regulations
 
-3. LEGAL CONSEQUENCES ARE SEVERE
-   ✓ Federal imprisonment (up to 20 years)
-   ✓ Massive fines and restitution
-   ✓ Civil lawsuits and liability
-   ✓ Career-ending consequences
+3. CONSEQUENCES DEPEND ON THE FACTS
+   ✓ Conduct may result in criminal, civil, regulatory, contractual, or policy consequences
+   ✓ Outcomes depend on the applicable rule, jurisdiction, and evidence
+   ✓ Technical harm can include data exposure, service interruption, or system changes
+   ✓ Do not infer a specific charge or sentence from this checklist
 
 4. TEST SAFELY
    ✓ Use isolated lab environments
