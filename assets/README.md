@@ -685,3 +685,11 @@ Original conceptual wiring map. Pin labels depend on hardware revision and adapt
 | Diagram | Embedded guide |
 |---|---|
 | [Bus Pirate SPI signal mapping](./diagrams/buspirate-spi-signal-mapping.svg) | [Bus Pirate guide](../HardwareHacking/BusPirate.md#conceptual-spi-wiring) |
+
+## JTAGulator Discovery Visual
+
+Original conceptual process map. It separates target power from VADJ level translation and treats scan output as a candidate requiring validation.
+
+| Diagram | Embedded guide |
+|---|---|
+| [JTAGulator discovery and validation flow](./diagrams/jtagulator-discovery-validation-flow.svg) | [JTAGulator guide](../HardwareHacking/JTAGulator.md#discovery-and-validation-flow) |
