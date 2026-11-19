@@ -175,7 +175,7 @@ Every space system consists of three interdependent segments. A compromise of an
 | [**SDR#**](https://airspy.com/download/) / [**GQRX**](https://www.gqrx.dk/) / [**SDR++**](https://github.com/AlexandreRouma/SDRPlusPlus) | SDR receiver GUI | Spectrum monitoring and visualization |
 | [**gr-satellites**](https://github.com/daniestevez/gr-satellites) | Satellite signal decoder | Supports dozens of amateur/CubeSat formats |
 | [**SatDump**](https://github.com/SatDump/SatDump) | Satellite data decoder | NOAA, Meteor, MetOp weather satellites |
-| [**HackRF One**](https://greatscottgadgets.com/hackrf/one/) | Full-duplex SDR (1 MHz – 6 GHz) | TX capability: authorized lab use only |
+| [**HackRF One**](https://greatscottgadgets.com/hackrf/one/) | Half-duplex transceiver (1 MHz – 6 GHz; cannot transmit and receive simultaneously) | TX capability: authorized lab use only |
 | [**USRP B210**](https://www.ettus.com/all-products/ub210-kit/) | High-performance SDR (70 MHz – 6 GHz) | Research-grade wideband analysis |
 | [**RTL-SDR**](https://www.rtl-sdr.com/) | Receive-only SDR (500 kHz – 1.75 GHz) | Passive monitoring, entry-level |
 
