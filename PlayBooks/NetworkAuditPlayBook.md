@@ -172,12 +172,15 @@ Using Reaver/Bully on Kali:
   ```bash
   # wash -i wlan0mon
   ```
-- Attempt WPS PIN attack on authorized targets:
-  ```bash
-  # reaver -i wlan0mon -b [BSSID] -vv
-  ```
-- Document WPS lock-out behavior
-- Test for Pixie Dust vulnerability
+- Assess WPS only on an isolated access point that the engagement owner
+  explicitly designated for this test. Do not use this workflow against production
+  access points or clients.
+- Before any active attempt, record the approved channel, maximum attempt count,
+  maximum test duration, lockout/impact monitoring, emergency contact, and stop
+  condition. Configure the selected tool to enforce those limits; stop immediately
+  if the AP or a client behaves unexpectedly.
+- Document whether WPS is enabled, the observed lockout behavior, the tool/version,
+  approved limits, and the result. Test Pixie Dust only in the same isolated scope.
 
 **STEP 4: Captive Portal Bypass Testing**
 
@@ -201,7 +204,12 @@ Using Reaver/Bully on Kali:
 
 #### Procedure:
 
-**STEP 1: Handshake Analysis**
+**STEP 1: WPA/WPA2-PSK Handshake Analysis (Authorized Lab Captures Only)**
+
+This Aircrack-ng dictionary workflow applies to captured WPA/WPA2-PSK four-way
+handshakes. It is not a generic offline dictionary attack for WPA3-SAE. Assess
+WPA3-SAE using an authorized, controlled configuration review or test plan designed
+for that protocol; do not infer WPA3 password recoverability from a WPA2 capture.
 
 - Verify handshake validity:
   ```bash
