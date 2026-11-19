@@ -37,19 +37,21 @@ Both inputs are **JSONL** (one JSON object per nonblank line). Never put credent
 | Cases | `test_id`, `source`, `event_time`, `expected_alert`, `expected_rule_ids` | Distinct case per control. UTC-offset ISO-8601 event timestamps and a string-array of expected rule IDs. Negative cases use an empty ID list. |
 | Observations | `test_id`, `source`, `kind`, `timestamp` | One normalized **telemetry** or **alert** record, matched to a case and source. Alert records also need a string `rule_id`. |
 
+**Timing contract:** `--max-latency` (seconds; finite and nonnegative) bounds both telemetry and positive-alert timestamps relative to each case's `event_time`. Delayed or prematurely timestamped telemetry is `unassessable`, even for a benign-negative case. Alert attribution is only as trustworthy as the imported `test_id` mapping and exporter; review original records before drawing conclusions.
+
 The export adapter is **not included**. Collect a separately authorized test from an actual product, then transform it to this narrow schema **locally**. An imported file is `--evidence-origin imported-unverified` until its exporter, environment, engine version, hashes and alert mapping have been independently recorded.
 
 ## Verdict Semantics
 
 | Verdict | Meaning | Caveat |
 |---|---|---|
-| `true-positive` | One telemetry record and exactly one matching expected-rule alert, inside the latency bound; no unexpected alert | Only a claim about the supplied record set |
-| `true-negative` | One telemetry record and no alerts for a negative control | Only within captured observations |
+| `true-positive` | One timely telemetry record and exactly one matching expected-rule alert, both inside the configured latency bound; no unexpected alert | Only a claim about the supplied record set |
+| `true-negative` | One timely telemetry record and no alerts for a negative control | Only within captured observations; visibility outside the test window is not established |
 | `false-positive` | A negative control had one or more alerts | The analyst must still decide whether those were unexpected |
 | `false-negative` | A positive control had no matching unique, timely alert | Wrong-rule, duplicate, missing or late alert is deliberately not a pass |
-| `unassessable` | The required unique telemetry record is absent or duplicated | Lack of visibility is **not** evidence of a passing benign control |
+| `unassessable` | The required unique telemetry record is absent, duplicated, earlier than its test event, or later than the configured latency bound | Lack of visibility or timely attribution is **not** evidence of a passing benign control |
 
-This strict validator rejects timezone-less or malformed timestamps, mismatched sources, unknown test IDs, missing paired controls and bad field types. A real SIEM export may contain **multiple legitimate telemetry records**; normalize/deduplicate them with an explicitly documented adapter and preserve originals privately. The tool does **not** implement full statistical detection precision, Wazuh correlation timing or event attribution.
+This strict validator rejects timezone-less or malformed timestamps, mismatched sources, unknown test IDs, missing paired controls, duplicate expected rule IDs, nonfinite latency limits and bad field types. A real SIEM export may contain **multiple legitimate telemetry records**; normalize/deduplicate them with an explicitly documented adapter and preserve originals privately. The tool does **not** implement full statistical detection precision, Wazuh correlation timing or event attribution.
 
 ## Live-Lab Evidence Still Required For Issue #190
 
