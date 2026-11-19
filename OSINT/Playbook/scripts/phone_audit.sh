@@ -256,7 +256,8 @@ private_intelx_search() {
 
 query_api() {
     local output="$1" label="$2" url="$3" rc=0 body curl_config; shift 3
-    if [[ ! "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]]; then
+    local https_url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+$'
+    if [[ ! "$url" =~ $https_url_pattern ]]; then
         printf 'Invalid HTTPS URL for %s\n' "$label" > "${output}.err"
         : > "$output"
         return 2
@@ -276,7 +277,8 @@ query_api() {
                 ;;
             -d|--data)
                 (($# >= 2)) || return 2
-                [[ "$2" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || {
+                local form_pattern='^[A-Za-z0-9._@%+=&-]+$'
+                [[ "$2" =~ $form_pattern ]] || {
                     printf 'Rejected unsafe form data for %s\n' "$label" > "${output}.err"
                     : > "$output"
                     return 2
