@@ -60,6 +60,10 @@ _Reviewed: 2026-09-11. The local lab was executed with Python 3.12.14 and SQLite
 
 ## 🧩 1. Orchestration Is Separate from Processing
 
+![Data workflow orchestration from an explicit logical time interval through parallel extraction, dependent transformation, validation and publication, showing blocked and accepted outcomes](../../assets/diagrams/data-orchestrator-interval-dependency-publish-gates.svg)
+
+*Conceptual scheduler behavior.* [Airflow's current Dag Run documentation](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html) distinguishes logical date, data interval and actual execution time; this figure does not represent a running Airflow instance. Do not interpret a worker exit code, cleanup task or retry completion as proof that the consumer received a correct published dataset.
+
 Processing decides how records become results. Orchestration decides when that processing may run, with which inputs, under which resource budget, and what happens after failure.
 
 | Processing owns | Orchestration owns |
@@ -92,7 +96,7 @@ Use half-open intervals such as `[2026-09-09T00:00:00Z, 2026-09-10T00:00:00Z)`. 
 | Data arrival | Work that requires a completed upstream export | Deduplicate notifications and verify completion |
 | Manual parameterized run | Recovery or a selected backfill | Validate parameters and preserve normal controls |
 
-Airflow models scheduled work with data intervals and distinguishes the logical date from actual execution time. Its manual-trigger interval behavior depends on the timetable and trigger path; check the version's documented semantics rather than assuming a manually supplied date automatically defines the desired data window. [Airflow Dag Runs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html)
+Airflow models scheduled work with data intervals and distinguishes the logical date from actual execution time. Its manual-trigger interval behavior depends on the timetable and trigger path; check the version's documented semantics rather than assuming a manually supplied date automatically defines the desired data window. [Airflow Dag Runs](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html)
 
 Do not calculate the target day from `now()` inside every task. Resolve the interval once, record it, and pass it to all tasks. Decide explicitly whether missed intervals should be caught up, skipped, or queued for review.
 
@@ -103,14 +107,6 @@ Do not calculate the target day from `now()` inside every task. Resolve the inte
 ## 🔗 3. Dependencies & Publication Gates
 
 A dependency graph is useful when independent extracts can run together but later tasks need both results.
-
-```mermaid
-flowchart TD
-    A[Extract assets] --> C[Transform]
-    B[Extract checkins] --> C
-    C --> D[Quality checks]
-    D --> E[Publish version]
-```
 
 Dependency success should mean a validated output is available, not merely that a process exited. Downstream tasks must reference the exact upstream version for their own logical interval.
 
