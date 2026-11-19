@@ -42,7 +42,7 @@ Indoor Unit (IDU) / Modem
 |-----------|--------------|-------|
 | **Web management UI** | Default credentials, authentication bypass, command injection | Common on VSAT modems |
 | **SNMP** | SNMPv1/v2c with public community string | Often exposes full config and stats |
-| **TR-069 / CWMP** | ACS server compromise → mass terminal takeover | Provisioning protocol; used in Viasat attack |
+| **TR-069 / CWMP** | ACS server compromise → mass terminal takeover | Provisioning protocol; not the access path reported for Viasat's KA-SAT incident. That incident used a misconfigured VPN gateway into the trusted management network ([CERT Polska](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf)). |
 | **Firmware** | Extraction → analysis → custom image | UART, JTAG, or update file extraction |
 | **RF uplink** | Jamming, signal capture | Physical proximity required |
 | **Over-the-air updates** | Unsigned firmware delivery | If OTA updates lack integrity checks |
