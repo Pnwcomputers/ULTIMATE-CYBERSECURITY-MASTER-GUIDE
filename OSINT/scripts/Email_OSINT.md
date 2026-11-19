@@ -220,6 +220,41 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Keep IntelX credentials out of curl's process arguments.
+private_intelx_search() {
+    local term="$1" target="$2" payload
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$target" =~ ^[12]$ ]] || return 2
+    payload=$(jq -cn --arg term "$term" --argjson target "$target" \
+        '{term:$term,maxresults:100,media:0,target:$target}') || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        --header "Content-Type: application/json" --data-binary "$payload"
+}
+private_intelx_result() {
+    local search_id="$1" output="$2"
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$search_id" =~ ^[A-Za-z0-9-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search/result?id=$search_id"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$output" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+private_curl_form_json() {
+    local URL="$1" OUTPUT="$2" FORM_DATA="$3"
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ && "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'data = "%s"\n' "$FORM_DATA"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$OUTPUT" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
 # Keep HIBP credentials out of curl's process arguments and temporary files.
 private_curl_hibp() {
     local URL="$1" OUTPUT="$2"
@@ -430,9 +465,9 @@ query_leaklookup() {
 
     log "${GREEN}    [*] Checking LeakLookup for credential leaks...${NC}"
     
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_form_json "https://leak-lookup.com/api/search" "$OUTPUT" "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL_ENCODED"
     
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
@@ -458,17 +493,13 @@ query_intelx() {
 
     log "${GREEN}    [*] Searching IntelX...${NC}"
     
-    SEARCH_RESPONSE=$(curl -s "https://2.intelx.io/phonebook/search" \
-        -H "x-key: $INTELX_KEY" \
-        -H "Content-Type: application/json" \
-        -d "{\"term\":\"$EMAIL\",\"maxresults\":100,\"media\":0,\"target\":1}")
+    SEARCH_RESPONSE=$(private_intelx_search "$EMAIL" 1)
     
     SEARCH_ID=$(echo "$SEARCH_RESPONSE" | jq -r '.id // empty' 2>/dev/null)
     
     if [ -n "$SEARCH_ID" ]; then
         sleep 2
-        curl -s "https://2.intelx.io/phonebook/search/result?id=$SEARCH_ID" \
-            -H "x-key: $INTELX_KEY" | pretty_json > "$OUTPUT" 2>&1
+        private_intelx_result "$SEARCH_ID" "$OUTPUT" || log "${YELLOW}[!] IntelX result lookup failed or returned no verified result.${NC}"
         
         if [ -s "$OUTPUT" ]; then
             RESULT_COUNT=$(jq -r '.selectors | length // 0' "$OUTPUT" 2>/dev/null)
