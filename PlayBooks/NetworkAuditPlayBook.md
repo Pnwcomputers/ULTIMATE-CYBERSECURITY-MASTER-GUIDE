@@ -73,17 +73,21 @@ Ensure every network/wireless penetration test produces (1) legally defensible e
 For a focused GPS-tagged **AP inventory** before any separately authorized active testing, follow the [Wardriving Field Workflow](../Wardriving/field-workflow.md) and select a tool in the [Wardriving Index](../Wardriving/README.md). The [Kismet guide](../Wardriving/kismet.md) documents its lightweight wardrive overlay; [Data Handling](../Wardriving/data-handling.md) distinguishes private records from public WiGLE uploads.
 
 
+![Wireless assessment split between receive-only observation and separately authorized active testing](../assets/diagrams/wireless-passive-active-boundary.svg)
+
+*Pwnagotchi AUTO mode and deauthentication can transmit frames. Keep them outside receive-only observation; authorize active tests separately and isolate the test AP and client.*
+
 ### 2.1 PASSIVE RECONNAISSANCE PHASE
 
 **Objective:** Identify wireless networks, access points, clients, and security configurations without actively engaging targets.
 
-**Tools:** Pwnagotchi, Kismet, Wireshark, Kali (airmon-ng, airodump-ng)
+**Receive-only tools:** Kismet, Wireshark, or a monitor-mode capture tool configured without frame injection. Pwnagotchi AUTO mode is excluded from this passive phase; its behavior can include deauthentication when enabled (which upstream defaults enable), so treat it as active testing.
 
 #### Procedure:
 
 **STEP 1: Environmental Survey**
 
-- Deploy Pwnagotchi in AUTO mode for passive learning
+- Use Kismet or a monitor-mode capture configured for receive-only observation; verify that the adapter/tool is not transmitting test frames
 - Position device in multiple physical locations throughout facility
 - Duration: Minimum 2-4 hours per location
 - Document:
@@ -126,7 +130,7 @@ For a focused GPS-tagged **AP inventory** before any separately authorized activ
 
 **Objective:** Actively test wireless security controls, authentication mechanisms, and network access.
 
-**Tools:** WiFi Pineapple, ESP32 Marauder, Kali Linux, Wireshark
+**Tools:** WiFi Pineapple, ESP32 Marauder, Kali Linux, Wireshark, or Pwnagotchi only when active behavior is explicitly approved
 
 #### Procedure:
 
@@ -146,13 +150,15 @@ Using WiFi Pineapple:
 **STEP 2: Deauthentication Testing**
 
 Using ESP32 Marauder or Kali:
-- Purpose: Test network resilience and capture handshakes
-- Select target AP and associated clients
-- Execute controlled deauth attack:
+- Purpose: In an isolated test, assess resilience or capture a test handshake. Deauthentication interrupts a client connection.
+- Preconditions: Use an AP and client dedicated to the test, an explicitly approved time window, a named stop condition, and a rollback/communications plan. Do not target production clients unless the owner has approved the service impact.
+- Select the test AP and one associated test client. The `-c` option is essential: without it, aireplay-ng targets all clients on that AP.
+- Send the smallest approved test count (one in this example), then stop and verify the client reconnects:
   ```bash
-  # aireplay-ng --deauth 10 -a [AP_MAC] wlan0mon
+  # Replace placeholders with the isolated test AP/client and monitor interface.
+  aireplay-ng --deauth 1 -a [AP_MAC] -c [TEST_CLIENT_MAC] wlan0mon
   ```
-- Capture WPA handshakes during reconnection
+- Capture only the test client's reconnection handshake.
 - Document:
   - Time to client reconnection
   - Whether IDS/IPS detected the attack
