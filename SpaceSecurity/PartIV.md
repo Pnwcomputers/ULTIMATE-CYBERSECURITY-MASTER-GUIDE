@@ -49,6 +49,13 @@ Indoor Unit (IDU) / Modem
 
 #### Terminal Firmware Analysis
 
+> [!CAUTION]
+> Extracting firmware for static inspection does not execute it. The QEMU example
+> below executes untrusted firmware code; `-L rootfs/` sets a loader root but is
+> not a sandbox. Only attempt dynamic analysis in a disposable, isolated VM with
+> no bridged network, shared folders, sensitive host mounts, or device passthrough.
+> Prefer static analysis until that containment has been verified.
+
 ```bash
 # Extract firmware from update file or NAND dump
 binwalk -e firmware.bin
