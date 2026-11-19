@@ -67,7 +67,7 @@ A practical path from "I need a bracket for this radio" to a part that fits the 
 
 ## Quick Start
 
-1. **Install OpenSCAD** from [openscad.org/downloads](https://openscad.org/downloads.html). The stable release is still 2021.01 (a 2026.11 release candidate was tagged in October 2026); development snapshots are much faster with the Manifold engine (Preferences → Advanced → 3D Rendering → Backend). The examples work on both.
+1. **Install OpenSCAD** from [openscad.org/downloads](https://openscad.org/downloads.html). As of this review, the official downloads page lists 2021.01 as the stable release, alongside newer 2026.11 release-candidate and development builds. Check [OpenSCAD Downloads](https://openscad.org/downloads.html) and [official releases](https://github.com/openscad/openscad/releases) at installation time rather than relying on a fixed release-date claim. The optional Manifold rendering backend, UI controls and export behavior depend on the installed build; the examples were tested with 2021.01 and should be rechecked against any newer build.
 2. **Open** [`examples/gps-cradle/tutorial_steps.scad`](./examples/gps-cradle/tutorial_steps.scad), then **Window → Customizer**, and move the `step` slider.
 3. **Open** [`examples/gps-cradle/gps_cradle.scad`](./examples/gps-cradle/gps_cradle.scad) for the real design. Change `part` to `body`, `lid` or `gauge`, press **F6** (render) then **F7** (export STL).
 4. **Check from a terminal** (Linux/macOS/WSL):
