@@ -7,21 +7,11 @@ _Last reviewed: 2026-10-31 · Reference configuration, NOT live deployment_
 
 ## Architecture
 
-~~~text
-Decoy VLAN / isolated vNIC
-   ├─ Raspberry Pi → OpenCanary JSONL
-   ├─ Proxmox VM  → Cowrie JSONL
-   ├─ Pi / VM     → DIY minimal HTTP sensor JSONL
-   └─ ESP32       → local/on-device log; OPTIONAL trusted relay
-             |
-       Wazuh agents on Linux decoys
-             | encrypted enrolled agent channel
-       Wazuh manager + rule IDs 100400-100423
-             |
-       Wazuh alerts, dashboard and incident timeline
-             |
-       correlate with Kismet/nzyme WIDS + UniFi/controller logs
-~~~
+![Honeypot telemetry flow: decoy event files, enrolled Wazuh agents, manager decoding and rule matching, indexed alerts and independent correlation](../../assets/diagrams/honeypot-wazuh-telemetry-evidence-path.svg)
+
+*Conceptual detection chain.* [Cowrie's output guide](https://docs.cowrie.org/en/stable/README.html) documents its JSON event file; [OpenCanary's configuration guide](https://docs.opencanary.org/en/latest/starting/opencanary.html) documents file handlers; [Wazuh JSON localfile collection](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html) and [Wazuh alert analysis](https://documentation.wazuh.com/current/user-manual/ruleset/) are separate components. An offline rule match alone does **not** verify that agent enrollment, forwarding or indexing succeeded.
+
+
 
 **Avoid an unnecessary forwarder** when the honeypot already writes newline-delimited JSON. Wazuh supports a JSON localfile directly on an enrolled agent. The included [XML custom rules](./lab/honeypot_rules.xml) match actual documented OpenCanary and Cowrie fields, and a [minimal DIY HTTP logger](./lab/diy_http_decoy.py) outputs a namespaced honeypot JSON object.
 
