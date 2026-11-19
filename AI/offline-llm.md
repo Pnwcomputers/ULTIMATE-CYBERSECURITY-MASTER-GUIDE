@@ -1,13 +1,13 @@
 # Create a Completely Offline LLM System Using Dolphin, Ollama, and AnythingLLM
 
 ## 🎯 Purpose
-Complete guide for building a fully air-gapped LLM system using Ollama (inference engine), Dolphin models (uncensored GGUF variants), and AnythingLLM (local UI/RAG layer) - for environments where cloud API calls are prohibited or undesirable.
+Configuration guide for pursuing a local-only LLM deployment using Ollama, Dolphin models, and AnythingLLM. A local model does not by itself create an air gap: verify application telemetry, integrations, service bindings, storage, and network egress for the specific build.
 
 ## ⚙️ Function
 Covers hardware requirements by model size, Ollama installation and model management, Dolphin model selection trade-offs (7B/47B MoE/2.7B), AnythingLLM local setup and RAG configuration, system service hardening for localhost-only binding, and OPSEC considerations for sensitive deployments.
 
 ## 🏆 Goal
-A fully functional private LLM assistant running entirely on local hardware with zero external network calls - suitable for sensitive client engagements, air-gapped labs, or privacy-first personal AI workflows.
+A working local-inference assistant, plus a checklist for verifying whether the surrounding applications, data stores, and network controls meet a deployment's privacy and isolation requirements.
 
 ## 📋 When to Use
 - Preparing for an engagement where cloud tools are prohibited
@@ -17,7 +17,7 @@ A fully functional private LLM assistant running entirely on local hardware with
 
 ## Introduction
 
-Running a Large Language Model (LLM) completely offline gives you privacy, control, and independence from cloud services. In this comprehensive guide, I'll walk you through setting up a fully functional offline AI assistant using three powerful tools:
+Running a Large Language Model (LLM) locally can keep inference on your own hardware. Achieving a fully offline or air-gapped deployment takes additional configuration and verification: the UI, telemetry, plugins, embeddings, storage, model downloads, and network paths all matter. This guide uses three tools:
 
 - **Dolphin** - Uncensored, instruction-tuned language models
 - **Ollama** - Simple, efficient local LLM runtime
@@ -27,11 +27,11 @@ Running a Large Language Model (LLM) completely offline gives you privacy, contr
   
 **[Offline AI LLM System TrueNAS Hosted - Blog Article](https://pnwcomputers.blogspot.com/2025/11/offline-llm-system-truenas-hosted.html)**
 
-By the end of this guide, you'll have a ChatGPT-like experience running entirely on your own hardware with no internet connection required.
+This guide walks through a local-inference setup and the checks needed before describing a deployment as offline. Initial software and model downloads require network access unless supplied through a separately verified offline process.
 
 ## Why Choose This Stack?
 
-**Privacy First**: All your conversations and data stay on your local machine. No data is sent to external servers.
+**Local inference**: Prompts can be processed on-device when a local provider is selected. Verify telemetry, cloud features, plugins, vector stores, logs, and egress separately.
 
 **Offline Operation**: Once installed, the entire system works without an internet connection.
 
@@ -248,7 +248,7 @@ Now let's connect AnythingLLM to your local Ollama instance.
 
 2. **Configure Ollama Connection**:
    - **LLM Provider**: Select "Ollama"
-   - **Ollama Base URL**: `http://localhost:11434`
+   - **Ollama Base URL**: `http://localhost:11434` when the app and Ollama share a host/network namespace. In Docker, localhost refers to the AnythingLLM container; use the host/service address appropriate for that network and restrict access to the required path.
    - **Model**: Select your installed Dolphin model from the dropdown
    - Click "Save" or "Update"
 
@@ -258,7 +258,7 @@ Now let's connect AnythingLLM to your local Ollama instance.
 
 ### Troubleshooting Connection Issues
 
-If AnythingLLM can't connect to Ollama:
+If AnythingLLM can't connect to Ollama, first confirm that the configured URL is reachable **from the AnythingLLM process**. In Docker, container-local `localhost` is not the host's Ollama service; see AnythingLLM's [Docker localhost guidance](https://docs.anythingllm.com/installation-docker/localhost).
 
 ```bash
 # Check if Ollama is running
@@ -638,22 +638,21 @@ Convert this technical specification into user-friendly documentation for non-te
 
 ## Part 11: Privacy and Security
 
-### Why Offline Matters
+### What Local Inference Does—and Does Not—Guarantee
 
-**Data Privacy**:
-- No conversation logs sent to external servers
-- No user tracking or analytics
-- Complete control over your data
+![Local LLM data paths: prompts move through the UI, model, embeddings, vector store, logs, and backups, with optional telemetry and cloud paths to verify](../assets/diagrams/local-llm-data-paths.svg)
 
-**Compliance**:
-- GDPR compliant (data stays local)
-- HIPAA considerations (healthcare)
-- SOC 2 / corporate security requirements
+**Data privacy**
+- A local model can process prompts on-device, but other components may communicate externally.
+- AnythingLLM documents anonymous telemetry and provides a setting to disable it. Review the current privacy setting and any plugins, agents, cloud providers, or external embedding/vector services.
+- Ollama can use cloud models and web search. For local-only Ollama behavior, disable cloud features with `OLLAMA_NO_CLOUD=1` (or `disable_ollama_cloud` in its server configuration), restart it, and verify its logs.
+- For an air-gap claim, also control and monitor egress, account for installation/model updates, and inspect the traffic paths for the exact release and deployment.
 
-**Intellectual Property**:
-- Safe to discuss proprietary information
-- No risk of data training on your inputs
-- Suitable for sensitive business use
+**Compliance**
+- Local storage alone does not establish GDPR, HIPAA, SOC 2, or other compliance. Assess the applicable legal and organizational requirements, access controls, retention, telemetry, subprocessors, audit evidence, and incident response.
+
+**Intellectual property**
+- Local inference may reduce exposure to cloud model providers, but it does not guarantee that data stays private. Protect local accounts, application logs, document stores, vector databases, and backups; review any enabled tools and integrations before uploading sensitive material.
 
 ### Security Best Practices
 
