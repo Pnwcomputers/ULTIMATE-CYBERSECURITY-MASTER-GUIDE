@@ -203,6 +203,29 @@ private_curl_hibp() {
     } | curl --config - --silent --show-error --max-time 20 --output "$OUTPUT" --write-out "%{http_code}"
 }
 
+private_intelx_search() {
+    local term="$1" target="$2" payload
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$target" =~ ^[12]$ ]] || return 2
+    payload=$(jq -cn --arg term "$term" --argjson target "$target" \
+        '{term:$term,maxresults:100,media:0,target:$target}') || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        --header "Content-Type: application/json" --data-binary "$payload"
+}
+private_intelx_result() {
+    local search_id="$1" output="$2"
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$search_id" =~ ^[A-Za-z0-9-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search/result?id=$search_id"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$output" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
 private_curl_status_url() {
     local URL="$1" OUTPUT="$2"
     [[ "$URL" == https://* && "$URL" != *'"'* ]] || return 2
@@ -461,17 +484,13 @@ query_intelx() {
     log "${GREEN}    [*] Searching IntelX...${NC}"
     
     # Start search
-    SEARCH_RESPONSE=$(curl -s "https://2.intelx.io/phonebook/search" \
-        -H "x-key: $INTELX_KEY" \
-        -H "Content-Type: application/json" \
-        -d "{\"term\":\"$EMAIL\",\"maxresults\":100,\"media\":0,\"target\":1}")
+    SEARCH_RESPONSE=$(private_intelx_search "$EMAIL" 1)
     
     SEARCH_ID=$(echo "$SEARCH_RESPONSE" | jq -r '.id // empty' 2>/dev/null)
     
     if [ -n "$SEARCH_ID" ]; then
         sleep 2
-        curl -s "https://2.intelx.io/phonebook/search/result?id=$SEARCH_ID" \
-            -H "x-key: $INTELX_KEY" | pretty_json > "$OUTPUT" 2>&1
+        private_intelx_result "$SEARCH_ID" "$OUTPUT" || log "${YELLOW}[!] IntelX result lookup failed or returned no verified result.${NC}"
         
         if [ -s "$OUTPUT" ]; then
             RESULT_COUNT=$(jq -r '.selectors | length // 0' "$OUTPUT" 2>/dev/null)
