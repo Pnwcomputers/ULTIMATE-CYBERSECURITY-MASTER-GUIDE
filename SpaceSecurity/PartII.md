@@ -19,18 +19,11 @@ Identify and assess vulnerabilities in the ground segment of a space system - th
 
 #### Link Architecture
 
-Every satellite system relies on a chain of RF links between ground and spacecraft:
+![Conceptual spacecraft command authorization path from mission operations through ground uplink to spacecraft, with a separate telemetry downlink and mission-specific data-link security gates](../assets/diagrams/space-ground-command-telemetry-trust-boundaries.svg)
 
-```
-Ground Station (Uplink)
-        │
-        ▼
-  [Transponder / Receiver]
-      (Spacecraft)
-        │
-        ▼
-Ground Station (Downlink)
-```
+*Conceptual space-system trust boundaries, not an RF link budget or a real command path.* [NASA's Small Spacecraft Ground Data Systems & Mission Operations reference](https://www.nasa.gov/smallsat-institute/sst-soa/ground-data-systems-and-mission-operations/) explains mission operations and ground segment roles. [CCSDS Space Data Link Security (SDLS)](https://ccsds.org/view/bluebooks/entry/3258/) defines optional authentication/confidentiality mechanisms for applicable data link protocols; their availability and actual deployment must be verified for the mission. Frame identifiers and sequence counts are not themselves cryptographic authorization.
+
+Every satellite system relies on a chain of RF links between ground and spacecraft:
 
 | Link | Direction | Purpose |
 |------|-----------|---------|
@@ -54,9 +47,9 @@ Ground Station (Downlink)
 #### Signal Security Considerations
 
 - **Unencrypted telemetry** - Many legacy satellites downlink telemetry in cleartext CCSDS frames, allowing passive monitoring of spacecraft health, mode, and configuration
-- **Weak or absent command authentication** - Early command systems used MAC codes that are now trivially breakable; some older birds have no authentication at all
-- **Signal intercept** - Any sufficiently directional antenna aimed at the correct orbital slot can capture downlink signals; uplink intercept requires proximity to the ground station
-- **Replay attacks** - Without command sequence counters, captured command frames can be replayed
+- **Weak or missing command authentication** - Mission-specific designs may use inadequate key management, outdated authentication algorithms or incomplete access controls. Assess the actual deployed scheme rather than assuming all historical message authentication codes are easily broken.
+- **RF observation and exposure** - Feasibility of receiving a link depends on coverage, antenna/gain, band, modulation, coding, encryption, propagation and permitted spectrum monitoring. Do not imply that any pointed antenna can decode a satellite link.
+- **Replay risk** - Without authenticated anti-replay protection, a previously recorded message may be accepted in some designs. A counter alone does not guarantee replay resistance; its integrity, reset and window handling are critical.ed
 
 #### CCSDS Protocol Stack
 
@@ -85,7 +78,7 @@ Key CCSDS identifiers targeted during analysis:
 | **APID** | Application Process ID | Routes packets to subsystems; spoofing APIds targets specific spacecraft functions |
 | **VCID** | Virtual Channel ID | Multiplexes data streams; may separate encrypted/unencrypted flows |
 | **Spacecraft ID (SCID)** | Identifies the target spacecraft | Used to filter commands and telemetry |
-| **Sequence Counter** | Monotonic packet counter | Anti-replay; absence is a vulnerability |
+| **Sequence Counter** | Protocol-specific sequence field used for ordering/continuity | May aid replay detection but does not authenticate a message; anti-replay depends on the actual security mechanism |
 
 ---
 
