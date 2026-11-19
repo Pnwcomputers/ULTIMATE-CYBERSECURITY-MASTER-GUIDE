@@ -497,6 +497,12 @@ fi
 # 4) Optional active scans of explicitly supplied IPs
 #############################################
 if [ "$ACTIVE_SCAN" = true ] && [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
+    for IP in "${EXPLICIT_IPS[@]}"; do
+        if [[ ! "$IP" =~ ^[0-9A-Fa-f:.]+$ ]]; then
+            log "${RED}[!] Rejected non-literal or ranged target '$IP'; provide individual IPv4/IPv6 addresses only.${NC}"
+            exit 2
+        fi
+    done
     section "4) Active scans of ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
     log "${YELLOW}[!] Confirm these exact IPs are in your written testing scope before continuing.${NC}"
     if [ "$PARALLEL_MODE" = true ]; then
