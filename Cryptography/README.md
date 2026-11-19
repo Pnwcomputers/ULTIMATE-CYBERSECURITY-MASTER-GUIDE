@@ -84,19 +84,24 @@ The three primitive families:
 
 ---
 
+## Visual Decision Guide: Choose The Right Primitive
+
+![Decision map that distinguishes authenticated encryption, dedicated password hashing, message signatures and authenticated key establishment](../assets/diagrams/cryptography-primitive-decision-map.svg)
+
+*Conceptual selection guide, not a cryptographic implementation or endorsement of a specific library build.* Review the [OWASP Cryptographic Storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html), [OWASP Password Storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), [NIST SP 800-38D on AES-GCM](https://csrc.nist.gov/pubs/sp/800/38/d/final) and [NIST SP 800-63B-4](https://csrc.nist.gov/pubs/sp/800/63/B/4/final). NIST's digital identity guidance specifies verifier properties and approved-scheme requirements; the OWASP guide provides environment-specific Argon2id recommendations. Do not claim NIST mandates Argon2id for every deployment.
+
 ## 📊 Current Vs Deprecated (Quick Reference)
 
 | Use | ✅ Use | 🚫 Avoid / Deprecated |
 |-----|--------|------------------------|
 | Symmetric encryption | AES-256-GCM, ChaCha20-Poly1305 (AEAD) | DES, 3DES, RC4, AES-ECB |
-| Hashing (integrity) | SHA-256/384/512, SHA-3 | MD5, SHA-1 |
+| Unkeyed digest (accidental corruption detection) | SHA-256/384/512, SHA-3 | MD5, SHA-1 for new security designs |
 | Password storage | Argon2id, scrypt, bcrypt, PBKDF2 | MD5/SHA "fast" hashes, unsalted hashes |
 | Asymmetric / key exchange | RSA ≥ 3072, ECC (P-256, Curve25519), ECDH | RSA ≤ 1024, static DH, custom curves |
 | Signatures | Ed25519, ECDSA (P-256), RSA-PSS | RSA ≤ 1024, DSA |
 | Transport | TLS 1.3 (1.2 acceptable) | TLS 1.0/1.1, SSLv3 |
 
-Deprecations follow **NIST SP 800-131A Rev 2** - e.g. 3DES is disallowed and SHA-1
-is being retired. Details in [algorithms.md](./algorithms.md).
+Deprecations follow [NIST SP 800-131A Rev. 2](https://csrc.nist.gov/pubs/sp/800/131/a/r2/final) and subsequent transition notices. New protection with three-key TDEA/3DES is disallowed under the relevant NIST transition after 2023, while narrowly defined legacy decryption is a distinct case; SHA-1 restrictions depend on the cryptographic application and transition deadline. A plain SHA-256 digest detects accidental changes but does **not** authenticate the sender or protect against an attacker who can replace both file and digest. See [algorithms.md](./algorithms.md) and [NIST's SHA-1 transition notice](https://csrc.nist.gov/News/2022/nist-transitioning-away-from-sha-1-for-all-apps).
 
 ---
 
