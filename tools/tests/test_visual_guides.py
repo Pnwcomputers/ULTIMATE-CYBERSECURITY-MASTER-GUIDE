@@ -170,6 +170,24 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/api-file-ingest-cursor-retry-reconciliation.svg": (
         "Data-Engineering/Phase2/api_file_ingestion.md",
     ),
+    "assets/diagrams/wifi-deauth-disassoc-pmf-corroboration.svg": (
+        "Documentation/wifi-deauthentication-detection.md",
+    ),
+    "assets/diagrams/ble-sniffle-advertising-connection-path.svg": (
+        "Documentation/ble-capture-sniffle.md",
+    ),
+    "assets/diagrams/ad-kerberos-ticket-trust-recovery.svg": (
+        "Checklists/ActiveDirectory.md",
+    ),
+    "assets/diagrams/android-app-static-runtime-backend-test-lanes.svg": (
+        "Checklists/Android-Applications-Checklist.md",
+    ),
+    "assets/diagrams/social-osint-account-provenance-verification.svg": (
+        "OSINT/OSINT_socialmedia.md",
+    ),
+    "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
+        "uConsole/CM5-DISPLAY-RECOVERY.md",
+    ),
 }
 
 
