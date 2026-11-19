@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img" aria-labelledby="title desc">
+<title id="title">M5StickC Plus2 CC1101 SPI profile comparison</title>
+<desc id="desc">Side by side pin mapping comparison for the Bruce Legacy SPI and Shared SPI CC1101 profiles. The signal assignments differ; verify the exact board revision, profile, voltage and module orientation against official documentation before connecting or powering hardware.</desc>
+<rect width="960" height="500" rx="20" fill="#f4f7fb"/>
+<text x="36" y="47" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#14324b">CC1101 pin profiles · assignments differ</text>
+<text x="36" y="75" font-family="Arial,sans-serif" font-size="15" fill="#526a7e">Use the profile selected in firmware; this comparison is a pin list, not a connector-view wiring diagram.</text>
+<g font-family="Arial,sans-serif">
+<rect x="32" y="105" width="430" height="285" rx="16" fill="#fff" stroke="#9eb9cb" stroke-width="2"/>
+<rect x="32" y="105" width="430" height="52" rx="16" fill="#235b7c"/>
+<path d="M32 141v16h430v-16" fill="#235b7c"/>
+<text x="247" y="139" text-anchor="middle" font-size="21" font-weight="700" fill="#fff">Legacy SPI</text>
+<text x="72" y="189" font-size="15" font-weight="700" fill="#526a7e">Signal</text><text x="355" y="189" text-anchor="middle" font-size="15" font-weight="700" fill="#526a7e">StickC pin</text>
+<path d="M58 201h378" stroke="#d8e1e8" stroke-width="2"/>
+<g font-size="18" fill="#18374e"><text x="72" y="232">CS</text><text x="355" y="232" text-anchor="middle" font-weight="700">G26</text><text x="72" y="267">SCK</text><text x="355" y="267" text-anchor="middle" font-weight="700">G0</text><text x="72" y="302">MOSI</text><text x="355" y="302" text-anchor="middle" font-weight="700">G32</text><text x="72" y="337">MISO</text><text x="355" y="337" text-anchor="middle" font-weight="700">G33</text><text x="72" y="372">GDO0</text><text x="355" y="372" text-anchor="middle" font-weight="700">G25 / G36*</text></g>
+<rect x="498" y="105" width="430" height="285" rx="16" fill="#fff" stroke="#9eb9cb" stroke-width="2"/>
+<rect x="498" y="105" width="430" height="52" rx="16" fill="#286d5e"/>
+<path d="M498 141v16h430v-16" fill="#286d5e"/>
+<text x="713" y="139" text-anchor="middle" font-size="21" font-weight="700" fill="#fff">Shared SPI</text>
+<text x="538" y="189" font-size="15" font-weight="700" fill="#526a7e">Signal</text><text x="821" y="189" text-anchor="middle" font-size="15" font-weight="700" fill="#526a7e">StickC pin</text>
+<path d="M524 201h378" stroke="#d8e1e8" stroke-width="2"/>
+<g font-size="18" fill="#18374e"><text x="538" y="232">GDO0</text><text x="821" y="232" text-anchor="middle" font-weight="700">G32</text><text x="538" y="267">CS</text><text x="821" y="267" text-anchor="middle" font-weight="700">G33</text><text x="538" y="302">SCK</text><text x="821" y="302" text-anchor="middle" font-weight="700">G0</text><text x="538" y="337">MOSI</text><text x="821" y="337" text-anchor="middle" font-weight="700">G26</text><text x="538" y="372">MISO</text><text x="821" y="372" text-anchor="middle" font-weight="700">G36 / G25*</text></g>
+<rect x="32" y="415" width="896" height="60" rx="13" fill="#fff0dc" stroke="#dea34b" stroke-width="2"/>
+<text x="54" y="441" font-size="16" font-weight="700" fill="#744914">Before powering up:</text>
+<text x="54" y="463" font-size="15" fill="#744914">Confirm exact Plus2 revision, firmware profile, header labels, voltage, and module orientation. *GDO/MISO alternatives vary by board.</text>
+</g></svg>
