@@ -263,7 +263,7 @@ the venv:
 sudo chown -R $USER:$USER ~/.pygpsclient
 
 # Install PyQt6 inside the venv (not the system Python)
-~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
+~/.pygpsclient/bin/python -m pip install PyQt6
 
 # Verify
 aiov2_ctl --status
