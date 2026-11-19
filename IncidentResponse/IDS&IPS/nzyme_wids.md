@@ -165,7 +165,7 @@ sudo nano /etc/nzyme/nzyme.conf
 | Key | Value |
 |---|---|
 | `general.database_path` | `postgresql://localhost:5432/nzyme?user=nzyme&password=YOUR_STRONG_PW` |
-| `interfaces.rest_listen_uri` | `https://0.0.0.0:22900/` |
+| `interfaces.rest_listen_uri` | `https://0.0.0.0:22900/` (binds on every interface; restrict with host/network firewall before starting) |
 | `interfaces.http_external_uri` | `https://10.0.1.x:22900/` (VM's LAN IP) |
 
 If the database password contains reserved URL characters, percent-encode them in the connection URI; do not paste a literal password that changes how the URI is parsed.
