@@ -9,6 +9,15 @@ _Credential exposure risks and defensive detection coverage mapped to MITRE ATT&
  
 **When & how to use this:** Use this as a defensive hunt and control-review checklist. Do not collect credentials from production users or install interception components as routine testing. If active validation is separately approved, use synthetic accounts in an isolated lab with monitoring and cleanup agreed in advance.
 
+```mermaid
+flowchart LR
+    A[Inventory credential stores and policies] --> B[Review access controls and alerts]
+    B --> C[Use synthetic account in isolated lab]
+    C --> D[Validate expected telemetry]
+    D --> E[Rotate test secret and clean up]
+    E --> F[Record gaps and remediation]
+```
+
 #### Retired examples
 The linked credential collection and password-testing scripts are retired inert stubs: [cred_hunt.ps1](../Scripts/PowerShell/cred_hunt.ps1), [localbrute.ps1](../Scripts/PowerShell/localbrute.ps1), and [smblogin.ps1](../Scripts/PowerShell/smblogin.ps1). Do not treat historical filenames as runnable tools.
 ---
