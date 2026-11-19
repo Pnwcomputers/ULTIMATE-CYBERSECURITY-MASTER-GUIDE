@@ -6,6 +6,8 @@ _Review date: November 11, 2026 · Coverage: all 39 archived Python files under 
 
 This directory is an **archival, mixed-language research collection**, not a working Go module or maintained Python 3 package. The list below records header attribution and current static Python 3 parser compatibility; **no program below has been executed or given a safety/production approval by this audit**. An AST pass proves syntax only; imports, dependency versions, API contracts, network effects, actual behavior, and terms have not been certified.
 
+The separate [`shells/` collection](shells/README.md) also contains retired inert tombstones for former payload stager and encoder sources. Its README records their disposition; the Python-only manifest and parser counts below do not include those files.
+
 A copyright or redistribution header indicates a notice exists in that file; it is **not** proof the repository owns the code or that all bundled dependencies may be reused. For unattributed items, provenance/license requires independent investigation. Preserve original copyright and license text when retaining files.
 
 ## Disposition Definitions
