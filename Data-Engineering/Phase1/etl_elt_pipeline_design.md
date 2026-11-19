@@ -23,15 +23,15 @@ _Last reviewed: 2026-09-11. The incremental pipeline lab was executed end to end
 
 ## 🎯 Purpose
 
-Move from a script that loads a file to a pipeline that runs on a schedule, processes only what is new, survives being run twice, resumes after a crash, and can prove that its destination matches its source.
+Move from a one-off load to a scheduled pipeline that processes changes, survives reruns, resumes after failures, and reports clearly scoped validation results.
 
 ## ⚙️ Function
 
-Compare ETL and ELT and the conditions that select between them; define the staging layer and why it exists; implement incremental extraction with watermarks and an overlap window; implement idempotent merge writes; store checkpoints durably; execute a backfill; and finish each run with a reconciliation that fails loudly when the destination has drifted.
+Compare ETL and ELT; design staging, incremental extraction, idempotent writes, durable checkpoints, and backfills; then run reconciliation checks whose coverage and limitations are explicit.
 
 ## 🏆 Goal
 
-Enable a practitioner to build a scheduled pipeline whose second run inserts nothing new, whose interrupted run leaves no partial state, whose backfill repairs missing data without duplicating existing data, and whose success is asserted by a query rather than by the absence of an exception.
+Enable a practitioner to build a repeatable scheduled pipeline and support its claims with named, bounded checks—for example, key coverage separately from full row-content comparison.
 
 ## 📋 When to Use
 
@@ -158,7 +158,7 @@ Keeping `source_updated_at` separate from `_loaded_at` is what makes lateness me
 
 ## 📥 3. Incremental Extraction
 
-Full extraction re-reads everything on every run. It is simple, correct, and becomes impossible somewhere between a few hundred thousand and a few million rows. Incremental extraction reads only what changed since the last successful run.
+Full extraction re-reads the source on every run. Whether that remains practical depends on source capacity, data volume and change rate, latency limits, and cost; there is no universal row-count threshold. Incremental extraction reads records selected by a change marker, cursor, or log position.
 
 | Source offers | Predicate | Watermark stored | Catches deletes? |
 | --- | --- | --- | --- |
@@ -171,7 +171,7 @@ Full extraction re-reads everything on every run. It is simple, correct, and bec
 
 ### 📘 The overlap window
 
-A naive `WHERE updated_at > :watermark` loses records, permanently and silently. Three mechanisms cause it:
+A naive `WHERE updated_at > :watermark` can permanently skip records. Clock skew, transaction visibility, and equal timestamps at the boundary are common causes:
 
 - **Clock skew** between the source's application servers.
 - **Long transactions.** A row's `updated_at` is assigned when the statement runs, but the row is not visible to readers until commit. A transaction that starts before the watermark and commits after it produces a row the next run will skip forever.
@@ -184,7 +184,7 @@ lo = (dt.datetime.fromisoformat(watermark) - dt.timedelta(minutes=OVERLAP_MINUTE
 rows = src.execute("SELECT ... FROM assets WHERE updated_at > ? ORDER BY updated_at", (lo,))
 ```
 
-This deliberately reprocesses a few records every run. **That is only safe because the writes are idempotent** — which is §4. Overlap and idempotence are a single design decision, not two.
+This deliberately reprocesses recent records on each run. **That is safe only because the writes are idempotent** — which is §4. A fixed overlap protects only against lateness within that bounded window; older gaps may require a wider replay, backfill, or CDC. Overlap and idempotence are a single design decision, not two.
 
 > [!CAUTION]
 > Watermark-based extraction does not detect deletes. A row removed at the source keeps its last-known state in the warehouse indefinitely. If deletes matter, the source must soft-delete (a `deleted_at` column that updates the watermark), expose CDC, or be periodically reconciled against a full key list — the approach used in §8.
@@ -430,7 +430,7 @@ def reconcile() -> int:
     missing, extra = sorted(s_keys - d_keys), sorted(d_keys - s_keys)
     ok = not missing and not extra and s_cnt == d_cnt
     log.info("reconcile source=%d warehouse=%d missing=%s extra=%s -> %s",
-             s_cnt, d_cnt, missing or "none", extra or "none", "MATCH" if ok else "MISMATCH")
+             s_cnt, d_cnt, missing or "none", extra or "none", "KEY_COVERAGE_MATCH" if ok else "KEY_COVERAGE_MISMATCH")
     return 0 if ok else 1
 
 
@@ -463,7 +463,7 @@ source changed: 1 update, 1 insert
 INFO elt watermark=2026-09-10T08:10:00+00:00 reading from 2026-09-10T08:05:00+00:00 (overlap 5m)
 INFO elt batch=20260911T213601062676 extracted=2 inserted=1 updated=1 unchanged=0 new_watermark=2026-09-11T09:05:00+00:00
 
-INFO elt reconcile source=4 warehouse=4 missing=none extra=none -> MATCH
+INFO elt reconcile source=4 warehouse=4 missing=none extra=none -> KEY_COVERAGE_MATCH
 ```
 
 Read the three runs carefully — each demonstrates a specific property:
@@ -494,7 +494,7 @@ python3 elt.py reconcile
 ```
 
 ```text
-INFO elt reconcile source=4 warehouse=3 missing=['SN-1002'] extra=none -> MISMATCH
+INFO elt reconcile source=4 warehouse=3 missing=['SN-1002'] extra=none -> KEY_COVERAGE_MISMATCH
 ```
 
 Exit status `1`. The reconciliation named the missing key rather than reporting a bare count difference — the difference between an alert and an investigation.
@@ -512,7 +512,7 @@ python3 elt.py reconcile
 
 ```text
 INFO elt batch=20260911T213608726762 extracted=4 inserted=1 updated=0 unchanged=3 new_watermark=2026-09-11T09:05:00+00:00
-INFO elt reconcile source=4 warehouse=4 missing=none extra=none -> MATCH
+INFO elt reconcile source=4 warehouse=4 missing=none extra=none -> KEY_COVERAGE_MATCH
 ```
 
 The backfill re-read all four source rows and inserted exactly one — the missing record. The three already-correct rows were recognized as `unchanged` and left alone. **No duplicates, no regression, no manual repair.** That is the entire return on building idempotence first.
@@ -546,17 +546,23 @@ extracted  inserted  updated  unchanged  status
 
 ## 🧾 8. Reconciliation
 
-A pipeline that only reports exceptions reports nothing about correctness. Reconciliation is the query that asserts the destination matches the source.
+A pipeline that only reports exceptions provides no positive evidence about its data. Reconciliation is a set of explicit checks; each result must say what was compared and what remains unverified.
 
 | Level | Check | Cost | Detects |
 | --- | --- | --- | --- |
 | **Count** | `COUNT(*)` source versus destination | Cheap | Gross loss or duplication |
 | **Key set** | Set difference on identifiers | Moderate | Exactly which records are missing or extra |
 | **Aggregate** | `SUM` of a numeric column on both sides | Moderate | Value corruption that counts miss |
-| **Checksum** | Hash of sorted key plus attributes | Expensive | Any attribute drift |
-| **Sampled row compare** | Full comparison of a random subset | Cheap | Transformation errors, at partial confidence |
+| **Checksum** | Hash of canonicalized key and selected attributes | Expensive | Content drift, subject to column coverage and hash assumptions |
+| **Sampled row compare** | Full comparison of a random subset | Cheap | Differences in sampled rows only; unsampled drift can be missed |
 
-The lab implements the first two. The key-set check is the one worth adopting first: it detects the delete-invisibility problem from §3, which no count-only check catches when a delete and an insert coincide.
+The lab implements only count and key-set checks. Together they check that row totals match and the same serial keys appear on both sides; they do **not** compare `hostname`, `site`, `os`, or other non-key values. `KEY_COVERAGE_MATCH` means only that these count-and-key checks passed. The destination can still have different values for matching serials.
+
+![Incremental extraction, staging, atomic merge and checkpoint, followed by separate key-coverage and optional content checks](../../assets/diagrams/etl-key-coverage-reconciliation-flow.svg)
+
+*Conceptual workflow. The diagram distinguishes the lab's count/key-set check from optional row-content validation. The overlap window also bounds which late arrivals incremental extraction can catch.*
+
+For stronger content assurance, compare explicitly selected columns for each key or compute deterministic hashes from a documented canonical representation. Decide how nulls, timestamps, text normalization, and duplicates are handled. SQLite's [`EXCEPT` operator](https://www.sqlite.org/lang_select.html) removes duplicate rows from its result, so a bidirectional `EXCEPT` check alone is not duplicate-sensitive; pair it with counts or grouped duplicate-aware checks when multiplicity matters.
 
 ### 📘 Where reconciliation belongs
 
@@ -624,9 +630,9 @@ A pipeline that runs successfully every fifteen minutes against a source that st
 | Idempotent rerun | Executed; `extracted=1 inserted=0 unchanged=1`; warehouse unchanged | Single process; concurrent runs not exercised |
 | Incremental pickup | Executed after source change; `extracted=2 inserted=1 updated=1` | Watermark strategy only; CDC not implemented |
 | Checkpoint | Confirmed watermark advanced to `2026-09-11T09:05:00+00:00` from observed data | Crash-mid-transaction not simulated; atomicity is inferred from SQLite semantics |
-| Reconciliation (match) | Executed; source 4, warehouse 4, exit status 0 | Count and key-set levels only |
-| Reconciliation (mismatch) | Deleted one warehouse row; reported `missing=['SN-1002']`, exit status 1 | — |
-| Backfill | Reset watermark and reran; `extracted=4 inserted=1 unchanged=3`, then reconcile MATCH | Small dataset; windowed backfill not demonstrated |
+| Reconciliation (key coverage) | Executed; source 4, warehouse 4, exit status 0 | Counts and serial keys only; row values were not compared |
+| Reconciliation (key-coverage mismatch) | Deleted one warehouse row; reported `missing=['SN-1002']`, exit status 1 | — |
+| Backfill | Reset watermark and reran; `extracted=4 inserted=1 unchanged=3`, then key-coverage reconciliation passed | Small dataset; windowed backfill not demonstrated |
 | Run log | Confirmed four rows with the counts shown in §7 | — |
 | Regression guard | The `WHERE excluded... >` upsert clause is shown as a pattern | Not exercised in the lab; the lab uses procedural comparison instead |
 
@@ -688,13 +694,13 @@ Local checks used Python 3.12.3 with SQLite 3.45.1 on Ubuntu. Batch identifiers 
 | 📘 Format | Reference guide with a fully executed incremental pipeline lab |
 | 🧪 Validation Status | Full cycle executed including backfill and mismatch detection; limitations documented above |
 | 📁 Location | `Data-Engineering/Phase1/etl_elt_pipeline_design.md` |
-| 🔄 Content Review Date | September 11, 2026 |
+| 🔄 Content Review Date | November 18, 2026 |
 
 ---
 
 <div align="center">
 
-**🔄 Load Only What Changed. Survive the Rerun. Prove the Result.**
+**🔄 Load Only What Changed. Survive the Rerun. State What You Verified.**
 
 *A pipeline you can safely run twice is a pipeline you can safely recover, backfill, and trust.*
 
