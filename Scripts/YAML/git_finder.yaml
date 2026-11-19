@@ -1,18 +1,19 @@
-id: detect-git-repository
+# Sends an HTTP request. Use only against targets in written assessment scope.
+id: exposed-git-head
 
 info:
-  name: Git Repository Finder
-  author: Dolev Farhi and Nick Aleks
+  name: Exposed Git Repository Metadata
+  author: Repository maintainers
   severity: info
-  tags: git
+  description: Detects a readable Git HEAD file at the web root.
+  tags: git,misconfig,exposure
 
-requests:
+http:
   - method: GET
     path:
-      - '{{BaseURL}}/backup/acme-hyper-branding/.git/HEAD'
-      - '{{BaseURL}}/backup/acme-impact-alliance/.git/HEAD'
+      - "{{BaseURL}}/.git/HEAD"
     matchers:
       - type: word
         words:
-          - "ref: refs/heads/master"
+          - "ref: refs/heads/"
         part: body
