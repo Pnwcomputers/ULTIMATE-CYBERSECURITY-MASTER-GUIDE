@@ -101,7 +101,7 @@ The ESP32-C5 has one Wi-Fi radio; 2.4 GHz and 5 GHz observations are not simulta
 
 ## 8. Configure WiGLE uploads (Mode A only)
 
-Create a WiGLE account and obtain the **API Name** and **API Token** from your account. On a trusted computer, create these four plain-text files at the **root of Scout Lite's microSD**:
+Create a WiGLE account and obtain a dedicated, revocable upload token. Use only a dedicated guest/upload network with a unique password; do not place a household, corporate, or shared network PSK on the scanner. These settings are secrets while present on removable media or in device storage. On a trusted computer, create the four plain-text files at the **root of Scout Lite's microSD**:
 
 | File | Content |
 |---|---|
@@ -116,9 +116,11 @@ Use UTF-8/plain text, with no labels, quotes, or extra whitespace. Ensure the na
 2. Restart the Scout Lite scanner.
 3. Dedicated SigRoam firmware imports these files into internal settings at boot and then overwrites/removes the source files.
 4. Verify that the four files disappeared. If they remain, **do not assume import succeeded**.
-5. Keep WiGLE tokens and Wi-Fi credentials out of screenshots, Git repositories, shared logs, and public documentation.
+5. Keep WiGLE tokens and Wi-Fi credentials out of screenshots, Git repositories, shared logs, and public documentation. Removing the source files does not prove secure erasure: firmware may retain imported settings, and flash storage can preserve recoverable data.
 6. Complete a short survey, press **STOP**, and check upload status when the configured Wi-Fi is reachable.
 7. If offline or unsuccessful, use the SigRoam **Upload** page to retry later. The scanner does not interrupt an active survey for uploads and does not necessarily retry automatically when Wi-Fi later appears.
+
+**Credential and privacy cleanup:** Treat internal settings and the microSD as sensitive even after import. On device loss or retirement, revoke the WiGLE token, change the dedicated upload-network password, and securely reset or destroy storage under your organization's media-handling policy. File removal is not proof of secure erasure.
 
 **Privacy:** Uploading GPS-tagged observations to WiGLE may publish information about networks and locations. Confirm your organization's sharing policy and WiGLE privacy settings before uploading. For internal-only assessments, keep CSVs local instead.
 
