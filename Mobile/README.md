@@ -25,10 +25,10 @@
 Mobile security reference covering device preparation (rooting, custom ROM), the Kali NetHunter platform, Android/iOS app security assessment, mobile forensics, and device OSINT. The OnePlus 6 A6003 is a device-specific setup example; capabilities depend on the exact build, kernel, adapters, and current upstream support.
 
 ## ⚙️ Function
-Covers: OnePlus 6 rooting workflow (bootloader unlock, LineageOS, TWRP, Magisk), Kali NetHunter install and configuration, field SOPs for NetHunter attack modules (HID, BadUSB, WifiPumpkin, Bluetooth Arsenal, Wardriving), Android APK assessment, iOS backup forensics, and mobile device OSINT tools.
+Covers: OnePlus 6 rooting and NetHunter setup, defensive device and configuration review, scoped wireless surveys, Android APK assessment, iOS backup forensics, and mobile device OSINT. Offensive-capable modules are identified as risks and detection topics; their presence does not authorize their use.
 
 ## 🏆 Goal
-Enable practitioners to build and operate a capable mobile pentesting platform (NetHunter on OnePlus 6), conduct authorized Android and iOS app assessments, and perform forensic or OSINT tasks against mobile devices.
+Help practitioners prepare an authorized mobile assessment, review platform capabilities and limits, assess Android/iOS apps, and perform consent-based forensic or OSINT work.
 
 ## 📋 When To Use
 - Setting up or maintaining the OnePlus 6 NetHunter device
