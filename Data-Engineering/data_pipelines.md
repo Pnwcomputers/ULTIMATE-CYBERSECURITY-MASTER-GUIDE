@@ -1010,33 +1010,27 @@ Treat each row as one study session; repeat until you can explain the result wit
 
 <a id="13-add-this-guide-to-github"></a>
 
-## 📤 13. Add this guide to GitHub
+## 📤 13. Contribute to this guide
 
-Suggested location in this repository: `Documentation/security-data-pipelines-guide.md`. The guide is self-contained; embedded scripts are copied out only when doing the labs.
+This guide is already maintained at `Data-Engineering/data_pipelines.md`. Edit it in place; do not copy it to the obsolete `Documentation/security-data-pipelines-guide.md` location. Update the [Data Engineering index](./README.md) only when adding or moving related material.
 
-From an existing clean clone of your cybersecurity repository:
+From a clean clone of the repository, create a working branch:
 
 ```bash
 git switch -c docs/security-data-pipelines
 ```
 
-Copy this Markdown file into `Documentation/`, then add the following line to an appropriate documentation section in the root `README.md`:
-
-```markdown
-- [Security Data Pipelines](./Documentation/security-data-pipelines-guide.md) — Learn TLS, SSH, Git, structured log parsing, cached threat intelligence, Kafka, and Ansible through practical labs.
-```
-
-Review and commit only the intended files:
+Review and commit the intended file:
 
 ```bash
-git add Documentation/security-data-pipelines-guide.md README.md
+git add Data-Engineering/data_pipelines.md
 git diff --cached --stat
 git diff --cached
-git commit -m "Add practical security data pipelines learning guide"
+git commit -m "Improve security data pipelines guide"
 git push -u origin docs/security-data-pipelines
 ```
 
-Open a pull request, confirm rendered navigation and code blocks, and follow the repository's current contribution rules. These are instructions for adding the file; publication is not implied by receiving this document.
+Open a pull request, confirm rendered navigation and code blocks, and follow the repository's current contribution rules. Embedded scripts are copied out only when doing the labs.
 
 ---
 
@@ -1048,7 +1042,7 @@ This review checked the guide against the linked official documentation and perf
 
 | Area | Verification performed | Limitation |
 | --- | --- | --- |
-| Markdown and shell examples | Checked code-fence structure, internal section links, and Bash syntax | Repository-relative links assume the suggested `Documentation/` location |
+| Markdown and shell examples | Checked code-fence structure, internal section links, and Bash syntax | Repository-relative links resolve from the guide's current `Data-Engineering/` location |
 | TLS | Generated the certificate; completed a verified localhost TLS handshake; rejected the wrong hostname | Does not test a production CA, renewal system, or mTLS deployment |
 | Parser | Ran the fixture; confirmed two accepted and one quarantined record; rejected invalid IP, port, and missing timezone; checked stable event ID | Restricted fixture format, not broad production log coverage |
 | Cache clients | Imported installed Redis and Memcached clients; confirmed both preserve events as unavailable when their backend is absent | Live cache success/expiry and Docker startup were not executed |
