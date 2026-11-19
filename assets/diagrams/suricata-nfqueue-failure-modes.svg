@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Linux NFQUEUE forwarding failure behavior</title>
+  <desc id="desc">Forwarded packets enter the NFQUEUE. If Suricata listens, it inspects each packet and accepts or drops it. With no listener, packets are dropped by default, or continue when queue bypass is enabled, which removes Suricata blocking.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#27445f"/></marker>
+    <style>
+      .title{font:700 28px system-ui,sans-serif;fill:#102a43}.label{font:700 20px system-ui,sans-serif;fill:#102a43}.body{font:17px system-ui,sans-serif;fill:#243b53}.small{font:15px system-ui,sans-serif;fill:#334e68}
+      .box{rx:16;stroke-width:2}.line{stroke:#27445f;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="560" rx="24" fill="#f5f8fb"/>
+  <text x="48" y="54" class="title">NFQUEUE: what happens when Suricata is unavailable?</text>
+  <rect x="55" y="205" width="235" height="130" class="box" fill="#e6f0fa" stroke="#7aa7d3"/>
+  <text x="172" y="252" text-anchor="middle" class="label">Forwarded packets</text><text x="172" y="284" text-anchor="middle" class="body">Match the scoped</text><text x="172" y="309" text-anchor="middle" class="body">firewall rule</text>
+  <rect x="385" y="205" width="220" height="130" class="box" fill="#fff3cd" stroke="#d6a638"/>
+  <text x="495" y="258" text-anchor="middle" class="label">NFQUEUE 0</text><text x="495" y="292" text-anchor="middle" class="body">Kernel queue</text>
+  <path d="M290 270 H380" class="line"/>
+  <rect x="710" y="92" width="405" height="145" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="912" y="137" text-anchor="middle" class="label">Suricata listener attached</text><text x="912" y="172" text-anchor="middle" class="body">Inspect → accept or drop</text><text x="912" y="204" text-anchor="middle" class="small">IPS decision controls packet outcome</text>
+  <path d="M605 235 C650 235 655 165 705 165" class="line"/>
+  <rect x="710" y="315" width="405" height="170" class="box" fill="#fde8e7" stroke="#d66b63"/>
+  <text x="912" y="356" text-anchor="middle" class="label">No listener attached</text>
+  <text x="912" y="393" text-anchor="middle" class="body">Default: packets are dropped</text><text x="912" y="421" text-anchor="middle" class="small">Fail closed — forwarding may stop</text>
+  <line x1="750" y1="440" x2="1075" y2="440" stroke="#d66b63" stroke-width="1.5"/>
+  <text x="912" y="469" text-anchor="middle" class="small">With --queue-bypass: packets continue (fail open)</text>
+  <path d="M605 305 C650 305 655 385 705 385" class="line"/>
+</svg>
