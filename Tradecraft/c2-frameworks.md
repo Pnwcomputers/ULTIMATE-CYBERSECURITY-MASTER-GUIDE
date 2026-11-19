@@ -54,7 +54,7 @@ A Command and Control (C2) framework provides operators with a persistent channe
 **Protocol options across frameworks:**
 
 - HTTP/HTTPS (most common, blends with web traffic)
-- DNS (low-and-slow, bypasses many egress filters)
+- DNS (may traverse networks that permit DNS; resolver policy, DNS monitoring, and other controls can still detect or block it—there is no bypass guarantee)
 - SMB (lateral movement within network, named pipes)
 - TCP (raw, fast, noisier)
 - WebSockets / gRPC (emerging, harder to inspect)
