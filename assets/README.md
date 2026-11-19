@@ -724,4 +724,4 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 
 | Diagram | Embedded guide |
 |---|---|
-| [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#-8-reconciliation) |
+| [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#8-reconciliation) |
