@@ -34,7 +34,7 @@ class LegacyArchiveManifestTests(unittest.TestCase):
                 self.assertEqual(status, record["python3_ast"])
                 self.assertIn(record["disposition"], {
                     "historical-only", "modernize-only-with-fixtures",
-                    "retire-from-active-index"})
+                    "retire-from-active-index", "retired-in-place-inert"})
                 self.assertEqual(record["validation"],
                                  "not-executed; third-party dependencies and permissions not verified")
         self.assertEqual(failures, 6)
