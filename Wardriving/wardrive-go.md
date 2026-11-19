@@ -11,6 +11,11 @@ _Last reviewed: 2026-10-22_
 
 **The Android and iOS variants are not the same capture architecture:**
 
+![Wardrive Go Android and iOS external-source differences, from permitted radio observations through GPS session review to optional consent-based upload](../assets/diagrams/wardrive-go-platform-collection-boundaries.svg)
+
+*Conceptual platform comparison.* Verify supported devices, OS permissions and actual source attribution on the installed app version. The graphic does not imply that iOS provides unrestricted built-in Wi-Fi scanning.
+
+
 | Feature | Android | iOS / iPadOS |
 | --- | --- | --- |
 | Native device discovery | OS-permitted Wi-Fi, BLE and cellular observations, according to device / permissions / restrictions | BLE from the phone; direct Wi-Fi survey requires compatible external firmware such as **iosESP** |
