@@ -1,14 +1,15 @@
 {
   "schema_version": 1,
   "review_date": "2026-11-11",
-  "evidence": "Header inspection plus Python 3 AST-only compatibility baseline; no execution, full dependency audit, or redistribution-rights certification",
+  "evidence": "Header inspection plus Python 3 AST-only compatibility baseline; no execution, full dependency audit, or redistribution-rights certification; unsafe credential and lateral-movement examples retired in place on review branch",
   "entries": [
     {
       "path": "bruteforce/brute_http_basic.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "bruteforce/brute_http_form.py",
@@ -20,9 +21,10 @@
     {
       "path": "bruteforce/brute_http_ntlm.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "bruteforce/brute_ssh_keyboard.py",
@@ -36,28 +38,32 @@
       "attribution_from_file_header": "Unattributed in file header",
       "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "bruteforce/firewarebf.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "bruteforce/multi_ssh.py",
       "attribution_from_file_header": "Unattributed in file header",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "bruteforce/sw_ike.py",
       "attribution_from_file_header": "Unattributed in file header",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "database/mysql_search.py",
@@ -118,16 +124,18 @@
     {
       "path": "exploit/ssh_pwn.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "exploit/ssh_super_virus.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "osint/gravatar.py",
