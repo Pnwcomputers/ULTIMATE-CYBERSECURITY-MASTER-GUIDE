@@ -76,6 +76,12 @@ This document provides a **comprehensive Wireshark filter reference** compiled f
 
 For a protocol-level explanation of legitimate 802.11 disconnects versus forged deauthentication/disassociation, PMF, monitor-mode requirements, and passive detection filters, see the [Wi-Fi Deauthentication Detection Guide](./wifi-deauthentication-detection.md). An Ethernet or managed-mode capture typically cannot show raw 802.11 management frames.
 
+## Capture Visibility & Filter Order
+
+![Wireshark process distinguishing interface or TAP capture visibility, optional capture filters, saved packet evidence, non-destructive display filters and analyst interpretation](../assets/diagrams/wireshark-capture-display-boundaries.svg)
+
+*Conceptual capture sequence.* Capture filters determine which packets are **retained**; display filters change which already-captured packets are **shown**. Neither expands visibility beyond the selected interface, and a filter hit alone is not evidence of malicious activity.
+
 ## 📂 Capture Methods
 
 Before filtering, choose the right capture mode for your scenario.

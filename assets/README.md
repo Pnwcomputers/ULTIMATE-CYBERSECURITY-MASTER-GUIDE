@@ -1,11 +1,22 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Last reviewed: 2026-11-02 (repository path and placement review; visual content not re-authenticated against live equipment)_
+_Visual placements updated: 2026-11-18. Historical visual content has not been re-authenticated against live equipment._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
+
+## New Workflow & Evidence Visuals
+
+Original, accessible SVGs for workflow comprehension. They are **conceptual only**: none certify a specific deployment, vendor rule, collection interface, or completed lab exercise.
+
+| Diagram | Embedded Guide | Scope |
+|---|---|---|
+| [Purple Team emulation & detection loop](./diagrams/purple-team-emulation-detection-loop.svg) | [Detection validation playbook](../PlayBooks/purple-team-detection-validation.md) and [detailed playbook](../PlayBooks/PurpleTeam_Detailed.md) | Scope, approval, safe canary, telemetry, alert, tune/retest |
+| [Detection evidence verification gates](./diagrams/detection-evidence-verification-gates.svg) | [SIEM detection content](../IncidentResponse/SIEM/detection-content-validation.md) and [offline canary validator](../Documentation/CANARY-DETECTION-VALIDATOR.md) | Fixture vs imported vs verified lab evidence |
+| [Cyberdeck policy zones](./diagrams/cyberdeck-policy-zones.svg) | [Public Cyberdeck architecture](../Cyberdeck/docs/ARCHITECTURE.md) | Conceptual router/zone boundaries, field RF, evidence storage |
+| [Wireshark capture & display boundaries](./diagrams/wireshark-capture-display-boundaries.svg) | [Advanced Wireshark reference](../Documentation/wireshark.md) | Vantage point, optional BPF, PCAP, display filter, analyst validation |
 
 ## Security Key And Recovery Visuals
 
