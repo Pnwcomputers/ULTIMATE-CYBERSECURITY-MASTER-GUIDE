@@ -20,6 +20,10 @@ Milestones turn a large AI-assisted project into **specific outcomes that can be
 
 ## Milestones Explained
 
+![Milestone quality gate showing a project outcome contract, delivered tasks, tests, independent review, accepted state and a blocked-retest feedback path](../assets/diagrams/ai-milestone-independent-acceptance-gate.svg)
+
+*Conceptual acceptance workflow.* GitHub Milestones organize work items but their progress display is **not proof of technical acceptance**. Compare the expected end state against independent observations, negative controls and a named reviewer's sign-off; do not approve work solely because an agent, issue or CI badge says it is complete.
+
 | Concept | Question It Answers | Example |
 |---|---|---|
 | **Mission / goal** | Why are we doing this? | Improve visibility into suspicious SSH authentication in the authorized lab |
