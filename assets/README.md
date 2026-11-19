@@ -668,3 +668,12 @@ Original conceptual workflow for authorized leakage assessment. It does not repr
 | Diagram | Embedded guide |
 |---|---|
 | [Power-analysis measurement and evidence flow](./diagrams/power-analysis-measurement-evidence-flow.svg) | [Power Analysis Practicals](../HardwareHacking/Chapter5.md#measurement-setup) |
+
+
+## Power Analysis Measurement Visual
+
+Original conceptual workflow for authorized leakage assessment. It does not represent a measured trace or tested key recovery.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Power-analysis measurement and evidence flow](./diagrams/power-analysis-measurement-evidence-flow.svg) | [Power Analysis Practicals](../HardwareHacking/Chapter5.md#measurement-setup) |
