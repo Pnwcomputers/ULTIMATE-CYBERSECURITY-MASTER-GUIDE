@@ -1,56 +1,64 @@
-# 🔎 HiLetgo 24MHz 8CH USB Logic Analyzer
+# 🔎 HiLetgo USB Logic Analyzer (Model-Dependent)
+
+_Last reviewed: 2026-11-18_
 
 ## 🎯 Purpose
-Budget-friendly Saleae Logic clone logic analyzer (24MHz/8ch) for capturing and decoding UART, SPI, I2C, and other digital protocols using the open-source sigrok/PulseView software - the entry-level standard for hardware security work.
+A low-cost digital logic analyzer sold under the HiLetgo name can be useful for observing digital signals and testing protocol-decoder workflows. Treat the name and “Saleae clone” label as insufficient to establish the exact circuit, channel count, sample rate, voltage limits, or driver compatibility. Check the unit’s markings, USB identifiers, vendor material, and the relevant sigrok device entry.
 
 ## ⚙️ Function
-8 channels at up to 24MHz; works with PulseView (sigrok) for protocol decoding. Primary use case: identifying baud rate and sniffing UART boot logs from embedded devices. Requires Zadig WinUSB driver on Windows. Cost-effective alternative to LA1010 for UART and slow-bus analysis.
+A logic analyzer samples input voltages and classifies them as digital HIGH or LOW according to its input thresholds. Compatible devices can work with PulseView through sigrok drivers such as `fx2lafw`, but support depends on the unit’s actual chipset and USB ID. Some commonly sold FX2-based analyzers are listed by sigrok as 8-channel devices with a nominal maximum sample rate of 24 MHz; that specification does not apply automatically to every HiLetgo-branded unit.
+
+The analyzer is not an oscilloscope: it does not show analog voltage quality, ringing, overshoot, or noise. Protocol decoders interpret captured samples according to settings such as baud rate, polarity, clock edge, and framing. A plausible decode can still be wrong.
 
 ## 🏆 Goal
-Decode unknown digital communication from a target embedded device - identifying baud rates, reading UART boot logs, and analyzing protocol traffic between chips.
+Capture a short, relevant digital signal safely, then validate any decoded result against the waveform and the target’s documented interface.
 
 ## 📋 When to Use
-- Finding the baud rate of an unknown UART port (boot log sniffing)
-- Verifying I2C/SPI signal timing for Bus Pirate or GreatFET connections
-- Low-cost entry-level logic capture when 24MHz and 8 channels are sufficient
-- Open-source toolchain preferred (sigrok/PulseView) over proprietary KingstVIS
+- Observe UART output on an authorized, powered target.
+- Check digital SPI or I²C timing when the device and target voltage are compatible.
+- Learn PulseView capture and decoder settings with a known low-voltage test circuit.
+- Use another instrument when analog signal quality, isolation, or out-of-range voltage is in question.
 
 ## 📖 Description
-The HiLetgo USB Logic Analyzer is a cost-effective, 8-channel, 24MHz logic analyzer. It is a Saleae Logic clone and is the absolute standard for beginner and intermediate hardware hacking, allowing you to monitor and decode digital signals.
+
+### Capture and interpretation boundaries
+
+![Conceptual workflow showing compatibility checks, safe capture, acquisition settings, and careful protocol decoding](../assets/diagrams/digital-logic-capture-boundaries.svg)
+
+*Conceptual workflow. The analyzer shows thresholded digital states; protocol annotations depend on decoder settings and do not establish the meaning or security impact of traffic.*
 
 ## 🔗 Reference Links
-* **Product Link:** [HiLetgo USB Logic Analyzer (Amazon)](https://www.amazon.com/s?k=HiLetgo+USB+Logic+Analyzer)
-* **Required Software:** [sigrok / PulseView](https://sigrok.org/wiki/Downloads)
+- [sigrok FX2-based device support list](https://sigrok.org/wiki/Fx2lafw) — device compatibility varies by chipset and USB identifiers
+- [PulseView and sigrok downloads](https://sigrok.org/wiki/Downloads)
+- [sigrok Windows driver guidance](https://sigrok.org/wiki/Windows) — install the driver appropriate to the actual device; Zadig/WinUSB is not a universal one-click fix
+- [sigrok logic-analyzer getting started guide](https://sigrok.org/wiki/Getting_started_with_a_logic_analyzer)
+- [PulseView user manual](https://sigrok.org/doc/pulseview/0.4.2/manual.html) — acquisition and decoder troubleshooting
 
-## 🚀 Step-by-Step Example: Setup, Connect, and Use
-**Scenario: Finding the baud rate and sniffing the boot logs of an unknown UART port.**
+## 🚀 Example: Capture a UART Transmit Signal
 
-### 1. Setup
-* **Software:** Download and install **PulseView** (from the sigrok suite).
-* **Driver (Windows Only):** Plug in the analyzer. Open **Zadig** (often included with PulseView). Select "Unknown Device" (or Saleae Logic) from the drop-down, select the `WinUSB` driver, and click **Replace Driver**.
+This read-only example is for an owned or explicitly authorized, low-voltage target. The target is powered separately; the logic analyzer is not a target power supply.
 
-### 2. Connect
-* **USB:** Plug the device into your PC.
-* **Wiring to Target:** Connect the female jumper wires to your target board's UART header.
-  * Logic Analyzer `GND` ➡️ Target `GND`
-  * Logic Analyzer `CH0` ➡️ Target `TX` (We want to sniff what the board is transmitting)
+### 1. Identify and prepare the device
+- Confirm the analyzer’s channel labels, input voltage limits, threshold behavior, and supported driver from its documentation or a known compatible-device entry.
+- Install PulseView from the sigrok download page. On Windows, follow sigrok’s device-specific driver steps only after identifying the analyzer’s USB device; changing a driver can affect other software that uses the same interface.
+- In PulseView, scan for supported devices and select the driver reported for the actual hardware. Choose `fx2lafw` only if the unit is an FX2-compatible analyzer; do not select a genuine Saleae driver merely because a listing calls the unit a clone.
 
-### 3. Use
-* Open **PulseView**.
-* At the top, select the driver: Choose `fx2lafw`. The device should connect. (`Saleae Logic` in this list is only for genuine Saleae hardware — selecting it for a clone will fail.)
-* Set the Sample Rate to `2 MHz` and the Sample Count to `1 M samples`. (UART is slow, so 2MHz is plenty).
-* Click the **Run** button (top left).
-* Immediately turn on the power to your target device. PulseView will capture the signals and stop.
-* Zoom in on the timeline using your scroll wheel until you see distinct square waves.
-* Click the **Add Protocol Decoder** button (looks like a yellow/blue tag at the top). Search for **UART** and double-click it.
-* A "UART" tag will appear on the left side of the timeline. Click it, set the `RX` channel to `CH0`, and guess the baud rate (try `115200` first).
-* Look at the top of the waveform. If you guessed the correct baud rate, you will see readable ASCII text (like "Booting Linux..."). If it looks like gibberish, click the UART tag and try a different baud rate (like `9600` or `57600`).
+### 2. Connect safely
+- Power the target through its normal supply and identify ground and the UART transmit pin from documentation or measurements.
+- Connect analyzer ground to target ground, then connect CH0 to the target’s TX signal. Do not connect the analyzer to a voltage outside the verified input range or to mains/high-energy circuits. If the PC/analyzer ground could create an unsafe connection, stop and use a properly rated isolated measurement setup.
+- Do not connect analyzer VCC or use a signal clip as a power lead. Keep wires short and avoid disturbing the target’s normal operation.
+
+### 3. Capture and decode
+- Select the channels needed and choose a supported sample rate based on the fastest signal activity and the device’s actual limits. The PulseView manual gives 4–5 samples per fastest protocol activity as a typical minimum for decoding; this is a starting point, not a guarantee. Longer captures and higher rates may reduce available capture duration.
+- Run a capture around a known, authorized startup or test event. Use an available trigger or a shorter capture window when the event is brief.
+- Add the UART decoder and assign RX to CH0. Set baud rate, data bits, parity, stop bits, and inversion to match the target. Derive a baud-rate estimate from measured bit timing when needed; do not rely on 115200 as a universal default.
+- Compare decoder annotations with the raw waveform. If results look inconsistent, check sample rate, threshold compatibility, signal polarity, baud rate, and framing. Readable text is evidence of a decoded byte stream, not proof that a shell is accessible or privileged.
 
 ---
 
 ## Related Files
-- [README.md](README.md) - HardwareHacking section index: all tools and chapter guide
-- [LA1010.md](LA1010.md) - Higher-performance logic analyzer (100MHz/16ch, KingstVIS) for faster buses needing more channels
-- [BitPirate.md](BitPirate.md) - Connect a UART adapter to the TX pin you identified with the HiLetgo to interact with the shell
-- [BusPirate.md](BusPirate.md) - Use alongside Bus Pirate to verify SPI/I2C signals at the hardware level
-- [Chapter2.md](Chapter2.md) - Electrical fundamentals: UART framing, baud rate calculation, and logic threshold levels
+- [README.md](README.md) - HardwareHacking section index and chapter guide
+- [LA1010.md](LA1010.md) - Another digital analyzer with model-specific specifications and software
+- [BitPirate.md](BitPirate.md) - UART adapter guidance for a separately confirmed serial interface
+- [BusPirate.md](BusPirate.md) - Supported protocol tool for authorized SPI/I²C experiments
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals, UART framing, and logic-level compatibility

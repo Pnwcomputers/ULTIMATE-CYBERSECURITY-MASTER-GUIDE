@@ -693,3 +693,11 @@ Original conceptual process map. It separates target power from VADJ level trans
 | Diagram | Embedded guide |
 |---|---|
 | [JTAGulator discovery and validation flow](./diagrams/jtagulator-discovery-validation-flow.svg) | [JTAGulator guide](../HardwareHacking/JTAGulator.md#discovery-and-validation-flow) |
+
+## Digital Logic Capture Visual
+
+Original conceptual workflow. Device specifications, input limits, supported drivers, capture rates, and thresholds vary by hardware; decoded protocol annotations depend on configuration.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Digital logic capture boundaries](./diagrams/digital-logic-capture-boundaries.svg) | [HiLetgo logic-analyzer guide](../HardwareHacking/HiLetgo.md#capture-and-interpretation-boundaries) |
