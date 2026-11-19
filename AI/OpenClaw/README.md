@@ -6,7 +6,9 @@
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
-![OpenClaw](https://img.shields.io/badge/OpenClaw-2026.4.15-red?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)
+> **Version context:** This is a tested deployment snapshot using OpenClaw 2026.4.15 and TrueNAS SCALE 25.04, not a current-version recommendation. Provider names, model IDs, app menus, and commands can change. Check [current OpenClaw releases](https://github.com/openclaw/openclaw/releases) and vendor documentation before applying the steps.
+
+![OpenClaw tested snapshot 2026.4.15](https://img.shields.io/badge/OpenClaw-tested_snapshot_2026.4.15-red?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)
 ![TrueNAS SCALE](https://img.shields.io/badge/TrueNAS-SCALE_25.04-blue?style=for-the-badge)
 ![Providers](https://img.shields.io/badge/AI_Providers-Anthropic_|_Gemini_|_Groq_|_Ollama-purple?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
@@ -620,7 +622,7 @@ The OpenClaw guides contain historical, environment-specific commands. **Inspect
 
 ---
 
-*Deployment environment: TrueNAS SCALE 25.04 · Dell R630 · OPNsense · NPMplus · Ollama · OpenClaw 2026.4.15*
+*Tested deployment snapshot: TrueNAS SCALE 25.04 · Dell R630 · OPNsense · NPMplus · Ollama · OpenClaw 2026.4.15*
 
 ## Related Files
 - [../README.md](../README.md) - AI section index
