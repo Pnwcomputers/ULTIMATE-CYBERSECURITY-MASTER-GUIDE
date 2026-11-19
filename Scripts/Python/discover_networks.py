@@ -81,7 +81,8 @@ def lookup_wigle(bssid: str, api_name: str, api_token: str) -> None:
         return
     for item in results:
         print(
-            f"WiGLE {bssid}: SSID={item.get('ssid', 'unknown')!r}, "
+            f"WiGLE historical/approximate record for {bssid}: "
+            f"SSID={item.get('ssid', 'unknown')!r}, "
             f"latitude={item.get('trilat', 'unknown')}, "
             f"longitude={item.get('trilong', 'unknown')}"
         )
@@ -132,7 +133,8 @@ def main() -> int:
 
     print(
         "Consent confirmed: the explicitly supplied BSSIDs will be sent to WiGLE "
-        "for a location lookup. Provider retention and account terms apply."
+        "for a historical/approximate network-location lookup, not device tracking. "
+        "Provider retention and account terms apply."
     )
     for bssid in bssids:
         try:
