@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+<title id="title">VPS SSH tunnel health checks</title>
+<desc id="desc">Separate checks for local SOCKS listener setup, SSH server liveness, delivery to an approved destination, and network policy against direct bypass. ExitOnForwardFailure checks forwarding setup, SSH keepalives test the peer, one request checks only that request path, and host egress controls address unsupported direct traffic.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#9fb4cc"/></marker></defs>
+<rect width="1280" height="640" rx="20" fill="#0b1223"/><g font-family="Arial,Helvetica,sans-serif">
+<text x="38" y="55" fill="#f8fafc" font-size="30" font-weight="700">A tunnel needs more than one health check</text>
+<text x="38" y="88" fill="#b8cbe0" font-size="17">Each check answers a different question; none proves complete application routing or anonymity.</text>
+<g fill="#172d41" stroke="#60a5fa" stroke-width="2">
+<rect x="38" y="130" width="265" height="140" rx="14"/><rect x="348" y="130" width="265" height="140" rx="14"/><rect x="658" y="130" width="265" height="140" rx="14"/><rect x="968" y="130" width="274" height="140" rx="14"/>
+</g>
+<g fill="#f8fafc">
+<text x="62" y="170" font-size="18" font-weight="700">1. Listener setup</text>
+<text x="62" y="202" fill="#d1e1f0" font-size="15">ExitOnForwardFailure can</text><text x="62" y="224" fill="#d1e1f0" font-size="15">fail SSH if the requested</text><text x="62" y="246" fill="#d1e1f0" font-size="15">forward cannot be set up.</text>
+<text x="372" y="170" font-size="18" font-weight="700">2. SSH peer liveness</text>
+<text x="372" y="202" fill="#d1e1f0" font-size="15">ServerAlive settings can</text><text x="372" y="224" fill="#d1e1f0" font-size="15">disconnect an unresponsive</text><text x="372" y="246" fill="#d1e1f0" font-size="15">SSH session; autossh may restart it.</text>
+<text x="682" y="170" font-size="18" font-weight="700">3. Destination receipt</text>
+<text x="682" y="202" fill="#d1e1f0" font-size="15">One approved test request</text><text x="682" y="224" fill="#d1e1f0" font-size="15">checks that request's path</text><text x="682" y="246" fill="#d1e1f0" font-size="15">and remote response only.</text>
+<text x="992" y="170" font-size="18" font-weight="700">4. Bypass policy</text>
+<text x="992" y="202" fill="#d1e1f0" font-size="15">Host firewall / route policy</text><text x="992" y="224" fill="#d1e1f0" font-size="15">can restrict direct egress</text><text x="992" y="246" fill="#d1e1f0" font-size="15">from apps outside the proxy.</text>
+</g>
+<g stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"><path d="M304 200h38"/><path d="M614 200h38"/><path d="M924 200h38"/></g>
+<rect x="38" y="316" width="1204" height="100" rx="14" fill="#20374b" stroke="#fbbf24" stroke-width="2"/>
+<text x="64" y="355" fill="#fcd34d" font-size="19" font-weight="700">Keep the claims separate</text>
+<text x="64" y="388" fill="#e1edf6" font-size="16">Forward setup ≠ destination reachability • SSH liveness ≠ application health • one curl result ≠ every process uses the tunnel</text>
+<text x="38" y="468" fill="#93c5fd" font-size="18" font-weight="700">Evidence to record</text>
+<text x="38" y="500" fill="#e1edf6" font-size="16">Local bind result • SSH peer response/restart state • result from an authorized test destination • firewall/routing policy for direct paths</text>
+<text x="38" y="548" fill="#cbd5e1" font-size="15">Use only a client-approved VPS and test destination. This conceptual diagram does not represent a tested tunnel or prove anonymity.</text>
+</g></svg>

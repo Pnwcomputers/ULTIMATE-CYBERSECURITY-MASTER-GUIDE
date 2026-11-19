@@ -116,13 +116,26 @@ One option is a VPS you control, an SSH dynamic tunnel, and a local SOCKS client
 ### Open the SOCKS Tunnel From Your Workstation
 
 ```bash
-# -D 1080: SSH acts as a local SOCKS5 proxy on 127.0.0.1:1080
-# -N: no remote shell, just forward
-ssh -N -D 127.0.0.1:1080 user@your-vps-ip
+# -D: local SOCKS5 proxy on loopback; -N: no remote shell
+# ExitOnForwardFailure: exit if SSH cannot create the requested listener
+ssh -N -o ExitOnForwardFailure=yes -D 127.0.0.1:1080 user@your-vps-ip
 
-# Resilient version (auto-reconnect):
-autossh -M 0 -N -D 127.0.0.1:1080 user@your-vps-ip
+# Restart-on-SSH-exit example; -M 0 disables autossh monitor-port checks.
+# ServerAlive* can make SSH exit when the peer stops responding.
+# Example only: 15s × 3 missed replies is about 45s; tune to your needs.
+autossh -M 0 -N \
+  -o ExitOnForwardFailure=yes \
+  -o ServerAliveInterval=15 \
+  -o ServerAliveCountMax=3 \
+  -D 127.0.0.1:1080 user@your-vps-ip
 ```
+
+`ExitOnForwardFailure=yes` checks forwarding setup, not whether a later
+connection reaches the ultimate destination. With `-M 0`, autossh restarts SSH
+only after that process exits; SSH server-alive checks provide one way to end a
+session when the peer stops responding. Autossh's default startup gate can also
+exit early after certain initial failures; review its [startup behavior](https://www.harding.motd.ca/autossh/README.txt)
+before using it under a service manager.
 
 ### Point proxychains-ng at It
 
@@ -143,6 +156,12 @@ For a basic egress check, use a low-sensitivity endpoint you trust. A public IP-
 ```bash
 proxychains4 -f ~/.proxychains/proxychains.conf curl https://api.ipify.org/
 ```
+
+![Separate checks for local SOCKS listener setup, SSH peer liveness, approved destination response, and direct-egress bypass policy](../assets/diagrams/opsec-vps-tunnel-health-checks.svg)
+
+*Conceptual checks, not a tested route. A successful request establishes only the path for that request; it does not show that every tool or protocol follows the tunnel.*
+
+References: [autossh behavior](https://www.harding.motd.ca/autossh/README.txt), [OpenSSH `ExitOnForwardFailure`](https://man.openbsd.org/ssh_config#ExitOnForwardFailure), [OpenSSH server-alive options](https://man.openbsd.org/ssh_config#ServerAliveInterval), and [Proxychains-NG](https://github.com/rofl0r/proxychains-ng).
 
 ### Leak Traps That Matter
 
