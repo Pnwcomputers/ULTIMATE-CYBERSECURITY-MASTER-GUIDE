@@ -2392,8 +2392,9 @@ Required:
   - Faraday cage (MANDATORY - prevents inadvertent RF emission)
   - Written authorization from target owner
 
-Legal: Any GPS spoofing without strict containment is a federal crime in the US
-       (aviation interference, navigation fraud)
+Legal: Transmitting simulated GNSS signals may violate spectrum, aviation-safety, or
+       other rules depending on the jurisdiction and circumstances. A Faraday enclosure
+       can reduce emissions but does not by itself establish legal authorization or safety.
 ```
 
 [Return to Table of Contents](#table-of-contents)
@@ -2579,9 +2580,12 @@ PROHIBITED:
   ✗ Satellite uplink transmission without carrier authorization
   ✗ Intercepting encrypted communications you are not party to
 
-Unauthorized access to computer systems is a federal crime (CFAA 18 U.S.C. § 1030).
-Unauthorized RF transmission violates the Communications Act and FCC regulations.
-Space system interference may be charged under aviation and anti-terrorism statutes.
+Unauthorized computer access and RF transmissions may violate different laws and
+service rules depending on the conduct, authorization, and jurisdiction. Review the
+specific statutory and spectrum requirements; do not assume a shielded setup alone
+makes a test authorized. For U.S. examples, see [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-118/t18/s1030/),
+[FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15),
+and [47 CFR § 25.115](https://www.ecfr.gov/current/title-47/section-25.115).
 
 See [LEGAL.md](LEGAL.md) for complete terms.
 ```
