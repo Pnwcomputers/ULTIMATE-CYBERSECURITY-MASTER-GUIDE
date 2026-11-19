@@ -74,14 +74,23 @@ PROJECTDISCOVERY_KEY="${PROJECTDISCOVERY_KEY:-${PDCP_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
-
-        CRIMINALIP_KEY="${CRIMINALIP_KEY:-${CRIMINALIP_API_KEY:-${criminalip_api_key:-}}}"
-        HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-${hibp_key:-${haveibeenpwned_api_key:-}}}}"
-        LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_api_key:-}}}"
-        NETLAS_KEY="${NETLAS_KEY:-${NETLAS_API_KEY:-${netlas_api_key:-}}}"
-        PROJECTDISCOVERY_KEY="${PROJECTDISCOVERY_KEY:-${PDCP_API_KEY:-${pdcp_api_key:-}}}"
+        # Parse simple KEY=value entries; never execute the config file as shell code.
+        while IFS= read -r entry || [ -n "$entry" ]; do
+            [[ "$entry" =~ ^[[:space:]]*(#|$) ]] && continue
+            if [[ "$entry" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+                key="${BASH_REMATCH[2]}"
+                value="${BASH_REMATCH[3]}"
+                value="${value%\"}"; value="${value#\"}"
+                value="${value%\'}"; value="${value#\'}"
+                case "$key" in
+                    CRIMINALIP_KEY|CRIMINALIP_API_KEY|criminalip_api_key) [ -n "$CRIMINALIP_KEY" ] || CRIMINALIP_KEY="$value" ;;
+                    HAVEIBEENPWNED_API_KEY|HIBP_KEY|hibp_key|haveibeenpwned_api_key) [ -n "$HIBP_KEY" ] || HIBP_KEY="$value" ;;
+                    LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key) [ -n "$LEAKLOOKUP_KEY" ] || LEAKLOOKUP_KEY="$value" ;;
+                    NETLAS_KEY|NETLAS_API_KEY|netlas_api_key) [ -n "$NETLAS_KEY" ] || NETLAS_KEY="$value" ;;
+                    PROJECTDISCOVERY_KEY|PDCP_API_KEY|pdcp_api_key) [ -n "$PROJECTDISCOVERY_KEY" ] || PROJECTDISCOVERY_KEY="$value" ;;
+                esac
+            fi
+        done < "$API_CONFIG"
     else
         echo -e "${YELLOW}[!] API config not found at $API_CONFIG. Set keys via environment variables.${NC}" >&2
     fi
@@ -132,7 +141,8 @@ usage() {
     echo "  -i    Target IP address(es), comma-separated"
     echo "  -e    Target email address for breach lookups"
     echo "  -f    File containing IPs (one per line)"
-    echo "  --active  Enable direct scans for explicitly supplied IPs only (requires authorization)"
+    echo "  --active  Enable direct scans for explicitly supplied individual IPs only (requires authorization)"
+    echo "        CIDR ranges, hostnames, and discovered IPs are not scanned"
     echo "  -s    Skip the full-port Nmap scan"
     echo "  -n    Skip Nuclei vulnerability scan"
     echo "  -D    Skip Dirsearch directory enumeration"
@@ -467,18 +477,8 @@ if [ -n "$DOMAIN" ]; then
         theHarvester -d "$DOMAIN" -b hunter,shodan,virustotal,whoisxml,zoomeye,censys,fullhunt,intelx,securityTrails 2>&1 | tee "$OUTPUT_DIR/1_theharvester.txt"
         
         # Discovered addresses are recorded as intelligence only, never scanned automatically.
-        IPV4_LIST=$(grep -oE '([0-9]{1,3}\\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
-        printf '%s\\n' "$IPV4_LIST" > "$OUTPUT_DIR/discovered_ips.txt"    fi
-fi
-
-#############################################
-# 2) Additional Domain Intelligence
-#############################################
-if [ -n "$DOMAIN" ]; then
-    section "2) Additional Domain Intelligence"
-    query_leaklookup "$DOMAIN" "domain" "$OUTPUT_DIR/domain/leaklookup.json"
-    if [ "$ACTIVE_SCAN" = true ]; then
-        log "${YELLOW}[!] Active domain probes are disabled here; supply explicitly authorized IPs with -i/-f to scan.${NC}"
+        IPV4_LIST=$(grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
+        printf '%s\n' "$IPV4_LIST" > "$OUTPUT_DIR/discovered_ips.txt"
     fi
 fi
 
