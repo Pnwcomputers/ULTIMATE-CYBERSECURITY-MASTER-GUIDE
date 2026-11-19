@@ -1,4 +1,5 @@
 #!/bin/bash
+umask 077
 
 #############################################
 #  SCAMMER OSINT INVESTIGATION SCRIPT v3.1
