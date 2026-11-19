@@ -521,7 +521,7 @@ LEGAL CONSIDERATIONS:
    • Unauthorized access may violate computer-misuse or other laws depending on the conduct and jurisdiction
    • Interception may be subject to wiretap/privacy laws; consent and other exceptions vary by jurisdiction
    • Deauthentication attacks may constitute DoS
-   • Cracking passwords for unauthorized access is illegal
+   • Password guessing or authentication testing outside approved scope may violate applicable law, contract, or policy
 
 REQUIRED AUTHORIZATION:
    ✓ Explicit permission from network owner
@@ -542,7 +542,7 @@ PROHIBITED:
 ⚠️ WARNING: Privilege Escalation Techniques
 
 LEGAL CONSIDERATIONS:
-   • Exceeding authorized access is a crime under CFAA
+   • Exceeding authorized access may violate the CFAA depending on conduct and statutory elements
    • Exploitation outside approved scope may violate applicable law, contract, or policy
    • Privilege escalation outside approved scope may violate applicable law, contract, or policy
    • Testing without the required authorization may violate applicable rules; requirements vary by context
