@@ -155,12 +155,19 @@ This runs Suricata in **passive IDS mode** — It inspects a copy of traffic and
 
 Two common patterns:
 
-- **NFQUEUE** — Traffic is routed through Suricata via `iptables`/`nftables`, Suricata accepts or drops each packet:
+- **NFQUEUE** — The rule below is a deliberately broad **IPv4 example**: it queues every packet traversing the host's `FORWARD` chain, not just a selected LAN or service. Do not paste it unchanged on a production gateway. Replace it with a rule scoped to the authorized interface, subnet, direction, and traffic you intend to inspect; confirm its order relative to other firewall rules.
   ```bash
+  # Example only: all IPv4 forwarded traffic enters queue 0
   sudo iptables -I FORWARD -j NFQUEUE --queue-num 0
   ```
-  Then set `suricata.yaml`'s `nfq` section and run Suricata with `-q 0` in IPS mode.
-- **AF_PACKET IPS mode (bridge)** — Two NICs bridged, Suricata inspects and forwards/drops between them. Requires the box to sit physically/logically inline on the network path.
+  Configure the `nfq` section and run Suricata with `-q 0` in IPS mode. By default, if no userspace queue listener is attached, queued packets are dropped (fail closed), which can interrupt forwarding while Suricata is stopped or unhealthy. The iptables `--queue-bypass` option makes packets continue when the listener is absent (fail open); it preserves connectivity but removes Suricata's blocking during that failure. Choose deliberately and verify the exact behavior for your kernel/rules.
+- **AF_PACKET IPS mode (bridge)** — Two NICs bridged, Suricata inspects and forwards/drops between them. Requires the box to sit physically/logically inline on the network path; failure behavior depends on the bridge and bypass configuration.
+
+Before applying a queue rule, keep an out-of-band management path where possible and prepare a rollback command that deletes the exact rule you added. Test both the Suricata-running and listener-absent cases in a lab or maintenance window, and confirm recovery before widening scope.
+
+![NFQUEUE forwarding outcomes with and without an attached Suricata listener](../../assets/diagrams/suricata-nfqueue-failure-modes.svg)
+
+*Default NFQUEUE handling is fail closed; `--queue-bypass` makes the queue fail open when no listener is attached. Exact behavior should be validated on the target host.*
 
 Either way, **do not enable inline mode until you've validated in IDS/alert-only mode first** (see [Validation & Testing](#-validation--testing)).
 
