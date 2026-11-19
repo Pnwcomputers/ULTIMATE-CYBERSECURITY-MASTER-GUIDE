@@ -289,6 +289,15 @@ audit_btc() {
     fi
 }
 
+# Pass credential-bearing URLs to curl through stdin config so they do not
+# appear in curl's process arguments. The provider may still retain URL logs.
+private_curl_status_url() {
+    local url="$1" output="$2"
+    [[ "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    { printf 'url = "%s"\n' "$url"; } |
+        curl --config - --silent --show-error --max-time 25 --output "$output" --write-out "%{http_code}"
+}
+
 # ---------------------------------------------------------------------------
 # ETH audit
 # ---------------------------------------------------------------------------
@@ -303,19 +312,10 @@ audit_eth() {
         warn "ETH: ETHERSCAN_API_KEY not set — Etherscan queries will fail or be rate-limited"
     fi
 
-# Pass credential-bearing URLs to curl through stdin config so they do not
-# appear in curl's process arguments. The provider may still retain URL logs.
-private_curl_status_url() {
-    local url="$1" output="$2"
-    [[ "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
-    { printf 'url = "%s"\n' "$url"; } |
-        curl --config - --silent --show-error --max-time 25 --output "$output" --write-out "%{http_code}"
-}
-
     info "ETH: querying balance for $addr ..."
     local bal_file="${report_dir}/eth_balance.json"
     local http_code
-    http_code=$(private_curl_status_url "https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}" "$bal_file")
+    http_code=$(private_curl_status_url "https://api.etherscan.io/v2/api?chainid=1&module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}" "$bal_file")
 
     local eth_balance="N/A"
     if [[ "${http_code:-000}" == "200" ]]; then
@@ -330,7 +330,7 @@ private_curl_status_url() {
     info "ETH: querying transactions for $addr ..."
     local tx_file="${report_dir}/eth_txlist.json"
     local http_code2
-    http_code2=$(private_curl_status_url "https://api.etherscan.io/api?module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}" "$tx_file")
+    http_code2=$(private_curl_status_url "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}" "$tx_file")
 
     {
         printf "ETHEREUM ADDRESS AUDIT\n"
