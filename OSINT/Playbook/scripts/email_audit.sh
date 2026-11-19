@@ -228,7 +228,9 @@ private_intelx_result() {
 
 private_curl_form_json() {
     local URL="$1" OUTPUT="$2" FORM_DATA="$3"
-    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ && "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    local url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+$'
+    local form_pattern='^[A-Za-z0-9._@%+=&-]+$'
+    [[ "$URL" =~ $url_pattern && "$FORM_DATA" =~ $form_pattern ]] || return 2
     {
         printf 'url = "%s"\n' "$URL"
         printf 'data = "%s"\n' "$FORM_DATA"
