@@ -28,7 +28,7 @@ how to test for it in an authorized engagement, and what remediation to recommen
 
 ## 📋 Table of Contents
 
-- [Version Note: 2025 RC vs 2021](#-version-note-2025-rc-vs-2021)
+- [Version Note: 2025 Final vs 2021](#-version-note-2025-final-vs-2021)
 - [A01: Broken Access Control](#a01-broken-access-control)
 - [A02: Security Misconfiguration](#a02-security-misconfiguration)
 - [A03: Software Supply Chain Failures](#a03-software-supply-chain-failures)
@@ -44,22 +44,19 @@ how to test for it in an authorized engagement, and what remediation to recommen
 
 ---
 
-## 🗓️ Version Note: 2025 RC vs 2021
+## 🗓️ Version Note: 2025 Final vs 2021
 
-At the time of writing, **OWASP Top 10:2025 is a Release Candidate** and
-**2021 is the last finalized edition**. This guide follows the 2025 ordering and
-category names (verified against <https://owasp.org/Top10/2025/>) because it
-reflects current data, and provides a [2021→2025 mapping](#2021-to-2025-mapping)
-so findings written against either edition line up. Confirm the current status at
-<https://owasp.org/Top10/> before citing an edition in a formal report.
+The **OWASP Top 10:2025 is the current final edition**; OWASP marks the 2021 edition as **superseded**. This guide follows the 2025 ordering and category names and preserves a [2021→2025 mapping](#2021-to-2025-mapping) for older reports and crosswalks. Check the [official OWASP Top 10 repository](https://github.com/OWASP/Top10) and [2025 introduction](https://top10.owasp.org/2025/0x00_2025-Introduction/) for the current publication.
 
-Two structural changes in 2025 are worth noting:
+Key changes include:
 
-- **A03: Software Supply Chain Failures** broadens 2021's "Vulnerable and Outdated
-  Components" to cover the whole dependency/build/distribution chain.
-- **A10: Mishandling of Exceptional Conditions** is new, covering error-handling
-  and fail-open logic (SSRF from 2021's A10 folds into Broken Access Control /
-  Server-Side Request areas).
+- **A03: Software Supply Chain Failures** expands 2021's "Vulnerable and Outdated Components" to cover risks across software dependencies, build systems and distribution infrastructure.
+- **SSRF**, formerly 2021 A10, is incorporated into 2025 **A01: Broken Access Control**.
+- **A10: Mishandling of Exceptional Conditions** is new and includes error handling, logic errors, and fail-open behavior.
+
+![Key category changes and edition status from OWASP Top 10 2021 to final 2025](../assets/diagrams/owasp-top10-2021-to-2025-changes.svg)
+
+*This summarizes selected structural changes; use the crosswalk below for category-by-category mapping.*
 
 ---
 
