@@ -156,12 +156,13 @@ Spoofing attack progression:
 
 | Countermeasure | Description |
 |----------------|-------------|
-| **Galileo OSNMA** | Operational service authenticates E1-B navigation-message data on compatible receivers; does not by itself authenticate ranging measurements or guarantee a position solution |
-| **Multi-constellation / multi-frequency** | Spoofing all constellations simultaneously is far harder |
+| **Galileo OSNMA** | Operational service authenticates E1-B navigation-message data on compatible receivers; it does not by itself authenticate ranging measurements or guarantee a position solution |
 | **GPS civilian signal authentication research** | Chips-Message Robust Authentication (Chimera) is a research concept combining navigation-data and spreading-code authentication; do not infer operational deployment from the 2017 paper |
-| **IMU integration** | Inertial navigation cross-check; anomaly detection on PVT jumps |
+| **Multi-constellation / multi-frequency** | Adds signal diversity, but is not proof of authenticity |
 | **Receiver Autonomous Integrity Monitoring (RAIM)** | Provides receiver integrity checks, but is only partially effective against some misleading signals; no alert does not prove signal authenticity |
-| **Clock anomaly detection** | Time jumps inconsistent with receiver dynamics indicate spoofing |
+| **Signal strength / AGC / C/N₀ monitoring** | Receiver- and band-specific changes can indicate interference; baseline and corroboration are required, and detection is incomplete |
+| **IMU integration** | Inertial cross-checks can reveal some PVT inconsistencies; performance depends on the sensor and error growth |
+| **Clock anomaly detection** | Time disagreements can be a clue; corroborate with independently trusted time because network time may also be wrong or spoofed |
 
 ![GNSS position solution sources and the different coverage limits of OSNMA, RAIM, AGC/CN0 monitoring, and independent sensor checks](../assets/diagrams/gnss-authentication-and-integrity-boundaries.svg)
 
