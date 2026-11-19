@@ -75,152 +75,25 @@ A Pearson-correlation peak is a candidate, not standalone confirmation. Review t
 
 ### Visualization
 
-#### Trace Overlay Plot
+Useful review plots include raw trace overlays, candidate correlation over sample position, candidate rank or guessing entropy as traces accumulate, and fixed-versus-random TVLA statistics. Label axes with the actual instrument units and analysis settings. High variance, a large correlation peak, or visual similarity to a published trace does not by itself establish secret leakage.
 
-```python
-def plot_trace_overlay(traces, n_show=100, title="Power Traces"):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 8), sharex=True)
-    
-    for i in range(min(n_show, len(traces))):
-        ax1.plot(traces[i], alpha=0.05, color='blue', linewidth=0.5)
-    ax1.plot(np.mean(traces, axis=0), color='red', linewidth=1.5, label='Mean')
-    ax1.set_ylabel('Power (ADC units)')
-    ax1.set_title(f'{title} - Overlay ({n_show} traces)')
-    ax1.legend()
-    
-    ax2.plot(np.std(traces, axis=0), color='orange', linewidth=1)
-    ax2.set_xlabel('Sample index')
-    ax2.set_ylabel('Std Dev')
-    ax2.set_title('Trace Variance (high = potential POI)')
-    
-    plt.tight_layout()
-    plt.show()
-```
+### Higher-Order Analysis, Profiling, and TVLA
 
-#### CPA Correlation Map
+#### Higher-Order Analysis
 
-```python
-def plot_cpa_result(correlation_matrix, true_key_byte=None, byte_idx=0):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 8))
-    
-    im = ax1.imshow(np.abs(correlation_matrix), aspect='auto', cmap='hot', interpolation='nearest')
-    ax1.set_xlabel('Sample index')
-    ax1.set_ylabel('Key guess (0x00 – 0xFF)')
-    ax1.set_title(f'CPA Correlation Map - Key Byte {byte_idx}')
-    plt.colorbar(im, ax=ax1, label='|Pearson r|')
-    
-    if true_key_byte is not None:
-        ax1.axhline(y=true_key_byte, color='cyan', linewidth=1.5, linestyle='--',
-                   label=f'True key: 0x{true_key_byte:02X}')
-        ax1.legend()
-    
-    max_corr = np.max(np.abs(correlation_matrix), axis=1)
-    ax2.bar(range(256), max_corr, width=1, color='steelblue', alpha=0.7)
-    ax2.set_xlabel('Key guess')
-    ax2.set_ylabel('Max |correlation|')
-    ax2.set_title('Peak Correlation per Key Guess')
-    
-    recovered = np.argmax(max_corr)
-    ax2.axvline(x=recovered, color='red', linewidth=2, label=f'Recovered: 0x{recovered:02X}')
-    if true_key_byte is not None:
-        ax2.axvline(x=true_key_byte, color='green', linewidth=2, linestyle='--',
-                   label=f'True: 0x{true_key_byte:02X}')
-    ax2.legend()
-    
-    plt.tight_layout()
-    plt.show()
-    return recovered
-```
+Masking can redistribute information across multiple leakage points. Higher-order analysis requires a justified model of how observations combine, suitable preprocessing, and enough evidence to validate the method. Multiplying two centered sample columns is only a possible intermediate transformation; by itself it is not a complete second-order attack and does not establish that masking was defeated.
 
-#### Success Rate vs. Trace Count
+#### Profiling Attacks
 
-```python
-def plot_success_curve(traces, plaintexts, true_key, byte_idx=0, step=50, n_trials=10):
-    trace_counts = range(step, len(traces) + 1, step)
-    success_rates = []
-    
-    for n in trace_counts:
-        successes = 0
-        for trial in range(n_trials):
-            idx = np.random.choice(len(traces), n, replace=False)
-            corr = cpa_attack(traces[idx], plaintexts[idx], byte_idx)
-            max_corr = np.max(np.abs(corr), axis=1)
-            if np.argmax(max_corr) == true_key[byte_idx]:
-                successes += 1
-        success_rates.append(successes / n_trials)
-    
-    plt.figure(figsize=(10, 5))
-    plt.plot(trace_counts, success_rates, 'o-', color='steelblue')
-    plt.axhline(y=1.0, color='green', linestyle='--', alpha=0.5, label='100% success')
-    plt.xlabel('Number of traces')
-    plt.ylabel('Success rate')
-    plt.title(f'CPA Success Rate vs. Trace Count (Key Byte {byte_idx})')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.show()
-```
+Profiling methods build statistical models from a profiling device or dataset, then evaluate traces from a target. Results depend on how representative the profiling material is of the target, the leakage model, the measurement setup, and the attack traces. No profiling method guarantees key recovery from one trace.
 
----
+#### Leakage Assessment: TVLA
 
-### Advanced DPA Techniques
+Test Vector Leakage Assessment (TVLA) commonly compares measurements from defined input classes, such as fixed and random test vectors, using Welch's t-test at each sample. Follow a published protocol for the target and test order; document the number of observations, grouping, preprocessing, and statistical assumptions.
 
-#### Second-Order DPA
+Some protocols use an absolute t-statistic threshold of 4.5 as a screening heuristic. The threshold is not a universal boundary between secure and insecure behavior. Exceeding it indicates a leakage signal worth investigating, not proof of key recovery; failing to exceed it does not prove the absence of leakage. A first-order fixed-versus-random test can also miss leakage detectable by other test vectors or higher-order methods.
 
-When first-order masking is present, the secret value is split: `masked_val = secret XOR mask`. Neither value alone correlates with the key. Second-order DPA combines two leakage points:
-
-```python
-def second_order_dpa(traces, byte_idx, poi1, poi2):
-    t1 = traces[:, poi1] - np.mean(traces[:, poi1])
-    t2 = traces[:, poi2] - np.mean(traces[:, poi2])
-    combined = t1 * t2  # Product of centered leakages
-    return combined     # Run standard CPA on combined value
-```
-
-#### Template Attacks
-
-Template attacks (Chari et al., 2002) are the most powerful single-trace attacks. They require a training phase on a copy of the target device where the key is known, then a matching phase on the actual target.
-
-Template attacks can recover keys from a **single trace** against unprotected implementations - the theoretical optimum for passive side-channel attacks.
-
-#### Leakage Assessment: t-TVLA
-
-Before investing in full CPA, use **Test Vector Leakage Assessment (TVLA)** to determine whether a device leaks at all, and where:
-
-```python
-from scipy.stats import ttest_ind
-
-def tvla_assessment(traces_fixed, traces_random):
-    t_stats = np.zeros(traces_fixed.shape[1])
-    
-    for t in range(traces_fixed.shape[1]):
-        t_stat, _ = ttest_ind(
-            traces_fixed[:, t], traces_random[:, t], equal_var=False
-        )
-        t_stats[t] = t_stat
-    
-    plt.figure(figsize=(16, 4))
-    plt.plot(t_stats, linewidth=0.5, color='navy')
-    plt.axhline(y=4.5, color='red', linestyle='--', label='|t| = 4.5 threshold')
-    plt.axhline(y=-4.5, color='red', linestyle='--')
-    plt.fill_between(range(len(t_stats)), -4.5, 4.5, alpha=0.1, color='green',
-                     label='No leakage zone')
-    plt.xlabel('Sample index')
-    plt.ylabel('t-statistic')
-    plt.title('TVLA Leakage Assessment')
-    plt.legend()
-    plt.show()
-    
-    leakage_points = np.where(np.abs(t_stats) > 4.5)[0]
-    print(f"Significant leakage detected at {len(leakage_points)} sample points")
-    return t_stats, leakage_points
-```
-
-Use TVLA results to:
-- Confirm a device leaks before investing in full CPA
-- Identify the exact sample indices (POI) where leakage is strongest
-- Measure the effectiveness of countermeasures (compare TVLA before/after masking)
-
----
+TVLA assesses a statistical difference under a specific test. It does not directly measure key-recovery success or the effectiveness of every countermeasure. See the original [TVLA methodology paper](https://csrc.nist.gov/csrc/media/events/non-invasive-attack-testing-workshop/documents/08_goodwill.pdf) and the specialist discussion of [applying TVLA to public-key cryptography](https://eprint.iacr.org/2016/513.pdf).
 
 ## Related Files
 - [Chapter4.md](Chapter4.md) - Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
