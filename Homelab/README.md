@@ -21,7 +21,7 @@ Index and entry point for the Homelab section - covering the hardware, software,
 Links to HomeLab_Setup.md (comprehensive build guide) and provides a quick-reference overview of hardware choices, network topology, virtualization platforms (Proxmox, VMware, VirtualBox), and security considerations for lab isolation.
 
 ## 🏆 Goal
-Help practitioners build a legally-safe, network-isolated lab environment where every other technique in this guide can be practiced without risk to production systems.
+Help practitioners build a carefully segmented, recoverable lab that reduces the chance of affecting production systems. Isolation must be verified for each hypervisor, route, interface, and host configuration.
 
 ## 📋 When To Use
 - Starting point for anyone building their first security homelab
@@ -160,7 +160,7 @@ vulnerable systems, and potent offensive tools.
 1. CONTAINMENT FAILURE (BRIDGING)
    ► NEVER bridge a vulnerable VM (like Metasploitable) directly to your 
      home's physical network. If your home network is exposed to the internet, 
-     your vulnerable VM WILL be compromised by real-world threat actors.
+     an internet-reachable vulnerable VM may be discovered and attacked. Exposure and outcome depend on the services, software, and network controls; do not rely on obscurity.
    ► Malware detonated in an improperly isolated lab can escape and infect 
      your host operating system or personal home network.
 
@@ -169,7 +169,7 @@ vulnerable systems, and potent offensive tools.
      outside of it.
    ► If your Attack VM (e.g., Kali) has internet routing configured, ensure 
      you do not accidentally launch scans or exploits against external, 
-     unauthorized IP addresses. Unauthorized attacks are a FEDERAL CRIME.
+     unauthorized IP addresses. Unauthorized computer access may violate applicable criminal or civil laws; legal consequences depend on the conduct and jurisdiction. See [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).
 
 3. EDUCATIONAL USE ONLY
    ► The tools, scripts, and vulnerable environments provided or referenced 
