@@ -25,16 +25,16 @@ Ensure assessments stay within written scope, minimize data collection, preserve
 
 ## 0. Authorization & Rules of Engagement (READ FIRST)
 
-> These SOPs cover offensive-capable tooling. **Do not run any active/attack procedure without written authorization.**
+> NetHunter may include offensive-capable apps. Their presence is not authorization. This SOP covers safe device administration and defensive review only; use the least intrusive owner-approved method.
 
 Before any engagement, confirm and file:
 
 - [ ] Signed **Statement of Work / Rules of Engagement (RoE)** naming the client, scope, and authorized target ranges (IP/SSID/BSSID/asset list).
-- [ ] Explicit **in-scope wireless SSIDs/BSSIDs** and MAC allow-list. Wireless and RF attacks bleed easily into out-of-scope airspace - document exclusions.
+- [ ] Explicitly list any approved wireless collection or testing area, and exclude neighboring networks and bystanders. Do not spoof device identity.
 - [ ] **Time window** for testing and any blackout periods.
 - [ ] **Emergency stop contact** on the client side.
 - [ ] Physical-access authorization (badge, escort, or written consent) if HID/BadUSB is in scope.
-- [ ] Confirmation that RF activity (Evil AP, deauth, Bluetooth injection) is legal at the test location and will not disrupt safety-critical systems.
+- [ ] Written owner approval and a safety review for any separately planned radio-frequency collection or transmission; stop if it could affect bystanders or safety-critical systems.
 
 **Golden rule:** if a procedure could touch a device, network, or person outside the signed scope, stop and re-confirm scope before proceeding.
 
