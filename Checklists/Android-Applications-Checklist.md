@@ -1,12 +1,17 @@
 # Android Mobile Application
 
-**Purpose:** A first-pass triage checklist for reviewing an Android APK's client-side security posture before (or instead of) a full OWASP MASTG-scale assessment. It's narrower than MASTG by design - 8 items instead of MASTG's hundreds of test cases - aimed at catching the handful of mistakes that show up in the overwhelming majority of real-world mobile app pentests.
+![Android application review lanes showing static APK checks, controlled runtime TLS/WebView/storage observations and separate server-side API authorization with evidence-based severity](../assets/diagrams/android-app-static-runtime-backend-test-lanes.svg)
+
+*Conceptual triage map, not a completed Android assessment.* [OWASP MASVS](https://mas.owasp.org/MASVS/) and [MASTG](https://mas.owasp.org/MASTG/) distinguish client-side risks from backend authorization. Lack of optional pinning, obfuscation or root detection is **not inherently a vulnerability**; assess threat models and actual impact before assigning a finding.
+
+
+**Purpose:** A first-pass triage checklist for reviewing an Android APK's client-side security posture before (or instead of) a full OWASP MASTG-scale assessment. It is narrower than full OWASP MASVS/MASTG coverage: eight screening prompts that help select relevant tests, not an independently validated list of the most common vulnerabilities.
   
-**Function:** The checklist splits into two categories: static configuration review (manifest permissions, certificate/signing setup, code obfuscation presence) and runtime/network behavior (WebView implementation, certificate pinning, rooting detection, plaintext data handling). Manifest and WebView issues can be found from the decompiled APK alone; certificate pinning and rooting detection require dynamic testing with a proxy and/or a rooted test device.
+**Function:** The checklist splits into two categories: static configuration review (manifest permissions, certificate/signing setup, code obfuscation presence) and runtime/network behavior (WebView implementation, certificate pinning, rooting detection, plaintext data handling). Manifest and WebView issues can be found from the decompiled APK alone; certificate pinning and device-integrity responses require risk-specific runtime checks. Neither control is mandatory for every application and absence alone does not establish compromise.
   
-**Goal:** Determine whether the app leaks sensitive data at rest or in transit, whether it can be trivially repackaged or MITM'd, and whether an attacker with physical access to a rooted device can bypass the app's own defenses. This is fundamentally a "can this app be trusted on a compromised device" checklist, not a backend API security review - server-side findings need a separate methodology.
+**Goal:** Evaluate app data exposure, transport validation, WebView and IPC configuration, signing, and applicable runtime defenses. Record reproducible impact rather than claiming exploitation from a missing optional safeguard. This is fundamentally a "can this app be trusted on a compromised device" checklist, not a backend API security review - server-side findings need a separate methodology.
   
-**When & How to use this:** Use during mobile app engagements as an initial pass before diving into MASTG's full test suite, or as a lightweight recurring check between major MASTG-scale assessments (e.g., after each app release). AMA-001/002 (manifest, WebView) can be done from a static APK dump with no device needed; the rest need a test device or emulator with Frida/Objection available.
+**When & How to use this:** Use during mobile app engagements as an initial pass before diving into MASTG's full test suite, or as a lightweight recurring check between major MASTG-scale assessments (e.g., after each app release). Static analysis can reveal potential manifest or WebView issues and signing metadata; confirming behavior may require an authorized device or emulator. Frida and Objection are optional tools, not mandatory for every MASTG test.
 
 *Mobile application security review checklist for Android apps:*
 - AMA-001, 002, and 008 link to specific pentestlab.blog write-ups.
@@ -16,10 +21,10 @@ _★ General reference, OWASP restructures individual test IDs periodically, so 
 ---
 * [AMA-001 - Manifest File Review](https://pentestlab.blog/2017/01/24/security-guidelines-for-android-manifest-files/)
 * [AMA-002 - Insecure WebView Implementation](https://pentestlab.blog/2017/02/12/android-webview-vulnerabilities/)
-* [AMA-003 - Lack of Certificate Pinning](https://mas.owasp.org/MASTG/tests/android/MASVS-NETWORK/MASTG-TEST-0244/)
-* [AMA-004 - No Rooting Detection ★](https://mas.owasp.org/MASTG/)
+* [AMA-003 - Certificate Pinning (Threat-Model-Dependent)](https://mas.owasp.org/MASTG/tests/android/MASVS-NETWORK/MASTG-TEST-0244/)
+* [AMA-004 - Device Integrity / Root Detection Review ★](https://mas.owasp.org/MASTG/)
 * [AMA-005 - Application Certificate ★](https://mas.owasp.org/MASTG/)
-* [AMA-006 - Lack of Code Obfuscation ★](https://mas.owasp.org/MASTG/)
+* [AMA-006 - Code Obfuscation / Resilience Review ★](https://mas.owasp.org/MASTG/)
 * [AMA-007 - Plaintext Data ★](https://mas.owasp.org/MASTG/)
 * [AMA-008 - APK Payload Injection](https://pentestlab.blog/2017/06/26/injecting-metasploit-payloads-into-android-applications-manually/)
 
