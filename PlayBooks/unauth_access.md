@@ -270,7 +270,7 @@ For each targeted account:
 Get-ADUser -Identity jsmith -Properties *
 
 # Microsoft Entra ID (PowerShell)
-Get-AzureADUser -ObjectId jsmith@company.com | Format-List
+Get-MgUser -UserId jsmith@company.com | Format-List
 ```
 
 > [!NOTE]
