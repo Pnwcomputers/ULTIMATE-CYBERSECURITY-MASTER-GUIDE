@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+<title id="title">Digital logic capture boundaries</title>
+<desc id="desc">Conceptual digital logic capture workflow. Confirm the analyzer model, input ratings and target voltage; connect ground and a signal on a safe powered target; choose sample rate and record length; apply a protocol decoder with verified settings; validate decoded results against the waveform. A logic analyzer reports thresholded digital states, not analog voltage quality or protocol meaning.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365672"/></marker></defs>
+<rect width="1000" height="560" rx="24" fill="#f5f8fc"/>
+<text x="500" y="48" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#142b45">From Electrical Signal to Decoded Evidence</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g fill="#e7eff9" stroke="#365672" stroke-width="2">
+<rect x="60" y="105" width="190" height="126" rx="16"/><rect x="290" y="105" width="190" height="126" rx="16"/><rect x="520" y="105" width="190" height="126" rx="16"/><rect x="750" y="105" width="190" height="126" rx="16"/>
+</g>
+<g fill="#142b45" font-size="18" font-weight="700">
+<text x="155" y="140">1 · Check compatibility</text><text x="385" y="140">2 · Capture safely</text><text x="615" y="140">3 · Set acquisition</text><text x="845" y="140">4 · Decode carefully</text>
+</g>
+<g fill="#20364e" font-size="15">
+<text x="155" y="174"><tspan x="155">Model, pinout, input</tspan><tspan x="155" dy="20">limits, target voltage</tspan></text>
+<text x="385" y="174"><tspan x="385">Target supply + common</tspan><tspan x="385" dy="20">ground; signal probe</tspan></text>
+<text x="615" y="174"><tspan x="615">Sample rate for fastest</tspan><tspan x="615" dy="20">edge/activity + duration</tspan></text>
+<text x="845" y="174"><tspan x="845">Protocol, channel, baud,</tspan><tspan x="845" dy="20">framing and polarity</tspan></text>
+</g>
+<g stroke="#365672" stroke-width="3" marker-end="url(#arrow)">
+<path d="M253 168h32"/><path d="M483 168h32"/><path d="M713 168h32"/>
+</g>
+<rect x="120" y="285" width="350" height="140" rx="16" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
+<text x="295" y="322" fill="#143b36" font-size="20" font-weight="700">Observed digital samples</text>
+<text x="295" y="354" fill="#143b36" font-size="15"><tspan x="295">Thresholded HIGH/LOW states over time</tspan><tspan x="295" dy="22">show edges and timing; they are not an</tspan><tspan x="295" dy="22">analog measurement of voltage or noise.</tspan></text>
+<rect x="530" y="285" width="350" height="140" rx="16" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="705" y="322" fill="#5b3510" font-size="20" font-weight="700">Decoded protocol annotations</text>
+<text x="705" y="354" fill="#5b3510" font-size="15"><tspan x="705">A decoder interprets samples using</tspan><tspan x="705" dy="22">settings and assumptions; check the</tspan><tspan x="705" dy="22">waveform before trusting a result.</tspan></text>
+<path d="M470 355h55" stroke="#365672" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="465" width="800" height="54" rx="12" fill="#fde8e7" stroke="#a23d39" stroke-width="2"/>
+<text x="500" y="499" fill="#7a2420" font-size="17" font-weight="700">Never probe a signal until its voltage, input rating, reference ground, and isolation are understood.</text>
+</g></svg>
