@@ -17,8 +17,9 @@ warning() { echo "WARNING: $*"; }
 # review and testing; this installer leaves AppArmor policy to the operator.
 check_to_create_apparmor_profile() {
     if [ -f /sys/kernel/security/apparmor/profiles ]; then
-        status "AppArmor is enabled. No profile was installed: this installer does not"
-        status "claim confinement or disable the AppImage SUID sandbox."
+        status "AppArmor is enabled. This installer creates no profile and leaves any"
+        status "existing profile unchanged; it does not claim confinement or disable the"
+        status "AppImage SUID sandbox."
         status "If startup fails, follow current AnythingLLM and distribution guidance"
         status "and review any proposed profile before loading it."
     else
