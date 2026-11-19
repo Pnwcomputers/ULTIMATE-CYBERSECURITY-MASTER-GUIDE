@@ -392,24 +392,17 @@ query_abstractapi() {
         return
     fi
     
-    # Keep the key out of curl's process arguments. AbstractAPI still requires it
-    # in the URL, so the provider/proxy may retain it in request logs.
+    # AbstractAPI requires the key in the URL; private_curl_url keeps it
+    # out of curl's process arguments. The provider may still log request URLs.
     if [[ ! "$ABSTRACTAPI_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
         log "${YELLOW}[!] AbstractAPI key contains unsupported characters; request skipped.${NC}"
         return
     fi
-    local CURL_CONFIG
-    CURL_CONFIG=$(mktemp) || return 1
-    chmod 600 "$CURL_CONFIG"
     if [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
-        rm -f "$CURL_CONFIG"
         log "${YELLOW}[!] Phone number format invalid; AbstractAPI request skipped.${NC}"
         return
     fi
-    printf 'url = "https://phonevalidation.abstractapi.com/v1/?api_key=%s&phone=%s"\n' "$ABSTRACTAPI_KEY" "$NORMALIZED" > "$CURL_CONFIG"
-    curl --config "$CURL_CONFIG" --silent --show-error --fail --max-time 20 \
-        | pretty_json > "$OUTPUT" 2>&1
-    rm -f "$CURL_CONFIG"
+    private_curl_url "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
