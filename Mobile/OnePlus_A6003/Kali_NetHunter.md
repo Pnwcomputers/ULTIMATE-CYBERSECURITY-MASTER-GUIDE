@@ -50,6 +50,17 @@ Check your current ROM: **Settings → About phone**. If it says OxygenOS, flash
 
 ## 3. Installation
 
+```mermaid
+flowchart TD
+    A[Confirm device model and ROM] --> B[Select matching official image]
+    B --> C[Verify published SHA-256]
+    C --> D[Review image-specific storage requirements]
+    D --> E[Back up data and chroot]
+    E --> F[Follow current Kali install method]
+    F --> G[Verify boot and change default credentials]
+    G --> H[Enable only required services]
+```
+
 ### 3.1 Prerequisites checklist
 _[OnePlus 6 A6003 Rooting Guide:](Rooting.md)_
 
@@ -96,7 +107,7 @@ Either method is fine on your setup since you already have both TWRP and Magisk;
 
 ### 4.1 Keeping it updated
 
-From a NetHunter terminal (or via the app's terminal tool), run:
+Before a major package update, back up the chroot with Chroot Manager or another verified method. From a NetHunter terminal (or via the app's terminal tool), review the update and package changes:
 
 ```
 sudo apt update
