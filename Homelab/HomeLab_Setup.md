@@ -719,12 +719,15 @@ iface vmbr1 inet manual
 
 ```bash
 # Create VM with multiple network interfaces
+# Create the VM with its WAN interface first
 qm create 100 --name opnsense --memory 4096 --cores 2 \
-    --net0 virtio,bridge=vmbr0  # WAN (Internet)
-    --net1 virtio,bridge=vmbr1,tag=10  # LAN (Management)
-    --net2 virtio,bridge=vmbr1,tag=20  # Attack VLAN
-    --net3 virtio,bridge=vmbr1,tag=30  # Target VLAN
-    --net4 virtio,bridge=vmbr1,tag=40  # Blue Team VLAN
+    --net0 virtio,bridge=vmbr0
+
+# Add the tagged lab interfaces on the VLAN-aware bridge
+qm set 100 --net1 virtio,bridge=vmbr1,tag=10
+qm set 100 --net2 virtio,bridge=vmbr1,tag=20
+qm set 100 --net3 virtio,bridge=vmbr1,tag=30
+qm set 100 --net4 virtio,bridge=vmbr1,tag=40
 ```
 
 3. **Configure VMs on specific VLANs**:
@@ -760,60 +763,19 @@ This allows 50+ VMs across multiple physical hosts, all properly segmented and f
 
 ### Firewall Rules (OPNsense Configuration)
 
-#### Management VLAN (VLAN 10) Rules
+![OPNsense applies routed policy on the source VLAN interface; switch SPAN copies frames directly to a sensor port](../assets/diagrams/opnsense-rules-and-span-visibility.svg)
 
-```
-Priority 1: Allow admin workstation → Management interfaces (HTTPS/SSH)
-Priority 2: Deny ALL → All other VLANs
-Priority 3: Allow ICMP (ping) for troubleshooting
-Priority 4: Allow NTP to internet time servers
-Priority 5: Log and deny everything else
-```
+OPNsense rules are attached to interfaces and, by default, filter inbound traffic on the interface where packets enter. Build and review each interface's rule list separately, top to bottom. The “order” below is conceptual within each interface, not a global priority across VLANs. OPNsense is stateful by default, so replies to an allowed connection are handled by its state entry; do not add a blanket reverse-direction block that breaks those replies.
 
-#### Attack VLAN (VLAN 20) Rules
+| Interface receiving traffic | Example inbound policy, top to bottom |
+|---|---|
+| Management (VLAN 10) | Allow approved admin hosts to specific firewall and management endpoints; allow required DNS/NTP to named services; block access to other lab networks; log and deny remaining traffic. |
+| Attack (VLAN 20) | Allow only the ports and targets needed for the approved exercise; allow DNS to the designated resolver; allow only required update egress; block Management and Restricted Lab networks; log and deny the remainder. |
+| Target (VLAN 30) | Allow only required DNS and explicitly approved updates; deny new outbound connections to the Internet and other lab networks by default. Stateful replies to allowed Attack-to-Target sessions still work. |
+| Blue Team (VLAN 40) | Allow syslog from known source addresses to the collector on the required transport/port; allow admin access from approved Management hosts to sensor management; allow only required sensor egress. |
+| Restricted Lab (VLAN 99) | Deny routed access to the Internet and other VLANs, then default deny. This is logical segmentation, not an air gap. For a true air gap, remove routed/bridged paths and external links, and verify that no alternate interface provides connectivity. |
 
-```
-Priority 1: Allow ALL → Target VLAN 30 (this is the attack path)
-Priority 2: Allow DNS, HTTP/HTTPS to internet (tool updates)
-Priority 3: Allow ICMP
-Priority 4: Deny → Management VLAN 10
-Priority 5: Allow → Blue Team VLAN 40 (for detection testing)
-Priority 6: Deny → Isolated VLAN 99
-Priority 7: Log ALL traffic for analysis
-```
-
-#### Target VLAN (VLAN 30) Rules
-
-```
-Priority 1: Allow inbound from Attack VLAN 20 (controlled exploitation)
-Priority 2: Allow Windows Update traffic (specific IPs only)
-Priority 3: Allow DNS resolution
-Priority 4: Deny ALL outbound to internet (prevent data exfiltration in labs)
-Priority 5: Allow Blue Team monitoring (one-way)
-Priority 6: Deny → Management VLAN 10
-Priority 7: Deny → Attack VLAN 20 (no reverse connections)
-Priority 8: Log ALL connection attempts
-```
-
-#### Blue Team VLAN (VLAN 40) Rules
-
-```
-Priority 1: Allow monitoring traffic from all VLANs (SPAN/mirror)
-Priority 2: Allow syslog inbound from all VLANs
-Priority 3: Allow admin access from Management VLAN 10
-Priority 4: Deny ALL connections to other VLANs
-Priority 5: Allow internet access for threat intelligence feeds
-Priority 6: Log ALL activity
-```
-
-#### Isolated VLAN (VLAN 99) Rules
-
-```
-Priority 1: Deny ALL to internet
-Priority 2: Deny ALL to other VLANs
-Priority 3: Drop ALL packets (no logging to prevent disk fill)
-Priority 4: Air-gapped configuration
-```
+**Traffic visibility is a separate setup:** configure a managed switch or network TAP to mirror selected source ports/VLANs to a dedicated sensor capture NIC. Mirrored packets are copied at Layer 2 and delivered directly to the sensor; a firewall rule cannot create or enable SPAN. By contrast, syslog sent over IP is routed traffic and needs an allow rule on the source/receiving interface and an accessible collector.
 
 ### OPNsense IDS/IPS Configuration
 
