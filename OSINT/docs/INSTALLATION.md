@@ -53,7 +53,7 @@ sudo dnf install -y \
 
 **Arch / Manjaro**
 ```bash
-sudo pacman -Sy --noconfirm \
+sudo pacman -Syu \
     python python-pip go \
     git curl wget nmap masscan \
     whois bind jq hashdeep ssdeep \
@@ -62,8 +62,17 @@ sudo pacman -Sy --noconfirm \
 
 ### Step 2 — Python OSINT tools
 
+Use an isolated virtual environment for Python command-line tools. This keeps
+OS-managed Python packages intact and avoids bypassing the distribution's
+externally-managed-environment protections. Create and activate one environment
+in the current shell, then use it for the Python installs in the following steps;
+reactivate it in each new shell.
+
 ```bash
-pip3 install --break-system-packages \
+python3 -m venv ~/.venvs/osint-tools
+source ~/.venvs/osint-tools/bin/activate
+python -m pip install --upgrade pip
+python -m pip install \
     holehe h8mail maigret sherlock \
     waybackpy phonenumbers requests \
     beautifulsoup4 python-whois dnspython \
@@ -93,16 +102,19 @@ source ~/.bashrc
 
 ### Step 4 — PhoneInfoga
 
-```bash
-curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash
-sudo mv phoneinfoga /usr/local/bin/
-```
+Use the [official PhoneInfoga installation guide](https://github.com/sundowndev/phoneinfoga/blob/master/docs/getting-started/install.md)
+and its [GitHub releases](https://github.com/sundowndev/phoneinfoga/releases). Select a
+specific release and matching OS/architecture asset, verify it using the checksum
+published for that release, and inspect the extracted binary/version before placing
+it on your `PATH`. Avoid piping a moving `master`-branch script directly into a
+shell. If you use the project's installer, download and inspect the script first,
+then verify the release artifact against its published checksum.
 
 ### Step 5 — theHarvester (from source)
 
 ```bash
 git clone https://github.com/laramies/theHarvester.git ~/.config/osint-investigator/tools/theHarvester
-pip3 install -r ~/.config/osint-investigator/tools/theHarvester/requirements/base.txt --break-system-packages
+python -m pip install -r ~/.config/osint-investigator/tools/theHarvester/requirements/base.txt
 sudo ln -sf ~/.config/osint-investigator/tools/theHarvester/theHarvester.py /usr/local/bin/theHarvester
 ```
 
@@ -111,13 +123,13 @@ sudo ln -sf ~/.config/osint-investigator/tools/theHarvester/theHarvester.py /usr
 **SpiderFoot**
 ```bash
 git clone https://github.com/smicallef/spiderfoot.git ~/.config/osint-investigator/tools/spiderfoot
-pip3 install -r ~/.config/osint-investigator/tools/spiderfoot/requirements.txt --break-system-packages
+python -m pip install -r ~/.config/osint-investigator/tools/spiderfoot/requirements.txt
 ```
 
 **Blackbird** (username OSINT)
 ```bash
 git clone https://github.com/p1ngul1n0/blackbird.git ~/.config/osint-investigator/tools/blackbird
-pip3 install -r ~/.config/osint-investigator/tools/blackbird/requirements.txt --break-system-packages
+python -m pip install -r ~/.config/osint-investigator/tools/blackbird/requirements.txt
 ```
 
 **ASN Lookup**
