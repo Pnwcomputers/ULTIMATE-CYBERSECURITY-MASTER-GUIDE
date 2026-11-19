@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-"""Retired unsafe legacy example.
-
-The former code performed remote NTLM password guessing and printed candidate/successful credentials. Use authorized identity-provider audit controls and server logs.
-This path is retained only to explain the retirement; it contains no former
-payload, credential, or network code.
-"""
-
-raise SystemExit("Retired unsafe legacy example; see the module notice.")
 #
 # Copyright (c) 2013, AverageSecurityGuy
 # All rights reserved.
@@ -37,11 +29,11 @@ raise SystemExit("Retired unsafe legacy example; see the module notice.")
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-Retired unsafe legacy example.
+"""Retired unsafe legacy example.
 
 The former code performed remote NTLM password guessing and printed candidate/successful credentials. Use authorized identity-provider audit controls and server logs.
-This path is retained only to explain the retirement; it contains no former
-payload, credential, or network code.
+This path is retained as an inert notice; it contains no former executable
+payload, credential collection, or network code.
 """
 
 raise SystemExit("Retired unsafe legacy example; see the module notice.")
