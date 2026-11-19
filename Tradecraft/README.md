@@ -34,7 +34,7 @@ The folder-level index for the eight specialized tradecraft guides that compleme
 Lists all eight Tradecraft guides, describes their topics, explains the shared dual-use structure, and links related folders. This index contains navigation and topic labels; use the linked guides for the technical content and [Checklists](../Checklists/) for quick-reference workflows.
 
 ## 🏆 Goal
-A reader can find the right tradecraft file for a given ATT&CK tactic or technique and understands upfront that every file pairs offensive technique with matching detection/defense guidance.
+A reader can find the right tradecraft file for a given ATT&CK tactic or technique and sees whether each reference focuses on defensive analysis or authorized lab assessment.
 
 ## 📋 When To Use
 As the entry point into the Tradecraft/ folder, or when looking up which file covers a specific ATT&CK tactic.
@@ -69,9 +69,9 @@ Use the technique descriptions to understand behavior; use the detection and har
 
 ## Usage
 
-These references are structured for **dual-use** - each file covers both offensive technique context and the corresponding detection/defensive guidance. Sections are clearly labeled:
+These references have different scopes. Some explain offensive techniques at a high level for defensive analysis; others focus on detections, controls, and safe validation. Check each file's scope before using it. Sections are clearly labeled where applicable:
 
-- **Attack / technique sections** - Understand how attacks work, what tools are used
+- **Technique context, where present** - Understand reported behaviors and artifacts
 - **Detection & Hunting sections** - Sigma rules, KQL queries, event IDs, behavioral indicators
 - **Defensive sections** - Hardening controls, configuration recommendations, monitoring priorities
 
