@@ -2,10 +2,10 @@
 # 💽 Disk Forensics Guide (Autopsy & KAPE)
 
 ## 🎯 Purpose
-Disk forensics guide covering Autopsy (full forensic platform) and KAPE (Kroll Artifact Parser - rapid triage collection) for disk image acquisition, evidence analysis, and artifact extraction.
+Disk forensics guide covering evidence acquisition practices, Autopsy (image and logical-source analysis), and KAPE (Kroll Artifact Parser and Extractor - targeted artifact collection and processing). KAPE collection is not a bit-for-bit disk image.
 
 ## ⚙️ Function
-Covers: disk image acquisition (FTK Imager, dd), Autopsy case setup and analysis workflow, KAPE targets/modules for rapid artifact collection, timeline analysis, file carving, hash verification, and forensic report generation.
+Covers: write-protected or otherwise authorized disk-image acquisition, Autopsy case setup and analysis, KAPE targets/modules for artifact collection and processing, timeline analysis, file carving, hash verification, and reporting. Exact coverage depends on the evidence source, selected collection targets, and configured ingest modules.
 
 ## 🏆 Goal
 Enable IR practitioners to acquire disk evidence correctly and efficiently analyze it with Autopsy or KAPE to identify attacker activity, persistence mechanisms, and data access during an incident.
@@ -18,7 +18,7 @@ Enable IR practitioners to acquire disk evidence correctly and efficiently analy
 
 **Disk forensics** involves the acquisition, analysis, and reporting of data stored on persistent storage media. This guide covers two essential tools: **Autopsy** (a full-featured forensic platform) and **KAPE** (Kroll Artifact Parser and Extractor - a rapid triage collection tool).
 
-Together, these tools enable investigators to quickly collect artifacts and perform deep-dive analysis of compromised systems.
+Together, these tools support targeted artifact triage and deeper image or logical-source analysis. They serve different roles: KAPE selects and processes artifacts; Autopsy analyzes supported evidence sources. Neither tool choice guarantees complete collection or recovery.
 
 ---
 
@@ -26,31 +26,20 @@ Together, these tools enable investigators to quickly collect artifacts and perf
 
 | Scenario | Tool | Reason |
 |----------|------|--------|
-| Full disk analysis | Autopsy | Complete filesystem examination |
+| Disk-image or logical-source examination | Autopsy | Broad examination; coverage depends on source type and configured ingest modules |
 | Rapid triage collection | KAPE | Fast artifact extraction |
 | Timeline analysis | Autopsy | Built-in timeline features |
-| Remote/live collection | KAPE | Lightweight, portable |
+| Live artifact triage | KAPE | Selective collection; method and destinations affect target writes and evidence coverage |
 | Malware investigation | Both | KAPE collects, Autopsy analyzes |
-| Deleted file recovery | Autopsy | File carving capabilities |
+| Deleted-file analysis | Autopsy | Results depend on source image, unallocated data, file system, and selected ingest options |
 | Registry analysis | Both | Autopsy has viewer, KAPE extracts |
 | Browser forensics | Both | Both parse browser artifacts |
 
 ### Typical Workflow
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Live System    │────▶│     KAPE        │────▶│    Autopsy      │
-│  or Disk Image  │     │  (Collection)   │     │   (Analysis)    │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-                              │
-                              ▼
-                        ┌─────────────────┐
-                        │  KAPE Output    │
-                        │  (Artifacts +   │
-                        │   Parsed Data)  │
-                        └─────────────────┘
-```
+![Two evidence paths: image acquisition followed by Autopsy image analysis, and selective KAPE artifact collection followed by parsing or Autopsy logical-file analysis](../../assets/diagrams/dfir-autopsy-kape-workflows.svg)
 
+*Conceptual workflows. KAPE collects selected artifacts; it does not create a complete disk image. Live collection can change the source depending on how tools, temporary files, and destinations are configured.*
 ---
 
 # Part A: KAPE (Kroll Artifact Parser and Extractor)
@@ -176,6 +165,9 @@ Targets:
 ---
 
 ## 🔧 KAPE Collection Examples
+
+> [!CAUTION]
+> **Account for collection side effects.** Some live or remote KAPE workflows can write tool, temporary, or output files to the target, depending on the launch method and destination settings. Before collection, inspect the actual `--tdest`/`--mdest` plan and remote-collection procedure, record expected writes, and preserve an appropriate image first when unallocated space or a stable disk state matters. See the [KAPE remote collection notes](https://github.com/EricZimmerman/KapeDocs/blob/master/External/Remote_Collections_KAPE/Remote%20Collections%20with%20KAPE.md).
 
 ### Basic Syntax
 
