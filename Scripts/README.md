@@ -210,10 +210,10 @@ MUST be compiled and tested in isolated environments before use.
 **Security Considerations:**
 ```
 ⚠️ CRITICAL: These PowerShell scripts include:
-   • Credential harvesting tools (ILLEGAL without authorization)
-   • Brute force attack scripts (ILLEGAL without authorization)
-   • Reverse shell utilities (ILLEGAL without authorization)
-   • Authentication bypass techniques
+   • Credential collection tools (sensitive-data handling risk)
+   • Password-testing scripts (lockout and access risk)
+   • Remote-shell utilities (system access and persistence risk)
+   • Authentication-testing techniques
 
 Use these scripts only on systems and accounts within your authority and documented scope. Legal consequences depend on the conduct, applicable statute and facts; see the authorization guidance above.
 ```
@@ -323,15 +323,15 @@ Use these scripts only on systems and accounts within your authority and documen
    • Reverse shells (rev_shell.py)
    • ICS/SCADA targeting tools (ics_find.py)
 
-These tools can cause:
-   ✗ Unauthorized access (federal crime)
-   ✗ Data theft (federal and state crimes)
-   ✗ Privacy violations (civil and criminal liability)
-   ✗ Network disruption (federal crime)
-   ✗ System compromise (federal crime)
-   ✗ Critical infrastructure attacks (terrorism charges possible)
+Potential operational risks:
+   • Unauthorized access to systems or data
+   • Exposure or loss of sensitive information
+   • Privacy, contract, or policy violations
+   • Service disruption or system changes
+   • Increased impact when critical infrastructure is involved
 
-USING WITHOUT AUTHORIZATION = FEDERAL PRISON TIME
+Legal consequences depend on the conduct, authorization, applicable law, and facts.
+Do not infer a specific charge or sentence from this list.
 ```
 
 ---
@@ -355,9 +355,9 @@ USING WITHOUT AUTHORIZATION = FEDERAL PRISON TIME
 **Security Considerations:**
 ```
 ⚠️ WARNING: SQL Scripts for unauthorized database access
-   • Creating admin accounts without authorization is ILLEGAL
-   • Database manipulation without permission violates CFAA
-   • Unauthorized privilege escalation is a federal crime
+   • Creating accounts or changing data outside approved scope may violate applicable law, contract, or policy
+   • Database access and privilege changes require authority from the system owner
+   • Consequences depend on the conduct, applicable law, and facts
 
 ONLY use on systems you own or have explicit written permission to test.
 ```
@@ -678,11 +678,11 @@ We welcome contributions from security professionals, but all scripts must meet 
 ### Always Remember
 
 ```
-1. AUTHORIZATION IS MANDATORY
-   ✓ Written authorization required
-   ✓ From person with authority to grant
-   ✓ Explicitly covers scripts and scope
-   ✓ Current and not expired
+1. CONFIRM AUTHORITY AND SCOPE
+   ✓ Confirm permission from the system or account owner
+   ✓ Confirm the approval covers the exact systems, accounts, and methods
+   ✓ Follow the form of approval required by the owner, policy, and applicable rules
+   ✓ Keep scope current; written scope is useful evidence and good practice
 
 2. THESE ARE OFFENSIVE TOOLS
    ✓ Designed for penetration testing
@@ -690,11 +690,11 @@ We welcome contributions from security professionals, but all scripts must meet 
    ✓ Capable of unauthorized access
    ✓ Subject to strict legal regulations
 
-3. LEGAL CONSEQUENCES ARE SEVERE
-   ✓ Federal imprisonment (up to 20 years)
-   ✓ Massive fines and restitution
-   ✓ Civil lawsuits and liability
-   ✓ Career-ending consequences
+3. CONSEQUENCES DEPEND ON THE FACTS
+   ✓ Conduct may result in criminal, civil, regulatory, contractual, or policy consequences
+   ✓ Outcomes depend on the applicable rule, jurisdiction, and evidence
+   ✓ Technical harm can include data exposure, service interruption, or system changes
+   ✓ Do not infer a specific charge or sentence from this checklist
 
 4. TEST SAFELY
    ✓ Use isolated lab environments
@@ -725,11 +725,9 @@ We welcome contributions from security professionals, but all scripts must meet 
 
 🔴 **THESE ARE OFFENSIVE SECURITY TOOLS** 🔴
 
-🔴 **UNAUTHORIZED USE = FEDERAL CRIME** 🔴
+⚠️ **Use scripts only within approved authority and scope.** ⚠️
 
-🔴 **UP TO 20 YEARS IMPRISONMENT** 🔴
-
-🔴 **WRITTEN AUTHORIZATION MANDATORY** 🔴
+⚠️ **Legal requirements and consequences depend on the conduct and jurisdiction.** ⚠️
 
 ---
 
