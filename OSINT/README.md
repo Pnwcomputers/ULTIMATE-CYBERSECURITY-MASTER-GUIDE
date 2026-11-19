@@ -669,7 +669,7 @@ This OSINT collection wouldn't exist without:
 
 #### Required Practices
 - 📝 Screenshot everything with timestamps
-- 📝 Archive web pages (archive.is, Wayback Machine)
+- 📝 Capture locally first and record URL, UTC time, tool/version, omissions and hash; submit to a public archive only after a separate privacy, terms and authorization review (see the [evidence preservation procedure](OSINT_GUIDE.md#evidence-preservation--chain-of-custody))
 - 📝 Record video for dynamic content
 - 📝 Log all commands and queries used
 - 📝 Document sources for all information

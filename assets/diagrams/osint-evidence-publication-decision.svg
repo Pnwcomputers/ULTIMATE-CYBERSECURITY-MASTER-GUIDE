@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="650" viewBox="0 0 1240 650" role="img" aria-labelledby="title desc">
+  <title id="title">OSINT evidence capture and public archive decision</title>
+  <desc id="desc">Collect authorized material locally, record URL, UTC time, tool version and hash, review sensitivity and authorization, then preserve internally or make an optional public archive submission after disclosure review. Verify archive completeness and use it only as corroborating context.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#294862"/></marker>
+    <style>
+      .title{font:700 28px system-ui,sans-serif;fill:#102a43}.label{font:700 18px system-ui,sans-serif;fill:#102a43}.body{font:16px system-ui,sans-serif;fill:#243b53}.small{font:14px system-ui,sans-serif;fill:#334e68}
+      .box{rx:16;stroke-width:2}.line{stroke:#294862;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1240" height="650" rx="24" fill="#f5f8fb"/>
+  <text x="48" y="54" class="title">Preserve locally first; decide separately whether to publish</text>
+  <rect x="50" y="130" width="230" height="140" class="box" fill="#e6f0fa" stroke="#7aa7d3"/>
+  <text x="165" y="174" text-anchor="middle" class="label">Authorized collection</text><text x="165" y="208" text-anchor="middle" class="body">Necessary pages only</text><text x="165" y="236" text-anchor="middle" class="small">Stay within case scope</text>
+  <rect x="350" y="130" width="260" height="140" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="480" y="174" text-anchor="middle" class="label">Local evidence package</text><text x="480" y="208" text-anchor="middle" class="body">URL • UTC time • tool/version</text><text x="480" y="236" text-anchor="middle" class="small">Output • omissions • SHA-256</text>
+  <rect x="680" y="130" width="245" height="140" class="box" fill="#fff3cd" stroke="#d6a638"/>
+  <text x="802" y="174" text-anchor="middle" class="label">Disclosure review</text><text x="802" y="208" text-anchor="middle" class="body">Sensitive data, permission,</text><text x="802" y="236" text-anchor="middle" class="small">terms, visibility and retention</text>
+  <path d="M280 200 H345" class="line"/><path d="M610 200 H675" class="line"/>
+  <path d="M802 270 V340 H355 V390" class="line"/>
+  <path d="M802 340 H895 V390" class="line"/>
+  <rect x="205" y="395" width="300" height="150" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="355" y="440" text-anchor="middle" class="label">Restricted internal copy</text><text x="355" y="476" text-anchor="middle" class="body">Access-controlled retention</text><text x="355" y="509" text-anchor="middle" class="small">Analyze working copies</text>
+  <rect x="710" y="395" width="370" height="150" class="box" fill="#fde8e7" stroke="#d66b63"/>
+  <text x="895" y="440" text-anchor="middle" class="label">Optional public archive</text><text x="895" y="476" text-anchor="middle" class="body">Third-party disclosure</text><text x="895" y="509" text-anchor="middle" class="small">Permanent/shareable URL; check completeness</text>
+  <rect x="315" y="575" width="610" height="46" rx="12" fill="#dce7f0"/>
+  <text x="620" y="604" text-anchor="middle" class="small">Treat archive captures as corroborating context, not proof of authorship or a complete forensic record.</text>
+  <path d="M895 545 V568" class="line"/>
+</svg>

@@ -1103,7 +1103,11 @@ sha256sum "evidence_${stamp}.html" "screenshot_${stamp}.png" > "hashes_${stamp}.
 
 Review output and exit status; preserve partial/failure states separately. Protected storage and custody records must protect the hash manifest too. A screenshot alone does not establish the original publication time.
 
-Public archive submission is a separate decision. It shares the URL/content with a service and may expose tokens, victims or restricted material. An archive is not an independent witness to authorship or the truth of the captured page.
+Preserve a local, access-controlled capture first, and record the requested URL, redirects, UTC capture time, collector/tool version, result, known omissions and SHA-256. Review the content for personal or restricted data, client rules, terms and authorization before any third-party submission. Use a public archive only when its visibility, retention and disclosure risks are acceptable and authorized. Public saves may create permanent, shareable URLs; dynamic, authenticated or blocked content can be incomplete. Screenshots and HTML captures preserve different views, and neither guarantees a complete reproduction. Treat archive availability as corroborating context, not forensic certification or proof of authorship.
+
+![Decision path from authorized OSINT capture through local preservation and review to optional public archiving](../assets/diagrams/osint-evidence-publication-decision.svg)
+
+*Public archive submission is a separate disclosure decision; verify capture completeness and preserve the original local capture and its handling record.*
 
 ### Suggested Case Structure
 
