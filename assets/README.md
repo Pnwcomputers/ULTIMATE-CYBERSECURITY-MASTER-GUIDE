@@ -18,6 +18,14 @@ Original, accessible SVGs for workflow comprehension. They are **conceptual only
 | [Cyberdeck policy zones](./diagrams/cyberdeck-policy-zones.svg) | [Public Cyberdeck architecture](../Cyberdeck/docs/ARCHITECTURE.md) | Conceptual router/zone boundaries, field RF, evidence storage |
 | [Wireshark capture & display boundaries](./diagrams/wireshark-capture-display-boundaries.svg) | [Advanced Wireshark reference](../Documentation/wireshark.md) | Vantage point, optional BPF, PCAP, display filter, analyst validation |
 
+## PCI DSS Scoping Visual
+
+Original conceptual scope-classification workflow; this diagram does **not** certify any real CDE or confirm that a service is outside scope.
+
+| Diagram | Embedded guide |
+|---|---|
+| [PCI DSS scope & evidence gates](./diagrams/pci-dss-scoping-boundaries.svg) | [PCI DSS scoping field guide](../Compliance/pci-dss-scoping.md) |
+
 ## Security Key And Recovery Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.

@@ -14,6 +14,8 @@
 
 ---
 
+**Payment-page scope & third-party checkout:** [PCI DSS 4.0.1 Scoping & Segmentation](../Compliance/pci-dss-scoping.md#merchant-checkout--saq-eligibility--avoid-common-shortcuts) distinguishes hosted redirects, processor iframes, merchant-managed scripts, required ASV scanning where applicable, and PCI compliance-assessment boundaries.
+
 **Related application security references:** [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries), [awesome-appsec](https://github.com/paragonie/awesome-appsec) and [the PNWC source map](../Documentation/awesome-hacking-collections-integration.md).
 
 **External developer docs:**

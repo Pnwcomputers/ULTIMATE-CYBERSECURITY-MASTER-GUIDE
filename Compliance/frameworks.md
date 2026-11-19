@@ -85,6 +85,8 @@ Criteria** - common for SaaS/service organizations to assure customers.
 
 ## PCI DSS 4.0.1
 
+**Practical implementation:** [PCI DSS Scoping & Segmentation Field Guide](pci-dss-scoping.md) and [Scope Review Worksheet](pci-scope-review-template.md) describe how to inventory account-data flows, connected-to/security-impacting systems, vendor responsibilities, segmentation evidence and recurring scope confirmation. Use the current PCI SSC standard and confirm acceptance/reporting with the acquirer; the guides do not determine compliance.
+
 PCI DSS addresses entities that store, process, or transmit cardholder/sensitive authentication data, and systems that can affect the cardholder-data environment. Payment brands and acquirers administer compliance programs; it is not a universal statute. Outsourcing processing can reduce scope but does **not** remove a merchant's applicable responsibilities ([PCI SSC outsourcing FAQ](https://www.pcisecuritystandards.org/faqs/does-pci-dss-apply-to-merchants-who-outsource-all-payment-processing-operations-and-never-store-process-or-transmit-cardholder-data/)).
 
 **v4.0.1** (2024) is the active version in the linked PCI SSC material; verify the current library for the engagement. **v3.2.1 retired on 31 March 2024** and **v4.0 retired on 31 December 2024**.

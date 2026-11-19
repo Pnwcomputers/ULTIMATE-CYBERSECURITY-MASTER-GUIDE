@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**402 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**404 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -15,7 +15,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | CaseStudies | 7 | [Open section](#casestudies) |
 | Checklists | 18 | [Open section](#checklists) |
 | Cloud | 5 | [Open section](#cloud) |
-| Compliance | 3 | [Open section](#compliance) |
+| Compliance | 5 | [Open section](#compliance) |
 | ContainerSecurity | 5 | [Open section](#containersecurity) |
 | Cryptography | 16 | [Open section](#cryptography) |
 | Cyberdeck | 13 | [Open section](#cyberdeck) |
@@ -179,6 +179,8 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | --- | --- |
 | [README — Compliance](./Compliance/README.md) | `Compliance/README.md` |
 | [frameworks.md](./Compliance/frameworks.md) | `Compliance/frameworks.md` |
+| [pci-dss-scoping.md](./Compliance/pci-dss-scoping.md) | `Compliance/pci-dss-scoping.md` |
+| [pci-scope-review-template.md](./Compliance/pci-scope-review-template.md) | `Compliance/pci-scope-review-template.md` |
 | [regulations.md](./Compliance/regulations.md) | `Compliance/regulations.md` |
 
 ## ContainerSecurity
