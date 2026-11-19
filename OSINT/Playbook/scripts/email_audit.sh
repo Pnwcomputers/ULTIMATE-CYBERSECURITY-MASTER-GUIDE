@@ -226,6 +226,18 @@ private_intelx_result() {
     return "${statuses[1]}"
 }
 
+private_curl_form_json() {
+    local URL="$1" OUTPUT="$2" FORM_DATA="$3"
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ && "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'data = "%s"\n' "$FORM_DATA"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$OUTPUT" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
 private_curl_status_url() {
     local URL="$1" OUTPUT="$2"
     [[ "$URL" == https://* && "$URL" != *'"'* ]] || return 2
@@ -455,9 +467,9 @@ query_leaklookup() {
 
     log "${GREEN}    [*] Checking LeakLookup for credential leaks...${NC}"
     
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_form_json "https://leak-lookup.com/api/search" "$OUTPUT" "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL_ENCODED"
     
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
