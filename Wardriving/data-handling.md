@@ -24,6 +24,11 @@ Preserve useful authorized wireless-survey results without accidentally exposing
 
 ## Recommended retention workflow
 
+![Wireless surveying privacy gates: approved observation, protected originals, scoped derivative exports and explicit publication review](../assets/diagrams/wardriving-survey-data-privacy-gates.svg)
+
+*Conceptual data-handling diagram.* GPS identifies an observation location rather than the definitive location of an AP. Keep original datasets unchanged, inspect derived CSV fields, and require separate authorization for any upload.
+
+
 1. Create a scope ID and document permission and allowed sharing destinations.
 2. Keep **unaltered originals** in controlled storage; work on verified copies.
 3. Create a SHA-256 checksum of each original so modifications to the archived copy can later be detected:
