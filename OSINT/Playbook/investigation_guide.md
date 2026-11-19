@@ -2,6 +2,22 @@
 
 This guide provides step-by-step procedures for conducting thorough OSINT investigations on scam and fraud cases.
 
+## Investigation flow
+
+```mermaid
+flowchart TD
+    A[Case intake and authority] --> B[Collect supplied identifiers]
+    B --> C[Passive provider lookups]
+    C --> D[Corroborate findings and preserve source context]
+    D --> E{Is direct testing in written scope?}
+    E -- No --> F[Stop at passive findings]
+    E -- Yes --> G[Confirm exact targets and limits]
+    G --> H[Run only approved checks]
+    F --> I[Redact sensitive data]
+    H --> I
+    I --> J[Human review before reporting]
+```
+
 ## 🎯 Purpose
 Step-by-step scam/fraud investigation procedures (email, phone, domain, IP, username, cryptocurrency) built around the `osint_investigator.sh` toolkit referenced throughout, ending in evidence preservation and abuse/IC3 reporting workflows. Distinct from [../OSINT_CHEATSHEET.md](../OSINT_CHEATSHEET.md) (generic command reference) and [../OSINT_GUIDE.md](../OSINT_GUIDE.md) (methodology/background) - this is specifically the scam-investigation playbook with a defined case workflow from intake to law enforcement referral.
 
@@ -83,12 +99,12 @@ holehe target@email.com --only-used
 #### Step 2: Breach Database Search
 
 ```bash
-h8mail -t target@email.com -o breach_results.csv
+Use an authorized breach-notification service that returns breach names and exposed data categories without collecting or exporting passwords. Record only the minimum redacted findings needed for the case.
 ```
 
 **What to look for:**
 - Previous breaches containing the email
-- Associated passwords (for correlation, not misuse)
+- Data categories exposed (never collect, store, or reproduce passwords)
 - Related email addresses
 
 **Document:** Breach exposure summary
@@ -104,10 +120,7 @@ The toolkit automatically queries HIBP when the API key is set.
 
 #### Step 4: Email Verification
 
-```bash
-# Hunter.io verification (via toolkit)
-# Or manual: curl "https://api.hunter.io/v2/email-verifier?email=target@email.com&api_key=YOUR_KEY"
-```
+Use the provider’s current authenticated client or dashboard. Store the API key in a secret manager or protected environment variable; do not put credentials in URLs, shell history, or copied command output.
 
 **What to look for:**
 - Deliverable status
