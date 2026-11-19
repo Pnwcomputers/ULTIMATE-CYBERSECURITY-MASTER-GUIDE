@@ -406,13 +406,22 @@ by the image is the dependable fallback.
 See Kali's [Raspberry Pi Wi-Fi support notes](https://www.kali.org/blog/raspberry-pi-wi-fi-glow-up/) for tested models and setup details.
 
 ```bash
-# Install DKMS driver for RTL8812AU
-sudo apt install realtek-rtl88xxau-dkms -y
-sudo dkms status | grep rtl88
+# Identify the adapter and interface before selecting a driver.
+iw dev
+lsusb -nn
+uname -r
 
-# Enable monitor mode (wlan1 = external; wlan0 = onboard)
-sudo airmon-ng start wlan1
-iwconfig wlan1mon
+# This package is Kali-specific. Use it only on native Kali when the exact
+# adapter chipset is supported by this package and matching kernel headers exist.
+# Do not add Kali repositories or this package to Rex Trixie/Debian.
+# sudo apt install realtek-rtl88xxau-dkms
+
+# Set this to the verified interface reported by iw dev.
+WIFI_IFACE='REPLACE_WITH_VERIFIED_INTERFACE'
+sudo airmon-ng start "$WIFI_IFACE"
+
+# Inspect the interface that airmon-ng actually created.
+iw dev
 ```
 
 ---
@@ -421,14 +430,20 @@ iwconfig wlan1mon
 
 The AIO v2 provides Gigabit Ethernet via the RJ45 port (requires Upgrade Kit adapter).
 
+> [!CAUTION]
+> DHCP and Responder can disrupt networks and capture authentication material.
+> Use these steps only on an isolated, owned lab network with synthetic
+> accounts and written authorization for the connected systems. Never connect
+> this exercise to a production, customer, public, or shared network.
+
 ```bash
-# Plug into a target switch, request DHCP
+# Connect only to the isolated lab switch, then request DHCP if that lab uses it.
 sudo dhclient eth0
 
-# Verify connectivity
+# Verify the interface and assigned address.
 ip addr show eth0
 
-# Run Responder for credential capture
+# Credential-capture demonstration with synthetic lab accounts only.
 sudo responder -I eth0 -wrf
 ```
 
