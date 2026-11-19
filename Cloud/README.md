@@ -102,6 +102,8 @@ to manage their data, identities, and the settings exposed to them. Use the
 provider’s matrix for the exact service before assigning a control or incident
 cause.
 
+Further reading: [Microsoft's shared responsibility matrix](https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility) and [AWS's shared responsibility model](https://docs.aws.amazon.com/wellarchitected/latest/framework/shared-responsibility.html). These provider examples illustrate the model; consult the documentation for the service actually in scope.
+
 ---
 
 ## ⚠️ Recurring Misconfiguration Classes
