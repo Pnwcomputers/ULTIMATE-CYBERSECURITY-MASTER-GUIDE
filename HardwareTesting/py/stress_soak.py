@@ -36,6 +36,7 @@ import signal
 import subprocess
 import sys
 import threading
+import tempfile
 import time
 
 # ── Duration presets ───────────────────────────────────────────────────────────
@@ -75,7 +76,6 @@ GPU_FPS_DEGRADE_PCT= 25    # % FPS drop from first 3 scenes → GPU throttle fla
 SENSOR_POLL_S      = 5     # seconds between sensor polls
 KERNEL_POLL_S      = 30    # seconds between journalctl polls
 VM_BYTES_PCT       = 60    # % of RAM stress-ng vm workers consume
-FIO_TESTFILE       = "/tmp/soak_testfile.fio"
 FIO_SIZE           = "2G"
 REPORT_DIR         = os.getcwd()   # save reports next to wherever the script is invoked from
 
@@ -521,10 +521,29 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
         "gpu_ok":       None,      # None = not tested
         "stress_ng_log": "",
         "fio_iops":     "",
+        "thermal_cutoff": False,
     }
 
+    # A threshold cannot protect the machine if sensors produced no readings.
+    if poller.sample_count() == 0:
+        result["thermal_monitor_ok"] = False
+        result["thermal_monitor_message"] = (
+            "No valid temperature samples are available; combined stress was not started."
+        )
+        print(f"  STOP: {result['thermal_monitor_message']}")
+        return result
+    result["thermal_monitor_ok"] = True
+    result["thermal_monitor_message"] = "Temperature monitoring active."
+
+    # tempfile creates a private (mode 0700) directory, preventing other local
+    # users from pre-placing symlinks at the root-run fio target or log paths.
+    fio_tmpdir = tempfile.mkdtemp(prefix="pnwc-stress-soak-")
+    os.chmod(fio_tmpdir, 0o700)
+    fio_testfile = os.path.join(fio_tmpdir, "fio-target.bin")
+    fio_log = os.path.join(fio_tmpdir, "fio.log")
+    stress_ng_log = os.path.join(fio_tmpdir, "stress-ng.log")
+
     nproc = int(_run("nproc") or 4)
-    stress_ng_log = "/tmp/stress_ng_soak.log"
 
     # ── Launch stress-ng ─────────────────────────────────────────────────────
     # --cpu N --cpu-method all: cycles all stressor methods (widest instruction coverage)
@@ -550,12 +569,11 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     # ── Launch fio ───────────────────────────────────────────────────────────
     # --time_based --runtime N: run for exactly stress_s regardless of size
     # --rw=randrw:              mixed random read/write — most stressful for storage
-    fio_log = "/tmp/fio_soak.log"
     fio_cmd = (
         f"fio --name=soak --ioengine=libaio --iodepth=32 "
         f"--rw=randrw --bs=4k --direct=1 --size={FIO_SIZE} --numjobs=2 "
         f"--runtime={stress_s} --time_based --group_reporting "
-        f"--output={fio_log} --filename={FIO_TESTFILE}"
+        f"--output={fio_log} --filename={fio_testfile}"
     )
     try:
         fio_proc = _register(subprocess.Popen(
@@ -599,6 +617,14 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     while time.time() < deadline and not _interrupted:
         elapsed = int(time.time() - start)
         pkg_t   = poller.peak_cpu_temp()
+        if pkg_t >= CPU_TEMP_FAIL:
+            result["thermal_cutoff"] = True
+            result["thermal_monitor_message"] = (
+                f"CPU temperature reached {pkg_t:.1f}°C (cutoff {CPU_TEMP_FAIL}°C); "
+                "all stress workloads were stopped."
+            )
+            print(f"\n  STOP: {result['thermal_monitor_message']}")
+            break
         throt   = watcher.throttle_count()
         hw_err  = watcher.hw_error_count()
 
@@ -658,12 +684,9 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
             else:
                 result["gpu_degrade_pct"] = drop_pct
 
-    # Cleanup fio testfile
-    for f in [FIO_TESTFILE, f"{FIO_TESTFILE}.0", f"{FIO_TESTFILE}.1"]:
-        try:
-            os.remove(f)
-        except FileNotFoundError:
-            pass
+    # Remove the private directory only after every workload has been stopped
+    # and its output has been collected.
+    shutil.rmtree(fio_tmpdir, ignore_errors=True)
 
     return result
 
@@ -724,6 +747,11 @@ def write_report(
         f"Peak {peak_t:.1f}°C EXCEEDED {CPU_TEMP_FAIL}°C — cooler issue"
     )
     checks.append(("CPU Temperature", temp_pass, temp_detail))
+    checks.append((
+        "Thermal monitor",
+        bool(stress_result.get("thermal_monitor_ok", True)),
+        stress_result.get("thermal_monitor_message", "No combined-stress thermal status recorded."),
+    ))
 
     # CPU temp warning (non-fatal)
     if peak_t >= CPU_TEMP_WARN and peak_t < CPU_TEMP_FAIL:
