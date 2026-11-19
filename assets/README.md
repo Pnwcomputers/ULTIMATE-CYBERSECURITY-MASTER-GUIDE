@@ -61,6 +61,15 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [UserLAnd Android Permission Boundary](./diagrams/userland-android-proot-capability-boundaries.svg) | [UserLAnd Linux on Android](../Mobile/UserLAnd/readme.md) | Distinguishes no-root Linux userspace tools from unavailable host kernel/raw-radio privileges |
 | [ETL Versus ELT Data Paths](./diagrams/etl-vs-elt-transform-privacy-and-replay.svg) | [ETL & ELT Pipeline Design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md) | Preload vs in-destination transforms, and why raw retention and security are independent choices |
 
+## AI Agent Lanes, Durable Handoffs & Data Execution Gates
+
+| Visual | Embedded Guide | Source-Aligned Concepts |
+|---|---|---|
+| [Multi-Agent Delegation & Review](./diagrams/ai-multi-agent-fanout-review-integration.svg) | [Multi-Agent Orchestration](../AI/multi-agent-orchestration.md) | Scoped ownership, independent verification, final integrated test and human approval |
+| [Project Status, Evidence & Handoff](./diagrams/ai-project-status-evidence-handoff-flow.svg) | [AI Project & Agent Workflows](../AI/agent-project-workflows.md) | Charter rules, current decisions, reproducible evidence and explicit context reload |
+| [Orchestrator Logical Interval & Publish Gate](./diagrams/data-orchestrator-interval-dependency-publish-gates.svg) | [Data Workflow Orchestration](../Data-Engineering/Phase2/workflow_orchestration.md) | DAG dependencies, source versions, ready/blocked states and consumer acceptance |
+| [API Ingestion Cursor, Retry & Reconciliation](./diagrams/api-file-ingest-cursor-retry-reconciliation.svg) | [API & File Ingestion](../Data-Engineering/Phase2/api_file_ingestion.md) | Authenticated source contract, cursor semantics, rate-limit handling and exact batch evidence |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
