@@ -248,7 +248,7 @@ ALWAYS:
 - **State Laws**: Various state privacy and computer crime statutes
 - **International**: Laws vary by jurisdiction - know your local regulations
 
-**Unauthorized access is a crime.** This collection is for educational and authorized testing purposes only.
+Accessing a computer without the authorization required by applicable law may be unlawful. The legal outcome depends on the conduct, scope, facts and jurisdiction; this guide does not determine authority for a specific investigation.
 
 ---
 
@@ -511,11 +511,11 @@ This OSINT collection wouldn't exist without:
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Active testing or access beyond public sources requires clear authority and a defined scope.** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+Unauthorized computer access or related conduct can carry criminal or civil consequences when the elements of an applicable law are met. The CFAA defines multiple offenses with different elements and penalties; there is no single penalty for every unauthorized use.
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+For an engagement, document permission, target scope, allowed methods, time window, data handling and stop conditions. Public-source research also requires attention to privacy, contractual, platform and jurisdiction-specific limits.
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
@@ -536,16 +536,15 @@ This OSINT collection wouldn't exist without:
 **ALWAYS comply with applicable laws:**
 
 #### United States
-- **Computer Fraud and Abuse Act (CFAA)**: Prohibits unauthorized access and exceeding authorized access to computer systems
+- **Computer Fraud and Abuse Act (CFAA)**: [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) defines several offenses involving protected computers, including specified conduct without authorization or exceeding authorized access. Statutory elements and penalties differ by subsection; DOJ's [charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud) is guidance for federal prosecutors, not a complete statement of every applicable law.
 - **Electronic Communications Privacy Act (ECPA)**: Protects electronic communications and stored data
 - **State Privacy Laws**: Many states have additional privacy and anti-stalking statutes
 - **California Consumer Privacy Act (CCPA)**: Regulates collection and use of California residents' data
 
 #### European Union
-- **General Data Protection Regulation (GDPR)**: Strict regulations on personal data processing
-  - Applies to EU residents' data regardless of investigator location
-  - Requires lawful basis for data processing
-  - Includes "right to be forgotten" and data minimization principles
+- **General Data Protection Regulation (GDPR)**: [Article 3](https://eur-lex.europa.eu/eli/reg/2016/679/oj) sets territorial scope, including processing in the context of an EU establishment and certain processing by organizations outside the EU when offering goods or services to people in the Union or monitoring their behavior there. A person's location or residence alone does not automatically make every processing operation subject to GDPR.
+  - Where GDPR applies, assess lawful basis, purpose limitation, data minimization, retention and security in context.
+  - Data subject rights, including erasure under Article 17, have conditions and exceptions.
 
 #### International
 - Laws vary significantly by jurisdiction
@@ -594,7 +593,7 @@ This OSINT collection wouldn't exist without:
 
 ### 🚫 Prohibited Uses - Zero Tolerance
 
-**The following activities are ILLEGAL and UNETHICAL:**
+**The activities below are harmful and prohibited for use of this guide; depending on the facts and jurisdiction, they may also violate criminal or civil law, privacy duties, platform terms or professional standards:**
 
 - 🚫 **Stalking or Harassment**: Using OSINT to follow, intimidate, or harass individuals
 - 🚫 **Doxxing**: Publishing private information with intent to harm
