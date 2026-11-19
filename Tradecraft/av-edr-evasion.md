@@ -142,99 +142,21 @@ rule HighEntropyPESection {
 
 ---
 
-## AMSI Bypass Techniques
+## AMSI Tampering and Detection
 
-### How AMSI Works
+AMSI allows supported script hosts to submit content to antimalware providers. Coverage depends on the host, provider, configuration, and health of the endpoint; do not assume every script path is inspected.
 
-AMSI (Antimalware Scan Interface) is a Windows API that allows script hosts to submit content to AV engines before execution. PowerShell, VBScript, JScript, and the .NET CLR all call AMSI before running any script content - so even fully in-memory scripts get scanned.
+### Behavioral indicators
 
-The core function is `AmsiScanBuffer` in `amsi.dll`. If it returns `AMSI_RESULT_DETECTED`, execution is blocked.
+| Pattern | Evidence to correlate |
+|---|---|
+| Unexpected changes to script-scanning state or AMSI-related memory | Process, memory-protection, module-load, and EDR tamper telemetry |
+| Reflection or runtime manipulation targeting script-host internals | Script Block Logging (if enabled), process lineage, .NET/runtime events, and EDR alerts |
+| Legacy or unusual scripting engine invocation | Process creation, installed engine inventory, policy, and parent process |
 
-### Evasion Approach: Memory Patching
+Event ID 4104 is PowerShell Script Block Logging, not an AMSI-specific event and not a complete bypass detector. It may be absent, disabled, incomplete, or tampered with. Treat it as one evidence source and correlate with antimalware-provider events, process creation, memory telemetry, application-control logs, and network activity.
 
-The most direct bypass patches `AmsiScanBuffer` in memory to always return a "clean" result. Since `amsi.dll` is a user-mode DLL loaded into the PowerShell process, a sufficiently privileged process can modify its own memory.
-
-**What defenders see:**
-- A process writes to its own executable memory in `amsi.dll`'s address range
-- `VirtualProtect` called on `amsi.dll`'s memory region to make it writable
-- Immediately followed by a memory write to that region
-
-### Evasion Approach: Reflection
-
-AMSI's internal state can be manipulated via .NET reflection - accessing private fields in `System.Management.Automation` that control whether AMSI scanning is active.
-
-**What defenders see:**
-- Reflection calls targeting `System.Management.Automation` internals
-- PowerShell Script Block Logging captures the reflection attempt itself (since AMSI logs before it's bypassed)
-
-### Evasion Approach: PowerShell Downgrade
-
-PowerShell v2 predates AMSI and does not support it. Launching `powershell -version 2` bypasses AMSI entirely - if the v2 engine is installed.
-
-**What defenders see:**
-- `powershell.exe` launched with `-version 2` or `-ver 2` in the command line
-
-### Detection
-
-**Event ID 4104 (Script Block Logging)** - Captures PowerShell script content before execution. Even obfuscated bypass attempts are often partially captured. This is the primary AMSI bypass detection mechanism.
-
-```powershell
-# Enable Script Block Logging
-$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
-New-Item $path -Force
-Set-ItemProperty $path -Name "EnableScriptBlockLogging" -Value 1
-Set-ItemProperty $path -Name "EnableScriptBlockInvocationLogging" -Value 1
-```
-
-**Sigma - AMSI bypass strings in Script Block Log:**
-
-```yaml
-title: PowerShell AMSI Bypass Attempt
-logsource:
-    product: windows
-    service: powershell
-detection:
-    selection:
-        EventID: 4104
-        ScriptBlockText|contains:
-            - 'AmsiScanBuffer'
-            - 'AmsiInitialize'
-            - 'amsiContext'
-            - 'amsiSession'
-            - 'amsiInitFailed'
-            - '[Ref].Assembly.GetType'
-    condition: selection
-level: high
-tags:
-    - attack.defense_evasion
-    - attack.t1562.001
-```
-
-**Sigma - PowerShell v2 downgrade:**
-
-```yaml
-title: PowerShell Version 2 Downgrade
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image|endswith: '\powershell.exe'
-        CommandLine|contains:
-            - '-version 2'
-            - '-ver 2'
-    condition: selection
-level: high
-```
-
-**Defensive control - disable PowerShell v2:**
-
-```powershell
-Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" -NoRestart
-```
-
----
-
+Enable and retain script logging through centrally managed policy, protect the policy and event channel, and verify event collection from representative hosts. Logging improves visibility but does not itself prevent script execution.
 ## ETW Tampering
 
 ### How ETW Works
@@ -763,43 +685,17 @@ Recommended configs:
 
 ## Purple Team Validation
 
-Use purple team exercises to verify that detections actually fire against real evasion techniques before attackers test them for you.
+Validate one detection at a time in a disposable, isolated test environment. Use the repository's [purple-team detection validation workflow](purple-team-detection-validation.md) to select and pin a specific test definition, inspect its commands, prerequisites, expected telemetry, and cleanup steps, then obtain owner approval and record stop conditions.
 
-### Atomic Red Team
+Do not run a broad batch of AMSI bypass, process-injection, obfuscation, or credential-dumping tests from a generic command list. Prefer harmless vendor-provided test events or synthetic telemetry. After each approved validation, confirm expected alerts, restore the baseline, remove test artifacts, and document any collection gaps.
 
-```powershell
-# Install
-Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+### After Each Test
 
-# Test AMSI bypass
-Invoke-AtomicTest T1562.001 -TestNumbers 1,2,3
-
-# Test process injection
-Invoke-AtomicTest T1055 -TestNumbers 1,2,3
-
-# Test PowerShell obfuscation and execution
-Invoke-AtomicTest T1059.001
-
-# Test credential dumping
-Invoke-AtomicTest T1003.001
-```
-
-### VECTR for Gap Tracking
-
-VECTR (vectr.io) tracks purple team exercises against MITRE ATT&CK and maintains a living record of which techniques are detected vs. which are blind spots. Essential for communicating coverage to stakeholders and tracking improvement over time.
-
-### After Each Test - Ask These Questions
-
-- Did the alert fire? At what layer?
-- What's the false positive rate of this detection in production?
-- If the attacker slightly modified the technique, would detection still work?
-- What's the mean time to detect (MTTD)?
-- Which layer would have caught this if the primary layer was bypassed?
-
-The goal is not just "does the alert fire" but **resilience across layers** - if one layer is bypassed, the next one should still catch it.
-
----
-
+- Did expected telemetry arrive at the collector, and was it complete?
+- Which control generated the alert, and what evidence supported it?
+- Were there false positives or collection gaps?
+- Did cleanup restore the documented baseline?
+- What remediation, owner, and due date were recorded?
 ## Analysis Environments & Tooling Reference
 
 A complete analyst toolkit spans both platforms. The right tool depends on what you're analyzing and where.
