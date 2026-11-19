@@ -33,11 +33,16 @@ hashcat -a 0 -m <hash-mode> hashes.txt wordlist.txt -r rules/unix-ninja-leetspea
 
 ## Homograph (IDN) Attacks
 
-Internationalized Domain Names allow non-Latin characters in domain names. An attacker can register a domain built from Cyrillic look-alikes that is visually identical to a real brand. Defenses:
+Internationalized Domain Names (IDNs) allow Unicode labels, which can be visually confusable with other names. A look-alike can use mixed scripts or be written entirely in one script; for example, a Cyrillic-only label such as `ѕсоре` can resemble Latin `scope`. Preserve the original Unicode hostname and its canonical ASCII/Punycode form (A-label), then assess both using an IDN policy appropriate to the application.
 
-* Browsers display suspicious mixed-script domains in **Punycode** (`xn--...`) instead of rendering them.
-* Mail and web filters should flag **mixed-script** strings (Latin plus Cyrillic in one label).
-* The Unicode Consortium publishes the `confusables.txt` data and the "skeleton" algorithm in **UTS #39 (Unicode Security Mechanisms)** for detecting look-alikes.
+* Browser display behavior depends on client and context; do not rely on every suspicious label being shown in **Punycode** (`xn--...`). IDN processing commonly converts A-labels back to Unicode for display.
+* Check script restrictions, mixed-script and **whole-script confusables**, registry/TLD context and known-good allowlists. A mixed-script-only check will miss some look-alikes.
+* Unicode [UTS #39](https://www.unicode.org/reports/tr39/) defines confusable-detection mechanisms, including skeletons. A skeleton match is a review signal, not proof of spoofing; legitimate internationalized names can also be flagged.
+* Do not replace the identifier with a confusable skeleton for routing, authentication or authorization. Keep the original and canonical forms for comparison and audit.
+
+![Unicode IDN risk assessment flow from original hostname to contextual review](../../assets/diagrams/unicode-idn-risk-assessment.svg)
+
+*Keep the submitted Unicode hostname and canonical ASCII/Punycode form; use script and confusable checks as context signals, not as replacements for the identifier.*
 
 ## Filter Evasion and Normalization
 
@@ -52,7 +57,7 @@ Content filters often apply **Unicode NFKC normalization** before matching. It f
 | Cyrillic homoglyphs `НАСК` | `НАСК` (unchanged) | ❌ |
 | Leet `H4CK` | `H4CK` (unchanged) | ❌ |
 
-A robust filter layers **NFKC**, then a **confusables skeleton** (UTS #39), then a **leet de-substitution** map before matching.
+There is no universal normalization chain that safely detects every evasion. For identifier checks, retain the submitted value and compute documented comparison forms separately. Use Unicode confusable checks as a risk signal; treat leet substitutions as context-specific heuristics. Tune against legitimate language and identifiers, test false positives and bypass cases, and never use a normalized or confusable skeleton as the identity or authorization value.
 
 ```python
 import unicodedata
