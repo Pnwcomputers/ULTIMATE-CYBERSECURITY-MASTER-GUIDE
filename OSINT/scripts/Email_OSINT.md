@@ -203,6 +203,17 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Keep query credentials out of curl's process arguments. The provider may still
+# retain credentials in its own URL logs, so use these API services only as approved.
+private_curl_json_url() {
+    local url="$1" output="$2"
+    [[ "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    { printf 'url = "%s"\\n' "$url"; } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$output" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -314,8 +325,9 @@ query_hunter_verify() {
 
     log "${GREEN}    [*] Verifying email with Hunter.io...${NC}"
     
-    curl -s "https://api.hunter.io/v2/email-verifier?email=$EMAIL&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/email-verifier?email=$EMAIL_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         STATUS=$(jq -r '.data.status // "unknown"' "$OUTPUT" 2>/dev/null)
@@ -339,8 +351,9 @@ query_hunter_domain() {
 
     log "${GREEN}    [*] Searching Hunter.io for related emails on $DOMAIN...${NC}"
     
-    curl -s "https://api.hunter.io/v2/domain-search?domain=$DOMAIN&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local DOMAIN_ENCODED
+    DOMAIN_ENCODED=$(jq -rn --arg value "$DOMAIN" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/domain-search?domain=$DOMAIN_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         EMAIL_COUNT=$(jq -r '.meta.results // 0' "$OUTPUT" 2>/dev/null)
