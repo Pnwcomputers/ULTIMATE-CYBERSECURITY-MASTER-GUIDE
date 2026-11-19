@@ -1,13 +1,18 @@
 # Linux Privilege Escalation
+
+![Defensive Linux privilege exposure assessment from identifying exact distribution and installed package versions through sudo/SUID/cron configuration, vendor CVE applicability and approved remediation](../assets/diagrams/linux-privilege-risk-and-vendor-patch-triage.svg)
+
+*Conceptual risk triage, not an instruction to elevate privileges.* Distribution vendors often backport patches without changing upstream version numbers; [Canonical's Ubuntu CVE tracker](https://ubuntu.com/security/cves) and [Red Hat's security data](https://access.redhat.com/security/security-updates/) identify affected package builds and fixes. A `uname -r` release or downloaded exploit list is not sufficient to establish vulnerability or a safe exploit test.
+
 _Common Linux local privilege escalation vectors._
 
 **Purpose:** Covers the path from an unprivileged shell on a Linux host to root - the standard set of misconfigurations and kernel vulnerabilities that show up repeatedly across real-world Linux systems and CTF-style privilege escalation challenges alike. Unlike the AD-focused checklists in this repo, most items here are host-local rather than network/protocol-based.
  
 **Function:** The list spans three categories: kernel-level vulnerabilities (Dirty Cow, Baron Samedit - actual CVEs with specific affected version ranges), misconfiguration abuse (SUID binaries, sudo permissions, cron jobs, PATH hijacking - legitimate system features configured too permissively), and technique classes rather than single bugs (wildcard injection is a pattern that applies to any privileged script calling `tar`/`rsync`/`chown` unsafely, not a single fixed vulnerability).
  
-**Goal:** Establish whether a foothold on a Linux system can be escalated to root, and specifically *how* - kernel exploits and sudo/SUID misconfigurations require different remediation entirely (patch the kernel vs. fix a permissions file), so this checklist's real value is in categorizing the finding correctly, not just proving root is reachable.
+**Goal:** Identify, classify and remediate verified Linux local privilege risks and distinguish configuration exposure from a confirmed exploit path. Kernel/package vulnerability handling and sudo/SUID/cron permission hardening have different evidence and remediation requirements; never equate a scan match with proven root compromise.
  
-**When & how to use this:** Run automated enumeration first (LinPEAS or similar - see [Homelab/HomeLab_Setup.md](../Homelab/HomeLab_Setup.md) for setup) to shortlist which of these vectors are actually present before manually working through the list - kernel version alone rules out most of the CVE-specific items immediately. Check sudo/SUID/cron misconfigurations before reaching for a kernel exploit; they're lower-risk (no chance of a kernel panic) and far more common in practice.
+**When & how to use this:** Begin with authorized, read-only host inventory and confirm the exact OS distribution, vendor package build, patch status and actual effective sudo/SUID/cron permissions. Distribution backports mean the upstream kernel version alone cannot prove a CVE is present or fixed. Any intrusive validation, automated enumeration that executes third-party code, service changes or kernel exploit reproduction requires a separate approved lab method and rollback plan.
 
 #### 📄 PDF reference: [Linux_Privilege_Escalation.pdf](../PDF/Linux_Privilege_Escalation.pdf)
 ---
@@ -36,7 +41,7 @@ _Common Linux local privilege escalation vectors._
 
 ⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Unauthorized activity may violate law or contract; consequences depend on jurisdiction and conduct.** ⚠️
 
 ⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 
