@@ -1,4 +1,6 @@
 # ☁️ Cloud Security
+**PCI payment workloads:** [PCI DSS Scoping & Segmentation Field Guide](../Compliance/pci-dss-scoping.md#segmentation--modern-architecture) covers cloud/hybrid CDE reachability, management-plane impact, microsegmentation and service-provider evidence. A VPC/VNet alone does not establish scope exclusion.
+
 **Historical cloud reference:** [Cypherpunk Symposium toolkit review](../Documentation/cypherpunk-pentesting-toolkit-review.md) distinguishes archived IAM/Kubernetes tips from current provider controls and maintained tools.
 
 

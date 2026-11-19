@@ -17,6 +17,8 @@
 **Hardening and security governance source lists:** [Awesome Security](https://github.com/sbilly/awesome-security), [annual reports](https://github.com/jacobdjwilson/awesome-annual-security-reports), and [PNWC's curated source map](../Documentation/awesome-hacking-collections-integration.md).
 
 
+**PCI DSS 4.0.1 scoping:** [Scoping & Segmentation Field Guide](pci-dss-scoping.md) maps payment-data flows, connected-to/security-impacting systems, third-party access, cloud boundaries and scope evidence. Use the [blank scope review worksheet](pci-scope-review-template.md) for a specific assessment. This is educational guidance, not a compliance certification.
+
 **Versioned assurance:** [ASVS/WSTG requirements and tests](../WebAppSecurity/owasp-assessment-and-nuclei.md) and [CISA SCuBA baselines](../Cloud/m365-scuba-assessment.md) produce evidence IDs, exceptions and remedial work tracked via [client findings](../PlayBooks/assessment-findings-lifecycle.md).
 
 ## 🎯 Purpose
@@ -126,6 +128,8 @@ cross-framework crosswalks to accelerate this.
 | File | Description | Status |
 |------|-------------|--------|
 | **[frameworks.md](./frameworks.md)** | Control frameworks - NIST CSF 2.0, ISO 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8, NIST 800-53/800-171 | ✅ Complete |
+| **[pci-dss-scoping.md](./pci-dss-scoping.md)** | PCI DSS 4.0.1 scoping workflow, connected-to systems, segmentation evidence and third-party responsibilities | ✅ Reference guide |
+| **[pci-scope-review-template.md](./pci-scope-review-template.md)** | Blank, privacy-conscious scoping review, exclusion and shared-responsibility worksheet | ✅ Reusable template |
 | **[regulations.md](./regulations.md)** | Data-protection regulations - GDPR, HIPAA, CCPA/CPRA, and breach-notification duties | ✅ Complete |
 
 ---
@@ -165,6 +169,8 @@ cross-framework crosswalks to accelerate this.
 ## Related Files
 - [frameworks.md](frameworks.md) - Security control frameworks
 - [regulations.md](regulations.md) - Data-protection regulations
+- [pci-dss-scoping.md](pci-dss-scoping.md) - PCI DSS scope decisions and validation
+- [pci-scope-review-template.md](pci-scope-review-template.md) - blank scoping and evidence worksheet
 - [../IncidentResponse/README.md](../IncidentResponse/README.md) - the detection/response controls compliance requires
 - [../Checklists/README.md](../Checklists/README.md) - operational checklists that implement controls
 
