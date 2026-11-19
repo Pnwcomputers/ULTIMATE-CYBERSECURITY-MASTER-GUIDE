@@ -165,11 +165,7 @@ Open your browser and navigate to:
 https://<SERVER-IP>
 ```
 
-**Default Credentials:**
-- Username: `admin`
-- Password: `SecretPassword`
-
-> ⚠️ **Security Warning:** Change the default password immediately after first login via **Settings → Security → Internal Users**.
+**Bootstrap credentials:** Use the credentials generated or documented for the exact Wazuh release and installation method; do not reuse a sample password. Rotate them before making the dashboard reachable beyond the isolated setup host, then store them in the approved secrets manager. The dashboard and API should be restricted to an administrative VPN/subnet.
 
 ---
 
@@ -177,24 +173,11 @@ https://<SERVER-IP>
 
 ### UFW (Ubuntu)
 
-```bash
-sudo ufw allow 443/tcp comment "Wazuh Dashboard"
-sudo ufw allow 1514/tcp comment "Wazuh Agent Communication"
-sudo ufw allow 1515/tcp comment "Wazuh Agent Enrollment"
-sudo ufw allow 55000/tcp comment "Wazuh API"
-sudo ufw reload
-sudo ufw status
-```
+Do not open the dashboard, API, or agent ports to the public internet. Restrict dashboard/API access to the administrator VPN/subnet, and allow agent communication/enrollment only from networks containing approved endpoints. Apply equivalent source restrictions in cloud/network firewalls. Verify the current Wazuh port requirements for the exact deployment before changing rules.
 
 ### Firewalld (RHEL/CentOS)
 
-```bash
-sudo firewall-cmd --permanent --add-port=443/tcp
-sudo firewall-cmd --permanent --add-port=1514/tcp
-sudo firewall-cmd --permanent --add-port=1515/tcp
-sudo firewall-cmd --permanent --add-port=55000/tcp
-sudo firewall-cmd --reload
-```
+Use source-restricted rich rules or your centrally managed firewall policy for the same network boundaries. Avoid blanket `--add-port` rules that make management services reachable from every source. Test policy changes from an approved administrative address and keep console recovery available.
 
 ---
 
@@ -339,11 +322,11 @@ echo "test" > C:\Users\Public\eicar-test.txt
 On Linux:
 
 ```bash
-# Simulate a failed SSH login attempt
-logger -t sshd "Failed password for invalid user admin from 192.168.1.100 port 22 ssh2"
+# Log-collection smoke test only: this creates a syslog message; it is not an SSH authentication event.
+logger -t wazuh-smoke-test "Synthetic log-pipeline validation"
 ```
 
-Check the **Security Events** section in the dashboard for corresponding alerts.
+Check the dashboard and raw events for the expected FIM or log-ingestion result. A smoke-test event may not match any security rule; use a documented synthetic-rule validation workflow when validating alert logic.
 
 ---
 
