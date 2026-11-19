@@ -431,21 +431,7 @@ Use only a host and port range that are explicitly within scope. This repository
 
 #### Bash Scripts
 
-```bash
-# EXAMPLE: Running reconnaissance script
-
-# 1. Review script contents first
-cat script.sh
-
-# 2. Make executable
-chmod +x script.sh
-
-# 3. Run with proper parameters
-./script.sh --target authorized-system.local --output results.txt
-
-# 4. Review and document results
-cat results.txt
-```
+Review a selected script's source, dependencies, expected network or system effects, and documented interface before use. There is no common `--target` or `--output` interface across the collection. Use only the exact host and actions in the approved scope, and capture output through the tool's documented method.
 
 ---
 
