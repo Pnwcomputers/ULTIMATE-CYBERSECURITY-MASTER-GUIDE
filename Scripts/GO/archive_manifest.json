@@ -13,7 +13,7 @@
     {
       "path": "bruteforce/brute_http_form.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
       "validation": "not-executed; third-party dependencies and permissions not verified"
     },
