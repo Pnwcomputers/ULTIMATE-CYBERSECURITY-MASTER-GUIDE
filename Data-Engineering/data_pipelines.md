@@ -1111,7 +1111,7 @@ Official documentation links appear beside the relevant concepts and commands th
 | 🧰 Core Technologies | TLS, SSH, Git, Python, Redis, Memcached, Kafka, Ansible |
 | 📘 Format | One Markdown document with embedded exercises and references |
 | 🧪 Validation Status | Documentation reviewed; selected local checks passed; deployment limitations documented above |
-| 📁 Suggested Location | `Documentation/security-data-pipelines-guide.md` |
+| 📁 Current Location | `Data-Engineering/data_pipelines.md` |
 | 🔄 Content Review Date | September 11, 2026 |
 
 ---
