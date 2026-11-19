@@ -321,6 +321,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [agent security evaluation evidence](./diagrams/agent-security-evaluation-evidence.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
+| [agent threat-modeling evaluation loop](./diagrams/agent-threat-modeling-evaluation-loop.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) | Scope, map, test, review and re-scope |
 | [agent security trust boundaries](./diagrams/agent-security-trust-boundaries.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
 | [agent security action gate](./diagrams/agent-security-action-gate.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
 
