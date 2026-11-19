@@ -32,6 +32,17 @@ These figures illustrate the actual decision points in their respective guides; 
 | [Cryptography Primitive Decision Map](./diagrams/cryptography-primitive-decision-map.svg) | [Cryptography Overview](../Cryptography/README.md) | Four distinct security goals: AEAD, password KDF, signatures/HMAC and key establishment |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
+## Firmware, Cyberdeck Devices & Virtualization Visuals
+
+New original technical reference diagrams appear **inside their canonical guides**, with explicit boundaries between source-verified principles, device-specific configuration and untested physical behavior.
+
+| Diagram | Embedded Guide | Visual Focus |
+|---|---|---|
+| [Firmware Flashing Verification Gates](./diagrams/firmware-flashing-verification-gates.svg) | [Firmware Web Flashers & Installers](../Documentation/firmware-web-flashers.md) | Verify exact MCU/revision, approved release, installer route and post-boot feature checks |
+| [Device-First Firmware Compatibility](./diagrams/device-firmware-compatibility-selection.svg) | [Device-First Firmware List](../Documentation/device-firmware-list.md) | Target matrix, board image versus controller/FAP artifact, flash layout, stop on mismatch |
+| [Portable Cyberdeck Device Roles & Artifacts](./diagrams/cyberdeck-portable-device-roles-and-artifacts.svg) | [Cyberdeck Portable Wireless Field Devices](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) | Flipper external Marauder, standalone boards, alternate Plus2 firmware and separate Pineapple interface |
+| [Virtual Lab Network Isolation Paths](./diagrams/homelab-virtual-network-isolation-paths.svg) | [Complete Homelab Setup](../Homelab/HomeLab_Setup.md) | Virtual internal versus host-only and routed networks; host access, egress and production-risk boundaries |
+
 ## New Workflow & Evidence Visuals
 
 Original, accessible SVGs for workflow comprehension. They are **conceptual only**: none certify a specific deployment, vendor rule, collection interface, or completed lab exercise.

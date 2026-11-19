@@ -25,6 +25,11 @@ that every project release supports every revision of a listed device.
 
 ## How To Read The List
 
+![Device-first firmware decision flow separating hardware identification, upstream target compatibility, installation format and post-flash qualification](../assets/diagrams/device-firmware-compatibility-selection.svg)
+
+*Conceptual compatibility gate.* A similarly named MCU does not imply the same GPIO, flash size, firmware partition map or accessory support. A Flipper FAP, ESP32 radio firmware and a separate UI controller build are **not interchangeable**. Match the [upstream firmware target matrix](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware) and exact board before any write.
+
+
 Named choices mean the reviewed primary documentation identifies that target or
 a clearly named build. They do not mean all features are present, that the image
 was flashed here, or that every similarly named board works. Follow each project's

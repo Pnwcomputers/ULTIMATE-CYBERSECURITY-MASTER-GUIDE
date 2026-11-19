@@ -24,6 +24,11 @@ setup mode and Evil Crow web assets require checks beyond the flash progress bar
 
 ## Purpose
 
+![Firmware installation workflow from identifying exact board and chip through verified image selection, supported flashing method, post-boot acceptance and a stop/recovery gate](../assets/diagrams/firmware-flashing-verification-gates.svg)
+
+*Conceptual firmware-safety sequence.* Browser flashing depends on a supported [Web Serial API and user-granted port permission](https://developer.chrome.com/docs/capabilities/serial/). The correct image, bootloader and partition layout vary by chip and project; follow the [Espressif flash documentation](https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/flashing-firmware.html) rather than copying offsets across devices. A successful write does not prove functional compatibility or trustworthiness.
+
+
 Companion to the [firmware master catalog](./esp32-security-firmware-catalog.md).
 Dedicated installers below select builds for a named project. The separate
 multi-device/multi-firmware list covers catalog tools and general uploaders.
