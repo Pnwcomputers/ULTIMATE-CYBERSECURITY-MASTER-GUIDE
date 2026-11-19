@@ -85,6 +85,10 @@ being planned for.
 
 ## 🎯 2. Recovery Objectives & Measurement
 
+![Backup recovery example timeline distinguishing a trusted backup, retained change history, service failure and later validated recovery with distinct RPO and RTO](../../assets/diagrams/recovery-point-rpo-rto-replay-timeline.svg)
+
+*Conceptual recovery timeline, not a measured disaster-recovery result.* [NIST's RPO definition](https://csrc.nist.gov/glossary/term/recovery_point_objective) concerns the point in time to which data must be restored; its [RTO definition](https://csrc.nist.gov/glossary/term/recovery_time_objective) concerns acceptable recovery duration. A recent snapshot plus unverified log files does **not** prove either objective was achieved. Measure them from a complete, independently tested restore.
+
 The **recovery point objective (RPO)** is the maximum acceptable loss expressed as a recovery-point gap, often
 time. The **recovery time objective (RTO)** is the target time to restore an agreed usable service. Define
 both with the consumer and operator.
