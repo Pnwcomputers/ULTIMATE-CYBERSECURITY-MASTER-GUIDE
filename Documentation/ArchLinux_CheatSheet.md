@@ -330,9 +330,6 @@ pipx install rfcat
 
 Check each project's current install instructions and pipx support before installing. To install uv, follow the [official instructions](https://docs.astral.sh/uv/getting-started/installation/) and review any installer before execution.
 
-```bash
-```
-
 ### 11.4 Build-from-Source Tools (Arch)
 
 **`kalibrate-hackrf`** — clock calibration for HackRF (not packaged):
@@ -400,7 +397,7 @@ less PKGBUILD
 
 # Build as a normal user, then review the package before installing
 makepkg -s
-pacman -U <built-package-file>.pkg.tar.zst
+sudo pacman -U ./package-version-architecture.pkg.tar.zst
 
 # Common makepkg flags
 makepkg -s            # Install missing dependencies only
@@ -684,7 +681,7 @@ Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, 
 | `photon`      | `python photon.py -u <url> -l 3`   | Crawls for endpoints, keys, emails, JS files.             |
 | `whatweb`     | `whatweb <target>`                 | Fingerprint web technologies and CMS.                     |
 | `whois`       | `whois <domain>`                   | Registrar, owner, nameserver lookup.                      |
-| `dig`         | `dig <domain> ANY`                 | DNS records - A, MX, NS, TXT, SOA.                        |
+| `dig`         | `dig <domain> A`                   | Query one DNS type. Repeat with `AAAA`, `MX`, `NS`, `TXT`, or `SOA` as needed; `ANY` is not a reliable way to retrieve every record.                        |
 | `shodan`      | `shodan host <IP>`                 | Open ports and running services on a target IP.           |
 
 **Google Dorking Quick Reference:**
