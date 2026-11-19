@@ -1,23 +1,23 @@
 # Domain / IP Recon Investigation Script
 
-Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
+Script for domain and IP OSINT. Provider lookups run by default. Direct Nmap, RustScan, Nuclei, Dirsearch, and WhatWeb probes require the explicit `--active` option and are limited to IPs supplied with `-i` or `-f`; addresses discovered by theHarvester are never scanned automatically.
 
 ## 🎯 Purpose
-Self-contained bash script combining theHarvester domain recon with direct API calls (CriminalIP, Netlas, ipinfo, ip-api, LeakLookup) and active scanning (Nmap, RustScan, Nuclei, Dirsearch, WhatWeb) into one automated investigation run. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
+Self-contained Bash script combining theHarvester and provider lookups with optional, explicitly enabled active scanning. Direct probes require `--active` and explicitly supplied IP targets; discovered IPs are reported only and are not passed to scanners. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
 
 ## ⚙️ Function
-A single bash script accepting domain, IP(s), email, or file input, running theHarvester first to extract IPs (if not supplied), then per-IP API queries and Nmap/RustScan/Nuclei/Dirsearch scans (parallelizable), writing organized JSON/text output per target plus a master summary report.
+A single Bash script accepting a domain, email, or explicitly supplied IPs. It performs provider lookups and writes organized output; only IPs supplied with `-i` or `-f` are eligible for active scans, and only when `--active` is set.
 
 ## 🏆 Goal
-Run one command against a suspected scam domain or IP range and get back organized OSINT + light active-scan output (open ports, web fingerprint, vuln scan, breach/leak/reputation data) without manually invoking each tool.
+Collect organized, passive-first OSINT findings. If a written scope authorizes direct testing, explicitly enable `--active` and provide only the in-scope IPs with `-i` or `-f`.
 
 ## 📋 When to Use
 - Investigating a scam/phishing domain or its hosting infrastructure as part of the fraud investigation workflow
-- Needing both passive OSINT and active scanning (Nmap/Nuclei) results in one run - note this crosses from passive to active recon, so ensure authorization covers scanning, not just OSINT
+- Active testing is optional and can affect third-party/shared infrastructure. Use `--active` only when written scope specifically authorizes the exact IPs supplied with `-i` or `-f`. A domain lookup or discovered address is not authorization to probe it.
 
 **Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
 **Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  
-**Usage:** Copy the script below into a `.sh` file and `chmod +x` it.
+**Usage:** Copy the script below into a `.sh` file and `chmod +x` it. Provider lookups run without direct probing. Add `--active` only for expressly authorized, explicitly supplied IP targets (`-i` or `-f`). Domain-discovered addresses are never scanned automatically.
 
 **Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
 - `CRIMINALIP_KEY` - [criminalip.io](https://www.criminalip.io/)
@@ -96,6 +96,8 @@ IP_FILE=""
 EMAIL=""
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 SKIP_AGGRESSIVE=false
+ACTIVE_SCAN=false
+EXPLICIT_IPS=()
 SKIP_NUCLEI=false
 SKIP_DIRSEARCH=false
 QUICK_MODE=false
@@ -130,7 +132,8 @@ usage() {
     echo "  -i    Target IP address(es), comma-separated"
     echo "  -e    Target email address for breach lookups"
     echo "  -f    File containing IPs (one per line)"
-    echo "  -s    Skip aggressive nmap scan (no sudo prompt)"
+    echo "  --active  Enable direct scans for explicitly supplied IPs only (requires authorization)"
+    echo "  -s    Skip the full-port Nmap scan"
     echo "  -n    Skip Nuclei vulnerability scan"
     echo "  -D    Skip Dirsearch directory enumeration"
     echo "  -q    Quick mode (skip slow scans)"
@@ -176,11 +179,18 @@ check_dependencies() {
     echo ""
 }
 
+# Parse the long active-scan option, then use getopts for short options.
+ARGS=()
+for arg in "$@"; do
+    if [ "$arg" = "--active" ]; then ACTIVE_SCAN=true; else ARGS+=("$arg"); fi
+done
+set -- "${ARGS[@]}"
+
 # Parse arguments
 while getopts "d:i:e:f:snDqph" opt; do
     case $opt in
         d) DOMAIN="$OPTARG" ;;
-        i) IFS=',' read -ra IPS <<< "$OPTARG" ;;
+        i) IFS=',' read -ra parsed_ips <<< "$OPTARG"; IPS+=("${parsed_ips[@]}") ;;
         e) EMAIL="$OPTARG" ;;
         f) IP_FILE="$OPTARG" ;;
         s) SKIP_AGGRESSIVE=true ;;
@@ -205,6 +215,8 @@ if [ -n "$IP_FILE" ]; then
         exit 1
     fi
 fi
+
+EXPLICIT_IPS=("${IPS[@]}")
 
 # Validate input
 if [ -z "$DOMAIN" ] && [ ${#IPS[@]} -eq 0 ] && [ -z "$EMAIL" ]; then
@@ -259,7 +271,7 @@ log "Output directory: $OUTPUT_DIR"
 [ -n "$DOMAIN" ] && log "Target Domain: $DOMAIN"
 [ -n "$EMAIL" ] && log "Target Email: $EMAIL"
 log "Target IPs: ${IPS[*]:-Will extract from theHarvester}"
-log "Quick Mode: $QUICK_MODE | Parallel Mode: $PARALLEL_MODE"
+log "Quick Mode: $QUICK_MODE | Parallel Mode: $PARALLEL_MODE | Active scans: $ACTIVE_SCAN"
 log ""
 
 #############################################
@@ -424,8 +436,8 @@ scan_ip() {
     log "${GREEN}[*] Running Nmap scans...${NC}"
     nmap -sV -sC "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" > /dev/null 2>&1
     
-    if [ "$QUICK_MODE" = false ]; then
-        nmap -p- -T4 "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
+    if [ "$QUICK_MODE" = false ] && [ "$SKIP_AGGRESSIVE" = false ]; then
+        nmap -p- -T3 "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
     fi
     
     nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" > /dev/null 2>&1
@@ -454,11 +466,9 @@ if [ -n "$DOMAIN" ]; then
     if command -v theHarvester &> /dev/null; then
         theHarvester -d "$DOMAIN" -b hunter,shodan,virustotal,whoisxml,zoomeye,censys,fullhunt,intelx,securityTrails 2>&1 | tee "$OUTPUT_DIR/1_theharvester.txt"
         
-        if [ ${#IPS[@]} -eq 0 ]; then
-            IPV4_LIST=$(grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
-            while IFS= read -r ip; do [ -n "$ip" ] && IPS+=("$ip"); done <<< "$IPV4_LIST"
-        fi
-    fi
+        # Discovered addresses are recorded as intelligence only, never scanned automatically.
+        IPV4_LIST=$(grep -oE '([0-9]{1,3}\\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
+        printf '%s\\n' "$IPV4_LIST" > "$OUTPUT_DIR/discovered_ips.txt"    fi
 fi
 
 #############################################
@@ -467,8 +477,9 @@ fi
 if [ -n "$DOMAIN" ]; then
     section "2) Additional Domain Intelligence"
     query_leaklookup "$DOMAIN" "domain" "$OUTPUT_DIR/domain/leaklookup.json"
-    command -v whatweb >/dev/null 2>&1 && whatweb "http://$DOMAIN" --log-json="$OUTPUT_DIR/domain/whatweb_http.json" > "$OUTPUT_DIR/domain/whatweb_http.txt" 2>&1
-    run_nuclei "https://$DOMAIN" "$OUTPUT_DIR/domain/nuclei_results.txt"
+    if [ "$ACTIVE_SCAN" = true ]; then
+        log "${YELLOW}[!] Active domain probes are disabled here; supply explicitly authorized IPs with -i/-f to scan.${NC}"
+    fi
 fi
 
 #############################################
@@ -483,13 +494,14 @@ if [ -n "$EMAIL" ]; then
 fi
 
 #############################################
-# 4) Scan All IPs
+# 4) Optional active scans of explicitly supplied IPs
 #############################################
-if [ ${#IPS[@]} -gt 0 ]; then
-    section "4) Scanning ${#IPS[@]} IP Address(es)"
+if [ "$ACTIVE_SCAN" = true ] && [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
+    section "4) Active scans of ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
+    log "${YELLOW}[!] Confirm these exact IPs are in your written testing scope before continuing.${NC}"
     if [ "$PARALLEL_MODE" = true ]; then
         job_count=0
-        for IP in "${IPS[@]}"; do
+        for IP in "${EXPLICIT_IPS[@]}"; do
             scan_ip "$IP" &
             job_count=$((job_count + 1))
             if [ $job_count -ge $MAX_PARALLEL ]; then
@@ -499,10 +511,14 @@ if [ ${#IPS[@]} -gt 0 ]; then
         done
         wait
     else
-        for IP in "${IPS[@]}"; do
+        for IP in "${EXPLICIT_IPS[@]}"; do
             scan_ip "$IP"
         done
     fi
+elif [ "$ACTIVE_SCAN" = true ]; then
+    log "${YELLOW}[!] --active was set, but no explicit IPs were supplied; no direct scans were run.${NC}"
+else
+    log "${GREEN}[+] Passive-only mode: direct network scans were not run.${NC}"
 fi
 
 #############################################
