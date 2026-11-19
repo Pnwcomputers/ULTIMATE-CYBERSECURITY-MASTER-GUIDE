@@ -2297,14 +2297,17 @@ sudo tshark -i br0 -f "tcp port 445 or tcp port 139" -w smb-traffic.pcap
 
 **Bounded Packet Rotation**:
 ```bash
-# Capture one file per day, keep at most seven files, and let tcpdump drop
-# root privileges to its default capture account. Ensure the directory has
-# suitable ownership and monitor disk usage.
-0 0 * * * tcpdump -i br0 -G 86400 -W 7 -w /mnt/captures/capture-%Y%m%d-%H%M%S.pcap
+# Size-based ring buffer: approximately 7 files x 100 MiB maximum.
+# Run under a reviewed service account with write access to /mnt/captures.
+sudo tcpdump -i br0 -C 100 -W 7 -w /mnt/captures/capture.pcap
 ```
 
-Confirm retention and filesystem quotas against your evidence policy. A bounded
-rotation overwrites the oldest capture; export any evidence that must be retained.
+The `-C`/`-W` pair limits this capture process to a seven-file ring buffer;
+it wraps and overwrites its oldest file. It does not provide daily rotation.
+Check [tcpdump's manual](https://man7.org/linux/man-pages/man8/tcpdump.8.html)
+for the installed version's exact behavior. Confirm disk quotas and evidence
+retention requirements first; export any capture that must be preserved before
+the ring buffer overwrites it.
 
 #### ZimaBlade - Covert Implant Simulation
 
