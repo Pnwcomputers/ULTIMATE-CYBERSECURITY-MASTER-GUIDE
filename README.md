@@ -8,11 +8,11 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained-Yes-green" alt="Maintained"/>
-  <img src="https://img.shields.io/badge/Books%20Referenced-70%2B-blue" alt="Books"/>
-  <img src="https://img.shields.io/badge/PNWC%20Internal%20Docs-90%2B-orange" alt="Docs"/>
-  <img src="https://img.shields.io/badge/OSINT%20Tools-400%2B-purple" alt="OSINT"/>
+  <img src="https://img.shields.io/badge/References-Curated-blue" alt="Curated references"/>
+  <img src="https://img.shields.io/badge/Resources-Guides_%26_Tools-orange" alt="Guides and tools"/>
+  <img src="https://img.shields.io/badge/Focus-Cross_Domain-purple" alt="Cross-domain cybersecurity"/>
   <img src="https://img.shields.io/badge/Scripts-Source_Collection-red" alt="Scripts"/>
-  <img src="https://img.shields.io/badge/License-Educational%20Use-yellow" alt="License"/>
+  <img src="https://img.shields.io/badge/Use-See_LEGAL.md-yellow" alt="Review legal terms"/>
   <img src="https://img.shields.io/github/last-commit/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE" alt="Last Commit"/>
 </p>
 
@@ -25,7 +25,7 @@
 
 ---
 
-### [The Project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki): You can also browse this repository through it's dedicated [Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki).
+### [The Project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki): You can also browse this repository through its dedicated [Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki).
 
 ## 🧭 About This Index
 
@@ -97,8 +97,8 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 | Guide | Description |
 |---|---|
-| 🔥 **[Ultimate Cybersecurity Master Guide](./ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide - key takeaways from 70+ professional security books, full penetration testing lifecycle |
-| 🔥 **[Enhanced Cybersecurity Master Guide](./ENHANCED_MASTER_GUIDE.md)** | All of the above + 90+ PNWC internal docs, KB articles, and operational experience layered in |
+| 🔥 **[Ultimate Cybersecurity Master Guide](./ultimate_cybersecurity_master_guide.md)** | THE main comprehensive guide - curated research, practical references and authorized assessment lifecycle guidance |
+| 🔥 **[Enhanced Cybersecurity Master Guide](./ENHANCED_MASTER_GUIDE.md)** | Extended procedures, reference material and PNWC operational experience; verify environment-specific advice before deployment |
 | 🔥 **[Specialized Topics Guide](./SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
 
 **Related PNWC Project:** [Portable Cyberdeck Public Reference](./Cyberdeck/README.md), distinct from the ClockworkPi uConsole setup.
