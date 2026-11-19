@@ -247,6 +247,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [frameworks evidence reuse](./diagrams/frameworks-evidence-reuse.svg) | [Guide](../Compliance/frameworks.md) |
+| [privacy breach notification decision paths](./diagrams/privacy-breach-notification-decision-path.svg) | [Guide](../Compliance/regulations.md) | Distinct GDPR, HIPAA, and state-law triggers |
 
 ## Kubernetes Security Visuals
 
