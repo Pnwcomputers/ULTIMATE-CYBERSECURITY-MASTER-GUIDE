@@ -56,6 +56,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-hardware-os-preflight-paths.svg": (
         "uConsole/README.md",
     ),
+    "assets/diagrams/cryptography-primitive-decision-map.svg": (
+        "Cryptography/README.md",
+    ),
+    "assets/diagrams/homelab-passive-ids-visibility-mirror-tap.svg": (
+        "Homelab/README.md",
+    ),
 }
 
 
