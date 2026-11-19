@@ -719,3 +719,24 @@ Headers: {"key": "YOUR_KEY"}
 - [flow-cve_lookup.md](flow-cve_lookup.md) - CVE context for vulnerabilities exploited by known threat actors
 - [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Threat intel enriches vulnerability reports
 - [../../IncidentResponse/README.md](../../IncidentResponse/README.md) - Incident response context for threat intel use
+
+## Lookup & Evidence Flow
+
+Threat-intelligence queries disclose the indicator to each provider. Use only approved indicators and providers. Empty results, errors, and quota failures mean **unknown**, not clean.
+
+```mermaid
+flowchart LR
+    A[Approved indicator] --> B[Normalize type and value]
+    B --> C{External lookup approved?}
+    C -- no --> D[Stop; keep indicator local]
+    C -- yes --> E[VirusTotal lookup]
+    C -- yes --> F[AbuseIPDB lookup]
+    E --> G[Attach provider, timestamp, status, and source data]
+    F --> G
+    G --> H{Valid evidence returned?}
+    H -- no --> I[Report unknown or unavailable]
+    H -- yes --> J[LLM summarizes with uncertainty]
+    I --> K[Analyst verifies context and false positives]
+    J --> K
+    K --> L[Document decision and evidence]
+```
