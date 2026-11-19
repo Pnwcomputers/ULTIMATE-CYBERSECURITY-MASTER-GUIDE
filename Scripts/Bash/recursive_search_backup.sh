@@ -1,43 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
 
-# Recursive File Search and Backup Script
-# Usage: ./recursive_search.sh <directory_to_search>
-
-DIR_SEARCH="${1}"
-DIR_BACKUP="${HOME}/backup"
-DIR_SEARCH_DEFAULT="/var/log"
-COMPRESSED_FILE="${HOME}/files.tar.gz"
-
-if [[ -z "${DIR_SEARCH}" ]]; then
-    echo "Warning: you did not provide an argument in the form of a file path. Defaulting to /var/log."
-    DIR_SEARCH="${DIR_SEARCH_DEFAULT}"
+# Create a unique, owner-readable archive of readable regular files.
+# Usage: ./recursive_search_backup.sh [directory]
+DIR_SEARCH="${1:-/var/log}"
+if (( $# > 1 )); then
+    printf 'Usage: %s [directory]\n' "$0" >&2
+    exit 2
 fi
 
-if [[ ! -d "${DIR_SEARCH}" ]]; then
-    echo "${DIR_SEARCH} is not a directory."
+if [[ ! -d "$DIR_SEARCH" ]]; then
+    printf 'Not a directory: %s\n' "$DIR_SEARCH" >&2
     exit 1
 fi
 
-if [[ ! -d "${DIR_BACKUP}" ]]; then
-    mkdir "${DIR_BACKUP}"
-fi
+DIR_SEARCH="$(realpath -e -- "$DIR_SEARCH")"
+HOME_REAL="$(realpath -e -- "$HOME")"
 
-while read -r file; do 
-    echo "Copying ${file} into ${DIR_BACKUP}"
-    cp -f "${file}" "${DIR_BACKUP}"
-done < <(find "${DIR_SEARCH}" -type f -readable 2> /dev/null)
+# The archive is created in HOME; refuse a source tree that contains HOME,
+# which would otherwise include the archive in its own input.
+case "$HOME_REAL/" in
+    "$DIR_SEARCH/"*)
+        printf 'Refusing to archive a directory that contains the output location (%s). Choose a narrower source directory.\n' "$HOME_REAL" >&2
+        exit 1
+        ;;
+esac
 
-sleep 3
-
-if [[ -n $(ls -A "${DIR_BACKUP}") ]]; then
-    echo -e "\nCompressing collections into a tarball..."
-    if tar czvfP "${COMPRESSED_FILE}" "${DIR_BACKUP}"; then
-        echo "Success. Compressed folder with files is located at ${COMPRESSED_FILE}"
-    else
-        echo "Error occurred."
+ARCHIVE="$(mktemp "$HOME_REAL/files.XXXXXX.tar.gz")"
+cleanup() {
+    local status=$?
+    if (( status != 0 )); then
+        rm -f -- "$ARCHIVE"
     fi
-else
-    echo "${DIR_BACKUP} seems empty, not taking any further actions."
+}
+trap cleanup EXIT
+
+if ! find "$DIR_SEARCH" -type f -readable -print0 |
+    tar --create --gzip --file="$ARCHIVE" --null --files-from=- --absolute-names; then
+    printf 'Archive creation failed; incomplete output was removed.\n' >&2
+    exit 1
 fi
 
-rm -rf "${DIR_BACKUP}"
+printf 'Archive created: %s\n' "$ARCHIVE"
