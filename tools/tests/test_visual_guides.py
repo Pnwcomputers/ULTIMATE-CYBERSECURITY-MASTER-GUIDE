@@ -62,6 +62,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/homelab-passive-ids-visibility-mirror-tap.svg": (
         "Homelab/README.md",
     ),
+    "assets/diagrams/firmware-flashing-verification-gates.svg": (
+        "Documentation/firmware-web-flashers.md",
+    ),
+    "assets/diagrams/device-firmware-compatibility-selection.svg": (
+        "Documentation/device-firmware-list.md",
+    ),
+    "assets/diagrams/cyberdeck-portable-device-roles-and-artifacts.svg": (
+        "Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md",
+    ),
+    "assets/diagrams/homelab-virtual-network-isolation-paths.svg": (
+        "Homelab/HomeLab_Setup.md",
+    ),
 }
 
 
