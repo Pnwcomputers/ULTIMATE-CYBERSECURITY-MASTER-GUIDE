@@ -149,7 +149,7 @@ Scripts/
 |---------|-------------|---------|
 | **get_user.c** | User enumeration utility | System reconnaissance |
 | **getuser.c** | User information retrieval | Privilege enumeration |
-| **scanner.c** | Network or port scanner | Network reconnaissance |
+| **scanner.c** | Local network discovery with optional Nmap OS fingerprinting; not a port scanner | Authorized local-network inventory |
 | **system_sleep.c** | System sleep/suspend utility | System manipulation |
 | **systemsleep.c** | System sleep implementation | Testing/manipulation |
 
@@ -294,29 +294,7 @@ Potential operational risks include unintended access, exposure of personal or s
 
 ### 5. SQL Scripts
 
-**Location**: `/Scripts/SQL/`
-
-**Selected files (not exhaustive):**
-
-| Script | Description | Risk Level |
-|--------|-------------|------------|
-| **add_wordpress_admin.sql** | WordPress admin account creation | 🔴 HIGH |
-
-**Purpose:**
-- Database manipulation
-- WordPress security testing
-- Privilege escalation testing
-- Database access testing
-
-**Security Considerations:**
-```
-⚠️ WARNING: SQL Scripts for unauthorized database access
-   • Creating accounts or changing data outside approved scope may violate applicable law, contract, or policy
-   • Database access and privilege changes require authority from the system owner
-   • Consequences depend on the conduct, applicable law, and facts
-
-ONLY use on systems you own or have explicit written permission to test.
-```
+The repository contains no SQL scripts currently. The former static WordPress administrator-creation example was removed because it used a fixed account ID and an obsolete MD5 password hash. Any future database example should use a disposable local lab, avoid embedded credentials, and explain cleanup and version requirements.
 
 ---
 
