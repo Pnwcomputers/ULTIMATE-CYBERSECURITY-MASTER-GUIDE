@@ -8,6 +8,8 @@
 
 **When & how to use this:** Use once you already hold Domain Admin or equivalent rights, as the natural next step after [Domain Escalation](./Domain-Escalation.md). For a red-team exercise, use an isolated lab or a specifically approved simulation with explicit target, technique, duration, rollback, and cleanup criteria. Do not treat deployment of multiple live persistence mechanisms as a default test step. During defensive work, use this as your "did we actually get all of it" checklist after any AD compromise.
 
+![Persistence control validation workflow: define scope, simulate one approved mechanism, observe controls, then remove it and verify restoration](../assets/diagrams/authorized-persistence-validation.svg)
+
 #### 📖 Full deep-dive with detection/defense guidance: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md)
 #### 📄 PDF references: [AD_Attacks_.pdf](../PDF/AD_Attacks_.pdf) · [AD_Post_Exploitation.pdf](../PDF/AD_Post_Exploitation.pdf)
 ---
