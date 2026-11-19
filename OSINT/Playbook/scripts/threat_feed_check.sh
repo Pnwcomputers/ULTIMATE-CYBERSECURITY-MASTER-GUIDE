@@ -121,6 +121,24 @@ private_curl_status() {
     printf '%s' "$http_code"
 }
 
+private_curl_post_status() {
+    local out_file="$1" url="$2" post_data="$3"
+    local config http_code rc=0
+    config="$(mktemp)" || { warn "Could not create private curl config"; return 1; }
+    chmod 600 "$config" || { rm -f "$config"; return 1; }
+    {
+        printf 'silent\nshow-error\nmax-time = 25\nrequest = "POST"\noutput = "%s"\nwrite-out = "%%{http_code}"\nurl = "%s"\ndata = "%s"\n' \
+            "$(curl_config_escape "$out_file")" "$(curl_config_escape "$url")" "$(curl_config_escape "$post_data")"
+    } > "$config"
+    http_code="$(curl --config "$config" 2>"${out_file}.err")" || rc=$?
+    rm -f "$config"
+    if (( rc != 0 )); then
+        warn "Request failed (curl exit $rc); result is UNVERIFIED, see ${out_file}.err"
+        return 1
+    fi
+    printf '%s' "$http_code"
+}
+
 # ---------------------------------------------------------------------------
 # Usage
 # ---------------------------------------------------------------------------
@@ -205,7 +223,7 @@ check_abuseipdb() {
     local http_code
     local encoded_ip
     encoded_ip=$(printf '%s' "$ioc" | jq -sRr @uri) || return
-    http_code=$(private_curl_status "$out_file" "https://api.abuseipdb.com/api/v2/check?ipAddress=${encoded_ip}%26maxAgeInDays=90" \
+    http_code=$(private_curl_status "$out_file" "https://api.abuseipdb.com/api/v2/check?ipAddress=${encoded_ip}&maxAgeInDays=90" \
         "Key: $ABUSEIPDB_API_KEY" "Accept: application/json") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
@@ -430,18 +448,16 @@ check_phishtank() {
     command -v curl &>/dev/null || { warn "curl not found, skipping PhishTank"; return; }
 
     info "PhishTank: querying $ioc ..."
-    local encoded_url
-    encoded_url=$(printf '%s' "$ioc" | curl -Gso /dev/null -w '%{url_effective}' --data-urlencode "url@-" "" 2>/dev/null | cut -c3-)
-
-    local post_data="url=${encoded_url}&format=json"
+    local encoded_url post_data encoded_key
+    encoded_url=$(printf '%s' "$ioc" | jq -sRr @uri) || return
+    post_data="url=${encoded_url}&format=json"
     if [[ -n "$PHISHTANK_API_KEY" ]]; then
-        post_data="${post_data}&app_key=${PHISHTANK_API_KEY}"
+        encoded_key=$(printf '%s' "$PHISHTANK_API_KEY" | jq -sRr @uri) || return
+        post_data="${post_data}&app_key=${encoded_key}"
     fi
 
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -X POST "https://checkurl.phishtank.com/checkurl/" \
-        -d "$post_data")
+    http_code=$(private_curl_post_status "$out_file" "https://checkurl.phishtank.com/checkurl/" "$post_data") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local in_database
