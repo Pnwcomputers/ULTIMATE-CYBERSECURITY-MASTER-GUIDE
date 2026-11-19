@@ -243,13 +243,43 @@ pretty_json() {
 # including query-string API credentials, are passed through curl's stdin config so
 # they do not appear in its process arguments. Providers may still retain URL logs.
 query_api() {
-    local output="$1" label="$2" url="$3" rc=0 body; shift 3
+    local output="$1" label="$2" url="$3" rc=0 body curl_config; shift 3
     if [[ ! "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]]; then
-        printf 'Invalid HTTPS URL for %s\n' "$label" > "${output}.err"
+        printf 'Invalid HTTPS URL for %s\\n' "$label" > "${output}.err"
         : > "$output"
         return 2
     fi
-    body="$({ printf 'url = "%s"\n' "$url"; } | curl --config - -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    curl_config="url = \"$url\""$'\\n'
+    while (($#)); do
+        case "$1" in
+            -H|--header)
+                (($# >= 2)) || return 2
+                [[ "$2" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || {
+                    printf 'Rejected unsafe header for %s\\n' "$label" > "${output}.err"
+                    : > "$output"
+                    return 2
+                }
+                curl_config+="header = \"$2\""$'\\n'
+                shift 2
+                ;;
+            -d|--data)
+                (($# >= 2)) || return 2
+                [[ "$2" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || {
+                    printf 'Rejected unsafe form data for %s\\n' "$label" > "${output}.err"
+                    : > "$output"
+                    return 2
+                }
+                curl_config+="data = \"$2\""$'\\n'
+                shift 2
+                ;;
+            *)
+                printf 'Rejected unsupported curl option for %s\\n' "$label" > "${output}.err"
+                : > "$output"
+                return 2
+                ;;
+        esac
+    done
+    body="$(printf '%s' "$curl_config" | curl --config - -sS --fail --max-time 20 2>"${output}.err")" || rc=$?
     : > "$output"
     if (( rc != 0 )) || [ -z "$body" ]; then
         log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
