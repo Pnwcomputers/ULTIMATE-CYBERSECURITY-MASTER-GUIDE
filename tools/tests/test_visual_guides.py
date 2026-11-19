@@ -86,6 +86,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/wardriving-field-quality-acceptance.svg": (
         "Wardriving/field-workflow.md",
     ),
+    "assets/diagrams/graylog-data-node-ingest-architecture.svg": (
+        "IncidentResponse/SIEM/graylog.md",
+    ),
+    "assets/diagrams/live-response-volatility-evidence-gates.svg": (
+        "IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md",
+    ),
 }
 
 
