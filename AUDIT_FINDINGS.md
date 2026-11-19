@@ -526,7 +526,7 @@ PDF reviewed together:
   authorization framing (7–124 framing lines each: Scripts/README's legal-warning
   section, GO/shells' "AUTHORIZED USE ONLY" banner, the PlayBooks' legal sections,
   the HID-payload READMEs). No header gaps — no changes needed.
-- **Verdict:** sound. **Per-domain scope 2/4 review complete across all domains.**
+- **Verdict:** this was a screening pass for prominent authorization framing, not a systematic review of technical accuracy or destructive-command safety. Later reviews and remediation supersede these observations.
 
 ### Repo-wide dead-link sweeps (2026-08-03)
 
@@ -540,9 +540,9 @@ PDF reviewed together:
 
 ## Open workstreams (not yet itemized as findings)
 
-These audit-scope areas were **not** covered in this structural pass and are not
-represented above. They are listed so the register is honest about coverage, not
-as claims of specific defects.
+At the time of this August 2026 snapshot, the deeper reviews below remained open.
+The earlier domain screening was limited and did not constitute comprehensive
+technical verification. Later work supersedes the status statements in this section.
 
 - **Factual & technical accuracy (scope 2)** — a currency pass plus a second-pass
   **sample** have run; the sample was clean (see verification notes above). A
@@ -550,8 +550,9 @@ as claims of specific defects.
   still outstanding (roadmap Phase 4).
 - **Safety review (scope 4)** — header *consistency* is now tracked as F-09. A
   systematic audit of destructive commands for backup/privilege/rollback notes is
-  still outstanding. **Constraint reaffirmed by the maintainer: do not remove
-  scripts or sterilize content** — safety work should *add* warnings/context.
+  still outstanding at that time. Later safety remediation superseded the earlier
+preference to keep every script functional: scripts with unacceptable risk may be
+retired in place as inert notices, with inventories and links updated.
 - **Duplication & contradiction (scope 11)** — overlap is now mapped and tracked
   as **F-08**, with a remediation plan in the report. *Contradiction* detection
   (conflicting advice between docs) is still outstanding.
@@ -574,4 +575,4 @@ as claims of specific defects.
 | G. Content Expansion Plan | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § G |
 | H. Style Guide | Exists (`STYLE_GUIDE.md`); reconciliation with findings tracked in report § G |
 | I. Implementation Roadmap | ✅ [AUDIT_REPORT.md](./AUDIT_REPORT.md) § I |
-| J. Proposed Changes | Findings F-01–F-06 implemented (PRs #24–#26); F-07 deferred; F-08/F-09 planned |
+| J. Proposed Changes | Findings F-01–F-06 implemented (PRs #24–#26); F-07 deferred; F-08/F-09 implemented (see summary table) |
