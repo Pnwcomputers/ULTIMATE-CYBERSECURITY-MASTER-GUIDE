@@ -2,19 +2,19 @@
 # Chapter 4: Timing and Power Analysis Attacks
 
 ## 🎯 Purpose
-Introduction to passive side-channel attacks - covering timing attacks, Simple Power Analysis (SPA), Differential Power Analysis (DPA), Correlation Power Analysis (CPA), electromagnetic (EM) side-channel, and acoustic side-channel, including the statistical foundations and trace collection methodology.
+Explain how timing, power, electromagnetic, and other physical observations can reveal information about device behavior, and how to evaluate leakage claims carefully.
 
 ## ⚙️ Function
-Covers: what leaks via power/time/EM/acoustic, timing attack theory and implementation, SPA trace interpretation, DPA statistical approach (difference of means), CPA with Pearson correlation, EM measurement setup, acoustic analysis, and sample size requirements for different attack levels (unprotected AES, masked AES, RSA).
+Introduces timing side channels, simple power analysis, differential power analysis (DPA), correlation power analysis (CPA), common measurement limits, and defensive review.
 
 ## 🏆 Goal
-Extract a cryptographic key (AES, RSA) or reveal secret-dependent computation paths from a target device's physical observables without triggering any software-level security detection.
+Help assess whether an authorized implementation leaks sensitive information and produce evidence that supports practical remediation.
 
 ## 📋 When to Use
-- Evaluating whether a cryptographic implementation leaks key material via power consumption
-- When active attacks (JTAG, fault injection) are blocked but passive observation is feasible
-- Validating the effectiveness of masking countermeasures on development hardware
-- Advanced red-team assessments requiring key extraction from HSMs or secure elements
+- Reviewing cryptographic implementations on owned or explicitly authorized development hardware
+- Learning how physical leakage differs from functional output
+- Assessing the limits of timing and power-analysis claims
+- Planning defensive validation of constant-time code and side-channel countermeasures
 
 > *Part of the [Hardware Hacking Guide](./README.md) - [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -22,198 +22,76 @@ Extract a cryptographic key (AES, RSA) or reveal secret-dependent computation pa
 
 ### Introduction to Side-Channel Analysis
 
-Side-channel attacks extract secret information from **physical observables** - time, power, electromagnetic emissions, acoustic noise, photon emission - that leak as a function of the data being processed.
+Side-channel analysis studies unintended information in physical or microarchitectural observations such as execution time, power consumption, electromagnetic emissions, or acoustic signals. These observations can depend on secret data, but measurement noise, device design, software, and available inputs affect whether a useful inference is possible.
 
-Unlike fault injection (which modifies behavior), side-channel analysis is **passive observation**. The target device operates normally; the attacker observes.
+Unlike fault injection, side-channel analysis observes behavior rather than deliberately changing it. Some evaluations use chosen inputs or repeated cryptographic operations, so the target is not necessarily an ordinary passive-only scenario.
 
-```
-Secret data (e.g., AES key)
-       │
-       ↓
-CPU executes crypto operation
-       │
-       ├──> Logical output (ciphertext)       ← what the attacker is "supposed" to see
-       │
-       └──> Physical observables:             ← what side-channel exploits
-              ├── Time taken to complete
-              ├── Power consumed each cycle
-              ├── EM field emitted each cycle
-              └── (Acoustic, photonic, thermal...)
-```
+![Conceptual side-channel evidence flow separating observation, leakage modeling, statistical analysis, and independent validation](../assets/diagrams/side-channel-evidence-analysis.svg)
 
----
+A secret-dependent computation can produce ordinary functional output and, separately, possible physical or microarchitectural leakage such as timing, power, EM emissions, or acoustic effects.
 
 ### Timing Attacks
 
 #### Concept
 
-If a security-sensitive operation takes different amounts of time depending on the secret value or on secret-dependent branches, an attacker can recover the secret by measuring execution time.
+If execution time depends on secret data, repeated measurements may reveal information about that data. A comparison that returns at the first mismatch is one possible source of timing variation, but a single slow request does not identify a correct character. Runtime noise, caching, network jitter, input length, scheduling, rate limits, and server behavior all confound measurements.
 
-**Classic example - non-constant-time string comparison:**
+For software under review, use a local test harness and a documented, authorized target. Do not send guesses to a live service; assess the implementation, threat model, measurement quality, and mitigations instead.
 
-```c
-// VULNERABLE: returns early on first mismatch
-int check_password(const char *input, const char *stored) {
-    while (*input && *stored) {
-        if (*input++ != *stored++) return 0;  // Early return!
-    }
-    return (*input == *stored);
-}
-```
-
-An attacker can recover the password one character at a time - the correct first character takes slightly longer (comparison proceeds to byte 2).
-
-```python
-import time, requests
-
-def timing_attack_password(target_url, charset, known_prefix=""):
-    results = {}
-    for c in charset:
-        guess = known_prefix + c + "A" * (MAX_LEN - len(known_prefix) - 1)
-        start = time.perf_counter_ns()
-        requests.post(target_url, data={"password": guess})
-        elapsed = time.perf_counter_ns() - start
-        results[c] = elapsed
-    return max(results, key=results.get)  # Highest time = correct character
-```
-
-**Mitigation:** `hmac.compare_digest()` in Python, `crypto_verify_*` in libsodium, `timingsafe_bcmp()` in BSD libc - constant-time comparison regardless of data.
-
----
+**Mitigation:** Use vetted cryptographic libraries and constant-time comparison primitives for secret values. Python's hmac.compare_digest() is designed to avoid content-based short-circuiting; its documentation notes that type and length differences may still be observable. Constant-time behavior must be evaluated in the full implementation and environment.
 
 #### RSA Timing Attacks
 
-Early RSA implementations used square-and-multiply exponentiation:
+An exponentiation implementation that performs different work depending on private-exponent bits can create timing variation. This is an implementation-level leakage risk, not a universal property of RSA. Real attacks depend on the implementation, observable timing precision, attacker queries, noise, and countermeasures.
 
-```
-For each bit of the private exponent d:
-    square the accumulator
-    if bit == 1: multiply by base    ← extra operation when bit is 1
-```
-
-The total time correlates with the Hamming weight of `d`. Countermeasure: **Montgomery ladder** (always square and multiply, discard one result) or **blinding** (randomize inputs before exponentiation).
-
----
+Common defensive techniques include constant-time implementations and blinding where appropriate. No single algorithm name guarantees constant-time behavior; use a vetted cryptographic implementation and review its documented threat model. See Kocher's original [timing attacks paper](https://cr.yp.to/bib/1996/kocher.pdf).
 
 #### Cache Timing (Software Side-Channel)
 
 | Attack | Description | Example |
 |--------|-------------|---------|
-| **Flush+Reload** | Flush shared cache line; time victim access to determine if it accessed it | AES T-table key recovery |
-| **Prime+Probe** | Fill cache set; measure eviction time after victim runs | Cross-VM key extraction |
-| **Spectre / Meltdown** | Speculative execution leaves cache footprint | Memory disclosure across privilege boundaries |
+| **Flush+Reload** | Measure access time to a shared cache line after an operation | Can reveal whether victim code accessed a line |
+| **Prime+Probe** | Measure cache-set contention after victim activity | Can infer activity without shared memory |
+| **Transient execution** | Speculative or out-of-order effects leave measurable microarchitectural state | Cache timing is one common observation channel |
+
+Spectre and Meltdown refer to distinct vulnerability classes and should not be treated as synonyms for cache attacks. Cache behavior is one possible channel used to observe microarchitectural effects.
 
 ---
 
 ### Simple Power Analysis (SPA)
 
-SPA involves visually or manually analyzing a **single power trace** (or a small number of traces) to identify secret-dependent operations.
+SPA examines one or a small number of traces for visible structure associated with a computation. The trace is an observation; interpretation depends on the implementation and measurement setup.
 
 #### Concept
 
-Power consumption of a digital circuit correlates with the data it processes:
-
-- **Switching activity:** CMOS gates consume power only when switching (0→1 or 1→0)
-- **Hamming weight model:** Power ∝ number of 1-bits in the data being processed
-- **Hamming distance model:** Power ∝ number of bits that change between consecutive operations
+Power measurements can reflect circuit activity, but there is no universal proportionality between trace amplitude and the number of 1 bits in a value. Hamming-weight and Hamming-distance models are hypotheses used in particular analyses; actual leakage depends on the implementation, transitions, measurement path, and noise.
 
 <p align="center">
-  <img src="../assets/SPAonRSA.jpg" alt="Figure 10: Annotated SPA Trace of RSA. Visualizing modular Square versus Multiply operations during modular exponentiation." width="600"/>
+  <img src="../assets/SPAonRSA.jpg" alt="Illustrative power-trace pattern sometimes associated with square and multiply operations; actual traces depend on implementation and measurement setup." width="600"/>
 </p>
 
 #### SPA on RSA
 
-In RSA private key operations, the square-and-multiply algorithm produces visually distinct power signatures:
+Some modular exponentiation implementations perform distinguishable operations depending on exponent bits. A sufficiently informative trace may reveal operation structure, but the waveform must be interpreted against the exact implementation and acquisition setup. It does not automatically expose key bits.
 
-```
-Power trace segment:
+A CSV plot is a visualization of exported samples, not a calibrated power measurement unless the probe, shunt, gain, and acquisition path are calibrated. Label the axis in the actual exported unit, such as ADC counts or volts, and record its provenance.
 
-  Square   Multiply   Square   Square   Multiply   Square
-  ████     ██████     ████     ████     ██████     ████
-  
-  bit=0    bit=1      bit=0    bit=0    bit=1      bit=0
-```
+### Differential and Correlation Power Analysis
 
-A single well-captured power trace may directly reveal the private key bits from the amplitude/duration pattern of the multiply operations.
+Differential power analysis (DPA) and correlation power analysis (CPA) are related statistical side-channel methods, but they are not interchangeable names for one algorithm.
 
-**Practical capture:**
+- **DPA** groups traces according to a predicted bit or intermediate-value property, then compares group statistics, classically with a difference of means.
+- **CPA** assigns a predicted leakage value to each trace, often using a Hamming-weight or Hamming-distance model, then computes correlation with measured samples.
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+An AES analysis that uses Pearson correlation against a Hamming-weight prediction is CPA. In either approach, the analysis depends on the leakage model, input data, trace alignment, acquisition quality, implementation, and countermeasures. A high peak alone is not proof of a correct key guess; confirm against known test vectors or an independent validation path on an authorized target.
 
-# Load raw oscilloscope trace (CSV export)
-trace = np.loadtxt('rsa_trace.csv', delimiter=',', usecols=1)
-time_axis = np.loadtxt('rsa_trace.csv', delimiter=',', usecols=0)
+#### Trace Counts and Evidence
 
-plt.figure(figsize=(20, 4))
-plt.plot(time_axis * 1e6, trace * 1000, linewidth=0.5)
-plt.xlabel('Time (μs)')
-plt.ylabel('Power (mW proxy)')
-plt.title('RSA Private Key Operation - SPA Trace')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
+There is no reliable universal minimum trace count for AES, RSA, or a particular masking order. Requirements vary with the device, implementation, leakage strength, signal-to-noise ratio, measurement setup, alignment, chosen inputs, statistical method, and countermeasures. Published results for one device should not be presented as a general threshold.
 
----
+For an evaluation report, document the number and source of traces, acquisition conditions, preprocessing, analysis model, controls, key-guess ranking or confidence measure, repeatability, and independent verification. Treat trace count as an experimental result, not as a fixed property of an algorithm.
 
-### Differential Power Analysis (DPA)
-
-DPA uses **statistical analysis across many traces** to extract secret key bits, even when individual traces are too noisy for visual analysis. Introduced by Kocher, Jaffe, and Jun in 1999.
-
-#### Concept
-
-DPA exploits the correlation between a hypothetical intermediate value (computed from a guess about part of the key) and the measured power consumption.
-
-**Attack on AES-128 (first round, 1 byte of key):**
-
-1. Collect N power traces while target encrypts N known plaintexts
-2. For each of 256 possible values of key byte K[0]:
-   a. Compute the hypothetical intermediate: `hyp = AES_Sbox[P[0] XOR K_guess]`
-   b. Predict power: use Hamming weight of `hyp` as the predicted power sample
-   c. Correlate predicted power values with measured trace samples across all N traces
-3. The K_guess that produces the highest correlation (Pearson r) at the right sample index is the correct key byte
-4. Repeat for all 16 key bytes (each independently)
-
-```python
-import numpy as np
-from scipy.stats import pearsonr
-
-def hamming_weight(x):
-    return bin(x).count('1')
-
-SBOX = [0x63, 0x7c, 0x77, ...]  # Full 256-entry AES S-Box table
-
-def dpa_aes_byte(traces, plaintexts, byte_idx):
-    N, T = traces.shape
-    correlations = np.zeros(256)
-    
-    for k_guess in range(256):
-        hyp = np.array([
-            hamming_weight(SBOX[plaintexts[i, byte_idx] ^ k_guess])
-            for i in range(N)
-        ])
-        r_values = np.array([pearsonr(hyp, traces[:, t])[0] for t in range(T)])
-        correlations[k_guess] = np.max(np.abs(r_values))
-    
-    return correlations
-
-result = dpa_aes_byte(traces, plaintexts, byte_idx=0)
-likely_key_byte = np.argmax(result)
-print(f"Key byte 0: 0x{likely_key_byte:02X} (correlation: {result[likely_key_byte]:.4f})")
-```
-
-#### Minimum Trace Count
-
-| Target Algorithm | Unprotected | First-Order Masking | Second-Order Masking |
-|-----------------|------------|--------------------|--------------------|
-| AES (no countermeasures) | 100–1,000 | N/A | N/A |
-| AES (first-order masked) | N/A | 10,000–100,000 | N/A |
-| AES (second-order masked) | N/A | N/A | 1M+ |
-| RSA (no blinding) | 1 (SPA) | N/A | N/A |
-| RSA (blinded) | 10,000+ (template) | N/A | N/A |
-
----
+**References:** [Kocher's timing-attack paper](https://cr.yp.to/bib/1996/kocher.pdf); Kocher, Jaffe, and Jun, [Differential Power Analysis](https://doi.org/10.1007/3-540-48405-1_25); Python's [hmac.compare_digest() documentation](https://docs.python.org/3/library/hmac.html#hmac.compare_digest).
 
 ## Related Files
 - [EUCLEAK / YubiKey 2024 Case Study](../CaseStudies/hardware/eucleak-yubikey-2024.md) - Real-world EM leakage and affected-implementation boundaries

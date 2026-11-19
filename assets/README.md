@@ -650,3 +650,12 @@ Original conceptual evidence flow for authorized, controlled assessments. It doe
 | Diagram | Embedded guide |
 |---|---|
 | [Fault-injection evaluation evidence flow](./diagrams/fault-injection-evaluation-flow.svg) | [Fault Injection Attacks](../HardwareHacking/Chapter3.md#concept) |
+
+
+## Side-Channel Evidence Visual
+
+Original conceptual analysis flow separating physical observation, leakage modeling, statistical analysis, and independent validation. It does not represent a measured trace or proven key recovery.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Side-channel evidence analysis](./diagrams/side-channel-evidence-analysis.svg) | [Timing and Power Analysis](../HardwareHacking/Chapter4.md#introduction-to-side-channel-analysis) |
