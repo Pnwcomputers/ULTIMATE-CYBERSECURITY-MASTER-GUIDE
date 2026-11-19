@@ -211,12 +211,12 @@ Install only maintained applications from a trusted distribution source after re
 | Symptom | First checks |
 |---|---|
 | USB device is not recognized | Review device permissions, cable quality, and vendor diagnostics using a benign accessory |
-| No monitor mode / injection | Internal chipset limits - use external adapter; verify with `airmon-ng`, `iw dev` |
+| Wireless review unavailable | Use owner-provided controller reports; avoid enabling transmission or capture features |
 | Chroot won't start | Re-open Chroot Manager; check storage; reboot; verify kernel string with `uname -a` |
-| Metasploit DB errors | Start **PostgreSQL** in Kali Services; `msfdb init` |
+| Unexpected local listener | Stop the related service, verify it is no longer listening, and review the approved device baseline |
 | KeX black screen | Restart KeX server; re-enter VNC password; check resolution setting |
-| Adapter not detected | Reseat OTG; check power (use Y-cable); `dmesg \| tail` for USB errors |
-| Tools slow / OOM | Close KeX/background sessions; use `tmux`; watch battery/thermals |
+| Approved accessory not recognized | Disconnect it and use vendor-supported diagnostics; do not enable radio transmission features |
+| Device runs slowly or overheats | Stop optional services, close desktop sessions, allow the device to cool, and preserve battery health |
 
 ---
 
@@ -224,10 +224,9 @@ Install only maintained applications from a trusted distribution source after re
 
 The internal radio may not expose every passive diagnostic capability. Check manufacturer documentation and the adapter's supported receive-only features before use:
 
-- **Atheros AR9271** (2.4 GHz) - rock-solid, widely supported.
-- **Realtek RTL8812AU / RTL8811AU** (2.4/5 GHz) - needs the `8812au` driver; good dual-band.
-- **MediaTek MT7612U / MT7610U** - strong 5 GHz support.
-- **RT3070/RT5370** - reliable 2.4 GHz budget option.
+- Choose only hardware supported by the device vendor and the assessment platform.
+- Confirm the device can be configured for receive-only diagnostics if required.
+- Do not enable packet injection or active transmission for routine review.
 
 Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapters or long ops.
 
@@ -235,13 +234,11 @@ Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapter
 
 ```
 ~/engagements/<client>-<YYYYMMDD>/
-├── RoE.pdf
-├── scope.txt              # in-scope IPs / SSIDs / BSSIDs / MACs
+├── scope-reference.txt   # access-controlled; avoid listing unnecessary identifiers
 ├── approved-evidence/
 ├── redacted-screenshots/
 ├── notes/
-├── loot/                  # creds, keys (encrypt!)
-├── notes.md
+├── evidence-manifest.txt
 └── SHA256SUMS
 ```
 
