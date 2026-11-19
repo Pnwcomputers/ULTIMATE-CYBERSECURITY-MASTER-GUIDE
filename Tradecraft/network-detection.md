@@ -254,7 +254,7 @@ Zeek generates high-fidelity protocol logs from network traffic - far more usefu
 
 ```bash
 # Extract columns from Zeek logs
-cat conn.log | zeek-cut id.orig_h id.resp_h id.resp_p proto bytes duration
+cat conn.log | zeek-cut id.orig_h id.resp_h id.resp_p proto orig_bytes resp_bytes duration
 
 # Find long-duration, low-byte connections (C2 heartbeat)
 cat conn.log | zeek-cut duration orig_bytes resp_bytes id.orig_h id.resp_h id.resp_p \
@@ -293,7 +293,8 @@ event connection_state_remove(c: connection) {
     }
 }
 
-# Detect DNS over non-standard port
+# Detect DNS sent to external resolvers on standard port 53.
+# Maintain Site::local_nets for the organization's approved resolver ranges.
 event new_connection(c: connection) {
     if (c$id$resp_p == 53/tcp || c$id$resp_p == 53/udp) {
         if (c$id$resp_h !in Site::local_nets) {

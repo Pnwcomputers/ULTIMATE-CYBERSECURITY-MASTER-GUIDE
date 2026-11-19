@@ -575,7 +575,7 @@ mimikatz # lsadump::dcshadow /push
 | 4688 | Process creation | Execution tracking |
 | 4720 | User account created | Persistence |
 | 4728/4732/4756 | Member added to group | Privilege escalation |
-| 4769 | TGS requested | Kerberoasting (RC4 cipher alert) |
+| 4769 | TGS requested | Investigate unusual service-ticket patterns; encryption type alone is not proof |
 | 4768 | Kerberos TGT requested (AS-REQ) | AS-REP roastable if pre-auth type 0 present in the event |
 | 4771 | Pre-auth failure | Password spraying (wrong password on pre-auth-required accounts) |
 | 4776 | NTLM credential validation | PtH detection |
@@ -585,18 +585,17 @@ mimikatz # lsadump::dcshadow /push
 
 ### Kerberoasting Detection
 
-```powershell
-# Alert on TGS requests for service tickets encrypted with RC4 (type 23)
-# Modern environments should use AES encryption - RC4 requests = Kerberoasting
+RC4 service tickets (event 4769, encryption type 0x17) are a review signal, not proof of Kerberoasting; legacy applications may still require RC4. Baseline service accounts and client systems, then correlate ticket volume, unusual SPN targeting, requesting process, and approved encryption support before raising an alert. Test thresholds against local telemetry to limit false positives.
 
-# KQL (Sentinel / Defender)
+```kusto
+// Starting point for a locally tuned Sentinel/Defender rule
 SecurityEvent
 | where EventID == 4769
-| where TicketEncryptionType == "0x17"   // RC4
-| where ServiceName !endswith "$"         // Not computer accounts
-| where ServiceName !in ("krbtgt", "kadmin")
-| summarize count() by AccountName, ServiceName, IpAddress
-| where count_ > 5
+| where TicketEncryptionType == "0x17"   // RC4; investigate in context
+| where ServiceName !endswith "$"
+| summarize ticket_count=count(), services=dcount(ServiceName)
+    by AccountName, IpAddress, bin(TimeGenerated, 15m)
+| where ticket_count > 5 or services > 3
 ```
 
 ### DCSync Detection
@@ -736,8 +735,9 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" 
 ### Kerberos Hardening
 
 ```powershell
-# Enforce AES encryption - eliminate RC4 (removes Kerberoasting effectiveness)
-# Set msDS-SupportedEncryptionTypes = 24 (AES128 + AES256) on service accounts
+# Prefer AES where supported, after auditing dependencies and validating clients.
+# AES raises offline cracking cost compared with RC4 but does not prevent Kerberoasting.
+# Use long random service-account secrets or gMSAs, and least-privilege rights.
 
 # Rotate krbtgt password regularly
 # Use ADKerberosDelegation module or Microsoft's New-KrbtgtKeys.ps1

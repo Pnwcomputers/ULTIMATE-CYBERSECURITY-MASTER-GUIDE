@@ -49,9 +49,8 @@ report it via the channels above.
 
 The following are **not** security vulnerabilities in this repo:
 
-- Tools that are inherently offensive (that's the point - they require authorization to use)
-- Techniques documented in the guides (documentation is not an attack surface)
-- Links to third-party tools that have their own vulnerabilities (report those upstream)
+- Conceptual descriptions of attack techniques, by themselves, are not security vulnerabilities.
+- A third-party tool's own defect should generally be reported to its maintainer. Unsafe installation steps, harmful defaults, exposed secrets, or unsafe executable examples in this repository remain reportable.
 
 ---
 

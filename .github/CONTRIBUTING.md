@@ -6,12 +6,12 @@ community input.
 
 ---
 
-## ⚖️ Legal Requirement - Read Before Anything Else
+## ⚖️ Legal and Responsible Use
 
-**All contributions must comply with the [LEGAL.md](../LEGAL.md) terms.**
+Please review the repository's [Legal and Responsible Use Notice](../LEGAL.md). It is informational guidance, not a contribution contract.
 
-By submitting a contribution you confirm:
-- The content is for **educational and authorized security testing purposes only**
+By submitting a contribution, you confirm:
+- The content supports **lawful education, defensive security, or authorized security testing**
 - You have the right to contribute the material (no plagiarism, no stolen code)
 - You are not submitting malware, backdoors, or tools designed solely for malicious use
 - You understand that unauthorized activity may violate applicable laws, contracts or provider terms; consequences depend on the facts and jurisdiction
@@ -39,7 +39,7 @@ By submitting a contribution you confirm:
 - Obfuscated code of any kind
 - Content copied from books without proper attribution and fair use justification
 - Exploits targeting specific named organizations
-- Anything violating the [LEGAL.md](../LEGAL.md) terms
+- Material that conflicts with the [Legal and Responsible Use Notice](../LEGAL.md) or these contribution rules
 
 ---
 
