@@ -9,6 +9,16 @@ _Defensive review of initial-access techniques and user-deception paths, mapped 
  
 **When & how to use this:** Use as a defensive review or a narrowly scoped, harmless awareness simulation. Do not use a remote payload or claim that opening the URI alone establishes code execution. The blue-team companion below covers investigation and evidence preservation.
 
+```mermaid
+flowchart LR
+    A[User receives a link] --> B[search-ms URI opens Windows Search]
+    B --> C[Search UI may show a remote listing]
+    C --> D{User opens a file?}
+    D -- No --> E[No file handler is invoked]
+    D -- Yes --> F[File type policy and security controls apply]
+    F --> G[Review endpoint and network telemetry]
+```
+
 #### 🔵 Blue-team companion (investigating access after the fact): [PlayBooks/unauth_access.md](../PlayBooks/unauth_access.md)
 
 ---
