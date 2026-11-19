@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-clear
-
-#start streaming
-cd /./home/kali/CyberSecurity_Lab/mjpg-streamer
-./mjpg_streamer -i "./input_uvc.so -r 320x240 -f 30 -q 95" -o "./output_http.so -w ./www -c admin:kali"
+cat >&2 <<'NOTICE'
+Retired: this launcher started a webcam stream with the public default credential admin:kali and no verified bind restriction. Use a reviewed local-only capture setup with unique credentials.
+This path is retained as an inert retirement notice; it performs no actions.
+NOTICE
+exit 2
