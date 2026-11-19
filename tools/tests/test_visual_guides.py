@@ -104,6 +104,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/webapp-object-authorization-role-matrix.svg": (
         "WebAppSecurity/methodology.md",
     ),
+    "assets/diagrams/proxmox-honeynet-vm-trust-boundaries.svg": (
+        "IncidentResponse/HoneyPot/proxmox-vm-honeynet.md",
+    ),
+    "assets/diagrams/osquery-interactive-scheduled-siem-flow.svg": (
+        "IncidentResponse/Endpoint-Visibility/Linux/osquery.md",
+    ),
+    "assets/diagrams/data-lineage-job-run-access-boundaries.svg": (
+        "Data-Engineering/Phase3/data_governance_lineage.md",
+    ),
 }
 
 

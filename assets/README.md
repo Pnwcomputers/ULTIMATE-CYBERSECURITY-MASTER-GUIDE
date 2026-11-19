@@ -18,6 +18,14 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [RPO/RTO & Recovery Timeline](./diagrams/recovery-point-rpo-rto-replay-timeline.svg) | [Backup, Replay & Disaster Recovery](../Data-Engineering/Phase3/data_recovery_replay.md) | Distinguish trusted backup point, retained changes, restore time and verified cutover |
 | [Web Application Authorization Matrix](./diagrams/webapp-object-authorization-role-matrix.svg) | [Web Application Testing Methodology](../WebAppSecurity/methodology.md) | Horizontal ownership checks, vertical privileges and server-side subject-object-action decisions |
 
+## Proxmox Honeynet, Endpoint Telemetry & Lineage Diagrams
+
+| Diagram | Embedded Guide | Why It Helps |
+|---|---|---|
+| [Proxmox Honeynet Trust Zones](./diagrams/proxmox-honeynet-vm-trust-boundaries.svg) | [Proxmox VM Honeynet](../IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) | Shows restricted decoy ingress, agent telemetry path and protected management plane |
+| [osquery Interactive vs Scheduled Results](./diagrams/osquery-interactive-scheduled-siem-flow.svg) | [Linux osquery Deployment](../IncidentResponse/Endpoint-Visibility/Linux/osquery.md) | Differentiates interactive snapshots, scheduled differential results, logger and SIEM visibility |
+| [Dataset / Job / Run Lineage & Access](./diagrams/data-lineage-job-run-access-boundaries.svg) | [Data Governance & Lineage](../Data-Engineering/Phase3/data_governance_lineage.md) | Multi-input transformations, run provenance, restricted outputs and controls outside graph |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |

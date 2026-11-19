@@ -116,6 +116,10 @@ labeling every derived output “internal” by default.
 
 ## 🧭 3. Dataset, Run & Column Lineage
 
+![Conceptual source and reference datasets feeding a transformation job and recorded run to derived and restricted data products, with authorization handled separately](../../assets/diagrams/data-lineage-job-run-access-boundaries.svg)
+
+*Conceptual dataset/job/run model.* The [OpenLineage specification](https://openlineage.io/docs/spec/object-model/) differentiates datasets from jobs and individual runs; it does not guarantee that every field transformation or manual export is automatically observed. Trace source code, input versions and restricted output destinations, and test actual access permissions independently.
+
 Lineage is the record of how data was produced. It supports impact analysis, investigation, replay, and
 lifecycle decisions.
 
@@ -133,14 +137,6 @@ emit OpenLineage events. [OpenLineage object model](https://openlineage.io/docs/
 Record transformation and reference-data versions, not only direct input paths. A lookup table or timezone
 rule can change a result without changing its source row. Manual exports and spreadsheet edits also create
 lineage and may otherwise become blind spots.
-
-```mermaid
-flowchart TD
-    A[Raw assets] --> C[Normalized assets]
-    B[Site reference] --> C
-    C --> D[Site totals]
-    C --> E[Restricted investigation view]
-```
 
 Before a source field change or deletion, find downstream datasets, materializations, exports, and consumers.
 An automatically collected graph can be incomplete; label coverage and capture uninstrumented dependencies

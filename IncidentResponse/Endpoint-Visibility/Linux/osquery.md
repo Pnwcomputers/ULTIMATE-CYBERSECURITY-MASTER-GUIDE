@@ -17,7 +17,7 @@ Deploy osquery as a host-based security monitoring tool that enables SQL-based q
 - Triage: querying a suspected compromised host for IOCs
 - Building a scheduled query pack for continuous compliance monitoring
 
-**Osquery** is an open-source tool developed by Facebook that exposes operating system information as a relational database. Using SQL queries, you can interrogate endpoints to gather security-relevant data about processes, users, network connections, file changes, and more. It's like having a SQL interface to your entire fleet of endpoints.
+**Osquery** is an open-source tool developed by Facebook that exposes operating system information as a relational database. Using SQL queries, you can interrogate endpoints to gather security-relevant data about processes, users, network connections, file changes, and more. A local osquery instance exposes supported endpoint tables; fleet-wide query scheduling and collection require their own configured management infrastructure.
 
 This guide covers deploying Osquery on Windows and Linux, configuring security-focused queries, and integrating with your SIEM.
 
@@ -25,12 +25,16 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 
 ## 🎯 Why Osquery?
 
+![osquery telemetry architecture showing interactive osqueryi snapshots separately from osqueryd scheduled differential or snapshot results and optional SIEM forwarding](../../../assets/diagrams/osquery-interactive-scheduled-siem-flow.svg)
+
+*Conceptual architecture.* The [official osquery logging reference](https://osquery.readthedocs.io/en/stable/deployment/logging/) differentiates scheduled-query result logs, snapshot results and status logs. [osquery's documented interactive mode](https://github.com/osquery/osquery/blob/master/docs/wiki/introduction/using-osqueryi.md) performs on-demand reads rather than automatically enabling a monitoring schedule. Queries are sampled observations unless a separately configured event mechanism and collection pipeline covers the activity.
+
 | Feature | Benefit |
 |---------|---------|
 | **SQL Interface** | Query system state using familiar SQL syntax |
 | **Cross-Platform** | Windows, Linux, macOS support |
-| **Low Overhead** | Lightweight agent with minimal performance impact |
-| **Scheduled Queries** | Continuously monitor for security events |
+| **Resource Tuning** | Performance varies with selected tables, query cost, schedule frequency and event subscriptions; benchmark on representative hosts |
+| **Scheduled Queries** | Periodically report selected table results; short-lived behavior can occur between polls |
 | **Fleet Management** | Manage thousands of endpoints centrally |
 | **Extensible** | Custom tables and extensions |
 
