@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 650" role="img" aria-labelledby="title desc">
+<title id="title">Mobile TLS proxy trust path</title>
+<desc id="desc">Conceptual Android and iOS HTTPS test workflow. Configure a controlled proxy, install its test certificate authority, check platform and application trust, account for app pinning or custom trust that can still reject interception, then validate using a test endpoint and document limits. Android user-CA trust depends on target SDK and network security configuration. Manually installed iOS certificate profiles need full trust enabled for SSL/TLS.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365672"/></marker></defs>
+<rect width="1080" height="650" rx="24" fill="#f5f8fc"/>
+<text x="540" y="48" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#142b45">Mobile HTTPS Proxy: Trust Has Multiple Gates</text>
+<text x="540" y="77" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#365672">Controlled test device and authorized application only</text>
+<g font-family="Arial,sans-serif">
+<text x="68" y="137" font-size="20" font-weight="700" fill="#20658b">ANDROID</text>
+<text x="68" y="297" font-size="20" font-weight="700" fill="#287769">iOS / iPadOS</text>
+<g text-anchor="middle">
+<rect x="190" y="105" width="170" height="105" rx="14" fill="#e7eff9" stroke="#365672" stroke-width="2"/>
+<text x="275" y="141" font-size="17" font-weight="700" fill="#142b45">1 · Set proxy</text><text x="275" y="171" font-size="14" fill="#20364e"><tspan x="275">Controlled device</tspan><tspan x="275" dy="19">and test network</tspan></text>
+<rect x="395" y="105" width="190" height="105" rx="14" fill="#e7eff9" stroke="#365672" stroke-width="2"/>
+<text x="490" y="141" font-size="17" font-weight="700" fill="#142b45">2 · Install test CA</text><text x="490" y="171" font-size="14" fill="#20364e"><tspan x="490">User store installation</tspan><tspan x="490" dy="19">alone may not be enough</tspan></text>
+<rect x="620" y="105" width="220" height="105" rx="14" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="730" y="141" font-size="17" font-weight="700" fill="#5b3510">3 · Check app trust</text><text x="730" y="171" font-size="14" fill="#5b3510"><tspan x="730">Target SDK, network security</tspan><tspan x="730" dy="19">config and custom trust</tspan></text>
+<rect x="875" y="105" width="150" height="105" rx="14" fill="#fde8e7" stroke="#a23d39" stroke-width="2"/>
+<text x="950" y="141" font-size="17" font-weight="700" fill="#7a2420">Possible block</text><text x="950" y="171" font-size="14" fill="#7a2420"><tspan x="950">Pinning / custom</tspan><tspan x="950" dy="19">trust may reject</tspan></text>
+<rect x="190" y="265" width="170" height="105" rx="14" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
+<text x="275" y="301" font-size="17" font-weight="700" fill="#143b36">1 · Set proxy</text><text x="275" y="331" font-size="14" fill="#143b36"><tspan x="275">Controlled device</tspan><tspan x="275" dy="19">and test network</tspan></text>
+<rect x="395" y="265" width="190" height="105" rx="14" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
+<text x="490" y="301" font-size="17" font-weight="700" fill="#143b36">2 · Install profile</text><text x="490" y="331" font-size="14" fill="#143b36"><tspan x="490">Manually installed CA</tspan><tspan x="490" dy="19">isn't trusted for SSL yet</tspan></text>
+<rect x="620" y="265" width="220" height="105" rx="14" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="730" y="301" font-size="17" font-weight="700" fill="#5b3510">3 · Enable full trust</text><text x="730" y="331" font-size="14" fill="#5b3510"><tspan x="730">Certificate Trust Settings</tspan><tspan x="730" dy="19">for manual profile install</tspan></text>
+<rect x="875" y="265" width="150" height="105" rx="14" fill="#fde8e7" stroke="#a23d39" stroke-width="2"/>
+<text x="950" y="301" font-size="17" font-weight="700" fill="#7a2420">Possible block</text><text x="950" y="331" font-size="14" fill="#7a2420"><tspan x="950">Pinning / custom</tspan><tspan x="950" dy="19">trust may reject</tspan></text>
+</g>
+<g stroke="#365672" stroke-width="3" marker-end="url(#arrow)">
+<path d="M362 157h26"/><path d="M587 157h26"/><path d="M842 157h25"/>
+<path d="M362 317h26"/><path d="M587 317h26"/><path d="M842 317h25"/>
+</g>
+<path d="M950 215v54" stroke="#a23d39" stroke-width="2" stroke-dasharray="6 5"/>
+<path d="M950 375v54" stroke="#a23d39" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="255" y="438" width="570" height="88" rx="16" fill="#edf2f6" stroke="#365672" stroke-width="2"/>
+<text x="540" y="471" text-anchor="middle" font-size="18" font-weight="700" fill="#142b45">4 · Validate with a known test endpoint</text>
+<text x="540" y="500" text-anchor="middle" font-size="15" fill="#20364e">Confirm which requests traverse the proxy; record failures and bypassed paths.</text>
+<path d="M950 386v22H825" fill="none" stroke="#365672" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<rect x="105" y="557" width="870" height="54" rx="12" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="540" y="591" text-anchor="middle" font-size="16" font-weight="700" fill="#5b3510">Installing a CA doesn't guarantee app traffic is interceptable; validate trust and scope before interpreting a capture.</text>
+</g></svg>

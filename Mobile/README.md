@@ -113,7 +113,7 @@ This directory contains **mobile security resources for penetration testers, for
 | [Frida](https://frida.re/) | Dynamic instrumentation toolkit | `pip install frida-tools` |
 | [Objection](https://github.com/sensepost/objection) | Runtime mobile exploration (Frida-based) | `pip install objection` |
 | [Drozer](https://github.com/WithSecureLabs/drozer) | Android attack surface analyzer | `pip install drozer` |
-| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for traffic interception | Since Android 7, apps ignore **user**-installed CAs — install Burp's CA into the **system** store (rooted) or bypass pinning with Frida/objection |
+| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for authorized testing | Android user-CA trust depends on target SDK and Network Security Configuration: API 24+ defaults to system CAs, while API 23 and lower also trust user-added CAs by default. Custom trust or pinning may still reject the proxy. |
 | [apksigner](https://developer.android.com/tools/apksigner) | Sign repackaged APKs | Included in Android SDK build-tools |
 
 ### iOS
@@ -122,10 +122,20 @@ This directory contains **mobile security resources for penetration testers, for
 | [libimobiledevice](https://libimobiledevice.org/) | Interact with iOS devices over USB | `sudo apt install libimobiledevice-utils` |
 | [idevicebackup2](https://man.archlinux.org/man/idevicebackup2.1) | Create/restore iOS backups | Part of libimobiledevice |
 | [Frida on iOS](https://frida.re/docs/ios/) | Dynamic instrumentation (requires jailbreak or sideload) | Works with checkra1n/palera1n |
-| [Burp Suite on iOS](https://portswigger.net/burp/documentation/desktop/mobile) | HTTPS interception | Install Burp CA via Safari |
-| [SSL Kill Switch 2](https://github.com/nabla-c0d3/ssl-kill-switch2) | Disable SSL pinning system-wide | Requires jailbreak |
+| [Burp Suite on iOS](https://portswigger.net/burp/documentation/desktop/mobile) | HTTPS proxy for authorized testing | A manually installed CA profile must be enabled under Settings → General → About → Certificate Trust Settings for SSL/TLS; app-specific trust or pinning may still reject it. |
+| [SSL Kill Switch 2](https://github.com/nabla-c0d3/ssl-kill-switch2) | Legacy iOS jailbreak test tweak | Compatibility varies by iOS and app trust implementation; it does not guarantee interception of every app. |
 
 ---
+
+## 📊 Mobile HTTPS Proxy Trust Flow
+
+Use a controlled test device and authorized application. Installing a proxy CA is only one trust step; platform defaults and app-specific trust policy determine whether HTTPS traffic can be inspected.
+
+![Conceptual Android and iOS HTTPS proxy flow showing CA installation, platform and app trust checks, possible pinning rejection, and validation against a test endpoint](../assets/diagrams/mobile-tls-proxy-trust-path.svg)
+
+*Conceptual comparison. Android trust depends on the app's target SDK and network security configuration. Manually installed iOS certificate profiles require full trust to be enabled for SSL/TLS. App pinning or custom trust can still reject the proxy.*
+
+References: [Android Network Security Configuration](https://developer.android.com/privacy-and-security/security-config) · [Apple certificate trust for manually installed profiles](https://support.apple.com/en-us/102390) · [Burp mobile configuration](https://portswigger.net/burp/documentation/desktop/mobile)
 
 ## 🔬 Testing Methodology Overview
 
@@ -146,13 +156,14 @@ This directory contains **mobile security resources for penetration testers, for
 3. Dynamic Analysis (rooted device or emulator)
    - adb install target.apk
    - objection -g com.target.app explore
-   - objection > android sslpinning disable
+   - Review target SDK and Network Security Configuration; use an approved test/debug build for trust-policy testing rather than assuming a user CA will be accepted.
    - objection > android hooking list classes
 
 4. Network Traffic
    - Configure Burp Suite proxy on device
    - Install Burp CA certificate
-   - Intercept and modify HTTPS traffic
+   - Validate the proxy with a known test endpoint; record which requests are visible and whether app-specific trust or pinning rejects interception.
+   - Intercept or modify traffic only within the written assessment scope.
 
 5. Report
    - Map findings to OWASP MASVS controls
@@ -174,13 +185,14 @@ This directory contains **mobile security resources for penetration testers, for
 
 3. Dynamic Analysis (jailbroken device)
    - objection -g com.target.app explore
-   - objection > ios sslpinning disable
+   - Review the app's trust behavior in an authorized test build; instrumentation and network capture results vary by iOS and app implementation.
    - objection > ios hooking list classes
 
 4. Network Traffic
-   - Install Burp CA in Settings -> General -> Profile
-   - Set Burp proxy on device WiFi
-   - For pinned apps: use SSL Kill Switch 2 or Frida ssl_logger
+   - Configure the proxy on the controlled test device/network.
+   - Install the test CA profile; for a manually installed profile, enable full trust in Settings -> General -> About -> Certificate Trust Settings.
+   - Validate with a known test endpoint. App-specific trust or pinning may still reject interception; document the limit and use an approved test build for policy testing.
+   - Remove the test CA and proxy settings when testing is complete.
 
 5. Report
    - Map to OWASP MASVS controls
