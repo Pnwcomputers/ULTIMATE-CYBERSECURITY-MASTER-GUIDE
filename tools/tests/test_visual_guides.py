@@ -158,6 +158,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg": (
         "Data-Engineering/Phase1/etl_elt_pipeline_design.md",
     ),
+    "assets/diagrams/ai-multi-agent-fanout-review-integration.svg": (
+        "AI/multi-agent-orchestration.md",
+    ),
+    "assets/diagrams/ai-project-status-evidence-handoff-flow.svg": (
+        "AI/agent-project-workflows.md",
+    ),
+    "assets/diagrams/data-orchestrator-interval-dependency-publish-gates.svg": (
+        "Data-Engineering/Phase2/workflow_orchestration.md",
+    ),
+    "assets/diagrams/api-file-ingest-cursor-retry-reconciliation.svg": (
+        "Data-Engineering/Phase2/api_file_ingestion.md",
+    ),
 }
 
 

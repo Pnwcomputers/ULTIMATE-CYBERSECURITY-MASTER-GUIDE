@@ -62,6 +62,10 @@ _Reviewed: 2026-09-11. The local lab was executed with Python 3.12.14 and SQLite
 
 ## 📋 1. Establish the Source Contract
 
+![API and file extraction pipeline showing authenticated source contracts, bounded cursor pagination, 429-aware retries, complete batch staging and independent consumer reconciliation](../../assets/diagrams/api-file-ingest-cursor-retry-reconciliation.svg)
+
+*Conceptual ingestion state machine.* [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) defines `Retry-After` (HTTP date or seconds) and warns about duplicate non-idempotent requests. A returned cursor may be query-dependent or expire, while a successful page response does not certify a complete export. Review the provider's actual pagination and error contract before applying the design.
+
 Before writing a loop, identify the source's guarantees. A successful response says nothing about whether your extraction represents a complete snapshot.
 
 | Question | Why it matters |
