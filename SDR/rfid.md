@@ -139,7 +139,7 @@ Fixed-ID architectures broadcast a static identifier the instant they enter a re
 
 ### Sector-Authenticated Transponders (e.g., MIFARE Classic / Crypto1)
 
-MIFARE Classic divides memory into sectors, each guarded by two 48-bit keys (A and B) and access-condition bits. Reading or writing a block requires authenticating to that sector's key using the proprietary Crypto1 stream cipher. Crypto1 has been publicly broken for over a decade: weaknesses in its nonce generation and authentication allow keys to be recovered with the *darkside*, *nested*, and *hardnested* attacks, or extracted from a single sniffed reader-to-card transaction via *mfkey*. Once keys are known, the full card contents can be dumped and rewritten onto a "magic" (Gen1/Gen2) card.
+MIFARE Classic divides memory into sectors protected by two 48-bit keys (A and B) and access-condition bits. Its proprietary Crypto1 cipher has publicly documented weaknesses that can undermine key confidentiality. Treat deployments that still rely on this technology as legacy; inventory use, restrict fallback modes, and plan migration. This guide does not provide key-recovery, dumping, or rewriting steps.
 
 ### Strongly-Authenticated Transponders (e.g., MIFARE DESFire, SEOS, iCLASS SE)
 
@@ -411,112 +411,33 @@ flowchart TD
 
 ## ⚠️ CRITICAL Security & Legal Warning
 
-### 🔴 ACCESS-CONTROL & FRAUD WARNING
+### 🔴 ACCESS-CONTROL & PRIVACY WARNING
+
+This guide is limited to synthetic test media and defensive reader-policy review. Do not read, dump, record, clone, or emulate issued access, payment, transit, vehicle, passport, or identity credentials. Keep identifiers, card data, keys, and personal data out of repository notes and screenshots.
+
+Unauthorized credential use may violate applicable access-device, trespass, privacy, payment, workplace, or other rules depending on the conduct, authorization, jurisdiction, and facts. [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) defines specific access-device offenses and does not make every act of reading card data a federal crime.
+
+### Defensive Lab Checklist
 
 ```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL LEGAL WARNING ⚠️
-═══════════════════════════════════════════════════════════════
+☐ Is this an isolated lab with a synthetic test fixture?
+☐ Is the reader owned by the lab and configured for this test?
+☐ Are the expected allow/deny results and stop conditions documented?
+☐ Are identifiers, keys, and personal data excluded from logs and screenshots?
+☐ Is the reader baseline restored and test data handled under the plan?
 
-The tools and techniques in this manual read, recover keys from, clone, and
-emulate physical access credentials and contactless cards.
-
-Legal consequences depend on the jurisdiction, authorization, exact conduct, and
-applicable statutory elements. Unauthorized credential use may violate computer-
-misuse, access-device, trespass, privacy, payment-network, or other rules; a particular
-statute does not automatically apply to every read or clone. For example, [18 U.S.C.
-§ 1029](https://uscode.house.gov/us/usc/t18/s1029/) covers specified access-device
-offenses with subsection-specific elements. Payment-card and identity-data handling
-also requires issuer-approved scope and test data. Confirm local requirements with
-qualified counsel before testing.
-═══════════════════════════════════════════════════════════════
+If any answer is NO: stop and resolve the scope or handling issue first.
 ```
 
-### Attack-Specific Legal Warnings
+### Warranty and Scope
 
-#### Badge Cloning (Physical Access)
-
-```
-⚠️ Unauthorized badge use can create legal and safety risks
-
-ILLEGAL ACTIVITIES:
-   • Reading/cloning a coworker's or stranger's access badge
-   • Long-range capture of a credential to duplicate it
-   • Using a cloned fob to enter premises you are not authorized to enter
-
-POSSIBLE CONSEQUENCES (depend on facts and jurisdiction):
-   • Computer-misuse or access-device offenses
-   • Trespass or burglary-tool rules
-   • Contract, workplace, or site-access violations
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from the property/credential owner
-   ✓ Testing on cards and readers explicitly provided for the engagement
-```
-
-#### Payment & Identity Cards
-
-```
-Payment, identity, and government credentials can contain sensitive data and may
-be subject to access-device, privacy, identity, payment-network, and other rules.
-Whether [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) applies depends on the specific subsection and its
-elements, including the conduct, knowledge or intent requirements, and any
-applicable value or other thresholds. Reading or capturing data is not automatically
-a federal offense in every circumstance.
-
-Use only issuer-provided test cards and test terminals within written authorization.
-Do not collect, emulate, or transmit real account or identity data; stop if the test
-scope or handling rules are unclear. Consult qualified counsel for jurisdiction-
-specific advice.
-```
-
-### 📖 Before Reviewing Access-Control Policy
-
-```
-MANDATORY CHECKLIST:
-☐ Do I OWN this credential, or have signed authorization to test it?
-☐ Am I working on a bench / authorized area, not a live production door?
-☐ Am I writing only to blank transponders I own (T5577 / magic card)?
-☐ Have I confirmed the card is NOT a payment, passport, or eID chip?
-☐ Am I logging every read, recovery, and clone for the assessment report?
-☐ Will any emulation be presented ONLY to readers I own?
-☐ Have I confirmed local law permits possession/use of these tools here?
-
-If you answered NO to ANY question: DO NOT PROCEED. USE READ-ONLY on owned cards.
-```
-
-### Warranty Disclaimer
-
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
-═══════════════════════════════════════════════════════════════
-
-These RFID procedures, commands, and templates are provided "AS IS" WITHOUT
-WARRANTY of any kind, either expressed or implied.
-
-THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-✗ Make NO guarantees about procedure functionality or card safety
-✗ Are NOT responsible for bricked transponders or damaged readers
-✗ Do NOT warrant compliance with any access-control or fraud law
-✗ Are NOT liable for any legal consequences of misuse
-✗ Do NOT provide support for illegal activities
-✗ Disclaim ALL liability for unauthorized reading, cloning, or emulation
-
-USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-► They use these RFID techniques entirely at their own risk
-► They are solely responsible for ensuring authorization and legal compliance
-► They understand that cloning credentials can facilitate serious crimes
-► They accept that unauthorized use is a CRIME
-► They will defend and indemnify authors from any claims
-═══════════════════════════════════════════════════════════════
-```
+This guide is an educational reference, not a certification of device compatibility or legal advice. Reader behavior varies by hardware, firmware, protocol, and deployment. Follow vendor documentation and the applicable test plan. Report observed results with their limits; do not infer safety or exploitability from a single test.
 
 ---
 
 ## 📚 Resources
 
-**Visual provenance:** Figures 1–4 are original static vector teaching diagrams added November 17, 2026. They contain no measured RF traces, captured credentials, or reproduced access-control results. Sources and limits appear beside each figure; existing tool procedures require their own version and hardware validation.
+**Visual provenance:** Figures 1–4 are original static vector teaching diagrams. They contain no measured RF traces, captured credentials, or reproduced access-control results. Sources and limits appear beside each figure.
 
 ### Legal & Standards
 
@@ -534,7 +455,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ### Tooling
 
 - **Proxmark3 (Iceman/RRG)**: [github.com/RfidResearchGroup/proxmark3](https://github.com/RfidResearchGroup/proxmark3)
-- **libnfc + mfoc/mfcuk**: [github.com/nfc-tools](https://github.com/nfc-tools)
+- **libnfc**: [github.com/nfc-tools/libnfc](https://github.com/nfc-tools/libnfc) — consult upstream docs for supported hardware and safe lab use
 - **Chameleon Ultra**: [github.com/RfidResearchGroup/ChameleonUltra](https://github.com/RfidResearchGroup/ChameleonUltra)
 - **libnfc PN532 tools**: [github.com/nfc-tools/libnfc](https://github.com/nfc-tools/libnfc)
 
@@ -556,7 +477,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ## 📊 Repository Statistics
 
 ```
-📁 Manual Sections: 12 (Theory, Hardware, Client, Chips, Pipelines, Reference, Logging)
+📁 Manual Sections: 12 (Theory, Hardware, Reader Interfaces, Security Review, Reference, Result Logging)
 💳 Target Hardware: Proxmark3, Flipper Zero, Chameleon Ultra, PN532/libnfc, iCopy-X
 📡 Spectrum Coverage: 125 kHz LF + 13.56 MHz HF (ISO 14443 / 15693 / FeliCa)
 💻 Ecosystems: Proxmark3, libnfc, Flipper Zero, and lab readers (capability varies)
