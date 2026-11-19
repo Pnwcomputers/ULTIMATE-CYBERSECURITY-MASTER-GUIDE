@@ -28,6 +28,11 @@
 
 ## 2. Physical Integration With The Cyberdeck
 
+![Four distinct portable-device configurations showing Flipper FAP controlling an external ESP32 Marauder radio, standalone ESP32, alternative M5StickC Plus2 firmware and independent Pineapple interfaces before controlled evidence export](../../assets/diagrams/cyberdeck-portable-device-roles-and-artifacts.svg)
+
+*Conceptual device-role and evidence flow; not a tested hardware wiring diagram.* The [Marauder Flipper companion](https://github.com/justcallmekoko/ESP32Marauder/wiki/Flipper-Zero) uses a separate compatible ESP32 expansion; Flipper's native hardware is not a Wi-Fi radio. [M5Stack's Plus2 specifications](https://docs.m5stack.com/en/core/StickC-Plus2) list onboard 2.4 GHz Wi-Fi, not 5 GHz capability. Keep actual versions, RF permissions and storage/export paths separately qualified.
+
+
 ```text
        APPROVED UPLINK
             |
