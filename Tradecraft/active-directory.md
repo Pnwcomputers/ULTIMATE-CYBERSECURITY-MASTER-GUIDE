@@ -2,8 +2,7 @@
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
+> testing, education, and defensive research. Activity without authorization may violate criminal or civil law, contracts, or policy depending on jurisdiction, scope, and conduct. Define written scope and consult qualified counsel where needed. See
 > [LEGAL.md](../LEGAL.md).
 
 > **Scope:** Active Directory attack techniques, post-exploitation paths, Kerberos abuse, privilege escalation, and corresponding defensive controls and detection logic. Structured for both red and blue team reference.
@@ -193,20 +192,18 @@ ldapsearch -H ldap://DC01 -x -b "DC=corp,DC=local" \
 ### Password Spraying
 
 ```powershell
-# Spray single password against all users (avoid lockout!)
-# ALWAYS check lockout policy first
+# Review the effective domain policy and confirm written engagement scope first.
 Get-DomainPolicy | Select-Object -ExpandProperty SystemAccess
-# LockoutBadCount = threshold; ObservationWindow = reset period
-
-# DomainPasswordSpray
-Invoke-DomainPasswordSpray -Password 'Summer2024!' -Force
-
-# Spray with custom user list
-Invoke-DomainPasswordSpray -UserList users.txt -Password 'Summer2024!'
-
-# Wait between attempts to avoid lockout
-# Rule: one attempt per user per (ObservationWindow - 5 minutes)
 ```
+
+For an explicitly approved exercise, use only designated test accounts and the
+approved test credential with a tool configuration reviewed by the engagement
+lead. Validate the effective lockout threshold, observation window, and each
+account's remaining bad-password allowance through the client's approved method.
+Do not bypass confirmation prompts or use an unreviewed custom user list. If policy,
+account state, or monitoring is uncertain, do not run a spray; stop and coordinate
+with the client. Keep the test within written scope and record the approved attempt
+limit, window, and stop condition.
 
 ### Pass-the-Hash (PtH)
 
