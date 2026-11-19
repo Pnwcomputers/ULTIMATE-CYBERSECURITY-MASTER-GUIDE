@@ -4013,9 +4013,14 @@ MEM_PRIVATE + PAGE_EXECUTE      ← RX memory not backed by a file = shellcode
 ### Analysis Environments
  
 **Windows - FLARE VM:**
+Install only in a clean, disposable malware-analysis VM; take a snapshot first.
+Follow Mandiant's current [FLARE-VM installation instructions](https://github.com/mandiant/flare-vm)
+and review the installer from the official repository before running it. Keep the
+execution-policy change scoped to this PowerShell process.
 ```powershell
-# https://github.com/mandiant/flare-vm
-Set-ExecutionPolicy Unrestricted -Force && .\install.ps1
+Set-ExecutionPolicy Unrestricted -Scope Process -Force
+Unblock-File .\install.ps1
+.\install.ps1
 # Key tools: x64dbg, Ghidra, PE-bear, Procmon, Process Hacker,
 #            Regshot, FakeNet-NG, CyberChef, dnSpy, Wireshark
 ```
@@ -4417,15 +4422,15 @@ Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
  
 ### Windows - FLARE VM (Mandiant)
  
-Complete Windows malware analysis workstation. Install on a clean Windows 10/11 VM.
- 
+Complete Windows malware-analysis workstation. Install only on a clean, disposable
+Windows VM after taking a snapshot. Follow the current
+[Mandiant FLARE-VM instructions](https://github.com/mandiant/flare-vm). Download
+the installer from the official repository, inspect its source and origin, and
+keep any execution-policy change scoped to the current PowerShell process:
+
 ```powershell
-# https://github.com/mandiant/flare-vm
-(New-Object net.webclient).DownloadFile(
-    'https://raw.githubusercontent.com/mandiant/flare-vm/main/install.ps1',
-    "$env:USERPROFILE\Downloads\install.ps1"
-)
-Set-ExecutionPolicy Unrestricted -Force
+Set-ExecutionPolicy Unrestricted -Scope Process -Force
+Unblock-File .\install.ps1
 .\install.ps1
 ```
  
