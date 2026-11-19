@@ -2,8 +2,10 @@
 
 > [!CAUTION]
 > **Authorized use only.** The exploitation techniques below are for authorized
-> testing, education, and defensive research. Testing systems you do not own or
-> lack explicit written permission to assess is illegal. See [LEGAL.md](../LEGAL.md).
+> testing, education, and defensive research. Testing without authorization may violate applicable laws, contracts, or policies;
+> the legal analysis depends on jurisdiction and facts. Obtain written authorization
+> and follow the approved scope. See [LEGAL.md](../LEGAL.md) and consult qualified
+> counsel for legal questions.
 
 ## 🎯 Purpose
 A working reference for the OWASP Top 10 web application risks - each category
@@ -11,7 +13,7 @@ covering what it is, how it is exploited, how to test for it, and how to defend
 against it.
 
 ## ⚙️ Function
-Walks all ten categories of the **OWASP Top 10:2025** (Release Candidate), with a
+Walks all ten categories of the **OWASP Top 10:2025 final edition**, with a
 mapping back to the stable **2021** list. Each entry pairs offensive testing notes
 with defensive controls and links to the relevant OWASP Cheat Sheet.
 
