@@ -562,7 +562,7 @@ The lab implements only count and key-set checks. Together they check that row t
 
 *Conceptual workflow. The diagram distinguishes the lab's count/key-set check from optional row-content validation. The overlap window also bounds which late arrivals incremental extraction can catch.*
 
-For stronger content assurance, compare explicitly selected columns for each key or compute deterministic hashes from a documented canonical representation. Decide how nulls, timestamps, text normalization, and duplicates are handled. SQLite's [`EXCEPT` operator](https://www.sqlite.org/lang_select.html#compound) removes duplicate rows from its result, so a bidirectional `EXCEPT` check alone is not duplicate-sensitive; pair it with counts or grouped duplicate-aware checks when multiplicity matters.
+For stronger content assurance, compare explicitly selected columns for each key or compute deterministic hashes from a documented canonical representation. Decide how nulls, timestamps, text normalization, and duplicates are handled. SQLite's [`EXCEPT` operator](https://www.sqlite.org/lang_select.html) removes duplicate rows from its result, so a bidirectional `EXCEPT` check alone is not duplicate-sensitive; pair it with counts or grouped duplicate-aware checks when multiplicity matters.
 
 ### 📘 Where reconciliation belongs
 
