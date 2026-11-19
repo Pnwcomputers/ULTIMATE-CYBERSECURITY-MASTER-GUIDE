@@ -22,7 +22,7 @@ Determine whether a documented implementation leaks information under a defined 
 
 ### Measurement Setup
 
-A measurement must preserve the target's normal operating conditions closely enough for the stated experiment. Choose a documented, current-limited development target and follow its board and instrument manuals.
+A measurement should preserve the target's normal operating conditions closely enough for the stated experiment. Choose a documented, current-limited development target and follow its board and instrument manuals.
 
 #### Hardware Configuration
 
@@ -31,6 +31,10 @@ The shunt value and placement depend on the target's current, allowable supply d
 Use the shunt calculation and conceptual figure in [Chapter 2](./Chapter2.md#shunt-resistors-for-power-measurement). That chapter explains why probe common-mode limits, scope grounding, loading, and 50 Ω termination must be checked before connecting instruments.
 
 ![Conceptual shunt measurement with a series resistor and target-dependent voltage-drop checks](../assets/diagrams/shunt-current-measurement.svg)
+
+The trace workflow below separates safe setup, data collection, analysis, and independent validation.
+
+![Conceptual power-analysis workflow from scope and measurement setup through trace analysis and validation](../assets/diagrams/power-analysis-measurement-evidence-flow.svg)
 
 Select a differential or single-ended measurement only after confirming the target reference, scope/probe grounding, common-mode range, and safe input limits. A ×1 probe is not automatically more suitable: attenuation, bandwidth, capacitance, input resistance, and voltage limits vary by probe and scope.
 
@@ -97,8 +101,8 @@ TVLA assesses a statistical difference under a specific test. It does not direct
 
 ## Related Files
 - [Chapter4.md](Chapter4.md) - Theory foundation: DPA, CPA, and EM side-channel concepts implemented in this chapter
-- [Chapter2.md](Chapter2.md) - Electrical fundamentals: shunt resistor calculation, probe loading, and decoupling cap removal for clean power traces
-- [Chapter3.md](Chapter3.md) - Fault injection: the active attack complement; often combined with power analysis in advanced assessments
+- [Chapter2.md](Chapter2.md) - Electrical fundamentals: target-dependent shunt selection, probe loading, and safe measurement setup
+- [Chapter3.md](Chapter3.md) - Fault injection: a distinct active technique with different measurement and evaluation requirements
 
 ---
 
