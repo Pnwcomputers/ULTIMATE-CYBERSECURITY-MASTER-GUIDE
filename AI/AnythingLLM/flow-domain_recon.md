@@ -102,7 +102,7 @@ Define these variables in the "Flow Variables" section:
 
 **Alternative (API):** If you have WhoisXML API key:
 - **Method:** GET
-- **URL:** `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=YOUR_KEY&domainName=${domain}&outputFormat=JSON`
+- **URL:** `Configure the approved WHOISXML connector with its API key in the platform’s secret store. Do not place the key in a URL, prompt, or flow variable.`
 
 ---
 
@@ -114,7 +114,7 @@ Define these variables in the "Flow Variables" section:
 ```
 Analyze comprehensive domain reconnaissance for ${domain}:
 
-Certificate Transparency Data: ${cert_data}
+Certificate Transparency Data (publicly logged certificates; coverage is not complete): ${cert_data}
 Reverse IP Data: ${subdomain_data}
 Security Headers: ${security_headers}
 WHOIS Information: ${whois_data}
