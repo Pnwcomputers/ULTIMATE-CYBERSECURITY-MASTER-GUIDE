@@ -631,8 +631,8 @@ ruby: exec "/bin/sh"
 ## Metasploit Framework
 
 > [!NOTE]
-> **Canonical reference:** the deepest Metasploit treatment lives in
-> [advanced_techniques_supplement.md](advanced_techniques_supplement.md#advanced-metasploit-techniques).
+> **Defensive reference:** for monitoring and response guidance related to remote administration tools, see
+> [Metasploit and Remote Administration Tools](advanced_techniques_supplement.md#metasploit-and-remote-administration-tools).
 > These are quick-reference notes.
 
 ### Basic Commands
