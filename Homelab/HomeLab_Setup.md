@@ -1081,15 +1081,10 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-# Install attacker tools
-choco install -y mimikatz rubeus sharphound bloodhound \
-    powershell-core python3 git vscode \
-    sysinternals processhacker
-
-# PowerShell offensive modules
-Install-Module -Name PowerSploit -Force
-Install-Module -Name Nishang -Force
-Install-Module -Name Empire -Force
+# Use only disposable Windows lab VMs.
+# Do not bypass execution policy or pipe a downloaded installer into iex.
+# Install only reviewed tools from official release channels and verify
+# signatures/checksums; keep retired tools out of the image.
 ```
 
 ### Target VMs
@@ -1485,12 +1480,19 @@ npm start
 Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Temp
 ```
 
-**CrackMapExec**:
+**SMB exposure review (NetExec)**:
+
+CrackMapExec is discontinued; Kali packages its continuation as NetExec (`netexec`). Use the current [Kali package guidance](https://www.kali.org/tools/netexec/) and current NetExec documentation. For an isolated lab, use one disposable target and a synthetic test account; avoid subnet-wide credential-dump commands.
+
 ```bash
-crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --shares
-crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --sam
-crackmapexec smb 10.30.30.0/24 -u jdoe -H <ntlm> --lsa
+# Install on Kali from its maintained package repository.
+sudo apt install netexec
+
+# Confirm SMB service visibility and review shares on one authorized lab target.
+nxc smb 10.30.30.10 -u "$LAB_USER" -p "$LAB_PASSWORD" --shares
 ```
+
+Set `LAB_USER` and `LAB_PASSWORD` to disposable lab-only credentials using a protected environment or secret store. Do not reuse real passwords or place credentials in shell history.
 
 **Impacket Suite**:
 ```bash
@@ -1855,7 +1857,7 @@ security-onion ansible_host=10.40.40.10 ansible_user=admin ansible_ssh_private_k
       apt:
         name:
           - bloodhound
-          - crackmapexec
+          - netexec
           - evil-winrm
           - pipx
         state: present
@@ -2323,7 +2325,7 @@ the ring buffer overwrites it.
 **Setup**:
 ```bash
 # Install pentesting tools
-sudo apt install -y nmap crackmapexec evil-winrm responder
+sudo apt install -y nmap netexec evil-winrm responder
 
 # Auto-start Responder on boot
 sudo systemctl enable responder
