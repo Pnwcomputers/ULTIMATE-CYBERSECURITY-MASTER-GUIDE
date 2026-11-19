@@ -4220,10 +4220,9 @@ dnstwist --registered target.com     # typosquatting domains
 **Windows install (pip-based):**
 ```powershell
 pip install shodan censys theHarvester dnstwist h8mail holehe maigret
-# TruffleHog is distributed through the official release page:
-# https://github.com/trufflesecurity/trufflehog/releases
-# Select a version/platform, then verify the release artifact against its
-# published checksum/signature and your organization's software policy.
+# TruffleHog releases: https://github.com/trufflesecurity/trufflehog/releases
+# Select a version/platform and use your approved software source. Verify any
+# publisher-provided checksum/signature and record the version you install.
 # Go tools: subfinder, amass, assetfinder, gau, waybackurls
 ```
  
