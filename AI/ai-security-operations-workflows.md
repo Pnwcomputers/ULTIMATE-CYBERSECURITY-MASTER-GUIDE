@@ -20,39 +20,11 @@ The workflow is intended for PNWC-style internal/lab systems and future approved
 
 ## 2. Reference Architecture
 
-```text
-Authorized sources
-  Wazuh alerts / Syslog / endpoint telemetry / Kismet observations
-     |
-     v
-Collection boundary: tenant + source + timestamp + classification
-     |
-     v
-Normalizer + schema validation + event deduplication
-     |
-     +----> append-only sanitized audit trail
-     |
-     v
-Queue / case intake  ----> high-severity escalation policy
-     |
-     v
-Read-only AI triage worker
-  - approved source retrieval
-  - source-linked summary
-  - hypothesis + uncertainty labels
-     |
-     v
-Deterministic policy validation + independent evidence review
-     |
-     v
-Draft finding / ticket / recommendation
-     |
-     v
-Human approval for any external send or operational change
-     |
-     v
-Verified result + milestone acceptance + handoff
-```
+![Conceptual AI-assisted security operations architecture, showing authorized telemetry, evidence validation, read-only AI analysis, independent review, and a separate human approval boundary for privileged actions](../assets/diagrams/ai-soc-trust-and-approval-boundaries.svg)
+
+*Conceptual architecture, not a deployed or validated integration.* Trust is established by authenticated source identity, documented tenant and asset scope, schema validation, restricted evidence storage, and enforced tool permissions—not by instructions embedded in logs or model output. Preserve original evidence separately from sanitized AI-facing records; produce draft findings for independent review.
+
+For implementation-specific decoder and rule testing, use the [official Wazuh ruleset testing documentation](https://documentation.wazuh.com/current/user-manual/ruleset/testing.html). A successful local rule test does not, on its own, establish end-to-end sensor coverage or alert delivery.
 
 The **network-visibility limit** must be documented. For example, a sensor attached to an ordinary unmanaged switch cannot be assumed to see all switched unicast traffic; use supported SPAN, TAP or routed/sensor-side visibility where authorized. “No alerts” is not equivalent to “no threat.”
 
