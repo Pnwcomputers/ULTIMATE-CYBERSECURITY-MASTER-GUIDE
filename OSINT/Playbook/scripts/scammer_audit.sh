@@ -284,6 +284,24 @@ private_query_api() {
     printf '%s' "$http_code"
 }
 
+private_query_form() {
+    local output="$1" label="$2" url="$3" form_data="$4"
+    local config http_code rc=0
+    config="$(mktemp)" || { log "${YELLOW}    [!] Could not create private curl config for ${label}${NC}"; return 1; }
+    chmod 600 "$config" || { rm -f "$config"; return 1; }
+    {
+        printf 'silent\nshow-error\nmax-time = 25\noutput = "%s"\nwrite-out = "%%{http_code}"\nurl = "%s"\ndata = "%s"\n' \
+            "$(curl_config_escape "$output")" "$(curl_config_escape "$url")" "$(curl_config_escape "$form_data")"
+    } > "$config"
+    http_code="$(curl --config "$config" 2>"${output}.err")" || rc=$?
+    rm -f "$config"
+    if (( rc != 0 )); then
+        log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}), UNVERIFIED; see ${output}.err${NC}"
+        return 1
+    fi
+    printf '%s' "$http_code"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -307,7 +325,9 @@ query_criminalip() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying CriminalIP...${NC}"
-    query_api "$OUTPUT" CriminalIP "https://api.criminalip.io/v1/ip/data?ip=$IP" -H "x-api-key: $CRIMINALIP_KEY" || return
+    local HTTP_CODE
+    HTTP_CODE=$(private_query_api "$OUTPUT" CriminalIP "https://api.criminalip.io/v1/ip/data?ip=$IP" "x-api-key: $CRIMINALIP_KEY") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] CriminalIP API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
 
     # Check for malicious score
     if command -v jq &> /dev/null && [ -s "$OUTPUT" ]; then
@@ -380,7 +400,13 @@ query_leaklookup() {
     local TYPE="$2"  # email_address, username, ip_address, domain, password, hash
     local OUTPUT="$3"
     log "${GREEN}[*] Querying LeakLookup ($TYPE)...${NC}"
-    query_api "$OUTPUT" LeakLookup "https://leak-lookup.com/api/search" -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" || return
+    local ENCODED_KEY ENCODED_QUERY ENCODED_TYPE HTTP_CODE
+    ENCODED_KEY=$(printf '%s' "$LEAKLOOKUP_KEY" | jq -sRr @uri) || return
+    ENCODED_QUERY=$(printf '%s' "$QUERY" | jq -sRr @uri) || return
+    ENCODED_TYPE=$(printf '%s' "$TYPE" | jq -sRr @uri) || return
+    HTTP_CODE=$(private_query_form "$OUTPUT" LeakLookup "https://leak-lookup.com/api/search" \
+        "key=${ENCODED_KEY}&type=${ENCODED_TYPE}&query=${ENCODED_QUERY}") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] LeakLookup API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
 
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
@@ -400,8 +426,10 @@ query_netlas() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying Netlas...${NC}"
-    query_api "$OUTPUT" Netlas "https://app.netlas.io/api/hosts/$IP/" -H "X-API-Key: $NETLAS_KEY" \
-        && log "${GREEN}    [+] Netlas complete${NC}"
+    local HTTP_CODE
+    HTTP_CODE=$(private_query_api "$OUTPUT" Netlas "https://app.netlas.io/api/hosts/$IP/" "X-API-Key: $NETLAS_KEY") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] Netlas API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
+    log "${GREEN}    [+] Netlas complete${NC}"
 }
 
 # ipinfo.io - Geolocation
@@ -479,8 +507,11 @@ query_dnsdumpster() {
     fi
 
     log "${GREEN}    [*] Querying DNSDumpster...${NC}"
-    query_api "$OUTPUT" DNSDumpster -H "Authorization: Bearer ${DNSDUMPSTER_KEY}" "https://api.dnsdumpster.com/domain/${DOMAIN}" \
-        && log "${GREEN}    [+] DNSDumpster complete${NC}"
+    local HTTP_CODE
+    HTTP_CODE=$(private_query_api "$OUTPUT" DNSDumpster "https://api.dnsdumpster.com/domain/${DOMAIN}" \
+        "Authorization: Bearer $DNSDUMPSTER_KEY") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] DNSDumpster API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
+    log "${GREEN}    [+] DNSDumpster complete${NC}"
 }
 
 # ZoomEye - Cyberspace search engine
@@ -505,8 +536,11 @@ query_zoomeye() {
     local ENCODED_QUERY
     ENCODED_QUERY=$(OSINT_QUERY="${QUERY}" python3 -c "import os,urllib.parse; print(urllib.parse.quote(os.environ['OSINT_QUERY']))" 2>/dev/null || printf '%s' "$QUERY" | sed 's/:/%3A/g;s/ /+/g')
 
-    query_api "$OUTPUT" ZoomEye -H "API-KEY: ${ZOOMEYE_KEY}" "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
-        && log "${GREEN}    [+] ZoomEye complete${NC}"
+    local HTTP_CODE
+    HTTP_CODE=$(private_query_api "$OUTPUT" ZoomEye "https://api.zoomeye.org/host/search?query=${ENCODED_QUERY}&page=1" \
+        "API-KEY: $ZOOMEYE_KEY") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] ZoomEye API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
+    log "${GREEN}    [+] ZoomEye complete${NC}"
 }
 
 # FullHunt - attack surface and subdomain discovery
@@ -520,7 +554,10 @@ query_fullhunt() {
     fi
 
     log "${GREEN}    [*] Querying FullHunt...${NC}"
-    query_api "$OUTPUT" FullHunt -H "X-API-KEY: ${FULLHUNT_KEY}" "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains"
+    local HTTP_CODE
+    HTTP_CODE=$(private_query_api "$OUTPUT" FullHunt "https://fullhunt.io/api/v1/domain/${DOMAIN}/subdomains" \
+        "X-API-KEY: $FULLHUNT_KEY") || return
+    [[ "$HTTP_CODE" == 2* ]] || { log "${YELLOW}    [!] FullHunt API returned HTTP $HTTP_CODE; result is UNVERIFIED${NC}"; return 1; }
 
     if command -v jq &>/dev/null; then
         local SUB_COUNT
