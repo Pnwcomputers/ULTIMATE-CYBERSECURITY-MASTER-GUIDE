@@ -7,7 +7,7 @@ Comprehensive build guide for a professional penetration testing home lab - cove
 Organized as a progressive build from beginner (single-machine VirtualBox) to advanced (dedicated bare-metal Proxmox cluster with VLAN isolation). Covers: hardware planning, network topology design, hypervisor installation, security tool VM deployment, target VM catalog, and lab hardening to prevent accidental internet exposure.
 
 ## 🏆 Goal
-Build a fully isolated, legally-safe environment where offensive and defensive security techniques can be practiced, tools can be tested, and IR playbooks can be validated - without risk to production networks or legal exposure.
+Design and verify an isolated, explicitly authorized lab that reduces risk to production and external systems; no VM or network control guarantees the absence of escape, operator error, or legal exposure.
 
 ## 📋 When to Use
 - Setting up a new lab environment for security training or research
@@ -84,7 +84,7 @@ This comprehensive guide takes you from initial hardware selection through advan
 
 ### Key Objectives
 
-1. Create **isolated attack ranges** that can't impact production
+1. Create **isolated lab networks** with tested boundaries to minimize risk to production
 2. Build **repeatable lab scenarios** using Infrastructure as Code
 3. Integrate **blue team monitoring** alongside red team activities
 4. Practice **real-world attack chains** from reconnaissance to post-exploitation
@@ -428,6 +428,11 @@ Based on your assessment, choose the appropriate tier and begin planning your bu
 ---
 
 ## Network Architecture & Topology
+
+![Comparison of disconnected internal virtual switches, host-only networks that include host access, separately routed lab networks and production-network boundaries](../assets/diagrams/homelab-virtual-network-isolation-paths.svg)
+
+*Conceptual virtualization traffic boundaries.* Internal networks and host-only networks are **not equivalent**: for example, [VirtualBox internal networking](https://docs.oracle.com/en/virtualization/virtualbox/7.2/user/networkingdetails.html) can connect selected guests without a host interface, whereas its host-only mode provides a host-connected virtual interface. The meaning of a bridge, port group, VLAN or firewall route is hypervisor-specific. Verify IPv4/IPv6 egress, guest-to-host traffic and any extra NIC rather than assuming the name of a network mode guarantees isolation.
+
 
 ### Network Design Principles
 
