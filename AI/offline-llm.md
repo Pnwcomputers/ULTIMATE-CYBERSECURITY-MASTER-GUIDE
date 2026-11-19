@@ -204,7 +204,7 @@ docker pull mintplexlabs/anythingllm
 # Run AnythingLLM container
 docker run -d \
   --name anythingllm \
-  -p 3001:3001 \
+  -p 127.0.0.1:3001:3001 \
   -v anythingllm_data:/app/server/storage \
   -v anythingllm_models:/app/server/storage/models \
   mintplexlabs/anythingllm
