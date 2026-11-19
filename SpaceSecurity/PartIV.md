@@ -141,7 +141,7 @@ Spoofing attack progression:
 | **GNSS-SDRLIB** | Multi-constellation SDR receiver and signal generator |
 | **Spirent GSS7000** | Commercial GNSS simulator (lab use) |
 
-> **⚠️ Legal Warning:** Transmitting counterfeit GNSS signals is illegal under FCC regulations and equivalent international law. GNSS spoofing of aviation, maritime, or emergency services is a federal crime. Testing must occur in a shielded RF enclosure.
+> **⚠️ Legal and safety warning:** GNSS spoofing or other transmissions may violate spectrum, aviation-safety, and other laws or rules; requirements depend on jurisdiction, service, equipment, and conduct. Do not transmit counterfeit navigation signals over the air. A shielded enclosure can reduce emissions but does not by itself establish legal authorization or compliance. Use an approved simulator or conducted setup under an authorized lab plan.
 
 #### Real-World GNSS Attacks
 
@@ -280,7 +280,7 @@ Sources: [Galileo OSNMA service description](https://www.gsc-europa.eu/galileo/s
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 
-⚠️ **Unauthorized access to space systems is a FEDERAL CRIME** ⚠️
+⚠️ **Unauthorized access or transmission may violate applicable law and service rules; requirements depend on the system, spectrum, conduct, and jurisdiction; see [FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15) and service-specific rules such as [47 CFR § 25.115](https://www.ecfr.gov/current/title-47/section-25.115).** ⚠️
 
 ⚠️ **ITAR/EAR export controls may apply to satellite security tools and techniques** ⚠️
 

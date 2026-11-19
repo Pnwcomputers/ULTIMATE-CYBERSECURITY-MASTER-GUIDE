@@ -295,7 +295,7 @@ Mission Impact
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 
-⚠️ **Unauthorized access to space systems is a FEDERAL CRIME** ⚠️
+⚠️ **Unauthorized access or transmission may violate applicable law and service rules; requirements depend on the system, spectrum, conduct, and jurisdiction; see [FCC Part 15](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15) and service-specific rules such as [47 CFR § 25.115](https://www.ecfr.gov/current/title-47/section-25.115).** ⚠️
 
 ⚠️ **ITAR/EAR export controls may apply to satellite security tools and techniques** ⚠️
 
