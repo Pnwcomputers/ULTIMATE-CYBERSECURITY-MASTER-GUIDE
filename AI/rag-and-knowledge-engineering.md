@@ -6,28 +6,11 @@ Retrieval-augmented generation (RAG) provides a model with **relevant source mat
 
 ## 1. Architecture & Components
 
-```text
-Authorized documents / repositories / runbooks / alerts
-     |
-     v
-Source registration -> parsing -> normalization -> redaction
-     |
-     v
-Versioned chunks + metadata + document-level ACL
-     |
-     +----> keyword/full-text index
-     +----> vector embedding index
-     |
-     v
-Query + authenticated identity -> ACL filter -> retrieve
-                                  -> rerank -> evidence package
-     |
-     v
-AI answer / analyst summary
-     |
-     v
-Citation and factuality checks -> human approval where required
-```
+![RAG architecture separates authorized document ingestion and permission-aware indexing from authenticated retrieval and independent evidence checking](../assets/diagrams/rag-ingestion-retrieval-permission-boundaries.svg)
+
+*Conceptual access-boundary map, not a deployed retrieval service.* [OWASP prompt-injection prevention guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) treats retrieved documents and tool results as untrusted content; indexing or citing a passage does not make it an instruction or validate its claims. Access controls and deletion propagation must be implemented at the host/index/data-source boundary.
+
+
 
 **Do not index secrets, client raw evidence or regulated content into a shared repository.** Index access, delete propagation and retention are security requirements, not optional UI features.
 

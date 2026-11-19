@@ -26,6 +26,15 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [osquery Interactive vs Scheduled Results](./diagrams/osquery-interactive-scheduled-siem-flow.svg) | [Linux osquery Deployment](../IncidentResponse/Endpoint-Visibility/Linux/osquery.md) | Differentiates interactive snapshots, scheduled differential results, logger and SIEM visibility |
 | [Dataset / Job / Run Lineage & Access](./diagrams/data-lineage-job-run-access-boundaries.svg) | [Data Governance & Lineage](../Data-Engineering/Phase3/data_governance_lineage.md) | Multi-input transformations, run provenance, restricted outputs and controls outside graph |
 
+## RAG, Agent Reliability & Pipeline Observability Diagrams
+
+| Diagram | Embedded Guide | Reference Concept |
+|---|---|---|
+| [RAG Ingestion & Retrieval Permission Boundaries](./diagrams/rag-ingestion-retrieval-permission-boundaries.svg) | [RAG & Knowledge Engineering](../AI/rag-and-knowledge-engineering.md) | Authorized ingestion, access-aware indexes, untrusted retrieved text, citation and approval |
+| [Structured AI Action Gates](./diagrams/ai-structured-output-authorized-action-gates.svg) | [Structured Outputs & Data Contracts](../AI/structured-outputs-and-data-contracts.md) | Separate JSON syntax/schema from factual checks, ACL, external writes and readback |
+| [Agent Ambiguous-Write Reconciliation](./diagrams/ai-agent-ambiguous-write-reconciliation.svg) | [AI Reliability & Failure Recovery](../AI/agent-reliability-and-recovery.md) | Durable state, verified outcome, uncertainty and safe retry with idempotency key |
+| [Pipeline Observability & Reconciliation](./diagrams/pipeline-observability-reconciliation-slo.svg) | [Pipeline Observability & Reliability](../Data-Engineering/Phase3/pipeline_observability.md) | Production/processing/consumer telemetry, reconciliation, actionable alerts and service objectives |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
