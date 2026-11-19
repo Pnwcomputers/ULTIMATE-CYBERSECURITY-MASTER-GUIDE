@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 590" role="img" aria-labelledby="title desc">
+<title id="title">Authorization and web test scope gates</title>
+<desc id="desc">A conceptual sequence from written authorization and target boundaries through tool configuration, request-level review, and evidence and stop conditions. Burp scope is one operational control and cannot grant authorization.</desc>
+<rect width="1280" height="590" rx="20" fill="#0b1223"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="40" y="58" fill="#f8fafc" font-size="31" font-weight="700">Authorization and request scope gates</text>
+<text x="40" y="91" fill="#b8cbe0" font-size="17">A tool setting supports the rules of engagement; it does not create permission.</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#94a3b8"/></marker></defs>
+<g fill="#172d41" stroke="#60a5fa" stroke-width="2">
+<rect x="40" y="145" width="275" height="150" rx="14"/>
+<rect x="350" y="145" width="275" height="150" rx="14"/>
+<rect x="660" y="145" width="275" height="150" rx="14"/>
+<rect x="970" y="145" width="275" height="150" rx="14"/>
+</g>
+<g fill="#f8fafc" font-size="19" font-weight="700">
+<text x="65" y="185">1. Written authorization</text><text x="65" y="218" font-size="16" font-weight="400">Targets, exclusions, window,</text><text x="65" y="243" font-size="16" font-weight="400">rate limits, stop contact</text>
+<text x="375" y="185">2. Define target set</text><text x="375" y="218" font-size="16" font-weight="400">Exact hostnames, ports, paths;</text><text x="375" y="243" font-size="16" font-weight="400">include explicit exclusions</text>
+<text x="685" y="185">3. Configure the tool</text><text x="685" y="218" font-size="16" font-weight="400">Burp scope filters and steers</text><text x="685" y="243" font-size="16" font-weight="400">tools; enable out-of-scope</text><text x="685" y="266" font-size="16" font-weight="400">dropping when available</text>
+<text x="995" y="185">4. Review each action</text><text x="995" y="218" font-size="16" font-weight="400">Inspect destination, redirects,</text><text x="995" y="243" font-size="16" font-weight="400">extensions, and request impact</text>
+</g>
+<g stroke="#94a3b8" stroke-width="3" marker-end="url(#a)"><path d="M318 220h26"/><path d="M628 220h26"/><path d="M938 220h26"/></g>
+<rect x="40" y="345" width="1205" height="94" rx="13" fill="#20374b" stroke="#fbbf24" stroke-width="2"/>
+<text x="65" y="381" fill="#fcd34d" font-size="19" font-weight="700">Scope is not authorization</text>
+<text x="65" y="412" fill="#e1edf6" font-size="16">Out-of-scope blocking is a useful safety control when correctly configured, but it does not replace signed scope or operator checks.</text>
+<path d="M1108 297v32H180v-24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<text x="40" y="500" fill="#93c5fd" font-size="17" font-weight="700">Stop and re-confirm</text>
+<text x="40" y="530" fill="#e1edf6" font-size="16">If a redirect, third-party host, sensitive action, or unexpected behavior crosses the agreed boundary, pause and resolve it with the engagement contact.</text>
+</g></svg>
