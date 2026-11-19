@@ -15,6 +15,7 @@
 <rect x="595" y="195" width="260" height="118" rx="16" fill="#20374b" stroke="#34d399" stroke-width="2"/>
 <text x="725" y="238" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700">Receiver PVT solution</text>
 <text x="725" y="271" text-anchor="middle" fill="#d1e1f0" font-size="16">Position • velocity • time</text>
+<path d="M405 186H912V205H928" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a)"/><text x="690" y="176" fill="#6ee7b7" font-size="14">OSNMA: E1-B message data</text>
 <path d="M856 254h65" stroke="#9fb4cc" stroke-width="3" marker-end="url(#a)"/>
 <rect x="930" y="130" width="430" height="255" rx="16" fill="#172d41" stroke="#60a5fa" stroke-width="2"/>
 <text x="958" y="169" fill="#93c5fd" font-size="20" font-weight="700">Coverage checks</text>
