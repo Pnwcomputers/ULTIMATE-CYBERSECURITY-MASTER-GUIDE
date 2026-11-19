@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="270" viewBox="0 0 1050 270" role="img" aria-labelledby="title desc">
+<title id="title">Marauder firmware selection and verification</title>
+<desc id="desc">Identify the exact board and PCB revision, choose the matching release target and flash layout, install using the upstream installer, then verify only features supported by the board.</desc>
+<rect width="1050" height="270" rx="18" fill="#f4f7fb"/>
+<text x="525" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#17324d">Match firmware to the complete device</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="35" y="77" width="220" height="130" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><text x="145" y="112" font-size="18" font-weight="700" fill="#17324d">1 · Identify</text><text x="145" y="145" font-size="14" fill="#234">Board name, PCB revision,</text><text x="145" y="167" font-size="14" fill="#234">chip and memory layout</text>
+<path d="M263 142h39m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="312" y="77" width="225" height="130" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/><text x="424" y="112" font-size="18" font-weight="700" fill="#17324d">2 · Match target</text><text x="424" y="145" font-size="14" fill="#234">Release suffix, chip,</text><text x="424" y="167" font-size="14" fill="#234">bootloader and partitions</text>
+<path d="M545 142h39m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="594" y="77" width="190" height="130" rx="14" fill="#e8e4ff" stroke="#7666b3" stroke-width="2"/><text x="689" y="112" font-size="18" font-weight="700" fill="#17324d">3 · Install</text><text x="689" y="145" font-size="14" fill="#234">Use upstream tool</text><text x="689" y="167" font-size="14" fill="#234">and exact instructions</text>
+<path d="M792 142h39m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="841" y="77" width="175" height="130" rx="14" fill="#e4f2e8" stroke="#4c9a61" stroke-width="2"/><text x="928" y="112" font-size="18" font-weight="700" fill="#17324d">4 · Verify</text><text x="928" y="145" font-size="14" fill="#234">Check boot, controls,</text><text x="928" y="167" font-size="14" fill="#234">radio and storage</text>
+</g>
+<text x="525" y="240" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">Never select a binary by ESP32 family alone. Features vary by board, layout and firmware release.</text>
+</svg>
