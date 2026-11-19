@@ -1,13 +1,12 @@
 # 🔍 Ghidra Master Guide
 
-Last reviewed: 2026-09-29
+Last reviewed: 2026-11-19
 
 *Part of the [Reverse Engineering section](./README.md) · [Master Index](../README.md)*
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security testing,
-> education, and defensive research. Using them against systems you do not own or
-> lack explicit written permission to test is illegal. See
+> education, and defensive research. Activity without authorization may violate criminal or civil law, contracts, or policy depending on jurisdiction, scope, and conduct. Define written scope and consult qualified counsel where needed. See
 > [LEGAL.md](../LEGAL.md).
 
 **Prerequisites:** Comfort with a command line, basic C, and how programs load into
@@ -29,10 +28,10 @@ This is original documentation synthesized from official Ghidra sources and publ
 SRE practice. It is not a reproduction of any commercial book.
 
 > [!NOTE]
-> Version note. Public release as of August 2026 is **Ghidra 12.1.x** and requires a
-> **64-bit JDK 21**. Development (`master`) documentation already describes **Ghidra 12.2**
-> and **JDK 25**. Always match your JDK to the *Getting Started* file inside *your*
-> extracted zip, not to a blog post.
+> Version note (checked 2026-11-19): the [Ghidra releases page](https://github.com/NationalSecurityAgency/ghidra/releases)
+> lists **Ghidra 12.2** as the latest public release. Its [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
+> requires a **64-bit JDK 25**. Requirements can change between releases; always
+> follow the Getting Started file bundled with the exact archive you install.
 
 ---
 

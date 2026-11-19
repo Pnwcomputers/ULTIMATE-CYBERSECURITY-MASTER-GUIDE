@@ -83,11 +83,11 @@ YOU MUST have explicit written authorization from the credential/property owner,
 work only on cards and readers you own or are contracted to test, and keep all
 cloning and emulation confined to your bench before you read, write, or emulate.
 
-Improper use violates:
-• Computer Fraud and Abuse Act (CFAA) - unauthorized access to protected systems
-• State burglary-tool possession and trespassing statutes
-• Payment card fraud statutes (EMV / contactless payment cloning)
-• Identity theft and access-device fraud laws (18 U.S.C. § 1029)
+Unauthorized activity may violate applicable computer-misuse, trespass, access-device,
+privacy, or payment rules, depending on the jurisdiction, facts, and statutory elements.
+For example, [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) defines specific access-device offenses with different
+conduct and intent requirements; it does not make every act of reading card data a
+federal crime.
 
 READ-ONLY analysis on credentials you own is the default. Do NOT read, clone, or
 emulate cards you do not own or are not explicitly authorized to test.
@@ -639,27 +639,14 @@ Use this checklist to practice baseline RFID concepts safely on a credential **y
 The tools and techniques in this manual read, recover keys from, clone, and
 emulate physical access credentials and contactless cards.
 
-UNAUTHORIZED USE OF A CLONED CREDENTIAL IS A SERIOUS CRIME.
-
-Computer Fraud and Abuse Act (CFAA):
-   ► Using a cloned badge to access a protected system/facility can be charged
-     as unauthorized access - felony exposure.
-
-Access Device Fraud (18 U.S.C. § 1029):
-   ► Producing, using, or trafficking in counterfeit or unauthorized "access
-     devices" (which includes cloned cards) carries heavy federal penalties.
-
-Payment Card Fraud:
-   ► Capturing, cloning, or replaying EMV / contactless payment data is fraud
-     and identity theft - never a "test."
-
-State Laws:
-   ► Burglary-tool possession, trespassing, and eavesdropping statutes vary by
-     state and can apply to cloned-credential tools used without authorization.
-
-International Laws:
-   ► GDPR and national access-device and computer-misuse laws (e.g., UK Computer
-     Misuse Act) apply abroad. ALWAYS check local laws.
+Legal consequences depend on the jurisdiction, authorization, exact conduct, and
+applicable statutory elements. Unauthorized credential use may violate computer-
+misuse, access-device, trespass, privacy, payment-network, or other rules; a particular
+statute does not automatically apply to every read or clone. For example, [18 U.S.C.
+§ 1029](https://uscode.house.gov/us/usc/t18/s1029/) covers specified access-device
+offenses with subsection-specific elements. Payment-card and identity-data handling
+also requires issuer-approved scope and test data. Confirm local requirements with
+qualified counsel before testing.
 ═══════════════════════════════════════════════════════════════
 ```
 
@@ -668,17 +655,17 @@ International Laws:
 #### Badge Cloning (Physical Access)
 
 ```
-🔴 SERIOUS CRIME: Unauthorized Access & Trespassing
+⚠️ Unauthorized badge use can create legal and safety risks
 
 ILLEGAL ACTIVITIES:
    • Reading/cloning a coworker's or stranger's access badge
    • Long-range capture of a credential to duplicate it
    • Using a cloned fob to enter premises you are not authorized to enter
 
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • Access Device Fraud (18 U.S.C. § 1029)
-   • State trespassing and burglary-tool possession laws
+POSSIBLE CONSEQUENCES (depend on facts and jurisdiction):
+   • Computer-misuse or access-device offenses
+   • Trespass or burglary-tool rules
+   • Contract, workplace, or site-access violations
 
 AUTHORIZED USE ONLY:
    ✓ Written authorization from the property/credential owner
@@ -688,19 +675,17 @@ AUTHORIZED USE ONLY:
 #### Payment & Identity Cards
 
 ```
-🔴 FEDERAL CRIME: Payment Fraud & Identity Theft
+Payment, identity, and government credentials can contain sensitive data and may
+be subject to access-device, privacy, identity, payment-network, and other rules.
+Whether [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) applies depends on the specific subsection and its
+elements, including the conduct, knowledge or intent requirements, and any
+applicable value or other thresholds. Reading or capturing data is not automatically
+a federal offense in every circumstance.
 
-ILLEGAL ACTIVITIES:
-   • Capturing or cloning EMV / contactless bank card data
-   • Reading and reselling personal data from eID / passport chips
-   • Emulating a captured payment credential at a terminal
-
-LAWS VIOLATED:
-   • Access Device Fraud (18 U.S.C. § 1029)
-   • Identity theft statutes
-   • Payment network rules and financial-fraud law
-
-NEVER acceptable, in any "research" framing, against cards you do not own.
+Use only issuer-provided test cards and test terminals within written authorization.
+Do not collect, emulate, or transmit real account or identity data; stop if the test
+scope or handling rules are unclear. Consult qualified counsel for jurisdiction-
+specific advice.
 ```
 
 ### 📖 Before Reading, Cloning, or Emulating Any Card
