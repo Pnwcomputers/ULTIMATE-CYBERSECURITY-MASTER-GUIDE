@@ -80,6 +80,10 @@ Capture only intended tables and fields. Restrict source replication access, enc
 
 ## 📸 2. Snapshots & the Transition to Changes
 
+![CDC snapshot handoff showing coordinated source offsets, live transaction changes, replay deduplication and keyed state commits](../../assets/diagrams/cdc-snapshot-offset-replay-boundary.svg)
+
+*Conceptual snapshot-to-stream flow.* [Debezium PostgreSQL connector documentation](https://debezium.io/documentation/reference/stable/connectors/postgresql.html) describes connector-managed snapshot collision handling and source positions; this is **not** a sample from a deployed Kafka or PostgreSQL cluster. The exact connector/version, transaction boundaries and sink capabilities determine safe restart behavior. A successful fixture test does not establish distributed exactly-once processing.
+
 A new consumer often needs an initial state plus every relevant change after it. Scanning a live table and then starting a change reader can leave a gap or apply stale snapshot rows over newer updates.
 
 Define the consistency boundary using the chosen connector's documented snapshot/log-position protocol. Record snapshot completion, source positions, connector configuration, and schema history required for restart.
