@@ -1077,9 +1077,9 @@ qm set 202 --ide2 local:iso/virtio-win-0.1.229.iso,media=cdrom
 **Post-Installation Tools**:
 ```powershell
 # Install Chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+# Do not weaken execution policy or execute a remote installer with iex.
+# Follow the official [Chocolatey install guide](https://docs.chocolatey.org/en-us/choco/setup/)
+# from a disposable lab VM, verify the installer provenance, and review its changes.
 
 # Use only disposable Windows lab VMs.
 # Do not bypass execution policy or pipe a downloaded installer into iex.
