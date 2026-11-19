@@ -1031,7 +1031,7 @@ print_summary() {
     echo ""
     echo -e "${YELLOW}  ⚠  LEGAL: Only use these tools on systems you own${RESET}"
     echo -e "${YELLOW}     or have WRITTEN authorization to test.${RESET}"
-    echo -e "${YELLOW}     Unauthorized access is a federal crime.${RESET}"
+    echo -e "${YELLOW}     Unauthorized activity may violate law depending on the conduct, authorization, and jurisdiction.${RESET}"
     echo ""
 }
 
