@@ -25,7 +25,7 @@
 Inspect provenance and source before running downloaded scripts.
 
 > **Safer and retired examples:** `Python/app.py` and `Python/web_shell_inj.py`
-> are loopback-only upload references with no command-execution route or template hook.
+> are loopback-only upload examples with attachment-only downloads; inspect the current source before use and do not expose the development server to a network.
 > `Bash/fake_sudo.sh` exits without prompting for or transmitting a password.
 > `Bash/hulkscanner.sh` requires an explicit authorization flag and limits checks to
 > ports 1–1024 on one IPv4 address. `Bash/nuclei_web_scanner.sh` requires interactive
@@ -238,7 +238,7 @@ MUST be compiled and tested in isolated environments before use.
 #### Exploitation & Attack Tools
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **conficker.py** | Conficker worm-related tool | 🔴 HIGH |
+| **conficker.py** | RETIRED AND INERT — former SMB exploitation automation | ⚫ RETIRED |
 | **dll_Inject.py** | RETIRED AND INERT — former process DLL injection | ⚫ RETIRED |
 | **find_ddos.py** | DDoS detection/analysis | 🟡 MEDIUM |
 
@@ -247,19 +247,19 @@ MUST be compiled and tested in isolated environments before use.
 |--------|-------------|------------|
 | **webshell_check.py** | Webshell detection tool | 🟡 MEDIUM |
 | **link_parser.py** | Link extraction tool | 🟢 LOW |
-| **print_cookies.py** | Cookie extraction utility | 🟡 MEDIUM |
+| **print_cookies.py** | RETIRED AND INERT — former web-cookie collector | ⚫ RETIRED |
 
 #### Geolocation & Tracking
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **google_earth_pcap.py** | PCAP to Google Earth | 🟡 MEDIUM |
 | **google_json.py** | Google JSON parser | 🟢 LOW |
-| **google_sniff.py** | Google traffic sniffer | 🟡 MEDIUM |
+| **google_sniff.py** | RETIRED AND INERT — former cleartext search-query capture | ⚫ RETIRED |
 
 #### Mobile Device
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **iphone_finder.py** | iPhone device discovery | 🟡 MEDIUM |
+| **iphone_finder.py** | RETIRED AND INERT — former personal-device tracking | ⚫ RETIRED |
 | **iphone_messages.py** | RETIRED AND INERT — former private-message extractor | ⚫ RETIRED |
 
 #### Specialized Tools
@@ -273,7 +273,7 @@ MUST be compiled and tested in isolated environments before use.
 #### Supporting Files
 | File | Description |
 |------|-------------|
-| **pass.txt** | Password list/dictionary |
+| **pass.txt** | Small historical sample strings for offline documentation only; not valid credentials |
 
 **Python Script Characteristics:**
 - Mixed historical and current examples
@@ -296,7 +296,7 @@ Potential operational risks include unintended access, exposure of personal or s
 
 **Location**: `/Scripts/SQL/`
 
-**Current Scripts:**
+**Selected files (not exhaustive):**
 
 | Script | Description | Risk Level |
 |--------|-------------|------------|
@@ -424,7 +424,7 @@ Safe Learning Environments ONLY:
 Get-Content authorization.txt
 
 # 2. Set execution policy (if needed)
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+REMOVED: do not weaken execution policy for a script. Use an organization-approved, signed workflow.
 
 # 3. Run script with appropriate parameters
 .\script.ps1 -Target "authorized-target.local" -Output "results.txt"
