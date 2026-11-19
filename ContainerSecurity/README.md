@@ -84,11 +84,10 @@ Attack surface spans four layers:
 |-------|---------------|
 | **Image** | Vulnerable packages, embedded secrets, untrusted base images, no signing |
 | **Runtime** | Privileged containers, over-broad capabilities, mounted `docker.sock`, `hostPath` |
-| **Host** | Container **escape** to the node; shared kernel; weak isolation |
+| **Host** | Container **escape** to the node; shared kernel for ordinary Linux containers; isolation depends on runtime and configuration |
 | **Orchestrator (K8s)** | Over-permissive RBAC, exposed API server, weak Pod Security, flat networking |
 
-The defining property: **containers share the host kernel**, so isolation is
-weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape.
+The usual Linux container model shares the host kernel, so a kernel vulnerability or unsafe runtime configuration can cross container boundaries. Isolation varies by runtime and configuration; VM-backed products such as Docker Desktop add a virtual-machine boundary between the container engine and desktop host.
 
 ---
 
@@ -112,6 +111,7 @@ weaker than a VM - a misconfiguration or kernel vulnerability can lead to escape
 | **[containers.md](./containers.md)** | Image and runtime security, container escape vectors, and hardening (Docker/OCI) | ✅ Complete |
 | **[Docker Operations Cheat Sheet](./docker-cli-operations-reference.md)** | Inspect-first Docker CLI/Compose, images, networks, volumes, secure runtime settings, and destructive cleanup cautions | ✅ Reference |
 | **[kubernetes.md](./kubernetes.md)** | RBAC, Pod Security Standards, secrets, network policy, attack paths, and hardening | ✅ Complete |
+| **[software-supply-chain-assessment.md](./software-supply-chain-assessment.md)** | Versioned source inspection, SBOMs, secret scanning and dependency risk review | ✅ Workflow |
 
 ---
 
