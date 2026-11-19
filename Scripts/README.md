@@ -70,13 +70,13 @@ Inspect provenance and source before running downloaded scripts.
 ---
 
 ## 🎯 Purpose
-A curated entry point for selected script examples in Bash, C, Go, PowerShell, Python, SQL and YAML. It is not a complete inventory or an execution-safety review; use each file's local documentation and inspect source before use.
+A curated entry point for selected script examples in Bash, C, Go, PowerShell, Python, SQL and YAML. It is not a complete inventory or an execution-safety review. Most language folders do not have their own README; inspect each file and its dependencies before use.
 
 ## ⚙️ Function
-Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
+Covers directory structure, selected script categories, usage guidance, authorization boundaries, contributing guidelines, and quick links. Most language subfolders have no separate README. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
 
 ## 🏆 Goal
-A reader can find the right script for a task by category/language and understands the legal authorization requirement before running anything.
+A reader can navigate a partial index, understand that retired entries are inert, and review current source and dependencies before considering any remaining example.
 
 ## 📋 When To Use
 When looking for an existing script before writing a new one, or when unsure what legal/usage constraints apply to this folder's contents.
@@ -423,8 +423,8 @@ Safe Learning Environments ONLY:
 # 1. Verify authorization
 Get-Content authorization.txt
 
-# 2. Set execution policy (if needed)
-REMOVED: do not weaken execution policy for a script. Use an organization-approved, signed workflow.
+# 2. Do not weaken execution policy to run an unsigned script.
+# Follow the organization-approved signing and execution policy.
 
 # 3. Run script with appropriate parameters
 .\script.ps1 -Target "authorized-target.local" -Output "results.txt"
