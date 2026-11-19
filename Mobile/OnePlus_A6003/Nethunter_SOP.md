@@ -1,17 +1,17 @@
 # Kali NetHunter - Standard Operating Procedures
 
 ## 🎯 Purpose
-Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests - from pre-engagement setup through post-engagement teardown and evidence handling.
+Field reference for safely preparing and using the OnePlus 6 as an assessment device, with emphasis on passive review, defensive validation, and evidence handling.
 
 ## ⚙️ Function
-Per-module procedures for every NetHunter capability: HID/BadUSB attacks, WifiPumpkin rogue AP, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit payload generation, SearchSploit, KeX desktop, MAC changer, and CARsenal. Each section includes prerequisites, authorization gates, verification steps, and cleanup actions.
+Device setup, authorized scope checks, passive diagnostics, defensive configuration review, safe vulnerability research, and post-engagement evidence handling. Offensive-capable features are documented only as risks and detection topics; this guide does not provide payload, credential-harvesting, or disruption procedures.
 
 ## 🏆 Goal
-Ensure consistent, authorized, and evidence-tracked execution of mobile pentesting operations. Covers the full engagement lifecycle: RoE confirmation, device baseline verification, per-tool procedures, and teardown checklist with artifact hashing and data handling.
+Ensure assessments stay within written scope, minimize data collection, preserve evidence, and leave the device in a known-good state.
 
 ## 📋 When to Use
 - Before any engagement using the NetHunter device (RoE and pre-engagement checklist)
-- During testing as a step-by-step procedure reference for each NetHunter module
+- During authorized work as a defensive checklist for configuration review and passive observation
 - At teardown for evidence handling, MAC restoration, and device cleanup
 
 ---
@@ -150,185 +150,62 @@ tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
 
 ---
 
-## 7. USB Arsenal
+## 7. USB Peripheral Security Review
 
-**Purpose:** Control USB gadget configuration - the switchboard for HID, BadUSB, mass storage, and CD-ROM emulation modes.
+Review the host's removable-device policy, approved-device inventory, lock screen, and endpoint alerts. Use vendor documentation and configuration exports. Do not emulate keyboards, network adapters, or storage devices against client systems.
 
-**Procedure**
-1. NetHunter app → **USB Arsenal**.
-2. Select the gadget config required by the task (e.g., HID for keyboard attacks, MITM/RNDIS for BadUSB).
-3. Apply, then run the corresponding attack module (Sections 9–10).
+## 8. Device Identity and Privacy
 
-**Notes:** Only one gadget mode is typically active at a time. If HID/BadUSB "does nothing," USB Arsenal mode is the usual culprit - verify it first.
+Use the engagement-specific device identity assigned by the owner. Do not spoof addresses to evade monitoring or attribute activity to another device. Record any authorized test-device identifier in the scope document and restore its baseline configuration afterward.
 
----
+## 9. HID and Keystroke-Injection Risk
 
-## 8. MAC Changer
+Treat programmable keyboards and HID emulators as untrusted peripherals. Review device-control policies, workstation locking, application allowlisting, and alerts for unexpected command interpreters. Validate controls only with benign owner-approved test events and synthetic accounts.
 
-**Purpose:** Spoof/randomize interface MAC for covert operation or to satisfy RoE anonymity requirements.
+## 10. HID Compatibility and Detection
 
-**Procedure**
-1. NetHunter app → **MAC Changer** → pick interface → randomize or set a specific MAC.
-2. Verify in terminal: `ip link show <iface>`.
+For awareness exercises, use a tabletop or vendor-supplied simulation that does not inject keystrokes into a live endpoint. Document the expected alert, owner, and response path. Do not use payload files or execute test scripts on a user's computer.
 
-**Notes:** Some internal interfaces resist changes; external adapters are more reliable. Record any spoofed MAC in engagement notes.
+## 11. USB Network Adapter and Bridging Controls
 
----
+Review whether endpoints permit unapproved USB network adapters or network bridging. Confirm that wired, wireless, and management segments remain separated. Do not insert a bridge or capture client traffic during a generic assessment.
 
-## 9. HID Attacks (Keyboard / Teensy-style)
+## 12. Unauthorized Access Point Detection
 
-**Purpose:** Turn the phone into a scripted USB keyboard against an **authorized, physically in-scope** host.
+Review wireless controller inventories and approved passive monitoring for unknown BSSIDs, lookalike SSIDs, unexpected DHCP services, and unusual client associations. Do not create an evil twin, captive portal, or credential collection page.
 
-**Prerequisites:** Physical-access authorization; USB Arsenal set to HID; target unlocked or attack accounts for lock state; correct keyboard layout selected.
+## 13. WPS Configuration
 
-**Procedure**
-1. USB Arsenal → HID gadget mode.
-2. NetHunter app → **HID Attacks** → choose *PowerSploit* or *Windows CMD* tab.
-3. Select payload/attack, set the target OS + keyboard layout, connect via OTG/USB to target.
-4. Execute; watch for injected keystrokes on the target.
+Check WPS status through the access point's administrative interface or documented configuration export. Disable WPS where it is not required and verify vendor firmware support. Do not perform PIN guessing or exploit attempts.
 
-**Verification:** keystrokes land on target; expected shell/download behavior observed.
+## 14. Bluetooth Security Review
 
-**Safety/Cleanup:** revert USB Arsenal to a benign mode afterward; document exactly what was typed/executed for the report.
+Inventory paired devices, discoverability settings, supported protocols, firmware, and access permissions. Remove unused pairings and apply vendor updates. Review logs for unexpected pairing attempts; do not spoof, inject, or capture third-party Bluetooth communications.
 
----
+## 15. Social-Engineering Simulation Governance
 
-## 10. DuckHunter HID (Rubber Ducky compatibility)
+Conduct awareness exercises through the organization's approved training platform, with synthetic credentials and privacy review. Measure reporting and response outcomes, not password submission. Do not collect real passwords, session tokens, or personal messages.
 
-**Purpose:** Run **USB Rubber Ducky** DuckyScript payloads from the phone (you already run Rubber Ducky/Bash Bunny - DuckHunter reuses that script language).
+## 16. Authorized Network Inventory
 
-**Procedure**
-1. NetHunter app → **DuckHunter HID** → **Convert** tab.
-2. Paste or load a `.txt` DuckyScript, or write inline.
-3. Set the keyboard layout (mismatch = garbled injection).
-4. **Preview** the converted payload, connect target via OTG/USB, **Attack**.
+Use the asset owner's inventory and approved monitoring systems first. Any active discovery must be separately scoped, rate-limited, coordinated with the service owner, and stopped if it affects availability. This reference intentionally omits scan commands and target lists.
 
-**Notes:** Keep a small library of vetted DuckyScripts in the engagement folder. Test on a lab VM before live use.
+## 17. Malware and Payload Risk Review
 
----
+Do not generate, deliver, or execute payloads from this field guide. For an approved malware-analysis lesson, use a dedicated offline detonation environment with disposable snapshots and no shared folders, clipboard, host credentials, or routed network access. Prefer static analysis and vendor-provided benign samples.
 
-## 11. BadUSB MITM Attack
+## 18. Vulnerability Research and Patch Validation
 
-**Purpose:** When plugged into an authorized host, present as a USB network adapter and MITM the host's traffic.
+Use vendor advisories, affected-version inventories, and supported configuration checks to evaluate exposure. Verify mitigations in a staging copy or disposable lab. Do not execute public exploit code on a production device as a routine validation method.
 
-**Prerequisites:** Physical access authorization; USB Arsenal set to the BadUSB/RNDIS gadget; target auto-trusts new USB NICs.
-
-**Procedure**
-1. USB Arsenal → BadUSB/MITM gadget config.
-2. NetHunter app → **BadUSB MITM Attack** → configure interface/gateway.
-3. Connect to target; the host routes through the phone.
-4. Capture with tcpdump/Wireshark (KeX) into the engagement folder.
-
-**Verification:** target obtains an IP from the phone; traffic visible in capture.
-
-**Cleanup:** stop capture, detach, revert USB mode, secure the capture file.
-
----
-
-## 12. WifiPumpkin / Evil AP (MANA-class attacks)
-
-**Purpose:** Stand up a rogue/captive-portal AP for authorized Wi-Fi client testing.
-
-**Prerequisites:** External adapter with AP + injection support; **only in-scope SSIDs**; confirm no interference with production/safety Wi-Fi.
-
-**Procedure**
-1. Attach external adapter; confirm with `iw dev` / `airmon-ng`.
-2. Launch **WifiPumpkin** (NetHunter app menu or from terminal).
-3. Configure SSID, channel, captive portal, and the capture/proxy modules.
-4. Start the AP; monitor associated clients and captured credentials into the engagement folder.
-
-**Verification:** AP broadcasts; test client associates; portal serves.
-
-**Safety/Cleanup:** stop the AP promptly; never leave a rogue AP unattended. Log the SSID/BSSID/channel used.
-
----
-
-## 13. WPS Attacks (OneShot)
-
-**Purpose:** Test WPS-enabled APs (Pixie-Dust / PIN) against **authorized** targets only.
-
-**Procedure**
-1. Attach compatible external adapter (monitor + injection).
-2. NetHunter app → **WPS Attacks** (OneShot) → scan → select the in-scope BSSID.
-3. Choose Pixie-Dust or PIN attack; run; record result.
-
-**Notes:** Confirm the BSSID is on your allow-list before launching. Document PINs/keys recovered.
-
----
-
-## 14. Bluetooth Arsenal
-
-**Purpose:** Bluetooth recon, spoofing, and audio inject/listen against **authorized** devices.
-
-**Prerequisites:** Compatible internal/external BT; targets explicitly in scope.
-
-**Procedure**
-1. NetHunter app → **Bluetooth Arsenal**.
-2. **Recon**: scan/enumerate nearby devices (record only in-scope MACs).
-3. **Attack/Audio**: spoof, connect, or inject per module - only against authorized targets.
-
-**Safety:** BT ranges catch bystander devices easily. Scope discipline is critical here.
-
----
-
-## 15. Social Engineer Toolkit (SET)
-
-**Purpose:** Build authorized phishing/credential-harvest campaigns.
-
-**Procedure**
-1. NetHunter app → **Social Engineer Toolkit**, or launch `setoolkit` in terminal.
-2. Select the vector (credential harvester, cloned page, etc.).
-3. Configure listener/host; stage on the engagement network.
-4. Capture results into the engagement folder.
-
-**Notes:** Client written approval for phishing content and target list is mandatory. Retain all sent content for the report.
-
----
-
-## 16. Nmap Scan
-
-**Purpose:** Quick network discovery/enumeration.
-
-**Procedure**
-1. NetHunter app → **Nmap Scan** for guided scans, or run in terminal for full control:
-   ```bash
-   nmap -sS -sV -p- --open -oA ~/engagements/<client>-<date>/nmap_full <in-scope-range>
-   nmap -sU --top-ports 100 -oA ~/engagements/<client>-<date>/nmap_udp <target>
-   ```
-2. Keep scans **inside the authorized ranges**. Save `-oA` output for reporting.
-
----
-
-## 17. Metasploit Payload Generator (MPC)
-
-**Purpose:** Generate payloads quickly (wraps `msfvenom`).
-
-**Procedure**
-1. Start **PostgreSQL** via Kali Services (for msfconsole DB).
-2. NetHunter app → **Metasploit Payload Generator** → pick platform/type, set LHOST/LPORT → generate.
-3. Or terminal:
-   ```bash
-   msfvenom -p <payload> LHOST=<ip> LPORT=<port> -f <format> -o ~/engagements/<client>-<date>/payload.<ext>
-   ```
-4. Start the matching handler in `msfconsole`.
-
-**Notes:** Payloads are engagement artifacts - store, hash, and clean them up at teardown.
-
----
-
-## 18. SearchSploit (Exploit-DB)
-
-**Purpose:** Offline search of Exploit-DB.
-
-**Procedure**
-```bash
-searchsploit <product> <version>
-searchsploit -x <path>     # examine an exploit
-searchsploit -u            # update the DB
+```mermaid
+flowchart LR
+    Phone[NetHunter assessment phone] --> Lab[Approved isolated lab]
+    Lab --> Synthetic[Synthetic targets and data]
+    Lab --> Monitor[Owner-controlled monitoring]
+    Monitor --> Review[Detection and remediation review]
+    Lab -. no route .- Production[Production devices and users]
 ```
-Map findings to Nmap `-sV` output; note EDB-IDs in the report.
-
----
 
 ## 19. Wardriving
 
