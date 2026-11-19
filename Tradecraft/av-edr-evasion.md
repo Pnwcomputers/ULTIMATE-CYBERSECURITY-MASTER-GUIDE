@@ -1,16 +1,13 @@
 # AV/EDR Evasion - Detection & Defense Deep Dive
 
 > [!CAUTION]
-> **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> **Defensive scope:** This guide describes evasion behaviors and detection limits. Routine response follows delegated role and policy; active validation requires a scoped, owner-approved test. Legal consequences depend on conduct and applicable rules. See [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 AV/EDR evasion techniques reference for blue team and purple team - covering how each evasion technique works, what artifacts it leaves, and how to detect, hunt, and harden against it.
 
 ## ⚙️ Function
-Covers: AMSI bypass, script obfuscation, process injection (shellcode, DLL hollowing, process ghosting), PE obfuscation, sandbox detection, memory-only payloads, direct syscalls, and EDR-specific bypasses - with detection signatures, Sysmon event IDs, and YARA rules for each category.
+Summarizes common evasion behavior patterns, endpoint and network artifacts, detection limitations, hunting ideas, and defensive hardening. Examples focus on indicators and controls rather than bypass implementation.
 
 ## 🏆 Goal
 Give defenders a complete technical understanding of evasion techniques so they can tune EDR rules, write detection logic, and understand which controls are effective against which techniques.
@@ -18,7 +15,7 @@ Give defenders a complete technical understanding of evasion techniques so they 
 ## 📋 When to Use
 - Building EDR/AV detection rules for a specific evasion technique
 - Understanding why a payload evaded a specific security control
-- Red team engagement planning for environments with known EDR products
+- Planning an approved detection-validation exercise with defined scope and cleanup
 - Security tool evaluation: testing which detections a control actually fires
 
 > **Scope:** How attackers evade antivirus and endpoint detection/response solutions - technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
@@ -31,7 +28,7 @@ Give defenders a complete technical understanding of evasion techniques so they 
 
 1. [EDR Architecture & Detection Layers](#edr-architecture--detection-layers)
 2. [Static Evasion Techniques](#static-evasion-techniques)
-3. [AMSI Bypass Techniques](#amsi-bypass-techniques)
+3. [AMSI Tampering and Detection](#amsi-tampering-and-detection)
 4. [ETW Tampering](#etw-tampering)
 5. [API Hook Evasion](#api-hook-evasion)
 6. [Syscall Abuse](#syscall-abuse)
@@ -223,7 +220,7 @@ The EDR examines parameters and context, then allows or blocks the call.
 
 ### Evasion Approach: Unhooking
 
-Attackers restore the original bytes in `ntdll.dll` by reading a fresh unmodified copy from disk and overwriting the hooked in-memory `.text` section. After unhooking, API calls bypass EDR inspection.
+Some malware attempts to restore modified bytes in `ntdll.dll` to avoid user-mode hooks in that process. This can reduce visibility from that hook alone; kernel telemetry, ETW, memory scanning, and behavioral detections may still observe the activity.
 
 **Why it's detectable:**
 - Loading `ntdll.dll` from disk and mapping it is unusual for a non-loader process
@@ -267,7 +264,7 @@ level: medium
 
 Windows API calls ultimately translate to syscalls - numbered kernel services invoked via the `syscall` CPU instruction. Normally, code calls a wrapper in `ntdll.dll` which sets the syscall number and executes `syscall`. EDR hooks intercept at the `ntdll.dll` layer.
 
-**Direct syscalls:** Custom assembly stubs that set the syscall number and execute `syscall` directly - bypassing `ntdll.dll` entirely and therefore bypassing all EDR hooks on that DLL. Tools like SysWhispers generate these stubs at compile time or resolve syscall numbers at runtime.
+**Direct syscalls:** Some malware invokes system calls without using the usual `ntdll.dll` wrappers, which can avoid particular user-mode hooks. This does not bypass all EDR visibility; kernel telemetry, call-stack inspection, memory analysis, and behavior correlation may still detect it.
 
 **Indirect syscalls:** Rather than placing the `syscall` instruction in attacker code (which has an anomalous call stack origin), the attacker locates a legitimate `syscall` gadget inside `ntdll.dll` and jumps to it after setting up the syscall number. The call stack then appears to originate from `ntdll.dll` - harder to detect than direct syscalls.
 
@@ -550,7 +547,7 @@ level: low
 | Evasion Technique | Primary Detection | Backup Detection | EDR Dependency |
 |---|---|---|---|
 | Static obfuscation | Entropy analysis, sandbox detonation | Memory scanning post-execution | Low |
-| AMSI bypass | Script Block Log (Event 4104) | ETW .NET provider | Medium |
+| Script-host tampering | Event 4104 may provide script context if enabled; it is not an AMSI-specific signal | Antimalware provider, process, memory, and policy telemetry | Correlate multiple sources; logging may be absent or incomplete |
 | ETW patching | Kernel callback telemetry | Memory write to ntdll | High |
 | API unhooking | Kernel callbacks (unaffected) | File read of ntdll.dll | High |
 | Direct syscalls | Call stack analysis | Kernel ETW | High |
