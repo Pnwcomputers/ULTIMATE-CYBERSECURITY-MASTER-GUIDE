@@ -287,6 +287,33 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Pass API credentials through curl's stdin config, not its process arguments.
+# Provider systems may still retain URL or request logs.
+private_curl_status_headers() {
+    local URL="$1" OUTPUT="$2" HEADER
+    shift 2
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        for HEADER in "$@"; do
+            [[ "$HEADER" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || return 2
+            printf 'header = "%s"\n' "$HEADER"
+        done
+    } | curl --config - --silent --show-error --max-time 20 \
+        --output "$OUTPUT" --write-out "%{http_code}"
+}
+
+private_curl_status_form() {
+    local URL="$1" OUTPUT="$2" FORM_DATA="$3"
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    [[ "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'data = "%s"\n' "$FORM_DATA"
+    } | curl --config - --silent --show-error --max-time 20 \
+        --output "$OUTPUT" --write-out "%{http_code}"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -308,8 +335,13 @@ query_criminalip() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying CriminalIP...${NC}"
-    curl -s "https://api.criminalip.io/v1/ip/data?ip=$IP" \
-        -H "x-api-key: $CRIMINALIP_KEY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$CRIMINALIP_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] CriminalIP key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local HTTP_CODE
+    HTTP_CODE=$(private_curl_status_headers "https://api.criminalip.io/v1/ip/data?ip=$IP" "$OUTPUT" "x-api-key: $CRIMINALIP_KEY")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] CriminalIP lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
     
     if command -v jq &> /dev/null && [ -s "$OUTPUT" ]; then
         SCORE=$(jq -r '.score // empty' "$OUTPUT" 2>/dev/null)
@@ -323,11 +355,11 @@ query_hibp() {
     local EMAIL="$1"
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for breaches...${NC}"
-    curl -s "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework" | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED HTTP_CODE
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_headers "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL_ENCODED?truncateResponse=false" "$OUTPUT" "hibp-api-key: $HIBP_KEY" "user-agent: ${ORG_TAG}-Framework")
     
-    if [ -s "$OUTPUT" ] && ! grep -q "error" "$OUTPUT" && ! grep -q "404" "$OUTPUT"; then
+    if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         BREACH_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
         if [ "$BREACH_COUNT" -gt 0 ] 2>/dev/null; then
             log "${RED}    [!] BREACHED! Found in $BREACH_COUNT breach(es)!${NC}"
@@ -335,8 +367,11 @@ query_hibp() {
                 log "${RED}        - $breach${NC}"
             done
         fi
-    else
+    elif [ "$HTTP_CODE" = "404" ]; then
+        echo '{"status":"clean","breaches":[]}' > "$OUTPUT"
         log "${GREEN}    [+] No breaches found${NC}"
+    else
+        log "${YELLOW}    [!] HIBP lookup unverified (HTTP ${HTTP_CODE:-000}); see ${OUTPUT}.${NC}"
     fi
 }
 
@@ -344,9 +379,11 @@ query_hibp_pastes() {
     local EMAIL="$1"
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for pastes...${NC}"
-    curl -s "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework" | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED HTTP_CODE
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_headers "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL_ENCODED" "$OUTPUT" "hibp-api-key: $HIBP_KEY" "user-agent: ${ORG_TAG}-Framework")
+    if [ "$HTTP_CODE" = "404" ]; then echo '{"status":"clean","pastes":[]}' > "$OUTPUT"; fi
+    [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "404" ] || log "${YELLOW}[!] HIBP paste lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_leaklookup() {
@@ -354,16 +391,27 @@ query_leaklookup() {
     local TYPE="$2"
     local OUTPUT="$3"
     log "${GREEN}[*] Querying LeakLookup ($TYPE)...${NC}"
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$LEAKLOOKUP_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] LeakLookup key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local QUERY_ENCODED HTTP_CODE
+    QUERY_ENCODED=$(jq -rn --arg value "$QUERY" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_form "https://leak-lookup.com/api/search" "$OUTPUT" "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY_ENCODED")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] LeakLookup lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_netlas() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying Netlas...${NC}"
-    curl -s "https://app.netlas.io/api/hosts/$IP/" \
-        -H "X-API-Key: $NETLAS_KEY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$NETLAS_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] Netlas key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local HTTP_CODE
+    HTTP_CODE=$(private_curl_status_headers "https://app.netlas.io/api/hosts/$IP/" "$OUTPUT" "X-API-Key: $NETLAS_KEY")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] Netlas lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_ipinfo() {
