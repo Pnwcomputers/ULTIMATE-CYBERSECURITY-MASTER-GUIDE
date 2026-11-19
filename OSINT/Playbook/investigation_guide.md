@@ -149,58 +149,29 @@ Extract the domain from the email address and proceed to Domain Investigation.
 ## Phone Investigation Procedure
 
 ### Objective
-Identify carrier, validate number, and discover associated online presence.
+Record provider-reported numbering metadata as a lead, with uncertainty and privacy limits clearly documented.
 
 ### Step-by-Step Procedure
 
-#### Step 1: Number Validation
+#### Step 1: Normalize and Validate
 
-```bash
-phoneinfoga scan -n "+1234567890"
-```
+Use a maintained numbering-plan library such as Google's libphonenumber to parse the supplied number with an explicit region when needed. “Possible” or “valid” means it matches numbering metadata; it does not prove that the number is assigned, reachable, or controlled by the investigated person.
 
-**What to look for:**
-- Country and carrier
-- Line type (mobile, VoIP, landline)
-- Valid number confirmation
+#### Step 2: Review Provider Metadata
 
-#### Step 2: Carrier Lookup
+If authorized and necessary, query one approved validation provider. Carrier and line-type labels may be stale or affected by number portability. They do not identify the current subscriber or prove VoIP, burner-app use, or fraud.
 
-The phonenumbers library provides detailed carrier information:
+#### Step 3: Corroborate Carefully
 
-```python
-import phonenumbers
-from phonenumbers import carrier, geocoder
+Do not infer that a number is suspicious because it is mobile, VoIP, or associated with a forwarding service. Treat each provider result as an unverified lead and seek independent case evidence before making an attribution.
 
-pn = phonenumbers.parse("+1234567890")
-print(carrier.name_for_number(pn, 'en'))
-print(geocoder.description_for_number(pn, 'en'))
-```
+#### Step 4: Optional Public Search
 
-#### Step 3: VoIP Detection
-
-VoIP numbers are commonly used by scammers. Check for:
-- Google Voice
-- TextNow
-- Burner app numbers
-- Twilio/other API numbers
-
-#### Step 4: Reverse Lookup
-
-Use multiple sources:
-- PhoneInfoga built-in searches
-- Truecaller (manual check)
-- Caller ID databases
-- Social media search with phone number
+Reverse-lookup sites and social networks receive the queried phone number and may retain it. Use them only when the investigation's authority and privacy basis allow it; review results manually and avoid collecting unrelated personal data.
 
 #### Step 5: Document Findings
 
-Record:
-- Full number with country code
-- Carrier name
-- Line type
-- VoIP indicator
-- Any associated names/addresses
+Record the normalized number, source, timestamp, returned metadata, and confidence/limitations. Store only the minimum necessary information, redact reports where appropriate, and do not reproduce passwords or unrelated personal details.
 
 ---
 
