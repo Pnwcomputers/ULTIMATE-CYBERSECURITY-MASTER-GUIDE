@@ -1,15 +1,15 @@
-# AppLocker Bypass
-_Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Windows application whitelisting assessments. Source: Pentest Laboratories._
+# AppLocker Policy Validation
+_A defensive checklist for reviewing application-control policy effectiveness. Historical external references are provided for context; their examples may not apply to current Windows builds or policy configurations._
 
-**Purpose:** Tests whether a Windows AppLocker application-whitelisting policy is actually enforcing what it claims to. AppLocker is frequently deployed with default or overly permissive rules (e.g., allowing anything in `C:\Windows` or signed-by-Microsoft), and every item on this list is a specific technique for executing arbitrary code despite those rules being "on."
- 
-**Function:** Each entry abuses a signed, whitelisted Windows binary to proxy execution of unsigned attacker code - InstallUtil, Regsvr32, MSBuild, Rundll32, and the rest are all legitimate Microsoft tools that AppLocker's default rules trust by path or publisher, and each has a documented way to make it run arbitrary script or DLL content instead of its intended payload. This is the Windows-specific subset of the broader LOLBins/LOLBAS technique class.
- 
-**Goal:** Establish whether the deployed AppLocker rule set (path-based, publisher-based, or hash-based) actually stops code execution, or whether it just blocks the naive case of double-clicking an unsigned .exe. A thorough pass through this list often reveals that "AppLocker is enabled" and "AppLocker is effective" are two very different claims.
- 
-**When & How to use this:** Run this once you have code-execution-but-restricted access on a system with AppLocker (or WDAC) enforced - either during an authorized red team engagement or a defensive control validation exercise. Test the rule set's actual configuration first (`Get-AppLockerPolicy -Effective`) to know which rule *types* apply, since some bypasses only work against path-based rules and are moot against strict publisher/hash rules.
+**Purpose:** Evaluate whether the effective AppLocker policy matches the system owner's intended application-control boundaries. A policy being enabled does not establish that it blocks every unwanted execution path.
 
-#### 📖 Full deep-dive on the LOLBins used here: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+**Function:** Record the effective policy, enforcement mode, rule collections, exceptions, and relevant event logs. The legacy references below describe historical bypass classes; they are not a complete, current, or universally applicable list.
+
+**Goal:** Produce a defensible control review with configuration evidence, approved test outcomes, and explicit limits.
+
+**When & How to use this:** Use during an authorized configuration review or a controlled defensive validation. Begin with `Get-AppLockerPolicy -Effective` and the applicable event logs. Prefer vendor-supported simulators or benign test files; do not execute arbitrary code or payloads to prove a policy gap. Validate WDAC separately because its policy and enforcement behavior differ.
+
+#### Further reading: [Tradecraft LOLBins/LOLBAS overview](../Tradecraft/lolbins-lolbas.md)
 
 ---
 
@@ -33,9 +33,9 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
 
 <div align="center">
 
-**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
+**Use these references responsibly: validate only systems within documented scope.**
 
-*Attack techniques are powerful - use them ethically and legally.*
+*The links below are historical references, not a runbook or a current compatibility guarantee.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -43,11 +43,11 @@ _Known AppLocker bypass techniques (LOLBins and binary abuse) useful during Wind
 
 ---
 
-⚠️ **Authorized testing only: confirm authority and scope before active testing.** ⚠️
+⚠️ **Use benign, approved validation methods and record scope before any active test.** ⚠️
 
 ⚠️ **Legal consequences depend on the conduct and applicable law; see [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).** ⚠️
 
-⚠️ **For systems you do not own or administer, confirm authorization in advance and document scope in writing where policy, law, or contract requires it.** ⚠️
+⚠️ **For systems you do not own or administer, confirm authorization and document scope in advance.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

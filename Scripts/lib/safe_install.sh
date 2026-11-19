@@ -449,9 +449,20 @@ git_clone_tool() {
             FAILED_TOOLS+=("git:$name (invalid pin)")
             return 0
         fi
-        if [[ -d "$target/.git" && "$(git -C "$target" rev-parse HEAD 2>/dev/null)" == "$commit" ]]; then
-            ok "  $name already at pinned commit ${commit:0:12}"
-            return 0
+        if [[ -d "$target/.git" ]]; then
+            local existing_head status
+            if ! existing_head="$(git -C "$target" rev-parse HEAD 2>/dev/null)" \
+               || ! status="$(git -C "$target" status --porcelain --untracked-files=all --ignored 2>/dev/null)"; then
+                warn "  Could not verify existing checkout for $name; refusing to reuse it"
+                FAILED_TOOLS+=( "git:$name (checkout verification failed)" )
+                return 0
+            fi
+            # The immutable commit pin determines the exact content. A remote
+            # configuration is not needed to verify an already-local pinned tree.
+            if [[ "$existing_head" == "$commit" && -z "$status" ]]; then
+                ok "  $name already at pinned commit ${commit:0:12} with clean tree"
+                return 0
+            fi
         fi
         if [[ -e "$target" ]]; then
             warn "  $target exists but is not at the pinned commit; not modifying it (remove it to reinstall)"

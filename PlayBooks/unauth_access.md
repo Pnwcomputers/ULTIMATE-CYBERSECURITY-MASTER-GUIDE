@@ -175,7 +175,7 @@ SigninLogs
 | where TimeGenerated > ago(24h)
 | where ResultType == "50126"
 | summarize FailureCount=count(), 
-            SuccessCount=countif(ResultType == 0),
+            SuccessCount=countif(ResultType == "0"),
             IPAddresses=make_set(IPAddress)
             by UserPrincipalName
 | where FailureCount > 10
@@ -270,7 +270,7 @@ For each targeted account:
 Get-ADUser -Identity jsmith -Properties *
 
 # Microsoft Entra ID (PowerShell)
-Get-AzureADUser -ObjectId jsmith@company.com | Format-List
+Get-MgUser -UserId jsmith@company.com | Format-List
 ```
 
 > [!NOTE]
@@ -305,7 +305,7 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4624
 # Azure AD - Success after failures
 SigninLogs
 | where UserPrincipalName == "jsmith@company.com"
-| where ResultType == 0
+| where ResultType == "0"
 | where TimeGenerated > ago(24h)
 | project TimeGenerated, IPAddress, Location, AppDisplayName, DeviceDetail
 ```
@@ -551,6 +551,8 @@ VERDICT DETERMINATION
 
 ### 4.1 Immediate Actions (Confirmed Compromise)
 
+For Entra ID, use current Microsoft Graph PowerShell or the Microsoft Entra admin center; legacy AzureAD cmdlets are deprecated. Confirm required permissions and user identity before making containment changes.
+
 #### Disable/Reset Account
 
 **Active Directory:**
@@ -560,7 +562,9 @@ VERDICT DETERMINATION
 Disable-ADAccount -Identity jsmith
 
 # Reset password
-Set-ADAccountPassword -Identity jsmith -Reset -NewPassword (ConvertTo-SecureString "TempP@ss123!" -AsPlainText -Force)
+# Generate a unique random temporary password with the approved password manager/reset workflow; never reuse an example secret.
+$temporaryPassword = Read-Host "Enter the one-time temporary password" -AsSecureString
+Set-ADAccountPassword -Identity jsmith -Reset -NewPassword $temporaryPassword
 
 # Force password change at next logon
 Set-ADUser -Identity jsmith -ChangePasswordAtLogon $true
@@ -573,11 +577,10 @@ Set-ADUser -Identity jsmith -ChangePasswordAtLogon $true
 Update-MgUser -UserId jsmith@company.com -AccountEnabled $false
 
 # Revoke all refresh tokens
-Invoke-MgUserRevokeSignInSession -UserId jsmith@company.com
+Revoke-MgUserSignInSession -UserId jsmith@company.com
 
 # Reset password
-$newPassword = @{ Password = "TempP@ss123!"; ForceChangePasswordNextSignIn = $true }
-Update-MgUser -UserId jsmith@company.com -PasswordProfile $newPassword
+# Use the approved Entra admin reset workflow to generate a unique random temporary password and require a change at next sign-in. Deliver it through the verified secure channel; do not place a reusable secret in scripts or logs.
 ```
 
 **Via Azure Portal:**
@@ -592,7 +595,7 @@ Update-MgUser -UserId jsmith@company.com -PasswordProfile $newPassword
 
 ```powershell
 # Revoke all tokens
-Revoke-AzureADUserAllRefreshToken -ObjectId jsmith@company.com
+Revoke-MgUserSignInSession -UserId jsmith@company.com
 ```
 
 **On-Premises:**
@@ -604,8 +607,7 @@ query user /server:SERVER01
 # Log off user
 logoff <session_id> /server:SERVER01
 
-# Reset Kerberos tickets (force re-auth)
-klist purge -li 0x3e7
+# `0x3e7` is the Local System logon session, not the affected user's ticket cache. Do not use it as user-session cleanup. Follow the endpoint-specific procedure in the affected user's session and verify the target logon session before purging tickets.
 ```
 
 #### Block Attacking IP
@@ -665,10 +667,7 @@ Get-MailboxFolderPermission -Identity jsmith@company.com:\Calendar
 
 ```powershell
 # List OAuth permissions
-Get-AzureADUserOAuth2PermissionGrant -ObjectId jsmith@company.com
-
-# Remove suspicious consent
-Remove-AzureADOAuth2PermissionGrant -ObjectId <grant-id>
+# Review the user's enterprise application consent grants in the Microsoft Entra admin center. Record the application, permissions, publisher, and approval basis; revoke suspicious grants through the supported admin workflow. The legacy AzureAD cmdlets are deprecated.
 ```
 
 **Azure Portal:**
@@ -809,7 +808,7 @@ Mark each box **only** after checking access and audit logs. For unknown outcome
 Enable-ADAccount -Identity jsmith
 
 # Azure AD
-Set-AzureADUser -ObjectId jsmith@company.com -AccountEnabled $true
+Update-MgUser -UserId jsmith@company.com -AccountEnabled:$true
 ```
 
 ### 6.2 User Communication
@@ -898,7 +897,7 @@ let timeWindow = 60m;
 let speedThreshold = 500; // miles per hour
 SigninLogs
 | where TimeGenerated > ago(1d)
-| where ResultType == 0
+| where ResultType == "0"
 | project TimeGenerated, UserPrincipalName, IPAddress, 
           Latitude = toreal(LocationDetails.geoCoordinates.latitude),
           Longitude = toreal(LocationDetails.geoCoordinates.longitude)
@@ -1072,10 +1071,10 @@ Disable-ADAccount -Identity username
 Set-ADAccountPassword -Identity username -Reset
 
 # Disable Azure AD account
-Set-AzureADUser -ObjectId user@domain.com -AccountEnabled $false
+Update-MgUser -UserId user@domain.com -AccountEnabled:$false
 
 # Revoke Azure AD sessions
-Revoke-AzureADUserAllRefreshToken -ObjectId user@domain.com
+Revoke-MgUserSignInSession -UserId user@domain.com
 ```
 
 ### Investigation Queries

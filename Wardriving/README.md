@@ -1,7 +1,7 @@
 <a id="wardriving-and-wireless-surveying"></a>
 # Wardriving & Wireless Surveying
 
-_Last reviewed: 2026-10-22_
+_Last reviewed: 2026-11-19 (documentation and internal-link review; no field collection or firmware testing performed)_
 
 > [!CAUTION]
 > **Authorized surveying only.** Define the permitted area, types of collection, device owners, disclosure rules and any transmit-capable features *before* starting. Passive reception is not a blanket permission for active interference, interception or publishing location data. Read the [repository legal notice](../LEGAL.md).

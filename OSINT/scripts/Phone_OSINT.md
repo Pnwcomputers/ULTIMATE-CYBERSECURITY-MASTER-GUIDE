@@ -3,23 +3,23 @@
 Script for automated phone number OSINT - carrier lookup, breach history, spam database checks, and reverse lookup URL generation. Supports single numbers, comma-separated lists, or a file of numbers.
 
 ## 🎯 Purpose
-Self-contained bash script automating phone-number investigation - carrier/line-type validation (Numverify, Veriphone, AbstractAPI), breach/leak correlation (IntelX, LeakLookup), and reverse-lookup URL generation. The phone-only counterpart to [Email_OSINT.md](Email_OSINT.md) and [Domain_IP_Recon.md](Domain_IP_Recon.md).
+Self-contained Bash script for phone-number provider lookups, leak correlation, and manually reviewed search links. Provider line-type data is approximate metadata; it does not establish identity, burner-app use, or fraud. The phone-only counterpart to [Email_OSINT.md](Email_OSINT.md) and [Domain_IP_Recon.md](Domain_IP_Recon.md).
 
 ## ⚙️ Function
 A single bash script accepting one or more phone numbers (or a file), querying multiple carrier-validation APIs for redundancy (since free tiers are rate-limited), correlating against breach/leak databases, and generating ready-to-click reverse-lookup URLs for manual services (Truecaller, etc.) that don't offer a public API.
 
 ## 🏆 Goal
-Run one command against a suspected scammer's phone number and get back carrier/line-type/VoIP indicators plus any breach correlation, without manually querying each validation service.
+Run authorized provider lookups and organize their returned metadata for human review. A line-type result is not proof of who controls a number or whether it was used fraudulently.
 
 ## 📋 When to Use
 - Phone-only investigation step in a scam/fraud case (see `../Playbook/investigation_guide.md`'s Phone Investigation Procedure)
-- Determining whether a number is VoIP/burner-app-issued (common scammer indicator) versus a genuine mobile/landline number
+- Reviewing provider-reported line-type metadata as an uncertain clue; it cannot prove burner-app use, identity, or fraud.
 
 **Dependencies:** `jq`, `curl`  
-**Usage:** `chmod +x Phone_OSINT.md` or copy the script below into a `.sh` file.
+**Usage:** Copy the fenced script into a file such as `phone_audit.sh`, then run `chmod +x phone_audit.sh`. Do not try to execute this Markdown document.
 
-**Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
-- `NUMVERIFY_KEY` - [apilayer.net](https://apilayer.net/marketplace/number_verification-api)
+**Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed. Phone numbers and queries are sent to the providers you enable; review their retention terms before use.
+- `NUMVERIFY_KEY` - [APILayer Number Verification API](https://marketplace.apilayer.com/number_verification-api)
 - `VERIPHONE_KEY` - [veriphone.io](https://veriphone.io/)
 - `ABSTRACTAPI_KEY` - [abstractapi.com](https://www.abstractapi.com/api/phone-validation-api)
 - `INTELX_KEY` - [intelx.io](https://intelx.io/)
@@ -36,7 +36,8 @@ Run one command against a suspected scammer's phone number and get back carrier/
 #         ./phone_audit.sh -p <phone1,phone2,phone3>
 #         ./phone_audit.sh -f <file_with_phones>
 #
-#  Phone format: Include country code (e.g., +1234567890 or 1234567890)
+#  Local formatting supports North American 10-digit numbers and +1 numbers.
+#  Other international numbers are passed through without inferred country metadata.
 #
 #  Dependencies:
 #    sudo apt install jq curl
@@ -71,14 +72,23 @@ LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
-
-        NUMVERIFY_KEY="${NUMVERIFY_KEY:-${NUMVERIFY_API_KEY:-${numverify_api_key:-}}}"
-        VERIPHONE_KEY="${VERIPHONE_KEY:-${VERIPHONE_API_KEY:-${veriphone_api_key:-}}}"
-        ABSTRACTAPI_KEY="${ABSTRACTAPI_KEY:-${abstractapi_key:-}}"
-        INTELX_KEY="${INTELX_KEY:-${INTELX_API_KEY:-${intelx_api_key:-}}}"
-        LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_api_key:-}}}"
+        # Parse simple KEY=value entries; never execute the config file as shell code.
+        while IFS= read -r entry || [ -n "$entry" ]; do
+            [[ "$entry" =~ ^[[:space:]]*(#|$) ]] && continue
+            if [[ "$entry" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+                key="${BASH_REMATCH[2]}"
+                value="${BASH_REMATCH[3]}"
+                value="${value%\"}"; value="${value#\"}"
+                value="${value%\'}"; value="${value#\'}"
+                case "$key" in
+                    NUMVERIFY_KEY|NUMVERIFY_API_KEY|numverify_api_key) [ -n "$NUMVERIFY_KEY" ] || NUMVERIFY_KEY="$value" ;;
+                    VERIPHONE_KEY|VERIPHONE_API_KEY|veriphone_api_key) [ -n "$VERIPHONE_KEY" ] || VERIPHONE_KEY="$value" ;;
+                    ABSTRACTAPI_KEY|abstractapi_key) [ -n "$ABSTRACTAPI_KEY" ] || ABSTRACTAPI_KEY="$value" ;;
+                    INTELX_KEY|INTELX_API_KEY|intelx_api_key) [ -n "$INTELX_KEY" ] || INTELX_KEY="$value" ;;
+                    LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key) [ -n "$LEAKLOOKUP_KEY" ] || LEAKLOOKUP_KEY="$value" ;;
+                esac
+            fi
+        done < "$API_CONFIG"
     else
         echo -e "${YELLOW}[!] API config not found at $API_CONFIG. Set keys via environment variables.${NC}" >&2
     fi
@@ -154,7 +164,7 @@ normalize_phone() {
     echo "$PHONE" | tr -d '+−()-. ' | sed 's/^00//'
 }
 
-# Extract country code (basic - assumes US +1 if 10 digits)
+# Extract a country code only for NANP-style numbers; other lengths are ambiguous without a numbering-plan library.
 get_country_code() {
     local PHONE="$1"
     local NORMALIZED=$(normalize_phone "$PHONE")
@@ -165,8 +175,9 @@ get_country_code() {
     elif [ "$LEN" -eq 11 ] && [[ "$NORMALIZED" == 1* ]]; then
         echo "1"  # US with country code
     elif [ "$LEN" -gt 10 ]; then
-        # Try to extract country code (first 1-3 digits)
-        echo "${NORMALIZED:0:$((LEN-10))}"
+        # Do not guess: international calling codes have variable lengths and
+        # national number lengths vary by country.
+        echo "unknown"
     else
         echo "unknown"
     fi
@@ -183,7 +194,7 @@ get_national_number() {
     elif [ "$LEN" -eq 11 ] && [[ "$NORMALIZED" == 1* ]]; then
         echo "${NORMALIZED:1}"
     elif [ "$LEN" -gt 10 ]; then
-        echo "${NORMALIZED: -10}"
+        echo "$NORMALIZED"
     else
         echo "$NORMALIZED"
     fi
@@ -265,6 +276,23 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Feed query URLs to curl on stdin so keys are not exposed in curl's process
+# arguments or left in a temporary file. Providers may still log URL keys.
+private_curl_url() {
+    local URL="$1" OUTPUT="$2" HEADER="${3:-}"
+    [[ "$URL" == https://* && "$URL" != *'"'* ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        if [ -n "$HEADER" ]; then
+            [[ "$HEADER" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || return 2
+            printf 'header = "%s"\n' "$HEADER"
+        fi
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        | pretty_json > "$OUTPUT" 2>&1
+    local -a CURL_STATUSES=("${PIPESTATUS[@]}")
+    return "${CURL_STATUSES[1]}"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -295,8 +323,11 @@ query_numverify() {
         return
     fi
     
-    curl -s "https://api.apilayer.com/number_verification/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$NUMVERIFY_KEY" =~ ^[A-Za-z0-9._-]+$ ]] || [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        log "${YELLOW}[!] NumVerify key/number format invalid; request skipped.${NC}"
+        return
+    fi
+    private_curl_url "https://api.apilayer.com/number_verification/validate?number=$NORMALIZED" "$OUTPUT" "apikey: $NUMVERIFY_KEY"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
@@ -320,13 +351,19 @@ query_veriphone() {
     
     log "${GREEN}    [*] Checking Veriphone...${NC}"
     
+    if [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        log "${YELLOW}[!] Phone number format invalid; Veriphone request skipped.${NC}"
+        return
+    fi
     if [ -z "$VERIPHONE_KEY" ]; then
         # Veriphone has a free tier without key (limited)
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" \
-            | pretty_json > "$OUTPUT" 2>&1
+        private_curl_url "https://api.veriphone.io/v2/verify?phone=$NORMALIZED" "$OUTPUT"
     else
-        curl -s "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" \
-            | pretty_json > "$OUTPUT" 2>&1
+        if [[ ! "$VERIPHONE_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+            log "${YELLOW}[!] Veriphone key contains unsupported characters; request skipped.${NC}"
+            return
+        fi
+        private_curl_url "https://api.veriphone.io/v2/verify?phone=$NORMALIZED&key=$VERIPHONE_KEY" "$OUTPUT"
     fi
     
     if [ -s "$OUTPUT" ]; then
@@ -359,8 +396,17 @@ query_abstractapi() {
         return
     fi
     
-    curl -s "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" \
-        | pretty_json > "$OUTPUT" 2>&1
+    # AbstractAPI requires the key in the URL; private_curl_url keeps it
+    # out of curl's process arguments. The provider may still log request URLs.
+    if [[ ! "$ABSTRACTAPI_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] AbstractAPI key contains unsupported characters; request skipped.${NC}"
+        return
+    fi
+    if [[ ! "$NORMALIZED" =~ ^[0-9]{4,15}$ ]]; then
+        log "${YELLOW}[!] Phone number format invalid; AbstractAPI request skipped.${NC}"
+        return
+    fi
+    private_curl_url "https://phonevalidation.abstractapi.com/v1/?api_key=$ABSTRACTAPI_KEY&phone=$NORMALIZED" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
@@ -440,76 +486,49 @@ detect_phone_type() {
     local PHONE="$1"
     local OUTPUT="$2"
     local NATIONAL=$(get_national_number "$PHONE")
+    local COUNTRY=$(get_country_code "$PHONE")
     
     log "${GREEN}    [*] Analyzing phone number format...${NC}"
     
-    # US/Canada area code lookup (basic)
+    # Area-code labels apply only to NANP-style numbers and are historical metadata,
+    # not a current-location or line-type determination.
     local AREA_CODE="${NATIONAL:0:3}"
     local EXCHANGE="${NATIONAL:3:3}"
     
-    # Known VoIP/Virtual prefixes (incomplete list)
-    VOIP_PREFIXES=("456" "500" "521" "522" "523" "524" "525" "526" "527" "528" "529" "533" "544" "566" "577" "588")
+    PHONE_TYPE="Unclassified"
+    PHONE_NOTES="Provider line-type metadata is approximate; local prefixes do not establish identity, burner-app use, or fraud."
     
-    # Toll-free prefixes
-    TOLLFREE_PREFIXES=("800" "833" "844" "855" "866" "877" "888")
-    
-    # Premium rate
-    PREMIUM_PREFIXES=("900" "976")
-    
-    PHONE_TYPE="Unknown"
-    PHONE_NOTES=""
-    
-    # Check toll-free
-    for prefix in "${TOLLFREE_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Toll-Free"
-            PHONE_NOTES="Toll-free numbers are often used by businesses but also by scammers"
-            break
-        fi
-    done
-    
-    # Check premium
-    for prefix in "${PREMIUM_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Premium Rate"
-            PHONE_NOTES="WARNING: Premium rate numbers charge high fees. Often used in scams."
-            break
-        fi
-    done
-    
-    # Check VoIP indicators
-    for prefix in "${VOIP_PREFIXES[@]}"; do
-        if [ "$AREA_CODE" = "$prefix" ]; then
-            PHONE_TYPE="Likely VoIP/Virtual"
-            PHONE_NOTES="VoIP numbers are easy to obtain anonymously"
-            break
-        fi
-    done
-    
-    # 983 area code (mentioned in scam case)
-    if [ "$AREA_CODE" = "983" ]; then
-        PHONE_TYPE="VoIP/Virtual Number"
-        PHONE_NOTES="983 is a newer area code often associated with VoIP services. Common in scam operations."
+    if [ "$COUNTRY" = "1" ]; then
+        for prefix in 800 833 844 855 866 877 888; do
+            if [ "$AREA_CODE" = "$prefix" ]; then
+                PHONE_TYPE="Toll-Free NPA"
+                PHONE_NOTES="North American toll-free area code; this is not an identity or fraud signal."
+                break
+            fi
+        done
+        
+        for prefix in 900 976; do
+            if [ "$AREA_CODE" = "$prefix" ]; then
+                PHONE_TYPE="Premium-Rate NPA"
+                PHONE_NOTES="North American premium-rate area code; verify current carrier/provider details."
+                break
+            fi
+        done
     fi
     
-    # Output findings
-    cat << EOF > "$OUTPUT"
-{
-    "phone": "$PHONE",
-    "normalized": "$(normalize_phone "$PHONE")",
-    "area_code": "$AREA_CODE",
-    "exchange": "$EXCHANGE",
-    "detected_type": "$PHONE_TYPE",
-    "notes": "$PHONE_NOTES"
-}
-EOF
+    
+    # jq safely escapes user-controlled values in JSON output.
+    jq -n \
+        --arg phone "$PHONE" \
+        --arg normalized "$(normalize_phone "$PHONE")" \
+        --arg area_code "$AREA_CODE" \
+        --arg exchange "$EXCHANGE" \
+        --arg detected_type "$PHONE_TYPE" \
+        --arg notes "$PHONE_NOTES" \
+        '{phone:$phone, normalized:$normalized, area_code:$area_code, exchange:$exchange, detected_type:$detected_type, notes:$notes}' > "$OUTPUT"
 
-    if [ "$PHONE_TYPE" != "Unknown" ]; then
-        log "${YELLOW}    [!] Type detected: $PHONE_TYPE${NC}"
-        [ -n "$PHONE_NOTES" ] && log "${YELLOW}    [!] Note: $PHONE_NOTES${NC}"
-    else
-        log "${GREEN}    [+] Standard landline/mobile format${NC}"
-    fi
+    log "${YELLOW}    [!] Local type: $PHONE_TYPE; review provider metadata cautiously.${NC}"
+    log "${YELLOW}    [!] $PHONE_NOTES${NC}"
 }
 
 # Area code lookup (US/Canada)
@@ -518,9 +537,17 @@ lookup_area_code() {
     local OUTPUT="$2"
     local NATIONAL=$(get_national_number "$PHONE")
     local AREA_CODE="${NATIONAL:0:3}"
+    local COUNTRY=$(get_country_code "$PHONE")
     
-    log "${GREEN}    [*] Looking up area code $AREA_CODE...${NC}"
+    if [ "$COUNTRY" != "1" ]; then
+        LOCATION="Not available: local lookup supports NANP numbers only"
+        printf '{"area_code":"%s","location":"%s"}\n' "$AREA_CODE" "$LOCATION" > "$OUTPUT"
+        return
+    fi
     
+    log "${GREEN}    [*] Looking up NANP area code $AREA_CODE...${NC}"
+    
+    # Provider and area-code data can be stale; it reflects numbering-plan metadata, not a subscriber's present location.
     # Query free area code API
     curl -s "https://www.randomphonenumbers.com/api/area-code/$AREA_CODE" \
         | pretty_json > "$OUTPUT" 2>&1 || true
@@ -529,7 +556,7 @@ lookup_area_code() {
     # Fallback: use static lookup for common codes
     
     case "$AREA_CODE" in
-        983) LOCATION="Eastern North Carolina (VoIP overlay)" ;;
+        983) LOCATION="Eastern North Carolina (area-code lookup only; not a line-type signal)" ;;
         212) LOCATION="New York City, NY" ;;
         213) LOCATION="Los Angeles, CA" ;;
         312) LOCATION="Chicago, IL" ;;
@@ -901,11 +928,9 @@ APIs & SOURCES QUERIED
 ═══════════════════════════════════════════════════════════════════════════
 PHONE TYPE INDICATORS
 ═══════════════════════════════════════════════════════════════════════════
-- VoIP/Virtual: Often anonymous, easy to obtain, common in scams
-- Toll-Free (800, etc.): Business numbers, but also used by scammers
-- Premium (900, 976): WARNING - Charges apply, often scams
-- Mobile: Standard cell phone
-- Landline: Traditional phone line
+- Provider-reported line type is approximate and may be outdated or affected by number portability
+- A VoIP, mobile, or landline label does not establish identity, burner-app use, or fraud
+- Corroborate any lead with independent evidence and document uncertainty.
 
 EOF
 
@@ -923,8 +948,8 @@ cat << EOF >> "$SUMMARY_FILE"
 ═══════════════════════════════════════════════════════════════════════════
 RECOMMENDED ACTIONS
 ═══════════════════════════════════════════════════════════════════════════
-1. If VoIP/Virtual - Higher suspicion, commonly used in fraud
-2. If found in leaks - Associated with compromised accounts
+1. Treat line-type and carrier results as unverified leads, not attribution
+2. If an authorized source reports exposure, record only necessary redacted data
 3. Check spam databases manually using provided URLs
 4. Use reverse lookup to find potential owner information
 5. Report scam numbers to:

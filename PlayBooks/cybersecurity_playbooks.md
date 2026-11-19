@@ -458,28 +458,25 @@ HAVING COUNT(*) > 10;
 Identify vulnerabilities in internal network infrastructure
 
 ### Scope Definition
-```
-□ IP ranges to scan
-□ Systems in/out of scope
-□ Testing timeframe
-□ Authorized contacts
-□ Rules of engagement
-□ Approval documentation
-```
+
+Before scanning, confirm the approved CIDR, excluded hosts, ports, rate, timeframe, monitoring contacts, and stop conditions. The block below uses the documentation-only TEST-NET range `192.0.2.0/24`; replace it only with a range explicitly assigned to this assessment.
 
 ### Phase 1: Network Discovery (1-2 hours)
 ```bash
-# Ping sweep
-nmap -sn 10.0.0.0/24 -oA discovery_scan
+# Documentation-only placeholder; set to a validated, approved CIDR before use.
+TARGET_CIDR="192.0.2.0/24"
 
-# Quick port scan
-nmap -sS -T4 -p- 10.0.0.0/24 -oA quick_scan
+# Discover hosts in the authorized range.
+nmap -sn "$TARGET_CIDR" -oA discovery_scan
 
-# Service version detection
-nmap -sV -O 10.0.0.0/24 -oA service_scan
+# Start with a limited common-port sample and conservative timing.
+nmap -sS -T2 --top-ports 100 "$TARGET_CIDR" -oA limited_port_scan
 
-# Detailed scan of discovered hosts
-nmap -sC -sV -O -p- target_host -oA detailed_scan
+# Run service detection only against discovered, in-scope hosts.
+# Expand ports or timing only when the owner has explicitly approved it.
+nmap -sV -T2 -p 22,80,443,445 target_host -oA service_scan
+
+# Use a detailed scan only for a specifically approved target and port range.
 ```
 
 ### Phase 2: Service Enumeration (2-4 hours)

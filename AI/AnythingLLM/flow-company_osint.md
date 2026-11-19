@@ -4,13 +4,13 @@
 AnythingLLM AgentFlow for automated company-level OSINT - aggregates public information about a target organization including tech stack, employee data, infrastructure, and social presence.
 
 ## ⚙️ Function
-Accepts a company name or domain, queries public OSINT sources, and returns structured intelligence: employee count/structure, technology stack (job postings, LinkedIn), public IP ranges, email formats, social media presence, and known subsidiaries.
+Accepts a company name or domain within an authorized assessment and summarizes public company-level information. Treat matches as unverified leads; avoid building profiles of individual employees.
 
 ## 🏆 Goal
-Build a comprehensive target profile for a company during the reconnaissance phase of an authorized engagement, without active probing.
+Summarize public, organization-level facts for scope review. Do not profile individual employees.
 
 ## 📋 When to Use
-Early-stage reconnaissance on an authorized target organization; scoping an engagement; building the target profile before active testing begins.
+Early-stage review of an authorized organization’s public information to support scope confirmation.
 
 
 ## Flow Information
@@ -46,7 +46,9 @@ Define these variables in the "Flow Variables" section:
 
 ## Flow Blocks
 
-### Block 1: Web Scraping - LinkedIn
+### Block 1: Public Company Pages (preferred)
+
+Use the organization’s own public About, Team, and Careers pages where permitted. Do not automate LinkedIn or bypass access controls. Store only information needed to validate organization-level scope.
 
 **Block Type:** Web Scraping
 
@@ -56,7 +58,7 @@ Define these variables in the "Flow Variables" section:
 - **Content Summarization:** Enabled (recommended)
 - **Result Variable:** `linkedin_data`
 
-**Purpose:** Gather employee information from LinkedIn
+**Purpose:** Gather organization-level information from public company pages
 
 ---
 
@@ -94,19 +96,16 @@ Define these variables in the "Flow Variables" section:
 
 **Instruction:**
 ```
-Analyze this LinkedIn data for ${company_name}:
+Analyze these authorized public company-page excerpts for ${company_name}:
 
 ${linkedin_data}
 
-Extract and infer:
-1. Common employee naming patterns (firstname.lastname@domain)
-2. Email format (first.last, flast, firstl, etc.)
-3. Key personnel (IT staff, security team, executives)
-4. Department structure
-5. Technologies mentioned in profiles
-6. Potential social engineering targets
+Extract only organization-level facts that are explicitly present:
+1. Publicly stated business units and locations
+2. Technologies the organization itself publicly identifies
+3. Official security/contact channels
 
-Format as structured intelligence report with clear sections.
+Do not infer employee email formats, identify individual targets, assess personal traits, or suggest social-engineering approaches. Mark uncertain matches as unverified and include the source URL and retrieval date.
 ```
 
 **Result Variable:** `employee_info`
@@ -170,11 +169,11 @@ Format as professional intelligence report:
 ## Technology Stack
 [Technologies, versions, vendors identified]
 
-## Attack Surface
-[Potential entry points and vulnerabilities]
+## Scope Leads
+[Public organization-owned domains or systems requiring separate scope confirmation]
 
-## Social Engineering Opportunities
-[Potential targets and approaches]
+## Limitations
+[Unverified matches, retrieval date, and sources]
 
 ## Recommendations
 [Suggested next steps for penetration test]
@@ -203,37 +202,31 @@ Use professional security assessment language.
 
 ```
 @agent use CompanyOSINT flow
-company_name: Acme Corporation
-domain: acme.com
+company_name: Example Organization
+domain: example.invalid
 ```
 
 ### Example With Real Data
 
 ```
 @agent use CompanyOSINT flow
-company_name: Pacific Northwest Computers
-domain: pnwcomputers.com
+company_name: Example Organization
+domain: example.invalid
 ```
 
 ### Expected Output
 
-The flow will return `osint_report` containing:
-- Employee naming conventions and email formats
-- Key personnel identification
-- Technology stack analysis
-- Attack surface assessment
-- Social engineering opportunities
-- Recommended next steps
+The flow returns `osint_report` with source-linked, organization-level facts, unverified scope leads, and limitations. It does not identify individuals or generate targeting advice.
 
 ---
 
 ## Integration with Other Flows
 
-**Typical Workflow:**
+**Typical authorized workflow:**
 
 1. **CompanyOSINT** (this flow) - Gather initial intelligence
 2. **DomainRecon** - Map technical infrastructure
-3. **EmailOSINT** - Investigate key personnel emails
+3. **EmailOSINT** - Check only consented or explicitly authorized account addresses
 4. **GitHubSecrets** - Deep dive into code repositories
 5. **BreachChecker** - Check for compromised accounts
 
@@ -246,7 +239,7 @@ The flow will return `osint_report` containing:
 - ⚠️ Only use with proper authorization
 - Ensure activities are within scope of engagement
 - Follow all applicable laws and regulations
-- LinkedIn scraping may violate Terms of Service - use cautiously
+- Do not scrape LinkedIn or bypass authentication; use permitted public company sources
 
 ### Technical Considerations
 
@@ -278,7 +271,7 @@ The flow will return `osint_report` containing:
 
 | Issue | Solution |
 |-------|----------|
-| LinkedIn returns no data | Try without authentication or use Google search instead |
+| A source blocks automated access | Stop automated collection and use an approved public source or manual review |
 | GitHub search fails | Use GitHub API with authentication token |
 | BuiltWith blocks request | Add delay or use Wappalyzer alternative |
 | Generic analysis | Provide more context in company_name |

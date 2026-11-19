@@ -22,17 +22,17 @@
 **Forensic triage companion:** [MVT mobile verification workflow](mvt-forensic-triage.md) addresses owner consent, iOS/Android backup/artifact limitations and uncertainty; it does not guarantee spyware detection.
 
 ## 🎯 Purpose
-Mobile security reference covering device preparation (rooting, custom ROM), mobile pentesting platforms (Kali NetHunter), Android/iOS app security assessment, mobile forensics, and device OSINT. Currently focused on the OnePlus 6 A6003 as the primary NetHunter attack platform.
+Mobile security reference covering device preparation (rooting, custom ROM), the Kali NetHunter platform, Android/iOS app security assessment, mobile forensics, and device OSINT. The OnePlus 6 A6003 is a device-specific setup example; capabilities depend on the exact build, kernel, adapters, and current upstream support.
 
 ## ⚙️ Function
-Covers: OnePlus 6 rooting workflow (bootloader unlock, LineageOS, TWRP, Magisk), Kali NetHunter install and configuration, field SOPs for NetHunter attack modules (HID, BadUSB, WifiPumpkin, Bluetooth Arsenal, Wardriving), Android APK assessment, iOS backup forensics, and mobile device OSINT tools.
+Covers: OnePlus 6 rooting and NetHunter setup, defensive device and configuration review, scoped wireless surveys, Android APK assessment, iOS backup forensics, and mobile device OSINT. Offensive-capable modules are identified as risks and detection topics; their presence does not authorize their use.
 
 ## 🏆 Goal
-Enable practitioners to build and operate a capable mobile pentesting platform (NetHunter on OnePlus 6), conduct authorized Android and iOS app assessments, and perform forensic or OSINT tasks against mobile devices.
+Help practitioners prepare an authorized mobile assessment, review platform capabilities and limits, assess Android/iOS apps, and perform consent-based forensic or OSINT work.
 
 ## 📋 When To Use
 - Setting up or maintaining the OnePlus 6 NetHunter device
-- Running a NetHunter-based engagement (HID, Evil AP, Wardriving, etc.)
+- Reviewing a NetHunter device configuration or conducting a separately authorized, bounded wireless survey
 - Conducting an authorized Android or iOS app penetration test
 - Performing iOS backup forensics or mobile device OSINT
 
@@ -58,7 +58,7 @@ Enable practitioners to build and operate a capable mobile pentesting platform (
 
 *Mobile device security varies by OS model and account backup settings.*
 
-This directory contains **mobile security resources for penetration testers, forensic investigators, and security researchers** - from device preparation and platform setup through offensive tooling, app security assessment, and forensic analysis.
+This directory contains **mobile security resources for penetration testers, forensic investigators, and security researchers** - from device preparation and platform setup through defensive assessment, app security review, and forensic analysis.
 
 **What You'll Find Here:**
 - 📱 OnePlus 6 rooting and custom ROM installation guides
@@ -77,8 +77,8 @@ This directory contains **mobile security resources for penetration testers, for
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Full engagement-level SOP for pentesting with the NetHunter device: pre-engagement legal/device prep, passive recon, active recon, exploitation (Evil AP, HID, BadUSB, LLMNR, Metasploit), post-exploitation, evidence handling, teardown, and report structure | ✅ Complete |
-| **[Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests. From pre-engagement setup through post-engagement teardown and evidence handling. | ✅ Complete |
+| **[mobile_pentest_sop.md](mobile_pentest_sop.md)** | Engagement-level mobile assessment planning, passive review, authorized asset review, defensive validation, detection, minimized evidence, teardown, and reporting | ✅ Complete |
+| **[Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | OnePlus 6 device setup, scope confirmation, passive diagnostics, defensive configuration review, evidence handling, and teardown; offensive features are discussed only as risks and detection topics | ✅ Complete |
 
 ### Oneplus 6 / Kali Nethunter (Device-specific)
 
@@ -86,7 +86,7 @@ This directory contains **mobile security resources for penetration testers, for
 |------|-------------|--------|
 | **[OnePlus_A6003/Rooting.md](OnePlus_A6003/Rooting.md)** | Phase-by-phase: bootloader unlock, dtbo flash, LineageOS 22.2 install via sideload, TWRP install (temporary-boot method), and Magisk root via boot image patching | ✅ Complete |
 | **[OnePlus_A6003/Kali_NetHunter.md](OnePlus_A6003/Kali_NetHunter.md)** | NetHunter install (Magisk module or TWRP), LineageOS prerequisite, post-install config, metapackage and app selection, chroot management | ✅ Complete |
-| **[OnePlus_A6003/Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Per-module SOPs for all NetHunter tools: HID, DuckHunter, BadUSB, WifiPumpkin, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit, KeX, MAC changer, CARsenal, teardown checklist | ✅ Complete |
+| **[OnePlus_A6003/Nethunter_SOP.md](OnePlus_A6003/Nethunter_SOP.md)** | Device administration and defensive review checklist for NetHunter; see the guide for scope limits and excluded payload, harvesting, scanning, and disruption procedures | ✅ Complete |
 
 ### Checklists
 

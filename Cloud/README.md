@@ -117,8 +117,10 @@ The same issues appear across all three providers:
   least privilege; **privilege-escalation paths** through role assumption / policy
   editing.
 - **Exposed secrets** - keys in code, environment variables, or metadata.
-- **Instance metadata abuse** - SSRF against the metadata endpoint to steal
-  instance/role credentials (mitigated by IMDSv2 on AWS).
+- **Instance metadata abuse** - SSRF may expose instance identity or credentials
+  depending on the request path and service configuration. AWS IMDSv2 blocks some
+  SSRF paths that cannot issue the required PUT request and headers; it is not a
+  universal SSRF fix. Remediate the SSRF and scope instance-role permissions.
 - **Missing logging** - CloudTrail / Azure Activity / GCP Audit Logs disabled or
   not centralized.
 - **Weak network exposure** - management ports open to the internet, permissive

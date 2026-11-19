@@ -42,12 +42,19 @@ Indoor Unit (IDU) / Modem
 |-----------|--------------|-------|
 | **Web management UI** | Default credentials, authentication bypass, command injection | Common on VSAT modems |
 | **SNMP** | SNMPv1/v2c with public community string | Often exposes full config and stats |
-| **TR-069 / CWMP** | ACS server compromise → mass terminal takeover | Provisioning protocol; used in Viasat attack |
+| **TR-069 / CWMP** | ACS server compromise → mass terminal takeover | Provisioning protocol; not the access path reported for Viasat's KA-SAT incident. That incident used a misconfigured VPN gateway into the trusted management network ([CERT Polska](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf)). |
 | **Firmware** | Extraction → analysis → custom image | UART, JTAG, or update file extraction |
 | **RF uplink** | Jamming, signal capture | Physical proximity required |
 | **Over-the-air updates** | Unsigned firmware delivery | If OTA updates lack integrity checks |
 
 #### Terminal Firmware Analysis
+
+> [!CAUTION]
+> Extracting firmware for static inspection does not execute it. The QEMU example
+> below executes untrusted firmware code; `-L rootfs/` sets a loader root but is
+> not a sandbox. Only attempt dynamic analysis in a disposable, isolated VM with
+> no bridged network, shared folders, sensitive host mounts, or device passthrough.
+> Prefer static analysis until that containment has been verified.
 
 ```bash
 # Extract firmware from update file or NAND dump

@@ -472,28 +472,45 @@ sudo dkms status | grep rtl88
 Plug in the adapter - `iwconfig` should now list it.
 
 ### Verify Monitor Mode
-```bash
-# Enable monitor mode (wlan1 = external; wlan0 = onboard)
-sudo airmon-ng start wlan1
 
-# Verify
-iwconfig wlan1mon
+Interface names depend on the installed image and connected adapters. Identify
+the adapter and interface first; do not assume the external adapter is
+wlan1 or that monitor mode will create wlan1mon.
+
+```bash
+# Inspect actual wireless interfaces before making changes.
+iw dev
+lsusb -nn
+
+# Set this to the verified interface reported by iw dev.
+WIFI_IFACE='REPLACE_WITH_VERIFIED_INTERFACE'
+sudo airmon-ng start "$WIFI_IFACE"
+
+# Inspect the resulting interface name and type.
+iw dev
 ```
 
 ---
 
 ## Step 13: LAN Pentesting via RJ45
 
-The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the HackerGadgets adapter board from the Upgrade Kit.
+The AIO v2 provides Gigabit Ethernet via the RJ45 port. This requires the
+HackerGadgets adapter board from the Upgrade Kit.
+
+> [!CAUTION]
+> DHCP and Responder can disrupt networks and capture authentication material.
+> Use these steps only on an isolated, owned lab network with synthetic
+> accounts and written authorization for the connected systems. Never connect
+> this exercise to a production, customer, public, or shared network.
 
 ```bash
-# Plug into a target switch, request DHCP
+# Connect only to the isolated lab switch, then request DHCP if that lab uses it.
 sudo dhclient eth0
 
-# Verify connectivity
+# Verify the interface and assigned address.
 ip addr show eth0
 
-# Run Responder for credential capture
+# Credential-capture demonstration with synthetic lab accounts only.
 sudo responder -I eth0 -wrf
 ```
 

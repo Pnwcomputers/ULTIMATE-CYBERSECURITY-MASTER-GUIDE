@@ -1,5 +1,6 @@
 """Safe local file-upload example. No command execution or template hooks."""
 from pathlib import Path
+from uuid import uuid4
 
 from flask import Flask, abort, request, send_from_directory
 from werkzeug.utils import secure_filename
@@ -7,6 +8,7 @@ from werkzeug.utils import secure_filename
 BASE_DIR = Path(__file__).resolve().parent
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(mode=0o700, parents=True, exist_ok=True)
+# Extension checks are a convenience, not file-content validation.
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"}
 
 app = Flask(__name__)
@@ -29,8 +31,9 @@ def upload():
     if not filename or suffix not in ALLOWED_EXTENSIONS:
         abort(400, "Only JPG, PNG, and GIF filenames are accepted.")
 
-    uploaded.save(UPLOAD_DIR / filename)
-    return "Upload saved as an attachment-only file."
+    stored_name = f"{uuid4().hex}{suffix}"
+    uploaded.save(UPLOAD_DIR / stored_name)
+    return f"Upload saved as an attachment-only file: {stored_name}"
 
 
 @app.get("/uploads/<path:filename>")

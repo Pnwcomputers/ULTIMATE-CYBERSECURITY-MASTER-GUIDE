@@ -2,6 +2,22 @@
 
 This guide provides step-by-step procedures for conducting thorough OSINT investigations on scam and fraud cases.
 
+## Investigation flow
+
+```mermaid
+flowchart TD
+    A[Case intake and authority] --> B[Collect supplied identifiers]
+    B --> C[Passive provider lookups]
+    C --> D[Corroborate findings and preserve source context]
+    D --> E{Is direct testing in written scope?}
+    E -- No --> F[Stop at passive findings]
+    E -- Yes --> G[Confirm exact targets and limits]
+    G --> H[Run only approved checks]
+    F --> I[Redact sensitive data]
+    H --> I
+    I --> J[Human review before reporting]
+```
+
 ## 🎯 Purpose
 Step-by-step scam/fraud investigation procedures (email, phone, domain, IP, username, cryptocurrency) built around the `osint_investigator.sh` toolkit referenced throughout, ending in evidence preservation and abuse/IC3 reporting workflows. Distinct from [../OSINT_CHEATSHEET.md](../OSINT_CHEATSHEET.md) (generic command reference) and [../OSINT_GUIDE.md](../OSINT_GUIDE.md) (methodology/background) - this is specifically the scam-investigation playbook with a defined case workflow from intake to law enforcement referral.
 
@@ -83,12 +99,12 @@ holehe target@email.com --only-used
 #### Step 2: Breach Database Search
 
 ```bash
-h8mail -t target@email.com -o breach_results.csv
+Use an authorized breach-notification service that returns breach names and exposed data categories without collecting or exporting passwords. Record only the minimum redacted findings needed for the case.
 ```
 
 **What to look for:**
 - Previous breaches containing the email
-- Associated passwords (for correlation, not misuse)
+- Data categories exposed (never collect, store, or reproduce passwords)
 - Related email addresses
 
 **Document:** Breach exposure summary
@@ -104,10 +120,7 @@ The toolkit automatically queries HIBP when the API key is set.
 
 #### Step 4: Email Verification
 
-```bash
-# Hunter.io verification (via toolkit)
-# Or manual: curl "https://api.hunter.io/v2/email-verifier?email=target@email.com&api_key=YOUR_KEY"
-```
+Use the provider’s current authenticated client or dashboard. Store the API key in a secret manager or protected environment variable; do not put credentials in URLs, shell history, or copied command output.
 
 **What to look for:**
 - Deliverable status
@@ -136,58 +149,29 @@ Extract the domain from the email address and proceed to Domain Investigation.
 ## Phone Investigation Procedure
 
 ### Objective
-Identify carrier, validate number, and discover associated online presence.
+Record provider-reported numbering metadata as a lead, with uncertainty and privacy limits clearly documented.
 
 ### Step-by-Step Procedure
 
-#### Step 1: Number Validation
+#### Step 1: Normalize and Validate
 
-```bash
-phoneinfoga scan -n "+1234567890"
-```
+Use a maintained numbering-plan library such as Google's libphonenumber to parse the supplied number with an explicit region when needed. “Possible” or “valid” means it matches numbering metadata; it does not prove that the number is assigned, reachable, or controlled by the investigated person.
 
-**What to look for:**
-- Country and carrier
-- Line type (mobile, VoIP, landline)
-- Valid number confirmation
+#### Step 2: Review Provider Metadata
 
-#### Step 2: Carrier Lookup
+If authorized and necessary, query one approved validation provider. Carrier and line-type labels may be stale or affected by number portability. They do not identify the current subscriber or prove VoIP, burner-app use, or fraud.
 
-The phonenumbers library provides detailed carrier information:
+#### Step 3: Corroborate Carefully
 
-```python
-import phonenumbers
-from phonenumbers import carrier, geocoder
+Do not infer that a number is suspicious because it is mobile, VoIP, or associated with a forwarding service. Treat each provider result as an unverified lead and seek independent case evidence before making an attribution.
 
-pn = phonenumbers.parse("+1234567890")
-print(carrier.name_for_number(pn, 'en'))
-print(geocoder.description_for_number(pn, 'en'))
-```
+#### Step 4: Optional Public Search
 
-#### Step 3: VoIP Detection
-
-VoIP numbers are commonly used by scammers. Check for:
-- Google Voice
-- TextNow
-- Burner app numbers
-- Twilio/other API numbers
-
-#### Step 4: Reverse Lookup
-
-Use multiple sources:
-- PhoneInfoga built-in searches
-- Truecaller (manual check)
-- Caller ID databases
-- Social media search with phone number
+Reverse-lookup sites and social networks receive the queried phone number and may retain it. Use them only when the investigation's authority and privacy basis allow it; review results manually and avoid collecting unrelated personal data.
 
 #### Step 5: Document Findings
 
-Record:
-- Full number with country code
-- Carrier name
-- Line type
-- VoIP indicator
-- Any associated names/addresses
+Record the normalized number, source, timestamp, returned metadata, and confidence/limitations. Store only the minimum necessary information, redact reports where appropriate, and do not reproduce passwords or unrelated personal details.
 
 ---
 
@@ -322,16 +306,12 @@ If city/country or proxy/VPN classifications are necessary, obtain them separate
 
 #### Step 3: Reputation Check
 
-**Shodan (if API configured):**
-```bash
-curl -s "https://api.shodan.io/shodan/host/1.2.3.4?key=YOUR_KEY" | jq
-```
+**Shodan and AbuseIPDB (if authorized and configured):**
 
-**AbuseIPDB:**
-```bash
-curl -s "https://api.abuseipdb.com/api/v2/check?ipAddress=1.2.3.4&maxAgeInDays=90" \
-  -H "Key: YOUR_KEY" | jq
-```
+Use the toolkit's protected configuration or each provider's current official
+client. Do not place API keys in URLs, shell command lines, copied terminal
+history, or logs. Provider queries disclose the target identifier to that
+provider; review its terms and retain only the findings needed for the case.
 
 **What to look for:**
 - Previous abuse reports
@@ -459,8 +439,10 @@ Check:
 
 **Ethereum:**
 ```bash
-# Etherscan API v1 was fully deprecated 2025-08-15 - v2 requires a chainid parameter (1 = Ethereum mainnet)
-curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
+Etherscan API v1 is deprecated. For a required blockchain lookup, use
+the current Etherscan API v2 documentation and an approved client or protected
+configuration for credentials. Never copy an API key into a URL or shell
+command. Record only the transaction metadata relevant to the investigation.
 ```
 
 #### Step 4: Transaction Tracing

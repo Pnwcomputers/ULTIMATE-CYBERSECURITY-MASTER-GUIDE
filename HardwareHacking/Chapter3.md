@@ -115,12 +115,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Illustrative only: fault_results is a rectangular array of documented trial classes.
+# Replace generic axis labels below with the units/ranges recorded for this instrument.
 # Example labels: 0=expected output, 1=reset/detected, 2=unexpected output,
 # 3=independently verified scoped property failure.
 fault_map = np.array(fault_results)
 plt.imshow(fault_map, cmap='RdYlGn', aspect='auto')
-plt.xlabel('Glitch Width (ns)')
-plt.ylabel('Glitch Offset (cycles)')
+plt.xlabel('Configured timing parameter (see instrument metadata)')
+plt.ylabel('Configured offset parameter (see instrument metadata)')
 plt.title('Observed Fault-Injection Outcomes (Illustrative)')
 plt.colorbar(label='Trial class (see labels above)')
 plt.show()

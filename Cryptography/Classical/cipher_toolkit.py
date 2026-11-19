@@ -63,6 +63,8 @@ def atbash(text):
 
 def vigenere(text, key, decrypt=False):
     key = [A.index(k) for k in key.upper() if k in A]
+    if not key:
+        raise ValueError("Vigenere key must contain at least one A-Z letter")
     out, i = [], 0
     for c in text.upper():
         if c in A:

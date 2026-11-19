@@ -60,9 +60,10 @@ The following custom AgentFlows are referenced in these workflows:
 **Purpose:** Complete network security assessment workflow
 
 **Workflow Steps:**
-1. **Nmap Scan** - Execute comprehensive port and service scan
+1. **Nmap Scan** - Scan only an explicitly authorized host and approved ports
    ```bash
-   nmap -sV -sC -p- target.com -oN scan.txt
+   nmap -sV -p 22,80,443 AUTHORIZED_LAB_HOST -oN scan.txt
+   # Replace the placeholder only with a host listed in the written scope; -sV sends probes.
    ```
 
 2. **NmapAnalyzer** → Parse scan results and prioritize findings
@@ -223,7 +224,8 @@ EmailOSINT → emails discovered from CompanyOSINT
 
 ### Phase 2: Active Scanning (Week 2)
 ```
-nmap -sV -sC -p- acme.com -oN acme-scan.txt
+nmap -sV -p 22,80,443 AUTHORIZED_LAB_HOST -oN acme-scan.txt
+# Run only against a host explicitly listed in the written scope; discovery does not grant scan permission.
 NmapAnalyzer → scan_results: acme-scan.txt
 ThreatIntelCheck → IPs discovered from scan
 ```

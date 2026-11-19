@@ -7,7 +7,7 @@ AnythingLLM AgentFlow for automated domain reconnaissance - performs passive DNS
 Accepts a domain name, runs passive recon via public sources (crt.sh, WHOIS, Shodan, DNS records), and returns: subdomains, IP ranges, hosting providers, SSL certificate history, MX/SPF/DMARC configuration, and web tech stack.
 
 ## 🏆 Goal
-Build a complete passive domain intelligence picture as the first step in an authorized engagement's reconnaissance phase.
+Build a passive domain intelligence picture for domains authorized in writing. Passive discovery results are unverified leads and do not authorize active probing.
 
 ## 📋 When to Use
 Starting recon on an authorized target domain; identifying attack surface before active scanning; populating the target profile for scoping decisions.
@@ -102,7 +102,7 @@ Define these variables in the "Flow Variables" section:
 
 **Alternative (API):** If you have WhoisXML API key:
 - **Method:** GET
-- **URL:** `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=YOUR_KEY&domainName=${domain}&outputFormat=JSON`
+- Configure the approved WHOISXML connector to read its API key from the platform’s secret store. Never put keys in URLs, prompts, flow variables, or exported flow files.
 
 ---
 
@@ -114,7 +114,7 @@ Define these variables in the "Flow Variables" section:
 ```
 Analyze comprehensive domain reconnaissance for ${domain}:
 
-Certificate Transparency Data: ${cert_data}
+Certificate Transparency Data (publicly logged certificates; coverage is not complete): ${cert_data}
 Reverse IP Data: ${subdomain_data}
 Security Headers: ${security_headers}
 WHOIS Information: ${whois_data}
@@ -186,14 +186,14 @@ Format as professional reconnaissance report.
 
 ```
 @agent use DomainRecon flow
-domain: target.com
+domain: authorized-example.invalid
 ```
 
 ### Example With Real Data
 
 ```
 @agent use DomainRecon flow
-domain: example.com
+domain: authorized-example.invalid
 ```
 
 **Note:** Do NOT include "www." or "https://" - just the domain name
@@ -273,10 +273,9 @@ The flow will return `recon_report` containing:
 
 2. **Follow Up with Active Scanning:**
    ```bash
-   # After flow completes, scan discovered subdomains
-   for subdomain in $(cat discovered-subdomains.txt); do
-       nmap -sV $subdomain
-   done
+   # Discovery does not grant permission to scan. Confirm each exact host
+   # against the written scope and approved scan plan. Example for one host:
+   nmap -sV -p 80,443 AUTHORIZED_LAB_HOST
    ```
 
 3. **Check for Wildcard DNS:**
@@ -324,19 +323,13 @@ The flow will return `recon_report` containing:
 Block Type: API Call
 Method: GET
 URL: https://api.securitytrails.com/v1/domain/${domain}/subdomains
-Headers: {
-  "APIKEY": "YOUR_SECURITYTRAILS_KEY"
-}
+Headers: API key loaded from the approved platform secret store; do not paste it here.
 Result Variable: subdomain_data
 ```
 
 **WhoisXML API (Better WHOIS Data):**
-```
-Block Type: API Call
-Method: GET
-URL: https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=YOUR_KEY&domainName=${domain}&outputFormat=JSON
-Result Variable: whois_data
-```
+
+Use the vendor’s current documented API operation through an approved server-side connector. Configure authentication from the platform’s secret store at runtime; do not include a key in a URL, flow variable, prompt, or exported configuration. Confirm that request logs redact authentication material.
 
 ---
 
@@ -344,10 +337,10 @@ Result Variable: whois_data
 
 **After running DomainRecon:**
 
-1. **Export discovered subdomains** to file for further scanning
-2. **Run ThreatIntelCheck** on discovered IP addresses
-3. **Scan high-priority targets** with Nmap
-4. **Check development environments** for exposed information
+1. Review discovered names as unverified leads and confirm ownership.
+2. Compare each exact hostname and address with the written scope.
+3. Run active scans only when explicitly authorized and approved in the engagement plan.
+4. Do not scan third-party hosting, shared infrastructure, or development environments without separate written approval.
 5. **Document findings** for client report
 
 ---

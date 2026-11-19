@@ -1,4 +1,5 @@
 """Local fixtures only: no network, package installation, or hardware workloads."""
+import hashlib
 import importlib.util
 import json
 import os
@@ -91,6 +92,9 @@ class InstallerTests(unittest.TestCase):
     def shell(self, folder, body):
         prefix = f'ANYTHINGLLM_SOURCE_ONLY=1\n. {shlex.quote(str(ROOT / "installer.sh"))}\n'
         prefix += f'INSTALL_DIR={shlex.quote(folder)}\nAPPIMAGE_FILE=app\nAPPIMAGE_URL=fixture\n'
+        appimage_hash = hashlib.sha256(bytes([0x7f]) + b'ELFfixture').hexdigest()
+        engine_hash = hashlib.sha256(b'archive').hexdigest()
+        prefix += f'APPIMAGE_SHA256={appimage_hash}\nOLLAMA_SHA256={engine_hash}\n'
         prefix += 'arch=x86_64\nOLLAMA_VERSION=fixture\nOLLAMA_ENGINE_DIR="$INSTALL_DIR/engine"\n'
         return subprocess.run(['sh', '-c', prefix + body], capture_output=True, text=True)
 
@@ -120,7 +124,11 @@ class InstallerTests(unittest.TestCase):
                 p = Path(folder) / 'engine'
                 p.mkdir()
                 (p / 'sentinel').write_text('working')
-                body = 'zstd() { :; }; curl() { return ' + ('22' if fail == 'download' else '0') + '; }; '
+                body = 'zstd() { :; }; '
+                if fail == 'download':
+                    body += 'curl() { return 22; }; '
+                else:
+                    body += 'curl() { while [ "$1" != -o ]; do shift; done; shift; printf archive > "$1"; }; '
                 body += 'tar() { return ' + ('1' if fail == 'extract' else '0') + '; }; '
                 body += 'if ! install_ollama_engine; then printf "CONTINUED\\n"; fi'
                 r = self.shell(folder, body)
@@ -141,7 +149,11 @@ class AdditionalInstallerTests(unittest.TestCase):
                 (p / 'sentinel').write_text('working')
                 body = '''
 zstd() { :; }
-curl() { :; }
+curl() {
+    while [ "$1" != -o ]; do shift; done
+    shift
+    printf archive > "$1"
+}
 tar() {
     while [ "$1" != -C ]; do shift; done
     shift

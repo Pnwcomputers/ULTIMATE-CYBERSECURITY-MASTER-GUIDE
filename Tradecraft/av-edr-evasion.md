@@ -1,16 +1,13 @@
 # AV/EDR Evasion - Detection & Defense Deep Dive
 
 > [!CAUTION]
-> **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> **Defensive scope:** This guide describes evasion behaviors and detection limits. Routine response follows delegated role and policy; active validation requires a scoped, owner-approved test. Legal consequences depend on conduct and applicable rules. See [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 AV/EDR evasion techniques reference for blue team and purple team - covering how each evasion technique works, what artifacts it leaves, and how to detect, hunt, and harden against it.
 
 ## ⚙️ Function
-Covers: AMSI bypass, script obfuscation, process injection (shellcode, DLL hollowing, process ghosting), PE obfuscation, sandbox detection, memory-only payloads, direct syscalls, and EDR-specific bypasses - with detection signatures, Sysmon event IDs, and YARA rules for each category.
+Summarizes common evasion behavior patterns, endpoint and network artifacts, detection limitations, hunting ideas, and defensive hardening. Examples focus on indicators and controls rather than bypass implementation.
 
 ## 🏆 Goal
 Give defenders a complete technical understanding of evasion techniques so they can tune EDR rules, write detection logic, and understand which controls are effective against which techniques.
@@ -18,7 +15,7 @@ Give defenders a complete technical understanding of evasion techniques so they 
 ## 📋 When to Use
 - Building EDR/AV detection rules for a specific evasion technique
 - Understanding why a payload evaded a specific security control
-- Red team engagement planning for environments with known EDR products
+- Planning an approved detection-validation exercise with defined scope and cleanup
 - Security tool evaluation: testing which detections a control actually fires
 
 > **Scope:** How attackers evade antivirus and endpoint detection/response solutions - technique concepts, how each works, what artifacts it leaves, and how defenders detect, hunt, and harden against it. Structured for blue team and purple team practitioners.
@@ -31,7 +28,7 @@ Give defenders a complete technical understanding of evasion techniques so they 
 
 1. [EDR Architecture & Detection Layers](#edr-architecture--detection-layers)
 2. [Static Evasion Techniques](#static-evasion-techniques)
-3. [AMSI Bypass Techniques](#amsi-bypass-techniques)
+3. [AMSI Tampering and Detection](#amsi-tampering-and-detection)
 4. [ETW Tampering](#etw-tampering)
 5. [API Hook Evasion](#api-hook-evasion)
 6. [Syscall Abuse](#syscall-abuse)
@@ -142,99 +139,21 @@ rule HighEntropyPESection {
 
 ---
 
-## AMSI Bypass Techniques
+## AMSI Tampering and Detection
 
-### How AMSI Works
+AMSI allows supported script hosts to submit content to antimalware providers. Coverage depends on the host, provider, configuration, and health of the endpoint; do not assume every script path is inspected.
 
-AMSI (Antimalware Scan Interface) is a Windows API that allows script hosts to submit content to AV engines before execution. PowerShell, VBScript, JScript, and the .NET CLR all call AMSI before running any script content - so even fully in-memory scripts get scanned.
+### Behavioral indicators
 
-The core function is `AmsiScanBuffer` in `amsi.dll`. If it returns `AMSI_RESULT_DETECTED`, execution is blocked.
+| Pattern | Evidence to correlate |
+|---|---|
+| Unexpected changes to script-scanning state or AMSI-related memory | Process, memory-protection, module-load, and EDR tamper telemetry |
+| Reflection or runtime manipulation targeting script-host internals | Script Block Logging (if enabled), process lineage, .NET/runtime events, and EDR alerts |
+| Legacy or unusual scripting engine invocation | Process creation, installed engine inventory, policy, and parent process |
 
-### Evasion Approach: Memory Patching
+Event ID 4104 is PowerShell Script Block Logging, not an AMSI-specific event and not a complete bypass detector. It may be absent, disabled, incomplete, or tampered with. Treat it as one evidence source and correlate with antimalware-provider events, process creation, memory telemetry, application-control logs, and network activity.
 
-The most direct bypass patches `AmsiScanBuffer` in memory to always return a "clean" result. Since `amsi.dll` is a user-mode DLL loaded into the PowerShell process, a sufficiently privileged process can modify its own memory.
-
-**What defenders see:**
-- A process writes to its own executable memory in `amsi.dll`'s address range
-- `VirtualProtect` called on `amsi.dll`'s memory region to make it writable
-- Immediately followed by a memory write to that region
-
-### Evasion Approach: Reflection
-
-AMSI's internal state can be manipulated via .NET reflection - accessing private fields in `System.Management.Automation` that control whether AMSI scanning is active.
-
-**What defenders see:**
-- Reflection calls targeting `System.Management.Automation` internals
-- PowerShell Script Block Logging captures the reflection attempt itself (since AMSI logs before it's bypassed)
-
-### Evasion Approach: PowerShell Downgrade
-
-PowerShell v2 predates AMSI and does not support it. Launching `powershell -version 2` bypasses AMSI entirely - if the v2 engine is installed.
-
-**What defenders see:**
-- `powershell.exe` launched with `-version 2` or `-ver 2` in the command line
-
-### Detection
-
-**Event ID 4104 (Script Block Logging)** - Captures PowerShell script content before execution. Even obfuscated bypass attempts are often partially captured. This is the primary AMSI bypass detection mechanism.
-
-```powershell
-# Enable Script Block Logging
-$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
-New-Item $path -Force
-Set-ItemProperty $path -Name "EnableScriptBlockLogging" -Value 1
-Set-ItemProperty $path -Name "EnableScriptBlockInvocationLogging" -Value 1
-```
-
-**Sigma - AMSI bypass strings in Script Block Log:**
-
-```yaml
-title: PowerShell AMSI Bypass Attempt
-logsource:
-    product: windows
-    service: powershell
-detection:
-    selection:
-        EventID: 4104
-        ScriptBlockText|contains:
-            - 'AmsiScanBuffer'
-            - 'AmsiInitialize'
-            - 'amsiContext'
-            - 'amsiSession'
-            - 'amsiInitFailed'
-            - '[Ref].Assembly.GetType'
-    condition: selection
-level: high
-tags:
-    - attack.defense_evasion
-    - attack.t1562.001
-```
-
-**Sigma - PowerShell v2 downgrade:**
-
-```yaml
-title: PowerShell Version 2 Downgrade
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image|endswith: '\powershell.exe'
-        CommandLine|contains:
-            - '-version 2'
-            - '-ver 2'
-    condition: selection
-level: high
-```
-
-**Defensive control - disable PowerShell v2:**
-
-```powershell
-Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" -NoRestart
-```
-
----
-
+Enable and retain script logging through centrally managed policy, protect the policy and event channel, and verify event collection from representative hosts. Logging improves visibility but does not itself prevent script execution.
 ## ETW Tampering
 
 ### How ETW Works
@@ -301,7 +220,7 @@ The EDR examines parameters and context, then allows or blocks the call.
 
 ### Evasion Approach: Unhooking
 
-Attackers restore the original bytes in `ntdll.dll` by reading a fresh unmodified copy from disk and overwriting the hooked in-memory `.text` section. After unhooking, API calls bypass EDR inspection.
+Some malware attempts to restore modified bytes in `ntdll.dll` to avoid user-mode hooks in that process. This can reduce visibility from that hook alone; kernel telemetry, ETW, memory scanning, and behavioral detections may still observe the activity.
 
 **Why it's detectable:**
 - Loading `ntdll.dll` from disk and mapping it is unusual for a non-loader process
@@ -345,7 +264,7 @@ level: medium
 
 Windows API calls ultimately translate to syscalls - numbered kernel services invoked via the `syscall` CPU instruction. Normally, code calls a wrapper in `ntdll.dll` which sets the syscall number and executes `syscall`. EDR hooks intercept at the `ntdll.dll` layer.
 
-**Direct syscalls:** Custom assembly stubs that set the syscall number and execute `syscall` directly - bypassing `ntdll.dll` entirely and therefore bypassing all EDR hooks on that DLL. Tools like SysWhispers generate these stubs at compile time or resolve syscall numbers at runtime.
+**Direct syscalls:** Some malware invokes system calls without using the usual `ntdll.dll` wrappers, which can avoid particular user-mode hooks. This does not bypass all EDR visibility; kernel telemetry, call-stack inspection, memory analysis, and behavior correlation may still detect it.
 
 **Indirect syscalls:** Rather than placing the `syscall` instruction in attacker code (which has an anomalous call stack origin), the attacker locates a legitimate `syscall` gadget inside `ntdll.dll` and jumps to it after setting up the syscall number. The call stack then appears to originate from `ntdll.dll` - harder to detect than direct syscalls.
 
@@ -628,7 +547,7 @@ level: low
 | Evasion Technique | Primary Detection | Backup Detection | EDR Dependency |
 |---|---|---|---|
 | Static obfuscation | Entropy analysis, sandbox detonation | Memory scanning post-execution | Low |
-| AMSI bypass | Script Block Log (Event 4104) | ETW .NET provider | Medium |
+| Script-host tampering | Event 4104 may provide script context if enabled; it is not an AMSI-specific signal | Antimalware provider, process, memory, and policy telemetry | Correlate multiple sources; logging may be absent or incomplete |
 | ETW patching | Kernel callback telemetry | Memory write to ntdll | High |
 | API unhooking | Kernel callbacks (unaffected) | File read of ntdll.dll | High |
 | Direct syscalls | Call stack analysis | Kernel ETW | High |
@@ -763,43 +682,17 @@ Recommended configs:
 
 ## Purple Team Validation
 
-Use purple team exercises to verify that detections actually fire against real evasion techniques before attackers test them for you.
+Validate one detection at a time in a disposable, isolated test environment. Use a written test plan to select and pin a specific test definition, inspect its commands, prerequisites, expected telemetry, and cleanup steps, then obtain owner approval and record stop conditions.
 
-### Atomic Red Team
+Do not run a broad batch of AMSI bypass, process-injection, obfuscation, or credential-dumping tests from a generic command list. Prefer harmless vendor-provided test events or synthetic telemetry. After each approved validation, confirm expected alerts, restore the baseline, remove test artifacts, and document any collection gaps.
 
-```powershell
-# Install
-Install-Module -Name invoke-atomicredteam,powershell-yaml -Scope CurrentUser
+### After Each Test
 
-# Test AMSI bypass
-Invoke-AtomicTest T1562.001 -TestNumbers 1,2,3
-
-# Test process injection
-Invoke-AtomicTest T1055 -TestNumbers 1,2,3
-
-# Test PowerShell obfuscation and execution
-Invoke-AtomicTest T1059.001
-
-# Test credential dumping
-Invoke-AtomicTest T1003.001
-```
-
-### VECTR for Gap Tracking
-
-VECTR (vectr.io) tracks purple team exercises against MITRE ATT&CK and maintains a living record of which techniques are detected vs. which are blind spots. Essential for communicating coverage to stakeholders and tracking improvement over time.
-
-### After Each Test - Ask These Questions
-
-- Did the alert fire? At what layer?
-- What's the false positive rate of this detection in production?
-- If the attacker slightly modified the technique, would detection still work?
-- What's the mean time to detect (MTTD)?
-- Which layer would have caught this if the primary layer was bypassed?
-
-The goal is not just "does the alert fire" but **resilience across layers** - if one layer is bypassed, the next one should still catch it.
-
----
-
+- Did expected telemetry arrive at the collector, and was it complete?
+- Which control generated the alert, and what evidence supported it?
+- Were there false positives or collection gaps?
+- Did cleanup restore the documented baseline?
+- What remediation, owner, and due date were recorded?
 ## Analysis Environments & Tooling Reference
 
 A complete analyst toolkit spans both platforms. The right tool depends on what you're analyzing and where.
@@ -999,9 +892,8 @@ python3 vol.py -f memory.dmp windows.pslist      # Standard process list
 python3 vol.py -f memory.dmp windows.pstree      # Process tree with parent-child
 python3 vol.py -f memory.dmp windows.psscan      # Scan memory for EPROCESS blocks (finds hidden)
 
-# Find injected code - the core evasion detection use case
-python3 vol.py -f memory.dmp windows.malfind     # Find MEM_PRIVATE executable regions with PE headers
-                                                  # This is the primary injection/hollowing detector
+# Review suspicious virtual address descriptors (VADs); results need context.
+python3 vol.py -f memory.dmp windows.malfind     # Heuristic findings; not proof of injection
 
 # Network connections
 python3 vol.py -f memory.dmp windows.netstat     # Active connections at time of capture
@@ -1013,14 +905,16 @@ python3 vol.py -f memory.dmp windows.dlllist --pid 4892
 # Dump a suspicious process's memory for further analysis
 python3 vol.py -f memory.dmp windows.memmap --pid 4892 --dump
 
-# Extract all executables from memory (catches reflective loads)
+# Recover file contents cached in memory for a selected process.
+# This is not a general extractor for reflective or arbitrary memory-loaded code.
 python3 vol.py -f memory.dmp windows.dumpfiles --pid 4892
 
 # Detect process hollowing
-python3 vol.py -f memory.dmp windows.hollowprocesses
+python3 vol.py -f memory.dmp windows.malware.hollowprocesses
 
-# Dump LSASS for credential analysis (defender use: verify what's accessible)
-python3 vol.py -f memory.dmp windows.lsadump
+# Volatility 3 does not provide the Volatility 2 windows.lsadump plugin.
+# Use approved, version-supported analysis tools and protect any sensitive
+# memory artifacts under your incident-response evidence policy.
 
 # Volatility malfind output interpretation:
 # Process: svchost.exe  PID: 4892  Address: 0x1F4000000
@@ -1139,7 +1033,7 @@ Memory forensics on acquired dump?
 - [Moneta - in-memory IOC scanner](https://github.com/forrest-orr/moneta)
 - [FLARE VM - Windows malware analysis distro](https://github.com/mandiant/flare-vm)
 - [REMnux - Linux malware analysis distro](https://remnux.org/)
-- [Volatility 3](https://github.com/volatilityfoundation/volatility3)
+- [Volatility 3](https://github.com/volatilityfoundation/volatility3) · [release notes](https://github.com/volatilityfoundation/volatility3/releases) (plugin names can move between categories; check the installed release)
 - [CyberChef](https://gchq.github.io/CyberChef/)
 - [Sysinternals Suite](https://learn.microsoft.com/en-us/sysinternals/)
 - [Ghidra](https://github.com/NationalSecurityAgency/ghidra/)

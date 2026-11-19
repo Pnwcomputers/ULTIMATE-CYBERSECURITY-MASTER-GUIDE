@@ -2,14 +2,14 @@
 
 <div align="center">
 
-**Manual for LF/HF proximity card capture, transponder reverse engineering, and access-control security testing at 125 kHz and 13.56 MHz**
+**Defensive LF/HF access-control reference for protocol families, synthetic test media, reader policy, and credential protection**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ![RFID](https://img.shields.io/badge/Hardware-RFID_%26_NFC-blue?style=for-the-badge&logo=nfc)
 ![Frequencies](https://img.shields.io/badge/Frequencies-125kHz_%26_13.56MHz-green?style=for-the-badge&logo=contactlesspayment)
 ![Proxmark3](https://img.shields.io/badge/Software-Proxmark3-orange?style=for-the-badge)
-![Protocols](https://img.shields.io/badge/Focus-Card_Cloning_%26_Crypto1-red?style=for-the-badge)
+![Protocols](https://img.shields.io/badge/Focus-Defensive_Review-blue?style=for-the-badge)
 
 </div>
 
@@ -25,28 +25,26 @@
 | [GhostESP Revival](../Documentation/ghostesp-revival.md) | NFC support depends on target/frontend and selected build; validate with owned test tags. |
 | [ESP32 Bit Pirate](../HardwareHacking/esp32-bit-pirate.md) | Separate interface/tooling workflow with external reader requirements; verify voltage and protocol before connection. |
 
-Keep firmware files, card dumps and keys separate. Preserve a read-only original
-and use sacrificial owned tags for write validation. A shared extension or a UID
-match does not establish complete card emulation or permission to use a credential.
+Use only synthetic test media in the workflows below. Do not put card dumps, identifiers, keys, or personal data in source control. A shared extension or UID match does not establish complete card emulation or permission to use a credential.
 
 ## 🎯 Purpose
 
-Comprehensive bench manual for RFID/NFC access-control exploration - covering educational theory, low- and high-frequency card capture procedures, laboratory logging documentation, key-recovery software pipelines, and transponder architecture breakdowns for physical access, contactless payment, and asset-tracking systems.
+Defensive reference for LF/HF/UHF fundamentals, credential design risks, supported reader capabilities, synthetic test procedures, privacy-safe logging, and access-control mitigations.
 
 ## ⚙️ Function
 
-Walks through the full read-to-clone workflow across the major toolsets (Proxmark3, Flipper Zero, Chameleon Ultra, PN532/libnfc, iCopy-X), then into Proxmark3 client operation, reader chip selection (PN532 vs. EM4095/LF front-ends), coupling/tuning troubleshooting, key-recovery pipelines (mfoc, mfcuk, hardnested, mfkey32/64), a master card/protocol reference matrix, a transponder profiles dictionary, and a standardized logging template.
+Explains LF/HF/UHF fundamentals, credential design risks, defensive reader assessment, device capability boundaries, result-only reporting, and mitigations. It contains no instructions for recovering credential secrets, writing clones, or emulating access credentials.
 
 ## 🏆 Goal
 
-Serve as the practical, repeatable reference for authorized RFID security testing - taking a card from unknown frequency and chipset all the way to a documented, validated protocol breakdown and (where legally permitted on hardware you own) a verified clone, safely and legally.
+Help defenders assess access-control design with synthetic test media, report protocol-level observations without recording secret identifiers, and prioritize migration to authenticated credentials.
 
 ## 📋 When to Use
 
 - Identifying an unknown proximity card by operating frequency and chipset
-- Choosing the right reader hardware and attack path for a target credential
-- Reverse engineering a fixed-ID vs. cryptographically-protected credential during an authorized assessment
-- Documenting a reproducible read/crack session for a physical-access security audit
+- Choosing compatible reader hardware for synthetic test media
+- Reviewing fixed-identifier versus authenticated credential designs
+- Recording a result-only lab policy review without credential secrets
 
 ---
 
@@ -59,11 +57,11 @@ Serve as the practical, repeatable reference for authorized RFID security testin
 - [Entry-Level Proxmark3 Client Guide](#-5-entry-level-proxmark3-client-guide)
 - [Dedicated Reader Chips: PN532 vs. EM4095/LF Front-Ends](#-6-dedicated-reader-chips-pn532-vs-em4095lf-front-ends)
 - [Troubleshooting: Coupling, Detuning & Failed Reads](#-7-troubleshooting-coupling-detuning--failed-reads)
-- [Post-Processing & Key-Recovery Pipeline](#-8-post-processing--key-recovery-pipeline)
+- [Credential Security Review](#-8-credential-security-review)
 - [Master Card & Protocol Reference Matrix](#-9-master-card--protocol-reference-matrix)
 - [Transponder Profiles Dictionary](#-10-transponder-profiles-dictionary)
-- [Laboratory Protocol Logging Template](#-11-laboratory-protocol-logging-template)
-- [Example Project: Safe Access Card Analysis](#-12-example-project-safe-access-card-analysis)
+- [Laboratory Result Log](#-11-laboratory-result-log)
+- [Example Project: Synthetic Access-Control Policy Review](#-12-example-project-synthetic-access-control-policy-review)
 - [⚠️ CRITICAL Security & Legal Warning](#️-critical-security--legal-warning)
 - [Resources](#-resources)
 
@@ -72,25 +70,9 @@ Serve as the practical, repeatable reference for authorized RFID security testin
 ### 🔴 CRITICAL WARNING
 
 ```
-⚠️ CLONING ACCESS CREDENTIALS IS HEAVILY REGULATED ⚠️
+This guide is limited to synthetic test media and defensive reader-policy review. It does not provide credential recovery, cloning, or emulation procedures. Keep UIDs, raw IDs, card dumps, keys, payment data, and personal identifiers out of repository notes and screenshots.
 
-Many procedures in this manual can involve CLONING physical credentials,
-EMULATING captured card data, or WRITING recovered keys onto blank transponders.
-Using a cloned credential to enter premises you are not authorized to enter is a
-SERIOUS CRIME - regardless of how the card data was obtained.
-
-YOU MUST have explicit written authorization from the credential/property owner,
-work only on cards and readers you own or are contracted to test, and keep all
-cloning and emulation confined to your bench before you read, write, or emulate.
-
-Unauthorized activity may violate applicable computer-misuse, trespass, access-device,
-privacy, or payment rules, depending on the jurisdiction, facts, and statutory elements.
-For example, [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) defines specific access-device offenses with different
-conduct and intent requirements; it does not make every act of reading card data a
-federal crime.
-
-READ-ONLY analysis on credentials you own is the default. Do NOT read, clone, or
-emulate cards you do not own or are not explicitly authorized to test.
+Use device-specific vendor documentation for safe setup and compatibility details. Follow applicable access-control, privacy, payment, and computer-misuse rules; authorization and legal requirements depend on the activity, jurisdiction, and facts. The [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) statute defines specific access-device offenses and does not make every act of reading card data a federal crime.
 ```
 
 ---
@@ -157,7 +139,7 @@ Fixed-ID architectures broadcast a static identifier the instant they enter a re
 
 ### Sector-Authenticated Transponders (e.g., MIFARE Classic / Crypto1)
 
-MIFARE Classic divides memory into sectors, each guarded by two 48-bit keys (A and B) and access-condition bits. Reading or writing a block requires authenticating to that sector's key using the proprietary Crypto1 stream cipher. Crypto1 has been publicly broken for over a decade: weaknesses in its nonce generation and authentication allow keys to be recovered with the *darkside*, *nested*, and *hardnested* attacks, or extracted from a single sniffed reader-to-card transaction via *mfkey*. Once keys are known, the full card contents can be dumped and rewritten onto a "magic" (Gen1/Gen2) card.
+MIFARE Classic divides memory into sectors protected by two 48-bit keys (A and B) and access-condition bits. Its proprietary Crypto1 cipher has publicly documented weaknesses that can undermine key confidentiality. Treat deployments that still rely on this technology as legacy; inventory use, restrict fallback modes, and plan migration. This guide does not provide key-recovery, dumping, or rewriting steps.
 
 ### Strongly-Authenticated Transponders (e.g., MIFARE DESFire, SEOS, iCLASS SE)
 
@@ -169,217 +151,64 @@ Modern credential families can support cryptographic authentication and applicat
 
 ### Hardware Capability Overview
 
-| Device | Capabilities | Best For | Risk Level |
-|--------|--------------|----------|------------|
-| **[Proxmark3 RDV4 / Easy](https://proxmark.com/)** | LF + HF (Read/Write/Sniff/Emulate) | Full LF+HF analysis, key recovery, cloning, sniffing | 🔴 HIGH |
-| **[Flipper Zero](https://flipper.net/)** | LF (125 kHz) + HF (13.56 MHz) | Field triage, card ID, fixed-ID emulation | 🟡 MEDIUM |
-| **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | HF + LF emulation | Card emulation, MIFARE/NTAG spoofing on the bench | 🟡 MEDIUM |
-| **[PN532 + libnfc](https://github.com/nfc-tools/libnfc)** | HF (13.56 MHz Read/Write) | Budget MIFARE Classic cracking (mfoc/mfcuk) | 🟡 MEDIUM |
-| **[iCopy-X](https://icopy-x.com/)** | LF + HF (automated clone) | One-touch field cloning of common credentials | 🔴 HIGH |
+These devices have varied read, write, sniff, and emulation capabilities. Listing a device is not an instruction to use those functions. This guide supports only non-sensitive identification on synthetic media and reader-policy review.
 
----
+| Device | Broad capability | Safe use described here |
+|--------|------------------|-------------------------|
+| [Proxmark3 RDV4 / Easy](https://proxmark.com/) | LF/HF analysis; capabilities vary by firmware | Verify instrument and antenna status; use synthetic lab tags |
+| [Flipper Zero](https://flipper.net/) | LF/HF accessory and firmware-dependent features | Review model/firmware and test only with synthetic media |
+| [Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra) | LF/HF test and emulation features | Use only vendor-provided synthetic test data and a lab reader |
+| [PN532 + libnfc](https://github.com/nfc-tools/libnfc) | HF reader front-end | Identify test tags; do not dump or rewrite credentials |
+| [iCopy-X](https://icopy-x.com/) | Automated LF/HF read/write features | Keep clone workflows out of production; use synthetic fixtures only |
+
+```mermaid
+flowchart LR
+    A[Confirm authority and lab reader] --> B[Use synthetic test media]
+    B --> C[Record protocol family and reader policy]
+    C --> D[Do not record UID keys or card data]
+    D --> E[Report result and remediation]
+```
 
 ### 📌 Proxmark3 (Reference Bench Tool)
 
-**Best For:** Complete LF and HF analysis, key recovery, sniffing live transactions, and writing verified clones.
-
-```text
-                      [ START ]
-                          |
-            1. Run 'hw tune' (verify antennas)
-                          |
-            2. Place card flat on antenna
-                          |
-             ---> [ Identify Band ]
-            |             |
-            |    3. Try 'lf search' (125 kHz)
-            |             |
-            |    4. If nothing: 'hf search' (13.56 MHz)
-            |             |
-            |    5. Read chipset / protocol ID
-            |             |
-            |             v
-  (No/weak read?) -- [ Evaluate Read Quality ]
-            |             |
-           YES            | NO (Clean read)
-            |             v
-            |      [ Determine Security Tier ]
-            |             |
-            |             +---> (Strong Cipher) --> [ STOP: Auth not validated ]
-            |             |
-            |             +---> (Broken Cipher) --> [ Recover keys -> dump ]
-            |             |
-            +-------------+---> (Fixed ID)      --> [ Clone to T5577/magic card ]
-```
-
-#### Detailed Execution Steps
-
-1. **Verify the Antennas:** In the Proxmark3 client run `hw tune`. Confirm the LF antenna reports a healthy voltage around 125 kHz and the HF antenna a healthy voltage around 13.56 MHz before trusting any "no card found" result.
-2. **Determine the Band:** Place the card flat and centered on the correct antenna.
-   - *Run `lf search`:* Auto-detects common 125 kHz credentials (EM4100, HID Prox, Indala, AWID, HITAG, T55xx).
-   - *Run `hf search`:* Auto-detects 13.56 MHz credentials (ISO 14443A/B, ISO 15693, iCLASS, FeliCa, Topaz).
-3. **Fingerprint the Chipset:** For HF, follow up with `hf 14a info` to read the ATQA/SAK/UID and identify the exact chip (MIFARE Classic 1K/4K, Ultralight, NTAG, DESFire). For LF, note the reported protocol and raw ID.
-4. **Recover or Read:**
-   - *Fixed ID (LF):* No keys needed - proceed to cloning.
-   - *Broken cipher (MIFARE Classic):* Run `hf mf autopwn` to attempt the full key-recovery + dump chain automatically.
-5. **Security Tier Check:** If the card is DESFire/SEOS/MIFARE Plus (SL3) and authentication fails with no default keys, **stop** and record the failed authentication and test conditions. This observation does not prove that the credential cannot be duplicated or that the deployment is secure.
-
----
+Use only instrument-health checks and identification on synthetic tags. Do not use credential-dump, key-recovery, write, or emulation functions from third-party documentation as part of this repository's workflow.
 
 ### 📌 Flipper Zero (Standalone Portability)
 
-**Best For:** Quick field triage, rapid card identification, and basic fixed-ID emulation.
+Menu names and supported formats vary by firmware. Limit lab exercises to synthetic test media and record only the technology family and firmware version; do not export real card data.
 
-```text
-                      [ START ]
-                          |
-            1. Open 'RFID 125 kHz' or 'NFC'
-                          |
-            2. Hold Flipper flat to the card
-                          |
-             ---> [ Read Card ]
-            |             |
-            |       3. Select 'Read'
-            |             |
-            |       4. Wait for chipset ID
-            |             |
-            |       5. Save card to SD
-            |             |
-            |             v
-    (No read?) ---- [ Evaluate Capture ]
-            |             |
-           YES            | NO (Card identified)
-            |             v
-            |      [ Determine Security Tier ]
-            |             |
-            |             +---> (MIFARE Classic) -> [ Read keys / dump if known ]
-            |             |
-            |             +---> (DESFire/secure) -> [ STOP: UID read only ]
-            |             |
-            +-------------+---> (EM4100/Prox)    -> [ Emulate on bench ]
-```
+### 📌 PN532 + libnfc (HF Reader)
 
-#### Detailed Execution Steps
+The PN532 is an HF front-end. Keep tests to synthetic tags and non-sensitive reader behavior. Do not collect card UIDs, sector contents, keys, or other credential data.
 
-1. **Pick the Band:** From the main menu choose `125 kHz RFID` for LF prox cards or `NFC` for 13.56 MHz credentials. Choosing the wrong app will read nothing even from a valid card.
-2. **Choose the Capture Mode:**
-   - *`Read`:* Auto-detects the card technology and stores the identifier/data.
-   - *`Read` (NFC):* Attempts ISO 14443A detection; for MIFARE Classic it will try a bundled dictionary of common keys and report which sectors it could open.
-3. **Position and Read:** Hold the Flipper's antenna flat against the card. Keep it still - HF reads in particular fail if the card slips out of the coupling zone mid-read.
-4. **Save and Inspect:** Save the card to the SD card. Inspect the resulting file: an LF card stores a raw ID; an NFC card stores UID plus any recovered sectors. A DESFire or MIFARE Plus SL3 card will store only the UID and metadata.
-5. **Security Tier Check:** Only emulate on your own bench readers. A recovered UID alone is not a clone of a secure credential - do not present it against production access control.
+### 📌 Chameleon Ultra (Test Fixture)
 
----
+Because this device supports emulation, keep it disconnected from production readers. Use vendor test media and a reader owned by the lab; this guide does not provide credential-import or emulation steps.
 
-### 📌 PN532 + libnfc (Affordable HF Cracking)
+### 📌 iCopy-X (Read/Write Device)
 
-**Best For:** Budget MIFARE Classic key recovery and dumping on a workstation.
-
-**Lab Procedures:**
-
-- **Card Identification:** With a PN532 breakout on USB/UART, run `nfc-list` to confirm the reader sees the card and to print the UID, ATQA, and SAK.
-- **Key Recovery (offline nonces):** Run `mfoc -O dump.mfd` to launch the *nested* attack, which recovers unknown sector keys given at least one known key (default dictionaries usually supply one). For cards where no key is known, run `mfcuk` to execute the *darkside* attack first, then feed the recovered key into `mfoc`.
-- **Dump & Rewrite:** Once keys are recovered, `nfc-mfclassic r a dump.mfd` reads the full card, and `nfc-mfclassic w` writes it to a compatible magic card on the bench.
-
-```
-⚠️ mfoc/mfcuk are for MIFARE Classic ONLY. They rely on the broken Crypto1
-   cipher and will not touch DESFire, Ultralight C, or MIFARE Plus SL3 cards -
-   nor should recovered dumps be written to any credential you do not own.
-```
-
----
-
-### 📌 Chameleon Ultra (Emulation Specialist)
-
-**Best For:** Bench-side emulation of captured cards to validate reader behavior without a physical clone.
-
-```text
-                           [ START ]
-                               |
-                1. Connect to Chameleon (CLI/App)
-                               |
-                2. Select an emulation slot
-                               |
-            +------------------+------------------+
-            v                                     v
-     [ A. HF Path ]                        [ B. LF Path ]
-            |                                     |
-   3a. Load MIFARE/NTAG dump              3b. Load EM4100/HID ID
-            |                                     |
-   4a. Set UID + block data              4b. Set raw ID + protocol
-            |                                     |
-   5a. Present to bench reader           5b. Present to bench reader
-            |                                     |
-            v                                     v
-     [ Observe reader accept/reject ]     [ Observe reader accept/reject ]
-```
-
-#### Detailed Execution Steps
-
-1. **Interface Initialization:** Connect the Chameleon Ultra via USB-C or BLE to its companion CLI/app. Confirm the firmware version and the number of available emulation slots.
-2. **Load a Captured Credential:** Import a previously captured dump (`.mfd`/`.bin`) or a raw LF identifier into a free slot. Set the UID and, for HF, the block data and access bits.
-3. **Emulate Against Your Own Reader:** Present the Chameleon to a **bench reader you own**. Watch whether the reader accepts the emulated credential - this validates whether the captured data constitutes a working clone or only a partial read.
-4. **Document the Result:** Record which slot, which credential, and whether the emulation was accepted. This is your evidence for the assessment report; it is not a license to present the emulation against production systems.
-
----
-
-### 📌 iCopy-X (Automated Cloner)
-
-**Best For:** Consolidated one-touch reading and writing of common LF and HF credentials on the bench.
-
-```text
-                           [ START ]
-                               |
-               1. Boot iCopy-X to Main Menu
-                               |
-               2. Select Auto Mode / Manual Mode
-                               |
-         +---------------------+---------------------+
-         v                     v                     v
-   [ A. LF Clone ]        [ B. HF Clone ]       [ C. Sniff/ID ]
-         |                     |                     |
-   3a. Read source card   3b. Read source card   3c. Read chipset
-         |                     |                     |
-   4a. Recover ID         4b. Recover keys        4c. Report tech
-         |                     |                     |
-   5a. Write to T5577     5b. Write to magic card       |
-         v                     v                     v
-   [ Verify Clone ]      [ Verify Clone ]      [ Output Report ]
-```
-
-#### Detailed Execution Steps
-
-1. **Boot and Mode Select:** Power on the iCopy-X and choose Auto Mode for common credentials or Manual Mode for step-by-step control over identification, key recovery, and writing.
-2. **Read the Source (your card):** Place the credential you own on the coupling area. The device identifies the technology and, for MIFARE Classic, attempts its bundled key dictionary and nested attack.
-3. **Write to a Blank:** Place a compatible blank (T5577 for LF, magic Gen1/Gen2 for HF MIFARE) and write. The device reports success/failure per sector.
-4. **Verify:** Re-read the newly written blank and compare it byte-for-byte to the source. An automated cloner still needs manual verification before you trust the result in a report.
+Automated read/write capability creates a high risk of copying physical credentials. Do not use it on issued cards. For defensive validation, use a synthetic test fixture and document only policy outcomes.
 
 ---
 
 ## 🛠️ 5. Entry-Level Proxmark3 Client Guide
 
-The Proxmark3 client (Iceman/RRG firmware) is the reference environment for LF/HF work. Below is the baseline blueprint for a **read-identify-clone LF workflow** and the equivalent HF key-recovery workflow.
+For safe lab work, record the Proxmark3 model, firmware revision, host software version, antenna status, and synthetic test-tag family. Prefer vendor documentation for model-specific setup.
 
-### Command Architecture Setup
+**Do not** run automated dump, key-recovery, write, clone, or emulation workflows against issued badges, payment media, transit cards, vehicle keys, passports, or other real credentials. This guide intentionally omits those commands.
 
-Run the following commands in sequence inside the `pm3>` client prompt:
+| Review item | Record |
+|---|---|
+| Device and firmware | Model, hardware revision, firmware/build |
+| Test fixture | Synthetic tag type supplied for the lab |
+| Reader | Lab reader model and configuration |
+| Observation | Supported protocol family and whether the expected reader policy event occurred |
+| Data minimization | No UID, keys, block contents, or personal/account data in this repository |
+| Cleanup | Restore the lab reader configuration and dispose of synthetic data per the test plan |
 
-1. **Health Check:** `hw tune` - confirm the LF antenna peaks near 125 kHz and the HF antenna near 13.56 MHz. A detuned antenna is the #1 cause of false "no card" results.
-2. **LF Auto-Identify:** `lf search` - place the card on the LF antenna. The client sweeps common demodulators and reports the protocol (e.g., `EM410x ID: 0F00...`).
-3. **LF Chipset Detect:** `lf t55xx detect` - determines whether the card is a writable T5577 (a common clone target) versus a read-only factory tag.
-4. **HF Auto-Identify:** `hf search` then `hf 14a info` - reads ATQA/SAK/UID and names the exact HF chip.
-5. **MIFARE Classic Recovery:** `hf mf autopwn` - runs the full chain (dictionary → darkside → nested/hardnested → dump) and writes recovered keys and card contents to a local file.
+### Read-only result handling
 
-### Writing a Verified Clone (hardware you own)
-
-- **LF (EM4100 → T5577):** `lf em 410x clone --id <ID>` writes the recovered identifier onto a blank T5577.
-- **HF (MIFARE Classic → magic card):** `hf mf restore` (or `hf mf cload`) writes a recovered dump onto a compatible magic card.
-- **Verify every write:** Re-run `lf search` / `hf mf dump` on the newly written blank and diff it against the source before recording the clone as successful.
-
-```
-💡 TIP: Run 'hf 14a info' and 'lf search' on a KNOWN blank first to learn what a
-   clean, empty transponder looks like before you interpret a real target.
-```
+When an approved lab tool displays an identifier, treat it as a credential: do not copy it into notes, screenshots, command histories, or repository issues. Use a random test label such as `TEST-TAG-01` and retain any restricted evidence only in the organization's approved evidence store.
 
 ---
 
@@ -389,31 +218,26 @@ Run the following commands in sequence inside the `pm3>` client prompt:
 
 ![LF, HF and UHF require suitable frontends, and matching frequency alone does not establish protocol or application compatibility](../assets/diagrams/rfid-band-and-reader-map.svg)
 
-*Figure 3 — Original conceptual compatibility map. NFC operates at 13.56 MHz within HF; it does not cover LF or UHF RFID. See [NFC Forum](https://nfc-forum.org/learn/NFC-technology/) and [Proxmark3's hardware guidance](https://github.com/RfidResearchGroup/proxmark3). Exact reader, antenna, firmware, and protocol support still require verification.*
+*Figure 3 — Conceptual compatibility map. NFC operates at 13.56 MHz within HF; it does not cover LF or UHF RFID. Exact reader, antenna, firmware, and protocol support require verification.*
 
-When building custom lab readers or low-cost enrollment stations, these front-end chips serve distinct bands and purposes.
+Reader front-ends differ by frequency band and protocol. Use manufacturer documentation and synthetic fixtures; do not collect or rewrite data from issued credentials.
 
-### 📡 PN532 (The 13.56 MHz HF Agile Front-End)
+### PN532 (13.56 MHz HF)
 
-- **Multi-Protocol HF:** Handles ISO 14443A/B, FeliCa, and NFC peer-to-peer / card-emulation modes from a single module over I²C, SPI, or UART.
-- **libnfc Native:** First-class support in `libnfc`, making it the go-to for `nfc-list`, `mfoc`, `mfcuk`, and `nfc-mfclassic` on a workstation or Raspberry Pi.
-- **Custom Enrollment Terminals:** Wired to an Arduino/ESP32 with Adafruit or Elechouse drivers to build MIFARE/NTAG read-write stations and NDEF kiosks.
+Supports selected ISO 14443 and NFC modes; actual support depends on the module, firmware, and library. Use a synthetic tag to check compatibility and record only the protocol family and observed reader policy.
 
-### 📡 EM4095 / RDM6300 (The 125 kHz LF Read Specialist)
+### EM4095 / RDM6300 (125 kHz LF)
 
-- **Legacy Prox Reading:** The EM4095 is an analog LF front-end that couples to a 125 kHz coil and hands raw Manchester/Biphase pulses to a microcontroller; the RDM6300 is a cheap pre-baked EM4100 reader module.
-- **Fixed-ID Capture:** Ideal for reading EM4100/EM4102 and similar read-only tags into a serial logging window for inventory or enrollment.
-- **Custom LF Sniffers:** Wired to an Arduino/ESP32 to timestamp and log tag IDs as they enter the field - the basis of many DIY access loggers.
+These front-ends support specific LF tag and reader configurations. Verify their data sheets and output formats. Use synthetic test tags; do not log identifiers from issued credentials or build covert access logging devices.
 
 ### Reader Front-End Matrix
 
 | Feature | PN532 Module | EM4095 / RDM6300 Module |
 | :--- | :--- | :--- |
-| **Frequency** | 13.56 MHz (Fixed HF) | 125 kHz (Fixed LF) |
-| **Protocol Support** | ISO 14443A/B, FeliCa, NFC P2P/emulation | EM4100-class Manchester/Biphase read |
-| **Read/Write** | **Read + Write + Emulate** | **Read-only** (front-end) |
-| **Primary Lab Target** | MIFARE Classic/Ultralight/NTAG, DESFire (auth) | EM4100/EM4102 legacy prox tags |
-| **Toolchain** | libnfc (mfoc, mfcuk, nfc-mfclassic) | Arduino/ESP32 serial logging |
+| **Frequency** | 13.56 MHz (HF) | Typically 125 kHz (LF); confirm module specification |
+| **Protocol support** | Module/library-dependent HF modes | Module-dependent LF tag formats |
+| **Use in this guide** | Synthetic-tag compatibility and reader-policy review | Synthetic-tag compatibility and reader-policy review |
+| **Credential data** | Do not dump, retain, or rewrite issued-card data | Do not log identifiers from issued cards |
 
 ---
 
@@ -445,55 +269,28 @@ When reading passive transponders, check hardware compatibility, coupling, anten
 - **The Cause:** Presenting an LF (125 kHz) card to an HF (13.56 MHz) reader/app or vice-versa - the two bands are physically incompatible.
 - **The Fix:** Confirm the band before reading: try LF and HF searches in turn, and on multi-app tools (Flipper) select the matching `125 kHz RFID` vs `NFC` application. Dual-frequency cards contain two independent chips - read each on its own band.
 
-### ⚠️ Hardened Nonces (Nested Attack Fails)
+### ⚠️ Authentication or Identification Failure
 
-- **The Symptom:** `hf mf nested` / `mfoc` fails to recover keys on a card that is clearly MIFARE Classic.
-- **The Cause:** The card is a "hardened" MIFARE Classic EV1 (or clone) with fixed/filtered nonces that defeat the classic nested attack.
-- **The Fix:** Switch to `hf mf hardnested` (or `autopwn`, which selects it automatically). If even one key for one sector is known, the hardnested attack recovers the rest; if no key is known, capture a live reader transaction and recover a key with `mfkey32`/`mfkey64` first.
+- **Observation:** A synthetic tag is not identified or the lab reader rejects it.
+- **Possible causes:** Unsupported protocol, device/firmware mismatch, weak coupling, reader configuration, or incorrect test expectations.
+- **Defensive handling:** Verify compatibility with vendor documentation and the known synthetic fixture. Record conditions and outcome; do not attempt key recovery or infer that a credential deployment is secure from one failed test.
 
 ---
 
-## 💻 8. Post-Processing & Key-Recovery Pipeline
+## 💻 8. Credential Security Review
 
-Once a card is read - or a live transaction sniffed - choose one of these software paths to recover keys and extract meaningful credential intelligence.
+This section replaces key-recovery and cloning recipes with a defensive review of credential design and deployment.
 
-| Pipeline | Best For | Risk Level |
-|----------|----------|------------|
-| **[Proxmark3 / Iceman firmware](https://github.com/RfidResearchGroup/proxmark3)** | Full LF+HF recovery, sniffing, dumps, cloning | 🔴 HIGH |
-| **[libnfc suite (mfoc/mfcuk)](https://github.com/nfc-tools)** | Budget MIFARE Classic key recovery via PN532 | 🟡 MEDIUM |
-| **[mfkey32 / mfkey64](https://github.com/RfidResearchGroup/proxmark3)** | Recovering a key from one sniffed reader-card transaction | 🟡 MEDIUM |
+| Design property | Review question | Defensive response |
+|---|---|---|
+| Static identifier | Does the reader authorize solely from a fixed identifier? | Migrate to authenticated credentials; enforce enrollment, revocation, and anti-passback policy where appropriate |
+| Legacy cipher | Is a retired or broken cryptographic scheme still accepted? | Plan migration, monitor legacy-reader use, and restrict access during transition |
+| Key management | Are keys shared across cards, sites, or customers? | Use per-credential diversification, protected key storage, rotation, and documented ownership |
+| Reader configuration | Are fallback modes or legacy formats enabled? | Disable unused formats and review configuration changes |
+| Lost/revoked cards | Does revocation propagate to every reader? | Test revocation using synthetic credentials and confirm expected event/deny behavior |
+| Audit evidence | Are reader decisions and admin changes logged? | Centralize logs, restrict access, and retain according to policy |
 
-### Pipeline 1: Proxmark3 / Iceman (Full Credential Analysis)
-
-**Best For:** End-to-end LF and HF recovery, live sniffing, and verified cloning.
-
-**Process Flow:**
-
-1. **Identify:** `lf search` / `hf search` + `hf 14a info` to fingerprint the chipset.
-2. **Recover:** `hf mf autopwn` runs dictionary → darkside → nested/hardnested and saves recovered keys.
-3. **Dump:** `hf mf dump` writes the full sectored contents to a local `.bin`/`.eml` file using the recovered keys.
-4. **Interpret:** Compare dumps across cards to separate the static UID and issuer data from the per-card credential bytes and access-control payload.
-
-### Pipeline 2: libnfc Suite (PN532 MIFARE Classic Cracking)
-
-**Best For:** Recovering MIFARE Classic keys on a budget PN532 reader.
-
-**Process Flow:**
-
-1. **Confirm:** `nfc-list` verifies the reader sees the card and prints the UID/ATQA/SAK.
-2. **Darkside (no known key):** `mfcuk -C -R 0:A -s 250 -S 250` recovers a first sector key when the dictionary supplies none.
-3. **Nested (one known key):** `mfoc -O dump.mfd` recovers all remaining sector keys and dumps the card.
-4. **Write (bench only):** `nfc-mfclassic w a dump.mfd` writes the dump to a magic card you own for validation.
-
-### Pipeline 3: mfkey (Sniffed-Transaction Key Recovery)
-
-**Best For:** Recovering a sector key from a single legitimate reader-to-card exchange.
-
-**Process Flow:**
-
-1. **Sniff:** On the Proxmark3, run `hf 14a sniff`, present the card to a legitimate reader, then stop the capture.
-2. **Extract Nonces:** `hf mf list` (or the sniff trace) yields the `uid`, `nt`, `nr`, and `ar` values from the authentication.
-3. **Recover:** Feed those nonces into `mfkey32` (or `mfkey64` for the two-nonce variant); the tool computes the sector key in seconds.
+A failed read or authentication does not prove a card family is secure. Report the instrument, firmware, lab fixture, reader configuration, conditions, and observed policy outcome without recording credential secrets.
 
 ---
 
@@ -525,216 +322,122 @@ The table below serves as a laboratory lookup guide to identify an unknown crede
 
 ## 📖 10. Transponder Profiles Dictionary
 
-When analyzing credentials from the reference matrix above, use this operational dictionary to understand what each transponder architecture does.
+Use this high-level dictionary to understand the protocol families in the reference matrix; it is not an operational credential analysis guide.
 
-- **EM4100 / EM4102:** The foundational legacy LF standard. A 64-bit read-only identifier is Manchester-encoded and returned continuously while in the field. Zero memory, zero authentication - any captured ID can be written to a T5577 and accepted indefinitely.
-- **HID Prox:** A 125 kHz format that FSK-encodes a fixed Wiegand data string (facility code + card number). Read-only and cloneable; the Wiegand payload, not just the raw ID, is what the access panel actually evaluates.
-- **Indala / AWID:** Additional legacy LF formats (PSK and FSK respectively) carrying fixed identifiers. Functionally equivalent in security terms to EM4100 - static, unauthenticated, cloneable to writable blanks.
+- **EM4100 / EM4102:** Legacy LF fixed-identifier technology. The common EM4100-compatible frame is 64 bits total, carrying a 40-bit identifier plus framing and parity bits; see the [EM4200 datasheet](https://www.emmicroelectronic.com/sites/default/files/products/datasheets/em4200_ds.pdf). Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
+- **HID Prox:** A legacy 125 kHz credential family that may encode a fixed facility/card value. Reader acceptance depends on format support, enrollment, revocation, and deployment policy.
+- **Indala / AWID:** Legacy LF formats with static identifiers. Assess reader configuration, enrollment, and revocation rather than assuming a reader accepts any reproduced identifier.
 - **HITAG2 / Megamos:** LF automotive immobilizer transponders using proprietary challenge-response crypto. Historically significant for the publicly-disclosed weaknesses that enabled key recovery - the reason modern vehicles moved to stronger schemes.
-- **T5577 / EM4305:** Not credentials but *writable* multi-protocol LF transponders. They can be configured to emulate EM4100, HID, Indala, and more - which is exactly why they are the standard clone target and enrollment blank.
-- **MIFARE Classic (Crypto1):** Sectored HF memory guarded by 48-bit Crypto1 keys. The cipher is publicly broken: darkside recovers a key with none known, nested/hardnested recover the rest given one, and mfkey extracts a key from one sniffed transaction. Ubiquitous in legacy access and transit despite being duplicable.
+- **T5577 / EM4305:** Writable multi-protocol LF test transponders. Use synthetic fixtures only; do not reproduce an issued identifier.
+- **MIFARE Classic (Crypto1):** A legacy HF design with publicly documented cryptographic weaknesses. Organizations should inventory where it remains enabled, restrict fallback use, plan migration, and monitor reader configuration.
 - **MIFARE Ultralight / NTAG:** Low-cost HF chips with little or no cryptography. Ultralight is common in disposable transit tickets; NTAG carries NDEF for tap-to-launch and smart posters. Data is generally readable and, for NTAG, writable unless locked.
-- **MIFARE DESFire (EV1/EV2/EV3):** Modern HF smartcards with AES/3DES mutual authentication, isolated application files, and per-card diversified keys. Not duplicable without the deployment's keys - the security tier organizations migrate *to*.
-- **HID iCLASS:** A 13.56 MHz family. Legacy iCLASS (standard/elite) suffered from weak, sometimes shared default keys that were publicly recovered; iCLASS SE / SEOS moved to a secure element with strong AES and is not duplicable.
+- **MIFARE DESFire (EV1/EV2/EV3):** Modern HF smartcards can use AES/3DES mutual authentication, isolated application files, and diversified keys. Security depends on correct deployment and key management.
+- **HID iCLASS:** A 13.56 MHz family with multiple generations and security configurations. Distinguish legacy and modern variants, and verify the exact product and deployment rather than inferring security from the family name.
 - **Sony FeliCa:** A fast HF protocol dominant in Japanese transit and payments. Uses its own command set and mutual authentication; analysis focuses on the service/block structure rather than a broken cipher.
-- **EMV Contactless:** Bank cards over ISO 14443. Each tap generates a cryptographically unique transaction (dynamic cryptogram), so the static data is not a usable clone. Attempting to capture or replay payment data is payment-card fraud, full stop.
+- **EMV Contactless:** Payment credentials use transaction-specific cryptographic controls. This guide does not cover capturing or replaying payment data.
 
 ---
 
-## 📝 11. Laboratory Protocol Logging Template
+## 📝 11. Laboratory Result Log
 
-To maintain reproducibility across access-control audits, document every read, recovery, or clone session using the following standardized Markdown format. Copy the block below into a new file for each session:
+Use this result-only template for a synthetic-card or reader-policy review. Do not record UIDs, raw IDs, keys, dumps, account numbers, or cardholder data in source control.
 
-````markdown
-# RFID CREDENTIAL CAPTURE MATRIX LOG: [LOG_ID_NUM]
+```markdown
+# Access-Control Test Result: [TEST-ID]
 
-## 1. Environment Metadata
-- **Audit Date/Time:** YYYY-MM-DD HH:MM:SS UTC
-- **Physical Location:** [e.g., Lab Bench 2 / Client Site - Authorized Area]
-- **Operator ID:** [Initials / Badge Number]
-- **Authorization Reference:** [Engagement/Ticket # or signed authorization ID]
+## Test context
+- Date/time (UTC):
+- Operator:
+- Authorization/ticket:
+- Lab reader model and configuration:
+- Reader firmware:
+- Test fixture label (synthetic only):
+- Tag family and instrument/firmware:
 
-## 2. Target Credential Profiling
-- **Credential Type / Model:** [e.g., HID iCLASS 2k / MIFARE Classic 1K]
-- **Marking / Issuer (if visible):** [Printed text, logo, card number]
-- **Transponder Chipset:** [e.g., NXP MF1S50 / EM4100 / T5577]
-- **Operating Frequency:** [ ] 125 kHz (LF)  |  [ ] 13.56 MHz (HF)  |  [ ] Dual
-- **Expected Security Tier:** [ ] Fixed ID  |  [ ] Broken Cipher  |  [ ] Strong Cipher
-- **Protocol Signature:** [e.g., EM410x / ISO 14443A Crypto1 / DESFire AES]
+## Observation
+- Expected policy outcome:
+- Observed allow/deny/event outcome:
+- Test conditions and repetitions:
+- Relevant reader/endpoint log reference (restricted evidence store only):
+- Unexpected behavior or service impact:
 
-## 3. Read Parameters
-- **Reader Tool Used:** [ ] Proxmark3  |  [ ] Flipper Zero  |  [ ] PN532/libnfc  |  [ ] Other
-- **Antenna Tune (hw tune):** LF: ____ V @ ____ kHz  |  HF: ____ V @ 13.56 MHz
-- **UID / Raw ID:** ___________________________________
-- **ATQA / SAK (HF):** ATQA: ______  SAK: ______
-- **Read Result:** [ ] Full read  |  [ ] Partial (sectors: ____)  |  [ ] UID only
-
-## 4. Key Recovery Configuration (if applicable)
-- **Attack Path:** [ ] Dictionary  |  [ ] Darkside (mfcuk)  |  [ ] Nested (mfoc)  |  [ ] Hardnested  |  [ ] mfkey32/64
-- **Known Key Source:** [e.g., default FFFFFFFFFFFF / sniffed transaction]
-- **Sectors Recovered:** ______ / ______
-- **Recovery Time:** ___________ (approx.)
-
-## 5. Extracted Credential Intelligence
-- **Output File Reference:** [path/to/dump.mfd] or [path/to/flipper.nfc]
-- **Recovered Keys (First 3 Sectors, A/B):**
-  1. S0: A=____________ B=____________
-  2. S1: A=____________ B=____________
-  3. S2: A=____________ B=____________
-- **Credential Structure Breakdown:**
-  - [UID / SERIAL]        -> ____________________
-  - [FACILITY / ISSUER]   -> ____________________
-  - [CARD / CREDENTIAL #] -> ____________________
-  - [ACCESS BITS / CRC]   -> ____________________
-
-## 6. Cloning & Validation (bench, owned hardware only)
-- **Blank Written To:** [ ] T5577  |  [ ] Magic Gen1/Gen2  |  [ ] None
-- **Clone Verified vs. Source:** [ ] Byte-identical  |  [ ] Partial  |  [ ] Failed
-
-[Document read clarity, coupling issues, whether the card was hardened, and
-whether the emulated/cloned credential was accepted by an OWNED bench reader.]
-````
+## Cleanup and follow-up
+- Lab configuration restored:
+- Synthetic fixture/data removed or retained per plan:
+- Credential secrets copied to repository: No
+- Finding owner and remediation:
+```
 
 ---
 
-## 🚪 12. Example Project: Safe Access Card Analysis
+## 🚪 12. Example Project: Synthetic Access-Control Policy Review
 
-Use this checklist to practice baseline RFID concepts safely on a credential **you own** - a spare office fob, a blank test card, or a hotel key you are keeping - without touching any production access-control system.
+Use an administrator-approved lab reader and a synthetic test card supplied for the exercise. Do not use an issued employee, hotel, transit, payment, vehicle, or identity credential.
 
-### Phase 1: Pre-Lab Setup & Authorization
+### Phase 1: Prepare
 
-- [ ] **Confirm Ownership:** Use only a card you personally own or have written authorization to test. Set aside a blank T5577 (LF) or magic card (HF) as your write target.
-- [ ] **Identify System Type:** Treat markings, thickness, and apparent range only as clues; verify the band and protocol using supported identification methods.
-  - **Thin card or short observed range:** Appearance and range do not establish LF/HF technology or credential security.
-  - **"MIFARE", "DESFire", contactless-payment logo:** 13.56 MHz HF - determine the tier before proceeding; secure cards are read-only exercises.
+- [ ] Confirm written scope, lab reader ownership, stop conditions, and evidence handling.
+- [ ] Record reader model, firmware, configuration baseline, and expected access policy.
+- [ ] Use a synthetic fixture with no real account or facility identifier.
 
-### Phase 2: Identification
+### Phase 2: Observe
 
-- [ ] **Run `hw tune`:** Confirm both antennas are healthy before reading.
-- [ ] **Search Both Bands:** Run `lf search`, then `hf search` + `hf 14a info`. Record which band responded and the reported chipset and UID.
+- [ ] Record only the fixture label and broad protocol family.
+- [ ] Present the fixture to the lab reader once per approved test case.
+- [ ] Record allow/deny behavior and the corresponding reader event.
+- [ ] Do not dump sectors, recover keys, copy identifiers, write blanks, or emulate a credential.
 
-### Phase 3: Reading the Credential
+### Phase 3: Validate controls
 
-- [ ] **Read the Card:** For LF, note the raw ID from `lf search`. For HF MIFARE Classic, run `hf mf autopwn` and record which sectors opened.
-- [ ] **Identify the Tier:** Fixed ID (LF prox) vs. broken cipher (MIFARE Classic) vs. strong cipher (DESFire/SEOS, which will refuse authentication).
+- [ ] Confirm revocation and access-policy changes using the synthetic fixture.
+- [ ] Check that reader logs contain the expected event and are centrally retained.
+- [ ] Stop if the test reaches a production reader or reveals personal credential data.
 
-### Phase 4: Cloning and Security Validation
+### Phase 4: Restore and report
 
-- [ ] **Clone to a Blank You Own:** For a Fixed-ID LF card, `lf em 410x clone --id <ID>` onto your T5577. For MIFARE Classic, `hf mf restore` onto a magic card.
-- [ ] **Apply the Validation Rule:**
-  - *If the credential is an applicable legacy type:* Record what was actually recovered and reproduced. Any authorized validation must use a **bench reader you own**; success and timing are not guaranteed by the card family.
-  - *If protected application authentication fails:* **STOP** and report that outcome with the identified interface, tool support, and test conditions. Do not infer a secure deployment or a particular card family from failure alone.
+- [ ] Restore the documented reader baseline and remove synthetic test records as planned.
+- [ ] Report protocol family, conditions, outcome, and remediation; exclude identifiers and secrets.
+
+```mermaid
+flowchart TD
+    A[Authorized lab scope] --> B[Synthetic card and lab reader]
+    B --> C[Observe reader decision]
+    C --> D[Correlate policy event]
+    D --> E[Restore baseline]
+    E --> F[Report outcome without credential data]
+```
 
 ---
 
 ## ⚠️ CRITICAL Security & Legal Warning
 
-### 🔴 ACCESS-CONTROL & FRAUD WARNING
+### 🔴 ACCESS-CONTROL & PRIVACY WARNING
+
+This guide is limited to synthetic test media and defensive reader-policy review. Do not read, dump, record, clone, or emulate issued access, payment, transit, vehicle, passport, or identity credentials. Keep identifiers, card data, keys, and personal data out of repository notes and screenshots.
+
+Unauthorized credential use may violate applicable access-device, trespass, privacy, payment, workplace, or other rules depending on the conduct, authorization, jurisdiction, and facts. [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) defines specific access-device offenses and does not make every act of reading card data a federal crime.
+
+### Defensive Lab Checklist
 
 ```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ CRITICAL LEGAL WARNING ⚠️
-═══════════════════════════════════════════════════════════════
+☐ Is this an isolated lab with a synthetic test fixture?
+☐ Is the reader owned by the lab and configured for this test?
+☐ Are the expected allow/deny results and stop conditions documented?
+☐ Are identifiers, keys, and personal data excluded from logs and screenshots?
+☐ Is the reader baseline restored and test data handled under the plan?
 
-The tools and techniques in this manual read, recover keys from, clone, and
-emulate physical access credentials and contactless cards.
-
-Legal consequences depend on the jurisdiction, authorization, exact conduct, and
-applicable statutory elements. Unauthorized credential use may violate computer-
-misuse, access-device, trespass, privacy, payment-network, or other rules; a particular
-statute does not automatically apply to every read or clone. For example, [18 U.S.C.
-§ 1029](https://uscode.house.gov/us/usc/t18/s1029/) covers specified access-device
-offenses with subsection-specific elements. Payment-card and identity-data handling
-also requires issuer-approved scope and test data. Confirm local requirements with
-qualified counsel before testing.
-═══════════════════════════════════════════════════════════════
+If any answer is NO: stop and resolve the scope or handling issue first.
 ```
 
-### Attack-Specific Legal Warnings
+### Warranty and Scope
 
-#### Badge Cloning (Physical Access)
-
-```
-⚠️ Unauthorized badge use can create legal and safety risks
-
-ILLEGAL ACTIVITIES:
-   • Reading/cloning a coworker's or stranger's access badge
-   • Long-range capture of a credential to duplicate it
-   • Using a cloned fob to enter premises you are not authorized to enter
-
-POSSIBLE CONSEQUENCES (depend on facts and jurisdiction):
-   • Computer-misuse or access-device offenses
-   • Trespass or burglary-tool rules
-   • Contract, workplace, or site-access violations
-
-AUTHORIZED USE ONLY:
-   ✓ Written authorization from the property/credential owner
-   ✓ Testing on cards and readers explicitly provided for the engagement
-```
-
-#### Payment & Identity Cards
-
-```
-Payment, identity, and government credentials can contain sensitive data and may
-be subject to access-device, privacy, identity, payment-network, and other rules.
-Whether [18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/) applies depends on the specific subsection and its
-elements, including the conduct, knowledge or intent requirements, and any
-applicable value or other thresholds. Reading or capturing data is not automatically
-a federal offense in every circumstance.
-
-Use only issuer-provided test cards and test terminals within written authorization.
-Do not collect, emulate, or transmit real account or identity data; stop if the test
-scope or handling rules are unclear. Consult qualified counsel for jurisdiction-
-specific advice.
-```
-
-### 📖 Before Reading, Cloning, or Emulating Any Card
-
-```
-MANDATORY CHECKLIST:
-☐ Do I OWN this credential, or have signed authorization to test it?
-☐ Am I working on a bench / authorized area, not a live production door?
-☐ Am I writing only to blank transponders I own (T5577 / magic card)?
-☐ Have I confirmed the card is NOT a payment, passport, or eID chip?
-☐ Am I logging every read, recovery, and clone for the assessment report?
-☐ Will any emulation be presented ONLY to readers I own?
-☐ Have I confirmed local law permits possession/use of these tools here?
-
-If you answered NO to ANY question: DO NOT PROCEED. USE READ-ONLY on owned cards.
-```
-
-### Warranty Disclaimer
-
-```
-═══════════════════════════════════════════════════════════════
-                    ⚠️ DISCLAIMER OF WARRANTIES ⚠️
-═══════════════════════════════════════════════════════════════
-
-These RFID procedures, commands, and templates are provided "AS IS" WITHOUT
-WARRANTY of any kind, either expressed or implied.
-
-THE AUTHORS, CONTRIBUTORS, AND MAINTAINERS:
-✗ Make NO guarantees about procedure functionality or card safety
-✗ Are NOT responsible for bricked transponders or damaged readers
-✗ Do NOT warrant compliance with any access-control or fraud law
-✗ Are NOT liable for any legal consequences of misuse
-✗ Do NOT provide support for illegal activities
-✗ Disclaim ALL liability for unauthorized reading, cloning, or emulation
-
-USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
-► They use these RFID techniques entirely at their own risk
-► They are solely responsible for ensuring authorization and legal compliance
-► They understand that cloning credentials can facilitate serious crimes
-► They accept that unauthorized use is a CRIME
-► They will defend and indemnify authors from any claims
-═══════════════════════════════════════════════════════════════
-```
+This guide is an educational reference, not a certification of device compatibility or legal advice. Reader behavior varies by hardware, firmware, protocol, and deployment. Follow vendor documentation and the applicable test plan. Report observed results with their limits; do not infer safety or exploitability from a single test.
 
 ---
 
 ## 📚 Resources
 
-**Visual provenance:** Figures 1–4 are original static vector teaching diagrams added November 17, 2026. They contain no measured RF traces, captured credentials, or reproduced access-control results. Sources and limits appear beside each figure; existing tool procedures require their own version and hardware validation.
+**Visual provenance:** Figures 1–4 are original static vector teaching diagrams. They contain no measured RF traces, captured credentials, or reproduced access-control results. Sources and limits appear beside each figure.
 
 ### Legal & Standards
 
@@ -752,7 +455,7 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ### Tooling
 
 - **Proxmark3 (Iceman/RRG)**: [github.com/RfidResearchGroup/proxmark3](https://github.com/RfidResearchGroup/proxmark3)
-- **libnfc + mfoc/mfcuk**: [github.com/nfc-tools](https://github.com/nfc-tools)
+- **libnfc**: [github.com/nfc-tools/libnfc](https://github.com/nfc-tools/libnfc) — consult upstream docs for supported hardware and safe lab use
 - **Chameleon Ultra**: [github.com/RfidResearchGroup/ChameleonUltra](https://github.com/RfidResearchGroup/ChameleonUltra)
 - **libnfc PN532 tools**: [github.com/nfc-tools/libnfc](https://github.com/nfc-tools/libnfc)
 
@@ -774,11 +477,11 @@ USERS EXPLICITLY ACKNOWLEDGE AND AGREE:
 ## 📊 Repository Statistics
 
 ```
-📁 Manual Sections: 12 (Theory, Hardware, Client, Chips, Pipelines, Reference, Logging)
+📁 Manual Sections: 12 (Theory, Hardware, Reader Interfaces, Security Review, Reference, Result Logging)
 💳 Target Hardware: Proxmark3, Flipper Zero, Chameleon Ultra, PN532/libnfc, iCopy-X
 📡 Spectrum Coverage: 125 kHz LF + 13.56 MHz HF (ISO 14443 / 15693 / FeliCa)
-💻 Ecosystems: Proxmark3 Iceman, libnfc, mfoc/mfcuk, mfkey
-⚠️ Risk Level: MEDIUM to HIGH (Cloning & emulation-capable procedures)
+💻 Ecosystems: Proxmark3, libnfc, Flipper Zero, and lab readers (capability varies)
+⚠️ Scope: Defensive review and synthetic test fixtures only
 🔄 Last Updated: August 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active - Proceed with EXTREME CAUTION

@@ -1,25 +1,38 @@
 # Domain / IP Recon Investigation Script
 
-Script for automated domain and IP OSINT - theHarvester recon, CriminalIP, Netlas, ipinfo, LeakLookup, Nmap, RustScan, Nuclei vulnerability scanning, Dirsearch directory enumeration, and WhatWeb fingerprinting. Supports domain, IP list, email, or file input.
+Script for domain and IP OSINT. Provider lookups run by default. Direct Nmap, RustScan, Nuclei, Dirsearch, and WhatWeb probes require the explicit `--active` option and are limited to IPs supplied with `-i` or `-f`; addresses discovered by theHarvester are never scanned automatically.
 
 ## 🎯 Purpose
-Self-contained bash script combining theHarvester domain recon with direct API calls (CriminalIP, Netlas, ipinfo, ip-api, LeakLookup) and active scanning (Nmap, RustScan, Nuclei, Dirsearch, WhatWeb) into one automated investigation run. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
+Self-contained Bash script combining theHarvester and provider lookups with optional, explicitly enabled active scanning. Direct probes require `--active` and explicitly supplied IP targets; discovered IPs are reported only and are not passed to scanners. Distinct from [Email_OSINT.md](Email_OSINT.md) (email-only, no active scanning) and [Phone_OSINT.md](Phone_OSINT.md) (phone-only) - this is the domain/IP/infrastructure half of the toolkit referenced in [../Playbook/investigation_guide.md](../Playbook/investigation_guide.md).
+
+## Passive-first workflow
+
+```mermaid
+flowchart LR
+    A[Domain or email] --> B[Provider lookups]
+    B --> C[Discovered IPs recorded for review]
+    C -. never auto-scanned .-> D[Operator validates written scope]
+    E[Explicit individual IPs from -i or -f] --> F{--active enabled?}
+    D --> F
+    F -- No --> G[No direct probes]
+    F -- Yes --> H[Nmap and optional web scans]
+```
 
 ## ⚙️ Function
-A single bash script accepting domain, IP(s), email, or file input, running theHarvester first to extract IPs (if not supplied), then per-IP API queries and Nmap/RustScan/Nuclei/Dirsearch scans (parallelizable), writing organized JSON/text output per target plus a master summary report.
+A single Bash script accepting a domain, email, or explicitly supplied IPs. It performs provider lookups and writes organized output; only IPs supplied with `-i` or `-f` are eligible for active scans, and only when `--active` is set.
 
 ## 🏆 Goal
-Run one command against a suspected scam domain or IP range and get back organized OSINT + light active-scan output (open ports, web fingerprint, vuln scan, breach/leak/reputation data) without manually invoking each tool.
+Collect organized, passive-first OSINT findings. If a written scope authorizes direct testing, explicitly enable `--active` and provide only the in-scope IPs with `-i` or `-f`.
 
 ## 📋 When to Use
 - Investigating a scam/phishing domain or its hosting infrastructure as part of the fraud investigation workflow
-- Needing both passive OSINT and active scanning (Nmap/Nuclei) results in one run - note this crosses from passive to active recon, so ensure authorization covers scanning, not just OSINT
+- Active testing is optional and can affect third-party/shared infrastructure. Use `--active` only when written scope specifically authorizes the exact IPs supplied with `-i` or `-f`. A domain lookup or discovered address is not authorization to probe it.
 
-**Dependencies:** `nmap`, `jq`, `curl`, `theHarvester`, `whatweb`, `nuclei`, `dirsearch`, Docker (for RustScan)  
-**Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  
-**Usage:** Copy the script below into a `.sh` file and `chmod +x` it.
+**Required:** Bash, `curl`, and `jq`. `theHarvester` is optional for provider-based discovery. **Active-scan tools:** `nmap`, `whatweb`, `nuclei`, and `dirsearch`; RustScan additionally needs Docker and its pinned image.  
+**Install:** `sudo apt install jq curl`; install optional tools only for the lookups and expressly authorized active scans you plan to use.  
+**Usage:** Copy the script below into a `.sh` file and `chmod +x` it. Provider lookups run without direct probing. Add `--active` only for expressly authorized, explicitly supplied IP targets (`-i` or `-f`). Domain-discovered addresses are never scanned automatically.
 
-**Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
+**Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed.
 - `CRIMINALIP_KEY` - [criminalip.io](https://www.criminalip.io/)
 - `HIBP_KEY` - [haveibeenpwned.com/API/Key](https://haveibeenpwned.com/API/Key)
 - `LEAKLOOKUP_KEY` - [leak-lookup.com](https://leak-lookup.com/)
@@ -39,9 +52,10 @@ Run one command against a suspected scam domain or IP range and get back organiz
 #         ./scammer_audit.sh -f <file_with_ips>
 #         ./scammer_audit.sh -e <email>
 #
-#  Dependencies:
-#    sudo apt install whatweb nuclei dirsearch jq nmap curl netcat-openbsd
-#    sudo docker pull rustscan/rustscan:2.1.1
+#  Required dependencies: curl, jq
+#  Optional provider lookup: theHarvester
+#  Active-scan tools: install only when explicitly authorized to use --active
+#    nmap, whatweb, nuclei, dirsearch; RustScan additionally needs Docker
 #############################################
 
 # Colors for output
@@ -74,14 +88,23 @@ PROJECTDISCOVERY_KEY="${PROJECTDISCOVERY_KEY:-${PDCP_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
-
-        CRIMINALIP_KEY="${CRIMINALIP_KEY:-${CRIMINALIP_API_KEY:-${criminalip_api_key:-}}}"
-        HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-${hibp_key:-${haveibeenpwned_api_key:-}}}}"
-        LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_api_key:-}}}"
-        NETLAS_KEY="${NETLAS_KEY:-${NETLAS_API_KEY:-${netlas_api_key:-}}}"
-        PROJECTDISCOVERY_KEY="${PROJECTDISCOVERY_KEY:-${PDCP_API_KEY:-${pdcp_api_key:-}}}"
+        # Parse simple KEY=value entries; never execute the config file as shell code.
+        while IFS= read -r entry || [ -n "$entry" ]; do
+            [[ "$entry" =~ ^[[:space:]]*(#|$) ]] && continue
+            if [[ "$entry" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+                key="${BASH_REMATCH[2]}"
+                value="${BASH_REMATCH[3]}"
+                value="${value%\"}"; value="${value#\"}"
+                value="${value%\'}"; value="${value#\'}"
+                case "$key" in
+                    CRIMINALIP_KEY|CRIMINALIP_API_KEY|criminalip_api_key) [ -n "$CRIMINALIP_KEY" ] || CRIMINALIP_KEY="$value" ;;
+                    HAVEIBEENPWNED_API_KEY|HIBP_KEY|hibp_key|haveibeenpwned_api_key) [ -n "$HIBP_KEY" ] || HIBP_KEY="$value" ;;
+                    LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key) [ -n "$LEAKLOOKUP_KEY" ] || LEAKLOOKUP_KEY="$value" ;;
+                    NETLAS_KEY|NETLAS_API_KEY|netlas_api_key) [ -n "$NETLAS_KEY" ] || NETLAS_KEY="$value" ;;
+                    PROJECTDISCOVERY_KEY|PDCP_API_KEY|pdcp_api_key) [ -n "$PROJECTDISCOVERY_KEY" ] || PROJECTDISCOVERY_KEY="$value" ;;
+                esac
+            fi
+        done < "$API_CONFIG"
     else
         echo -e "${YELLOW}[!] API config not found at $API_CONFIG. Set keys via environment variables.${NC}" >&2
     fi
@@ -96,6 +119,8 @@ IP_FILE=""
 EMAIL=""
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 SKIP_AGGRESSIVE=false
+ACTIVE_SCAN=false
+EXPLICIT_IPS=()
 SKIP_NUCLEI=false
 SKIP_DIRSEARCH=false
 QUICK_MODE=false
@@ -130,7 +155,9 @@ usage() {
     echo "  -i    Target IP address(es), comma-separated"
     echo "  -e    Target email address for breach lookups"
     echo "  -f    File containing IPs (one per line)"
-    echo "  -s    Skip aggressive nmap scan (no sudo prompt)"
+    echo "  --active  Enable direct scans for explicitly supplied individual IPs only (requires authorization)"
+    echo "        CIDR ranges, hostnames, and discovered IPs are not scanned"
+    echo "  -s    Skip the full-port Nmap scan"
     echo "  -n    Skip Nuclei vulnerability scan"
     echo "  -D    Skip Dirsearch directory enumeration"
     echo "  -q    Quick mode (skip slow scans)"
@@ -145,9 +172,11 @@ check_dependencies() {
     echo -e "${BLUE}[*] Checking dependencies...${NC}"
     
     MISSING=()
-    command -v nmap &> /dev/null || MISSING+=("nmap")
     command -v curl &> /dev/null || MISSING+=("curl")
     command -v jq &> /dev/null || MISSING+=("jq")
+    if [ "$ACTIVE_SCAN" = true ]; then
+        command -v nmap &> /dev/null || MISSING+=("nmap (required for --active)")
+    fi
     
     OPTIONAL_MISSING=()
     command -v theHarvester &> /dev/null || OPTIONAL_MISSING+=("theHarvester")
@@ -155,6 +184,7 @@ check_dependencies() {
     command -v nuclei &> /dev/null || OPTIONAL_MISSING+=("nuclei")
     command -v dirsearch &> /dev/null || OPTIONAL_MISSING+=("dirsearch")
     command -v nc &> /dev/null || OPTIONAL_MISSING+=("netcat-openbsd")
+    command -v whois &> /dev/null || OPTIONAL_MISSING+=("whois")
     
     if command -v docker &> /dev/null; then
         docker image inspect rustscan/rustscan:2.1.1 &> /dev/null || OPTIONAL_MISSING+=("rustscan")
@@ -176,11 +206,18 @@ check_dependencies() {
     echo ""
 }
 
+# Parse the long active-scan option, then use getopts for short options.
+ARGS=()
+for arg in "$@"; do
+    if [ "$arg" = "--active" ]; then ACTIVE_SCAN=true; else ARGS+=("$arg"); fi
+done
+set -- "${ARGS[@]}"
+
 # Parse arguments
 while getopts "d:i:e:f:snDqph" opt; do
     case $opt in
         d) DOMAIN="$OPTARG" ;;
-        i) IFS=',' read -ra IPS <<< "$OPTARG" ;;
+        i) IFS=',' read -ra parsed_ips <<< "$OPTARG"; IPS+=("${parsed_ips[@]}") ;;
         e) EMAIL="$OPTARG" ;;
         f) IP_FILE="$OPTARG" ;;
         s) SKIP_AGGRESSIVE=true ;;
@@ -205,6 +242,8 @@ if [ -n "$IP_FILE" ]; then
         exit 1
     fi
 fi
+
+EXPLICIT_IPS=("${IPS[@]}")
 
 # Validate input
 if [ -z "$DOMAIN" ] && [ ${#IPS[@]} -eq 0 ] && [ -z "$EMAIL" ]; then
@@ -249,6 +288,33 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Pass API credentials through curl's stdin config, not its process arguments.
+# Provider systems may still retain URL or request logs.
+private_curl_status_headers() {
+    local URL="$1" OUTPUT="$2" HEADER
+    shift 2
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        for HEADER in "$@"; do
+            [[ "$HEADER" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || return 2
+            printf 'header = "%s"\n' "$HEADER"
+        done
+    } | curl --config - --silent --show-error --max-time 20 \
+        --output "$OUTPUT" --write-out "%{http_code}"
+}
+
+private_curl_status_form() {
+    local URL="$1" OUTPUT="$2" FORM_DATA="$3"
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    [[ "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'data = "%s"\n' "$FORM_DATA"
+    } | curl --config - --silent --show-error --max-time 20 \
+        --output "$OUTPUT" --write-out "%{http_code}"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -259,7 +325,7 @@ log "Output directory: $OUTPUT_DIR"
 [ -n "$DOMAIN" ] && log "Target Domain: $DOMAIN"
 [ -n "$EMAIL" ] && log "Target Email: $EMAIL"
 log "Target IPs: ${IPS[*]:-Will extract from theHarvester}"
-log "Quick Mode: $QUICK_MODE | Parallel Mode: $PARALLEL_MODE"
+log "Quick Mode: $QUICK_MODE | Parallel Mode: $PARALLEL_MODE | Active scans: $ACTIVE_SCAN"
 log ""
 
 #############################################
@@ -270,8 +336,13 @@ query_criminalip() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying CriminalIP...${NC}"
-    curl -s "https://api.criminalip.io/v1/ip/data?ip=$IP" \
-        -H "x-api-key: $CRIMINALIP_KEY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$CRIMINALIP_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] CriminalIP key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local HTTP_CODE
+    HTTP_CODE=$(private_curl_status_headers "https://api.criminalip.io/v1/ip/data?ip=$IP" "$OUTPUT" "x-api-key: $CRIMINALIP_KEY")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] CriminalIP lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
     
     if command -v jq &> /dev/null && [ -s "$OUTPUT" ]; then
         SCORE=$(jq -r '.score // empty' "$OUTPUT" 2>/dev/null)
@@ -285,11 +356,11 @@ query_hibp() {
     local EMAIL="$1"
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for breaches...${NC}"
-    curl -s "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework" | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED HTTP_CODE
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_headers "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL_ENCODED?truncateResponse=false" "$OUTPUT" "hibp-api-key: $HIBP_KEY" "user-agent: ${ORG_TAG}-Framework")
     
-    if [ -s "$OUTPUT" ] && ! grep -q "error" "$OUTPUT" && ! grep -q "404" "$OUTPUT"; then
+    if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         BREACH_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
         if [ "$BREACH_COUNT" -gt 0 ] 2>/dev/null; then
             log "${RED}    [!] BREACHED! Found in $BREACH_COUNT breach(es)!${NC}"
@@ -297,8 +368,11 @@ query_hibp() {
                 log "${RED}        - $breach${NC}"
             done
         fi
-    else
+    elif [ "$HTTP_CODE" = "404" ]; then
+        echo '{"status":"clean","breaches":[]}' > "$OUTPUT"
         log "${GREEN}    [+] No breaches found${NC}"
+    else
+        log "${YELLOW}    [!] HIBP lookup unverified (HTTP ${HTTP_CODE:-000}); see ${OUTPUT}.${NC}"
     fi
 }
 
@@ -306,9 +380,11 @@ query_hibp_pastes() {
     local EMAIL="$1"
     local OUTPUT="$2"
     log "${GREEN}[*] Checking HaveIBeenPwned for pastes...${NC}"
-    curl -s "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework" | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED HTTP_CODE
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_headers "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL_ENCODED" "$OUTPUT" "hibp-api-key: $HIBP_KEY" "user-agent: ${ORG_TAG}-Framework")
+    if [ "$HTTP_CODE" = "404" ]; then echo '{"status":"clean","pastes":[]}' > "$OUTPUT"; fi
+    [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "404" ] || log "${YELLOW}[!] HIBP paste lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_leaklookup() {
@@ -316,16 +392,27 @@ query_leaklookup() {
     local TYPE="$2"
     local OUTPUT="$3"
     log "${GREEN}[*] Querying LeakLookup ($TYPE)...${NC}"
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$LEAKLOOKUP_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] LeakLookup key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local QUERY_ENCODED HTTP_CODE
+    QUERY_ENCODED=$(jq -rn --arg value "$QUERY" '$value|@uri')
+    HTTP_CODE=$(private_curl_status_form "https://leak-lookup.com/api/search" "$OUTPUT" "key=$LEAKLOOKUP_KEY&type=$TYPE&query=$QUERY_ENCODED")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] LeakLookup lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_netlas() {
     local IP="$1"
     local OUTPUT="$2"
     log "${GREEN}    [*] Querying Netlas...${NC}"
-    curl -s "https://app.netlas.io/api/hosts/$IP/" \
-        -H "X-API-Key: $NETLAS_KEY" | pretty_json > "$OUTPUT" 2>&1
+    if [[ ! "$NETLAS_KEY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        log "${YELLOW}[!] Netlas key missing or malformed; lookup skipped.${NC}"
+        return
+    fi
+    local HTTP_CODE
+    HTTP_CODE=$(private_curl_status_headers "https://app.netlas.io/api/hosts/$IP/" "$OUTPUT" "X-API-Key: $NETLAS_KEY")
+    [ "$HTTP_CODE" = "200" ] || log "${YELLOW}[!] Netlas lookup unverified (HTTP ${HTTP_CODE:-000}).${NC}"
 }
 
 query_ipinfo() {
@@ -400,7 +487,7 @@ run_rustscan() {
 #############################################
 # SCAN SINGLE IP
 #############################################
-scan_ip() {
+process_ip() {
     local IP="$1"
     local IP_SAFE=$(echo "$IP" | tr ':' '_')
     local IP_DIR="$OUTPUT_DIR/ips/$IP_SAFE"
@@ -411,7 +498,7 @@ scan_ip() {
     query_ipinfo "$IP" "$IP_DIR/ipinfo.json"
     query_rdap "$IP" "$IP_DIR/rdap.json"
     
-    if [[ ! "$IP" =~ ":" ]]; then
+    if [[ ! "$IP" =~ ":" ]] && command -v whois &> /dev/null; then
         whois -h whois.arin.net "$IP" > "$IP_DIR/whois_arin.txt" 2>&1
     fi
     
@@ -419,20 +506,27 @@ scan_ip() {
     query_netlas "$IP" "$IP_DIR/netlas.json"
     query_leaklookup "$IP" "ip_address" "$IP_DIR/leaklookup.json"
     
+    if [ "$ACTIVE_SCAN" != true ]; then
+        log "${GREEN}[+] Passive provider lookups for $IP complete; direct scans were not run.${NC}"
+        return
+    fi
+    
     run_rustscan "$IP" "$IP_DIR/rustscan.txt"
     
     log "${GREEN}[*] Running Nmap scans...${NC}"
     nmap -sV -sC "$IP" -oN "$IP_DIR/nmap_basic.txt" -oX "$IP_DIR/nmap_basic.xml" > /dev/null 2>&1
     
-    if [ "$QUICK_MODE" = false ]; then
-        nmap -p- -T4 "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
+    if [ "$QUICK_MODE" = false ] && [ "$SKIP_AGGRESSIVE" = false ]; then
+        nmap -p- -T3 "$IP" -oN "$IP_DIR/nmap_fullport.txt" > /dev/null 2>&1
     fi
     
     nmap --script dns-nsid "$IP" -oN "$IP_DIR/nmap_dns.txt" > /dev/null 2>&1
     nmap --script vuln "$IP" -oN "$IP_DIR/nmap_vuln.txt" > /dev/null 2>&1
     
     # Banner Grab
-    printf '' | timeout 5 nc -v "$IP" 80 > "$IP_DIR/banner_80.txt" 2>&1
+    if command -v nc &> /dev/null; then
+        printf '' | timeout 5 nc -v "$IP" 80 > "$IP_DIR/banner_80.txt" 2>&1
+    fi
     
     # Web Recon
     PORT80_OPEN=$(grep -c "80/tcp.*open" "$IP_DIR/nmap_basic.txt" 2>/dev/null || echo 0)
@@ -454,21 +548,21 @@ if [ -n "$DOMAIN" ]; then
     if command -v theHarvester &> /dev/null; then
         theHarvester -d "$DOMAIN" -b hunter,shodan,virustotal,whoisxml,zoomeye,censys,fullhunt,intelx,securityTrails 2>&1 | tee "$OUTPUT_DIR/1_theharvester.txt"
         
-        if [ ${#IPS[@]} -eq 0 ]; then
-            IPV4_LIST=$(grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
-            while IFS= read -r ip; do [ -n "$ip" ] && IPS+=("$ip"); done <<< "$IPV4_LIST"
-        fi
+        # Discovered addresses are recorded as intelligence only, never scanned automatically.
+        IPV4_LIST=$(grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
+        printf '%s\n' "$IPV4_LIST" > "$OUTPUT_DIR/discovered_ips.txt"
     fi
 fi
 
 #############################################
-# 2) Additional Domain Intelligence
+# 2) Additional Domain Intelligence (provider lookup only)
 #############################################
 if [ -n "$DOMAIN" ]; then
     section "2) Additional Domain Intelligence"
     query_leaklookup "$DOMAIN" "domain" "$OUTPUT_DIR/domain/leaklookup.json"
-    command -v whatweb >/dev/null 2>&1 && whatweb "http://$DOMAIN" --log-json="$OUTPUT_DIR/domain/whatweb_http.json" > "$OUTPUT_DIR/domain/whatweb_http.txt" 2>&1
-    run_nuclei "https://$DOMAIN" "$OUTPUT_DIR/domain/nuclei_results.txt"
+    if [ "$ACTIVE_SCAN" = true ]; then
+        log "${YELLOW}[!] Direct domain probes are disabled; supply explicitly authorized individual IPs with -i/-f to scan.${NC}"
+    fi
 fi
 
 #############################################
@@ -483,14 +577,25 @@ if [ -n "$EMAIL" ]; then
 fi
 
 #############################################
-# 4) Scan All IPs
+# 4) Provider lookups and optional active scans of explicitly supplied IPs
 #############################################
-if [ ${#IPS[@]} -gt 0 ]; then
-    section "4) Scanning ${#IPS[@]} IP Address(es)"
+if [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
+    for IP in "${EXPLICIT_IPS[@]}"; do
+        if [[ ! "$IP" =~ ^[0-9A-Fa-f:.]+$ ]]; then
+            log "${RED}[!] Rejected non-literal or ranged target '$IP'; provide individual IPv4/IPv6 addresses only.${NC}"
+            exit 2
+        fi
+    done
+    if [ "$ACTIVE_SCAN" = true ]; then
+        section "4) Provider lookups and active scans of ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
+        log "${YELLOW}[!] Confirm these exact IPs are in your written testing scope before continuing.${NC}"
+    else
+        section "4) Passive provider lookups for ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
+    fi
     if [ "$PARALLEL_MODE" = true ]; then
         job_count=0
-        for IP in "${IPS[@]}"; do
-            scan_ip "$IP" &
+        for IP in "${EXPLICIT_IPS[@]}"; do
+            process_ip "$IP" &
             job_count=$((job_count + 1))
             if [ $job_count -ge $MAX_PARALLEL ]; then
                 wait -n 2>/dev/null || wait
@@ -499,10 +604,14 @@ if [ ${#IPS[@]} -gt 0 ]; then
         done
         wait
     else
-        for IP in "${IPS[@]}"; do
-            scan_ip "$IP"
+        for IP in "${EXPLICIT_IPS[@]}"; do
+            process_ip "$IP"
         done
     fi
+elif [ "$ACTIVE_SCAN" = true ]; then
+    log "${YELLOW}[!] --active was set, but no explicit IPs were supplied; no direct scans were run.${NC}"
+else
+    log "${GREEN}[+] Passive-only domain/email mode: discovered IPs are recorded, not probed.${NC}"
 fi
 
 #############################################

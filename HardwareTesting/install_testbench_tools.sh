@@ -12,6 +12,57 @@ fi
 
 PNWC_SRC_DIR="${PNWC_SRC_DIR:-$HOME/src}"
 
+# Full upstream commit IDs are pinned so a moving default branch cannot silently
+# change the code built and installed with administrator privileges. Update these
+# only after reviewing the upstream changes. These upstream commits are unsigned;
+# the canonical HTTPS origin plus exact commit pin is the provenance check here.
+MEMTEST_VULKAN_REPO="https://github.com/GpuZelenograd/memtest_vulkan.git"
+MEMTEST_VULKAN_COMMIT="fd9ff59cde85cf11e25263e3f32d7adae0ba5e3b"
+GPU_BURN_REPO="https://github.com/wilicc/gpu-burn.git"
+GPU_BURN_COMMIT="0d19c94dcb2e9b6858b7586a4c327674cd67113b"
+
+checkout_pinned_source() {
+  local source_dir="$1"
+  local repository="$2"
+  local commit="$3"
+  local origin actual worktree_state
+
+  if [ -e "$source_dir" ] && [ ! -d "$source_dir/.git" ]; then
+    echo "ERROR: $source_dir exists but is not a Git checkout."
+    return 1
+  fi
+
+  if [ -d "$source_dir/.git" ]; then
+    origin="$(git -C "$source_dir" remote get-url origin)"
+    if [ "$origin" != "$repository" ]; then
+      echo "ERROR: unexpected origin for $source_dir: $origin"
+      return 1
+    fi
+    worktree_state="$(git -C "$source_dir" status --porcelain --untracked-files=all)"
+    if [ -n "$worktree_state" ]; then
+      echo "ERROR: refusing to build from a modified or untracked checkout: $source_dir"
+      echo "Review or remove local changes before retrying."
+      return 1
+    fi
+  else
+    git clone --no-checkout "$repository" "$source_dir"
+  fi
+
+  git -C "$source_dir" fetch --no-tags origin "$commit"
+  git -C "$source_dir" checkout --detach "$commit"
+  actual="$(git -C "$source_dir" rev-parse HEAD)"
+  if [ "$actual" != "$commit" ]; then
+    echo "ERROR: checked out $actual instead of pinned $commit."
+    return 1
+  fi
+  worktree_state="$(git -C "$source_dir" status --porcelain --untracked-files=all)"
+  if [ -n "$worktree_state" ]; then
+    echo "ERROR: pinned checkout is not clean; refusing to build: $source_dir"
+    return 1
+  fi
+  echo "Verified canonical origin, clean worktree, and pinned commit: $repository @ $actual"
+}
+
 # ── CUDA path detection ────────────────────────────────────────────
 # Arch / Manjaro CUDA commonly installs under /opt/cuda.
 # gpu-burn's Makefile specifically expects CUDAPATH, not CUDA_HOME.
@@ -180,12 +231,9 @@ echo "[4/7] Building and installing memtest_vulkan..."
 mkdir -p "$PNWC_SRC_DIR"
 cd "$PNWC_SRC_DIR"
 
-if [ ! -d memtest_vulkan ]; then
-  git clone https://github.com/GpuZelenograd/memtest_vulkan.git
-fi
-
-cd memtest_vulkan
-git pull
+checkout_pinned_source "$PNWC_SRC_DIR/memtest_vulkan" \
+  "$MEMTEST_VULKAN_REPO" "$MEMTEST_VULKAN_COMMIT"
+cd "$PNWC_SRC_DIR/memtest_vulkan"
 cargo build --release
 sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
 
@@ -227,12 +275,9 @@ else
   else
     cd "$PNWC_SRC_DIR"
 
-    if [ ! -d gpu-burn ]; then
-      git clone https://github.com/wilicc/gpu-burn.git
-    fi
-
-    cd gpu-burn
-    git pull
+    checkout_pinned_source "$PNWC_SRC_DIR/gpu-burn" \
+      "$GPU_BURN_REPO" "$GPU_BURN_COMMIT"
+    cd "$PNWC_SRC_DIR/gpu-burn"
 
     patch_gpu_burn_makefile_if_needed "$CUDA_ROOT"
 
@@ -259,6 +304,11 @@ else
       echo "      The rest of the PNWC test bench tools are still usable."
       echo "      You can skip --gpu-burn and use memtest_vulkan, vkmark, and glmark2 instead."
     fi
+
+    # Remove only the compatibility patch created by this installer so the
+    # source checkout returns to its pinned, clean state for future runs.
+    git -C "$PNWC_SRC_DIR/gpu-burn" checkout -- Makefile
+    rm -f "$PNWC_SRC_DIR/gpu-burn/Makefile.pnwc-original"
   fi
 fi
 

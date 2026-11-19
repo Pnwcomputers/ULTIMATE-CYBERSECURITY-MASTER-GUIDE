@@ -73,7 +73,7 @@ This repository includes three guides. Start here, then refer to the others once
 - [Part 6: Security Hardening](#part-6-security-hardening)
 - [Part 7: NPMplus Reverse Proxy with HTTPS](#part-7-npmplus-reverse-proxy-with-https)
 - [Part 8: Device Pairing](#part-8-device-pairing)
-- [Local Access Without HTTPS](#local-access-without-https)
+- [Local Access Without HTTPS](#local-access-before-https)
 - [Troubleshooting](#troubleshooting)
 - [Reference: Key Commands](#reference-key-commands)
 
@@ -120,7 +120,7 @@ Fill in the app installer form as follows:
 **Network Configuration:**
 | Field | Value |
 |-------|-------|
-| Port Bind Mode | Publish port on the host for external access |
+| Port Bind Mode | Publish port on the host for access through a trusted LAN or HTTPS reverse proxy only; do not forward this port directly to the public internet |
 | Port Number | `30262` |
 | Host Network | Unchecked |
 
@@ -321,7 +321,8 @@ sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set ag
 Set the tools profile. Valid values are `minimal`, `coding`, `messaging`, or `full`:
 
 ```bash
-sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set tools.profile full
+sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set tools.profile minimal
+# Keep the minimal profile unless a specific task requires additional tools; enable only the narrow capabilities needed.
 ```
 
 ---
@@ -341,7 +342,7 @@ Fix the flagged issues:
 sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set gateway.auth.rateLimit '{"maxAttempts":10,"windowMs":60000,"lockoutMs":300000}'
 
 # Lock down allowed origins to your HTTPS domain and local IP
-sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set gateway.controlUi.allowedOrigins '["https://openclaw.yourdomain.duckdns.org","http://YOUR_TRUENAS_IP:30262"]'
+sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set gateway.controlUi.allowedOrigins '["https://openclaw.yourdomain.duckdns.org"]'
 ```
 
 Restart the app from the TrueNAS UI to apply changes.
@@ -361,6 +362,8 @@ In the NPMplus UI go to **Hosts → Proxy Hosts → Add Proxy Host**.
 | Scheme | `http` |
 | Forward Hostname/IP | Your TrueNAS IP |
 | Forward Port | `30262` |
+
+Keep this backend port blocked from direct public internet access; allow access only from the trusted reverse proxy or an explicitly trusted LAN.
 
 Click the **gear icon ⚙️** next to Forward Port and paste this into the advanced config box:
 
@@ -450,19 +453,9 @@ You are now connected to the OpenClaw dashboard.
 
 ---
 
-## Local Access Without HTTPS
+## Local Access Before HTTPS
 
-If you need to access the dashboard locally over HTTP before HTTPS is fully configured, use the Chrome browser flag to allow WebSocket device identity on insecure origins:
-
-1. Go to `chrome://flags/#unsafely-treat-insecure-origin-as-secure`
-2. Add `http://YOUR_TRUENAS_IP:30262`
-3. Enable the flag and relaunch Chrome
-
-Then access via the tokenized URL which pre-fills your gateway token automatically:
-
-```
-http://YOUR_TRUENAS_IP:30262/#token=YOUR_GATEWAY_TOKEN
-```
+Keep the dashboard bound to loopback or a trusted LAN while configuring HTTPS. Do not enable Chrome’s insecure-origin override or place the gateway token in an HTTP URL. Use the HTTPS reverse proxy after certificate and origin checks are configured; if HTTPS is unavailable, access only through a trusted local tunnel and keep the token in the app’s supported secure configuration.
 
 ---
 

@@ -162,10 +162,13 @@ mkdir -p ~/cases/<case-id>/raw
 find ~/cases/<case-id>/raw -type f -exec sha256sum {} + | tee ~/cases/<case-id>/hashes.txt
 ```
 
-> [!TIP]
-> When you move a sample *out* of the lab (to a colleague or another VM), re-zip
-> it with the password `infected` and rename the extension (e.g. `.exe_`) so
-> nothing auto-executes it and mail/AV gateways do not silently strip it.
+> [!CAUTION]
+> Keep malware samples inside the isolated analysis environment. Do not use
+> password-protected archives or renamed extensions to bypass email, antivirus,
+> or other security controls. If a sample must be shared for an authorized
+> investigation, use an organization-approved malware repository or restricted
+> evidence-transfer service with access logging, retention controls, and a
+> verified recipient.
 
 ### 6. Analyze
 

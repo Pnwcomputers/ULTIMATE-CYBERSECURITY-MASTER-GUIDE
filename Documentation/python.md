@@ -369,7 +369,7 @@ data = sock.recv(1024)
 ```python
 import requests
 
-r = requests.get("http://target.com/api")
+r = requests.get("https://example.invalid/api", timeout=10)
 print(r.status_code, r.text)
 ```
 

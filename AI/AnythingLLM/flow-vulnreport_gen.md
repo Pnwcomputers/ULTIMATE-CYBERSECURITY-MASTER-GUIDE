@@ -477,49 +477,34 @@ cat finding-*.md > full-report-findings.md
 
 ## Example Complete Output
 
+**Synthetic example only:** `203.0.113.10` is a documentation-only address (TEST-NET-3), not a public target. Do not scan it or treat it as reachable.
+
 **Input:**
 ```
-finding_title: Exposed MySQL Database
-finding_details: MySQL 5.5.62 on port 3306, internet-accessible, weak password
-affected_systems: db01.acme.com (203.0.113.10)
-client_name: Acme Corporation
+finding_title: MySQL service observed during an authorized lab review
+finding_details: A lab scan reported MySQL on port 3306; exposure and authentication controls have not yet been verified.
+affected_systems: lab-db.example.invalid (203.0.113.10) [placeholder]
+client_name: Example Lab
 ```
 
 **Output:**
 ```markdown
-# Vulnerability Report: Exposed MySQL Database
-Client: Acme Corporation
+# Vulnerability Report: MySQL Service Requires Validation
+Client: Example Lab
 
 ## Executive Summary
-
-Acme Corporation's database server is currently exposed to the internet with 
-inadequate security controls, creating a critical risk to customer data and 
-business operations. An attacker could gain unauthorized access to sensitive 
-information including customer records, financial data, and proprietary business 
-information. This vulnerability poses immediate risk of data breach, regulatory 
-non-compliance (GDPR, PCI-DSS), and potential business disruption.
-
-Given the critical nature of this finding and the ease of exploitation, 
-immediate remediation is strongly recommended within 24-48 hours.
+An authorized lab scan reported a MySQL service on a placeholder address. This is an observation requiring validation, not evidence of public exposure, weak credentials, data access, or a breach.
 
 ## Technical Findings
+**Observation:** MySQL service reported on port 3306
+**Affected System:** lab-db.example.invalid (placeholder only)
+**Severity:** Provisional; assign a severity and CVSS vector only after validating the finding and documenting the applicable threat model and evidence.
 
-**Vulnerability:** Exposed MySQL Database (Internet-Accessible)
-**Affected System:** db01.acme.com (203.0.113.10)
-**Severity:** Critical (CVSS: 9.8)
+## Recommended Validation
+Confirm the actual host is in written scope. Review firewall and service configuration through approved administrative access. Do not attempt authentication with guessed credentials or scan the documentation-only address.
 
-[... detailed technical analysis ...]
-
-## Remediation Steps
-
-### Immediate Actions (Priority 1 - Within 24 hours)
-
-1. **Block External Access**
-   - Configure firewall to block inbound port 3306
-   - Restrict to internal IPs only
-   - Verification: `nmap -p 3306 203.0.113.10` from external network
-
-[... complete remediation steps ...]
+## Remediation
+If an in-scope MySQL service is unnecessarily reachable, restrict access to approved application hosts and management networks, then verify the control using the approved test plan.
 ```
 
 ---

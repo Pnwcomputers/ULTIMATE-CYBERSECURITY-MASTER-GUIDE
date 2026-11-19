@@ -277,7 +277,7 @@ audit_btc() {
         bc2_url="${bc2_url}?key=${BLOCKCHAIR_API_KEY}"
     fi
     local http_code2
-    http_code2=$(curl -s --max-time 25 -o "$bc2_file" -w "%{http_code}" "$bc2_url")
+    http_code2=$(private_curl_status_url "$bc2_url" "$bc2_file")
     if [[ "${http_code2:-000}" == "200" ]]; then
         local first_seen last_seen
         first_seen=$(jq_or_grep "$bc2_file" ".data.\"${addr}\".address.first_seen_receiving" '"first_seen_receiving":"[^"]*"' "N/A")
@@ -287,6 +287,16 @@ audit_btc() {
     else
         warn "BTC blockchair: HTTP $http_code2"
     fi
+}
+
+# Pass credential-bearing URLs to curl through stdin config so they do not
+# appear in curl's process arguments. The provider may still retain URL logs.
+private_curl_status_url() {
+    local url="$1" output="$2"
+    local safe_url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+$'
+    [[ "$url" =~ $safe_url_pattern ]] || return 2
+    { printf 'url = "%s"\n' "$url"; } |
+        curl --config - --silent --show-error --max-time 25 --output "$output" --write-out "%{http_code}"
 }
 
 # ---------------------------------------------------------------------------
@@ -306,8 +316,7 @@ audit_eth() {
     info "ETH: querying balance for $addr ..."
     local bal_file="${report_dir}/eth_balance.json"
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$bal_file" -w "%{http_code}" \
-        "https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}")
+    http_code=$(private_curl_status_url "https://api.etherscan.io/v2/api?chainid=1&module=account&action=balance&address=${addr}&tag=latest&apikey=${ETHERSCAN_API_KEY}" "$bal_file")
 
     local eth_balance="N/A"
     if [[ "${http_code:-000}" == "200" ]]; then
@@ -322,8 +331,7 @@ audit_eth() {
     info "ETH: querying transactions for $addr ..."
     local tx_file="${report_dir}/eth_txlist.json"
     local http_code2
-    http_code2=$(curl -s --max-time 25 -o "$tx_file" -w "%{http_code}" \
-        "https://api.etherscan.io/api?module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}")
+    http_code2=$(private_curl_status_url "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=${addr}&startblock=0&endblock=99999999&sort=desc&page=1&offset=5&apikey=${ETHERSCAN_API_KEY}" "$tx_file")
 
     {
         printf "ETHEREUM ADDRESS AUDIT\n"
@@ -514,7 +522,7 @@ audit_blockcypher() {
     [[ -n "$BLOCKCYPHER_API_KEY" ]] && url="${url}?token=${BLOCKCYPHER_API_KEY}"
 
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$url")
+    http_code=$(private_curl_status_url "$url" "$bc_file")
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local balance tx_count

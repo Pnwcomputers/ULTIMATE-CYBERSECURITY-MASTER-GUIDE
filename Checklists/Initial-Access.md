@@ -1,13 +1,23 @@
 # Initial Access
-_Techniques for gaining initial foothold on a target, mapped to MITRE ATT&CK where applicable. Source: Pentest Laboratories._
+_Defensive review of initial-access techniques and user-deception paths, mapped to MITRE ATT&CK where applicable. Source: Pentest Laboratories._
 
-**Purpose:** Covers the very first step of an engagement - getting code execution or a foothold on a target that previously had none. This is currently a short, growing list; the single entry (search-ms URI handler abuse) represents a class of technique that abuses how Windows handles custom URI protocol schemes to trick a user into opening what looks like a local file search but actually pulls a malicious file from an attacker-controlled remote share.
+**Purpose:** This short checklist describes a Windows Search URI (`search-ms:`) pattern that may be abused to make a remote location or attacker-controlled file listing appear in Windows Search. Invoking the URI opens or queries Windows Search; it does not, by itself, execute a file. Code execution depends on later user interaction, the selected file and its handler, system policy, and applicable security updates.
  
-**Function:** The search-ms technique works by crafting a link (often embedded in a phishing email or malicious webpage) that invokes Windows' `search-ms:` URI handler pointed at a remote WebDAV or SMB share, displaying attacker-controlled file listings inside what appears to be a native Windows Search window - the user believes they're opening a local file when they're actually executing a remote payload.
+**Function:** A crafted URI may open Windows Search with a specified query or search scope, potentially including a remote location. This can support user deception or expose a remote file listing. Review the actual URI, resulting search window, remote access prompts, downloaded file, and user action separately. See Microsoft's [Windows Search protocol documentation](https://learn.microsoft.com/en-us/windows/win32/shell/search-protocol).
  
-**Goal:** Test whether email/web filtering and user awareness training actually catch URI-handler-based social engineering, which is meaningfully different from (and often missed by) filters tuned for classic macro-laden attachments or straightforward malicious links. This checklist item specifically targets the gap between "we block .exe attachments" and "we understand every way Windows can be tricked into fetching and running remote content."
+**Goal:** Help defenders assess email/web filtering, URI handling, remote-file policy, and user reporting. A controlled simulation should use a harmless, owner-approved destination and should measure the URI launch and user decision separately from any file handling.
  
-**When & how to use this:** Use during phishing simulation or initial-access-focused red team engagements as one technique in a broader initial access campaign - this is rarely the only vector tested, but it's specifically useful when standard payload delivery methods are already well-detected and you need a technique that doesn't touch disk in the conventional sense. For blue teams, the companion playbook below covers investigating the aftermath once initial access has already occurred.
+**When & how to use this:** Use as a defensive review or a narrowly scoped, harmless awareness simulation. Do not use a remote payload or claim that opening the URI alone establishes code execution. The blue-team companion below covers investigation and evidence preservation.
+
+```mermaid
+flowchart LR
+    A[User receives a link] --> B[search-ms URI opens Windows Search]
+    B --> C[Search UI may show a remote listing]
+    C --> D{User opens a file?}
+    D -- No --> E[No file handler is invoked]
+    D -- Yes --> F[File type policy and security controls apply]
+    F --> G[Review endpoint and network telemetry]
+```
 
 #### 🔵 Blue-team companion (investigating access after the fact): [PlayBooks/unauth_access.md](../PlayBooks/unauth_access.md)
 

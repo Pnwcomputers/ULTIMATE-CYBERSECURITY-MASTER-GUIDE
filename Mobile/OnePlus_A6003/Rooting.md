@@ -149,7 +149,7 @@ Never reuse a patched image from another device or another phone of the "same mo
 - **Settings → About phone** shows LineageOS 22.2 (Android 15).
 - Magisk app shows root granted, no errors.
 - Rebooting into recovery shows TWRP, not Lineage Recovery.
-- Bootloader still shows unlocked (`fastboot flashing get_unlock_ability` or just check the boot warning screen).
+- The bootloader screen explicitly reports **unlocked**. `fastboot flashing get_unlock_ability` reports whether unlocking is allowed; it does not report the device's current lock state.
 
 That's the exact state the NetHunter install guide assumes - you're ready to move on to flashing the `kali-nethunter-2026.2-oneplus6-los-fifteen-full.zip` image.
 

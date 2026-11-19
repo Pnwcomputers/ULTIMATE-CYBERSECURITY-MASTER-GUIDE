@@ -131,31 +131,19 @@ A full mirror list is at: https://blackarch.org/downloads.html#mirror-list
 
 ## 6. Full System Update
 
+Review package changes before confirming a full system upgrade; avoid `--noconfirm` so you can inspect the transaction.
+
 ```bash
-# Standard update
 sudo pacman -Syu
-
-# Accept all prompts automatically (use with care - selects defaults on interactive prompts)
-sudo pacman -Syu --noconfirm
-
-# Overwrite conflicting files (resolves package conflicts)
-sudo pacman -Syu --overwrite '*' --noconfirm
 ```
+
+Do not use a global `--overwrite '*'` or `-Rdd` as a general repair step. `--overwrite` bypasses file-conflict checks, while `-Rdd` disables dependency checks. For a conflict, stop, inspect the exact package/file and transaction, back up affected data, and follow the [pacman manual](https://man.archlinux.org/man/pacman.8) and package-maintainer guidance. Use only the narrowest justified recovery action after understanding its effects.
 
 ---
 
-## 7. Remove Conflicting Packages (Pre-Update)
+## 7. Resolve Package Conflicts
 
-Remove packages that commonly conflict with BlackArch tool installations:
-
-```bash
-sudo pacman -Rdd \
-  jre-openjdk jdk-openjdk jre11-openjdk jdk11-openjdk \
-  jdk17-openjdk jre17-openjdk jre17-openjdk-headless \
-  erlang-nox jre11-openjdk-headless python-gast python-uvicorn
-```
-
-> **Tip:** Only remove packages listed above if you actually have them installed. Run `pacman -Q <pkg>` first to check.
+Do not remove packages preemptively. Identify the specific conflicting file and package with pacman output and database queries, then resolve it using the distribution's documented package transaction and a tested backup/rollback plan.
 
 ---
 
@@ -239,7 +227,7 @@ pacman -Sl blackarch | grep '\[installed\]'
 | `sudo pacman -S <pkg>` | Install a package |
 | `sudo pacman -Syu` | Update all packages |
 | `sudo pacman -Rns <pkg>` | Remove package + config + orphan deps |
-| `sudo pacman -Rdd <pkg>` | Remove package ignoring dependencies |
+| `pacman -Q <pkg>` | Inspect whether a package is installed |
 | `pacman -Q <pkg>` | Check if package is installed |
 | `pacman -Qm` | List packages not in any repo (manually installed) |
 | `pacman -Ss <keyword>` | Search available packages |

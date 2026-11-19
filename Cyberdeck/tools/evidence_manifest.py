@@ -56,6 +56,8 @@ def write_manifest(folder: Path, output: Path) -> dict:
     root = folder.resolve(strict=True)
     if not root.is_dir():
         raise ValueError("Input must be a directory")
+    if output.is_symlink():
+        raise FileExistsError(f"Refusing symlink output: {output}")
     destination = output.resolve(strict=False)
     if destination == root or root in destination.parents:
         raise ValueError("Output must be outside input directory")

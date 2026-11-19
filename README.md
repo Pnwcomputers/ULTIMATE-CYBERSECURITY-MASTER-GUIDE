@@ -315,7 +315,7 @@ Content sourced from PNWC's internal Notion knowledge base and real-world operat
 - **[Python](./Scripts/Python)** - Scripts for network recon, credential analysis, Bluetooth, web, geolocation, exploitation tools
 - **[Bash](./Scripts/Bash)** - System admin, recon, auditing, log analysis utilities (`Scripts/Bash/`)
 - **[C](./Scripts/C)** - Low-level utilities: user enumeration, port scanning, system manipulation
-- **[SQL](./Scripts/SQL)** - WordPress admin injection testing scripts
+- **SQL scripts** - No bundled examples; the unsafe static WordPress account-creation example was retired.
 - **[Go](./Scripts/GO)** - (`Scripts/GO/`)
 
 ### 🎯 Attack Case Studies & Verified Hardware Research:

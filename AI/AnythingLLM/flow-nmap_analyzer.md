@@ -153,7 +153,7 @@ target_info: Production web server - authorized test
 
 ```bash
 # Run Nmap scan
-nmap -sV -sC -p- target.com -oN scan.txt
+nmap -sV -sC -p- AUTHORIZED_LAB_HOST -oN scan.txt
 
 # Use flow
 @agent use NmapAnalyzer flow
@@ -172,11 +172,11 @@ target_info: Client XYZ external infrastructure assessment
 | 21 | FTP | vsftpd 3.0.3 | HIGH | Anonymous login enabled |
 | 80 | HTTP | Apache 2.4.41 | MEDIUM | No HTTPS redirect |
 
-**recommendations** - Actionable guidance:
-- Top priority items
-- Specific exploitation steps
-- Tool recommendations
-- Next testing phases
+**recommendations** - Defensive follow-up:
+- Highest-priority risks and evidence gaps
+- Configuration checks and mitigation guidance
+- Owner-approved validation steps
+- Retest criteria and reporting needs
 
 ---
 
@@ -205,36 +205,39 @@ VulnReportGenerator → Professional finding documentation
 
 ## Nmap Command Reference
 
+> [!CAUTION]
+> The commands below send active probes. `AUTHORIZED_LAB_HOST` and `AUTHORIZED_LAB_CIDR` are inert placeholders, not real targets. Replace them only with an exact host or range in the written engagement scope, after confirming ownership, rate limits and stop conditions. Review what each script does before running it.
+
 ### Recommended Scan Commands
 
 **Quick Service Detection:**
 ```bash
-nmap -sV -p 21,22,23,25,80,443,3306,3389,8080 target.com
+nmap -sV -p 21,22,23,25,80,443,3306,3389,8080 AUTHORIZED_LAB_HOST
 ```
 
 **Comprehensive Scan:**
 ```bash
-nmap -sV -sC -p- target.com -oN scan.txt
+nmap -sV -sC -p- AUTHORIZED_LAB_HOST -oN scan.txt
 ```
 
 **Vulnerability Scan:**
 ```bash
-nmap -sV --script vuln target.com
+nmap -sV --script vuln AUTHORIZED_LAB_HOST
 ```
 
-**Stealth Scan:**
+**SYN Scan (polite timing; not IDS evasion):**
 ```bash
-nmap -sS -sV -T2 target.com
+nmap -sS -sV -T2 AUTHORIZED_LAB_HOST
 ```
 
 **UDP Scan:**
 ```bash
-nmap -sU -sV --top-ports 100 target.com
+nmap -sU -sV --top-ports 100 AUTHORIZED_LAB_HOST
 ```
 
 **OS Detection:**
 ```bash
-nmap -O -sV target.com
+nmap -O -sV AUTHORIZED_LAB_HOST
 ```
 
 ---
@@ -307,16 +310,15 @@ Top 3 Critical Items:
 3. Potential data breach risk
 
 Next Steps:
-- Attempt MySQL connection (test weak passwords)
-- Check for anonymous access
-- Enumerate databases and tables
-- Test for SQL injection if web app present
+- Confirm exposure and service identity using authorized, low-impact evidence.
+- Review authentication, anonymous-access and database exposure settings with the system owner or from approved configuration evidence.
+- For any active validation, use a disposable in-scope lab instance and test-only account with explicit written approval and defined limits; do not guess passwords or enumerate production data.
+- Record remediation and retest criteria.
 
 Required Tools:
-- mysql command-line client
-- hydra for password attacks
-- sqlmap for injection testing
-- Nessus for full vulnerability scan
+- Approved configuration and asset-inventory sources
+- A scanner version and profile approved by the engagement owner
+- A test-only instance/account for separately authorized validation
 ```
 
 ---
@@ -408,13 +410,13 @@ Required Tools:
 **Scan different port ranges:**
 ```bash
 # Quick scan common ports
-nmap -sV -p 21,22,23,25,80,443,3389 target.com -oN quick.txt
+nmap -sV -p 21,22,23,25,80,443,3389 AUTHORIZED_LAB_HOST -oN quick.txt
 
 # Full port scan
-nmap -sV -p- target.com -oN full.txt
+nmap -sV -p- AUTHORIZED_LAB_HOST -oN full.txt
 
 # UDP scan
-nmap -sU --top-ports 100 target.com -oN udp.txt
+nmap -sU --top-ports 100 AUTHORIZED_LAB_HOST -oN udp.txt
 ```
 
 **Analyze all together:**
@@ -432,12 +434,12 @@ target_info: Complete port analysis - all protocols
 
 ```bash
 # Scan entire subnet
-nmap -sV 192.168.1.0/24 -oN subnet-scan.txt
+nmap -sV AUTHORIZED_LAB_CIDR -oN subnet-scan.txt
 
 # Analyze results
 @agent use NmapAnalyzer flow
 scan_results: [paste subnet-scan.txt]
-target_info: Internal network - identify all services across 192.168.1.0/24
+target_info: Authorized lab subnet - assess only the exact in-scope range AUTHORIZED_LAB_CIDR
 ```
 
 ---
@@ -474,7 +476,7 @@ target_info: Internal network - identify all services across 192.168.1.0/24
 
 ```
 1. Initial Scan:
-   nmap -sV -sC -p- target.com -oN initial.txt
+   nmap -sV -sC -p- AUTHORIZED_LAB_HOST -oN initial.txt
 
 2. Analysis:
    @agent use NmapAnalyzer

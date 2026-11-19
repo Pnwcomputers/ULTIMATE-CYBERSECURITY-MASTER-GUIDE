@@ -86,25 +86,22 @@ By submitting a contribution, you confirm:
 
 ### Script Standards (if contributing to `Scripts/`)
 
-Every script must include at the top:
+Every contributed script should begin with a language-appropriate header or documentation comment that states its purpose, usage, requirements, and any authorization or safety limits that apply. For example, a Bash script can use:
 
 ```bash
-# ============================================================
-# Script Name: your_script.sh
-# Description: What it does in one sentence
-# Author: Your name / handle
+# Script: your_script.sh
+# Purpose: What it does in one sentence
 # Usage: ./your_script.sh [options]
-# Requirements: Dependencies needed
-# ⚠️ Authorization required: Must have written permission to run
-# ============================================================
+# Requirements: Required dependencies
+# Scope: Run only against systems you own or are authorized to assess
 ```
 
 Scripts must also:
-- Handle errors explicitly; use `set -euo pipefail` where appropriate for Bash, and compatible error handling for POSIX `sh`
-- Include a `--help` flag
-- Never hardcode IPs, credentials, or targets
-- Include prominent legal warning in the output when run
-- Include evidence of isolated lab tests, or be clearly labeled as an untested/historical example rather than a supported executable
+- Handle errors explicitly, using conventions appropriate to the language (for example, `set -euo pipefail` where appropriate for Bash)
+- Provide a help or usage explanation when the script accepts user options
+- Avoid hardcoded credentials and real targets; use clearly reserved examples or explicit user-supplied scope
+- Show an authorization warning for scripts that perform security testing or network activity
+- Include evidence of isolated lab checks, or be clearly labeled as untested/historical rather than a supported executable
 
 ### Tool Entries
 

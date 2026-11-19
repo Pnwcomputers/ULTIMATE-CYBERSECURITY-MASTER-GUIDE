@@ -183,45 +183,36 @@ Running LLMs locally provides privacy, air-gap capability, and freedom from clou
 
 ### Installing Ollama
 
+Use the current [official Linux download and manual-install guide](https://ollama.com/download/linux)
+or the [upstream Linux documentation](https://github.com/ollama/ollama/blob/main/docs/linux.md).
+The convenience installer is a remote shell script; inspect it and confirm the
+artifact/source before running it with elevated privileges. For macOS, use the
+official download page or Homebrew. After installation, record the selected
+version and verify the local service according to the matching release docs.
+
 ```bash
-# Linux (one-liner)
-curl -fsSL https://ollama.com/install.sh | sh
-
-# macOS via Homebrew
-brew install ollama
-
-# Enable as a service (Linux)
-sudo systemctl enable --now ollama
-
-# Verify
 ollama --version
-curl http://localhost:11434/api/tags
+curl --fail --show-error http://127.0.0.1:11434/api/tags
 ```
 
 ### Model Selection & Download
 
+Model names, tags, quantization and resource requirements change. Choose from the
+[current Ollama model library](https://ollama.com/library), check the model card
+and available system memory, then record the exact tag used.
+
 ```bash
-# Recommended for most use cases
-ollama pull dolphin-mistral          # 7B - balanced, ~4 GB
-
-# Higher quality (needs 32 GB RAM)
-ollama pull dolphin-mixtral          # 47B MoE - best quality
-
-# Fast / lightweight
-ollama pull dolphin-phi              # 2.7B - fast responses
-
-# Code-focused
-ollama pull codellama                # 7B - code generation
-
-# Embedding model (required for RAG/document chat)
-ollama pull nomic-embed-text
+# Replace placeholders with reviewed tags from the official library.
+ollama pull 'model:tag'
+ollama pull 'embedding-model:tag'
 ```
 
 ### Custom Security-Focused Modelfile
 
 ```bash
 cat > CyberDolphin <<'EOF'
-FROM dolphin-mistral
+# Replace this placeholder with an installed tag from the official model library.
+FROM reviewed-model:tag
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.9
@@ -236,24 +227,18 @@ ollama run cyberdolphin
 
 ### AnythingLLM Setup (Web Interface + RAG)
 
-```bash
-# Docker deployment (recommended for servers)
-docker pull mintplexlabs/anythingllm
-
-docker run -d \
-  --name anythingllm \
-  -p 3001:3001 \
-  -v anythingllm_data:/app/server/storage \
-  mintplexlabs/anythingllm
-
-# Access at http://localhost:3001
-```
+Use the current [official Docker deployment guide](https://docs.anythingllm.com/installation-docker/overview)
+for supported storage mounts, runtime options and image tags. Bind the setup
+interface to loopback unless remote access is required, persist application data,
+and review the image version before starting the container. A bare
+`docker run -p 3001:3001` publishes on all host interfaces. Restrict access to
+a trusted interface until authentication and network controls are configured.
 
 **Configure AnythingLLM → Ollama:**
 1. Settings → LLM Preference → Provider: **Ollama**
 2. Base URL: `http://localhost:11434`
-3. Model: select dolphin-mistral
-4. Settings → Embedding → Provider: Ollama → Model: nomic-embed-text
+3. Model: select an installed, reviewed tag shown by `ollama list`.
+4. Settings → Embedding: select a currently supported embedding model and record its tag.
 
 ### Ollama Environment Variables & Hardening
 
@@ -2464,13 +2449,17 @@ Study resources: [ARRL.org](https://www.arrl.org/getting-licensed) · HamStudy.o
 ## Tool Installation by Section
 
 ### AI Tools
-```bash
-# Ollama
-curl -fsSL https://ollama.com/install.sh | sh
-ollama pull dolphin-mistral
 
-# AnythingLLM (Docker)
-docker run -d -p 3001:3001 mintplexlabs/anythingllm
+Use the [official Ollama Linux installation guide](https://ollama.com/download/linux);
+review the convenience installer or use its documented manual-install path.
+For Dockerized AnythingLLM, follow the [official deployment guide](https://docs.anythingllm.com/installation-docker/overview).
+Bind the service to loopback unless remote access is intended, configure persistent
+storage, and choose a reviewed image tag. Avoid exposing the unauthenticated setup
+interface on a public network.
+
+```bash
+# Review the available model catalog before choosing a model.
+ollama list
 
 # AI red team tools
 pip install garak textattack

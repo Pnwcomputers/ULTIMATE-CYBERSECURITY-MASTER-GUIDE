@@ -128,7 +128,7 @@ Every space system consists of three interdependent segments. A compromise of an
          └──────────────┘
 ```
 
-**Key insight from the Viasat KA-SAT attack (2022):** Attackers compromised the ground segment management plane → issued legitimate provisioning commands → deployed the AcidRain wiper to ~50,000 user terminals across Europe. Ground segment access = mass user segment impact.
+**Key insight from the Viasat KA-SAT attack (2022):** A misconfigured VPN gateway provided access to a trusted ground-management segment; attackers used legitimate management commands and AcidRain disrupted tens of thousands of end devices. This demonstrates how compromise of a ground management plane can affect user terminals. [CERT Polska's incident analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) summarizes the reported scope.
 
 ---
 
@@ -138,7 +138,7 @@ Every space system consists of three interdependent segments. A compromise of an
 - **GNSS is everywhere**: financial systems, power grids, cellular networks, aviation, maritime, and autonomous vehicles all depend on GPS/Galileo/GLONASS timing and positioning
 - **Military dependence on commercial SATCOM**: DoD and allied forces rely heavily on commercial satellite communications for operations
 - **Nation-state ASAT programs**: Russia, China, Iran, and North Korea actively develop kinetic and cyber capabilities targeting space systems
-- **Legacy design**: Most operational GEO satellites were designed and launched before modern cybersecurity practices existed; many lack basic command authentication
+- **Mission-specific security**: Some legacy spacecraft may predate current practices, but command authentication and update controls must be assessed from mission-specific evidence rather than inferred from age or orbit
 - **Expanding attack surface**: CubeSats with open-source FSW, COTS components, and publicly documented protocols lower the barrier for security research and adversarial activity
 
 ---
@@ -159,7 +159,7 @@ Every space system consists of three interdependent segments. A compromise of an
 |------|---------|--------|
 | 2007–2008 | NASA/USGS satellite interference (China alleged) | Multiple TT&C intrusions on ground systems |
 | 2018 | Turla (Snake) APT: satellite internet C2 | Covert exfiltration via hijacked satellite links |
-| 2022 | Viasat KA-SAT cyberattack (Sandworm) | ~50,000 VSAT modems bricked across Europe |
+| 2022 | Viasat KA-SAT cyberattack (attributed by the EU to Russia) | Tens of thousands of end devices lost connectivity; see [CERT Polska's analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) |
 | 2022–present | GNSS jamming/spoofing in Ukraine/Eastern Europe | Aviation GPS outages, maritime position errors |
 
 ---

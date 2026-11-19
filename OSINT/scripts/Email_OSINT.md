@@ -68,8 +68,25 @@ INTELX_KEY="${INTELX_KEY:-${INTELX_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
+        while IFS= read -r config_line || [ -n "$config_line" ]; do
+            [[ "$config_line" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Z_][A-Z0-9_]*)=(.*)$ ]] || continue
+            config_name="${BASH_REMATCH[2]}"
+            config_value="${BASH_REMATCH[3]}"
+            case "$config_name" in
+                HIBP_KEY|HAVEIBEENPWNED_API_KEY|haveibeenpwned_api_key|hibp_key|HUNTER_KEY|HUNTER_API_KEY|hunter_api_key|hunter_key|LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key|leaklookup_key|INTELX_KEY|INTELX_API_KEY|intelx_api_key|intelx_key) ;;
+                *) continue ;;
+            esac
+            case "$config_value" in
+                \"*\")
+                    config_value="${config_value:1:${#config_value}-2}"
+                    ;;
+                \'*\')
+                    config_value="${config_value:1:${#config_value}-2}"
+                    ;;
+            esac
+            [[ "$config_value" =~ ^[A-Za-z0-9._-]*$ ]] || continue
+            printf -v "$config_name" '%s' "$config_value"
+        done < "$API_CONFIG"
         HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-${hibp_key:-${haveibeenpwned_api_key:-}}}}"
         HUNTER_KEY="${HUNTER_KEY:-${HUNTER_API_KEY:-${hunter_key:-${hunter_api_key:-}}}}"
         LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_key:-${leaklookup_api_key:-}}}}"
@@ -203,6 +220,64 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
+# Keep IntelX credentials out of curl's process arguments.
+private_intelx_search() {
+    local term="$1" target="$2" payload
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$target" =~ ^[12]$ ]] || return 2
+    payload=$(jq -cn --arg term "$term" --argjson target "$target" \
+        '{term:$term,maxresults:100,media:0,target:$target}') || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        --header "Content-Type: application/json" --data-binary "$payload"
+}
+private_intelx_result() {
+    local search_id="$1" output="$2"
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$search_id" =~ ^[A-Za-z0-9-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search/result?id=$search_id"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$output" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+private_curl_form_json() {
+    local URL="$1" OUTPUT="$2" FORM_DATA="$3"
+    [[ "$URL" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ && "$FORM_DATA" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'data = "%s"\n' "$FORM_DATA"
+    } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$OUTPUT" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
+# Keep HIBP credentials out of curl's process arguments and temporary files.
+private_curl_hibp() {
+    local URL="$1" OUTPUT="$2"
+    [[ "$URL" =~ ^https://haveibeenpwned\.com/api/v3/(breachedaccount|pasteaccount)/[A-Za-z0-9._%+-]+([?]truncateResponse=false)?$ ]] || return 2
+    [[ "$HIBP_KEY" =~ ^[A-Za-z0-9._-]+$ ]] || return 2
+    {
+        printf 'url = "%s"\n' "$URL"
+        printf 'header = "hibp-api-key: %s"\n' "$HIBP_KEY"
+        printf 'header = "user-agent: %s-Framework"\n' "$ORG_TAG"
+    } | curl --config - --silent --show-error --max-time 20 --output "$OUTPUT" --write-out "%{http_code}"
+}
+
+# Keep query credentials out of curl's process arguments. The provider may still
+# retain credentials in its own URL logs, so use these API services only as approved.
+private_curl_json_url() {
+    local url="$1" output="$2"
+    [[ "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]] || return 2
+    { printf 'url = "%s"\\n' "$url"; } | curl --config - --silent --show-error --fail --max-time 20 |
+        pretty_json > "$output" 2>&1
+    local -a statuses=("${PIPESTATUS[@]}")
+    return "${statuses[1]}"
+}
+
 # Start
 print_banner
 check_dependencies
@@ -251,10 +326,9 @@ query_hibp_breaches() {
 
     log "${GREEN}    [*] Checking HaveIBeenPwned for breaches...${NC}"
     
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
-        "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL?truncateResponse=false" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework")
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_hibp "https://haveibeenpwned.com/api/v3/breachedaccount/$EMAIL_ENCODED?truncateResponse=false" "$OUTPUT")
     
     if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         BREACH_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
@@ -287,10 +361,9 @@ query_hibp_pastes() {
 
     log "${GREEN}    [*] Checking HaveIBeenPwned for pastes...${NC}"
     
-    HTTP_CODE=$(curl -s -w "%{http_code}" -o "$OUTPUT" \
-        "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL" \
-        -H "hibp-api-key: $HIBP_KEY" \
-        -H "user-agent: ${ORG_TAG}-Framework")
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    HTTP_CODE=$(private_curl_hibp "https://haveibeenpwned.com/api/v3/pasteaccount/$EMAIL_ENCODED" "$OUTPUT")
     
     if [ "$HTTP_CODE" = "200" ] && [ -s "$OUTPUT" ]; then
         PASTE_COUNT=$(jq '. | length' "$OUTPUT" 2>/dev/null || echo "0")
@@ -314,8 +387,9 @@ query_hunter_verify() {
 
     log "${GREEN}    [*] Verifying email with Hunter.io...${NC}"
     
-    curl -s "https://api.hunter.io/v2/email-verifier?email=$EMAIL&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/email-verifier?email=$EMAIL_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         STATUS=$(jq -r '.data.status // "unknown"' "$OUTPUT" 2>/dev/null)
@@ -339,8 +413,9 @@ query_hunter_domain() {
 
     log "${GREEN}    [*] Searching Hunter.io for related emails on $DOMAIN...${NC}"
     
-    curl -s "https://api.hunter.io/v2/domain-search?domain=$DOMAIN&api_key=$HUNTER_KEY" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local DOMAIN_ENCODED
+    DOMAIN_ENCODED=$(jq -rn --arg value "$DOMAIN" '$value|@uri')
+    private_curl_json_url "https://api.hunter.io/v2/domain-search?domain=$DOMAIN_ENCODED&api_key=$HUNTER_KEY" "$OUTPUT"
     
     if [ -s "$OUTPUT" ]; then
         EMAIL_COUNT=$(jq -r '.meta.results // 0' "$OUTPUT" 2>/dev/null)
@@ -390,9 +465,9 @@ query_leaklookup() {
 
     log "${GREEN}    [*] Checking LeakLookup for credential leaks...${NC}"
     
-    curl -s "https://leak-lookup.com/api/search" \
-        -d "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL" \
-        | pretty_json > "$OUTPUT" 2>&1
+    local EMAIL_ENCODED
+    EMAIL_ENCODED=$(jq -rn --arg value "$EMAIL" '$value|@uri')
+    private_curl_form_json "https://leak-lookup.com/api/search" "$OUTPUT" "key=$LEAKLOOKUP_KEY&type=email_address&query=$EMAIL_ENCODED"
     
     if [ -s "$OUTPUT" ]; then
         ERROR=$(jq -r '.error // "none"' "$OUTPUT" 2>/dev/null)
@@ -418,17 +493,13 @@ query_intelx() {
 
     log "${GREEN}    [*] Searching IntelX...${NC}"
     
-    SEARCH_RESPONSE=$(curl -s "https://2.intelx.io/phonebook/search" \
-        -H "x-key: $INTELX_KEY" \
-        -H "Content-Type: application/json" \
-        -d "{\"term\":\"$EMAIL\",\"maxresults\":100,\"media\":0,\"target\":1}")
+    SEARCH_RESPONSE=$(private_intelx_search "$EMAIL" 1)
     
     SEARCH_ID=$(echo "$SEARCH_RESPONSE" | jq -r '.id // empty' 2>/dev/null)
     
     if [ -n "$SEARCH_ID" ]; then
         sleep 2
-        curl -s "https://2.intelx.io/phonebook/search/result?id=$SEARCH_ID" \
-            -H "x-key: $INTELX_KEY" | pretty_json > "$OUTPUT" 2>&1
+        private_intelx_result "$SEARCH_ID" "$OUTPUT" || log "${YELLOW}[!] IntelX result lookup failed or returned no verified result.${NC}"
         
         if [ -s "$OUTPUT" ]; then
             RESULT_COUNT=$(jq -r '.selectors | length // 0' "$OUTPUT" 2>/dev/null)

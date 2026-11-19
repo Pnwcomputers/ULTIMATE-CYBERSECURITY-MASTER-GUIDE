@@ -191,24 +191,22 @@ Cross-reference the [live-response guide](./Digital-Forensics/LiveData/live_data
 
 ### Building The Lab & Testing
 
-```text
-1. Infrastructure Standup:
-   └─> Choose a SIEM (Wazuh or ELK recommended for beginners).
-   └─> Deploy the centralized log server using the guides in `/SIEM/`.
+Start with an isolated, disposable lab and a documented test plan. Prefer vendor-provided simulators or benign test events that exercise the detection path without opening a shell or touching systems outside the lab.
 
-2. Telemetry Ingestion:
-   └─> Deploy Agents (Sysmon + Winlogbeat, or Wazuh Agent) to your Homelab VMs.
-   └─> Verify logs are indexing correctly in your SIEM dashboard.
-
-3. Attack Simulation (Red -> Blue):
-   └─> Generate noise! Run an attack from your Kali machine against a target VM.
-   └─> Execute a reverse shell, run a port scan, or drop an EICAR file.
-
-4. Threat Hunting & Analysis:
-   └─> Pivot to your SIEM. 
-   └─> Write queries to trace the attack chain (Initial Access -> Execution -> C2).
-   └─> Trigger alerts and follow the corresponding IR Playbook to "respond."
+```mermaid
+flowchart LR
+    A["Isolated test host"] --> B["Approved benign event"]
+    B --> C["Endpoint and network telemetry"]
+    C --> D["SIEM ingestion and detection"]
+    D --> E["Analyst verifies alert and evidence"]
+    E --> F["Restore test host and document gaps"]
 ```
+
+1. **Prepare:** Select an isolated host, confirm scope, and record the expected event, alert, and cleanup steps.
+2. **Ingest:** Install the required endpoint agent and confirm the relevant logs arrive in the SIEM.
+3. **Simulate:** Use a vendor-supported simulator or a harmless, purpose-built test event. Do not use a reverse shell, run an unbounded scan, or introduce malware into a shared environment. Use EICAR only where the product vendor and lab policy explicitly support it.
+4. **Validate:** Check event fields, alert timing, and analyst response; distinguish missing telemetry from a rule that did not match.
+5. **Restore:** Remove test artifacts, return the host to its known-good state, and document the result.
 
 ---
 

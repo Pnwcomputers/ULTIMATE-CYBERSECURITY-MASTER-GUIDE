@@ -84,12 +84,12 @@ These checklists serve as:
 | **[Persistence.md](./Persistence.md)** | System-level persistence mechanisms | Persistence |
 | **[command-and-control.md](./command-and-control.md)** | Command and Control (C2) techniques and channels | C2 |
 
-### Defense Evasion
+### Detection & Application-Control Validation
 
 | Checklist | Description | Focus Area |
 |-----------|-------------|------------|
-| **[Defense-Evasion.md](./Defense-Evasion.md)** | Defense evasion techniques and anti-forensics | Evasion |
-| **[AppLocker.md](./AppLocker.md)** | AppLocker bypass techniques and misconfigurations | Bypass |
+| **[Defense-Evasion.md](./Defense-Evasion.md)** | Process-lineage telemetry and detection validation | Detection |
+| **[AppLocker.md](./AppLocker.md)** | AppLocker policy effectiveness review | Application Control |
 
 ### Application & Infrastructure Security
 
@@ -510,26 +510,26 @@ PROHIBITED:
    🚫 Modifying system security settings
 ```
 
-#### Defense Evasion & Av Bypass
+#### Detection & Application-Control Review
 
 ```
-⚠️ WARNING: Defense Evasion Techniques
+⚠️ WARNING: Active control testing
 
 LEGAL CONSIDERATIONS:
    • Disabling security controls may violate authorization
-   • AMSI/AppLocker bypass requires explicit approval
-   • AV/EDR evasion must be within scope
+   • Active AMSI or application-control simulation requires explicit approval
+   • Any AV/EDR validation must stay within documented scope
    • Creating malware-like tools has legal risks
 
 REQUIRED AUTHORIZATION:
-   ✓ Explicit permission to test evasion techniques
+   ✓ Explicit permission for the selected validation method
    ✓ Approval for security control bypass
    ✓ Agreement on tools and methods
    ✓ Restoration of security controls post-test
 
 PROHIBITED:
    🚫 Disabling security on unauthorized systems
-   🚫 Distributing evasion tools publicly
+   🚫 Publishing operational bypass instructions
    🚫 Using evasion for malicious purposes
    🚫 Leaving systems in insecure state
 ```

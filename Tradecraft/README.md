@@ -34,7 +34,7 @@ The folder-level index for the eight specialized tradecraft guides that compleme
 Lists all eight Tradecraft guides, describes their topics, explains the shared dual-use structure, and links related folders. This index contains navigation and topic labels; use the linked guides for the technical content and [Checklists](../Checklists/) for quick-reference workflows.
 
 ## 🏆 Goal
-A reader can find the right tradecraft file for a given ATT&CK tactic or technique and understands upfront that every file pairs offensive technique with matching detection/defense guidance.
+A reader can find the right tradecraft file for a given ATT&CK tactic or technique and sees whether each reference focuses on defensive analysis or authorized lab assessment.
 
 ## 📋 When To Use
 As the entry point into the Tradecraft/ folder, or when looking up which file covers a specific ATT&CK tactic.
@@ -44,21 +44,34 @@ As the entry point into the Tradecraft/ folder, or when looking up which file co
 | File | Description |
 |---|---|
 | [pentoo-linux-guide.md](./pentoo-linux-guide.md) | Pentoo Linux Live/overlay deployment, Gentoo tool maintenance, authorized network/web/wireless assessments, evidence collection |
-| [c2-frameworks.md](c2-frameworks.md) | Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec, malleable C2, infrastructure, and detection |
+| [c2-frameworks.md](c2-frameworks.md) | Cobalt Strike, Sliver, and Havoc - defensive architecture review, detection engineering, and network/endpoint controls |
 | [lolbins-lolbas.md](lolbins-lolbas.md) | Living off the land - Windows LOLBins for execution, download, lateral movement, persistence, and credential access |
 | [osint-threat-intel.md](osint-threat-intel.md) | OSINT methodology, passive recon, DNS/infra enumeration, people intelligence, threat intel platforms, and operationalization |
 | [network-detection.md](network-detection.md) | Packet capture, Zeek/Suricata analysis, C2 traffic detection, DNS tunneling, lateral movement, and network forensics |
-| [active-directory.md](active-directory.md) | AD enumeration, credential attacks, Kerberos abuse, privilege escalation paths, domain persistence, detection, and hardening |
-| [av-edr-evasion.md](av-edr-evasion.md) | How attackers evade antivirus and endpoint detection/response solutions |
+| [active-directory.md](active-directory.md) | Active Directory attack-path concepts, detection, and hardening; use only in authorized isolated labs |
+| [av-edr-evasion.md](av-edr-evasion.md) | Evasion behavior, telemetry, and defensive response |
 | [evasion.md](evasion.md) | Companion evasion-engineering study notes; use alongside the AV/EDR guide |
 
 ---
 
+### Defensive reading workflow
+
+```mermaid
+flowchart LR
+    Scope[Written authorization and test boundary] --> Topic[Select the relevant Tradecraft reference]
+    Topic --> Behavior[Understand the behavior and expected artifacts]
+    Behavior --> Control[Review prevention and detection controls]
+    Control --> Validate[Use a scoped benign validation in an isolated lab]
+    Validate --> Evidence[Record evidence, uncertainty, and remediation]
+```
+
+Use the technique descriptions to understand behavior; use the detection and hardening sections to guide response. Any active validation needs owner approval, a defined boundary, synthetic or benign fixtures, and a cleanup plan.
+
 ## Usage
 
-These references are structured for **dual-use** - each file covers both offensive technique context and the corresponding detection/defensive guidance. Sections are clearly labeled:
+These references have different scopes. Some explain offensive techniques at a high level for defensive analysis; others focus on detections, controls, and safe validation. Check each file's scope before using it. Sections are clearly labeled where applicable:
 
-- **Attack / technique sections** - Understand how attacks work, what tools are used
+- **Technique context, where present** - Understand reported behaviors and artifacts
 - **Detection & Hunting sections** - Sigma rules, KQL queries, event IDs, behavioral indicators
 - **Defensive sections** - Hardening controls, configuration recommendations, monitoring priorities
 
@@ -108,8 +121,8 @@ ATT&CK is a living knowledge base. Its tactics and technique relationships chang
 ## Related Files
 - [pentoo-linux-guide.md](./pentoo-linux-guide.md) - Gentoo/Pentoo platform setup and field test workflow
 - [active-directory.md](active-directory.md) - AD attacks, Kerberos abuse, BloodHound, persistence
-- [av-edr-evasion.md](av-edr-evasion.md) - AV/EDR evasion: AMSI bypass, process injection, obfuscation
-- [c2-frameworks.md](c2-frameworks.md) - Cobalt Strike, Sliver, Havoc: deployment and detection
+- [av-edr-evasion.md](av-edr-evasion.md) - AV/EDR defense: behavior indicators, detection engineering, and control validation
+- [c2-frameworks.md](c2-frameworks.md) - Cobalt Strike, Sliver, and Havoc: defensive architecture and detection
 - [lolbins-lolbas.md](lolbins-lolbas.md) - LOLBins/LOLBAs: living-off-the-land techniques
 - [network-detection.md](network-detection.md) - Network traffic analysis and threat detection
 - [osint-threat-intel.md](osint-threat-intel.md) - OSINT methodology and threat intelligence platforms

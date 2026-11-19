@@ -386,8 +386,9 @@ curl "https://api.hunter.io/v2/domain-search?domain=target.com&api_key=KEY"
 # Common formats: firstname.lastname@, f.lastname@, firstnamel@, firstname@
 # Tools: EmailHippo, Hunter, Snov.io
  
-# Verify email without sending
-# SMTP verification (verify MX, then RCPT TO without sending)
+# Active SMTP recipient enumeration (this contacts the target mail server and may reveal recipient validity).
+# Use only with explicit owner-approved scope and conservative rate limits.
+# Prefer an authorized directory/API or provider test service where available.
 smtp-user-enum -M RCPT -u firstname.lastname -d target.com -D target.com -t mail.target.com
 ```
  
@@ -760,7 +761,8 @@ wsl --install -d Ubuntu
 pip install shodan           # Shodan CLI
 pip install censys           # Censys CLI
 pip install theHarvester     # theHarvester
-# TruffleHog v3 (Go binary - not available via pip): curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
+# TruffleHog v3: install a pinned release from the official release page; inspect the release and verify its published checksum/signature before use.
+# https://github.com/trufflesecurity/trufflehog/releases
 pip install dnstwist         # Domain typosquatting monitor
 pip install h8mail           # Email breach hunter
 pip install holehe            # Email account checker
@@ -973,12 +975,11 @@ Scans git repositories and other sources for leaked credentials and secrets.
  
 ```powershell
 # Windows install
-# TruffleHog v3 - Go binary, not available via pip. Use installer:
-# curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
-# or download binary from https://github.com/trufflesecurity/trufflehog/releases
+# TruffleHog v3 is a Go binary, not a pip package. Download a pinned official release, inspect it, and verify its published checksum/signature before running.
+# https://github.com/trufflesecurity/trufflehog/releases
  
 # Linux
-curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sh
+# Install a pinned official release after verifying provenance and its published checksum/signature.
  
 # Scan a GitHub org for leaked secrets
 trufflehog github --org=targetorg --only-verified

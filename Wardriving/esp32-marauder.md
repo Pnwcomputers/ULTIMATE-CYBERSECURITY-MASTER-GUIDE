@@ -73,7 +73,9 @@ The [official Direct Upload guide](https://github.com/justcallmekoko/ESP32Maraud
 | `wigle_api_token.txt` | WiGLE API Token |
 | `wdg_key.txt` | WDGWars key, **only if using that service** |
 
-Current documented firmware imports the files on boot and removes them. Never assume this has occurred without checking. Marauder can connect via AP scan + **Join WiFi** / `join` CLI, and upload prior wardrive logs using its own interface. **A Marauder scan does not inherit SigRoam's `home_ssid.txt` + `home_psk.txt` after-STOP setup.** Manual removal of the SD and upload of an explicitly approved CSV is also an option.
+Use a dedicated, revocable WiGLE token and (when applicable) a unique guest/upload-network credential; never place a household or corporate PSK on removable media. Current documented firmware imports the files on boot and removes the source files, but this does not prove secure erasure or remove a token already stored in internal settings. Never assume even logical removal occurred without checking. Marauder can connect via AP scan + **Join WiFi** / `join` CLI, and upload prior wardrive logs using its own interface. **A Marauder scan does not inherit SigRoam's `home_ssid.txt` + `home_psk.txt` after-STOP setup.** Manual removal of the SD and upload of an explicitly approved CSV is also an option.
+
+If a device is lost or retired, revoke its upload token, rotate any dedicated network password, and reset or destroy the storage under your media-handling policy. Keep credentials out of screenshots, shared logs, and repositories.
 
 ## Acceptance tests
 

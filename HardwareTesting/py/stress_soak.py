@@ -36,6 +36,7 @@ import signal
 import subprocess
 import sys
 import threading
+import tempfile
 import time
 
 # ── Duration presets ───────────────────────────────────────────────────────────
@@ -75,7 +76,6 @@ GPU_FPS_DEGRADE_PCT= 25    # % FPS drop from first 3 scenes → GPU throttle fla
 SENSOR_POLL_S      = 5     # seconds between sensor polls
 KERNEL_POLL_S      = 30    # seconds between journalctl polls
 VM_BYTES_PCT       = 60    # % of RAM stress-ng vm workers consume
-FIO_TESTFILE       = "/tmp/soak_testfile.fio"
 FIO_SIZE           = "2G"
 REPORT_DIR         = os.getcwd()   # save reports next to wherever the script is invoked from
 
@@ -103,7 +103,17 @@ def _kill_all():
     with _procs_lock:
         for p in _active_procs:
             try:
-                p.kill()
+                p.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                try:
+                    p.kill()
+                except Exception:
+                    pass
+            except Exception:
+                pass
+        for p in _active_procs:
+            try:
+                p.wait(timeout=3)
             except Exception:
                 pass
 
@@ -202,6 +212,7 @@ class SensorPoller:
         self._pkg_label = ""           # detected label for CPU package sensor
 
         self._sample_count = 0
+        self._last_cpu_sample_monotonic: float | None = None
 
     # ── JSON parsing ──────────────────────────────────────────────────────────
 
@@ -284,6 +295,7 @@ class SensorPoller:
                         self._all.setdefault(label, []).append(val)
                     if self._pkg_label and self._pkg_label in data:
                         self._pkg_temps.append(data[self._pkg_label])
+                        self._last_cpu_sample_monotonic = time.monotonic()
 
             time.sleep(SENSOR_POLL_S)
 
@@ -304,6 +316,14 @@ class SensorPoller:
     def sample_count(self) -> int:
         with self._lock:
             return self._sample_count
+
+    def has_fresh_temperature(self, max_age_s: int = 15) -> bool:
+        with self._lock:
+            return (
+                bool(self._pkg_temps)
+                and self._last_cpu_sample_monotonic is not None
+                and time.monotonic() - self._last_cpu_sample_monotonic <= max_age_s
+            )
 
     def peak_cpu_temp(self) -> float:
         with self._lock:
@@ -437,13 +457,13 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         "start_temp": poller.peak_cpu_temp(),
     }
 
-    cmd    = f"memtester {gb}G {passes}"
+    cmd    = ["memtester", f"{gb}G", str(passes)]
     lines: list[str] = []
     failed_detected   = False
 
     try:
         proc = _register(subprocess.Popen(
-            cmd, shell=True,
+            cmd,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
             text=True, bufsize=1,
         ))
@@ -465,14 +485,31 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         reader = threading.Thread(target=_reader, daemon=True)
         reader.start()
 
-        # Wait with periodic interrupt checks
+        # Stop the RAM test if thermals cross the cutoff or sensor data goes stale.
         while proc.poll() is None and not _interrupted:
+            if not poller.has_fresh_temperature():
+                result["thermal_cutoff"] = True
+                result["thermal_cutoff_message"] = (
+                    "Temperature readings became unavailable; memtester was stopped."
+                )
+                break
+            peak = poller.peak_cpu_temp()
+            if peak >= CPU_TEMP_FAIL:
+                result["thermal_cutoff"] = True
+                result["thermal_cutoff_message"] = (
+                    f"CPU temperature reached {peak:.1f}°C (cutoff {CPU_TEMP_FAIL}°C); "
+                    "memtester was stopped."
+                )
+                break
             time.sleep(2)
 
-        if _interrupted:
+        if _interrupted or result.get("thermal_cutoff"):
             proc.terminate()
-            time.sleep(2)
-            proc.kill()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=3)
         else:
             reader.join(timeout=30)
 
@@ -480,7 +517,7 @@ def run_memtester(gb: int, passes: int, poller: SensorPoller) -> dict:
         result["error"] = str(exc)
         result["ran"]   = False
 
-    result["passed"]      = not failed_detected
+    result["passed"]      = not failed_detected and not result.get("thermal_cutoff", False)
     result["output_tail"] = lines[-20:]
     return result
 
@@ -521,26 +558,44 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
         "gpu_ok":       None,      # None = not tested
         "stress_ng_log": "",
         "fio_iops":     "",
+        "thermal_cutoff": False,
     }
 
+    # A threshold cannot protect the machine if sensors produced no readings.
+    if not poller.has_fresh_temperature():
+        result["thermal_monitor_ok"] = False
+        result["thermal_monitor_message"] = (
+            "No recent CPU temperature sample is available; combined stress was not started."
+        )
+        print(f"  STOP: {result['thermal_monitor_message']}")
+        return result
+    result["thermal_monitor_ok"] = True
+    result["thermal_monitor_message"] = "Temperature monitoring active."
+
+    # tempfile creates a private (mode 0700) directory, preventing other local
+    # users from pre-placing symlinks at the root-run fio target or log paths.
+    fio_tmpdir = tempfile.mkdtemp(prefix="pnwc-stress-soak-", dir="/tmp")
+    os.chmod(fio_tmpdir, 0o700)
+    fio_testfile = os.path.join(fio_tmpdir, "fio-target.bin")
+    fio_log = os.path.join(fio_tmpdir, "fio.log")
+    stress_ng_log = os.path.join(fio_tmpdir, "stress-ng.log")
+
     nproc = int(_run("nproc") or 4)
-    stress_ng_log = "/tmp/stress_ng_soak.log"
 
     # ── Launch stress-ng ─────────────────────────────────────────────────────
     # --cpu N --cpu-method all: cycles all stressor methods (widest instruction coverage)
     # --vm 2 --vm-bytes 60%:   two workers consuming 60% of RAM with bit-flip patterns
     # --metrics-brief:         print per-stressor metrics at end
     # --log-file:              redirect metrics to file (avoids polluting stdout)
-    stress_cmd = (
-        f"stress-ng "
-        f"--cpu {nproc} --cpu-method all "
-        f"--vm 2 --vm-bytes {VM_BYTES_PCT}% --vm-method all "
-        f"--metrics-brief --log-file {stress_ng_log} "
-        f"--timeout {stress_s}"
-    )
+    stress_cmd = [
+        "stress-ng", "--cpu", str(nproc), "--cpu-method", "all",
+        "--vm", "2", "--vm-bytes", f"{VM_BYTES_PCT}%", "--vm-method", "all",
+        "--metrics-brief", "--log-file", stress_ng_log,
+        "--timeout", str(stress_s),
+    ]
     try:
         stress_proc = _register(subprocess.Popen(
-            stress_cmd, shell=True,
+            stress_cmd,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         ))
     except Exception as exc:
@@ -550,16 +605,15 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     # ── Launch fio ───────────────────────────────────────────────────────────
     # --time_based --runtime N: run for exactly stress_s regardless of size
     # --rw=randrw:              mixed random read/write — most stressful for storage
-    fio_log = "/tmp/fio_soak.log"
-    fio_cmd = (
-        f"fio --name=soak --ioengine=libaio --iodepth=32 "
-        f"--rw=randrw --bs=4k --direct=1 --size={FIO_SIZE} --numjobs=2 "
-        f"--runtime={stress_s} --time_based --group_reporting "
-        f"--output={fio_log} --filename={FIO_TESTFILE}"
-    )
+    fio_cmd = [
+        "fio", "--name=soak", "--ioengine=libaio", "--iodepth=32",
+        "--rw=randrw", "--bs=4k", "--direct=1", f"--size={FIO_SIZE}",
+        "--numjobs=2", f"--runtime={stress_s}", "--time_based",
+        "--group_reporting", f"--output={fio_log}", f"--filename={fio_testfile}",
+    ]
     try:
         fio_proc = _register(subprocess.Popen(
-            fio_cmd, shell=True,
+            fio_cmd,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         ))
     except Exception as exc:
@@ -573,10 +627,10 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
 
     if glmark2_bin:
         result["gpu_ok"] = True   # assume pass until FPS drop detected
-        gpu_cmd = f"{glmark2_bin} -s 1920x1080 --run-forever"
+        gpu_cmd = [glmark2_bin, "-s", "1920x1080", "--run-forever"]
         try:
             gpu_proc = _register(subprocess.Popen(
-                gpu_cmd, shell=True,
+                gpu_cmd,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 text=True, bufsize=1,
             ))
@@ -599,6 +653,22 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     while time.time() < deadline and not _interrupted:
         elapsed = int(time.time() - start)
         pkg_t   = poller.peak_cpu_temp()
+        if not poller.has_fresh_temperature():
+            result["thermal_cutoff"] = True
+            result["thermal_monitor_ok"] = False
+            result["thermal_monitor_message"] = (
+                "Temperature readings became unavailable; all stress workloads were stopped."
+            )
+            print(f"\n  STOP: {result['thermal_monitor_message']}")
+            break
+        if pkg_t >= CPU_TEMP_FAIL:
+            result["thermal_cutoff"] = True
+            result["thermal_monitor_message"] = (
+                f"CPU temperature reached {pkg_t:.1f}°C (cutoff {CPU_TEMP_FAIL}°C); "
+                "all stress workloads were stopped."
+            )
+            print(f"\n  STOP: {result['thermal_monitor_message']}")
+            break
         throt   = watcher.throttle_count()
         hw_err  = watcher.hw_error_count()
 
@@ -613,17 +683,26 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     print()   # newline after progress bar
 
     # ── Graceful shutdown ─────────────────────────────────────────────────────
-    for proc in filter(None, [stress_proc, fio_proc, gpu_proc]):
+    active = list(filter(None, [stress_proc, fio_proc, gpu_proc]))
+    for proc in active:
         try:
             proc.terminate()
         except Exception:
             pass
 
-    time.sleep(3)
-
-    for proc in filter(None, [stress_proc, fio_proc, gpu_proc]):
+    for proc in active:
         try:
-            proc.kill()
+            proc.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            try:
+                proc.kill()
+            except Exception:
+                pass
+        except Exception:
+            pass
+    for proc in active:
+        try:
+            proc.wait(timeout=3)
         except Exception:
             pass
 
@@ -633,13 +712,21 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
     )
 
     result["fio_ok"] = fio_proc is not None
-    fio_out = _run(f"cat {fio_log} 2>/dev/null", timeout=5)
+    try:
+        with open(fio_log, "r", encoding="utf-8", errors="replace") as stream:
+            fio_out = stream.read()
+    except OSError:
+        fio_out = ""
     result["fio_iops"] = "\n".join(
         l.strip() for l in fio_out.splitlines()
         if "IOPS=" in l or "bw=" in l or "err=" in l
     )
 
-    stress_out = _run(f"cat {stress_ng_log} 2>/dev/null", timeout=5)
+    try:
+        with open(stress_ng_log, "r", encoding="utf-8", errors="replace") as stream:
+            stress_out = stream.read()
+    except OSError:
+        stress_out = ""
     result["stress_ng_log"] = stress_out[:3000]
 
     # ── Parse GPU FPS for degradation ────────────────────────────────────────
@@ -658,12 +745,9 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
             else:
                 result["gpu_degrade_pct"] = drop_pct
 
-    # Cleanup fio testfile
-    for f in [FIO_TESTFILE, f"{FIO_TESTFILE}.0", f"{FIO_TESTFILE}.1"]:
-        try:
-            os.remove(f)
-        except FileNotFoundError:
-            pass
+    # Remove the private directory only after every workload has been stopped
+    # and its output has been collected.
+    shutil.rmtree(fio_tmpdir, ignore_errors=True)
 
     return result
 
@@ -724,6 +808,11 @@ def write_report(
         f"Peak {peak_t:.1f}°C EXCEEDED {CPU_TEMP_FAIL}°C — cooler issue"
     )
     checks.append(("CPU Temperature", temp_pass, temp_detail))
+    checks.append((
+        "Thermal monitor",
+        bool(stress_result.get("thermal_monitor_ok", True)),
+        stress_result.get("thermal_monitor_message", "No combined-stress thermal status recorded."),
+    ))
 
     # CPU temp warning (non-fatal)
     if peak_t >= CPU_TEMP_WARN and peak_t < CPU_TEMP_FAIL:
@@ -1014,20 +1103,44 @@ def main():
     stress_result = {}
 
     try:
-        # Phase 1 — RAM validation
-        mt_result = run_memtester(mode_cfg["mt_gb"], mode_cfg["mt_passes"], poller)
+        # Wait briefly for a usable CPU sensor sample. Continuing without one
+        # would make the runtime cutoff ineffective.
+        sample_deadline = time.monotonic() + 2 * SENSOR_POLL_S
+        while not poller.has_fresh_temperature() and time.monotonic() < sample_deadline:
+            time.sleep(1)
 
-        if _interrupted:
-            raise KeyboardInterrupt
+        if not poller.has_fresh_temperature():
+            mt_result = {
+                "ran": False, "passed": False, "failed_lines": [],
+                "output_tail": [], "error": "No recent CPU temperature sample is available.",
+            }
+            stress_result = {
+                "thermal_monitor_ok": False,
+                "thermal_monitor_message": "No recent CPU temperature sample; tests were not started.",
+            }
+        else:
+            # Phase 1 — RAM validation
+            mt_result = run_memtester(mode_cfg["mt_gb"], mode_cfg["mt_passes"], poller)
 
-        # Phase 2 — Combined stress
-        stress_result = run_combined_stress(mode_cfg["stress_s"], poller, watcher)
+            if _interrupted:
+                raise KeyboardInterrupt
 
-        if _interrupted:
-            raise KeyboardInterrupt
+            if mt_result.get("thermal_cutoff"):
+                stress_result = {
+                    "thermal_monitor_ok": poller.has_fresh_temperature(),
+                    "thermal_cutoff": True,
+                    "thermal_monitor_message": mt_result["thermal_cutoff_message"],
+                }
+            else:
+                # Phase 2 — Combined stress
+                stress_result = run_combined_stress(mode_cfg["stress_s"], poller, watcher)
 
-        # Phase 3 — Cooldown
-        run_cooldown(mode_cfg["cooldown_s"], poller)
+                if _interrupted:
+                    raise KeyboardInterrupt
+
+                if not stress_result.get("thermal_cutoff"):
+                    # Phase 3 — Cooldown
+                    run_cooldown(mode_cfg["cooldown_s"], poller)
 
     except KeyboardInterrupt:
         pass

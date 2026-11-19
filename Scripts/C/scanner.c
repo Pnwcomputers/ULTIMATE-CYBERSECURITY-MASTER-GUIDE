@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <limits.h>
+#include <net/if.h>
 #include <signal.h>
 
 #define MAX_IPS 4096
@@ -31,7 +32,7 @@ struct ip_entry {
 };
 
 static int sanitize_iface(const char *s) {
-    if (!s || !*s) return 0;
+    if (!s || !*s || s[0] == '-' || strlen(s) >= IFNAMSIZ) return 0;
     for (; *s; ++s) {
         if (!(isalnum((unsigned char)*s) || *s == '_' || *s == '-' || *s == '.')) return 0;
     }
@@ -155,16 +156,31 @@ static int run_bettercap_and_collect(const char *iface, const char *caplet_path,
 
     fclose(rf);
     int status = 0;
-    waitpid(pid, &status, 0);
-    if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-        fprintf(stderr, "bettercap exited with code %d\n", WEXITSTATUS(status));
+    if (waitpid(pid, &status, 0) == -1) {
+        perror("waitpid(bettercap)");
+        return -1;
+    }
+    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+        if (WIFEXITED(status))
+            fprintf(stderr, "bettercap exited with code %d\n", WEXITSTATUS(status));
+        else
+            fprintf(stderr, "bettercap ended unexpectedly\n");
+        return -1;
+    }
     return 0;
 }
 
 static int write_hosts_file(const char *path, struct ip_entry *entries, int entry_count) {
-    FILE *f = fopen(path, "w");
+    int fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0600);
+    if (fd == -1) {
+        perror("create hosts (will not overwrite existing file)");
+        return -1;
+    }
+    FILE *f = fdopen(fd, "w");
     if (!f) {
-        perror("fopen hosts");
+        perror("fdopen hosts");
+        close(fd);
+        unlink(path);
         return -1;
     }
     for (int i = 0; i < entry_count; ++i) {
@@ -290,18 +306,30 @@ static int run_nmap_and_update(const char *argv0, char *const argv[], struct ip_
 
     fclose(rf);
     int status = 0;
-    waitpid(pid, &status, 0);
-    if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
-        fprintf(stderr, "nmap exited with code %d\n", WEXITSTATUS(status));
+    if (waitpid(pid, &status, 0) == -1) {
+        perror("waitpid(nmap)");
+        return -1;
+    }
+    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+        if (WIFEXITED(status))
+            fprintf(stderr, "nmap exited with code %d\n", WEXITSTATUS(status));
+        else
+            fprintf(stderr, "nmap ended unexpectedly\n");
+        return -1;
     }
     return 0;
 }
 
 static char *write_gray_hosts_file(struct ip_entry *entries, int entry_count) {
-    char path[PATH_MAX];
-    snprintf(path, sizeof(path), "/tmp/gray_hosts_%d.txt", (int)getpid());
-    FILE *f = fopen(path, "w");
-    if (!f) return NULL;
+    char path[] = "/tmp/gray_hosts_XXXXXX";
+    int fd = mkstemp(path);
+    if (fd == -1) return NULL;
+    FILE *f = fdopen(fd, "w");
+    if (!f) {
+        close(fd);
+        unlink(path);
+        return NULL;
+    }
     int any = 0;
     for (int i = 0; i < entry_count; ++i) {
         if (entries[i].cls == CLS_GRAY || entries[i].cls == CLS_UNKNOWN) {
@@ -318,9 +346,16 @@ static char *write_gray_hosts_file(struct ip_entry *entries, int entry_count) {
 }
 
 static int write_scanned_summary(const char *path, struct ip_entry *entries, int entry_count) {
-    FILE *f = fopen(path, "w");
+    int fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0600);
+    if (fd == -1) {
+        perror("create scanned.txt (will not overwrite existing file)");
+        return -1;
+    }
+    FILE *f = fdopen(fd, "w");
     if (!f) {
-        perror("fopen scanned.txt");
+        perror("fdopen scanned.txt");
+        close(fd);
+        unlink(path);
         return -1;
     }
     for (int i = 0; i < entry_count; ++i) {
@@ -373,8 +408,14 @@ int main(int argc, char **argv) {
             return 0;
         } else if (strcmp(argv[ai], "-t") == 0) {
             if (ai + 1 >= argc) { fprintf(stderr, "-t requires an argument\n"); return 1; }
-            scan_seconds = atoi(argv[++ai]);
-            if (scan_seconds <= 0) scan_seconds = 8;
+            char *end = NULL;
+            errno = 0;
+            long parsed = strtol(argv[++ai], &end, 10);
+            if (errno != 0 || end == argv[ai] || *end != '\0' || parsed < 1 || parsed > 60) {
+                fprintf(stderr, "-t must be an integer from 1 to 60 seconds\n");
+                return 1;
+            }
+            scan_seconds = (int)parsed;
         } else {
             fprintf(stderr, "Unknown arg: %s\n", argv[ai]);
             print_usage(argv[0]);

@@ -1,18 +1,18 @@
 # GitHubSecrets AgentFlow
 
 ## 🎯 Purpose
-AnythingLLM AgentFlow for discovering accidentally exposed credentials, API keys, and sensitive information in public GitHub repositories related to a target domain or company.
+AnythingLLM AgentFlow for reviewing **pre-redacted secret-scanning alerts** from repositories an organization owns or is explicitly authorized to assess. The flow reports exposure metadata for owner remediation; it must never ingest or reproduce a credential value.
 
 ## ⚙️ Function
-Orchestrates GitHub search queries via AnythingLLM agent to find: hardcoded API keys, secrets, passwords, tokens, and private keys committed to public repos - using dork-style search patterns targeting the specified organization or domain.
+Uses owner-approved secret-scanning alert metadata. Raw public code, commit content, and credential values stay in the scanner's authorized environment and never enter the LLM context.
 
 ## 🏆 Goal
-Rapidly identify credential exposure in public code during authorized OSINT and attack surface assessment phases - a common high-value finding that bypasses traditional network defenses.
+Review possible credential exposure in authorized repositories and provide redacted remediation metadata to the owner.
 
 ## 📋 When to Use
 - OSINT phase of an authorized engagement: checking target's GitHub for exposed secrets
 - Threat intelligence: monitoring for your own organization's accidental credential exposure
-- Red team pre-engagement reconnaissance to find valid credentials before active testing
+- Authorized assessment to identify possible secret exposure for the repository owner; never use or validate a discovered credential without separately documented authorization
 
 ## Flow Information
 
@@ -20,62 +20,53 @@ Rapidly identify credential exposure in public code during authorized OSINT and 
 
 **Description:**
 ```
-Searches GitHub for accidentally exposed credentials, API keys, and sensitive 
-information related to target domain or company.
+Summarizes pre-redacted secret-scanning alerts for an authorized organization. The flow never receives or returns credential values.
 ```
 
-**Purpose:** Discover exposed secrets in public code repositories
+**Purpose:** Summarize redacted alerts from approved repository scans
 
 ---
 
 ## Flow Variables
 
-Define these variables in the "Flow Variables" section:
+Define these variables in the "Flow Variables" section. Populate the result variables only with **redacted scanner metadata**, never raw code, source snippets, secret values, private keys, passwords or full tokens:
 
 | Variable Name | Initial Value | Description |
 |---------------|---------------|-------------|
 | `target_domain` | (empty) | Target domain or company name |
-| `github_search_results` | (empty) | GitHub code search results |
-| `commit_data` | (empty) | Commit history search results |
-| `secret_findings` | (empty) | Identified secrets and credentials |
+| `github_search_results` | (empty) | Pre-redacted alert metadata: type, repository, path, line, commit and scanner alert ID |
+| `commit_data` | (empty) | Pre-redacted historical alert metadata; no source lines or values |
+| `secret_findings` | (empty) | Redacted findings only; no credential values |
 | `risk_assessment` | (empty) | Risk analysis and recommendations |
 
 ---
 
 ## Flow Blocks
 
-### Block 1: Web Scraping - GitHub Code Search
+> [!CAUTION]
+> **Never pass raw secret-scanner output, code lines, private keys, passwords or tokens to the LLM.** Use a trusted scanner and redact locally before populating flow variables. If redaction cannot be verified, stop and keep the result out of the flow. Restrict this process to repositories owned by the organization or explicitly in the written assessment scope.
 
-**Block Type:** Web Scraping
 
-**Configuration:**
-- **URL:** `https://github.com/search?q=${target_domain}+password+OR+api_key+OR+secret&type=code`
-- **Capture Page Content As:** Text content only
-- **Content Summarization:** Enabled (recommended)
-- **Result Variable:** `github_search_results`
+### Block 1: Authorized Repository Scope and Secret Scan
 
-**Purpose:** Search public code for exposed credentials
+**Block Type:** Owner-approved secret-scanning input
 
-**Search Pattern Explanation:**
-- `${target_domain}` - Target organization
-- `password OR api_key OR secret` - Common credential keywords
-- `type=code` - Search in code files
+1. Confirm that each repository is owned by the organization or listed in the signed assessment scope.
+2. Use GitHub secret-scanning alerts or an approved scanner to inspect current files and reachable history.
+3. Configure local preprocessing to remove every secret value and source-code excerpt before any result enters AnythingLLM.
+4. Populate `github_search_results` with alert ID, repository URL, file path, line, commit and detected secret type only.
+
+**Do not scrape raw code search results into the agent context.** Code-search snippets and commit pages can contain active credentials. Verify that the source can produce redacted metadata before continuing.
 
 ---
 
-### Block 2: Web Scraping - GitHub Commit History
+### Block 2: Historical Exposure Metadata
 
-**Block Type:** Web Scraping
+**Block Type:** Owner-approved scanner output
 
-**Configuration:**
-- **URL:** `https://github.com/search?q=${target_domain}+remove+password+OR+remove+key&type=commits`
-- **Capture Page Content As:** Text content only
-- **Content Summarization:** Enabled
-- **Result Variable:** `commit_data`
+Review scanner alerts for current and historical commits. Populate `commit_data` with redacted metadata only: finding ID, repository, path, line, commit identifier, exposure date if known, and secret category. Do not include the matched string, a prefix/suffix, a private key, or a source excerpt.
 
-**Purpose:** Find credentials in deleted/removed commits
-
-**Note:** Developers often commit secrets then try to remove them - but they remain in git history
+Ordinary deletion in a later commit does not remove earlier reachable history. A coordinated history rewrite may remove data from repository refs, but existing clones, forks, caches and other copies can retain it. Revoke or rotate the exposed credential regardless of history cleanup.
 
 ---
 
@@ -85,73 +76,26 @@ Define these variables in the "Flow Variables" section:
 
 **Instruction:**
 ```
-Analyze GitHub search results for ${target_domain}:
+Analyze only these pre-redacted findings for the authorized organization ${target_domain}:
 
-Code Search Results: ${github_search_results}
-Commit History: ${commit_data}
+Scanner alert metadata: ${github_search_results}
+Historical exposure metadata: ${commit_data}
 
-Identify and categorize exposed secrets:
+Do not infer or reproduce secret values. Return only finding ID, repository, path, line/commit, detected secret category, scanner confidence, and owner remediation status. Do not include usernames or unrelated personal data unless specifically required by the engagement.
 
-## Credentials Found
+## Secret Categories
 
-### 1. Passwords and Authentication
-- Plain text passwords
-- Hashed passwords (note algorithm)
-- Default/hardcoded credentials
-- SSH private keys
-- PGP private keys
-
-### 2. API Keys and Tokens
-- AWS Access Keys (AKIA...)
-- Google API keys
-- GitHub Personal Access Tokens
-- Slack tokens
-- Stripe API keys
-- OAuth tokens
-- JWT secrets
-
-### 3. Database Credentials
-- Database connection strings
-- MySQL/PostgreSQL credentials
-- MongoDB URIs
-- Redis passwords
-- Database hostnames and ports
-
-### 4. Cloud Provider Credentials
-- AWS credentials (access key + secret)
-- Azure connection strings
-- Google Cloud service account keys
-- DigitalOcean tokens
-- Heroku API keys
-
-### 5. Third-Party Service Keys
-- SendGrid API keys
-- Twilio credentials
-- PayPal API credentials
-- Mailgun keys
-- Analytics tracking IDs
-
-### 6. Internal Information
-- Internal IP addresses
-- Internal hostnames/URLs
-- VPN configurations
-- Network diagrams
-- Architecture details
-
-### 7. Configuration Files
-- .env files with secrets
-- config.json with credentials
-- docker-compose with passwords
-- Kubernetes secrets
-- Ansible vault passwords
+Use only scanner-provided categories, such as cloud key, API token, password, private key, database credential, certificate, or sensitive configuration. A pattern match is not proof that a secret is active. Do not test, authenticate with, decode, or attempt to validate a finding.
 
 ## Risk Classification
 
-For each finding, assign:
-- **CRITICAL:** Active production credentials with high privilege
-- **HIGH:** Valid credentials with significant access
-- **MEDIUM:** Expired/limited credentials or internal info
-- **LOW:** Test/development credentials or public info
+The scanner pattern does not establish that a credential is valid or active. Base severity on owner-confirmed status, scope and exposure evidence:
+- **CRITICAL:** Owner-confirmed active credential with high privilege or broad production access
+- **HIGH:** Credible exposure with material potential access; validity or privileges remain unconfirmed
+- **MEDIUM:** Limited-scope, expired or test credential confirmed by the owner, or sensitive internal metadata
+- **LOW:** Confirmed non-secret example or low-impact metadata
+
+Use **unconfirmed** when validity is unknown; do not test a credential by signing in.
 
 ## Evidence
 
@@ -161,14 +105,14 @@ For each high-risk finding:
 - Line number
 - Commit hash
 - Date committed
-- Committer username
+- Owner-approved incident reference, if needed for follow-up
 
 Flag CRITICAL and HIGH findings immediately for urgent action.
 ```
 
 **Result Variable:** `secret_findings`
 
-**Purpose:** Extract and classify exposed secrets
+**Purpose:** Classify redacted exposure metadata
 
 ---
 
@@ -182,7 +126,7 @@ Assess security risk of exposed secrets for ${target_domain}:
 
 Findings: ${secret_findings}
 
-Provide comprehensive risk assessment:
+Provide a concise assessment using the redacted findings only. Do not request, recover, include, or validate credential values:
 
 ## Executive Summary
 - Total secrets found: [number]
@@ -193,11 +137,11 @@ Provide comprehensive risk assessment:
 ## Critical Findings Requiring Immediate Action
 
 For each CRITICAL finding:
-1. **Type of secret** (AWS key, database password, etc.)
-2. **Location** (repository, file, line)
-3. **Exposure duration** (date first committed)
-4. **Potential impact** (what attacker could access)
-5. **Immediate remediation** (rotate key, revoke token, etc.)
+1. **Detected category** reported by the scanner (do not print the value or partial value)
+2. **Location** (repository, file, line and commit)
+3. **Exposure window** if supported by history evidence
+4. **Potential impact** as a qualified hypothesis, not a claim of successful use
+5. **Owner action** (revoke/rotate through the authorized secret owner and review access logs)
 
 ## Impact Analysis
 
@@ -222,11 +166,11 @@ Describe potential consequences:
 ## Remediation Steps
 
 For exposed credentials:
-1. **Immediately rotate/revoke** all exposed credentials
-2. **Audit access logs** for unauthorized use
-3. **Remove secrets** from repository history using git-filter-branch or BFG
-4. **Scan for compromise** - check if credentials were used
-5. **Implement secrets management** (AWS Secrets Manager, HashiCorp Vault)
+1. **Revoke or rotate** confirmed exposed credentials through the authorized owner; do this even if repository history is later rewritten.
+2. **Review access logs** for possible unauthorized use through the credential owner’s incident process.
+3. If history cleanup is approved, use a coordinated `git-filter-repo` rewrite and follow GitHub’s sensitive-data-removal guidance; coordinate collaborators and note that clones, forks, caches and other copies may still contain the data.
+4. **Scan for compromise** using authorized provider logs; do not test credentials by logging in.
+5. **Adopt secret management** and push protection appropriate to the repository.
 
 For exposed internal information:
 1. **Assess sensitivity** of exposed information
@@ -272,22 +216,24 @@ Format as professional security incident report.
 
 ### Basic Usage
 
+Use only an organization-owned or explicitly authorized repository scope. `owned-example.invalid` is a documentation placeholder and does not resolve to a live organization.
+
 ```
 @agent use GitHubSecrets flow
-target_domain: acme.com
+target_domain: owned-example.invalid
 ```
 
 ### Company Name Search
 
 ```
 @agent use GitHubSecrets flow
-target_domain: Acme Corporation
+target_domain: Owned Example Organization
 ```
 
 ### Expected Output
 
 The flow will return `risk_assessment` containing:
-- Complete list of exposed secrets
+- Redacted finding IDs, secret categories and repository locations; never secret values
 - Risk classification for each finding
 - Impact analysis
 - Prioritized remediation steps
@@ -314,34 +260,10 @@ The flow will return `risk_assessment` containing:
 
 ---
 
-## Advanced Search Patterns
+## Approved Scanner Metadata Filters
 
-### Alternative Block 1 URLs for Specific Secrets:
+Configure the organization-approved scanner to look for its supported categories (cloud keys, service tokens, private keys, database credentials and sensitive configuration) **only in the authorized repository scope**. Review findings in the scanner interface and export metadata only: alert ID, category, repository, path, line, commit and status. Keep matched values and source excerpts in the restricted scanner environment; do not paste code-search URLs, snippets or raw output into AnythingLLM.
 
-**AWS Credentials:**
-```
-https://github.com/search?q=${target_domain}+AKIA&type=code
-```
-
-**Private Keys:**
-```
-https://github.com/search?q=${target_domain}+BEGIN+RSA+PRIVATE+KEY&type=code
-```
-
-**Database Passwords:**
-```
-https://github.com/search?q=${target_domain}+filename:.env+password&type=code
-```
-
-**API Keys:**
-```
-https://github.com/search?q=${target_domain}+api_key+OR+apikey+OR+api-key&type=code
-```
-
-**Configuration Files:**
-```
-https://github.com/search?q=${target_domain}+filename:config.json+OR+filename:.env&type=code
-```
 
 ---
 
@@ -349,16 +271,16 @@ https://github.com/search?q=${target_domain}+filename:config.json+OR+filename:.e
 
 ### Legal and Ethical
 
-- ⚠️ **Public Data Only** - GitHub public repositories are fair game
-- **Responsible Disclosure** - Report findings to target organization
-- **No Exploitation** - Do not use discovered credentials without authorization
-- **Document Everything** - Keep evidence of findings
-- **Client Notification** - Inform client immediately of critical findings
+- **Authorization** - Public accessibility does not itself authorize credential testing, use, or unrestricted processing; limit work to repositories owned by the organization or explicitly listed in scope
+- **Responsible Handling** - Follow the owner's approved security-reporting channel and data-handling policy
+- **No Credential Use** - Never authenticate with a discovered value; notify the authorized owner so it can be revoked or rotated
+- **Minimize Evidence** - Keep only redacted alert metadata in the report; store raw scanner evidence only in approved restricted storage
+- **Client Notification** - Use the engagement's incident escalation path for urgent findings
 
 ### Technical Considerations
 
 - **Rate Limiting** - GitHub limits search queries
-- **Authentication** - GitHub API provides better results (requires token)
+- **Authentication** - Use the organization's approved integration with least-privilege access; never place a GitHub token in prompts, URLs, screenshots or flow output
 - **False Positives** - Test/demo credentials may appear
 - **Repository Forks** - Same secrets may appear in multiple forks
 - **Content Size** - Search results can be extensive
@@ -375,86 +297,41 @@ https://github.com/search?q=${target_domain}+filename:config.json+OR+filename:.e
 
 ## Optimization Tips
 
-### For Better Results:
+### Safer, Higher-Quality Results
 
-1. **Use GitHub API (Advanced):**
-   ```
-   Block Type: API Call
-   Method: GET
-   URL: https://api.github.com/search/code?q=${target_domain}+password
-   Headers: {"Authorization": "token YOUR_GITHUB_TOKEN"}
-   ```
+1. **Set scope first:** enumerate only repositories owned by the organization or named in the written assessment scope. A discovered repository or related domain is not automatically in scope.
+2. **Use a maintained scanner:** configure an organization-approved secret scanner for current files and reachable history. Use supported authenticated integrations with least privilege; keep access tokens in the scanner's secret store, never in a prompt or URL.
+3. **Redact before analysis:** reduce results to alert ID, secret category, repository, path, line, commit and status before AnythingLLM receives them. Do not include code snippets, matched values, partial values or private keys.
+4. **Prioritize with evidence:** use scanner confidence and owner-confirmed status; a pattern match alone does not establish validity or impact.
+5. **Review history carefully:** ordinary file deletion leaves prior commits reachable. An approved `git-filter-repo` rewrite can remove content from repository refs, but requires coordination and does not erase existing clones, forks, caches or other copies.
 
-2. **Search Multiple Patterns:**
-   - Run flow multiple times with different keywords
-   - password, secret, api_key, token, credentials
-
-3. **Check Organization Repositories:**
-   - `https://github.com/orgs/${target_domain}/repositories`
-   - Focus on organization's official repos
-
-4. **Review Recent Commits:**
-   - Prioritize recent commits (more likely to be active)
-   - Check commit dates in findings
-
-### For Better Analysis:
-
-1. **Validate Findings:**
-   - Check if credentials are still active
-   - Test database connections (with authorization)
-   - Verify API keys work
-
-2. **Check Git History:**
-   - Secrets may be removed from HEAD but remain in history
-   - Use `git log` to find when secret was added
-
-3. **Automated Tools:**
-   - TruffleHog - Deep git history scanning
-   - GitLeaks - Pattern-based secret detection
-   - git-secrets - Pre-commit hook
-
----
-
-## Troubleshooting
+### Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| No results found | Domain may not have public repos; try company name |
-| Too many results | Narrow search with specific keywords |
-| Rate limit exceeded | Wait or use GitHub API with authentication |
-| False positives | Filter test repos in LLM analysis |
-| Can't access repos | Repo may be private; only public repos searchable |
-| Generic findings | Add more specific domain terms to search |
+| No results found | A clean scan is not proof of no exposure; confirm scanner coverage, repository scope, enabled rules and skipped files. |
+| Too many results | Narrow the authorized repository scope and review scanner confidence; keep raw findings outside the LLM. |
+| Rate limit exceeded | Follow provider limits or use the organization-approved least-privilege integration; keep its token in a secret store. |
+| False positives | Ask the repository owner to verify status in the scanner/provider console; do not paste raw values into the model. |
+| Can't access repositories | Confirm the repository is within scope and that the approved service identity has the required read permissions. |
+| Generic findings | Review redacted scanner category and path metadata; do not add raw source snippets to prompts. |
 
 ---
 
 ## Post-Flow Actions
 
-**After discovering secrets:**
+**After identifying a possible exposure:**
 
-1. **Immediate Actions:**
-   - Document all findings with screenshots
-   - Notify client immediately of critical findings
-   - Recommend emergency credential rotation
-
-2. **Verification:**
-   - Test if credentials are still active (with authorization)
-   - Check access logs for unauthorized use
-   - Determine blast radius
-
-3. **Remediation:**
-   - Help client rotate exposed credentials
-   - Remove secrets from git history
-   - Implement secrets management solution
-
-4. **Prevention:**
-   - Recommend pre-commit hooks
-   - Implement automated secret scanning
-   - Provide developer training
+1. **Notify the owner** through the approved incident channel with redacted alert metadata; do not attach screenshots or logs containing the value.
+2. **Have the credential owner verify status** through the provider console or approved secret-management records. Do not test by authenticating with it.
+3. **Revoke or rotate confirmed exposed credentials** and review provider audit logs for misuse. Coordinate any approved `git-filter-repo` history rewrite; history cleanup does not replace rotation and cannot remove other copies.
+4. **Prevent recurrence** with secret scanning, push protection, pre-commit checks, least privilege and developer training.
 
 ---
 
 ## Additional Search Targets
+
+Use these file names and categories to configure a local scanner for repositories in the authorized scope. Keep code matches and secret values in the scanner's restricted environment; send only redacted alert metadata to the LLM.
 
 ### File Types to Check:
 - `.env` files
@@ -477,45 +354,50 @@ https://github.com/search?q=${target_domain}+filename:config.json+OR+filename:.e
 
 ---
 
-## Real-World Examples
+## Synthetic Redacted Examples
 
-### Example 1: AWS Key Discovery
-```
-Finding: AWS Access Key in .env file
-Location: github.com/company/webapp/blob/main/.env
-Impact: Full AWS account access, potential data breach
-Action: Immediate key rotation, audit CloudTrail logs
-```
+The examples below are fictional test fixtures; they contain no credential values and make no claim that a secret is valid or exploitable.
 
-### Example 2: Database Credentials
+### Example 1: Cloud-Key Pattern
 ```
-Finding: Production database password in config.json
-Location: github.com/company/api/blob/main/config/production.json
-Impact: Direct database access with customer PII
-Action: Change password, review database access logs
+Finding ID: ALERT-TEST-01
+Category: Cloud API key pattern (value withheld)
+Location: owned-example.invalid/app/config/.env, line 4
+Impact: Potential access is unknown until the authorized credential owner checks scope and status.
+Action: Owner revokes or rotates if confirmed; review provider audit records.
 ```
 
-### Example 3: API Keys
+### Example 2: Database-Credential Pattern
 ```
-Finding: Stripe API key in payment processor code
-Location: github.com/company/payments/blob/main/stripe.js
-Impact: Unauthorized payment processing, financial loss
-Action: Revoke key, audit transactions, implement secrets vault
+Finding ID: ALERT-TEST-02
+Category: Database credential pattern (value withheld)
+Location: owned-example.invalid/service/config.json, line 18
+Impact: Access and data sensitivity are unconfirmed.
+Action: Owner verifies configuration, rotates if exposed, and reviews database access logs.
+```
+
+### Example 3: Payment-Service-Key Pattern
+```
+Finding ID: ALERT-TEST-03
+Category: Payment-service key pattern (value withheld)
+Location: owned-example.invalid/payments/settings.js, line 12
+Impact: Privileges and transaction access are not inferred from the pattern alone.
+Action: Owner revokes or rotates if confirmed and reviews provider activity.
 ```
 
 ---
 
 ## Version History
 
-- **v1.0** - Initial flow with code and commit search
-- Purpose: Discover exposed credentials for security assessment
-- Last Updated: November 2025
+- **v2.0** - Redacted, owner-approved scanner metadata workflow
+- Purpose: Support exposure triage without sending credential values to the LLM
+- Last Updated: November 2026
 
 ---
 
 ## Related Flows
 
-- **CompanyOSINT** - Identify target repositories
+- **CompanyOSINT** - Identify candidate repositories; confirm written scope before scanning
 - **EmailOSINT** - Investigate developer accounts
 - **DomainRecon** - Discover additional domains to search
 - **VulnReportGenerator** - Document exposed secrets
@@ -524,4 +406,4 @@ Action: Revoke key, audit transactions, implement secrets vault
 ## Related Files
 - [README.md](README.md) - AnythingLLM section index
 - [anything_llm_agentflows.md](anything_llm_agentflows.md) - Parent AgentFlows index
-- [../../OSINT/scripts/Domain_IP_Recon.md](../../OSINT/scripts/Domain_IP_Recon.md) - Domain recon to generate targets for this flow
+- [../../OSINT/scripts/Domain_IP_Recon.md](../../OSINT/scripts/Domain_IP_Recon.md) - Domain recon context; discovered domains and repositories require separate scope confirmation before scanning

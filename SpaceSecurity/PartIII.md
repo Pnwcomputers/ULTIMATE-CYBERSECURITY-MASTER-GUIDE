@@ -66,11 +66,10 @@ Some mission designs may lack strong authenticated software-update and command c
 - Issues malformed or malicious telecommand frames through the legitimate uplink chain
 - Target: mode changes, FSW upload, AOCS commands (attitude change), power cycling
 
-**Scenario 2: Rogue Uplink (Research/Lab)**
-- Attacker operates an SDR-based transmitter aimed at the spacecraft
-- Requires: knowledge of uplink frequency, modulation, frame format, and command structure
-- Practical for unencrypted CubeSats with publicly documented protocols
-- Applicable to the growing body of amateur/educational satellites with open TT&C specs
+**Scenario 2: Uplink authorization and command-integrity review (authorized lab/CTF)**
+- Review command authentication and authorization only in an operator-approved simulator, lab, CTF, or specifically authorized engagement.
+- Public protocol documentation and an unencrypted downlink do not establish that telecommands are unauthenticated or that a transmitter is authorized.
+- Do not transmit toward an operational spacecraft as part of this exercise. Any transmission must follow written operator approval and all applicable spectrum rules. This guide provides no operational uplink procedure.
 
 **Scenario 3: Side-Channel via Telemetry**
 - Passive collection of downlinked telemetry reveals operational state

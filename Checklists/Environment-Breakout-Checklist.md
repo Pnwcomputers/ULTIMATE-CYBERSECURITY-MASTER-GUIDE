@@ -1,32 +1,32 @@
 # Environment Breakout
-_Checklist for testing kiosk, thin-client, and restricted desktop environments for breakout to a full shell. No item in this list has an individual write-up in the original source material - every item links to the LOLBAS project (★ general reference), the standard living catalog of living-off-the-land binaries and techniques used for exactly this kind of restricted-environment breakout._
+_Defensive review prompts for kiosk, thin-client, and restricted desktop deployments. Items marked as prompts below do not have individual supporting write-ups here; the LOLBAS catalog is relevant only to some Windows binary behaviors and is not evidence for physical access, UI crashes, browser extensions, or memory analysis.
 
 **Purpose:** Covers testing of *restricted* environments specifically - kiosks, Citrix/RDP published applications, locked-down thin clients, and any interface where a user is deliberately confined to a single application or limited desktop. This is a different threat model from typical privilege escalation: the starting point isn't "unprivileged shell access," it's "no shell access at all, just one sanctioned application window."
  
-**Function:** The checklist works through breakout in roughly the order an attacker would attempt it: physical access and identification first (what's the platform, what's actually installed), then progressively more invasive escape techniques - abusing file/save dialogs and URI protocol handlers to spawn other processes, crashing the front-end to fall back to a desktop, exploiting browser extensions or Windows shell manipulation, and finally bypassing whatever software/group policy restrictions remain once a shell is reached.
+**Function:** Organizes review prompts across device custody, platform inventory, URI and file-dialog policy, browser extensions, kiosk-shell resilience, application control, and forensic logging. Use owner-approved test cases and record gaps; this list is not an exploitation procedure.
  
-**Goal:** Determine whether the restriction is enforced at a level that actually matters (application whitelisting, kernel-level sandboxing) or is purely cosmetic (a locked-down Explorer shell sitting on top of a fully capable, unrestricted OS). The end state being tested is: can a user with access to exactly one sanctioned application reach an arbitrary command shell, and from there, arbitrary code execution.
+**Goal:** Help defenders determine whether kiosk restrictions are enforced consistently, identify recovery and logging gaps, and prioritize hardening without attempting an unauthorized shell escape.
  
-**When & how to use this:** Use this against any kiosk, terminal server published-app, or restricted-shell deployment during a physical or remote engagement - work through the list roughly top-to-bottom, since later items (privilege escalation, AppLocker bypass) generally assume you've already broken out to *some* kind of shell using an earlier item. Pair with [AppLocker Bypass](./AppLocker.md) once you have shell access but application whitelisting is still in the way.
+**When & how to use this:** Use during an owner-approved architecture review or controlled resilience test. Confirm the test is isolated, define stop conditions, and do not attempt to escape a production kiosk. Pair with the [application-control checklist](./AppLocker.md) for policy review.
 
-#### 📖 Companion deep-dive on the same LOLBins/LOLScripts: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md)
+#### 📖 Related defensive reference: [Tradecraft/lolbins-lolbas.md](../Tradecraft/lolbins-lolbas.md) (covers abnormal Windows binary behavior; it does not support every prompt below)
 
 ---
 
-* [EB-001 - Physical Security of the Device ★](https://lolbas-project.github.io/)
-* [EB-002 - Platform Identification and Version Software in Use ★](https://lolbas-project.github.io/)
-* [EB-003 - Enumeration of Windows Boxes Available ★](https://lolbas-project.github.io/)
-* [EB-004 - Application Enumeration ★](https://lolbas-project.github.io/)
-* [EB-005 - Register URI Protocol Handlers Enumeration ★](https://lolbas-project.github.io/)
-* [EB-006 - Malicious Browser Addons Installations ★](https://lolbas-project.github.io/)
-* [EB-007 - Front-End Interface Crash ★](https://lolbas-project.github.io/)
-* [EB-008 - Windows Shell Environment Manipulation ★](https://lolbas-project.github.io/)
-* [EB-009 - Binary Planting ★](https://lolbas-project.github.io/)
-* [EB-010 - Bypass Software Restriction Policies ★](https://lolbas-project.github.io/)
-* [EB-011 - Bypass Local Group Policies ★](https://lolbas-project.github.io/)
-* [EB-012 - Privilege Escalation ★](https://lolbas-project.github.io/)
-* [EB-013 - Memory dump Analysis ★](https://lolbas-project.github.io/)
-* [EB-014 - Bypass AppLocker Rules ★](https://lolbas-project.github.io/)
+* EB-001 — Physical security of the device (assessment prompt; no source cited here)
+* EB-002 — Platform identification and software inventory (assessment prompt)
+* EB-003 — Authorized platform inventory and configuration review (assessment prompt)
+* EB-004 — Application inventory and allowlist coverage (assessment prompt)
+* EB-005 — Registered URI protocol handlers and policy review (assessment prompt)
+* EB-006 — Browser extension inventory and managed-install policy (assessment prompt)
+* EB-007 — Front-end crash recovery and kiosk-session restoration (assessment prompt)
+* EB-008 — Windows shell configuration and recovery controls (assessment prompt)
+* EB-009 — File association and binary search-path controls (assessment prompt)
+* EB-010 — Software Restriction Policy / application-control review (assessment prompt)
+* EB-011 — Local and group policy enforcement review (assessment prompt)
+* EB-012 — Privilege boundaries and least privilege (assessment prompt)
+* EB-013 — Memory acquisition and analysis procedure review (assessment prompt)
+* EB-014 — AppLocker / WDAC audit and enforcement review (assessment prompt)
 
 ---
 

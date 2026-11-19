@@ -766,8 +766,8 @@ We welcome high-quality PDF contributions from security professionals.
 - Cloud security (AWS, Azure, GCP) cheat sheets
 - API security testing guides
 - Container and Kubernetes security
-- Modern authentication bypass techniques
-- EDR/XDR evasion methodologies
+- Authorized authentication-control validation and defensive coverage testing
+- EDR/XDR detection engineering and telemetry validation (avoid reusable evasion procedures)
 - Zero-trust architecture testing
 - DevSecOps security references
 

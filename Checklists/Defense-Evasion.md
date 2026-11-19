@@ -1,15 +1,15 @@
-# Defense Evasion
-_Techniques for evading detection and security controls during an engagement, mapped to MITRE ATT&CK. Currently a short list - expand as new techniques are added. Source: Pentest Laboratories._
+# Process Lineage Detection Validation
+_A defensive checklist for reviewing process-lineage telemetry and detection coverage. The linked material is historical context, not an implementation guide._
 
-**Purpose:** A narrow, growing list of specific technique-level evasions - currently just parent-PID spoofing, which makes a malicious process appear to have been launched by a trusted parent (e.g., `explorer.exe` instead of a script host) to defeat process-lineage-based detection rules. This file is intentionally short right now; it's the technique-ID-mapped index that sits alongside the much larger conceptual treatment in [Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md).
- 
-**Function:** Each entry here is a single, narrow evasion primitive rather than a full evasion strategy - the kind of individual trick that gets chained together with others (obfuscation, injection, unhooking) to build a complete evasion chain. Parent PID spoofing specifically abuses the fact that many EDR detection rules use "what spawned this process" as a trust signal.
- 
-**Goal:** Test whether a target's EDR/AV is relying on shallow indicators (like literal parent-child process relationships) that can be spoofed, versus deeper behavioral or memory-based detection that doesn't care what the reported parent process is. A successful bypass here is a specific, reproducible finding you can hand to a blue team: "your detection rule trusts a field that's trivially forgeable."
- 
-**When & how to use this:** Use during red team or purple team engagements specifically to validate individual EDR detection rules rather than as a general "am I detected" test - this checklist is most valuable when you already know which detection logic is deployed and want to test its assumptions directly. Pair with the fuller technique catalog in [Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md) for the broader evasion toolkit (unhooking, AMSI bypass, injection techniques) this short list doesn't yet cover.
+**Purpose:** Assess whether detection logic relies too heavily on a reported parent-process field, and whether other telemetry can reveal inconsistent process lineage.
 
-#### 📖 Full deep-dive (AV/EDR evasion, detection artifacts, hardening): [Tradecraft/av-edr-evasion.md](../Tradecraft/av-edr-evasion.md)
+**Function:** Review the authorized endpoint's available process-creation sources, field semantics, collection gaps, and rule logic. Parent-process spoofing is one ATT&CK technique; it does not make every process field forgeable in the same way or guarantee evasion.
+
+**Goal:** Document which telemetry is collected, what behavior the detection covers, and what remains unverified. A missing alert alone does not prove a bypass; validate event collection and rule conditions first.
+
+**When & how to use this:** Use for defensive rule review or an approved purple-team exercise in an isolated environment. Prefer vendor-supported simulations or synthetic event data. Correlate process lineage across available ETW, Security 4688, and Sysmon data, accounting for product configuration and version. Do not deploy spoofing code on production endpoints.
+
+#### Related defensive reference: [AV/EDR monitoring and hardening](../Tradecraft/av-edr-evasion.md)
 ---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
@@ -19,9 +19,9 @@ _Techniques for evading detection and security controls during an engagement, ma
 
 <div align="center">
 
-**📖 Use These Checklists Responsibly: Authorization is MANDATORY**
+**Use this checklist for defensive review within documented scope.**
 
-*Attack techniques are powerful - use them ethically and legally.*
+*Focus on telemetry semantics, detection coverage, and evidence quality.*
 
 **Repository**: [ULTIMATE CYBERSECURITY MASTER GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE)
 
@@ -29,11 +29,11 @@ _Techniques for evading detection and security controls during an engagement, ma
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Any active simulation requires prior authorization and an isolated test plan.** ⚠️
 
 ⚠️ **Unauthorized activity may violate applicable law, contracts, or policy depending on the conduct, authorization, and jurisdiction. Obtain written approval and follow the agreed scope.** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **Prefer benign simulations; record approval, expected evidence, and rollback steps.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 

@@ -239,14 +239,61 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
-# query_api OUTPUT LABEL CURL_ARGS... — fetch JSON evidence with curl. On any transport
-# failure (network error, timeout, non-2xx with --fail) or an empty body, OUTPUT is left
-# empty and the failure is logged and saved to OUTPUT.err, so a dead API or expired key
-# can never be mistaken for "nothing found" — the prior behavior piped curl straight into
-# `jq || cat` and a failed curl just produced a silently empty file.
+# query_api OUTPUT LABEL URL [CURL_ARGS...] — fetch JSON evidence with curl. URLs,
+# including query-string API credentials, are passed through curl's stdin config so
+# they do not appear in its process arguments. Providers may still retain URL logs.
+private_intelx_search() {
+    local term="$1" target="$2" payload
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$target" =~ ^[12]$ ]] || return 2
+    payload=$(jq -cn --arg term "$term" --argjson target "$target" \
+        '{term:$term,maxresults:100,media:0,target:$target}') || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        --header "Content-Type: application/json" --data-binary "$payload"
+}
+
 query_api() {
-    local output="$1" label="$2" rc=0 body; shift 2
-    body="$(curl -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    local output="$1" label="$2" url="$3" rc=0 body curl_config; shift 3
+    local https_url_pattern='^https://[A-Za-z0-9._~:/?=%&+-]+$'
+    if [[ ! "$url" =~ $https_url_pattern ]]; then
+        printf 'Invalid HTTPS URL for %s\n' "$label" > "${output}.err"
+        : > "$output"
+        return 2
+    fi
+    curl_config="url = \"$url\""$'\n'
+    while (($#)); do
+        case "$1" in
+            -H|--header)
+                (($# >= 2)) || return 2
+                [[ "$2" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || {
+                    printf 'Rejected unsafe header for %s\n' "$label" > "${output}.err"
+                    : > "$output"
+                    return 2
+                }
+                curl_config+="header = \"$2\""$'\n'
+                shift 2
+                ;;
+            -d|--data)
+                (($# >= 2)) || return 2
+                local form_pattern='^[A-Za-z0-9._@%+=&-]+$'
+                [[ "$2" =~ $form_pattern ]] || {
+                    printf 'Rejected unsafe form data for %s\n' "$label" > "${output}.err"
+                    : > "$output"
+                    return 2
+                }
+                curl_config+="data = \"$2\""$'\n'
+                shift 2
+                ;;
+            *)
+                printf 'Rejected unsupported curl option for %s\n' "$label" > "${output}.err"
+                : > "$output"
+                return 2
+                ;;
+        esac
+    done
+    body="$(printf '%s' "$curl_config" | curl --config - -sS --fail --max-time 20 2>"${output}.err")" || rc=$?
     : > "$output"
     if (( rc != 0 )) || [ -z "$body" ]; then
         log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
@@ -254,7 +301,6 @@ query_api() {
     fi
     printf '%s' "$body" | pretty_json > "$output"
 }
-
 # Start
 print_banner
 check_dependencies
@@ -285,7 +331,7 @@ query_numverify() {
         return
     fi
     
-    query_api "$OUTPUT" NumVerify "http://apilayer.net/api/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" || return
+    query_api "$OUTPUT" NumVerify "https://api.apilayer.com/number_verification/validate?number=$NORMALIZED" -H "apikey: $NUMVERIFY_KEY" || return
 
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
@@ -371,10 +417,7 @@ query_intelx() {
     
     # Start search
     local search_err="${OUTPUT}.search.err" search_rc=0
-    SEARCH_RESPONSE=$(curl -sS --fail --max-time 20 "https://2.intelx.io/phonebook/search" \
-        -H "x-key: $INTELX_KEY" \
-        -H "Content-Type: application/json" \
-        -d "{\"term\":\"$NORMALIZED\",\"maxresults\":100,\"media\":0,\"target\":2}" 2>"$search_err") || search_rc=$?
+    SEARCH_RESPONSE=$(private_intelx_search "$NORMALIZED" 2 2>"$search_err") || search_rc=$?
 
     if (( search_rc != 0 )); then
         log "${YELLOW}    [!] IntelX search request FAILED (curl exit ${search_rc}) — UNVERIFIED, see ${search_err}${NC}"

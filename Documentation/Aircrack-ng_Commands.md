@@ -26,10 +26,24 @@ Capture a WPA handshake or recover a WEP/WPS key using the aircrack-ng toolkit, 
 ### Basic Workflow
 
 **1. Enable Monitor Mode**
+
+> [!CAUTION]
+> `airmon-ng check kill` may stop NetworkManager, `wpa_supplicant`, DHCP, or other processes and disconnect this computer from Wi-Fi. Do not run it over a connection you need to keep. Record the active interface and network-manager service first; use a dedicated lab host/adapter where possible.
+
 ```bash
-sudo airmon-ng check kill          # Kill interfering processes (NetworkManager, wpa_supplicant)
-sudo airmon-ng start wlan1         # Enable monitor mode (creates wlan1mon)
+sudo airmon-ng check               # Inspect likely interfering processes first
+sudo airmon-ng check kill          # Stops conflicting processes; may interrupt connectivity
+sudo airmon-ng start wlan1         # Example only; confirm the actual interface name
 ```
+
+**Restore connectivity after the lab:** use the monitor-interface name reported by your system, then restart only the network manager that was active before testing. For a NetworkManager-based system:
+
+```bash
+sudo airmon-ng stop wlan1mon
+sudo systemctl restart NetworkManager
+```
+
+Interface names and service management vary by distribution. Verify managed mode, reconnect using the normal trusted network profile, and consult the [official airmon-ng recovery notes](https://www.aircrack-ng.org/doku.php?id=airmon-ng) if the adapter does not return to service.
 
 **2. Scan for Networks**
 ```bash

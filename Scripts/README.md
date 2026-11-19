@@ -25,12 +25,14 @@
 Inspect provenance and source before running downloaded scripts.
 
 > **Safer and retired examples:** `Python/app.py` and `Python/web_shell_inj.py`
-> are loopback-only upload references with no command-execution route or template hook.
+> are loopback-only upload examples with attachment-only downloads; inspect the current source before use and do not expose the development server to a network.
 > `Bash/fake_sudo.sh` exits without prompting for or transmitting a password.
 > `Bash/hulkscanner.sh` requires an explicit authorization flag and limits checks to
 > ports 1–1024 on one IPv4 address. `Bash/nuclei_web_scanner.sh` requires interactive
 > scope confirmation, an explicitly selected local template, and a 5-request-per-second
 > cap; it prints findings locally and sends no email.
+>
+> Additional retired and inert source files include `Bash/profile_hook.sh`, `Bash/web_shell_http_client.sh`, `Bash/BashBunny/cred_harv.txt`, `Bash/BashBunny/network_recon.txt`, `Bash/BashBunny/windows_exfil.txt`, `Ducky/exfil_windowsPC.txt`, and the credential, packet-sniffing, Bluetooth, private-message, process-injection, and password-testing files marked RETIRED below.
 >
 > The password-guessing examples `Bash/ssh_brute.sh`, `Python/ssh_brute.py`, and
 > `Python/ssh_brutekey.py` are retired. Their earlier versions exposed guessed or
@@ -39,7 +41,7 @@ Inspect provenance and source before running downloaded scripts.
 
 <div align="center">
 
-**Collection of security automation scripts, exploitation tools, and utility programs**
+**Curated index of security-related scripts and retired source stubs**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -68,20 +70,20 @@ Inspect provenance and source before running downloaded scripts.
 ---
 
 ## 🎯 Purpose
-The folder-level index for every automation script in the repository (Bash, C, Go, PowerShell, Python, SQL, YAML) - the only file that explains directory layout and legal warnings once, instead of repeating them in every language subfolder's own README.
+A curated entry point for selected script examples in Bash, C, Go, PowerShell, Python, SQL and YAML. It is not a complete inventory or an execution-safety review. Most language folders do not have their own README; inspect each file and its dependencies before use.
 
 ## ⚙️ Function
-Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
+Covers directory structure, selected script categories, usage guidance, authorization boundaries, contributing guidelines, and quick links. Most language subfolders have no separate README. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
 
 ## 🏆 Goal
-A reader can find the right script for a task by category/language and understands the legal authorization requirement before running anything.
+A reader can navigate a partial index, understand that retired entries are inert, and review current source and dependencies before considering any remaining example.
 
 ## 📋 When To Use
 When looking for an existing script before writing a new one, or when unsure what legal/usage constraints apply to this folder's contents.
 
 ## 🎯 Overview
 
-This directory contains **security automation scripts, penetration testing tools, and utility programs** written in multiple programming languages. These scripts are designed for authorized security testing, research, and educational purposes.
+This directory contains historical and current examples across several languages. Some files have been retired as inert stubs; the remaining files are not certified safe or current. Verify each file, dependencies, scope and effects before use.
 
 ### ⚠️ Use and Scope
 
@@ -147,7 +149,7 @@ Scripts/
 |---------|-------------|---------|
 | **get_user.c** | User enumeration utility | System reconnaissance |
 | **getuser.c** | User information retrieval | Privilege enumeration |
-| **scanner.c** | Network or port scanner | Network reconnaissance |
+| **scanner.c** | Local network discovery with optional Nmap OS fingerprinting; not a port scanner | Authorized local-network inventory |
 | **system_sleep.c** | System sleep/suspend utility | System manipulation |
 | **systemsleep.c** | System sleep implementation | Testing/manipulation |
 
@@ -176,30 +178,24 @@ MUST be compiled and tested in isolated environments before use.
 
 **Location**: `/Scripts/PowerShell/`
 
-**Current Scripts:**
+**Selected files (not exhaustive):**
 
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **adlogin.ps1** | Active Directory login/authentication testing | 🔴 HIGH |
-| **cred_hunt.ps1** | Credential hunting and discovery | 🔴 HIGH |
-| **localbrute.ps1** | Local account brute force tool | 🔴 HIGH |
-| **localbrute-extra-mini.ps1** | Compact local brute force variant | 🔴 HIGH |
+| **adlogin.ps1** | RETIRED AND INERT — former Active Directory password spray | ⚫ RETIRED |
+| **cred_hunt.ps1** | RETIRED AND INERT — former credential and secret collector | ⚫ RETIRED |
+| **localbrute.ps1** | RETIRED AND INERT — former local password guesser | ⚫ RETIRED |
+| **localbrute-extra-mini.ps1** | RETIRED AND INERT — former local password guesser | ⚫ RETIRED |
 | **port-scan-tcp.ps1** | TCP port scanning utility | 🟡 MEDIUM |
 | **port-scan-tcp-compat.ps1** | Compatible TCP port scanner | 🟡 MEDIUM |
 | **port-scan-udp.ps1** | UDP port scanning utility | 🟡 MEDIUM |
 | **port_scanner.ps1** | General purpose port scanner | 🟡 MEDIUM |
-| **rev_shell.ps1** | Reverse shell utility | 🔴 HIGH |
-| **smblogin.ps1** | SMB authentication testing | 🔴 HIGH |
-| **smblogin-extra-mini.ps1** | Compact SMB login tester | 🔴 HIGH |
+| **rev_shell.ps1** | RETIRED AND INERT — former reverse command shell | ⚫ RETIRED |
+| **smblogin.ps1** | RETIRED AND INERT — former SMB password tester | ⚫ RETIRED |
+| **smblogin-extra-mini.ps1** | RETIRED AND INERT — former SMB password tester | ⚫ RETIRED |
 | **system_enum.ps1** | System enumeration script | 🟡 MEDIUM |
 
-**Capabilities:**
-- Active Directory security testing
-- Credential access and testing
-- Network reconnaissance
-- Windows system enumeration
-- SMB/CIFS protocol testing
-- Remote access establishment
+**Scope note:** This index is a selected catalog, not a complete file inventory or a safety certification. Some entries have been retired and remain as inert tombstones. Check the file itself and its local guide before considering any remaining tool.
 
 | Resource | Description |
 |---|---|
@@ -209,13 +205,7 @@ MUST be compiled and tested in isolated environments before use.
 
 **Security Considerations:**
 ```
-⚠️ CRITICAL: These PowerShell scripts include:
-   • Credential collection tools (sensitive-data handling risk)
-   • Password-testing scripts (lockout and access risk)
-   • Remote-shell utilities (system access and persistence risk)
-   • Authentication-testing techniques
-
-Use these scripts only on systems and accounts within your authority and documented scope. Legal consequences depend on the conduct, applicable statute and facts; see the authorization guidance above.
+⚠️ Several credential collection, password-guessing, and remote-shell entries below are retired and inert. Do not infer that a remaining script is safe from its presence in this index; verify source, scope, and side effects before use. Prefer owner-provided identity reports and synthetic lab data.
 ```
 
 ---
@@ -224,143 +214,87 @@ Use these scripts only on systems and accounts within your authority and documen
 
 **Location**: `/Scripts/Python/`
 
-**Current Scripts:**
+**Selected files (not exhaustive):**
 
 #### Network & Reconnaissance
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **port_scan.py** | Port scanning utility | 🟡 MEDIUM |
 | **port_scanner.py** | Network port scanner | 🟡 MEDIUM |
-| **perm_scan.py** | Permission scanning tool | 🟡 MEDIUM |
-| **perm_scan5.py** | Permission scanner v5 | 🟡 MEDIUM |
-| **discover_network.py** | Network discovery tool | 🟡 MEDIUM |
-| **network_attack.py** | Network attack framework | 🔴 HIGH |
 | **proxy_test.py** | Proxy testing utility | 🟢 LOW |
 
 #### Credential & Authentication
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **credit_sniff.py** | Credit card data sniffer | 🔴 HIGH |
-| **password_check.py** | Password validation/testing | 🟡 MEDIUM |
-| **cred_sniff.py** | Credential sniffing tool | 🔴 HIGH |
-| **ftp_sniff.py** | FTP credential sniffer | 🔴 HIGH |
+| **credit_sniff.py** | RETIRED AND INERT — former payment-card data sniffer | ⚫ RETIRED |
+| **ftp_sniff.py** | RETIRED AND INERT — former FTP credential sniffer | ⚫ RETIRED |
 
 #### Bluetooth & Wireless
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **bt-find.py** | Bluetooth device discovery | 🟡 MEDIUM |
 | **bt_scan.py** | Bluetooth scanning utility | 🟡 MEDIUM |
-| **blue_bug.py** | Bluetooth exploitation tool | 🔴 HIGH |
+| **blue_bug.py** | RETIRED AND INERT — former Bluetooth phonebook access attempt | ⚫ RETIRED |
 
 #### Exploitation & Attack Tools
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **bsodshell.py** | Blue Screen of Death exploit | 🔴 HIGH |
-| **conficker.py** | Conficker worm-related tool | 🔴 HIGH |
-| **dll_inject.py** | DLL injection utility | 🔴 HIGH |
-| **evil_batch.py** | Malicious batch generator | 🔴 HIGH |
+| **conficker.py** | RETIRED AND INERT — former SMB exploitation automation | ⚫ RETIRED |
+| **dll_Inject.py** | RETIRED AND INERT — former process DLL injection | ⚫ RETIRED |
 | **find_ddos.py** | DDoS detection/analysis | 🟡 MEDIUM |
-| **rev_shell.py** | Reverse shell utility | 🔴 HIGH |
 
 #### Web & Application Security
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **webshell_check.py** | Webshell detection tool | 🟡 MEDIUM |
-| **firefox_parser.py** | Firefox data parser | 🟡 MEDIUM |
-| **imap_parser.py** | IMAP protocol parser | 🟡 MEDIUM |
 | **link_parser.py** | Link extraction tool | 🟢 LOW |
-| **print_cookies.py** | Cookie extraction utility | 🟡 MEDIUM |
+| **print_cookies.py** | RETIRED AND INERT — former web-cookie collector | ⚫ RETIRED |
 
 #### Geolocation & Tracking
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **geo.py** | Geolocation utility | 🟢 LOW |
-| **geo_paint.py** | Geolocation visualization | 🟢 LOW |
 | **google_earth_pcap.py** | PCAP to Google Earth | 🟡 MEDIUM |
 | **google_json.py** | Google JSON parser | 🟢 LOW |
-| **google_jsonlist.py** | Google JSON list parser | 🟢 LOW |
-| **google_sniff.py** | Google traffic sniffer | 🟡 MEDIUM |
+| **google_sniff.py** | RETIRED AND INERT — former cleartext search-query capture | ⚫ RETIRED |
 
 #### Mobile Device
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **iphone_finder.py** | iPhone device discovery | 🟡 MEDIUM |
-| **iphone_messages.py** | iPhone message extraction | 🔴 HIGH |
+| **iphone_finder.py** | RETIRED AND INERT — former personal-device tracking | ⚫ RETIRED |
+| **iphone_messages.py** | RETIRED AND INERT — former private-message extractor | ⚫ RETIRED |
 
 #### Specialized Tools
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **hotel_sniff.py** | Hotel network sniffer | 🔴 HIGH |
-| **ics_find.py** | Industrial Control System finder | 🔴 HIGH |
+| **hotel_sniff.py** | RETIRED AND INERT — former guest-identity data sniffer | ⚫ RETIRED |
 | **kitten_test.py** | Testing utility | 🟢 LOW |
 | **dup.py** | Duplicate file finder | 🟢 LOW |
-| **dump_nmdbs.py** | Database dumping tool | 🔴 HIGH |
-| **pdfs_paint.py** | PDF visualization | 🟢 LOW |
 | **print_direction.py** | Direction printing utility | 🟢 LOW |
 
 #### Supporting Files
 | File | Description |
 |------|-------------|
-| **pass.txt** | Password list/dictionary |
-| **passout.txt** | Password output file |
-| **nnb-cities.txt** | Cities database |
+| **pass.txt** | Small historical sample strings for offline documentation only; not valid credentials |
 
 **Python Script Characteristics:**
-- Extensive network security tools
-- Credential harvesting capabilities
-- Exploitation frameworks
-- Protocol analysis utilities
-- Data exfiltration tools
-- Reconnaissance utilities
+- Mixed historical and current examples
+- Network and protocol utilities
+- Parsers and local helpers
+- Retired entries retained as inert stubs
+
+This is a partial index, not a supported product catalog.
 
 **Security Considerations:**
 ```
-⚠️ EXTREME CAUTION: Python scripts include:
-   • Credential sniffers (credit_sniff.py, cred_sniff.py, ftp_sniff.py)
-   • Network attack tools (network_attack.py)
-   • Exploitation utilities (dll_inject.py, bsodshell.py)
-   • Data exfiltration tools (iphone_messages.py, dump_nmdbs.py)
-   • Reverse shells (rev_shell.py)
-   • ICS/SCADA targeting tools (ics_find.py)
+⚠️ Several high-risk Python examples have been replaced with inert retirement notices, including collectors, password testing and process injection. This list is not exhaustive. Do not run a script based only on its filename, table entry or historical description. Review its current source, dependencies and effects first.
 
-Potential operational risks:
-   • Unauthorized access to systems or data
-   • Exposure or loss of sensitive information
-   • Privacy, contract, or policy violations
-   • Service disruption or system changes
-   • Increased impact when critical infrastructure is involved
-
-Legal consequences depend on the conduct, authorization, applicable law, and facts.
-Do not infer a specific charge or sentence from this list.
+Potential operational risks include unintended access, exposure of personal or secret data, service disruption and system changes. Legal and policy consequences depend on authorization, conduct, applicable rules and facts.
 ```
 
 ---
 
 ### 5. SQL Scripts
 
-**Location**: `/Scripts/SQL/`
-
-**Current Scripts:**
-
-| Script | Description | Risk Level |
-|--------|-------------|------------|
-| **add_wordpress_admin.sql** | WordPress admin account creation | 🔴 HIGH |
-
-**Purpose:**
-- Database manipulation
-- WordPress security testing
-- Privilege escalation testing
-- Database access testing
-
-**Security Considerations:**
-```
-⚠️ WARNING: SQL Scripts for unauthorized database access
-   • Creating accounts or changing data outside approved scope may violate applicable law, contract, or policy
-   • Database access and privilege changes require authority from the system owner
-   • Consequences depend on the conduct, applicable law, and facts
-
-ONLY use on systems you own or have explicit written permission to test.
-```
+The repository contains no SQL scripts currently. The former static WordPress administrator-creation example was removed because it used a fixed account ID and an obsolete MD5 password hash. Any future database example should use a disposable local lab, avoid embedded credentials, and explain cleanup and version requirements.
 
 ---
 
@@ -459,67 +393,29 @@ Safe Learning Environments ONLY:
 
 ### Script Usage Guidelines
 
-#### Powershell Scripts
+#### PowerShell Scripts
 
-```powershell
-# EXAMPLE: Running in authorized test environment
-
-# 1. Verify authorization
-Get-Content authorization.txt
-
-# 2. Set execution policy (if needed)
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-# 3. Run script with appropriate parameters
-.\script.ps1 -Target "authorized-target.local" -Output "results.txt"
-
-# 4. Document results
-Get-Content results.txt | Out-File -FilePath "assessment-report.txt" -Append
-```
+Review the selected script and its documented parameters first. Do not weaken execution policy to run an unsigned script. Follow the organization-approved signing and execution policy, and record the approved command and output handling.
 
 #### Python Scripts
 
-```python
-# EXAMPLE: Running network scanner in authorized environment
+The repository's `port_scanner.py` accepts a host and inclusive start/end ports as positional arguments. It prints results to the console and has no `--target` or `--output` options:
 
-# 1. Verify you have authorization
-# 2. Activate virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate      # Windows
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Run script against authorized target only
-python port_scanner.py --target 192.168.1.100 --output scan_results.txt
-
-# 5. Document and secure results
+```console
+python port_scanner.py approved-host.example 1 1024  # replace only with a host in scope
 ```
+
+Use only a host and port range that are explicitly within scope. This repository does not provide a `requirements.txt` for this script; inspect its imports and obtain dependencies from trusted sources before installing them.
 
 #### Bash Scripts
 
-```bash
-# EXAMPLE: Running reconnaissance script
-
-# 1. Review script contents first
-cat script.sh
-
-# 2. Make executable
-chmod +x script.sh
-
-# 3. Run with proper parameters
-./script.sh --target authorized-system.local --output results.txt
-
-# 4. Review and document results
-cat results.txt
-```
+Review a selected script's source, dependencies, expected network or system effects, and documented interface before use. There is no common `--target` or `--output` interface across the collection. Use only the exact host and actions in the approved scope, and capture output through the tool's documented method.
 
 ---
 
 ## ⚠️ Security, Authorization & Operational Risk
 
-Scripts range from local utilities to active access, scanning, credential, remote-control and data-handling tools. A category or risk label in this index is a triage aid, not a legal classification or guarantee that a command is safe.
+Scripts range from local utilities to active network and system operations. A category or risk label in this index is only a triage aid, not a legal classification or guarantee that a command is safe.
 
 ### Establish scope before active testing
 
@@ -664,11 +560,11 @@ We welcome contributions from security professionals, but all scripts must meet 
 ```
 📁 Script Directories: 7 language categories
 💻 Languages: Bash, C, Go, PowerShell, Python, SQL, YAML
-🔧 Script Count: 50+ security tools and utilities
-⚠️ Risk Level: HIGH - Offensive security tools
-🔄 Last Updated: November 2024
+🔧 Index: Selected examples; repository tree is authoritative for file presence
+⚠️ Risk: Varies by file; review source and effects before use
+🔄 Review status: Historical collection under ongoing review
 👥 Maintained by: Pacific Northwest Computers (PNWC)
-📝 Status: Active - Use with EXTREME CAUTION
+📝 Status: Mixed; some examples are retired and inert
 ```
 
 ---

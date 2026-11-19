@@ -132,14 +132,14 @@ Common MCC components:
 
 #### Historical Example: Viasat KA-SAT (2022)
 
-The Sandworm/AcidRain attack against Viasat's KA-SAT network demonstrated how ground segment compromise translates directly to user-segment destruction:
+The 2022 attack on Viasat's KA-SAT service showed how access to a trusted ground-management segment can affect user terminals:
 
-1. Attackers gained access to the management network via a misconfigured VPN concentrator
-2. Leveraged access to issue legitimate management commands to modems
-3. Deployed AcidRain wiper targeting VSAT modems via the provisioning system
-4. ~50,000 modems were bricked across Europe; Ukrainian military comms disrupted at war onset
+1. Attackers used a misconfigured VPN gateway to access the KA-SAT management network.
+2. They issued legitimate management commands to affected modems.
+3. The commands were used to deploy AcidRain, a wiper targeting modem software for the MIPS architecture.
+4. Tens of thousands of end devices lost connectivity. CERT Polska's report notes that public information did not establish an impact on military communications.
 
-**Lessons:** Management plane access to SATCOM infrastructure = mass end-device impact. Ground segment security directly protects the user segment.
+**Lessons:** Ground-management access can have wide user-terminal impact. The [CERT Polska incident analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) summarizes the reported access path, malware, and scope; the [EU attribution statement](https://www.eeas.europa.eu/delegations/ukraine/russian-cyber-operations-against-ukraine-declaration-high-representative-behalf_en) describes communication outages across Ukrainian authorities, businesses, users, and EU member states.
 
 ---
 
@@ -147,17 +147,22 @@ The Sandworm/AcidRain attack against Viasat's KA-SAT network demonstrated how gr
 
 #### Passive Reconnaissance
 
-Before any active testing, passive RF collection provides significant intelligence:
+Before any active testing, begin with receive-only analysis of signals you are
+authorized to collect. A HackRF raw capture is interleaved signed 8-bit IQ; it
+is not directly the complex64/raw-file input expected by gr-satellites. Convert
+it to a supported two-channel IQ WAV or complex64 file using a reviewed tool
+before decoding.
 
 ```bash
-# Capture raw IQ data with HackRF (authorized lab/research use only)
+# Receive-only example. Confirm the frequency and collection authority first.
 hackrf_transfer -r capture.iq -f 437500000 -s 2000000 -g 40 -l 32
 
-# Use SatDump for known satellite signals
+# SatDump example for a signal and receiver supported by the installed build.
 satdump live noaa_hrpt baseband --source airspy --samplerate 6e6 --frequency 1707e6
 
-# gr-satellites for CubeSat/amateur satellite decoding
-python -m gr_satellites <satellite-name> --iq /path/to/capture.iq
+# Replace SATELLITE_NAME with a supported decoder, and CAPTURE.c64 with a
+# converted complex64 IQ recording. --iq is a flag; it does not take a filename.
+gr_satellites SATELLITE_NAME --rawfile /path/to/CAPTURE.c64 --samp_rate 2000000 --iq
 ```
 
 #### CCSDS Frame Analysis
@@ -171,11 +176,30 @@ With captured IQ data, work down the protocol stack:
 5. **Space Packet extraction** - Parse APID, sequence flags, packet length
 6. **Application data** - Mission-specific; may require protocol documentation or reverse engineering
 
+```mermaid
+flowchart LR
+  subgraph RX["Receive-only telemetry path"]
+    A[Authorized receiver] --> B[IQ capture]
+    B --> C[Demodulate and decode]
+    C --> D[Frame and packet parsing]
+    D --> E[Mission-specific payload analysis]
+    E --> F[Record provenance and findings]
+  end
+  subgraph TX["Controlled command path"]
+    G[Written operator approval] --> H[Radio licence and spectrum authorization]
+    H --> I[Approved lab or mission command system]
+    I --> J[Operator-controlled uplink]
+  end
+```
+
+*Conceptual workflow. Receive and decode is separate from any command transmission. The command path requires explicit operator approval and applicable transmission authorization; this diagram is not an uplink procedure.*
+
 Wireshark supports CCSDS with appropriate dissectors. Custom dissectors can be written in Lua for mission-specific protocols.
 
 #### Command Injection Concepts
 
-> **⚠️ Authorized testing only.** Uplink injection toward an operational satellite is illegal without operator authorization.
+> [!CAUTION]
+> Any uplink testing requires written authorization from the satellite operator **and** all applicable radio licences, spectrum approvals, and regulatory permissions. Operator approval alone does not authorize radio transmission. This guide does not authorize or provide an operational uplink procedure.
 
 | Attack Vector | Method | Prerequisite |
 |---------------|--------|-------------|
