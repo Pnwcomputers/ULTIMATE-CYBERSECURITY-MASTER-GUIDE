@@ -32,6 +32,8 @@ Inspect provenance and source before running downloaded scripts.
 > scope confirmation, an explicitly selected local template, and a 5-request-per-second
 > cap; it prints findings locally and sends no email.
 >
+> Additional retired and inert source files include `Bash/profile_hook.sh`, `Bash/web_shell_http_client.sh`, `Bash/BashBunny/cred_harv.txt`, `Bash/BashBunny/network_recon.txt`, `Bash/BashBunny/windows_exfil.txt`, `Ducky/exfil_windowsPC.txt`, and the credential, packet-sniffing, Bluetooth, private-message, process-injection, and password-testing files marked RETIRED below.
+>
 > The password-guessing examples `Bash/ssh_brute.sh`, `Python/ssh_brute.py`, and
 > `Python/ssh_brutekey.py` are retired. Their earlier versions exposed guessed or
 > valid credentials, guessed without a suitable rate/lockout bound, or bypassed SSH
@@ -39,7 +41,7 @@ Inspect provenance and source before running downloaded scripts.
 
 <div align="center">
 
-**Collection of security automation scripts, exploitation tools, and utility programs**
+**Curated index of security-related scripts and retired source stubs**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
@@ -176,30 +178,24 @@ MUST be compiled and tested in isolated environments before use.
 
 **Location**: `/Scripts/PowerShell/`
 
-**Current Scripts:**
+**Selected files (not exhaustive):**
 
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **adlogin.ps1** | Active Directory login/authentication testing | 🔴 HIGH |
-| **cred_hunt.ps1** | Credential hunting and discovery | 🔴 HIGH |
-| **localbrute.ps1** | Local account brute force tool | 🔴 HIGH |
-| **localbrute-extra-mini.ps1** | Compact local brute force variant | 🔴 HIGH |
+| **adlogin.ps1** | RETIRED AND INERT — former Active Directory password spray | ⚫ RETIRED |
+| **cred_hunt.ps1** | RETIRED AND INERT — former credential and secret collector | ⚫ RETIRED |
+| **localbrute.ps1** | RETIRED AND INERT — former local password guesser | ⚫ RETIRED |
+| **localbrute-extra-mini.ps1** | RETIRED AND INERT — former local password guesser | ⚫ RETIRED |
 | **port-scan-tcp.ps1** | TCP port scanning utility | 🟡 MEDIUM |
 | **port-scan-tcp-compat.ps1** | Compatible TCP port scanner | 🟡 MEDIUM |
 | **port-scan-udp.ps1** | UDP port scanning utility | 🟡 MEDIUM |
 | **port_scanner.ps1** | General purpose port scanner | 🟡 MEDIUM |
-| **rev_shell.ps1** | Reverse shell utility | 🔴 HIGH |
-| **smblogin.ps1** | SMB authentication testing | 🔴 HIGH |
-| **smblogin-extra-mini.ps1** | Compact SMB login tester | 🔴 HIGH |
+| **rev_shell.ps1** | RETIRED AND INERT — former reverse command shell | ⚫ RETIRED |
+| **smblogin.ps1** | RETIRED AND INERT — former SMB password tester | ⚫ RETIRED |
+| **smblogin-extra-mini.ps1** | RETIRED AND INERT — former SMB password tester | ⚫ RETIRED |
 | **system_enum.ps1** | System enumeration script | 🟡 MEDIUM |
 
-**Capabilities:**
-- Active Directory security testing
-- Credential access and testing
-- Network reconnaissance
-- Windows system enumeration
-- SMB/CIFS protocol testing
-- Remote access establishment
+**Scope note:** This index is a selected catalog, not a complete file inventory or a safety certification. Some entries have been retired and remain as inert tombstones. Check the file itself and its local guide before considering any remaining tool.
 
 | Resource | Description |
 |---|---|
@@ -209,13 +205,7 @@ MUST be compiled and tested in isolated environments before use.
 
 **Security Considerations:**
 ```
-⚠️ CRITICAL: These PowerShell scripts include:
-   • Credential collection tools (sensitive-data handling risk)
-   • Password-testing scripts (lockout and access risk)
-   • Remote-shell utilities (system access and persistence risk)
-   • Authentication-testing techniques
-
-Use these scripts only on systems and accounts within your authority and documented scope. Legal consequences depend on the conduct, applicable statute and facts; see the authorization guidance above.
+⚠️ Several credential collection, password-guessing, and remote-shell entries below are retired and inert. Do not infer that a remaining script is safe from its presence in this index; verify source, scope, and side effects before use. Prefer owner-provided identity reports and synthetic lab data.
 ```
 
 ---
@@ -231,79 +221,59 @@ Use these scripts only on systems and accounts within your authority and documen
 |--------|-------------|------------|
 | **port_scan.py** | Port scanning utility | 🟡 MEDIUM |
 | **port_scanner.py** | Network port scanner | 🟡 MEDIUM |
-| **perm_scan.py** | Permission scanning tool | 🟡 MEDIUM |
-| **perm_scan5.py** | Permission scanner v5 | 🟡 MEDIUM |
-| **discover_network.py** | Network discovery tool | 🟡 MEDIUM |
-| **network_attack.py** | Network attack framework | 🔴 HIGH |
 | **proxy_test.py** | Proxy testing utility | 🟢 LOW |
 
 #### Credential & Authentication
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **credit_sniff.py** | Credit card data sniffer | 🔴 HIGH |
-| **password_check.py** | Password validation/testing | 🟡 MEDIUM |
-| **cred_sniff.py** | Credential sniffing tool | 🔴 HIGH |
-| **ftp_sniff.py** | FTP credential sniffer | 🔴 HIGH |
+| **credit_sniff.py** | RETIRED AND INERT — former payment-card data sniffer | ⚫ RETIRED |
+| **ftp_sniff.py** | RETIRED AND INERT — former FTP credential sniffer | ⚫ RETIRED |
 
 #### Bluetooth & Wireless
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **bt-find.py** | Bluetooth device discovery | 🟡 MEDIUM |
 | **bt_scan.py** | Bluetooth scanning utility | 🟡 MEDIUM |
-| **blue_bug.py** | Bluetooth exploitation tool | 🔴 HIGH |
+| **blue_bug.py** | RETIRED AND INERT — former Bluetooth phonebook access attempt | ⚫ RETIRED |
 
 #### Exploitation & Attack Tools
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **bsodshell.py** | Blue Screen of Death exploit | 🔴 HIGH |
 | **conficker.py** | Conficker worm-related tool | 🔴 HIGH |
-| **dll_inject.py** | DLL injection utility | 🔴 HIGH |
-| **evil_batch.py** | Malicious batch generator | 🔴 HIGH |
+| **dll_Inject.py** | RETIRED AND INERT — former process DLL injection | ⚫ RETIRED |
 | **find_ddos.py** | DDoS detection/analysis | 🟡 MEDIUM |
-| **rev_shell.py** | Reverse shell utility | 🔴 HIGH |
 
 #### Web & Application Security
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **webshell_check.py** | Webshell detection tool | 🟡 MEDIUM |
-| **firefox_parser.py** | Firefox data parser | 🟡 MEDIUM |
-| **imap_parser.py** | IMAP protocol parser | 🟡 MEDIUM |
 | **link_parser.py** | Link extraction tool | 🟢 LOW |
 | **print_cookies.py** | Cookie extraction utility | 🟡 MEDIUM |
 
 #### Geolocation & Tracking
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **geo.py** | Geolocation utility | 🟢 LOW |
-| **geo_paint.py** | Geolocation visualization | 🟢 LOW |
 | **google_earth_pcap.py** | PCAP to Google Earth | 🟡 MEDIUM |
 | **google_json.py** | Google JSON parser | 🟢 LOW |
-| **google_jsonlist.py** | Google JSON list parser | 🟢 LOW |
 | **google_sniff.py** | Google traffic sniffer | 🟡 MEDIUM |
 
 #### Mobile Device
 | Script | Description | Risk Level |
 |--------|-------------|------------|
 | **iphone_finder.py** | iPhone device discovery | 🟡 MEDIUM |
-| **iphone_messages.py** | iPhone message extraction | 🔴 HIGH |
+| **iphone_messages.py** | RETIRED AND INERT — former private-message extractor | ⚫ RETIRED |
 
 #### Specialized Tools
 | Script | Description | Risk Level |
 |--------|-------------|------------|
-| **hotel_sniff.py** | Hotel network sniffer | 🔴 HIGH |
-| **ics_find.py** | Industrial Control System finder | 🔴 HIGH |
+| **hotel_sniff.py** | RETIRED AND INERT — former guest-identity data sniffer | ⚫ RETIRED |
 | **kitten_test.py** | Testing utility | 🟢 LOW |
 | **dup.py** | Duplicate file finder | 🟢 LOW |
-| **dump_nmdbs.py** | Database dumping tool | 🔴 HIGH |
-| **pdfs_paint.py** | PDF visualization | 🟢 LOW |
 | **print_direction.py** | Direction printing utility | 🟢 LOW |
 
 #### Supporting Files
 | File | Description |
 |------|-------------|
 | **pass.txt** | Password list/dictionary |
-| **passout.txt** | Password output file |
-| **nnb-cities.txt** | Cities database |
 
 **Python Script Characteristics:**
 - Extensive network security tools
