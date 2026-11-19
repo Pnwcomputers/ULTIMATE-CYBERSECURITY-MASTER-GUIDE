@@ -37,6 +37,8 @@ The [HackStarterPack-M5StickCPlus2](https://github.com/flxppr/HackStarterPack-M5
 
 With Bruce firmware, use the [official CC1101 module guide](https://wiki.bruce.computer/external-modules/cc1101/) **and** the [StickC wiring modes](https://wiki.bruce.computer/wiring-diagrams/m5stickc/cc1101-nrf24/). The documented **Legacy SPI** profile uses CS=G26, SCK=G0, MOSI=G32, MISO=G33 and GDO0=G25/G36 as appropriate to the board; **Shared SPI** uses GDO0=G32, CS=G33, SCK=G0, MOSI=G26 and MISO=G36/G25. The upstream's single pin list is not universal. Confirm the exact StickC model, selected Bruce SPI profile, board header pins, supply voltage and physical module orientation **before powering up**. The upstream [generic wiring diagrams](https://github.com/flxppr/HackStarterPack-M5StickCPlus2/blob/main/Tutorials/Wiring%20Diagrams/README.md) show mappings that **must not be copied blindly** to the Plus2.
 
+![Side-by-side comparison of the Bruce Legacy SPI and Shared SPI CC1101 pin assignments. GDO0/MISO alternatives vary by board; verify the exact Plus2 revision and firmware profile before connecting or powering the module.](./images/m5stick-cc1101-spi-profiles.svg)
+
 ## Source map and adoption decisions
 
 | Source folder | Use in this guide | Constraints |
