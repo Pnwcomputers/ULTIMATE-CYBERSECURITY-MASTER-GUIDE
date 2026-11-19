@@ -15,7 +15,7 @@ Deploy Splunk as a SIEM for security monitoring, with Universal Forwarders on en
 - Building Splunk dashboards for security operations
 - Preparing for Splunk Power User or SIEM analyst certification
 
-**Splunk** is a powerful commercial platform for log aggregation, search, and security analytics. While enterprise licensing can be costly, Splunk offers a **Free** tier (500 MB/day indexing) and **Enterprise Trial** (60 days, full features) that are perfect for homelabs, training, and small deployments.
+**Splunk** provides commercial log aggregation, search and security analytics. Splunk Enterprise's vendor-documented Free license allows up to **500 MB/day**, while the standard Enterprise Trial is **60 days with a 500 MB/day trial indexing allowance** unless a customer-specific agreement specifies otherwise. Free and trial capabilities and availability are version/license-dependent; consult the [current Splunk license guide](https://help.splunk.com/en/data-management/splunk-enterprise-admin-manual/10.6/configure-splunk-licenses/about-splunk-free) and [license types](https://help.splunk.com/en/splunk-enterprise/administer/admin-manual/10.6/configure-splunk-licenses/types-of-splunk-enterprise-licenses).
 
 This guide covers deploying Splunk Enterprise, configuring inputs, installing the Universal Forwarder on endpoints, and setting up security monitoring.
 
@@ -25,7 +25,7 @@ This guide covers deploying Splunk Enterprise, configuring inputs, installing th
 
 | Feature | Splunk Free | Enterprise Trial | Enterprise |
 |---------|-------------|------------------|------------|
-| Daily Index Volume | 500 MB | Unlimited | Licensed |
+| Daily Index Volume | 500 MB/day | Generally 500 MB/day for standard 60-day trial; check assigned license | Licensed ingest allowance |
 | Duration | Perpetual | 60 days | Licensed |
 | Alerting | ❌ | ✅ | ✅ |
 | User Authentication | ❌ | ✅ | ✅ |
@@ -33,7 +33,7 @@ This guide covers deploying Splunk Enterprise, configuring inputs, installing th
 | Apps/Add-ons | Limited | ✅ | ✅ |
 | Support | Community | Trial | Licensed |
 
-> **Tip:** For a homelab SIEM, the Free tier is often sufficient. Start with the Enterprise Trial to explore all features, then convert to Free if you don't need alerting.
+> **Licensing caution:** The Free license lacks scheduled alerting and authentication controls required for many SOC scenarios, so do not present it as a production monitoring solution. Test the current edition's restrictions before relying on alerts or multi-user access.
 
 ---
 
@@ -246,6 +246,10 @@ For firewalld, use an appropriate source-restricted zone or rich rule instead of
 ---
 
 ## 📥 Part 4: Configure Data Inputs
+
+![Splunk log data flow from endpoint Universal Forwarders to receiving/indexing and a separate or combined search/alert tier, with readback evidence checks](../../assets/diagrams/splunk-forwarder-indexer-search-head-data-flow.svg)
+
+*Conceptual Splunk Enterprise data path.* [Splunk's Universal Forwarder guide](https://help.splunk.com/en/splunk-cloud-platform/forward-and-process-data/ingest-actions/process-data-with-forwarders/the-universal-forwarder) confirms that a Universal Forwarder does **not** index or search events. [Splunk's distributed indexer guide](https://help.splunk.com/en/splunk-enterprise/administer/manage-indexers-and-indexer-clusters/10.4/indexing-overview/indexers-in-a-distributed-deployment) distinguishes index storage/search execution from search-head coordination; a single-node lab may combine roles. Validate forwarding, parsing, indexing, searching and alerting independently.
 
 ### Step 4.1: Enable Receiving (for Forwarders)
 
