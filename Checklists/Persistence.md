@@ -1,13 +1,13 @@
 # Persistence
 _Windows persistence techniques mapped to MITRE ATT&CK, covering registry, service, scheduled task, and application-based persistence mechanisms. Source: Pentest Laboratories._
 
-**Purpose:** The largest checklist in this collection (42 items) - a comprehensive survey of ways to make code re-execute automatically on a Windows host across reboots, logons, or specific trigger events, without relying on any single point of failure. This is host-level persistence (surviving a reboot or logoff), distinct from [Domain Persistence](./Domain-Persistence.md), which covers surviving at the AD/domain level.
+**Purpose:** A defensive inventory of Windows mechanisms that can make code re-execute after reboot, logon, or another trigger. It is host-level persistence (surviving a reboot or logoff), distinct from [Domain Persistence](./Domain-Persistence.md), which covers persistence at the AD/domain level.
  
-**Function:** The techniques cluster into families based on *what* triggers re-execution: logon-time (Winlogon Helper, Registry Run Keys, PowerShell Profile, Screensaver), service-based (New/Modified Service, Port Monitors, Time Providers - all run as SYSTEM), event-driven (WMI Event Subscription - fires on arbitrary system conditions, not just boot/logon), and hijacking-based (DLL Search Order, COM Hijacking, Netsh Helper DLL, DLL Proxy Loading - abuse how Windows locates and loads code rather than registering a new autostart entry at all). The hijacking family is generally the stealthiest, since it doesn't create a new, independently-auditable autostart entry - it corrupts an existing legitimate one.
+**Function:** The techniques cluster into families based on *what* triggers re-execution: logon-time (Winlogon Helper, Registry Run Keys, PowerShell Profile, Screensaver), service-based (New/Modified Service, Port Monitors, Time Providers - all run as SYSTEM), event-driven (WMI Event Subscription - fires on arbitrary system conditions, not just boot/logon), and hijacking-based (DLL Search Order, COM Hijacking, Netsh Helper DLL, DLL Proxy Loading - abuse how Windows locates and loads code rather than registering a new autostart entry at all). Visibility varies by mechanism and telemetry; hijacking techniques can alter legitimate load paths and may require targeted checks.
  
-**Goal:** Establish redundant, differently-detected persistence across multiple mechanism families (not just multiple instances of the same mechanism) so that a single remediation action - deleting one Run key, restarting one service - doesn't fully evict the implant. From a defensive standpoint, this list is close to a canonical Windows autostart/persistence audit checklist: working through even a subset of these locations covers the large majority of real-world Windows persistence findings.
+**Goal:** Help defenders inventory relevant autostart locations and validate detection and recovery coverage. This list is not exhaustive; coverage depends on Windows versions, configuration, and telemetry. During a controlled exercise, simulate only the mechanisms necessary to answer a defined test question.
  
-**When & how to use this:** During red team work, plant persistence using at least one item from 2-3 different families above (not 3 variations of the same technique) so recovery genuinely tests IR capability. During defensive/hunt work, use this as a structured sweep list - most EDR "autoruns"-style tooling covers the registry/service/scheduled-task items natively, but the hijacking-family items (DLL search order, COM hijacking) usually require manual or purpose-built hunting since they don't register in a conventional autostart location.
+**When & how to use this:** During red-team work, use a lab or a specifically approved simulation, one mechanism at a time, with a documented rollback and cleanup verification. Do not plant multiple live mechanisms as the default test approach. During defensive/hunt work, use this as a structured sweep list - most EDR "autoruns"-style tooling covers the registry/service/scheduled-task items natively, but the hijacking-family items (DLL search order, COM hijacking) usually require manual or purpose-built hunting since they don't register in a conventional autostart location.
 
 ---
 
@@ -70,11 +70,11 @@ _Windows persistence techniques mapped to MITRE ATT&CK, covering registry, servi
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **Authorized testing only: confirm authority and scope before active testing.** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Legal consequences depend on the conduct and applicable law; see [18 U.S.C. §1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) and [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **For systems you do not own or administer, confirm authorization in advance and document scope in writing where policy, law, or contract requires it.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
