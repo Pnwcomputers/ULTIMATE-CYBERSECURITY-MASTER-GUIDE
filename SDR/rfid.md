@@ -639,27 +639,14 @@ Use this checklist to practice baseline RFID concepts safely on a credential **y
 The tools and techniques in this manual read, recover keys from, clone, and
 emulate physical access credentials and contactless cards.
 
-UNAUTHORIZED USE OF A CLONED CREDENTIAL IS A SERIOUS CRIME.
-
-Computer Fraud and Abuse Act (CFAA):
-   ► Using a cloned badge to access a protected system/facility can be charged
-     as unauthorized access - felony exposure.
-
-Access Device Fraud ([18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/)):
-   ► Producing, using, or trafficking in counterfeit or unauthorized "access
-     devices" (which includes cloned cards) carries heavy federal penalties.
-
-Payment Card Fraud:
-   ► Capturing, cloning, or replaying EMV / contactless payment data is fraud
-     and identity theft - never a "test."
-
-State Laws:
-   ► Burglary-tool possession, trespassing, and eavesdropping statutes vary by
-     state and can apply to cloned-credential tools used without authorization.
-
-International Laws:
-   ► GDPR and national access-device and computer-misuse laws (e.g., UK Computer
-     Misuse Act) apply abroad. ALWAYS check local laws.
+Legal consequences depend on the jurisdiction, authorization, exact conduct, and
+applicable statutory elements. Unauthorized credential use may violate computer-
+misuse, access-device, trespass, privacy, payment-network, or other rules; a particular
+statute does not automatically apply to every read or clone. For example, [18 U.S.C.
+§ 1029](https://uscode.house.gov/us/usc/t18/s1029/) covers specified access-device
+offenses with subsection-specific elements. Payment-card and identity-data handling
+also requires issuer-approved scope and test data. Confirm local requirements with
+qualified counsel before testing.
 ═══════════════════════════════════════════════════════════════
 ```
 
@@ -668,17 +655,17 @@ International Laws:
 #### Badge Cloning (Physical Access)
 
 ```
-🔴 SERIOUS CRIME: Unauthorized Access & Trespassing
+⚠️ Unauthorized badge use can create legal and safety risks
 
 ILLEGAL ACTIVITIES:
    • Reading/cloning a coworker's or stranger's access badge
    • Long-range capture of a credential to duplicate it
    • Using a cloned fob to enter premises you are not authorized to enter
 
-LAWS VIOLATED:
-   • Computer Fraud and Abuse Act (CFAA)
-   • Access Device Fraud ([18 U.S.C. § 1029](https://uscode.house.gov/us/usc/t18/s1029/))
-   • State trespassing and burglary-tool possession laws
+POSSIBLE CONSEQUENCES (depend on facts and jurisdiction):
+   • Computer-misuse or access-device offenses
+   • Trespass or burglary-tool rules
+   • Contract, workplace, or site-access violations
 
 AUTHORIZED USE ONLY:
    ✓ Written authorization from the property/credential owner
