@@ -6,6 +6,10 @@ Multi-agent systems can split work into specialist roles, but create new failure
 
 ## 1. Choose an Orchestration Pattern
 
+![Coordinator delegates separate bounded researcher and builder lanes, read-only verifier independently checks results, and integration plus owner approval gates side effects](../assets/diagrams/ai-multi-agent-fanout-review-integration.svg)
+
+*Conceptual process, not proof that multiple independent agents were executed.* Different prompts against the same model are not automatically independent verification. Use distinct permissions and artifact ownership, [protected branch review and status checks](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches), and post-integration tests before claiming milestone acceptance.
+
 | Pattern | Workflow | Best For | Caution |
 |---|---|---|---|
 | Single agent + tools | One owner calls limited tools | Straightforward tasks | Keep tool set narrow |
