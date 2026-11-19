@@ -18,7 +18,7 @@ Produce a fully operational Kali NetHunter environment on the OnePlus 6 for mobi
 
 ### Overview & Setup Guide
 
-_Last verified against Kali's official docs, July 2026 (current release: NetHunter 2026.2)._
+_Reviewed against Kali's official image index on November 19, 2026. Release filenames change; check the live index before each installation._
 
 This guide assumes you're starting from where you are now: bootloader unlocked, TWRP installed, Magisk root working. It covers what NetHunter actually is, the OnePlus-6-specific prerequisite you need to check first, installing the image, and post-install configuration (updates, apps, auto-starting services).
 
@@ -40,7 +40,7 @@ Per Kali's official pre-built image list, the OnePlus 6/6T entry is:
 
 - Codename: `oneplus6`
 - Base ROM: LineageOS 19.1 or LineageOS 22.2
-- Current downloadable image: `kali-nethunter-2026.2-oneplus6-los-fifteen-full.zip` (LineageOS 22.2 / Android 15 base, full rootfs, ~1.9 GiB)
+- Select the current OnePlus 6/6T image from Kali's [live image index](https://nethunter.kali.org/images.html). Confirm device (`oneplus6`), ROM, Android version, and rootfs match before downloading; the filename changes by release.
 
 If your phone is currently on stock OxygenOS (even rooted/TWRP'd), you need to flash LineageOS 22.2 first - the NetHunter kernel/overlay is built specifically for that base. If you're already running LineageOS on the A6003, you're set.
 
@@ -58,12 +58,13 @@ _[OnePlus 6 A6003 Rooting Guide:](Rooting.md)_
 - Magisk root ✅ (already done)
 - Running LineageOS 22.2 (Android 15) on the OnePlus 6 - confirm per Section 2
 - Developer Mode + USB Debugging enabled (Settings → About phone → tap Build number 7×, then Developer options → enable Advanced Reboot and Android Debugging)
-- **Disable_Dm-Verity_ForceEncrypt** flashed and data partition formatted. This is called out as "Important" specifically for the OnePlus 6/6T image. Without it, Magisk can't properly handle an encrypted data partition, which breaks things like SSH ("Required key not available" errors).
+- **Image-specific storage requirement:** Kali's current pre-created image index marks the OnePlus 6/6T build with an `Install Disable_Dm-Verity_ForceEncrypt` note. Confirm the exact release's installation instructions before changing device encryption. Disabling force-encryption and formatting data erase user data and weaken at-rest protection; back up first and proceed only if required by that exact build. Do not treat this as a general Android or NetHunter prerequisite.
 - Battery reasonably charged, screen-awake settings adjusted (Android will kill background installs if the screen locks mid-flash)
 
 ### 3.2 Download the image
 
-Get `kali-nethunter-2026.2-oneplus6-los-fifteen-full.zip` from the official NetHunter download page: https://www.kali.org/get-kali/#kali-mobile (or directly via https://kali.download/nethunter-images/current/). Verify the file isn't corrupted (compare checksum/torrent if you want extra assurance on the ~1.9 GiB download).
+The image list is updated independently of this guide; the current filenames and checksums are maintained by Kali.
+From Kali's [official image index](https://nethunter.kali.org/images.html), open the [current download directory](https://kali.download/nethunter-images/current/) and select the exact OnePlus 6 image matching the ROM/Android version confirmed above. Verify the archive against the published `SHA256SUMS` before transferring or flashing it; do not rely on a filename alone.
 
 Transfer the zip to your phone's internal storage.
 
@@ -87,7 +88,7 @@ Either method is fine on your setup since you already have both TWRP and Magisk;
 
 1. Launch the **NetHunter app**. It will finish setting up the chroot on first run.
 2. **Update the NetHunter app from the NetHunter Store immediately after flashing.** This is flagged as "Important" specifically for the OnePlus 6/6T image - Android's scoped storage changes broke the app's original config storage location, and updating the app is the workaround until Kali fully migrates it.
-3. Default Kali root password is `toor` (or `kali`/`1234` on some rootfs variants) - **change this before enabling any remote access** (see Section 5).
+3. Verify the default account and credentials for the exact NetHunter image from Kali's current documentation. Do not try credential variants; change any default credential before enabling a remote service.
 
 ---
 
@@ -98,7 +99,8 @@ Either method is fine on your setup since you already have both TWRP and Magisk;
 From a NetHunter terminal (or via the app's terminal tool), run:
 
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
+sudo apt update
+sudo apt full-upgrade
 ```
 
 Do this regularly - it pulls the latest tool versions and security patches into your Kali chroot, separate from Android's own update cycle.
@@ -153,7 +155,7 @@ For anything beyond the built-in service toggles - custom scripts, one-tap tool 
 
 - **Change the default root password** (`toor`/`kali`) before enabling SSH or any other remote service.
 - **Update the NetHunter app right after flashing** - required workaround for Android scoped-storage issues on this device.
-- **Data partition must not be encrypted** - flash the DM-Verity/ForceEncrypt disabler and format data before installing, or Magisk/SSH will throw key errors.
+- **Storage encryption:** follow the requirement for the exact OnePlus 6 image and ROM. The current image index flags the disabler for this device, but disabling force-encryption reduces at-rest protection and formatting data erases user files. Back up and verify the image-specific instructions before proceeding.
 - Wireless attack tools (injection, monitor mode) depend on your Wi-Fi chip's driver support - not every attack works out of the box on every device/kernel combo.
 - Keep the chroot backed up via Chroot Manager before major `apt` upgrades, in case something breaks.
 
