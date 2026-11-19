@@ -14,6 +14,12 @@ _Last reviewed: 2026-11-02 (source mapping; no rules deployed)_
 | [Falco rules](https://github.com/falcosecurity/rules) | Container/runtime threat signals, not native Wazuh or Sigma rules |
 | [MITRE ATT&CK](https://attack.mitre.org/) | Technique and telemetry mapping, not proof a rule will fire |
 
+## Detection Evidence & Validation Boundaries
+
+![Three detection evidence classes: fixture only, imported unverified, and independently verified live lab, with the sensor-to-alert test gates](../../assets/diagrams/detection-evidence-verification-gates.svg)
+
+*Evidence-level comparison, not a claim that a rule was deployed.* A synthetic positive/negative sample can test rule logic; it does not establish sensor delivery, product integration, or production coverage. Review the [offline canary validator](../../Documentation/CANARY-DETECTION-VALIDATOR.md) and [live verification matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md) before reporting results.
+
 ## Repeatable test and promotion workflow
 
 1. Define the malicious or suspicious behavior, required sensors and minimum observable event fields.

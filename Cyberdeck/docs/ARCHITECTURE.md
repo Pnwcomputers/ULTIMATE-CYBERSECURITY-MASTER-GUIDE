@@ -6,6 +6,10 @@
 
 A portable field system separates operator management from sensor work, a controlled lab and any approved customer test interface. The topology below is **illustrative**, and deployments must use the *actual* model, firmware, port maps and network policies of the chosen equipment.
 
+![Illustrative Cyberdeck upstream, policy router, management, sensor, isolated lab and authorized client-test zones with independent RF devices and encrypted evidence storage](../../assets/diagrams/cyberdeck-policy-zones.svg)
+
+*Conceptual zone map, not a tested wiring diagram.* Dashed connections represent intended policy boundaries rather than guaranteed reachability or packet capture; confirm actual interface modes, routes, SPAN/TAP feeds, and physical segmentation before use.
+
 | Zone | Possible Components | Security & Verification Objective |
 | --- | --- | --- |
 | UPSTREAM | Approved hotspot or client-provided uplink; [GL.iNet travel router](https://www.gl-inet.com/pages/travel-routers) in WISP/repeater mode | Know whether the uplink is NAT, routed or bridged; do not assume transparent packet visibility |

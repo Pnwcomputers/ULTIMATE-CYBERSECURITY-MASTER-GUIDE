@@ -2,6 +2,12 @@
 
 **Repeatable detection lab:** [Atomic Red Team/Sigma/Wazuh validation guide](purple-team-detection-validation.md) defines safe test selection, positive/negative evidence and cleanup; [SIEM rule verification](../IncidentResponse/SIEM/detection-content-validation.md) covers platform-specific conversion, false positives and alert coverage.
 
+## Purple Team Detection Lifecycle
+
+![Conceptual Purple Team pipeline linking source verification, human approval, isolated canary execution, event collection, detection evaluation, and rule tuning](../assets/diagrams/purple-team-emulation-detection-loop.svg)
+
+*Conceptual workflow only.* Live emulation and vendor detections must be verified with the [controlled validation procedure](purple-team-detection-validation.md); no live results are implied.
+
 ## 🎯 Purpose
 
 Bring Red-Team attack techniques and Blue-Team detections together in repeatable, measurable exercises-leveraging Python, PowerShell, Batch, and dedicated frameworks-to harden your environment against real adversaries.

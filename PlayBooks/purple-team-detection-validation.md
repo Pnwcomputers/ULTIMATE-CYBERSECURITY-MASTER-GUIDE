@@ -12,6 +12,12 @@ _Last reviewed: 2026-11-02 (references only; no attack simulations run)_
 [SIEM index](../IncidentResponse/SIEM/README.md) ·
 [Endpoint Visibility](../IncidentResponse/Endpoint-Visibility/README.md).
 
+## Purple Team Execution & Feedback Loop
+
+![Conceptual Purple Team flow from reviewed threat intelligence through authorized canary emulation, real sensor telemetry, SIEM/EDR rule checks, evidence review, and human-approved rule tuning](../assets/diagrams/purple-team-emulation-detection-loop.svg)
+
+*Conceptual architecture, not a deployed or exercised orchestrator.* CTI and AI-generated test suggestions require an explicit approval gate. A rule or a local fixture pass is **not** evidence of live SIEM/EDR detection; see the [evidence-level diagram](../Documentation/CANARY-DETECTION-VALIDATOR.md#evidence-levels--live-lab-verification).
+
 ## A repeatable detection experiment
 
 1. Choose one control gap and MITRE ATT&CK technique from a **current**

@@ -8,6 +8,12 @@ Use `tools/lab_detection_validator.py` to compare an investigator's **declared p
 
 The included fixture uses invented IDs and timestamps. It is safe for unit tests but **cannot** establish real endpoint/IDS coverage.
 
+## Evidence Levels & Live-Lab Verification
+
+![Comparison of synthetic fixture tests, imported unverified evidence, and conditionally verified live-lab results, including collection, native-rule, alert and negative-control gates](../assets/diagrams/detection-evidence-verification-gates.svg)
+
+*Conceptual evidence taxonomy.* The current tool only evaluates records supplied to it. **No real SIEM or EDR has been validated by the diagram or fixture.** A particular deployment may only be called verified when the source, event capture, actual backend evaluation, alert routing, benign control and independent review have been documented.
+
 ## Run the Offline Demonstration
 
 From the repository root:
