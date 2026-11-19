@@ -113,6 +113,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/data-lineage-job-run-access-boundaries.svg": (
         "Data-Engineering/Phase3/data_governance_lineage.md",
     ),
+    "assets/diagrams/rag-ingestion-retrieval-permission-boundaries.svg": (
+        "AI/rag-and-knowledge-engineering.md",
+    ),
+    "assets/diagrams/ai-structured-output-authorized-action-gates.svg": (
+        "AI/structured-outputs-and-data-contracts.md",
+    ),
+    "assets/diagrams/ai-agent-ambiguous-write-reconciliation.svg": (
+        "AI/agent-reliability-and-recovery.md",
+    ),
+    "assets/diagrams/pipeline-observability-reconciliation-slo.svg": (
+        "Data-Engineering/Phase3/pipeline_observability.md",
+    ),
 }
 
 
