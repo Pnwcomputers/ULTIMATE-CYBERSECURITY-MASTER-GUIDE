@@ -245,35 +245,35 @@ pretty_json() {
 query_api() {
     local output="$1" label="$2" url="$3" rc=0 body curl_config; shift 3
     if [[ ! "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]]; then
-        printf 'Invalid HTTPS URL for %s\\n' "$label" > "${output}.err"
+        printf 'Invalid HTTPS URL for %s\n' "$label" > "${output}.err"
         : > "$output"
         return 2
     fi
-    curl_config="url = \"$url\""$'\\n'
+    curl_config="url = \"$url\""$'\n'
     while (($#)); do
         case "$1" in
             -H|--header)
                 (($# >= 2)) || return 2
                 [[ "$2" =~ ^[A-Za-z0-9-]+:[[:space:]][A-Za-z0-9._+-]+$ ]] || {
-                    printf 'Rejected unsafe header for %s\\n' "$label" > "${output}.err"
+                    printf 'Rejected unsafe header for %s\n' "$label" > "${output}.err"
                     : > "$output"
                     return 2
                 }
-                curl_config+="header = \"$2\""$'\\n'
+                curl_config+="header = \"$2\""$'\n'
                 shift 2
                 ;;
             -d|--data)
                 (($# >= 2)) || return 2
                 [[ "$2" =~ ^[A-Za-z0-9._@%+=&-]+$ ]] || {
-                    printf 'Rejected unsafe form data for %s\\n' "$label" > "${output}.err"
+                    printf 'Rejected unsafe form data for %s\n' "$label" > "${output}.err"
                     : > "$output"
                     return 2
                 }
-                curl_config+="data = \"$2\""$'\\n'
+                curl_config+="data = \"$2\""$'\n'
                 shift 2
                 ;;
             *)
-                printf 'Rejected unsupported curl option for %s\\n' "$label" > "${output}.err"
+                printf 'Rejected unsupported curl option for %s\n' "$label" > "${output}.err"
                 : > "$output"
                 return 2
                 ;;
