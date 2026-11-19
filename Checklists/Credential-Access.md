@@ -1,15 +1,16 @@
 # Credential Access
-_Credential theft and harvesting techniques mapped to MITRE ATT&CK technique IDs, for red team engagements and blue team detection engineering. Source: Pentest Laboratories._
+_Credential exposure risks and defensive detection coverage mapped to MITRE ATT&CK technique IDs. Source: Pentest Laboratories._
 
-**Purpose:** Covers the ways credentials get exposed and captured on Windows systems and in Active Directory - from OS-level credential stores to phishing-adjacent prompt injection to Kerberos protocol weaknesses. This is deliberately broader than "password cracking"; several items here (input prompts, password filter DLLs) are about *interception* rather than brute force or offline attack.
+**Purpose:** Summarizes credential exposure paths that defenders can inventory, monitor, and mitigate on Windows and Active Directory systems. The referenced techniques include credential stores, authentication prompts, password-filter changes, and Kerberos configuration weaknesses.
  
-**Function:** Entries split roughly into three families: (1) memory/disk-based dumping - RDP credential caching, browser-stored credentials, stored credential blobs; (2) protocol-level attacks - AS-REP roasting and Kerberoasting abuse specific weaknesses in how Kerberos issues tickets; (3) active interception - password filter DLLs and fake input prompts capture credentials at the moment of entry rather than after the fact. Each maps to a MITRE ATT&CK technique ID so findings translate directly into a detection-coverage conversation.
+**Function:** Entries group credential risks into local stores, Kerberos configuration, and changes that could intercept authentication. Each maps to MITRE ATT&CK to support a defensive control review: access restrictions, auditing, alert coverage, and credential rotation.
  
-**Goal:** Establish how many independent paths exist to recover plaintext or crackable credentials from a compromised host or domain, and specifically whether any of them work *without* triggering the alerting most organizations have in place for the obvious ones (e.g., LSASS dumping). The AS-REP/Kerberoasting items in particular test whether accounts are configured in a way that makes offline cracking feasible without ever touching a monitored process.
+**Goal:** Identify and prioritize credential exposure risks without collecting real secrets. Validate monitoring with synthetic accounts and data, and review configuration findings with the system owner.
  
-**When & how to use this:** Run immediately after establishing a foothold, before attempting lateral movement - credentials recovered here often determine what's possible next. Start with the passive/low-noise items (stored credentials, browser data) before moving to the noisier active techniques (input prompt phishing, password filter DLL installation), since the latter are more likely to trip EDR or generate a support ticket from a suspicious user.
+**When & how to use this:** Use this as a defensive hunt and control-review checklist. Do not collect credentials from production users or install interception components as routine testing. If active validation is separately approved, use synthetic accounts in an isolated lab with monitoring and cleanup agreed in advance.
 
-#### 🛠️ Related scripts: [Scripts/PowerShell/cred_hunt.ps1](../Scripts/PowerShell/cred_hunt.ps1) · [Scripts/PowerShell/localbrute.ps1](../Scripts/PowerShell/localbrute.ps1) · [Scripts/PowerShell/smblogin.ps1](../Scripts/PowerShell/smblogin.ps1)
+#### Retired examples
+The linked credential collection and password-testing scripts are retired inert stubs: [cred_hunt.ps1](../Scripts/PowerShell/cred_hunt.ps1), [localbrute.ps1](../Scripts/PowerShell/localbrute.ps1), and [smblogin.ps1](../Scripts/PowerShell/smblogin.ps1). Do not treat historical filenames as runnable tools.
 ---
 |Code     |Technique               |Mitre     |
 |---------|------------------------|----------|
