@@ -6,8 +6,13 @@
 
 Use the [upstream install/update wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/update-firmware)
 and [JCMK installer](https://justcallmekoko.github.io/MarauderInstaller/) for the
-exact hardware revision. A Flipper FAP is a separate artifact from its accessory's
-ESP firmware. Do not infer supported bands or GPS/SD locations from a family name.
+exact hardware revision. The upstream release page listed v1.20.0 when checked on
+2026-11-19; this changes over time. Match the complete board name, firmware suffix,
+chip, and flash layout before installing. A Flipper FAP is a separate artifact from
+its accessory's ESP firmware. Do not infer supported bands or GPS/SD locations from
+a family name.
+
+![Marauder firmware selection flow: identify the exact board, match its release target and flash layout, install with the upstream tool, then verify supported features](../assets/diagrams/marauder-firmware-selection.svg)
 
 | Resource | Role & Compatibility Boundary |
 |---|---|
@@ -45,7 +50,7 @@ Enable security professionals to select the right Marauder hardware variant, fla
 > **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
 > **Original guide baseline:** November 2025  
 > **Companion project links checked:** October 26, 2026  
-> **Firmware:** ESP32 Marauder **v1.8.9** (and 1.8.x improvements)  
+> **Version snapshot:** The upstream release page listed **v1.20.0** on 2026-11-19. Release assets and board support change; verify the current upstream release and hardware matrix before installing.  
 > **Skill Level:** Intermediate to Advanced wireless security
 
 ---
@@ -69,6 +74,8 @@ Enable security professionals to select the right Marauder hardware variant, fla
 
 ---
 
+> **Historical baseline:** The feature descriptions and menu examples in this legacy guide section were written for Marauder v1.8.9. They are retained as version-specific notes, not as confirmation that each item remains in current firmware. For current board compatibility and installation, use the upstream [release page](https://github.com/justcallmekoko/ESP32Marauder/releases), [Supported Hardware](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware), and installer linked above.
+
 ## Executive Overview
 
 ### What is WiFi Marauder?
@@ -91,7 +98,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - **Versatile:** WiFi, Bluetooth, GPS in one device  
 - **Expandable:** Open-source firmware, active development  
 - **Educational:** Learn wireless protocols hands-on  
-- **Covert:** Small form factor for authorized testing
+- **Small form factor:** Portable for authorized lab and field work
 
 **Comparison to similar tools**:
 
@@ -124,7 +131,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - Packet capture to PCAP  
 - GPS-tagged wardrive logs + **POI markers** (1.8.x)  
 
-> **New in v1.8.9:** **AirTag Monitor** (with **Last-Seen** timer) and on-device **Select .bin to flash** during self-update.
+> **Historical v1.8.9 note:** AirTag Monitor (with Last-Seen timer) and on-device `.bin` selection were described in that release; check current release notes and target-specific support.
 
 ### Legal & Ethical Framework
 
@@ -157,9 +164,7 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - To design your own case or antenna mount, see [CAD & 3D Printing](../CAD/README.md).  
 - Best for wardriving and professional assessments.
 
-**Option 5: ESP32-C5 DevKitC-1 (Dual-Band / Wi-Fi 6 capable)**  
-- **Dual-band 2.4/5 GHz Wi-Fi 6** silicon; supported by Marauder with a dedicated installer path as of 1.8.x.  
-- Ensure regional/DFS compliance when using 5 GHz.
+**ESP32-C5 targets:** Some supported boards provide dual-band operation, but firmware targets and flash layouts are board-specific. Confirm the current release matrix and local radio rules; do not infer compatibility from the chip family.
 
 ### DIY Builds
 
@@ -192,17 +197,13 @@ These are **not Marauder installation sources**: never cross-flash a binary with
 
 ### Getting the Firmware
 
-- **Stable Release (v1.8.9):** Use the release assets for your board (v4/v6/v6.1/v7/Kit/Mini/Flipper/MultiBoard S3/CYD/M5 Cardputer/**ESP32-C5 DevKit**, etc.).  
-- The release page lists exact **binary names** per hardware.
+Use the [current upstream release assets](https://github.com/justcallmekoko/ESP32Marauder/releases) and [Supported Hardware matrix](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware). The release page lists exact target suffixes; use the complete hardware name and matching flash layout. Do not select a binary by ESP32 family alone.
 
 ### Flashing Methods
 
-1) **Web Flasher** – via browser serial tools.  
-2) **Marauder Flasher (Windows)** – GUI flasher.  
-3) **`esptool.py`** – cross-platform CLI (erase + write at `0x10000`, or full layout).  
-4) **Arduino IDE** – for development (boards manager + required libraries).
+Prefer the upstream [Marauder Installer](https://justcallmekoko.github.io/MarauderInstaller/) or follow the exact release instructions for the selected board. Manual flashing must use the board-specific bootloader, partition table, offsets, and application image; do not reuse a generic `0x10000` example. Keep an unmodified copy of logs and configuration before updating.
 
-**New in v1.8.9 – On-device self-update picker:** You can **select a `.bin` file from a list** on the device to flash, handy when keeping multiple builds on SD.
+**Historical v1.8.9 note:** On-device `.bin` selection was documented for some targets. Confirm that the feature is present for the installed firmware and hardware before relying on it.
 
 ### Initial Configuration
 
@@ -215,6 +216,8 @@ These are **not Marauder installation sources**: never cross-flash a binary with
 ## Core Features & Capabilities
 
 ### WiFi Scanning & Sniffing
+
+The following menu and feature descriptions are from the v1.8.9-era baseline and may differ by release and board.
 
 - **AP Scan / Station Scan** (with **Select All** convenience in 1.8.x).  
 - Sniffers: Beacons, Probes, PMKID, PCAP.  
@@ -245,7 +248,7 @@ These are **not Marauder installation sources**: never cross-flash a binary with
 
 ## WiFi Attack Techniques
 
-All attack techniques require **written authorization** before use. See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed command-only reference.
+The procedures below describe historical firmware menus; verify current behavior in the installed target and upstream documentation. Use active radio functions only within explicit authority and scope. See [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) for the condensed command-only reference.
 
 ### 1. Reconnaissance — Scan for APs
 
@@ -548,15 +551,15 @@ Every delivered finding must include test ID, written scope, exact board/firmwar
 
 ### Next Steps
 
-1. **Choose hardware** (consider dual-band **ESP32-C5** where appropriate).  
-2. **Flash v1.8.9** for your board from the release assets.  
+1. **Identify the exact board and PCB revision** using the upstream supported-hardware matrix.  
+2. **Select the matching release binary and flash layout**; prefer the upstream installer.  
 3. **Practice** in a controlled lab or authorized environment.  
 4. **Instrument** with Wireshark/Kismet/Hashcat for full workflows.  
 5. **Contribute** fixes, docs, and features back to the community.
 
 ---
 
-**Guide Version:** 1.0.1 (Updated for v1.8.9)  
+**Legacy guide baseline:** Marauder v1.8.9 feature notes; current release and board matrix checked 2026-11-19  
 **Author:** Security Professional  
 **Repository:** https://github.com/justcallmekoko/ESP32Marauder  
 
