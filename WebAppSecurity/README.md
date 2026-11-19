@@ -32,7 +32,7 @@ find and fix web vulnerabilities during authorized engagements.
 
 ## ⚙️ Function
 Indexes the Web Application Security section: an OWASP Top 10 deep-dive (2025
-Release Candidate, mapped to 2021) and a full web application penetration testing
+final edition, mapped to the superseded 2021 edition) and a full web application penetration testing
 methodology covering reconnaissance, mapping, the Burp Suite workflow, injection
 and access-control testing, business-logic flaws, and API/GraphQL testing - each
 paired with defensive guidance.
@@ -78,7 +78,7 @@ it), mirroring the [Tradecraft](../Tradecraft/) convention.
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[owasp-top-10.md](./owasp-top-10.md)** | OWASP Top 10:2025 (RC) deep-dive - each category with exploitation, testing, and defense, plus a 2021→2025 mapping | ✅ Complete |
+| **[owasp-top-10.md](./owasp-top-10.md)** | OWASP Top 10:2025 final-edition deep-dive - each category with exploitation, testing, and defense, plus a 2021→2025 mapping | ✅ Complete |
 | **[methodology.md](./methodology.md)** | Web app pentest methodology: recon, mapping, Burp Suite workflow, injection/access-control/business-logic testing, API & GraphQL testing, reporting | ✅ Complete |
 
 ---
@@ -127,7 +127,7 @@ A web assessment generally proceeds in phases (detailed in
 
 ## 📚 Resources
 
-- [OWASP Top 10](https://owasp.org/Top10/) - the current risk list (2025 RC; 2021 stable)
+- [OWASP Top 10](https://owasp.org/Top10/) - the current final risk list (2025; 2021 superseded)
 - [OWASP Web Security Testing Guide (WSTG)](https://owasp.org/www-project-web-security-testing-guide/) - the definitive testing methodology
 - [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/) - verifiable security requirements
 - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) - concise defensive guidance per topic
