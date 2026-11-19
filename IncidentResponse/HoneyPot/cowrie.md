@@ -181,13 +181,9 @@ Start with:
 AUTHBIND_ENABLED=yes cowrie start
 ```
 
-### setcap (grant Python the bind-low-port capability)
+### Avoid granting the capability to the shared Python interpreter
 
-```bash
-setcap cap_net_bind_service=+ep /usr/bin/python3
-```
-
-Then set the same `listen_endpoints` change as above.
+Do not run `setcap cap_net_bind_service=+ep /usr/bin/python3`: that grants low-port binding to every program executed by that interpreter, not just Cowrie. Prefer the port-redirection or authbind methods above. If a dedicated service manager is used, scope any bind capability to a dedicated Cowrie executable/service and verify the effective privileges.
 
 ---
 
