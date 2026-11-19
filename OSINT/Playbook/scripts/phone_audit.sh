@@ -239,14 +239,17 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
-# query_api OUTPUT LABEL CURL_ARGS... — fetch JSON evidence with curl. On any transport
-# failure (network error, timeout, non-2xx with --fail) or an empty body, OUTPUT is left
-# empty and the failure is logged and saved to OUTPUT.err, so a dead API or expired key
-# can never be mistaken for "nothing found" — the prior behavior piped curl straight into
-# `jq || cat` and a failed curl just produced a silently empty file.
+# query_api OUTPUT LABEL URL [CURL_ARGS...] — fetch JSON evidence with curl. URLs,
+# including query-string API credentials, are passed through curl's stdin config so
+# they do not appear in its process arguments. Providers may still retain URL logs.
 query_api() {
-    local output="$1" label="$2" rc=0 body; shift 2
-    body="$(curl -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
+    local output="$1" label="$2" url="$3" rc=0 body; shift 3
+    if [[ ! "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]]; then
+        printf 'Invalid HTTPS URL for %s\n' "$label" > "${output}.err"
+        : > "$output"
+        return 2
+    fi
+    body="$({ printf 'url = "%s"\n' "$url"; } | curl --config - -sS --fail --max-time 20 "$@" 2>"${output}.err")" || rc=$?
     : > "$output"
     if (( rc != 0 )) || [ -z "$body" ]; then
         log "${YELLOW}    [!] ${label} lookup FAILED (curl exit ${rc}$( [ -z "$body" ] && echo ", empty response" )) — UNVERIFIED, see ${output}.err${NC}"
@@ -254,7 +257,6 @@ query_api() {
     fi
     printf '%s' "$body" | pretty_json > "$output"
 }
-
 # Start
 print_banner
 check_dependencies
