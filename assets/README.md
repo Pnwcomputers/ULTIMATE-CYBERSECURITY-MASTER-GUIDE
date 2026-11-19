@@ -215,6 +215,7 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [GRC control evidence](./diagrams/grc-controls-evidence.svg) | [Compliance/README.md](../Compliance/README.md) | Risk, mapping, control implementation and testing |
 | [Reverse engineering](./diagrams/reverse-engineering-workflow.svg) | [ReverseEngineering/README.md](../ReverseEngineering/README.md) | Sample intake to defensible findings |
 | [Space system segments](./diagrams/space-security-segments.svg) | [SpaceSecurity/README.md](../SpaceSecurity/README.md) | Ground, comms, spacecraft and user trust boundaries |
+| [GNSS authentication and integrity boundaries](./diagrams/gnss-authentication-and-integrity-boundaries.svg) | [SpaceSecurity GNSS chapter](../SpaceSecurity/PartIV.md) | Distinguish message authentication, integrity checks, and interference indicators |
 | [Wardriving data handling](./diagrams/wardriving-collection-lifecycle.svg) | [Wardriving/README.md](../Wardriving/README.md) | Passive survey quality, privacy and disclosure |
 | [Data pipeline reliability](./diagrams/data-pipeline-reliability.svg) | [Data-Engineering/Phase2/README.md](../Data-Engineering/Phase2/README.md) | Contract, transformations, security and replay |
 | [NanoVNA calibration](./diagrams/nanovna-calibration-plane.svg) | [SDR/nanovna/README.md](../SDR/nanovna/README.md) | Measurement reference plane and uncertainty |
