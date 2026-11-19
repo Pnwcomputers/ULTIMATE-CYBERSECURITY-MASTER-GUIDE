@@ -7,7 +7,7 @@ Methodology and tooling for collecting **publicly available** intelligence from 
 Documents the durable social media OSINT workflow: investigator OPSEC (research accounts, compartmentalization, behavioral hygiene), platform-agnostic pivots (username enumeration, numeric ID anchoring, search-engine dorking, reverse image search, archive recovery, contact enumeration), and platform-specific collection for Meta, X, TikTok, LinkedIn, Reddit, the Fediverse/Bluesky, and Snapchat/Telegram/Discord - plus evidence capture and chain-of-custody practices.
 
 ## 🏆 Goal
-Serve as the authoritative social media reference for the OSINT Investigator Playbook, giving practitioners a methodology that survives platform churn and the tradecraft to collect, attribute, and preserve social artifacts to a reportable/evidentiary standard.
+Serve as the authoritative social media reference for the OSINT Investigator Playbook, providing a repeatable method for authorized discovery, identity leads, source preservation and transparent reporting. Formal evidentiary sufficiency and attribution require independent verification and applicable legal procedures.
 
 ## 📋 When to Use
 - Building a subject's social media footprint during an investigation
@@ -73,6 +73,10 @@ You are the easiest thing for a target to detect. Collection posture leaks inten
 ---
 
 ## 🔗 Cross-Platform Methodology
+
+![Fictional social profiles with similar usernames and copied content flowing into source-origin analysis and independent corroboration before identity attribution](../assets/diagrams/social-osint-account-provenance-verification.svg)
+
+*Conceptual profile comparison only.* [Bellingcat's open-source research guidance](https://www.bellingcat.com/resources/2024/04/25/oshit-seven-deadly-sins-of-bad-open-source-research/) emphasizes independent source verification and avoiding claims beyond the evidence. A matching handle, photo or repost is a **lead, not identity proof**, and public availability does not eliminate authorization, platform terms or bystander privacy concerns.
 
 Platform-specific tricks come and go. These pivots work everywhere and should form the backbone of any social media workup.
 
