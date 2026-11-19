@@ -207,79 +207,47 @@ flowchart LR
     Lab -. no route .- Production[Production devices and users]
 ```
 
-## 19. Wardriving
+## 19. Passive Wireless Site Review
 
-**Purpose:** Passive survey of nearby Wi-Fi (and optionally cell/BT) for authorized site assessment.
+Limit passive observation to areas, networks, and time windows explicitly authorized by the owner. Avoid collecting client identifiers or GPS trails unless strictly required and approved. Minimize retention and redact nearby third-party networks from notes and reports.
 
-**Prerequisites:** External adapter + GPS (your SenseCAP/GPS kit or a USB GPS puck).
+Review the owner's access-point inventory and controller telemetry first. Record any observed configuration gap with a redacted identifier and a remediation recommendation.
 
-**Procedure**
-1. Attach adapter + GPS; confirm fix.
-2. NetHunter app → **Wardriving** → start passive capture.
-3. Export results (Kismet/CSV) into the engagement folder for mapping.
+## 20. Automotive Network Safety Review
 
-**Notes:** Passive only by default - keep it passive unless active testing is separately authorized.
+Vehicle networks are safety-critical. This guide supports inventory and documentation review only; it does not authorize connecting to a vehicle bus, transmitting frames, replaying traffic, or changing vehicle state.
 
----
+For an approved research project, use a dedicated bench harness and isolated, owner-supplied test equipment under a documented safety plan. Do not connect to a moving vehicle or road-going vehicle.
 
-## 20. CARsenal (Automotive)
+## 21. Network Tethering and Bridge Risk
 
-**Purpose:** CAN-bus / automotive security testing (can-utils, etc.).
+Treat phone tethering and USB networking as network bridges that can bypass intended segmentation. Keep them disabled during client work unless the network owner has approved a specific, isolated lab design. Confirm the phone cannot route between the lab and corporate or public networks.
 
-**Prerequisites:** Compatible CAN interface hardware; **written vehicle-owner authorization**; test in a safe, controlled setting.
+## 22. NetHunter Store and Software Provenance
 
-**Procedure**
-1. Connect CAN adapter; bring up the interface.
-2. NetHunter app → **CARsenal** → select tool (candump, cansend, cansniffer…).
-3. Capture/replay only against the authorized vehicle/bench.
+Install only maintained applications from a trusted distribution source after reviewing publisher, permissions, version, and update status. Do not install credential recovery, rogue access-point, payload, or surveillance applications on an engagement device. Keep the device's software inventory with the engagement record.
 
-**Safety:** Never inject on a moving vehicle or any safety-critical live system.
-
----
-
-## 21. Pineapple Connector
-
-**Purpose:** Share the phone's internet to a **Hak5 WiFi Pineapple** over USB (you run a Pineapple already).
-
-**Procedure**
-1. Connect the Pineapple via USB/OTG.
-2. NetHunter app → **Pineapple Connector** → enable internet sharing.
-3. Manage the Pineapple from its own web UI as normal.
-
----
-
-## 22. NetHunter Store
-
-**Purpose:** Install/update purpose-built security apps (telemetry-stripped F-Droid fork).
-
-**Procedure**
-1. Open the **NetHunter Store** client → search/install (e.g., cSploit, Shodan, Router Keygen, RF tools).
-2. Update installed apps before each engagement.
-
-**Note:** The store button may not flip to "installed" - ignore the cosmetic bug.
 
 ---
 
 ## 23. Post-Engagement Teardown & Evidence Handling
 
-- [ ] Stop **all** services (Kali Services), APs (WifiPumpkin), captures, and KeX.
-- [ ] Revert **USB Arsenal** to a benign gadget mode.
-- [ ] Restore original **MAC** if spoofed.
-- [ ] Collect and hash all artifacts (captures, payloads, logs):
-  ```bash
-  cd ~/engagements/<client>-<date>/ && sha256sum * > SHA256SUMS
-  ```
-- [ ] Encrypt and exfil the engagement folder to your reporting box; **delete payloads/creds from the phone** per data-handling policy.
-- [ ] Note any spoofed MACs, SSIDs/BSSIDs, and PINs/keys recovered in the report.
-- [ ] Power down radios; return device to a clean baseline.
+- [ ] Stop authorized monitoring or test services and confirm no capture remains active.
+- [ ] Restore the assessment phone's approved network, radio, and device-management settings.
+- [ ] Preserve only artifacts listed in the reviewed evidence manifest.
+- [ ] Have the receiving owner verify transfer and checksums before removing approved temporary copies.
+- [ ] Do not delete evidence, logs, or broad directory trees as routine cleanup.
+- [ ] Record remaining retention obligations and chain-of-custody information.
+- [ ] Confirm the device is in a known-good state before returning it to service.
+
 
 ---
 
-## 24. Troubleshooting Quick Reference
+## 24. Device Health Troubleshooting
 
 | Symptom | First checks |
 |---|---|
-| HID/BadUSB does nothing | Wrong **USB Arsenal** gadget mode; wrong keyboard layout; cable is charge-only |
+| USB device is not recognized | Review device permissions, cable quality, and vendor diagnostics using a benign accessory |
 | No monitor mode / injection | Internal chipset limits - use external adapter; verify with `airmon-ng`, `iw dev` |
 | Chroot won't start | Re-open Chroot Manager; check storage; reboot; verify kernel string with `uname -a` |
 | Metasploit DB errors | Start **PostgreSQL** in Kali Services; `msfdb init` |
@@ -289,7 +257,7 @@ flowchart LR
 
 ---
 
-## Appendix A - External Wi-Fi Adapters (recommended for injection)
+## Appendix A - External Wi-Fi Adapters (passive compatibility only)
 
 Internal OnePlus 6 Wi-Fi injection is limited/inconsistent. For reliable monitor mode + injection, use a known-good external adapter over OTG:
 
@@ -300,7 +268,7 @@ Internal OnePlus 6 Wi-Fi injection is limited/inconsistent. For reliable monitor
 
 Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapters or long ops.
 
-## Appendix B - Engagement Folder Layout (suggested)
+## Appendix B - Minimized Evidence Folder Layout (suggested)
 
 ```
 ~/engagements/<client>-<YYYYMMDD>/
@@ -322,5 +290,5 @@ Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapter
 - [Rooting.md](Rooting.md) - Prerequisite: bootloader unlock, LineageOS, TWRP, and Magisk root setup
 - [Kali_NetHunter.md](Kali_NetHunter.md) - NetHunter installation guide this SOP builds on
 - [../README.md](../README.md) - Mobile section index
-- [../../Scripts/Bash/BashBunny/README.md](../../Scripts/Bash/BashBunny/README.md) - Bash Bunny payloads (DuckHunter-compatible DuckyScript)
-- [../../Tradecraft/c2-frameworks.md](../../Tradecraft/c2-frameworks.md) - C2 frameworks for post-exploitation after NetHunter initial access
+- [../../Scripts/Bash/BashBunny/README.md](../../Scripts/Bash/BashBunny/README.md) - archived device security notes and safety guidance
+- [../../Tradecraft/c2-frameworks.md](../../Tradecraft/c2-frameworks.md) - command-and-control detection and response guidance
