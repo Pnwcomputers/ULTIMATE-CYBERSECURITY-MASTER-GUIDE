@@ -18,19 +18,9 @@ Understand the unique constraints of space-segment software security - where pat
 
 #### Spacecraft Software Architecture
 
-```
-┌────────────────────────────────────┐
-│        Mission Application          │  Payload control, science, imaging
-├────────────────────────────────────┤
-│       Flight Software (FSW)         │  Attitude control, power mgmt, thermal
-├────────────────────────────────────┤
-│    RTOS / Executive / Middleware    │  VxWorks, RTEMS, FreeRTOS, LEON-RTEMS
-├────────────────────────────────────┤
-│         BSP / Drivers               │  Hardware abstraction layer
-├────────────────────────────────────┤
-│       Onboard Computer (OBC)        │  RAD750, LEON3/4, ARM Cortex, SPARC
-└────────────────────────────────────┘
-```
+![Illustrative NASA cFS-like layered spacecraft flight-software stack separating mission applications, executive services, RTOS/OS abstraction, device drivers and onboard processor trust boundaries](../assets/diagrams/spaceflight-fsw-cfs-security-layers.svg)
+
+*Architectural example, not an assertion that every spacecraft uses NASA cFS.* The [NASA cFS project](https://github.com/nasa/cFS) documents modular mission applications, the [core Flight Executive](https://github.com/nasa/cFE) and supported platform/OS abstractions. Every mission's code, RTOS, update mechanism, memory protection and deployed access controls require separate evidence.
 
 #### Common RTOS Platforms
 
@@ -61,7 +51,7 @@ Telecommand software uploads (patches, parameter updates, full FSW loads) repres
 - **Rollback protection** - Can an attacker upload a known-vulnerable older version?
 - **Execution path** - Is uploaded code loaded into protected memory? Can it overwrite the bootloader?
 
-Many legacy satellites have no meaningful software upload authentication - the only protection is the difficulty of gaining uplink access.
+Some mission designs may lack strong authenticated software-update and command controls. **Do not generalize** from mission age or orbit: determine the actual command authorization, payload signature checks, key lifecycle, and rollback handling before claiming a weakness.
 
 ---
 
@@ -110,9 +100,9 @@ python decode_telemetry.py --frames decoded.json
 
 | Control | Detail |
 |---------|--------|
-| **Command authentication** | CCSDS Telecommand Authentication (TCA); HMAC or asymmetric signatures on all telecommands |
-| **Sequence counters** | Enforce strict monotonic counters; reject replays |
-| **Encrypted uplink** | AES-256 or equivalent for all command and data uplinks |
+| **Command authentication** | Verify mission-specific cryptographic protection and keys, such as applicable CCSDS SDLS mechanisms; not every command link implements them |
+| **Replay protection** | Use authenticated sequence/nonce/window checks and durable state suited to mission reliability; a plain counter is not an authentication control |
+| **Encryption in transit** | Apply mission-approved authenticated encryption where confidentiality is required, with separately enforced command authenticity and key management |
 | **Software signing** | Cryptographic signature verification before any FSW load/patch execution |
 | **Watchdog timers** | Hardware watchdog to recover from FSW compromise or corruption |
 | **Safe mode** | Autonomous safe mode entry on anomaly; limited command set in safe mode |
