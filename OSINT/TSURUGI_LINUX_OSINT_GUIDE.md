@@ -50,6 +50,10 @@ The **OSINT profile is a menu/workspace change, not a sandbox, VPN, Tor configur
 
 ## 2. Acquire, Verify, and Deploy
 
+![Tsurugi Linux OSINT acquisition path from official downloaded image and signed checksum validation through isolated workstation and protected case evidence](../assets/diagrams/tsurugi-osint-image-provenance-case-flow.svg)
+
+*Conceptual verification and case workflow.* The [official Tsurugi downloads](https://tsurugi-linux.org/downloads.php) and [platform documentation](https://tsurugi-linux.org/tsurugi_linux.php) describe distribution options. Verify the full signing-key fingerprint independently and compare the artifact against the authenticated manifest; an image hash alone does not authorize investigation, ensure anonymity or prove later findings.
+
 **Download only from the [official Tsurugi downloads page](https://tsurugi-linux.org/downloads.php)** and its selected mirrors.
 
 | Release artifact | Filename | Typical use |
