@@ -1,10 +1,10 @@
 # 🔄 Change Log - November 19, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1814
-- **Files Modified**: 3115
+- **Commits Analyzed**: 1815
+- **Files Modified**: 3228
 - **New Files**: 1236
-- **Deleted Files**: 121
+- **Deleted Files**: 123
 
 ## 📝 Detailed Changes
 
@@ -1466,6 +1466,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Repo-wide security and documentation review (`f8ebe5a`)
 - Refocus advanced exploit guide on defensive controls (#391) (`0045108`)
 - docs(visuals): embed SIP/RTP, Linux patch, Arduino & CTI provenance diagrams (#361) (`7cfc4ad`)
 - docs(visuals): embed sensor topology, locksport cutaway, WPA scope, C5 modes & bench safety (#360) (`1d31ec8`)
@@ -1838,12 +1839,124 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.github/CONTRIBUTING.md`
+- `.github/SECURITY.md`
+- `AI/AnythingLLM/anything_llm_agentflows.md`
+- `AI/AnythingLLM/flow-breacher_check.md`
+- `AI/AnythingLLM/flow-company_osint.md`
+- `AI/AnythingLLM/flow-domain_recon.md`
+- `AI/AnythingLLM/flow-email_osint.md`
+- `AI/AnythingLLM/flow-github_secrets.md`
+- `AI/AnythingLLM/flow-nmap_analyzer.md`
+- `AI/AnythingLLM/flow-vulnreport_gen.md`
+- `AI/OpenClaw/README.md`
+- `AI/OpenClaw/agent_skill_config.md`
+- `AI/offensive_ai.md`
+- `AI/offline-llm.md`
+- `Checklists/AppLocker.md`
+- `Checklists/Credential-Access.md`
+- `Checklists/Defense-Evasion.md`
+- `Checklists/Environment-Breakout-Checklist.md`
+- `Checklists/Initial-Access.md`
+- `Checklists/README.md`
+- `Checklists/command-and-control.md`
+- `Cloud/README.md`
+- `ContainerSecurity/README.md`
+- `Cryptography/Classical/cipher_toolkit.py`
+- `Cyberdeck/tools/evidence_manifest.py`
+- `Data-Engineering/data_pipelines.md`
+- `Documentation/Aircrack-ng_Commands.md`
+- `Documentation/blackarch.md`
+- `Documentation/python.md`
+- `Documentation/wireshark.md`
 - `ENHANCED_MASTER_GUIDE.md`
+- `HardwareHacking/Chapter3.md`
+- `HardwareTesting/install_testbench_tools.sh`
+- `HardwareTesting/py/standalone_gpu_tester.py`
+- `HardwareTesting/py/stress_soak.py`
+- `Homelab/HomeLab_Setup.md`
+- `IncidentResponse/README.md`
+- `IncidentResponse/SIEM/wazuh.md`
+- `Mobile/OnePlus_A6003/Kali_NetHunter.md`
+- `Mobile/OnePlus_A6003/Rooting.md`
+- `Mobile/README.md`
+- `OSINT/OSINT_GUIDE.md`
+- `OSINT/OSINT_socialmedia.md`
+- `OSINT/Playbook/investigation_guide.md`
+- `OSINT/Playbook/scripts/crypto_audit.sh`
+- `OSINT/Playbook/scripts/email_audit.sh`
+- `OSINT/Playbook/scripts/phone_audit.sh`
+- `OSINT/Playbook/scripts/scammer_audit.sh`
+- `OSINT/Playbook/scripts/threat_feed_check.sh`
+- `OSINT/scripts/Domain_IP_Recon.md`
+- `OSINT/scripts/Email_OSINT.md`
+- `OSINT/scripts/Phone_OSINT.md`
+- `PDF/README.md`
+- `PlayBooks/NetworkAuditPlayBook.md`
+- `PlayBooks/README.md`
+- `PlayBooks/cybersecurity_playbooks.md`
+- `PlayBooks/unauth_access.md`
+- `README.md`
+- `ReverseEngineering/vx-underground.md`
+- `SDR/rfid.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `Scripts/Bash/BashBunny/README.md`
+- `Scripts/Bash/BashBunny/cred_harv.txt`
+- `Scripts/Bash/BashBunny/network_recon.txt`
+- `Scripts/Bash/BashBunny/sys_prof.txt`
+- `Scripts/Bash/BashBunny/windows_exfil.txt`
+- `Scripts/Bash/profile_hook.sh`
+- `Scripts/Bash/web_shell_http_client.sh`
+- `Scripts/C/scanner.c`
+- `Scripts/Ducky/README.md`
+- `Scripts/Ducky/exfil_windowsPC.txt`
+- `Scripts/PowerShell/adlogin.ps1`
+- `Scripts/PowerShell/cred_hunt.ps1`
+- `Scripts/PowerShell/localbrute-extra-mini.ps1`
+- `Scripts/PowerShell/localbrute.ps1`
+- `Scripts/PowerShell/port-scan-udp.ps1`
+- `Scripts/PowerShell/rev_shell.ps1`
+- `Scripts/PowerShell/smblogin-extra-mini.ps1`
+- `Scripts/PowerShell/smblogin.ps1`
+- `Scripts/Python/app.py`
+- `Scripts/Python/blue_bug.py`
+- `Scripts/Python/credit_sniff.py`
+- `Scripts/Python/discover_networks.py`
+- `Scripts/Python/dll_Inject.py`
+- `Scripts/Python/ftp_sniff.py`
+- `Scripts/Python/google_sniff.py`
+- `Scripts/Python/hotel_sniff.py`
+- `Scripts/Python/iphone_finder.py`
+- `Scripts/Python/iphone_messages.py`
+- `Scripts/Python/print_cookies.py`
+- `Scripts/Python/shellcode_inj.py`
+- `Scripts/Python/web_shell_inj.py`
+- `Scripts/README.md`
+- `Scripts/SQL/add_wordpress_admin.sql`
+- `Scripts/YAML/git_finder.yaml`
+- `Scripts/lib/safe_install.sh`
+- `SpaceSecurity/PartII.md`
+- `SpaceSecurity/PartIII.md`
+- `SpaceSecurity/PartIV.md`
+- `SpaceSecurity/README.md`
+- `Tradecraft/README.md`
+- `Tradecraft/av-edr-evasion.md`
+- `Tradecraft/c2-frameworks.md`
+- `Tradecraft/lolbins-lolbas.md`
+- `Tradecraft/network-detection.md`
+- `Tradecraft/osint-threat-intel.md`
+- `Wardriving/README.md`
+- `Wardriving/esp32-marauder.md`
+- `Wardriving/sigroam-scout-lite.md`
+- `installer.sh`
+- `tools/tests/test_review_fixes.py`
+- `uConsole/CM4-SETUP.md`
+- `uConsole/CM5-SETUP.md`
 - `ultimate_cybersecurity_master_guide.md`
+- `CHANGELOG.md`
 - `Cloud/aws.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `Mobile/mobile_pentest_sop.md`
-- `README.md`
 - `Scripts/GO/ARCHIVE-INVENTORY.md`
 - `Scripts/GO/README.md`
 - `Scripts/GO/shells/README.md`
@@ -1851,17 +1964,12 @@
 - `Scripts/GO/shells/insert_encoder.go`
 - `Scripts/GO/shells/stealth.go`
 - `Tradecraft/evasion.md`
-- `.github/CONTRIBUTING.md`
-- `.github/SECURITY.md`
-- `Homelab/HomeLab_Setup.md`
 - `Scripts/Bash/get_ssh_keys.sh`
 - `Tradecraft/active-directory.md`
-- `Tradecraft/network-detection.md`
 - `cybersecurity_cliff_notes.md`
 - `advanced_techniques_part2.md`
 - `Documentation/LinuxCheatSheet.md`
 - `OSINT/docs/INSTALLATION.md`
-- `PDF/README.md`
 - `Scripts/Bash/binary_name_rotate.sh`
 - `Scripts/GO/archive_manifest.json`
 - `Scripts/GO/bruteforce/brute_http_form.py`
@@ -1870,25 +1978,18 @@
 - `Scripts/GO/shells/shell.py`
 - `Scripts/Python/conficker.py`
 - `Scripts/Python/webshell_check.py`
-- `Tradecraft/c2-frameworks.md`
 - `tools/tests/test_legacy_archive_manifest.py`
 - `advanced_techniques_supplement.md`
 - `.github/workflows/auto_changelog.yml`
 - `Checklists/Domain-Persistence.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
 - `Scripts/GO/scan/do_proxy_chains.py`
-- `uConsole/CM5-SETUP.md`
-- `Scripts/README.md`
 - `AI/README.md`
-- `Checklists/README.md`
 - `Documentation/README.md`
 - `HardwareHacking/README.md`
 - `HardwareTesting/README.md`
 - `Homelab/README.md`
-- `IncidentResponse/README.md`
 - `LEGAL.md`
-- `PlayBooks/README.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/pnwc_install_tools.sh`
 - `uConsole/README.md`
 - `Scripts/Bash/hulkscanner.sh`
@@ -1904,29 +2005,16 @@
 - `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
 - `CAD/OpenSCAD/images/fit-check-workflow.svg`
 - `CAD/OpenSCAD/images/gps-cradle-coordinate-section.svg`
-- `Checklists/Defense-Evasion.md`
 - `Checklists/Domain-Escalation.md`
-- `Checklists/Environment-Breakout-Checklist.md`
 - `Checklists/Lateral-Movement.md`
 - `Checklists/Windows-Privilege-Escalation.md`
 - `Checklists/microsoft-exchange.md`
 - `SpaceSecurity/Appendices.md`
 - `SpaceSecurity/PartI.md`
-- `SpaceSecurity/PartII.md`
-- `SpaceSecurity/PartIII.md`
-- `SpaceSecurity/PartIV.md`
-- `SpaceSecurity/README.md`
-- `Documentation/blackarch.md`
 - `ReverseEngineering/ghidra-guide-index.md`
-- `SDR/rfid.md`
-- `AI/OpenClaw/README.md`
-- `AI/offline-llm.md`
 - `assets/diagrams/local-llm-data-paths.svg`
 - `assets/diagrams/raspberry-pi-onboard-wifi-support.svg`
 - `Scripts/Bash/fake_sudo.sh`
-- `Scripts/Python/app.py`
-- `Scripts/Python/web_shell_inj.py`
-- `PlayBooks/NetworkAuditPlayBook.md`
 - `WebAppSecurity/owasp-top-10.md`
 - `Compliance/regulations.md`
 - `HardwareHacking/T48_TL866-3G.md`
@@ -1940,11 +2028,9 @@
 - `assets/diagrams/aur-package-review-build-install.svg`
 - `Compliance/README.md`
 - `assets/diagrams/pci-dss-scope-and-validation.svg`
-- `CHANGELOG.md`
 - `Checklists/Linux-Privilege-Escalation.md`
 - `Checklists/voip-checklist.md`
 - `Documentation/arduinoIDE.md`
-- `Tradecraft/osint-threat-intel.md`
 - `assets/README.md`
 - `assets/diagrams/arduino-ide-board-port-bootloader-diagnostics.svg`
 - `assets/diagrams/linux-privilege-risk-and-vendor-patch-triage.svg`
@@ -1964,7 +2050,6 @@
 - `Checklists/Android-Applications-Checklist.md`
 - `Documentation/ble-capture-sniffle.md`
 - `Documentation/wifi-deauthentication-detection.md`
-- `OSINT/OSINT_socialmedia.md`
 - `assets/diagrams/ad-kerberos-ticket-trust-recovery.svg`
 - `assets/diagrams/android-app-static-runtime-backend-test-lanes.svg`
 - `assets/diagrams/ble-sniffle-advertising-connection-path.svg`
@@ -2028,7 +2113,6 @@
 - `assets/diagrams/live-response-volatility-evidence-gates.svg`
 - `AI/milestones-and-acceptance-criteria.md`
 - `AI/notes-hooks-and-automation.md`
-- `OSINT/Playbook/investigation_guide.md`
 - `Wardriving/field-workflow.md`
 - `assets/diagrams/ai-milestone-independent-acceptance-gate.svg`
 - `assets/diagrams/ai-notes-hooks-evidence-boundaries.svg`
@@ -2080,7 +2164,6 @@
 - `assets/diagrams/ai-soc-trust-and-approval-boundaries.svg`
 - `tools/lab_detection_validator.py`
 - `tools/tests/test_lab_detection_validator.py`
-- `Cloud/README.md`
 - `Compliance/frameworks.md`
 - `Compliance/pci-dss-scoping.md`
 - `Compliance/pci-scope-review-template.md`
@@ -2089,19 +2172,13 @@
 - `assets/diagrams/pci-dss-scoping-boundaries.svg`
 - `tools/tests/test_pci_scoping_docs.py`
 - `Cyberdeck/docs/ARCHITECTURE.md`
-- `Documentation/wireshark.md`
 - `IncidentResponse/SIEM/detection-content-validation.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `assets/diagrams/cyberdeck-policy-zones.svg`
 - `assets/diagrams/detection-evidence-verification-gates.svg`
 - `assets/diagrams/purple-team-emulation-detection-loop.svg`
 - `assets/diagrams/wireshark-capture-display-boundaries.svg`
-- `Mobile/README.md`
-- `Checklists/AppLocker.md`
-- `Checklists/Credential-Access.md`
-- `Checklists/Initial-Access.md`
 - `Checklists/Persistence.md`
-- `Checklists/command-and-control.md`
 - `assets/diagrams/authorized-persistence-validation.svg`
 - `assets/diagrams/space-rf-transmission-authorization-flow.svg`
 - `assets/diagrams/wireless-passive-active-boundary.svg`
@@ -2112,7 +2189,6 @@
 - `Cryptography/Classical/security.md`
 - `assets/diagrams/unicode-idn-risk-assessment.svg`
 - `assets/diagrams/owasp-top10-2021-to-2025-changes.svg`
-- `OSINT/OSINT_GUIDE.md`
 - `assets/diagrams/osint-evidence-publication-decision.svg`
 - `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `assets/diagrams/suricata-nfqueue-failure-modes.svg`
@@ -2144,13 +2220,11 @@
 - `assets/diagrams/power-analysis-measurement-evidence-flow.svg`
 - `HardwareHacking/Chapter4.md`
 - `assets/diagrams/side-channel-evidence-analysis.svg`
-- `HardwareHacking/Chapter3.md`
 - `assets/diagrams/fault-injection-evaluation-flow.svg`
 - `HardwareHacking/Chapter2.md`
 - `assets/diagrams/oscilloscope-bandwidth-sampling-record-length.svg`
 - `assets/diagrams/shunt-current-measurement.svg`
 - `assets/diagrams/hardware-security-bench-workflow.svg`
-- `Tradecraft/README.md`
 - `OPSEC/press-freedom/duress-seizure-response.md`
 - `assets/journalist-seizure-response.svg`
 - `assets/diagrams/journalist-device-account-network-boundaries.svg`
@@ -2341,7 +2415,6 @@
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
 - `SDR/README.md`
-- `Wardriving/README.md`
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/02-project-structure.md`
 - `CAD/OpenSCAD/06-keyboard-shortcuts.md`
@@ -2379,7 +2452,6 @@
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
 - `Cyberdeck/templates/QUALIFICATION_RECORD.example.md`
 - `Cyberdeck/tests/test_verify_manifest.py`
-- `Cyberdeck/tools/evidence_manifest.py`
 - `Cyberdeck/tools/verify_manifest.py`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/docs/FAQ.md`
@@ -2393,14 +2465,11 @@
 - `Cyberdeck/templates/ENGAGEMENT_PLAN.example.md`
 - `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
 - `Cyberdeck/tests/test_evidence_manifest.py`
-- `Scripts/Bash/BashBunny/README.md`
-- `Scripts/Ducky/README.md`
 - `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
-- `Wardriving/esp32-marauder.md`
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `firmware-hardware-compatibility.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
@@ -2424,7 +2493,6 @@
 - `OSINT/Playbook/tools_api.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
 - `PlayBooks/PurpleTeam_Simple.md`
-- `PlayBooks/unauth_access.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/07-quick-reference.md`
 - `SDR/nanovna/09-worked-examples-by-band.md`
@@ -2456,15 +2524,11 @@
 - `Documentation/references.md`
 - `Makefile`
 - `OSINT/Playbook/osint_investigator.sh`
-- `OSINT/Playbook/scripts/scammer_audit.sh`
-- `OSINT/scripts/Domain_IP_Recon.md`
-- `PlayBooks/cybersecurity_playbooks.md`
 - `STYLE_GUIDE.md`
 - `Scripts/PowerShell/port_scanner.ps1`
 - `tests/hardening/test_osint_investigator.py`
 - `tools/repository_quality_audit.py`
 - `tools/tests/test_repository_quality_audit.py`
-- `AI/OpenClaw/agent_skill_config.md`
 - `AI/ai-observability-and-auditing.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
@@ -2488,7 +2552,6 @@
 - `HardwareHacking/firmware-web-flashers.md`
 - `Wardriving/piglet.md`
 - `AI/AnythingLLM/README.md`
-- `ContainerSecurity/README.md`
 - `Cryptography/Classical/README.md`
 - `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase3/README.md`
@@ -2513,18 +2576,12 @@
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `Documentation/curated-technical-docs.md`
-- `Documentation/python.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `tools/check_markdown_numbered_lists.py`
-- `AI/offensive_ai.md`
 - `Documentation/vscode.md`
-- `OSINT/scripts/Email_OSINT.md`
-- `OSINT/scripts/Phone_OSINT.md`
-- `Tradecraft/lolbins-lolbas.md`
 - `tools/check_duplicate_sections.py`
-- `uConsole/CM4-SETUP.md`
 - `assets/VISUAL-AUDIT-2026-11-02.md`
 - `assets/diagrams/checklist-assessment-quality.svg`
 - `assets/diagrams/container-security-boundaries.svg`
@@ -2565,7 +2622,6 @@
 - `uConsole/scripts/uconsole-repair.sh`
 - `uConsole/tests/test_cm4_setup.py`
 - `uConsole/tests/test_repair_safety.py`
-- `Documentation/Aircrack-ng_Commands.md`
 - `Documentation/WifiMarauder_CheatSheet.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `.github/workflows/wireshark-filters.yml`
@@ -2601,34 +2657,26 @@
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_wids_rules.xml`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/synthetic-events.jsonl`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/test_nzyme_webhook.py`
-- `IncidentResponse/SIEM/wazuh.md`
 - `Wardriving/kismet.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
-- `Wardriving/sigroam-scout-lite.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `tests/hardening/test_toolkit_integration.py`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
 - `OSINT/Playbook/abuse_report_generator.sh`
 - `OSINT/Playbook/install_dependencies.sh`
 - `OSINT/Playbook/scripts/case_report_generator.sh`
-- `OSINT/Playbook/scripts/crypto_audit.sh`
 - `OSINT/Playbook/scripts/domain_monitor.sh`
-- `OSINT/Playbook/scripts/email_audit.sh`
 - `OSINT/Playbook/scripts/metadata_stripper.sh`
-- `OSINT/Playbook/scripts/phone_audit.sh`
 - `OSINT/Playbook/scripts/screenshot_archive.sh`
 - `OSINT/Playbook/scripts/ssl_cert_audit.sh`
-- `OSINT/Playbook/scripts/threat_feed_check.sh`
 - `OSINT/Playbook/scripts/username_audit.sh`
 - `OSINT/Playbook/scripts/whois_bulk.sh`
-- `Scripts/Bash/BashBunny/windows_exfil.txt`
 - `tests/hardening/test_metadata_stripper.py`
 - `tests/hardening/test_phone_audit.py`
 - `tests/hardening/test_scammer_crypto_threat_apis.py`
 - `tests/hardening/test_scan_evidence.py`
 - `.github/dependabot.yml`
-- `Scripts/lib/safe_install.sh`
 - `tests/hardening/test_collector_failures.py`
 - `tests/hardening/test_domain_monitor.py`
 - `tests/hardening/test_installer_checks.py`
@@ -2645,14 +2693,12 @@
 - `tests/hardening/test_safe_install.py`
 - `OSINT/Playbook/branding.conf.example`
 - `OSINT/docs/COMPATIBILITY.md`
-- `ReverseEngineering/vx-underground.md`
 - `Cryptography/Classical/cryptanalysis.md`
 - `Cryptography/Classical/deciphering-workbook.md`
 - `Cryptography/Classical/mary-queen-of-scots.md`
 - `Cryptography/Classical/alphabets.md`
 - `Data-Engineering/Phase1/python_data_processing.md`
 - `Cryptography/Classical/build-your-own.md`
-- `Cryptography/Classical/cipher_toolkit.py`
 - `Cryptography/Classical/leetspeak.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
 - `AUDIT_FINDINGS.md`
@@ -2663,9 +2709,7 @@
 - `HardwareTesting/py/full_hw_suite.py`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `Scripts/GO/bruteforce/cassbrute.py`
-- `installer.sh`
 - `tools/run_data_labs.py`
-- `tools/tests/test_review_fixes.py`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/04-antenna-testing.md`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
@@ -2693,7 +2737,6 @@
 - `Data-Engineering/Phase1/readme.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
-- `Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Firewall/openbsd_pf.md`
 - `IncidentResponse/Firewall/PF.md`
@@ -2703,9 +2746,6 @@
 - `IncidentResponse/IDS_IPS/nzymewids.md`
 - `Mobile/UserLAnd/alpinelinux.md`
 - `Documentation/Microcontroller_Wifi_Testing.md`
-- `Mobile/OnePlus_A6003/Kali_NetHunter.md`
-- `Mobile/OnePlus_A6003/Rooting.md`
-- `Tradecraft/av-edr-evasion.md`
 - `.markdownlint.jsonc`
 - `Mobile/OnePlus_A3006/Nethunter_SOP.md`
 - `.github/ISSUE_TEMPLATE/outdated_content.md`
@@ -2728,7 +2768,6 @@
 - `Scripts/GO/shells/bypass.exe`
 - `Scripts/GO/shells/ishell.exe`
 - `Scripts/Python/python-webshell-check.py`
-- `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/SQL/wordpress_add_admin.sql`
 - `assets/i2c.jpg`
 - `assets/md`
@@ -2741,27 +2780,16 @@
 - `Checklists/VoIP Checklist.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `PlayBooks/GitHubPlaybooks.md`
-- `AI/AnythingLLM/flow-domain_recon.md`
 - `FIRMWARE&HARDWARE_COMPATIBILITY.md`
-- `AI/AnythingLLM/flow-github_secrets.md`
-- `AI/AnythingLLM/anything_llm_agentflows.md`
-- `AI/AnythingLLM/flow-breacher_check.md`
-- `AI/AnythingLLM/flow-company_osint.md`
-- `AI/AnythingLLM/flow-email_osint.md`
-- `AI/AnythingLLM/flow-nmap_analyzer.md`
-- `AI/AnythingLLM/flow-vulnreport_gen.md`
 - `osint`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
 - `OSINT/Playbook/api_keys.conf`
 - `HardwareTesting/py/old/standalone_gpu_tester.py`
 - `HardwareTesting/py/old/nvidia_gpu_tester.py`
 - `HardwareTesting/py/old/amd_gpu_tester.py`
-- `HardwareTesting/py/stress_soak.py`
 - `HardwareTesting/py/standalone_ram_tester.py`
-- `HardwareTesting/py/standalone_gpu_tester.py`
 - `HardwareTesting/py/nvidia_gpu_tester.py`
 - `HardwareTesting/py/amd_gpu_tester.py`
-- `HardwareTesting/install_testbench_tools.sh`
 - `uConsole/cm4.md`
 - `uconsole/README.md`
 - `uconsole/uconsole.md`
@@ -2848,10 +2876,6 @@
 - `home lab/self-hosted_network_attacks.md`
 - `examples/self-hosted_network_attacks.md`
 - `examples/self-hosted_SBC_attacks.md`
-- `Scripts/Bash/BashBunny/sys_prof.txt`
-- `Scripts/Bash/BashBunny/cred_harv.txt`
-- `Scripts/Bash/BashBunny/network_recon.txt`
-- `Scripts/Ducky/exfil_windowsPC.txt`
 - `OSINT/osint_guide.md`
 - `OPSEC/OPSEC_Setup.md`
 - `Checklists/Active_Directory.md`
@@ -2866,30 +2890,23 @@
 - `Scripts/Python/__init__.py`
 - `Scripts/Python/anon_browser.py`
 - `Scripts/Python/anon_google.py`
-- `Scripts/Python/blue_bug.py`
 - `Scripts/Python/bt_find.py`
 - `Scripts/Python/bt_scan.py`
-- `Scripts/Python/credit_sniff.py`
 - `Scripts/Python/dup.py`
 - `Scripts/Python/find_ddos.py`
 - `Scripts/Python/fire_catcher.py`
-- `Scripts/Python/ftp_sniff.py`
 - `Scripts/Python/geo_ip.py`
 - `Scripts/Python/geo_print.py`
 - `Scripts/Python/google_earth_pcap.py`
 - `Scripts/Python/google_json.py`
 - `Scripts/Python/google_jumbled.py`
-- `Scripts/Python/google_sniff.py`
-- `Scripts/Python/hotel_sniff.py`
 - `Scripts/Python/ids_foil.py`
 - `Scripts/Python/image_mirror.py`
-- `Scripts/Python/iphone_finder.py`
 - `Scripts/Python/kitten_test.py`
 - `Scripts/Python/link_parser.py`
 - `Scripts/Python/mitnick_attack.py`
 - `Scripts/Python/mlb-cities.txt`
 - `Scripts/Python/ninja_print.py`
-- `Scripts/Python/print_cookies.py`
 - `Scripts/Python/print_direction.py`
 - `Scripts/Python/proxy_test.py`
 - `Scripts/Python/rfcomm_scan.py`
@@ -2909,11 +2926,9 @@
 - `Scripts/Python/uav_sniff.py`
 - `Scripts/Python/useragent_test.py`
 - `Scripts/Python/view_page.py`
-- `Scripts/Python/discover_networks.py`
 - `Scripts/Python/dump_recyclebin.py`
 - `Scripts/Python/exif_fetch.py`
 - `Scripts/Python/firefox_parse.py`
-- `Scripts/Python/iphone_messages.py`
 - `Scripts/Python/nmap_scan.py`
 - `Scripts/Python/pass.txt`
 - `Scripts/Python/passwd_crack.py`
@@ -2935,7 +2950,6 @@
 - `Scripts/Bash/start-capture.sh`
 - `Scripts/Bash/start-mon.sh`
 - `Scripts/Bash/start-wlan.sh`
-- `Scripts/C/scanner.c`
 - `PDF/AD_Attacks_.pdf`
 - `PDF/AD_Post_Exploitation.pdf`
 - `PDF/Docker pen test.pdf`
@@ -2954,14 +2968,8 @@
 - `PDF/Wi_Fi_hacking__.pdf`
 - `PDF/Wireshark_Cheat_Sheet.pdf`
 - `PDF/zero-day-hunter.pdf`
-- `Scripts/PowerShell/adlogin.ps1`
-- `Scripts/PowerShell/localbrute-extra-mini.ps1`
-- `Scripts/PowerShell/localbrute.ps1`
 - `Scripts/PowerShell/port-scan-tcp-compat.ps1`
 - `Scripts/PowerShell/port-scan-tcp.ps1`
-- `Scripts/PowerShell/port-scan-udp.ps1`
-- `Scripts/PowerShell/smblogin-extra-mini.ps1`
-- `Scripts/PowerShell/smblogin.ps1`
 - `Scripts/GO/scan/do_ssh_proxy.py`
 - `Scripts/GO/scan/exploitable.go`
 - `Scripts/GO/scan/generate-transforms.sh`
@@ -3028,7 +3036,6 @@
 - `Scripts/Bash/nmap_to_portfiles.sh`
 - `Scripts/Bash/os_detection.sh`
 - `Scripts/Bash/port_watchdog.sh`
-- `Scripts/YAML/git_finder.yaml`
 - `Scripts/Bash/curl_fetch_robots_txt.sh`
 - `Scripts/Bash/directory_indexing_scanner.sh`
 - `Scripts/Bash/exercise_solution.sh`
@@ -3066,12 +3073,7 @@
 - `Scripts/PowerShell/system_enum.ps1`
 - `Scripts/Python/port_scanner.py`
 - `Scripts/Python/simple_file_fuzzer.py`
-- `Scripts/Python/shellcode_inj.py`
-- `Scripts/Python/dll_Inject.py`
-- `Scripts/Bash/web_shell_http_client.sh`
 - `Scripts/Bash/recursive_search_backup.sh`
-- `Scripts/PowerShell/rev_shell.ps1`
-- `Scripts/PowerShell/cred_hunt.ps1`
 - `Scripts/PowerShell/System_enum.ps1`
 - `Scripts/Bash/OS_command_inj.sh`
 - `Scripts/Bash/http_status_code.sh`
@@ -3086,7 +3088,6 @@
 - `Scripts/C/Get_User.c`
 - `Scripts/C/systemsleep.c`
 - `Scripts/Bash/systemsleep.c`
-- `Scripts/Bash/profile_hook.sh`
 - `Scripts/Bash/local_user_brute.sh`
 - `Scripts/Bash/gtfobins_search.sh`
 - `Scripts/Bash/gnupg_brute.sh`
