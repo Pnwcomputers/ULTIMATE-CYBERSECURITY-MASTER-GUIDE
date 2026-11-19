@@ -123,7 +123,7 @@ Dolphin models are available in various sizes. Choose based on your hardware cap
 
 ### Understanding Model Sizes
 
-- **dolphin-phi (2.7B)**: Smallest, fastest, good for simple tasks
+- **a small model selected from the current Ollama library**: Smallest, fastest, good for simple tasks
 - **dolphin-mistral (7B)**: Balanced performance and quality
 - **dolphin-mixtral (8x7B)**: High quality, requires more resources; the `dolphin2.5-mixtral` tag has been retired and folded into this one's `latest` tag
 
@@ -489,10 +489,11 @@ tar -czf anythingllm-backup.tar.gz ~/.config/anythingllm-desktop
 # Check if port 11434 is in use
 sudo netstat -tulpn | grep 11434
 
-# Kill conflicting process
-sudo kill -9 <PID>
+# Identify the listener and its owning service before taking action
+sudo ss -ltnp 'sport = :11434'
 
-# Restart Ollama
+# If the listener is the Ollama service, restart it; otherwise resolve the
+# conflict through the owning service or configure Ollama to use another port.
 sudo systemctl restart ollama
 ```
 
@@ -555,19 +556,9 @@ journalctl -u ollama -f
 **Issue**: System crashes or model fails to load
 
 **Solutions**:
-1. **Switch to smaller model**:
-```bash
-ollama pull dolphin-phi  # Only 2.7B parameters
-```
+1. **Switch to a smaller supported model:** check the official Ollama model library for a maintained model tag and verify its current size and hardware requirements before downloading.
 
-2. **Increase swap space** (Linux):
-```bash
-# Create 16GB swap file
-sudo fallocate -l 16G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-```
+2. **Consider swap space** (Linux): first check `swapon --show`, available disk space, and your distribution’s swap guidance. Do not overwrite or reformat an existing `/swapfile`; use a new, unused path and follow your administrator’s procedure.
 
 3. **Close other applications**: Free up system resources
 
