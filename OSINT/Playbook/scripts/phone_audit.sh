@@ -242,6 +242,18 @@ pretty_json() {
 # query_api OUTPUT LABEL URL [CURL_ARGS...] — fetch JSON evidence with curl. URLs,
 # including query-string API credentials, are passed through curl's stdin config so
 # they do not appear in its process arguments. Providers may still retain URL logs.
+private_intelx_search() {
+    local term="$1" target="$2" payload
+    [[ "$INTELX_KEY" =~ ^[A-Za-z0-9._-]+$ && "$target" =~ ^[12]$ ]] || return 2
+    payload=$(jq -cn --arg term "$term" --argjson target "$target" \
+        '{term:$term,maxresults:100,media:0,target:$target}') || return 2
+    {
+        printf 'url = "%s"\n' "https://2.intelx.io/phonebook/search"
+        printf 'header = "x-key: %s"\n' "$INTELX_KEY"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
+        --header "Content-Type: application/json" --data-binary "$payload"
+}
+
 query_api() {
     local output="$1" label="$2" url="$3" rc=0 body curl_config; shift 3
     if [[ ! "$url" =~ ^https://[A-Za-z0-9._~:/?=%&+-]+$ ]]; then
@@ -403,10 +415,7 @@ query_intelx() {
     
     # Start search
     local search_err="${OUTPUT}.search.err" search_rc=0
-    SEARCH_RESPONSE=$(curl -sS --fail --max-time 20 "https://2.intelx.io/phonebook/search" \
-        -H "x-key: $INTELX_KEY" \
-        -H "Content-Type: application/json" \
-        -d "{\"term\":\"$NORMALIZED\",\"maxresults\":100,\"media\":0,\"target\":2}" 2>"$search_err") || search_rc=$?
+    SEARCH_RESPONSE=$(private_intelx_search "$NORMALIZED" 2 2>"$search_err") || search_rc=$?
 
     if (( search_rc != 0 )); then
         log "${YELLOW}    [!] IntelX search request FAILED (curl exit ${search_rc}) — UNVERIFIED, see ${search_err}${NC}"
