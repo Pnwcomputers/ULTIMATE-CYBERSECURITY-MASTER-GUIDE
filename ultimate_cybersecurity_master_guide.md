@@ -791,7 +791,7 @@ run -j
 
 > [!NOTE]
 > **Canonical reference:** in-depth exploit development lives in
-> [advanced_techniques_part2.md](advanced_techniques_part2.md#buffer-overflow-exploitation).
+> [advanced_techniques_part2.md](advanced_techniques_part2.md#memory-safety-and-secure-builds).
 > Keep major updates there; this section is a foundational summary.
 
 ### Stack Buffer Overflow Basics
@@ -1026,7 +1026,7 @@ aws ec2 describe-instances
 > [!NOTE]
 > **Canonical reference:** the dedicated mobile section is [Mobile/](Mobile/README.md);
 > deeper mobile pentesting is in
-> [advanced_techniques_part2.md](advanced_techniques_part2.md#mobile-device-penetration-testing).
+> [advanced_techniques_part2.md](advanced_techniques_part2.md#mobile-application-security).
 > This section is a foundational summary.
 
 ### Android Security Testing
