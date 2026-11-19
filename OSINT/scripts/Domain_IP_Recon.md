@@ -19,7 +19,7 @@ Collect organized, passive-first OSINT findings. If a written scope authorizes d
 **Install:** `sudo apt install nmap jq curl whatweb` + see inline dependency check  
 **Usage:** Copy the script below into a `.sh` file and `chmod +x` it. Provider lookups run without direct probing. Add `--active` only for expressly authorized, explicitly supplied IP targets (`-i` or `-f`). Domain-discovered addresses are never scanned automatically.
 
-**Optional API keys** (set via environment or `~/.config/osint-investigator/api_keys.conf`):
+**Optional API keys** (set via environment or a private `~/.config/osint-investigator/api_keys.conf`, mode `600`). The config accepts simple `export KEY="value"` entries and is parsed as data, not executed.
 - `CRIMINALIP_KEY` - [criminalip.io](https://www.criminalip.io/)
 - `HIBP_KEY` - [haveibeenpwned.com/API/Key](https://haveibeenpwned.com/API/Key)
 - `LEAKLOOKUP_KEY` - [leak-lookup.com](https://leak-lookup.com/)
@@ -479,6 +479,17 @@ if [ -n "$DOMAIN" ]; then
         # Discovered addresses are recorded as intelligence only, never scanned automatically.
         IPV4_LIST=$(grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' "$OUTPUT_DIR/1_theharvester.txt" | sort -u)
         printf '%s\n' "$IPV4_LIST" > "$OUTPUT_DIR/discovered_ips.txt"
+    fi
+fi
+
+#############################################
+# 2) Additional Domain Intelligence (provider lookup only)
+#############################################
+if [ -n "$DOMAIN" ]; then
+    section "2) Additional Domain Intelligence"
+    query_leaklookup "$DOMAIN" "domain" "$OUTPUT_DIR/domain/leaklookup.json"
+    if [ "$ACTIVE_SCAN" = true ]; then
+        log "${YELLOW}[!] Direct domain probes are disabled; supply explicitly authorized individual IPs with -i/-f to scan.${NC}"
     fi
 fi
 
