@@ -7,7 +7,7 @@ AnythingLLM AgentFlow for automated domain reconnaissance - performs passive DNS
 Accepts a domain name, runs passive recon via public sources (crt.sh, WHOIS, Shodan, DNS records), and returns: subdomains, IP ranges, hosting providers, SSL certificate history, MX/SPF/DMARC configuration, and web tech stack.
 
 ## 🏆 Goal
-Build a complete passive domain intelligence picture as the first step in an authorized engagement's reconnaissance phase.
+Build a passive domain intelligence picture as the first step in an authorized engagement's reconnaissance phase.
 
 ## 📋 When to Use
 Starting recon on an authorized target domain; identifying attack surface before active scanning; populating the target profile for scoping decisions.
@@ -102,7 +102,7 @@ Define these variables in the "Flow Variables" section:
 
 **Alternative (API):** If you have WhoisXML API key:
 - **Method:** GET
-- **URL:** `Configure the approved WHOISXML connector with its API key in the platform’s secret store. Do not place the key in a URL, prompt, or flow variable.`
+- Configure the approved WHOISXML connector to read its API key from the platform’s secret store. Never put keys in URLs, prompts, flow variables, or exported flow files.
 
 ---
 
@@ -273,10 +273,9 @@ The flow will return `recon_report` containing:
 
 2. **Follow Up with Active Scanning:**
    ```bash
-   # After flow completes, scan discovered subdomains
-   for subdomain in $(cat discovered-subdomains.txt); do
-       nmap -sV $subdomain
-   done
+   # Discovery does not grant permission to scan. Confirm each exact host
+   # against the written scope and approved scan plan. Example for one host:
+   nmap -sV -p 80,443 AUTHORIZED_LAB_HOST
    ```
 
 3. **Check for Wildcard DNS:**
@@ -324,9 +323,7 @@ The flow will return `recon_report` containing:
 Block Type: API Call
 Method: GET
 URL: https://api.securitytrails.com/v1/domain/${domain}/subdomains
-Headers: {
-  "APIKEY": "YOUR_SECURITYTRAILS_KEY"
-}
+Headers: API key loaded from the approved platform secret store; do not paste it here.
 Result Variable: subdomain_data
 ```
 
@@ -334,7 +331,8 @@ Result Variable: subdomain_data
 ```
 Block Type: API Call
 Method: GET
-URL: https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=YOUR_KEY&domainName=${domain}&outputFormat=JSON
+URL: https://www.whoisxmlapi.com/whoisserver/WhoisService?domainName=${domain}&outputFormat=JSON
+Authentication: configure the API key through the connector’s secret settings, not in the URL or flow text.
 Result Variable: whois_data
 ```
 
