@@ -73,7 +73,7 @@ This repository includes three guides. Start here, then refer to the others once
 - [Part 6: Security Hardening](#part-6-security-hardening)
 - [Part 7: NPMplus Reverse Proxy with HTTPS](#part-7-npmplus-reverse-proxy-with-https)
 - [Part 8: Device Pairing](#part-8-device-pairing)
-- [Local Access Without HTTPS](#local-access-without-https)
+- [Local Access Without HTTPS](#local-access-before-https)
 - [Troubleshooting](#troubleshooting)
 - [Reference: Key Commands](#reference-key-commands)
 
