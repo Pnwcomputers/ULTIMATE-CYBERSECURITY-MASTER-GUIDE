@@ -17,6 +17,7 @@ Original, accessible SVGs for workflow comprehension. They are **conceptual only
 | [Detection evidence verification gates](./diagrams/detection-evidence-verification-gates.svg) | [SIEM detection content](../IncidentResponse/SIEM/detection-content-validation.md) and [offline canary validator](../Documentation/CANARY-DETECTION-VALIDATOR.md) | Fixture vs imported vs verified lab evidence |
 | [Cyberdeck policy zones](./diagrams/cyberdeck-policy-zones.svg) | [Public Cyberdeck architecture](../Cyberdeck/docs/ARCHITECTURE.md) | Conceptual router/zone boundaries, field RF, evidence storage |
 | [Wireshark capture & display boundaries](./diagrams/wireshark-capture-display-boundaries.svg) | [Advanced Wireshark reference](../Documentation/wireshark.md) | Vantage point, optional BPF, PCAP, display filter, analyst validation |
+| [AI-SOC trust & approval boundaries](./diagrams/ai-soc-trust-and-approval-boundaries.svg) | [AI-augmented security operations](../AI/ai-security-operations-workflows.md) | Authenticated intake, schema/evidence boundary, read-only AI, independent review and privileged-action approval |
 
 ## PCI DSS Scoping Visual
 
