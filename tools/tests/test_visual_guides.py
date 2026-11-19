@@ -74,6 +74,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/homelab-virtual-network-isolation-paths.svg": (
         "Homelab/HomeLab_Setup.md",
     ),
+    "assets/diagrams/ai-notes-hooks-evidence-boundaries.svg": (
+        "AI/notes-hooks-and-automation.md",
+    ),
+    "assets/diagrams/ai-milestone-independent-acceptance-gate.svg": (
+        "AI/milestones-and-acceptance-criteria.md",
+    ),
+    "assets/diagrams/osint-fraud-investigation-source-confidence.svg": (
+        "OSINT/Playbook/investigation_guide.md",
+    ),
+    "assets/diagrams/wardriving-field-quality-acceptance.svg": (
+        "Wardriving/field-workflow.md",
+    ),
 }
 
 
