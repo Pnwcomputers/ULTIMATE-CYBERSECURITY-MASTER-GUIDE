@@ -68,12 +68,14 @@ Use a **sacrificial offline device** with a blank editor and a short fixed phras
 
 ## Deployment
 
-### USB Rubber Ducky Setup
-1. **Insert** microSD card into your computer
-2. **Copy** `inject.bin` to the **root** of the SD card
-3. **Safely eject** the SD card
-4. **Insert** SD card into USB Rubber Ducky
-5. **Plug** Rubber Ducky into target system
+### USB Rubber Ducky Setup (Models With Removable Media)
+These steps apply only to a device generation that uses a removable microSD card. Newer models may use a different arming/button and storage workflow; follow the current [Hak5 model-specific instructions](https://docs.hak5.org/usb-rubber-ducky/) for those devices.
+
+1. **Insert** the microSD card into the computer
+2. **Copy** the reviewed, model-compatible `inject.bin` to the card root
+3. **Safely eject** the card
+4. **Install** the card in the matching device
+5. Connect only to the dedicated, isolated lab host after confirming consent and a blank editor is in focus.
 
 ### File Structure
 ```
