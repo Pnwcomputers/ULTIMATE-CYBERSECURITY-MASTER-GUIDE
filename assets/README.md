@@ -659,3 +659,12 @@ Original conceptual analysis flow separating physical observation, leakage model
 | Diagram | Embedded guide |
 |---|---|
 | [Side-channel evidence analysis](./diagrams/side-channel-evidence-analysis.svg) | [Timing and Power Analysis](../HardwareHacking/Chapter4.md#introduction-to-side-channel-analysis) |
+
+
+## Power Analysis Measurement Visual
+
+Original conceptual workflow for authorized leakage assessment. It does not represent a measured trace or tested key recovery.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Power-analysis measurement and evidence flow](./diagrams/power-analysis-measurement-evidence-flow.svg) | [Power Analysis Practicals](../HardwareHacking/Chapter5.md#measurement-setup) |
