@@ -89,7 +89,7 @@ curl -sI https://TARGET            # headers: server, framework, security header
 Burp Suite (Community or Professional) is the core interception proxy.
 
 1. **Proxy setup:** route the browser through Burp; install Burp's CA cert for TLS.
-2. **Target scope:** set scope to in-scope hosts so tooling never strays.
+2. **Target scope:** define the approved hosts and paths, and configure each tool to operate only on the intended targets. Scope filters and steers Burp tools; it does not grant authorization or necessarily block every out-of-scope request. Where your Burp version and project settings provide it, enable **Drop all out-of-scope requests**, and still review destinations, redirects, extensions, and manual requests against the signed rules of engagement. See [PortSwigger's scope guide](https://portswigger.net/burp/documentation/desktop/tools/target/scope) and [out-of-scope request handling settings](https://portswigger.net/burp/documentation/desktop/settings/project/scope).
 3. **Crawl & map:** browse the app to populate the site map; review every request.
 4. **Repeater:** manually manipulate individual requests to probe behavior.
 5. **Intruder:** automate payload injection (fuzzing, brute force) within scope.
@@ -97,6 +97,10 @@ Burp Suite (Community or Professional) is the core interception proxy.
 7. **Extensions (BApp Store):** *Autorize*/*Auth Analyzer* (access control),
    *Logger++*, *JWT Editor*, *Param Miner*, *Active Scan++*.
 8. **Scanner (Pro):** automated scanning to complement - not replace - manual testing.
+
+![Workflow showing authorization, target boundaries, Burp scope settings, request review, and stop conditions](../assets/diagrams/webapp-authorization-scope-gates.svg)
+
+*Conceptual workflow: configure scope as an operational safeguard, while written authorization and review of each action remain the controlling boundaries.*
 
 > [!TIP]
 > Automated scanners find the easy issues; access-control and business-logic flaws

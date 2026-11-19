@@ -230,6 +230,7 @@ Original conceptual flow mapping authorization to versioned requirements, scoped
 | Diagram | Embedded guide |
 |---|---|
 | [Web assessment requirement-to-evidence flow](./diagrams/webapp-requirement-to-evidence-flow.svg) | [OWASP standards and Nuclei review](../WebAppSecurity/owasp-assessment-and-nuclei.md) |
+| [Web assessment authorization and scope gates](./diagrams/webapp-authorization-scope-gates.svg) | [Web testing methodology](../WebAppSecurity/methodology.md) |
 
 ## Assessment Service Integration Visuals
 
