@@ -1739,10 +1739,18 @@ vagrant snapshot save baseline
 
 **Install Terraform**:
 ```bash
-wget https://releases.hashicorp.com/terraform/1.6.3/terraform_1.6.3_linux_amd64.zip
-unzip terraform_1.6.3_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
+# Select a currently supported, reviewed Terraform release and your host architecture.
+# Follow HashiCorp's official release-verification instructions before installing.
+TF_VERSION='REPLACE_WITH_REVIEWED_RELEASE'
+curl -fSLO "https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
+curl -fSLO "https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_SHA256SUMS"
+# Verify the signed checksum manifest against HashiCorp's published signing key,
+# then run: sha256sum -c "terraform_${TF_VERSION}_SHA256SUMS" --ignore-missing
+unzip "terraform_${TF_VERSION}_linux_amd64.zip"
+sudo install -m 0755 terraform /usr/local/bin/terraform
 ```
+
+Use HashiCorp's current [release page](https://releases.hashicorp.com/terraform/) and verification guidance; do not install an old pinned example without checking its support status.
 
 **Terraform Configuration** (`main.tf`):
 ```hcl
@@ -2016,9 +2024,12 @@ qm create 411 --name splunk --memory 8192 --cores 2 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:100
 
-# Install Ubuntu, then Splunk
-wget -O splunk.deb 'https://www.splunk.com/en_us/download/splunk-enterprise.html'
-sudo dpkg -i splunk.deb
+# Install Ubuntu, then download the exact Linux package for this VM's architecture
+# from the official Splunk download portal. This portal page is not a .deb URL.
+# Verify the package's published integrity data before installing it.
+SPLUNK_DEB='/path/to/verified/splunk-enterprise-package.deb'
+test -f "$SPLUNK_DEB" || { echo "Set SPLUNK_DEB to the verified package"; exit 1; }
+sudo dpkg -i "$SPLUNK_DEB"
 sudo /opt/splunk/bin/splunk start --accept-license
 sudo /opt/splunk/bin/splunk enable boot-start
 ```
@@ -2040,9 +2051,11 @@ Install-WindowsFeature -Name Windows-EventCollector
 
 On Linux targets:
 ```bash
-# Install Splunk forwarder
-wget -O splunkforwarder.deb 'https://www.splunk.com/en_us/download/universal-forwarder.html'
-sudo dpkg -i splunkforwarder.deb
+# Download the exact Universal Forwarder package for this host from Splunk's
+# official portal and verify its published integrity data; do not wget the HTML page.
+SPLUNK_UF_DEB='/path/to/verified/splunk-universal-forwarder-package.deb'
+test -f "$SPLUNK_UF_DEB" || { echo "Set SPLUNK_UF_DEB to the verified package"; exit 1; }
+sudo dpkg -i "$SPLUNK_UF_DEB"
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 sudo /opt/splunkforwarder/bin/splunk add forward-server 10.40.40.11:9997
 sudo /opt/splunkforwarder/bin/splunk add monitor /var/log
@@ -2076,10 +2089,12 @@ qm create 412 --name elk-stack --memory 8192 --cores 2 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:100
 
-# Install Docker and Docker Compose
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-sudo apt install docker-compose
+# Install Docker Engine and the Compose plugin from Docker's signed apt repository;
+# follow the current official Ubuntu instructions for repository/key setup and package versions.
+# Avoid the convenience script on persistent hosts. Docker-published ports can bypass
+# some host firewall rules, so review the network exposure before starting services.
+# https://docs.docker.com/engine/install/ubuntu/
+# Install docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin
 
 # Create docker-compose.yml
 cat <<EOF > docker-compose.yml
