@@ -139,8 +139,7 @@ sudo mkfs.exfat /dev/sdb1
 | `iw dev` | **Wireless Info** | Shows detailed information about wireless devices. |
 | `sudo iwconfig` | **Wireless Config** | Displays/sets basic wireless interface parameters. Install: `sudo pacman -S wireless_tools`. |
 | `sudo ip link set wlan1 down` | **Disable Interface** | Brings down the specified wireless interface. |
-| `sudo ip link set wlan1 name wlan1mon` | **Rename Interface** | Renames the wireless interface (useful for monitor mode setup). |
-| `airmon-ng` | **Monitor Mode** | Puts a wireless card into monitor mode for security auditing. Install: `sudo pacman -S aircrack-ng`. |
+| `sudo airmon-ng start wlan1` | **Monitor Mode** | Requests monitor mode for the specified adapter. Confirm the resulting interface name with `iw dev`; use only on an adapter and network within scope. Install: `sudo pacman -S aircrack-ng`. |
 | `sudo arp-scan -l` | **ARP Scan** | Scans the local network segment using ARP packets to discover active hosts. Install: `sudo pacman -S arp-scan`. |
 
 **ARP Scan Usage Example:**
@@ -184,7 +183,7 @@ sudo make dkms_install
 
 | Command | Purpose | Explanation |
 | :--- | :--- | :--- |
-| `systemctl reboot -i` | **Reboot System** | Initiates a system reboot. |
+| `sudo systemctl reboot` | **Reboot System** | Requests an orderly system reboot after saving work. |
 | `sudo systemctl <cmd> <service>` | **Manage Services** | Standard format to control system services (start, stop, status, enable, disable). |
 | `sudo systemctl disable hciuart.service` | **Disable Bluetooth Console** | Stops the serial Bluetooth management service (common on Raspberry Pi). |
 | `sudo systemctl disable avahi-daemon.socket avahi-daemon.service` | **Disable Avahi** | Disables the Zeroconf/mDNS daemon used for local network discovery. |
@@ -224,15 +223,9 @@ sudo systemctl enable --now smb nmb
 | :--- | :--- | :--- |
 | `sudo pacman -Rns <pkg>` | **Remove Package Cleanly** | Removes the package, its config files, and orphaned dependencies. Standard removal command. |
 | `pacman -Qdt  # review first; remove confirmed orphans by package name` | **Remove All Orphans** | Removes all packages that are no longer required by anything. |
-| `sudo pacman -Rdd <pkg>` | **Force Remove** | Removes package ignoring dependency checks. Use when removing conflicting packages before updates. |
 
-**Common pre-update conflict removal (BlackArch):**
-```bash
-sudo pacman -Rdd \
-  jre-openjdk jdk-openjdk jre11-openjdk jdk11-openjdk \
-  jdk17-openjdk jre17-openjdk jre17-openjdk-headless \
-  erlang-nox jre11-openjdk-headless python-gast python-uvicorn
-```
+
+**When a package conflict blocks an update:** inspect the exact conflicting path with `pacman -Qo`, review the package ownership and transaction log, and use the distribution’s documented recovery procedure. Remove a package only after confirming the impact and dependency plan; do not bypass dependency checks with `-Rdd` as a routine fix.
 
 > **Tip:** Only remove packages you actually have installed. Run `pacman -Q <pkg>` first to check.
 
@@ -323,17 +316,21 @@ sudo usermod -aG plugdev,uucp,wireshark,tty $USER
 These tools are not in official repos or are too outdated there. Install in user space:
 
 ```bash
-pipx ensurepath && \
-pipx install platformio && \
-pipx install esptool && \
-pipx install urh && \
-pipx install meshtastic && \
-pipx install rns && \
-pipx install nomadnet && \
-pipx install lxmf && \
-pipx install unblob && \
-pipx install rfcat && \
-# Review the verified uv installation instructions at https://docs.astral.sh/uv/getting-started/installation/ ; avoid piping unreviewed downloads to a shell
+pipx ensurepath
+pipx install platformio
+pipx install esptool
+pipx install urh
+pipx install meshtastic
+pipx install rns
+pipx install nomadnet
+pipx install lxmf
+pipx install unblob
+pipx install rfcat
+```
+
+Check each project's current install instructions and pipx support before installing. To install uv, follow the [official instructions](https://docs.astral.sh/uv/getting-started/installation/) and review any installer before execution.
+
+```bash
 ```
 
 ### 11.4 Build-from-Source Tools (Arch)
@@ -376,7 +373,7 @@ cd paru && makepkg -si
 
 ## 12. AUR and Package Building
 
-The Arch User Repository contains community-maintained build scripts for virtually any Linux software. Understanding how to work with it is essential for Arch users.
+The Arch User Repository contains user-submitted build scripts. These are not official repository packages and are not thoroughly vetted; inspect the PKGBUILD and all accompanying files before building.
 
 ### 12.1 AUR Helper Reference
 
@@ -392,11 +389,18 @@ The Arch User Repository contains community-maintained build scripts for virtual
 
 ### 12.2 Manual AUR Build (makepkg)
 
+![AUR package review workflow: inspect PKGBUILD and source files, build as a normal user, then install the reviewed package](../assets/diagrams/aur-package-review-build-install.svg)
+
 ```bash
-# Clone an AUR package and build
+# Clone an AUR package and inspect all build files
 git clone https://aur.archlinux.org/<pkg>.git
 cd <pkg>
-makepkg -si           # -s: install deps, -i: install result
+less PKGBUILD
+# Review .install, patches, source URLs, checksums, and recent changes before continuing.
+
+# Build as a normal user, then review the package before installing
+makepkg -s
+pacman -U <built-package-file>.pkg.tar.zst
 
 # Common makepkg flags
 makepkg -s            # Install missing dependencies only
@@ -650,7 +654,7 @@ sudo journalctl --vacuum-size=500M
 
 Quick-reference for Linux-based OSINT tooling. For full methodology, workflows, and tool documentation see [`OSINT/OSINT_GUIDE.md`](../OSINT/OSINT_GUIDE.md) and [`OSINT/OSINT_CHEATSHEET.md`](../OSINT/OSINT_CHEATSHEET.md).
 
-> **OPSEC**: Always operate through a VPN or Tor during OSINT work. Use dedicated VMs or burner accounts - never your personal identity.
+> **OPSEC:** Choose a network path and research account based on the engagement scope, target sensitivity, platform rules, and threat model. A VPN or Tor is not universally appropriate; do not use routing or alternate identities to bypass access controls, blocks, or service restrictions. Isolate research data where practical.
 
 ---
 
@@ -744,24 +748,37 @@ yay -S sherlock-git amass subfinder
 sudo pacman -S whois bind-tools
 ```
 
-**pip/pipx installs:**
+**Python CLI installs:**
+
+Arch marks system Python as externally managed. Prefer repository packages where available, `pipx` for supported CLI applications, or a virtual environment for project-specific installs. Do not use system-wide `pip3 install`.
+
 ```bash
-pipx install maigret
-pip3 install h8mail holehe
+python -m venv ~/.venvs/osint-tools
+~/.venvs/osint-tools/bin/python -m pip install --upgrade pip
+~/.venvs/osint-tools/bin/python -m pip install maigret h8mail holehe
 ```
 
 **Git-based installs:**
 ```bash
 mkdir -p ~/osint-tools && cd ~/osint-tools
 
-git clone https://github.com/laramies/theHarvester && \
-  cd theHarvester && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/laramies/theHarvester
+cd theHarvester
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 
-git clone https://github.com/smicallef/spiderfoot && \
-  cd spiderfoot && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/smicallef/spiderfoot
+cd spiderfoot
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 
-git clone https://github.com/s0md3v/Photon && \
-  cd Photon && pip3 install -r requirements.txt && cd ..
+git clone https://github.com/s0md3v/Photon
+cd Photon
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cd ..
 ```
 
 **Go-based installs:**
@@ -793,11 +810,11 @@ go install github.com/sundowndev/phoneinfoga/v2/cmd/phoneinfoga@latest
 ### 15.8 OSINT OPSEC Checklist
 
 ```
-✅ Route all traffic through VPN or Tor before investigating
-✅ Use a dedicated OSINT VM (Tsurugi, or DIY Arch/Kali)
-✅ Never use personal accounts - create isolated sock puppet personas
-✅ Use burner email (ProtonMail/Tutanota) and virtual phone numbers
-✅ Screenshot and archive evidence as you go (archive.is, Wayback)
+✅ Choose network routing and account use from the approved scope, service rules, and threat model
+✅ Use an isolated research environment where appropriate
+✅ Use only accounts and contact details authorized for the investigation; do not impersonate or evade platform controls
+✅ Preserve local evidence with timestamps and provenance
+✅ Submit material to public archives only when scope permits and public disclosure is appropriate
 ✅ Log all commands, queries, and sources
 ✅ Cross-reference findings from at least two independent sources
 ✅ Respect ToS - unauthorized scraping can have legal consequences
