@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="590" viewBox="0 0 1240 590" role="img" aria-labelledby="title desc">
+  <title id="title">Wireless audit passive and active testing lanes</title>
+  <desc id="desc">Passive lane uses receive-only survey and capture tools with frame injection disabled. Pwnagotchi AUTO mode and deauthentication are active; active testing requires separate authorization, an isolated test AP and client, low test volume, monitoring and a stop condition.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#294862"/></marker><style>
+    .title{font:700 28px system-ui,sans-serif;fill:#102a43}.label{font:700 19px system-ui,sans-serif;fill:#102a43}.body{font:16px system-ui,sans-serif;fill:#243b53}.small{font:14px system-ui,sans-serif;fill:#334e68}.box{rx:16;stroke-width:2}.line{stroke:#294862;stroke-width:4;fill:none;marker-end:url(#arrow)}
+  </style></defs>
+  <rect width="1240" height="590" rx="24" fill="#f5f8fb"/>
+  <text x="48" y="52" class="title">Separate receive-only observation from active wireless tests</text>
+  <rect x="50" y="112" width="520" height="330" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="84" y="155" class="label">PASSIVE / RECEIVE-ONLY</text>
+  <rect x="90" y="190" width="190" height="92" rx="12" fill="#fff" stroke="#9bc5a5" stroke-width="2"/>
+  <text x="185" y="227" text-anchor="middle" class="label">Kismet / capture</text><text x="185" y="255" text-anchor="middle" class="small">Monitor mode receive</text>
+  <path d="M280 236 H335" class="line"/>
+  <rect x="345" y="190" width="185" height="92" rx="12" fill="#fff" stroke="#9bc5a5" stroke-width="2"/>
+  <text x="437" y="227" text-anchor="middle" class="label">Record evidence</text><text x="437" y="255" text-anchor="middle" class="small">No injected frames</text>
+  <text x="310" y="335" text-anchor="middle" class="body">Verify the tool and adapter stay receive-only.</text>
+  <text x="310" y="376" text-anchor="middle" class="small">Passive collection can still capture sensitive traffic;</text><text x="310" y="399" text-anchor="middle" class="small">limit collection and protect retained evidence.</text>
+  <rect x="670" y="112" width="520" height="330" class="box" fill="#fde8e7" stroke="#d66b63"/>
+  <text x="704" y="155" class="label">ACTIVE / DISRUPTIVE</text>
+  <rect x="710" y="190" width="195" height="92" rx="12" fill="#fff" stroke="#e2a09a" stroke-width="2"/>
+  <text x="807" y="227" text-anchor="middle" class="label">Pwnagotchi / deauth</text><text x="807" y="255" text-anchor="middle" class="small">Transmits management frames</text>
+  <path d="M905 236 H955" class="line"/>
+  <rect x="965" y="190" width="185" height="92" rx="12" fill="#fff" stroke="#e2a09a" stroke-width="2"/>
+  <text x="1057" y="227" text-anchor="middle" class="label">Test AP + client</text><text x="1057" y="255" text-anchor="middle" class="small">Dedicated to the test</text>
+  <text x="930" y="335" text-anchor="middle" class="body">Separate authorization, low volume, monitoring,</text><text x="930" y="362" text-anchor="middle" class="body">communications plan and a clear stop condition.</text>
+  <text x="930" y="401" text-anchor="middle" class="small">Omitting the client selector can affect every client on the AP.</text>
+  <rect x="190" y="490" width="860" height="55" rx="14" fill="#dce7f0"/>
+  <text x="620" y="524" text-anchor="middle" class="label">Never move from passive capture to active frames without a separate scope and impact review.</text>
+</svg>
