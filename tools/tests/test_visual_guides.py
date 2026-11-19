@@ -44,6 +44,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/mcp-trust-and-approval-boundaries.svg": (
         "AI/mcp-tooling-and-permissions.md",
     ),
+    "assets/diagrams/wardriving-survey-data-privacy-gates.svg": (
+        "Wardriving/data-handling.md",
+    ),
+    "assets/diagrams/cyberdeck-evidence-and-redaction-lifecycle.svg": (
+        "Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md",
+    ),
+    "assets/diagrams/ai-evaluation-evidence-matrix.svg": (
+        "AI/ai-evaluation-and-regression-testing.md",
+    ),
+    "assets/diagrams/uconsole-hardware-os-preflight-paths.svg": (
+        "uConsole/README.md",
+    ),
 }
 
 
