@@ -208,6 +208,7 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [Cloud shared responsibility](./diagrams/cloud-shared-responsibility.svg) | [Cloud/README.md](../Cloud/README.md) | Provider/customer security responsibilities |
 | [Container trust boundaries](./diagrams/container-security-boundaries.svg) | [ContainerSecurity/README.md](../ContainerSecurity/README.md) | Supply chain and shared-kernel risks |
 | [DFIR evidence lifecycle](./diagrams/dfir-evidence-custody.svg) | [IncidentResponse/Digital-Forensics/README.md](../IncidentResponse/Digital-Forensics/README.md) | Authorize, collect, verify, analyze and preserve |
+| [Autopsy and KAPE evidence workflows](./diagrams/dfir-autopsy-kape-workflows.svg) | [Autopsy + KAPE guide](../IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md) | Separate disk imaging from selective artifact triage |
 | [OSINT verification](./diagrams/osint-verification-workflow.svg) | [OSINT/README.md](../OSINT/README.md) | Scope, corroborate, protect sources and report |
 | [Wireless IDS correlation](./diagrams/wireless-ids-correlation.svg) | [IncidentResponse/IDS&IPS/readme.md](../IncidentResponse/IDS&IPS/readme.md) | Kismet/nzyme event correlation and evidence checks |
 | [Web application testing](./diagrams/webapp-assessment-cycle.svg) | [WebAppSecurity/README.md](../WebAppSecurity/README.md) | Scope through retest with safe validation |
