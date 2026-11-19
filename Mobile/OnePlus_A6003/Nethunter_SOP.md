@@ -1,17 +1,17 @@
 # Kali NetHunter - Standard Operating Procedures
 
 ## 🎯 Purpose
-Field SOPs for operating all Kali NetHunter attack modules and utilities on the OnePlus 6 during authorized penetration tests - from pre-engagement setup through post-engagement teardown and evidence handling.
+Field reference for safely preparing and using the OnePlus 6 as an assessment device, with emphasis on passive review, defensive validation, and evidence handling.
 
 ## ⚙️ Function
-Per-module procedures for every NetHunter capability: HID/BadUSB attacks, WifiPumpkin rogue AP, WPS attacks, Bluetooth Arsenal, Wardriving, SET, Nmap, Metasploit payload generation, SearchSploit, KeX desktop, MAC changer, and CARsenal. Each section includes prerequisites, authorization gates, verification steps, and cleanup actions.
+Device setup, authorized scope checks, passive diagnostics, defensive configuration review, safe vulnerability research, and post-engagement evidence handling. Offensive-capable features are documented only as risks and detection topics; this guide does not provide payload, credential-harvesting, or disruption procedures.
 
 ## 🏆 Goal
-Ensure consistent, authorized, and evidence-tracked execution of mobile pentesting operations. Covers the full engagement lifecycle: RoE confirmation, device baseline verification, per-tool procedures, and teardown checklist with artifact hashing and data handling.
+Ensure assessments stay within written scope, minimize data collection, preserve evidence, and leave the device in a known-good state.
 
 ## 📋 When to Use
 - Before any engagement using the NetHunter device (RoE and pre-engagement checklist)
-- During testing as a step-by-step procedure reference for each NetHunter module
+- During authorized work as a defensive checklist for configuration review and passive observation
 - At teardown for evidence handling, MAC restoration, and device cleanup
 
 ---
@@ -25,16 +25,16 @@ Ensure consistent, authorized, and evidence-tracked execution of mobile pentesti
 
 ## 0. Authorization & Rules of Engagement (READ FIRST)
 
-> These SOPs cover offensive-capable tooling. **Do not run any active/attack procedure without written authorization.**
+> NetHunter may include offensive-capable apps. Their presence is not authorization. This SOP covers safe device administration and defensive review only; use the least intrusive owner-approved method.
 
 Before any engagement, confirm and file:
 
 - [ ] Signed **Statement of Work / Rules of Engagement (RoE)** naming the client, scope, and authorized target ranges (IP/SSID/BSSID/asset list).
-- [ ] Explicit **in-scope wireless SSIDs/BSSIDs** and MAC allow-list. Wireless and RF attacks bleed easily into out-of-scope airspace - document exclusions.
+- [ ] Explicitly list any approved wireless collection or testing area, and exclude neighboring networks and bystanders. Do not spoof device identity.
 - [ ] **Time window** for testing and any blackout periods.
 - [ ] **Emergency stop contact** on the client side.
 - [ ] Physical-access authorization (badge, escort, or written consent) if HID/BadUSB is in scope.
-- [ ] Confirmation that RF activity (Evil AP, deauth, Bluetooth injection) is legal at the test location and will not disrupt safety-critical systems.
+- [ ] Written owner approval and a safety review for any separately planned radio-frequency collection or transmission; stop if it could affect bystanders or safety-critical systems.
 
 **Golden rule:** if a procedure could touch a device, network, or person outside the signed scope, stop and re-confirm scope before proceeding.
 
@@ -42,398 +42,203 @@ Before any engagement, confirm and file:
 
 ## 1. Platform Baseline & Verification
 
-Perform once per device, and re-verify after any NetHunter/kernel update.
+Recheck after any operating-system, kernel, or NetHunter update.
 
-### 1.1 Confirm edition and kernel features
-1. Open the **NetHunter** app → **Home**. Confirm chroot is detected and shows a Kali version.
-2. Open **NetHunter Terminal** → `KALI` session → run:
-   ```bash
-   uname -a          # confirm NetHunter kernel string
-   id                # confirm root inside chroot
-   ip a              # confirm interfaces
-   ```
-3. Verify kernel capabilities expected on the OnePlus 6 full edition:
-   - **HID / USB gadget** (for HID + BadUSB)
-   - **OTG wireless** (external adapter support)
-   - **Monitor mode / injection** (internal chipset is limited - see Appendix A; use an external adapter for reliable injection)
+### 1.1 Device health
 
-### 1.2 Update the chroot
-```bash
-sudo apt update && sudo apt full-upgrade -y
-# Optional, if storage allows:
-sudo apt install -y kali-linux-default
-```
+1. Confirm the device model and supported Android/NetHunter version from the maintained project documentation.
+2. Review patch level, device encryption, screen lock, application permissions, and management state.
+3. Confirm only the interfaces required for the approved review are enabled.
+4. Do not enable HID emulation, packet injection, traffic interception, or payload features as part of routine preparation.
 
-### 1.3 Backup the rootfs (do before major changes)
-From a **Termux** session (not inside chroot), stop all NetHunter sessions first, then:
-```bash
-tar -cJf kali-arm64.tar.xz kali-arm64 && mv kali-arm64.tar.xz storage/downloads
-```
+### 1.2 Updates
+
+Install supported updates through the project's trusted distribution channel. Review release notes and test major changes on a spare device before an engagement. Avoid large untested updates immediately before field work.
+
+### 1.3 Backup and recovery
+
+Keep a verified, encrypted backup in an approved location. Do not store client evidence, passwords, or access tokens in the system backup. Record the recovery method and confirm it does not expose shared folders or credentials to a test environment.
 
 ### 1.4 Housekeeping
-- [ ] Hacker's Keyboard installed (needed for terminal/HID layouts).
-- [ ] NetHunter Store reachable; apps updated.
-- [ ] External Wi-Fi adapter(s) tested (Appendix A).
-- [ ] Device battery > 50% or Y-cable/power bank staged for long ops.
+
+- [ ] Remove unneeded apps and revoke unused permissions.
+- [ ] Confirm device encryption and a strong screen lock.
+- [ ] Check battery and storage capacity.
+- [ ] Confirm trusted update sources and application inventory.
+- [ ] Keep optional adapters disconnected unless an approved lab review requires them.
 
 ---
 
-## 2. Pre-Engagement Checklist (every job)
+## 2. Pre-Engagement Checklist
 
-- [ ] RoE confirmed (Section 0).
-- [ ] Device time/zone correct (matters for logs/evidence).
-- [ ] Clean working directory created for the engagement: `~/engagements/<client>-<YYYYMMDD>/`.
-- [ ] MAC randomized if operating covertly (Section 8).
-- [ ] Airplane mode + selective radios as needed to avoid stray connections.
-- [ ] Evidence capture plan (where captures/logs are written, how they're exfiltrated).
+- [ ] Written scope and owner contact are available.
+- [ ] Device time zone and clock are correct.
+- [ ] A minimized evidence folder is prepared with access limited to the engagement team.
+- [ ] Preserve the device's normal network identity; do not spoof addresses to evade monitoring.
+- [ ] Keep radios and network interfaces disabled unless specifically needed for an approved check.
+- [ ] The evidence manifest and retention location are approved.
+- [ ] Stop conditions and incident contacts are known.
 
 ---
 
 ## 3. NetHunter App - Home, Chroot Manager & Services
 
-**Purpose:** Central control for the Kali chroot and background services.
+Use the app to review device health, software version, and service status. Leave background services stopped by default. Start only a documented service required for an approved local task, restrict it to loopback where supported, and stop it immediately afterward.
 
-**Procedure**
-1. **Home** - status dashboard. Confirm chroot present and IP shown.
-2. **Kali Chroot Manager** - install/remove/update the chroot; switch minimal ↔ full; re-run `apt` from here or terminal.
-3. **Kali Services** - toggle services (SSH, PostgreSQL for Metasploit DB, Apache, VNC, etc.). Start only what the task needs; stop them at teardown.
-
-**Verification:** started services appear active; `ss -tlnp` in terminal shows expected listeners.
-
-**Cleanup:** stop all services you enabled. Leaving SSH/Apache running is an exposure risk.
+Review local listeners and permissions before the device leaves your control. Do not expose SSH, web, database, or remote-desktop services to a client or public network.
 
 ---
 
 ## 4. NetHunter Terminal
 
-**Purpose:** Shell access to Kali (`KALI`), Android (`ANDROID`), and root Android sessions.
+Use the terminal for local device administration and approved evidence review. Treat the chroot as a potentially privileged environment and avoid storing credentials or customer data there unnecessarily.
 
-**Procedure**
-- Launch **NetHunter Terminal** → pick session type.
-- `KALI` session = full Kali toolset. This is your primary workspace for Nmap, Metasploit, aircrack-ng suite, etc.
-- Use `tmux` for long-running captures so a dropped session doesn't kill the job:
-  ```bash
-  tmux new -s eng
-  # detach: Ctrl-b d   |   reattach: tmux attach -t eng
-  ```
+Safe local checks include:
 
-**Notes:** On non-root/rootless setups some tools (e.g., `top`) misbehave - full edition on the OnePlus 6 avoids most of these.
+    uname -a
+    ip address
+    ss -lnt
+
+Do not use this field guide to run scans, capture network traffic, execute payloads, or access systems outside the device owner's approved process.
 
 ---
 
 ## 5. Custom Commands
 
-**Purpose:** Pin frequently used commands/scripts to the NetHunter menu for one-tap launch in the field.
-
-**Procedure**
-1. NetHunter app → **Custom Commands** → add entry.
-2. Provide a label and the full command (absolute paths; specify the session/user context).
-3. Save; launch from the menu.
-
-**Use cases:** start a scoped Nmap sweep, launch a capture into the engagement folder, spin up a KeX session, kick off a recon script.
+Use custom menu entries only for reviewed, read-only status checks or local documentation shortcuts. Inspect the exact command and its permissions before saving it. Do not add unattended scans, credential collection, network listeners, file upload/download jobs, or payload launchers.
 
 ---
 
 ## 6. Kali NetHunter Desktop Experience (KeX Manager)
 
-**Purpose:** Full Kali desktop over VNC - HDMI/wireless casting for tools that need a GUI (Wireshark, Burp).
+If a desktop session is needed for report preparation or sanitized artifact review, use a strong, unique VNC password and bind access to the local device where possible. Do not expose the VNC service on a client, public, or shared network. Stop the server after use, verify it is no longer listening, and rotate the password if the device may have been observed or shared.
 
-**Procedure**
-1. NetHunter app → **KeX Manager** → set a VNC password (first run).
-2. **Start Server**, then connect with the KeX client (local loopback) or external VNC.
-3. For HDMI/monitor output, connect via USB-C → HDMI and mirror.
-4. Stop the server when done.
+## 7. USB Peripheral Security Review
 
-**Verification:** desktop renders; clipboard/keyboard functional.
+Review the host's removable-device policy, approved-device inventory, lock screen, and endpoint alerts. Use vendor documentation and configuration exports. Do not emulate keyboards, network adapters, or storage devices against client systems.
 
-**Cleanup:** stop KeX; clear/rotate the VNC password if the device leaves your control.
+## 8. Device Identity and Privacy
 
----
+Use the engagement-specific device identity assigned by the owner. Do not spoof addresses to evade monitoring or attribute activity to another device. Record any authorized test-device identifier in the scope document and restore its baseline configuration afterward.
 
-## 7. USB Arsenal
+## 9. HID and Keystroke-Injection Risk
 
-**Purpose:** Control USB gadget configuration - the switchboard for HID, BadUSB, mass storage, and CD-ROM emulation modes.
+Treat programmable keyboards and HID emulators as untrusted peripherals. Review device-control policies, workstation locking, application allowlisting, and alerts for unexpected command interpreters. Validate controls only with benign owner-approved test events and synthetic accounts.
 
-**Procedure**
-1. NetHunter app → **USB Arsenal**.
-2. Select the gadget config required by the task (e.g., HID for keyboard attacks, MITM/RNDIS for BadUSB).
-3. Apply, then run the corresponding attack module (Sections 9–10).
+## 10. HID Compatibility and Detection
 
-**Notes:** Only one gadget mode is typically active at a time. If HID/BadUSB "does nothing," USB Arsenal mode is the usual culprit - verify it first.
+For awareness exercises, use a tabletop or vendor-supplied simulation that does not inject keystrokes into a live endpoint. Document the expected alert, owner, and response path. Do not use payload files or execute test scripts on a user's computer.
 
----
+## 11. USB Network Adapter and Bridging Controls
 
-## 8. MAC Changer
+Review whether endpoints permit unapproved USB network adapters or network bridging. Confirm that wired, wireless, and management segments remain separated. Do not insert a bridge or capture client traffic during a generic assessment.
 
-**Purpose:** Spoof/randomize interface MAC for covert operation or to satisfy RoE anonymity requirements.
+## 12. Unauthorized Access Point Detection
 
-**Procedure**
-1. NetHunter app → **MAC Changer** → pick interface → randomize or set a specific MAC.
-2. Verify in terminal: `ip link show <iface>`.
+Review wireless controller inventories and approved passive monitoring for unknown BSSIDs, lookalike SSIDs, unexpected DHCP services, and unusual client associations. Do not create an evil twin, captive portal, or credential collection page.
 
-**Notes:** Some internal interfaces resist changes; external adapters are more reliable. Record any spoofed MAC in engagement notes.
+## 13. WPS Configuration
 
----
+Check WPS status through the access point's administrative interface or documented configuration export. Disable WPS where it is not required and verify vendor firmware support. Do not perform PIN guessing or exploit attempts.
 
-## 9. HID Attacks (Keyboard / Teensy-style)
+## 14. Bluetooth Security Review
 
-**Purpose:** Turn the phone into a scripted USB keyboard against an **authorized, physically in-scope** host.
+Inventory paired devices, discoverability settings, supported protocols, firmware, and access permissions. Remove unused pairings and apply vendor updates. Review logs for unexpected pairing attempts; do not spoof, inject, or capture third-party Bluetooth communications.
 
-**Prerequisites:** Physical-access authorization; USB Arsenal set to HID; target unlocked or attack accounts for lock state; correct keyboard layout selected.
+## 15. Social-Engineering Simulation Governance
 
-**Procedure**
-1. USB Arsenal → HID gadget mode.
-2. NetHunter app → **HID Attacks** → choose *PowerSploit* or *Windows CMD* tab.
-3. Select payload/attack, set the target OS + keyboard layout, connect via OTG/USB to target.
-4. Execute; watch for injected keystrokes on the target.
+Conduct awareness exercises through the organization's approved training platform, with synthetic credentials and privacy review. Measure reporting and response outcomes, not password submission. Do not collect real passwords, session tokens, or personal messages.
 
-**Verification:** keystrokes land on target; expected shell/download behavior observed.
+## 16. Authorized Network Inventory
 
-**Safety/Cleanup:** revert USB Arsenal to a benign mode afterward; document exactly what was typed/executed for the report.
+Use the asset owner's inventory and approved monitoring systems first. Any active discovery must be separately scoped, rate-limited, coordinated with the service owner, and stopped if it affects availability. This reference intentionally omits scan commands and target lists.
 
----
+## 17. Malware and Payload Risk Review
 
-## 10. DuckHunter HID (Rubber Ducky compatibility)
+Do not generate, deliver, or execute payloads from this field guide. For an approved malware-analysis lesson, use a dedicated offline detonation environment with disposable snapshots and no shared folders, clipboard, host credentials, or routed network access. Prefer static analysis and vendor-provided benign samples.
 
-**Purpose:** Run **USB Rubber Ducky** DuckyScript payloads from the phone (you already run Rubber Ducky/Bash Bunny - DuckHunter reuses that script language).
+## 18. Vulnerability Research and Patch Validation
 
-**Procedure**
-1. NetHunter app → **DuckHunter HID** → **Convert** tab.
-2. Paste or load a `.txt` DuckyScript, or write inline.
-3. Set the keyboard layout (mismatch = garbled injection).
-4. **Preview** the converted payload, connect target via OTG/USB, **Attack**.
+Use vendor advisories, affected-version inventories, and supported configuration checks to evaluate exposure. Verify mitigations in a staging copy or disposable lab. Do not execute public exploit code on a production device as a routine validation method.
 
-**Notes:** Keep a small library of vetted DuckyScripts in the engagement folder. Test on a lab VM before live use.
-
----
-
-## 11. BadUSB MITM Attack
-
-**Purpose:** When plugged into an authorized host, present as a USB network adapter and MITM the host's traffic.
-
-**Prerequisites:** Physical access authorization; USB Arsenal set to the BadUSB/RNDIS gadget; target auto-trusts new USB NICs.
-
-**Procedure**
-1. USB Arsenal → BadUSB/MITM gadget config.
-2. NetHunter app → **BadUSB MITM Attack** → configure interface/gateway.
-3. Connect to target; the host routes through the phone.
-4. Capture with tcpdump/Wireshark (KeX) into the engagement folder.
-
-**Verification:** target obtains an IP from the phone; traffic visible in capture.
-
-**Cleanup:** stop capture, detach, revert USB mode, secure the capture file.
-
----
-
-## 12. WifiPumpkin / Evil AP (MANA-class attacks)
-
-**Purpose:** Stand up a rogue/captive-portal AP for authorized Wi-Fi client testing.
-
-**Prerequisites:** External adapter with AP + injection support; **only in-scope SSIDs**; confirm no interference with production/safety Wi-Fi.
-
-**Procedure**
-1. Attach external adapter; confirm with `iw dev` / `airmon-ng`.
-2. Launch **WifiPumpkin** (NetHunter app menu or from terminal).
-3. Configure SSID, channel, captive portal, and the capture/proxy modules.
-4. Start the AP; monitor associated clients and captured credentials into the engagement folder.
-
-**Verification:** AP broadcasts; test client associates; portal serves.
-
-**Safety/Cleanup:** stop the AP promptly; never leave a rogue AP unattended. Log the SSID/BSSID/channel used.
-
----
-
-## 13. WPS Attacks (OneShot)
-
-**Purpose:** Test WPS-enabled APs (Pixie-Dust / PIN) against **authorized** targets only.
-
-**Procedure**
-1. Attach compatible external adapter (monitor + injection).
-2. NetHunter app → **WPS Attacks** (OneShot) → scan → select the in-scope BSSID.
-3. Choose Pixie-Dust or PIN attack; run; record result.
-
-**Notes:** Confirm the BSSID is on your allow-list before launching. Document PINs/keys recovered.
-
----
-
-## 14. Bluetooth Arsenal
-
-**Purpose:** Bluetooth recon, spoofing, and audio inject/listen against **authorized** devices.
-
-**Prerequisites:** Compatible internal/external BT; targets explicitly in scope.
-
-**Procedure**
-1. NetHunter app → **Bluetooth Arsenal**.
-2. **Recon**: scan/enumerate nearby devices (record only in-scope MACs).
-3. **Attack/Audio**: spoof, connect, or inject per module - only against authorized targets.
-
-**Safety:** BT ranges catch bystander devices easily. Scope discipline is critical here.
-
----
-
-## 15. Social Engineer Toolkit (SET)
-
-**Purpose:** Build authorized phishing/credential-harvest campaigns.
-
-**Procedure**
-1. NetHunter app → **Social Engineer Toolkit**, or launch `setoolkit` in terminal.
-2. Select the vector (credential harvester, cloned page, etc.).
-3. Configure listener/host; stage on the engagement network.
-4. Capture results into the engagement folder.
-
-**Notes:** Client written approval for phishing content and target list is mandatory. Retain all sent content for the report.
-
----
-
-## 16. Nmap Scan
-
-**Purpose:** Quick network discovery/enumeration.
-
-**Procedure**
-1. NetHunter app → **Nmap Scan** for guided scans, or run in terminal for full control:
-   ```bash
-   nmap -sS -sV -p- --open -oA ~/engagements/<client>-<date>/nmap_full <in-scope-range>
-   nmap -sU --top-ports 100 -oA ~/engagements/<client>-<date>/nmap_udp <target>
-   ```
-2. Keep scans **inside the authorized ranges**. Save `-oA` output for reporting.
-
----
-
-## 17. Metasploit Payload Generator (MPC)
-
-**Purpose:** Generate payloads quickly (wraps `msfvenom`).
-
-**Procedure**
-1. Start **PostgreSQL** via Kali Services (for msfconsole DB).
-2. NetHunter app → **Metasploit Payload Generator** → pick platform/type, set LHOST/LPORT → generate.
-3. Or terminal:
-   ```bash
-   msfvenom -p <payload> LHOST=<ip> LPORT=<port> -f <format> -o ~/engagements/<client>-<date>/payload.<ext>
-   ```
-4. Start the matching handler in `msfconsole`.
-
-**Notes:** Payloads are engagement artifacts - store, hash, and clean them up at teardown.
-
----
-
-## 18. SearchSploit (Exploit-DB)
-
-**Purpose:** Offline search of Exploit-DB.
-
-**Procedure**
-```bash
-searchsploit <product> <version>
-searchsploit -x <path>     # examine an exploit
-searchsploit -u            # update the DB
+```mermaid
+flowchart LR
+    Phone[NetHunter assessment phone] --> Lab[Approved isolated lab]
+    Lab --> Synthetic[Synthetic targets and data]
+    Lab --> Monitor[Owner-controlled monitoring]
+    Monitor --> Review[Detection and remediation review]
+    Lab -. no route .- Production[Production devices and users]
 ```
-Map findings to Nmap `-sV` output; note EDB-IDs in the report.
 
----
+## 19. Passive Wireless Site Review
 
-## 19. Wardriving
+Limit passive observation to areas, networks, and time windows explicitly authorized by the owner. Avoid collecting client identifiers or GPS trails unless strictly required and approved. Minimize retention and redact nearby third-party networks from notes and reports.
 
-**Purpose:** Passive survey of nearby Wi-Fi (and optionally cell/BT) for authorized site assessment.
+Review the owner's access-point inventory and controller telemetry first. Record any observed configuration gap with a redacted identifier and a remediation recommendation.
 
-**Prerequisites:** External adapter + GPS (your SenseCAP/GPS kit or a USB GPS puck).
+## 20. Automotive Network Safety Review
 
-**Procedure**
-1. Attach adapter + GPS; confirm fix.
-2. NetHunter app → **Wardriving** → start passive capture.
-3. Export results (Kismet/CSV) into the engagement folder for mapping.
+Vehicle networks are safety-critical. This guide supports inventory and documentation review only; it does not authorize connecting to a vehicle bus, transmitting frames, replaying traffic, or changing vehicle state.
 
-**Notes:** Passive only by default - keep it passive unless active testing is separately authorized.
+For an approved research project, use a dedicated bench harness and isolated, owner-supplied test equipment under a documented safety plan. Do not connect to a moving vehicle or road-going vehicle.
 
----
+## 21. Network Tethering and Bridge Risk
 
-## 20. CARsenal (Automotive)
+Treat phone tethering and USB networking as network bridges that can bypass intended segmentation. Keep them disabled during client work unless the network owner has approved a specific, isolated lab design. Confirm the phone cannot route between the lab and corporate or public networks.
 
-**Purpose:** CAN-bus / automotive security testing (can-utils, etc.).
+## 22. NetHunter Store and Software Provenance
 
-**Prerequisites:** Compatible CAN interface hardware; **written vehicle-owner authorization**; test in a safe, controlled setting.
+Install only maintained applications from a trusted distribution source after reviewing publisher, permissions, version, and update status. Do not install credential recovery, rogue access-point, payload, or surveillance applications on an engagement device. Keep the device's software inventory with the engagement record.
 
-**Procedure**
-1. Connect CAN adapter; bring up the interface.
-2. NetHunter app → **CARsenal** → select tool (candump, cansend, cansniffer…).
-3. Capture/replay only against the authorized vehicle/bench.
-
-**Safety:** Never inject on a moving vehicle or any safety-critical live system.
-
----
-
-## 21. Pineapple Connector
-
-**Purpose:** Share the phone's internet to a **Hak5 WiFi Pineapple** over USB (you run a Pineapple already).
-
-**Procedure**
-1. Connect the Pineapple via USB/OTG.
-2. NetHunter app → **Pineapple Connector** → enable internet sharing.
-3. Manage the Pineapple from its own web UI as normal.
-
----
-
-## 22. NetHunter Store
-
-**Purpose:** Install/update purpose-built security apps (telemetry-stripped F-Droid fork).
-
-**Procedure**
-1. Open the **NetHunter Store** client → search/install (e.g., cSploit, Shodan, Router Keygen, RF tools).
-2. Update installed apps before each engagement.
-
-**Note:** The store button may not flip to "installed" - ignore the cosmetic bug.
 
 ---
 
 ## 23. Post-Engagement Teardown & Evidence Handling
 
-- [ ] Stop **all** services (Kali Services), APs (WifiPumpkin), captures, and KeX.
-- [ ] Revert **USB Arsenal** to a benign gadget mode.
-- [ ] Restore original **MAC** if spoofed.
-- [ ] Collect and hash all artifacts (captures, payloads, logs):
-  ```bash
-  cd ~/engagements/<client>-<date>/ && sha256sum * > SHA256SUMS
-  ```
-- [ ] Encrypt and exfil the engagement folder to your reporting box; **delete payloads/creds from the phone** per data-handling policy.
-- [ ] Note any spoofed MACs, SSIDs/BSSIDs, and PINs/keys recovered in the report.
-- [ ] Power down radios; return device to a clean baseline.
+- [ ] Stop authorized monitoring or test services and confirm no capture remains active.
+- [ ] Restore the assessment phone's approved network, radio, and device-management settings.
+- [ ] Preserve only artifacts listed in the reviewed evidence manifest.
+- [ ] Have the receiving owner verify transfer and checksums before removing approved temporary copies.
+- [ ] Do not delete evidence, logs, or broad directory trees as routine cleanup.
+- [ ] Record remaining retention obligations and chain-of-custody information.
+- [ ] Confirm the device is in a known-good state before returning it to service.
+
 
 ---
 
-## 24. Troubleshooting Quick Reference
+## 24. Device Health Troubleshooting
 
 | Symptom | First checks |
 |---|---|
-| HID/BadUSB does nothing | Wrong **USB Arsenal** gadget mode; wrong keyboard layout; cable is charge-only |
-| No monitor mode / injection | Internal chipset limits - use external adapter; verify with `airmon-ng`, `iw dev` |
+| USB device is not recognized | Review device permissions, cable quality, and vendor diagnostics using a benign accessory |
+| Wireless review unavailable | Use owner-provided controller reports; avoid enabling transmission or capture features |
 | Chroot won't start | Re-open Chroot Manager; check storage; reboot; verify kernel string with `uname -a` |
-| Metasploit DB errors | Start **PostgreSQL** in Kali Services; `msfdb init` |
+| Unexpected local listener | Stop the related service, verify it is no longer listening, and review the approved device baseline |
 | KeX black screen | Restart KeX server; re-enter VNC password; check resolution setting |
-| Adapter not detected | Reseat OTG; check power (use Y-cable); `dmesg \| tail` for USB errors |
-| Tools slow / OOM | Close KeX/background sessions; use `tmux`; watch battery/thermals |
+| Approved accessory not recognized | Disconnect it and use vendor-supported diagnostics; do not enable radio transmission features |
+| Device runs slowly or overheats | Stop optional services, close desktop sessions, allow the device to cool, and preserve battery health |
 
 ---
 
-## Appendix A - External Wi-Fi Adapters (recommended for injection)
+## Appendix A - External Wi-Fi Adapters (passive compatibility only)
 
-Internal OnePlus 6 Wi-Fi injection is limited/inconsistent. For reliable monitor mode + injection, use a known-good external adapter over OTG:
+The internal radio may not expose every passive diagnostic capability. Check manufacturer documentation and the adapter's supported receive-only features before use:
 
-- **Atheros AR9271** (2.4 GHz) - rock-solid, widely supported.
-- **Realtek RTL8812AU / RTL8811AU** (2.4/5 GHz) - needs the `8812au` driver; good dual-band.
-- **MediaTek MT7612U / MT7610U** - strong 5 GHz support.
-- **RT3070/RT5370** - reliable 2.4 GHz budget option.
+- Choose only hardware supported by the device vendor and the assessment platform.
+- Confirm the device can be configured for receive-only diagnostics if required.
+- Do not enable packet injection or active transmission for routine review.
 
 Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapters or long ops.
 
-## Appendix B - Engagement Folder Layout (suggested)
+## Appendix B - Minimized Evidence Folder Layout (suggested)
 
 ```
 ~/engagements/<client>-<YYYYMMDD>/
-├── RoE.pdf
-├── scope.txt              # in-scope IPs / SSIDs / BSSIDs / MACs
-├── nmap/
-├── captures/              # pcap, hashes
-├── payloads/
-├── loot/                  # creds, keys (encrypt!)
-├── notes.md
+├── scope-reference.txt   # access-controlled; avoid listing unnecessary identifiers
+├── approved-evidence/
+├── redacted-screenshots/
+├── notes/
+├── evidence-manifest.txt
 └── SHA256SUMS
 ```
 
@@ -445,5 +250,5 @@ Power draw matters on a phone - use a powered OTG/Y-cable for high-power adapter
 - [Rooting.md](Rooting.md) - Prerequisite: bootloader unlock, LineageOS, TWRP, and Magisk root setup
 - [Kali_NetHunter.md](Kali_NetHunter.md) - NetHunter installation guide this SOP builds on
 - [../README.md](../README.md) - Mobile section index
-- [../../Scripts/Bash/BashBunny/README.md](../../Scripts/Bash/BashBunny/README.md) - Bash Bunny payloads (DuckHunter-compatible DuckyScript)
-- [../../Tradecraft/c2-frameworks.md](../../Tradecraft/c2-frameworks.md) - C2 frameworks for post-exploitation after NetHunter initial access
+- [../../Scripts/Bash/BashBunny/README.md](../../Scripts/Bash/BashBunny/README.md) - archived device security notes and safety guidance
+- [../../Tradecraft/c2-frameworks.md](../../Tradecraft/c2-frameworks.md) - command-and-control detection and response guidance

@@ -246,7 +246,7 @@ These are source-attributed references, not claims that every upstream tool is i
 | OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
 | Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup, USB device-control validation & five authorized labs |
 | Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation & six authorized HID assessment labs |
-| Scripts | [Shells & Stagers](./Scripts/GO/shells/README.md) | Source references for authorized security testing |
+| Scripts | [Retired Shell and Stager Sources](./Scripts/GO/shells/README.md) | Inert historical filenames; defensive references only |
 | uConsole | [CM4 / CM5 Setup Scripts](./uConsole/scripts/README.md) · [CM4 Safety Review](./uConsole/CM4-SAFETY-REVIEW.md) | Conservative CM4 preflight, CM5/Parrot setup and display recovery; explicit hardware validation required |
 | Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
