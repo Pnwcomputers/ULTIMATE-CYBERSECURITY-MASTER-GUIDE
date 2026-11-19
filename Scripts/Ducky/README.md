@@ -267,17 +267,25 @@ For each client test record: authorization ID, asset ID, operator, device model/
 ## Syntax Quick Reference
 ```duckyscript
 REM Comment - not executed
-DELAY 1000          # Wait 1000ms (1 second)
-DEFAULTDELAY 100    # Set default delay between keystrokes
+REM Wait 1000ms (1 second)
+DELAY 1000
+REM Set default delay between keystrokes
+DEFAULTDELAY 100
 
-GUI r               # Windows + R
-CTRL ALT DELETE     # Key combinations
-ENTER               # Press Enter
-STRING text here    # Type text
+REM Windows + R
+GUI r
+REM Key combination
+CTRL ALT DELETE
+ENTER
+STRING text here
 
-ALT F4              # Alt + F4
-SHIFT a             # Shift + a (uppercase A)
+REM Alt + F4
+ALT F4
+REM Shift + a (uppercase A)
+SHIFT a
 ```
+
+Keep comments on separate `REM` lines. Do not append `#` comments to DuckyScript commands; inline text may be treated as payload input. See the [Hak5 DuckyScript quick reference](https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-language/duckyscript-quick-reference/).
 
 ## Best Practices
 
