@@ -212,7 +212,7 @@ class SensorPoller:
         self._pkg_label = ""           # detected label for CPU package sensor
 
         self._sample_count = 0
-        self._last_sample_monotonic: float | None = None
+        self._last_cpu_sample_monotonic: float | None = None
 
     # ── JSON parsing ──────────────────────────────────────────────────────────
 
@@ -291,11 +291,11 @@ class SensorPoller:
 
                 with self._lock:
                     self._sample_count += 1
-                    self._last_sample_monotonic = time.monotonic()
                     for label, val in data.items():
                         self._all.setdefault(label, []).append(val)
                     if self._pkg_label and self._pkg_label in data:
                         self._pkg_temps.append(data[self._pkg_label])
+                        self._last_cpu_sample_monotonic = time.monotonic()
 
             time.sleep(SENSOR_POLL_S)
 
@@ -321,8 +321,8 @@ class SensorPoller:
         with self._lock:
             return (
                 bool(self._pkg_temps)
-                and self._last_sample_monotonic is not None
-                and time.monotonic() - self._last_sample_monotonic <= max_age_s
+                and self._last_cpu_sample_monotonic is not None
+                and time.monotonic() - self._last_cpu_sample_monotonic <= max_age_s
             )
 
     def peak_cpu_temp(self) -> float:
@@ -1127,7 +1127,7 @@ def main():
 
             if mt_result.get("thermal_cutoff"):
                 stress_result = {
-                    "thermal_monitor_ok": True,
+                    "thermal_monitor_ok": poller.has_fresh_temperature(),
                     "thermal_cutoff": True,
                     "thermal_monitor_message": mt_result["thermal_cutoff_message"],
                 }
