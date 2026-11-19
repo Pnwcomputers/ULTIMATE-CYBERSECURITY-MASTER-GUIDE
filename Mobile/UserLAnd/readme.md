@@ -101,6 +101,10 @@ Their source is embedded in `alpinelinux.md`; they are not listed here as separa
 <a id="-capabilities-and-limitations"></a>
 ## 🧭 Capabilities & Limitations
 
+![Android UserLAnd trust boundary showing the Android host/kernel and protected PRoot Linux userspace, tasks possible with normal app permissions and tasks unavailable without separate host hardware or kernel privileges](../../assets/diagrams/userland-android-proot-capability-boundaries.svg)
+
+*Conceptual permissions map based on the [official UserLAnd project](https://github.com/CypherpunkArmory/UserLAnd) and its [setup wiki](https://github.com/CypherpunkArmory/UserLAnd/wiki/Getting-Started-in-UserLAnd).* A no-root Linux session supports ordinary userspace commands; it does **not** grant Android root, wireless monitor mode or direct host kernel privileges. Validate each task on the installed device, Android release and session backend.
+
 | Task | Typical suitability in unrooted UserLAnd | Key consideration |
 | --- | --- | --- |
 | Shell scripting, Python, Git, and text processing | Good | Install packages for the selected distribution and architecture. |
@@ -110,7 +114,7 @@ Their source is embedded in `alpinelinux.md`; they are not listed here as separa
 | Web assessment and selected NSE scripts | Often suitable | Tool dependencies and target behavior vary. |
 | Offline PCAP analysis | Good | Analyze captures collected on a suitable capture device. |
 | Lightweight graphical applications | Environment-dependent | Requires a working graphical session and sufficient resources. |
-| Live packet capture and Masscan | Generally unavailable | Require real packet access that ordinary PRoot does not grant. |
+| Live packet capture and Masscan | Generally unavailable without separate host privileges | Raw packet access generally requires OS-level privileges/capabilities unavailable through ordinary PRoot alone. |
 | Wi-Fi monitor mode or frame injection | Unavailable through PRoot alone | Needs compatible host privileges, drivers, and hardware. |
 | Kernel modules, host firewall administration, or USB gadget features | Unavailable through PRoot alone | These are host-kernel capabilities. |
 | Long unattended jobs | Limited reliability | Android can suspend or terminate background processes. |
