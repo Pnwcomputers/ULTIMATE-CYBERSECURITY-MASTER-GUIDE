@@ -73,12 +73,12 @@ load_api_keys() {
             config_name="${BASH_REMATCH[2]}"
             config_value="${BASH_REMATCH[3]}"
             case "$config_name" in
-                HIBP_KEY|HAVEIBEENPWNED_API_KEY|HUNTER_KEY|HUNTER_API_KEY|LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|INTELX_KEY|INTELX_API_KEY) ;;
+                HIBP_KEY|HAVEIBEENPWNED_API_KEY|haveibeenpwned_api_key|hibp_key|HUNTER_KEY|HUNTER_API_KEY|hunter_api_key|hunter_key|LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|leaklookup_api_key|leaklookup_key|INTELX_KEY|INTELX_API_KEY|intelx_api_key|intelx_key) ;;
                 *) continue ;;
             esac
             case "$config_value" in
-                \"*\") config_value="${config_value#\\\"}"; config_value="${config_value%\\\"}" ;;
-                \'*\') config_value="${config_value#\\\'}"; config_value="${config_value%\\\'}" ;;
+                \"*\") config_value="${config_value%\"}"; config_value="${config_value#\"}" ;;
+                \'*\') config_value="${config_value%\\'}"; config_value="${config_value#\\'}" ;;
             esac
             [[ "$config_value" =~ ^[A-Za-z0-9._-]*$ ]] || continue
             printf -v "$config_name" '%s' "$config_value"
