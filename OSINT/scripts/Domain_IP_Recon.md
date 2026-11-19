@@ -438,7 +438,7 @@ run_rustscan() {
 #############################################
 # SCAN SINGLE IP
 #############################################
-scan_ip() {
+process_ip() {
     local IP="$1"
     local IP_SAFE=$(echo "$IP" | tr ':' '_')
     local IP_DIR="$OUTPUT_DIR/ips/$IP_SAFE"
@@ -456,6 +456,11 @@ scan_ip() {
     query_criminalip "$IP" "$IP_DIR/criminalip.json"
     query_netlas "$IP" "$IP_DIR/netlas.json"
     query_leaklookup "$IP" "ip_address" "$IP_DIR/leaklookup.json"
+    
+    if [ "$ACTIVE_SCAN" != true ]; then
+        log "${GREEN}[+] Passive provider lookups for $IP complete; direct scans were not run.${NC}"
+        return
+    fi
     
     run_rustscan "$IP" "$IP_DIR/rustscan.txt"
     
@@ -523,21 +528,25 @@ if [ -n "$EMAIL" ]; then
 fi
 
 #############################################
-# 4) Optional active scans of explicitly supplied IPs
+# 4) Provider lookups and optional active scans of explicitly supplied IPs
 #############################################
-if [ "$ACTIVE_SCAN" = true ] && [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
+if [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
     for IP in "${EXPLICIT_IPS[@]}"; do
         if [[ ! "$IP" =~ ^[0-9A-Fa-f:.]+$ ]]; then
             log "${RED}[!] Rejected non-literal or ranged target '$IP'; provide individual IPv4/IPv6 addresses only.${NC}"
             exit 2
         fi
     done
-    section "4) Active scans of ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
-    log "${YELLOW}[!] Confirm these exact IPs are in your written testing scope before continuing.${NC}"
+    if [ "$ACTIVE_SCAN" = true ]; then
+        section "4) Provider lookups and active scans of ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
+        log "${YELLOW}[!] Confirm these exact IPs are in your written testing scope before continuing.${NC}"
+    else
+        section "4) Passive provider lookups for ${#EXPLICIT_IPS[@]} explicitly supplied IP address(es)"
+    fi
     if [ "$PARALLEL_MODE" = true ]; then
         job_count=0
         for IP in "${EXPLICIT_IPS[@]}"; do
-            scan_ip "$IP" &
+            process_ip "$IP" &
             job_count=$((job_count + 1))
             if [ $job_count -ge $MAX_PARALLEL ]; then
                 wait -n 2>/dev/null || wait
@@ -547,13 +556,13 @@ if [ "$ACTIVE_SCAN" = true ] && [ ${#EXPLICIT_IPS[@]} -gt 0 ]; then
         wait
     else
         for IP in "${EXPLICIT_IPS[@]}"; do
-            scan_ip "$IP"
+            process_ip "$IP"
         done
     fi
 elif [ "$ACTIVE_SCAN" = true ]; then
     log "${YELLOW}[!] --active was set, but no explicit IPs were supplied; no direct scans were run.${NC}"
 else
-    log "${GREEN}[+] Passive-only mode: direct network scans were not run.${NC}"
+    log "${GREEN}[+] Passive-only domain/email mode: discovered IPs are recorded, not probed.${NC}"
 fi
 
 #############################################
