@@ -86,7 +86,7 @@ The Bunny’s Bash-based `payload.txt` format is device-specific and is not inte
 
 ## Authorized Field Assessment Labs & Deployment Examples
 
-This section extends the setup, switch positions, attack modes, and scripting reference above into **repeatable client-approved tests**, without replacing the existing instructions. Compare the [USB Rubber Ducky compilation guide](../../Ducky/README.md) and [staged assessment blueprint](../../../PlayBooks/assessment-service-integration-map.md).
+This section turns the setup and device-identification notes above into **repeatable, isolated device-policy observations**. Compare the [USB Rubber Ducky compilation guide](../../Ducky/README.md) and [staged assessment blueprint](../../../PlayBooks/assessment-service-integration-map.md).
 
 > [!IMPORTANT]
 > Identify original Bash Bunny versus Mark II and record installed firmware. Bash Bunny payloads are Bash shell scripts containing Bash Bunny commands; USB Rubber Ducky compiled `inject.bin` payloads are not interchangeable with `payload.txt`. DuckyScript 3 syntax is not automatically supported. Refer to [Hak5's original payload development reference](https://github.com/hak5/bashbunny-wiki/blob/master/payload_development.md).
