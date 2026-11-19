@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" role="img" aria-labelledby="title desc">
+<title id="title">Persistence validation safety workflow</title>
+<desc id="desc">Four gates for validating persistence controls: define scope, choose one simulation in an isolated environment, observe detection and recovery, then remove and verify restoration.</desc>
+<rect width="1100" height="300" rx="18" fill="#f4f7fb"/>
+<text x="550" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#16324f">Validate persistence controls safely</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g><rect x="35" y="82" width="220" height="145" rx="14" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><circle cx="72" cy="119" r="22" fill="#1f5f8b"/><text x="72" y="127" font-size="22" font-weight="700" fill="#fff">1</text><text x="145" y="126" font-size="18" font-weight="700" fill="#16324f">Define scope</text><text x="145" y="160" font-size="14" fill="#234">Targets, owner, method,</text><text x="145" y="181" font-size="14" fill="#234">time, stop, rollback</text></g>
+<path d="M260 154h40" stroke="#486581" stroke-width="3"/><path d="m294 146 12 8-12 8" fill="none" stroke="#486581" stroke-width="3"/>
+<g><rect x="310" y="82" width="220" height="145" rx="14" fill="#e8e4ff" stroke="#7666b3" stroke-width="2"/><circle cx="347" cy="119" r="22" fill="#5b4a96"/><text x="347" y="127" font-size="22" font-weight="700" fill="#fff">2</text><text x="420" y="126" font-size="18" font-weight="700" fill="#16324f">Simulate one</text><text x="420" y="160" font-size="14" fill="#234">Use an isolated lab or</text><text x="420" y="181" font-size="14" fill="#234">approved test target</text></g>
+<path d="M535 154h40" stroke="#486581" stroke-width="3"/><path d="m569 146 12 8-12 8" fill="none" stroke="#486581" stroke-width="3"/>
+<g><rect x="585" y="82" width="220" height="145" rx="14" fill="#fff0d9" stroke="#cf8b27" stroke-width="2"/><circle cx="622" cy="119" r="22" fill="#a96b12"/><text x="622" y="127" font-size="22" font-weight="700" fill="#fff">3</text><text x="695" y="126" font-size="18" font-weight="700" fill="#16324f">Observe</text><text x="695" y="160" font-size="14" fill="#234">Check alerts, telemetry,</text><text x="695" y="181" font-size="14" fill="#234">response and evidence</text></g>
+<path d="M810 154h40" stroke="#486581" stroke-width="3"/><path d="m844 146 12 8-12 8" fill="none" stroke="#486581" stroke-width="3"/>
+<g><rect x="860" y="82" width="220" height="145" rx="14" fill="#dff3e5" stroke="#4c9a61" stroke-width="2"/><circle cx="897" cy="119" r="22" fill="#347548"/><text x="897" y="127" font-size="22" font-weight="700" fill="#fff">4</text><text x="970" y="126" font-size="18" font-weight="700" fill="#16324f">Remove &amp; verify</text><text x="970" y="160" font-size="14" fill="#234">Restore baseline and</text><text x="970" y="181" font-size="14" fill="#234">confirm cleanup</text></g>
+</g>
+<text x="550" y="267" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">Defensive inventory can be performed without deploying persistence. Never expand a live test beyond approved scope.</text>
+</svg>
