@@ -56,7 +56,7 @@
 21. [C2 Frameworks & Tradecraft](Tradecraft/c2-frameworks.md)
 22. [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md)
 23. [Living Off the Land (LOLBins/LOLBAs)](Tradecraft/lolbins-lolbas.md)
-24. [Covering Tracks](#covering-tracks)
+24. [Audit Log Protection and Incident Response](#audit-log-protection-and-incident-response)
 
 **[PART VI: ADVANCED TOPICS](#part-vi-advanced-topics)**
 
