@@ -91,6 +91,36 @@ load_api_keys() {
     fi
 }
 
+# Keep provider keys out of curl's process arguments. The private config is
+# owner-readable only and removed as soon as the request completes.
+curl_config_escape() {
+    local value="$1"
+    value=${value//\\/\\\\}
+    value=${value//\"/\\\"}
+    printf '%s' "$value"
+}
+
+private_curl_status() {
+    local out_file="$1" url="$2"; shift 2
+    local config http_code rc=0 header
+    config="$(mktemp)" || { warn "Could not create private curl config"; return 1; }
+    chmod 600 "$config" || { rm -f "$config"; return 1; }
+    {
+        printf 'silent\nshow-error\nmax-time = 25\noutput = "%s"\nwrite-out = "%%{http_code}"\nurl = "%s"\n' \
+            "$(curl_config_escape "$out_file")" "$(curl_config_escape "$url")"
+        for header in "$@"; do
+            printf 'header = "%s"\n' "$(curl_config_escape "$header")"
+        done
+    } > "$config"
+    http_code="$(curl --config "$config" 2>"${out_file}.err")" || rc=$?
+    rm -f "$config"
+    if (( rc != 0 )); then
+        warn "Request failed (curl exit $rc); result is UNVERIFIED, see ${out_file}.err"
+        return 1
+    fi
+    printf '%s' "$http_code"
+}
+
 # ---------------------------------------------------------------------------
 # Usage
 # ---------------------------------------------------------------------------
@@ -173,12 +203,10 @@ check_abuseipdb() {
 
     info "AbuseIPDB: querying $ioc ..."
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -G "https://api.abuseipdb.com/api/v2/check" \
-        --data-urlencode "ipAddress=${ioc}" \
-        -d "maxAgeInDays=90" \
-        -H "Key: ${ABUSEIPDB_API_KEY}" \
-        -H "Accept: application/json")
+    local encoded_ip
+    encoded_ip=$(printf '%s' "$ioc" | jq -sRr @uri) || return
+    http_code=$(private_curl_status "$out_file" "https://api.abuseipdb.com/api/v2/check?ipAddress=${encoded_ip}%26maxAgeInDays=90" \
+        "Key: $ABUSEIPDB_API_KEY" "Accept: application/json") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local score
@@ -331,9 +359,7 @@ check_virustotal() {
 
     info "VirusTotal: querying $ioc ..."
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -H "x-apikey: ${VIRUSTOTAL_API_KEY}" \
-        "$vt_url")
+    http_code=$(private_curl_status "$out_file" "$vt_url" "x-apikey: $VIRUSTOTAL_API_KEY") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local malicious
@@ -378,9 +404,7 @@ check_otx() {
 
     info "OTX AlienVault: querying $ioc ..."
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -H "X-OTX-API-KEY: ${OTX_API_KEY}" \
-        "$otx_url")
+    http_code=$(private_curl_status "$out_file" "$otx_url" "X-OTX-API-KEY: $OTX_API_KEY") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local pulse_count
@@ -454,12 +478,16 @@ check_urlscan() {
         *)      query="${ioc}" ;;
     esac
 
-    local curl_args=(-s -o "$out_file" -w "%{http_code}")
-    [[ -n "$URLSCAN_API_KEY" ]] && curl_args+=(-H "API-Key: ${URLSCAN_API_KEY}")
+    local encoded_query
+    encoded_query=$(printf '%s' "$query" | jq -sRr @uri 2>/dev/null) || { warn "URLScan: could not encode query"; return; }
 
     local http_code
-    http_code=$(curl "${curl_args[@]}" \
-        "https://urlscan.io/api/v1/search/?q=$(printf '%s' "$query" | jq -sRr @uri 2>/dev/null || printf '%s' "$query")&size=5")
+    if [[ -n "$URLSCAN_API_KEY" ]]; then
+        http_code=$(private_curl_status "$out_file" "https://urlscan.io/api/v1/search/?q=${encoded_query}&size=5" "API-Key: $URLSCAN_API_KEY") || return
+    else
+        http_code=$(curl -sS --max-time 25 -o "$out_file" -w "%{http_code}" \
+            "https://urlscan.io/api/v1/search/?q=${encoded_query}&size=5") || { warn "URLScan request failed; UNVERIFIED"; return; }
+    fi
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local total
