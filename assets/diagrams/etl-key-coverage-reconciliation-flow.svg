@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title desc">
+<title id="title">Incremental pipeline and reconciliation scope</title>
+<desc id="desc">Conceptual data pipeline: source records flow through a bounded overlap query into per-batch staging and an atomic merge plus checkpoint transaction. After commit, a separate reconciliation checks counts and key sets, which verifies key coverage but not field values. Optional row or canonical-hash comparisons provide stronger content checks. Late arrivals outside the overlap window require a wider replay, backfill, or change-data capture strategy.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365672"/></marker><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#287769"/></marker></defs>
+<rect width="1100" height="650" rx="24" fill="#f5f8fc"/>
+<text x="550" y="46" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#142b45">Incremental Load: Checkpoint and Reconciliation Boundaries</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g fill="#e7eff9" stroke="#365672" stroke-width="2">
+<rect x="35" y="100" width="220" height="118" rx="15"/><rect x="305" y="100" width="220" height="118" rx="15"/><rect x="575" y="100" width="220" height="118" rx="15"/><rect x="845" y="100" width="220" height="118" rx="15"/>
+</g>
+<g fill="#142b45">
+<text x="145" y="136" font-size="18" font-weight="700">1 · Source records</text><text x="145" y="168" font-size="14"><tspan x="145">Stable key and change</tspan><tspan x="145" dy="19">timestamp/cursor</tspan></text>
+<text x="415" y="136" font-size="18" font-weight="700">2 · Bounded overlap</text><text x="415" y="168" font-size="14"><tspan x="415">Re-read recent changes;</tspan><tspan x="415" dy="19">idempotence absorbs repeats</tspan></text>
+<text x="685" y="136" font-size="18" font-weight="700">3 · Batch staging</text><text x="685" y="168" font-size="14"><tspan x="685">Isolate one batch and</tspan><tspan x="685" dy="19">validate before merging</tspan></text>
+<text x="955" y="136" font-size="18" font-weight="700">4 · Atomic warehouse step</text><text x="955" y="168" font-size="14"><tspan x="955">Merge rows + advance</tspan><tspan x="955" dy="19">checkpoint in transaction</tspan></text>
+</g>
+<g stroke="#365672" stroke-width="3" marker-end="url(#arrow)"><path d="M258 159h41"/><path d="M528 159h41"/><path d="M798 159h41"/></g>
+<path d="M955 221v46H550v37" fill="none" stroke="#365672" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="315" y="305" width="470" height="80" rx="14" fill="#edf2f6" stroke="#365672" stroke-width="2"/>
+<text x="550" y="337" fill="#142b45" font-size="19" font-weight="700">5 · Post-commit validation (separate step)</text>
+<text x="550" y="364" fill="#20364e" font-size="14">The load is committed; reconciliation reports what it actually checks.</text>
+<path d="M550 386v31H285v26" fill="none" stroke="#365672" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M550 386v31h265v26" fill="none" stroke="#287769" stroke-width="3" marker-end="url(#arrow2)"/>
+<rect x="75" y="445" width="420" height="112" rx="15" fill="#fff4e6" stroke="#c17b25" stroke-width="2"/>
+<text x="285" y="477" fill="#5b3510" font-size="18" font-weight="700">Implemented lab check</text>
+<text x="285" y="507" fill="#5b3510" font-size="15"><tspan x="285">Row count + key-set difference</tspan><tspan x="285" dy="20">→ KEY_COVERAGE_MATCH / MISMATCH</tspan><tspan x="285" dy="20">Does not compare non-key field values</tspan></text>
+<rect x="605" y="445" width="420" height="112" rx="15" fill="#e5f4f1" stroke="#287769" stroke-width="2"/>
+<text x="815" y="477" fill="#143b36" font-size="18" font-weight="700">Optional content check</text>
+<text x="815" y="507" fill="#143b36" font-size="15"><tspan x="815">Compare selected columns by key, or use</tspan><tspan x="815" dy="20">canonical row hashes plus duplicate-aware</tspan><tspan x="815" dy="20">counts for stronger evidence</tspan></text>
+<rect x="75" y="586" width="950" height="42" rx="11" fill="#fde8e7" stroke="#a23d39" stroke-width="2"/>
+<text x="550" y="613" fill="#7a2420" font-size="16" font-weight="700">A fixed overlap covers only bounded lateness; older gaps need a backfill, wider replay, or CDC.</text>
+</g></svg>
