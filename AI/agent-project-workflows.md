@@ -6,6 +6,10 @@ Use a few authoritative files to make AI-assisted projects reproducible and resu
 
 ## Separate Stable Instructions From Current Status
 
+![AI project continuity diagram tracing stable project and agent rules through current status, evidence, handoff references, reloading approved context and independently checked work](../assets/diagrams/ai-project-status-evidence-handoff-flow.svg)
+
+*Conceptual handoff pattern.* A status file or assistant-written summary does not automatically become a future agent's trusted input. A new session must explicitly load the latest authoritative artifacts, check repository/target state and confirm what remains untested. This applies equally to a single agent and coordinator/worker teams.
+
 | File | Responsibility |
 |---|---|
 | `PROJECT.md` | Mission, scope, explicit non-goals, milestones, definition of done |
