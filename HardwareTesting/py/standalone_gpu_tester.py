@@ -737,10 +737,20 @@ Driver / Device Details:
         return filename
 
 
+def parse_size(value: str) -> str:
+    """Accept only bounded WIDTHxHEIGHT dimensions for shell-built benchmark commands."""
+    if not re.fullmatch(r"[0-9]{1,5}[xX][0-9]{1,5}", value):
+        raise argparse.ArgumentTypeError("size must be WIDTHxHEIGHT, e.g. 1920x1080")
+    width, height = (int(part) for part in re.split(r"[xX]", value))
+    if not (320 <= width <= 16384 and 200 <= height <= 16384):
+        raise argparse.ArgumentTypeError("size must be between 320x200 and 16384x16384")
+    return f"{width}x{height}"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="PNWC GPU Diagnostic & Benchmark Tool v2.1")
     parser.add_argument("--client", default="", help="Client name for the report")
-    parser.add_argument("--size", default=DEFAULT_SIZE, help="Benchmark window size, e.g. 1920x1080")
+    parser.add_argument("--size", type=parse_size, default=parse_size(DEFAULT_SIZE), help="Benchmark window size, e.g. 1920x1080")
     parser.add_argument("--quick", action="store_true", help="Use a smaller glmark2 scene set")
     parser.add_argument("--no-memtest", action="store_true", help="Skip memtest_vulkan even if available")
     parser.add_argument("--no-vkmark", action="store_true", help="Skip vkmark even if available")
