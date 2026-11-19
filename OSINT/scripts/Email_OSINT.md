@@ -68,8 +68,21 @@ INTELX_KEY="${INTELX_KEY:-${INTELX_API_KEY:-}}"
 
 load_api_keys() {
     if [ -f "$API_CONFIG" ]; then
-        # shellcheck disable=SC1090
-        source "$API_CONFIG"
+        while IFS= read -r config_line || [ -n "$config_line" ]; do
+            [[ "$config_line" =~ ^[[:space:]]*(export[[:space:]]+)?([A-Z_][A-Z0-9_]*)=(.*)$ ]] || continue
+            config_name="${BASH_REMATCH[2]}"
+            config_value="${BASH_REMATCH[3]}"
+            case "$config_name" in
+                HIBP_KEY|HAVEIBEENPWNED_API_KEY|HUNTER_KEY|HUNTER_API_KEY|LEAKLOOKUP_KEY|LEAKLOOKUP_API_KEY|INTELX_KEY|INTELX_API_KEY) ;;
+                *) continue ;;
+            esac
+            case "$config_value" in
+                \"*\") config_value="${config_value#\\\"}"; config_value="${config_value%\\\"}" ;;
+                \'*\') config_value="${config_value#\\\'}"; config_value="${config_value%\\\'}" ;;
+            esac
+            [[ "$config_value" =~ ^[A-Za-z0-9._-]*$ ]] || continue
+            printf -v "$config_name" '%s' "$config_value"
+        done < "$API_CONFIG"
         HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-${hibp_key:-${haveibeenpwned_api_key:-}}}}"
         HUNTER_KEY="${HUNTER_KEY:-${HUNTER_API_KEY:-${hunter_key:-${hunter_api_key:-}}}}"
         LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-${leaklookup_key:-${leaklookup_api_key:-}}}}"
