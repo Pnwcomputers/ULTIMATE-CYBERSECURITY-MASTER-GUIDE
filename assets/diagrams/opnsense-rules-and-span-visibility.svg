@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="390" viewBox="0 0 1050 390" role="img" aria-labelledby="title desc">
+<title id="title">OPNsense interface rules and switch mirror visibility</title>
+<desc id="desc">Attack VM traffic enters OPNsense on VLAN 20 and is checked there before forwarding to a target on VLAN 30. Separately, a managed switch can mirror traffic directly to a sensor capture port; firewall rules do not create the mirror. Syslog is routed IP traffic and requires firewall rules.</desc>
+<rect width="1050" height="390" rx="18" fill="#f4f7fb"/>
+<text x="525" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#17324d">Two different paths: routed policy and mirrored visibility</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="30" y="85" width="175" height="85" rx="12" fill="#ffe7d6" stroke="#d18442" stroke-width="2"/><text x="117" y="119" font-size="17" font-weight="700" fill="#17324d">Attack VM</text><text x="117" y="145" font-size="14" fill="#234">VLAN 20</text>
+<path d="M210 128h35m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="255" y="85" width="185" height="85" rx="12" fill="#e3e9f5" stroke="#536b91" stroke-width="2"/><text x="347" y="119" font-size="17" font-weight="700" fill="#17324d">OPNsense</text><text x="347" y="145" font-size="14" fill="#234">VLAN 20 ingress rules</text>
+<path d="M445 128h35m-12-8 12 8-12 8" stroke="#486581" stroke-width="3" fill="none"/>
+<rect x="490" y="85" width="190" height="85" rx="12" fill="#dceeff" stroke="#3982b8" stroke-width="2"/><text x="585" y="119" font-size="17" font-weight="700" fill="#17324d">Target VM</text><text x="585" y="145" font-size="14" fill="#234">VLAN 30</text>
+<rect x="745" y="85" width="235" height="85" rx="12" fill="#e6f2e7" stroke="#4c9a61" stroke-width="2"/><text x="862" y="119" font-size="17" font-weight="700" fill="#17324d">Sensor capture NIC</text><text x="862" y="145" font-size="14" fill="#234">receives mirrored frames</text>
+<rect x="280" y="244" width="210" height="77" rx="12" fill="#f2e9ff" stroke="#8769bb" stroke-width="2"/><text x="385" y="276" font-size="17" font-weight="700" fill="#17324d">Managed switch</text><text x="385" y="300" font-size="14" fill="#234">configured SPAN/TAP source</text>
+<path d="M385 239v-57" stroke="#7b65a6" stroke-width="3" stroke-dasharray="7,6"/><path d="M379 191l6-10 6 10" fill="none" stroke="#7b65a6" stroke-width="3"/>
+<path d="M495 282h180v-90h155" stroke="#41845a" stroke-width="3" stroke-dasharray="8,6" fill="none"/><path d="M822 186l10 6-10 6" fill="none" stroke="#41845a" stroke-width="3"/>
+</g>
+<text x="525" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#40566b">SPAN is configured on the switch; syslog is routed IP traffic and must be allowed by interface policy.</text>
+</svg>
