@@ -548,8 +548,8 @@ PROHIBITED:
 ⚠️ WARNING: WiFi Hacking Techniques
 
 LEGAL CONSIDERATIONS:
-   • Unauthorized wireless network access is a federal crime
-   • Intercepting communications violates Wiretap Act
+   • Unauthorized access may violate computer-misuse or other laws depending on the conduct and jurisdiction
+   • Interception may be subject to wiretap/privacy laws; consent and other exceptions vary by jurisdiction
    • Deauthentication attacks may constitute DoS
    • Cracking passwords for unauthorized access is illegal
 
