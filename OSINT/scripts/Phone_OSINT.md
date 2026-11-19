@@ -323,7 +323,7 @@ query_numverify() {
         log "${YELLOW}[!] NumVerify key/number format invalid; request skipped.${NC}"
         return
     fi
-    private_curl_url "https://api.apilayer.com/number_verification/validate?access_key=$NUMVERIFY_KEY&number=$NORMALIZED" "$OUTPUT"
+    private_curl_url "https://api.apilayer.com/number_verification/validate?number=$NORMALIZED" "$OUTPUT" "apikey: $NUMVERIFY_KEY"
     
     if [ -s "$OUTPUT" ]; then
         VALID=$(jq -r '.valid // false' "$OUTPUT" 2>/dev/null)
