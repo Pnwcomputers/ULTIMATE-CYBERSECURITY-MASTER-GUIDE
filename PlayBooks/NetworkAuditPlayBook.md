@@ -43,12 +43,15 @@ Ensure every network/wireless penetration test produces (1) legally defensible e
 
 ### Before Beginning Any Assessment:
 
+For every active technique, confirm the exact assets, allowed methods, time window, rate or attempt limits, impact tolerance, emergency contact, and stop condition in the signed scope. A general authorization to assess the network does not automatically authorize credential collection, service disruption, persistence, or testing third-party systems. Use dedicated test accounts and synthetic data; stop if activity affects an out-of-scope user or service.
+
+
 - [ ] Obtain signed authorization letter with specific scope
 - [ ] Verify emergency contact information (client POC, technical lead)
 - [ ] Confirm testing windows and blackout periods
 - [ ] Document all MAC addresses and serial numbers of testing devices
 - [ ] Ensure all tools are updated and functioning
-- [ ] Verify VPN/secure channel for data exfiltration
+- [ ] Verify the approved encrypted channel for evidence transfer and the client's data-handling rules
 - [ ] Brief team on rules of engagement and legal boundaries
 - [ ] Establish secure storage for collected evidence
 - [ ] Configure timestamping on all devices
@@ -137,15 +140,10 @@ For a focused GPS-tagged **AP inventory** before any separately authorized activ
 **STEP 1: Rogue Access Point Testing (Evil Twin)**
 
 Using WiFi Pineapple:
-- Configure SSID to match target network
-- Set up captive portal if testing credential harvesting
-- Enable karma attack to test client auto-association
-- Monitor client connection attempts
-- Document:
-  - Number of clients that connected
-  - Time to first connection
-  - Credentials captured (hash only, never plaintext in report)
-  - Client device types that connected
+- Use only a dedicated test AP and test client in an isolated environment; do not imitate a production SSID where real clients could connect.
+- Do not harvest credentials. If portal behavior is in scope, use a clearly designated test portal and synthetic test account, and verify only whether the expected control blocks or permits that synthetic flow.
+- Test client auto-association only with a dedicated test device and test SSID; do not enable karma against nearby or production clients.
+- Document only the test-client outcome, time to connection, and control response. Do not collect or retain real credentials, session tokens, or unrelated device identifiers.
 
 **STEP 2: Deauthentication Testing**
 
@@ -184,10 +182,9 @@ Using Reaver/Bully on Kali:
 
 **STEP 4: Captive Portal Bypass Testing**
 
-- Test DNS tunneling capabilities
-- Attempt MAC address spoofing
-- Test VLAN hopping if applicable
-- Document any bypass methods discovered
+- Test DNS policy only with a controlled, non-sensitive marker and an approved destination.
+- Test MAC filtering or VLAN isolation only on dedicated test equipment and ports; do not spoof production clients.
+- Document the control result and approved test parameters. Avoid bypassing captive portals to access third-party or production services.
 
 **STEP 5: Wireless IDS/IPS Testing**
 
@@ -308,6 +305,9 @@ Using Wireshark:
 
 ### 3.2 VULNERABILITY ASSESSMENT
 
+NSE vulnerability checks can probe services and may create load or trigger fragile behavior. Select targets and scripts individually from the written scope, agree on rate and timing limits, and prefer non-invasive checks first. Do not run broad script categories against production assets without explicit approval and a stop plan.
+
+
 **Objective:** Identify security weaknesses in internal systems.
 
 **Tools:** Nmap NSE scripts, Metasploit, OpenVAS (optional)
@@ -338,14 +338,14 @@ Using Wireshark:
 
 **STEP 3: Credential Exposure Testing**
 
-Using Responder:
-- Listen for LLMNR/NBT-NS/MDNS queries:
+Using Responder only on an isolated, explicitly approved test segment:
+- Responder can answer/poison name-resolution requests and capture challenge-response material; it is not a passive listener. Confirm the interface and VLAN are the dedicated test environment before starting it. Use a passive capture for observation-only work.
   ```bash
   # responder -I eth0 -rdwv
   ```
-- Capture NTLMv2 hashes
-- Attempt hash cracking offline
-- Document weak password policies
+- Use dedicated test accounts and synthetic credentials only; do not capture or crack employee credentials.
+- Validate the relevant name-resolution protections and alerting using the approved test scenario.
+- Document the control result without including challenge-response material or secrets.
 
 ### 3.3 PRIVILEGE ESCALATION & LATERAL MOVEMENT
 
@@ -357,17 +357,10 @@ Using Responder:
 
 **STEP 1: Initial Access Testing**
 
-Using P4wnP1 (if physical access testing is in scope):
-- Deploy as USB Rubber Ducky equivalent
-- Test HID attack scenarios:
-  - Payload execution
-  - Credential harvesting
-  - Backdoor installation
-  - USB attack surface awareness
-- Document:
-  - Success/failure rates
-  - AV/EDR detection
-  - User security awareness effectiveness
+Using P4wnP1 only when physical testing is explicitly in scope:
+- Use a dedicated test workstation and a benign, reversible marker payload that makes no network connections and changes no security settings.
+- Do not harvest credentials, install persistence/backdoors, or interact with employee accounts or data.
+- Document marker execution and defensive detection outcomes; coordinate with the client before testing user awareness.
 
 **STEP 2: Post-Exploitation Enumeration**
 
@@ -564,9 +557,9 @@ Follow-up Required:
 1. Timestamp visible (system clock or terminal timestamp)
 2. Tool name and version visible
 3. Command or action being performed visible
-4. Complete output/results visible
-5. Target information visible (IP/SSID/hostname)
-6. Your terminal prompt showing authenticated user (if applicable)
+4. Relevant output/results visible, with secrets redacted
+5. Minimum target information needed to support the finding
+6. Redact usernames, tokens, client identifiers, and other personal or sensitive data unless the client explicitly requires them in a protected evidence record.
 
 #### Screenshot Naming Convention:
 
