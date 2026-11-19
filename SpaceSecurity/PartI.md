@@ -114,15 +114,19 @@ STRIDE adapted for space-specific contexts:
 
 #### ⚠️ Legal and Regulatory Considerations
 
-Space system security testing operates under strict legal constraints:
+Space security testing may involve several separate legal and regulatory regimes. Scope depends on the system, service, equipment, frequency, data and jurisdiction:
 
-- **Radio Communications Act / FCC Part 97/25** - Unauthorized transmission on licensed frequencies is a federal crime
-- **Computer Fraud and Abuse Act (CFAA)** - Unauthorized access to satellite ground systems
-- **ITAR / EAR** - Export control restrictions apply to satellite technology and related tools
-- **International Telecommunications Union (ITU)** - Frequency coordination and interference rules
-- **DoD / CMMC** - Requirements for contractors testing defense space systems
+- **Radio authority:** [47 U.S.C. § 301](https://uscode.house.gov/us/usc/t47/s301/) and FCC rules govern covered radio transmission. Some devices/services are authorized by rule; satellite earth/space station transmission commonly requires specific FCC authorization under [47 CFR § 25.102](https://www.ecfr.gov/current/title-47/section-25.102). Confirm current authority and license conditions for the exact equipment, band and operation before transmitting.
+- **Interference:** [47 U.S.C. § 333](https://uscode.house.gov/us/usc/t47/s333/) prohibits willful or malicious interference to covered radio communications. Violations may lead to FCC enforcement; criminal consequences depend on the applicable statute and its elements.
+- **Computer access:** [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) covers defined offenses involving protected computers; legal elements and penalties are not uniform across all testing or access.
+- **Export controls:** ITAR/EAR can apply to particular controlled items, software, technology or technical data, and to specified exports or releases. They do not automatically cover every space-related tool or technique; consult the responsible export-control authority for classification.
+- **Contract requirements:** DoD/CMMC obligations apply where the contract, system and applicable requirements make them relevant; they are not a universal requirement for all space-security testing.
 
-> **⚠️ Legal Warning:** Never transmit RF signals toward an operational satellite without explicit written authorization from the spacecraft operator and applicable frequency coordinators. Even passive interception may have legal implications depending on jurisdiction and service type.
+> **⚠️ Before any transmission:** obtain the operator’s authorization and independently confirm regulatory authority for the specific station/service, equipment, frequency, location, power and test window. Written scope is a useful engagement control, but it does not replace an FCC license or other required authorization. Passive reception also requires a separate review of applicable communications, privacy and service-specific rules.
+
+![Authorization gates for space-related RF testing](../assets/diagrams/space-rf-transmission-authorization-flow.svg)
+
+*If any required gate is missing or unclear, do not transmit; use an approved receive-only or offline test path while authority is clarified.*
 
 #### Testing Methodology
 
