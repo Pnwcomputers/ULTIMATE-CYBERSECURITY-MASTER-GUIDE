@@ -1763,20 +1763,20 @@ mimikatz # lsadump::dcsync /user:Administrator
 **Hashcat on ZimaBoard2 with RTX 3050**:
 
 **Setup**:
-```bash
-# Install CUDA drivers
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
-sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/12.3.0/local_installers/cuda-repo-ubuntu2204-12-3-local_12.3.0-545.23.06-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu2204-12-3-local_12.3.0-545.23.06-1_amd64.deb
-sudo cp /var/cuda-repo-ubuntu2204-12-3-local/cuda-*-keyring.gpg /usr/share/keyrings/
-sudo apt-get update
-sudo apt-get -y install cuda
 
-# Install Hashcat
+> **Legacy snapshot:** Earlier versions of this guide pinned Ubuntu 22.04 to CUDA
+> 12.3 and driver 545.23.06. Those copied repository and package commands are
+> retained here only as historical context; they are not a current installation
+> recipe. For a new setup, follow NVIDIA's [current Linux CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/)
+> and [CUDA/driver compatibility guidance](https://docs.nvidia.com/deploy/cuda-compatibility/).
+> CUDA 13.4 and later install/version the toolkit and Linux driver separately, so
+> select and install a compatible driver separately for your distribution and GPU.
+
+```bash
+# Install Hashcat from the distribution's supported package source
 sudo apt install hashcat
 
-# Verify GPU
+# Verify that Hashcat can see the GPU
 hashcat -I
 ```
 
@@ -2585,7 +2585,7 @@ sudo systemctl enable responder
 
 **Configuration**:
 - **OS**: Ubuntu Server 22.04 with NVIDIA drivers
-- **GPU**: RTX 3050 with CUDA 12.x
+- **GPU**: RTX 3050; select a CUDA toolkit and NVIDIA driver combination compatible with the OS, GPU, and Hashcat version
 - **Network**: Attack VLAN (10.20.20.50)
 
 **Optimized Setup**:
