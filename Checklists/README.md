@@ -450,10 +450,10 @@ UK, EU member-state, Canadian, and Australian rules have their own scope and ele
 
 #### International Laws
 
-- **UK Computer Misuse Act 1990**: Unauthorized access is criminal offense
-- **EU Cybercrime Directives**: Harmonized computer crime laws across EU
+- **UK Computer Misuse Act 1990**: Section 1 defines an unauthorized-access offense with specific statutory elements
+- **EU**: Member-state laws implement EU instruments and have jurisdiction-specific elements
 - **Canada Criminal Code Section 342.1**: Unauthorized computer use
-- **Australia Cybercrime Act 2001**: Computer-related offenses
+- **Australia**: Computer-related offenses appear in federal and state/territory laws; check the applicable provisions
 
 **Key Point**: Written authorization, precise scope, and local legal review are important;
 the applicable law and consequences depend on the jurisdiction and conduct.
@@ -468,9 +468,9 @@ the applicable law and consequences depend on the jurisdiction and conduct.
 ⚠️ WARNING: Credential Access Techniques
 
 LEGAL CONSIDERATIONS:
-   • Dumping credentials is unauthorized access
+   • Credential collection outside approved scope may violate applicable law, contract, or policy
    • Pass-the-hash attacks may violate CFAA
-   • Stealing credentials can be theft charges
+   • Credential misuse may raise separate access-device, fraud, privacy, or theft issues depending on the facts
    • Use ONLY with explicit authorization
 
 REQUIRED AUTHORIZATION:
@@ -492,10 +492,10 @@ PROHIBITED WITHOUT AUTHORIZATION:
 ⚠️ WARNING: Privilege Escalation Techniques
 
 LEGAL CONSIDERATIONS:
-   • Exceeding authorized access is a crime
-   • Gaining admin/root without permission is illegal
-   • Exploiting systems may constitute unauthorized access
-   • Even "just testing" without approval is illegal
+   • Exceeding authorized access may violate computer-misuse law depending on statutory elements and facts
+   • Privilege escalation outside approved scope may violate applicable law, contract, or policy
+   • Exploitation may create access or integrity risks; authorization and scope matter
+   • Testing without required authorization may violate applicable rules; requirements vary by context
 
 REQUIRED AUTHORIZATION:
    ✓ Permission to attempt privilege escalation
