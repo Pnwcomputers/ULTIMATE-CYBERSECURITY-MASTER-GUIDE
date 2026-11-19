@@ -24,6 +24,10 @@ different protocols and functions. A device list is not a connection trace.
 
 ## Select The Right Firmware
 
+![BLE capture architecture distinguishing owned advertising beacons, TI Sniffle radio hardware, host PCAP decoding and advertisement-only versus connection-following observations](../assets/diagrams/ble-sniffle-advertising-connection-path.svg)
+
+*Conceptual receive-path diagram.* [NCC Group's Sniffle project](https://github.com/nccgroup/Sniffle) documents supported TI CC26x2/CC1352-family hardware and distinct advertisement-only and connection-following modes. The sniffer's radio/PHY settings, missed packets and link-layer encryption limit what can actually be observed. Sniffle is not an interchangeable ESP32 image or a general Bluetooth Classic decoder.
+
 | Project | Appropriate Role & Limits |
 |---|---|
 | [ESP32-BLECollector](https://github.com/tobozo/ESP32-BLECollector) | Advertisement observations persisted to SQLite on supported ESP32/display/SD hardware. Older dependencies need separate compatibility review. |

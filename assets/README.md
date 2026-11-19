@@ -70,6 +70,17 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [Orchestrator Logical Interval & Publish Gate](./diagrams/data-orchestrator-interval-dependency-publish-gates.svg) | [Data Workflow Orchestration](../Data-Engineering/Phase2/workflow_orchestration.md) | DAG dependencies, source versions, ready/blocked states and consumer acceptance |
 | [API Ingestion Cursor, Retry & Reconciliation](./diagrams/api-file-ingest-cursor-retry-reconciliation.svg) | [API & File Ingestion](../Data-Engineering/Phase2/api_file_ingestion.md) | Authenticated source contract, cursor semantics, rate-limit handling and exact batch evidence |
 
+## Wireless Frames, BLE Sniffing, AD, Android, Social OSINT & CM5 Recovery
+
+| Image | Embedded Guide | Source-Checked Content |
+|---|---|---|
+| [802.11 Deauth, Disassoc & PMF](./diagrams/wifi-deauth-disassoc-pmf-corroboration.svg) | [Wi-Fi Deauthentication Defensive Analysis](../Documentation/wifi-deauthentication-detection.md) | Authentication state versus association, negotiated protected management frames, channel visibility and AP/client corroboration |
+| [BLE Sniffle Modes & Capture](./diagrams/ble-sniffle-advertising-connection-path.svg) | [Sniffle BLE Capture](../Documentation/ble-capture-sniffle.md) | Compatible TI device, advertisement capture versus connection following, encrypted-content and missed-packet limitations |
+| [Active Directory Ticket Trust & Recovery](./diagrams/ad-kerberos-ticket-trust-recovery.svg) | [Active Directory Checklist](../Checklists/ActiveDirectory.md) | KDC/KRBTGT trust, detection evidence and coordinated compromise recovery |
+| [Android Static, Dynamic & Backend Tests](./diagrams/android-app-static-runtime-backend-test-lanes.svg) | [Android Application Checklist](../Checklists/Android-Applications-Checklist.md) | Distinguishes static artifact inspection, runtime testing and API authorization checks |
+| [Social Account Source Provenance](./diagrams/social-osint-account-provenance-verification.svg) | [Social Media OSINT](../OSINT/OSINT_socialmedia.md) | Matching handles and profile images are leads until independently corroborated |
+| [uConsole CM5 Display Recovery](./diagrams/uconsole-cm5-display-diagnostic-recovery.svg) | [CM5 Display Recovery](../uConsole/CM5-DISPLAY-RECOVERY.md) | Exact image, session versus rotation diagnosis, package side effects and hardware validation |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
