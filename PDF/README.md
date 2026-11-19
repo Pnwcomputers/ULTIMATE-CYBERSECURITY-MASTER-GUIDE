@@ -825,7 +825,7 @@ We welcome high-quality PDF contributions from security professionals.
 ## 📊 Repository Statistics
 
 ```
-📁 PDF inventory: see the entries listed above reference documents
+📁 Listed PDFs: 18 reference documents
 📖 Categories: AD Security, Pentesting, Linux, Network, Web, Wireless, SSH, Docker
 🔄 Inventory reviewed: November 2026; document contents are not individually certified as current
 👥 Maintained by: Pacific Northwest Computers (PNWC)
