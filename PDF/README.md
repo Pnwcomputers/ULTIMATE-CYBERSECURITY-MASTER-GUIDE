@@ -440,57 +440,27 @@ These PDF reference materials contain security testing techniques for:
 
 ### Legal Requirements
 
-<a id="computer-fraud-and-abuse-act-cfaa---united-states"></a>
-#### Computer Fraud & Abuse Act (Cfaa) - United States
+#### United States
+
+The [Computer Fraud and Abuse Act, 18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-118/t18/s1030/)
+contains multiple offenses with different elements and penalties. Whether it applies
+depends on the subsection and facts, including the conduct and authorization. There is
+no single sentence or fine that applies to every unauthorized use of a technique.
+See the [DOJ charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud)
+for additional context.
+
+Other federal, state, territorial, tribal, and international laws may apply. Rules for
+interception, privacy, data handling, and radio transmissions vary by jurisdiction and
+circumstances. Do not infer a legal conclusion from a tool label or checklist.
+
+**Before active testing:**
 
 ```
-⚠️ CRITICAL LEGAL WARNING:
-
-The Computer Fraud and Abuse Act (18 U.S.C. § 1030) criminalizes:
-   • Unauthorized access to protected computers
-   • Exceeding authorized access
-   • Causing damage to protected computers
-   • Trafficking in passwords
-   • Threatening to damage computers
-
-PENALTIES:
-   • Up to 10 years imprisonment (first offense)
-   • Up to 20 years (repeat offense)
-   • Significant financial penalties
-   • Civil liability in addition to criminal charges
-
-These penalties apply even when using techniques described in these PDFs
-without proper authorization.
+☐ Confirm authority for the systems, accounts, data, and methods in scope
+☐ Record approved targets, exclusions, time windows, and stop conditions
+☐ Use test data and lab environments where practical
+☐ Stop if scope or impact is uncertain
 ```
-
-#### Authorization Requirements
-
-**Before using ANY technique from these PDFs:**
-
-```
-☐ Obtain explicit WRITTEN authorization
-☐ Verify authorization from someone with authority to grant it
-☐ Confirm scope includes specific systems and techniques
-☐ Ensure authorization is current and valid
-☐ Document all authorization details
-☐ Maintain proof of authorization accessible during testing
-☐ Verify time windows and restrictions
-☐ Understand out-of-scope items clearly
-```
-
-#### International Laws
-
-**These techniques may violate laws in various jurisdictions:**
-- **UK**: Computer Misuse Act 1990
-- **EU**: Cybercrime directives and GDPR
-- **Canada**: Criminal Code Section 342.1
-- **Australia**: Cybersecurity Act 2001
-- **Other jurisdictions**: Various computer crime statutes
-
-**Key Point**: Using these techniques without authorization is illegal
-in virtually every jurisdiction worldwide.
-
----
 
 ### Content-specific Warnings
 
@@ -503,7 +473,7 @@ LEGAL CONSIDERATIONS:
    • Unauthorized domain enumeration may violate CFAA
    • Credential theft is a serious criminal offense
    • Pass-the-hash attacks constitute unauthorized access
-   • Domain privilege escalation without permission is illegal
+   • Domain privilege escalation outside approved scope may violate applicable law, contract, or policy
 
 REQUIRED AUTHORIZATION:
    ✓ Explicit permission to test Active Directory
@@ -524,9 +494,9 @@ PROHIBITED:
 ⚠️ WARNING: Web Attack Techniques
 
 LEGAL CONSIDERATIONS:
-   • Web application testing without authorization is illegal
+   • Web application testing outside approved scope may violate applicable law, contract, or policy
    • WAF bypass may violate terms of service
-   • IDOR exploitation is unauthorized access
+   • Testing an IDOR outside approved scope may expose unauthorized data or violate applicable rules
    • Zero-day exploitation without permission is criminal
 
 REQUIRED AUTHORIZATION:
@@ -548,10 +518,10 @@ PROHIBITED:
 ⚠️ WARNING: WiFi Hacking Techniques
 
 LEGAL CONSIDERATIONS:
-   • Unauthorized wireless network access is a federal crime
-   • Intercepting communications violates Wiretap Act
+   • Unauthorized access may violate computer-misuse or other laws depending on the conduct and jurisdiction
+   • Interception may be subject to wiretap/privacy laws; consent and other exceptions vary by jurisdiction
    • Deauthentication attacks may constitute DoS
-   • Cracking passwords for unauthorized access is illegal
+   • Password guessing or authentication testing outside approved scope may violate applicable law, contract, or policy
 
 REQUIRED AUTHORIZATION:
    ✓ Explicit permission from network owner
@@ -572,10 +542,10 @@ PROHIBITED:
 ⚠️ WARNING: Privilege Escalation Techniques
 
 LEGAL CONSIDERATIONS:
-   • Exceeding authorized access is a crime under CFAA
-   • Exploiting systems without permission is illegal
-   • Gaining root/admin without authorization is criminal
-   • Even testing without approval violates laws
+   • Exceeding authorized access may violate the CFAA depending on conduct and statutory elements
+   • Exploitation outside approved scope may violate applicable law, contract, or policy
+   • Privilege escalation outside approved scope may violate applicable law, contract, or policy
+   • Testing without the required authorization may violate applicable rules; requirements vary by context
 
 REQUIRED AUTHORIZATION:
    ✓ Permission to attempt privilege escalation
@@ -943,7 +913,7 @@ We welcome high-quality PDF contributions from security professionals.
 
 ⚠️ **CRITICAL: These PDFs contain ATTACK TECHNIQUES - Written authorization REQUIRED** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Unauthorized activity may violate law, contract, or policy depending on conduct, authorization, and jurisdiction. Obtain the authorization required for your activity and follow the agreed scope.** ⚠️
 
 ⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 

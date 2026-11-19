@@ -622,8 +622,8 @@ PROHIBITED:
 
 LEGAL REQUIREMENTS:
    • Computer Fraud and Abuse Act (CFAA) applies
-   • Unauthorized access is a federal crime
-   • Wiretap Act applies to network interception
+   • Unauthorized access may violate applicable computer-misuse law depending on the conduct and jurisdiction
+   • Interception may be subject to wiretap/privacy laws; consent and other exceptions vary
    • State computer crime laws also apply
 
 AUTHORIZATION MUST INCLUDE:
@@ -634,12 +634,8 @@ AUTHORIZATION MUST INCLUDE:
    ✓ Emergency contact procedures
    ✓ Data handling requirements
 
-PENALTIES FOR UNAUTHORIZED TESTING:
-   • Up to 10 years imprisonment (CFAA)
-   • Significant financial penalties
-   • Civil liability for damages
-   • Professional license revocation
-   • Career-ending consequences
+Legal consequences depend on the specific conduct, statutory elements, jurisdiction,
+and facts. Do not infer a charge or sentence from this summary.
 ```
 
 ---

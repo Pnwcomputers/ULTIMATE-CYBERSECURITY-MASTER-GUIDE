@@ -334,7 +334,7 @@ We welcome contributions from SOC Analysts, Threat Hunters, and Incident Respond
 
 ⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
 
-⚠️ **Unauthorized use is a FEDERAL CRIME with up to 10 years imprisonment** ⚠️
+⚠️ **Unauthorized activity may violate law, contract, or policy depending on conduct, authorization, and jurisdiction. Obtain the authorization required for your activity and follow the agreed scope.** ⚠️
 
 ⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
 

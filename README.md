@@ -770,7 +770,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 | Share exploit code irresponsibly | Follow responsible disclosure practices |
 | Violate local, state, or federal law | Comply with all applicable laws and regulations |
 
-**Unauthorized access to computer systems is a federal crime under the CFAA and equivalent laws worldwide. This repository is for educational purposes and authorized security testing only.**
+**Unauthorized activity may violate criminal or civil law, contract, or policy depending on the conduct, authorization, and jurisdiction. Use this material only within approved scope and follow the laws and rules that apply to the specific activity.**
 
 ### Authorized Use Cases
 
@@ -780,7 +780,7 @@ Kevin Mitnick (1963–2023) · Bruce Schneier · Dan Kaminsky (1979–2021) · H
 - Homelab and educational practice on your own systems
 - Defensive security tooling and monitoring
 
-See the full [LEGAL.md](./LEGAL.md) for complete terms.
+See [LEGAL.md](./LEGAL.md) for general legal and responsible-use considerations.
 
 ---
 
