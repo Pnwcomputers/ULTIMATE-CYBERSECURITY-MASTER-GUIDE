@@ -7,7 +7,7 @@ Live data collection and triage guide for capturing volatile evidence from a run
 Covers: volatile data priority order, memory acquisition (WinPmem, DumpIt, avml for Linux), network state capture (netstat, ss, active connections), process listing and hash verification, prefetch/amcache, registry hive export, browser artifacts, and chain of custody documentation.
 
 ## 🏆 Goal
-Collect the maximum volatile evidence from a live system before it is powered down or imaged, following IR triage priority order to preserve the most time-sensitive artifacts first.
+Collect the most relevant, authorized time-sensitive evidence with minimal avoidable changes while protecting incident response, business operations, privacy and the integrity of later forensic acquisition. Live capture is a trade-off, not a universal requirement to delay isolation, shutdown or containment.
 
 ## 📋 When to Use
 - First responder arriving at a suspected compromised system
@@ -41,7 +41,11 @@ This guide covers live response methodology, tools, and scripts for Windows and 
 
 ### Order of Volatility
 
-Collect data in order of volatility (most volatile first):
+![Live-response evidence triage showing authorization, case-dependent volatile data priorities, hash and custody preservation, and later analysis of volatile and persistent evidence](../../../assets/diagrams/live-response-volatility-evidence-gates.svg)
+
+*Conceptual live-response decision map.* [NIST SP 800-86](https://csrc.nist.gov/pubs/sp/800/86/final) advises choosing acquisition order according to **likely evidence value, volatility and collection effort**. The items below are an illustrative hierarchy, **not a mandatory sequence**. CPU registers/cache are typically not practical general-purpose triage targets, and capturing memory or running a script changes a live system. Apply incident safety, consent, available tools, forensic requirements and business impact before deciding whether to collect live state, isolate or power down.
+
+Example volatility considerations (adapt to the actual incident, acquisition access and operational risk):
 
 1. **Registers, cache** (CPU state)
 2. **Memory** (RAM)
