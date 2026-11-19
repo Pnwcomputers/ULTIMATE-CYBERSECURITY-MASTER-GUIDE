@@ -55,12 +55,15 @@ Make small, traceable adjustments and compare the final result with the baseline
 
 ## 5.1 The two separate problems
 
-Every antenna match problem is actually two problems, and you have to fix them in
-this order:
+![NanoVNA S11 calibration at the connector reference plane and the distinct roles of antenna reactance, resistance and impedance matching](../../assets/diagrams/nanovna-s11-resonance-vs-match.svg)
+
+*Conceptual one-port setup, not a lab capture.* [NanoVNA calibration guidance](https://nanorfe.org/nanovna-calibration.html) describes the cable-end reference plane; [S11 antenna interpretation](https://nanovna.nl/en/guides/antenna-swr) distinguishes impedance match from radiation efficiency. A favorable SWR alone does not demonstrate gain, pattern or usable bandwidth.
+
+For a simple antenna, distinguish the measured **reactive part X** and **resistive part R** of feedpoint impedance. They are useful diagnostics, but there is no universal tuning order for every loaded, multiband or coupled antenna:
 
 ### Problem 1 — Resonance (reactance)
 
-The antenna presents **+jX or −jX** — it stores energy rather than radiating it.
+A nonzero reactive term **+jX or −jX** means that the feedpoint impedance includes a reactive component. This can affect the match; it does **not** prove that no radiation occurs.
 Fixed by changing the **electrical length** of the radiating element, or by
 adding a compensating reactance.
 
@@ -74,8 +77,7 @@ about 73 Ω. A folded dipole is about 300 Ω.
 
 **Symptom:** Smith marker is on the centerline but not at the center dot.
 
-**Fix resonance first, then fix the match.** Doing it the other way around means
-the matching network fights a moving target.
+**For a simple adjustable radiator, establish the intended resonance or frequency response before finalizing the impedance match.** Matching networks can compensate resistance and reactance together; use a vendor-specific procedure for complex antennas.
 
 ---
 
@@ -92,11 +94,11 @@ f_new / f_old = L_old / L_new
 Rearranged for practical use:
 
 ```
-Percent length change = −(Percent frequency change)
+Small-change approximation: percent length change ≈ −percent frequency change
+Exact inverse-scaling estimate: L_new = L_old × f_measured / f_target
 ```
 
-**To raise resonant frequency by X%, shorten the element by X%.**
-**To lower resonant frequency by X%, lengthen the element by X%.**
+**Direction rule, not an exact percentage rule:** Raising the fundamental resonance of a simple unloaded radiator generally involves shortening it; lowering it involves lengthening. The two percentages are only approximately equal for small changes. Use the exact inverse-scaling estimate as a starting point and remeasure.
 
 ### Baseline length formulas
 
@@ -160,8 +162,9 @@ Computed from the **practical** constants above (71.3 / 142.65). Start long.
 1. **Sweep. Record resonance.**
 2. **Compute the required percentage change.**
    ```
-   Δ% = ((f_target − f_measured) / f_measured) × 100
-   Length change = −Δ% of current length
+   L_new = L_current × (f_measured / f_target)
+   Length to remove = L_current − L_new   (only if positive)
+   Recheck after a smaller, reversible adjustment.
    ```
 3. **Cut HALF of what you calculated.** Always. Metal comes off easily and goes
    back on with difficulty.
@@ -182,16 +185,18 @@ The total length determines resonance, but you must **keep both legs equal** or
 the feedpoint impedance and pattern become asymmetric.
 
 ```
-Total length to remove = Δ% × total length
-Remove from EACH leg   = (that total) / 2
+Estimated new total length = current total × (f_measured / f_target)
+Estimated total reduction  = current total − estimated new total
+Reduction per dipole leg  = estimated total reduction / 2
 ```
 
 Example: 20 m dipole, 10.20 m total, resonant at 13.85 MHz, target 14.20 MHz.
 ```
-Δ% = (14.20 − 13.85)/13.85 = +2.53%  → shorten by 2.53%
-Total to remove = 0.0253 × 10.20 m = 25.8 cm
-Remove from each leg = 12.9 cm
-Cut 6 cm per leg first, re-measure.
+Frequency shift = (14.20 − 13.85)/13.85 ≈ +2.53%
+Estimated new total = 10.20 × (13.85/14.20) ≈ 9.949 m
+Estimated reduction ≈ 25.1 cm, about 2.46% of length
+Estimated per-leg reduction ≈ 12.6 cm
+First adjust about 6 cm per leg, then re-measure.
 ```
 
 ### For telescoping whips
