@@ -18,10 +18,10 @@
 ## Table of Contents
 1. [Ethical Hacking Fundamentals](#ethical-hacking-fundamentals)
 2. [Reconnaissance & Information Gathering](#reconnaissance--information-gathering)
-3. [Network Security & Exploitation](#network-security--exploitation)
+3. [Network Security & Exposure Management](#network-security--exposure-management)
 4. [Web Application Security](#web-application-security)
-5. [System Hacking & Post-Exploitation](#system-hacking--post-exploitation)
-6. [Metasploit Framework](#metasploit-framework)
+5. [Endpoint Security and Incident Response](#endpoint-security-and-incident-response)
+6. [Exploitation Frameworks: Defensive Use](#exploitation-frameworks-defensive-use)
 7. [Wireless Network Security](#wireless-network-security)
 8. [Social Engineering](#social-engineering)
 9. [Cryptography Essentials](#cryptography-essentials)
@@ -32,7 +32,7 @@
 ---
 
 ## 🎯 Purpose
-A condensed, command-first quick-reference - where [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) explains methodology in depth, this file is the "essentials at a glance" version for looking something up mid-engagement.
+A concise defensive reference. [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) covers broader methodology; this guide highlights safe review, detection, and response practices.
 
 ## ⚙️ Function
 12 topic sections mirroring the master guide's core lifecycle (recon through OSCP prep) but stripped to bullet points and command snippets, plus a dedicated "Quick Reference Commands" section at the end. Differs from [ultimate_cybersecurity_master_guide.md](ultimate_cybersecurity_master_guide.md) and [ENHANCED_MASTER_GUIDE.md](ENHANCED_MASTER_GUIDE.md) by omitting explanation/context in favor of density - no prose walkthroughs, just what to run and when.
@@ -41,7 +41,7 @@ A condensed, command-first quick-reference - where [ultimate_cybersecurity_maste
 A command or concept can be located and copy-pasted in seconds without reading surrounding narrative.
 
 ## 📋 When to Use
-Mid-engagement, during a live exam (OSCP), or any time you already know the methodology and just need the exact syntax.
+During security reviews, defensive study, or authorized assessments when you need a concise reminder of core concepts and response steps.
 
 ## Ethical Hacking Fundamentals
 
