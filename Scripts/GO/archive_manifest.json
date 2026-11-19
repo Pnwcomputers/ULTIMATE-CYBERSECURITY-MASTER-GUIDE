@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "review_date": "2026-11-11",
-  "evidence": "Header inspection plus Python 3 AST-only compatibility baseline; no execution, full dependency audit, or redistribution-rights certification; unsafe credential and lateral-movement examples retired in place on review branch",
+  "review_date": "2026-11-19",
+  "evidence": "Header inspection plus Python 3 AST-only compatibility baseline; no execution, full dependency audit, or redistribution-rights certification; unsafe credential and lateral-movement examples retired in place on review branch; whole-repository review retired unsafe archived examples in place as inert notices",
   "entries": [
     {
       "path": "bruteforce/brute_http_basic.py",
@@ -75,9 +75,10 @@
     {
       "path": "enumeration/ad_self_service_miner.py",
       "attribution_from_file_header": "Unattributed in file header",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "enumeration/dnsbrute.py",
@@ -184,7 +185,8 @@
       "attribution_from_file_header": "LCI Technology Group",
       "python3_ast": "no-legacy-syntax-finding",
       "disposition": "historical-only",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "scan/gnmap2md.py",
@@ -217,9 +219,10 @@
     {
       "path": "scan/scan.py",
       "attribution_from_file_header": "LCI Technology Group",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "shells/ishell.py",
@@ -238,37 +241,42 @@
     {
       "path": "webapp/dirb.py",
       "attribution_from_file_header": "LCI Technology Group",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "webapp/discover.py",
       "attribution_from_file_header": "AverageSecurityGuy",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "webapp/http_upload.py",
       "attribution_from_file_header": "LCI Technology Group",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "webapp/rails_find.py",
       "attribution_from_file_header": "Unattributed in file header",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "webapp/rails_secret_token.py",
       "attribution_from_file_header": "Unattributed in file header",
-      "python3_ast": "fails-legacy-syntax",
+      "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     },
     {
       "path": "webapp/servers_to_burp.py",
@@ -282,7 +290,8 @@
       "attribution_from_file_header": "LCI Technology Group",
       "python3_ast": "no-legacy-syntax-finding",
       "disposition": "retire-from-active-index",
-      "validation": "not-executed; third-party dependencies and permissions not verified"
+      "validation": "not-executed; third-party dependencies and permissions not verified",
+      "runtime_status": "inert-retirement-notice"
     }
   ]
 }
