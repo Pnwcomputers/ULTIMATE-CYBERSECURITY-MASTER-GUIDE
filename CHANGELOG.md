@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 19, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1764
-- **Files Modified**: 2898
-- **New Files**: 1157
+- **Commits Analyzed**: 1769
+- **Files Modified**: 2937
+- **New Files**: 1183
 - **Deleted Files**: 121
 
 ## 📝 Detailed Changes
@@ -557,6 +557,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- audit: enforce whole-repository visual census and correct technical reference errors (#345) (`67ebb3a`)
 - fix: validate canary telemetry windows and illustrate AI SOC approval gates (#342) (`20fff91`)
 - Correct mobile authorization and legal guidance (#339) (`ea5a8e9`)
 - Correct checklist legal and persistence guidance (#338) (`974d8f9`)
@@ -1444,6 +1445,10 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs(visuals): embed Graylog data-flow and live-response evidence diagrams (#350) (`9c971df`)
+- docs(visuals): illustrate AI notes/hooks, milestone gates, fraud OSINT & wireless field quality (#349) (`97d4aae`)
+- docs(visuals): implement 4 source-checked firmware, portable-device & VM architecture diagrams (#348) (`4f6f292`)
+- docs(visuals): embed 10 reviewed diagrams across OSINT, wireless, AI, Cyberdeck, uConsole, cryptography & homelab (#347) (`4bc7940`)
 - Link T48 guide to supported device list (`8d880ae`)
 - Align OPSEC guide with current VPN and VM guidance (#294) (`1d914a9`)
 - Align IDS and IPS index with current guides (`7529139`)
@@ -1788,24 +1793,77 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `PlayBooks/PurpleTeam_Detailed.md`
+- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
+- `IncidentResponse/SIEM/graylog.md`
 - `assets/README.md`
+- `assets/diagrams/graylog-data-node-ingest-architecture.svg`
+- `assets/diagrams/live-response-volatility-evidence-gates.svg`
+- `tools/tests/test_visual_guides.py`
+- `AI/milestones-and-acceptance-criteria.md`
+- `AI/notes-hooks-and-automation.md`
+- `OSINT/Playbook/investigation_guide.md`
+- `Wardriving/field-workflow.md`
+- `assets/diagrams/ai-milestone-independent-acceptance-gate.svg`
+- `assets/diagrams/ai-notes-hooks-evidence-boundaries.svg`
+- `assets/diagrams/osint-fraud-investigation-source-confidence.svg`
+- `assets/diagrams/wardriving-field-quality-acceptance.svg`
+- `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md`
+- `Documentation/device-firmware-list.md`
+- `Documentation/firmware-web-flashers.md`
+- `Homelab/HomeLab_Setup.md`
+- `assets/diagrams/cyberdeck-portable-device-roles-and-artifacts.svg`
+- `assets/diagrams/device-firmware-compatibility-selection.svg`
+- `assets/diagrams/firmware-flashing-verification-gates.svg`
+- `assets/diagrams/homelab-virtual-network-isolation-paths.svg`
+- `AI/ai-evaluation-and-regression-testing.md`
+- `AI/mcp-tooling-and-permissions.md`
+- `Cryptography/README.md`
+- `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
+- `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
+- `Homelab/README.md`
+- `OSINT/Playbook/README.md`
+- `Wardriving/data-handling.md`
+- `Wardriving/wardrive-go.md`
+- `assets/diagrams/ai-evaluation-evidence-matrix.svg`
+- `assets/diagrams/cryptography-primitive-decision-map.svg`
+- `assets/diagrams/cyberdeck-evidence-and-redaction-lifecycle.svg`
+- `assets/diagrams/cyberdeck-seven-stage-assessment-gates.svg`
+- `assets/diagrams/homelab-passive-ids-visibility-mirror-tap.svg`
+- `assets/diagrams/mcp-trust-and-approval-boundaries.svg`
+- `assets/diagrams/osint-case-evidence-provenance.svg`
+- `assets/diagrams/uconsole-hardware-os-preflight-paths.svg`
+- `assets/diagrams/wardrive-go-platform-collection-boundaries.svg`
+- `assets/diagrams/wardriving-survey-data-privacy-gates.svg`
+- `uConsole/README.md`
+- `.github/workflows/repository-static-syntax.yml`
+- `.github/workflows/visual-coverage.yml`
+- `CAD/OpenSCAD/README.md`
+- `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg`
+- `CaseStudies/README.md`
+- `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
+- `README.md`
+- `assets/diagrams/repository-evidence-gates.svg`
+- `assets/diagrams/tradecraft-scope-to-detection-loop.svg`
+- `assets/imageplacement.md`
+- `tools/audit_source_formats.py`
+- `tools/audit_visual_coverage.py`
+- `tools/tests/test_source_formats.py`
+- `tools/tests/test_visual_coverage_audit.py`
+- `CHANGELOG.md`
+- `PlayBooks/PurpleTeam_Detailed.md`
 - `assets/diagrams/cti-to-approved-emulation-gates.svg`
 - `tools/tests/test_purple_playbook_mapping.py`
-- `tools/tests/test_visual_guides.py`
 - `AI/ai-security-operations-workflows.md`
 - `Documentation/CANARY-DETECTION-VALIDATOR.md`
 - `assets/diagrams/ai-soc-trust-and-approval-boundaries.svg`
 - `tools/lab_detection_validator.py`
 - `tools/tests/test_lab_detection_validator.py`
-- `CHANGELOG.md`
 - `Cloud/README.md`
 - `Compliance/README.md`
 - `Compliance/frameworks.md`
 - `Compliance/pci-dss-scoping.md`
 - `Compliance/pci-scope-review-template.md`
 - `DOCUMENTATION_INDEX.md`
-- `README.md`
 - `WebAppSecurity/README.md`
 - `assets/diagrams/pci-dss-scoping-boundaries.svg`
 - `tools/tests/test_pci_scoping_docs.py`
@@ -1885,9 +1943,7 @@
 - `assets/diagrams/shunt-current-measurement.svg`
 - `HardwareHacking/README.md`
 - `assets/diagrams/hardware-security-bench-workflow.svg`
-- `CaseStudies/README.md`
 - `Tradecraft/README.md`
-- `assets/diagrams/tradecraft-scope-to-detection-loop.svg`
 - `OPSEC/press-freedom/duress-seizure-response.md`
 - `assets/journalist-seizure-response.svg`
 - `assets/diagrams/journalist-device-account-network-boundaries.svg`
@@ -2076,8 +2132,6 @@
 - `.github/workflows/documentation-discoverability.yml`
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
-- `Homelab/HomeLab_Setup.md`
-- `Homelab/README.md`
 - `.github/workflows/auto_changelog.yml`
 - `CAD/OpenSCAD/03-mockups-and-fit-checks.md`
 - `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
@@ -2092,11 +2146,9 @@
 - `SDR/README.md`
 - `SDR/nanovna/05-antenna-tuning.md`
 - `Wardriving/README.md`
-- `uConsole/README.md`
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/02-project-structure.md`
 - `CAD/OpenSCAD/06-keyboard-shortcuts.md`
-- `CAD/OpenSCAD/README.md`
 - `CAD/OpenSCAD/examples/gps-cradle/README.md`
 - `CAD/OpenSCAD/examples/gps-cradle/check.sh`
 - `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.json`
@@ -2109,7 +2161,6 @@
 - `CAD/OpenSCAD/images/gps-cradle-assembly-rear.png`
 - `CAD/OpenSCAD/images/gps-cradle-assembly.png`
 - `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.png`
-- `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg`
 - `CAD/OpenSCAD/images/print-orientation.png`
 - `CAD/OpenSCAD/images/section-view.png`
 - `CAD/OpenSCAD/images/step1-plans.png`
@@ -2127,13 +2178,10 @@
 - `.github/workflows/publish-wiki.yml`
 - `assets/cyberdeckandgear.png`
 - `Cyberdeck/docs/ACCEPTANCE_TESTS.md`
-- `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
 - `Cyberdeck/docs/HARDWARE_AND_STATUS.md`
 - `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md`
-- `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md`
 - `Documentation/flipper_zero_guide.md`
 - `PlayBooks/README.md`
-- `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
 - `Cyberdeck/templates/QUALIFICATION_RECORD.example.md`
 - `Cyberdeck/tests/test_verify_manifest.py`
@@ -2142,7 +2190,6 @@
 - `.github/CONTRIBUTING.md`
 - `IncidentResponse/README.md`
 - `Mobile/UserLAnd/readme.md`
-- `OSINT/Playbook/README.md`
 - `OSINT/Playbook/scripts/README.md`
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/TROUBLESHOOTING.md`
@@ -2160,10 +2207,8 @@
 - `Cyberdeck/tests/test_evidence_manifest.py`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Ducky/README.md`
-- `Documentation/device-firmware-list.md`
 - `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/evil_m5.md`
-- `Documentation/firmware-web-flashers.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
@@ -2214,13 +2259,9 @@
 - `.github/workflows/link-check.yml`
 - `.github/workflows/markdown-numbered-lists.yml`
 - `.github/workflows/markdownlint.yml`
-- `.github/workflows/repository-static-syntax.yml`
 - `Documentation/BRANCH-PROTECTION-SETUP.md`
 - `Documentation/HTTP-LINKS-CLASSIFICATION.md`
-- `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
-- `IncidentResponse/SIEM/graylog.md`
 - `IncidentResponse/SIEM/splunk.md`
-- `OSINT/Playbook/investigation_guide.md`
 - `Scripts/GO/ARCHIVE-INVENTORY.md`
 - `Scripts/GO/archive_manifest.json`
 - `Tradecraft/osint-threat-intel.md`
@@ -2254,18 +2295,14 @@
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/agent-project-workflows.md`
 - `AI/agent-reliability-and-recovery.md`
-- `AI/ai-evaluation-and-regression-testing.md`
 - `AI/ai-observability-and-auditing.md`
 - `AI/ai-usage-interaction-guide.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
 - `AI/ai_prompts.md`
 - `AI/context-engineering-and-memory.md`
 - `AI/llm-security-evaluation-promptfoo.md`
-- `AI/mcp-tooling-and-permissions.md`
-- `AI/milestones-and-acceptance-criteria.md`
 - `AI/model-routing-and-cost-management.md`
 - `AI/multi-agent-orchestration.md`
-- `AI/notes-hooks-and-automation.md`
 - `AI/rag-and-knowledge-engineering.md`
 - `AI/structured-outputs-and-data-contracts.md`
 - `AI/verification-and-ai-audits.md`
@@ -2290,7 +2327,6 @@
 - `Checklists/README.md`
 - `ContainerSecurity/README.md`
 - `Cryptography/Classical/README.md`
-- `Cryptography/README.md`
 - `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase3/README.md`
 - `HardwareTesting/README.md`
@@ -2362,7 +2398,6 @@
 - `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
 - `assets/fido2-passkey-authentication-flow.svg`
-- `assets/imageplacement.md`
 - `assets/journalist-source-data-lifecycle.svg`
 - `assets/advnacedflows.jpg`
 - `assets/ad_attack_paths.png`
@@ -2425,15 +2460,11 @@
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/test_nzyme_webhook.py`
 - `IncidentResponse/SIEM/wazuh.md`
 - `Wardriving/kismet.md`
-- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md`
 - `Tradecraft/pentoo-linux-guide.md`
 - `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md`
 - `Documentation/hcxtoolshashcat.md`
-- `Wardriving/data-handling.md`
-- `Wardriving/field-workflow.md`
 - `Wardriving/sigroam-scout-lite.md`
-- `Wardriving/wardrive-go.md`
 - `OSINT/Playbook/toolkit_integration.sh`
 - `tests/hardening/test_toolkit_integration.py`
 - `.github/ISSUE_TEMPLATE/bug_report.md`
