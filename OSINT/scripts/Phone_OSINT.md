@@ -276,20 +276,17 @@ pretty_json() {
     jq '.' 2>/dev/null || cat
 }
 
-# Send query URLs to curl through a private temporary config file so API keys
-# are not exposed in curl's process arguments. Providers may still log URL keys.
+# Feed query URLs to curl on stdin so keys are not exposed in curl's process
+# arguments or left in a temporary file. Providers may still log URL keys.
 private_curl_url() {
     local URL="$1"
     local OUTPUT="$2"
-    local CURL_CONFIG
-    CURL_CONFIG=$(mktemp) || return 1
-    chmod 600 "$CURL_CONFIG"
-    printf 'url = "%s"\n' "$URL" > "$CURL_CONFIG"
-    curl --config "$CURL_CONFIG" --silent --show-error --fail --max-time 20 \
+    {
+        printf 'url = "%s"\\n' "$URL"
+    } | curl --config - --silent --show-error --fail --max-time 20 \
         | pretty_json > "$OUTPUT" 2>&1
-    local CURL_STATUS=${PIPESTATUS[0]}
-    rm -f "$CURL_CONFIG"
-    return "$CURL_STATUS"
+    local -a CURL_STATUSES=("${PIPESTATUS[@]}")
+    return "${CURL_STATUSES[1]}"
 }
 
 # Start
