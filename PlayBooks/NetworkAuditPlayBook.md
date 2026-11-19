@@ -689,7 +689,7 @@ Follow-up Required:
 
 ### 7.1 VULNERABILITY CLASSIFICATION
 
-Use CVSS v3.1 scoring for all technical findings. Use the following risk rating system:
+For software and hardware vulnerabilities, use the client's required scoring policy; prefer CVSS v4.0 for new findings and include the vector string. Use CVSS v3.1 only when a client or reporting system requires it or for explicit comparison with legacy results. For control gaps that are not vulnerabilities, use a qualitative rating and explain the rationale rather than forcing a CVSS score. The following severity bands are a reporting aid:
 
 #### CRITICAL (CVSS 9.0-10.0):
 - Requires immediate remediation
@@ -718,7 +718,7 @@ For Each Finding:
 ```
 Title: [Clear, concise title]
 Risk Rating: [Critical/High/Medium/Low/Informational]
-CVSS Score: [If applicable]
+CVSS Version / Score / Vector: [If applicable; include the full vector string]
 
 Description:
 [Clear explanation of what was found]
