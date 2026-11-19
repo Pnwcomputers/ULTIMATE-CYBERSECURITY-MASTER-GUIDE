@@ -70,7 +70,7 @@ Inspect provenance and source before running downloaded scripts.
 ---
 
 ## 🎯 Purpose
-The folder-level index for every automation script in the repository (Bash, C, Go, PowerShell, Python, SQL, YAML) - the only file that explains directory layout and legal warnings once, instead of repeating them in every language subfolder's own README.
+A curated entry point for selected script examples in Bash, C, Go, PowerShell, Python, SQL and YAML. It is not a complete inventory or an execution-safety review; use each file's local documentation and inspect source before use.
 
 ## ⚙️ Function
 Covers directory structure, script categories by language, usage instructions, the critical legal warning, contributing guidelines, and quick links/resources. Differs from [Scripts/Bash/BashBunny/README.md](Bash/BashBunny/README.md), [Scripts/Bash/bash_scripting_cheat-sheet.md](Bash/bash_scripting_cheat-sheet.md), and [Scripts/Ducky/README.md](Ducky/README.md), which document a specific script collection or reference topic rather than the folder as a whole. The published repository includes executable scripts in these directories; do not infer availability or safety from a partial local checkout. Review [legacy archive dispositions](GO/ARCHIVE-INVENTORY.md) separately.
@@ -83,7 +83,7 @@ When looking for an existing script before writing a new one, or when unsure wha
 
 ## 🎯 Overview
 
-This directory contains **security automation scripts, penetration testing tools, and utility programs** written in multiple programming languages. These scripts are designed for authorized security testing, research, and educational purposes.
+This directory contains historical and current examples across several languages. Some files have been retired as inert stubs; the remaining files are not certified safe or current. Verify each file, dependencies, scope and effects before use.
 
 ### ⚠️ Use and Scope
 
@@ -214,7 +214,7 @@ MUST be compiled and tested in isolated environments before use.
 
 **Location**: `/Scripts/Python/`
 
-**Current Scripts:**
+**Selected files (not exhaustive):**
 
 #### Network & Reconnaissance
 | Script | Description | Risk Level |
@@ -276,32 +276,18 @@ MUST be compiled and tested in isolated environments before use.
 | **pass.txt** | Password list/dictionary |
 
 **Python Script Characteristics:**
-- Extensive network security tools
-- Credential harvesting capabilities
-- Exploitation frameworks
-- Protocol analysis utilities
-- Data exfiltration tools
-- Reconnaissance utilities
+- Mixed historical and current examples
+- Network and protocol utilities
+- Parsers and local helpers
+- Retired entries retained as inert stubs
+
+This is a partial index, not a supported product catalog.
 
 **Security Considerations:**
 ```
-⚠️ EXTREME CAUTION: Python scripts include:
-   • Credential sniffers (credit_sniff.py, cred_sniff.py, ftp_sniff.py)
-   • Network attack tools (network_attack.py)
-   • Exploitation utilities (dll_inject.py, bsodshell.py)
-   • Data exfiltration tools (iphone_messages.py, dump_nmdbs.py)
-   • Reverse shells (rev_shell.py)
-   • ICS/SCADA targeting tools (ics_find.py)
+⚠️ Several high-risk Python examples have been replaced with inert retirement notices, including collectors, password testing and process injection. This list is not exhaustive. Do not run a script based only on its filename, table entry or historical description. Review its current source, dependencies and effects first.
 
-Potential operational risks:
-   • Unauthorized access to systems or data
-   • Exposure or loss of sensitive information
-   • Privacy, contract, or policy violations
-   • Service disruption or system changes
-   • Increased impact when critical infrastructure is involved
-
-Legal consequences depend on the conduct, authorization, applicable law, and facts.
-Do not infer a specific charge or sentence from this list.
+Potential operational risks include unintended access, exposure of personal or secret data, service disruption and system changes. Legal and policy consequences depend on authorization, conduct, applicable rules and facts.
 ```
 
 ---
@@ -489,7 +475,7 @@ cat results.txt
 
 ## ⚠️ Security, Authorization & Operational Risk
 
-Scripts range from local utilities to active access, scanning, credential, remote-control and data-handling tools. A category or risk label in this index is a triage aid, not a legal classification or guarantee that a command is safe.
+Scripts range from local utilities to active network and system operations. A category or risk label in this index is only a triage aid, not a legal classification or guarantee that a command is safe.
 
 ### Establish scope before active testing
 
@@ -634,11 +620,11 @@ We welcome contributions from security professionals, but all scripts must meet 
 ```
 📁 Script Directories: 7 language categories
 💻 Languages: Bash, C, Go, PowerShell, Python, SQL, YAML
-🔧 Script Count: 50+ security tools and utilities
-⚠️ Risk Level: HIGH - Offensive security tools
-🔄 Last Updated: November 2024
+🔧 Index: Selected examples; repository tree is authoritative for file presence
+⚠️ Risk: Varies by file; review source and effects before use
+🔄 Review status: Historical collection under ongoing review
 👥 Maintained by: Pacific Northwest Computers (PNWC)
-📝 Status: Active - Use with EXTREME CAUTION
+📝 Status: Mixed; some examples are retired and inert
 ```
 
 ---
