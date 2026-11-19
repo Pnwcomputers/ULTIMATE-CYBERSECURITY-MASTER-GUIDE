@@ -140,6 +140,10 @@ unrelated private data. Share relevant error lines and package transactions, not
 
 ## 🛠️ Recovery decisions
 
+![uConsole CM5 display recovery gates from preserving state and checking the exact image to distinguishing desktop-session issues, display rotation and package/boot changes, then device validation](../assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg)
+
+*Conceptual fault-triage workflow.* The checked [v1.4 CM5 setup script](./scripts/uconsole-cm5-setup.sh) is conservative by default but **does not repair** a previous v1.3 installation. A blank desktop with a pointer and a rotated display may have different causes; only restore known settings for the installed Rex image and validate on actual CM5 hardware.
+
 ### 1. Save the current state before changing it
 
 Make a full storage backup if practical, especially before package recovery. A configuration copy alone cannot roll back a package upgrade.
@@ -236,7 +240,7 @@ Reboot only after saving work and reviewing changes. Restarting a display manage
 
 ## 🔧 Revised installer
 
-The proposed [v1.4 setup script](./scripts/uconsole-cm5-setup.sh) deliberately reduces automated changes:
+The current [v1.4 setup script](./scripts/uconsole-cm5-setup.sh) deliberately reduces automated changes:
 
 - Preserves existing desktop/session, rotation, boot overlays, Polkit agents and cryptsetup settings.
 - Does not add repositories, remove `raspberrypi-sys-mods`, disable Python protections, perform full upgrades, or inject older libraries.
@@ -251,8 +255,7 @@ upgrades. Automatic upstream `aiov2_ctl` source installation, Meshtastic/ADS-B b
 programming and direct boot edits have been removed; follow the vendor's current instructions for those optional
 features. The revised script is **not feature-equivalent to v1.3**.
 
-Review/download the candidate before running it. A command downloading from `main` will still retrieve the old
-version until the change is merged. Verify `bash ./uconsole-cm5-setup.sh --help` reports v1.4.
+Review/download the candidate before running it. Do not assume a downloaded script is v1.4 merely because its filename matches. Verify the version header and exact intended repository revision before execution. Verify `bash ./uconsole-cm5-setup.sh --help` reports v1.4.
 
 ```bash
 # Preview; no configuration, log, or state writes
