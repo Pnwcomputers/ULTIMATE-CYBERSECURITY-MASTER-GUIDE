@@ -43,6 +43,15 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [T-Pot Hive, Sensor & Administration](./diagrams/tpot-hive-sensor-management-boundaries.svg) | [T-Pot Deployment](../IncidentResponse/HoneyPot/tpot.md) | Decoy ingress and local sensor logs, optional Hive aggregation, isolated management and community sharing |
 | [Tsurugi OSINT Image & Evidence Flow](./diagrams/tsurugi-osint-image-provenance-case-flow.svg) | [Tsurugi Linux OSINT Workstation](../OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) | Official image, verified signed digest, isolated workstation, case-original evidence and reporting |
 
+## Splunk, Space Ground Systems, RF Calibration & HTTP Decoys
+
+| Diagram | Embedded Guide | Verified Visual Subject |
+|---|---|---|
+| [Splunk Universal Forwarder → Indexer → Search](./diagrams/splunk-forwarder-indexer-search-head-data-flow.svg) | [Splunk SIEM Deployment](../IncidentResponse/SIEM/splunk.md) | Universal Forwarder cannot index or search; storage/search/alerting are independently checked |
+| [Ground-Space Command & Telemetry](./diagrams/space-ground-command-telemetry-trust-boundaries.svg) | [Space Security: Ground Segment](../SpaceSecurity/PartII.md) | Mission authorization, telecommands, telemetry, and mission-dependent CCSDS SDLS controls |
+| [NanoVNA S11/S21 Calibration Planes](./diagrams/nanovna-s11-s21-calibration-plane.svg) | [NanoVNA Calibration & Reference Planes](../SDR/nanovna/03-calibration.md) | OPEN/SHORT/LOAD on S11 plane and separate instrument-specific S21 calibration |
+| [DIY HTTP Decoy JSONL → Wazuh](./diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg) | [Minimal HTTP Honeypot Lab](../IncidentResponse/HoneyPot/diy-sensor-lab.md) | Lab-only request metadata capture, 404 response, JSONL localfile and optional Wazuh forwarding |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
