@@ -878,15 +878,9 @@ We welcome contributions from security professionals to improve and expand this 
 
 ---
 
-## 📊 Repository Statistics
+## 📊 Repository Overview
 
-```
-📁 Current Playbooks: 8 operational playbooks
-📖 Categories: Blue Team, Purple Team, Network Audit, DevSecOps, General Operations
-🔄 Last Updated: November 2024
-👥 Maintained by: Pacific Northwest Computers (PNWC)
-📝 Status: Active & Growing
-```
+This folder includes playbooks, workflows, and templates. Use the table of contents above and the [complete documentation index](../DOCUMENTATION_INDEX.md) for the current inventory. Individual guides carry their own review dates; no aggregate count of "operational playbooks" is maintained.
 
 ---
 
