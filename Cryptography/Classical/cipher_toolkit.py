@@ -50,7 +50,8 @@ def style_char(c, style):
             return unicodedata.lookup(pattern.format(c))
         except KeyError:
             pass
-    return c  # no glyph exists (e.g. small-cap X) -> leave as-is
+    # No small-cap X is encoded; match the reference chart's lowercase fallback.
+    return c.lower() if style == "smallcaps" else c
 
 def style(text, name):
     return "".join(style_char(c.upper(), name) if c.upper() in A else c for c in text)
