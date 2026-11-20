@@ -1,6 +1,6 @@
 # 🔤 Alternative Alphabets
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 > [!IMPORTANT]
 > **Historical and educational content.** Nothing in this section is secure for real
@@ -121,7 +121,21 @@ Homoglyphs are characters from different scripts that render **identically or ne
 | **x** `U+0078` | х `U+0445` | — |
 | **y** `U+0079` | у `U+0443` | — |
 
-**Example:** `gіthub.com` uses Cyrillic `і` (U+0456) in place of Latin `i` (U+0069). It looks right, but it is a different domain.
+**Example:** `gіthub.com` uses Cyrillic `і` (U+0456) in place of Latin `i` (U+0069). It may look similar, but it is a different identifier.
+
+The [Unicode mathematical-alphabet chart](https://www.unicode.org/Public/18.0.0/charts/nameslist/1d400/) identifies `𝕠` as the mathematical double-struck small o, which NFKC maps to Latin `o`; confusable-skeleton checks can separately flag a cross-script look-alike such as Cyrillic `о`. The skeleton is only for comparison; Unicode says it is not a display or storage form ([UAX #15](https://www.unicode.org/reports/tr15/), [UTS #39](https://www.unicode.org/reports/tr39/)).
+
+```mermaid
+flowchart LR
+    Styled["Styled letter: 𝕠 (U+1D560)"] -->|"NFKC"| Latin["Latin o (U+006F)"]
+    Cyrillic["Cyrillic о (U+043E)"] -->|"NFKC: unchanged"| Other["Cyrillic о (U+043E)"]
+    Latin -. "may look alike" .-> Render["Rendered text"]
+    Other -. "may look alike" .-> Render
+    Latin --> Compare["Keep original code points; use confusable checks as signals"]
+    Other --> Compare
+```
+
+*Normalization folds some styled characters to compatibility forms; it does not make cross-script look-alikes the same identifier.*
 
 See [Security Relevance](security.md) for detection and defense.
 
