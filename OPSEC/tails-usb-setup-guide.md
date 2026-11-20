@@ -472,12 +472,14 @@ Shut down after completion, remove the intermediary stick, boot the primary, and
 
 ### C. Create a bootable backup
 
+![Tails backup workflow showing the initial clone to the selected USB, later data updates and independent boot and file verification](../assets/diagrams/tails-persistent-storage-backup.svg)
+
 1. Boot the primary Tails and unlock its Persistent Storage.
 2. Attach the blank backup USB.
 3. Open **Apps → Tails → Tails Cloner**.
 4. Select **Clone the current Tails** and enable **Clone the current Persistent Storage**.
 5. Verify that the target is the expendable backup USB.
-6. Choose Install, set/confirm the backup's storage passphrase, and approve erasing that backup target.
+6. Choose **Install**, enter and confirm the backup storage passphrase, then select **Continue**. Verify the target again before selecting **Delete All Data and Install**.
 7. Wait for completion. [^backup]
 
 Power off and independently boot the backup. Unlock its storage and open sample files. Store it separately from the primary.

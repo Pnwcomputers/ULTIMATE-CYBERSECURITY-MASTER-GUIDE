@@ -137,6 +137,13 @@ Potential privilege-escalation paths depend on resource scope, policy conditions
 
 ## Hardening & Detection
 
+![CloudTrail event history covers recent regional management events, while selected data events require configured collection and delivery verification](../assets/diagrams/aws-cloudtrail-event-coverage.svg)
+
+CloudTrail Event history provides the past 90 days of management events for one account and Region.
+For an ongoing record, configure a trail with the retention your investigation needs. Select required
+data events explicitly and verify that expected records reach protected storage. S3 object operations such
+as `GetObject` and `PutObject` are data events. [AWS Event history limits](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html) · [AWS data-event selection](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html)
+
 - **Logging:** configure multi-Region **CloudTrail** coverage, log-file validation and protected centralized storage; select required data events explicitly. S3 object-level activity is not logged by default merely by creating a trail. Enable appropriate Config recording for resource history.
 - **Threat detection:** **GuardDuty** (anomaly/threat detection), **Security Hub**
   (aggregated findings + CIS score).

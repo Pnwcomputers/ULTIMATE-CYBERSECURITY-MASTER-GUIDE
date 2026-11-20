@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 238" role="img" aria-labelledby="title desc">
+  <title id="title">Tails Persistent Storage backup</title>
+  <desc id="desc">Create a bootable clone on a verified target, update the backup data periodically, and boot it independently to test recovery.</desc>
+  <rect width="960" height="238" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" fill="#fff" font-size="27" font-weight="bold">Tails Persistent Storage backup</text>
+    <rect x="28" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="44" y="109" fill="#fff" font-size="18" font-weight="bold">Create a backup USB</text>
+    <text x="44" y="140" fill="#d7e6f4" font-size="15">Unlock the primary storage</text>
+    <text x="44" y="163" fill="#d7e6f4" font-size="15">Select new USB in Tails Cloner</text>
+    <text x="44" y="186" fill="#d7e6f4" font-size="15">Clone Tails and Persistent Storage</text>
+    <rect x="340" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="356" y="109" fill="#fff" font-size="18" font-weight="bold">Update the backup</text>
+    <text x="356" y="140" fill="#d7e6f4" font-size="15">Run Back Up Persistent Storage</text>
+    <text x="356" y="163" fill="#d7e6f4" font-size="15">Upgrade the backup OS when due</text>
+    <rect x="652" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="668" y="109" fill="#fff" font-size="18" font-weight="bold">Verify recovery</text>
+    <text x="668" y="140" fill="#d7e6f4" font-size="15">Boot the backup independently</text>
+    <text x="668" y="163" fill="#d7e6f4" font-size="15">Unlock it and open sample files</text>
+  </g>
+</svg>

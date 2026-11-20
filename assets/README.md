@@ -552,6 +552,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 |---|---|
 | [aws request policy evaluation](./diagrams/aws-request-policy-evaluation.svg) | [Guide](../Cloud/aws.md) |
 | [aws s3 independent controls](./diagrams/aws-s3-independent-controls.svg) | [Guide](../Cloud/aws.md) |
+| [AWS CloudTrail event coverage](./diagrams/aws-cloudtrail-event-coverage.svg) | [AWS Hardening & Detection](../Cloud/aws.md#hardening--detection) |
 | [aws imdsv2 token boundary](./diagrams/aws-imdsv2-token-boundary.svg) | [Guide](../Cloud/aws.md) |
 
 ## YARA-X Rule Lab Visuals
@@ -804,6 +805,7 @@ Original conceptual diagram separating the Tails system area, volatile live sess
 
 | Diagram | Embedded guide |
 |---|---|
+| [Tails Persistent Storage backup](./diagrams/tails-persistent-storage-backup.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 | [Tails storage and network boundaries](./diagrams/tails-storage-and-network-boundaries.svg) | [Tails USB setup guide](../OPSEC/tails-usb-setup-guide.md) |
 
 ## Journalist Device, Account And Network Boundaries Visual

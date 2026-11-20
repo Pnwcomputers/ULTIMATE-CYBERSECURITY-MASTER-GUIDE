@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 238" role="img" aria-labelledby="title desc">
+  <title id="title">AWS CloudTrail evidence coverage</title>
+  <desc id="desc">Event history shows recent management events. For ongoing evidence, configure delivery and explicitly select the data events needed, then check that expected records arrive.</desc>
+  <rect width="960" height="238" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" fill="#fff" font-size="27" font-weight="bold">AWS CloudTrail evidence coverage</text>
+    <rect x="28" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="44" y="109" fill="#fff" font-size="18" font-weight="bold">Event history</text>
+    <text x="44" y="140" fill="#d7e6f4" font-size="15">Management events only</text>
+    <text x="44" y="163" fill="#d7e6f4" font-size="15">90 days per account and Region</text>
+    <rect x="340" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="356" y="109" fill="#fff" font-size="18" font-weight="bold">Trail and event selection</text>
+    <text x="356" y="140" fill="#d7e6f4" font-size="15">Select required data events</text>
+    <text x="356" y="163" fill="#d7e6f4" font-size="15">Scope S3 object activity</text>
+    <rect x="652" y="72" width="280" height="138" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="668" y="109" fill="#fff" font-size="18" font-weight="bold">Delivery verification</text>
+    <text x="668" y="140" fill="#d7e6f4" font-size="15">Check expected events arrive</text>
+    <text x="668" y="163" fill="#d7e6f4" font-size="15">Protect logs and verify retention</text>
+  </g>
+</svg>
