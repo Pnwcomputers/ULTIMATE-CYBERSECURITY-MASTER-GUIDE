@@ -146,13 +146,13 @@ data events explicitly and verify that expected records reach protected storage.
 as `GetObject` and `PutObject` are data events. [AWS Event history limits](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html) · [AWS data-event selection](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html)
 
 - **Logging:** configure multi-Region **CloudTrail** coverage, log-file validation and protected centralized storage; select required data events explicitly. S3 object-level activity is not logged by default merely by creating a trail. Enable appropriate Config recording for resource history.
-- **Threat detection:** **GuardDuty** for threat detection; **Security Hub CSPM**
+- **Threat detection:** **GuardDuty** for threat detection; [**Security Hub CSPM**](https://docs.aws.amazon.com/securityhub/latest/userguide/standards-security-score.html)
   aggregates findings and evaluates enabled security standards, including CIS when
   enabled.
 - **IAM:** require MFA for human access, prefer temporary credentials, and remove
-  long-lived keys where they are not needed. Use **IAM Access Analyzer** for
-  external-access findings and policy validation; enable its unused-access analyzer
-  separately when reviewing stale permissions. Use **SCPs** as organization-level
+  long-lived keys where they are not needed. Use [**IAM Access Analyzer**](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-findings.html)
+  for external-access findings; use its policy validation and separate unused-access
+  analyzer for those distinct review tasks. Use **SCPs** as organization-level
   permission guardrails; an SCP does not grant permissions.
 - **Data:** verify encryption choice and key policy (SSE-S3 and SSE-KMS differ), public-access controls and recovery/versioning requirements; encryption does not replace authorization.
 - **Network:** restrict management access to approved administrative paths and
