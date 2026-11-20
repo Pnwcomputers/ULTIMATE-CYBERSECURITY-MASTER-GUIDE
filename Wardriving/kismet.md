@@ -59,6 +59,10 @@ Do not test by scanning neighbors' networks and treating those captures as clien
 
 ## 3. Decide which logs to retain
 
+![Kismet wireless observations require a valid GPS location before WiGLE location-tagged rows can be emitted; wardrive logging can coexist with KismetDB or packet captures](../assets/diagrams/kismet-wardrive-gps-log-retention-flow.svg)
+
+*Conceptual wardrive data-flow gate.* Kismet's [wardrive overlay](https://www.kismetwireless.net/docs/readme/configuring/wardrive/), [WiGLE CSV logging](https://www.kismetwireless.net/docs/readme/logging/wiglecsv/) and [logging configuration](https://www.kismetwireless.net/docs/readme/logging/logging/) distinguish observations, GPS availability, output selection and separately authorized sharing. A wireless observation without a usable GPS fix is not a geolocated WiGLE CSV row.
+
 The default overlay **adds** WiGLE-compatible CSV without necessarily disabling every other configured log type:
 
 ```ini

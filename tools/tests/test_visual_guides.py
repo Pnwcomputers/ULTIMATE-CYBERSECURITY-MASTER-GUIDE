@@ -3,6 +3,7 @@
 No live sensor, SIEM, EDR, or hardware tests are attempted by this suite.
 """
 from pathlib import Path
+import re
 import unittest
 from xml.etree import ElementTree as ET
 
@@ -55,9 +56,6 @@ DIAGRAM_GUIDES = {
     ),
     "assets/diagrams/uconsole-hardware-os-preflight-paths.svg": (
         "uConsole/README.md",
-    ),
-    "assets/diagrams/vigenere-candidate-periods.svg": (
-        "Cryptography/Classical/cryptanalysis.md",
     ),
     "assets/diagrams/cryptography-primitive-decision-map.svg": (
         "Cryptography/README.md",
@@ -218,6 +216,48 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
     ),
+    "assets/diagrams/ghidra-analysis-hypothesis-validation.svg": (
+        "ReverseEngineering/ghidra-guide-index.md",
+    ),
+    "assets/diagrams/remnux-malware-analysis-network-isolation.svg": (
+        "ReverseEngineering/remnux-malware-analysis-guide.md",
+    ),
+    "assets/diagrams/kismet-wardrive-gps-log-retention-flow.svg": (
+        "Wardriving/kismet.md",
+    ),
+    "assets/diagrams/identity-alert-investigation-evidence-containment.svg": (
+        "PlayBooks/unauth_access.md",
+    ),
+    "assets/diagrams/cyberdeck-zone-policy-logical-architecture.svg": (
+        "Cyberdeck/README.md",
+    ),
+    "assets/diagrams/incident-response-nist-800-61r3-csf2-operations.svg": (
+        "PlayBooks/BlueTeam_IncResp_Enhanced.md",
+    ),
+    "assets/diagrams/ai-audit-claims-tools-and-outcomes.svg": (
+        "AI/verification-and-ai-audits.md",
+    ),
+    "assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
+    "assets/diagrams/bash-script-input-validation-and-dry-run-gates.svg": (
+        "Scripts/Bash/bash_scripting_cheat-sheet.md",
+    ),
+    "assets/diagrams/esp32-firmware-board-build-flash-acceptance.svg": (
+        "Documentation/esp32-security-firmware-catalog.md",
+    ),
+    "assets/diagrams/ai-model-routing-policy.svg": (
+        "AI/model-routing-and-cost-management.md",
+    ),
+    "assets/diagrams/openscad-preset-to-export.svg": (
+        "CAD/OpenSCAD/02-project-structure.md",
+    ),
+    "CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg": (
+        "CAD/OpenSCAD/06-keyboard-shortcuts.md",
+    ),
+    "assets/diagrams/vigenere-candidate-periods.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
 }
 
 
@@ -247,8 +287,8 @@ class VisualGuideTests(unittest.TestCase):
                 for guide in guides:
                     md = (ROOT / guide).read_text(encoding="utf-8")
                     rel = __import__("os").path.relpath(ROOT / path, (ROOT / guide).parent)
-                    self.assertIn("](" + rel.replace("\\", "/") + ")", md)
-                    self.assertIn("![" , md)
+                    target = re.escape(rel.replace("\\", "/"))
+                    self.assertRegex(md, rf"!\[[^\]\n]+\]\((?:\./)?{target}\)")
 
 
 if __name__ == "__main__":

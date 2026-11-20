@@ -6,7 +6,7 @@ Define standardized, repeatable processes for detecting, analyzing, containing, 
 
 ## ⚙️ Function
 
-A seven-phase lifecycle procedure (Preparation → Detection → Containment → Eradication → Recovery → Post-Incident) with a defined roles table and generic tool references (SIEM, EDR, IDS/IPS by category rather than specific product). This is the **quick-reference version** - for the same lifecycle with specific named tools (Splunk ES, CrowdStrike Falcon, Ghidra) and NIST/ISO framework alignment, see `BlueTeam_IncResp_Enhanced.md`.
+A local operational sequence (preparation → identification/analysis → containment → eradication → recovery → lessons learned) with assigned roles and generic tool references. These are **team procedure stages**, not a fixed phase count mandated by NIST. For the enhanced template and the [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final) / CSF 2.0 distinction, see [the enhanced playbook](BlueTeam_IncResp_Enhanced.md).
 
 ## 🏆 Goal
 
@@ -20,7 +20,7 @@ Give a smaller team or a single analyst a fast, no-frills checklist to follow th
 
 ### Scope:
 
-Covers any incident impacting on-premise or cloud systems-including malware infections, data exfiltration, unauthorized access, denial-of-service, insider threats, and supply-chain compromises-across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
+Covers any incident impacting on-premise or cloud systems-including malware infections, data exfiltration, unauthorized access, denial-of-service, insider threats, and supply-chain compromises-across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under monitoring appropriate to the organization's documented coverage. Verify staffing and sensor availability rather than assuming 24×7 coverage.
 
 ---
 
@@ -44,7 +44,7 @@ Covers any incident impacting on-premise or cloud systems-including malware infe
 - Maintain an up-to-date CMDB of critical systems, endpoints, applications, network segments, and owners.
 
 ### 2. Baseline & Logging
-- Ensure all servers/endpoints forward logs (Syslog, Windows Events) to your SIEM (Splunk, Elastic) with ≥ 90 days retention.
+- Ensure all servers/endpoints forward logs (Syslog, Windows Events) to your SIEM (Splunk, Elastic) with retention matched to legal, policy and incident-response requirements; no universal 90-day minimum is implied.
 - Deploy host-based EDR (CrowdStrike, SentinelOne) and network IDS/IPS (Suricata, Zeek).
 
 ### 3. Tooling & Access
@@ -61,7 +61,7 @@ Covers any incident impacting on-premise or cloud systems-including malware infe
 ### 4.1 Alert Triage
 
 **Dashboard Prioritization:**
-- Sort by risk score and asset criticality; investigate all High/Critical alerts within 15 minutes.
+- Sort by risk score and asset criticality. Follow the approved triage target and escalation rota; a universal 15-minute SLA cannot be assumed from this template.
 
 **Common SIGs:**
 - Unusual authentication bursts (EventCode 4625 spikes)
@@ -75,7 +75,7 @@ Covers any incident impacting on-premise or cloud systems-including malware infe
 - Snapshot memory (FTK Imager, Magnet RAM Capture).
 
 **Network:**
-- Export PCAPs from Zeek for the relevant timeframe.
+- Query Zeek's structured logs (for example connection, DNS and HTTP metadata). Obtain full PCAPs only from a separately configured packet-capture system if available; Zeek logging alone does not guarantee retained packet data.
 - Query Suricata EVE JSON logs for matching signatures.
 
 ---

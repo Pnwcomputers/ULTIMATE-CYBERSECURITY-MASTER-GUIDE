@@ -3,13 +3,13 @@
 This playbook provides step-by-step procedures for investigating unauthorized access incidents, with a focus on **brute force attacks** and **impossible travel alerts**. These are common indicators of credential compromise and account takeover attempts.
 
 ## 🎯 Purpose
-A full investigation procedure for the two most common access-abuse alert types a SOC sees - brute force/credential stuffing and impossible-travel logins - carried from initial alert through to containment and closure.
+A full investigation procedure for the two common access-abuse alert types a SOC sees - brute force/credential stuffing and impossible-travel logins - carried from initial alert through to containment and closure.
 
 ## ⚙️ Function
 Structured in parts: alert triage, brute-force-specific investigation, impossible-travel-specific investigation, and containment. Unlike `sop_phishing_analysis.md` (single-sitting, single-email SOP), this is the longer investigation you escalate into when triage confirms likely account compromise - including scenarios that started as a successful phish.
 
 ## 🏆 Goal
-Correctly distinguish real account takeover from false positives (e.g., legitimate VPN use triggering impossible-travel), and produce MITRE ATT&CK-mapped (T1110 Brute Force, T1078 Valid Accounts) evidence sufficient to justify containment actions like forced password reset or account lockout.
+Evaluate real account takeover evidence separately from false-positive explanations (e.g., legitimate VPN use triggering impossible-travel), and produce MITRE ATT&CK-mapped (T1110 Brute Force, T1078 Valid Accounts) evidence sufficient to justify containment actions like forced password reset or account lockout.
 
 ## 📋 When to Use
 - A SIEM, Microsoft Entra ID (formerly Azure AD), Okta, firewall, or VPN alert fires for repeated failed logins or geographically impossible login sequences
@@ -42,6 +42,10 @@ This playbook covers:
 
 ## 🚨 Part 1: Alert Triage
 
+![An access alert is evaluated against authentication records, user travel context and post-authentication actions before risk-based containment decisions](../assets/diagrams/identity-alert-investigation-evidence-containment.svg)
+
+*Conceptual evidence-to-action decision flow.* [Microsoft's Windows event documentation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624) distinguishes successful logon events from evidence of authorization; [Microsoft Entra risk detections](https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks) depend on context and can have false positives. A sequence of failures plus a success, or a travel anomaly, is a hypothesis for investigation—not proof of compromise.
+
 ### 1.1 Initial Alert Assessment
 
 When an alert fires, gather the following information:
@@ -50,7 +54,7 @@ When an alert fires, gather the following information:
 |-------|-------------|---------|
 | **Alert Type** | Brute force or Impossible travel | `Multiple failed logins` |
 | **Target Account** | Username/UPN affected | `jsmith@company.com` |
-| **Source IP(s)** | Attacking IP address(es) | `192.0.2.123` |
+| **Source IP(s)** | Observed origin IP address(es), not automatically attributed to an attacker | `192.0.2.123` |
 | **Timestamp** | When the activity occurred | `2024-01-15 14:23:00 UTC` |
 | **Authentication Method** | Protocol used | `RDP, OWA, VPN, SSH` |
 | **Success/Failure** | Did any attempts succeed? | `47 failures, 1 success` |
@@ -58,12 +62,14 @@ When an alert fires, gather the following information:
 
 ### 1.2 Severity Classification
 
-| Severity | Criteria | Response Time |
+| Severity | Example triage criteria | Illustrative triage target |
 |----------|----------|---------------|
-| **Critical** | Successful login after failures, privileged account, sensitive system | Immediate |
-| **High** | Ongoing attack, multiple accounts targeted, executive account | < 1 hour |
+| **Critical** | Strong evidence of unauthorized privileged access, high-impact data access or active compromise | Immediate |
+| **High** | Sustained attempts against high-value accounts or credible evidence of active misuse | < 1 hour |
 | **Medium** | Failed attempts only, single account, non-sensitive system | < 4 hours |
 | **Low** | Known scanner, honeypot trigger, non-production | < 24 hours |
+
+These priority labels and response times are **illustrative**. They are not contractual SLAs, and a login success by itself does not demonstrate malicious use. Apply the organization's approved incident-response SLAs, identity risk policies and corroborating telemetry. A high-impact privileged incident can require immediate containment even if the initial signal is only a weak anomaly.
 
 ### 1.3 Quick Triage Questions
 
@@ -117,14 +123,20 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | sort -count
 ```
 
-**Splunk Query - Successful Login After Failures:**
+**Splunk Query - Successes and Failures Within the Same 30-Minute Window (Triage):**
 
 ```spl
 index=windows sourcetype="WinEventLog:Security" (EventCode=4625 OR EventCode=4624)
-| transaction Account_Name maxspan=30m
-| where eventcount > 5 AND match(EventCode, "4624")
-| table _time, Account_Name, Source_Network_Address, eventcount
+| eval target_user=coalesce(Account_Name, TargetUserName)
+| eval source_ip=coalesce(Source_Network_Address, IpAddress)
+| where isnotnull(target_user) AND isnotnull(source_ip)
+| bin _time span=30m
+| stats count(eval(EventCode=4625)) AS failures count(eval(EventCode=4624)) AS successes BY target_user, source_ip, _time
+| where failures>5 AND successes>0
+| table _time target_user source_ip failures successes
 ```
+
+**Interpretation:** This query groups both event types into fixed time buckets; it does **not** establish that success occurred *after* the failures, that the authentication belongs to the same session, or that the person was unauthorized. Confirm event ordering, logon type, account and source identity in the raw events. Windows Event 4624/4625 fields and source IP presence vary by logon type and event collection format; check [Microsoft's event references](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624) before adapting the field mapping. This SPL is source-reviewed only; it has not been executed against the repository owner's telemetry.
 
 **Elastic ES\|QL Query - Failed Logins:**
 
@@ -135,11 +147,7 @@ FROM logs-*
 | WHERE count > 5
 ```
 
-**Wazuh Query:**
-
-```
-rule.id:18106 OR rule.id:18107
-```
+**Wazuh triage guidance:** Start with the affected agent, exact UTC window, account and authentication-related rule groups; inspect raw event fields and the **actual** triggered rule IDs in this deployment. Do not assume legacy IDs `18106`/`18107` are universal Windows-logon detections across Wazuh releases or customized rule sets. See the [Wazuh custom-rules documentation](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html) for deployment-specific rule behavior.
 
 #### Azure AD / Entra ID
 

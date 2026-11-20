@@ -218,15 +218,15 @@ if (part == "clash_view") {        // same, drawn in red inside a ghosted assemb
 
 ### Automating It
 
-OpenSCAD 2021.01 exports an empty STL (zero facets) for an empty result; newer builds may refuse to export an empty object. Either way, "no facets" means "no clash". The example's [`check.sh`](./examples/gps-cradle/check.sh) turns that into an exit code:
+Use the example's [`check.sh`](./examples/gps-cradle/check.sh) from the GPS
+cradle directory. It accepts an empty ASCII STL or OpenSCAD's explicit
+empty-object diagnostic. A failed export without that diagnostic leaves the
+clash result unknown. Read `out/clash.log` and resolve the error before printing.
+[OpenSCAD 2021.01 export implementation](https://github.com/openscad/openscad/blob/openscad-2021.01/src/openscad.cc#L259-L277).
 
 ```bash
-openscad -o out/clash.stl --export-format asciistl -D 'part="clash"' gps_cradle.scad
-facets=$(grep -c "facet normal" out/clash.stl || true)
-[ "${facets:-0}" -eq 0 ] && echo PASS || echo "FAIL: $facets clash facets"
+./check.sh
 ```
-
-Run it after **every** parameter change. It takes about six seconds for the example.
 
 ---
 

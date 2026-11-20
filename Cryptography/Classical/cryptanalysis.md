@@ -1,6 +1,6 @@
 # 🔍 Cryptanalysis
 
-_Last reviewed: 2026-11-19_
+_Last reviewed: 2026-11-19 (source and reproducibility review)_
 
 > [!IMPORTANT]
 > **Historical and educational content.** These attacks concern historical ciphers
@@ -10,6 +10,10 @@ _Last reviewed: 2026-11-19_
 [← Building Your Own Alphabet](build-your-own.md) · [🏠 Classical Index](README.md) · [Security Relevance →](security.md)
 
 Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence with a worked key-length attack.
+
+![Historical ciphertext triage separates monoalphabetic frequency-pattern analysis from Vigenere period estimates using Kasiski and the Index of Coincidence before plaintext checking](../../assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg)
+
+*Conceptual historical cryptanalysis workflow.* Candidate frequencies and key lengths are evidence to test, not proof of a unique key. English-letter statistics depend on text length, genre, language and normalization. For the worked implementation, see [cipher_toolkit.py](cipher_toolkit.py) and the [deciphering workbook](deciphering-workbook.md).
 
 **On this page:**
 
@@ -22,7 +26,7 @@ Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence w
 
 ### English Letter Frequency
 
-Monoalphabetic ciphers keep the "fingerprint" of the language. A commonly used approximate English frequency ranking is `ETAOIN SHRDLU`:
+Monoalphabetic substitution preserves relative symbol-count structure under a one-to-one mapping, but observed frequencies may diverge sharply for short ciphertext, unusual vocabulary or a different language. A commonly used approximate English frequency ranking is `ETAOIN SHRDLU`:
 
 ```
 E  12.70%  ███████████████████████████████████████████████████
@@ -66,18 +70,15 @@ Z   0.07%
 
 ## Breaking Polyalphabetic Ciphers
 
-For a repeating-key Vigenère puzzle, estimate a candidate period *L*. If the
-period is correct, every *L*th letter was shifted by the same amount. Each
-column can then be scored as a Caesar cipher.
+A common approach to a conventional **repeating-key** Vigenère cipher is to estimate candidate key periods *L*. For each candidate, grouping positions modulo *L* yields columns that may each be analyzed as a Caesar shift. Validate the inferred shifts and complete plaintext; the method does not guarantee a unique key.
 
 ### The Kasiski Examination
 
-Common words (like `THE`) sometimes line up with the same part of the repeating key and produce identical ciphertext sequences. Measure the distances between repeated sequences; look for recurring factors among several distances. Repeats can occur by chance.
+Common words (like `THE`) sometimes line up with the same part of the repeating key and produce identical ciphertext sequences. Measure the distances between repeated sequences; look for recurring factors across several distances. Repeats can also occur by chance.
 
 ### The Index of Coincidence (IC)
 
-William F. Friedman's Index of Coincidence (published 1922) estimates the probability that two distinct positions sampled uniformly from the
-text contain the same letter. [Friedman’s technical paper](https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/friedman-documents/publications/folder_233/41761039080018.pdf).
+William F. Friedman's Index of Coincidence (published 1922) estimates the probability that two *distinct positions* sampled uniformly from the text contain the same letter. [Friedman's technical paper](https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/friedman-documents/publications/folder_233/41761039080018.pdf).
 
 ```
 IC = Σ nᵢ(nᵢ − 1) / (N(N − 1))
