@@ -1,18 +1,8 @@
-git clone https://github.com/R3DHULK/is-this-your-admin/
+#!/usr/bin/env bash
+set -euo pipefail
 
-clear
-
-cd is-this-your-admin
-
-clear
-
-apt install python
-
-clear
-
-python -m pip install -r requirements.txt
-
-clear
-
-python admin-panel-sniffer.py
-
+cat >&2 <<'NOTICE'
+This launcher cloned and ran unpinned third-party panel-scanning code. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

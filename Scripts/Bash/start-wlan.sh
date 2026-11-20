@@ -1,29 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-clear
-
-echo "What do you want to do?"
-
-select action in "Fluxion" "Wifite2" "Exit"; do
-    case $action in
-        "Fluxion")
-            $PWD/start-mon.sh
-            airmon-ng check kill
-	    airmon-ng start wlan0
-	    echo "Starting Fluxion"
-	    $PWD/wlan/fluxion/fluxion.sh
-            break
-            ;;
-        "Wifite2")
-	    python $PWD/wlan/wifite2/Wifite.py
-            break
-            ;;
-        "Exit")
-            echo "Exiting..."
-            exit 0
-            ;;
-        *)
-            echo "Invalid option."
-            ;;
-    esac
-done
+cat >&2 <<'NOTICE'
+This launcher killed network processes and started wireless attack tooling without a safe target/scope check. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

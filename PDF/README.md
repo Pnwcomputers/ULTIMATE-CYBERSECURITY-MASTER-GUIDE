@@ -94,7 +94,7 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 | **[Web_Attacks_.pdf](./Web_Attacks_.pdf)** | Web application attack techniques and vectors | Web Security |
 | **[Web_application_Firewall__.pdf](./Web_application_Firewall__.pdf)** | Web Application Firewall (WAF) bypass techniques | WAF Bypass |
 | **[IDOR_Guide.pdf](./IDOR_Guide.pdf)** | Insecure Direct Object Reference (IDOR) exploitation | IDOR Attacks |
-| **[zero-day-hunter.pdf](./zero-day-hunter.pdf)** | Zero-day vulnerability hunting and exploitation | Vulnerability Research |
+| **[zero-day-hunter.pdf](./zero-day-hunter.pdf)** | Unverified novelty-style vulnerability-research resource list; non-authoritative | Research (unverified) |
 | **[ReactJs_Cheatsheet.pdf](./ReactJs_Cheatsheet.pdf)** | ReactJS security considerations and cheat sheet | Frontend Security |
 
 ### Wireless Security
@@ -925,3 +925,21 @@ We welcome high-quality PDF contributions from security professionals.
 - [../README.md](../README.md) - Main repo index
 - [../ENHANCED_MASTER_GUIDE.md](../ENHANCED_MASTER_GUIDE.md) - Enhanced master guide with deep-dive references
 - [../START_HERE.md](../START_HERE.md) - Starting point for the entire guide
+
+
+## Review notes (2026-11-19)
+
+These PDFs are imported third-party reference material. The source PDFs have not been modified; use the notes here to avoid treating risky, outdated, or unverified examples as ready-to-run guidance. Perform offensive work only in explicitly authorized environments, and verify commands and tool status against current primary sources.
+
+| PDF | Review note |
+|---|---|
+| [Web Attacks](./Web_Attacks_.pdf) | Page 38 binds an SSH dynamic SOCKS proxy to all interfaces (`0.0.0.0`); page 5 places an API-key placeholder in a URL query string. Do not use those examples as written. Bind local proxy services to loopback unless there is a reviewed need and network controls; follow the provider's current documented secret handling. |
+| [Ethical Hacking Mind Map](../Documentation/Ethical.Hacking.MindMap.pdf) | Page 1 describes defenses as stopping attacks without stating conditions. Treat these as non-guaranteed claims and verify them for the specific environment. The map includes offensive and persistence topics; use only with explicit authorization. |
+| [Active Directory Attacks](./AD_Attacks_.pdf) | The guide includes short-link downloads, an execution-policy bypass example, and host-clock changes. Treat as lab-only historical reference; verify canonical source, version, impact, and rollback before using any command. |
+| [Network Essentials](./Network_Essentials.pdf) | Telnet management examples appear on pages 23–24 and 33. Do not apply them to production management planes; use SSH and current vendor guidance. |
+| [Wi-Fi Hacking Notes](./Wi_Fi_hacking__.pdf) | Undated lab notes include legacy interface commands and wireless attack exercises. Verify current hardware/protocol guidance and use an isolated, authorized lab. |
+| [Pentest Checklist](./Pentest_Check_List.pdf) and [Pentest Guide](./Pentest_Guide.pdf) | The checklist relies on short links; the guide warns that some links may fail. Follow canonical sources and confirm they are current. |
+| [Zero-Day Hunter](./zero-day-hunter.pdf) | A novelty-style, unverified resource list, not an authoritative guide or vetted route into vulnerability research. |
+| [SAST Scanners Cheat Sheet](../Documentation/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf) | Dated January 2022; use as a historical tool catalogue and check active support before selecting a scanner. |
+
+The repository contains 20 PDFs (18 in this folder and two in `Documentation/`). Six larger PDFs could not be read through the available repository connection and remain unreviewed: `IDOR_Guide.pdf`, `Linux_Privilege_Escalation.pdf`, `Network_101_1738356173.pdf`, `OSCP_Cheat_Sheet.pdf`, `docker-pen-test.pdf`, and `ssh-pen-testing.pdf`. The image-only React cheat sheet was not visually reviewed page by page. See [the whole-repository review](../REVIEW_2026-11-19.md) for coverage and limitations.

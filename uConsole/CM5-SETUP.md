@@ -178,7 +178,14 @@ images to fail to boot.
    - Click **Write**. When prompted about custom settings, choose **No** / **Skip**.
 3. Insert the microSD card into the uConsole and boot.
 
-> **Linux/`dd` alternative:** If you prefer the command line, decompress with `xz -d <image>.xz` first, then `sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync`. Pi Imager is what Rex specifically recommends, though.
+> [!CAUTION]
+> Pi Imager is preferred. Writing to the wrong device irreversibly destroys its data. Before running `dd`, verify the image source and checksum where published, inspect the target with `lsblk -o NAME,SIZE,MODEL,SERIAL,TRAN,MOUNTPOINTS`, confirm its model/capacity and whole-device path, unmount its partitions, and confirm it is not the host system disk. Replace `/dev/sdX` only after identifying the exact card. Stop if the identity is uncertain.
+>
+> ```bash
+> xz -d <image>.xz
+> sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync
+> sync
+> ```
 
 > **CM5 lite SD card boot issue:** If you have a CM5 lite and the SD card won't boot, you likely need an EEPROM update. See [Troubleshooting → CM5 lite SD boot fails](#troubleshooting) before getting frustrated - this is a known issue with a documented fix.
 
@@ -186,7 +193,7 @@ images to fail to boot.
 
 Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once - let that complete. After the second boot:
 
-- Log in using the credentials supplied or established by the **exact trusted image**. Never assume a fixed factory password; change initial credentials promptly.
+- Keep the device offline during first setup. Log in using the credentials supplied by the **exact trusted image**, then immediately change or disable factory credentials before enabling Wi-Fi, Ethernet, SSH, or other remote access. Verify image provenance and its checksum/signature when the maintainer publishes one. If you cannot change or disable the default account, keep the device isolated.
 - Open a terminal
 
 Record the working baseline and back up before package changes. Proceed to Step 2.

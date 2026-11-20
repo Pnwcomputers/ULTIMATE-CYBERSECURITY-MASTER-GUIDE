@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Investigation output can contain personal or case-sensitive data.
+umask 077
+
 #############################################
 #  PHONE NUMBER OSINT INVESTIGATION SCRIPT v1.0
 #  Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers

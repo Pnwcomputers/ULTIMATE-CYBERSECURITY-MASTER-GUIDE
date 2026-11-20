@@ -1,8 +1,8 @@
-clear
-apt install git
-apt install python
-clear
-git clone https://github.com/R3DHULK/hack-gmail/
-cd hack-gmail
-clear
-python hack-gmail.py
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat >&2 <<'NOTICE'
+This launcher cloned and ran an unpinned Gmail password-attack tool. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

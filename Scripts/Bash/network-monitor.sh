@@ -1,17 +1,8 @@
-clear
+#!/usr/bin/env bash
+set -euo pipefail
 
-apt install git
-
-git clone https://github.com/R3DHULK/all-about-network
-
-cd all-about-network
-
-apt install python
-
-clear
-
-python -m pip install -r requirements.txt
-
-clear
-
-python network-monitoring.py
+cat >&2 <<'NOTICE'
+This launcher cloned and ran unpinned third-party code. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

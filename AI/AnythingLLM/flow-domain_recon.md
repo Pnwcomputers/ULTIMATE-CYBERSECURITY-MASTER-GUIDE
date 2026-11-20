@@ -366,3 +366,19 @@ Use the vendor’s current documented API operation through an approved server-s
 - [flow-company_osint.md](flow-company_osint.md) - Company-level context for discovered domains
 - [flow-email_osint.md](flow-email_osint.md) - Email OSINT on contacts from this domain
 - [anything_llm_agentflows.md](anything_llm_agentflows.md) - DomainRecon is the standard first step in the recon chain
+
+## Data Path & Scope Boundary
+
+Certificate-transparency, WHOIS, reverse-IP, and DNS results are leads, not proof of ownership. The security-header request is an active web request; run it only when that specific host is in scope.
+
+```mermaid
+flowchart LR
+    A[Authorized domain] --> B[Passive CT, WHOIS, DNS, and reverse-IP sources]
+    B --> C[Normalize and deduplicate candidate assets]
+    C --> D{Is active HTTP checking approved for this host?}
+    D -- no --> E[Keep as passive lead; do not probe]
+    D -- yes --> F[Fetch security headers]
+    E --> G[Analyst verifies ownership and provenance]
+    F --> G
+    G --> H[Report evidence, timestamps, and unresolved leads]
+```

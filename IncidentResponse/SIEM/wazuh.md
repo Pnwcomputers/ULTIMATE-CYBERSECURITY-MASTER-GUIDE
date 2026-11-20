@@ -488,3 +488,29 @@ docker compose up -d
 - [splunk.md](splunk.md) - Splunk as Wazuh SIEM alternative
 - [graylog.md](graylog.md) - Graylog alternative
 - [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Sysmon data source for Wazuh agents
+
+## Data Flow & Trust Boundaries
+
+This logical view reflects the single-node deployment described on this page. Restrict enrollment, agent, API, and dashboard access to their intended endpoint or administrator networks, and use the release-specific TLS configuration.
+
+```mermaid
+flowchart LR
+    subgraph Endpoints
+        A[Windows/Linux agents]
+    end
+    subgraph Wazuh host or isolated stack
+        B[Manager: collection and analysis]
+        C[Indexer: alert storage and search]
+        D[Dashboard: analyst interface]
+        E[Wazuh API]
+    end
+    A -->|1514 agent events| B
+    A -.->|1515 enrollment, restricted| B
+    B -->|authenticated/TLS forwarding| C
+    C --> D
+    E --> D
+    F[Administrator on VPN or management subnet] -->|HTTPS| D
+    F -->|restricted API| E
+    G[Untrusted networks] -. blocked .-> D
+    G -. blocked .-> E
+```

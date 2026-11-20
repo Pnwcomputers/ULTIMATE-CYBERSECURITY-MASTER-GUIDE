@@ -17,6 +17,9 @@ source "$_PNWC_LIB" || { echo "Missing helper library: $_PNWC_LIB" >&2; exit 1; 
 
 set -o pipefail
 
+# Investigation reports can contain sensitive wallet and case data.
+umask 077
+
 # ---------------------------------------------------------------------------
 # Colors
 # ---------------------------------------------------------------------------
@@ -388,7 +391,7 @@ audit_blockchair() {
     fi
 
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$bc_file" -w "%{http_code}" "$bc_url")
+    http_code=$(private_curl_status_url "$bc_url" "$bc_file")
 
     {
         printf "%s ADDRESS AUDIT\n" "$chain_label"

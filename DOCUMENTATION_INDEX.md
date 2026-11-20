@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**404 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**405 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -8,7 +8,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 
 | Section | Documents | Open |
 | --- | ---: | --- |
-| Root Guides & Repository Documents | 16 | [Open section](#root-guides--repository-documents) |
+| Root Guides & Repository Documents | 17 | [Open section](#root-guides--repository-documents) |
 | .github | 7 | [Open section](#github) |
 | AI | 36 | [Open section](#ai) |
 | CAD | 9 | [Open section](#cad) |
@@ -51,6 +51,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [GLOSSARY.md](./GLOSSARY.md) | `GLOSSARY.md` |
 | [LEGAL.md](./LEGAL.md) | `LEGAL.md` |
 | [README.md](./README.md) | `README.md` |
+| [REVIEW_2026-11-19.md](./REVIEW_2026-11-19.md) | `REVIEW_2026-11-19.md` |
 | [SECURITY_REMEDIATION_PLAN.md](./SECURITY_REMEDIATION_PLAN.md) | `SECURITY_REMEDIATION_PLAN.md` |
 | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | `SPECIALIZED_TOPICS_GUIDE.md` |
 | [START_HERE.md](./START_HERE.md) | `START_HERE.md` |

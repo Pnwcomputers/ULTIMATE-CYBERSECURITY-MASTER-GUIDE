@@ -1,19 +1,8 @@
-clear
+#!/usr/bin/env bash
+set -euo pipefail
 
-apt install git
-
-clear
-
-git clone https://github.com/R3DHULK/utilise_SHODAN-API
-
-clear 
-
-cd utilise_SHODAN-API
-
-clear
-
-apt install python
-
-clear
-
-python shodan_api.py
+cat >&2 <<'NOTICE'
+This launcher cloned and ran unpinned third-party code. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

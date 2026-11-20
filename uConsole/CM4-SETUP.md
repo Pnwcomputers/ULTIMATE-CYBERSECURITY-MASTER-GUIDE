@@ -157,13 +157,21 @@ Rex's specific guidance from the forum threads: **use Raspberry Pi Imager direct
    - Click **Write**. When prompted about custom settings, choose **No** / **Skip**.
 3. Insert the microSD card into the uConsole and boot.
 
-> **Linux/`dd` alternative:** If you prefer the command line, decompress with `xz -d <image>.xz` first, then `sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync`. Pi Imager is what Rex specifically recommends, though.
+> [!CAUTION]
+> Pi Imager is preferred. Writing to the wrong device irreversibly destroys its data. Before running `dd`, verify the image source and checksum where published, inspect the target with `lsblk -o NAME,SIZE,MODEL,SERIAL,TRAN,MOUNTPOINTS`, confirm its model/capacity and whole-device path, unmount its partitions, and confirm it is not the host system disk. Replace `/dev/sdX` only after identifying the exact card. Stop if the identity is uncertain.
+>
+> ```bash
+> xz -d <image>.xz
+> sudo dd if=<image>.img of=/dev/sdX bs=4M status=progress conv=fsync
+> sync
+> ```
 
 ### First Boot
 
-Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once - let that complete. After the second boot:
-- Log in with the default credentials
-- Open a terminal
+Power on. Rex's images auto-expand the root filesystem on first boot and then reboot once — let that complete. Keep the device offline during first setup. After the second boot:
+- Verify the downloaded image's provenance and checksum/signature when the maintainer publishes one.
+- Log in with the listed image default credentials and immediately change the password with `passwd` before enabling Wi-Fi, Ethernet, SSH, or other remote access.
+- Open a terminal. If you cannot change or disable the default account, keep the device isolated.
 **Do NOT run `apt update` or `apt full-upgrade` yet.** Proceed directly to Step 2.
 
 ---
@@ -207,7 +215,7 @@ apt-get -s upgrade
 
 `apt-get update` refreshes package metadata; `apt-get -s upgrade` is a **simulation**, not an upgrade. Inspect proposed kernel, firmware, session, desktop and AIO changes. The v2.0 CM4 setup script deliberately **does not perform an upgrade**, force overwrites, reboot or change the hostname. Do not add Kali Rolling APT sources to Debian, and do not rely on a global `Dpkg::Options::=--force-overwrite` workaround.
 
-Use `sudo dpkg-reconfigure tzdata` and `passwd` only when needed and when the local session is working. If update simulations suggest removing critical dependencies, correct the repository situation first. [Kali official repository warning](https://www.kali.org/docs/general-use/kali-apt-sources/) · [Debian repository mixing warning](https://wiki.debian.org/DontBreakDebian).
+Use `sudo dpkg-reconfigure tzdata` when needed. The initial account password must already have been changed while the device was offline in Step 1. If update simulations suggest removing critical dependencies, correct the repository situation first. [Kali official repository warning](https://www.kali.org/docs/general-use/kali-apt-sources/) · [Debian repository mixing warning](https://wiki.debian.org/DontBreakDebian).
 
 ## Step 4: Security Tools for Your Distribution
 

@@ -1,19 +1,8 @@
-clear
+#!/usr/bin/env bash
+set -euo pipefail
 
-git clone https://github.com/R3DHULK/fakemail
-
-clear
-
-cd fakemail
-
-clear
-
-apt install python
-
-clear
-
-python -m pip install -r requirements.txt
-
-clear
-
-python fakemail.py
+cat >&2 <<'NOTICE'
+This launcher cloned and ran unpinned third-party email tooling. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

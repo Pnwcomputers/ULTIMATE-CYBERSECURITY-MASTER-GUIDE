@@ -67,13 +67,12 @@ Ollama is the backbone of our setup - it manages and runs the AI models locally.
 
 ### Installation on Linux
 
-```bash
-# Install Ollama with the official script
-curl -fsSL https://ollama.com/install.sh | sh
+Use Ollama's [official Linux documentation](https://docs.ollama.com/linux) to choose the current package or manual-install method for your architecture. The vendor's quick-install script is served from a mutable URL; do not copy `curl ... | sh` into a reusable script or run a fetched installer without reviewing it.
 
-# Verify installation
-ollama --version
-```
+- Prefer a maintained distribution package where available.
+- For manual installation, select a specific official release and architecture, verify published checksums/signatures when available, and inspect the archive contents before installing.
+- Run installation with the least privilege the selected method permits. Do not add `sudo` to a remote installer by default.
+- Record the chosen release and follow its upgrade notes; re-check provenance and integrity for updates.
 
 ### Installation on macOS
 
@@ -431,16 +430,18 @@ Set a clear role for consistent behavior across sessions.
 ### Maintaining Your System
 
 **Regular Updates**:
+
+Use the official [Linux update guidance](https://docs.ollama.com/linux#updating) and review release notes before changing the installed version. Prefer the package manager or a versioned official release artifact; verify its published integrity data where available. Avoid piping a mutable remote installer directly into a shell.
+
 ```bash
-# Update Ollama
-curl -fsSL https://ollama.com/install.sh | sh
+# Review the installed version before and after an approved update
+ollama --version
 
-# Update models (check for new versions)
+# Pull a model update only after checking its current name and requirements
 ollama pull dolphin-mistral
-
-# Update AnythingLLM
-# Download latest version from website or use built-in updater
 ```
+
+Back up service configuration and note the model storage location before changing the runtime. Use AnythingLLM's built-in updater or its official download page, then verify its version.
 
 **Disk Space Management**:
 ```bash

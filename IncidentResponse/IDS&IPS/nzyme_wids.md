@@ -165,12 +165,14 @@ sudo nano /etc/nzyme/nzyme.conf
 | Key | Value |
 |---|---|
 | `general.database_path` | `postgresql://localhost:5432/nzyme?user=nzyme&password=YOUR_STRONG_PW` |
-| `interfaces.rest_listen_uri` | `https://0.0.0.0:22900/` |
+| `interfaces.rest_listen_uri` | `https://0.0.0.0:22900/` (binds on every interface; restrict with host/network firewall before starting) |
 | `interfaces.http_external_uri` | `https://10.0.1.x:22900/` (VM's LAN IP) |
 
 If the database password contains reserved URL characters, percent-encode them in the connection URI; do not paste a literal password that changes how the URI is parsed.
 
 nzyme is **HTTPS-only** — it will not answer on plain HTTP. `/etc/default/nzyme` sets JVM heap to `-Xms1g -Xmx1g` by default; raise only if you see heap OOM under load.
+
+> **Access control before first start:** `0.0.0.0` exposes the REST/admin listener on every interface. Before starting nzyme or creating the first admin user, configure the host/network firewall to allow TCP/22900 only from a dedicated management subnet or VPN. Do not expose this port directly to the public Internet. Verify the rule from an untrusted network before proceeding; the self-signed certificate warning does not provide access control.
 
 ### Migrate, Enable, Start
 
@@ -180,7 +182,7 @@ sudo systemctl enable --now nzyme
 sudo journalctl -u nzyme -f     # wait for "Started web interface and REST API at [...]"
 ```
 
-Visit `https://10.0.1.x:22900/` (self-signed cert warning is expected) and create your first admin user.
+Visit `https://10.0.1.x:22900/` from the approved management network (the self-signed certificate warning is expected) and create your first admin user.
 
 ---
 

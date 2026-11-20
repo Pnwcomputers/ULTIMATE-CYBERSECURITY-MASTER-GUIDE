@@ -1,19 +1,8 @@
-clear
+#!/usr/bin/env bash
+set -euo pipefail
 
-apt install git
-
-clear
-
-git clone https://github.com/R3DHULK/get_wifipass
-
-clear
-
-cd get_wifipass
-
-clear
-
-apt install python
-
-clear
-
-python get_wifipass.py
+cat >&2 <<'NOTICE'
+This launcher installed and ran an unpinned Wi-Fi password-harvesting tool. Use a reviewed, authorized local alternative with explicit scope and limits.
+This path is retained as an inert notice and performs no actions.
+NOTICE
+exit 2
