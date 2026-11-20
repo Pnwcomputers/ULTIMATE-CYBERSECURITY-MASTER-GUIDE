@@ -1013,16 +1013,7 @@ sudo nmap --script-updatedb
 
 #### Exploitation Frameworks
 
-**Metasploit Framework**:
-```bash
-# Already installed on Kali
-# Initialize database
-sudo msfdb init
-
-# Custom modules from your guide
-mkdir -p ~/.msf4/modules/exploits/custom
-cp /mnt/pentest-data/exploits/*.rb ~/.msf4/modules/exploits/custom/
-```
+**Metasploit Framework**: Follow the current Kali and Metasploit documentation for installation and database setup. Review custom modules from a trusted source before use; test only against a disposable target inside the written exercise scope. Do not assume the framework or a module is present on a particular Kali image.
 
 **Commercial simulation platforms** (licensed): Follow the vendor's current deployment guide and written exercise scope. Use synthetic credentials and disposable lab agents, keep the control server and clients on the isolated lab network, and do not place secrets directly in shell commands, scripts, or documentation.
 
@@ -1444,7 +1435,7 @@ Field names and indexes depend on the installed add-ons, sourcetypes, and field 
 index=windows EventCode=4625 | stats count by src_ip, user
 
 # PowerShell execution
-index=windows EventCode=4104 | search ScriptBlockText="*"
+index=windows EventCode=4104 | stats count by host user
 
 # New process creation (potential malware)
 index=windows EventCode=4688 | search NewProcessName="*powershell.exe*" OR NewProcessName="*cmd.exe*"
