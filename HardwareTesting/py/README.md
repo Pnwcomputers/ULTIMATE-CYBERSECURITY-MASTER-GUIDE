@@ -38,6 +38,10 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `m
 
 > **Quick rule of thumb:** Run the diagnostic scripts first to establish a baseline and catch obvious failures. Run `stress_soak.py` before returning hardware to a client to validate long-term reliability.
 
+![Hardware testing workflow from system inventory and temperature baseline through bounded CPU, RAM and GPU load, independently approved storage testing and evidence-based result reporting](../../assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg)
+
+*Use this as a planning aid, not a call graph for these Python scripts. Check each script's prerequisites, options, temporary-file behavior and stop limits before running it.*
+
 ---
 
 ## Prerequisites
