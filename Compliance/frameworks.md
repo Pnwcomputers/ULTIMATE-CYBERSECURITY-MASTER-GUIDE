@@ -1,6 +1,6 @@
 # 🏛️ Security Control Frameworks
 
-_Last reviewed: 2026-11-17 (primary-source documentation review; no assessment or certification performed)._
+_Last reviewed: 2026-11-19 (targeted version and scope clarification against primary sources; no assessment or certification performed)._
 
 > [!IMPORTANT]
 > Educational reference, **not** compliance advice. Framework versions change -
@@ -13,9 +13,8 @@ A working reference to the major security control frameworks - what each is, whe
 it applies, how it is structured, and how they relate.
 
 ## ⚙️ Function
-Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8/v8.1,
-and the NIST SP 800-53 control catalog / SP 800-171 requirements, with version notes verified against
-each authoritative source.
+Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8.1 (retaining versioned references to v8 where applicable), and
+NIST SP 800-53 / SP 800-171, with versions checked against authoritative sources.
 
 ## 🏆 Goal
 Let a reader pick the right framework, understand its structure, and see how a
@@ -34,7 +33,7 @@ single set of technical controls maps across several of them.
 - [ISO/IEC 27001:2022](#isoiec-270012022)
 - [SOC 2](#soc-2)
 - [PCI DSS 4.0.1](#pci-dss-401)
-- [CIS Controls v8](#cis-controls-v8)
+- [CIS Controls v8.1](#cis-controls-v81)
 - [NIST SP 800-53 & 800-171](#nist-sp-800-53--800-171)
 - [How They Relate](#how-they-relate)
 - [Resources](#-resources)
@@ -100,10 +99,9 @@ PCI DSS addresses entities that store, process, or transmit cardholder/sensitive
 
 ---
 
-## CIS Controls v8
+## CIS Controls v8.1
 
-The current [CIS material](https://www.cisecurity.org/controls) covers **v8.1**; retain exact version IDs when reading older v8 mappings. It is a **prioritized, prescriptive** set of **18 controls** (v8 consolidated the prior
-20), each broken into safeguards and grouped into **Implementation Groups (IG1-IG3)**
+The current [CIS material](https://www.cisecurity.org/controls) is **v8.1**; retain exact version IDs when using older v8 mappings. The 18 prioritized, prescriptive controls are broken into safeguards and grouped into **Implementation Groups (IG1-IG3)**
 by organizational risk profile and resources. IG2 includes IG1; IG3 includes all safeguards. They are implementation priorities, not certification or maturity scores ([CIS IG guidance](https://www.cisecurity.org/controls/implementation-groups)).
 
 - **IG1** is the "essential cyber hygiene" baseline every org should meet.

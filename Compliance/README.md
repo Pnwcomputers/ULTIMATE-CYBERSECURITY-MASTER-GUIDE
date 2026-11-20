@@ -29,7 +29,7 @@ one set of controls to many requirements.
 ## ⚙️ Function
 Indexes the Compliance & GRC section: GRC fundamentals and a control-mapping
 approach (this file), the major control frameworks (NIST CSF 2.0, ISO/IEC
-27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8, NIST 800-53/800-171), and the
+27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8.1, NIST 800-53/800-171), and the
 key data-protection regulations (GDPR, HIPAA, CCPA/CPRA).
 
 ## 🏆 Goal
@@ -61,8 +61,7 @@ repo.
 ## 🎯 Overview
 
 Compliance is heavily referenced across this repository but previously had no home.
-This section consolidates it. The theme throughout: **compliance is the evidence
-that good security controls exist and operate** - the technical work lives in the
+This section consolidates it. The theme throughout: **compliance evidence shows how applicable requirements are addressed; it does not by itself establish that security is strong or every risk is controlled**. The technical work lives in the
 [IncidentResponse](../IncidentResponse/), [Cloud](../Cloud/),
 [WebAppSecurity](../WebAppSecurity/), and [Checklists](../Checklists/) sections;
 GRC organizes, requires, and demonstrates it.
@@ -91,7 +90,7 @@ matter most**; governance ensures they are **owned and maintained**.
 | An internationally recognized certification | **ISO/IEC 27001:2022** |
 | Assure customers/partners of your controls (SaaS/service orgs) | **SOC 2** |
 | Handle payment-account data or systems affecting CDE security | **PCI DSS 4.0.1** (scope and validation depend on the applicable payment program) |
-| A prioritized, prescriptive starting set of controls | **CIS Controls v8** |
+| A prioritized, prescriptive starting set of controls | **CIS Controls v8.1** |
 | A US federal / government-adjacent baseline | **NIST SP 800-53 / 800-171** |
 
 Details in [frameworks.md](./frameworks.md). For PCI DSS, scope includes entities that store, process, or transmit cardholder data (CHD) or sensitive authentication data (SAD), and systems that can affect CDE security. The relevant payment brand, acquirer, or other compliance-accepting entity determines validation and reporting expectations; confirm the applicable scope and method with them and a qualified assessor. See the [PCI DSS overview](https://www.pcisecuritystandards.org/standards/pci-dss/) and [PCI SSC FAQ 1473](https://www.pcisecuritystandards.org/faqs/1473/).
@@ -129,7 +128,7 @@ cross-framework crosswalks to accelerate this.
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[frameworks.md](./frameworks.md)** | Control frameworks - NIST CSF 2.0, ISO 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8, NIST 800-53/800-171 | ✅ Complete |
+| **[frameworks.md](./frameworks.md)** | Control frameworks - NIST CSF 2.0, ISO 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8.1, NIST 800-53/800-171 | ✅ Complete |
 | **[pci-dss-scoping.md](./pci-dss-scoping.md)** | PCI DSS 4.0.1 scoping workflow, connected-to systems, segmentation evidence and third-party responsibilities | ✅ Reference guide |
 | **[pci-scope-review-template.md](./pci-scope-review-template.md)** | Blank, privacy-conscious scoping review, exclusion and shared-responsibility worksheet | ✅ Reusable template |
 | **[regulations.md](./regulations.md)** | Data-protection regulations - GDPR, HIPAA, CCPA/CPRA, and breach-notification duties | ✅ Complete |
