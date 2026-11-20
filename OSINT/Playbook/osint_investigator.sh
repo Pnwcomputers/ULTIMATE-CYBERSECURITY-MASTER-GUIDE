@@ -269,6 +269,8 @@ export WHOISXML_API_KEY=""
 export VERIPHONE_API_KEY=""
 export ABUSEIPDB_API_KEY=""
 export URLHAUS_AUTH_KEY=""
+export THREATFOX_AUTH_KEY=""
+export MALWAREBAZAAR_AUTH_KEY=""
 export ETHERSCAN_API_KEY=""
 APIEOF
     chmod 600 "${API_CONFIG}"
@@ -285,6 +287,8 @@ configure_apis() {
         "SECURITYTRAILS_API_KEY:SecurityTrails"
         "ABUSEIPDB_API_KEY:AbuseIPDB"
         "URLHAUS_AUTH_KEY:URLhaus Auth-Key"
+        "THREATFOX_AUTH_KEY:ThreatFox Auth-Key"
+        "MALWAREBAZAAR_AUTH_KEY:MalwareBazaar Auth-Key"
         "WHOISXML_API_KEY:WhoisXML"
         "VERIPHONE_API_KEY:Veriphone"
     )
@@ -326,6 +330,8 @@ show_api_status() {
         "VIRUSTOTAL_API_KEY:VirusTotal"
         "HAVEIBEENPWNED_API_KEY:HIBP"
         "URLHAUS_AUTH_KEY:URLhaus"
+        "THREATFOX_AUTH_KEY:ThreatFox"
+        "MALWAREBAZAAR_AUTH_KEY:MalwareBazaar"
     )
 
     for entry in "${apis[@]}"; do
