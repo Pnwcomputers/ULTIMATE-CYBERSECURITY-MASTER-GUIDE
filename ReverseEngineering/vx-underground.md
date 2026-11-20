@@ -1,6 +1,6 @@
 # 🦠 vx-underground: Malware Research Library
 
-_Last reviewed: 2026-10-07_
+_Last reviewed: 2026-11-20_
 
 > [!CAUTION]
 > **Authorized use only.** vx-underground hosts **live malware**, malware source
@@ -117,7 +117,7 @@ binary, start with [Part I of the Ghidra guide](./ghidra-guide-index.md#part-i-g
 1. Lab ready?      isolated VM, host-only/no network, clean snapshot taken
 2. Download        from vx-underground.org or the official GitHub only
 3. Move in         transfer the still-encrypted archive into the lab VM
-4. Verify          hash before extraction; compare to the listing / VirusTotal
+4. Verify          hash before extraction; compare with a publisher-provided hash when available; use reputation services by hash lookup unless approved to submit the sample
 5. Extract         inside the VM only
 6. Analyze         static first (strings, PE info, Ghidra), dynamic last
 7. Produce         YARA / Sigma / IOCs / write-up
@@ -129,11 +129,19 @@ binary, start with [Part I of the Ghidra guide](./ghidra-guide-index.md#part-i-g
 - Dedicated analysis VM (e.g., [FLARE-VM](https://github.com/mandiant/flare-vm)
   for Windows samples, [REMnux](https://remnux.org/) for Linux tooling) with a
   clean snapshot. See [virtualmachines.md](../Documentation/virtualmachines.md).
-- **No shared folders, no clipboard sharing, no bridged networking.** Use
-  host-only or an isolated internal network; add a fake-internet service such as
-  INetSim on REMnux when you need dynamic network behavior.
+- **No shared folders, no clipboard sharing, and no bridged, NAT, LAN, or host-adapter route.**
+  Prefer a hypervisor-internal virtual network with no host interface. A
+  host-only network can expose a virtual adapter to the host, so verify the
+  hypervisor's actual configuration instead of treating the label as proof of
+  isolation. Put INetSim on that isolated segment only when dynamic analysis
+  requires simulated services. See the [VirtualBox networking documentation](https://download.virtualbox.org/virtualbox/7.2.22/UserManual.pdf)
+  for its host-only networking behavior.
 - Never on your daily-driver host, a client-facing machine, or a NAS/TrueNAS
   share that other systems mount.
+
+![Conceptual malware-analysis workflow: evidence intake, REMnux static analysis, optional isolated execution, and controlled evidence export.](../assets/diagrams/remnux-malware-analysis-network-isolation.svg)
+
+*Conceptual workflow; verify the network and host-integration settings in your own hypervisor.*
 
 ### 2–4. Download, move, verify
 
