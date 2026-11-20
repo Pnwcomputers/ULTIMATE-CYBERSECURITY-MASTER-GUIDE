@@ -1051,7 +1051,7 @@ analyze_image("suspicious_image.jpg")
 
 ![Windows propagation reaches an engineering host, then a matching PLC, where concealed code changes can affect physical equipment](./assets/diagrams/stuxnet-it-to-physical-process.svg)
 
-*Original conceptual mechanism summary based on [Symantec's W32.Stuxnet Dossier, version 1.4, pages 2–3 and 36 onward](https://nsarchive.gwu.edu/sites/default/files/documents/2700124/Document-44.pdf). Not every infected Windows host reached the industrial-payload stage. The dossier treats original target ingress as a possible scenario, not a proved USB-delivery account.*
+*Original conceptual mechanism summary based on [Symantec's W32.Stuxnet Dossier, version 1.4, pages 2–3 and 36 onward](https://nsarchive.gwu.edu/sites/default/files/documents/2700124/Document-44.pdf), cross-checked against [MITRE ATT&CK's Stuxnet profile](https://attack.mitre.org/software/S0603/). Not every infected Windows host reached the industrial-payload stage. Removable-media propagation is documented; this summary does not establish the original ingress path into the target environment.*
 
 ### Overview
 **Target:** Iranian nuclear facilities (specifically Natanz)  
@@ -1087,22 +1087,22 @@ Stuxnet Attack Chain:
 ```bash
 # Stuxnet used multiple attack vectors:
 
-# 1. LNK vulnerability for initial execution
-# Malicious .lnk file automatically executed code
+# 1. LNK vulnerability as a documented propagation technique
+# A crafted .lnk could trigger code execution when encountered; this does not prove it was the original target ingress
 
-# 2. Rootkit for persistence
-# Installed kernel-mode drivers to hide presence
+# 2. Rootkit for stealth
+# Kernel-mode components hid Stuxnet files and related artifacts
 
 # 3. PLC infection
 # Modified Step 7 projects to inject malicious code
 
-# 4. Physical damage
-# Manipulated centrifuge speeds while showing normal readings
+# 4. Process manipulation
+# Target-specific PLC logic changed drive behavior while falsifying monitoring views
 ```
 
 ### Lessons Learned
-- **Air-gap is not foolproof** - USB drives bridged the gap
-- **Supply chain attacks** - Targeted specific industrial equipment
+- **Isolated networks still have transfer paths** - removable-media propagation is documented, but the original ingress route into the target environment is not established here
+- **Target-specific payloads** - activation depended on matching industrial equipment and process conditions
 - **Defense in depth** - Multiple layers of compromise required
 - **Attribution is difficult** - Sophisticated nation-state operation
 
