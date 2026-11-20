@@ -4,7 +4,7 @@
 
 ## What Researchers Found
 
-At Black Hat USA 2012, researcher Cody Brocious presented security problems in widely deployed Onity electronic hotel locks. Public accounts describe abuse of an externally accessible maintenance interface and inadequate separation between technician functions and room-access authorization. The result was a serious **physical trust-boundary failure**. Historical reports estimated deployment in millions of doors; they do not determine whether an individual modern lock is vulnerable.
+At Black Hat USA 2012, researcher Cody Brocious presented security problems in widely deployed Onity electronic hotel locks. Public accounts describe abuse of an externally accessible maintenance interface and inadequate separation between technician functions and room-access authorization. The result was a serious **physical trust-boundary failure**. Reliability was not deterministic: PCWorld reported that, in tests conducted for *Forbes*, the device opened one of three locks, and only after a second attempt on the one that opened; timing affected communication. That limitation does not make the exposure harmless, but it matters when describing the demonstration. Historical reports estimated deployment in millions of doors; they do not determine whether an individual modern lock is vulnerable.
 
 Do not confuse the Onity research with the unrelated 2024 **Unsaflok** RFID/key-management disclosures. The attack prerequisites and vendor remediation paths differ.
 
