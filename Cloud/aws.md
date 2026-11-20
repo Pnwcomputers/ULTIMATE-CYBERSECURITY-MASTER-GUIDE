@@ -151,8 +151,8 @@ as `GetObject` and `PutObject` are data events. [AWS Event history limits](https
   enabled.
 - **IAM:** require MFA for human access, prefer temporary credentials, and remove
   long-lived keys where they are not needed. Use [**IAM Access Analyzer**](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-findings.html)
-  for external-access findings; use its policy validation and separate unused-access
-  analyzer for those distinct review tasks. Use **SCPs** as organization-level
+  for external-access findings; use [policy validation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html)
+  and a separate unused-access analyzer for those distinct review tasks. Use **SCPs** as organization-level
   permission guardrails; an SCP does not grant permissions.
 - **Data:** verify encryption choice and key policy (SSE-S3 and SSE-KMS differ), public-access controls and recovery/versioning requirements; encryption does not replace authorization.
 - **Network:** restrict management access to approved administrative paths and
