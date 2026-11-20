@@ -1,6 +1,6 @@
 # Encrypted Drives, Removable Storage, and Key Protection
 
-_Last reviewed: 2026-11-17 (primary-source and visual review; no hardware, mount, key, or encryption operations performed)_
+_Last reviewed: 2026-11-20 (primary-source and visual review; no hardware, mount, key, or encryption operations performed)_
 
 Part of [Cryptography](./README.md) in the [Ultimate Cybersecurity Master Guide](../README.md).
 
@@ -48,7 +48,7 @@ Before purchasing or initializing any drive, record:
 7. **Evidence integrity:** hash manifests, chain-of-custody records, write-protection where needed, and whether the encryption mode authenticates writes.
 
 > [!WARNING]
-> AES-XTS is a common disk encryption mode for confidentiality, **not authenticated encryption**. [NIST SP 800-38E](https://csrc.nist.gov/pubs/sp/800/38/e/final) explicitly excludes data/source authentication. Do not infer tamper detection, integrity, or plausible deniability from an AES-256 label or a hidden partition.
+> AES-XTS is a common disk encryption mode for confidentiality, **not authenticated encryption**. [NIST SP 800-38E](https://csrc.nist.gov/pubs/sp/800/38/e/final) explicitly excludes data/source authentication. Do not infer tamper detection, integrity, or plausible deniability from an AES-256 label or a hidden partition. NIST published a **draft revision** in September 2026 that retains this limitation; it is not a final replacement for SP 800-38E. Recheck the final publication when issued: [SP 800-38E Rev. 1 draft](https://csrc.nist.gov/pubs/sp/800/38/e/r1/ipd).
 
 ## Safe inventory: identify a drive without altering it
 
