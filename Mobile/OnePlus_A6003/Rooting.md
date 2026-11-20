@@ -4,7 +4,7 @@
 Root an OnePlus 6 A6003 ("enchilada") from stock OxygenOS to a rooted LineageOS 22.2 system with TWRP and Magisk - the exact prerequisite state for Kali NetHunter.
 
 ## ⚙️ Function
-Phased walkthrough: bootloader unlock, dtbo partition flash (OnePlus 6-specific requirement), LineageOS 22.2 install via Lineage Recovery sideload, TWRP install using the temporary-boot method, and Magisk root via boot image patching. Includes exact fastboot/adb commands and safety notes for each phase.
+Phased walkthrough: bootloader unlock, dtbo partition flash (OnePlus 6-specific requirement), LineageOS 22.2 install via Lineage Recovery sideload, TWRP install using the temporary-boot method, and Magisk root via boot image patching. Firmware prerequisites and all destructive steps are gated against current device-specific instructions. Includes exact fastboot/adb commands and safety notes for each phase.
 
 ## 🏆 Goal
 Reach: unlocked bootloader + TWRP as recovery + LineageOS 22.2 (Android 15) + Magisk root. That state is the starting point for the Kali NetHunter install guide.
@@ -30,7 +30,7 @@ This is the prep guide that gets you to the exact state the NetHunter guide assu
 - On your PC, install the Android SDK Platform Tools (adb + fastboot): https://developer.android.com/studio/releases/platform-tools
 - On the phone: **Settings → About phone**, tap **Build number** 7 times to unlock Developer options.
 - **Settings → System → Developer options**: enable **USB debugging**, **OEM unlocking**, and **Advanced reboot**.
-- Confirm you're on the latest official **OxygenOS** before doing anything else (Settings → System updates → check for update). LineageOS's install requirements for this device specify a particular Android-11-era stock firmware baseline needs to be on the phone first - flashing LineageOS on top of very old firmware can cause boot failures. If you're not sure what firmware you're on, update to the latest available OOS build over-the-air first.
+- Before updating OxygenOS or unlocking, verify the exact stock-firmware baseline required by the current [LineageOS enchilada installation guide](https://wiki.lineageos.org/devices/enchilada/install/). The guide specifies an Android 11-era firmware requirement. Do **not** install the latest OTA by default; stop if the installed version is unknown or does not match the guide.
 
 ---
 
@@ -103,7 +103,7 @@ At this point you're running LineageOS 22.2 - the exact base the NetHunter image
 
 ## Phase 4 - Install TWRP (replacing Lineage Recovery)
 
-TWRP's official install method for enchilada:
+TWRP's official [OnePlus 6 install guide](https://twrp.me/oneplus/oneplus6.html) documents this procedure for enchilada:
 
 1. Download the current TWRP image for `enchilada` from https://dl.twrp.me/enchilada/ (rename to `twrp.img` and place it next to your platform-tools, and also copy it to the phone's storage).
 2. Reboot to bootloader:
