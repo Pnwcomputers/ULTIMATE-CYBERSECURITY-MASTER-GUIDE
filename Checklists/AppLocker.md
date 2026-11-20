@@ -28,7 +28,7 @@ flowchart LR
     R --> B
 ```
 
-Treat this as a review sequence, not a guarantee that all executable content is controlled. Policy merge precedence, collection configuration and the target Windows release affect the effective result.
+Treat this as a review sequence, not a guarantee that all executable content is controlled. Policy merge precedence, collection configuration and the target Windows release affect the effective result. A collection shown as `Not configured` can still enforce existing rules in some configurations; inspect the effective policy and set each collection to the intended Audit only or Enforce mode explicitly.
 
 ### Current Microsoft references
 
