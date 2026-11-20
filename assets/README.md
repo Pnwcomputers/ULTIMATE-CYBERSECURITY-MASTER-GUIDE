@@ -192,7 +192,7 @@ Original, editable SVG figures are placed in the relevant guides. Captions disti
 | Diagram | Embedded Guide | What the Diagram Clarifies |
 |---|---|---|
 | [Ghidra Analysis and Validation](./diagrams/ghidra-analysis-hypothesis-validation.svg) | [Ghidra Master Guide](../ReverseEngineering/ghidra-guide-index.md) | Inferred control flow and decompilation are hypotheses requiring independent analyst checks |
-| [REMnux Isolation Boundaries](./diagrams/remnux-malware-analysis-network-isolation.svg) | [REMnux Malware Analysis](../ReverseEngineering/remnux-malware-analysis-guide.md) | Evidence intake, static-analysis guest, optional isolated execution VM and safe export |
+| [REMnux Isolation Boundaries](./diagrams/remnux-malware-analysis-network-isolation.svg) | [REMnux Malware Analysis](../ReverseEngineering/remnux-malware-analysis-guide.md), [vx-underground](../ReverseEngineering/vx-underground.md) | Evidence intake, static-analysis guest, optional isolated execution VM and safe export |
 | [Kismet GPS and Log Retention](./diagrams/kismet-wardrive-gps-log-retention-flow.svg) | [Kismet Wireless Survey](../Wardriving/kismet.md) | Wireless observations, location-fix gate, additive log types and sharing approval |
 | [Identity Alert Investigation](./diagrams/identity-alert-investigation-evidence-containment.svg) | [Unauthorized Access Playbook](../PlayBooks/unauth_access.md) | Corroborate access events and contextual identity risk before containment |
 | [Cyberdeck Trust Boundaries](./diagrams/cyberdeck-zone-policy-logical-architecture.svg) | [Cyberdeck Public Reference](../Cyberdeck/README.md) | Logical GL.iNet/MikroTik path, intended zones and hardware validation caveat |
