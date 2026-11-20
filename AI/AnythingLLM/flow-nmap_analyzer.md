@@ -293,13 +293,11 @@ Required Tools:
 ### For Better Analysis:
 
 1. **Include Version Information:**
-   - Always use `-sV` flag
-   - Version numbers are critical for CVE mapping
+   - Use `-sV` only when version information is needed and approved; it sends service probes.
+   - A reported version is only a lead for CVE research; confirm the exact package/build, vendor backports, and affected configuration.
 
 2. **Use Script Scanning:**
-   - `-sC` runs default Nmap scripts
-   - Provides additional service information
-   - Detects common misconfigurations
+   - `-sC` runs default NSE scripts. Some may be intrusive; inspect each selected script and its effects before use.
 
 3. **Provide Context:**
    - Describe target type (web server, database, etc.)
@@ -311,8 +309,7 @@ Required Tools:
 
 1. **Specific Target Info:**
    ```
-   target_info: Production e-commerce platform processing credit cards, 
-   PCI-DSS scope, external-facing, authorized pen test 2024-11-15
+   target_info: Authorized staging host; exact approved scope; service detection only; no sensitive business or customer details
    ```
 
 2. **Include Multiple Hosts:**
@@ -332,7 +329,7 @@ Required Tools:
 | Issue | Solution |
 |-------|----------|
 | Generic analysis | Provide more detailed target_info |
-| Missing CVEs | Use `--script vuln` for vulnerability detection |
+| No vulnerability conclusion | Treat scan output as a lead; separately scope and review any active NSE checks |
 | Unclear priorities | Include business context in target_info |
 | Token limit exceeded | Scan smaller IP ranges or summarize results |
 | No service versions | Ensure `-sV` flag was used in scan |
@@ -417,7 +414,7 @@ target_info: Authorized lab subnet - assess only the exact in-scope range AUTHOR
 ## Version History
 
 - **v1.0** - Initial flow with parsing and recommendations
-- Purpose: Automated Nmap scan analysis for penetration testing
+- Purpose: Review supplied Nmap output for defensive triage; the flow does not run Nmap.
 - Last Updated: November 2025
 
 ---
@@ -425,7 +422,7 @@ target_info: Authorized lab subnet - assess only the exact in-scope range AUTHOR
 ## Related Flows
 
 - **ThreatIntelCheck** - Verify discovered IPs
-- **CVELookup** - Research identified CVEs
+- **CVELookup** - Research candidate CVEs against authoritative sources
 - **VulnReportGenerator** - Document findings
 - **DomainRecon** - Pre-scan reconnaissance
 
