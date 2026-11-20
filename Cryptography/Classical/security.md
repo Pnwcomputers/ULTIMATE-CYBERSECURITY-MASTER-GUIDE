@@ -1,6 +1,6 @@
 # 🛡️ Security Relevance
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
@@ -22,14 +22,14 @@ Leet in password cracking, IDN homograph attacks, and filter evasion versus Unic
 
 ## Leet in Passwords
 
-Leet substitutions add almost no strength to a password. Cracking tools apply them automatically as **rules** to every word in a wordlist. Hashcat ships rule files for exactly this purpose, including `leetspeak.rule`, `unix-ninja-leetspeak.rule` and `Incisive-leetspeak.rule`:
+Leet substitutions should not be treated as meaningful password strength: cracking tools can apply them automatically as **rules** to every word in a wordlist. Hashcat's upstream repository includes [`leetspeak.rule`](https://github.com/hashcat/hashcat/blob/master/rules/leetspeak.rule), [`unix-ninja-leetspeak.rule`](https://github.com/hashcat/hashcat/blob/master/rules/unix-ninja-leetspeak.rule), and [`Incisive-leetspeak.rule`](https://github.com/hashcat/hashcat/blob/master/rules/Incisive-leetspeak.rule):
 
 ```bash
-# Try every wordlist entry with common leet substitutions
-hashcat -a 0 -m <hash-mode> hashes.txt wordlist.txt -r rules/unix-ninja-leetspeak.rule
+# Authorized lab example for NTLM hashes only; mode 1000 is NTLM.
+hashcat -a 0 -m 1000 hashes.txt wordlist.txt -r rules/unix-ninja-leetspeak.rule
 ```
 
-`P@55w0rd` falls almost as quickly as `password`. Length and randomness (a passphrase or a password manager) matter; character swaps do not.
+Choose the mode that matches the hash format; Hashcat's [example-hash reference](https://hashcat.net/wiki/doku.php?id=example_hashes) lists mode 1000 for NTLM. A leet-styled password such as `P@55w0rd` may still match a wordlist entry after common rule transformations, so substitutions alone do not make a password strong. Prefer long, unique passwords generated and stored by a password manager.
 
 ## Homograph (IDN) Attacks
 
