@@ -47,7 +47,7 @@ Full list: [Keyboard & Mouse Cheat Sheet](./06-keyboard-shortcuts.md).
 > Turn on **Design → Automatic Reload and Preview** and edit in your own editor (VS Code, Neovim). OpenSCAD re-previews every time you save.
 
 > [!NOTE]
-> **Which version?** The last formal release is still **2021.01**. The project's download page offers **development snapshots** (nightly builds) and recommends enabling the newer **Manifold** geometry engine in Preferences for a large speed-up; in recent snapshots it is already the default (Preferences → Advanced → 3D Rendering → Backend; `--backend=manifold` on the command line). Everything in this guide works on both. On Linux the nightly package (`openscad-nightly`) installs alongside the release. As of mid-November 2026 the OpenSCAD repository also carries a **2026.11 release-candidate** tag, so a new stable release may be close; check the downloads page.
+> **Which version?** The last formal release is still **2021.01**. The project's download page offers **development snapshots** (nightly builds) and recommends enabling the newer **Manifold** geometry engine in Preferences for a large speed-up; in recent snapshots it is already the default (Preferences → Advanced → 3D Rendering → Backend; `--backend=manifold` on the command line). Everything in this guide works on both. On Linux the nightly package (`openscad-nightly`) installs alongside the release. As of November 2026, the project download site lists **OpenSCAD 2026.11-RC0** as a release candidate. A release candidate is for wider testing, not a stable release; check the [official downloads page](https://openscad.org/downloads.html) for current stable and prerelease builds.
 
 ---
 
@@ -309,7 +309,8 @@ echo(str("Tab strain = ", round(strain * 1000) / 10, " %"));
 - [Project Structure & Parameters](./02-project-structure.md): files, Customizer, libraries and command-line exports
 - [Mockups & Fit Checks](./03-mockups-and-fit-checks.md): modeling hardware and proving it fits
 - [GPS Cradle Tutorial](./04-tutorial-gps-cradle.md): every technique on this page used in one real part
-- [OpenSCAD Cheat Sheet](https://openscad.org/cheatsheet/) and [User Manual](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual) (official)
+- [OpenSCAD Cheat Sheet](https://openscad.org/cheatsheet/) and [OpenSCAD documentation downloads](https://files.openscad.org/documentation/)
+- [OpenSCAD User Manual](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual) (community-maintained on Wikibooks)
 
 ---
 [⬅️ Back to Master Index](../../README.md) | [🎯 Role Navigation](../../START_HERE.md) | [Legal Notice](../../LEGAL.md)
