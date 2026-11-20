@@ -5,26 +5,26 @@
 Post-flash setup and recovery references for ClockworkPi uConsole systems. Choose the script for your compute module and read its current limitations before running it.
 
 > [!IMPORTANT]
-> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The current CM5 v1.4 workflow avoids the risky cross-distribution and desktop changes by default. Hardware validation is pending. The legacy CM4 v1.x installer was replaced by a conservative **CM4 v2.0** script; old backup copies of v1.x must not be run. See [safety review](../CM4-SAFETY-REVIEW.md).
+> **CM5 rotation/blank desktop reports:** Use [CM5 display recovery](../CM5-DISPLAY-RECOVERY.md) before rerunning an old installer. The current CM5 v1.5 workflow avoids the risky cross-distribution and desktop changes by default. Hardware validation is pending. The legacy CM4 v1.x installer was replaced by a conservative **CM4 v2.0** script; old backup copies of v1.x must not be run. See [safety review](../CM4-SAFETY-REVIEW.md).
 
 ## 📂 Scripts
 
 | Script | Scope |
 |---|---|
 | [uconsole-cm5-parrot-setup.sh](./uconsole-cm5-parrot-setup.sh) | Experimental Parrot CM5 post-flash setup; requires existing Parrot. [Usage and limits](../PARROT-CM5.md) |
-| [uconsole-cm5-setup.sh](./uconsole-cm5-setup.sh) | Conservative CM5 setup, proposed v1.4; preserves the image's desktop and boot configuration |
+| [uconsole-cm5-setup.sh](./uconsole-cm5-setup.sh) | Conservative CM5 setup, v1.5; preserves the image's desktop and boot configuration; read-only `--hw-check` for AIO v2 / NVMe / battery |
 | [uconsole-cm4-setup.sh](./uconsole-cm4-setup.sh) | **CM4 v2.0** read-only preflight by default; optional AIO package on Debian or toolkit on native Kali, with configuration backup and APT simulation |
 | [uconsole-repair.sh](./uconsole-repair.sh) | CM4/CM5 boot-overlay and historical desktop diagnosis **read-only by default**; explicit `--apply` required for changes, not a general desktop recovery tool |
 
-## ⚙️ Cm5 V1.4 Behavior
+## ⚙️ Cm5 V1.5 Behavior
 
 | Phase | Behavior |
 |---|---|
 | `preflight` | Preserve desktop, authentication and encryption configuration |
-| `update` | Skip system upgrade; optionally set hostname |
+| `update` | Skip system upgrade; optionally set hostname and its `127.0.1.1` `/etc/hosts` entry |
 | `kali_tools` | Install requested metapackage only on native Kali |
 | `aio` | Install Rex's AIO board package only with `--with-aio` |
-| `peripherals` | Leave boot overlays unchanged; optional Wi-Fi DKMS install |
+| `peripherals` | Leave boot overlays unchanged; optional Wi-Fi DKMS install (native Kali only) |
 | `finalize` | Audit package state; require manual device verification |
 
 Environment/source checks and a root-only configuration/package snapshot run before selected operations, including
@@ -64,12 +64,16 @@ sudo bash uConsole/scripts/uconsole-cm4-setup.sh --snapshot
 
 The installer refuses hardware other than CM4 and Debian systems containing Kali sources. It requires confirmation for writes, snapshots selected configuration, simulates APT and refuses planned removals. It does not install `aiov2_ctl` from a moving Git branch or write `config.txt`. Follow [CM4 manual hardware steps](../CM4-SETUP.md), [review notes](../CM4-SAFETY-REVIEW.md) and current [HackerGadgets instructions](https://github.com/hackergadgets/aiov2_ctl) after verifying hardware/image compatibility.
 
-## 🚀 Cm5 V1.4 Usage
+## 🚀 Cm5 V1.5 Usage
 
-Inspect the currently checked-out CM5 script and confirm `--help` reports v1.4. Do not use an older v1.3 script from a stale local copy.
+Inspect the currently checked-out CM5 script and confirm `--help` reports v1.5. Do not use an older v1.3 script from a stale local copy. v1.4 completion state is accepted by v1.5.
 
 ```bash
 bash ./uconsole-cm5-setup.sh --help
+
+# Read-only hardware/boot-config audit (no changes; sudo adds EEPROM readout)
+sudo bash ./uconsole-cm5-setup.sh --hw-check
+
 sudo bash ./uconsole-cm5-setup.sh --dry-run
 sudo bash ./uconsole-cm5-setup.sh
 
@@ -85,8 +89,9 @@ sudo bash ./uconsole-cm5-setup.sh --install-kali-tools
 | `--with-aio` / `--skip-aio` | Enable/disable AIO package installation; default off |
 | `--install-kali-tools` / `--skip-kali-tools` | Enable/disable native Kali metapackage; default off |
 | `--kali-meta=PKG` | Select and enable a `kali-*` metapackage on native Kali |
-| `--install-wifi-dkms` / `--skip-wifi-dkms` | Enable/disable driver package; default off; confirm chipset and matching headers first |
-| `--hostname=NAME` | Optional hostname change |
+| `--install-wifi-dkms` / `--skip-wifi-dkms` | Enable/disable driver package; default off; native Kali only; confirm chipset and matching headers first |
+| `--hostname=NAME` | Optional hostname change; updates the `127.0.1.1` line in `/etc/hosts` |
+| `--hw-check` | Read-only report: `config.txt` lines that apply to CM5 (filters respected), `cmdline.txt` console, `/dev/ttyAMA0`, `/dev/spidev1.0`, PCF85063A RTC, NVMe, RTL-SDR, AXP battery, `aiov2_ctl`, devterm-printer, EEPROM `BOOT_ORDER`/`PCIE_PROBE`. Exits non-zero on failing checks |
 | `--phase=PHASE` | Run one phase; do not advance completion state |
 | `--dry-run` | Print planned operations without logs, backups or state writes |
 | `--yes` | Accept the initial confirmation; does not bypass safety checks |
@@ -99,7 +104,7 @@ variables, so CLI flags are preferred.
 
 ## 🧭 Existing Installations
 
-v1.4 refuses automatic continuation of legacy setup state. Diagnose and recover the affected system first.
+v1.5 (like v1.4) refuses automatic continuation of legacy setup state. Diagnose and recover the affected system first.
 `--reset` is not a rollback. Active Kali sources on Debian are rejected even for resumed/forced operations.
 Removing sources does not downgrade already installed packages.
 

@@ -23,7 +23,7 @@ causes on an affected device.
 ## ⚙️ Function
 
 Collect evidence, identify the actual graphical session, compare configuration and package changes, and choose a
-targeted recovery path. The revised v1.4 script prevents several risky actions; it does **not** undo an earlier
+targeted recovery path. The revised v1.4+ script prevents several risky actions; it does **not** undo an earlier
 installation.
 
 ## 🏆 Goal
@@ -142,7 +142,7 @@ unrelated private data. Share relevant error lines and package transactions, not
 
 ![uConsole CM5 display recovery gates from preserving state and checking the exact image to distinguishing desktop-session issues, display rotation and package/boot changes, then device validation](../assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg)
 
-*Conceptual fault-triage workflow.* The checked [v1.4 CM5 setup script](./scripts/uconsole-cm5-setup.sh) is conservative by default but **does not repair** a previous v1.3 installation. A blank desktop with a pointer and a rotated display may have different causes; only restore known settings for the installed Rex image and validate on actual CM5 hardware.
+*Conceptual fault-triage workflow.* The checked [v1.5 CM5 setup script](./scripts/uconsole-cm5-setup.sh) is conservative by default but **does not repair** a previous v1.3 installation. A blank desktop with a pointer and a rotated display may have different causes; only restore known settings for the installed Rex image and validate on actual CM5 hardware.
 
 ### 1. Save the current state before changing it
 
@@ -240,7 +240,7 @@ Reboot only after saving work and reviewing changes. Restarting a display manage
 
 ## 🔧 Revised installer
 
-The current [v1.4 setup script](./scripts/uconsole-cm5-setup.sh) deliberately reduces automated changes:
+The current [v1.5 setup script](./scripts/uconsole-cm5-setup.sh) deliberately reduces automated changes:
 
 - Preserves existing desktop/session, rotation, boot overlays, Polkit agents and cryptsetup settings.
 - Does not add repositories, remove `raspberrypi-sys-mods`, disable Python protections, perform full upgrades, or inject older libraries.
@@ -255,7 +255,7 @@ upgrades. Automatic upstream `aiov2_ctl` source installation, Meshtastic/ADS-B b
 programming and direct boot edits have been removed; follow the vendor's current instructions for those optional
 features. The revised script is **not feature-equivalent to v1.3**.
 
-Review/download the candidate before running it. Do not assume a downloaded script is v1.4 merely because its filename matches. Verify the version header and exact intended repository revision before execution. Verify `bash ./uconsole-cm5-setup.sh --help` reports v1.4.
+Review/download the candidate before running it. Do not assume a downloaded script is v1.5 merely because its filename matches. Verify the version header and exact intended repository revision before execution. Verify `bash ./uconsole-cm5-setup.sh --help` reports v1.5.
 
 ```bash
 # Preview; no configuration, log, or state writes

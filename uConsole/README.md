@@ -13,7 +13,7 @@
 </div>
 
 > [!IMPORTANT]
-> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The current CM5 v1.4 workflow preserves the working desktop by default; device testing is pending. **CM4 legacy automation was replaced with the v2.0 read-only-by-default script** and **the repair utility now requires explicit `--apply`**, and its dangerous cross-distribution/forced-overwrite behavior has been retired. See [CM4 safety review](./CM4-SAFETY-REVIEW.md). Physical CM4/CM5 hardware validation remains necessary.
+> CM5 screen rotated or desktop blank after setup? See [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md). Earlier setup scripts can alter the desktop and mix Kali packages into Debian. The current CM5 v1.5 workflow preserves the working desktop by default; device testing is pending. **CM4 legacy automation was replaced with the v2.0 read-only-by-default script** and **the repair utility now requires explicit `--apply`**, and its dangerous cross-distribution/forced-overwrite behavior has been retired. See [CM4 safety review](./CM4-SAFETY-REVIEW.md). Physical CM4/CM5 hardware validation remains necessary.
 
 ## 🎯 Purpose
 Complete build and configuration guides for the ClockworkPi uConsole with HackerGadgets AIO v2 board - a
@@ -64,11 +64,12 @@ board.
 - 🛰️ **GPS** receiver configuration and PPS timing
 - ⏰ **Hardware RTC** with battery backup (PCF85063A)
 - 🔌 **NVMe storage** via the HackerGadgets NVMe Battery Board
-- 🌐 **Gigabit Ethernet** via RJ45 (Upgrade Kit required)
+- 🌐 **Gigabit Ethernet** via RJ45 (Upgrade Kit RJ45 & USB 3.0 expansion board; not on the AIO v2)
 - 📶 **WiFi pentesting** with external monitor-mode adapters
 - 🔧 **GPIO power control** via `aiov2_ctl`
 - 🐧 **OS setup** for both Kali Linux and Debian Trixie (Rex's images)
-- ⚠️ **Known package conflicts and automated fixes** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch, `libxcb-cursor0` for Qt6 GUI, `.pygpsclient` venv ownership, PolKit agent conflict on Labwc)
+- ⚠️ **Known package conflicts and recovery guidance** (cryptsetup, LightDM, Trixie dependency drift, `libfm` ABI mismatch, `libxcb-cursor0` for the Qt6 GUI, PolKit agent conflict on Labwc)
+- 🩺 **Read-only CM5 hardware check** (`uconsole-cm5-setup.sh --hw-check`) for AIO v2 overlays, NVMe/PCIe, RTC, SDR, battery telemetry and EEPROM boot order
 
 ---
 
@@ -105,7 +106,7 @@ board.
 
 | Component | Detail |
 |---|---|
-| **NVMe Battery Board** | HackerGadgets NVMe Battery Board (18650 or LiPo variant) |
+| **NVMe Battery Board** | HackerGadgets NVMe Battery Board (2230–2280 NVMe; 2× 18650 or LiPo variant) |
 | **Upgrade Kit** | HackerGadgets Upgrade Kit (required for RJ45, USB 3.0, NVMe) |
 | **AC1200 WiFi Card** | HackerGadgets AC1200 USB-C WiFi Card (sold separately) |
 
@@ -119,12 +120,12 @@ board.
 | **USB Speed** | USB 2.0 only | USB 3.0 (with Upgrade Kit) |
 | **GPIO Boot State** | All peripherals OFF | GPIO 7 (SDR) ON by default |
 | **RTC Config** | `dtoverlay=i2c-rtc,pcf85063a` | `dtparam=rtc=off` + `dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0` |
-| **Serial Console** | Remove `console=serial0,115200` from cmdline.txt | Remove `console=serial0,115200` from cmdline.txt |
+| **Serial Console** | Remove `console=serial0,115200` from cmdline.txt | No change needed (`serial0` is the debug UART); remove only `console=ttyAMA0` if present |
 | **SPI Conflict** | Disable `devterm-printer.service` | Disable `devterm-printer.service` |
 | **Onboard Wi-Fi** | Depends on image/driver; CM4 uConsole support unverified | Depends on image/driver; CM5 uConsole support unverified |
 | **Community Maturity** | Most tested, most stable | Newer, improving rapidly |
-| **PCIe** | Gen 2 (via adapter board) | Native PCIe support |
-| **NVMe EEPROM** | Usually fine, some older units need update | Native NVMe boot support |
+| **PCIe** | Gen 2 (via adapter board) | Gen 2 default via adapter board; `dtparam=pciex1` required (edit any existing `=off`) |
+| **NVMe Boot** | Usually fine, some older units need update | Needs `BOOT_ORDER` with NVMe (e.g. `0xf416`) **and** `PCIE_PROBE=1` |
 | **Internal RTC** | None (uses AIO v2's PCF85063A) | Has internal RTC (must disable for AIO v2's RTC) |
 
 ### Which Should I Buy?
@@ -212,10 +213,10 @@ These actions do not change package sources, the display manager, EEPROM, storag
 
 *Conceptual CM5 setup summary; CM4 and different boards require their own preflight and documentation.*
 
-For CM5 v1.4, the defaults preserve the working image and optional installations require flags. See [script
+For CM5 v1.5, the defaults preserve the working image and optional installations require flags. See [script
 usage](./scripts/README.md) and [recovery instructions](./CM5-DISPLAY-RECOVERY.md). The CM4 v2.0 procedure is **different**: read-only preflight by default with optional reviewed package installations. See the [CM4 script reference](./scripts/README.md).
 
-| Phase | CM5 v1.4 behavior |
+| Phase | CM5 v1.5 behavior |
 |---|---|
 | Preflight | Validate OS/hardware/source configuration and back up configuration |
 | Update | Skip system upgrades; optional hostname change |

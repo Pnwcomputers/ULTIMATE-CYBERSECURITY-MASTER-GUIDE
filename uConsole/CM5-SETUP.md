@@ -1,7 +1,7 @@
 # uConsole Setup Guide: CM5 Configuration
 
 > [!NOTE]
-> **Reviewed October 31, 2026.** The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
+> **Reviewed November 19, 2026** against the [HackerGadgets AIO V2 setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide), the [`aiov2_ctl` source](https://github.com/hackergadgets/aiov2_ctl), the [Upgrade Kit thread](https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019) and the [Raspberry Pi PCIe documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie). Corrections: RJ45 comes from the expansion board (not the AIO v2), CM5 needs no `cmdline.txt` edit for GPS, the CM5 RTC block has no `i2c_arm` line, an existing `dtparam=pciex1=off` must be edited, NVMe boot needs `PCIE_PROBE=1`, and the `aiov2_ctl` venv/symlink steps were wrong. Run `sudo bash scripts/uconsole-cm5-setup.sh --hw-check` (read-only) to audit a device. The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
@@ -10,7 +10,7 @@ with a Raspberry Pi CM5, Rex's community images (Kali Linux or Debian Trixie), a
 extension board.
 
 > [!IMPORTANT]
-> **CM5 desktop regression:** Earlier script revisions can disrupt the working Rex desktop. Start with [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) if you have a rotated screen or a blank desktop after login. The proposed v1.4 installer preserves session and boot configuration, skips upgrades, and makes AIO installation opt-in. Hardware validation is pending. See [script usage](./scripts/README.md).
+> **CM5 desktop regression:** Earlier script revisions can disrupt the working Rex desktop. Start with [CM5 display recovery](./CM5-DISPLAY-RECOVERY.md) if you have a rotated screen or a blank desktop after login. The v1.5 installer preserves session and boot configuration, skips upgrades, and makes AIO installation opt-in. Hardware validation is pending. See [script usage](./scripts/README.md).
 > Do not layer Kali repositories onto Debian or replace the image's desktop with plain Labwc.
 
 ---
@@ -25,6 +25,7 @@ extension board.
 - [Step 4: Distribution Security Tools](#step-4-security-tools-for-your-distribution)
 - [Step 5: Install aiov2_ctl (GPIO Control Tool)](#step-5-install-aiov2_ctl-gpio-control-tool)
 - [Step 6: Install the AIO v2 Board Package](#step-6-install-the-aio-v2-board-package)
+- [Where config.txt Lines Go](#where-configtxt-lines-go-read-before-steps-714)
 - [Step 7: Configure GPS (CM5)](#step-7-configure-gps-cm5)
 - [Step 8: Configure LoRa / Meshtastic](#step-8-configure-lora--meshtastic)
 - [Step 9: Configure RTC (CM5)](#step-9-configure-rtc-cm5)
@@ -79,8 +80,10 @@ This guide assumes the following hardware stack:
 | Component | Detail |
 |---|---|
 | **Handheld** | ClockworkPi uConsole |
-| **Compute Module** | Raspberry Pi CM5 (with HackerGadgets CM5 adapter board) |
+| **Compute Module** | Raspberry Pi CM5 (with HackerGadgets CM4/CM5 adapter board) |
 | **Extension Board** | HackerGadgets AIO v2 (RTL-SDR / LoRa / GPS / RTC / USB Hub) |
+| **Storage / Power** | HackerGadgets NVMe Battery Board (2× 18650 or LiPo variant) |
+| **Optional I/O** | HackerGadgets RJ45 Ethernet & USB 3.0 expansion board |
 | **OS** | Rex's Kali Linux or Rex's Debian Trixie (6.12.y kernel) |
 | **WiFi Adapter** | External adapter is the dependable default. Onboard monitor/injection support depends on image, chipset, driver, and firmware; CM5 uConsole compatibility is unverified. |
 
@@ -93,7 +96,18 @@ This guide assumes the following hardware stack:
 | **GPS** | Multi-mode (GPS/BDS/GNSS), active and passive antenna support |
 | **RTC** | PCF85063A + CR1220 battery backup |
 | **USB Hub** | External USB-C port + internal USB-C + pin header |
-| **RJ45 Ethernet** | Gigabit (requires HackerGadgets adapter board from Upgrade Kit) |
+
+### What the Upgrade Kit Boards Provide
+
+The AIO v2 has **no** Ethernet port. RJ45 and USB 3.0 come from a separate Upgrade Kit board. Per the HackerGadgets Upgrade Kit announcement:
+
+| Board | Relevant features |
+|---|---|
+| **Adapter board** | Exposes CM4/CM5 PCIe to the NVMe Battery Board; USB 3.0 connector (CM5 only); CM5 RTC-battery connector (do not connect with CM4); PWM fan connector; USB-C for flashing eMMC modules |
+| **NVMe Battery Board** | M.2 NVMe slot for 2230–2280 drives; 2× 18650 holder or LiPo variant; reverse-polarity warning LED instead of heating; optional push-lock power switch (desolder R14, fit switch to J6) |
+| **RJ45 & USB 3.0 expansion board** | Gigabit RJ45 wired directly to the CM, USB-A and USB-C at USB 3.0 on CM5 (USB 2.0 on CM4), internal USB-C/pin header, 17 GPIO pins |
+
+> The adapter board's RTC-battery connector serves the CM5's internal RTC. This guide disables that RTC and uses the AIO v2 PCF85063A, so no second RTC cell is needed (HackerGadgets' stated configuration).
 
 > **Critical Assembly Note:** When installing the AIO v2 board, ensure the ribbon cable is oriented correctly as shown in the HackerGadgets documentation. **Never plug in the charger if the ribbon cable is installed the wrong way** - incorrect installation will damage the uConsole mainboard.
 
@@ -108,6 +122,8 @@ These are the **AIO v2** control GPIOs. (AIO v1 used different pins for LoRa and
 | **SDR** (RTL-SDR) | 7 | Pull HIGH to enable. **On CM5, this defaults HIGH at boot** - RTL-SDR is detected immediately. On CM4, it defaults OFF. |
 | **Internal USB** (USB-C + pin header) | 23 | Pull HIGH to enable |
 | **GPS PPS** (output) | 6 | Optional, for microsecond-accurate NTP timing |
+
+`aiov2_ctl` assumes exclusive control of these pins. Do not drive them with another script at the same time.
 
 ---
 
@@ -220,7 +236,7 @@ apt-get -s upgrade
 
 These commands refresh indexes and simulate changes; they do not perform a system upgrade. Check proposed changes
 to the kernel, firmware, compositor, display manager and desktop packages. No pin file or forced-overwrite setting
-makes every upgrade safe. The v1.4 setup script skips system upgrades.
+makes every upgrade safe. The v1.5 setup script skips system upgrades.
 
 Set your timezone with `sudo dpkg-reconfigure tzdata` and update your account password using `passwd` as needed.
 
@@ -233,50 +249,40 @@ Kali metapackages on this host. On a native Kali image, review the selected meta
 sudo bash ./uconsole-cm5-setup.sh --install-kali-tools
 ```
 
-This requires the reviewed v1.4 script. Existing v1.3 state must be investigated before continuing; `--reset` is not a rollback.
+This requires the reviewed v1.5 script. Existing v1.3 state must be investigated before continuing; `--reset` is not a rollback.
 
-**Steps 5–11 and the boot-overlay reference apply only to fitted AIO hardware.** Confirm the current vendor instructions for your board/image before executing hardware changes. The v1.4 script does not automate these manual boot edits or source installers.
+**Steps 5–11 and the boot-overlay reference apply only to fitted AIO hardware.** Confirm the current vendor instructions for your board/image before executing hardware changes. The script does not automate these boot edits or source installers; its read-only `--hw-check` reports whether they are in effect.
 
 ## Step 5: Install aiov2_ctl (GPIO Control Tool)
 
-`aiov2_ctl` is HackerGadgets' official control tool for the AIO v2 board. It must be installed *before* the main AIO board package to resolve pathing correctly.
+`aiov2_ctl` is HackerGadgets' control tool for the AIO v2 power rails, boot-rail persistence, battery telemetry and
+the tray GUI. Install order relative to the AIO package does not matter; `sudo aiov2_ctl --add-apps` can install
+the AIO package and companion apps afterward.
+
+Clone as your **regular user**: `--install` records the checkout path and `aiov2_ctl --update` later runs `git pull`
+there without root (the tool refuses `--update` under sudo). A root-owned `/opt` clone breaks updates.
 
 ```bash
-# Install build/runtime dependencies
-sudo apt update
-sudo apt install -y python3 python3-pyqt6 git
+sudo apt-get update
+sudo apt-get install -y python3 python3-pyqt6 git
 
-# Clone and install
-git clone https://github.com/hackergadgets/aiov2_ctl.git /opt/aiov2_ctl
-cd /opt/aiov2_ctl
+mkdir -p ~/src
+git clone https://github.com/hackergadgets/aiov2_ctl.git ~/src/aiov2_ctl
+cd ~/src/aiov2_ctl
+git log -1 --oneline            # record the reviewed commit
 sudo python3 ./aiov2_ctl.py --install
 
-# Fix PATH for root environments
-sudo ln -sf /usr/local/bin/aiov2_ctl /usr/bin/aiov2_ctl
-
-# Verify
+# Verify (installed to /usr/local/bin, which is already in sudo's secure_path)
 command -v aiov2_ctl && aiov2_ctl --status
-```
-The install enables the `aiov2-rails-boot.service` so boot-rail settings persist across reboots.
-
-**Fix `.pygpsclient` venv ownership (required for `aiov2_ctl --gui`)**
-
-`python3 ./aiov2_ctl.py --install` creates a Python venv at `~/.pygpsclient/` but runs as root, so the venv files
-are root-owned. The regular user can't launch `--gui` until ownership is corrected and PyQt6 is installed inside
-the venv:
-
-```bash
-# Fix ownership so your regular user owns the venv
-sudo chown -R $USER:$USER ~/.pygpsclient
-
-# Install PyQt6 inside the venv (not the system Python)
-~/.pygpsclient/bin/python -m pip install PyQt6
-
-# Verify
-aiov2_ctl --status
+systemctl is-enabled aiov2-rails-boot.service
 ```
 
-> **Note:** `aiov2_ctl --gui` requires a physical display. Running it over SSH (with no `DISPLAY`) will fail. Use `--autostart` and reboot to launch the tray icon natively from the desktop.
+`--install` copies the tool to `/usr/local/bin/aiov2_ctl`, installs bash completion and a desktop entry, and
+enables `aiov2-rails-boot.service` so boot-rail settings persist. It does **not** create a Python virtual
+environment: the GUI runs on the system `python3` with `python3-pyqt6`. No `/usr/bin` symlink is needed.
+
+> **Note:** `aiov2_ctl --gui` must run as your desktop user (not root) with a display. Over SSH, use
+> `aiov2_ctl --autostart` and log in on the device instead.
 
 ---
 
@@ -295,105 +301,177 @@ If the repository/package is unavailable or dependencies conflict, stop and reso
 problem. Do not inject Bookworm libraries, purge/retry automatically, force file overwrites, or create a
 `pcmanfm-pi` symlink as a desktop workaround.
 
-The reviewed v1.4 script's `--with-aio` option installs this package through APT. Package maintainer scripts can
+The reviewed v1.5 script's `--with-aio` option installs this package through APT. Package maintainer scripts can
 still change configuration; `--no-remove` does not prevent that. Back up first and test the desktop afterward.
 Follow upstream instructions separately for optional controller, Meshtastic and ADS-B features.
+
+Rex's package was built and tested on Debian Bookworm; Trixie/Kali results are community reports. One reported
+CM5 failure is `cp: cannot stat '/tmp/config.yaml'` during install, where reinstalling did not help. If that
+happens, stop and configure meshtasticd manually (Step 8) rather than purging and retrying in a loop.
+
+---
+
+## Where `config.txt` Lines Go (Read Before Steps 7–14)
+
+`config.txt` files, including uConsole images, can contain model filters (`[cm4]`, `[pi4]`, `[cm5]`, `[all]` …). A line placed after `[cm4]` or
+`[pi4]` is **ignored on a CM5**. Put AIO/NVMe lines under `[all]`, `[pi5]` or `[cm5]` ([pi5] also applies to
+CM5), normally in Rex's drivers block at the bottom.
+
+- **Edit existing lines; do not append duplicates.** Community Upgrade Kit reports found `dtparam=pciex1=off` already present in their images. Change that line
+  to `dtparam=pciex1` instead of adding a second one.
+- Back up first: `sudo cp -a /boot/firmware/config.txt /boot/firmware/config.txt.bak-$(date +%F)`.
+- After editing and rebooting, audit with the read-only checker, which applies the same filter rules:
+
+```bash
+sudo bash ./uconsole-cm5-setup.sh --hw-check
+```
 
 ---
 
 ## Step 7: Configure GPS (CM5)
 
 ### CM5-Specific GPS Path
-On CM5, the GPS serial port is `/dev/ttyAMA0` (CM4 uses `/dev/ttyS0`).
+On CM5, the AIO GPS is on `/dev/ttyAMA0` (UART0, GPIO 14/15) at **9600 baud**. CM4 uses `/dev/ttyS0`.
 
 ### Enable the UART in config.txt
-Per HackerGadgets' CM5 setup guide, add the following to `/boot/firmware/config.txt`:
+Per HackerGadgets' CM5 instructions:
 
 ```ini
 dtparam=uart0
 ```
 
-### Free the Serial Port from the Console
-Edit `/boot/firmware/cmdline.txt` and remove `console=serial0,115200`:
+### Serial Console: No Change Needed on CM5
+HackerGadgets lists removing `console=serial0,115200` from `cmdline.txt` as a **CM4-only** step. On CM5,
+`serial0` points to the debug UART (`/dev/ttyAMA10`), not the GPS port. Only act if `cmdline.txt` contains
+`console=ttyAMA0`; remove that one entry, keeping the rest of the single line intact:
 
 ```bash
-sudo sed -i 's/console=serial0,115200 \?//' /boot/firmware/cmdline.txt
+grep -o 'console=[^ ]*' /boot/firmware/cmdline.txt
 ```
 
-### Add Your User to the dialout Group
+### Power the Rail and Test
 ```bash
-sudo usermod -a -G dialout $USER
+sudo usermod -a -G dialout "$USER"   # log out/in afterward
+aiov2_ctl GPS on
+sudo apt-get install -y minicom
+minicom -D /dev/ttyAMA0 -b 9600      # expect $GNGGA / $GNRMC sentences; Ctrl-A X exits
 ```
-Log out and back in (or reboot) for the group change to take effect.
+
+No output indoors is normal; test with a sky view. Attach the GPS antenna to the IPEX connector labelled **GPS**.
 
 ---
 
 ## Step 8: Configure LoRa / Meshtastic
 
+> [!CAUTION]
+> Fit a LoRa antenna for your region's band to the IPEX connector labelled **LoRa** before meshtasticd starts.
+> Transmitting into an open connector can damage the SX1262 front end. Set the correct region before transmitting.
+
 ### Enable SPI1 in config.txt
-Add to `/boot/firmware/config.txt` (CM5 does not need `dtparam=spi=on` like CM4):
+CM5 needs only the overlay (CM4 also needs `dtparam=spi=on`):
 
 ```ini
 dtoverlay=spi1-1cs
 ```
 
-### Disable the conflicting devterm-printer service
+Rex notes that CM5 SPI for Meshtastic needs extra plumbing to keep the display working, which his AIO package
+provides. Prefer the package on CM5; the manual route below is a fallback.
+
+### Disable the conflicting devterm-printer service (if present)
 ```bash
-sudo systemctl stop devterm-printer.service
-sudo systemctl disable devterm-printer.service
+systemctl list-unit-files devterm-printer.service && \
+  sudo systemctl disable --now devterm-printer.service
 ```
 
 ### Power on the LoRa module
 ```bash
 aiov2_ctl LORA on
+ls -l /dev/spidev1.0
+```
+
+### Manual meshtasticd configuration (fallback)
+On Debian 13, install `meshtasticd` from Meshtastic's [Debian repository](https://meshtastic.org/docs/software/linux/installation/debian/)
+rather than a pinned `.deb`. The AIO v2 SX1262 settings published by HackerGadgets, with the CM5 GPS path:
+
+```yaml
+# /etc/meshtasticd/config.yaml (uncomment/merge into the packaged file)
+Lora:
+  Module: sx1262
+  DIO2_AS_RF_SWITCH: true
+  DIO3_TCXO_VOLTAGE: true
+  IRQ: 26
+  Busy: 24
+  Reset: 25
+  spidev: spidev1.0      # SPI1, CS on SPI1-CE0 (GPIO 18)
+
+GPS:
+  SerialPath: /dev/ttyAMA0   # CM5 (CM4: /dev/ttyS0)
+
+Webserver:
+  Port: 443
+  RootPath: /usr/share/meshtasticd/web
+```
+
+```bash
+sudo systemctl enable --now meshtasticd
+journalctl -u meshtasticd -b --no-pager | tail -n 40
 ```
 
 ---
 
 ## Step 9: Configure RTC (CM5)
 
-The CM5 requires disabling its internal RTC and mapping the AIO board's RTC over `i2c_csi_dsi0`. 
-
-### Enable the RTC overlay (CM5)
-Add to `/boot/firmware/config.txt`:
+The CM5 has its own RTC. Disable it and map the AIO board's PCF85063A, which the overlay remaps to i2c0 on
+GPIO 38/39 via `i2c_csi_dsi0`. HackerGadgets' CM5 block contains only these two lines (`dtparam=i2c_arm=on`
+belongs to the CM4 block):
 
 ```ini
 dtparam=rtc=off
-dtparam=i2c_arm=on
 dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0
 ```
+
 Reboot, then verify:
 
 ```bash
-sudo hwclock -r
-sudo aiov2_ctl --sync-rtc
+sudo hwclock -r                 # no output/error: check the CR1220 cell and its orientation
+timedatectl                     # confirm system time is correct (NTP synced) first
+sudo aiov2_ctl --sync-rtc       # runs hwclock -w; only after the time above is correct
 ```
 
 ---
 
 ## Step 10: Configure SDR
 
-### Blacklist the DVB-T kernel driver
-The Linux kernel will try to claim the RTL2832U/R828D chip as a TV tuner. Blacklist it:
+Attach the antenna to the IPEX connector labelled **SDR**. The AIO's 5 V bias tee is only for active antennas or
+LNAs designed for it; leave it off with passive or DC-shorted antennas.
 
+### Blacklist the DVB-T kernel driver
 ```bash
 echo "blacklist dvb_usb_rtl28xxu" | sudo tee /etc/modprobe.d/blacklist-rtl.conf
-sudo rmmod dvb_usb_rtl28xxu 2>/dev/null
+sudo modprobe -r dvb_usb_rtl28xxu 2>/dev/null || true
 ```
-*Note: On CM5, the SDR rail defaults to HIGH at boot, so the device is immediately available.*
+
+### Verify
+```bash
+lsusb | grep -i '0bda:283[28]'
+sudo apt-get install -y rtl-sdr && rtl_test -t
+```
+
+On CM5 the SDR rail (GPIO 7) is HIGH at boot, so the dongle appears immediately. It draws power while idle;
+`aiov2_ctl SDR off` when not in use, or set its boot rail off (Step 11).
 
 ---
 
 ## Step 11: GPIO Power Control
 
-Configure peripherals to auto-enable at boot:
+Set which rails come up at boot (applied by `aiov2-rails-boot.service`; the tool re-runs itself with sudo):
 
 ```bash
 aiov2_ctl --boot-rail GPS on
 aiov2_ctl --boot-rail LORA on
-aiov2_ctl --boot-rail SDR on
+aiov2_ctl --boot-rail SDR off     # CM5 default is on; turn off to save battery if unused
+aiov2_ctl --boot-rail USB on      # only if you use the internal USB-C/pin header
 
-# Verify
 aiov2_ctl --boot-rails-status
 ```
 
@@ -406,7 +484,8 @@ kernel, driver, and firmware. Kali's Nexmon packages enable monitor mode and inj
 on listed/tested Raspberry Pi configurations, including Pi 5, but the Kali support list
 does not confirm this CM5 carrier and Rex's Kali/Trixie images may differ. Verify the
 exact combination before relying on onboard Wi-Fi; an external USB adapter supported
-by the image is the dependable fallback.
+by the image is the dependable fallback. With the expansion board fitted, plug USB 3
+adapters into its ports: HackerGadgets notes high-inrush devices can cause power issues on the mainboard ports.
 
 ![Identify the board and software, check supported Nexmon configurations, then validate onboard Wi-Fi or use an external adapter](../assets/diagrams/raspberry-pi-onboard-wifi-support.svg)
 
@@ -435,7 +514,7 @@ iw dev
 
 ## Step 13: LAN Pentesting via RJ45
 
-The AIO v2 provides Gigabit Ethernet via the RJ45 port (requires Upgrade Kit adapter).
+Gigabit RJ45 is provided by the **RJ45 & USB 3.0 expansion board** of the Upgrade Kit, wired directly to the CM5.
 
 > [!CAUTION]
 > DHCP and Responder can disrupt networks and capture authentication material.
@@ -444,37 +523,95 @@ The AIO v2 provides Gigabit Ethernet via the RJ45 port (requires Upgrade Kit ada
 > this exercise to a production, customer, public, or shared network.
 
 ```bash
-# Connect only to the isolated lab switch, then request DHCP if that lab uses it.
-sudo dhclient eth0
+# Identify the wired interface name; do not assume eth0.
+ip -br link
+LAN_IFACE='REPLACE_WITH_VERIFIED_INTERFACE'
 
-# Verify the interface and assigned address.
-ip addr show eth0
+# NetworkManager normally requests DHCP on link-up; confirm the lab address.
+ip -br addr show "$LAN_IFACE"
 
-# Credential-capture demonstration with synthetic lab accounts only.
-sudo responder -I eth0 -wrf
+# Start in passive analyze mode (no poisoning) and review the output first.
+sudo responder -I "$LAN_IFACE" -A
+
+# Lab-only poisoning demonstration with synthetic accounts. Current Responder
+# releases no longer accept the old -r/-f flags; check `responder -h`.
+# sudo responder -I "$LAN_IFACE" -w
 ```
 
 ---
 
 ## Step 14: NVMe Battery Board Setup
 
-### NVMe Software Configuration (CM5)
-CM5 exposes PCIe, but the **carrier and NVMe Battery Board must support it**, and the exact board/image configuration matters. Consult the board vendor before editing `config.txt`; for applicable images this overlay enables the PCIe controller:
+### 14a. Hardware
+1. Power off fully and remove the batteries before opening the case.
+2. Fit a 2230–2280 M.2 NVMe SSD. Community reports favour low-power drives; the uConsole runs on battery.
+3. Connect the PCIe ribbon (shipped with the NVMe Battery Board) between the adapter board and battery board, and
+   make sure the battery board's power contacts are fully seated in the adapter board. Screwing the board down
+   does not guarantee the contacts are made.
+4. **Batteries:** use two matched, protected 18650 cells of the same model and charge state (they run in parallel),
+   or the LiPo variant with its connector polarity checked against the board silkscreen. If the reverse-polarity
+   LED lights, remove the battery immediately and correct it. Re-check AIO ribbon orientation before connecting the
+   charger.
+
+### 14b. Enable PCIe (config.txt)
+The Raspberry Pi PCIe connector is only enabled automatically for HAT+ devices. Find any existing line first:
+
+```bash
+grep -nE 'pciex1|nvme' /boot/firmware/config.txt
+```
+
+Edit it in place (or add it under `[all]`/`[cm5]` if absent) so the effective line is:
 
 ```ini
-dtparam=pciex1=on
+dtparam=pciex1
 ```
+
+Gen 2 is the default. `dtparam=pciex1_gen=3` is optional and **not certified** by Raspberry Pi; remove it if you
+see link errors.
+
 Reboot and verify:
 
 ```bash
-lspci                          # Does PCIe enumerate the storage adapter?
-lsblk -o NAME,SIZE,MODEL,FSTYPE,MOUNTPOINTS  # Confirm the actual drive
-sudo rpi-eeprom-config           # If supported; inspect BOOT_ORDER, no edit
+lspci                                        # NVMe controller enumerated?
+lsblk -o NAME,SIZE,MODEL,FSTYPE,MOUNTPOINTS  # confirm the actual drive
+sudo dmesg | grep -iE 'nvme|pcie' | tail -n 20
 ```
 
----
+If nothing enumerates, re-check `pciex1` (a leftover `=off` wins if it appears later in an applicable section),
+the ribbon, and board seating.
 
-**Important:** `/dev/nvme0n1` appearing does not mean the bootloader will boot from it. **Do not clone/format NVMe or change EEPROM boot order without backups and a tested recovery route.** The [official Compute Module boot guide](https://www.raspberrypi.com/documentation/computers/compute-module.html) describes EEPROM boot configuration and its risks.
+### 14c. Battery Telemetry
+The battery board feeds the uConsole mainboard's AXP power-management IC, which `aiov2_ctl` reads:
+
+```bash
+aiov2_ctl --status        # battery %, voltage, current, AC/battery source
+aiov2_ctl --power         # live power monitor (Ctrl+C exits)
+cat /sys/class/power_supply/axp20x-battery/{capacity,status}
+```
+
+### 14d. Optional: Boot from NVMe
+
+**Important:** `/dev/nvme0n1` appearing does not mean the bootloader will boot from it. Do not change EEPROM boot
+order without a backup and a tested recovery route (a known-good SD card or eMMC). The [official boot-from-PCIe
+documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#boot-from-pcie) applies to CM5.
+
+1. Put a bootable image on the NVMe. Simplest: write Rex's image to it in a USB NVMe enclosure on another
+   computer with Raspberry Pi Imager (no custom settings), then refit it. The NVMe copy needs the same
+   `dtparam=pciex1` edit.
+2. Inspect, then edit the EEPROM configuration:
+
+```bash
+sudo rpi-eeprom-config              # inspect current BOOT_ORDER first
+sudo rpi-eeprom-config --edit
+```
+
+```ini
+BOOT_ORDER=0xf416   # read right to left: NVMe (6), then SD/eMMC (1), then USB (4), then restart
+PCIE_PROBE=1        # required for non-HAT+ PCIe boards so the bootloader probes NVMe
+```
+
+3. Reboot, confirm with `findmnt /`, and keep the SD card available for recovery. Run `--hw-check` as root to see
+   the effective `BOOT_ORDER`/`PCIE_PROBE`.
 
 ---
 
@@ -485,10 +622,11 @@ sudo rpi-eeprom-config           # If supported; inspect BOOT_ORDER, no edit
 | GPS Serial Port | `/dev/ttyAMA0` (CM4 uses `/dev/ttyS0`) |
 | GPS UART Config | Requires `dtparam=uart0` in `config.txt` (CM4 uses `enable_uart=1`) |
 | SPI Config | Requires `dtoverlay=spi1-1cs` (CM4 also needs `dtparam=spi=on`) |
-| RTC Config | Must disable internal RTC (`dtparam=rtc=off`) + remap i2c0 via `i2c_csi_dsi0` |
+| RTC Config | Must disable internal RTC (`dtparam=rtc=off`) + remap i2c0 via `i2c_csi_dsi0`; no `i2c_arm` line |
 | SDR Boot State | Defaults HIGH (ON) at boot (CM4 defaults OFF) |
-| Serial Console | Must remove `console=serial0,115200` from `cmdline.txt` for GPS |
-| PCIe / NVMe | Native PCIe support. |
+| Serial Console | No `cmdline.txt` change needed (`serial0` is the debug UART `ttyAMA10`); only remove `console=ttyAMA0` if present |
+| PCIe / NVMe | PCIe Gen 2 by default; needs `dtparam=pciex1` (edit any existing `=off`). NVMe boot needs `BOOT_ORDER` with `6` and `PCIE_PROBE=1` |
+| USB 3.0 | Only via the RJ45 & USB 3.0 expansion board (USB 2.0 on CM4) |
 
 ---
 
@@ -497,9 +635,12 @@ sudo rpi-eeprom-config           # If supported; inspect BOOT_ORDER, no edit
 ### Antenna Connectors
 | Label | Purpose | Antenna Type |
 |---|---|---|
-| SDR | RTL-SDR receiver | Wideband, or frequency-specific |
-| LoRa | SX1262 transceiver | 433 or 915 MHz (region-dependent) |
+| SDR | RTL-SDR receiver | Wideband, or frequency-specific; bias tee only for active antennas/LNAs |
+| LoRa | SX1262 transceiver | 868 MHz (EU) or 915 MHz (US) to match your region. The AIO v2 radio covers 860–960 MHz, so 433 MHz antennas do not apply |
 | GPS | GPS/BDS/GNSS receiver | Active or passive GPS antenna |
+
+All three are IPEX (U.FL) connectors. Use IPEX-to-SMA pigtails for external antennas, and never transmit LoRa
+without an antenna fitted.
 
 ---
 
@@ -511,11 +652,14 @@ aiov2_ctl --status                  # Detailed status (GPIO + battery + power)
 aiov2_ctl <FEATURE> <on|off>        # Toggle: GPS, LORA, SDR, USB
 aiov2_ctl --power                   # Live power monitor (Ctrl+C to exit)
 aiov2_ctl --watch                   # Compact live GPIO + power line
-aiov2_ctl --gui                     # Launch system tray GUI
-aiov2_ctl --autostart               # Enable GUI autostart on login
-aiov2_ctl --boot-rail <FEAT> on     # Set peripheral to enable at boot
+aiov2_ctl --gui                     # Launch system tray GUI (desktop user, not root)
+aiov2_ctl --autostart               # Enable GUI autostart on login (--no-autostart disables)
+aiov2_ctl --boot-rail <FEAT> on|off|status   # Persisted rail state applied at boot
 aiov2_ctl --boot-rails-status       # Show all boot rail configurations
-aiov2_ctl --sync-rtc                # Write system time to hardware RTC
+sudo aiov2_ctl --sync-rtc           # hwclock -w; only after system time is verified
+aiov2_ctl --update                  # git pull + reinstall; run WITHOUT sudo
+sudo aiov2_ctl --add-apps           # AIO package, meshtastic-mui, sdrpp-brown, tar1090, pygpsclient
+AIOV2_CTL_DEBUG=1 aiov2_ctl --status  # Show where each GPIO state was read from
 ```
 
 ---
@@ -535,25 +679,28 @@ Meshtasticd's web server is enabled by the AIO board package's default config.
 ## Boot Automation
 
 ### Complete `/boot/firmware/config.txt` Additions (CM5)
-These are the overlay/parameter lines this guide adds to the bottom of Rex's `config.txt`:
+These are the effective lines this guide expects. Place them under `[all]` or `[cm5]` (never after `[cm4]`/`[pi4]`),
+and change any existing `dtparam=pciex1=off` rather than adding a duplicate:
 
 ```ini
+[all]
 # === AIO v2 Board Configuration (CM5) ===
 
-# Enable UART0 for GPS on /dev/ttyAMA0
+# Enable UART0 for GPS on /dev/ttyAMA0 (9600 baud)
 dtparam=uart0
 
-# SPI for LoRa (SX1262)
+# SPI1 for LoRa (SX1262, CS on GPIO 18)
 dtoverlay=spi1-1cs
 
-# Disable internal RTC and map AIO RTC (PCF85063A)
+# Disable the CM5 internal RTC; use the AIO PCF85063A on i2c0 (GPIO 38/39)
 dtparam=rtc=off
-dtparam=i2c_arm=on
 dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0
 
-# PCIe for NVMe (only if using NVMe Battery Board)
-dtparam=pciex1=on
+# PCIe for the NVMe Battery Board (Gen 2 default; Gen 3 uncertified)
+dtparam=pciex1
 ```
+
+Verify with `sudo bash ./uconsole-cm5-setup.sh --hw-check`.
 
 ---
 
@@ -570,9 +717,9 @@ errors. Restore the matching image configuration; do not assume generic Labwc, a
 suppressing an authentication agent is a universal fix.
 
 ### GPS shows no data on `/dev/ttyAMA0`
-* Confirm `dtparam=uart0` is in `/boot/firmware/config.txt` and you've rebooted.
-* Confirm `console=serial0,115200` is removed from `/boot/firmware/cmdline.txt`.
-* Confirm GPS power rail is enabled: `aiov2_ctl GPS on`.
+* Confirm `dtparam=uart0` is in an applicable section of `/boot/firmware/config.txt` and you've rebooted.
+* Confirm `cmdline.txt` has no `console=ttyAMA0` entry (`console=serial0` is fine on CM5).
+* Confirm GPS power rail is enabled: `aiov2_ctl GPS on`. Read at 9600 baud, outdoors.
 
 ### LoRa / Meshtasticd fails to start
 * Verify devterm-printer.service is disabled: `sudo systemctl status devterm-printer.service`.
@@ -583,26 +730,30 @@ suppressing an authentication agent is a universal fix.
 
 For this ABI mismatch, follow the [CM5 display recovery procedure](./CM5-DISPLAY-RECOVERY.md) and restore the compatible image packages; avoid forcing an unrelated library version.
 
-### `aiov2_ctl --gui` fails: "PyQt6 is not installed"
+### `aiov2_ctl --gui` fails: PyQt6 / Qt platform plugin errors
 
-`aiov2_ctl --install` creates a Python venv at `~/.pygpsclient/` as root, so the files are root-owned after the script runs. Fix it:
-
-```bash
-# Restore ownership
-sudo chown -R $USER:$USER ~/.pygpsclient
-
-# Install PyQt6 inside the venv
-~/.pygpsclient/bin/pip3 install --ignore-installed PyQt6 --break-system-packages
-
-# Now try the GUI
-aiov2_ctl --gui
-```
-
-Also ensure `libxcb-cursor0` is installed - the Qt6 XCB platform plugin won't load without it:
+The GUI runs on the system Python (`/usr/bin/python3`), so install the Debian packages rather than pip packages:
 
 ```bash
-sudo apt install -y libxcb-cursor0
+sudo apt-get install -y python3-pyqt6 libxcb-cursor0
+aiov2_ctl --gui        # as your desktop user, not with sudo
 ```
+
+`libxcb-cursor0` is required by the Qt 6 XCB platform plugin on X11 sessions. Earlier revisions of this guide told
+you to repair a `~/.pygpsclient` venv; `aiov2_ctl --install` does not create one, so that step does not apply.
+
+### NVMe not detected
+* `grep -nE 'pciex1|nvme' /boot/firmware/config.txt`: an applicable `dtparam=pciex1=off` disables the slot.
+* Reseat the PCIe ribbon and the battery board's power contacts; check the board LED.
+* Try another drive. Community reports show some drives are flaky at Gen 3; remove `pciex1_gen=3`.
+
+### Boots from SD even though NVMe is bootable
+* `sudo rpi-eeprom-config`: `BOOT_ORDER` must try `6` first (e.g. `0xf416`) and `PCIE_PROBE=1` must be set.
+* The NVMe copy of `config.txt` also needs `dtparam=pciex1`.
+
+### `hwclock -r` reports no RTC / "Cannot access the Hardware Clock"
+* Confirm `dtparam=rtc=off` and the `i2c_csi_dsi0` overlay are in an applicable section, then reboot.
+* Check the CR1220 cell is fitted and oriented correctly. `ls /sys/class/rtc/` should list the PCF85063A.
 
 ### `aiov2_ctl --gui` errors over SSH
 
@@ -623,6 +774,10 @@ For this PolKit error, inspect the session's authentication-agent configuration 
 * [aiov2_ctl GitHub Repo](https://github.com/hackergadgets/aiov2_ctl)
 * [Rex's AIO Board Package Thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
 * [Rex's Trixie Image](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
+* [HackerGadgets Upgrade Kit thread (adapter, NVMe Battery, RJ45 & USB 3.0 boards)](https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019)
+* [Raspberry Pi: PCIe enable, boot and Gen 3](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie)
+* [Raspberry Pi: bootloader configuration (`BOOT_ORDER`, `PCIE_PROBE`)](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration)
+* [Meshtastic: meshtasticd on Debian](https://meshtastic.org/docs/software/linux/installation/debian/)
 
 ## Related Files
 - [README.md](README.md) - uConsole section index
