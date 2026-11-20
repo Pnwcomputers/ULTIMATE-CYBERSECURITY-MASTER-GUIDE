@@ -11,6 +11,10 @@ _Last reviewed: 2026-10-02_
 
 Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence with a worked key-length attack.
 
+![Historical ciphertext triage separates monoalphabetic frequency-pattern analysis from Vigenere period estimates using Kasiski and the Index of Coincidence before plaintext checking](../../assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg)
+
+*Conceptual historical cryptanalysis workflow.* Candidate frequencies and key lengths are evidence to test, not proof of a unique key. English-letter statistics depend on text length, genre, language and normalization. For the worked implementation, see [cipher_toolkit.py](cipher_toolkit.py) and the [deciphering workbook](deciphering-workbook.md).
+
 **On this page:**
 
 - [Breaking Simple Substitution](#breaking-simple-substitution)
@@ -22,7 +26,7 @@ Frequency analysis, n-grams, Kasiski examination, and the Index of Coincidence w
 
 ### English Letter Frequency
 
-Monoalphabetic ciphers keep the "fingerprint" of the language. A commonly used approximate English frequency ranking is `ETAOIN SHRDLU`:
+Monoalphabetic substitution preserves relative symbol-count structure under a one-to-one mapping, but observed frequencies may diverge sharply for short ciphertext, unusual vocabulary or a different language. A commonly used approximate English frequency ranking is `ETAOIN SHRDLU`:
 
 ```
 E  12.70%  ███████████████████████████████████████████████████
@@ -66,7 +70,7 @@ Z   0.07%
 
 ## Breaking Polyalphabetic Ciphers
 
-To break a Vigenère cipher, first find the key length *L*. Then the ciphertext splits into *L* columns, each a plain Caesar cipher that falls to frequency analysis.
+A common approach to a conventional **repeating-key** Vigenère cipher is to estimate candidate key periods *L*. For each candidate, grouping positions modulo *L* yields columns that may each be analyzed as a Caesar shift. Validate the inferred shifts and complete plaintext; the method does not guarantee a unique key.
 
 ### The Kasiski Examination
 
@@ -94,7 +98,7 @@ where *nᵢ* is the count of each letter and *N* is the total number of letters.
 KBLHW KJMQL WKQNI PQVUQ IDEJV PTDSI UBDMX ZOMHP XNCAI OIRIM DMAZU LDTMK ...
 ```
 
-The scan below splits the ciphertext into *L* columns for each guessed key length and averages the IC of the columns. Wrong guesses stay near random; the correct length (and its multiples) jumps toward English:
+The scan below splits the ciphertext into *L* columns for each guessed key length and averages the IC of the columns. This demonstration produces peaks at period 6 and its multiple 12; real ciphertext may have noisy IC scores and misleading peaks, especially with short samples, different languages or periodic structure:
 
 ```
 len  1  IC 0.0413  ████████████████████
