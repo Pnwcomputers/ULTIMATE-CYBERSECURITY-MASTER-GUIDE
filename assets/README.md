@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated: 2026-11-18. Historical visual content has not been re-authenticated against live equipment._
+_Visual placements updated: 2026-11-19. Historical visual content has not been re-authenticated against live equipment._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -101,6 +101,18 @@ These original accessible diagrams are embedded in their canonical chapters and 
 | [Linux Privilege & Vendor Patch Triage](./diagrams/linux-privilege-risk-and-vendor-patch-triage.svg) | [Linux Privilege Escalation Checklist](../Checklists/Linux-Privilege-Escalation.md) | Versioned vendor CVEs, distro backports, effective sudo/SUID/cron checks and safe remediation |
 | [Arduino Board, Port & Bootloader Diagnostics](./diagrams/arduino-ide-board-port-bootloader-diagnostics.svg) | [Arduino IDE Multi-Platform Setup](../Documentation/arduinoIDE.md) | Installed board core, physical USB interface and upload protocol must be diagnosed separately |
 | [OSINT/CTI Source Quality to Detection](./diagrams/osint-cti-source-quality-to-detection.svg) | [OSINT & Threat Intelligence Deep Dive](../Tradecraft/osint-threat-intel.md) | Source provenance, corroboration, time-sensitive IOCs, behavior mapping and detected-outcome evidence |
+
+## Reverse Engineering, Wireless Survey, Account Response & Cyberdeck Diagrams
+
+Original, editable SVG figures are placed in the relevant guides. Captions distinguish conceptual design from live evidence and link to official sources where available.
+
+| Diagram | Embedded Guide | What the Diagram Clarifies |
+|---|---|---|
+| [Ghidra Analysis and Validation](./diagrams/ghidra-analysis-hypothesis-validation.svg) | [Ghidra Master Guide](../ReverseEngineering/ghidra-guide-index.md) | Inferred control flow and decompilation are hypotheses requiring independent analyst checks |
+| [REMnux Isolation Boundaries](./diagrams/remnux-malware-analysis-network-isolation.svg) | [REMnux Malware Analysis](../ReverseEngineering/remnux-malware-analysis-guide.md) | Evidence intake, static-analysis guest, optional isolated execution VM and safe export |
+| [Kismet GPS and Log Retention](./diagrams/kismet-wardrive-gps-log-retention-flow.svg) | [Kismet Wireless Survey](../Wardriving/kismet.md) | Wireless observations, location-fix gate, additive log types and sharing approval |
+| [Identity Alert Investigation](./diagrams/identity-alert-investigation-evidence-containment.svg) | [Unauthorized Access Playbook](../PlayBooks/unauth_access.md) | Corroborate access events and contextual identity risk before containment |
+| [Cyberdeck Trust Boundaries](./diagrams/cyberdeck-zone-policy-logical-architecture.svg) | [Cyberdeck Public Reference](../Cyberdeck/README.md) | Logical GL.iNet/MikroTik path, intended zones and hardware validation caveat |
 
 ## Repository-Wide Audit & Evidence Diagram
 
