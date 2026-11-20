@@ -1,6 +1,6 @@
 # 🏛️ Security Control Frameworks
 
-_Last reviewed: 2026-11-17 (primary-source documentation review; no assessment or certification performed)._
+_Last reviewed: 2026-11-19 (targeted version and scope clarification against primary sources; no assessment or certification performed)._
 
 > [!IMPORTANT]
 > Educational reference, **not** compliance advice. Framework versions change -
@@ -13,9 +13,8 @@ A working reference to the major security control frameworks - what each is, whe
 it applies, how it is structured, and how they relate.
 
 ## ⚙️ Function
-Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8.1 (with versioned v8 references retained where applicable),
-and the NIST SP 800-53 control catalog / SP 800-171 requirements, with version notes verified against
-each authoritative source.
+Covers NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2, PCI DSS 4.0.1, CIS Controls v8.1 (retaining versioned references to v8 where applicable), and
+NIST SP 800-53 / SP 800-171, with versions checked against authoritative sources.
 
 ## 🏆 Goal
 Let a reader pick the right framework, understand its structure, and see how a
