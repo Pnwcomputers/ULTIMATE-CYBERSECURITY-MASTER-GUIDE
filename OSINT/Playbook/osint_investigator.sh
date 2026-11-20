@@ -325,6 +325,7 @@ show_api_status() {
         "SHODAN_API_KEY:Shodan"
         "VIRUSTOTAL_API_KEY:VirusTotal"
         "HAVEIBEENPWNED_API_KEY:HIBP"
+        "URLHAUS_AUTH_KEY:URLhaus"
     )
 
     for entry in "${apis[@]}"; do
