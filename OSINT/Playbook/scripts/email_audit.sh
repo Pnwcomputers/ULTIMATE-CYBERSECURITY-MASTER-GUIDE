@@ -35,7 +35,7 @@ API_CONFIG="${CONFIG_DIR}/api_keys.conf"
 
 # API keys are loaded from the config file or environment.
 # Support both the short variable names used by this script and the
-# exported names documented in `playbook/api_keys.conf`.
+# variable names supported by the private local configuration or environment.
 HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-}}"
 HUNTER_KEY="${HUNTER_KEY:-${HUNTER_API_KEY:-}}"
 LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-}}"
