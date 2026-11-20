@@ -102,7 +102,7 @@ These original accessible diagrams are embedded in their canonical chapters and 
 | [Pin-Tumbler Shear Line Cutaway](./diagrams/locksport-pin-tumbler-shear-line.svg) | [Locksport Mechanical Fundamentals](../Documentation/Locksport.md) | Side-by-side locked/appropriately keyed pin-stack alignment |
 | [WPA-PBKDF2 PMKID/EAPOL Audit Boundaries](./diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg) | [HCXTools & Hashcat Reference](../Documentation/hcxtoolshashcat.md) | RF active/passive mode gates, original PCAPNG, offline conversion and Hashcat 22000 applicability |
 | [ESP32-C5 Normal, Node & Core](./diagrams/esp32-c5-wardriver-normal-node-core.svg) | [ESP32-C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Device roles, GNSS/SD logging, Node observations and Core aggregation |
-| [Hardware Bench Diagnostic & Write Safety](./diagrams/hardware-bench-inventory-stress-storage-safety.svg) | [Manjaro Intel Hardware Test Bench](../HardwareTesting/Manjaro_Intel_TestBench.md) | Baseline, telemetry, bounded stress, write-test permission and reproducible results |
+| [Hardware Bench Diagnostic & Write Safety](./diagrams/hardware-bench-inventory-stress-storage-safety.svg) | [Manjaro Intel Hardware Test Bench](../HardwareTesting/Manjaro_Intel_TestBench.md); [Python test scripts](../HardwareTesting/py/README.md) | Baseline, telemetry, bounded stress, write-test permission and reproducible results |
 
 ## VoIP Call Paths, Linux Privilege Risk, Arduino IDE & Threat Intelligence
 
