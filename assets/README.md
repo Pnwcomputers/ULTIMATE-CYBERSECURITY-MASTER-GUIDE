@@ -72,6 +72,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [UserLAnd Android Permission Boundary](./diagrams/userland-android-proot-capability-boundaries.svg) | [UserLAnd Linux on Android](../Mobile/UserLAnd/readme.md) | Distinguishes no-root Linux userspace tools from unavailable host kernel/raw-radio privileges |
 | [ETL Versus ELT Data Paths](./diagrams/etl-vs-elt-transform-privacy-and-replay.svg) | [ETL & ELT Pipeline Design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md) | Preload vs in-destination transforms, and why raw retention and security are independent choices |
 
+## Nmap AgentFlow Evidence Gates
+
+| Diagram | Embedded guide |
+|---|---|
+| [Nmap analysis evidence gates](./diagrams/nmap-agentflow-evidence-gates.svg) | [AnythingLLM Nmap Analyzer](../AI/AnythingLLM/flow-nmap_analyzer.md#flow-information) |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
