@@ -545,7 +545,7 @@ ha-manager add <vmid> --group <groupname> --max_restart 3
 
 #### Network Configuration in Proxmox
 
-`vmbr1` below is an internal virtual bridge with no physical port. If you use a physical switch for a lab, dedicate that switch and verify it has no trunk, router, wireless bridge, or cable to production or upstream networks.
+In this example, `vmbr1` is an internal virtual bridge with no physical port. The `vmbr0` management and `vmbr2` storage links shown below must use separate, restricted networks without an Internet gateway. If using a physical lab switch, dedicate it to the lab and verify that it has no router, wireless bridge, or cable to production or upstream networks.
 
 ```
 auto lo
@@ -557,8 +557,8 @@ iface eno1 inet manual
 
 auto vmbr0
 iface vmbr0 inet static
-    address 10.10.10.5/24
-    gateway 10.10.10.1
+    address 192.168.50.5/24
+    # No default gateway in the disconnected example.
     bridge-ports eno1
     bridge-stp off
     bridge-fd 0
@@ -613,21 +613,9 @@ tank/
     └── blue-team-logs/    # Centralized log storage
 ```
 
-**NFS Shares for Proxmox (restrict clients and preserve root squashing)**:
-```bash
-# Replace these example host addresses and datasets with your actual values.
-# Prefer a dedicated, read-only dataset for ISO/template consumers.
-zfs set sharenfs="ro=@10.10.10.12/32" tank/proxmox/isos
-zfs set sharenfs="ro=@10.10.10.12/32" tank/proxmox/templates
+**NFS Shares for Proxmox (restrict clients and permissions):**
 
-# Use a dedicated data export and grant write access only to the required VM.
-# Keep the default root_squash behavior; do not set no_root_squash.
-zfs set sharenfs="rw=@10.20.20.10/32" tank/pentest-data
-```
-
-Use your NAS vendor's current export controls to verify the effective client list,
-root mapping, and file permissions. Do not expose a broad writable export to an
-attacker VM; use a separate, disposable working dataset when writes are required.
+Use the current TrueNAS interface and documentation for the installed release to create exports. Restrict each share to named hypervisor clients, prefer read-only access for ISO/template datasets, and review root mapping and dataset ACLs. Do not mount a broad writable share into an attacker VM; use a separate disposable working dataset only when writes are required. TrueNAS release and UI details can change, so verify the resulting export from both the NAS and client.
 
 **iSCSI Target for High-Performance VM Storage** (Optional):
 ```bash
@@ -638,15 +626,7 @@ attacker VM; use a separate, disposable working dataset when writes are required
 # Mount in Proxmox as iSCSI storage
 ```
 
-**Automated Snapshot Schedule**:
-```bash
-# ZFS auto-snapshots every 4 hours, keep for 7 days
-# Configure in TrueNAS: Tasks → Periodic Snapshot Tasks
-# Snapshot schedule:
-#   - Hourly: Keep 24
-#   - Daily: Keep 7
-#   - Weekly: Keep 4
-```
+**Snapshot schedule:** Set frequency and retention from recovery objectives and available storage. Snapshots do not replace independent, tested backups; document when snapshots expire and how restores are verified.
 
 ---
 
@@ -782,7 +762,7 @@ qm start 300
 ```
 
 > [!CAUTION]
-> The intentionally weak accounts, SMB1 setting, and Defender change below are for a disposable, isolated training domain only. Before enabling them, attach lab VMs only to an internal virtual switch with no physical uplink, default route, NAT, or DNS path to the Internet or production networks. Verify that isolation from the hypervisor console, use test data and credentials only, and administer through the hypervisor console. Never connect this exercise to a production management VLAN.
+> This optional exercise uses intentionally weakened configuration on disposable lab VMs only. Attach them to an internal virtual switch with no physical uplink, default route, NAT, or DNS path to the Internet or production networks. Verify isolation from the hypervisor console, use synthetic identities, and never connect these VMs to a production management VLAN. Do not disable host protections or enable legacy protocols on a physical system.
 
 ```mermaid
 flowchart LR
@@ -810,23 +790,13 @@ Install-ADDSForest -DomainName "pnwlab.local" -DomainNetbiosName "PNWLAB" `
     -ForestMode "WinThreshold" -DomainMode "WinThreshold" `
     -InstallDns -Force
 
-# LAB ONLY: run only after confirming the isolation above.
-# Use disposable test identities and never reuse these passwords.
-New-ADUser -Name "John Doe" -SamAccountName "jdoe" -AccountPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force) -Enabled $true
-New-ADUser -Name "Admin User" -SamAccountName "admin" -AccountPassword (ConvertTo-SecureString "Admin@123" -AsPlainText -Force) -Enabled $true
-Add-ADGroupMember -Identity "Domain Admins" -Members "admin"
-
-# Optional lab-only legacy protocol setting. Revert after the exercise.
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "SMB1" -Value 1
-
-# Temporarily disable real-time protection only in this disposable lab VM.
-Set-MpPreference -DisableRealtimeMonitoring $true
-
-# After the exercise, restore protections and remove test identities.
-Set-MpPreference -DisableRealtimeMonitoring $false
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "SMB1" -Value 0
-Remove-ADUser -Identity "jdoe" -Confirm:$false
-Remove-ADUser -Identity "admin" -Confirm:$false
+# Keep Defender and modern protocol protections enabled. If the exercise needs
+# a weak-configuration condition, use a disposable snapshot and create it
+# through a reviewed lab procedure with unique synthetic credentials stored
+# outside shell history. Restore the snapshot after the exercise.
+# Review account policy, group membership, and audit events through the
+# Windows administration console; this guide does not prescribe real passwords
+# or disabling endpoint protections.
 ```
 
 **SQL Server (SQL01)**:
@@ -1493,7 +1463,7 @@ qm create 410 --name security-onion --memory 16384 --cores 4 \
 5. Enable Zeek network analysis
 6. Configure Elasticsearch for log storage
 
-**SPAN/Mirror Port Configuration on OPNsense**:
+**SPAN / Mirror Port for Sensor Visibility**:
 ```
 Configure SPAN on the managed switch or place a network TAP between the monitored links. Connect the mirror destination to a dedicated Security Onion capture NIC. OPNsense packet capture is useful for traffic visible to the firewall, but it does not configure a switch SPAN session. See the [OPNsense packet capture guide](https://docs.opnsense.org/manual/diagnostics_interfaces.html) and the switch manufacturer's SPAN documentation.
 ```
