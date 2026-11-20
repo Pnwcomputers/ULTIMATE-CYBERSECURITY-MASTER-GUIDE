@@ -1228,7 +1228,7 @@ WannaCry Kill Chain:
 **Target:** Financial institutions worldwide  
 **Year:** 2013-2015 (primary activity)  
 **Type:** Advanced Persistent Threat  
-**Impact:** $1 billion stolen from 100+ banks
+**Impact estimate:** Kaspersky reported up to $1 billion in losses and attacks on up to 100 banks, e-payment systems, and other financial institutions in about 30 countries; these were estimates, not a final audited total.
 
 ### Attack Methodology
 
@@ -1237,7 +1237,7 @@ Carbanak Attack Lifecycle:
 ├── Phase 1: Initial Compromise
 │   ├── Spear-phishing emails
 │   ├── Malicious Word/Excel documents
-│   └── CVE-2012-0158 exploitation
+│   └── Reported Office exploits: CVE-2012-0158, CVE-2013-3906, CVE-2014-1761
 ├── Phase 2: Reconnaissance
 │   ├── Video surveillance of employees
 │   ├── Screenshot capture
@@ -1245,7 +1245,7 @@ Carbanak Attack Lifecycle:
 ├── Phase 3: Lateral Movement
 │   ├── Mimikatz credential dumping
 │   ├── PsExec for remote execution
-│   └── RDP for persistence
+│   └── RDP-based remote access, including concurrent sessions
 ├── Phase 4: Target Identification
 │   ├── Locate administrators
 │   ├── Find payment systems
