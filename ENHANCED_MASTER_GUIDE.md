@@ -1817,7 +1817,7 @@ The earlier sample files combined different collection routes and incomplete par
 
 # CUSTOM SCRIPTS & AUTOMATION
 
-## Vulnerable VM Lab Design
+## Black Hat Bash Lab Build
 
 This section describes a lab layout, not an installation script. The previous shell block changed host networking, enabled forwarding, added a NAT rule, downloaded unverified files, and started vulnerable guests with default credentials and an unspecified VNC listener. Those actions did not establish the “isolated” environment claimed by the generated lab README.
 
