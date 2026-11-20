@@ -108,7 +108,7 @@ This directory contains **mobile security resources for penetration testers, for
 ### Android
 | Tool | Purpose | Install |
 |------|---------|---------|
-| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Automated static + dynamic analysis framework | `docker run -it -p 8000:8000 opensecurity/mobile-security-framework-mobsf` |
+| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Automated static + dynamic analysis framework | `docker run --rm -it -p 127.0.0.1:8000:8000 opensecurity/mobile-security-framework-mobsf:latest` |
 | [APKTool](https://apktool.org/) | Decompile/recompile APKs | `sudo apt install apktool` |
 | [jadx](https://github.com/skylot/jadx) | APK to Java source decompiler | `sudo apt install jadx` |
 | [Frida](https://frida.re/) | Dynamic instrumentation toolkit | `pip install frida-tools` |
@@ -116,6 +116,13 @@ This directory contains **mobile security resources for penetration testers, for
 | [Drozer](https://github.com/WithSecureLabs/drozer) | Android attack surface analyzer | `pip install drozer` |
 | [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for authorized testing | Android user-CA trust depends on target SDK and Network Security Configuration: API 24+ defaults to system CAs, while API 23 and lower also trust user-added CAs by default. Custom trust or pinning may still reject the proxy. |
 | [apksigner](https://developer.android.com/tools/apksigner) | Sign repackaged APKs | Included in Android SDK build-tools |
+
+> [!CAUTION]
+> The loopback binding keeps the web interface on the local host. MobSF documents
+> default credentials `mobsf/mobsf`; do not publish this service to a shared or
+> untrusted network. Treat uploaded APKs, reports, and retained analysis data as
+> sensitive. See the [MobSF Docker guide](https://github.com/MobSF/docs/blob/master/running_mobsf_docker.md)
+> and [Docker port-publishing behavior](https://docs.docker.com/engine/network/port-publishing/).
 
 ### iOS
 | Tool | Purpose | Notes |
