@@ -957,11 +957,11 @@ flowchart LR
 
 ## Tool Arsenal Integration
 
-### Essential Pentest Tools (Pre-Configured)
+### Tool References and Controlled Access
 
 #### Reconnaissance & OSINT
 
-**Tools Available** (from ULTIMATE-CYBERSECURITY-MASTER-GUIDE):
+The following names are examples, not a verified inventory of installed software or a recommendation to run every tool. Confirm maintenance, source, license, privacy behavior, and exercise scope before use:
 - theHarvester
 - Recon-ng
 - SpiderFoot
@@ -972,38 +972,15 @@ flowchart LR
 - Shodan CLI
 - Censys CLI
 
-**NFS Mount for Centralized Tools**:
-```bash
-# On all attacker VMs
-sudo mkdir /mnt/pentest-data
-sudo mount -t nfs truenas-ip:/mnt/tank/pentest-data /mnt/pentest-data
+External lookups may disclose queried domains, IPs, or organization details to providers and may generate contacts with third parties. Use only approved identifiers and review the provider's data-handling terms before sending queries.
 
-# Tools accessible at:
-# /mnt/pentest-data/tools/
-```
+**Shared tools and data**: Do not mount a writable NAS share across attacker VMs by default. If shared distribution is needed, create a dedicated read-only export containing reviewed tools or synthetic training data, allow only named lab hosts, and keep credentials, evidence, captures, and client data elsewhere.
 
-**Custom OSINT VM** (Optional, using your OSINT Arsenal):
-```bash
-qm create 210 --name osint-vm --memory 8192 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=20 \
-    --cdrom local:iso/ubuntu-22.04-desktop.iso \
-    --scsi0 local-lvm:80
-
-# Install all 400+ OSINT tools from your guide
-# Use automated scripts from your repository
-```
+**Optional OSINT workstation**: Create a disposable VM from a currently supported, verified OS image only if the exercise needs it. Install a small set of reviewed tools from official or organization-approved sources; do not bulk-install a catalog or run unreviewed repository automation.
 
 #### Scanning & Enumeration
 
-**Nmap with Custom Scripts**:
-```bash
-# NSE scripts location
-/usr/share/nmap/scripts/
-
-# Add custom scripts from your guide
-sudo cp /mnt/pentest-data/tools/nmap-custom/*.nse /usr/share/nmap/scripts/
-sudo nmap --script-updatedb
-```
+Use the Nmap and other scanner versions supplied by a maintained, trusted repository. Review third-party scripts and their network behavior before installation; keep custom scripts in a separate, version-controlled lab directory until they have been reviewed. Limit active checks to one explicitly authorized disposable target and a conservative profile.
 
 **Inventory validation:** Use the lab's hypervisor inventory, switch tables, and firewall logs first. If active discovery is needed, define one owned subnet and a test window, use a conservative rate, and confirm the destination remains inside the lab before running a tool.
 
