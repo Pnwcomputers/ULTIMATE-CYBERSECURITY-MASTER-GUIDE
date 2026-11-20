@@ -1,6 +1,6 @@
 # Cipher Types and a Practical Deciphering Workbook
 
-_Last reviewed: 2026-10-03_
+_Last reviewed: 2026-11-20 (examples and visual review; no solver execution)_
 
 [Classical index](README.md) · [Cryptography index](../README.md)
 
@@ -100,6 +100,31 @@ message may support several equally plausible solutions.
    consistency, not necessarily uniqueness or historical authenticity.
 8. **Record uncertainty.** State preprocessing, padding, conventions, alternate
    solutions, and what further evidence would distinguish them.
+
+### Workflow overview
+
+The diagram summarizes the numbered process below; it is a decision aid, not an
+automatic cipher detector or a guarantee that a unique plaintext can be recovered.
+
+```mermaid
+flowchart TD
+    A[Preserve original symbols, spacing and source] --> B[Check encoding, alphabet and formatting]
+    B --> C{Public representation or cipher hypothesis?}
+    C -->|Encoding| D[Decode the representation and record each transformation]
+    D --> B
+    C -->|Cipher| E[Classify likely family and available evidence]
+    E --> F{Key and settings known?}
+    F -->|Yes| G[Apply the documented inverse procedure]
+    F -->|No| H[State attack model; rank candidate methods and readings]
+    G --> I[Compare the full normalized result with the evidence]
+    H --> I
+    I --> J{Consistent and supported by context?}
+    J -->|No or ambiguous| K[Revisit assumptions; retain alternatives]
+    K --> E
+    J -->|Supported, not authenticated| L[Report method, assumptions and uncertainty]
+```
+
+*Conceptual workflow based on the original procedure below. Re-encryption or a full-text match establishes consistency with the selected model, not historical authenticity or sender identity.*
 
 ### Know what information the method assumes
 
