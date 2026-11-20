@@ -1433,72 +1433,71 @@ The exact number and scope of files remain disputed. Treat official damage estim
 
 ### Purple Team Overview
 
-**Purpose:** Combine red team (offensive) and blue team (defensive) to improve security posture
+**Purpose:** Combine red-team simulation and blue-team monitoring to improve defensive controls.
 
 **Objectives:**
-1. Validate detection capabilities
-2. Improve defensive measures
-3. Share knowledge between teams
-4. Measure security effectiveness
+1. Validate detection and response within an agreed scope.
+2. Improve defensive measures.
+3. Share evidence and assumptions between teams.
+4. Measure coverage, alert quality, and response time.
 
 ### Simple Purple Team Exercise
 
-```bash
-#!/bin/bash
-# simple_purple_team.sh - Basic purple team exercise
+Use a tabletop card or a preapproved benign event in an isolated lab. Do not scan production systems or unspecified targets.
 
-echo "=== PURPLE TEAM EXERCISE: Port Scan Detection ==="
+| Role | Exercise task |
+|---|---|
+| Red | Present a synthetic “unexpected port-scan behavior” event, or generate a preapproved benign signal inside the contained lab. Record the scope and stop condition. |
+| Blue | Check which approved telemetry would observe the event, whether the expected alert appears, and what evidence supports the conclusion. |
+| Purple | Compare the observed result with the exercise objective, document gaps, and agree on a detection or process change. |
 
-# RED TEAM ACTION
-echo "[RED] Performing port scan against target..."
-TARGET="192.168.1.100"
-nmap -sS -p- -T4 $TARGET -oA scan_results
+The record below is **fictional training data**, not a scan result or network event:
 
-# BLUE TEAM ACTION
-echo "[BLUE] Checking SIEM for alerts..."
-# Check logs for port scan indicators
-grep "SYN" /var/log/syslog | grep $TARGET
+```text
+event_time=2026-01-01T12:00:00Z
+event_type=synthetic-port-scan-alert
+source_ip=198.51.100.25
+destination_ip=192.0.2.10
+rule_id=LAB-PORT-SCAN-001
+```
 
-# PURPLE TEAM DEBRIEF
-echo "[PURPLE] Was the scan detected?"
-echo "[PURPLE] Alert generated: YES/NO"
-echo "[PURPLE] Response time: X minutes"
-echo "[PURPLE] Recommended improvements:"
-echo "  - Tune IDS rules"
-echo "  - Implement rate limiting"
-echo "  - Update detection signatures"
+```mermaid
+flowchart LR
+    Scope[Agree scope, owner, and stop conditions] --> Signal[Use a synthetic card or preapproved lab signal]
+    Signal --> Observe[Review approved telemetry and expected alert]
+    Observe --> Debrief[Compare evidence with objectives]
+    Debrief --> Improve[Record control changes and owners]
+    Improve --> Cleanup[Remove temporary lab state and close out]
 ```
 
 ### Purple Team Meeting Agenda
 
-```
+```text
 1. Pre-Exercise (30 min)
-   - Define scope
-   - Set objectives
-   - Establish rules of engagement
-   - Configure monitoring
+   - Define scope and exclusions
+   - Set objectives, owners, and stop conditions
+   - Agree on synthetic or preapproved lab inputs
+   - Confirm telemetry and evidence handling
 
-2. Execution (2-3 hours)
-   - Red team performs attack
-   - Blue team monitors and responds
-   - Document all actions
+2. Execution (2–3 hours)
+   - Red team supplies the approved signal or tabletop card
+   - Blue team monitors and responds within scope
+   - Record evidence, timestamps, and limitations
 
 3. Debrief (1 hour)
-   - Review detection effectiveness
-   - Discuss missed alerts
-   - Identify gaps
-   - Plan improvements
+   - Review detection effectiveness and missed evidence
+   - Identify gaps and assign improvements
+   - Confirm cleanup and closeout
 
 4. Follow-up (1 week)
-   - Implement improvements
+   - Verify the agreed defensive changes
    - Update playbooks
-   - Schedule next exercise
+   - Schedule the next scoped exercise
 ```
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 ## Purple Team Playbook (Detailed)
 
 ### Comprehensive Purple Team Framework
