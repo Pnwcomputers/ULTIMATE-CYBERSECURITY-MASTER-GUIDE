@@ -108,6 +108,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [Domain reconnaissance scope and evidence flow](./diagrams/domain-recon-scope-evidence-flow.svg) | [DomainRecon AgentFlow](../AI/AnythingLLM/flow-domain_recon.md#purpose) | Separates third-party public-source queries, unverified leads, an optional active HTTP check, and human scope confirmation |
 
+## OpenClaw Use-Case Safety Workflow
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [OpenClaw use-case safety workflow](./diagrams/openclaw-use-case-safety-workflow.svg) | [OpenClaw Use Cases](../AI/OpenClaw/use_cases.md#before-using-a-prompt) | Connects data minimization, channel/scope checks, least-privilege tools, verification, and human approval |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |

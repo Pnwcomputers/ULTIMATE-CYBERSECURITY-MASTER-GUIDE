@@ -1,645 +1,385 @@
-# OpenClaw Use Cases & Real-World Examples
+# OpenClaw Use Cases and Prompt Examples
 
-A practical guide to getting value out of OpenClaw across personal, professional, IT support, and cybersecurity workflows. These examples assume OpenClaw is running with Telegram or Discord configured as a chat channel so you can interact from anywhere.
+Practical, editable prompts for personal, business, IT support, and defensive security work. These are starting points, not tested automations or guarantees of correctness. Adapt them to the installed OpenClaw version, configured channel, selected model, tool permissions, and data-handling policy.
 
-## 🎯 Purpose
-Copy-paste-ready example prompts organized by workflow domain (personal, business, IT field work, blue/red/purple team, OSINT), assuming an already-running OpenClaw instance (see [README.md](README.md) for setup). Complements [agent_skill_config.md](agent_skill_config.md): this file shows *what to ask*, that file shows *how to configure the agent* that answers well.
+## Purpose
 
-## ⚙️ Function
-Ten sections of example prompts organized by domain, plus a model-routing strategy table (which model for which task type) and a tips section on prompt specificity, role-priming, and keeping sensitive data local via `@ollama`.
+Show how to ask for bounded help from an already configured OpenClaw agent. See [README.md](README.md) for the repository's installation context and [agent_skill_config.md](agent_skill_config.md) for agent and workspace setup.
 
-## 🏆 Goal
-Have ready-made, tested prompt patterns for common IT/security workflows so you're not starting from a blank chat box for routine tasks.
+## Before using a prompt
 
-## 📋 When to Use
-- Looking for a starting-point prompt for a specific workflow (IT field diagnostics, blue team log triage, OSINT recon, etc.)
-- Deciding which model to route a task to (Section: Model Routing Strategy)
-- Handling sensitive client data and needing the local-only `@ollama` pattern
+![Classify request data, confirm channel access and scope, use least-privilege tools, verify the draft, and require human approval for messages or system changes](../../assets/diagrams/openclaw-use-case-safety-workflow.svg)
 
----
+- Use channel pairing or a strict sender allowlist. In shared channels, restrict who can trigger the agent and what context/tools it can access.
+- Treat emails, web pages, attachments, pasted logs, and repository content as untrusted input that may contain prompt injection.
+- Minimize client identifiers, personal information, credentials, tokens, and raw evidence before sending a prompt.
+- Give the agent read-only or minimal tools for analysis. Require human approval before it sends messages, changes systems, starts tests, or schedules actions.
+- Check the selected model's provider and data path. Local inference does not make connected tools, channels, logs, memory, telemetry, or backups local.
+- Verify claims, commands, sources, and tool results before acting. A confident answer is not evidence that a task succeeded.
 
-## Table of Contents
+## Table of contents
 
-- [Day to Day Personal Life](#day-to-day-personal-life)
-- [Work & Business Productivity](#work--business-productivity)
-- [IT Support & Field Work](#it-support--field-work)
-- [IT Support Business Operations](#it-support-business-operations)
-- [Homelab Management](#homelab-management)
-- [Blue Team / Defensive Security](#blue-team--defensive-security)
-- [Red Team / Offensive Security](#red-team--offensive-security)
-- [Purple Team Operations](#purple-team-operations)
-- [OSINT & Reconnaissance](#osint--reconnaissance)
-- [Model Routing Strategy](#model-routing-strategy)
-- [Tips for Getting the Best Results](#tips-for-getting-the-best-results)
-
----
-
-## Day to Day Personal Life
-
-OpenClaw connected to Telegram means your AI assistant is always in your pocket. These are tasks you'd normally have to sit down at a computer for.
-
-### Morning Briefing
-```
-"Give me a quick summary of what's on my calendar today, any unread emails that look urgent, 
-and today's weather in Vancouver WA"
-```
-*Requires: Google Calendar skill, Gmail skill, web search*
-
-### Research on the Go
-```
-"I'm at a client site and they mentioned moving to Azure AD. 
-Give me a 5-minute briefing on what that means for a 15-person SMB 
-migrating from on-prem AD - costs, gotchas, and what questions I should ask them"
-```
-
-### Shopping & Errands
-```
-"I need to pick up parts for a network install this afternoon. 
-Make me a checklist: 8-port managed switch, patch cables cat6, 
-keystone jacks, patch panel, rack screws, and velcro ties. 
-Estimate cost from Best Buy vs Newegg vs Amazon"
-```
-
-### Learning & Study
-```
-"Explain VLAN trunking to me like I'm prepping for a CompTIA Network+ exam. 
-Use an analogy, then give me 5 practice questions."
-```
-
-### Health & Fitness
-```
-"I have 30 minutes and a set of dumbbells. Give me a quick strength circuit 
-I can do between service calls. No jumping, I'm in dress clothes."
-```
-
-### Home Automation Integration
-```
-"Check my Home Assistant - is the garage door open? 
-Also what's the current temperature inside vs outside?"
-```
-*Requires: Home Assistant skill or API integration*
+- [Personal use](#personal-use)
+- [Business work](#business-work)
+- [IT support](#it-support)
+- [IT service operations](#it-service-operations)
+- [Homelab operations](#homelab-operations)
+- [Blue team and incident response](#blue-team-and-incident-response)
+- [Authorized security assessments](#authorized-security-assessments)
+- [Purple team and detection validation](#purple-team-and-detection-validation)
+- [Organization-level OSINT](#organization-level-osint)
+- [Choosing a model and tool set](#choosing-a-model-and-tool-set)
+- [Prompt writing tips](#prompt-writing-tips)
+- [References](#references)
 
 ---
 
-## Work & Business Productivity
+## Personal use
 
-### Email Drafting
-```
-"Draft a professional follow-up email to a client who hasn't responded 
-to my quote for a network upgrade in 2 weeks. Keep it friendly but nudge them. 
-My business is Pacific Northwest Computers."
-```
-
-### Meeting Prep
-```
-"I have a discovery call with a new small business client in 20 minutes. 
-They're a 12-person dental office. Give me the top 10 questions I should ask 
-to scope their IT needs, and common issues dental offices have with IT compliance."
-```
+### Daily briefing
 
-### Document Summarization
+```text
+Summarize today's calendar and weather using only the connected sources I authorize.
+Show source timestamps and flag conflicts. Do not send messages, move events, or
+share my location without asking.
 ```
-"I'm uploading this 40-page vendor contract. 
-Summarize the key terms, flag anything unusual, 
-and highlight any auto-renewal clauses or liability caps."
-```
 
-### Invoice & Quote Templates
-```
-"Create a service quote template for a small business network installation. 
-Include sections for: labor, hardware (with markup), travel, and ongoing support. 
-Format it so I can fill in the blanks quickly on-site."
-```
+### Learning
 
-### Knowledge Base Building
+```text
+Explain VLAN trunking for a Network+ learner. Use one analogy, then give five
+practice questions and an answer key. Point out where the analogy has limits.
 ```
-"I just fixed a weird issue where a client's Windows 11 machine 
-kept dropping off the domain after sleep. The fix was disabling 
-fast startup and setting the NIC to never sleep in power management. 
-Write this up as a KB article I can add to my GitHub repo."
-```
-
----
 
-## IT Support & Field Work
+### Shopping list
 
-This is where OpenClaw shines for solo technicians. You're on-site, hands full, and need answers fast via Telegram.
-
-### On-Site Diagnostics
-```
-"Client's printer keeps showing offline even though it's on and connected. 
-It's an HP LaserJet Pro M404 on a Windows 10 machine. 
-Walk me through a quick diagnostic starting with the most likely causes."
+```text
+Organize this parts list into a checklist. If current prices are unavailable from
+the approved sources, say so rather than estimating them.
 ```
 
-```
-"Client reports 'slow internet' but speedtest shows 150/20 which matches their plan. 
-They say video calls keep dropping. What are the likely causes and 
-how do I diagnose this efficiently on-site in under 20 minutes?"
-```
+## Business work
 
-### Quick Reference Commands
-```
-"Give me the PowerShell one-liner to check if Windows Defender 
-real-time protection is enabled on a remote machine"
-```
+### Email draft
 
-```
-"What's the command to flush and re-register DNS on Windows 11? 
-Also give me the ipconfig release/renew sequence."
+```text
+Draft a friendly follow-up to an anonymized client about a network-upgrade quote.
+Do not send it. Leave price, client name, and appointment details as placeholders
+for me to verify.
 ```
 
-### Driver & Compatibility Lookups
-```
-"Client has a Dell OptiPlex 7090 running Windows 11 23H2. 
-They bought a new Logitech C920 webcam and it's not being detected. 
-What should I check first?"
-```
+### Meeting preparation
 
-### Client Communication
+```text
+Prepare discovery questions for a small business IT consultation. Keep questions
+general and distinguish technical assessment from legal or compliance advice.
+Do not infer weaknesses about a named organization.
 ```
-"Write a non-technical explanation I can send to a client explaining 
-why their computer is running slow. The actual cause is a failing HDD 
-with bad sectors. Don't use jargon - they're a 65-year-old small business owner."
-```
 
-### On-the-Fly Training
-```
-"A client wants to know the difference between their router, 
-modem, and the switch I just installed. Give me a simple analogy 
-I can use to explain it in under 2 minutes."
-```
+### Contract review
 
-### Remote Support Prep
+```text
+Summarize the supplied contract's renewal, termination, liability, and data-handling
+terms. Quote section numbers, identify ambiguities, and flag questions for counsel.
+Do not treat the summary as legal advice or send the document to an unapproved service.
 ```
-"I'm about to remote into a Windows Server 2019 machine that 
-a client says 'just stopped working.' Give me a first-5-minutes checklist 
-of what to check before I start making changes."
-```
-
----
 
-## IT Support Business Operations
+### Service report draft
 
-### Appointment Management
+```text
+Turn these redacted work notes into a service report. Separate work performed,
+observed result, unresolved items, and customer-approved next steps. Do not add
+work, test results, prices, or guarantees that are not in the notes.
 ```
-"I have 4 service calls today. Help me route them efficiently: 
-- 9am: Battle Ground (PC repair, ~1hr)
-- Vancouver downtown (network install, ~3hr) 
-- Camas (virus removal, ~1.5hr)
-- Vancouver near 78th (printer setup, ~30min)
-What order makes the most sense geographically?"
-```
 
-### SLA & Response Tracking
-```
-"I have 8 open tickets. Here's my list: [paste ticket list]. 
-Which ones are at risk of breaching a 24hr response SLA 
-based on when they were opened? Flag any over 20 hours."
-```
+## IT support
 
-### Client Onboarding Documentation
-```
-"Create a client onboarding checklist for a new small business 
-managed services client. Include: network documentation, 
-software inventory, backup verification, security assessment, 
-and a 90-day check-in schedule."
-```
+### Printer troubleshooting
 
-### Pricing & Quoting
+```text
+A Windows workstation reports that an office printer is offline. Give me a
+read-only-first diagnostic checklist. State what each check establishes and pause
+before recommending a driver reinstall, queue deletion, or other change.
 ```
-"A client needs: 
-- Replace 3 workstations (mid-range office use)
-- New 8-port managed switch
-- NAS for file sharing with 10TB usable
-- Setup and configuration labor
-Give me a rough quote range with parts at retail and 
-suggest what markup is typical for MSPs in 2026."
-```
 
-### Service Report Generation
-```
-"I just finished a 3-hour network install at ABC Dental. 
-I replaced their unmanaged switch with a UniFi USW-Lite-8-PoE, 
-ran 4 new ethernet drops, set up VLANs for guest wifi and office, 
-and updated firmware on their router. 
-Write a professional service completion report I can email to the client."
-```
+### Slow video calls
 
-### Marketing & Social Media
-```
-"Write 3 social media posts for my IT business (Pacific Northwest Computers) 
-promoting our remote support services. 
-Target small business owners in Vancouver WA. 
-Keep them under 280 characters and avoid tech jargon."
+```text
+The user's speed test is near the subscribed rate, but video calls drop. List
+likely causes and low-impact observations to collect first. Ask before suggesting
+changes to the router, firewall, or endpoint.
 ```
 
----
+### Command lookup
 
-## Homelab Management
-
-### TrueNAS Health Checks
-```
-"Check my TrueNAS pools - are they healthy? 
-Any scrub errors or degraded drives?"
+```text
+Give me a read-only PowerShell command to check whether real-time protection is
+enabled on a Windows endpoint. Explain prerequisites and scope. Do not run it.
 ```
-*Requires: TrueNAS skill from ClawHub*
 
-```
-"What apps are currently running on my TrueNAS? 
-Which ones have updates available?"
-```
+### Remote support preparation
 
-### Proxmox & VM Management
-```
-"List all running VMs on my Proxmox cluster and their resource usage. 
-Flag anything using over 80% CPU or RAM."
+```text
+Create a first-five-minutes checklist for a production server issue. Start with
+service-owner communication, impact, current state, and evidence preservation.
+Separate read-only checks from changes and require approval for each change.
 ```
 
-### Network Monitoring
-```
-"Any new unknown devices on my network in the last 24 hours? 
-Check NetAlertX for me."
-```
+## IT service operations
 
-### Backup Verification
-```
-"When did my last TrueNAS replication task run and was it successful? 
-Also check if any ZFS snapshots are older than 7 days and should be pruned."
-```
+### Route planning
 
-### Service Uptime
-```
-"Quick health check - are all my self-hosted services responding? 
-Check: Jellyfin, Frigate, Home Assistant, NPMplus, Ollama"
-```
+Use approximate areas and the technician's approved schedule. Do not include client names or exact addresses unless the connected service is approved to process them.
 
----
+### Ticket triage
 
-## Blue Team / Defensive Security
+```text
+Using this redacted ticket list and its timestamps, identify items that may be near
+the stated response target. Show the calculation and uncertainties; do not contact
+customers or change ticket status.
+```
 
-OpenClaw with appropriate skills becomes a hands-free SOC assistant.
+### Onboarding checklist
 
-### Log Analysis
+```text
+Draft an onboarding checklist for a small business IT service. Include owner-approved
+inventory, network documentation, backup and recovery evidence, identity controls,
+and review dates. Mark each item as a request or a verified result.
 ```
-"I'm going to paste some Wazuh alerts from the last hour. 
-Triage them by severity, identify any that look like real threats vs noise, 
-and suggest immediate actions for anything critical."
-```
 
-```
-"Here are 50 lines of auth.log from my SSH server. 
-Are there any signs of credential stuffing or brute force? 
-Give me the source IPs and recommended firewall rules."
-```
+### Quote support
 
-### Threat Hunting Queries
-```
-"Write a Wazuh rule to detect when a new user account is created 
-on a Windows machine outside of business hours (8am-6pm PST)"
+```text
+Organize these supplied parts and labor estimates into a draft quote. Do not invent
+current prices, markups, taxes, or travel charges. Leave missing values for review.
 ```
 
-```
-"Give me Zeek/Suricata rules to detect DNS tunneling based on 
-high-frequency queries, long subdomain strings, and unusual record types"
-```
+## Homelab operations
 
-### Incident Response
-```
-"A Windows workstation on my network made 3,000 DNS queries in 5 minutes 
-to random subdomains of a .xyz domain. Walk me through an IR playbook 
-for suspected C2 beaconing - what do I contain, collect, and analyze first?"
-```
+### Health summary
 
+```text
+Summarize the read-only health data I provide for storage, VMs, services, and backups.
+Report timestamps, unknown checks, and differences from the supplied baseline.
+Do not restart services, prune snapshots, or change configuration.
 ```
-"I found this suspicious PowerShell command in my logs: [paste command]. 
-Decode it, explain what it does, assess the risk level, 
-and tell me what artifacts to look for on the host."
-```
 
-### Vulnerability Management
-```
-"Here's my Nessus scan output for my home network: [paste results]. 
-Prioritize the findings by exploitability and suggest a patching order. 
-Flag anything with a public exploit."
-```
+### Network monitoring
 
-### Security Awareness Training
-```
-"Write a 5-minute phishing awareness training script 
-I can use with a client's non-technical staff. 
-Include 3 real-world examples and a quiz at the end."
+```text
+Review these redacted device-inventory changes. Distinguish new observations from
+confirmed unauthorized devices. Recommend owner review; do not block or isolate
+devices automatically.
 ```
 
-### SIEM Tuning
-```
-"I'm getting too many false positives from this Wazuh rule: [paste rule]. 
-Suggest how to tune it to reduce noise while keeping coverage 
-for actual brute force attempts."
-```
+### Backup review
 
----
+```text
+Compare these backup-job results with the supplied recovery objective. Identify
+missing evidence and propose a restore test for the owner to schedule. Do not delete
+snapshots or trigger replication.
+```
 
-## Red Team / Offensive Security
+## Blue team and incident response
 
-For authorized penetration testing engagements. Always ensure proper written authorization before any testing.
+Use redacted data where possible. Preserve original evidence in the approved case system. Do not paste secrets, full personal data, or complete customer records into a model unless the service and processing path are explicitly approved.
 
-> ⚠️ These examples are for authorized penetration testing only. Ensure you have written permission before testing any system.
+### Alert triage
 
-### Recon & Enumeration
+```text
+Triage these redacted alert fields. Separate confirmed facts, hypotheses, benign
+alternatives, confidence, and missing evidence. Recommend what an analyst should
+review next. Do not contain hosts, disable accounts, or notify anyone automatically.
 ```
-"I'm starting a pentest engagement on a Windows Active Directory environment. 
-Give me a methodology checklist from initial access through domain compromise, 
-with the key tools at each stage."
-```
 
-```
-"What are the current top techniques for AD enumeration without triggering 
-common EDR solutions? Focus on living-off-the-land approaches."
-```
+### Log review
 
-### Payload & Exploit Research
-```
-"Explain how Kerberoasting works, why it's effective against service accounts 
-with weak passwords, and what defenders typically see in logs when it's performed."
+```text
+Review this minimized authentication-log sample for patterns that merit investigation.
+Mask unrelated user names and addresses. Explain the limits of the sample; do not
+identify individuals or generate firewall rules without an owner-reviewed change plan.
 ```
 
-```
-"I have a shell on a Windows 10 machine as a standard user. 
-List the top 5 local privilege escalation techniques I should check, 
-ordered by likelihood of success in a corporate environment."
-```
+### Detection engineering
 
-### Report Writing
-```
-"I found an unauthenticated RCE vulnerability in a client's web application 
-via an unsanitized file upload endpoint. Write this up as a professional 
-pentest finding including: severity rating, technical description, 
-proof of concept summary, business impact, and remediation steps."
+```text
+Draft a detection rule for the supplied telemetry schema. Explain expected false
+positives, required fields, and a synthetic test plan. Do not run the rule or assume
+that a test proves production coverage.
 ```
 
-```
-"Convert these raw pentest notes into an executive summary 
-suitable for a non-technical C-suite audience: [paste notes]. 
-Lead with business risk, not technical details."
-```
+### Incident response
 
-### Tool Reference
+```text
+Help structure a response plan for suspected command-and-control activity. Prioritize
+safety, evidence preservation, asset-owner coordination, and approved containment.
+State which steps require incident-lead approval; do not run commands or contact
+external parties.
 ```
-"Give me the Nmap command to do a full TCP scan with service detection 
-and default scripts on a /24 subnet, output to all formats, 
-without being too aggressive on timing"
-```
 
-```
-"What's the Metasploit module for EternalBlue and what are 
-the exact prerequisites for it to work? 
-What should I check before running it?"
-```
+### Vulnerability management
 
-### CTF Assistance
+```text
+Summarize these redacted scanner findings. For each, distinguish observation from
+confirmed applicability, cite the vendor/source reference, and list the asset/build
+evidence still needed. Do not infer exploitability from a version string or rank
+findings solely by public proof-of-concept availability.
 ```
-"I'm stuck on a CTF challenge. Here's what I have so far: [describe challenge]. 
-Don't give me the answer - give me hints and point me toward the right technique."
-```
 
----
+## Authorized security assessments
 
-## Purple Team Operations
+Use only within a written engagement scope. Keep test planning, active execution, and reporting as separate steps. Avoid prompts requesting stealth, evasion, credential theft, persistence, or access beyond the approved test plan.
 
-Purple team is about blue and red working together to improve defenses. OpenClaw helps coordinate and document this work.
+### Scope and methodology
 
-### Detection Engineering
-```
-"I want to test whether my Wazuh SIEM detects a Pass-the-Hash attack. 
-Give me: (1) the exact attack steps to simulate it, 
-(2) what log events should fire, 
-(3) what a Wazuh rule to detect it should look like, 
-and (4) how to verify detection worked"
+```text
+Help organize this signed rules-of-engagement document into in-scope assets,
+permitted test types, prohibited actions, rate limits, stop conditions, contacts,
+and evidence requirements. Quote the source section for each extracted rule.
+Do not add targets or recommend tests not present in the agreement.
 ```
 
-### Atomic Testing
-```
-"Using Atomic Red Team, which atomics should I run to test detection 
-coverage for T1003 (OS Credential Dumping) on Windows? 
-Give me the commands and what I should see in Wazuh/Sysmon if detection is working."
-```
+### Assessment notes
 
-### Gap Analysis
+```text
+Turn these redacted, analyst-verified notes into a draft finding. Label observed,
+hypothesized, and confirmed items. Preserve evidence references and unknowns.
+Do not create an exploit payload or claim a test succeeded unless the supplied
+evidence explicitly supports it.
 ```
-"Here are the MITRE ATT&CK techniques from my last red team engagement: 
-[paste technique list]. 
-Map these against my current detection stack (Wazuh + Zeek + Sysmon) 
-and identify which techniques I have no detection coverage for."
-```
 
-### Tabletop Exercise Facilitation
-```
-"Facilitate a tabletop exercise for a ransomware scenario targeting 
-a 20-person dental office. Give me: the scenario narrative, 
-inject questions for each phase (initial access, lateral movement, 
-encryption, extortion), and what decisions the team needs to make at each stage."
-```
+### Tool selection
 
-### Control Validation
+```text
+Compare these proposed tools against the written scope and explain which activities
+they would perform, what data they may collect, and the changes they could make.
+Do not provide commands or launch tools. Flag any action needing separate approval.
 ```
-"I claimed in a security assessment that our EDR would detect 
-Mimikatz credential dumping. Design a test to validate this claim 
-that I can run in a lab environment safely."
-```
-
----
 
-## OSINT & Reconnaissance
-
-For legitimate research, due diligence, and authorized investigations.
-
-> ⚠️ OSINT techniques should only be used for lawful purposes. Always comply with applicable laws and platform terms of service.
-
-### Business Intelligence
-```
-"I'm meeting with a potential client - ABC Manufacturing in Vancouver WA. 
-Find what you can about their business: size, industry, any news, 
-tech stack hints from their website, LinkedIn presence, 
-and any public information about their IT infrastructure."
-```
+### CTF and lab learning
 
-### Domain & Infrastructure Recon
+```text
+For this self-contained CTF/lab challenge, give one hint at a time and explain the
+relevant concept. Keep the answer within the supplied lab environment.
 ```
-"Do passive recon on example.com. 
-Find: DNS records, mail servers, any subdomains indexed publicly, 
-associated IP ranges, hosting provider, tech stack from headers, 
-and any data breach mentions in public sources."
-```
 
-### Person of Interest Research (Authorized)
-```
-"For an authorized background check on a potential employee, 
-find publicly available information about [name] in [city]. 
-Look for: LinkedIn, professional credentials, any public records, 
-and verify their claimed certifications are real."
-```
+## Purple team and detection validation
 
-### Threat Actor Research
-```
-"Summarize what is publicly known about the threat actor group 
-tracked as 'BlackCat/ALPHV'. Include: TTPs, typical targets, 
-known IOCs, and recent activity."
-```
+### Tabletop exercise
 
-### Breach & Exposure Monitoring
-```
-"Search HaveIBeenPwned and other public sources for any data breaches 
-associated with the domain pnwcomputers.com. 
-What credentials or data may be exposed?"
+```text
+Create a tabletop scenario using synthetic details for a small organization.
+Add discussion questions about decision authority, evidence, communications, and
+recovery. Do not provide operational attack steps or contact real employees.
 ```
 
-### Social Engineering Awareness
-```
-"I'm doing a security awareness session for a client's staff. 
-Using only publicly available information about their company, 
-show me what a social engineer could find out in 15 minutes 
-to craft a convincing pretexting call. 
-This is for defensive awareness - show them what attackers can learn."
-```
+### Detection coverage review
 
-### Brand Monitoring
-```
-"Set up a summary: are there any lookalike domains registered 
-similar to pnwcomputers.com that could be used for phishing? 
-Check for common typosquatting patterns."
+```text
+Map these analyst-provided behaviors to our documented telemetry sources and
+detections. Identify evidence gaps and false-positive considerations. Propose a
+lab-only validation plan for human approval; do not provide commands or run tests.
 ```
-
----
-
-## Model Routing Strategy
-
-Knowing which model to use for which task saves money and gets better results.
-
-| Task Type | Recommended Model | Reason |
-|-----------|------------------|--------|
-| Quick lookups, commands, checklists | Groq / Llama 3.3 70B | Fast, free, good enough |
-| Casual chat, scheduling, reminders | Groq / Llama 3.3 70B | Free tier handles this well |
-| Long document analysis | Gemini 3.1 Pro | 1M token context window |
-| Web research summaries | Gemini 3.1 Pro | Built-in Google Search integration |
-| Complex security analysis | Claude Opus | Best reasoning for nuanced tasks |
-| Report writing, professional docs | Claude Haiku or Sonnet | Good quality, lower cost than Opus |
-| Sensitive/private tasks | Ollama (local) | Model inference can remain local, but connected tools, web lookups, telemetry and agent actions may still send data externally; verify configuration and egress |
-| Offline/air-gapped work | Ollama (local) | No internet required |
 
-**In the OpenClaw dashboard:**
-- Set **Adaptive** mode to let OpenClaw auto-route based on task complexity
-- Or prefix messages with the model name: `@groq what's the ping command for Linux`
-- Use `@opus` when you need Claude's best reasoning on a hard problem
+### Safe control validation
 
----
+```text
+Help design a bounded lab test from the supplied control objective and vendor
+documentation. Include prerequisites, stop conditions, synthetic data, expected
+telemetry, rollback, and an explicit approval gate. Do not enable a control test
+in production or perform the test.
+```
 
-## Tips for Getting the Best Results
+## Organization-level OSINT
 
-### Be Specific About Context
-Instead of: `"Help me fix this network issue"`  
-Try: `"Client has a Ubiquiti UniFi setup, USG-3P router, 2 APs, 8-port switch. 
-Clients on VLAN 10 can't reach the internet but the gateway ping works. 
-What should I check?"`
+Limit collection to public organization-level information needed for an authorized purpose. Do not profile individuals, infer personal email addresses, conduct background checks, or craft pretexts.
 
-### Use Role Priming for Specialized Tasks
-```
-"Act as a senior penetration tester reviewing my methodology. 
-Here's my recon phase notes for an engagement: [notes]. 
-What am I missing and what would you prioritize next?"
-```
+### Business-source summary
 
+```text
+Summarize these approved public company pages. For each fact, include the source URL
+and retrieval date. Separate organization statements from third-party claims and
+flag stale or conflicting information. Do not collect employee details.
 ```
-"Act as a non-technical small business owner. 
-Review this security assessment report I wrote and tell me 
-what's confusing, what's missing, and what would concern you most."
-```
 
-### Chain Tasks Together
-```
-"1. Find the CVE for the recent Fortinet SSL VPN vulnerability from early 2026
-2. Explain the technical details in plain English
-3. Write a client advisory email warning them to patch immediately
-4. Give me the PowerShell or CLI command to check if their firmware is vulnerable"
-```
+### Domain observations
 
-### Use It as a Second Opinion
-```
-"I'm about to run this Bash script on a client's production server. 
-Review it for anything dangerous, unintended side effects, 
-or edge cases I should know about before running it: [paste script]"
+```text
+Organize these public-source domain observations for one domain already in written
+scope. Keep source, query date, and uncertainty. Do not claim a complete asset list,
+rank hosts as targets, or recommend active scans; discovered names require separate
+ownership and scope confirmation.
 ```
 
-### Reuse a Prompt, Schedule a Job, or Trigger a Hook?
+### Breach exposure
 
-These mechanisms are **not** interchangeable. Use a reusable **skill** when you want consistent triage instructions; use **cron/scheduled jobs** for fixed-time work; use an **event hook** when a supported session/tool event fires; use an **authenticated webhook/integration** for an external Wazuh alert.
-
-| Example | Recommended Mechanism | Verification & Boundary |
-|---|---|---|
-| Daily security digest at 8:00 AM | Scheduled job / cron | Check timezone, source freshness, actual run and destination |
-| Weekly summary of open service tickets | Scheduled job reading permitted records | Check data access, filter out stale/closed tickets, verify coverage |
-| Wazuh critical alert from another service | Authenticated integration/webhook, then bounded triage | Validate sender, event ID, duplicate handling and severity |
-| Save a summary before an agent lifecycle event | Supported internal hook with reviewed handler | Test actual event behavior; restrict stored data and permissions |
-| Repeated vulnerability-triage checklist | Reusable skill or prompt template | Test with synthetic positive/negative samples |
-
-**Setup order:** (1) define a bounded task and authorized sources, (2) select the correct triggering mechanism, (3) validate input/authentication and privacy, (4) test dry-run and failure cases, (5) inspect the actual result and record it, (6) only then enable it within the intended environment.
+```text
+Summarize metadata returned for an account owner or verified-domain workflow that
+is already authorized. Include only the fields needed by the owner. Do not search
+for employees, infer passwords, or treat a match as proof of current compromise.
+```
 
-A hook firing or scheduled job running does **not** prove that the final report is correct. Track the deliverable with measurable acceptance criteria and evidence. See [Notes, Memory, Hooks & Automation](../notes-hooks-and-automation.md), [Milestones & Acceptance Criteria](../milestones-and-acceptance-criteria.md) and [OpenClaw Hooks & Triggers](agent_skill_config.md#hooks--triggers).
+### Threat actor research
 
+```text
+Summarize this threat actor's publicly documented behavior using primary sources
+where available. Give publication dates, confidence, attribution caveats, and
+defensive relevance. Do not provide operational intrusion instructions.
+```
 
-### Keep Sensitive Data Local
-For anything involving:
-- Client PII or confidential data
-- Internal network diagrams or credentials
-- Security assessments with real vulnerability details
+### Brand monitoring
 
-...always use `@ollama` to keep it local:
+```text
+Review these owner-provided brand-monitoring alerts. Separate lookalike indicators
+from confirmed impersonation. Do not contact domains, send messages, or accuse an
+operator; route candidates to the brand owner for review.
 ```
-"@ollama Review this network diagram and identify security gaps: [diagram details]"
-```
-
----
 
-## Quick Reference: Useful Prompt Patterns for IT Pros
+## Choosing a model and tool set
 
-```
-# Explain something simply
-"Explain [technical concept] to a non-technical client in under 3 sentences"
+Model names, availability, capabilities, and provider handling change. Select from the models configured on the current Gateway and check the installed release's documentation. A listed model is not proof that credentials, entitlements, or safe tool use are configured.
 
-# Generate a checklist
-"Give me a pre-flight checklist before [task] on a production system"
+| Task | Selection considerations |
+|---|---|
+| Short summaries | Latency, language quality, and how much context is sent |
+| Long documents | Context limits, document access, retention, and citation quality |
+| Security analysis or tool use | Strong instruction following, prompt-injection resistance, and strict tool permissions |
+| Confidential data | Approved provider, region, retention, logging, and data-processing terms |
+| Local inference | Hardware/context fit, model reliability, local tool policy, and external data paths |
 
-# Write a ticket/report
-"Write a service ticket for: [description of issue and resolution]"
+OpenClaw's local models documentation notes that local models may not provide hosted providers' safety filters. Test the exact workload and keep tool permissions narrow.
 
-# Command lookup
-"What's the [Windows/Linux/macOS] command to [task]? Give me the exact syntax."
+## Prompt writing tips
 
-# Script review
-"Review this script for security issues, bugs, or unintended behavior: [script]"
+- State the task, allowed inputs, output shape, and what must not happen.
+- Ask the agent to distinguish facts from hypotheses and cite sources or evidence IDs.
+- Redact data before sending; do not rely on a prompt to enforce privacy.
+- For current facts, request source links and publication or retrieval dates.
+- Ask for read-only observations before changes.
+- Require explicit human approval before messages, purchases, deployments, scans, or account/system changes.
+- Treat output as a draft. Verify important claims against original evidence and current documentation.
+- Do not infer an action completed from a generated summary. Inspect the authorized tool result and final system state.
 
-# Incident response
-"Walk me through IR steps for: [incident type] on [system type]"
+### Model selection
 
-# Client communication
-"Write a [friendly/formal/urgent] email to a client explaining: [situation]"
+Use the current model picker or `/model <provider/model> -s` for a session-scoped choice when supported. Check the installed release's model documentation. Do not assume aliases such as `@groq`, `@opus`, or `@ollama` exist unless they are configured for your Gateway.
 
-# Cost estimate
-"Rough cost estimate for: [hardware/service list] - parts + typical labor"
+### Local inference and privacy
 
-# Study/cert prep
-"Give me 10 practice questions for [certification] on the topic of [topic]"
+A local model can keep model inference on a machine you control, but that alone does not make the workflow local. Browser/web tools, integrations, messaging channels, plugins, telemetry, logs, and backups may send data elsewhere. Verify the full data path and disable external tools when the task requires local-only processing.
 
-# Log analysis
-"Analyze these logs and tell me if anything looks suspicious: [logs]"
-```
+## References
 
----
+- [OpenClaw prompt-injection guidance](https://docs.openclaw.ai/gateway/security/prompt-injection) — untrusted web, file, message, and tool content.
+- [OpenClaw channel access controls](https://docs.openclaw.ai/gateway/security/exposure-runbook) — pairing, allowlists, group exposure, and tool access.
+- [OpenClaw local models](https://docs.openclaw.ai/gateway/local-models) — local model behavior and security considerations.
+- [OpenClaw model selection](https://docs.openclaw.ai/models) — current providers, model IDs, and selection behavior.
+- [Agent configuration](agent_skill_config.md) — repository's version-specific setup examples.
+- [Notes, Memory, Hooks & Automation](../notes-hooks-and-automation.md) — automation boundaries and review practices.
 
-*Guide written for use with OpenClaw 2026.4.15 deployed on TrueNAS SCALE. All security examples assume authorized testing environments.*
+## Related files
 
-## Related Files
-- [README.md](README.md) - OpenClaw setup (required before use cases apply)
-- [agent_skill_config.md](agent_skill_config.md) - Agent personas referenced in these examples
-- [../ai_prompts.md](../ai_prompts.md) - General prompt engineering patterns behind these examples
-- [../README.md](../README.md) - AI section index
+- [README.md](README.md) — OpenClaw setup context
+- [agent_skill_config.md](agent_skill_config.md) — agent workspace and configuration examples
+- [../ai_prompts.md](../ai_prompts.md) — general prompt-writing patterns
+- [../README.md](../README.md) — AI section index
