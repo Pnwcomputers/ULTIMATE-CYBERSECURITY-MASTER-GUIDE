@@ -125,13 +125,13 @@ Keep experiments on test VLANs with clear ownership, explicit routing/firewall r
 
 *Example design for layered network protection and segmentation. This is a **reference topology**, not an inventory or validation of the reader's actual routers, firewalls, VLANs, hypervisors or storage.*
 
-### 1. Hardware Requirements
-* **Minimum:** A modern multi-core CPU (i5/i7/Ryzen), 16GB+ RAM, 500GB SSD.
-* **Recommended:** Dedicated hardware (e.g., Intel NUC, Dell OptiPlex, or custom server), 64GB+ RAM, 2TB+ NVMe storage for running complex Active Directory environments alongside SIEMs.
+### 1. Plan Hardware Capacity
+Size the host from the guests and tools you actually plan to run. Estimate peak memory, CPU, and storage use, leave capacity for the host and monitoring stack, then verify with a representative workload. A two-VM exercise and a multi-VM directory-services/SIEM lab have very different needs; fixed RAM or storage numbers are not a capacity guarantee.
 
-### 2. Choose Your Hypervisor
-* **Type-1 (Bare Metal):** Best for dedicated hardware. Install Proxmox VE or VMware ESXi.
-* **Type-2 (Hosted):** Best for running a lab on your daily-driver laptop. Install VMware Workstation Pro or VirtualBox.
+### 2. Choose a Supported Hypervisor
+* **Bare-metal examples:** Proxmox VE and other currently supported Type-1 platforms.
+* **Hosted examples:** VMware Workstation Pro and VirtualBox.
+* Check the selected release's lifecycle, hardware compatibility, and licensing before installation. Use an internal virtual network with no physical uplink for vulnerable targets, and verify all adapters and routes.
 
 ### 3. Network Segregation (Critical Step)
 
@@ -247,9 +247,9 @@ To contribute to the Homelab section:
 ---
 
 ## Related Files
-- [HomeLab_Setup.md](HomeLab_Setup.md) - Full build guide: hardware, network, hypervisor, and VM deployment
-- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM catalog for the VMs you'll deploy in this lab
-- [../IncidentResponse/](../IncidentResponse/) - IR infrastructure deployed within the homelab environment
+- [HomeLab_Setup.md](HomeLab_Setup.md) - Reference guide: capacity planning, network boundaries, hypervisors, and example lab exercises
+- [../Documentation/virtualmachines.md](../Documentation/virtualmachines.md) - VM catalog and related deployment notes; confirm current status and scope before use
+- [../IncidentResponse/](../IncidentResponse/) - Incident response guides and related monitoring references
 - [../Documentation/wireshark.md](../Documentation/wireshark.md) - Wireshark for monitoring the lab's network traffic
 
 ---
