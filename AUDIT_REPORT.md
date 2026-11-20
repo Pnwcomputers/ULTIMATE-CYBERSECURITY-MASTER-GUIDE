@@ -1,6 +1,8 @@
 # 🧭 Audit Report — Planning Deliverables
 
 > **Historical assessment (August 2026):** The proposed gaps and statuses below are a dated planning snapshot, not a description of the current tree. Cloud, ContainerSecurity, WebAppSecurity, and Cryptography sections have since been added; F-08/F-09 were implemented. See the [archived September review](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/de8f58798d20db4fb07f5a9e996ec41ce8f86d6a/REVIEW_2026-09-21.md) for the next historical snapshot.
+>
+> For the latest broad coverage, findings, and limitations, see the [November 19, 2026 whole-repository review](./REVIEW_2026-11-19.md).
 
 *Companion to the [Audit Findings Register](./AUDIT_FINDINGS.md). This document
 contains the audit's planning deliverables: **A** Executive Summary, **E**
