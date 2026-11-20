@@ -36,6 +36,8 @@ A 3D printer on its own mostly prints other people's files. Pair it with the abi
 
 **Why parametric (code-based) CAD helps with this:** a model driven by named measurements (`dev_width`, `fit_gap`, `wall`) is easy to adjust when the first print is 0.3 mm tight, to reuse for the next device, and to share so others can adapt it to their hardware. Mockups and clash checks ([how](./OpenSCAD/03-mockups-and-fit-checks.md)) cut down the "print, test, reprint" loop that wastes time and filament.
 
+<a id="cad-design-to-fit-loop"></a>
+
 ![CAD fit workflow: measure hardware, parameterize the model, render and inspect, test a small print, then verify and document the fit.](../assets/diagrams/cad-design-to-fit-verification-loop.svg)
 
 *Conceptual workflow. A successful render or software clash check does not establish fit on a physical printer.*
