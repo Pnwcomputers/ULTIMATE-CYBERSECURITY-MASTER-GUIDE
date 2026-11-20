@@ -552,10 +552,10 @@ build_summary() {
             printf "  [!] %s\n" "$flag_line" >> "$summary_file"
         done < "${RESULTS_DIR}/flags.txt"
     else
-        printf "No feeds returned positive detections.\n" >> "$summary_file"
+        printf "No positive matches were returned by the available checks. This is not a cleared result.\n" >> "$summary_file"
     fi
 
-    # Count feeds that actually ran for this IOC type (not skipped due to type mismatch)
+    # Count feeds relevant to this IOC type. This is not a confidence score.\n    # Failed, unavailable, or skipped feeds must remain unverified.
     local applicable=0
     case "$IOC_TYPE" in
         ip)     applicable=5 ;;   # AbuseIPDB, ThreatFox, VirusTotal, OTX, URLScan
@@ -566,20 +566,13 @@ build_summary() {
     esac
 
     {
-        printf "\nRISK SCORE: %d / %d\n" "$flag_count" "$applicable"
+        printf "\nFeeds with positive matches: %d\n" "$flag_count"
+        printf "Applicable feeds: %d (not a probability or completeness score)\n" "$applicable"
+        printf "Review per-feed status; errors, missing keys, skips, and rate limits are UNVERIFIED, never clean.\n"
         printf "\nPer-feed raw results: %s/\n" "$RESULTS_DIR"
     } >> "$summary_file"
 
-    local risk_color
-    if [[ "$flag_count" -ge $(( applicable / 2 )) ]]; then
-        risk_color="${RED}"
-    elif [[ "$flag_count" -ge 2 ]]; then
-        risk_color="${YELLOW}"
-    else
-        risk_color="${GREEN}"
-    fi
-
-    printf "${risk_color}Risk score: %d / %d feeds flagged${NC}\n" "$flag_count" "$applicable" | tee -a "$LOG_FILE"
+    printf "Positive matches: %d of %d applicable feeds (review per-feed status; not a confidence score)\n" "$flag_count" "$applicable" | tee -a "$LOG_FILE"
     info "Summary written to: $summary_file"
 }
 
