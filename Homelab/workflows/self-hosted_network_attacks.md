@@ -18,6 +18,23 @@ Run a full-cycle offense/defense exercise against your own homelab wireless envi
 
 ---
 
+
+## Wireless lab workflow
+
+Use a named, isolated lab scope and test devices. Captures can contain identifiers or other sensitive data; store them with access controls, analyze only what the exercise needs, and apply the retention plan.
+
+```mermaid
+flowchart LR
+    A[Written authorization and RF scope] --> B[Isolated lab AP and test clients]
+    B --> C[Select adapter and verify actual monitor interface]
+    C --> D[Capture only approved lab traffic]
+    D --> E[Restrict and protect capture files]
+    E --> F[Analyze minimum necessary evidence]
+    F --> G[Document result, restore interfaces, apply retention plan]
+    A -. Scope unclear or external device observed .-> X[Stop capture and escalate]
+    C -. Interface or channel uncertain .-> X
+```
+
 # PART 0: MASTER DEVICE INVENTORY & OPERATIONAL GUIDE
 
 This section details every piece of hardware in your arsenal, its specific role, and general usage instructions.
@@ -25,7 +42,7 @@ This section details every piece of hardware in your arsenal, its specific role,
 ## 1. Monitoring & Reconnaissance Station
 | Device | Role | Use Instructions / Config |
 | :--- | :--- | :--- |
-| **Raspberry Pi Zero 2 W** <br>*(Kali Linux + USB/Eth Hat)* | **The "Mothership"**<br>Central monitoring, packet capture, and logging. | **Boot:** SSH in via Ethernet or OOB WiFi.<br>**Cmd:** `sudo airmon-ng start wlan0` (internal) or `wlan1` (external).<br>**Run:** `kismet -c wlan1` or `airodump-ng wlan1`. |
+| **Raspberry Pi Zero 2 W** <br>*(Kali Linux + USB/Eth Hat)* | **The "Mothership"**<br>Central monitoring, packet capture, and logging. | **Boot:** SSH in via Ethernet or OOB WiFi.<br>**Mode:** Select and identify the intended adapter; enabling monitor mode can disrupt connectivity.<br>**Capture:** Use `airmon-ng start <selected-interface>`, then use the monitor-interface name reported by the tool (often `wlan0mon`) with Kismet/airodump. Stop the reported monitor interface and restore networking after the lab. See the [Aircrack-ng airmon-ng guide](https://www.aircrack-ng.org/doku.php?id=airmon-ng). |
 | **2x Alfa AWUS036ACS** | **Long-Range Eyes**<br>High-gain packet capture linked to the Kali Pi or Laptop. | **Connect:** Plug into Pi Hat or Laptop.<br>**Driver:** `apt install realtek-rtl88xxau-dkms`.<br>**Mode:** Supports Monitor mode & Packet Injection (5GHz/2.4GHz). |
 | **T-Dongle S3** <br>*(ZeroTrace Firmware)* | **Wardriving / Presence**<br>Passive tracking of devices and vendors. | **Boot:** Plug into power bank.<br>**Usage:** Observe screen for "Found Devices" counts. Review logs on SD card later.<br>**Note:** Use with VK172 GPS for geolocation data. |
 | **USB VK172 GPS** | **Geolocation**<br>Adds GPS coordinates to packet captures. | **Connect:** Plug into Kali Pi or T-Dongle hub.<br>**Cmd:** `gpsd /dev/ttyACM0`. Verifies location for Kismet/ZeroTrace. |
