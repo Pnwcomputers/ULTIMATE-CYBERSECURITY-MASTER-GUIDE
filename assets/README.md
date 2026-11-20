@@ -96,6 +96,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [GitHub secret alert redaction workflow](./diagrams/github-secrets-redaction-owner-response.svg) | [GitHubSecrets AgentFlow](../AI/AnythingLLM/flow-github_secrets.md#scope-and-safety) | Keeps credential values in restricted scanner systems, separates the metadata-only AgentFlow, and leaves verification and response with the authorized owner |
 
+## Vulnerability Report Evidence Review
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Vulnerability report evidence review](./diagrams/vulnerability-report-evidence-review.svg) | [VulnReportGenerator AgentFlow](../AI/AnythingLLM/flow-vulnreport_gen.md#purpose) | Separates evidence status, scoring sources, impact bounds, remediation review, and human approval |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
