@@ -902,3 +902,11 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | Diagram | Embedded guide |
 |---|---|
 | [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#8-reconciliation) |
+
+## AI Routing and OpenSCAD Export Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [AI model routing and fallback](./diagrams/ai-model-routing-policy.svg) | [Model routing and cost management](../AI/model-routing-and-cost-management.md#3-routing-policy--safe-fallback) |
+| [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
+| [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |

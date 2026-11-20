@@ -1,6 +1,6 @@
 # 🗂️ OpenSCAD Project Structure, Parameters & Libraries
 
-_Last reviewed: 2026-11-14_
+_Last reviewed: 2026-11-19_
 
 *Part of the [OpenSCAD Design & Prototyping Guide](./README.md) · [CAD & 3D Printing](../README.md) · [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
@@ -56,7 +56,8 @@ Older advice (and the first version of this page) suggested a separate `config.s
 
 ## Anatomy of a Main File
 
-Order matters for readability, not for OpenSCAD. This order keeps a design reviewable top to bottom:
+This layout keeps a design reviewable top to bottom. The following excerpt
+illustrates file structure. See the linked GPS cradle project for runnable code.
 
 ```openscad
 // 1. Header comment: what it is, coordinate system, list of parts
@@ -128,7 +129,9 @@ The Customizer (**Window → Customizer**) turns specially formatted comments in
 
 - Libraries are loaded with **`use`**, so they cannot accidentally add geometry or overwrite your variables.
 - `include` is for when you *want* the other file's variables and output, such as `tutorial_steps.scad`, which includes the whole design and then sets `part = "none"` (last assignment wins) so only the tutorial step draws.
-- Paths are relative to the file containing the statement. `lib/mockups.scad` can `use <utils.scad>` because both live in `lib/`.
+- OpenSCAD looks beside the file containing the statement first, then looks in its
+  configured library paths. `lib/mockups.scad` can use `use <utils.scad>` because
+  both files live in `lib/`. [OpenSCAD library search order](https://files.openscad.org/documentation/manual/Libraries.html).
 
 ---
 
@@ -196,6 +199,7 @@ The Customizer can save named presets to a JSON file next to the `.scad` file (s
 Use them from the command line with `-p` (file) and `-P` (set name):
 
 ```bash
+mkdir -p out
 openscad -o out/body.stl -p gps_cradle.json -P loose-fit -D 'part="body"' gps_cradle.scad
 ```
 
@@ -203,11 +207,19 @@ openscad -o out/body.stl -p gps_cradle.json -P loose-fit -D 'part="body"' gps_cr
 
 ## Command-Line Export & Automation
 
-The `openscad` binary renders and exports without opening the GUI. These options are from `openscad --help` on 2021.01:
+![OpenSCAD export flow from a named JSON preset and an explicit part selector to slicer inspection](../../assets/diagrams/openscad-preset-to-export.svg)
+
+Run the Bash examples from the [GPS cradle example directory](./examples/gps-cradle/).
+Select the intended part explicitly and inspect its mesh, scale, and orientation
+in the slicer before printing.
+
+Use `-o` to export without opening the GUI. Check `openscad --help` for the
+options and formats in your installed build.
+[OpenSCAD command-line manual](https://files.openscad.org/documentation/manual/Using_OpenSCAD_in_a_command_line_environment.html).
 
 | Option | Purpose |
 |---|---|
-| `-o file.ext` | Export; the extension picks the format (`stl`, `3mf`, `off`, `amf`, `dxf`, `svg`, `png`, `echo`, `csg`). Repeat for several outputs. |
+| `-o file.ext` | Export; the extension picks the format (`stl`, `3mf`, `off`, `amf`, `dxf`, `svg`, `png`, `echo`, `csg`). Use one invocation per output for portability across releases. |
 | `-D 'name=value'` | Override a variable. Quote strings: `-D 'part="lid"'` |
 | `-p file.json -P set` | Apply a saved parameter set |
 | `--export-format asciistl\|binstl` | Choose STL flavor |
@@ -218,7 +230,9 @@ The `openscad` binary renders and exports without opening the GUI. These options
 | `--backend=manifold` | Snapshots only: choose the Manifold engine |
 
 ```bash
-# Export every printable part
+mkdir -p out images
+
+# Export the body, lid, and inlay
 for p in body lid inlay; do
   openscad -o "out/gps_cradle_$p.stl" -D "part=\"$p\"" gps_cradle.scad
 done

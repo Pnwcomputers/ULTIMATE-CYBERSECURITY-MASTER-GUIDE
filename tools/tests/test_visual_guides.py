@@ -215,6 +215,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
     ),
+    "assets/diagrams/ai-model-routing-policy.svg": (
+        "AI/model-routing-and-cost-management.md",
+    ),
+    "assets/diagrams/openscad-preset-to-export.svg": (
+        "CAD/OpenSCAD/02-project-structure.md",
+    ),
 }
 
 

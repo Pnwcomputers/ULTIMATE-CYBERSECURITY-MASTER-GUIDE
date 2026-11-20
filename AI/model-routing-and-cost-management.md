@@ -1,6 +1,6 @@
 # AI Model Selection, Routing, Privacy & Cost Management
 
-_Last reviewed: 2026-11-09 · Models, prices, quotas and service terms change; verify before deployment._
+_Last reviewed: 2026-11-19 · Models, prices, quotas and service terms change; verify before deployment._
 
 A model-routing policy decides which provider or local model should perform a specific class of work based on **required capability, privacy, measured quality, latency, resilience and price**. Cheapest per token is not necessarily cheapest per verified outcome.
 
@@ -38,15 +38,12 @@ Record date, model ID, provider, API version, settings, quantization (for local 
 
 ## 3. Routing Policy & Safe Fallback
 
-```text
-INPUT -> classify sensitivity, scope and required tools
-      -> deny unapproved destinations
-      -> choose tested model/provider meeting capability + data policy
-      -> enforce time/cost/turn budget
-      -> validate output and tool choices
-      -> fallback ONLY if destination has equivalent approval and controls
-      -> verify end state and record actual cost/performance
-```
+![Model routing flow from task classification through destination approval, output validation, and bounded fallback](../assets/diagrams/ai-model-routing-policy.svg)
+
+Apply data and tool restrictions before choosing a route. Recheck them for every
+fallback and stop when the retry budget or approved destinations are exhausted.
+Use representative pre-deployment tests to establish an acceptance threshold.
+[NIST AI 600-1, Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1).
 
 **Illustrative policy**, not a vendor configuration file:
 
@@ -79,10 +76,16 @@ For a usage-priced API, estimate:
 
 ```text
 estimated_model_cost =
-  input_tokens / 1_000_000 * input_price_per_million
-+ output_tokens / 1_000_000 * output_price_per_million
-+ any applicable tool, retrieval, cache or other service charges
+  sum over billable token categories: tokens_in_category * rate_per_million / 1_000_000
++ applicable tool, retrieval and other service charges
 ```
+
+Map usage to the provider's billing categories before applying rates. For example,
+OpenAI includes cached tokens in the input total. When a distinct cache rate
+applies, count those tokens at that rate and exclude them from the regular input
+subtotal. Reconcile estimates against reported costs.
+[OpenAI prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching) ·
+[OpenAI pricing](https://developers.openai.com/api/docs/pricing).
 
 For locally hosted models also count amortized hardware, power, storage, monitoring, maintenance and operator time. Include unsuccessful attempts, retries and evaluation runs.
 
@@ -92,7 +95,7 @@ More meaningful metric: **total cost per independently accepted task**, includin
 
 ## 5. Practical Benchmark Procedure
 
-1. Choose 30+ representative, approved test tasks with explicit success criteria and risk categories.
+1. Choose representative, approved test tasks sized for the decision and risk with explicit success criteria and risk categories.
 2. Include a held-out set, exact identifiers, long-context tasks, tool errors and ambiguous requests.
 3. Fix prompt, retrieval source version and tool schemas as much as possible.
 4. Run each candidate with same data and bounded settings; record model ID and revisions.
