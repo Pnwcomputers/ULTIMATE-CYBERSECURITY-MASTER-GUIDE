@@ -96,8 +96,9 @@ curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
 
 This example stops after listing the role name. It does **not** request or display the role-credential document, so it demonstrates IMDSv2 reachability rather than credential theft. Do not print, copy, or publish real tokens or credentials.
 
-**Defend:** require IMDSv2 (`HttpTokens: required`), limit the hop count, and
-scope instance-role permissions tightly.
+**Defend:** require IMDSv2 (`HttpTokens: required`), set the metadata response
+hop limit for the workload network path (AWS recommends `2` for containers), and
+scope instance-role permissions tightly. See [AWS metadata options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html).
 
 ---
 
@@ -126,7 +127,7 @@ scout aws                         # https://github.com/nccgroup/ScoutSuite
 Potential privilege-escalation paths depend on resource scope, policy conditions, trust relationships, applicable limits, and additional service permissions. Examples to review:
 
 - `iam:CreatePolicyVersion` / `iam:SetDefaultPolicyVersion` - create or select a permissive version of a managed policy that affects a principal, if the relevant resource/action is allowed.
-- `iam:AttachUserPolicy` / `AttachRolePolicy` - potentially attach a more permissive managed policy, subject to allowed targets and constraints.
+- `iam:AttachUserPolicy` / `iam:AttachRolePolicy` - potentially attach a more permissive managed policy, subject to allowed targets and constraints.
 - `iam:CreateAccessKey` - mint keys for a more privileged user.
 - `iam:PassRole` + a compute service (`lambda:CreateFunction`, `ec2:RunInstances`) -
   potentially pass a privileged role to a resource. Service execution permissions and the role's trust policy also matter; `iam:PassRole` alone is not sufficient.
@@ -145,19 +146,24 @@ data events explicitly and verify that expected records reach protected storage.
 as `GetObject` and `PutObject` are data events. [AWS Event history limits](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html) · [AWS data-event selection](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html)
 
 - **Logging:** configure multi-Region **CloudTrail** coverage, log-file validation and protected centralized storage; select required data events explicitly. S3 object-level activity is not logged by default merely by creating a trail. Enable appropriate Config recording for resource history.
-- **Threat detection:** **GuardDuty** (anomaly/threat detection), **Security Hub**
-  (aggregated findings + CIS score).
-- **IAM:** enforce MFA, rotate/eliminate long-lived keys, least privilege, use
-  **IAM Access Analyzer** to find external/over-broad access; apply **SCPs** at the org.
+- **Threat detection:** **GuardDuty** for threat detection; **Security Hub CSPM**
+  aggregates findings and evaluates enabled security standards, including CIS when
+  enabled.
+- **IAM:** require MFA for human access, prefer temporary credentials, and remove
+  long-lived keys where they are not needed. Use **IAM Access Analyzer** for
+  external-access findings and policy validation; enable its unused-access analyzer
+  separately when reviewing stale permissions. Use **SCPs** as organization-level
+  permission guardrails; an SCP does not grant permissions.
 - **Data:** verify encryption choice and key policy (SSE-S3 and SSE-KMS differ), public-access controls and recovery/versioning requirements; encryption does not replace authorization.
-- **Network:** least-privilege security groups; no management ports to `0.0.0.0/0`.
+- **Network:** restrict management access to approved administrative paths and
+  source ranges; avoid exposing management ports to `0.0.0.0/0` or `::/0`.
 - Benchmark against the [CIS AWS Foundations Benchmark](https://www.cisecurity.org/benchmark/amazon_web_services).
 
 ---
 
 ## 📚 Resources
 
-**Source and visual review:** November 17, 2026. Three original conceptual diagrams; no AWS API calls, account assessment, scanner execution or exploit reproduction performed. Tool versions and deployment-specific policy behavior require separate validation.
+**Source and visual review:** November 20, 2026. Reviewed this guide and its three existing conceptual diagrams. No AWS API calls, account assessment, scanner execution, or exploit reproduction was performed. Tool versions and deployment-specific policy behavior require separate validation.
 
 - [AWS Penetration Testing Policy](https://aws.amazon.com/security/penetration-testing/) - what is allowed without prior approval
 - [AWS Well-Architected - Security Pillar](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)
