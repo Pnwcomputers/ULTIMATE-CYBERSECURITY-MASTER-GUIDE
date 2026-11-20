@@ -1502,195 +1502,96 @@ flowchart LR
 
 ### Comprehensive Purple Team Framework
 
-```
-Purple Team Maturity Model:
-├── Level 1: Ad-hoc
-│   └── Informal coordination between red/blue
-├── Level 2: Defined
-│   ├── Regular purple team exercises
-│   └── Documented procedures
-├── Level 3: Managed
-│   ├── Metrics-driven improvement
-│   └── Integrated tooling
-├── Level 4: Optimized
-│   ├── Continuous validation
-│   ├── Automated testing
-│   └── Threat intelligence integration
-└── Level 5: Adaptive
-    ├── Real-time collaboration
-    ├── Predictive defense
-    └── Self-improving systems
-```
+This maturity scale is an **illustrative planning aid**, not an industry certification or standardized assessment.
+
+| Level | Practice |
+|---|---|
+| 1 — Ad hoc | Exercises are occasional and lessons are not consistently recorded. |
+| 2 — Defined | Scope, roles, objectives, and cleanup are documented. |
+| 3 — Measured | Teams track detection coverage, evidence quality, and response decisions. |
+| 4 — Integrated | Exercise findings inform engineering, operations, and incident-response improvements. |
+| 5 — Adaptive | Teams regularly reassess priorities and verify that completed changes work as intended. |
 
 ### Detailed Exercise Template
 
+Use this template for a tabletop or a contained simulation that produces **synthetic telemetry only**. Do not send real phishing messages, execute credential-dumping or evasion tools, collect credentials, or access production systems as part of this example.
+
 ```yaml
-# purple_team_exercise.yaml
-
 exercise:
-  name: "Credential Dumping Detection"
-  date: "2025-01-15"
-  duration: "4 hours"
-  participants:
-    red_team:
-      - attacker1
-      - attacker2
-    blue_team:
-      - defender1
-      - defender2
-      - soc_analyst1
-    purple_lead:
-      - facilitator
-
+  name: "Synthetic identity-alert review"
+  date: "YYYY-MM-DD"
+  facilitator: "assigned exercise owner"
+  environment: "tabletop or isolated lab"
+  objectives:
+    - "Confirm which approved telemetry records the synthetic event"
+    - "Evaluate alert routing and triage decisions"
   scope:
-    in_scope:
-      - Domain: internal.company.com
-      - Subnets: 10.0.0.0/8
-      - Systems: Windows workstations
+    in_scope: "synthetic event data and designated monitoring workspace"
     out_of_scope:
-      - Production databases
-      - Customer data
-      - External networks
-
-  attack_scenario:
-    phase1:
-      name: "Initial Access"
-      technique: "Phishing"
-      mitre_id: "T1566.001"
-      actions:
-        - Send phishing email
-        - User clicks malicious link
-        - Payload downloads
-      expected_detections:
-        - Email security gateway alert
-        - EDR suspicious download
-        - Firewall outbound connection
-
-    phase2:
-      name: "Credential Access"
-      technique: "LSASS Memory Dump"
-      mitre_id: "T1003.001"
-      actions:
-        - Execute Mimikatz
-        - Dump credentials
-        - Extract NTLM hashes
-      expected_detections:
-        - Process creation (mimikatz.exe)
-        - LSASS process access
-        - Suspicious PowerShell
-        - Memory dump file creation
-
-  blue_team_responses:
-    detection:
-      - Monitor SIEM for alerts
-      - Review EDR console
-      - Check firewall logs
-    response:
-      - Isolate compromised host
-      - Kill malicious processes
-      - Reset compromised credentials
-    recovery:
-      - Restore from clean backup
-      - Apply security patches
-      - Update detection rules
-
+      - "production identities and endpoints"
+      - "real messages, credentials, or customer data"
+      - "external networks"
+    stop_conditions:
+      - "any real account or endpoint is affected"
+      - "the event reaches an out-of-scope system"
+  scenarios:
+    - id: "PT-SIM-01"
+      behavior_reference: "T1566.001 — simulated attachment-delivery alert"
+      input: "fabricated email-security event; no email is sent and no payload exists"
+      expected_evidence:
+        - "event appears in the approved telemetry source"
+        - "alert includes source, time, and disposition"
+    - id: "PT-SIM-02"
+      behavior_reference: "T1003.001 — simulated credential-access alert"
+      input: "fabricated endpoint event; no process accesses LSASS and no credentials are collected"
+      expected_evidence:
+        - "alert routes to the intended queue"
+        - "triage notes distinguish simulation from a real compromise"
+  response_discussion:
+    - "Which evidence would be needed before declaring a real incident?"
+    - "Who can authorize containment of a real endpoint?"
+    - "How will synthetic records and temporary lab state be removed?"
   metrics:
-    - Time to detect
-    - Time to respond
-    - Time to contain
-    - Alert fidelity
-    - False positive rate
-
+    - "time from synthetic event to alert"
+    - "expected telemetry present or missing"
+    - "triage accuracy and false-positive handling"
   deliverables:
-    - Attack report
-    - Detection analysis
-    - Gap assessment
-    - Improvement recommendations
+    - "scope and event record"
+    - "detection gaps and evidence limitations"
+    - "approved improvement owners and due dates"
+    - "cleanup confirmation"
 ```
+
+### Exercise Lifecycle
+
+```mermaid
+flowchart LR
+    Scope[Approve scope, owners, and stop conditions] --> Plan[Map a behavior to expected evidence]
+    Plan --> Simulate[Create synthetic event or tabletop card]
+    Simulate --> Observe[Review telemetry and alert routing]
+    Observe --> Debrief[Record evidence, gaps, and decisions]
+    Debrief --> Improve[Assign defensive improvements]
+    Improve --> Cleanup[Remove temporary data and close out]
+```
+
+The diagram is a planning flow. It does not prescribe executing the mapped behavior.
 
 ### MITRE ATT&CK Mapping
 
-```python
-#!/usr/bin/env python3
-# purple_team_attack_tracker.py
+Use ATT&CK IDs to label the behavior being evaluated, then name the telemetry and expected defensive evidence. A mapping is a taxonomy reference, not authorization to run a test.
 
-import json
-from datetime import datetime
+| Behavior reference | Safe exercise input | Defensive evidence to review |
+|---|---|---|
+| [T1566.001 — Spearphishing Attachment](https://attack.mitre.org/techniques/T1566/001/) | Synthetic email-gateway event; no message or attachment is sent | Mail-security disposition, alert route, analyst classification |
+| [T1003.001 — LSASS Memory](https://attack.mitre.org/techniques/T1003/001/) | Synthetic endpoint alert; no memory access or credential collection | EDR event fields, escalation and containment decision |
+| [T1059.001 — PowerShell](https://attack.mitre.org/techniques/T1059/001/) | Mock process event in a tabletop record | Script logging availability, rule coverage, triage notes |
+| [T1021.001 — Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001/) | Synthetic authentication and remote-session events | Identity, endpoint, and network evidence correlation |
 
-class PurpleTeamExercise:
-    def __init__(self, exercise_name):
-        self.exercise_name = exercise_name
-        self.techniques = []
-        self.detections = []
-        
-    def add_technique(self, technique_id, name, detected, alert_time=None):
-        """Track executed techniques and detection status"""
-        technique = {
-            'id': technique_id,
-            'name': name,
-            'detected': detected,
-            'alert_time': alert_time,
-            'timestamp': datetime.now().isoformat()
-        }
-        self.techniques.append(technique)
-        
-    def calculate_detection_rate(self):
-        """Calculate percentage of techniques detected"""
-        if not self.techniques:
-            return 0
-        detected = sum(1 for t in self.techniques if t['detected'])
-        return (detected / len(self.techniques)) * 100
-    
-    def generate_report(self):
-        """Generate exercise report"""
-        report = {
-            'exercise': self.exercise_name,
-            'date': datetime.now().isoformat(),
-            'techniques_tested': len(self.techniques),
-            'detection_rate': self.calculate_detection_rate(),
-            'techniques': self.techniques
-        }
-        
-        with open(f'{self.exercise_name}_report.json', 'w') as f:
-            json.dump(report, f, indent=2)
-        
-        print(f"[+] Report generated: {self.exercise_name}_report.json")
-        print(f"[*] Detection Rate: {report['detection_rate']:.1f}%")
-
-# Example usage
-exercise = PurpleTeamExercise("Q1_2025_Credential_Theft")
-
-# Track techniques
-exercise.add_technique("T1566.001", "Spear Phishing", True, "5 minutes")
-exercise.add_technique("T1059.001", "PowerShell", True, "2 minutes")
-exercise.add_technique("T1003.001", "LSASS Memory", False, None)
-exercise.add_technique("T1021.001", "RDP", True, "10 minutes")
-
-# Generate report
-exercise.generate_report()
-```
----
-> 📁 **Purple Team Tradecraft Reference:** [Tradecraft/README.md](Tradecraft/README.md)
->
-> Full tradecraft section maps every file to MITRE ATT&CK tactics.
-> Use with Atomic Red Team to validate detection coverage per technique.
->
-> ```powershell
-> # Key Atomic Red Team test mappings:
-> Invoke-AtomicTest T1562.001   # AMSI bypass          → av-edr-evasion.md
-> Invoke-AtomicTest T1055       # Process injection     → av-edr-evasion.md
-> Invoke-AtomicTest T1218       # LOLBin execution      → lolbins-lolbas.md
-> Invoke-AtomicTest T1003.001   # LSASS dump            → active-directory.md
-> Invoke-AtomicTest T1558.003   # Kerberoasting         → active-directory.md
-> Invoke-AtomicTest T1071.004   # DNS C2 channel        → network-detection.md
-> ```
- 
----
+Do not use this playbook to execute phishing, AMSI bypass, process injection, credential dumping, Kerberoasting, or command-and-control tests. The [Tradecraft reference](Tradecraft/README.md) is for defensive study; any hands-on assessment needs its own explicit authorization, technical scope, containment, and cleanup plan.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 ## Blue Team Playbook (Generic)
 
 ### Blue Team Fundamentals
