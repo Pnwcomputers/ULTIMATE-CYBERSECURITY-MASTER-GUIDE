@@ -523,7 +523,7 @@ Reviewed: November 2026
 
 ---
 
-⚠️ **CRITICAL: These are ATTACK TECHNIQUES - Written authorization is REQUIRED** ⚠️
+⚠️ **CRITICAL: For third-party hardware, written owner authorization and a defined scope are required before assessment. Follow applicable safety, contractual and legal limits.** ⚠️
 
 ⚠️ **Unauthorized activity may violate law, contract, or policy depending on conduct, authorization, and jurisdiction. Obtain the authorization required for your activity and follow the agreed scope.** ⚠️
 
