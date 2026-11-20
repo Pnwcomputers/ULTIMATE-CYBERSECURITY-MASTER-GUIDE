@@ -215,6 +215,21 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
     ),
+    "assets/diagrams/ghidra-analysis-hypothesis-validation.svg": (
+        "ReverseEngineering/ghidra-guide-index.md",
+    ),
+    "assets/diagrams/remnux-malware-analysis-network-isolation.svg": (
+        "ReverseEngineering/remnux-malware-analysis-guide.md",
+    ),
+    "assets/diagrams/kismet-wardrive-gps-log-retention-flow.svg": (
+        "Wardriving/kismet.md",
+    ),
+    "assets/diagrams/identity-alert-investigation-evidence-containment.svg": (
+        "PlayBooks/unauth_access.md",
+    ),
+    "assets/diagrams/cyberdeck-zone-policy-logical-architecture.svg": (
+        "Cyberdeck/README.md",
+    ),
 }
 
 
