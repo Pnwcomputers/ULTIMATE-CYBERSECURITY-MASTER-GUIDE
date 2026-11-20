@@ -114,6 +114,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [Domain reconnaissance scope and evidence flow](./diagrams/domain-recon-scope-evidence-flow.svg) | [DomainRecon AgentFlow](../AI/AnythingLLM/flow-domain_recon.md#purpose) | Separates third-party public-source queries, unverified leads, an optional active HTTP check, and human scope confirmation |
 
+## Offensive AI Engagement Scope and Stop Gates
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Authorized AI red-team engagement gates](./diagrams/offensive-ai-authorized-engagement-gates.svg) | [Offensive AI](../AI/offensive_ai.md#chapter-2-the-engagement---an-ai-red-teamers-methodology) | Connects written scope, bounded synthetic tests, stop conditions, safe validation, and reporting |
+
 ## OpenClaw Use-Case Safety Workflow
 
 | Diagram | Embedded guide | Why it belongs |
