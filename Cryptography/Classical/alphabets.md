@@ -123,7 +123,7 @@ Homoglyphs are characters from different scripts that render **identically or ne
 
 **Example:** `gіthub.com` uses Cyrillic `і` (U+0456) in place of Latin `i` (U+0069). It may look similar, but it is a different identifier.
 
-The Unicode compatibility chart maps mathematical `𝕠` to Latin `o` under NFKC, while confusable-skeleton checks can flag a cross-script look-alike such as Cyrillic `о`. The skeleton is only for comparison; Unicode says it is not a display or storage form ([UAX #15](https://www.unicode.org/reports/tr15/), [UTS #39](https://www.unicode.org/reports/tr39/)).
+The [Unicode mathematical-alphabet chart](https://www.unicode.org/Public/18.0.0/charts/nameslist/1d400/) identifies `𝕠` as the mathematical double-struck small o, which NFKC maps to Latin `o`; confusable-skeleton checks can separately flag a cross-script look-alike such as Cyrillic `о`. The skeleton is only for comparison; Unicode says it is not a display or storage form ([UAX #15](https://www.unicode.org/reports/tr15/), [UTS #39](https://www.unicode.org/reports/tr39/)).
 
 ```mermaid
 flowchart LR
