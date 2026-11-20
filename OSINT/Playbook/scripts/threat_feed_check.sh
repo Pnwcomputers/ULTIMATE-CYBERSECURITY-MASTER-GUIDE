@@ -5,7 +5,7 @@ umask 077
 # DESCRIPTION: Check a single IOC (IP, domain, URL, or file hash) against multiple
 #              threat intelligence feeds simultaneously. Autodetects IOC type and
 #              runs all feed checks in parallel. Produces per-feed result files and
-#              a consolidated threat_summary.txt with a risk score.
+#              a consolidated threat_summary.txt with feed statuses.
 # AUTHOR:      Pacific Northwest Computers (PNWC) ~ github.com/Pnwcomputers
 # CONTACT:     see repo for current contact details
 # VERSION:     1.0.0
@@ -46,6 +46,8 @@ OTX_API_KEY="${OTX_API_KEY:-}"
 PHISHTANK_API_KEY="${PHISHTANK_API_KEY:-}"
 URLSCAN_API_KEY="${URLSCAN_API_KEY:-}"
 URLHAUS_AUTH_KEY="${URLHAUS_AUTH_KEY:-}"
+THREATFOX_AUTH_KEY="${THREATFOX_AUTH_KEY:-}"
+MALWAREBAZAAR_AUTH_KEY="${MALWAREBAZAAR_AUTH_KEY:-}"
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -87,6 +89,8 @@ load_api_keys() {
         source_trusted "$key_file" || true
         ABUSEIPDB_API_KEY="${ABUSEIPDB_API_KEY:-${ABDB_API_KEY:-}}"
         URLSCAN_API_KEY="${URLSCAN_API_KEY:-}"
+        THREATFOX_AUTH_KEY="${THREATFOX_AUTH_KEY:-}"
+        MALWAREBAZAAR_AUTH_KEY="${MALWAREBAZAAR_AUTH_KEY:-}"
         info "API keys loaded from $key_file"
     else
         warn "API key file not found: $key_file — authenticated feeds will be skipped"
@@ -263,14 +267,21 @@ check_urlhaus() {
     fi
 
     info "URLhaus: querying $ioc ..."
-    local post_field
+    local post_field encoded_ioc
     case "$IOC_TYPE" in
-        url)    post_field="url=${ioc}" ;;
+        url)
+            encoded_ioc=$(printf '%s' "$ioc" | jq -sRr @uri) || return
+            post_field="url=${encoded_ioc}"
+            ;;
         hash)
             if [[ ${#ioc} -eq 64 ]]; then
                 post_field="sha256_hash=${ioc}"
-            else
+            elif [[ ${#ioc} -eq 32 ]]; then
                 post_field="md5_hash=${ioc}"
+            else
+                printf '{"query_status":"not_run_unsupported_hash"}\n' > "$out_file"
+                warn "URLhaus: SHA-1 is unsupported by this lookup; result is unknown"
+                return
             fi
             ;;
         domain) post_field="host=${ioc}" ;;
@@ -300,16 +311,31 @@ check_threatfox() {
     local ioc="$1"
     local out_file="${RESULTS_DIR}/threatfox.json"
 
-    [[ "$IOC_TYPE" == "url" ]] && { info "ThreatFox: treating URL as IOC"; }
-
     command -v curl &>/dev/null || { warn "curl not found, skipping ThreatFox"; return; }
+    if [[ -z "${THREATFOX_AUTH_KEY:-}" ]]; then
+        printf '{"query_status":"not_run_auth_key_missing"}\n' > "$out_file"
+        warn "ThreatFox: skipped because THREATFOX_AUTH_KEY is not configured; result is unknown"
+        return
+    fi
 
-    info "ThreatFox: querying $ioc ..."
-    local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -X POST "https://threatfox-api.abuse.ch/api/v1/" \
-        -H "Content-Type: application/json" \
-        -d "{\"query\":\"search_ioc\",\"search_term\":\"${ioc}\"}")
+    local query search_term payload http_code
+    if [[ "$IOC_TYPE" == "hash" ]]; then
+        if [[ ${#ioc} -eq 32 || ${#ioc} -eq 64 ]]; then
+            query="search_hash"
+        else
+            printf '{"query_status":"not_run_unsupported_hash"}\n' > "$out_file"
+            warn "ThreatFox: SHA-1 is unsupported by this lookup; result is unknown"
+            return
+        fi
+        payload=$(jq -nc --arg query "$query" --arg hash "$ioc" '{query:$query,hash:$hash}') || return
+    else
+        query="search_ioc"
+        payload=$(jq -nc --arg query "$query" --arg search_term "$ioc" '{query:$query,search_term:$search_term}') || return
+    fi
+
+    info "ThreatFox: querying $IOC_TYPE ..."
+    http_code=$(private_curl_post_status "$out_file" "https://threatfox-api.abuse.ch/api/v1/" \
+        "$payload" "Content-Type: application/json" "Auth-Key: ${THREATFOX_AUTH_KEY}") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
@@ -335,14 +361,18 @@ check_malwarebazaar() {
     local out_file="${RESULTS_DIR}/malwarebazaar.json"
 
     [[ "$IOC_TYPE" != "hash" ]] && { info "MalwareBazaar: skipping (hash required)"; return; }
-
     command -v curl &>/dev/null || { warn "curl not found, skipping MalwareBazaar"; return; }
+    if [[ -z "${MALWAREBAZAAR_AUTH_KEY:-}" ]]; then
+        printf '{"query_status":"not_run_auth_key_missing"}\n' > "$out_file"
+        warn "MalwareBazaar: skipped because MALWAREBAZAAR_AUTH_KEY is not configured; result is unknown"
+        return
+    fi
 
-    info "MalwareBazaar: querying $ioc ..."
-    local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -X POST "https://mb-api.abuse.ch/api/v1/" \
-        -d "query=get_info&hash=${ioc}")
+    local payload http_code
+    payload=$(jq -nc --arg hash "$ioc" '{query:"get_info",hash:$hash}') || return
+    info "MalwareBazaar: querying hash ..."
+    http_code=$(private_curl_post_status "$out_file" "https://mb-api.abuse.ch/api/v1/" \
+        "$payload" "Content-Type: application/json" "Auth-Key: ${MALWAREBAZAAR_AUTH_KEY}") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
@@ -561,8 +591,8 @@ build_summary() {
     case "$IOC_TYPE" in
         ip)     applicable=5 ;;   # AbuseIPDB, ThreatFox, VirusTotal, OTX, URLScan
         url)    applicable=6 ;;   # URLhaus, ThreatFox, VirusTotal, OTX, PhishTank, URLScan
-        hash)   applicable=3 ;;   # URLhaus, MalwareBazaar, VirusTotal
-        domain) applicable=6 ;;   # URLhaus, ThreatFox, VirusTotal, OTX, PhishTank, URLScan
+        hash)   applicable=4 ;;   # URLhaus, ThreatFox, MalwareBazaar, VirusTotal (MD5/SHA256)
+        domain) applicable=5 ;;   # URLhaus, ThreatFox, VirusTotal, OTX, URLScan
         *)      applicable=8 ;;
     esac
 
