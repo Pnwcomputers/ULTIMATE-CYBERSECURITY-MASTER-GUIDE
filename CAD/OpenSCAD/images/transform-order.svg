@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+  <title id="title">OpenSCAD transform order changes object position</title>
+  <desc id="desc">Two top-down diagrams compare rotate then translate with translate then rotate. In the first, the cube rotates around its own center at the origin and then moves right. In the second, it first moves right and then orbits the origin when rotated.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52657a"/>
+    </marker>
+    <marker id="redarrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2413a"/>
+    </marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b3a}
+      .panel{fill:#f6f9fc;stroke:#cad5e0;stroke-width:2}
+      .axis{stroke:#96a5b4;stroke-width:2}
+      .grid{stroke:#dce4eb;stroke-width:1}
+      .origin{fill:#263e55}
+      .initial{fill:#cbd5e1;stroke:#64748b;stroke-width:2;stroke-dasharray:6 4}
+      .result{fill:#f6c85f;stroke:#9b6411;stroke-width:3}
+      .motion{fill:none;stroke:#c2413a;stroke-width:3;marker-end:url(#redarrow)}
+      .translate{fill:none;stroke:#52657a;stroke-width:2.5;marker-end:url(#arrow)}
+      .caption{font-size:17px}
+      .code{font-family:Consolas,monospace;font-size:17px;fill:#213f5b}
+    </style>
+  </defs>
+  <rect width="1000" height="430" fill="#fff"/>
+  <text x="500" y="38" text-anchor="middle" font-size="25" font-weight="700">Same transforms, different nesting order</text>
+  <rect class="panel" x="25" y="60" width="465" height="345" rx="12"/>
+  <rect class="panel" x="510" y="60" width="465" height="345" rx="12"/>
+  <text x="257" y="94" text-anchor="middle" font-size="21" font-weight="700">Rotate, then translate</text>
+  <text class="code" x="257" y="123" text-anchor="middle">translate(...) rotate(...) cube(10);</text>
+  <text x="742" y="94" text-anchor="middle" font-size="21" font-weight="700">Translate, then rotate</text>
+  <text class="code" x="742" y="123" text-anchor="middle">rotate(...) translate(...) cube(10);</text>
+  <!-- left coordinate field -->
+  <path class="grid" d="M55 180H460 M55 230H460 M55 280H460 M55 330H460 M105 150V360 M155 150V360 M205 150V360 M255 150V360 M305 150V360 M355 150V360 M405 150V360"/>
+  <path class="axis" d="M65 300H455 M105 355V150"/>
+  <circle class="origin" cx="105" cy="300" r="5"/>
+  <text x="91" y="323" font-size="14">origin</text>
+  <rect class="initial" x="85" y="280" width="40" height="40"/>
+  <g transform="rotate(45 105 300)"><rect class="result" x="85" y="280" width="40" height="40"/></g>
+  <path class="translate" d="M135 300H348"/>
+  <text x="236" y="287" text-anchor="middle" font-size="14">move right after rotation</text>
+  <g transform="translate(260 0) rotate(45 105 300)"><rect class="result" x="85" y="280" width="40" height="40"/></g>
+  <text x="370" y="342" text-anchor="middle" font-size="14" font-weight="700">final</text>
+  <text x="257" y="384" text-anchor="middle" class="caption">The cube spins at the origin, then shifts right.</text>
+  <!-- right coordinate field -->
+  <path class="grid" d="M540 180H945 M540 230H945 M540 280H945 M540 330H945 M590 150V360 M640 150V360 M690 150V360 M740 150V360 M790 150V360 M840 150V360 M890 150V360"/>
+  <path class="axis" d="M550 300H940 M590 355V150"/>
+  <circle class="origin" cx="590" cy="300" r="5"/>
+  <text x="576" y="323" font-size="14">origin</text>
+  <rect class="initial" x="570" y="280" width="40" height="40"/>
+  <path class="translate" d="M615 300H833"/>
+  <g transform="translate(260 0)"><rect class="initial" x="570" y="280" width="40" height="40"/></g>
+  <path class="motion" d="M850 300 A260 260 0 0 0 772 116"/>
+  <g transform="rotate(45 590 300) translate(260 0)"><rect class="result" x="570" y="280" width="40" height="40"/></g>
+  <text x="782" y="215" text-anchor="middle" font-size="14">orbits the origin</text>
+  <text x="742" y="384" text-anchor="middle" class="caption">The moved cube rotates around the world origin.</text>
+</svg>
