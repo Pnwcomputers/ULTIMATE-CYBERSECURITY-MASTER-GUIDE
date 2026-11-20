@@ -121,11 +121,64 @@ The same issues appear across all three providers:
   depending on the request path and service configuration. AWS IMDSv2 blocks some
   SSRF paths that cannot issue the required PUT request and headers; it is not a
   universal SSRF fix. Remediate the SSRF and scope instance-role permissions.
-- **Missing logging** - CloudTrail / Azure Activity / GCP Audit Logs disabled or
-  not centralized.
+- **Logging coverage gaps** - Default audit coverage differs by provider and
+  does not guarantee the data-plane, identity, retention, or centralization coverage
+  an investigation needs. AWS CloudTrail Event history covers 90 days of management
+  events in one Region; it does not show data events. Configure trails or an event
+  data store for the event types and ongoing or organization-wide collection you
+  require. Azure Activity Log is collected automatically and retained for 90 days,
+  but is primarily a control-plane log, does not typically capture reads, and is
+  not an authentication or authorization audit log. Configure diagnostic settings
+  for resource-log export and plan separately for Microsoft Entra sign-in and audit
+  logs. In Google Cloud, Admin Activity and System Event logs are on by default,
+  while Data Access logs are disabled by default for most services (BigQuery is an
+  exception); enable the required services and plan routing and retention. Verify
+  coverage, exclusions, destination, retention, and cost against the actual services
+  in scope.
 - **Weak network exposure** - management ports open to the internet, permissive
   security groups / NSGs / firewall rules.
 - **Identity gaps** - no MFA, long-lived access keys, stale accounts.
+
+### Logging defaults and coverage
+
+The baseline differs by provider, so validate the exact event types and sources a
+detection or investigation needs:
+
+```mermaid
+flowchart TD
+    Goal["Set evidence, detection, and retention goals"]
+
+    subgraph AWS["AWS"]
+        AWSBase["Event history: management events<br/>90 days, one Region"]
+        AWSMore["Trail or event data store<br/>for data events, longer retention,<br/>or organization-wide collection"]
+        AWSBase --> AWSMore
+    end
+
+    subgraph Azure["Azure and Microsoft Entra"]
+        AzureBase["Activity Log: collected automatically<br/>control-plane activity, 90 days"]
+        AzureMore["Diagnostic settings for resource logs<br/>and separate Entra sign-in / audit logs"]
+        AzureBase --> AzureMore
+    end
+
+    subgraph GCP["Google Cloud"]
+        GCPBase["Admin Activity and System Event<br/>logs are on by default"]
+        GCPMore["Enable Data Access logs for<br/>required services; plan routing<br/>and retention"]
+        GCPBase --> GCPMore
+    end
+
+    Goal --> AWSBase
+    Goal --> AzureBase
+    Goal --> GCPBase
+```
+
+*The diagram summarizes common defaults, not every service's logging behavior.
+Check provider documentation for service-specific exceptions, available event
+types, diagnostic settings, retention, and charges.*
+
+Primary references: [AWS CloudTrail Event history](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html),
+[Azure Activity Log](https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/activity-log),
+[Google Cloud Audit Logs](https://cloud.google.com/logging/docs/audit), and
+[Google Cloud Data Access audit-log configuration](https://cloud.google.com/logging/docs/audit/configure-data-access).
 
 ---
 
