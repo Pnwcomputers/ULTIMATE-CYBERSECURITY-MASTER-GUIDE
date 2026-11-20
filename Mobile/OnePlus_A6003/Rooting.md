@@ -24,6 +24,26 @@ This is the prep guide that gets you to the exact state the NetHunter guide assu
 
 ---
 
+## Phase and stop gates
+
+This map summarizes the destructive sequence for the NetHunter preparation target in this guide. Follow the current device-specific upstream instructions at each gate; the map does not replace their commands.
+
+```mermaid
+flowchart TD
+    A[Confirm exact stock-firmware requirement] -->|Unknown or mismatch| X[Stop and verify]
+    A -->|Verified| B[Back up data and test recovery copy]
+    B -->|Backup not verified| X
+    B -->|Verified| C[Unlock bootloader; expect data wipe]
+    C --> D[Apply only required device-specific partition steps]
+    D --> E[Install LineageOS using its supported recovery]
+    E --> F[Verify OS boots and setup completes]
+    F --> G[Use current TWRP device procedure for this guide's NetHunter target]
+    G --> H[Patch the matching boot image with current Magisk instructions]
+    H --> I[Verify recovery, root state, and rollback plan]
+    D -. Partition or firmware uncertain .-> X
+    G -. Device/release not supported .-> X
+```
+
 ## Phase 0 - Before you start
 
 - Charge to at least 50%.
