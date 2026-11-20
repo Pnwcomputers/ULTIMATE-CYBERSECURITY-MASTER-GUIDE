@@ -163,7 +163,7 @@ AI red-team engagements vary by system and objective. Before testing, document w
 
 ![Authorized AI red-team workflow with scope, synthetic tests, bounded execution, evidence checks, and stop gates](../assets/diagrams/offensive-ai-authorized-engagement-gates.svg)
 
-*Conceptual planning aid. NIST describes AI red-teaming as structured testing, often in a controlled environment and with system developers; the diagram does not establish authorization or legal compliance.*
+*Conceptual planning aid. [NIST describes AI red-teaming](https://csrc.nist.gov/glossary/term/artificial_intelligence_red_teaming) as structured testing, often in a controlled environment and with system developers; the diagram does not establish authorization or legal compliance.*
 
 #### The AI Red Team Methodology
 
