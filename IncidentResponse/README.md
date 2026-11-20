@@ -40,7 +40,7 @@ Capture scope and evidence interpretation are separate from Wazuh detection rule
 | [Kismet + Wazuh](./IDS%26IPS/kismet-wazuh-wireless-lab.md) | Correlate wireless findings with SIEM alerts |
 | [nzyme + Wazuh](./IDS%26IPS/nzyme-wazuh-integration.md) | Wireless monitoring and log correlation |
 
-**Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations, with the documented URLhaus authentication review still outstanding.
+**Threat-intelligence and vulnerability API reference:** [Security API Catalog](../Documentation/security-public-api-catalog.md) covers NVD CVE 2.0, the official CISA KEV feed, GHSA, URLhaus, VirusTotal, GreyNoise and safe enrichment workflows. See the [OSINT threat-feed script](../OSINT/Playbook/scripts/threat_feed_check.sh) for existing provider integrations. The current checker sends configured Auth-Key credentials to URLhaus, ThreatFox and MalwareBazaar; a missing key or failed request leaves that feed unverified.
 
 **Evidence Collection & Detection Validation**
 
