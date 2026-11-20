@@ -19,7 +19,21 @@ The playbook integrates the following industry-standard tools for deep reconnais
 # 🔑 Configuration & APIs
 
 For provider-specific HTTP examples, privacy warnings, access models and the current URLhaus Auth-Key caveat, see the [curated Security API Catalog](../../Documentation/security-public-api-catalog.md). This page lists OSINT services; listing a provider is not proof that the current script authenticates successfully.
-The framework leverages several high-authority databases. Ensure your API keys are configured in `${HOME}/.config/osint-investigator/api_keys.conf`:
+Configure keys with `bash osint_investigator.sh --config`; this writes to the private, permission-restricted `${HOME}/.config/osint-investigator/api_keys.conf`. The threat-feed checker requires separate `URLHAUS_AUTH_KEY`, `THREATFOX_AUTH_KEY`, and `MALWAREBAZAAR_AUTH_KEY` values for those feeds. Do not commit the private file. A provider listed below is not necessarily queried by the current scripts.
+~~~mermaid
+flowchart LR
+    A[Analyst supplies an IOC] --> B[Type is detected or selected]
+    B --> C[Only compatible feeds are queried]
+    D[Private API keys] -. sent only to providers that require them .-> C
+    C --> E[Per-feed response and status]
+    E --> F{Result available?}
+    F -->|Positive match| G[Review source and evidence]
+    F -->|No match| H[No positive result; not cleared]
+    F -->|Skipped, failed, or unavailable| I[Unknown / unverified]
+~~~
+
+The diagram describes the checker’s reporting limits: a missing key, error, or empty response does not establish that an indicator is safe.
+
 
 ## 1. PRIMARY INTELLIGENCE & THREAT RECON
 * [**Shodan**](https://www.shodan.io/): IoT and Device Search
