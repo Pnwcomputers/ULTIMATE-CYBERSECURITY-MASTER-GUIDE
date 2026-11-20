@@ -1,6 +1,6 @@
 # Microsoft 365 and Entra Configuration Assessment with CISA ScubaGear
 
-_Last reviewed: 2026-11-17 (upstream documentation and visual review; no tenant accessed)_
+_Last reviewed: 2026-11-20 (upstream documentation and visual review; no tenant accessed)_
 
 > [!CAUTION]
 > Obtain written permission from an authorized Microsoft 365 tenant
@@ -44,7 +44,10 @@ products and current permissions.
 
 1. Read the
    [ScubaGear README and current Quick Start](https://github.com/cisagov/ScubaGear)
-   in an isolated, patched Windows/PowerShell assessment station.
+   in an isolated, patched Windows/PowerShell assessment station. The current
+   [execution prerequisites](https://github.com/cisagov/ScubaGear/blob/main/docs/prerequisites/dependencies.md)
+   specify Windows PowerShell 5.1; recheck the dependency page for changes before
+   installing or running a release.
 2. Verify the publisher, required modules, installation and release sources.
    Avoid piping unreviewed downloaded scripts directly to a shell.
 3. Confirm admin approval for Microsoft Graph/PowerShell permissions. Prefer
