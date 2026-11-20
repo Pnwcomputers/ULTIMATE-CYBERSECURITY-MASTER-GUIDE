@@ -1,6 +1,6 @@
 # 🗂️ OpenSCAD Project Structure, Parameters & Libraries
 
-_Last reviewed: 2026-11-19_
+_Last reviewed: 2026-11-19 (documentation and shell control flow)_
 
 *Part of the [OpenSCAD Design & Prototyping Guide](./README.md) · [CAD & 3D Printing](../README.md) · [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
@@ -245,7 +245,7 @@ openscad -o images/assembly.png --imgsize=1000,750 --colorscheme=Tomorrow \
          --camera=0,30,-5,60,0,140,250 -D 'part="preview"' gps_cradle.scad
 ```
 
-The example ships a ready-made [`check.sh`](./examples/gps-cradle/check.sh): it runs the design checks, exports `body`/`lid`/`inlay` STLs to `out/` and fails if the clash test finds any overlap. Any extra arguments pass through, so `./check.sh -p gps_cradle.json -P loose-fit` tests a preset.
+The example ships a ready-made [`check.sh`](./examples/gps-cradle/check.sh): it runs the design checks, exports `body`/`lid`/`inlay` STLs to `out/` and fails if the clash test finds overlap or cannot complete. Any extra arguments pass through, so `./check.sh -p gps_cradle.json -P loose-fit` tests a preset.
 
 ---
 
