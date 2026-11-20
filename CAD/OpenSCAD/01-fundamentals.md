@@ -144,6 +144,10 @@ translate([20, 0, 0]) rotate([0, 0, 45]) cube(10);  // spin in place, then move
 rotate([0, 0, 45]) translate([20, 0, 0]) cube(10);  // move, then orbit the origin
 ```
 
+![Diagram comparing transform order: rotate then translate moves the rotated cube right, while translate then rotate carries it around the origin.](./images/transform-order.svg)
+
+The illustration shows the geometry from above. The dashed outline marks the starting cube; the solid shape is the final position.
+
 > [!TIP]
 > Use `mirror()` for left/right pairs instead of negating numbers. The tutorial builds one PCB latch and mirrors it: `mirror([s < 0 ? 1 : 0, 0, 0])` gives the left copy when `s = -1`.
 
