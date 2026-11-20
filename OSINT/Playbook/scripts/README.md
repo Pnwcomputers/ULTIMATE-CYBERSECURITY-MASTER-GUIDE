@@ -84,7 +84,7 @@ Comprehensive nmap reconnaissance:
 
 ## API Configuration
 
-Scripts read API keys from the private `~/.config/osint-investigator/api_keys.conf` created by `bash osint_investigator.sh --config`. Never commit this file. URLhaus lookups require `URLHAUS_AUTH_KEY`; without it the feed is reported as skipped/unknown.
+Scripts read API keys from the private `~/.config/osint-investigator/api_keys.conf` created by `bash osint_investigator.sh --config`. Never commit this file. URLhaus, ThreatFox, and MalwareBazaar lookups require `URLHAUS_AUTH_KEY`, `THREATFOX_AUTH_KEY`, and `MALWAREBAZAAR_AUTH_KEY` respectively; without a required key, each feed is reported as skipped/unknown. Use `bash osint_investigator.sh --config` to configure them.
 
 Required for full functionality:
 - `CRIMINALIP_API_KEY`
@@ -95,3 +95,5 @@ Required for full functionality:
 - `NUMVERIFY_API_KEY`
 - `VERIPHONE_API_KEY`
 - `URLHAUS_AUTH_KEY` (required for URLhaus lookups)
+- `THREATFOX_AUTH_KEY` (required for ThreatFox lookups)
+- `MALWAREBAZAAR_AUTH_KEY` (required for MalwareBazaar lookups)
