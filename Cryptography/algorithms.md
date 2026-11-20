@@ -27,7 +27,7 @@ questions without treating a primitive name as a complete security design.
 - Distinguishing new protection from legacy decryption or signature verification.
 - Planning migration based on data lifetime, dependencies and applicable policy.
 
-**Source and visual review:** November 17, 2026. Selective reference, not an
+**Source and visual review:** November 20, 2026. Selective reference, not an
 exhaustive algorithm catalog. No cryptographic deployment or operational key
 change was performed.
 
@@ -108,7 +108,7 @@ Integrity comparison is useful only when the expected digest is itself trusted.
 | SHA-256 / SHA-384 / SHA-512 | SHA-2 fixed-length digests; choose output length and use under the actual protocol. |
 | SHA-3 / SHAKE | Different standardized constructions; SHAKE is an extendable-output function, so output length is part of the design. |
 | BLAKE2 / BLAKE3 | Distinct modern families with different specifications and modes. Suitability does not imply NIST/FIPS approval. |
-| SHA-1 | Avoid for new designs. Collision-sensitive uses and legacy HMAC/verification have distinct transition categories; see [NIST's SHA-1 policy](https://csrc.nist.gov/projects/hash-functions/nist-policy-on-hash-functions). |
+| SHA-1 | Avoid for new designs; NIST's published transition ends its use for applying cryptographic protection by December 31, 2030. Verifying or processing information protected before then is a separate legacy case under applicable policy; see [NIST's SHA-1 policy](https://csrc.nist.gov/projects/hash-functions/nist-policy-on-hash-functions). |
 | MD5 | Broken collision resistance; do not use as an adversarial security fingerprint. |
 
 Use a supported MAC such as HMAC, a signature, or an AEAD construction when
