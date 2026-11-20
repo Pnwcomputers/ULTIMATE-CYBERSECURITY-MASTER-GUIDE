@@ -545,7 +545,7 @@ build_summary() {
     } > "$summary_file"
 
     local flag_count=0
-    if [[ -f "${RESULTS_DIR}/flags.txt" ]]; then
+    if [[ -s "${RESULTS_DIR}/flags.txt" ]]; then
         flag_count=$(wc -l < "${RESULTS_DIR}/flags.txt")
         printf "FLAGGED BY %d FEED(S):\n\n" "$flag_count" >> "$summary_file"
         while IFS= read -r flag_line; do
