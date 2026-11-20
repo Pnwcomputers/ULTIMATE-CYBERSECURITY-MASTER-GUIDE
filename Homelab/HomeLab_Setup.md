@@ -1463,35 +1463,13 @@ Do not use the obsolete 4.7.0 Windows MSI URL shown in older guides.
 
 Avoid rules that claim to identify a named offensive tool from a single string in a log. Tool names can be absent, changed, or appear in benign text, so such matches are not proof of execution or compromise. Start with the telemetry and behavior you need to detect, identify the actual decoder and fields for the installed agent/log source, and write a narrow rule with documented false positives. Test it with synthetic log lines using Wazuh's `wazuh-logtest` before applying it to alerting. Follow Wazuh's [custom rules guidance](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html) and [rule-testing guide](https://documentation.wazuh.com/current/user-manual/ruleset/testing.html).
 
-### NetAlertX Integration (Raspberry Pi)
+### NetAlertX Integration (Optional)
 
-**Example deployment:** A monitoring sensor may run on a supported SBC. Verify the actual device, operating system, interfaces, and configuration before using this guide as an inventory record.
+NetAlertX visibility depends on the discovery method, network placement, and feeds configured for the installed release. An instance attached to one VLAN does not automatically discover devices on other routed VLANs. Configure a supported per-network discovery source or separate authorized instances, and validate what each source can actually observe; discovery is not a substitute for firewall logs or an IDS sensor.
 
-**Purpose**: Network device discovery and monitoring
+For API integrations, use the current [NetAlertX API documentation](https://github.com/netalertx/NetAlertX/blob/main/docs/API.md). Current API requests require a Bearer API token. Store the token in a protected secret store or restricted service configuration, use a read-only path where available, set timeouts, handle non-success responses, and restrict access to the API interface. Do not copy the old unauthenticated `/api/devices` sample; the current API and available fields vary by release.
 
-**Integration with Lab**:
-1. Configure NetAlertX to monitor VLAN 20, 30
-2. Export alerts to Splunk/Wazuh
-3. Use API for automated asset inventory
-
-**API Integration**:
-```python
-import requests
-
-# NetAlertX API endpoint
-api_url = "http://pi-ip:port/api/devices"
-
-# Fetch discovered devices
-response = requests.get(api_url)
-devices = response.json()
-
-# Alert on new devices in target VLAN
-for device in devices:
-    if device['ip'].startswith('10.30.30.'):
-        if device['is_new']:
-            print(f"[ALERT] New device discovered in target VLAN: {device['ip']}")
-            # Send alert to Splunk, Wazuh, etc.
-```
+For small deployments, prefer the product's documented notifications or supported integrations before writing a custom polling script. If automation is needed, test against synthetic inventory first and avoid automatic device blocking or deletion until those actions have explicit approval and recovery steps.
 
 ---
 
