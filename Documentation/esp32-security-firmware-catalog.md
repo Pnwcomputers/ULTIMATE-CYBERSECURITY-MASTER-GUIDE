@@ -29,6 +29,10 @@ _Last reviewed: 2026-11-07_
 | [Pico-Ducky](../HardwareHacking/pico-ducky-lab.md) | Setup jumper, CircuitPython and harmless HID validation. |
 | [Evil Crow RF V2](../SDR/evil-crow-rf-v2.md) | Default/custom firmware distinction and receiver-only baseline. |
 
+![Firmware qualification workflow shows the exact ESP32 chip and board revision, verified upstream image and flash layout, planned recovery, and harmless post-boot acceptance tests](../assets/diagrams/esp32-firmware-board-build-flash-acceptance.svg)
+
+*Conceptual selection and validation gates, not a device-support guarantee.* The [Espressif flashing guide](https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/flashing-firmware.html) documents that address/layout and bootloader requirements depend on the target. Board variant, RF modules, display, GPS/SD wiring and firmware release must be checked individually. A successful write cannot prove compatibility, safety, or a feature's availability.
+
 ## Device-First Selection & Coverage Review
 
 | Resource | Description |
