@@ -84,7 +84,7 @@ Comprehensive nmap reconnaissance:
 
 ## API Configuration
 
-Scripts read API keys from `~/.config/osint-investigator/api_keys.conf`
+Scripts read API keys from the private `~/.config/osint-investigator/api_keys.conf` created by `bash osint_investigator.sh --config`. Never commit this file. URLhaus lookups require `URLHAUS_AUTH_KEY`; without it the feed is reported as skipped/unknown.
 
 Required for full functionality:
 - `CRIMINALIP_API_KEY`
@@ -94,3 +94,4 @@ Required for full functionality:
 - `NETLAS_API_KEY`
 - `NUMVERIFY_API_KEY`
 - `VERIPHONE_API_KEY`
+- `URLHAUS_AUTH_KEY` (required for URLhaus lookups)
