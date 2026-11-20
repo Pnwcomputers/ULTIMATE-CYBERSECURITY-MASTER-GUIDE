@@ -258,6 +258,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/vigenere-candidate-periods.svg": (
         "Cryptography/Classical/cryptanalysis.md",
     ),
+    "assets/diagrams/volatility-evidence-triage.svg": (
+        "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
+    ),
 }
 
 
