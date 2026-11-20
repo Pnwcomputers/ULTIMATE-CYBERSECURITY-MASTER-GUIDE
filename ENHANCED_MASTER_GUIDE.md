@@ -1596,96 +1596,49 @@ Do not use this playbook to execute phishing, AMSI bypass, process injection, cr
 
 ### Blue Team Fundamentals
 
-**Core Responsibilities:**
-1. Monitoring & Detection
-2. Incident Response
-3. Threat Hunting
-4. Security Operations
-5. Continuous Improvement
+A blue team monitors security signals, validates suspected incidents, coordinates authorized response, and improves controls. Follow the organization's escalation paths and incident-response plan.
 
-### Daily Blue Team Checklist
+### Daily Operations Review
 
-```bash
-#!/bin/bash
-# daily_blue_team_checks.sh
+Use the team's approved dashboards, evidence sources, and review schedule. These checks are a review guide, not a script that assumes a particular SIEM, log format, operating system, or patch-management tool.
 
-echo "=== DAILY SECURITY OPERATIONS CHECKLIST ==="
-
-# 1. Check SIEM alerts
-echo "[*] Checking SIEM for critical alerts..."
-# Query SIEM API or check dashboard
-curl -s "https://siem.company.com/api/alerts?severity=high" | jq .
-
-# 2. Review firewall logs
-echo "[*] Reviewing firewall deny logs..."
-grep "DENY" /var/log/firewall.log | tail -n 100
-
-# 3. Check failed login attempts
-echo "[*] Analyzing failed authentication..."
-grep "Failed password" /var/log/auth.log | \
-    awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head -10
-
-# 4. Monitor system resources
-echo "[*] Checking system resources..."
-df -h
-free -h
-uptime
-
-# 5. Verify backup completion
-echo "[*] Verifying backup status..."
-# Check backup logs
-tail -n 20 /var/log/backup.log
-
-# 6. Review antivirus alerts
-echo "[*] Checking AV console..."
-# Query AV management console
-
-# 7. Check for system updates
-echo "[*] Checking for security updates..."
-apt update
-apt list --upgradable | grep -i security
-
-# 8. Monitor network traffic
-echo "[*] Analyzing network traffic patterns..."
-# Check NetFlow data for anomalies
-
-echo "[+] Daily checks complete!"
-```
+| Area | Review | Escalate when |
+|---|---|---|
+| SIEM and detection | Prioritized alerts, open investigations, data-source health, and missed/late ingestion | A high-priority alert is untriaged, expected data is absent, or a rule behaves unexpectedly |
+| Identity and network | Privileged sign-ins, authentication failures, remote access, and unusual cross-zone traffic | Activity conflicts with approved access or cannot be explained by the owner |
+| Endpoint and vulnerability | Endpoint-protection health, high-priority exposure, and patch status from managed inventory | A critical control is disabled or a high-risk exposure lacks an owner and plan |
+| Backup and recovery | Last successful backup, isolation/immutability status, and recovery-test results | A required recovery point is missing or a backup control is unhealthy |
+| Change and service health | Approved configuration changes, critical service availability, and monitoring gaps | A change is unowned, unexpected, or affects incident-response readiness |
 
 ### Incident Response Quick Reference
 
+Use the organization's current incident plan and authority matrix. NIST SP 800-61 Rev. 3 integrates incident response with CSF 2.0 risk management; CISA's playbook provides an operational sequence for preparation, detection and analysis, containment, eradication and recovery, and post-incident work.
+
+```mermaid
+flowchart TD
+    Review[Review approved security signals] --> Validate[Validate source, scope, and business impact]
+    Validate --> Decision{Meets incident criteria?}
+    Decision -->|No| Track[Document and route routine follow-up]
+    Decision -->|Yes| Declare[Escalate and activate the incident plan]
+    Declare --> Preserve[Preserve evidence and coordinate authorized response]
+    Preserve --> Contain[Contain with approved owners and impact review]
+    Contain --> Eradicate[Remove persistence and address root cause]
+    Eradicate --> Recover[Restore from verified sources and monitor]
+    Recover --> Learn[Record lessons, owners, and follow-up]
+    Track --> Review
+    Learn --> Review
 ```
-Incident Response Process:
-├── 1. Preparation
-│   ├── IR plan documented
-│   ├── Team roles assigned
-│   ├── Tools configured
-│   └── Contacts updated
-├── 2. Identification
-│   ├── Alert triage
-│   ├── Initial analysis
-│   └── Severity classification
-├── 3. Containment
-│   ├── Short-term: Isolate affected systems
-│   └── Long-term: Patch vulnerabilities
-├── 4. Eradication
-│   ├── Remove malware
-│   ├── Close attack vectors
-│   └── Strengthen defenses
-├── 5. Recovery
-│   ├── Restore systems
-│   ├── Validate functionality
-│   └── Monitor for reinfection
-└── 6. Lessons Learned
-    ├── Post-incident review
-    ├── Update procedures
-    └── Implement improvements
-```
+
+Containment and recovery can disrupt services. Use preapproved actions and the incident lead's authority; preserve evidence and coordinate business owners before changes when circumstances allow.
+
+### Response References
+
+- [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
+- [CISA Federal Government Cybersecurity Incident and Vulnerability Response Playbooks](https://www.cisa.gov/sites/default/files/2024-08/Federal_Government_Cybersecurity_Incident_and_Vulnerability_Response_Playbooks_508C.pdf)
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 ## Blue Team Playbook (Detailed)
 
 ### Advanced Detection Strategies
