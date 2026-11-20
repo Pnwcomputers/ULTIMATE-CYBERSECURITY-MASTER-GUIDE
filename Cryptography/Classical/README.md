@@ -84,7 +84,8 @@ import cipher_toolkit as ct
 
 ct.style("hacker", "fraktur")          # 'ℌ𝔄ℭ𝔎𝔈ℜ'
 ct.keyed_alphabet("ZEBRAS")            # 'ZEBRASCDFGHIJKLMNOPQTUVWXY'
-ciphertext = "LXFOPVEFRNHR"  # ATTACKATDAWN encrypted with LEMON\nct.ic_scan(ciphertext, max_len=12)     # [(key_len, avg_ic), ...]
+ciphertext = "LXFOPVEFRNHR"  # ATTACKATDAWN encrypted with LEMON
+ct.ic_scan(ciphertext, max_len=12)     # [(key_len, avg_ic), ...]
 ```
 
 ---
