@@ -32,7 +32,7 @@ authentication without falling into well-known security traps.
 - Implementing key management
 - Reviewing code for cryptographic misuse
 
-**Source and visual review:** November 17, 2026. Diagrams are conceptual;
+**Source and visual review:** November 20, 2026. Diagrams are conceptual;
 no live TLS, identity-provider, hardware-key, or key-management testing was performed.
 
 ---
@@ -57,9 +57,11 @@ no live TLS, identity-provider, hardware-key, or key-management testing was perf
 - **Cipher suites and groups:** use AEAD suites and ephemeral key exchange for
   forward secrecy. In TLS 1.3, the cipher suite does not select the key-exchange
   group or certificate signature algorithm; configure these separately.
-- **Certificates:** validate trust chains, validity, and the intended hostname.
-  Follow current policy for algorithms and key sizes (for example, at least
-  2048-bit RSA or an appropriate elliptic-curve certificate). Automate renewal.
+- **Certificates:** validate trust chains, validity, and the intended hostname. Follow
+  applicable standards and policy for algorithm and security strength. NIST's
+  [announced SP 800-52 revision plan](https://csrc.nist.gov/pubs/sp/800/52/r2/final)
+  includes a 128-bit minimum, but that revision is pending; verify current
+  requirements instead of relying on a universal key-size example. Automate renewal.
 - **HTTPS:** deploy HSTS only after validating the site's HTTPS coverage and
   subdomain requirements. It is an HTTP browser policy, not a replacement for
   certificate validation.
