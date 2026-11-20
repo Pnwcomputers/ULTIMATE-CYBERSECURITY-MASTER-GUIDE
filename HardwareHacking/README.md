@@ -119,19 +119,33 @@ The [Case Studies Index](../CaseStudies/README.md) gives sourced reports with re
 
 ### Reading Order
 
-```
-New to hardware hacking?
-  └─> Start with Chapter 1 (Threat Modeling) for framework and terminology
-  └─> Then Chapter 2 (Electrical Fundamentals) for bench skills
-  └─> Then Chapter 3 (Fault Injection): most accessible attack category
-  └─> Then Chapters 4–5 (Side-Channel): builds on measurement fundamentals
+New to hardware security?
+  └─> Start with Chapter 1 (Threat Modeling), then Chapter 2 (Electrical Fundamentals)
+  └─> Use Chapters 4–5 to learn measurement concepts and evidence limits
+  └─> Treat Chapter 3 fault injection as a potentially destructive specialist exercise;
+      begin only with an owner-approved training board and documented electrical limits
 
 Experienced practitioner?
-  └─> Jump directly to the relevant chapter
-  └─> Chapter 3 for glitching campaign setup
-  └─> Chapter 5 for CPA implementation and visualization code
-  └─> Chapter 1 for threat model documentation template
+  └─> Select the relevant chapter for the authorized question
+  └─> Review scope, target compatibility, safety controls and recovery before bench work
+
+### Choosing a Method
+
+```mermaid
+flowchart TD
+    Q[Authorized question and owner-approved target] --> M{What evidence is needed?}
+    M -->|Observe physical behavior| O[Side-channel measurement]
+    M -->|Inspect an exposed interface| I[Debug or bus review]
+    M -->|Test fault response| F[Fault-injection exercise]
+    O --> B[Controlled bench setup and baseline]
+    I --> B
+    F --> T[Dedicated training board, limits and recovery plan]
+    B --> V[Validate observations and alternative explanations]
+    T --> V
+    V --> R[Record scope, evidence, damage risk and recovery]
 ```
+
+*Conceptual method-selection diagram. Side-channel measurements may reveal sensitive data; interface access may change device state; fault injection intentionally perturbs operation and may permanently damage hardware.*
 
 ---
 
@@ -221,15 +235,16 @@ Detailed documentation, reference links, and step-by-step usage tutorials for sp
 
 ### Fault Injection (Active)
 
-Introduce controlled transient errors to bypass security checks, skip instructions, or corrupt comparisons.
+Fault injection intentionally perturbs a device. Results and equipment needs depend on the design and process; a training-board result does not establish a vulnerability in another product. Use a dedicated, owner-approved target, document electrical and optical limits, and plan for device loss and recovery.
 
-| Method | Equipment | Precision | Complexity | Cost |
-|--------|-----------|-----------|-----------|------|
-| **[Voltage Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | [MOSFET](https://www.amazon.com/s?k=logic+level+N-channel+MOSFET) + [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | Medium | Low | $ |
-| **[Clock Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | [FPGA](https://www.amazon.com/s?k=FPGA+development+board) or [ChipWhisperer](https://www.newae.com/chipwhisperer) | High | Medium | $$ |
-| **[EMFI](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | [ChipSHOUTER](https://www.newae.com/chipshouter) or custom coil + pulser | Medium-High | Medium | $–$$ |
-| **[Laser FI](https://www.keysight.com/us/en/cmp/device-security.html)** | IR laser + XY stage + decapped chip | Very High | High | $$$$ |
-| **[Body Biasing](https://link.springer.com/chapter/10.1007/978-3-030-68487-7_11)** | Probe + pulse generator | Medium | Medium | $$ |
+| Method | Typical equipment category | Main limitations and safety boundary |
+|--------|----------------------------|--------------------------------------|
+| **[Voltage Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | Purpose-built training board or fault-injection platform | Target-specific timing and voltage; may reset or permanently damage the device |
+| **[Clock Glitching](https://chipwhisperer.readthedocs.io/en/latest/)** | Supported clock/fault-injection platform | Requires target-specific clock access and measurement; behavior is implementation-dependent |
+| **[EMFI](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | Dedicated, controlled electromagnetic fault-injection equipment | Specialized setup; may damage equipment and affect nearby electronics |
+| **[Laser fault injection](https://www.keysight.com/us/en/cmp/device-security.html)** | Specialist optical laboratory equipment | Eye and electrical hazards; requires qualified supervision and model-specific laser protection |
+| **Body biasing** | Specialized device/process equipment | Not a general-purpose bench method; feasibility depends on target process and access |
+
 
 ### Side-channel Analysis (Measurement-Based)
 
@@ -250,70 +265,71 @@ For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthed
 
 | Interface | Wires | Attack Value | Common Tools |
 |-----------|-------|-------------|-------------|
-| **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs or console if exposed; a shell depends on target configuration | [USB-UART adapter](https://www.amazon.com/s?k=FTDI+USB+UART+Adapter), [logic analyzer](https://www.amazon.com/s?k=24MHz+8CH+USB+Logic+Analyzer) |
-| **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | Debug access where the interface is exposed, enabled, and authorized | [J-Link](https://www.amazon.com/s?k=SEGGER+J-Link+EDU), OpenOCD, [JTAGulator](./JTAGulator.md) |
-| **[SWD](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug)** | SWDCLK, SWDIO | ARM two-wire debug; distinct from JTAG and subject to target access controls | [ST-LINK](https://www.amazon.com/s?k=ST-Link+V2), CMSIS-DAP |
-| **[SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)** | SCLK, MOSI, MISO, CS | Read/write access only when a supported memory device is connected and accessible | flashrom, [Bus Pirate](./BusPirate.md), [CH341A](https://www.amazon.com/s?k=CH341A+SPI+Programmer) |
-| **[I²C](https://learn.sparkfun.com/tutorials/i2c/all)** | SDA, SCL | EEPROM read/write, PMIC manipulation | i2ctools, [Bus Pirate](./BusPirate.md) |
+| **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs or console only if exposed and enabled; console access does not itself imply a shell | USB-UART adapter and logic analyzer |
+| **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | Debug access only where exposed, enabled and authorized; attachment may alter target state | Supported J-Link, OpenOCD, or [JTAGulator](./JTAGulator.md) |
+| **[SWD](https://developer.arm.com/documentation/101416/0100/Debug-ports/Serial-Wire-Debug)** | SWDCLK, SWDIO | ARM two-wire debug; distinct from JTAG and subject to target access controls | Supported probe and CMSIS-DAP/OpenOCD tooling |
+| **[SPI](https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all)** | SCLK, MOSI, MISO, CS | Access depends on the connected peripheral, protection state and electrical compatibility | flashrom, [Bus Pirate](./BusPirate.md), supported programmer |
+| **[I²C](https://learn.sparkfun.com/tutorials/i2c/all)** | SDA, SCL | Access depends on attached device, bus topology, voltage and authorization | i2ctools, [Bus Pirate](./BusPirate.md) |
 
 ---
 
 ## 🔬 Bench Equipment Reference
 
-*Budget figures below are rough estimates, not current quotes. Prices vary by region and seller; confirm current pricing, included adapters, and exact target compatibility before purchase.*
+Select instruments by target voltage, signal bandwidth, probe loading, isolation, connector, support status, and manufacturer safety limits. Product names below are examples to research, not recommendations; included adapters, capabilities and pricing change by model and region.
 
 ### Essential Equipment
 
-| Equipment | Recommended | Budget | Purpose |
-|-----------|-------------|--------|---------|
-| **[Oscilloscope](https://en.wikipedia.org/wiki/Oscilloscope)** | [Rigol DS1054Z](https://www.amazon.com/s?k=Rigol+DS1054Z) / [Siglent SDS1204X-E](https://www.amazon.com/s?k=Siglent+SDS1204X-E) | $350–$400 | Signal capture, power analysis, glitch verification |
-| **[Logic Analyzer](https://en.wikipedia.org/wiki/Logic_analyzer)** | [Innomaker LA1010](./LA1010.md) / [HiLetgo](./HiLetgo.md) / [DSLogic](https://www.amazon.com/s?k=DSLogic+Plus) | $10–$150 | Protocol decode (UART, SPI, I²C, JTAG) |
-| **[Multimeter](https://en.wikipedia.org/wiki/Multimeter)** | [Any decent DMM](https://www.amazon.com/s?k=digital+multimeter) | $20–$50 | Voltage/continuity checks |
-| **[USB-UART Adapter](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)** | [FTDI FT232R](https://www.amazon.com/s?k=FTDI+FT232RL+USB+to+TTL) / [CP2102](https://www.amazon.com/s?k=CP2102+USB+to+TTL) | $5–$15 | Serial console access |
-| **[JTAG/SWD Probe](https://en.wikipedia.org/wiki/JTAG)** | [J-Link EDU](https://www.segger.com/products/debug-probes/j-link/models/j-link-edu/) / [ST-LINK V2](https://www.amazon.com/s?k=ST-Link+V2) | $20–$70 | Debug interface access |
-| **[SPI/IC Programmer](https://en.wikipedia.org/wiki/Programmer_(hardware))** | [T48 TL866-3G](./T48_TL866-3G.md) / [Bus Pirate](./BusPirate.md) | $35–$70 | Read/write supported parts only; verify the exact chip and required adapter |
-| **[Soldering Station](https://en.wikipedia.org/wiki/Soldering)** | [Hakko FX-888D](https://www.amazon.com/s?k=Hakko+FX-888D) | $100 | Component removal, wire attachment |
-| **[Hot Air Rework](https://en.wikipedia.org/wiki/Rework_(electronics))** | [Quick 957DW](https://www.amazon.com/s?k=Quick+957DW+hot+air+rework) or equivalent | $100–$200 | IC removal, BGA work |
+| Equipment | Example reference | Selection and safety checks |
+|-----------|------------------|----------------------------|
+| **Oscilloscope** | A currently supported bench scope | Confirm bandwidth, probes, grounding and isolation requirements for the measured circuit |
+| **Logic analyzer** | [Innomaker LA1010](./LA1010.md), [HiLetgo](./HiLetgo.md), or another supported device | Verify actual sample rate, voltage tolerance, input protection, software support and target signal speed |
+| **Multimeter** | Manufacturer-supported digital multimeter | Check voltage category, probe condition, measurement range and circuit energy before connection |
+| **USB-UART adapter** | FTDI, CP210x, or another verified bridge | Confirm target I/O voltage and pinout; do not connect adapter VCC unless the target power design permits it |
+| **JTAG/SWD probe** | [J-Link EDU](https://www.segger.com/products/debug-probes/j-link/models/j-link-edu/) or a supported probe | Check target voltage, connector, firmware and read/write effects before attachment |
+| **SPI/IC programmer** | [T48 TL866-3G](./T48_TL866-3G.md) or a supported programmer | Verify exact chip, package, voltage and required adapter against the manufacturer's support list |
+| **Soldering station** | Properly grounded, temperature-controlled equipment | Use ventilation and ESD controls appropriate to the task |
+| **Hot-air rework** | Temperature-controlled rework equipment | Use board-specific temperature limits, fume extraction and eye/skin protection |
+
 
 ### Power Analysis & Fault Injection
 
-| Equipment | Recommended | Budget | Purpose |
-|-----------|-------------|--------|---------|
-| **[ChipWhisperer Lite](https://chipwhisperer.readthedocs.io/en/latest/Capture/ChipWhisperer-Lite.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-lite) | ~$250 | Integrated glitching + power analysis |
-| **[ChipWhisperer Pro](https://chipwhisperer.readthedocs.io/en/latest/Capture/ChipWhisperer-Pro.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipwhisperer-pro) | ~$1,500 | Higher performance, more glitch options |
-| **[ChipSHOUTER](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html)** | [NewAE Technology](https://www.mouser.com/c/?q=chipshouter) | ~$1,000 | Electromagnetic fault injection |
-| **[JTAGulator](https://grandideastudio.com/portfolio/security/jtagulator/)** | [Grand Idea Studio (Guide)](./JTAGulator.md) | ~$150 | JTAG/UART pinout brute-force |
-| **[Glasgow Interface Explorer](https://github.com/GlasgowEmbedded/glasgow)** | [Open-source FPGA](https://www.crowdsupply.com/1bitsquared/glasgow) | ~$150 | Scriptable multi-protocol interface |
-| [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | [Great Scott Gadgets (Guide)](./GreatFETone.md) | ~$100 | Multi-purpose interface and bus manipulation |
+| Equipment | Example reference | Purpose and boundary |
+|-----------|------------------|---------------------|
+| **[ChipWhisperer](https://www.newae.com/chipwhisperer)** | [NewAE documentation](https://chipwhisperer.readthedocs.io/) | Supported training hardware/software for selected side-channel or fault-injection exercises; confirm target compatibility and current product support |
+| **[ChipSHOUTER](https://www.newae.com/chipshouter)** | [NewAE documentation](https://chipwhisperer.readthedocs.io/en/latest/ChipSHOUTER/ChipSHOUTER.html) | Specialized EMFI equipment; use only under a documented, owner-approved bench procedure |
+| **[JTAGulator](https://grandideastudio.com/portfolio/security/jtagulator/)** | [Device guide](./JTAGulator.md) | Identify candidate debug signals on supported, owner-approved boards; not a guarantee of access |
+| **[Glasgow](https://github.com/GlasgowEmbedded/glasgow)** | [Project documentation](https://github.com/GlasgowEmbedded/glasgow) | Scriptable interface exploration; check current hardware, software and voltage support |
+| **[GreatFET One](https://greatscottgadgets.com/greatfet/one/)** | [Device guide](./GreatFETone.md) | Multi-purpose USB and logic interface; confirm installed firmware supports the required feature |
 
----
 
 ## 🛠️ Tool Ecosystem
 
 ### Hardware Tools
 
-| Tool | Purpose | Cost | Reference Guide |
-|------|---------|------|-----------------|
-| [**ChipWhisperer**](https://www.newae.com/chipwhisperer) | Integrated glitching + power analysis platform | $250–$1,500 | N/A |
-| [**ChipSHOUTER**](https://www.newae.com/chipshouter) | EMFI pulse injector | ~$1,000 | N/A |
-| [**JTAGulator**](https://grandideastudio.com/portfolio/security/jtagulator/) | JTAG/UART pinout discovery | ~$150 | [JTAGulator.md](./JTAGulator.md) |
-| [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | FPGA-based scriptable interface explorer | ~$150 | N/A |
-| [**Bus Pirate**](https://buspirate.com/) | Interactive multi-protocol interface tool | ~$35 | [BusPirate.md](./BusPirate.md) |
-| [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | USB/Logic/Interface exploration | ~$100 | [GreatFETone.md](./GreatFETone.md) |
-| [**T48 TL866-3G support list**](https://www.xgecu.com/MiniPro/T48_List.txt) | Programmer for listed ICs; verify package, voltage, and adapter | ~$65 | [T48_TL866-3G.md](./T48_TL866-3G.md) |
-| [**LA1010 / HiLetgo**](https://www.amazon.com) | USB Logic Analyzers (100MHz / 24MHz) | $15–$50 | [LA1010.md](./LA1010.md) & [HiLetgo.md](./HiLetgo.md) |
+| Tool | Purpose | Reference Guide |
+|------|---------|-----------------|
+| [**ChipWhisperer**](https://www.newae.com/chipwhisperer) | Supported training platform for selected glitching and power-analysis exercises | Check current target compatibility |
+| [**ChipSHOUTER**](https://www.newae.com/chipshouter) | Specialized EMFI equipment | Follow manufacturer safety and target guidance |
+| [**JTAGulator**](https://grandideastudio.com/portfolio/security/jtagulator/) | Candidate debug-signal identification on supported boards | [JTAGulator.md](./JTAGulator.md) |
+| [**Glasgow**](https://github.com/GlasgowEmbedded/glasgow) | Scriptable interface exploration | Review project support and voltage limits |
+| [**Bus Pirate**](https://buspirate.com/) | Interactive multi-protocol interface | [BusPirate.md](./BusPirate.md) |
+| [**GreatFET One**](https://greatscottgadgets.com/greatfet/one/) | USB, logic and interface exploration | [GreatFETone.md](./GreatFETone.md) |
+| [**T48 TL866-3G support list**](https://www.xgecu.com/MiniPro/T48_List.txt) | Programmer support reference; verify exact package, voltage and adapter | [T48_TL866-3G.md](./T48_TL866-3G.md) |
+| [**LA1010 / HiLetgo**](./LA1010.md) | USB logic-analyzer guides | [LA1010.md](./LA1010.md) & [HiLetgo.md](./HiLetgo.md) |
+
 
 ### Software Tools
 
-| Tool | Purpose | Cost |
-|------|---------|------|
-| [**OpenOCD**](https://openocd.org/) | Open-source JTAG/SWD debug | Free/OSS |
-| [**flashrom**](https://www.flashrom.org/) | SPI/parallel flash read/write | Free/OSS |
-| [**Ghidra**](../ReverseEngineering/README.md) | Firmware reverse engineering; [local guide](../ReverseEngineering/ghidra-guide-index.md) and [upstream project](https://github.com/NationalSecurityAgency/ghidra) | Free/OSS |
-| [**IDA Pro**](https://hex-rays.com/ida-pro) | Firmware reverse engineering | $$$$ |
-| [**Binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction and analysis | Free/OSS |
-| [**Sigrok / PulseView**](https://sigrok.org/) | Open-source logic analyzer frontend | Free/OSS |
-| [**ChipWhisperer Software**](https://chipwhisperer.readthedocs.io/) | Jupyter-based SCA/FI tutorials | Free/OSS |
+| Tool | Purpose | Reference |
+|------|---------|-----------|
+| [**OpenOCD**](https://openocd.org/) | JTAG/SWD debug support | Check target interface, adapter, supported release and license |
+| [**flashrom**](https://www.flashrom.org/) | Supported flash-device operations | Verify exact chip, programmer and operation before write access |
+| [**Ghidra**](../ReverseEngineering/README.md) | Firmware reverse engineering; [local guide](../ReverseEngineering/ghidra-guide-index.md) and [upstream project](https://github.com/NationalSecurityAgency/ghidra) | Check current release and license |
+| [**IDA Pro**](https://hex-rays.com/ida-pro) | Firmware reverse engineering | Check current license and supported formats |
+| [**Binwalk**](https://github.com/ReFirmLabs/binwalk) | Firmware extraction and analysis | Verify maintained source, release and license |
+| [**Sigrok / PulseView**](https://sigrok.org/) | Logic-analyzer frontend | Verify supported hardware and release |
+| [**ChipWhisperer Software**](https://chipwhisperer.readthedocs.io/) | Side-channel and fault-injection tutorials | Follow current compatibility documentation |
+
 
 ### Python Libraries For Side-channel Analysis
 
@@ -354,16 +370,18 @@ This section contains hardware attack techniques and methodologies for:
    • Any illegal or unethical activities
 ```
 
-### Applicable Laws
+### Potentially Relevant Legal Frameworks
 
-| Law / Regulation | Scope |
-|-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to protected computers: includes embedded systems |
-| **DMCA (17 U.S.C. § 1201)** | Circumvention of technological protection measures (DRM bypass) |
-| **EAR / ITAR** | Export controls on certain cryptographic and defense-related hardware tools |
-| **Trade Secret Laws** | Extraction of proprietary firmware or algorithms may constitute misappropriation |
-| **EU Cybercrime Directives** | Unauthorized access to computer systems including embedded devices |
-| **DMCA § 1201(j)** | Security research exemption: narrow; consult legal counsel |
+The entries below are pointers, not legal advice or an exhaustive analysis. Application depends on jurisdiction, authorization, conduct, system, item classification and other facts. Written permission from a device owner does not by itself settle every contractual, safety, export-control or statutory question.
+
+| Reference | Context |
+|-----------|---------|
+| [CFAA, 18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/) | The statute defines covered computers and offenses with specific elements; whether it applies depends on the system, conduct, authorization and facts. Do not infer a legal conclusion from this index. |
+| [DMCA, 17 U.S.C. § 1201](https://uscode.house.gov/us/usc/119-134/t17/s1201/) | Includes provisions concerning circumvention and security testing. The security-testing provision has conditions and does not excuse violations of other applicable law. |
+| [EU Directive 2013/40/EU](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32013L0040) | Sets minimum rules for offenses and sanctions in EU member-state law; national implementation and case facts matter. |
+| Export controls | Classification and destination-specific analysis may be required for some items, software, or technical data. Check current [EAR](https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C) and [ITAR](https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M) materials for the actual item and transaction. |
+| Trade-secret law | Proprietary firmware or information can raise contractual and trade-secret questions; applicable law and the facts matter. |
+
 
 ### Warranty Disclaimer
 
@@ -472,7 +490,7 @@ To contribute to the Hardware Hacking section:
 ```
 📁 Chapters: 5
 📖 Covers: Threat modeling, electrical fundamentals, fault injection, side-channel analysis, power analysis
-🔄 Last Updated: June 2026
+Reviewed: November 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active & Growing
 ```
