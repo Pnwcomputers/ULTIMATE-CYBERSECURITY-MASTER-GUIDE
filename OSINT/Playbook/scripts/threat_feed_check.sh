@@ -555,7 +555,8 @@ build_summary() {
         printf "No positive matches were returned by the available checks. This is not a cleared result.\n" >> "$summary_file"
     fi
 
-    # Count feeds relevant to this IOC type. This is not a confidence score.\n    # Failed, unavailable, or skipped feeds must remain unverified.
+    # Count feeds relevant to this IOC type. This is not a confidence score.
+    # Failed, unavailable, or skipped feeds must remain unverified.
     local applicable=0
     case "$IOC_TYPE" in
         ip)     applicable=5 ;;   # AbuseIPDB, ThreatFox, VirusTotal, OTX, URLScan
