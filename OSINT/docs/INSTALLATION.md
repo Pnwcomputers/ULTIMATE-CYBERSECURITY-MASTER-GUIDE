@@ -143,17 +143,15 @@ its published checksums or signatures when available.
 
 ## Configure API Keys
 
-```bash
-mkdir -p ~/.config/osint-investigator
-cp playbook/api_keys.conf ~/.config/osint-investigator/api_keys.conf
-chmod 600 ~/.config/osint-investigator/api_keys.conf
-nano ~/.config/osint-investigator/api_keys.conf
-```
+Use the script's interactive configuration command. It creates or updates the
+private user config at `~/.config/osint-investigator/api_keys.conf` and applies
+restrictive permissions.
 
-Or use the interactive config wizard:
 ```bash
 ./playbook/osint_investigator.sh --config
 ```
+
+Do not store real API keys in the repository or edit a tracked configuration file.
 
 ---
 

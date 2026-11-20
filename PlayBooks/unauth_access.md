@@ -50,7 +50,7 @@ When an alert fires, gather the following information:
 |-------|-------------|---------|
 | **Alert Type** | Brute force or Impossible travel | `Multiple failed logins` |
 | **Target Account** | Username/UPN affected | `jsmith@company.com` |
-| **Source IP(s)** | Attacking IP address(es) | `185.234.72.19` |
+| **Source IP(s)** | Attacking IP address(es) | `192.0.2.123` |
 | **Timestamp** | When the activity occurred | `2024-01-15 14:23:00 UTC` |
 | **Authentication Method** | Protocol used | `RDP, OWA, VPN, SSH` |
 | **Success/Failure** | Did any attempts succeed? | `47 failures, 1 success` |
@@ -276,11 +276,12 @@ Get-MgUser -UserId jsmith@company.com | Format-List
 > [!NOTE]
 > The **AzureAD** PowerShell module (`Get-AzureADUser`, `Set-AzureADUser`,
 > `Revoke-AzureADUserAllRefreshToken`) was deprecated on 2024-03-30 and became
-> unsupported after 2025-03-30 (retired mid-2025). It is replaced by the
-> **Microsoft Graph PowerShell SDK** (`Get-MgUser`, `Update-MgUser`,
-> `Invoke-MgInvalidateUserRefreshToken`). The legacy cmdlets are kept here as
-> many environments still have the module installed; prefer the `Mg*`
-> equivalents for new automation.
+> unsupported after 2025-03-30 (retired mid-2025). For new automation, use the
+> **Microsoft Graph PowerShell SDK** (`Get-MgUser`, `Update-MgUser`, and
+> `Revoke-MgUserSignInSession -UserId $userId` for revoking a user's sign-in
+> sessions). Confirm the required Graph permissions and current behavior in
+> [Microsoft's cmdlet reference](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.users.actions/revoke-mgusersigninsession?view=graph-powershell-1.0).
+> The legacy names below are retained only as indicators for older environments;
 
 **Document:**
 - Account type (standard, admin, service)
@@ -611,6 +612,8 @@ logoff <session_id> /server:SERVER01
 ```
 
 #### Block Attacking IP
+
+**Before applying:** Replace the documentation-only TEST-NET address below with an IP verified in incident evidence. Confirm the address, scope, and business impact before creating a block rule; do not copy the example address as an incident indicator. TEST-NET ranges are reserved for documentation ([RFC 5737](https://www.rfc-editor.org/rfc/rfc5737)).
 
 **Firewall:**
 

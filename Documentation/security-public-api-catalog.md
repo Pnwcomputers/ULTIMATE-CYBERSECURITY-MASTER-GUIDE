@@ -20,13 +20,15 @@ The source directory is [MIT licensed](https://github.com/public-apis/public-api
 | AbuseIPDB | IP reputation and reported abuse context | Existing OSINT script; key required | [API v2](https://docs.abuseipdb.com/) |
 | AlienVault OTX | Threat pulses and IOC context | Existing OSINT script; key-based workflows | [OTX API](https://otx.alienvault.com/api) |
 | VirusTotal | Existing domain, IP and file-hash reputation | Existing OSINT script; key and restrictive quota | [API v3](https://docs.virustotal.com/reference/overview) |
-| URLhaus | Malware-distribution URLs and optional IDS feeds | Existing OSINT script; current Auth-Key rules require review | [Community API](https://urlhaus.abuse.ch/api/) |
+| URLhaus | Malware-distribution URLs and optional IDS feeds | Existing script sends a configured Auth-Key; missing key is skipped/unknown | [Community API](https://urlhaus.abuse.ch/api/) |
+| ThreatFox | Malware-related IOCs and infrastructure | Existing script sends a configured Auth-Key; missing key is skipped/unknown | [Community API](https://threatfox.abuse.ch/api/) |
+| MalwareBazaar | Malware sample metadata by file hash | Existing script sends a configured Auth-Key; missing key is skipped/unknown | [Community API](https://bazaar.abuse.ch/api/) |
 | urlscan.io | Search existing website scans and associated indicators | Existing OSINT script; API key for normal use | [API docs](https://docs.urlscan.io/) |
 | GreyNoise Community | Assess background internet scanning versus targeted activity | Reference; limited unauthenticated access | [Community API](https://docs.greynoise.io/docs/using-the-greynoise-community-api) |
 | Google Safe Browsing | Known unsafe URL verdicts for permitted use cases | Reference; API key and terms | [Official docs](https://developers.google.com/safe-browsing/) |
 | Hybrid Analysis | Malware sandbox report enrichment | Reference; key and upload/data-handling restrictions | [API v2](https://www.hybrid-analysis.com/docs/api/v2) |
 
-**Existing-script caveat:** [`threat_feed_check.sh`](../OSINT/Playbook/scripts/threat_feed_check.sh) currently uses an unauthenticated `POST https://urlhaus-api.abuse.ch/v1/`. The [current URLhaus community documentation](https://urlhaus.abuse.ch/api/) requires an Auth-Key for API/dataset use. Do **not** treat its missing/error response as a clean verdict. Authenticate and retest that script separately before production use; this documentation change does not alter live code.
+**Existing-script status:** [`threat_feed_check.sh`](../OSINT/Playbook/scripts/threat_feed_check.sh) sends each configured abuse.ch Auth-Key in a private curl configuration file for URLhaus, ThreatFox, and MalwareBazaar. If a required key is missing, that feed is recorded as skipped/unknown. See the [URLhaus](https://urlhaus.abuse.ch/api/), [ThreatFox](https://threatfox.abuse.ch/api/), and [MalwareBazaar](https://bazaar.abuse.ch/api/) community API documentation for current requirements. Missing keys, failed requests, unsupported hash types, and no positive matches do not establish a clean verdict; the positive-match count is not a confidence score.
 
 Related: [OSINT toolkit](../OSINT/OSINT_TOOLS_CATALOG.md) · [Threat intelligence AgentFlow](../AI/AnythingLLM/flow-threat_intel.md) · [SIEM](../IncidentResponse/SIEM/README.md) · [IDS/IPS](../IncidentResponse/IDS%26IPS/readme.md).
 

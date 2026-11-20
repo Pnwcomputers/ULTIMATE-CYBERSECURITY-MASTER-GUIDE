@@ -40,7 +40,7 @@ They are optional for some workflows and essential for others. The available pro
 
 **Where are API keys stored?**
 
-The main script supports `bash osint_investigator.sh --config` and a private local `~/.config/osint-investigator/api_keys.conf`. Keep the file user-owned and private (`chmod 600`) and do not commit it. Follow the actual installer/help output rather than older references to a `playbook/api_keys.conf` template.
+Run `bash osint_investigator.sh --config` to create or update the private local `~/.config/osint-investigator/api_keys.conf`. Keep it user-owned and private, and do not commit it. The repository no longer provides a tracked API-key configuration file; do not copy secrets into the checkout.
 
 **What information is shared externally?**
 

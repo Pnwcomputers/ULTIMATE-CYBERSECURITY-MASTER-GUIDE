@@ -22,6 +22,20 @@ PhantomDrive is an open-source encrypted USB drive experiment with a decoy or vi
 > [!IMPORTANT]
 > **Verify the firmware actually flashed.** Do not assume XTS simply because it appears in the main README. CTR and XTS have materially different storage-security considerations, and changing the AES mode or PBKDF2 settings can make existing data inaccessible without migration.
 
+### Conceptual device and host boundary
+
+This diagram summarizes the documented concept, not an independently verified firmware trace. The exposed view and cryptographic behavior depend on the exact board, firmware revision, and build options.
+
+```mermaid
+flowchart LR
+    U[User writes content containing the password marker] --> F
+    H[Host operating system and USB storage stack] <-->|USB commands and data| F[CH569W controller and active firmware]
+    F --> V[Decoy or visible storage view]
+    F --> E[Alternate encrypted storage view]
+    H -. Host history, swap, indexing, and logs may retain traces .-> A[Host artifacts]
+    E -. No proof of deniability or authenticated writes .-> W[Security limits]
+```
+
 ## Why it is interesting
 
 PhantomDrive is a useful lab for investigating USB mass storage presentation, on-device key derivation, AES encryption modes, FAT32 decoy volumes, microcontroller firmware trust and the gap between hidden storage and independently verified confidentiality.

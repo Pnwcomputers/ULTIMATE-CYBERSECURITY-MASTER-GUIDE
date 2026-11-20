@@ -41,8 +41,7 @@ CONFIG_DIR="${HOME}/.config/osint-investigator"
 API_CONFIG="${CONFIG_DIR}/api_keys.conf"
 
 # API keys are loaded from the config file or environment. Support both the
-# short variable names used by this script and the exported names documented in
-# `playbook/api_keys.conf`.
+# short variable names used by this script and the variable names supported by the private local configuration or environment.
 CRIMINALIP_KEY="${CRIMINALIP_KEY:-${CRIMINALIP_API_KEY:-}}"
 HIBP_KEY="${HIBP_KEY:-${HAVEIBEENPWNED_API_KEY:-}}"
 LEAKLOOKUP_KEY="${LEAKLOOKUP_KEY:-${LEAKLOOKUP_API_KEY:-}}"
