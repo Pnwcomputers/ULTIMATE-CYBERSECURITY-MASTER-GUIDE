@@ -1,15 +1,37 @@
 # Microsoft Exchange
-_Exchange Server attack techniques covering authentication abuse, post-compromise mailbox access, and privilege/domain escalation via Exchange. Source: Pentest Laboratories._
+_Historical Exchange attack-path references for defensive review. The linked PentestLab posts date from 2019 and do not describe every current deployment or replace vendor security guidance._
 
-**Purpose:** Covers on-premises Exchange Server specifically as an attack surface - a target that's especially high-value because Exchange servers historically run with disproportionately powerful Active Directory permissions (a legacy of pre-2019 Exchange group policy defaults), making Exchange compromise a common shortcut to domain compromise, not just mailbox access.
+**Purpose:** Review on-premises Exchange authentication, server exposure, mailbox access, and the Active Directory permissions that an Exchange compromise might affect. The path depends on Exchange version, installation/permission model, group membership and effective ACLs; product presence alone does not establish domain-level access.
  
-**Function:** The list follows a natural attack chain: get in (password spraying against Outlook Web Access, NTLM relay against Exchange's authentication endpoints), get code execution (Exchange-specific RCE techniques), then use Exchange's own AD permissions for escalation - the ACL and domain-escalation items exist specifically because Exchange servers were, for years, granted `WriteDACL` rights over the domain object by default, letting anyone who compromises the Exchange server grant themselves DCSync rights.
+**Function:** The legacy list groups authentication, post-compromise, code-execution and Active Directory permission risks. Under the shared-permissions model, Exchange's effective AD permissions can include ACEs on the domain object. With Active Directory split permissions, those ACEs are not added. Determine the actual model and inspect effective groups/ACLs before concluding whether a domain-escalation path exists. DCSync-level impact requires the relevant effective rights and is not an automatic consequence of server compromise.
  
-**Goal:** Determine whether Exchange is a stepping stone to full domain compromise rather than an isolated mail-server risk. The ACL-abuse and domain-escalation items in particular test for a specific, well-documented misconfiguration (excessive Exchange group permissions) that many organizations still haven't remediated even after Microsoft's post-2019 guidance to tighten it.
+**Goal:** Establish which Exchange risks apply to the assessed build and permission model, distinguish mailbox/server compromise from domain-level impact, and document evidence for any effective privilege path.
  
-**When & how to use this:** Run against on-premises Exchange deployments specifically - this checklist doesn't apply to Exchange Online/Microsoft 365, which has a completely different permission model and attack surface. Start with authentication-layer items (password spraying, NTLM relay) during external/perimeter testing; the post-compromise and domain-escalation items apply once you already have some level of Exchange access and are testing how far that access extends into AD.
+**Support status:** Exchange Server 2016 and 2019 reached end of support on October 14, 2025; Microsoft identifies Exchange Server Subscription Edition (SE) as the current on-premises release. Check the [current Exchange build and servicing information](https://learn.microsoft.com/en-us/exchange/new-features/build-numbers-and-release-dates) before an assessment. If older versions are present, verify any Extended Security Update coverage and prioritize a supported migration path.
+
+**When & how to use this:** Use for authorized on-premises Exchange assessments. This checklist does not apply to Exchange Online/Microsoft 365. Start with read-only inventory of product/build, exposure, permission mode, privileged groups and effective AD ACLs. Any active authentication, relay, code-execution or credential tests require explicit scope and approval; the historical links below are not current run instructions.
 
 ---
+
+## Permission-model review
+
+Microsoft documents that the Exchange Windows Permissions group receives particular ACEs on the domain object under the shared-permissions model, while split permissions excludes those ACEs. Review the deployment's actual mode and effective ACLs rather than inferring risk from Exchange membership alone.
+
+```mermaid
+flowchart TD
+    A[Record Exchange version, build and support status] --> B[Identify shared or split AD permissions]
+    B --> C[Inventory Exchange groups and service identities]
+    C --> D[Review effective domain and privileged-object ACLs]
+    D --> E{Unexpected effective rights?}
+    E -->|No| F[Record evidence and remaining limits]
+    E -->|Yes| G[Assess reach and business impact]
+    G --> H[Plan least-privilege remediation with Exchange and AD owners]
+    H --> I[Validate changes and monitor]
+```
+
+- [Exchange Server permissions](https://learn.microsoft.com/en-us/exchange/permissions/permissions)
+- [Split permissions in Exchange Server](https://learn.microsoft.com/en-us/exchange/permissions/split-permissions/split-permissions)
+- [Exchange Server 2016 and 2019 end-of-support roadmap](https://learn.microsoft.com/en-us/troubleshoot/exchange/administration/exchange-2019-2016-end-of-support)
 * [ME-001 - Password Spraying](https://pentestlab.blog/2019/09/05/microsoft-exchange-password-spraying/)
 * [ME-002 - NTLM Relay](https://pentestlab.blog/2019/09/09/microsoft-exchange-ntlm-relay/)
 * [ME-003 - Mailbox Post Compromise](https://pentestlab.blog/2019/09/11/microsoft-exchange-mailbox-post-compromise/)
