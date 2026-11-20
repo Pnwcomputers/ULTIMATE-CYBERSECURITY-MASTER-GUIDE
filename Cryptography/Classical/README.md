@@ -1,6 +1,6 @@
 # 🗝️ Classical Ciphers, Leetspeak & Alternative Alphabets
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 *Part of the [Cryptography](../README.md) section of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md)*
 
@@ -71,7 +71,7 @@ python3 Cryptography/Classical/cipher_toolkit.py leet "hacker" --tier 3     # |-
 python3 Cryptography/Classical/cipher_toolkit.py style "hacker" fraktur     # ℌ𝔄ℭ𝔎𝔈ℜ
 python3 Cryptography/Classical/cipher_toolkit.py rot13 "HELLO"              # URYYB
 python3 Cryptography/Classical/cipher_toolkit.py vigenere "HIDDEN" KEY      # RMBNIL
-python3 Cryptography/Classical/cipher_toolkit.py ic-scan "<ciphertext>"     # key-length bar chart
+python3 Cryptography/Classical/cipher_toolkit.py ic-scan "LXFOPVEFRNHR"     # example Vigenere ciphertext
 ```
 
 It can also be imported as a module:
@@ -84,6 +84,7 @@ import cipher_toolkit as ct
 
 ct.style("hacker", "fraktur")          # 'ℌ𝔄ℭ𝔎𝔈ℜ'
 ct.keyed_alphabet("ZEBRAS")            # 'ZEBRASCDFGHIJKLMNOPQTUVWXY'
+ciphertext = "LXFOPVEFRNHR"  # ATTACKATDAWN encrypted with LEMON
 ct.ic_scan(ciphertext, max_len=12)     # [(key_len, avg_ic), ...]
 ```
 
