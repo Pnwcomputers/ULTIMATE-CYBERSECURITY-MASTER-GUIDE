@@ -47,7 +47,8 @@ python3 --version
 
 ## Go Version
 
-Requires **Go 1.20+** for ProjectDiscovery tools (subfinder, httpx, nuclei, dnsx).
+Go requirements vary by tool and release; **Go 1.20+ is not a reliable minimum** for the current ProjectDiscovery tools. Before building or updating subfinder, httpx, nuclei, or dnsx, check that release's official install guide and declared Go version:
+[Subfinder](https://docs.projectdiscovery.io/tools/subfinder/install) · [httpx](https://docs.projectdiscovery.io/tools/httpx/install) · [Nuclei](https://docs.projectdiscovery.io/tools/nuclei/install) · [dnsx](https://docs.projectdiscovery.io/tools/dnsx/install).
 
 ```bash
 go version
