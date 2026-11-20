@@ -61,9 +61,12 @@ escape attempt or host change was executed for this review.
 trivy image --scanners vuln --severity HIGH,CRITICAL myorg/app:1.2.3
 ~~~
 
-Use the reviewed digest for an actual assessment. This command is a vulnerability
-severity filter, not a full misconfiguration audit or a CI failure policy.
-Check the installed [Trivy image-scanning documentation](https://trivy.dev/latest/docs/target/container_image/).
+Use the reviewed digest for an actual assessment. `--scanners vuln` selects
+vulnerability scanning only; it does not scan image secrets or misconfigurations.
+Trivy returns exit code 0 by default even when it reports findings. If you use it
+in CI, define the finding policy and set `--exit-code` explicitly. See the
+[Trivy image-scanning documentation](https://trivy.dev/latest/docs/target/container_image/)
+and [scanner and exit-code options](https://trivy.dev/docs/latest/guide/configuration/others/).
 
 ## Runtime Misconfigurations
 
