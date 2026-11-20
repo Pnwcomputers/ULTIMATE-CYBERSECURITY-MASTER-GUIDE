@@ -165,164 +165,25 @@ A bounded defensive workflow is:
 > [!CAUTION]
 > The commands below send active probes. `AUTHORIZED_LAB_HOST` and `AUTHORIZED_LAB_CIDR` are inert placeholders, not real targets. Replace them only with an exact host or range in the written engagement scope, after confirming ownership, rate limits and stop conditions. Nmap's `-sC` runs default NSE scripts; some may be intrusive, and NSE scripts are not sandboxed. Inspect the selected scripts and their effects before running them. A slower timing option does not make a scan safe or authorized.
 
-### Recommended Scan Commands
+### Minimal Example
 
-**Quick Service Detection:**
+For a host explicitly listed in the written scope, a human may run a narrowly scoped service check such as:
+
 ```bash
-nmap -sV -p 21,22,23,25,80,443,3306,3389,8080 AUTHORIZED_LAB_HOST
+nmap -sV -p 80,443 AUTHORIZED_LAB_HOST -oX scan.xml
 ```
 
-**All TCP ports on one in-scope host (longer active scan; not vulnerability validation):**
-```bash
-nmap -sV -sC -p- AUTHORIZED_LAB_HOST -oN scan.txt
-```
-
-**Vulnerability Scan:**
-```bash
-nmap -sV --script vuln AUTHORIZED_LAB_HOST
-```
-
-**SYN Scan (slower timing; not an authorization or safety guarantee):**
-```bash
-nmap -sS -sV -T2 AUTHORIZED_LAB_HOST
-```
-
-**UDP Scan:**
-```bash
-nmap -sU -sV --top-ports 100 AUTHORIZED_LAB_HOST
-```
-
-**OS Detection:**
-```bash
-nmap -O -sV AUTHORIZED_LAB_HOST
-```
+This sends active probes. Replace the placeholder only with the exact approved host, confirm the specified ports and rate limits, and stop if the system owner requests it. Do not add full-port sweeps, UDP checks, OS detection, default NSE scripts (`-sC`), or `--script vuln` unless those specific checks have been separately reviewed and explicitly authorized. Nmap scripts are not sandboxed, and some default scripts may be intrusive. Script output or version matches are leads, not proof of a vulnerability.
 
 ---
 
-## Example Inputs and Outputs
+## Preparing Output for Review
 
-### Example 1: Web Server Scan
-
-**Input:**
-```
-scan_results:
-PORT    STATE SERVICE  VERSION
-22/tcp  open  ssh      OpenSSH <reported version>
-80/tcp  open  http     Apache httpd <reported version>
-
-target_info: Authorized staging web server; service detection only
-```
-
-**Output:**
-```
-OBSERVATIONS:
-- 22/tcp returned an SSH service/version string.
-- 80/tcp returned an HTTP service/version string.
-
-UNVERIFIED LEADS:
-- No CVE or severity conclusion from banner strings alone.
-- Installed package build, vendor backports, and web-server configuration are unknown.
-
-DEFENSIVE FOLLOW-UP:
-- Confirm the exact package/build and configuration using approved owner or inventory evidence.
-- Check the vendor security advisory and applicable fixes.
-- Record any proposed retest separately; this analysis flow did not probe or validate the host.
-```
-
-### Example 2: Database Server Scan
-
-**Input:**
-```
-scan_results:
-PORT     STATE SERVICE  VERSION
-3306/tcp open  mysql    MySQL 5.5.62
-22/tcp   open  ssh      OpenSSH 8.2p1
-
-target_info: Database server - should be internal only
-```
-
-**Output:**
-```
-PARSED FINDINGS:
-| Port | Service | Version | Risk | Notes |
-|------|---------|---------|------|-------|
-| 3306/tcp | MySQL | Banner reports 5.5.62 | Unverified | Confirm exact package/build, vendor support status, and exposure from approved evidence |
-| 22/tcp | SSH | Banner reports OpenSSH 8.2p1 | Unverified | Confirm installed build and applicable vendor updates |
-
-RECOMMENDATIONS:
-Top 3 Critical Items:
-1. Confirm whether the database is reachable from an untrusted network using approved configuration evidence.
-2. Verify the exact MySQL package/build and support status with the system owner or vendor advisory.
-3. Do not infer a breach or CVE applicability from scan output alone.
-
-Next Steps:
-- Confirm exposure and service identity using authorized, low-impact evidence.
-- Review authentication, anonymous-access and database exposure settings with the system owner or from approved configuration evidence.
-- For any active validation, use a disposable in-scope lab instance and test-only account with explicit written approval and defined limits; do not guess passwords or enumerate production data.
-- Record remediation and retest criteria.
-
-Required Tools:
-- Approved configuration and asset-inventory sources
-- A scanner version and profile approved by the engagement owner
-- A test-only instance/account for separately authorized validation
-```
-
----
-
-## Notes and Considerations
-
-### Legal and Ethical
-
-- **Authorization:** Scan only targets covered by written permission.
-- **Scope:** Follow the exact asset list, methods, rate limits, and stop conditions.
-- **NSE scripts:** Review each selected script; `-sC` includes default scripts, some of which may be intrusive. Nmap scripts are not sandboxed.
-- **Data handling:** Minimize identifiers and use only approved model/data paths.
-- **Reporting:** Treat scan findings and CVE matches as leads until independently verified.
-
-### Technical Considerations
-
-- `-sV` sends probes and returns a service/version observation; it does not establish the installed package build or patch state.
-- A full TCP port scan (`-p-`) is longer and does not validate vulnerability applicability.
-- Large scan output may exceed model context; split it by approved asset groups and preserve provenance.
-- Nmap NSE output depends on the scripts selected and should be reviewed before use.
-
----
-
-## Optimization Tips
-
-### For Better Analysis:
-
-1. **Include Version Information:**
-   - Use `-sV` only when version information is needed and approved; it sends service probes.
-   - A reported version is only a lead for CVE research; confirm the exact package/build, vendor backports, and affected configuration.
-
-2. **Use Script Scanning:**
-   - `-sC` runs default NSE scripts. Some may be intrusive; inspect each selected script and its effects before use.
-
-3. **Provide Context:**
-   - Describe target type (web server, database, etc.)
-   - Mention if internal or external
-   - Note if production or development
-   - Include authorization status
-
-### For Better Recommendations:
-
-1. **Specific Target Info:**
-   ```
-   target_info: Authorized staging host; exact approved scope; service detection only; no sensitive business or customer details
-   ```
-
-2. **Include Multiple Hosts:**
-   - Scan entire subnet
-   - Analyze patterns across systems
-   - Identify systemic issues
-
-3. **Combine with Vulnerability Scans:**
-   - Run Nmap first for discovery
-   - Follow with Nessus/OpenVAS for deeper analysis
-   - Use NmapAnalyzer to prioritize targets
-
----
+- Include `-sV` output only when service identification is approved and relevant. Nmap probes services; reported version strings may be incomplete or inaccurate.
+- Give the AgentFlow only minimized, sanitized output. Remove credentials, personal information, unrelated hosts, and sensitive business context.
+- Keep authorization records outside the model prompt. Provide a neutral asset role only if it helps interpret the observation.
+- Compare only hosts already included in the authorized assessment data. Cross-host patterns are hypotheses for an owner to verify.
+- Correlate results from other assessment tools only when their separate scope permits. Their findings also need evidence review; this flow does not launch scans.
 
 ## Troubleshooting
 
@@ -332,51 +193,14 @@ Required Tools:
 | No vulnerability conclusion | Treat scan output as a lead; separately scope and review any active NSE checks |
 | Unclear priorities | Include business context in target_info |
 | Token limit exceeded | Scan smaller IP ranges or summarize results |
-| No service versions | Ensure `-sV` flag was used in scan |
+| No service versions | Check whether approved output includes service detection; do not rerun or broaden a scan without scope review |
 | Incomplete scan | Confirm whether additional ports were in the written scope before requesting or conducting another scan |
 
 ---
 
-## Advanced Usage
+## Reviewing Multiple Result Files
 
-### Combining Multiple Scans
-
-**Scan different port ranges:**
-```bash
-# Quick scan common ports
-nmap -sV -p 21,22,23,25,80,443,3389 AUTHORIZED_LAB_HOST -oN quick.txt
-
-# Full port scan
-nmap -sV -p- AUTHORIZED_LAB_HOST -oN full.txt
-
-# UDP scan
-nmap -sU --top-ports 100 AUTHORIZED_LAB_HOST -oN udp.txt
-```
-
-**Analyze all together:**
-```
-@agent use NmapAnalyzer flow
-scan_results:
-[paste quick.txt]
-[paste full.txt]
-[paste udp.txt]
-
-target_info: Complete port analysis - all protocols
-```
-
-### Subnet Scanning
-
-```bash
-# Scan entire subnet
-nmap -sV AUTHORIZED_LAB_CIDR -oN subnet-scan.txt
-
-# Analyze results
-@agent use NmapAnalyzer flow
-scan_results: [paste subnet-scan.txt]
-target_info: Authorized lab subnet - assess only the exact in-scope range AUTHORIZED_LAB_CIDR
-```
-
----
+If the approved assessment already produced multiple result files, submit only the relevant, minimized files. Identify the approved scope in neutral terms and ask the flow to separate observations from hypotheses. This does not expand the target list or authorize additional scans.
 
 ## Post-Flow Actions
 
@@ -430,6 +254,6 @@ target_info: Authorized lab subnet - assess only the exact in-scope range AUTHOR
 - [Nmap service/version detection reference](https://nmap.org/book/man-version-detection.html) - Service identification is probe-based and should be corroborated with asset/vendor evidence.
 - [Nmap NSE usage and script categories](https://nmap.org/book/nse-usage.html) - Default scripts, categories, and the fact that scripts are not sandboxed.
 - [README.md](README.md) - AnythingLLM AgentFlow index
-- [flow-cve_lookup.md](flow-cve_lookup.md) - CVE research on services identified by nmap
-- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Nmap findings feed directly into vuln reports
+- [flow-cve_lookup.md](flow-cve_lookup.md) - Research candidate CVEs associated with observed services
+- [flow-vulnreport_gen.md](flow-vulnreport_gen.md) - Draft a report from reviewed evidence; candidate findings still require confirmation
 - [anything_llm_agentflows.md](anything_llm_agentflows.md) - NmapAnalyzer in the assessment workflow chain
