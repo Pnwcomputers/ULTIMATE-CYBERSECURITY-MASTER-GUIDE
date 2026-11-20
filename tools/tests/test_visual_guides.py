@@ -221,6 +221,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/openscad-preset-to-export.svg": (
         "CAD/OpenSCAD/02-project-structure.md",
     ),
+    "CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg": (
+        "CAD/OpenSCAD/06-keyboard-shortcuts.md",
+    ),
 }
 
 
