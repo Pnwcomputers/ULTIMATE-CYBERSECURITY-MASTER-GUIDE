@@ -3,6 +3,7 @@
 No live sensor, SIEM, EDR, or hardware tests are attempted by this suite.
 """
 from pathlib import Path
+import re
 import unittest
 from xml.etree import ElementTree as ET
 
@@ -253,8 +254,8 @@ class VisualGuideTests(unittest.TestCase):
                 for guide in guides:
                     md = (ROOT / guide).read_text(encoding="utf-8")
                     rel = __import__("os").path.relpath(ROOT / path, (ROOT / guide).parent)
-                    self.assertIn("](" + rel.replace("\\", "/") + ")", md)
-                    self.assertIn("![" , md)
+                    target = re.escape(rel.replace("\\", "/"))
+                    self.assertRegex(md, rf"!\[[^\]\n]+\]\((?:\./)?{target}\)")
 
 
 if __name__ == "__main__":
