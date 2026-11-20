@@ -4,7 +4,7 @@
 
 ## Research & Root Cause
 
-In September 2018, KU Leuven/imec researchers published a demonstration against an earlier Tesla Model S passive keyless entry/start system. The work exposed weaknesses in the proprietary **DST40-based** key-fob authentication design. Researchers reported demonstrating the attack on two Model S vehicles and coordinating disclosure with Tesla in August 2017.
+In September 2018, KU Leuven/imec researchers published a demonstration against an earlier Tesla Model S passive keyless entry/start system. The work exposed weaknesses in the proprietary **DST40-based** key-fob authentication design. Researchers reported demonstrating the attack on two Model S vehicles and coordinating disclosure with Tesla in August 2017. The team also identified Pektron-based systems in McLaren, Karma Automotive, and Triumph motorcycles as possible related exposure, but said it could not confirm the vulnerability in those vehicles. Treat those models as unverified scope, not confirmed affected products.
 
 An important technical distinction: subsequent Tesla key-fob revisions used **DST80**; researchers later analyzed those systems separately. A 2018 demonstration does **not** prove that current Tesla vehicles or all DST80 deployments share the exact issue.
 
