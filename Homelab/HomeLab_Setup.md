@@ -18,9 +18,8 @@ Design and verify an isolated, explicitly authorized lab that reduces risk to pr
 ## Professional Infrastructure for Ethical Hacking & Security Research
 
 > **For:** Security professionals, students, researchers, and enthusiasts  
-> **Last Updated:** November 2025  
-> **Based on:** Industry best practices, MITRE ATT&CK, and real-world implementations  
-> **Skill Level:** Beginner to Advanced (scalable approach)
+> **Reviewed:** November 20, 2026  
+> **Scope:** Isolation, network examples, software references, and safety guidance reviewed; verify release-specific installation steps against current vendor documentation.
 
 ---
 
@@ -69,11 +68,13 @@ This comprehensive guide takes you from initial hardware selection through advan
 
 ### Lab Design Philosophy
 
-**Three-Tier Approach**:
+**Capacity-based approach**:
 
-1. **Starter Lab** (Budget: $0-500): Laptop/desktop with free virtualization
-2. **Intermediate Lab** (Budget: $500-2000): Dedicated mini-server or workstation
-3. **Advanced Lab** (Budget: $2000+): Enterprise server(s) with clustering, GPU, storage
+1. **Small lab:** One host and a few VMs; use hardware already available.
+2. **Growing lab:** Add memory, storage, a managed switch, or a dedicated host only when the workload requires it.
+3. **Multi-host lab:** Plan for power, cooling, noise, lifecycle, backups, and network failure domains before buying enterprise equipment.
+
+Treat prices, model availability, and performance as time- and region-dependent. Size the lab from the actual guest memory, storage, and monitoring workload rather than a fixed spend tier.
 
 **Core Principles**:
 - ✅ **Isolation First**: Never risk production or external systems
@@ -98,103 +99,31 @@ This comprehensive guide takes you from initial hardware selection through advan
 
 ### Minimum vs. Recommended Specifications
 
-#### Starter Lab (Budget-Friendly)
+#### Small Lab (Existing Computer)
 
-**Target Audience**: Students, beginners, or those with space/budget constraints
+Choose resources based on host capacity and the guests you intend to run. Leave headroom for the host OS and avoid running more guests than memory permits.
 
-**Minimum Specifications**:
-- **CPU**: Quad-core (Intel i5/i7 or AMD Ryzen 5)
-- **RAM**: 16GB (8GB host + 8GB for VMs)
-- **Storage**: 256GB SSD minimum
-- **OS**: Windows 10/11, macOS, or Linux
-- **Virtualization**: VirtualBox (free) or VMware Workstation Player (free)
+- Use a currently supported host OS and hypervisor version.
+- For a first exercise, run one disposable attacker VM and one intentionally vulnerable target VM on an **internal virtual network with no physical uplink or route**.
+- Do not attach vulnerable guests to bridged, NAT, or production networks. Host-only networking grants the host access and must not be treated as internal-only.
+- Broadcom currently offers VMware Workstation Pro without charge under its published terms; verify current [licensing and download guidance](https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hyper.html) before use.
 
-**What You Can Run**:
-- 1 attacker VM (Kali Linux: 2 cores, 4GB RAM)
-- 1-2 target VMs (Metasploitable, DVWA: 1 core, 2GB each)
-- Basic network segmentation (NAT + Host-Only)
+#### Growing Lab
 
-**Example Setup Cost**: $0 (using existing laptop/desktop)
+Add memory and storage for the guest operating systems, monitoring stack, and snapshots you plan to keep. A managed switch and a dedicated firewall can help teach VLAN and policy concepts, but neither makes a lab isolated by itself. Test actual routes and firewall behavior.
 
-#### Intermediate Lab (Dedicated Hardware)
+#### Multi-host Lab
 
-**Target Audience**: Serious learners, certification candidates, security professionals
+Multiple hosts, shared storage, and high-speed networking add operational complexity. Validate hardware support, storage redundancy, cluster quorum, backup and restore, power, cooling, noise, and lifecycle before purchase. Do not assume a particular host count, VM count, or budget guarantees capacity.
 
-**Recommended Specifications**:
-- **CPU**: 6-8 cores (Intel i7/i9, AMD Ryzen 7/9)
-- **RAM**: 32-64GB
-- **Storage**: 512GB-1TB NVMe SSD
-- **Virtualization**: VMware Workstation Pro, Proxmox VE, or ESXi
-- **Optional**: Dedicated NAS for storage (Synology, TrueNAS)
+### Hardware Selection Decision Guide
 
-**What You Can Run**:
-- Multiple attacker VMs (Kali, Parrot, Windows)
-- Active Directory lab (DC + 2-3 workstations)
-- 5-10 Linux targets
-- Blue team monitoring (Security Onion or ELK)
+Start with the learning objective and host capacity already available:
 
-**Example Hardware**:
-- Intel NUC Extreme (i7, 64GB): ~$1200-1500
-- Custom workstation build: ~$800-1200
-- Used enterprise server (Dell R620, HP DL380 G8): ~$300-600
-
-#### Advanced Lab (Enterprise-Grade)
-
-**Target Audience**: Advanced practitioners, red team professionals, training labs
-
-**Recommended Specifications**:
-- **CPU**: 16-32+ cores (Dual Xeon, EPYC)
-- **RAM**: 128GB-512GB ECC
-- **Storage**: Multiple TBs (NVMe + SAS/SATA in RAID)
-- **Network**: 10GbE NICs, managed switches
-- **GPU**: NVIDIA RTX 3060+ for password cracking (optional)
-- **Virtualization**: Proxmox VE cluster or VMware vSphere
-
-**What You Can Run**:
-- Full enterprise network simulation (50+ VMs)
-- Multiple isolated labs simultaneously
-- High-availability clustering
-- GPU-accelerated password cracking
-- Large-scale blue team infrastructure
-
-**Example Hardware**:
-- Dell PowerEdge R630/R640: ~$2000-4000 (used)
-- HP ProLiant DL380 Gen9/Gen10: ~$2000-3500 (used)
-- Custom built server: ~$3000-5000
-
-**Real-World Example**: 
-
-*A security professional ("Pacific NorthWest Computers") built an advanced lab using:*
-- **Dell R630 #1**: TrueNAS storage server (8 cores, 64GB RAM)
-- **Dell R630 #2**: Proxmox compute node (16 cores, 256GB RAM)
-- **OPNsense VM**: Virtual firewall with VLAN support
-- **Raspberry Pi 3B**: NetAlertX monitoring
-- **ZimaBoard devices**: IoT/embedded testing targets
-- **ZimaBoard + RTX 3050**: Dedicated GPU cracking station
-
-*Total investment: ~$3000-4000 (used enterprise servers + accessories)*
-
-### Hardware Selection Decision Tree
-
-```
-START: What's your budget and goals?
-
-├─ Budget < $500 OR Learning basics?
-│  └─> STARTER LAB (Laptop + VirtualBox)
-│     - Perfect for: TryHackMe, basic OSCP prep
-│     - Limitations: 2-3 VMs max, no complex networks
-│
-├─ Budget $500-2000 OR Serious about certifications?
-│  └─> INTERMEDIATE LAB (Workstation/Mini-server)
-│     - Perfect for: OSCP, full AD labs, blue team learning
-│     - Consider: Intel NUC, used Dell T5810, custom build
-│
-└─ Budget $2000+ OR Professional use/training?
-   └─> ADVANCED LAB (Rack server or cluster)
-      - Perfect for: Red team operations, corporate training
-      - Consider: Dell R630/R640, HP DL380, Proxmox cluster
-      - Optional: GPU for cracking, NAS for storage
-```
+- **One or two guests:** use a supported desktop hypervisor and an internal-only virtual network.
+- **Several concurrent systems:** estimate RAM, storage, and CPU needs for the guest operating systems and monitoring tools, then leave capacity for the host.
+- **VLAN or multi-host practice:** add a managed switch and dedicated lab host only if the exercise needs them. Keep the lab trunk off the home or production network unless a separately reviewed, default-deny design requires a controlled connection.
+- **GPU benchmarking:** optional; select hardware for compatibility and cooling, then benchmark locally. Published hash rates are not performance guarantees.
 
 ### Networking Hardware
 
@@ -253,148 +182,51 @@ START: What's your budget and goals?
 - Automated ZFS snapshots every 4 hours
 - iSCSI for high-performance VM storage
 
-### GPU for Password Cracking (Optional)
+### GPU Benchmarking (Optional)
 
-#### When to Add GPU?
+A supported GPU can accelerate some hash modes, but throughput varies by hash mode, device, driver, runtime, temperature, power limit, and Hashcat version. Avoid fixed hash-rate and price tables.
 
-**Consider GPU if**:
-- Serious about password cracking research
-- Preparing for OSCP (cracking captured hashes)
-- Corporate penetration testing work
-- Budget allows (~$300-800 extra)
+For a compatibility check and local benchmark, use the current [Hashcat documentation](https://hashcat.net/wiki/) and run:
 
-#### GPU Options
+```bash
+hashcat -I
+hashcat -b
+```
 
-| GPU | CUDA Cores | Hash Rate (NTLM) | Price (New) | Use Case |
-|-----|------------|------------------|-------------|----------|
-| NVIDIA GTX 1660 Super | 1408 | ~8-10 GH/s | $200-250 used | Entry-level |
-| NVIDIA RTX 3060 | 3584 | ~18-22 GH/s | $300-350 | Intermediate |
-| NVIDIA RTX 3060 Ti | 4864 | ~25-30 GH/s | $400-500 | Advanced |
-| NVIDIA RTX 4070 | 5888 | ~35-40 GH/s | $550-600 | Professional |
-
-**Real-World Example**:
-
-*The advanced lab includes a ZimaBoard with RTX 3050 dedicated to password cracking:*
-- Hashcat with CUDA acceleration
-- ~15-20 GH/s on NTLM hashes
-- Network-accessible via SSH for job submission
-- Shared NFS mount for wordlists (rockyou.txt, SecLists)
+Use synthetic training hashes or hashes you are authorized to possess. Keep inputs on the disposable lab system, restrict access to result files, and follow the engagement's data-retention rules.
 
 ### Edge Computing & IoT Devices (Optional)
 
-#### Use Cases
+Small computers can host monitoring, network services, or disposable firmware targets. Use them only on lab networks with known ownership and documented routing.
 
-- Hardware hacking practice
-- IoT vulnerability research
-- Covert implant simulation
-- Network tap/packet capture
-- Multi-architecture testing (ARM vs x86)
+- **SBCs and mini PCs:** choose based on supported OS images, NIC count, storage, and power needs; confirm board-specific specifications with the manufacturer.
+- **Monitoring sensor:** use a dedicated capture interface receiving traffic from a documented SPAN session or properly placed network TAP. A device connected to an ordinary switch port does not automatically see other clients' unicast traffic.
+- **Wireless practice:** prefer a simulator or an isolated, clearly identified test SSID with owner-controlled clients and no upstream bridge. Do not impersonate a third-party network or capture bystanders' traffic.
+- **Device-detection exercise:** register the test device, define a test window, generate benign approved telemetry, and verify that inventory/alerting detects it. Do not hide or deploy covert devices on networks.
 
-#### Device Options
+### Example Lab Shapes
 
-**Single Board Computers**:
-- **Raspberry Pi 4** (2GB/4GB/8GB): $35-75
-  - Use: Vulnerable target, monitoring, wireless testing
-- **Orange Pi 5**: $60-100
-  - More powerful than RPi, PCIe support
-- **Rock Pi 4**: $40-80
-  - Similar to RPi with better specs
+These examples are starting points, not product recommendations or performance guarantees. Adjust resources for the operating systems and tools used, and check current vendor support and licensing.
 
-| Resource | Description |
-|---|---|
-| [The Black Wire Maker's Technical Reference Guide](https://valleytech-black-wire-guide.pages.dev/) | Board pinouts, GPIO and connector diagrams, power references and manufacturer documentation for SBC projects; check the source and revision notes for your exact board. |
+#### Single-host exercise
 
-**x86 Mini PCs**:
-- **ZimaBoard/ZimaBlade**: $150-300
-  - Dual NIC, x86 architecture, compact
-- **Intel NUC**: $200-600
-  - Powerful, expandable
-- **Protectli Vault**: $200-400
-  - Designed for firewall/router use
+- One supported host with sufficient free memory and storage
+- One disposable attacker VM and one target VM
+- An internal virtual switch with no physical uplink, NAT, or default route
+- Transfer verified updates through a separate approved path; disconnect it before vulnerable-target or malware-analysis exercises
 
-**Real-World Example**:
+#### VLAN learning setup
 
-*The advanced lab integrates several edge devices:*
-- **Raspberry Pi 3B #1**: NetAlertX network monitoring
-- **Raspberry Pi 3B #2**: OpenWRT wireless testing AP
-- **ZimaBoard**: Network tap + packet capture
-- **ZimaBlade**: Covert implant simulation (red team drop box)
-- **ZimaBoard + GPU**: Password cracking workstation
+- A hypervisor and VLAN-capable switch or virtual bridges
+- Separate management, exercise, target, and monitoring segments
+- A firewall with documented default-deny inter-segment rules
+- A dedicated management host or jump point allowed only to specific management endpoints
 
-### Putting It Together: Sample Builds
+#### Multi-host lab
 
-#### Build #1: Starter Lab ($0-100)
-
-```
-Hardware:
-- Existing laptop (16GB RAM, 256GB SSD)
-- Home router/network
-
-Software:
-- VirtualBox (free)
-- Kali Linux VM
-- Metasploitable 2 VM
-- DVWA on Ubuntu VM
-
-Network:
-- NAT for internet
-- Host-Only for isolated attack range
-
-Cost: FREE (using existing hardware)
-```
-
-#### Build #2: Intermediate Lab ($800-1200)
-
-```
-Hardware:
-- Used Dell Precision T5810 workstation
-  - Xeon E5-1650 v3 (6 cores)
-  - 32GB RAM
-  - 512GB NVMe + 2TB HDD
-- TP-Link 8-port managed switch (~$50)
-
-Software:
-- VMware Workstation Pro OR Proxmox VE
-- Multiple attacker VMs
-- Active Directory lab (5 VMs)
-- 10+ Linux targets
-- Security Onion
-
-Network:
-- VLANs for segmentation
-- OPNsense firewall VM
-
-Cost: ~$800-1000 total
-```
-
-#### Build #3: Advanced Lab ($3000-4000)
-
-```
-Hardware:
-- Dell R630 or HP DL380 Gen9 (used)
-  - Dual Xeon E5-2680 v3 (24 cores total)
-  - 256GB RAM
-  - 4x 1TB SSD in RAID10
-  - Dual 10GbE NICs
-- Second server for TrueNAS storage (optional)
-- NVIDIA RTX 3060 for cracking
-- Managed 10GbE switch
-- Rack enclosure
-
-Software:
-- Proxmox VE cluster
-- 50+ VMs capability
-- Full enterprise AD environment
-- Blue team infrastructure (SIEM, IDS, EDR)
-- GPU-accelerated tools
-
-Network:
-- Multi-VLAN segmentation
-- OPNsense with IDS/IPS
-- Isolated malware lab network
-
-Cost: ~$3000-4000
-```
+- Multiple hypervisor/storage nodes only when required by the exercise
+- Documented backup, restore, quorum, power, cooling, and lifecycle plans
+- Keep vulnerable targets and malware-analysis segments disconnected from production and upstream networks
 
 ### Infrastructure Assessment Checklist
 
@@ -448,120 +280,60 @@ A well-architected penetration testing lab requires **network segmentation** to:
 
 #### Basic 3-Network Design (Starter/Intermediate)
 
+For vulnerable targets, use a virtual switch with **no physical uplink or default route**. If a firewall VM is used to teach inter-segment policy, connect it only to the lab's internal virtual networks. Keep any upstream/update interface disconnected by default.
 
-
-```
-                     Internet
-                        |
-                  [Firewall/Router]
-                  (Physical or VM)
-                        |
-        ┌───────────────┼───────────────┐
-        |               |               |
-   [Management]    [Attack Net]    [Target Net]
-    Network          10.20.0.0/24    10.30.0.0/24
-   10.10.0.0/24         |               |
-        |               |               |
-   [Hypervisor]    [Kali Linux]   [Vulnerable VMs]
-   [Admin Tools]   [Attacker VMs]  [DC, Web Servers]
+```mermaid
+flowchart LR
+  Admin[Approved admin workstation] -->|specific management ports| Mgmt[Management segment]
+  Attack[Disposable exercise VM] -->|only approved lab flows| Target[Disposable target segment]
+  Sensor[Monitoring sensor] -. mirrored copy via SPAN or TAP .-> Attack
+  Sensor -. mirrored copy via SPAN or TAP .-> Target
+  Mgmt -. default deny .- Attack
+  Mgmt -. default deny .- Target
+  Lab[Lab virtual networks] -. no uplink or route by default .- Outside[Home / production / Internet]
 ```
 
 **Network Descriptions**:
 
-1. **Management Network** (10.10.0.0/24)
-   - Hypervisor management interface
-   - Admin access only
-   - NO route to attack or target networks
+1. **Management Network** (example: 10.10.0.0/24)
+   - Expose only hypervisor and firewall management services to approved admin hosts.
+   - Deny guest-initiated access to management. Do not block the admin path needed to manage the lab.
 
-2. **Attack Network** (10.20.0.0/24)
-   - Attacker VMs (Kali, Parrot, Windows)
-   - Can reach target network (attack path)
-   - Internet access for tool updates
+2. **Exercise Network** (example: 10.20.0.0/24)
+   - Disposable exercise VMs. Allow only the flows needed for the written lab scenario.
+   - No Internet route by default. Obtain packages on a separate approved system and transfer verified files through a controlled process.
 
-3. **Target Network** (10.30.0.0/24)
-   - Vulnerable systems
-   - NO internet access (prevents data exfil in scenarios)
-   - Cannot initiate connections to attack network
+3. **Target Network** (example: 10.30.0.0/24)
+   - Vulnerable, disposable systems; no upstream route by default.
+   - Permit only documented exercise traffic. Stateful replies to allowed sessions are different from new target-initiated connections.
 
-#### Advanced 5-Network Design (Professional)
+#### Advanced Segmented Lab Design
 
-```
-                            Internet
-                               |
-                        [Firewall/Router]
-                        (OPNsense/pfSense)
-                        |     |     |     |
-        ┌───────────────┼─────┼─────┼─────┼────────────┐
-        |               |     |     |     |            |
-    [VLAN 10]      [VLAN 20] [VLAN 30] [VLAN 40]  [VLAN 99]
-    Management     Attack    Target    Blue Team  Isolated
-   10.10.10.0/24  10.20.20.0/24  10.30.30.0/24  10.40.40.0/24  10.99.99.0/24
-        |              |        |         |           |
-   ┌────┴────┐    ┌────┴────┐  |    ┌────┴────┐     |
-   |Hypervisor|   |Kali     |  |    |Security |     |
-   |Admin    |    |Parrot   |  |    |Onion    |     |
-   |Access   |    |Windows  |  |    |Splunk   |     |
-   |         |    |Attacker |  |    |SIEM     |     |
-   └─────────┘    └─────────┘  |    └─────────┘     |
-                                |                     |
-                           ┌────┴────────────────────┴────┐
-                           | Target Network Segments      |
-                           |  ┌──────────────────────┐   |
-                           |  | Windows Domain       |   |
-                           |  | - DC (2019 Server)   |   |
-                           |  | - Workstations       |   |
-                           |  | - SQL Server         |   |
-                           |  └──────────────────────┘   |
-                           |  ┌──────────────────────┐   |
-                           |  | Linux Infrastructure |   |
-                           |  | - Web Servers (DVWA) |   |
-                           |  | - Metasploitable     |   |
-                           |  | - Vulnerable Apps    |   |
-                           |  └──────────────────────┘   |
-                           |  ┌──────────────────────┐   |
-                           |  | IoT/Embedded         |   |
-                           |  | - Vulnerable Devices |   |
-                           |  | - Network Equipment  |   |
-                           |  └──────────────────────┘   |
-                           └──────────────────────────────┘
+The example addresses below are documentation-only RFC 1918 ranges. Choose ranges that do not overlap with home, work, or VPN networks.
+
+```mermaid
+flowchart TB
+  Admin[Approved admin workstation] -->|restricted management access| M[VLAN 10: Management]
+  A[Disposable exercise VMs] -->|scenario-specific flows| T[VLAN 30: Targets]
+  A -->|required alerts only| B[VLAN 40: Monitoring]
+  Switch[Managed lab switch / hypervisor bridge] -. SPAN copy .-> B
+  M -. default deny to guest segments .- A
+  M -. default deny to guest segments .- T
+  R[VLAN 99: Restricted analysis] -. no route .- Outside[Home / production / Internet]
+  M -. no route by default .- Outside
+  A -. no route by default .- Outside
+  T -. no route by default .- Outside
 ```
 
-**Network Descriptions**:
+| Segment | Example range | Default policy |
+|---|---|---|
+| Management (VLAN 10) | 10.10.10.0/24 | Admin hosts to named management endpoints only; deny guest-initiated access |
+| Exercise (VLAN 20) | 10.20.20.0/24 | Disposable tools; only scenario-required flows to targets; no upstream route by default |
+| Target (VLAN 30) | 10.30.30.0/24 | No upstream route; allow only exercise-specific traffic and stateful replies |
+| Monitoring (VLAN 40) | 10.40.40.0/24 | Receive documented mirrored traffic and required logs; restrict management and egress |
+| Restricted analysis (VLAN 99) | 10.99.99.0/24 | No routed or bridged paths to other networks; VLAN alone is not an air gap |
 
-1. **VLAN 10: Management** (10.10.10.0/24)
-   - Hypervisor web interface
-   - Admin workstation access
-   - Completely isolated
-
-2. **VLAN 20: Attack** (10.20.20.0/24)
-   - All attacker VMs
-   - Internet access for updates
-   - Can route to target VLAN only
-
-3. **VLAN 30: Target** (10.30.30.0/24)
-   - All vulnerable/target systems
-   - NO internet (default deny)
-   - Cannot reverse connect to attackers
-
-4. **VLAN 40: Blue Team** (10.40.40.0/24)
-   - Monitoring systems (IDS, SIEM)
-   - Read-only access to all VLANs
-   - Protected from attack VLAN
-
-5. **VLAN 99: Isolated** (10.99.99.0/24)
-   - Malware analysis
-   - Dangerous testing
-   - NO connectivity anywhere
-
-**Real-World Example**: 
-
-*A professional security lab uses this 5-VLAN design with:*
-- OPNsense VM as firewall/router on Proxmox
-- Raspberry Pi running NetAlertX on Management VLAN
-- Kali + Parrot + Windows attacker on Attack VLAN
-- Full AD domain + Linux targets on Target VLAN
-- Security Onion + Splunk on Blue Team VLAN
-- Completely air-gapped network for malware testing
+A SPAN feed is a Layer 2 copy to a sensor capture interface, not a routed firewall path. Verify the source ports/VLANs, direction, sensor interface, and capture loss.
 
 ### VLAN Segmentation Strategy
 
@@ -708,7 +480,7 @@ Use these for all lab networks:
 # Edit /etc/network/interfaces
 auto vmbr1
 iface vmbr1 inet manual
-    bridge-ports eth1
+    bridge-ports none
     bridge-stp off
     bridge-fd 0
     bridge-vlan-aware yes
@@ -718,16 +490,16 @@ iface vmbr1 inet manual
 2. **Create OPNsense VM**:
 
 ```bash
-# Create VM with multiple network interfaces
-# Create the VM with its WAN interface first
+# Create the firewall VM without an upstream/WAN interface for the default
+# disconnected lab. Attach its tagged lab interfaces to an internal bridge.
+# Do not add an uplink, NAT, or route unless a separately reviewed update path
+# is required and vulnerable-target exercises are stopped.
 qm create 100 --name opnsense --memory 4096 --cores 2 \
-    --net0 virtio,bridge=vmbr0
-
-# Add the tagged lab interfaces on the VLAN-aware bridge
-qm set 100 --net1 virtio,bridge=vmbr1,tag=10
-qm set 100 --net2 virtio,bridge=vmbr1,tag=20
-qm set 100 --net3 virtio,bridge=vmbr1,tag=30
-qm set 100 --net4 virtio,bridge=vmbr1,tag=40
+    --net0 virtio,bridge=vmbr1,tag=10
+qm set 100 --net1 virtio,bridge=vmbr1,tag=20
+qm set 100 --net2 virtio,bridge=vmbr1,tag=30
+qm set 100 --net3 virtio,bridge=vmbr1,tag=40
+qm set 100 --net4 virtio,bridge=vmbr1,tag=99
 ```
 
 3. **Configure VMs on specific VLANs**:
@@ -1988,14 +1760,7 @@ qm start 410
 
 **SPAN/Mirror Port Configuration on OPNsense**:
 ```
-# In OPNsense web UI:
-Interfaces → Diagnostics → Packet Capture
-- Enable promiscuous mode on monitor interface
-- Forward copy of traffic from VLAN 20, 30 to Security Onion
-
-# Or via pfSense port mirror:
-Interfaces → Assignments → Bridges
-- Create bridge between monitored interface and Security Onion interface
+Configure SPAN on the managed switch or place a network TAP between the monitored links. Connect the mirror destination to a dedicated Security Onion capture NIC. OPNsense packet capture is useful for traffic visible to the firewall, but it does not configure a switch SPAN session. See the [OPNsense packet capture guide](https://docs.opnsense.org/manual/diagnostics_interfaces.html) and the switch manufacturer's SPAN documentation.
 ```
 
 **Alert Rules**:
@@ -2321,80 +2086,28 @@ for the installed version's exact behavior. Confirm disk quotas and evidence
 retention requirements first; export any capture that must be preserved before
 the ring buffer overwrites it.
 
-#### ZimaBlade - Covert Implant Simulation
+#### Authorized Device-Detection Exercise
 
-**Configuration**:
-- **OS**: Kali Linux ARM or Debian
-- **Purpose**: Physical red team drop box simulation
+Use a registered, physically visible test device on a lab-only segment:
 
-**Use Cases**:
-1. Simulate attacker gaining physical access
-2. Test internal network defenses
-3. Practice detection of rogue devices
+1. Record the device owner, identifier, test window, and permitted network.
+2. Connect it only to the isolated lab switch or approved lab SSID.
+3. Generate benign traffic to a designated lab service.
+4. Confirm asset inventory and monitoring alerts, then disconnect and document the result.
 
-**Setup**:
+Do not deploy hidden devices, credential-capture services, or unattended network scans.
+
+#### Optional GPU Benchmarking
+
+Check device availability and benchmark locally with the Hashcat version and drivers installed on the system:
+
 ```bash
-# Install pentesting tools
-sudo apt install -y nmap netexec evil-winrm responder
-
-# Auto-start Responder on boot
-sudo systemctl enable responder
-
-# Cron job for automated scans
-0 */4 * * * nmap -sn 10.30.30.0/24 >> /var/log/scans.log
-```
-
-**Detection Challenge**: Can blue team identify the ZimaBlade on the network?
-
-#### ZimaBoard2 + RTX 3050 - Dedicated Password Cracking Station
-
-**Configuration**:
-- **OS**: Ubuntu Server 22.04 with NVIDIA drivers
-- **GPU**: RTX 3050; select a CUDA toolkit and NVIDIA driver combination compatible with the OS, GPU, and Hashcat version
-- **Network**: Attack VLAN (10.20.20.50)
-
-**Optimized Setup**:
-```bash
-# Install CUDA and hashcat (as shown earlier)
-
-# Benchmark GPU
+hashcat -I
 hashcat -b
-
-# Create hashcat wrapper script
-cat <<'EOF' > /usr/local/bin/crack-hash
-#!/bin/bash
-# GPU-accelerated hash cracking wrapper
-
-HASH_FILE=$1
-WORDLIST=${2:-/mnt/pentest-data/wordlists/rockyou.txt}
-HASH_TYPE=${3:-1000}  # Default: NTLM
-
-hashcat -m $HASH_TYPE -a 0 -w 4 --session crack-session $HASH_FILE $WORDLIST
-
-# If not cracked, try rules
-if [ $? -ne 0 ]; then
-    hashcat -m $HASH_TYPE -a 0 -w 4 --session crack-session $HASH_FILE $WORDLIST -r /usr/share/hashcat/rules/best64.rule
-fi
-EOF
-
-chmod +x /usr/local/bin/crack-hash
+nvidia-smi
 ```
 
-**Remote Job Submission**:
-```bash
-# From Kali attacker VM
-scp captured-hashes.txt user@10.20.20.50:~/jobs/
-ssh user@10.20.20.50 "crack-hash ~/jobs/captured-hashes.txt"
-```
-
-**Performance Monitoring**:
-```bash
-# Monitor GPU utilization
-watch -n 1 nvidia-smi
-
-# Monitor hashcat progress
-hashcat --session crack-session --status
-```
+Benchmarks vary by hash mode, driver/runtime, power and thermal limits. Use synthetic training material or data explicitly authorized for the engagement. Keep it on the lab host and apply the lab's retention controls; do not copy client credential material to a shared NAS or remote cracking station by default.
 
 ### Raspberry Pi Integration
 
@@ -2407,10 +2120,10 @@ hashcat --session crack-session --status
 
 #### Pi #2 - OpenWRT Reconfiguration Options
 
-**Option 1: Wireless Pentesting AP**
-- Configure as rogue AP for evil twin attacks
-- Use with WiFi Pineapple techniques
-- Test wireless IDS detection
+**Option 1: Authorized Wireless Lab AP**
+- Use a clearly identified lab SSID and test clients you own or are authorized to administer.
+- Keep the AP disconnected from production and the Internet unless the approved exercise requires otherwise.
+- Prefer the virtual [WiFiForge training environment](https://github.com/blackhillsinfosec/WifiForge) when a simulated exercise is sufficient.
 
 **Option 2: Honeypot Device**
 - Deploy Cowrie (SSH honeypot)
@@ -2422,25 +2135,9 @@ hashcat --session crack-session --status
 - VPN gateway for remote lab access
 - Traffic shaping for realistic WAN simulation
 
-**Recommendation**: Configure as **Wireless Pentesting AP** for most value
+**Recommendation**: Choose an isolated training AP or simulator based on the exercise and the radio conditions you need to study.
 
-**Setup**:
-```bash
-# Flash OpenWRT (if not already)
-# Configure as AP on VLAN 30 (Target network)
-
-# Install pentesting packages
-opkg update
-opkg install tcpdump hostapd-utils
-
-# Configure evil twin AP
-uci set wireless.@wifi-iface[0].ssid='CorporateWiFi'
-uci set wireless.@wifi-iface[0].encryption='none'
-uci commit wireless
-wifi reload
-
-# Forward to OPNsense for monitoring
-```
+For an approved physical wireless exercise, document the test SSID, owner-controlled clients, location, time window, permitted traffic, and stop condition. Keep the AP on a lab-only network and verify that no bridge, guest network, or upstream route exposes it to production. Do not imitate a third-party SSID or collect bystander traffic.
 
 ---
 
@@ -2573,12 +2270,14 @@ qm clone 300 302 --name dc02-child
    # Test from Attack VLAN
    ping 10.10.10.5  # Should FAIL (Management VLAN)
    ping 10.30.30.10 # Should SUCCEED (Target VLAN)
-   ping 8.8.8.8     # Should SUCCEED (Internet)
+   # Verify the exercise VM has no default route or external egress by default
+ip route
    
    # Test from Target VLAN
    ping 10.10.10.5  # Should FAIL
    ping 10.20.20.10 # Should FAIL (Attack initiates, not target)
-   ping 8.8.8.8     # Should FAIL (unless allowed for updates)
+   # Verify there is no default route; do not probe external hosts
+ip route
    ```
 
 4. **Snapshot before destructive testing**
@@ -2602,35 +2301,14 @@ qm clone 300 302 --name dc02-child
    - Destructive exploits
    - NEVER connect to other VLANs
 
-### Personal OPSEC Rules (From Your Guide)
+### Client Engagement and Data Handling
 
-**From ULTIMATE-CYBERSECURITY-MASTER-GUIDE**:
-
-1. **ALWAYS use 3rd party network for real engagements**
-   - Lab is for practice only
-   - Use VPN, coffee shop, or other network for actual pentests
-   - Never use home IP for client work
-
-2. **VM isolation for sensitive work**
-   - Dedicated attacker VM per client/engagement
-   - Separate OSINT VM (no pentesting tools)
-   - Never mix personal and work VMs
-
-3. **Tool sandboxing**
-   - Test new tools in isolated VMs first
-   - Verify tools are not backdoored
-   - Check GitHub repos for malicious code
-
-4. **Data sanitization**
-   - Clear browser history, cookies after OSINT
-   - Wipe VM after sensitive engagements
-   - Securely delete captured data when no longer needed
-
-5. **Physical security**
-   - Encrypt all drives (TrueNAS, Proxmox, VMs)
-   - Lock rack when not in use
-   - Use strong passwords everywhere
-   - Consider IDRAC/IPMI access controls
+1. Follow the signed scope, approved time window, client contacts, stop conditions, and rules of engagement.
+2. Use only client-approved source addresses and egress paths. Do not route engagement traffic through a public hotspot, personal VPN, or other unapproved network to conceal its origin.
+3. Keep client data in approved encrypted storage with least-privilege access and the agreed retention period.
+4. Separate engagement environments where required by the contract, and use synthetic credentials in training labs.
+5. Review tools and dependencies before use; obtain them from official or organization-approved sources and check signatures or hashes where published.
+6. Preserve evidence and securely dispose of it only under the engagement's documented handling and retention rules.
 
 ### Lab Maintenance & Hygiene
 
@@ -2943,11 +2621,11 @@ qm delsnapshot <vmid> <snapshot-name>
 
 ### Firewall Quick Reference
 
-**OPNsense Important Rules**:
-- VLAN 20 → VLAN 30: Allow (red team attacks)
-- VLAN 30 → VLAN 20: Deny (targets can't reverse connect)
-- VLAN 10 → All: Deny (management isolation)
-- VLAN 99 → All: Deny (full isolation)
+**OPNsense policy model (example only)**:
+- Management: allow approved admin hosts to named management services; deny guest-initiated access.
+- Exercise to target: allow only scenario-specific flows; stateful replies do not imply a new reverse connection.
+- Target and exercise segments: no upstream route by default; explicitly deny other new inter-segment flows.
+- Restricted analysis: no routed/bridged path; VLAN separation alone is not an air gap.
 
 **IDS Alerts Location**:
 - OPNsense: /var/log/suricata/eve.json
@@ -2986,12 +2664,12 @@ Remember:
 - **Stay ethical** and always get authorization
 - **Never stop learning** - security is constantly evolving
 
-Your lab is now ready. **Time to hack responsibly!**
+Treat this as a reference design. Before use, adapt it to the selected hypervisor and firewall, validate all routes and interfaces, and check the upstream versions of every installation procedure.
 
 ---
 
-**Lab Established**: November 2025  
-**Guide Version**: 1.0  
+**Reviewed**: November 20, 2026  
+**Guide Version**: 1.1  
 **Author**: Pacific NorthWest Computers  
 
 **Questions? Improvements? Contributions?**  
@@ -3006,7 +2684,7 @@ Your lab is now ready. **Time to hack responsibly!**
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+**IMPORTANT**: Use these tools only within your authority and the agreed scope. Unauthorized activity may violate laws, contracts, or policy; the outcome depends on conduct and jurisdiction.
 
 * **Lab Testing:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
 * **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
