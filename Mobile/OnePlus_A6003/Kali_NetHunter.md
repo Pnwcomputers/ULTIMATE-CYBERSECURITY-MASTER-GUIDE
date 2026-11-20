@@ -174,7 +174,7 @@ For anything beyond the built-in service toggles - custom scripts, one-tap tool 
 
 ## 6. Alternative: NetHunter Pro (for reference)
 
-If you ever want a completely different experience - a real Linux desktop replacing Android rather than an overlay - NetHunter Pro is also built for the OnePlus 6 (Snapdragon 845 platform, shared with the PinePhone Pro builds). It doesn't need root, TWRP, or Magisk: it uses fastboot to flash a Kali boot image and rootfs to an alternate boot slot (`fastboot flash boot_b ...`, `fastboot flash linux ...`, then `fastboot erase dtbo_b`), letting you dual-boot between Android and full Kali. This is a much more involved, different setup than what's documented above, and would replace (or dual-boot alongside) your current rooted-Android NetHunter setup rather than complementing it.
+NetHunter Pro is a separate product that boots Kali Linux rather than running as an Android overlay. For OnePlus 6/6T, use Kali's current [QCOM Android device instructions](https://www.kali.org/docs/nethunter-pro/) and verify the exact device, release, and partition steps before flashing. Do not copy partition commands from older community guides: incorrect partition names or images can make the phone unbootable. Back up the device first; NetHunter Pro is a different install path from the rooted-Android setup above.
 
 ---
 
