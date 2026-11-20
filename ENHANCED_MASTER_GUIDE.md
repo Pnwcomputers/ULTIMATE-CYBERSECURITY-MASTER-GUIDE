@@ -1860,181 +1860,29 @@ DVWA is intentionally vulnerable. Its maintainers warn against placing it on an 
 
 ### Automated Network Mapping
 
-```python
-#!/usr/bin/env python3
-# network_mapper.py - Automated network discovery and mapping
+A network map should distinguish **observed inventory** from **verified connectivity**. This subsection is a review workflow, not a scanner. Any active discovery must have written authorization, an explicit target list, an approved time window, rate limits, and an owner for handling service impact.
 
-import nmap
-import networkx as nx
-import matplotlib.pyplot as plt
-import json
-
-class NetworkMapper:
-    def __init__(self, network):
-        self.network = network
-        self.nm = nmap.PortScanner()
-        self.graph = nx.Graph()
-        self.hosts = {}
-    
-    def scan_network(self):
-        """Perform comprehensive network scan"""
-        print(f"[*] Scanning network: {self.network}")
-        
-        # Host discovery
-        self.nm.scan(hosts=self.network, arguments='-sn')
-        live_hosts = [host for host in self.nm.all_hosts() 
-                      if self.nm[host].state() == 'up']
-        
-        print(f"[+] Found {len(live_hosts)} live hosts")
-        
-        # Detailed scan of live hosts
-        for host in live_hosts:
-            print(f"[*] Scanning {host}...")
-            self.nm.scan(host, arguments='-sV -O')
-            
-            host_info = {
-                'ip': host,
-                'hostname': self.nm[host].hostname(),
-                'os': self.get_os(host),
-                'ports': self.get_ports(host),
-                'services': self.get_services(host)
-            }
-            
-            self.hosts[host] = host_info
-            self.graph.add_node(host, **host_info)
-    
-    def get_os(self, host):
-        """Extract OS information"""
-        try:
-            if 'osmatch' in self.nm[host]:
-                return self.nm[host]['osmatch'][0]['name']
-        except:
-            pass
-        return "Unknown"
-    
-    def get_ports(self, host):
-        """Extract open ports"""
-        ports = []
-        for proto in self.nm[host].all_protocols():
-            ports.extend(self.nm[host][proto].keys())
-        return sorted(ports)
-    
-    def get_services(self, host):
-        """Extract service information"""
-        services = {}
-        for proto in self.nm[host].all_protocols():
-            for port in self.nm[host][proto]:
-                service = self.nm[host][proto][port]
-                services[port] = {
-                    'name': service['name'],
-                    'product': service.get('product', ''),
-                    'version': service.get('version', '')
-                }
-        return services
-    
-    def discover_relationships(self):
-        """Identify relationships between hosts"""
-        # Add edges based on common services, network segments, etc.
-        hosts_list = list(self.hosts.keys())
-        
-        for i, host1 in enumerate(hosts_list):
-            for host2 in hosts_list[i+1:]:
-                # Connect hosts in same subnet
-                if self.same_subnet(host1, host2):
-                    self.graph.add_edge(host1, host2, relationship="same_subnet")
-                
-                # Connect if sharing services
-                common_services = set(self.hosts[host1]['services'].keys()) & \
-                                set(self.hosts[host2]['services'].keys())
-                if common_services:
-                    self.graph.add_edge(host1, host2, 
-                                      relationship="common_services",
-                                      services=list(common_services))
-    
-    def same_subnet(self, ip1, ip2):
-        """Check if IPs are in same /24 subnet"""
-        return '.'.join(ip1.split('.')[:3]) == '.'.join(ip2.split('.')[:3])
-    
-    def visualize_network(self, output_file='network_map.png'):
-        """Create network visualization"""
-        plt.figure(figsize=(15, 10))
-        
-        pos = nx.spring_layout(self.graph)
-        
-        # Draw nodes
-        nx.draw_networkx_nodes(self.graph, pos, node_size=700, 
-                              node_color='lightblue')
-        
-        # Draw edges
-        nx.draw_networkx_edges(self.graph, pos, width=2, alpha=0.5)
-        
-        # Draw labels
-        labels = {host: f"{host}\n{self.hosts[host]['os']}" 
-                 for host in self.hosts}
-        nx.draw_networkx_labels(self.graph, pos, labels, font_size=8)
-        
-        plt.title("Network Topology Map")
-        plt.axis('off')
-        plt.tight_layout()
-        plt.savefig(output_file, dpi=300, bbox_inches='tight')
-        print(f"[+] Network map saved to {output_file}")
-    
-    def export_json(self, output_file='network_data.json'):
-        """Export network data to JSON"""
-        data = {
-            'network': self.network,
-            'hosts': self.hosts,
-            'relationships': []
-        }
-        
-        for edge in self.graph.edges(data=True):
-            data['relationships'].append({
-                'source': edge[0],
-                'target': edge[1],
-                'attributes': edge[2]
-            })
-        
-        with open(output_file, 'w') as f:
-            json.dump(data, f, indent=2)
-        
-        print(f"[+] Network data exported to {output_file}")
-    
-    def generate_report(self):
-        """Generate comprehensive network report"""
-        report = f"""
-        === NETWORK MAPPING REPORT ===
-        
-        Network: {self.network}
-        Total Hosts: {len(self.hosts)}
-        
-        HOST DETAILS:
-        """
-        
-        for host, info in self.hosts.items():
-            report += f"\n{host} ({info['hostname']})\n"
-            report += f"  OS: {info['os']}\n"
-            report += f"  Open Ports: {', '.join(map(str, info['ports']))}\n"
-            report += f"  Services:\n"
-            for port, service in info['services'].items():
-                report += f"    {port}: {service['name']} "
-                report += f"{service['product']} {service['version']}\n"
-        
-        print(report)
-        return report
-
-# Example usage
-if __name__ == "__main__":
-    mapper = NetworkMapper("192.168.1.0/24")
-    mapper.scan_network()
-    mapper.discover_relationships()
-    mapper.visualize_network()
-    mapper.export_json()
-    mapper.generate_report()
+```mermaid
+flowchart LR
+    A[Authoritative sources<br/>IPAM, CMDB, cloud and network configs] --> N[Normalize asset identity<br/>and timestamps]
+    B[Approved scan results<br/>with scope and provenance] --> N
+    N --> E[Separate observed facts<br/>from inferred relationships]
+    E --> H[Analyst verifies paths<br/>against routing and firewall policy]
+    H --> M[Reviewed map and inventory]
+    M --> P[Protect, share, and expire outputs]
 ```
 
-[Return to Table of Contents](#table-of-contents---enhanced-edition)
+| Data shown in a map | Evidence to record | Interpretation |
+| --- | --- | --- |
+| Asset and address | Source system, interface or asset ID, observation time, owner | Addresses can change or be reused; avoid identifying a host from IP alone. |
+| Service and port | Transport protocol, observed state, source, timestamp, scan scope | A port number alone does not prove which application is running. Version probes actively contact services and results can be incomplete. |
+| Operating-system estimate | Tool/version, evidence source, confidence or match quality | Fingerprinting is an estimate. Validate important decisions with endpoint inventory or an administrator. |
+| Network path or relationship | Routing, VLAN/subnet, firewall rule, cloud security-group, or switch evidence | Hosts sharing a subnet or service do not by themselves prove communication or a direct connection. |
+| Unknown or conflicting data | Conflicting sources, stale observations, missing fields | Preserve uncertainty and send conflicts for review rather than silently choosing a value. |
 
----
+The previous Python example scanned an arbitrary /24, then ran service/version and OS probes against every responsive host. It had no authorization or scope check. Its relationship logic treated any pair in the same assumed /24 and any pair sharing a port number as connected; neither inference establishes a path. It also discarded protocol when storing ports and suppressed all OS-identification exceptions. Nmap documents that service/version detection interrogates ports and that OS detection can return near-matches when there is no exact fingerprint. See [Nmap host discovery](https://nmap.org/book/man-host-discovery.html), [service and version detection](https://nmap.org/book/man-version-detection.html), and [OS detection and its limitations](https://nmap.org/book/man-os-detection.html).
+
+Before sharing a generated inventory or diagram, remove credentials, sensitive hostnames, public addresses where unnecessary, and personal data. Store exports in an access-controlled location, record the collection date and source, and set a retention period.
 
 ## System Administration Scripts
 
