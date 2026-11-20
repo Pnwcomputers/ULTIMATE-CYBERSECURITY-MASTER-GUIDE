@@ -26,7 +26,7 @@ The source directory is [MIT licensed](https://github.com/public-apis/public-api
 | Google Safe Browsing | Known unsafe URL verdicts for permitted use cases | Reference; API key and terms | [Official docs](https://developers.google.com/safe-browsing/) |
 | Hybrid Analysis | Malware sandbox report enrichment | Reference; key and upload/data-handling restrictions | [API v2](https://www.hybrid-analysis.com/docs/api/v2) |
 
-**Existing-script caveat:** [`threat_feed_check.sh`](../OSINT/Playbook/scripts/threat_feed_check.sh) currently uses an unauthenticated `POST https://urlhaus-api.abuse.ch/v1/`. The [current URLhaus community documentation](https://urlhaus.abuse.ch/api/) requires an Auth-Key for API/dataset use. Do **not** treat its missing/error response as a clean verdict. Authenticate and retest that script separately before production use; this documentation change does not alter live code.
+**Existing-script status:** [`threat_feed_check.sh`](../OSINT/Playbook/scripts/threat_feed_check.sh) sends the configured `URLHAUS_AUTH_KEY` in a private curl configuration file. If no key is configured, it records the feed as skipped/unknown. Obtain the key through the [current URLhaus community API documentation](https://urlhaus.abuse.ch/api/). A missing or failed response is not a clean verdict, and the script's positive-match count is not a confidence score.
 
 Related: [OSINT toolkit](../OSINT/OSINT_TOOLS_CATALOG.md) · [Threat intelligence AgentFlow](../AI/AnythingLLM/flow-threat_intel.md) · [SIEM](../IncidentResponse/SIEM/README.md) · [IDS/IPS](../IncidentResponse/IDS%26IPS/readme.md).
 
