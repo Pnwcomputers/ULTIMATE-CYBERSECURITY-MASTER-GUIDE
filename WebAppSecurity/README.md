@@ -18,10 +18,9 @@
 
 **Related application security references:** [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries), [awesome-appsec](https://github.com/paragonie/awesome-appsec) and [the PNWC source map](../Documentation/awesome-hacking-collections-integration.md).
 
-**External developer docs:**
-**Older web-vulnerability examples:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) links the archived SQLi/browser/HTTP exercises as history; use current OWASP testing standards for assessments.
+**Historical testing examples:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) links archived SQLi, browser, and HTTP exercises for context; use current OWASP testing standards for assessments.
 
- [Beautiful Docs-derived reference index](../Documentation/curated-technical-docs.md) links to [FastAPI](https://fastapi.tiangolo.com/) and [Django](https://docs.djangoproject.com/en/) documentation for owned API labs. Pair implementation details with [OWASP API Security](https://owasp.org/API-Security/), not framework docs alone.
+**Owned API labs:** [Developer documentation index](../Documentation/curated-technical-docs.md) links to [FastAPI](https://fastapi.tiangolo.com/) and [Django](https://docs.djangoproject.com/) docs. Pair framework-specific implementation details with [OWASP API Security](https://owasp.org/API-Security/).
 
 **API inventory and safe testing references:** [Curated Security API Catalog](../Documentation/security-public-api-catalog.md) includes APIs.guru, Postman Echo, GitGuardian and disclosure-management services. Use synthetic data and written scope; public OpenAPI specifications do not confer testing authorization.
 
@@ -82,6 +81,7 @@ it), mirroring the [Tradecraft](../Tradecraft/) convention.
 |------|-------------|--------|
 | **[owasp-top-10.md](./owasp-top-10.md)** | OWASP Top 10:2025 final-edition deep-dive - each category with exploitation, testing, and defense, plus a 2021→2025 mapping | ✅ Complete |
 | **[methodology.md](./methodology.md)** | Web app pentest methodology: recon, mapping, Burp Suite workflow, injection/access-control/business-logic testing, API & GraphQL testing, reporting | ✅ Complete |
+| **[owasp-assessment-and-nuclei.md](./owasp-assessment-and-nuclei.md)** | Versioned ASVS requirements, WSTG test methods, reviewed Nuclei templates, evidence and retesting workflow | ✅ Reference |
 
 ---
 
@@ -109,10 +109,10 @@ A web assessment generally proceeds in phases (detailed in
 
 > [!CAUTION]
 > **Authorized use only.** The techniques here are for authorized penetration
-> testing, education, and defensive research. Testing a web application you do not
-> own or lack **explicit written permission** to assess is illegal (e.g. the U.S.
-> Computer Fraud and Abuse Act and equivalents elsewhere). Always work within a
-> signed scope and rules of engagement. See [LEGAL.md](../LEGAL.md).
+> testing, education, and defensive research. Testing without authorization may
+> violate applicable laws, contracts, or policies; the legal analysis depends on
+> jurisdiction and facts. Obtain written permission, follow the signed scope and
+> rules of engagement, and see [LEGAL.md](../LEGAL.md).
 
 ---
 
@@ -153,5 +153,6 @@ A web assessment generally proceeds in phases (detailed in
 ## Related Files
 - [owasp-top-10.md](owasp-top-10.md) - OWASP Top 10:2025 deep-dive with testing and defense
 - [methodology.md](methodology.md) - Web application penetration testing methodology
+- [owasp-assessment-and-nuclei.md](owasp-assessment-and-nuclei.md) - ASVS/WSTG mapping and safe Nuclei review
 - [../GLOSSARY.md](../GLOSSARY.md) - Acronyms and terms (OWASP, CWE, SSRF, XSS…)
 - [../LEGAL.md](../LEGAL.md) - Legal notice and authorized-use terms
