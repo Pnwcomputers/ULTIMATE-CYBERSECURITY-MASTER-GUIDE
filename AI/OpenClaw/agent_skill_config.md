@@ -99,7 +99,7 @@ Useful skill ideas for this repo's workflows include:
 
 Do not paste these ideas into `openclaw.json` as a `skills` config object. Implement a skill using the supported directory and frontmatter format for the installed release.
 
-## Hooks and triggers
+## Hooks & Triggers
 
 Hooks can run code in response to gateway events. Keep them disabled unless a specific workflow requires them, inspect every hook script, and use the version-matched [official hooks documentation](https://docs.openclaw.ai/automation/hooks) for supported event names and configuration. Do not paste the old hook JSON examples from earlier versions of this guide into the current config.
 
