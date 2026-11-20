@@ -269,11 +269,13 @@ replay through sequence 5, preserve deletion state, rebuild an aggregate, and re
 changed backup bytes.
 
 **Requirements:** Python 3.10+; the testing and recovery labs also use Python's `sqlite3` module. This
-revision was executed on Python 3.12.14 and SQLite 3.53.1 only. All data is synthetic; no server, credentials,
+guide originally verified the lab on Python 3.12.14 and SQLite 3.53.1. All data is synthetic; no server, credentials,
 network calls, or third-party dependencies are required.
 
 Save as `recovery_lab.py` and run without Python's `-O` flag, because the standalone drills use assertions.
-File-based fixtures use temporary directories that are removed on completion.
+File-based fixtures use temporary directories that are removed on completion. Restored copies open in
+read/write URI mode, which requires an existing file. Recovery bypasses schema initialization so missing
+tables and replay checkpoints surface during validation. See [Python's SQLite URI examples](https://docs.python.org/3/library/sqlite3.html#how-to-work-with-sqlite-uris).
 
 ```python
 """SQLite backup, isolated restore, and deterministic event replay."""
@@ -292,6 +294,10 @@ def connect(path):
         INSERT OR IGNORE INTO progress VALUES(1,0);
     ''')
     return db
+
+
+def open_restored(path):
+    return sqlite3.connect(f'{path.as_uri()}?mode=rw', uri=True)
 
 
 def apply(db, event):
@@ -340,7 +346,7 @@ def run(root):
     assert digest(backup_path) == expected_hash
     restored_path = root / 'restored.db'
     shutil.copyfile(backup_path, restored_path)
-    restored = connect(restored_path)
+    restored = open_restored(restored_path)
     assert restored.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
     assert restored.execute('SELECT sequence FROM progress').fetchone()[0] == 2
     for e in journal:
@@ -356,7 +362,7 @@ def run(root):
     restored.close()
     gap_path = root / 'gap.db'
     shutil.copyfile(backup_path, gap_path)
-    gap = connect(gap_path)
+    gap = open_restored(gap_path)
     try:
         apply(gap, journal[3])  # Deliberately omit event 3.
     except ValueError:
@@ -382,7 +388,7 @@ if __name__ == '__main__':
 python3 recovery_lab.py
 ```
 
-On Windows, `py -3 recovery_lab.py` may be the appropriate launcher. Windows execution was not tested here.
+On Windows, run `py -3 recovery_lab.py` if the Python launcher is installed. This example also passed on Windows with Python 3.14.3 and SQLite 3.50.4.
 
 **Actual summary output:**
 

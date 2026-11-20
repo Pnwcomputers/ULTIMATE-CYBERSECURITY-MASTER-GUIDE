@@ -303,7 +303,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 | SatNOGS Network | [https://network.satnogs.org/](https://network.satnogs.org/) |
 | Space-Track.org | [https://www.space-track.org/](https://www.space-track.org/) |
 | AMSAT | [https://www.amsat.org/](https://www.amsat.org/) |
-| CCSDS Publications | [https://public.ccsds.org/Publications/default.aspx](https://public.ccsds.org/Publications/default.aspx) |
+| CCSDS Publications | [CCSDS publication catalogue](https://ccsds.org/publications/) |
 | FCC ULS License Search | [https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp](https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp) |
 
 ---
@@ -321,7 +321,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 ### External Resources
 - [MITRE ATT&CK](https://attack.mitre.org/)
-- [CCSDS Publications](https://public.ccsds.org/Publications/default.aspx)
+- [CCSDS Publications](https://ccsds.org/publications/)
 - [DEF CON Aerospace Village](https://aerospacevillage.org/)
 - [Hack-A-Sat](https://afresearchlab.com/technology/hack-a-sat/) (2020–2023; [challenge archive](https://github.com/deptofdefense/hack-a-sat-library))
 - [SatNOGS](https://network.satnogs.org/)

@@ -113,7 +113,7 @@ The host firewall, published binding addresses and routing behavior require sepa
 when a container is stopped; the presence of a container snapshot is not a
 substitute for tested application-consistent backups.
 
-## Docker Compose V2
+## Docker Compose
 
 ```bash
 docker compose version
@@ -128,7 +128,14 @@ docker compose ls
 **Use `docker compose`**, not the legacy `docker-compose` V1 command,
 for new Compose instructions. Read the
 [Compose documentation](https://docs.docker.com/compose/).
-Record the installed Compose version; the section heading names the V2-style command, not a guarantee of one current major version. Verify the intended project name, project directory, selected `-f` files, environment and profiles. `docker compose config --quiet` validates/resolves the model; it does not certify security, service readiness or correct target selection. Rendered configuration can expose interpolated values. See [Compose config](https://docs.docker.com/reference/cli/docker/compose/config/).
+Record the installed Compose version before checking flag support. Verify the intended project name, project directory, selected `-f` files, environment and profiles. `docker compose config --quiet` validates/resolves the model; it does not certify security, service readiness or correct target selection. Rendered configuration can expose interpolated values. See [Compose config](https://docs.docker.com/reference/cli/docker/compose/config/).
+
+![Compose change review progresses from target identification through model validation and dry run to approved execution and live verification](../assets/diagrams/docker-compose-change-review.svg)
+
+For a planned `up`, preview the actions with `docker compose --dry-run up -d` where supported. Use the
+same context, project, Compose files, environment and profiles as the intended change. Review proposed
+pulls and container recreation. After approved execution, check service health and dependent behavior.
+See [Compose dry-run documentation](https://docs.docker.com/reference/cli/docker/compose/#use-dry-run-mode-to-test-your-command).
 
 State-changing operations such as `docker compose up -d`,
 `docker compose pull`, `docker compose down` and
