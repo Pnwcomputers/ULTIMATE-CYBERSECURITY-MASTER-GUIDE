@@ -102,6 +102,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [Vulnerability report evidence review](./diagrams/vulnerability-report-evidence-review.svg) | [VulnReportGenerator AgentFlow](../AI/AnythingLLM/flow-vulnreport_gen.md#purpose) | Separates evidence status, scoring sources, impact bounds, remediation review, and human approval |
 
+## Domain Reconnaissance Scope and Evidence
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Domain reconnaissance scope and evidence flow](./diagrams/domain-recon-scope-evidence-flow.svg) | [DomainRecon AgentFlow](../AI/AnythingLLM/flow-domain_recon.md#purpose) | Separates third-party public-source queries, unverified leads, an optional active HTTP check, and human scope confirmation |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
