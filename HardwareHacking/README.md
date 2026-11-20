@@ -223,10 +223,10 @@ Detailed documentation, reference links, and step-by-step usage tutorials for sp
 |--------------|-------------|
 | **[BusPirate.md](./BusPirate.md)** | Open-source hacker multi-tool for interfacing with I2C, SPI, UART, and JTAG. |
 | **[GreatFETone.md](./GreatFETone.md)** | Extensible open-source hardware tool for logic analysis, I2C/SPI manipulation, and USB RE. |
-| **[JTAGulator.md](./JTAGulator.md)** | Tool for systematic pinout discovery on authorized hardware; possible results depend on target design and enabled interfaces. |
+| **[JTAGulator.md](./JTAGulator.md)** | Identify candidate debug signals on supported, owner-approved boards; possible results depend on target design and enabled interfaces. |
 | **[BitPirate.md](./BitPirate.md)** | Serial interface bridge for embedded systems recon, fuzzing, and debugging. |
-| **[LA1010.md](./LA1010.md)** | Setup and usage for the Innomaker LA1010 100MHz 16-channel USB Logic Analyzer. |
-| **[HiLetgo.md](./HiLetgo.md)** | Setup and usage for the HiLetgo 24MHz 8-channel USB Logic Analyzer (Saleae clone). |
+| **[LA1010.md](./LA1010.md)** | Setup and usage for the Innomaker LA1010; verify exact hardware revision, sample-rate mode and voltage limits with current documentation. |
+| **[HiLetgo.md](./HiLetgo.md)** | Setup and usage for the specific HiLetgo analyzer; confirm its revision, software support, sample-rate mode and electrical limits. |
 | **[T48_TL866-3G.md](./T48_TL866-3G.md)** | Programmer guide; supported parts, packages, voltages, and adapters depend on the exact [manufacturer device-list entry](https://www.xgecu.com/MiniPro/T48_List.txt). |
 
 ---
@@ -263,7 +263,7 @@ For ChipWhisperer examples, see the [capture API](https://chipwhisperer.readthed
 
 ### Interface Exploitation (Physical Access)
 
-| Interface | Wires | Attack Value | Common Tools |
+| Interface | Signals | Possible observation or access boundary | Example tooling |
 |-----------|-------|-------------|-------------|
 | **[UART](https://learn.sparkfun.com/tutorials/serial-communication/all)** | TX, RX, GND | Boot logs or console only if exposed and enabled; console access does not itself imply a shell | USB-UART adapter and logic analyzer |
 | **[JTAG](https://en.wikipedia.org/wiki/JTAG)** | TCK, TMS, TDI, TDO, TRST | Debug access only where exposed, enabled and authorized; attachment may alter target state | Supported J-Link, OpenOCD, or [JTAGulator](./JTAGulator.md) |
@@ -362,11 +362,11 @@ This section contains hardware attack techniques and methodologies for:
 
 🚫 STRICTLY PROHIBITED:
    • Attacking hardware you do not own or have authorization to test
-   • Bypassing DRM or copy protection in violation of DMCA
+   • Circumventing technical protection measures without reviewing authorization, applicable law and any relevant statutory conditions
    • Extracting proprietary firmware or trade secrets without authorization
    • Cloning, counterfeiting, or pirating commercial products
-   • Tampering with safety-critical systems (medical, automotive, aviation)
-   • Any activity violating CFAA, DMCA, or equivalent laws
+   • Testing operational safety-critical systems without the system owner's safety approval and a validated test environment
+   • Any activity that violates applicable law, contract, safety rules, or the approved scope
    • Any illegal or unethical activities
 ```
 
@@ -409,16 +409,16 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 Hardware hacking involves potentially dangerous equipment:
    • High-voltage pulse generators (EMFI, LFI)
-   • Laser sources (Class 3B/4: eye damage risk)
+   • Laser sources: eye and skin risks depend on class, wavelength, beam path and exposure
    • Soldering and hot air rework (burn risk)
-   • Chemical decapping agents (fuming acids: fume hood required)
+   • Chemical decapping agents: specialized chemical hazards requiring a validated institutional procedure and suitable engineering controls
 
 ALWAYS:
-   ✓ Wear appropriate PPE (safety glasses, gloves, lab coat)
-   ✓ Work in a ventilated area for chemical decapping
-   ✓ Use laser safety goggles rated for the correct wavelength
-   ✓ Follow your institution's EHS guidelines
-   ✓ Never work alone with high-voltage equipment
+   ✓ Select PPE from a task-specific hazard assessment and institutional EHS guidance
+   ✓ Use chemical engineering controls and trained supervision for decapping procedures
+   ✓ Use laser eyewear matched to wavelength and optical density, with a controlled beam path
+   ✓ Follow the equipment manufacturer's electrical-safety requirements
+   ✓ Arrange a qualified observer or emergency plan where required by the hazard or site policy
 ```
 
 ---
@@ -527,7 +527,7 @@ Reviewed: November 2026
 
 ⚠️ **Unauthorized activity may violate law, contract, or policy depending on conduct, authorization, and jurisdiction. Obtain the authorization required for your activity and follow the agreed scope.** ⚠️
 
-⚠️ **ALWAYS obtain explicit written authorization before using any technique** ⚠️
+⚠️ **For third-party hardware, obtain written owner authorization and a defined scope before testing. Ownership does not remove applicable safety, contractual, or legal limits.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
