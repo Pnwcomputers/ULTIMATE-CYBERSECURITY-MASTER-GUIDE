@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" role="img" aria-labelledby="title desc">
+  <title id="title">Candidate periods in a toy Vigenère puzzle</title>
+  <desc id="desc">The mean column index of coincidence is elevated at period 6 and its multiple 12. The known key has period 6.</desc>
+  <rect width="820" height="440" rx="16" fill="#eef4fa"/>
+  <g font-family="system-ui, sans-serif" fill="#17334a">
+    <text x="32" y="48" font-size="27" font-weight="700">Candidate periods in a toy Vigenère puzzle</text>
+    <text x="32" y="85" font-size="17">Mean column index of coincidence</text>
+    <path d="M84 343H780" stroke="#a6becd"/>
+    <text x="34" y="348" font-size="15">0.00</text>
+    <path d="M84 289H780" stroke="#a6becd"/>
+    <text x="34" y="294" font-size="15">0.02</text>
+    <path d="M84 235H780" stroke="#a6becd"/>
+    <text x="34" y="240" font-size="15">0.04</text>
+    <path d="M84 181H780" stroke="#a6becd"/>
+    <text x="34" y="186" font-size="15">0.06</text>
+    <path d="M84 127H780" stroke="#a6becd"/>
+    <text x="34" y="132" font-size="15">0.08</text>
+    <rect x="91" y="221.17" width="38" height="121.83" rx="3" fill="#507996"/>
+    <text x="110" y="213.17" text-anchor="middle" font-size="13">0.045</text>
+    <text x="110" y="368" text-anchor="middle" font-size="15">1</text>
+    <rect x="149" y="211.12" width="38" height="131.88" rx="3" fill="#507996"/>
+    <text x="168" y="203.12" text-anchor="middle" font-size="13">0.049</text>
+    <text x="168" y="368" text-anchor="middle" font-size="15">2</text>
+    <rect x="207" y="176.71" width="38" height="166.29" rx="3" fill="#507996"/>
+    <text x="226" y="168.71" text-anchor="middle" font-size="13">0.062</text>
+    <text x="226" y="368" text-anchor="middle" font-size="15">3</text>
+    <rect x="265" y="209.79" width="38" height="133.21" rx="3" fill="#507996"/>
+    <text x="284" y="201.79" text-anchor="middle" font-size="13">0.049</text>
+    <text x="284" y="368" text-anchor="middle" font-size="15">4</text>
+    <rect x="323" y="220.96" width="38" height="122.04" rx="3" fill="#507996"/>
+    <text x="342" y="212.96" text-anchor="middle" font-size="13">0.045</text>
+    <text x="342" y="368" text-anchor="middle" font-size="15">5</text>
+    <rect x="381" y="144.43" width="38" height="198.57" rx="3" fill="#006c62"/>
+    <text x="400" y="136.43" text-anchor="middle" font-size="13">0.074</text>
+    <text x="400" y="368" text-anchor="middle" font-size="15">6</text>
+    <rect x="439" y="224.85" width="38" height="118.15" rx="3" fill="#507996"/>
+    <text x="458" y="216.85" text-anchor="middle" font-size="13">0.044</text>
+    <text x="458" y="368" text-anchor="middle" font-size="15">7</text>
+    <rect x="497" y="210.90" width="38" height="132.10" rx="3" fill="#507996"/>
+    <text x="516" y="202.90" text-anchor="middle" font-size="13">0.049</text>
+    <text x="516" y="368" text-anchor="middle" font-size="15">8</text>
+    <rect x="555" y="176.57" width="38" height="166.43" rx="3" fill="#507996"/>
+    <text x="574" y="168.57" text-anchor="middle" font-size="13">0.062</text>
+    <text x="574" y="368" text-anchor="middle" font-size="15">9</text>
+    <rect x="613" y="206.26" width="38" height="136.74" rx="3" fill="#507996"/>
+    <text x="632" y="198.26" text-anchor="middle" font-size="13">0.051</text>
+    <text x="632" y="368" text-anchor="middle" font-size="15">10</text>
+    <rect x="671" y="233.70" width="38" height="109.30" rx="3" fill="#507996"/>
+    <text x="690" y="225.70" text-anchor="middle" font-size="13">0.040</text>
+    <text x="690" y="368" text-anchor="middle" font-size="15">11</text>
+    <rect x="729" y="145.19" width="38" height="197.81" rx="3" fill="#006c62"/>
+    <text x="748" y="137.19" text-anchor="middle" font-size="13">0.073</text>
+    <text x="748" y="368" text-anchor="middle" font-size="15">12</text>
+    <text x="432" y="397" text-anchor="middle" font-size="17">Candidate period (letters)</text>
+    <text x="432" y="423" text-anchor="middle" font-size="15">6 is the known period. 12 is a multiple of it.</text>
+  </g>
+</svg>

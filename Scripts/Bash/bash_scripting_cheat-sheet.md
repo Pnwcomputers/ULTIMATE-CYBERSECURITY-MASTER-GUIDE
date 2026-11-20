@@ -6,6 +6,10 @@
 > **Reviewed October 31, 2026.** Bash snippets are examples, not production-hardened scripts. Run `bash -n script.sh` and `shellcheck script.sh`; quote expansions, validate input and protect credentials. Do **not** execute remote scripts directly from an unreviewed URL. Offensive lab snippets further down are **not** general-purpose admin commands. Start with the [Linux cheat sheet](../../Documentation/LinuxCheatSheet.md) or [security script pinning policy](../PINNING.md) when building installers.
 
 
+![Bash script validation flow separates argument bounds, safe expansion, syntax and static checks, and explicit approval of changes before running a script](../../assets/diagrams/bash-script-input-validation-and-dry-run-gates.svg)
+
+*Conceptual safety gates.* The [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/bash.html) documents positional parameters, filename expansion and quoting. Several examples in this cheat sheet are **syntax fragments** requiring variable definitions or surrounding script code. They must not be treated as a single runnable script; `bash -n` checks syntax, not safety or correctness.
+
 ## 🎯 Purpose
 Bash scripting reference for security professionals - covering the patterns, syntax, and idioms commonly needed for writing security automation scripts, log parsing tools, and recon helpers.
 
@@ -36,7 +40,7 @@ chmod +x script.sh                   # Make executable
 ### IF-ELSE-IF Statement
 ```bash
 #!/bin/bash
-USER_INPUT="${1}"
+USER_INPUT="${1:-}"  # Safe when no argument is supplied, including with set -u
 
 if [[ -z "${USER_INPUT}" ]]; then
     echo "You must provide an argument!"
@@ -93,6 +97,7 @@ done
 
 # Files
 for file in /path/*.txt; do
+    [[ -f "${file}" ]] || continue  # Unmatched globs can remain literal
     echo "$file"
 done
 ```
@@ -155,20 +160,26 @@ echo "${GLOBAL_VAR}"                 # Works
 echo "${LOCAL_VAR}"                  # Empty
 ```
 
-### Special Variables
-```bash
-$0                                   # Script name
-$1, $2, $3                           # Positional arguments
-$#                                   # Number of arguments
-$@                                   # All arguments
-$?                                   # Exit status of last command
-$$                                   # Process ID
-$!                                   # PID of last background job
-```
+### Special Parameters
+
+These are Bash expansions, **not** commands to type on their own:
+
+| Expansion | Meaning |
+|---|---|
+| `$0` | Script name / invocation string |
+| `$1`, `$2`, `$3` | Positional arguments; use `${1:-}` if absent is allowed under `set -u` |
+| `$#` | Count of positional arguments |
+| `"$@"` | Positional arguments, each preserved as its own word |
+| `$?` | Exit status of the immediately preceding command |
+| `$` | PID of the current shell process |
+| `$!` | PID of the most recently started asynchronous command, when applicable |
+
 
 ---
 
 ## Comparisons
+
+The following `if [[ ... ]]; then` statements are **individual condition headers**, not a complete executable program. Put the desired body and a matching `fi` after each condition; define the referenced variables first. Integer operators `-eq`, `-gt`, etc. are arithmetic comparisons, not string comparisons.
 
 ### Integer Comparison
 ```bash
@@ -334,21 +345,21 @@ cut -c1-10 file.txt                  # Characters 1-10
 
 ### cURL
 ```bash
-curl http://example.com                           # GET request
-curl -o file.html http://example.com              # Save to file
-curl -s http://example.com                        # Silent mode
-curl -w "%{http_code}" http://example.com         # Show HTTP code
-curl -X POST -d "data=value" http://example.com   # POST request
-curl -H "Header: value" http://example.com        # Custom header
-curl -u user:pass http://example.com              # Basic auth
+curl https://example.com                           # GET request
+curl -o file.html https://example.com              # Save to file
+curl -s https://example.com                        # Silent mode
+curl -w "%{http_code}" https://example.com         # Show HTTP code
+curl -X POST -d "data=value" https://example.com   # POST request
+curl -H "Header: value" https://example.com        # Custom header
+curl -u user https://example.com                  # Prompts for secret; do not embed passwords in args/history
 ```
 
 ### wget
 ```bash
-wget http://example.com/file.txt                  # Download file
-wget -O output.txt http://example.com/file.txt    # Save as
-wget -r http://example.com                        # Recursive download
-wget --spider http://example.com                  # Check if exists
+wget https://example.com/file.txt                  # Download file
+wget -O output.txt https://example.com/file.txt    # Save as
+wget -r https://example.com                        # Recursive download
+wget --spider https://example.com                  # Check if exists
 ```
 
 ### netcat (nc)

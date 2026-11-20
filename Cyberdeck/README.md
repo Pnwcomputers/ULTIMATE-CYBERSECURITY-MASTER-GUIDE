@@ -53,24 +53,10 @@ The public reference includes operational worksheets and offline integrity tools
 
 A portable cyberdeck can combine an operator workstation, an upstream connectivity router, a downstream segmentation firewall, a local evidence vault and optional manual/specialist collection devices. The guiding principle is **method-first, consent-first, evidence-first**: establish precisely what is authorized, choose a bounded procedure, record what actually happened, and independently review findings.
 
-```text
-                   Approved upstream connection
-                               |
-                     GL.iNet (WISP / router)
-                               |
-                     MikroTik (routed policy)
-                         /       |       \
-                MGMT zone    SENSOR     LAB zone
-                Operator     Evidence   Isolated validation
-                workstation  storage    systems
-                               |
-                         Local evidence import
-                               |
-                  Human review & client report
+![Logical cyberdeck architecture showing upstream connection, GL.iNet transport, MikroTik inter-zone policy and the separately intended management, sensor and lab zones](../assets/diagrams/cyberdeck-zone-policy-logical-architecture.svg)
 
-        Separate offsite observation origin: PLANNED, NOT PROVIDED
-        Client network test interface: ONLY WITH WRITTEN AUTHORIZATION
-```
+*Conceptual public-reference architecture, not a representation of installed hardware or validated segmentation.* Actual topology and allowable flows depend on verified GL.iNet, MikroTik, host firewall, physical wiring and VLAN configuration. A device cannot enforce isolation for traffic that bypasses its interfaces. See [Architecture & Network Zones](docs/ARCHITECTURE.md) and [Acceptance Tests](docs/ACCEPTANCE_TESTS.md).
+
 
 This is a **logical reference topology**, not an assertion that any user's GL.iNet, MikroTik, ZimaBoard or downstream interfaces have been configured, hardened, wired or validated. See [Device & Platform References](#device--platform-references) for the official hardware and software links. A router only controls traffic that traverses it; an unmanaged switch does not magically give a passive sensor all network traffic.
 
