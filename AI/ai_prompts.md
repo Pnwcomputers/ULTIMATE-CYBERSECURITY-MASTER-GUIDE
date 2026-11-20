@@ -1,27 +1,31 @@
-# 🚀 Ultimate AI Prompt Engineering (2026 Edition)
+# 🚀 Practical AI Prompting: Techniques, Evaluation, and Limits
 
-A master resource and cheat sheet for high-performance prompting, synthesized from official documentation (Anthropic, Google, OpenAI) and industry-leading frameworks like Fabric.
+_Last reviewed: 2026-11-20_
+
+A practical reference for writing and evaluating prompts. Prompt techniques are starting points: test them against the actual model, task, and failure cases. The official vendor references below change over time; check them before applying platform-specific behavior.
 
 > [!IMPORTANT]
 > For long-running or consequential work, use [AI Usage and Interaction](ai-usage-interaction-guide.md), [Project and Agent Workflows](agent-project-workflows.md), [Independent Fact-Checking and AI Audits](verification-and-ai-audits.md), and [Projects, Notebooks, GPTs and Plugins](ai-workspaces-notebooks-and-assistants.md). Prompt wording cannot guarantee accuracy, security or execution.
 
 ## 🎯 Purpose
-Platform-agnostic prompt engineering reference - templates, patterns, and psychology for getting better output from any LLM. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md` (which are security-workflow-specific prompt examples): this file is technique-level, applicable to any prompting task regardless of domain.
+Platform-neutral prompting techniques, reusable templates, and evaluation guidance. Distinct from the OpenClaw `use_cases.md` and `agent_skill_config.md`, which focus on security workflows. Techniques still vary by model and task.
 
 ## ⚙️ Function
-Ten sections moving from platform documentation links (Anthropic/Google/OpenAI/Fabric) through advanced strategies (agentic prompting, chain-of-thought, multi-modal), copy-paste system prompt templates, platform-specific tactics, and a prompt-debugging protocol for fixing hallucination/laziness/logic-error failure modes.
+The guide moves from official references through task framing, structured inputs, multimodal requests, reusable templates, and a debugging/evaluation loop. Prompt edits alone cannot repair missing permissions, weak evidence, or unsuitable models.
 
 ## 🏆 Goal
 Have ready-to-use prompt templates and debugging techniques on hand so you're not re-deriving prompt structure from scratch for every new task or AI tool.
 
 ## 📋 When to Use
-- Writing a system prompt for a new AI agent or workflow (Section 3's Master Template)
+- Writing a system prompt for a new AI agent or workflow (Section 3's reusable task template)
 - An AI response is hallucinating, being lazy, or making logic errors (Section 7's debugging protocol)
 - Working across multiple LLM platforms and needing to know which tactics apply where (Section 4)
 
 ---
 
 ## 📚 1. Core Documentation & Resources
+
+Official platform guidance: [Anthropic prompt engineering](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview), [Google prompt design](https://ai.google.dev/gemini-api/docs/prompting-strategies), and [OpenAI prompting](https://platform.openai.com/docs/guides/prompting).
 
 ### 🤖 Anthropic (Claude)
 - [Prompt Engineering Overview](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) - The gold standard for XML tagging and "Thinking" strategies.
@@ -31,7 +35,7 @@ Have ready-to-use prompt templates and debugging techniques on hand so you're no
 - [Gemini Prompting Strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies) - Focuses on conversational intent and multimodal grounding.
 
 ### 🚀 OpenAI (GPT)
-- [OpenAI Prompting Guide](https://platform.openai.com/docs/guides/prompting) - Comprehensive tactics for GPT-4o, focusing on delimiters and tool use.
+- [OpenAI Prompting Guide](https://platform.openai.com/docs/guides/prompting) - Current API prompting guidance; follow model-specific instructions and evaluate behavior.
 
 ### 🛠️ Community Standards
 - [Fabric (Daniel Miessler)](https://github.com/danielmiessler/Fabric) - A systematic approach to "Patterns" and identity-based prompting.
@@ -40,24 +44,21 @@ Have ready-to-use prompt templates and debugging techniques on hand so you're no
 
 ## 🧠 2. Advanced Prompting Strategies
 
-### 🏗️ Agentic Prompting (AI as an Executor)
-Shift the AI from a generator to an autonomous worker:
-- **Tool Definition:** Explicitly define what the AI *can* do (e.g., "Use the Python tool for any math calculation").
-- **Self-Correction:** "Review your output for logic errors. If you find one, correct it before responding."
-- **Iterative Planning:** "Before responding, outline the 3 steps you will take to solve this request."
+### 🏗️ Tool-Assisted Prompting
+A prompt can describe a bounded workflow, but the host controls whether tools are available and what they can do:
+- **Tool purpose:** State which approved tool is appropriate and what input/output is expected.
+- **Preview and approval:** Ask for a preview before consequential changes; enforce authorization and approval in the host.
+- **Checkable plan:** Request a short plan or progress summary when useful, then verify actual tool results.
 
-### ⛓️ Chain-of-Thought (Advanced Reasoning)
-- **Concise plan:** Request a brief, checkable plan and source-backed explanation, not hidden model reasoning.
-- **Structured output:** Use explicit sections for assumptions, actions, evidence and unknowns; do not demand private reasoning transcripts.
-- **Chain of Verification (CoVe):** Instruct the AI to:
-    1. Draft an initial answer.
-    2. Fact-check its own statements.
-    3. Provide a final, corrected version.
+### ⛓️ Reasoning Summaries and Verification
+- Ask for a concise answer, key assumptions, supporting evidence, and important unknowns. Do not request private reasoning transcripts.
+- For verification, extract claims that can be checked, compare them with primary sources or independent tools, and revise the answer to reflect conflicts and gaps.
+- A model checking its own draft can catch some errors, but it is not independent verification.
 
 ---
 
-## 🛠️ 3. The "Master System Prompt" Template
-*Copy the section below into the "System Instructions" field of your AI tool.*
+## 🛠️ 3. Reusable Task Prompt Template
+*Adapt this template to the instruction or task fields your platform provides. Field names and precedence vary by host.*
 
 ```text
 # IDENTITY
@@ -87,29 +88,29 @@ Your goal is to provide high-utility, accurate, and concise responses.
 | :--- | :--- | :--- |
 | **Anthropic** | **XML Tags** | Helps the model distinguish between instructions, examples, and user data. |
 | **OpenAI** | **Structured inputs** | Delimiters help distinguish text, but do not prevent prompt injection or enforce permissions. |
-| **Gemini** | **Groundedness** | Excels when told to "Only use the provided documents" to avoid hallucinations. |
+| **Gemini** | **Source grounding** | Ask it to use supplied sources and identify gaps; verify source coverage and claims independently. |
 | **Fabric** | **Patterns** | Uses headers like `# IDENTITY` to give the model a clear structural roadmap. |
 
 ---
 
-## 🧠 5. The Psychology of Prompting (The "Why")
-Before writing a single word, a master prompter understands two psychological concepts:
+## 🧠 5. Prompt Clarity and Context
+Two practical considerations can improve clarity, but neither is a guarantee:
 
-* **Context Steering:** Think of the AI as a world-class actor. If you don't give it a "script" (Identity), it reverts to its "average" training data. By providing a specific persona, you steer it into a niche area of its knowledge base.
-* **The "Wall of Text" Fallacy:** AI models suffer from "Lost in the Middle" syndrome. They pay most attention to the **beginning** and the **end** of a prompt.
-* **Instruction placement:** Put stable behavioral rules in the correct instruction layer and keep task-specific context close to its data. Position alone is no guarantee.
+* **Role and context:** A role label can set a useful perspective or format, but it does not establish expertise or make claims reliable.
+* **Long-context placement:** Models and tasks can differ in how they use information across a long input. Put important constraints where the platform recommends and evaluate placement with representative cases.
+* **Instruction placement:** Put stable behavioral rules in the host's supported instruction layer and keep task-specific context close to its data. Position alone is no guarantee.
 
 ---
 
-## 🖼️ 6. Multi-Modal Mastery (Vision & Voice)
-In 2026, prompting isn't just text. We are prompting "eyes" and "ears."
+## 🖼️ 6. Image and Audio Requests
+Image and audio inputs vary by model, interface, and task. State the question, relevant regions or time ranges, and required output; verify important transcriptions or interpretations against the media.
 
 ### Vision Prompting (Image Analysis)
 * **Spatial Anchoring:** Use coordinates or "Clock Face" logic. *"Describe the object located at 3 o'clock in the image."*
-* **OCR Guidance:** If asking to read text from a photo, tell the AI: *"Transcribe all text verbatim before analyzing the sentiment."*
+* **OCR guidance:** Ask for a transcription before interpretation when that helps, but inspect the image yourself for low-confidence, cropped, or ambiguous text.
 
 ### Voice & Audio Prompting
-* **Prosody Instructions:** When using Gemini Live or GPT-4o voice, include emotional cues. *"Speak with a sense of urgency, using short sentences and frequent pauses for effect."*
+* **Voice output:** State tone, pace, and pauses when supported by the interface, then listen to the result; voice controls differ by product.
 
 ---
 
@@ -118,9 +119,9 @@ Even the best prompts can fail. Fix a hallucinating or stubborn AI with these th
 
 | Symptom | Diagnosis | Treatment |
 | :--- | :--- | :--- |
-| **Hallucination** | "Groundedness" failure | Add: "If you do not know the answer, state that you don't know. Do not guess." |
-| **Incomplete work** | Missing context, scope or verification | Set milestones, acceptance tests, and evidence requirements rather than offering monetary incentives. |
-| **Logic Errors** | Lack of "Compute Time" | Add a **Reflection Step**: "Review your own math. Point out any errors before showing the final result." |
+| **Unsupported claims** | Missing or weak evidence | Require claim-level sources and explicit unknowns; check important claims against primary sources. |
+| **Incomplete work** | Missing scope or acceptance criteria | Define a bounded deliverable, required sections, and verifiable completion criteria. |
+| **Logic errors** | Reasoning or calculation not checked | Recalculate with a suitable independent method, such as a calculator or test case; a self-review prompt is only a weak check. |
 
 ---
 
@@ -128,10 +129,12 @@ Even the best prompts can fail. Fix a hallucinating or stubborn AI with these th
 Beyond Fabric, there are specific "architectures" you can use to build your prompts.
 
 ### The "Chain of Density" (For Summarization)
-Instead of asking for a summary once, ask the AI to:
-1. Identify 5 missing entities.
-2. Rewrite the summary to include them without increasing word count.
-3. Repeat this 3 times until the summary is "entity-dense."
+For a dense summary, iterate against a defined coverage checklist:
+1. Draft a concise summary.
+2. Compare it with the source for missing named entities or material facts.
+3. Revise within the word limit and verify that no important qualifications were lost.
+
+This is a drafting aid; check coverage against the source.
 
 ### The "Socratic Tutor" Pattern
 Instead of asking for an answer, ask the AI to teach you.
@@ -168,22 +171,26 @@ A successful response will be:
 Begin.
 
 ```
----
-
 ## ✅ 10. Final Prompt Health & Ethics Checklist
 
 - [ ] **Positive Framing:** Told the AI what *to do* instead of what *not* to do.
 - [ ] **Strong Verbs:** Started with "Analyze," "Write," "Summarize," or "Debug."
-- [ ] **Few-Shot Examples:** Included at least one example of the desired output.
+- [ ] **Examples:** Add a representative example when format or edge-case behavior is hard to describe clearly.
 - [ ] **Specific Constraints:** Replaced "short" with "under 100 words" or "3 bullet points."
-- [ ] **Anonymize Data:** Never put PII (Personally Identifiable Information) into a prompt.
-- [ ] **Verify Output:** AI is a "Probability Engine," not a "Fact Engine." Always verify technical or medical data.
+- [ ] **Data minimization:** Remove unnecessary personal or sensitive data; follow the data classification, authorization, and provider rules that apply.
+- [ ] **Verify output:** Check consequential or unfamiliar claims against suitable primary sources, tests, or qualified reviewers.
 
 ---
 
 ## 11. When a Prompt Is Not Enough
 
 A strong prompt defines the task, but **context, tools, permissions, schema enforcement and evidence** determine whether an AI workflow is safe to operate.
+
+![Diagram showing prompt layers leading into host-enforced permissions, schema and evidence checks, and human approval](../assets/diagrams/ai-structured-output-authorized-action-gates.svg)
+
+*Conceptual: a prompt can request checks, while the host and surrounding workflow must enforce permissions and validate outcomes.*
+
+---
 
 | Problem | Add the Missing System Control | Detailed Guide |
 |---|---|---|
@@ -215,7 +222,7 @@ A prompt can request these controls; the host application and service integratio
 ## Related Files
 - [README.md](README.md) - AI/ section index
 - [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - Security-domain prompt examples that apply these techniques
-- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the Master Template here
+- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the reusable task template here
 - [offensive_ai.md](offensive_ai.md) - Prompt injection: the adversarial flip side of the prompting techniques in this file
 - [offline-llm.md](offline-llm.md) - Local LLM deployment these prompting techniques apply to just as well as cloud models
 - [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting
