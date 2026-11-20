@@ -1,7 +1,7 @@
 # Penetration Testing Home Lab Guide
 
 ## 🎯 Purpose
-Comprehensive build guide for a professional penetration testing home lab - covering hardware selection, network architecture (VLANs, isolated subnets), hypervisor setup (Proxmox, VMware, VirtualBox), vulnerable VM deployment (Metasploitable, DVWA, VulnHub), and ongoing lab maintenance.
+Reference build guide for an explicitly scoped cybersecurity training lab - covering hardware selection, network architecture (VLANs, isolated subnets), hypervisor setup (Proxmox, VMware, VirtualBox), vulnerable VM deployment (Metasploitable, DVWA, VulnHub), and ongoing lab maintenance.
 
 ## ⚙️ Function
 Organized as a progressive build from beginner (single-machine VirtualBox) to advanced (dedicated bare-metal Proxmox cluster with VLAN isolation). Covers: hardware planning, network topology design, hypervisor installation, security tool VM deployment, target VM catalog, and lab hardening to prevent accidental internet exposure.
@@ -15,7 +15,7 @@ Design and verify an isolated, explicitly authorized lab that reduces risk to pr
 - Designing network isolation (VLANs, firewall rules) to prevent lab escape to the internet
 - Choosing hardware for a Proxmox homelab build
 
-## Professional Infrastructure for Ethical Hacking & Security Research
+## Isolated Cybersecurity Training Lab
 
 > **For:** Security professionals, students, researchers, and enthusiasts  
 > **Reviewed:** November 20, 2026  
@@ -796,15 +796,8 @@ Install-ADDSForest -DomainName "pnwlab.local" -DomainNetbiosName "PNWLAB" `
 ```
 
 **SQL Server (SQL01)**:
-```bash
-qm create 301 --name sql01-target --memory 16384 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=30 \
-    --cdrom local:iso/SQLServer2019_Eval.iso \
-    --scsi0 local-lvm:120 --scsihw virtio-scsi-pci
 
-# Join to domain, install SQL Server with sa account
-# Enable xp_cmdshell for exploitation practice
-```
+Select a currently supported SQL Server release and evaluation media from Microsoft's official source; check its lifecycle, edition, and license before use. Install it on the disconnected target segment with unique synthetic accounts. Do not enable features such as `xp_cmdshell` or weaken authentication by default. If a specific configuration-review exercise requires a weak setting, document the change, isolate the VM, and restore a clean snapshot immediately afterward.
 
 **Windows Workstations (WKS01-05)**:
 ```bash
@@ -824,8 +817,10 @@ qm clone 310 312 --name wks02
 # ... etc
 
 # Configure different privilege levels:
-# WKS01: Domain Admin sometimes logs in (for Mimikatz practice)
-# WKS02-05: Standard users
+# Use synthetic, least-privileged accounts for routine exercises.
+# For credential-protection training, use pre-generated events or a
+# separately scoped simulator rather than placing privileged credentials
+# in an interactive workstation session.
 ```
 
 #### Linux Vulnerable Targets
@@ -1012,20 +1007,9 @@ sudo nmap --script-updatedb
 
 **Inventory validation:** Use the lab's hypervisor inventory, switch tables, and firewall logs first. If active discovery is needed, define one owned subnet and a test window, use a conservative rate, and confirm the destination remains inside the lab before running a tool.
 
-**RustScan**:
-```bash
-rustscan -a 10.30.30.0/24 -- -sC -sV
-```
+**Active service inventory**: Prefer hypervisor, switch, and firewall inventories. If an approved exercise requires active service discovery, test a single explicitly authorized disposable target with a conservative rate and service set. Do not copy a subnet-wide default into an environment whose scope has not been verified.
 
-**OpenVAS/Greenbone** (Deploy on Blue Team VLAN for vulnerability scanning):
-```bash
-qm create 411 --name openvas --memory 8192 --cores 4 \
-    --net0 virtio,bridge=vmbr1,tag=40 \
-    --cdrom local:iso/gsm-ce-latest.iso \
-    --scsi0 local-lvm:80
-
-# Access via https://10.40.40.20:9392
-```
+**Greenbone vulnerability management**: Use the current Greenbone Community Edition or appliance deployment documentation for a supported release; do not rely on the retired `gsm-ce-latest.iso` filename or assume fixed VM resources and URLs. Keep the manager reachable only from approved lab administration hosts, update feeds through an approved staging process, and scan one in-scope disposable target at a time using a low-impact profile.
 
 #### Exploitation Frameworks
 
@@ -1522,41 +1506,9 @@ and set the manager address to the lab-only Wazuh host. Before adding a Linux
 repository entry, check for an existing entry rather than appending duplicates.
 Do not use the obsolete 4.7.0 Windows MSI URL shown in older guides.
 
-**Custom Rules for Pentest Detection**:
-```xml
-<!-- /var/ossec/etc/rules/local_rules.xml -->
-<group name="pentest_detection">
-  <!-- Mimikatz detection -->
-  <rule id="100001" level="12">
-    <if_sid>60000</if_sid>
-    <match>mimikatz|sekurlsa|lsadump</match>
-    <description>Mimikatz credential dumping detected</description>
-    <mitre>
-      <id>T1003</id>
-    </mitre>
-  </rule>
-  
-  <!-- BloodHound collection -->
-  <rule id="100002" level="10">
-    <if_sid>60000</if_sid>
-    <match>SharpHound|Invoke-BloodHound</match>
-    <description>BloodHound AD enumeration detected</description>
-    <mitre>
-      <id>T1087</id>
-    </mitre>
-  </rule>
-  
-  <!-- Responder LLMNR poisoning -->
-  <rule id="100003" level="10">
-    <if_sid>1002</if_sid>
-    <match>Responder</match>
-    <description>LLMNR/NBT-NS poisoning tool detected</description>
-    <mitre>
-      <id>T1557</id>
-    </mitre>
-  </rule>
-</group>
-```
+**Custom alert rules**:
+
+Avoid rules that claim to identify a named offensive tool from a single string in a log. Tool names can be absent, changed, or appear in benign text, so such matches are not proof of execution or compromise. Start with the telemetry and behavior you need to detect, identify the actual decoder and fields for the installed agent/log source, and write a narrow rule with documented false positives. Test it with synthetic log lines using Wazuh's `wazuh-logtest` before applying it to alerting. Follow Wazuh's [custom rules guidance](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html) and [rule-testing guide](https://documentation.wazuh.com/current/user-manual/ruleset/testing.html).
 
 ### NetAlertX Integration (Raspberry Pi)
 
@@ -1594,45 +1546,11 @@ for device in devices:
 
 ### ZimaBoard, ZimaBlade, ZimaBoard2 Use Cases
 
-#### ZimaBoard #1 - Network Tap & Packet Capture
+#### ZimaBoard #1 - Passive Sensor Host
 
-**Configuration**:
-- **OS**: Ubuntu Server 22.04
-- **Network**: Dual NIC in bridge mode
-- **Purpose**: Transparent network tap for packet capture
+A dual-NIC computer in bridge mode is not automatically a network TAP. An inline Linux bridge forwards traffic and can interrupt the link if misconfigured; use it only in a deliberately designed and approved inline test. For passive monitoring, connect a dedicated capture NIC to a managed-switch SPAN destination or a correctly placed TAP, and keep management on a separate interface. Confirm the sensor receives the intended traffic and measure capture loss before relying on it.
 
-**Setup**:
-```bash
-# Install on ZimaBoard
-sudo apt update && sudo apt install -y tcpdump wireshark tshark
-
-# Configure bridge (inline tap)
-sudo apt install bridge-utils
-sudo brctl addbr br0
-sudo brctl addif br0 eth0
-sudo brctl addif br0 eth1
-sudo ip link set br0 up
-
-# Capture traffic
-sudo tcpdump -i br0 -w /mnt/captures/capture-$(date +%Y%m%d-%H%M%S).pcap
-
-# Or use tshark for specific filters
-sudo tshark -i br0 -f "tcp port 445 or tcp port 139" -w smb-traffic.pcap
-```
-
-**Bounded Packet Rotation**:
-```bash
-# Size-based ring buffer: approximately 7 files x 100 MiB maximum.
-# Run under a reviewed service account with write access to /mnt/captures.
-sudo tcpdump -i br0 -C 100 -W 7 -w /mnt/captures/capture.pcap
-```
-
-The `-C`/`-W` pair limits this capture process to a seven-file ring buffer;
-it wraps and overwrites its oldest file. It does not provide daily rotation.
-Check [tcpdump's manual](https://man7.org/linux/man-pages/man8/tcpdump.8.html)
-for the installed version's exact behavior. Confirm disk quotas and evidence
-retention requirements first; export any capture that must be preserved before
-the ring buffer overwrites it.
+Install capture tools from the supported OS repositories after checking package provenance. Capture only approved lab traffic, write files to a restricted directory, set a retention limit, and verify any capture before preserving it. Use the current [tcpdump manual](https://man7.org/linux/man-pages/man8/tcpdump.8.html) for bounded ring-buffer behavior; do not assume a Linux bridge itself creates mirrored visibility.
 
 #### Authorized Device-Detection Exercise
 
@@ -1659,7 +1577,7 @@ Benchmarks vary by hash mode, driver/runtime, power and thermal limits. Use synt
 
 ### Raspberry Pi Integration
 
-#### Pi #1 - NetAlertX (Already Configured)
+#### Optional Pi #1 - NetAlertX
 
 **Enhancements**:
 - Forward alerts to Splunk
@@ -1679,9 +1597,9 @@ Benchmarks vary by hash mode, driver/runtime, power and thermal limits. Use synt
 - Integrate logs with blue team SIEM
 
 **Option 3: Secondary Firewall/Router**
-- OpenWRT for additional network segmentation
-- VPN gateway for remote lab access
-- Traffic shaping for realistic WAN simulation
+- Use OpenWrt for a separately scoped segmentation or routing exercise.
+- Remote access requires a separately reviewed management path; do not terminate a VPN into vulnerable or malware-analysis networks.
+- Traffic shaping is optional and should affect only the lab.
 
 **Recommendation**: Choose an isolated training AP or simulator based on the exercise and the radio conditions you need to study.
 
@@ -1710,56 +1628,21 @@ Build a learning plan around supported operating systems, intentionally vulnerab
 - Use currently maintained training boxes and provider-authored practice material; verify download provenance and license terms before importing images.
 - Select an exam simulation only when its current rules allow it, and keep it separate from client or production environments.
 
-### GPEN Preparation
+### GPEN-Oriented Study
 
-**SANS GPEN Topics Covered**:
-- ✅ Network reconnaissance
-- ✅ Linux and Windows exploitation
-- ✅ Password attacks
-- ✅ Web application security
-- ✅ Wireless attacks (if WiFi adapter available)
+The following are broad subject areas for optional practice, not a statement that this guide covers current GPEN objectives or meets exam requirements. Consult SANS's current course and exam descriptions.
 
-**Additional Setup**:
-- Deploy additional Windows targets with different configurations
-- Practice with specific tools: Metasploit, Nmap, Burp, Nessus
-- Simulate external pentests (restricted network access)
+Use authorized simulators for network inventory, Windows/Linux security review, web application testing, and defensive reporting. Avoid treating a home-lab exercise as an external penetration test or connecting targets to an upstream network.
 
-### PNPT Preparation (TCM Security)
+### PNPT-Oriented Study
 
-**PNPT Requirements**:
-- ✅ Active Directory exploitation
-- ✅ External and internal network pentesting
-- ✅ Reporting (practice writing reports)
+This section is a learning suggestion, not a list of current PNPT requirements or a guarantee of exam readiness. Check TCM Security's current exam rules, objectives, and allowed lab resources.
 
-**AD Attack Path Practice**:
-1. External reconnaissance → Internal access
-2. User compromise → Privilege escalation
-3. Lateral movement → Domain admin
-4. Persistence and cleanup
+For directory-services practice, use a disposable synthetic domain and focus on configuration review, approved test events, alert triage, and reporting. Keep any active exercise in its written scope and do not reuse credentials or data from other environments.
 
-### CRTP Preparation (Certified Red Team Professional)
+### CRTP-Oriented Study
 
-**Focus**: Advanced Active Directory attacks
-
-**Setup Requirements**:
-```bash
-# Create multi-domain forest
-# DC01 (root domain): pnwlab.local
-# DC02 (child domain): child.pnwlab.local
-# Trust relationships configured
-
-# Deploy:
-qm clone 300 302 --name dc02-child
-# Configure child domain controller
-
-# Practice topics:
-# - Kerberoasting
-# - AS-REP roasting
-# - Unconstrained delegation
-# - Constrained delegation
-# - Golden/Silver tickets
-# - Trust exploitation
-```
+This guide does not define CRTP prerequisites or establish course/exam equivalence. Check the provider's current curriculum and rules. If building a directory-services simulator, use synthetic identities, isolated networks, supported host versions, and a clean snapshot. Select exercises from provider-authorized materials and include a defensive telemetry and recovery objective.
 
 ---
 
@@ -1807,11 +1690,10 @@ From a target VM, confirm it has no default route and no new cross-segment flow 
    qm rollback <vmid> pre-exploit
    ```
 
-5. **Use VLAN 99 for dangerous activities**
-   - Malware analysis
-   - Ransomware simulation
-   - Destructive exploits
-   - NEVER connect to other VLANs
+5. **Use a separately designed analysis environment for high-risk samples**
+   - A VLAN is a segmentation aid, not an air gap or malware containment guarantee.
+   - Do not connect vulnerable targets or malware-analysis guests to other VLANs or upstream links.
+   - Prefer tabletop or synthetic-event exercises when sample execution is unnecessary.
 
 ### Client Engagement and Data Handling
 
@@ -1849,11 +1731,10 @@ From a target VM, confirm it has no default route and no new cross-segment flow 
 
 ### Legal Reminders
 
-**This lab is for:**
-- ✅ Learning cybersecurity skills
-- ✅ Preparing for certifications
-- ✅ Testing your own systems
-- ✅ Authorized penetration testing (with written permission)
+**This reference can support:**
+- Learning cybersecurity skills in authorized, isolated environments.
+- General study alongside current certification-provider materials.
+- Testing systems you own or are explicitly authorized to assess.
 
 **This lab is NOT for:**
 - ❌ Unauthorized access to any system
@@ -2125,36 +2006,19 @@ qm delsnapshot <vmid> <snapshot-name>
 
 ## Final Thoughts
 
-You've been given a comprehensive roadmap to transform your existing enterprise hardware into a world-class penetration testing laboratory. This setup, combined with your **ULTIMATE-CYBERSECURITY-MASTER-GUIDE** containing knowledge from 70+ professional books and 90+ internal documents, gives you:
+This is an illustrative reference design, not a record of a deployed lab or a guarantee of isolation, capacity, certification readiness, or professional competence. Adapt it to supported hardware and software, then verify routes, interfaces, firewall policy, storage permissions, and recovery procedures in the actual environment.
 
-1. **Professional infrastructure** that mirrors real-world corporate networks
-2. **Practical hands-on experience** with industry-standard tools
-3. **Certification preparation** for OSCP, PNPT, GPEN, CRTP
-4. **Career advancement** capabilities in offensive or defensive security
-5. **Community contribution** potential through shared research
+### Suggested next steps
 
-Remember:
-- **Start simple**, then add complexity
-- **Document everything** you do
-- **Practice regularly** to build muscle memory
-- **Stay ethical** and always get authorization
-- **Never stop learning** - security is constantly evolving
+1. Choose one learning objective and one disposable target.
+2. Confirm written authorization, scope, route boundaries, and recovery steps.
+3. Run a bounded exercise and collect only the telemetry needed to review it.
+4. Document results, false positives, fixes, and any remaining uncertainty.
+5. Re-check vendor support and licensing before repeating the setup.
 
-Treat this as a reference design. Before use, adapt it to the selected hypervisor and firewall, validate all routes and interfaces, and check the upstream versions of every installation procedure.
+Use related guides and tools only after verifying that the linked file exists, its status is current, and its scope matches the exercise.
 
 ---
-
-**Reviewed**: November 20, 2026  
-**Guide Version**: 1.1  
-**Author**: Pacific NorthWest Computers  
-
-**Questions? Improvements? Contributions?**  
-- Update your GitHub repository
-- Share your lab configurations
-- Document your unique scenarios
-- Help others build their labs
-
-**Happy Responsible PenTesting! 🚀🔐**
 
 *****
 
