@@ -10,11 +10,9 @@ _Last reviewed: 2026-11-14_
 
 The shortcuts worth memorizing, on one printable sheet. Every entry was read from OpenSCAD's own menu definitions (`MainWindow.ui` and the code that adds extra shortcuts) for **release 2021.01** and for the **development snapshot source as of 2026-11-14**. Shortcuts are the same in both unless marked.
 
-<p align="center">
-  <a href="./images/openscad-shortcuts-cheatsheet.svg"><img src="./images/openscad-shortcuts-cheatsheet.png" alt="OpenSCAD keyboard and mouse cheat sheet: build and export, camera views, display toggles, code editor, find and navigate, files and tabs, mouse, capture, snapshot-only shortcuts and code modifiers" width="900"/></a>
-</p>
+![OpenSCAD keyboard and mouse shortcuts for building, exporting, camera views, editing, and navigation](./images/openscad-shortcuts-cheatsheet.svg)
 
-*Click the image for the scalable SVG (prints sharply at any size). A [PNG version](./images/openscad-shortcuts-cheatsheet.png) is also available.*
+[Download the PNG version](./images/openscad-shortcuts-cheatsheet.png).
 
 > [!NOTE]
 > **macOS:** Qt shows `Ctrl` shortcuts as **⌘ Cmd**. Laptop function keys may need **Fn**. `F3` (extra Reload key) is not added on macOS. **Windows:** Find & Replace is `Ctrl+Shift+F` instead of `Ctrl+Alt+F`.

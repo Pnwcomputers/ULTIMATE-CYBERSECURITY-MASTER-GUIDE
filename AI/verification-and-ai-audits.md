@@ -4,6 +4,10 @@ _Last reviewed: 2026-11-05_
 
 Distinguish **AI verifying supplied information** from **independently evaluating an AI's own output or actions**. Agreement between two models is not independent evidence.
 
+![AI audit workflow separates scoped requirements from source-verified claims, tool execution receipts, destination readback and accepted regression results](../assets/diagrams/ai-audit-claims-tools-and-outcomes.svg)
+
+*Conceptual independent-audit model.* Source verification, locally executed tests, tool receipts and observed end-state are separate kinds of evidence. See [agent observability](ai-observability-and-auditing.md) and [MCP authorization boundaries](mcp-tooling-and-permissions.md); a valid-looking citation or successful API response does not alone prove the requested outcome.
+
 ## Verify information using AI
 
 1. Break content into atomic factual claims, estimates, assumptions and opinions.

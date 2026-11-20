@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated: 2026-11-18. Historical visual content has not been re-authenticated against live equipment._
+_Visual placements updated: 2026-11-19. Historical visual content has not been re-authenticated against live equipment._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -102,6 +102,30 @@ These original accessible diagrams are embedded in their canonical chapters and 
 | [Arduino Board, Port & Bootloader Diagnostics](./diagrams/arduino-ide-board-port-bootloader-diagnostics.svg) | [Arduino IDE Multi-Platform Setup](../Documentation/arduinoIDE.md) | Installed board core, physical USB interface and upload protocol must be diagnosed separately |
 | [OSINT/CTI Source Quality to Detection](./diagrams/osint-cti-source-quality-to-detection.svg) | [OSINT & Threat Intelligence Deep Dive](../Tradecraft/osint-threat-intel.md) | Source provenance, corroboration, time-sensitive IOCs, behavior mapping and detected-outcome evidence |
 
+## Reverse Engineering, Wireless Survey, Account Response & Cyberdeck Diagrams
+
+Original, editable SVG figures are placed in the relevant guides. Captions distinguish conceptual design from live evidence and link to official sources where available.
+
+| Diagram | Embedded Guide | What the Diagram Clarifies |
+|---|---|---|
+| [Ghidra Analysis and Validation](./diagrams/ghidra-analysis-hypothesis-validation.svg) | [Ghidra Master Guide](../ReverseEngineering/ghidra-guide-index.md) | Inferred control flow and decompilation are hypotheses requiring independent analyst checks |
+| [REMnux Isolation Boundaries](./diagrams/remnux-malware-analysis-network-isolation.svg) | [REMnux Malware Analysis](../ReverseEngineering/remnux-malware-analysis-guide.md) | Evidence intake, static-analysis guest, optional isolated execution VM and safe export |
+| [Kismet GPS and Log Retention](./diagrams/kismet-wardrive-gps-log-retention-flow.svg) | [Kismet Wireless Survey](../Wardriving/kismet.md) | Wireless observations, location-fix gate, additive log types and sharing approval |
+| [Identity Alert Investigation](./diagrams/identity-alert-investigation-evidence-containment.svg) | [Unauthorized Access Playbook](../PlayBooks/unauth_access.md) | Corroborate access events and contextual identity risk before containment |
+| [Cyberdeck Trust Boundaries](./diagrams/cyberdeck-zone-policy-logical-architecture.svg) | [Cyberdeck Public Reference](../Cyberdeck/README.md) | Logical GL.iNet/MikroTik path, intended zones and hardware validation caveat |
+
+## Incident Response Revision 3, AI Auditing, Cryptanalysis, Bash & Firmware
+
+These editable original SVGs are embedded in their explanatory chapters and paired with appropriate source references and caveats.
+
+| Diagram | Embedded Guide | Verified Scope |
+|---|---|---|
+| [NIST 800-61 Rev. 3 & CSF 2.0 Incident Response](./diagrams/incident-response-nist-800-61r3-csf2-operations.svg) | [Enhanced Incident Response Playbook](../PlayBooks/BlueTeam_IncResp_Enhanced.md) | Current NIST framework, locally defined operating steps and explicit non-certification |
+| [Independent AI Evidence Audit](./diagrams/ai-audit-claims-tools-and-outcomes.svg) | [Verification & AI Audits](../AI/verification-and-ai-audits.md) | Distinguish source claims, actual tool receipts and confirmed end state |
+| [Historical Cipher Analysis](./diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg) | [Classical Cryptanalysis](../Cryptography/Classical/cryptanalysis.md) | Substitution versus repeating-key tests, misleading peaks and ambiguity |
+| [Safe Bash Execution Gates](./diagrams/bash-script-input-validation-and-dry-run-gates.svg) | [Bash Scripting Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Validate optional args, quoting, syntax checks, side-effect boundaries |
+| [ESP32 Firmware Acceptance Gates](./diagrams/esp32-firmware-board-build-flash-acceptance.svg) | [ESP32 Security Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Chip/board-specific builds, flash layouts, recovery and post-boot qualification |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
@@ -125,6 +149,7 @@ These figures illustrate the actual decision points in their respective guides; 
 | [AI Evaluation Evidence Matrix](./diagrams/ai-evaluation-evidence-matrix.svg) | [AI Evaluation & Regression Testing](../AI/ai-evaluation-and-regression-testing.md) | Separate deterministic tests, live agent behavior and independent end-state validation |
 | [uConsole Hardware & OS Preflight](./diagrams/uconsole-hardware-os-preflight-paths.svg) | [uConsole Setup](../uConsole/README.md) | CM4/CM5 distinction, native OS image, optional peripherals and physical readback |
 | [Cryptography Primitive Decision Map](./diagrams/cryptography-primitive-decision-map.svg) | [Cryptography Overview](../Cryptography/README.md) | Four distinct security goals: AEAD, password KDF, signatures/HMAC and key establishment |
+| [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) | Mean column IC values for a reproducible synthetic repeating-key example |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
 ## Firmware, Cyberdeck Devices & Virtualization Visuals
@@ -908,3 +933,11 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | Diagram | Embedded guide |
 |---|---|
 | [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#8-reconciliation) |
+
+## AI Routing and OpenSCAD Export Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [AI model routing and fallback](./diagrams/ai-model-routing-policy.svg) | [Model routing and cost management](../AI/model-routing-and-cost-management.md#3-routing-policy--safe-fallback) |
+| [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
+| [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |
