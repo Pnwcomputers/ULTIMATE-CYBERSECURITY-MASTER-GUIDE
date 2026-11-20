@@ -12,10 +12,10 @@ fi
 
 PNWC_SRC_DIR="${PNWC_SRC_DIR:-$HOME/src}"
 
-# Full upstream commit IDs are pinned so a moving default branch cannot silently
-# change the code built and installed with administrator privileges. Update these
-# only after reviewing the upstream changes. These upstream commits are unsigned;
-# the canonical HTTPS origin plus exact commit pin is the provenance check here.
+# Full upstream commit IDs pin the selected source state and prevent a moving
+# ref from silently changing the build. A commit hash and HTTPS origin do not prove
+# author identity, source review, or safety. Inspect upstream changes before updating
+# pins or installing the resulting binaries system-wide.
 MEMTEST_VULKAN_REPO="https://github.com/GpuZelenograd/memtest_vulkan.git"
 MEMTEST_VULKAN_COMMIT="fd9ff59cde85cf11e25263e3f32d7adae0ba5e3b"
 GPU_BURN_REPO="https://github.com/wilicc/gpu-burn.git"
@@ -138,43 +138,10 @@ patch_gpu_burn_makefile_if_needed() {
     } > Makefile
   fi
 
-  # Newer Manjaro/Arch toolchains may expose GCC/libstdc++ headers that require
-  # a newer C++ dialect than gpu-burn's upstream -std=c++11 default. CUDA 13.x
-  # nvcc supports --std c++20, so patch gpu-burn to compile with c++20 and allow
-  # newer host compiler combinations when needed.
-  if ! grep -q "PNWC CUDA 13 / GCC 16 compatibility shim" Makefile; then
-    echo "Applying PNWC CUDA 13 / GCC 16 compatibility shim."
-
-    python - <<'PY'
-from pathlib import Path
-p = Path("Makefile")
-s = p.read_text()
-
-# Preserve the original line/formatting as much as possible.
-s = s.replace("-std=c++11", "-std=c++20")
-
-if "--allow-unsupported-compiler" not in s:
-    # Normal multiline Makefile case.
-    needle = "override NVCCFLAGS += -I${CUDAPATH}/include"
-    if needle in s:
-        # If the Makefile was fetched as a single logical line, make sure any
-        # following make directive starts on a new line after our inserted flags.
-        s = s.replace(
-            needle,
-            needle + "\noverride NVCCFLAGS += -std=c++20\noverride NVCCFLAGS += --allow-unsupported-compiler"
-        )
-    else:
-        # Fallback: append flags at the end. Make's override += will still apply.
-        s += "\n# PNWC fallback NVCC flags\n"
-        s += "override NVCCFLAGS += -std=c++20\n"
-        s += "override NVCCFLAGS += --allow-unsupported-compiler\n"
-
-if "PNWC CUDA 13 / GCC 16 compatibility shim" not in s:
-    s = "# PNWC CUDA 13 / GCC 16 compatibility shim\n" + s
-
-p.write_text(s)
-PY
-  fi
+  # Do not disable nvcc's supported-host-compiler check. NVIDIA warns that an
+  # unsupported host compiler can fail or produce incorrect runtime behavior.
+  # If this pinned source cannot build with the supported installed toolchain,
+  # leave gpu-burn unavailable rather than silently bypassing the compatibility gate.
 
   preview="$(make -n CUDAPATH="$cuda_root" compare.fatbin 2>/dev/null || true)"
 
@@ -300,7 +267,8 @@ else
       fi
     else
       echo "WARN: gpu-burn still failed to build."
-      echo "      This is usually a CUDA/nvcc host compiler compatibility issue."
+      echo "      Check the CUDA toolkit's supported host-compiler matrix."
+      echo "      Do not bypass nvcc's compatibility check to force this build."
       echo "      The rest of the PNWC test bench tools are still usable."
       echo "      You can skip --gpu-burn and use memtest_vulkan, vkmark, and glmark2 instead."
     fi
