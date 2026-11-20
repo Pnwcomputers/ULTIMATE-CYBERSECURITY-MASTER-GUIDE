@@ -493,26 +493,13 @@ OPNsense rules are attached to interfaces and, by default, filter inbound traffi
 ### OPNsense IDS/IPS Configuration
 
 **Suricata Integration**:
-- Enable only on the lab VLANs that need inspection; omit WAN monitoring in the disconnected-by-default design
-- Use ET Open ruleset + custom rules
-- Alert on:
-  - Known exploit signatures
-  - Metasploit payloads
-  - C2 communication patterns
-  - Credential dumping tools (Mimikatz, etc.)
-- Forward alerts to Blue Team VLAN (Splunk/Security Onion)
+- Enable inspection only on interfaces whose traffic is in scope; a sensor can only inspect traffic delivered to its interface.
+- Select supported rulesets in the installed OPNsense release and review their update source, licensing, HOME_NET, and false-positive impact before enabling them.
+- Detection coverage depends on protocol visibility, encryption, sensor placement, ruleset version, and configuration. An alert is a lead for investigation, not proof that a tool or compromise was identified.
+- Forward selected alerts to the monitoring system over an explicitly permitted lab flow; keep WAN monitoring and upstream ruleset updates disabled unless separately approved.
 
-**Custom IDS Rules for Lab**:
-```suricata
-# Detect Nmap SYN scans
-alert tcp any any -> $HOME_NET any (msg:"NMAP SYN Scan"; flags:S; threshold: type both, track by_src, count 5, seconds 10; sid:1000001;)
-
-# Detect Metasploit reverse shell
-alert tcp any any -> any any (msg:"Metasploit Reverse Shell"; content:"|6d 65 74 65 72 70 72 65 74 65 72|"; sid:1000002;)
-
-# Detect common pentesting tools User-Agent
-alert http any any -> any any (msg:"Pentesting Tool User-Agent"; content:"User-Agent|3a 20|"; content:"sqlmap|"; sid:1000003;)
-```
+**Local-rule workflow**:
+Use the OPNsense IDS/IPS interface and the installed Suricata version's documentation to manage rules. The examples previously shown here relied on brittle payload strings, incomplete protocol matching, and generic signatures that could not reliably identify Nmap, Metasploit, SQLMap, or credential-dumping tools. For a training rule, define the observable behavior and expected false positives, validate syntax against the installed engine, replay a known benign test capture, and confirm the resulting alert in logs before enabling prevention. OPNsense documents IDS/IPS modes, interface selection, rulesets, and alert handling in its [Intrusion Prevention System manual](https://docs.opnsense.org/manual/ips.html).
 
 ---
 
@@ -1434,20 +1421,8 @@ qm create 410 --name security-onion --memory 16384 --cores 4 \
 Configure SPAN on the managed switch or place a network TAP between the monitored links. Connect the mirror destination to a dedicated Security Onion capture NIC. OPNsense packet capture is useful for traffic visible to the firewall, but it does not configure a switch SPAN session. See the [OPNsense packet capture guide](https://docs.opnsense.org/manual/diagnostics_interfaces.html) and the switch manufacturer's SPAN documentation.
 ```
 
-**Alert Rules**:
-```bash
-# Custom Suricata rules for pentest lab
-sudo nano /etc/suricata/rules/local.rules
-
-# Add detection rules
-alert tcp any any -> any any (msg:"NMAP SYN Scan Detected"; flags:S; threshold:type both,track by_src,count 10,seconds 5; sid:1000001;)
-alert tcp any any -> any any (msg:"Metasploit Payload Detected"; content:"|6d 65 74 65 72 70 72 65 74 65 72|"; sid:1000002;)
-alert http any any -> any any (msg:"SQLMap Detected"; content:"User-Agent|3a 20|sqlmap"; sid:1000003;)
-alert tcp any any -> any 445 (msg:"SMB Brute Force Attempt"; flags:S; threshold:type both,track by_src,count 5,seconds 60; sid:1000004;)
-
-# Restart Suricata
-sudo systemctl restart suricata
-```
+**Alert-rule workflow**:
+Configure NIDS rules through Security Onion's Detections interface and follow the installed 2.4 release's documented rule workflow. Security Onion includes ET Open and provides a test utility for rules; test a candidate against a known capture on a sensor/import node before applying it. Do not edit a file path or restart a system service copied from another Suricata deployment: Security Onion manages its services and rule state. A rule match is not reliable proof of a specific tool, payload, or successful attack. Review alerts with packet context and expected false positives. See the [Security Onion Suricata documentation](https://docs.securityonion.net/en/2.4/suricata.html) and [NIDS ruleset documentation](https://docs.securityonion.net/en/2.4/nids.html).
 
 **Kibana Dashboard Access**: https://10.40.40.10
 
@@ -1716,45 +1691,24 @@ For an approved physical wireless exercise, document the test SSID, owner-contro
 
 ## Practice Scenarios & Certifications
 
-### OSCP Preparation
+### Certification-Oriented Practice
 
-**Your Lab Matches OSCP Requirements**:
-- ✅ Active Directory environment
-- ✅ Linux privilege escalation targets
-- ✅ Web application exploitation
-- ✅ Buffer overflow practice (add Windows XP VM)
-- ✅ Pivoting and port forwarding
+This lab can support general skills practice, but no sample topology or target list establishes equivalence with a certification course, exam scope, or current eligibility requirements. Check the certification provider's current objectives, exam rules, and approved practice resources before planning study.
 
-**Additional Setup for OSCP**:
+Build a learning plan around supported operating systems, intentionally vulnerable images that are documented for training, and isolated simulators. Avoid Windows XP/7 or other unsupported operating systems on any network with an uplink; if an exercise specifically requires a legacy image, use a separately reviewed, disconnected environment and retain only the minimum needed for the exercise.
 
-**Buffer Overflow Practice**:
-```bash
-# Deploy Windows 7 or Windows XP VM
-qm create 340 --name bof-practice --memory 2048 --cores 1 \
-    --net0 virtio,bridge=vmbr1,tag=30 \
-    --cdrom local:iso/Win7_x86.iso \
-    --scsi0 local-lvm:40
+**Suggested sequence**:
+1. Learn host and network administration using supported systems.
+2. Practice enumeration and web security on authorized training targets.
+3. Add Linux, Windows, and Active Directory exercises from maintained training sources.
+4. Pair each exercise with a defensive objective: define expected telemetry, collect it, and explain what the alert does and does not establish.
+5. Re-check routes, IPv4/IPv6 paths, firewall logs, snapshots, and disposal steps before each scenario.
 
-# Install vulnerable software:
-# - Vulnserver
-# - SLMail
-# - Minishare
-```
+**Route-boundary review:** In a disposable topology, document the exercise-specific routes and firewall allows. Verify that management, target, and restricted-analysis segments cannot reach unrelated networks. Use the segmentation diagrams and firewall logs; do not create hidden or dual-homed targets as a shortcut.
 
-**Route-boundary review:** In a disposable topology, document the only exercise-specific routes and firewall allows. Verify that management, target, and restricted-analysis segments cannot reach unrelated networks. Use the existing segmentation diagrams and firewall logs; do not create hidden or dual-homed targets as a shortcut.
-
-**OSCP-Style Practice Boxes**:
-- Use VulnHub OSCP-like VMs
-- TryHackMe OSCP Prep path
-- Proving Grounds Practice (Offensive Security)
-
-**Recommended Practice Schedule**:
-1. Week 1-2: Enumeration & Reconnaissance
-2. Week 3-4: Web App Exploitation (DVWA, OWASP BWA)
-3. Week 5-6: Linux Privilege Escalation (custom scenarios)
-4. Week 7-8: Windows Privilege Escalation (AD focus)
-5. Week 9-10: Buffer Overflows (BOF practice VMs)
-6. Week 11-12: Pivoting & Exam Simulation
+**Practice resources**:
+- Use currently maintained training boxes and provider-authored practice material; verify download provenance and license terms before importing images.
+- Select an exam simulation only when its current rules allow it, and keep it separate from client or production environments.
 
 ### GPEN Preparation
 
@@ -1820,9 +1774,9 @@ qm clone 300 302 --name dc02-child
    - No direct routing to WAN
    - For updates, use a separately approved staging and transfer path; disconnect it before vulnerable-target exercises.
 
-2. **Never test on production networks**
-   - Lab is isolated for a reason
-   - Penetration testing without authorization is illegal
+2. **Keep production and lab work separate**
+   - Lab is isolated for a reason.
+   - Testing without authorization may violate applicable laws, contracts, or policies; the outcome depends on the conduct and jurisdiction.
 
 3. **Verify network segmentation**
 
@@ -1944,51 +1898,33 @@ Signature: _____________________ Date: _________
 
 ### Recommended Progression
 
-**Phase 1: Foundations (Months 1-3)**
-- ✅ Build and configure lab (complete)
-- ✅ Learn basic Linux and Windows administration
-- ✅ Master Nmap, Metasploit, Burp Suite basics
-- ✅ Complete DVWA, Metasploitable 2
-- 📚 Read: "The Basics of Hacking and Penetration Testing"
+Use the phases below as a planning framework, not a timeline or a claim that skills have been completed. Choose activities based on current objectives and the current terms of each training provider.
 
-**Phase 2: Intermediate Skills (Months 4-6)**
-- ✅ Active Directory exploitation
-- ✅ Web application pentesting (OWASP BWA)
-- ✅ Password cracking with GPU
-- ✅ Network pivoting and tunneling
-- 📚 Read: "Penetration Testing" by Georgia Weidman
-- 🎓 Course: TryHackMe Offensive Security path
+**Foundations**
+- Learn Linux and Windows administration on supported systems.
+- Practice basic networking, service inventory, and web security in authorized simulators.
+- Pair exercises with recovery steps, evidence handling, and a defensive observation.
 
-**Phase 3: Advanced Techniques (Months 7-9)**
-- ✅ Custom exploit development
-- ✅ Advanced AD attacks (Kerberoasting, DCSync)
-- ✅ C2 frameworks (Sliver, Cobalt Strike)
-- ✅ OSINT investigations (400+ tools from your guide)
-- 📚 Read: "The Hacker Playbook 3"
-- 🎓 Course: HackTheBox Pro Labs
+**Intermediate**
+- Build a disposable directory-services lab from maintained, licensed images.
+- Practice web and host security in intentionally vulnerable training applications.
+- Learn to interpret logs and distinguish an indicator from confirmed impact.
 
-**Phase 4: Specialization (Months 10-12)**
-- Choose focus area:
-  - **Red Team**: Advanced persistence, evasion
-  - **Blue Team**: Detection engineering, SIEM tuning
-  - **Web AppSec**: Advanced SQLi, XXE, SSRF
-  - **Hardware**: IoT, embedded systems, UART hacking
-  - **OSINT**: Advanced techniques, threat intelligence
-- 🎓 Certification: OSCP, PNPT, or GPEN
+**Advanced and specialization**
+- Choose a documented scope and learning goal before testing advanced scenarios.
+- Use simulator or provider-supplied environments for exploit development, detection engineering, wireless concepts, or application testing.
+- Treat persistence, evasion, command-and-control, and collection topics as separately scoped lab exercises with explicit safety bounds.
+- Review provider rules and current certification objectives; this guide does not establish course completion or exam readiness.
 
-**Phase 5: Professional Development (Ongoing)**
-- Bug bounty programs (HackerOne, Bugcrowd)
-- Contribute to security community
-- Develop custom tools and exploits
-- Publish research and findings
-- Attend conferences (DEF CON, Black Hat, BSides)
+**Professional development**
+- Contribute to defensive tools and documentation, publish appropriately reviewed research, and participate in programs whose scope and disclosure rules you have read.
 
 ### Training Platforms Integration
 
 **TryHackMe**:
-- Recommended paths: Pre Security → Offensive Pentesting → Red Team
-- VPN access from Attack VLAN (secure your lab)
-- Integrate learnings into custom scenarios
+- Use provider-maintained rooms and paths that match the current learning goal.
+- Keep provider VPN sessions separate from the disconnected-by-default lab. If a specific exercise needs connectivity, use a dedicated authorized host or a separately reviewed, temporary egress path; never bridge provider VPN connectivity into vulnerable targets or other lab segments.
+- Recreate lessons only with authorized local targets, then disconnect the external path and validate routes before exercising.
 
 **HackTheBox**:
 - Active and retired machines for practice
