@@ -54,7 +54,7 @@ EFF documented a repeated **15-column × 8-row** grid, more visible with magnifi
 | 6–8 | Day, month, year without century |
 | 9 | Unused |
 | 10 | Separator, typically all ones |
-| 11–14 | Serial-number pairs, read in reverse column order using binary-coded decimal |
+| 11–14 | Serial-number pairs, read in reverse column order using binary-coded decimal; some six-digit serials use columns 13–11 only |
 | 15 | Unknown; often constant for a printer |
 
 The serial may have six or eight digits; the printer clock can be inaccurate or use UTC. Unknown fields should remain unknown. These rules apply to the documented format, not arbitrary yellow-dot patterns. [2]
