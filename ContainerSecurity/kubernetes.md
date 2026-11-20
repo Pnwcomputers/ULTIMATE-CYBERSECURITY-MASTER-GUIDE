@@ -8,7 +8,7 @@
 
 **Runtime distinction:** The [Docker operations cheat sheet](docker-cli-operations-reference.md) documents Docker Engine/Compose, **not** Kubernetes administration. For Kubernetes-native workloads use the cluster/RBAC controls below, and review your actual container runtime (often containerd) before applying Docker-specific commands.
 
-**Source and visual review:** November 17, 2026. No cluster inspected, commands executed, policies applied or security tests performed. Match documentation and policy versions to the deployed cluster.
+**Source and visual review:** November 20, 2026. No cluster inspected, commands executed, policies applied or security tests performed. Match documentation and policy versions to the deployed cluster.
 
 ## 🎯 Purpose
 Kubernetes security reference - the cluster attack surface, RBAC and Pod Security,
@@ -71,9 +71,10 @@ RBAC grants allowed Kubernetes API actions to identities. It does not inspect ev
 # Enumerate what the current identity can do (authorized)
 kubectl auth can-i --list
 kubectl auth can-i create pods
+kubectl auth can-i create pods --all-namespaces
 ```
 
-These examples query the selected API server and identity; they were not executed in this review. A permission result does not establish admission acceptance.
+These examples query the selected API server and identity; they were not executed in this review. Results depend on the selected context and namespace: pass `-n <namespace>` to target one, or use `--all-namespaces` with an individual namespaced action to check it across namespaces. A permission result does not establish admission acceptance or replace review of role bindings.
 
 **Defend:** least-privilege roles; remove unnecessary `cluster-admin` bindings and wildcard permissions; disable
 auto-mounting of service-account tokens where unused (`automountServiceAccountToken:
@@ -94,7 +95,17 @@ The three Pod Security Standards levels:
 - **Restricted** - hardened best practice (non-root, no privilege escalation,
   dropped capabilities, seccomp).
 
-PSA namespace labels choose a level and mode: `enforce` rejects violating Pod admissions, while `audit` and `warn` record or surface violations. Pin an appropriate policy version, review exemptions and assess compatibility before enforcement. Label changes do not retrofit settings into running Pods.
+Namespace labels can configure one or more PSA modes, each with its own level and optional policy version. A namespace may, for example, enforce `baseline` while auditing and warning on `restricted` violations. `enforce` rejects a violating Pod admission; `audit` allows it and adds an audit annotation; `warn` allows it and returns a user-facing warning. Review exemptions and compatibility before enforcement. Label changes do not rewrite settings in running Pods.
+
+```mermaid
+flowchart TD
+    A["Pod admission request"] --> B["PSA evaluates each configured mode against its level and version"]
+    B --> C["enforce: violation is rejected"]
+    B --> D["audit: violation is allowed and annotated in the audit log"]
+    B --> E["warn: violation is allowed and a user-facing warning is returned"]
+```
+
+*Each configured mode is evaluated independently; the diagram shows what happens when a request violates that mode's policy.*
 
 For requirements beyond PSA, evaluate version-supported validating admission policy or controllers such as **OPA/Gatekeeper** or **Kyverno**. Admission is distinct from runtime enforcement and monitoring.
 
