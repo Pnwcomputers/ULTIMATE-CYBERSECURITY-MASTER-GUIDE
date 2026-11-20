@@ -4,11 +4,11 @@
 
 ## 🎯 Purpose
 
-Integrate **Python**, **PowerShell**, and **Batch** scripts for realistic, multi-platform attack simulation & detection validation.
+Use **Python**, **PowerShell**, and **Batch** to generate harmless telemetry canaries and run approved, scoped simulations for detection validation.
 
 ## ⚙️ Function
 
-A tight, four-step scripted loop (pick a TTP → script the attack in Python/PowerShell/Batch → run it in an isolated lab → check SIEM/EDR for the resulting logs and alerts). This is the **script-centric variant** of the purple team playbooks - where `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, this file is specifically about writing and running the actual attack scripts that drive detection validation, organized by scripting language/platform.
+A repeatable loop (choose a detection question → select a harmless canary or vendor-approved simulation → run it within the authorized scope → compare expected and observed telemetry). This is the **script-centric variant** of the purple team playbooks: `PurpleTeam_Simple.md` and `PurpleTeam_Detailed.md` describe the exercise process and tooling ecosystem, while this file focuses on safe signals organized by scripting language and platform.
 
 ## 🏆 Goal
 
@@ -16,9 +16,9 @@ Make detection exercises repeatable without sending credentials, contacting unre
 
 ## 📋 When to Use
 
-- You already have a purple team process (see `PurpleTeam_Simple.md`/`PurpleTeam_Detailed.md`) and need the actual attack script for a specific TTP
-- Validating detection coverage for a technique across multiple platforms/languages (e.g., confirming both a PowerShell-based and Python-based version of the same TTP get caught)
-- Building a reusable library of attack scripts mapped to MITRE ATT&CK techniques for repeat testing
+- You already have a purple team process (see `PurpleTeam_Simple.md`/`PurpleTeam_Detailed.md`) and need a harmless signal or approved simulation for a detection question
+- Comparing telemetry collection across platforms or languages without treating a synthetic canary as proof of technique-level detection
+- Building a reusable library of harmless canaries and documented vendor-approved simulations mapped to detection objectives
 
 ---
 
@@ -34,9 +34,9 @@ Make detection exercises repeatable without sending credentials, contacting unre
 
 ## Workflow (Recap)
 
-1️⃣ Pick TTP
+1️⃣ State a detection question
 
-2️⃣ Script attack in Python/PowerShell/Batch
+2️⃣ Select a harmless canary or approved simulation in Python/PowerShell/Batch
 
 3️⃣ Run in isolated lab
 
