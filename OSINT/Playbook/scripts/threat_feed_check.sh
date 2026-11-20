@@ -368,11 +368,11 @@ check_malwarebazaar() {
         return
     fi
 
-    local payload http_code
-    payload=$(jq -nc --arg hash "$ioc" '{query:"get_info",hash:$hash}') || return
+    # MalwareBazaar documents URL-encoded form fields for this query.
+    local post_data="query=get_info&hash=${ioc}" http_code
     info "MalwareBazaar: querying hash ..."
     http_code=$(private_curl_post_status "$out_file" "https://mb-api.abuse.ch/api/v1/" \
-        "$payload" "Content-Type: application/json" "Auth-Key: ${MALWAREBAZAAR_AUTH_KEY}") || return
+        "$post_data" "Auth-Key: ${MALWAREBAZAAR_AUTH_KEY}") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
