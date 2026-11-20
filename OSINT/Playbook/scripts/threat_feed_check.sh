@@ -318,7 +318,7 @@ check_threatfox() {
         return
     fi
 
-    local query search_term payload http_code
+    local query payload http_code
     if [[ "$IOC_TYPE" == "hash" ]]; then
         if [[ ${#ioc} -eq 32 || ${#ioc} -eq 64 ]]; then
             query="search_hash"
