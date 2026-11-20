@@ -255,6 +255,9 @@ DIAGRAM_GUIDES = {
     "CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg": (
         "CAD/OpenSCAD/06-keyboard-shortcuts.md",
     ),
+    "assets/diagrams/vigenere-candidate-periods.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
 }
 
 

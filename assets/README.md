@@ -149,6 +149,7 @@ These figures illustrate the actual decision points in their respective guides; 
 | [AI Evaluation Evidence Matrix](./diagrams/ai-evaluation-evidence-matrix.svg) | [AI Evaluation & Regression Testing](../AI/ai-evaluation-and-regression-testing.md) | Separate deterministic tests, live agent behavior and independent end-state validation |
 | [uConsole Hardware & OS Preflight](./diagrams/uconsole-hardware-os-preflight-paths.svg) | [uConsole Setup](../uConsole/README.md) | CM4/CM5 distinction, native OS image, optional peripherals and physical readback |
 | [Cryptography Primitive Decision Map](./diagrams/cryptography-primitive-decision-map.svg) | [Cryptography Overview](../Cryptography/README.md) | Four distinct security goals: AEAD, password KDF, signatures/HMAC and key establishment |
+| [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) | Mean column IC values for a reproducible synthetic repeating-key example |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
 ## Firmware, Cyberdeck Devices & Virtualization Visuals
