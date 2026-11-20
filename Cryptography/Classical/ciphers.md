@@ -1,6 +1,6 @@
 # 📜 Classical Ciphers
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 > [!IMPORTANT]
 > **Historical and educational content.** Ordinary classical ciphers are unsuitable
@@ -65,7 +65,7 @@ This table compares eight historical substitution **and encoding conventions**. 
 * **Atbash:** Mirror the alphabet (A↔Z, B↔Y). Originally used with the Hebrew alphabet. `HELLO` → `SVOOL`.
 * **QWERTY →1:** Each letter becomes the key to its right on the same row, wrapping at row ends (P→Q, L→A, M→Z). Wrap conventions vary between puzzles; some include punctuation keys.
 * **Polybius square:** Letters placed in a 5×5 grid and written as row/column coordinates. **I and J share a cell.**
-* **Tap code:** Same grid idea, tapped as two groups (row, then column). Used by U.S. POWs in Vietnam. **C and K share a cell**, so J gets its own.
+* **Tap code:** Same grid idea, tapped as two groups (row, then column). U.S. prisoners of war in Vietnam used it to communicate without detection ([CIA Museum](https://www.cia.gov/legacy/museum/exhibit/the-coded-ceiling/)). **C and K share a cell**, so J gets its own.
 * **Baconian:** Francis Bacon's 5-symbol `a`/`b` code (a binary code in disguise). Shown here in the modern 26-letter form; Bacon's original merged I/J and U/V. The `a`/`b` can be hidden as two typefaces, so the message is *steganographic* (hidden in plain sight).
 * **Pigpen:** Letters replaced by fragments of tic-tac-toe and X grids (with and without dots). It is a graphical alphabet, so it is not shown in the table.
 
@@ -186,7 +186,7 @@ If a Vigenère-style cipher uses a **uniformly random, independent, secret** key
 
 It achieves *perfect secrecy* (Shannon, 1949): the ciphertext contains no information about the plaintext. Every plaintext of the same length is compatible with some key. Observing the ciphertext does not change the prior probabilities of those plaintexts; it does not make all messages equally likely. Length can still be visible, and the pad does not authenticate messages.
 
-**The key distribution problem:** The challenge is logistical. To encrypt a 1 GB file, you must first securely share a 1 GB truly random key. Pad material can be distributed securely in advance and used later when only an insecure communication channel is available. OTPs were therefore reserved for the highest-value links, such as the Cold War Washington–Moscow hotline, with key material physically carried by couriers.
+**The key distribution problem:** The challenge is logistical. To encrypt a 1 GB file, you must first securely share a 1 GB truly random key. Pad material can be distributed securely in advance and used later when only an insecure communication channel is available. That makes OTPs practical mainly when fresh pad material can be exchanged securely ahead of time and the communication volume justifies the logistics.
 
 **Reuse is fatal:** For a binary XOR pad, if two messages reuse the same pad, `C₁ ⊕ C₂ = P₁ ⊕ P₂`; the key cancels out over the overlap. For the additive letter version, subtraction modulo 26 similarly cancels the pad. The U.S. VENONA project exploited exactly this against reused Soviet pads.
 
