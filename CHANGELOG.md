@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 20, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1833
-- **Files Modified**: 3386
-- **New Files**: 1256
+- **Commits Analyzed**: 1839
+- **Files Modified**: 3407
+- **New Files**: 1261
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
@@ -564,6 +564,8 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix(uconsole): CM5 AIO v2 / NVMe / battery setup corrections + read-only --hw-check (v1.5) (#419) (`bacb5f0`)
+- Correct OpenClaw agent configuration guidance (#426) (`803b967`)
 - docs(audit): correct Windows Python examples, incident GDPR language & four diagrams (#420) (`b78c9a1`)
 - Improve defensive guidance and correct security examples (#393) (`fe513b7`)
 - Retire unsafe legacy utilities and correct install guidance (#389) (`483b583`)
@@ -1678,6 +1680,10 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Clarify OpenSCAD release and reference attribution (#427) (`309126f`)
+- Illustrate OpenSCAD transform order (#424) (`16d9ab1`)
+- Audit CloudTrail coverage and Tails backup verification (#422) (`986f175`)
+- Audit Compose change previews, SQLite recovery and CCSDS links (#421) (`1006413`)
 - Illustrate memory evidence validation before Volatility triage (#415) (`63e5186`)
 - Chart a reproducible classical cipher period example (#414) (`6af931f`)
 - Illustrate AI routing and OpenSCAD export decisions (#413) (`392f9ed`)
@@ -1857,11 +1863,31 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `CAD/OpenSCAD/01-fundamentals.md`
+- `REVIEW_2026-11-19.md`
+- `assets/README.md`
+- `assets/diagrams/uconsole-cm5-aio-nvme-validation.svg`
+- `uConsole/CM5-DISPLAY-RECOVERY.md`
+- `uConsole/CM5-SETUP.md`
+- `uConsole/README.md`
+- `uConsole/scripts/README.md`
+- `uConsole/scripts/uconsole-cm5-setup.sh`
+- `uConsole/tests/test_cm5_setup.py`
+- `AI/OpenClaw/agent_skill_config.md`
+- `CAD/OpenSCAD/images/transform-order.svg`
+- `Cloud/aws.md`
+- `OPSEC/tails-usb-setup-guide.md`
+- `assets/diagrams/aws-cloudtrail-event-coverage.svg`
+- `assets/diagrams/tails-persistent-storage-backup.svg`
+- `ContainerSecurity/docker-cli-operations-reference.md`
+- `Data-Engineering/Phase3/data_recovery_replay.md`
+- `SpaceSecurity/README.md`
+- `assets/diagrams/docker-compose-change-review.svg`
+- `CHANGELOG.md`
 - `Cryptography/Classical/ciphers.md`
 - `Documentation/python.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `Tradecraft/pentoo-linux-guide.md`
-- `assets/README.md`
 - `assets/diagrams/classical-cipher-swap-position-and-one-time-pad.svg`
 - `assets/diagrams/incident-casebook-scope-evidence-action-approval.svg`
 - `assets/diagrams/pentoo-gentoo-deployment-profile-safety.svg`
@@ -1871,7 +1897,6 @@
 - `assets/diagrams/pci-scope-evidence-trail.svg`
 - `HardwareHacking/esp32-bit-pirate.md`
 - `Mobile/UserLAnd/alpinelinux.md`
-- `REVIEW_2026-11-19.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `assets/diagrams/volatility-evidence-triage.svg`
 - `Cryptography/Classical/cryptanalysis.md`
@@ -1936,7 +1961,6 @@
 - `Tradecraft/active-directory.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
-- `CHANGELOG.md`
 - `.gitignore`
 - `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-cve_lookup.md`
@@ -2005,7 +2029,6 @@
 - `Scripts/README.md`
 - `tools/tests/test_legacy_archive_manifest.py`
 - `uConsole/CM4-SETUP.md`
-- `uConsole/CM5-SETUP.md`
 - `.github/CONTRIBUTING.md`
 - `.github/SECURITY.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
@@ -2015,7 +2038,6 @@
 - `AI/AnythingLLM/flow-nmap_analyzer.md`
 - `AI/AnythingLLM/flow-vulnreport_gen.md`
 - `AI/OpenClaw/README.md`
-- `AI/OpenClaw/agent_skill_config.md`
 - `AI/offensive_ai.md`
 - `Checklists/Credential-Access.md`
 - `Checklists/Defense-Evasion.md`
@@ -2084,7 +2106,6 @@
 - `SpaceSecurity/PartII.md`
 - `SpaceSecurity/PartIII.md`
 - `SpaceSecurity/PartIV.md`
-- `SpaceSecurity/README.md`
 - `Tradecraft/README.md`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/network-detection.md`
@@ -2095,7 +2116,6 @@
 - `installer.sh`
 - `tools/tests/test_review_fixes.py`
 - `ultimate_cybersecurity_master_guide.md`
-- `Cloud/aws.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `Mobile/mobile_pentest_sop.md`
 - `Scripts/GO/shells/README.md`
@@ -2124,7 +2144,6 @@
 - `Homelab/README.md`
 - `LEGAL.md`
 - `Scripts/pnwc_install_tools.sh`
-- `uConsole/README.md`
 - `Scripts/Bash/hulkscanner.sh`
 - `Scripts/Bash/nuclei_web_scanner.sh`
 - `Scripts/Bash/ssh_brute.sh`
@@ -2182,7 +2201,6 @@
 - `assets/diagrams/social-osint-account-provenance-verification.svg`
 - `assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg`
 - `assets/diagrams/wifi-deauth-disassoc-pmf-corroboration.svg`
-- `uConsole/CM5-DISPLAY-RECOVERY.md`
 - `AI/agent-project-workflows.md`
 - `AI/multi-agent-orchestration.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
@@ -2226,7 +2244,6 @@
 - `assets/diagrams/osquery-interactive-scheduled-siem-flow.svg`
 - `assets/diagrams/proxmox-honeynet-vm-trust-boundaries.svg`
 - `Data-Engineering/Phase2/streaming_cdc.md`
-- `Data-Engineering/Phase3/data_recovery_replay.md`
 - `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md`
 - `WebAppSecurity/methodology.md`
 - `assets/diagrams/cdc-snapshot-offset-replay-boundary.svg`
@@ -2356,7 +2373,6 @@
 - `assets/diagrams/opsec-anonymity-layering-decisions.svg`
 - `OPSEC/whonix-kicksecure-usb-guide.md`
 - `assets/diagrams/whonix-kicksecure-usb-boundaries.svg`
-- `OPSEC/tails-usb-setup-guide.md`
 - `assets/diagrams/tails-storage-and-network-boundaries.svg`
 - `OPSEC/OPSEC_guide.md`
 - `Documentation/virtualmachines.md`
@@ -2446,7 +2462,6 @@
 - `Cryptography/encrypted-storage.md`
 - `assets/diagrams/encrypted-storage-recovery-components.svg`
 - `assets/diagrams/encrypted-storage-status-questions.svg`
-- `ContainerSecurity/docker-cli-operations-reference.md`
 - `assets/diagrams/docker-operations-context-control.svg`
 - `assets/diagrams/docker-operations-data-lifetimes.svg`
 - `assets/diagrams/docker-operations-image-review.svg`
@@ -2534,7 +2549,6 @@
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
 - `SDR/README.md`
-- `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/examples/gps-cradle/README.md`
 - `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.json`
 - `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.scad`
@@ -2666,7 +2680,6 @@
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `SDR/nanovna/tools/README.md`
-- `uConsole/scripts/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
@@ -2823,8 +2836,6 @@
 - `Data-Engineering/Phase1/sql_data_modeling.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/readme.md`
-- `uConsole/scripts/uconsole-cm5-setup.sh`
-- `uConsole/tests/test_cm5_setup.py`
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
 - `IncidentResponse/Firewall/openbsd_pf.md`
 - `IncidentResponse/Firewall/PF.md`
