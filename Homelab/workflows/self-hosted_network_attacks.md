@@ -52,7 +52,7 @@ This section details every piece of hardware in your arsenal, its specific role,
 | :--- | :--- | :--- |
 | **Hak5 WiFi Pineapple** | **Rogue AP / MITM**<br>The "Evil Twin" platform. | **Boot:** Power on.<br>**Access:** Web UI at `172.16.42.1:1471`.<br>**Action:** Module > PineAP > Enable. Use **Pineapple Pager** to vibrate on client connect. |
 | **Pineapple Pager** | **Physical Alerting**<br>Haptic feedback for Pineapple events. | **Setup:** Connects wirelessly to Pineapple.<br>**Use:** Clip to belt. Vibrates when a victim connects to your Rogue AP. |
-| **Pwnagotchi** <br>*(Pi Zero + E-ink)* | **AI Handshake Hunter**<br>Passive/Active learning capture. | **Boot:** Plug into battery. Watch screen.<br>**Status:** Face = Happy (Capturing).<br>**Retrieve:** Connect via USB (Data mode) to `/handshakes` folder. |
+| **Pwnagotchi** <br>*(Pi Zero + E-ink)* | **AI Handshake Hunter**<br>Passive/Active learning capture. | **Boot:** Plug into battery. Watch screen.<br>**Status:** Face = Happy (Capturing).<br>**Retrieve:** The upstream default capture directory is `/root/handshakes`; image and local configuration can change it. Confirm the configured path and use the installed image's documented, authenticated transfer method from an authorized management connection. Do not assume a USB mass-storage mode exposes `/handshakes`. |
 | **Bjorn** <br>*(Pi Zero + E-ink)* | **Aggressive Scanner**<br>Network vulnerability scanner/deauther. | **Boot:** Plug into battery.<br>**Action:** Automatically scans/attacks based on `config.yaml`. <br>**Display:** Shows current target and capture status. |
 | **M5Stack Fire** <br>*(Purple Hash Monster)* | **PMKID Capture**<br>Captures RSN PMKIDs (WPA2). | **Boot:** Press Red button.<br>**Usage:** Device auto-scans 2.4G. Screen lists captured hashes.<br>**Log:** Hashes saved to SD card. |
 | **M5Stack Cardputer** <br>*(Evil-M5)* | **Portable Swiss Army Knife**<br>Deauth, Beacon Spam, Probing. | **Boot:** Power switch.<br>**Menu:** Select `WiFi` > `Scan` > Select Target > `Deauth`.<br>**Keyboard:** Use onboard keys to select menu options. |
@@ -83,14 +83,25 @@ This section details every piece of hardware in your arsenal, its specific role,
 
 ### 1. WiFi Mapping & Client Discovery
 * **Tool:** Raspberry Pi Zero 2 W (Kali Linux + USB/Ethernet Hat)
-* **Action:** Put the interface in Monitor Mode. Run `Kismet` or `Airodump-ng`. This is your "Ground Truth" device.
-* **Logging:** Configure Kismet to log to `.kismet` and `.pcap` files.
-    * *Command:* `kismet -c wlan1 --log-title lab_audit`
+* **Action:** Put the selected adapter in monitor mode, then use the monitor-interface name reported by the driver/tool. Run `Kismet` or `Airodump-ng` only against the isolated lab AP and test clients.
+* **Logging:** Configure Kismet to log to `.kismet` and `.pcap` files. Replace the placeholder with the interface actually reported on that machine; do not assume a fixed `wlan1` or `wlan1mon` name.
+    * *Command:* `kismet -c <reported-monitor-interface> --log-title lab_audit`
 
 ### 2. Automated Handshake Hunting
 * **Tool:** Pwnagotchi (Pi Zero with e-ink)
 * **Action:** Run passively using reinforcement learning to maximize handshake captures.
-* **Logging:** Handshakes saved automatically to `/handshakes`.
+* **Logging:** Handshakes are saved under the device's configured capture directory (upstream default: `/root/handshakes`). Confirm the installed image/configuration before retrieval.
+
+```mermaid
+flowchart LR
+    A[Authorized lab capture] --> B[Pwnagotchi saves capture]
+    B --> C[Confirm configured directory<br/>default: /root/handshakes]
+    C --> D[Transfer through authenticated<br/>management channel]
+    D --> E[Access-controlled evidence store]
+    E --> F[Analyze only required artifacts<br/>then apply retention plan]
+    C -. Path or image version unknown .-> X[Stop and verify configuration]
+    D -. Transfer method unavailable .-> X
+```
 
 ### 3. Presence Detection
 * **Tool:** T-Dongle S3 (ZeroTrace)
