@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 410" role="img" aria-labelledby="title desc">
+  <title id="title">Validate a memory image before triage</title>
+  <desc id="desc">Verify the working copy against the recorded hash, confirm image support and matching symbols, and corroborate plugin output. If prerequisites fail, record the result as inconclusive.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#44728a"/>
+    </marker>
+  </defs>
+  <rect width="900" height="410" rx="18" fill="#eef4fa"/>
+  <g font-family="system-ui, sans-serif" fill="#17334a">
+    <text x="35" y="54" font-size="31" font-weight="700">Validate a memory image before triage</text>
+    <g transform="translate(35 108)">
+      <rect width="250" height="232" rx="14" fill="#fff" stroke="#a6becd"/>
+      <text x="16" y="39" font-size="20" font-weight="700">Verify the working copy</text>
+      <text x="16" y="78" font-size="17">Preserve the original</text>
+      <text x="16" y="110" font-size="17">Compare SHA-256 values</text>
+      <text x="16" y="142" font-size="17">Record acquisition context</text>
+    </g>
+    <g transform="translate(325 108)">
+      <rect width="250" height="232" rx="14" fill="#fff" stroke="#a6becd"/>
+      <text x="16" y="39" font-size="20" font-weight="700">Confirm prerequisites</text>
+      <text x="16" y="78" font-size="17">Check image and OS</text>
+      <text x="16" y="110" font-size="17">Use matching symbols</text>
+      <text x="16" y="142" font-size="17">Record unmet requirements</text>
+    </g>
+    <g transform="translate(615 108)">
+      <rect width="250" height="232" rx="14" fill="#fff" stroke="#a6becd"/>
+      <text x="16" y="39" font-size="20" font-weight="700">Interpret with context</text>
+      <text x="16" y="78" font-size="17">Compare process views</text>
+      <text x="16" y="110" font-size="17">Corroborate with logs</text>
+      <text x="16" y="142" font-size="17">Record gaps and limits</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#44728a" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M288 222H321"/>
+    <path d="M578 222H611"/>
+  </g>
+</svg>

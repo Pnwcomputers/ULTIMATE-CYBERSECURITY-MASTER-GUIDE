@@ -826,7 +826,7 @@ We welcome contributions from security professionals to improve and expand this 
 
 ### Incident Response Frameworks
 
-- **NIST SP 800-61**: Computer Security Incident Handling Guide
+- **[NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final)**: Incident Response Recommendations & Considerations for Cybersecurity Risk Management (CSF 2.0 Community Profile, finalized April 2025). Rev. 2 is superseded; playbook phases here are local operational choices.
 - **SANS Incident Response**: https://www.sans.org/security-resources/
 - **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework
 - **ISO/IEC 27035**: Information security incident management

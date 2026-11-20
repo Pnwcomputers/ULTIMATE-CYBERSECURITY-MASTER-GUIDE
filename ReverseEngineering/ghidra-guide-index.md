@@ -105,12 +105,16 @@ variable-length (x86), or when junk bytes are inserted.
 
 **Recursive descent** starts at known entry points (the program entry, exports,
 reset vectors) and follows control-flow edges: fall-through, branches, calls.
-It only disassembles bytes it can *prove* are reachable. Indirect jumps
-(`jmp rax`, computed tables) require extra analysis.
+It follows addresses **inferred** to be reachable from selected entry points. This is not proof of runtime reachability or exhaustive coverage. Indirect jumps
+(`jmp rax`, computed tables), misidentified code/data and obfuscation require extra analysis.
 
 Ghidra's default analyzer is a recursive-descent engine plus a large set of
 follow-on analyzers (stack frames, calling conventions, switch tables, strings,
 and more). Think of auto-analysis as "a strong first hypothesis," not a verdict.
+
+![Original bytes move through inferred disassembly and C-like decompilation before human validation of control flow, types and evidence](../assets/diagrams/ghidra-analysis-hypothesis-validation.svg)
+
+*Original conceptual analysis workflow, based on the [Ghidra project](https://github.com/NationalSecurityAgency/ghidra) and [Getting Started documentation](https://github.com/NationalSecurityAgency/ghidra/blob/master/GhidraDocs/GettingStarted.md). A decompiler result is a hypothesis, not recovered source code or confirmation that a function executed.*
 
 ### The unit of work
 
