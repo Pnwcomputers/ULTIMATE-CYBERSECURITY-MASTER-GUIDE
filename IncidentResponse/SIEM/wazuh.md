@@ -98,7 +98,7 @@ docker compose version
 ## 🚀 Part 2: Deploying the Wazuh Manager (Docker)
 
 > [!NOTE]
- > This guide pins the single-node Docker example to Wazuh `4.14.10`, with matching agent packages, using the [official Docker tag](https://github.com/wazuh/wazuh-docker/tree/v4.14.10/single-node). Check the [official release list](https://github.com/wazuh/wazuh/releases) and [Docker deployment requirements](https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html) before deploying; newer releases can change compose files and defaults. Treat prereleases as evaluation builds.
+> This guide pins the single-node Docker example to Wazuh `4.14.10`, with matching agent packages, using the [official Docker tag](https://github.com/wazuh/wazuh-docker/tree/v4.14.10/single-node). Check the [official release list](https://github.com/wazuh/wazuh/releases) and [Docker deployment requirements](https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html) before deploying; newer releases can change compose files and defaults. Treat prereleases as evaluation builds.
 
 ### Step 2.1: Clone the Wazuh Docker Repository
 
