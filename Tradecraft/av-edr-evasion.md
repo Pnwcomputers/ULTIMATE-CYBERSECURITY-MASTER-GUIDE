@@ -60,6 +60,21 @@ Understanding where EDR detects is essential to understanding what attackers try
 
 **Key insight for defenders:** Attackers who are "EDR-aware" target specific layers. Detection gaps appear when one layer is bypassed but others aren't compensating. Defense-in-depth across all layers is the goal - no single layer is sufficient.
 
+**Conceptual behavior-to-control map:** Product coverage varies by vendor, policy, and sensor health. A missing event is not proof that behavior did not occur.
+
+```mermaid
+flowchart LR
+    B[Endpoint behavior] --> S[Available sensors: AMSI, ETW, kernel, file, process, network]
+    S --> C[Collection and normalization]
+    C --> A[Correlated analytic]
+    A --> D[Alert with evidence and confidence]
+    D --> H[Analyst validation and response]
+    H --> P[Policy tuning and coverage checks]
+    P --> S
+    S -. Sensor disabled or event unavailable .-> U[Unverified visibility gap]
+    U --> H
+```
+
 ### How EDR Instruments the Endpoint
 
 **User-mode hooks (most common):** The EDR injects a DLL into every process. That DLL overwrites the first few bytes of sensitive Windows API functions in `ntdll.dll` with a jump to the EDR's inspection code. When a process calls `NtCreateThread`, for example, execution is redirected to the EDR before the syscall happens.
