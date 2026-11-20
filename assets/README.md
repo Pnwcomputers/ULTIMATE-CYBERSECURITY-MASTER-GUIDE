@@ -918,6 +918,12 @@ Manufacturer-published sampling limits by active-channel count. Use the detailed
 |---|---|
 | [LA1010 active-channel sample-rate tradeoff](./diagrams/la1010-active-channel-sample-rate.svg) | [LA1010 guide](../HardwareHacking/LA1010.md#active-channel-tradeoff) |
 
+## PCI DSS Scope Worksheet Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [PCI DSS scoping evidence trail](./diagrams/pci-scope-evidence-trail.svg) | [PCI DSS scope review worksheet](../Compliance/pci-scope-review-template.md#how-to-use-the-worksheet) |
+
 ## Mobile TLS Proxy Trust Visual
 
 Original conceptual comparison of Android and iOS trust gates for a controlled HTTPS proxy test. CA installation, platform trust, app-specific trust, and pinning are separate checks.

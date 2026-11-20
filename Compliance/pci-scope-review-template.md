@@ -5,6 +5,15 @@ _Companion to the [PCI DSS 4.0.1 Scoping & Segmentation Field Guide](pci-dss-sco
 > [!CAUTION]
 > This worksheet is **not** a PCI SSC SAQ, ROC, AOC or certification. The entity, assessor and compliance-accepting organization determine applicability and validation. Treat every blank as **unassessed**, not "out of scope" or "not applicable."
 
+## How to use the worksheet
+
+![PCI DSS scope evidence flow from payment channels and asset dependencies to review and sign-off](../assets/diagrams/pci-scope-evidence-trail.svg)
+
+Assign stable IDs to each flow, asset and provider. Use those IDs to link
+proposed exclusions to their evidence and record unresolved items with an
+owner. Keep completed worksheets and evidence in the private review record.
+[PCI SSC scoping and segmentation guidance](https://blog.pcisecuritystandards.org/new-information-supplement-pci-dss-scoping-and-segmentation-guidance-for-modern-network-architectures).
+
 ## 1. Assessment Record
 
 | Field | Authorized review entry |
@@ -35,7 +44,12 @@ Reconcile **all** identified paths against the updated network diagram and accou
 |---|---|---|---|---|---|---|
 | _ASSET-01_ | _Functional description_ | _Store / process / transmit / none / unknown_ | _CDE / connected-to / security-impacting / exclusion candidate_ | _Identity, network, backup, remote support_ | _Private evidence ID_ | _Pending_ |
 
-A component must **not** be excluded because the currently inspected sample did not show card data. Record tests proving no account-data involvement, connected-to path **or security-impacting dependency** before a final exclusion.
+Document the evidence that supports each proposed exclusion. Check the
+component's account-data role, connectivity to the CDE, and ability to affect
+CDE security. Use the evidence appropriate to each question, such as current
+data flows, administrative access paths, and segmentation test results where
+segmentation is used to reduce scope. Mark unresolved exclusions as pending.
+[PCI SSC FAQ on segmentation and assessment scope](https://www.pcisecuritystandards.org/faqs/1115/).
 
 ## 4. Segmentation Evidence
 
@@ -74,7 +88,8 @@ A vendor's "PCI compliant" label **does not** determine the merchant's SAQ eligi
 - [ ] Proposed exclusions have documented rationale and appropriate independent boundary testing.
 - [ ] All applicable third-party service access, agreements, responsibilities and supporting evidence reviewed.
 - [ ] E-commerce SAQ eligibility and ASV scanning applicability checked with current PCI SSC criteria.
-- [ ] Significant changes reviewed; next annual or service-provider six-month scoping review scheduled.
+- [ ] Scope confirmation scheduled at least every 12 months under 12.5.2, or at least every six months for service providers under 12.5.2.1.
+- [ ] Significant changes to the in-scope environment trigger a scope confirmation outside the scheduled cycle. [PCI SSC significant-change FAQ](https://www.pcisecuritystandards.org/faqs/1317/).
 - [ ] Findings and unknowns assigned owners; final sign-off retained privately.
 
 ## 8. Decisions, Unknowns & Sign-Off

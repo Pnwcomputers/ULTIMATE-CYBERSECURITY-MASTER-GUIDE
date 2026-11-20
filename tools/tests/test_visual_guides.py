@@ -261,6 +261,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/volatility-evidence-triage.svg": (
         "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
     ),
+    "assets/diagrams/pci-scope-evidence-trail.svg": (
+        "Compliance/pci-scope-review-template.md",
+    ),
 }
 
 
