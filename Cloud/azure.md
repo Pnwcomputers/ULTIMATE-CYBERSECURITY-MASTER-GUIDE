@@ -9,7 +9,7 @@
 
 **M365 companion:** [CISA ScubaGear + SCuBA assessment](m365-scuba-assessment.md) covers consent, baseline deviations and retesting; Microsoft 365/Entra tenant assessments differ from Azure subscription checks.
 
-**Source and visual review:** November 17, 2026. Original conceptual diagrams and documentation review only; no tenant enumeration, policy changes, or log export was performed.
+**Source and visual review:** November 20, 2026. Reviewed this guide and its three existing conceptual diagrams. No tenant enumeration, policy changes, or log export was performed.
 
 ## 🎯 Purpose
 Microsoft Azure and **Entra ID** (formerly Azure AD) security reference - the
@@ -123,14 +123,15 @@ runtime enforcement.
 
 | Source / Requirement | What To Verify |
 |---|---|
-| Entra sign-in and audit activity | Required categories, reader permissions, license-dependent availability and retention. |
+| Entra sign-in and audit activity | Verify selected categories and reader access. Default retention is 7 days with Free and 30 days with P1/P2; route logs to Azure Monitor for longer retention. These logs are separate from the Microsoft 365 Unified Audit Log. |
 | Azure Activity Log | Subscription control-plane coverage; it is not a record of every data operation. |
 | Resource logs | Enable the required diagnostic categories; these logs are not collected by default. |
 | Routing and destination | Configuration permissions, destination access, retention, delivery latency and sample-event arrival. |
 | Detection | Test expected benign events, correlating identity and resource evidence; document gaps and ingestion failures. |
 
 Use [Entra diagnostic settings](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-configure-diagnostic-settings),
-[Azure Activity Log](https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log)
+[Entra retention guidance](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-reports-data-retention),
+[Azure Activity Log](https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/activity-log),
 and [Azure Monitor diagnostic settings](https://learn.microsoft.com/en-us/azure/azure-monitor/data-collection/diagnostic-settings).
 Log viewing, export configuration and workspace querying can require different
 privileges. Never infer working collection merely from a visible dashboard.
