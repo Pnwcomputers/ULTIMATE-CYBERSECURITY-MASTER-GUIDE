@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+<title id="title">Five instruction layers from goal to verified handoff</title>
+<desc id="desc">A prompt defines mission, context, boundaries, execution, and evidence. The bounded task is performed using approved tools. The result is checked against sources and actual tool outcomes. External messages or system changes require human approval. Verified facts, unknowns, and next steps are saved in a handoff.</desc>
+<defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#17324d}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#435a72}.layer{fill:#fff;stroke:#8ea5b9;stroke-width:2}.action{fill:#eef5ff;stroke:#4e78a3;stroke-width:2}.verify{fill:#eaf7f0;stroke:#548d68;stroke-width:2}.human{fill:#fff7e8;stroke:#c39339;stroke-width:2}.handoff{fill:#f3f0ff;stroke:#7763a5;stroke-width:2}.num{font-size:14px;font-weight:700;letter-spacing:1px;fill:#5d7083}.head{font-size:18px;font-weight:700}.body{font-size:15px}.arrow{stroke:#486883;stroke-width:3;fill:none;marker-end:url(#arrow)}.feedback{stroke:#7763a5;stroke-width:2.5;fill:none;marker-end:url(#arrowP)}.foot{font-size:16px;font-weight:700;fill:#fff}</style><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#486883"/></marker><marker id="arrowP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7763a5"/></marker></defs>
+<rect width="1400" height="720" fill="#f5f8fc"/>
+<text x="700" y="48" text-anchor="middle" class="title">From prompt to verified handoff</text>
+<text x="700" y="78" text-anchor="middle" class="sub">The five instruction layers bound the work; evidence and approval close the loop.</text>
+<rect x="60" y="125" width="860" height="390" rx="20" fill="#eaf0f7" stroke="#b5c4d2" stroke-width="2"/>
+<text x="95" y="160" class="num">PROMPT CONTRACT</text>
+<rect x="95" y="180" width="790" height="54" rx="10" class="layer"/><text x="118" y="203" class="num">1 · MISSION</text><text x="300" y="213" class="body">Outcome, audience, definition of done</text>
+<rect x="95" y="246" width="790" height="54" rx="10" class="layer"/><text x="118" y="269" class="num">2 · CONTEXT</text><text x="300" y="279" class="body">Verified sources, version, environment and current state</text>
+<rect x="95" y="312" width="790" height="54" rx="10" class="layer"/><text x="118" y="335" class="num">3 · BOUNDARIES</text><text x="300" y="345" class="body">Scope, exclusions, privacy, tools and approvals</text>
+<rect x="95" y="378" width="790" height="54" rx="10" class="layer"/><text x="118" y="401" class="num">4 · EXECUTION</text><text x="300" y="411" class="body">Ordered work, deliverables, retries and stop conditions</text>
+<rect x="95" y="444" width="790" height="54" rx="10" class="layer"/><text x="118" y="467" class="num">5 · EVIDENCE</text><text x="300" y="477" class="body">Sources, actual tool outcomes, unknowns and handoff</text>
+<path d="M920 320H972" class="arrow"/>
+<rect x="980" y="200" width="350" height="100" rx="16" class="action"/><text x="1005" y="233" class="num">BOUNDED WORK</text><text x="1005" y="263" class="body">Use only approved sources and tools.</text><text x="1005" y="285" class="body">Treat retrieved content as untrusted.</text>
+<path d="M1155 300V340" class="arrow"/>
+<rect x="980" y="350" width="350" height="100" rx="16" class="verify"/><text x="1005" y="383" class="num">VERIFY</text><text x="1005" y="413" class="body">Check original sources and actual outcomes.</text><text x="1005" y="435" class="body">Separate facts, assumptions and gaps.</text>
+<path d="M1155 450V490" class="arrow"/>
+<rect x="980" y="500" width="350" height="82" rx="16" class="human"/><text x="1005" y="531" class="num">HUMAN APPROVAL</text><text x="1005" y="558" class="body">Before messages, publication or changes.</text>
+<path d="M1155 582V612H700" class="arrow"/>
+<rect x="390" y="620" width="620" height="70" rx="16" class="handoff"/><text x="420" y="651" class="num">HANDOFF</text><text x="550" y="651" class="body">Save verified results, open issues and next safe step.</text><text x="420" y="675" class="body">A model's statement that it acted is not proof of the final state.</text>
+</svg>
