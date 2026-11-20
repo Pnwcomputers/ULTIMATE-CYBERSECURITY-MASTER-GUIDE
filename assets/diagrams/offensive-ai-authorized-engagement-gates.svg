@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">Authorized AI red-team engagement scope and stop gates</title>
+<desc id="desc">A conceptual workflow begins with written authorization and exact scope, then maps data flows, selects bounded synthetic tests, runs them in an approved isolated target, verifies actual behavior and side effects, and reports minimal evidence. Missing scope or exceeded limits returns the tester to a stop and owner review.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365f91"/></marker></defs>
+<rect width="1200" height="540" rx="20" fill="#f4f7fb"/>
+<text x="600" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#18324d">AI red-team work: authorization and evidence gates</text>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="34" y="112" width="190" height="154" rx="17" fill="#e7f4e8" stroke="#54865b" stroke-width="3"/>
+<text x="129" y="150" font-size="19" font-weight="700" fill="#24472a">1. Authorize</text><text x="129" y="183" font-size="14" fill="#24472a">Owner, systems, accounts</text><text x="129" y="207" font-size="14" fill="#24472a">time, methods, limits</text><text x="129" y="237" font-size="14" fill="#24472a">stop contacts</text>
+<rect x="268" y="112" width="190" height="154" rx="17" fill="#e6f1ff" stroke="#4a78ad" stroke-width="3"/>
+<text x="363" y="150" font-size="19" font-weight="700" fill="#18324d">2. Map</text><text x="363" y="183" font-size="14" fill="#18324d">Data flows, tools,</text><text x="363" y="207" font-size="14" fill="#18324d">identities, downstream</text><text x="363" y="237" font-size="14" fill="#18324d">effects and trust edges</text>
+<rect x="502" y="112" width="190" height="154" rx="17" fill="#fff3d6" stroke="#b78b28" stroke-width="3"/>
+<text x="597" y="150" font-size="19" font-weight="700" fill="#4e3b10">3. Bound tests</text><text x="597" y="183" font-size="14" fill="#4e3b10">Synthetic data, fixed suite</text><text x="597" y="207" font-size="14" fill="#4e3b10">request / cost / time caps</text><text x="597" y="237" font-size="14" fill="#4e3b10">no real extraction</text>
+<rect x="736" y="112" width="190" height="154" rx="17" fill="#fce8e6" stroke="#b75a50" stroke-width="3"/>
+<text x="831" y="150" font-size="19" font-weight="700" fill="#58231e">4. Run in scope</text><text x="831" y="183" font-size="14" fill="#58231e">Approved endpoint or</text><text x="831" y="207" font-size="14" fill="#58231e">isolated environment</text><text x="831" y="237" font-size="14" fill="#58231e">stop on limit / impact</text>
+<rect x="970" y="112" width="196" height="154" rx="17" fill="#e5f5f2" stroke="#458b80" stroke-width="3"/>
+<text x="1068" y="150" font-size="19" font-weight="700" fill="#1e4741">5. Verify and report</text><text x="1068" y="183" font-size="14" fill="#1e4741">Inspect tool traces and</text><text x="1068" y="207" font-size="14" fill="#1e4741">synthetic side effects</text><text x="1068" y="237" font-size="14" fill="#1e4741">minimal proof, owner review</text>
+</g>
+<g fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)">
+<path d="M224 189 H258"/><path d="M458 189 H492"/><path d="M692 189 H726"/><path d="M926 189 H960"/>
+</g>
+<rect x="294" y="342" width="612" height="90" rx="17" fill="#fde7e7" stroke="#b64c4c" stroke-width="3"/>
+<text x="600" y="376" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#632525">STOP and return to the owner</text>
+<text x="600" y="405" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#632525">Scope unclear • authorization missing • limit reached • unexpected real data or side effect</text>
+<path d="M831 266 V309 H906 V386" fill="none" stroke="#b64c4c" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M294 386 H129 V275" fill="none" stroke="#b64c4c" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<text x="600" y="487" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#41556b">Conceptual process. Testing plans, law, provider terms, and safe limits depend on the system and jurisdiction.</text>
+</svg>
