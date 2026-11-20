@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="520" viewBox="0 0 1500 520" role="img" aria-labelledby="title desc">
+<title id="title">A CAD fit loop for field hardware</title>
+<desc id="desc">Five steps: measure the real device, build a parameterized model, render and inspect it, print a small coupon or prototype and adjust the fit, then document the tested printer and material. Software checks do not prove physical fit.</desc>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#286585"/></marker></defs>
+<rect width="1500" height="520" rx="24" fill="#f6f9fc"/>
+<text x="40" y="54" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#16354b">From measured hardware to a verified fit</text>
+<g font-family="Arial, sans-serif" fill="#16354b">
+<rect x="35" y="105" width="255" height="265" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<circle cx="67" cy="140" r="20" fill="#286585"/><text x="67" y="147" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">1</text>
+<text x="58" y="195" font-size="22" font-weight="700">Measure hardware</text><text x="58" y="236" font-size="18">Body, ports, controls</text><text x="58" y="267" font-size="18">and cable clearances</text><text x="58" y="320" font-size="16" fill="#405b70">Record real dimensions</text>
+<path d="M296 237H322" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="330" y="105" width="255" height="265" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<circle cx="362" cy="140" r="20" fill="#286585"/><text x="362" y="147" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">2</text>
+<text x="353" y="195" font-size="22" font-weight="700">Parameterize</text><text x="353" y="236" font-size="18">Named dimensions</text><text x="353" y="267" font-size="18">and adjustable gaps</text><text x="353" y="320" font-size="16" fill="#405b70">Keep assumptions visible</text>
+<path d="M591 237H617" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="625" y="105" width="255" height="265" rx="16" fill="#e4f0f5" stroke="#8faebb" stroke-width="2"/>
+<circle cx="657" cy="140" r="20" fill="#286585"/><text x="657" y="147" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">3</text>
+<text x="648" y="195" font-size="22" font-weight="700">Render &amp; inspect</text><text x="648" y="236" font-size="18">Check geometry and</text><text x="648" y="267" font-size="18">device collisions</text><text x="648" y="320" font-size="16" fill="#405b70">Software check only</text>
+<path d="M886 237H912" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="920" y="105" width="255" height="265" rx="16" fill="#fff3d8" stroke="#caa86b" stroke-width="2"/>
+<circle cx="952" cy="140" r="20" fill="#8b6119"/><text x="952" y="147" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">4</text>
+<text x="943" y="195" font-size="22" font-weight="700">Test a small print</text><text x="943" y="236" font-size="18">Coupon or prototype</text><text x="943" y="267" font-size="18">with chosen material</text><text x="943" y="320" font-size="16" fill="#6b5127">Adjust, then retest</text>
+<path d="M1181 237H1207" stroke="#286585" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="1215" y="105" width="255" height="265" rx="16" fill="#e7f3eb" stroke="#9bbba5" stroke-width="2"/>
+<circle cx="1247" cy="140" r="20" fill="#36754c"/><text x="1247" y="147" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">5</text>
+<text x="1238" y="195" font-size="22" font-weight="700">Verify &amp; record</text><text x="1238" y="236" font-size="18">Fit, printer, material,</text><text x="1238" y="267" font-size="18">orientation and result</text><text x="1238" y="320" font-size="16" fill="#3a6848">Print-verified evidence</text>
+<rect x="35" y="405" width="1435" height="70" rx="14" fill="#16354b"/>
+<text x="58" y="450" font-size="19" font-weight="700" fill="#fff">A clean render or clash check is not proof of physical fit. Never use unvalidated prints for safety-critical parts.</text>
+</g></svg>
