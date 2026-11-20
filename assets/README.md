@@ -902,3 +902,9 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | Diagram | Embedded guide |
 |---|---|
 | [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#8-reconciliation) |
+
+## Classical Cipher Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) |

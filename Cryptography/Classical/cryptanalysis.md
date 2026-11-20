@@ -1,6 +1,6 @@
 # 🔍 Cryptanalysis
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-19_
 
 > [!IMPORTANT]
 > **Historical and educational content.** These attacks concern historical ciphers
@@ -59,22 +59,25 @@ Z   0.07%
 * **Single-letter words:** In English these are almost always `A` or `I`.
 * **Doubled letters:** Common doubles are `LL`, `EE`, `SS`, `OO`, `TT`.
 * **N-grams:** Common digraphs (`TH`, `HE`, `IN`, `ER`, `AN`) and trigraphs (`THE`, `AND`, `ING`).
-* **Pattern words (crib dragging):** `THAT` has the pattern `1-2-3-1`, `PEOPLE` has `1-2-3-1-4-2`. A ciphertext word with the same pattern is a candidate.
+* **Word-pattern matching:** `THAT` has the pattern `1-2-3-1`, `PEOPLE` has `1-2-3-1-4-2`. A ciphertext word with the same pattern is a candidate.
 * **Brute force:** A Caesar cipher has only 25 non-trivial keys, so try them all. A general substitution alphabet has 26! (about 4 × 10²⁶) keys, which is too many to brute-force, but frequency analysis and heuristic search can often recover sufficiently long natural-language messages. Runtime and success depend on the sample, language model, and search; short messages may remain ambiguous.
 
 ---
 
 ## Breaking Polyalphabetic Ciphers
 
-To break a Vigenère cipher, first find the key length *L*. Then the ciphertext splits into *L* columns, each a plain Caesar cipher that falls to frequency analysis.
+For a repeating-key Vigenère puzzle, estimate a candidate period *L*. If the
+period is correct, every *L*th letter was shifted by the same amount. Each
+column can then be scored as a Caesar cipher.
 
 ### The Kasiski Examination
 
-Common words (like `THE`) sometimes line up with the same part of the repeating key and produce identical ciphertext sequences. Measure the distances between repeated sequences; the key length is likely a common factor of those distances.
+Common words (like `THE`) sometimes line up with the same part of the repeating key and produce identical ciphertext sequences. Measure the distances between repeated sequences; look for recurring factors among several distances. Repeats can occur by chance.
 
 ### The Index of Coincidence (IC)
 
-William F. Friedman's Index of Coincidence (published 1922) measures how "rough" a letter distribution is: the probability that two letters drawn at random from the text are identical.
+William F. Friedman's Index of Coincidence (published 1922) estimates the probability that two distinct positions sampled uniformly from the
+text contain the same letter. [Friedman’s technical paper](https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/friedman-documents/publications/folder_233/41761039080018.pdf).
 
 ```
 IC = Σ nᵢ(nᵢ − 1) / (N(N − 1))
@@ -86,29 +89,32 @@ where *nᵢ* is the count of each letter and *N* is the total number of letters.
 | :--- | :--- |
 | Uniformly random letters | 1/26 ≈ **0.0385** |
 | English plaintext | ≈ **0.0667** |
-| Sample English text in this section | **0.0738** |
 
-**Worked demo.** A passage of English was encrypted with a 6-letter key. The ciphertext begins:
+**Worked demo.** A fictional ferry passage is encrypted with the six-letter key
+`HARBOR`. The scan averages the column IC for each proposed period. The graph
+shows why a high bar alone cannot settle the period. Both 6 and 12 stand
+out in this sample because stepping by either keeps each column on one key
+position.
 
-```
-KBLHW KJMQL WKQNI PQVUQ IDEJV PTDSI UBDMX ZOMHP XNCAI OIRIM DMAZU LDTMK ...
-```
+![Bar chart of mean column index of coincidence for candidate periods 1 through 12, with elevated values at 6 and 12](../../assets/diagrams/vigenere-candidate-periods.svg)
 
-The scan below splits the ciphertext into *L* columns for each guessed key length and averages the IC of the columns. Wrong guesses stay near random; the correct length (and its multiples) jumps toward English:
+Run this example from `Cryptography/Classical` to reproduce the plotted values.
+The toolkit advances the key and scans columns over letters only.
 
-```
-len  1  IC 0.0413  ████████████████████
-len  2  IC 0.0480  ███████████████████████
-len  3  IC 0.0522  ██████████████████████████
-len  4  IC 0.0502  █████████████████████████
-len  5  IC 0.0400  ███████████████████
-len  6  IC 0.0761  ██████████████████████████████████████   ← key length
-len  7  IC 0.0442  ██████████████████████
-len  8  IC 0.0548  ███████████████████████████
-len  9  IC 0.0494  ████████████████████████
-len 10  IC 0.0471  ███████████████████████
-len 11  IC 0.0403  ████████████████████
-len 12  IC 0.0823  █████████████████████████████████████████
+```python
+from cipher_toolkit import ic_scan, vigenere
+
+sentences = [
+    "The morning ferry crossed the harbor while the last lights along the shore faded.",
+    "A mechanic on the lower deck checked the engine and wrote the readings in a notebook.",
+    "Two passengers unfolded a map and traced the road from the landing to the market.",
+    "By the time the boat reached the far bank, the rain had stopped and the sky was clearing.",
+    "On the return trip a deckhand counted the empty seats and watched a gull follow the wake.",
+    "The captain slowed near the narrow channel where the current ran faster than expected.",
+]
+ciphertext = vigenere(" ".join(sentences), "HARBOR")
+for period, score in ic_scan(ciphertext):
+    print(f"{period:2} {score:.3f}")
 ```
 
 For a repeating Vigenère key, a candidate period *L* splits the text into candidate Caesar columns. A chi-squared score can rank shifts against reference language frequencies. Inspect multiple candidates and verify the complete message: short columns, accidental repeats, and multiples of the true period can mislead the analysis.

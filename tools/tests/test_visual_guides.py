@@ -215,6 +215,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
     ),
+    "assets/diagrams/vigenere-candidate-periods.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
 }
 
 
