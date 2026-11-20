@@ -684,8 +684,8 @@ sudo nano /etc/network/interfaces
 # auto eth0
 # iface eth0 inet static
 #     address 10.20.20.10/24
-#     gateway 10.20.20.1
-#     dns-nameservers 8.8.8.8 1.1.1.1
+#     # No gateway or public DNS in the disconnected profile.
+#     # Add only a lab-local resolver if one is configured and needed.
 ```
 
 **Snapshot Creation**:
@@ -720,15 +720,21 @@ qm start 201
 
 **Deployment**:
 ```bash
-# Create Windows 11 VM
+# Use a Windows release currently serviced for the selected edition.
+# Windows 11 23H2 Home/Pro stopped receiving updates on 2025-11-11.
+# Download the licensed/current ISO from Microsoft and verify its source.
+WIN11_ISO='Win11-REPLACE-WITH-CURRENT-SUPPORTED-RELEASE.iso'
+test -f "$WIN11_ISO" || { echo "Set WIN11_ISO to a verified local ISO"; exit 1; }
 qm create 202 --name win11-attacker --memory 8192 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=20 \
-    --cdrom local:iso/Win11_23H2_English_x64.iso \
+    --cdrom "local:iso/$WIN11_ISO" \
     --scsi0 local-lvm:80 --scsihw virtio-scsi-pci \
     --ostype win11
 
 # Add VirtIO drivers ISO
-qm set 202 --ide2 local:iso/virtio-win-0.1.229.iso,media=cdrom
+# Select and checksum-verify a currently supported VirtIO driver ISO compatible with the guest.
+# Example (replace with verified local filename):
+# qm set 202 --ide2 local:iso/virtio-win-REPLACE-WITH-RELEASE.iso,media=cdrom
 ```
 
 **Post-Installation Tools**:
@@ -750,11 +756,14 @@ qm set 202 --ide2 local:iso/virtio-win-0.1.229.iso,media=cdrom
 
 **Domain Controller (DC01)**:
 ```bash
-# Create Windows Server 2019 VM
-# vmbr1 must be a host-only/internal bridge with no physical uplink or route.
+# Select a currently supported Windows Server evaluation image from Microsoft's
+# official source; verify edition, lifecycle, and license terms before use.
+# vmbr1 must be an internal bridge with no physical uplink or route.
+WIN_SERVER_ISO='Windows-Server-REPLACE-WITH-VERIFIED-RELEASE.iso'
+test -f "$WIN_SERVER_ISO" || { echo "Set WIN_SERVER_ISO to a verified local ISO"; exit 1; }
 qm create 300 --name dc01-target --memory 16384 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=30 \
-    --cdrom local:iso/WinServer2019_Eval.iso \
+    --cdrom "local:iso/$WIN_SERVER_ISO" \
     --scsi0 local-lvm:80 --scsihw virtio-scsi-pci \
     --ostype win10
 
@@ -812,10 +821,13 @@ qm create 301 --name sql01-target --memory 16384 --cores 4 \
 
 **Windows Workstations (WKS01-05)**:
 ```bash
+# Create a template from the same verified, currently serviced Windows ISO.
+WIN11_ISO='Win11-REPLACE-WITH-CURRENT-SUPPORTED-RELEASE.iso'
+test -f "$WIN11_ISO" || { echo "Set WIN11_ISO to a verified local ISO"; exit 1; }
 # Create template
 qm create 310 --name wks-template --memory 4096 --cores 2 \
     --net0 virtio,bridge=vmbr1,tag=30 \
-    --cdrom local:iso/Win11_23H2_English_x64.iso \
+    --cdrom "local:iso/$WIN11_ISO" \
     --scsi0 local-lvm:60 --scsihw virtio-scsi-pci
 
 # Install Windows 11, join to domain
@@ -863,21 +875,22 @@ qm create 322 --name dvwa-ubuntu --memory 4096 --cores 2 \
     --cdrom local:iso/ubuntu-22.04-server.iso \
     --scsi0 local-lvm:40
 
-# Install Ubuntu Server, configure static IP 10.30.30.72
-# Install DVWA:
-sudo apt update && sudo apt install -y apache2 mariadb-server php php-mysqli php-gd git
-sudo git clone https://github.com/digininja/DVWA.git /var/www/html/dvwa
-sudo chown -R www-data:www-data /var/www/html/dvwa
-# Configure database, set security to low/medium
+# Follow the current official DVWA installation guide for this supported Ubuntu
+# release. Pin and verify the application revision before installing it.
+# Do not add NAT or a public default route to the vulnerable target to fetch
+# packages; stage and verify packages separately before the exercise.
+# Keep the intentionally vulnerable configuration disposable and lab-only.
 ```
 
 **OWASP Broken Web Apps VM**:
 ```bash
-# Download OVA
-wget https://sourceforge.net/projects/owaspbwa/files/latest/download -O owaspbwa.ova
-
-# Convert and import
-qm importovf 323 owaspbwa.ova local-lvm
+# Obtain a deliberately vulnerable image only from its current official
+# project source. Verify provenance and published integrity data; old images
+# may contain unsupported software. Import only after verifying the VM has no
+# external adapter or default route.
+OWASP_BWA_OVA='REPLACE-WITH-VERIFIED-LOCAL-FILENAME.ova'
+test -f "$OWASP_BWA_OVA" || { echo "Set the verified local OVA filename"; exit 1; }
+qm importovf 323 "$OWASP_BWA_OVA" local-lvm
 qm set 323 --name owasp-bwa --net0 virtio,bridge=vmbr1,tag=30
 # IP: 10.30.30.73
 ```
