@@ -1,8 +1,12 @@
 # Context Engineering & Memory Management for AI Agents
 
-_Last reviewed: 2026-11-09 · Scope: platform-neutral design, not a claim that every model has persistent memory._
+_Last reviewed: 2026-11-20 · Scope: platform-neutral design, not a claim that every model has persistent memory._
 
 Context engineering is the practice of deciding **which information is available to an AI at each decision**, in what order, with what authority and freshness, and what must remain outside the model. Memory is only one part of context engineering. A model cannot reliably recover an unseen document or verify stale status from memory alone.
+
+![Conceptual workflow keeping trusted policy, retrieved reference data, and live system evidence separate before verification and handoff](../assets/diagrams/ai-context-authority-evidence-freshness.svg)
+
+*Conceptual: host permissions and retrieval behavior vary by platform; an illustration does not validate a particular deployment.*
 
 ## 1. Understand the Context Layers
 

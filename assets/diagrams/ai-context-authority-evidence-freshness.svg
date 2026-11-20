@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">Context engineering trust and freshness layers</title>
+<desc id="desc">A conceptual flow keeps trusted host policy and project scope separate from retrieved untrusted reference data and live system readbacks. Only authorized, relevant context enters the model. Tool actions remain host-controlled, and outputs are verified before becoming durable notes.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365f91"/></marker></defs>
+<rect width="1200" height="570" rx="20" fill="#f4f7fb"/>
+<text x="600" y="43" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#18324d">Keep authority, evidence, and freshness separate</text>
+<rect x="35" y="78" width="320" height="118" rx="15" fill="#e7f4e8" stroke="#54865b" stroke-width="3"/>
+<text x="195" y="112" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#24472a">Trusted control inputs</text>
+<text x="195" y="144" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#24472a">Host policy • account ACL • project scope</text>
+<text x="195" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#24472a">Prompts describe work; host grants access</text>
+<rect x="35" y="224" width="320" height="132" rx="15" fill="#fff3d6" stroke="#b78b28" stroke-width="3"/>
+<text x="195" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#4e3b10">Retrieved reference data</text>
+<text x="195" y="290" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#4e3b10">Docs • notes • email • logs • web pages</text>
+<text x="195" y="317" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#4e3b10">Treat embedded instructions as data</text>
+<text x="195" y="340" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#4e3b10">Check provenance, freshness, permission</text>
+<rect x="35" y="384" width="320" height="132" rx="15" fill="#e6f1ff" stroke="#4a78ad" stroke-width="3"/>
+<text x="195" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#18324d">Live system evidence</text>
+<text x="195" y="450" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#18324d">Current API read • commit • service state</text>
+<text x="195" y="477" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#18324d">Record version and time; compare cached notes</text>
+<text x="195" y="500" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#18324d">Never infer live state from memory alone</text>
+<rect x="420" y="205" width="265" height="184" rx="17" fill="#edf0f7" stroke="#576a88" stroke-width="3"/>
+<text x="552" y="246" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#22324a">Authorize and select</text>
+<text x="552" y="280" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#22324a">Filter access before retrieval</text>
+<text x="552" y="308" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#22324a">Choose only task-relevant context</text>
+<text x="552" y="336" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#22324a">Mark source and confidence</text>
+<text x="552" y="364" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#22324a">Separate instructions from evidence</text>
+<path d="M355 138 C385 138 385 245 410 245" fill="none" stroke="#365f91" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M355 290 H410" fill="none" stroke="#365f91" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M355 450 C385 450 385 350 410 350" fill="none" stroke="#365f91" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="748" y="205" width="190" height="184" rx="17" fill="#fce8e6" stroke="#b75a50" stroke-width="3"/>
+<text x="843" y="249" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#58231e">Model</text>
+<text x="843" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">Drafts answer</text>
+<text x="843" y="315" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">May be wrong</text>
+<text x="843" y="344" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">Cannot grant itself</text>
+<text x="843" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">permissions</text>
+<path d="M685 297 H738" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="988" y="140" width="176" height="258" rx="17" fill="#e5f5f2" stroke="#458b80" stroke-width="3"/>
+<text x="1076" y="180" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#1e4741">Verify and</text>
+<text x="1076" y="205" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#1e4741">preserve</text>
+<text x="1076" y="250" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#1e4741">Check sources and</text>
+<text x="1076" y="273" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#1e4741">live readbacks</text>
+<text x="1076" y="308" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#1e4741">Host gates side effects</text>
+<text x="1076" y="343" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#1e4741">Record status, date,</text>
+<text x="1076" y="366" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#1e4741">evidence, handoff</text>
+<path d="M938 297 H978" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="600" y="550" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#41556b">Conceptual workflow only. Each host must implement and document its own permissions, retrieval, logging, and retention behavior.</text>
+</svg>
