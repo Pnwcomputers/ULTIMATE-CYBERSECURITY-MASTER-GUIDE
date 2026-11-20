@@ -1,9 +1,9 @@
-# 🔄 Change Log - November 19, 2026
+# 🔄 Change Log - November 20, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1815
-- **Files Modified**: 3228
-- **New Files**: 1236
+- **Commits Analyzed**: 1816
+- **Files Modified**: 3301
+- **New Files**: 1237
 - **Deleted Files**: 123
 
 ## 📝 Detailed Changes
@@ -1466,6 +1466,7 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Repository-wide safety and documentation review (#400) (`908e3a9`)
 - Repo-wide security and documentation review (`f8ebe5a`)
 - Refocus advanced exploit guide on defensive controls (#391) (`0045108`)
 - docs(visuals): embed SIP/RTP, Linux patch, Arduino & CTI provenance diagrams (#361) (`7cfc4ad`)
@@ -1839,12 +1840,84 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `.gitignore`
+- `AI/AnythingLLM/anything_llm_agentflows.md`
+- `AI/AnythingLLM/flow-cve_lookup.md`
+- `AI/AnythingLLM/flow-domain_recon.md`
+- `AI/AnythingLLM/flow-threat_intel.md`
+- `AI/offline-llm.md`
+- `AUDIT_FINDINGS.md`
+- `AUDIT_REPORT.md`
+- `DOCUMENTATION_INDEX.md`
+- `IncidentResponse/HoneyPot/cowrie.md`
+- `IncidentResponse/IDS&IPS/nzyme_wids.md`
+- `IncidentResponse/SIEM/wazuh.md`
+- `OSINT/Playbook/scripts/crypto_audit.sh`
+- `OSINT/Playbook/scripts/email_audit.sh`
+- `OSINT/Playbook/scripts/phone_audit.sh`
+- `PDF/README.md`
+- `REVIEW_2026-11-19.md`
+- `STYLE_GUIDE.md`
+- `Scripts/Bash/admin-panel-sniffer.sh`
+- `Scripts/Bash/arp-spoofing-detect.sh`
+- `Scripts/Bash/attack.sh`
+- `Scripts/Bash/fakemail.sh`
+- `Scripts/Bash/get-wifi-pass.sh`
+- `Scripts/Bash/gnupg_brute.sh`
+- `Scripts/Bash/hack-gmail.sh`
+- `Scripts/Bash/keylogger.sh`
+- `Scripts/Bash/local_user_brute.sh`
+- `Scripts/Bash/network-monitor.sh`
+- `Scripts/Bash/os_command_inj.sh`
+- `Scripts/Bash/port_hopper.sh`
+- `Scripts/Bash/recursive_search_backup.sh`
+- `Scripts/Bash/rev_shell_state_mon.sh`
+- `Scripts/Bash/shodan-api.sh`
+- `Scripts/Bash/start-capture.sh`
+- `Scripts/Bash/start-wlan.sh`
+- `Scripts/Bash/xss-vulnerability-finder.sh`
+- `Scripts/GO/ARCHIVE-INVENTORY.md`
+- `Scripts/GO/README.md`
+- `Scripts/GO/archive_manifest.json`
+- `Scripts/GO/bruteforce/brute_http_basic.go`
+- `Scripts/GO/bruteforce/brute_http_basic.py`
+- `Scripts/GO/bruteforce/brute_http_ntlm.py`
+- `Scripts/GO/bruteforce/cassbrute.py`
+- `Scripts/GO/bruteforce/firewarebf.py`
+- `Scripts/GO/bruteforce/multi_ssh.py`
+- `Scripts/GO/bruteforce/sw_ike.py`
+- `Scripts/GO/enumeration/ad_self_service_miner.py`
+- `Scripts/GO/exploit/ssh_pwn.py`
+- `Scripts/GO/exploit/ssh_super_virus.py`
+- `Scripts/GO/passwords/ikehash.sh`
+- `Scripts/GO/scan/do_ssh_proxy.py`
+- `Scripts/GO/scan/scan.py`
+- `Scripts/GO/webapp/dirb.py`
+- `Scripts/GO/webapp/discover.py`
+- `Scripts/GO/webapp/http_upload.py`
+- `Scripts/GO/webapp/rails_find.py`
+- `Scripts/GO/webapp/rails_secret_token.py`
+- `Scripts/GO/webapp/rails_secret_tokens.txt`
+- `Scripts/GO/webapp/web_discover.py`
+- `Scripts/Python/bindshell.py`
+- `Scripts/Python/firefox_parse.py`
+- `Scripts/Python/ids_foil.py`
+- `Scripts/Python/mitnick_attack.py`
+- `Scripts/Python/passwd_crack.py`
+- `Scripts/Python/send_spam.py`
+- `Scripts/Python/ssh_botnet.py`
+- `Scripts/Python/ssh_command.py`
+- `Scripts/Python/ssh_pxssh_command.py`
+- `Scripts/Python/zip_crack.py`
+- `Scripts/README.md`
+- `tools/tests/test_legacy_archive_manifest.py`
+- `uConsole/CM4-SETUP.md`
+- `uConsole/CM5-SETUP.md`
+- `CHANGELOG.md`
 - `.github/CONTRIBUTING.md`
 - `.github/SECURITY.md`
-- `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
 - `AI/AnythingLLM/flow-company_osint.md`
-- `AI/AnythingLLM/flow-domain_recon.md`
 - `AI/AnythingLLM/flow-email_osint.md`
 - `AI/AnythingLLM/flow-github_secrets.md`
 - `AI/AnythingLLM/flow-nmap_analyzer.md`
@@ -1852,7 +1925,6 @@
 - `AI/OpenClaw/README.md`
 - `AI/OpenClaw/agent_skill_config.md`
 - `AI/offensive_ai.md`
-- `AI/offline-llm.md`
 - `Checklists/AppLocker.md`
 - `Checklists/Credential-Access.md`
 - `Checklists/Defense-Evasion.md`
@@ -1876,22 +1948,17 @@
 - `HardwareTesting/py/stress_soak.py`
 - `Homelab/HomeLab_Setup.md`
 - `IncidentResponse/README.md`
-- `IncidentResponse/SIEM/wazuh.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
 - `Mobile/README.md`
 - `OSINT/OSINT_GUIDE.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/Playbook/investigation_guide.md`
-- `OSINT/Playbook/scripts/crypto_audit.sh`
-- `OSINT/Playbook/scripts/email_audit.sh`
-- `OSINT/Playbook/scripts/phone_audit.sh`
 - `OSINT/Playbook/scripts/scammer_audit.sh`
 - `OSINT/Playbook/scripts/threat_feed_check.sh`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `OSINT/scripts/Phone_OSINT.md`
-- `PDF/README.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `PlayBooks/README.md`
 - `PlayBooks/cybersecurity_playbooks.md`
@@ -1931,7 +1998,6 @@
 - `Scripts/Python/print_cookies.py`
 - `Scripts/Python/shellcode_inj.py`
 - `Scripts/Python/web_shell_inj.py`
-- `Scripts/README.md`
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/YAML/git_finder.yaml`
 - `Scripts/lib/safe_install.sh`
@@ -1950,15 +2016,10 @@
 - `Wardriving/sigroam-scout-lite.md`
 - `installer.sh`
 - `tools/tests/test_review_fixes.py`
-- `uConsole/CM4-SETUP.md`
-- `uConsole/CM5-SETUP.md`
 - `ultimate_cybersecurity_master_guide.md`
-- `CHANGELOG.md`
 - `Cloud/aws.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `Mobile/mobile_pentest_sop.md`
-- `Scripts/GO/ARCHIVE-INVENTORY.md`
-- `Scripts/GO/README.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/GO/shells/bypass.c`
 - `Scripts/GO/shells/insert_encoder.go`
@@ -1971,14 +2032,12 @@
 - `Documentation/LinuxCheatSheet.md`
 - `OSINT/docs/INSTALLATION.md`
 - `Scripts/Bash/binary_name_rotate.sh`
-- `Scripts/GO/archive_manifest.json`
 - `Scripts/GO/bruteforce/brute_http_form.py`
 - `Scripts/GO/bruteforce/brute_ssh_keyboard.py`
 - `Scripts/GO/shells/ishell.py`
 - `Scripts/GO/shells/shell.py`
 - `Scripts/Python/conficker.py`
 - `Scripts/Python/webshell_check.py`
-- `tools/tests/test_legacy_archive_manifest.py`
 - `advanced_techniques_supplement.md`
 - `.github/workflows/auto_changelog.yml`
 - `Checklists/Domain-Persistence.md`
@@ -2167,7 +2226,6 @@
 - `Compliance/frameworks.md`
 - `Compliance/pci-dss-scoping.md`
 - `Compliance/pci-scope-review-template.md`
-- `DOCUMENTATION_INDEX.md`
 - `WebAppSecurity/README.md`
 - `assets/diagrams/pci-dss-scoping-boundaries.svg`
 - `tools/tests/test_pci_scoping_docs.py`
@@ -2247,7 +2305,6 @@
 - `assets/diagrams/vpn-trust-boundaries.svg`
 - `IncidentResponse/IDS&IPS/readme.md`
 - `assets/diagrams/nzyme-band-split-tap-architecture.svg`
-- `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `assets/diagrams/nzyme-wazuh-event-ingestion.svg`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md`
 - `assets/diagrams/kismet-wazuh-live-and-offline-flow.svg`
@@ -2516,7 +2573,6 @@
 - `.github/ISSUE_TEMPLATE/verification_finding.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/workflows/maintenance-triage.yml`
-- `AI/AnythingLLM/flow-cve_lookup.md`
 - `AI/OpenClaw/use_cases.md`
 - `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/README.md`
@@ -2524,7 +2580,6 @@
 - `Documentation/references.md`
 - `Makefile`
 - `OSINT/Playbook/osint_investigator.sh`
-- `STYLE_GUIDE.md`
 - `Scripts/PowerShell/port_scanner.ps1`
 - `tests/hardening/test_osint_investigator.py`
 - `tools/repository_quality_audit.py`
@@ -2576,7 +2631,6 @@
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `Documentation/curated-technical-docs.md`
-- `AI/AnythingLLM/flow-threat_intel.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `tools/check_markdown_numbered_lists.py`
@@ -2629,13 +2683,11 @@
 - `Documentation/wireshark-filter-catalog.tsv`
 - `Documentation/wireshark-master-filters.md`
 - `tools/check_wireshark_filters.py`
-- `.gitignore`
 - `Scripts/PINNING.md`
 - `Scripts/tool_pins.conf`
 - `tests/hardening/test_pins_file.py`
 - `.github/workflows/wids-lab-tests.yml`
 - `IncidentResponse/HoneyPot/REVIEW-2026-10-31.md`
-- `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/HoneyPot/dionaea.md`
 - `IncidentResponse/HoneyPot/esp32-diy-honeypots.md`
 - `IncidentResponse/HoneyPot/esp32-s3-honeypots.md`
@@ -2701,14 +2753,11 @@
 - `Cryptography/Classical/build-your-own.md`
 - `Cryptography/Classical/leetspeak.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
-- `AUDIT_FINDINGS.md`
-- `AUDIT_REPORT.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
 - `Data-Engineering/Phase3/pipeline_testing_cicd.md`
 - `HardwareTesting/py/full_hw_suite.py`
 - `SDR/nanovna/tools/s1pdiff.py`
-- `Scripts/GO/bruteforce/cassbrute.py`
 - `tools/run_data_labs.py`
 - `SDR/nanovna/02-rf-fundamentals.md`
 - `SDR/nanovna/04-antenna-testing.md`
@@ -2761,7 +2810,6 @@
 - `Scripts/Bash/check_root_function.sh`
 - `Scripts/Bash/curl_banner_grab,sh`
 - `Scripts/Bash/host_monitor_notification.sh`
-- `Scripts/Bash/keylogger.sh`
 - `Scripts/Bash/nmap_OS_detect.sh`
 - `Scripts/Bash/nuclei-notifier.sh`
 - `Scripts/Bash/ping_w_argument.sh`
@@ -2885,7 +2933,6 @@
 - `AI/AnythingLLM/flow-CompanyOSINT.md`
 - `AI/AnythingLLM/anything_llm_agentflows,md`
 - `Scripts/Bash/admin-panel-finder.sh`
-- `Scripts/Python/bindshell.py`
 - `Scripts/Python/virus_check.py`
 - `Scripts/Python/__init__.py`
 - `Scripts/Python/anon_browser.py`
@@ -2900,11 +2947,9 @@
 - `Scripts/Python/google_earth_pcap.py`
 - `Scripts/Python/google_json.py`
 - `Scripts/Python/google_jumbled.py`
-- `Scripts/Python/ids_foil.py`
 - `Scripts/Python/image_mirror.py`
 - `Scripts/Python/kitten_test.py`
 - `Scripts/Python/link_parser.py`
-- `Scripts/Python/mitnick_attack.py`
 - `Scripts/Python/mlb-cities.txt`
 - `Scripts/Python/ninja_print.py`
 - `Scripts/Python/print_direction.py`
@@ -2912,7 +2957,6 @@
 - `Scripts/Python/rfcomm_scan.py`
 - `Scripts/Python/sdp_scan.py`
 - `Scripts/Python/send_mail.py`
-- `Scripts/Python/send_spam.py`
 - `Scripts/Python/sniff_hidden.py`
 - `Scripts/Python/sniff_probe.py`
 - `Scripts/Python/spoof_detect.py`
@@ -2928,28 +2972,19 @@
 - `Scripts/Python/view_page.py`
 - `Scripts/Python/dump_recyclebin.py`
 - `Scripts/Python/exif_fetch.py`
-- `Scripts/Python/firefox_parse.py`
 - `Scripts/Python/nmap_scan.py`
 - `Scripts/Python/pass.txt`
-- `Scripts/Python/passwd_crack.py`
 - `Scripts/Python/passwords.txt`
 - `Scripts/Python/pdf_read.py`
 - `Scripts/Python/port_scan.py`
 - `Scripts/Python/skype_parse.py`
-- `Scripts/Python/ssh_botnet.py`
-- `Scripts/Python/ssh_command.py`
-- `Scripts/Python/ssh_pxssh_command.py`
 - `Scripts/Python/userpass.txt`
 - `Scripts/Python/vuln_banners.txt`
-- `Scripts/Python/zip_crack.py`
 - `Scripts/GO/brute_http_basic.go`
 - `Scripts/wordpress_add_admin`
 - `Scripts/Bash/anon.sh`
-- `Scripts/Bash/attack.sh`
 - `Scripts/Bash/scan.sh`
-- `Scripts/Bash/start-capture.sh`
 - `Scripts/Bash/start-mon.sh`
-- `Scripts/Bash/start-wlan.sh`
 - `PDF/AD_Attacks_.pdf`
 - `PDF/AD_Post_Exploitation.pdf`
 - `PDF/Docker pen test.pdf`
@@ -2970,7 +3005,6 @@
 - `PDF/zero-day-hunter.pdf`
 - `Scripts/PowerShell/port-scan-tcp-compat.ps1`
 - `Scripts/PowerShell/port-scan-tcp.ps1`
-- `Scripts/GO/scan/do_ssh_proxy.py`
 - `Scripts/GO/scan/exploitable.go`
 - `Scripts/GO/scan/generate-transforms.sh`
 - `Scripts/GO/scan/gnmap2md.py`
@@ -2979,35 +3013,20 @@
 - `Scripts/GO/scan/nmapscan.sh`
 - `Scripts/GO/scan/plugin.py`
 - `Scripts/GO/scan/ports`
-- `Scripts/GO/scan/scan.py`
 - `Scripts/GO/scan/socksscan.go`
 - `Scripts/GO/webapp/bad.html`
 - `Scripts/GO/webapp/busta.sh`
 - `Scripts/GO/webapp/cfneo.rb`
 - `Scripts/GO/webapp/cfpwn.rb`
-- `Scripts/GO/webapp/dirb.py`
-- `Scripts/GO/webapp/discover.py`
-- `Scripts/GO/webapp/http_upload.py`
 - `Scripts/GO/webapp/proof.js`
-- `Scripts/GO/webapp/rails_find.py`
-- `Scripts/GO/webapp/rails_secret_token.py`
-- `Scripts/GO/webapp/rails_secret_tokens.txt`
 - `Scripts/GO/webapp/servers_to_burp.py`
 - `Scripts/GO/webapp/sweet32.go`
-- `Scripts/GO/webapp/web_discover.py`
 - `Scripts/Bash/bad_service.sh`
 - `Scripts/Bash/nmapscan.sh`
-- `Scripts/GO/bruteforce/brute_http_basic.go`
-- `Scripts/GO/bruteforce/brute_http_basic.py`
 - `Scripts/GO/bruteforce/brute_http_form.cfg`
-- `Scripts/GO/bruteforce/brute_http_ntlm.py`
-- `Scripts/GO/bruteforce/firewarebf.py`
-- `Scripts/GO/bruteforce/multi_ssh.py`
-- `Scripts/GO/bruteforce/sw_ike.py`
 - `Scripts/GO/cloud/s3browse.go`
 - `Scripts/GO/database/mysql_partial.go`
 - `Scripts/GO/database/mysql_search.py`
-- `Scripts/GO/enumeration/ad_self_service_miner.py`
 - `Scripts/GO/enumeration/censys_domain.go`
 - `Scripts/GO/enumeration/dnsbrute.py`
 - `Scripts/GO/enumeration/first_names.txt`
@@ -3017,13 +3036,10 @@
 - `Scripts/GO/enumeration/smtp_enum.py`
 - `Scripts/GO/enumeration/texttable.py`
 - `Scripts/GO/enumeration/usernames.py`
-- `Scripts/GO/exploit/ssh_pwn.py`
-- `Scripts/GO/exploit/ssh_super_virus.py`
 - `Scripts/GO/exploit/t3.go`
 - `Scripts/GO/osint/certquery.go`
 - `Scripts/GO/osint/gravatar.py`
 - `Scripts/GO/osint/shodan_ip.py`
-- `Scripts/GO/passwords/ikehash.sh`
 - `Scripts/GO/passwords/iterhash.go`
 - `Scripts/GO/passwords/passfilter.py`
 - `Scripts/GO/passwords/type7.py`
@@ -3041,23 +3057,14 @@
 - `Scripts/Bash/exercise_solution.sh`
 - `Scripts/C/getuser.c`
 - `Scripts/C/system_sleep.c`
-- `Scripts/Bash/admin-panel-sniffer.sh`
-- `Scripts/Bash/arp-spoofing-detect.sh`
-- `Scripts/Bash/fakemail.sh`
-- `Scripts/Bash/get-wifi-pass.sh`
-- `Scripts/Bash/hack-gmail.sh`
 - `Scripts/Bash/netdiscover.sh`
-- `Scripts/Bash/network-monitor.sh`
-- `Scripts/Bash/shodan-api.sh`
 - `Scripts/Bash/wpscan.sh`
-- `Scripts/Bash/xss-vulnerability-finder.sh`
 - `Scripts/GIT/git_finder`
 - `Scripts/C/get_user.c`
 - `Scripts/Bash/host_notify.sh`
 - `Scripts/Bash/ip_check.sh`
 - `Scripts/Bash/multi-host_ping.sh`
 - `Scripts/Bash/network_port_watch.sh`
-- `Scripts/Bash/os_command_inj.sh`
 - `Scripts/Bash/port_services_scan.sh`
 - `Scripts/Bash/string_compare.sh`
 - `Scripts/Bash/file_search.sh`
@@ -3073,14 +3080,11 @@
 - `Scripts/PowerShell/system_enum.ps1`
 - `Scripts/Python/port_scanner.py`
 - `Scripts/Python/simple_file_fuzzer.py`
-- `Scripts/Bash/recursive_search_backup.sh`
 - `Scripts/PowerShell/System_enum.ps1`
 - `Scripts/Bash/OS_command_inj.sh`
 - `Scripts/Bash/http_status_code.sh`
 - `Scripts/Python/Web_Shell_Inj.py`
 - `Scripts/Bash/Bash_Scripting_Cheat-Sheet.md`
-- `Scripts/Bash/rev_shell_state_mon.sh`
-- `Scripts/Bash/port_hopper.sh`
 - `Scripts/Wordpress_Add_Admin`
 - `Scripts/GIT/GITfinder`
 - `Scripts/Bash/server_site_DIR_scan.sh`
@@ -3088,9 +3092,7 @@
 - `Scripts/C/Get_User.c`
 - `Scripts/C/systemsleep.c`
 - `Scripts/Bash/systemsleep.c`
-- `Scripts/Bash/local_user_brute.sh`
 - `Scripts/Bash/gtfobins_search.sh`
-- `Scripts/Bash/gnupg_brute.sh`
 - `Scripts/Bash/Get_User.c`
 - `Scripts/Bash/check_root_user.sh`
 - `Scripts/Bash/home_DIR_accesschk.sh`
