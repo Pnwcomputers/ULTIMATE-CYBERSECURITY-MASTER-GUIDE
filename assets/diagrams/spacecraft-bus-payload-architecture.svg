@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" role="img" aria-labelledby="title desc">
+  <title id="title">Representative spacecraft bus and payload architectures</title>
+  <desc id="desc">A conceptual side-by-side comparison of small-satellite and geostationary communications spacecraft. Each panel separates common bus functions from the mission payload and notes that real architectures vary by mission.</desc>
+  <defs>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b4d}
+      .title{font-size:34px;font-weight:700}
+      .sub{font-size:18px;fill:#42526e}
+      .panel{fill:#fff;stroke:#b8c7da;stroke-width:2}
+      .head{font-size:25px;font-weight:700}
+      .tag{font-size:14px;font-weight:700;letter-spacing:1px;fill:#526581}
+      .bus{fill:#e8f1fb;stroke:#4580b4;stroke-width:2}
+      .payload{fill:#e9f5ed;stroke:#4d9464;stroke-width:2}
+      .item{fill:#fff;stroke:#95b7d6;stroke-width:1.5}
+      .pitem{fill:#fff;stroke:#9ac4a5;stroke-width:1.5}
+      .label{font-size:17px;font-weight:700}
+      .body{font-size:16px}
+      .small{font-size:14px;fill:#42526e}
+      .note{fill:#fff7e5;stroke:#e1bb65;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1280" height="880" fill="#f5f8fc"/>
+  <text x="640" y="52" text-anchor="middle" class="title">Representative spacecraft architectures</text>
+  <text x="640" y="82" text-anchor="middle" class="sub">Separate common spacecraft bus functions from the mission-specific payload</text>
+
+  <rect x="40" y="115" width="580" height="650" rx="18" class="panel"/>
+  <text x="70" y="158" class="tag">EXAMPLE CLASS 1</text>
+  <text x="70" y="195" class="head">LEO small satellite / CubeSat</text>
+
+  <rect x="70" y="220" width="520" height="90" rx="12" class="payload"/>
+  <text x="95" y="254" class="tag">MISSION PAYLOAD</text>
+  <text x="95" y="283" class="body">Instrument, sensor, or technology demonstration</text>
+
+  <text x="70" y="352" class="tag">SPACECRAFT BUS — SUPPORTS THE MISSION</text>
+  <rect x="70" y="370" width="250" height="82" rx="10" class="item"/>
+  <text x="195" y="402" text-anchor="middle" class="label">Command &amp; data</text>
+  <text x="195" y="427" text-anchor="middle" class="body">handling / mission computer</text>
+  <rect x="340" y="370" width="250" height="82" rx="10" class="item"/>
+  <text x="465" y="402" text-anchor="middle" class="label">Electrical power</text>
+  <text x="465" y="427" text-anchor="middle" class="body">generation, storage, distribution</text>
+  <rect x="70" y="470" width="250" height="82" rx="10" class="item"/>
+  <text x="195" y="502" text-anchor="middle" class="label">ADCS / GNC</text>
+  <text x="195" y="527" text-anchor="middle" class="body">attitude and navigation functions</text>
+  <rect x="340" y="470" width="250" height="82" rx="10" class="item"/>
+  <text x="465" y="502" text-anchor="middle" class="label">Communications</text>
+  <text x="465" y="527" text-anchor="middle" class="body">mission-dependent radio links</text>
+  <rect x="70" y="570" width="520" height="70" rx="10" class="item"/>
+  <text x="330" y="600" text-anchor="middle" class="label">Structure, mechanisms &amp; thermal control</text>
+  <text x="330" y="623" text-anchor="middle" class="small">Implementation depends on size, orbit, mission and provider</text>
+
+  <rect x="70" y="664" width="520" height="70" rx="10" class="note"/>
+  <text x="330" y="692" text-anchor="middle" class="label">Typical small-spacecraft view</text>
+  <text x="330" y="716" text-anchor="middle" class="small">Subsystems may be integrated, distributed or combined.</text>
+
+  <rect x="660" y="115" width="580" height="650" rx="18" class="panel"/>
+  <text x="690" y="158" class="tag">EXAMPLE CLASS 2</text>
+  <text x="690" y="195" class="head">GEO communications spacecraft</text>
+
+  <rect x="690" y="220" width="520" height="90" rx="12" class="payload"/>
+  <text x="715" y="254" class="tag">COMMUNICATIONS PAYLOAD</text>
+  <text x="715" y="283" class="body">Examples: transponders, antennas, onboard processing</text>
+
+  <text x="690" y="352" class="tag">SPACECRAFT BUS — SUPPORTS THE MISSION</text>
+  <rect x="690" y="370" width="250" height="82" rx="10" class="item"/>
+  <text x="815" y="402" text-anchor="middle" class="label">Command &amp; data</text>
+  <text x="815" y="427" text-anchor="middle" class="body">handling / mission computer</text>
+  <rect x="960" y="370" width="250" height="82" rx="10" class="item"/>
+  <text x="1085" y="402" text-anchor="middle" class="label">Electrical power</text>
+  <text x="1085" y="427" text-anchor="middle" class="body">generation, storage, distribution</text>
+  <rect x="690" y="470" width="250" height="82" rx="10" class="item"/>
+  <text x="815" y="502" text-anchor="middle" class="label">AOCS</text>
+  <text x="815" y="527" text-anchor="middle" class="body">attitude and orbit control</text>
+  <rect x="960" y="470" width="250" height="82" rx="10" class="item"/>
+  <text x="1085" y="502" text-anchor="middle" class="label">Communications</text>
+  <text x="1085" y="527" text-anchor="middle" class="body">telemetry, tracking &amp; command</text>
+  <rect x="690" y="570" width="520" height="70" rx="10" class="item"/>
+  <text x="950" y="600" text-anchor="middle" class="label">Structure, mechanisms &amp; thermal control</text>
+  <text x="950" y="623" text-anchor="middle" class="small">Often designed for long-duration, high-reliability service</text>
+
+  <rect x="690" y="664" width="520" height="70" rx="10" class="note"/>
+  <text x="950" y="692" text-anchor="middle" class="label">Typical communications-satellite view</text>
+  <text x="950" y="716" text-anchor="middle" class="small">Payload functions and bus boundaries vary by spacecraft.</text>
+
+  <text x="640" y="812" text-anchor="middle" class="small">Conceptual comparison only — not to scale, not a flight design, and not a security-boundary diagram.</text>
+  <text x="640" y="836" text-anchor="middle" class="small">Mission documents define the actual subsystem interfaces and protection requirements.</text>
+</svg>

@@ -49,7 +49,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 | [T-Pot Hive, Sensor & Administration](./diagrams/tpot-hive-sensor-management-boundaries.svg) | [T-Pot Deployment](../IncidentResponse/HoneyPot/tpot.md) | Decoy ingress and local sensor logs, optional Hive aggregation, isolated management and community sharing |
 | [Tsurugi OSINT Image & Evidence Flow](./diagrams/tsurugi-osint-image-provenance-case-flow.svg) | [Tsurugi Linux OSINT Workstation](../OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) | Official image, verified signed digest, isolated workstation, case-original evidence and reporting |
 
-## Splunk, Space Ground Systems, RF Calibration & HTTP Decoys
+## Spacecraft Architecture Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [Spacecraft bus and payload comparison](./diagrams/spacecraft-bus-payload-architecture.svg) | [Space Security appendices](../SpaceSecurity/Appendices.md#representative-spacecraft-architectures) |
+
 
 | Diagram | Embedded Guide | Verified Visual Subject |
 |---|---|---|
