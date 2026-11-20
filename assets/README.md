@@ -114,6 +114,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [OpenClaw use-case safety workflow](./diagrams/openclaw-use-case-safety-workflow.svg) | [OpenClaw Use Cases](../AI/OpenClaw/use_cases.md#before-using-a-prompt) | Connects data minimization, channel/scope checks, least-privilege tools, verification, and human approval |
 
+## AI Project Workspace Trust and Evidence Boundaries
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [AI project workspace trust boundaries](./diagrams/ai-project-workspace-trust-boundaries.svg) | [AI Projects, Notebooks, GPTs, Plugins and Reusable Assistants](../AI/ai-workspaces-notebooks-and-assistants.md#step-1--establish-the-trust-boundary) | Separates project context from host permissions, connected tools, provider data paths, human verification, and evidence handoff |
+
 ## Five-Layer Prompt to Evidence Handoff
 
 | Diagram | Embedded guide | Why it belongs |
