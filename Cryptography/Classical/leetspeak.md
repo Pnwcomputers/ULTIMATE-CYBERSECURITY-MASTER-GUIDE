@@ -1,6 +1,6 @@
 # 🔢 Leetspeak (1337)
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 > [!IMPORTANT]
 > **Historical and educational content.** Nothing in this section is secure for real
@@ -28,6 +28,17 @@ Leet is not one alphabet; it is a spectrum. The further down the table, the hard
 | 3 | Structural | Letters drawn from ASCII strokes | `\|-\|/-\(\|<3\|2` | `\|*/-\55\/\/()\|2\|)` |
 | 4 | Symbolic | Unicode/currency look-alikes | `♓₳©₭€®` | `₱₳§§ω()®Ð` |
 | 5 | Mixed / Ultra | Random mix of tiers + case | `\|-\|4(k3Я` | `P@$5\^/0\|2Ð` |
+
+
+```mermaid
+flowchart LR
+    word["Original text: PASSWORD"] -->|"A -> 4"| one["P4SSWORD"]
+    one -->|"S -> 5; O -> 0"| two["P455W0RD"]
+    two -->|"A -> @"| three["P@55W0RD"]
+    three --> conclusion["Readable variants; no secret key"]
+```
+
+*Leet changes how a word looks; it does not encrypt the text or add a secret key.*
 
 ## Basic Leet Chart
 
@@ -59,7 +70,7 @@ The most widely recognized one-for-one replacements.
 | **V** | `\/` | — |
 | **W** | `\/\/` | `vv` |
 | **X** | `><` | `%` |
-| **Y** | `'/` | ```/`` |
+| **Y** | `'/` | `¥` |
 | **Z** | `2` | `7_` |
 
 ## Advanced ("Ultra") Leet Chart
@@ -92,7 +103,7 @@ Structural leet draws each letter from multiple ASCII strokes. Symbolic leet bor
 | **V** | `\/` or `\|/` | `√` or `◊` |
 | **W** | `\/\/` or `\^/` | `₩` or `ω` |
 | **X** | `><` or `)(` | `×` or `ℵ` |
-| **Y** | `'/` or ```/`` | `¥` or `γ` |
+| **Y** | `'/` or `j` | `¥` or `γ` |
 | **Z** | `7_` or `>_` | `Ƶ` or `☡` |
 
 **Example: `HACKER`**
