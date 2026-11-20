@@ -1817,124 +1817,44 @@ The earlier sample files combined different collection routes and incomplete par
 
 # CUSTOM SCRIPTS & AUTOMATION
 
-## Black Hat Bash Lab Build
+## Vulnerable VM Lab Design
 
-### Complete Lab Environment Setup
+This section describes a lab layout, not an installation script. The previous shell block changed host networking, enabled forwarding, added a NAT rule, downloaded unverified files, and started vulnerable guests with default credentials and an unspecified VNC listener. Those actions did not establish the “isolated” environment claimed by the generated lab README.
 
-```bash
-#!/bin/bash
-# blackhat_bash_lab.sh - Build complete hacking lab
+### Isolation-first topology
 
-echo "=== BLACK HAT BASH LAB SETUP ==="
-
-# Variables
-NETWORK="10.66.66.0/24"
-GATEWAY="10.66.66.1"
-KALI_IP="10.66.66.10"
-TARGET_IP="10.66.66.100"
-
-# Create virtual network
-echo "[*] Creating virtual network..."
-sudo ip link add br-hacklab type bridge
-sudo ip addr add $GATEWAY/24 dev br-hacklab
-sudo ip link set br-hacklab up
-
-# Enable IP forwarding
-echo "[*] Enabling IP forwarding..."
-sudo sysctl -w net.ipv4.ip_forward=1
-
-# Configure NAT
-echo "[*] Setting up NAT..."
-sudo iptables -t nat -A POSTROUTING -s $NETWORK -o eth0 -j MASQUERADE
-
-# Create attacker VM
-echo "[*] Setting up Kali Linux VM..."
-virt-install \
-  --name kali-attacker \
-  --memory 4096 \
-  --vcpus 2 \
-  --disk size=40 \
-  --cdrom /path/to/kali-linux.iso \
-  --network bridge=br-hacklab \
-  --graphics vnc
-
-# Create vulnerable target VMs
-echo "[*] Setting up vulnerable target VMs..."
-
-# Metasploitable2
-virt-install \
-  --name metasploitable2 \
-  --memory 2048 \
-  --vcpus 1 \
-  --disk /path/to/metasploitable2.vmdk \
-  --import \
-  --network bridge=br-hacklab \
-  --graphics vnc
-
-# DVWA (deliberately vulnerable web application) — do not run on a
-# production, household or client LAN. The legacy Ubuntu 20.04 netboot
-# virt-install command was invalid and has been removed, not "repaired"
-# with a guessed image URL. Provision a supported, isolated guest from
-# a vendor-checksummed image before installing the current DVWA project
-# according to https://github.com/digininja/DVWA .
-# Verify published port bindings and isolation before starting it.
-# There is intentionally no executable DVWA VM command in this sketch.
-
-# VulnHub machines
-echo "[*] Downloading VulnHub machines..."
-mkdir -p ~/lab/vulnhub
-cd ~/lab/vulnhub
-
-# Download popular vulnerable VMs
-wget https://www.vulnhub.com/entry/kioptrix-2014-5,62/
-wget https://www.vulnhub.com/
-
-# Extract and import
-tar -xvf kioptrix2014.tar.bz2
-virt-install --import --name kioptrix --disk kioptrix2014.vmdk \
-  --memory 1024 --network bridge=br-hacklab
-
-echo "[*] Creating lab documentation..."
-cat > ~/lab/README.md << 'LAB_README'
-# Black Hat Bash Lab Environment
-
-## Network Topology
-```
-10.66.66.0/24 - Lab Network
-├── 10.66.66.1   - Gateway
-├── 10.66.66.10  - Kali Linux (Attacker)
-├── 10.66.66.100 - Metasploitable2
-├── 10.66.66.101 - DVWA
-└── 10.66.66.102 - Kioptrix
+```mermaid
+flowchart TB
+    subgraph HOST["Dedicated, patched virtualization host"]
+        M[Host management and local console]
+        V[Private virtual switch<br/>no physical uplink or forwarding]
+        A[Analyst workstation VM]
+        T1[Deliberately vulnerable target VM]
+        T2[Additional target VM]
+        A <--> V
+        T1 <--> V
+        T2 <--> V
+        M -. managed through host-only console .-> A
+        M -. managed through host-only console .-> T1
+    end
+    X[Home, work, and public networks]:::outside
+    V -.-|No route or bridge| X
+    classDef outside fill:#f3f4f6,stroke:#6b7280,color:#111827
 ```
 
-## Credentials
-- Metasploitable2: msfadmin/msfadmin
-- DVWA: admin/password
-- Kioptrix: Various
+The virtual switch should have no bridge to a physical adapter and no NAT or routed egress when the exercise does not require it. NAT still permits guest-initiated traffic beyond the lab; it should not be described as offline isolation. A hypervisor's “isolated” network mode may still permit guest-to-host communication, so verify the exact host and guest reachability for the chosen platform and version. See the [libvirt network model](https://www.libvirt.org/formatnetwork.html).
 
-## Lab Exercises
-1. Network reconnaissance
-2. Vulnerability scanning
-3. Exploitation
-4. Post-exploitation
-5. Privilege escalation
-6. Lateral movement
+### Before starting vulnerable guests
 
-## Safety Reminders
-- This lab is ISOLATED from production networks
-- All activities are LEGAL within this environment
-- NEVER test these techniques outside authorized environments
-LAB_README
+- Use a dedicated, patched host or a disposable environment. Do not run deliberately vulnerable guests on a work, household, or production network.
+- Keep the lab network disconnected from physical interfaces. Verify that guests cannot reach the LAN or internet and that untrusted networks cannot reach the guests.
+- Disable shared folders, clipboard sharing, USB passthrough, and other host/guest integrations unless a specific exercise needs them.
+- Keep management interfaces and graphical consoles on the host or a separately protected management network. Check the actual listen address and access controls rather than relying on a console default; consult the [libvirt domain display settings](https://www.libvirt.org/formatdomain.html).
+- Obtain virtual-machine images from the project or publisher, verify available signatures or checksums, and record image/version provenance. Take a clean snapshot before each exercise and revert or discard the guest afterward.
+- Use synthetic accounts and credentials only. Never reuse personal or organization passwords in a vulnerable guest; treat any intentional default credentials as confined to the lab.
+- Keep an inventory of guests, image versions, network settings, owner, exercise scope, and cleanup date.
 
-echo "[+] Lab setup complete!"
-echo "[*] Access VMs via VNC on localhost"
-echo "[*] Lab documentation: ~/lab/README.md"
-```
-
-[Return to Table of Contents](#table-of-contents---enhanced-edition)
-
----
+DVWA is intentionally vulnerable. Its maintainers warn against placing it on an internet-facing server and recommend a virtual machine for controlled use; their current setup guidance also uses a loopback-only port binding as the safe default for local container access. Follow the [official DVWA README](https://github.com/digininja/DVWA/blob/master/README.md) and [current compose file](https://github.com/digininja/DVWA/blob/master/compose.yml) for the version you choose, and verify that published services remain limited to the intended lab.
 
 ## Network Automation Scripts
 
