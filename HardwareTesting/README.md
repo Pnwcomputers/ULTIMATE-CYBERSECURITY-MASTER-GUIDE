@@ -212,64 +212,31 @@ pamac install phoronix-test-suite
 
 ## Source-built GPU Diagnostic Tools
 
-### `memtest_vulkan` - Cross-vendor Vulkan VRAM Stability Test
+`memtest_vulkan` supports VRAM testing through Vulkan; `gpu-burn` is an
+optional NVIDIA/CUDA stress test. Building either project from source and
+installing it under `/usr/local/bin` runs a locally compiled binary with
+system-wide effect. Use a dedicated test bench, review the exact source revision,
+and avoid building from a moving default branch.
 
-`memtest_vulkan` is used by the GPU scripts for VRAM stability testing. It is useful for AMD, NVIDIA, and Intel GPUs as long as the system exposes a working Vulkan device.
+The repository's [optional installer](./install_testbench_tools.sh) pins exact
+upstream commits, checks the configured remote and a clean checkout, builds as
+the normal user, and uses administrator privileges only for installation.
+**A commit pin is not a signature or safety proof:** the upstream commits are
+unsigned and still require source review. The installer also skips `gpu-burn`
+if the installed CUDA/host-compiler combination is incompatible; it does not
+disable NVIDIA's compatibility check.
 
-```bash
-mkdir -p ~/src
-cd ~/src
-
-if [ ! -d memtest_vulkan ]; then
-  git clone https://github.com/GpuZelenograd/memtest_vulkan.git
-fi
-
-cd memtest_vulkan
-git pull
-cargo build --release
-sudo install -m 755 target/release/memtest_vulkan /usr/local/bin/memtest_vulkan
+```mermaid
+flowchart LR
+    A[Confirm test bench and tool need] --> B[Review exact upstream source and pinned commit]
+    B --> C[Build as an unprivileged user with a supported toolchain]
+    C --> D[Inspect the output and validate it on a dedicated bench]
+    D --> E[Install the reviewed binary with administrator approval]
 ```
 
-Verify:
-
-```bash
-command -v memtest_vulkan
-memtest_vulkan
-```
-
-Stop the test with `Ctrl+C` after confirming it starts and detects the correct GPU.
-
-### `gpu-burn` - NVIDIA CUDA Stress Test
-
-`gpu-burn` is NVIDIA/CUDA-specific. It is only needed for NVIDIA diagnostic runs that use the `--gpu-burn` option.
-
-```bash
-mkdir -p ~/src
-cd ~/src
-
-if command -v nvcc >/dev/null 2>&1; then
-  if [ ! -d gpu-burn ]; then
-    git clone https://github.com/wilicc/gpu-burn.git
-  fi
-
-  cd gpu-burn
-  git pull
-  make
-
-  sudo install -m 755 gpu_burn /usr/local/bin/gpu-burn
-  sudo ln -sf /usr/local/bin/gpu-burn /usr/local/bin/gpu_burn
-else
-  echo "nvcc was not found. Skipping gpu-burn build."
-  echo "Install/repair CUDA first if this bench needs NVIDIA gpu-burn testing."
-fi
-```
-
-Verify:
-
-```bash
-gpu-burn -l
-gpu-burn 60
-```
+*This is a review workflow, not a reproducible-build guarantee. Avoid prolonged
+GPU stress on customer or production systems; monitor temperatures and stop on
+instability or unsafe operating conditions.*
 
 ---
 
