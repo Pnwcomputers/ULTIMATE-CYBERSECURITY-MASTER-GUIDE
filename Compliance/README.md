@@ -91,7 +91,7 @@ matter most**; governance ensures they are **owned and maintained**.
 | An internationally recognized certification | **ISO/IEC 27001:2022** |
 | Assure customers/partners of your controls (SaaS/service orgs) | **SOC 2** |
 | Handle payment-account data or systems affecting CDE security | **PCI DSS 4.0.1** (scope and validation depend on the applicable payment program) |
-| A prioritized, prescriptive starting set of controls | **CIS Controls v8** |
+| A prioritized, prescriptive starting set of controls | **CIS Controls v8.1** |
 | A US federal / government-adjacent baseline | **NIST SP 800-53 / 800-171** |
 
 Details in [frameworks.md](./frameworks.md). For PCI DSS, scope includes entities that store, process, or transmit cardholder data (CHD) or sensitive authentication data (SAD), and systems that can affect CDE security. The relevant payment brand, acquirer, or other compliance-accepting entity determines validation and reporting expectations; confirm the applicable scope and method with them and a qualified assessor. See the [PCI DSS overview](https://www.pcisecuritystandards.org/standards/pci-dss/) and [PCI SSC FAQ 1473](https://www.pcisecuritystandards.org/faqs/1473/).
