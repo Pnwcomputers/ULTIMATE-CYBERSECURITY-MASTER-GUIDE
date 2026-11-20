@@ -2,15 +2,19 @@
 
 ## 🎯 Purpose
 
-Define standardized, repeatable processes-aligned to NIST SP 800-61 r2 and ISO/IEC 27035-for detecting, analyzing, containing, and recovering from security incidents.
+Define repeatable **organization-specific** procedures for incident preparation, detection, analysis, containment, recovery and improvement. [NIST SP 800-61 Revision 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final), finalized in April 2025, uses the [CSF 2.0](https://www.nist.gov/cyberframework) risk-management profile. This guide's operational step sequence is not a mandatory NIST phase model or proof of ISO/IEC 27035 conformance.
+
+![Incident response as continuing CSF 2.0 governance and readiness, detection, response and recovery activities with feedback and verified evidence](../assets/diagrams/incident-response-nist-800-61r3-csf2-operations.svg)
+
+*Conceptual local procedure crosswalk; not a four-phase prescription from NIST.* The [official NIST SP 800-61 Rev. 3 publication](https://csrc.nist.gov/pubs/sp/800/61/r3/final) replaces Rev. 2 and integrates incident response into [CSF 2.0](https://www.nist.gov/cyberframework). Organizations must choose procedures, owners, tools and actual risk-based controls appropriate to their environment.
 
 ## ⚙️ Function
 
-The same seven-phase lifecycle as `BlueTeam_IncResp_Simple.md`, expanded with specific named tooling per role (Splunk ES/QRadar/Elastic, CrowdStrike Falcon, FTK Imager, Ghidra/IDA Pro, ServiceNow), explicit NIST SP 800-61 r2 / ISO 27035 framework alignment, and enterprise-scale assumptions (24×7 SOC, formal CMDB, dedicated forensic workstations).
+An expanded operational procedure aligned conceptually with [NIST SP 800-61r3](https://csrc.nist.gov/pubs/sp/800/61/r3/final) and CSF 2.0, with optional named enterprise tools. It retains local preparation, identification, containment, eradication, recovery and review tasks but does **not** claim that NIST requires these as a fixed phase count. Larger-team capabilities (24×7 SOC, CMDB, forensic workstations) are assumed examples, not guaranteed deployments.
 
 ## 🏆 Goal
 
-Provide a framework-defensible incident response procedure suitable for organizations that need to demonstrate compliance alignment (audits, cyber insurance, regulatory review) alongside operational effectiveness - not just "what to do" but "what to do, mapped to the standard an auditor will ask about."
+Provide an auditable incident-response **starting template** with named owners, decisions, evidence and improvement checks. A template, software list or diagram does not by itself prove NIST/ISO compliance, insurance eligibility or response effectiveness.
 
 ## 📋 When to Use
 
@@ -20,7 +24,7 @@ Provide a framework-defensible incident response procedure suitable for organiza
 
 ### Scope:
 
-Covers any incident impacting on-prem or cloud systems-including malware, data exfiltration, unauthorized access, DoS, insider threats, and supply-chain compromises-across all corporate assets (endpoints, servers, network devices, cloud workloads, OT) under 24×7 monitoring.
+Intended to be adapted to authorized on-prem, cloud and OT assets. Verify actual team coverage hours, sensors, asset scope, escalation owners and operational dependencies; do not assume 24×7 monitoring is deployed.
 
 ---
 
@@ -44,22 +48,24 @@ Covers any incident impacting on-prem or cloud systems-including malware, data e
 - CMDB (ServiceNow) tracking all servers, endpoints, applications, network segments, business owners.
 
 ### 2. Baseline & Logging
-- **SIEM:** Splunk Enterprise Security, IBM QRadar, or Elastic Security with ≥ 90 days retention.
+- **SIEM:** Splunk Enterprise Security, IBM QRadar or Elastic Security, with tested ingestion and retention periods selected from documented legal, policy, threat and recovery requirements. Ninety days is not a universal requirement.
 - **EDR:** CrowdStrike Falcon, Microsoft Defender for Endpoint.
 - **Network IDS/IPS:** Suricata and Zeek deployed on Security Onion or Corelight.
 
 ### 3. Tooling & Access
 - Ensure IR team has privileged SSH/RDP, admin accounts on forensic workstations, evidence locker (Azure Blob/SharePoint), VPN jump boxes, and ticketing (ServiceNow/Jira Service Desk).
 
-### Escalation Contacts:
+### Escalation Contacts (fill in before any incident)
 
-| Stakeholder | Name / Team | Email | Phone |
-|-------------|-------------|-------|-------|
-| Chief Information Security Officer (CISO) | Jane Doe | j.doe@company.com | +1 555-1234 |
-| Legal Counsel | Acme Law LLP | security@acmelaw.com | +1 555-2345 |
-| PR Agency | BrightPoint Communications | press@brightpoint.com | +1 555-3456 |
-| IT Operations Manager | John Smith | j.smith@company.com | +1 555-4567 |
-| External Law Enforcement Liaison | FBI Cyber Division (San Francisco) | sfoc@ic.fbi.gov | +1 206-622-0460 |
+| Stakeholder | Responsible owner | Email / channel | Verified phone |
+|---|---|---|---|
+| Incident lead | Assign by on-call rotation | `incident-lead@example.com` (placeholder) | Enter verified on-call number |
+| Legal / privacy | Assign named counsel | `legal@example.com` (placeholder) | Enter verified counsel number |
+| Communications | Assign authorized spokesperson | `communications@example.com` (placeholder) | Enter verified escalation number |
+| IT operations | Assign responsible service owner | `operations@example.com` (placeholder) | Enter verified escalation number |
+| Law enforcement / regulator | Determine approved liaison and jurisdiction | Use verified official reporting site or counsel | Verify directly through official channels |
+
+**Do not use this table as a real contact directory.** The `example.com` entries are deliberately non-delivering documentation placeholders. Confirm the correct agency contact from its official website at the time of an incident; never rely on copied emails or telephone numbers in a public playbook. For US internet crime reporting, see [FBI IC3](https://www.ic3.gov/), subject to counsel and incident-reporting obligations.
 
 ### 4. Playbook Testing
 - Quarterly tabletop exercises following NIST SP 800-84: phishing, ransomware, insider threat, DDoS scenarios.
