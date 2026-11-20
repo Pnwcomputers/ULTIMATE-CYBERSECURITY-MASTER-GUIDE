@@ -84,6 +84,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [HIBP metadata privacy workflow](./diagrams/hibp-breach-metadata-privacy-workflow.svg) | [Breach Exposure Check AgentFlow](../AI/AnythingLLM/flow-breacher_check.md#suggested-flow); [Email Account Exposure Review](../AI/AnythingLLM/flow-email_osint.md#authorized-use-and-privacy) | Shows consent, metadata minimization, interpretation limits, and owner-directed next steps for related HIBP account checks |
 
+## Company OSINT Source Confidence & Scope
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Company OSINT source confidence and scope](./diagrams/company-osint-source-confidence-scope.svg) | [CompanyOSINT AgentFlow](../AI/AnythingLLM/flow-company_osint.md#scope-and-safeguards) | Separates permitted sources, provenance, organization-only analysis, independent verification, and human scope review |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
