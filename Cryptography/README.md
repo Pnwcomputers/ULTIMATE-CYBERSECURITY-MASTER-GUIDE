@@ -60,8 +60,8 @@ choices and recognizing the recurring mistakes - grounded in NIST guidance.
 
 Cryptography is referenced throughout this repository (TLS, hashing, password
 storage, VPNs, disk encryption) but had no dedicated home. This section
-consolidates it into fundamentals, an algorithm reference, and applied guidance -
-all aligned with current **NIST/FIPS** standards.
+consolidates it into fundamentals, an algorithm reference, and applied guidance,
+grounded in current recommendations with NIST/FIPS applicability stated where relevant.
 
 The three primitive families:
 
@@ -78,9 +78,9 @@ The three primitive families:
 > [!WARNING]
 > **Don't roll your own crypto.** Use well-reviewed, maintained libraries
 > (libsodium, the platform's TLS stack, `cryptography` for Python, Tink) and
-> vetted protocols. Almost every real-world cryptographic failure is a
-> *misuse* - wrong mode, reused nonce, hardcoded key, fast hash for passwords -
-> not a broken algorithm. Prefer **high-level, misuse-resistant** APIs.
+> vetted protocols. Many practical cryptographic failures arise from unsafe use -
+> such as a wrong mode, nonce reuse, hardcoded keys or fast password hashes -
+> rather than a break of a sound algorithm. Prefer **high-level, misuse-resistant** APIs.
 
 ---
 
@@ -97,11 +97,26 @@ The three primitive families:
 | Symmetric encryption | AES-256-GCM, ChaCha20-Poly1305 (AEAD) | DES, 3DES, RC4, AES-ECB |
 | Unkeyed digest (accidental corruption detection) | SHA-256/384/512, SHA-3 | MD5, SHA-1 for new security designs |
 | Password storage | Argon2id, scrypt, bcrypt, PBKDF2 | MD5/SHA "fast" hashes, unsalted hashes |
-| Asymmetric / key exchange | RSA ≥ 3072, ECC (P-256, Curve25519), ECDH | RSA ≤ 1024, static DH, custom curves |
+| Asymmetric operations / key agreement | RSA ≥ 3072 where RSA is appropriate; ECDH on P-256 or X25519 for key agreement | RSA ≤ 1024, static DH, custom curves |
 | Signatures | Ed25519, ECDSA (P-256), RSA-PSS | RSA ≤ 1024, DSA |
-| Transport | TLS 1.3 (1.2 acceptable) | TLS 1.0/1.1, SSLv3 |
+| Transport | TLS 1.3 preferred; TLS 1.2 only with policy-approved suites and configuration | TLS 1.0/1.1, SSLv3 |
 
-Deprecations follow [NIST SP 800-131A Rev. 2](https://csrc.nist.gov/pubs/sp/800/131/a/r2/final) and subsequent transition notices. New protection with three-key TDEA/3DES is disallowed under the relevant NIST transition after 2023, while narrowly defined legacy decryption is a distinct case; SHA-1 restrictions depend on the cryptographic application and transition deadline. A plain SHA-256 digest detects accidental changes but does **not** authenticate the sender or protect against an attacker who can replace both file and digest. See [algorithms.md](./algorithms.md) and [NIST's SHA-1 transition notice](https://csrc.nist.gov/News/2022/nist-transitioning-away-from-sha-1-for-all-apps).
+These are general-purpose recommendations, not a compliance determination. Applicable NIST/FIPS requirements depend on the cryptographic function, algorithm parameters and mode. Where FIPS 140 validation is required, verify the exact [CMVP-listed module](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules), operational environment and approved mode; an algorithm name alone does not establish a validated deployment.
+
+```mermaid
+flowchart LR
+    A["Choose a primitive for its intended function"] --> B["Check applicable standard, parameters and mode"]
+    B --> C{"FIPS 140 required?"}
+    C -->|Yes| D["Verify exact CMVP module, version and environment"]
+    D --> E["Confirm the module is configured in its approved mode"]
+    C -->|No| F["Apply protocol, threat model and organizational policy"]
+```
+
+*Selection aid only; it does not certify an algorithm, product or deployment.*
+
+TLS 1.2 acceptability is policy- and configuration-dependent. NIST SP 800-52 Rev. 2 currently requires TLS 1.2 with FIPS-based cipher suites and TLS 1.3 support for federal client/server implementations; NIST announced a future revision plan in November 2026, so check the applicable current policy and publication before relying on this summary. See [NIST SP 800-52 Rev. 2](https://csrc.nist.gov/pubs/sp/800/52/r2/final).
+
+Deprecations follow [NIST SP 800-131A Rev. 2](https://csrc.nist.gov/pubs/sp/800/131/a/r2/final) and subsequent transition notices. New protection with three-key TDEA/3DES is disallowed under the relevant NIST transition after 2023, while narrowly defined legacy decryption is a distinct case. NIST's published plan transitions away from SHA-1 for applying cryptographic protection by December 31, 2030; processing information protected before that date is a separate legacy case under applicable guidance. A plain SHA-256 digest detects accidental changes but does **not** authenticate the sender or protect against an attacker who can replace both file and digest. See [algorithms.md](./algorithms.md) and [NIST's SHA-1 transition notice](https://csrc.nist.gov/News/2022/nist-transitioning-away-from-sha-1-for-all-apps).
 
 ---
 
