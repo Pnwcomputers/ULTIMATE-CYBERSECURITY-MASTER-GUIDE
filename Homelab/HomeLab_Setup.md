@@ -1086,7 +1086,9 @@ daily-use or production host.
 ```bash
 # Already on Kali
 # Launch with API enabled for automation
-zaproxy -daemon -port 8090 -config api.key=mysecretapikey
+# Enable the API only when required. Set a random key in protected local
+# configuration, restrict allowed clients to the lab, and bind to a lab-only
+# interface. Do not use a sample/shared key or expose the API publicly.
 ```
 
 **Web application validation:** Use the training application's safe test suite and code/configuration review first. Any active scanner must be limited to a disposable local target and written scope; avoid high-impact settings and stop if the request could affect data outside the lab.
@@ -1513,109 +1515,11 @@ index=linux sourcetype=syslog "connection" | stats count by src_ip, dest_ip, des
 index=network_traffic | stats dc(dest_port) as port_count by src_ip | where port_count > 100
 ```
 
-### ELK Stack (Elasticsearch, Logstash, Kibana)
+### Elastic Stack (Elasticsearch, Logstash, Kibana)
 
-**Docker Compose Deployment**:
-```bash
-# Install Docker on dedicated VM
-qm create 412 --name elk-stack --memory 8192 --cores 2 \
-    --net0 virtio,bridge=vmbr1,tag=40 \
-    --cdrom local:iso/ubuntu-22.04-server.iso \
-    --scsi0 local-lvm:100
+Use the current Elastic deployment guide for a supported, pinned release and enable authentication, TLS, and the data-volume protections provided by that release. Docker Compose publishes ports on all host interfaces by default unless a host address is specified; bind management services only to the isolated monitoring interface or loopback, and confirm host firewall rules. Do not copy the retired 8.11.0 sample. See the [Docker Compose port-publishing documentation](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/) and current [Elastic installation guidance](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html).
 
-# Install Docker Engine and the Compose plugin from Docker's signed apt repository;
-# follow the current official Ubuntu instructions for repository/key setup and package versions.
-# Avoid the convenience script on persistent hosts. Docker-published ports can bypass
-# some host firewall rules, so review the network exposure before starting services.
-# https://docs.docker.com/engine/install/ubuntu/
-# Install docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin
-
-# Create docker-compose.yml
-cat <<EOF > docker-compose.yml
-version: '3'
-services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    environment:
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-    ports:
-      - 9200:9200
-    volumes:
-      - es-data:/usr/share/elasticsearch/data
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:8.11.0
-    ports:
-      - 5044:5044
-      - 514:514/udp
-    volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    depends_on:
-      - elasticsearch
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.11.0
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch
-
-volumes:
-  es-data:
-EOF
-
-# Start ELK
-docker-compose up -d
-```
-
-**Logstash Configuration** (`logstash.conf`):
-```ruby
-input {
-  # Syslog input
-  syslog {
-    port => 514
-    type => "syslog"
-  }
-  
-  # Beats input (Filebeat, Winlogbeat)
-  beats {
-    port => 5044
-  }
-}
-
-filter {
-  # Parse Suricata alerts
-  if [type] == "suricata" {
-    json {
-      source => "message"
-    }
-  }
-  
-  # Parse Windows Event Logs
-  if [type] == "wineventlog" {
-    mutate {
-      rename => {
-        "[event_data][CommandLine]" => "command_line"
-        "[event_data][ProcessId]" => "process_id"
-      }
-    }
-  }
-}
-
-output {
-  elasticsearch {
-    hosts => ["elasticsearch:9200"]
-    index => "pentest-logs-%{+YYYY.MM.dd}"
-  }
-  
-  stdout {
-    codec => rubydebug
-  }
-}
-```
-
-**Kibana Dashboard**: http://10.40.40.12:5601
+Send only approved logs from lab targets to the collector. Keep packet capture on a dedicated SPAN/TAP sensor interface. Do not put credentials, captures, or client reports on broadly writable volumes.
 
 ### Wazuh HIDS/SIEM
 
@@ -1837,21 +1741,7 @@ qm create 340 --name bof-practice --memory 2048 --cores 1 \
 # - Minishare
 ```
 
-**Pivoting Practice**:
-```bash
-# Deploy dual-homed target (connected to hidden network)
-qm create 341 --name pivot-target --memory 2048 --cores 1 \
-    --net0 virtio,bridge=vmbr1,tag=30 \
-    --net1 virtio,bridge=vmbr1,tag=50  # Hidden network
-    --cdrom local:iso/ubuntu-22.04-server.iso \
-    --scsi0 local-lvm:40
-
-# Practice techniques:
-# - SSH tunneling
-# - Chisel
-# - Ligolo-ng
-# - Metasploit autoroute
-```
+**Route-boundary review:** In a disposable topology, document the only exercise-specific routes and firewall allows. Verify that management, target, and restricted-analysis segments cannot reach unrelated networks. Use the existing segmentation diagrams and firewall logs; do not create hidden or dual-homed targets as a shortcut.
 
 **OSCP-Style Practice Boxes**:
 - Use VulnHub OSCP-like VMs
@@ -1928,26 +1818,25 @@ qm clone 300 302 --name dc02-child
 1. **Never connect Target VLAN directly to internet**
    - All vulnerable VMs must be isolated
    - No direct routing to WAN
-   - Exception: Windows updates through controlled firewall rules
+   - For updates, use a separately approved staging and transfer path; disconnect it before vulnerable-target exercises.
 
 2. **Never test on production networks**
    - Lab is isolated for a reason
    - Penetration testing without authorization is illegal
 
-3. **Always verify network segmentation**
-   ```bash
-   # Test from Attack VLAN
-   ping 10.10.10.5  # Should FAIL (Management VLAN)
-   ping 10.30.30.10 # Should SUCCEED (Target VLAN)
-   # Verify the exercise VM has no default route or external egress by default
+3. **Verify network segmentation**
+
+Use firewall logs, guest routes, and a known lab-local service. ICMP may be filtered; a ping result alone does not prove that a boundary works.
+
+```bash
+# Confirm that a disconnected exercise VM has no default route.
 ip route
-   
-   # Test from Target VLAN
-   ping 10.10.10.5  # Should FAIL
-   ping 10.20.20.10 # Should FAIL (Attack initiates, not target)
-   # Verify there is no default route; do not probe external hosts
-ip route
-   ```
+
+# Check only an explicitly approved service on a disposable lab target.
+# Confirm denied management and upstream attempts in firewall logs.
+```
+
+From a target VM, confirm it has no default route and no new cross-segment flow except one explicitly allowed by the exercise. Review IPv4 and IPv6 paths.
 
 4. **Snapshot before destructive testing**
    - Always create snapshot before:
@@ -2164,20 +2053,9 @@ Signature: _____________________ Date: _________
 
 ## Conclusion
 
-### What You've Built
+### Applying the Reference Design
 
-You now have a **professional-grade penetration testing laboratory** that leverages:
-
-✅ **Enterprise hardware**: Dell R630 servers with substantial compute power  
-✅ **Professional virtualization**: Proxmox with clustering capability  
-✅ **Centralized storage**: TrueNAS for templates and data management  
-✅ **Network segmentation**: OPNsense with VLANs for realistic scenarios  
-✅ **GPU acceleration**: RTX 3050 for password cracking  
-✅ **Edge computing**: Zima devices for IoT/embedded testing  
-✅ **Blue team integration**: Security Onion, Splunk, ELK for detection  
-✅ **Multi-architecture**: x86-64 + ARM for diverse testing  
-
-This setup **exceeds most home labs** and rivals small corporate penetration testing environments.
+This guide describes example configurations, not a record of equipment deployed or a guarantee of isolation, capacity, or professional readiness. Adapt it to supported hardware and software, then verify every route, interface, firewall rule, storage permission, and backup process in the lab before use.
 
 ### Next Steps
 
@@ -2227,6 +2105,8 @@ This setup **exceeds most home labs** and rivals small corporate penetration tes
 
 ### VM Quick Reference
 
+*Example identifiers and addresses only; this table is not an inventory of an actual deployment. Replace values with verified local settings before running commands.*
+
 | VM Name | VMID | VLAN | IP | Cores | RAM | Purpose |
 |---------|------|------|-----|-------|-----|---------|
 | kali-primary | 200 | 20 | 10.20.20.10 | 6 | 16GB | Primary attacker |
@@ -2267,17 +2147,8 @@ qm clone <vmid> <new-vmid> --name <new-name>
 ```
 
 **Network Testing**:
-```bash
-# Test segmentation from Attack VLAN
-ping 10.30.30.10  # Target (should work)
-ping 10.10.10.5   # Management (should fail)
 
-# Port scan
-nmap -sV -p- 10.30.30.10
-
-# Quick network sweep
-nmap -sn 10.30.30.0/24
-```
+Before active validation, confirm written scope and keep probes inside the documented lab subnet. Review firewall logs and routes first; ICMP responses vary by policy and cannot alone prove isolation. If scanning is part of the exercise, select a single disposable target and a conservative profile rather than sweeping an entire segment.
 
 **Snapshot Management**:
 ```bash
