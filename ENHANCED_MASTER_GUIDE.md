@@ -1312,120 +1312,70 @@ flowchart LR
 
 ![A compromised update seeds infection; SMB exploitation and stolen-credential remote execution provide separate propagation routes](./assets/diagrams/notpetya-parallel-propagation-paths.svg)
 
-*Original conceptual diagram based on [Mandiant's June 2017 analysis](https://cloud.google.com/blog/topics/threat-intelligence/petya-ransomware-spreading-via-eternalblue-exploit/). The parallel paths matter: patching an SMB flaw does not remove a credential-based route. The figure summarizes destructive impact, not an executable attack or recovery procedure.*
+*Original conceptual diagram based on [Mandiant's June 2017 analysis](https://cloud.google.com/blog/topics/threat-intelligence/petya-ransomware-spreading-via-eternalblue-exploit/) and [Microsoft's technical analysis](https://www.microsoft.com/en-us/security/blog/2017/06/27/new-ransomware-old-techniques-petya-adds-worm-capabilities/). The parallel routes matter: patching an SMB flaw does not remove credential-based movement. This is a summary, not an executable attack or recovery procedure.*
 
 ### Overview
-**Target:** Ukraine (primary), Global (collateral)  
+
+**Target:** Ukraine was the primary initial impact; infections caused global collateral damage  
 **Year:** June 2017  
 **Type:** Destructive wiper disguised as ransomware  
-**Impact:** $10 billion+ in damages
+**Impact:** Billions of dollars in estimated damage worldwide; the U.S. government described the damage as billions, while higher precise figures are estimates
 
 ### Technical Analysis
 
-```
-NotPetya Attack Mechanism:
-├── Initial Infection Vector
-│   ├── MeDoc accounting software update
-│   └── Supply chain compromise
-├── Propagation Methods
-│   ├── EternalBlue (MS17-010)
-│   ├── EternalRomance (MS17-010)
-│   ├── Mimikatz credential theft
-│   ├── WMI remote execution
-│   └── PsExec lateral movement
-├── Encryption Process
-│   ├── Encrypt Master File Table (MFT)
-│   ├── Overwrite Master Boot Record (MBR)
-│   └── Force system reboot
-└── Payment Mechanism
-    └── Hardcoded Bitcoin address (non-functional)
-```
+- **Initial infection:** Investigations identified a compromised update mechanism for the Ukrainian M.E.Doc accounting software as a campaign entry route.
+- **Later propagation:** NotPetya used the EternalBlue and EternalRomance SMB exploits addressed by MS17-010, and also reused harvested credentials through WMI and PsExec. These were separate routes for lateral movement.
+- **Destructive behavior:** The malware modified the Master Boot Record (MBR), encrypted the Master File Table (MFT), and rebooted the system. Microsoft reported that it lacked the normal victim-specific key registration needed for a dependable ransomware recovery service; treat affected systems as destructive incidents, not as systems recoverable by paying.
+- **Recovery limits:** Forensic recovery may depend on disk and incident state and is not guaranteed. “Decryption impossible” is too broad; preserve affected media and use qualified incident-response support before attempting recovery.
 
 ### Key Differences from WannaCry
 
-```
-NotPetya vs WannaCry:
-┌─────────────────┬──────────────────┬──────────────────┐
-│   Feature       │   WannaCry       │   NotPetya       │
-├─────────────────┼──────────────────┼──────────────────┤
-│ Primary Goal    │ Ransom           │ Destruction      │
-│ Kill Switch     │ Yes (domain)     │ No               │
-│ Decryption      │ Possible         │ Impossible       │
-│ Initial Vector  │ Exploit scan     │ Supply chain     │
-│ Propagation     │ EternalBlue only │ Multiple methods │
-│ Target          │ Opportunistic    │ Targeted (UA)    │
-└─────────────────┴──────────────────┴──────────────────┘
-```
+| Feature | WannaCry | NotPetya |
+|---|---|---|
+| Primary impact | Ransomware encryption and disruption | Destructive impact presented as ransomware |
+| Initial entry | Not established for every affected organization | Compromised M.E.Doc update mechanism identified in the 2017 campaign |
+| Propagation | SMBv1-based worm behavior; see [WannaCry analysis](#wannacry-breakdown) | SMB exploits plus stolen-credential WMI/PsExec routes |
+| Response | Apply supported updates and follow current incident guidance | Isolate, preserve evidence, rebuild from trusted media, and restore verified backups |
 
 ### Impact and Defensive Analysis
 
-The earlier sample is removed because it opened the raw first physical drive, read and rewrote its first mebibyte, attempted to overwrite boot data, and forced a reboot. That does not encrypt the Master File Table (MFT), as the original function name claimed, and running it with sufficient privileges could corrupt a real system's boot and partition data.
-
-NotPetya's destructive impact is best understood as a sequence of system changes and response opportunities, not as a runnable demonstration. The simplified model below is conceptual; it is not an implementation guide.
+NotPetya's boot and file-system changes disrupted system availability and impeded recovery. The diagram below is a conceptual response flow, not an implementation guide.
 
 ```mermaid
 flowchart LR
-    Execution[Untrusted code executes] --> Disk[Attempts destructive disk or boot metadata changes]
+    Execution[Untrusted code executes] --> Disk[Unexpected disk or boot-metadata changes]
     Disk --> Alert[Endpoint and storage telemetry]
     Alert --> Isolate[Isolate host and preserve evidence]
-    Isolate --> Restore[Recover from verified backups]
+    Isolate --> Restore[Rebuild and restore verified backups]
     Restore --> Review[Review access, patching, and recovery gaps]
 ```
 
-Defenders should alert on unexpected raw-disk access, boot-configuration changes, unapproved encryption behavior, and forced restart patterns. Use a disposable VM snapshot and synthetic files for training; do not write to physical disks or boot sectors.
+For a tabletop, use synthetic records only. Discuss detection of unexpected raw-disk access, boot-configuration changes, encryption behavior, and forced restarts. Do not write to physical disks or boot sectors.
 
 ### Detection & Response
 
-```bash
-# IOCs (Indicators of Compromise)
-
-# 1. File hashes
-# NotPetya dropper: 027cc450ef5f8c5f653329641ec1fed91f694e0d229928963b30f6b0d7d3a745
-
-# 2. Check for MeDoc software
-ls "C:\Program Files\M.E.Doc" 2>/dev/null
-
-# 3. Network indicators
-# C2 domains (historical):
-# - caffeinamagazine.it
-# - petya***.2wcom.net
-
-# 4. Check for suspicious scheduled tasks
-schtasks /query /FO LIST /V | findstr /I "perfc"
-
-# 5. Monitor for lateral movement
-# Look for:
-# - WMI remote process creation
-# - PsExec execution
-# - Unusual network shares access
-```
+- Treat historical file hashes and domains as time-bounded indicators, not a complete detector or a clearance test. Consult current vendor and government advisories for the environment under investigation.
+- Correlate endpoint, authentication, SMB, WMI, PsExec, and update-service evidence to distinguish initial delivery from later movement.
+- Preserve affected systems and logs, isolate confirmed incidents, and recover from known-good images and verified offline backups. Do not rely on ransom payment to restore data.
+- Review credential exposure and restrict remote administration paths to approved systems and operators.
 
 ### Prevention Measures
 
-```bash
-# 1. Patch MS17-010
-wusa.exe Windows-KB4012212-x64.msu /quiet /norestart
+- Apply the security update appropriate to each supported Windows version in [Microsoft bulletin MS17-010](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010).
+- Disable SMBv1 where it is not required after checking dependencies and planning for any required restart; follow [Microsoft's version-specific guidance](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3).
+- Restrict SMB, WMI, and remote-execution access to required management systems and segments.
+- Maintain tested offline or immutable backups and a recovery plan that can operate if directory, deployment, or backup-management systems are affected.
 
-# 2. Disable SMBv1
-Set-SmbServerConfiguration -EnableSMB1Protocol $false
+### Sources
 
-# 3. Application whitelisting
-# Use AppLocker or similar
-
-# 4. Network segmentation
-# Limit lateral movement capabilities
-
-# 5. Backup strategy
-# Offline, immutable backups
-
-# 6. Credential hygiene
-# Unique passwords, no domain admin for workstations
-```
+- [Mandiant — Petya-like malware campaign analysis](https://cloud.google.com/blog/topics/threat-intelligence/petya-ransomware-spreading-via-eternalblue-exploit/)
+- [Microsoft — New ransomware, old techniques: Petya adds worm capabilities](https://www.microsoft.com/en-us/security/blog/2017/06/27/new-ransomware-old-techniques-petya-adds-worm-capabilities/)
+- [Microsoft — Petya overview and destructive design](https://www.microsoft.com/en-us/security/blog/2018/02/05/overview-of-petya-a-rapid-cyberattack/)
+- [The White House — Statement on the NotPetya attack](https://trumpwhitehouse.archives.gov/briefings-statements/statement-press-secretary-25/)
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 ## Edward Snowden Revelations
 
 ![Historical PRISM provider delivery and upstream backbone collection are separate acquisition pathways](./assets/diagrams/snowden-prism-vs-upstream.svg)
