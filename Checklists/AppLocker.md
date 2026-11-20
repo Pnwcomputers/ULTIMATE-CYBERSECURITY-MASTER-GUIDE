@@ -9,6 +9,34 @@ _A defensive checklist for reviewing application-control policy effectiveness. H
 
 **When & How to use this:** Use during an authorized configuration review or a controlled defensive validation. Begin with `Get-AppLockerPolicy -Effective` and the applicable event logs. Prefer vendor-supported simulators or benign test files; do not execute arbitrary code or payloads to prove a policy gap. Validate WDAC separately because its policy and enforcement behavior differ.
 
+
+### Review and rollout path
+
+Use a staged policy review. Audit-only evaluates policy and records events without blocking, so review actual usage before enforcing any collection.
+
+```mermaid
+flowchart LR
+    A[Confirm scope and application needs] --> B[Capture effective AppLocker policy]
+    B --> C[Set selected collections to Audit only]
+    C --> D[Collect and review AppLocker events]
+    D --> E{Expected software and exceptions accounted for?}
+    E -->|No| B
+    E -->|Yes| F[Peer review and approve staged change]
+    F --> G[Enforce selected collections]
+    G --> H[Monitor events and support impact]
+    H -. Unexpected blocks .-> R[Rollback or adjust]
+    R --> B
+```
+
+Treat this as a review sequence, not a guarantee that all executable content is controlled. Policy merge precedence, collection configuration and the target Windows release affect the effective result.
+
+### Current Microsoft references
+
+- [AppLocker overview](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/applocker-overview)
+- [Configure an AppLocker policy for audit only](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/configure-an-applocker-policy-for-audit-only)
+- [Monitor application usage with AppLocker](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/monitor-application-usage-with-applocker)
+- [Deploy AppLocker rules](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/deploy-the-applocker-policy-into-production)
+
 #### Further reading: [Tradecraft LOLBins/LOLBAS overview](../Tradecraft/lolbins-lolbas.md)
 
 ---
