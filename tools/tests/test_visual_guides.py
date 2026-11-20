@@ -56,9 +56,6 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-hardware-os-preflight-paths.svg": (
         "uConsole/README.md",
     ),
-    "assets/diagrams/volatility-evidence-triage.svg": (
-        "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
-    ),
     "assets/diagrams/cryptography-primitive-decision-map.svg": (
         "Cryptography/README.md",
     ),
@@ -91,6 +88,9 @@ DIAGRAM_GUIDES = {
     ),
     "assets/diagrams/graylog-data-node-ingest-architecture.svg": (
         "IncidentResponse/SIEM/graylog.md",
+    ),
+    "assets/diagrams/volatility-evidence-triage.svg": (
+        "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
     ),
     "assets/diagrams/live-response-volatility-evidence-gates.svg": (
         "IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md",
