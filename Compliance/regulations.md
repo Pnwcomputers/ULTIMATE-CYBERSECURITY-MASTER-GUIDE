@@ -1,5 +1,7 @@
 # ⚖️ Data-Protection Regulations
 
+_Reviewed: 2026-11-20 against primary legal and agency sources; not legal advice._
+
 > [!IMPORTANT]
 > Educational reference, **not** legal advice. Regulatory thresholds, definitions,
 > and penalties change and depend on jurisdiction, industry, and the data involved.
@@ -39,8 +41,7 @@ what security obligations follow - then route to counsel for specifics.
 
 ## GDPR (EU/EEA)
 
-The EU **General Data Protection Regulation** - the most influential privacy law
-globally.
+The EU **General Data Protection Regulation** (GDPR) governs processing of personal data within its territorial scope.
 
 - **Applies to:** processing in the context of a controller's or processor's
   establishment in the Union, regardless of where the processing occurs. For an
@@ -50,8 +51,10 @@ globally.
   decide territorial scope; assess the Article 3 criteria.
 - **Key principles:** lawfulness, purpose limitation, data minimization, accuracy,
   storage limitation, integrity/confidentiality, and accountability.
-- **Data-subject rights:** access, rectification, erasure ("right to be forgotten"),
-  portability, and objection.
+- **Data-subject rights include:** access, rectification, erasure ("right to be
+  forgotten"), restriction of processing, data portability, and objection. Rights to
+  withdraw consent and not to be subject to certain solely automated decisions also
+  apply in specified circumstances.
 - **Security duty:** "appropriate technical and organizational measures" (Art. 32) -
   encryption, resilience, testing.
 - **Penalties:** Article 83 sets two maximum tiers, depending on the infringement:
@@ -67,8 +70,11 @@ globally.
 The US **Health Insurance Portability and Accountability Act** - protects health
 information.
 
-- **Applies to:** **covered entities** (providers, health plans, clearinghouses)
-  and their **business associates** handling Protected Health Information (PHI).
+- **Applies to:** **covered entities** - health plans, health care clearinghouses,
+  and health care providers that conduct specified transactions electronically under
+  HIPAA - plus **business associates** performing covered functions or services that
+  involve PHI on behalf of a covered entity or another business associate. See
+  [HHS scope guidance](https://www.hhs.gov/hipaa/for-professionals/covered-entities/index.html).
 - **Security Rule:** requires administrative, physical, and technical safeguards for
   electronic PHI (access control, audit controls, integrity, transmission security).
 - **Privacy Rule:** governs use and disclosure of PHI.
@@ -90,14 +96,24 @@ Privacy Rights Act (CPRA)**.
   use of sensitive personal information.
 - **CPRA additions:** a dedicated enforcement agency (CPPA), a "sensitive personal
   information" category, and data-minimization/retention duties.
-- **2025 regulatory package:** The rules took effect January 1, 2026, but
-  implementation is phased. Covered businesses begin required risk-assessment
-  compliance in 2026; ADMT requirements for significant decisions begin January 1,
-  2027; cybersecurity-audit certifications are due on staggered dates from 2028
-  through 2030 based on revenue. Coverage, exceptions, reporting dates, and
-  transition details depend on the final regulations; verify them with the CPPA
-  and counsel. See the [CPPA final rulemaking and timeline](https://cppa.ca.gov/regulations/ccpa_updates)
-  and [current regulations](https://cppa.ca.gov/regulations/).
+- **2025 regulatory package:** The regulations took effect January 1, 2026; some
+  duties have later first deadlines. Businesses subject to the risk-assessment rules
+  must begin compliance in 2026; first attestations and summaries are due by April
+  1, 2028. ADMT requirements for significant decisions begin January 1, 2027.
+  Cybersecurity-audit report dates are phased by revenue cohort:
+
+```mermaid
+flowchart LR
+    A["Jan 1, 2026<br/>Risk-assessment duties begin"] --> B["Jan 1, 2027<br/>ADMT duties for significant decisions begin"]
+    B --> C["Apr 1, 2028<br/>Risk-assessment attestation and summary due;<br/>first audit report for >$100M 2026 revenue"]
+    C --> D["Apr 1, 2029<br/>first audit report for $50M-$100M 2027 revenue"]
+    D --> E["Apr 1, 2030<br/>first audit report for <$50M 2028 revenue"]
+```
+
+  *Dates summarize first deadlines in the final rule package; the duties apply only
+  when their scope criteria are met. Confirm coverage, thresholds, exceptions, and
+  current regulations with the [CPPA](https://cppa.ca.gov/regulations/ccpa_updates)
+  and counsel.*
 - **Note:** many other US states have since enacted comparable laws - check the
   specific state(s) where your users reside.
 
@@ -105,7 +121,7 @@ Privacy Rights Act (CPRA)**.
 
 ## Breach Notification (Common Thread)
 
-Nearly every regime requires timely notification after a personal-data breach:
+Many privacy and breach-notification laws require timely notice after a covered breach; triggers, thresholds, recipients, and exceptions differ by law:
 
 ![Distinct GDPR, HIPAA, and state-law breach-notification decision paths with separate triggers, thresholds, exceptions, and evidence records](../assets/diagrams/privacy-breach-notification-decision-path.svg)
 
@@ -123,7 +139,8 @@ Nearly every regime requires timely notification after a personal-data breach:
   may be reported annually, within 60 days after year-end. Media notice applies
   when more than 500 residents of a state or jurisdiction are affected.
   Business associates notify the covered entity without unreasonable delay and
-  no later than 60 days after discovery.
+  no later than 60 days after discovery. A business associate agreement can require
+  a shorter deadline so the covered entity has time to meet its own obligations.
 - **US state laws:** triggers, deadlines, thresholds, and recipients vary by
   jurisdiction; CCPA/CPRA duties and other state breach laws should be assessed
   separately.
