@@ -78,6 +78,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|
 | [Nmap analysis evidence gates](./diagrams/nmap-agentflow-evidence-gates.svg) | [AnythingLLM Nmap Analyzer](../AI/AnythingLLM/flow-nmap_analyzer.md#flow-information) |
 
+## Breach Exposure Metadata Privacy
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [HIBP metadata privacy workflow](./diagrams/hibp-breach-metadata-privacy-workflow.svg) | [Breach Exposure Check AgentFlow](../AI/AnythingLLM/flow-breacher_check.md#suggested-flow) | Shows consent, metadata minimization, interpretation limits, and owner-directed next steps |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
