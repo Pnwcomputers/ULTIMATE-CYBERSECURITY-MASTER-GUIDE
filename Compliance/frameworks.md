@@ -1,6 +1,6 @@
 # 🏛️ Security Control Frameworks
 
-_Last reviewed: 2026-11-19 (targeted version and scope clarification against primary sources; no assessment or certification performed)._
+_Last reviewed: 2026-11-20 (targeted version and scope review against primary sources; no assessment or certification performed)._
 
 > [!IMPORTANT]
 > Educational reference, **not** compliance advice. Framework versions change -
@@ -22,7 +22,7 @@ single set of technical controls maps across several of them.
 
 ## 📋 When to Use
 - Selecting or comparing frameworks
-- Preparing for a certification/audit
+- Preparing for a SOC 2 examination, an ISO/IEC 27001 certification audit, or PCI DSS validation
 - Mapping technical controls to a framework's requirements
 
 ---
@@ -66,7 +66,8 @@ Management System (ISMS). The **2022** revision supersedes 2013.
   continual improvement - not just controls.
 - **Annex A (2022):** **93 controls** organized into **4 themes** - Organizational,
   People, Physical, Technological (down from 114 controls / 14 domains in 2013).
-- **Use it for:** an internationally recognized certification via an accredited body.
+- **Use it for:** an internationally recognized ISMS certification via an accredited certification body.
+- **Amendment 1:2024:** ISO/IEC 27001:2022 has a published climate-action amendment. Include it in the current ISMS context review and verify the amendment and certification-body guidance. [ISO amendment](https://www.iso.org/standard/88435.html).
 
 ---
 
@@ -94,8 +95,9 @@ PCI DSS addresses entities that store, process, or transmit cardholder/sensitive
   management, access control, monitoring, and policy).
 - v4.x adds a **customized approach** option, more MFA, and stronger authentication
   requirements. The requirements originally future-dated to **31 March 2025** are now effective where applicable; the [v4.0.1 release notice](https://blog.pcisecuritystandards.org/just-published-pci-dss-v4-0-1) did not postpone that date.
-- **Use it for:** payment-card environments - compliance is contractually required.
-  Validation scales from a Self-Assessment Questionnaire (SAQ) to a QSA audit.
+- **Use it for:** entities with applicable payment-card responsibilities. The payment
+  program determines the required validation route; this can be an eligible SAQ or,
+  where required, a Report on Compliance (ROC) assessment by a QSA.
 
 ---
 
