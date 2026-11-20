@@ -8,7 +8,7 @@
 
 ![Infrastructure](https://img.shields.io/badge/Infrastructure-Virtualization-blue?style=for-the-badge&logo=vmware)
 ![Hardware](https://img.shields.io/badge/Hardware-SBCs_%7C_Networking-green?style=for-the-badge&logo=raspberrypi)
-![Isolation](https://img.shields.io/badge/Security-Air--Gapped_%7C_VLANs-orange?style=for-the-badge)
+![Isolation](https://img.shields.io/badge/Security-Segmented_Labs-orange?style=for-the-badge)
 
 </div>
 
@@ -49,12 +49,12 @@ Help practitioners build a carefully segmented, recoverable lab that reduces the
 
 ## 🎯 Overview
 
-A homelab is the absolute backbone of practical cybersecurity research. This directory is dedicated to the architecture, deployment, and maintenance of a safe, isolated environment. It provides the foundation necessary to practice offensive operations, develop defensive analytics, and reverse-engineer malware without jeopardizing production networks or violating the law.
+A homelab can provide a repeatable environment for cybersecurity learning and defensive research. This directory covers lab architecture, deployment, and maintenance. Isolation reduces risk but does not guarantee that a host, network, or production environment cannot be affected.
 
 **Core Objectives:**
 * **Simulate Real-World Scenarios:** Deploy vulnerable machines, Active Directory domains, and attack infrastructure safely.
 * **Standardize Workflows:** Develop and follow Standard Operating Procedures (SOPs) for repeatable, automated success.
-* **Test Tools & Malware:** Analyze dangerous software, test exploits, and study malware behavior in controlled sandboxes.
+* **Test Tools & Configurations:** Evaluate security tools and intentionally vulnerable systems in disposable, isolated environments. Malware analysis requires a separately designed and validated containment environment.
 * **Master Infrastructure:** Gain hands-on engineering experience with Type-1 hypervisors, software-defined networking, and enterprise infrastructure.
 
 ---
@@ -173,7 +173,7 @@ vulnerable systems, and potent offensive tools.
 
 3. EDUCATIONAL USE ONLY
    ► The tools, scripts, and vulnerable environments provided or referenced 
-     here are strictly for educational purposes and authorized testing.
+     here are for authorized security testing, defensive research, and education.
    ► Pacific Northwest Computers (PNWC) is not liable for data loss, network 
      compromise, or legal issues arising from improper lab configuration.
 
@@ -207,7 +207,7 @@ vulnerable systems, and potent offensive tools.
 📁 Categories: Virtualization, Hardware/RF, Network Security
 💻 Focus: Infrastructure provisioning, Isolation, Active Directory simulation
 ⚙️ Tech Stack: Proxmox, VMware, pfSense, Linux, Windows Server
-🔄 Last Updated: June 2026
+Reviewed: November 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active - Ensure strict isolation before deployment
 ```
