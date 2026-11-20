@@ -11,6 +11,10 @@ _Last reviewed: 2026-10-02_
 
 Substitution master chart, transposition, Playfair, Vigenère and its variants, and the one-time pad.
 
+![Classical cipher families: substitution changes symbols, transposition changes positions, repeating keys have statistical clues and a one-time pad requires a unique random key](../../assets/diagrams/classical-cipher-swap-position-and-one-time-pad.svg)
+
+*Conceptual taxonomy.* The substitution table also includes **encodings** (such as alphabetic numbers and five-bit binary), not just security ciphers. See [cryptanalysis](cryptanalysis.md) for historical frequency and key-period attacks and [applied cryptography](../applied-crypto.md) for modern data protection.
+
 **On this page:**
 
 - [Classical Substitution Master Chart](#classical-substitution-master-chart)
@@ -23,7 +27,7 @@ Substitution master chart, transposition, Playfair, Vigenère and its variants, 
 
 ## Classical Substitution Master Chart
 
-Substitution ciphers replace each letter with another symbol while keeping its position. One chart, eight systems:
+This table compares eight historical substitution **and encoding conventions**. Several entries (A1Z26, tap code and a five-bit binary encoding) are simple representations of letters, not cryptographic protections. Substitution ciphers replace symbols while preserving their original order:
 
 | Letter | A1Z26 | ROT13 | Atbash | QWERTY →1 | Polybius | Tap code | Baconian | Binary (5-bit) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -66,6 +70,8 @@ Substitution ciphers replace each letter with another symbol while keeping its p
 * **Pigpen:** Letters replaced by fragments of tic-tac-toe and X grids (with and without dots). It is a graphical alphabet, so it is not shown in the table.
 
 **Polybius square and tap code grids:**
+
+These grids intentionally merge **different** pairs: the Polybius example represents **I/J as 24**, while this tap-code convention represents **C/K as 13**. The table already maps K to 13, correctly matching C; J remains 25 in tap code. Punctuation, spaces and language conventions must be agreed separately.
 
 ```
  Polybius (I/J)         Tap code (C/K)
