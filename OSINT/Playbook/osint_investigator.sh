@@ -268,6 +268,7 @@ export INTELX_API_KEY=""
 export WHOISXML_API_KEY=""
 export VERIPHONE_API_KEY=""
 export ABUSEIPDB_API_KEY=""
+export URLHAUS_AUTH_KEY=""
 export ETHERSCAN_API_KEY=""
 APIEOF
     chmod 600 "${API_CONFIG}"
@@ -283,6 +284,7 @@ configure_apis() {
         "HAVEIBEENPWNED_API_KEY:HaveIBeenPwned"
         "SECURITYTRAILS_API_KEY:SecurityTrails"
         "ABUSEIPDB_API_KEY:AbuseIPDB"
+        "URLHAUS_AUTH_KEY:URLhaus Auth-Key"
         "WHOISXML_API_KEY:WhoisXML"
         "VERIPHONE_API_KEY:Veriphone"
     )
@@ -308,6 +310,7 @@ configure_apis() {
             warn "  Rejected: keys must be 8-256 characters of letters, digits and . _ ~ + / = : -"
             continue
         fi
+        grep -q "^export ${var_name}=" "${API_CONFIG}" || printf 'export %s=""\n' "${var_name}" >> "${API_CONFIG}"
         sed -i "s|^export ${var_name}=.*|export ${var_name}=\"${new_value}\"|" "${API_CONFIG}"
     done
     load_api_config
