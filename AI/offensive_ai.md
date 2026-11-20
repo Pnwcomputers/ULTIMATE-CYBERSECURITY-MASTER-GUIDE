@@ -1,19 +1,19 @@
 # Offensive AI
 
 > [!CAUTION]
-> **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Testing AI/ML systems you do not
-> own or lack explicit written permission to assess is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> **Authorized use only.** Test only systems, accounts, and methods included in
+> written authorization and agreed scope. Unauthorized testing may violate law,
+> contract, or provider policy; applicable rules and consequences depend on the
+> facts and jurisdiction. This is not legal advice. See [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
-Adversarial ML and offensive AI guide - treating AI/ML systems as attack surfaces; covering prompt injection, jailbreaking, model extraction, data poisoning, evasion techniques, agentic system exploitation, and AI-augmented offensive tooling.
+A defensive guide to AI system attack surfaces, threat modeling, and controlled evaluation. It introduces risks such as prompt injection, data poisoning, model extraction, evasion, and tool misuse; tests must stay within written scope and agreed limits.
 
 ## ⚙️ Function
-Full offensive AI taxonomy: direct/indirect prompt injection, LLM jailbreaking patterns, model extraction via API query analysis, adversarial examples for vision/text models, training data poisoning, RAG poisoning, multi-agent orchestrator attacks, and AI-enabled attack tooling for recon and payload research. Includes MITRE ATLAS mapping and detection guidance.
+A conceptual taxonomy of direct and indirect prompt injection, privacy and extraction risks, data integrity, model robustness, and agent/tool boundaries, with an emphasis on defensive controls and safe validation. Access to an API or dataset does not itself authorize testing.
 
 ## 🏆 Goal
-Enable authorized red teamers to assess AI/ML-integrated applications for security weaknesses; understand how LLM-backed products fail under adversarial input; develop detections for AI-augmented attacks.
+Help authorized assessors identify and document AI-system risks with bounded tests, synthetic data, observable evidence, and owner-reviewed remediation.
 
 ## 📋 When to Use
 - Red teaming an LLM-integrated product or chatbot for prompt injection and data leakage
@@ -150,128 +150,43 @@ Before any engagement, build the target AI system's attack graph explicitly:
 
 #### Scoping the AI Red Team Engagement
 
-AI red team engagements differ from traditional pentests in scope and objective. Define clearly before engagement begins:
+AI red-team engagements vary by system and objective. Before testing, document written authorization, the exact assets and accounts, allowed methods, data handling, provider terms, request and cost limits, time window, stop conditions, contacts, and reporting rules.
 
 | Scope Dimension | Questions to Answer |
 |----------------|-------------------|
 | **Model access** | Black-box (API only)? Gray-box (architecture known, weights unknown)? White-box (full access)? |
 | **Attack surface** | Training pipeline? Inference API? Application layer? Agentic runtime? All of the above? |
 | **Objective** | Safety testing? Security testing? IP protection? Regulatory compliance? |
-| **Rules of engagement** | Rate limits? Prohibited techniques (e.g., no actual data exfil)? Reporting requirements? |
-| **Environment** | Production? Staging? Isolated research environment? |
+| **Rules of engagement** | Rate/concurrency and spend caps? Prohibited actions? Data handling? Stop conditions and reporting path? |
+| **Environment** | Which exact tenant, endpoint, tools, identities and data are in scope? Are side effects isolated or disabled? |
 | **Success criteria** | What constitutes a finding? What severity threshold matters? |
+
+![Authorized AI red-team workflow with scope, synthetic tests, bounded execution, evidence checks, and stop gates](../assets/diagrams/offensive-ai-authorized-engagement-gates.svg)
+
+*Conceptual planning aid. [NIST describes AI red-teaming](https://csrc.nist.gov/glossary/term/artificial_intelligence_red_teaming) as structured testing, often in a controlled environment and with system developers; the diagram does not establish authorization or legal compliance.*
 
 #### The AI Red Team Methodology
 
-```
-Phase 1: RECONNAISSANCE
-  └─> Enumerate model type, provider, version, deployment pattern
-  └─> Map input/output surfaces, tool integrations, data flows
-  └─> Identify the trust model (what's treated as trusted input)
-  └─> Profile the system's behavior through non-adversarial interaction
-
-Phase 2: THREAT MODELING
-  └─> Build the attack graph (see Chapter 1)
-  └─> Identify highest-impact attack paths
-  └─> Prioritize based on likelihood × impact
-
-Phase 3: ATTACK DEVELOPMENT
-  └─> Select attack techniques relevant to identified paths
-  └─> Develop adversarial inputs, prompts, payloads
-  └─> Build automation for scalable testing where needed
-
-Phase 4: EXECUTION
-  └─> Execute attacks systematically; document everything
-  └─> Iterate on failed attempts (modify payloads, approach angles)
-  └─> Chain attacks where individual steps succeed partially
-
-Phase 5: EXPLOITATION CONFIRMATION
-  └─> Confirm findings are reproducible
-  └─> Determine root cause (not just the symptom)
-  └─> Assess actual impact (what could a real attacker achieve?)
-
-Phase 6: REPORTING
-  └─> Document findings with full reproduction steps
-  └─> Contextualize risk in business/mission terms
-  └─> Provide remediation guidance
-```
+1. **Authorize and scope:** Record asset owners, exact systems/accounts, identities, allowed techniques, time window, data rules, rate and spend limits, stop conditions, and incident contacts.
+2. **Map the system:** Trace inputs, retrieved data, model/provider routes, tools, identities, outputs, logs, and downstream effects. Mark what is trusted and what is untrusted.
+3. **Select bounded tests:** Tie each synthetic test to a threat hypothesis and observable acceptance criterion. Exclude real customer data, credential extraction, destructive actions, and unapproved external effects.
+4. **Execute within limits:** Use the approved endpoint or isolated environment. Keep a fixed test budget. Stop immediately if scope is ambiguous, a limit is reached, real sensitive data appears, or an unexpected side effect occurs; obtain owner approval before resuming or expanding scope.
+5. **Validate safely:** Check model output, actual tool-call traces, and synthetic downstream state. Use the minimum evidence needed to establish the finding; do not retrieve or retain real data as proof.
+6. **Report and remediate:** Provide sanitized reproduction steps, evidence, environmental/version details, uncertainty, impact limits, and owner-directed remediation. Protect raw traces under the agreed retention and access rules.
 
 #### Access Model Classification
 
-Your access model fundamentally shapes what attacks are viable:
+Black-box, gray-box, and white-box are shorthand descriptions of what the assessor can inspect. They do not imply permission or guarantee a particular technique will work.
 
-**White-box:** Full access to model weights, architecture, training data, code. Enables gradient-based adversarial example generation, full membership inference, architecture-aware extraction. Used in internal security reviews.
-
-**Gray-box:** Know the model family, architecture type, or training domain; don't have weights. Enables transfer attacks (adversarial examples crafted against a surrogate model that transfer), targeted API probing, architecture-informed prompt injection.
-
-**Black-box:** Only API access. Observe inputs and outputs. Enables query-based extraction, decision boundary probing, gradient-free adversarial example generation, prompt injection, and all application-layer attacks. Most real-world attacker scenario.
+- **White-box:** Some combination of code, weights, architecture, training/evaluation data, or deployment details is available. Record exactly what was provided; full access to every layer is uncommon.
+- **Gray-box:** Selected implementation or model details are known, while other components remain hidden. The practical test options depend on the interfaces and artifacts actually available.
+- **Black-box:** The assessor observes an approved interface and its outputs. Agree query budgets and permitted data in advance; API access does not authorize extraction, cross-tenant probing, or attempts to recover secrets.
 
 #### Automation and Scale
 
-AI red teaming at meaningful depth requires automation. A human manually sending prompts can evaluate hundreds of inputs per day; systematic coverage of an LLM's behavior requires thousands to millions.
+There is no universal number of tests that makes an AI assessment complete. Set a budget based on the threat model, required coverage, statistical confidence, service limits, cost, and potential impact. Use a fixed, reviewable test set where possible; cap concurrency and retries; and stop on provider errors, unexpected effects, or scope limits.
 
-```python
-# Scaffolding for automated AI red team evaluation
-import anthropic
-import openai
-import json
-from typing import Callable
-from dataclasses import dataclass, field
-
-@dataclass
-class RedTeamResult:
-    prompt: str
-    response: str
-    finding: str | None = None
-    severity: str = "info"
-    tags: list[str] = field(default_factory=list)
-
-class AIRedTeamEngine:
-    def __init__(self, target_fn: Callable[[str], str]):
-        """target_fn: function that takes a prompt and returns model response"""
-        self.target = target_fn
-        self.results: list[RedTeamResult] = []
-    
-    def probe(self, prompt: str, tags: list[str] = None) -> RedTeamResult:
-        response = self.target(prompt)
-        result = RedTeamResult(
-            prompt=prompt,
-            response=response,
-            tags=tags or []
-        )
-        self.results.append(result)
-        return result
-    
-    def probe_batch(self, prompts: list[str], 
-                   evaluator: Callable[[str, str], tuple[str|None, str]] = None,
-                   tags: list[str] = None) -> list[RedTeamResult]:
-        """Probe with a batch of prompts; optionally evaluate responses"""
-        results = []
-        for prompt in prompts:
-            result = self.probe(prompt, tags=tags)
-            if evaluator:
-                finding, severity = evaluator(prompt, result.response)
-                result.finding = finding
-                result.severity = severity
-            results.append(result)
-        return results
-    
-    def report_findings(self) -> dict:
-        findings = [r for r in self.results if r.finding]
-        return {
-            "total_probes": len(self.results),
-            "findings": len(findings),
-            "by_severity": {
-                sev: len([f for f in findings if f.severity == sev])
-                for sev in ["critical", "high", "medium", "low", "info"]
-            },
-            "details": [
-                {"prompt": f.prompt[:100], "finding": f.finding, 
-                 "severity": f.severity, "tags": f.tags}
-                for f in findings
-            ]
-        }
-```
+For implementation, use a maintained evaluation framework against synthetic fixtures in an isolated target. Capture only approved, minimized evidence. Avoid unbounded loops and raw prompt/response retention; redact secrets and personal data before any report or artifact leaves the restricted test environment. See [LLM and Agent Security Evaluations with Promptfoo](llm-security-evaluation-promptfoo.md) and [AI Evaluation & Regression Testing](ai-evaluation-and-regression-testing.md).
 
 ---
 
