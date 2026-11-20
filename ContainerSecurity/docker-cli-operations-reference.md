@@ -1,6 +1,6 @@
 # Docker Operations, Diagnostics and Hardening Cheat Sheet
 
-_Last reviewed: 2026-11-17 (primary documentation and visual review; no Docker commands or daemon actions executed)_
+_Last reviewed: 2026-11-20 (primary documentation and visual review; no Docker commands or daemon actions executed)_
 
 > [!CAUTION]
 > **Authorized environments only.** Docker daemon access can grant
@@ -78,16 +78,18 @@ reported healthy status is not proof that the application is secure.
 docker image ls
 docker image inspect myorg/app:approved-tag
 docker image history myorg/app:approved-tag  # May expose build instructions
-docker manifest inspect myorg/app:approved-tag
+docker buildx imagetools inspect myorg/app:approved-tag # Registry query; requires Buildx
 docker image ls --digests
 ```
+
+`docker image inspect` reads local image configuration. `docker buildx imagetools inspect` queries registry manifest metadata and requires the Buildx plugin; Docker marks the older [`docker manifest`](https://docs.docker.com/reference/cli/docker/manifest/) command experimental. See [Buildx imagetools inspect](https://docs.docker.com/reference/cli/docker/buildx/imagetools/inspect/).
 
 - Pin important production images by **digest** after validation; floating
   `latest` tags can change without review.
 - Keep Docker Engine, plugins, Compose and container images updated via an
   approved change window; update dependencies and capture rollback state.
 - Inventory base-image packages and vulnerabilities with
-  [Trivy](https://aquasecurity.github.io/trivy/), CI scans and vendor advisories.
+  [Trivy](https://trivy.dev/latest/docs/target/container_image/), CI scans and vendor advisories.
 - Distinguish tag, repository/manifest digest, platform-specific content and local image ID; do not compare unlike identifiers as if they were the same. Locally built images may not have a repository digest. A digest identifies content, not who authored it. Evaluate signing and
   attestation with [Sigstore/Cosign](https://docs.sigstore.dev/).
 - Do **not** use the source cheat sheet's `curl | sh` Docker installer
