@@ -12,6 +12,12 @@
 
 </div>
 
+> [!CAUTION]
+> **Authorized use only.** Space, ground, and radio systems can support critical
+> services. Test only systems and RF activity within explicit written scope and
+> applicable authorizations. Do not transmit toward operational satellites or
+> create interference. See [LEGAL.md](../LEGAL.md).
+
 ---
 
 ## 🎯 Purpose
@@ -21,7 +27,7 @@ Index for the Space Security section - covering offensive and defensive security
 - **User:** [SATCOM terminals](https://www.satnow.com/browse/satcom-terminals), [GNSS receivers](https://pointonenav.com/insights/gnss-receivers/), [VSATs](https://www.ipinternational.net/vsat-use-cases-for-business/).
 
 ## ⚙️ Function
-Links to four content parts (Foundations, Ground Segment, Space Segment, User Segment) and one appendices file. Provides attack surface taxonomy, regulatory reference [CFAA](https://en.wikipedia.org/wiki/Computer_Fraud_and_Abuse_Act), [ITAR/EAR](https://www.axiomlaw.com/blog/export-controls-itar-ear-explained), [FCC](https://www.fcc.gov/space), tool ecosystem, and career path overview.
+Links to four content parts (Foundations, Ground Segment, Space Segment, User Segment) and a reference appendix. Provides a segment-based attack-surface overview, official pointers to [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/), [ITAR](https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M), [EAR](https://www.bis.gov/regulations/ear), [FCC space policy](https://www.fcc.gov/space), tools, and learning resources.
 
 ## 🏆 Goal
 Serve as the starting point for space security work - directing practitioners to the right Part file for their current focus area (ground infrastructure, flight software, or SATCOM terminal attacks).
@@ -48,9 +54,9 @@ Serve as the starting point for space security work - directing practitioners to
 
 ## 🎯 Overview
 
-Space systems underpin critical infrastructure worldwide: from GPS-enabled financial trading to military communications to commercial aviation. Yet most operational satellites were designed before modern cybersecurity practices existed, and the expanding commercial space sector has introduced a rapidly growing attack surface across orbital altitudes, radio frequencies, ground infrastructure, and end-user hardware.
+Space systems support services such as navigation, timing, communications, and Earth observation. Long-lived spacecraft and ground systems may carry legacy design assumptions, but age alone does not establish their security posture. Commercial space activity adds varied interfaces across ground infrastructure, spacecraft, radio links, and user equipment.
 
-This section provides a **comprehensive security reference** covering the entire space domain, organized by segment.
+This section provides an **overview of selected space-security topics**, organized by major system segment.
 
 **What You'll Find Here:**
 - 📡 Ground segment penetration testing: mission control, TT&C uplink chains, ground station networks
@@ -84,8 +90,8 @@ New to space security?
 
 Experienced practitioner?
   └─> Jump directly to the segment relevant to your engagement
-  └─> Part II for ground system / mission control assessments
-  └─> Part IV for SATCOM terminal testing or GNSS security
+  └─> Part II for authorized ground-system and mission-control assessments
+  └─> Part IV for authorized SATCOM terminal review or GNSS security
   └─> Part III for spacecraft FSW analysis or CubeSat research
 ```
 
@@ -97,11 +103,11 @@ Experienced practitioner?
 
 *Conceptual space-system boundaries; real missions have diverse topologies and safety constraints.*
 
-Every space system consists of three interdependent segments. A compromise of any one segment can cascade across the others.
+This guide uses a common three-segment model. Real mission topologies vary, and a compromise can cross segment boundaries only where mission-specific trust, connectivity, and privileges create a path.
 
 | Segment | Description | Key Attack Surface | Primary Risk |
 |---------|-------------|-------------------|-------------|
-| **Ground** | Earth-based infrastructure that commands and controls spacecraft | Mission control systems, TT&C uplink, ground station networks, VPN/remote access | IT/OT lateral movement → command injection |
+| **Ground** | Earth-based infrastructure that commands and controls spacecraft | Mission control systems, TT&C uplink, ground station networks, VPN/remote access | Possible access path to mission-control or TT&C functions; verify mission-specific controls |
 | **Space** | Spacecraft and payloads in orbit | Onboard computer, flight software, RTOS, communication subsystems | FSW exploitation, malicious uploads |
 | **User** | End-user equipment receiving satellite services | SATCOM terminals, GNSS receivers, VSAT modems | Firmware exploitation, GNSS spoofing/jamming |
 
@@ -128,7 +134,7 @@ Every space system consists of three interdependent segments. A compromise of an
          └──────────────┘
 ```
 
-**Key insight from the Viasat KA-SAT attack (2022):** A misconfigured VPN gateway provided access to a trusted ground-management segment; attackers used legitimate management commands and AcidRain disrupted tens of thousands of end devices. This demonstrates how compromise of a ground management plane can affect user terminals. [CERT Polska's incident analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) summarizes the reported scope.
+**Key insight from the Viasat KA-SAT attack (2022):** CERT Polska reported that a misconfigured VPN gateway gave attackers access to Viasat's internal network used to manage the KA-SAT client network. The attackers sent commands to customer modems that **probably** led them to download and run AcidRain, disrupting tens of thousands of end devices. The EU formally attributed the operation to Russia; CERT Polska's technical account describes uncertainty about attribution. This case shows how a management-plane compromise can affect user terminals. [CERT Polska's incident analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) · [EU Council attribution](https://www.consilium.europa.eu/en/press/press-releases/2022/05/10/russian-cyber-operations-against-ukraine-declaration-by-the-high-representative-on-behalf-of-the-european-union/).
 
 ---
 
@@ -147,7 +153,7 @@ Every space system consists of three interdependent segments. A compromise of an
 
 | Actor Type | Motivation | Capability | Historical Example |
 |------------|-----------|-----------|-------------------|
-| **Nation-state** | Strategic advantage, disruption, espionage | Kinetic ASAT, RF jamming/spoofing, cyber intrusion | GRU: Viasat KA-SAT wiper (2022) |
+| **Nation-state** | Strategic advantage, disruption, espionage | Kinetic ASAT, RF jamming/spoofing, cyber intrusion | Russia (EU attribution): KA-SAT cyberattack (2022) |
 | **Criminal** | Financial gain | Ground segment ransomware, data theft | Ransomware on satellite ground ops |
 | **Hacktivist** | Political messaging | Low-level jamming, signal hijacking | Signal hijacking incidents |
 | **Researcher** | Disclosure, learning | Variable: CTF, lab research | DEFCON Aerospace Village, Hack-A-Sat |
@@ -160,7 +166,7 @@ Every space system consists of three interdependent segments. A compromise of an
 | 2007–2008 | NASA/USGS satellite interference (China alleged) | Multiple TT&C intrusions on ground systems |
 | 2018 | Turla (Snake) APT: satellite internet C2 | Covert exfiltration via hijacked satellite links |
 | 2022 | Viasat KA-SAT cyberattack (attributed by the EU to Russia) | Tens of thousands of end devices lost connectivity; see [CERT Polska's analysis](https://cert.pl/en/uploads/docs/Report_CP_2022.pdf) |
-| 2022–present | GNSS jamming/spoofing in Ukraine/Eastern Europe | Aviation GPS outages, maritime position errors |
+| Since 2022 | GNSS jamming/spoofing reports in regions near conflict zones | Aviation authorities continue to track changing outages and alterations; impacts vary by region and event ([EASA update, July 2026](https://www.easa.europa.eu/en/newsroom-and-events/news/easa-updates-safety-information-bulletin-gnss-interference)) |
 
 ---
 
@@ -304,6 +310,8 @@ USERS EXPLICITLY ACKNOWLEDGE:
 | Space-Track.org | [https://www.space-track.org/](https://www.space-track.org/) |
 | AMSAT | [https://www.amsat.org/](https://www.amsat.org/) |
 | CCSDS Publications | [CCSDS publication catalogue](https://ccsds.org/publications/) |
+| EASA GNSS interference updates | [Current safety bulletin and affected regions](https://www.easa.europa.eu/en/domains/air-operations/global-navigation-satellite-system-outages-and-alterations) |
+| EU Council KA-SAT attribution | [Official 2022 statement](https://www.consilium.europa.eu/en/press/press-releases/2022/05/10/russian-cyber-operations-against-ukraine-declaration-by-the-high-representative-on-behalf-of-the-european-union/) |
 | FCC ULS License Search | [https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp](https://wireless2.fcc.gov/UlsApp/UlsSearch/searchLicense.jsp) |
 
 ---
@@ -333,7 +341,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 ```
 📁 Sections: 4 (Foundations, Ground Segment, Space Segment, User Segment)
 📖 Chapters: 11 + 2 Appendices
-🔄 Last Updated: June 2026
+🔄 Last Updated: November 2026
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 📝 Status: Active & Growing
 ```
@@ -364,7 +372,7 @@ USERS EXPLICITLY ACKNOWLEDGE:
 
 ⚠️ **RF transmission toward satellites requires EXPLICIT WRITTEN AUTHORIZATION** ⚠️
 
-⚠️ **Unauthorized access to space systems is a FEDERAL CRIME under the CFAA** ⚠️
+⚠️ **Unauthorized access or interference may violate applicable law; CFAA liability depends on the covered computer, conduct, and statutory elements. Consult qualified counsel for a specific activity.** ⚠️
 
 ⚠️ **ITAR/EAR export controls may apply to satellite security tools and techniques** ⚠️
 
