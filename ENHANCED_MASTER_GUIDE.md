@@ -1380,133 +1380,53 @@ For a tabletop, use synthetic records only. Discuss detection of unexpected raw-
 
 ![Historical PRISM provider delivery and upstream backbone collection are separate acquisition pathways](./assets/diagrams/snowden-prism-vs-upstream.svg)
 
-*Original conceptual diagram of the [PCLOB's July 2014 report, printed pages 32–35](https://www.intelligence.gov/assets/documents/702-documents/702-Report-2_OCR.pdf). PRISM involved compelled provider delivery associated with tasked selectors, rather than unrestricted direct server access. This figure covers two historical pathways, not all disclosed programs or today's legal framework.*
+*Original conceptual diagram of the [PCLOB's July 2014 Section 702 report, printed pages 32–35](https://www.intelligence.gov/assets/documents/702-documents/702-Report-2_OCR.pdf). PRISM involved compelled provider delivery associated with tasked selectors; upstream collection occurred as communications transited the backbone. The figure covers these historical pathways, not every disclosure or today's legal framework.*
 
 ### Overview
-**Source:** NSA contractor Edward Snowden  
-**Year:** June 2013  
-**Impact:** Global surveillance programs exposed  
-**Documents:** ~1.7 million classified files
 
-### Key Programs Revealed
+**Discloser:** Edward Snowden, an NSA contractor  
+**Public disclosures began:** June 2013  
+**Document count:** U.S. government estimates ranged as high as 1.7 million files; Snowden disputed that figure, and “accessed,” “removed,” and “published” are different counts. The exact number is uncertain.
 
-```
-NSA Surveillance Programs:
-├── PRISM
-│   ├── Compelled provider delivery for tasked selectors
-│   ├── Companies: Google, Facebook, Microsoft, Apple, Yahoo
-│   └── Content collection: emails, chats, videos, photos
-├── XKeyscore
-│   ├── Search and analysis system
-│   ├── Query internet activity worldwide
-│   └── No warrant required for foreign targets
-├── Bullrun
-│   ├── Decrypt encrypted communications
-│   ├── Undermine encryption standards
-│   └── Insert backdoors in commercial products
-├── MUSCULAR
-│   ├── Tap undersea cables
-│   ├── Intercept Google/Yahoo datacenter traffic
-│   └── Collect data outside US borders
-└── MYSTIC
-    ├── Record all phone calls in target countries
-    ├── Store for 30 days
-    └── Full "rewind" capability
-```
+### Programs and Collection Pathways
 
-### Technical Capabilities Exposed
+| Program or system | Evidence-based description |
+|---|---|
+| PRISM / Section 702 downstream | Government directives compelled participating providers to produce communications associated with tasked selectors. This was not unrestricted direct access to every provider server. |
+| Upstream collection | A separate pathway acquired communications as they transited the communications backbone. The PCLOB report discusses distinct targeting and filtering rules; do not merge it with provider delivery. |
+| XKEYSCORE | An intelligence analysis tool used to search and analyze collected data. Legal authority and safeguards depend on the collection and query context; the tool name does not establish a blanket “no warrant required” rule. |
+| MUSCULAR | Contemporary reporting based on Snowden documents described NSA/GCHQ interception of traffic on private links between Google and Yahoo data centers. This is distinct from PRISM and is not accurately summarized as generic “undersea cable tapping.” |
+| MYSTIC / RETRO | Reporting described a 30-day rolling recording of calls in the Bahamas and one unnamed country, with RETRO retrieval within that window. This was a report about specific deployments, not a claim that every target country had all calls recorded. |
+| BULLRUN | A reported NSA effort to obtain access to encrypted communications through technical operations and other means. The disclosures do not establish that all modern encryption was broken or that every commercial product contained a backdoor. |
 
-```bash
-# NSA toolkits revealed
+### Technical Capabilities and Evidence Limits
 
-# 1. ANT Catalog (Advanced Network Technology)
-# Hardware implants and TAO tools:
-- COTTONMOUTH: USB hardware implant
-- IRATEMONK: Hard drive firmware implant
-- HEADWATER: PCI bus implant
-- RAGEMASTER: VGA signal interception
-- DROPOUTJEEP: iPhone exploitation tool
+A leaked NSA ANT catalog, reported in 2013, described examples of hardware and software implants. A catalog listing documents capability or design; by itself, it does not prove that a particular implant was deployed against a named person or device.
 
-# 2. Tailored Access Operations (TAO)
-# Elite hacking unit capabilities:
-- Zero-day exploit stockpile
-- Man-in-the-middle attacks
-- Quantum insert (packet injection)
-- Hardware interdiction (supply chain)
+The Snowden-era reporting on **Dual_EC_DRBG** raised a serious concern that its parameter choices could permit a trapdoor. NIST's later account describes the concern and the standards-process controversy. This should not be generalized into a claim that all NIST standards, TLS, or encrypted products were backdoored. Heartbleed was a separate OpenSSL implementation vulnerability, not itself a cryptographic standard or proof of a Snowden-era NSA capability.
 
-# 3. PRISM Collection
-# Querying system:
-SELECT * FROM communications 
-WHERE (sender='target@email.com' OR recipient='target@email.com')
-AND date > '2013-01-01'
-```
+The exact number and scope of files remain disputed. Treat official damage estimates, Snowden's account, and the set of documents journalists published as separate claims with different provenance.
 
-### Encryption Backdoors
+### Privacy and Security Lessons
 
-```
-Compromised Standards:
-├── Dual_EC_DRBG
-│   ├── NIST random number generator
-│   ├── NSA backdoor inserted
-│   └── Used in RSA BSAFE library
-├── Bullrun Program
-│   ├── Weaken encryption standards
-│   ├── Influence NIST
-│   └── Partner with industry
-└── TLS/SSL
-    ├── Heartbleed exploitation
-    ├── Certificate authority cooperation
-    └── RSA key stealing
-```
+- End-to-end encryption can protect message content in transit, but it does not protect a compromised endpoint or hide all metadata.
+- Minimize sensitive data collection and retention, and review what providers and devices can access.
+- Use layered protections and evaluate implementations, key management, endpoints, and backups; a product label or an open-source license alone does not establish security.
+- Preserve the legal and historical context of each program. A collection capability does not, by itself, explain its authorization, oversight, or use in every case.
 
-### Privacy Protection Response
+### Sources
 
-```bash
-# Post-Snowden security improvements
-
-# 1. End-to-end encryption adoption
-# Signal Protocol
-# - Double Ratchet Algorithm
-# - Perfect forward secrecy
-# - Deniable authentication
-
-# 2. Tor usage increase
-# Download Tor Browser
-wget https://www.torproject.org/download/
-
-# 3. VPN usage
-# Select no-logs VPN provider
-mullvad connect
-
-# 4. Encrypted email
-# ProtonMail, Tutanota
-
-# 5. Secure messaging
-# Signal, Wire, Threema
-
-# 6. Full disk encryption
-# Linux: LUKS
-# macOS: FileVault
-# Windows: BitLocker
-# Formatting a block device with a LUKS setup command initializes it and can
-# make existing data inaccessible. Follow current vendor documentation only
-# after verifying the exact target, confirming a tested backup, and approving
-# the change. This guide intentionally provides no device-formatting command.
-```
-
-### Lessons for Security Professionals
-
-1. **Assume surveillance** - Nation-states have vast capabilities
-2. **Encryption works** - Properly implemented crypto is effective
-3. **Metadata matters** - Who, when, where is as important as content
-4. **Zero trust model** - Don't trust any single component
-5. **Open source** - Closed systems may have backdoors
-6. **Defense in depth** - Multiple layers of protection
+- [PCLOB — July 2014 Section 702 report](https://www.intelligence.gov/assets/documents/702-documents/702-Report-2_OCR.pdf), including PRISM and upstream collection.
+- [PCLOB — 2023 Section 702 report](https://documents.pclob.gov/prod/Documents/OversightReport/8ca320e5-01d3-4d6a-8106-3384aad6ff31/2023%20PCLOB%20702%20Report%20-%20Nov%2017%202023%20-%201446.pdf), describing current terminology for downstream and upstream pathways.
+- [PCLOB — XKEYSCORE oversight reports](https://www.pclob.gov/Oversight).
+- [The Washington Post — MUSCULAR data-center-link reporting](https://www.washingtonpost.com/world/national-security/nsa-infiltrates-links-to-yahoo-google-data-centers-worldwide-snowden-documents-say/2013/10/30/e51d661e-4166-11e3-8b74-d89d714ca4dd_story.html).
+- [The Washington Post — MYSTIC and RETRO reporting](https://www.washingtonpost.com/world/national-security/nsa-surveillance-program-reaches-into-the-past-to-retrieve-replay-phone-calls/2014/03/18/226d2646-ade9-11e3-a49e-76adc9210f19_story.html).
+- [NIST — Cryptographic standards and the Dual_EC_DRBG controversy](https://csrc.nist.gov/nist-cyber-history/cryptography/chapter).
+- [DIA Director — 1.7 million document estimate](https://www.dia.mil/Articles/Speeches-and-Testimonies/Article/567078/dia-director-flynn-unauthorized-disclosures-have-caused-grave-damage-to-our-nat/).
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 ---
-
 # TEAM PLAYBOOKS
 
 ## Purple Team Playbook (Simple)
