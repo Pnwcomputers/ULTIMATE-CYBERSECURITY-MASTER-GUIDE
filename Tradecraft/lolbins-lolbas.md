@@ -228,8 +228,10 @@ Do not change execute permissions on binaries under `C:\Windows\System32` with a
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" `
     -Name "EnableScriptBlockLogging" -Value 1
 
-# Enable Constrained Language Mode
-[System.Environment]::SetEnvironmentVariable('__PSLockdownPolicy', '4', 'Machine')
+# Constrained Language Mode is enforced by application-control policy, not
+# by setting __PSLockdownPolicy. Pilot WDAC/AppLocker policy in audit mode
+# and verify the effect in your managed environment before enforcement.
+# See the PowerShell language-modes documentation.
 
 # Disable PowerShell v2 (removes AMSI bypass vector)
 Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" -NoRestart
@@ -242,8 +244,9 @@ Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV
 Add-MpPreference -AttackSurfaceReductionRules_Ids "d4f940ab-401b-4efc-aadc-ad5f3c50688a" `
     -AttackSurfaceReductionRules_Actions Enabled
 
-# Block JS/VBS from launching downloaded executable content
-Add-MpPreference -AttackSurfaceReductionRules_Ids "3b576869-a4ec-4529-8536-b80a7769e899" `
+# Block JavaScript or VBScript from launching downloaded executable content
+# Rule GUID verified against Microsoft's ASR rules reference.
+Add-MpPreference -AttackSurfaceReductionRules_Ids "d3e037e1-3eb8-44c8-a917-57927947596d" `
     -AttackSurfaceReductionRules_Actions Enabled
 
 # Block process creations originating from PSExec and WMI commands
@@ -259,6 +262,8 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids "d1e49aac-8f56-4280-b9ba-993a6
 - [LOLDrivers](https://www.loldrivers.io/)
 - [MITRE ATT&CK: Signed Binary Proxy Execution (T1218)](https://attack.mitre.org/techniques/T1218/)
 - [Sigma Rules Repository](https://github.com/SigmaHQ/sigma)
+- [PowerShell language modes — Microsoft Learn](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_language_modes)
+- [Attack surface reduction rules — Microsoft Learn](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-overview)
 - [Sysmon Configuration](https://github.com/SwiftOnSecurity/sysmon-config)
 - [WDAC Policy Wizard](https://webapp-wdac-wizard.azurewebsites.net/)
 
