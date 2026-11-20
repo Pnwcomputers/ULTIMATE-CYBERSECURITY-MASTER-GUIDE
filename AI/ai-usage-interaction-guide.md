@@ -1,6 +1,6 @@
 # Practical AI Usage and Interaction Guide
 
-_Last reviewed: 2026-11-05_
+_Last reviewed: 2026-11-20_
 
 Use this guide to turn chats into reliable outputs. A model's assertion is not proof, and its statement that it performed an action is not a tool receipt.
 
@@ -18,6 +18,11 @@ Use this guide to turn chats into reliable outputs. A model's assertion is not p
 See [Projects, Notebooks and Assistants](ai-workspaces-notebooks-and-assistants.md).
 
 ## The Five Instruction Layers
+
+![Mission, context, boundaries, execution, and evidence form a prompt contract; bounded work is verified, approved before side effects, and saved in a handoff](../assets/diagrams/ai-five-layer-prompt-to-evidence-handoff.svg)
+
+*Conceptual workflow. The prompt describes intent; system permissions and human approval enforce access and side-effect boundaries.*
+
 
 1. **Mission:** Specify the outcome, intended user and definition of done.
 2. **Context:** Provide authoritative sources, environment, version and current state.
@@ -109,7 +114,7 @@ List gaps and identify who must approve the next phase.
 
 ## Privacy & Completion
 
-Classify inputs (public/internal/confidential/regulated) before use. Do not upload unnecessary client data, keys or tokens; check platform access and retention controls. Long chat context can disappear, so preserve status and handoffs in durable records.
+Classify inputs (public/internal/confidential/regulated) before use. Do not upload unnecessary client data, keys or tokens; check platform access and retention controls. A local model does not make connected tools, browser/search requests, integrations, message channels, logs, telemetry, memory stores, or backups local—verify the full data path. Long chat context can disappear, so preserve status and handoffs in durable records.
 
 Before calling work complete, verify the actual output, source grounding, authorization, tests and blockers. Mark everything not independently checked as unverified.
 
