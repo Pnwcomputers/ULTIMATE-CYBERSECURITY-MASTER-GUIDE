@@ -140,7 +140,6 @@ A concise lead list with source, date, uncertainty, and ownership checks require
 
 - [RFC 9162: Certificate Transparency Version 2.0](https://www.rfc-editor.org/rfc/rfc9162.html) — CT log and certificate context.
 - [crt.sh](https://crt.sh/) — public certificate search interface; results are certificate records, not a live asset inventory.
-- [GitHub REST API rate-limit guidance](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api) — relevant when an approved API source is used.
 
 ## Related flows
 
