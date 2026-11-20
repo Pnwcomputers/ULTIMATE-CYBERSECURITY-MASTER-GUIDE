@@ -60,9 +60,9 @@ workloads are attacked and how to harden them, complementing the
 
 ## 🎯 Overview
 
-Containers and Kubernetes are now the default way applications ship and run, and
-they add attack surface at several layers - the image, the container runtime, the
-host, and the orchestrator. This section consolidates container security
+Containers and Kubernetes are widely used ways to package and orchestrate
+applications, and they add attack surface at several layers - the image, the
+container runtime, the host, and the orchestrator. This section consolidates container security
 (previously scattered across the master guides) into fundamentals plus depth on
 containers and Kubernetes.
 
@@ -99,8 +99,8 @@ The usual Linux container model shares the host kernel, so a kernel vulnerabilit
 | [kube-bench](https://github.com/aquasecurity/kube-bench) | CIS Kubernetes Benchmark checks |
 | [kubescape](https://github.com/kubescape/kubescape) | Cluster risk analysis, misconfiguration, and compliance scanning |
 | [Falco](https://github.com/falcosecurity/falco) | Runtime threat detection (syscall-based); CNCF |
-| [Docker Bench for Security](https://github.com/docker/docker-bench-security) | CIS Docker Benchmark checks |
-| [kube-hunter](https://github.com/aquasecurity/kube-hunter) | Cluster penetration-testing scanner (authorized use) |
+| [Docker Bench for Security](https://github.com/docker/docker-bench-security) | Upstream README maps its checks to CIS Docker Benchmark v1.6.0. The container runner uses host networking/PID and host mounts, so review its privileges and scope before running it. |
+| [kube-hunter](https://github.com/aquasecurity/kube-hunter) | Legacy cluster-weakness scanner; upstream says it is no longer under active development. Aqua points to Trivy Kubernetes misconfiguration and KBOM scanning for known-issue assessment; these have different coverage from kube-hunter's exposure probing. |
 
 ---
 
