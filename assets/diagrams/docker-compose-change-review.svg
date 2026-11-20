@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 224" role="img" aria-labelledby="title desc">
+  <title id="title">Docker Compose change review</title>
+  <desc id="desc">Confirm the target daemon and project, validate the resolved Compose model, preview the intended up operation, then verify health after approval and execution.</desc>
+  <rect width="960" height="224" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="45" fill="#fff" font-size="27" font-weight="bold">Docker Compose change review</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="28" y="70" width="200" height="126" rx="12"/>
+      <rect x="262" y="70" width="200" height="126" rx="12"/>
+      <rect x="496" y="70" width="200" height="126" rx="12"/>
+      <rect x="730" y="70" width="200" height="126" rx="12"/>
+    </g>
+    <path d="M233 133h24m-7-6 7 6-7 6m217-6h24m-7-6 7 6-7 6m217-6h24m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <g fill="#fff" font-size="18" font-weight="bold">
+      <text x="44" y="108">Confirm target</text><text x="278" y="108">Validate model</text>
+      <text x="512" y="108">Preview changes</text><text x="746" y="108">Verify after approval</text>
+    </g>
+    <g fill="#d7e6f4" font-size="15">
+      <text x="44" y="143">Daemon and project</text><text x="44" y="168">Files, profiles and env</text>
+      <text x="278" y="143">Resolve configuration</text><text x="278" y="168">Review selected services</text>
+      <text x="512" y="143">Dry run the intended up</text><text x="512" y="168">Review pulls and recreation</text>
+      <text x="746" y="143">Apply the approved change</text><text x="746" y="168">Check service health</text>
+    </g>
+  </g>
+</svg>

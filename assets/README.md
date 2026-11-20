@@ -7,6 +7,12 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Container Operations
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Compose change review](./diagrams/docker-compose-change-review.svg) | [Docker CLI Operations](../ContainerSecurity/docker-cli-operations-reference.md#docker-compose) | Connects target selection, model validation, dry run and post-change health checks |
+
 ## Honeypot, Streaming, Recovery & Authorization Illustrations
 
 These are editable SVG reference diagrams embedded within the relevant chapter. They distinguish source-supported architecture from unverified production operation.
