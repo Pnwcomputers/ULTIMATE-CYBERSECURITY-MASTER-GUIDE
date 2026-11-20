@@ -1043,4 +1043,5 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 |---|---|
 | [AI model routing and fallback](./diagrams/ai-model-routing-policy.svg) | [Model routing and cost management](../AI/model-routing-and-cost-management.md#3-routing-policy--safe-fallback) |
 | [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
+| [CAD design to verified fit loop](./diagrams/cad-design-to-fit-verification-loop.svg) | [CAD & 3D Printing](../CAD/README.md#cad-design-to-fit-loop) |
 | [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |
