@@ -1,6 +1,6 @@
 # 🛠️ Building Your Own Alphabet
 
-_Last reviewed: 2026-10-02_
+_Last reviewed: 2026-11-20_
 
 > [!IMPORTANT]
 > **Historical and educational content.** Nothing in this section is secure for real
@@ -47,6 +47,23 @@ Write a keyword, drop repeated letters, then append the remaining letters of the
 ## Homophonic Substitution
 
 The weakness of every one-for-one alphabet is that it preserves letter frequency (see [Breaking Simple Substitution](cryptanalysis.md#breaking-simple-substitution)). Homophonic ciphers counter this by giving common letters multiple symbols in proportion to their frequency. For example, `E` (≈13%) might get 13 different symbols while `Z` gets one. The ciphertext frequency then looks nearly flat.
+
+## Design Workflow
+
+```mermaid
+flowchart TD
+    start["Choose a method or combination"] --> map["Write symbol, key, and decoding rules"]
+    map --> split{"Can the ciphertext be split into unique tokens?"}
+    split -->|No| delimiters["Add separators or fixed-width tokens"]
+    delimiters --> roundtrip["Encode, then decode sample messages"]
+    split -->|Yes| roundtrip
+    roundtrip --> survives{"Do target fonts, Markdown, and Unicode handling preserve the text?"}
+    survives -->|No| revise["Change symbols or document lossy behavior"]
+    revise --> roundtrip
+    survives -->|Yes| publish["Document exact rules and limitations"]
+```
+
+*The flow summarizes the checklist below. It describes reliable decoding and display, not cryptographic security.*
 
 ## Design Checklist for Your Own Leet/Symbol Alphabet
 
