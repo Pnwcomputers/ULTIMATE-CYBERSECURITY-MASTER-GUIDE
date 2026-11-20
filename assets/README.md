@@ -82,7 +82,7 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 
 | Diagram | Embedded guide | Why it belongs |
 |---|---|---|
-| [HIBP metadata privacy workflow](./diagrams/hibp-breach-metadata-privacy-workflow.svg) | [Breach Exposure Check AgentFlow](../AI/AnythingLLM/flow-breacher_check.md#suggested-flow) | Shows consent, metadata minimization, interpretation limits, and owner-directed next steps |
+| [HIBP metadata privacy workflow](./diagrams/hibp-breach-metadata-privacy-workflow.svg) | [Breach Exposure Check AgentFlow](../AI/AnythingLLM/flow-breacher_check.md#suggested-flow); [Email Account Exposure Review](../AI/AnythingLLM/flow-email_osint.md#authorized-use-and-privacy) | Shows consent, metadata minimization, interpretation limits, and owner-directed next steps for related HIBP account checks |
 
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
