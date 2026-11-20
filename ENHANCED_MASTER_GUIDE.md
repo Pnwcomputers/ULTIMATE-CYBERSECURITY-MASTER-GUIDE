@@ -1771,290 +1771,45 @@ References: [Sigma rule specification](https://sigmahq.io/sigma-specification/sp
 
 ## SIEM Ingestion
 
-### Log Sources Configuration
+This is a vendor-neutral design guide, not a deployable Elastic Stack configuration. Collector options and field names depend on product versions, enabled auditing, and local policy. Select one documented route for each data source and validate the complete route in a test environment before rollout.
 
-```yaml
-# siem_log_sources.yaml
+### Ingestion flow
 
-log_sources:
-  
-  windows_events:
-    enabled: true
-    collector: "winlogbeat"
-    endpoints:
-      - domain_controllers
-      - workstations
-      - servers
-    event_ids:
-      security:
-        - 4624  # Successful logon
-        - 4625  # Failed logon
-        - 4672  # Special privileges assigned
-        - 4688  # Process creation
-        - 4689  # Process termination
-        - 4698  # Scheduled task created
-        - 4720  # User account created
-        - 4732  # Member added to security group
-      system:
-        - 7045  # Service installed
-      application:
-        - 1000  # Application error
-  
-  sysmon:
-    enabled: true
-    collector: "winlogbeat"
-    event_ids:
-      - 1   # Process creation
-      - 3   # Network connection
-      - 7   # Image loaded
-      - 8   # CreateRemoteThread
-      - 10  # ProcessAccess
-      - 11  # FileCreate
-      - 12  # RegistryEvent
-      - 13  # RegistryEvent (Value Set)
-      - 22  # DNSEvent
-  
-  linux_logs:
-    enabled: true
-    collector: "filebeat"
-    paths:
-      - /var/log/auth.log
-      - /var/log/syslog
-      - /var/log/apache2/*.log
-      - /var/log/nginx/*.log
-  
-  firewall:
-    enabled: true
-    collector: "syslog"
-    sources:
-      - palo_alto
-      - fortinet
-      - checkpoint
-  
-  ids_ips:
-    enabled: true
-    collector: "syslog"
-    sources:
-      - snort
-      - suricata
-  
-  proxy:
-    enabled: true
-    collector: "filebeat"
-    sources:
-      - squid
-      - bluecoat
-  
-  endpoint_detection:
-    enabled: true
-    collector: "api"
-    sources:
-      - crowdstrike
-      - sentinelone
-      - carbonblack
+```mermaid
+flowchart LR
+    W[Windows event channels] --> C[Approved collectors]
+    L[Linux audit and service logs] --> C
+    N[Network and security controls] --> C
+    E[EDR and cloud audit feeds] --> C
+    C --> T[Encrypted transport and buffering]
+    T --> P[Parse and normalize]
+    P --> Q[Validate timestamps, fields, source, and host]
+    Q --> S[SIEM storage with access and retention controls]
+    S --> D[Detection rules and analyst review]
+    D --> R[Incident response]
+    Q -. rejected or malformed .-> X[Quarantine and pipeline health alerts]
 ```
 
-### Winlogbeat Configuration
+### Choose sources by use case
 
-```yaml
-# winlogbeat.yml
+| Source | Useful telemetry | Planning notes |
+| --- | --- | --- |
+| Windows Security and PowerShell channels | Authentication, account/group changes, process creation, and script activity where auditing is enabled | Confirm audit policy, channel access, event volume, and retention. Event IDs alone do not guarantee useful coverage. |
+| Sysmon | Configured process, network, file, registry, and image-load events | Sysmon coverage depends on its installed version and configuration; avoid silently dropping event types needed by detections. |
+| Linux authentication, audit, and service logs | Logins, privilege changes, process or service events, and application activity | Paths and formats vary by distribution and service. Prefer structured sources where available and document rotation behavior. |
+| Firewall, DNS, proxy, and IDS/IPS | Connection metadata, name lookups, web requests, and network alerts | Record sensor location, clock source, address translation context, and data retention. Do not treat an alert as a confirmed compromise. |
+| EDR and cloud audit feeds | Endpoint activity and control-plane/API actions | Use scoped read-only collection credentials, vendor-supported integrations, and explicit tenant/account coverage. |
 
-winlogbeat.event_logs:
-  - name: Security
-    event_id: 4624, 4625, 4672, 4688, 4720, 4732
-    processors:
-      - script:
-          lang: javascript
-          source: >
-            function process(event) {
-              // Enrich with additional context
-              var user = event.Get("winlog.event_data.TargetUserName");
-              if (user) {
-                event.Put("user.name", user);
-              }
-            }
-  
-  - name: System
-    event_id: 7045, 1000
-  
-  - name: Application
-  
-  - name: Microsoft-Windows-Sysmon/Operational
-    processors:
-      - drop_event:
-          when:
-            not:
-              or:
-                - equals:
-                    winlog.event_id: 1
-                - equals:
-                    winlog.event_id: 3
-                - equals:
-                    winlog.event_id: 7
-                - equals:
-                    winlog.event_id: 11
+### Design and validation controls
 
-output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
-  index: "winlogbeat-%{+yyyy.MM.dd}"
-  username: "elastic"
-  password: "${ES_PASSWORD}"   # from the Beats keystore or environment; never a literal
+1. **Choose and document one route per source.** A collector may send directly to the SIEM or through a broker/processor. Do not configure both routes for the same events unless duplication is intentional and measured.
+2. **Preserve event time and ingestion time separately.** Normalize the event's original timestamp to the SIEM's expected field, retain the collector's arrival time separately, and monitor clock skew and parse failures.
+3. **Normalize only after preserving useful source context.** Record source product/channel, host identity, event identifier, and parser/version. Keep enough original event data to investigate parsing or mapping errors, subject to privacy and retention policy.
+4. **Protect data in transit and at rest.** Use TLS with certificate verification, least-privilege service identities, managed secrets, and role-based access. Never put working passwords or API keys in examples, source control, or event fields.
+5. **Plan for failure and volume.** Set queue and retention limits, monitor collector lag/drops/retries, and decide how backpressure and unavailable destinations are handled. Alert when a source stops reporting.
+6. **Validate safely before deployment.** Use vendor configuration validators and representative synthetic events. Confirm expected parsing, field mapping, timestamps, duplicate behavior, permissions, and rollback steps before enabling broad collection.
 
-processors:
-  - add_host_metadata:
-      when.not.contains.tags: forwarded
-  - add_cloud_metadata: ~
-  - add_docker_metadata: ~
-  - add_kubernetes_metadata: ~
-
-logging.level: info
-logging.to_files: true
-logging.files:
-  path: C:\ProgramData\winlogbeat\Logs
-  name: winlogbeat
-  keepfiles: 7
-  permissions: 0644
-```
-
-### Filebeat Configuration
-
-```yaml
-# filebeat.yml
-
-filebeat.inputs:
-
-# Authentication logs
-- type: log
-  enabled: true
-  paths:
-    - /var/log/auth.log
-  fields:
-    log_type: authentication
-  fields_under_root: true
-
-# Web server logs
-- type: log
-  enabled: true
-  paths:
-    - /var/log/nginx/access.log
-    - /var/log/apache2/access.log
-  fields:
-    log_type: web_access
-  processors:
-    - dissect:
-        tokenizer: '%{client_ip} - - [%{timestamp}] "%{method} %{uri} %{protocol}" %{status} %{size}'
-        field: "message"
-        target_prefix: "web"
-
-# System logs
-- type: log
-  enabled: true
-  paths:
-    - /var/log/syslog
-  fields:
-    log_type: system
-  multiline:
-    pattern: '^\['
-    negate: true
-    match: after
-
-output.logstash:
-  hosts: ["logstash:5044"]
-
-processors:
-  - add_host_metadata:
-      when.not.contains.tags: forwarded
-  - add_cloud_metadata: ~
-  - add_docker_metadata: ~
-
-logging.level: info
-```
-
-### Logstash Pipeline
-
-```ruby
-# logstash_pipeline.conf
-
-input {
-  beats {
-    port => 5044
-  }
-  
-  syslog {
-    port => 514
-    type => "syslog"
-  }
-}
-
-filter {
-  # Parse Windows Security logs
-  if [log_type] == "windows_security" {
-    grok {
-      match => {
-        "message" => "%{TIMESTAMP_ISO8601:timestamp} %{WORD:event_id} %{GREEDYDATA:event_data}"
-      }
-    }
-    
-    # Enrich with threat intelligence
-    if [winlog][event_data][IpAddress] {
-      geoip {
-        source => "[winlog][event_data][IpAddress]"
-        target => "geoip"
-      }
-    }
-  }
-  
-  # Parse authentication logs
-  if [log_type] == "authentication" {
-    grok {
-      match => {
-        "message" => "%{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:hostname} %{WORD:program}\[%{NUMBER:pid}\]: %{GREEDYDATA:message}"
-      }
-    }
-    
-    # Detect failed logins
-    if "Failed password" in [message] {
-      mutate {
-        add_tag => [ "failed_login" ]
-      }
-    }
-  }
-  
-  # Normalize timestamps
-  date {
-    match => [ "timestamp", "ISO8601", "UNIX", "UNIX_MS" ]
-    target => "@timestamp"
-  }
-  
-  # Add custom fields
-  mutate {
-    add_field => {
-      "ingestion_timestamp" => "%{@timestamp}"
-      "pipeline_version" => "1.0"
-    }
-  }
-}
-
-output {
-  elasticsearch {
-    hosts => ["elasticsearch:9200"]
-    index => "%{log_type}-%{+YYYY.MM.dd}"
-    user => "elastic"
-    password => "${ES_PASSWORD}"   # from the Logstash keystore or environment; prefer a least-privilege user
-  }
-  
-  # Send high severity alerts to separate index
-  if [severity] == "high" or [severity] == "critical" {
-    elasticsearch {
-      hosts => ["elasticsearch:9200"]
-      index => "alerts-%{+YYYY.MM.dd}"
-    }
-  }
-  
-  # Debug output (disable in production)
-  # stdout { codec => rubydebug }
-}
-```
+The earlier sample files combined different collection routes and incomplete parsing assumptions, so they have been removed rather than presented as ready-to-run configuration. In particular, Filebeat's legacy `log` input is deprecated and disabled by default in version 9; use the current `filestream` guidance for supported deployments. Consult the vendor documentation for the installed versions: [Winlogbeat event log configuration](https://www.elastic.co/docs/reference/beats/winlogbeat/configuration-winlogbeat-options), [Filebeat migration to filestream](https://www.elastic.co/docs/reference/beats/filebeat/migrate-to-filestream), [Logstash date filter](https://www.elastic.co/docs/reference/logstash/plugins/plugins-filters-date), and [securing Logstash connections and secrets](https://www.elastic.co/docs/reference/logstash/secure-connection).
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
