@@ -126,6 +126,17 @@ These editable original SVGs are embedded in their explanatory chapters and pair
 | [Safe Bash Execution Gates](./diagrams/bash-script-input-validation-and-dry-run-gates.svg) | [Bash Scripting Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Validate optional args, quoting, syntax checks, side-effect boundaries |
 | [ESP32 Firmware Acceptance Gates](./diagrams/esp32-firmware-board-build-flash-acceptance.svg) | [ESP32 Security Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Chip/board-specific builds, flash layouts, recovery and post-boot qualification |
 
+## Python Reference Safety, Classical Ciphers, Pentoo & Incident Casebook
+
+Original, editable diagrams embedded directly into the related technical chapters. Their captions distinguish educational models from any untested device/runtime scenario.
+
+| Diagram | Embedded Guide | Core Limit |
+|---|---|---|
+| [Python Security Example Qualification](./diagrams/python-security-snippet-platform-scope-test-gates.svg) | [Python Security Cheat Sheet](../Documentation/python.md) | Windows native prototypes, legacy API versions, safe local probes and observed outcomes |
+| [Classical Cipher Family Comparison](./diagrams/classical-cipher-swap-position-and-one-time-pad.svg) | [Classical Ciphers](../Cryptography/Classical/ciphers.md) | Distinguishes codes, substitution, transposition, periodic shifts and OTP requirements |
+| [Pentoo Deployment & Portage Gates](./diagrams/pentoo-gentoo-deployment-profile-safety.svg) | [Pentoo Linux Field Guide](../Tradecraft/pentoo-linux-guide.md) | Distinguishes live image, installed system, Gentoo overlay and hardware validation |
+| [Incident Casebook Evidence and Approval](./diagrams/incident-casebook-scope-evidence-action-approval.svg) | [Operational Playbook Library](../PlayBooks/cybersecurity_playbooks.md) | Correlate event evidence and authority before containment, recovery and notification |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |

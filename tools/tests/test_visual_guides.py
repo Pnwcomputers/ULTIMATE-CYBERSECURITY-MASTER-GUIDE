@@ -264,6 +264,18 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/pci-scope-evidence-trail.svg": (
         "Compliance/pci-scope-review-template.md",
     ),
+    "assets/diagrams/python-security-snippet-platform-scope-test-gates.svg": (
+        "Documentation/python.md",
+    ),
+    "assets/diagrams/classical-cipher-swap-position-and-one-time-pad.svg": (
+        "Cryptography/Classical/ciphers.md",
+    ),
+    "assets/diagrams/pentoo-gentoo-deployment-profile-safety.svg": (
+        "Tradecraft/pentoo-linux-guide.md",
+    ),
+    "assets/diagrams/incident-casebook-scope-evidence-action-approval.svg": (
+        "PlayBooks/cybersecurity_playbooks.md",
+    ),
 }
 
 
