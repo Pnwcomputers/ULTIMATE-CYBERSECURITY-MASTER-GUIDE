@@ -114,6 +114,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [OpenClaw use-case safety workflow](./diagrams/openclaw-use-case-safety-workflow.svg) | [OpenClaw Use Cases](../AI/OpenClaw/use_cases.md#before-using-a-prompt) | Connects data minimization, channel/scope checks, least-privilege tools, verification, and human approval |
 
+## Five-Layer Prompt to Evidence Handoff
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Five-layer prompt to evidence handoff](./diagrams/ai-five-layer-prompt-to-evidence-handoff.svg) | [Practical AI Usage and Interaction Guide](../AI/ai-usage-interaction-guide.md#the-five-instruction-layers) | Shows how mission, context, boundaries, execution, and evidence connect to verification, approval, and handoff |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
