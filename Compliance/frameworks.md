@@ -67,7 +67,10 @@ Management System (ISMS). The **2022** revision supersedes 2013.
 - **Annex A (2022):** **93 controls** organized into **4 themes** - Organizational,
   People, Physical, Technological (down from 114 controls / 14 domains in 2013).
 - **Use it for:** an internationally recognized ISMS certification via an accredited certification body.
-- **Amendment 1:2024:** ISO/IEC 27001:2022 has a published climate-action amendment. Consider whether climate change is a relevant ISMS context issue under clause 4.1 and whether interested parties have related requirements under clause 4.2; verify current certification-body guidance. [ISO amendment](https://www.iso.org/standard/88435.html).
+- **Amendment 1:2024:** ISO/IEC 27001:2022 has a published climate-action
+  amendment. Consider whether climate change is a relevant ISMS context issue under
+  clause 4.1 and whether interested parties have related requirements under clause
+  4.2; verify current certification-body guidance in the [ISO amendment](https://www.iso.org/standard/88435.html).
 
 ---
 
