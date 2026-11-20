@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">CM5 AIO v2 and NVMe validation</title>
+  <desc id="desc">Review boot-file settings, verify live devices after reboot, then test startup from NVMe only if it is the intended boot device.</desc>
+  <rect width="960" height="300" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="49" fill="#fff" font-size="27" font-weight="bold">CM5 AIO v2 and NVMe validation</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="30" y="78" width="270" height="150" rx="12"/>
+      <rect x="345" y="78" width="270" height="150" rx="12"/>
+      <rect x="660" y="78" width="270" height="150" rx="12"/>
+    </g>
+    <path d="M308 153h28m-8-7 8 7-8 7m295-7h28m-8-7 8 7-8 7" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <g font-size="19" font-weight="bold" fill="#fff">
+      <text x="49" y="113">Boot files</text>
+      <text x="364" y="113">Live devices after reboot</text>
+      <text x="679" y="113">NVMe startup, if intended</text>
+    </g>
+    <g font-size="16" fill="#d7e6f4">
+      <text x="49" y="148">Review CM5 filters and overlays</text>
+      <text x="49" y="176">Check GPS console assignment</text>
+      <text x="49" y="204">Enable PCIe for the fitted board</text>
+      <text x="364" y="148">Check UART, SPI and the RTC</text>
+      <text x="364" y="176">Review battery telemetry</text>
+      <text x="364" y="204">Confirm NVMe enumeration</text>
+      <text x="679" y="148">Read EEPROM boot settings</text>
+      <text x="679" y="176">Prepare a bootable NVMe image</text>
+      <text x="679" y="204">Verify the actual boot device</text>
+      <text x="30" y="269">Use the read-only hardware report to identify gaps. Confirm the installed peripherals and boot path on the device.</text>
+    </g>
+  </g>
+</svg>

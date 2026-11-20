@@ -323,7 +323,7 @@ CM5), normally in Rex's drivers block at the bottom.
 - After editing and rebooting, audit with the read-only checker, which applies the same filter rules:
 
 ```bash
-sudo bash ./uconsole-cm5-setup.sh --hw-check
+sudo bash uConsole/scripts/uconsole-cm5-setup.sh --hw-check
 ```
 
 ---
@@ -678,6 +678,8 @@ Meshtasticd's web server is enabled by the AIO board package's default config.
 
 ## Boot Automation
 
+![CM5 validation flow from reviewing boot files to checking live peripherals and confirming the intended boot device](../assets/diagrams/uconsole-cm5-aio-nvme-validation.svg)
+
 ### Complete `/boot/firmware/config.txt` Additions (CM5)
 These are the effective lines this guide expects. Place them under `[all]` or `[cm5]` (never after `[cm4]`/`[pi4]`),
 and change any existing `dtparam=pciex1=off` rather than adding a duplicate:
@@ -700,7 +702,7 @@ dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi0
 dtparam=pciex1
 ```
 
-Verify with `sudo bash ./uconsole-cm5-setup.sh --hw-check`.
+Verify with `sudo bash uConsole/scripts/uconsole-cm5-setup.sh --hw-check`.
 
 ---
 

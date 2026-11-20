@@ -346,17 +346,20 @@ for level, msg in out:
 PY
 }
 hw_check() {
-    local model f name val
+    local model f name val config_report line
     model=$(tr -d '\0' < "$MODEL_FILE" 2>/dev/null) || model=unknown
     printf 'uconsole-cm5-setup.sh v%s hardware check (read-only)\nModel: %s\n' "$VERSION" "$model"
     [[ "$model" == *'Compute Module 5'* ]] || hw WARN 'Not a CM5; results below assume CM5 overlays'
     command -v python3 >/dev/null || { hw FAIL 'python3 is required for config.txt checks'; return 1; }
 
     printf -- '-- %s --\n' "$CONFIG_TXT"
+    if ! config_report=$(check_config_txt); then
+        hw FAIL "Could not evaluate $CONFIG_TXT"
+    fi
     while IFS= read -r line; do
         [[ "$line" == '[FAIL]'* ]] && HW_FAILS=$((HW_FAILS + 1))
         printf '%s\n' "$line"
-    done < <(check_config_txt)
+    done <<<"$config_report"
 
     printf -- '-- %s --\n' "$CMDLINE_TXT"
     if [[ -r "$CMDLINE_TXT" ]]; then

@@ -203,6 +203,14 @@ class HardwareCheckTests(unittest.TestCase):
             self.assertIn('NVMe controller: Test NVMe', r.stdout)
             self.assertEqual(before, self.snapshot(root))
 
+    def test_config_parser_error_fails_the_hardware_report(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = pathlib.Path(d)
+            self.fixture(root)
+            r = self.shell('check_config_txt() { return 2; }\nmain --hw-check', root)
+            self.assertNotEqual(r.returncode, 0)
+            self.assertIn('[FAIL] Could not evaluate', r.stdout)
+
     def test_rex_pciex1_off_fails(self):
         with tempfile.TemporaryDirectory() as d:
             root = pathlib.Path(d)
