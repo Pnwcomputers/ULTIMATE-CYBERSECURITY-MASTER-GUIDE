@@ -1,6 +1,6 @@
 # SoloKeys and Solo 2: FIDO2, Passkeys, and Multi-Protocol Keys
 
-_Last reviewed: 2026-11-01 (official documentation reviewed; device firmware not tested)_
+_Last reviewed: 2026-11-20 (official documentation reviewed; device firmware not tested)_
 
 **Prerequisites:** [Hardware Security Keys and FIDO2](./security-keys-passkeys.md) · [Applied Cryptography](./applied-crypto.md)
 
@@ -20,6 +20,21 @@ The [Solo 2 upstream project](https://github.com/solokeys/solo2) documents **FID
 | **Solo 2 Hacker** | Unlocked firmware for experimenting, modifying and flashing custom code; secure-boot sealing absent by design | Lab firmware development and security research; not interchangeable with a sealed production-key assurance claim |
 
 A hacked/unlocked variant may still perform legitimate FIDO authentication, but it **must not be represented** as providing the same firmware-integrity guarantees as the Secure version.
+
+### Model and firmware trust boundary
+
+```mermaid
+flowchart TD
+    A[Choose exact Solo 2 model] --> B{Firmware trust state}
+    B -->|Secure model| C[Secure boot locked; vendor-signed firmware only; debug access sealed]
+    B -->|Hacker model| D[Unlocked; custom or unsigned firmware can be flashed]
+    C --> E[FIDO and other functions follow the signed firmware and service policy]
+    D --> F[Functions may overlap, but custom firmware removes the signed-firmware assurance]
+    E --> G[Verify exact model, firmware and certification claim]
+    F --> G
+```
+
+*Conceptual model comparison based on the [Solo 2 upstream documentation](https://github.com/solokeys/solo2); it does not test a key or certify the firmware currently installed.*
 
 ## First-time registration on a test account
 
@@ -46,7 +61,9 @@ fido2-token -L
 lsusb
 ~~~
 
-For alternate distributions, use their package manager and current libfido2 instructions. Device enumeration confirms connectivity, **not** hardware authenticity, firmware integrity or FIDO certification.
+For alternate distributions, use their package manager and current libfido2 instructions. On Linux, follow the upstream [Solo 2 udev rule](https://github.com/solokeys/solo2/blob/main/cli/70-solo2.rules) if device permissions require it. Device enumeration confirms connectivity, **not** hardware authenticity, firmware integrity or FIDO certification.
+
+OATH/PIV/OpenPGP are separate smart-card (CCID) apps. On Linux they may also require a working PC/SC stack such as `pcscd`; this is separate from basic FIDO enumeration. See the [upstream setup notes](https://github.com/solokeys/solo2#solo-2-cli).
 
 For supported Solo 2 OpenPGP app configurations, a separate read-only probe is:
 
