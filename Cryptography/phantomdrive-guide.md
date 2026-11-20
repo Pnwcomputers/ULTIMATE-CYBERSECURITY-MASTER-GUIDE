@@ -1,6 +1,6 @@
 # PhantomDrive: Experimental Hidden Encrypted USB Research Guide
 
-_Last reviewed: 2026-11-01 (upstream documentation reviewed; build and hardware not tested)_
+_Last reviewed: 2026-11-20 (upstream documentation reviewed; build and hardware not tested)_
 
 **Prerequisites:** [Encrypted storage fundamentals](./encrypted-storage.md) · [Applied cryptography](./applied-crypto.md)
 
@@ -16,7 +16,7 @@ PhantomDrive is an open-source encrypted USB drive experiment with a decoy or vi
 - Main project: [o7-machinehum/phantomdrive](https://github.com/o7-machinehum/phantomdrive)
 - Controller: WCH **CH569W** system-on-chip with USB 3, SDIO and AES hardware.
 - Hardware design and firmware are published in the project repository.
-- Unlock is triggered by writing content containing a **password:** marker to the locked volume. The drive then changes exposed storage. This is **not** equivalent to proven plausible deniability.
+- The upstream [README](https://github.com/o7-machinehum/phantomdrive/blob/master/readme.md) describes a content trigger: while locked, a root-directory file up to 256 bytes containing **`password:`** can initiate unlock; the filename need not be `unlock.txt`. It also warns that writes containing this marker may be treated as unlock attempts. Treat the marker as reserved across the locked volume, and verify the behavior against the exact firmware revision before writing. The drive then changes exposed storage. This is **not** equivalent to proven plausible deniability.
 - The repository documents builds using **AES-256-CTR or AES-256-XTS** with **PBKDF2-HMAC-SHA256** at **100,000 or 600,000 iterations**, depending on the firmware variant. The build parameters affect the encrypted on-disk format.
 
 > [!IMPORTANT]
@@ -69,7 +69,7 @@ git submodule status
 
 5. Inspect the exact revision's README, Makefile, firmware options, and test results. Follow the upstream build/flash instructions only after validating toolchain and board compatibility. The upstream references the patched HydraUSB3 xPack toolchain and the WCH USB ISP programmer; those steps are hardware- and revision-dependent.
 6. **Record** firmware variant (CTR or XTS), KDF rounds, commit hash, test media identifier, and observations in a lab notebook. Never publish passwords or test credentials.
-7. Use a fresh random **lab-only** password. Prefer the upstream's interactive or controlled input workflow over entering secrets in a command line; do not paste a real secret into a shell command, editor with swap/autosave, ticket, or shared chat.
+7. Use a fresh random **lab-only** password. Do not put it in a shell command, editor with swap/autosave, ticket, or shared chat. The upstream `dd` standard-input example avoids placing the password in shell history, but it does not disable terminal echo: in a terminal with echo enabled, typed input is visible and may be captured in scrollback, screen recordings, or terminal logs. Check the exact input method and terminal settings; never use a real credential.
 8. With synthetic data only, inspect the decoy view, unlock via the **current official procedure**, and verify the expected encrypted view appears. Safe-eject before disconnecting.
 9. Power-cycle, test correct and incorrect credentials, file readability, and SHA-256 hashes. Treat any corruption or unexpected unlock as a test failure.
 10. Record findings, securely dispose of the lab-only media or reinitialize it as appropriate, and preserve independent copies of your dummy test set.
