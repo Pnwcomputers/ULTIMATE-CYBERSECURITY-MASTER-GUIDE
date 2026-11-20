@@ -127,60 +127,11 @@ Start with the learning objective and host capacity already available:
 
 ### Networking Hardware
 
-#### Basic Networking (All Tiers)
-
-**Required**:
-- 1Gbps Ethernet connectivity (built into most PCs)
-- Router/switch (existing home network OK for starter)
-
-#### Advanced Networking (Intermediate+)
-
-**Recommended**:
-- **Managed Switch**: VLAN support for network segmentation
-  - TP-Link TL-SG108E (8-port, ~$40)
-  - Netgear GS108Tv3 (8-port, ~$60)
-  - Cisco SG350 series (used, ~$100-200)
-
-- **Firewall/Router** (choose one):
-  - **Software-based** (VM on hypervisor): OPNsense, pfSense (free)
-  - **Hardware appliance**: Protectli Vault (4-port, $200-400)
-  - **Used enterprise**: Cisco ASA, Fortinet FortiGate ($50-200 used)
-
-#### Enterprise Networking (Advanced)
-
-**Optional Additions**:
-- 10GbE switch for high-speed storage (iSCSI, NFS)
-- Wireless access points for WiFi hacking practice
-- Network tap devices for packet capture
+A dedicated lab switch or software bridge can support segmentation. Keep any physical lab switch disconnected from home, work, and Internet uplinks unless a separately reviewed architecture explicitly requires an approved update path. Select equipment by current support, VLAN features, throughput, and management needs; model availability and prices change.
 
 ### Storage Options
 
-#### Local Storage (Starter/Intermediate)
-
-- Internal SSD/NVMe: Fast, simple
-- External USB drives: Backups, offline archives
-- Recommendation: 1TB NVMe for OS + VMs, 2TB HDD for backups
-
-#### Network Storage (Advanced)
-
-**NAS Options**:
-- **DIY TrueNAS**: Build on spare hardware (free software)
-- **Synology**: DS920+ or DS1621+ (~$500-800)
-- **QNAP**: TS-464 or TS-673A (~$400-1000)
-
-**Benefits**:
-- Centralized ISO/template storage
-- NFS/iSCSI for VM storage
-- Automated snapshots and versioning
-- Shared folders for attacker VMs
-
-**Real-World Example**:
-
-*The professional setup uses a dedicated Dell R630 running TrueNAS with:*
-- NFS shares for Proxmox ISOs and templates
-- Shared `/pentest-data` mount with wordlists and tools
-- Automated ZFS snapshots every 4 hours
-- iSCSI for high-performance VM storage
+Local SSD/NVMe storage is usually simplest for a small lab. A NAS can centralize VM templates and backups, but shared storage also creates a path for data exposure. Separate immutable backups from writable exercise data, restrict NFS/iSCSI clients and permissions, and do not mount credential, capture, or report directories in attacker VMs.
 
 ### GPU Benchmarking (Optional)
 
@@ -517,17 +468,7 @@ qm set 410 --net0 virtio,bridge=vmbr1,tag=40
 
 4. **Configure OPNsense interfaces and rules** (see Security Segmentation section)
 
-**Real-World Example**:
-
-*An advanced lab setup uses:*
-- Proxmox hypervisor with VLAN-aware bridge (vmbr1)
-- OPNsense VM with 5 NICs (WAN + 4 VLANs)
-- Physical managed switch connecting multiple servers
-- 802.1Q trunking between switch and Proxmox nodes
-- All VMs tagged appropriately for their VLAN
-- Firewall rules enforcing strict segmentation
-
-This allows 50+ VMs across multiple physical hosts, all properly segmented and firewalled.
+**Example only:** A hypervisor can attach guests to VLAN-tagged lab networks and a firewall VM can route among them under explicit rules. Keep the firewall's upstream interface absent by default. VM capacity and isolation depend on hardware, configuration, and tested policy.
 
 ---
 
@@ -542,8 +483,8 @@ OPNsense rules are attached to interfaces and, by default, filter inbound traffi
 | Interface receiving traffic | Example inbound policy, top to bottom |
 |---|---|
 | Management (VLAN 10) | Allow approved admin hosts to specific firewall and management endpoints; allow required DNS/NTP to named services; block access to other lab networks; log and deny remaining traffic. |
-| Attack (VLAN 20) | Allow only the ports and targets needed for the approved exercise; allow DNS to the designated resolver; allow only required update egress; block Management and Restricted Lab networks; log and deny the remainder. |
-| Target (VLAN 30) | Allow only required DNS and explicitly approved updates; deny new outbound connections to the Internet and other lab networks by default. Stateful replies to allowed Attack-to-Target sessions still work. |
+| Attack (VLAN 20) | Allow only documented exercise flows to named lab targets; no upstream/DNS egress by default. Obtain and verify packages on a separate approved system, then disconnect that path before exercises. |
+| Target (VLAN 30) | No upstream route by default. Allow only documented exercise traffic and any required service from a named lab-local resolver. Stateful replies to allowed sessions still work. |
 | Blue Team (VLAN 40) | Allow syslog from known source addresses to the collector on the required transport/port; allow admin access from approved Management hosts to sensor management; allow only required sensor egress. |
 | Restricted Lab (VLAN 99) | Deny routed access to the Internet and other VLANs, then default deny. This is logical segmentation, not an air gap. For a true air gap, remove routed/bridged paths and external links, and verify that no alternate interface provides connectivity. |
 
@@ -552,7 +493,7 @@ OPNsense rules are attached to interfaces and, by default, filter inbound traffi
 ### OPNsense IDS/IPS Configuration
 
 **Suricata Integration**:
-- Enable on WAN, VLAN 20, VLAN 30 interfaces
+- Enable only on the lab VLANs that need inspection; omit WAN monitoring in the disconnected-by-default design
 - Use ET Open ruleset + custom rules
 - Alert on:
   - Known exploit signatures
@@ -604,16 +545,16 @@ ha-manager add <vmid> --group <groupname> --max_restart 3
 
 #### Network Configuration in Proxmox
 
-**Bridge Configuration** (`/etc/network/interfaces`):
+`vmbr1` below is an internal virtual bridge with no physical port. If you use a physical switch for a lab, dedicate that switch and verify it has no trunk, router, wireless bridge, or cable to production or upstream networks.
+
 ```
 auto lo
 iface lo inet loopback
 
-# Physical interface
+# Dedicated management interface. Restrict the connected network to approved admins.
 auto eno1
 iface eno1 inet manual
 
-# Management bridge (VLAN 10)
 auto vmbr0
 iface vmbr0 inet static
     address 10.10.10.5/24
@@ -622,20 +563,18 @@ iface vmbr0 inet static
     bridge-stp off
     bridge-fd 0
 
-# VLAN-aware bridge for all lab networks
+# Internal VLAN-aware lab bridge; no physical uplink and no host IP.
 auto vmbr1
 iface vmbr1 inet manual
-    bridge-ports eno2
+    bridge-ports none
     bridge-stp off
     bridge-fd 0
     bridge-vlan-aware yes
-    bridge-vids 20 30 40 99
+    bridge-vids 10 20 30 40 99
 
-# Additional 10GbE interface (if available)
+# Optional dedicated storage link. Do not bridge it to guest or upstream networks.
 auto eno3
 iface eno3 inet manual
-
-# 10GbE storage bridge (for TrueNAS iSCSI)
 auto vmbr2
 iface vmbr2 inet static
     address 10.50.50.5/24
@@ -651,41 +590,7 @@ iface vmbr2 inet static
 
 #### Resource Allocation Strategy
 
-**Dell R630 Resource Distribution**:
-
-Assuming **32 cores, 256GB RAM** per R630:
-
-**R630 #1 - TrueNAS Storage**:
-- 8 cores, 64GB RAM minimum
-- Remaining capacity for storage operations
-
-**R630 #2 - Proxmox Compute Node**:
-
-**Management & Infrastructure (20% resources)**:
-- OPNsense VM: 4 cores, 8GB RAM
-- TrueNAS replication VM (optional): 2 cores, 4GB RAM
-
-**Attack VMs (30% resources)**:
-- Kali Linux Primary: 6 cores, 16GB RAM
-- Parrot OS: 4 cores, 8GB RAM
-- Windows 11 Attacker: 4 cores, 8GB RAM
-- BlackArch: 2 cores, 8GB RAM
-
-**Target VMs (35% resources)**:
-- Windows DC: 4 cores, 16GB RAM
-- Windows SQL Server: 4 cores, 16GB RAM
-- Windows Workstations (5x): 2 cores, 4GB each = 10 cores, 20GB total
-- Metasploitable 2/3: 1 core, 2GB each = 2 cores, 4GB
-- DVWA Ubuntu: 2 cores, 4GB
-- OWASP BWA: 2 cores, 4GB
-- HackTheBox targets: 4 cores, 8GB total
-
-**Blue Team VMs (15% resources)**:
-- Security Onion: 4 cores, 16GB RAM
-- Splunk: 2 cores, 8GB RAM
-- ELK Stack: 2 cores, 8GB RAM
-
-**Buffer**: Keep 10-15% free for dynamic workloads
+**Resource planning:** Size each VM from its current vendor requirements, intended workload, and measured use. Add vCPU and peak memory allocations for the planned guests, leave host and storage headroom, then validate under representative monitoring load. Do not copy a fixed server model or allocation table as a capacity guarantee.
 
 ### TrueNAS Storage Configuration
 
@@ -1135,11 +1040,7 @@ sudo cp /mnt/pentest-data/tools/nmap-custom/*.nse /usr/share/nmap/scripts/
 sudo nmap --script-updatedb
 ```
 
-**Masscan for Fast Scanning**:
-```bash
-# Scan entire target network in seconds
-sudo masscan -p1-65535 10.30.30.0/24 --rate=10000 -oL scan.txt
-```
+**Inventory validation:** Use the lab's hypervisor inventory, switch tables, and firewall logs first. If active discovery is needed, define one owned subnet and a test window, use a conservative rate, and confirm the destination remains inside the lab before running a tool.
 
 **RustScan**:
 ```bash
@@ -1169,17 +1070,7 @@ mkdir -p ~/.msf4/modules/exploits/custom
 cp /mnt/pentest-data/exploits/*.rb ~/.msf4/modules/exploits/custom/
 ```
 
-**Cobalt Strike** (Licensed):
-- Team server on dedicated VM in Attack VLAN
-- Clients on attacker VMs
-```bash
-# Start team server
-./teamserver 10.20.20.100 P@ssw0rd! /path/to/profile.profile
-
-# Connect client
-./cobaltstrike
-# Host: 10.20.20.100, Password: P@ssw0rd!
-```
+**Commercial simulation platforms** (licensed): Follow the vendor's current deployment guide and written exercise scope. Use synthetic credentials and disposable lab agents, keep the control server and clients on the isolated lab network, and do not place secrets directly in shell commands, scripts, or documentation.
 
 **Sliver C2** (isolated lab only):
 Use the current [official Sliver installation and release documentation](https://sliver.sh/docs).
@@ -1215,13 +1106,7 @@ daily-use or production host.
 zaproxy -daemon -port 8090 -config api.key=mysecretapikey
 ```
 
-**SQLMap**:
-```bash
-# Automated SQL injection
-sqlmap -u "http://10.30.30.72/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit" \
-    --cookie="PHPSESSID=xxx; security=low" \
-    --level=5 --risk=3 --batch --dbs
-```
+**Web application validation:** Use the training application's safe test suite and code/configuration review first. Any active scanner must be limited to a disposable local target and written scope; avoid high-impact settings and stop if the request could affect data outside the lab.
 
 **Nuclei**:
 ```bash
@@ -1266,179 +1151,19 @@ nxc smb 10.30.30.10 -u "$LAB_USER" -p "$LAB_PASSWORD" --shares
 
 Set `LAB_USER` and `LAB_PASSWORD` to disposable lab-only credentials using a protected environment or secret store. Do not reuse real passwords or place credentials in shell history.
 
-**Impacket Suite**:
-```bash
-# GetNPUsers (ASREPRoast)
-GetNPUsers.py PNWLAB/ -usersfile users.txt -dc-ip 10.30.30.10
+**Directory-security review:** Prefer configuration review and synthetic event data. Any active validation must use a disposable lab domain and synthetic identities within a written exercise scope. Do not place reusable credentials in command lines or shell history.
 
-# Secretsdump (DCSync)
-secretsdump.py PNWLAB/admin:password@10.30.30.10
+#### Authorized Hash-Handling Practice
 
-# PSExec
-psexec.py PNWLAB/admin:password@10.30.30.20
-```
+Use only synthetic training data or hashes explicitly authorized for the exercise. Keep the data on a disposable lab system, restrict access to result files, and follow retention requirements. For device detection and performance planning, use local Hashcat device inventory and benchmarks documented above. Do not transfer client credential material to a shared NAS or remote cracking station by default.
 
-**Mimikatz** (on Windows attacker VM):
-```powershell
-# Download and run
-Invoke-WebRequest -Uri https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20220919/mimikatz_trunk.zip -OutFile mimikatz.zip
-Expand-Archive mimikatz.zip
-cd mimikatz\x64
-.\mimikatz.exe
+#### Wireless Lab Exercises
 
-# Extract credentials
-mimikatz # privilege::debug
-mimikatz # sekurlsa::logonpasswords
-mimikatz # lsadump::sam
-mimikatz # lsadump::dcsync /user:Administrator
-```
+Prefer a simulator such as [WiFiForge](https://github.com/blackhillsinfosec/WifiForge) for repeatable training. For physical RF work, use an identified lab SSID and owner-controlled test clients, document the channel and time window, keep the AP separate from production, and do not disrupt or capture third-party devices. Use the repository's wireless lab checklist for authorization and monitoring steps.
 
-#### Password Cracking (GPU-Accelerated)
+**Network visibility:** Review traffic only on interfaces and devices included in the written lab scope. Use synthetic traffic or a simulator for interception demonstrations; do not enable man-in-the-middle, downgrade, or sniffing modes on a shared or production network.
 
-**Hashcat on ZimaBoard2 with RTX 3050**:
-
-**Setup**:
-
-> **Legacy snapshot:** Earlier versions of this guide pinned Ubuntu 22.04 to CUDA
-> 12.3 and driver 545.23.06. Those copied repository and package commands are
-> retained here only as historical context; they are not a current installation
-> recipe. For a new setup, follow NVIDIA's [current Linux CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/)
-> and [CUDA/driver compatibility guidance](https://docs.nvidia.com/deploy/cuda-compatibility/).
-> CUDA 13.4 and later install/version the toolkit and Linux driver separately, so
-> select and install a compatible driver separately for your distribution and GPU.
-
-```bash
-# Install Hashcat from the distribution's supported package source
-sudo apt install hashcat
-
-# Verify that Hashcat can see the GPU
-hashcat -I
-```
-
-**Cracking Examples**:
-```bash
-# NTLMv2 hash
-hashcat -m 5600 -a 0 ntlmv2.hash /mnt/pentest-data/wordlists/rockyou.txt
-
-# NTLM hash
-hashcat -m 1000 -a 0 ntlm.hash /mnt/pentest-data/wordlists/rockyou.txt
-
-# WPA2 handshake
-hashcat -m 22000 -a 0 handshake.hc22000 /mnt/pentest-data/wordlists/rockyou.txt
-
-# Benchmark GPU
-hashcat -b
-```
-
-**Performance**: RTX 3050 should achieve:
-- NTLM: ~15-20 GH/s
-- WPA2: ~300-500 kH/s
-- bcrypt: ~10-15 kH/s
-
-**John the Ripper**:
-```bash
-# Extract hashes from shadow file
-sudo unshadow /etc/passwd /etc/shadow > hashes.txt
-
-# Crack with JtR
-john --wordlist=/mnt/pentest-data/wordlists/rockyou.txt hashes.txt
-john --show hashes.txt
-```
-
-#### Wireless Hacking
-
-**Hardware**: Use USB WiFi adapter with monitor mode support
-- Alfa AWUS036ACH (recommended from your guide)
-- TP-Link TL-WN722N
-
-**Aircrack-ng Suite**:
-```bash
-# Enable monitor mode
-sudo airmon-ng start wlan0
-
-# Capture handshake
-sudo airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF -w capture wlan0mon
-
-# Deauth attack to force handshake
-sudo aireplay-ng --deauth 10 -a AA:BB:CC:DD:EE:FF wlan0mon
-
-# Crack with aircrack-ng
-aircrack-ng -w /mnt/pentest-data/wordlists/rockyou.txt capture-01.cap
-
-# Or transfer to GPU for faster cracking
-cap2hashcat capture-01.cap -o handshake.hc22000
-# Copy to ZimaBoard2 for Hashcat
-```
-
-**Bettercap**:
-```bash
-# MitM attacks
-sudo bettercap -iface eth0
-> net.probe on
-> net.show
-> set http.proxy.sslstrip true
-> http.proxy on
-> net.sniff on
-```
-
-**Wifite2** (Automated):
-```bash
-sudo wifite --kill
-```
-
-#### Post-Exploitation
-
-**Privilege-configuration review tools (disposable lab only)**:
-
-Do not pipe a moving latest download into a shell or execute a script directly
-from a remote URL. For PEASS-ng, download a pinned official release, verify its
-published digest/signature, inspect the script, and run it only in a disposable,
-isolated VM. PowerSploit is archived; avoid installing or running its old
-PowerUp script. Use current, maintained assessment guidance and document the
-exact version and scope of any lab tool.
-
-**Ligolo-ng** (Pivoting):
-```bash
-# Proxy server on attacker
-./proxy -selfcert
-
-# Agent on a disposable lab host only. Configure certificate trust
-# out of band and verify the proxy certificate; do not disable validation.
-./agent -connect 10.20.20.10:11601
-
-# Create tunnel
-session
-ifconfig
-start
-# Add route to pivot network
-sudo ip route add 172.16.0.0/16 dev ligolo
-```
-
-#### Reverse Engineering
-
-**Ghidra** (on Kali with GUI):
-```bash
-# Launch Ghidra
-ghidraRun
-
-# Import binary for analysis
-# Use for malware analysis, exploit development
-```
-
-**Radare2**:
-```bash
-r2 /path/to/binary
-# Analyze
-> aaa
-# Disassemble main
-> pdf @ main
-```
-
-**x64dbg** (on Windows attacker VM):
-- Download from https://x64dbg.com/
-- Use for Windows binary debugging
-
----
+**Automated wireless tools:** Do not run automated capture, authentication disruption, or credential-testing tools against real access points. Use a purpose-built virtual training environment or an explicitly authorized, isolated wireless exercise plan.
 
 ## Automation & Infrastructure as Code
 
@@ -1606,14 +1331,18 @@ terraform destroy
 **Inventory** (`inventory.ini`):
 ```ini
 [attackers]
-kali ansible_host=10.20.20.10 ansible_user=kali ansible_password=kali
+kali ansible_host=10.20.20.10 ansible_user=LAB_ADMIN ansible_ssh_private_key_file=~/.ssh/lab_admin_ed25519
 
 [targets]
-dvwa ansible_host=10.30.30.72 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa
-metasploitable2 ansible_host=10.30.30.70 ansible_user=msfadmin ansible_password=msfadmin
+dvwa ansible_host=10.30.30.72 ansible_user=LAB_ADMIN ansible_ssh_private_key_file=~/.ssh/lab_admin_ed25519
+metasploitable2 ansible_host=10.30.30.70 ansible_user=LAB_ADMIN ansible_ssh_private_key_file=~/.ssh/lab_admin_ed25519
 
 [blueteam]
-security-onion ansible_host=10.40.40.10 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/id_rsa
+security-onion ansible_host=10.40.40.10 ansible_user=LAB_ADMIN ansible_ssh_private_key_file=~/.ssh/lab_admin_ed25519
+
+# Use a dedicated lab key, restrictive file permissions, and Ansible Vault or
+# another approved secret store for any required credentials. Never reuse
+# default training passwords beyond the isolated target that ships with them.
 ```
 
 **Playbook** (`setup-lab.yml`):
@@ -1742,12 +1471,18 @@ No cron or unattended reset is provided.
 
 **Installation**:
 ```bash
+# Download a currently supported Security Onion release from the official
+# project source and verify its published checksum before use. Do not assume
+# an old ISO filename or fixed hardware allocation remains supported.
+SECURITY_ONION_ISO='securityonion-REPLACE-WITH-VERIFIED-RELEASE.iso'
+test -f "$SECURITY_ONION_ISO" || { echo "Set a verified local ISO filename"; exit 1; }
+
+# Create the VM only after checking the current release's hardware requirements.
+# Add a separate capture NIC whose SPAN/TAP source is documented and tested.
 qm create 410 --name security-onion --memory 16384 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=40 \
-    --cdrom local:iso/securityonion-2.4.10.iso \
+    --cdrom "local:iso/$SECURITY_ONION_ISO" \
     --scsi0 local-lvm:200 --scsihw virtio-scsi-pci
-
-qm start 410
 ```
 
 **Post-Installation Configuration**:
@@ -2012,7 +1747,7 @@ Do not use the obsolete 4.7.0 Windows MSI URL shown in older guides.
 
 ### NetAlertX Integration (Raspberry Pi)
 
-**Current Status**: Running on Pi 3b #1
+**Example deployment:** A monitoring sensor may run on a supported SBC. Verify the actual device, operating system, interfaces, and configuration before using this guide as an inventory record.
 
 **Purpose**: Network device discovery and monitoring
 
