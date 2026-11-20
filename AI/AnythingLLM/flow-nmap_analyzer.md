@@ -38,7 +38,7 @@ Define these variables in the "Flow Variables" section:
 | Variable Name | Initial Value | Description |
 |---------------|---------------|-------------|
 | `scan_results` | (empty) | Minimized Nmap output; remove secrets, personal data, and unrelated hosts |
-| `target_info` | (empty) | Minimal, approved scope and asset context; omit secrets and unnecessary identifiers |
+| `target_info` | (empty) | Neutral asset role/context only; omit credentials, sensitive identifiers, and authorization records |
 | `parsed_findings` | (empty) | Structured observations and unverified leads |
 | `recommendations` | (empty) | Next steps and tool suggestions |
 
@@ -118,18 +118,14 @@ scan_results: [paste minimized Nmap output from an approved assessment]
 target_info: Authorized staging host; exact approved scope; no secrets or unnecessary identifiers
 ```
 
-### With File Output
+### With Existing File Output
 
-```bash
-# Run Nmap scan
-nmap -sV -p 22,80,443 AUTHORIZED_LAB_HOST -oX scan.xml
+Use only an XML file produced by an already authorized assessment. Do not run a scan to use this AgentFlow.
 
-# Use flow
+```
 @agent use NmapAnalyzer flow
-scan_results: 
-[paste minimized contents of scan.xml]
-
-target_info: Authorized staging host; exact approved scope; sanitized context only
+scan_results: [paste minimized contents of the approved scan.xml]
+target_info: Staging web service; sanitized context only
 ```
 
 ### Expected Output
@@ -163,7 +159,7 @@ A bounded defensive workflow is:
 ## Nmap Command Reference
 
 > [!CAUTION]
-> The commands below send active probes. `AUTHORIZED_LAB_HOST` and `AUTHORIZED_LAB_CIDR` are inert placeholders, not real targets. Replace them only with an exact host or range in the written engagement scope, after confirming ownership, rate limits and stop conditions. Nmap's `-sC` runs default NSE scripts; some may be intrusive, and NSE scripts are not sandboxed. Inspect the selected scripts and their effects before running them. A slower timing option does not make a scan safe or authorized.
+> The example below sends active probes. `AUTHORIZED_LAB_HOST` is an inert placeholder, not a real target. Replace it only with an exact host listed in the written engagement scope, after confirming ownership, rate limits and stop conditions. Nmap's `-sC` runs default NSE scripts; some may be intrusive, and NSE scripts are not sandboxed. Inspect the selected scripts and their effects before running them. A slower timing option does not make a scan safe or authorized.
 
 ### Minimal Example
 
