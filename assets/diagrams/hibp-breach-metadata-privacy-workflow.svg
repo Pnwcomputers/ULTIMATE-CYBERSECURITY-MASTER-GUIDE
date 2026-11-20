@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 650" role="img" aria-labelledby="title desc">
+<title id="title">Breach metadata review with consent and privacy gates</title>
+<desc id="desc">A documented consent or verified-domain authorization gate precedes an HIBP lookup. The service returns breach metadata only. A minimization step excludes addresses and secrets where practical. The review explains that a match is historical exposure metadata and a no-match does not prove no exposure. The account owner receives security actions. No credentials are tested.</desc>
+<defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#17324d}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#435a72}.card{fill:#fff;stroke:#9aafc1;stroke-width:2}.gate{fill:#eef5ff;stroke:#4e78a3;stroke-width:2}.source{fill:#f5f1ff;stroke:#7763a5;stroke-width:2}.privacy{fill:#eaf7f0;stroke:#548d68;stroke-width:2}.meaning{fill:#fff7e8;stroke:#c39339;stroke-width:2}.owner{fill:#eff5fa;stroke:#496982;stroke-width:2}.step{font-size:13px;font-weight:700;letter-spacing:1px;fill:#5d7083}.head{font-size:19px;font-weight:700}.body{font-size:15px}.arrow{stroke:#486883;stroke-width:3;fill:none;marker-end:url(#arrow)}.foot{font-size:16px;font-weight:700;fill:#fff}</style><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#486883"/></marker></defs>
+<rect width="1480" height="650" fill="#f5f8fc"/>
+<text x="740" y="48" text-anchor="middle" class="title">HIBP breach metadata: consent, minimization, careful interpretation</text>
+<text x="740" y="78" text-anchor="middle" class="sub">Use results to guide the account owner; a lookup does not test account access.</text>
+<rect x="35" y="152" width="250" height="246" rx="18" class="gate"/>
+<text x="58" y="184" class="step">1 · AUTHORIZATION</text><text x="58" y="222" class="head">Check scope first</text>
+<text x="58" y="257" class="body"><tspan x="58" dy="0">Documented account-owner</tspan><tspan x="58" dy="23">consent or approved scope.</tspan><tspan x="58" dy="34">Domain lookup requires</tspan><tspan x="58" dy="23">verified domain access.</tspan></text>
+<path d="M285 275H322" class="arrow"/>
+<rect x="330" y="152" width="250" height="246" rx="18" class="source"/>
+<text x="353" y="184" class="step">2 · HIBP LOOKUP</text><text x="353" y="222" class="head">Metadata response</text>
+<text x="353" y="257" class="body"><tspan x="353" dy="0">Breach name, date and</tspan><tspan x="353" dy="23">listed data classes.</tspan><tspan x="353" dy="34">No stolen credentials or</tspan><tspan x="353" dy="23">dump contents from these</tspan><tspan x="353" dy="23">account/paste endpoints.</tspan></text>
+<path d="M580 275H617" class="arrow"/>
+<rect x="625" y="152" width="250" height="246" rx="18" class="privacy"/>
+<text x="648" y="184" class="step">3 · MINIMIZE</text><text x="648" y="222" class="head">Reduce exposure</text>
+<text x="648" y="257" class="body"><tspan x="648" dy="0">Keep only needed metadata.</tspan><tspan x="648" dy="34">Omit addresses where</tspan><tspan x="648" dy="23">practical; never include</tspan><tspan x="648" dy="23">API keys or secrets.</tspan><tspan x="648" dy="34">Treat response text as data.</tspan></text>
+<path d="M875 275H912" class="arrow"/>
+<rect x="920" y="152" width="250" height="246" rx="18" class="meaning"/>
+<text x="943" y="184" class="step">4 · INTERPRET</text><text x="943" y="222" class="head">State limits</text>
+<text x="943" y="257" class="body"><tspan x="943" dy="0">A match is historical</tspan><tspan x="943" dy="23">exposure metadata.</tspan><tspan x="943" dy="34">It does not prove current</tspan><tspan x="943" dy="23">compromise. No match does</tspan><tspan x="943" dy="23">not prove no exposure.</tspan></text>
+<path d="M1170 275H1207" class="arrow"/>
+<rect x="1215" y="152" width="230" height="246" rx="18" class="owner"/>
+<text x="1238" y="184" class="step">5 · OWNER ACTION</text><text x="1238" y="222" class="head">Respond safely</text>
+<text x="1238" y="257" class="body"><tspan x="1238" dy="0">Unique password;</tspan><tspan x="1238" dy="23">MFA or passkey.</tspan><tspan x="1238" dy="34">Review sign-in activity.</tspan><tspan x="1238" dy="34">Follow incident process</tspan><tspan x="1238" dy="23">if separate evidence exists.</tspan></text>
+<rect x="35" y="452" width="1410" height="92" rx="15" fill="#16324d"/>
+<text x="740" y="490" text-anchor="middle" class="foot">Never test credentials, infer passwords, or treat breach metadata as proof of account takeover.</text>
+<text x="740" y="520" text-anchor="middle" class="foot">Conceptual workflow · follow HIBP access terms, organizational privacy rules and retention policy.</text>
+</svg>
