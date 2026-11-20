@@ -1332,20 +1332,23 @@ SECURITY_ONION_ISO='securityonion-REPLACE-WITH-VERIFIED-RELEASE.iso'
 test -f "$SECURITY_ONION_ISO" || { echo "Set a verified local ISO filename"; exit 1; }
 
 # Create the VM only after checking the current release's hardware requirements.
-# Add a separate capture NIC whose SPAN/TAP source is documented and tested.
+# This command creates the management NIC only; it does not create or map
+# a SPAN/TAP capture interface.
 qm create 410 --name security-onion --memory 16384 --cores 4 \
     --net0 virtio,bridge=vmbr1,tag=40 \
     --cdrom "local:iso/$SECURITY_ONION_ISO" \
     --scsi0 local-lvm:200 --scsihw virtio-scsi-pci
 ```
 
+The example creates only the management NIC. Add a dedicated capture NIC using the selected hypervisor's current documentation and a verified SPAN/TAP feed; keep it separate from management and confirm the sensor sees the intended frames without unacceptable loss. A second ordinary VM NIC or VLAN does not itself mirror traffic.
+
 **Post-Installation Configuration**:
-1. Access console, complete setup wizard
-2. Choose **Standalone** deployment
-3. Configure management interface: 10.40.40.10/24
-4. Enable Suricata IDS
-5. Enable Zeek network analysis
-6. Configure Elasticsearch for log storage
+Use the current Security Onion setup guide for the selected release; the following are conceptual tasks, not a substitute for its version-specific deployment steps:
+1. Complete the setup from the console or documented installer.
+2. Select a deployment type supported for the current release and available resources.
+3. Configure management on the isolated monitoring network.
+4. Enable only the network-analysis components needed for the exercise.
+5. Verify capture interface mapping, logs, storage limits, and sensor health.
 
 **SPAN / Mirror Port for Sensor Visibility**:
 ```
