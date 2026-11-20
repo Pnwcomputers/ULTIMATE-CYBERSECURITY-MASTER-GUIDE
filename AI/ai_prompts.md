@@ -1,5 +1,7 @@
 # 🚀 Practical AI Prompting: Techniques, Evaluation, and Limits
 
+_Last reviewed: 2026-11-20_
+
 A practical reference for writing and evaluating prompts. Prompt techniques are starting points: test them against the actual model, task, and failure cases. The official vendor references below change over time; check them before applying platform-specific behavior.
 
 > [!IMPORTANT]
@@ -15,7 +17,7 @@ The guide moves from official references through task framing, structured inputs
 Have ready-to-use prompt templates and debugging techniques on hand so you're not re-deriving prompt structure from scratch for every new task or AI tool.
 
 ## 📋 When to Use
-- Writing a system prompt for a new AI agent or workflow (Section 3's Master Template)
+- Writing a system prompt for a new AI agent or workflow (Section 3's reusable task template)
 - An AI response is hallucinating, being lazy, or making logic errors (Section 7's debugging protocol)
 - Working across multiple LLM platforms and needing to know which tactics apply where (Section 4)
 
@@ -169,12 +171,6 @@ A successful response will be:
 Begin.
 
 ```
-![Diagram showing prompt layers leading into host-enforced permissions, schema and evidence checks, and human approval](../assets/diagrams/ai-structured-output-authorized-action-gates.svg)
-
-*Conceptual: a prompt can request checks, while the host and surrounding workflow must enforce permissions and validate outcomes.*
-
----
-
 ## ✅ 10. Final Prompt Health & Ethics Checklist
 
 - [ ] **Positive Framing:** Told the AI what *to do* instead of what *not* to do.
@@ -189,6 +185,12 @@ Begin.
 ## 11. When a Prompt Is Not Enough
 
 A strong prompt defines the task, but **context, tools, permissions, schema enforcement and evidence** determine whether an AI workflow is safe to operate.
+
+![Diagram showing prompt layers leading into host-enforced permissions, schema and evidence checks, and human approval](../assets/diagrams/ai-structured-output-authorized-action-gates.svg)
+
+*Conceptual: a prompt can request checks, while the host and surrounding workflow must enforce permissions and validate outcomes.*
+
+---
 
 | Problem | Add the Missing System Control | Detailed Guide |
 |---|---|---|
@@ -220,7 +222,7 @@ A prompt can request these controls; the host application and service integratio
 ## Related Files
 - [README.md](README.md) - AI/ section index
 - [OpenClaw/use_cases.md](OpenClaw/use_cases.md) - Security-domain prompt examples that apply these techniques
-- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the Master Template here
+- [OpenClaw/agent_skill_config.md](OpenClaw/agent_skill_config.md) - Agent persona/system prompts built using the reusable task template here
 - [offensive_ai.md](offensive_ai.md) - Prompt injection: the adversarial flip side of the prompting techniques in this file
 - [offline-llm.md](offline-llm.md) - Local LLM deployment these prompting techniques apply to just as well as cloud models
 - [AnythingLLM/README.md](AnythingLLM/README.md) - AgentFlows built on structured prompting
