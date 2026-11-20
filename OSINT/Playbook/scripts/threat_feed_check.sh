@@ -45,6 +45,7 @@ VIRUSTOTAL_API_KEY="${VIRUSTOTAL_API_KEY:-}"
 OTX_API_KEY="${OTX_API_KEY:-}"
 PHISHTANK_API_KEY="${PHISHTANK_API_KEY:-}"
 URLSCAN_API_KEY="${URLSCAN_API_KEY:-}"
+URLHAUS_AUTH_KEY="${URLHAUS_AUTH_KEY:-}"
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -124,12 +125,16 @@ private_curl_status() {
 
 private_curl_post_status() {
     local out_file="$1" url="$2" post_data="$3"
-    local config http_code rc=0
+    shift 3
+    local config http_code rc=0 header
     config="$(mktemp)" || { warn "Could not create private curl config"; return 1; }
     chmod 600 "$config" || { rm -f "$config"; return 1; }
     {
         printf 'silent\nshow-error\nmax-time = 25\nrequest = "POST"\noutput = "%s"\nwrite-out = "%%{http_code}"\nurl = "%s"\ndata = "%s"\n' \
             "$(curl_config_escape "$out_file")" "$(curl_config_escape "$url")" "$(curl_config_escape "$post_data")"
+        for header in "$@"; do
+            printf 'header = "%s"\n' "$(curl_config_escape "$header")"
+        done
     } > "$config"
     http_code="$(curl --config "$config" 2>"${out_file}.err")" || rc=$?
     rm -f "$config"
@@ -251,6 +256,11 @@ check_urlhaus() {
     [[ "$IOC_TYPE" == "ip" ]] && { info "URLhaus: skipping (IP not supported here)"; return; }
 
     command -v curl &>/dev/null || { warn "curl not found, skipping URLhaus"; return; }
+    if [[ -z "${URLHAUS_AUTH_KEY:-}" ]]; then
+        printf '{"query_status":"not_run_auth_key_missing"}\n' > "$out_file"
+        warn "URLhaus: skipped because URLHAUS_AUTH_KEY is not configured; result is unknown"
+        return
+    fi
 
     info "URLhaus: querying $ioc ..."
     local post_field
@@ -268,9 +278,8 @@ check_urlhaus() {
     esac
 
     local http_code
-    http_code=$(curl -s --max-time 25 -o "$out_file" -w "%{http_code}" \
-        -X POST "https://urlhaus-api.abuse.ch/v1/" \
-        -d "$post_field")
+    http_code=$(private_curl_post_status "$out_file" "https://urlhaus-api.abuse.ch/v1/" \
+        "$post_field" "Auth-Key: ${URLHAUS_AUTH_KEY}") || return
 
     if [[ "${http_code:-000}" == "200" ]]; then
         local query_status
