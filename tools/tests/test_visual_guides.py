@@ -29,6 +29,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/cti-to-approved-emulation-gates.svg": (
         "PlayBooks/PurpleTeam_Detailed.md",
     ),
+    "assets/diagrams/pci-scope-evidence-trail.svg": (
+        "Compliance/pci-scope-review-template.md",
+    ),
     "assets/diagrams/repository-evidence-gates.svg": (
         "Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md",
     ),
@@ -214,9 +217,6 @@ DIAGRAM_GUIDES = {
     ),
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
-    ),
-    "assets/diagrams/pci-scope-evidence-trail.svg": (
-        "Compliance/pci-scope-review-template.md",
     ),
 }
 
