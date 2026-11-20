@@ -1,13 +1,21 @@
 # 🌍 Part I: Foundations of Space Security
 
+> [!CAUTION]
+> **Authorized use only.** Space and radio systems may support critical services.
+> Test only systems and transmissions within explicit written scope and applicable
+> authorizations. Never create interference or transmit toward operational spacecraft.
+> See [LEGAL.md](../LEGAL.md).
+
+*Last reviewed: 2026-11-20.*
+
 ## 🎯 Purpose
-Foundational overview of space security - covering the three-segment architecture (ground/space/user), historical incident timeline, threat actor taxonomy, attack surface mapping, and the security engineering principles specific to space systems.
+Foundational overview of selected space-security topics: a common ground/space/user model, sourced historical cases, threat actor categories, attack surfaces, and security engineering principles.
 
 ## ⚙️ Function
 Covers: space system segment definitions and interdependencies, attack surface per segment, historical incidents (Cosmos 954, Galaxy 15, Viasat KA-SAT), threat actor profiles (nation-states, cyber criminals, hacktivists), COTS-driven risk changes, and space-specific security engineering considerations.
 
 ## 🏆 Goal
-Build the conceptual foundation needed to understand why space systems have unique security properties and how the three-segment architecture creates cascading risk - before diving into segment-specific attacks in Parts II-IV.
+Build the conceptual foundation needed to assess space-system properties and understand how mission-specific trust relationships and connectivity can carry risk across segments.
 
 ## 📋 When to Use
 - Starting point for space security: read before any of the other Parts
@@ -26,27 +34,27 @@ Space systems are no longer the exclusive domain of nation-states. Commercial of
 | **Space** | The spacecraft and payloads in orbit | Satellites, CubeSats, ISS modules |
 | **User** | End-user equipment that receives satellite services | SATCOM terminals, GNSS receivers, VSATs |
 
-Each segment presents distinct attack surfaces, but they are deeply interdependent - a compromise of any one segment can cascade across the others.
+The segments have distinct attack surfaces. Risk can cross between them where mission-specific trust, connectivity, and privileges create a path.
 
 #### Key Terminology
 
 | Term | Definition |
 |------|-----------|
 | **TT&C** | Telemetry, Tracking, and Command - the control link between ground and spacecraft |
-| **LEOP** | Launch and Early Orbit Phase - highest-risk operational window |
+| **LEOP** | Launch and Early Orbit Phase - a demanding operational phase whose risks depend on the mission |
 | **GEO / MEO / LEO** | Geostationary / Medium Earth / Low Earth Orbit |
 | **VSAT** | Very Small Aperture Terminal - compact satellite ground terminal |
 | **Transponder** | Spacecraft payload that receives uplink and retransmits on downlink |
 | **FHSS / DSSS** | Frequency-Hopping / Direct-Sequence Spread Spectrum - RF modulation schemes |
-| **CCSDS** | Consultative Committee for Space Data Systems - dominant space protocol family |
+| **CCSDS** | Consultative Committee for Space Data Systems - a widely used family of space-data standards |
 
 #### Why Space Security Matters Now
 
-- Proliferated LEO constellations (Starlink, OneWeb, Amazon Kuiper) have millions of users and critical infrastructure dependencies
+- Proliferated LEO constellations (including Starlink, OneWeb, and Amazon Kuiper) provide connectivity and other services whose criticality depends on the user and mission
 - Military and government systems rely on commercial SATCOM for comms, ISR, and PNT
 - GNSS is embedded in financial systems, power grids, cellular networks, and aviation
 - Nation-state actors (Russia, China, Iran, North Korea) actively develop ASAT and cyber capabilities targeting space systems
-- Most operational satellites were designed before modern cybersecurity practices existed
+- Long-lived spacecraft and ground systems may retain legacy design assumptions; age alone does not establish their security posture
 
 ---
 
@@ -56,7 +64,7 @@ Each segment presents distinct attack surfaces, but they are deeply interdepende
 
 | Actor Type | Motivation | Capabilities | Examples |
 |------------|-----------|-------------|---------|
-| Nation-state | Strategic advantage, disruption, espionage | High - kinetic ASAT, jamming, spoofing, cyber intrusion | GRU (Viasat KA-SAT attack, 2022), China (SC-19 ASAT) |
+| Nation-state | Strategic advantage, disruption, espionage | High - kinetic ASAT, jamming, spoofing, cyber intrusion | Russia (EU attribution for KA-SAT, 2022), China (2007 ASAT test) |
 | Criminal / ransomware | Financial gain | Medium - targeting ground segment IT | Ransomware on satellite ground ops |
 | Hacktivist | Political messaging | Low-Medium - jamming, defacement | Signal hijacking incidents |
 | Researcher / red team | Disclosure, learning | Variable | DEFCON Aerospace Village CTFs |
@@ -65,7 +73,7 @@ Each segment presents distinct attack surfaces, but they are deeply interdepende
 #### Attack Surface by Segment
 
 **Ground Segment:**
-- Mission control systems (often Windows-based IT/OT hybrid environments)
+- Mission control systems, which may combine enterprise IT and operational technology
 - Ground station software and hardware interfaces
 - TT&C uplink chains
 - Network connectivity between ground nodes
@@ -88,12 +96,12 @@ Each segment presents distinct attack surfaces, but they are deeply interdepende
 
 | Year | Incident | Segment | Impact |
 |------|---------|---------|--------|
-| 1999 | UK MoD satellites commandeered (alleged) | Ground/Space | C2 disruption |
-| 2007–2008 | NASA/USGS satellite interference (China alleged) | Ground | Multiple TT&C intrusions |
-| 2014 | NOAA/NESDIS satellite ground system compromise | Ground | Network intrusion |
-| 2018 | Turla (Snake) APT - satellite internet C2 channel | User | Covert C2 exfil |
-| 2022 | Viasat KA-SAT cyberattack (Russia/Sandworm) | Ground/User | ~50,000 modems bricked across Europe |
-| 2022 | Starlink jamming in Ukraine | User | Operational disruption |
+| 1999 | UK Skynet takeover claim (reported and denied; not independently substantiated) [review](https://css.ethz.ch/content/dam/ethz/special-interest/gess/cis/center-for-securities-studies/pdfs/Cyber-Reports-2021-01-Terra-Calling.pdf) | Ground/Space | No confirmed satellite takeover or C2 disruption |
+| 2007–2008 | Landsat-7/Terra command-link interference reports [USCC report](https://www.uscc.gov/sites/default/files/annual_reports/annual_report_full_11.pdf) | Ground/Space | Short events described as apparently consistent with cyber activity; no completed satellite command takeover was reported |
+| 2014 | NOAA IT-system cyberattack [Commerce OIG](https://www.oversight.gov/reports/audit/successful-cyber-attack-highlights-longstanding-deficiencies-noaas-it-security) | Ground | NOAA information systems were compromised; this is not evidence of spacecraft command compromise |
+| 2015 | Turla used satellite internet downlinks to obscure C2 infrastructure [Kaspersky](https://www.kaspersky.com/blog/satellite-turla/15098/) | User/Network | Satellite internet was abused as a C2 concealment path; spacecraft were not reported compromised |
+| 2022 | Viasat KA-SAT cyberattack (Russia attribution by EU and UK) [Viasat](https://www.viasat.com/perspectives/corporate/2022/ka-sat-network-cyber-attack-overview/) · [UK NCSC](https://www.ncsc.gov.uk/news/russia-behind-cyber-attack-with-europe-wide-impact-hour-before-ukraine-invasion) | Ground/User | Several thousand Ukraine customers and tens of thousands of other European users lost service; this was not a permanent bricking of all affected modems |
+| 2022–2023 | Starlink jamming/interference attempts reported in Ukraine [U.S. military lessons-learned study](https://media.defense.gov/2026/Jan/12/2003855345/-1/-1/0/20260112_NAGL-HACKETT_RUSSIA-UKRAINEWAR2023_ONLINE_FINAL.PDF) | User | Reported terminal and service disruptions; scope, attribution, and effects varied by event |
 
 #### Threat Modeling Space Systems
 
@@ -106,7 +114,7 @@ STRIDE adapted for space-specific contexts:
 | **Repudiation** | Lack of command logging on legacy satellites |
 | **Information Disclosure** | Unencrypted telemetry intercept |
 | **Denial of Service** | RF jamming, uplink flooding, ground system ransomware |
-| **Elevation of Privilege** | Command injection to gain unrestricted spacecraft access |
+| **Elevation of Privilege** | A command interface accepts actions beyond the caller's authorized role |
 
 ---
 
