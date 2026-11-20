@@ -1695,218 +1695,75 @@ Choose a fixed population, time range, and timestamp source before comparing per
 ---
 ## Detection Rule Pipelines
 
-### SIEM Detection Rule Development
+A detection rule is a hypothesis about observable behavior, not proof that an event is malicious. The examples below are starting points for controlled validation. They are not production-ready rules and should not trigger automatic containment without a reviewed response process.
 
-```yaml
-# detection_rule_template.yaml
+### Rule development lifecycle
 
-rule:
-  name: "Suspicious PowerShell Execution"
-  id: "DR-2025-001"
-  version: "1.0"
-  author: "Blue Team"
-  date: "2025-01-10"
-  
-  mitre_attack:
-    - T1059.001  # PowerShell
-    - T1027      # Obfuscated Files or Information
-  
-  severity: "high"
-  
-  description: |
-    Detects suspicious PowerShell execution with common attack indicators:
-    - Encoded commands
-    - Download cradles
-    - Hidden windows
-    - Bypass execution policy
-  
-  data_source:
-    - Windows Event Logs (EventID 4688, 4104)
-    - Sysmon (EventID 1)
-    - EDR telemetry
-  
-  detection_logic:
-    condition: "process_creation AND (encoded OR download OR bypass)"
-    
-    encoded:
-      - "-enc"
-      - "-encodedcommand"
-      - "frombase64string"
-    
-    download:
-      - "downloadstring"
-      - "downloadfile"
-      - "invoke-webrequest"
-      - "iwr"
-      - "wget"
-      - "curl"
-    
-    bypass:
-      - "-nop"
-      - "-noprofile"
-      - "-ep bypass"
-      - "-executionpolicy bypass"
-      - "-w hidden"
-      - "-windowstyle hidden"
-  
-  false_positives:
-    - Legitimate admin scripts
-    - Software deployment tools
-    - Automation frameworks
-  
-  response:
-    immediate:
-      - Alert SOC team
-      - Collect process memory dump
-      - Capture network traffic
-    
-    investigation:
-      - Review parent process
-      - Check command line arguments
-      - Analyze script content
-      - Review user's recent activity
-    
-    containment:
-      - Isolate endpoint if confirmed malicious
-      - Kill suspicious processes
-      - Block C2 domains
-  
-  references:
-    - https://attack.mitre.org/techniques/T1059/001/
-    - https://blog.example.com/powershell-attacks
+```mermaid
+flowchart LR
+    A[Define behavior and scope] --> B[Confirm telemetry and fields]
+    B --> C[Write a candidate rule]
+    C --> D[Test with synthetic positive and benign events]
+    D --> E[Review coverage and false positives]
+    E --> F{Approved by rule owner?}
+    F -->|No| C
+    F -->|Yes| G[Deploy at monitored severity]
+    G --> H[Measure outcomes and tune]
+    H --> C
 ```
 
-### Sigma Rule Example
+### Candidate Sigma rule
+
+This illustrative Sigma rule looks for process-creation events whose image or command line mentions Mimikatz-related names or command strings. Those strings can also occur in documentation, security products, or authorized testing; the rule can miss renamed or modified tools. Treat the rule as `experimental` until it has been parsed, mapped to the local event schema, and tested against representative benign and synthetic events. Sigma's status field communicates rule maturity; it does not certify a rule for your environment. Do not deploy this example as an automatic containment trigger.
 
 ```yaml
-# sigma_rule_mimikatz.yaml
-
-title: Mimikatz Execution Detection
-id: a642964e-bead-4bed-8910-1bb4d63e3cd8
-status: production
-description: Detects the execution of Mimikatz credential dumping tool
+title: Possible Mimikatz-Related Process Activity
+id: 8f190a3c-966d-4ea7-b697-15c765dfd7bf
+status: experimental
+description: >
+  Identifies selected process names or command-line strings associated with
+  Mimikatz. A match is an investigation lead, not proof of credential theft.
 references:
-    - https://attack.mitre.org/software/S0002/
-author: Blue Team
-date: 2025/01/10
-modified: 2025/01/10
+  - https://attack.mitre.org/software/S0002/
+author: Detection engineering example
+date: 2026-11-20
+modified: 2026-11-20
 tags:
-    - attack.credential_access
-    - attack.t1003.001
+  - attack.credential_access
+  - attack.t1003.001
 logsource:
-    category: process_creation
-    product: windows
+  category: process_creation
+  product: windows
 detection:
-    selection_process:
-        - Image|endswith:
-            - '\mimikatz.exe'
-            - '\mimilib.dll'
-        - OriginalFileName:
-            - 'mimikatz.exe'
-            - 'mimilib.dll'
-    selection_command:
-        CommandLine|contains:
-            - 'sekurlsa::'
-            - 'lsadump::'
-            - 'kerberos::'
-            - 'crypto::'
-    condition: selection_process or selection_command
+  selection_image:
+    Image|endswith:
+      - '\\mimikatz.exe'
+      - '\\mimilib.dll'
+    OriginalFileName:
+      - mimikatz.exe
+      - mimilib.dll
+  selection_command:
+    CommandLine|contains:
+      - 'sekurlsa::'
+      - 'lsadump::'
+      - 'kerberos::'
+  condition: selection_image or selection_command
 falsepositives:
-    - Security testing (authorized)
-    - Red team exercises
-level: critical
+  - Authorized security testing
+  - Documentation, script content, or security tooling that includes these strings
+level: high
 ```
 
-### Automated Rule Testing
+Before using a rule, validate its syntax with the selected Sigma tooling and backend, confirm that the backend fields match collected telemetry, then test representative synthetic matches and benign lookalikes in a non-production environment. Record expected results, observed results, tuning changes, owner, and deployment date. Reassess after telemetry or application changes.
 
-```python
-#!/usr/bin/env python3
-# test_detection_rules.py
+| Validation case | Expected review |
+| --- | --- |
+| Synthetic process event with a listed image name | Candidate match; verify field mapping and event coverage |
+| Benign event whose command line contains a listed string as text | Review for a likely false positive |
+| Authorized security test | Confirm approved scope and expected alert handling |
+| Renamed or modified tool | Expected gap for this string-based example; use broader behavior-based telemetry |
 
-import subprocess
-import json
-
-class RuleTester:
-    def __init__(self, rule_file):
-        self.rule_file = rule_file
-        self.test_cases = []
-    
-    def add_test_case(self, name, event_data, expected_result):
-        """Add test case for detection rule"""
-        self.test_cases.append({
-            'name': name,
-            'event': event_data,
-            'expected': expected_result
-        })
-    
-    def run_tests(self):
-        """Execute all test cases"""
-        results = []
-        
-        for test in self.test_cases:
-            print(f"[*] Running test: {test['name']}")
-            
-            # Simulate event
-            result = self.evaluate_rule(test['event'])
-            
-            # Compare with expected
-            passed = (result == test['expected'])
-            
-            results.append({
-                'test': test['name'],
-                'passed': passed,
-                'expected': test['expected'],
-                'actual': result
-            })
-            
-            status = "PASS" if passed else "FAIL"
-            print(f"[{status}] {test['name']}")
-        
-        # Summary
-        passed = sum(1 for r in results if r['passed'])
-        total = len(results)
-        print(f"\n[*] Tests passed: {passed}/{total}")
-        
-        return results
-    
-    def evaluate_rule(self, event_data):
-        """Evaluate detection rule against event"""
-        # Logic to test rule against event
-        # This would interface with your SIEM or detection engine
-        
-        # Simplified example:
-        if 'powershell' in event_data.get('process', '').lower():
-            if any(indicator in event_data.get('command', '') 
-                   for indicator in ['-enc', 'downloadstring', '-nop']):
-                return 'alert'
-        
-        return 'no_alert'
-
-# Example usage
-tester = RuleTester('powershell_detection.yaml')
-
-# Add test cases
-tester.add_test_case(
-    "Malicious encoded PowerShell",
-    {
-        'process': 'powershell.exe',
-        'command': 'powershell.exe -enc AAABBBCCC...'
-    },
-    'alert'
-)
-
-tester.add_test_case(
-    "Legitimate PowerShell script",
-    {
-        'process': 'powershell.exe',
-        'command': 'powershell.exe Get-Process'
-    },
-    'no_alert'
-)
-
-# Run tests
-results = tester.run_tests()
-```
+References: [Sigma rule specification](https://sigmahq.io/sigma-specification/specification/sigma-rules-specification.html), [Sigma rule basics](https://sigmahq.io/docs/basics/rules.html), and [MITRE ATT&CK: Mimikatz](https://attack.mitre.org/software/S0002/).
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
