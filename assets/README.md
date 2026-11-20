@@ -114,6 +114,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [OpenClaw use-case safety workflow](./diagrams/openclaw-use-case-safety-workflow.svg) | [OpenClaw Use Cases](../AI/OpenClaw/use_cases.md#before-using-a-prompt) | Connects data minimization, channel/scope checks, least-privilege tools, verification, and human approval |
 
+## Context Authority, Evidence & Freshness
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [Context authority, evidence, and freshness](./diagrams/ai-context-authority-evidence-freshness.svg) | [Context Engineering & Memory Management](../AI/context-engineering-and-memory.md#1-understand-the-context-layers) | Separates trusted host policy, untrusted retrieved material, live state, model output, and verified handoff |
+
 ## AI Project Workspace Trust and Evidence Boundaries
 
 | Diagram | Embedded guide | Why it belongs |
