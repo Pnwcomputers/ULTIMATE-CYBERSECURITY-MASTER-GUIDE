@@ -90,11 +90,14 @@ Privacy Rights Act (CPRA)**.
   use of sensitive personal information.
 - **CPRA additions:** a dedicated enforcement agency (CPPA), a "sensitive personal
   information" category, and data-minimization/retention duties.
-- **Current rules:** California's 2025 CCPA regulatory package, effective January
-  1, 2026, added requirements for certain businesses covering cybersecurity
-  audits, risk assessments, and automated decisionmaking technology. Check the
-  [CPPA's current regulations](https://cppa.ca.gov/regulations/) and the
-  [update package](https://www.cppa.ca.gov/regulations/ccpa_updates.html).
+- **2025 regulatory package:** The rules took effect January 1, 2026, but
+  implementation is phased. Covered businesses begin required risk-assessment
+  compliance in 2026; ADMT requirements for significant decisions begin January 1,
+  2027; cybersecurity-audit certifications are due on staggered dates from 2028
+  through 2030 based on revenue. Coverage, exceptions, reporting dates, and
+  transition details depend on the final regulations; verify them with the CPPA
+  and counsel. See the [CPPA final rulemaking and timeline](https://cppa.ca.gov/regulations/ccpa_updates)
+  and [current regulations](https://cppa.ca.gov/regulations/).
 - **Note:** many other US states have since enacted comparable laws - check the
   specific state(s) where your users reside.
 
@@ -159,7 +162,7 @@ applicable regulation and framework - see
 - [HHS Breach Notification Rule](https://www.hhs.gov/hipaa/for-professionals/breach-notification/index.html)
 - [California CCPA (OAG)](https://oag.ca.gov/privacy/ccpa)
 - [California Privacy Protection Agency regulations](https://cppa.ca.gov/regulations/)
-- [CPPA 2025 CCPA updates](https://www.cppa.ca.gov/regulations/ccpa_updates.html)
+- [CPPA 2025 CCPA updates](https://cppa.ca.gov/regulations/ccpa_updates)
 
 ---
 
