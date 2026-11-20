@@ -312,7 +312,7 @@ Before merging/recommending broadly, use spare media or a recoverable image back
 - [Rex: AIO package thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
 - [HackerGadgets: board setup](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide)
 
-*Reviewed: 2026-09-11. Static analysis and isolated software tests; physical CM5 validation pending.*
+*Documentation reviewed: 2026-11-20. The recovery guidance was compared with the current v1.5 script; physical CM5 validation remains pending.*
 
 ---
 
