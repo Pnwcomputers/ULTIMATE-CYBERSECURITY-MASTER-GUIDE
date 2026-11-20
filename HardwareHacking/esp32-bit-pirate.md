@@ -42,6 +42,17 @@ current-limited power where appropriate, a meter and the exact board pin map.
 
 ## First Lab: Read An Owned UART Output
 
+```mermaid
+flowchart TD
+    A[Identify target TX and target GND] --> B[Check exact target and ESP32 board pin maps]
+    B --> C{Measure and verify logic-level compatibility?}
+    C -- Unknown or incompatible --> X[Stop; use suitable level shifting or do not connect]
+    C -- Compatible --> D[Power both devices off before wiring]
+    D --> E[Connect target GND to adapter GND]
+    D --> F[Connect target TX to the verified ESP32 RX input]
+    F --> G[Leave ESP32 TX and adapter power output disconnected]
+    G --> H[Power target from its normal supply and capture output]
+```
 1. With power off, identify target GND, TX, RX and logic level from documentation
    and measurements. Do not connect mains-referenced or unknown-voltage equipment.
 2. Use suitable level conversion if required. Do not connect a target power pin
