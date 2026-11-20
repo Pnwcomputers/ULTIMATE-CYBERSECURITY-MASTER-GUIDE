@@ -36,8 +36,7 @@ CONFIG_DIR="${HOME}/.config/osint-investigator"
 API_CONFIG="${CONFIG_DIR}/api_keys.conf"
 
 # API keys are loaded from the config file or environment. Support both the
-# short variable names used by this script and the exported names documented in
-# `playbook/api_keys.conf`.
+# short variable names used by this script and the variable names supported by the private local configuration or environment.
 NUMVERIFY_KEY="${NUMVERIFY_KEY:-${NUMVERIFY_API_KEY:-${NV_API_KEY:-}}}"
 VERIPHONE_KEY="${VERIPHONE_KEY:-${VERIPHONE_API_KEY:-${VP_API_KEY:-}}}"
 ABSTRACTAPI_KEY="${ABSTRACTAPI_KEY:-${ABP_API_KEY:-${abstractapi_key:-}}}"
