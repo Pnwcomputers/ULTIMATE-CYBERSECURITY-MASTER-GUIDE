@@ -26,21 +26,32 @@ This guide covers Volatility 3 installation, memory acquisition, and comprehensi
 
 ---
 
+## Validation before triage
+
+![Memory forensics workflow covering copy verification, symbol and image compatibility, and corroboration](../../../assets/diagrams/volatility-evidence-triage.svg)
+
+Compare the working copy's hash with the recorded acquisition hash. On Windows
+images, use `windows.info` to check whether Volatility can parse the sample
+before interpreting plugin output. Record unmet requirements as inconclusive.
+An empty result can also reflect capture timing or a plugin's coverage.
+Corroborate important findings with other views and independent evidence.
+[Volatility Windows tutorial](https://volatility3.readthedocs.io/en/stable/getting-started-windows-tutorial.html).
+
 ## 🎯 Why Memory Forensics?
 
 Memory analysis can reveal artifacts not always recoverable from disk; capture timing, memory acquisition quality, paging, encryption and symbol compatibility limit what can be recovered:
 
 | Artifact | Disk Forensics | Memory Forensics |
 |----------|----------------|------------------|
-| Running processes | ❌ | ✅ Full details including hidden |
-| Network connections | Limited (logs) | ✅ Active at capture time |
+| Running processes | ❌ | List and scan views may surface different process records |
+| Network connections | Limited (logs) | Recovered structures may include stale or closed endpoints |
 | Encryption keys | Sometimes | Potentially recoverable, not guaranteed or necessarily plaintext |
 | Injected code/shellcode | ❌ | ✅ Detectable |
 | Malware in memory-only | ❌ | ✅ Capturable |
 | Command history | Limited | ✅ Console buffers |
 | Clipboard contents | ❌ | ✅ Recoverable |
 | Decrypted data | Sometimes | May be present in RAM depending on process/OS and timing |
-| Deleted/hidden processes | ❌ | ✅ Via pool scanning |
+| Deleted/hidden processes | ❌ | Pool scanning can surface residual or unlinked candidates |
 
 ---
 
@@ -87,10 +98,10 @@ cd volatility3
 
 # Install dependencies
 python3 -m venv .venv && . .venv/bin/activate
-python -m pip install -r requirements.txt
+python -m pip install -e .
 
-# Run directly
-python3 vol.py --help
+# Verify the installed entry point
+vol --help
 ```
 
 ### Method 3: Containerized Analysis (Verify Image Provenance)
@@ -100,19 +111,20 @@ python3 vol.py --help
 
 ### Installing Symbol Tables
 
-Volatility 3 may require matching symbols for specific layers/plugins and can acquire some symbols automatically when network access is permitted. Offline analysis needs a previously verified, compatible symbol cache:
+Stage symbols separately from evidence. Windows plugin symbols are matched
+using PDB metadata, including GUID and age. Volatility can fetch the matching
+PDB when online. For an isolated workstation, prepare compatible symbols in
+advance. Keep the published Windows symbol archive at the root of the symbol
+directory or put individual ISF files in the appropriate OS subdirectory.
+Linux symbols must match the kernel banner, including build details.
+[Volatility symbol-table documentation](https://volatility3.readthedocs.io/en/stable/symbol-tables.html).
+
+For a Windows working copy, point the CLI at the prepared directory. The
+`--offline` flag disables online symbol lookup. Use workstation network
+isolation when required by the evidence policy.
 
 ```bash
-# Create symbols directory
-mkdir -p ~/.local/lib/volatility3/symbols
-
-# Download Windows symbols (automatic on first run)
-# Or manually from: https://downloads.volatilityfoundation.org/volatility3/symbols/
-
-# For offline environments, download and extract:
-cd ~/.local/lib/volatility3/symbols
-wget https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip
-unzip windows.zip
+vol --offline -s ./verified-symbols -f ./working-copy.raw windows.info
 ```
 
 ### Verify Installation
@@ -133,10 +145,11 @@ Before analysis, you need a memory dump. Several tools can capture RAM from live
 
 > [!IMPORTANT]
 > **Preserve integrity as you acquire.** Live acquisition itself perturbs RAM, so
-> capture memory **first** (order of volatility) and with the smallest footprint
-> tool available. Immediately hash the resulting image
-> (`sha256sum image.raw > image.raw.sha256`) and record it in your notes — this
-> establishes integrity for chain of custody. See the section's evidence-handling
+> prioritize volatile evidence within the incident's collection and containment
+> plan and document any tradeoffs. Hash the resulting image
+> (`sha256sum image.raw > image.raw.sha256`) and record the digest, timestamps,
+> operator, and transfers in the custody log. The digest supports later
+> integrity checks. [RFC 3227](https://www.rfc-editor.org/rfc/rfc3227.html#section-2.1). See the section's evidence-handling
 > guidance in [Digital-Forensics/README.md](../README.md#-order-of-volatility).
 
 ### Windows Memory Acquisition

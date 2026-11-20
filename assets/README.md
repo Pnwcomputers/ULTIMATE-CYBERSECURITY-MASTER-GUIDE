@@ -317,6 +317,12 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [docker operations image review](./diagrams/docker-operations-image-review.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 | [docker operations context control](./diagrams/docker-operations-context-control.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 
+## Memory Forensics Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [Volatility evidence triage](./diagrams/volatility-evidence-triage.svg) | [Volatility 3 memory forensics](../IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md#validation-before-triage) |
+
 ## Applied Cryptography Visuals
 
 Original conceptual figures; source links and evidence limits appear in the guide captions.
