@@ -591,7 +591,13 @@ build_summary() {
     case "$IOC_TYPE" in
         ip)     applicable=5 ;;   # AbuseIPDB, ThreatFox, VirusTotal, OTX, URLScan
         url)    applicable=6 ;;   # URLhaus, ThreatFox, VirusTotal, OTX, PhishTank, URLScan
-        hash)   applicable=4 ;;   # URLhaus, ThreatFox, MalwareBazaar, VirusTotal (MD5/SHA256)
+        hash)
+            if [[ ${#IOC} -eq 40 ]]; then
+                applicable=2 # MalwareBazaar and VirusTotal support SHA-1
+            else
+                applicable=4 # URLhaus, ThreatFox, MalwareBazaar and VirusTotal
+            fi
+            ;;
         domain) applicable=5 ;;   # URLhaus, ThreatFox, VirusTotal, OTX, URLScan
         *)      applicable=8 ;;
     esac
