@@ -164,7 +164,12 @@ Use the strongest practical option for the application and its threat model:
 4. **SMS or Voice Codes**
    - Use only when stronger methods are unavailable or as a carefully controlled
      recovery option.
-   - SMS and voice authentication are vulnerable to SIM swapping, number
+   - NIST classifies PSTN-delivered out-of-band authentication as a **restricted
+     authenticator**. An organization that accepts it must assess and accept its
+     risks, notify users, and make an unrestricted alternative available at the
+     required assurance level.
+   - Consider risk signals such as SIM or device changes and number porting before
+     sending a code. SMS and voice authentication are also vulnerable to number
      reassignment, interception, social engineering, and telecom-provider compromise.
    - Do not use SMS as the preferred factor for privileged or high-value accounts.
 
