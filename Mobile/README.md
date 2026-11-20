@@ -65,7 +65,7 @@ This directory contains **mobile security resources for penetration testers, for
 - 🐉 Kali NetHunter setup, configuration, and field SOPs
 - 🤖 Android application security assessment checklists
 - 🍎 iOS backup forensics scripts
-- 📡 Mobile device OSINT tools (WiFi/Bluetooth enumeration)
+- 📡 Consent-based mobile OSINT workflows; the former personal-device scanner is retired
 - 🔧 Mobile pentesting toolchain reference (MobSF, Frida, Objection, APKTool)
 - 📋 Assessment methodology for Android and iOS apps (OWASP MASTG-aligned)
 
@@ -98,8 +98,8 @@ This directory contains **mobile security resources for penetration testers, for
 
 | File | Description | Status |
 |------|-------------|--------|
-| **[Scripts/Python/iphone_messages.py](../Scripts/Python/iphone_messages.py)** | Extract SMS/iMessage content from an iOS backup directory (SQLite-based) | ✅ Complete |
-| **[Scripts/Python/iphone_finder.py](../Scripts/Python/iphone_finder.py)** | Detect nearby iPhones via WiFi OUI sniffing and Bluetooth MAC derivation using Scapy | ✅ Complete |
+| **[Scripts/Python/iphone_messages.py](../Scripts/Python/iphone_messages.py)** | Retired, inert tombstone; performs no backup extraction | ⚫ Retired |
+| **[Scripts/Python/iphone_finder.py](../Scripts/Python/iphone_finder.py)** | Retired, inert tombstone; performs no radio scan or device tracking | ⚫ Retired |
 
 ---
 
