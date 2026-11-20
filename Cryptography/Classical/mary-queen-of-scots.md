@@ -1,6 +1,6 @@
 # Mary, Queen of Scots: Ciphers, Codebreaking, and Compromised Letters
 
-_Last reviewed: 2026-10-03_
+_Last reviewed: 2026-11-20 (archival and research sources reviewed; no historical cipher transcription was independently reproduced)_
 
 [Classical index](README.md) · [Deciphering workbook](deciphering-workbook.md)
 
@@ -26,6 +26,29 @@ political and religious figures. [1]
 The 2023 research was not the first decipherment of the Babington Plot letters.
 Do not use a key from one correspondence to explain another without evidence
 that the same system and settings were used.
+
+### Two distinct correspondence timelines
+
+The diagram separates the **1586 Babington Plot correspondence** from the
+**1578–1584 letters** deciphered by researchers in 2023. They are different
+corpora and must not be treated as one cipher or one decryption event.
+
+```mermaid
+flowchart LR
+    subgraph Babington["Babington Plot correspondence — 1586"]
+        A[Ciphered letters in the beer-barrel channel] --> B[Walsingham's network intercepts and opens letters]
+        B --> C[Thomas Phelippes deciphers the Gallows Letter]
+        C --> D[Walsingham's team adds a postscript seeking names]
+        D --> E[The original is burned; a contemporary copy survives]
+    end
+    subgraph Rediscovered["Rediscovered letters — 1578 to 1584"]
+        F[Mary's correspondence with Michel de Castelnau] --> G[Letters held in the BnF collection]
+        G --> H[Lasry, Biermann and Tomokiyo decipher the corpus]
+        H --> I[Research published in Cryptologia in 2023]
+    end
+```
+
+*Case comparison based on [the British Library's account of the Babington channel](https://www.bl.uk/stories/blogs/posts/the-gallows-letter), [The National Archives' cipher-sheet description](https://www.nationalarchives.gov.uk/education/teaching-resources/elizabeth-i-monarchy-part-two/), and the [2023 Cryptologia research](https://doi.org/10.1080/01611194.2022.2160677). The diagram is a timeline aid, not an independent archival reconstruction.*
 
 ## How the cipher family works
 
