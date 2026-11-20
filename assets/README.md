@@ -114,6 +114,18 @@ Original, editable SVG figures are placed in the relevant guides. Captions disti
 | [Identity Alert Investigation](./diagrams/identity-alert-investigation-evidence-containment.svg) | [Unauthorized Access Playbook](../PlayBooks/unauth_access.md) | Corroborate access events and contextual identity risk before containment |
 | [Cyberdeck Trust Boundaries](./diagrams/cyberdeck-zone-policy-logical-architecture.svg) | [Cyberdeck Public Reference](../Cyberdeck/README.md) | Logical GL.iNet/MikroTik path, intended zones and hardware validation caveat |
 
+## Incident Response Revision 3, AI Auditing, Cryptanalysis, Bash & Firmware
+
+These editable original SVGs are embedded in their explanatory chapters and paired with appropriate source references and caveats.
+
+| Diagram | Embedded Guide | Verified Scope |
+|---|---|---|
+| [NIST 800-61 Rev. 3 & CSF 2.0 Incident Response](./diagrams/incident-response-nist-800-61r3-csf2-operations.svg) | [Enhanced Incident Response Playbook](../PlayBooks/BlueTeam_IncResp_Enhanced.md) | Current NIST framework, locally defined operating steps and explicit non-certification |
+| [Independent AI Evidence Audit](./diagrams/ai-audit-claims-tools-and-outcomes.svg) | [Verification & AI Audits](../AI/verification-and-ai-audits.md) | Distinguish source claims, actual tool receipts and confirmed end state |
+| [Historical Cipher Analysis](./diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg) | [Classical Cryptanalysis](../Cryptography/Classical/cryptanalysis.md) | Substitution versus repeating-key tests, misleading peaks and ambiguity |
+| [Safe Bash Execution Gates](./diagrams/bash-script-input-validation-and-dry-run-gates.svg) | [Bash Scripting Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Validate optional args, quoting, syntax checks, side-effect boundaries |
+| [ESP32 Firmware Acceptance Gates](./diagrams/esp32-firmware-board-build-flash-acceptance.svg) | [ESP32 Security Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Chip/board-specific builds, flash layouts, recovery and post-boot qualification |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |

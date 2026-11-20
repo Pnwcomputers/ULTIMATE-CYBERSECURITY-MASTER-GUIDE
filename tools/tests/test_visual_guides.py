@@ -230,6 +230,21 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/cyberdeck-zone-policy-logical-architecture.svg": (
         "Cyberdeck/README.md",
     ),
+    "assets/diagrams/incident-response-nist-800-61r3-csf2-operations.svg": (
+        "PlayBooks/BlueTeam_IncResp_Enhanced.md",
+    ),
+    "assets/diagrams/ai-audit-claims-tools-and-outcomes.svg": (
+        "AI/verification-and-ai-audits.md",
+    ),
+    "assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
+    "assets/diagrams/bash-script-input-validation-and-dry-run-gates.svg": (
+        "Scripts/Bash/bash_scripting_cheat-sheet.md",
+    ),
+    "assets/diagrams/esp32-firmware-board-build-flash-acceptance.svg": (
+        "Documentation/esp32-security-firmware-catalog.md",
+    ),
 }
 
 
