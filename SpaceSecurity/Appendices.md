@@ -43,49 +43,24 @@ Provide the background context, standards references, and resource pointers that
 
 ## Reference Architectures
 
-### LEO Smallsat / CubeSat
+### Representative Spacecraft Architectures
 
-```
-┌───────────────────────────────┐
-│         Solar Panels           │
-│  ┌─────────────────────────┐  │
-│  │    OBC (ARM/LEON/AVR)   │  │
-│  │  FSW (RTEMS/FreeRTOS)   │  │
-│  ├─────────────────────────┤  │
-│  │ ADCS  │ EPS  │ Thermal  │  │
-│  ├─────────────────────────┤  │
-│  │   Communications        │  │
-│  │  UHF TT&C │ S/X payload │  │
-│  └─────────────────────────┘  │
-└───────────────────────────────┘
-```
+The figure contrasts typical **bus functions** with **mission payloads** in two broad spacecraft classes. It is a conceptual reference, not a design template: subsystem boundaries, redundancy, hardware, software, and communications vary by mission. A component's placement in the figure does not establish its security boundary or prove that a protection is present.
 
-#### GEO Communications Satellite
+![Side-by-side conceptual comparison of small-satellite and GEO communications spacecraft bus functions and mission payloads](../assets/diagrams/spacecraft-bus-payload-architecture.svg)
 
-```
-┌─────────────────────────────────────┐
-│          Solar Arrays               │
-│  ┌───────────────────────────────┐  │
-│  │     Platform / Bus            │  │
-│  │  OBC │ AOCS │ Power │ Thermal │  │
-│  ├───────────────────────────────┤  │
-│  │         Payload               │  │
-│  │  Transponders │ Antennas      │  │
-│  │  (C/Ku/Ka-band, military X)   │  │
-│  └───────────────────────────────┘  │
-└─────────────────────────────────────┘
-```
+For the ground-to-space command and telemetry path, see [Part II](PartII.md). For the user segment and GNSS integrity checks, see [Part IV](PartIV.md).
 
 ### Key Protocols Reference
 
 | Protocol | Layer | Use | Security Notes |
 |----------|-------|-----|---------------|
-| CCSDS TM | Data Link | Telemetry framing | Often unencrypted; ASM sync trivially identified |
-| CCSDS TC | Data Link | Command framing | Authentication optional per CCSDS 351.0 |
-| CCSDS Space Packet | Network | Packet routing | APID-based routing; no inherent authentication |
-| CCSDS CFDP | Transport | File delivery | Class 2 provides acknowledged delivery; no encryption |
+| CCSDS TM | Data Link | Telemetry framing | Protection depends on the mission profile. CCSDS SDLS can provide authentication and/or confidentiality for supported TM frames; synchronization markers are framing, not authentication. |
+| CCSDS TC | Data Link | Command framing | Use the mission-defined security profile. SDLS can protect supported TC frames; link authentication is not a substitute for application-level command authorization. |
+| CCSDS Space Packet | Network | Packet routing | APID routing does not establish sender identity or command authorization; security services must be defined by the mission's surrounding layers. |
+| CCSDS CFDP | Transport | File delivery | Class 2 uses acknowledged procedures. CFDP itself has no security mechanisms; required services must be provided by the protocol stack beneath it. |
 | DVB-S2/S2X | Physical | Broadcast downlink | Conditional access systems (CAS) for pay-TV |
-| AX.25 | Data Link | Amateur/CubeSat TT&C | No authentication; widely used in educational sats |
+| AX.25 | Data Link | Amateur/CubeSat links | Do not infer command authenticity or confidentiality from link framing; use mission-specific protections and authorization. |
 | IP over SATCOM | Network | Broadband terminals | Standard IP vulnerabilities apply |
 
 ### SDR Hardware Reference
@@ -130,8 +105,8 @@ This section contains attack techniques and methodologies for:
 
 | Law / Regulation | Scope |
 |-----------------|-------|
-| **CFAA (18 U.S.C. § 1030)** | Unauthorized access to satellite ground systems - up to 10 years |
-| **FCC Part 25/97** | Unauthorized transmission on licensed satellite frequencies - criminal offense |
+| **CFAA (18 U.S.C. § 1030)** | Covers specified computer-related conduct. Elements and penalties depend on the subsection, conduct, and facts; consult the current statute and qualified counsel. |
+| **FCC service rules (including Parts 25 and 97 where applicable)** | Licensing and operating requirements depend on the service and station; enforcement consequences depend on the rule and conduct. |
 | **ITAR (22 CFR 120-130)** | Export control on satellite technology and related security tools |
 | **ITU Radio Regulations** | International frequency coordination and harmful interference prohibition |
 | **UK Computer Misuse Act** | Unauthorized access to space-related computer systems |
@@ -159,6 +134,14 @@ USERS SHOULD UNDERSTAND:
 ---
 
 ## 📚 Resources
+
+### Spacecraft Architecture and Link-Security References
+
+- [NASA Small Spacecraft Technology State of the Art: Platforms](https://www.nasa.gov/smallsat-institute/sst-soa/platforms/) - spacecraft platform and bus concepts; architectures vary by mission.
+- [NASA Small Spacecraft Avionics](https://www.nasa.gov/smallsat-institute/sst-soa/small-spacecraft-avionics/) - command, data handling, and subsystem interface patterns.
+- [CCSDS 350.0-G-3, The Application of Security to CCSDS Protocols](https://ccsds.org/Pubs/350x0g3.pdf) - explains where link-layer and application-layer security services fit.
+- [CCSDS 355.0-B-2, Space Data Link Security Protocol](https://ccsds.org/Pubs/355x0b2.pdf) - standardized authentication and confidentiality services for supported space data links.
+- [CCSDS 727.0-B-5, CCSDS File Delivery Protocol](https://ccsds.org/Pubs/727x0b5e1.pdf) - states CFDP itself has no security mechanisms and requires the underlying stack to supply needed protection.
 
 ### Standards and Guidance
 
