@@ -1,6 +1,6 @@
 # Software Supply-Chain Assessment and SBOM Workflow
 
-_Last reviewed: 2026-11-17 (upstream and visual review; no artifacts scanned)_
+_Last reviewed: 2026-11-20 (upstream and visual review; no artifacts scanned)_
 
 **Prerequisites:** [Container security](containers.md) · [Docker diagnostics](docker-cli-operations-reference.md) · [Script index](../Scripts/README.md).
 
@@ -27,7 +27,7 @@ These checks complement one another. A Scorecard result is not a security certif
 2. Pin and record tool releases, vulnerability database timestamps, data-handling policies and any required API credentials.
 3. Assess repository security hygiene with Scorecard using documented read-only privileges.
 4. Generate an SBOM from a **pinned, approved** artifact using Syft; prefer standard CycloneDX or SPDX format and hash the result.
-5. Evaluate dependency issues using OSV-Scanner and/or Trivy with supported source formats; document advisory IDs, affected versions, false positives and available mitigations.
+5. Evaluate dependency issues using OSV-Scanner and/or Trivy with supported source formats. Prefer resolved lockfiles for source analysis because version ranges in manifests may not identify installed packages; compare with an SBOM of the pinned build artifact where available. Document advisory IDs, affected versions, false positives and available mitigations.
 6. Run secrets detection against only authorized repository history. Store candidate secrets confidentially; do not paste into a public issue. Coordinate rotation of confirmed exposed credentials.
 7. Verify signatures and, separately, relevant attestations when applicable. Bind the artifact digest to the expected signing identity/key and issuer, then evaluate attestation content under policy; successful signature verification alone does not validate every provenance claim.
 8. Deduplicate, risk-rank, assign remediation and retest through [client findings](../PlayBooks/assessment-findings-lifecycle.md).
