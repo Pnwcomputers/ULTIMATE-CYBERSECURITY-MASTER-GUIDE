@@ -215,6 +215,9 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/osint-cti-source-quality-to-detection.svg": (
         "Tradecraft/osint-threat-intel.md",
     ),
+    "assets/diagrams/pci-scope-evidence-trail.svg": (
+        "Compliance/pci-scope-review-template.md",
+    ),
 }
 
 
