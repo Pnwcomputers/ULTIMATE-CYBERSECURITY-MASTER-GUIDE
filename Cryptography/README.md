@@ -121,6 +121,29 @@ encrypted data today to decrypt once quantum is viable.
 **crypto-agility** (the ability to swap algorithms), and plan migration - starting
 with long-lived secrets and hybrid (classical + PQC) key exchange.
 
+NIST's final [IR 8547 transition roadmap](https://csrc.nist.gov/pubs/ir/8547/final)
+sets a 2035 horizon for removing quantum-vulnerable algorithms from NIST standards,
+with high-risk systems transitioning earlier. Treat that as a planning baseline,
+not permission to wait: organization policy, contracts and data confidentiality
+lifetimes may require earlier action. NIST has also selected FALCON (planned as
+FIPS 206) and HQC for standardization, but these are still in development; use
+finalized standards and supported implementations for deployments. See the
+[current NIST PQC project status](https://csrc.nist.gov/Projects/Post-Quantum-Cryptography).
+
+### Migration planning path
+
+```mermaid
+flowchart LR
+    A[Inventory public-key algorithms, protocols and dependencies] --> B[Prioritize by data lifetime, exposure and policy deadlines]
+    B --> C[Select a supported, standards-based PQC or hybrid integration]
+    C --> D[Pilot interoperability, authentication and failure handling]
+    D --> E[Deploy with crypto-agility and monitor]
+    E --> F[Retire vulnerable algorithms under applicable transition policy]
+```
+
+*Planning aid only. It does not prescribe a migration date or protocol; validate
+the chosen implementation and transition requirements for each system.*
+
 ---
 
 <a id="-hardware-keys-and-encrypted-storage"></a>
