@@ -1,6 +1,6 @@
 # Hardware Security Keys, FIDO2, Passkeys, and Certification Levels
 
-_Last reviewed: 2026-11-17 (standards and official documentation reviewed; no device testing performed)_
+_Last reviewed: 2026-11-20 (standards and official documentation reviewed; no device testing performed)_
 
 Part of [Cryptography](./README.md). Related: [SoloKeys hands-on guide](./solokeys-guide.md), [Encrypted Storage](./encrypted-storage.md), and [Applied Cryptography](./applied-crypto.md).
 
