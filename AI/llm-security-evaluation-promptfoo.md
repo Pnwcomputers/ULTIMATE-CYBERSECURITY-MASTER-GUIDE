@@ -1,6 +1,6 @@
 # LLM and Agent Security Evaluations with Promptfoo
 
-_Last reviewed: 2026-11-02 (current upstream configuration references; no evaluation run)_
+_Last reviewed: 2026-11-20 (current upstream configuration references; no evaluation run)_
 
 > [!CAUTION]
 > Run evaluations only against models and endpoints you own or are authorized
@@ -33,6 +33,10 @@ between a model's textual compliance and an actual connected tool action.
 
 ## Practical evaluation sequence
 
+![Conceptual Promptfoo data flow separating test generation, the target under test, grading, and human review](../assets/diagrams/promptfoo-redteam-provider-data-paths.svg)
+
+*Conceptual: generation, target, grader, telemetry, and artifact paths must each be checked for the installed version and configuration.*
+
 1. Define allowed tasks, forbidden actions and test account/data fixtures
    in a disposable environment.
 2. Choose a fixed model and prompt version, expected behavior and pass/fail
@@ -41,10 +45,14 @@ between a model's textual compliance and an actual connected tool action.
    [Promptfoo documentation](https://www.promptfoo.dev/docs/red-team/configuration/)
    and configure only approved local/evaluation targets. Review provider
    settings and the separate attack-generation provider before execution.
-4. **Privacy control:** Promptfoo documentation notes red-team attack
-   generation/grading may use remote services unless a local provider and
-   explicit remote-generation controls are configured. Assess network
-   connectivity and provider logging before loading any sensitive text.
+4. **Privacy control:** Keep the attack-generation/grading provider separate
+   from the target-under-test endpoint in your data-flow review. Current
+   Promptfoo documentation says red-team generation can use a remote service;
+   without a configured provider key, requests may be proxied through Promptfoo.
+   A local target does not make these paths local. For local generation, configure
+   a local provider and set `PROMPTFOO_DISABLE_REDTEAM_REMOTE_GENERATION=true`,
+   then verify the installed version's behavior, network access, provider logs,
+   telemetry, and artifact destinations before using any non-synthetic data.
 5. Run baseline functional tests against your lab target, followed by a
    selected limited injection/tool-boundary suite, avoiding dangerous
    payload execution or real customer resources.
@@ -77,7 +85,7 @@ The security scenarios above should feed a larger [AI Evaluation & Regression Te
 
 For a connected agent, inspect [tool authorization](mcp-tooling-and-permissions.md), [agent threat model](agent-threat-modeling-and-security.md) and [sanitized traces](ai-observability-and-auditing.md) alongside promptfoo results. The right outcome is **observable denial of an unsafe action**, not merely a model refusal that may have arrived after the tool ran.
 
-**Privacy:** Disabling result sharing does not necessarily disable third-party target calls, generation or grading. Inspect every configured endpoint and the installed tool version before evaluating anything sensitive.
+**Privacy:** Disabling result sharing does not necessarily disable third-party target calls, generation, grading, or telemetry. Inspect every configured endpoint and the installed tool version before evaluating anything sensitive.
 
 ## Sources & Limitations
 
