@@ -193,7 +193,7 @@ Use source-restricted rich rules or your centrally managed firewall policy for t
 
 #### Step 4.1: Download the Agent
 
-Download from an elevated PowerShell prompt:
+Download from an elevated PowerShell prompt. Before installation, compare the downloaded MSI's SHA-512 hash with the pinned package entry in the [official Wazuh package list](https://documentation.wazuh.com/current/installation-guide/packages-list.html#wazuh-agent); stop if it differs.
 
 ```powershell
 Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.10-1.msi -OutFile $env:TEMP\wazuh-agent.msi
@@ -266,13 +266,13 @@ EOF
 **Debian/Ubuntu:**
 
 ```bash
-WAZUH_MANAGER="<MANAGER-IP>" apt install -y wazuh-agent=4.14.10-1
+sudo WAZUH_MANAGER="<MANAGER-IP>" apt install -y wazuh-agent=4.14.10-1
 ```
 
 **RHEL/CentOS:**
 
 ```bash
-WAZUH_MANAGER="<MANAGER-IP>" yum install -y wazuh-agent-4.14.10-1
+sudo WAZUH_MANAGER="<MANAGER-IP>" yum install -y wazuh-agent-4.14.10-1
 ```
 
 ### Step 5.3: Enable and Start the Service
