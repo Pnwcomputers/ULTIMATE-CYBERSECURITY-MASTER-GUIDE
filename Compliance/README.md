@@ -40,7 +40,7 @@ repo.
 
 ## 📋 When To Use
 - Choosing a framework for an organization or a customer requirement
-- Preparing for an audit or certification (SOC 2, ISO 27001, PCI DSS)
+- Preparing for a [SOC 2 examination](https://www.aicpa-cima.com/cpe-learning/publication/soc-2-reporting-on-an-examination-of-controls-at-a-service-organization-relevant-to-security-availability-processing-integrity-confidentiality-or-privacy-OPL), an [ISO/IEC 27001 certification audit](https://www.iso.org/standard/27001), or PCI DSS assessment and validation (not a general compliance certificate; see [PCI SSC FAQ 1220](https://www.pcisecuritystandards.org/faqs/1220/))
 - Mapping existing technical controls to compliance requirements
 - Understanding a data-protection obligation (GDPR/HIPAA/CCPA)
 
