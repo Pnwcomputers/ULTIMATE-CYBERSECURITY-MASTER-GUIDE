@@ -1152,68 +1152,9 @@ Prefer a simulator such as [WiFiForge](https://github.com/blackhillsinfosec/Wifi
 
 ### Vagrant Lab Automation
 
-**Benefits**:
-- Reproducible builds
-- Version-controlled infrastructure
-- Rapid deployment
+Vagrant can create repeatable labs, but its VirtualBox provider normally adds a NAT adapter and its default `private_network` is host-only. Host-only networking gives the host access; it does not make a disconnected malware or vulnerable-target range. The [Vagrant VirtualBox networking guide](https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/networking) documents an internal-network option, but verify **every** VM adapter, route, and provisioning path before use. For a disconnected target lab, prefer the Proxmox internal-bridge design above or a manually verified internal-only VirtualBox network. Do not use a default Vagrantfile as proof of containment.
 
-**Vagrantfile Example** (Target VMs):
-```ruby
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-Vagrant.configure("2") do |config|
-  # Metasploitable 2
-  config.vm.define "metasploitable2" do |ms2|
-    ms2.vm.box = "rapid7/metasploitable-linux"
-    ms2.vm.network "private_network", ip: "10.30.30.70"
-    ms2.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-      vb.cpus = 1
-    end
-  end
-
-  # DVWA Ubuntu
-  config.vm.define "dvwa" do |dvwa|
-    dvwa.vm.box = "ubuntu/jammy64"
-    dvwa.vm.network "private_network", ip: "10.30.30.72"
-    dvwa.vm.provider "virtualbox" do |vb|
-      vb.memory = "4096"
-      vb.cpus = 2
-    end
-    dvwa.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install -y apache2 mariadb-server php php-mysqli php-gd git
-      git clone https://github.com/digininja/DVWA.git /var/www/html/dvwa
-      chown -R www-data:www-data /var/www/html/dvwa
-      # ... additional DVWA setup
-    SHELL
-  end
-
-  # Windows Server 2019 (requires licensed box)
-  config.vm.define "dc01" do |dc|
-    dc.vm.box = "gusztavvargadr/windows-server"
-    dc.vm.network "private_network", ip: "10.30.30.10"
-    dc.vm.provider "virtualbox" do |vb|
-      vb.memory = "4096"
-      vb.cpus = 2
-    end
-    dc.vm.provision "shell", path: "scripts/setup-dc.ps1"
-  end
-end
-```
-
-**Usage**:
-```bash
-# Deploy entire lab
-vagrant up
-
-# Destroy and rebuild
-vagrant destroy -f && vagrant up
-
-# Snapshot state
-vagrant snapshot save baseline
-```
+For repeatable provisioning, pin box and provisioner versions, verify image provenance, and retrieve updates through a separate approved staging path. Avoid destructive Vagrant commands unless the exact workspace and disposable VM data are confirmed.
 
 ### Terraform with Proxmox Provider
 
@@ -1238,16 +1179,24 @@ terraform {
   required_providers {
     proxmox = {
       source  = "Telmate/proxmox"
-      version = "2.9.14"
+      version = "REPLACE_WITH_CURRENT_REVIEWED_VERSION"
     }
   }
 }
 
+variable "pm_api_url" { type = string }
+variable "pm_user" { type = string }
+variable "pm_api_token_id" { type = string }
+variable "pm_api_token_secret" { type = string, sensitive = true }
+
+# Set TF_VAR_* values from a protected secret store. Do not commit state,
+# API secrets, or root credentials. Use a dedicated least-privilege token.
 provider "proxmox" {
-  pm_api_url      = "https://10.10.10.5:8006/api2/json"
-  pm_user         = "root@pam"
-  pm_password     = "your-password"
-  pm_tls_insecure = true
+  pm_api_url          = var.pm_api_url
+  pm_user             = var.pm_user
+  pm_api_token_id     = var.pm_api_token_id
+  pm_api_token_secret = var.pm_api_token_secret
+  pm_tls_insecure     = false
 }
 
 # Kali Linux attacker
@@ -1270,7 +1219,7 @@ resource "proxmox_vm_qemu" "kali" {
     type    = "scsi"
   }
   
-  ipconfig0 = "ip=10.20.20.10/24,gw=10.20.20.1"
+  ipconfig0 = "ip=10.20.20.10/24"
 }
 
 # Metasploitable 2 target
@@ -1293,7 +1242,7 @@ resource "proxmox_vm_qemu" "metasploitable2" {
     type    = "scsi"
   }
   
-  ipconfig0 = "ip=10.30.30.70/24,gw=10.30.30.1"
+  ipconfig0 = "ip=10.30.30.70/24"
 }
 
 # Repeat for all VMs...
@@ -1303,10 +1252,12 @@ resource "proxmox_vm_qemu" "metasploitable2" {
 ```bash
 terraform init
 terraform plan
+# Apply only after reviewing the plan and confirming the workspace, VM IDs,
+# and isolated network assignments.
 terraform apply
 
-# Destroy lab
-terraform destroy
+# Destruction is irreversible for unmanaged data; review a separate destroy
+# plan and confirm backups and the exact workspace before proceeding.
 ```
 
 ### Ansible Playbooks for Configuration
