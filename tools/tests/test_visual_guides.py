@@ -3,6 +3,7 @@
 No live sensor, SIEM, EDR, or hardware tests are attempted by this suite.
 """
 from pathlib import Path
+import re
 import unittest
 from xml.etree import ElementTree as ET
 
@@ -245,6 +246,36 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/esp32-firmware-board-build-flash-acceptance.svg": (
         "Documentation/esp32-security-firmware-catalog.md",
     ),
+    "assets/diagrams/ai-model-routing-policy.svg": (
+        "AI/model-routing-and-cost-management.md",
+    ),
+    "assets/diagrams/openscad-preset-to-export.svg": (
+        "CAD/OpenSCAD/02-project-structure.md",
+    ),
+    "CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg": (
+        "CAD/OpenSCAD/06-keyboard-shortcuts.md",
+    ),
+    "assets/diagrams/vigenere-candidate-periods.svg": (
+        "Cryptography/Classical/cryptanalysis.md",
+    ),
+    "assets/diagrams/volatility-evidence-triage.svg": (
+        "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
+    ),
+    "assets/diagrams/pci-scope-evidence-trail.svg": (
+        "Compliance/pci-scope-review-template.md",
+    ),
+    "assets/diagrams/python-security-snippet-platform-scope-test-gates.svg": (
+        "Documentation/python.md",
+    ),
+    "assets/diagrams/classical-cipher-swap-position-and-one-time-pad.svg": (
+        "Cryptography/Classical/ciphers.md",
+    ),
+    "assets/diagrams/pentoo-gentoo-deployment-profile-safety.svg": (
+        "Tradecraft/pentoo-linux-guide.md",
+    ),
+    "assets/diagrams/incident-casebook-scope-evidence-action-approval.svg": (
+        "PlayBooks/cybersecurity_playbooks.md",
+    ),
 }
 
 
@@ -274,8 +305,8 @@ class VisualGuideTests(unittest.TestCase):
                 for guide in guides:
                     md = (ROOT / guide).read_text(encoding="utf-8")
                     rel = __import__("os").path.relpath(ROOT / path, (ROOT / guide).parent)
-                    self.assertIn("](" + rel.replace("\\", "/") + ")", md)
-                    self.assertIn("![" , md)
+                    target = re.escape(rel.replace("\\", "/"))
+                    self.assertRegex(md, rf"!\[[^\]\n]+\]\((?:\./)?{target}\)")
 
 
 if __name__ == "__main__":

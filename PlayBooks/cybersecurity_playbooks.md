@@ -31,6 +31,10 @@ Give a security operations team a single field guide covering the most common da
 
 # Incident Response Playbooks
 
+![Operational incident playbooks require evidence-based triage, approved and proportionate containment and verification before declaring recovery](../assets/diagrams/incident-casebook-scope-evidence-action-approval.svg)
+
+*Conceptual incident workflow.* The time windows below are **illustrative exercise targets**, not mandated SLAs, validated containment durations or regulatory notification deadlines. Decision makers must apply incident severity, preservation requirements, safety, operational impact and applicable law. See [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final) and the [enhanced incident response playbook](BlueTeam_IncResp_Enhanced.md). Checklist boxes inside fenced blocks are **not shell commands** and should not be pasted into a terminal.
+
 ## PLAYBOOK 1: Suspected Account Compromise
 
 ### Trigger Indicators
@@ -140,14 +144,14 @@ last -f /var/log/wtmp
 lastb -f /var/log/btmp
 
 # User activity
-history -r /home/user/.bash_history
+sed -n '1,200p' /home/user/.bash_history  # Read a working copy; don't import history into analyst shell
 find /home/user -type f -mtime -7
 ```
 
 #### Windows Systems
 ```powershell
 # Event log analysis
-Get-EventLog -LogName Security -InstanceId 4624,4625 | Where-Object {$_.Message -like "*username*"}
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624,4625} -MaxEvents 500 | Where-Object { $_.Message -like '*username*' }
 
 # Login history
 Get-WinEvent -FilterHashtable @{LogName='Security';ID=4624}
@@ -172,7 +176,7 @@ Get-Content "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_hi
 
 #### Phase 1: Immediate Actions (0-5 minutes) ⚠️ CRITICAL
 ```
-□ DO NOT REBOOT infected systems
+□ Avoid unplanned reboots; incident lead decides based on safety, encryption/key state and volatile-evidence needs
 □ Isolate infected systems from network (pull cable)
 □ Alert security team and management IMMEDIATELY
 □ Activate incident response team
@@ -213,10 +217,13 @@ Get-Content "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_hi
 ```
 
 #### Phase 4: Identification
-```bash
+
+**The following is an analyst checklist, not executable Bash.** Do not upload case materials automatically. Review disclosure, privacy and contractual restrictions before sharing any samples.
+
+```text
 # Identify ransomware variant
-1. Upload ransom note to ID Ransomware (https://id-ransomware.malwarehunterteam.com/)
-2. Upload encrypted file sample
+1. First classify and locally analyze the ransom note; consult a reputable identification service only when explicitly approved
+2. Do not upload encrypted files, notes or client evidence to any third party without legal/privacy review and explicit authorization
 3. Check extension against known ransomware
 4. Search for decryption tools
 
@@ -227,8 +234,11 @@ exiftool encrypted_file
 ```
 
 #### Phase 5: Eradication
-```bash
-# DO NOT PAY RANSOM (unless legally authorized)
+
+**Procedure checklist, not executable Bash:** Remediation choices should be evidence-led and authorized; do not destroy potential forensic evidence by default.
+
+```text
+# Do not make payment decisions from this checklist. Involve incident leadership, legal counsel, insurer and applicable sanctions guidance.
 
 # Remove infection
 □ Boot into safe mode or live USB
@@ -391,7 +401,9 @@ grep -i "DUMP" /var/log/mysql/mysql.log
 □ Monitor for re-compromise
 ```
 
-#### Phase 6: Notification & Compliance (1-72 hours from discovery)
+#### Phase 6: Notification & Compliance (case-specific legal deadline)
+
+**Important distinction:** Under [GDPR Article 33](https://eur-lex.europa.eu/eli/reg/2016/679/oj), controllers generally notify a competent supervisory authority without undue delay and, where feasible, within 72 hours **after becoming aware of a reportable personal-data breach**; exceptions and reasons for delays apply. [Article 34](https://eur-lex.europa.eu/eli/reg/2016/679/oj) separately requires communication to affected individuals **without undue delay** where the specified high-risk threshold is met, subject to exceptions. Not every security incident is a reportable personal-data breach. Do not interpret this checklist as legal advice or a fixed deadline for all recipients.
 ```
 ⚠️ Legal/Regulatory Requirements
 
@@ -402,7 +414,7 @@ grep -i "DUMP" /var/log/mysql/mysql.log
   - Compliance officer
 
 □ External notification (if required)
-  - Affected individuals (GDPR: 72 hours)
+  - Affected individuals: GDPR Art. 34 requires notice without undue delay where the breach is likely to result in a high risk, subject to its exceptions
   - Regulatory bodies
   - Law enforcement
   - Credit bureaus
@@ -1092,7 +1104,7 @@ tcpdump -nn -r pcap_file 'tcp[tcpflags] & tcp-syn != 0'
 grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -nr
 
 # RDP brute force (Windows)
-Get-EventLog -LogName Security -InstanceId 4625 | Group-Object -Property Message | Select-Object Count, Name | Sort-Object Count -Descending
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} -MaxEvents 1000 | Group-Object -Property Message | Sort-Object Count -Descending | Select-Object -First 20 Count, Name
 
 # Response
 # Block source IP

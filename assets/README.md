@@ -126,6 +126,17 @@ These editable original SVGs are embedded in their explanatory chapters and pair
 | [Safe Bash Execution Gates](./diagrams/bash-script-input-validation-and-dry-run-gates.svg) | [Bash Scripting Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Validate optional args, quoting, syntax checks, side-effect boundaries |
 | [ESP32 Firmware Acceptance Gates](./diagrams/esp32-firmware-board-build-flash-acceptance.svg) | [ESP32 Security Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Chip/board-specific builds, flash layouts, recovery and post-boot qualification |
 
+## Python Reference Safety, Classical Ciphers, Pentoo & Incident Casebook
+
+Original, editable diagrams embedded directly into the related technical chapters. Their captions distinguish educational models from any untested device/runtime scenario.
+
+| Diagram | Embedded Guide | Core Limit |
+|---|---|---|
+| [Python Security Example Qualification](./diagrams/python-security-snippet-platform-scope-test-gates.svg) | [Python Security Cheat Sheet](../Documentation/python.md) | Windows native prototypes, legacy API versions, safe local probes and observed outcomes |
+| [Classical Cipher Family Comparison](./diagrams/classical-cipher-swap-position-and-one-time-pad.svg) | [Classical Ciphers](../Cryptography/Classical/ciphers.md) | Distinguishes codes, substitution, transposition, periodic shifts and OTP requirements |
+| [Pentoo Deployment & Portage Gates](./diagrams/pentoo-gentoo-deployment-profile-safety.svg) | [Pentoo Linux Field Guide](../Tradecraft/pentoo-linux-guide.md) | Distinguishes live image, installed system, Gentoo overlay and hardware validation |
+| [Incident Casebook Evidence and Approval](./diagrams/incident-casebook-scope-evidence-action-approval.svg) | [Operational Playbook Library](../PlayBooks/cybersecurity_playbooks.md) | Correlate event evidence and authority before containment, recovery and notification |
+
 ## Repository-Wide Audit & Evidence Diagram
 
 | Diagram | Embedded Guide | Scope |
@@ -149,6 +160,7 @@ These figures illustrate the actual decision points in their respective guides; 
 | [AI Evaluation Evidence Matrix](./diagrams/ai-evaluation-evidence-matrix.svg) | [AI Evaluation & Regression Testing](../AI/ai-evaluation-and-regression-testing.md) | Separate deterministic tests, live agent behavior and independent end-state validation |
 | [uConsole Hardware & OS Preflight](./diagrams/uconsole-hardware-os-preflight-paths.svg) | [uConsole Setup](../uConsole/README.md) | CM4/CM5 distinction, native OS image, optional peripherals and physical readback |
 | [Cryptography Primitive Decision Map](./diagrams/cryptography-primitive-decision-map.svg) | [Cryptography Overview](../Cryptography/README.md) | Four distinct security goals: AEAD, password KDF, signatures/HMAC and key establishment |
+| [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) | Mean column IC values for a reproducible synthetic repeating-key example |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
 ## Firmware, Cyberdeck Devices & Virtualization Visuals
@@ -340,6 +352,12 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [docker operations data lifetimes](./diagrams/docker-operations-data-lifetimes.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 | [docker operations image review](./diagrams/docker-operations-image-review.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
 | [docker operations context control](./diagrams/docker-operations-context-control.svg) | [Guide](../ContainerSecurity/docker-cli-operations-reference.md) |
+
+## Memory Forensics Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [Volatility evidence triage](./diagrams/volatility-evidence-triage.svg) | [Volatility 3 memory forensics](../IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md#validation-before-triage) |
 
 ## Applied Cryptography Visuals
 
@@ -911,6 +929,12 @@ Manufacturer-published sampling limits by active-channel count. Use the detailed
 |---|---|
 | [LA1010 active-channel sample-rate tradeoff](./diagrams/la1010-active-channel-sample-rate.svg) | [LA1010 guide](../HardwareHacking/LA1010.md#active-channel-tradeoff) |
 
+## PCI DSS Scope Worksheet Visual
+
+| Diagram | Embedded guide |
+|---|---|
+| [PCI DSS scoping evidence trail](./diagrams/pci-scope-evidence-trail.svg) | [PCI DSS scope review worksheet](../Compliance/pci-scope-review-template.md#how-to-use-the-worksheet) |
+
 ## Mobile TLS Proxy Trust Visual
 
 Original conceptual comparison of Android and iOS trust gates for a controlled HTTPS proxy test. CA installation, platform trust, app-specific trust, and pinning are separate checks.
@@ -926,3 +950,11 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | Diagram | Embedded guide |
 |---|---|
 | [ETL key-coverage reconciliation flow](./diagrams/etl-key-coverage-reconciliation-flow.svg) | [Incremental ETL/ELT pipeline design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md#8-reconciliation) |
+
+## AI Routing and OpenSCAD Export Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [AI model routing and fallback](./diagrams/ai-model-routing-policy.svg) | [Model routing and cost management](../AI/model-routing-and-cost-management.md#3-routing-policy--safe-fallback) |
+| [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
+| [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |

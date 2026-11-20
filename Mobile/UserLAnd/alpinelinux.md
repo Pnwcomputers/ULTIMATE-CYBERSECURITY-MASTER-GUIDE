@@ -61,6 +61,15 @@ The practical distinction is between tools that use ordinary network connections
 
 These compatibility expectations follow from PRoot's privilege model, Nmap's use of `connect()` for `-sT`, and Masscan's separate TCP/IP stack. They are not a guarantee for every Android build. [Nmap TCP connect scanning](https://nmap.org/book/man-port-scanning-techniques.html), [Masscan documentation](https://github.com/robertdavidgraham/masscan)
 
+```mermaid
+flowchart LR
+    H[Android host<br/>no host root] --> P[PRoot syscall translation]
+    P --> U[Alpine userspace<br/>root-like UID is not Android root]
+    U --> T[Ordinary TCP connect, DNS and HTTP]
+    C[PCAP captured elsewhere] --> O[Offline packet analysis]
+    U -. raw sockets, live capture,<br/>monitor mode or injection .-> X[Not granted by PRoot alone]
+```
+
 Even a privileged packet capture only sees traffic available at its capture interface. Capturing on a phone or laptop does not automatically expose all traffic on a switched client network.
 
 ## 2. Install and maintain the toolkit

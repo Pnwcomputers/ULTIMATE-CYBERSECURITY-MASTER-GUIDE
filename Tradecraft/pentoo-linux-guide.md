@@ -42,6 +42,10 @@ Move from a clean Pentoo workstation to a reproducible and auditable assessment 
 
 ## 1. Choose the Pentoo deployment
 
+![Pentoo deployment choice separates a live Core or Full image, a persistent installation and an existing Gentoo host with the Pentoo Portage overlay; all require source validation before supported assessment](../assets/diagrams/pentoo-gentoo-deployment-profile-safety.svg)
+
+*Conceptual deployment selection and qualification gates.* The [Pentoo project](https://www.pentoo.ch/) and [official overlay](https://github.com/pentoo/pentoo-overlay) use Gentoo/Portage conventions. Verify the specific ISO build, overlay instructions and host profile before modifying an installed workstation. Live boot, virtualized USB pass-through and working monitor mode are separate evidence checks.
+
 Pentoo is a **Gentoo-based, installable live operating system for penetration testing**. Its tool ecosystem is maintained in the [Pentoo Portage overlay](https://github.com/pentoo/pentoo-overlay). Unlike Debian-derived penetration-testing systems, packages and profiles use **Portage** and Gentoo mechanisms.
 
 | Deployment | Choose this when | Notes |
