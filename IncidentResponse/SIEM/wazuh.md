@@ -84,7 +84,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo usermod -aG docker $USER
 ```
 
-Log out and back in for group changes to take effect, or run `newgrp docker`.
+Membership in the `docker` group grants effectively root-equivalent control of the host through containers. Add only trusted administrators; otherwise prefix Docker commands with `sudo`. Log out and back in for group changes to take effect, or run `newgrp docker`.
 
 ### Step 1.3: Verify Docker Installation
 
