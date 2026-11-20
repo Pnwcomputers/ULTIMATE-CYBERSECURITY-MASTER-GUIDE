@@ -31,19 +31,21 @@ This guide covers deploying the Wazuh Manager using Docker and installing agents
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| OS | Ubuntu 20.04/22.04 LTS | Ubuntu 22.04 LTS |
-| RAM | 4 GB | 8 GB |
-| CPU | 2 vCPUs | 4 vCPUs |
-| Storage | 50 GB | 100 GB+ |
+| Docker host | Linux, or Windows with Docker Desktop and WSL 2 | Use a currently supported Docker host |
+| Architecture | AMD64 (x86_64) or ARM64 (AARCH64) | Match the selected image and host support |
+| CPU | 4 cores minimum | Add capacity for ingest and query load |
+| RAM | 8 GB minimum | Add capacity for endpoint count and indexing |
+| Storage | 50 GB minimum | Size for ingest rate and retention; 100 GB+ is a starting point, not a universal target |
 
 ### Software Requirements
 
-- Docker Engine 20.10+
-- Docker Compose 1.29+
+- Docker Engine (Linux) or Docker Desktop with WSL 2 (Windows); use a supported current release
+- Docker Compose, current stable release
+- Git for cloning the versioned Wazuh Docker repository
 
 ### Network Requirements
 
-Ensure the following ports are accessible on your Wazuh Manager:
+Allow these ports only from the intended endpoint or administrator networks. Do not expose management or enrollment services publicly; confirm the exact port and transport for the selected release:
 
 | Port | Protocol | Purpose |
 |------|----------|---------|
@@ -82,7 +84,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo usermod -aG docker $USER
 ```
 
-Log out and back in for group changes to take effect, or run `newgrp docker`.
+Membership in the `docker` group grants effectively root-equivalent control of the host through containers. Add only trusted administrators; otherwise prefix Docker commands with `sudo`. Log out and back in for group changes to take effect, or run `newgrp docker`.
 
 ### Step 1.3: Verify Docker Installation
 
@@ -96,21 +98,16 @@ docker compose version
 ## 🚀 Part 2: Deploying the Wazuh Manager (Docker)
 
 > [!NOTE]
-> This guide pins Wazuh `4.7.0` for a known-good, internally consistent config.
-> The current line is `4.14.x` (with `5.0` in beta) — check the
-> [Wazuh releases](https://github.com/wazuh/wazuh/releases) and
-> [wazuh-docker releases](https://github.com/wazuh/wazuh-docker/releases) before
-> deploying, since version bumps can change the compose files and default
-> settings used below.
+> This guide pins the single-node Docker example to Wazuh `4.14.10`, with matching agent packages, using the [official Docker tag](https://github.com/wazuh/wazuh-docker/tree/v4.14.10/single-node). Check the [official release list](https://github.com/wazuh/wazuh/releases) and [Docker deployment requirements](https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html) before deploying; newer releases can change compose files and defaults. Treat prereleases as evaluation builds.
 
 ### Step 2.1: Clone the Wazuh Docker Repository
 
 ```bash
-git clone https://github.com/wazuh/wazuh-docker.git -b v4.7.0
+git clone https://github.com/wazuh/wazuh-docker.git --branch v4.14.10 --single-branch
 cd wazuh-docker/single-node
 ```
 
-> **Note:** Check [Wazuh releases](https://github.com/wazuh/wazuh-docker/releases) for the latest stable version and adjust the branch tag accordingly.
+> Keep the server components on one matching release. Use the selected release's checked-in deployment files; do not update only one component in the compose stack.
 
 ### Step 2.2: Increase vm.max_map_count
 
@@ -196,10 +193,10 @@ Use source-restricted rich rules or your centrally managed firewall policy for t
 
 #### Step 4.1: Download the Agent
 
-Download from an elevated PowerShell prompt:
+Download from an elevated PowerShell prompt. Before installation, compare the downloaded MSI's SHA-512 hash with the pinned package entry in the [official Wazuh package list](https://documentation.wazuh.com/current/installation-guide/packages-list.html#wazuh-agent); stop if it differs.
 
 ```powershell
-Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.0-1.msi -OutFile $env:TEMP\wazuh-agent.msi
+Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.10-1.msi -OutFile $env:TEMP\wazuh-agent.msi
 ```
 
 #### Step 4.2: Install with Configuration
@@ -269,13 +266,13 @@ EOF
 **Debian/Ubuntu:**
 
 ```bash
-WAZUH_MANAGER="<MANAGER-IP>" apt install -y wazuh-agent
+sudo WAZUH_MANAGER="<MANAGER-IP>" apt install -y wazuh-agent=4.14.10-1
 ```
 
 **RHEL/CentOS:**
 
 ```bash
-WAZUH_MANAGER="<MANAGER-IP>" yum install -y wazuh-agent
+sudo WAZUH_MANAGER="<MANAGER-IP>" yum install -y wazuh-agent-4.14.10-1
 ```
 
 ### Step 5.3: Enable and Start the Service
