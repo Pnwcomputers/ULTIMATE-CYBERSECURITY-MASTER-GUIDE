@@ -10,7 +10,7 @@ Parses supplied Nmap output (XML preferred), separates observations from hypothe
 Help a reviewer triage scan observations while preserving evidence, uncertainty, data minimization, and a separate human decision before any follow-up.
 
 ## 📋 When to Use
-After running an nmap scan against an authorized target; triaging a large scan with many open ports; building the service inventory section of a pentest report.
+Reviewing minimized Nmap output from a separately authorized, explicitly scoped assessment; organizing observations for defensive triage.
 
 
 ## Flow Information
@@ -37,9 +37,9 @@ Define these variables in the "Flow Variables" section:
 
 | Variable Name | Initial Value | Description |
 |---------------|---------------|-------------|
-| `scan_results` | (empty) | Raw Nmap scan output |
+| `scan_results` | (empty) | Minimized Nmap output; remove secrets, personal data, and unrelated hosts |
 | `target_info` | (empty) | Minimal, approved scope and asset context; omit secrets and unnecessary identifiers |
-| `parsed_findings` | (empty) | Structured vulnerability table |
+| `parsed_findings` | (empty) | Structured observations and unverified leads |
 | `recommendations` | (empty) | Next steps and tool suggestions |
 
 ---
@@ -333,7 +333,7 @@ Required Tools:
 | Unclear priorities | Include business context in target_info |
 | Token limit exceeded | Scan smaller IP ranges or summarize results |
 | No service versions | Ensure `-sV` flag was used in scan |
-| Incomplete scan | Use `-p-` for all ports, not just common ones |
+| Incomplete scan | Confirm whether additional ports were in the written scope before requesting or conducting another scan |
 
 ---
 
@@ -424,7 +424,7 @@ target_info: Authorized lab subnet - assess only the exact in-scope range AUTHOR
 - **ThreatIntelCheck** - Verify discovered IPs
 - **CVELookup** - Research candidate CVEs against authoritative sources
 - **VulnReportGenerator** - Document findings
-- **DomainRecon** - Pre-scan reconnaissance
+- **DomainRecon** - Separate reconnaissance workflow; use only under its own written scope
 
 ## Related Files
 - [Nmap service/version detection reference](https://nmap.org/book/man-version-detection.html) - Service identification is probe-based and should be corroborated with asset/vendor evidence.
