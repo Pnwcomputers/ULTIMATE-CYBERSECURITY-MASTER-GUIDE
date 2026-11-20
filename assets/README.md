@@ -90,6 +90,12 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [Company OSINT source confidence and scope](./diagrams/company-osint-source-confidence-scope.svg) | [CompanyOSINT AgentFlow](../AI/AnythingLLM/flow-company_osint.md#scope-and-safeguards) | Separates permitted sources, provenance, organization-only analysis, independent verification, and human scope review |
 
+## GitHub Secrets Redaction and Owner Response
+
+| Diagram | Embedded guide | Why it belongs |
+|---|---|---|
+| [GitHub secret alert redaction workflow](./diagrams/github-secrets-redaction-owner-response.svg) | [GitHubSecrets AgentFlow](../AI/AnythingLLM/flow-github_secrets.md#scope-and-safety) | Keeps credential values in restricted scanner systems, separates the metadata-only AgentFlow, and leaves verification and response with the authorized owner |
+
 ## AI Agent Lanes, Durable Handoffs & Data Execution Gates
 
 | Visual | Embedded Guide | Source-Aligned Concepts |
