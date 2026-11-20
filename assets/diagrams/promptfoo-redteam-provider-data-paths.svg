@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Promptfoo red-team evaluation data paths</title>
+<desc id="desc">A conceptual flow shows the operator providing synthetic fixtures and configuration, adversarial test generation using a separately configured provider or remote service, tests going to an approved isolated target, and results going to a configured grader and human reviewer. Each provider can be a separate data recipient; side effects and artifacts require controls.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365f91"/></marker></defs>
+<rect width="1200" height="560" rx="20" fill="#f4f7fb"/>
+<text x="600" y="43" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#18324d">Red-team evaluation has multiple data paths</text>
+<rect x="36" y="122" width="235" height="190" rx="17" fill="#e6f1ff" stroke="#4a78ad" stroke-width="3"/>
+<text x="153" y="161" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#18324d">Operator</text>
+<text x="153" y="199" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#18324d">Approved scope</text>
+<text x="153" y="227" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#18324d">Synthetic fixtures</text>
+<text x="153" y="255" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#18324d">Pinned config / versions</text>
+<text x="153" y="283" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#365f91">Review endpoints first</text>
+<rect x="335" y="96" width="240" height="240" rx="17" fill="#fff3d6" stroke="#b78b28" stroke-width="3"/>
+<text x="455" y="136" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#4e3b10">Attack generation</text>
+<text x="455" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#4e3b10">Purpose + plugins + strategies</text>
+<text x="455" y="207" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#4e3b10">Configured attacker model or</text>
+<text x="455" y="233" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#4e3b10">remote generation service</text>
+<text x="455" y="278" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#6d5415">Separate from target choice</text>
+<text x="455" y="305" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#6d5415">Data sent depends on config</text>
+<rect x="634" y="122" width="240" height="190" rx="17" fill="#fce8e6" stroke="#b75a50" stroke-width="3"/>
+<text x="754" y="161" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#58231e">Target under test</text>
+<text x="754" y="199" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">Approved app / model</text>
+<text x="754" y="227" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">Isolated test tenant</text>
+<text x="754" y="255" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#58231e">Mock or disable side effects</text>
+<text x="754" y="283" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#7b332c">Could itself be remote</text>
+<rect x="933" y="96" width="231" height="240" rx="17" fill="#e7f4e8" stroke="#54865b" stroke-width="3"/>
+<text x="1048" y="136" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#24472a">Grade and review</text>
+<text x="1048" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#24472a">Configured grader/provider</text>
+<text x="1048" y="207" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#24472a">Calibrate with known cases</text>
+<text x="1048" y="238" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#24472a">Humanly inspect critical results</text>
+<text x="1048" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#315a37">Store redacted artifacts</text>
+<path d="M271 216 H326" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M575 216 H625" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M874 216 H924" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="92" y="382" width="1016" height="106" rx="17" fill="#eee8f7" stroke="#7961a5" stroke-width="2"/>
+<text x="600" y="419" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#34264c">Before running: inspect generation, target, grading, telemetry, and artifact destinations independently.</text>
+<text x="600" y="454" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#34264c">A local runner or local target does not prove every provider path is local; remote generation may be enabled separately.</text>
+<text x="600" y="526" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#41556b">Conceptual flow based on current Promptfoo red-team documentation. Exact behavior depends on the installed version and configuration.</text>
+</svg>
