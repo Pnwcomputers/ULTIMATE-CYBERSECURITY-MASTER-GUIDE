@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">AI project workspace trust and evidence boundaries</title>
+<desc id="desc">A conceptual diagram separates approved project files from the AI host, connected tools, and external providers. A reviewer checks tool results and outputs before recording verified evidence and handing off work.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#365f91"/></marker></defs>
+<rect width="1200" height="520" rx="20" fill="#f4f7fb"/>
+<text x="600" y="46" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#18324d">AI project workspace: context is one trust boundary, not the whole system</text>
+<rect x="38" y="86" width="350" height="350" rx="16" fill="#e6f1ff" stroke="#4a78ad" stroke-width="3"/>
+<text x="213" y="122" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#18324d">Approved project context</text>
+<text x="65" y="166" font-family="Arial,sans-serif" font-size="17" fill="#18324d">• Scope and instructions</text>
+<text x="65" y="198" font-family="Arial,sans-serif" font-size="17" fill="#18324d">• Dated sources and notes</text>
+<text x="65" y="230" font-family="Arial,sans-serif" font-size="17" fill="#18324d">• Decisions, evidence, handoff</text>
+<text x="65" y="278" font-family="Arial,sans-serif" font-size="16" fill="#365f91">Load only approved material.</text>
+<text x="65" y="305" font-family="Arial,sans-serif" font-size="16" fill="#365f91">Check what the host actually reads.</text>
+<rect x="444" y="157" width="300" height="200" rx="16" fill="#fff3d6" stroke="#b78b28" stroke-width="3"/>
+<text x="594" y="196" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#4e3b10">AI host / runtime</text>
+<text x="594" y="233" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#4e3b10">Selected context + model response</text>
+<text x="594" y="264" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#4e3b10">Permissions come from host/account</text>
+<text x="594" y="295" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#4e3b10">Prompt text cannot grant access</text>
+<path d="M388 256 H436" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="804" y="86" width="356" height="128" rx="16" fill="#fce8e6" stroke="#b75a50" stroke-width="3"/>
+<text x="982" y="124" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#58231e">Connected tools / providers</text>
+<text x="982" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#58231e">Separate data paths, permissions,</text>
+<text x="982" y="183" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#58231e">logs, retention, and failure modes</text>
+<path d="M744 210 C770 210 775 150 796 150" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M796 177 C772 177 770 276 752 276" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="804" y="250" width="356" height="91" rx="16" fill="#e7f4e8" stroke="#54865b" stroke-width="3"/>
+<text x="982" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#24472a">Human review and verification</text>
+<text x="982" y="316" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#24472a">Check source, scope, result, and readback</text>
+<path d="M744 308 H796" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="444" y="389" width="716" height="66" rx="14" fill="#e9e4f7" stroke="#7762a5" stroke-width="2"/>
+<text x="802" y="417" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#33274a">Verified evidence → status update → next safe handoff</text>
+<text x="802" y="440" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#33274a">Conceptual only: actual data paths and controls vary by platform and configuration.</text>
+<path d="M982 341 V380" fill="none" stroke="#365f91" stroke-width="4" marker-end="url(#arrow)"/>
+</svg>

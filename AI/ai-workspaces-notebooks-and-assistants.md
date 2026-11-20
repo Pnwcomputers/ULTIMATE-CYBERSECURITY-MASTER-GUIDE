@@ -1,6 +1,6 @@
 # AI Projects, Notebooks, GPTs, Plugins and Reusable Assistants
 
-_Last reviewed: 2026-11-05_
+_Last reviewed: 2026-11-20_
 
 Choose the smallest workspace that maintains necessary context and evidence without granting excessive access.
 
@@ -28,7 +28,7 @@ Record data versions and hashes where possible, software dependencies, seeds and
 
 ### Custom GPT Retirement & Plugin Migration
 
-As of November 2026, OpenAI has announced custom GPT retirement on **December 11, 2026**, with specified FedRAMP and approved Enterprise deferrals until **February 11, 2027**. Availability and eligibility vary; confirm in-product notices and the [official migration FAQ](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq).
+As of November 2026, OpenAI has announced custom GPT retirement on **December 11, 2026**, with FedRAMP and qualifying, approved Enterprise deferrals until **February 28, 2027**. This later date does not apply to every Enterprise workspace; follow the notice for the account or workspace. Availability and eligibility vary; confirm in-product notices and the [official migration FAQ](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq).
 
 For an existing GPT, inventory its instructions, files, tools, users and test prompts. When migration is offered, review the copied instructions and knowledge and test the replacement. Custom GPT API actions **do not transfer automatically** and must be rebuilt and independently validated. Migration starts with a private plugin; other users do not automatically gain access. Personal ChatGPT accounts cannot create or publish new custom GPTs.
 
@@ -44,7 +44,11 @@ For a project spanning multiple sessions or agents, use an explicit workspace ra
 
 ### Step 1 — Establish the Trust Boundary
 
-Create a project workspace with the least broad sharing and tool access appropriate to the work. Before importing reference material, classify it and decide whether it is safe for the chosen provider or needs a local/offline environment. Never upload live client credentials or sensitive security evidence as casual reference files.
+Create a project workspace with the least broad sharing and tool access appropriate to the work. Before importing reference material, classify it and decide whether it is safe for the chosen provider or needs a local/offline environment. Never upload live client credentials or sensitive security evidence as casual reference files. The project boundary does not automatically include connected tools, provider processing, logs, or backups; check those data paths and permissions separately.
+
+![Conceptual diagram separating approved project context, the AI host, connected tools and providers, human verification, and the evidence handoff](../assets/diagrams/ai-project-workspace-trust-boundaries.svg)
+
+*Conceptual: actual data paths, retention, and controls depend on the platform and its configuration.*
 
 ### Step 2 — Store Different Kinds of Knowledge Separately
 
