@@ -1645,189 +1645,54 @@ Containment and recovery can disrupt services. Use preapproved actions and the i
 
 #### Behavioral Analytics
 
-```python
-#!/usr/bin/env python3
-# behavioral_detection.py - Detect anomalous user behavior
+Behavioral analytics can prioritize review, but an anomaly score is not proof of compromise. Use approved telemetry and a documented baseline, then corroborate alerts with context.
 
-import pandas as pd
-from sklearn.ensemble import IsolationForest
+| Review question | Useful evidence | Limitation |
+|---|---|---|
+| Is a sign-in unusual for this identity? | Time, device, authentication method, expected role, and recent change context | A new location or time can be legitimate; do not block solely on a model score |
+| Is the baseline representative? | Defined training period, known maintenance windows, and coverage gaps | Drift, sparse data, and a changed workforce can make old baselines misleading |
+| Can an analyst explain the alert? | Source records, rule/model version, threshold, and disposition | An alert without supporting fields cannot be reliably reproduced or audited |
+| Is sensitive data protected? | Approved access, retention period, and data-minimization controls | Security telemetry can contain personal or confidential information |
 
-def detect_anomalous_logins(login_data):
-    """Use machine learning to detect unusual login patterns"""
-    
-    # Features: time of day, location, failure rate, etc.
-    df = pd.DataFrame(login_data)
-    
-    # Feature engineering
-    df['hour'] = pd.to_datetime(df['timestamp']).dt.hour
-    df['day_of_week'] = pd.to_datetime(df['timestamp']).dt.dayofweek
-    
-    # Train isolation forest model
-    features = ['hour', 'day_of_week', 'failed_attempts', 'ip_reputation']
-    X = df[features]
-    
-    model = IsolationForest(contamination=0.1, random_state=42)
-    df['anomaly'] = model.fit_predict(X)
-    
-    # Flag anomalies
-    anomalies = df[df['anomaly'] == -1]
-    
-    for _, row in anomalies.iterrows():
-        alert = f"""
-        [!] ANOMALOUS LOGIN DETECTED
-        User: {row['username']}
-        Time: {row['timestamp']}
-        IP: {row['source_ip']}
-        Reason: Unusual login pattern
-        """
-        print(alert)
-        # Send to SIEM
-        send_siem_alert(alert)
-    
-    return anomalies
+#### Threat Hunting Procedures
 
-# Example login data
-login_data = [
-    {'username': 'alice', 'timestamp': '2025-01-10 09:00:00', 
-     'source_ip': '192.168.1.50', 'failed_attempts': 0, 'ip_reputation': 100},
-    {'username': 'alice', 'timestamp': '2025-01-10 03:00:00',
-     'source_ip': '5.5.5.5', 'failed_attempts': 5, 'ip_reputation': 20},
-]
+Start with a written hypothesis, a named owner, an approved data set, and a time window. Use the organization's maintained query tools; avoid broad, unbounded host searches or access to personal data. A hunt produces a lead for validation, not a verdict.
 
-anomalies = detect_anomalous_logins(login_data)
+```mermaid
+flowchart LR
+    Hypothesis[State a testable defensive hypothesis] --> Scope[Approve data sources, assets, time window, and exclusions]
+    Scope --> Query[Review authorized telemetry]
+    Query --> Validate[Corroborate hits and check benign explanations]
+    Validate --> Decision{Evidence supports escalation?}
+    Decision -->|Yes| Escalate[Use the incident plan and preserve evidence]
+    Decision -->|No| Record[Record limitations and close the hunt]
+    Escalate --> Improve[Update detections and assign follow-up]
+    Record --> Improve
 ```
 
-### Threat Hunting Procedures
-
-```bash
-#!/bin/bash
-# threat_hunt.sh - Proactive threat hunting
-
-echo "=== THREAT HUNTING EXERCISE ==="
-
-# Hypothesis: Attackers using Living-off-the-Land binaries
-
-# 1. Hunt for suspicious PowerShell
-echo "[*] Hunting for suspicious PowerShell usage..."
-grep -r "powershell.*-enc\|-e\|-nop\|-w hidden" /var/log/
-
-# 2. Check for unusual network connections
-echo "[*] Checking for unusual outbound connections..."
-netstat -antp | grep ESTABLISHED | awk '{print $5}' | \
-    cut -d: -f1 | sort | uniq -c | sort -nr
-
-# 3. Look for persistence mechanisms
-echo "[*] Searching for persistence..."
-# Check startup folders
-ls -la ~/.config/autostart/
-# Check cron jobs
-crontab -l
-# Check systemd services
-systemctl list-unit-files --state=enabled
-
-# 4. Search for credential dumping tools
-echo "[*] Looking for credential theft tools..."
-find / -name "*mimikatz*" -o -name "*procdump*" -o -name "*lsass*" 2>/dev/null
-
-# 5. Analyze process trees
-echo "[*] Analyzing process relationships..."
-pstree -p | grep -E "bash|python|perl"
-
-# 6. Check for suspicious scheduled tasks
-echo "[*] Reviewing scheduled tasks..."
-cat /var/spool/cron/crontabs/* 2>/dev/null
-
-echo "[+] Threat hunt complete. Review findings."
-```
+Examples of defensive hypotheses include an unexpected privileged sign-in, an unusual remote-administration session, or a security control changing outside an approved maintenance window. Define the expected evidence and benign explanations before querying. Escalate through the approved incident path; do not attempt containment or credential changes without the appropriate authority.
 
 ### Security Metrics Dashboard
 
-```python
-#!/usr/bin/env python3
-# security_metrics.py - Generate security metrics
+Choose a fixed population, time range, and timestamp source before comparing periods. Define the terms locally; “MTTR” can mean response, repair, resolution, or recovery in different organizations.
 
-import json
-from datetime import datetime, timedelta
+| Metric | Example definition | Interpretation guardrail |
+|---|---|---|
+| Mean time to detect | Validated detection time minus earliest evidenced event time | Incomplete logging can make the start time uncertain; report the data source and coverage |
+| Time to acknowledge | First qualified analyst acknowledgment minus alert creation time | Measures queue handling, not whether the alert was correctly handled |
+| Time to contain | Approved containment completion minus incident declaration time | Include approval delays and business-impact constraints |
+| Alert precision | Confirmed true positives ÷ (confirmed true positives + confirmed false positives) | Use only adjudicated alerts; this is not recall/sensitivity |
+| Test detection coverage | In-scope synthetic cases detected ÷ in-scope synthetic cases performed | State which cases were run and which data sources were available; this is not proof against all attacks |
+| Vulnerability remediation time | Verified remediation time minus validated finding time | Report by severity, asset cohort, and exception status |
 
-class SecurityMetrics:
-    def __init__(self):
-        self.metrics = {
-            'detection': {},
-            'response': {},
-            'vulnerability': {}
-        }
-    
-    def calculate_mttr(self, incidents):
-        """Calculate Mean Time To Respond"""
-        if not incidents:
-            return 0
-        
-        total_time = sum([
-            (i['resolved_time'] - i['detected_time']).total_seconds() 
-            for i in incidents
-        ])
-        return total_time / len(incidents) / 3600  # Return in hours
-    
-    def calculate_alert_fidelity(self, alerts):
-        """Calculate true positive rate"""
-        if not alerts:
-            return 0
-        
-        true_positives = sum(1 for a in alerts if a['verified'])
-        return (true_positives / len(alerts)) * 100
-    
-    def calculate_vuln_remediation(self, vulnerabilities):
-        """Calculate vulnerability remediation time"""
-        resolved = [v for v in vulnerabilities if v['status'] == 'resolved']
-        
-        if not resolved:
-            return 0
-        
-        total_days = sum([
-            (v['resolved_date'] - v['identified_date']).days
-            for v in resolved
-        ])
-        return total_days / len(resolved)
-    
-    def generate_report(self):
-        """Generate comprehensive security report"""
-        report = {
-            'date': datetime.now().isoformat(),
-            'metrics': self.metrics,
-            'recommendations': self.get_recommendations()
-        }
-        
-        print(json.dumps(report, indent=2))
-        return report
-    
-    def get_recommendations(self):
-        """Generate recommendations based on metrics"""
-        recommendations = []
-        
-        # Add logic to analyze metrics and generate recommendations
-        
-        return recommendations
+### Blue Team Detection References
 
-# Example usage
-metrics = SecurityMetrics()
-# Add data and generate report
-metrics.generate_report()
-```
----
-> 📁 **Blue Team Detection References:**
-> - [Network Detection & Packet Analysis](Tradecraft/network-detection.md) - Zeek, Suricata, Wireshark,
->   pktmon, Windows Firewall logging, Defender for Endpoint KQL, C2 beacon detection, DNS tunneling
-> - [AV/EDR Evasion - Detection & Defense](Tradecraft/av-edr-evasion.md) - AMSI bypass recognition,
->   ETW tampering detection, process injection Sysmon rules, memory scanning with PE-sieve/Moneta
-> - [Active Directory - Attacks & Defense](Tradecraft/active-directory.md) - Sigma rules for
->   Kerberoasting, DCSync, AdminSDHolder, Golden Ticket; AD hardening checklist
- 
----
-
-[Return to Table of Contents](#table-of-contents---enhanced-edition)
+- [Network Detection & Packet Analysis](Tradecraft/network-detection.md) — network telemetry and protocol analysis.
+- [AV/EDR Evasion — Detection & Defense](Tradecraft/av-edr-evasion.md) — defensive indicators and endpoint evidence.
+- [Active Directory — Attacks & Defense](Tradecraft/active-directory.md) — identity and directory-service detections.
+- [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final) — incident response within CSF 2.0 risk management.
 
 ---
-
 ## Detection Rule Pipelines
 
 ### SIEM Detection Rule Development
