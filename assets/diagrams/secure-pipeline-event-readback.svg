@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 874 252" role="img" aria-labelledby="title desc">
+  <title id="title">Trace an event through the pipeline</title>
+  <desc id="desc">Follow a synthetic record from collection through parsing and enrichment to the stored event, then reconcile each stage using the source position, event ID, and offsets.</desc>
+  <rect width="874" height="252" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="26" y="44" fill="#fff" font-size="26" font-weight="bold">Trace an event through the pipeline</text>
+    <rect x="26" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="42" y="109" fill="#fff" font-size="18" font-weight="bold">Collect and parse</text>
+    <text x="42" y="138" fill="#d7e6f4" font-size="15">Record the source position</text>
+    <text x="42" y="160" fill="#d7e6f4" font-size="15">Quarantine invalid input</text>
+    <rect x="312" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="328" y="109" fill="#fff" font-size="18" font-weight="bold">Enrich and publish</text>
+    <text x="328" y="138" fill="#d7e6f4" font-size="15">Trace the same event ID</text>
+    <text x="328" y="160" fill="#d7e6f4" font-size="15">Record lookup status and offset</text>
+    <rect x="598" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="614" y="109" fill="#fff" font-size="18" font-weight="bold">Read back from the sink</text>
+    <text x="614" y="138" fill="#d7e6f4" font-size="15">Find the expected event ID</text>
+    <text x="614" y="160" fill="#d7e6f4" font-size="15">Reconcile replay and duplicates</text>
+    <path d="M283 137h22m-7-6 7 6-7 6m264-6h22m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="26" y="232" fill="#fff" font-size="16">Use a synthetic event and record the last boundary where its arrival was confirmed.</text>
+  </g>
+</svg>
