@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 313" role="img" aria-labelledby="title desc">
+  <title id="title">Corroborate a missing TCP reply</title>
+  <desc id="desc">In this synthetic example the client-side capture shows a SYN and a retry. A server-side capture sees both the SYN arrive and a SYN-ACK leave. Compare the return path with capture visibility before assigning a cause.</desc>
+  <rect width="1000" height="313" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="45" fill="#fff" font-size="27" font-weight="700">Corroborate a missing TCP reply</text>
+    <text x="30" y="74" fill="#d7e6f4" font-size="16">Synthetic example · one connection, two capture points</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="30" y="98" width="408" height="113" rx="12"/>
+      <rect x="562" y="98" width="408" height="113" rx="12"/>
+    </g>
+    <path d="M457 154h86m-9-7 9 7-9 7" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <g fill="#fff" font-size="20" font-weight="700">
+      <text x="48" y="133">Client-side capture</text>
+      <text x="580" y="133">Server-side capture</text>
+    </g>
+    <g fill="#d7e6f4" font-size="17">
+      <text x="48" y="165">SYN and retry are visible.</text>
+      <text x="48" y="190">No SYN-ACK is visible here.</text>
+      <text x="580" y="165">The SYN reaches this capture point.</text>
+      <text x="580" y="190">A matching SYN-ACK is visible leaving.</text>
+      <text x="30" y="250">Match connection, sequence and acknowledgment numbers, and time across both views.</text>
+      <text x="30" y="280">Check return-path reachability, mirror coverage and capture drops before assigning loss.</text>
+    </g>
+  </g>
+</svg>
