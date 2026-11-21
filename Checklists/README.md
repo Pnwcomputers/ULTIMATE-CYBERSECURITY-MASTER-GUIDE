@@ -310,18 +310,19 @@ These security checklists contain attack techniques and methodologies for:
 
 ### Legal Requirements For Security Testing
 
-#### Written Authorization Requirements
+#### Authorization and Rules of Engagement
 
-**CRITICAL: ALWAYS obtain written authorization that explicitly includes:**
-- ✅ Specific systems, networks, and IP ranges in scope
-- ✅ Testing methodology and techniques approved
-- ✅ Time windows for testing activities
-- ✅ Out-of-scope systems and explicit restrictions
-- ✅ Emergency contact information and escalation
-- ✅ Data handling and confidentiality requirements
-- ✅ Liability, indemnification, and insurance terms
-- ✅ Deliverables, reporting requirements, and format
+For active security testing, obtain approval in a form accepted by the system owner and consistent with applicable law, contracts, and organizational policy. NIST describes rules of engagement as the constraints and guidelines established before a test. The points below are planning prompts, not a universal legal checklist or a substitute for counsel.
 
+- **Authority and scope:** Identify the approving owner, named systems and accounts, allowed source locations, third-party or cloud-provider approvals, exclusions, and any dependencies.
+- **Permitted activity:** Describe the objectives, methods, tools or simulations, test accounts, impact limits, prohibited actions, and change-control requirements.
+- **Timing and coordination:** Record the test window, time zone, emergency contacts, notification and deconfliction plan, and clear conditions that require work to stop.
+- **Information handling:** Specify what evidence may be collected, access controls, storage and transfer methods, retention, reporting recipients, and approved disposal.
+- **Recovery and reporting:** Assign restoration responsibilities, escalation steps, deliverables, and how findings will be validated and retested.
+
+Address commercial terms, liability, insurance, and indemnification through the applicable agreement and qualified counsel; these are not universal technical prerequisites for every assessment.
+
+See [NIST SP 800-115](https://csrc.nist.gov/pubs/sp/800/115/final) and the NIST [Rules of Engagement definition](https://csrc.nist.gov/glossary/term/rules_of_engagement).
 #### Scope Boundaries
 
 ```
