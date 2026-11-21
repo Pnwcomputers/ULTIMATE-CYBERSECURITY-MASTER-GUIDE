@@ -7,6 +7,13 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## NanoVNA Cable Distance and SWR Reference Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [Time-domain reflection and one-way distance](./diagrams/nanovna-tdr-reflection-distance.svg) | [NanoVNA cable measurements](../SDR/nanovna/06-cables-filters-other-uses.md#61-tdr--time-domain-reflectometry) |
+| [SWR at two reference impedances](./diagrams/nanovna-swr-reference-impedance.svg) | [NanoVNA special cases](../SDR/nanovna/10-antenna-types-and-special-cases.md#105--75-ohm-antennas-on-a-50-ohm-instrument) |
+
 ## Additional Guide Diagrams
 
 | Diagram | Where embedded | Why it belongs |

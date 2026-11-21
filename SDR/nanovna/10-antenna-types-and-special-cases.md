@@ -197,13 +197,16 @@ DC will destroy the NanoVNA's bridge.
 ## 10.5 — 75-ohm antennas on a 50-ohm instrument
 
 Broadcast TV, some receive-only installations, satellite and CATV hardware are
-75 Ω systems. The NanoVNA references **50 Ω**.
+75 Ω systems. The standard NanoVNA calibration workflow uses a **50 Ω
+reference**. An ideal 75 Ω resistive load at the calibration plane reads 1.50:1
+against 50 Ω and 1.00:1 against 75 Ω.
+[Keysight SWR and reflection definitions](https://helpfiles.keysight.com/csg/m9485a/s1_settings/data_format.htm)
 
-**An ideal, perfect 75 Ω resistive load reads 1.5:1 SWR on this instrument.**
-That is the instrument being correct, not the antenna being faulty.
+![The same 75 ohm resistive load gives 1.50 to 1 SWR at a 50 ohm reference and 1.00 to 1 at a 75 ohm reference](../../assets/diagrams/nanovna-swr-reference-impedance.svg)
 
 ```
-Γ = (75 − 50)/(75 + 50) = 25/125 = 0.20   →   SWR = 1.5:1
+Γ = (75 − 50)/(75 + 50) = 0.20
+SWR = (1 + |Γ|)/(1 − |Γ|) = 1.50:1
 ```
 
 **Do not retune a sound 75 Ω antenna to force 1:1 on a 50 Ω display.** You would
@@ -212,21 +215,22 @@ be detuning a working antenna to satisfy the wrong reference impedance.
 **What to do:**
 
 - Read **impedance (R + jX)** rather than SWR, and judge it against 75 Ω.
-- Or export the `.s1p` and renormalize to 75 Ω in software. NanoVNA-Saver and
-  scikit-rf both do this correctly.
-- Resonance still reads correctly regardless of reference impedance — the
-  reactance zero-crossing is where it is.
-- If you use a 50/75 Ω matching pad or transformer, it becomes part of the
-  measurement and must be characterized or calibrated out.
+- Export the `.s1p`, confirm the file's original reference impedance, and
+  renormalize to 75 Ω in software at the same measurement plane.
+  [scikit-rf renormalization](https://scikit-rf.readthedocs.io/en/latest/api/generated/skrf.network.Network.renormalize.html)
+- For the same measured impedance, the reactance zero-crossing stays at the same
+  frequency after renormalization. The SWR minimum can move.
+- A matching pad or transformer physically changes what the analyzer measures.
+  Account for it separately if your goal is to recover the load's impedance.
 
-Quick reference for judging 75 Ω loads on a 50 Ω display:
+Comparison for ideal resistive loads at the calibration plane:
 
-| True load (75 Ω system) | Reads on 50 Ω display |
-|---|---|
-| 75 Ω (perfect) | 1.50:1 |
-| 60 Ω | 1.25:1 |
-| 90 Ω | 1.80:1 |
-| 50 Ω | 1.00:1 — *worse* in a 75 Ω system, VSWR 1.5:1 there |
+| Load impedance | SWR at 50 Ω reference | SWR at 75 Ω reference |
+|---|---|---|
+| 75 Ω | 1.50:1 | 1.00:1 |
+| 60 Ω | 1.20:1 | 1.25:1 |
+| 90 Ω | 1.80:1 | 1.20:1 |
+| 50 Ω | 1.00:1 | 1.50:1 |
 
 ---
 
