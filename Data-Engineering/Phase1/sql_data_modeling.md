@@ -306,14 +306,30 @@ ws-ship-03    SEA
 ws-spare-01   UNASSIGNED
 ```
 
-**The rule:** when a query answers "how many of X", start from X with `LEFT JOIN`. An inner join makes the answer conditional on a relationship existing, which is almost never what the question meant.
+Use `LEFT JOIN` when the report should retain every asset, including assets without a site. Use `INNER JOIN` when the report intentionally includes only assets with a match.
 
 > [!TIP]
-> A `LEFT JOIN` is silently converted into an inner join if the right table is referenced in the `WHERE` clause — `WHERE s.region = 'pacific-northwest'` discards the unmatched rows whose `s.region` is `NULL`. Put conditions on the right table in the `ON` clause instead.
+> With an outer join, `ON` determines which right-side rows match. `WHERE` filters the result after unmatched left rows receive `NULL` values. For example, `WHERE s.region = 'pacific-northwest'` removes the unmatched assets. Put the region condition in `ON` if the report should keep those assets. A predicate such as `WHERE s.site_id IS NULL` can deliberately keep only the unmatched rows. See [SQLite SELECT processing](https://sqlite.org/lang_select.html#whereclause).
 
 ### 📘 The fan-out trap
 
-Joining a one-row-per-asset table to a many-rows-per-asset table multiplies the left side. `SUM(a.purchase_cost)` after joining to `checkins` counts each asset's cost once per checkin. Aggregate the many side first in a subquery or common table expression, then join the single-row result.
+![The raw left join returns twelve rows from eleven matching checkins and one unmatched asset. Grouping checkins by asset before joining restores six rows.](../../assets/diagrams/sql-asset-checkin-join-grain.svg)
+
+In the lab, `SELECT COUNT(*) FROM assets a LEFT JOIN checkins c ON c.asset_id = a.asset_id;` returns 12. This counts joined rows. For an asset-level report, group checkins to one row per asset before joining.
+
+```sql
+WITH checkins_per_asset AS (
+    SELECT asset_id, COUNT(*) AS report_count
+    FROM checkins
+    GROUP BY asset_id
+)
+SELECT a.asset_id, COALESCE(c.report_count, 0) AS report_count
+FROM assets a
+LEFT JOIN checkins_per_asset c ON c.asset_id = a.asset_id
+ORDER BY a.asset_id;
+```
+
+The query returns six rows with report counts `3, 2, 3, 1, 2, 0`. The spare asset stays in the report even though it has no checkin.
 
 ---
 

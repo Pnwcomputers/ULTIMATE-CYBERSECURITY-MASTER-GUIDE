@@ -58,7 +58,7 @@ Use **Statistics → Conversations / Endpoints / Protocol Hierarchy / I/O Graphs
 | Symptom | Filter | Investigate |
 | --- | --- | --- |
 | Starting a connection | `tcp.flags.syn == 1 && tcp.flags.ack == 0` | Compare SYN and SYN-ACK timing |
-| Handshake reply | `tcp.flags.syn == 1 && tcp.flags.ack == 1` | Was a server reached? |
+| Handshake reply | `tcp.flags.syn == 1 && tcp.flags.ack == 1` | Correlate a visible reply with the original SYN and capture direction |
 | TCP resets | `tcp.flags.reset == 1` | Wrong port, application close, middlebox |
 | Retransmissions | `tcp.analysis.retransmission` | Loss, congestion, capture artifacts |
 | Duplicate ACKs | `tcp.analysis.duplicate_ack` | Loss/reordering clue |
@@ -66,7 +66,13 @@ Use **Statistics → Conversations / Endpoints / Protocol Hierarchy / I/O Graphs
 | Receiver cannot accept more | `tcp.analysis.zero_window` | App/host processing bottleneck |
 | Relative TCP gap >1 second | `tcp.time_delta > 1` | Context-dependent per-conversation gap |
 
-A missing packet or missing SYN-ACK can also be a **capture-path problem** (asymmetric routing, SPAN overload, wrong interface, packet drops). Don't automatically label retransmissions as WAN packet loss.
+![Two authorized capture points illustrate a SYN retry at the client and a matching SYN-ACK visible at the server](../assets/diagrams/wireshark-tcp-reply-two-capture-points.svg)
+
+A retransmission or missing segment flag is derived from packet order and sequence numbers visible
+in the capture. Treat it as an analysis clue. A missing reply can reflect asymmetric routing,
+capture drops or a wrong interface. Where scope and visibility permit, compare captures at both
+endpoints. Match the connection and sequence/acknowledgment numbers, account for clock skew, and
+check each capture's drop statistics before assigning loss. [Wireshark TCP analysis](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvTCPAnalysis.html)
 
 ### DHCP, DNS, ARP and IPv6 neighbor discovery
 

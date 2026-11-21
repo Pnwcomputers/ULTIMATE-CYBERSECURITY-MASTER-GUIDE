@@ -42,6 +42,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/cyberdeck-policy-zones.svg": (
         "Cyberdeck/docs/ARCHITECTURE.md",
     ),
+    "assets/diagrams/wireshark-tcp-reply-two-capture-points.svg": (
+        "Documentation/wireshark-master-filters.md",
+    ),
+    "assets/diagrams/userland-independent-file-export.svg": (
+        "Mobile/UserLAnd/readme.md",
+    ),
     "assets/diagrams/wireshark-capture-display-boundaries.svg": (
         "Documentation/wireshark.md",
     ),
@@ -186,6 +192,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg": (
         "Data-Engineering/Phase1/etl_elt_pipeline_design.md",
     ),
+    "assets/diagrams/sql-asset-checkin-join-grain.svg": (
+        "Data-Engineering/Phase1/sql_data_modeling.md",
+    ),
+    "assets/diagrams/dataset-version-publication.svg": (
+        "Data-Engineering/Phase2/data_storage_file_formats.md",
+    ),
     "assets/diagrams/ai-multi-agent-fanout-review-integration.svg": (
         "AI/multi-agent-orchestration.md",
     ),
@@ -215,6 +227,12 @@ DIAGRAM_GUIDES = {
     ),
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
+    ),
+    "assets/diagrams/endpoint-telemetry-query-paths.svg": (
+        "IncidentResponse/Endpoint-Visibility/README.md",
+    ),
+    "assets/diagrams/openbsd-pf-state-and-rule-flow.svg": (
+        "IncidentResponse/Firewalls/openbsd_pf.md",
     ),
     "assets/diagrams/network-detection-sensor-coverage-and-evidence.svg": (
         "Tradecraft/network-detection.md",

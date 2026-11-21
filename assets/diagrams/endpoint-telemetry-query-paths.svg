@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1130 450" role="img" aria-labelledby="title desc">
+  <title id="title">Endpoint telemetry and query paths</title>
+  <desc id="desc">Sysmon and Linux Audit write selected operating system events. Scheduled osquery runs log differences or snapshots through a configured logger. Both reach a SIEM only with working ingestion. The standalone interactive osquery shell shows query results without automatically forwarding them.</desc>
+  <rect width="1130" height="450" rx="18" fill="#0c1526"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#f0f9ff">
+    <text x="28" y="48" font-size="28" font-weight="700">Endpoint telemetry and query paths</text>
+    <rect x="28" y="80" width="245" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="110" font-size="18" font-weight="700">Sysmon / Linux Audit</text>
+    <text x="43" y="137" font-size="16" fill="#e1edf8">Record configured activity</text>
+    <text x="43" y="159" font-size="16" fill="#e1edf8">on Windows or Linux</text>
+    <rect x="315" y="80" width="205" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="330" y="110" font-size="18" font-weight="700">Local event record</text>
+    <text x="330" y="137" font-size="16" fill="#e1edf8">Event channel or</text>
+    <text x="330" y="159" font-size="16" fill="#e1edf8">audit log</text>
+    <rect x="562" y="80" width="228" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="577" y="110" font-size="18" font-weight="700">Forwarder or collector</text>
+    <text x="577" y="137" font-size="16" fill="#e1edf8">Read the correct source</text>
+    <rect x="832" y="80" width="270" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="847" y="110" font-size="18" font-weight="700">SIEM</text>
+    <text x="847" y="137" font-size="16" fill="#e1edf8">Confirm the record and fields</text>
+    <path d="M 273 126 H 309 M 301 121 L 309 126 L 301 131" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 520 126 H 556 M 548 121 L 556 126 L 548 131" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 790 126 H 826 M 818 121 L 826 126 L 818 131" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="28" y="195" width="245" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="225" font-size="18" font-weight="700">Scheduled osqueryd</text>
+    <text x="43" y="252" font-size="16" fill="#e1edf8">Run selected queries</text>
+    <text x="43" y="274" font-size="16" fill="#e1edf8">at configured intervals</text>
+    <rect x="315" y="195" width="205" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="330" y="225" font-size="18" font-weight="700">Query results</text>
+    <text x="330" y="252" font-size="16" fill="#e1edf8">Diffs or snapshots</text>
+    <rect x="562" y="195" width="228" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="577" y="225" font-size="18" font-weight="700">Configured logger</text>
+    <text x="577" y="252" font-size="16" fill="#e1edf8">Write or send results</text>
+    <rect x="832" y="195" width="270" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="847" y="225" font-size="18" font-weight="700">SIEM, when integrated</text>
+    <text x="847" y="252" font-size="16" fill="#e1edf8">Verify logger output arrives</text>
+    <path d="M 273 241 H 309 M 301 236 L 309 241 L 301 246" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 520 241 H 556 M 548 236 L 556 241 L 548 246" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 790 241 H 826 M 818 236 L 826 241 L 818 246" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="28" y="310" width="245" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="340" font-size="18" font-weight="700">Interactive osqueryi</text>
+    <text x="43" y="367" font-size="16" fill="#e1edf8">Inspect current host state</text>
+    <rect x="315" y="310" width="475" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="330" y="340" font-size="18" font-weight="700">Result shown to the analyst</text>
+    <text x="330" y="367" font-size="16" fill="#e1edf8">The standalone shell does not publish to the daemon's logger.</text>
+    <path d="M 273 356 H 309 M 301 351 L 309 356 L 301 361" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="28" y="430" font-size="16" fill="#d9edff">Validate coverage with a known test on each configured path, from the source to the indexed record.</text>
+  </g>
+</svg>

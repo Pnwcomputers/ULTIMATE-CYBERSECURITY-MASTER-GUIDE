@@ -23,7 +23,7 @@ Index for the Endpoint Visibility sub-section — deployment and configuration g
 Links to a guide per instrumentation source — installation, configuration, the key events/queries that matter for detection, and how to forward the resulting telemetry into a SIEM.
 
 ## 🏆 Goal
-Enable a defender to instrument Windows and Linux hosts so that process, network, file, and authentication activity is captured with enough fidelity to detect and reconstruct an attack.
+Help defenders select and validate the Windows and Linux telemetry needed for their detection and investigation requirements.
 
 ## 📋 When To Use
 - Standing up endpoint telemetry before (or alongside) a [SIEM](../SIEM/README.md)
@@ -49,7 +49,9 @@ Enable a defender to instrument Windows and Linux hosts so that process, network
 
 A SIEM is only as good as the telemetry it ingests. **Endpoint visibility** is the practice of instrumenting hosts so that security-relevant activity — process creation, network connections, file writes, image loads, logons — is recorded in a form you can search and alert on.
 
-This sub-section covers the three sources that do most of the heavy lifting in a homelab or small SOC. They are complementary: Sysmon and auditd provide **continuous event streams**, while Osquery provides **on-demand, point-in-time inspection** of host state.
+![Three endpoint telemetry paths showing configured operating-system events, scheduled osquery logs, and interactive query results returned to the analyst](../../assets/diagrams/endpoint-telemetry-query-paths.svg)
+
+Sysmon and Linux Audit record activity selected by their configurations. Sysmon's network connection and image load events (IDs 3 and 7) are disabled by default. `osqueryi` is a standalone interactive shell. `osqueryd` can schedule queries and write differential or snapshot results through a configured logger. Confirm that each source you rely on reaches the SIEM with the expected fields. [Sysmon event documentation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) · [Linux Audit userspace](https://github.com/linux-audit/audit-userspace) · [osquery logging](https://osquery.readthedocs.io/en/stable/deployment/logging/) · [Interactive osquery shell](https://osquery.readthedocs.io/en/stable/introduction/using-osqueryi/)
 
 > [!TIP]
 > Deploy an event stream first (Sysmon on Windows, auditd on Linux), forward it
@@ -62,9 +64,9 @@ This sub-section covers the three sources that do most of the heavy lifting in a
 
 | Source | Guide | Platform | Model | Best For |
 |--------|-------|----------|-------|----------|
-| 🪟 **Sysmon** | **[Windows/sysmon.md](./Windows/sysmon.md)** | Windows | Continuous event stream | Rich process/network/file/DNS tracing |
-| 🐧 **Auditd / Syslog** | **[Linux/auditd_syslog.md](./Linux/auditd_syslog.md)** | Linux | Continuous event stream | Kernel-level syscall & file/session auditing |
-| 🔎 **Osquery** | **[Linux/osquery.md](./Linux/osquery.md)** | Cross-platform | On-demand SQL queries | Interactive threat hunting & host state |
+| 🪟 **Sysmon** | **[Windows/sysmon.md](./Windows/sysmon.md)** | Windows | Configured Windows event types | Process, DNS, network, and file telemetry |
+| 🐧 **Auditd / Syslog** | **[Linux/auditd_syslog.md](./Linux/auditd_syslog.md)** | Linux | Audit records and separately configured syslog forwarding | Syscall, file-access, and session auditing |
+| 🔎 **osquery** | **[Linux/osquery.md](./Linux/osquery.md)** | Cross-platform | Interactive queries or scheduled results | Host inspection and scheduled monitoring |
 
 ---
 
@@ -86,7 +88,7 @@ Instrument hosts as a **SQL-queryable** surface. Covers installation (with the m
 - [DAT — dag's Audit Tool](https://github.com/dagnazty/DAT) — PowerShell inventory of Windows hardware, accounts, services, networking, updates, Defender and event-log information. Check the script, permissions and sensitive output handling before using it on a client machine.
 - [PNWC SystemTester](https://github.com/Pnwcomputers/SystemTester) — your portable Windows/Sysinternals diagnostic and malware-triage toolkit; useful for technician baselines and pre/post-repair reports. A clean diagnostic run does **not** prove the absence of compromise.
 
-These produce **point-in-time** observations; Sysmon, auditd, osquery and a SIEM still provide the continuous telemetry described below.
+These tools produce point-in-time observations. Use the deployment workflow below to verify ongoing collection.
 
 ### Post-assessment Workstation Provisioning (Different Phase)
 
@@ -94,21 +96,10 @@ These produce **point-in-time** observations; Sysmon, auditd, osquery and a SIEM
 
 ## 🚀 Deployment Workflow
 
-```text
-1. Instrument
-   └─> Windows: install Sysmon with a curated config (Olaf Hartong / SwiftOnSecurity).
-   └─> Linux:   load an auditd rule set (CIS/STIG) + configure rsyslog forwarding.
-
-2. Forward
-   └─> Ship events to your SIEM (Winlogbeat/Filebeat, or the SIEM's own agent).
-   └─> Confirm events index correctly — see ../SIEM/README.md.
-
-3. Hunt on demand
-   └─> Add Osquery for interactive, SQL-based host inspection.
-
-4. Tune
-   └─> Trim noisy events; keep the high-signal IDs. Map detections to MITRE ATT&CK.
-```
+1. Choose a detection requirement and identify the event, fields, and host population it depends on. Enable the required event types or audit rules on a test host.
+2. Generate a benign, authorized test event. Confirm it appears at the local source, then verify the event time and required fields in the [SIEM](../SIEM/README.md).
+3. If a detection uses scheduled queries, verify the query interval, logger, and ingestion path. Use interactive queries for spot checks and investigations.
+4. Retest after filtering. Record the coverage and gaps observed, and use [MITRE ATT&CK Detection Strategies](https://attack.mitre.org/detectionstrategies/) to connect the resulting analytics to the behavior they are intended to detect.
 
 ---
 
@@ -156,7 +147,7 @@ Contributions from detection engineers and SOC analysts are welcome.
 - **sysmon-modular (Olaf Hartong):** <https://github.com/olafhartong/sysmon-modular>
 - **auditd / Linux Audit:** <https://github.com/linux-audit/audit-documentation/wiki>
 - **Osquery docs:** <https://osquery.readthedocs.io/>
-- **MITRE ATT&CK (data sources):** <https://attack.mitre.org/datasources/>
+- **MITRE ATT&CK (detection strategies and analytics):** <https://attack.mitre.org/detectionstrategies/>
 
 ---
 

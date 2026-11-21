@@ -257,6 +257,8 @@ Copy the required files to the intended destination, verify the transfer, stop t
 <a id="-files-reports-and-backups"></a>
 ## 💾 Files, Reports, & Backups
 
+![UserLAnd session files are copied through an app-scoped export view to an independent destination and verified there before uninstalling](../../assets/diagrams/userland-independent-file-export.svg)
+
 Use a consistent workspace organization:
 
 | Location | Intended content |
@@ -268,7 +270,11 @@ Use a consistent workspace organization:
 
 These are suggested working locations, not additional files already present in this repository subsection.
 
-UserLAnd documents shared-storage bindings such as `/storage/internal` and `/storage/sdcard`. Inspect your session before using a path; `/sdcard/Download` is not a universal location. Its app-scoped storage can be deleted when the app is uninstalled. [UserLAnd file-transfer guide](https://github.com/CypherpunkArmory/UserLAnd/wiki/Importing-and-exporting-files-in-UserLAnd)
+UserLAnd documents shared-storage bindings such as `/storage/internal` and `/storage/sdcard`. Inspect your session before using a path; `/sdcard/Download` is not a universal location. The UserLAnd document provider can expose the same app-specific files in an Android file manager.
+Android removes files in app-specific storage when the app is uninstalled. A file visible through
+the provider still needs to be copied to an independently managed destination. Verify a copy by
+opening it or matching a checksum at the destination before removing the original.
+[UserLAnd file-transfer guide](https://github.com/CypherpunkArmory/UserLAnd/wiki/Importing-and-exporting-files-in-UserLAnd) · [Android app-specific storage](https://developer.android.com/training/data-storage/app-specific)
 
 Common transfer options include SCP/SFTP, an appropriate encrypted transfer tool, or the UserLAnd document provider. Keep a copy outside the phone for files that need to survive device loss, app removal, or filesystem replacement.
 

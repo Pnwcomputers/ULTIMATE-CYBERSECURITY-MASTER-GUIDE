@@ -7,6 +7,13 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## NanoVNA Cable Distance and SWR Reference Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [Time-domain reflection and one-way distance](./diagrams/nanovna-tdr-reflection-distance.svg) | [NanoVNA cable measurements](../SDR/nanovna/06-cables-filters-other-uses.md#61-tdr--time-domain-reflectometry) |
+| [SWR at two reference impedances](./diagrams/nanovna-swr-reference-impedance.svg) | [NanoVNA special cases](../SDR/nanovna/10-antenna-types-and-special-cases.md#105--75-ohm-antennas-on-a-50-ohm-instrument) |
+
 ## Additional Guide Diagrams
 
 | Diagram | Where embedded | Why it belongs |
@@ -107,6 +114,7 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [Elastic Ingest, Index & Kibana](./diagrams/elastic-stack-log-ingest-index-search.svg) | [Elastic Stack SIEM](../IncidentResponse/SIEM/elk_stack.md) | Shows optional Logstash versus direct shipping, Elasticsearch processing, Kibana investigation and evidence validation |
 | [Space Flight Software Layers](./diagrams/spaceflight-fsw-cfs-security-layers.svg) | [Space Security: Flight Software](../SpaceSecurity/PartIII.md) | NASA cFS-like mission app, executive, OS abstraction, BSP/driver and onboard hardware boundary |
+| [UserLAnd independent file export](./diagrams/userland-independent-file-export.svg) | [UserLAnd files and backups](../Mobile/UserLAnd/readme.md#-files-reports-and-backups) | Shows why a visible export folder can still be app-scoped |
 | [UserLAnd Android Permission Boundary](./diagrams/userland-android-proot-capability-boundaries.svg) | [UserLAnd Linux on Android](../Mobile/UserLAnd/readme.md) | Distinguishes no-root Linux userspace tools from unavailable host kernel/raw-radio privileges |
 | [ETL Versus ELT Data Paths](./diagrams/etl-vs-elt-transform-privacy-and-replay.svg) | [ETL & ELT Pipeline Design](../Data-Engineering/Phase1/etl_elt_pipeline_design.md) | Preload vs in-destination transforms, and why raw retention and security are independent choices |
 
@@ -322,6 +330,7 @@ Original, accessible SVGs for workflow comprehension. They are **conceptual only
 | [Purple Team emulation & detection loop](./diagrams/purple-team-emulation-detection-loop.svg) | [Detection validation playbook](../PlayBooks/purple-team-detection-validation.md) and [detailed playbook](../PlayBooks/PurpleTeam_Detailed.md) | Scope, approval, safe canary, telemetry, alert, tune/retest |
 | [Detection evidence verification gates](./diagrams/detection-evidence-verification-gates.svg) | [SIEM detection content](../IncidentResponse/SIEM/detection-content-validation.md) and [offline canary validator](../Documentation/CANARY-DETECTION-VALIDATOR.md) | Fixture vs imported vs verified lab evidence |
 | [Cyberdeck policy zones](./diagrams/cyberdeck-policy-zones.svg) | [Public Cyberdeck architecture](../Cyberdeck/docs/ARCHITECTURE.md) | Conceptual router/zone boundaries, field RF, evidence storage |
+| [Wireshark two-point TCP reply check](./diagrams/wireshark-tcp-reply-two-capture-points.svg) | [Wireshark master filter list](../Documentation/wireshark-master-filters.md#slow-networks-broken-connections-and-intermittent-problems) | Corroborates missing-handshake evidence across capture points |
 | [Wireshark capture & display boundaries](./diagrams/wireshark-capture-display-boundaries.svg) | [Advanced Wireshark reference](../Documentation/wireshark.md) | Vantage point, optional BPF, PCAP, display filter, analyst validation |
 | [AI-SOC trust & approval boundaries](./diagrams/ai-soc-trust-and-approval-boundaries.svg) | [AI-augmented security operations](../AI/ai-security-operations-workflows.md) | Authenticated intake, schema/evidence boundary, read-only AI, independent review and privileged-action approval |
 | [CTI-to-approved-emulation gates](./diagrams/cti-to-approved-emulation-gates.svg) | [Detailed Purple Team playbook](../PlayBooks/PurpleTeam_Detailed.md) | Independently verify CTI, map ATT&CK, prepare benign controls, obtain human authorization, assess observed evidence |
@@ -502,6 +511,13 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [hackrf guide sweep coverage](./diagrams/hackrf-guide-sweep-coverage.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
+
+## Endpoint Collection and PF Rule Evaluation
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Endpoint telemetry and query paths](./diagrams/endpoint-telemetry-query-paths.svg) | [Endpoint Visibility index](../IncidentResponse/Endpoint-Visibility/README.md) | Distinguishes event streams, scheduled query logging, and interactive results |
+| [OpenBSD PF state and rule flow](./diagrams/openbsd-pf-state-and-rule-flow.svg) | [OpenBSD PF guide](../IncidentResponse/Firewalls/openbsd_pf.md) | Shows when PF uses existing state and when ordered filter rules decide the action |
 
 ## Sysmon Telemetry Visuals
 
@@ -1093,9 +1109,9 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | [CAD design to verified fit loop](./diagrams/cad-design-to-fit-verification-loop.svg) | [CAD & 3D Printing](../CAD/README.md#cad-design-to-fit-loop) |
 | [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |
 
-## NanoVNA Cable Distance and SWR Reference Visuals
+## Data Modeling & Version Publication
 
 | Diagram | Embedded guide |
 |---|---|
-| [Time-domain reflection and one-way distance](./diagrams/nanovna-tdr-reflection-distance.svg) | [NanoVNA cable measurements](../SDR/nanovna/06-cables-filters-other-uses.md#61-tdr--time-domain-reflectometry) |
-| [SWR at two reference impedances](./diagrams/nanovna-swr-reference-impedance.svg) | [NanoVNA special cases](../SDR/nanovna/10-antenna-types-and-special-cases.md#105--75-ohm-antennas-on-a-50-ohm-instrument) |
+| [Asset and checkin join grain](./diagrams/sql-asset-checkin-join-grain.svg) | [SQL joins](../Data-Engineering/Phase1/sql_data_modeling.md#4-joins) |
+| [Complete dataset version publication](./diagrams/dataset-version-publication.svg) | [Publish complete versions](../Data-Engineering/Phase2/data_storage_file_formats.md#publication) |

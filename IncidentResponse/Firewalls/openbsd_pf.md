@@ -80,12 +80,15 @@ Most PF confusion is really confusion about evaluation order. Internalize this b
 
 ### 🔄 The Processing Model
 
-- PF reads `/etc/pf.conf` top to bottom for **every** packet.
-- **Last matching rule wins**; unless a rule uses `quick`, which stops evaluation immediately. This is the single most important sentence in this guide.
-- Three verbs:
+![OpenBSD PF flow showing existing-state processing, ordered rule evaluation for packets without matching state, and the final action](../../assets/diagrams/openbsd-pf-state-and-rule-flow.svg)
 
-| Verb | Meaning |
-|------|---------|
+- A packet that matches valid existing state passes without a fresh filter-rule scan.
+- For packets without matching state, PF evaluates filter rules in order. The last matching `pass` or `block` decides the action. A matching rule marked `quick` stops further evaluation.
+- With no matching `pass` or `block` rule, the implicit action is pass without state. Start a default-deny ruleset with an explicit `block all` before its allow rules. [OpenBSD pf.conf(5)](https://man.openbsd.org/pf.conf)
+
+| Action | Effect |
+|--------|--------|
+
 | `block` | Drop or reject the packet |
 | `pass` | Allow it (and, by default, **create state**; see fundamentals) |
 | `match` | Don't decide pass/block, but apply actions (NAT, queueing, scrub, marking) |
@@ -175,7 +178,7 @@ antispoof quick for { lo $int_if }
 
 ### 🔗 Stateful Filtering; the Default That Saves You
 
-A matching `pass` rule creates a **state entry**, and reply traffic is allowed automatically; you almost never write rules for return traffic. Keeping state is the default; tune it:
+A `pass` rule selected by evaluation creates a state entry by default. The `no state` option disables this for that rule. Later packets in either direction can use the state while it remains valid. Test policy changes with a fresh connection so a matching state from an earlier test does not mask the result. [OpenBSD pf.conf(5)](https://man.openbsd.org/pf.conf)
 
 ```pf
 pass in on $ext_if proto tcp to port 22 \

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044 445" role="img" aria-labelledby="title desc">
+  <title id="title">How OpenBSD PF chooses an action</title>
+  <desc id="desc">A packet matching a valid existing state is passed without a new filter rule scan. Without a matching state, PF walks rules in order. The last matching pass or block decides unless quick stops the scan. A match rule can set parameters without deciding pass or block. If neither pass nor block matches, the implicit action is pass without state.</desc>
+  <rect width="1044" height="445" rx="18" fill="#0c1526"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#f0f9ff">
+    <text x="28" y="48" font-size="28" font-weight="700">How OpenBSD PF chooses an action</text>
+    <rect x="28" y="80" width="290" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="110" font-size="18" font-weight="700">Packet reaches PF</text>
+    <text x="43" y="137" font-size="16" fill="#e1edf8">Check for a valid matching state</text>
+    <rect x="614" y="80" width="402" height="93" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="629" y="110" font-size="18" font-weight="700">Use the existing state</text>
+    <text x="629" y="137" font-size="16" fill="#e1edf8">Pass without a new filter-rule scan</text>
+    <path d="M 318 126 H 608 M 600 121 L 608 126 L 600 131" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="366" y="113" font-size="16" font-weight="700" fill="#bae6fd">Matching state</text>
+    <path d="M 173 173 V 248 M 168 240 L 173 248 L 178 240" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="188" y="211" font-size="16" font-weight="700" fill="#bae6fd">No matching state</text>
+    <rect x="28" y="254" width="424" height="131" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="284" font-size="18" font-weight="700">Walk the filter rules in order</text>
+    <text x="43" y="311" font-size="16" fill="#e1edf8">A matching rule marked quick stops the scan.</text>
+    <text x="43" y="333" font-size="16" fill="#e1edf8">A match rule can set packet parameters</text>
+    <text x="43" y="355" font-size="16" fill="#e1edf8">without choosing pass or block.</text>
+    <path d="M 452 315 H 492 M 484 310 L 492 315 L 484 320" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="498" y="254" width="518" height="131" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="513" y="284" font-size="18" font-weight="700">Apply the chosen action</text>
+    <text x="513" y="311" font-size="16" fill="#e1edf8">The last matching pass or block decides.</text>
+    <text x="513" y="333" font-size="16" fill="#e1edf8">A pass creates state unless configured otherwise.</text>
+    <text x="513" y="355" font-size="16" fill="#e1edf8">With no pass/block match, PF passes without creating state.</text>
+    <text x="28" y="424" font-size="16" fill="#d9edff">Start an allowlist ruleset with an explicit block rule and test with a fresh connection.</text>
+  </g>
+</svg>
