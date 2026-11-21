@@ -24,15 +24,26 @@ def timestamp(value):
     return parsed.astimezone(timezone.utc)
 
 
+def unique_json_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON object key")
+        result[key] = value
+    return result
+
+
 def read_jsonl(path):
     result = []
     with Path(path).open(encoding="utf-8") as handle:
         for n, line in enumerate(handle, 1):
             if line.strip():
                 try:
-                    item = json.loads(line)
+                    item = json.loads(line, object_pairs_hook=unique_json_object)
                 except json.JSONDecodeError as err:
                     raise ValueError(f"{path}:{n}: invalid JSON") from err
+                except ValueError as err:
+                    raise ValueError(f"{path}:{n}: {err}") from err
                 if not isinstance(item, dict):
                     raise ValueError(f"{path}:{n}: expected object")
                 result.append(item)
@@ -139,8 +150,14 @@ def main():
         parser.error(str(err))
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.output:
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(rendered, encoding="utf-8")
+        try:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with args.output.open("x", encoding="utf-8") as handle:
+                handle.write(rendered)
+        except FileExistsError:
+            parser.error("report output already exists; choose a new path")
+        except OSError as err:
+            parser.error(f"cannot write report: {err}")
     else:
         print(rendered, end="")
 

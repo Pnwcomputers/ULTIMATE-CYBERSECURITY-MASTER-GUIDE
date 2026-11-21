@@ -30,7 +30,9 @@ python3 -B tools/lab_detection_validator.py \
 
 ## Input Contracts
 
-Both inputs are **JSONL** (one JSON object per nonblank line). Never put credentials, names, IP addresses or real customer data in committed fixtures.
+Both inputs are **JSONL** (one JSON object per nonblank line, with unique keys in each object). Never put credentials, names, IP addresses or real customer data in committed fixtures.
+
+Use `--output` with a new path to save the report. The tool rejects an existing file, including either input path. Use a fresh name for each run to preserve earlier reports and input evidence.
 
 | File | Required JSON fields | Meaning |
 |---|---|---|
