@@ -92,7 +92,7 @@ most of the point of taking it.
 | Sweep start / stop / points | |
 | Averaging or bandwidth settings, if available | |
 | Electrical delay / transform settings | |
-| **Known-load verification result** (dB) | target: better than −35 dB |
+| **Check device, expected response, tolerance, actual result** | |
 | Correction indicator present? (`C`, not `c`) | |
 | Mounting height and orientation | |
 | Radials / counterpoise / ground plane | |

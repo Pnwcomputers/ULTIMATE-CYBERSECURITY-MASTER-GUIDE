@@ -103,6 +103,8 @@ shack end, and understand you're measuring the whole system. See §3.8.
 
 ### Why the plane changes the answer, with numbers
 
+![A matched feedline with 3 dB one-way loss makes a 3:1 antenna appear to have about 1.67:1 SWR at the instrument](../../assets/diagrams/nanovna-feedline-return-loss.svg)
+
 A lossless line transforms impedance but preserves reflection *magnitude* — the
 Smith point rotates, the SWR stays put. A **real, lossy** line also attenuates
 the reflected wave on its way back, so the mismatch looks smaller than it is.
@@ -187,8 +189,9 @@ Or use CENTER and SPAN.
 > indicator.
 
 **Set a span with headroom but not excess.** For a 2 m antenna targeting 146 MHz,
-sweep 130–160 MHz, not 1 MHz–1.5 GHz. Tighter span = better resolution per point
-= better calibration accuracy.
+a 130–160 MHz span gives finer frequency spacing at a fixed sweep-point count
+than a wide survey span. Measurement accuracy still depends on the standards,
+fixture and instrument behavior.
 
 ### Step 2 — Attach your test cable and adapters
 
@@ -257,20 +260,16 @@ Two cautions that cost people a lot of time:
 
 ### Step 6 — Verify
 
-Put the LOAD back on. You should see:
+Reconnecting the calibration LOAD and OPEN is a quick check for gross errors.
+The load should be near the Smith chart center, and the open should be near the
+right edge. A result of −35 dB S11 log magnitude corresponds to about 1.036:1
+SWR. Treat that value as an example reading and choose acceptance limits for
+the fixture, check device and band in use. [Keysight reflection equations](https://www.keysight.com/us/en/assets/9018-40046/installation-guides/9018-40046.pdf)
 
-- **SWR:** flat, ≤ 1.02:1 across the whole span
-- **LOGMAG:** better than −35 dB across the span
-- **Smith:** a tight dot at the center
-
-Then put the OPEN back on:
-
-- **Smith:** a dot pinned at the far right
-- **SWR:** off the top of the scale
-
-If the LOAD doesn't sit at center, something is wrong. Do not proceed. Check
-connector seating, check that you didn't swap OPEN and SHORT, check for a bad
-cable.
+For independent verification, connect a characterized device that was never used
+to compute this correction. Compare its response with the expected values and
+tolerance across the measurement span. If the check fails, inspect the standards,
+cables and connector seating, then recalibrate and repeat. [Keysight calibration and verification guidance](https://helpfiles.keysight.com/csg/N1930xB/VNACalAndMeas/Understanding_VNA_Calibrations.html)
 
 ---
 
@@ -325,8 +324,9 @@ DISPLAY → SCALE → ELECTRICAL DELAY → [enter a value in ps or ns]
 3. Adjust ELECTRICAL DELAY until the Smith chart trace collapses to a **single
    stationary dot** at the far right (for open) or far left (for short) instead
    of spinning around the outer circle.
-4. That delay value now represents the cable's electrical length. Leave it set.
-5. Connect the antenna. The Smith chart now reads as if measured at the antenna.
+4. Record the delay setting that aligns the trace for the reflection measurement.
+5. Connect the antenna. The phase is shifted toward the antenna plane. The magnitude
+   still includes the cable loss.
 
 **The shortcut:** with a marker on the trace,
 `MARKER → OPERATIONS → →EDELAY` will auto-set the delay based on the marker.
@@ -338,9 +338,12 @@ lossy run will still make the antenna look better-matched than it really is,
 because the reflected signal is attenuated on the way back. Delay compensation
 fixes the Smith chart geometry; it does not fix the magnitude.
 
-For a true reading through a lossy line you need either (a) to physically measure
-at the antenna, or (b) to measure the cable's one-way loss separately and add
-2× that loss back to the return loss figure.
+For the antenna-plane response, calibrate at the feedpoint or de-embed the fixture.
+If the feedline is well matched, estimate **positive return loss at the antenna**
+by subtracting twice the separately measured one-way cable loss from the
+instrument-plane return loss at the same frequency. In the example above,
+12 dB − 2 × 3 dB gives about 6 dB. Connector reflections and feedline mismatch
+can invalidate that scalar estimate.
 
 ---
 
@@ -358,8 +361,8 @@ Re-calibrate when:
 - **Anything looks weird.** Re-calibrating is 90 seconds. Chasing a phantom
   antenna fault for an hour is not.
 
-A quick sanity check without a full re-cal: screw the LOAD back on. If it still
-reads better than −35 dB and sits centered, your calibration is still good.
+Reconnect the check device and compare its response with the earlier measurement.
+Stop and investigate drift if the result falls outside your acceptance limits.
 
 ### Reading the calibration status indicator
 
@@ -449,7 +452,7 @@ every site visit.
 | Forgot to SAVE | Calibration vanishes on reboot | `CAL → SAVE → slot` |
 | Calibrated at the VNA, measured through a cable | Smith trace spins, impedance readings nonsense | Calibrate at the cable's far end |
 | Loose connector during cal | Erratic, non-repeatable results | Re-torque everything, re-cal |
-| Swapped OPEN and SHORT | Smith chart mirrored; readings inverted | Verify with the LOAD check |
+| Swapped OPEN and SHORT | Smith chart mirrored; readings inverted | Check OPEN and SHORT placement, then recalibrate |
 | Cheap or damaged LOAD | Noise floor limited to ~−25 dB | Better load |
 | Cal on battery, measure on USB | Small systematic shift | Keep the power source consistent |
 | Cold instrument | Slow drift over the first minutes | Warm up before calibrating |
@@ -470,7 +473,7 @@ every site visit.
 7. LOAD  → tap LOAD  → wait
 8. DONE
 9. CAL → SAVE → slot n
-10. Re-attach LOAD, verify −35 dB or better
+10. Reconnect the check device and compare against its expected response
 ```
 
 Ninety seconds once it's muscle memory.
