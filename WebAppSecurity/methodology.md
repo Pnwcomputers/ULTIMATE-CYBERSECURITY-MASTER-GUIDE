@@ -48,16 +48,33 @@ OWASP/CWE with reproducible evidence and actionable remediation.
 
 ## Phase 0: Scoping & Rules of Engagement
 
-Before any traffic is sent:
+Do not send test traffic until the engagement owner has documented the
+authorization, target boundary, allowed methods, and safeguards.
 
-- Confirm **written authorization**, in-scope hosts/domains, and excluded targets.
-- Agree testing windows, rate limits, and whether destructive tests (e.g. DoS,
-  mass data modification) are permitted (usually **not**).
-- Identify test accounts (ideally two per role for access-control testing).
-- Establish an emergency contact and a stop condition.
-- Record everything - scope defines what is legal to touch. See
-  [LEGAL.md](../LEGAL.md) and the [OSINT Playbook](../OSINT/Playbook/README.md)
-  for engagement-documentation patterns.
+```mermaid
+flowchart LR
+    A[Confirm written<br/>authorization] --> S[Record included and<br/>excluded assets]
+    S --> M[Agree methods, windows,<br/>limits, and data handling]
+    M --> C[Set test accounts,<br/>contacts, and stop conditions]
+    C --> G{Scope and safeguards<br/>are clear?}
+    G -->|Yes| T[Begin only the<br/>approved assessment]
+    G -->|No or changed| H[Pause and obtain<br/>clarification]
+```
+
+- Confirm authorization from the appropriate engagement owner and record
+  in-scope hosts, applications, accounts, environments, dates, exclusions, and
+  third-party or cloud-service constraints.
+- Agree testing windows, request and concurrency limits, permitted techniques,
+  prohibited actions, handling of sensitive data, and whether any disruptive
+  testing is allowed. Destructive testing should not be assumed to be permitted.
+- Identify synthetic test accounts and records, an emergency contact, escalation
+  path, stop conditions, and cleanup or rollback procedures.
+- Keep written scope and changes available to the team. It defines the agreed
+  engagement boundary; it does not by itself determine whether every action is
+  lawful or override applicable law, contracts, or third-party restrictions.
+  If a target, method, or impact is unclear or changes, pause and obtain
+  clarification. See [LEGAL.md](../LEGAL.md) and the
+  [OSINT Playbook](../OSINT/Playbook/README.md) for related guidance.
 
 ---
 
