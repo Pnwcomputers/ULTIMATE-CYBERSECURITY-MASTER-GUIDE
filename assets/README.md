@@ -503,6 +503,13 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
 
+## Endpoint Collection and PF Rule Evaluation
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Endpoint telemetry and query paths](./diagrams/endpoint-telemetry-query-paths.svg) | [Endpoint Visibility index](../IncidentResponse/Endpoint-Visibility/README.md) | Distinguishes event streams, scheduled query logging, and interactive results |
+| [OpenBSD PF state and rule flow](./diagrams/openbsd-pf-state-and-rule-flow.svg) | [OpenBSD PF guide](../IncidentResponse/Firewalls/openbsd_pf.md) | Shows when PF uses existing state and when ordered filter rules decide the action |
+
 ## Sysmon Telemetry Visuals
 
 Original conceptual flow of configured events through Windows Event Log to a collector; actual coverage depends on configuration and retention.

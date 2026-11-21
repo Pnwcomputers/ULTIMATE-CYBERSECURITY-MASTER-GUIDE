@@ -210,6 +210,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/endpoint-telemetry-query-paths.svg": (
+        "IncidentResponse/Endpoint-Visibility/README.md",
+    ),
+    "assets/diagrams/openbsd-pf-state-and-rule-flow.svg": (
+        "IncidentResponse/Firewalls/openbsd_pf.md",
+    ),
     "assets/diagrams/network-detection-sensor-coverage-and-evidence.svg": (
         "Tradecraft/network-detection.md",
     ),
