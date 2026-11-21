@@ -116,6 +116,32 @@ class LabEvaluatorTests(unittest.TestCase):
             self.assertEqual(run.returncode, 0, run.stderr)
             self.assertEqual(json.loads(run.stdout)["counts"]["true-positive"], 1)
 
+    def test_report_preserves_existing_files(self):
+        with tempfile.TemporaryDirectory() as d:
+            cases_path = Path(d) / "cases.jsonl"
+            observations_path = Path(d) / "observations.jsonl"
+            cases_path.write_text("\n".join(json.dumps(x) for x in cases()), encoding="utf-8")
+            original = "\n".join(json.dumps(x) for x in baseline()).encode("utf-8")
+            observations_path.write_bytes(original)
+            command = [sys.executable, str(PATH), "--cases", str(cases_path),
+                       "--observations", str(observations_path), "--output"]
+            denied = subprocess.run(command + [str(observations_path)], capture_output=True, text=True)
+            self.assertEqual(denied.returncode, 2)
+            self.assertIn("report output already exists", denied.stderr)
+            self.assertEqual(observations_path.read_bytes(), original)
+
+            output = Path(d) / "reports" / "assessment.json"
+            run = subprocess.run(command + [str(output)], capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            self.assertEqual(json.loads(output.read_text(encoding="utf-8"))["counts"]["true-positive"], 1)
+
+    def test_duplicate_json_keys_are_rejected_at_the_input_line(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "observations.jsonl"
+            path.write_text('\n{"kind":"alert","kind":"telemetry"}\n', encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, r"observations\.jsonl:2: duplicate JSON object key"):
+                mod.read_jsonl(path)
+
 
 if __name__ == "__main__":
     unittest.main()
