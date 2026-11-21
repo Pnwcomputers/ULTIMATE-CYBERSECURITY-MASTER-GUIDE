@@ -1,5 +1,10 @@
 > **Runtime status:** The [historical collection](GO/README.md) includes Python 2 examples and an unfinished Go sketch. Listing a script here does not certify that it runs on a current system.
 
+The read-only [Windows Recycle Bin inventory](Python/dump_recyclebin.py) lists entries in
+accessible SID folders on the system drive and reports an incomplete result if a folder
+cannot be read. It lists storage filenames. Reading original paths and deletion times
+requires a separate metadata parser. Use it on systems you are authorized to examine.
+
 # 💻 Security Scripts & Tools
 **Legacy script collection:** [Cypherpunk toolkit review](../Documentation/cypherpunk-pentesting-toolkit-review.md) provides safe source attribution and Python 2 → Python 3 modernization cautions. It does not add third-party executables or payloads.
 
