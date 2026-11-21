@@ -213,19 +213,40 @@ written scope. Use known test fixtures rather than broad identifier enumeration.
 
 ## Phase 6: Input & Injection Testing
 
-Maps to [A05 Injection](owasp-top-10.md#a05-injection).
+Maps to [A05 Injection](owasp-top-10.md#a05-injection). Work from the endpoint
+inventory and approved data set; use representative, context-specific tests
+rather than indiscriminate fuzzing.
 
-- Fuzz every input surface (query/body/path/headers/JSON) with context-specific
-  payloads; observe reflected, stored, and DOM contexts for XSS.
-- SQL/NoSQL injection: confirm manually, then `sqlmap` within scope.
-- Command and template injection (SSTI); LDAP/XPath where applicable.
-- File upload: type/content validation, path traversal, dangerous extensions.
-
-```bash
-# SQL injection confirmation (authorized scope only)
-sqlmap -u "https://TARGET/item?id=1" --batch --risk=1 --level=1
-# note: coordinate risk/level and data-modifying options with the ROE
+```mermaid
+flowchart LR
+    I[Map input sources<br/>and interpreter sinks] --> C[Classify context:<br/>query, process, template, browser]
+    C --> T[Test approved cases<br/>in a controlled environment]
+    T --> O[Observe execution,<br/>rendering, and state]
+    O --> E[Record evidence<br/>and remediation]
 ```
+
+- **Coverage:** prioritize inputs that reach SQL/NoSQL queries, operating-system
+  processes, templates or directory services, HTML/JavaScript output, and file
+  handling. Include reflected, stored, and DOM-based browser paths where
+  applicable.
+- **Validation:** parameterize query values and verify dynamic query structure
+  is constrained; test process invocation using safe, non-impacting cases; and
+  verify browser output is safe for its rendering context. Treat input validation
+  as business-rule enforcement, not a universal replacement for interpreter-
+  specific controls. For uploads, review type/content handling, storage location,
+  access controls, and path construction using benign test files.
+- **Automation:** tools such as Burp Scanner or SQLMap may help identify
+  candidates, but active testing must match the written scope, environment,
+  request-rate limits, test data, and impact controls. Confirm findings manually
+  and review resulting state. Do not use data extraction, shell, file-write, or
+  other intrusive capabilities unless they are separately authorized and
+  necessary.
+- **Evidence:** preserve the exact test case, affected context, response or
+  rendering, resulting state, and remediation. For stored content, use synthetic
+  data and confirm removal/cleanup as part of the test plan. See the
+  [OWASP Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html),
+  [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html),
+  and [XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
 
 ---
 
