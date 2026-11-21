@@ -269,26 +269,11 @@ These checklists serve as:
 5. **Improve controls and response:** Record what the validation did and did not establish, tune response procedures, and track remediation and retesting with explicit coverage limits.
 ### For Security Auditors
 
-```
-1. Audit Planning
-   └─> Select relevant security checklists
-   └─> Map to compliance requirements
-   └─> Schedule assessment activities
-   └─> Request necessary access
-
-2. Assessment Execution
-   └─> Conduct systematic review per checklist
-   └─> Verify security control implementation
-   └─> Document findings and evidence
-   └─> Test configuration effectiveness
-
-3. Reporting
-   └─> Compare findings against checklist
-   └─> Assess risk and severity
-   └─> Provide actionable recommendations
-   └─> Create audit report with checklist results
-```
-
+1. **Set audit criteria:** Confirm the engagement objective, authorized scope, applicable framework and version, control owners, evidence access, and reporting requirements.
+2. **Plan evidence collection:** Map applicable checklist items to the criteria and define the evidence sources, sampling method, and limitations before assessment. A checklist alone is not a certification or assurance opinion.
+3. **Review and record:** Examine approved documentation and configuration evidence without making unapproved changes. Record source, date, sample, coverage, exceptions, and unresolved questions.
+4. **Validate findings:** Discuss factual accuracy with the control owner. Tie each finding to a stated criterion and supporting evidence; distinguish a confirmed gap from an unverified lead or missing evidence.
+5. **Report and follow up:** Describe scope and limitations, risk rationale, owner-appropriate remediation, and agreed retest or follow-up criteria. Do not imply full coverage where only a sample was reviewed.
 ---
 
 ## ⚠️ Security & Legal Disclaimer
