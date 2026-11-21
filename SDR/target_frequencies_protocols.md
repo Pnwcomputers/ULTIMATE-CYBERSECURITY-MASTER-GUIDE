@@ -68,7 +68,7 @@ Frequency is a clue—not a protocol identification. Several unrelated protocols
 | **BLE / 802.15.4 / Z-Wave sniffer** | Protocol-aware capture | Verify PHY, firmware, channel-following, and decryption support. One receiver may miss other channels. |
 | **UHF RFID reader / UWB development kit** | Backscatter inventory or wideband ranging analysis | Dedicated hardware is generally required for practical protocol work. |
 
-Sources: [HackRF One specifications](https://hackrf.readthedocs.io/en/latest/hackrf_one.html), [RTL-SDR Blog V4](https://www.rtl-sdr.com/rtl-sdr-blog-v4-dongle-initial-release/), [TI CC1101](https://www.ti.com/product/CC1101), [NXP PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf).
+Sources: [HackRF One specifications](https://hackrf.readthedocs.io/en/latest/hackrf_one.html), [RTL-SDR Blog V4](https://www.rtl-sdr.com/rtl-sdr-blog-v4-dongle-initial-release/), [TI CC1101](https://www.ti.com/product/CC1101), [NXP PN532](https://www.nxp.com/products/PN5321A3HN).
 
 **Protect the receiver:** Verify the device's maximum RF input and any bias-tee voltage before connecting equipment. A nearby transmitter or RFID reader can overload a front end. Direct cable connections require a calculated attenuation arrangement, not just an SMA cable.
 

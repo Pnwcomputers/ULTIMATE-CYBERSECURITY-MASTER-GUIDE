@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 245" role="img" aria-labelledby="title desc">
+  <title id="title">Verify a Tor Browser download</title>
+  <desc id="desc">Obtain the installer and matching signature through Tor Project instructions. Check the signing key identity, then verify the signature against the installer. Stop if the key, signature, or installer does not match.</desc>
+  <rect width="940" height="245" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" fill="#fff" font-size="26" font-weight="bold">Verify a Tor Browser download</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="28" y="72" width="266" height="120" rx="12"/>
+      <rect x="337" y="72" width="266" height="120" rx="12"/>
+      <rect x="646" y="72" width="266" height="120" rx="12"/>
+    </g>
+    <path d="M301 132h29m-8-7 8 7-8 7m280-7h29m-8-7 8 7-8 7" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <g font-size="18" font-weight="bold" fill="#fff">
+      <text x="44" y="109">Download the matched pair</text>
+      <text x="353" y="109">Check who signed it</text>
+      <text x="662" y="109">Verify the installer</text>
+    </g>
+    <g font-size="15" fill="#d7e6f4">
+      <text x="44" y="142">Installer and detached signature</text>
+      <text x="44" y="166">Same release and platform</text>
+      <text x="353" y="142">Obtain the publisher's key</text>
+      <text x="353" y="166">Check the official fingerprint</text>
+      <text x="662" y="142">Check the signature against</text>
+      <text x="662" y="166">the exact installer file</text>
+    </g>
+    <text x="28" y="225" font-size="16" fill="#fff">Install after verification succeeds. If anything fails or differs, stop and recheck the download.</text>
+  </g>
+</svg>

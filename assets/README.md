@@ -903,6 +903,7 @@ Original conceptual diagram separating Tor Browser or explicitly configured clie
 | Diagram | Embedded guide |
 |---|---|
 | [Tor circuit and relay visibility](./diagrams/tor-circuit-visibility.svg) | [Tor Browser and Tor Network Guide](../Documentation/TOR.md) |
+| [Tor Browser download verification](./diagrams/tor-browser-download-verification.svg) | [Install and update Tor Browser](../Documentation/TOR.md#2-install-and-update-tor-browser) |
 
 ## Virtual Machine And Lab Boundary Visuals
 

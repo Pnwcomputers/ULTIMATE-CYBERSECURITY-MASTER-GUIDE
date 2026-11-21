@@ -236,7 +236,7 @@ flowchart LR
 
 ![Web authorization model contrasting authorized regular-user owned records, another user's records and privileged functions with a server-side subject-object-action decision](../assets/diagrams/webapp-object-authorization-role-matrix.svg)
 
-*Conceptual testing matrix for preapproved synthetic accounts.* [OWASP WSTG authorization testing](https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/02-Bypassing_Authorization_Schema/) covers horizontal and vertical privilege checks. [OWASP API1:2023](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/) addresses object-level authorization. See [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) for the control model.
+*Conceptual testing matrix for preapproved synthetic accounts.* [OWASP authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) explains per-request permission checks. [OWASP API1:2023](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/) addresses object-level authorization. See [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) for the control model.
 
 Test only the identities, objects, actions, endpoints, and rate limits in the
 written scope. Use known test fixtures rather than broad identifier enumeration.

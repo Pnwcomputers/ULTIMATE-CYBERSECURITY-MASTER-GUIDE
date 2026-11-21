@@ -42,7 +42,7 @@ Enable practitioners to build comprehensive target intelligence pictures using o
 
 ![Threat intelligence lifecycle from approved research requirements through source provenance, independent credibility checks, versioned indicators and evidence-based detection validation](../assets/diagrams/osint-cti-source-quality-to-detection.svg)
 
-*Conceptual analytical workflow.* [MITRE ATT&CK's Threat Intelligence Program mitigation](https://attack.mitre.org/mitigations/M1019/) and [ATT&CK's published research methodology](https://attack.mitre.org/resources/attack-design-and-philosophy/) distinguish evidence-supported behavior mapping from unsupported attribution. An indicator match is a lead, not proof of an actor or successful detection.
+*Conceptual analytical workflow.* [MITRE ATT&CK's Threat Intelligence Program mitigation](https://attack.mitre.org/mitigations/M1019/) and [ATT&CK's published research methodology](https://attack.mitre.org/docs/ATTACK_Design_and_Philosophy_March_2020.pdf) distinguish evidence-supported behavior mapping from unsupported attribution. An indicator match is a lead, not proof of an actor or successful detection.
 
  
  

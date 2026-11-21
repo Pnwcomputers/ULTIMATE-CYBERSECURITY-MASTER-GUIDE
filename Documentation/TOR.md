@@ -51,8 +51,10 @@ Tor provides no guarantee against account correlation, tracking through identify
 
 ## 2. Install and update Tor Browser
 
+![Verify a Tor Browser download by matching the installer and detached signature, checking the publisher's signing key, and verifying the installer before use](../assets/diagrams/tor-browser-download-verification.svg)
+
 - Download Tor Browser only from the [official Tor Project download page](https://www.torproject.org/download/) or a distribution channel linked by the Tor Project.
-- Follow the current [installation and signature verification instructions](https://tb-manual.torproject.org/installation/). Release filenames, signing keys, package methods, and verification steps change; do not copy a pinned version number or unverified mirror command from an old guide.
+- Follow the current [installation instructions](https://support.torproject.org/tor-browser/getting-started/installing/) and [signature verification instructions](https://support.torproject.org/tor-browser/getting-started/verifying-tor-browser/). Release filenames, signing keys, package methods, and verification steps change; do not copy a pinned version number or unverified mirror command from an old guide.
 - Keep automatic updates enabled where available and restart the browser when an update requires it.
 - On Android, use a distribution method linked from the Tor Project's current download page.
 - On iOS, use a Tor Project–recommended browser and understand that Apple's platform restrictions mean it is not the Tor Browser desktop application.
@@ -162,7 +164,7 @@ For a local SOCKS client, use the curl example in Section 5 and confirm the requ
 
 - [Tor Project Support](https://support.torproject.org/)
 - [Tor Browser Manual](https://tb-manual.torproject.org/)
-- [Tor Browser installation and verification](https://tb-manual.torproject.org/installation/)
+- [Tor Browser installation](https://support.torproject.org/tor-browser/getting-started/installing/) · [Signature verification](https://support.torproject.org/tor-browser/getting-started/verifying-tor-browser/)
 - [Tor Browser security levels](https://support.torproject.org/tor-browser/features/security-levels/)
 - [Using Tor Browser safely](https://support.torproject.org/tor-browser/security/using-tb-safely/)
 - [Using Tor Browser with a VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/)
