@@ -1,9 +1,9 @@
 # 🔄 Change Log - November 21, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1976
-- **Files Modified**: 3699
-- **New Files**: 1275
+- **Commits Analyzed**: 1986
+- **Files Modified**: 3746
+- **New Files**: 1288
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
@@ -580,6 +580,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Repair publisher links after full sweep and illustrate Tor verification (#576) (`13b663d`)
 - Make authorization testing fixture-based and evidence-driven (#556) (`0cc96a8`)
 - Correct Active Directory detection guidance (#527) (`1ca132d`)
 - Correct LOLBin claims and ASR guidance (#518) (`807d0e2`)
@@ -1716,6 +1717,15 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Illustrate TCP reply evidence and independent UserLAnd exports (#582) (`4d4cdf7`)
+- Illustrate endpoint telemetry and OpenBSD PF rule evaluation (#580) (`3e973fe`)
+- Illustrate SQL join grain and complete dataset publication (#579) (`d6209e8`)
+- Illustrate CM4 image preservation and Bash pipeline exit status (#578) (`64fea86`)
+- Verify OpenCanary alert delivery and filter numeric log types (#577) (`94f49ab`)
+- Handle inaccessible Windows Recycle Bin folders during inventory (#575) (`d6d1f50`)
+- Index the 17 missing SVGs and enforce asset index coverage (#574) (`8f2e3b9`)
+- Record repository review evidence and screen remaining PDF references (#573) (`8ab116f`)
+- Finish Kafka and deployment sections of the secure pipeline review (#571) (`eedf88d`)
 - Diagram cache enrichment and unknown-result handling (#568) (`177d8da`)
 - Diagram Git review, deployment, and rollback flow (#566) (`62a9937`)
 - Diagram SSH server and user identity checks (#565) (`30a11fa`)
@@ -2000,10 +2010,50 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Data-Engineering/data_pipelines.md`
+- `Documentation/wireshark-master-filters.md`
+- `Mobile/UserLAnd/readme.md`
+- `assets/README.md`
+- `assets/diagrams/userland-independent-file-export.svg`
+- `assets/diagrams/wireshark-tcp-reply-two-capture-points.svg`
+- `tools/tests/test_visual_guides.py`
+- `IncidentResponse/Endpoint-Visibility/README.md`
+- `IncidentResponse/Firewalls/openbsd_pf.md`
+- `assets/diagrams/endpoint-telemetry-query-paths.svg`
+- `assets/diagrams/openbsd-pf-state-and-rule-flow.svg`
+- `Data-Engineering/Phase1/sql_data_modeling.md`
+- `Data-Engineering/Phase2/data_storage_file_formats.md`
+- `assets/diagrams/dataset-version-publication.svg`
+- `assets/diagrams/sql-asset-checkin-join-grain.svg`
+- `Documentation/devhints-cli-field-reference.md`
 - `REVIEW_2026-11-19.md`
-- `Documentation/security-public-api-catalog.md`
+- `assets/diagrams/bash-pipeline-exit-status.svg`
+- `assets/diagrams/uconsole-cm4-preserve-working-image.svg`
+- `uConsole/CM4-SETUP.md`
+- `IncidentResponse/HoneyPot/opencanary.md`
+- `assets/diagrams/opencanary-alert-validation.svg`
+- `Documentation/TOR.md`
+- `Documentation/firmware-web-flashers.md`
+- `Homelab/HomeLab_Setup.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `SDR/README.md`
+- `SDR/rfid.md`
+- `SDR/target_frequencies_protocols.md`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `SpaceSecurity/PartIV.md`
+- `Tradecraft/osint-threat-intel.md`
 - `WebAppSecurity/methodology.md`
+- `assets/diagrams/tor-browser-download-verification.svg`
+- `Scripts/Python/dump_recyclebin.py`
+- `Scripts/README.md`
+- `tools/audit_visual_coverage.py`
+- `tools/tests/test_visual_coverage_audit.py`
+- `PDF/README.md`
+- `Data-Engineering/data_pipelines.md`
+- `assets/diagrams/secure-pipeline-ansible-canary.svg`
+- `assets/diagrams/secure-pipeline-event-readback.svg`
+- `assets/diagrams/secure-pipeline-kafka-offset-commit.svg`
+- `CHANGELOG.md`
+- `Documentation/security-public-api-catalog.md`
 - `WebAppSecurity/owasp-top-10.md`
 - `WebAppSecurity/README.md`
 - `Cloud/gcp.md`
@@ -2045,9 +2095,7 @@
 - `Compliance/README.md`
 - `Cloud/m365-scuba-assessment.md`
 - `HardwareHacking/README.md`
-- `Homelab/HomeLab_Setup.md`
 - `Homelab/README.md`
-- `SpaceSecurity/PartIV.md`
 - `SpaceSecurity/Appendices.md`
 - `SpaceSecurity/PartIII.md`
 - `SpaceSecurity/PartII.md`
@@ -2056,7 +2104,6 @@
 - `uConsole/CM5-DISPLAY-RECOVERY.md`
 - `Mobile/README.md`
 - `CAD/README.md`
-- `assets/README.md`
 - `assets/diagrams/cad-design-to-fit-verification-loop.svg`
 - `ReverseEngineering/vx-underground.md`
 - `AI/offensive_ai.md`
@@ -2087,7 +2134,6 @@
 - `assets/diagrams/nmap-agentflow-evidence-gates.svg`
 - `HardwareTesting/py/README.md`
 - `assets/diagrams/spacecraft-bus-payload-architecture.svg`
-- `CHANGELOG.md`
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `assets/diagrams/uconsole-cm5-aio-nvme-validation.svg`
 - `uConsole/CM5-SETUP.md`
@@ -2109,7 +2155,6 @@
 - `assets/diagrams/incident-casebook-scope-evidence-action-approval.svg`
 - `assets/diagrams/pentoo-gentoo-deployment-profile-safety.svg`
 - `assets/diagrams/python-security-snippet-platform-scope-test-gates.svg`
-- `tools/tests/test_visual_guides.py`
 - `Compliance/pci-scope-review-template.md`
 - `assets/diagrams/pci-scope-evidence-trail.svg`
 - `HardwareHacking/esp32-bit-pirate.md`
@@ -2181,7 +2226,6 @@
 - `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `OSINT/Playbook/scripts/crypto_audit.sh`
-- `PDF/README.md`
 - `STYLE_GUIDE.md`
 - `Scripts/Bash/admin-panel-sniffer.sh`
 - `Scripts/Bash/arp-spoofing-detect.sh`
@@ -2234,9 +2278,7 @@
 - `Scripts/Python/ssh_command.py`
 - `Scripts/Python/ssh_pxssh_command.py`
 - `Scripts/Python/zip_crack.py`
-- `Scripts/README.md`
 - `tools/tests/test_legacy_archive_manifest.py`
-- `uConsole/CM4-SETUP.md`
 - `.github/CONTRIBUTING.md`
 - `.github/SECURITY.md`
 - `AI/OpenClaw/README.md`
@@ -2259,8 +2301,6 @@
 - `OSINT/scripts/Email_OSINT.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `README.md`
-- `SDR/rfid.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/Bash/BashBunny/README.md`
 - `Scripts/Bash/BashBunny/cred_harv.txt`
 - `Scripts/Bash/BashBunny/network_recon.txt`
@@ -2297,7 +2337,6 @@
 - `Scripts/lib/safe_install.sh`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/network-detection.md`
-- `Tradecraft/osint-threat-intel.md`
 - `Wardriving/README.md`
 - `Wardriving/esp32-marauder.md`
 - `Wardriving/sigroam-scout-lite.md`
@@ -2394,7 +2433,6 @@
 - `assets/diagrams/data-orchestrator-interval-dependency-publish-gates.svg`
 - `Data-Engineering/Phase1/etl_elt_pipeline_design.md`
 - `IncidentResponse/SIEM/elk_stack.md`
-- `Mobile/UserLAnd/readme.md`
 - `assets/diagrams/elastic-stack-log-ingest-index-search.svg`
 - `assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg`
 - `assets/diagrams/spaceflight-fsw-cfs-security-layers.svg`
@@ -2445,7 +2483,6 @@
 - `assets/diagrams/wardriving-field-quality-acceptance.svg`
 - `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md`
 - `Documentation/device-firmware-list.md`
-- `Documentation/firmware-web-flashers.md`
 - `assets/diagrams/cyberdeck-portable-device-roles-and-artifacts.svg`
 - `assets/diagrams/device-firmware-compatibility-selection.svg`
 - `assets/diagrams/firmware-flashing-verification-gates.svg`
@@ -2477,9 +2514,7 @@
 - `assets/diagrams/tradecraft-scope-to-detection-loop.svg`
 - `assets/imageplacement.md`
 - `tools/audit_source_formats.py`
-- `tools/audit_visual_coverage.py`
 - `tools/tests/test_source_formats.py`
-- `tools/tests/test_visual_coverage_audit.py`
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `assets/diagrams/cti-to-approved-emulation-gates.svg`
 - `tools/tests/test_purple_playbook_mapping.py`
@@ -2558,7 +2593,6 @@
 - `Documentation/virtualmachines.md`
 - `assets/diagrams/black-hat-bash-lab-boundaries.svg`
 - `assets/diagrams/vm-network-isolation-modes.svg`
-- `Documentation/TOR.md`
 - `assets/diagrams/tor-circuit-visibility.svg`
 - `Documentation/VPN.md`
 - `assets/diagrams/vpn-trust-boundaries.svg`
@@ -2713,7 +2747,6 @@
 - `CAD/OpenSCAD/05-design-for-printing.md`
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
-- `SDR/README.md`
 - `CAD/OpenSCAD/examples/gps-cradle/README.md`
 - `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.json`
 - `CAD/OpenSCAD/examples/gps-cradle/gps_cradle.scad`
@@ -2768,7 +2801,6 @@
 - `Documentation/fixtures/lab-canary-cases.jsonl`
 - `Documentation/fixtures/lab-canary-observations.jsonl`
 - `.github/workflows/repository-quality-inventory.yml`
-- `Data-Engineering/Phase2/data_storage_file_formats.md`
 - `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.json`
 - `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md`
 - `Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md`
@@ -2777,14 +2809,12 @@
 - `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md`
 - `IncidentResponse/HoneyPot/lab/honeypot_rules.xml`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
 - `PlayBooks/PurpleTeam_Simple.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `SDR/nanovna/07-quick-reference.md`
 - `SDR/nanovna/09-worked-examples-by-band.md`
 - `SDR/nanovna/10-antenna-types-and-special-cases.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
-- `SDR/target_frequencies_protocols.md`
 - `tools/tests/test_audit_manifests.py`
 - `tools/tests/test_wazuh_rule_contracts.py`
 - `.github/workflows/duplicate-sections.yml`
@@ -2829,7 +2859,6 @@
 - `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase3/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
-- `IncidentResponse/Endpoint-Visibility/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
 - `IncidentResponse/SIEM/README.md`
 - `OPSEC/README.md`
@@ -2847,7 +2876,6 @@
 - `PlayBooks/assessment-findings-lifecycle.md`
 - `Documentation/curated-technical-docs.md`
 - `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md`
-- `Documentation/devhints-cli-field-reference.md`
 - `tools/check_markdown_numbered_lists.py`
 - `Documentation/vscode.md`
 - `tools/check_duplicate_sections.py`
@@ -2894,7 +2922,6 @@
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wireshark-cheatsheet.md`
 - `Documentation/wireshark-filter-catalog.tsv`
-- `Documentation/wireshark-master-filters.md`
 - `tools/check_wireshark_filters.py`
 - `Scripts/PINNING.md`
 - `Scripts/tool_pins.conf`
@@ -2909,7 +2936,6 @@
 - `IncidentResponse/HoneyPot/lab/esp32_serial_bridge.py`
 - `IncidentResponse/HoneyPot/lab/synthetic-events.jsonl`
 - `IncidentResponse/HoneyPot/lab/test_honeypot.py`
-- `IncidentResponse/HoneyPot/opencanary.md`
 - `IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet-wazuh-bridge.service`
@@ -2955,7 +2981,6 @@
 - `tests/hardening/test_safe_install.py`
 - `OSINT/Playbook/branding.conf.example`
 - `Data-Engineering/Phase1/python_data_processing.md`
-- `IncidentResponse/Firewalls/openbsd_pf.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
 - `Data-Engineering/Phase3/pipeline_testing_cicd.md`
@@ -2984,7 +3009,6 @@
 - `uConsole/tests/test_cm5_parrot_setup.py`
 - `Data-Engineering/Phase3/readme.md`
 - `Data-Engineering/Phase2/readme.md`
-- `Data-Engineering/Phase1/sql_data_modeling.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/readme.md`
 - `IncidentResponse/Data-Engineering/data_pipelines.md`
@@ -3168,7 +3192,6 @@
 - `Scripts/Python/uav_sniff.py`
 - `Scripts/Python/useragent_test.py`
 - `Scripts/Python/view_page.py`
-- `Scripts/Python/dump_recyclebin.py`
 - `Scripts/Python/exif_fetch.py`
 - `Scripts/Python/nmap_scan.py`
 - `Scripts/Python/pass.txt`
