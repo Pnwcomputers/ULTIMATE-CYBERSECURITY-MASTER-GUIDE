@@ -410,7 +410,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [IDS&IPS/security-onion.md](./IncidentResponse/IDS%26IPS/security-onion.md) | `IncidentResponse/IDS&IPS/security-onion.md` |
 | [IDS&IPS/snort.md](./IncidentResponse/IDS%26IPS/snort.md) | `IncidentResponse/IDS&IPS/snort.md` |
 | [IDS&IPS/suricata+zeek.md](./IncidentResponse/IDS%26IPS/suricata%2Bzeek.md) | `IncidentResponse/IDS&IPS/suricata+zeek.md` |
-| [IDS&IPS/unified-network-visibility-architecture.md](./IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md) | `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md` |
+| [IDS&IPS/unified-network-visibility-architecture.md](./IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md` |
 | [README — IncidentResponse](./IncidentResponse/README.md) | `IncidentResponse/README.md` |
 | [README — IncidentResponse/SIEM](./IncidentResponse/SIEM/README.md) | `IncidentResponse/SIEM/README.md` |
 | [SIEM/detection-content-validation.md](./IncidentResponse/SIEM/detection-content-validation.md) | `IncidentResponse/SIEM/detection-content-validation.md` |
