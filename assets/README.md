@@ -690,16 +690,22 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [osint investigation request scope](./diagrams/osint-investigation-request-scope.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
 | [osint investigation identity evidence](./diagrams/osint-investigation-identity-evidence.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
 
-## Already Embedded In Hardware Chapters
+## Raster Illustrations in the Hardware Chapters
 
 | Asset | Chapter |
 |---|---|
-| [Trust boundary](./CollapsingtheTrustBoundary.jpg) | [Hardware Hacking — Chapter 1](../HardwareHacking/Chapter1.md) |
-| [UART](./UART.jpg), [SPI](./SPI.jpg), [I²C](./i2c.jpg), [JTAG](./JTAG.jpg), [Shunt setup](./ShuntSetup.jpg) | [Hardware Hacking — Chapter 2](../HardwareHacking/Chapter2.md) |
+| [UART](./UART.jpg), [SPI](./SPI.jpg), [I²C](./i2c.jpg), [JTAG](./JTAG.jpg) | [Hardware Hacking — Chapter 2](../HardwareHacking/Chapter2.md) |
 | [Clock/voltage glitch](./ClockvsVoltage.jpg), [EMFI](./ElectromagneticFaultInjection.jpg), [Laser FI](./LaserFaultInjection.jpg) | [Hardware Hacking — Chapter 3](../HardwareHacking/Chapter3.md) |
 | [SPA on RSA](./SPAonRSA.jpg) | [Hardware Hacking — Chapter 4](../HardwareHacking/Chapter4.md) |
-| [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
+
+## Historical Hardware Illustrations
+
+| Historical asset | Current guide illustration |
+|---|---|
+| [Trust boundary](./CollapsingtheTrustBoundary.jpg) | [Hardware threat-model figure](../HardwareHacking/Chapter1.md) |
+| [Shunt setup](./ShuntSetup.jpg) | [Shunt-current figure](../HardwareHacking/Chapter2.md) |
+| [CPA correlation](./CPACorrelationProcess.jpg) | [Power measurement and evidence flow](../HardwareHacking/Chapter5.md) |
 
 ## Phishing Response Visuals
 
