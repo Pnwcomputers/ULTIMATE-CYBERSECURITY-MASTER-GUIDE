@@ -209,8 +209,9 @@ frequency low enough that fixture parasitics are small.
 
 **Expect:** Reactance near zero. SWR near **2:1**.
 
-**The lesson:** A perfectly resistive, perfectly "resonant" load can still be
-badly mismatched. Resistance and reactance are independent problems.
+**The lesson:** A load can have negligible reactance and still be mismatched.
+In a 50 Ω system, the 100 Ω resistor demonstrates resistance mismatch without
+requiring a resonant circuit or antenna.
 See [05 §5.4](05-antenna-tuning.md#54-fixing-the-match-impedance-transformation).
 
 ---
@@ -239,12 +240,14 @@ your first real trim is an informed guess rather than a wild one.
 3. Now recalibrate at the **far end** of that cable and measure the load a third
    time.
 
-**Expect:** Step 2 shows a dramatically rotated Smith point with roughly
-unchanged SWR. Step 3 returns the Smith point close to where step 1 had it.
+**Expect:** Step 2 can rotate the Smith point while keeping SWR roughly
+unchanged. The rotation depends on the cable's electrical length and wraps at
+half-wavelength intervals. Compare across several frequencies if the points
+nearly coincide. Step 3 should recover a result close to step 1 when the
+calibrations and connections are repeatable.
 
 **The lesson:** The cable transformed the *displayed impedance* without changing
 the mismatch much. Calibrating at the load plane removes that transformation.
-This is the single most common source of "my impedance readings make no sense."
 
 ---
 
@@ -274,10 +277,10 @@ recalibrating each time, and watch the dip.
 **Expect:** At wide spans the dip is shallow, ragged, or invisible. As the span
 narrows, its true depth and shape emerge.
 
-**The lesson:** `Resolution = Span / (Points − 1)`. A feature narrower than one
-point spacing will be missed entirely, and no amount of marker interpolation
-recovers data that was never sampled. Now you know where that boundary sits on
-*your* instrument.
+**The lesson:** For a linear sweep, `point spacing = Span / (Points − 1)`.
+A feature narrower than that spacing can fall between samples. A sample may
+also hit part of a dip without capturing its depth or shape. Narrow the span
+or increase the point count to measure it with more samples.
 
 ---
 

@@ -148,11 +148,15 @@ Scripts/
 
 | Program | Description | Purpose |
 |---------|-------------|---------|
-| **get_user.c** | User enumeration utility | System reconnaissance |
-| **getuser.c** | User information retrieval | Privilege enumeration |
+| **get_user.c**, **getuser.c** | Equivalent historical demonstrations that print the current effective user through a shell command | Explain the difference between shell command lookup and a fixed executable path |
 | **scanner.c** | Local network discovery with optional Nmap OS fingerprinting; not a port scanner | Authorized local-network inventory |
-| **system_sleep.c** | System sleep/suspend utility | System manipulation |
-| **systemsleep.c** | System sleep implementation | Testing/manipulation |
+| **system_sleep.c**, **systemsleep.c** | Equivalent historical demonstrations that wait for 100 seconds using the host's shell `sleep` command | Demonstrate waiting for a subprocess |
+
+The historical examples assume Unix commands. `whoami` reports the effective
+user. It does not enumerate users or privileges. A fixed executable path avoids
+`PATH` lookup for that command. The examples still invoke a shell, which is
+unsuitable as a pattern for privileged code. `sleep` delays the process without
+suspending the host.
 
 **Characteristics:**
 - Low-level system access
