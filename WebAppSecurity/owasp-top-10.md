@@ -123,18 +123,56 @@ request and each protected object or action.*
 
 ## A02: Security Misconfiguration
 
-Insecure defaults, incomplete hardening, verbose errors, and unnecessary features.
+Security misconfiguration is an insecure setting or deployment choice anywhere
+in the application stack, platform, or cloud service. Risk depends on the
+feature, exposure, data, and surrounding controls; a setting should be evaluated
+against a documented baseline and its actual behavior.
 
-- **How it is exploited:** default/administrative credentials, exposed admin
-  consoles or `.git`/backup files, missing security headers, directory listing,
-  overly permissive CORS, verbose stack traces revealing internals.
-- **How to test:** enumerate exposed paths and files; review response headers
-  (CSP, HSTS, `X-Content-Type-Options`); check CORS with a rogue `Origin`; probe
-  default credentials on any admin surface; diff against a hardening baseline.
-- **How to defend:** a repeatable hardening process; remove unused features and
-  sample apps; set security headers; suppress verbose errors in production; keep
-  environments consistent; automate configuration checks.
-- **CWE:** CWE-16, CWE-548. **Cheat sheet:** [OWASP Secure Headers](https://owasp.org/www-project-secure-headers/).
+```mermaid
+flowchart LR
+    B[Threat-informed<br/>secure baseline] --> D[Build and deploy<br/>with controlled differences]
+    D --> V[Verify effective<br/>settings and exposure]
+    V -->|Meets baseline| M[Monitor changes<br/>and configuration drift]
+    V -->|Gap found| R[Remediate, document<br/>exception, and retest]
+    R --> B
+    M -->|Change or drift| V
+```
+
+*Review effective configuration in the deployed environment, not just source
+defaults or a template that may be overridden.*
+
+- **How it fails:** unnecessary services, sample applications, admin surfaces,
+  or accounts remain exposed; default credentials or excessive permissions are
+  retained; production errors reveal internals; a framework, cloud service, or
+  server uses insecure defaults; or security directives and cross-origin rules
+  do not match the application's trust model. Misconfiguration can also expose
+  files or directories that were intended to remain private.
+- **How to assess:** compare deployed components and effective settings with an
+  approved hardening baseline; inventory exposed ports, routes, admin functions,
+  sample/debug features, accounts, permissions, and accessible files. Review
+  error behavior and relevant browser directives, including CSP and HSTS where
+  appropriate. For CORS, inspect both the response headers and the browser
+  access they permit in the application's credential and origin context; a
+  permissive-looking header alone does not establish impact. Check each
+  environment for intentional, controlled differences and configuration drift.
+- **How to defend:** maintain a repeatable, versioned hardening baseline; remove
+  unused features and sample content; disable or secure administrative access;
+  eliminate default credentials; apply least privilege; and keep error details
+  out of user-facing production responses. Configure security headers and
+  cross-origin policies for the application’s requirements, then automate
+  verification of effective settings and alert on drift. Keep environments
+  consistent in security posture while managing environment-specific credentials
+  and explicit exceptions.
+- **Validation:** verify exposed paths, accounts, services, permissions, errors,
+  and browser-facing directives against the baseline after deployment and
+  material changes. Confirm remediation in the running environment and track
+  exceptions to an owner and review date; do not infer safety from a clean
+  template or a single header scan.
+- **CWE examples:** CWE-16 (configuration), CWE-611 (improper restriction of
+  XML external entity reference), and CWE-548 (exposure through directory
+  listing); the OWASP category maps to additional weaknesses. **References:**
+  [OWASP A02:2025](https://top10.owasp.org/2025/A02_2025-Security_Misconfiguration/)
+  and the [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/).
 
 ---
 
