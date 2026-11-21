@@ -262,15 +262,31 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | --- | --- |
 | [Aircrack-ng_Commands.md](./Documentation/Aircrack-ng_Commands.md) | `Documentation/Aircrack-ng_Commands.md` |
 | [ArchLinux_CheatSheet.md](./Documentation/ArchLinux_CheatSheet.md) | `Documentation/ArchLinux_CheatSheet.md` |
+| [BRANCH-PROTECTION-SETUP.md](./Documentation/BRANCH-PROTECTION-SETUP.md) | `Documentation/BRANCH-PROTECTION-SETUP.md` |
+| [CANARY-DETECTION-VALIDATOR.md](./Documentation/CANARY-DETECTION-VALIDATOR.md) | `Documentation/CANARY-DETECTION-VALIDATOR.md` |
+| [CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md` |
+| [EXTERNAL-LINK-AUDIT-2026-11-11.md](./Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md) | `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md` |
+| [HTTP-LINKS-CLASSIFICATION.md](./Documentation/HTTP-LINKS-CLASSIFICATION.md) | `Documentation/HTTP-LINKS-CLASSIFICATION.md` |
+| [INTEGRATION-QUALITY-REVIEW-2026-11-03.md](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) | `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md` |
+| [LAB-VERIFICATION-MATRIX.md](./Documentation/LAB-VERIFICATION-MATRIX.md) | `Documentation/LAB-VERIFICATION-MATRIX.md` |
+| [LinuxCheatSheet.md](./Documentation/LinuxCheatSheet.md) | `Documentation/LinuxCheatSheet.md` |
+| [Locksport.md](./Documentation/Locksport.md) | `Documentation/Locksport.md` |
+| [MARKDOWN-COMPLETENESS-DISPOSITIONS.md](./Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md) | `Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md` |
+| [MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md](./Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md) | `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md` |
+| [README — Documentation](./Documentation/README.md) | `Documentation/README.md` |
+| [REPOSITORY-MAINTENANCE-OPERATIONS.md](./Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md) | `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md` |
+| [REPOSITORY-VERIFICATION-PROTOCOL.md](./Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) | `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md` |
+| [TOR.md](./Documentation/TOR.md) | `Documentation/TOR.md` |
+| [VPN.md](./Documentation/VPN.md) | `Documentation/VPN.md` |
+| [WAZUH-SYNTHETIC-RULE-VALIDATION.md](./Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) | `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md` |
+| [WiFiMarauder_Guide.md](./Documentation/WiFiMarauder_Guide.md) | `Documentation/WiFiMarauder_Guide.md` |
+| [WifiMarauder_CheatSheet.md](./Documentation/WifiMarauder_CheatSheet.md) | `Documentation/WifiMarauder_CheatSheet.md` |
 | [arduinoIDE.md](./Documentation/arduinoIDE.md) | `Documentation/arduinoIDE.md` |
 | [awesome-hacking-collections-integration.md](./Documentation/awesome-hacking-collections-integration.md) | `Documentation/awesome-hacking-collections-integration.md` |
 | [bjorn_pi.md](./Documentation/bjorn_pi.md) | `Documentation/bjorn_pi.md` |
 | [blackarch.md](./Documentation/blackarch.md) | `Documentation/blackarch.md` |
 | [ble-capture-sniffle.md](./Documentation/ble-capture-sniffle.md) | `Documentation/ble-capture-sniffle.md` |
-| [BRANCH-PROTECTION-SETUP.md](./Documentation/BRANCH-PROTECTION-SETUP.md) | `Documentation/BRANCH-PROTECTION-SETUP.md` |
 | [bruce_firmware.md](./Documentation/bruce_firmware.md) | `Documentation/bruce_firmware.md` |
-| [CANARY-DETECTION-VALIDATOR.md](./Documentation/CANARY-DETECTION-VALIDATOR.md) | `Documentation/CANARY-DETECTION-VALIDATOR.md` |
-| [CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md](./Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md) | `Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md` |
 | [chimerable.md](./Documentation/chimerable.md) | `Documentation/chimerable.md` |
 | [curated-technical-docs.md](./Documentation/curated-technical-docs.md) | `Documentation/curated-technical-docs.md` |
 | [cypherpunk-pentesting-toolkit-review.md](./Documentation/cypherpunk-pentesting-toolkit-review.md) | `Documentation/cypherpunk-pentesting-toolkit-review.md` |
@@ -279,38 +295,22 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [esp-terminator.md](./Documentation/esp-terminator.md) | `Documentation/esp-terminator.md` |
 | [esp32-security-firmware-catalog.md](./Documentation/esp32-security-firmware-catalog.md) | `Documentation/esp32-security-firmware-catalog.md` |
 | [evil_m5.md](./Documentation/evil_m5.md) | `Documentation/evil_m5.md` |
-| [EXTERNAL-LINK-AUDIT-2026-11-11.md](./Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md) | `Documentation/EXTERNAL-LINK-AUDIT-2026-11-11.md` |
 | [fancygotchi-pwnagotchi.md](./Documentation/fancygotchi-pwnagotchi.md) | `Documentation/fancygotchi-pwnagotchi.md` |
 | [firmware-web-flashers.md](./Documentation/firmware-web-flashers.md) | `Documentation/firmware-web-flashers.md` |
 | [flipper_zero_guide.md](./Documentation/flipper_zero_guide.md) | `Documentation/flipper_zero_guide.md` |
 | [ghostesp-revival.md](./Documentation/ghostesp-revival.md) | `Documentation/ghostesp-revival.md` |
 | [hcxtoolshashcat.md](./Documentation/hcxtoolshashcat.md) | `Documentation/hcxtoolshashcat.md` |
-| [HTTP-LINKS-CLASSIFICATION.md](./Documentation/HTTP-LINKS-CLASSIFICATION.md) | `Documentation/HTTP-LINKS-CLASSIFICATION.md` |
-| [INTEGRATION-QUALITY-REVIEW-2026-11-03.md](./Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md) | `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md` |
-| [LAB-VERIFICATION-MATRIX.md](./Documentation/LAB-VERIFICATION-MATRIX.md) | `Documentation/LAB-VERIFICATION-MATRIX.md` |
-| [LinuxCheatSheet.md](./Documentation/LinuxCheatSheet.md) | `Documentation/LinuxCheatSheet.md` |
-| [Locksport.md](./Documentation/Locksport.md) | `Documentation/Locksport.md` |
-| [MARKDOWN-COMPLETENESS-DISPOSITIONS.md](./Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md) | `Documentation/MARKDOWN-COMPLETENESS-DISPOSITIONS.md` |
-| [MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md](./Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md) | `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md` |
 | [microcontroller_wifi_testing.md](./Documentation/microcontroller_wifi_testing.md) | `Documentation/microcontroller_wifi_testing.md` |
 | [nemo-firmware.md](./Documentation/nemo-firmware.md) | `Documentation/nemo-firmware.md` |
 | [nmap-guide.md](./Documentation/nmap-guide.md) | `Documentation/nmap-guide.md` |
 | [pwnagotchi_cheatsheet.md](./Documentation/pwnagotchi_cheatsheet.md) | `Documentation/pwnagotchi_cheatsheet.md` |
 | [python.md](./Documentation/python.md) | `Documentation/python.md` |
-| [README — Documentation](./Documentation/README.md) | `Documentation/README.md` |
 | [references.md](./Documentation/references.md) | `Documentation/references.md` |
-| [REPOSITORY-MAINTENANCE-OPERATIONS.md](./Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md) | `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md` |
-| [REPOSITORY-VERIFICATION-PROTOCOL.md](./Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md) | `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md` |
 | [security-public-api-catalog.md](./Documentation/security-public-api-catalog.md) | `Documentation/security-public-api-catalog.md` |
-| [TOR.md](./Documentation/TOR.md) | `Documentation/TOR.md` |
 | [upstream-security-projects-register.md](./Documentation/upstream-security-projects-register.md) | `Documentation/upstream-security-projects-register.md` |
 | [virtualmachines.md](./Documentation/virtualmachines.md) | `Documentation/virtualmachines.md` |
-| [VPN.md](./Documentation/VPN.md) | `Documentation/VPN.md` |
 | [vscode.md](./Documentation/vscode.md) | `Documentation/vscode.md` |
-| [WAZUH-SYNTHETIC-RULE-VALIDATION.md](./Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) | `Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md` |
 | [wifi-deauthentication-detection.md](./Documentation/wifi-deauthentication-detection.md) | `Documentation/wifi-deauthentication-detection.md` |
-| [WifiMarauder_CheatSheet.md](./Documentation/WifiMarauder_CheatSheet.md) | `Documentation/WifiMarauder_CheatSheet.md` |
-| [WiFiMarauder_Guide.md](./Documentation/WiFiMarauder_Guide.md) | `Documentation/WiFiMarauder_Guide.md` |
 | [wireshark-cheatsheet.md](./Documentation/wireshark-cheatsheet.md) | `Documentation/wireshark-cheatsheet.md` |
 | [wireshark-master-filters.md](./Documentation/wireshark-master-filters.md) | `Documentation/wireshark-master-filters.md` |
 | [wireshark.md](./Documentation/wireshark.md) | `Documentation/wireshark.md` |
@@ -431,6 +431,16 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 
 | Document | Repository Path |
 | --- | --- |
+| [OSINT_CHEATSHEET.md](./OSINT/OSINT_CHEATSHEET.md) | `OSINT/OSINT_CHEATSHEET.md` |
+| [OSINT_GUIDE.md](./OSINT/OSINT_GUIDE.md) | `OSINT/OSINT_GUIDE.md` |
+| [OSINT_TOOLS_CATALOG.md](./OSINT/OSINT_TOOLS_CATALOG.md) | `OSINT/OSINT_TOOLS_CATALOG.md` |
+| [OSINT_socialmedia.md](./OSINT/OSINT_socialmedia.md) | `OSINT/OSINT_socialmedia.md` |
+| [README — OSINT/Playbook](./OSINT/Playbook/README.md) | `OSINT/Playbook/README.md` |
+| [Playbook/investigation_guide.md](./OSINT/Playbook/investigation_guide.md) | `OSINT/Playbook/investigation_guide.md` |
+| [README — OSINT/Playbook/scripts](./OSINT/Playbook/scripts/README.md) | `OSINT/Playbook/scripts/README.md` |
+| [Playbook/tools_api.md](./OSINT/Playbook/tools_api.md) | `OSINT/Playbook/tools_api.md` |
+| [README — OSINT](./OSINT/README.md) | `OSINT/README.md` |
+| [TSURUGI_LINUX_OSINT_GUIDE.md](./OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) | `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md` |
 | [argus_osint.md](./OSINT/argus_osint.md) | `OSINT/argus_osint.md` |
 | [awesome-osint-list-curated.md](./OSINT/awesome-osint-list-curated.md) | `OSINT/awesome-osint-list-curated.md` |
 | [bellingcat-source-verification.md](./OSINT/bellingcat-source-verification.md) | `OSINT/bellingcat-source-verification.md` |
@@ -438,20 +448,10 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [docs/FAQ.md](./OSINT/docs/FAQ.md) | `OSINT/docs/FAQ.md` |
 | [docs/INSTALLATION.md](./OSINT/docs/INSTALLATION.md) | `OSINT/docs/INSTALLATION.md` |
 | [docs/TROUBLESHOOTING.md](./OSINT/docs/TROUBLESHOOTING.md) | `OSINT/docs/TROUBLESHOOTING.md` |
-| [OSINT_CHEATSHEET.md](./OSINT/OSINT_CHEATSHEET.md) | `OSINT/OSINT_CHEATSHEET.md` |
-| [OSINT_GUIDE.md](./OSINT/OSINT_GUIDE.md) | `OSINT/OSINT_GUIDE.md` |
-| [OSINT_socialmedia.md](./OSINT/OSINT_socialmedia.md) | `OSINT/OSINT_socialmedia.md` |
-| [OSINT_TOOLS_CATALOG.md](./OSINT/OSINT_TOOLS_CATALOG.md) | `OSINT/OSINT_TOOLS_CATALOG.md` |
-| [Playbook/investigation_guide.md](./OSINT/Playbook/investigation_guide.md) | `OSINT/Playbook/investigation_guide.md` |
-| [README — OSINT/Playbook](./OSINT/Playbook/README.md) | `OSINT/Playbook/README.md` |
-| [README — OSINT/Playbook/scripts](./OSINT/Playbook/scripts/README.md) | `OSINT/Playbook/scripts/README.md` |
-| [Playbook/tools_api.md](./OSINT/Playbook/tools_api.md) | `OSINT/Playbook/tools_api.md` |
-| [README — OSINT](./OSINT/README.md) | `OSINT/README.md` |
 | [scripts/Domain_IP_Recon.md](./OSINT/scripts/Domain_IP_Recon.md) | `OSINT/scripts/Domain_IP_Recon.md` |
 | [scripts/Email_OSINT.md](./OSINT/scripts/Email_OSINT.md) | `OSINT/scripts/Email_OSINT.md` |
 | [scripts/Phone_OSINT.md](./OSINT/scripts/Phone_OSINT.md) | `OSINT/scripts/Phone_OSINT.md` |
 | [sherlock-guide.md](./OSINT/sherlock-guide.md) | `OSINT/sherlock-guide.md` |
-| [TSURUGI_LINUX_OSINT_GUIDE.md](./OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) | `OSINT/TSURUGI_LINUX_OSINT_GUIDE.md` |
 
 ## PDF
 
@@ -546,6 +546,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 
 | Document | Repository Path |
 | --- | --- |
+| [README — Tradecraft](./Tradecraft/README.md) | `Tradecraft/README.md` |
 | [active-directory.md](./Tradecraft/active-directory.md) | `Tradecraft/active-directory.md` |
 | [av-edr-evasion.md](./Tradecraft/av-edr-evasion.md) | `Tradecraft/av-edr-evasion.md` |
 | [c2-frameworks.md](./Tradecraft/c2-frameworks.md) | `Tradecraft/c2-frameworks.md` |
@@ -556,7 +557,6 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [network-detection.md](./Tradecraft/network-detection.md) | `Tradecraft/network-detection.md` |
 | [osint-threat-intel.md](./Tradecraft/osint-threat-intel.md) | `Tradecraft/osint-threat-intel.md` |
 | [pentoo-linux-guide.md](./Tradecraft/pentoo-linux-guide.md) | `Tradecraft/pentoo-linux-guide.md` |
-| [README — Tradecraft](./Tradecraft/README.md) | `Tradecraft/README.md` |
 | [routersploit-guide.md](./Tradecraft/routersploit-guide.md) | `Tradecraft/routersploit-guide.md` |
 | [seeker-geolocation-threat-analysis.md](./Tradecraft/seeker-geolocation-threat-analysis.md) | `Tradecraft/seeker-geolocation-threat-analysis.md` |
 | [zphisher-threat-analysis.md](./Tradecraft/zphisher-threat-analysis.md) | `Tradecraft/zphisher-threat-analysis.md` |
@@ -582,10 +582,10 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 
 | Document | Repository Path |
 | --- | --- |
+| [README — WebAppSecurity](./WebAppSecurity/README.md) | `WebAppSecurity/README.md` |
 | [methodology.md](./WebAppSecurity/methodology.md) | `WebAppSecurity/methodology.md` |
 | [owasp-assessment-and-nuclei.md](./WebAppSecurity/owasp-assessment-and-nuclei.md) | `WebAppSecurity/owasp-assessment-and-nuclei.md` |
 | [owasp-top-10.md](./WebAppSecurity/owasp-top-10.md) | `WebAppSecurity/owasp-top-10.md` |
-| [README — WebAppSecurity](./WebAppSecurity/README.md) | `WebAppSecurity/README.md` |
 | [sqlmap-guide.md](./WebAppSecurity/sqlmap-guide.md) | `WebAppSecurity/sqlmap-guide.md` |
 
 ## assets
