@@ -135,7 +135,7 @@ Move from an RF question to a documented result: identify the relevant band and 
 |---|---|---|
 | **[Proxmark3 / RRG firmware](https://github.com/RfidResearchGroup/proxmark3)** | LF/HF identification, capture, supported reading/writing, and emulation | Hardware revision, antenna tuning, firmware/client match, and exact protocol support. |
 | **[Chameleon Ultra](https://github.com/RfidResearchGroup/ChameleonUltra)** | Supported LF/HF credential emulation and reader-side functions | Features depend on firmware and card type; do not assume universal tag support. |
-| **[PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) + [libnfc](https://github.com/nfc-tools/libnfc)** | Selected 13.56 MHz NFC/ISO 14443/FeliCa workflows | Not an LF or UHF reader; do not assume ISO 15693 support. Confirm the current lifecycle status with NXP before selecting this chip for a new design. |
+| **[PN532](./rfid.md#nfc-passive-tag-coupling) + [libnfc](https://github.com/nfc-tools/libnfc)** | Selected 13.56 MHz NFC/ISO 14443/FeliCa workflows | Not an LF or UHF reader; do not assume ISO 15693 support. Confirm the current lifecycle status with NXP before selecting this chip for a new design. |
 | **[Flipper Zero](https://docs.flipper.net/)** | Supported LF credential and HF/NFC identification/emulation | Supported protocol and memory/authentication features vary by card. |
 | **[iCopy-X](https://icopy-x.com/)** | Integrated workflows for supported credentials | Product/firmware-specific compatibility; not a guarantee of cloning arbitrary credentials. |
 | **Regional UHF EPC reader** | Passive UHF tag inventory and interaction | Required regional channel plan, antenna, and EPC/ISO protocol support; LF/HF tools do not substitute for it. |
