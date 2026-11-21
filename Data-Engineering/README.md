@@ -419,7 +419,7 @@ Contributions can extend the general foundations, add small reproducible labs, o
 | **Existing supporting resources** | Linked from their current repository locations |
 | **Core phase labs** | Python standard library and SQLite where used; synthetic local fixtures |
 | **Optional integrations** | Separate dependencies and live services; consult each Verification Record |
-| **Verification scope** | Phase 2/3 local labs rerun on Windows in November 2026. The runner verifies the eight local fixtures. Each guide records the scope of its lab. |
+| **Verification scope** | Five Phase 1 walkthroughs and eight Phase 2/3 local fixtures exercised on Windows in November 2026. The runner covers Phase 2/3. Each guide or the review journal records the lab scope. |
 | **Index review** | September 11, 2026 |
 
 From the repository root, run `python3 -B tools/run_data_labs.py` (or `py -3 -B tools/run_data_labs.py` on Windows). The runner uses temporary storage and requires normal Python mode so the lab assertions run.

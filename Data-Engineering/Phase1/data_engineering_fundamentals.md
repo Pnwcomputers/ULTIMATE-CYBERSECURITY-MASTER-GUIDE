@@ -522,7 +522,7 @@ def load(csv_path: pathlib.Path) -> int:
                         "SELECT 1 FROM assets WHERE asset_id = ?", (asset_id,)
                     ).fetchone() is not None
 
-                    conn.execute(
+                    upsert = conn.execute(
                         """
                         INSERT INTO assets
                             (asset_id, serial, hostname, site, os, last_seen,
@@ -532,14 +532,17 @@ def load(csv_path: pathlib.Path) -> int:
                             hostname    = excluded.hostname,
                             site        = excluded.site,
                             os          = excluded.os,
-                            last_seen   = MAX(assets.last_seen, excluded.last_seen),
+                            last_seen   = excluded.last_seen,
                             source_file = excluded.source_file,
                             loaded_at   = excluded.loaded_at
+                        WHERE excluded.last_seen >= assets.last_seen
                         """,
                         (asset_id, clean["serial"], clean["hostname"], clean["site"],
                          clean["os"], clean["last_seen"], str(csv_path), started),
                     )
-                    if existed:
+                    if upsert.rowcount == 0:
+                        log.info("ignored older observation at input record %d", line_no)
+                    elif existed:
                         updated += 1
                     else:
                         inserted += 1
@@ -631,6 +634,8 @@ sqlite3 -header -column data/warehouse/assets.db \
 ```
 
 > [!NOTE]
+An accepted row passed validation. An older observation can be accepted and skipped, so it contributes to neither `inserted` nor `updated`. The [SQLite UPSERT condition](https://www.sqlite.org/lang_upsert.html) checks the normalized observation time before changing asset fields or provenance.
+
 > The quarantine file appends on every run, so a rerun duplicates reject entries. That is intentional here — it keeps a full audit of what each run saw. In production, either include the run identifier in the quarantine filename or add the same event-identifier deduplication used for accepted records.
 
 ---
@@ -645,9 +650,9 @@ A pipeline is only understood once its failures have been observed deliberately.
 | --- | --- | --- |
 | **Empty source** | `printf 'serial,hostname,site,os,last_seen\n' > data/raw/2026-09-11/empty.csv` then load it | Run succeeds with `read=0`; destination is unchanged; an empty result is distinguishable from a failure |
 | **Malformed file** | Load a file with a missing column header | The error is explicit and no partial write is committed |
-| **Interrupted run** | Press `Ctrl+C` mid-load on a large generated file | The transaction rolls back; no half-loaded state remains |
+| **Interrupted run** | Interrupt a load before the SQLite transaction commits | Asset writes and the run-table row roll back. Quarantine output uses a separate file and may already contain entries. |
 | **Duplicate delivery** | Copy the source file to a new name and load both | Asset count is unchanged; `updated` increments |
-| **Restated record** | Edit one row's `os` value and reload | The upsert applies the correction; `last_seen` does not regress |
+| **Restated record** | Correct a row's `os` while keeping its latest timestamp | The upsert applies the correction. An older observation leaves the asset and its provenance unchanged. |
 | **Disk full** | `ulimit -f 1` in a throwaway shell, then load | The failure surfaces rather than silently truncating |
 
 > [!TIP]
@@ -692,6 +697,7 @@ Answer in your own words. If an answer requires reading the code, the concept is
 | `load_assets.py` | Executed; observed `read=7 accepted=4 quarantined=3 inserted=3 updated=1` | Single-file, single-process SQLite path |
 | Idempotence | Reran the loader; asset count unchanged, second run reported `inserted=0 updated=4` | Concurrency and multi-writer behavior not exercised |
 | Quarantine | Confirmed three JSON Lines records with reason and original row preserved | Quarantine records are appended, not deduplicated |
+| Older observation | Replayed an older valid row with differing asset fields. The current record and provenance stayed unchanged, and the run recorded zero updates. | Local Windows Python 3.14.3 and SQLite 3.50.4 fixture |
 | Reconciliation query | Confirmed row count equals distinct serial count (3 and 3) | Run through the Python `sqlite3` module; the `sqlite3` CLI was unavailable in the verification environment, so the CLI invocations shown are untested syntax equivalents |
 | Empty-source drill | Executed with a header-only file; run succeeded with `read=0` and no destination change | Other drills in §8 are described, not executed here |
 | `event_id()` | Confirmed deterministic output across runs and separator behavior on adjacent-field collisions | Truncated to 32 hex characters; not a cryptographic commitment |
