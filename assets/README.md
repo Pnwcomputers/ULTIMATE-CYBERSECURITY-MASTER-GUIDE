@@ -7,6 +7,28 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Additional Guide Diagrams
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [AUR package review](./diagrams/aur-package-review-build-install.svg) | [Arch Linux cheat sheet](../Documentation/ArchLinux_CheatSheet.md) | Source and build review before installation |
+| [Persistence validation safety](./diagrams/authorized-persistence-validation.svg) | [Domain persistence checklist](../Checklists/Domain-Persistence.md), [persistence checklist](../Checklists/Persistence.md) | Authorization, cleanup, and verifying restored state |
+| [GreatFET I2C observation](./diagrams/greatfet-authorized-i2c-workflow.svg) | [GreatFET One](../HardwareHacking/GreatFETone.md) | Bus ownership, voltage, and observation gates |
+| [Local LLM data paths](./diagrams/local-llm-data-paths.svg) | [Offline LLMs](../AI/offline-llm.md) | Local, remote, and optional network data paths |
+| [Marauder firmware selection](./diagrams/marauder-firmware-selection.svg) | [Wi-Fi Marauder guide](../Documentation/WiFiMarauder_Guide.md) | Board compatibility and firmware verification |
+| [OPNsense rules and SPAN visibility](./diagrams/opnsense-rules-and-span-visibility.svg) | [Homelab setup](../Homelab/HomeLab_Setup.md) | Distinguishes firewall enforcement from sensor visibility |
+| [OSINT evidence publication](./diagrams/osint-evidence-publication-decision.svg) | [OSINT guide](../OSINT/OSINT_GUIDE.md) | Source corroboration and release review |
+| [OSINT scope and collection](./diagrams/osint-opsec-scope-decision.svg) | [Linux cheat sheet](../Documentation/LinuxCheatSheet.md), [OSINT index](../OSINT/README.md) | Scope checks and permitted collection |
+| [OWASP Top 10 category changes](./diagrams/owasp-top10-2021-to-2025-changes.svg) | [OWASP Top 10](../WebAppSecurity/owasp-top-10.md) | Category changes between editions |
+| [PCI DSS scope and validation](./diagrams/pci-dss-scope-and-validation.svg) | [Compliance overview](../Compliance/README.md) | Scope, applicability, and validation evidence |
+| [Raspberry Pi onboard Wi-Fi support](./diagrams/raspberry-pi-onboard-wifi-support.svg) | [Specialized Topics](../SPECIALIZED_TOPICS_GUIDE.md), [CM5 setup](../uConsole/CM5-SETUP.md) | Board, chipset, and driver compatibility checks |
+| [Space RF testing authorization](./diagrams/space-rf-transmission-authorization-flow.svg) | [Space Security Part I](../SpaceSecurity/PartI.md) | Boundaries for receive-only observation and authorized transmission |
+| [Suricata NFQUEUE failure modes](./diagrams/suricata-nfqueue-failure-modes.svg) | [Suricata and Zeek](../IncidentResponse/IDS&IPS/suricata+zeek.md) | Packet handling when the inspection path is unavailable |
+| [T48 supported chip reading](./diagrams/t48-supported-chip-read-workflow.svg) | [T48 programmer](../HardwareHacking/T48_TL866-3G.md) | Part identification, voltage, and readback verification |
+| [Unicode and IDN risk assessment](./diagrams/unicode-idn-risk-assessment.svg) | [Classical cryptography security](../Cryptography/Classical/security.md) | Interpretation of visual similarity in identifiers |
+| [USB-to-UART safe observation](./diagrams/usb-uart-safe-observation.svg) | [BitPirate](../HardwareHacking/BitPirate.md) | Voltage checks and receive-only observation |
+| [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
+
 ## Secure Data Pipeline Operations
 
 | Diagram | Where embedded | Why it belongs |

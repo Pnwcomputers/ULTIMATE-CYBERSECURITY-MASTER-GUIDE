@@ -36,6 +36,24 @@ class VisualCoverageAuditTests(unittest.TestCase):
             self.assertEqual(r["counts"]["svg_missing_accessibility_metadata"], 0)
             self.assertEqual(r["counts"]["svg_invalid_or_unsafe"], 0)
 
+    def test_embedded_asset_still_requires_an_index_entry(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "assets/diagrams").mkdir(parents=True)
+            diagram = "assets/diagrams/example.svg"
+            (root / diagram).write_text(GOOD_SVG, encoding="utf-8")
+            (root / "guide.md").write_text(f"![Example]({diagram})", encoding="utf-8")
+
+            before = audit.visual_audit(root)
+            self.assertEqual(before["counts"]["svg_embedded"], 1)
+            self.assertEqual(before["unindexed_asset_svgs"], [diagram])
+
+            (root / "assets/README.md").write_text(
+                "[Example](./diagrams/example.svg)", encoding="utf-8"
+            )
+            after = audit.visual_audit(root)
+            self.assertEqual(after["counts"]["asset_svg_missing_from_index"], 0)
+
     def test_broken_asset_and_active_svg_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
