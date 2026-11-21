@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 303" role="img" aria-labelledby="title desc">
+  <title id="title">Encrypted DNS and DNSSEC protect different parts of a lookup</title>
+  <desc id="desc">Transport encryption protects a configured client-to-resolver hop. A resolver doing DNSSEC validation checks signed records along a chain of trust separately.</desc>
+  <rect width="1000" height="303" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="48" fill="#fff" font-size="27" font-weight="700">Encrypted DNS and DNSSEC protect different parts of a lookup</text>
+    <rect x="30" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="50" y="112" fill="#fff" font-size="20" font-weight="700">Encrypted DNS transport</text>
+    <text x="50" y="146" fill="#7dd3fc" font-size="17">Client → selected resolver</text>
+    <text x="50" y="184" fill="#d7e6f4" font-size="16">DoH or DoT protects query content on this hop.</text>
+    <text x="50" y="211" fill="#d7e6f4" font-size="16">The selected resolver can read the query.</text>
+    <rect x="515" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="535" y="112" fill="#fff" font-size="20" font-weight="700">DNSSEC data validation</text>
+    <text x="535" y="146" fill="#c7d2fe" font-size="17">Validating resolver → signed DNS data</text>
+    <text x="535" y="184" fill="#d7e6f4" font-size="16">Check signed data against the chain of trust.</text>
+    <text x="535" y="211" fill="#d7e6f4" font-size="16">Unsigned data has no DNSSEC authentication.</text>
+    <text x="30" y="273" fill="#d7e6f4" font-size="16">A deployment can use both. Check transport and DNSSEC validation independently.</text>
+  </g>
+</svg>

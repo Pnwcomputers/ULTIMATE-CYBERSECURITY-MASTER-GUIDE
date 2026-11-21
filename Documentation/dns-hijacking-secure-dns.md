@@ -25,6 +25,8 @@ A DNS lookup can be manipulated at a **client**, **local network**, **recursive 
 
 ## Secure DNS Protocols: What Each Protects
 
+![Encrypted DNS transport covers the client-to-resolver hop, while DNSSEC validation checks signed DNS records against a chain of trust](../assets/diagrams/dns-encryption-and-validation-boundaries.svg)
+
 | Feature | Primary Security Property | Transport / Port | Limitations |
 |---|---|---|---|
 | Traditional DNS | Basic name resolution | UDP/TCP 53 | Usually plaintext between client and resolver |
