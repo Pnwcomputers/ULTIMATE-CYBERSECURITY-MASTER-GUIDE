@@ -114,26 +114,46 @@ flowchart LR
 
 ## Phase 2: Burp Suite Workflow
 
-Burp Suite (Community or Professional) is the core interception proxy.
+Burp Suite is one option for intercepting and reviewing web traffic. Its settings
+are operational safeguards; they do not replace written authorization, target
+verification, or the agreed rules of engagement.
 
-1. **Proxy setup:** route the browser through Burp; install Burp's CA cert for TLS.
-2. **Target scope:** define the approved hosts and paths, and configure each tool to operate only on the intended targets. Scope filters and steers Burp tools; it does not grant authorization or necessarily block every out-of-scope request. Where your Burp version and project settings provide it, enable **Drop all out-of-scope requests**, and still review destinations, redirects, extensions, and manual requests against the signed rules of engagement. See [PortSwigger's scope guide](https://portswigger.net/burp/documentation/desktop/tools/target/scope) and [out-of-scope request handling settings](https://portswigger.net/burp/documentation/desktop/settings/project/scope).
-3. **Crawl & map:** browse the app to populate the site map; review every request.
-4. **Repeater:** manually manipulate individual requests to probe behavior.
-5. **Intruder:** automate payload injection (fuzzing, brute force) within scope.
-6. **Decoder / Comparer:** encode/decode data and diff responses.
-7. **Extensions (BApp Store):** *Autorize*/*Auth Analyzer* (access control),
-   *Logger++*, *JWT Editor*, *Param Miner*, *Active Scan++*.
-8. **Scanner (Pro):** automated scanning to complement - not replace - manual testing.
+1. **Proxy setup:** use Burp's preconfigured browser where suitable. If using an
+   external browser, use a dedicated test profile for Burp's CA certificate and
+   remove its trust after the engagement; do not install the test CA broadly.
+2. **Target scope:** define approved hosts and paths and configure applicable
+   tools accordingly. Scope filters and steers Burp tools but does not itself
+   grant authorization or block every out-of-scope request. Where supported,
+   enable **Drop all out-of-scope requests** and still review redirects,
+   destinations, extensions, and manual requests against the signed scope.
+   See [PortSwigger scope settings](https://portswigger.net/burp/documentation/desktop/tools/target/scope)
+   and [out-of-scope handling](https://portswigger.net/burp/documentation/desktop/settings/project/scope).
+3. **Crawl and map:** browse only approved application paths and review requests
+   before replaying or modifying them. Protect captured traffic as sensitive
+   assessment evidence.
+4. **Repeater:** use designated test accounts and records to examine individual
+   requests; verify resulting state and stop if behavior risks unintended impact.
+5. **Intruder and active scanning:** use only within explicit scope and approved
+   request limits. Configure concurrency and delays to avoid excess load. Do not
+   run password guessing against real users or destructive payloads unless
+   separately authorized and controlled. See [Intruder resource pools](https://portswigger.net/burp/documentation/desktop/tools/intruder/configure-attack/resource-pool).
+6. **Decoder and Comparer:** use for local transformations and response
+   comparisons; avoid sending secrets to external decoding services.
+7. **Extensions:** install only organization-approved extensions. Review source,
+   maintenance, permissions, and data handling; extensions can send or retain
+   captured application data.
+8. **Scanner:** automated active scans can generate many requests and alter
+   application state. Set the target, schedule, and limits before running, then
+   manually validate candidates.
 
 ![Workflow showing authorization, target boundaries, Burp scope settings, request review, and stop conditions](../assets/diagrams/webapp-authorization-scope-gates.svg)
 
 *Conceptual workflow: configure scope as an operational safeguard, while written authorization and review of each action remain the controlling boundaries.*
 
 > [!TIP]
-> Automated scanners find the easy issues; access-control and business-logic flaws
-> almost always require manual testing with two accounts and an understanding of the
-> app's intent.
+> Automated tools can identify candidates, but they do not establish complete
+> authorization or business-logic coverage; manually verify results against the
+> application's intended behavior and approved test identities.
 
 ---
 
