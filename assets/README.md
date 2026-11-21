@@ -935,7 +935,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 
 ## Historical Asset With Cropped Labels
 
-- [advnacedflows.jpg](./advnacedflows.jpg) is a simplified CPU, RAM and storage illustration. The right edge cuts through the storage node and its labels. The [Python data processing guide](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) uses an original, complete illustration to explain how file reading affects memory.
+- [advnacedflows.jpg](./advnacedflows.jpg) is a simplified CPU, RAM and storage illustration. The right edge cuts through the storage node and its labels. The [Manjaro test bench guide](../HardwareTesting/Manjaro_Intel_TestBench.md#5-memory-and-storage-diagnostics) already embeds a complete CPU, RAM and storage comparison.
 
 ## rtl_433 Telemetry Lab Visuals
 
