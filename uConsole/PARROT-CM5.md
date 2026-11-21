@@ -32,27 +32,29 @@ Use only after Parrot already boots with working uConsole screen, input, desktop
 
 ## Run
 
-From this directory, review the script first:
+![Parrot CM5 setup checks the existing image, reviews optional APT changes, and verifies the device after installation](../assets/diagrams/uconsole-parrot-cm5-plan-and-readback.svg)
+
+Run these examples from the repository root after reviewing the script:
 
 ```bash
-bash ./uconsole-cm5-parrot-setup.sh --help
-sudo bash ./uconsole-cm5-parrot-setup.sh --dry-run
+bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --help
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --dry-run
 
 # Default: configuration snapshot and package audit, no package installation.
-sudo bash ./uconsole-cm5-parrot-setup.sh
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh
 
 # Preview the default information-gathering group using cached APT lists.
-sudo bash ./uconsole-cm5-parrot-setup.sh --install-parrot-tools --dry-run
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --install-parrot-tools --dry-run
 
 # Install that group; refreshes package metadata and checks the resolver plan.
-sudo bash ./uconsole-cm5-parrot-setup.sh --install-parrot-tools
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --install-parrot-tools
 
 # Other upstream groups (verify available packages on this device).
-sudo bash ./uconsole-cm5-parrot-setup.sh --parrot-meta=parrot-tools-wireless --dry-run
-sudo bash ./uconsole-cm5-parrot-setup.sh --parrot-meta=parrot-tools-full --dry-run
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --parrot-meta=parrot-tools-wireless --dry-run
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --parrot-meta=parrot-tools-full --dry-run
 
 # Optional AIO package, only when its prerequisites above are met.
-sudo bash ./uconsole-cm5-parrot-setup.sh --with-aio --dry-run
+sudo bash uConsole/scripts/uconsole-cm5-parrot-setup.sh --with-aio --dry-run
 ```
 
 Remove `--dry-run` from a reviewed selection to execute it. A dry run uses cached package metadata, performs APT simulation and makes no log, backup or state writes. Missing/stale metadata can cause a dry run to fail or differ from the real plan. Normal package runs refresh metadata and check again before installing.
@@ -107,7 +109,7 @@ No Parrot/CM5 hardware installation has been tested for this version. Validate o
 ## Related Files
 
 - [Parrot setup script](scripts/uconsole-cm5-parrot-setup.sh)
-- [Scripts index](./README.md)
+- [Scripts index](scripts/README.md)
 - [Original CM5 script](scripts/uconsole-cm5-setup.sh)
 - [CM5 guide](CM5-SETUP.md)
 - [Display recovery](CM5-DISPLAY-RECOVERY.md)

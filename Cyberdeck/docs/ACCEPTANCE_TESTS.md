@@ -31,6 +31,11 @@ For deny tests, an unreachable destination alone is weak evidence: first show th
 
 ## Completion Definitions
 
+![Qualified Cyberdeck capabilities require an in-scope test, observed evidence, and a passing result for the actual setup](../../assets/diagrams/cyberdeck-qualification-evidence-gate.svg)
+
+Use the outcomes for the intended capability. Record any required row that is blocked or not tested
+as unverified until an observed result supports it. Reassess the affected rows after a change.
+
 **Public reference ready:** documented navigation resolves, Python tests pass, the offline create/verify rehearsal passes, synthetic examples are reviewed, limitations are explicit and publication checks are completed. This does not require claiming physical qualification.
 
 **Private lab ready:** inventory, topology and relevant Q01–Q11 records are complete for the actual build; restore and stop procedures are repeatable. Failures have owners and client connection remains blocked where applicable.
