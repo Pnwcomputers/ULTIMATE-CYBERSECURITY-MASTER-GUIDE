@@ -125,13 +125,37 @@ and [A04 Cryptographic Failures](owasp-top-10.md#a04-cryptographic-failures).
 ## Phase 4: Authentication & Session Testing
 
 Maps to [A07 Authentication Failures](owasp-top-10.md#a07-authentication-failures).
+Use preapproved synthetic accounts and the agreed rate limits; do not run
+credential-stuffing or high-volume guessing against real users or production.
 
-- Login: rate limiting / lockout, username enumeration, credential stuffing exposure.
-- Password reset and MFA flows for bypasses and information leaks.
-- Session lifecycle: fixation, rotation on privilege change, invalidation on logout,
-  idle/absolute expiry.
-- Tokens/JWT: validate `alg` and signature server-side; check for `alg:none`, weak
-  secrets, missing expiry, and sensitive claims.
+```mermaid
+flowchart LR
+    S[Confirm scope,<br/>test accounts, and limits] --> L[Test login,<br/>MFA, and throttling]
+    L --> R[Test recovery,<br/>enrollment, and fallback]
+    R --> I[Authenticate and record<br/>session/token state]
+    I --> P[Test privilege change,<br/>expiry, and intended use]
+    P --> O[Test logout,<br/>revocation, and reuse]
+    O --> E[Record evidence,<br/>state, and gaps]
+```
+
+- **Credential controls:** check default and weak-password rejection, breached
+  password checks where applicable, account-enumeration behavior, and rate limits
+  or progressive delays. Verify protections do not create an easy denial-of-service
+  path through blanket account lockout.
+- **MFA and recovery:** test enrollment, step-up, recovery, and fallback routes
+  for bypasses and unintended differences in assurance. Use the agreed synthetic
+  accounts and recovery channels.
+- **Session lifecycle:** check that session identifiers rotate after
+  authentication and privilege changes; inspect cookie protections; and verify
+  idle/absolute expiration, logout, revocation, and reuse behavior.
+- **Tokens:** use test tokens to confirm the server validates signature and
+  configured algorithm, issuer, audience, lifetime, and required scopes or claims
+  for the token's intended use. Test invalid or altered tokens only in the
+  approved environment; decoding a JWT is not validation.
+- **Evidence:** record the request path, test identity/role, expected and observed
+  result, and whether the session or token remains usable afterward. See the
+  [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+  and [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html).
 
 ---
 
