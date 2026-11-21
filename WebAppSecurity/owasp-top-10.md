@@ -157,18 +157,65 @@ For category scope, see [OWASP A03:2025](https://top10.owasp.org/2025/A03_2025-S
 
 ## A04: Cryptographic Failures
 
-Weak, misused, or missing cryptography that exposes data in transit or at rest.
+Cryptographic failures expose sensitive data or undermine trust because encryption
+is absent, incorrectly configured, weakened, or used with poorly protected keys,
+secrets, certificates, or random values. Assess data in transit and at rest, plus
+cryptography used for authentication, integrity, and key derivation.
 
-- **How it is exploited:** cleartext transport, weak/deprecated ciphers or hashes
-  (MD5, SHA-1, ECB), hard-coded or reused keys, missing encryption of sensitive
-  data, predictable IVs/nonces, unsalted password hashes.
-- **How to test:** check TLS configuration and certificate validity; look for
-  sensitive data sent or stored in cleartext; review password storage
-  (algorithm/salt); inspect for hard-coded secrets; verify token/randomness quality.
-- **How to defend:** enforce TLS (HSTS); use vetted algorithms (AES-GCM,
-  ChaCha20-Poly1305; Argon2/bcrypt/scrypt for passwords); manage keys in a KMS/HSM;
-  classify data and encrypt sensitive fields; never roll your own crypto.
-- **CWE:** CWE-259, CWE-327, CWE-331. **Cheat sheet:** [Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    D[Sensitive data] -->|Transit| T[TLS and certificate validation]
+    D -->|Stored| E[Encryption and access controls]
+    D -->|Passwords| P[Adaptive password hashing]
+    K[Keys and secrets] --> V[Restricted storage, rotation, and audit]
+    R[Tokens, IVs, nonces] --> C[Cryptographically secure randomness]
+    T --> G[Verify protocol, hostname, trust chain]
+    E --> G2[Verify algorithm, mode, and key handling]
+    P --> G3[Verify approved password-hashing function]
+    C --> G4[Check unpredictability and reuse]
+```
+
+*Review map: identify the protected data and trust boundary, then verify the
+cryptographic control and its configuration at the point where it is used.*
+
+- **How it fails:** sensitive traffic is sent without properly enforced TLS;
+  certificates or trust chains are not validated; outdated protocols, weak
+  algorithms, or insecure modes are accepted; encryption keys are hard-coded,
+  exposed, reused, or poorly managed; random tokens or nonces are predictable or
+  reused; or passwords are stored with fast general-purpose hashes instead of an
+  adaptive password-hashing scheme. Examples such as MD5 and SHA-1 require context:
+  they are unsuitable for new collision-resistant designs and password storage,
+  while legacy compatibility use must be assessed against the specific protocol
+  and threat model.
+- **How to assess:** map sensitive data flows and storage locations; inspect
+  effective TLS configuration and certificate/hostname validation; identify
+  cryptographic algorithms, modes, key sizes, and downgrade paths; review key
+  storage, access, rotation, and exposure in source/configuration; verify that
+  security-sensitive randomness comes from the platform CSPRNG and that IV/nonce
+  requirements are met; review password-hashing choices and migration settings.
+  Use authorized configuration review and safe test environments; a scanner or
+  source search alone cannot establish that every cryptographic use is safe.
+- **How to defend:** use maintained platform libraries and protocol defaults;
+  enforce HTTPS and a current TLS configuration; use authenticated encryption
+  where appropriate and follow algorithm-specific nonce requirements; keep keys
+  out of source control and restrict, monitor, and rotate access through a
+  managed key service; use a CSPRNG for secrets and security tokens; store
+  passwords with a purpose-built adaptive password-hashing function such as
+  Argon2id, bcrypt, or scrypt, following current implementation guidance. Do not
+  invent cryptographic primitives or reuse keys across purposes.
+- **Validation:** confirm each sensitive flow is protected end to end and rejects
+  invalid certificates; verify deployed configuration rather than relying only
+  on source defaults; confirm key material is not exposed to unauthorized
+  identities and that rotation/revocation procedures work; test token and nonce
+  generation for the implementation's stated guarantees; and verify stored
+  passwords cannot be recovered as plaintext and use an approved password-hashing
+  scheme. Record exceptions, legacy dependencies, and compensating controls.
+- **CWE examples:** CWE-327 (risky cryptographic algorithm), CWE-331
+  (insufficient entropy), and CWE-338 (cryptographically weak PRNG); the OWASP
+  category maps to additional weaknesses. **References:** [OWASP A04:2025](https://top10.owasp.org/2025/A04_2025-Cryptographic_Failures/),
+  [Cryptographic Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html),
+  [Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html),
+  and [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
 
 ---
 
