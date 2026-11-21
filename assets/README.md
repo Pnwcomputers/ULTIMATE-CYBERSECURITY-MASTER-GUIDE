@@ -36,6 +36,14 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [USB-to-UART safe observation](./diagrams/usb-uart-safe-observation.svg) | [BitPirate](../HardwareHacking/BitPirate.md) | Voltage checks and receive-only observation |
 | [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
 
+## Evidence Collection and Release Verification
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Bento evidence media boundaries](./diagrams/bento-live-response-media-boundaries.svg) | [Bento portable DFIR guide](../IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Separates tools, the live source, and the protected evidence destination |
+| [Pipeline CI trust and promotion](./diagrams/data-pipeline-ci-trust-and-promotion.svg) | [Pipeline testing and CI/CD](../Data-Engineering/Phase3/pipeline_testing_cicd.md) | Connects test scope, trusted artifact identity and deployment approval |
+| [Unified visibility evidence sources](./diagrams/unified-visibility-evidence-sources.svg) | [Unified network visibility](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md#reference-topology) | Compares wireless observations, wired traffic and device inventory before correlation |
+
 ## Setup and Capability Readback
 
 | Diagram | Where embedded | Why it belongs |

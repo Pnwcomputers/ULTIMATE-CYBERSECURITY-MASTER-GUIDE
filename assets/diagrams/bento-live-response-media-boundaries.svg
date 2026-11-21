@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 286" role="img" aria-labelledby="title desc">
+  <title id="title">Keep Bento tools and evidence on separate media</title>
+  <desc id="desc">The responder uses verified tool media, documents live interactions with the authorized source, and writes collected output to a separate protected evidence destination before verifying a working copy.</desc>
+  <rect width="1000" height="286" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="46" fill="#fff" font-size="26" font-weight="700">Keep Bento tools and evidence on separate media</text>
+    <rect x="30" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="46" y="109" font-size="18" font-weight="700" fill="#fff">Verified tool media</text>
+    <text x="46" y="139" font-size="15" fill="#d7e6f4">Known versions and hashes</text>
+    <text x="46" y="163" font-size="15" fill="#d7e6f4">Protect toolkit from writes</text>
+    <rect x="357" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="373" y="109" font-size="18" font-weight="700" fill="#fff">Authorized source</text>
+    <text x="373" y="139" font-size="15" fill="#d7e6f4">Record scope and live changes</text>
+    <text x="373" y="163" font-size="15" fill="#d7e6f4">Collect only required data</text>
+    <rect x="684" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#5eead4" stroke-width="2"/>
+    <text x="700" y="109" font-size="18" font-weight="700" fill="#fff">Protected evidence store</text>
+    <text x="700" y="139" font-size="15" fill="#d7e6f4">Verify destination and capacity</text>
+    <text x="700" y="163" font-size="15" fill="#d7e6f4">Hash originals and analyze a copy</text>
+    <path d="M321 132h29m-7-6 7 6-7 6m298-6h29m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <rect x="30" y="219" width="938" height="39" rx="8" fill="#1d2e46"/>
+    <text x="48" y="244" font-size="16" fill="#fff">A live collection changes the source. Document what ran and preserve verified originals.</text>
+  </g>
+</svg>

@@ -238,6 +238,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/bento-live-response-media-boundaries.svg": (
+        "IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md",
+    ),
+    "assets/diagrams/data-pipeline-ci-trust-and-promotion.svg": (
+        "Data-Engineering/Phase3/pipeline_testing_cicd.md",
+    ),
+    "assets/diagrams/unified-visibility-evidence-sources.svg": (
+        "IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md",
+    ),
     "assets/diagrams/endpoint-telemetry-query-paths.svg": (
         "IncidentResponse/Endpoint-Visibility/README.md",
     ),
