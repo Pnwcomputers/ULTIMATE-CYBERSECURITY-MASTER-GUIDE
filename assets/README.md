@@ -309,6 +309,9 @@ These figures illustrate the actual decision points in their respective guides; 
 | [uConsole Hardware & OS Preflight](./diagrams/uconsole-hardware-os-preflight-paths.svg) | [uConsole Setup](../uConsole/README.md) | CM4/CM5 distinction, native OS image, optional peripherals and physical readback |
 | [Cryptography Primitive Decision Map](./diagrams/cryptography-primitive-decision-map.svg) | [Cryptography Overview](../Cryptography/README.md) | Four distinct security goals: AEAD, password KDF, signatures/HMAC and key establishment |
 | [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) | Mean column IC values for a reproducible synthetic repeating-key example |
+| [Encrypted DNS and DNSSEC boundaries](./diagrams/dns-encryption-and-validation-boundaries.svg) | [DNS resolver defense](../Documentation/dns-hijacking-secure-dns.md) | Shows the separate confidentiality and authenticity controls |
+| [TAP monitor capacity](./diagrams/tap-full-duplex-monitor-capacity.svg) | [Network TAPs](../Documentation/network-taps-and-packet-visibility.md#breakout-vs-aggregation-example) | Explains aggregate output oversubscription during full-duplex traffic |
+| [VLAN forwarding and enforcement](./diagrams/vlan-forwarding-policy-boundaries.svg) | [Network segmentation](../Documentation/network-segmentation-dmz-acl-vlan.md#acl-strategy--secure-defaults) | Locates policy enforcement along the actual traffic path |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
 ## Firmware, Cyberdeck Devices & Virtualization Visuals

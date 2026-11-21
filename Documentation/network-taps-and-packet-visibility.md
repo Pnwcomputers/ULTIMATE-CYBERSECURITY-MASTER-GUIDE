@@ -41,15 +41,10 @@ A **network TAP (test access point)** provides a copy of link traffic to a separ
 
 ### Breakout vs Aggregation Example
 
-```text
-Link direction A ─────────► Monitor NIC 1 ─┐
-                                          ├─ timestamp-aware merge or separate PCAPs
-Link direction B ─────────► Monitor NIC 2 ─┘
+![Separate TAP feeds have individual capture paths, while both one-gigabit directions can oversubscribe a one-gigabit aggregated monitor output](../assets/diagrams/tap-full-duplex-monitor-capacity.svg)
 
-Both directions ──► aggregation TAP ──► ONE monitor NIC
-                         ▲
-                 output can oversubscribe
-```
+If you combine captures from two monitor interfaces, validate packet direction and timestamp
+alignment before using the merged timeline.
 
 For full-duplex 1 Gbps links, each direction can individually reach 1 Gbps. Aggregating both into **one** 1 Gbps tool port may lose packets when simultaneous traffic exceeds output capacity. Choose adequate output bandwidth and record packet drops before claiming complete visibility.
 

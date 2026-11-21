@@ -244,6 +244,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/openbsd-pf-state-and-rule-flow.svg": (
         "IncidentResponse/Firewalls/openbsd_pf.md",
     ),
+    "assets/diagrams/dns-encryption-and-validation-boundaries.svg": (
+        "Documentation/dns-hijacking-secure-dns.md",
+    ),
+    "assets/diagrams/tap-full-duplex-monitor-capacity.svg": (
+        "Documentation/network-taps-and-packet-visibility.md",
+    ),
+    "assets/diagrams/vlan-forwarding-policy-boundaries.svg": (
+        "Documentation/network-segmentation-dmz-acl-vlan.md",
+    ),
     "assets/diagrams/network-detection-sensor-coverage-and-evidence.svg": (
         "Tradecraft/network-detection.md",
     ),

@@ -102,6 +102,12 @@ The matrix is a **policy sketch**, not a complete firewall ruleset. Stateful rul
 
 ## ACL Strategy & Secure Defaults
 
+![Same-VLAN traffic can remain on the switch while traffic between routed zones follows the gateway path where a firewall may enforce policy](../assets/diagrams/vlan-forwarding-policy-boundaries.svg)
+
+Map the forwarding path before choosing a firewall or ACL. A routed policy applies
+to traffic that traverses its enforcement point. Review same-VLAN traffic and
+alternate gateways separately. [OPNsense firewall processing](https://docs.opnsense.org/manual/firewall.html)
+
 Prefer **default deny inter-zone** with documented exceptions. Rules should state source zone, destination zone, direction, state, protocol, port, logging, owner, reason, expiration and retest procedure.
 
 Example **policy data**, **not** executable syntax:

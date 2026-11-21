@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 303" role="img" aria-labelledby="title desc">
+  <title id="title">Two link directions can exceed one monitor port</title>
+  <desc id="desc">At simultaneous line rate, two one-gigabit Ethernet directions can offer two gigabits per second to a one-gigabit aggregate output. Separate feeds can avoid that particular shared output limit.</desc>
+  <rect width="1000" height="303" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="48" fill="#fff" font-size="27" font-weight="700">Two link directions can exceed one monitor port</text>
+    <rect x="30" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="50" y="112" fill="#fff" font-size="20" font-weight="700">Breakout</text>
+    <text x="50" y="146" fill="#7dd3fc" font-size="17">A → Monitor 1 · B → Monitor 2</text>
+    <text x="50" y="184" fill="#d7e6f4" font-size="16">Each capture path has its own capacity.</text>
+    <text x="50" y="211" fill="#d7e6f4" font-size="16">Correlate both captures using aligned timestamps.</text>
+    <rect x="515" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="535" y="112" fill="#fff" font-size="20" font-weight="700">Aggregation</text>
+    <text x="535" y="146" fill="#c7d2fe" font-size="17">A + B → one monitor output</text>
+    <text x="535" y="184" fill="#d7e6f4" font-size="16">1 Gbps + 1 Gbps can exceed a 1 Gbps output.</text>
+    <text x="535" y="211" fill="#d7e6f4" font-size="16">Check the TAP, output and sensor drop counters.</text>
+    <text x="30" y="273" fill="#d7e6f4" font-size="16">A healthy production link can coexist with incomplete capture evidence.</text>
+  </g>
+</svg>

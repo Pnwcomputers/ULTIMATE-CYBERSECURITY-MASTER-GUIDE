@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 303" role="img" aria-labelledby="title desc">
+  <title id="title">Find the policy point for a VLAN flow</title>
+  <desc id="desc">Peers in the same VLAN can exchange switched traffic without crossing a routing firewall. Traffic between different IP networks takes a routing path, where firewall rules apply if the flow crosses the enforceable interface.</desc>
+  <rect width="1000" height="303" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="48" fill="#fff" font-size="27" font-weight="700">Find the policy point for a VLAN flow</text>
+    <rect x="30" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="50" y="112" fill="#fff" font-size="20" font-weight="700">Same VLAN</text>
+    <text x="50" y="146" fill="#7dd3fc" font-size="17">Host A → switch → Host B</text>
+    <text x="50" y="184" fill="#d7e6f4" font-size="16">Ordinary switching can keep the flow local.</text>
+    <text x="50" y="211" fill="#d7e6f4" font-size="16">Use an appropriate Layer 2 or endpoint control.</text>
+    <rect x="515" y="75" width="455" height="160" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="535" y="112" fill="#fff" font-size="20" font-weight="700">Between routed zones</text>
+    <text x="535" y="146" fill="#c7d2fe" font-size="17">Source VLAN → gateway → destination VLAN</text>
+    <text x="535" y="184" fill="#d7e6f4" font-size="16">Identify the device that routes the flow.</text>
+    <text x="535" y="211" fill="#d7e6f4" font-size="16">Apply and verify policy where it actually crosses.</text>
+    <text x="30" y="273" fill="#d7e6f4" font-size="16">Test allowed and denied paths from their intended source zones. Check for alternate routes.</text>
+  </g>
+</svg>
