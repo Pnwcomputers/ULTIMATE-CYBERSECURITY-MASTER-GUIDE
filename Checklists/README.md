@@ -262,32 +262,11 @@ These checklists serve as:
 5. **Report improvements:** Separate observed facts from interpretation, document timing and limitations, and recommend owner-approved detection or control changes. Retest only within renewed or continuing authorization.
 ### For Blue Team / Security Defenders
 
-```
-1. Understanding Threats
-   └─> Study attack techniques in checklists
-   └─> Map to MITRE ATT&CK framework
-   └─> Identify relevant threats to environment
-   └─> Prioritize high-risk techniques
-
-2. Detection Development
-   └─> Create detection rules for techniques
-   └─> Develop hunting queries
-   └─> Build correlation rules
-   └─> Test detection coverage
-
-3. Hardening & Mitigation
-   └─> Implement preventive controls
-   └─> Harden configurations per checklists
-   └─> Validate security baselines
-   └─> Test detection capabilities
-
-4. Purple Team Exercises
-   └─> Use checklists for controlled testing
-   └─> Validate detection and response
-   └─> Measure coverage and gaps
-   └─> Improve security posture iteratively
-```
-
+1. **Prioritize relevant behavior:** Use the checklist as a source of hypotheses, then consider the assets, identities, threat model, and business impact in your environment.
+2. **Confirm telemetry:** Identify the event sources, configuration prerequisites, retention, and expected gaps before writing a detection. An absent event or alert does not prove that behavior did not occur.
+3. **Build and tune analytics:** Correlate signals where practical, document expected false positives and blind spots, and assign an owner for review and maintenance.
+4. **Validate safely:** Prefer representative synthetic events or benign simulations. Any live testing needs written approval, defined scope, safeguards, and a stop path.
+5. **Improve controls and response:** Record what the validation did and did not establish, tune response procedures, and track remediation and retesting with explicit coverage limits.
 ### For Security Auditors
 
 ```
