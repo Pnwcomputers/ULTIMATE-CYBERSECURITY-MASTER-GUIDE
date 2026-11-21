@@ -290,15 +290,38 @@ them.
 
 ## Phase 8: API & GraphQL Testing
 
-APIs are a major modern attack surface (see the OWASP API Security Top 10).
+Use the approved API inventory, specification, and test identities; API routes and
+schemas are in scope only when the rules of engagement include them.
 
-- **REST:** enumerate endpoints (Swagger/OpenAPI if exposed); test object- and
-  function-level authorization (BOLA/BFLA - the API analogue of A01); mass
-  assignment; excessive data exposure; rate limiting.
-- **GraphQL:** attempt introspection to map the schema; test authorization per
-  resolver; watch for nested-query/batching abuse (DoS) and injection via arguments.
-- Tooling: Burp, Postman, `graphql-cog`/`clairvoyance` (introspection), and the
-  [OWASP API Security Top 10](https://owasp.org/API-Security/).
+```mermaid
+flowchart LR
+    I[Confirm API hosts,<br/>versions, and schema] --> A[Verify authentication<br/>and function access]
+    A --> O[Check object and<br/>property authorization]
+    O --> Q[Test input, workflow,<br/>and data exposure]
+    Q --> R[Review rate, depth,<br/>breadth, and size limits]
+    R --> E[Record results,<br/>coverage, and gaps]
+```
+
+- **REST and HTTP APIs:** compare deployed routes with the approved OpenAPI
+  inventory; test authentication, function-level access, object-level access,
+  property-level read/write permissions, mass assignment, input handling, and
+  sensitive data exposure with designated test identities and records. A
+  published API specification does not grant permission to test every listed
+  host or operation.
+- **GraphQL:** review schema visibility and query/mutation behavior. Test
+  authorization at relevant resolver, object, and property boundaries;
+  introspection availability alone is not proof of a vulnerability. In a
+  controlled environment, assess query depth, breadth/aliases, batching,
+  pagination, and resource-cost controls using bounded requests. Verify errors
+  do not disclose sensitive implementation details.
+- **Resource and workflow limits:** test rate, request-size, and operation limits
+  without generating denial-of-service load. Check sensitive business flows for
+  abuse only with approved synthetic data and reversible effects.
+- **Evidence and tools:** use an approved intercepting proxy or API client to
+  capture exact requests and responses, identity, route/version, expected access,
+  actual outcome, and resulting state. Confirm automated findings manually.
+  Map coverage to the [OWASP API Security Top 10:2023](https://api-security.owasp.org/editions/2023/en/0x11-t10/)
+  and [GraphQL security guidance](https://graphql.org/learn/security/).
 
 ---
 
