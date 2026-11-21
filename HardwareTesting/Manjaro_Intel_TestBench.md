@@ -64,14 +64,26 @@ These commands are useful before running any benchmark. They establish the hardw
 
 ## 3. Thermal Monitoring and Power Management
 
-With high-end Intel CPUs, especially i9-class chips, thermal behavior and power-limit behavior are critical. Always establish whether the system is failing because of hardware instability, bad cooling, poor mounting pressure, BIOS power behavior, or a true component fault.
+Compare telemetry across idle, a bounded workload, and cooldown. Record the
+workload, CPU model, ambient temperature, and cooling settings. Match temperature
+and clock changes to timestamps from the same run.
+
+![An illustrative timeline aligns CPU package temperature and busy frequency during idle, sustained load, and cooldown, with a checklist for investigating a clock drop](../assets/diagrams/hardware-thermal-soak-evidence.svg)
+
+*Conceptual traces.* A drop in busy frequency can reflect temperature, power or
+current limits, or a change in the workload. Check package power, workload
+utilization, and available throttle evidence before attributing the drop.
+Use the unit's model-specific limits and stop criteria.
+[Linux turbostat fields](https://github.com/torvalds/linux/blob/master/tools/power/x86/turbostat/turbostat.8) ·
+[Linux Intel thermal throttle reporting](https://cdn.kernel.org/doc/html/latest/admin-guide/thermal/intel_thermal_throttle.html) ·
+[Intel processor temperature guidance](https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html)
 
 | Command                      | Purpose             | Explanation                                                                                                                                                                 |
 | :--------------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sudo sensors-detect --auto` | Sensor setup        | Detects supported motherboard and CPU sensors. Run once after installing `lm_sensors`.                                                                                      |
-| `watch -n 1 sensors`         | Basic thermal watch | Displays temperatures, voltages, and fan readings every second.                                                                                                             |
+| `watch -n 1 sensors`         | Basic thermal watch | Refreshes available sensor readings about once per second.                                                                                                                   |
 | `s-tui`                      | Terminal UI monitor | Visual terminal monitor for CPU frequency, utilization, temperature, and power. Package availability can vary; install from repo or AUR depending on Manjaro branch.        |
-| `sudo turbostat`             | Intel CPU telemetry | Shows C-states, frequencies, package power, throttling behavior, and power-limit behavior on supported Intel CPUs. Package availability can vary by kernel/tooling package. |
+| `sudo turbostat`             | Intel CPU telemetry | Reports available fields including `Busy%`, `Bzy_MHz`, `PkgTmp`, and `PkgWatt`. Field availability depends on CPU, kernel, and tool version. |
 | `sudo modprobe msr`          | Enable MSR access   | May be required before some Intel telemetry tools can read power/frequency data.                                                                                            |
 | `sudo intel_gpu_top`         | Intel iGPU monitor  | Monitors Intel integrated graphics utilization. Requires `intel-gpu-tools`.                                                                                                 |
 | `nvtop`                      | GPU monitor         | TUI GPU monitor that can support Intel, AMD, and NVIDIA depending on installed drivers/libraries.                                                                           |
@@ -109,7 +121,7 @@ Memory and storage problems can mimic CPU, GPU, or OS instability. Validate RAM 
 | `sudo nvme smart-log /dev/nvme0n1`                                                                                                                                | NVMe health            | Shows NVMe temperature, media errors, percentage used, unsafe shutdowns, and data written/read.    |
 | `sudo smartctl -a /dev/sda`                                                                                                                                       | SATA SMART data        | SMART report for SATA SSDs and HDDs.                                                               |
 | `sudo smartctl -a /dev/nvme0n1`                                                                                                                                   | SMART via smartctl     | Alternate SMART view for NVMe devices through `smartmontools`.                                     |
-| `fio --name=randrw-4k --ioengine=libaio --iodepth=64 --rw=randrw --bs=4k --direct=1 --size=4G --numjobs=4 --runtime=60 --group_reporting --filename=testfile.fio` | 4K random storage test | Enterprise-grade random read/write benchmark. Run from the mount point of the drive being tested.  |
+| [File-backed `fio` example](#10-storage-benchmarking-with-fio) | 4 KiB random storage test | Measures a defined workload on an approved test filesystem. |
 | `kdiskmark`                                                                                                                                                       | GUI storage benchmark  | CrystalDiskMark-style GUI benchmark for Linux. Useful for quick client-facing storage comparisons. |
 
 ---
@@ -345,31 +357,47 @@ Review the script before running it, especially the AUR and source-build section
 
 ## 10. Storage Benchmarking with `fio`
 
-For deeper storage analysis, use `fio`. Run from the mount point of the drive being tested.
+Use `fio` to measure a specific storage workload. If an in-service drive shows
+new I/O errors or appears to be failing, stop write-intensive tests and prioritize
+recovering important data. A benchmark reports behavior under the selected load.
+[GNU ddrescue safety guidance](https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html)
+
+![The storage benchmark workflow checks for possible failure, verifies the target mount, runs fio inside a fresh test directory, and records results with the workload parameters](../assets/diagrams/hardware-storage-benchmark-target-evidence.svg)
+
+### Verify the target filesystem
+
+Change into a directory on an approved test filesystem and confirm its mounted
+source and available space. The mixed workload below makes writes and allocates
+about 4 GiB, plus filesystem overhead.
+
+```bash
+findmnt -T "$PWD" -o SOURCE,TARGET,FSTYPE
+df -h -- "$PWD"
+```
 
 ### Random 4K read/write test
 
 ```bash
-fio --name=randrw-4k \
-  --ioengine=libaio \
-  --iodepth=64 \
-  --rw=randrw \
-  --bs=4k \
-  --direct=1 \
-  --size=4G \
-  --numjobs=4 \
-  --runtime=60 \
-  --group_reporting \
-  --filename=testfile.fio
+(
+  bench_dir=$(mktemp -d -- "$PWD/fio-bench.XXXXXXXX") || exit 1
+  printf 'Benchmark files: %s\n' "$bench_dir"
+  fio --name=randrw-4k \
+    --ioengine=libaio --direct=1 --iodepth=64 \
+    --rw=randrw --rwmixread=50 --bs=4k \
+    --size=1G --numjobs=4 \
+    --time_based --runtime=60 --group_reporting \
+    --directory="$bench_dir" --unlink=1 || exit "$?"
+  rmdir -- "$bench_dir"
+)
 ```
 
-> **Warning:** This creates a 4GB `testfile.fio` in the current directory. Make sure you are on the target drive before running it.
-
-Clean up afterward:
-
-```bash
-rm -f testfile.fio
-```
+`fio` generates a separate file for each job. The timed workload runs for
+60 seconds after setup and requests deletion of its own job files on
+completion. If the run fails or is interrupted, inspect the printed test
+directory before removing anything left there. Record the filesystem,
+engine, read/write mix, job count, requested and achieved queue depths, IOPS,
+and latency before comparing results.
+[fio job options](https://fio.readthedocs.io/en/latest/fio_doc.html)
 
 ---
 

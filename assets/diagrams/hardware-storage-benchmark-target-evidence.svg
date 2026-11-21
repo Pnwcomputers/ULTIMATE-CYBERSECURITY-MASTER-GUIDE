@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="287" viewBox="0 0 1040 287" role="img" aria-labelledby="title desc">
+  <title id="title">Verify and document a file-backed storage benchmark</title>
+  <desc id="desc">Check the drive for signs of failure and preserve data first if needed. For an approved workload, verify the mounted source and free space, create dedicated job files in a fresh directory, and record the workload and observed results.</desc>
+  <rect width="1040" height="287" rx="16" fill="#0a192b"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="28" y="46" fill="#f8fcff" font-size="26" font-weight="700">Verify the target before a file-backed benchmark</text>
+    <g stroke-width="1.3">
+      <rect x="28" y="72" width="222" height="144" rx="11" fill="#2e302d" stroke="#f6cb89"/>
+      <rect x="283" y="72" width="222" height="144" rx="11" fill="#142941" stroke="#83d9fb"/>
+      <rect x="538" y="72" width="222" height="144" rx="11" fill="#142941" stroke="#83d9fb"/>
+      <rect x="793" y="72" width="219" height="144" rx="11" fill="#15352f" stroke="#82e4bd"/>
+    </g>
+    <g fill="#f8fcff" font-size="18" font-weight="700">
+      <text x="44" y="109">Check drive health</text>
+      <text x="299" y="109">Verify mounted source</text>
+      <text x="554" y="109">Create job files</text>
+      <text x="809" y="109">Record results</text>
+    </g>
+    <g fill="#d7e8f2" font-size="15">
+      <text x="44" y="148">Look for new I/O errors</text>
+      <text x="44" y="175">Preserve data if failing</text>
+      <text x="299" y="148">Confirm source and target</text>
+      <text x="299" y="175">Check free space</text>
+      <text x="554" y="148">Use a fresh directory</text>
+      <text x="554" y="175">Keep job files inside it</text>
+      <text x="809" y="148">Keep IOPS and latency</text>
+      <text x="809" y="175">Save workload settings</text>
+    </g>
+    <path d="M255 145H278L271 139M278 145L271 151M510 145H533L526 139M533 145L526 151M765 145H788L781 139M788 145L781 151" stroke="#83d9fb" stroke-width="2.2" fill="none"/>
+    <text x="28" y="257" fill="#ffe1ac" font-size="17">Continue only when the target and the write workload are approved.</text>
+  </g>
+</svg>

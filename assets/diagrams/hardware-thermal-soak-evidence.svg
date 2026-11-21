@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="412" viewBox="0 0 1040 412" role="img" aria-labelledby="title desc">
+  <title id="title">Correlate temperature and clock changes during a sustained workload</title>
+  <desc id="desc">Illustrative aligned timelines show the CPU package warming after the load starts, its busy frequency dropping later, and the package cooling after the load stops. Check utilization, power, thermal counters, and logs around the frequency change before assigning a cause.</desc>
+  <rect width="1040" height="412" rx="16" fill="#0a192b"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="28" y="46" fill="#f8fcff" font-size="26" font-weight="700">Read a thermal soak across aligned signals</text>
+    <rect x="28" y="68" width="636" height="313" rx="12" fill="#142941" stroke="#36516b"/>
+    <rect x="184" y="108" width="307" height="238" fill="#1d364d"/>
+    <path d="M54 203H636M54 313H636" stroke="#53718b" stroke-width="1.4"/>
+    <path d="M184 108V346M491 108V346" stroke="#7695ac" stroke-width="1.4" stroke-dasharray="5 5"/>
+    <path d="M384 109V330" stroke="#f6cb89" stroke-width="1.7" stroke-dasharray="5 5"/>
+    <g fill="#d9eaf5" font-size="16" text-anchor="middle">
+      <text x="115" y="94">Idle</text>
+      <text x="338" y="94">Sustained load</text>
+      <text x="565" y="94">Cooldown</text>
+    </g>
+    <text x="55" y="132" fill="#ffcfa8" font-size="16" font-weight="700">Package temperature</text>
+    <path d="M55 186H186C215 181 227 156 264 148S357 122 423 120H491C514 127 526 153 562 169S606 180 636 181" fill="none" stroke="#ffad78" stroke-width="4"/>
+    <text x="55" y="231" fill="#b9e8fa" font-size="16" font-weight="700">Busy frequency</text>
+    <path d="M185 266H370Q382 267 384 282Q386 293 400 294H491" fill="none" stroke="#83d9fb" stroke-width="4"/>
+    <circle cx="384" cy="282" r="6" fill="#f6cb89"/>
+    <text x="384" y="363" fill="#ffe1ac" font-size="15" text-anchor="middle">Compare evidence at the clock drop</text>
+    <rect x="681" y="68" width="330" height="313" rx="12" fill="#15352f" stroke="#82e4bd"/>
+    <text x="704" y="107" fill="#f8fcff" font-size="20" font-weight="700">Cross-check the same interval</text>
+    <g fill="#d7eddf" font-size="17">
+      <text x="704" y="146">• Workload utilization</text>
+      <text x="704" y="182">• Package power and limit flags</text>
+      <text x="704" y="218">• Thermal counters and event logs</text>
+      <text x="704" y="254">• Fan or pump behavior</text>
+    </g>
+    <path d="M704 272H989" stroke="#527e6e"/>
+    <text x="704" y="304" fill="#b6f5d8" font-size="16">Use limits for the specific hardware.</text>
+    <text x="704" y="334" fill="#b6f5d8" font-size="16">Illustrative traces use a relative scale.</text>
+  </g>
+</svg>

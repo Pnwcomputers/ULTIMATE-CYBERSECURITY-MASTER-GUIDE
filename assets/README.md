@@ -222,6 +222,8 @@ These original accessible diagrams are embedded in their canonical chapters and 
 | [WPA-PBKDF2 PMKID/EAPOL Audit Boundaries](./diagrams/wpa-pmkid-eapol-hc22000-protocol-boundaries.svg) | [HCXTools & Hashcat Reference](../Documentation/hcxtoolshashcat.md) | RF active/passive mode gates, original PCAPNG, offline conversion and Hashcat 22000 applicability |
 | [ESP32-C5 Normal, Node & Core](./diagrams/esp32-c5-wardriver-normal-node-core.svg) | [ESP32-C5 Wardriver](../Wardriving/esp32-c5-wardriver.md) | Device roles, GNSS/SD logging, Node observations and Core aggregation |
 | [Hardware Bench Diagnostic & Write Safety](./diagrams/hardware-bench-inventory-stress-storage-safety.svg) | [Manjaro Intel Hardware Test Bench](../HardwareTesting/Manjaro_Intel_TestBench.md); [Python test scripts](../HardwareTesting/py/README.md) | Baseline, telemetry, bounded stress, write-test permission and reproducible results |
+| [Thermal soak evidence timeline](./diagrams/hardware-thermal-soak-evidence.svg) | [Thermal monitoring](../HardwareTesting/Manjaro_Intel_TestBench.md#3-thermal-monitoring-and-power-management) | Aligns workload phases, package temperature, busy frequency, and supporting evidence |
+| [File-backed storage benchmark evidence](./diagrams/hardware-storage-benchmark-target-evidence.svg) | [Storage benchmarking with fio](../HardwareTesting/Manjaro_Intel_TestBench.md#10-storage-benchmarking-with-fio) | Verifies the mounted target and records the workload before comparing results |
 
 ## VoIP Call Paths, Linux Privilege Risk, Arduino IDE & Threat Intelligence
 

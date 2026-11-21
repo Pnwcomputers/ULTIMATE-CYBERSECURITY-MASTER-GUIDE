@@ -246,6 +246,8 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/esp32-c5-wardriver-normal-node-core.svg": (
         "Wardriving/esp32-c5-wardriver.md",
     ),
+    "assets/diagrams/hardware-storage-benchmark-target-evidence.svg": ("HardwareTesting/Manjaro_Intel_TestBench.md",),
+    "assets/diagrams/hardware-thermal-soak-evidence.svg": ("HardwareTesting/Manjaro_Intel_TestBench.md",),
     "assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg": (
         "HardwareTesting/Manjaro_Intel_TestBench.md",
     ),
